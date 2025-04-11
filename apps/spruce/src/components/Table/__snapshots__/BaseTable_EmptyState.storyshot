@@ -236,13 +236,12 @@
           </th>
         </tr>
       </thead>
-      <tbody>
-        <div
-          class="css-1h8fqjs-DefaultEmptyMessage e1bwwd862"
-        >
-          No data to display
-        </div>
-      </tbody>
+      <tbody />
     </table>
+  </div>
+  <div
+    class="css-1h8fqjs-DefaultEmptyMessage e1bwwd862"
+  >
+    No data to display
   </div>
 </div>

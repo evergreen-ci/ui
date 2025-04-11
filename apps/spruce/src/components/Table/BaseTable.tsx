@@ -88,6 +88,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
       selectedRowIndexes = [],
       table,
       usePagination = false,
+      verticalAlignment = "middle",
       ...args
     }: BaseTableProps<T>,
     ref: ForwardedRef<HTMLDivElement>,
@@ -99,7 +100,13 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
 
     return (
       <>
-        <Table ref={ref} data-cy={dataCyTable} table={table} {...args}>
+        <Table
+          ref={ref}
+          data-cy={dataCyTable}
+          table={table}
+          verticalAlignment={verticalAlignment}
+          {...args}
+        >
           <TableHead isSticky={hasVirtualRows}>
             {table.getHeaderGroups().map((headerGroup) => (
               <HeaderRow key={headerGroup.id}>
@@ -121,11 +128,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                 numRows={loadingRows}
               />
             )}
-            {!loading &&
-              rows.length === 0 &&
-              (emptyComponent || (
-                <DefaultEmptyMessage>No data to display</DefaultEmptyMessage>
-              ))}
+
             {hasVirtualRows
               ? virtualRows.map((vr) => {
                   const { row } = vr;
@@ -149,6 +152,11 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                 ))}
           </TableBody>
         </Table>
+        {!loading &&
+          rows.length === 0 &&
+          (emptyComponent || (
+            <DefaultEmptyMessage>No data to display</DefaultEmptyMessage>
+          ))}
         {usePagination && table && (
           <StyledPagination
             currentPage={table.getState().pagination.pageIndex + 1}
@@ -170,8 +178,6 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
 );
 
 BaseTable.displayName = "BaseTable";
-
-const cellPaddingStyle = { paddingBottom: size.xxs, paddingTop: size.xxs };
 
 const TableHeaderCell = <T extends LGRowData>({
   header,
@@ -229,6 +235,18 @@ const TableHeaderCell = <T extends LGRowData>({
   );
 };
 
+const cellPaddingStyle = {
+  paddingBottom: size.xxs,
+  paddingTop: size.xxs,
+};
+
+const cellStyle = css`
+  // Force the nested div wrapping the cell content to take up full width.
+  > div > div > div {
+    width: 100%;
+  }
+`;
+
 const RenderableRow = <T extends LGRowData>({
   dataCyRow = "leafygreen-table-row",
   isSelected = false,
@@ -257,7 +275,12 @@ const RenderableRow = <T extends LGRowData>({
         virtualRow={virtualRow}
       >
         {row.getVisibleCells().map((cell) => (
-          <Cell key={cell.id} cell={cell} style={cellPaddingStyle}>
+          <Cell
+            key={cell.id}
+            cell={cell}
+            className={cellStyle}
+            style={cellPaddingStyle}
+          >
             {flexRender(cell.column.columnDef.cell, cell.getContext())}
           </Cell>
         ))}

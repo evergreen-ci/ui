@@ -9,6 +9,7 @@ import {
   getFilteredRowModel,
   getFacetedUniqueValues,
 } from "@leafygreen-ui/table";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useImageAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
@@ -183,6 +184,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
   },
 ];
 
-const DefaultEmptyMessage = styled.span`
+const DefaultEmptyMessage = styled.div`
+  margin-top: ${size.xs};
   margin-left: ${tableColumnOffset};
 `;
