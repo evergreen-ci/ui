@@ -1,4 +1,4 @@
-import { act } from "@testing-library/react";
+import { act, waitFor } from "@testing-library/react";
 import * as useDropzoneModule from "react-dropzone";
 import { MemoryRouter } from "react-router-dom";
 import { MockedFunction } from "vitest";
@@ -7,6 +7,8 @@ import { render, screen } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
+import * as fileUtils from "utils/file";
+import * as streamUtils from "utils/streams";
 import { LogDropType } from "./constants";
 import FileDropper from "./FileDropper";
 import * as useLogDropStateModule from "./state";
@@ -159,7 +161,7 @@ describe("FileDropper", () => {
     act(() => {
       const options = mockUseDropzone.mock.calls[0][0];
       if (options && options.onDropAccepted) {
-        options.onDropAccepted([mockFile], {} as any);
+        options.onDropAccepted([mockFile], new Event("drop"));
       }
     });
 
@@ -173,6 +175,13 @@ describe("FileDropper", () => {
     const mockDispatch = vi.fn();
     const mockFileContent = "line1\nline2\nline3";
     const mockFileName = "test-file.txt";
+    const expectedLines = mockFileContent.split("\n");
+
+    vi.spyOn(fileUtils, "fileToStream").mockResolvedValue(new ReadableStream());
+    vi.spyOn(streamUtils, "decodeStream").mockResolvedValue({
+      result: expectedLines,
+      trimmedLines: false,
+    });
 
     vi.mock("@leafygreen-ui/select", () => ({
       Option: ({ children }: { children: React.ReactNode }) => (
@@ -239,11 +248,16 @@ describe("FileDropper", () => {
       logType: LogTypes.LOCAL_UPLOAD,
       renderingType: LogRenderingTypes.Default,
     });
-    const expectedLines = mockFileContent.split("\n");
-    expect(mockIngestLines).toHaveBeenCalledWith(
-      expectedLines,
-      LogRenderingTypes.Default,
-    );
-    expect(expectedLines).toEqual(["line1", "line2", "line3"]);
+
+    await waitFor(() => {
+      expect(mockSetFileName).toHaveBeenCalledWith(mockFileName);
+    });
+
+    await waitFor(() => {
+      expect(mockIngestLines).toHaveBeenCalledWith(
+        expectedLines,
+        LogRenderingTypes.Default,
+      );
+    });
   });
 });
