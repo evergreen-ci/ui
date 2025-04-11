@@ -4,7 +4,6 @@ import { findEvergreen, formatDate } from "./utils";
 import { makeEmail } from ".";
 
 vi.mock("../utils/environment", async (importOriginal) => ({
-  // @ts-expect-error: Not necessary to mock entire object for test.
   ...(await importOriginal()),
   getAppToDeploy: vi.fn().mockReturnValue("spruce"),
 }));
