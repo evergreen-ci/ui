@@ -144,10 +144,12 @@ describe("FileDropper", () => {
       type: "text/plain",
     });
 
+    const mockOnDropAccepted = vi.fn();
     mockUseDropzone.mockReturnValue({
       getInputProps: () => ({}),
       getRootProps: () => ({}),
       isDragActive: false,
+      onDropAccepted: mockOnDropAccepted,
       open: vi.fn(),
     } as unknown as ReturnType<typeof useDropzoneModule.useDropzone>);
 
@@ -155,7 +157,10 @@ describe("FileDropper", () => {
     render(<Component />, { wrapper: CustomWrapper() });
 
     act(() => {
-      mockDispatch({ file: mockFile, type: "DROPPED_FILE" });
+      const options = mockUseDropzone.mock.calls[0][0];
+      if (options && options.onDropAccepted) {
+        options.onDropAccepted([mockFile], {} as any);
+      }
     });
 
     expect(mockDispatch).toHaveBeenCalledWith({
