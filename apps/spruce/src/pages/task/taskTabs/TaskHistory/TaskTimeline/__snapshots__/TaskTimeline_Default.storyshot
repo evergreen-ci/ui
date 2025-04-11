@@ -32,7 +32,63 @@
     </button>
     <div
       class="css-1inrmsu-Timeline ezsgi5w1"
-    />
+      data-cy="task-timeline"
+    >
+      <a
+        class="ezsgi5w0 css-11rp5yh-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+        href="/task/a/history?execution=0"
+        status="success"
+      />
+      <a
+        class="ezsgi5w0 css-qjaf42-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+        href="/task/b/history?execution=0"
+        status="will-run"
+      />
+      <div
+        class="css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        data-cy="collapsed-box"
+      >
+        1
+      </div>
+      <a
+        class="ezsgi5w0 css-1dyoxl7-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+        href="/task/d/history?execution=0"
+        status="setup-failed"
+      />
+      <div
+        class="css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        data-cy="collapsed-box"
+      >
+        1
+      </div>
+      <a
+        class="ezsgi5w0 css-1fy6cmy-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+        href="/task/f/history?execution=0"
+        status="failed"
+      />
+      <div
+        class="css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        data-cy="collapsed-box"
+      >
+        3
+      </div>
+      <a
+        class="ezsgi5w0 css-rbkdys-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+        href="/task/j/history?execution=0"
+        status="known-issue"
+      />
+      <a
+        class="ezsgi5w0 css-12mk7h0-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+        href="/task/k/history?execution=0"
+        status="system-failed"
+      />
+    </div>
     <button
       aria-disabled="true"
       aria-label="Next Page"

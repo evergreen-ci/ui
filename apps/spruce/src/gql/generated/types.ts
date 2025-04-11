@@ -3472,10 +3472,8 @@ export type VolumeHost = {
 
 export type Waterfall = {
   __typename?: "Waterfall";
-  buildVariants: Array<WaterfallBuildVariant>;
   flattenedVersions: Array<Version>;
   pagination: WaterfallPagination;
-  versions: Array<WaterfallVersion>;
 };
 
 export type WaterfallBuild = {
@@ -9261,7 +9259,13 @@ export type TaskQuery = {
       taskLogLink?: string | null;
     };
     pod?: { __typename?: "Pod"; id: string } | null;
-    project?: { __typename?: "Project"; id: string; identifier: string } | null;
+    project?: {
+      __typename?: "Project";
+      id: string;
+      identifier: string;
+      owner: string;
+      repo: string;
+    } | null;
     stepbackInfo?: {
       __typename?: "StepbackInfo";
       lastFailingStepbackTaskId?: string | null;

@@ -1,10 +1,14 @@
+import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { TaskQuery } from "gql/generated/types";
+import { taskQuery } from "gql/mocks/taskData";
 import { tasks } from "../testData";
 import { groupTasks } from "../utils";
-import TaskTimeline from ".";
+import CommitDetailsList from ".";
 
 export default {
-  component: TaskTimeline,
+  component: CommitDetailsList,
+  decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
   args: {
     shouldCollapse: true,
     loading: false,
@@ -30,5 +34,16 @@ type TemplateProps = {
 
 const Template = (args: TemplateProps) => {
   const groupedTasks = groupTasks(tasks, args.shouldCollapse);
-  return <TaskTimeline loading={args.loading} tasks={groupedTasks} />;
+  return (
+    <CommitDetailsList
+      currentTask={currentTask}
+      loading={args.loading}
+      tasks={groupedTasks}
+    />
+  );
+};
+
+const currentTask: NonNullable<TaskQuery["task"]> = {
+  ...taskQuery.task,
+  id: tasks[0].id,
 };
