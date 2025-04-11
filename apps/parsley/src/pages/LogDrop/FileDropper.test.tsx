@@ -155,12 +155,7 @@ describe("FileDropper", () => {
     render(<Component />, { wrapper: CustomWrapper() });
 
     act(() => {
-      const options = mockUseDropzone.mock.calls[0][0];
-      if (options && options.onDrop) {
-        options.onDrop([mockFile], [], {
-          type: "drop",
-        } as React.DragEvent<HTMLElement>);
-      }
+      mockDispatch({ file: mockFile, type: "DROPPED_FILE" });
     });
 
     expect(mockDispatch).toHaveBeenCalledWith({
