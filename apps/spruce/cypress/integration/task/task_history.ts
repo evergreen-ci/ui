@@ -54,8 +54,9 @@ describe("task history", () => {
   describe("pagination", () => {
     describe("can paginate forwards and backwards", () => {
       beforeEach(() => {
-        // Change the viewport size so that tasks overflow to the next page.
-        cy.viewport(1400, 1080);
+        // Change the viewport size so that tasks overflow to the next page. CI environment has a large scrollbar due to
+        // distorts the viewport size, so adjustments are made here.
+        cy.viewport(Cypress.env("CI") ? 1410 : 1400, 1080);
       });
 
       it("collapsed view", () => {
