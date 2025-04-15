@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
 import {
   SegmentedControl,
   SegmentedControlOption,
@@ -17,8 +18,10 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { TASK_HISTORY } from "gql/queries";
+import { useSpruceConfig } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam } from "hooks/useQueryParam";
+import { jiraLinkify } from "utils/string";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import TaskTimeline from "./TaskTimeline";
@@ -34,6 +37,9 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { width: timelineWidth } = useDimensions<HTMLDivElement>(timelineRef);
 
   const dispatchToast = useToastContext();
+
+  const spruceConfig = useSpruceConfig();
+  const jiraHost = spruceConfig?.jira?.host ?? "";
 
   const [viewOption, setViewOption] = useState(ViewOptions.Collapsed);
   const shouldCollapse = viewOption === ViewOptions.Collapsed;
@@ -86,6 +92,12 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
 
   return (
     <Container>
+      <Banner variant={BannerVariant.Info}>
+        {jiraLinkify(
+          "This page is currently under construction, and may have issues in performance and functionality. See DEVPROD-6584 for project details.",
+          jiraHost,
+        )}
+      </Banner>
       <Header>
         <Subtitle>Task History Overview</Subtitle>
         <SegmentedControl
