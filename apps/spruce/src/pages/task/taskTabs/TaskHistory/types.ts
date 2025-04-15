@@ -5,10 +5,15 @@ export type TaskHistoryTask = Unpacked<
   TaskHistoryQuery["taskHistory"]["tasks"]
 >;
 
-export type GroupedTask = {
-  inactiveTasks: TaskHistoryTask[] | null;
-  task: TaskHistoryTask | null;
-};
+export type GroupedTask =
+  | {
+      inactiveTasks: TaskHistoryTask[];
+      task: null;
+    }
+  | {
+      inactiveTasks: null;
+      task: TaskHistoryTask;
+    };
 
 export enum ViewOptions {
   Collapsed = "collapsed",

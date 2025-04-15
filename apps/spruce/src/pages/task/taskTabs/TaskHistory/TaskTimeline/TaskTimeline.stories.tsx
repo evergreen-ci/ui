@@ -30,5 +30,16 @@ type TemplateProps = {
 
 const Template = (args: TemplateProps) => {
   const groupedTasks = groupTasks(tasks, args.shouldCollapse);
-  return <TaskTimeline loading={args.loading} tasks={groupedTasks} />;
+  return (
+    <TaskTimeline
+      loading={false}
+      pagination={{
+        mostRecentTaskOrder: 10,
+        oldestTaskOrder: 1,
+        nextPageCursor: null,
+        prevPageCursor: null,
+      }}
+      tasks={groupedTasks}
+    />
+  );
 };

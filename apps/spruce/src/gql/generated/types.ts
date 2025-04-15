@@ -8920,6 +8920,11 @@ export type TaskHistoryQuery = {
   __typename?: "Query";
   taskHistory: {
     __typename?: "TaskHistory";
+    pagination: {
+      __typename?: "TaskHistoryPagination";
+      mostRecentTaskOrder: number;
+      oldestTaskOrder: number;
+    };
     tasks: Array<{
       __typename?: "Task";
       id: string;
