@@ -3,9 +3,9 @@
     class="css-1ha97gt-Container ezsgi5w2"
   >
     <button
-      aria-disabled="true"
-      aria-label="Previous Page"
-      class="leafygreen-ui-1ykpe4g"
+      aria-disabled="false"
+      aria-label="Previous page"
+      class="leafygreen-ui-tcjr3n"
       tabindex="0"
     >
       <div
@@ -90,9 +90,9 @@
       />
     </div>
     <button
-      aria-disabled="true"
-      aria-label="Next Page"
-      class="leafygreen-ui-1ykpe4g"
+      aria-disabled="false"
+      aria-label="Next page"
+      class="leafygreen-ui-tcjr3n"
       tabindex="0"
     >
       <div
