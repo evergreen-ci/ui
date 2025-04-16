@@ -54,9 +54,7 @@ describe("task history", () => {
         "/task/evg_lint_generate_lint_c6672b24d14c6d8cd51ce2c4b2b88b424aaacd64_25_03_27_14_56_09/history?execution=0";
 
       beforeEach(() => {
-        // Change the viewport size so that tasks overflow to the next page. CI environment has a large scrollbar due to
-        // Linux, which distorts the viewport size, so adjustments are made here.
-        cy.viewport(Cypress.env("CI") ? 1410 : 1400, 1080);
+        cy.viewport(1400, 1080);
       });
 
       it("collapsed view", () => {

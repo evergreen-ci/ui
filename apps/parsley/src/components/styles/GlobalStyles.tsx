@@ -19,11 +19,6 @@ export const globalStyles = css`
     /* Prevent scroll bounce behavior. */
     overscroll-behavior-y: none;
     overscroll-behavior-x: none;
-
-    /* Hide scroll bar on webkit browsers to prevent it from using up page width. */
-    ::-webkit-scrollbar {
-      display: none;
-    }
   }
 `;
 
