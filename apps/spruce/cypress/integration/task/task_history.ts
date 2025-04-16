@@ -1,9 +1,10 @@
 describe("task history", () => {
+  const spruceTaskHistoryLink =
+    "task/spruce_ubuntu1604_e2e_test_b0c52a750150b4f1f67e501bd3351a808939815c_1f7cf49f4ce587c74212d8997da171c4_22_03_10_15_19_05/history";
+
   describe("navigation", () => {
     it("can view the task history tab", () => {
-      cy.visit(
-        "task/spruce_ubuntu1604_e2e_test_b0c52a750150b4f1f67e501bd3351a808939815c_1f7cf49f4ce587c74212d8997da171c4_22_03_10_15_19_05/history",
-      );
+      cy.visit(spruceTaskHistoryLink);
       cy.dataCy("task-history-tab").should(
         "have.attr",
         "aria-selected",
@@ -15,9 +16,7 @@ describe("task history", () => {
 
   describe("task timeline", () => {
     it("can expand/collapse tasks", () => {
-      cy.visit(
-        "task/spruce_ubuntu1604_e2e_test_b0c52a750150b4f1f67e501bd3351a808939815c_1f7cf49f4ce587c74212d8997da171c4_22_03_10_15_19_05/history",
-      );
+      cy.visit(spruceTaskHistoryLink);
       cy.dataCy("expanded-option").click();
       cy.dataCy("timeline-box").should("have.length", 13);
       cy.dataCy("task-timeline").within(() => {
@@ -34,9 +33,7 @@ describe("task history", () => {
 
   describe("commit details list", () => {
     it("can expand/collapse tasks", () => {
-      cy.visit(
-        "task/spruce_ubuntu1604_e2e_test_b0c52a750150b4f1f67e501bd3351a808939815c_1f7cf49f4ce587c74212d8997da171c4_22_03_10_15_19_05/history",
-      );
+      cy.visit(spruceTaskHistoryLink);
       cy.dataCy("expanded-option").click();
       cy.dataCy("commit-details-card").should("have.length", 13);
       cy.dataCy("commit-details-list").within(() => {
@@ -53,16 +50,17 @@ describe("task history", () => {
 
   describe("pagination", () => {
     describe("can paginate forwards and backwards", () => {
+      const mciTaskHistoryLink =
+        "/task/evg_lint_generate_lint_c6672b24d14c6d8cd51ce2c4b2b88b424aaacd64_25_03_27_14_56_09/history?execution=0";
+
       beforeEach(() => {
         // Change the viewport size so that tasks overflow to the next page. CI environment has a large scrollbar due to
-        // distorts the viewport size, so adjustments are made here.
+        // Linux, which distorts the viewport size, so adjustments are made here.
         cy.viewport(Cypress.env("CI") ? 1410 : 1400, 1080);
       });
 
       it("collapsed view", () => {
-        cy.visit(
-          "/task/evg_lint_generate_lint_c6672b24d14c6d8cd51ce2c4b2b88b424aaacd64_25_03_27_14_56_09/history?execution=0",
-        );
+        cy.visit(mciTaskHistoryLink);
         cy.get("button[aria-label='Previous page']").as("prevPageButton");
         cy.get("button[aria-label='Next page']").as("nextPageButton");
 
@@ -94,9 +92,7 @@ describe("task history", () => {
       });
 
       it("expanded view", () => {
-        cy.visit(
-          "/task/evg_lint_generate_lint_c6672b24d14c6d8cd51ce2c4b2b88b424aaacd64_25_03_27_14_56_09/history?execution=0",
-        );
+        cy.visit(mciTaskHistoryLink);
         cy.dataCy("expanded-option").click();
 
         cy.get("button[aria-label='Previous page']").as("prevPageButton");
