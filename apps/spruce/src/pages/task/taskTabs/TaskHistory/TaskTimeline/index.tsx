@@ -40,14 +40,21 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
       <Container>
         <IconButton
           aria-label="Previous page"
-          disabled={loading || prevPageCursor?.order === mostRecentTaskOrder}
+          disabled={
+            loading ||
+            !prevPageCursor ||
+            !mostRecentTaskOrder ||
+            mostRecentTaskOrder <= prevPageCursor.order
+          }
           onClick={() => {
-            setQueryParams({
-              ...queryParams,
-              [TaskHistoryOptions.CursorID]: prevPageCursor?.id,
-              [TaskHistoryOptions.Direction]: TaskHistoryDirection.After,
-              [TaskHistoryOptions.IncludeCursor]: false,
-            });
+            if (prevPageCursor) {
+              setQueryParams({
+                ...queryParams,
+                [TaskHistoryOptions.CursorID]: prevPageCursor.id,
+                [TaskHistoryOptions.Direction]: TaskHistoryDirection.After,
+                [TaskHistoryOptions.IncludeCursor]: false,
+              });
+            }
           }}
         >
           <Icon glyph="ChevronLeft" />
@@ -90,14 +97,21 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
         </Timeline>
         <IconButton
           aria-label="Next page"
-          disabled={loading || nextPageCursor?.order === oldestTaskOrder}
+          disabled={
+            loading ||
+            !nextPageCursor ||
+            !oldestTaskOrder ||
+            oldestTaskOrder >= nextPageCursor.order
+          }
           onClick={() => {
-            setQueryParams({
-              ...queryParams,
-              [TaskHistoryOptions.CursorID]: nextPageCursor?.id,
-              [TaskHistoryOptions.Direction]: TaskHistoryDirection.Before,
-              [TaskHistoryOptions.IncludeCursor]: false,
-            });
+            if (nextPageCursor) {
+              setQueryParams({
+                ...queryParams,
+                [TaskHistoryOptions.CursorID]: nextPageCursor.id,
+                [TaskHistoryOptions.Direction]: TaskHistoryDirection.Before,
+                [TaskHistoryOptions.IncludeCursor]: false,
+              });
+            }
           }}
         >
           <Icon glyph="ChevronRight" />
