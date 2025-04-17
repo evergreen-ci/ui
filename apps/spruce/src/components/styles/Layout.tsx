@@ -40,8 +40,11 @@ export const PageLayout = styled.section<{ hasSider?: boolean }>`
   flex-direction: ${({ hasSider }) => (hasSider ? "row" : "column")};
   min-height: 0;
 `;
+
+export const siderCardWidth = 275;
+
 export const PageSider = styled.aside<{ width?: number }>`
-  ${({ width = 275 }) => `
+  ${({ width = siderCardWidth }) => `
    max-width: ${width}px;
    min-width: ${width}px;
    width: ${width}px;
@@ -53,7 +56,7 @@ export const PageContent = styled.main`
   overflow: hidden;
 `;
 
-PageSider.defaultProps = { width: 275 };
+PageSider.defaultProps = { width: siderCardWidth };
 
 export const PageTitle = styled(H2)<H2Props>`
   margin-bottom: ${size.s};

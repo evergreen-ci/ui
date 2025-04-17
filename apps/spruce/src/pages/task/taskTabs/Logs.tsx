@@ -9,6 +9,7 @@ import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
+import { siderCardWidth } from "components/styles/Layout";
 import { getParsleyTaskLogLink } from "constants/externalResources";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
@@ -71,7 +72,7 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
   const LogComp = options[currentLog];
 
   return (
-    <>
+    <LogContainer>
       <LogHeader>
         <SegmentedControl
           aria-controls="Select a log type"
@@ -154,9 +155,14 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
         )}
       </LogHeader>
       {LogComp && <LogComp setNoLogs={setNoLogs} />}
-    </>
+    </LogContainer>
   );
 };
+
+const LogContainer = styled.div`
+  // Subtract sider card width and margins.
+  width: calc(100vw - ${siderCardWidth}px - 80px);
+`;
 
 const LogHeader = styled.div`
   display: flex;

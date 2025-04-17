@@ -2,15 +2,12 @@ import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
-import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
-import { getTaskRoute } from "constants/routes";
 import { TaskHistoryDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
-import { TaskTab } from "types/task";
 import { GroupedTask, TaskHistoryOptions, TaskHistoryTask } from "../types";
 
 type TaskHistoryPagination = {
@@ -70,14 +67,9 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                   return (
                     <TaskBox
                       key={task.id}
-                      as={Link}
                       data-cy="timeline-box"
                       rightmost={false}
                       status={task.displayStatus as TaskStatus}
-                      to={getTaskRoute(task.id, {
-                        execution: task.execution,
-                        tab: TaskTab.History,
-                      })}
                     />
                   );
                 } else if (t.inactiveTasks) {
