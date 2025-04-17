@@ -36,3 +36,33 @@ export const groupTasks = (
 
   return groupedTasks;
 };
+
+/**
+ * `getPrevPageCursor` extracts the task which comes directly before the previous page results.
+ * @param item - the first item of visible tasks
+ * @returns the task which can be used as the cursor to go to the previous page
+ */
+export const getPrevPageCursor = (item: GroupedTask) => {
+  if (!item) {
+    return null;
+  }
+  if (item.task) {
+    return item.task;
+  }
+  return item.inactiveTasks[0];
+};
+
+/**
+ * `getNextPageCursor` extracts the task which comes directly before the next page results.
+ * @param item - the last item of visible tasks
+ * @returns the task which can be used as the cursor to go to the next page
+ */
+export const getNextPageCursor = (item: GroupedTask) => {
+  if (!item) {
+    return null;
+  }
+  if (item.task) {
+    return item.task;
+  }
+  return item.inactiveTasks[item.inactiveTasks.length - 1];
+};
