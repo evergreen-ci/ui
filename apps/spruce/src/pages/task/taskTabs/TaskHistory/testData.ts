@@ -1,5 +1,5 @@
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { TaskHistoryTask } from "./types";
+import { GroupedTask, TaskHistoryTask } from "./types";
 
 export const tasks: TaskHistoryTask[] = [
   {
@@ -166,5 +166,91 @@ export const tasks: TaskHistoryTask[] = [
       author: "Evergreen Admin",
       message: "DEVPROD-1234: K",
     },
+  },
+];
+
+export const collapsedGroupedTasks: GroupedTask[] = [
+  {
+    inactiveTasks: null,
+    task: tasks[0],
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[1],
+  },
+  {
+    inactiveTasks: [tasks[2]],
+    task: null,
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[3],
+  },
+  {
+    inactiveTasks: [tasks[4]],
+    task: null,
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[5],
+  },
+  {
+    inactiveTasks: [tasks[6], tasks[7], tasks[8]],
+    task: null,
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[9],
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[10],
+  },
+];
+
+export const expandedGroupedTasks: GroupedTask[] = [
+  {
+    inactiveTasks: null,
+    task: tasks[0],
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[1],
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[2],
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[3],
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[4],
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[5],
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[6],
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[7],
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[8],
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[9],
+  },
+  {
+    inactiveTasks: null,
+    task: tasks[10],
   },
 ];

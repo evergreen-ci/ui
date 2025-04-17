@@ -1,5 +1,9 @@
 query TaskHistory($options: TaskHistoryOpts!) {
   taskHistory(options: $options) {
+    pagination {
+      mostRecentTaskOrder
+      oldestTaskOrder
+    }
     tasks {
       id
       activated
