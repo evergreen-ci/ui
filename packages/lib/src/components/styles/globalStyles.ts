@@ -8,15 +8,6 @@ export const resetStyles = css`
   *:after {
     box-sizing: border-box;
   }
-
-  /* 
-  * Hide scroll bar on webkit browsers to prevent it from using up page width. 
-  * The reason to do this is largely because of the Cypress tests running in a Linux environment,
-  * in which scrollbars behave differently from Mac environments.
-  */
-  ::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 export const bodyStyles = css`
