@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
 import {
   SegmentedControl,
   SegmentedControlOption,
@@ -17,8 +18,10 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { TASK_HISTORY } from "gql/queries";
+import { useSpruceConfig } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
+import { jiraLinkify } from "utils/string";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import TaskTimeline from "./TaskTimeline";
@@ -34,6 +37,9 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { width: timelineWidth } = useDimensions<HTMLDivElement>(timelineRef);
 
   const dispatchToast = useToastContext();
+
+  const spruceConfig = useSpruceConfig();
+  const jiraHost = spruceConfig?.jira?.host ?? "";
 
   const [viewOption, setViewOption] = useState(ViewOptions.Collapsed);
   const shouldCollapse = viewOption === ViewOptions.Collapsed;
@@ -113,60 +119,83 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
 
   return (
     <Container>
-      <Header>
-        <Subtitle>Task History Overview</Subtitle>
-        <SegmentedControl
-          aria-controls="[data-cy='task-timeline']"
-          onChange={(t) => setViewOption(t as ViewOptions)}
-          size="xsmall"
-          value={viewOption}
-        >
-          <SegmentedControlOption
-            data-cy="collapsed-option"
-            value={ViewOptions.Collapsed}
+      <Banner variant={BannerVariant.Info}>
+        {jiraLinkify(
+          "This page is currently under construction. Performance and functionality bugs may be present. See DEVPROD-6584 for project details.",
+          jiraHost,
+        )}
+      </Banner>
+      <StickyHeader>
+        <ToggleContainer>
+          <Subtitle>Task History Overview</Subtitle>
+          <SegmentedControl
+            aria-controls="[data-cy='task-timeline']"
+            onChange={(t) => setViewOption(t as ViewOptions)}
+            size="xsmall"
+            value={viewOption}
           >
-            Collapsed
-          </SegmentedControlOption>
-          <SegmentedControlOption
-            data-cy="expanded-option"
-            value={ViewOptions.Expanded}
-          >
-            Expanded
-          </SegmentedControlOption>
-        </SegmentedControl>
-      </Header>
-      <TaskTimeline
-        ref={timelineRef}
-        loading={loading}
-        pagination={{
-          mostRecentTaskOrder,
-          oldestTaskOrder,
-          nextPageCursor,
-          prevPageCursor,
-        }}
-        tasks={visibleTasks}
-      />
-      <Subtitle>Commit Details</Subtitle>
-      <CommitDetailsList
-        currentTask={task}
-        loading={loading}
-        tasks={visibleTasks}
-      />
+            <SegmentedControlOption
+              data-cy="collapsed-option"
+              value={ViewOptions.Collapsed}
+            >
+              Collapsed
+            </SegmentedControlOption>
+            <SegmentedControlOption
+              data-cy="expanded-option"
+              value={ViewOptions.Expanded}
+            >
+              Expanded
+            </SegmentedControlOption>
+          </SegmentedControl>
+        </ToggleContainer>
+        <TaskTimeline
+          ref={timelineRef}
+          loading={loading}
+          pagination={{
+            mostRecentTaskOrder,
+            oldestTaskOrder,
+            nextPageCursor,
+            prevPageCursor,
+          }}
+          tasks={visibleTasks}
+        />
+      </StickyHeader>
+      <ListContent>
+        <Subtitle>Commit Details</Subtitle>
+        <CommitDetailsList
+          currentTask={task}
+          loading={loading}
+          tasks={visibleTasks}
+        />
+      </ListContent>
     </Container>
   );
 };
 
 export default TaskHistory;
 
-const Container = styled.div`
+const Container = styled.div``;
+
+const StickyHeader = styled.div`
+  position: sticky;
+  top: -${size.m};
+  z-index: 1;
+
   display: flex;
   flex-direction: column;
-  gap: ${size.s};
-
-  height: calc(100vh - 100px);
+  gap: ${size.xs};
+  background: white;
+  padding: ${size.xs} 0;
 `;
 
-const Header = styled.div`
+const ListContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
+  margin-top: ${size.xxs};
+`;
+
+const ToggleContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;

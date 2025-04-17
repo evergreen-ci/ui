@@ -5,7 +5,6 @@ import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { showTaskHistoryTab } from "constants/featureFlags";
 import { isMainlineRequester, Requester } from "constants/requesters";
 import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
@@ -170,8 +169,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     [TaskTab.Files]: true,
     [TaskTab.Annotations]: showBuildBaron,
     [TaskTab.TrendCharts]: isPerfPluginEnabled,
-    [TaskTab.History]:
-      showTaskHistoryTab && isMainlineRequester(requester as Requester),
+    [TaskTab.History]: isMainlineRequester(requester as Requester),
   };
 
   const activeTabs = Object.keys(tabMap).filter(
