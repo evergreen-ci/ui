@@ -1,9 +1,12 @@
 import styled from "@emotion/styled";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { TaskQuery } from "gql/generated/types";
+import { useQueryParam } from "hooks/useQueryParam";
+import { validateRegexp } from "utils/validators";
 import CommitDetailsCard from "../CommitDetailsCard";
-import { GroupedTask } from "../types";
+import { GroupedTask, TaskHistoryOptions } from "../types";
 
 interface CommitDetailsListProps {
   currentTask: NonNullable<TaskQuery["task"]>;
@@ -15,38 +18,52 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
   currentTask,
   loading,
   tasks,
-}) => (
-  <CommitList data-cy="commit-details-list">
-    {loading ? (
-      <ParagraphSkeleton />
-    ) : (
-      <>
-        {tasks.map((t) => {
-          if (t.task) {
-            const { task } = t;
-            return (
-              <CommitDetailsCard
-                key={task.id}
-                isCurrentTask={task.id === currentTask.id}
-                owner={currentTask.project?.owner}
-                repo={currentTask.project?.repo}
-                task={task}
-              />
-            );
-          } else if (t.inactiveTasks) {
-            // TODO DEVPROD-16174: Replace with Inactive Commits Button.
-            return (
-              <span key={t.inactiveTasks[0].id} data-cy="collapsed-card">
-                {t.inactiveTasks.length} Collapsed
-              </span>
-            );
-          }
-          return null;
-        })}
-      </>
-    )}
-  </CommitList>
-);
+}) => {
+  const [failingTest] = useQueryParam<string>(
+    TaskHistoryOptions.FailingTest,
+    "",
+  );
+  const testFailureSearchTerm = failingTest
+    ? new RegExp(
+        validateRegexp(failingTest) ? failingTest : toEscapedRegex(failingTest),
+        "i",
+      )
+    : null;
+
+  return (
+    <CommitList data-cy="commit-details-list">
+      {loading ? (
+        <ParagraphSkeleton />
+      ) : (
+        <>
+          {tasks.map((t) => {
+            if (t.task) {
+              const { task } = t;
+              return (
+                <CommitDetailsCard
+                  key={task.id}
+                  isCurrentTask={task.id === currentTask.id}
+                  owner={currentTask.project?.owner}
+                  repo={currentTask.project?.repo}
+                  task={task}
+                  testFailureSearchTerm={testFailureSearchTerm}
+                />
+              );
+            } else if (t.inactiveTasks) {
+              // TODO DEVPROD-16174: Replace with Inactive Commits Button.
+              return (
+                <span key={t.inactiveTasks[0].id} data-cy="collapsed-card">
+                  {t.inactiveTasks.length} Collapsed
+                </span>
+              );
+            }
+            return null;
+          })}
+        </>
+      )}
+    </CommitList>
+  );
+};
 
 export default CommitDetailsList;
 

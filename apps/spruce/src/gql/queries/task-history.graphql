@@ -13,6 +13,16 @@ query TaskHistory($options: TaskHistoryOpts!) {
       execution
       order
       revision
+      tests(opts: { statuses: ["fail", "silentfail"] }) {
+        testResults {
+          id
+          logs {
+            urlParsley
+          }
+          status
+          testFile
+        }
+      }
       versionMetadata {
         id
         author

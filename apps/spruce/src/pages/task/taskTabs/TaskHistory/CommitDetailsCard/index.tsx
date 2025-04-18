@@ -30,6 +30,7 @@ interface CommitDetailsCardProps {
   isCurrentTask: boolean;
   owner: string | undefined;
   repo: string | undefined;
+  testFailureSearchTerm: RegExp | null;
 }
 
 const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
@@ -37,6 +38,7 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
   owner,
   repo,
   task,
+  testFailureSearchTerm,
 }) => {
   const {
     canRestart,
@@ -45,6 +47,7 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     id: taskId,
     order,
     revision,
+    tests: { testResults },
     versionMetadata,
   } = task;
   const { author, message } = versionMetadata;
@@ -74,10 +77,16 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
       dispatchToast.error(`Error restarting task: ${err.message}`),
   });
 
+  const isUnmatchingResult = !!(
+    testFailureSearchTerm &&
+    !testResults.some(({ testFile }) => testFile.match(testFailureSearchTerm))
+  );
+
   return (
     <CommitCard
       key={taskId}
       data-cy="commit-details-card"
+      isUnmatchingResult={isUnmatchingResult}
       status={displayStatus as TaskStatus}
     >
       <TopLabel>
@@ -117,7 +126,10 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
 
 export default CommitDetailsCard;
 
-const CommitCard = styled.div<{ status: TaskStatus }>`
+const CommitCard = styled.div<{
+  status: TaskStatus;
+  isUnmatchingResult: boolean;
+}>`
   display: flex;
   flex-direction: column;
   gap: ${size.xs};
@@ -127,6 +139,8 @@ const CommitCard = styled.div<{ status: TaskStatus }>`
   border: 1px solid ${gray.light2};
 
   ${({ status }) => `border-left: ${size.xs} solid ${statusColorMap[status]};`}
+
+  ${({ isUnmatchingResult }) => isUnmatchingResult && "opacity: 0.5;"}
 `;
 
 const TopLabel = styled.div`

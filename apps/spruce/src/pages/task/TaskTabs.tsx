@@ -194,13 +194,12 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     numTabs: activeTabs.length,
     setSelectedTab,
   });
-
   useEffect(() => {
     if (previousTab !== selectedTab) {
       const query = parseQueryString(location.search);
       const params: GetTaskRouteOptions = {
-        tab: activeTabs[selectedTab],
         ...query,
+        tab: activeTabs[selectedTab],
       };
 
       // Introduce execution query parameter if none is set.

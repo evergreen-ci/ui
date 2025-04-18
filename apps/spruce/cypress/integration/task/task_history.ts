@@ -48,6 +48,26 @@ describe("task history", () => {
     });
   });
 
+  describe("test failure search", () => {
+    it("unmatching search results are opaque", () => {
+      cy.visit(
+        "task/evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/history",
+      );
+      cy.dataCy("search-test-failures-input").type("faketest");
+      cy.dataCy("commit-details-card")
+        .first()
+        .should("have.css", "opacity", "1");
+      cy.dataCy("commit-details-card")
+        .eq(1)
+        .should("have.css", "opacity", "0.5");
+      cy.dataCy("commit-details-card")
+        .eq(2)
+        .should("have.css", "opacity", "0.5");
+      cy.dataCy("search-test-failures-input").clear();
+      cy.dataCy("commit-details-card").should("have.css", "opacity", "1");
+    });
+  });
+
   describe("pagination", () => {
     describe("can paginate forwards and backwards", () => {
       const mciTaskHistoryLink =
