@@ -12,8 +12,12 @@ describe("Tab shortcut", () => {
     cy.get("body").type("j");
     cy.dataCy("test-analysis-tab").should("have.attr", "aria-selected", "true");
     cy.get("body").type("j");
+    cy.dataCy("timechart-tab").should("have.attr", "aria-selected", "true");
+    cy.get("body").type("j");
     cy.dataCy("task-tab").should("have.attr", "aria-selected", "true");
 
+    cy.get("body").type("k");
+    cy.dataCy("timechart-tab").should("have.attr", "aria-selected", "true");
     cy.get("body").type("k");
     cy.dataCy("test-analysis-tab").should("have.attr", "aria-selected", "true");
     cy.get("body").type("k");
