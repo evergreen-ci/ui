@@ -15,6 +15,7 @@ import DownstreamTasks from "./DownstreamTasks";
 import TaskDuration from "./TaskDuration";
 import Tasks from "./Tasks";
 import TestAnalysis from "./TestAnalysis";
+import TimeChart from "./TimeChart";
 
 type ChildPatches = NonNullable<
   VersionQuery["version"]["patch"]
@@ -135,6 +136,16 @@ const tabMap = ({
       <TestAnalysis versionId={versionId} />
     </Tab>
   ),
+  [VersionPageTabs.Timechart]: (
+    <Tab
+      key="timechart-tab"
+      data-cy="timechart-tab"
+      id="timechart-tab"
+      name="Timechart"
+    >
+      <TimeChart taskCount={taskCount} versionId={versionId} />
+    </Tab>
+  ),
 });
 
 const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
@@ -152,6 +163,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     () => ({
       [VersionPageTabs.Tasks]: true,
       [VersionPageTabs.TaskDuration]: true,
+      [VersionPageTabs.Timechart]: true,
       [VersionPageTabs.Changes]:
         isPatch && requester !== Requester.GitHubMergeQueue,
       [VersionPageTabs.Downstream]:

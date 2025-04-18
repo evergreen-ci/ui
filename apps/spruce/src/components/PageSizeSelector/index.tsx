@@ -27,7 +27,11 @@ const PageSizeSelector: React.FC<Props> = ({ onChange, value, ...rest }) => (
     {...rest}
   >
     {PAGE_SIZES.map((limit) => (
-      <Option key={limit} value={limit.toString()}>{`${limit} / page`}</Option>
+      <Option
+        key={limit}
+        data-cy={`styled-select-option-${limit}`}
+        value={limit.toString()}
+      >{`${limit} / page`}</Option>
     ))}
   </StyledSelect>
 );
