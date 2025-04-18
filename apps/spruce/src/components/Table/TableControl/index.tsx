@@ -16,6 +16,7 @@ interface Props {
   onClear: () => void;
   onPageSizeChange?: (pageSize: number) => void;
   onPageChange?: (page: number) => void;
+  showClearAllFiltersButton?: boolean;
 }
 
 const TableControl: React.FC<Props> = ({
@@ -26,6 +27,7 @@ const TableControl: React.FC<Props> = ({
   onPageChange,
   onPageSizeChange,
   page,
+  showClearAllFiltersButton = true,
   totalCount,
 }) => {
   const { setLimit } = usePagination();
@@ -48,13 +50,15 @@ const TableControl: React.FC<Props> = ({
           label={label}
           numerator={filteredCount}
         />
-        <PaddedButton
-          data-cy="clear-all-filters"
-          onClick={onClearAll}
-          size="small"
-        >
-          Clear all filters
-        </PaddedButton>
+        {showClearAllFiltersButton && (
+          <PaddedButton
+            data-cy="clear-all-filters"
+            onClick={onClearAll}
+            size="small"
+          >
+            Clear all filters
+          </PaddedButton>
+        )}
       </FlexContainer>
       <TableControlInnerRow>
         <Pagination
