@@ -25,6 +25,7 @@ import { jiraLinkify } from "utils/string";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import TaskTimeline from "./TaskTimeline";
+import { TestFailureSearchInput } from "./TestFailureSearchInput";
 import { TaskHistoryOptions, ViewOptions } from "./types";
 import { getNextPageCursor, getPrevPageCursor, groupTasks } from "./utils";
 
@@ -148,6 +149,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
             </SegmentedControlOption>
           </SegmentedControl>
         </ToggleContainer>
+        <TestFailureSearchInput />
         <TaskTimeline
           ref={timelineRef}
           loading={loading}

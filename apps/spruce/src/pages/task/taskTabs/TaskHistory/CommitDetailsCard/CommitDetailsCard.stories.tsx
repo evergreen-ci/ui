@@ -35,29 +35,47 @@ export const Default: CustomStoryObj<TemplateProps> = {
   render: (args) => <Template {...args} />,
 };
 
+export const WithUnmatchingSearchResult: CustomStoryObj<TemplateProps> = {
+  render: (args) => <RenderWithUnmatchingSearchResult {...args} />,
+};
+
 type TemplateProps = {
   isCurrentTask: boolean;
   status: TaskStatus;
   canRestart: boolean;
   message: string;
 };
-
+const getStoryTask = (args: TemplateProps) => ({
+  ...tasks[0],
+  displayStatus: args.status,
+  canRestart: args.canRestart,
+  versionMetadata: {
+    ...tasks[0].versionMetadata,
+    message: args.message,
+  },
+});
 const Template = (args: TemplateProps) => {
-  const storyTask = {
-    ...tasks[0],
-    displayStatus: args.status,
-    canRestart: args.canRestart,
-    versionMetadata: {
-      ...tasks[0].versionMetadata,
-      message: args.message,
-    },
-  };
+  const storyTask = getStoryTask(args);
   return (
     <CommitDetailsCard
       isCurrentTask={args.isCurrentTask}
       owner="evergreen-ci"
       repo="evergreen"
       task={storyTask}
+      testFailureSearchTerm={null}
+    />
+  );
+};
+
+const RenderWithUnmatchingSearchResult = (args: TemplateProps) => {
+  const storyTask = getStoryTask(args);
+  return (
+    <CommitDetailsCard
+      isCurrentTask={args.isCurrentTask}
+      owner="evergreen-ci"
+      repo="evergreen"
+      task={storyTask}
+      testFailureSearchTerm={/test_failure/}
     />
   );
 };
