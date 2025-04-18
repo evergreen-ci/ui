@@ -9600,19 +9600,19 @@ export type VersionGanttChartQuery = {
     id: string;
     buildVariants?: Array<{
       __typename?: "GroupedBuildVariant";
-      variant: string;
       displayName: string;
+      variant: string;
       tasks?: Array<{
         __typename?: "Task";
-        displayName: string;
-        startTime?: Date | null;
-        finishTime?: Date | null;
         id: string;
+        displayName: string;
         execution: number;
+        finishTime?: Date | null;
+        startTime?: Date | null;
         dependsOn?: Array<{
           __typename?: "Dependency";
-          name: string;
           buildVariant: string;
+          name: string;
         }> | null;
       }> | null;
     }> | null;
@@ -9639,8 +9639,8 @@ export type VersionTaskDurationsQuery = {
         displayName: string;
         displayStatus: string;
         execution: number;
-        startTime?: Date | null;
         finishTime?: Date | null;
+        startTime?: Date | null;
         timeTaken?: number | null;
         subRows?: Array<{
           __typename?: "Task";

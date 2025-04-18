@@ -5,19 +5,19 @@ query VersionGanttChart(
   version(versionId: $versionId) {
     id
     buildVariants(options: $buildVariantsOptions) {
-      variant
       displayName
       tasks {
-        displayName
-        startTime
-        finishTime
         id
-        execution
         dependsOn {
-          name
           buildVariant
+          name
         }
+        displayName
+        execution
+        finishTime
+        startTime
       }
+      variant
     }
   }
 }
