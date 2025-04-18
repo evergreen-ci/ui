@@ -13,7 +13,7 @@ describe("Timechart Tab without a variant selected", () => {
   });
 });
 
-describe.only("Timechart Tab with a variant selected", () => {
+describe("Timechart Tab with a variant selected", () => {
   beforeEach(() => {
     cy.visit(
       "/version/5e4ff3abe3c3317e352062e4/timechart?variant=^ubuntu1604%24",
