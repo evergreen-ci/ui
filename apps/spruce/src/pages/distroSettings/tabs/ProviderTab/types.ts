@@ -45,6 +45,7 @@ export type ProviderFormState = {
       useCapacityOptimization: boolean;
     };
     instanceProfileARN: string;
+    doNotAssignPublicIPv4Address: boolean;
     vpcOptions: {
       useVpc: boolean;
       subnetId: string;
@@ -69,6 +70,7 @@ export type ProviderFormState = {
     instanceType: string;
     sshKeyName: string;
     instanceProfileARN: string;
+    doNotAssignPublicIPv4Address: boolean;
     vpcOptions: {
       useVpc: boolean;
       subnetId: string;
