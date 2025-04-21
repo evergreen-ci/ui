@@ -4,7 +4,7 @@
     data-cy="commit-details-list"
   >
     <div
-      class="css-1slhllm-CommitCard e1a625uv4"
+      class="css-1ffesh7-CommitCard e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -105,7 +105,7 @@
       </div>
     </div>
     <div
-      class="css-1nnuebi-CommitCard e1a625uv4"
+      class="css-cfn6u4-CommitCard e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -207,7 +207,7 @@
        Collapsed
     </span>
     <div
-      class="css-q6z3a-CommitCard e1a625uv4"
+      class="css-1vbh9ch-CommitCard e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -309,7 +309,7 @@
        Collapsed
     </span>
     <div
-      class="css-aylr31-CommitCard e1a625uv4"
+      class="css-173zci2-CommitCard e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -411,7 +411,7 @@
        Collapsed
     </span>
     <div
-      class="css-piw53q-CommitCard e1a625uv4"
+      class="css-14ovsiy-CommitCard e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -507,7 +507,7 @@
       </div>
     </div>
     <div
-      class="css-6jg63i-CommitCard e1a625uv4"
+      class="css-todlc7-CommitCard e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
