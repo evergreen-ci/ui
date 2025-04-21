@@ -82,7 +82,7 @@
     "@leafygreen-ui/inline-definition": "^6.0.14",
     "@leafygreen-ui/interaction-ring": "^7.0.2",
     "@leafygreen-ui/leafygreen-provider": "^3.2.0",
-    "@leafygreen-ui/loading-indicator": "^2.0.12",
+    "@leafygreen-ui/loading-indicator": "^3.0.10",
     "@leafygreen-ui/marketing-modal": "^5.0.2",
     "@leafygreen-ui/menu": "^20.0.1",
     "@leafygreen-ui/modal": "^17.0.3",
