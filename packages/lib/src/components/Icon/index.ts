@@ -1,6 +1,5 @@
 import { Size, createIconComponent, glyphs } from "@leafygreen-ui/icon";
 import AnimatedIcon from "./AnimatedIcon";
-import { HolidayTree } from "./AnimatedIcon/HolidayTree";
 import * as icons from "./icons";
 
 const glyphMap = {
@@ -10,4 +9,4 @@ const glyphMap = {
 
 export { glyphMap as glyphs, Size };
 export default createIconComponent(glyphMap);
-export { HolidayTree, AnimatedIcon };
+export { AnimatedIcon };
