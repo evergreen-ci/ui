@@ -43,15 +43,15 @@ const BaseNavGroup = <T extends {}>({
       children
     ) : (
       <DefaultMessageWrapper data-cy={`${dataCy}-default-message`}>
-        {/* @ts-ignore */}
-        <Body weight="medium">{defaultMessage}</Body>
+        <Body as="p" weight="medium">
+          {defaultMessage}
+        </Body>
       </DefaultMessageWrapper>
     )}
   </StyledSideNavGroup>
 );
 
-// @ts-ignore
-const StyledSideNavGroup = styled(SideNavGroup)`
+const StyledSideNavGroup = styled(SideNavGroup as any)`
   > div {
     padding: 0;
   }

@@ -1,4 +1,3 @@
-// @ts-nocheck // FIXME after upgrading @leafygreen-ui/button
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
@@ -54,7 +53,7 @@ export const DeleteVolumeButton: React.FC<Props> = ({ volume }) => {
         <Button
           data-cy={`trash-${volume.displayName || volume.id}`}
           disabled={loadingRemoveVolume || volume.migrating}
-          onClick={(e: React.MouseEvent) => {
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation();
           }}
           size={Size.XSmall}
