@@ -9,7 +9,7 @@ import {
   leaveBreadcrumb,
   SentryBreadcrumbTypes,
 } from "@evg-ui/lib/utils/errorReporting";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
+import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import { ProjectBanner } from "components/Banners";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import {
@@ -42,7 +42,7 @@ const VariantHistoryContents: React.FC = () => {
     [slugs.projectIdentifier]: projectIdentifier,
     [slugs.variantName]: variantName,
   } = useParams();
-  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
+  const { sendEvent } = useProjectHistoryAnalytics({ page: "Variant history" });
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { ingestNewCommits } = useHistoryTable();
   const dispatchToast = useToastContext();
