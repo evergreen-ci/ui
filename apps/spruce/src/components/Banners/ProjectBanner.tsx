@@ -21,9 +21,8 @@ export const ProjectBanner: React.FC<ProjectBannerProps> = ({
     skip: !projectIdentifier,
   });
   const { text, theme } = projectBannerData?.project.banner || {};
-  if (!text) {
+  if (!text || !theme) {
     return null;
   }
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return <PortalBanner banner={<SiteBanner text={text} theme={theme} />} />;
 };
