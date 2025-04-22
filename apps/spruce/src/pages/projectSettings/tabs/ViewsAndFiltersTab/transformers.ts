@@ -1,11 +1,9 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { ProjectType } from "../utils";
 
 type Tab = ProjectSettingsTabRoutes.ViewsAndFilters;
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-export const gqlToForm = ((data, { projectType }) => {
+export const gqlToForm = ((data) => {
   if (!data) return null;
 
   const { projectRef } = data;
@@ -25,7 +23,7 @@ export const gqlToForm = ((data, { projectType }) => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql = (({ parsleyFilters, view }, isRepo, id) => ({
+export const formToGql = (({ parsleyFilters }, isRepo, id) => ({
   ...(isRepo ? { repoId: id } : { projectId: id }),
   projectRef: {
     // @ts-expect-error: FIXME. This comment was added by an automated script.

@@ -7,6 +7,7 @@ type pageType = "Task history" | "Variant history";
 type Action =
   | { name: "Clicked column header" } // "Task history" | "Variant history"
   | { name: "Clicked task cell"; "task.status": string } // "Task history" | "Variant history"
+  | { name: "Changed page"; direction: "previous" | "next" } // "Task history" | "Variant history"
   | {
       name: "Clicked commit label";
       link: "jira" | "githash" | "upstream project";
@@ -17,6 +18,7 @@ type Action =
   | { name: "Deleted all badges" } // "Variant history" | "Task history"
   | { name: "Filtered by build variant"; "filter.type"?: FilterType } // "Variant history" | "Task history"
   | { name: "Filtered failed tests" } // "Variant history" | "Task history"
+  | { name: "Filtered by task"; "filter.type"?: FilterType } // "Task history" | "Variant history"
   | { name: "Toggled folded commit"; toggle: "open" | "close" } // "Variant history" | "Task history"
   | { name: "Toggled task icon legend"; open: boolean }; // "Task history" | "Variant history"
 
