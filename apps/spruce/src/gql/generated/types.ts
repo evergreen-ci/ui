@@ -7694,19 +7694,6 @@ export type ProjectEventLogsQuery = {
   };
 };
 
-export type ProjectHealthViewQueryVariables = Exact<{
-  identifier: Scalars["String"]["input"];
-}>;
-
-export type ProjectHealthViewQuery = {
-  __typename?: "Query";
-  project: {
-    __typename?: "Project";
-    id: string;
-    projectHealthView: ProjectHealthView;
-  };
-};
-
 export type ProjectPatchesQueryVariables = Exact<{
   projectIdentifier: Scalars["String"]["input"];
   patchesInput: PatchesInput;
