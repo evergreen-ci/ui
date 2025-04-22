@@ -65,57 +65,6 @@ export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
   }
 };
 
-export const mainlineCommitsGroupedStatuses = [
-  {
-    icon: <TaskStatusIcon status={TaskStatus.Succeeded} />,
-    statuses: [TaskStatus.Succeeded],
-  },
-  {
-    icon: <TaskStatusIcon status={TaskStatus.Failed} />,
-    statuses: [TaskStatus.Failed],
-  },
-
-  {
-    icon: <TaskStatusIcon status={TaskStatus.KnownIssue} />,
-    statuses: [TaskStatus.KnownIssue],
-  },
-
-  {
-    icon: <TaskStatusIcon status={TaskStatus.SetupFailed} />,
-    statuses: [TaskStatus.SetupFailed],
-  },
-  {
-    icon: <TaskStatusIcon status={TaskStatus.TestTimedOut} />,
-    statuses: [TaskStatus.TestTimedOut, TaskStatus.TaskTimedOut],
-  },
-  {
-    icon: <TaskStatusIcon status={TaskStatus.Dispatched} />,
-    statuses: [TaskStatus.Dispatched, TaskStatus.Started],
-  },
-  {
-    icon: <TaskStatusIcon status={TaskStatus.WillRun} />,
-    statuses: [TaskStatus.WillRun, TaskStatus.Pending, TaskStatus.Unstarted],
-  },
-  {
-    icon: <TaskStatusIcon status={TaskStatus.SystemUnresponsive} />,
-    statuses: [
-      TaskStatus.SystemUnresponsive,
-      TaskStatus.SystemTimedOut,
-      TaskStatus.SystemFailed,
-    ],
-  },
-  {
-    icon: <TaskStatusIcon status={TaskStatus.Aborted} />,
-    statuses: [
-      TaskStatus.Aborted,
-      TaskStatus.Blocked,
-      TaskStatus.Unscheduled,
-      TaskStatus.Inactive,
-      TaskStatus.Undispatched,
-    ],
-  },
-];
-
 export const waterfallGroupedStatuses = [
   {
     icon: <TaskBox status={TaskStatus.Succeeded} />,
