@@ -39,13 +39,5 @@ describe("banners", () => {
       cy.visit("/version/spruce_e695f654c8b4b959d3e12e71696c3e318bcd4c33");
       cy.dataCy("ignored-banner").should("be.visible");
     });
-
-    it("should indicate if a version is ignored in the inactive commits tooltip", () => {
-      cy.visit("/commits/spruce");
-      cy.dataCy("ignored-icon").should("not.exist");
-      cy.dataCy("inactive-commits-button").click();
-      cy.dataCy("inactive-commits-tooltip").should("be.visible");
-      cy.dataCy("ignored-icon").should("be.visible");
-    });
   });
 });

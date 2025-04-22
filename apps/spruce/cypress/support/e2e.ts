@@ -16,7 +16,6 @@
 // Import commands.js using ES2015 syntax:
 import "./commands";
 import {
-  CY_DISABLE_COMMITS_WELCOME_MODAL,
   SLACK_NOTIFICATION_BANNER,
   SEEN_WATERFALL_ONBOARDING_TUTORIAL,
 } from "constants/cookies";
@@ -166,7 +165,6 @@ const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
   beforeEach(() => {
     cy.login();
     cy.setCookie(bannerCookie, "true");
-    cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
     cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
     cy.setCookie(SEEN_WATERFALL_ONBOARDING_TUTORIAL, "true");
     mutationDispatched = false;
