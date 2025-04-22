@@ -21,13 +21,6 @@ export const gqlToForm = ((data, { projectType }) => {
           exactMatch,
         }),
       ) ?? [],
-    ...(projectType !== ProjectType.Repo &&
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      "projectHealthView" in projectRef && {
-        view: {
-          projectHealthView: projectRef.projectHealthView,
-        },
-      }),
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
@@ -44,8 +37,5 @@ export const formToGql = (({ parsleyFilters, view }, isRepo, id) => ({
         exactMatch,
       }),
     ),
-    ...(view && {
-      projectHealthView: view.projectHealthView,
-    }),
   },
 })) satisfies FormToGqlFunction<Tab>;

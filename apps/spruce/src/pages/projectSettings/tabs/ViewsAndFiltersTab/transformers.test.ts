@@ -1,8 +1,4 @@
-import {
-  ProjectHealthView,
-  ProjectSettingsInput,
-  RepoSettingsInput,
-} from "gql/generated/types";
+import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
@@ -76,9 +72,6 @@ const projectForm: ViewsFormState = {
       exactMatch: false,
     },
   ],
-  view: {
-    projectHealthView: ProjectHealthView.Failed,
-  },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
@@ -97,6 +90,5 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
         exactMatch: false,
       },
     ],
-    projectHealthView: ProjectHealthView.Failed,
   },
 };
