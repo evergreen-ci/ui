@@ -12,7 +12,7 @@ export const Default: CustomStoryObj<typeof Breadcrumbs> = {
       breadcrumbs={[
         {
           text: "spruce",
-          to: "/commits/spruce",
+          to: "/project/spruce/waterfall",
           onClick: () => actions("Clicked first link"),
         },
         { text: "511232" },
