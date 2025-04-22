@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
+import { palette } from "@leafygreen-ui/palette";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -9,7 +10,10 @@ import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
 import { TaskHistoryDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
 import { GroupedTask, TaskHistoryOptions, TaskHistoryTask } from "../types";
+import DateSeparator from "./DateSeparator";
+import { areDatesOnSameDay, extractTask } from "./utils";
 
+const { gray } = palette;
 type TaskHistoryPagination = {
   mostRecentTaskOrder: number | undefined;
   oldestTaskOrder: number | undefined;
@@ -61,25 +65,51 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
             <Skeleton size={SkeletonSize.Small} />
           ) : (
             <>
-              {tasks.map((t) => {
+              {tasks.map((t, i) => {
+                let shouldShowDateSeparator = false;
+                if (i === 0) {
+                  shouldShowDateSeparator = true;
+                } else if (t.task) {
+                  const prevGroupedTask = extractTask(tasks[i - 1]);
+                  shouldShowDateSeparator = !areDatesOnSameDay(
+                    prevGroupedTask?.createTime,
+                    t.task.createTime,
+                  );
+                } else if (t.inactiveTasks) {
+                  const prevGroupedTask = extractTask(tasks[i - 1]);
+                  shouldShowDateSeparator = !areDatesOnSameDay(
+                    prevGroupedTask?.createTime,
+                    t.inactiveTasks[0].createTime,
+                  );
+                }
                 if (t.task) {
                   const { task } = t;
                   return (
-                    <TaskBox
-                      key={task.id}
-                      data-cy="timeline-box"
-                      rightmost={false}
-                      status={task.displayStatus as TaskStatus}
-                    />
+                    <>
+                      {shouldShowDateSeparator && (
+                        <DateSeparator date={task.createTime} />
+                      )}
+                      <TaskBox
+                        key={task.id}
+                        data-cy="timeline-box"
+                        rightmost={false}
+                        status={task.displayStatus as TaskStatus}
+                      />
+                    </>
                   );
                 } else if (t.inactiveTasks) {
                   return (
-                    <CollapsedBox
-                      key={t.inactiveTasks[0].id}
-                      data-cy="collapsed-box"
-                    >
-                      {t.inactiveTasks.length}
-                    </CollapsedBox>
+                    <>
+                      {shouldShowDateSeparator && (
+                        <DateSeparator date={t.inactiveTasks[0].createTime} />
+                      )}
+                      <CollapsedBox
+                        key={t.inactiveTasks[0].id}
+                        data-cy="collapsed-box"
+                      >
+                        {t.inactiveTasks.length}
+                      </CollapsedBox>
+                    </>
                   );
                 }
                 return null;
@@ -122,10 +152,16 @@ const Container = styled.div`
   flex-direction: row;
   align-items: center;
   gap: ${size.xxs};
+  border-radius: ${size.xs};
+  border: 1px solid ${gray.light1};
+  padding-top: 40px;
+  padding-bottom: 8px;
 `;
 
 const Timeline = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: row;
 `;
 
 const TaskBox = styled(BaseTaskBox)`
