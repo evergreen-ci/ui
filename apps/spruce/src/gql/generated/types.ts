@@ -9588,37 +9588,6 @@ export type UserQuery = {
   };
 };
 
-export type VersionGanttChartQueryVariables = Exact<{
-  versionId: Scalars["String"]["input"];
-  buildVariantsOptions: BuildVariantOptions;
-}>;
-
-export type VersionGanttChartQuery = {
-  __typename?: "Query";
-  version: {
-    __typename?: "Version";
-    id: string;
-    buildVariants?: Array<{
-      __typename?: "GroupedBuildVariant";
-      displayName: string;
-      variant: string;
-      tasks?: Array<{
-        __typename?: "Task";
-        id: string;
-        displayName: string;
-        execution: number;
-        finishTime?: Date | null;
-        startTime?: Date | null;
-        dependsOn?: Array<{
-          __typename?: "Dependency";
-          buildVariant: string;
-          name: string;
-        }> | null;
-      }> | null;
-    }> | null;
-  };
-};
-
 export type VersionTaskDurationsQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
   taskFilterOptions: TaskFilterOptions;
@@ -9635,6 +9604,7 @@ export type VersionTaskDurationsQuery = {
       data: Array<{
         __typename?: "Task";
         id: string;
+        buildVariant: string;
         buildVariantDisplayName?: string | null;
         displayName: string;
         displayStatus: string;

@@ -1,13 +1,15 @@
 import { Unpacked } from "@evg-ui/lib/types/utils";
-
-import {
-  VersionGanttChartQuery,
-  VersionTaskDurationsQuery,
-} from "gql/generated/types";
+import { VersionTaskDurationsQuery } from "gql/generated/types";
 
 type GanttChartColumnHeader = {
   type: "string" | "date" | "number";
   label: string;
+};
+
+export type DateTimeRange = {
+  start: Date;
+  finish: Date;
+  buildVariantDisplayName: string;
 };
 
 type GanttChartColumnHeaders = [
@@ -31,8 +33,6 @@ export type GanttChartDataRow = [
   number,
   string | null,
 ];
-
-export type VersionGanttChartData = Unpacked<VersionGanttChartQuery>;
 
 export type TaskDurationData = Unpacked<
   VersionTaskDurationsQuery["version"]["tasks"]["data"]

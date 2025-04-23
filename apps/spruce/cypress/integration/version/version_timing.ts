@@ -1,6 +1,8 @@
-describe("Timechart Tab without a variant selected", () => {
+import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../../utils";
+
+describe("Version Timing Tab without a variant selected", () => {
   beforeEach(() => {
-    cy.visit("/version/5e4ff3abe3c3317e352062e4/timechart");
+    cy.visit("/version/5e4ff3abe3c3317e352062e4/version-timing");
   });
   it("shows a chart of all variants in the version", () => {
     const expectedVariants = ["Ubuntu 16.04", "Lint", "Race Detector"];
@@ -11,12 +13,21 @@ describe("Timechart Tab without a variant selected", () => {
       });
     });
   });
+  it("allows the user to select a variant and see the tasks in it", () => {
+    cy.get('[id="reactgooglegraph-2"]').within(() => {
+      cy.contains("Ubuntu 16.04").click();
+    });
+    cy.url().should(
+      "include",
+      "/version/5e4ff3abe3c3317e352062e4/version-timing?variant=%5Eubuntu1604%24",
+    );
+  });
 });
 
-describe("Timechart Tab with a variant selected", () => {
+describe("Version Timing Tab with a variant selected", () => {
   beforeEach(() => {
     cy.visit(
-      "/version/5e4ff3abe3c3317e352062e4/timechart?variant=^ubuntu1604%24",
+      "/version/5e4ff3abe3c3317e352062e4/version-timing?variant=^ubuntu1604%24",
     );
   });
 
@@ -96,14 +107,40 @@ describe("Timechart Tab with a variant selected", () => {
     });
   });
 
+  it("allows the user to clear all filters", () => {
+    cy.get('[data-cy="clear-all-filters"]').click();
+
+    cy.url().should(
+      "equal",
+      "http://localhost:3000/version/5e4ff3abe3c3317e352062e4/version-timing?sorts=DURATION%3ADESC",
+    );
+
+    const expectedVariants = ["Ubuntu 16.04", "Lint", "Race Detector"];
+    cy.get("svg > g > text").then(($items) => {
+      const textFound = Array.from($items, (item) => item.innerHTML);
+      expectedVariants.forEach((variant) => {
+        expect(textFound).to.include(variant);
+      });
+    });
+  });
+
   it("allows the user to change the page size", () => {
-    cy.get('[data-cy="tasks-table-page-size-selector"]').click();
-    cy.get('[data-cy="styled-select-option-50"]').click();
+    clickOnPageSizeBtnAndAssertURLandTableSize(50, "");
     cy.get("svg > g > text").then(($items) => {
       const textFound = Array.from($items, (item) => item.innerHTML);
       expectedTasks.flat().forEach((task) => {
         expect(textFound).to.include(task);
       });
     });
+  });
+
+  it("allows the user to select a task and navigate to it", () => {
+    cy.get('[id="reactgooglegraph-2"]').within(() => {
+      cy.contains("test-agent").click();
+    });
+    cy.url().should(
+      "include",
+      "task/evergreen_ubuntu1604_test_agent_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs?execution=0",
+    );
   });
 });

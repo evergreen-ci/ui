@@ -8,6 +8,7 @@ query VersionTaskDurations(
       count
       data {
         id
+        buildVariant
         buildVariantDisplayName
         displayName
         displayStatus
