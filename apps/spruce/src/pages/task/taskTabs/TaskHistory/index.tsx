@@ -26,7 +26,12 @@ import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import TaskTimeline from "./TaskTimeline";
 import { TaskHistoryOptions, ViewOptions } from "./types";
-import { getNextPageCursor, getPrevPageCursor, groupTasks } from "./utils";
+import {
+  // countUniqueDates,
+  getNextPageCursor,
+  getPrevPageCursor,
+  groupTasks,
+} from "./utils";
 
 interface TaskHistoryProps {
   task: NonNullable<TaskQuery["task"]>;
@@ -90,7 +95,14 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { mostRecentTaskOrder, oldestTaskOrder } = pagination ?? {};
 
   const groupedTasks = groupTasks(tasks, shouldCollapse);
-  const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER);
+  // const numberOfUniqueDates = countUniqueDates(groupedTasks);
+
+  // Calculate numVisibleTasks dynamically
+  // const numVisibleTasks = Math.floor(
+  //   (timelineWidth - numberOfUniqueDates * 8) / SQUARE_WITH_BORDER,
+  // );
+
+  const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER) - 6;
 
   const visibleTasks =
     direction === TaskHistoryDirection.After
@@ -159,6 +171,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           }}
           tasks={visibleTasks}
         />
+        <FloatingCornerNumbers>{numVisibleTasks}</FloatingCornerNumbers>
       </StickyHeader>
       <ListContent>
         <Subtitle>Commit Details</Subtitle>
@@ -193,6 +206,15 @@ const ListContent = styled.div`
   flex-direction: column;
   gap: ${size.xs};
   margin-top: ${size.xxs};
+`;
+
+const FloatingCornerNumbers = styled.div`
+  position: relative;
+  top: -${size.xxs};
+  left: -${size.xxs};
+  /* z-index: 1; */
+  display: flex;
+  gap: ${size.xxs};
 `;
 
 const ToggleContainer = styled.div`
