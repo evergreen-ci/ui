@@ -16,10 +16,7 @@ export const transformTaskDurationDataToTaskGanttChartData = (
         return acc;
       }
 
-      console.log("id", id);
-
       acc.push([
-        // `${buildVariant}.${displayName}`,
         id,
         displayName,
         buildVariant,
