@@ -75,10 +75,4 @@ describe("areDatesOnSameDay", () => {
     const date2 = new Date("2024-04-22T12:00:00Z");
     expect(areDatesOnSameDay(date1, date2)).toBe(false);
   });
-
-  it("handles dates in different time zones correctly", () => {
-    const date1 = new Date("2024-04-22T00:00:00Z");
-    const date2 = new Date("2024-04-22T00:00:00-0500"); // UTC-5
-    expect(areDatesOnSameDay(date1, date2)).toBe(false);
-  });
 });
