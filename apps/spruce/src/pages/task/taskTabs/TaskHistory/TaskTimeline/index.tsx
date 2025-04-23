@@ -91,6 +91,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                       )}
                       <TaskBox
                         key={task.id}
+                        className="square"
                         data-cy="timeline-box"
                         rightmost={false}
                         status={task.displayStatus as TaskStatus}
@@ -105,6 +106,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                       )}
                       <CollapsedBox
                         key={t.inactiveTasks[0].id}
+                        className="square"
                         data-cy="collapsed-box"
                       >
                         {t.inactiveTasks.length}
@@ -156,6 +158,55 @@ const Container = styled.div`
   border: 1px solid ${gray.light1};
   padding-top: 40px;
   padding-bottom: 8px;
+
+  .date-separator:hover .date-badge {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .date-separator {
+    .dot {
+      opacity: 0;
+    }
+  }
+
+  .date-separator:has(+ .square + .date-separator) {
+    + .square + .date-separator {
+      .date-badge {
+        opacity: 0;
+      }
+      .dot {
+        opacity: 1;
+      }
+    }
+
+    + .square + .date-separator {
+      :hover {
+        .date-badge {
+          opacity: 1;
+        }
+        .dot {
+          opacity: 0;
+        }
+      }
+      .date-badge {
+        opacity: 0;
+      }
+      .dot {
+        opacity: 1;
+      }
+    }
+  }
+
+  .date-separator:has(+ .square + .date-separator:hover) {
+    .date-badge {
+      opacity: 0;
+    }
+
+    .dot {
+      opacity: 1;
+    }
+  }
 `;
 
 const Timeline = styled.div`

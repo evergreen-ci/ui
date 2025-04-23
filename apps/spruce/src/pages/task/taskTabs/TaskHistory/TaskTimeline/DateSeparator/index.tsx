@@ -14,17 +14,19 @@ const DateSeparator: React.FC<DateSeparatorProps> = ({ date }) => {
   });
   const dateString = formattedDate || "";
   return (
-    <Container>
-      <StyledBadge>{dateString}</StyledBadge>
+    <Container aria-label="date-separator" className="date-separator">
+      <StyledBadge className="date-badge">{dateString}</StyledBadge>
+      <Dot className="dot" />
       <Line />
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 16px;
+  width: 8px;
   height: 16px;
   position: relative;
+  cursor: pointer;
 `;
 const StyledBadge = styled(Badge)`
   position: absolute;
@@ -39,6 +41,17 @@ const StyledBadge = styled(Badge)`
   :hover {
     z-index: 1;
   }
+`;
+
+const Dot = styled.div`
+  width: 4px;
+  height: 4px;
+  background-color: ${gray.light1};
+  border-radius: 50%;
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 const Line = styled.div`
   width: 1px;
