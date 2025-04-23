@@ -254,3 +254,51 @@ export const expandedGroupedTasks: GroupedTask[] = [
     task: tasks[10],
   },
 ];
+
+export const collapsedGroupedTasksWithSomeInactiveTasksExpanded: GroupedTask[] =
+  [
+    {
+      inactiveTasks: null,
+      task: tasks[0],
+    },
+    {
+      inactiveTasks: null,
+      task: tasks[1],
+    },
+    {
+      inactiveTasks: null,
+      task: tasks[2],
+    },
+    {
+      inactiveTasks: null,
+      task: tasks[3],
+    },
+    {
+      inactiveTasks: null,
+      task: tasks[4],
+    },
+    {
+      inactiveTasks: null,
+      task: tasks[5],
+    },
+    {
+      inactiveTasks: [tasks[6]],
+      task: null,
+    },
+    {
+      inactiveTasks: null,
+      task: tasks[7],
+    },
+    {
+      inactiveTasks: [tasks[8]],
+      task: null,
+    },
+    {
+      inactiveTasks: null,
+      task: tasks[9],
+    },
+    {
+      inactiveTasks: null,
+      task: tasks[10],
+    },
+  ];

@@ -2,18 +2,26 @@ import {
   tasks,
   collapsedGroupedTasks,
   expandedGroupedTasks,
+  collapsedGroupedTasksWithSomeInactiveTasksExpanded,
 } from "../testData";
 import { getPrevPageCursor, getNextPageCursor, groupTasks } from ".";
 
 describe("groupTasks", () => {
   it("groups inactive tasks if shouldCollapse is true", () => {
-    const res = groupTasks(tasks, true);
+    const res = groupTasks(tasks, true, []);
     expect(res).toStrictEqual(collapsedGroupedTasks);
   });
 
   it("does not group inactive tasks if shouldCollapse is false", () => {
-    const res = groupTasks(tasks, false);
+    const res = groupTasks(tasks, false, []);
     expect(res).toStrictEqual(expandedGroupedTasks);
+  });
+
+  it("groups inactive tasks mod expanded inactive tasks if shouldCollapse is true", () => {
+    const res = groupTasks(tasks, true, [["c", "e", "h"]]);
+    expect(res).toStrictEqual(
+      collapsedGroupedTasksWithSomeInactiveTasksExpanded,
+    );
   });
 });
 
