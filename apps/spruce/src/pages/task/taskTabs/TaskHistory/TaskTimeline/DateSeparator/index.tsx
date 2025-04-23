@@ -3,6 +3,8 @@ import Badge from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 
 const { gray } = palette;
+
+export const DATE_SEPARATOR_WIDTH = 8;
 interface DateSeparatorProps {
   date?: Date | null;
 }
@@ -23,7 +25,7 @@ const DateSeparator: React.FC<DateSeparatorProps> = ({ date }) => {
 };
 
 const Container = styled.div`
-  width: 8px;
+  width: ${DATE_SEPARATOR_WIDTH}px;
   height: 16px;
   position: relative;
   cursor: pointer;
