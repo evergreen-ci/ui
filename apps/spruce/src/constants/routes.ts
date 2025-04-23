@@ -68,6 +68,7 @@ const paths = {
   image: "/image",
   jobLogs: "/job-logs",
   login: "/login",
+  newSettings: "/new-settings",
   patch: "/patch",
   preferences: "/preferences",
   project: "/project",
@@ -131,6 +132,7 @@ export const routes = {
   jobLogs: paths.jobLogs,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
+  newSettings: `${paths.newSettings}/:${slugs.tab}?`,
   preferences: paths.preferences,
   projectPatches: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Patches}`,
   projectSettings: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Settings}`,
@@ -364,6 +366,11 @@ export const getTaskHistoryRoute = (
     selectedCommit,
     visibleColumns,
   );
+};
+
+export const getNewSettingsRoute = (tab?: ProjectSettingsTabRoutes) => {
+  const root = `${paths.newSettings}`;
+  return tab ? `${root}/${tab}` : root;
 };
 
 export const getTriggerRoute = ({

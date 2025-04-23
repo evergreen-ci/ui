@@ -16,6 +16,7 @@ import { Hosts } from "pages/Hosts";
 import { Image } from "pages/Image";
 import { JobLogs } from "pages/JobLogs";
 import { MyPatches } from "pages/MyPatches";
+import NewSettings from "pages/newSettings";
 import { PageDoesNotExist } from "pages/NotFound";
 import { Preferences } from "pages/Preferences";
 import { ProjectPatches } from "pages/ProjectPatches";
@@ -77,6 +78,7 @@ export const Content: React.FC = () => (
         element={<ProjectSettingsRedirect />}
         path={redirectRoutes.projectSettings}
       />
+      <Route element={<NewSettings />} path={routes.newSettings} />
       <Route element={<Spawn />} path={routes.spawn}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
