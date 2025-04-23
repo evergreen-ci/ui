@@ -159,52 +159,56 @@ const Container = styled.div`
   padding-top: 40px;
   padding-bottom: 8px;
 
-  .date-separator:hover .date-badge {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
   .date-separator {
+    .date-badge {
+      transition: opacity 0.2s ease;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     .dot {
+      transition: opacity 0.2s ease;
       opacity: 0;
     }
-  }
 
-  .date-separator:has(+ .square + .date-separator) {
-    + .square + .date-separator {
+    &:hover .date-badge {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* If followed closely by another .date-separator (after a .square), hide that one's badge and show dot */
+    &:has(+ .square + .date-separator) + .square + .date-separator {
       .date-badge {
         opacity: 0;
+        pointer-events: none;
       }
+
       .dot {
         opacity: 1;
       }
-    }
 
-    + .square + .date-separator {
-      :hover {
+      &:hover {
         .date-badge {
           opacity: 1;
+          pointer-events: auto;
         }
+
         .dot {
           opacity: 0;
         }
       }
+    }
+
+    /* When the right-side separator is hovered, apply style to current (left) */
+    &:has(+ .square + .date-separator:hover) {
       .date-badge {
         opacity: 0;
+        pointer-events: none;
       }
+
       .dot {
         opacity: 1;
       }
-    }
-  }
-
-  .date-separator:has(+ .square + .date-separator:hover) {
-    .date-badge {
-      opacity: 0;
-    }
-
-    .dot {
-      opacity: 1;
     }
   }
 `;
