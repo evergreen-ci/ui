@@ -14,7 +14,7 @@ describe("Version Timing Tab without a variant selected", () => {
     });
   });
   it("allows the user to select a variant and see the tasks in it", () => {
-    cy.get('[id="reactgooglegraph-2"]').within(() => {
+    cy.get("[id^=reactgooglegraph]").within(() => {
       cy.contains("Ubuntu 16.04").click();
     });
     cy.url().should(
@@ -135,7 +135,7 @@ describe("Version Timing Tab with a variant selected", () => {
   });
 
   it("allows the user to select a task and navigate to it", () => {
-    cy.get('[id="reactgooglegraph-2"]').within(() => {
+    cy.get("[id^=reactgooglegraph]").within(() => {
       cy.contains("test-agent").click();
     });
     cy.url().should(
