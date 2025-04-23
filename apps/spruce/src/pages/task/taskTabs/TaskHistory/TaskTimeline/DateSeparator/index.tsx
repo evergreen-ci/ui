@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
+import { size } from "@evg-ui/lib/constants/tokens";
 
 const { gray } = palette;
 
@@ -26,35 +27,31 @@ const DateSeparator: React.FC<DateSeparatorProps> = ({ date }) => {
 
 const Container = styled.div`
   width: ${DATE_SEPARATOR_WIDTH}px;
-  height: 16px;
+  height: ${size.s};
   position: relative;
   cursor: pointer;
 `;
 const StyledBadge = styled(Badge)`
   position: absolute;
-  top: -24px;
+  top: -${size.m};
   left: 50%;
   transform: translateX(-50%);
   background-color: white;
-  border-radius: 4px;
-  padding: 4px;
-  font-size: 12px;
-  color: black;
-  :hover {
-    z-index: 1;
-  }
+  border-radius: ${size.m};
+  padding: ${size.xxs};
 `;
 
 const Dot = styled.div`
-  width: 4px;
-  height: 4px;
+  width: ${size.xxs};
+  height: ${size.xxs};
   background-color: ${gray.light1};
   border-radius: 50%;
   position: absolute;
-  top: -16px;
+  top: -${size.s};
   left: 50%;
   transform: translateX(-50%);
 `;
+
 const Line = styled.div`
   width: 1px;
   height: 100%;

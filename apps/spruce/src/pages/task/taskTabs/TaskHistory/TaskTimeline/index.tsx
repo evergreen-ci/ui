@@ -156,8 +156,8 @@ const Container = styled.div`
   gap: ${size.xxs};
   border-radius: ${size.xs};
   border: 1px solid ${gray.light1};
-  padding-top: 40px;
-  padding-bottom: 8px;
+  padding-top: ${size.l};
+  padding-bottom: ${size.xs};
 
   .date-separator {
     .date-badge {
