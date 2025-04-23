@@ -223,7 +223,7 @@ const FloatingCornerNumbers = styled.div`
   position: relative;
   top: -${size.xxs};
   left: -${size.xxs};
-  /* z-index: 1; */
+  z-index: 1;
   display: flex;
   gap: ${size.xxs};
 `;
