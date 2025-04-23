@@ -67,6 +67,11 @@ export const getNextPageCursor = (item: GroupedTask) => {
   return item.inactiveTasks[item.inactiveTasks.length - 1];
 };
 
+/**
+ * `countUniqueDates` counts the number of unique dates in the grouped tasks.
+ * @param groupedTasks - an array of grouped tasks
+ * @returns - the number of unique dates in the grouped tasks
+ */
 export const countUniqueDates = (groupedTasks: GroupedTask[]) => {
   const uniqueDates = new Set<string>();
   groupedTasks.forEach((group) => {
@@ -82,4 +87,38 @@ export const countUniqueDates = (groupedTasks: GroupedTask[]) => {
     }
   });
   return uniqueDates.size;
+};
+
+/**
+ * `areDatesOnSameDay` checks if two dates are on the same day.
+ * @param date1 - the first date to compare
+ * @param date2 - the second date to compare
+ * @returns - true if the two dates are on the same day, false otherwise
+ */
+export const areDatesOnSameDay = (
+  date1?: Date | null,
+  date2?: Date | null,
+): boolean => {
+  if (!date1 || !date2) {
+    return false;
+  }
+  const parsedDate1 = new Date(date1);
+  const parsedDate2 = new Date(date2);
+  return (
+    parsedDate1.getFullYear() === parsedDate2.getFullYear() &&
+    parsedDate1.getMonth() === parsedDate2.getMonth() &&
+    parsedDate1.getDate() === parsedDate2.getDate()
+  );
+};
+
+/**
+ * `extractTask` extracts the first task from a grouped task.
+ * @param task - a grouped task
+ * @returns - The first task in the group if it exists, otherwise null
+ */
+export const extractTask = (task: GroupedTask) => {
+  if (task.task) {
+    return task.task;
+  }
+  return task.inactiveTasks?.[0] || null;
 };
