@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
@@ -89,7 +89,27 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { pagination, tasks = [] } = taskHistory ?? {};
   const { mostRecentTaskOrder, oldestTaskOrder } = pagination ?? {};
 
-  const groupedTasks = groupTasks(tasks, shouldCollapse);
+  const [visibleInactiveTasks, setVisibleInactiveTasks] = useState<string[][]>(
+    [],
+  );
+  const addVisibileInactiveTasks = useCallback(
+    (taskGroup: string[]) => {
+      const nextState = [...visibleInactiveTasks];
+      nextState.push(taskGroup);
+      setVisibleInactiveTasks(nextState);
+    },
+    [visibleInactiveTasks],
+  );
+  const removeVisibleInactiveTasks = useCallback(
+    (tasksToRemove: string[]) => {
+      const nextState = [...visibleInactiveTasks];
+      setVisibleInactiveTasks(
+        nextState.filter((currTask) => !currTask.includes(tasksToRemove[0])),
+      );
+    },
+    [visibleInactiveTasks],
+  );
+  const groupedTasks = groupTasks(tasks, shouldCollapse, visibleInactiveTasks);
   const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER);
 
   const visibleTasks =
@@ -163,9 +183,13 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
       <ListContent>
         <Subtitle>Commit Details</Subtitle>
         <CommitDetailsList
+          addVisibleInactiveTasks={addVisibileInactiveTasks}
           currentTask={task}
           loading={loading}
+          removeVisibleInactiveTasks={removeVisibleInactiveTasks}
+          shouldCollapse={shouldCollapse}
           tasks={visibleTasks}
+          visibleInactiveTasks={visibleInactiveTasks}
         />
       </ListContent>
     </Container>
