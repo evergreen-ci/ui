@@ -37,6 +37,20 @@ export const NestedRows: CustomStoryObj<typeof BaseTable> = {
   },
 };
 
+export const SelectedRows: CustomStoryObj<typeof BaseTable> = {
+  render: (args) => (
+    <TemplateComponent
+      {...args}
+      data={lgRows}
+      selectedRowIndexes={[0, 5, 10, 15]}
+    />
+  ),
+  args: {
+    shouldAlternateRowColor: true,
+    darkMode: false,
+  },
+};
+
 export const LongContent: CustomStoryObj<typeof BaseTable> = {
   render: (args) => <TemplateComponent {...args} data={longContentRows} />,
   args: {

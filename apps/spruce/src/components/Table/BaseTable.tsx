@@ -241,7 +241,7 @@ const cellPaddingStyle = {
 };
 
 const cellStyle = css`
-  // Force the nested div wrapping the cell content to take up full width.
+  /* Force the nested div wrapping the cell content to take up full width. */
   > div > div > div {
     width: 100%;
   }
