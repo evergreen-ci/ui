@@ -62,6 +62,11 @@ export type AddFavoriteProjectInput = {
   projectIdentifier: Scalars["String"]["input"];
 };
 
+export type AdminSettings = {
+  __typename?: "AdminSettings";
+  announcements?: Maybe<Announcements>;
+};
+
 /**
  * Annotation models the metadata that a user can add to a task.
  * It is used as a field within the Task type.
@@ -77,6 +82,12 @@ export type Annotation = {
   taskExecution: Scalars["Int"]["output"];
   taskId: Scalars["String"]["output"];
   webhookConfigured: Scalars["Boolean"]["output"];
+};
+
+export type Announcements = {
+  __typename?: "Announcements";
+  bannerText?: Maybe<Scalars["String"]["output"]>;
+  bannerType?: Maybe<Scalars["String"]["output"]>;
 };
 
 export enum Arch {
@@ -3505,7 +3516,11 @@ export type WaterfallOptions = {
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  /** Toggle case sensitivity when matching on task names. Note that if false, performance will be slower. */
+  taskCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  /** Toggle case sensitivity when matching on variant names. Note that if false, performance will be slower. */
+  variantCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
