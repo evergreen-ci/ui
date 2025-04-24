@@ -3203,7 +3203,7 @@
     "@leafygreen-ui/typography" "^20.1.5"
     lodash "^4.17.21"
 
-"@leafygreen-ui/table@^13.1.5":
+"@leafygreen-ui/table@^13.1.8":
   version "13.1.8"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-13.1.8.tgz#68d6513c2ee4006e6b1b23459fb6059ba0af3509"
   integrity sha512-DE30G9WxkaUjS2Fc5URwuYTnW8GgHB00obQgGolU0ktoZF6lKSuoxqm8Le4xwuMW/zMF7Urq95pvnqND5WU4fg==
