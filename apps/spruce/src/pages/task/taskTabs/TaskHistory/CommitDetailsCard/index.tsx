@@ -77,10 +77,9 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
       dispatchToast.error(`Error restarting task: ${err.message}`),
   });
 
-  const isUnmatchingResult = !!(
-    testFailureSearchTerm &&
-    !testResults.some(({ testFile }) => testFile.match(testFailureSearchTerm))
-  );
+  const isMatching =
+    !testFailureSearchTerm ||
+    testResults.some(({ testFile }) => testFile.match(testFailureSearchTerm));
 
   return (
     <CommitCard
