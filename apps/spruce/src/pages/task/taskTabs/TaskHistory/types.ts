@@ -26,6 +26,5 @@ export enum TaskHistoryOptions {
   CursorID = "cursor_id",
   IncludeCursor = "include_cursor",
   Direction = "direction",
-  TaskName = "task_name",
   FailingTest = "failing_test",
 }

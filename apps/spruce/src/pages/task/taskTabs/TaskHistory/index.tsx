@@ -149,7 +149,6 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
             </SegmentedControlOption>
           </SegmentedControl>
         </ToggleContainer>
-        <TestFailureSearchInput />
         <TaskTimeline
           ref={timelineRef}
           loading={loading}
@@ -161,6 +160,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           }}
           tasks={visibleTasks}
         />
+        <TestFailureSearchInput />
       </StickyHeader>
       <ListContent>
         <Subtitle>Commit Details</Subtitle>
