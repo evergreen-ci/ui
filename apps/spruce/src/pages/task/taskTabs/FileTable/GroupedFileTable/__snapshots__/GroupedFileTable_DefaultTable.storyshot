@@ -8,24 +8,28 @@
       Task 1
     </h6>
     <div
-      class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd863"
+      class="leafygreen-ui-1si66qn"
       tabindex="0"
     >
+      <div />
       <table
-        class="leafygreen-ui-1soynca"
+        class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
+        data-is-sticky="false"
         data-lgid="lg-table"
       >
         <thead
-          class="leafygreen-ui-bebmcm"
+          class="leafygreen-ui-181p7kg"
         >
-          <tr>
+          <tr
+            class="leafygreen-ui-5fo1n0"
+          >
             <th
-              class="leafygreen-ui-jcfir4"
+              class="leafygreen-ui-1ez629i"
               data-lgid="lg-table-header"
               scope="col"
             >
               <div
-                class="leafygreen-ui-ui0te9"
+                class="leafygreen-ui-11hl1ow"
               >
                 Name
                 <button
@@ -62,103 +66,121 @@
         </thead>
         <tbody>
           <tr
-            aria-hidden="false"
-            class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
             data-cy="leafygreen-table-row"
+            data-depth="0"
             data-expanded="false"
+            data-index="0"
             data-lgid="lg-table-row"
             data-selected="false"
             id="lg-table-row-0"
           >
             <td
-              class="leafygreen-ui-3nxf8o"
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
               data-lgid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
-                class="leafygreen-ui-15rig1x"
-                data-state="entered"
+                class="leafygreen-ui-18w181u"
               >
                 <div
-                  class="css-1iffxfz-CellContainer epe837f0"
+                  class="leafygreen-ui-mjg5qs"
                 >
-                  <a
-                    class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
-                    data-cy="file-link"
-                    href="some_link"
-                    target="_self"
-                  >
-                    <span>
-                      some_file
-                    </span>
-                  </a>
-                  <button
-                    aria-disabled="true"
-                    class="lg-ui-button-0000 leafygreen-ui-ma515g"
-                    data-cy="parsley-link"
-                    data-lgid="lg-button"
-                    type="button"
+                  <div
+                    class=""
                   >
                     <div
-                      class="leafygreen-ui-v038xi"
-                    />
-                    <div
-                      class="leafygreen-ui-16tr4y"
+                      class="css-1iffxfz-CellContainer epe837f0"
                     >
-                      Parsley
+                      <a
+                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        data-cy="file-link"
+                        href="some_link"
+                        target="_self"
+                      >
+                        <span>
+                          some_file
+                        </span>
+                      </a>
+                      <button
+                        aria-disabled="true"
+                        class="lg-ui-button-0000 leafygreen-ui-ma515g"
+                        data-cy="parsley-link"
+                        data-lgid="lg-button"
+                        type="button"
+                      >
+                        <div
+                          class="leafygreen-ui-v038xi"
+                        />
+                        <div
+                          class="leafygreen-ui-16tr4y"
+                        >
+                          Parsley
+                        </div>
+                      </button>
                     </div>
-                  </button>
+                  </div>
                 </div>
               </div>
             </td>
           </tr>
           <tr
-            aria-hidden="false"
-            class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
             data-cy="leafygreen-table-row"
+            data-depth="0"
             data-expanded="false"
+            data-index="1"
             data-lgid="lg-table-row"
             data-selected="false"
             id="lg-table-row-1"
           >
             <td
-              class="leafygreen-ui-3nxf8o"
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
               data-lgid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
-                class="leafygreen-ui-15rig1x"
-                data-state="entered"
+                class="leafygreen-ui-18w181u"
               >
                 <div
-                  class="css-1iffxfz-CellContainer epe837f0"
+                  class="leafygreen-ui-mjg5qs"
                 >
-                  <a
-                    class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
-                    data-cy="file-link"
-                    href="another_link"
-                    target="_self"
-                  >
-                    <span>
-                      another_file
-                    </span>
-                  </a>
-                  <a
-                    aria-disabled="false"
-                    class="lg-ui-button-0000 leafygreen-ui-161yf65"
-                    data-cy="parsley-link"
-                    data-lgid="lg-button"
-                    href="parsley_link"
+                  <div
+                    class=""
                   >
                     <div
-                      class="leafygreen-ui-v038xi"
-                    />
-                    <div
-                      class="leafygreen-ui-16tr4y"
+                      class="css-1iffxfz-CellContainer epe837f0"
                     >
-                      Parsley
+                      <a
+                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        data-cy="file-link"
+                        href="another_link"
+                        target="_self"
+                      >
+                        <span>
+                          another_file
+                        </span>
+                      </a>
+                      <a
+                        aria-disabled="false"
+                        class="lg-ui-button-0000 leafygreen-ui-161yf65"
+                        data-cy="parsley-link"
+                        data-lgid="lg-button"
+                        href="parsley_link"
+                      >
+                        <div
+                          class="leafygreen-ui-v038xi"
+                        />
+                        <div
+                          class="leafygreen-ui-16tr4y"
+                        >
+                          Parsley
+                        </div>
+                      </a>
                     </div>
-                  </a>
+                  </div>
                 </div>
               </div>
             </td>

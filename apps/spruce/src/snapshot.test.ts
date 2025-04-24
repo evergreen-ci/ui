@@ -62,18 +62,11 @@ describe(`${options.suite}`, () => {
   });
 
   beforeEach(() => {
-    const mockIntersectionObserver = vi.fn((callback) => {
-      callback([
-        {
-          isIntersecting: true,
-        },
-      ]);
-      return {
-        disconnect: vi.fn(),
-        observe: vi.fn(),
-        unobserve: vi.fn(),
-      };
-    });
+    const mockIntersectionObserver = vi.fn(() => ({
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
+    }));
     vi.stubGlobal("IntersectionObserver", mockIntersectionObserver);
 
     const mockResizeObserver = vi.fn(() => ({
