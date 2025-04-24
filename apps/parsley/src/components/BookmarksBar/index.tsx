@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
@@ -105,7 +105,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
   );
 };
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(Button as any)`
   width: 52px;
 `;
 

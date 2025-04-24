@@ -43,9 +43,7 @@ const BaseNavGroup = <T extends {}>({
       children
     ) : (
       <DefaultMessageWrapper data-cy={`${dataCy}-default-message`}>
-        <Body as="p" weight="medium">
-          {defaultMessage}
-        </Body>
+        <StyledBody>{defaultMessage}</StyledBody>
       </DefaultMessageWrapper>
     )}
   </StyledSideNavGroup>
@@ -69,6 +67,10 @@ const NavGroupTitle = styled.div`
 const DefaultMessageWrapper = styled.div`
   margin-top: ${size.xs};
   margin-bottom: ${size.s};
+`;
+
+const StyledBody = styled(Body as any)`
+  font-weight: medium;
 `;
 
 export default BaseNavGroup;

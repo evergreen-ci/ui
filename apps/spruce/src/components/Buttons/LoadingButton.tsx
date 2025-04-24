@@ -1,3 +1,4 @@
+// @ts-nocheck // FIXME after upgrading @leafygreen-ui/button
 import { forwardRef } from "react";
 import { ExtendableBox } from "@leafygreen-ui/box";
 import LeafyGreenButton, { ButtonProps } from "@leafygreen-ui/button";
