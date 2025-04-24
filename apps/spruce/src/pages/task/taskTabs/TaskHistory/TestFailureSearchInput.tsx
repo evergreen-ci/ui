@@ -38,6 +38,5 @@ export const TestFailureSearchInput = () => {
 
 const StyledInput = styled(TextInput)`
   /* Account for chrome blue focus outline */
-  margin-left: 3px;
-  margin-right: 3px;
+  margin: 0 ${size.xxs};
 `;
