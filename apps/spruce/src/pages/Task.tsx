@@ -151,9 +151,9 @@ export const Task = () => {
             taskId={taskId}
           />
         </PageSider>
-        <PageContent>
+        <StyledPageContent>
           {task && <TaskTabs isDisplayTask={isDisplayTask} task={task} />}
-        </PageContent>
+        </StyledPageContent>
       </PageLayout>
     </PageWrapper>
   );
@@ -163,4 +163,9 @@ const StyledBadgeWrapper = styled.div`
   > :nth-of-type(2) {
     margin-left: 10px;
   }
+`;
+
+const StyledPageContent = styled(PageContent)`
+  // Unset overflow so that sticky header in Task History tab can work properly.
+  overflow: unset;
 `;

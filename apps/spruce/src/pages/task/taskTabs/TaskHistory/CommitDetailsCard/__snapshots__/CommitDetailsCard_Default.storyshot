@@ -1,6 +1,7 @@
 <div>
   <div
     class="css-1slhllm-CommitCard e1a625uv4"
+    data-cy="commit-details-card"
   >
     <div
       class="css-12rnwxt-TopLabel e1a625uv3"

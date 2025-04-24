@@ -3505,7 +3505,11 @@ export type WaterfallOptions = {
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  /** Toggle case sensitivity when matching on task names. Note that if false, performance will be slower. */
+  taskCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  /** Toggle case sensitivity when matching on variant names. Note that if false, performance will be slower. */
+  variantCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
@@ -8920,6 +8924,11 @@ export type TaskHistoryQuery = {
   __typename?: "Query";
   taskHistory: {
     __typename?: "TaskHistory";
+    pagination: {
+      __typename?: "TaskHistoryPagination";
+      mostRecentTaskOrder: number;
+      oldestTaskOrder: number;
+    };
     tasks: Array<{
       __typename?: "Task";
       id: string;
@@ -9259,7 +9268,13 @@ export type TaskQuery = {
       taskLogLink?: string | null;
     };
     pod?: { __typename?: "Pod"; id: string } | null;
-    project?: { __typename?: "Project"; id: string; identifier: string } | null;
+    project?: {
+      __typename?: "Project";
+      id: string;
+      identifier: string;
+      owner: string;
+      repo: string;
+    } | null;
     stepbackInfo?: {
       __typename?: "StepbackInfo";
       lastFailingStepbackTaskId?: string | null;

@@ -1,77 +1,119 @@
-import { useRef } from "react";
+import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
-import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import {
-  SQUARE_BORDER,
-  SQUARE_SIZE,
-  TaskBox as BaseTaskBox,
-  CollapsedBox,
-} from "components/TaskBox";
-import { getTaskRoute } from "constants/routes";
-import { useDimensions } from "hooks/useDimensions";
-import { TaskTab } from "types/task";
-import { GroupedTask } from "../types";
+import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
+import { TaskHistoryDirection } from "gql/generated/types";
+import { useQueryParams } from "hooks/useQueryParam";
+import { GroupedTask, TaskHistoryOptions, TaskHistoryTask } from "../types";
+
+type TaskHistoryPagination = {
+  mostRecentTaskOrder: number | undefined;
+  oldestTaskOrder: number | undefined;
+  nextPageCursor: TaskHistoryTask | null;
+  prevPageCursor: TaskHistoryTask | null;
+};
 
 interface TimelineProps {
-  groupedTasks: GroupedTask[];
   loading: boolean;
+  pagination: TaskHistoryPagination;
+  tasks: GroupedTask[];
 }
 
-const TaskTimeline: React.FC<TimelineProps> = ({ groupedTasks, loading }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { width } = useDimensions<HTMLDivElement>(ref);
+const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
+  ({ loading, pagination, tasks }, ref) => {
+    const [queryParams, setQueryParams] = useQueryParams();
+    const {
+      mostRecentTaskOrder,
+      nextPageCursor,
+      oldestTaskOrder,
+      prevPageCursor,
+    } = pagination;
 
-  const numVisibleTasks = Math.floor(width / (SQUARE_SIZE + SQUARE_BORDER * 2));
-  const visibleTasks = groupedTasks.slice(0, numVisibleTasks);
+    return (
+      <Container>
+        <IconButton
+          aria-label="Previous page"
+          disabled={
+            loading ||
+            !prevPageCursor ||
+            !mostRecentTaskOrder ||
+            mostRecentTaskOrder <= prevPageCursor.order
+          }
+          onClick={() => {
+            if (prevPageCursor) {
+              setQueryParams({
+                ...queryParams,
+                [TaskHistoryOptions.CursorID]: prevPageCursor.id,
+                [TaskHistoryOptions.Direction]: TaskHistoryDirection.After,
+                [TaskHistoryOptions.IncludeCursor]: false,
+              });
+            }
+          }}
+        >
+          <Icon glyph="ChevronLeft" />
+        </IconButton>
+        <Timeline ref={ref} data-cy="task-timeline">
+          {loading ? (
+            <Skeleton size={SkeletonSize.Small} />
+          ) : (
+            <>
+              {tasks.map((t) => {
+                if (t.task) {
+                  const { task } = t;
+                  return (
+                    <TaskBox
+                      key={task.id}
+                      data-cy="timeline-box"
+                      rightmost={false}
+                      status={task.displayStatus as TaskStatus}
+                    />
+                  );
+                } else if (t.inactiveTasks) {
+                  return (
+                    <CollapsedBox
+                      key={t.inactiveTasks[0].id}
+                      data-cy="collapsed-box"
+                    >
+                      {t.inactiveTasks.length}
+                    </CollapsedBox>
+                  );
+                }
+                return null;
+              })}
+            </>
+          )}
+        </Timeline>
+        <IconButton
+          aria-label="Next page"
+          disabled={
+            loading ||
+            !nextPageCursor ||
+            !oldestTaskOrder ||
+            oldestTaskOrder >= nextPageCursor.order
+          }
+          onClick={() => {
+            if (nextPageCursor) {
+              setQueryParams({
+                ...queryParams,
+                [TaskHistoryOptions.CursorID]: nextPageCursor.id,
+                [TaskHistoryOptions.Direction]: TaskHistoryDirection.Before,
+                [TaskHistoryOptions.IncludeCursor]: false,
+              });
+            }
+          }}
+        >
+          <Icon glyph="ChevronRight" />
+        </IconButton>
+      </Container>
+    );
+  },
+);
 
-  return (
-    <Container>
-      <IconButton aria-label="Previous Page" disabled>
-        <Icon glyph="ChevronLeft" />
-      </IconButton>
-      <Timeline ref={ref}>
-        {loading ? (
-          <Skeleton size={SkeletonSize.Small} />
-        ) : (
-          <>
-            {visibleTasks.map((vt) => {
-              if (vt.task) {
-                const currTask = vt.task;
-                return (
-                  <TaskBox
-                    key={currTask.id}
-                    as={Link}
-                    rightmost={false}
-                    status={currTask.displayStatus as TaskStatus}
-                    to={getTaskRoute(currTask.id, {
-                      execution: currTask.execution,
-                      tab: TaskTab.History,
-                    })}
-                  />
-                );
-              } else if (vt.inactiveTasks) {
-                return (
-                  <CollapsedBox key={vt.inactiveTasks[0].id} data-collapsed>
-                    {vt.inactiveTasks.length}
-                  </CollapsedBox>
-                );
-              }
-              return null;
-            })}
-          </>
-        )}
-      </Timeline>
-      <IconButton aria-label="Next Page" disabled>
-        <Icon glyph="ChevronRight" />
-      </IconButton>
-    </Container>
-  );
-};
+TaskTimeline.displayName = "TaskTimeline";
 
 export default TaskTimeline;
 

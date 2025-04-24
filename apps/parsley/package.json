@@ -1,6 +1,6 @@
 {
   "name": "parsley",
-  "version": "2.3.43",
+  "version": "2.3.46",
   "private": true,
   "type": "module",
   "scripts": {
@@ -53,7 +53,7 @@
     "@leafygreen-ui/confirmation-modal": "^5.0.8",
     "@leafygreen-ui/copyable": "^8.1.0",
     "@leafygreen-ui/emotion": "^4.0.7",
-    "@leafygreen-ui/empty-state": "^1.1.0",
+    "@leafygreen-ui/empty-state": "^2.0.12",
     "@leafygreen-ui/guide-cue": "^5.0.8",
     "@leafygreen-ui/icon": "^12.6.0",
     "@leafygreen-ui/icon-button": "^15.0.23",
@@ -72,8 +72,8 @@
     "@leafygreen-ui/toggle": "^10.0.4",
     "@leafygreen-ui/tooltip": "^11.1.0",
     "@leafygreen-ui/typography": "^19.0.0",
-    "@sentry/react": "9.10.1",
-    "@sentry/types": "9.10.1",
+    "@sentry/react": "9.13.0",
+    "@sentry/types": "9.13.0",
     "ansi_up": "6.0.2",
     "graphql": "16.10.0",
     "html-react-parser": "3.0.6",
@@ -89,7 +89,7 @@
     "react-dropzone": "14.3.8",
     "react-router-dom": "6.18.0",
     "react-virtuoso": "4.7.12",
-    "vite-node": "^2.0.5",
+    "vite-node": "3.1.1",
     "xss": "1.0.15"
   },
   "devDependencies": {
@@ -100,7 +100,7 @@
     "@graphql-codegen/cli": "5.0.5",
     "@graphql-codegen/typescript": "4.1.6",
     "@graphql-codegen/typescript-operations": "4.6.0",
-    "@sentry/vite-plugin": "3.2.4",
+    "@sentry/vite-plugin": "3.3.1",
     "@storybook/addon-actions": "8.6.12",
     "@storybook/react": "8.6.12",
     "@storybook/react-vite": "8.6.12",
@@ -116,7 +116,7 @@
     "@types/prompts": "2.4.9",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
-    "@vitejs/plugin-react": "4.3.4",
+    "@vitejs/plugin-react": "4.4.1",
     "babel-plugin-import-graphql": "2.8.1",
     "cypress": "12.7.0",
     "env-cmd": "10.1.0",
@@ -127,7 +127,7 @@
     "prompts": "2.4.2",
     "replace-in-file": "7.1.0",
     "rollup-plugin-visualizer": "5.14.0",
-    "serve": "14.2.1",
+    "serve": "14.2.4",
     "storybook": "8.6.12",
     "storybook-addon-apollo-client": "8.1.2",
     "typescript": "5.0.3",
@@ -135,7 +135,7 @@
     "vite-plugin-checker": "0.8.0",
     "vite-plugin-env-compatible": "2.0.1",
     "vite-tsconfig-paths": "4.3.2",
-    "vitest": "2.0.5"
+    "vitest": "3.1.1"
   },
   "engines": {
     "node": ">=22.14.0"
