@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
@@ -72,11 +72,9 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageData?.image]);
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<GeneralInfo>({
     columns,
     data,
-    containerRef: tableContainerRef,
     defaultColumn: {
       enableColumnFilter: false,
     },

@@ -29,6 +29,18 @@ const mergeUserData = {
   },
 };
 
+const doNotAssignPublicIPv4Address = {
+  schema: {
+    type: "boolean" as const,
+    title: "Do not assign public IPv4 address",
+    default: false,
+  },
+  uiSchema: {
+    "ui:bold": true,
+    "ui:description": "Skip assigning a public IPv4 address to task hosts.",
+  },
+};
+
 const securityGroups = {
   schema: {
     type: "array" as const,
@@ -389,6 +401,7 @@ export const ec2FleetProviderSettings = {
     sshKeyName: sshKeyName.schema,
     fleetOptions: fleetOptions.schema,
     instanceProfileARN: instanceProfileARN.schema,
+    doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.schema,
     mergeUserData: mergeUserData.schema,
     userData: userData.schema,
     securityGroups: securityGroups.schema,
@@ -401,6 +414,7 @@ export const ec2FleetProviderSettings = {
     sshKeyName: sshKeyName.uiSchema,
     instanceProfileARN: instanceProfileARN.uiSchema,
     fleetOptions: fleetOptions.uiSchema,
+    doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.uiSchema,
     mergeUserData: mergeUserData.uiSchema,
     userData: userData.uiSchema,
     securityGroups: securityGroups.uiSchema,
@@ -415,6 +429,7 @@ export const ec2OnDemandProviderSettings = {
     instanceType: instanceType.schema,
     sshKeyName: sshKeyName.schema,
     instanceProfileARN: instanceProfileARN.schema,
+    doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.schema,
     mergeUserData: mergeUserData.schema,
     userData: userData.schema,
     securityGroups: securityGroups.schema,
@@ -426,6 +441,7 @@ export const ec2OnDemandProviderSettings = {
     instanceType: instanceType.uiSchema,
     sshKeyName: sshKeyName.uiSchema,
     instanceProfileARN: instanceProfileARN.uiSchema,
+    doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.uiSchema,
     mergeUserData: mergeUserData.uiSchema,
     userData: userData.uiSchema,
     securityGroups: securityGroups.uiSchema,

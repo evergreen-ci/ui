@@ -22,6 +22,7 @@ interface ProviderSettingsList {
   };
   fallback: boolean;
   iam_instance_profile_arn: string;
+  do_not_assign_public_ipv4_address: boolean;
   is_vpc: boolean;
   subnet_id: string;
   vpc_name: string;
@@ -83,6 +84,8 @@ export const formProviderSettings = (
         providerSettings.fleet_options?.use_capacity_optimized ?? false,
     },
     instanceProfileARN: providerSettings.iam_instance_profile_arn ?? "",
+    doNotAssignPublicIPv4Address:
+      providerSettings.do_not_assign_public_ipv4_address ?? false,
     vpcOptions: {
       useVpc: providerSettings.is_vpc ?? false,
       subnetId: providerSettings.subnet_id ?? "",
@@ -107,6 +110,8 @@ export const formProviderSettings = (
     instanceType: providerSettings.instance_type ?? "",
     sshKeyName: providerSettings.key_name ?? "",
     instanceProfileARN: providerSettings.iam_instance_profile_arn ?? "",
+    doNotAssignPublicIPv4Address:
+      providerSettings.do_not_assign_public_ipv4_address ?? false,
     vpcOptions: {
       useVpc: providerSettings.is_vpc ?? false,
       subnetId: providerSettings.subnet_id ?? "",
@@ -172,6 +177,8 @@ export const gqlProviderSettings = (
         fleetOptions?.fleetInstanceType ===
         FleetInstanceType.SpotWithOnDemandFallback,
       iam_instance_profile_arn: providerSettings.instanceProfileARN,
+      do_not_assign_public_ipv4_address:
+        providerSettings.doNotAssignPublicIPv4Address,
       is_vpc: vpcOptions?.useVpc,
       subnet_id: vpcOptions?.useVpc ? vpcOptions?.subnetId : undefined,
       vpc_name: vpcOptions?.useVpc ? vpcOptions?.subnetPrefix : undefined,
@@ -194,6 +201,8 @@ export const gqlProviderSettings = (
       instance_type: providerSettings.instanceType,
       key_name: providerSettings.sshKeyName,
       iam_instance_profile_arn: providerSettings.instanceProfileARN,
+      do_not_assign_public_ipv4_address:
+        providerSettings.doNotAssignPublicIPv4Address,
       is_vpc: vpcOptions?.useVpc,
       subnet_id: vpcOptions?.useVpc ? vpcOptions?.subnetId : undefined,
       vpc_name: vpcOptions?.useVpc ? vpcOptions?.subnetPrefix : undefined,

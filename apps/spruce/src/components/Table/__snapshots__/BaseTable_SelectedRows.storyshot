@@ -1,11 +1,11 @@
 <div>
   <div
-    class="leafygreen-ui-13b37tu leafygreen-ui-13vi68r"
+    class="leafygreen-ui-1si66qn"
     tabindex="0"
   >
     <div />
     <table
-      class="lg-ui-lg-table-0000 leafygreen-ui-1nbgopl"
+      class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
       data-is-sticky="false"
       data-lgid="lg-table"
     >
@@ -239,13 +239,13 @@
       <tbody>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-1fb13tw"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
           data-index="0"
           data-lgid="lg-table-row"
-          data-selected="false"
+          data-selected="true"
           id="lg-table-row-0"
         >
           <td
@@ -704,13 +704,13 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-1fb13tw"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
           data-index="5"
           data-lgid="lg-table-row"
-          data-selected="false"
+          data-selected="true"
           id="lg-table-row-5"
         >
           <td
@@ -1169,13 +1169,13 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-1fb13tw"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
           data-index="10"
           data-lgid="lg-table-row"
-          data-selected="false"
+          data-selected="true"
           id="lg-table-row-10"
         >
           <td
@@ -1634,13 +1634,13 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-1fb13tw"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
           data-index="15"
           data-lgid="lg-table-row"
-          data-selected="false"
+          data-selected="true"
           id="lg-table-row-15"
         >
           <td

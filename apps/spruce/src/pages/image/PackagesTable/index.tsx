@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   useLeafyGreenTable,
@@ -57,11 +57,9 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
     packagesData?.image?.packages.filteredCount ??
     packagesData?.image?.packages.totalCount;
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<Package>({
     columns,
     data: packages,
-    containerRef: tableContainerRef,
     defaultColumn: {
       enableColumnFilter: false,
     },

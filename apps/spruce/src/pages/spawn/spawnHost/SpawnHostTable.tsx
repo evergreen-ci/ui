@@ -1,7 +1,11 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { LeafyGreenTableRow, useLeafyGreenTable } from "@leafygreen-ui/table";
+import {
+  ExpandedState,
+  LeafyGreenTableRow,
+  useLeafyGreenTable,
+} from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -19,7 +23,7 @@ interface SpawnHostTableProps {
 export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
   const [selectedHost] = useQueryParam(QueryParams.Host, "");
 
-  const dataSource = useMemo(
+  const hostData = useMemo(
     () =>
       hosts.map((h) => ({
         ...h,
@@ -31,14 +35,14 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
   );
 
   const initialExpanded = Object.fromEntries(
-    dataSource.map(({ id }, i) => [i, id === selectedHost]),
+    hostData.map(({ id }, i) => [i, id === selectedHost]),
   );
+  // Remove and use initialState instead when LG-5035 is complete.
+  const [expanded, setExpanded] = useState<ExpandedState>(initialExpanded);
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<MyHost>({
     columns,
-    containerRef: tableContainerRef,
-    data: dataSource,
+    data: hostData,
     defaultColumn: {
       enableColumnFilter: false,
       enableSorting: false,
@@ -47,8 +51,9 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
     },
-    initialState: {
-      expanded: initialExpanded,
+    onExpandedChange: setExpanded,
+    state: {
+      expanded,
     },
   });
 
