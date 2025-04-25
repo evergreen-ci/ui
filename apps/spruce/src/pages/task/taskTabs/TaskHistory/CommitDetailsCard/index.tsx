@@ -85,7 +85,7 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     <CommitCard
       key={taskId}
       data-cy="commit-details-card"
-      isUnmatchingResult={isUnmatchingResult}
+      isMatching={isMatching}
       status={displayStatus as TaskStatus}
     >
       <TopLabel>
@@ -127,7 +127,7 @@ export default CommitDetailsCard;
 
 const CommitCard = styled.div<{
   status: TaskStatus;
-  isUnmatchingResult: boolean;
+  isMatching: boolean;
 }>`
   display: flex;
   flex-direction: column;
@@ -139,7 +139,7 @@ const CommitCard = styled.div<{
 
   ${({ status }) => `border-left: ${size.xs} solid ${statusColorMap[status]};`}
 
-  ${({ isUnmatchingResult }) => isUnmatchingResult && "opacity: 0.5;"}
+  ${({ isMatching }) => !isMatching && "opacity: 0.5;"}
 `;
 
 const TopLabel = styled.div`

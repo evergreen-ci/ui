@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import TextInput from "@leafygreen-ui/text-input";
 import debounce from "lodash.debounce";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskHistoryOptions } from "./types";
 
@@ -20,6 +21,7 @@ export const TestFailureSearchInput = () => {
     if (searchTerm !== failingTest) {
       updateQueryParamWithDebounce(searchTerm);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
   return (
