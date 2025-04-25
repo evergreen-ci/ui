@@ -12,12 +12,7 @@ export default {
 export const Default: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
-      <Metadata
-        {...args}
-        error={null}
-        task={taskQuery.task}
-        taskId={taskQuery.task.id}
-      />
+      <Metadata {...args} task={taskQuery.task} />
     </Container>
   ),
 };
@@ -27,7 +22,6 @@ export const WithDependencies: CustomStoryObj<typeof Metadata> = {
     <Container>
       <Metadata
         {...args}
-        error={null}
         task={{
           ...taskQuery.task,
           dependsOn: [
@@ -61,7 +55,6 @@ export const WithDependencies: CustomStoryObj<typeof Metadata> = {
             },
           ],
         }}
-        taskId={taskQuery.task.id}
       />
     </Container>
   ),
@@ -74,13 +67,11 @@ export const WithAbortMessage: CustomStoryObj<
     <Container>
       <Metadata
         {...args}
-        error={null}
         task={{
           ...taskQuery.task,
           aborted: true,
           abortInfo: abortInfoMap[abortInfoSelection],
         }}
-        taskId={taskQuery.task.id}
       />
     </Container>
   ),
@@ -105,7 +96,6 @@ export const OOMTracker: CustomStoryObj<typeof Metadata> = {
     <Container>
       <Metadata
         {...args}
-        error={null}
         task={{
           ...taskQuery.task,
           details: {
@@ -120,7 +110,6 @@ export const OOMTracker: CustomStoryObj<typeof Metadata> = {
             type: "type",
           },
         }}
-        taskId={taskQuery.task.id}
       />
     </Container>
   ),
@@ -131,7 +120,6 @@ export const ContainerizedTask: CustomStoryObj<typeof Metadata> = {
     <Container>
       <Metadata
         {...args}
-        error={null}
         task={{
           ...taskQuery.task,
           hostId: null,
@@ -142,7 +130,6 @@ export const ContainerizedTask: CustomStoryObj<typeof Metadata> = {
           },
           spawnHostLink: null,
         }}
-        taskId={taskQuery.task.id}
       />
     </Container>
   ),
