@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
@@ -71,10 +71,8 @@ const EventsTable: React.FC = () => {
     [getDateCopy],
   );
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<ContainerEvent>({
     columns,
-    containerRef: tableContainerRef,
     data: eventLogEntries ?? [],
     defaultColumn: {
       enableColumnFilter: false,
