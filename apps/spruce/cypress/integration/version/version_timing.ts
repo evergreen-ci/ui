@@ -22,6 +22,17 @@ describe("Version Timing Tab without a variant selected", () => {
       "/version/5e4ff3abe3c3317e352062e4/version-timing?variant=%5Eubuntu1604%24",
     );
   });
+
+  it("has disabled pagination functionality", () => {
+    cy.get("button[aria-labelledby='page-size-select']").should(
+      "have.attr",
+      "aria-disabled",
+      "true",
+    );
+    cy.dataCy("next-page-button").should("have.attr", "aria-disabled", "true");
+    cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "true");
+    cy.dataCy("clear-all-filters").should("have.attr", "aria-disabled", "true");
+  });
 });
 
 describe("Version Timing Tab with a variant selected", () => {
@@ -103,6 +114,23 @@ describe("Version Timing Tab with a variant selected", () => {
           expect(textFound).to.include(task);
         });
         cy.get('[data-cy="prev-page-button"]').click();
+      });
+    });
+  });
+
+  it("respects the task filter", () => {
+    cy.visit(
+      "/version/5e4ff3abe3c3317e352062e4/version-timing?taskName=agent&variant=^ubuntu1604%24",
+    );
+    cy.dataCy("next-page-button").should("have.attr", "aria-disabled", "true");
+    cy.get("svg > g > text").then(($items) => {
+      const textFound = Array.from($items, (item) => item.innerHTML);
+      expectedTasks.flat().forEach((task) => {
+        if (task.includes("agent")) {
+          expect(textFound).to.include(task);
+        } else {
+          expect(textFound).to.not.include(task);
+        }
       });
     });
   });

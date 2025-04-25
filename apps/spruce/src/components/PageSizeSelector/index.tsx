@@ -5,6 +5,7 @@ import { PAGE_SIZES } from "constants/index";
 
 interface Props {
   value: number;
+  disabled?: boolean;
   onChange: (i: number) => void;
 }
 
@@ -14,12 +15,19 @@ interface Props {
  * @param props - React props passed to the component
  * @param props.value - The current page size
  * @param props.onChange - Callback to be called when the page size is changed
+ * @param props.disabled - If the page size selector should be disabled
  * @returns The PageSizeSelector component
  */
-const PageSizeSelector: React.FC<Props> = ({ onChange, value, ...rest }) => (
+const PageSizeSelector: React.FC<Props> = ({
+  disabled = false,
+  onChange,
+  value,
+  ...rest
+}) => (
   <StyledSelect
     allowDeselect={false}
     aria-labelledby="page-size-select"
+    disabled={disabled}
     onChange={(pageSize: string) => onChange(parseInt(pageSize, 10))}
     popoverZIndex={zIndex.popover}
     size="small"

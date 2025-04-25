@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import Chart from "react-google-charts";
@@ -34,16 +35,9 @@ const VersionTimingGraph: React.FC<Props> = ({
 
   if (!data || data.length === 1) {
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: `${MINIMUM_CHART_HEIGHT_IN_PIXELS}px`,
-        }}
-      >
+      <Container>
         <p>No data available</p>
-      </div>
+      </Container>
     );
   }
 
@@ -117,5 +111,12 @@ const VersionTimingGraph: React.FC<Props> = ({
     />
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: ${MINIMUM_CHART_HEIGHT_IN_PIXELS}px;
+`;
 
 export default VersionTimingGraph;
