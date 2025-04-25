@@ -12,7 +12,7 @@ interface DateSeparatorProps {
 const DateSeparator: React.FC<DateSeparatorProps> = ({ date }) => {
   const parsedDate = new Date(date || "");
   const formattedDate = parsedDate?.toLocaleDateString("en-US", {
-    month: "2-digit",
+    month: "numeric",
     day: "2-digit",
   });
   const dateString = formattedDate || "";

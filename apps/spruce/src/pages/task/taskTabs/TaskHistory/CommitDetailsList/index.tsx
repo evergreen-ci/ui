@@ -4,6 +4,8 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import CommitDetailsCard from "../CommitDetailsCard";
 import { GroupedTask } from "../types";
+import { areDatesOnSameDay, extractTask } from "../utils";
+import DateSeparator from "./DateSeparator";
 
 interface CommitDetailsListProps {
   currentTask: NonNullable<TaskQuery["task"]>;
@@ -21,17 +23,38 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
       <ParagraphSkeleton />
     ) : (
       <>
-        {tasks.map((t) => {
+        {tasks.map((t, i) => {
+          let shouldShowDateSeparator = false;
+          if (i === 0) {
+            shouldShowDateSeparator = true;
+          } else if (t.task) {
+            const prevGroupedTask = extractTask(tasks[i - 1]);
+            shouldShowDateSeparator = !areDatesOnSameDay(
+              prevGroupedTask?.createTime,
+              t.task.createTime,
+            );
+          } else if (t.inactiveTasks) {
+            const prevGroupedTask = extractTask(tasks[i - 1]);
+            shouldShowDateSeparator = !areDatesOnSameDay(
+              prevGroupedTask?.createTime,
+              t.inactiveTasks[0].createTime,
+            );
+          }
           if (t.task) {
             const { task } = t;
             return (
-              <CommitDetailsCard
-                key={task.id}
-                isCurrentTask={task.id === currentTask.id}
-                owner={currentTask.project?.owner}
-                repo={currentTask.project?.repo}
-                task={task}
-              />
+              <>
+                {shouldShowDateSeparator && (
+                  <DateSeparator date={task.createTime} />
+                )}
+                <CommitDetailsCard
+                  key={task.id}
+                  isCurrentTask={task.id === currentTask.id}
+                  owner={currentTask.project?.owner}
+                  repo={currentTask.project?.repo}
+                  task={task}
+                />
+              </>
             );
           } else if (t.inactiveTasks) {
             // TODO DEVPROD-16174: Replace with Inactive Commits Button.
