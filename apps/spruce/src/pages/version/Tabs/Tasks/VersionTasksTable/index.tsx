@@ -1,0 +1,232 @@
+import { useMemo, useState } from "react";
+import {
+  useLeafyGreenTable,
+  LeafyGreenTable,
+  ColumnFiltersState,
+  SortingState,
+} from "@leafygreen-ui/table";
+import { useParams } from "react-router-dom";
+import { useVersionAnalytics } from "analytics";
+import { BaseTable } from "components/Table/BaseTable";
+import TableControl from "components/Table/TableControl";
+import { TablePlaceholder } from "components/Table/TablePlaceholder";
+import TableWrapper from "components/Table/TableWrapper";
+import { onChangeHandler } from "components/Table/utils";
+import { getColumnsTemplate } from "components/TasksTable/Columns";
+import { TaskTableInfo } from "components/TasksTable/types";
+import { TableQueryParams } from "constants/queryParams";
+import { slugs } from "constants/routes";
+import { TaskSortCategory, SortDirection } from "gql/generated/types";
+import { useTaskStatuses, useTableSort } from "hooks";
+import { useQueryParams } from "hooks/useQueryParam";
+import { PatchTasksQueryParams } from "types/task";
+import { parseSortString } from "utils/queryString";
+import {
+  mapIdToFilterParam,
+  emptyFilterQueryParams,
+  defaultSorting,
+} from "./constants";
+
+interface VersionTasksTableProps {
+  filteredCount: number;
+  isPatch: boolean;
+  limit: number;
+  loading: boolean;
+  clearQueryParams: () => void;
+  page: number;
+  tasks: TaskTableInfo[];
+  totalCount: number;
+}
+
+export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
+  clearQueryParams,
+  filteredCount,
+  isPatch,
+  limit,
+  loading,
+  page,
+  tasks,
+  totalCount,
+}) => {
+  const [queryParams, setQueryParams] = useQueryParams();
+  const { versionId = "" } = useParams<{ [slugs.versionId]: string }>();
+  const { sendEvent } = useVersionAnalytics(versionId);
+
+  const { baseStatuses: baseStatusOptions, currentStatuses: statusOptions } =
+    useTaskStatuses({ versionId });
+
+  const { initialFilters, initialSorting } = useMemo(
+    () => getInitialState(queryParams),
+    [], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+
+  const columns = useMemo(
+    () =>
+      getColumnsTemplate({
+        baseStatusOptions,
+        statusOptions,
+        isPatch,
+        onClickTaskLink: (taskId: string) =>
+          sendEvent({
+            name: "Clicked task table task link",
+            "task.id": taskId,
+          }),
+      }),
+    [baseStatusOptions, statusOptions, isPatch, sendEvent],
+  );
+
+  const [columnFilters, setColumnFilters] =
+    useState<ColumnFiltersState>(initialFilters);
+
+  const [sorting, setSorting] = useState<SortingState>(initialSorting);
+
+  const updateFilters = (filterState: ColumnFiltersState) => {
+    const updatedParams: Record<string, any> = {
+      ...queryParams,
+      page: "0",
+      ...emptyFilterQueryParams,
+    };
+    filterState.forEach(({ id, value }) => {
+      const key =
+        mapIdToFilterParam[
+          id as
+            | TaskSortCategory.Name
+            | TaskSortCategory.Status
+            | TaskSortCategory.BaseStatus
+            | TaskSortCategory.Variant
+        ];
+      updatedParams[key] = value;
+    });
+    setQueryParams(updatedParams);
+    sendEvent({
+      name: "Filtered tasks table",
+      "filter.by": Object.keys(filterState),
+    });
+  };
+
+  const updateSorting = useTableSort({
+    singleQueryParam: true,
+    sendAnalyticsEvents: (sorter: SortingState) =>
+      sendEvent({
+        name: "Sorted tasks table",
+        "sort.by": sorter.map(({ id }) => id as TaskSortCategory),
+      }),
+  });
+
+  const table: LeafyGreenTable<TaskTableInfo> =
+    useLeafyGreenTable<TaskTableInfo>({
+      columns,
+      data: tasks ?? [],
+      defaultColumn: {
+        enableMultiSort: true,
+        // Handle bug in sorting order (https://github.com/TanStack/table/issues/4289)
+        sortDescFirst: false,
+      },
+      isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
+      state: {
+        columnFilters,
+        sorting,
+      },
+      maxMultiSortColCount: 2,
+      manualFiltering: true,
+      manualPagination: true,
+      manualSorting: true,
+      onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+        setColumnFilters,
+        (updatedState) => updateFilters(updatedState),
+      ),
+      onSortingChange: onChangeHandler<SortingState>(setSorting, updateSorting),
+      getSubRows: (row) => row.executionTasksFull || [],
+    });
+
+  return (
+    <TableWrapper
+      controls={
+        <TableControl
+          filteredCount={filteredCount}
+          label="tests"
+          limit={limit}
+          onClear={() => {
+            setColumnFilters([]);
+            setSorting(defaultSorting);
+            clearQueryParams();
+          }}
+          onPageSizeChange={(size) =>
+            sendEvent({ name: "Changed page size", "page.size": size })
+          }
+          page={page}
+          totalCount={totalCount}
+        />
+      }
+      shouldShowBottomTableControl={limit > 10}
+    >
+      <BaseTable
+        data-cy="tasks-table"
+        data-cy-row="tasks-table-row"
+        data-loading={loading}
+        emptyComponent={<TablePlaceholder message="No tasks found." />}
+        loading={loading}
+        loadingRows={limit}
+        shouldAlternateRowColor
+        table={table}
+      />
+    </TableWrapper>
+  );
+};
+
+export const getInitialState = (
+  queryParams: Record<string, any>,
+): {
+  initialFilters: ColumnFiltersState;
+  initialSorting: SortingState;
+} => {
+  const {
+    [PatchTasksQueryParams.TaskName]: taskName,
+    [PatchTasksQueryParams.Statuses]: statuses,
+    [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
+    [PatchTasksQueryParams.Variant]: variant,
+    [TableQueryParams.Sorts]: sorts,
+  } = queryParams;
+
+  const initialFilters = [];
+
+  if (taskName) {
+    initialFilters.push({
+      id: TaskSortCategory.Name,
+      value: taskName,
+    });
+  }
+  if (statuses) {
+    initialFilters.push({
+      id: TaskSortCategory.Status,
+      value: Array.isArray(statuses) ? statuses : [statuses],
+    });
+  }
+  if (baseStatuses) {
+    initialFilters.push({
+      id: TaskSortCategory.BaseStatus,
+      value: Array.isArray(baseStatuses) ? baseStatuses : [baseStatuses],
+    });
+  }
+  if (variant) {
+    initialFilters.push({ id: TaskSortCategory.Variant, value: variant });
+  }
+
+  const parsedSorts = sorts
+    ? parseSortString(sorts, {
+        sortByKey: "sortCategory",
+        sortDirKey: "direction",
+        sortCategoryEnum: TaskSortCategory,
+      })
+    : [];
+
+  return {
+    initialSorting: sorts
+      ? parsedSorts.map(({ direction, sortCategory }) => ({
+          id: sortCategory,
+          desc: direction === SortDirection.Desc,
+        }))
+      : defaultSorting,
+    initialFilters,
+  };
+};
