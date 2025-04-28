@@ -5,5 +5,5 @@ export { SlackNotificationBanner } from "./SlackNotificationBanner";
 export { AdminBanner } from "./AdminBanner";
 export { PortalBanner } from "./PortalBanner";
 export { ProjectBanner } from "./ProjectBanner";
-export { RepotrackerBanner } from "./RepotrackerBanner";
+export { RepoTrackerBanner } from "./RepoTrackerBanner";
 export { ProjectHealthDeprecationBanner } from "./ProjectHealthDeprecationBanner";
