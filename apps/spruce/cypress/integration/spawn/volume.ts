@@ -46,9 +46,7 @@ describe("Spawn volume page", () => {
     cy.contains('[data-cy="leafygreen-table-row"]', "vol-0ea662ac92f611ed4")
       .find("button[aria-label='Collapse row']")
       .click();
-    cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should(
-      "not.be.visible",
-    );
+    cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should("not.exist");
     cy.contains('[data-cy="leafygreen-table-row"]', "vol-0ea662ac92f611ed4")
       .find("button[aria-label='Expand row']")
       .click();

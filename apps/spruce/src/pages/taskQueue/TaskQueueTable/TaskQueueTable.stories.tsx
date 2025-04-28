@@ -1,11 +1,11 @@
-import { css } from "@leafygreen-ui/emotion";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TaskQueueItem, TaskQueueItemType } from "gql/generated/types";
 import TaskQueueTable from ".";
 
+type TaskQueueColumnData = Omit<TaskQueueItem, "revision">;
+
 const generateTaskQueue = (length: number): TaskQueueColumnData[] => {
   const tq: TaskQueueColumnData[] = [];
-
   for (let i = 0; i < length; i++) {
     const task: TaskQueueColumnData = {
       activatedBy: "admin",
@@ -21,10 +21,8 @@ const generateTaskQueue = (length: number): TaskQueueColumnData[] => {
       version: "mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe",
       __typename: "TaskQueueItem",
     };
-
     tq.push(task);
   }
-
   return tq;
 };
 
@@ -32,20 +30,27 @@ export default {
   component: TaskQueueTable,
 } satisfies CustomMeta<typeof TaskQueueTable>;
 
-export const Default: CustomStoryObj<typeof TaskQueueTable> = {
-  render: (args) => (
-    <div
-      className={css`
-        height: 700px;
-        display: flex;
-      `}
-    >
-      <TaskQueueTable {...args} />
-    </div>
-  ),
-  argTypes: {},
+export const Default: CustomStoryObj<TemplateProps> = {
   args: {
-    taskQueue: generateTaskQueue(5000),
+    numTasks: 10,
   },
+  argTypes: {
+    numTasks: {
+      control: { type: "number" },
+    },
+  },
+  render: (args) => <Template {...args} />,
 };
-type TaskQueueColumnData = Omit<TaskQueueItem, "revision">;
+
+type TemplateProps = {
+  numTasks: number;
+};
+
+const Template = (args: TemplateProps) => {
+  const taskQueue = generateTaskQueue(args.numTasks);
+  return (
+    <div style={{ height: "800px" }}>
+      <TaskQueueTable taskQueue={taskQueue} />
+    </div>
+  );
+};

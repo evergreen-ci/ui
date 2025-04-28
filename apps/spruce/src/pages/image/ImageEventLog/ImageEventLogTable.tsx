@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import {
@@ -9,6 +9,7 @@ import {
   getFilteredRowModel,
   getFacetedUniqueValues,
 } from "@leafygreen-ui/table";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useImageAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
@@ -73,10 +74,8 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
   const { sendEvent } = useImageAnalytics();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<ImageEventEntry>({
     columns,
-    containerRef: tableContainerRef,
     data: entries,
     defaultColumn: {
       enableColumnFilter: false,
@@ -185,6 +184,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
   },
 ];
 
-const DefaultEmptyMessage = styled.span`
+const DefaultEmptyMessage = styled.div`
+  margin-top: ${size.xs};
   margin-left: ${tableColumnOffset};
 `;
