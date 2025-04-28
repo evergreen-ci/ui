@@ -9604,10 +9604,12 @@ export type VersionTaskDurationsQuery = {
       data: Array<{
         __typename?: "Task";
         id: string;
+        buildVariant: string;
         buildVariantDisplayName?: string | null;
         displayName: string;
         displayStatus: string;
         execution: number;
+        finishTime?: Date | null;
         startTime?: Date | null;
         timeTaken?: number | null;
         subRows?: Array<{

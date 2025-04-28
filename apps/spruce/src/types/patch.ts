@@ -23,6 +23,7 @@ export enum VersionPageTabs {
   Downstream = "downstream-projects",
   TaskDuration = "task-duration",
   TestAnalysis = "test-analysis",
+  VersionTiming = "version-timing",
 }
 
 export enum ConfigurePatchPageTabs {
