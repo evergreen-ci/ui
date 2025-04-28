@@ -59,7 +59,7 @@ export const RepoTrackerBanner: React.FC<RepoTrackerBannerProps> = ({
   >(SET_LAST_REVISION, {
     onCompleted: () => {
       dispatchToast.success(
-        "Successfully updated merge base revision. The repoTracker job has been scheduled to run.",
+        "Successfully updated merge base revision. The repotracker job has been scheduled to run.",
       );
     },
     onError: (err) => {
@@ -82,20 +82,20 @@ export const RepoTrackerBanner: React.FC<RepoTrackerBannerProps> = ({
     resetModal();
   };
 
-  if (!hasRepoTrackerError) {
+  if (!hasRepotrackerError) {
     return null;
   }
   return (
     <>
       <PortalBanner
         banner={
-          <Banner data-cy="repoTracker-error-banner" variant="danger">
+          <Banner data-cy="repotracker-error-banner" variant="danger">
             {isProjectAdmin ? (
               <span>
                 The project was unable to build. Please specify a new base
                 revision by clicking{" "}
                 <ModalTriggerText
-                  data-cy="repoTracker-error-trigger"
+                  data-cy="repotracker-error-trigger"
                   onClick={() => setOpenModal(true)}
                 >
                   here
@@ -117,7 +117,7 @@ export const RepoTrackerBanner: React.FC<RepoTrackerBannerProps> = ({
           disabled: baseRevision.length < 40,
           onClick: onConfirm,
         }}
-        data-cy="repoTracker-error-modal"
+        data-cy="repotracker-error-modal"
         open={openModal}
         setOpen={setOpenModal}
         title="Enter New Base Revision"
@@ -127,7 +127,7 @@ export const RepoTrackerBanner: React.FC<RepoTrackerBannerProps> = ({
           <InlineCode>
             {repoTrackerData?.project?.repotrackerError?.invalidRevision}
           </InlineCode>{" "}
-          cannot be found on branch &apos;{repoTrackerData?.project?.branch}
+          cannot be found on branch &apos;{repotrackerData?.project?.branch}
           &apos;. In order to resume tracking the repository, please enter a new
           base revision.
         </ModalDescription>

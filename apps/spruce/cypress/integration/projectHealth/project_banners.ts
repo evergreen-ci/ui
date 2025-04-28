@@ -10,7 +10,7 @@ describe("project banners", () => {
       cy.dataCy("repotracker-error-banner").should("be.visible");
       cy.dataCy("repotracker-error-trigger").should("be.visible");
       cy.dataCy("repotracker-error-trigger").click();
-      cy.dataCy("repoTracker-error-modal").should("be.visible");
+      cy.dataCy("repotracker-error-modal").should("be.visible");
       cy.getInputByLabel("Base Revision").type(
         "7ad0f0571691fa5063b757762a5b103999290fa8",
       );
