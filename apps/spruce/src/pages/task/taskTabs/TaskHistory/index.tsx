@@ -182,7 +182,6 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           }}
           tasks={visibleTasks}
         />
-        <FloatingCornerNumbers>{numVisibleTasks}</FloatingCornerNumbers>
       </StickyHeader>
       <ListContent>
         <Subtitle>Commit Details</Subtitle>
@@ -217,15 +216,6 @@ const ListContent = styled.div`
   flex-direction: column;
   gap: ${size.xs};
   margin-top: ${size.xxs};
-`;
-
-const FloatingCornerNumbers = styled.div`
-  position: relative;
-  top: -${size.xxs};
-  left: -${size.xxs};
-  z-index: 1;
-  display: flex;
-  gap: ${size.xxs};
 `;
 
 const ToggleContainer = styled.div`
