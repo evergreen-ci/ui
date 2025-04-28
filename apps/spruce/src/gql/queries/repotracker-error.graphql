@@ -1,4 +1,4 @@
-query RepoTrackerError($projectIdentifier: String!) {
+query RepotrackerError($projectIdentifier: String!) {
   project(projectIdentifier: $projectIdentifier) {
     id
     branch

@@ -10,8 +10,8 @@ import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   UserProjectSettingsPermissionsQuery,
   UserProjectSettingsPermissionsQueryVariables,
-  RepoTrackerErrorQuery,
-  RepoTrackerErrorQueryVariables,
+  RepotrackerErrorQuery,
+  RepotrackerErrorQueryVariables,
   SetLastRevisionMutation,
   SetLastRevisionMutationVariables,
 } from "gql/generated/types";
@@ -33,8 +33,8 @@ export const RepoTrackerBanner: React.FC<RepoTrackerBannerProps> = ({
   const [baseRevision, setBaseRevision] = useState("");
 
   const { data: repoTrackerData } = useQuery<
-    RepoTrackerErrorQuery,
-    RepoTrackerErrorQueryVariables
+    RepotrackerErrorQuery,
+    RepotrackerErrorQueryVariables
   >(REPOTRACKER_ERROR, {
     variables: { projectIdentifier },
     skip: !projectIdentifier,
