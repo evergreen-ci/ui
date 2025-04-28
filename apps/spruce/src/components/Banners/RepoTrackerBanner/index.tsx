@@ -22,33 +22,33 @@ import {
 } from "gql/queries";
 import { PortalBanner } from "../PortalBanner";
 
-interface RepotrackerBannerProps {
+interface RepoTrackerBannerProps {
   projectIdentifier: string;
 }
-export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
+export const RepoTrackerBanner: React.FC<RepoTrackerBannerProps> = ({
   projectIdentifier,
 }) => {
   const dispatchToast = useToastContext();
   const [openModal, setOpenModal] = useState(false);
   const [baseRevision, setBaseRevision] = useState("");
 
-  const { data: repotrackerData } = useQuery<
+  const { data: repoTrackerData } = useQuery<
     RepotrackerErrorQuery,
     RepotrackerErrorQueryVariables
   >(REPOTRACKER_ERROR, {
     variables: { projectIdentifier },
     skip: !projectIdentifier,
   });
-  const hasRepotrackerError =
-    repotrackerData?.project?.repotrackerError?.exists ?? false;
+  const hasRepoTrackerError =
+    repoTrackerData?.project?.repotrackerError?.exists ?? false;
 
   const { data: permissionsData } = useQuery<
     UserProjectSettingsPermissionsQuery,
     UserProjectSettingsPermissionsQueryVariables
   >(USER_PROJECT_SETTINGS_PERMISSIONS, {
     variables: { projectIdentifier },
-    // If there's no repotracker error, there is no need to determine whether the current user is an admin.
-    skip: !hasRepotrackerError,
+    // If there's no repoTracker error, there is no need to determine whether the current user is an admin.
+    skip: !hasRepoTrackerError,
   });
   const isProjectAdmin =
     permissionsData?.user?.permissions?.projectPermissions?.edit ?? false;
@@ -125,7 +125,7 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
         <ModalDescription>
           The current base revision{" "}
           <InlineCode>
-            {repotrackerData?.project?.repotrackerError?.invalidRevision}
+            {repoTrackerData?.project?.repotrackerError?.invalidRevision}
           </InlineCode>{" "}
           cannot be found on branch &apos;{repotrackerData?.project?.branch}
           &apos;. In order to resume tracking the repository, please enter a new
