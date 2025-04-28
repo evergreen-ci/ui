@@ -2,12 +2,12 @@ import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
-import { RepotrackerBanner } from "components/Banners";
+import { RepoTrackerBanner } from "components/Banners";
 import {
   UserProjectSettingsPermissionsQuery,
   UserProjectSettingsPermissionsQueryVariables,
-  RepotrackerErrorQuery,
-  RepotrackerErrorQueryVariables,
+  RepoTrackerErrorQuery,
+  RepoTrackerErrorQueryVariables,
   SetLastRevisionMutation,
   SetLastRevisionMutationVariables,
 } from "gql/generated/types";
@@ -36,12 +36,12 @@ describe("repotracker banner", () => {
     it("does not render banner", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[projectNoError]}>
-          <RepotrackerBanner projectIdentifier="evergreen" />
+          <RepoTrackerBanner projectIdentifier="evergreen" />
         </MockedProvider>,
       );
       render(<Component />);
       await waitFor(() => {
-        expect(screen.queryByDataCy("repotracker-error-banner")).toBeNull();
+        expect(screen.queryByDataCy("repoTracker-error-banner")).toBeNull();
       });
     });
   });
@@ -50,39 +50,39 @@ describe("repotracker banner", () => {
     it("renders a banner", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[projectWithError, adminUser]}>
-          <RepotrackerBanner projectIdentifier="evergreen" />
+          <RepoTrackerBanner projectIdentifier="evergreen" />
         </MockedProvider>,
       );
       render(<Component />);
       await waitFor(() => {
-        expect(screen.queryByDataCy("repotracker-error-banner")).toBeVisible();
+        expect(screen.queryByDataCy("repoTracker-error-banner")).toBeVisible();
       });
     });
 
     it("does not render modal trigger if user is not admin", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[projectWithError, basicUser]}>
-          <RepotrackerBanner projectIdentifier="evergreen" />
+          <RepoTrackerBanner projectIdentifier="evergreen" />
         </MockedProvider>,
       );
       render(<Component />);
       await waitFor(() => {
-        expect(screen.queryByDataCy("repotracker-error-banner")).toBeVisible();
+        expect(screen.queryByDataCy("repoTracker-error-banner")).toBeVisible();
       });
-      expect(screen.queryByDataCy("repotracker-error-trigger")).toBeNull();
+      expect(screen.queryByDataCy("repoTracker-error-trigger")).toBeNull();
     });
 
     it("renders modal trigger if user is admin", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[projectWithError, adminUser]}>
-          <RepotrackerBanner projectIdentifier="evergreen" />
+          <RepoTrackerBanner projectIdentifier="evergreen" />
         </MockedProvider>,
       );
       render(<Component />);
       await waitFor(() => {
-        expect(screen.queryByDataCy("repotracker-error-banner")).toBeVisible();
+        expect(screen.queryByDataCy("repoTracker-error-banner")).toBeVisible();
       });
-      expect(screen.queryByDataCy("repotracker-error-trigger")).toBeVisible();
+      expect(screen.queryByDataCy("repoTracker-error-trigger")).toBeVisible();
     });
 
     it("can submit new base revision via modal", async () => {
@@ -91,20 +91,20 @@ describe("repotracker banner", () => {
         <MockedProvider
           mocks={[projectWithError, adminUser, setLastRevision, projectNoError]}
         >
-          <RepotrackerBanner projectIdentifier="evergreen" />
+          <RepoTrackerBanner projectIdentifier="evergreen" />
         </MockedProvider>,
       );
       render(<Component />);
       await waitFor(() => {
-        expect(screen.queryByDataCy("repotracker-error-banner")).toBeVisible();
+        expect(screen.queryByDataCy("repoTracker-error-banner")).toBeVisible();
       });
-      expect(screen.queryByDataCy("repotracker-error-trigger")).toBeVisible();
+      expect(screen.queryByDataCy("repoTracker-error-trigger")).toBeVisible();
 
       // Open modal.
       // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("repotracker-error-trigger"));
+      await user.click(screen.queryByDataCy("repoTracker-error-trigger"));
       await waitFor(() => {
-        expect(screen.queryByDataCy("repotracker-error-modal")).toBeVisible();
+        expect(screen.queryByDataCy("repoTracker-error-modal")).toBeVisible();
       });
 
       // Submit new base revision.
@@ -121,8 +121,8 @@ describe("repotracker banner", () => {
 const baseRevision = "7ad0f0571691fa5063b757762a5b103999290fa8";
 
 const projectNoError: ApolloMock<
-  RepotrackerErrorQuery,
-  RepotrackerErrorQueryVariables
+  RepoTrackerErrorQuery,
+  RepoTrackerErrorQueryVariables
 > = {
   request: {
     query: REPOTRACKER_ERROR,
@@ -143,8 +143,8 @@ const projectNoError: ApolloMock<
 };
 
 const projectWithError: ApolloMock<
-  RepotrackerErrorQuery,
-  RepotrackerErrorQueryVariables
+  RepoTrackerErrorQuery,
+  RepoTrackerErrorQueryVariables
 > = {
   request: {
     query: REPOTRACKER_ERROR,
