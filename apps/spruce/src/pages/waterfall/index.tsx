@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useWaterfallAnalytics } from "analytics";
-import { ProjectBanner, RepoTrackerBanner } from "components/Banners";
+import { ProjectBanner, RepotrackerBanner } from "components/Banners";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
@@ -48,7 +48,7 @@ const Waterfall: React.FC = () => {
         id={waterfallPageContainerId}
       >
         <ProjectBanner projectIdentifier={projectIdentifier ?? ""} />
-        <RepoTrackerBanner projectIdentifier={projectIdentifier ?? ""} />
+        <RepotrackerBanner projectIdentifier={projectIdentifier ?? ""} />
         <WaterfallFilters
           // Using a key rerenders the filter components so that uncontrolled components can compute a new initial state
           key={projectIdentifier}
