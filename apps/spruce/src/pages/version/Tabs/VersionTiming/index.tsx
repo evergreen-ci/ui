@@ -31,11 +31,12 @@ interface Props {
   taskCount: number;
 }
 
+const defaultSort = `${TaskSortCategory.Duration}:${SortDirection.Desc}`;
+
 const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
   const dispatchToast = useToastContext();
   const { search } = useLocation();
 
-  const defaultSort = `${TaskSortCategory.Duration}:${SortDirection.Desc}`;
   const [queryParams, setQueryParams] = useQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId);
   const queryVariables = useQueryVariables(search, versionId);

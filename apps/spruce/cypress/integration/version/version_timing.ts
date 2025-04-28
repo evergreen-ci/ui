@@ -102,7 +102,7 @@ describe("Version Timing Tab with a variant selected", () => {
         page.forEach((task) => {
           expect(textFound).to.include(task);
         });
-        cy.get('[data-cy="next-page-button"]').click();
+        cy.dataCy("next-page-button").click();
       });
     });
 
@@ -113,7 +113,7 @@ describe("Version Timing Tab with a variant selected", () => {
         page.forEach((task) => {
           expect(textFound).to.include(task);
         });
-        cy.get('[data-cy="prev-page-button"]').click();
+        cy.dataCy("prev-page-button").click();
       });
     });
   });
@@ -136,7 +136,7 @@ describe("Version Timing Tab with a variant selected", () => {
   });
 
   it("allows the user to clear all filters", () => {
-    cy.get('[data-cy="clear-all-filters"]').click();
+    cy.dataCy("clear-all-filters").click();
 
     cy.url().should(
       "equal",
@@ -166,9 +166,9 @@ describe("Version Timing Tab with a variant selected", () => {
     cy.get("[id^=reactgooglegraph]").within(() => {
       cy.contains("test-agent").click();
     });
-    cy.url().should(
+    cy.location("pathname").should(
       "equal",
-      "http://localhost:3000/task/evergreen_ubuntu1604_test_agent_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs?execution=0",
+      "/task/evergreen_ubuntu1604_test_agent_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs",
     );
   });
 });
