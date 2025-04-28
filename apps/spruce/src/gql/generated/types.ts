@@ -8675,11 +8675,11 @@ export type RepoSettingsQuery = {
   };
 };
 
-export type RepotrackerErrorQueryVariables = Exact<{
+export type RepoTrackerErrorQueryVariables = Exact<{
   projectIdentifier: Scalars["String"]["input"];
 }>;
 
-export type RepotrackerErrorQuery = {
+export type RepoTrackerErrorQuery = {
   __typename?: "Query";
   project: {
     __typename?: "Project";
