@@ -9008,8 +9008,6 @@ export type TaskOwnerTeamsForTaskQuery = {
     execution: number;
     taskOwnerTeam?: {
       __typename?: "TaskOwnerTeam";
-      assignmentType: string;
-      jiraProject: string;
       messages: string;
       teamName: string;
     } | null;

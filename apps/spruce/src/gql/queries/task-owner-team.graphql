@@ -3,8 +3,6 @@ query TaskOwnerTeamsForTask($taskId: String!, $execution: Int) {
     id
     execution
     taskOwnerTeam {
-      assignmentType
-      jiraProject
       messages
       teamName
     }
