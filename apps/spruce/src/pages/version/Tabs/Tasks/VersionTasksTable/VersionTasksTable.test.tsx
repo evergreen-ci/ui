@@ -13,17 +13,7 @@ describe("VersionTasksTable", () => {
   it("renders all rows", () => {
     render(
       <MockedProvider>
-        <VersionTasksTable
-          clearQueryParams={() => {}}
-          filteredCount={tasks.length}
-          isPatch={false}
-          limit={10}
-          loading={false}
-          page={0}
-          tasks={tasks}
-          totalCount={tasks.length}
-          versionId={versionId}
-        />
+        <VersionTasksTable {...sharedProps} />
       </MockedProvider>,
     );
     expect(screen.queryAllByDataCy("tasks-table-row")).toHaveLength(4);
@@ -33,17 +23,7 @@ describe("VersionTasksTable", () => {
     const user = userEvent.setup();
     render(
       <MockedProvider>
-        <VersionTasksTable
-          clearQueryParams={() => {}}
-          filteredCount={tasks.length}
-          isPatch={false}
-          limit={10}
-          loading={false}
-          page={0}
-          tasks={tasks}
-          totalCount={tasks.length}
-          versionId={versionId}
-        />
+        <VersionTasksTable {...sharedProps} />
       </MockedProvider>,
     );
     expect(screen.queryByText("Another execution task")).toBeNull();
@@ -53,7 +33,35 @@ describe("VersionTasksTable", () => {
     await user.click(expandRowButton);
     expect(screen.queryByText("Another execution task")).toBeVisible();
   });
+
+  it("calls clearQueryParams function when button is clicked", async () => {
+    const user = userEvent.setup();
+    const clearQueryParams = vi.fn();
+    render(
+      <MockedProvider>
+        <VersionTasksTable
+          {...sharedProps}
+          clearQueryParams={clearQueryParams}
+        />
+      </MockedProvider>,
+    );
+    expect(screen.queryAllByDataCy("tasks-table-row")).toHaveLength(4);
+    await user.click(screen.getByDataCy("clear-all-filters"));
+    expect(clearQueryParams).toHaveBeenCalledTimes(1);
+  });
 });
+
+const sharedProps = {
+  clearQueryParams: () => {},
+  filteredCount: tasks.length,
+  isPatch: false,
+  limit: 10,
+  loading: false,
+  page: 0,
+  tasks,
+  totalCount: tasks.length,
+  versionId,
+};
 
 describe("getInitialState", () => {
   it("should get the correct initialSort when passed in sorts key", () => {

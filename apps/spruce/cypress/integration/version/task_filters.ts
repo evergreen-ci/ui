@@ -257,7 +257,7 @@ const assertChecked = (
   statuses: string[],
   checked: boolean,
 ) => {
-  cy.get(`[data-cy=${dataCy}]`)
+  cy.dataCy(dataCy)
     .find(".cy-checkbox")
     .each((el) => {
       expect(statuses).to.include(el.text());
@@ -281,7 +281,7 @@ const selectCheckboxOption = (
   label: string,
   checked: boolean,
 ) => {
-  cy.get(`[data-cy=${dataCy}]`)
+  cy.dataCy(dataCy)
     .find(".cy-checkbox")
     .should("not.be.disabled")
     .each((el) => {
