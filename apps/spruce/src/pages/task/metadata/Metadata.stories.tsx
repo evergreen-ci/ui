@@ -1,8 +1,19 @@
 import styled from "@emotion/styled";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import {
+  CustomStoryObj,
+  CustomMeta,
+  ApolloMock,
+} from "@evg-ui/lib/test_utils/types";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { AbortInfo, MetStatus, RequiredStatus } from "gql/generated/types";
+import {
+  AbortInfo,
+  MetStatus,
+  RequiredStatus,
+  TaskOwnerTeamsForTaskQuery,
+  TaskOwnerTeamsForTaskQueryVariables,
+} from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
+import { TASK_OWNER_TEAM } from "gql/queries";
 import { Metadata } from "./index";
 
 export default {
@@ -133,6 +144,50 @@ export const ContainerizedTask: CustomStoryObj<typeof Metadata> = {
       />
     </Container>
   ),
+};
+
+const taskOwnerTeamMock: ApolloMock<
+  TaskOwnerTeamsForTaskQuery,
+  TaskOwnerTeamsForTaskQueryVariables
+> = {
+  request: {
+    query: TASK_OWNER_TEAM,
+    variables: {
+      taskId: taskQuery.task.id,
+      execution: taskQuery.task.execution,
+    },
+  },
+  result: {
+    data: {
+      task: {
+        __typename: "Task",
+        id: taskQuery.task.id,
+        execution: taskQuery.task.execution,
+        taskOwnerTeam: {
+          __typename: "TaskOwnerTeam",
+          messages: "Assigned based on default team",
+          teamName: "Evergreen UI Team",
+        },
+      },
+    },
+  },
+};
+export const WithTaskOwner: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+        }}
+      />
+    </Container>
+  ),
+  parameters: {
+    apolloClient: {
+      mocks: [taskOwnerTeamMock],
+    },
+  },
 };
 
 const Container = styled.div`

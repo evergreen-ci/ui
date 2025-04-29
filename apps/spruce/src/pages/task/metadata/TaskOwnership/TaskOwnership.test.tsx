@@ -32,10 +32,8 @@ const taskOwnerTeamMock: ApolloMock<
         execution,
         taskOwnerTeam: {
           __typename: "TaskOwnerTeam",
-          assignmentType: "auto",
-          jiraProject: "EVG",
           messages: "Assigned based on task history",
-          teamName: "Platform Team",
+          teamName: "Evergreen UI Team",
         },
       },
     },
@@ -78,8 +76,6 @@ const taskOwnerTeamNoNameMock: ApolloMock<
         execution,
         taskOwnerTeam: {
           __typename: "TaskOwnerTeam",
-          assignmentType: "auto",
-          jiraProject: "EVG",
           messages: "Assigned based on task history",
           teamName: "",
         },
@@ -128,7 +124,7 @@ describe("TaskOwnership", () => {
     });
 
     expect(screen.getByText("Task Owner:")).toBeInTheDocument();
-    expect(screen.getByText("Platform Team")).toBeInTheDocument();
+    expect(screen.getByText("Evergreen UI Team")).toBeInTheDocument();
 
     await user.hover(screen.getByDataTestid("info-sprinkle-icon"));
 
@@ -194,8 +190,6 @@ describe("TaskOwnership", () => {
             execution: specificExecution,
             taskOwnerTeam: {
               __typename: "TaskOwnerTeam",
-              assignmentType: "manual",
-              jiraProject: "TEST",
               messages: "Manual assignment",
               teamName: "Test Team",
             },
