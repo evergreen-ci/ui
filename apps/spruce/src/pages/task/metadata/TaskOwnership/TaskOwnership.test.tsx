@@ -96,7 +96,7 @@ const loadingMock: ApolloMock<
 };
 
 describe("TaskOwnership", () => {
-  it("renders nothing while loading", async () => {
+  it("renders nothing while loading", () => {
     render(
       <MockedProvider mocks={[loadingMock]}>
         <TaskOwnership execution={execution} taskId={taskId} />
