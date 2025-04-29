@@ -3,7 +3,7 @@ import {
   renderWithRouterMatch as render,
   screen,
   waitFor,
-  act,
+  userEvent,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
@@ -114,6 +114,7 @@ describe("TaskOwnership", () => {
   });
 
   it("renders team name when available", async () => {
+    const user = userEvent.setup();
     render(
       <MockedProvider mocks={[taskOwnerTeamMock]}>
         <TaskOwnership execution={execution} taskId={taskId} />
@@ -129,10 +130,7 @@ describe("TaskOwnership", () => {
     expect(screen.getByText("Task Owner:")).toBeInTheDocument();
     expect(screen.getByText("Platform Team")).toBeInTheDocument();
 
-    // Hover over the tooltip
-    act(() => {
-      screen.getByDataTestid("info-sprinkle-icon").focus();
-    });
+    await user.hover(screen.getByDataTestid("info-sprinkle-icon"));
 
     await waitFor(() => {
       expect(
