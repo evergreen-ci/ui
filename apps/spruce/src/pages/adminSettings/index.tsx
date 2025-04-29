@@ -9,8 +9,9 @@ import {
   SideNavPageContent,
   SideNavPageWrapper,
 } from "components/styles";
+import { getAdminSettingsRoute } from "constants/routes";
 import { AdminSettingsProvider } from "./Context";
-import { AdminSettingsTab } from "./Tabs";
+import { AdminSettingsTabs } from "./Tabs";
 
 const AdminSettings: React.FC = () => {
   usePageTitle("Admin Settings");
@@ -30,7 +31,7 @@ const AdminSettings: React.FC = () => {
             <SideNavItem
               as={Link}
               data-cy="navitem-admin-general"
-              to="/admin-settings"
+              to={getAdminSettingsRoute()}
             >
               Announcements
             </SideNavItem>
@@ -45,7 +46,7 @@ const AdminSettings: React.FC = () => {
         </SideNav>
 
         <SideNavPageContent data-cy="admin-settings-page">
-          <AdminSettingsTab />
+          <AdminSettingsTabs />
         </SideNavPageContent>
       </SideNavPageWrapper>
     </AdminSettingsProvider>

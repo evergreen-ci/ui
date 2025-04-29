@@ -6,16 +6,16 @@ type Tab = AdminSettingsTabRoutes.General;
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const { announcements } = data;
+  const { banner, bannerTheme } = data;
 
   return {
-    announcements: {
-      announcements,
-    },
+    banner,
+    bannerTheme,
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
-export const fromGql = (({ announcements }) => ({
-  announcements,
+export const fromGql = (({ banner, bannerTheme }) => ({
+  banner,
+  bannerTheme,
 })) satisfies FormToGqlFunction<Tab>;

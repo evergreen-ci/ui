@@ -51,7 +51,7 @@ export enum ProjectSettingsTabRoutes {
 export enum AdminSettingsTabRoutes {
   General = "general",
   RestartTasks = "restart-tasks",
-  EventLogs = "event-logs",
+  EventLogs = "event-log",
 }
 
 export enum DistroSettingsTabRoutes {

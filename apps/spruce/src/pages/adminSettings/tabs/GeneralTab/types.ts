@@ -1,8 +1,6 @@
 export interface GeneralFormState {
-  announcements: {
-    bannerText: string;
-    bannerStyle: string;
-  };
+  banner: string;
+  bannerTheme: string;
 }
 
 export type TabProps = {

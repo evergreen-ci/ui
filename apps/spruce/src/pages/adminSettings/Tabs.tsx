@@ -1,14 +1,13 @@
 import styled from "@emotion/styled";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
+import { GeneralTab } from "./tabs/GeneralTab/GeneralTab";
 
-export const AdminSettingsTab = () => {
+export const AdminSettingsTabs = () => {
   useScrollToAnchor();
 
   return (
     <Container>
-      {/* <Routes>
-        {}
-      </Routes> */}
+      <GeneralTab />
     </Container>
   );
 };
@@ -18,4 +17,4 @@ const Container = styled.div`
   width: 60%;
 `;
 
-export default AdminSettingsTab;
+export default AdminSettingsTabs;
