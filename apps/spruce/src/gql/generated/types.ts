@@ -8995,6 +8995,25 @@ export type TaskNamesForBuildVariantQuery = {
   taskNamesForBuildVariant?: Array<string> | null;
 };
 
+export type TaskOwnerTeamsForTaskQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskOwnerTeamsForTaskQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    taskOwnerTeam?: {
+      __typename?: "TaskOwnerTeam";
+      messages: string;
+      teamName: string;
+    } | null;
+  } | null;
+};
+
 export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {

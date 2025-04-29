@@ -142,14 +142,7 @@ export const Task = () => {
               }}
             />
           )}
-          <Metadata
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            error={error}
-            loading={loading}
-            task={task}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            taskId={taskId}
-          />
+          <Metadata error={error} loading={loading} task={task} />
         </PageSider>
         <StyledPageContent>
           {task && <TaskTabs isDisplayTask={isDisplayTask} task={task} />}

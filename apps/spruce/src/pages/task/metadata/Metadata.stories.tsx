@@ -1,8 +1,19 @@
 import styled from "@emotion/styled";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import {
+  CustomStoryObj,
+  CustomMeta,
+  ApolloMock,
+} from "@evg-ui/lib/test_utils/types";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { AbortInfo, MetStatus, RequiredStatus } from "gql/generated/types";
+import {
+  AbortInfo,
+  MetStatus,
+  RequiredStatus,
+  TaskOwnerTeamsForTaskQuery,
+  TaskOwnerTeamsForTaskQueryVariables,
+} from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
+import { TASK_OWNER_TEAM } from "gql/queries";
 import { Metadata } from "./index";
 
 export default {
@@ -12,12 +23,7 @@ export default {
 export const Default: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
-      <Metadata
-        {...args}
-        error={null}
-        task={taskQuery.task}
-        taskId={taskQuery.task.id}
-      />
+      <Metadata {...args} task={taskQuery.task} />
     </Container>
   ),
 };
@@ -27,7 +33,6 @@ export const WithDependencies: CustomStoryObj<typeof Metadata> = {
     <Container>
       <Metadata
         {...args}
-        error={null}
         task={{
           ...taskQuery.task,
           dependsOn: [
@@ -61,7 +66,6 @@ export const WithDependencies: CustomStoryObj<typeof Metadata> = {
             },
           ],
         }}
-        taskId={taskQuery.task.id}
       />
     </Container>
   ),
@@ -74,13 +78,11 @@ export const WithAbortMessage: CustomStoryObj<
     <Container>
       <Metadata
         {...args}
-        error={null}
         task={{
           ...taskQuery.task,
           aborted: true,
           abortInfo: abortInfoMap[abortInfoSelection],
         }}
-        taskId={taskQuery.task.id}
       />
     </Container>
   ),
@@ -105,7 +107,6 @@ export const OOMTracker: CustomStoryObj<typeof Metadata> = {
     <Container>
       <Metadata
         {...args}
-        error={null}
         task={{
           ...taskQuery.task,
           details: {
@@ -120,7 +121,6 @@ export const OOMTracker: CustomStoryObj<typeof Metadata> = {
             type: "type",
           },
         }}
-        taskId={taskQuery.task.id}
       />
     </Container>
   ),
@@ -131,7 +131,6 @@ export const ContainerizedTask: CustomStoryObj<typeof Metadata> = {
     <Container>
       <Metadata
         {...args}
-        error={null}
         task={{
           ...taskQuery.task,
           hostId: null,
@@ -142,10 +141,53 @@ export const ContainerizedTask: CustomStoryObj<typeof Metadata> = {
           },
           spawnHostLink: null,
         }}
-        taskId={taskQuery.task.id}
       />
     </Container>
   ),
+};
+
+const taskOwnerTeamMock: ApolloMock<
+  TaskOwnerTeamsForTaskQuery,
+  TaskOwnerTeamsForTaskQueryVariables
+> = {
+  request: {
+    query: TASK_OWNER_TEAM,
+    variables: {
+      taskId: taskQuery.task.id,
+      execution: taskQuery.task.execution,
+    },
+  },
+  result: {
+    data: {
+      task: {
+        __typename: "Task",
+        id: taskQuery.task.id,
+        execution: taskQuery.task.execution,
+        taskOwnerTeam: {
+          __typename: "TaskOwnerTeam",
+          messages: "Assigned based on default team",
+          teamName: "Evergreen UI Team",
+        },
+      },
+    },
+  },
+};
+export const WithTaskOwner: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+        }}
+      />
+    </Container>
+  ),
+  parameters: {
+    apolloClient: {
+      mocks: [taskOwnerTeamMock],
+    },
+  },
 };
 
 const Container = styled.div`
