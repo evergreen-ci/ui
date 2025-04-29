@@ -87,7 +87,6 @@ const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
       limit={limit ?? 0}
       loading={tasksData.length === 0 && loading}
       page={page ?? 0}
-      // @ts-expect-error: Expects TaskTableInfo which overlaps with this type
       tasks={tasksData}
       totalCount={taskCount}
       versionId={versionId}
