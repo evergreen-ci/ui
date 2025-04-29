@@ -39,7 +39,6 @@ const AdminSettings: React.FC = () => {
             {}
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Tasks Logs">
-            {}
           </SideNavGroup>
         </SideNav>
 
