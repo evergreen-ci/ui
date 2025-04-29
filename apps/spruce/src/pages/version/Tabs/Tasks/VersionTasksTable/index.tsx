@@ -5,7 +5,6 @@ import {
   ColumnFiltersState,
   SortingState,
 } from "@leafygreen-ui/table";
-import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";
@@ -15,7 +14,6 @@ import { onChangeHandler } from "components/Table/utils";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { TableQueryParams } from "constants/queryParams";
-import { slugs } from "constants/routes";
 import { TaskSortCategory, SortDirection } from "gql/generated/types";
 import { useTaskStatuses, useTableSort } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
@@ -28,14 +26,15 @@ import {
 } from "./constants";
 
 interface VersionTasksTableProps {
+  clearQueryParams: () => void;
   filteredCount: number;
   isPatch: boolean;
   limit: number;
   loading: boolean;
-  clearQueryParams: () => void;
   page: number;
   tasks: TaskTableInfo[];
   totalCount: number;
+  versionId: string;
 }
 
 export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
@@ -47,9 +46,9 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   page,
   tasks,
   totalCount,
+  versionId,
 }) => {
   const [queryParams, setQueryParams] = useQueryParams();
-  const { versionId = "" } = useParams<{ [slugs.versionId]: string }>();
   const { sendEvent } = useVersionAnalytics(versionId);
 
   const { baseStatuses: baseStatusOptions, currentStatuses: statusOptions } =

@@ -7,25 +7,30 @@ export default {
 } satisfies CustomMeta<typeof VersionTasksTable>;
 
 export const Default: CustomStoryObj<typeof VersionTasksTable> = {
-  render: () => (
+  render: (args) => (
     <VersionTasksTable
       clearQueryParams={() => {}}
       filteredCount={tasks.length}
-      isPatch={false}
+      isPatch={args.isPatch}
       limit={10}
       loading={false}
       page={0}
       tasks={tasks}
       totalCount={tasks.length}
+      versionId={versionId}
     />
   ),
+  args: {
+    isPatch: false,
+  },
+  argTypes: {
+    isPatch: {
+      control: { type: "boolean" },
+    },
+  },
   parameters: {
     apolloClient: {
       mocks: [taskStatusesMock],
-    },
-    reactRouter: {
-      path: "/version/:versionId",
-      route: `/version/${versionId}`,
     },
   },
 };

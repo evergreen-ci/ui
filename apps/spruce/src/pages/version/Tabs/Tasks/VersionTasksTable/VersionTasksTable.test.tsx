@@ -6,7 +6,7 @@ import {
   within,
 } from "@evg-ui/lib/test_utils";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
-import { tasks } from "./testData";
+import { tasks, versionId } from "./testData";
 import { VersionTasksTable, getInitialState } from ".";
 
 describe("VersionTasksTable", () => {
@@ -22,6 +22,7 @@ describe("VersionTasksTable", () => {
           page={0}
           tasks={tasks}
           totalCount={tasks.length}
+          versionId={versionId}
         />
       </MockedProvider>,
     );
@@ -41,6 +42,7 @@ describe("VersionTasksTable", () => {
           page={0}
           tasks={tasks}
           totalCount={tasks.length}
+          versionId={versionId}
         />
       </MockedProvider>,
     );
