@@ -13,12 +13,14 @@ interface Props {
   limit: number;
   page: number;
   label: string;
+  disabled?: boolean;
   onClear: () => void;
   onPageSizeChange?: (pageSize: number) => void;
   onPageChange?: (page: number) => void;
 }
 
 const TableControl: React.FC<Props> = ({
+  disabled = false,
   filteredCount,
   label,
   limit,
@@ -50,6 +52,7 @@ const TableControl: React.FC<Props> = ({
         />
         <PaddedButton
           data-cy="clear-all-filters"
+          disabled={disabled}
           onClick={onClearAll}
           size="small"
         >
@@ -66,6 +69,7 @@ const TableControl: React.FC<Props> = ({
         />
         <PageSizeSelector
           data-cy="tasks-table-page-size-selector"
+          disabled={disabled}
           onChange={handlePageSizeChange}
           value={limit}
         />
