@@ -19,7 +19,6 @@ const AdminSettings: React.FC = () => {
     <AdminSettingsProvider>
       <SideNavPageWrapper>
         <SideNav aria-label="Admin Settings" widthOverride={250}>
-          {}
           <ButtonsContainer>{}</ButtonsContainer>
 
           <SideNavGroup
