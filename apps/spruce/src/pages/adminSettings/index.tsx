@@ -26,7 +26,6 @@ const AdminSettings: React.FC = () => {
             glyph={<Icon glyph="Settings" />}
             header="Admin Settings"
           >
-            {}
             <SideNavItem
               as={Link}
               data-cy="navitem-admin-general"
