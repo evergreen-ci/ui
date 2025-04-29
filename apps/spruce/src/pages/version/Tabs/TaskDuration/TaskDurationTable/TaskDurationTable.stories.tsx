@@ -30,6 +30,8 @@ const props = {
     {
       buildVariantDisplayName:
         "Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)",
+      buildVariant:
+        "sharded_library_enterprise_rhel_8_0_query_all_feature_flags_and_cqf_enabled",
       displayName: "sharding_multiversion ".repeat(30),
       execution: 0,
       id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_display_sharding_multiversion_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
@@ -175,6 +177,7 @@ const props = {
     {
       id: "evg_ubuntu1604_container_test_model_distro_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
       buildVariantDisplayName: "Ubuntu 16.04 (Container)",
+      buildVariant: "ubuntu1604_container",
       displayName: "test-model-distro",
       execution: 0,
       subRows: [
@@ -211,6 +214,7 @@ const props = {
     {
       id: "evg_ubuntu1604_container_test_rest_data_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
       buildVariantDisplayName: "Ubuntu 16.04 (Container)",
+      buildVariant: "ubuntu1604_container",
       displayName: "test-rest-data",
       execution: 0,
       subRows: null,
@@ -222,6 +226,7 @@ const props = {
     {
       id: "evg_ubuntu1604_container_test_agent_internal_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
       buildVariantDisplayName: "Ubuntu 16.04 (Container)",
+      buildVariant: "ubuntu1604_container",
       displayName: "test-agent-internal",
       execution: 0,
       subRows: null,
@@ -233,6 +238,7 @@ const props = {
     {
       id: "evg_ubuntu1604_container_test_evergreen_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
       buildVariantDisplayName: "Ubuntu 16.04 (Container)",
+      buildVariant: "ubuntu1604_container",
       displayName: "test-evergreen",
       execution: 0,
       subRows: null,
@@ -244,6 +250,7 @@ const props = {
     {
       id: "evg_ubuntu1604_container_test_model_artifact_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
       buildVariantDisplayName: "Ubuntu 16.04 (Container)",
+      buildVariant: "ubuntu1604_container",
       displayName: "test-model-artifact",
       execution: 0,
       subRows: null,
@@ -255,6 +262,7 @@ const props = {
     {
       id: "evg_ubuntu1604_container_test_thirdparty_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
       buildVariantDisplayName: "Ubuntu 16.04 (Container)",
+      buildVariant: "ubuntu1604_container",
       displayName: "test-thirdparty",
       execution: 0,
       subRows: null,
@@ -266,6 +274,7 @@ const props = {
     {
       id: "evg_ubuntu1604_container_test_model_event_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
       buildVariantDisplayName: "Ubuntu 16.04 (Container)",
+      buildVariant: "ubuntu1604_container",
       displayName: "test-model-event",
       execution: 0,
       subRows: null,
@@ -277,6 +286,7 @@ const props = {
     {
       id: "evg_ubuntu1604_container_test_model_testresult_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
       buildVariantDisplayName: "Ubuntu 16.04 (Container)",
+      buildVariant: "ubuntu1604_container",
       displayName: "test-model-testresult",
       execution: 0,
       subRows: null,
@@ -288,6 +298,7 @@ const props = {
     {
       id: "evg_ubuntu1604_container_test_model_alertrecord_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
       buildVariantDisplayName: "Ubuntu 16.04 (Container)",
+      buildVariant: "ubuntu1604_container",
       displayName: "test-model-alertrecord",
       execution: 0,
       subRows: null,
@@ -299,6 +310,7 @@ const props = {
     {
       id: "evg_ubuntu1604_container_test_model_patch_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
       buildVariantDisplayName: "Ubuntu 16.04 (Container)",
+      buildVariant: "ubuntu1604_container",
       displayName: "test-model-patch",
       execution: 0,
       subRows: null,
