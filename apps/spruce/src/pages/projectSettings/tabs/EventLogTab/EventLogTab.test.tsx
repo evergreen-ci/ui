@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -11,7 +12,166 @@ import {
   ProjectEventLogsQueryVariables,
   ProjectHealthView,
 } from "gql/generated/types";
-import PROJECT_EVENT_LOGS from "gql/queries/project-event-logs.graphql";
+
+const PROJECT_EVENT_LOGS = gql`
+  query ProjectEventLogs($projectIdentifier: String!, $before: Time, $limit: Int) {
+    projectEvents(projectIdentifier: $projectIdentifier, before: $before, limit: $limit) {
+      count
+      eventLogEntries {
+        timestamp
+        user
+        before {
+          projectRef {
+            id
+            identifier
+            displayName
+            repoRefId
+            owner
+            repo
+            branch
+            enabled
+            batchTime
+            remotePath
+            dispatchingDisabled
+            deactivatePrevious
+            repotrackerDisabled
+            tracksPushEvents
+            prTestingEnabled
+            commitQueue {
+              enabled
+            }
+            stepbackDisabled
+            stepbackBisect
+            hidden
+            patchingDisabled
+            admins
+            notifyOnBuildFailure
+            spawnHostScriptPath
+            githubChecksEnabled
+            workstationConfig {
+              gitClone
+              setupCommands
+            }
+            disabledStatsCache
+            buildBaronSettings {
+              ticketCreateProject
+              ticketSearchProjects
+              ticketCreateIssueType
+            }
+            taskAnnotationSettings {
+              fileTicketWebhook {
+                endpoint
+                secret
+              }
+            }
+            perfEnabled
+            versionControlEnabled
+            externalLinks {
+              displayName
+              url
+            }
+            banner
+            patchTriggerAliases
+            githubTriggerAliases
+            triggers
+            periodicBuilds
+            manualPrTestingEnabled
+            restricted
+            oldestAllowedMergeBase
+            gitTagVersionsEnabled
+            gitTagAuthorizedUsers
+            gitTagAuthorizedTeams
+            parsleyFilters
+            projectHealthView
+            githubDynamicTokenPermissionGroups
+          }
+          vars {
+            vars
+            privateVars
+            adminOnlyVars
+          }
+          aliases
+          subscriptions
+          githubWebhooksEnabled
+        }
+        after {
+          projectRef {
+            id
+            identifier
+            displayName
+            repoRefId
+            owner
+            repo
+            branch
+            enabled
+            batchTime
+            remotePath
+            dispatchingDisabled
+            deactivatePrevious
+            repotrackerDisabled
+            tracksPushEvents
+            prTestingEnabled
+            commitQueue {
+              enabled
+            }
+            stepbackDisabled
+            stepbackBisect
+            hidden
+            patchingDisabled
+            admins
+            notifyOnBuildFailure
+            spawnHostScriptPath
+            githubChecksEnabled
+            workstationConfig {
+              gitClone
+              setupCommands
+            }
+            disabledStatsCache
+            buildBaronSettings {
+              ticketCreateProject
+              ticketSearchProjects
+              ticketCreateIssueType
+            }
+            taskAnnotationSettings {
+              fileTicketWebhook {
+                endpoint
+                secret
+              }
+            }
+            perfEnabled
+            versionControlEnabled
+            externalLinks {
+              displayName
+              url
+            }
+            banner
+            patchTriggerAliases
+            githubTriggerAliases
+            triggers
+            periodicBuilds
+            manualPrTestingEnabled
+            restricted
+            oldestAllowedMergeBase
+            gitTagVersionsEnabled
+            gitTagAuthorizedUsers
+            gitTagAuthorizedTeams
+            parsleyFilters
+            projectHealthView
+            githubDynamicTokenPermissionGroups
+          }
+          vars {
+            vars
+            privateVars
+            adminOnlyVars
+          }
+          aliases
+          subscriptions
+          githubWebhooksEnabled
+        }
+      }
+    }
+  }
+`;
 import { ProjectType } from "../utils";
 import { EventLogTab } from "./EventLogTab";
 

@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -14,7 +15,29 @@ import {
   ImageEventsQueryVariables,
   ImageEventEntryAction,
 } from "gql/generated/types";
-import IMAGE_EVENTS from "gql/queries/image-events.graphql";
+
+const IMAGE_EVENTS = gql`
+  query ImageEvents($imageId: String!, $before: Time, $limit: Int) {
+    imageEvents(imageId: $imageId, before: $before, limit: $limit) {
+      count
+      eventLogEntries {
+        timestamp
+        user
+        ami {
+          before
+          after
+        }
+        entries {
+          name
+          type
+          before
+          after
+          action
+        }
+      }
+    }
+  }
+`;
 import { EventLogTab } from "./EventLogTab";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
