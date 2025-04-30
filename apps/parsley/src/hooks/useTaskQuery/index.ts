@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { LogTypes } from "constants/enums";
 import {
   BaseTaskFragment,
@@ -9,8 +9,43 @@ import {
   TaskQueryVariables,
   TaskTestResult,
 } from "gql/generated/types";
-import GET_LOGKEEPER_TASK from "gql/queries/get-logkeeper-task.graphql";
-import GET_TASK from "gql/queries/get-task.graphql";
+
+const GET_TASK = gql`
+  query Task($taskId: String!, $execution: Int) {
+    task(taskId: $taskId, execution: $execution) {
+      id
+      displayName
+      displayStatus
+      execution
+      logs {
+        agentLogLink
+        allLogLink
+        systemLogLink
+        taskLogLink
+      }
+      patchNumber
+      versionMetadata {
+        id
+        isPatch
+        message
+        projectIdentifier
+        revision
+      }
+    }
+  }
+`;
+
+const GET_LOGKEEPER_TASK = gql`
+  query LogkeeperTask($buildId: String!) {
+    logkeeperBuildMetadata(buildId: $buildId) {
+      task {
+        id
+        displayName
+        execution
+      }
+    }
+  }
+`;
 
 interface UseTaskQueryProps {
   logType?: LogTypes;
