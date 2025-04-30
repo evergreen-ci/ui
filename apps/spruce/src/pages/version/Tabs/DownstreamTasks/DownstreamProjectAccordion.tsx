@@ -124,7 +124,6 @@ export const DownstreamProjectAccordion: React.FC<
             loading={showSkeleton}
             page={page}
             taskCount={taskCount}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             tasks={tasksData}
           />
         </AccordionContents>
