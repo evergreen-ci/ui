@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -14,8 +15,29 @@ import {
   UserDistroSettingsPermissionsQuery,
   UserDistroSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
-import DELETE_DISTRO from "gql/mutations/delete-distro.graphql";
-import USER_DISTRO_SETTINGS_PERMISSIONS from "gql/queries/user-distro-settings-permissions.graphql";
+
+const DELETE_DISTRO = gql`
+  mutation DeleteDistro($distroId: String!) {
+    deleteDistro(distroId: $distroId) {
+      deletedDistroId
+    }
+  }
+`;
+
+const USER_DISTRO_SETTINGS_PERMISSIONS = gql`
+  query UserDistroSettingsPermissions($distroId: String!) {
+    user {
+      userId
+      permissions {
+        canCreateDistro
+        distroPermissions(distroId: $distroId) {
+          admin
+          edit
+        }
+      }
+    }
+  }
+`;
 import { DeleteDistro } from ".";
 
 const DeleteButton = ({ isAdmin = false }: { isAdmin?: boolean }) => (

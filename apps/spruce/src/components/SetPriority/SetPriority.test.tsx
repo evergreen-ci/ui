@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch,
@@ -13,8 +14,22 @@ import {
   SetTaskPriorityMutation,
   SetTaskPriorityMutationVariables,
 } from "gql/generated/types";
-import SET_TASK_PRIORITY from "gql/mutations/set-task-priority.graphql";
-import SET_VERSION_PRIORITY from "gql/mutations/set-version-priority.graphql";
+
+const SET_TASK_PRIORITY = gql`
+  mutation SetTaskPriority($taskId: String!, $priority: Int!) {
+    setTaskPriority(taskId: $taskId, priority: $priority) {
+      id
+      execution
+      priority
+    }
+  }
+`;
+
+const SET_VERSION_PRIORITY = gql`
+  mutation SetVersionPriority($versionId: String!, $priority: Int!) {
+    setVersionPriority(versionId: $versionId, priority: $priority)
+  }
+`;
 import SetPriority from ".";
 
 describe("setPriority", () => {

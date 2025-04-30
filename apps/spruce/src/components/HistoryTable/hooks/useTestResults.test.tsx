@@ -1,10 +1,21 @@
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { gql } from "@apollo/client";
 import {
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
 } from "gql/generated/types";
-import TASK_TEST_SAMPLE from "gql/queries/task-test-sample.graphql";
+
+const TASK_TEST_SAMPLE = gql`
+  query TaskTestSample($versionId: String!, $taskIds: [String!]!, $filters: [TestFilter!]) {
+    taskTestSample(versionId: $versionId, taskIds: $taskIds, filters: $filters) {
+      taskId
+      execution
+      matchingFailedTestNames
+      totalTestCount
+    }
+  }
+`;
 import { TestStatus } from "types/history";
 import { useHistoryTable } from "../HistoryTableContext";
 import { mainlineCommitData } from "../testData";

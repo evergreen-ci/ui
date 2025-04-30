@@ -1,10 +1,19 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { GraphQLError } from "graphql";
 import { MemoryRouter, Routes, Route, useLocation } from "react-router-dom";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { ProjectQuery, ProjectQueryVariables } from "gql/generated/types";
-import PROJECT from "gql/queries/project.graphql";
+
+const PROJECT = gql`
+  query Project($idOrIdentifier: String!) {
+    project(projectId: $idOrIdentifier) {
+      id
+      identifier
+    }
+  }
+`;
 import { useProjectRedirect } from ".";
 
 const useJointHook = (props: Parameters<typeof useProjectRedirect>[0]) => {

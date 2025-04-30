@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -12,7 +13,22 @@ import {
   ImageOperatingSystemQuery,
   ImageOperatingSystemQueryVariables,
 } from "gql/generated/types";
-import IMAGE_OPERATING_SYSTEM from "gql/queries/image-operating-system.graphql";
+
+const IMAGE_OPERATING_SYSTEM = gql`
+  query ImageOperatingSystem($imageId: String!, $opts: ImageOperatingSystemOptions) {
+    image(id: $imageId) {
+      id
+      operatingSystem(opts: $opts) {
+        data {
+          name
+          version
+        }
+        filteredCount
+        totalCount
+      }
+    }
+  }
+`;
 import { OperatingSystemTable } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

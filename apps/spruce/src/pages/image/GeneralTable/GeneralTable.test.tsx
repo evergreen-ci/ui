@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -11,7 +12,21 @@ import {
   ImageGeneralQuery,
   ImageGeneralQueryVariables,
 } from "gql/generated/types";
-import IMAGE_GENERAL from "gql/queries/image-general.graphql";
+
+const IMAGE_GENERAL = gql`
+  query ImageGeneral($imageId: String!) {
+    image(imageId: $imageId) {
+      id
+      ami
+      lastDeployed
+      latestTask {
+        id
+        execution
+        finishTime
+      }
+    }
+  }
+`;
 import { GeneralTable } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

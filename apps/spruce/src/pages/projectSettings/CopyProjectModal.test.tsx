@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
@@ -18,9 +19,125 @@ import {
   RepoSettingsQuery,
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
-import COPY_PROJECT from "gql/mutations/copy-project.graphql";
-import PROJECT_SETTINGS from "gql/queries/project-settings.graphql";
-import REPO_SETTINGS from "gql/queries/repo-settings.graphql";
+
+const COPY_PROJECT = gql`
+  mutation CopyProject($project: CopyProjectInput!, $requestS3Creds: Boolean!) {
+    copyProject(project: $project, requestS3Creds: $requestS3Creds) {
+      id
+      identifier
+    }
+  }
+`;
+
+const PROJECT_SETTINGS = gql`
+  query ProjectSettings($projectIdentifier: String!) {
+    projectSettings(projectIdentifier: $projectIdentifier) {
+      projectRef {
+        id
+        identifier
+        repoRefId
+        enabled
+        owner
+        repo
+        branch
+        displayName
+        batchTime
+        remotePath
+        spawnHostScriptPath
+        oldestAllowedMergeBase
+        dispatchingDisabled
+        versionControlEnabled
+        deactivatePrevious
+        repotrackerDisabled
+        stepbackDisabled
+        stepbackBisect
+        patchingDisabled
+        disabledStatsCache
+        restricted
+        admins
+        buildBaronSettings {
+          ticketCreateProject
+          ticketCreateIssueType
+          ticketSearchProjects
+        }
+        taskAnnotationSettings {
+          fileTicketWebhook {
+            endpoint
+            secret
+          }
+        }
+        perfEnabled
+        notifyOnBuildFailure
+        patchTriggerAliases
+        githubTriggerAliases
+        workstationConfig {
+          gitClone
+          setupCommands
+        }
+        triggers {
+          project
+          level
+          buildVariantRegex
+          taskRegex
+          status
+          dateCutoff
+          configFile
+          alias
+        }
+        periodicBuilds {
+          id
+          alias
+          interval
+          configFile
+          message
+          nextRunTime
+        }
+        projectHealthView
+        prTestingEnabled
+        manualPrTestingEnabled
+        githubChecksEnabled
+        gitTagVersionsEnabled
+        gitTagAuthorizedUsers
+        gitTagAuthorizedTeams
+        commitQueue {
+          enabled
+        }
+        externalLinks {
+          displayName
+          url
+        }
+        githubDynamicTokenPermissionGroups
+      }
+      subscriptions
+      vars {
+        vars
+        privateVars
+        adminOnlyVars
+      }
+      aliases {
+        id
+        alias
+        description
+        gitTag
+        variant
+        task
+        remotePath
+        variantTags
+        taskTags
+        parameters
+      }
+      githubWebhooksEnabled
+    }
+  }
+`;
+
+const REPO_SETTINGS = gql`
+  query RepoSettings($repoId: String!) {
+    repoSettings(repoId: $repoId) {
+      githubWebhooksEnabled
+    }
+  }
+`;
 import { CopyProjectModal } from "./CopyProjectModal";
 
 const newProjectIdentifier = "new_evergreen";

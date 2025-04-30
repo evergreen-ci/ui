@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   userEvent,
@@ -19,9 +20,61 @@ import {
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
 import { myVolumesQueryMock } from "gql/mocks/myVolumesQuery";
-import SPAWN_VOLUME from "gql/mutations/spawn-volume.graphql";
-import MY_HOSTS from "gql/queries/my-hosts.graphql";
-import SUBNET_AVAILABILITY_ZONES from "gql/queries/subnet-availability-zones.graphql";
+
+const SPAWN_VOLUME = gql`
+  mutation SpawnVolume($spawnVolumeInput: SpawnVolumeInput!) {
+    spawnVolume(spawnVolumeInput: $spawnVolumeInput)
+  }
+`;
+
+const MY_HOSTS = gql`
+  query MyHosts {
+    myHosts {
+      displayName
+      id
+      hostUrl
+      distro {
+        id
+        user
+        workDir
+        isVirtualWorkStation
+        isWindows
+      }
+      homeVolumeID
+      homeVolume {
+        id
+        displayName
+      }
+      instanceType
+      availabilityZone
+      provider
+      status
+      startedBy
+      tag
+      volumes {
+        id
+        displayName
+        migrating
+      }
+      uptime
+      expiration
+      noExpiration
+      persistentDnsName
+      instanceTags {
+        key
+        value
+        canBeModified
+      }
+      user
+    }
+  }
+`;
+
+const SUBNET_AVAILABILITY_ZONES = gql`
+  query SubnetAvailabilityZones {
+    subnetAvailabilityZones
+  }
+`;
 import { selectLGOption } from "test_utils/utils";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 

@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -8,7 +9,53 @@ import {
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import MY_HOSTS from "gql/queries/my-hosts.graphql";
+
+const MY_HOSTS = gql`
+  query MyHosts {
+    myHosts {
+      id
+      displayName
+      distro {
+        id
+        user
+        workDir
+        isVirtualWorkStation
+        isWindows
+        __typename
+      }
+      hostUrl
+      homeVolume {
+        id
+        displayName
+      }
+      homeVolumeID
+      instanceType
+      instanceTags {
+        key
+        value
+        canBeModified
+        __typename
+      }
+      noExpiration
+      persistentDnsName
+      provider
+      startedBy
+      status
+      tag
+      uptime
+      expiration
+      user
+      volumes {
+        id
+        displayName
+        migrating
+        __typename
+      }
+      availabilityZone
+      __typename
+    }
+  }
+`;
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { SpawnHostButton } from "./SpawnHostButton";

@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch,
@@ -14,8 +15,66 @@ import {
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
-import BASE_VERSION_AND_TASK from "gql/queries/base-version-and-task.graphql";
-import LAST_MAINLINE_COMMIT from "gql/queries/last-mainline-commit.graphql";
+
+const BASE_VERSION_AND_TASK = gql`
+  query BaseVersionAndTask($taskId: String!) {
+    task(taskId: $taskId) {
+      id
+      execution
+      displayName
+      buildVariant
+      projectIdentifier
+      displayStatus
+      baseTask {
+        id
+        execution
+        displayStatus
+      }
+      versionMetadata {
+        baseVersion {
+          id
+          order
+        }
+        isPatch
+        author
+        message
+        project
+        projectIdentifier
+        revision
+        order
+        id
+      }
+    }
+  }
+`;
+
+const LAST_MAINLINE_COMMIT = gql`
+  query LastMainlineCommit(
+    $projectIdentifier: String!
+    $skipOrderNumber: Int!
+    $buildVariantOptions: BuildVariantOptions!
+  ) {
+    mainlineCommits(
+      projectIdentifier: $projectIdentifier
+      skipOrderNumber: $skipOrderNumber
+      buildVariantOptions: $buildVariantOptions
+    ) {
+      versions {
+        version {
+          id
+          buildVariants {
+            tasks {
+              id
+              execution
+              order
+              displayStatus
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 import { RelevantCommits } from ".";
 
 describe("relevant commits", () => {

@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -23,9 +24,73 @@ import {
 } from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
 import { myVolumesQueryMock } from "gql/mocks/myVolumesQuery";
-import INSTANCE_TYPES from "gql/queries/instance-types.graphql";
-import MY_HOSTS from "gql/queries/my-hosts.graphql";
-import MY_PUBLIC_KEYS from "gql/queries/public-keys.graphql";
+
+const INSTANCE_TYPES = gql`
+  query InstanceTypes {
+    instanceTypes
+  }
+`;
+
+const MY_HOSTS = gql`
+  query MyHosts {
+    myHosts {
+      id
+      distro {
+        isVirtualWorkStation
+        id
+        user
+        workDir
+        isWindows
+      }
+      expiration
+      hostUrl
+      homeVolumeID
+      homeVolume {
+        id
+        displayName
+      }
+      instanceType
+      instanceTags {
+        key
+        value
+        canBeModified
+      }
+      volumes {
+        displayName
+        id
+        migrating
+      }
+      noExpiration
+      persistentDnsName
+      provider
+      startedBy
+      status
+      tag
+      user
+      uptime
+      displayName
+      availabilityZone
+      sleepSchedule {
+        day
+        startTime
+        stopTime
+        isEnabled
+        runContinuously
+        temporarilyExemptUntil
+        timeZone
+      }
+    }
+  }
+`;
+
+const MY_PUBLIC_KEYS = gql`
+  query MyPublicKeys {
+    myPublicKeys {
+      name
+      key
+    }
+  }
+`;
 import { MyHost } from "types/spawn";
 import { EditSpawnHostModal } from "./EditSpawnHostModal";
 

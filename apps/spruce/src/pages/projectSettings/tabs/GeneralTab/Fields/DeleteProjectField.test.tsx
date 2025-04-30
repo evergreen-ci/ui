@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { FieldProps } from "@rjsf/core";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
@@ -11,7 +12,12 @@ import {
   DeleteProjectMutation,
   DeleteProjectMutationVariables,
 } from "gql/generated/types";
-import DELETE_PROJECT from "gql/mutations/delete-project.graphql";
+
+const DELETE_PROJECT = gql`
+  mutation DeleteProject($projectId: String!) {
+    deleteProject(projectId: $projectId)
+  }
+`;
 import { DeleteProjectField } from ".";
 
 const Field = () => (

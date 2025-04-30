@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -10,7 +11,19 @@ import {
   TaskOwnerTeamsForTaskQuery,
   TaskOwnerTeamsForTaskQueryVariables,
 } from "gql/generated/types";
-import TASK_OWNER_TEAM from "gql/queries/task-owner-team.graphql";
+
+const TASK_OWNER_TEAM = gql`
+  query TaskOwnerTeamsForTask($taskId: String!, $execution: Int!) {
+    task(taskId: $taskId, execution: $execution) {
+      id
+      execution
+      taskOwnerTeam {
+        teamName
+        messages
+      }
+    }
+  }
+`;
 import TaskOwnership from ".";
 
 const taskId = "task123";

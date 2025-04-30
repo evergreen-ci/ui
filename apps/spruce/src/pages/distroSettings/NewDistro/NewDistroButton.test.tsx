@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -11,7 +12,21 @@ import {
   UserDistroSettingsPermissionsQuery,
   UserDistroSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
-import USER_DISTRO_SETTINGS_PERMISSIONS from "gql/queries/user-distro-settings-permissions.graphql";
+
+const USER_DISTRO_SETTINGS_PERMISSIONS = gql`
+  query UserDistroSettingsPermissions($distroId: String!) {
+    user {
+      userId
+      permissions {
+        canCreateDistro
+        distroPermissions(distroId: $distroId) {
+          admin
+          edit
+        }
+      }
+    }
+  }
+`;
 import { NewDistroButton } from "./NewDistroButton";
 
 const Button = ({ mock = hasPermissionsMock }: { mock?: MockedResponse }) => (

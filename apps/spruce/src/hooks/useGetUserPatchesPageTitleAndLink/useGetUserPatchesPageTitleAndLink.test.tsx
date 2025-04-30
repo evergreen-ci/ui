@@ -1,8 +1,20 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
-import OTHER_USER from "gql/queries/other-user.graphql";
+
+const OTHER_USER = gql`
+  query OtherUser($userId: String!) {
+    otherUser(userId: $userId) {
+      userId
+      displayName
+    }
+    currentUser {
+      userId
+    }
+  }
+`;
 import { useGetUserPatchesPageTitleAndLink } from ".";
 
 const mocks: ApolloMock<OtherUserQuery, OtherUserQueryVariables>[] = [

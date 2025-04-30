@@ -1,4 +1,5 @@
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
@@ -7,8 +8,60 @@ import {
   LastMainlineCommitQuery,
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
-import BASE_VERSION_AND_TASK from "gql/queries/base-version-and-task.graphql";
-import LAST_MAINLINE_COMMIT from "gql/queries/last-mainline-commit.graphql";
+
+const BASE_VERSION_AND_TASK = gql`
+  query BaseVersionAndTask($taskId: String!) {
+    task(taskId: $taskId) {
+      id
+      execution
+      displayName
+      buildVariant
+      projectIdentifier
+      displayStatus
+      versionMetadata {
+        baseVersion {
+          id
+          order
+        }
+        isPatch
+        id
+      }
+      baseTask {
+        id
+        execution
+        displayStatus
+      }
+    }
+  }
+`;
+
+const LAST_MAINLINE_COMMIT = gql`
+  query LastMainlineCommit(
+    $projectIdentifier: String!
+    $skipOrderNumber: Int!
+    $buildVariantOptions: BuildVariantOptions!
+  ) {
+    mainlineCommits(
+      projectIdentifier: $projectIdentifier
+      skipOrderNumber: $skipOrderNumber
+      buildVariantOptions: $buildVariantOptions
+    ) {
+      versions {
+        version {
+          id
+          buildVariants {
+            tasks {
+              id
+              execution
+              order
+              displayStatus
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 import { useLastPassingTask } from ".";
 
 interface ProviderProps {

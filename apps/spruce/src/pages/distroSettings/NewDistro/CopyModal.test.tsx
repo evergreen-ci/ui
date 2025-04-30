@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
@@ -13,7 +14,14 @@ import {
   CopyDistroMutation,
   CopyDistroMutationVariables,
 } from "gql/generated/types";
-import COPY_DISTRO from "gql/mutations/copy-distro.graphql";
+
+const COPY_DISTRO = gql`
+  mutation CopyDistro($opts: CopyDistroInput!) {
+    copyDistro(opts: $opts) {
+      newDistroId
+    }
+  }
+`;
 import { CopyModal } from "./CopyModal";
 
 const distroIdToCopy = "rhel71-power8-large";

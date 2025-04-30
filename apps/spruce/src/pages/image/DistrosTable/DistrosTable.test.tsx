@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -12,7 +13,22 @@ import {
   ImageDistrosQueryVariables,
   Provider,
 } from "gql/generated/types";
-import IMAGE_DISTROS from "gql/queries/image-distros.graphql";
+
+const IMAGE_DISTROS = gql`
+  query ImageDistros($imageId: String!) {
+    image(id: $imageId) {
+      id
+      distros {
+        name
+        provider
+        providerSettingsList
+        hostAllocatorSettings {
+          maximumHosts
+        }
+      }
+    }
+  }
+`;
 import { DistrosTable } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

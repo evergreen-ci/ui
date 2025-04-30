@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { renderHook } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
@@ -8,8 +9,75 @@ import {
   MyVolumesQueryVariables,
 } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import MY_HOSTS from "gql/queries/my-hosts.graphql";
-import MY_VOLUMES from "gql/queries/my-volumes.graphql";
+
+const MY_HOSTS = gql`
+  query MyHosts {
+    myHosts {
+      displayName
+      expiration
+      distro {
+        isVirtualWorkStation
+        id
+        user
+        workDir
+        isWindows
+        __typename
+      }
+      hostUrl
+      homeVolumeID
+      homeVolume {
+        id
+        displayName
+      }
+      id
+      instanceType
+      instanceTags
+      noExpiration
+      persistentDnsName
+      provider
+      status
+      startedBy
+      tag
+      user
+      uptime
+      volumes {
+        displayName
+        id
+        migrating
+        __typename
+      }
+      availabilityZone
+      __typename
+    }
+  }
+`;
+
+const MY_VOLUMES = gql`
+  query MyVolumes {
+    myVolumes {
+      displayName
+      id
+      createdBy
+      type
+      availabilityZone
+      size
+      expiration
+      deviceName
+      hostID
+      host {
+        displayName
+        id
+        noExpiration
+        __typename
+      }
+      homeVolume
+      creationTime
+      noExpiration
+      migrating
+      __typename
+    }
+  }
+`;
 import { useDisableSpawnExpirationCheckbox } from ".";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.

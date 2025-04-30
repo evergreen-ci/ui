@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -10,7 +11,22 @@ import {
   FailedTaskStatusIconTooltipQuery,
   FailedTaskStatusIconTooltipQueryVariables,
 } from "gql/generated/types";
-import FAILED_TASK_STATUS_ICON_TOOLTIP from "gql/queries/failed-task-status-icon-tooltip.graphql";
+
+const FAILED_TASK_STATUS_ICON_TOOLTIP = gql`
+  query FailedTaskStatusIconTooltip($taskId: String!) {
+    task(taskId: $taskId) {
+      id
+      execution
+      tests {
+        filteredTestCount
+        testResults {
+          id
+          testFile
+        }
+      }
+    }
+  }
+`;
 import {
   injectGlobalHighlightStyle,
   removeGlobalHighlightStyle,

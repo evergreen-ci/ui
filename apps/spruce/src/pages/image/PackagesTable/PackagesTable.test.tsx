@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -12,7 +13,23 @@ import {
   ImagePackagesQuery,
   ImagePackagesQueryVariables,
 } from "gql/generated/types";
-import IMAGE_PACKAGES from "gql/queries/image-packages.graphql";
+
+const IMAGE_PACKAGES = gql`
+  query ImagePackages($imageId: String!, $opts: ImagePackagesOptions) {
+    image(id: $imageId) {
+      id
+      packages(opts: $opts) {
+        data {
+          manager
+          name
+          version
+        }
+        filteredCount
+        totalCount
+      }
+    }
+  }
+`;
 import { PackagesTable } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

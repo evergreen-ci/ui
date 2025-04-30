@@ -1,11 +1,37 @@
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
 } from "gql/generated/types";
-import BASE_VERSION_AND_TASK from "gql/queries/base-version-and-task.graphql";
+
+const BASE_VERSION_AND_TASK = gql`
+  query BaseVersionAndTask($taskId: String!) {
+    task(taskId: $taskId) {
+      id
+      execution
+      displayName
+      buildVariant
+      projectIdentifier
+      displayStatus
+      versionMetadata {
+        baseVersion {
+          id
+          order
+        }
+        isPatch
+        id
+      }
+      baseTask {
+        id
+        execution
+        displayStatus
+      }
+    }
+  }
+`;
 import { useParentTask } from ".";
 
 interface ProviderProps {

@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { FieldProps } from "@rjsf/core";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
@@ -19,10 +20,39 @@ import {
   GithubOrgsQuery,
   GithubOrgsQueryVariables,
 } from "gql/generated/types";
-import ATTACH_PROJECT_TO_NEW_REPO from "gql/mutations/attach-project-to-new-repo.graphql";
-import ATTACH_PROJECT_TO_REPO from "gql/mutations/attach-project-to-repo.graphql";
-import DETACH_PROJECT_FROM_REPO from "gql/mutations/detach-project-from-repo.graphql";
-import GITHUB_ORGS from "gql/queries/github-orgs.graphql";
+
+const ATTACH_PROJECT_TO_NEW_REPO = gql`
+  mutation AttachProjectToNewRepo($project: AttachToNewRepoInput!) {
+    attachProjectToNewRepo(project: $project) {
+      id
+      repoRefId
+    }
+  }
+`;
+
+const ATTACH_PROJECT_TO_REPO = gql`
+  mutation AttachProjectToRepo($projectId: String!) {
+    attachProjectToRepo(projectId: $projectId) {
+      id
+    }
+  }
+`;
+
+const DETACH_PROJECT_FROM_REPO = gql`
+  mutation DetachProjectFromRepo($projectId: String!) {
+    detachProjectFromRepo(projectId: $projectId) {
+      id
+    }
+  }
+`;
+
+const GITHUB_ORGS = gql`
+  query GithubOrgs {
+    spruceConfig {
+      githubOrgs
+    }
+  }
+`;
 import { selectLGOption } from "test_utils/utils";
 import { ProjectType } from "../../utils";
 import { AttachDetachModal } from "./AttachDetachModal";

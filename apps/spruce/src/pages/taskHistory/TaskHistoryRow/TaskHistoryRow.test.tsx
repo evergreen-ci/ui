@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -14,7 +15,17 @@ import {
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
 } from "gql/generated/types";
-import TASK_TEST_SAMPLE from "gql/queries/task-test-sample.graphql";
+
+const TASK_TEST_SAMPLE = gql`
+  query TaskTestSample($versionId: String!, $taskIds: [String!]!, $filters: [TestFilter!]) {
+    taskTestSample(versionId: $versionId, taskIds: $taskIds, filters: $filters) {
+      taskId
+      execution
+      matchingFailedTestNames
+      totalTestCount
+    }
+  }
+`;
 import { TestStatus } from "types/history";
 import TaskHistoryRow from ".";
 

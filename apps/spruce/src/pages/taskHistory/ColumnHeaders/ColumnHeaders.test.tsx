@@ -1,4 +1,5 @@
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
+import { gql } from "@apollo/client";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -13,7 +14,15 @@ import {
   BuildVariantsForTaskNameQueryVariables,
   BuildVariantTuple,
 } from "gql/generated/types";
-import BUILD_VARIANTS_FOR_TASK_NAME from "gql/queries/build-variants-for-task-name.graphql";
+
+const BUILD_VARIANTS_FOR_TASK_NAME = gql`
+  query BuildVariantsForTaskName($projectIdentifier: String!, $taskName: String!) {
+    buildVariantsForTaskName(projectIdentifier: $projectIdentifier, taskName: $taskName) {
+      buildVariant
+      displayName
+    }
+  }
+`;
 import { string } from "utils";
 import ColumnHeaders from ".";
 

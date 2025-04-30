@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
@@ -15,8 +16,23 @@ import {
   GithubOrgsQuery,
   GithubOrgsQueryVariables,
 } from "gql/generated/types";
-import CREATE_PROJECT from "gql/mutations/create-project.graphql";
-import GITHUB_ORGS from "gql/queries/github-orgs.graphql";
+
+const CREATE_PROJECT = gql`
+  mutation CreateProject($project: NewProject!, $requestS3Creds: Boolean!) {
+    createProject(project: $project, requestS3Creds: $requestS3Creds) {
+      id
+      identifier
+    }
+  }
+`;
+
+const GITHUB_ORGS = gql`
+  query GithubOrgs {
+    spruceConfig {
+      githubOrgs
+    }
+  }
+`;
 import { selectLGOption } from "test_utils/utils";
 import { CreateProjectModal } from "./CreateProjectModal";
 

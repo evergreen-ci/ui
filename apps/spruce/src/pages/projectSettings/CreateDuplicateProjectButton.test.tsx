@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -13,8 +14,28 @@ import {
   GithubOrgsQuery,
   GithubOrgsQueryVariables,
 } from "gql/generated/types";
-import GITHUB_ORGS from "gql/queries/github-orgs.graphql";
-import USER_PROJECT_SETTINGS_PERMISSIONS from "gql/queries/user-project-settings-permissions.graphql";
+
+const GITHUB_ORGS = gql`
+  query GithubOrgs {
+    spruceConfig {
+      githubOrgs
+    }
+  }
+`;
+
+const USER_PROJECT_SETTINGS_PERMISSIONS = gql`
+  query UserProjectSettingsPermissions($projectIdentifier: String!) {
+    user {
+      userId
+      permissions {
+        canCreateProject
+        projectPermissions(projectIdentifier: $projectIdentifier) {
+          edit
+        }
+      }
+    }
+  }
+`;
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { ProjectType } from "./tabs/utils";
 

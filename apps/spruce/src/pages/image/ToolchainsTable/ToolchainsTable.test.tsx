@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -12,7 +13,23 @@ import {
   ImageToolchainsQuery,
   ImageToolchainsQueryVariables,
 } from "gql/generated/types";
-import IMAGE_TOOLCHAINS from "gql/queries/image-toolchains.graphql";
+
+const IMAGE_TOOLCHAINS = gql`
+  query ImageToolchains($imageId: String!, $opts: ImageToolchainsOptions) {
+    image(id: $imageId) {
+      id
+      toolchains(opts: $opts) {
+        data {
+          name
+          path
+          version
+        }
+        filteredCount
+        totalCount
+      }
+    }
+  }
+`;
 import { ToolchainsTable } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

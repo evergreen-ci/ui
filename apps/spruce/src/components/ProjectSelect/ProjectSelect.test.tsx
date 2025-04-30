@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch,
@@ -14,8 +15,42 @@ import {
   ViewableProjectRefsQuery,
   ViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
-import PROJECTS from "gql/queries/projects.graphql";
-import VIEWABLE_PROJECTS from "gql/queries/viewable-projects.graphql";
+
+const PROJECTS = gql`
+  query Projects {
+    projects {
+      groupDisplayName
+      projects {
+        id
+        identifier
+        repo
+        owner
+        displayName
+        isFavorite
+      }
+    }
+  }
+`;
+
+const VIEWABLE_PROJECTS = gql`
+  query ViewableProjectRefs {
+    viewableProjectRefs {
+      groupDisplayName
+      repo {
+        id
+      }
+      projects {
+        id
+        identifier
+        repo
+        owner
+        displayName
+        isFavorite
+        enabled
+      }
+    }
+  }
+`;
 
 import { ProjectSelect } from ".";
 

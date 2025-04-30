@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -10,7 +11,21 @@ import {
   DistroEventsQuery,
   DistroEventsQueryVariables,
 } from "gql/generated/types";
-import DISTRO_EVENTS from "gql/queries/distro-events.graphql";
+
+const DISTRO_EVENTS = gql`
+  query DistroEvents($distroId: String!, $limit: Int) {
+    distroEvents(distroId: $distroId, limit: $limit) {
+      count
+      eventLogEntries {
+        timestamp
+        user
+        before
+        after
+        data
+      }
+    }
+  }
+`;
 import { EventLogTab } from "./EventLogTab";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.

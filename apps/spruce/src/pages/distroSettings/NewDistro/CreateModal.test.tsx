@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
@@ -13,7 +14,14 @@ import {
   CreateDistroMutation,
   CreateDistroMutationVariables,
 } from "gql/generated/types";
-import CREATE_DISTRO from "gql/mutations/create-distro.graphql";
+
+const CREATE_DISTRO = gql`
+  mutation CreateDistro($opts: NewDistroInput!) {
+    createDistro(opts: $opts) {
+      newDistroId
+    }
+  }
+`;
 import { CreateModal } from "./CreateModal";
 
 const newDistroId = "new-distro";
