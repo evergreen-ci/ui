@@ -19,8 +19,8 @@ import {
   slugs,
 } from "constants/routes";
 import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
-import USER from "gql/queries/user.graphql";
 import SPRUCE_CONFIG from "gql/queries/spruce-config.graphql";
+import USER from "gql/queries/user.graphql";
 import { useLegacyUIURL } from "hooks";
 import { validators } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";

@@ -8,8 +8,8 @@ import {
   MyVolumesQueryVariables,
 } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import MY_VOLUMES from "gql/queries/my-volumes.graphql";
 import MY_HOSTS from "gql/queries/my-hosts.graphql";
+import MY_VOLUMES from "gql/queries/my-volumes.graphql";
 import { useDisableSpawnExpirationCheckbox } from ".";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.

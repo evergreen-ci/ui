@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import TextArea from "@leafygreen-ui/text-area";
 import TextInput from "@leafygreen-ui/text-input";
+import MY_PUBLIC_KEYS from "gql/queries/my-public-keys.graphql";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
@@ -18,7 +19,6 @@ import {
 } from "gql/generated/types";
 import CREATE_PUBLIC_KEY from "gql/mutations/create-public-key.graphql";
 import UPDATE_PUBLIC_KEY from "gql/mutations/update-public-key.graphql";
-import MY_PUBLIC_KEYS from "gql/queries/my-public-keys.graphql";
 import { validators, string } from "utils";
 
 const { validateSSHPublicKey } = validators;

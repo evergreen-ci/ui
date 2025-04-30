@@ -6,8 +6,8 @@ import {
   MyHostsQuery,
   MyHostsQueryVariables,
 } from "gql/generated/types";
-import SUBNET_AVAILABILITY_ZONES from "gql/queries/subnet-availability-zones.graphql";
 import MY_HOSTS from "gql/queries/my-hosts.graphql";
+import SUBNET_AVAILABILITY_ZONES from "gql/queries/subnet-availability-zones.graphql";
 import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
 import { getNoExpirationCheckboxTooltipCopy } from "../utils";
 

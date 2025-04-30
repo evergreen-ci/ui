@@ -3,6 +3,8 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Code from "@leafygreen-ui/code";
+import HOST from "gql/queries/host.graphql";
+import HOST_EVENTS from "gql/queries/host-events.graphql";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -26,7 +28,6 @@ import {
   HostEventsQueryVariables,
   HostEventType,
 } from "gql/generated/types";
-import { HOST, HOST_EVENTS } from "gql/queries/index";
 import usePagination from "hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
 import { HostStatus } from "types/host";

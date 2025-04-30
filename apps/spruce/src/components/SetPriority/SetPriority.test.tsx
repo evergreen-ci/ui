@@ -13,8 +13,8 @@ import {
   SetTaskPriorityMutation,
   SetTaskPriorityMutationVariables,
 } from "gql/generated/types";
-import SET_VERSION_PRIORITY from "gql/mutations/set-version-priority.graphql";
 import SET_TASK_PRIORITY from "gql/mutations/set-task-priority.graphql";
+import SET_VERSION_PRIORITY from "gql/mutations/set-version-priority.graphql";
 import SetPriority from ".";
 
 describe("setPriority", () => {

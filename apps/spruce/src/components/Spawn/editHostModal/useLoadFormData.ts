@@ -8,8 +8,8 @@ import {
   MyVolumesQueryVariables,
 } from "gql/generated/types";
 import INSTANCE_TYPES from "gql/queries/instance-types.graphql";
-import MY_PUBLIC_KEYS from "gql/queries/public-keys.graphql";
 import MY_VOLUMES from "gql/queries/my-volumes.graphql";
+import MY_PUBLIC_KEYS from "gql/queries/public-keys.graphql";
 import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
 import { MyHost } from "types/spawn";
 import { getNoExpirationCheckboxTooltipCopy } from "../utils";

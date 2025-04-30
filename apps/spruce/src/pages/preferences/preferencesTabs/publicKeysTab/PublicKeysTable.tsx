@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { useLeafyGreenTable } from "@leafygreen-ui/table";
+import MY_PUBLIC_KEYS from "gql/queries/my-public-keys.graphql";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -19,7 +20,6 @@ import {
   RemovePublicKeyMutationVariables,
 } from "gql/generated/types";
 import REMOVE_PUBLIC_KEY from "gql/mutations/remove-public-key.graphql";
-import MY_PUBLIC_KEYS from "gql/queries/my-public-keys.graphql";
 import { EditModalPropsState } from "./EditModal";
 
 type PublicKeysTableProps = {
