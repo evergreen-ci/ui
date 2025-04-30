@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -12,9 +13,39 @@ import {
   RemoveAnnotationIssueMutationVariables,
 } from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";
-import MOVE_ANNOTATION from "gql/mutations/move-annotation.graphql";
-import REMOVE_ANNOTATION from "gql/mutations/remove-annotation.graphql";
 import AnnotationTicketsList from ".";
+
+const MOVE_ANNOTATION = gql`
+  mutation MoveAnnotationIssue(
+    $taskId: String!
+    $execution: Int!
+    $apiIssue: APIIssueInput!
+    $isIssue: Boolean!
+  ) {
+    moveAnnotationIssue(
+      taskId: $taskId
+      execution: $execution
+      apiIssue: $apiIssue
+      isIssue: $isIssue
+    )
+  }
+`;
+
+const REMOVE_ANNOTATION = gql`
+  mutation RemoveAnnotationIssue(
+    $taskId: String!
+    $execution: Int!
+    $apiIssue: APIIssueInput!
+    $isIssue: Boolean!
+  ) {
+    removeAnnotationIssue(
+      taskId: $taskId
+      execution: $execution
+      apiIssue: $apiIssue
+      isIssue: $isIssue
+    )
+  }
+`;
 
 const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";

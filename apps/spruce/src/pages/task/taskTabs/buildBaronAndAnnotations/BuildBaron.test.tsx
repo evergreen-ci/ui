@@ -1,3 +1,5 @@
+import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -22,14 +24,78 @@ import {
   getUserSettingsMock,
 } from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
-import FILE_JIRA_TICKET from "gql/mutations/file-jira-ticket.graphql";
-import BUILD_BARON from "gql/queries/build-baron.graphql";
-import CREATED_TICKETS from "gql/queries/created-tickets.graphql";
-import JIRA_CUSTOM_CREATED_ISSUES from "gql/queries/jira-custom-created-issues.graphql";
-import JIRA_ISSUES from "gql/queries/jira-issues.graphql";
-import JIRA_SUSPECTED_ISSUES from "gql/queries/jira-suspected-issues.graphql";
-import { MockedProvider } from "test_utils/graphql";
+import { MockedProvider as TestMockedProvider } from "test_utils/graphql";
 import BuildBaronContent from "./BuildBaronContent";
+
+const FILE_JIRA_TICKET = gql`
+  mutation BuildBaronCreateTicket($taskId: String!, $execution: Int!) {
+    bbCreateTicket(taskId: $taskId, execution: $execution)
+  }
+`;
+
+const BUILD_BARON = gql`
+  query BuildBaron($taskId: String!, $execution: Int!) {
+    buildBaron(taskId: $taskId, execution: $execution) {
+      buildBaronConfigured
+      bbTicketCreationDefined
+      searchReturnInfo {
+        issues {
+          key
+          fields {
+            summary
+            assigneeDisplayName
+            resolutionName
+            created
+            updated
+            status {
+              id
+              name
+            }
+          }
+        }
+        search
+        source
+        featuresURL
+      }
+    }
+  }
+`;
+
+const CREATED_TICKETS = gql`
+  query CreatedTickets($taskId: String!) {
+    bbGetCreatedTickets(taskId: $taskId)
+  }
+`;
+
+const JIRA_CUSTOM_CREATED_ISSUES = gql`
+  query CustomCreatedIssues($taskId: String!, $execution: Int!) {
+    task(taskId: $taskId) {
+      id
+      execution
+      annotation
+    }
+  }
+`;
+
+const JIRA_ISSUES = gql`
+  query SuspectedIssues($taskId: String!, $execution: Int!) {
+    task(taskId: $taskId) {
+      id
+      execution
+      annotation
+    }
+  }
+`;
+
+const JIRA_SUSPECTED_ISSUES = gql`
+  query SuspectedIssues($taskId: String!, $execution: Int!) {
+    task(taskId: $taskId) {
+      id
+      execution
+      annotation
+    }
+  }
+`;
 
 const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";

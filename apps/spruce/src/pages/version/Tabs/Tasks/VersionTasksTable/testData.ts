@@ -1,11 +1,21 @@
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { gql } from "@apollo/client";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskTableInfo } from "components/TasksTable/types";
 import {
   TaskStatusesQuery,
   TaskStatusesQueryVariables,
 } from "gql/generated/types";
-import TASK_STATUSES from "gql/queries/task-statuses.graphql";
+
+const TASK_STATUSES = gql`
+  query TaskStatuses($id: String!) {
+    version(id: $id) {
+      id
+      baseTaskStatuses
+      taskStatuses
+    }
+  }
+`;
 
 export const versionId = "version-1234";
 
