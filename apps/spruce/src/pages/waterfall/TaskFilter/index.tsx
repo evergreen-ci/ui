@@ -55,5 +55,4 @@ const LabelContainer = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.xxs};
-  background: blue;
 `;
