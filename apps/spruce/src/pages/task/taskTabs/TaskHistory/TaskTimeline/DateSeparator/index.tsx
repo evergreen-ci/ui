@@ -55,9 +55,10 @@ const Dot = styled.div`
 const Line = styled.div`
   width: 1px;
   height: 100%;
-  background-color: ${gray.light1};
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  border-left: 2px dashed ${gray.base};
+  position: absolute;
 `;
 export default DateSeparator;

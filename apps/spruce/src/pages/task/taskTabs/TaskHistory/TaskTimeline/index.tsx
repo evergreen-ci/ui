@@ -155,7 +155,7 @@ const Container = styled.div`
   align-items: center;
   gap: ${size.xxs};
   border-radius: ${size.xs};
-  border: 1px solid ${gray.light1};
+  border: 1px solid ${gray.light2};
   padding-top: ${size.l};
   padding-bottom: ${size.xs};
 

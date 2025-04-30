@@ -26,8 +26,13 @@ const Container = styled.div`
   align-items: center;
 `;
 const DashedLine = styled.div`
-  border-bottom: 1px dashed ${gray.light1};
   flex: 1;
   margin-left: 8px;
+  height: 1px;
+  background:
+    linear-gradient(to right, transparent 50%, white 50%),
+    linear-gradient(to right, ${gray.light1}, ${gray.light1});
+  background-size: 12px 4px;
+  width: 100%;
 `;
 export default DateSeparator;
