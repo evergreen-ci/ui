@@ -12,13 +12,13 @@ import {
   DeleteProjectMutation,
   DeleteProjectMutationVariables,
 } from "gql/generated/types";
+import { DeleteProjectField } from ".";
 
 const DELETE_PROJECT = gql`
   mutation DeleteProject($projectId: String!) {
     deleteProject(projectId: $projectId)
   }
 `;
-import { DeleteProjectField } from ".";
 
 const Field = () => (
   <MockedProvider mocks={[deleteProjectMock]}>

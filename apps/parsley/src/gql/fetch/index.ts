@@ -1,5 +1,11 @@
 import { OperationDefinitionNode } from "graphql";
-import SECRET_FIELDS from "gql/queries/secret-fields.graphql";
+import { gql } from "@apollo/client";
+
+const SECRET_FIELDS = gql`
+  query SecretFields {
+    secretFields
+  }
+`;
 
 export const secretFieldsReq: RequestInit = {
   body: JSON.stringify({

@@ -12,6 +12,7 @@ import {
   DeleteGithubAppCredentialsMutation,
   DeleteGithubAppCredentialsMutationVariables,
 } from "gql/generated/types";
+import { GithubAppActions } from ".";
 
 const DELETE_GITHUB_APP_CREDENTIALS = gql`
   mutation DeleteGithubAppCredentials($projectId: String!) {
@@ -20,7 +21,6 @@ const DELETE_GITHUB_APP_CREDENTIALS = gql`
     }
   }
 `;
-import { GithubAppActions } from ".";
 
 const Field = ({ isAppDefined }: { isAppDefined: boolean }) => (
   <MockedProvider mocks={[deleteAppCredentialsMock]}>

@@ -13,6 +13,7 @@ import {
   DeactivateStepbackTaskMutation,
   DeactivateStepbackTaskMutationVariables,
 } from "gql/generated/types";
+import { DeactivateStepbackTaskField } from ".";
 
 const DEACTIVATE_STEPBACK_TASK = gql`
   mutation DeactivateStepbackTask(
@@ -27,7 +28,6 @@ const DEACTIVATE_STEPBACK_TASK = gql`
     )
   }
 `;
-import { DeactivateStepbackTaskField } from ".";
 
 const Field = () => (
   <MockedProvider mocks={[deactivateStepbackTaskMock]}>

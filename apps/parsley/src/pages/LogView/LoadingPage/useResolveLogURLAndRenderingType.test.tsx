@@ -11,9 +11,73 @@ import {
   TestLogUrlAndRenderingTypeQuery,
   TestLogUrlAndRenderingTypeQueryVariables,
 } from "gql/generated/types";
-import GET_TASK from "gql/queries/get-task.graphql";
-import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/get-test-log-url-and-rendering-type.graphql";
-import TASK_FILES from "gql/queries/task-files.graphql";
+import { gql } from "@apollo/client";
+
+const GET_TASK = gql`
+  query Task($taskId: String!, $execution: Int) {
+    task(taskId: $taskId, execution: $execution) {
+      id
+      displayName
+      displayStatus
+      execution
+      logs {
+        agentLogLink
+        allLogLink
+        systemLogLink
+        taskLogLink
+      }
+      patchNumber
+      versionMetadata {
+        id
+        isPatch
+        message
+        projectIdentifier
+        revision
+      }
+    }
+  }
+`;
+
+const GET_TEST_LOG_URL_AND_RENDERING_TYPE = gql`
+  query TestLogUrlAndRenderingType($taskID: String!, $execution: Int!, $testName: String!) {
+    task(taskId: $taskID, execution: $execution) {
+      id
+      tests {
+        testResults(testName: $testName) {
+          id
+          status
+          testFile
+          logs {
+            url
+            urlRaw
+            renderingType
+          }
+          groupID
+        }
+      }
+    }
+  }
+`;
+
+const TASK_FILES = gql`
+  query TaskFiles($taskId: String!, $execution: Int) {
+    task(taskId: $taskId, execution: $execution) {
+      id
+      execution
+      files {
+        groupedFiles {
+          taskId
+          taskName
+          execution
+          files {
+            name
+            link
+          }
+        }
+      }
+    }
+  }
+`;
 import { useResolveLogURLAndRenderingType } from "./useResolveLogURLAndRenderingType";
 
 describe("useResolveLogURLAndRenderingType", () => {
