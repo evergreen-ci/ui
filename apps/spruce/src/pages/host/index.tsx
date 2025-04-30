@@ -26,8 +26,8 @@ import {
   HostEventsQueryVariables,
   HostEventType,
 } from "gql/generated/types";
-import HOST from "gql/queries/host.graphql";
 import HOST_EVENTS from "gql/queries/host-events.graphql";
+import HOST from "gql/queries/host.graphql";
 import usePagination from "hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
 import { HostStatus } from "types/host";
