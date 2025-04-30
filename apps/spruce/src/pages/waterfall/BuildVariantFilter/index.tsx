@@ -1,4 +1,7 @@
 import { useCallback } from "react";
+import styled from "@emotion/styled";
+import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { useWaterfallAnalytics } from "analytics";
 import TupleSelect from "components/TupleSelect";
@@ -32,7 +35,14 @@ export const BuildVariantFilter = () => {
       ariaLabel="Build Variant Filter"
       data-cy="build-variant-filter"
       id="build-variant-filter"
-      label="Build Variant"
+      label={
+        <LabelContainer>
+          <span>Build Variant</span>
+          <InfoSprinkle popoverZIndex={zIndex.tooltip}>
+            Searches are case sensitive.
+          </InfoSprinkle>
+        </LabelContainer>
+      }
       onSubmit={onSubmitTupleSelect}
       options={tupleSelectOptions}
       placeholder="Search"
@@ -40,3 +50,9 @@ export const BuildVariantFilter = () => {
     />
   );
 };
+
+const LabelContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xxs};
+`;
