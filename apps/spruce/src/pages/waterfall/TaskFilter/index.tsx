@@ -39,7 +39,7 @@ export const TaskFilter = () => {
         <LabelContainer>
           <span>Task</span>
           <InfoSprinkle popoverZIndex={zIndex.tooltip}>
-            Searches are case sensitive.
+            Search is case sensitive.
           </InfoSprinkle>
         </LabelContainer>
       }

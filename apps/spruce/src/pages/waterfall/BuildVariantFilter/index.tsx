@@ -39,7 +39,7 @@ export const BuildVariantFilter = () => {
         <LabelContainer>
           <span>Build Variant</span>
           <InfoSprinkle popoverZIndex={zIndex.tooltip}>
-            Searches are case sensitive.
+            Search is case sensitive.
           </InfoSprinkle>
         </LabelContainer>
       }
