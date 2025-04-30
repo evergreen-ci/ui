@@ -5,7 +5,7 @@ import {
   DistroEventsQuery,
   DistroEventsQueryVariables,
 } from "gql/generated/types";
-import { DISTRO_EVENTS } from "gql/queries";
+import DISTRO_EVENTS from "gql/queries/distro-events.graphql";
 import { useEvents } from "hooks/useEvents";
 
 const DISTRO_EVENT_LIMIT = 15;

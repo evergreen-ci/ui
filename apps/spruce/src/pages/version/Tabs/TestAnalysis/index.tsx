@@ -14,7 +14,7 @@ import {
   TestAnalysisQuery,
   TestAnalysisQueryVariables,
 } from "gql/generated/types";
-import { TEST_ANALYSIS } from "gql/queries";
+import TEST_ANALYSIS from "gql/queries/test-analysis.graphql";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TestAnalysisQueryParams } from "types/task";
 import FilterGroup from "./FilterGroup";

@@ -15,7 +15,7 @@ import {
   MigrateVolumeMutation,
   MigrateVolumeMutationVariables,
 } from "gql/generated/types";
-import { MIGRATE_VOLUME } from "gql/mutations";
+import MIGRATE_VOLUME from "gql/mutations/migrate-volume.graphql";
 import { AZToRegion } from "pages/spawn/utils";
 import { TableVolume } from "types/spawn";
 import { initialState, Page, reducer } from "./migrateVolumeReducer";

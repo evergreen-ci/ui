@@ -3,7 +3,7 @@ import {
   UserSettingsQuery,
   UserSettingsQueryVariables,
 } from "gql/generated/types";
-import { USER_SETTINGS } from "gql/queries";
+import USER_SETTINGS from "gql/queries/user-settings.graphql";
 
 type UseUserSettingsOptions = {
   onError?: (error: Error) => void;

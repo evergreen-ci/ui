@@ -5,7 +5,7 @@ import {
   ImageEventsQuery,
   ImageEventsQueryVariables,
 } from "gql/generated/types";
-import { IMAGE_EVENTS } from "gql/queries";
+import IMAGE_EVENTS from "gql/queries/image-events.graphql";
 import { useEvents } from "hooks/useEvents";
 
 export const IMAGE_EVENT_LIMIT = 5;

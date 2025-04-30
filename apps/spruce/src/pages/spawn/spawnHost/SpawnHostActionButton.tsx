@@ -14,8 +14,8 @@ import {
   MyHostsQuery,
   MyHostsQueryVariables,
 } from "gql/generated/types";
-import { UPDATE_SPAWN_HOST_STATUS } from "gql/mutations";
-import { MY_HOSTS } from "gql/queries";
+import UPDATE_SPAWN_HOST_STATUS from "gql/mutations/update-spawn-host-status.graphql";
+import MY_HOSTS from "gql/queries/my-hosts.graphql";
 import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";

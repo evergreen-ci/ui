@@ -14,7 +14,7 @@ import {
   ImageEventsQueryVariables,
   ImageEventEntryAction,
 } from "gql/generated/types";
-import { IMAGE_EVENTS } from "gql/queries";
+import IMAGE_EVENTS from "gql/queries/image-events.graphql";
 import { EventLogTab } from "./EventLogTab";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

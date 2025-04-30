@@ -22,14 +22,12 @@ import {
   getUserSettingsMock,
 } from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
-import { FILE_JIRA_TICKET } from "gql/mutations";
-import {
-  BUILD_BARON,
-  CREATED_TICKETS,
-  JIRA_CUSTOM_CREATED_ISSUES,
-  JIRA_ISSUES,
-  JIRA_SUSPECTED_ISSUES,
-} from "gql/queries";
+import FILE_JIRA_TICKET from "gql/mutations/file-jira-ticket.graphql";
+import BUILD_BARON from "gql/queries/build-baron.graphql";
+import CREATED_TICKETS from "gql/queries/created-tickets.graphql";
+import JIRA_CUSTOM_CREATED_ISSUES from "gql/queries/jira-custom-created-issues.graphql";
+import JIRA_ISSUES from "gql/queries/jira-issues.graphql";
+import JIRA_SUSPECTED_ISSUES from "gql/queries/jira-suspected-issues.graphql";
 import { MockedProvider } from "test_utils/graphql";
 import BuildBaronContent from "./BuildBaronContent";
 

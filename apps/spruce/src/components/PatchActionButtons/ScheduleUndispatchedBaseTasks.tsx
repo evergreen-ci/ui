@@ -7,7 +7,7 @@ import {
   ScheduleUndispatchedBaseTasksMutation,
   ScheduleUndispatchedBaseTasksMutationVariables,
 } from "gql/generated/types";
-import { SCHEDULE_UNDISPATCHED_BASE_TASKS } from "gql/mutations";
+import SCHEDULE_UNDISPATCHED_BASE_TASKS from "gql/mutations/schedule-undispatched-base-tasks.graphql";
 
 interface Props {
   versionId: string;

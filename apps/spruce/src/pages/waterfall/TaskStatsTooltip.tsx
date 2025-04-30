@@ -14,7 +14,7 @@ import {
   WaterfallTaskStatsQuery,
   WaterfallTaskStatsQueryVariables,
 } from "gql/generated/types";
-import { WATERFALL_TASK_STATS } from "gql/queries";
+import WATERFALL_TASK_STATS from "gql/queries/waterfall-task-stats.graphql";
 import { useOnClickOutside } from "hooks";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
 import { Version } from "./types";

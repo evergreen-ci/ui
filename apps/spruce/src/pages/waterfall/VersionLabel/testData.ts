@@ -3,7 +3,7 @@ import {
   VersionUpstreamProjectQuery,
   VersionUpstreamProjectQueryVariables,
 } from "gql/generated/types";
-import { VERSION_UPSTREAM_PROJECT } from "gql/queries";
+import VERSION_UPSTREAM_PROJECT from "gql/queries/version-upstream-project.graphql";
 
 export const getVersionUpstreamProjectMock: ApolloMock<
   VersionUpstreamProjectQuery,

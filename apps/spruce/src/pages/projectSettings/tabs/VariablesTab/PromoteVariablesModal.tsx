@@ -13,7 +13,7 @@ import {
   PromoteVarsToRepoMutation,
   PromoteVarsToRepoMutationVariables,
 } from "gql/generated/types";
-import { PROMOTE_VARS_TO_REPO } from "gql/mutations";
+import PROMOTE_VARS_TO_REPO from "gql/mutations/promote-vars-to-repo.graphql";
 import { useHasProjectOrRepoEditPermission } from "hooks";
 
 type Action =

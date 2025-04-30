@@ -7,7 +7,8 @@ import {
   LastMainlineCommitQuery,
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
-import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
+import BASE_VERSION_AND_TASK from "gql/queries/base-version-and-task.graphql";
+import LAST_MAINLINE_COMMIT from "gql/queries/last-mainline-commit.graphql";
 import { useBreakingTask } from ".";
 
 interface ProviderProps {

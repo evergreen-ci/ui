@@ -3,7 +3,7 @@ import {
   UndispatchedTasksQuery,
   UndispatchedTasksQueryVariables,
 } from "gql/generated/types";
-import { UNSCHEDULED_TASKS } from "gql/queries";
+import UNSCHEDULED_TASKS from "gql/queries/undispatched-tasks.graphql";
 
 const mocks: ApolloMock<
   UndispatchedTasksQuery,

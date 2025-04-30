@@ -9,7 +9,8 @@ import {
   RemoveFavoriteProjectMutation,
   RemoveFavoriteProjectMutationVariables,
 } from "gql/generated/types";
-import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
+import ADD_FAVORITE_PROJECT from "gql/mutations/add-favorite-project.graphql";
+import REMOVE_FAVORITE_PROJECT from "gql/mutations/remove-favorite-project.graphql";
 
 const { gray, green } = palette;
 

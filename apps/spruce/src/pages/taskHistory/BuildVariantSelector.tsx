@@ -7,7 +7,7 @@ import {
   BuildVariantsForTaskNameQuery,
   BuildVariantsForTaskNameQueryVariables,
 } from "gql/generated/types";
-import { BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
+import BUILD_VARIANTS_FOR_TASK_NAME from "gql/queries/build-variants-for-task-name.graphql";
 import { useQueryParam } from "hooks/useQueryParam";
 import { HistoryQueryParams } from "types/history";
 

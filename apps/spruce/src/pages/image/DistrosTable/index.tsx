@@ -17,7 +17,7 @@ import {
   ImageDistrosQueryVariables,
   Provider,
 } from "gql/generated/types";
-import { IMAGE_DISTROS } from "gql/queries";
+import IMAGE_DISTROS from "gql/queries/image-distros.graphql";
 
 type Distro = Unpacked<NonNullable<ImageDistrosQuery["image"]>["distros"]>;
 

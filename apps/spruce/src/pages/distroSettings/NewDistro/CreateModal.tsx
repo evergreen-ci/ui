@@ -10,7 +10,7 @@ import {
   CreateDistroMutation,
   CreateDistroMutationVariables,
 } from "gql/generated/types";
-import { CREATE_DISTRO } from "gql/mutations";
+import CREATE_DISTRO from "gql/mutations/create-distro.graphql";
 import { modalFormDefinition } from "./createDistroSchema";
 
 const { initialFormData, schema, uiSchema } = modalFormDefinition;

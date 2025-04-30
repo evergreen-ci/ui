@@ -12,7 +12,7 @@ import {
   ImageDistrosQueryVariables,
   Provider,
 } from "gql/generated/types";
-import { IMAGE_DISTROS } from "gql/queries";
+import IMAGE_DISTROS from "gql/queries/image-distros.graphql";
 import { DistrosTable } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

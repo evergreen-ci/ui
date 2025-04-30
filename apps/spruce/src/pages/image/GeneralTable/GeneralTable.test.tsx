@@ -11,7 +11,7 @@ import {
   ImageGeneralQuery,
   ImageGeneralQueryVariables,
 } from "gql/generated/types";
-import { IMAGE_GENERAL } from "gql/queries";
+import IMAGE_GENERAL from "gql/queries/image-general.graphql";
 import { GeneralTable } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

@@ -16,8 +16,9 @@ import {
   CreatePublicKeyMutation,
   CreatePublicKeyMutationVariables,
 } from "gql/generated/types";
-import { CREATE_PUBLIC_KEY, UPDATE_PUBLIC_KEY } from "gql/mutations";
-import { MY_PUBLIC_KEYS } from "gql/queries";
+import CREATE_PUBLIC_KEY from "gql/mutations/create-public-key.graphql";
+import UPDATE_PUBLIC_KEY from "gql/mutations/update-public-key.graphql";
+import MY_PUBLIC_KEYS from "gql/queries/my-public-keys.graphql";
 import { validators, string } from "utils";
 
 const { validateSSHPublicKey } = validators;

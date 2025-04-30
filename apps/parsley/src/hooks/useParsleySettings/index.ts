@@ -8,8 +8,8 @@ import {
   UpdateParsleySettingsMutation,
   UpdateParsleySettingsMutationVariables,
 } from "gql/generated/types";
-import { UPDATE_PARSLEY_SETTINGS } from "gql/mutations";
-import { PARSLEY_SETTINGS } from "gql/queries";
+import UPDATE_PARSLEY_SETTINGS from "gql/mutations/update-parsley-settings.graphql";
+import PARSLEY_SETTINGS from "gql/queries/parsley-settings.graphql";
 
 type UseParsleySettingsReturnType = {
   settings: ParsleySettings | undefined;

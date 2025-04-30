@@ -13,7 +13,7 @@ import {
   FailedTaskStatusIconTooltipQuery,
   FailedTaskStatusIconTooltipQueryVariables,
 } from "gql/generated/types";
-import { FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
+import FAILED_TASK_STATUS_ICON_TOOLTIP from "gql/queries/failed-task-status-icon-tooltip.graphql";
 import {
   injectGlobalHighlightStyle,
   removeGlobalHighlightStyle,

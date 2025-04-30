@@ -6,7 +6,7 @@ import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useSpawnAnalytics } from "analytics";
 import { PlusButton } from "components/Buttons";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
-import { MY_HOSTS } from "gql/queries";
+import MY_HOSTS from "gql/queries/my-hosts.graphql";
 import { useSpruceConfig } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { HostStatus } from "types/host";

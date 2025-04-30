@@ -12,7 +12,7 @@ import {
   DeactivateStepbackTaskMutation,
   DeactivateStepbackTaskMutationVariables,
 } from "gql/generated/types";
-import { DEACTIVATE_STEPBACK_TASK } from "gql/mutations";
+import DEACTIVATE_STEPBACK_TASK from "gql/mutations/deactivate-stepback-task.graphql";
 import { DeactivateStepbackTaskField } from ".";
 
 const Field = () => (

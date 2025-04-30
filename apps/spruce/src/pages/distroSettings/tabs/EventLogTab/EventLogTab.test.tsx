@@ -10,7 +10,7 @@ import {
   DistroEventsQuery,
   DistroEventsQueryVariables,
 } from "gql/generated/types";
-import { DISTRO_EVENTS } from "gql/queries";
+import DISTRO_EVENTS from "gql/queries/distro-events.graphql";
 import { EventLogTab } from "./EventLogTab";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.

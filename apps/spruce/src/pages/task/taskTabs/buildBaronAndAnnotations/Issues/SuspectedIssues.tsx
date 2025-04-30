@@ -5,7 +5,7 @@ import {
   SuspectedIssuesQueryVariables,
   Annotation,
 } from "gql/generated/types";
-import { JIRA_SUSPECTED_ISSUES } from "gql/queries";
+import JIRA_SUSPECTED_ISSUES from "gql/queries/jira-suspected-issues.graphql";
 import AnnotationTickets from "./AnnotationTickets";
 
 interface SuspectedIssuesProps {

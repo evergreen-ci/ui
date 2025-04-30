@@ -9,7 +9,10 @@ import {
   MyVolumesQuery,
   MyHostsQueryVariables,
 } from "gql/generated/types";
-import { AWS_REGIONS, DISTROS, MY_PUBLIC_KEYS, MY_VOLUMES } from "gql/queries";
+import AWS_REGIONS from "gql/queries/aws-regions.graphql";
+import DISTROS from "gql/queries/distros.graphql";
+import MY_PUBLIC_KEYS from "gql/queries/public-keys.graphql";
+import MY_VOLUMES from "gql/queries/my-volumes.graphql";
 import {
   useDisableSpawnExpirationCheckbox,
   useSpruceConfig,

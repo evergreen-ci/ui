@@ -3,7 +3,7 @@ import {
   SpruceConfigQuery,
   SpruceConfigQueryVariables,
 } from "gql/generated/types";
-import { SPRUCE_CONFIG } from "gql/queries";
+import SPRUCE_CONFIG from "gql/queries/spruce-config.graphql";
 
 export const useSpruceConfig = ():
   | SpruceConfigQuery["spruceConfig"]

@@ -5,7 +5,7 @@ import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
 } from "gql/generated/types";
-import { BASE_VERSION_AND_TASK } from "gql/queries";
+import BASE_VERSION_AND_TASK from "gql/queries/base-version-and-task.graphql";
 import { useParentTask } from ".";
 
 interface ProviderProps {

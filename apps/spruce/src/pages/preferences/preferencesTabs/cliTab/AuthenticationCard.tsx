@@ -9,7 +9,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { UserConfigQuery, UserConfigQueryVariables } from "gql/generated/types";
-import { USER_CONFIG } from "gql/queries";
+import USER_CONFIG from "gql/queries/user-config.graphql";
 import { request } from "utils";
 
 const { post } = request;

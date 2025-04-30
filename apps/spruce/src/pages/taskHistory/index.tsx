@@ -27,7 +27,7 @@ import {
   MainlineCommitsForHistoryQuery,
   MainlineCommitsForHistoryQueryVariables,
 } from "gql/generated/types";
-import { MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
+import MAINLINE_COMMITS_FOR_HISTORY from "gql/queries/mainline-commits-for-history.graphql";
 import { string } from "utils";
 import BuildVariantSelector from "./BuildVariantSelector";
 import ColumnHeaders from "./ColumnHeaders";

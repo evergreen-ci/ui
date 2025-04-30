@@ -16,8 +16,8 @@ import {
   ScheduleTasksMutation,
   ScheduleTasksMutationVariables,
 } from "gql/generated/types";
-import { SCHEDULE_TASKS } from "gql/mutations";
-import { UNSCHEDULED_TASKS } from "gql/queries";
+import SCHEDULE_TASKS from "gql/mutations/schedule-tasks.graphql";
+import UNSCHEDULED_TASKS from "gql/queries/undispatched-tasks.graphql";
 import { sumActivatedTasksInSet } from "utils/tasks/estimatedActivatedTasks";
 import { initialState, reducer } from "./reducer";
 

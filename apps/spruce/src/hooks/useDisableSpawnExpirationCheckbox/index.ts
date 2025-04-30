@@ -5,7 +5,8 @@ import {
   MyVolumesQuery,
   MyVolumesQueryVariables,
 } from "gql/generated/types";
-import { MY_HOSTS, MY_VOLUMES } from "gql/queries";
+import MY_HOSTS from "gql/queries/my-hosts.graphql";
+import MY_VOLUMES from "gql/queries/my-volumes.graphql";
 import { useSpruceConfig } from "hooks/useSpruceConfig";
 
 type ListItem =

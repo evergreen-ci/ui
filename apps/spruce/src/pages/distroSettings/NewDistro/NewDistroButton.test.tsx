@@ -11,7 +11,7 @@ import {
   UserDistroSettingsPermissionsQuery,
   UserDistroSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
-import { USER_DISTRO_SETTINGS_PERMISSIONS } from "gql/queries";
+import USER_DISTRO_SETTINGS_PERMISSIONS from "gql/queries/user-distro-settings-permissions.graphql";
 import { NewDistroButton } from "./NewDistroButton";
 
 const Button = ({ mock = hasPermissionsMock }: { mock?: MockedResponse }) => (

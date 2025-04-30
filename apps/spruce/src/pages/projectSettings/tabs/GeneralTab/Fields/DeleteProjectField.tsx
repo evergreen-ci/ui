@@ -13,7 +13,7 @@ import {
   DeleteProjectMutation,
   DeleteProjectMutationVariables,
 } from "gql/generated/types";
-import { DELETE_PROJECT } from "gql/mutations";
+import DELETE_PROJECT from "gql/mutations/delete-project.graphql";
 
 interface ModalProps {
   closeModal: () => void;

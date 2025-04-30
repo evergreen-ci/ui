@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
-import { GET_USER } from "gql/queries";
+import GET_USER from "gql/queries/get-user.graphql";
 
 type Options = {
   onError?: (error: Error) => void;

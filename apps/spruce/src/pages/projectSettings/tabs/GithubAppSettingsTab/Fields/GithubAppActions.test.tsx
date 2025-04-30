@@ -11,7 +11,7 @@ import {
   DeleteGithubAppCredentialsMutation,
   DeleteGithubAppCredentialsMutationVariables,
 } from "gql/generated/types";
-import { DELETE_GITHUB_APP_CREDENTIALS } from "gql/mutations";
+import DELETE_GITHUB_APP_CREDENTIALS from "gql/mutations/delete-github-app-credentials.graphql";
 import { GithubAppActions } from ".";
 
 const Field = ({ isAppDefined }: { isAppDefined: boolean }) => (

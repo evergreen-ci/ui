@@ -13,7 +13,7 @@ import {
   AddAnnotationIssueMutationVariables,
 } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { ADD_ANNOTATION } from "gql/mutations";
+import ADD_ANNOTATION from "gql/mutations/add-annotation.graphql";
 import { AddIssueModal as AddIssueModalToTest } from ".";
 
 const AddIssueModal = (

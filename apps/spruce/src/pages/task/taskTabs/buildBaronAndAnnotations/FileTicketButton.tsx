@@ -10,7 +10,7 @@ import {
   BuildBaronCreateTicketMutation,
   BuildBaronCreateTicketMutationVariables,
 } from "gql/generated/types";
-import { FILE_JIRA_TICKET } from "gql/mutations";
+import FILE_JIRA_TICKET from "gql/mutations/file-jira-ticket.graphql";
 import { ButtonWrapper } from "./BBComponents";
 
 interface FileTicketProps {

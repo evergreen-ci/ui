@@ -14,7 +14,7 @@ import {
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
 } from "gql/generated/types";
-import { TASK_TEST_SAMPLE } from "gql/queries";
+import TASK_TEST_SAMPLE from "gql/queries/task-test-sample.graphql";
 import { TestStatus } from "types/history";
 import TaskHistoryRow from ".";
 

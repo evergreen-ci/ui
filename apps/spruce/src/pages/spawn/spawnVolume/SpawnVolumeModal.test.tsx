@@ -19,8 +19,9 @@ import {
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
 import { myVolumesQueryMock } from "gql/mocks/myVolumesQuery";
-import { SPAWN_VOLUME } from "gql/mutations";
-import { MY_HOSTS, SUBNET_AVAILABILITY_ZONES } from "gql/queries";
+import SPAWN_VOLUME from "gql/mutations/spawn-volume.graphql";
+import MY_HOSTS from "gql/queries/my-hosts.graphql";
+import SUBNET_AVAILABILITY_ZONES from "gql/queries/subnet-availability-zones.graphql";
 import { selectLGOption } from "test_utils/utils";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 

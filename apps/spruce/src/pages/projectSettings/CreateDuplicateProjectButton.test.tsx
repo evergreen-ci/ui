@@ -13,7 +13,8 @@ import {
   GithubOrgsQuery,
   GithubOrgsQueryVariables,
 } from "gql/generated/types";
-import { USER_PROJECT_SETTINGS_PERMISSIONS, GITHUB_ORGS } from "gql/queries";
+import USER_PROJECT_SETTINGS_PERMISSIONS from "gql/queries/user-project-settings-permissions.graphql";
+import GITHUB_ORGS from "gql/queries/github-orgs.graphql";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { ProjectType } from "./tabs/utils";
 

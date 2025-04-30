@@ -11,7 +11,7 @@ import {
   UpdateHostStatusMutation,
   UpdateHostStatusMutationVariables,
 } from "gql/generated/types";
-import { UPDATE_HOST_STATUS } from "gql/mutations";
+import UPDATE_HOST_STATUS from "gql/mutations/update-host-status.graphql";
 import { UpdateHostStatus } from "types/host";
 
 interface Props {

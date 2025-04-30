@@ -29,7 +29,8 @@ import {
   RepoSettingsQuery,
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
-import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
+import PROJECT_SETTINGS from "gql/queries/project-settings.graphql";
+import REPO_SETTINGS from "gql/queries/repo-settings.graphql";
 import { useIsScrollAtTop } from "hooks";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { validators } from "utils";

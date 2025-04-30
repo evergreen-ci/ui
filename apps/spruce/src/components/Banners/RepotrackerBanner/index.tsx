@@ -15,11 +15,9 @@ import {
   SetLastRevisionMutation,
   SetLastRevisionMutationVariables,
 } from "gql/generated/types";
-import { SET_LAST_REVISION } from "gql/mutations";
-import {
-  USER_PROJECT_SETTINGS_PERMISSIONS,
-  REPOTRACKER_ERROR,
-} from "gql/queries";
+import SET_LAST_REVISION from "gql/mutations/set-last-revision.graphql";
+import USER_PROJECT_SETTINGS_PERMISSIONS from "gql/queries/user-project-settings-permissions.graphql";
+import REPOTRACKER_ERROR from "gql/queries/repotracker-error.graphql";
 import { PortalBanner } from "../PortalBanner";
 
 interface RepotrackerBannerProps {

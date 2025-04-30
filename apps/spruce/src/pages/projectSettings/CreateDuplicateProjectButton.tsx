@@ -7,7 +7,7 @@ import {
   UserProjectSettingsPermissionsQuery,
   UserProjectSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
-import { USER_PROJECT_SETTINGS_PERMISSIONS } from "gql/queries";
+import USER_PROJECT_SETTINGS_PERMISSIONS from "gql/queries/user-project-settings-permissions.graphql";
 import { CopyProjectModal } from "./CopyProjectModal";
 import { CreateProjectModal } from "./CreateProjectModal";
 import { ProjectType } from "./tabs/utils";

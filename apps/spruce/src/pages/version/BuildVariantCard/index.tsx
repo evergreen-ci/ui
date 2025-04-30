@@ -8,7 +8,7 @@ import {
   BuildVariantStatsQuery,
   BuildVariantStatsQueryVariables,
 } from "gql/generated/types";
-import { BUILD_VARIANTS_STATS } from "gql/queries";
+import BUILD_VARIANTS_STATS from "gql/queries/build-variant-stats.graphql";
 import { usePolling } from "hooks";
 import VariantTaskGroup from "./VariantTaskGroup";
 

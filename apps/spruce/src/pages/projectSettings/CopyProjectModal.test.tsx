@@ -18,8 +18,9 @@ import {
   RepoSettingsQuery,
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
-import { COPY_PROJECT } from "gql/mutations";
-import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
+import COPY_PROJECT from "gql/mutations/copy-project.graphql";
+import PROJECT_SETTINGS from "gql/queries/project-settings.graphql";
+import REPO_SETTINGS from "gql/queries/repo-settings.graphql";
 import { CopyProjectModal } from "./CopyProjectModal";
 
 const newProjectIdentifier = "new_evergreen";

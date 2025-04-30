@@ -1,5 +1,5 @@
 import { OperationDefinitionNode } from "graphql";
-import { SECRET_FIELDS } from "gql/queries";
+import SECRET_FIELDS from "gql/queries/secret-fields.graphql";
 
 export const secretFieldsReq: RequestInit = {
   body: JSON.stringify({

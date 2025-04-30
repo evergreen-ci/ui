@@ -6,7 +6,7 @@ import {
   PatchQueryVariables,
   TaskSortCategory,
 } from "gql/generated/types";
-import { PATCH } from "gql/queries";
+import PATCH from "gql/queries/patch.graphql";
 
 type Action =
   | {

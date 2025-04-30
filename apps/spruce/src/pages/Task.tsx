@@ -16,7 +16,7 @@ import {
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { slugs } from "constants/routes";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
-import { TASK } from "gql/queries";
+import TASK from "gql/queries/task.graphql";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/NotFound";

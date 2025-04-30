@@ -14,7 +14,7 @@ import {
   VersionTaskDurationsQuery,
   VersionTaskDurationsQueryVariables,
 } from "gql/generated/types";
-import { VERSION_TASK_DURATIONS } from "gql/queries";
+import VERSION_TASK_DURATIONS from "gql/queries/version-task-durations.graphql";
 import { usePolling } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";

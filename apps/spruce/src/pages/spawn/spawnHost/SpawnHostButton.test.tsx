@@ -8,7 +8,7 @@ import {
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { MY_HOSTS } from "gql/queries";
+import MY_HOSTS from "gql/queries/my-hosts.graphql";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { SpawnHostButton } from "./SpawnHostButton";

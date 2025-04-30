@@ -26,7 +26,7 @@ import {
   TaskQuery,
   TestSortOptions,
 } from "gql/generated/types";
-import { TASK_TESTS } from "gql/queries";
+import TASK_TESTS from "gql/queries/task-tests.graphql";
 import { useTableSort, usePolling } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import {

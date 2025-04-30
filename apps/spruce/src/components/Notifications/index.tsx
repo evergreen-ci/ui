@@ -17,8 +17,8 @@ import {
   SaveSubscriptionForUserMutationVariables,
   UserQuery,
 } from "gql/generated/types";
-import { SAVE_SUBSCRIPTION } from "gql/mutations";
-import { USER } from "gql/queries";
+import SAVE_SUBSCRIPTION from "gql/mutations/save-subscription.graphql";
+import USER from "gql/queries/user.graphql";
 import { useUserSettings } from "hooks/useUserSettings";
 import { SubscriptionMethodOption } from "types/subscription";
 import { Trigger } from "types/triggers";

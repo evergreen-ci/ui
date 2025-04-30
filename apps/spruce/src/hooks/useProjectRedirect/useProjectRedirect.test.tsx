@@ -4,7 +4,7 @@ import { MemoryRouter, Routes, Route, useLocation } from "react-router-dom";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { ProjectQuery, ProjectQueryVariables } from "gql/generated/types";
-import { PROJECT } from "gql/queries";
+import PROJECT from "gql/queries/project.graphql";
 import { useProjectRedirect } from ".";
 
 const useJointHook = (props: Parameters<typeof useProjectRedirect>[0]) => {

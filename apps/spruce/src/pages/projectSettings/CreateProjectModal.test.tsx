@@ -15,8 +15,8 @@ import {
   GithubOrgsQuery,
   GithubOrgsQueryVariables,
 } from "gql/generated/types";
-import { CREATE_PROJECT } from "gql/mutations";
-import { GITHUB_ORGS } from "gql/queries";
+import CREATE_PROJECT from "gql/mutations/create-project.graphql";
+import GITHUB_ORGS from "gql/queries/github-orgs.graphql";
 import { selectLGOption } from "test_utils/utils";
 import { CreateProjectModal } from "./CreateProjectModal";
 

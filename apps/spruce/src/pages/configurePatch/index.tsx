@@ -11,7 +11,7 @@ import {
   ConfigurePatchQuery,
   ConfigurePatchQueryVariables,
 } from "gql/generated/types";
-import { PATCH_CONFIGURE } from "gql/queries";
+import PATCH_CONFIGURE from "gql/queries/patch-configure.graphql";
 import { PageDoesNotExist } from "pages/NotFound";
 import { validateObjectId } from "utils/validators";
 import ConfigurePatchCore from "./configurePatchCore";

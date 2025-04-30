@@ -16,7 +16,7 @@ import {
   ImagePackagesQuery,
   ImagePackagesQueryVariables,
 } from "gql/generated/types";
-import { IMAGE_PACKAGES } from "gql/queries";
+import IMAGE_PACKAGES from "gql/queries/image-packages.graphql";
 
 type PackagesTableProps = {
   imageId: string;

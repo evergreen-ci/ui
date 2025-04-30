@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { AwsRegionsQuery, AwsRegionsQueryVariables } from "gql/generated/types";
-import { AWS_REGIONS } from "gql/queries";
+import AWS_REGIONS from "gql/queries/aws-regions.graphql";
 import { useSpruceConfig } from "hooks";
 import { useDistroSettingsContext } from "pages/distroSettings/Context";
 import { omitTypename } from "utils/object";

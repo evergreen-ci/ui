@@ -18,8 +18,8 @@ import {
   RemovePublicKeyMutation,
   RemovePublicKeyMutationVariables,
 } from "gql/generated/types";
-import { REMOVE_PUBLIC_KEY } from "gql/mutations";
-import { MY_PUBLIC_KEYS } from "gql/queries";
+import REMOVE_PUBLIC_KEY from "gql/mutations/remove-public-key.graphql";
+import MY_PUBLIC_KEYS from "gql/queries/my-public-keys.graphql";
 import { EditModalPropsState } from "./EditModal";
 
 type PublicKeysTableProps = {

@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { slugs } from "constants/routes";
 import { ProjectQuery, ProjectQueryVariables } from "gql/generated/types";
-import { PROJECT } from "gql/queries";
+import PROJECT from "gql/queries/project.graphql";
 import { validators } from "utils";
 
 const { validateObjectId } = validators;

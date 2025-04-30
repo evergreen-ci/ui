@@ -18,8 +18,8 @@ import {
   RestartVersionsMutation,
   RestartVersionsMutationVariables,
 } from "gql/generated/types";
-import { RESTART_VERSIONS } from "gql/mutations";
-import { BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
+import RESTART_VERSIONS from "gql/mutations/restart-versions.graphql";
+import BUILD_VARIANTS_WITH_CHILDREN from "gql/queries/build-variants-with-children.graphql";
 import { useVersionTaskStatusSelect } from "hooks";
 import {
   versionSelectedTasks,

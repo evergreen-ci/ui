@@ -10,7 +10,7 @@ import {
   CopyProjectMutation,
   CopyProjectMutationVariables,
 } from "gql/generated/types";
-import { COPY_PROJECT } from "gql/mutations";
+import COPY_PROJECT from "gql/mutations/copy-project.graphql";
 import {
   performanceTooling,
   projectName,

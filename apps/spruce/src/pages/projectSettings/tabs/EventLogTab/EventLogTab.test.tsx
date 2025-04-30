@@ -11,7 +11,7 @@ import {
   ProjectEventLogsQueryVariables,
   ProjectHealthView,
 } from "gql/generated/types";
-import { PROJECT_EVENT_LOGS } from "gql/queries";
+import PROJECT_EVENT_LOGS from "gql/queries/project-event-logs.graphql";
 import { ProjectType } from "../utils";
 import { EventLogTab } from "./EventLogTab";
 

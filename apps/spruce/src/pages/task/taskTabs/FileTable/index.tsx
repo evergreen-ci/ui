@@ -7,7 +7,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import TextInputWithValidation from "components/TextInputWithValidation";
 import { TaskFilesQuery, TaskFilesQueryVariables } from "gql/generated/types";
-import { TASK_FILES } from "gql/queries";
+import TASK_FILES from "gql/queries/task-files.graphql";
 import { validateRegexp } from "utils/validators";
 import GroupedFileTable from "./GroupedFileTable";
 import { filterGroupedFiles } from "./utils";

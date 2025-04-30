@@ -8,7 +8,7 @@ import {
   TaskAllExecutionsQuery,
   TaskAllExecutionsQueryVariables,
 } from "gql/generated/types";
-import { TASK_ALL_EXECUTIONS } from "gql/queries";
+import TASK_ALL_EXECUTIONS from "gql/queries/task-all-executions.graphql";
 import { useDateFormat } from "hooks";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 

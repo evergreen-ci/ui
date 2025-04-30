@@ -14,7 +14,7 @@ import {
   DeleteGithubAppCredentialsMutation,
   DeleteGithubAppCredentialsMutationVariables,
 } from "gql/generated/types";
-import { DELETE_GITHUB_APP_CREDENTIALS } from "gql/mutations";
+import DELETE_GITHUB_APP_CREDENTIALS from "gql/mutations/delete-github-app-credentials.graphql";
 
 const DeleteAppCredentialsButton: React.FC<{
   ["data-cy"]: string;

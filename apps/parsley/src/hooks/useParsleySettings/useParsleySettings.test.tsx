@@ -6,7 +6,7 @@ import {
   UpdateParsleySettingsMutation,
   UpdateParsleySettingsMutationVariables,
 } from "gql/generated/types";
-import { UPDATE_PARSLEY_SETTINGS } from "gql/mutations";
+import UPDATE_PARSLEY_SETTINGS from "gql/mutations/update-parsley-settings.graphql";
 import { parsleySettingsMock } from "test_data/parsleySettings";
 import { useParsleySettings } from ".";
 

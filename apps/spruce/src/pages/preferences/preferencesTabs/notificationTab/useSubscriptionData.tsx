@@ -10,7 +10,7 @@ import {
   GeneralSubscription,
   Selector,
 } from "gql/generated/types";
-import { USER_SUBSCRIPTIONS } from "gql/queries";
+import USER_SUBSCRIPTIONS from "gql/queries/user-subscriptions.graphql";
 
 export const useSubscriptionData = () => {
   const { data } = useQuery<

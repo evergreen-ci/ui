@@ -5,7 +5,8 @@ import {
   TaskQuery,
   TaskQueryVariables,
 } from "gql/generated/types";
-import { GET_LOGKEEPER_TASK, GET_TASK } from "gql/queries";
+import GET_LOGKEEPER_TASK from "gql/queries/get-logkeeper-task.graphql";
+import GET_TASK from "gql/queries/get-task.graphql";
 
 export const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
   request: {

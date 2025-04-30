@@ -12,7 +12,7 @@ import {
   ImageToolchainsQuery,
   ImageToolchainsQueryVariables,
 } from "gql/generated/types";
-import { IMAGE_TOOLCHAINS } from "gql/queries";
+import IMAGE_TOOLCHAINS from "gql/queries/image-toolchains.graphql";
 import { ToolchainsTable } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

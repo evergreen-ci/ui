@@ -4,7 +4,7 @@ import {
   CodeChangesQueryVariables,
   ConfigurePatchQuery,
 } from "gql/generated/types";
-import { CODE_CHANGES } from "gql/queries";
+import CODE_CHANGES from "gql/queries/code-changes.graphql";
 
 export const patchQuery: ConfigurePatchQuery = {
   patch: {

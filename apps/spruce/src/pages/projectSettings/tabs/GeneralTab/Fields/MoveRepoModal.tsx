@@ -11,7 +11,7 @@ import {
   AttachProjectToNewRepoMutation,
   AttachProjectToNewRepoMutationVariables,
 } from "gql/generated/types";
-import { ATTACH_PROJECT_TO_NEW_REPO } from "gql/mutations";
+import ATTACH_PROJECT_TO_NEW_REPO from "gql/mutations/attach-project-to-new-repo.graphql";
 
 type ModalProps = {
   githubOrgs: string[];

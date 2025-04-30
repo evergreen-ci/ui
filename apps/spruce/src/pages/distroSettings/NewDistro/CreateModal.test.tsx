@@ -13,7 +13,7 @@ import {
   CreateDistroMutation,
   CreateDistroMutationVariables,
 } from "gql/generated/types";
-import { CREATE_DISTRO } from "gql/mutations";
+import CREATE_DISTRO from "gql/mutations/create-distro.graphql";
 import { CreateModal } from "./CreateModal";
 
 const newDistroId = "new-distro";

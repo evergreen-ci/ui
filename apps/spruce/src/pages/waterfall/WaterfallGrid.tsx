@@ -15,7 +15,7 @@ import {
   WaterfallQuery,
   WaterfallQueryVariables,
 } from "gql/generated/types";
-import { WATERFALL } from "gql/queries";
+import WATERFALL from "gql/queries/waterfall.graphql";
 import { useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";

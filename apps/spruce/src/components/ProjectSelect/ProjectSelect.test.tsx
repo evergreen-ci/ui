@@ -14,7 +14,8 @@ import {
   ViewableProjectRefsQuery,
   ViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
-import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";
+import PROJECTS from "gql/queries/projects.graphql";
+import VIEWABLE_PROJECTS from "gql/queries/viewable-projects.graphql";
 
 import { ProjectSelect } from ".";
 

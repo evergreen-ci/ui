@@ -19,7 +19,8 @@ import {
   TestLogUrlAndRenderingTypeQuery,
   TestLogUrlAndRenderingTypeQueryVariables,
 } from "gql/generated/types";
-import { GET_TEST_LOG_URL_AND_RENDERING_TYPE, TASK_FILES } from "gql/queries";
+import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/get-test-log-url-and-rendering-type.graphql";
+import TASK_FILES from "gql/queries/task-files.graphql";
 import { useTaskQuery } from "hooks/useTaskQuery";
 
 interface UseResolveLogURLAndRenderingTypeProps {

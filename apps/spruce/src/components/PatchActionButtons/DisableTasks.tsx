@@ -8,7 +8,7 @@ import {
   SetVersionPriorityMutation,
   SetVersionPriorityMutationVariables,
 } from "gql/generated/types";
-import { SET_VERSION_PRIORITY } from "gql/mutations";
+import SET_VERSION_PRIORITY from "gql/mutations/set-version-priority.graphql";
 
 interface Props {
   versionId: string;

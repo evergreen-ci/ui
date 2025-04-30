@@ -5,7 +5,8 @@ import {
   UserSettingsQuery,
   UserSettingsQueryVariables,
 } from "gql/generated/types";
-import { SPRUCE_CONFIG, USER_SETTINGS } from "gql/queries";
+import SPRUCE_CONFIG from "gql/queries/spruce-config.graphql";
+import USER_SETTINGS from "gql/queries/user-settings.graphql";
 
 export const getSpruceConfigMock: ApolloMock<
   SpruceConfigQuery,

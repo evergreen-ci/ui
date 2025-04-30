@@ -7,7 +7,7 @@ import {
   ClientConfigQuery,
   ClientConfigQueryVariables,
 } from "gql/generated/types";
-import { CLIENT_CONFIG } from "gql/queries";
+import CLIENT_CONFIG from "gql/queries/client-config.graphql";
 
 export const VerifyCard = () => {
   const { data } = useQuery<ClientConfigQuery, ClientConfigQueryVariables>(

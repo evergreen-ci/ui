@@ -5,7 +5,7 @@ import {
   TaskStatusesQuery,
   TaskStatusesQueryVariables,
 } from "gql/generated/types";
-import { TASK_STATUSES } from "gql/queries";
+import TASK_STATUSES from "gql/queries/task-statuses.graphql";
 
 export const versionId = "version-1234";
 

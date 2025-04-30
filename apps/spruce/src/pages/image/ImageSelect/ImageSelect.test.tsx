@@ -8,7 +8,7 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { ImagesQuery, ImagesQueryVariables } from "gql/generated/types";
-import { IMAGES } from "gql/queries";
+import IMAGES from "gql/queries/images.graphql";
 import { ImageSelect } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

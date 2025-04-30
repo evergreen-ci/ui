@@ -21,7 +21,7 @@ import {
   ClientConfigQueryVariables,
   ClientBinary,
 } from "gql/generated/types";
-import { CLIENT_CONFIG } from "gql/queries";
+import CLIENT_CONFIG from "gql/queries/client-config.graphql";
 
 export const DownloadCard = () => {
   const { data, loading } = useQuery<

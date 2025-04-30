@@ -7,7 +7,7 @@ import {
   TaskStatusesQuery,
   TaskStatusesQueryVariables,
 } from "gql/generated/types";
-import { TASK_STATUSES } from "gql/queries";
+import TASK_STATUSES from "gql/queries/task-statuses.graphql";
 import { usePolling } from "hooks";
 import { getCurrentStatuses } from "utils/statuses";
 

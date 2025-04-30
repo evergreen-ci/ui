@@ -5,7 +5,7 @@ import {
   IssuesQueryVariables,
   Annotation,
 } from "gql/generated/types";
-import { JIRA_ISSUES } from "gql/queries";
+import JIRA_ISSUES from "gql/queries/jira-issues.graphql";
 import AnnotationTickets from "./AnnotationTickets";
 
 interface IssuesProps {

@@ -23,7 +23,9 @@ import {
 } from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
 import { myVolumesQueryMock } from "gql/mocks/myVolumesQuery";
-import { INSTANCE_TYPES, MY_HOSTS, MY_PUBLIC_KEYS } from "gql/queries";
+import INSTANCE_TYPES from "gql/queries/instance-types.graphql";
+import MY_HOSTS from "gql/queries/my-hosts.graphql";
+import MY_PUBLIC_KEYS from "gql/queries/public-keys.graphql";
 import { MyHost } from "types/spawn";
 import { EditSpawnHostModal } from "./EditSpawnHostModal";
 

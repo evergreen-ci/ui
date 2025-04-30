@@ -10,7 +10,7 @@ import {
   TaskOwnerTeamsForTaskQuery,
   TaskOwnerTeamsForTaskQueryVariables,
 } from "gql/generated/types";
-import { TASK_OWNER_TEAM } from "gql/queries";
+import TASK_OWNER_TEAM from "gql/queries/task-owner-team.graphql";
 import TaskOwnership from ".";
 
 const taskId = "task123";

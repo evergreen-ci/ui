@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
-import { DISTROS } from "gql/queries";
+import DISTROS from "gql/queries/distros.graphql";
 
 /**
  * `useFirstDistro` returns the alphabetically first distro from Evergreen's list of distros.

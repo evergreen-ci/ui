@@ -17,7 +17,7 @@ import {
   RestartTaskMutation,
   RestartTaskMutationVariables,
 } from "gql/generated/types";
-import { RESTART_TASK } from "gql/mutations";
+import RESTART_TASK from "gql/mutations/restart-task.graphql";
 import { useDateFormat, useSpruceConfig } from "hooks";
 import { isProduction } from "utils/environmentVariables";
 import { jiraLinkify, shortenGithash } from "utils/string";

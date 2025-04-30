@@ -10,7 +10,7 @@ import {
   DefaultSectionToRepoMutationVariables,
   ProjectSettingsSection,
 } from "gql/generated/types";
-import { DEFAULT_SECTION_TO_REPO } from "gql/mutations";
+import DEFAULT_SECTION_TO_REPO from "gql/mutations/default-section-to-repo.graphql";
 
 interface Props {
   handleClose: () => void;

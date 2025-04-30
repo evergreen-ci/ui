@@ -21,7 +21,8 @@ import {
   TaskQueueDistrosQuery,
   TaskQueueDistrosQueryVariables,
 } from "gql/generated/types";
-import { DISTRO_TASK_QUEUE, TASK_QUEUE_DISTROS } from "gql/queries";
+import DISTRO_TASK_QUEUE from "gql/queries/distro-task-queue.graphql";
+import TASK_QUEUE_DISTROS from "gql/queries/task-queue-distros.graphql";
 import { useQueryParam } from "hooks/useQueryParam";
 import { QueryParams } from "types/task";
 import { DistroOption } from "./DistroOption";

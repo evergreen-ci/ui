@@ -6,7 +6,7 @@ import { ModalContent } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
-import { MY_HOSTS } from "gql/queries";
+import MY_HOSTS from "gql/queries/my-hosts.graphql";
 import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
 

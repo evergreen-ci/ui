@@ -12,7 +12,8 @@ import {
   RemoveAnnotationIssueMutationVariables,
 } from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";
-import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
+import MOVE_ANNOTATION from "gql/mutations/move-annotation.graphql";
+import REMOVE_ANNOTATION from "gql/mutations/remove-annotation.graphql";
 import AnnotationTicketsList from ".";
 
 const taskId =

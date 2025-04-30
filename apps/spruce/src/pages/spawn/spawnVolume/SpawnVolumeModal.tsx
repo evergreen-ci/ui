@@ -14,7 +14,7 @@ import {
   SpawnVolumeMutation,
   SpawnVolumeMutationVariables,
 } from "gql/generated/types";
-import { SPAWN_VOLUME } from "gql/mutations";
+import SPAWN_VOLUME from "gql/mutations/spawn-volume.graphql";
 import { HostStatus } from "types/host";
 
 interface SpawnVolumeModalProps {
