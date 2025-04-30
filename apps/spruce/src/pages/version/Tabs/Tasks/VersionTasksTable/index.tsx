@@ -25,6 +25,14 @@ import {
   defaultSorting,
 } from "./constants";
 
+// Create a more specific enum because duration is not a valid category to sort / filter by in the tasks table.
+enum VersionTaskCategory {
+  BaseStatus = TaskSortCategory.BaseStatus,
+  Name = TaskSortCategory.Name,
+  Status = TaskSortCategory.Status,
+  Variant = TaskSortCategory.Variant,
+}
+
 interface VersionTasksTableProps {
   clearQueryParams: () => void;
   filteredCount: number;
@@ -86,14 +94,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       ...emptyFilterQueryParams,
     };
     filterState.forEach(({ id, value }) => {
-      const key =
-        mapIdToFilterParam[
-          id as
-            | TaskSortCategory.Name
-            | TaskSortCategory.Status
-            | TaskSortCategory.BaseStatus
-            | TaskSortCategory.Variant
-        ];
+      const key = mapIdToFilterParam[id as VersionTaskCategory];
       updatedParams[key] = value;
     });
     setQueryParams(updatedParams);
@@ -191,36 +192,36 @@ export const getInitialState = (
 
   if (taskName) {
     initialFilters.push({
-      id: TaskSortCategory.Name,
+      id: VersionTaskCategory.Name,
       value: taskName,
     });
   }
   if (statuses) {
     initialFilters.push({
-      id: TaskSortCategory.Status,
+      id: VersionTaskCategory.Status,
       value: Array.isArray(statuses) ? statuses : [statuses],
     });
   }
   if (baseStatuses) {
     initialFilters.push({
-      id: TaskSortCategory.BaseStatus,
+      id: VersionTaskCategory.BaseStatus,
       value: Array.isArray(baseStatuses) ? baseStatuses : [baseStatuses],
     });
   }
   if (variant) {
-    initialFilters.push({ id: TaskSortCategory.Variant, value: variant });
+    initialFilters.push({ id: VersionTaskCategory.Variant, value: variant });
   }
 
   const parsedSorts = sorts
     ? parseSortString(sorts, {
         sortByKey: "sortCategory",
         sortDirKey: "direction",
-        sortCategoryEnum: TaskSortCategory,
+        sortCategoryEnum: VersionTaskCategory,
       })
     : [];
 
   return {
-    initialSorting: sorts
+    initialSorting: parsedSorts.length
       ? parsedSorts.map(({ direction, sortCategory }) => ({
           id: sortCategory,
           desc: direction === SortDirection.Desc,
