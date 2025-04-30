@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -13,7 +14,22 @@ import {
   AddAnnotationIssueMutationVariables,
 } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import ADD_ANNOTATION from "gql/mutations/add-annotation.graphql";
+
+const ADD_ANNOTATION = gql`
+  mutation AddAnnotationIssue(
+    $taskId: String!
+    $execution: Int!
+    $apiIssue: APIIssueInput!
+    $isIssue: Boolean!
+  ) {
+    addAnnotationIssue(
+      taskId: $taskId
+      execution: $execution
+      apiIssue: $apiIssue
+      isIssue: $isIssue
+    )
+  }
+`;
 import { AddIssueModal as AddIssueModalToTest } from ".";
 
 const AddIssueModal = (
