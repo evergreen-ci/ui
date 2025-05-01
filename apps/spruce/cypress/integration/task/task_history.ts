@@ -52,7 +52,7 @@ describe("task history", () => {
     const successColor = "rgb(0, 163, 92)";
     const willRunColor = "rgb(92, 108, 117)";
 
-    it("restarting the task that is currently being viewed", () => {
+    it("restarting the task that is currently being viewed should reflect changes on UI and update the URL", () => {
       cy.visit(spruceTaskHistoryLink);
       cy.location("search").should("include", "execution=0");
       cy.dataCy("commit-details-card").eq(0).as("firstTaskCard");
@@ -88,7 +88,7 @@ describe("task history", () => {
       });
     });
 
-    it("restarting a task that is not currently being viewed", () => {
+    it("restarting a task that is not currently being viewed should reflect changes on UI, but not update the URL", () => {
       cy.visit(spruceTaskHistoryLink);
       cy.location("search").should("include", "execution=0");
       cy.dataCy("commit-details-card").eq(1).as("secondTaskCard");
