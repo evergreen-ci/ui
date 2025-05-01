@@ -2,6 +2,8 @@
 import "@testing-library/jest-dom";
 import "vitest-canvas-mock";
 
+process.env.EMOTION_DETERMINISTIC = "1";
+
 // @ts-expect-error: Returning a basic string is acceptable for tests.
 window.crypto.randomUUID = (() => {
   let value = 0;
@@ -18,6 +20,24 @@ globalThis.jest = {
   ...globalThis.jest,
   advanceTimersByTime: vi.advanceTimersByTime.bind(vi),
 };
+
+beforeAll(() => {
+  const moduleCache = Object.entries(require.cache);
+  for (const [key, module] of moduleCache) {
+    if (
+      (key.includes("@emotion") || key.includes("@leafygreen-ui/emotion")) &&
+      module?.exports?.cache
+    ) {
+      if (
+        module.exports.cache &&
+        module.exports.cache.sheet &&
+        module.exports.cache.sheet.container
+      ) {
+        module.exports.cache.sheet.container.dataset.deterministic = "true";
+      }
+    }
+  }
+});
 
 // LeafyGreen tables require an IntersectionObserver.
 beforeEach(() => {

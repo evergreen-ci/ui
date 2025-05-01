@@ -1,6 +1,8 @@
 // jest-dom adds custom matchers for asserting on DOM nodes. Works for Vitest too!
 import "@testing-library/jest-dom";
 
+process.env.EMOTION_DETERMINISTIC = "1";
+
 // The following two variables are dummy values used in auth.test.tsx.
 process.env.REACT_APP_EVERGREEN_URL = "http://test-evergreen.com";
 process.env.REACT_APP_GRAPHQL_URL = "http://test-graphql.com";
@@ -22,6 +24,24 @@ if (process.env.CI) {
     consoleLog(message);
   };
 }
+
+beforeAll(() => {
+  const moduleCache = Object.entries(require.cache);
+  for (const [key, module] of moduleCache) {
+    if (
+      (key.includes("@emotion") || key.includes("@leafygreen-ui/emotion")) &&
+      module?.exports?.cache
+    ) {
+      if (
+        module.exports.cache &&
+        module.exports.cache.sheet &&
+        module.exports.cache.sheet.container
+      ) {
+        module.exports.cache.sheet.container.dataset.deterministic = "true";
+      }
+    }
+  }
+});
 
 // @ts-expect-error: Workaround for a bug in @testing-library/react.
 // It prevents Vitest's fake timers from functioning with user-event.

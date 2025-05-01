@@ -9,6 +9,7 @@ function createEmotionInstance() {
   const config = {
     key: "leafygreen-ui",
     prepend: true,
+    deterministic: process.env.NODE_ENV === "test",
   };
 
   return createEmotion(config);
