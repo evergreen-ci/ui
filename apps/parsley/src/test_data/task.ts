@@ -1,12 +1,48 @@
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { gql } from "@apollo/client";
 import {
   LogkeeperTaskQuery,
   LogkeeperTaskQueryVariables,
   TaskQuery,
   TaskQueryVariables,
 } from "gql/generated/types";
-import GET_LOGKEEPER_TASK from "gql/queries/get-logkeeper-task.graphql";
-import GET_TASK from "gql/queries/get-task.graphql";
+
+const GET_LOGKEEPER_TASK = gql`
+  query LogkeeperTask($buildId: String!) {
+    logkeeperBuildMetadata(buildId: $buildId) {
+      task {
+        id
+        displayName
+        execution
+      }
+    }
+  }
+`;
+
+const GET_TASK = gql`
+  query Task($taskId: String!, $execution: Int) {
+    task(taskId: $taskId, execution: $execution) {
+      id
+      displayName
+      displayStatus
+      execution
+      logs {
+        agentLogLink
+        allLogLink
+        systemLogLink
+        taskLogLink
+      }
+      patchNumber
+      versionMetadata {
+        id
+        isPatch
+        message
+        projectIdentifier
+        revision
+      }
+    }
+  }
+`;
 
 export const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
   request: {

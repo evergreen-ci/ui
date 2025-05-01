@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   act,
@@ -16,7 +17,19 @@ import {
   ProjectFiltersQuery,
   ProjectFiltersQueryVariables,
 } from "gql/generated/types";
-import PROJECT_FILTERS from "gql/queries/project-filters.graphql";
+
+const PROJECT_FILTERS = gql`
+  query ProjectFilters($projectId: String!) {
+    project(projectIdentifier: $projectId) {
+      id
+      parsleyFilters {
+        expression
+        caseSensitive
+        exactMatch
+      }
+    }
+  }
+`;
 import { parsleySettingsMock } from "test_data/parsleySettings";
 import { noFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";

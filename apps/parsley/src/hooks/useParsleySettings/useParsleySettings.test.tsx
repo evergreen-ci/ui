@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
@@ -6,7 +7,34 @@ import {
   UpdateParsleySettingsMutation,
   UpdateParsleySettingsMutationVariables,
 } from "gql/generated/types";
-import UPDATE_PARSLEY_SETTINGS from "gql/mutations/update-parsley-settings.graphql";
+
+const UPDATE_PARSLEY_SETTINGS = gql`
+  mutation UpdateParsleySettings($opts: UserSettingsInput!) {
+    updateUserSettings(userSettings: $opts) {
+      parsleySettings {
+        showWrapLines
+        showLineNumbers
+        expandableRows
+        prettyPrint
+        filterLogic
+        caseSensitive
+        showMatchesOnly
+        wrap
+        showBookmarks
+        showToolbar
+        showDarkMode
+        highlightLine
+        expandableRowsEnabled
+        projectFilters {
+          projectIdentifier
+          variants
+          tasks
+          tests
+        }
+      }
+    }
+  }
+`;
 import { parsleySettingsMock } from "test_data/parsleySettings";
 import { useParsleySettings } from ".";
 

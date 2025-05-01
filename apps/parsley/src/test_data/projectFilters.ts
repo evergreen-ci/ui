@@ -1,9 +1,22 @@
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { gql } from "@apollo/client";
 import {
   ProjectFiltersQuery,
   ProjectFiltersQueryVariables,
 } from "gql/generated/types";
-import PROJECT_FILTERS from "gql/queries/project-filters.graphql";
+
+const PROJECT_FILTERS = gql`
+  query ProjectFilters($projectId: String!) {
+    project(projectIdentifier: $projectId) {
+      id
+      parsleyFilters {
+        expression
+        caseSensitive
+        exactMatch
+      }
+    }
+  }
+`;
 
 export const projectFiltersMock: ApolloMock<
   ProjectFiltersQuery,
