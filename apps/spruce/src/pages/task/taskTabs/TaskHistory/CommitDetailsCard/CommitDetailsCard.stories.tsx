@@ -59,10 +59,10 @@ const Template = (args: TemplateProps) => {
   return (
     <CommitDetailsCard
       isCurrentTask={args.isCurrentTask}
+      isMatching
       owner="evergreen-ci"
       repo="evergreen"
       task={storyTask}
-      isMatching={true}
     />
   );
 };
@@ -72,10 +72,10 @@ const RenderWithUnmatchingSearchResult = (args: TemplateProps) => {
   return (
     <CommitDetailsCard
       isCurrentTask={args.isCurrentTask}
+      isMatching={false}
       owner="evergreen-ci"
       repo="evergreen"
       task={storyTask}
-      isMatching={false}
     />
   );
 };

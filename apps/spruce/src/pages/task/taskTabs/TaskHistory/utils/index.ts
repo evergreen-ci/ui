@@ -4,7 +4,7 @@ import { TaskHistoryTask, GroupedTask } from "../types";
  * `groupTasks` groups tasks into active and inactive tasks based on the `shouldCollapse` parameter.
  * @param tasks - an array of tasks returned from the TaskHistory query
  * @param shouldCollapse - a boolean. If set to false, no tasks will be collapsed. If set to true, inactive tasks will be collapsed.
- * @param testFailureSearchTerm
+ * @param testFailureSearchTerm - a regex to filter tasks by test failures.
  * @returns an array of grouped tasks
  */
 export const groupTasks = (

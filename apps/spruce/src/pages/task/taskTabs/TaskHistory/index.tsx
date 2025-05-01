@@ -100,15 +100,16 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const [testFailureSearchTerm, setTestFailureSearchTerm] =
     useState<RegExp | null>(null);
   useEffect(() => {
-    const testFailureSearchTerm = failingTest
-      ? new RegExp(
-          validateRegexp(failingTest)
-            ? failingTest
-            : toEscapedRegex(failingTest),
-          "i",
-        )
-      : null;
-    setTestFailureSearchTerm(testFailureSearchTerm);
+    setTestFailureSearchTerm(
+      failingTest
+        ? new RegExp(
+            validateRegexp(failingTest)
+              ? failingTest
+              : toEscapedRegex(failingTest),
+            "i",
+          )
+        : null,
+    );
   }, [failingTest]);
 
   useEffect(() => {
@@ -118,14 +119,21 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
       testFailureSearchTerm,
     );
     const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER);
-    const visibleTasks =
+    setVisibleTasks(
       direction === TaskHistoryDirection.After
         ? groupedTasks.slice(-numVisibleTasks)
-        : groupedTasks.slice(0, numVisibleTasks);
-    setVisibleTasks(visibleTasks);
+        : groupedTasks.slice(0, numVisibleTasks),
+    );
   }, [tasks, shouldCollapse, timelineWidth, direction, testFailureSearchTerm]);
 
-  const numMatchingResults = useMemo(() => visibleTasks.reduce((acc, t) => "isMatching" in t && t.isMatching ? acc + 1 : acc, 0), [visibleTasks]);
+  const numMatchingResults = useMemo(
+    () =>
+      visibleTasks.reduce(
+        (acc, t) => ("isMatching" in t && t.isMatching ? acc + 1 : acc),
+        0,
+      ),
+    [visibleTasks],
+  );
 
   const prevPageCursor = getPrevPageCursor(visibleTasks[0]);
   const nextPageCursor = getNextPageCursor(

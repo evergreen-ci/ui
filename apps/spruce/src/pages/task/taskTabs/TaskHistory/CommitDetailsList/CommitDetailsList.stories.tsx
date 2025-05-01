@@ -57,7 +57,6 @@ const WithFilter = (args: TemplateProps) => {
   );
 };
 
-
 const currentTask: NonNullable<TaskQuery["task"]> = {
   ...taskQuery.task,
   id: tasks[0].id,

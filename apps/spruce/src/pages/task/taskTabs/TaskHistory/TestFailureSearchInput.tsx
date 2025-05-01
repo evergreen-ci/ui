@@ -1,17 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
 import styled from "@emotion/styled";
+import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import debounce from "lodash.debounce";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskHistoryOptions } from "./types";
-import { palette } from "@leafygreen-ui/palette";
 
 const { red } = palette;
 interface Props {
   numMatchingResults: number;
 }
-export const TestFailureSearchInput: React.FC<Props> = ({numMatchingResults}) => {
+export const TestFailureSearchInput: React.FC<Props> = ({
+  numMatchingResults,
+}) => {
   const [failingTest, setFailingTest] = useQueryParam<string | undefined>(
     TaskHistoryOptions.FailingTest,
     "",
@@ -28,18 +30,23 @@ export const TestFailureSearchInput: React.FC<Props> = ({numMatchingResults}) =>
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
-  console.log(numMatchingResults, failingTest)
+  console.log(numMatchingResults, failingTest);
   return (
-    <Container><StyledInput
-      aria-label="Search Test Failure Input"
-      data-cy="search-test-failures-input"
-      label="Search Test Failures"
-      onChange={(e) => {
-        setSearchTerm(e.target.value);
-      }}
-      placeholder="Search failed test"
-      value={searchTerm}
-    />{numMatchingResults === 0 && failingTest && <NoMatches>No matches on this page</NoMatches>}</Container>
+    <Container>
+      <StyledInput
+        aria-label="Search Test Failure Input"
+        data-cy="search-test-failures-input"
+        label="Search Test Failures"
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+        }}
+        placeholder="Search failed test"
+        value={searchTerm}
+      />
+      {numMatchingResults === 0 && failingTest && (
+        <NoMatches>No matches on this page</NoMatches>
+      )}
+    </Container>
   );
 };
 
@@ -51,8 +58,8 @@ const StyledInput = styled(TextInput)`
 
 const NoMatches = styled.div`
   color: ${red.base};
-`
+`;
 
 const Container = styled.div`
-display: flex;
-`
+  display: flex;
+`;
