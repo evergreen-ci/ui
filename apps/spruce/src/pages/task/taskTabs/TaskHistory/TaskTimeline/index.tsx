@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
@@ -149,16 +150,7 @@ TaskTimeline.displayName = "TaskTimeline";
 
 export default TaskTimeline;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: ${size.xxs};
-  border-radius: ${size.xs};
-  border: 1px solid ${gray.light2};
-  padding-top: ${size.l};
-  padding-bottom: ${size.xs};
-
+const dateSeparatorHoverGroupStyles = css`
   .date-separator {
     .date-badge {
       transition: opacity 0.2s ease;
@@ -216,6 +208,19 @@ const Container = styled.div`
       }
     }
   }
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: ${size.xxs};
+  border-radius: ${size.xs};
+  border: 1px solid ${gray.light2};
+  padding-top: ${size.l};
+  padding-bottom: ${size.xs};
+
+  ${dateSeparatorHoverGroupStyles}
 `;
 
 const Timeline = styled.div`
