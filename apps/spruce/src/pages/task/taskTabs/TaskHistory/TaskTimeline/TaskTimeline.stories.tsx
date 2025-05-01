@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { tasks } from "../testData";
 import { groupTasks } from "../utils";
@@ -30,8 +31,10 @@ type TemplateProps = {
 
 const Template = (args: TemplateProps) => {
   const groupedTasks = groupTasks(tasks, args.shouldCollapse);
+  const [selectedTask, setSelectedTask] = useState<string | null>(null);
   return (
     <TaskTimeline
+      hoveredTask={null}
       loading={false}
       pagination={{
         mostRecentTaskOrder: 10,
@@ -39,6 +42,8 @@ const Template = (args: TemplateProps) => {
         nextPageCursor: null,
         prevPageCursor: null,
       }}
+      selectedTask={selectedTask}
+      setSelectedTask={setSelectedTask}
       tasks={groupedTasks}
     />
   );

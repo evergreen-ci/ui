@@ -24,19 +24,23 @@ import { isProduction } from "utils/environmentVariables";
 import { jiraLinkify, shortenGithash } from "utils/string";
 import { TaskHistoryTask } from "../types";
 
-const { gray } = palette;
+const { blue, gray } = palette;
 
 interface CommitDetailsCardProps {
   task: TaskHistoryTask;
   isCurrentTask: boolean;
   owner: string | undefined;
   repo: string | undefined;
+  isSelectedTask: boolean;
+  setHoveredTask: (v: string | null) => void;
 }
 
 const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
   isCurrentTask,
+  isSelectedTask,
   owner,
   repo,
+  setHoveredTask,
   task,
 }) => {
   const {
@@ -103,6 +107,10 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     <CommitCard
       key={taskId}
       data-cy="commit-details-card"
+      id={`commit-card-${taskId}`}
+      onMouseEnter={() => setHoveredTask(taskId)}
+      onMouseLeave={() => setHoveredTask(null)}
+      selected={isSelectedTask}
       status={displayStatus as TaskStatus}
     >
       <TopLabel>
@@ -143,16 +151,28 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
 
 export default CommitDetailsCard;
 
-const CommitCard = styled.div<{ status: TaskStatus }>`
+const CommitCard = styled.div<{
+  status: TaskStatus;
+  selected: boolean;
+}>`
   display: flex;
   flex-direction: column;
   gap: ${size.xs};
-
   padding: ${size.xs};
+
   border-radius: ${size.xs};
   border: 1px solid ${gray.light2};
+  :hover {
+    border: 1px solid ${blue.base};
+  }
 
-  ${({ status }) => `border-left: ${size.xs} solid ${statusColorMap[status]};`}
+  ${({ selected }) => selected && `border: 1px solid ${blue.base};`}
+
+  /* Styles for the status stripe. Border isn't used as it interferes with hover styles. */
+  padding-left: ${size.s};
+  ${({ status }) => `
+     background: linear-gradient(to right, ${statusColorMap[status]} 10px, transparent 0px) no-repeat;
+     `}
 `;
 
 const TopLabel = styled.div`

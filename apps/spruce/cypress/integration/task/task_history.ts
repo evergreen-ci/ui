@@ -1,3 +1,14 @@
+import { palette } from "@leafygreen-ui/palette";
+
+const { green, gray, blue } = palette;
+
+export const hexToRGB = (hex: string) => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgb(${r}, ${g}, ${b})`;
+};
+
 describe("task history", () => {
   const spruceTaskHistoryLink =
     "task/spruce_ubuntu1604_e2e_test_b0c52a750150b4f1f67e501bd3351a808939815c_1f7cf49f4ce587c74212d8997da171c4_22_03_10_15_19_05/history";
@@ -49,8 +60,8 @@ describe("task history", () => {
   });
 
   describe("restarting tasks", () => {
-    const successColor = "rgb(0, 163, 92)";
-    const willRunColor = "rgb(92, 108, 117)";
+    const successColor = hexToRGB(green.dark1);
+    const willRunColor = hexToRGB(gray.dark1);
 
     it("restarting the task that is currently being viewed should reflect changes on UI and update the URL", () => {
       cy.visit(spruceTaskHistoryLink);
@@ -122,6 +133,32 @@ describe("task history", () => {
           "true",
         );
       });
+    });
+  });
+
+  describe("hover and click interactions", () => {
+    const mciTaskHistoryLink =
+      "/task/evg_lint_generate_lint_c6672b24d14c6d8cd51ce2c4b2b88b424aaacd64_25_03_27_14_56_09/history?execution=0";
+    const selectedColor = hexToRGB(blue.base);
+
+    it("hovering on commit cards highlight the corresponding task box", () => {
+      cy.visit(mciTaskHistoryLink);
+      cy.dataCy("commit-details-card").eq(35).as("thirdTaskCard");
+      cy.dataCy("timeline-box").eq(35).as("thirdTaskBox");
+
+      cy.get("@thirdTaskCard").trigger("mouseover");
+      cy.get("@thirdTaskBox").should("have.css", "border-color", selectedColor);
+    });
+
+    it("clicking on task box should highlight and scroll to the commit card", () => {
+      cy.visit(mciTaskHistoryLink);
+      cy.dataCy("commit-details-card").eq(16).as("oldTaskCard");
+      cy.dataCy("timeline-box").eq(16).as("oldTaskBox");
+
+      cy.get("@oldTaskBox").click();
+      cy.get("@oldTaskBox").should("have.css", "border-color", selectedColor);
+      cy.get("@oldTaskCard").should("be.visible");
+      cy.get("@oldTaskCard").should("have.css", "border-color", selectedColor);
     });
   });
 

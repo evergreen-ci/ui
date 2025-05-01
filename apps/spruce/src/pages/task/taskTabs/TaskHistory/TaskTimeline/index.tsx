@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
+import { palette } from "@leafygreen-ui/palette";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -9,6 +10,8 @@ import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
 import { TaskHistoryDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
 import { GroupedTask, TaskHistoryOptions, TaskHistoryTask } from "../types";
+
+const { blue, white } = palette;
 
 type TaskHistoryPagination = {
   mostRecentTaskOrder: number | undefined;
@@ -21,10 +24,16 @@ interface TimelineProps {
   loading: boolean;
   pagination: TaskHistoryPagination;
   tasks: GroupedTask[];
+  setSelectedTask: (v: string | null) => void;
+  selectedTask: string | null;
+  hoveredTask: string | null;
 }
 
 const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
-  ({ loading, pagination, tasks }, ref) => {
+  (
+    { hoveredTask, loading, pagination, selectedTask, setSelectedTask, tasks },
+    ref,
+  ) => {
     const [queryParams, setQueryParams] = useQueryParams();
     const {
       mostRecentTaskOrder,
@@ -68,8 +77,25 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                     <TaskBox
                       key={task.id}
                       data-cy="timeline-box"
+                      hovered={hoveredTask === task.id}
+                      id={`task-box-${task.id}`}
+                      onClick={() => {
+                        if (selectedTask === task.id) {
+                          setSelectedTask(null);
+                        } else {
+                          setSelectedTask(task.id);
+                          const element = document.getElementById(
+                            `commit-card-${task.id}`,
+                          );
+                          if (element) {
+                            element.scrollIntoView({ block: "center" });
+                          }
+                        }
+                      }}
                       rightmost={false}
+                      selected={selectedTask === task.id}
                       status={task.displayStatus as TaskStatus}
+                      taskId={task.id}
                     />
                   );
                 } else if (t.inactiveTasks) {
@@ -128,9 +154,23 @@ const Timeline = styled.div`
   width: 100%;
 `;
 
-const TaskBox = styled(BaseTaskBox)`
+const TaskBox = styled(BaseTaskBox)<{
+  selected: boolean;
+  hovered: boolean;
+  taskId: string;
+}>`
   opacity: 0.5;
+
+  ${({ hovered, selected }) =>
+    (selected || hovered) &&
+    `
+      opacity: 1;
+      border: 1px solid ${blue.base};
+      box-shadow: 0 0 0 1px ${white} inset;
+    `};
+
   :hover {
+    cursor: pointer;
     opacity: 1;
   }
 `;
