@@ -1,21 +1,9 @@
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
-import { gql } from "@apollo/client";
 import {
   ParsleySettingsQuery,
   ParsleySettingsQueryVariables,
 } from "gql/generated/types";
-
-const PARSLEY_SETTINGS = gql`
-  query ParsleySettings {
-    user {
-      parsleySettings {
-        jumpToFailingLineEnabled
-        sectionsEnabled
-      }
-      userId
-    }
-  }
-`;
+import PARSLEY_SETTINGS from "gql/queries/parsley-settings.graphql";
 
 export const parsleySettingsMock: ApolloMock<
   ParsleySettingsQuery,

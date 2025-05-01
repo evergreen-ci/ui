@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   ParsleySettings,
@@ -8,62 +8,8 @@ import {
   UpdateParsleySettingsMutation,
   UpdateParsleySettingsMutationVariables,
 } from "gql/generated/types";
-
-const PARSLEY_SETTINGS = gql`
-  query ParsleySettings {
-    user {
-      parsleySettings {
-        showWrapLines
-        showLineNumbers
-        expandableRows
-        prettyPrint
-        filterLogic
-        caseSensitive
-        showMatchesOnly
-        wrap
-        showBookmarks
-        showToolbar
-        showDarkMode
-        highlightLine
-        expandableRowsEnabled
-        projectFilters {
-          projectIdentifier
-          variants
-          tasks
-          tests
-        }
-      }
-    }
-  }
-`;
-
-const UPDATE_PARSLEY_SETTINGS = gql`
-  mutation UpdateParsleySettings($opts: UserSettingsInput!) {
-    updateUserSettings(userSettings: $opts) {
-      parsleySettings {
-        showWrapLines
-        showLineNumbers
-        expandableRows
-        prettyPrint
-        filterLogic
-        caseSensitive
-        showMatchesOnly
-        wrap
-        showBookmarks
-        showToolbar
-        showDarkMode
-        highlightLine
-        expandableRowsEnabled
-        projectFilters {
-          projectIdentifier
-          variants
-          tasks
-          tests
-        }
-      }
-    }
-  }
-`;
+import PARSLEY_SETTINGS from "gql/queries/parsley-settings.graphql";
+import UPDATE_PARSLEY_SETTINGS from "gql/mutations/update-parsley-settings.graphql";
 
 type UseParsleySettingsReturnType = {
   settings: ParsleySettings | undefined;

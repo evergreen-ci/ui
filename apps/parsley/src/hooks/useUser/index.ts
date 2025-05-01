@@ -1,17 +1,6 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
-
-const GET_USER = gql`
-  query User {
-    user {
-      userId
-      parsleySettings {
-        jumpToFailingLineEnabled
-        sectionsEnabled
-      }
-    }
-  }
-`;
+import GET_USER from "gql/queries/get-user.graphql";
 
 type Options = {
   onError?: (error: Error) => void;

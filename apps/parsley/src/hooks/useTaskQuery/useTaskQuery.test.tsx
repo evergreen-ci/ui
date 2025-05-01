@@ -1,5 +1,4 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { gql } from "@apollo/client";
 import { MemoryRouter } from "react-router-dom";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
