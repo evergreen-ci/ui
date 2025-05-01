@@ -2857,6 +2857,7 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
   /** taskLogs returns the tail 100 lines of the task's logs. */
   taskLogs: TaskLogs;
+  taskOwnerTeam?: Maybe<TaskOwnerTeam>;
   tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]["output"]>;
   totalTestCount: Scalars["Int"]["output"];
@@ -3000,6 +3001,18 @@ export type TaskLogs = {
   systemLogs: Array<LogMessage>;
   taskId: Scalars["String"]["output"];
   taskLogs: Array<LogMessage>;
+};
+
+/**
+ * TaskOwnerTeam is the return value for the taskOwnerTeam query.
+ * It is used to identify the team that owns a task. Based on the FWS team assignment.
+ */
+export type TaskOwnerTeam = {
+  __typename?: "TaskOwnerTeam";
+  assignmentType: Scalars["String"]["output"];
+  jiraProject: Scalars["String"]["output"];
+  messages: Scalars["String"]["output"];
+  teamName: Scalars["String"]["output"];
 };
 
 /**
@@ -8992,6 +9005,25 @@ export type TaskNamesForBuildVariantQuery = {
   taskNamesForBuildVariant?: Array<string> | null;
 };
 
+export type TaskOwnerTeamsForTaskQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskOwnerTeamsForTaskQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    taskOwnerTeam?: {
+      __typename?: "TaskOwnerTeam";
+      messages: string;
+      teamName: string;
+    } | null;
+  } | null;
+};
+
 export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
@@ -9614,10 +9646,12 @@ export type VersionTaskDurationsQuery = {
       data: Array<{
         __typename?: "Task";
         id: string;
+        buildVariant: string;
         buildVariantDisplayName?: string | null;
         displayName: string;
         displayStatus: string;
         execution: number;
+        finishTime?: Date | null;
         startTime?: Date | null;
         timeTaken?: number | null;
         subRows?: Array<{

@@ -71,6 +71,7 @@ const tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"] = [
     displayStatus: "success",
     displayName: "check_codegen",
     buildVariantDisplayName: "Ubuntu 16.04",
+    buildVariant: "ubuntu1604",
     timeTaken: 6000,
     subRows: [
       {
@@ -90,6 +91,7 @@ const tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"] = [
     displayStatus: "success",
     displayName: "compile",
     buildVariantDisplayName: "Ubuntu 16.04",
+    buildVariant: "ubuntu1604",
     subRows: null,
     timeTaken: 10000,
     __typename: "Task",

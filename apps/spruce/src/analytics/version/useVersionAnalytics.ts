@@ -43,11 +43,7 @@ type Action =
   | { name: "Changed version priority"; "version.priority": number }
   | {
       name: "Sorted tasks table";
-      "sort.by":
-        | TaskSortCategory.BaseStatus
-        | TaskSortCategory.Name
-        | TaskSortCategory.Status
-        | TaskSortCategory.Variant;
+      "sort.by": TaskSortCategory | TaskSortCategory[];
     }
   | {
       name: "Sorted downstream tasks table";
