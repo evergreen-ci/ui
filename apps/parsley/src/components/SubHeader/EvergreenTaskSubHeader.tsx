@@ -117,7 +117,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
     versionMetadata,
   } = taskData;
 
-  const { isPatch, message, projectIdentifier, revision } = versionMetadata;
+  const { isPatch, message, projectIdentifier, revision } = versionMetadata || {};
 
   const breadcrumbs = [
     {
