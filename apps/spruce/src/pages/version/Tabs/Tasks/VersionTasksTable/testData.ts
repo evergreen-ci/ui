@@ -1,41 +1,47 @@
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import TasksTable from ".";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskTableInfo } from "components/TasksTable/types";
+import {
+  TaskStatusesQuery,
+  TaskStatusesQueryVariables,
+} from "gql/generated/types";
+import { TASK_STATUSES } from "gql/queries";
 
-export default {
-  component: TasksTable,
-} satisfies CustomMeta<typeof TasksTable>;
+export const versionId = "version-1234";
 
-export const BaseTaskTable: CustomStoryObj<typeof TasksTable> = {
-  render: () => <TasksTable isPatch tasks={tasks} />,
+export const taskStatusesMock: ApolloMock<
+  TaskStatusesQuery,
+  TaskStatusesQueryVariables
+> = {
+  request: {
+    query: TASK_STATUSES,
+    variables: { id: versionId },
+  },
+  result: {
+    data: {
+      version: {
+        __typename: "Version",
+        id: versionId,
+        baseTaskStatuses: [TaskStatus.Failed, TaskStatus.Unscheduled],
+        taskStatuses: [TaskStatus.Started, TaskStatus.Succeeded],
+      },
+    },
+  },
 };
 
-export const ExecutionTasksTable: CustomStoryObj<typeof TasksTable> = {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  render: () => <TasksTable isPatch tasks={nestedTasks} />,
-};
-
-export const VersionTasksTable: CustomStoryObj<typeof TasksTable> = {
-  render: () => <TasksTable isPatch={false} tasks={tasks} />,
-};
-
-const tasks = [
+export const tasks: TaskTableInfo[] = [
   {
     id: "some_id",
     projectIdentifier: "evg",
     execution: 0,
-    aborted: false,
     displayName: "Some Fancy ID",
-    version: "123",
-    status: "started",
-    displayStatus: "started",
+    displayStatus: TaskStatus.Started,
     buildVariant: "ubuntu1604",
     buildVariantDisplayName: "Ubuntu 16.04",
-    blocked: false,
     baseTask: {
       id: "some_base_task",
       execution: 0,
-      status: "unscheduled",
-      displayStatus: "unscheduled",
+      displayStatus: TaskStatus.Unscheduled,
     },
     executionTasksFull: [],
     dependsOn: [],
@@ -44,19 +50,14 @@ const tasks = [
     id: "some_id_2",
     projectIdentifier: "evg",
     execution: 0,
-    aborted: false,
     displayName: "Some other Fancy ID",
-    version: "123",
-    status: "success",
-    displayStatus: "success",
+    displayStatus: TaskStatus.Succeeded,
     buildVariant: "ubuntu1604",
     buildVariantDisplayName: "Ubuntu 16.04",
-    blocked: false,
     baseTask: {
       id: "some_base_task_2",
       execution: 0,
-      status: "failed",
-      displayStatus: "failed",
+      displayStatus: TaskStatus.Failed,
     },
     executionTasksFull: [],
     dependsOn: [],
@@ -65,77 +66,57 @@ const tasks = [
     id: "some_id_3",
     projectIdentifier: "evg",
     execution: 0,
-    aborted: false,
     displayName: "Some different Fancy ID",
-    version: "234",
-    status: "success",
-    displayStatus: "success",
+    displayStatus: TaskStatus.Succeeded,
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
-    blocked: false,
     baseTask: {
       id: "some_base_task_3",
       execution: 0,
-      status: "failed",
-      displayStatus: "failed",
+      displayStatus: TaskStatus.Failed,
     },
     executionTasksFull: [],
     dependsOn: [],
   },
-];
-
-const nestedTasks = [
-  ...tasks,
   {
     id: "some_id_4",
     projectIdentifier: "evg",
     execution: 0,
-    aborted: false,
     displayName: "Some Fancy Display Task",
-    version: "234",
-    status: "success",
-    displayStatus: "success",
+    displayStatus: TaskStatus.Succeeded,
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
-    blocked: false,
     baseTask: {
       id: "some_base_task_4",
       execution: 0,
-      status: "failed",
-      displayStatus: "failed",
+      displayStatus: TaskStatus.Failed,
     },
     executionTasksFull: [
       {
         id: "some_id_5",
-        aborted: false,
+        execution: 0,
         displayName: "Some fancy execution task",
-        version: "234",
-        status: "success",
+        displayStatus: TaskStatus.Succeeded,
         buildVariant: "Windows",
         buildVariantDisplayName: "Windows 97",
-        blocked: false,
         baseTask: {
           id: "some_base_task_5",
           execution: 0,
-          status: "aborted",
-          displayStatus: "failed",
+          displayStatus: TaskStatus.Aborted,
         },
       },
       {
         id: "some_id_6",
         projectIdentifier: "evg",
         execution: 0,
-        aborted: false,
         displayName: "Another execution task",
-        version: "234",
-        status: "success",
+        displayStatus: TaskStatus.Succeeded,
         buildVariant: "Windows",
         buildVariantDisplayName: "Windows 97",
-        blocked: false,
         baseTask: {
           id: "some_base_task_6",
           execution: 0,
-          status: "system-failed",
+          displayStatus: TaskStatus.SystemFailed,
         },
       },
     ],

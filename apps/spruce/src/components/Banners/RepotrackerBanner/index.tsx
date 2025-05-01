@@ -20,7 +20,7 @@ import {
   USER_PROJECT_SETTINGS_PERMISSIONS,
   REPOTRACKER_ERROR,
 } from "gql/queries";
-import { PortalBanner } from "./PortalBanner";
+import { PortalBanner } from "../PortalBanner";
 
 interface RepotrackerBannerProps {
   projectIdentifier: string;

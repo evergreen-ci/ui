@@ -3,8 +3,6 @@ import { useQuery } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics } from "analytics";
-import TableControl from "components/Table/TableControl";
-import TableWrapper from "components/Table/TableWrapper";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { PaginationQueryParams } from "constants/queryParams";
 import {
@@ -17,7 +15,7 @@ import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { parseQueryString } from "utils/queryString";
 import { useQueryVariables } from "../useQueryVariables";
-import { PatchTasksTable } from "./PatchTasksTable";
+import { VersionTasksTable } from "./VersionTasksTable";
 
 const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
@@ -33,7 +31,7 @@ const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
   const versionAnalytics = useVersionAnalytics(versionId || "");
   const queryVariables = useQueryVariables(search, versionId || "");
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
-  const { limit, page, sorts } = queryVariables.taskFilterOptions;
+  const { limit, page } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
     updateQueryParams({
@@ -82,36 +80,17 @@ const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
   const { count = 0, data: tasksData = [] } = tasks || {};
 
   return (
-    <TableWrapper
-      controls={
-        <TableControl
-          filteredCount={count}
-          label="tasks"
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          limit={limit}
-          onClear={clearQueryParams}
-          onPageSizeChange={(l) => {
-            versionAnalytics.sendEvent({
-              name: "Changed page size",
-              "page.size": l,
-            });
-          }}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          page={page}
-          totalCount={taskCount}
-        />
-      }
-      shouldShowBottomTableControl={tasksData.length > 10}
-    >
-      <PatchTasksTable
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        isPatch={isPatch}
-        loading={tasksData.length === 0 && loading}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        sorts={sorts}
-        tasks={tasksData}
-      />
-    </TableWrapper>
+    <VersionTasksTable
+      clearQueryParams={clearQueryParams}
+      filteredCount={count}
+      isPatch={isPatch ?? false}
+      limit={limit ?? 0}
+      loading={tasksData.length === 0 && loading}
+      page={page ?? 0}
+      tasks={tasksData}
+      totalCount={taskCount}
+      versionId={versionId}
+    />
   );
 };
 

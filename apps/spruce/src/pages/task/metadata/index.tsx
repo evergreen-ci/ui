@@ -41,20 +41,28 @@ import { DependsOn } from "./DependsOn";
 import ETATimer from "./ETATimer";
 import RuntimeTimer from "./RuntimeTimer";
 import { Stepback, isInStepback } from "./Stepback";
+import TaskOwnership from "./TaskOwnership";
 
 const { applyStrictRegex, msToDuration, shortenGithash } = string;
 const { red } = palette;
 
 interface Props {
-  taskId: string;
   loading: boolean;
   task: TaskQuery["task"];
-  error: ApolloError | null;
+  error?: ApolloError;
 }
 
-export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
+export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const taskAnalytics = useTaskAnalytics();
   const getDateCopy = useDateFormat();
+
+  if (!task) {
+    return (
+      <MetadataCard error={error} loading={loading} title="Task Metadata">
+        {" "}
+      </MetadataCard>
+    );
+  }
   const {
     abortInfo,
     activatedTime,
@@ -69,12 +77,14 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     displayTask,
     distroId,
     estimatedStart,
+    execution,
     executionTasksFull,
     expectedDuration,
     finishTime,
     generatedBy,
     generatedByName,
     hostId,
+    id: taskId,
     imageId,
     ingestTime,
     minQueuePosition: taskQueuePosition,
@@ -87,7 +97,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     tags,
     timeTaken,
     versionMetadata,
-  } = task || {};
+  } = task;
 
   const isDisplayTask = executionTasksFull != null;
   const {
@@ -110,11 +120,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
 
   return (
     <>
-      <MetadataCard
-        error={!task && error ? error : undefined}
-        loading={loading}
-        title="Task Metadata"
-      >
+      <MetadataCard title="Task Metadata">
         {versionID && buildVariant && (
           <MetadataItem data-cy="task-metadata-build-variant">
             <MetadataLabel>Build Variant:</MetadataLabel>{" "}
@@ -254,6 +260,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
             status={details?.status}
           />
         )}
+        <TaskOwnership execution={execution} taskId={taskId} />
         {details?.timeoutType && details?.timeoutType !== "" && (
           <MetadataItem>
             <MetadataLabel>Timeout type:</MetadataLabel> {details?.timeoutType}
@@ -305,7 +312,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
             <MetadataLabel>Position in queue:</MetadataLabel>{" "}
             <StyledRouterLink
               data-cy="task-queue-position"
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               to={getTaskQueueRoute(distroId, taskId)}
             >
               {taskQueuePosition}
