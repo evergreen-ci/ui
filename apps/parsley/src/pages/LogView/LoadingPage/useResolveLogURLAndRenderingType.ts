@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {
@@ -19,48 +19,9 @@ import {
   TestLogUrlAndRenderingTypeQuery,
   TestLogUrlAndRenderingTypeQueryVariables,
 } from "gql/generated/types";
+import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/test-log-url-and-rendering-type.graphql";
+import TASK_FILES from "gql/queries/task-files.graphql";
 import { useTaskQuery } from "hooks/useTaskQuery";
-
-const GET_TEST_LOG_URL_AND_RENDERING_TYPE = gql`
-  query TestLogUrlAndRenderingType($taskID: String!, $execution: Int!, $testName: String!) {
-    task(taskId: $taskID, execution: $execution) {
-      id
-      tests {
-        testResults(testName: $testName) {
-          id
-          status
-          testFile
-          logs {
-            url
-            urlRaw
-            renderingType
-          }
-          groupID
-        }
-      }
-    }
-  }
-`;
-
-const TASK_FILES = gql`
-  query TaskFiles($taskId: String!, $execution: Int) {
-    task(taskId: $taskId, execution: $execution) {
-      id
-      execution
-      files {
-        groupedFiles {
-          taskId
-          taskName
-          execution
-          files {
-            name
-            link
-          }
-        }
-      }
-    }
-  }
-`;
 
 interface UseResolveLogURLAndRenderingTypeProps {
   buildID?: string;
