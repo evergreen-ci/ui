@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { InlineCode } from "@leafygreen-ui/typography";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
@@ -14,7 +14,27 @@ import {
   TestLogUrlAndRenderingTypeQuery,
   TestLogUrlAndRenderingTypeQueryVariables,
 } from "gql/generated/types";
-import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/get-test-log-url-and-rendering-type.graphql";
+
+const GET_TEST_LOG_URL_AND_RENDERING_TYPE = gql`
+  query TestLogUrlAndRenderingType($taskID: String!, $execution: Int!, $testName: String!) {
+    task(taskId: $taskID, execution: $execution) {
+      id
+      tests {
+        testResults(testName: $testName) {
+          id
+          status
+          testFile
+          logs {
+            url
+            urlRaw
+            renderingType
+          }
+          groupID
+        }
+      }
+    }
+  }
+`;
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { shortenGithash, trimStringFromMiddle } from "utils/string";
 
