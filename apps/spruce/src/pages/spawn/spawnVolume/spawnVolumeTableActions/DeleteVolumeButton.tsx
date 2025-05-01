@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -53,7 +53,7 @@ export const DeleteVolumeButton: React.FC<Props> = ({ volume }) => {
         <Button
           data-cy={`trash-${volume.displayName || volume.id}`}
           disabled={loadingRemoveVolume || volume.migrating}
-          onClick={(e) => {
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation();
           }}
           size={Size.XSmall}

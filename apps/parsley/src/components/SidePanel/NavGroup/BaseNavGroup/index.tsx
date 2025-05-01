@@ -43,14 +43,13 @@ const BaseNavGroup = <T extends {}>({
       children
     ) : (
       <DefaultMessageWrapper data-cy={`${dataCy}-default-message`}>
-        <Body>{defaultMessage}</Body>
+        <StyledBody>{defaultMessage}</StyledBody>
       </DefaultMessageWrapper>
     )}
   </StyledSideNavGroup>
 );
 
-// @ts-expect-error
-const StyledSideNavGroup = styled(SideNavGroup)`
+const StyledSideNavGroup = styled(SideNavGroup as any)`
   > div {
     padding: 0;
   }
@@ -68,6 +67,10 @@ const NavGroupTitle = styled.div`
 const DefaultMessageWrapper = styled.div`
   margin-top: ${size.xs};
   margin-bottom: ${size.s};
+`;
+
+const StyledBody = styled(Body as any)`
+  font-weight: medium;
 `;
 
 export default BaseNavGroup;
