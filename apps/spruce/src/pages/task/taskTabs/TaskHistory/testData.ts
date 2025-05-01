@@ -196,10 +196,12 @@ export const collapsedGroupedTasks: GroupedTask[] = [
   {
     inactiveTasks: null,
     task: tasks[0],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[1],
+    isMatching: true,
   },
   {
     inactiveTasks: [tasks[2]],
@@ -208,6 +210,7 @@ export const collapsedGroupedTasks: GroupedTask[] = [
   {
     inactiveTasks: null,
     task: tasks[3],
+    isMatching: true,
   },
   {
     inactiveTasks: [tasks[4]],
@@ -216,6 +219,7 @@ export const collapsedGroupedTasks: GroupedTask[] = [
   {
     inactiveTasks: null,
     task: tasks[5],
+    isMatching: true,
   },
   {
     inactiveTasks: [tasks[6], tasks[7], tasks[8]],
@@ -224,10 +228,12 @@ export const collapsedGroupedTasks: GroupedTask[] = [
   {
     inactiveTasks: null,
     task: tasks[9],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[10],
+    isMatching: true,
   },
 ];
 
@@ -235,45 +241,56 @@ export const expandedGroupedTasks: GroupedTask[] = [
   {
     inactiveTasks: null,
     task: tasks[0],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[1],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[2],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[3],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[4],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[5],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[6],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[7],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[8],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[9],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[10],
+    isMatching: true,
   },
 ];

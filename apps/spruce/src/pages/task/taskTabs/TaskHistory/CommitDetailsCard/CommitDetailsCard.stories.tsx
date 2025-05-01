@@ -62,7 +62,7 @@ const Template = (args: TemplateProps) => {
       owner="evergreen-ci"
       repo="evergreen"
       task={storyTask}
-      testFailureSearchTerm={null}
+      isMatching={true}
     />
   );
 };
@@ -75,7 +75,7 @@ const RenderWithUnmatchingSearchResult = (args: TemplateProps) => {
       owner="evergreen-ci"
       repo="evergreen"
       task={storyTask}
-      testFailureSearchTerm={/test_failure/}
+      isMatching={false}
     />
   );
 };

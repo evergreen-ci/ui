@@ -30,15 +30,15 @@ interface CommitDetailsCardProps {
   isCurrentTask: boolean;
   owner: string | undefined;
   repo: string | undefined;
-  testFailureSearchTerm: RegExp | null;
+  isMatching: boolean;
 }
 
 const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
   isCurrentTask,
+  isMatching,
   owner,
   repo,
   task,
-  testFailureSearchTerm,
 }) => {
   const {
     canRestart,
@@ -47,7 +47,6 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     id: taskId,
     order,
     revision,
-    tests: { testResults },
     versionMetadata,
   } = task;
   const { author, message } = versionMetadata;
@@ -76,10 +75,6 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     onError: (err) =>
       dispatchToast.error(`Error restarting task: ${err.message}`),
   });
-
-  const isMatching =
-    !testFailureSearchTerm ||
-    testResults.some(({ testFile }) => testFile.match(testFailureSearchTerm));
 
   return (
     <CommitCard

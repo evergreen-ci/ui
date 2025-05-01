@@ -7,12 +7,12 @@ import { getPrevPageCursor, getNextPageCursor, groupTasks } from ".";
 
 describe("groupTasks", () => {
   it("groups inactive tasks if shouldCollapse is true", () => {
-    const res = groupTasks(tasks, true);
+    const res = groupTasks(tasks, true, null);
     expect(res).toStrictEqual(collapsedGroupedTasks);
   });
 
   it("does not group inactive tasks if shouldCollapse is false", () => {
-    const res = groupTasks(tasks, false);
+    const res = groupTasks(tasks, false, null);
     expect(res).toStrictEqual(expandedGroupedTasks);
   });
 });

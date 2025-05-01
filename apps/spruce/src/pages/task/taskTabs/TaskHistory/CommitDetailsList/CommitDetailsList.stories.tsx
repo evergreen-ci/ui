@@ -26,6 +26,9 @@ export default {
 export const Default: CustomStoryObj<TemplateProps> = {
   render: (args) => <Template {...args} />,
 };
+export const WithFilterApplied: CustomStoryObj<TemplateProps> = {
+  render: (args) => <WithFilter {...args} />,
+};
 
 type TemplateProps = {
   shouldCollapse: boolean;
@@ -33,7 +36,7 @@ type TemplateProps = {
 };
 
 const Template = (args: TemplateProps) => {
-  const groupedTasks = groupTasks(tasks, args.shouldCollapse);
+  const groupedTasks = groupTasks(tasks, args.shouldCollapse, null);
   return (
     <CommitDetailsList
       currentTask={currentTask}
@@ -42,6 +45,18 @@ const Template = (args: TemplateProps) => {
     />
   );
 };
+
+const WithFilter = (args: TemplateProps) => {
+  const groupedTasks = groupTasks(tasks, args.shouldCollapse, /e2e/);
+  return (
+    <CommitDetailsList
+      currentTask={currentTask}
+      loading={args.loading}
+      tasks={groupedTasks}
+    />
+  );
+};
+
 
 const currentTask: NonNullable<TaskQuery["task"]> = {
   ...taskQuery.task,

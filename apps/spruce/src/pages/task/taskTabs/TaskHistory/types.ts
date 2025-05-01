@@ -13,6 +13,7 @@ export type GroupedTask =
   | {
       inactiveTasks: null;
       task: TaskHistoryTask;
+      isMatching: boolean;
     };
 
 export enum ViewOptions {
