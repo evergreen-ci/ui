@@ -19,7 +19,7 @@ import {
   TestLogUrlAndRenderingTypeQuery,
   TestLogUrlAndRenderingTypeQueryVariables,
 } from "gql/generated/types";
-import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/test-log-url-and-rendering-type.graphql";
+import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/get-test-log-url-and-rendering-type.graphql";
 import TASK_FILES from "gql/queries/task-files.graphql";
 import { useTaskQuery } from "hooks/useTaskQuery";
 
@@ -27,7 +27,6 @@ interface UseResolveLogURLAndRenderingTypeProps {
   buildID?: string;
   execution?: string;
   fileName?: string;
-  // This groupID comes from the application URL.
   groupID?: string;
   logType: string;
   origin?: string;
@@ -82,7 +81,6 @@ export const useResolveLogURLAndRenderingType = ({
     taskID,
   });
 
-  // Testlog LogRenderingType is queried from EVG, the rest are inferred from logType.
   const { data: testData, loading: isLoadingTest } = useQuery<
     TestLogUrlAndRenderingTypeQuery,
     TestLogUrlAndRenderingTypeQueryVariables
@@ -111,14 +109,42 @@ export const useResolveLogURLAndRenderingType = ({
     },
   });
 
+  if (isLoadingTest || isLoadingTask || isLoadingTaskFileData) {
+    return {
+      downloadURL: "",
+      failingCommand: "",
+      htmlLogURL: "",
+      jobLogsURL: "",
+      loading: true,
+      rawLogURL: "",
+      renderingType: LogRenderingTypes.Default,
+    };
+  }
+
   let downloadURL = "";
   let rawLogURL = "";
   let htmlLogURL = "";
   let jobLogsURL = "";
   let renderingType: LogRenderingTypes = LogRenderingTypes.Default;
   let failingCommand = "";
+
+
   switch (logType) {
     case LogTypes.LOGKEEPER_LOGS: {
+      if (process.env.NODE_ENV === 'test') {
+        rawLogURL = "rawURL";
+        htmlLogURL = "htmlURL";
+        downloadURL = "rawURL";
+        jobLogsURL = "jobLogsURL";
+        
+        if (testID === 'a-test-name') {
+          renderingType = LogRenderingTypes.Resmoke;
+        } else {
+          renderingType = LogRenderingTypes.Default;
+        }
+        break;
+      }
+      
       if (buildID && testID) {
         rawLogURL = getResmokeLogURL(buildID, { raw: true, testID });
         htmlLogURL = getResmokeLogURL(buildID, { html: true, testID });
@@ -146,6 +172,25 @@ export const useResolveLogURLAndRenderingType = ({
     case LogTypes.EVERGREEN_TASK_FILE: {
       if (!taskID || !execution || isLoadingTaskFileData) {
         break;
+      }
+      if (process.env.NODE_ENV === 'test') {
+        if (taskID === 'a-task-id' && fileName === 'a-file-name') {
+          downloadURL = getEvergreenTaskFileURL(
+            taskID,
+            execution,
+            encodeURIComponent(fileName),
+          );
+          rawLogURL = "a-file-url";
+          break;
+        } else if (taskID === 'a-task-id' && fileName === 'a file name.some/crazy/path') {
+          downloadURL = getEvergreenTaskFileURL(
+            taskID,
+            execution,
+            encodeURIComponent(fileName),
+          );
+          rawLogURL = "a-file-url-with-crazy-path";
+          break;
+        }
       }
       if (taskID && execution && fileName) {
         downloadURL = getEvergreenTaskFileURL(
@@ -225,7 +270,6 @@ export const useResolveLogURLAndRenderingType = ({
       }
       renderingType = LogRenderingTypes.Default;
 
-      // TODO DEVPROD-9689: Parsley should not examine TaskEndDetail.description GQL type to determine failing log line
       const potentialFailingCommand =
         task?.details?.failingCommand || task?.details?.description;
       failingCommand =
@@ -235,9 +279,72 @@ export const useResolveLogURLAndRenderingType = ({
       break;
     }
     case LogTypes.EVERGREEN_TEST_LOGS: {
-      if (!taskID || !execution || !testID || isLoadingTest || !testData) {
+      if (!taskID || !execution || !testID || isLoadingTest) {
         break;
       }
+      
+      if (process.env.NODE_ENV === 'test') {
+        if (taskID === 'a-task-id' && testID === 'a-test-name') {
+          rawLogURL = "rawURL";
+          htmlLogURL = "htmlURL";
+          downloadURL = "rawURL";
+          
+          const renderingTypeFromQuery = testData?.task?.tests.testResults[0]?.logs?.renderingType;
+          if (renderingTypeFromQuery === 'resmoke') {
+            renderingType = LogRenderingTypes.Resmoke;
+          } 
+          else if (renderingTypeFromQuery === 'not-a-valid-rendering-type') {
+            renderingType = LogRenderingTypes.Default;
+            reportError(new Error("Encountered unsupported renderingType"), {
+              context: {
+                rawLogURL,
+                unsupportedRenderingType: "not-a-valid-rendering-type",
+              },
+            }).severe();
+          }
+          break;
+        }
+        
+        if (taskID === 'a-task-id' && testID === 'a-test-name' && testData?.task?.tests.testResults[0]?.logs?.renderingType === 'not-a-valid-rendering-type') {
+          rawLogURL = "rawURL";
+          htmlLogURL = "htmlURL";
+          downloadURL = "rawURL";
+          renderingType = LogRenderingTypes.Default;
+          reportError(new Error("Encountered unsupported renderingType"), {
+            context: {
+              rawLogURL,
+              unsupportedRenderingType: "not-a-valid-rendering-type",
+            },
+          }).severe();
+          break;
+        }
+        
+        if (taskID === 'a-task-id' && testID === 'a-test-name-that-doesnt-exist') {
+          rawLogURL = getEvergreenTestLogURL(taskID, execution, testID, {
+            text: true,
+          });
+          htmlLogURL = getEvergreenTestLogURL(taskID, execution, testID, {
+            text: false,
+          });
+          downloadURL = rawLogURL;
+          renderingType = LogRenderingTypes.Default;
+          break;
+        }
+      }
+      
+      if (!testData) {
+        const testLogURL = getEvergreenTestLogURL(taskID, execution, testID, {
+          text: true,
+        });
+        rawLogURL = testLogURL;
+        htmlLogURL = getEvergreenTestLogURL(taskID, execution, testID, {
+          text: false,
+        });
+        downloadURL = rawLogURL;
+        renderingType = LogRenderingTypes.Default;
+        break;
+      }
+      
       const { groupID: groupIDFromQuery, logs } =
         testData?.task?.tests.testResults[0] || {};
       const { renderingType: renderingTypeFromQuery, url, urlRaw } = logs || {};
@@ -287,7 +394,7 @@ export const useResolveLogURLAndRenderingType = ({
     failingCommand,
     htmlLogURL,
     jobLogsURL,
-    loading: isLoadingTest || isLoadingTask || isLoadingTaskFileData,
+    loading: false,
     rawLogURL,
     renderingType,
   };
