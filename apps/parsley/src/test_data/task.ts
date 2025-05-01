@@ -13,7 +13,26 @@ const GET_LOGKEEPER_TASK = gql`
       task {
         id
         displayName
+        displayStatus
         execution
+        patchNumber
+        tests {
+          testResults {
+            id
+            status
+            testFile
+            logs {
+              urlRaw
+            }
+          }
+        }
+        versionMetadata {
+          id
+          isPatch
+          message
+          projectIdentifier
+          revision
+        }
       }
     }
   }
@@ -23,6 +42,10 @@ const GET_TASK = gql`
   query Task($taskId: String!, $execution: Int) {
     task(taskId: $taskId, execution: $execution) {
       id
+      details {
+        description
+        status
+      }
       displayName
       displayStatus
       execution
@@ -38,6 +61,9 @@ const GET_TASK = gql`
         isPatch
         message
         projectIdentifier
+        projectMetadata {
+          id
+        }
         revision
       }
     }
