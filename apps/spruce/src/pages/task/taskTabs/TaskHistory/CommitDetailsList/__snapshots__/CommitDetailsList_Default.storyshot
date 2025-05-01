@@ -64,6 +64,7 @@
         <button
           aria-disabled="false"
           class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="restart-button"
           data-lgid="lg-button"
           type="button"
         >
@@ -165,6 +166,7 @@
         <button
           aria-disabled="false"
           class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="restart-button"
           data-lgid="lg-button"
           type="button"
         >
@@ -279,6 +281,7 @@
         <button
           aria-disabled="false"
           class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="restart-button"
           data-lgid="lg-button"
           type="button"
         >
@@ -393,6 +396,7 @@
         <button
           aria-disabled="false"
           class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="restart-button"
           data-lgid="lg-button"
           type="button"
         >
@@ -507,6 +511,7 @@
         <button
           aria-disabled="false"
           class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="restart-button"
           data-lgid="lg-button"
           type="button"
         >
@@ -615,6 +620,7 @@
         <button
           aria-disabled="false"
           class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="restart-button"
           data-lgid="lg-button"
           type="button"
         >
