@@ -253,6 +253,33 @@ describe("task history", () => {
         .should("contain", "Remove userSettings query");
     });
 
+    it("changing timezones", () => {
+      cy.visit("/preferences");
+      cy.contains("Select a timezone").click();
+      cy.contains("Japan, South Korea").click({ force: true });
+      cy.contains("button", "Save changes").click();
+
+      cy.visit(mciTaskHistoryLink);
+      cy.dataCy("expanded-option").click();
+
+      cy.dataCy("date-picker").click();
+      cy.get("[aria-label^='Select year']").click();
+      cy.contains("li", "2025").click({ force: true });
+      cy.get("[aria-label^='Select month']").click();
+      cy.contains("li", "Feb").click({ force: true });
+      cy.get("[data-iso='2025-02-28']").click();
+
+      cy.location("search").should("contain", "2025-02-28");
+      cy.validateDatePickerDate("date-picker", {
+        year: "2025",
+        month: "02",
+        day: "28",
+      });
+      cy.dataCy("commit-details-card")
+        .eq(0)
+        .should("contain", "Flush logger after running check run");
+    });
+
     it("date is cleared when paginating", () => {
       cy.visit(`${mciTaskHistoryLink}&date=2025-02-28`);
       cy.dataCy("expanded-option").click();
