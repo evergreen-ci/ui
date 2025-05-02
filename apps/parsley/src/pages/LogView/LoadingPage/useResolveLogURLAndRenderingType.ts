@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { gql } from "@apollo/client";
-import { LogTypes } from "constants/enums";
+import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {
   TaskFilesQuery,
   TaskFilesQueryVariables,
@@ -9,55 +8,14 @@ import {
 } from "gql/generated/types";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { useTaskQuery } from "hooks/useTaskQuery";
-
-// Define GraphQL queries using gql tag for tests
-const GET_TEST_LOG_URL_AND_RENDERING_TYPE = process.env.NODE_ENV === 'test'
-  ? gql`
-    query TestLogUrlAndRenderingType($taskID: String!, $testName: String!, $execution: Int) {
-      task(taskId: $taskID, execution: $execution) {
-        id
-        tests {
-          testResults {
-            id
-            logs {
-              renderingType
-              url
-              urlRaw
-            }
-            status
-            testFile
-          }
-        }
-      }
-    }
-  `
-  : require('gql/queries/get-test-log-url-and-rendering-type.graphql');
-
-const TASK_FILES = process.env.NODE_ENV === 'test'
-  ? gql`
-    query TaskFiles($taskId: String!, $execution: Int) {
-      task(taskId: $taskId, execution: $execution) {
-        id
-        execution
-        files {
-          groupedFiles {
-            taskId
-            taskName
-            execution
-            files {
-              name
-              link
-            }
-          }
-        }
-      }
-    }
-  `
-  : require('gql/queries/task-files.graphql');
+import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/get-test-log-url-and-rendering-type.graphql";
+import TASK_FILES from "gql/queries/task-files.graphql";
 
 interface UseResolveLogURLAndRenderingTypeProps {
+  buildID?: string;
   execution?: string;
   fileName?: string;
+  groupID?: string;
   logType?: LogTypes;
   origin?: string;
   taskID?: string;
@@ -65,21 +23,27 @@ interface UseResolveLogURLAndRenderingTypeProps {
 }
 
 interface UseResolveLogURLAndRenderingTypeReturn {
+  downloadURL: string;
+  failingCommand?: string;
   htmlLogURL: string;
+  jobLogsURL?: string;
   loading: boolean;
   rawLogURL: string;
-  renderingType: string;
+  renderingType: LogRenderingTypes;
 }
 
 export const useResolveLogURLAndRenderingType = ({
+  buildID,
   execution,
   fileName,
+  groupID,
   logType,
   origin,
   taskID,
   testID,
 }: UseResolveLogURLAndRenderingTypeProps): UseResolveLogURLAndRenderingTypeReturn => {
   const { task: taskData, loading: taskLoading } = useTaskQuery({
+    buildID,
     execution,
     logType,
     taskID,
@@ -96,7 +60,7 @@ export const useResolveLogURLAndRenderingType = ({
       !execution,
     variables: {
       execution: Number(execution),
-      taskID,
+      taskID: taskID || "",
       testName: `^${testID}$`,
     },
   });
@@ -112,7 +76,7 @@ export const useResolveLogURLAndRenderingType = ({
       !execution,
     variables: {
       execution: Number(execution),
-      taskId: taskID,
+      taskId: taskID || "",
     },
   });
 
@@ -120,10 +84,11 @@ export const useResolveLogURLAndRenderingType = ({
 
   if (loading) {
     return {
+      downloadURL: "",
       htmlLogURL: "",
       loading,
       rawLogURL: "",
-      renderingType: "",
+      renderingType: "default" as LogRenderingTypes,
     };
   }
 
@@ -141,17 +106,19 @@ export const useResolveLogURLAndRenderingType = ({
         });
       }
       return {
+        downloadURL: urlRaw ?? "",
         htmlLogURL: url ?? "",
         loading,
         rawLogURL: urlRaw ?? "",
-        renderingType: renderingType === "resmoke" ? "resmoke" : "default",
+        renderingType: (renderingType === "resmoke" ? "resmoke" : "default") as LogRenderingTypes,
       };
     }
     return {
+      downloadURL: `${window.location.origin}/task_log_raw/${taskID}/${execution}?type=T&text=true&name=${testID}`,
       htmlLogURL: `${window.location.origin}/task_log_raw/${taskID}/${execution}?type=T&text=true&html=true&name=${testID}`,
       loading,
       rawLogURL: `${window.location.origin}/task_log_raw/${taskID}/${execution}?type=T&text=true&name=${testID}`,
-      renderingType: "default",
+      renderingType: "default" as LogRenderingTypes,
     };
   }
 
@@ -162,18 +129,20 @@ export const useResolveLogURLAndRenderingType = ({
       const file = files?.find((f) => f?.name === fileName);
       if (file) {
         return {
+          downloadURL: file.link ?? "",
           htmlLogURL: file.link ?? "",
           loading,
           rawLogURL: file.link ?? "",
-          renderingType: "default",
+          renderingType: "default" as LogRenderingTypes,
         };
       }
     }
     return {
+      downloadURL: "",
       htmlLogURL: "",
       loading,
       rawLogURL: "",
-      renderingType: "default",
+      renderingType: "default" as LogRenderingTypes,
     };
   }
 
@@ -192,17 +161,19 @@ export const useResolveLogURLAndRenderingType = ({
       }
     }
     return {
+      downloadURL: logURL.replace("?type=", "?text=true&type="),
       htmlLogURL: logURL.replace("?type=", "?text=true&html=true&type="),
       loading,
       rawLogURL: logURL.replace("?type=", "?text=true&type="),
-      renderingType: "default",
+      renderingType: "default" as LogRenderingTypes,
     };
   }
 
   return {
+    downloadURL: "",
     htmlLogURL: "",
     loading,
     rawLogURL: "",
-    renderingType: "default",
+    renderingType: "default" as LogRenderingTypes,
   };
 };
