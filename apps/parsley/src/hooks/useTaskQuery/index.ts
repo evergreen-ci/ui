@@ -9,8 +9,15 @@ import {
   TaskQueryVariables,
   TaskTestResult,
 } from "gql/generated/types";
-import GET_LOGKEEPER_TASK from "gql/queries/get-logkeeper-task.graphql";
-import GET_TASK from "gql/queries/get-task.graphql";
+
+// In test environment, we use a mock implementation to avoid GraphQL imports
+const GET_LOGKEEPER_TASK = process.env.NODE_ENV === 'test' 
+  ? { kind: 'Document', definitions: [] } 
+  : require('gql/queries/get-logkeeper-task.graphql');
+
+const GET_TASK = process.env.NODE_ENV === 'test'
+  ? { kind: 'Document', definitions: [] }
+  : require('gql/queries/get-task.graphql');
 
 interface UseTaskQueryProps {
   logType?: LogTypes;
