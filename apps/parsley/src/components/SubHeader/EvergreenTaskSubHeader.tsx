@@ -14,7 +14,7 @@ import {
   TestLogUrlAndRenderingTypeQuery,
   TestLogUrlAndRenderingTypeQueryVariables,
 } from "gql/generated/types";
-import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/test-log-url-and-rendering-type.graphql";
+import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/get-test-log-url-and-rendering-type.graphql";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { shortenGithash, trimStringFromMiddle } from "utils/string";
 
