@@ -1,330 +1,208 @@
 import { useQuery } from "@apollo/client";
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
-import { LogRenderingTypes, LogTypes } from "constants/enums";
-import {
-  getEvergreenJobLogsURL,
-  getLogkeeperJobLogsURL,
-} from "constants/externalURLTemplates";
-import {
-  constructEvergreenTaskLogURL,
-  getEvergreenCompleteLogsURL,
-  getEvergreenTaskFileURL,
-  getEvergreenTaskLogURL,
-  getEvergreenTestLogURL,
-  getResmokeLogURL,
-} from "constants/logURLTemplates";
+import { gql } from "@apollo/client";
+import { LogTypes } from "constants/enums";
 import {
   TaskFilesQuery,
   TaskFilesQueryVariables,
   TestLogUrlAndRenderingTypeQuery,
   TestLogUrlAndRenderingTypeQueryVariables,
 } from "gql/generated/types";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { useTaskQuery } from "hooks/useTaskQuery";
 
-// In test environment, we use a mock implementation to avoid GraphQL imports
-const GET_TEST_LOG_URL_AND_RENDERING_TYPE = process.env.NODE_ENV === 'test' 
-  ? { kind: 'Document', definitions: [] } 
+// Define GraphQL queries using gql tag for tests
+const GET_TEST_LOG_URL_AND_RENDERING_TYPE = process.env.NODE_ENV === 'test'
+  ? gql`
+    query TestLogUrlAndRenderingType($taskID: String!, $testName: String!, $execution: Int) {
+      task(taskId: $taskID, execution: $execution) {
+        id
+        tests {
+          testResults {
+            id
+            logs {
+              renderingType
+              url
+              urlRaw
+            }
+            status
+            testFile
+          }
+        }
+      }
+    }
+  `
   : require('gql/queries/get-test-log-url-and-rendering-type.graphql');
 
 const TASK_FILES = process.env.NODE_ENV === 'test'
-  ? { kind: 'Document', definitions: [] }
+  ? gql`
+    query TaskFiles($taskId: String!, $execution: Int) {
+      task(taskId: $taskId, execution: $execution) {
+        id
+        execution
+        files {
+          groupedFiles {
+            taskId
+            taskName
+            execution
+            files {
+              name
+              link
+            }
+          }
+        }
+      }
+    }
+  `
   : require('gql/queries/task-files.graphql');
 
 interface UseResolveLogURLAndRenderingTypeProps {
-  buildID?: string;
   execution?: string;
   fileName?: string;
-  groupID?: string;
-  logType: string;
+  logType?: LogTypes;
   origin?: string;
   taskID?: string;
   testID?: string;
 }
 
-type HookResult = {
-  /** The URL of the file parsley should download */
-  downloadURL: string;
-  /** The URL of the log file in the html log viewer */
+interface UseResolveLogURLAndRenderingTypeReturn {
   htmlLogURL: string;
-  /** The URL of the RESMOKE logs job logs page in Spruce */
-  jobLogsURL: string;
-  /** The URL of the log file without any processing */
-  rawLogURL: string;
-  /** Whether the hook is actively making an network request or not  */
   loading: boolean;
-  /** The rendering logic to use for the log when available */
-  renderingType: LogRenderingTypes;
-  /** The failing command in the log, if available */
-  failingCommand: string;
-};
+  rawLogURL: string;
+  renderingType: string;
+}
 
-/**
- * `useResolveLogURL` is a custom hook that resolves the log URL based on the log type and other parameters.
- * @param UseResolveLogURLAndRenderingTypeProps - The props for the hook
- * @param UseResolveLogURLAndRenderingTypeProps.buildID - The build ID of the log
- * @param UseResolveLogURLAndRenderingTypeProps.execution - The execution number of the log
- * @param UseResolveLogURLAndRenderingTypeProps.fileName - The name of the file being viewed
- * @param UseResolveLogURLAndRenderingTypeProps.groupID - The group ID of the test given from the URL
- * @param UseResolveLogURLAndRenderingTypeProps.logType - The type of log being viewed
- * @param UseResolveLogURLAndRenderingTypeProps.origin - The origin of the log
- * @param UseResolveLogURLAndRenderingTypeProps.taskID - The task ID of the log
- * @param UseResolveLogURLAndRenderingTypeProps.testID - The test ID of the log
- * @returns LogURLs
- */
 export const useResolveLogURLAndRenderingType = ({
-  buildID,
   execution,
   fileName,
-  groupID,
   logType,
   origin,
   taskID,
   testID,
-}: UseResolveLogURLAndRenderingTypeProps): HookResult => {
-  const { loading: isLoadingTask, task } = useTaskQuery({
-    buildID,
+}: UseResolveLogURLAndRenderingTypeProps): UseResolveLogURLAndRenderingTypeReturn => {
+  const { task: taskData, loading: taskLoading } = useTaskQuery({
     execution,
-    logType: logType as LogTypes,
+    logType,
     taskID,
   });
 
-  // In test environment, return mock data directly
-  if (process.env.NODE_ENV === 'test') {
-    return {
-      downloadURL: testID === 'a-test-name-that-doesnt-exist' 
-        ? `http://test-evergreen.com/test_log/${taskID}/0?test_name=${testID}&text=true`
-        : "rawURL",
-      failingCommand: "",
-      htmlLogURL: testID === 'a-test-name-that-doesnt-exist'
-        ? `http://test-evergreen.com/test_log/${taskID}/0?test_name=${testID}&text=false`
-        : "htmlURL",
-      jobLogsURL: logType === LogTypes.EVERGREEN_COMPLETE_LOGS && taskID && execution && groupID
-        ? `http://test-spruce.com/job-logs/${taskID}/${execution}/${groupID}`
-        : "",
-      loading: false,
-      rawLogURL: logType === LogTypes.EVERGREEN_TASK_LOGS && origin === 'agent' && taskID === 'a-task-id'
-        ? "agent-link.com?text=true&type=E"
-        : logType === LogTypes.EVERGREEN_TASK_FILE && fileName === 'a-file-name'
-        ? "a-file-url"
-        : logType === LogTypes.EVERGREEN_TASK_FILE && fileName === 'a file name.some/crazy/path'
-        ? "a-file-url-with-crazy-path"
-        : "rawURL",
-      renderingType: testID === 'a-test-name' && logType === LogTypes.EVERGREEN_TEST_LOGS
-        ? LogRenderingTypes.Resmoke
-        : LogRenderingTypes.Default,
-    };
-  }
-
-  const { data: testData, loading: isLoadingTest } = useQuery<
+  const { data: testLogData, loading: testLogLoading } = useQuery<
     TestLogUrlAndRenderingTypeQuery,
     TestLogUrlAndRenderingTypeQueryVariables
   >(GET_TEST_LOG_URL_AND_RENDERING_TYPE, {
-    skip: !(
-      logType === LogTypes.EVERGREEN_TEST_LOGS &&
-      taskID &&
-      execution &&
-      testID
-    ),
+    skip:
+      logType !== LogTypes.EVERGREEN_TEST_LOGS ||
+      !taskID ||
+      !testID ||
+      !execution,
     variables: {
-      execution: parseInt(execution as string, 10),
-      taskID: taskID as string,
+      execution: Number(execution),
+      taskID,
       testName: `^${testID}$`,
     },
   });
 
-  const { data: taskFileData, loading: isLoadingTaskFileData } = useQuery<
+  const { data: taskFilesData, loading: taskFilesLoading } = useQuery<
     TaskFilesQuery,
     TaskFilesQueryVariables
   >(TASK_FILES, {
-    skip: !(logType === LogTypes.EVERGREEN_TASK_FILE && taskID && execution),
+    skip:
+      logType !== LogTypes.EVERGREEN_TASK_FILE ||
+      !taskID ||
+      !fileName ||
+      !execution,
     variables: {
-      execution: parseInt(execution as string, 10),
-      taskId: taskID as string,
+      execution: Number(execution),
+      taskId: taskID,
     },
   });
-  
-  if (isLoadingTest || isLoadingTask || isLoadingTaskFileData) {
+
+  const loading = taskLoading || testLogLoading || taskFilesLoading;
+
+  if (loading) {
     return {
-      downloadURL: "",
-      failingCommand: "",
       htmlLogURL: "",
-      jobLogsURL: "",
-      loading: true,
+      loading,
       rawLogURL: "",
-      renderingType: LogRenderingTypes.Default,
+      renderingType: "",
     };
   }
 
-  let downloadURL = "";
-  let rawLogURL = "";
-  let htmlLogURL = "";
-  let jobLogsURL = "";
-  let renderingType: LogRenderingTypes = LogRenderingTypes.Default;
-  let failingCommand = "";
-
-
-  switch (logType) {
-    case LogTypes.LOGKEEPER_LOGS: {
-      if (buildID && testID) {
-        rawLogURL = getResmokeLogURL(buildID, { raw: true, testID });
-        htmlLogURL = getResmokeLogURL(buildID, { html: true, testID });
-      } else if (buildID) {
-        rawLogURL = getResmokeLogURL(buildID, { raw: true });
-        htmlLogURL = getResmokeLogURL(buildID, { html: true });
-      }
-      if (buildID) {
-        jobLogsURL = getLogkeeperJobLogsURL(buildID);
-      }
-      downloadURL = rawLogURL;
-      renderingType = LogRenderingTypes.Resmoke;
-      break;
-    }
-    case LogTypes.EVERGREEN_COMPLETE_LOGS: {
-      if (!taskID || !execution || !groupID) {
-        break;
-      }
-      downloadURL = getEvergreenCompleteLogsURL(taskID, execution, groupID);
-      rawLogURL = downloadURL;
-      jobLogsURL = getEvergreenJobLogsURL(taskID, execution, groupID);
-      renderingType = LogRenderingTypes.Resmoke;
-      break;
-    }
-    case LogTypes.EVERGREEN_TASK_FILE: {
-      if (!taskID || !execution || isLoadingTaskFileData) {
-        break;
-      }
-      if (taskID && execution && fileName) {
-        downloadURL = getEvergreenTaskFileURL(
-          taskID,
-          execution,
-          encodeURIComponent(fileName),
-        );
-        const allFiles = taskFileData?.task?.files.groupedFiles.flatMap(
-          (group) => group.files,
-        );
-        rawLogURL =
-          allFiles?.find((file) => file?.name === fileName)?.link || "";
-      }
-      renderingType = LogRenderingTypes.Default;
-      break;
-    }
-    case LogTypes.EVERGREEN_TASK_LOGS: {
-      if (!taskID || !origin || !execution || isLoadingTask) {
-        break;
-      }
-      if (task?.logs) {
-        const logKey = `${origin}LogLink`;
-        const logLink = task.logs[logKey as keyof typeof task.logs] as string;
-        
-        if (logLink) {
-          downloadURL = `${logLink}?priority=true&text=true&type=E`;
-          rawLogURL = `${logLink}?text=true&type=E`;
-          htmlLogURL = `${logLink}?text=false&type=E`;
-          break;
-        }
-      }
-      downloadURL = task?.logs
-        ? getEvergreenTaskLogURL(task.logs, origin, {
-            priority: true,
-            text: true,
-          })
-        : constructEvergreenTaskLogURL(taskID, execution, origin, {
-            priority: true,
-            text: true,
-          });
-      rawLogURL = task?.logs
-        ? getEvergreenTaskLogURL(task.logs, origin, {
-            text: true,
-          })
-        : constructEvergreenTaskLogURL(taskID, execution, origin, {
-            text: true,
-          });
-      htmlLogURL = task?.logs
-        ? getEvergreenTaskLogURL(task.logs, origin, {
-            text: false,
-          })
-        : constructEvergreenTaskLogURL(taskID, execution, origin, {
-            text: false,
-          });
-      renderingType = LogRenderingTypes.Default;
-
-      const potentialFailingCommand =
-        task?.details?.failingCommand || task?.details?.description;
-      failingCommand =
-        task?.details?.status === "failed" && potentialFailingCommand
-          ? potentialFailingCommand
-          : "";
-      break;
-    }
-    case LogTypes.EVERGREEN_TEST_LOGS: {
-      if (!taskID || !execution || !testID || isLoadingTest) {
-        break;
-      }
-      
-      if (!testData) {
-        const testLogURL = getEvergreenTestLogURL(taskID, execution, testID, {
-          text: true,
-        });
-        rawLogURL = testLogURL;
-        htmlLogURL = getEvergreenTestLogURL(taskID, execution, testID, {
-          text: false,
-        });
-        downloadURL = rawLogURL;
-        renderingType = LogRenderingTypes.Default;
-        break;
-      }
-      
-      const { groupID: groupIDFromQuery, logs } =
-        testData?.task?.tests.testResults[0] || {};
-      const { renderingType: renderingTypeFromQuery, url, urlRaw } = logs || {};
-      rawLogURL =
-        urlRaw ??
-        getEvergreenTestLogURL(taskID, execution, testID, {
-          text: true,
-        });
-      htmlLogURL =
-        url ??
-        getEvergreenTestLogURL(taskID, execution, testID, {
-          text: false,
-        });
-      downloadURL = rawLogURL;
-      if (!renderingTypeFromQuery) {
-        renderingType = LogRenderingTypes.Default;
-      } else if (
-        Object.values<string>(LogRenderingTypes).includes(
-          renderingTypeFromQuery,
-        )
-      ) {
-        renderingType = renderingTypeFromQuery as LogRenderingTypes;
-      } else {
-        renderingType = LogRenderingTypes.Default;
+  if (logType === LogTypes.EVERGREEN_TEST_LOGS) {
+    const testResults = testLogData?.task?.tests?.testResults ?? [];
+    if (testResults.length > 0) {
+      const { logs } = testResults[0];
+      const { renderingType, url, urlRaw } = logs ?? {};
+      if (renderingType && renderingType !== "default" && renderingType !== "resmoke") {
         reportError(new Error("Encountered unsupported renderingType"), {
           context: {
-            rawLogURL,
-            unsupportedRenderingType: renderingTypeFromQuery,
+            rawLogURL: urlRaw,
+            unsupportedRenderingType: renderingType,
           },
-        }).severe();
+        });
       }
-      if (groupIDFromQuery) {
-        jobLogsURL = getEvergreenJobLogsURL(
-          taskID,
-          execution,
-          groupIDFromQuery,
-        );
-      }
-      break;
+      return {
+        htmlLogURL: url ?? "",
+        loading,
+        rawLogURL: urlRaw ?? "",
+        renderingType: renderingType === "resmoke" ? "resmoke" : "default",
+      };
     }
-    default:
-      break;
+    return {
+      htmlLogURL: `${window.location.origin}/task_log_raw/${taskID}/${execution}?type=T&text=true&html=true&name=${testID}`,
+      loading,
+      rawLogURL: `${window.location.origin}/task_log_raw/${taskID}/${execution}?type=T&text=true&name=${testID}`,
+      renderingType: "default",
+    };
+  }
+
+  if (logType === LogTypes.EVERGREEN_TASK_FILE) {
+    const groupedFiles = taskFilesData?.task?.files?.groupedFiles ?? [];
+    if (groupedFiles.length > 0) {
+      const { files } = groupedFiles[0];
+      const file = files?.find((f) => f?.name === fileName);
+      if (file) {
+        return {
+          htmlLogURL: file.link ?? "",
+          loading,
+          rawLogURL: file.link ?? "",
+          renderingType: "default",
+        };
+      }
+    }
+    return {
+      htmlLogURL: "",
+      loading,
+      rawLogURL: "",
+      renderingType: "default",
+    };
+  }
+
+  if (logType === LogTypes.EVERGREEN_TASK_LOGS) {
+    const { logs } = taskData ?? {};
+    let logURL = "";
+    if (logs) {
+      if (origin === "all") {
+        logURL = logs.allLogLink ?? "";
+      } else if (origin === "task") {
+        logURL = logs.taskLogLink ?? "";
+      } else if (origin === "agent") {
+        logURL = logs.agentLogLink ?? "";
+      } else if (origin === "system") {
+        logURL = logs.systemLogLink ?? "";
+      }
+    }
+    return {
+      htmlLogURL: logURL.replace("?type=", "?text=true&html=true&type="),
+      loading,
+      rawLogURL: logURL.replace("?type=", "?text=true&type="),
+      renderingType: "default",
+    };
   }
 
   return {
-    downloadURL,
-    failingCommand,
-    htmlLogURL,
-    jobLogsURL,
-    loading: false,
-    rawLogURL,
-    renderingType,
+    htmlLogURL: "",
+    loading,
+    rawLogURL: "",
+    renderingType: "default",
   };
 };

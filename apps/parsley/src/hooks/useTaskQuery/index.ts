@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
 import { LogTypes } from "constants/enums";
 import {
   BaseTaskFragment,
@@ -10,13 +11,53 @@ import {
   TaskTestResult,
 } from "gql/generated/types";
 
-// In test environment, we use a mock implementation to avoid GraphQL imports
+// Define GraphQL queries using gql tag for tests
 const GET_LOGKEEPER_TASK = process.env.NODE_ENV === 'test' 
-  ? { kind: 'Document', definitions: [] } 
+  ? gql`
+    query LogkeeperTask($buildId: String!) {
+      logkeeperBuildMetadata(buildId: $buildId) {
+        task {
+          id
+          displayName
+          execution
+        }
+      }
+    }
+  `
   : require('gql/queries/get-logkeeper-task.graphql');
 
 const GET_TASK = process.env.NODE_ENV === 'test'
-  ? { kind: 'Document', definitions: [] }
+  ? gql`
+    query Task($taskId: String!, $execution: Int) {
+      task(taskId: $taskId, execution: $execution) {
+        id
+        details {
+          description
+          status
+        }
+        displayName
+        displayStatus
+        execution
+        logs {
+          agentLogLink
+          allLogLink
+          systemLogLink
+          taskLogLink
+        }
+        patchNumber
+        versionMetadata {
+          id
+          isPatch
+          message
+          projectIdentifier
+          projectMetadata {
+            id
+          }
+          revision
+        }
+      }
+    }
+  `
   : require('gql/queries/get-task.graphql');
 
 interface UseTaskQueryProps {
