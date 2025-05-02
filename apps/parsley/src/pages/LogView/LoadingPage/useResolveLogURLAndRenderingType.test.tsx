@@ -1,18 +1,299 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogTypes } from "constants/enums";
 import { useResolveLogURLAndRenderingType } from "./useResolveLogURLAndRenderingType";
-import {
-  evergreenTaskMock,
-  getEmptyTestLogURLMock,
-  getExistingDefaultTestLogURLMock,
-  getExistingDefaultTestLogURLMockEmptyRenderingType,
-  getExistingResmokeTestLogURLMock,
-  getExistingTestLogURLInvalidRenderingTypeMock,
-  getTaskFileURLMock,
-} from "./testData/graphqlMocks";
+
+// Define GraphQL queries using gql tag for tests
+const GET_TEST_LOG_URL_AND_RENDERING_TYPE = gql`
+  query TestLogUrlAndRenderingType($taskID: String!, $testName: String!, $execution: Int) {
+    task(taskId: $taskID, execution: $execution) {
+      id
+      tests {
+        testResults {
+          id
+          logs {
+            renderingType
+            url
+            urlRaw
+          }
+          status
+          testFile
+        }
+      }
+    }
+  }
+`;
+
+const TASK_FILES = gql`
+  query TaskFiles($taskId: String!, $execution: Int) {
+    task(taskId: $taskId, execution: $execution) {
+      id
+      execution
+      files {
+        groupedFiles {
+          taskId
+          taskName
+          execution
+          files {
+            name
+            link
+          }
+        }
+      }
+    }
+  }
+`;
+
+const GET_TASK = gql`
+  query Task($taskId: String!, $execution: Int) {
+    task(taskId: $taskId, execution: $execution) {
+      id
+      displayName
+      displayStatus
+      execution
+      logs {
+        agentLogLink
+        allLogLink
+        systemLogLink
+        taskLogLink
+      }
+      patchNumber
+      versionMetadata {
+        id
+        isPatch
+        message
+        projectIdentifier
+        revision
+      }
+    }
+  }
+`;
+
+// Mock data
+const getExistingResmokeTestLogURLMock: ApolloMock<any, any> = {
+  request: {
+    query: GET_TEST_LOG_URL_AND_RENDERING_TYPE,
+    variables: {
+      execution: 0,
+      taskID: "a-task-id",
+      testName: "^a-test-name$",
+    },
+  },
+  result: {
+    data: {
+      task: {
+        id: "taskID",
+        tests: {
+          testResults: [
+            {
+              id: "testID",
+              logs: {
+                renderingType: "resmoke",
+                url: "htmlURL",
+                urlRaw: "rawURL",
+              },
+              status: "success",
+              testFile: "testFile",
+            },
+          ],
+        },
+      },
+    },
+  },
+};
+
+const getExistingTestLogURLInvalidRenderingTypeMock: ApolloMock<any, any> = {
+  request: {
+    query: GET_TEST_LOG_URL_AND_RENDERING_TYPE,
+    variables: {
+      execution: 0,
+      taskID: "a-task-id",
+      testName: "^a-test-name$",
+    },
+  },
+  result: {
+    data: {
+      task: {
+        id: "taskID",
+        tests: {
+          testResults: [
+            {
+              id: "testID",
+              logs: {
+                renderingType: "not-a-valid-rendering-type",
+                url: "htmlURL",
+                urlRaw: "rawURL",
+              },
+              status: "success",
+              testFile: "testFile",
+            },
+          ],
+        },
+      },
+    },
+  },
+};
+
+const getExistingDefaultTestLogURLMock: ApolloMock<any, any> = {
+  request: {
+    query: GET_TEST_LOG_URL_AND_RENDERING_TYPE,
+    variables: {
+      execution: 0,
+      taskID: "a-task-id",
+      testName: "^a-test-name$",
+    },
+  },
+  result: {
+    data: {
+      task: {
+        id: "taskID",
+        tests: {
+          testResults: [
+            {
+              id: "testID",
+              logs: {
+                renderingType: "default",
+                url: "htmlURL",
+                urlRaw: "rawURL",
+              },
+              status: "success",
+              testFile: "testFile",
+            },
+          ],
+        },
+      },
+    },
+  },
+};
+
+const getExistingDefaultTestLogURLMockEmptyRenderingType: ApolloMock<any, any> = {
+  request: {
+    query: GET_TEST_LOG_URL_AND_RENDERING_TYPE,
+    variables: {
+      execution: 0,
+      taskID: "a-task-id",
+      testName: "^a-test-name$",
+    },
+  },
+  result: {
+    data: {
+      task: {
+        id: "taskID",
+        tests: {
+          testResults: [
+            {
+              id: "testID",
+              logs: {
+                renderingType: null,
+                url: "htmlURL",
+                urlRaw: "rawURL",
+              },
+              status: "success",
+              testFile: "testFile",
+            },
+          ],
+        },
+      },
+    },
+  },
+};
+
+const getEmptyTestLogURLMock: ApolloMock<any, any> = {
+  request: {
+    query: GET_TEST_LOG_URL_AND_RENDERING_TYPE,
+    variables: {
+      execution: 0,
+      taskID: "a-task-id",
+      testName: "^a-test-name-that-doesnt-exist$",
+    },
+  },
+  result: {
+    data: {
+      task: {
+        id: "taskID",
+        tests: {
+          testResults: [],
+        },
+      },
+    },
+  },
+};
+
+const getTaskFileURLMock: ApolloMock<any, any> = {
+  request: {
+    query: TASK_FILES,
+    variables: {
+      execution: 0,
+      taskId: "a-task-id",
+    },
+  },
+  result: {
+    data: {
+      task: {
+        execution: 0,
+        files: {
+          groupedFiles: [
+            {
+              execution: 0,
+              files: [
+                {
+                  link: "a-file-url",
+                  name: "a-file-name",
+                },
+                {
+                  link: "a-file-url-with-crazy-path",
+                  name: "a file name.some/crazy/path",
+                },
+              ],
+              taskId: "a-task-id",
+              taskName: "a-task-name",
+            },
+          ],
+        },
+        id: "taskID",
+      },
+    },
+  },
+};
+
+const evergreenTaskMock: ApolloMock<any, any> = {
+  request: {
+    query: GET_TASK,
+    variables: {
+      execution: 0,
+      taskId: "a-task-id",
+    },
+  },
+  result: {
+    data: {
+      task: {
+        __typename: "Task",
+        displayName: "check_codegen",
+        displayStatus: "failed",
+        execution: 0,
+        id: "a-task-id",
+        logs: {
+          agentLogLink: "agent-link.com?type=E",
+          allLogLink: "all-log-link.com?type=ALL",
+          systemLogLink: "system-log-link.com?type=S",
+          taskLogLink: "task-log-link.com?type=T",
+        },
+        patchNumber: 1,
+        versionMetadata: {
+          __typename: "Version",
+          id: "spruce_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f",
+          isPatch: false,
+          message: "v2.28.5",
+          projectIdentifier: "spruce",
+          revision: "d54e2c6ede60e004c48d3c4d996c59579c7bbd1f",
+        },
+      },
+    },
+  },
+};
 
 describe("useResolveLogURLAndRenderingType", () => {
   describe("test log renderingType", () => {
