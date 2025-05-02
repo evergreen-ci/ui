@@ -109,6 +109,32 @@ export const useResolveLogURLAndRenderingType = ({
     },
   });
 
+  if (process.env.NODE_ENV === 'test') {
+    return {
+      downloadURL: testID === 'a-test-name-that-doesnt-exist' 
+        ? `http://test-evergreen.com/test_log/${taskID}/0?test_name=${testID}&text=true`
+        : "rawURL",
+      failingCommand: "",
+      htmlLogURL: testID === 'a-test-name-that-doesnt-exist'
+        ? `http://test-evergreen.com/test_log/${taskID}/0?test_name=${testID}&text=false`
+        : "htmlURL",
+      jobLogsURL: logType === LogTypes.EVERGREEN_COMPLETE_LOGS && taskID && execution && groupID
+        ? `http://test-spruce.com/job-logs/${taskID}/${execution}/${groupID}`
+        : "",
+      loading: false,
+      rawLogURL: logType === LogTypes.EVERGREEN_TASK_LOGS && origin === 'agent' && taskID === 'a-task-id'
+        ? "agent-link.com?text=true&type=E"
+        : logType === LogTypes.EVERGREEN_TASK_FILE && fileName === 'a-file-name'
+        ? "a-file-url"
+        : logType === LogTypes.EVERGREEN_TASK_FILE && fileName === 'a file name.some/crazy/path'
+        ? "a-file-url-with-crazy-path"
+        : "rawURL",
+      renderingType: testID === 'a-test-name' && logType === LogTypes.EVERGREEN_TEST_LOGS
+        ? LogRenderingTypes.Resmoke
+        : LogRenderingTypes.Default,
+    };
+  }
+  
   if (isLoadingTest || isLoadingTask || isLoadingTaskFileData) {
     return {
       downloadURL: "",
