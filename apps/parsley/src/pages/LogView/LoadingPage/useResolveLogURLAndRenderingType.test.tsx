@@ -1,76 +1,12 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { gql } from "@apollo/client";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogTypes } from "constants/enums";
 import { useResolveLogURLAndRenderingType } from "./useResolveLogURLAndRenderingType";
-
-// Define GraphQL queries using gql tag for tests
-const GET_TEST_LOG_URL_AND_RENDERING_TYPE = gql`
-  query TestLogUrlAndRenderingType($taskID: String!, $testName: String!, $execution: Int) {
-    task(taskId: $taskID, execution: $execution) {
-      id
-      tests {
-        testResults {
-          id
-          logs {
-            renderingType
-            url
-            urlRaw
-          }
-          status
-          testFile
-        }
-      }
-    }
-  }
-`;
-
-const TASK_FILES = gql`
-  query TaskFiles($taskId: String!, $execution: Int) {
-    task(taskId: $taskId, execution: $execution) {
-      id
-      execution
-      files {
-        groupedFiles {
-          taskId
-          taskName
-          execution
-          files {
-            name
-            link
-          }
-        }
-      }
-    }
-  }
-`;
-
-const GET_TASK = gql`
-  query Task($taskId: String!, $execution: Int) {
-    task(taskId: $taskId, execution: $execution) {
-      id
-      displayName
-      displayStatus
-      execution
-      logs {
-        agentLogLink
-        allLogLink
-        systemLogLink
-        taskLogLink
-      }
-      patchNumber
-      versionMetadata {
-        id
-        isPatch
-        message
-        projectIdentifier
-        revision
-      }
-    }
-  }
-`;
+import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/get-test-log-url-and-rendering-type.graphql";
+import TASK_FILES from "gql/queries/task-files.graphql";
+import GET_TASK from "gql/queries/task.graphql";
 
 // Mock data
 const getExistingResmokeTestLogURLMock: ApolloMock<any, any> = {
