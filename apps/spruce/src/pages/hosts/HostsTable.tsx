@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   ColumnFiltersState,
   ColumnFiltering,
@@ -89,11 +89,8 @@ export const HostsTable: React.FC<Props> = ({
     });
   };
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
-
   const table: LeafyGreenTable<Host> = useLeafyGreenTable<Host>({
     columns,
-    containerRef: tableContainerRef,
     data: hosts ?? [],
     defaultColumn: {
       enableColumnFilter: false,

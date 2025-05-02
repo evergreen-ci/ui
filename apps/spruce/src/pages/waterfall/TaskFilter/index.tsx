@@ -1,4 +1,7 @@
 import { useCallback } from "react";
+import styled from "@emotion/styled";
+import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { useWaterfallAnalytics } from "analytics";
 import TupleSelect from "components/TupleSelect";
@@ -32,7 +35,14 @@ export const TaskFilter = () => {
       ariaLabel="Task Filter"
       data-cy="task-filter"
       id="task-filter"
-      label="Task"
+      label={
+        <LabelContainer>
+          <span>Task</span>
+          <InfoSprinkle popoverZIndex={zIndex.tooltip}>
+            Search is case sensitive.
+          </InfoSprinkle>
+        </LabelContainer>
+      }
       onSubmit={onSubmitTupleSelect}
       options={tupleSelectOptions}
       placeholder="Search"
@@ -40,3 +50,9 @@ export const TaskFilter = () => {
     />
   );
 };
+
+const LabelContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xxs};
+`;

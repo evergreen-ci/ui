@@ -19,6 +19,7 @@ import {
 } from "gql/generated/types";
 import { RESTART_TASK } from "gql/mutations";
 import { useDateFormat, useSpruceConfig } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { isProduction } from "utils/environmentVariables";
 import { jiraLinkify, shortenGithash } from "utils/string";
 import { TaskHistoryTask } from "../types";
@@ -62,6 +63,8 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
   const githubCommitUrl =
     owner && repo && revision ? getGithubCommitUrl(owner, repo, revision) : "";
 
+  const [, setExecution] = useQueryParam("execution", 0);
+
   const dispatchToast = useToastContext();
 
   const [restartTask] = useMutation<
@@ -69,9 +72,31 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     RestartTaskMutationVariables
   >(RESTART_TASK, {
     variables: { taskId, failedOnly: false },
-    onCompleted: () => dispatchToast.success("Task scheduled to restart"),
+    onCompleted: (data) => {
+      dispatchToast.success("Task scheduled to restart");
+      if (isCurrentTask) {
+        const latestExecution = data?.restartTask.latestExecution ?? 0;
+        setExecution(latestExecution);
+      }
+    },
     onError: (err) =>
       dispatchToast.error(`Error restarting task: ${err.message}`),
+    update: (cache) => {
+      if (!isCurrentTask) {
+        cache.modify({
+          id: cache.identify(task),
+          fields: {
+            canRestart: () => false,
+            displayStatus: () => TaskStatus.WillRun,
+            execution: (cachedExecution: number) => cachedExecution + 1,
+          },
+          broadcast: false,
+        });
+      }
+    },
+    // Only re-request if the current task is restarted. This should be relatively
+    // uncommon.
+    refetchQueries: [isCurrentTask ? "TaskHistory" : ""],
   });
 
   return (
@@ -96,6 +121,7 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
           <Icon glyph="GitHub" />
         </IconButton>
         <Button
+          data-cy="restart-button"
           disabled={!canRestart}
           onClick={() => restartTask()}
           size={ButtonSize.XSmall}

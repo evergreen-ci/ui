@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import {
   LeafyGreenTable,
   RowSorting,
@@ -74,11 +74,9 @@ export const ExecutionTasksTable: React.FC<Props> = ({
       }),
   });
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table: LeafyGreenTable<TaskTableInfo> =
     useLeafyGreenTable<TaskTableInfo>({
       columns,
-      containerRef: tableContainerRef,
       data: executionTasksFull ?? [],
       defaultColumn: {
         enableColumnFilter: false,

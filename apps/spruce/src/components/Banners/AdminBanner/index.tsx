@@ -1,5 +1,5 @@
 import { useSpruceConfig } from "hooks";
-import { SiteBanner } from "./SiteBanner";
+import { SiteBanner } from "../SiteBanner";
 
 export const AdminBanner = () => {
   const spruceConfig = useSpruceConfig();

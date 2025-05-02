@@ -1,0 +1,10 @@
+query TaskOwnerTeamsForTask($taskId: String!, $execution: Int) {
+  task(taskId: $taskId, execution: $execution) {
+    id
+    execution
+    taskOwnerTeam {
+      messages
+      teamName
+    }
+  }
+}

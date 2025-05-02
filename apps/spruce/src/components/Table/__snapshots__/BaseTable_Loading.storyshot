@@ -1,23 +1,27 @@
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd863"
+    class="leafygreen-ui-1si66qn"
     tabindex="0"
   >
+    <div />
     <table
-      class="leafygreen-ui-1soynca"
+      class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
+      data-is-sticky="false"
       data-lgid="lg-table"
     >
       <thead
-        class="leafygreen-ui-bebmcm"
+        class="leafygreen-ui-181p7kg"
       >
-        <tr>
+        <tr
+          class="leafygreen-ui-5fo1n0"
+        >
           <th
-            class="leafygreen-ui-1gzchq2"
+            class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             scope="col"
           >
             <div
-              class="leafygreen-ui-ui0te9"
+              class="leafygreen-ui-11hl1ow"
             >
               Name
               <div
@@ -85,12 +89,12 @@
             </div>
           </th>
           <th
-            class="leafygreen-ui-p4wxky"
+            class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             scope="col"
           >
             <div
-              class="leafygreen-ui-ui0te9"
+              class="leafygreen-ui-11hl1ow"
             >
               Type
               <div
@@ -158,12 +162,12 @@
             </div>
           </th>
           <th
-            class="leafygreen-ui-p4wxky"
+            class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             scope="col"
           >
             <div
-              class="leafygreen-ui-ui0te9"
+              class="leafygreen-ui-11hl1ow"
             >
               Size
               <div
@@ -234,228 +238,143 @@
       </thead>
       <tbody>
         <tr
-          class=""
           data-cy="table-loader-loading-row"
-          data-lgid="lg-table-row"
         >
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
         </tr>
         <tr
-          class=""
           data-cy="table-loader-loading-row"
-          data-lgid="lg-table-row"
         >
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
         </tr>
         <tr
-          class=""
           data-cy="table-loader-loading-row"
-          data-lgid="lg-table-row"
         >
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
         </tr>
         <tr
-          class=""
           data-cy="table-loader-loading-row"
-          data-lgid="lg-table-row"
         >
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
         </tr>
         <tr
-          class=""
           data-cy="table-loader-loading-row"
-          data-lgid="lg-table-row"
         >
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
           <td
-            class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
+            class="css-aciotc-LoadingCell e102d7cs0"
           >
             <div
-              class="leafygreen-ui-1n4j8xf"
-            >
-              <div
-                aria-hidden="true"
-                class="leafygreen-ui-161vd4l"
-              />
-            </div>
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
           </td>
         </tr>
       </tbody>
