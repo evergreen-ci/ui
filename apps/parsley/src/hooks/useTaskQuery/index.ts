@@ -9,8 +9,8 @@ import {
   TaskQueryVariables,
   TaskTestResult,
 } from "gql/generated/types";
-import GET_TASK from "gql/queries/get-task.graphql";
 import GET_LOGKEEPER_TASK from "gql/queries/get-logkeeper-task.graphql";
+import GET_TASK from "gql/queries/get-task.graphql";
 
 interface UseTaskQueryProps {
   logType?: LogTypes;
