@@ -30,7 +30,7 @@ export const TestFailureSearchInput: React.FC<Props> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
-  console.log(numMatchingResults, failingTest);
+
   return (
     <Container>
       <StyledInput
@@ -44,7 +44,7 @@ export const TestFailureSearchInput: React.FC<Props> = ({
         value={searchTerm}
       />
       {numMatchingResults === 0 && failingTest && (
-        <NoMatches>No matches on this page</NoMatches>
+        <NoMatches>No results on this page</NoMatches>
       )}
     </Container>
   );
@@ -58,8 +58,12 @@ const StyledInput = styled(TextInput)`
 
 const NoMatches = styled.div`
   color: ${red.base};
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 20px;
 `;
 
 const Container = styled.div`
   display: flex;
+  align-items: center;
 `;
