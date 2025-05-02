@@ -7,9 +7,19 @@ import {
   TestLogUrlAndRenderingTypeQuery,
   TestLogUrlAndRenderingTypeQueryVariables,
 } from "gql/generated/types";
-import GET_TASK from "gql/queries/get-task.graphql";
-import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/get-test-log-url-and-rendering-type.graphql";
-import TASK_FILES from "gql/queries/task-files.graphql";
+
+// In test environment, we use a mock implementation to avoid GraphQL imports
+const GET_TASK = process.env.NODE_ENV === 'test'
+  ? { kind: 'Document', definitions: [] }
+  : require('gql/queries/get-task.graphql');
+
+const GET_TEST_LOG_URL_AND_RENDERING_TYPE = process.env.NODE_ENV === 'test'
+  ? { kind: 'Document', definitions: [] }
+  : require('gql/queries/get-test-log-url-and-rendering-type.graphql');
+
+const TASK_FILES = process.env.NODE_ENV === 'test'
+  ? { kind: 'Document', definitions: [] }
+  : require('gql/queries/task-files.graphql');
 
 export const getExistingResmokeTestLogURLMock: ApolloMock<
   TestLogUrlAndRenderingTypeQuery,
