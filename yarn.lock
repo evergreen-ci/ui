@@ -2237,18 +2237,18 @@
     "@leafygreen-ui/palette" "^4.1.4"
     "@leafygreen-ui/tokens" "^2.12.2"
 
-"@leafygreen-ui/banner@^8.0.1":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/banner/-/banner-8.0.1.tgz#64b7a6835815b17a16778d771ecff612ec9de017"
-  integrity sha512-zKrSG334UW/9nGt4P4QKNM8rnOzsG62cLxfysT4UrrOS8doRNvIlKleeQFSkNd4FmljiqdRI0DjDKO0uGhx8SA==
+"@leafygreen-ui/banner@^9.0.12":
+  version "9.0.12"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/banner/-/banner-9.0.12.tgz#8cbbd0c805d0fc0f9da9b7f938f4c291d5c11553"
+  integrity sha512-wmiyyjbW1hGJ8n2/MtoB/JeyK2grTd+1039LUR5C2BqC44jmaPXs+TUyx6oEBiaAOW6VK6guBGl2pS6TOz4UKQ==
   dependencies:
-    "@leafygreen-ui/emotion" "^4.0.8"
-    "@leafygreen-ui/icon" "^12.0.1"
-    "@leafygreen-ui/icon-button" "^15.0.21"
-    "@leafygreen-ui/lib" "^13.3.0"
-    "@leafygreen-ui/palette" "^4.0.9"
-    "@leafygreen-ui/tokens" "^2.5.2"
-    "@leafygreen-ui/typography" "^19.0.0"
+    "@leafygreen-ui/emotion" "^4.1.1"
+    "@leafygreen-ui/icon" "^13.3.0"
+    "@leafygreen-ui/icon-button" "^16.0.11"
+    "@leafygreen-ui/lib" "^14.2.0"
+    "@leafygreen-ui/palette" "^4.1.4"
+    "@leafygreen-ui/tokens" "^2.12.2"
+    "@leafygreen-ui/typography" "^20.1.8"
 
 "@leafygreen-ui/box@^3.1.9":
   version "3.1.9"
@@ -2650,21 +2650,7 @@
     "@leafygreen-ui/tokens" "^2.5.2"
     polished "^4.2.2"
 
-"@leafygreen-ui/icon-button@^16.0.10", "@leafygreen-ui/icon-button@^16.0.3", "@leafygreen-ui/icon-button@^16.0.5":
-  version "16.0.10"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-16.0.10.tgz#2a5bd32e142e783f7501547356cc19b5b1e6bef8"
-  integrity sha512-mryM05AwjzcbZO5dB9WOYNkyAgJ3r6+wchpNrD0/ppb5unA3wjZcmQwDz4nR1J4x9OG0MLr5L9WfVvqM7bi1ew==
-  dependencies:
-    "@leafygreen-ui/a11y" "^2.0.6"
-    "@leafygreen-ui/emotion" "^4.1.1"
-    "@leafygreen-ui/icon" "^13.2.2"
-    "@leafygreen-ui/lib" "^14.2.0"
-    "@leafygreen-ui/palette" "^4.1.4"
-    "@leafygreen-ui/polymorphic" "^2.0.9"
-    "@leafygreen-ui/tokens" "^2.12.2"
-    polished "^4.2.2"
-
-"@leafygreen-ui/icon-button@^16.0.11":
+"@leafygreen-ui/icon-button@^16.0.10", "@leafygreen-ui/icon-button@^16.0.11", "@leafygreen-ui/icon-button@^16.0.3", "@leafygreen-ui/icon-button@^16.0.5":
   version "16.0.11"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-16.0.11.tgz#bf573f33d590df424252b865389599354c446f34"
   integrity sha512-N6QilC/Ys5cH8YpBQUXruR9iS7b5oe8hcWkZQhddiwqJ9gNT82gy6ioL1xWxqsQCBfceVmYIj1zrM+PP3Fs8sg==
@@ -2694,15 +2680,7 @@
     "@leafygreen-ui/emotion" "^4.0.8"
     lodash "^4.17.21"
 
-"@leafygreen-ui/icon@^13.1.2", "@leafygreen-ui/icon@^13.2.0", "@leafygreen-ui/icon@^13.2.2":
-  version "13.2.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-13.2.2.tgz#3e7bbd3519b40ef16e4ee32c72d90841aee8735d"
-  integrity sha512-Xm47e7WVHaD/zk5MkfevHID4mfDaMWJgxkw1TMTRf0SQgoBE3ZmpWapk4RtDLX4UL+U2ZkH00uaKpraLN1aZSQ==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.1.1"
-    lodash "^4.17.21"
-
-"@leafygreen-ui/icon@^13.3.0":
+"@leafygreen-ui/icon@^13.1.2", "@leafygreen-ui/icon@^13.2.0", "@leafygreen-ui/icon@^13.2.2", "@leafygreen-ui/icon@^13.3.0":
   version "13.3.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-13.3.0.tgz#419e24c199b0574f966890010afd539614a0da61"
   integrity sha512-//vun0KJrtMAN6pTCmQGT3brTFEpSE2LbNnwlJ+l8klG6bwEmcPF9xPCS+XU98/b3UhMhtXHpwbzYN29UteAYg==
