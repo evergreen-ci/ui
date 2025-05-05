@@ -1,5 +1,5 @@
 import { AdminSettingsTabRoutes } from "constants/routes";
-import { BannerTheme, Maybe } from "gql/generated/types";
+import { BannerTheme, Maybe } from "gql/generated/types"; // eslint-disable-line
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 
 type Tab = AdminSettingsTabRoutes.Announcements;
