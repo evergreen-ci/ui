@@ -65,7 +65,7 @@ export type AddFavoriteProjectInput = {
 export type AdminSettings = {
   __typename?: "AdminSettings";
   banner?: Maybe<Scalars["String"]["output"]>;
-  bannerTheme?: Maybe<Scalars["String"]["output"]>;
+  bannerTheme?: Maybe<BannerTheme>;
 };
 
 /**
@@ -2718,7 +2718,7 @@ export type SpawnVolumeInput = {
 export type SpruceConfig = {
   __typename?: "SpruceConfig";
   banner?: Maybe<Scalars["String"]["output"]>;
-  bannerTheme?: Maybe<BannerTheme>;
+  bannerTheme?: Maybe<Scalars["String"]["output"]>;
   containerPools?: Maybe<ContainerPoolsConfig>;
   githubOrgs: Array<Scalars["String"]["output"]>;
   jira?: Maybe<JiraConfig>;
@@ -2863,7 +2863,6 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
   /** taskLogs returns the tail 100 lines of the task's logs. */
   taskLogs: TaskLogs;
-  taskOwnerTeam?: Maybe<TaskOwnerTeam>;
   tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]["output"]>;
   totalTestCount: Scalars["Int"]["output"];
@@ -3007,18 +3006,6 @@ export type TaskLogs = {
   systemLogs: Array<LogMessage>;
   taskId: Scalars["String"]["output"];
   taskLogs: Array<LogMessage>;
-};
-
-/**
- * TaskOwnerTeam is the return value for the taskOwnerTeam query.
- * It is used to identify the team that owns a task. Based on the FWS team assignment.
- */
-export type TaskOwnerTeam = {
-  __typename?: "TaskOwnerTeam";
-  assignmentType: Scalars["String"]["output"];
-  jiraProject: Scalars["String"]["output"];
-  messages: Scalars["String"]["output"];
-  teamName: Scalars["String"]["output"];
 };
 
 /**
@@ -8782,7 +8769,7 @@ export type SpruceConfigQuery = {
   spruceConfig?: {
     __typename?: "SpruceConfig";
     banner?: string | null;
-    bannerTheme?: BannerTheme | null;
+    bannerTheme?: string | null;
     containerPools?: {
       __typename?: "ContainerPoolsConfig";
       pools: Array<{
