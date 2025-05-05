@@ -25,7 +25,7 @@ import { jiraLinkify } from "utils/string";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import TaskTimeline from "./TaskTimeline";
-import { TaskHistoryOptions, ViewOptions } from "./types";
+import { GroupedTask, TaskHistoryOptions, ViewOptions } from "./types";
 import { getNextPageCursor, getPrevPageCursor, groupTasks } from "./utils";
 
 interface TaskHistoryProps {
@@ -109,19 +109,31 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
     },
     [visibleInactiveTasks],
   );
-  const groupedTasks = groupTasks(tasks, shouldCollapse, visibleInactiveTasks);
+  const groupedTasks = groupTasks(tasks, shouldCollapse);
   const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER);
 
-  const visibleTasks =
+  const timelineTasks =
     direction === TaskHistoryDirection.After
       ? groupedTasks.slice(-numVisibleTasks)
       : groupedTasks.slice(0, numVisibleTasks);
 
-  const prevPageCursor = getPrevPageCursor(visibleTasks[0]);
+  const prevPageCursor = getPrevPageCursor(timelineTasks[0]);
   const nextPageCursor = getNextPageCursor(
-    visibleTasks[visibleTasks.length - 1],
+    timelineTasks[timelineTasks.length - 1],
   );
-
+  const commitDetailsList: GroupedTask[] = timelineTasks.reduce((accum, t) => {
+    if (
+      t.inactiveTasks &&
+      visibleInactiveTasks.find((v) => v.includes(t.inactiveTasks[0].id))
+    ) {
+      accum.push(
+        ...t.inactiveTasks.map((v) => ({ task: v, inactiveTasks: null })),
+      );
+    } else {
+      accum.push(t);
+    }
+    return accum;
+  }, [] as GroupedTask[]);
   // This hook redirects from any page with with the AFTER parameter to the equivalent page using the BEFORE parameter.
   // The reason this is done is because we always want the visible tasks in the timeline to extend or shrink from the
   // right side when a user adjusts their screen size.
@@ -177,7 +189,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
             nextPageCursor,
             prevPageCursor,
           }}
-          tasks={visibleTasks}
+          tasks={timelineTasks}
         />
       </StickyHeader>
       <ListContent>
@@ -188,7 +200,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           loading={loading}
           removeVisibleInactiveTasks={removeVisibleInactiveTasks}
           shouldCollapse={shouldCollapse}
-          tasks={visibleTasks}
+          tasks={commitDetailsList}
           visibleInactiveTasks={visibleInactiveTasks}
         />
       </ListContent>

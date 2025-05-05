@@ -37,11 +37,7 @@ const Template = (args: TemplateProps) => {
   const [visibleInactiveTasks, setVisibleInactiveTasks] = useState<string[][]>(
     [],
   );
-  const groupedTasks = groupTasks(
-    tasks,
-    args.shouldCollapse,
-    visibleInactiveTasks,
-  );
+  const groupedTasks = groupTasks(tasks, args.shouldCollapse);
   const addVisibileInactiveTasks = (tasksToAdd: string[]) => {
     setVisibleInactiveTasks(visibleInactiveTasks.concat([tasksToAdd]));
   };

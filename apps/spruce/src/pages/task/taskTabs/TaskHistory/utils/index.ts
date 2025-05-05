@@ -4,13 +4,11 @@ import { TaskHistoryTask, GroupedTask } from "../types";
  * `groupTasks` groups tasks into active and inactive tasks based on the `shouldCollapse` parameter.
  * @param tasks - an array of tasks returned from the TaskHistory query
  * @param shouldCollapse - a boolean. If set to false, no tasks will be collapsed. If set to true, inactive tasks will be collapsed.
- * @param expandedInactiveTasks - a list of inactive tasks that should be expanded
  * @returns an array of grouped tasks
  */
 export const groupTasks = (
   tasks: TaskHistoryTask[],
   shouldCollapse: boolean,
-  expandedInactiveTasks: string[][],
 ) => {
   const groupedTasks: GroupedTask[] = [];
 
@@ -27,18 +25,8 @@ export const groupTasks = (
       task: t,
     });
   };
-  const expandedInactiveTasksSet = expandedInactiveTasks.reduce((acc, curr) => {
-    curr.forEach((task) => {
-      acc.add(task);
-    });
-    return acc;
-  }, new Set<string>());
   tasks.forEach((task) => {
-    if (
-      !task.activated &&
-      shouldCollapse &&
-      !expandedInactiveTasksSet.has(task.id)
-    ) {
+    if (!task.activated && shouldCollapse) {
       pushInactive(task);
     } else {
       pushActive(task);
