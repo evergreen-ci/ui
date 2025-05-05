@@ -4,7 +4,7 @@ import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TaskQuery } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
 import { tasks } from "../testData";
-import { groupTasks } from "../utils";
+import { expandVisibleInactiveTasks, groupTasks } from "../utils";
 import CommitDetailsList from ".";
 
 export default {
@@ -46,6 +46,10 @@ const Template = (args: TemplateProps) => {
       prev.filter((taskGroup) => !taskGroup.includes(tasksToRemove[0])),
     );
   };
+  const commitDetailsTasks = expandVisibleInactiveTasks(
+    groupedTasks,
+    visibleInactiveTasks,
+  );
   return (
     <CommitDetailsList
       addVisibleInactiveTasks={addVisibileInactiveTasks}
@@ -53,7 +57,7 @@ const Template = (args: TemplateProps) => {
       loading={args.loading}
       removeVisibleInactiveTasks={removeVisibleInactiveTasks}
       shouldCollapse={args.shouldCollapse}
-      tasks={groupedTasks}
+      tasks={commitDetailsTasks}
       visibleInactiveTasks={visibleInactiveTasks}
     />
   );

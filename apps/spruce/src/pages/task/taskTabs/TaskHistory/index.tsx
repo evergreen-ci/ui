@@ -26,7 +26,12 @@ import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import TaskTimeline from "./TaskTimeline";
 import { GroupedTask, TaskHistoryOptions, ViewOptions } from "./types";
-import { getNextPageCursor, getPrevPageCursor, groupTasks } from "./utils";
+import {
+  expandVisibleInactiveTasks,
+  getNextPageCursor,
+  getPrevPageCursor,
+  groupTasks,
+} from "./utils";
 
 interface TaskHistoryProps {
   task: NonNullable<TaskQuery["task"]>;
@@ -121,19 +126,12 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const nextPageCursor = getNextPageCursor(
     timelineTasks[timelineTasks.length - 1],
   );
-  const commitDetailsList: GroupedTask[] = timelineTasks.reduce((accum, t) => {
-    if (
-      t.inactiveTasks &&
-      visibleInactiveTasks.find((v) => v.includes(t.inactiveTasks[0].id))
-    ) {
-      accum.push(
-        ...t.inactiveTasks.map((v) => ({ task: v, inactiveTasks: null })),
-      );
-    } else {
-      accum.push(t);
-    }
-    return accum;
-  }, [] as GroupedTask[]);
+
+  const commitDetailsList: GroupedTask[] = expandVisibleInactiveTasks(
+    timelineTasks,
+    visibleInactiveTasks,
+  );
+
   // This hook redirects from any page with with the AFTER parameter to the equivalent page using the BEFORE parameter.
   // The reason this is done is because we always want the visible tasks in the timeline to extend or shrink from the
   // right side when a user adjusts their screen size.
