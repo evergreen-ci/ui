@@ -12,17 +12,17 @@ interface CommitDetailsListProps {
   currentTask: NonNullable<TaskQuery["task"]>;
   tasks: GroupedTask[];
   loading: boolean;
-  addVisibleInactiveTasks: (tasks: string[]) => void;
-  removeVisibleInactiveTasks: (tasks: string[]) => void;
-  visibleInactiveTasks: string[][];
+  addVisibleInactiveTaskGroup: (taskId: string) => void;
+  removeVisibleInactiveTaskGroup: (taskId: string) => void;
+  visibleInactiveTasks: Set<string>;
   shouldCollapse: boolean;
 }
 
 const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
-  addVisibleInactiveTasks,
+  addVisibleInactiveTaskGroup,
   currentTask,
   loading,
-  removeVisibleInactiveTasks,
+  removeVisibleInactiveTaskGroup,
   shouldCollapse,
   tasks,
   visibleInactiveTasks,
@@ -32,56 +32,41 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
       <ParagraphSkeleton />
     ) : (
       <>
-        {tasks.map((t, i, taskArr) => {
+        {tasks.map((t) => {
           const { inactiveTasks, task } = t;
           if (task) {
-            const inactiveTaskGroup =
-              visibleInactiveTasks.find((taskGroup) =>
-                taskGroup.includes(task.id),
-              ) ?? [];
-            const showButton =
-              shouldCollapse &&
-              ((i > 0 && !task.activated && taskArr[i - 1].task?.activated) || // Show toggle button if an uncollapsed inactive task follows an activated task
-                (i === 0 &&
-                  !task.activated &&
-                  inactiveTaskGroup?.[0] === task.id)); // Show toggle button if the first inactive task is overflow from a prior inactive task group
             return (
-              <>
-                <div>
-                  {showButton && (
-                    <Button
-                      key={`${task.id}-button`}
-                      leftGlyph={<Icon glyph="ChevronDown" />}
-                      onClick={() =>
-                        removeVisibleInactiveTasks(inactiveTaskGroup)
-                      }
-                      size={Size.XSmall}
-                    >
-                      {inactiveTaskGroup?.length} EXPANDED
-                    </Button>
-                  )}
-                </div>
-                <CommitDetailsCard
-                  key={task.id}
-                  isCurrentTask={task.id === currentTask.id}
-                  owner={currentTask.project?.owner}
-                  repo={currentTask.project?.repo}
-                  task={task}
-                />
-              </>
+              <CommitDetailsCard
+                key={task.id}
+                isCurrentTask={task.id === currentTask.id}
+                owner={currentTask.project?.owner}
+                repo={currentTask.project?.repo}
+                task={task}
+              />
             );
-          } else if (inactiveTasks) {
+          } else if (inactiveTasks && shouldCollapse) {
+            const taskGroupId = inactiveTasks[0].id;
+            const expanded = visibleInactiveTasks.has(taskGroupId);
             return (
-              <span key={inactiveTasks[0].id}>
+              <span key={taskGroupId}>
                 <Button
                   data-cy="collapsed-card"
-                  leftGlyph={<Icon glyph="ChevronRight" />}
+                  leftGlyph={
+                    expanded ? (
+                      <Icon glyph="ChevronDown" />
+                    ) : (
+                      <Icon glyph="ChevronRight" />
+                    )
+                  }
                   onClick={() =>
-                    addVisibleInactiveTasks(inactiveTasks.map(({ id }) => id))
+                    expanded
+                      ? removeVisibleInactiveTaskGroup(taskGroupId)
+                      : addVisibleInactiveTaskGroup(taskGroupId)
                   }
                   size={Size.XSmall}
                 >
-                  {inactiveTasks.length} INACTIVE COMMITS
+                  {inactiveTasks.length}{" "}
+                  {expanded ? "EXPANDED" : "INACTIVE COMMITS"}
                 </Button>
               </span>
             );

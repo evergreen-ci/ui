@@ -68,18 +68,14 @@ export const getNextPageCursor = (item: GroupedTask) => {
 
 export const expandVisibleInactiveTasks = (
   groupedTasks: GroupedTask[],
-  visibleInactiveTasks: string[][],
+  visibleInactiveTasks: Set<string>,
 ) =>
   groupedTasks.reduce((accum, t) => {
-    if (
-      t.inactiveTasks &&
-      visibleInactiveTasks.find((v) => v.includes(t.inactiveTasks[0].id))
-    ) {
+    accum.push(t);
+    if (t.inactiveTasks && visibleInactiveTasks.has(t.inactiveTasks[0].id)) {
       accum.push(
         ...t.inactiveTasks.map((v) => ({ task: v, inactiveTasks: null })),
       );
-    } else {
-      accum.push(t);
     }
     return accum;
   }, [] as GroupedTask[]);

@@ -34,17 +34,19 @@ type TemplateProps = {
 };
 
 const Template = (args: TemplateProps) => {
-  const [visibleInactiveTasks, setVisibleInactiveTasks] = useState<string[][]>(
-    [],
+  const [visibleInactiveTasks, setVisibleInactiveTasks] = useState<Set<string>>(
+    new Set(),
   );
   const groupedTasks = groupTasks(tasks, args.shouldCollapse);
-  const addVisibileInactiveTasks = (tasksToAdd: string[]) => {
-    setVisibleInactiveTasks(visibleInactiveTasks.concat([tasksToAdd]));
+  const addVisibileInactiveTaskGroup = (taskGroupId: string) => {
+    const nextState = new Set(visibleInactiveTasks);
+    nextState.add(taskGroupId);
+    setVisibleInactiveTasks(nextState);
   };
-  const removeVisibleInactiveTasks = (tasksToRemove: string[]) => {
-    setVisibleInactiveTasks((prev) =>
-      prev.filter((taskGroup) => !taskGroup.includes(tasksToRemove[0])),
-    );
+  const removeVisibleInactiveTaskGroup = (taskGroupId: string) => {
+    const nextState = new Set(visibleInactiveTasks);
+    nextState.delete(taskGroupId);
+    setVisibleInactiveTasks(nextState);
   };
   const commitDetailsTasks = expandVisibleInactiveTasks(
     groupedTasks,
@@ -52,10 +54,10 @@ const Template = (args: TemplateProps) => {
   );
   return (
     <CommitDetailsList
-      addVisibleInactiveTasks={addVisibileInactiveTasks}
+      addVisibleInactiveTaskGroup={addVisibileInactiveTaskGroup}
       currentTask={currentTask}
       loading={args.loading}
-      removeVisibleInactiveTasks={removeVisibleInactiveTasks}
+      removeVisibleInactiveTaskGroup={removeVisibleInactiveTaskGroup}
       shouldCollapse={args.shouldCollapse}
       tasks={commitDetailsTasks}
       visibleInactiveTasks={visibleInactiveTasks}

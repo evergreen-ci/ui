@@ -94,23 +94,22 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { pagination, tasks = [] } = taskHistory ?? {};
   const { mostRecentTaskOrder, oldestTaskOrder } = pagination ?? {};
 
-  const [visibleInactiveTasks, setVisibleInactiveTasks] = useState<string[][]>(
-    [],
+  const [visibleInactiveTasks, setVisibleInactiveTasks] = useState<Set<string>>(
+    new Set(),
   );
-  const addVisibileInactiveTasks = useCallback(
-    (taskGroup: string[]) => {
-      const nextState = [...visibleInactiveTasks];
-      nextState.push(taskGroup);
+  const addVisibileInactiveTaskGroup = useCallback(
+    (taskGroupId: string) => {
+      const nextState = new Set(visibleInactiveTasks);
+      nextState.add(taskGroupId);
       setVisibleInactiveTasks(nextState);
     },
     [visibleInactiveTasks],
   );
-  const removeVisibleInactiveTasks = useCallback(
-    (tasksToRemove: string[]) => {
-      const nextState = [...visibleInactiveTasks];
-      setVisibleInactiveTasks(
-        nextState.filter((currTask) => !currTask.includes(tasksToRemove[0])),
-      );
+  const removeVisibleInactiveTaskGroup = useCallback(
+    (taskGroupId: string) => {
+      const nextState = new Set(visibleInactiveTasks);
+      nextState.delete(taskGroupId);
+      setVisibleInactiveTasks(nextState);
     },
     [visibleInactiveTasks],
   );
@@ -193,10 +192,10 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
       <ListContent>
         <Subtitle>Commit Details</Subtitle>
         <CommitDetailsList
-          addVisibleInactiveTasks={addVisibileInactiveTasks}
+          addVisibleInactiveTaskGroup={addVisibileInactiveTaskGroup}
           currentTask={task}
           loading={loading}
-          removeVisibleInactiveTasks={removeVisibleInactiveTasks}
+          removeVisibleInactiveTaskGroup={removeVisibleInactiveTaskGroup}
           shouldCollapse={shouldCollapse}
           tasks={commitDetailsList}
           visibleInactiveTasks={visibleInactiveTasks}
