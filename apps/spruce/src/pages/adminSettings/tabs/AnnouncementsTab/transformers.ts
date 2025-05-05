@@ -1,7 +1,7 @@
 import { AdminSettingsTabRoutes } from "constants/routes";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 
-type Tab = AdminSettingsTabRoutes.General;
+type Tab = AdminSettingsTabRoutes.Announcements;
 
 export const gqlToForm = ((data) => {
   if (!data) return null;

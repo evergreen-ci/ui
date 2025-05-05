@@ -49,7 +49,15 @@ export enum ProjectSettingsTabRoutes {
 }
 
 export enum AdminSettingsTabRoutes {
-  General = "general",
+  Announcements = "announcements",
+  FeauteFlags = "feature-flags",
+  Runners = "runners",
+  Web = "web",
+  Authentication = "authentication",
+  ExternalCommunications = "external-communications",
+  BackgroundProcessing = "background-processing",
+  Providers = "providers",
+  Other = "other",
   RestartTasks = "restart-tasks",
   EventLogs = "event-log",
 }

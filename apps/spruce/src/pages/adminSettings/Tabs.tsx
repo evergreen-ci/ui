@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
-import { GeneralTab } from "./tabs/GeneralTab/GeneralTab";
+import { AnnouncementTab } from "./tabs/AnnouncementsTab/AnnouncementTab";
 
 export const AdminSettingsTabs = () => {
   useScrollToAnchor();
 
   return (
     <Container>
-      <GeneralTab />
+      <AnnouncementTab />
     </Container>
   );
 };
