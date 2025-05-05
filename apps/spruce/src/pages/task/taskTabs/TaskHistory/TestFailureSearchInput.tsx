@@ -61,6 +61,7 @@ const NoMatches = styled.div`
   font-weight: bold;
   text-transform: uppercase;
   margin-top: 20px;
+  margin-left: ${size.s};
 `;
 
 const Container = styled.div`
