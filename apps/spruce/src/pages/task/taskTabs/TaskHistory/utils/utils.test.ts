@@ -3,7 +3,12 @@ import {
   collapsedGroupedTasks,
   expandedGroupedTasks,
 } from "../testData";
-import { getPrevPageCursor, getNextPageCursor, groupTasks } from ".";
+import {
+  getPrevPageCursor,
+  getNextPageCursor,
+  groupTasks,
+  expandVisibleInactiveTasks,
+} from ".";
 
 describe("groupTasks", () => {
   it("groups inactive tasks if shouldCollapse is true", () => {
@@ -39,4 +44,42 @@ describe("getNextPageCursor", () => {
     const res = getNextPageCursor(collapsedGroupedTasks[6]);
     expect(res).toStrictEqual(tasks[8]);
   });
+});
+
+describe("expandVisibleInactiveTasks", () => {
+  it("expands given inactive tasks", () => {
+    const res = expandVisibleInactiveTasks(
+      collapsedGroupedTasks,
+      new Set([tasks[6].id, tasks[2].id]),
+    );
+    const expected = [
+      ...collapsedGroupedTasks.slice(0, 3),
+      {
+        inactiveTasks: null,
+        task: tasks[2],
+      },
+      ...collapsedGroupedTasks.slice(3, 7),
+      {
+        inactiveTasks: null,
+        task: tasks[6],
+      },
+      {
+        inactiveTasks: null,
+        task: tasks[7],
+      },
+      {
+        inactiveTasks: null,
+        task: tasks[8],
+      },
+      ...collapsedGroupedTasks.slice(7),
+    ];
+    expect(res).toStrictEqual(expected);
+  });
+  it("returns the same array if no inactive tasks are expanded", () => {
+    const res = expandVisibleInactiveTasks(
+      collapsedGroupedTasks,
+      new Set(),
+    );
+    expect(res).toStrictEqual(collapsedGroupedTasks);
+  })
 });
