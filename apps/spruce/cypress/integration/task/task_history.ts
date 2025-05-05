@@ -46,6 +46,27 @@ describe("task history", () => {
         cy.dataCy("collapsed-card").should("be.visible");
       });
     });
+    it("can expand/collapse inactive tasks with the inactive commits button", () => {
+      cy.visit(spruceTaskHistoryLink);
+      cy.dataCy("commit-details-card").should("have.length", 10);
+      cy.dataCy("commit-details-card")
+        .contains("Order: 12380")
+        .should("not.exist");
+      cy.dataCy("collapsed-card").first().eq(0).as("collapsedCardButton");
+      cy.get("@collapsedCardButton").contains("1 INACTIVE COMMIT");
+      cy.get("@collapsedCardButton").click();
+      cy.get("@collapsedCardButton").contains("1 EXPANDED");
+      cy.dataCy("commit-details-card").should("have.length", 11);
+      cy.dataCy("commit-details-card")
+        .contains("Order: 1238")
+        .should("be.visible");
+      cy.get("@collapsedCardButton").click();
+      cy.get("@collapsedCardButton").contains("1 INACTIVE COMMIT");
+      cy.dataCy("commit-details-card").should("have.length", 10);
+      cy.dataCy("commit-details-card")
+        .contains("Order: 1238")
+        .should("not.exist");
+    });
   });
 
   describe("restarting tasks", () => {

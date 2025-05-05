@@ -3,6 +3,7 @@ import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Size } from "@leafygreen-ui/tokens";
+import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import CommitDetailsCard from "../CommitDetailsCard";
@@ -66,7 +67,9 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
                   size={Size.XSmall}
                 >
                   {inactiveTasks.length}{" "}
-                  {expanded ? "EXPANDED" : "INACTIVE COMMITS"}
+                  {expanded
+                    ? "EXPANDED"
+                    : pluralize("INACTIVE COMMIT", inactiveTasks.length)}
                 </Button>
               </span>
             );
