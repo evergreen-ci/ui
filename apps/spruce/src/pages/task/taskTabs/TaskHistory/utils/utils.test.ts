@@ -75,11 +75,9 @@ describe("expandVisibleInactiveTasks", () => {
     ];
     expect(res).toStrictEqual(expected);
   });
+
   it("returns the same array if no inactive tasks are expanded", () => {
-    const res = expandVisibleInactiveTasks(
-      collapsedGroupedTasks,
-      new Set(),
-    );
+    const res = expandVisibleInactiveTasks(collapsedGroupedTasks, new Set());
     expect(res).toStrictEqual(collapsedGroupedTasks);
-  })
+  });
 });

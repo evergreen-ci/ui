@@ -32,8 +32,10 @@ describe("task history", () => {
   });
 
   describe("commit details list", () => {
-    it("can expand/collapse tasks", () => {
+    beforeEach(() => {
       cy.visit(spruceTaskHistoryLink);
+    });
+    it("can expand/collapse tasks", () => {
       cy.dataCy("expanded-option").click();
       cy.dataCy("commit-details-card").should("have.length", 13);
       cy.dataCy("commit-details-list").within(() => {
@@ -47,7 +49,6 @@ describe("task history", () => {
       });
     });
     it("can expand/collapse inactive tasks with the inactive commits button", () => {
-      cy.visit(spruceTaskHistoryLink);
       cy.dataCy("commit-details-card").should("have.length", 10);
       cy.dataCy("commit-details-card")
         .contains("Order: 12380")
