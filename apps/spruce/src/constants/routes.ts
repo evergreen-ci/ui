@@ -27,7 +27,7 @@ export enum PreferencesTabRoutes {
 
 export enum ImageTabRoutes {
   BuildInformation = "build-information",
-  EventLog = "event-log",
+  EventLog = "event-logs",
 }
 
 export enum ProjectSettingsTabRoutes {
@@ -405,5 +405,5 @@ export const getTriggerRoute = ({
   return getVersionRoute(upstreamVersion.id);
 };
 
-export const getAdminSettingsRoute = (tab?: ProjectSettingsTabRoutes) =>
+export const getAdminSettingsRoute = (tab?: AdminSettingsTabRoutes) =>
   tab ? `${paths.adminSettings}/${tab}` : `${paths.adminSettings}`;
