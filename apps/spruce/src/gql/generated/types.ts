@@ -2718,7 +2718,7 @@ export type SpawnVolumeInput = {
 export type SpruceConfig = {
   __typename?: "SpruceConfig";
   banner?: Maybe<Scalars["String"]["output"]>;
-  bannerTheme?: Maybe<Scalars["String"]["output"]>;
+  bannerTheme?: Maybe<BannerTheme>;
   containerPools?: Maybe<ContainerPoolsConfig>;
   githubOrgs: Array<Scalars["String"]["output"]>;
   jira?: Maybe<JiraConfig>;
@@ -8782,7 +8782,7 @@ export type SpruceConfigQuery = {
   spruceConfig?: {
     __typename?: "SpruceConfig";
     banner?: string | null;
-    bannerTheme?: string | null;
+    bannerTheme?: BannerTheme | null;
     containerPools?: {
       __typename?: "ContainerPoolsConfig";
       pools: Array<{
