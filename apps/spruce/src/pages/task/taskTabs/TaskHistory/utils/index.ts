@@ -67,6 +67,12 @@ export const getNextPageCursor = (item: GroupedTask) => {
   return item.inactiveTasks[item.inactiveTasks.length - 1];
 };
 
+/**
+ * `expandVisibleInactiveTasks` expands the inactive tasks that are visible in the timeline.
+ * @param groupedTasks - an array of grouped tasks
+ * @param visibleInactiveTasks - a set of task IDs that that represent visible inactive task groups
+ * @returns an array of grouped tasks with expanded inactive tasks
+ */
 export const expandVisibleInactiveTasks = (
   groupedTasks: GroupedTask[],
   visibleInactiveTasks: Set<string>,
