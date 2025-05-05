@@ -25,6 +25,7 @@ export const groupTasks = (
       task: t,
     });
   };
+
   tasks.forEach((task) => {
     if (!task.activated && shouldCollapse) {
       pushInactive(task);
