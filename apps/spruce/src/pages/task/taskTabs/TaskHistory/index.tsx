@@ -123,21 +123,6 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
     visibleTasks[visibleTasks.length - 1],
   );
 
-  // This hook redirects from any page with with the AFTER parameter to the equivalent page using the BEFORE parameter.
-  // The reason this is done is because we always want the visible tasks in the timeline to extend or shrink from the
-  // right side when a user adjusts their screen size.
-  // There may be a way to handle this more elegantly in DEVPROD-16186.
-  useEffect(() => {
-    if (direction === TaskHistoryDirection.After && prevPageCursor) {
-      setQueryParams({
-        ...queryParams,
-        [TaskHistoryOptions.Direction]: TaskHistoryDirection.Before,
-        [TaskHistoryOptions.CursorID]: prevPageCursor.id,
-        [TaskHistoryOptions.IncludeCursor]: true,
-      });
-    }
-  }, [direction, setQueryParams, prevPageCursor, queryParams]);
-
   const numMatchingResults = useMemo(
     () =>
       visibleTasks.reduce(
