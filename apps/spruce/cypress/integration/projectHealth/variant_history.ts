@@ -8,7 +8,9 @@ describe("variant history", () => {
   it("should link to variant history from the waterfall page", () => {
     cy.visit("/project/spruce/waterfall");
     cy.dataCy("build-variant-link").should("exist");
-    cy.dataCy("build-variant-link").should("contain.text", "Ubuntu 16.04");
+    cy.dataCy("build-variant-link")
+      .first()
+      .should("contain.text", "Ubuntu 16.04");
     cy.dataCy("build-variant-link").first().click();
     cy.location("pathname").should("eq", "/variant-history/spruce/ubuntu1604");
   });
