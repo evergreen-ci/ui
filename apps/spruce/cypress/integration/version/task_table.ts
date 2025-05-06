@@ -3,7 +3,7 @@ import {
   waitForTaskTable,
 } from "../../utils";
 
-const pathTasks = `/version/5e4ff3abe3c3317e352062e4/tasks`;
+const pathTasks = "/version/5e4ff3abe3c3317e352062e4/tasks";
 const patchDescriptionTasksExist = "dist";
 
 describe("Task table", () => {
@@ -15,59 +15,57 @@ describe("Task table", () => {
     cy.dataCy("tasks-table").should("exist");
   });
 
-  it("Updates the url when column headers are clicked", () => {
+  it("Updates sorting in the url when column headers are clicked", () => {
     cy.visit(pathTasks);
     waitForTaskTable();
-    // TODO: Remove wait in DEVPROD-597.
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(200);
+    cy.dataCy("tasks-table-row").should("be.visible");
+
     cy.location("search").should(
       "contain",
       "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
     );
 
-    cy.get("th.cy-task-table-col-NAME").click({ force: true });
+    const nameSortControl = "button[aria-label='Sort by Name']";
+    const statusSortControl = "button[aria-label='Sort by Task Status']";
+    const baseStatusSortControl =
+      "button[aria-label='Sort by Previous Status']";
+    const variantSortControl = "button[aria-label='Sort by Variant']";
+
+    cy.get(nameSortControl).click();
+    cy.location("search").should("contain", "BASE_STATUS%3ADESC%3BNAME%3AASC");
+
+    cy.get(variantSortControl).click();
+    cy.location("search").should("contain", "sorts=NAME%3AASC%3BVARIANT%3AASC");
+
+    cy.get(statusSortControl).click();
     cy.location("search").should(
       "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3AASC",
+      "sorts=VARIANT%3AASC%3BSTATUS%3AASC",
     );
 
-    cy.get("th.cy-task-table-col-NAME").click({ force: true });
+    cy.get(baseStatusSortControl).click();
     cy.location("search").should(
       "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3ADESC",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3AASC",
     );
 
-    cy.get("th.cy-task-table-col-NAME").click({ force: true });
+    cy.get(baseStatusSortControl).click();
     cy.location("search").should(
       "contain",
       "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
     );
 
-    cy.get("th.cy-task-table-col-VARIANT").click({ force: true });
-    cy.location("search").should(
-      "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3AASC",
-    );
-
-    cy.get("th.cy-task-table-col-VARIANT").click({ force: true });
-    cy.location("search").should(
-      "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3ADESC",
-    );
-
-    cy.get("th.cy-task-table-col-VARIANT").click({ force: true });
-    cy.location("search").should(
-      "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
-    );
+    cy.get(baseStatusSortControl).click();
+    cy.location("search").should("contain", "sorts=STATUS%3AASC");
   });
 
   it("Clicking task name goes to task page for that task", () => {
     cy.visit(pathTasks);
-    cy.get("td.cy-task-table-col-NAME:first").within(() => {
-      cy.get("a").should("have.attr", "href").and("include", "/task");
-    });
+    cy.dataCy("tasks-table-row")
+      .eq(0)
+      .within(() => {
+        cy.get("a").should("have.attr", "href").and("include", "/task");
+      });
   });
 
   it("Task count displays total tasks", () => {
@@ -75,25 +73,15 @@ describe("Task table", () => {
     cy.dataCy("total-count").first().contains("46");
   });
 
-  it("Sort buttons are disabled when fetching data", () => {
-    cy.visit(pathTasks);
-    cy.contains(TABLE_SORT_SELECTOR, "Name").click();
-    cy.once("fail", (err) => {
-      expect(err.message).to.include(
-        "'pointer-events: none' prevents user mouse interaction.",
-      );
-    });
-  });
-
   describe("Changing page number", () => {
     // Instead of checking the entire table rows lets just check if the elements on the table have changed
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
       cy.visit(`${pathTasks}?page=0`);
-      cy.get(dataCyTableRows).should("be.visible");
+      cy.dataCy(dataCyTableRows).should("be.visible");
 
       const firstPageRows = tableRowToText(dataCyTableRows);
       cy.dataCy(dataCyNextPage).click();
-      cy.get(dataCyTableRows).should("be.visible");
+      cy.dataCy(dataCyTableRows).should("be.visible");
 
       const secondPageRows = tableRowToText(dataCyTableRows);
 
@@ -102,23 +90,23 @@ describe("Task table", () => {
 
     it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
       cy.visit(`${pathTasks}?page=1`);
-      cy.get(dataCyTableRows).should("be.visible");
+      cy.dataCy(dataCyTableRows).should("be.visible");
       const secondPageRows = tableRowToText(dataCyTableRows);
       cy.dataCy(dataCyPrevPage).click();
-      cy.get(dataCyTableRows).should("be.visible");
+      cy.dataCy(dataCyTableRows).should("be.visible");
       const firstPageRows = tableRowToText(dataCyTableRows);
       expect(firstPageRows).to.not.eq(secondPageRows);
     });
 
     it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
       cy.visit(`${pathTasks}?page=0`);
-      cy.get(dataCyTableRows).should("be.visible");
+      cy.dataCy(dataCyTableRows).should("be.visible");
       cy.dataCy(dataCyPrevPage).should("have.attr", "aria-disabled", "true");
     });
 
     it("Does not update results or URL when right arrow is clicked and next page does not exist", () => {
       cy.visit(`${pathTasks}?page=4`);
-      cy.get(dataCyTableRows).should("be.visible");
+      cy.dataCy(dataCyTableRows).should("be.visible");
       cy.dataCy(dataCyNextPage).should("have.attr", "aria-disabled", "true");
     });
   });
@@ -129,7 +117,7 @@ describe("Task table", () => {
         it(`when the page size is set to ${pageSize}`, () => {
           cy.visit(pathTasks);
           cy.dataCy("tasks-table").should("exist");
-          cy.get(dataCyTableRows).should("be.visible");
+          cy.dataCy(dataCyTableRows).should("be.visible");
           clickOnPageSizeBtnAndAssertURLandTableSize(
             pageSize,
             dataCyTableDataRows,
@@ -156,18 +144,15 @@ describe("Task table", () => {
   });
 });
 
-const dataCyTableDataRows = ".ant-table-cell > .cy-task-table-col-NAME";
-
-const dataCyTableRows = ".ant-table-cell.cy-task-table-col-NAME";
-
-const TABLE_SORT_SELECTOR = ".ant-table-column-sorters";
+const dataCyTableDataRows = "[data-cy=tasks-table-row]";
+const dataCyTableRows = "tasks-table-row";
 
 const dataCyNextPage = "next-page-button";
 const dataCyPrevPage = "prev-page-button";
 
 const tableRowToText = (selector: string) =>
   new Cypress.Promise((resolve) => {
-    cy.get(selector)
+    cy.dataCy(selector)
       .invoke("text")
       .then((txt) => resolve(txt.toString()));
   });

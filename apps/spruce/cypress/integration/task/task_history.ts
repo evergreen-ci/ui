@@ -48,6 +48,83 @@ describe("task history", () => {
     });
   });
 
+  describe("restarting tasks", () => {
+    const successColor = "rgb(0, 163, 92)";
+    const willRunColor = "rgb(92, 108, 117)";
+
+    it("restarting the task that is currently being viewed should reflect changes on UI and update the URL", () => {
+      cy.visit(spruceTaskHistoryLink);
+      cy.location("search").should("include", "execution=0");
+      cy.dataCy("commit-details-card").eq(0).as("firstTaskCard");
+      cy.dataCy("timeline-box").eq(0).as("firstTaskBox");
+
+      cy.get("@firstTaskBox").should(
+        "have.css",
+        "background-color",
+        successColor,
+      );
+      cy.get("@firstTaskCard").within(() => {
+        cy.dataCy("restart-button").should(
+          "have.attr",
+          "aria-disabled",
+          "false",
+        );
+        cy.dataCy("restart-button").click();
+      });
+      cy.validateToast("success", "Task scheduled to restart");
+
+      cy.location("search").should("include", "execution=1");
+      cy.get("@firstTaskBox").should(
+        "have.css",
+        "background-color",
+        willRunColor,
+      );
+      cy.get("@firstTaskCard").within(() => {
+        cy.dataCy("restart-button").should(
+          "have.attr",
+          "aria-disabled",
+          "true",
+        );
+      });
+    });
+
+    it("restarting a task that is not currently being viewed should reflect changes on UI, but not update the URL", () => {
+      cy.visit(spruceTaskHistoryLink);
+      cy.location("search").should("include", "execution=0");
+      cy.dataCy("commit-details-card").eq(1).as("secondTaskCard");
+      cy.dataCy("timeline-box").eq(1).as("secondTaskBox");
+
+      cy.get("@secondTaskBox").should(
+        "have.css",
+        "background-color",
+        successColor,
+      );
+      cy.get("@secondTaskCard").within(() => {
+        cy.dataCy("restart-button").should(
+          "have.attr",
+          "aria-disabled",
+          "false",
+        );
+        cy.dataCy("restart-button").click();
+      });
+      cy.validateToast("success", "Task scheduled to restart");
+
+      cy.location("search").should("not.include", "execution=1");
+      cy.get("@secondTaskBox").should(
+        "have.css",
+        "background-color",
+        willRunColor,
+      );
+      cy.get("@secondTaskCard").within(() => {
+        cy.dataCy("restart-button").should(
+          "have.attr",
+          "aria-disabled",
+          "true",
+        );
+      });
+    });
+  });
+
   describe("pagination", () => {
     describe("can paginate forwards and backwards", () => {
       const mciTaskHistoryLink =
