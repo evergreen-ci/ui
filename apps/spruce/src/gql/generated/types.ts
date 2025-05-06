@@ -9444,8 +9444,6 @@ export type UserSettingsQuery = {
       } | null;
       useSpruceOptions?: {
         __typename?: "UseSpruceOptions";
-        hasUsedMainlineCommitsBefore?: boolean | null;
-        hasUsedSpruceBefore?: boolean | null;
         spruceV1?: boolean | null;
       } | null;
     };
