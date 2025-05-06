@@ -5,7 +5,7 @@ import TextInput from "@leafygreen-ui/text-input";
 import debounce from "lodash.debounce";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
-import { TaskHistoryOptions } from "./types";
+import { TaskHistoryOptions } from "../types";
 
 const { red } = palette;
 interface Props {
