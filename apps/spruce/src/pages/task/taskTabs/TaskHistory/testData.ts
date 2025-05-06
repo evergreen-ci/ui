@@ -206,6 +206,7 @@ export const collapsedGroupedTasks: GroupedTask[] = [
   {
     inactiveTasks: [tasks[2]],
     task: null,
+    isMatching: false,
   },
   {
     inactiveTasks: null,
@@ -215,6 +216,7 @@ export const collapsedGroupedTasks: GroupedTask[] = [
   {
     inactiveTasks: [tasks[4]],
     task: null,
+    isMatching: false,
   },
   {
     inactiveTasks: null,
@@ -224,6 +226,7 @@ export const collapsedGroupedTasks: GroupedTask[] = [
   {
     inactiveTasks: [tasks[6], tasks[7], tasks[8]],
     task: null,
+    isMatching: false,
   },
   {
     inactiveTasks: null,

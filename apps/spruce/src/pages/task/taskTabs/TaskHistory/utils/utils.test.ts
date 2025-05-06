@@ -18,7 +18,7 @@ describe("groupTasks", () => {
 
   it("sets isMatching to true if testFailureSearchTerm matches a failing test", () => {
     const res = groupTasks(tasks, true, /e2e_test/);
-    expect("isMatching" in res[5] && res[5].isMatching).toBe(true);
+    expect(res[5].isMatching).toBe(true);
   });
 });
 

@@ -9,6 +9,7 @@ export type GroupedTask =
   | {
       inactiveTasks: TaskHistoryTask[];
       task: null;
+      isMatching: false;
     }
   | {
       inactiveTasks: null;

@@ -16,7 +16,7 @@ export const groupTasks = (
 
   const pushInactive = (t: TaskHistoryTask) => {
     if (!groupedTasks?.[groupedTasks.length - 1]?.inactiveTasks) {
-      groupedTasks.push({ task: null, inactiveTasks: [] });
+      groupedTasks.push({ task: null, inactiveTasks: [], isMatching: false });
     }
     groupedTasks[groupedTasks.length - 1].inactiveTasks?.push(t);
   };
