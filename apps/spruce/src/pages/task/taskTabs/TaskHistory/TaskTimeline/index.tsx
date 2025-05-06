@@ -73,14 +73,16 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
               {tasks.map((t) => {
                 if (t.task) {
                   const { task } = t;
+                  const isHoveredTask = hoveredTask === task.id;
+                  const isSelectedTask = selectedTask === task.id;
                   return (
                     <TaskBox
                       key={task.id}
                       data-cy="timeline-box"
-                      hovered={hoveredTask === task.id}
+                      hovered={isHoveredTask}
                       id={`task-box-${task.id}`}
                       onClick={() => {
-                        if (selectedTask === task.id) {
+                        if (isSelectedTask) {
                           setSelectedTask(null);
                         } else {
                           setSelectedTask(task.id);
@@ -93,7 +95,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                         }
                       }}
                       rightmost={false}
-                      selected={selectedTask === task.id}
+                      selected={isSelectedTask}
                       status={task.displayStatus as TaskStatus}
                       taskId={task.id}
                     />
