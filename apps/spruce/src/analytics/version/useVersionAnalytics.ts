@@ -6,7 +6,7 @@ import {
   VersionQueryVariables,
   TaskSortCategory,
 } from "gql/generated/types";
-import { VERSION } from "gql/queries";
+import VERSION from "gql/queries/version.graphql";
 
 type Action =
   | {

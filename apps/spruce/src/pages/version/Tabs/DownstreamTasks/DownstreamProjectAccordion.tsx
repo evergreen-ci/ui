@@ -15,7 +15,7 @@ import {
   VersionTasksQuery,
   VersionTasksQueryVariables,
 } from "gql/generated/types";
-import { VERSION_TASKS } from "gql/queries";
+import VERSION_TASKS from "gql/queries/version-tasks.graphql";
 import { usePolling } from "hooks";
 import { ParametersModal } from "pages/version/ParametersModal";
 import { PatchStatus } from "types/patch";

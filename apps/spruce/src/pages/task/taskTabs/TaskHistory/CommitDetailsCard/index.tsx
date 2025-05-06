@@ -17,7 +17,7 @@ import {
   RestartTaskMutation,
   RestartTaskMutationVariables,
 } from "gql/generated/types";
-import { RESTART_TASK } from "gql/mutations";
+import RESTART_TASK from "gql/mutations/restart-task.graphql";
 import { useDateFormat, useSpruceConfig } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { isProduction } from "utils/environmentVariables";

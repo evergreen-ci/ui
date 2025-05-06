@@ -12,7 +12,7 @@ import {
   UpdateUserBetaFeaturesMutation,
   UpdateUserBetaFeaturesMutationVariables,
 } from "gql/generated/types";
-import { UPDATE_USER_BETA_FEATURES } from "gql/mutations";
+import UPDATE_USER_BETA_FEATURES from "gql/mutations/update-user-beta-features.graphql";
 
 type FormState = {
   betaFeatures: BetaFeatures;

@@ -6,7 +6,7 @@ import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { Title, BadgeWrapper, TitleContainer } from "components/Spawn";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
-import { MY_VOLUMES } from "gql/queries";
+import MY_VOLUMES from "gql/queries/my-volumes.graphql";
 import { usePolling, useSpruceConfig } from "hooks";
 import { SpawnVolumeTable } from "pages/spawn/spawnVolume/SpawnVolumeTable";
 import SpawnPageSkeleton from "./SpawnPageSkeleton";

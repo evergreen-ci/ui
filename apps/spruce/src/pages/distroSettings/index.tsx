@@ -24,7 +24,7 @@ import {
   slugs,
 } from "constants/routes";
 import { DistroQuery, DistroQueryVariables } from "gql/generated/types";
-import { DISTRO } from "gql/queries";
+import DISTRO from "gql/queries/distro.graphql";
 import { DistroSettingsProvider } from "./Context";
 import { DistroSelect } from "./DistroSelect";
 import { getTabTitle } from "./getTabTitle";

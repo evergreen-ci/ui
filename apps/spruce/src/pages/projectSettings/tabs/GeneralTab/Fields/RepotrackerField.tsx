@@ -9,7 +9,7 @@ import {
   ForceRepotrackerRunMutation,
   ForceRepotrackerRunMutationVariables,
 } from "gql/generated/types";
-import { FORCE_REPOTRACKER_RUN } from "gql/mutations";
+import FORCE_REPOTRACKER_RUN from "gql/mutations/force-repotracker-run.graphql";
 
 interface ModalProps {
   closeModal: () => void;

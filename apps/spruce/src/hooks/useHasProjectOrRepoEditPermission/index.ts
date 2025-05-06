@@ -7,11 +7,9 @@ import {
   UserRepoSettingsPermissionsQuery,
   UserRepoSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
-import {
-  IS_REPO,
-  USER_PROJECT_SETTINGS_PERMISSIONS,
-  USER_REPO_SETTINGS_PERMISSIONS,
-} from "gql/queries";
+import IS_REPO from "gql/queries/is-repo.graphql";
+import USER_PROJECT_SETTINGS_PERMISSIONS from "gql/queries/user-project-settings-permissions.graphql";
+import USER_REPO_SETTINGS_PERMISSIONS from "gql/queries/user-repo-settings-permissions.graphql";
 
 export const useHasProjectOrRepoEditPermission = (id?: string) => {
   const projectOrRepoId = id ?? "";

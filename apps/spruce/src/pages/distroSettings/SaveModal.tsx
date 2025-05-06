@@ -14,7 +14,7 @@ import {
   SaveDistroMutation,
   SaveDistroMutationVariables,
 } from "gql/generated/types";
-import { SAVE_DISTRO } from "gql/mutations";
+import SAVE_DISTRO from "gql/mutations/save-distro.graphql";
 import { useDistroSettingsContext } from "./Context";
 import { formToGqlMap } from "./tabs/transformers";
 import { FormToGqlFunction, WritableDistroSettingsType } from "./tabs/types";

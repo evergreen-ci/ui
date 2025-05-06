@@ -4,7 +4,7 @@ import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 import { BuildBaronQuery, BuildBaronQueryVariables } from "gql/generated/types";
-import { BUILD_BARON } from "gql/queries";
+import BUILD_BARON from "gql/queries/build-baron.graphql";
 import { useQueryParam } from "hooks/useQueryParam";
 import { RequiredQueryParams } from "types/task";
 

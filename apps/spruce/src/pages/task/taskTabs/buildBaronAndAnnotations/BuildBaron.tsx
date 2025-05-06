@@ -5,7 +5,7 @@ import {
   BuildBaronQuery,
   BuildBaronQueryVariables,
 } from "gql/generated/types";
-import { BUILD_BARON } from "gql/queries";
+import BUILD_BARON from "gql/queries/build-baron.graphql";
 import BuildBaronContent from "./BuildBaronContent";
 
 interface Props {

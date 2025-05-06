@@ -23,7 +23,7 @@ import {
   EditSpawnHostMutation,
   EditSpawnHostMutationVariables,
 } from "gql/generated/types";
-import { EDIT_SPAWN_HOST } from "gql/mutations";
+import EDIT_SPAWN_HOST from "gql/mutations/edit-spawn-host.graphql";
 import { useUserTimeZone } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";

@@ -10,7 +10,7 @@ import {
   CopyDistroMutation,
   CopyDistroMutationVariables,
 } from "gql/generated/types";
-import { COPY_DISTRO } from "gql/mutations";
+import COPY_DISTRO from "gql/mutations/copy-distro.graphql";
 import { modalFormDefinition } from "./copyDistroSchema";
 
 const { initialFormData, schema, uiSchema } = modalFormDefinition;

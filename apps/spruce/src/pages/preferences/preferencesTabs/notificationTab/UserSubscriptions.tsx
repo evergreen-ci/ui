@@ -29,7 +29,7 @@ import {
   GeneralSubscription,
   Selector,
 } from "gql/generated/types";
-import { DELETE_SUBSCRIPTIONS } from "gql/mutations";
+import DELETE_SUBSCRIPTIONS from "gql/mutations/delete-subscriptions.graphql";
 import { useSpruceConfig } from "hooks";
 import {
   NotificationMethods,

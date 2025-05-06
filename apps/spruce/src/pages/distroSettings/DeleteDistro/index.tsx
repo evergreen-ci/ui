@@ -14,8 +14,8 @@ import {
   UserDistroSettingsPermissionsQuery,
   UserDistroSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
-import { DELETE_DISTRO } from "gql/mutations";
-import { USER_DISTRO_SETTINGS_PERMISSIONS } from "gql/queries";
+import DELETE_DISTRO from "gql/mutations/delete-distro.graphql";
+import USER_DISTRO_SETTINGS_PERMISSIONS from "gql/queries/user-distro-settings-permissions.graphql";
 
 interface ModalProps {
   closeModal: () => void;

@@ -7,7 +7,7 @@ import {
   GithubProjectConflictsQuery,
   GithubProjectConflictsQueryVariables,
 } from "gql/generated/types";
-import { GITHUB_PROJECT_CONFLICTS } from "gql/queries";
+import GITHUB_PROJECT_CONFLICTS from "gql/queries/github-project-conflicts.graphql";
 import { useProjectSettingsContext } from "pages/projectSettings/Context";
 import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";

@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { FieldProps } from "@rjsf/core";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
@@ -12,8 +13,21 @@ import {
   DeactivateStepbackTaskMutation,
   DeactivateStepbackTaskMutationVariables,
 } from "gql/generated/types";
-import { DEACTIVATE_STEPBACK_TASK } from "gql/mutations";
 import { DeactivateStepbackTaskField } from ".";
+
+const DEACTIVATE_STEPBACK_TASK = gql`
+  mutation DeactivateStepbackTask(
+    $projectId: String!
+    $buildVariantName: String!
+    $taskName: String!
+  ) {
+    deactivateStepbackTask(
+      projectId: $projectId
+      buildVariantName: $buildVariantName
+      taskName: $taskName
+    )
+  }
+`;
 
 const Field = () => (
   <MockedProvider mocks={[deactivateStepbackTaskMock]}>

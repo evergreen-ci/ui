@@ -16,7 +16,7 @@ import {
   ProjectPatchesQuery,
   ProjectPatchesQueryVariables,
 } from "gql/generated/types";
-import { PROJECT_PATCHES } from "gql/queries";
+import PROJECT_PATCHES from "gql/queries/project-patches.graphql";
 import { usePolling } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { PatchPageQueryParams } from "types/patch";

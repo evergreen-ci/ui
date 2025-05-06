@@ -1,0 +1,29 @@
+query Task($taskId: String!, $execution: Int) {
+  task(taskId: $taskId, execution: $execution) {
+    id
+    details {
+      description
+      status
+    }
+    displayName
+    displayStatus
+    execution
+    logs {
+      agentLogLink
+      allLogLink
+      systemLogLink
+      taskLogLink
+    }
+    patchNumber
+    versionMetadata {
+      id
+      isPatch
+      message
+      projectIdentifier
+      projectMetadata {
+        id
+      }
+      revision
+    }
+  }
+}

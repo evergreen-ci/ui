@@ -7,7 +7,7 @@ import { Field } from "@rjsf/core";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { SpruceForm } from "components/SpruceForm";
 import { GithubOrgsQuery } from "gql/generated/types";
-import { GITHUB_ORGS } from "gql/queries";
+import GITHUB_ORGS from "gql/queries/github-orgs.graphql";
 import { ProjectType } from "../../utils";
 import { AttachDetachModal } from "./AttachDetachModal";
 import { MoveRepoModal } from "./MoveRepoModal";

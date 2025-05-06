@@ -26,14 +26,12 @@ import {
   OverrideTaskDependenciesMutationVariables,
   TaskQuery,
 } from "gql/generated/types";
-import {
-  ABORT_TASK,
-  OVERRIDE_TASK_DEPENDENCIES,
-  RESTART_TASK,
-  SCHEDULE_TASKS,
-  SET_TASK_PRIORITY,
-  UNSCHEDULE_TASK,
-} from "gql/mutations";
+import ABORT_TASK from "gql/mutations/abort-task.graphql";
+import OVERRIDE_TASK_DEPENDENCIES from "gql/mutations/override-task-dependencies.graphql";
+import RESTART_TASK from "gql/mutations/restart-task.graphql";
+import SCHEDULE_TASKS from "gql/mutations/schedule-tasks.graphql";
+import SET_TASK_PRIORITY from "gql/mutations/set-task-priority.graphql";
+import UNSCHEDULE_TASK from "gql/mutations/unschedule-task.graphql";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { useQueryParam } from "hooks/useQueryParam";
 import { RelevantCommits } from "./actionButtons/RelevantCommits";

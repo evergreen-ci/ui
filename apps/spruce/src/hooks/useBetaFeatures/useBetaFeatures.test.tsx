@@ -1,4 +1,5 @@
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
@@ -7,7 +8,29 @@ import {
   UserBetaFeaturesQuery,
   UserBetaFeaturesQueryVariables,
 } from "gql/generated/types";
-import { ADMIN_BETA_FEATURES, USER_BETA_FEATURES } from "gql/queries";
+
+const ADMIN_BETA_FEATURES = gql`
+  query AdminBetaFeatures {
+    spruceConfig {
+      ui {
+        betaFeatures {
+          spruceWaterfallEnabled
+        }
+      }
+    }
+  }
+`;
+
+const USER_BETA_FEATURES = gql`
+  query UserBetaFeatures {
+    user {
+      userId
+      betaFeatures {
+        spruceWaterfallEnabled
+      }
+    }
+  }
+`;
 import {
   useAdminBetaFeatures,
   useUserBetaFeatures,

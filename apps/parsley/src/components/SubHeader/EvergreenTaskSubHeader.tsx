@@ -14,7 +14,7 @@ import {
   TestLogUrlAndRenderingTypeQuery,
   TestLogUrlAndRenderingTypeQueryVariables,
 } from "gql/generated/types";
-import { GET_TEST_LOG_URL_AND_RENDERING_TYPE } from "gql/queries";
+import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/get-test-log-url-and-rendering-type.graphql";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { shortenGithash, trimStringFromMiddle } from "utils/string";
 
@@ -97,7 +97,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
     versionMetadata,
   } = taskData;
 
-  const { isPatch, message, projectIdentifier, revision } = versionMetadata;
+  const { isPatch, message, projectIdentifier, revision } = versionMetadata || {};
 
   const breadcrumbs = [
     {

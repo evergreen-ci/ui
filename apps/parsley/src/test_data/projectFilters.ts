@@ -3,7 +3,7 @@ import {
   ProjectFiltersQuery,
   ProjectFiltersQueryVariables,
 } from "gql/generated/types";
-import { PROJECT_FILTERS } from "gql/queries";
+import PROJECT_FILTERS from "gql/queries/project-filters.graphql";
 
 export const projectFiltersMock: ApolloMock<
   ProjectFiltersQuery,

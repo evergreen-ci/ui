@@ -9,7 +9,7 @@ import {
   TaskSortCategory,
   TestSortCategory,
 } from "gql/generated/types";
-import { TASK } from "gql/queries";
+import TASK from "gql/queries/task.graphql";
 import { useQueryParam } from "hooks/useQueryParam";
 import { CommitType } from "pages/task/actionButtons/RelevantCommits/types";
 import { RequiredQueryParams, LogTypes } from "types/task";

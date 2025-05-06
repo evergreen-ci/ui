@@ -9,7 +9,7 @@ import {
   ClearMySubscriptionsMutation,
   ClearMySubscriptionsMutationVariables,
 } from "gql/generated/types";
-import { CLEAR_MY_SUBSCRIPTIONS } from "gql/mutations";
+import CLEAR_MY_SUBSCRIPTIONS from "gql/mutations/clear-my-subscriptions.graphql";
 
 export const ClearSubscriptions: React.FC = () => {
   const [showModal, setShowModal] = useState(false);

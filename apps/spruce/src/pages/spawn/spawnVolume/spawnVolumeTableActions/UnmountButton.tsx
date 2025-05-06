@@ -11,8 +11,8 @@ import {
   DetachVolumeFromHostMutation,
   DetachVolumeFromHostMutationVariables,
 } from "gql/generated/types";
-import { DETACH_VOLUME } from "gql/mutations";
-import { MY_HOSTS } from "gql/queries";
+import DETACH_VOLUME from "gql/mutations/detach-volume.graphql";
+import MY_HOSTS from "gql/queries/my-hosts.graphql";
 import { TableVolume } from "types/spawn";
 
 interface Props {

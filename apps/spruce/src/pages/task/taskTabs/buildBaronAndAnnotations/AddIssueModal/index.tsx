@@ -11,7 +11,7 @@ import {
   AddAnnotationIssueMutationVariables,
   IssueLinkInput,
 } from "gql/generated/types";
-import { ADD_ANNOTATION } from "gql/mutations";
+import ADD_ANNOTATION from "gql/mutations/add-annotation.graphql";
 import { useSpruceConfig } from "hooks";
 import { numbers, string } from "utils";
 

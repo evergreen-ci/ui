@@ -16,7 +16,7 @@ import {
   ProjectFiltersQuery,
   ProjectFiltersQueryVariables,
 } from "gql/generated/types";
-import { PROJECT_FILTERS } from "gql/queries";
+import PROJECT_FILTERS from "gql/queries/project-filters.graphql";
 import { parsleySettingsMock } from "test_data/parsleySettings";
 import { noFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";

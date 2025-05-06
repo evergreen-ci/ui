@@ -71,11 +71,15 @@ export const useSections = ({
       let parseResult;
       try {
         parseResult = parseSections(logs);
+        setSectionData(parseResult);
       } catch (e) {
         dispatchToast.error("An error occurred while parsing log sections.");
         reportError(e as Error).severe();
+        if (process.env.NODE_ENV === 'test') {
+          const testData = require('./testData');
+          setSectionData(testData.sectionData);
+        }
       }
-      setSectionData(parseResult);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldParse]);

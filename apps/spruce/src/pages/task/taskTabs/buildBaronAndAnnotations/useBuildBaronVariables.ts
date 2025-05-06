@@ -3,7 +3,7 @@ import {
   BuildBaronConfiguredQuery,
   BuildBaronConfiguredQueryVariables,
 } from "gql/generated/types";
-import { BUILD_BARON_CONFIGURED } from "gql/queries";
+import BUILD_BARON_CONFIGURED from "gql/queries/build-baron-configured.graphql";
 import { statuses } from "utils";
 
 const { isFailedTaskStatus } = statuses;

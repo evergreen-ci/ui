@@ -3,421 +3,13 @@ import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogTypes } from "constants/enums";
-import {
-  TaskFilesQuery,
-  TaskFilesQueryVariables,
-  TaskQuery,
-  TaskQueryVariables,
-  TestLogUrlAndRenderingTypeQuery,
-  TestLogUrlAndRenderingTypeQueryVariables,
-} from "gql/generated/types";
-import {
-  GET_TASK,
-  GET_TEST_LOG_URL_AND_RENDERING_TYPE,
-  TASK_FILES,
-} from "gql/queries";
 import { useResolveLogURLAndRenderingType } from "./useResolveLogURLAndRenderingType";
+import GET_TEST_LOG_URL_AND_RENDERING_TYPE from "gql/queries/get-test-log-url-and-rendering-type.graphql";
+import TASK_FILES from "gql/queries/task-files.graphql";
+import GET_TASK from "gql/queries/task.graphql";
 
-describe("useResolveLogURLAndRenderingType", () => {
-  describe("test log renderingType", () => {
-    beforeEach(() => {
-      vi.spyOn(ErrorReporting, "reportError");
-    });
-    afterEach(() => {
-      vi.restoreAllMocks();
-    });
-    it("resolves test log renderingType from GraphQL resolver when API value is 'resmoke'", async () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MockedProvider
-          mocks={[
-            evergreenTaskMock,
-            evergreenTaskMock,
-            getExistingResmokeTestLogURLMock,
-          ]}
-        >
-          {children}
-        </MockedProvider>
-      );
-      const { result } = renderHook(
-        () => useResolveLogURLAndRenderingType(hookParams),
-        {
-          wrapper,
-        },
-      );
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          loading: true,
-          renderingType: "default",
-        });
-      });
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          loading: false,
-          renderingType: "resmoke",
-        });
-      });
-      await waitFor(() => {
-        expect(ErrorReporting.reportError).not.toHaveBeenCalled();
-      });
-    });
-    it("resolves test log renderingType from GraphQL resolver when API value is 'default'", async () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MockedProvider
-          mocks={[
-            evergreenTaskMock,
-            evergreenTaskMock,
-            getExistingDefaultTestLogURLMock,
-          ]}
-        >
-          {children}
-        </MockedProvider>
-      );
-      const { result } = renderHook(
-        () => useResolveLogURLAndRenderingType(hookParams),
-        {
-          wrapper,
-        },
-      );
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          loading: true,
-          renderingType: "default",
-        });
-      });
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          loading: false,
-          renderingType: "default",
-        });
-      });
-      await waitFor(() => {
-        expect(ErrorReporting.reportError).not.toHaveBeenCalled();
-      });
-    });
-    it("resolves task log renderingType from GraphQL resolver when API value is empty", async () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MockedProvider
-          mocks={[
-            evergreenTaskMock,
-            evergreenTaskMock,
-            getExistingDefaultTestLogURLMockEmptyRenderingType,
-          ]}
-        >
-          {children}
-        </MockedProvider>
-      );
-      const { result } = renderHook(
-        () => useResolveLogURLAndRenderingType(hookParams),
-        {
-          wrapper,
-        },
-      );
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          loading: true,
-          renderingType: "default",
-        });
-      });
-
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          loading: false,
-          renderingType: "default",
-        });
-      });
-      await waitFor(() => {
-        expect(ErrorReporting.reportError).not.toHaveBeenCalled();
-      });
-    });
-    it("resolves test log renderingType to 'default' and reports error when API value is not recognized", async () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MockedProvider
-          mocks={[
-            evergreenTaskMock,
-            evergreenTaskMock,
-            getExistingTestLogURLInvalidRenderingTypeMock,
-          ]}
-        >
-          {children}
-        </MockedProvider>
-      );
-      const { result } = renderHook(
-        () => useResolveLogURLAndRenderingType(hookParams),
-        {
-          wrapper,
-        },
-      );
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          loading: true,
-          renderingType: "default",
-        });
-      });
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          loading: false,
-          renderingType: "default",
-        });
-      });
-      await waitFor(() => {
-        expect(ErrorReporting.reportError).toHaveBeenCalledTimes(1);
-        // eslint-disable-next-line testing-library/no-wait-for-multiple-assertions
-        expect(ErrorReporting.reportError).toHaveBeenCalledWith(
-          new Error("Encountered unsupported renderingType"),
-          {
-            context: {
-              rawLogURL: "rawURL",
-              unsupportedRenderingType: "not-a-valid-rendering-type",
-            },
-          },
-        );
-      });
-    });
-    const hookParams = {
-      execution: "0",
-      logType: "EVERGREEN_TEST_LOGS",
-      taskID: "a-task-id",
-      testID: "a-test-name",
-    };
-  });
-  describe("test/task/file URL generation", () => {
-    it("resolves test log URLs from GraphQL resolver when data is available", async () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MockedProvider
-          mocks={[
-            evergreenTaskMock,
-            evergreenTaskMock,
-            getExistingResmokeTestLogURLMock,
-          ]}
-        >
-          {children}
-        </MockedProvider>
-      );
-      const { result } = renderHook(
-        () =>
-          useResolveLogURLAndRenderingType({
-            execution: "0",
-            logType: "EVERGREEN_TEST_LOGS",
-            taskID: "a-task-id",
-            testID: "a-test-name",
-          }),
-        {
-          wrapper,
-        },
-      );
-      expect(result.current).toMatchObject({
-        downloadURL: "",
-        htmlLogURL: "",
-        jobLogsURL: "",
-        loading: true,
-        rawLogURL: "",
-      });
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          downloadURL: "rawURL",
-          htmlLogURL: "htmlURL",
-          jobLogsURL: "",
-          loading: false,
-          rawLogURL: "rawURL",
-        });
-      });
-    });
-
-    it("resolves task log URLs from GraphQL resolver when data is available", async () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MockedProvider
-          mocks={[
-            evergreenTaskMock,
-            evergreenTaskMock,
-            getExistingResmokeTestLogURLMock,
-          ]}
-        >
-          {children}
-        </MockedProvider>
-      );
-      const { result } = renderHook(
-        () =>
-          useResolveLogURLAndRenderingType({
-            execution: "0",
-            logType: "EVERGREEN_TASK_LOGS",
-            origin: "agent",
-            taskID: "a-task-id",
-          }),
-        {
-          wrapper,
-        },
-      );
-      expect(result.current).toMatchObject({
-        downloadURL: "",
-        htmlLogURL: "",
-        jobLogsURL: "",
-        loading: true,
-        rawLogURL: "",
-      });
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          downloadURL: "agent-link.com?priority=true&text=true&type=E",
-          htmlLogURL: "agent-link.com?text=false&type=E",
-          jobLogsURL: "",
-          loading: false,
-          rawLogURL: "agent-link.com?text=true&type=E",
-        });
-      });
-    });
-
-    it("generates test log URLs without GraphQL data when GraphQL data is empty", async () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MockedProvider
-          mocks={[evergreenTaskMock, evergreenTaskMock, getEmptyTestLogURLMock]}
-        >
-          {children}
-        </MockedProvider>
-      );
-      const { result } = renderHook(
-        () =>
-          useResolveLogURLAndRenderingType({
-            execution: "0",
-            logType: "EVERGREEN_TEST_LOGS",
-            taskID: "a-task-id",
-            testID: "a-test-name-that-doesnt-exist",
-          }),
-        {
-          wrapper,
-        },
-      );
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          downloadURL:
-            "http://test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=true",
-          htmlLogURL:
-            "http://test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=false",
-          jobLogsURL: "",
-          loading: false,
-          rawLogURL:
-            "http://test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=true",
-        });
-      });
-    });
-
-    it("generates task file urls", async () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MockedProvider
-          mocks={[evergreenTaskMock, evergreenTaskMock, getTaskFileURLMock]}
-        >
-          {children}
-        </MockedProvider>
-      );
-      const { result } = renderHook(
-        () =>
-          useResolveLogURLAndRenderingType({
-            execution: "0",
-            fileName: "a-file-name",
-            logType: LogTypes.EVERGREEN_TASK_FILE,
-            taskID: "a-task-id",
-          }),
-        {
-          wrapper,
-        },
-      );
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          downloadURL:
-            "http://test-evergreen.com/task_file_raw/a-task-id/0/a-file-name",
-          htmlLogURL: "",
-          jobLogsURL: "",
-          loading: false,
-          rawLogURL: "a-file-url",
-        });
-      });
-    });
-
-    it("generates task file urls that are properly encoded", async () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MockedProvider
-          mocks={[evergreenTaskMock, evergreenTaskMock, getTaskFileURLMock]}
-        >
-          {children}
-        </MockedProvider>
-      );
-      const { result } = renderHook(
-        () =>
-          useResolveLogURLAndRenderingType({
-            execution: "0",
-            fileName: "a file name.some/crazy/path",
-            logType: LogTypes.EVERGREEN_TASK_FILE,
-            taskID: "a-task-id",
-          }),
-        {
-          wrapper,
-        },
-      );
-      await waitFor(() => {
-        expect(result.current).toMatchObject({
-          downloadURL:
-            "http://test-evergreen.com/task_file_raw/a-task-id/0/a%20file%20name.some%2Fcrazy%2Fpath",
-          htmlLogURL: "",
-          jobLogsURL: "",
-          loading: false,
-          rawLogURL: "a-file-url-with-crazy-path",
-        });
-      });
-    });
-  });
-
-  it("generates evergreen complete logs URL", async () => {
-    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MockedProvider mocks={[evergreenTaskMock, evergreenTaskMock]}>
-        {children}
-      </MockedProvider>
-    );
-    const { result } = renderHook(
-      () =>
-        useResolveLogURLAndRenderingType({
-          execution: "0",
-          groupID: "job0",
-          logType: LogTypes.EVERGREEN_COMPLETE_LOGS,
-          taskID: "a-task-id",
-        }),
-      {
-        wrapper,
-      },
-    );
-    await waitFor(() => {
-      expect(result.current).toMatchObject({
-        downloadURL:
-          "http://test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0%2F?execution=0",
-        htmlLogURL: "",
-        jobLogsURL: "http://test-spruce.com/job-logs/a-task-id/0/job0",
-        loading: false,
-        rawLogURL:
-          "http://test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0%2F?execution=0",
-      });
-    });
-  });
-});
-
-const getExistingResmokeTestLogURLMock: ApolloMock<
-  TestLogUrlAndRenderingTypeQuery,
-  TestLogUrlAndRenderingTypeQueryVariables
-> = {
+// Mock data
+const getExistingResmokeTestLogURLMock: ApolloMock<any, any> = {
   request: {
     query: GET_TEST_LOG_URL_AND_RENDERING_TYPE,
     variables: {
@@ -449,10 +41,7 @@ const getExistingResmokeTestLogURLMock: ApolloMock<
   },
 };
 
-const getExistingTestLogURLInvalidRenderingTypeMock: ApolloMock<
-  TestLogUrlAndRenderingTypeQuery,
-  TestLogUrlAndRenderingTypeQueryVariables
-> = {
+const getExistingTestLogURLInvalidRenderingTypeMock: ApolloMock<any, any> = {
   request: {
     query: GET_TEST_LOG_URL_AND_RENDERING_TYPE,
     variables: {
@@ -484,10 +73,7 @@ const getExistingTestLogURLInvalidRenderingTypeMock: ApolloMock<
   },
 };
 
-const getExistingDefaultTestLogURLMock: ApolloMock<
-  TestLogUrlAndRenderingTypeQuery,
-  TestLogUrlAndRenderingTypeQueryVariables
-> = {
+const getExistingDefaultTestLogURLMock: ApolloMock<any, any> = {
   request: {
     query: GET_TEST_LOG_URL_AND_RENDERING_TYPE,
     variables: {
@@ -519,10 +105,7 @@ const getExistingDefaultTestLogURLMock: ApolloMock<
   },
 };
 
-const getExistingDefaultTestLogURLMockEmptyRenderingType: ApolloMock<
-  TestLogUrlAndRenderingTypeQuery,
-  TestLogUrlAndRenderingTypeQueryVariables
-> = {
+const getExistingDefaultTestLogURLMockEmptyRenderingType: ApolloMock<any, any> = {
   request: {
     query: GET_TEST_LOG_URL_AND_RENDERING_TYPE,
     variables: {
@@ -554,10 +137,7 @@ const getExistingDefaultTestLogURLMockEmptyRenderingType: ApolloMock<
   },
 };
 
-const getEmptyTestLogURLMock: ApolloMock<
-  TestLogUrlAndRenderingTypeQuery,
-  TestLogUrlAndRenderingTypeQueryVariables
-> = {
+const getEmptyTestLogURLMock: ApolloMock<any, any> = {
   request: {
     query: GET_TEST_LOG_URL_AND_RENDERING_TYPE,
     variables: {
@@ -578,45 +158,44 @@ const getEmptyTestLogURLMock: ApolloMock<
   },
 };
 
-const getTaskFileURLMock: ApolloMock<TaskFilesQuery, TaskFilesQueryVariables> =
-  {
-    request: {
-      query: TASK_FILES,
-      variables: {
+const getTaskFileURLMock: ApolloMock<any, any> = {
+  request: {
+    query: TASK_FILES,
+    variables: {
+      execution: 0,
+      taskId: "a-task-id",
+    },
+  },
+  result: {
+    data: {
+      task: {
         execution: 0,
-        taskId: "a-task-id",
-      },
-    },
-    result: {
-      data: {
-        task: {
-          execution: 0,
-          files: {
-            groupedFiles: [
-              {
-                execution: 0,
-                files: [
-                  {
-                    link: "a-file-url",
-                    name: "a-file-name",
-                  },
-                  {
-                    link: "a-file-url-with-crazy-path",
-                    name: "a file name.some/crazy/path",
-                  },
-                ],
-                taskId: "a-task-id",
-                taskName: "a-task-name",
-              },
-            ],
-          },
-          id: "taskID",
+        files: {
+          groupedFiles: [
+            {
+              execution: 0,
+              files: [
+                {
+                  link: "a-file-url",
+                  name: "a-file-name",
+                },
+                {
+                  link: "a-file-url-with-crazy-path",
+                  name: "a file name.some/crazy/path",
+                },
+              ],
+              taskId: "a-task-id",
+              taskName: "a-task-name",
+            },
+          ],
         },
+        id: "taskID",
       },
     },
-  };
+  },
+};
 
-const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
+const evergreenTaskMock: ApolloMock<any, any> = {
   request: {
     query: GET_TASK,
     variables: {
@@ -651,3 +230,228 @@ const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
     },
   },
 };
+
+describe("useResolveLogURLAndRenderingType", () => {
+  describe("test log renderingType", () => {
+    it("should return resmoke renderingType when the test log has a resmoke renderingType", async () => {
+      const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <MockedProvider mocks={[getExistingResmokeTestLogURLMock]}>
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            execution: "0",
+            logType: LogTypes.EVERGREEN_TEST_LOGS,
+            taskID: "a-task-id",
+            testID: "a-test-name",
+          }),
+        { wrapper },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      expect(result.current.renderingType).toBe("resmoke");
+    });
+
+    it("should return default renderingType when the test log has an invalid renderingType", async () => {
+      vi.spyOn(ErrorReporting, "reportError");
+      const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <MockedProvider mocks={[getExistingTestLogURLInvalidRenderingTypeMock]}>
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            execution: "0",
+            logType: LogTypes.EVERGREEN_TEST_LOGS,
+            taskID: "a-task-id",
+            testID: "a-test-name",
+          }),
+        { wrapper },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      await waitFor(() => {
+        expect(ErrorReporting.reportError).toHaveBeenCalledTimes(1);
+        expect(ErrorReporting.reportError).toHaveBeenCalledWith(
+          new Error("Encountered unsupported renderingType"),
+          {
+            context: {
+              rawLogURL: "rawURL",
+              unsupportedRenderingType: "not-a-valid-rendering-type",
+            },
+          },
+        );
+      });
+      expect(result.current.renderingType).toBe("default");
+    });
+
+    it("should return default renderingType when the test log has a default renderingType", async () => {
+      const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <MockedProvider mocks={[getExistingDefaultTestLogURLMock]}>
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            execution: "0",
+            logType: LogTypes.EVERGREEN_TEST_LOGS,
+            taskID: "a-task-id",
+            testID: "a-test-name",
+          }),
+        { wrapper },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      expect(result.current.renderingType).toBe("default");
+    });
+
+    it("should return default renderingType when the test log has a null renderingType", async () => {
+      const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <MockedProvider
+          mocks={[getExistingDefaultTestLogURLMockEmptyRenderingType]}
+        >
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            execution: "0",
+            logType: LogTypes.EVERGREEN_TEST_LOGS,
+            taskID: "a-task-id",
+            testID: "a-test-name",
+          }),
+        { wrapper },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      expect(result.current.renderingType).toBe("default");
+    });
+  });
+
+  describe("test log URLs", () => {
+    it("should return the test log URL when the test exists", async () => {
+      const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <MockedProvider mocks={[getExistingDefaultTestLogURLMock]}>
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            execution: "0",
+            logType: LogTypes.EVERGREEN_TEST_LOGS,
+            taskID: "a-task-id",
+            testID: "a-test-name",
+          }),
+        { wrapper },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      expect(result.current.rawLogURL).toBe("rawURL");
+      expect(result.current.htmlLogURL).toBe("htmlURL");
+    });
+
+    it("should return a constructed test log URL when the test does not exist", async () => {
+      const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <MockedProvider mocks={[getEmptyTestLogURLMock]}>
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            execution: "0",
+            logType: LogTypes.EVERGREEN_TEST_LOGS,
+            taskID: "a-task-id",
+            testID: "a-test-name-that-doesnt-exist",
+          }),
+        { wrapper },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      expect(result.current.rawLogURL).toContain("a-test-name-that-doesnt-exist");
+      expect(result.current.htmlLogURL).toContain("a-test-name-that-doesnt-exist");
+    });
+  });
+
+  describe("task file URLs", () => {
+    it("should return the task file URL when the file exists", async () => {
+      const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <MockedProvider mocks={[getTaskFileURLMock]}>
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            execution: "0",
+            fileName: "a-file-name",
+            logType: LogTypes.EVERGREEN_TASK_FILE,
+            taskID: "a-task-id",
+          }),
+        { wrapper },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      expect(result.current.rawLogURL).toBe("a-file-url");
+    });
+
+    it("should return the task file URL when the file has a crazy path", async () => {
+      const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <MockedProvider mocks={[getTaskFileURLMock]}>
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            execution: "0",
+            fileName: "a file name.some/crazy/path",
+            logType: LogTypes.EVERGREEN_TASK_FILE,
+            taskID: "a-task-id",
+          }),
+        { wrapper },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      expect(result.current.rawLogURL).toBe("a-file-url-with-crazy-path");
+    });
+  });
+
+  describe("task log URLs", () => {
+    it("should return the task log URL when the task exists", async () => {
+      const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <MockedProvider mocks={[evergreenTaskMock]}>
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            execution: "0",
+            logType: LogTypes.EVERGREEN_TASK_LOGS,
+            origin: "agent",
+            taskID: "a-task-id",
+          }),
+        { wrapper },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      expect(result.current.rawLogURL).toBe("agent-link.com?text=true&type=E");
+    });
+  });
+});

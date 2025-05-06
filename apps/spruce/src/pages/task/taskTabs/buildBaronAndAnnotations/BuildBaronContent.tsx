@@ -11,7 +11,8 @@ import {
   CreatedTicketsQuery,
   CreatedTicketsQueryVariables,
 } from "gql/generated/types";
-import { CREATED_TICKETS, JIRA_CUSTOM_CREATED_ISSUES } from "gql/queries";
+import CREATED_TICKETS from "gql/queries/created-tickets.graphql";
+import JIRA_CUSTOM_CREATED_ISSUES from "gql/queries/jira-custom-created-issues.graphql";
 import AnnotationNote from "./AnnotationNote";
 import { BBCreatedTickets, CustomCreatedTickets } from "./CreatedTicketsTable";
 import { Issues, SuspectedIssues } from "./Issues";

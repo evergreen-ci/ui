@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { ImagesQuery, ImagesQueryVariables } from "gql/generated/types";
-import { IMAGES } from "gql/queries";
+import IMAGES from "gql/queries/images.graphql";
 
 /**
  * `useFirstImage` returns the alphabetically first image from Evergreen's list of images.

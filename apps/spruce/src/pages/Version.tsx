@@ -14,7 +14,7 @@ import {
 import { Requester } from "constants/requesters";
 import { slugs } from "constants/routes";
 import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
-import { VERSION } from "gql/queries";
+import VERSION from "gql/queries/version.graphql";
 import { usePolling, useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/NotFound";
 import { shortenGithash, githubPRLinkify, jiraLinkify } from "utils/string";

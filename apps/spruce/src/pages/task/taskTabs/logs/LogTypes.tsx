@@ -22,13 +22,11 @@ import {
   TaskEventLogEntry,
   LogMessageFragment,
 } from "gql/generated/types";
-import {
-  AGENT_LOGS,
-  TASK_EVENT_LOGS,
-  SYSTEM_LOGS,
-  TASK_LOGS,
-  ALL_LOGS,
-} from "gql/queries";
+import AGENT_LOGS from "gql/queries/agent-logs.graphql";
+import ALL_LOGS from "gql/queries/all-logs.graphql";
+import SYSTEM_LOGS from "gql/queries/system-logs.graphql";
+import TASK_EVENT_LOGS from "gql/queries/task-event-logs.graphql";
+import TASK_LOGS from "gql/queries/task-logs.graphql";
 import { usePolling } from "hooks";
 import { RequiredQueryParams } from "types/task";
 import { queryString } from "utils";

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { getDistroSettingsRoute } from "constants/routes";
 import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
-import { DISTROS } from "gql/queries";
+import DISTROS from "gql/queries/distros.graphql";
 
 interface DistroSelectProps {
   selectedDistro: string;

@@ -17,10 +17,8 @@ import {
   SaveRepoSettingsForSectionMutation,
   SaveRepoSettingsForSectionMutationVariables,
 } from "gql/generated/types";
-import {
-  SAVE_PROJECT_SETTINGS_FOR_SECTION,
-  SAVE_REPO_SETTINGS_FOR_SECTION,
-} from "gql/mutations";
+import SAVE_PROJECT_SETTINGS_FOR_SECTION from "gql/mutations/save-project-settings-for-section.graphql";
+import SAVE_REPO_SETTINGS_FOR_SECTION from "gql/mutations/save-repo-settings-for-section.graphql";
 import { useHasProjectOrRepoEditPermission } from "hooks";
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";

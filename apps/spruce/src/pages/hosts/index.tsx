@@ -18,7 +18,7 @@ import {
   PageWrapper,
 } from "components/styles";
 import { HostsQuery, HostsQueryVariables } from "gql/generated/types";
-import { HOSTS } from "gql/queries";
+import HOSTS from "gql/queries/hosts.graphql";
 import usePagination from "hooks/usePagination";
 import { HostsTable } from "pages/hosts/HostsTable";
 import { getFilters, useQueryVariables, getSorting } from "./utils";

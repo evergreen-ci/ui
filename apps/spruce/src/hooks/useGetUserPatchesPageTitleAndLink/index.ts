@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { getUserPatchesRoute } from "constants/routes";
 import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
-import { OTHER_USER } from "gql/queries";
+import OTHER_USER from "gql/queries/other-user.graphql";
 
 export const useGetUserPatchesPageTitleAndLink = (
   userId?: string,

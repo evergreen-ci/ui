@@ -10,7 +10,7 @@ import {
   EditAnnotationNoteMutationVariables,
   Note,
 } from "gql/generated/types";
-import { EDIT_ANNOTATION_NOTE } from "gql/mutations";
+import EDIT_ANNOTATION_NOTE from "gql/mutations/edit-annotation-note.graphql";
 import { useDateFormat } from "hooks";
 import { ButtonWrapper } from "./BBComponents";
 

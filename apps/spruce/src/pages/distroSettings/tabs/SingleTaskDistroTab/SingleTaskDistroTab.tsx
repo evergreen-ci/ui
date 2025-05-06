@@ -4,7 +4,7 @@ import {
   SingleTaskDistroQuery,
   SingleTaskDistroQueryVariables,
 } from "gql/generated/types";
-import { SINGLE_TASK_DISTRO } from "gql/queries";
+import SINGLE_TASK_DISTRO from "gql/queries/single-task-distro.graphql";
 import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./getFormSchema";
 import { gqlToForm } from "./transformers";

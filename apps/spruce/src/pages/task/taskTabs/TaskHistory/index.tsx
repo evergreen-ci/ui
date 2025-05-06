@@ -17,7 +17,7 @@ import {
   TaskHistoryQueryVariables,
   TaskQuery,
 } from "gql/generated/types";
-import { TASK_HISTORY } from "gql/queries";
+import TASK_HISTORY from "gql/queries/task-history.graphql";
 import { useSpruceConfig } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";

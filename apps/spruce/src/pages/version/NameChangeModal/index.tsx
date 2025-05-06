@@ -11,7 +11,7 @@ import {
   UpdatePatchDescriptionMutation,
   UpdatePatchDescriptionMutationVariables,
 } from "gql/generated/types";
-import { UPDATE_PATCH_DESCRIPTION } from "gql/mutations";
+import UPDATE_PATCH_DESCRIPTION from "gql/mutations/update-patch-description.graphql";
 import { getFormSchema } from "./getFormSchema";
 
 interface NameChangeModalProps {

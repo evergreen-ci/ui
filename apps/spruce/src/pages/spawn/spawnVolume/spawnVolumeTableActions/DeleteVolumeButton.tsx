@@ -10,7 +10,7 @@ import {
   RemoveVolumeMutation,
   RemoveVolumeMutationVariables,
 } from "gql/generated/types";
-import { REMOVE_VOLUME } from "gql/mutations";
+import REMOVE_VOLUME from "gql/mutations/remove-volume.graphql";
 import { TableVolume } from "types/spawn";
 
 interface Props {

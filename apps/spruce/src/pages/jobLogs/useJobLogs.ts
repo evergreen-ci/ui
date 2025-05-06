@@ -5,7 +5,8 @@ import {
   TaskTestsForJobLogsQuery,
   TaskTestsForJobLogsQueryVariables,
 } from "gql/generated/types";
-import { LOGKEEPER_BUILD_METADATA, TASK_TESTS_FOR_JOB_LOGS } from "gql/queries";
+import LOGKEEPER_BUILD_METADATA from "gql/queries/logkeeper-build-metadata.graphql";
+import TASK_TESTS_FOR_JOB_LOGS from "gql/queries/task-tests-for-job-logs.graphql";
 import { JobLogsMetadata, JobLogsTableTestResult } from "./types";
 import { getFormattedTestResults, getTitle, getMetadata } from "./utils";
 

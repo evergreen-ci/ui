@@ -16,7 +16,7 @@ import {
   ImageOperatingSystemQuery,
   ImageOperatingSystemQueryVariables,
 } from "gql/generated/types";
-import { IMAGE_OPERATING_SYSTEM } from "gql/queries";
+import IMAGE_OPERATING_SYSTEM from "gql/queries/image-operating-system.graphql";
 
 type OperatingSystemTableProps = {
   imageId: string;

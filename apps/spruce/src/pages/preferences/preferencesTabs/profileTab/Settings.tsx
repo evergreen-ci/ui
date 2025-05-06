@@ -12,7 +12,7 @@ import {
   UpdateUserSettingsMutationVariables,
   UserSettings,
 } from "gql/generated/types";
-import { UPDATE_USER_SETTINGS } from "gql/mutations";
+import UPDATE_USER_SETTINGS from "gql/mutations/update-user-settings.graphql";
 import { getDateCopy } from "utils/string";
 
 type FormState = {

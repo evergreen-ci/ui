@@ -12,7 +12,7 @@ import {
   ProjectFiltersQuery,
   ProjectFiltersQueryVariables,
 } from "gql/generated/types";
-import { PROJECT_FILTERS } from "gql/queries";
+import PROJECT_FILTERS from "gql/queries/project-filters.graphql";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import ProjectFilter from "./ProjectFilter";

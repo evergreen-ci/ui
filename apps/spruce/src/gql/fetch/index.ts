@@ -1,6 +1,6 @@
 import { OperationDefinitionNode } from "graphql";
 import { getUserStagingHeader } from "@evg-ui/lib/utils/request";
-import { SECRET_FIELDS } from "gql/queries";
+import SECRET_FIELDS from "gql/queries/secret-fields.graphql";
 
 export const secretFieldsReq: RequestInit = {
   credentials: "include" as RequestCredentials,

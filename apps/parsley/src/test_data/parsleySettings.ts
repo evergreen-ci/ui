@@ -3,7 +3,7 @@ import {
   ParsleySettingsQuery,
   ParsleySettingsQueryVariables,
 } from "gql/generated/types";
-import { PARSLEY_SETTINGS } from "gql/queries";
+import PARSLEY_SETTINGS from "gql/queries/parsley-settings.graphql";
 
 export const parsleySettingsMock: ApolloMock<
   ParsleySettingsQuery,

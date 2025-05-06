@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { FieldProps } from "@rjsf/core";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
@@ -11,8 +12,15 @@ import {
   DeleteGithubAppCredentialsMutation,
   DeleteGithubAppCredentialsMutationVariables,
 } from "gql/generated/types";
-import { DELETE_GITHUB_APP_CREDENTIALS } from "gql/mutations";
 import { GithubAppActions } from ".";
+
+const DELETE_GITHUB_APP_CREDENTIALS = gql`
+  mutation DeleteGithubAppCredentials($projectId: String!) {
+    deleteGithubAppCredentials(projectId: $projectId) {
+      oldAppId
+    }
+  }
+`;
 
 const Field = ({ isAppDefined }: { isAppDefined: boolean }) => (
   <MockedProvider mocks={[deleteAppCredentialsMock]}>

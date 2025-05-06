@@ -11,7 +11,7 @@ import {
   CodeChangesQueryVariables,
   FileDiffsFragment,
 } from "gql/generated/types";
-import { CODE_CHANGES } from "gql/queries";
+import CODE_CHANGES from "gql/queries/code-changes.graphql";
 import { commits } from "utils";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 

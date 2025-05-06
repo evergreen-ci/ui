@@ -3,7 +3,7 @@ import {
   ProjectBannerQuery,
   ProjectBannerQueryVariables,
 } from "gql/generated/types";
-import { PROJECT_BANNER } from "gql/queries";
+import PROJECT_BANNER from "gql/queries/project-banner.graphql";
 import { PortalBanner } from "./PortalBanner";
 import { SiteBanner } from "./SiteBanner";
 

@@ -7,7 +7,7 @@ import {
   ReprovisionToNewMutation,
   ReprovisionToNewMutationVariables,
 } from "gql/generated/types";
-import { REPROVISION_TO_NEW } from "gql/mutations";
+import REPROVISION_TO_NEW from "gql/mutations/reprovision-to-new.graphql";
 import { HostPopover } from "./HostPopover";
 
 interface Props {

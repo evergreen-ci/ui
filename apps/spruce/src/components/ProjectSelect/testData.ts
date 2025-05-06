@@ -9,8 +9,10 @@ import {
   RemoveFavoriteProjectMutation,
   RemoveFavoriteProjectMutationVariables,
 } from "gql/generated/types";
-import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
-import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";
+import ADD_FAVORITE_PROJECT from "gql/mutations/add-favorite-project.graphql";
+import REMOVE_FAVORITE_PROJECT from "gql/mutations/remove-favorite-project.graphql";
+import PROJECTS from "gql/queries/projects.graphql";
+import VIEWABLE_PROJECTS from "gql/queries/viewable-projects.graphql";
 
 const addFavoriteMock: ApolloMock<
   AddFavoriteProjectMutation,

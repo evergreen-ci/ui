@@ -11,7 +11,7 @@ import {
   UserPatchesQuery,
   UserPatchesQueryVariables,
 } from "gql/generated/types";
-import { USER_PATCHES } from "gql/queries";
+import USER_PATCHES from "gql/queries/user-patches.graphql";
 import { usePolling, useGetUserPatchesPageTitleAndLink } from "hooks";
 
 export const UserPatches = () => {

@@ -14,7 +14,7 @@ import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
 } from "gql/generated/types";
-import { UPDATE_USER_SETTINGS } from "gql/mutations";
+import UPDATE_USER_SETTINGS from "gql/mutations/update-user-settings.graphql";
 import { useUserSettings } from "hooks";
 import { omitTypename } from "utils/object";
 import { NotificationField } from "./notificationTab/NotificationField";

@@ -16,7 +16,7 @@ import {
   ProjectHealthViewQuery,
   ProjectHealthViewQueryVariables,
 } from "gql/generated/types";
-import { PROJECT_HEALTH_VIEW } from "gql/queries";
+import PROJECT_HEALTH_VIEW from "gql/queries/project-health-view.graphql";
 import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions } from "types/commits";
 

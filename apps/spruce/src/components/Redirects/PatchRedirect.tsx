@@ -3,7 +3,7 @@ import { useParams, Navigate } from "react-router-dom";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { getPatchRoute, getVersionRoute, slugs } from "constants/routes";
 import { HasVersionQuery, HasVersionQueryVariables } from "gql/generated/types";
-import { HAS_VERSION } from "gql/queries";
+import HAS_VERSION from "gql/queries/has-version.graphql";
 
 export const PatchRedirect: React.FC = () => {
   const { [slugs.versionId]: versionId } = useParams();

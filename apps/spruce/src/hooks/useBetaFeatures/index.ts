@@ -6,7 +6,8 @@ import {
   UserBetaFeaturesQuery,
   UserBetaFeaturesQueryVariables,
 } from "gql/generated/types";
-import { ADMIN_BETA_FEATURES, USER_BETA_FEATURES } from "gql/queries";
+import ADMIN_BETA_FEATURES from "gql/queries/admin-beta-features.graphql";
+import USER_BETA_FEATURES from "gql/queries/user-beta-features.graphql";
 
 /**
  * `useAdminBetaFeatures` returns the beta features defined at the admin level.

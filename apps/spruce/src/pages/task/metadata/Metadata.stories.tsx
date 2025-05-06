@@ -13,7 +13,7 @@ import {
   TaskOwnerTeamsForTaskQueryVariables,
 } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
-import { TASK_OWNER_TEAM } from "gql/queries";
+import TASK_OWNER_TEAM from "gql/queries/task-owner-team.graphql";
 import { Metadata } from "./index";
 
 export default {

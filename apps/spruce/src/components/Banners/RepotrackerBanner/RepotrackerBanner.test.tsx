@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { gql } from "@apollo/client";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
@@ -11,11 +12,41 @@ import {
   SetLastRevisionMutation,
   SetLastRevisionMutationVariables,
 } from "gql/generated/types";
-import { SET_LAST_REVISION } from "gql/mutations";
-import {
-  USER_PROJECT_SETTINGS_PERMISSIONS,
-  REPOTRACKER_ERROR,
-} from "gql/queries";
+
+const SET_LAST_REVISION = gql`
+  mutation SetLastRevision($projectIdentifier: String!, $revision: String!) {
+    setLastRevision(projectIdentifier: $projectIdentifier, revision: $revision) {
+      mergeBaseRevision
+    }
+  }
+`;
+
+const REPOTRACKER_ERROR = gql`
+  query RepotrackerError($projectIdentifier: String!) {
+    project(projectIdentifier: $projectIdentifier) {
+      id
+      branch
+      repotrackerError {
+        exists
+        invalidRevision
+      }
+    }
+  }
+`;
+
+const USER_PROJECT_SETTINGS_PERMISSIONS = gql`
+  query UserProjectSettingsPermissions($projectIdentifier: String!) {
+    user {
+      userId
+      permissions {
+        canCreateProject
+        projectPermissions(projectIdentifier: $projectIdentifier) {
+          edit
+        }
+      }
+    }
+  }
+`;
 
 describe("repotracker banner", () => {
   beforeEach(() => {

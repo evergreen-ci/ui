@@ -13,7 +13,7 @@ import { SiderCard, TableControlInnerRow } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { slugs } from "constants/routes";
 import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
-import { POD_EVENTS } from "gql/queries";
+import POD_EVENTS from "gql/queries/pod-events.graphql";
 import { useDateFormat } from "hooks";
 import usePagination from "hooks/usePagination";
 import { EventCopy } from "./EventCopy";

@@ -10,7 +10,7 @@ import {
   UnscheduleVersionTasksMutation,
   UnscheduleVersionTasksMutationVariables,
 } from "gql/generated/types";
-import { UNSCHEDULE_VERSION_TASKS } from "gql/mutations";
+import UNSCHEDULE_VERSION_TASKS from "gql/mutations/unschedule-version-tasks.graphql";
 
 interface props {
   disabled?: boolean;

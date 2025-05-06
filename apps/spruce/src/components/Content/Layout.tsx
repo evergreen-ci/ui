@@ -11,7 +11,7 @@ import { Header } from "components/Header";
 import { SiteLayout } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
-import { USER } from "gql/queries";
+import USER from "gql/queries/user.graphql";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
 import { WaterfallScrollToTop } from "pages/waterfall/ScrollToTop";
 

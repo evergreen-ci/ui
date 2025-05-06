@@ -5,7 +5,7 @@ import {
   TaskTestSampleQueryVariables,
   TaskTestResultSample,
 } from "gql/generated/types";
-import { TASK_TEST_SAMPLE } from "gql/queries";
+import TASK_TEST_SAMPLE from "gql/queries/task-test-sample.graphql";
 import { array } from "utils";
 import { useHistoryTable } from "../HistoryTableContext";
 import { rowType } from "../types";

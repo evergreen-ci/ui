@@ -4,7 +4,7 @@ import { useNavbarAnalytics } from "analytics";
 import { adminSettingsURL } from "constants/externalResources";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { UserQuery } from "gql/generated/types";
-import { USER } from "gql/queries";
+import USER from "gql/queries/user.graphql";
 import { MenuItemType, NavDropdown } from "./NavDropdown";
 
 export const UserDropdown = () => {

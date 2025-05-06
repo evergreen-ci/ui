@@ -4,7 +4,7 @@ import {
   WaterfallTaskStatsQuery,
   WaterfallTaskStatsQueryVariables,
 } from "gql/generated/types";
-import { WATERFALL_TASK_STATS } from "gql/queries";
+import WATERFALL_TASK_STATS from "gql/queries/waterfall-task-stats.graphql";
 import { BuildVariant, Version } from "./types";
 
 export const version: Version = {

@@ -11,7 +11,7 @@ import {
 } from "components/styles";
 import { slugs } from "constants/routes";
 import { PodQuery, PodQueryVariables } from "gql/generated/types";
-import { POD } from "gql/queries";
+import POD from "gql/queries/pod.graphql";
 import { PodStatus } from "types/pod";
 import EventsTable from "./EventsTable";
 import Metadata from "./Metadata";

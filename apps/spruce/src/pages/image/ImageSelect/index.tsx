@@ -7,7 +7,7 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useImageAnalytics } from "analytics";
 import { getImageRoute } from "constants/routes";
 import { ImagesQuery, ImagesQueryVariables } from "gql/generated/types";
-import { IMAGES } from "gql/queries";
+import IMAGES from "gql/queries/images.graphql";
 
 interface ImageSelectProps {
   selectedImage: string;

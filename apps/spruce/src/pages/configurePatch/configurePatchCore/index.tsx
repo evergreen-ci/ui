@@ -28,7 +28,7 @@ import {
   ConfigurePatchQuery,
   ProjectBuildVariant,
 } from "gql/generated/types";
-import { SCHEDULE_PATCH } from "gql/mutations";
+import SCHEDULE_PATCH from "gql/mutations/schedule-patch.graphql";
 import { sumActivatedTasksInVariantsTasks } from "utils/tasks/estimatedActivatedTasks";
 import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";

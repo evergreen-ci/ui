@@ -8,10 +8,8 @@ import {
   DetachProjectFromRepoMutation,
   DetachProjectFromRepoMutationVariables,
 } from "gql/generated/types";
-import {
-  ATTACH_PROJECT_TO_REPO,
-  DETACH_PROJECT_FROM_REPO,
-} from "gql/mutations";
+import ATTACH_PROJECT_TO_REPO from "gql/mutations/attach-project-to-repo.graphql";
+import DETACH_PROJECT_FROM_REPO from "gql/mutations/detach-project-from-repo.graphql";
 
 type ModalProps = {
   handleClose: () => void;

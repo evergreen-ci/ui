@@ -32,7 +32,8 @@ import {
   MainlineCommitsQueryVariables,
   ProjectHealthView,
 } from "gql/generated/types";
-import { MAINLINE_COMMITS, SPRUCE_CONFIG } from "gql/queries";
+import MAINLINE_COMMITS from "gql/queries/mainline-commits.graphql";
+import SPRUCE_CONFIG from "gql/queries/spruce-config.graphql";
 import { usePolling, useUpsertQueryParams } from "hooks";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { useQueryParam } from "hooks/useQueryParam";

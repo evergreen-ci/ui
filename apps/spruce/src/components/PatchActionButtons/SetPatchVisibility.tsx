@@ -6,7 +6,7 @@ import {
   SetPatchVisibilityMutation,
   SetPatchVisibilityMutationVariables,
 } from "gql/generated/types";
-import { SET_PATCH_VISIBILITY } from "gql/mutations";
+import SET_PATCH_VISIBILITY from "gql/mutations/set-patch-visibility.graphql";
 
 interface Props {
   isPatchHidden: boolean;

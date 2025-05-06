@@ -23,8 +23,8 @@ import {
   SpawnTaskQuery,
   SpawnTaskQueryVariables,
 } from "gql/generated/types";
-import { SPAWN_HOST } from "gql/mutations";
-import { SPAWN_TASK } from "gql/queries";
+import SPAWN_HOST from "gql/mutations/spawn-host.graphql";
+import SPAWN_TASK from "gql/queries/spawn-task.graphql";
 import { useUserTimeZone } from "hooks";
 import { getString, parseQueryString } from "utils/queryString";
 

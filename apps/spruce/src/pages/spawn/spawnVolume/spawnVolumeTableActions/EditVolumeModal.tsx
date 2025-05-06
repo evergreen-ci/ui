@@ -16,7 +16,7 @@ import {
   UpdateVolumeMutation,
   UpdateVolumeMutationVariables,
 } from "gql/generated/types";
-import { UPDATE_SPAWN_VOLUME } from "gql/mutations";
+import UPDATE_SPAWN_VOLUME from "gql/mutations/update-spawn-volume.graphql";
 import { TableVolume } from "types/spawn";
 
 interface Props {

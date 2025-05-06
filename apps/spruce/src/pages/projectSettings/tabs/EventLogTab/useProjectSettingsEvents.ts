@@ -7,7 +7,8 @@ import {
   RepoEventLogsQuery,
   RepoEventLogsQueryVariables,
 } from "gql/generated/types";
-import { PROJECT_EVENT_LOGS, REPO_EVENT_LOGS } from "gql/queries";
+import PROJECT_EVENT_LOGS from "gql/queries/project-event-logs.graphql";
+import REPO_EVENT_LOGS from "gql/queries/repo-event-logs.graphql";
 import { useEvents } from "hooks/useEvents";
 
 const PROJECT_EVENT_LIMIT = 15;

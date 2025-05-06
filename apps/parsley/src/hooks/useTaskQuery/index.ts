@@ -9,7 +9,8 @@ import {
   TaskQueryVariables,
   TaskTestResult,
 } from "gql/generated/types";
-import { GET_LOGKEEPER_TASK, GET_TASK } from "gql/queries";
+import GET_LOGKEEPER_TASK from "gql/queries/get-logkeeper-task.graphql";
+import GET_TASK from "gql/queries/task.graphql";
 
 interface UseTaskQueryProps {
   logType?: LogTypes;
@@ -51,7 +52,7 @@ export const useTaskQuery = ({
   >(GET_TASK, {
     errorPolicy: "all",
     skip: isLogkeeper || !taskID,
-    variables: { execution: Number(execution), taskId: String(taskID) },
+    variables: { execution: Number(execution), taskId: String(taskID || "") },
   });
 
   const { data: logkeeperData, loading: logkeeperLoading } = useQuery<
@@ -59,7 +60,7 @@ export const useTaskQuery = ({
     LogkeeperTaskQueryVariables
   >(GET_LOGKEEPER_TASK, {
     skip: !isLogkeeper || !buildID,
-    variables: { buildId: String(buildID) },
+    variables: { buildId: String(buildID || "") },
   });
 
   const { task } = taskData ?? {};

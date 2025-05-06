@@ -7,7 +7,7 @@ import {
   RestartJasperMutation,
   RestartJasperMutationVariables,
 } from "gql/generated/types";
-import { RESTART_JASPER } from "gql/mutations";
+import RESTART_JASPER from "gql/mutations/restart-jasper.graphql";
 import { HostPopover } from "./HostPopover";
 
 interface Props {
