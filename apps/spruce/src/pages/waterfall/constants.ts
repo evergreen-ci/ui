@@ -42,8 +42,7 @@ export const walkthroughSteps: WalkthroughStep[] = [
   },
   {
     title: "Summary View",
-    description:
-      "An alternative to Project Health charts — view a summary of task statuses for any given run.",
+    description: "A summary of task statuses for any given run.",
     targetId: "summary-view",
     shouldClick: true,
   },

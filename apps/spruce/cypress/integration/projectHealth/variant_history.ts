@@ -5,16 +5,14 @@ describe("variant history", () => {
     cy.validateToast("error", "There was an error loading the variant history");
   });
 
-  it("should link to a specific commit from the project health page", () => {
-    cy.visit("/commits/spruce");
-    cy.dataCy("variant-header").should("exist");
-    cy.dataCy("variant-header").should("contain.text", "Ubuntu 16.04");
-    cy.dataCy("variant-header").first().click();
+  it("should link to variant history from the waterfall page", () => {
+    cy.visit("/project/spruce/waterfall");
+    cy.dataCy("build-variant-link").should("exist");
+    cy.dataCy("build-variant-link")
+      .first()
+      .should("contain.text", "Ubuntu 16.04");
+    cy.dataCy("build-variant-link").first().click();
     cy.location("pathname").should("eq", "/variant-history/spruce/ubuntu1604");
-    cy.location("search").should("eq", "?selectedCommit=1236");
-    cy.contains("v2.28.5").should("be.visible");
-    cy.get("[data-selected='true']").should("exist");
-    cy.get("[data-selected='true']").should("contain.text", "v2.28.5");
   });
   it(
     "should be able to paginate column headers",

@@ -97,9 +97,7 @@ export const getUserSettingsMock: ApolloMock<
           },
           useSpruceOptions: {
             __typename: "UseSpruceOptions",
-            hasUsedMainlineCommitsBefore: true,
             spruceV1: true,
-            hasUsedSpruceBefore: true,
           },
         },
       },

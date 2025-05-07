@@ -59,7 +59,6 @@ export enum DistroSettingsTabRoutes {
 }
 
 const paths = {
-  commits: "/commits",
   container: "/container",
   distro: "/distro",
   distros: "/distros",
@@ -118,10 +117,10 @@ export const redirectRoutes = {
   projectSettings: paths.projects,
   userPatches: `${paths.user}/:${slugs.userId}`,
   waterfall: `${paths.waterfall}/:${slugs.projectIdentifier}`,
+  legacyCommits: `commits/:${slugs.projectIdentifier}`,
 };
 
 export const routes = {
-  commits: `${paths.commits}/:${slugs.projectIdentifier}?`,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure/:${slugs.tab}?`,
   container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
@@ -286,16 +285,22 @@ export const getDistroSettingsRoute = (
     ? `${paths.distro}/${distroId}/${PageNames.Settings}/${tab}`
     : `${paths.distro}/${distroId}/${PageNames.Settings}/${DistroSettingsTabRoutes.General}`;
 
-export const getCommitsRoute = (projectIdentifier: string = "") =>
-  `${paths.commits}/${encodeURIComponent(projectIdentifier)}`;
-
 export const getWaterfallRoute = (
   projectIdentifier?: string,
-  options?: { taskFilters?: string[] },
+  options?: {
+    statusFilters?: string[];
+    variantFilters?: string[];
+    requesterFilters?: string[];
+    taskFilters?: string[];
+  },
 ) => {
-  const { taskFilters } = options || {};
+  const { requesterFilters, statusFilters, taskFilters, variantFilters } =
+    options || {};
   const queryParams = stringifyQuery({
-    [WaterfallFilterOptions.Statuses]: taskFilters,
+    [WaterfallFilterOptions.Statuses]: statusFilters,
+    [WaterfallFilterOptions.Task]: taskFilters,
+    [WaterfallFilterOptions.Requesters]: requesterFilters,
+    [WaterfallFilterOptions.BuildVariant]: variantFilters,
   });
   return `${paths.project}/${encodeURIComponent(projectIdentifier ?? "")}${paths.waterfall}${queryParams ? `?${queryParams}` : ""}`;
 };

@@ -9,7 +9,6 @@ import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   ProjectEventLogsQuery,
   ProjectEventLogsQueryVariables,
-  ProjectHealthView,
 } from "gql/generated/types";
 import { PROJECT_EVENT_LOGS } from "gql/queries";
 import { ProjectType } from "../utils";
@@ -153,7 +152,6 @@ const projectEventsQuery: ProjectEventLogsQuery = {
               __typename: "CommitQueueParams",
             },
             parsleyFilters: [],
-            projectHealthView: ProjectHealthView.All,
             githubDynamicTokenPermissionGroups: [],
           },
           subscriptions: [],
@@ -234,7 +232,6 @@ const projectEventsQuery: ProjectEventLogsQuery = {
               __typename: "CommitQueueParams",
             },
             parsleyFilters: [],
-            projectHealthView: ProjectHealthView.Failed,
             githubDynamicTokenPermissionGroups: [],
           },
           subscriptions: [],

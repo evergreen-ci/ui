@@ -1,5 +1,3 @@
-import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
 import { useNavbarAnalytics } from "analytics";
 import {
   routes,
@@ -7,7 +5,6 @@ import {
   getProjectPatchesRoute,
   getProjectSettingsRoute,
   getTaskQueueRoute,
-  getCommitsRoute,
 } from "constants/routes";
 import { useFirstDistro } from "hooks";
 import { NavDropdown } from "./NavDropdown";
@@ -51,16 +48,6 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       to: getProjectSettingsRoute(projectIdentifier),
       onClick: () => sendEvent({ name: "Clicked project settings link" }),
     },
-    {
-      "data-cy": "auxiliary-dropdown-project-health",
-      text: (
-        <BadgeWrapper>
-          Project Health <Badge variant="yellow">Deprecated</Badge>
-        </BadgeWrapper>
-      ),
-      to: getCommitsRoute(projectIdentifier),
-      onClick: () => sendEvent({ name: "Clicked project health link" }),
-    },
   ];
 
   return (
@@ -71,9 +58,3 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
     />
   );
 };
-
-const BadgeWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-`;
