@@ -7,6 +7,7 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
+import { taskPageWrapperId } from "constants/index";
 import { TaskHistoryDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
 import { GroupedTask, TaskHistoryOptions, TaskHistoryTask } from "../types";
@@ -70,7 +71,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
             <Skeleton size={SkeletonSize.Small} />
           ) : (
             <>
-              {tasks.map((t) => {
+              {tasks.map((t, idx) => {
                 if (t.task) {
                   const { task } = t;
                   const isHoveredTask = hoveredTask === task.id;
@@ -86,12 +87,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                           setSelectedTask(null);
                         } else {
                           setSelectedTask(task.id);
-                          const element = document.getElementById(
-                            `commit-card-${task.id}`,
-                          );
-                          if (element) {
-                            element.scrollIntoView({ block: "center" });
-                          }
+                          scrollToCard(task.id, idx > tasks.length - 5);
                         }
                       }}
                       rightmost={false}
@@ -144,6 +140,19 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
 TaskTimeline.displayName = "TaskTimeline";
 
 export default TaskTimeline;
+
+const scrollToCard = (taskId: string, isAtListEnd: boolean) => {
+  const element = document.getElementById(`commit-card-${taskId}`);
+  const pageWrapper = document.getElementById(taskPageWrapperId);
+  if (element && pageWrapper) {
+    element.scrollIntoView({ block: "start" });
+    // If the item is at the end of the list, there's no need to adjust the
+    // scroll position.
+    if (!isAtListEnd) {
+      pageWrapper.scrollBy(0, -80);
+    }
+  }
+};
 
 const Container = styled.div`
   display: flex;

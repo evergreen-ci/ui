@@ -13,7 +13,7 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
-import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { DEFAULT_POLL_INTERVAL, taskPageWrapperId } from "constants/index";
 import { slugs } from "constants/routes";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { TASK } from "gql/queries";
@@ -79,7 +79,7 @@ export const Task = () => {
   }
 
   return (
-    <PageWrapper>
+    <PageWrapper id={taskPageWrapperId}>
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={versionMetadata?.projectIdentifier} />
       {task && (
