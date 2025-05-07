@@ -165,7 +165,6 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
         <CommitDetailsList
           currentTask={task}
           loading={loading}
-          shouldCollapse={shouldCollapse}
           tasks={visibleTasks}
         />
       </ListContent>

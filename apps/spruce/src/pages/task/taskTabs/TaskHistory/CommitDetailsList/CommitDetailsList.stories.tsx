@@ -38,7 +38,6 @@ const Template = (args: TemplateProps) => {
     <CommitDetailsList
       currentTask={currentTask}
       loading={args.loading}
-      shouldCollapse={args.shouldCollapse}
       tasks={groupedTasks}
     />
   );

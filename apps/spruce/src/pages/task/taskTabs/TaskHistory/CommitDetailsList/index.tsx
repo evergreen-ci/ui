@@ -10,13 +10,11 @@ interface CommitDetailsListProps {
   currentTask: NonNullable<TaskQuery["task"]>;
   tasks: GroupedTask[];
   loading: boolean;
-  shouldCollapse: boolean;
 }
 
 const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
   currentTask,
   loading,
-  shouldCollapse,
   tasks,
 }) => (
   <CommitList data-cy="commit-details-list">
@@ -36,10 +34,10 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
                 task={task}
               />
             );
-          } else if (inactiveTasks && shouldCollapse) {
+          } else if (inactiveTasks) {
             return (
               <InactiveCommitsButton
-                key={inactiveTasks[0].id}
+                key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
                 currentTask={currentTask}
                 inactiveTasks={inactiveTasks}
               />
