@@ -66,23 +66,3 @@ export const getNextPageCursor = (item: GroupedTask) => {
   }
   return item.inactiveTasks[item.inactiveTasks.length - 1];
 };
-
-/**
- * `expandVisibleInactiveTasks` expands the inactive tasks that are visible in the timeline.
- * @param groupedTasks - an array of grouped tasks
- * @param visibleInactiveTasks - a set of task IDs that that represent visible inactive task groups
- * @returns an array of grouped tasks with expanded inactive tasks
- */
-export const expandVisibleInactiveTasks = (
-  groupedTasks: GroupedTask[],
-  visibleInactiveTasks: Set<string>,
-) =>
-  groupedTasks.reduce((accum, t) => {
-    accum.push(t);
-    if (t.inactiveTasks && visibleInactiveTasks.has(t.inactiveTasks[0].id)) {
-      accum.push(
-        ...t.inactiveTasks.map((v) => ({ task: v, inactiveTasks: null })),
-      );
-    }
-    return accum;
-  }, [] as GroupedTask[]);

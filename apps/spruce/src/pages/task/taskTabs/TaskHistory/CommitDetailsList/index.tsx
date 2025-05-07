@@ -1,32 +1,23 @@
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
-import Icon from "@leafygreen-ui/icon";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { Size } from "@leafygreen-ui/tokens";
-import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import CommitDetailsCard from "../CommitDetailsCard";
+import { InactiveCommitsButton } from "../InactiveCommitsButton";
 import { GroupedTask } from "../types";
 
 interface CommitDetailsListProps {
   currentTask: NonNullable<TaskQuery["task"]>;
   tasks: GroupedTask[];
   loading: boolean;
-  addVisibleInactiveTaskGroup: (taskId: string) => void;
-  removeVisibleInactiveTaskGroup: (taskId: string) => void;
-  visibleInactiveTasks: Set<string>;
   shouldCollapse: boolean;
 }
 
 const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
-  addVisibleInactiveTaskGroup,
   currentTask,
   loading,
-  removeVisibleInactiveTaskGroup,
   shouldCollapse,
   tasks,
-  visibleInactiveTasks,
 }) => (
   <CommitList data-cy="commit-details-list">
     {loading ? (
@@ -46,32 +37,12 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
               />
             );
           } else if (inactiveTasks && shouldCollapse) {
-            const taskGroupId = inactiveTasks[0].id;
-            const expanded = visibleInactiveTasks.has(taskGroupId);
             return (
-              <span key={taskGroupId}>
-                <Button
-                  data-cy="collapsed-card"
-                  leftGlyph={
-                    expanded ? (
-                      <Icon glyph="ChevronDown" />
-                    ) : (
-                      <Icon glyph="ChevronRight" />
-                    )
-                  }
-                  onClick={() =>
-                    expanded
-                      ? removeVisibleInactiveTaskGroup(taskGroupId)
-                      : addVisibleInactiveTaskGroup(taskGroupId)
-                  }
-                  size={Size.XSmall}
-                >
-                  {inactiveTasks.length}{" "}
-                  {expanded
-                    ? "EXPANDED"
-                    : pluralize("INACTIVE COMMIT", inactiveTasks.length)}
-                </Button>
-              </span>
+              <InactiveCommitsButton
+                key={inactiveTasks[0].id}
+                currentTask={currentTask}
+                inactiveTasks={inactiveTasks}
+              />
             );
           }
           return null;

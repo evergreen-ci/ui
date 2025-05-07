@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
@@ -25,13 +25,8 @@ import { jiraLinkify } from "utils/string";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import TaskTimeline from "./TaskTimeline";
-import { GroupedTask, TaskHistoryOptions, ViewOptions } from "./types";
-import {
-  expandVisibleInactiveTasks,
-  getNextPageCursor,
-  getPrevPageCursor,
-  groupTasks,
-} from "./utils";
+import { TaskHistoryOptions, ViewOptions } from "./types";
+import { getNextPageCursor, getPrevPageCursor, groupTasks } from "./utils";
 
 interface TaskHistoryProps {
   task: NonNullable<TaskQuery["task"]>;
@@ -94,41 +89,17 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { pagination, tasks = [] } = taskHistory ?? {};
   const { mostRecentTaskOrder, oldestTaskOrder } = pagination ?? {};
 
-  const [visibleInactiveTasks, setVisibleInactiveTasks] = useState<Set<string>>(
-    new Set(),
-  );
-  const addVisibileInactiveTaskGroup = useCallback(
-    (taskGroupId: string) => {
-      const nextState = new Set(visibleInactiveTasks);
-      nextState.add(taskGroupId);
-      setVisibleInactiveTasks(nextState);
-    },
-    [visibleInactiveTasks],
-  );
-  const removeVisibleInactiveTaskGroup = useCallback(
-    (taskGroupId: string) => {
-      const nextState = new Set(visibleInactiveTasks);
-      nextState.delete(taskGroupId);
-      setVisibleInactiveTasks(nextState);
-    },
-    [visibleInactiveTasks],
-  );
   const groupedTasks = groupTasks(tasks, shouldCollapse);
   const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER);
 
-  const timelineTasks =
+  const visibleTasks =
     direction === TaskHistoryDirection.After
       ? groupedTasks.slice(-numVisibleTasks)
       : groupedTasks.slice(0, numVisibleTasks);
 
-  const prevPageCursor = getPrevPageCursor(timelineTasks[0]);
+  const prevPageCursor = getPrevPageCursor(visibleTasks[0]);
   const nextPageCursor = getNextPageCursor(
-    timelineTasks[timelineTasks.length - 1],
-  );
-
-  const commitDetailsList: GroupedTask[] = expandVisibleInactiveTasks(
-    timelineTasks,
-    visibleInactiveTasks,
+    visibleTasks[visibleTasks.length - 1],
   );
 
   // This hook redirects from any page with with the AFTER parameter to the equivalent page using the BEFORE parameter.
@@ -186,19 +157,16 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
             nextPageCursor,
             prevPageCursor,
           }}
-          tasks={timelineTasks}
+          tasks={visibleTasks}
         />
       </StickyHeader>
       <ListContent>
         <Subtitle>Commit Details</Subtitle>
         <CommitDetailsList
-          addVisibleInactiveTaskGroup={addVisibileInactiveTaskGroup}
           currentTask={task}
           loading={loading}
-          removeVisibleInactiveTaskGroup={removeVisibleInactiveTaskGroup}
           shouldCollapse={shouldCollapse}
-          tasks={commitDetailsList}
-          visibleInactiveTasks={visibleInactiveTasks}
+          tasks={visibleTasks}
         />
       </ListContent>
     </Container>

@@ -1,10 +1,9 @@
-import { useState } from "react";
 import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TaskQuery } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
 import { tasks } from "../testData";
-import { expandVisibleInactiveTasks, groupTasks } from "../utils";
+import { groupTasks } from "../utils";
 import CommitDetailsList from ".";
 
 export default {
@@ -34,33 +33,13 @@ type TemplateProps = {
 };
 
 const Template = (args: TemplateProps) => {
-  const [visibleInactiveTasks, setVisibleInactiveTasks] = useState<Set<string>>(
-    new Set(),
-  );
   const groupedTasks = groupTasks(tasks, args.shouldCollapse);
-  const addVisibileInactiveTaskGroup = (taskGroupId: string) => {
-    const nextState = new Set(visibleInactiveTasks);
-    nextState.add(taskGroupId);
-    setVisibleInactiveTasks(nextState);
-  };
-  const removeVisibleInactiveTaskGroup = (taskGroupId: string) => {
-    const nextState = new Set(visibleInactiveTasks);
-    nextState.delete(taskGroupId);
-    setVisibleInactiveTasks(nextState);
-  };
-  const commitDetailsTasks = expandVisibleInactiveTasks(
-    groupedTasks,
-    visibleInactiveTasks,
-  );
   return (
     <CommitDetailsList
-      addVisibleInactiveTaskGroup={addVisibileInactiveTaskGroup}
       currentTask={currentTask}
       loading={args.loading}
-      removeVisibleInactiveTaskGroup={removeVisibleInactiveTaskGroup}
       shouldCollapse={args.shouldCollapse}
-      tasks={commitDetailsTasks}
-      visibleInactiveTasks={visibleInactiveTasks}
+      tasks={groupedTasks}
     />
   );
 };
