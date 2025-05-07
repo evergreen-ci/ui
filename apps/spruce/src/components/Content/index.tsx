@@ -88,6 +88,10 @@ export const Content: React.FC = () => (
       />
       <Route element={<VariantHistory />} path={routes.variantHistory} />
       <Route element={<VersionPage />} path={routes.version} />
+      <Route
+        element={<WaterfallCommitsRedirect />}
+        path={redirectRoutes.legacyCommits}
+      />
       <Route element={<Waterfall />} path={routes.waterfall} />
       <Route element={<PageDoesNotExist />} path="*" />
     </Route>
