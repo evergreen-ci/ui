@@ -3,7 +3,7 @@ import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import CommitDetailsCard from "../CommitDetailsCard";
-import { InactiveCommitsButton } from "../InactiveCommitsButton";
+import InactiveCommitsButton from "../InactiveCommitsButton";
 import { GroupedTask } from "../types";
 
 interface CommitDetailsListProps {

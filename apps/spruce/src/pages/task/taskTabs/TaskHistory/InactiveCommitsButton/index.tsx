@@ -11,7 +11,7 @@ interface Props {
   inactiveTasks: TaskHistoryTask[];
   currentTask: NonNullable<TaskQuery["task"]>;
 }
-export const InactiveCommitsButton: React.FC<Props> = ({
+const InactiveCommitsButton: React.FC<Props> = ({
   currentTask,
   inactiveTasks,
 }) => {
@@ -50,3 +50,5 @@ export const InactiveCommitsButton: React.FC<Props> = ({
     </>
   );
 };
+
+export default InactiveCommitsButton;
