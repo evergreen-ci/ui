@@ -29,10 +29,11 @@ describe("InactiveCommitsButton component", () => {
     );
     renderWithRouterMatch(<Component />);
     expect(screen.getByText("11 INACTIVE COMMITS")).toBeInTheDocument();
+    expect(screen.queryAllByDataCy("commit-details-card")).toHaveLength(0);
     const toggleButton = screen.getByRole("button");
     await user.click(toggleButton);
     expect(screen.getByText("11 EXPANDED")).toBeInTheDocument();
-    const cards = await screen.findAllByDataCy("commit-details-card");
+    const cards = screen.queryAllByDataCy("commit-details-card");
     for (let i = 0; i < cards.length; i++) {
       expect(cards[i]).toHaveTextContent(tasks[i].versionMetadata.message);
     }
