@@ -3,34 +3,20 @@ import { useParams, Navigate } from "react-router-dom";
 import { useWaterfallAnalytics } from "analytics";
 import { getWaterfallRoute, slugs } from "constants/routes";
 import { useQueryParam } from "hooks/useQueryParam";
-import { WaterfallFilterOptions } from "pages/waterfall/types";
 
 export const WaterfallCommitsRedirect: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
-  const [statusFilters] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Statuses,
-    [],
-  );
-  const [taskFilters] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Task,
-    [],
-  );
-  const [requesterFilters] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Requesters,
-    [],
-  );
-  const [variantFilters] = useQueryParam<string[]>(
-    WaterfallFilterOptions.BuildVariant,
-    [],
-  );
+  const [statusFilters] = useQueryParam<string[]>("statuses", []);
+  const [taskFilters] = useQueryParam<string[]>("taskNames", []);
+  const [requesterFilters] = useQueryParam<string[]>("requester", []);
+  const [variantFilters] = useQueryParam<string[]>("buildVariants", []);
   const { sendEvent } = useWaterfallAnalytics();
   useEffect(() => {
     const { referrer } = document;
     sendEvent({
-      name: "System Event redirect",
+      name: "Redirected to waterfall page",
       referrer,
     });
-    console.log("System Event redirect", referrer);
   }, []);
 
   return (
