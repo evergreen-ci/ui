@@ -59,7 +59,6 @@ export enum DistroSettingsTabRoutes {
 }
 
 const paths = {
-  commits: "/commits",
   container: "/container",
   distro: "/distro",
   distros: "/distros",
@@ -121,7 +120,6 @@ export const redirectRoutes = {
 };
 
 export const routes = {
-  commits: `${paths.commits}/:${slugs.projectIdentifier}?`,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure/:${slugs.tab}?`,
   container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
@@ -285,9 +283,6 @@ export const getDistroSettingsRoute = (
   tab
     ? `${paths.distro}/${distroId}/${PageNames.Settings}/${tab}`
     : `${paths.distro}/${distroId}/${PageNames.Settings}/${DistroSettingsTabRoutes.General}`;
-
-export const getCommitsRoute = (projectIdentifier: string = "") =>
-  `${paths.commits}/${encodeURIComponent(projectIdentifier)}`;
 
 export const getWaterfallRoute = (
   projectIdentifier?: string,

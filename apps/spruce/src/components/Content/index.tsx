@@ -7,7 +7,6 @@ import {
   WaterfallCommitsRedirect,
 } from "components/Redirects";
 import { redirectRoutes, routes, slugs } from "constants/routes";
-import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Container } from "pages/Container";
 import { Distro } from "pages/Distro";
@@ -34,7 +33,6 @@ export const Content: React.FC = () => (
   <Routes>
     <Route element={<Layout />}>
       <Route element={<Navigate to={routes.myPatches} />} path="/" />
-      <Route element={<Commits />} path={routes.commits} />
       <Route element={<Container />} path={routes.container} />
       <Route
         element={<WaterfallCommitsRedirect />}

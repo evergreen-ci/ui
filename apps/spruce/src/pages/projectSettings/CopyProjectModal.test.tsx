@@ -12,7 +12,6 @@ import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   CopyProjectMutation,
   CopyProjectMutationVariables,
-  ProjectHealthView,
   ProjectSettingsQuery,
   ProjectSettingsQueryVariables,
   RepoSettingsQuery,
@@ -356,7 +355,6 @@ const projectSettingsMock: ApolloMock<
             },
           ],
           periodicBuilds: [],
-          projectHealthView: ProjectHealthView.Failed,
           prTestingEnabled: true,
           manualPrTestingEnabled: null,
           githubChecksEnabled: false,

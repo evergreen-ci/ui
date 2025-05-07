@@ -90,8 +90,8 @@ describe("Notifications", () => {
     cy.visit(versionRoute);
     cy.contains(bannerText).should("be.visible");
 
-    const projectHealthRoute = "commits/evergreen";
-    cy.visit(projectHealthRoute);
+    const waterfallRoute = "project/evergreen/waterfall";
+    cy.visit(waterfallRoute);
     cy.contains(bannerText).should("be.visible");
 
     const variantHistoryRoute = "/variant-history/evergreen/ubuntu1604";
@@ -119,7 +119,7 @@ describe("Notifications", () => {
     cy.visit(versionRoute);
     cy.contains(bannerText).should("not.exist");
 
-    cy.visit(projectHealthRoute);
+    cy.visit(waterfallRoute);
     cy.contains(bannerText).should("not.exist");
 
     cy.visit(variantHistoryRoute);
