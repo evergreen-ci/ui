@@ -1,6 +1,5 @@
 import {
   BannerTheme,
-  ProjectHealthView,
   ProjectSettingsQuery,
   RepoSettingsQuery,
 } from "gql/generated/types";
@@ -112,7 +111,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
         exactMatch: false,
       },
     ],
-    projectHealthView: ProjectHealthView.Failed,
     githubDynamicTokenPermissionGroups: [
       {
         name: "permission-group-1",
