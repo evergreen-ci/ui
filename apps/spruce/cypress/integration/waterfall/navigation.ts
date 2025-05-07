@@ -13,12 +13,4 @@ describe("navigation", () => {
     cy.location("pathname").should("equal", "/project/spruce/waterfall");
     cy.dataCy("waterfall-page").should("be.visible");
   });
-
-  it("is redirected to the waterfall page when a user visits a legacy route", () => {
-    cy.visit("/commits/evergreen");
-    cy.location("pathname").should("equal", "/project/evergreen/waterfall");
-    cy.visit("/commits/evergreen?taskNames=test");
-    cy.location("pathname").should("equal", "/project/evergreen/waterfall");
-    cy.location("search").should("contain", "tasks=test");
-  });
 });

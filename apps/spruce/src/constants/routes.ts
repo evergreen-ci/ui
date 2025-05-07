@@ -117,7 +117,6 @@ export const redirectRoutes = {
   projectSettings: paths.projects,
   userPatches: `${paths.user}/:${slugs.userId}`,
   waterfall: `${paths.waterfall}/:${slugs.projectIdentifier}`,
-  legacyCommits: `commits/:${slugs.projectIdentifier}`,
 };
 
 export const routes = {
@@ -287,20 +286,11 @@ export const getDistroSettingsRoute = (
 
 export const getWaterfallRoute = (
   projectIdentifier?: string,
-  options?: {
-    statusFilters?: string[];
-    variantFilters?: string[];
-    requesterFilters?: string[];
-    taskFilters?: string[];
-  },
+  options?: { taskFilters?: string[] },
 ) => {
-  const { requesterFilters, statusFilters, taskFilters, variantFilters } =
-    options || {};
+  const { taskFilters } = options || {};
   const queryParams = stringifyQuery({
-    [WaterfallFilterOptions.Statuses]: statusFilters,
-    [WaterfallFilterOptions.Task]: taskFilters,
-    [WaterfallFilterOptions.Requesters]: requesterFilters,
-    [WaterfallFilterOptions.BuildVariant]: variantFilters,
+    [WaterfallFilterOptions.Statuses]: taskFilters,
   });
   return `${paths.project}/${encodeURIComponent(projectIdentifier ?? "")}${paths.waterfall}${queryParams ? `?${queryParams}` : ""}`;
 };

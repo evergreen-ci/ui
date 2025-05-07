@@ -120,48 +120,17 @@ describe("getWaterfallRoute", () => {
       "/project/someProject/waterfall",
     );
   });
-  it("generates a waterfall page link with status filters", () => {
+  it("generates a waterfall page link with task filters", () => {
     expect(
       getWaterfallRoute("someProject", {
-        statusFilters: ["failed"],
+        taskFilters: ["failed"],
       }),
     ).toBe("/project/someProject/waterfall?statuses=failed");
     expect(
       getWaterfallRoute("someProject", {
-        statusFilters: ["failed", "test-timed-out"],
+        taskFilters: ["failed", "test-timed-out"],
       }),
     ).toBe("/project/someProject/waterfall?statuses=failed,test-timed-out");
-  });
-  it("generates a waterfall page link with task filters", () => {
-    expect(
-      getWaterfallRoute("someProject", {
-        taskFilters: ["task1"],
-      }),
-    ).toBe("/project/someProject/waterfall?tasks=task1");
-    expect(
-      getWaterfallRoute("someProject", {
-        taskFilters: ["task1", "task2"],
-      }),
-    ).toBe("/project/someProject/waterfall?tasks=task1,task2");
-  });
-  it("generates a waterfall page link with requester filters", () => {
-    expect(
-      getWaterfallRoute("someProject", {
-        requesterFilters: ["git_tag_requester"],
-      }),
-    ).toBe("/project/someProject/waterfall?requesters=git_tag_requester");
-  });
-  it("generates a waterfall page link with build variant filters", () => {
-    expect(
-      getWaterfallRoute("someProject", {
-        variantFilters: ["variant1"],
-      }),
-    ).toBe("/project/someProject/waterfall?buildVariants=variant1");
-    expect(
-      getWaterfallRoute("someProject", {
-        variantFilters: ["variant1", "variant2"],
-      }),
-    ).toBe("/project/someProject/waterfall?buildVariants=variant1,variant2");
   });
 });
 describe("getTaskHistoryRoute", () => {

@@ -32,7 +32,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
   const projectSelectRoute = useCallback(
     (identifier: string) =>
-      getWaterfallRoute(identifier, { statusFilters: statuses }),
+      getWaterfallRoute(identifier, { taskFilters: statuses }),
     [statuses],
   );
 

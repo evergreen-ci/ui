@@ -38,8 +38,7 @@ type Action =
   | {
       name: "Viewed waterfall modal";
       navigated_to_waterfall: boolean;
-    }
-  | { name: "Redirected to waterfall page"; referrer: string };
+    };
 
 export const useWaterfallAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
