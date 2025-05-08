@@ -7,11 +7,11 @@ import { StringMap } from "@evg-ui/lib/types/utils";
 import { isProduction } from "utils/environmentVariables";
 
 interface DateFilterProps {
-  value: string;
-  onChange: (v: string) => void;
   dataCyProps?: StringMap;
+  onChange: (v: string) => void;
   showLabel?: boolean;
   size?: Size;
+  value: string;
 }
 
 export const DateFilter: React.FC<DateFilterProps> = ({

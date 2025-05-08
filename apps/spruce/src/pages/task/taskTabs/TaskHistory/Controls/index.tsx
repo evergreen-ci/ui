@@ -10,13 +10,13 @@ import { DateFilter } from "components/DateFilter";
 import { useQueryParams } from "hooks/useQueryParam";
 import { TaskHistoryOptions, ViewOptions } from "../types";
 
-interface HeaderControlProps {
-  viewOption: ViewOptions;
-  setViewOption: (v: ViewOptions) => void;
+interface ControlsProps {
   date: string;
+  setViewOption: (v: ViewOptions) => void;
+  viewOption: ViewOptions;
 }
 
-export const Controls: React.FC<HeaderControlProps> = ({
+export const Controls: React.FC<ControlsProps> = ({
   date,
   setViewOption,
   viewOption,
@@ -25,7 +25,7 @@ export const Controls: React.FC<HeaderControlProps> = ({
 
   return (
     <Container>
-      <RightContainer>
+      <LeftContainer>
         <Subtitle>Task History Overview</Subtitle>
         <DateFilter
           onChange={(newDate) => {
@@ -40,7 +40,7 @@ export const Controls: React.FC<HeaderControlProps> = ({
           size={Size.Small}
           value={date}
         />
-      </RightContainer>
+      </LeftContainer>
       <SegmentedControl
         aria-controls="[data-cy='task-timeline']"
         onChange={(t) => setViewOption(t as ViewOptions)}
@@ -71,7 +71,7 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-const RightContainer = styled.div`
+const LeftContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;

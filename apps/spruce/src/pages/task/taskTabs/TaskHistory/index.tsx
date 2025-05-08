@@ -3,12 +3,10 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { fromZonedTime, toZonedTime } from "date-fns-tz";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { utcTimeZone } from "constants/time";
 import {
   TaskHistoryDirection,
   TaskHistoryQuery,
@@ -25,7 +23,12 @@ import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import { Controls } from "./Controls";
 import TaskTimeline from "./TaskTimeline";
 import { TaskHistoryOptions, ViewOptions } from "./types";
-import { getNextPageCursor, getPrevPageCursor, groupTasks } from "./utils";
+import {
+  getNextPageCursor,
+  getPrevPageCursor,
+  getUTCDate,
+  groupTasks,
+} from "./utils";
 
 interface TaskHistoryProps {
   task: NonNullable<TaskQuery["task"]>;
@@ -63,7 +66,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
 
   const [date] = useQueryParam<string>(TaskHistoryOptions.Date, "");
   const timezone = useUserTimeZone();
-  const utcTime = getUtcDate(date, timezone);
+  const utcTime = getUTCDate(date, timezone);
 
   const { data, loading } = useQuery<
     TaskHistoryQuery,
@@ -160,17 +163,6 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
 };
 
 export default TaskHistory;
-
-const getUtcDate = (date: string | null, timezone?: string) => {
-  if (!date) {
-    return undefined;
-  }
-  const midnightLocalTime = new Date(`${date} 23:59:59`);
-  if (timezone) {
-    return fromZonedTime(midnightLocalTime, timezone);
-  }
-  return toZonedTime(midnightLocalTime, utcTimeZone);
-};
 
 const Container = styled.div``;
 

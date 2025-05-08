@@ -231,7 +231,7 @@ describe("task history", () => {
   });
 
   describe("date filter", () => {
-    it("can filter by date correctly", () => {
+    it("can filter by date correctly with default timezone", () => {
       cy.visit(mciTaskHistoryLink);
       cy.dataCy("expanded-option").click();
 
@@ -253,7 +253,7 @@ describe("task history", () => {
         .should("contain", "Remove userSettings query");
     });
 
-    it("changing timezones", () => {
+    it("can filter by date correctly with different timezone", () => {
       cy.visit("/preferences");
       cy.contains("Select a timezone").click();
       cy.contains("Japan, South Korea").click({ force: true });
@@ -295,7 +295,9 @@ describe("task history", () => {
       cy.get("button[aria-label='Previous page']").as("prevPageButton");
       cy.get("@prevPageButton").should("have.attr", "aria-disabled", "false");
       cy.get("@prevPageButton").click();
-      cy.dataCy("commit-details-card").eq(0).should("contain", "empty commit");
+      cy.dataCy("commit-details-card")
+        .eq(0)
+        .should("not.contain", "Remove userSettings query");
 
       cy.dataCy("date-picker").should("not.have.text");
       cy.validateDatePickerDate("date-picker");

@@ -57,12 +57,12 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
       <DateFilterItem>
         <DateFilter
           dataCyProps={{ [waterfallGuideId]: walkthroughSteps[3].targetId }}
-          onChange={(utcDate) => {
+          onChange={(newDate) => {
             setQueryParams({
               ...queryParams,
               [WaterfallFilterOptions.MaxOrder]: undefined,
               [WaterfallFilterOptions.MinOrder]: undefined,
-              [WaterfallFilterOptions.Date]: utcDate,
+              [WaterfallFilterOptions.Date]: newDate,
             });
             sendEvent({ name: "Filtered by date" });
           }}
