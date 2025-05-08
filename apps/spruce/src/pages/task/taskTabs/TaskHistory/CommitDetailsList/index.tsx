@@ -3,6 +3,7 @@ import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import CommitDetailsCard from "../CommitDetailsCard";
+import InactiveCommitsButton from "../InactiveCommitsButton";
 import { GroupedTask } from "../types";
 
 interface CommitDetailsListProps {
@@ -22,8 +23,8 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
     ) : (
       <>
         {tasks.map((t) => {
-          if (t.task) {
-            const { task } = t;
+          const { inactiveTasks, task } = t;
+          if (task) {
             return (
               <CommitDetailsCard
                 key={task.id}
@@ -34,12 +35,13 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
                 task={task}
               />
             );
-          } else if (t.inactiveTasks) {
-            // TODO DEVPROD-16174: Replace with Inactive Commits Button.
+          } else if (inactiveTasks) {
             return (
-              <span key={t.inactiveTasks[0].id} data-cy="collapsed-card">
-                {t.inactiveTasks.length} Collapsed
-              </span>
+              <InactiveCommitsButton
+                key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
+                currentTask={currentTask}
+                inactiveTasks={inactiveTasks}
+              />
             );
           }
           return null;

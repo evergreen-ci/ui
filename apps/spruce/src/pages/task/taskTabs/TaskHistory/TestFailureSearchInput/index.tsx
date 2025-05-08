@@ -1,20 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
 import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import debounce from "lodash.debounce";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskHistoryOptions } from "../types";
 
-const { red } = palette;
 interface Props {
   numMatchingResults: number;
 }
 export const TestFailureSearchInput: React.FC<Props> = ({
   numMatchingResults,
 }) => {
-  const [failingTest, setFailingTest] = useQueryParam<string | undefined>(
+  const [failingTest, setFailingTest] = useQueryParam<string>(
     TaskHistoryOptions.FailingTest,
     "",
   );
@@ -57,9 +55,7 @@ const StyledInput = styled(TextInput)`
 `;
 
 const NoMatches = styled.div`
-  color: ${red.base};
   font-weight: bold;
-  text-transform: uppercase;
   margin-top: 20px;
   margin-left: ${size.s};
 `;

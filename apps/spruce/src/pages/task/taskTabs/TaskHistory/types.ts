@@ -29,4 +29,5 @@ export enum TaskHistoryOptions {
   IncludeCursor = "include_cursor",
   Direction = "direction",
   FailingTest = "failing_test",
+  Date = "date",
 }

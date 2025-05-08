@@ -1,7 +1,5 @@
 import { GetFormSchema } from "components/SpruceForm";
-import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { ProjectHealthView } from "gql/generated/types";
 import { ProjectType } from "../utils";
 
 export const getFormSchema = (
@@ -64,36 +62,6 @@ export const getFormSchema = (
     },
     type: "object" as const,
     properties: {
-      ...(projectType !== ProjectType.Repo && {
-        view: {
-          title: "Project Health View",
-          type: "object" as const,
-          description:
-            "This setting will define the default behavior of the Project Health page for all viewers of this project. Users can still toggle between views.",
-          properties: {
-            projectHealthView: {
-              type: "string" as const,
-              title: "",
-              oneOf: [
-                {
-                  type: "string" as const,
-                  title: "Default view",
-                  enum: [ProjectHealthView.Failed],
-                  description:
-                    "Displays only task failures, making it easier to identify them, and groups tasks by status if they don't match any search criteria. Consider using it for troubleshooting specific issues.",
-                },
-                {
-                  type: "string" as const,
-                  title: "All tasks view",
-                  enum: [ProjectHealthView.All],
-                  description:
-                    "Displays all tasks without grouping. This view can be helpful for getting a comprehensive overview of all tasks.",
-                },
-              ],
-            },
-          },
-        },
-      }),
       parsleyFiltersTitle: {
         type: "null",
         title: "Parsley Filters",
@@ -111,12 +79,6 @@ export const getFormSchema = (
     },
   },
   uiSchema: {
-    view: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      projectHealthView: {
-        "ui:widget": "radio",
-      },
-    },
     parsleyFiltersTitle: {
       "ui:sectionTitle": true,
     },

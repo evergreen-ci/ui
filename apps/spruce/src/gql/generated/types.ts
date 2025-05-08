@@ -4122,7 +4122,6 @@ export type ProjectSettingsFieldsFragment = {
     notifyOnBuildFailure?: boolean | null;
     githubTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
-    projectHealthView: ProjectHealthView;
     githubChecksEnabled?: boolean | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
@@ -4779,7 +4778,6 @@ export type ProjectEventSettingsFragment = {
     notifyOnBuildFailure?: boolean | null;
     githubTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
-    projectHealthView: ProjectHealthView;
     githubChecksEnabled?: boolean | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
@@ -4982,7 +4980,6 @@ export type VariablesFragment = {
 export type ProjectViewsAndFiltersSettingsFragment = {
   __typename?: "Project";
   id: string;
-  projectHealthView: ProjectHealthView;
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
@@ -6881,95 +6878,6 @@ export type MainlineCommitsForHistoryQuery = {
   } | null;
 };
 
-export type MainlineCommitsQueryVariables = Exact<{
-  mainlineCommitsOptions: MainlineCommitsOptions;
-  buildVariantOptions: BuildVariantOptions;
-  buildVariantOptionsForGraph: BuildVariantOptions;
-  buildVariantOptionsForTaskIcons: BuildVariantOptions;
-  buildVariantOptionsForGroupedTasks: BuildVariantOptions;
-}>;
-
-export type MainlineCommitsQuery = {
-  __typename?: "Query";
-  mainlineCommits?: {
-    __typename?: "MainlineCommits";
-    nextPageOrderNumber?: number | null;
-    prevPageOrderNumber?: number | null;
-    versions: Array<{
-      __typename?: "MainlineCommitVersion";
-      rolledUpVersions?: Array<{
-        __typename?: "Version";
-        id: string;
-        author: string;
-        createTime: Date;
-        ignored: boolean;
-        message: string;
-        order: number;
-        revision: string;
-      }> | null;
-      version?: {
-        __typename?: "Version";
-        id: string;
-        author: string;
-        createTime: Date;
-        message: string;
-        order: number;
-        projectIdentifier: string;
-        revision: string;
-        buildVariants?: Array<{
-          __typename?: "GroupedBuildVariant";
-          displayName: string;
-          variant: string;
-          tasks?: Array<{
-            __typename?: "Task";
-            id: string;
-            displayName: string;
-            displayStatus: string;
-            execution: number;
-            hasCedarResults: boolean;
-            timeTaken?: number | null;
-          }> | null;
-        }> | null;
-        buildVariantStats?: Array<{
-          __typename?: "GroupedTaskStatusCount";
-          displayName: string;
-          variant: string;
-          statusCounts: Array<{
-            __typename?: "StatusCount";
-            count: number;
-            status: string;
-          }>;
-        }> | null;
-        gitTags?: Array<{
-          __typename?: "GitTag";
-          pusher: string;
-          tag: string;
-        }> | null;
-        taskStatusStats?: {
-          __typename?: "TaskStats";
-          eta?: Date | null;
-          counts?: Array<{
-            __typename?: "StatusCount";
-            count: number;
-            status: string;
-          }> | null;
-        } | null;
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: { __typename?: "Task"; id: string; execution: number } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
-      } | null;
-    }>;
-  } | null;
-};
-
 export type MyHostsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MyHostsQuery = {
@@ -7328,7 +7236,6 @@ export type ProjectEventLogsQuery = {
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
-          projectHealthView: ProjectHealthView;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
           gitTagAuthorizedUsers?: Array<string> | null;
@@ -7542,7 +7449,6 @@ export type ProjectEventLogsQuery = {
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
-          projectHealthView: ProjectHealthView;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
           gitTagAuthorizedUsers?: Array<string> | null;
@@ -7711,19 +7617,6 @@ export type ProjectEventLogsQuery = {
   };
 };
 
-export type ProjectHealthViewQueryVariables = Exact<{
-  identifier: Scalars["String"]["input"];
-}>;
-
-export type ProjectHealthViewQuery = {
-  __typename?: "Query";
-  project: {
-    __typename?: "Project";
-    id: string;
-    projectHealthView: ProjectHealthView;
-  };
-};
-
 export type ProjectPatchesQueryVariables = Exact<{
   projectIdentifier: Scalars["String"]["input"];
   patchesInput: PatchesInput;
@@ -7828,7 +7721,6 @@ export type ProjectSettingsQuery = {
       notifyOnBuildFailure?: boolean | null;
       githubTriggerAliases?: Array<string> | null;
       perfEnabled?: boolean | null;
-      projectHealthView: ProjectHealthView;
       githubChecksEnabled?: boolean | null;
       gitTagAuthorizedTeams?: Array<string> | null;
       gitTagAuthorizedUsers?: Array<string> | null;
@@ -8096,7 +7988,6 @@ export type RepoEventLogsQuery = {
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
-          projectHealthView: ProjectHealthView;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
           gitTagAuthorizedUsers?: Array<string> | null;
@@ -8310,7 +8201,6 @@ export type RepoEventLogsQuery = {
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
-          projectHealthView: ProjectHealthView;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
           gitTagAuthorizedUsers?: Array<string> | null;
@@ -9564,8 +9454,6 @@ export type UserSettingsQuery = {
       } | null;
       useSpruceOptions?: {
         __typename?: "UseSpruceOptions";
-        hasUsedMainlineCommitsBefore?: boolean | null;
-        hasUsedSpruceBefore?: boolean | null;
         spruceV1?: boolean | null;
       } | null;
     };

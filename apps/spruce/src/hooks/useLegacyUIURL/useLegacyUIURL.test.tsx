@@ -3,16 +3,6 @@ import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { useLegacyUIURL } from ".";
 
 describe("useLegacyUIURL", () => {
-  it("returns a legacy URL on the commits page", () => {
-    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/commits/spruce"]}>
-        {children}
-      </MemoryRouter>
-    );
-    const { result } = renderHook(() => useLegacyUIURL(), { wrapper });
-    expect(result.current).toBe("/waterfall/spruce");
-  });
-
   it("does not return a legacy URL on the project settings page", () => {
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       <MemoryRouter initialEntries={["/settings/evergreen/general"]}>
@@ -25,9 +15,7 @@ describe("useLegacyUIURL", () => {
 
   it("clears the legacy URL when navigating from one with to one without", () => {
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/commits/spruce"]}>
-        {children}
-      </MemoryRouter>
+      <MemoryRouter initialEntries={["/task/task_id"]}>{children}</MemoryRouter>
     );
     const { result } = renderHook(
       () => ({
@@ -36,7 +24,7 @@ describe("useLegacyUIURL", () => {
       }),
       { wrapper },
     );
-    expect(result.current.legacyURL).toBe("/waterfall/spruce");
+    expect(result.current.legacyURL).toBe("/task/task_id");
 
     act(() => {
       result.current.navigate("/settings/evergreen/general");
