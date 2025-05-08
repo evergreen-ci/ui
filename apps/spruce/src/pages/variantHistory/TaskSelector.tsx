@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
+import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import {
   TaskNamesForBuildVariantQuery,
   TaskNamesForBuildVariantQueryVariables,
@@ -19,7 +19,7 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
   buildVariant,
   projectIdentifier,
 }) => {
-  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
+  const { sendEvent } = useProjectHistoryAnalytics({ page: "Variant history" });
 
   const [visibleColumns, setVisibleColumns] = useQueryParam<string[]>(
     HistoryQueryParams.VisibleColumns,

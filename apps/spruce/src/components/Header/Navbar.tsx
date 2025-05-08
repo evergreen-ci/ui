@@ -43,7 +43,7 @@ export const Navbar: React.FC = () => {
 
   // Update current project cookie if the project in the URL is not an objectId and is not equal
   // to the current project.
-  // This will inform future navigations to the /commits page.
+  // This will inform future navigations to the /waterfall page.
   useEffect(() => {
     if (
       projectFromUrl &&
