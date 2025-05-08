@@ -69,12 +69,12 @@ export const getNextPageCursor = (item: GroupedTask) => {
 };
 
 /**
- * `getUTCDate` calculates a UTC timestamp from the `date` parameter based off of the user's timezone.
- * @param date - any specified date in YYYY-MM-DD format
+ * `getUTCEndOfDay` calculates a UTC timestamp for the end of the day based on the user's timezone.
+ * @param date - any date in YYYY-MM-DD format
  * @param timezone - the user's timezone, may be undefined
- * @returns midnight timestamp for the given date converted into UTC from user's local timezone
+ * @returns 23:59:59 timestamp for the given date converted into UTC from user's local timezone
  */
-export const getUTCDate = (date: string | null, timezone?: string) => {
+export const getUTCEndOfDay = (date: string | null, timezone?: string) => {
   if (!date) {
     return undefined;
   }

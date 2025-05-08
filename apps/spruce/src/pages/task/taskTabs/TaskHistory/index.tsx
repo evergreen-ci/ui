@@ -26,7 +26,7 @@ import { TaskHistoryOptions, ViewOptions } from "./types";
 import {
   getNextPageCursor,
   getPrevPageCursor,
-  getUTCDate,
+  getUTCEndOfDay,
   groupTasks,
 } from "./utils";
 
@@ -66,7 +66,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
 
   const [date] = useQueryParam<string>(TaskHistoryOptions.Date, "");
   const timezone = useUserTimeZone();
-  const utcDate = getUTCDate(date, timezone);
+  const utcDate = getUTCEndOfDay(date, timezone);
 
   const { data, loading } = useQuery<
     TaskHistoryQuery,
