@@ -124,6 +124,9 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
     }
   }, [direction, setQueryParams, prevPageCursor, queryParams]);
 
+  const [selectedTask, setSelectedTask] = useState<string | null>(null);
+  const [hoveredTask, setHoveredTask] = useState<string | null>(null);
+
   return (
     <Container>
       <Banner variant={BannerVariant.Info}>
@@ -140,6 +143,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
         />
         <TaskTimeline
           ref={timelineRef}
+          hoveredTask={hoveredTask}
           loading={loading}
           pagination={{
             mostRecentTaskOrder,
@@ -147,6 +151,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
             nextPageCursor,
             prevPageCursor,
           }}
+          selectedTask={selectedTask}
+          setSelectedTask={setSelectedTask}
           tasks={visibleTasks}
         />
       </StickyHeader>
@@ -155,6 +161,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
         <CommitDetailsList
           currentTask={task}
           loading={loading}
+          selectedTask={selectedTask}
+          setHoveredTask={setHoveredTask}
           tasks={visibleTasks}
         />
       </ListContent>

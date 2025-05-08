@@ -1,5 +1,4 @@
 import * as array from "./array";
-import * as color from "./color";
 import * as commits from "./commits";
 import * as environmentVariables from "./environmentVariables";
 import * as numbers from "./numbers";
@@ -12,7 +11,6 @@ import * as validators from "./validators";
 
 export {
   array,
-  color,
   commits,
   environmentVariables,
   numbers,

@@ -12,6 +12,7 @@ export default {
   args: {
     shouldCollapse: true,
     loading: false,
+    selectedTask: tasks[3].id,
   },
   argTypes: {
     shouldCollapse: {
@@ -19,6 +20,9 @@ export default {
     },
     loading: {
       control: { type: "boolean" },
+    },
+    selectedTask: {
+      control: { type: "text" },
     },
   },
 } satisfies CustomMeta<TemplateProps>;
@@ -30,6 +34,7 @@ export const Default: CustomStoryObj<TemplateProps> = {
 type TemplateProps = {
   shouldCollapse: boolean;
   loading: boolean;
+  selectedTask: string | null;
 };
 
 const Template = (args: TemplateProps) => {
@@ -38,6 +43,8 @@ const Template = (args: TemplateProps) => {
     <CommitDetailsList
       currentTask={currentTask}
       loading={args.loading}
+      selectedTask={args.selectedTask}
+      setHoveredTask={() => {}}
       tasks={groupedTasks}
     />
   );

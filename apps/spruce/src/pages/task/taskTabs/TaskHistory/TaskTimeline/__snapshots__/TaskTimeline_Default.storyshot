@@ -35,22 +35,14 @@
       data-cy="task-timeline"
     >
       <div
-        class="ezsgi5w0 css-11rp5yh-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        class="ezsgi5w0 css-1githth-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
         data-cy="timeline-box"
+        id="task-box-a"
       />
       <div
-        class="ezsgi5w0 css-qjaf42-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        class="ezsgi5w0 css-1o53qdw-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
         data-cy="timeline-box"
-      />
-      <div
-        class="css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
-        data-cy="collapsed-box"
-      >
-        1
-      </div>
-      <div
-        class="ezsgi5w0 css-1dyoxl7-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
-        data-cy="timeline-box"
+        id="task-box-b"
       />
       <div
         class="css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
@@ -59,8 +51,20 @@
         1
       </div>
       <div
-        class="ezsgi5w0 css-1fy6cmy-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        class="ezsgi5w0 css-7e7l9x-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
         data-cy="timeline-box"
+        id="task-box-d"
+      />
+      <div
+        class="css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        data-cy="collapsed-box"
+      >
+        1
+      </div>
+      <div
+        class="ezsgi5w0 css-14cvnsm-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+        id="task-box-f"
       />
       <div
         class="css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
@@ -69,12 +73,14 @@
         3
       </div>
       <div
-        class="ezsgi5w0 css-rbkdys-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        class="ezsgi5w0 css-uzcmeq-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
         data-cy="timeline-box"
+        id="task-box-j"
       />
       <div
-        class="ezsgi5w0 css-12mk7h0-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        class="ezsgi5w0 css-16ualrf-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
         data-cy="timeline-box"
+        id="task-box-k"
       />
     </div>
     <button

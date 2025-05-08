@@ -9,6 +9,7 @@ export default {
   decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
   args: {
     isCurrentTask: true,
+    isSelectedTask: false,
     status: TaskStatus.Succeeded,
     canRestart: true,
     message:
@@ -16,6 +17,9 @@ export default {
   },
   argTypes: {
     isCurrentTask: {
+      control: { type: "boolean" },
+    },
+    isSelectedTask: {
       control: { type: "boolean" },
     },
     status: {
@@ -37,6 +41,7 @@ export const Default: CustomStoryObj<TemplateProps> = {
 
 type TemplateProps = {
   isCurrentTask: boolean;
+  isSelectedTask: boolean;
   status: TaskStatus;
   canRestart: boolean;
   message: string;
@@ -55,8 +60,10 @@ const Template = (args: TemplateProps) => {
   return (
     <CommitDetailsCard
       isCurrentTask={args.isCurrentTask}
+      isSelectedTask={args.isSelectedTask}
       owner="evergreen-ci"
       repo="evergreen"
+      setHoveredTask={() => {}}
       task={storyTask}
     />
   );

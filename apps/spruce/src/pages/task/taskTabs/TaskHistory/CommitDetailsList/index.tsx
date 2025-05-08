@@ -10,11 +10,15 @@ interface CommitDetailsListProps {
   currentTask: NonNullable<TaskQuery["task"]>;
   tasks: GroupedTask[];
   loading: boolean;
+  selectedTask: string | null;
+  setHoveredTask: (v: string | null) => void;
 }
 
 const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
   currentTask,
   loading,
+  selectedTask,
+  setHoveredTask,
   tasks,
 }) => (
   <CommitList data-cy="commit-details-list">
@@ -29,8 +33,10 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
               <CommitDetailsCard
                 key={task.id}
                 isCurrentTask={task.id === currentTask.id}
+                isSelectedTask={selectedTask === task.id}
                 owner={currentTask.project?.owner}
                 repo={currentTask.project?.repo}
+                setHoveredTask={setHoveredTask}
                 task={task}
               />
             );
