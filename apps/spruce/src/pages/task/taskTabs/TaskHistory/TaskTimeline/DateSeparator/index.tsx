@@ -5,7 +5,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 
 const { gray } = palette;
 
-export const DATE_SEPARATOR_WIDTH = 8;
+export const DATE_SEPARATOR_WIDTH = 12;
 interface DateSeparatorProps {
   date?: Date | null;
 }
