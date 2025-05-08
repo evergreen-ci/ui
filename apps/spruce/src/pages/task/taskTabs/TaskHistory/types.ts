@@ -9,10 +9,12 @@ export type GroupedTask =
   | {
       inactiveTasks: TaskHistoryTask[];
       task: null;
+      shouldShowDateSeparator: boolean;
     }
   | {
       inactiveTasks: null;
       task: TaskHistoryTask;
+      shouldShowDateSeparator: boolean;
     };
 
 export enum ViewOptions {

@@ -5,7 +5,6 @@ import { TaskQuery } from "gql/generated/types";
 import CommitDetailsCard from "../CommitDetailsCard";
 import InactiveCommitsButton from "../InactiveCommitsButton";
 import { GroupedTask } from "../types";
-import { areDatesOnSameDay, extractTask } from "../utils";
 import DateSeparator from "./DateSeparator";
 
 interface CommitDetailsListProps {
@@ -24,25 +23,8 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
       <ParagraphSkeleton />
     ) : (
       <>
-        {tasks.map((t, i) => {
-          const { inactiveTasks, task } = t;
-
-          let shouldShowDateSeparator = false;
-          if (i === 0) {
-            shouldShowDateSeparator = true;
-          } else if (task) {
-            const prevGroupedTask = extractTask(tasks[i - 1]);
-            shouldShowDateSeparator = !areDatesOnSameDay(
-              prevGroupedTask?.createTime,
-              t.task.createTime,
-            );
-          } else if (inactiveTasks) {
-            const prevGroupedTask = extractTask(tasks[i - 1]);
-            shouldShowDateSeparator = !areDatesOnSameDay(
-              prevGroupedTask?.createTime,
-              t.inactiveTasks[0].createTime,
-            );
-          }
+        {tasks.map((t) => {
+          const { inactiveTasks, shouldShowDateSeparator, task } = t;
           if (task) {
             return (
               <>

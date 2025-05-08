@@ -11,7 +11,6 @@ import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
 import { TaskHistoryDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
 import { GroupedTask, TaskHistoryOptions, TaskHistoryTask } from "../types";
-import { areDatesOnSameDay, extractTask } from "../utils";
 import DateSeparator from "./DateSeparator";
 
 const { gray } = palette;
@@ -67,25 +66,9 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
             <Skeleton size={SkeletonSize.Small} />
           ) : (
             <>
-              {tasks.map((t, i) => {
-                let shouldShowDateSeparator = false;
-                if (i === 0) {
-                  shouldShowDateSeparator = true;
-                } else if (t.task) {
-                  const prevGroupedTask = extractTask(tasks[i - 1]);
-                  shouldShowDateSeparator = !areDatesOnSameDay(
-                    prevGroupedTask?.createTime,
-                    t.task.createTime,
-                  );
-                } else if (t.inactiveTasks) {
-                  const prevGroupedTask = extractTask(tasks[i - 1]);
-                  shouldShowDateSeparator = !areDatesOnSameDay(
-                    prevGroupedTask?.createTime,
-                    t.inactiveTasks[0].createTime,
-                  );
-                }
-                if (t.task) {
-                  const { task } = t;
+              {tasks.map((t) => {
+                const { inactiveTasks, shouldShowDateSeparator, task } = t;
+                if (task) {
                   return (
                     <>
                       {shouldShowDateSeparator && (
@@ -100,18 +83,18 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                       />
                     </>
                   );
-                } else if (t.inactiveTasks) {
+                } else if (inactiveTasks) {
                   return (
                     <>
                       {shouldShowDateSeparator && (
-                        <DateSeparator date={t.inactiveTasks[0].createTime} />
+                        <DateSeparator date={inactiveTasks[0].createTime} />
                       )}
                       <CollapsedBox
-                        key={t.inactiveTasks[0].id}
+                        key={inactiveTasks[0].id}
                         className="square"
                         data-cy="collapsed-box"
                       >
-                        {t.inactiveTasks.length}
+                        {inactiveTasks.length}
                       </CollapsedBox>
                     </>
                   );

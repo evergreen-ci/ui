@@ -13,25 +13,44 @@ export const groupTasks = (
 ) => {
   const groupedTasks: GroupedTask[] = [];
 
-  const pushInactive = (t: TaskHistoryTask) => {
+  const pushInactive = (
+    t: TaskHistoryTask,
+    shouldShowDateSeparator: boolean,
+  ) => {
     if (!groupedTasks?.[groupedTasks.length - 1]?.inactiveTasks) {
-      groupedTasks.push({ task: null, inactiveTasks: [] });
+      groupedTasks.push({
+        task: null,
+        inactiveTasks: [],
+        shouldShowDateSeparator,
+      });
     }
     groupedTasks[groupedTasks.length - 1].inactiveTasks?.push(t);
   };
 
-  const pushActive = (t: TaskHistoryTask) => {
+  const pushActive = (t: TaskHistoryTask, shouldShowDateSeparator: boolean) => {
     groupedTasks.push({
       inactiveTasks: null,
       task: t,
+      shouldShowDateSeparator,
     });
   };
 
-  tasks.forEach((task) => {
-    if (!task.activated && shouldCollapse) {
-      pushInactive(task);
+  tasks.forEach((task, i) => {
+    let shouldShowDateSeparator = false;
+    if (i === 0) {
+      shouldShowDateSeparator = true;
     } else {
-      pushActive(task);
+      const prevTask = tasks[i - 1];
+      shouldShowDateSeparator = !areDatesOnSameDay(
+        prevTask?.createTime,
+        task.createTime,
+      );
+    }
+
+    if (!task.activated && shouldCollapse) {
+      pushInactive(task, shouldShowDateSeparator);
+    } else {
+      pushActive(task, shouldShowDateSeparator);
     }
   });
 
@@ -112,17 +131,6 @@ export const areDatesOnSameDay = (
   );
 };
 
-/**
- * `extractTask` extracts the first task from a grouped task.
- * @param task - a grouped task
- * @returns - The first task in the group if it exists, otherwise null
- */
-export const extractTask = (task: GroupedTask) => {
-  if (task.task) {
-    return task.task;
-  }
-  return task.inactiveTasks?.[0] || null;
-};
 /**
  * `getUTCEndOfDay` calculates a UTC timestamp for the end of the day based on the user's timezone.
  * @param date - any date in YYYY-MM-DD format

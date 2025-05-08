@@ -129,7 +129,7 @@ export const tasks: TaskHistoryTask[] = [
     execution: 0,
     order: 92,
     revision: "i",
-    createTime: new Date("2025-04-03T10:22:13Z"),
+    createTime: new Date("2025-04-01T10:18:13Z"),
     canRestart: true,
     versionMetadata: {
       id: "version_id",
@@ -173,38 +173,48 @@ export const collapsedGroupedTasks: GroupedTask[] = [
   {
     inactiveTasks: null,
     task: tasks[0],
+    shouldShowDateSeparator: true,
   },
   {
     inactiveTasks: null,
     task: tasks[1],
+    shouldShowDateSeparator: false,
   },
   {
     inactiveTasks: [tasks[2]],
     task: null,
+    shouldShowDateSeparator: false,
   },
   {
     inactiveTasks: null,
     task: tasks[3],
+    shouldShowDateSeparator: true,
   },
   {
     inactiveTasks: [tasks[4]],
     task: null,
+
+    shouldShowDateSeparator: false,
   },
   {
     inactiveTasks: null,
     task: tasks[5],
+    shouldShowDateSeparator: true,
   },
   {
     inactiveTasks: [tasks[6], tasks[7], tasks[8]],
     task: null,
+    shouldShowDateSeparator: false,
   },
   {
     inactiveTasks: null,
     task: tasks[9],
+    shouldShowDateSeparator: true,
   },
   {
     inactiveTasks: null,
     task: tasks[10],
+    shouldShowDateSeparator: true,
   },
 ];
 
@@ -212,45 +222,56 @@ export const expandedGroupedTasks: GroupedTask[] = [
   {
     inactiveTasks: null,
     task: tasks[0],
+    shouldShowDateSeparator: true,
   },
   {
     inactiveTasks: null,
     task: tasks[1],
+    shouldShowDateSeparator: false,
   },
   {
     inactiveTasks: null,
     task: tasks[2],
+    shouldShowDateSeparator: false,
   },
   {
     inactiveTasks: null,
     task: tasks[3],
+    shouldShowDateSeparator: true,
   },
   {
     inactiveTasks: null,
     task: tasks[4],
+    shouldShowDateSeparator: false,
   },
   {
     inactiveTasks: null,
     task: tasks[5],
+    shouldShowDateSeparator: true,
   },
   {
     inactiveTasks: null,
     task: tasks[6],
+    shouldShowDateSeparator: false,
   },
   {
     inactiveTasks: null,
     task: tasks[7],
+    shouldShowDateSeparator: false,
   },
   {
     inactiveTasks: null,
     task: tasks[8],
+    shouldShowDateSeparator: false,
   },
   {
     inactiveTasks: null,
     task: tasks[9],
+    shouldShowDateSeparator: true,
   },
   {
     inactiveTasks: null,
     task: tasks[10],
+    shouldShowDateSeparator: true,
   },
 ];
