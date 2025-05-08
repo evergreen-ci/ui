@@ -3,6 +3,7 @@ import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import CommitDetailsCard from "../CommitDetailsCard";
+import InactiveCommitsButton from "../InactiveCommitsButton";
 import { GroupedTask } from "../types";
 import { areDatesOnSameDay, extractTask } from "../utils";
 import DateSeparator from "./DateSeparator";
@@ -24,24 +25,25 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
     ) : (
       <>
         {tasks.map((t, i) => {
+          const { inactiveTasks, task } = t;
+
           let shouldShowDateSeparator = false;
           if (i === 0) {
             shouldShowDateSeparator = true;
-          } else if (t.task) {
+          } else if (task) {
             const prevGroupedTask = extractTask(tasks[i - 1]);
             shouldShowDateSeparator = !areDatesOnSameDay(
               prevGroupedTask?.createTime,
               t.task.createTime,
             );
-          } else if (t.inactiveTasks) {
+          } else if (inactiveTasks) {
             const prevGroupedTask = extractTask(tasks[i - 1]);
             shouldShowDateSeparator = !areDatesOnSameDay(
               prevGroupedTask?.createTime,
               t.inactiveTasks[0].createTime,
             );
           }
-          if (t.task) {
-            const { task } = t;
+          if (task) {
             return (
               <>
                 {shouldShowDateSeparator && (
@@ -56,12 +58,13 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
                 />
               </>
             );
-          } else if (t.inactiveTasks) {
-            // TODO DEVPROD-16174: Replace with Inactive Commits Button.
+          } else if (inactiveTasks) {
             return (
-              <span key={t.inactiveTasks[0].id} data-cy="collapsed-card">
-                {t.inactiveTasks.length} Collapsed
-              </span>
+              <InactiveCommitsButton
+                key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
+                currentTask={currentTask}
+                inactiveTasks={inactiveTasks}
+              />
             );
           }
           return null;

@@ -2,6 +2,9 @@ describe("task history", () => {
   const spruceTaskHistoryLink =
     "task/spruce_ubuntu1604_e2e_test_b0c52a750150b4f1f67e501bd3351a808939815c_1f7cf49f4ce587c74212d8997da171c4_22_03_10_15_19_05/history";
 
+  const mciTaskHistoryLink =
+    "/task/evg_lint_generate_lint_c6672b24d14c6d8cd51ce2c4b2b88b424aaacd64_25_03_27_14_56_09/history?execution=0";
+
   describe("navigation", () => {
     it("can view the task history tab", () => {
       cy.visit(spruceTaskHistoryLink);
@@ -32,8 +35,10 @@ describe("task history", () => {
   });
 
   describe("commit details list", () => {
-    it("can expand/collapse tasks", () => {
+    beforeEach(() => {
       cy.visit(spruceTaskHistoryLink);
+    });
+    it("can expand/collapse tasks", () => {
       cy.dataCy("expanded-option").click();
       cy.dataCy("commit-details-card").should("have.length", 13);
       cy.dataCy("commit-details-list").within(() => {
@@ -45,6 +50,26 @@ describe("task history", () => {
       cy.dataCy("commit-details-list").within(() => {
         cy.dataCy("collapsed-card").should("be.visible");
       });
+    });
+    it("can expand/collapse inactive tasks with the inactive commits button", () => {
+      cy.dataCy("commit-details-card").should("have.length", 10);
+      cy.dataCy("commit-details-card")
+        .contains("Order: 12380")
+        .should("not.exist");
+      cy.dataCy("collapsed-card").first().eq(0).as("collapsedCardButton");
+      cy.get("@collapsedCardButton").contains("1 INACTIVE COMMIT");
+      cy.get("@collapsedCardButton").click();
+      cy.get("@collapsedCardButton").contains("1 EXPANDED");
+      cy.dataCy("commit-details-card").should("have.length", 11);
+      cy.dataCy("commit-details-card")
+        .contains("Order: 1238")
+        .should("be.visible");
+      cy.get("@collapsedCardButton").click();
+      cy.get("@collapsedCardButton").contains("1 INACTIVE COMMIT");
+      cy.dataCy("commit-details-card").should("have.length", 10);
+      cy.dataCy("commit-details-card")
+        .contains("Order: 1238")
+        .should("not.exist");
     });
   });
 
@@ -127,9 +152,6 @@ describe("task history", () => {
 
   describe("pagination", () => {
     describe("can paginate forwards and backwards", () => {
-      const mciTaskHistoryLink =
-        "/task/evg_lint_generate_lint_c6672b24d14c6d8cd51ce2c4b2b88b424aaacd64_25_03_27_14_56_09/history?execution=0";
-
       beforeEach(() => {
         // Change the viewport size so that tasks overflow to the next page. CI environment has a large scrollbar due to
         // Linux, which distorts the viewport size, so adjustments are made here.
@@ -227,6 +249,81 @@ describe("task history", () => {
       // We shouldn't just show the single activated task that appears before this one.
       cy.dataCy("timeline-box").should("have.length.above", 1);
       cy.get("@prevPageButton").should("have.attr", "aria-disabled", "true");
+    });
+  });
+
+  describe("date filter", () => {
+    it("can filter by date correctly with default timezone", () => {
+      cy.visit(mciTaskHistoryLink);
+      cy.dataCy("expanded-option").click();
+
+      cy.dataCy("date-picker").click();
+      cy.get("[aria-label^='Select year']").click();
+      cy.contains("li", "2025").click({ force: true });
+      cy.get("[aria-label^='Select month']").click();
+      cy.contains("li", "Feb").click({ force: true });
+      cy.get("[data-iso='2025-02-28']").click();
+
+      cy.location("search").should("contain", "2025-02-28");
+      cy.validateDatePickerDate("date-picker", {
+        year: "2025",
+        month: "02",
+        day: "28",
+      });
+      cy.dataCy("commit-details-card")
+        .eq(0)
+        .should("contain", "Remove userSettings query");
+    });
+
+    it("can filter by date correctly with different timezone", () => {
+      cy.visit("/preferences");
+      cy.contains("Select a timezone").click();
+      cy.contains("Japan, South Korea").click({ force: true });
+      cy.contains("button", "Save changes").click();
+
+      cy.visit(mciTaskHistoryLink);
+      cy.dataCy("expanded-option").click();
+
+      cy.dataCy("date-picker").click();
+      cy.get("[aria-label^='Select year']").click();
+      cy.contains("li", "2025").click({ force: true });
+      cy.get("[aria-label^='Select month']").click();
+      cy.contains("li", "Feb").click({ force: true });
+      cy.get("[data-iso='2025-02-28']").click();
+
+      cy.location("search").should("contain", "2025-02-28");
+      cy.validateDatePickerDate("date-picker", {
+        year: "2025",
+        month: "02",
+        day: "28",
+      });
+      cy.dataCy("commit-details-card")
+        .eq(0)
+        .should("contain", "Flush logger after running check run");
+    });
+
+    it("date is cleared when paginating", () => {
+      cy.visit(`${mciTaskHistoryLink}&date=2025-02-28`);
+      cy.dataCy("expanded-option").click();
+      cy.validateDatePickerDate("date-picker", {
+        year: "2025",
+        month: "02",
+        day: "28",
+      });
+      cy.dataCy("commit-details-card")
+        .eq(0)
+        .should("contain", "Remove userSettings query");
+
+      cy.get("button[aria-label='Previous page']").as("prevPageButton");
+      cy.get("@prevPageButton").should("have.attr", "aria-disabled", "false");
+      cy.get("@prevPageButton").click();
+      cy.dataCy("commit-details-card")
+        .eq(0)
+        .should("not.contain", "Remove userSettings query");
+
+      cy.dataCy("date-picker").should("not.have.text");
+      cy.validateDatePickerDate("date-picker");
+      cy.location("search").should("not.contain", "date");
     });
   });
 });

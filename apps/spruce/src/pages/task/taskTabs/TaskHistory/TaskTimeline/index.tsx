@@ -52,6 +52,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
             if (prevPageCursor) {
               setQueryParams({
                 ...queryParams,
+                [TaskHistoryOptions.Date]: undefined,
                 [TaskHistoryOptions.CursorID]: prevPageCursor.id,
                 [TaskHistoryOptions.Direction]: TaskHistoryDirection.After,
                 [TaskHistoryOptions.IncludeCursor]: false,
@@ -132,6 +133,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
             if (nextPageCursor) {
               setQueryParams({
                 ...queryParams,
+                [TaskHistoryOptions.Date]: undefined,
                 [TaskHistoryOptions.CursorID]: nextPageCursor.id,
                 [TaskHistoryOptions.Direction]: TaskHistoryDirection.Before,
                 [TaskHistoryOptions.IncludeCursor]: false,
