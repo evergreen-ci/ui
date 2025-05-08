@@ -95,7 +95,7 @@ describe("task history", () => {
     });
     it("no results found message is shown when no tasks match the search term", () => {
       cy.dataCy("search-test-failures-input").type("artseinrst");
-      cy.contains("NO RESULTS ON THIS PAGE").should("be.visible");
+      cy.contains("No results on this page").should("be.visible");
     });
   });
 

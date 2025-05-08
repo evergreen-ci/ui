@@ -30,7 +30,7 @@ export const TestFailureSearchInput: React.FC<Props> = ({
   }, [searchTerm]);
 
   return (
-    <Container>
+    <>
       <StyledInput
         aria-label="Search Test Failure Input"
         data-cy="search-test-failures-input"
@@ -44,7 +44,7 @@ export const TestFailureSearchInput: React.FC<Props> = ({
       {numMatchingResults === 0 && failingTest && (
         <NoMatches>No results on this page</NoMatches>
       )}
-    </Container>
+    </>
   );
 };
 
@@ -55,12 +55,5 @@ const StyledInput = styled(TextInput)`
 `;
 
 const NoMatches = styled.div`
-  font-weight: bold;
-  margin-top: 20px;
-  margin-left: ${size.s};
-`;
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
+  margin-left: ${size.xxs};
 `;
