@@ -66,7 +66,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
 
   const [date] = useQueryParam<string>(TaskHistoryOptions.Date, "");
   const timezone = useUserTimeZone();
-  const utcTime = getUTCDate(date, timezone);
+  const utcDate = getUTCDate(date, timezone);
 
   const { data, loading } = useQuery<
     TaskHistoryQuery,
@@ -83,7 +83,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           includeCursor,
         },
         limit: ACTIVATED_TASKS_LIMIT,
-        date: utcTime,
+        date: utcDate,
       },
     },
     pollInterval: DEFAULT_POLL_INTERVAL,
