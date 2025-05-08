@@ -1,11 +1,12 @@
 import { useCallback } from "react";
 import styled from "@emotion/styled";
 import { useWaterfallAnalytics } from "analytics";
+import { DateFilter } from "components/DateFilter";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
-import { useQueryParam } from "hooks/useQueryParam";
+import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { BuildVariantFilter } from "./BuildVariantFilter";
-import { DateFilter } from "./DateFilter";
+import { walkthroughSteps, waterfallGuideId } from "./constants";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
 import { StatusFilter } from "./StatusFilter";
@@ -25,10 +26,13 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
   restartWalkthrough,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
+
+  const [queryParams, setQueryParams] = useQueryParams();
   const [statuses] = useQueryParam<string[]>(
     WaterfallFilterOptions.Statuses,
     [],
   );
+  const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
 
   const projectSelectRoute = useCallback(
     (identifier: string) =>
@@ -51,7 +55,20 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
         <RequesterFilter />
       </RequesterFilterItem>
       <DateFilterItem>
-        <DateFilter />
+        <DateFilter
+          dataCyProps={{ [waterfallGuideId]: walkthroughSteps[3].targetId }}
+          onChange={(newDate) => {
+            setQueryParams({
+              ...queryParams,
+              [WaterfallFilterOptions.MaxOrder]: undefined,
+              [WaterfallFilterOptions.MinOrder]: undefined,
+              [WaterfallFilterOptions.Date]: newDate,
+            });
+            sendEvent({ name: "Filtered by date" });
+          }}
+          showLabel
+          value={date}
+        />
       </DateFilterItem>
       <ProjectFilterItem>
         <ProjectSelect
