@@ -27,7 +27,8 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
       ) : (
         <>
           {tasks.map((t) => {
-            const { inactiveTasks, shouldShowDateSeparator, task } = t;
+            const { inactiveTasks, isMatching, shouldShowDateSeparator, task } =
+              t;
             if (task) {
               return (
                 <>
@@ -37,6 +38,7 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
                   <CommitDetailsCard
                     key={task.id}
                     isCurrentTask={task.id === currentTask.id}
+                    isMatching={isMatching}
                     owner={currentTask.project?.owner}
                     repo={currentTask.project?.repo}
                     task={task}

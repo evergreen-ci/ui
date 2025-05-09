@@ -6,12 +6,14 @@ import { TaskHistoryTask, GroupedTask } from "../types";
  * @param tasks - an array of tasks returned from the TaskHistory query
  * @param shouldCollapse - a boolean. If set to false, no tasks will be collapsed. If set to true, inactive tasks will be collapsed.
  * @param timezone - the user's timezone, may be undefined
+ * @param testFailureSearchTerm - a regex to filter tasks by test failures.
  * @returns an array of grouped tasks
  */
 export const groupTasks = (
   tasks: TaskHistoryTask[],
   shouldCollapse: boolean,
   timezone?: string,
+  testFailureSearchTerm: RegExp | null,
 ) => {
   const groupedTasks: GroupedTask[] = [];
 
@@ -24,15 +26,22 @@ export const groupTasks = (
         task: null,
         inactiveTasks: [],
         shouldShowDateSeparator,
+        isMatching: false,
       });
     }
     groupedTasks[groupedTasks.length - 1].inactiveTasks?.push(t);
   };
 
   const pushActive = (t: TaskHistoryTask, shouldShowDateSeparator: boolean) => {
+    const isMatching =
+      !testFailureSearchTerm ||
+      t.tests.testResults.some(({ testFile }) =>
+        testFile.match(testFailureSearchTerm),
+      );
     groupedTasks.push({
       inactiveTasks: null,
       task: t,
+      isMatching,
       shouldShowDateSeparator,
     });
   };

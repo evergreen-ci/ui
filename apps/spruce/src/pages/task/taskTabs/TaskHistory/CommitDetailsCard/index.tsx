@@ -10,6 +10,7 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { inactiveElementStyle } from "components/styles";
 import { statusColorMap } from "components/TaskBox";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { getTaskRoute } from "constants/routes";
@@ -31,10 +32,12 @@ interface CommitDetailsCardProps {
   isCurrentTask: boolean;
   owner: string | undefined;
   repo: string | undefined;
+  isMatching: boolean;
 }
 
 const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
   isCurrentTask,
+  isMatching,
   owner,
   repo,
   task,
@@ -103,6 +106,7 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     <CommitCard
       key={taskId}
       data-cy="commit-details-card"
+      isMatching={isMatching}
       status={displayStatus as TaskStatus}
     >
       <TopLabel>
@@ -143,7 +147,10 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
 
 export default CommitDetailsCard;
 
-const CommitCard = styled.div<{ status: TaskStatus }>`
+const CommitCard = styled.div<{
+  status: TaskStatus;
+  isMatching: boolean;
+}>`
   display: flex;
   flex-direction: column;
   gap: ${size.xs};
@@ -153,6 +160,8 @@ const CommitCard = styled.div<{ status: TaskStatus }>`
   border: 1px solid ${gray.light2};
 
   ${({ status }) => `border-left: ${size.xs} solid ${statusColorMap[status]};`}
+
+  ${({ isMatching }) => !isMatching && inactiveElementStyle}
 `;
 
 const TopLabel = styled.div`

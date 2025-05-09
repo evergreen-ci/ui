@@ -8842,6 +8842,16 @@ export type TaskHistoryQuery = {
       execution: number;
       order: number;
       revision?: string | null;
+      tests: {
+        __typename?: "TaskTestResult";
+        testResults: Array<{
+          __typename?: "TestResult";
+          id: string;
+          status: string;
+          testFile: string;
+          logs: { __typename?: "TestLog"; urlParsley?: string | null };
+        }>;
+      };
       versionMetadata: {
         __typename?: "Version";
         id: string;

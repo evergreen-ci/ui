@@ -13,6 +13,7 @@ export default {
     canRestart: true,
     message:
       "DEVPROD-1234: Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.",
+    isMatching: true,
   },
   argTypes: {
     isCurrentTask: {
@@ -28,6 +29,9 @@ export default {
     message: {
       control: { type: "text" },
     },
+    isMatching: {
+      control: { type: "boolean" },
+    },
   },
 } satisfies CustomMeta<TemplateProps>;
 
@@ -40,21 +44,23 @@ type TemplateProps = {
   status: TaskStatus;
   canRestart: boolean;
   message: string;
+  isMatching: boolean;
 };
-
+const getStoryTask = (args: TemplateProps) => ({
+  ...tasks[0],
+  displayStatus: args.status,
+  canRestart: args.canRestart,
+  versionMetadata: {
+    ...tasks[0].versionMetadata,
+    message: args.message,
+  },
+});
 const Template = (args: TemplateProps) => {
-  const storyTask = {
-    ...tasks[0],
-    displayStatus: args.status,
-    canRestart: args.canRestart,
-    versionMetadata: {
-      ...tasks[0].versionMetadata,
-      message: args.message,
-    },
-  };
+  const storyTask = getStoryTask(args);
   return (
     <CommitDetailsCard
       isCurrentTask={args.isCurrentTask}
+      isMatching={args.isMatching}
       owner="evergreen-ci"
       repo="evergreen"
       task={storyTask}
