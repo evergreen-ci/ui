@@ -1,5 +1,6 @@
 import { InMemoryCache } from "@apollo/client";
 import { IMAGE_EVENT_LIMIT } from "pages/image/tabs/EventLogTab/useImageEvents";
+import { mergeTasks, readTasks } from "pages/task/taskTabs/TaskHistory/caching";
 import { mergeVersions, readVersions } from "pages/waterfall/caching";
 
 export const cache = new InMemoryCache({
@@ -35,6 +36,18 @@ export const cache = new InMemoryCache({
           },
           merge(...args) {
             return mergeVersions(...args);
+          },
+        },
+        taskHistory: {
+          keyArgs: [
+            "options",
+            ["projectIdentifier", "taskName", "buildVariant", "date"],
+          ],
+          read(...args) {
+            return readTasks(...args);
+          },
+          merge(...args) {
+            return mergeTasks(...args);
           },
         },
       },
