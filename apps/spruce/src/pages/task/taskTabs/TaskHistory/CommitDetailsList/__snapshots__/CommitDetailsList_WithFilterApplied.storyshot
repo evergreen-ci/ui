@@ -16,7 +16,7 @@
       />
     </div>
     <div
-      class="css-1ffesh7-CommitCard e1a625uv4"
+      class="css-ubyi0k-CommitCard-inactiveElementStyle e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -118,19 +118,7 @@
       </div>
     </div>
     <div
-      class="css-1293549-Container e1jhrgym1"
-    >
-      <div
-        class="leafygreen-ui-c62i3c"
-      >
-        April 3, 2025
-      </div>
-      <div
-        class="css-scnh1d-DashedLine e1jhrgym0"
-      />
-    </div>
-    <div
-      class="css-cfn6u4-CommitCard e1a625uv4"
+      class="css-1k17di8-CommitCard-inactiveElementStyle e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -277,7 +265,7 @@
       />
     </div>
     <div
-      class="css-1vbh9ch-CommitCard e1a625uv4"
+      class="css-1km0d1d-CommitCard-inactiveElementStyle e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -571,7 +559,7 @@
       />
     </div>
     <div
-      class="css-14ovsiy-CommitCard e1a625uv4"
+      class="css-qoe4oj-CommitCard-inactiveElementStyle e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -680,7 +668,7 @@
       />
     </div>
     <div
-      class="css-todlc7-CommitCard e1a625uv4"
+      class="css-t743ej-CommitCard-inactiveElementStyle e1a625uv4"
       data-cy="commit-details-card"
     >
       <div

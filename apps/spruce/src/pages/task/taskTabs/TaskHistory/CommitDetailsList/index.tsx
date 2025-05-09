@@ -47,11 +47,19 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
               );
             } else if (inactiveTasks) {
               return (
-                <InactiveCommitsButton
-                  key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
-                  currentTask={currentTask}
-                  inactiveTasks={inactiveTasks}
-                />
+                <>
+                  {shouldShowDateSeparator && (
+                    <DateSeparator
+                      date={inactiveTasks[0].createTime}
+                      timezone={timezone}
+                    />
+                  )}
+                  <InactiveCommitsButton
+                    key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
+                    currentTask={currentTask}
+                    inactiveTasks={inactiveTasks}
+                  />
+                </>
               );
             }
             return null;
