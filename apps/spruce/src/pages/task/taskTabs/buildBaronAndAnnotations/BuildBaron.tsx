@@ -6,6 +6,7 @@ import {
   BuildBaronQueryVariables,
 } from "gql/generated/types";
 import { BUILD_BARON } from "gql/queries";
+import { usePolling } from "hooks/usePolling";
 import BuildBaronContent from "./BuildBaronContent";
 
 interface Props {
@@ -21,20 +22,22 @@ const BuildBaron: React.FC<Props> = ({
   taskId,
   userCanModify,
 }) => {
-  const { data, loading } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
-    BUILD_BARON,
-    {
-      variables: { taskId, execution },
-    },
-  );
-  if (loading) {
+  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+    BuildBaronQuery,
+    BuildBaronQueryVariables
+  >(BUILD_BARON, {
+    variables: { taskId, execution },
+  });
+  usePolling({ startPolling, stopPolling, refetch });
+
+  const { buildBaron } = data || {};
+  if (loading || !buildBaron) {
     return <ParagraphSkeleton />;
   }
   return (
     <BuildBaronContent
       annotation={annotation}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      bbData={data?.buildBaron}
+      bbData={buildBaron}
       execution={execution}
       loading={loading}
       taskId={taskId}
