@@ -53,7 +53,7 @@ export const readTasks = ((existing, { args, readField }) => {
 
   const pagingBackwards = direction === TaskHistoryDirection.After;
   const pagingForwards = direction === TaskHistoryDirection.Before;
-  const activeVersions = new Set();
+  const activeTasks = new Set();
 
   let startIndex = 0;
   let endIndex = 0;
@@ -64,15 +64,15 @@ export const readTasks = ((existing, { args, readField }) => {
 
     // Count backwards for paginating backwards.
     for (let i = endIndex; i >= 0; i--) {
-      const id = readField<string>("id", existingTasks[i]) ?? "";
       const activated = readField<boolean>("activated", existingTasks[i]) ?? "";
       if (activated) {
-        activeVersions.add(id);
+        const id = readField<string>("id", existingTasks[i]) ?? "";
+        activeTasks.add(id);
       }
 
-      // When we've collected LIMIT active versions, we're done.
-      // We should also grab any leading inactive versions.
-      if (activeVersions.size === limit) {
+      // When we've collected LIMIT active tasks, we're done.
+      // We should also grab any leading inactive tasks.
+      if (activeTasks.size === limit) {
         startIndex = i;
         if (isAllInactive(existingTasks.slice(0, startIndex), readField)) {
           startIndex = 0;
@@ -88,15 +88,15 @@ export const readTasks = ((existing, { args, readField }) => {
 
     // Count forwards for paginating forwards.
     for (let i = startIndex; i < existingTasks.length; i++) {
-      const id = readField<string>("id", existingTasks[i]) ?? "";
       const activated = readField<boolean>("activated", existingTasks[i]) ?? "";
       if (activated) {
-        activeVersions.add(id);
+        const id = readField<string>("id", existingTasks[i]) ?? "";
+        activeTasks.add(id);
       }
 
-      // When we've collected LIMIT active versions, we're done.
-      // We should also grab any trailing inactive versions.
-      if (activeVersions.size === limit) {
+      // When we've collected LIMIT active tasks, we're done.
+      // We should also grab any trailing inactive tasks.
+      if (activeTasks.size === limit) {
         endIndex = i;
         if (isAllInactive(existingTasks.slice(endIndex + 1), readField)) {
           endIndex = existingTasks.length;
@@ -106,7 +106,7 @@ export const readTasks = ((existing, { args, readField }) => {
     }
   }
 
-  if (activeVersions.size < limit) {
+  if (activeTasks.size < limit) {
     return undefined;
   }
 
