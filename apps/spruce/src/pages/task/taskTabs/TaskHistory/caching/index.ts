@@ -1,10 +1,14 @@
 import { FieldMergeFunction, FieldReadFunction } from "@apollo/client";
 import { ReadFieldFunction } from "@apollo/client/cache/core/types/common";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { TaskHistoryQuery, TaskHistoryDirection } from "gql/generated/types";
 import { ACTIVATED_TASKS_LIMIT } from "../constants";
 
+type TaskHistoryTask = Unpacked<TaskHistoryQuery["taskHistory"]["tasks"]>;
+type TaskHistoryPagination = TaskHistoryQuery["taskHistory"]["pagination"];
+
 export const isAllInactive = (
-  tasks: TaskHistoryQuery["taskHistory"]["tasks"],
+  tasks: TaskHistoryTask[],
   readField: ReadFieldFunction,
 ) => {
   for (let i = 0; i < tasks.length; i++) {
@@ -32,15 +36,10 @@ export const readTasks = ((existing, { args, readField }) => {
   const direction = args?.options?.cursorParams?.direction ?? "";
   const limit = args?.options?.limit ?? ACTIVATED_TASKS_LIMIT;
 
-  const pagination = readField<TaskHistoryQuery["taskHistory"]["pagination"]>(
-    "pagination",
-    existing,
-  );
+  const pagination = readField<TaskHistoryPagination>("pagination", existing);
   const { mostRecentTaskOrder = 0, oldestTaskOrder = 0 } = pagination ?? {};
 
-  const existingTasks =
-    readField<TaskHistoryQuery["taskHistory"]["tasks"]>("tasks", existing) ??
-    [];
+  const existingTasks = readField<TaskHistoryTask[]>("tasks", existing) ?? [];
 
   const idx = existingTasks.findIndex((t) => {
     const taskId = readField<string>("id", t) ?? "";
@@ -123,12 +122,8 @@ export const readTasks = ((existing, { args, readField }) => {
 }) satisfies FieldReadFunction<TaskHistoryQuery["taskHistory"]>;
 
 export const mergeTasks = ((existing, incoming, { readField }) => {
-  const existingTasks =
-    readField<TaskHistoryQuery["taskHistory"]["tasks"]>("tasks", existing) ??
-    [];
-  const incomingTasks =
-    readField<TaskHistoryQuery["taskHistory"]["tasks"]>("tasks", incoming) ??
-    [];
+  const existingTasks = readField<TaskHistoryTask[]>("tasks", existing) ?? [];
+  const incomingTasks = readField<TaskHistoryTask[]>("tasks", incoming) ?? [];
   const tasks = [...existingTasks, ...incomingTasks];
 
   // Use a map to enforce that there are no duplicates.
@@ -145,7 +140,7 @@ export const mergeTasks = ((existing, incoming, { readField }) => {
     return bOrder - aOrder;
   });
 
-  const pagination = readField<TaskHistoryQuery["taskHistory"]["pagination"]>(
+  const pagination = readField<TaskHistoryPagination>(
     "pagination",
     incoming,
   ) ?? {
