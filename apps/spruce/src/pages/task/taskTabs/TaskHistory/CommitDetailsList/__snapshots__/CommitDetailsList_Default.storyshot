@@ -5,6 +5,7 @@
   >
     <div
       class="css-1293549-Container e1jhrgym1"
+      data-cy="horizontal-date-separator"
     >
       <div
         class="leafygreen-ui-c62i3c"
@@ -254,6 +255,7 @@
     </span>
     <div
       class="css-1293549-Container e1jhrgym1"
+      data-cy="horizontal-date-separator"
     >
       <div
         class="leafygreen-ui-c62i3c"
@@ -401,6 +403,7 @@
     </span>
     <div
       class="css-1293549-Container e1jhrgym1"
+      data-cy="horizontal-date-separator"
     >
       <div
         class="leafygreen-ui-c62i3c"
@@ -548,6 +551,7 @@
     </span>
     <div
       class="css-1293549-Container e1jhrgym1"
+      data-cy="horizontal-date-separator"
     >
       <div
         class="leafygreen-ui-c62i3c"
@@ -657,6 +661,7 @@
     </div>
     <div
       class="css-1293549-Container e1jhrgym1"
+      data-cy="horizontal-date-separator"
     >
       <div
         class="leafygreen-ui-c62i3c"
