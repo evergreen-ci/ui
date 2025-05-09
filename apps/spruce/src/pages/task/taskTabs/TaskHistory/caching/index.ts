@@ -12,7 +12,7 @@ export const isAllInactive = (
   readField: ReadFieldFunction,
 ) => {
   for (let i = 0; i < tasks.length; i++) {
-    const activated = readField<boolean>("activated", tasks[i]) ?? "";
+    const activated = readField<boolean>("activated", tasks[i]) ?? false;
     if (activated) {
       return false;
     }
@@ -63,7 +63,8 @@ export const readTasks = ((existing, { args, readField }) => {
 
     // Count backwards for paginating backwards.
     for (let i = endIndex; i >= 0; i--) {
-      const activated = readField<boolean>("activated", existingTasks[i]) ?? "";
+      const activated =
+        readField<boolean>("activated", existingTasks[i]) ?? false;
       if (activated) {
         const id = readField<string>("id", existingTasks[i]) ?? "";
         activeTasks.add(id);
@@ -87,7 +88,8 @@ export const readTasks = ((existing, { args, readField }) => {
 
     // Count forwards for paginating forwards.
     for (let i = startIndex; i < existingTasks.length; i++) {
-      const activated = readField<boolean>("activated", existingTasks[i]) ?? "";
+      const activated =
+        readField<boolean>("activated", existingTasks[i]) ?? false;
       if (activated) {
         const id = readField<string>("id", existingTasks[i]) ?? "";
         activeTasks.add(id);
@@ -106,7 +108,12 @@ export const readTasks = ((existing, { args, readField }) => {
   }
 
   if (activeTasks.size < limit) {
-    return undefined;
+    const allTasks =
+      readField<Map<number, TaskHistoryTask>>("allTasks", existing) ??
+      new Map<number, TaskHistoryTask>();
+    if (!allTasks.has(mostRecentTaskOrder) && !allTasks.has(oldestTaskOrder)) {
+      return undefined;
+    }
   }
 
   // Add 1 because slice is [inclusive, exclusive).
@@ -127,14 +134,14 @@ export const mergeTasks = ((existing, incoming, { readField }) => {
   const tasks = [...existingTasks, ...incomingTasks];
 
   // Use a map to enforce that there are no duplicates.
-  const tasksMap = new Map();
+  const allTasks = new Map<number, TaskHistoryTask>();
   tasks.forEach((t) => {
-    const taskId = readField<number>("id", t) ?? 0;
-    tasksMap.set(taskId, t);
+    const order = readField<number>("order", t) ?? 0;
+    allTasks.set(order, t);
   });
 
   // Tasks will be sorted in descending order e.g. 100, 99, 98, ...
-  const sortedTasks = Array.from(tasksMap.values()).sort((a, b) => {
+  const sortedTasks = Array.from(allTasks.values()).sort((a, b) => {
     const aOrder = readField<number>("order", a) ?? 0;
     const bOrder = readField<number>("order", b) ?? 0;
     return bOrder - aOrder;
@@ -151,5 +158,8 @@ export const mergeTasks = ((existing, incoming, { readField }) => {
   return {
     tasks: sortedTasks,
     pagination,
+    allTasks,
   };
-}) satisfies FieldMergeFunction<TaskHistoryQuery["taskHistory"]>;
+}) satisfies FieldMergeFunction<
+  TaskHistoryQuery["taskHistory"] & { allTasks?: Map<number, TaskHistoryTask> }
+>;
