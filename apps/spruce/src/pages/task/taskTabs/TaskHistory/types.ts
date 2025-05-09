@@ -9,11 +9,13 @@ export type GroupedTask =
   | {
       inactiveTasks: TaskHistoryTask[];
       task: null;
+      shouldShowDateSeparator: boolean;
       isMatching: false;
     }
   | {
       inactiveTasks: null;
       task: TaskHistoryTask;
+      shouldShowDateSeparator: boolean;
       isMatching: boolean;
     };
 
