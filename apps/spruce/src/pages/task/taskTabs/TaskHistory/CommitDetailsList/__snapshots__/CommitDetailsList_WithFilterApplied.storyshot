@@ -89,7 +89,9 @@
           Evergreen Admin
            - 
         </b>
-        <span>
+        <span
+          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+        >
           <a
             class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
             data-cy="jira-link"
@@ -186,7 +188,9 @@
           Evergreen Admin
            - 
         </b>
-        <span>
+        <span
+          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+        >
           <a
             class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
             data-cy="jira-link"
@@ -321,7 +325,9 @@
           Evergreen Admin
            - 
         </b>
-        <span>
+        <span
+          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+        >
           <a
             class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
             data-cy="jira-link"
@@ -456,7 +462,9 @@
           Evergreen Admin
            - 
         </b>
-        <span>
+        <span
+          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+        >
           <a
             class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
             data-cy="jira-link"
@@ -591,7 +599,9 @@
           Evergreen Admin
            - 
         </b>
-        <span>
+        <span
+          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+        >
           <a
             class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
             data-cy="jira-link"
@@ -688,7 +698,9 @@
           Evergreen Admin
            - 
         </b>
-        <span>
+        <span
+          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+        >
           <a
             class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
             data-cy="jira-link"
