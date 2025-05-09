@@ -24,16 +24,18 @@ export const GeneralTab: React.FC<TabProps> = ({
   const currentSingleTaskDistroValue =
     state.tabs.general.formData?.distroOptions.singleTaskDistro;
 
-  let singleTaskDistroWarnings: string[] = [];
-  if (!originalSingleTaskDistroValue && currentSingleTaskDistroValue) {
-    singleTaskDistroWarnings = [
-      "This Distro will be converted to a Single Task Distro once saved. Please review before confirming.",
-    ];
-  } else if (originalSingleTaskDistroValue && !currentSingleTaskDistroValue) {
-    singleTaskDistroWarnings = [
-      "This Distro will no longer be a Single Task Distro once saved. Please review before confirming.",
-    ];
-  }
+  const singleTaskDistroWarnings = useMemo(() => {
+    if (!originalSingleTaskDistroValue && currentSingleTaskDistroValue) {
+      return [
+        "This Distro will be converted to a Single Task Distro once saved. Please review before confirming.",
+      ];
+    } else if (originalSingleTaskDistroValue && !currentSingleTaskDistroValue) {
+      return [
+        "This Distro will no longer be a Single Task Distro once saved. Please review before confirming.",
+      ];
+    }
+    return [];
+  }, [originalSingleTaskDistroValue, currentSingleTaskDistroValue]);
   const formSchema = useMemo(
     () =>
       getFormSchema(isContainerDistro, minimumHosts, singleTaskDistroWarnings),
