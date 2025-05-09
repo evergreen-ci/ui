@@ -2,7 +2,11 @@ import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { WaterfallFilterOptions } from "pages/waterfall/types";
 import { TestStatus, HistoryQueryParams } from "types/history";
-import { ConfigurePatchPageTabs, VersionPageTabs } from "types/patch";
+import {
+  ConfigurePatchPageTabs,
+  VersionPageTabs,
+  PatchPageQueryParams,
+} from "types/patch";
 import { TaskTab } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
 import { toArray } from "utils/array";
@@ -253,10 +257,16 @@ export const getSpawnVolumeRoute = (volume: string) => {
   return `${routes.spawnVolume}?${queryParams}`;
 };
 
-export const getProjectPatchesRoute = (projectIdentifier: string) =>
-  `${paths.project}/${encodeURIComponent(projectIdentifier)}/${
-    PageNames.Patches
-  }`;
+export const getProjectPatchesRoute = (
+  projectIdentifier: string,
+  options?: { onlyMergeQueue?: boolean },
+) => {
+  let url = `${paths.project}/${encodeURIComponent(projectIdentifier)}/${PageNames.Patches}`;
+  if (options?.onlyMergeQueue) {
+    url += `?${PatchPageQueryParams.MergeQueue}=true`;
+  }
+  return url;
+};
 
 export const getImageRoute = (
   imageId: string,
