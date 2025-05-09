@@ -10,6 +10,7 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { inactiveElementStyle } from "components/styles";
 import { statusColorMap } from "components/TaskBox";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { getTaskRoute } from "constants/routes";
@@ -160,7 +161,7 @@ const CommitCard = styled.div<{
 
   ${({ status }) => `border-left: ${size.xs} solid ${statusColorMap[status]};`}
 
-  ${({ isMatching }) => !isMatching && "opacity: 0.5;"}
+  ${({ isMatching }) => !isMatching && inactiveElementStyle}
 `;
 
 const TopLabel = styled.div`

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import TextInput from "@leafygreen-ui/text-input";
 import debounce from "lodash.debounce";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { filterInputDebounceTimeout } from "constants/timeouts";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskHistoryOptions } from "../types";
 
@@ -19,7 +20,11 @@ export const TestFailureSearchInput: React.FC<Props> = ({
 
   const [searchTerm, setSearchTerm] = useState(failingTest);
   const updateQueryParamWithDebounce = useMemo(
-    () => debounce((str) => setFailingTest(str ? str : undefined), 150),
+    () =>
+      debounce(
+        (str) => setFailingTest(str ? str : undefined),
+        filterInputDebounceTimeout,
+      ),
     [setFailingTest],
   );
   useEffect(() => {
