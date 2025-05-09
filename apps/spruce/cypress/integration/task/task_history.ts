@@ -352,4 +352,37 @@ describe("task history", () => {
       cy.location("search").should("not.contain", "date");
     });
   });
+
+  describe("jumping to current task", () => {
+    it("can return to the current task after paginating", () => {
+      cy.visit(mciTaskHistoryLink);
+      cy.dataCy("expanded-option").click();
+      cy.dataCy("commit-details-card").eq(0).as("firstTaskCard");
+      cy.get("@firstTaskCard").should("contain", "Order: 12306");
+
+      cy.get("button[aria-label='Next page']").click();
+      cy.get("@firstTaskCard").should("not.contain", "Order: 12306");
+
+      cy.dataCy("jump-to-this-task-button").click();
+      cy.get("@firstTaskCard").should("contain", "Order: 12306");
+    });
+
+    it("can return to the current task after filtering by date", () => {
+      cy.visit(mciTaskHistoryLink);
+      cy.dataCy("expanded-option").click();
+      cy.dataCy("commit-details-card").eq(0).as("firstTaskCard");
+      cy.get("@firstTaskCard").should("contain", "Order: 12306");
+
+      cy.dataCy("date-picker").click();
+      cy.get("[aria-label^='Select year']").click();
+      cy.contains("li", "2025").click({ force: true });
+      cy.get("[aria-label^='Select month']").click();
+      cy.contains("li", "Feb").click({ force: true });
+      cy.get("[data-iso='2025-02-28']").click();
+      cy.get("@firstTaskCard").should("not.contain", "Order: 12306");
+
+      cy.dataCy("jump-to-this-task-button").click();
+      cy.get("@firstTaskCard").should("contain", "Order: 12306");
+    });
+  });
 });
