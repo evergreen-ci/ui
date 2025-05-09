@@ -112,12 +112,11 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
       )
     : null;
 
-  const groupedTasks = groupTasks(
-    tasks,
+  const groupedTasks = groupTasks(tasks, {
     shouldCollapse,
     timezone,
     testFailureSearchTerm,
-  );
+  });
 
   const numberOfUniqueDates = countUniqueDates(groupedTasks);
 

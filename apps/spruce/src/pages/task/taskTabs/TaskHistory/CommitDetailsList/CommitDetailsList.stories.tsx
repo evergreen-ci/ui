@@ -36,7 +36,10 @@ type TemplateProps = {
 };
 
 const Template = (args: TemplateProps) => {
-  const groupedTasks = groupTasks(tasks, args.shouldCollapse, null);
+  const groupedTasks = groupTasks(tasks, {
+    shouldCollapse: args.shouldCollapse,
+    testFailureSearchTerm: null,
+  });
   return (
     <CommitDetailsList
       currentTask={currentTask}
@@ -47,7 +50,10 @@ const Template = (args: TemplateProps) => {
 };
 
 const WithFilter = (args: TemplateProps) => {
-  const groupedTasks = groupTasks(tasks, args.shouldCollapse, /e2e/);
+  const groupedTasks = groupTasks(tasks, {
+    shouldCollapse: args.shouldCollapse,
+    testFailureSearchTerm: /e2e/,
+  });
   return (
     <CommitDetailsList
       currentTask={currentTask}

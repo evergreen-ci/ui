@@ -13,17 +13,27 @@ import {
 
 describe("groupTasks", () => {
   it("groups inactive tasks if shouldCollapse is true", () => {
-    const res = groupTasks(tasks, true, null);
+    const res = groupTasks(tasks, {
+      shouldCollapse: true,
+      timezone: "America/New_York",
+      testFailureSearchTerm: null,
+    });
     expect(res).toStrictEqual(collapsedGroupedTasks);
   });
 
   it("does not group inactive tasks if shouldCollapse is false", () => {
-    const res = groupTasks(tasks, false, null);
+    const res = groupTasks(tasks, {
+      shouldCollapse: false,
+      testFailureSearchTerm: null,
+    });
     expect(res).toStrictEqual(expandedGroupedTasks);
   });
 
   it("sets isMatching to true if testFailureSearchTerm matches a failing test", () => {
-    const res = groupTasks(tasks, true, /e2e_test/);
+    const res = groupTasks(tasks, {
+      shouldCollapse: true,
+      testFailureSearchTerm: /e2e_test/,
+    });
     expect(res[5].isMatching).toBe(true);
   });
 });

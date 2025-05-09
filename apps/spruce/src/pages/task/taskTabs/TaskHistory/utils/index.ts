@@ -4,19 +4,23 @@ import { TaskHistoryTask, GroupedTask } from "../types";
 /**
  * `groupTasks` groups tasks into active and inactive tasks based on the `shouldCollapse` parameter.
  * @param tasks - an array of tasks returned from the TaskHistory query
- * @param shouldCollapse - a boolean. If set to false, no tasks will be collapsed. If set to true, inactive tasks will be collapsed.
- * @param timezone - the user's timezone, may be undefined
- * @param testFailureSearchTerm - a regex to filter tasks by test failures.
+ * @param options - an object containing options for grouping tasks
+ * @param options.shouldCollapse - a boolean. If set to false, no tasks will be collapsed. If set to true, inactive tasks will be collapsed.
+ * @param options.testFailureSearchTerm - a regex to filter tasks by test failures.
+ * @param options.timezone - the user's timezone, may be undefined
  * @returns an array of grouped tasks
  */
 export const groupTasks = (
   tasks: TaskHistoryTask[],
-  shouldCollapse: boolean,
-  timezone?: string,
-  testFailureSearchTerm: RegExp | null,
+  options: {
+    shouldCollapse: boolean;
+    testFailureSearchTerm: RegExp | null;
+    timezone?: string;
+  },
 ) => {
   const groupedTasks: GroupedTask[] = [];
 
+  const { shouldCollapse, testFailureSearchTerm, timezone } = options;
   const pushInactive = (
     t: TaskHistoryTask,
     shouldShowDateSeparator: boolean,
