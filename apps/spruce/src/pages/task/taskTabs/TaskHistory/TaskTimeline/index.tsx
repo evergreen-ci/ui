@@ -9,6 +9,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
 import { TaskHistoryDirection } from "gql/generated/types";
+import { useUserTimeZone } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { GroupedTask, TaskHistoryOptions, TaskHistoryTask } from "../types";
 import DateSeparator from "./DateSeparator";
@@ -30,6 +31,7 @@ interface TimelineProps {
 const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
   ({ loading, pagination, tasks }, ref) => {
     const [queryParams, setQueryParams] = useQueryParams();
+    const timezone = useUserTimeZone();
     const {
       mostRecentTaskOrder,
       nextPageCursor,
@@ -72,7 +74,10 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                   return (
                     <>
                       {shouldShowDateSeparator && (
-                        <DateSeparator date={task.createTime} />
+                        <DateSeparator
+                          date={task.createTime}
+                          timezone={timezone}
+                        />
                       )}
                       <TaskBox
                         key={task.id}
@@ -87,7 +92,10 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                   return (
                     <>
                       {shouldShowDateSeparator && (
-                        <DateSeparator date={inactiveTasks[0].createTime} />
+                        <DateSeparator
+                          date={inactiveTasks[0].createTime}
+                          timezone={timezone}
+                        />
                       )}
                       <CollapsedBox
                         key={inactiveTasks[0].id}

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskQuery } from "gql/generated/types";
+import { useUserTimeZone } from "hooks";
 import CommitDetailsCard from "../CommitDetailsCard";
 import InactiveCommitsButton from "../InactiveCommitsButton";
 import { GroupedTask } from "../types";
@@ -17,44 +18,47 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
   currentTask,
   loading,
   tasks,
-}) => (
-  <CommitList data-cy="commit-details-list">
-    {loading ? (
-      <ParagraphSkeleton />
-    ) : (
-      <>
-        {tasks.map((t) => {
-          const { inactiveTasks, shouldShowDateSeparator, task } = t;
-          if (task) {
-            return (
-              <>
-                {shouldShowDateSeparator && (
-                  <DateSeparator date={task.createTime} />
-                )}
-                <CommitDetailsCard
-                  key={task.id}
-                  isCurrentTask={task.id === currentTask.id}
-                  owner={currentTask.project?.owner}
-                  repo={currentTask.project?.repo}
-                  task={task}
+}) => {
+  const timezone = useUserTimeZone();
+  return (
+    <CommitList data-cy="commit-details-list">
+      {loading ? (
+        <ParagraphSkeleton />
+      ) : (
+        <>
+          {tasks.map((t) => {
+            const { inactiveTasks, shouldShowDateSeparator, task } = t;
+            if (task) {
+              return (
+                <>
+                  {shouldShowDateSeparator && (
+                    <DateSeparator date={task.createTime} timezone={timezone} />
+                  )}
+                  <CommitDetailsCard
+                    key={task.id}
+                    isCurrentTask={task.id === currentTask.id}
+                    owner={currentTask.project?.owner}
+                    repo={currentTask.project?.repo}
+                    task={task}
+                  />
+                </>
+              );
+            } else if (inactiveTasks) {
+              return (
+                <InactiveCommitsButton
+                  key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
+                  currentTask={currentTask}
+                  inactiveTasks={inactiveTasks}
                 />
-              </>
-            );
-          } else if (inactiveTasks) {
-            return (
-              <InactiveCommitsButton
-                key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
-                currentTask={currentTask}
-                inactiveTasks={inactiveTasks}
-              />
-            );
-          }
-          return null;
-        })}
-      </>
-    )}
-  </CommitList>
-);
+              );
+            }
+            return null;
+          })}
+        </>
+      )}
+    </CommitList>
+  );
+};
 
 export default CommitDetailsList;
 

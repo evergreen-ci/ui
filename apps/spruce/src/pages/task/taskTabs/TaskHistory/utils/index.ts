@@ -5,11 +5,13 @@ import { TaskHistoryTask, GroupedTask } from "../types";
  * `groupTasks` groups tasks into active and inactive tasks based on the `shouldCollapse` parameter.
  * @param tasks - an array of tasks returned from the TaskHistory query
  * @param shouldCollapse - a boolean. If set to false, no tasks will be collapsed. If set to true, inactive tasks will be collapsed.
+ * @param timezone - the user's timezone, may be undefined
  * @returns an array of grouped tasks
  */
 export const groupTasks = (
   tasks: TaskHistoryTask[],
   shouldCollapse: boolean,
+  timezone?: string,
 ) => {
   const groupedTasks: GroupedTask[] = [];
 
@@ -44,6 +46,7 @@ export const groupTasks = (
       shouldShowDateSeparator = !areDatesOnSameDay(
         prevTask?.createTime,
         task.createTime,
+        timezone,
       );
     }
 
@@ -113,17 +116,23 @@ export const countUniqueDates = (groupedTasks: GroupedTask[]) => {
  * `areDatesOnSameDay` checks if two dates are on the same day.
  * @param date1 - the first date to compare
  * @param date2 - the second date to compare
+ * @param timezone - the user's timezone, may be undefined
  * @returns - true if the two dates are on the same day, false otherwise
  */
 export const areDatesOnSameDay = (
   date1?: Date | null,
   date2?: Date | null,
+  timezone?: string,
 ): boolean => {
   if (!date1 || !date2) {
     return false;
   }
-  const parsedDate1 = new Date(date1);
-  const parsedDate2 = new Date(date2);
+  const parsedDate1 = timezone
+    ? fromZonedTime(new Date(date1), timezone)
+    : new Date(date1);
+  const parsedDate2 = timezone
+    ? fromZonedTime(new Date(date2), timezone)
+    : new Date(date2);
   return (
     parsedDate1.getFullYear() === parsedDate2.getFullYear() &&
     parsedDate1.getMonth() === parsedDate2.getMonth() &&

@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
+import { fromZonedTime } from "date-fns-tz";
 import { size } from "@evg-ui/lib/constants/tokens";
 
 const { gray } = palette;
@@ -8,10 +9,13 @@ const { gray } = palette;
 export const DATE_SEPARATOR_WIDTH = 12;
 interface DateSeparatorProps {
   date?: Date | null;
+  timezone?: string;
 }
-const DateSeparator: React.FC<DateSeparatorProps> = ({ date }) => {
-  const parsedDate = new Date(date || "");
-  const formattedDate = parsedDate?.toLocaleDateString("en-US", {
+const DateSeparator: React.FC<DateSeparatorProps> = ({ date, timezone }) => {
+  const zonedTime = timezone
+    ? fromZonedTime(new Date(date || ""), timezone)
+    : new Date(date || "");
+  const formattedDate = zonedTime.toLocaleDateString("en-US", {
     month: "numeric",
     day: "2-digit",
   });
