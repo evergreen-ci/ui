@@ -1,6 +1,10 @@
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { GroupedTask, TaskHistoryTask } from "./types";
 
+const emptyTests = {
+  testResults: [],
+};
+
 export const tasks: TaskHistoryTask[] = [
   {
     id: "a",
@@ -16,6 +20,7 @@ export const tasks: TaskHistoryTask[] = [
       author: "Evergreen Admin",
       message: "DEVPROD-1234: A",
     },
+    tests: emptyTests,
   },
   {
     id: "b",
@@ -31,6 +36,7 @@ export const tasks: TaskHistoryTask[] = [
       author: "Evergreen Admin",
       message: "DEVPROD-1234: B",
     },
+    tests: emptyTests,
   },
   {
     id: "c",
@@ -46,6 +52,7 @@ export const tasks: TaskHistoryTask[] = [
       author: "Evergreen Admin",
       message: "DEVPROD-1234: C",
     },
+    tests: emptyTests,
   },
   {
     id: "d",
@@ -61,6 +68,7 @@ export const tasks: TaskHistoryTask[] = [
       author: "Evergreen Admin",
       message: "DEVPROD-1234: D",
     },
+    tests: emptyTests,
   },
   {
     id: "e",
@@ -76,6 +84,7 @@ export const tasks: TaskHistoryTask[] = [
       author: "Evergreen Admin",
       message: "DEVPROD-1234: E",
     },
+    tests: emptyTests,
   },
   {
     id: "f",
@@ -90,6 +99,16 @@ export const tasks: TaskHistoryTask[] = [
       id: "version_id",
       author: "Evergreen Admin",
       message: "DEVPROD-1234: F",
+    },
+    tests: {
+      testResults: [
+        {
+          id: "e2e_test_id",
+          testFile: "e2e_test",
+          status: "failed",
+          logs: { urlParsley: "a-parsley-url.mongodb.com" },
+        },
+      ],
     },
   },
   {
@@ -106,6 +125,7 @@ export const tasks: TaskHistoryTask[] = [
       author: "Evergreen Admin",
       message: "DEVPROD-1234: G",
     },
+    tests: emptyTests,
   },
   {
     id: "h",
@@ -121,6 +141,7 @@ export const tasks: TaskHistoryTask[] = [
       author: "Evergreen Admin",
       message: "DEVPROD-1234: H",
     },
+    tests: emptyTests,
   },
   {
     id: "i",
@@ -136,6 +157,7 @@ export const tasks: TaskHistoryTask[] = [
       author: "Evergreen Admin",
       message: "DEVPROD-1234: I",
     },
+    tests: emptyTests,
   },
   {
     id: "j",
@@ -151,6 +173,7 @@ export const tasks: TaskHistoryTask[] = [
       author: "Evergreen Admin",
       message: "DEVPROD-1234: J",
     },
+    tests: emptyTests,
   },
   {
     id: "k",
@@ -166,45 +189,54 @@ export const tasks: TaskHistoryTask[] = [
       author: "Evergreen Admin",
       message: "DEVPROD-1234: K",
     },
+    tests: emptyTests,
   },
 ];
-
 export const collapsedGroupedTasks: GroupedTask[] = [
   {
     inactiveTasks: null,
     task: tasks[0],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[1],
+    isMatching: true,
   },
   {
     inactiveTasks: [tasks[2]],
     task: null,
+    isMatching: false,
   },
   {
     inactiveTasks: null,
     task: tasks[3],
+    isMatching: true,
   },
   {
     inactiveTasks: [tasks[4]],
     task: null,
+    isMatching: false,
   },
   {
     inactiveTasks: null,
     task: tasks[5],
+    isMatching: true,
   },
   {
     inactiveTasks: [tasks[6], tasks[7], tasks[8]],
     task: null,
+    isMatching: false,
   },
   {
     inactiveTasks: null,
     task: tasks[9],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[10],
+    isMatching: true,
   },
 ];
 
@@ -212,45 +244,56 @@ export const expandedGroupedTasks: GroupedTask[] = [
   {
     inactiveTasks: null,
     task: tasks[0],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[1],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[2],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[3],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[4],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[5],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[6],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[7],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[8],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[9],
+    isMatching: true,
   },
   {
     inactiveTasks: null,
     task: tasks[10],
+    isMatching: true,
   },
 ];

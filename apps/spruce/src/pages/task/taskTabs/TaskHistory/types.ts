@@ -9,10 +9,12 @@ export type GroupedTask =
   | {
       inactiveTasks: TaskHistoryTask[];
       task: null;
+      isMatching: false;
     }
   | {
       inactiveTasks: null;
       task: TaskHistoryTask;
+      isMatching: boolean;
     };
 
 export enum ViewOptions {
@@ -26,5 +28,6 @@ export enum TaskHistoryOptions {
   CursorID = "cursor_id",
   IncludeCursor = "include_cursor",
   Direction = "direction",
+  FailingTest = "failing_test",
   Date = "date",
 }

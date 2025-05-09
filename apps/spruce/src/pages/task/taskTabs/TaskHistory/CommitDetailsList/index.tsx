@@ -29,6 +29,7 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
               <CommitDetailsCard
                 key={task.id}
                 isCurrentTask={task.id === currentTask.id}
+                isMatching={t.isMatching}
                 owner={currentTask.project?.owner}
                 repo={currentTask.project?.repo}
                 task={task}

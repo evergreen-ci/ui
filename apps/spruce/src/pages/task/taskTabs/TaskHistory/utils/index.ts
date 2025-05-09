@@ -5,25 +5,33 @@ import { TaskHistoryTask, GroupedTask } from "../types";
  * `groupTasks` groups tasks into active and inactive tasks based on the `shouldCollapse` parameter.
  * @param tasks - an array of tasks returned from the TaskHistory query
  * @param shouldCollapse - a boolean. If set to false, no tasks will be collapsed. If set to true, inactive tasks will be collapsed.
+ * @param testFailureSearchTerm - a regex to filter tasks by test failures.
  * @returns an array of grouped tasks
  */
 export const groupTasks = (
   tasks: TaskHistoryTask[],
   shouldCollapse: boolean,
+  testFailureSearchTerm: RegExp | null,
 ) => {
   const groupedTasks: GroupedTask[] = [];
 
   const pushInactive = (t: TaskHistoryTask) => {
     if (!groupedTasks?.[groupedTasks.length - 1]?.inactiveTasks) {
-      groupedTasks.push({ task: null, inactiveTasks: [] });
+      groupedTasks.push({ task: null, inactiveTasks: [], isMatching: false });
     }
     groupedTasks[groupedTasks.length - 1].inactiveTasks?.push(t);
   };
 
   const pushActive = (t: TaskHistoryTask) => {
+    const isMatching =
+      !testFailureSearchTerm ||
+      t.tests.testResults.some(({ testFile }) =>
+        testFile.match(testFailureSearchTerm),
+      );
     groupedTasks.push({
       inactiveTasks: null,
       task: t,
+      isMatching,
     });
   };
 

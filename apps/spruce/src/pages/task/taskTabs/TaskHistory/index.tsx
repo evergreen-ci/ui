@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
@@ -18,10 +19,12 @@ import { useSpruceConfig, useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { jiraLinkify } from "utils/string";
+import { validateRegexp } from "utils/validators";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import { Controls } from "./Controls";
 import TaskTimeline from "./TaskTimeline";
+import { TestFailureSearchInput } from "./TestFailureSearchInput";
 import { TaskHistoryOptions, ViewOptions } from "./types";
 import {
   getNextPageCursor,
@@ -96,9 +99,19 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { pagination, tasks = [] } = taskHistory ?? {};
   const { mostRecentTaskOrder, oldestTaskOrder } = pagination ?? {};
 
-  const groupedTasks = groupTasks(tasks, shouldCollapse);
-  const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER);
+  const [failingTest] = useQueryParam<string>(
+    TaskHistoryOptions.FailingTest,
+    "",
+  );
+  const testFailureSearchTerm = failingTest
+    ? new RegExp(
+        validateRegexp(failingTest) ? failingTest : toEscapedRegex(failingTest),
+        "i",
+      )
+    : null;
 
+  const groupedTasks = groupTasks(tasks, shouldCollapse, testFailureSearchTerm);
+  const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER);
   const visibleTasks =
     direction === TaskHistoryDirection.After
       ? groupedTasks.slice(-numVisibleTasks)
@@ -107,6 +120,11 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const prevPageCursor = getPrevPageCursor(visibleTasks[0]);
   const nextPageCursor = getNextPageCursor(
     visibleTasks[visibleTasks.length - 1],
+  );
+
+  const numMatchingResults = useMemo(
+    () => visibleTasks.reduce((acc, t) => (t.isMatching ? acc + 1 : acc), 0),
+    [visibleTasks],
   );
 
   // This hook redirects from any page with with the AFTER parameter to the equivalent page using the BEFORE parameter.
@@ -149,6 +167,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           }}
           tasks={visibleTasks}
         />
+        <TestFailureSearchInput numMatchingResults={numMatchingResults} />
       </StickyHeader>
       <ListContent>
         <Subtitle>Commit Details</Subtitle>

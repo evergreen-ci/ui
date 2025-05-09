@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import debounce from "lodash.debounce";
 import { useLocation } from "react-router-dom";
+import { filterInputDebounceTimeout } from "constants/timeouts";
 import { FilterHookParams, FilterHookResult } from "hooks/useStatusesFilter";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString } from "utils";
@@ -26,7 +27,7 @@ export const useFilterInputChangeHandler = ({
 
   const updateQueryParams = useUpdateURLQueryParams();
   const updateQueryParamWithDebounce = useMemo(
-    () => debounce(updateQueryParams, 250),
+    () => debounce(updateQueryParams, filterInputDebounceTimeout),
     [updateQueryParams],
   );
 
