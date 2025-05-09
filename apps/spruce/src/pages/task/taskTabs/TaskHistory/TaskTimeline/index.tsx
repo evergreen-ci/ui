@@ -162,11 +162,7 @@ const dateSeparatorHoverGroupStyles = css`
     }
 
     /* If followed closely by another .date-separator (after a .square), hide that one's badge and show dot */
-    &:has(+ .square + .date-separator) + .square + .date-separator,
-    &:has(+ .square + .square + .date-separator)
-      + .square
-      + .square
-      + .date-separator {
+    &:has(+ .square + .date-separator) + .square + .date-separator {
       .date-badge {
         opacity: 0;
         pointer-events: none;
@@ -189,8 +185,7 @@ const dateSeparatorHoverGroupStyles = css`
     }
 
     /* When the right-side separator is hovered, apply style to current (left) */
-    &:has(+ .square + .date-separator:hover),
-    &:has(+ .square + .square + .date-separator:hover) {
+    &:has(+ .square + .date-separator:hover) {
       .date-badge {
         opacity: 0;
         pointer-events: none;
