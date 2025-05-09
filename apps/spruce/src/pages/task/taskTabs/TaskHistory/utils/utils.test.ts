@@ -76,6 +76,16 @@ describe("areDatesOnSameDay", () => {
     const date2 = new Date("2024-04-22T12:00:00Z");
     expect(areDatesOnSameDay(date1, date2)).toBe(false);
   });
+
+  it("accounts for timezone differences", () => {
+    const date1 = new Date("2024-04-22T00:00:00Z"); // UTC
+    const date2 = new Date("2024-04-21T23:00:00Z"); // UTC-1
+    expect(areDatesOnSameDay(date1, date2, "America/New_York")).toBe(true);
+
+    const date3 = new Date("2024-04-21T14:00:00Z"); // 2024-04-22 00:00 JST
+    const date4 = new Date("2024-04-21T13:00:00Z"); // 2024-04-21 22:00 JST
+    expect(areDatesOnSameDay(date3, date4, "Asia/Japan")).toBe(false);
+  });
 });
 describe("getUTCEndOfDay", () => {
   beforeEach(() => {
