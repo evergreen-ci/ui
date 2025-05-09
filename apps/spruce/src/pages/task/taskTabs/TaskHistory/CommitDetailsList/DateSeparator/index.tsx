@@ -18,7 +18,7 @@ const DateSeparator: React.FC<DateSeparatorProps> = ({ date, timezone }) => {
     day: "numeric",
   });
   return (
-    <Container>
+    <Container data-cy="horizontal-date-separator">
       <Badge>{formattedDate}</Badge>
       <DashedLine />
     </Container>

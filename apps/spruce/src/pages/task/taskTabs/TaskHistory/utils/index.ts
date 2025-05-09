@@ -104,28 +104,6 @@ export const getNextPageCursor = (item: GroupedTask) => {
 };
 
 /**
- * `countUniqueDates` counts the number of unique dates in the grouped tasks.
- * @param groupedTasks - an array of grouped tasks
- * @returns - the number of unique dates in the grouped tasks
- */
-export const countUniqueDates = (groupedTasks: GroupedTask[]) => {
-  const uniqueDates = new Set<string>();
-  groupedTasks.forEach((group) => {
-    if (group.task) {
-      const dayMonthYear = new Date(group.task.createTime || "").toDateString();
-      uniqueDates.add(dayMonthYear);
-    } else if (group.inactiveTasks) {
-      // For inactive tasks, we can use the first task's createTime since they are grouped together
-      const dayMonthYear = new Date(
-        group.inactiveTasks[0].createTime || "",
-      ).toDateString();
-      uniqueDates.add(dayMonthYear);
-    }
-  });
-  return uniqueDates.size;
-};
-
-/**
  * `areDatesOnSameDay` checks if two dates are on the same day.
  * @param date1 - the first date to compare
  * @param date2 - the second date to compare

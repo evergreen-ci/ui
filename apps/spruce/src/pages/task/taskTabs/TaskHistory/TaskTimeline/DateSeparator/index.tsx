@@ -35,6 +35,7 @@ const Container = styled.div`
   position: relative;
   cursor: pointer;
 `;
+
 const StyledBadge = styled(Badge)`
   position: absolute;
   top: -${size.m};

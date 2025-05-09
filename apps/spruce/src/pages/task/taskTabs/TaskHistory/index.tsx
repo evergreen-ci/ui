@@ -24,11 +24,9 @@ import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import { Controls } from "./Controls";
 import TaskTimeline from "./TaskTimeline";
-import { DATE_SEPARATOR_WIDTH } from "./TaskTimeline/DateSeparator";
 import { TestFailureSearchInput } from "./TestFailureSearchInput";
 import { TaskHistoryOptions, ViewOptions } from "./types";
 import {
-  countUniqueDates,
   getNextPageCursor,
   getPrevPageCursor,
   getUTCEndOfDay,
@@ -118,25 +116,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
     testFailureSearchTerm,
   });
 
-  const numberOfUniqueDates = countUniqueDates(groupedTasks);
-
-  // Calculate numVisibleTasks based on the timeline width and number of unique dates
-  // The formula is based on the assumption that each task takes up a fixed width (SQUARE_WITH_BORDER)
-  // and that we need to leave some space for the unique date badges.
-  // The number of unique dates is multiplied by DATE_SEPARATOR_WIDTH to account for the width of the date badges.
-  // The final number of visible tasks is the minimum of the dynamically calculated and statically calculated values.
-  // The static calculation is based on the timeline width divided by the task width, minus a fixed number (6) for padding.
-  const dynamicallyCalculatedNumVisibleTasks = Math.floor(
-    (timelineWidth - numberOfUniqueDates * DATE_SEPARATOR_WIDTH) /
-      SQUARE_WITH_BORDER,
-  );
-  const staticallyCalculatedNumVisibleTasks =
-    Math.floor(timelineWidth / SQUARE_WITH_BORDER) - 6;
-
-  const numVisibleTasks = Math.min(
-    dynamicallyCalculatedNumVisibleTasks,
-    staticallyCalculatedNumVisibleTasks,
-  );
+  const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER) - 12;
 
   const visibleTasks =
     direction === TaskHistoryDirection.After
