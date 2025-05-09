@@ -4,7 +4,7 @@
     data-cy="commit-details-list"
   >
     <div
-      class="css-1n7dszh-CommitCard e1a625uv4"
+      class="css-ubyi0k-CommitCard-inactiveElementStyle e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -106,7 +106,7 @@
       </div>
     </div>
     <div
-      class="css-1bmelne-CommitCard e1a625uv4"
+      class="css-1k17di8-CommitCard-inactiveElementStyle e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -241,7 +241,7 @@
       </button>
     </span>
     <div
-      class="css-v8pv79-CommitCard e1a625uv4"
+      class="css-1km0d1d-CommitCard-inactiveElementStyle e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -511,7 +511,7 @@
       </button>
     </span>
     <div
-      class="css-1ounpdx-CommitCard e1a625uv4"
+      class="css-qoe4oj-CommitCard-inactiveElementStyle e1a625uv4"
       data-cy="commit-details-card"
     >
       <div
@@ -608,7 +608,7 @@
       </div>
     </div>
     <div
-      class="css-1jwl7bn-CommitCard e1a625uv4"
+      class="css-t743ej-CommitCard-inactiveElementStyle e1a625uv4"
       data-cy="commit-details-card"
     >
       <div

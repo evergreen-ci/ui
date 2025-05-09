@@ -86,10 +86,10 @@ describe("task history", () => {
         .should("have.css", "opacity", "1");
       cy.dataCy("commit-details-card")
         .eq(1)
-        .should("have.css", "opacity", "0.5");
+        .should("have.css", "opacity", "0.4");
       cy.dataCy("commit-details-card")
         .eq(2)
-        .should("have.css", "opacity", "0.5");
+        .should("have.css", "opacity", "0.4");
       cy.dataCy("search-test-failures-input").clear();
       cy.dataCy("commit-details-card").should("have.css", "opacity", "1");
     });
