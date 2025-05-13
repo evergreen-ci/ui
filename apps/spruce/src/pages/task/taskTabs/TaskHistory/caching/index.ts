@@ -1,11 +1,12 @@
 import { FieldMergeFunction, FieldReadFunction } from "@apollo/client";
 import { ReadFieldFunction } from "@apollo/client/cache/core/types/common";
-import { Unpacked } from "@evg-ui/lib/types/utils";
 import { TaskHistoryQuery, TaskHistoryDirection } from "gql/generated/types";
 import { ACTIVATED_TASKS_LIMIT } from "../constants";
+import { TaskHistoryTask, TaskHistoryPagination } from "../types";
 
-type TaskHistoryTask = Unpacked<TaskHistoryQuery["taskHistory"]["tasks"]>;
-type TaskHistoryPagination = TaskHistoryQuery["taskHistory"]["pagination"];
+type TaskHistoryCache = TaskHistoryQuery["taskHistory"] & {
+  allTaskOrders?: Set<number>;
+};
 
 export const isAllInactive = (
   tasks: TaskHistoryTask[],
@@ -108,10 +109,12 @@ export const readTasks = ((existing, { args, readField }) => {
   }
 
   if (activeTasks.size < limit) {
-    const allTasks =
-      readField<Map<number, TaskHistoryTask>>("allTasks", existing) ??
-      new Map<number, TaskHistoryTask>();
-    if (!allTasks.has(mostRecentTaskOrder) && !allTasks.has(oldestTaskOrder)) {
+    const allTaskOrders =
+      readField<Set<number>>("allTaskOrders", existing) ?? new Set<number>();
+    if (pagingBackwards && !allTaskOrders.has(mostRecentTaskOrder)) {
+      return undefined;
+    }
+    if (pagingForwards && !allTaskOrders.has(oldestTaskOrder)) {
       return undefined;
     }
   }
@@ -126,7 +129,7 @@ export const readTasks = ((existing, { args, readField }) => {
       oldestTaskOrder,
     },
   };
-}) satisfies FieldReadFunction<TaskHistoryQuery["taskHistory"]>;
+}) satisfies FieldReadFunction<TaskHistoryCache>;
 
 export const mergeTasks = ((existing, incoming, { readField }) => {
   const existingTasks = readField<TaskHistoryTask[]>("tasks", existing) ?? [];
@@ -134,10 +137,14 @@ export const mergeTasks = ((existing, incoming, { readField }) => {
   const tasks = [...existingTasks, ...incomingTasks];
 
   // Use a map to enforce that there are no duplicates.
-  const allTasks = new Map<number, TaskHistoryTask>();
+  const allTasks = new Map<string, TaskHistoryTask>();
+  const allTaskOrders = new Set<number>();
   tasks.forEach((t) => {
+    const id = readField<string>("id", t) ?? "";
+    allTasks.set(id, t);
+
     const order = readField<number>("order", t) ?? 0;
-    allTasks.set(order, t);
+    allTaskOrders.add(order);
   });
 
   // Tasks will be sorted in descending order e.g. 100, 99, 98, ...
@@ -158,8 +165,6 @@ export const mergeTasks = ((existing, incoming, { readField }) => {
   return {
     tasks: sortedTasks,
     pagination,
-    allTasks,
+    allTaskOrders,
   };
-}) satisfies FieldMergeFunction<
-  TaskHistoryQuery["taskHistory"] & { allTasks?: Map<number, TaskHistoryTask> }
->;
+}) satisfies FieldMergeFunction<TaskHistoryCache>;

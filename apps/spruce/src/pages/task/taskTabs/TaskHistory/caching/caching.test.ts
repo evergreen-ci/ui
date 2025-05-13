@@ -6,9 +6,14 @@ import { mergeTasks, readTasks } from ".";
 // @ts-expect-error: no need to type the args for this mock.
 const readField = (field, obj) => obj[field];
 
+const allTaskOrders = new Set<number>();
+tasks.forEach((t) => {
+  allTaskOrders.add(t.order);
+});
+
 const pagination = {
-  mostRecentTaskOrder: 100,
-  oldestTaskOrder: 1,
+  mostRecentTaskOrder: tasks[0].order,
+  oldestTaskOrder: tasks[tasks.length - 1].order,
 };
 
 describe("mergeTasks", () => {
@@ -18,25 +23,27 @@ describe("mergeTasks", () => {
     expect(
       mergeTasks(
         { tasks: tasks.slice(0, 2), pagination },
-        { tasks: tasks.slice(2, -1), pagination },
+        { tasks: tasks.slice(2), pagination },
         readFn,
       ),
     ).toStrictEqual({
-      tasks: tasks.slice(0, -1),
+      tasks: tasks,
       pagination,
+      allTaskOrders: allTaskOrders,
     });
   });
 
   it("merges tasks when incoming is newer than existing", () => {
     expect(
       mergeTasks(
-        { tasks: tasks.slice(2, -1), pagination },
+        { tasks: tasks.slice(2), pagination },
         { tasks: tasks.slice(0, 2), pagination },
         readFn,
       ),
     ).toStrictEqual({
-      tasks: tasks.slice(0, -1),
+      tasks: tasks,
       pagination,
+      allTaskOrders: allTaskOrders,
     });
   });
 
@@ -50,6 +57,7 @@ describe("mergeTasks", () => {
     ).toStrictEqual({
       tasks: tasks,
       pagination,
+      allTaskOrders: allTaskOrders,
     });
   });
 
@@ -63,6 +71,7 @@ describe("mergeTasks", () => {
     ).toStrictEqual({
       tasks: tasks,
       pagination,
+      allTaskOrders: allTaskOrders,
     });
   });
 });
@@ -146,6 +155,30 @@ describe("readTasks", () => {
         pagination,
       });
     });
+
+    it("returns less than LIMIT activated tasks if task with oldestTaskOrder has already been fetched", () => {
+      const args = {
+        options: {
+          limit: 200,
+          cursorParams: {
+            cursorId: tasks[0].id,
+            includeCursor: true,
+            direction: TaskHistoryDirection.Before,
+          },
+        },
+      };
+
+      expect(
+        readTasks(
+          { tasks: tasks, pagination, allTaskOrders: allTaskOrders },
+          // @ts-expect-error: for tests we can omit unused fields from the args
+          { args, readField } as FieldFunctionOptions,
+        ),
+      ).toStrictEqual({
+        tasks: tasks,
+        pagination,
+      });
+    });
   });
 
   describe("direction is AFTER", () => {
@@ -193,6 +226,30 @@ describe("readTasks", () => {
         ),
       ).toStrictEqual({
         tasks: tasks.slice(5, 10),
+        pagination,
+      });
+    });
+
+    it("returns less than LIMIT activated tasks if task with mostRecentTaskOrder has already been fetched", () => {
+      const args = {
+        options: {
+          limit: 200,
+          cursorParams: {
+            cursorId: tasks[tasks.length - 1].id,
+            includeCursor: true,
+            direction: TaskHistoryDirection.After,
+          },
+        },
+      };
+
+      expect(
+        readTasks(
+          { tasks: tasks, pagination, allTaskOrders: allTaskOrders },
+          // @ts-expect-error: for tests we can omit unused fields from the args
+          { args, readField } as FieldFunctionOptions,
+        ),
+      ).toStrictEqual({
+        tasks: tasks,
         pagination,
       });
     });
