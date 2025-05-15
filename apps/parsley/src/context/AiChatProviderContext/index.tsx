@@ -1,9 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from "react";
-
-interface AiChatMessage {
-  role: "user" | "assistant";
-  content: string;
-}
+import { useLogContext } from "context/LogContext";
+import { AiChatMessage } from "./types";
 
 interface AiChatProviderContextType {
   sendMessage: (message: string) => Promise<any>;
@@ -22,31 +19,50 @@ export const AiChatProvider: React.FC<{ children: React.ReactNode }> = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [messages, setMessages] = useState<AiChatMessage[]>([]);
+  const [sessionId] = useState<string | null>(null);
+  const { logMetadata } = useLogContext();
   // The AI service URL will be provided later
-  const AI_SERVICE_URL =
-    "https://parsley-ai-agent-skunkworks.skunkworks.staging.corp.mongodb.comr/parsley_ai";
+  const AI_SERVICE_URL = "http://localhost:8080/parsley_ai";
 
   const sendMessage = useCallback(
     async (message: string) => {
       setLoading(true);
       setError(null);
-      setMessages((prev) => [...prev, { content: message, role: "user" }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          content: message,
+          role: "user",
+        },
+      ]);
       try {
         // Always send the full conversation history for context
         const response = await fetch(AI_SERVICE_URL, {
           body: JSON.stringify({
+            execution: Number.parseInt(logMetadata?.execution || "0", 10),
             message: message,
+            session: sessionId,
+            task_id: logMetadata?.taskID,
           }),
           headers: { "Content-Type": "application/json" },
           method: "POST",
         });
         if (!response.ok) {
+          const errorText = await response.text();
+          setError(errorText);
+          setLoading(false);
+          console.log("Error response:", errorText);
           throw new Error("Failed to fetch AI response");
         }
         const data = await response.json();
+        console.log("AI response:", data);
         setMessages((prev) => [
           ...prev,
-          { content: data.response, role: "assistant" },
+          {
+            content: data.response?.response,
+            links: data.response?.links,
+            role: "assistant",
+          },
         ]);
         setLoading(false);
         return data;
@@ -56,7 +72,7 @@ export const AiChatProvider: React.FC<{ children: React.ReactNode }> = ({
         throw err;
       }
     },
-    [AI_SERVICE_URL, messages],
+    [AI_SERVICE_URL],
   );
 
   const contextValue = React.useMemo(

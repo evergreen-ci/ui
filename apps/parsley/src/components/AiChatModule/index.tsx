@@ -1,28 +1,34 @@
 import { FixedChatWindow } from "@lg-chat/fixed-chat-window";
 import { InputBar } from "@lg-chat/input-bar";
 import { LeafyGreenChatProvider } from "@lg-chat/leafygreen-chat-provider";
-import { Message } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { useAiChat } from "context/AiChatProviderContext";
+import ChatModuleMessage from "./ChatModuleMessage";
 
 const AIChatModule = ({ ...props }) => {
-  const { messages, sendMessage } = useAiChat();
+  const { loading, messages, sendMessage } = useAiChat();
   const handleMessageSend = (messageBody: string) => {
     sendMessage(messageBody);
   };
   return (
     <LeafyGreenChatProvider>
-      <FixedChatWindow title="Parsley AI" triggerText="Parsley AI" {...props}>
+      <FixedChatWindow
+        badgeText="Skunk"
+        title="Parsley AI"
+        triggerText="Parsley AI"
+        {...props}
+      >
         <MessageFeed>
-          {messages.map(({ content, role }) => (
-            <Message
+          {messages.map(({ content, links, role }) => (
+            <ChatModuleMessage
               key={content}
-              isSender={role === "user"}
-              messageBody={content}
+              content={content}
+              links={links}
+              role={role}
             />
           ))}
         </MessageFeed>
-        <InputBar onMessageSend={handleMessageSend} />
+        <InputBar disabled={loading} onMessageSend={handleMessageSend} />
       </FixedChatWindow>
     </LeafyGreenChatProvider>
   );
