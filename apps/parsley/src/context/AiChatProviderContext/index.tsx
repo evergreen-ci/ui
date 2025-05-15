@@ -18,8 +18,20 @@ export const AiChatProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [messages, setMessages] = useState<AiChatMessage[]>([]);
-  const [sessionId] = useState<string | null>(null);
+  const [messages, setMessages] = useState<AiChatMessage[]>([
+    {
+      content: ` **Welcome to Parsley AI!**
+ I'm here to help you debug your Evergreen task using the log file and other available data sources.
+ Try asking things like:
+
+ • *Where did the failure happen, and why?*
+ • *Was this failure caused by my code?*
+ • *What was running when the timeout occurred?*`,
+      role: "assistant",
+    },
+  ]);
+
+  const [sessionId, setSessionId] = useState<string | null>(null);
   const { logMetadata } = useLogContext();
   // The AI service URL will be provided later
   const AI_SERVICE_URL = "http://localhost:8080/parsley_ai";
@@ -55,15 +67,15 @@ export const AiChatProvider: React.FC<{ children: React.ReactNode }> = ({
           throw new Error("Failed to fetch AI response");
         }
         const data = await response.json();
-        console.log("AI response:", data);
         setMessages((prev) => [
           ...prev,
           {
-            content: data.response?.response,
-            links: data.response?.links,
+            content: data.response,
+            links: data?.links,
             role: "assistant",
           },
         ]);
+        setSessionId(data.session);
         setLoading(false);
         return data;
       } catch (err: any) {

@@ -4,6 +4,7 @@ import { LeafyGreenChatProvider } from "@lg-chat/leafygreen-chat-provider";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { useAiChat } from "context/AiChatProviderContext";
 import ChatModuleMessage from "./ChatModuleMessage";
+import ChatModuleMessageLoading from "./ChatModuleMessage/ChatModuleMessageLoading";
 
 const AIChatModule = ({ ...props }) => {
   const { loading, messages, sendMessage } = useAiChat();
@@ -27,6 +28,7 @@ const AIChatModule = ({ ...props }) => {
               role={role}
             />
           ))}
+          {loading && <ChatModuleMessageLoading />}
         </MessageFeed>
         <InputBar disabled={loading} onMessageSend={handleMessageSend} />
       </FixedChatWindow>
