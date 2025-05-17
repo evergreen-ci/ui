@@ -54,6 +54,7 @@ export const Metadata: React.FC<Props> = ({ version }) => {
   } = version || {};
   const { sendEvent } = useVersionAnalytics(id);
   const { makespan, timeTaken } = versionTiming || {};
+  const reconfigured = false;
 
   const { branch, owner, repo } = projectMetadata || {};
 
@@ -84,6 +85,11 @@ export const Metadata: React.FC<Props> = ({ version }) => {
         <MetadataLabel>Time taken:</MetadataLabel>{" "}
         {timeTaken && msToDuration(timeTaken)}
       </MetadataItem>
+      {isPatch && reconfigured && (
+        <MetadataItem tooltipDescription="This patch was reconfigured after it was initially created.">
+          <MetadataLabel>Reconfigured:</MetadataLabel> Yes
+        </MetadataItem>
+      )}
       <MetadataItem>
         <MetadataLabel>Submitted at:</MetadataLabel>{" "}
         {createTime && (
