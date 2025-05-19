@@ -1,5 +1,5 @@
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { Accordion } from ".";
+import { CustomMeta, CustomStoryObj } from "test_utils/types";
+import Accordion from ".";
 
 export default {
   component: Accordion,
@@ -8,32 +8,14 @@ export default {
       control: "boolean",
       description: "Whether the accordion should be open by default",
     },
-    disableAnimation: {
+    disableAnimations: {
       control: "boolean",
       description:
         "Whether the accordion should animate when opening and closing",
     },
-    shouldRenderChildIfHidden: {
-      control: "boolean",
-      description:
-        "Whether the child component should be rendered if the accordion is collapsed",
-    },
-    toggleFromBottom: {
-      control: "boolean",
-      description: "Whether the accordion should toggle from the bottom",
-    },
     useIndent: {
       control: "boolean",
       description: "Whether the accordion content should have an indent",
-    },
-    showCaret: {
-      control: "boolean",
-      description: "Whether the accordion should show a caret icon",
-    },
-    caretAlignSelf: {
-      control: "radio",
-      options: ["start", "center", "end"],
-      description: "Where the caret icon should be aligned",
     },
   },
 } satisfies CustomMeta<typeof Accordion>;

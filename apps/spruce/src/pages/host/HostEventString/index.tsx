@@ -1,6 +1,6 @@
 import Code from "@leafygreen-ui/code";
+import Accordion from "@evg-ui/lib/components/Accordion";
 import { toSentenceCase } from "@evg-ui/lib/utils/string";
-import { Accordion } from "components/Accordion";
 import { ShortenedRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostEventLogData, HostEventType } from "gql/generated/types";

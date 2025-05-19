@@ -4,11 +4,11 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
+import Accordion from "@evg-ui/lib/components/Accordion";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
-import { Accordion } from "components/Accordion";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { finishedTaskStatuses } from "constants/task";
@@ -161,17 +161,15 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
                   key={v?.id}
                   title={<b>{v?.projectIdentifier ?? v?.project}</b>}
                 >
-                  <TitleContainer>
-                    <VersionTasks
-                      baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
-                      selectedTasks={selectedTasks}
-                      setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
-                      setVersionStatusFilterTerm={setVersionStatus(v?.id)}
-                      toggleSelectedTask={toggleSelectedTask}
-                      version={v}
-                      versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
-                    />
-                  </TitleContainer>
+                  <VersionTasks
+                    baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
+                    selectedTasks={selectedTasks}
+                    setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
+                    setVersionStatusFilterTerm={setVersionStatus(v?.id)}
+                    toggleSelectedTask={toggleSelectedTask}
+                    version={v}
+                    versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
+                  />
                 </Accordion>
               ))}
               <br />
@@ -221,10 +219,6 @@ const getTaskIds = (selectedTasks: versionSelectedTasks) =>
 
 const ConfirmationMessage = styled(Body)<BodyProps>`
   padding: ${size.s} 0;
-`;
-
-const TitleContainer = styled.div`
-  margin-top: ${size.s};
 `;
 
 export default VersionRestartModal;
