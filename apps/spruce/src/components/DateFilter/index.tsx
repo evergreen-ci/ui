@@ -34,6 +34,7 @@ export const DateFilter: React.FC<DateFilterProps> = ({
 
   return (
     <DatePicker
+      aria-label="Go to date"
       data-cy="date-picker"
       label={showLabel ? "Go to Date" : ""}
       max={today}

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import {
   SegmentedControl,
   SegmentedControlOption,
@@ -40,6 +41,21 @@ export const Controls: React.FC<ControlsProps> = ({
           size={Size.Small}
           value={date}
         />
+        <Button
+          data-cy="jump-to-this-task-button"
+          onClick={() => {
+            setQueryParams({
+              ...queryParams,
+              [TaskHistoryOptions.Direction]: undefined,
+              [TaskHistoryOptions.CursorID]: undefined,
+              [TaskHistoryOptions.IncludeCursor]: undefined,
+              [TaskHistoryOptions.Date]: undefined,
+            });
+          }}
+          size={Size.XSmall}
+        >
+          Jump to this task
+        </Button>
       </LeftContainer>
       <SegmentedControl
         aria-controls="[data-cy='task-timeline']"

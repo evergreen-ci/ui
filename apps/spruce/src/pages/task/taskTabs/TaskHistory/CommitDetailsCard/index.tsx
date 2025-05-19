@@ -7,6 +7,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
+import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -139,7 +140,7 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
       </TopLabel>
       <BottomLabel>
         <AuthorLabel>{author} - </AuthorLabel>
-        <span>{jiraLinkify(message, jiraHost)}</span>
+        <WordBreak>{jiraLinkify(message, jiraHost)}</WordBreak>
       </BottomLabel>
     </CommitCard>
   );

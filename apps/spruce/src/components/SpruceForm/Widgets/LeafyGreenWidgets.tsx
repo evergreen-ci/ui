@@ -145,14 +145,14 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
         }
         onChange={(e) => onChange(e.target.checked)}
       />
-      {warnings?.length && (
+      {warnings?.length ? (
         <StyledBanner
           data-cy={dataCyBanner || "warning-banner"}
           variant="warning"
         >
           {warnings.join(", ")}
         </StyledBanner>
-      )}
+      ) : null}
     </ElementWrapper>
   );
 };
