@@ -57,7 +57,7 @@ export const groupTasks = (
     } else {
       const prevTask = tasks[i - 1];
       shouldShowDateSeparator = !areDatesOnSameDay(
-        prevTask?.createTime,
+        prevTask.createTime,
         task.createTime,
         timezone,
       );
