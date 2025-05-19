@@ -1,34 +1,27 @@
 import { render, screen } from "@evg-ui/lib/test_utils";
+import { getUserSettingsMock } from "gql/mocks/getSpruceConfig";
+import { MockedProvider } from "test_utils/graphql";
 import DateSeparator from ".";
 
 describe("DateSeparator", () => {
   const dateObject = new Date("2024-06-01T05:00:00Z");
 
   it("renders the date in the default timezone (UTC)", () => {
-    render(<DateSeparator date={dateObject} />);
-    // Adjust this expectation based on your component's formatting
-    expect(screen.getByText(/June 1, 2024/i)).toBeInTheDocument();
+    render(
+      <MockedProvider>
+        <DateSeparator date={dateObject} />
+      </MockedProvider>,
+    );
+    expect(screen.getByText(/Jun 1, 2024/i)).toBeInTheDocument();
   });
 
   it("renders the date in a specific timezone (America/New_York)", () => {
-    render(<DateSeparator date={dateObject} timezone="America/New_York" />);
+    render(
+      <MockedProvider mocks={[getUserSettingsMock]}>
+        <DateSeparator date={dateObject} />
+      </MockedProvider>,
+    );
     // June 1, 2024 08:00 in New York (EDT)
-    expect(screen.getByText(/June 1, 2024/i)).toBeInTheDocument();
-  });
-
-  it("renders the date in a different timezone (Asia/Tokyo)", () => {
-    render(<DateSeparator date={dateObject} timezone="Asia/Tokyo" />);
-    // June 1, 2024 21:00 in Tokyo (JST)
-    expect(screen.getByText(/May 31, 2024/i)).toBeInTheDocument();
-  });
-
-  it("renders correctly for a date string without timezone info", () => {
-    render(<DateSeparator date={dateObject} />);
-    expect(screen.getByText(/June 1, 2024/i)).toBeInTheDocument();
-  });
-
-  it("handles invalid date gracefully", () => {
-    render(<DateSeparator date={undefined} />);
-    expect(screen.getByText(/Invalid date/i)).toBeInTheDocument();
+    expect(screen.getByText(/Jun 1, 2024/i)).toBeInTheDocument();
   });
 });

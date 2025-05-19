@@ -1,25 +1,21 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
-import { fromZonedTime } from "date-fns-tz";
+import { useDateFormat } from "hooks";
 
 const { gray } = palette;
 interface DateSeparatorProps {
   date?: Date | null;
-  timezone?: string;
 }
-const DateSeparator: React.FC<DateSeparatorProps> = ({ date, timezone }) => {
-  const zonedTime = timezone
-    ? fromZonedTime(new Date(date || ""), timezone)
-    : new Date(date || "");
-  const formattedDate = zonedTime.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+const DateSeparator: React.FC<DateSeparatorProps> = ({ date }) => {
+  const getDateCopy = useDateFormat();
   return (
     <Container data-cy="horizontal-date-separator">
-      <Badge>{formattedDate}</Badge>
+      <Badge>
+        {getDateCopy(date || "", {
+          dateOnly: true,
+        })}
+      </Badge>
       <DashedLine />
     </Container>
   );
