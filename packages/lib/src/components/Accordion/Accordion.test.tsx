@@ -23,16 +23,6 @@ describe("accordion", () => {
     );
   });
 
-  it("renders custom titleTag when provided", () => {
-    const CustomTitleTag: React.FC = () => <div data-cy="my-custom-title" />;
-    render(
-      <Accordion title="accordion title" titleTag={CustomTitleTag}>
-        my accordion
-      </Accordion>,
-    );
-    expect(screen.getByDataCy("my-custom-title")).toBeInTheDocument();
-  });
-
   it("should be expanded if defaultOpen is true", () => {
     render(
       <Accordion defaultOpen title="accordion title">

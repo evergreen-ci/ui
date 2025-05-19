@@ -633,37 +633,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Provisioning logs
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -766,37 +779,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Additional details
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -898,37 +924,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Host creation logs
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -1311,37 +1350,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Provisioning logs
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -1444,37 +1496,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Additional details
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -1688,37 +1753,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Provisioning logs
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -1952,37 +2030,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Script logs
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -2084,37 +2175,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Script logs
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -2217,37 +2321,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Additional details
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -2363,37 +2480,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Additional details
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -2462,37 +2592,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Additional details
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -2773,37 +2916,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Host creation logs
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -2959,37 +3115,50 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-58nl5l-AccordionToggle ev0bopr3"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Caret Right Icon"
-                            class=""
-                            fill="none"
-                            height="16"
-                            role="img"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Accordion icon"
+                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <span>
                             Volume migration logs
                           </span>
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                          class="css-sstoka-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer ev0bopr1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"

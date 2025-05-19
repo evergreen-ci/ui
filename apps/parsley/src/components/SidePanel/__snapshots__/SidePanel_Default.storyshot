@@ -95,15 +95,16 @@
                     >
                       <div>
                         <div
-                          class="css-vntv7t-AccordionToggle e1bamyem4"
+                          class="css-16i4gmg-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
-                            aria-labelledby="Expand or collapse filter"
-                            class="css-7x45r8-AccordionIcon e1bamyem3 leafygreen-ui-tcjr3n"
+                            aria-labelledby="Accordion icon"
+                            class="css-7x45r8-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             open=""
+                            style="align-self: start;"
                             tabindex="0"
                           >
                             <div
@@ -217,12 +218,11 @@
                         </div>
                         <div
                           aria-expanded="true"
-                          class="css-8qz5n0-AnimatedAccordion e1bamyem2"
+                          class="css-yq0aw7-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
-                          height="0"
                         >
                           <div
-                            class="css-1nylm8s-ContentsContainer e1bamyem1"
+                            class="css-akji83-ContentsContainer e1omze811"
                           >
                             <div
                               class="css-2ra843-AccordionContent e12rc5wm5"

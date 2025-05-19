@@ -1,26 +1,39 @@
 <div>
   <div>
     <div
-      class="css-58nl5l-AccordionToggle ev0bopr3"
+      class="css-16i4gmg-AccordionToggle e1omze814"
       data-cy="accordion-toggle"
       role="button"
     >
-      <svg
-        aria-label="Caret Right Icon"
-        class=""
-        fill="none"
-        height="16"
-        role="img"
+      <button
+        aria-disabled="false"
+        aria-labelledby="Accordion icon"
+        class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
         style="align-self: start;"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
+        tabindex="0"
       >
-        <path
-          d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
-          fill="currentColor"
-        />
-      </svg>
+        <div
+          class="leafygreen-ui-xhlipt"
+        >
+          <svg
+            aria-label="Chevron Right Icon"
+            class="leafygreen-ui-jc2z8v"
+            fill="none"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </button>
       <span>
         <div
           class="css-jp8k7a-TitleContainer eea2d852"
@@ -41,12 +54,259 @@
     </div>
     <div
       aria-expanded="false"
-      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+      class="css-sstoka-AnimatedAccordion e1omze812"
       data-cy="accordion-collapse-container"
     >
       <div
-        class="css-1nylm8s-ContentsContainer ev0bopr1"
-      />
+        class="css-akji83-ContentsContainer e1omze811"
+      >
+        <div
+          class="css-12mjh8o-StyledCard eea2d851 leafygreen-ui-1ecxdul"
+        >
+          <div
+            class="leafygreen-ui-1si66qn"
+            tabindex="0"
+          >
+            <div />
+            <table
+              class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
+              data-cy="failed-test-grouped-table"
+              data-is-sticky="false"
+              data-lgid="lg-table"
+            >
+              <thead
+                class="leafygreen-ui-181p7kg"
+              >
+                <tr
+                  class="leafygreen-ui-5fo1n0"
+                >
+                  <th
+                    class="leafygreen-ui-1it7wsd"
+                    data-lgid="lg-table-header"
+                    scope="col"
+                  >
+                    <div
+                      class="leafygreen-ui-11hl1ow"
+                    >
+                      Task Name
+                      <button
+                        aria-disabled="false"
+                        aria-label="Sort by Task Name"
+                        class="leafygreen-ui-tcjr3n"
+                        data-lgid="lg-table-sort_button"
+                        data-testid="lg-table-sort-icon-button"
+                        tabindex="0"
+                      >
+                        <div
+                          class="leafygreen-ui-xhlipt"
+                        >
+                          <svg
+                            aria-label="Unsorted Icon"
+                            class="leafygreen-ui-jc2z8v"
+                            fill="none"
+                            height="16"
+                            role="img"
+                            viewBox="0 0 16 16"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                  </th>
+                  <th
+                    class="leafygreen-ui-1it7wsd"
+                    data-lgid="lg-table-header"
+                    scope="col"
+                  >
+                    <div
+                      class="leafygreen-ui-11hl1ow"
+                    >
+                      Build Variant
+                      <button
+                        aria-disabled="false"
+                        aria-label="Sort by Build Variant"
+                        class="leafygreen-ui-tcjr3n"
+                        data-lgid="lg-table-sort_button"
+                        data-testid="lg-table-sort-icon-button"
+                        tabindex="0"
+                      >
+                        <div
+                          class="leafygreen-ui-xhlipt"
+                        >
+                          <svg
+                            aria-label="Unsorted Icon"
+                            class="leafygreen-ui-jc2z8v"
+                            fill="none"
+                            height="16"
+                            role="img"
+                            viewBox="0 0 16 16"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                  </th>
+                  <th
+                    class="leafygreen-ui-1it7wsd"
+                    data-lgid="lg-table-header"
+                    scope="col"
+                  >
+                    <div
+                      class="leafygreen-ui-11hl1ow"
+                    >
+                      Failure Type
+                    </div>
+                  </th>
+                  <th
+                    class="leafygreen-ui-1it7wsd"
+                    data-lgid="lg-table-header"
+                    scope="col"
+                  >
+                    <div
+                      class="leafygreen-ui-11hl1ow"
+                    >
+                      Logs
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  aria-disabled="false"
+                  class="leafygreen-ui-5svxsn"
+                  data-cy="leafygreen-table-row"
+                  data-depth="0"
+                  data-expanded="false"
+                  data-index="0"
+                  data-lgid="lg-table-row"
+                  data-selected="false"
+                  id="lg-table-row-0"
+                >
+                  <td
+                    class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+                    data-lgid="lg-table-cell"
+                    style="padding-bottom: 4px; padding-top: 4px;"
+                  >
+                    <div
+                      class="leafygreen-ui-18w181u"
+                    >
+                      <div
+                        class="leafygreen-ui-mjg5qs"
+                      >
+                        <div
+                          class=""
+                        >
+                          <a
+                            class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                            href="/task/TaskId/tests"
+                          >
+                            <span>
+                              <span
+                                class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                              >
+                                TaskName
+                              </span>
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td
+                    class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+                    data-lgid="lg-table-cell"
+                    style="padding-bottom: 4px; padding-top: 4px;"
+                  >
+                    <div
+                      class="leafygreen-ui-18w181u"
+                    >
+                      <div
+                        class="leafygreen-ui-mjg5qs"
+                      >
+                        <div
+                          class=""
+                        >
+                          BuildVariant
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td
+                    class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+                    data-lgid="lg-table-cell"
+                    style="padding-bottom: 4px; padding-top: 4px;"
+                  >
+                    <div
+                      class="leafygreen-ui-18w181u"
+                    >
+                      <div
+                        class="leafygreen-ui-mjg5qs"
+                      >
+                        <div
+                          class=""
+                        >
+                          <div
+                            class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+                            data-cy="task-status-badge"
+                          >
+                            Failed
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td
+                    class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+                    data-lgid="lg-table-cell"
+                    style="padding-bottom: 4px; padding-top: 4px;"
+                  >
+                    <div
+                      class="leafygreen-ui-18w181u"
+                    >
+                      <div
+                        class="leafygreen-ui-mjg5qs"
+                      >
+                        <div
+                          class=""
+                        >
+                          <a
+                            aria-disabled="false"
+                            class="lg-ui-button-0000 leafygreen-ui-168frnw"
+                            data-cy="failed-test-group-parsley-btn"
+                            data-lgid="lg-button"
+                            href="LogsUrl"
+                          >
+                            <div
+                              class="leafygreen-ui-v038xi"
+                            />
+                            <div
+                              class="leafygreen-ui-b15bbd"
+                            >
+                              Parsley
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
