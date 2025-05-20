@@ -141,7 +141,7 @@ const ContentsContainer = styled.div<{ useIndent: boolean }>`
 `;
 
 const SubtitleContainer = styled.div`
-  margin-left: ${size.l};
+  margin-left: 30px;
 `;
 
 export default Accordion;
