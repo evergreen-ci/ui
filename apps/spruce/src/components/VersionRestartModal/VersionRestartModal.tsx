@@ -161,15 +161,17 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
                   key={v?.id}
                   title={<b>{v?.projectIdentifier ?? v?.project}</b>}
                 >
-                  <VersionTasks
-                    baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
-                    selectedTasks={selectedTasks}
-                    setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
-                    setVersionStatusFilterTerm={setVersionStatus(v?.id)}
-                    toggleSelectedTask={toggleSelectedTask}
-                    version={v}
-                    versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
-                  />
+                  <DownstreamTasksContainer>
+                    <VersionTasks
+                      baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
+                      selectedTasks={selectedTasks}
+                      setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
+                      setVersionStatusFilterTerm={setVersionStatus(v?.id)}
+                      toggleSelectedTask={toggleSelectedTask}
+                      version={v}
+                      versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
+                    />
+                  </DownstreamTasksContainer>
                 </Accordion>
               ))}
               <br />
@@ -219,6 +221,10 @@ const getTaskIds = (selectedTasks: versionSelectedTasks) =>
 
 const ConfirmationMessage = styled(Body)<BodyProps>`
   padding: ${size.s} 0;
+`;
+
+const DownstreamTasksContainer = styled.div`
+  margin-top: ${size.xxs};
 `;
 
 export default VersionRestartModal;
