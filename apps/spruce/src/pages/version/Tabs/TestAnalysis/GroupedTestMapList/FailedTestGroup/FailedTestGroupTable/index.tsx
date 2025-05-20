@@ -21,7 +21,13 @@ const FailedTestGroupTable: React.FC<FailedTestGroupTableProps> = ({
       enableColumnFilter: false,
     },
   });
-  return <BaseTable data-cy="failed-test-grouped-table" table={table} />;
+  return (
+    <BaseTable
+      data-cy="failed-test-grouped-table"
+      shouldAlternateRowColor
+      table={table}
+    />
+  );
 };
 
 const columns: LGColumnDef<TaskBuildVariantField>[] = [
@@ -45,12 +51,14 @@ const columns: LGColumnDef<TaskBuildVariantField>[] = [
   {
     header: "Failure Type",
     accessorKey: "displayStatus",
+    meta: { width: "15%" },
     cell: ({ getValue }) => (
       <TaskStatusBadge status={getValue() as TaskStatus} />
     ),
   },
   {
     header: "Logs",
+    meta: { width: "10%" },
     cell: ({ row }) => (
       <Button
         data-cy="failed-test-group-parsley-btn"

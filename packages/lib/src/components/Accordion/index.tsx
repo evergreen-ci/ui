@@ -129,7 +129,15 @@ const AnimatedAccordion = styled.div<{
 
 const ContentsContainer = styled.div<{ useIndent: boolean }>`
   overflow: hidden;
-  ${({ useIndent }) => useIndent && `margin-left: ${size.l};`}
+  ${({ useIndent }) =>
+    useIndent &&
+    `
+      margin-left: 26px;
+
+      /* Styles below handle input focus borders which get cut off due to overflow: hidden */
+      padding: 0 ${size.xxs};
+      margin-right: -${size.s}
+    `}
 `;
 
 const SubtitleContainer = styled.div`
