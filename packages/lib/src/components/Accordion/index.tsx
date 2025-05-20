@@ -56,7 +56,7 @@ const Accordion: React.FC<AccordionProps> = ({
   const [uncontrolledAccordionOpen, setUncontrolledAccordionOpen] =
     useState(defaultOpen);
 
-  // When controlled, use the open prop. Otherwise, use the uncontrolled state
+  // When controlled, use the open prop. Otherwise, use the uncontrolled state.
   const accordionOpen = isControlled ? open : uncontrolledAccordionOpen;
   const setAccordionOpen = isControlled
     ? () => {}
