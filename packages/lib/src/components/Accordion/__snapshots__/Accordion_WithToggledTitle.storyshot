@@ -1,14 +1,15 @@
 <div>
   <div>
     <div
-      class="css-vntv7t-AccordionToggle e1bamyem4"
+      class="css-8km4up"
       data-cy="accordion-toggle"
       role="button"
     >
       <button
         aria-disabled="false"
-        aria-labelledby="Expand or collapse filter"
-        class="css-lltsma-AccordionIcon e1bamyem3 leafygreen-ui-tcjr3n"
+        aria-labelledby="Accordion icon"
+        class="css-tgrklh leafygreen-ui-tcjr3n"
+        style="align-self: center;"
         tabindex="0"
       >
         <div
@@ -34,22 +35,16 @@
         </div>
       </button>
       <span>
-        Accordion
+        Some really long title that will be replaced because ...
       </span>
     </div>
     <div
-      class="css-6lu23-SubtitleContainer e1bamyem0"
-    >
-      Subtitle
-    </div>
-    <div
       aria-expanded="false"
-      class="css-157mz43-AnimatedAccordion e1bamyem2"
+      class="css-10vhx46"
       data-cy="accordion-collapse-container"
-      height="0"
     >
       <div
-        class="css-1nylm8s-ContentsContainer e1bamyem1"
+        class="css-1o2r8wi"
       >
         Accordion content
       </div>

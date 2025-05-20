@@ -1,43 +1,62 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size, transitionDuration } from "../../constants/tokens";
 
 const { gray } = palette;
 
+export enum AccordionCaretAlign {
+  Start = "start",
+  Center = "center",
+  End = "end",
+}
+
+export enum AccordionCaretIcon {
+  Caret = "Caret",
+  Chevron = "Chevron",
+}
+
 interface AccordionProps {
-  "data-cy"?: string;
-  defaultOpen?: boolean;
+  caretAlign?: AccordionCaretAlign;
+  caretIcon?: AccordionCaretIcon;
   children: React.ReactNode;
   className?: string;
+  "data-cy"?: string;
+  defaultOpen?: boolean;
+  disableAnimations?: boolean;
   onToggle?: (s: { isVisible: boolean }) => void;
+  open?: boolean;
   subtitle?: React.ReactNode;
   title: React.ReactNode;
   titleTag?: React.FC;
   toggledTitle?: React.ReactNode;
-  open?: boolean;
+  useIndent?: boolean;
 }
 
 const Accordion: React.FC<AccordionProps> = ({
+  caretAlign = AccordionCaretAlign.Center,
+  caretIcon = AccordionCaretIcon.Chevron,
   children,
   className,
   "data-cy": dataCy,
   defaultOpen = false,
+  disableAnimations = true,
   onToggle = () => {},
   open,
   subtitle,
   title,
   titleTag,
   toggledTitle,
+  useIndent = true,
 }) => {
   const isControlled = open !== undefined;
 
   const [uncontrolledAccordionOpen, setUncontrolledAccordionOpen] =
     useState(defaultOpen);
 
-  // When controlled, use the open prop. Otherwise, use the uncontrolled state
+  // When controlled, use the open prop. Otherwise, use the uncontrolled state.
   const accordionOpen = isControlled ? open : uncontrolledAccordionOpen;
   const setAccordionOpen = isControlled
     ? () => {}
@@ -46,15 +65,6 @@ const Accordion: React.FC<AccordionProps> = ({
   const TitleTag = titleTag ?? "span";
   const titleToShow = toggledTitle && accordionOpen ? toggledTitle : title;
   const titleComp = <TitleTag>{titleToShow}</TitleTag>;
-
-  const childrenRef = useRef<HTMLDivElement>(null);
-  const [childrenHeight, setChildrenHeight] = useState(0);
-
-  useEffect(() => {
-    if (childrenRef && childrenRef.current) {
-      setChildrenHeight(childrenRef.current.offsetHeight);
-    }
-  }, [children, childrenRef]);
 
   const toggleAccordionHandler = () => {
     onToggle({ isVisible: !accordionOpen });
@@ -69,10 +79,11 @@ const Accordion: React.FC<AccordionProps> = ({
         role="button"
       >
         <AccordionIcon
-          aria-labelledby="Expand or collapse filter"
+          aria-labelledby="Accordion icon"
           open={accordionOpen}
+          style={{ alignSelf: caretAlign }}
         >
-          <Icon fill={gray.dark1} glyph="ChevronRight" />
+          <Icon fill={gray.dark1} glyph={`${caretIcon}Right`} />
         </AccordionIcon>
         {titleComp}
       </AccordionToggle>
@@ -80,10 +91,10 @@ const Accordion: React.FC<AccordionProps> = ({
       <AnimatedAccordion
         aria-expanded={accordionOpen}
         data-cy="accordion-collapse-container"
-        height={childrenHeight}
+        disableAnimations={disableAnimations}
         hide={!accordionOpen}
       >
-        <ContentsContainer ref={childrenRef}>{children}</ContentsContainer>
+        <ContentsContainer useIndent={useIndent}>{children}</ContentsContainer>
       </AnimatedAccordion>
     </div>
   );
@@ -91,6 +102,7 @@ const Accordion: React.FC<AccordionProps> = ({
 
 const AccordionToggle = styled.div`
   display: flex;
+  align-items: center;
   gap: 2px;
   :hover {
     cursor: pointer;
@@ -101,27 +113,35 @@ const AccordionIcon = styled(IconButton)<{ open: boolean }>`
   flex-shrink: 0;
   transform: ${({ open }) => (open ? "rotate(90deg)" : "unset")};
   transition-property: transform;
-  transition-duration: 150ms;
+  transition-duration: ${transitionDuration.default}ms;
 `;
 
 const AnimatedAccordion = styled.div<{
   hide: boolean;
-  height: number;
+  disableAnimations: boolean;
 }>`
-  /* This is used to calculate a fixed height for the Accordion since height
-      transitions require a fixed height for their end height */
-  max-height: ${({ height, hide }): string =>
-    hide ? "0px" : `${height || 9999}px`};
-  transition: max-height 200ms ease-in-out;
-  overflow: hidden;
+  display: grid;
+  grid-template-rows: ${({ hide }): string => (hide ? "0fr" : "1fr")};
+  ${({ disableAnimations }) =>
+    !disableAnimations &&
+    `transition: grid-template-rows ${transitionDuration.default}ms ease;`}
 `;
 
-const ContentsContainer = styled.div`
-  margin-left: ${size.s};
+const ContentsContainer = styled.div<{ useIndent: boolean }>`
+  overflow: hidden;
+  ${({ useIndent }) =>
+    useIndent &&
+    `
+      margin-left: 26px;
+
+      /* Styles below handle input focus borders which get cut off due to overflow: hidden */
+      padding: 0 ${size.xxs};
+      margin-right: -${size.s}
+    `}
 `;
 
 const SubtitleContainer = styled.div`
-  margin-left: ${size.s};
+  margin-left: 30px;
 `;
 
 export default Accordion;
