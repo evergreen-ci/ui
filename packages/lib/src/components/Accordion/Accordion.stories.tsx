@@ -32,6 +32,13 @@ export default {
       description: "What glyph to use for the caret icon",
     },
   },
+  args: {
+    defaultOpen: false,
+    disableAnimations: true,
+    useIndent: true,
+    caretAlign: AccordionCaretAlign.Center,
+    caretIcon: AccordionCaretIcon.Chevron,
+  },
 } satisfies CustomMeta<typeof Accordion>;
 
 export const Default: CustomStoryObj<typeof Accordion> = {
