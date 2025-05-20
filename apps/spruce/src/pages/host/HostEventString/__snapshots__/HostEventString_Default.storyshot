@@ -150,7 +150,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -160,10 +160,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -178,7 +176,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -258,7 +256,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -268,10 +266,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -286,7 +282,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -365,7 +361,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -375,10 +371,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -393,7 +387,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -563,7 +557,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -573,10 +567,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -591,7 +583,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -671,7 +663,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -681,10 +673,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -699,7 +689,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -814,7 +804,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -824,10 +814,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -842,7 +830,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -977,7 +965,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -987,10 +975,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -1005,7 +991,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1084,7 +1070,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -1094,10 +1080,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -1112,7 +1096,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1192,7 +1176,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -1202,10 +1186,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -1220,7 +1202,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1313,7 +1295,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -1323,10 +1305,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -1341,7 +1321,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1387,7 +1367,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -1397,10 +1377,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -1415,7 +1393,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1559,7 +1537,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -1569,10 +1547,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -1587,7 +1563,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1682,7 +1658,7 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Chevron Right Icon"
+                  aria-label="Caret Right Icon"
                   class="leafygreen-ui-jc2z8v"
                   fill="none"
                   height="16"
@@ -1692,10 +1668,8 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
                     fill="currentColor"
-                    fill-rule="evenodd"
                   />
                 </svg>
               </div>
@@ -1710,7 +1684,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-akji83-ContentsContainer e1omze811"
+              class="css-ma2fau-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
