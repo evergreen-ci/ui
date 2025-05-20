@@ -75,6 +75,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                     <>
                       {shouldShowDateSeparator && (
                         <DateSeparator
+                          key={`date-separator-${task.createTime}`}
                           date={task.createTime}
                           timezone={timezone}
                         />
@@ -93,6 +94,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                     <>
                       {shouldShowDateSeparator && (
                         <DateSeparator
+                          key={`date-separator-${inactiveTasks[0].createTime}`}
                           date={inactiveTasks[0].createTime}
                           timezone={timezone}
                         />
