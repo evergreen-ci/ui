@@ -79,7 +79,7 @@ const Accordion: React.FC<AccordionProps> = ({
         role="button"
       >
         <AccordionIcon
-          aria-labelledby="Accordion icon"
+          aria-label="Accordion icon"
           open={accordionOpen}
           style={{ alignSelf: caretAlign }}
         >
@@ -134,9 +134,8 @@ const ContentsContainer = styled.div<{ useIndent: boolean }>`
     `
       margin-left: 26px;
 
-      /* Styles below handle input focus borders which get cut off due to overflow: hidden */
+      /* Handle input focus borders which get cut off due to overflow: hidden */
       padding: 0 ${size.xxs};
-      margin-right: -${size.s}
     `}
 `;
 

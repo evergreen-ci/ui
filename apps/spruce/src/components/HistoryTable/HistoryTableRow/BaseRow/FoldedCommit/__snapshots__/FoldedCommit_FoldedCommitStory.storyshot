@@ -12,7 +12,7 @@
       >
         <button
           aria-disabled="false"
-          aria-labelledby="Accordion icon"
+          aria-label="Accordion icon"
           class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
           style="align-self: center;"
           tabindex="0"

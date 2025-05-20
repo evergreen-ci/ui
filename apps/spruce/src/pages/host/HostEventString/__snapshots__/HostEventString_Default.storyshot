@@ -141,7 +141,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -176,7 +176,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -247,7 +247,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -282,7 +282,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -352,7 +352,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -387,7 +387,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -548,7 +548,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -583,7 +583,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -654,7 +654,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -689,7 +689,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -795,7 +795,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -830,7 +830,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -956,7 +956,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -991,7 +991,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1061,7 +1061,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -1096,7 +1096,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1167,7 +1167,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -1202,7 +1202,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1286,7 +1286,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -1321,7 +1321,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1358,7 +1358,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -1393,7 +1393,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1528,7 +1528,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -1563,7 +1563,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1649,7 +1649,7 @@
           >
             <button
               aria-disabled="false"
-              aria-labelledby="Accordion icon"
+              aria-label="Accordion icon"
               class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
@@ -1684,7 +1684,7 @@
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-ma2fau-ContentsContainer e1omze811"
+              class="css-1hezny5-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
