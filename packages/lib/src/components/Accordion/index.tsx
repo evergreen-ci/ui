@@ -13,8 +13,14 @@ export enum AccordionCaretAlign {
   End = "end",
 }
 
+export enum AccordionCaretIcon {
+  Caret = "Caret",
+  Chevron = "Chevron",
+}
+
 interface AccordionProps {
   caretAlign?: AccordionCaretAlign;
+  caretIcon?: AccordionCaretIcon;
   children: React.ReactNode;
   className?: string;
   "data-cy"?: string;
@@ -31,6 +37,7 @@ interface AccordionProps {
 
 const Accordion: React.FC<AccordionProps> = ({
   caretAlign = AccordionCaretAlign.Center,
+  caretIcon = AccordionCaretIcon.Chevron,
   children,
   className,
   "data-cy": dataCy,
@@ -76,7 +83,7 @@ const Accordion: React.FC<AccordionProps> = ({
           open={accordionOpen}
           style={{ alignSelf: caretAlign }}
         >
-          <Icon fill={gray.dark1} glyph="ChevronRight" />
+          <Icon fill={gray.dark1} glyph={`${caretIcon}Right`} />
         </AccordionIcon>
         {titleComp}
       </AccordionToggle>

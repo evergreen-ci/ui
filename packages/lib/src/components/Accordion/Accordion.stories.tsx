@@ -1,5 +1,5 @@
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import Accordion from ".";
+import Accordion, { AccordionCaretAlign, AccordionCaretIcon } from ".";
 
 export default {
   component: Accordion,
@@ -16,6 +16,20 @@ export default {
     useIndent: {
       control: "boolean",
       description: "Whether the accordion content should have an indent",
+    },
+    caretAlign: {
+      control: "radio",
+      options: [
+        AccordionCaretAlign.Start,
+        AccordionCaretAlign.Center,
+        AccordionCaretAlign.End,
+      ],
+      description: "Where the caret icon should be aligned",
+    },
+    caretIcon: {
+      control: "radio",
+      options: [AccordionCaretIcon.Caret, AccordionCaretIcon.Chevron],
+      description: "What glyph to use for the caret icon",
     },
   },
 } satisfies CustomMeta<typeof Accordion>;

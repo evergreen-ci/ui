@@ -1,5 +1,7 @@
 import Code from "@leafygreen-ui/code";
-import Accordion from "@evg-ui/lib/components/Accordion";
+import Accordion, {
+  AccordionCaretIcon,
+} from "@evg-ui/lib/components/Accordion";
 import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import { ShortenedRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
@@ -288,7 +290,11 @@ export const HostEventLog: React.FC<{
   logs: string;
   isCode: boolean;
 }> = ({ isCode, logs, title }) => (
-  <Accordion data-cy="host-event-log" title={title}>
+  <Accordion
+    caretIcon={AccordionCaretIcon.Caret}
+    data-cy="host-event-log"
+    title={title}
+  >
     <span data-cy="host-event-log-content">
       {isCode ? <Code language="shell">{logs}</Code> : logs}
     </span>
