@@ -147,8 +147,6 @@ export const getDateCopy = (
   return format(new Date(time), finalDateFormat);
 };
 
-// copyToClipboard is now imported from @evg-ui/lib/utils/string
-
 /**
  * `sortFunctionString` is a helper function for sorting an array of objects by a string key
  * @param a - the first object to compare
