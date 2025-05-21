@@ -12,7 +12,6 @@ import { TaskQuery } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
 import { queryString } from "utils";
-import { isFailedTaskStatus } from "utils/statuses";
 import { BuildBaron } from "./taskTabs/buildBaron";
 import { useBuildBaronVariables } from "./taskTabs/buildBaronAndAnnotations";
 import { ExecutionTasksTable } from "./taskTabs/ExecutionTasksTable";
@@ -183,12 +182,8 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     defaultTab = activeTabs.indexOf(urlTab);
   } else if (isDisplayTask) {
     defaultTab = activeTabs.indexOf(TaskTab.ExecutionTasks);
-  } else if (
-    isFailedTaskStatus(displayStatus) &&
-    failedTestCount === 0 &&
-    totalTestCount > 0
-  ) {
-    defaultTab = activeTabs.indexOf(TaskTab.Logs);
+  } else if (failedTestCount > 0) {
+    defaultTab = activeTabs.indexOf(TaskTab.Tests);
   } else if (totalTestCount > 0) {
     defaultTab = activeTabs.indexOf(TaskTab.Tests);
   }
