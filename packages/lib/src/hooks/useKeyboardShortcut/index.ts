@@ -16,6 +16,12 @@ export type UseKeyboardShortcutOptions = {
 
 const INPUT_ELEMENTS = ["INPUT", "TEXTAREA", "SELECT", "BUTTON"];
 
+/**
+ * `useKeyboardShortcut` is a hook that executes a callback when a specific keyboard shortcut is pressed.
+ * @param keys - the shortcut keys configuration (modifier keys and character key)
+ * @param cb - callback to execute when the shortcut is pressed
+ * @param options - configuration options for the shortcut behavior
+ */
 export const useKeyboardShortcut = (
   keys: ShortcutKeys,
   cb: () => void,
