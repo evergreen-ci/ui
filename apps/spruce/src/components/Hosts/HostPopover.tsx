@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Popover from "@leafygreen-ui/popover";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { PopoverContainer } from "components/styles/Popover";
-import { useOnClickOutside } from "hooks";
 
 interface Props {
   buttonText: string;
