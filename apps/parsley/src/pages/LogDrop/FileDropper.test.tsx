@@ -1,9 +1,8 @@
-import { act, waitFor } from "@testing-library/react";
 import * as useDropzoneModule from "react-dropzone";
 import { MemoryRouter } from "react-router-dom";
 import { MockedFunction } from "vitest";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
-import { render, screen } from "@evg-ui/lib/test_utils";
+import { act, render, screen, waitFor } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";

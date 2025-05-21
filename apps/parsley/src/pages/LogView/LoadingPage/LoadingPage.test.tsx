@@ -1,7 +1,6 @@
-import { waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
-import { render } from "@evg-ui/lib/test_utils";
+import { render, waitFor } from "@evg-ui/lib/test_utils";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { slugs } from "constants/routes";
