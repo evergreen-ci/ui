@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
@@ -75,7 +75,6 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   files,
   taskName,
 }) => {
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const taskAnalytics = useTaskAnalytics();
 
   const memoizedColumns = useMemo(
@@ -84,7 +83,6 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   );
 
   const table = useLeafyGreenTable<GroupedFilesFile>({
-    containerRef: tableContainerRef,
     data: files,
     columns: memoizedColumns,
     defaultColumn: {

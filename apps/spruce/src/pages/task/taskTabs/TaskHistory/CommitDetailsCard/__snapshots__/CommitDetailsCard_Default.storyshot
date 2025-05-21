@@ -1,6 +1,7 @@
 <div>
   <div
-    class="css-1slhllm-CommitCard e1a625uv4"
+    class="css-1ffesh7-CommitCard e1a625uv4"
+    data-cy="commit-details-card"
   >
     <div
       class="css-12rnwxt-TopLabel e1a625uv3"
@@ -47,6 +48,7 @@
       <button
         aria-disabled="false"
         class="lg-ui-button-0000 leafygreen-ui-168frnw"
+        data-cy="restart-button"
         data-lgid="lg-button"
         type="button"
       >
@@ -83,7 +85,9 @@
         Evergreen Admin
          - 
       </b>
-      <span>
+      <span
+        class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+      >
         <a
           class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
           data-cy="jira-link"

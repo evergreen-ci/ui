@@ -42,6 +42,7 @@ const defaultFormState = {
         useVpc: false,
         subnetPrefix: "",
       },
+      doNotAssignPublicIPv4Address: true,
     },
   ],
   ec2OnDemandProviderSettings: [
@@ -61,6 +62,7 @@ const defaultFormState = {
         useVpc: false,
         subnetPrefix: "",
       },
+      doNotAssignPublicIPv4Address: true,
     },
   ],
 };
@@ -77,6 +79,7 @@ describe("provider tab", () => {
           merge_user_data: false,
           security_group_ids: ["1"],
           hosts: [{ name: "localhost-1" }, { name: "localhost-2" }],
+          do_not_assign_public_ipv4_address: true,
         },
       ],
     };
@@ -135,6 +138,7 @@ describe("provider tab", () => {
           user_data: "",
           merge_user_data: false,
           security_group_ids: ["1"],
+          do_not_assign_public_ipv4_address: true,
         },
       ],
     };
@@ -216,6 +220,7 @@ describe("provider tab", () => {
           user_data: "",
           merge_user_data_parts: false,
           security_group_ids: ["1"],
+          do_not_assign_public_ipv4_address: true,
         },
       ],
     };
@@ -227,6 +232,7 @@ describe("provider tab", () => {
       },
       ec2FleetProviderSettings: [
         {
+          doNotAssignPublicIPv4Address: true,
           region: "us-east-1",
           displayTitle: "us-east-1",
           amiId: "ami-east",
@@ -263,6 +269,7 @@ describe("provider tab", () => {
       ],
       ec2OnDemandProviderSettings: [
         {
+          doNotAssignPublicIPv4Address: true,
           region: "us-east-1",
           displayTitle: "us-east-1",
           amiId: "ami-east",
@@ -302,6 +309,7 @@ describe("provider tab", () => {
       containerPool: "",
       providerSettingsList: [
         {
+          do_not_assign_public_ipv4_address: true,
           region: "us-east-1",
           ami: "ami-east",
           instance_type: "m5.xlarge",
@@ -350,6 +358,7 @@ describe("provider tab", () => {
       containerPool: "",
       providerSettingsList: [
         {
+          do_not_assign_public_ipv4_address: true,
           region: "us-east-1",
           ami: "ami-east",
           instance_type: "m5.xlarge",
@@ -378,6 +387,7 @@ describe("provider tab", () => {
       },
       ec2FleetProviderSettings: [
         {
+          doNotAssignPublicIPv4Address: true,
           region: "us-east-1",
           displayTitle: "us-east-1",
           amiId: "ami-east",
@@ -414,6 +424,7 @@ describe("provider tab", () => {
       ],
       ec2OnDemandProviderSettings: [
         {
+          doNotAssignPublicIPv4Address: true,
           region: "us-east-1",
           displayTitle: "us-east-1",
           amiId: "ami-east",
@@ -453,6 +464,7 @@ describe("provider tab", () => {
       containerPool: "",
       providerSettingsList: [
         {
+          do_not_assign_public_ipv4_address: true,
           region: "us-east-1",
           ami: "ami-east",
           instance_type: "m5.xlarge",

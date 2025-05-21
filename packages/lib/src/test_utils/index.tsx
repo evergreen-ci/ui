@@ -7,6 +7,7 @@ import {
   screen,
   waitFor,
   within,
+  waitForElementToBeRemoved,
   type RenderOptions,
   type RenderResult,
 } from "@testing-library/react";
@@ -148,6 +149,7 @@ export {
   customScreen as screen,
   userEvent,
   waitFor,
+  waitForElementToBeRemoved,
   customWithin as within,
   stubGetClientRects,
 };

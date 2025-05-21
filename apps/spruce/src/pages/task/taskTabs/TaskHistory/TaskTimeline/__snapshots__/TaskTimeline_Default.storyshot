@@ -4,7 +4,7 @@
   >
     <button
       aria-disabled="true"
-      aria-label="Previous Page"
+      aria-label="Previous page"
       class="leafygreen-ui-1ykpe4g"
       tabindex="0"
     >
@@ -32,10 +32,54 @@
     </button>
     <div
       class="css-1inrmsu-Timeline ezsgi5w1"
-    />
+      data-cy="task-timeline"
+    >
+      <div
+        class="ezsgi5w0 css-11rp5yh-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+      />
+      <div
+        class="ezsgi5w0 css-qjaf42-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+      />
+      <div
+        class="css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        data-cy="collapsed-box"
+      >
+        1
+      </div>
+      <div
+        class="ezsgi5w0 css-1dyoxl7-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+      />
+      <div
+        class="css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        data-cy="collapsed-box"
+      >
+        1
+      </div>
+      <div
+        class="ezsgi5w0 css-1fy6cmy-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+      />
+      <div
+        class="css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        data-cy="collapsed-box"
+      >
+        3
+      </div>
+      <div
+        class="ezsgi5w0 css-rbkdys-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+      />
+      <div
+        class="ezsgi5w0 css-12mk7h0-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+        data-cy="timeline-box"
+      />
+    </div>
     <button
       aria-disabled="true"
-      aria-label="Next Page"
+      aria-label="Next page"
       class="leafygreen-ui-1ykpe4g"
       tabindex="0"
     >

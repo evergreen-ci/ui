@@ -7,23 +7,39 @@ export default {
   component: TaskTimeline,
   args: {
     shouldCollapse: true,
+    loading: false,
   },
   argTypes: {
     shouldCollapse: {
+      control: { type: "boolean" },
+    },
+    loading: {
       control: { type: "boolean" },
     },
   },
 } satisfies CustomMeta<TemplateProps>;
 
 export const Default: CustomStoryObj<TemplateProps> = {
-  render: (args) => <Template shouldCollapse={args.shouldCollapse} />,
+  render: (args) => <Template {...args} />,
 };
 
 type TemplateProps = {
   shouldCollapse: boolean;
+  loading: boolean;
 };
 
 const Template = (args: TemplateProps) => {
-  const groupedTasks = groupTasks(tasks, args.shouldCollapse);
-  return <TaskTimeline groupedTasks={groupedTasks} loading={false} />;
+  const groupedTasks = groupTasks(tasks, args.shouldCollapse, null);
+  return (
+    <TaskTimeline
+      loading={false}
+      pagination={{
+        mostRecentTaskOrder: 10,
+        oldestTaskOrder: 1,
+        nextPageCursor: null,
+        prevPageCursor: null,
+      }}
+      tasks={groupedTasks}
+    />
+  );
 };

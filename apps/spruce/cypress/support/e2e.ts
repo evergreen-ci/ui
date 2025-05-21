@@ -16,7 +16,6 @@
 // Import commands.js using ES2015 syntax:
 import "./commands";
 import {
-  CY_DISABLE_COMMITS_WELCOME_MODAL,
   SLACK_NOTIFICATION_BANNER,
   SEEN_WATERFALL_ONBOARDING_TUTORIAL,
 } from "constants/cookies";
@@ -103,13 +102,6 @@ declare global {
        */
       logout(): void;
       /**
-       * Custom command to open an antd table filter associated with the
-       * the supplied column number
-       * @param columnNumber - The order in which the target column exists in the table starting at 1
-       * @example cy.toggleTableFilter(1)
-       */
-      toggleTableFilter(columnNumber: number): void;
-      /**
        * Custom command to validate a toast was rendered
        * @example cy.validateToast("success", "This succeeded")
        * @example cy.validateToast("error", "This failed")
@@ -166,7 +158,6 @@ const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
   beforeEach(() => {
     cy.login();
     cy.setCookie(bannerCookie, "true");
-    cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
     cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
     cy.setCookie(SEEN_WATERFALL_ONBOARDING_TUTORIAL, "true");
     mutationDispatched = false;

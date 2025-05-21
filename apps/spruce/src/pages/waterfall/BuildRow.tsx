@@ -11,7 +11,7 @@ import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
-import { SQUARE_SIZE, SQUARE_BORDER, TaskBox } from "components/TaskBox";
+import { SQUARE_WITH_BORDER, TaskBox } from "components/TaskBox";
 import VisibilityContainer from "components/VisibilityContainer";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { useDimensions } from "hooks/useDimensions";
@@ -218,7 +218,6 @@ const BuildGrid: React.FC<{
 
 const padding = spacing[200];
 const border = 1;
-const squareWithBorder = SQUARE_SIZE + SQUARE_BORDER * 2;
 const containerPaddingAndBorder = padding * 2 + border * 2;
 
 const calculateBVContainerHeight = ({
@@ -229,9 +228,9 @@ const calculateBVContainerHeight = ({
   columnWidth: number;
 }) => {
   const numTasks = Math.max(...builds.map((b) => b.tasks.length));
-  const numSquaresInRow = Math.floor(columnWidth / squareWithBorder);
+  const numSquaresInRow = Math.floor(columnWidth / SQUARE_WITH_BORDER);
   const numRows = Math.ceil(numTasks / numSquaresInRow);
-  return numRows * squareWithBorder + containerPaddingAndBorder;
+  return numRows * SQUARE_WITH_BORDER + containerPaddingAndBorder;
 };
 
 const buildGroupCss = css`

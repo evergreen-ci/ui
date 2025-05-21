@@ -28,7 +28,7 @@ const createTagAndPush = (version: ReleaseVersion) => {
   console.log(
     green(
       `Track deploy progress at ${underline(
-        "https://spruce.mongodb.com/commits/evergreen-ui?requester=git_tag_request",
+        "https://spruce.mongodb.com/project/evergreen-ui/waterfall?requesters=git_tag_request",
       )}`,
     ),
   );

@@ -5,7 +5,7 @@ metadata:
   name: evergreen-ui
   description: UI for Evergreen
   annotations:
-    evergreen/project-id: ui
+    evergreen/project-id: 65f08ccac9ec449f57b4015d
 spec:
   type: website
   owner: evergreen-ui

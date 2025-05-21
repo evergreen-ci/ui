@@ -1,8 +1,7 @@
-import { useRef } from "react";
 import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { BaseTable } from "components/Table/BaseTable";
 import { getTaskRoute } from "constants/routes";
@@ -15,16 +14,20 @@ interface FailedTestGroupTableProps {
 const FailedTestGroupTable: React.FC<FailedTestGroupTableProps> = ({
   tasks,
 }) => {
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<TaskBuildVariantField>({
     columns,
-    containerRef: tableContainerRef,
     data: tasks,
     defaultColumn: {
       enableColumnFilter: false,
     },
   });
-  return <BaseTable data-cy="failed-test-grouped-table" table={table} />;
+  return (
+    <BaseTable
+      data-cy="failed-test-grouped-table"
+      shouldAlternateRowColor
+      table={table}
+    />
+  );
 };
 
 const columns: LGColumnDef<TaskBuildVariantField>[] = [
@@ -35,7 +38,7 @@ const columns: LGColumnDef<TaskBuildVariantField>[] = [
       <StyledRouterLink
         to={getTaskRoute(row.original.id, { tab: TaskTab.Tests })}
       >
-        {getValue() as string}
+        <WordBreak>{getValue() as string}</WordBreak>
       </StyledRouterLink>
     ),
     enableSorting: true,
@@ -48,12 +51,14 @@ const columns: LGColumnDef<TaskBuildVariantField>[] = [
   {
     header: "Failure Type",
     accessorKey: "displayStatus",
+    meta: { width: "15%" },
     cell: ({ getValue }) => (
       <TaskStatusBadge status={getValue() as TaskStatus} />
     ),
   },
   {
     header: "Logs",
+    meta: { width: "10%" },
     cell: ({ row }) => (
       <Button
         data-cy="failed-test-group-parsley-btn"

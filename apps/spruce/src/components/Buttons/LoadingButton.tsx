@@ -18,3 +18,5 @@ export const LoadingButton: ExtendableBox<
     {...rest}
   />
 ));
+
+LoadingButton.displayName = "LoadingButton";

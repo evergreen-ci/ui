@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { StyledLink } from "@evg-ui/lib/components/styles";
@@ -14,11 +14,8 @@ interface ParametersProps {
 export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
-
   const table = useLeafyGreenTable<Parameter>({
     columns,
-    containerRef: tableContainerRef,
     data: parameters,
     enableColumnFilters: false,
   });

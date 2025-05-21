@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import {
-  SegmentedControl,
-  SegmentedControlOption,
-} from "@leafygreen-ui/segmented-control";
-import { H3 } from "@leafygreen-ui/typography";
+import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
+import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { toEscapedRegex } from "@evg-ui/lib/utils/string";
+import { SQUARE_WITH_BORDER } from "components/TaskBox";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
   TaskHistoryDirection,
   TaskHistoryQuery,
@@ -15,24 +15,44 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { TASK_HISTORY } from "gql/queries";
-import { useQueryParam } from "hooks/useQueryParam";
+import { useSpruceConfig, useUserTimeZone } from "hooks";
+import { useDimensions } from "hooks/useDimensions";
+import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
+import { jiraLinkify } from "utils/string";
+import { validateRegexp } from "utils/validators";
+import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
+import { Controls } from "./Controls";
 import TaskTimeline from "./TaskTimeline";
+import { TestFailureSearchInput } from "./TestFailureSearchInput";
 import { TaskHistoryOptions, ViewOptions } from "./types";
-import { groupTasks } from "./utils";
+import {
+  getNextPageCursor,
+  getPrevPageCursor,
+  getUTCEndOfDay,
+  groupTasks,
+} from "./utils";
 
 interface TaskHistoryProps {
   task: NonNullable<TaskQuery["task"]>;
 }
 
 const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const { width: timelineWidth } = useDimensions<HTMLDivElement>(timelineRef);
+
   const dispatchToast = useToastContext();
+
+  const spruceConfig = useSpruceConfig();
+  const jiraHost = spruceConfig?.jira?.host ?? "";
 
   const [viewOption, setViewOption] = useState(ViewOptions.Collapsed);
   const shouldCollapse = viewOption === ViewOptions.Collapsed;
 
   const { buildVariant, displayName: taskName, project } = task;
   const { identifier: projectIdentifier = "" } = project ?? {};
+
+  const [queryParams, setQueryParams] = useQueryParams();
 
   const [cursorId] = useQueryParam<string>(
     TaskHistoryOptions.CursorID,
@@ -46,6 +66,10 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
     TaskHistoryOptions.IncludeCursor,
     true,
   );
+
+  const [date] = useQueryParam<string>(TaskHistoryOptions.Date, "");
+  const timezone = useUserTimeZone();
+  const utcDate = getUTCEndOfDay(date, timezone);
 
   const { data, loading } = useQuery<
     TaskHistoryQuery,
@@ -62,57 +86,120 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           includeCursor,
         },
         limit: ACTIVATED_TASKS_LIMIT,
+        date: utcDate,
       },
     },
+    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (err) => {
       dispatchToast.error(`Unable to get task history: ${err}`);
     },
   });
 
   const { taskHistory } = data ?? {};
-  const { tasks = [] } = taskHistory ?? {};
+  const { pagination, tasks = [] } = taskHistory ?? {};
+  const { mostRecentTaskOrder, oldestTaskOrder } = pagination ?? {};
 
-  const groupedTasks = groupTasks(tasks, shouldCollapse);
+  const [failingTest] = useQueryParam<string>(
+    TaskHistoryOptions.FailingTest,
+    "",
+  );
+  const testFailureSearchTerm = failingTest
+    ? new RegExp(
+        validateRegexp(failingTest) ? failingTest : toEscapedRegex(failingTest),
+        "i",
+      )
+    : null;
+
+  const groupedTasks = groupTasks(tasks, shouldCollapse, testFailureSearchTerm);
+  const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER);
+  const visibleTasks =
+    direction === TaskHistoryDirection.After
+      ? groupedTasks.slice(-numVisibleTasks)
+      : groupedTasks.slice(0, numVisibleTasks);
+
+  const prevPageCursor = getPrevPageCursor(visibleTasks[0]);
+  const nextPageCursor = getNextPageCursor(
+    visibleTasks[visibleTasks.length - 1],
+  );
+
+  const numMatchingResults = useMemo(
+    () => visibleTasks.reduce((acc, t) => (t.isMatching ? acc + 1 : acc), 0),
+    [visibleTasks],
+  );
+
+  // This hook redirects from any page with with the AFTER parameter to the equivalent page using the BEFORE parameter.
+  // The reason this is done is because we always want the visible tasks in the timeline to extend or shrink from the
+  // right side when a user adjusts their screen size.
+  // There may be a way to handle this more elegantly in DEVPROD-16186.
+  useEffect(() => {
+    if (direction === TaskHistoryDirection.After && prevPageCursor) {
+      setQueryParams({
+        ...queryParams,
+        [TaskHistoryOptions.Direction]: TaskHistoryDirection.Before,
+        [TaskHistoryOptions.CursorID]: prevPageCursor.id,
+        [TaskHistoryOptions.IncludeCursor]: true,
+      });
+    }
+  }, [direction, setQueryParams, prevPageCursor, queryParams]);
 
   return (
     <Container>
-      <Header>
-        <H3>Task History Overview</H3>
-        <SegmentedControl
-          onChange={(t) => setViewOption(t as ViewOptions)}
-          size="xsmall"
-          value={viewOption}
-        >
-          <SegmentedControlOption
-            data-cy="collapsed-option"
-            value={ViewOptions.Collapsed}
-          >
-            Collapsed
-          </SegmentedControlOption>
-          <SegmentedControlOption
-            data-cy="expanded-option"
-            value={ViewOptions.Expanded}
-          >
-            Expanded
-          </SegmentedControlOption>
-        </SegmentedControl>
-      </Header>
-      <TaskTimeline groupedTasks={groupedTasks} loading={loading} />
+      <Banner variant={BannerVariant.Info}>
+        {jiraLinkify(
+          "This page is currently under construction. Performance and functionality bugs may be present. See DEVPROD-6584 for project details.",
+          jiraHost,
+        )}
+      </Banner>
+      <StickyHeader>
+        <Controls
+          date={date}
+          setViewOption={setViewOption}
+          viewOption={viewOption}
+        />
+        <TaskTimeline
+          ref={timelineRef}
+          loading={loading}
+          pagination={{
+            mostRecentTaskOrder,
+            oldestTaskOrder,
+            nextPageCursor,
+            prevPageCursor,
+          }}
+          tasks={visibleTasks}
+        />
+        <TestFailureSearchInput numMatchingResults={numMatchingResults} />
+      </StickyHeader>
+      <ListContent>
+        <Subtitle>Commit Details</Subtitle>
+        <CommitDetailsList
+          currentTask={task}
+          loading={loading}
+          tasks={visibleTasks}
+        />
+      </ListContent>
     </Container>
   );
 };
 
 export default TaskHistory;
 
-const Container = styled.div`
+const Container = styled.div``;
+
+const StickyHeader = styled.div`
+  position: sticky;
+  top: -${size.m};
+  z-index: 1;
+
   display: flex;
   flex-direction: column;
-  gap: ${size.s};
+  gap: ${size.xs};
+  background: white;
+  padding: ${size.xs} 0;
 `;
 
-const Header = styled.div`
+const ListContent = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: ${size.xs};
+  margin-top: ${size.xxs};
 `;

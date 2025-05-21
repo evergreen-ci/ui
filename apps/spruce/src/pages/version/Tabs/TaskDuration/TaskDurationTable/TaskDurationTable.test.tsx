@@ -30,13 +30,10 @@ describe("TaskDurationTable", () => {
         <TaskDurationTable loading={false} numLoadingRows={10} tasks={tasks} />
       </MockedProvider>,
     );
-    expect(
-      screen.queryByText("check_codegen_execution_task"),
-    ).not.toBeVisible();
+    expect(screen.queryByText("check_codegen_execution_task")).toBeNull();
     const expandRowButton = within(
-      screen.queryAllByDataCy("task-duration-table-row")[0],
-    ).queryByRole("button");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
+      screen.getAllByDataCy("task-duration-table-row")[0],
+    ).getByRole("button");
     await user.click(expandRowButton);
     expect(screen.queryByText("check_codegen_execution_task")).toBeVisible();
   });
@@ -74,6 +71,7 @@ const tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"] = [
     displayStatus: "success",
     displayName: "check_codegen",
     buildVariantDisplayName: "Ubuntu 16.04",
+    buildVariant: "ubuntu1604",
     timeTaken: 6000,
     subRows: [
       {
@@ -93,6 +91,7 @@ const tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"] = [
     displayStatus: "success",
     displayName: "compile",
     buildVariantDisplayName: "Ubuntu 16.04",
+    buildVariant: "ubuntu1604",
     subRows: null,
     timeTaken: 10000,
     __typename: "Task",

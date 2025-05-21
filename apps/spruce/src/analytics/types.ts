@@ -17,6 +17,7 @@ export type AnalyticsIdentifier =
   | "Shortcut"
   | "SpawnPages"
   | "Task"
+  | "TaskHistory"
   | "TaskQueue"
   | "UserPatches"
   | "Version"

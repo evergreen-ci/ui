@@ -10,10 +10,10 @@ import {
   Body,
   Disclaimer,
 } from "@leafygreen-ui/typography";
+import Accordion from "@evg-ui/lib/components/Accordion";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size, fontSize } from "@evg-ui/lib/constants/tokens";
 import { usePreferencesAnalytics } from "analytics";
-import { Accordion } from "components/Accordion";
 import { SettingsCard } from "components/SettingsCard";
 import { cliDocumentationUrl } from "constants/externalResources";
 import {

@@ -142,18 +142,11 @@ export const Task = () => {
               }}
             />
           )}
-          <Metadata
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            error={error}
-            loading={loading}
-            task={task}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            taskId={taskId}
-          />
+          <Metadata error={error} loading={loading} task={task} />
         </PageSider>
-        <PageContent>
+        <StyledPageContent>
           {task && <TaskTabs isDisplayTask={isDisplayTask} task={task} />}
-        </PageContent>
+        </StyledPageContent>
       </PageLayout>
     </PageWrapper>
   );
@@ -163,4 +156,9 @@ const StyledBadgeWrapper = styled.div`
   > :nth-of-type(2) {
     margin-left: 10px;
   }
+`;
+
+const StyledPageContent = styled(PageContent)`
+  // Unset overflow so that sticky header in Task History tab can work properly.
+  overflow: unset;
 `;

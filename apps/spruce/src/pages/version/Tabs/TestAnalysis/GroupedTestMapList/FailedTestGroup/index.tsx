@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
+import Accordion, {
+  AccordionCaretAlign,
+} from "@evg-ui/lib/components/Accordion";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { Accordion } from "components/Accordion";
 import { TaskBuildVariantField } from "../../types";
 import FailedTestGroupTable from "./FailedTestGroupTable";
 
@@ -22,8 +24,7 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
   );
   return (
     <Accordion
-      caretAlignSelf="start"
-      shouldRenderChildIfHidden={false}
+      caretAlign={AccordionCaretAlign.Start}
       title={
         <TitleContainer>
           <Title>{testName}</Title>
@@ -71,8 +72,9 @@ const TitleContainer = styled.div`
   align-items: flex-start;
   width: 100%;
 `;
+
 const StyledCard = styled(Card)`
-  margin-top: ${size.xs};
+  margin: ${size.xs} 0;
 `;
 
 const Title = styled.div`

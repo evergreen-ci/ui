@@ -1,4 +1,3 @@
-import { ProjectHealthView } from "gql/generated/types";
 import { ProjectType } from "../utils";
 
 type ParsleyFilter = {
@@ -9,9 +8,6 @@ type ParsleyFilter = {
 };
 
 export interface ViewsFormState {
-  view?: {
-    projectHealthView: ProjectHealthView;
-  };
   parsleyFilters: ParsleyFilter[];
   repoData?: {
     parsleyFilters: ParsleyFilter[];

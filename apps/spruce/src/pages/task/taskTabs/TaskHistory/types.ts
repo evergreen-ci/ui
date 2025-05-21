@@ -5,10 +5,17 @@ export type TaskHistoryTask = Unpacked<
   TaskHistoryQuery["taskHistory"]["tasks"]
 >;
 
-export type GroupedTask = {
-  inactiveTasks: TaskHistoryTask[] | null;
-  task: TaskHistoryTask | null;
-};
+export type GroupedTask =
+  | {
+      inactiveTasks: TaskHistoryTask[];
+      task: null;
+      isMatching: false;
+    }
+  | {
+      inactiveTasks: null;
+      task: TaskHistoryTask;
+      isMatching: boolean;
+    };
 
 export enum ViewOptions {
   Collapsed = "collapsed",
@@ -21,4 +28,6 @@ export enum TaskHistoryOptions {
   CursorID = "cursor_id",
   IncludeCursor = "include_cursor",
   Direction = "direction",
+  FailingTest = "failing_test",
+  Date = "date",
 }
