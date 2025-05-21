@@ -3,14 +3,10 @@ import { fontFamilies, BaseFontSize } from "@leafygreen-ui/tokens";
 
 export const resetStyles = css`
   /* Reset styles, usage recommended by LeafyGreen. */
-  html {
-    box-sizing: border-box;
-  }
-
   *,
   *:before,
   *:after {
-    box-sizing: inherit;
+    box-sizing: border-box;
   }
 `;
 

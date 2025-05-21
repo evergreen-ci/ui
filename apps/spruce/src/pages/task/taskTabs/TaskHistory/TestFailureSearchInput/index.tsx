@@ -74,6 +74,10 @@ const InputContainer = styled.div`
   flex-direction: column;
   gap: ${size.xxs};
 
+  * {
+    box-sizing: content-box;
+  }
+
   /* Account for chrome blue focus outline */
   margin: 0 ${size.xxs};
 `;
