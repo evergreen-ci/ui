@@ -6,6 +6,9 @@ import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
+import Accordion, {
+  AccordionCaretAlign,
+} from "@evg-ui/lib/components/Accordion";
 import Icon from "@evg-ui/lib/components/Icon";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -25,6 +28,7 @@ import { useQueryParam } from "hooks/useQueryParam";
 import { isProduction } from "utils/environmentVariables";
 import { jiraLinkify, shortenGithash } from "utils/string";
 import { TaskHistoryTask } from "../types";
+import FailedTestsTable from "./FailedTestsTable";
 
 const { gray } = palette;
 
@@ -50,6 +54,7 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     id: taskId,
     order,
     revision,
+    tests,
     versionMetadata,
   } = task;
   const { author, message } = versionMetadata;
@@ -103,6 +108,13 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     refetchQueries: [isCurrentTask ? "TaskHistory" : ""],
   });
 
+  const title = (
+    <BottomLabel>
+      <AuthorLabel>{author} - </AuthorLabel>
+      <WordBreak>{jiraLinkify(message, jiraHost)}</WordBreak>
+    </BottomLabel>
+  );
+
   return (
     <CommitCard
       key={taskId}
@@ -138,10 +150,13 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
         {/* Use this to debug issues with pagination. */}
         {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}
       </TopLabel>
-      <BottomLabel>
-        <AuthorLabel>{author} - </AuthorLabel>
-        <WordBreak>{jiraLinkify(message, jiraHost)}</WordBreak>
-      </BottomLabel>
+      {tests.testResults.length > 0 ? (
+        <Accordion caretAlign={AccordionCaretAlign.Start} title={title}>
+          <FailedTestsTable tests={tests} />
+        </Accordion>
+      ) : (
+        title
+      )}
     </CommitCard>
   );
 };

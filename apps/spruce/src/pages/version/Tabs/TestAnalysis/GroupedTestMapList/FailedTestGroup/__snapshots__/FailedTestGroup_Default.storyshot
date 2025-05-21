@@ -7,7 +7,7 @@
     >
       <button
         aria-disabled="false"
-        aria-labelledby="Accordion icon"
+        aria-label="Accordion icon"
         class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
         style="align-self: start;"
         tabindex="0"
@@ -58,7 +58,7 @@
       data-cy="accordion-collapse-container"
     >
       <div
-        class="css-ma2fau-ContentsContainer e1omze811"
+        class="css-1hezny5-ContentsContainer e1omze811"
       >
         <div
           class="css-12mjh8o-StyledCard eea2d851 leafygreen-ui-1ecxdul"
