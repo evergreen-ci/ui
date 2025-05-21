@@ -50,7 +50,7 @@ export enum ProjectSettingsTabRoutes {
 
 export enum AdminSettingsTabRoutes {
   Announcements = "announcements",
-  FeauteFlags = "feature-flags",
+  FeatureFlags = "feature-flags",
   Runners = "runners",
   Web = "web",
   Authentication = "authentication",

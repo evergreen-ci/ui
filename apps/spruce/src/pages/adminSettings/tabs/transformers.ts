@@ -17,9 +17,8 @@ import * as web from "./WebTab/transformers";
 export const formToGqlMap: {
   [T in WritableAdminSettingsType]: FormToGqlFunction<T>;
 } = {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [AdminSettingsTabRoutes.Announcements]: announcements.formToGql,
-  [AdminSettingsTabRoutes.FeauteFlags]: featureFlags.formToGql,
+  [AdminSettingsTabRoutes.FeatureFlags]: featureFlags.formToGql,
   [AdminSettingsTabRoutes.Runners]: runners.formToGql,
   [AdminSettingsTabRoutes.Web]: web.formToGql,
   [AdminSettingsTabRoutes.Authentication]: authentication.formToGql,

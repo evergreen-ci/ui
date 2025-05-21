@@ -22,7 +22,7 @@ export type WritableAdminSettingsType =
 export type FormStateMap = {
   [T in WritableAdminSettingsType]: {
     [AdminSettingsTabRoutes.Announcements]: AnnouncementsFormState;
-    [AdminSettingsTabRoutes.FeauteFlags]: FeatureFlagsFormState;
+    [AdminSettingsTabRoutes.FeatureFlags]: FeatureFlagsFormState;
     [AdminSettingsTabRoutes.Runners]: RunnersFormState;
     [AdminSettingsTabRoutes.Web]: WebFormState;
     [AdminSettingsTabRoutes.Authentication]: AuthenticationFormState;

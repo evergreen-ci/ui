@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
+
 import { Link } from "react-router-dom";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
@@ -30,14 +31,16 @@ const AdminSettings: React.FC = () => {
             glyph={<Icon glyph="Settings" />}
             header="Admin Settings"
           >
-            {}
-            <SideNavItem
-              as={Link}
-              data-cy="navitem-admin-general"
-              to={getAdminSettingsRoute(AdminSettingsTabRoutes.Announcements)}
-            >
-              Announcements
-            </SideNavItem>
+            <SideNavGroup header="Announcements">
+              {}
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-general"
+                to={getAdminSettingsRoute(AdminSettingsTabRoutes.Announcements)}
+              >
+                Announcements
+              </SideNavItem>
+            </SideNavGroup>
           </SideNavGroup>
 
           <SideNavGroup glyph={null} header="Restart Tasks">
