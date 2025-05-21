@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
+import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import { context, Cell, types, hooks } from "components/HistoryTable";
 import BaseRow from "components/HistoryTable/HistoryTableRow/BaseRow";
 import { array } from "utils";
@@ -15,7 +15,7 @@ interface Props {
   data: types.CommitRowType;
 }
 const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
-  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
+  const { sendEvent } = useProjectHistoryAnalytics({ page: "Variant history" });
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { visibleColumns } = useHistoryTable();
 
@@ -99,7 +99,7 @@ const generateColumns = (
   data: types.CommitRow,
   visibleColumns: string[],
   getTaskMetadata: ReturnType<typeof useTestResults>["getTaskMetadata"],
-  sendEvent: ReturnType<typeof useProjectHealthAnalytics>["sendEvent"],
+  sendEvent: ReturnType<typeof useProjectHistoryAnalytics>["sendEvent"],
 ) => {
   const { buildVariants } = data.commit;
   return visibleColumns.map((c) => {

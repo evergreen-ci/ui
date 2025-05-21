@@ -3,61 +3,32 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import Popover, { Align, Justify } from "@leafygreen-ui/popover";
 import { Body, Overline } from "@leafygreen-ui/typography";
-import { useMatch } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { PopoverContainer } from "components/styles/Popover";
-import {
-  mainlineCommitsGroupedStatuses,
-  waterfallGroupedStatuses,
-} from "components/TaskStatusIcon";
-import { routes } from "constants/routes";
-import { useOnClickOutside } from "hooks";
+import { waterfallGroupedStatuses } from "components/TaskStatusIcon";
 import { walkthroughSteps, waterfallGuideId } from "pages/waterfall/constants";
 
-type LegendContentProps = {
-  isWaterfallPage: boolean;
-};
+export const LegendContent: React.FC = () => (
+  <Container>
+    {waterfallGroupedStatuses.map(({ icon, statuses }) => (
+      <Row key={statuses.join()}>
+        <LegendIcon>{icon}</LegendIcon>
+        <LegendLabel>
+          {statuses.map((status) => (
+            <Body key={status}>{taskStatusToCopy[status as TaskStatus]}</Body>
+          ))}
+        </LegendLabel>
+      </Row>
+    ))}
+  </Container>
+);
 
-export const LegendContent: React.FC<LegendContentProps> = ({
-  isWaterfallPage,
-}) => {
-  const Container = isWaterfallPage
-    ? WaterfallContainer
-    : MainlineCommitsContainer;
-
-  const groupedStatuses = isWaterfallPage
-    ? waterfallGroupedStatuses
-    : mainlineCommitsGroupedStatuses;
-
-  return (
-    <Container>
-      {groupedStatuses.map(({ icon, statuses }) => (
-        <Row key={statuses.join()}>
-          <LegendIcon>{icon}</LegendIcon>
-          <LegendLabel>
-            {statuses.map((status) => (
-              <Body key={status}>{taskStatusToCopy[status as TaskStatus]}</Body>
-            ))}
-          </LegendLabel>
-        </Row>
-      ))}
-    </Container>
-  );
-};
-
-const MainlineCommitsContainer = styled.div`
-  width: 420px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: ${size.xs};
-`;
-
-const WaterfallContainer = styled.div`
+const Container = styled.div`
   width: 420px;
   height: 150px;
   display: flex;
@@ -81,11 +52,7 @@ const LegendLabel = styled.div``;
 const legendProps = { [waterfallGuideId]: walkthroughSteps[1].targetId };
 
 export const TaskStatusIconLegend: React.FC = () => {
-  const isWaterfallPage = !!useMatch(`${routes.waterfall}/*`);
-
-  const { sendEvent } = (
-    isWaterfallPage ? useWaterfallAnalytics : useProjectHealthAnalytics
-  )({ page: "Commit chart" });
+  const { sendEvent } = useWaterfallAnalytics();
 
   const [open, setOpen] = useState(false);
 
@@ -133,7 +100,7 @@ export const TaskStatusIconLegend: React.FC = () => {
               <Icon glyph="X" />
             </IconButton>
           </TitleContainer>
-          <LegendContent isWaterfallPage={isWaterfallPage} />
+          <LegendContent />
         </StyledPopoverContainer>
       </Popover>
     </div>

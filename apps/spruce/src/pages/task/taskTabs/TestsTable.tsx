@@ -135,11 +135,8 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
 
   const columns = useMemo(() => getColumnsTemplate({ task }), [task]);
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
-
   const table: LeafyGreenTable<TestResult> = useLeafyGreenTable<TestResult>({
     columns,
-    containerRef: tableContainerRef,
     data: testResults ?? [],
     defaultColumn: {
       enableColumnFilter: false,

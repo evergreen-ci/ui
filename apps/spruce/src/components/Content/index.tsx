@@ -36,7 +36,6 @@ export const Content: React.FC = () => (
   <Routes>
     <Route element={<Layout />}>
       <Route element={<Navigate to={routes.myPatches} />} path="/" />
-      <Route element={<Commits />} path={routes.commits} />
       <Route element={<Container />} path={routes.container} />
       <Route
         element={<WaterfallCommitsRedirect />}
@@ -92,6 +91,10 @@ export const Content: React.FC = () => (
       />
       <Route element={<VariantHistory />} path={routes.variantHistory} />
       <Route element={<VersionPage />} path={routes.version} />
+      <Route
+        element={<WaterfallCommitsRedirect />}
+        path={redirectRoutes.legacyCommits}
+      />
       <Route element={<Waterfall />} path={routes.waterfall} />
       <Route element={<PageDoesNotExist />} path="*" />
       {isDevelopmentBuild() && (

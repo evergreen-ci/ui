@@ -1,14 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
-import {
-  SegmentedControl,
-  SegmentedControlOption,
-} from "@leafygreen-ui/segmented-control";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
@@ -18,15 +15,23 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { TASK_HISTORY } from "gql/queries";
-import { useSpruceConfig } from "hooks";
+import { useSpruceConfig, useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { jiraLinkify } from "utils/string";
+import { validateRegexp } from "utils/validators";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
+import { Controls } from "./Controls";
 import TaskTimeline from "./TaskTimeline";
+import { TestFailureSearchInput } from "./TestFailureSearchInput";
 import { TaskHistoryOptions, ViewOptions } from "./types";
-import { getNextPageCursor, getPrevPageCursor, groupTasks } from "./utils";
+import {
+  getNextPageCursor,
+  getPrevPageCursor,
+  getUTCEndOfDay,
+  groupTasks,
+} from "./utils";
 
 interface TaskHistoryProps {
   task: NonNullable<TaskQuery["task"]>;
@@ -47,6 +52,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { buildVariant, displayName: taskName, project } = task;
   const { identifier: projectIdentifier = "" } = project ?? {};
 
+  const [queryParams, setQueryParams] = useQueryParams();
+
   const [cursorId] = useQueryParam<string>(
     TaskHistoryOptions.CursorID,
     task.id,
@@ -60,7 +67,9 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
     true,
   );
 
-  const [queryParams, setQueryParams] = useQueryParams();
+  const [date] = useQueryParam<string>(TaskHistoryOptions.Date, "");
+  const timezone = useUserTimeZone();
+  const utcDate = getUTCEndOfDay(date, timezone);
 
   const { data, loading } = useQuery<
     TaskHistoryQuery,
@@ -77,6 +86,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           includeCursor,
         },
         limit: ACTIVATED_TASKS_LIMIT,
+        date: utcDate,
       },
     },
     pollInterval: DEFAULT_POLL_INTERVAL,
@@ -89,9 +99,19 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { pagination, tasks = [] } = taskHistory ?? {};
   const { mostRecentTaskOrder, oldestTaskOrder } = pagination ?? {};
 
-  const groupedTasks = groupTasks(tasks, shouldCollapse);
-  const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER);
+  const [failingTest] = useQueryParam<string>(
+    TaskHistoryOptions.FailingTest,
+    "",
+  );
+  const testFailureSearchTerm = failingTest
+    ? new RegExp(
+        validateRegexp(failingTest) ? failingTest : toEscapedRegex(failingTest),
+        "i",
+      )
+    : null;
 
+  const groupedTasks = groupTasks(tasks, shouldCollapse, testFailureSearchTerm);
+  const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER);
   const visibleTasks =
     direction === TaskHistoryDirection.After
       ? groupedTasks.slice(-numVisibleTasks)
@@ -100,6 +120,11 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const prevPageCursor = getPrevPageCursor(visibleTasks[0]);
   const nextPageCursor = getNextPageCursor(
     visibleTasks[visibleTasks.length - 1],
+  );
+
+  const numMatchingResults = useMemo(
+    () => visibleTasks.reduce((acc, t) => (t.isMatching ? acc + 1 : acc), 0),
+    [visibleTasks],
   );
 
   // This hook redirects from any page with with the AFTER parameter to the equivalent page using the BEFORE parameter.
@@ -126,28 +151,11 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
         )}
       </Banner>
       <StickyHeader>
-        <ToggleContainer>
-          <Subtitle>Task History Overview</Subtitle>
-          <SegmentedControl
-            aria-controls="[data-cy='task-timeline']"
-            onChange={(t) => setViewOption(t as ViewOptions)}
-            size="xsmall"
-            value={viewOption}
-          >
-            <SegmentedControlOption
-              data-cy="collapsed-option"
-              value={ViewOptions.Collapsed}
-            >
-              Collapsed
-            </SegmentedControlOption>
-            <SegmentedControlOption
-              data-cy="expanded-option"
-              value={ViewOptions.Expanded}
-            >
-              Expanded
-            </SegmentedControlOption>
-          </SegmentedControl>
-        </ToggleContainer>
+        <Controls
+          date={date}
+          setViewOption={setViewOption}
+          viewOption={viewOption}
+        />
         <TaskTimeline
           ref={timelineRef}
           loading={loading}
@@ -159,6 +167,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           }}
           tasks={visibleTasks}
         />
+        <TestFailureSearchInput numMatchingResults={numMatchingResults} />
       </StickyHeader>
       <ListContent>
         <Subtitle>Commit Details</Subtitle>
@@ -193,11 +202,4 @@ const ListContent = styled.div`
   flex-direction: column;
   gap: ${size.xs};
   margin-top: ${size.xxs};
-`;
-
-const ToggleContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
 `;

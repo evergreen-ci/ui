@@ -29,7 +29,7 @@ type TemplateProps = {
 };
 
 const Template = (args: TemplateProps) => {
-  const groupedTasks = groupTasks(tasks, args.shouldCollapse);
+  const groupedTasks = groupTasks(tasks, args.shouldCollapse, null);
   return (
     <TaskTimeline
       loading={false}

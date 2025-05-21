@@ -357,7 +357,10 @@ describe("spruce form", () => {
             uiSchema={uiSchema}
           />,
         );
-        expect(screen.getByLabelText("Connecticut")).toBeDisabled();
+        expect(screen.getByLabelText("Connecticut")).toHaveAttribute(
+          "aria-disabled",
+          "true",
+        );
       });
 
       it("shows option descriptions", () => {

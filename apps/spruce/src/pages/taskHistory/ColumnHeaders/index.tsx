@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
+import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import { context, Cell, hooks } from "components/HistoryTable";
 import { taskHistoryMaxLength as maxLength } from "constants/history";
 import { getVariantHistoryRoute } from "constants/routes";
@@ -28,7 +28,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
   projectIdentifier,
   taskName,
 }) => {
-  const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
+  const { sendEvent } = useProjectHistoryAnalytics({ page: "Task history" });
   const dispatchToast = useToastContext();
 
   // Fetch the column headers from the same query used on the dropdown.

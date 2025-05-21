@@ -7,7 +7,7 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
-import { getCommitsRoute, getProjectSettingsRoute } from "constants/routes";
+import { getWaterfallRoute, getProjectSettingsRoute } from "constants/routes";
 import {
   ProjectsQuery,
   ProjectsQueryVariables,
@@ -28,7 +28,7 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
-            getRoute={getCommitsRoute}
+            getRoute={getWaterfallRoute}
             selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
@@ -44,7 +44,7 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
-            getRoute={getCommitsRoute}
+            getRoute={getWaterfallRoute}
             selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
@@ -73,7 +73,7 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
-            getRoute={getCommitsRoute}
+            getRoute={getWaterfallRoute}
             selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
