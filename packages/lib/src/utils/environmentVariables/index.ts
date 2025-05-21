@@ -70,10 +70,3 @@ export const isTest = () => process.env.NODE_ENV === Environment.Test;
  * @returns - Returns the backing evergreen url
  */
 export const getEvergreenUrl = () => process.env.REACT_APP_EVERGREEN_URL || "";
-
-/**
- * `getSignalProcessingUrl()` - Get the TIPS Signal Processing URL from the environment variables
- * @returns - Returns the TIPS Signal Processing Iframe URL
- */
-export const getSignalProcessingUrl = () =>
-  process.env.REACT_APP_SIGNAL_PROCESSING_URL || "";
