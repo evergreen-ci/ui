@@ -4,6 +4,7 @@ import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { render } from "@evg-ui/lib/test_utils";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
+import { slugs } from "constants/routes";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import LoadingPage from ".";
@@ -22,11 +23,10 @@ vi.mock("react-router-dom", async () => {
   return {
     ...actual,
     useParams: () => ({
-      buildID: TEST_BUILD_ID,
-      execution: TEST_EXECUTION,
-      logType: LogTypes.EVERGREEN_TEST_LOGS,
-      taskID: TEST_TASK_ID,
-      testID: TEST_TEST_ID,
+      [slugs.buildID]: TEST_BUILD_ID,
+      [slugs.execution]: TEST_EXECUTION,
+      [slugs.taskID]: TEST_TASK_ID,
+      [slugs.testID]: TEST_TEST_ID,
     }),
   };
 });
