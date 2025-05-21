@@ -94,7 +94,7 @@ describe("search popover", () => {
     expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
   });
 
-  it.skip("should navigate options with arrow keys and select with enter", async () => {
+  it("should navigate options with arrow keys and select with enter", async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
     render(
