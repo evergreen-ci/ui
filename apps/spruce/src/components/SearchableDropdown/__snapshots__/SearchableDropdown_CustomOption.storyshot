@@ -3,6 +3,8 @@
     class="css-1ry038z-Container e17dnzmx0"
   >
     <label
+      class="leafygreen-ui-ms04bw"
+      data-lgid="lg-label"
       for="searchable-dropdown-Custom option select"
     >
       Custom option select
