@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
@@ -16,10 +15,8 @@ type ArrayItem = Unpacked<ArrayFieldTemplateProps["items"]>;
 export const ArrayFieldTemplate: React.FC<
   Pick<ArrayFieldTemplateProps, "items" | "onAddClick">
 > = ({ items, onAddClick }) => {
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<ArrayItem>({
     columns,
-    containerRef: tableContainerRef,
     data: items,
     defaultColumn: {
       enableColumnFilter: false,

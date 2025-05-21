@@ -2857,6 +2857,7 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
   /** taskLogs returns the tail 100 lines of the task's logs. */
   taskLogs: TaskLogs;
+  taskOwnerTeam?: Maybe<TaskOwnerTeam>;
   tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]["output"]>;
   totalTestCount: Scalars["Int"]["output"];
@@ -3000,6 +3001,18 @@ export type TaskLogs = {
   systemLogs: Array<LogMessage>;
   taskId: Scalars["String"]["output"];
   taskLogs: Array<LogMessage>;
+};
+
+/**
+ * TaskOwnerTeam is the return value for the taskOwnerTeam query.
+ * It is used to identify the team that owns a task. Based on the FWS team assignment.
+ */
+export type TaskOwnerTeam = {
+  __typename?: "TaskOwnerTeam";
+  assignmentType: Scalars["String"]["output"];
+  jiraProject: Scalars["String"]["output"];
+  messages: Scalars["String"]["output"];
+  teamName: Scalars["String"]["output"];
 };
 
 /**
@@ -3472,10 +3485,8 @@ export type VolumeHost = {
 
 export type Waterfall = {
   __typename?: "Waterfall";
-  buildVariants: Array<WaterfallBuildVariant>;
   flattenedVersions: Array<Version>;
   pagination: WaterfallPagination;
-  versions: Array<WaterfallVersion>;
 };
 
 export type WaterfallBuild = {
@@ -3507,7 +3518,11 @@ export type WaterfallOptions = {
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  /** Toggle case sensitivity when matching on task names. Note that if false, performance will be slower. */
+  taskCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  /** Toggle case sensitivity when matching on variant names. Note that if false, performance will be slower. */
+  variantCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 

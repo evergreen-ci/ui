@@ -20,19 +20,11 @@ describe("metadata", () => {
   });
 
   it("renders the metadata card with a pending status", () => {
-    render(
-      <Metadata
-        error={null}
-        loading={false}
-        task={taskAboutToStart.task}
-        taskId={taskId}
-      />,
-      {
-        route: `/task/${taskId}`,
-        path: "/task/:id",
-        wrapper,
-      },
-    );
+    render(<Metadata loading={false} task={taskAboutToStart.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
     expect(
       screen.queryByDataCy("task-metadata-estimated-start"),
     ).toHaveTextContent("1s");
@@ -41,19 +33,11 @@ describe("metadata", () => {
     expect(screen.queryByDataCy("task-metadata-finished")).toBeNull();
   });
   it("renders the metadata card with a started status", () => {
-    render(
-      <Metadata
-        error={null}
-        loading={false}
-        task={taskStarted.task}
-        taskId={taskId}
-      />,
-      {
-        route: `/task/${taskId}`,
-        path: "/task/:id",
-        wrapper,
-      },
-    );
+    render(<Metadata loading={false} task={taskStarted.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
     expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
     expect(screen.getByDataCy("task-metadata-started")).toBeInTheDocument();
     expect(screen.queryByDataCy("task-metadata-finished")).toBeNull();
@@ -63,19 +47,11 @@ describe("metadata", () => {
 
   it("renders the metadata card with a succeeded status", async () => {
     const user = userEvent.setup();
-    render(
-      <Metadata
-        error={null}
-        loading={false}
-        task={taskSucceeded.task}
-        taskId={taskId}
-      />,
-      {
-        route: `/task/${taskId}`,
-        path: "/task/:id",
-        wrapper,
-      },
-    );
+    render(<Metadata loading={false} task={taskSucceeded.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
 
     expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
     expect(screen.queryByDataCy("task-metadata-eta")).toBeNull();

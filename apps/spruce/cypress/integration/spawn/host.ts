@@ -35,15 +35,16 @@ describe("Navigating to Spawn Host page", () => {
     cy.dataCy("spawn-host-card").should("not.exist");
   });
   it("Clicking on a spawn host row should toggle the host card", () => {
+    cy.dataCy("spawn-host-card").should("not.exist");
     cy.get("button[aria-label='Expand row']").first().click();
     cy.dataCy("spawn-host-card").should("be.visible");
     cy.get("button[aria-label='Collapse row']").first().click();
-    cy.dataCy("spawn-host-card").should("not.be.visible");
+    cy.dataCy("spawn-host-card").should("not.exist");
   });
   it("Visiting the spawn host page with an id in the url should open the page with the row expanded", () => {
     cy.visit("/spawn/host?host=i-092593689871a50dc");
     cy.dataCy("spawn-host-card").first().should("be.visible");
-    cy.dataCy("spawn-host-card").eq(1).should("not.be.visible");
+    cy.dataCy("spawn-host-card").eq(1).should("not.exist");
   });
   it("Clicking on the Event Log link should redirect to /host/:hostId", () => {
     cy.contains('[data-cy="leafygreen-table-row"]', "i-092593689871a50dc")

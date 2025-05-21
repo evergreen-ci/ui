@@ -19,7 +19,7 @@ const GroupedTestMapList: React.FC<GroupedTestMapListProps> = ({
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: ${size.s};
+  gap: ${size.xs};
 `;
 
 export default GroupedTestMapList;

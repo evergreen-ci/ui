@@ -6,6 +6,7 @@ import Popover, { Align } from "@leafygreen-ui/popover";
 import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Divider } from "components/styles";
 import { PopoverContainer } from "components/styles/Popover";
@@ -15,7 +16,6 @@ import {
   WaterfallTaskStatsQueryVariables,
 } from "gql/generated/types";
 import { WATERFALL_TASK_STATS } from "gql/queries";
-import { useOnClickOutside } from "hooks";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
 import { Version } from "./types";
 

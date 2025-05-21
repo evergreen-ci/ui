@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import { WordBreak, StyledLink } from "@evg-ui/lib/components/styles";
 import { FileDiffText } from "components/CodeChangesBadge";
@@ -11,11 +10,9 @@ interface CodeChangesTableProps {
 export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
   fileDiffs,
 }) => {
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable({
     columns,
     data: fileDiffs ?? [],
-    containerRef: tableContainerRef,
     enableColumnFilters: false,
     enableSorting: false,
   });

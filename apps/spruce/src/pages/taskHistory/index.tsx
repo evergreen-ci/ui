@@ -9,7 +9,7 @@ import {
   leaveBreadcrumb,
   SentryBreadcrumbTypes,
 } from "@evg-ui/lib/utils/errorReporting";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
+import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import { ProjectBanner } from "components/Banners";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import {
@@ -38,7 +38,7 @@ const { applyStrictRegex } = string;
 const { useJumpToCommit, useTestFilters } = hooks;
 
 const TaskHistoryContents: React.FC = () => {
-  const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
+  const { sendEvent } = useProjectHistoryAnalytics({ page: "Task history" });
   const {
     [slugs.projectIdentifier]: projectIdentifier,
     [slugs.taskName]: taskName,

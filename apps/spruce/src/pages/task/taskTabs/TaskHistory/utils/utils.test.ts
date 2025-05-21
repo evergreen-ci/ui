@@ -1,112 +1,81 @@
-import { TaskHistoryTask } from "../types";
-import { groupTasks } from ".";
+import {
+  tasks,
+  collapsedGroupedTasks,
+  expandedGroupedTasks,
+} from "../testData";
+import {
+  getPrevPageCursor,
+  getNextPageCursor,
+  groupTasks,
+  getUTCEndOfDay,
+} from ".";
 
 describe("groupTasks", () => {
   it("groups inactive tasks if shouldCollapse is true", () => {
-    const res = groupTasks(tasks, true);
-    expect(res).toStrictEqual([
-      {
-        inactiveTasks: null,
-        task: tasks[0],
-      },
-      {
-        inactiveTasks: [tasks[1], tasks[2], tasks[3]],
-        task: null,
-      },
-      {
-        inactiveTasks: null,
-        task: tasks[4],
-      },
-      {
-        inactiveTasks: [tasks[5], tasks[6]],
-        task: null,
-      },
-    ]);
+    const res = groupTasks(tasks, true, null);
+    expect(res).toStrictEqual(collapsedGroupedTasks);
   });
 
   it("does not group inactive tasks if shouldCollapse is false", () => {
-    const res = groupTasks(tasks, false);
-    expect(res).toStrictEqual([
-      {
-        inactiveTasks: null,
-        task: tasks[0],
-      },
-      {
-        inactiveTasks: null,
-        task: tasks[1],
-      },
-      {
-        inactiveTasks: null,
-        task: tasks[2],
-      },
-      {
-        inactiveTasks: null,
-        task: tasks[3],
-      },
-      {
-        inactiveTasks: null,
-        task: tasks[4],
-      },
-      {
-        inactiveTasks: null,
-        task: tasks[5],
-      },
-      {
-        inactiveTasks: null,
-        task: tasks[6],
-      },
-    ]);
+    const res = groupTasks(tasks, false, null);
+    expect(res).toStrictEqual(expandedGroupedTasks);
+  });
+
+  it("sets isMatching to true if testFailureSearchTerm matches a failing test", () => {
+    const res = groupTasks(tasks, true, /e2e_test/);
+    expect(res[5].isMatching).toBe(true);
   });
 });
 
-export const tasks: TaskHistoryTask[] = [
-  {
-    id: "a",
-    activated: true,
-    displayStatus: "succeeded",
-    execution: 0,
-    order: 100,
-  },
-  {
-    id: "b",
-    activated: false,
-    displayStatus: "undispatched",
-    execution: 0,
-    order: 99,
-  },
-  {
-    id: "c",
-    activated: false,
-    displayStatus: "undispatched",
-    execution: 0,
-    order: 98,
-  },
-  {
-    id: "d",
-    activated: false,
-    displayStatus: "unscheduled",
-    execution: 0,
-    order: 97,
-  },
-  {
-    id: "e",
-    activated: true,
-    displayStatus: "failed",
-    execution: 0,
-    order: 96,
-  },
-  {
-    id: "f",
-    activated: false,
-    displayStatus: "unscheduled",
-    execution: 0,
-    order: 95,
-  },
-  {
-    id: "g",
-    activated: false,
-    displayStatus: "unscheduled",
-    execution: 0,
-    order: 94,
-  },
-];
+describe("getPrevPageCursor", () => {
+  it("works with task item", () => {
+    const res = getPrevPageCursor(collapsedGroupedTasks[0]);
+    expect(res).toStrictEqual(tasks[0]);
+  });
+
+  it("works with inactive task item", () => {
+    const res = getPrevPageCursor(collapsedGroupedTasks[6]);
+    expect(res).toStrictEqual(tasks[6]);
+  });
+});
+
+describe("getNextPageCursor", () => {
+  it("works with task item", () => {
+    const res = getNextPageCursor(collapsedGroupedTasks[0]);
+    expect(res).toStrictEqual(tasks[0]);
+  });
+
+  it("works with inactive task item", () => {
+    const res = getNextPageCursor(collapsedGroupedTasks[6]);
+    expect(res).toStrictEqual(tasks[8]);
+  });
+});
+
+describe("getUTCEndOfDay", () => {
+  beforeEach(() => {
+    process.env.TZ = "America/New_York";
+  });
+
+  afterEach(() => {
+    process.env.TZ = "UTC";
+  });
+
+  it("returns undefined if date is null", () => {
+    const res = getUTCEndOfDay(null);
+    expect(res).toBeUndefined();
+  });
+
+  it("calculates the correct date", () => {
+    let res = getUTCEndOfDay("2025-04-05", "Asia/Seoul");
+    expect(res).toStrictEqual(new Date("2025-04-05T14:59:59.000Z"));
+
+    res = getUTCEndOfDay("2025-04-05", "Pacific/Tahiti");
+    expect(res).toStrictEqual(new Date("2025-04-06T09:59:59.000Z"));
+
+    res = getUTCEndOfDay("2025-04-05", "Atlantic/Reykjavik");
+    expect(res).toStrictEqual(new Date("2025-04-05T23:59:59.000Z"));
+
+    res = getUTCEndOfDay("2025-04-05");
+    expect(res).toStrictEqual(new Date("2025-04-06T03:59:59.000Z"));
+  });
+});

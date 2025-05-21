@@ -112,6 +112,7 @@ const distroData: DistroQuery["distro"] = {
       region: "us-east-1",
       security_group_ids: ["1"],
       subnet_id: "subnet-123",
+      do_not_assign_public_ipv4_address: true,
     },
   ],
   setup: "ls -alF",

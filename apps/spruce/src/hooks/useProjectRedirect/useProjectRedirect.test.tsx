@@ -20,7 +20,7 @@ const ProviderWrapper: React.FC<{
   <MockedProvider mocks={[repoMock, projectMock]}>
     <MemoryRouter initialEntries={[location]}>
       <Routes>
-        <Route element={children} path="/commits/:projectIdentifier" />
+        <Route element={children} path="/project/:projectIdentifier/settings" />
       </Routes>
     </MemoryRouter>
   </MockedProvider>
@@ -34,13 +34,16 @@ describe("useProjectRedirect", () => {
       () => useJointHook({ sendAnalyticsEvent, onError, shouldRedirect: true }),
       {
         wrapper: ({ children }) =>
-          ProviderWrapper({ children, location: "/commits/my-project" }),
+          ProviderWrapper({
+            children,
+            location: "/project/my-project/settings",
+          }),
       },
     );
     expect(result.current).toMatchObject({
       isRedirecting: false,
       attemptedRedirect: false,
-      pathname: "/commits/my-project",
+      pathname: "/project/my-project/settings",
       search: "",
     });
     expect(sendAnalyticsEvent).toHaveBeenCalledTimes(0);
@@ -54,20 +57,23 @@ describe("useProjectRedirect", () => {
       () => useJointHook({ sendAnalyticsEvent, onError, shouldRedirect: true }),
       {
         wrapper: ({ children }) =>
-          ProviderWrapper({ children, location: `/commits/${projectId}` }),
+          ProviderWrapper({
+            children,
+            location: `/project/${projectId}/settings`,
+          }),
       },
     );
     expect(result.current).toMatchObject({
       isRedirecting: true,
       attemptedRedirect: false,
-      pathname: "/commits/5f74d99ab2373627c047c5e5",
+      pathname: "/project/5f74d99ab2373627c047c5e5/settings",
       search: "",
     });
     await waitFor(() => {
       expect(result.current).toMatchObject({
         isRedirecting: false,
         attemptedRedirect: true,
-        pathname: "/commits/my-project",
+        pathname: "/project/my-project/settings",
         search: "",
       });
     });
@@ -87,20 +93,23 @@ describe("useProjectRedirect", () => {
         useJointHook({ sendAnalyticsEvent, onError, shouldRedirect: false }),
       {
         wrapper: ({ children }) =>
-          ProviderWrapper({ children, location: `/commits/${projectId}` }),
+          ProviderWrapper({
+            children,
+            location: `/project/${projectId}/settings`,
+          }),
       },
     );
     expect(result.current).toMatchObject({
       isRedirecting: false,
       attemptedRedirect: false,
-      pathname: "/commits/5f74d99ab2373627c047c5e5",
+      pathname: "/project/5f74d99ab2373627c047c5e5/settings",
       search: "",
     });
     await waitFor(() => {
       expect(result.current).toMatchObject({
         isRedirecting: false,
         attemptedRedirect: false,
-        pathname: "/commits/5f74d99ab2373627c047c5e5",
+        pathname: "/project/5f74d99ab2373627c047c5e5/settings",
         search: "",
       });
     });
@@ -117,21 +126,21 @@ describe("useProjectRedirect", () => {
         wrapper: ({ children }) =>
           ProviderWrapper({
             children,
-            location: `/commits/${projectId}?taskName=thirdparty`,
+            location: `/project/${projectId}/settings?taskName=thirdparty`,
           }),
       },
     );
     expect(result.current).toMatchObject({
       isRedirecting: true,
       attemptedRedirect: false,
-      pathname: "/commits/5f74d99ab2373627c047c5e5",
+      pathname: "/project/5f74d99ab2373627c047c5e5/settings",
       search: "?taskName=thirdparty",
     });
     await waitFor(() => {
       expect(result.current).toMatchObject({
         isRedirecting: false,
         attemptedRedirect: true,
-        pathname: "/commits/my-project",
+        pathname: "/project/my-project/settings",
         search: "?taskName=thirdparty",
       });
     });
@@ -150,20 +159,23 @@ describe("useProjectRedirect", () => {
       () => useJointHook({ sendAnalyticsEvent, onError, shouldRedirect: true }),
       {
         wrapper: ({ children }) =>
-          ProviderWrapper({ children, location: `/commits/${repoId}` }),
+          ProviderWrapper({
+            children,
+            location: `/project/${repoId}/settings`,
+          }),
       },
     );
     expect(result.current).toMatchObject({
       isRedirecting: true,
       attemptedRedirect: false,
-      pathname: "/commits/5e6bb9e23066155a993e0f1a",
+      pathname: "/project/5e6bb9e23066155a993e0f1a/settings",
       search: "",
     });
     await waitFor(() => {
       expect(result.current).toMatchObject({
         isRedirecting: false,
         attemptedRedirect: true,
-        pathname: "/commits/5e6bb9e23066155a993e0f1a",
+        pathname: "/project/5e6bb9e23066155a993e0f1a/settings",
         search: "",
       });
     });

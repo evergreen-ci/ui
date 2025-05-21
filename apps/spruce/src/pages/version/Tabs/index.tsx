@@ -15,6 +15,7 @@ import DownstreamTasks from "./DownstreamTasks";
 import TaskDuration from "./TaskDuration";
 import Tasks from "./Tasks";
 import TestAnalysis from "./TestAnalysis";
+import { VersionTiming } from "./VersionTiming";
 
 type ChildPatches = NonNullable<
   VersionQuery["version"]["patch"]
@@ -71,6 +72,7 @@ const getDownstreamTabName = (
 
 const tabMap = ({
   childPatches,
+  isVariantTimingView,
   numFailedChildPatches,
   numStartedChildPatches,
   numSuccessChildPatches,
@@ -83,6 +85,7 @@ const tabMap = ({
   numStartedChildPatches: number;
   numSuccessChildPatches: number;
   versionId: string;
+  isVariantTimingView: boolean;
 }): {
   [key in VersionPageTabs]: JSX.Element;
 } => ({
@@ -135,6 +138,22 @@ const tabMap = ({
       <TestAnalysis versionId={versionId} />
     </Tab>
   ),
+  [VersionPageTabs.VersionTiming]: (
+    <Tab
+      key="version-timing-tab"
+      data-cy="version-timing-tab"
+      id="version-timing-tab"
+      name={
+        <TabLabelWithBadge
+          badgeText="BETA"
+          badgeVariant="green"
+          tabLabel={isVariantTimingView ? "Variant Timing" : "Version Timing"}
+        />
+      }
+    >
+      <VersionTiming taskCount={taskCount} versionId={versionId} />
+    </Tab>
+  ),
 });
 
 const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
@@ -152,6 +171,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     () => ({
       [VersionPageTabs.Tasks]: true,
       [VersionPageTabs.TaskDuration]: true,
+      [VersionPageTabs.VersionTiming]: true,
       [VersionPageTabs.Changes]:
         isPatch && requester !== Requester.GitHubMergeQueue,
       [VersionPageTabs.Downstream]:
@@ -178,8 +198,9 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       numStartedChildPatches,
       numSuccessChildPatches,
       versionId: version.id,
+      isVariantTimingView: !!queryParams.variant,
     });
-  }, [taskCount, childPatches, version.id]);
+  }, [taskCount, childPatches, version.id, queryParams.variant]);
 
   const activeTabs = useMemo(
     () =>

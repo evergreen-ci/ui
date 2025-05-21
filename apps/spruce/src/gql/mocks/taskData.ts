@@ -96,6 +96,8 @@ export const taskQuery: TaskQueryType = {
     project: {
       id: "spruce",
       identifier: "spruce",
+      repo: "spruce",
+      owner: "evergreen-ci",
     },
     requester: "github_pull_request",
     resetWhenFinished: false,
