@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.0.4",
+  "version": "6.0.5",
   "private": true,
   "type": "module",
   "scripts": {
@@ -86,7 +86,7 @@
     "@leafygreen-ui/marketing-modal": "^5.0.2",
     "@leafygreen-ui/menu": "^20.0.1",
     "@leafygreen-ui/modal": "^17.0.3",
-    "@leafygreen-ui/number-input": "^2.1.0",
+    "@leafygreen-ui/number-input": "^4.1.6",
     "@leafygreen-ui/pagination": "^3.0.14",
     "@leafygreen-ui/palette": "^4.0.9",
     "@leafygreen-ui/popover": "^11.0.17",
