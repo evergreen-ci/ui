@@ -79,7 +79,7 @@ describe("shortenGithash", () => {
     expect(shortenGithash("012")).toBe("012");
   });
   it("handles undefined input", () => {
-    expect(shortenGithash(undefined)).toBeUndefined();
+    expect(shortenGithash(undefined)).toBe("");
   });
 });
 
