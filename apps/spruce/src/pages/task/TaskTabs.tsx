@@ -43,6 +43,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     isPerfPluginEnabled,
     logs: logLinks,
     requester,
+    totalTestCount,
     versionMetadata,
   } = task ?? {};
   const { fileCount } = files ?? {};
@@ -182,6 +183,14 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   } else if (isDisplayTask) {
     defaultTab = activeTabs.indexOf(TaskTab.ExecutionTasks);
   } else if (failedTestCount > 0) {
+    defaultTab = activeTabs.indexOf(TaskTab.Tests);
+  } else if (
+    totalTestCount > 0 &&
+    displayStatus === "failed" &&
+    !isDisplayTask
+  ) {
+    defaultTab = activeTabs.indexOf(TaskTab.Logs);
+  } else if (totalTestCount > 0) {
     defaultTab = activeTabs.indexOf(TaskTab.Tests);
   }
   const [selectedTab, setSelectedTab] = useState(defaultTab);
