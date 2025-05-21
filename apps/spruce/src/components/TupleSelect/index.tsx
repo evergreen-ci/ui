@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
+import { Label } from "@leafygreen-ui/typography";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import TextInput from "components/TextInputWithValidation";
 
@@ -45,9 +46,9 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
 
   return (
     <Container>
-      <label htmlFor={id}>
+      <Label htmlFor={id}>
         <LabelContainer>{label}</LabelContainer>
-      </label>
+      </Label>
       <InputGroup>
         <GroupedSelect
           allowDeselect={false}

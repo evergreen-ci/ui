@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Description } from "@leafygreen-ui/typography";
+import { Description, Label } from "@leafygreen-ui/typography";
 import { toZonedTime, fromZonedTime } from "date-fns-tz";
 import { size } from "@evg-ui/lib/constants/tokens";
 import DatePicker from "components/DatePicker";
@@ -47,7 +47,11 @@ export const DateTimePicker: React.FC<
 
   return (
     <ElementWrapper css={elementWrapperCSS}>
-      {showLabel !== false && <label htmlFor={id}>{label}</label>}
+      {showLabel !== false && (
+        <Label disabled={isDisabled} htmlFor={id}>
+          {label}
+        </Label>
+      )}
       {description && <Description>{description}</Description>}
       <DateTimeContainer>
         <DatePicker
@@ -99,7 +103,11 @@ export const TimePicker: React.FC<
 
   return (
     <ElementWrapper css={elementWrapperCSS}>
-      {showLabel !== false && <label htmlFor={id}>{label}</label>}
+      {showLabel !== false && (
+        <Label disabled={isDisabled} htmlFor={id}>
+          {label}
+        </Label>
+      )}
       {description && <Description>{description}</Description>}
       <AntdTimePicker
         allowClear={false}

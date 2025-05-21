@@ -17,7 +17,7 @@ import TextArea from "@leafygreen-ui/text-area";
 import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
 import Toggle from "@leafygreen-ui/toggle";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Description } from "@leafygreen-ui/typography";
+import { Description, Label } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { OneOf } from "@evg-ui/lib/types/utils";
@@ -191,9 +191,9 @@ export const LeafyGreenToggle: React.FC<SpruceWidgetProps> = ({
           onChange={(checked) => onChange(checked)}
           size="xsmall"
         />
-        <label htmlFor={id} id={`${id}-label`}>
+        <Label htmlFor={id} id={`${id}-label`}>
           {customLabel || label}
-        </label>
+        </Label>
       </ToggleWrapper>
       {descriptionNode ||
         (description && <Description>{description}</Description>)}
@@ -291,7 +291,9 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
     <ElementWrapper css={elementWrapperCSS}>
       {label && (
         <LabelContainer>
-          <label htmlFor={id}>{label}</label>
+          <Label disabled={disabled} htmlFor={id}>
+            {label}
+          </Label>
         </LabelContainer>
       )}
       <RadioGroup
@@ -358,7 +360,9 @@ export const LeafyGreenRadioBox: React.FC<
     <ElementWrapper css={elementWrapperCSS}>
       {showLabel !== false && (
         <LabelContainer>
-          <label htmlFor={id}>{label}</label>
+          <Label disabled={disabled} htmlFor={id}>
+            {label}
+          </Label>
           {description && <Description>{description}</Description>}
         </LabelContainer>
       )}
