@@ -26,7 +26,7 @@ export const taskQuery: TaskQueryType = {
       "waiting_for_next_investigation_steps",
     ],
     details: {
-      failingCommand: "",
+      failingCommand: "Failing Command 1.1",
       description:
         "Long description that requires use of the inline definition component. This would include details about where the task failed.",
       diskDevices: [],
@@ -35,6 +35,7 @@ export const taskQuery: TaskQueryType = {
       },
       status: TaskStatus.Failed,
       type: "type",
+      failureMetadataTags: ["failure_tag_1"],
     },
     timeTaken: null,
     annotation: null,

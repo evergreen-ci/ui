@@ -48,6 +48,7 @@ query Task($taskId: String!, $execution: Int) {
       description
       diskDevices
       failingCommand
+      failureMetadataTags
       oomTracker {
         detected
         pids

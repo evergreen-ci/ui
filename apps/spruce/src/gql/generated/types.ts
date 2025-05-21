@@ -2893,6 +2893,7 @@ export type TaskEndDetail = {
   description?: Maybe<Scalars["String"]["output"]>;
   diskDevices: Array<Scalars["String"]["output"]>;
   failingCommand?: Maybe<Scalars["String"]["output"]>;
+  failureMetadataTags: Array<Scalars["String"]["output"]>;
   oomTracker: OomTrackerInfo;
   status: Scalars["String"]["output"];
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
@@ -9162,6 +9163,7 @@ export type TaskQuery = {
       description?: string | null;
       diskDevices: Array<string>;
       failingCommand?: string | null;
+      failureMetadataTags: Array<string>;
       status: string;
       timedOut?: boolean | null;
       timeoutType?: string | null;
