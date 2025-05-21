@@ -105,7 +105,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     timeTaken: baseTaskDuration,
     versionMetadata: baseTaskVersionMetadata,
   } = baseTask ?? {};
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const baseCommit = shortenGithash(baseTaskVersionMetadata?.revision);
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
@@ -238,7 +237,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           <MetadataItem>
             <MetadataLabel>Base commit:</MetadataLabel>{" "}
             <InlineCode
-              as={Link}
+              as={Link as any}
               data-cy="base-task-link"
               onClick={() =>
                 taskAnalytics.sendEvent({

@@ -36,8 +36,7 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
 
   const messagePrefix = isPatch
     ? `Patch ${patchNumber}`
-    : // @ts-expect-error: FIXME. This comment was added by an automated script.
-      shortenGithash(revision);
+    : shortenGithash(revision);
 
   const messageBreadcrumb = {
     // @ts-expect-error: FIXME. This comment was added by an automated script.

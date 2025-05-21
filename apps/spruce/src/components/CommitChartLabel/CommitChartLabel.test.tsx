@@ -15,7 +15,7 @@ const RenderCommitChartLabel = ({ version }) => (
     <CommitChartLabel
       author={version.author}
       createTime={version.createTime}
-      githash={shortenGithash(version.revision)}
+      githash={shortenGithash(version.revision) || ""}
       gitTags={[
         { tag: "v1.2.3", pusher: "release-bot" },
         { tag: "v1.2.3-rc0", pusher: "release-bot" },

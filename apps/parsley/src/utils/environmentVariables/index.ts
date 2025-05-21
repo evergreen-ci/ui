@@ -1,25 +1,28 @@
-enum ReleaseStage {
-  Local = "local",
-  Staging = "staging",
-  Beta = "beta",
-  Production = "production",
-}
+import {
+  Environment,
+  ReleaseStage,
+  getReleaseStage,
+  isDevelopmentBuild,
+  isLocal,
+  isProduction,
+  isProductionBuild,
+  isStaging,
+  isTest,
+} from "@evg-ui/lib/utils/environmentVariables";
 
-enum Environment {
-  Development = "development",
-  Production = "production",
-}
+export {
+  ReleaseStage,
+  Environment,
+  isLocal,
+  isStaging,
+  isProduction,
+  isProductionBuild,
+  isDevelopmentBuild,
+  getReleaseStage,
+  isTest,
+};
 
-const getReleaseStage = () => process.env.REACT_APP_RELEASE_STAGE || "";
 const getSentryDSN = () => process.env.REACT_APP_PARSLEY_SENTRY_DSN || "";
-
-const isLocal = () => getReleaseStage() === ReleaseStage.Local;
-const isStaging = () => getReleaseStage() === ReleaseStage.Staging;
-const isProduction = () => getReleaseStage() === ReleaseStage.Production;
-
-const isProductionBuild = () => process.env.NODE_ENV === Environment.Production;
-const isDevelopmentBuild = () =>
-  isLocal() || process.env.NODE_ENV === Environment.Development;
 
 const evergreenURL = process.env.REACT_APP_EVERGREEN_URL;
 const graphqlURL = process.env.REACT_APP_GRAPHQL_URL;
@@ -28,16 +31,10 @@ const spruceURL = process.env.REACT_APP_SPRUCE_URL;
 const parsleyURL = process.env.REACT_APP_PARSLEY_URL;
 
 export {
-  isLocal,
-  isStaging,
-  isProduction,
-  isProductionBuild,
-  isDevelopmentBuild,
+  getSentryDSN,
   evergreenURL,
   graphqlURL,
   logkeeperURL,
   spruceURL,
   parsleyURL,
-  getReleaseStage,
-  getSentryDSN,
 };
