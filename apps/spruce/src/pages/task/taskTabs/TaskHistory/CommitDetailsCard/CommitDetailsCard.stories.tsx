@@ -59,25 +59,25 @@ type TemplateProps = {
 const testResults: TestResult[] = [
   {
     id: "e2e_test_1",
-    testFile: "e2e_test",
+    testFile: "e2e_test_1",
     status: TestStatus.Fail,
     logs: { urlParsley: "a-parsley-url.mongodb.com" },
   },
   {
     id: "e2e_test_2",
-    testFile: "e2e_test",
+    testFile: "e2e_test_2",
     status: TestStatus.Fail,
     logs: { urlParsley: "b-parsley-url.mongodb.com" },
   },
   {
     id: "e2e_test_3",
-    testFile: "e2e_test",
+    testFile: "e2e_test_3",
     status: TestStatus.SilentFail,
     logs: { urlParsley: "c-parsley-url.mongodb.com" },
   },
   {
     id: "e2e_test_4",
-    testFile: "e2e_test",
+    testFile: "e2e_test_4",
     status: TestStatus.Fail,
     logs: { urlParsley: "s-parsley-url.mongodb.com" },
   },

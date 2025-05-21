@@ -17,3 +17,4 @@ export { useProjectPatchesAnalytics } from "./patches/useProjectPatchesAnalytics
 export { useVersionAnalytics } from "./version/useVersionAnalytics";
 export { useWaterfallAnalytics } from "./waterfall/useWaterfallAnalytics";
 export { useImageAnalytics } from "./image/useImageAnalytics";
+export { useTaskHistoryAnalytics } from "./task/useTaskHistoryAnalytics";

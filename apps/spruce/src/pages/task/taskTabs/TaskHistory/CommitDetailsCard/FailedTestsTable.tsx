@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import {
@@ -11,6 +11,7 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TestStatus } from "@evg-ui/lib/types/test";
+import { useTaskHistoryAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { TaskTestResult, TestResult } from "gql/generated/types";
 
@@ -21,7 +22,20 @@ interface CommitDetailsCardProps {
 const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
   const { testResults } = tests;
 
+  const { sendEvent } = useTaskHistoryAnalytics();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
+  const columns = useMemo(
+    () =>
+      getColumns({
+        onClickLogs: (testName) =>
+          sendEvent({
+            name: "Clicked test log link",
+            "test.name": testName,
+          }),
+      }),
+    [sendEvent],
+  );
 
   const table = useLeafyGreenTable<TestResult>({
     columns,
@@ -48,7 +62,11 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
 
 export default FailedTestsTable;
 
-const columns: LGColumnDef<TestResult>[] = [
+const getColumns = ({
+  onClickLogs,
+}: {
+  onClickLogs: (testName: string) => void;
+}): LGColumnDef<TestResult>[] => [
   {
     accessorKey: "testFile",
     header: "Test Failure Name",
@@ -69,6 +87,7 @@ const columns: LGColumnDef<TestResult>[] = [
       row: {
         original: {
           logs: { urlParsley },
+          testFile,
         },
       },
     }) => (
@@ -76,6 +95,7 @@ const columns: LGColumnDef<TestResult>[] = [
         {urlParsley && (
           <StyledButton
             href={urlParsley}
+            onClick={() => onClickLogs(testFile)}
             rightGlyph={<Icon glyph="OpenNewTab" />}
             size={ButtonSize.XSmall}
             target="__blank"
