@@ -5,8 +5,8 @@ import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { PopoverContainer } from "components/styles/Popover";
-import { useOnClickOutside } from "hooks";
 import { TreeDataEntry, TreeSelect } from "../TreeSelect";
 
 const { blue, gray } = palette;

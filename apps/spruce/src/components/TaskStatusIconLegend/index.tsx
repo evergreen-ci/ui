@@ -6,11 +6,11 @@ import { Body, Overline } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
 import { PopoverContainer } from "components/styles/Popover";
 import { waterfallGroupedStatuses } from "components/TaskStatusIcon";
-import { useOnClickOutside } from "hooks";
 import { walkthroughSteps, waterfallGuideId } from "pages/waterfall/constants";
 
 export const LegendContent: React.FC = () => (
