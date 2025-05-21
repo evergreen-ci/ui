@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { Label } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm/types";
@@ -150,7 +149,7 @@ export const getFormSchema = ({
       userTags: {
         "ui:addButtonText": "Add Tag",
         "ui:descriptionNode": (
-          <Label htmlFor="root_userTags">Add User Tags</Label>
+          <label htmlFor="root_userTags">Add User Tags</label>
         ),
         "ui:orderable": false,
         items: {

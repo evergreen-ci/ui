@@ -10,7 +10,6 @@ import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
 import { palette } from "@leafygreen-ui/palette";
 import { SearchInput } from "@leafygreen-ui/search-input";
-import { Label } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import Dropdown from "components/Dropdown";
@@ -153,7 +152,7 @@ const SearchableDropdown = <T extends {}>({
 
   return (
     <Container className={className}>
-      {label && <Label htmlFor={`searchable-dropdown-${label}`}>{label}</Label>}
+      {label && <label htmlFor={`searchable-dropdown-${label}`}>{label}</label>}
       <Wrapper>
         <Dropdown
           ref={DropdownRef}
