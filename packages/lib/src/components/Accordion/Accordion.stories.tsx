@@ -1,5 +1,5 @@
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { Accordion } from ".";
+import { CustomMeta, CustomStoryObj } from "test_utils/types";
+import Accordion, { AccordionCaretAlign, AccordionCaretIcon } from ".";
 
 export default {
   component: Accordion,
@@ -8,33 +8,36 @@ export default {
       control: "boolean",
       description: "Whether the accordion should be open by default",
     },
-    disableAnimation: {
+    disableAnimations: {
       control: "boolean",
       description:
         "Whether the accordion should animate when opening and closing",
-    },
-    shouldRenderChildIfHidden: {
-      control: "boolean",
-      description:
-        "Whether the child component should be rendered if the accordion is collapsed",
-    },
-    toggleFromBottom: {
-      control: "boolean",
-      description: "Whether the accordion should toggle from the bottom",
     },
     useIndent: {
       control: "boolean",
       description: "Whether the accordion content should have an indent",
     },
-    showCaret: {
-      control: "boolean",
-      description: "Whether the accordion should show a caret icon",
-    },
-    caretAlignSelf: {
+    caretAlign: {
       control: "radio",
-      options: ["start", "center", "end"],
+      options: [
+        AccordionCaretAlign.Start,
+        AccordionCaretAlign.Center,
+        AccordionCaretAlign.End,
+      ],
       description: "Where the caret icon should be aligned",
     },
+    caretIcon: {
+      control: "radio",
+      options: [AccordionCaretIcon.Caret, AccordionCaretIcon.Chevron],
+      description: "What glyph to use for the caret icon",
+    },
+  },
+  args: {
+    defaultOpen: false,
+    disableAnimations: true,
+    useIndent: true,
+    caretAlign: AccordionCaretAlign.Center,
+    caretIcon: AccordionCaretIcon.Chevron,
   },
 } satisfies CustomMeta<typeof Accordion>;
 
