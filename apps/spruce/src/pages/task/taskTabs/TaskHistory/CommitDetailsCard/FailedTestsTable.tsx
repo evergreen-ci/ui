@@ -14,6 +14,8 @@ import { TestStatus } from "@evg-ui/lib/types/test";
 import { useTaskHistoryAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { TaskTestResult, TestResult } from "gql/generated/types";
+import { useQueryParam } from "hooks/useQueryParam";
+import { TaskHistoryOptions } from "../types";
 
 interface CommitDetailsCardProps {
   tests: Omit<TaskTestResult, "filteredTestCount" | "totalTestCount">;
@@ -23,7 +25,12 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
   const { testResults } = tests;
 
   const { sendEvent } = useTaskHistoryAnalytics();
+
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [, setFailingTest] = useQueryParam<string>(
+    TaskHistoryOptions.FailingTest,
+    "",
+  );
 
   const columns = useMemo(
     () =>
@@ -33,8 +40,9 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
             name: "Clicked test log link",
             "test.name": testName,
           }),
+        setFailingTest,
       }),
-    [sendEvent],
+    [sendEvent, setFailingTest],
   );
 
   const table = useLeafyGreenTable<TestResult>({
@@ -64,8 +72,10 @@ export default FailedTestsTable;
 
 const getColumns = ({
   onClickLogs,
+  setFailingTest,
 }: {
   onClickLogs: (testName: string) => void;
+  setFailingTest: (testName: string) => void;
 }): LGColumnDef<TestResult>[] => [
   {
     accessorKey: "testFile",
@@ -92,6 +102,12 @@ const getColumns = ({
       },
     }) => (
       <ButtonContainer>
+        <StyledButton
+          onClick={() => setFailingTest(testFile)}
+          size={ButtonSize.XSmall}
+        >
+          Search Failure
+        </StyledButton>
         {urlParsley && (
           <StyledButton
             href={urlParsley}

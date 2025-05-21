@@ -1,24 +1,29 @@
 import { useEffect, useMemo, useState } from "react";
 import styled from "@emotion/styled";
-import TextInput from "@leafygreen-ui/text-input";
+import {
+  SearchInput,
+  Size as SearchInputSize,
+} from "@leafygreen-ui/search-input";
+import { Label } from "@leafygreen-ui/typography";
 import debounce from "lodash.debounce";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { filterInputDebounceTimeout } from "constants/timeouts";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskHistoryOptions } from "../types";
 
-interface Props {
+interface TestFailureSearchInputProps {
   numMatchingResults: number;
 }
-export const TestFailureSearchInput: React.FC<Props> = ({
+
+export const TestFailureSearchInput: React.FC<TestFailureSearchInputProps> = ({
   numMatchingResults,
 }) => {
   const [failingTest, setFailingTest] = useQueryParam<string>(
     TaskHistoryOptions.FailingTest,
     "",
   );
-
   const [searchTerm, setSearchTerm] = useState(failingTest);
+
   const updateQueryParamWithDebounce = useMemo(
     () =>
       debounce(
@@ -27,25 +32,34 @@ export const TestFailureSearchInput: React.FC<Props> = ({
       ),
     [setFailingTest],
   );
+
+  const handleOnChange = (value: string) => {
+    setSearchTerm(value);
+    updateQueryParamWithDebounce(value);
+  };
+
+  // If some other component has updated the failingTest param, we need to update the
+  // internal state of searchTerm.
   useEffect(() => {
-    if (searchTerm !== failingTest) {
-      updateQueryParamWithDebounce(searchTerm);
+    if (failingTest !== searchTerm) {
+      setSearchTerm(failingTest);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchTerm]);
+  }, [failingTest]);
 
   return (
     <>
-      <StyledInput
-        aria-label="Search Test Failure Input"
-        data-cy="search-test-failures-input"
-        label="Search Test Failures"
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-        }}
-        placeholder="Search failed test"
-        value={searchTerm}
-      />
+      <InputContainer>
+        <Label htmlFor={searchInputId}>Search Test Failures</Label>
+        <SearchInput
+          aria-label="Search Test Failure Input"
+          id={searchInputId}
+          onChange={(e) => handleOnChange(e.target.value)}
+          placeholder="Search failed test"
+          size={SearchInputSize.Small}
+          value={searchTerm}
+        />
+      </InputContainer>
       {numMatchingResults === 0 && failingTest && (
         <NoMatches>No results on this page</NoMatches>
       )}
@@ -53,10 +67,15 @@ export const TestFailureSearchInput: React.FC<Props> = ({
   );
 };
 
-const StyledInput = styled(TextInput)`
+const searchInputId = "search-test-failures-input";
+
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xxs};
+
   /* Account for chrome blue focus outline */
   margin: 0 ${size.xxs};
-  flex: 1;
 `;
 
 const NoMatches = styled.div`
