@@ -184,6 +184,8 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     defaultTab = activeTabs.indexOf(TaskTab.ExecutionTasks);
   } else if (failedTestCount > 0) {
     defaultTab = activeTabs.indexOf(TaskTab.Tests);
+  } else if (totalTestCount > 0 && displayStatus === "failed") {
+    defaultTab = activeTabs.indexOf(TaskTab.Logs);
   } else if (totalTestCount > 0) {
     defaultTab = activeTabs.indexOf(TaskTab.Tests);
   }
