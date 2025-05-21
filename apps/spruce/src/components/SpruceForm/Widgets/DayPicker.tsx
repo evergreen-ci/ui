@@ -1,4 +1,4 @@
-import { Description, Label } from "@leafygreen-ui/typography";
+import { Description } from "@leafygreen-ui/typography";
 import { DayPicker } from "components/DayPicker";
 import ElementWrapper from "../ElementWrapper";
 import { SpruceWidgetProps } from "./types";
@@ -20,9 +20,7 @@ export const DayPickerWidget: React.FC<SpruceWidgetProps> = ({
     <ElementWrapper css={elementWrapperCSS}>
       {showLabel !== false && (
         <div>
-          <Label disabled={isDisabled} htmlFor={id}>
-            {label}
-          </Label>
+          <label htmlFor={id}>{label}</label>
         </div>
       )}
       {description && <Description>{description}</Description>}
