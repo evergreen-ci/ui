@@ -20,3 +20,43 @@ export const toSentenceCase = (string: string) => {
  */
 export const toEscapedRegex = (str: string): string =>
   str.replace(/[-\\/\\^$*+?.()|[\]{}]/g, "\\$&");
+
+/**
+ * @param str - A string that represents a githash
+ * @returns A shortenend version of the input string.
+ */
+export const shortenGithash = (str?: string): string =>
+  str?.substring(0, 7) || "";
+
+/**
+ * Function that trims the middle portion of a string. ex: "EvergreenUI" -> "Ev...UI"
+ * The resulting length, if trimmed, is maxLength + 1 (due to ellipsis length).
+ * @param str - Text to trim
+ * @param maxLength - Max length before trimming text
+ * @returns The original or trimmed text.
+ */
+export const trimStringFromMiddle = (str: string, maxLength: number) => {
+  const ellipsis = "…";
+  const numCharsToRemove = str.length - maxLength;
+
+  if (numCharsToRemove <= ellipsis.length) {
+    return str;
+  }
+
+  const midpoint = Math.floor(str.length / 2);
+  const frontOffset = Math.floor(numCharsToRemove / 2);
+  const backOffset = Math.ceil(numCharsToRemove / 2);
+  return (
+    str.substring(0, midpoint - frontOffset) +
+    ellipsis +
+    str.substring(midpoint + backOffset)
+  );
+};
+
+/**
+ * `copyToClipboard` copies a string to the clipboard
+ * @param textToCopy - the string to copy to the clipboard
+ */
+export const copyToClipboard = async (textToCopy: string) => {
+  await navigator.clipboard.writeText(textToCopy);
+};

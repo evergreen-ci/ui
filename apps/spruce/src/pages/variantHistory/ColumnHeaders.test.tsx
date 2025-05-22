@@ -6,6 +6,7 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
 import { variantHistoryMaxLength as maxLength } from "constants/history";
 import {
@@ -13,10 +14,8 @@ import {
   TaskNamesForBuildVariantQueryVariables,
 } from "gql/generated/types";
 import { TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
-import { string } from "utils";
 import ColumnHeaders from "./ColumnHeaders";
 
-const { trimStringFromMiddle } = string;
 const longTaskName = "really_really_really_really_really_really_long_task_name";
 const trimmedTaskName = trimStringFromMiddle(longTaskName, maxLength);
 

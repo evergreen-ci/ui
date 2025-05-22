@@ -2,7 +2,6 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import Toggle, { Size as ToggleSize } from "@leafygreen-ui/toggle";
-import { Label } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -74,10 +73,10 @@ export const PreferenceToggles: React.FC = () => {
           onChange={handleOnChangeNewUI}
           size={ToggleSize.Small}
         />
-        <Label htmlFor="prefer-spruce">
+        <label htmlFor="prefer-spruce">
           Direct all inbound links to the new Evergreen UI, whenever possible
           (e.g. from the CLI, GitHub, etc.).
-        </Label>
+        </label>
       </PreferenceItem>
       <PreferenceItem>
         <Toggle
@@ -87,9 +86,9 @@ export const PreferenceToggles: React.FC = () => {
           onChange={handleOnChangePolling}
           size={ToggleSize.Small}
         />
-        <Label htmlFor="polling">
+        <label htmlFor="polling">
           Allow background polling for active tabs in the current browser.
-        </Label>
+        </label>
       </PreferenceItem>
     </>
   );

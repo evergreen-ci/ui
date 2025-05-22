@@ -5,12 +5,13 @@ import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { copyToClipboard } from "@evg-ui/lib/utils/string";
 import { useLogWindowAnalytics } from "analytics";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
 import { useQueryParams } from "hooks/useQueryParam";
-import { copyToClipboard, getJiraFormat } from "utils/string";
+import { getJiraFormat } from "utils/string";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
 const SharingMenu: React.FC = () => {
