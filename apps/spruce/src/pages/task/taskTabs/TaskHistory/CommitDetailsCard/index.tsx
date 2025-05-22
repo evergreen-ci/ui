@@ -14,6 +14,7 @@ import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { useTaskHistoryAnalytics } from "analytics";
 import { inactiveElementStyle } from "components/styles";
 import { statusColorMap } from "components/TaskBox";
 import { getGithubCommitUrl } from "constants/externalResources";
@@ -58,6 +59,8 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     versionMetadata,
   } = task;
   const { author, message } = versionMetadata;
+
+  const { sendEvent } = useTaskHistoryAnalytics();
 
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host ?? "";
@@ -151,7 +154,13 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
         {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}
       </TopLabel>
       {tests.testResults.length > 0 ? (
-        <Accordion caretAlign={AccordionCaretAlign.Start} title={title}>
+        <Accordion
+          caretAlign={AccordionCaretAlign.Start}
+          onToggle={({ isVisible }) =>
+            sendEvent({ name: "Toggled failed tests table", open: isVisible })
+          }
+          title={title}
+        >
           <FailedTestsTable tests={tests} />
         </Accordion>
       ) : (
