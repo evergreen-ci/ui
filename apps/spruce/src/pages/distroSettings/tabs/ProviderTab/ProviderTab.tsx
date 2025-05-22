@@ -47,6 +47,7 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   const onDemandRegionsInUse = formData?.ec2OnDemandProviderSettings?.map(
     (p) => p.region,
   );
+  const providerName = formData?.provider?.providerName;
 
   const formSchema = useMemo(
     () =>
@@ -56,6 +57,7 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
         onDemandRegionsInUse: onDemandRegionsInUse || [],
         pools: pools || [],
         poolMappingInfo,
+        providerName,
       }),
     [
       awsRegions,
@@ -63,6 +65,7 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
       onDemandRegionsInUse,
       pools,
       poolMappingInfo,
+      providerName,
     ],
   );
 
