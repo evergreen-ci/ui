@@ -62,6 +62,12 @@ export type AddFavoriteProjectInput = {
   projectIdentifier: Scalars["String"]["input"];
 };
 
+export type AdminSettings = {
+  __typename?: "AdminSettings";
+  banner?: Maybe<Scalars["String"]["output"]>;
+  bannerTheme?: Maybe<BannerTheme>;
+};
+
 /**
  * Annotation models the metadata that a user can add to a task.
  * It is used as a field within the Task type.

@@ -7,6 +7,7 @@ import {
   WaterfallCommitsRedirect,
 } from "components/Redirects";
 import { redirectRoutes, routes, slugs } from "constants/routes";
+import { AdminSettings } from "pages/AdminSettings";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Container } from "pages/Container";
 import { Distro } from "pages/Distro";
@@ -27,6 +28,7 @@ import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
 import { VersionPage } from "pages/Version";
 import { Waterfall } from "pages/Waterfall";
+import { isDevelopmentBuild } from "utils/environmentVariables";
 import { Layout } from "./Layout";
 
 export const Content: React.FC = () => (
@@ -94,6 +96,9 @@ export const Content: React.FC = () => (
       />
       <Route element={<Waterfall />} path={routes.waterfall} />
       <Route element={<PageDoesNotExist />} path="*" />
+      {isDevelopmentBuild() && (
+        <Route element={<AdminSettings />} path={routes.adminSettings} />
+      )}
     </Route>
   </Routes>
 );
