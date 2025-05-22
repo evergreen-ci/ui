@@ -35,7 +35,12 @@ export const taskQuery: TaskQueryType = {
       },
       status: TaskStatus.Failed,
       type: "type",
-      failureMetadataTags: ["failure_tag_1"],
+      failureMetadataTags: [
+        "failure_tag_1",
+        "failure_tag_2",
+        "failure_tag_3",
+        "failure_tag_4",
+      ],
     },
     timeTaken: null,
     annotation: null,

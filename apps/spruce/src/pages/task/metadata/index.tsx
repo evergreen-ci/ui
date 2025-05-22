@@ -264,9 +264,13 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           <MetadataItem>
             <MetadataLabel>Failure Metadata Tags:</MetadataLabel>{" "}
             {details?.failureMetadataTags.map((tag) => (
-              <InlineCode key={tag} as="span">
-                {tag}
-              </InlineCode>
+              <Chip
+                key={`task-failure-metadata-tag-${tag}`}
+                chipCharacterLimit={30}
+                chipTruncationLocation={TruncationLocation.End}
+                label={tag}
+                variant={ChipVariant.Gray}
+              />
             ))}
           </MetadataItem>
         )}
