@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { H2, H3 } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 
 export const AnnouncementTab = () => (
   <div>
@@ -12,5 +13,5 @@ export const AnnouncementTab = () => (
 );
 
 const TitleContainer = styled.div`
-  margin-bottom: 30px;
+  margin-bottom: ${size.m};
 `;

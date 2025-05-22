@@ -1,6 +1,8 @@
+import { Body, H1 } from "@leafygreen-ui/typography";
+
 export const BackgroundProcessingTab = () => (
-  <div>
-    <h1>Background Processing</h1>
+  <Body>
+    <H1>Background Processing</H1>
     <p>Background Processing settings for the application.</p>
-  </div>
+  </Body>
 );

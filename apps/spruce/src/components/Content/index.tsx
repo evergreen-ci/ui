@@ -8,7 +8,6 @@ import {
 } from "components/Redirects";
 import { redirectRoutes, routes, slugs } from "constants/routes";
 import { AdminSettings } from "pages/AdminSettings";
-import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Container } from "pages/Container";
 import { Distro } from "pages/Distro";

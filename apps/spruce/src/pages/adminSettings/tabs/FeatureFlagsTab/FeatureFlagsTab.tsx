@@ -1,6 +1,8 @@
+import { Body, H1 } from "@leafygreen-ui/typography";
+
 export const FeatureFlagsTab = () => (
-  <div className="flex flex-col gap-4">
-    <h1 className="text-xl font-bold">Feature Flags</h1>
+  <Body>
+    <H1>Feature Flags</H1>
     <p>Feature Flags settings for the application.</p>
-  </div>
+  </Body>
 );

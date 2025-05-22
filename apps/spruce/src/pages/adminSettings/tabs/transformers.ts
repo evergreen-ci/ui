@@ -31,6 +31,6 @@ export const formToGqlMap: {
 export const gqlToFormMap: {
   [T in WritableAdminSettingsType]?: GqlToFormFunction<T>;
 } = {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: TODO Fix error in DEVPROD-17282
   [AdminSettingsTabRoutes.Announcements]: announcements.gqlToForm,
 };

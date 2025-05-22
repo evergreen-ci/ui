@@ -1,6 +1,8 @@
+import { Body, H1 } from "@leafygreen-ui/typography";
+
 export const OtherTab = () => (
-  <div>
-    <h1>Other</h1>
+  <Body>
+    <H1>Other</H1>
     <p>Other settings for the application.</p>
-  </div>
+  </Body>
 );

@@ -27,7 +27,7 @@ export enum PreferencesTabRoutes {
 
 export enum ImageTabRoutes {
   BuildInformation = "build-information",
-  EventLog = "event-logs",
+  EventLog = "event-log",
 }
 
 export enum ProjectSettingsTabRoutes {
@@ -59,7 +59,7 @@ export enum AdminSettingsTabRoutes {
   Providers = "providers",
   Other = "other",
   RestartTasks = "restart-tasks",
-  EventLogs = "event-log",
+  EventLog = "event-log",
 }
 
 export enum DistroSettingsTabRoutes {
@@ -73,7 +73,6 @@ export enum DistroSettingsTabRoutes {
 }
 const paths = {
   adminSettings: "/admin-settings",
-  commits: "/commits",
   container: "/container",
   distro: "/distro",
   distros: "/distros",
@@ -137,7 +136,6 @@ export const redirectRoutes = {
 
 export const routes = {
   adminSettings: paths.adminSettings,
-  commits: `${paths.commits}/:${slugs.projectIdentifier}?`,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure/:${slugs.tab}?`,
   container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,

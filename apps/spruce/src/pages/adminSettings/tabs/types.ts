@@ -12,7 +12,7 @@ import { RestartTasksFormState } from "./RestartTasksTab/types";
 import { RunnersFormState } from "./RunnersTab/types";
 import { WebFormState } from "./WebTab/types";
 
-const { EventLogs, RestartTasks, ...WritableAdminSettingsTabs } =
+const { EventLog, RestartTasks, ...WritableAdminSettingsTabs } =
   AdminSettingsTabRoutes;
 export { WritableAdminSettingsTabs };
 
@@ -31,7 +31,7 @@ export type FormStateMap = {
     [AdminSettingsTabRoutes.Providers]: ProvidersFormState;
     [AdminSettingsTabRoutes.Other]: OtherFormState;
     [AdminSettingsTabRoutes.RestartTasks]: RestartTasksFormState;
-    [AdminSettingsTabRoutes.EventLogs]: EventLogsFormState;
+    [AdminSettingsTabRoutes.EventLog]: EventLogsFormState;
   }[T];
 };
 
