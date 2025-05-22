@@ -5,7 +5,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 export const AnnouncementTab = () => (
   <div>
     <TitleContainer>
-      <H2 data-cy="preferences-tab-title">Announcements</H2>
+      <H2>Announcements</H2>
     </TitleContainer>
     <H3>Announcements</H3>
     <p>Announcements settings for the application.</p>
