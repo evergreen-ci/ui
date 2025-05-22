@@ -445,4 +445,21 @@ describe("task history", () => {
       cy.get("@firstTaskCard").should("contain", "Order: 12306");
     });
   });
+
+  describe("failing tests table", () => {
+    const failingTestLink =
+      "/task/evg_lint_generate_lint_ecbbf17f49224235d43416ea55566f3b1894bbf7_25_03_21_21_09_20/history?execution=0";
+
+    it("table can be expanded", () => {
+      cy.visit(failingTestLink);
+      cy.dataCy("commit-details-card")
+        .eq(0)
+        .within(() => {
+          cy.dataCy("failing-tests-changes-table").should("not.be.visible");
+          cy.get("[aria-label='Accordion icon']").click();
+          cy.dataCy("failing-tests-changes-table").should("be.visible");
+          cy.dataCy("failing-tests-table-row").should("have.length", 3);
+        });
+    });
+  });
 });

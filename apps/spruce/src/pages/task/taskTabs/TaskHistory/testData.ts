@@ -1,4 +1,5 @@
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TestStatus } from "@evg-ui/lib/types/test";
 import { GroupedTask, TaskHistoryTask } from "./types";
 
 const emptyTests = {
@@ -105,7 +106,7 @@ export const tasks: TaskHistoryTask[] = [
         {
           id: "e2e_test_id",
           testFile: "e2e_test",
-          status: "failed",
+          status: TestStatus.Fail,
           logs: { urlParsley: "a-parsley-url.mongodb.com" },
         },
       ],

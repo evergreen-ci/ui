@@ -10,11 +10,13 @@ import {
 import TextInput from "@leafygreen-ui/text-input";
 import Toggle from "@leafygreen-ui/toggle";
 import { Body, BodyProps, Error } from "@leafygreen-ui/typography";
+import Accordion, {
+  AccordionCaretAlign,
+} from "@evg-ui/lib/components/Accordion";
 import Icon from "@evg-ui/lib/components/Icon";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
-import Accordion from "components/Accordion";
 import { CaseSensitivity, MatchType } from "constants/enums";
 import { Filter } from "types/logs";
 import { getRegexpError, validateRegexp } from "utils/validators";
@@ -71,6 +73,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
 
   return (
     <Accordion
+      caretAlign={AccordionCaretAlign.Start}
       defaultOpen
       onToggle={({ isVisible }) => {
         sendEvent({ active: isVisible, name: "Toggled filter active state" });
