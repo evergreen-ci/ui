@@ -39,6 +39,7 @@ include:
   - filename: .evergreen/deploy.yml
   - filename: .evergreen/generate.yml
   - filename: .evergreen/shared.yml
+  - filename: .evergreen/pine.yml
 
 buildvariants:
   - name: spruce
@@ -151,6 +152,14 @@ buildvariants:
       - name: deploy-spruce-beta
       - name: deploy-spruce-staging
       - name: sync-spruce-staging
+
+  - name: pine
+    display_name: Pine
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - name: write_and_set_downstream_expansions           
+
 
 parameters:
   - key: cypress_spec
