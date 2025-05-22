@@ -1,13 +1,15 @@
 import {
   copyToClipboard,
+  shortenGithash,
+  trimStringFromMiddle,
+} from "@evg-ui/lib/utils/string";
+import {
   getBytesAsString,
   getJiraFormat,
   isFailingLine,
-  shortenGithash,
   stringIntersection,
   trimLogLineToMaxSize,
   trimSeverity,
-  trimStringFromMiddle,
 } from ".";
 
 describe("copyToClipboard", () => {
@@ -79,7 +81,7 @@ describe("shortenGithash", () => {
     expect(shortenGithash("012")).toBe("012");
   });
   it("handles undefined input", () => {
-    expect(shortenGithash(undefined)).toBeUndefined();
+    expect(shortenGithash(undefined)).toBe("");
   });
 });
 

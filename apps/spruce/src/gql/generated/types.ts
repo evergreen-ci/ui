@@ -2816,8 +2816,8 @@ export type Task = {
   details?: Maybe<TaskEndDetail>;
   dispatchTime?: Maybe<Scalars["Time"]["output"]>;
   displayName: Scalars["String"]["output"];
-  displayOnly?: Maybe<Scalars["Boolean"]["output"]>;
   /** This is a task's display status and is what is commonly used on the UI. */
+  displayOnly?: Maybe<Scalars["Boolean"]["output"]>;
   displayStatus: Scalars["String"]["output"];
   displayTask?: Maybe<Task>;
   distroId: Scalars["String"]["output"];
@@ -2857,11 +2857,11 @@ export type Task = {
   startTime?: Maybe<Scalars["Time"]["output"]>;
   /** This is a task's original status. It is the status stored in the database, and is distinct from the displayStatus. */
   status: Scalars["String"]["output"];
+  /** taskLogs returns the tail 100 lines of the task's logs. */
   stepbackInfo?: Maybe<StepbackInfo>;
   tags: Array<Scalars["String"]["output"]>;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
-  /** taskLogs returns the tail 100 lines of the task's logs. */
   taskLogs: TaskLogs;
   taskOwnerTeam?: Maybe<TaskOwnerTeam>;
   tests: TaskTestResult;
@@ -2899,6 +2899,7 @@ export type TaskEndDetail = {
   description?: Maybe<Scalars["String"]["output"]>;
   diskDevices: Array<Scalars["String"]["output"]>;
   failingCommand?: Maybe<Scalars["String"]["output"]>;
+  failureMetadataTags: Array<Scalars["String"]["output"]>;
   oomTracker: OomTrackerInfo;
   status: Scalars["String"]["output"];
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;

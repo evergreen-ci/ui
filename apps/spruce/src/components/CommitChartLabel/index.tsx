@@ -4,11 +4,12 @@ import { Body, BodyProps, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import ExpandedText from "components/ExpandedText";
 import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { UpstreamProjectFragment, GitTag } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
-import { shortenGithash, jiraLinkify } from "utils/string";
+import { jiraLinkify } from "utils/string";
 
 const { gray } = palette;
 const MAX_CHAR = 40;

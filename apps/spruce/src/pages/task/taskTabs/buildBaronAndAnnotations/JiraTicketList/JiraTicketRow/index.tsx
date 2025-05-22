@@ -3,11 +3,11 @@ import Badge from "@leafygreen-ui/badge";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { useAnnotationAnalytics } from "analytics";
 import { getJiraTicketUrl } from "constants/externalResources";
 import { TicketFields } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
-import { trimStringFromMiddle } from "utils/string";
 
 interface JiraTicketRowProps {
   jiraKey: string;

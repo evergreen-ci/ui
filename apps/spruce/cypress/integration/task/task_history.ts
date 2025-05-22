@@ -73,32 +73,6 @@ describe("task history", () => {
     });
   });
 
-  describe("test failure search", () => {
-    beforeEach(() => {
-      cy.visit(
-        "task/evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/history",
-      );
-    });
-    it("unmatching search results are opaque", () => {
-      cy.dataCy("search-test-failures-input").type("faketest");
-      cy.dataCy("commit-details-card")
-        .first()
-        .should("have.css", "opacity", "1");
-      cy.dataCy("commit-details-card")
-        .eq(1)
-        .should("have.css", "opacity", "0.4");
-      cy.dataCy("commit-details-card")
-        .eq(2)
-        .should("have.css", "opacity", "0.4");
-      cy.dataCy("search-test-failures-input").clear();
-      cy.dataCy("commit-details-card").should("have.css", "opacity", "1");
-    });
-    it("no results found message is shown when no tasks match the search term", () => {
-      cy.dataCy("search-test-failures-input").type("artseinrst");
-      cy.contains("No results on this page").should("be.visible");
-    });
-  });
-
   describe("restarting tasks", () => {
     const successColor = "rgb(0, 163, 92)";
     const willRunColor = "rgb(92, 108, 117)";
@@ -446,12 +420,49 @@ describe("task history", () => {
     });
   });
 
+  describe("test failure search", () => {
+    beforeEach(() => {
+      cy.visit(
+        "task/evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/history",
+      );
+      cy.get('input[placeholder="Search failed test"]').as("searchInput");
+    });
+
+    it("should update the URL correctly", () => {
+      cy.get("@searchInput").type("faketest");
+      cy.location("search").should("contain", "failing_test=faketest");
+    });
+
+    it("unmatching search results are opaque", () => {
+      cy.get("@searchInput").type("faketest");
+      cy.dataCy("commit-details-card")
+        .first()
+        .should("have.css", "opacity", "1");
+      cy.dataCy("commit-details-card")
+        .eq(1)
+        .should("have.css", "opacity", "0.4");
+      cy.dataCy("commit-details-card")
+        .eq(2)
+        .should("have.css", "opacity", "0.4");
+      cy.get("@searchInput").clear();
+      cy.dataCy("commit-details-card").should("have.css", "opacity", "1");
+    });
+
+    it("no results found message is shown when no tasks match the search term", () => {
+      cy.get("@searchInput").type("artseinrst");
+      cy.contains("No results on this page").should("be.visible");
+    });
+  });
+
   describe("failing tests table", () => {
     const failingTestLink =
       "/task/evg_lint_generate_lint_ecbbf17f49224235d43416ea55566f3b1894bbf7_25_03_21_21_09_20/history?execution=0";
 
-    it("table can be expanded", () => {
+    beforeEach(() => {
       cy.visit(failingTestLink);
+    });
+
+    it("table can be expanded", () => {
       cy.dataCy("commit-details-card")
         .eq(0)
         .within(() => {
@@ -460,6 +471,27 @@ describe("task history", () => {
           cy.dataCy("failing-tests-changes-table").should("be.visible");
           cy.dataCy("failing-tests-table-row").should("have.length", 3);
         });
+    });
+
+    it("can search for failures", () => {
+      cy.dataCy("commit-details-card")
+        .eq(0)
+        .within(() => {
+          cy.dataCy("failing-tests-changes-table").should("not.be.visible");
+          cy.get("[aria-label='Accordion icon']").click();
+          cy.dataCy("failing-tests-changes-table").should("be.visible");
+          cy.dataCy("failing-tests-table-row").should("have.length", 3);
+          cy.dataCy("failing-tests-table-row")
+            .eq(0)
+            .within(() => {
+              cy.contains("button", "Search Failure").click();
+            });
+        });
+      cy.location("search").should("contain", "failing_test=test_lint_1");
+      cy.get('input[placeholder="Search failed test"]').should(
+        "have.value",
+        "test_lint_1",
+      );
     });
   });
 });
