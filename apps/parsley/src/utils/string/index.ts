@@ -1,11 +1,3 @@
-import {
-  copyToClipboard,
-  shortenGithash,
-  trimStringFromMiddle,
-} from "@evg-ui/lib/utils/string";
-
-export { shortenGithash, trimStringFromMiddle, copyToClipboard };
-
 /**
  * `getJiraFormat` constructs a JIRA formatted string with the lines provided.
  * @param indices  - array of numbers representing the line indices you want to copy

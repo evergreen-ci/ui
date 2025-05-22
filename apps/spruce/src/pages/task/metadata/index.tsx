@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import ExpandedText from "components/ExpandedText";
 import MetadataCard, {
@@ -43,7 +44,7 @@ import RuntimeTimer from "./RuntimeTimer";
 import { Stepback, isInStepback } from "./Stepback";
 import TaskOwnership from "./TaskOwnership";
 
-const { applyStrictRegex, msToDuration, shortenGithash } = string;
+const { applyStrictRegex, msToDuration } = string;
 const { red } = palette;
 
 interface Props {

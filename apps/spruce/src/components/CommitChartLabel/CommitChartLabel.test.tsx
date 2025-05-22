@@ -5,8 +5,8 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { shortenGithash } from "utils/string";
 import CommitChartLabel from ".";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.

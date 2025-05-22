@@ -1,3 +1,4 @@
+import { shortenGithash, trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { TimeFormat } from "constants/time";
 import {
   msToDuration,
@@ -5,9 +6,7 @@ import {
   sortFunctionString,
   getDateCopy,
   applyStrictRegex,
-  shortenGithash,
   joinWithConjunction,
-  trimStringFromMiddle,
   stripNewLines,
   getTicketFromJiraURL,
 } from ".";

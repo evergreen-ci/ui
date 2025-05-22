@@ -1,13 +1,15 @@
 import {
   copyToClipboard,
+  shortenGithash,
+  trimStringFromMiddle,
+} from "@evg-ui/lib/utils/string";
+import {
   getBytesAsString,
   getJiraFormat,
   isFailingLine,
-  shortenGithash,
   stringIntersection,
   trimLogLineToMaxSize,
   trimSeverity,
-  trimStringFromMiddle,
 } from ".";
 
 describe("copyToClipboard", () => {

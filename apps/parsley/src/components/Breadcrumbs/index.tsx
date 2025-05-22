@@ -5,7 +5,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { trimStringFromMiddle } from "utils/string";
+import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 
 const { gray } = palette;
 

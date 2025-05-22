@@ -1,8 +1,8 @@
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useBreadcrumbAnalytics } from "analytics";
 import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { useBreadcrumbRoot } from "hooks";
-import { shortenGithash } from "utils/string";
 
 interface TaskPageBreadcrumbsProps {
   displayTask?: {

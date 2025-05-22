@@ -1,7 +1,7 @@
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useBreadcrumbAnalytics } from "analytics";
 import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { useBreadcrumbRoot } from "hooks";
-import { shortenGithash } from "utils/string";
 
 interface VersionPageBreadcrumbsProps {
   patchNumber?: number;

@@ -1,15 +1,8 @@
 import { format, toZonedTime } from "date-fns-tz";
 import get from "lodash/get";
-import {
-  shortenGithash,
-  trimStringFromMiddle,
-  copyToClipboard,
-} from "@evg-ui/lib/utils/string";
 import { TimeFormat } from "constants/time";
 
 export { githubPRLinkify, jiraLinkify } from "./Linkify";
-
-export { shortenGithash, trimStringFromMiddle, copyToClipboard };
 
 /**
  * `msToDuration` converts a number of milliseconds to a string representing the duration

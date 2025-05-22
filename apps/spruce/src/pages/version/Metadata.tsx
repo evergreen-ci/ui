@@ -1,6 +1,7 @@
 import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useVersionAnalytics } from "analytics";
 import MetadataCard, {
   MetadataItem,
@@ -23,7 +24,7 @@ import { string } from "utils";
 import ManifestBlob from "./ManifestBlob";
 import { ParametersModal } from "./ParametersModal";
 
-const { msToDuration, shortenGithash } = string;
+const { msToDuration } = string;
 
 interface Props {
   version: VersionQuery["version"];
