@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
@@ -10,7 +11,6 @@ import {
   SpawnTaskQuery,
   MyVolumesQuery,
 } from "gql/generated/types";
-import { shortenGithash } from "utils/string";
 import {
   getExpirationDetailsSchema,
   getPublicKeySchema,

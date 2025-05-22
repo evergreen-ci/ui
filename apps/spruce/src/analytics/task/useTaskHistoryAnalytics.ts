@@ -6,10 +6,16 @@ import { useQueryParam } from "hooks/useQueryParam";
 import { RequiredQueryParams } from "types/task";
 
 // TODO: Flesh out with more events in DEVPROD-17669.
-type Action = {
-  name: "Clicked test log link";
-  "test.name": string;
-};
+type Action =
+  | {
+      name: "Clicked test log link";
+      "test.name": string;
+    }
+  | {
+      name: "Filtered to test failure";
+      "test.name": string;
+    }
+  | { name: "Toggled failed tests table"; open: boolean };
 
 export const useTaskHistoryAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();

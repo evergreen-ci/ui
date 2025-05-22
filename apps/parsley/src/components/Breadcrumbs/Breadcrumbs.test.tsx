@@ -4,7 +4,7 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { trimStringFromMiddle } from "utils/string";
+import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import Breadcrumbs from ".";
 
 describe("breadcrumbs", () => {
