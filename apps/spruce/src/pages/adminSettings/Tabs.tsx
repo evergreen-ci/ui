@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { BannerTheme } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { AnnouncementTab } from "./tabs/AnnouncementsTab/AnnouncementTab";
 
@@ -7,7 +8,12 @@ export const AdminSettingsTabs = () => {
 
   return (
     <Container>
-      <AnnouncementTab />
+      <AnnouncementTab
+        announcementsData={{
+          banner: "test",
+          bannerTheme: BannerTheme.Announcement,
+        }}
+      />
     </Container>
   );
 };
