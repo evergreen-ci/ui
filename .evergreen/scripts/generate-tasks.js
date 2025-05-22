@@ -51,6 +51,10 @@ const whatChanged = () => {
  */
 const targetsFromChangedFiles = (files) => {
   const targets = new Set();
+  const appSpecificChanges = {
+    spruce: false,
+    parsley: false,
+  };
 
   files.forEach((file) => {
     const { dir, ext } = parse(file);
@@ -58,6 +62,10 @@ const targetsFromChangedFiles = (files) => {
 
     if (IGNORED_FILE_EXTENSIONS.has(ext.toLowerCase())) {
       return;
+    }
+
+    if (packageDir === APPS_DIR && (packageName === "spruce" || packageName === "parsley")) {
+      appSpecificChanges[packageName] = true;
     }
 
     // If a change is made to a shared directory, test both apps.
@@ -70,6 +78,11 @@ const targetsFromChangedFiles = (files) => {
       targets.add(packageName);
     }
   });
+
+  // If there are only Parsley-specific changes, don't add Spruce to the targets
+  if (appSpecificChanges.parsley && !appSpecificChanges.spruce && !targets.has("spruce")) {
+    return Array.from(targets);
+  }
 
   return Array.from(targets);
 };
