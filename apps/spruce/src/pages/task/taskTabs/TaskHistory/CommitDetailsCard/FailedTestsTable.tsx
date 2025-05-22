@@ -40,7 +40,13 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
             name: "Clicked test log link",
             "test.name": testName,
           }),
-        setFailingTest,
+        onClickSearchFailure: (testName) => {
+          sendEvent({
+            name: "Filtered to test failure",
+            "test.name": testName,
+          });
+          setFailingTest(testName);
+        },
       }),
     [sendEvent, setFailingTest],
   );
@@ -72,10 +78,10 @@ export default FailedTestsTable;
 
 const getColumns = ({
   onClickLogs,
-  setFailingTest,
+  onClickSearchFailure,
 }: {
   onClickLogs: (testName: string) => void;
-  setFailingTest: (testName: string) => void;
+  onClickSearchFailure: (testName: string) => void;
 }): LGColumnDef<TestResult>[] => [
   {
     accessorKey: "testFile",
@@ -103,7 +109,7 @@ const getColumns = ({
     }) => (
       <ButtonContainer>
         <StyledButton
-          onClick={() => setFailingTest(testFile)}
+          onClick={() => onClickSearchFailure(testFile)}
           size={ButtonSize.XSmall}
         >
           Search Failure

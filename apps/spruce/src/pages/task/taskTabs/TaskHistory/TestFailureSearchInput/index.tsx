@@ -38,8 +38,8 @@ export const TestFailureSearchInput: React.FC<TestFailureSearchInputProps> = ({
     updateQueryParamWithDebounce(value);
   };
 
-  // If some other component has updated the failingTest param, we need to update the
-  // internal state of searchTerm.
+  // In the case that some other component has updated the failingTest param, we need to update
+  // the internal state of searchTerm.
   useEffect(() => {
     if (failingTest !== searchTerm) {
       setSearchTerm(failingTest);
