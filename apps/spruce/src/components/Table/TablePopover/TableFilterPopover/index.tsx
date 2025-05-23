@@ -5,7 +5,7 @@ import { palette } from "@leafygreen-ui/palette";
 import Popover, { Align, Justify } from "@leafygreen-ui/popover";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { PopoverContainer } from "components/styles/Popover";
-import { TreeDataEntry, TreeSelect } from "../../TreeSelect";
+import { TreeDataEntry, TreeSelect } from "components/TreeSelect";
 import { DEFAULT_SPACING, FilterWrapper } from "../constants";
 
 const { blue, gray } = palette;
