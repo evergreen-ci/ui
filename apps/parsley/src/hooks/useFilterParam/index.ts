@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { QueryParams } from "constants/queryParams";
 import { useQueryParams } from "hooks/useQueryParam";
@@ -10,24 +10,32 @@ import { parseFilters, stringifyFilters } from "utils/query-string";
  * filters to and from URLs.
  * @returns a tuple containing the parsed filters and a function to set the filters
  */
-const useFilterParam = () => {
+const useFilterParam = (): [Filters, (filters: Filters) => void] => {
   const [searchParams, setSearchParams] = useQueryParams();
 
-  const parsedFilters = parseFilters(
-    conditionalToArray(searchParams.filters ?? [], true) as string[],
+  const filtersParam = searchParams[QueryParams.Filters];
+  const restParams = useMemo(() => {
+    const { [QueryParams.Filters]: _, ...rest } = searchParams;
+    return rest;
+  }, [searchParams]);
+
+  const parsedFilters = useMemo(
+    () =>
+      parseFilters(conditionalToArray(filtersParam ?? [], true) as string[]),
+    [filtersParam],
   );
 
   const setFiltersParam = useCallback(
     (filters: Filters) => {
       setSearchParams({
-        ...searchParams,
+        ...restParams,
         [QueryParams.Filters]: stringifyFilters(filters),
       });
     },
-    [setSearchParams, searchParams],
+    [setSearchParams, restParams],
   );
 
-  return [parsedFilters, setFiltersParam] as const;
+  return [parsedFilters, setFiltersParam];
 };
 
 export { useFilterParam };
