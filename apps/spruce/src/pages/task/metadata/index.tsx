@@ -158,6 +158,12 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             </StyledRouterLink>
           </MetadataItem>
         )}
+        {project?.repo && (
+          <MetadataItem data-cy="task-metadata-repo">
+            <MetadataLabel>Repository:</MetadataLabel>{" "}
+            <span data-cy="repo-text">{project.repo}</span>
+          </MetadataItem>
+        )}
         <MetadataItem>
           <MetadataLabel>Submitted by:</MetadataLabel> {author}
         </MetadataItem>
