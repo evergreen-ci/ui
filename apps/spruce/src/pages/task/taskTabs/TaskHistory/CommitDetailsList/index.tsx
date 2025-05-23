@@ -5,6 +5,7 @@ import { TaskQuery } from "gql/generated/types";
 import CommitDetailsCard from "../CommitDetailsCard";
 import InactiveCommitsButton from "../InactiveCommitsButton";
 import { GroupedTask } from "../types";
+import DateSeparator from "./DateSeparator";
 
 interface CommitDetailsListProps {
   currentTask: NonNullable<TaskQuery["task"]>;
@@ -23,25 +24,36 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
     ) : (
       <>
         {tasks.map((t) => {
-          const { inactiveTasks, task } = t;
+          const { inactiveTasks, isMatching, shouldShowDateSeparator, task } =
+            t;
           if (task) {
             return (
-              <CommitDetailsCard
-                key={task.id}
-                isCurrentTask={task.id === currentTask.id}
-                isMatching={t.isMatching}
-                owner={currentTask.project?.owner}
-                repo={currentTask.project?.repo}
-                task={task}
-              />
+              <>
+                {shouldShowDateSeparator && (
+                  <DateSeparator date={task.createTime} />
+                )}
+                <CommitDetailsCard
+                  key={task.id}
+                  isCurrentTask={task.id === currentTask.id}
+                  isMatching={isMatching}
+                  owner={currentTask.project?.owner}
+                  repo={currentTask.project?.repo}
+                  task={task}
+                />
+              </>
             );
           } else if (inactiveTasks) {
             return (
-              <InactiveCommitsButton
-                key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
-                currentTask={currentTask}
-                inactiveTasks={inactiveTasks}
-              />
+              <>
+                {shouldShowDateSeparator && (
+                  <DateSeparator date={inactiveTasks[0].createTime} />
+                )}
+                <InactiveCommitsButton
+                  key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
+                  currentTask={currentTask}
+                  inactiveTasks={inactiveTasks}
+                />
+              </>
             );
           }
           return null;

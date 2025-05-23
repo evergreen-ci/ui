@@ -4,25 +4,39 @@ import { TaskHistoryTask, GroupedTask } from "../types";
 /**
  * `groupTasks` groups tasks into active and inactive tasks based on the `shouldCollapse` parameter.
  * @param tasks - an array of tasks returned from the TaskHistory query
- * @param shouldCollapse - a boolean. If set to false, no tasks will be collapsed. If set to true, inactive tasks will be collapsed.
- * @param testFailureSearchTerm - a regex to filter tasks by test failures.
+ * @param options - an object containing options for grouping tasks
+ * @param options.shouldCollapse - a boolean. If set to false, no tasks will be collapsed. If set to true, inactive tasks will be collapsed.
+ * @param options.testFailureSearchTerm - a regex to filter tasks by test failures.
+ * @param options.timezone - the user's timezone, may be undefined
  * @returns an array of grouped tasks
  */
 export const groupTasks = (
   tasks: TaskHistoryTask[],
-  shouldCollapse: boolean,
-  testFailureSearchTerm: RegExp | null,
+  options: {
+    shouldCollapse: boolean;
+    testFailureSearchTerm: RegExp | null;
+    timezone?: string;
+  },
 ) => {
   const groupedTasks: GroupedTask[] = [];
 
-  const pushInactive = (t: TaskHistoryTask) => {
+  const { shouldCollapse, testFailureSearchTerm, timezone } = options;
+  const pushInactive = (
+    t: TaskHistoryTask,
+    shouldShowDateSeparator: boolean,
+  ) => {
     if (!groupedTasks?.[groupedTasks.length - 1]?.inactiveTasks) {
-      groupedTasks.push({ task: null, inactiveTasks: [], isMatching: false });
+      groupedTasks.push({
+        task: null,
+        inactiveTasks: [],
+        shouldShowDateSeparator,
+        isMatching: false,
+      });
     }
     groupedTasks[groupedTasks.length - 1].inactiveTasks?.push(t);
   };
 
-  const pushActive = (t: TaskHistoryTask) => {
+  const pushActive = (t: TaskHistoryTask, shouldShowDateSeparator: boolean) => {
     const isMatching =
       !testFailureSearchTerm ||
       t.tests.testResults.some(({ testFile }) =>
@@ -32,14 +46,27 @@ export const groupTasks = (
       inactiveTasks: null,
       task: t,
       isMatching,
+      shouldShowDateSeparator,
     });
   };
 
-  tasks.forEach((task) => {
-    if (!task.activated && shouldCollapse) {
-      pushInactive(task);
+  tasks.forEach((task, i) => {
+    let shouldShowDateSeparator = false;
+    if (i === 0) {
+      shouldShowDateSeparator = true;
     } else {
-      pushActive(task);
+      const prevTask = tasks[i - 1];
+      shouldShowDateSeparator = !areDatesOnSameDay(
+        prevTask.createTime,
+        task.createTime,
+        timezone,
+      );
+    }
+
+    if (!task.activated && shouldCollapse) {
+      pushInactive(task, shouldShowDateSeparator);
+    } else {
+      pushActive(task, shouldShowDateSeparator);
     }
   });
 
@@ -74,6 +101,34 @@ export const getNextPageCursor = (item: GroupedTask) => {
     return item.task;
   }
   return item.inactiveTasks[item.inactiveTasks.length - 1];
+};
+
+/**
+ * `areDatesOnSameDay` checks if two dates are on the same day.
+ * @param date1 - the first date to compare
+ * @param date2 - the second date to compare
+ * @param timezone - the user's timezone, may be undefined
+ * @returns - true if the two dates are on the same day, false otherwise
+ */
+export const areDatesOnSameDay = (
+  date1?: Date | null,
+  date2?: Date | null,
+  timezone?: string,
+): boolean => {
+  if (!date1 || !date2) {
+    return false;
+  }
+  const parsedDate1 = timezone
+    ? fromZonedTime(new Date(date1), timezone)
+    : new Date(date1);
+  const parsedDate2 = timezone
+    ? fromZonedTime(new Date(date2), timezone)
+    : new Date(date2);
+  return (
+    parsedDate1.getFullYear() === parsedDate2.getFullYear() &&
+    parsedDate1.getMonth() === parsedDate2.getMonth() &&
+    parsedDate1.getDate() === parsedDate2.getDate()
+  );
 };
 
 /**
