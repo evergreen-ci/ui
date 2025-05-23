@@ -1,8 +1,11 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
+import Pagination from "@leafygreen-ui/pagination";
 import {
   ColumnFiltersState,
+  filterFns,
+  getFilteredRowModel,
   LGColumnDef,
   useLeafyGreenTable,
 } from "@leafygreen-ui/table";
@@ -58,23 +61,54 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
       enableColumnFilter: false,
       enableSorting: false,
     },
+    getFilteredRowModel: getFilteredRowModel(),
     onColumnFiltersChange: setColumnFilters,
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: DEFAULT_PAGE_SIZE,
+      },
+    },
     state: {
       columnFilters,
     },
+    withPagination: true,
   });
 
   return (
-    <BaseTable
-      data-cy="failing-tests-changes-table"
-      data-cy-row="failing-tests-table-row"
-      shouldAlternateRowColor
-      table={table}
-    />
+    <TableContainer>
+      <BaseTable
+        data-cy="failing-tests-changes-table"
+        data-cy-row="failing-tests-table-row"
+        shouldAlternateRowColor
+        table={table}
+      />
+      {testResults.length > DEFAULT_PAGE_SIZE ? (
+        <Pagination
+          currentPage={table.getState().pagination.pageIndex + 1}
+          itemsPerPage={DEFAULT_PAGE_SIZE}
+          numTotalItems={testResults.length}
+          onBackArrowClick={() => table.previousPage()}
+          onCurrentPageOptionChange={(value: string) => {
+            table.setPageIndex(Number(value) - 1);
+          }}
+          onForwardArrowClick={() => table.nextPage()}
+        />
+      ) : null}
+    </TableContainer>
   );
 };
 
 export default FailedTestsTable;
+
+const TableContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xxs};
+  margin-top: ${size.xxs};
+`;
+
+const DEFAULT_PAGE_SIZE = 5;
 
 const getColumns = ({
   onClickLogs,
@@ -86,7 +120,15 @@ const getColumns = ({
   {
     accessorKey: "testFile",
     header: "Test Failure Name",
-    meta: { width: "60%" },
+    enableColumnFilter: true,
+    filterFn: filterFns.includesString,
+    meta: {
+      search: {
+        "data-cy": "test-name-filter",
+        placeholder: "Test name",
+      },
+      width: "60%",
+    },
     cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
   },
   {
