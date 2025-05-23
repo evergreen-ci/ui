@@ -3,12 +3,10 @@ import { AdminSettings } from "gql/generated/types";
 import { AnnouncementsFormState } from "./AnnouncementsTab/types";
 import { AuthenticationFormState } from "./AuthenticationTab/types";
 import { BackgroundProcessingFormState } from "./BackgroundProcessingTab/types";
-import { EventLogsFormState } from "./EventLogsTab/types";
 import { ExternalCommunicationsFormState } from "./ExternalCommunicationsTab/types";
 import { FeatureFlagsFormState } from "./FeatureFlagsTab/types";
 import { OtherFormState } from "./OtherTab/types";
 import { ProvidersFormState } from "./ProvidersTab/types";
-import { RestartTasksFormState } from "./RestartTasksTab/types";
 import { RunnersFormState } from "./RunnersTab/types";
 import { WebFormState } from "./WebTab/types";
 
@@ -30,10 +28,10 @@ export type FormStateMap = {
     [AdminSettingsTabRoutes.BackgroundProcessing]: BackgroundProcessingFormState;
     [AdminSettingsTabRoutes.Providers]: ProvidersFormState;
     [AdminSettingsTabRoutes.Other]: OtherFormState;
-    [AdminSettingsTabRoutes.RestartTasks]: RestartTasksFormState;
-    [AdminSettingsTabRoutes.EventLog]: EventLogsFormState;
   }[T];
 };
+
+export type FormStates = FormStateMap[WritableAdminSettingsType];
 
 export type FormToGqlFunction<T extends WritableAdminSettingsType> = (
   form: FormStateMap[T],
@@ -41,4 +39,4 @@ export type FormToGqlFunction<T extends WritableAdminSettingsType> = (
 
 export type GqlToFormFunction<T extends WritableAdminSettingsType> = (
   data: AdminSettings,
-) => FormStateMap[T];
+) => FormStateMap[T] | null;

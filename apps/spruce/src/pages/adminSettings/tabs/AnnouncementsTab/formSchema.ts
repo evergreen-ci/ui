@@ -1,0 +1,36 @@
+import { GetFormSchema } from "components/SpruceForm";
+import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import { BannerTheme } from "gql/generated/types";
+
+export const getFormSchema = (): ReturnType<GetFormSchema> => ({
+  fields: {},
+  schema: {
+    type: "object" as const,
+    properties: {
+      announcements: {
+        type: "object" as const,
+        title: "Announcements",
+        properties: {
+          bannerText: {
+            type: "string" as const,
+            title: "Banner Text",
+          },
+          bannerStyle: {
+            type: "string" as const,
+            title: "Banner Style",
+            oneOf: Object.values(BannerTheme).map((value) => ({
+              type: "string" as const,
+              title: value,
+              enum: [value],
+            })),
+          },
+        },
+      },
+    },
+  },
+  uiSchema: {
+    announcements: {
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+    },
+  },
+});

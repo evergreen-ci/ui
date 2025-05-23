@@ -4,6 +4,7 @@ import {
   getHoneycombBaseURL,
   getParsleyUrl,
   getEvergreenUrl,
+  getSpruceURL,
 } from "utils/environmentVariables";
 
 export const wikiBaseUrl =
@@ -158,7 +159,7 @@ export const getHoneycombSystemMetricsUrl = (
   )}&omitMissingValues`;
 };
 
-export const adminSettingsURL = `${getEvergreenUrl()}/admin`;
+export const adminSettingsURL = `${getSpruceURL()}/admin-settings`;
 
 export const buildHostConfigurationRepoURL =
   "https://github.com/10gen/buildhost-configuration";

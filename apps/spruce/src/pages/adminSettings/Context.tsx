@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { Context, useContext, useMemo } from "react";
 import {
   createSettingsContext,
   getUseHasUnsavedTab,
@@ -18,7 +18,7 @@ const routes = Object.values(WritableAdminSettingsTabs);
 const AdminSettingsContext = createSettingsContext<
   WritableAdminSettingsType,
   FormStateMap
->();
+>() as Context<SettingsState<WritableAdminSettingsType, FormStateMap>>;
 
 const AdminSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -49,18 +49,16 @@ const useAdminSettingsContext = (): SettingsState<
   FormStateMap
 > => {
   const context = useContext(AdminSettingsContext);
-  if (context === undefined) {
+  if (context === undefined || context === null) {
     throw new Error(
       "useAdminSettingsContext must be used within a AdminSettingsProvider",
     );
   }
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return context;
 };
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
 const useHasUnsavedTab = getUseHasUnsavedTab(AdminSettingsContext);
-// @ts-expect-error: FIXME. This comment was added by an automated script.
+
 const usePopulateForm = getUsePopulateForm(AdminSettingsContext);
 
 export {
