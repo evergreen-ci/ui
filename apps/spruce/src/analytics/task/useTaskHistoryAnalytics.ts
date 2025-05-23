@@ -1,3 +1,4 @@
+import { ColumnFiltersState } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
@@ -14,6 +15,14 @@ type Action =
   | {
       name: "Filtered to test failure";
       "test.name": string;
+    }
+  | {
+      name: "Filtered table";
+      "table.filters": ColumnFiltersState;
+    }
+  | {
+      name: "Toggled commit description";
+      expanded: boolean;
     }
   | { name: "Toggled failed tests table"; open: boolean };
 

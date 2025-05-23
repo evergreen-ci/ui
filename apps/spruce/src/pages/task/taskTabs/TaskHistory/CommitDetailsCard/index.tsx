@@ -10,7 +10,6 @@ import Accordion, {
   AccordionCaretAlign,
 } from "@evg-ui/lib/components/Accordion";
 import Icon from "@evg-ui/lib/components/Icon";
-import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -25,11 +24,11 @@ import {
   RestartTaskMutationVariables,
 } from "gql/generated/types";
 import { RESTART_TASK } from "gql/mutations";
-import { useDateFormat, useSpruceConfig } from "hooks";
+import { useDateFormat } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { isProduction } from "utils/environmentVariables";
-import { jiraLinkify } from "utils/string";
 import { TaskHistoryTask } from "../types";
+import CommitDescription from "./CommitDescription";
 import FailedTestsTable from "./FailedTestsTable";
 
 const { gray } = palette;
@@ -62,9 +61,6 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
   const { author, message } = versionMetadata;
 
   const { sendEvent } = useTaskHistoryAnalytics();
-
-  const spruceConfig = useSpruceConfig();
-  const jiraHost = spruceConfig?.jira?.host ?? "";
 
   const getDateCopy = useDateFormat();
   const createDate = new Date(createTime ?? "");
@@ -112,13 +108,6 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     refetchQueries: [isCurrentTask ? "TaskHistory" : ""],
   });
 
-  const title = (
-    <BottomLabel>
-      <AuthorLabel>{author} - </AuthorLabel>
-      <WordBreak>{jiraLinkify(message, jiraHost)}</WordBreak>
-    </BottomLabel>
-  );
-
   return (
     <CommitCard
       key={taskId}
@@ -160,12 +149,12 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
           onToggle={({ isVisible }) =>
             sendEvent({ name: "Toggled failed tests table", open: isVisible })
           }
-          title={title}
+          title={<CommitDescription author={author} message={message} />}
         >
           <FailedTestsTable tests={tests} />
         </Accordion>
       ) : (
-        title
+        <CommitDescription author={author} message={message} />
       )}
     </CommitCard>
   );
@@ -198,14 +187,4 @@ const TopLabel = styled.div`
 
 const OrderLabel = styled.div`
   margin-left: auto;
-`;
-
-const AuthorLabel = styled.b`
-  flex-shrink: 0;
-`;
-
-const BottomLabel = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: ${size.xxs};
 `;
