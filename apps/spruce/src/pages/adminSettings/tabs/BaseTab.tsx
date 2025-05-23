@@ -1,14 +1,14 @@
 import { Form } from "components/Settings/Form";
 import { GetFormSchema, ValidateProps } from "components/SpruceForm";
 import { usePopulateForm, useAdminSettingsContext } from "../Context";
-import { FormStateMap, WritableAdminSettingsType } from "./types";
+import { FormStateMap, FormStates, WritableAdminSettingsType } from "./types";
 
 type BaseTabProps<T extends WritableAdminSettingsType> = {
   disabled?: boolean;
   formSchema: ReturnType<GetFormSchema>;
-  initialFormState: FormStateMap[T];
+  initialFormState: FormStates;
   tab: T;
-  validate?: ValidateProps<FormStateMap[T]>;
+  validate?: ValidateProps<FormStates>;
 };
 
 export const BaseTab = <T extends WritableAdminSettingsType>({
@@ -24,11 +24,6 @@ export const BaseTab = <T extends WritableAdminSettingsType>({
       {...rest}
       state={state}
       tab={tab}
-      validate={
-        rest.validate as
-          | ValidateProps<FormStateMap[keyof FormStateMap]>
-          | undefined
-      }
     />
   );
 };
