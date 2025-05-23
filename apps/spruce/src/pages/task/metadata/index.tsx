@@ -260,6 +260,20 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             status={details?.status}
           />
         )}
+        {details?.failureMetadataTags && (
+          <MetadataItem>
+            <MetadataLabel>Failure Metadata Tags:</MetadataLabel>{" "}
+            {details?.failureMetadataTags.map((tag) => (
+              <Chip
+                key={`task-failure-metadata-tag-${tag}`}
+                chipCharacterLimit={30}
+                chipTruncationLocation={TruncationLocation.End}
+                label={tag}
+                variant={ChipVariant.Gray}
+              />
+            ))}
+          </MetadataItem>
+        )}
         <TaskOwnership execution={execution} taskId={taskId} />
         {details?.timeoutType && details?.timeoutType !== "" && (
           <MetadataItem>
