@@ -9,18 +9,21 @@ import {
 } from "./schemaFields";
 import { textAreaCSS } from "./styles";
 
+const ec2Providers = [Provider.Ec2Fleet, Provider.Ec2OnDemand];
 export const getFormSchema = ({
   awsRegions,
   fleetRegionsInUse,
   onDemandRegionsInUse,
   poolMappingInfo,
   pools,
+  providerName,
 }: {
   awsRegions: string[];
   fleetRegionsInUse: string[];
   onDemandRegionsInUse: string[];
   poolMappingInfo: string;
   pools: ContainerPool[];
+  providerName: Provider;
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -56,6 +59,9 @@ export const getFormSchema = ({
               },
             ],
           },
+          ...(ec2Providers.includes(providerName) && {
+            providerAccount: providerAccountField,
+          }),
         },
       },
     },
@@ -242,3 +248,9 @@ export const getFormSchema = ({
     },
   },
 });
+
+const providerAccountField = {
+  type: "string" as const,
+  title: "Provider Account",
+  default: "",
+};

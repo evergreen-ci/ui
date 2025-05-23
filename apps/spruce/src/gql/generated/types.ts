@@ -412,6 +412,7 @@ export type Distro = {
   note: Scalars["String"]["output"];
   plannerSettings: PlannerSettings;
   provider: Provider;
+  providerAccount?: Maybe<Scalars["String"]["output"]>;
   providerSettingsList: Array<Scalars["Map"]["output"]>;
   setup: Scalars["String"]["output"];
   setupAsSudo: Scalars["Boolean"]["output"];
@@ -480,6 +481,7 @@ export type DistroInput = {
   note: Scalars["String"]["input"];
   plannerSettings: PlannerSettingsInput;
   provider: Provider;
+  providerAccount?: InputMaybe<Scalars["String"]["input"]>;
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
@@ -6213,6 +6215,7 @@ export type DistroQuery = {
     name: string;
     note: string;
     provider: Provider;
+    providerAccount?: string | null;
     providerSettingsList: Array<any>;
     setup: string;
     setupAsSudo: boolean;

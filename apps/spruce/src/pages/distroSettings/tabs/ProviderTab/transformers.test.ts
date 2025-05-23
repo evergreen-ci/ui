@@ -72,6 +72,7 @@ describe("provider tab", () => {
     const staticDistroData = {
       ...distroData,
       provider: Provider.Static,
+      providerAccount: "",
       containerPool: "",
       providerSettingsList: [
         {
@@ -89,6 +90,7 @@ describe("provider tab", () => {
       ...defaultFormState,
       provider: {
         providerName: Provider.Static,
+        providerAccount: "",
       },
       staticProviderSettings: {
         userData: "",
@@ -148,6 +150,7 @@ describe("provider tab", () => {
       ...defaultFormState,
       provider: {
         providerName: Provider.Docker,
+        providerAccount: "",
       },
       dockerProviderSettings: {
         imageUrl: "https://some-url",
@@ -229,6 +232,7 @@ describe("provider tab", () => {
       ...defaultFormState,
       provider: {
         providerName: Provider.Ec2Fleet,
+        providerAccount: "",
       },
       ec2FleetProviderSettings: [
         {
@@ -384,6 +388,7 @@ describe("provider tab", () => {
       ...defaultFormState,
       provider: {
         providerName: Provider.Ec2OnDemand,
+        providerAccount: "aws",
       },
       ec2FleetProviderSettings: [
         {

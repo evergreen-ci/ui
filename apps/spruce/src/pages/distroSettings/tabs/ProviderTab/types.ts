@@ -14,6 +14,7 @@ export enum FleetInstanceType {
 export type ProviderFormState = {
   provider: {
     providerName: Provider;
+    providerAccount: string;
   };
   staticProviderSettings: {
     userData: string;
