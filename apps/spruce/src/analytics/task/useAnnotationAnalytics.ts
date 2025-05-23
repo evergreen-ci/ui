@@ -56,6 +56,8 @@ export const useAnnotationAnalytics = () => {
   const { buildBaronConfigured } = bbData?.buildBaron || {};
 
   const {
+    displayName,
+    displayStatus,
     failedTestCount,
     latestExecution,
     project,
@@ -67,14 +69,16 @@ export const useAnnotationAnalytics = () => {
   const isLatestExecution = latestExecution === execution;
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Annotations", {
-    "task.id": taskId || "",
-    "task.status": taskStatus || "",
+    "task.display_status": displayStatus || "",
     "task.execution": execution,
-    "task.is_latest_execution": isLatestExecution,
     "task.failed_test_count": failedTestCount || "",
+    "task.id": taskId || "",
+    "task.is_latest_execution": isLatestExecution,
+    "task.name": displayName || "",
     "task.project.identifier": identifier || "",
+    "task.status": taskStatus || "",
     "version.is_patch": isPatch,
     "version.requester": requester,
-    buildBaronConfigured: buildBaronConfigured || false,
+    "task.build_baron_configured": buildBaronConfigured || false,
   });
 };
