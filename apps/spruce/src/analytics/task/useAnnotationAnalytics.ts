@@ -3,8 +3,13 @@ import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
-import { BuildBaronQuery, BuildBaronQueryVariables } from "gql/generated/types";
-import { BUILD_BARON } from "gql/queries";
+import {
+  BuildBaronQuery,
+  BuildBaronQueryVariables,
+  TaskQuery,
+  TaskQueryVariables,
+} from "gql/generated/types";
+import { BUILD_BARON, TASK } from "gql/queries";
 import { useQueryParam } from "hooks/useQueryParam";
 import { RequiredQueryParams } from "types/task";
 
@@ -41,10 +46,35 @@ export const useAnnotationAnalytics = () => {
     },
   );
 
+  const { data: taskData } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
+    skip: !taskId,
+    variables: { taskId: taskId || "", execution },
+    errorPolicy: "all",
+    fetchPolicy: "cache-first",
+  });
+
   const { buildBaronConfigured } = bbData?.buildBaron || {};
+
+  const {
+    failedTestCount,
+    latestExecution,
+    project,
+    requester = "",
+    status: taskStatus,
+    versionMetadata: { isPatch } = { isPatch: false },
+  } = taskData?.task || {};
+  const { identifier } = project || {};
+  const isLatestExecution = latestExecution === execution;
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Annotations", {
     "task.id": taskId || "",
+    "task.status": taskStatus || "",
+    "task.execution": execution,
+    "task.is_latest_execution": isLatestExecution,
+    "task.failed_test_count": failedTestCount || "",
+    "task.project.identifier": identifier || "",
+    "version.is_patch": isPatch,
+    "version.requester": requester,
     buildBaronConfigured: buildBaronConfigured || false,
   });
 };
