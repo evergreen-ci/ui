@@ -16,6 +16,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { useTaskHistoryAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
+import { onChangeHandler } from "components/Table/utils";
 import { TaskTestResult, TestResult } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskHistoryOptions } from "../types";
@@ -62,7 +63,14 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
       enableSorting: false,
     },
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnFiltersChange: setColumnFilters,
+    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+      setColumnFilters,
+      (f) =>
+        sendEvent({
+          name: "Filtered table",
+          "table.filters": f,
+        }),
+    ),
     initialState: {
       pagination: {
         pageIndex: 0,
@@ -87,7 +95,7 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
         <Pagination
           currentPage={table.getState().pagination.pageIndex + 1}
           itemsPerPage={DEFAULT_PAGE_SIZE}
-          numTotalItems={testResults.length}
+          numTotalItems={table.getFilteredRowModel().rows.length}
           onBackArrowClick={() => table.previousPage()}
           onCurrentPageOptionChange={(value: string) => {
             table.setPageIndex(Number(value) - 1);

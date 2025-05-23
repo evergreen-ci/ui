@@ -4,6 +4,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useTaskHistoryAnalytics } from "analytics";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
 
@@ -18,6 +19,8 @@ const CommitDescription: React.FC<CommitDetailsCardProps> = ({
   author,
   message,
 }) => {
+  const { sendEvent } = useTaskHistoryAnalytics();
+
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host ?? "";
 
@@ -36,6 +39,10 @@ const CommitDescription: React.FC<CommitDetailsCardProps> = ({
             onClick={(e) => {
               e.stopPropagation();
               setShowDescription(!showDescription);
+              sendEvent({
+                name: "Toggled commit description",
+                expanded: showDescription,
+              });
             }}
           >
             {showDescription ? "Show less" : "Show more"}
