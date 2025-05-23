@@ -33,6 +33,7 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   const [active, setActive] = useState(false);
   const iconColor = value === "" ? gray.dark2 : blue.base;
 
+  const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);
 
@@ -49,7 +50,6 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
     setActive(false);
   };
 
-  const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
   useEffect(() => {
     inputRef?.focus();
     inputRef?.select();
@@ -99,8 +99,7 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${size.xxs};
-  max-width: 200px;
-
+  min-width: 200px;
   * {
     box-sizing: content-box;
   }
