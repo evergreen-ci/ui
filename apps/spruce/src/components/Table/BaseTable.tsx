@@ -24,10 +24,8 @@ import {
   LGTableDataType,
 } from "@leafygreen-ui/table";
 import { size } from "@evg-ui/lib/constants/tokens";
-import {
-  TableFilterPopover,
-  TableSearchPopover,
-} from "components/TablePopover";
+import TableFilterPopover from "components/TablePopover/TableFilterPopover";
+import TableSearchPopover from "components/TablePopover/TableSearchPopover";
 import { TreeDataEntry } from "components/TreeSelect";
 import { tableColumnOffset } from "constants/tokens";
 import TableLoader from "./TableLoader";

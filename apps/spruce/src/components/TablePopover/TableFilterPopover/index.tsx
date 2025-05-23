@@ -5,8 +5,8 @@ import { palette } from "@leafygreen-ui/palette";
 import Popover, { Align, Justify } from "@leafygreen-ui/popover";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { PopoverContainer } from "components/styles/Popover";
-import { TreeDataEntry, TreeSelect } from "../TreeSelect";
-import { DEFAULT_SPACING, FilterWrapper } from "./constants";
+import { TreeDataEntry, TreeSelect } from "../../TreeSelect";
+import { DEFAULT_SPACING, FilterWrapper } from "../constants";
 
 const { blue, gray } = palette;
 
@@ -17,7 +17,7 @@ interface TableFilterPopoverProps {
   value: string[];
 }
 
-export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
+const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
   "data-cy": dataCy,
   onConfirm,
   options,
@@ -72,3 +72,5 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
     </FilterWrapper>
   );
 };
+
+export default TableFilterPopover;

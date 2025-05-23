@@ -12,7 +12,7 @@ import { Description } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { PopoverContainer } from "components/styles/Popover";
-import { DEFAULT_SPACING, FilterWrapper } from "./constants";
+import { DEFAULT_SPACING, FilterWrapper } from "../constants";
 
 const { blue, gray } = palette;
 
@@ -23,7 +23,7 @@ interface TableSearchPopoverProps {
   value: string;
 }
 
-export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
+const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   "data-cy": dataCy,
   onConfirm,
   placeholder,
@@ -92,6 +92,8 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
     </FilterWrapper>
   );
 };
+
+export default TableSearchPopover;
 
 const InputContainer = styled.div`
   display: flex;
