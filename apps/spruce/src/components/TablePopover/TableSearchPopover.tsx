@@ -3,11 +3,16 @@ import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import Popover from "@leafygreen-ui/popover";
-import TextInput from "@leafygreen-ui/text-input";
+import Popover, { Align, Justify } from "@leafygreen-ui/popover";
+import {
+  SearchInput,
+  Size as SearchInputSize,
+} from "@leafygreen-ui/search-input";
+import { Description } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { PopoverContainer } from "components/styles/Popover";
+import { DEFAULT_SPACING, FilterWrapper } from "./constants";
 
 const { blue, gray } = palette;
 
@@ -44,8 +49,14 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
     setActive(false);
   };
 
+  const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
+  useEffect(() => {
+    inputRef?.focus();
+    inputRef?.select();
+  }, [inputRef]);
+
   return (
-    <SearchWrapper>
+    <FilterWrapper>
       <IconButton
         ref={buttonRef}
         active={active}
@@ -55,25 +66,40 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
       >
         <Icon color={iconColor} glyph="MagnifyingGlass" small="xsmall" />
       </IconButton>
-      <Popover active={active} align="bottom" justify="middle">
+      <Popover
+        active={active}
+        align={Align.Bottom}
+        justify={Justify.Middle}
+        refEl={buttonRef}
+        spacing={DEFAULT_SPACING}
+      >
         <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
-          <TextInput
-            aria-label="Search Table"
-            autoFocus
-            data-cy={`${dataCy}-input-filter`}
-            description="Press enter to filter."
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && onEnter()}
-            placeholder={placeholder}
-            type="search"
-            value={input}
-          />
+          <InputContainer>
+            <Description>Press enter to filter.</Description>
+            <SearchInput
+              ref={(el) => setInputRef(el)}
+              aria-label="Search table"
+              data-cy={`${dataCy}-input-filter`}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && onEnter()}
+              placeholder={placeholder}
+              size={SearchInputSize.Small}
+              value={input}
+            />
+          </InputContainer>
         </PopoverContainer>
       </Popover>
-    </SearchWrapper>
+    </FilterWrapper>
   );
 };
 
-const SearchWrapper = styled.div`
-  margin-left: ${size.xxs};
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xxs};
+  max-width: 200px;
+
+  * {
+    box-sizing: content-box;
+  }
 `;

@@ -26,7 +26,7 @@
             >
               Task Name
               <div
-                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+                class="css-dfh62w-FilterWrapper e1k290bk0"
               >
                 <button
                   aria-disabled="false"
@@ -100,7 +100,7 @@
             >
               Status
               <div
-                class="css-12wdkyj-FilterWrapper e4jpuf00"
+                class="css-dfh62w-FilterWrapper e1k290bk0"
               >
                 <button
                   aria-disabled="false"
@@ -175,7 +175,7 @@
             >
               Build Variant
               <div
-                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+                class="css-dfh62w-FilterWrapper e1k290bk0"
               >
                 <button
                   aria-disabled="false"

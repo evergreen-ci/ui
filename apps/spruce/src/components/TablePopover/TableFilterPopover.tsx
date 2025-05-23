@@ -1,13 +1,12 @@
 import { useState, useRef } from "react";
-import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import Popover from "@leafygreen-ui/popover";
-import { size } from "@evg-ui/lib/constants/tokens";
+import Popover, { Align, Justify } from "@leafygreen-ui/popover";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { PopoverContainer } from "components/styles/Popover";
 import { TreeDataEntry, TreeSelect } from "../TreeSelect";
+import { DEFAULT_SPACING, FilterWrapper } from "./constants";
 
 const { blue, gray } = palette;
 
@@ -50,7 +49,13 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
       >
         <Icon color={iconColor} glyph="Filter" small="xsmall" />
       </IconButton>
-      <Popover active={active} align="bottom" justify="middle">
+      <Popover
+        active={active}
+        align={Align.Bottom}
+        justify={Justify.Middle}
+        refEl={buttonRef}
+        spacing={DEFAULT_SPACING}
+      >
         <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
           {options.length > 0 ? (
             <TreeSelect
@@ -67,7 +72,3 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
     </FilterWrapper>
   );
 };
-
-const FilterWrapper = styled.div`
-  margin-left: ${size.xxs};
-`;
