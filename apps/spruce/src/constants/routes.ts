@@ -48,6 +48,20 @@ export enum ProjectSettingsTabRoutes {
   GithubPermissionGroups = "github-permission-groups",
 }
 
+export enum AdminSettingsTabRoutes {
+  Announcements = "announcements",
+  FeatureFlags = "feature-flags",
+  Runners = "runners",
+  Web = "web",
+  Authentication = "authentication",
+  ExternalCommunications = "external-communications",
+  BackgroundProcessing = "background-processing",
+  Providers = "providers",
+  Other = "other",
+  RestartTasks = "restart-tasks",
+  EventLog = "event-log",
+}
+
 export enum DistroSettingsTabRoutes {
   General = "general",
   Provider = "provider",
@@ -57,8 +71,8 @@ export enum DistroSettingsTabRoutes {
   EventLog = "event-log",
   SingleTaskDistros = "single-task-distros",
 }
-
 const paths = {
+  adminSettings: "/admin-settings",
   container: "/container",
   distro: "/distro",
   distros: "/distros",
@@ -121,6 +135,7 @@ export const redirectRoutes = {
 };
 
 export const routes = {
+  adminSettings: paths.adminSettings,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure/:${slugs.tab}?`,
   container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
@@ -394,3 +409,6 @@ export const getTriggerRoute = ({
   }
   return getVersionRoute(upstreamVersion.id);
 };
+
+export const getAdminSettingsRoute = (tab?: AdminSettingsTabRoutes) =>
+  tab ? `${paths.adminSettings}/${tab}` : `${paths.adminSettings}`;

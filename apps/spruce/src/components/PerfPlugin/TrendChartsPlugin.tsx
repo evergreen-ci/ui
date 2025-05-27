@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
-import { environmentVariables } from "utils";
-
-const { getSignalProcessingUrl } = environmentVariables;
+import { getSignalProcessingUrl } from "utils/environmentVariables";
 
 interface Props {
   taskId: string;

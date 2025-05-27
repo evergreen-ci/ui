@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { usePrevious } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -8,7 +9,6 @@ import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { isMainlineRequester, Requester } from "constants/requesters";
 import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
-import { usePrevious } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
 import { queryString } from "utils";
