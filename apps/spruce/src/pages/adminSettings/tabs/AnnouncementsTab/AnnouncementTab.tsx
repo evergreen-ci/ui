@@ -6,8 +6,6 @@ import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./formSchema";
 import { TabProps } from "./types";
 
-const tab = AdminSettingsTabRoutes.Announcements;
-
 export const AnnouncementTab: React.FC<TabProps> = ({ announcementsData }) => {
   const initialFormState = announcementsData;
 
@@ -20,7 +18,7 @@ export const AnnouncementTab: React.FC<TabProps> = ({ announcementsData }) => {
       <BaseTab
         formSchema={formSchema}
         initialFormState={initialFormState}
-        tab={tab}
+        tab={AdminSettingsTabRoutes.Announcements}
       />
     </>
   );

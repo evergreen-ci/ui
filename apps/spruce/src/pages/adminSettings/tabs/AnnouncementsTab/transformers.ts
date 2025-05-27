@@ -10,12 +10,12 @@ export const gqlToForm = ((data) => {
   const { banner, bannerTheme } = data ?? {};
 
   return {
-    banner: banner ?? "",
-    bannerTheme: bannerTheme as BannerTheme,
+    announcements: {
+      banner: banner ?? "",
+      bannerTheme: bannerTheme as BannerTheme,
+    },
   };
 }) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql = (({ banner, bannerTheme }) => ({
-  banner,
-  bannerTheme,
-})) satisfies FormToGqlFunction<Tab>;
+export const formToGql = (({ announcements }) =>
+  announcements) satisfies FormToGqlFunction<Tab>;

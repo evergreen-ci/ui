@@ -11,11 +11,11 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         type: "object" as const,
         title: "Announcements",
         properties: {
-          bannerText: {
+          banner: {
             type: "string" as const,
             title: "Banner Text",
           },
-          bannerStyle: {
+          bannerTheme: {
             type: "string" as const,
             title: "Banner Style",
             oneOf: Object.values(BannerTheme).map((value) => ({
