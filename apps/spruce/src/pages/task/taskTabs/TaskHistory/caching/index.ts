@@ -1,24 +1,11 @@
 import { FieldMergeFunction, FieldReadFunction } from "@apollo/client";
-import { ReadFieldFunction } from "@apollo/client/cache/core/types/common";
 import { TaskHistoryQuery, TaskHistoryDirection } from "gql/generated/types";
 import { ACTIVATED_TASKS_LIMIT } from "../constants";
 import { TaskHistoryTask, TaskHistoryPagination } from "../types";
+import { isAllInactive } from "./utils";
 
 type TaskHistoryCache = TaskHistoryQuery["taskHistory"] & {
   allTaskOrders?: Set<number>;
-};
-
-export const isAllInactive = (
-  tasks: TaskHistoryTask[],
-  readField: ReadFieldFunction,
-) => {
-  for (let i = 0; i < tasks.length; i++) {
-    const activated = readField<boolean>("activated", tasks[i]) ?? false;
-    if (activated) {
-      return false;
-    }
-  }
-  return true;
 };
 
 export const readTasks = ((existing, { args, readField }) => {
