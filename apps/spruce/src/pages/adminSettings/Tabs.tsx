@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { AnnouncementTab } from "./tabs/AnnouncementsTab/AnnouncementTab";
+import { FeatureFlagsTab } from "./tabs/FeatureFlagsTab/FeatureFlagsTab";
 
 export const AdminSettingsTabs = () => {
   useScrollToAnchor();
@@ -8,6 +9,17 @@ export const AdminSettingsTabs = () => {
   return (
     <Container>
       <AnnouncementTab />
+      <FeatureFlagsTab
+        featureFlagsData={{
+          featureFlags: {
+            services: false,
+            notifications: false,
+            features: false,
+            batchJobs: false,
+            disabledGqlQueries: false,
+          },
+        }}
+      />
     </Container>
   );
 };
