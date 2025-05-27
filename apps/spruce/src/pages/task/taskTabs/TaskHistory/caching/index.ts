@@ -40,7 +40,7 @@ export const readTasks = ((existing, { args, readField }) => {
 
   const pagingBackwards = direction === TaskHistoryDirection.After;
   const pagingForwards = direction === TaskHistoryDirection.Before;
-  const activeTasks = new Set();
+  const activeTasks = new Set<string>();
 
   let startIndex = 0;
   let endIndex = 0;
