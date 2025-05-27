@@ -4,6 +4,7 @@ import { TaskHistoryQuery } from "gql/generated/types";
 export type TaskHistoryTask = Unpacked<
   TaskHistoryQuery["taskHistory"]["tasks"]
 >;
+
 export type TaskHistoryPagination =
   TaskHistoryQuery["taskHistory"]["pagination"];
 
