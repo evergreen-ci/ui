@@ -23,6 +23,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
               title: value,
               enum: [value],
             })),
+            default: [BannerTheme.Announcement],
           },
         },
       },
@@ -31,6 +32,9 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   uiSchema: {
     announcements: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
+      bannerTheme: {
+        "ui:allowDeselect": false,
+      },
     },
   },
 });

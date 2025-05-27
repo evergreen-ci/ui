@@ -14,7 +14,7 @@ import {
   getAdminSettingsRoute,
   AdminSettingsTabRoutes,
 } from "constants/routes";
-import { type AdminSettings, BannerTheme } from "gql/generated/types";
+import { AdminSettings, BannerTheme } from "gql/generated/types";
 import { AdminSettingsProvider } from "./Context";
 import { AdminSettingsTabs } from "./Tabs";
 
