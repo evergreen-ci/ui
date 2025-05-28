@@ -2189,6 +2189,7 @@ export type PublicKeyInput = {
 
 export type Query = {
   __typename?: "Query";
+  adminSettings?: Maybe<AdminSettings>;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
   buildBaron: BuildBaron;
@@ -5845,6 +5846,17 @@ export type AdminBetaFeaturesQuery = {
         spruceWaterfallEnabled: boolean;
       };
     };
+  } | null;
+};
+
+export type AdminSettingsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AdminSettingsQuery = {
+  __typename?: "Query";
+  adminSettings?: {
+    __typename?: "AdminSettings";
+    banner?: string | null;
+    bannerTheme?: BannerTheme | null;
   } | null;
 };
 
