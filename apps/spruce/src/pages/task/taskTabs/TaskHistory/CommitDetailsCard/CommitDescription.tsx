@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { WordBreak } from "@evg-ui/lib/components/styles";
@@ -24,28 +24,37 @@ const CommitDescription: React.FC<CommitDetailsCardProps> = ({
   const jiraHost = spruceConfig?.jira?.host ?? "";
 
   const shouldTruncate = message.length > MAX_CHAR;
-  const truncatedText = message.substring(0, MAX_CHAR).concat("…");
-
   const [showDescription, setShowDescription] = useState(!shouldTruncate);
+
+  const displayMessage = showDescription
+    ? message
+    : message.substring(0, MAX_CHAR).concat("…");
+
+  const linkedMessage = useMemo(
+    () => jiraLinkify(displayMessage, jiraHost),
+    [displayMessage, jiraHost],
+  );
+
+  const toggleText = showDescription ? "Show less" : "Show more";
+
+  const handleToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowDescription((prev) => {
+      sendEvent({
+        name: "Toggled commit description",
+        expanded: !prev,
+      });
+      return !prev;
+    });
+  };
 
   return (
     <BottomLabel>
       <AuthorLabel>{author} - </AuthorLabel>
       <WordBreak>
-        {jiraLinkify(showDescription ? message : truncatedText, jiraHost)}
+        {linkedMessage}
         {shouldTruncate ? (
-          <ToggleButton
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowDescription(!showDescription);
-              sendEvent({
-                name: "Toggled commit description",
-                expanded: showDescription,
-              });
-            }}
-          >
-            {showDescription ? "Show less" : "Show more"}
-          </ToggleButton>
+          <ToggleButton onClick={handleToggle}>{toggleText}</ToggleButton>
         ) : null}
       </WordBreak>
     </BottomLabel>
