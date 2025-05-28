@@ -150,6 +150,42 @@ describe("task history", () => {
     });
   });
 
+  describe("scheduling tasks", () => {
+    const willRunColor = "rgb(92, 108, 117)";
+
+    it("scheduling a task should reflect the changes on the UI", () => {
+      cy.visit(spruceTaskHistoryLink);
+
+      cy.dataCy("task-timeline").children().eq(2).as("taskBox");
+      cy.get("@taskBox").should("have.attr", "data-cy", "collapsed-box");
+
+      cy.contains("1 Inactive Commit").click();
+      cy.dataCy("commit-details-card").eq(2).as("taskCard");
+      cy.get("@taskCard").within(() => {
+        cy.dataCy("schedule-button").should(
+          "have.attr",
+          "aria-disabled",
+          "false",
+        );
+        cy.dataCy("schedule-button").click();
+      });
+      cy.validateToast("success", "Task scheduled to run");
+
+      cy.get("@taskBox").should("have.attr", "data-cy", "timeline-box");
+      cy.get("@taskBox").should("have.css", "background-color", willRunColor);
+
+      cy.contains("1 Inactive Commit").should("not.exist");
+      cy.get("@taskCard").within(() => {
+        cy.dataCy("restart-button").should("be.visible");
+        cy.dataCy("restart-button").should(
+          "have.attr",
+          "aria-disabled",
+          "true",
+        );
+      });
+    });
+  });
+
   describe("pagination", () => {
     describe("can paginate forwards and backwards", () => {
       beforeEach(() => {

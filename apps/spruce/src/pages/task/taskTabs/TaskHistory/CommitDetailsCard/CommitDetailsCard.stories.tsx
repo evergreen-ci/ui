@@ -10,29 +10,37 @@ export default {
   component: CommitDetailsCard,
   decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
   args: {
-    isCurrentTask: true,
-    status: TaskStatus.Succeeded,
+    activated: true,
     canRestart: true,
+    canSchedule: true,
+    isCurrentTask: true,
+    isMatching: true,
     message:
       "DEVPROD-1234: Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.",
-    isMatching: true,
+    status: TaskStatus.Succeeded,
   },
   argTypes: {
+    activated: {
+      control: { type: "boolean" },
+    },
+    canRestart: {
+      control: { type: "boolean" },
+    },
+    canSchedule: {
+      control: { type: "boolean" },
+    },
     isCurrentTask: {
       control: { type: "boolean" },
     },
-    status: {
-      options: SortedTaskStatus,
-      control: { type: "select" },
-    },
-    canRestart: {
+    isMatching: {
       control: { type: "boolean" },
     },
     message: {
       control: { type: "text" },
     },
-    isMatching: {
-      control: { type: "boolean" },
+    status: {
+      options: SortedTaskStatus,
+      control: { type: "select" },
     },
   },
 } satisfies CustomMeta<TemplateProps>;
@@ -48,12 +56,14 @@ export const WithFailingTests: CustomStoryObj<TemplateProps> = {
 };
 
 type TemplateProps = {
-  isCurrentTask: boolean;
-  status: TaskStatus;
+  activated: boolean;
   canRestart: boolean;
-  message: string;
-  isMatching: boolean;
+  canSchedule: boolean;
   hasFailingTests: boolean;
+  isCurrentTask: boolean;
+  isMatching: boolean;
+  message: string;
+  status: TaskStatus;
 };
 
 const testResults: TestResult[] = [
@@ -93,8 +103,10 @@ const getStoryTask = (args: TemplateProps) => {
 
   return {
     ...task,
+    activated: args.activated,
     displayStatus: args.status,
     canRestart: args.canRestart,
+    canSchedule: args.canSchedule,
     versionMetadata: {
       ...task.versionMetadata,
       message: args.message,

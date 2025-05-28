@@ -15,6 +15,14 @@ type Action =
       name: "Filtered to test failure";
       "test.name": string;
     }
+  | {
+      name: "Clicked schedule task button";
+      "task.id": string;
+    }
+  | {
+      name: "Clicked restart task button";
+      "task.id": string;
+    }
   | { name: "Toggled failed tests table"; open: boolean };
 
 export const useTaskHistoryAnalytics = () => {
