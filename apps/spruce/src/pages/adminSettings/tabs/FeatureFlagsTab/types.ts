@@ -1,11 +1,17 @@
 export interface FeatureFlagsFormState {
-  featureFlags: {
-    services: boolean;
-    notifications: boolean;
-    features: boolean;
-    batchJobs: boolean;
-    disabledGqlQueries: boolean;
+  services: {
+    [key: string]: boolean;
   };
+  notifications: {
+    [key: string]: boolean;
+  };
+  features: {
+    [key: string]: boolean;
+  };
+  batchJobs: {
+    [key: string]: boolean;
+  };
+  disabledGqlQueries: string[];
 }
 
 export type TabProps = {

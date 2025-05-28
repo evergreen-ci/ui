@@ -25,7 +25,7 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   return (
     <Container>
       <AnnouncementTab announcementsData={tabData.announcements} />
-      <FeatureFlagsTab featureFlagsData={tabData.featureFlags} />
+      <FeatureFlagsTab featureFlagsData={tabData["feature-flags"]} />
     </Container>
   );
 };
