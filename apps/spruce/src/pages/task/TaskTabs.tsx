@@ -198,13 +198,12 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     return 0;
   };
 
-  // Update the default tab and execution in the url if it isn't populated
+  // Update the default tab in the url if it isn't populated
   useEffect(() => {
-    if (urlTab === undefined || execution === null) {
+    if (urlTab === undefined) {
       navigate(
         getTaskRoute(task.id, {
           ...params,
-          execution: execution ?? task.latestExecution ?? 0,
           tab: activeTabs[getDefaultTab()],
         } as GetTaskRouteOptions),
         { replace: true },
@@ -217,7 +216,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
       }
       return;
     }
-  }, [urlTab, activeTabs, execution, params, task.id, navigate]);
+  }, [urlTab, activeTabs, params, task.id]);
 
   const setURLTab = (tabIndex: number) => {
     const newUrl = getTaskRoute(task.id, {
