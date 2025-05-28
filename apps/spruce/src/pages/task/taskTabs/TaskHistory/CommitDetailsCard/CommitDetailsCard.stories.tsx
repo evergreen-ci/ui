@@ -55,6 +55,15 @@ export const WithFailingTests: CustomStoryObj<TemplateProps> = {
   ),
 };
 
+export const WithLongMessage: CustomStoryObj<TemplateProps> = {
+  render: (args) => (
+    <Template
+      {...args}
+      message="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    />
+  ),
+};
+
 type TemplateProps = {
   activated: boolean;
   canRestart: boolean;
@@ -66,32 +75,12 @@ type TemplateProps = {
   status: TaskStatus;
 };
 
-const testResults: TestResult[] = [
-  {
-    id: "e2e_test_1",
-    testFile: "e2e_test_1",
-    status: TestStatus.Fail,
-    logs: { urlParsley: "a-parsley-url.mongodb.com" },
-  },
-  {
-    id: "e2e_test_2",
-    testFile: "e2e_test_2",
-    status: TestStatus.Fail,
-    logs: { urlParsley: "b-parsley-url.mongodb.com" },
-  },
-  {
-    id: "e2e_test_3",
-    testFile: "e2e_test_3",
-    status: TestStatus.SilentFail,
-    logs: { urlParsley: "c-parsley-url.mongodb.com" },
-  },
-  {
-    id: "e2e_test_4",
-    testFile: "e2e_test_4",
-    status: TestStatus.Fail,
-    logs: { urlParsley: "s-parsley-url.mongodb.com" },
-  },
-];
+const testResults: TestResult[] = Array.from({ length: 15 }, (_, idx) => ({
+  id: `e2e_test_${idx}`,
+  testFile: `e2e_test_${idx}`,
+  status: idx % 3 === 0 ? TestStatus.SilentFail : TestStatus.Fail,
+  logs: { urlParsley: `${idx}-parsley-url.mongodb.com` },
+}));
 
 const getStoryTask = (args: TemplateProps) => {
   const task = args.hasFailingTests
