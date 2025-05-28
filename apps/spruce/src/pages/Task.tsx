@@ -33,9 +33,9 @@ export const Task = () => {
   const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
-  const [selectedExecution] = useQueryParam<number>(
+  const [selectedExecution] = useQueryParam<number | null>(
     RequiredQueryParams.Execution,
-    0,
+    null,
   );
 
   // Query task data
@@ -126,7 +126,7 @@ export const Task = () => {
       <PageLayout hasSider>
         <PageSider>
           {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-          {latestExecution > 0 && (
+          {latestExecution > 0 && selectedExecution !== null && (
             <ExecutionSelect
               currentExecution={selectedExecution}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
