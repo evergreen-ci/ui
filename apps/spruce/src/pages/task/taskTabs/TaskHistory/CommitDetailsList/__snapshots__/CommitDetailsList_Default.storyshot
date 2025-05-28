@@ -17,11 +17,11 @@
       />
     </div>
     <div
-      class="css-1ffesh7-CommitCard e1a625uv4"
+      class="css-1ffesh7-CommitCard e1a625uv2"
       data-cy="commit-details-card"
     >
       <div
-        class="css-12rnwxt-TopLabel e1a625uv3"
+        class="css-12rnwxt-TopLabel e1a625uv1"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -87,17 +87,17 @@
           Apr 3, 2025, 10:22 AM
         </span>
         <div
-          class="css-1pa0taf-OrderLabel e1a625uv2"
+          class="css-1pa0taf-OrderLabel e1a625uv0"
         >
           Order: 
           100
         </div>
       </div>
       <div
-        class="css-1qgx25j-BottomLabel e1a625uv0"
+        class="css-1qgx25j-BottomLabel end94gb2"
       >
         <b
-          class="css-1nvsyyh-AuthorLabel e1a625uv1"
+          class="css-1nvsyyh-AuthorLabel end94gb1"
         >
           Evergreen Admin
            - 
@@ -121,11 +121,11 @@
       </div>
     </div>
     <div
-      class="css-cfn6u4-CommitCard e1a625uv4"
+      class="css-cfn6u4-CommitCard e1a625uv2"
       data-cy="commit-details-card"
     >
       <div
-        class="css-12rnwxt-TopLabel e1a625uv3"
+        class="css-12rnwxt-TopLabel e1a625uv1"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -186,17 +186,17 @@
           Apr 3, 2025, 10:21 AM
         </span>
         <div
-          class="css-1pa0taf-OrderLabel e1a625uv2"
+          class="css-1pa0taf-OrderLabel e1a625uv0"
         >
           Order: 
           99
         </div>
       </div>
       <div
-        class="css-1qgx25j-BottomLabel e1a625uv0"
+        class="css-1qgx25j-BottomLabel end94gb2"
       >
         <b
-          class="css-1nvsyyh-AuthorLabel e1a625uv1"
+          class="css-1nvsyyh-AuthorLabel end94gb1"
         >
           Evergreen Admin
            - 
@@ -271,11 +271,11 @@
       />
     </div>
     <div
-      class="css-1vbh9ch-CommitCard e1a625uv4"
+      class="css-1vbh9ch-CommitCard e1a625uv2"
       data-cy="commit-details-card"
     >
       <div
-        class="css-12rnwxt-TopLabel e1a625uv3"
+        class="css-12rnwxt-TopLabel e1a625uv1"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -336,17 +336,17 @@
           Apr 2, 2025, 10:22 AM
         </span>
         <div
-          class="css-1pa0taf-OrderLabel e1a625uv2"
+          class="css-1pa0taf-OrderLabel e1a625uv0"
         >
           Order: 
           97
         </div>
       </div>
       <div
-        class="css-1qgx25j-BottomLabel e1a625uv0"
+        class="css-1qgx25j-BottomLabel end94gb2"
       >
         <b
-          class="css-1nvsyyh-AuthorLabel e1a625uv1"
+          class="css-1nvsyyh-AuthorLabel end94gb1"
         >
           Evergreen Admin
            - 
@@ -421,11 +421,11 @@
       />
     </div>
     <div
-      class="css-173zci2-CommitCard e1a625uv4"
+      class="css-173zci2-CommitCard e1a625uv2"
       data-cy="commit-details-card"
     >
       <div
-        class="css-12rnwxt-TopLabel e1a625uv3"
+        class="css-12rnwxt-TopLabel e1a625uv1"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -486,7 +486,7 @@
           Apr 1, 2025, 10:22 AM
         </span>
         <div
-          class="css-1pa0taf-OrderLabel e1a625uv2"
+          class="css-1pa0taf-OrderLabel e1a625uv0"
         >
           Order: 
           95
@@ -529,10 +529,10 @@
           </button>
           <span>
             <div
-              class="css-1qgx25j-BottomLabel e1a625uv0"
+              class="css-1qgx25j-BottomLabel end94gb2"
             >
               <b
-                class="css-1nvsyyh-AuthorLabel e1a625uv1"
+                class="css-1nvsyyh-AuthorLabel end94gb1"
               >
                 Evergreen Admin
                  - 
@@ -565,195 +565,234 @@
             class="css-1hezny5-ContentsContainer e1omze811"
           >
             <div
-              class="leafygreen-ui-1si66qn"
-              tabindex="0"
+              class="css-1hjkmga-TableContainer e1bp1fda2"
             >
-              <div />
-              <table
-                class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
-                data-cy="failing-tests-changes-table"
-                data-is-sticky="false"
-                data-lgid="lg-table"
+              <div
+                class="leafygreen-ui-1si66qn"
+                tabindex="0"
               >
-                <thead
-                  class="leafygreen-ui-181p7kg"
+                <div />
+                <table
+                  class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
+                  data-cy="failing-tests-changes-table"
+                  data-is-sticky="false"
+                  data-lgid="lg-table"
                 >
-                  <tr
-                    class="leafygreen-ui-5fo1n0"
+                  <thead
+                    class="leafygreen-ui-181p7kg"
                   >
-                    <th
-                      class="leafygreen-ui-1it7wsd"
-                      data-lgid="lg-table-header"
-                      scope="col"
-                      style="width: 60%;"
+                    <tr
+                      class="leafygreen-ui-5fo1n0"
                     >
-                      <div
-                        class="leafygreen-ui-11hl1ow"
-                      >
-                        Test Failure Name
-                      </div>
-                    </th>
-                    <th
-                      class="leafygreen-ui-1it7wsd"
-                      data-lgid="lg-table-header"
-                      scope="col"
-                      style="width: 80px;"
-                    >
-                      <div
-                        class="leafygreen-ui-11hl1ow"
-                      >
-                        Failure Type
-                      </div>
-                    </th>
-                    <th
-                      class="leafygreen-ui-1it7wsd"
-                      data-lgid="lg-table-header"
-                      scope="col"
-                    >
-                      <div
-                        class="leafygreen-ui-11hl1ow"
-                      >
-                        Actions
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    aria-disabled="false"
-                    class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
-                    data-cy="failing-tests-table-row"
-                    data-depth="0"
-                    data-expanded="false"
-                    data-index="0"
-                    data-lgid="lg-table-row"
-                    data-selected="false"
-                    id="lg-table-row-0"
-                  >
-                    <td
-                      class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
-                      data-lgid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
+                      <th
+                        class="leafygreen-ui-1it7wsd"
+                        data-lgid="lg-table-header"
+                        scope="col"
+                        style="width: 60%;"
                       >
                         <div
-                          class="leafygreen-ui-mjg5qs"
+                          class="leafygreen-ui-11hl1ow"
                         >
+                          Test Failure Name
                           <div
-                            class=""
+                            class="css-1ewdmxn-SearchWrapper e1umzslw0"
                           >
-                            <span
-                              class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                            <button
+                              aria-disabled="false"
+                              aria-label="Table Search Popover Icon"
+                              class="leafygreen-ui-tcjr3n"
+                              data-cy="test-name-filter"
+                              tabindex="0"
                             >
-                              e2e_test
-                            </span>
+                              <div
+                                class="leafygreen-ui-xhlipt"
+                              >
+                                <svg
+                                  aria-label="Magnifying Glass Icon"
+                                  class=""
+                                  color="#3D4F58"
+                                  fill="none"
+                                  height="16"
+                                  role="img"
+                                  small="xsmall"
+                                  viewBox="0 0 16 16"
+                                  width="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M2.323 9.819a5.302 5.302 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496ZM7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                            </button>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                    <td
-                      class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
-                      data-lgid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
+                      </th>
+                      <th
+                        class="leafygreen-ui-1it7wsd"
+                        data-lgid="lg-table-header"
+                        scope="col"
+                        style="width: 80px;"
                       >
                         <div
-                          class="leafygreen-ui-mjg5qs"
+                          class="leafygreen-ui-11hl1ow"
+                        >
+                          Failure Type
+                        </div>
+                      </th>
+                      <th
+                        class="leafygreen-ui-1it7wsd"
+                        data-lgid="lg-table-header"
+                        scope="col"
+                      >
+                        <div
+                          class="leafygreen-ui-11hl1ow"
+                        >
+                          Actions
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      aria-disabled="false"
+                      class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+                      data-cy="failing-tests-table-row"
+                      data-depth="0"
+                      data-expanded="false"
+                      data-index="0"
+                      data-lgid="lg-table-row"
+                      data-selected="false"
+                      id="lg-table-row-0"
+                    >
+                      <td
+                        class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+                        data-lgid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
                         >
                           <div
-                            class=""
+                            class="leafygreen-ui-mjg5qs"
                           >
                             <div
-                              class="leafygreen-ui-dhdzha"
-                              data-cy="test-status-badge"
+                              class=""
                             >
-                              Fail
+                              <span
+                                class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                              >
+                                e2e_test
+                              </span>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                    <td
-                      class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
-                      data-lgid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
+                      </td>
+                      <td
+                        class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+                        data-lgid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
                       >
                         <div
-                          class="leafygreen-ui-mjg5qs"
+                          class="leafygreen-ui-18w181u"
                         >
                           <div
-                            class=""
+                            class="leafygreen-ui-mjg5qs"
                           >
                             <div
-                              class="css-1gi9ejr-ButtonContainer e1bp1fda1"
+                              class=""
                             >
-                              <button
-                                aria-disabled="false"
-                                class="lg-ui-button-0000 leafygreen-ui-168frnw css-11mxq61-StyledButton e1bp1fda0"
-                                data-lgid="lg-button"
-                                type="button"
+                              <div
+                                class="leafygreen-ui-dhdzha"
+                                data-cy="test-status-badge"
                               >
-                                <div
-                                  class="leafygreen-ui-v038xi"
-                                />
-                                <div
-                                  class="leafygreen-ui-b15bbd"
-                                >
-                                  Search Failure
-                                </div>
-                              </button>
-                              <a
-                                aria-disabled="false"
-                                class="lg-ui-button-0000 leafygreen-ui-168frnw css-11mxq61-StyledButton e1bp1fda0"
-                                data-lgid="lg-button"
-                                href="a-parsley-url.mongodb.com"
-                                target="__blank"
-                                title="Parsley logs"
+                                Fail
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+                        data-lgid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <div
+                                class="css-1gi9ejr-ButtonContainer e1bp1fda1"
                               >
-                                <div
-                                  class="leafygreen-ui-v038xi"
-                                />
-                                <div
-                                  class="leafygreen-ui-b15bbd"
+                                <button
+                                  aria-disabled="false"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw css-11mxq61-StyledButton e1bp1fda0"
+                                  data-lgid="lg-button"
+                                  type="button"
                                 >
-                                  Logs
-                                  <svg
-                                    alt=""
-                                    aria-hidden="true"
-                                    class="leafygreen-ui-1q35ofk"
-                                    fill="none"
-                                    height="16"
-                                    role="presentation"
-                                    viewBox="0 0 16 16"
-                                    width="16"
-                                    xmlns="http://www.w3.org/2000/svg"
+                                  <div
+                                    class="leafygreen-ui-v038xi"
+                                  />
+                                  <div
+                                    class="leafygreen-ui-b15bbd"
                                   >
-                                    <path
-                                      d="M13.823 2.45a.278.278 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.395 1.395 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788c.061-.043.12-.093.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201l-.079-4.045Z"
-                                      fill="currentColor"
-                                    />
-                                    <path
-                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2h3.25Z"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
-                                </div>
-                              </a>
+                                    Search Failure
+                                  </div>
+                                </button>
+                                <a
+                                  aria-disabled="false"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw css-11mxq61-StyledButton e1bp1fda0"
+                                  data-lgid="lg-button"
+                                  href="a-parsley-url.mongodb.com"
+                                  target="__blank"
+                                  title="Parsley logs"
+                                >
+                                  <div
+                                    class="leafygreen-ui-v038xi"
+                                  />
+                                  <div
+                                    class="leafygreen-ui-b15bbd"
+                                  >
+                                    Logs
+                                    <svg
+                                      alt=""
+                                      aria-hidden="true"
+                                      class="leafygreen-ui-1q35ofk"
+                                      fill="none"
+                                      height="16"
+                                      role="presentation"
+                                      viewBox="0 0 16 16"
+                                      width="16"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M13.823 2.45a.278.278 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.395 1.395 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788c.061-.043.12-.093.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201l-.079-4.045Z"
+                                        fill="currentColor"
+                                      />
+                                      <path
+                                        d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2h3.25Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
+                                </a>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -811,11 +850,11 @@
       />
     </div>
     <div
-      class="css-14ovsiy-CommitCard e1a625uv4"
+      class="css-14ovsiy-CommitCard e1a625uv2"
       data-cy="commit-details-card"
     >
       <div
-        class="css-12rnwxt-TopLabel e1a625uv3"
+        class="css-12rnwxt-TopLabel e1a625uv1"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -876,17 +915,17 @@
           Mar 30, 2025, 10:22 AM
         </span>
         <div
-          class="css-1pa0taf-OrderLabel e1a625uv2"
+          class="css-1pa0taf-OrderLabel e1a625uv0"
         >
           Order: 
           91
         </div>
       </div>
       <div
-        class="css-1qgx25j-BottomLabel e1a625uv0"
+        class="css-1qgx25j-BottomLabel end94gb2"
       >
         <b
-          class="css-1nvsyyh-AuthorLabel e1a625uv1"
+          class="css-1nvsyyh-AuthorLabel end94gb1"
         >
           Evergreen Admin
            - 
@@ -923,11 +962,11 @@
       />
     </div>
     <div
-      class="css-todlc7-CommitCard e1a625uv4"
+      class="css-todlc7-CommitCard e1a625uv2"
       data-cy="commit-details-card"
     >
       <div
-        class="css-12rnwxt-TopLabel e1a625uv3"
+        class="css-12rnwxt-TopLabel e1a625uv1"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -988,17 +1027,17 @@
           Mar 29, 2025, 10:22 AM
         </span>
         <div
-          class="css-1pa0taf-OrderLabel e1a625uv2"
+          class="css-1pa0taf-OrderLabel e1a625uv0"
         >
           Order: 
           90
         </div>
       </div>
       <div
-        class="css-1qgx25j-BottomLabel e1a625uv0"
+        class="css-1qgx25j-BottomLabel end94gb2"
       >
         <b
-          class="css-1nvsyyh-AuthorLabel e1a625uv1"
+          class="css-1nvsyyh-AuthorLabel end94gb1"
         >
           Evergreen Admin
            - 
