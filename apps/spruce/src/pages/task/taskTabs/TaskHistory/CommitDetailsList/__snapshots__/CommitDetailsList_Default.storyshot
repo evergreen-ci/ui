@@ -655,6 +655,21 @@
                             <div
                               class="css-1gi9ejr-ButtonContainer e1bp1fda1"
                             >
+                              <button
+                                aria-disabled="false"
+                                class="lg-ui-button-0000 leafygreen-ui-168frnw css-11mxq61-StyledButton e1bp1fda0"
+                                data-lgid="lg-button"
+                                type="button"
+                              >
+                                <div
+                                  class="leafygreen-ui-v038xi"
+                                />
+                                <div
+                                  class="leafygreen-ui-b15bbd"
+                                >
+                                  Search Failure
+                                </div>
+                              </button>
                               <a
                                 aria-disabled="false"
                                 class="lg-ui-button-0000 leafygreen-ui-168frnw css-11mxq61-StyledButton e1bp1fda0"

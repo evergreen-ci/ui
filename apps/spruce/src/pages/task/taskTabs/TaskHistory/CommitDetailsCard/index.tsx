@@ -14,6 +14,8 @@ import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { useTaskHistoryAnalytics } from "analytics";
 import { inactiveElementStyle } from "components/styles";
 import { statusColorMap } from "components/TaskBox";
 import { getGithubCommitUrl } from "constants/externalResources";
@@ -26,7 +28,7 @@ import { RESTART_TASK } from "gql/mutations";
 import { useDateFormat, useSpruceConfig } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { isProduction } from "utils/environmentVariables";
-import { jiraLinkify, shortenGithash } from "utils/string";
+import { jiraLinkify } from "utils/string";
 import { TaskHistoryTask } from "../types";
 import FailedTestsTable from "./FailedTestsTable";
 
@@ -58,6 +60,8 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     versionMetadata,
   } = task;
   const { author, message } = versionMetadata;
+
+  const { sendEvent } = useTaskHistoryAnalytics();
 
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host ?? "";
@@ -151,7 +155,13 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
         {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}
       </TopLabel>
       {tests.testResults.length > 0 ? (
-        <Accordion caretAlign={AccordionCaretAlign.Start} title={title}>
+        <Accordion
+          caretAlign={AccordionCaretAlign.Start}
+          onToggle={({ isVisible }) =>
+            sendEvent({ name: "Toggled failed tests table", open: isVisible })
+          }
+          title={title}
+        >
           <FailedTestsTable tests={tests} />
         </Accordion>
       ) : (

@@ -1,3 +1,4 @@
+import { shortenGithash, trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { TimeFormat } from "constants/time";
 import {
   msToDuration,
@@ -5,9 +6,7 @@ import {
   sortFunctionString,
   getDateCopy,
   applyStrictRegex,
-  shortenGithash,
   joinWithConjunction,
-  trimStringFromMiddle,
   stripNewLines,
   getTicketFromJiraURL,
 } from ".";
@@ -218,8 +217,7 @@ describe("shortenGithash", () => {
     expect(shortenGithash("012")).toBe("012");
   });
   it("handles undefined input", () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    expect(shortenGithash(undefined)).toBeUndefined();
+    expect(shortenGithash(undefined)).toBe("");
   });
 });
 

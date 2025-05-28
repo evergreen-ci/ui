@@ -5,6 +5,9 @@ export type TaskHistoryTask = Unpacked<
   TaskHistoryQuery["taskHistory"]["tasks"]
 >;
 
+export type TaskHistoryPagination =
+  TaskHistoryQuery["taskHistory"]["pagination"];
+
 export type GroupedTask =
   | {
       inactiveTasks: TaskHistoryTask[];

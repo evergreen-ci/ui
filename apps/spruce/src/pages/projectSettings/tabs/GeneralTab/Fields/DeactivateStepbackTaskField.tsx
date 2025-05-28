@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
-import { Description, Label } from "@leafygreen-ui/typography";
+import { Description } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { ConfirmationModal } from "components/ConfirmationModal";
@@ -101,7 +101,7 @@ export const DeactivateStepbackTaskField: Field = ({ disabled, uiSchema }) => {
         />
       )}
       <ElementWrapper>
-        <Label htmlFor={id}>Deactivate Currently Scheduled Stepback Task</Label>
+        <label htmlFor={id}>Deactivate Currently Scheduled Stepback Task</label>
         <Description>
           Deactivate a specific stepback task. This will not turn off future
           stepbacks for the task.

@@ -6,6 +6,7 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { shortenGithash, trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { usePreferencesAnalytics } from "analytics";
 import Breadcrumbs from "components/Breadcrumbs";
 import { LogTypes } from "constants/enums";
@@ -16,7 +17,6 @@ import {
 } from "gql/generated/types";
 import { GET_TEST_LOG_URL_AND_RENDERING_TYPE } from "gql/queries";
 import { useTaskQuery } from "hooks/useTaskQuery";
-import { shortenGithash, trimStringFromMiddle } from "utils/string";
 
 interface Props {
   buildID: string;
