@@ -57,7 +57,7 @@ describe("task history", () => {
         .contains("Order: 12380")
         .should("not.exist");
       cy.dataCy("collapsed-card").first().eq(0).as("collapsedCardButton");
-      cy.get("@collapsedCardButton").contains("1 INACTIVE COMMIT");
+      cy.get("@collapsedCardButton").contains("1 Inactive Commit");
       cy.get("@collapsedCardButton").click();
       cy.get("@collapsedCardButton").contains("1 EXPANDED");
       cy.dataCy("commit-details-card").should("have.length", 11);
@@ -65,7 +65,7 @@ describe("task history", () => {
         .contains("Order: 1238")
         .should("be.visible");
       cy.get("@collapsedCardButton").click();
-      cy.get("@collapsedCardButton").contains("1 INACTIVE COMMIT");
+      cy.get("@collapsedCardButton").contains("1 Inactive Commit");
       cy.dataCy("commit-details-card").should("have.length", 10);
       cy.dataCy("commit-details-card")
         .contains("Order: 1238")
