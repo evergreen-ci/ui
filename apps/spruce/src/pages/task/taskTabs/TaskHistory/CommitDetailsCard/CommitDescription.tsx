@@ -9,12 +9,14 @@ import { jiraLinkify } from "utils/string";
 
 const { blue } = palette;
 
-interface CommitDetailsCardProps {
+const MAX_CHAR = 250;
+
+interface CommitDescriptionProps {
   author: string;
   message: string;
 }
 
-const CommitDescription: React.FC<CommitDetailsCardProps> = ({
+const CommitDescription: React.FC<CommitDescriptionProps> = ({
   author,
   message,
 }) => {
@@ -62,8 +64,6 @@ const CommitDescription: React.FC<CommitDetailsCardProps> = ({
 };
 
 export default CommitDescription;
-
-const MAX_CHAR = 250;
 
 const BottomLabel = styled.div`
   display: flex;
