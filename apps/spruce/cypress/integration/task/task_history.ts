@@ -57,15 +57,15 @@ describe("task history", () => {
         .contains("Order: 12380")
         .should("not.exist");
       cy.dataCy("collapsed-card").first().eq(0).as("collapsedCardButton");
-      cy.get("@collapsedCardButton").contains("1 INACTIVE COMMIT");
+      cy.get("@collapsedCardButton").contains("1 Inactive Commit");
       cy.get("@collapsedCardButton").click();
-      cy.get("@collapsedCardButton").contains("1 EXPANDED");
+      cy.get("@collapsedCardButton").contains("1 Expanded");
       cy.dataCy("commit-details-card").should("have.length", 11);
       cy.dataCy("commit-details-card")
         .contains("Order: 1238")
         .should("be.visible");
       cy.get("@collapsedCardButton").click();
-      cy.get("@collapsedCardButton").contains("1 INACTIVE COMMIT");
+      cy.get("@collapsedCardButton").contains("1 Inactive Commit");
       cy.dataCy("commit-details-card").should("have.length", 10);
       cy.dataCy("commit-details-card")
         .contains("Order: 1238")
@@ -141,6 +141,42 @@ describe("task history", () => {
         willRunColor,
       );
       cy.get("@secondTaskCard").within(() => {
+        cy.dataCy("restart-button").should(
+          "have.attr",
+          "aria-disabled",
+          "true",
+        );
+      });
+    });
+  });
+
+  describe("scheduling tasks", () => {
+    const willRunColor = "rgb(92, 108, 117)";
+
+    it("scheduling a task should reflect the changes on the UI", () => {
+      cy.visit(spruceTaskHistoryLink);
+
+      cy.dataCy("task-timeline").children().eq(2).as("taskBox");
+      cy.get("@taskBox").should("have.attr", "data-cy", "collapsed-box");
+
+      cy.contains("1 Inactive Commit").click();
+      cy.dataCy("commit-details-card").eq(2).as("taskCard");
+      cy.get("@taskCard").within(() => {
+        cy.dataCy("schedule-button").should(
+          "have.attr",
+          "aria-disabled",
+          "false",
+        );
+        cy.dataCy("schedule-button").click();
+      });
+      cy.validateToast("success", "Task scheduled to run");
+
+      cy.get("@taskBox").should("have.attr", "data-cy", "timeline-box");
+      cy.get("@taskBox").should("have.css", "background-color", willRunColor);
+
+      cy.contains("1 Inactive Commit").should("not.exist");
+      cy.get("@taskCard").within(() => {
+        cy.dataCy("restart-button").should("be.visible");
         cy.dataCy("restart-button").should(
           "have.attr",
           "aria-disabled",

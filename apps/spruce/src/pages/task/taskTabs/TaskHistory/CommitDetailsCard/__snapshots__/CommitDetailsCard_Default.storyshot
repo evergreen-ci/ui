@@ -8,7 +8,7 @@
     >
       <a
         class="lg-ui-0000 leafygreen-ui-hvznge"
-        data-cy="downstream-base-commit"
+        data-cy="task-link"
         href="/task/a"
       >
         <code
@@ -21,6 +21,7 @@
         aria-disabled="false"
         aria-label="GitHub Commit Link"
         class="leafygreen-ui-tcjr3n"
+        data-cy="github-link"
         href="https://github.com/evergreen-ci/evergreen/commit/aef363719d0287e92cd83749a827bae"
         tabindex="0"
         target="__blank"
@@ -63,6 +64,7 @@
       </button>
       <div
         class="leafygreen-ui-h5xdir"
+        data-cy="this-task-badge"
       >
         This Task
       </div>
