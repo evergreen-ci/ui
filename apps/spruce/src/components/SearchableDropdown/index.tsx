@@ -10,7 +10,6 @@ import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
 import { palette } from "@leafygreen-ui/palette";
 import { SearchInput } from "@leafygreen-ui/search-input";
-import { Label } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import Dropdown from "components/Dropdown";
@@ -153,7 +152,11 @@ const SearchableDropdown = <T extends {}>({
 
   return (
     <Container className={className}>
-      {label && <Label htmlFor={`searchable-dropdown-${label}`}>{label}</Label>}
+      {label && (
+        <StyledLabel htmlFor={`searchable-dropdown-${label}`}>
+          {label}
+        </StyledLabel>
+      )}
       <Wrapper>
         <Dropdown
           ref={DropdownRef}
@@ -169,11 +172,13 @@ const SearchableDropdown = <T extends {}>({
           useHorizontalPadding={false}
         >
           <SearchInput
-            aria-label="Search for options"
+            aria-label={label ? `Search for ${label}` : "Search for options"}
             autoFocus
             className={css`
               padding: 0 ${size.xs};
+              width: 100%;
             `}
+            darkMode={false}
             data-cy={`${dataCy}-search-input`}
             onChange={handleSearch}
             placeholder={searchPlaceholder}
@@ -262,6 +267,12 @@ const CheckmarkIcon = styled(Icon)<{ checked: boolean }>`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const StyledLabel = styled.label`
+  font-weight: bold;
+  margin-bottom: ${size.xs};
+  display: block;
 `;
 
 export default SearchableDropdown;
