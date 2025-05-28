@@ -107,7 +107,12 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     versionMetadata: baseTaskVersionMetadata,
   } = baseTask ?? {};
   const baseCommit = shortenGithash(baseTaskVersionMetadata?.revision);
-  const projectIdentifier = project?.identifier;
+  const {
+    id: projectID,
+    identifier: projectIdentifier,
+    owner,
+    repo,
+  } = project || {};
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
   const taskTrace = details?.traceID;
@@ -141,29 +146,21 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             </StyledRouterLink>
           </MetadataItem>
         )}
-        {projectIdentifier && (
-          <MetadataItem data-cy="task-metadata-project">
-            <MetadataLabel>Project:</MetadataLabel>{" "}
-            <StyledRouterLink
-              data-cy="project-link"
-              onClick={() =>
-                taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
-                  "link.type": "project link",
-                })
-              }
-              to={getProjectPatchesRoute(projectIdentifier)}
-            >
-              {projectIdentifier}
-            </StyledRouterLink>
-          </MetadataItem>
-        )}
-        {project?.repo && (
-          <MetadataItem data-cy="task-metadata-repo">
-            <MetadataLabel>Repository:</MetadataLabel>{" "}
-            <span data-cy="repo-text">{project.repo}</span>
-          </MetadataItem>
-        )}
+        <MetadataItem data-cy="task-metadata-project">
+          <MetadataLabel>Project:</MetadataLabel>{" "}
+          <StyledRouterLink
+            data-cy="project-link"
+            onClick={() =>
+              taskAnalytics.sendEvent({
+                name: "Clicked metadata link",
+                "link.type": "project link",
+              })
+            }
+            to={getProjectPatchesRoute(projectIdentifier || projectID || "")}
+          >
+            {projectIdentifier || `${owner}/${repo}`}
+          </StyledRouterLink>
+        </MetadataItem>
         <MetadataItem>
           <MetadataLabel>Submitted by:</MetadataLabel> {author}
         </MetadataItem>
