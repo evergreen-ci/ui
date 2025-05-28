@@ -144,15 +144,12 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
       status={displayStatus as TaskStatus}
     >
       <TopLabel>
-        <InlineCode
-          as={Link}
-          data-cy="downstream-base-commit"
-          to={getTaskRoute(taskId)}
-        >
+        <InlineCode as={Link} data-cy="task-link" to={getTaskRoute(taskId)}>
           {shortenGithash(revision ?? "")}
         </InlineCode>
         <IconButton
           aria-label="GitHub Commit Link"
+          data-cy="github-link"
           href={githubCommitUrl}
           target="__blank"
         >
@@ -189,7 +186,11 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
             Schedule Task
           </Button>
         )}
-        {isCurrentTask && <Badge variant={BadgeVariant.Blue}>This Task</Badge>}
+        {isCurrentTask && (
+          <Badge data-cy="this-task-badge" variant={BadgeVariant.Blue}>
+            This Task
+          </Badge>
+        )}
         <span>{dateCopy}</span>
         {/* Use this to debug issues with pagination. */}
         {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}
