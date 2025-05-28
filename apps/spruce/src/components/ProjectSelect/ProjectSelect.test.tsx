@@ -1,3 +1,4 @@
+import { ReactNode, ChangeEvent } from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
@@ -17,6 +18,41 @@ import {
 import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";
 
 import { ProjectSelect } from ".";
+
+interface SearchInputProps {
+  children?: ReactNode;
+  className?: string;
+  "data-cy"?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  value?: string;
+  "aria-label"?: string;
+  [key: string]: unknown;
+}
+
+vi.mock("@leafygreen-ui/search-input", () => ({
+  SearchInput: ({
+    children,
+    className,
+    "data-cy": dataCy,
+    onChange,
+    placeholder,
+    value,
+    ...props
+  }: SearchInputProps) => (
+    <div className={className}>
+      <input
+        aria-label={props["aria-label"]}
+        data-cy={dataCy}
+        onChange={onChange}
+        placeholder={placeholder}
+        type="search"
+        value={value}
+      />
+      {children}
+    </div>
+  ),
+}));
 
 describe("projectSelect", () => {
   afterEach(() => {
