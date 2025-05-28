@@ -1,14 +1,14 @@
 import { Form } from "components/Settings/Form";
 import { GetFormSchema, ValidateProps } from "components/SpruceForm";
 import { usePopulateForm, useAdminSettingsContext } from "../Context";
-import { FormStateMap, WritableAdminSettingsType } from "./types";
+import { FormStateMap, FormStates, WritableAdminSettingsType } from "./types";
 
 type BaseTabProps<T extends WritableAdminSettingsType> = {
   disabled?: boolean;
   formSchema: ReturnType<GetFormSchema>;
-  initialFormState: FormStateMap[T];
+  initialFormState: FormStates;
   tab: T;
-  validate?: ValidateProps<FormStateMap[T]>;
+  validate?: ValidateProps<FormStates>;
 };
 
 export const BaseTab = <T extends WritableAdminSettingsType>({
@@ -22,7 +22,6 @@ export const BaseTab = <T extends WritableAdminSettingsType>({
   usePopulateForm(initialFormState, tab);
 
   return (
-    // @ts-expect-error: Suppressing type error as per PR #790 review comments
     <Form<WritableAdminSettingsType, FormStateMap>
       {...rest}
       disabled={disabled}
