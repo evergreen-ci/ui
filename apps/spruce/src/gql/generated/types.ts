@@ -3739,6 +3739,7 @@ export type BasePatchFragment = {
   alias?: string | null;
   author: string;
   description: string;
+  projectID: string;
   status: string;
   parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   variantsTasks: Array<{
@@ -5591,6 +5592,7 @@ export type SchedulePatchMutation = {
     alias?: string | null;
     author: string;
     description: string;
+    projectID: string;
     status: string;
     versionFull?: {
       __typename?: "Version";
@@ -5764,6 +5766,7 @@ export type UpdatePatchDescriptionMutation = {
     alias?: string | null;
     author: string;
     description: string;
+    projectID: string;
     status: string;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     variantsTasks: Array<{
@@ -6997,6 +7000,7 @@ export type ConfigurePatchQuery = {
     alias?: string | null;
     author: string;
     description: string;
+    projectID: string;
     status: string;
     childPatchAliases?: Array<{
       __typename?: "ChildPatchAlias";
