@@ -79,10 +79,7 @@ const targetsFromChangedFiles = (files) => {
     }
   });
 
-  // If there are only Parsley-specific changes, don't add Spruce to the targets
-  if (appSpecificChanges.parsley && !appSpecificChanges.spruce && !targets.has("spruce")) {
-    return Array.from(targets);
-  }
+  // Parsley-specific changes do not require adding Spruce to the targets.
 
   return Array.from(targets);
 };
