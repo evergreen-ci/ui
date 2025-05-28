@@ -1,8 +1,11 @@
+import { useQuery } from "@apollo/client";
 import { ColumnFiltersState } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
+import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
+import { TASK } from "gql/queries";
 import { useQueryParam } from "hooks/useQueryParam";
 import { RequiredQueryParams } from "types/task";
 
@@ -35,11 +38,24 @@ type Action =
   | { name: "Toggled failed tests table"; open: boolean };
 
 export const useTaskHistoryAnalytics = () => {
-  const { [slugs.taskId]: taskId } = useParams();
+  const { [slugs.taskId]: taskId = "" } = useParams();
   const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
+
+  const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
+    skip: !taskId,
+    variables: { taskId, execution },
+    errorPolicy: "all",
+    fetchPolicy: "cache-first",
+  });
+
+  const { buildVariant, displayName, project } = eventData?.task || {};
+  const { identifier } = project || {};
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("TaskHistory", {
     "task.execution": execution,
     "task.id": taskId || "",
+    "task.name": displayName || "",
+    "task.variant": buildVariant || "",
+    "task.project.identifier": identifier || "",
   });
 };
