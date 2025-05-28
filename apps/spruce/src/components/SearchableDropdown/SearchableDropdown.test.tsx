@@ -1,6 +1,30 @@
 import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
 import SearchableDropdown from ".";
 
+vi.mock("@leafygreen-ui/search-input", () => ({
+  SearchInput: ({
+    children,
+    className,
+    "data-cy": dataCy,
+    onChange,
+    placeholder,
+    value,
+    ...props
+  }: any) => (
+    <div className={className}>
+      <input
+        aria-label={props["aria-label"]}
+        data-cy={dataCy}
+        onChange={onChange}
+        placeholder={placeholder}
+        type="search"
+        value={value}
+      />
+      {children}
+    </div>
+  ),
+}));
+
 const RenderSearchableDropdown = (
   props: Omit<React.ComponentProps<typeof SearchableDropdown>, "label">,
 ) => (
