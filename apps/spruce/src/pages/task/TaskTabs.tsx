@@ -26,6 +26,7 @@ interface TaskTabProps {
 
 const useTabConfig = (
   task: NonNullable<TaskQuery["task"]>,
+  hasRequiredQueryParams: boolean,
   isDisplayTask: boolean,
 ) => {
   const {
@@ -87,7 +88,7 @@ const useTabConfig = (
           )
         }
       >
-        <TestsTable task={task} />
+        {hasRequiredQueryParams && <TestsTable task={task} />}
       </Tab>
     ),
     [TaskTab.ExecutionTasks]: (
@@ -174,13 +175,17 @@ const useTabConfig = (
 export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const { [slugs.tab]: urlTab } = useParams<{ [slugs.tab]: TaskTab }>();
   const taskAnalytics = useTaskAnalytics();
-  const [execution] = useQueryParam<number | undefined>(
+  const [execution] = useQueryParam<number | null>(
     RequiredQueryParams.Execution,
-    undefined,
+    null,
   );
   const [params] = useQueryParams();
   const navigate = useNavigate();
-  const { activeTabs, tabMap } = useTabConfig(task, isDisplayTask);
+  const { activeTabs, tabMap } = useTabConfig(
+    task,
+    execution !== null,
+    isDisplayTask,
+  );
 
   const getDefaultTab = (): number => {
     if (urlTab && activeTabs.includes(urlTab))
@@ -193,9 +198,9 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     return 0;
   };
 
-  // Update the default tab in the url if it isn't populated
+  // Update the default tab and execution in the url if it isn't populated
   useEffect(() => {
-    if (urlTab === undefined || execution === undefined) {
+    if (urlTab === undefined || execution === null) {
       navigate(
         getTaskRoute(task.id, {
           ...params,
@@ -212,7 +217,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
       }
       return;
     }
-  }, [urlTab, activeTabs, execution, task.id, navigate]);
+  }, [urlTab, activeTabs, execution, params, task.id, navigate]);
 
   const setURLTab = (tabIndex: number) => {
     const newUrl = getTaskRoute(task.id, {
