@@ -59,7 +59,7 @@ describe("task history", () => {
       cy.dataCy("collapsed-card").first().eq(0).as("collapsedCardButton");
       cy.get("@collapsedCardButton").contains("1 Inactive Commit");
       cy.get("@collapsedCardButton").click();
-      cy.get("@collapsedCardButton").contains("1 EXPANDED");
+      cy.get("@collapsedCardButton").contains("1 Expanded");
       cy.dataCy("commit-details-card").should("have.length", 11);
       cy.dataCy("commit-details-card")
         .contains("Order: 1238")
