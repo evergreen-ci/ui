@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { usePrevious } from "@evg-ui/lib/hooks";
@@ -11,8 +11,7 @@ import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
-import { queryString } from "utils";
-import { isFailedTaskStatus } from "utils/statuses";
+import { parseQueryString } from "utils/queryString";
 import { BuildBaron } from "./taskTabs/buildBaron";
 import { useBuildBaronVariables } from "./taskTabs/buildBaronAndAnnotations";
 import { ExecutionTasksTable } from "./taskTabs/ExecutionTasksTable";
@@ -21,7 +20,6 @@ import { Logs } from "./taskTabs/Logs";
 import TaskHistory from "./taskTabs/TaskHistory";
 import { TestsTable } from "./taskTabs/TestsTable";
 
-const { parseQueryString } = queryString;
 interface TaskTabProps {
   isDisplayTask: boolean;
   task: NonNullable<TaskQuery["task"]>;
@@ -59,119 +57,124 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     },
   });
 
-  const tabMap = {
-    [TaskTab.Logs]: (
-      <Tab key="task-logs-tab" data-cy="task-logs-tab" name="Logs">
-        <Logs execution={execution} logLinks={logLinks} taskId={id} />
-      </Tab>
-    ),
-    [TaskTab.Tests]: (
-      <Tab
-        key="task-tests-tab"
-        data-cy="task-tests-tab"
-        name={
-          <span>
-            {failedTestCount ? (
-              <TabLabelWithBadge
-                badgeText={failedTestCount}
-                badgeVariant="red"
-                dataCyBadge="tests-tab-badge"
-                tabLabel="Tests"
-              />
-            ) : (
-              "Tests"
-            )}
-          </span>
-        }
-      >
-        <TestsTable task={task} />
-      </Tab>
-    ),
-    [TaskTab.ExecutionTasks]: (
-      <Tab
-        key="execution-tasks-tab"
-        data-cy="task-execution-tab"
-        name="Execution Tasks"
-      >
-        <ExecutionTasksTable
-          execution={execution}
-          executionTasksFull={executionTasksFull}
-          isPatch={versionMetadata?.isPatch}
-        />
-      </Tab>
-    ),
-    [TaskTab.Files]: (
-      <Tab
-        key="task-files-tab"
-        data-cy="task-files-tab"
-        name={
-          <span>
-            {fileCount !== undefined ? (
-              <TabLabelWithBadge
-                badgeText={fileCount}
-                badgeVariant="lightgray"
-                dataCyBadge="files-tab-badge"
-                tabLabel="Files"
-              />
-            ) : (
-              "Files"
-            )}
-          </span>
-        }
-      >
-        <FileTable execution={execution} taskId={id} />
-      </Tab>
-    ),
-    [TaskTab.Annotations]: (
-      <Tab
-        key="task-build-baron-tab"
-        data-cy="task-build-baron-tab"
-        name="Failure Details"
-      >
-        <BuildBaron
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          annotation={annotation}
-          execution={execution}
-          taskId={id}
-          userCanModify={canModifyAnnotation}
-        />
-      </Tab>
-    ),
-    [TaskTab.TrendCharts]: (
-      <Tab
-        key="trend-charts-tab"
-        data-cy="trend-charts-tab"
-        name="Trend Charts"
-      >
-        <TrendChartsPlugin taskId={id} />
-      </Tab>
-    ),
-    [TaskTab.History]: (
-      <Tab
-        key="task-history-tab"
-        data-cy="task-history-tab"
-        name={
-          <TabLabelWithBadge
-            badgeText="Beta"
-            badgeVariant="blue"
-            tabLabel="Task History"
+  const tabIsActive = useMemo(
+    () => ({
+      [TaskTab.Logs]: !isDisplayTask,
+      [TaskTab.ExecutionTasks]: isDisplayTask,
+      [TaskTab.Tests]: true,
+      [TaskTab.Files]: true,
+      [TaskTab.Annotations]: showBuildBaron,
+      [TaskTab.TrendCharts]: isPerfPluginEnabled,
+      [TaskTab.History]: isMainlineRequester(requester as Requester),
+    }),
+    [isDisplayTask, isPerfPluginEnabled, requester, showBuildBaron],
+  );
+  const tabMap = useMemo(
+    () => ({
+      [TaskTab.Logs]: (
+        <Tab key="task-logs-tab" data-cy="task-logs-tab" name="Logs">
+          <Logs execution={execution} logLinks={logLinks} taskId={id} />
+        </Tab>
+      ),
+      [TaskTab.Tests]: (
+        <Tab
+          key="task-tests-tab"
+          data-cy="task-tests-tab"
+          name={
+            <span>
+              {failedTestCount ? (
+                <TabLabelWithBadge
+                  badgeText={failedTestCount}
+                  badgeVariant="red"
+                  dataCyBadge="tests-tab-badge"
+                  tabLabel="Tests"
+                />
+              ) : (
+                "Tests"
+              )}
+            </span>
+          }
+        >
+          <TestsTable task={task} />
+        </Tab>
+      ),
+      [TaskTab.ExecutionTasks]: (
+        <Tab
+          key="execution-tasks-tab"
+          data-cy="task-execution-tab"
+          name="Execution Tasks"
+        >
+          <ExecutionTasksTable
+            execution={execution}
+            executionTasksFull={executionTasksFull}
+            isPatch={versionMetadata?.isPatch}
           />
-        }
-      >
-        <TaskHistory task={task} />
-      </Tab>
-    ),
-  };
-
-  const tabIsActive = {
-    [TaskTab.Logs]: !isDisplayTask,
-    [TaskTab.ExecutionTasks]: isDisplayTask,
-    [TaskTab.Tests]: true,
-    [TaskTab.Files]: true,
-    [TaskTab.Annotations]: showBuildBaron,
-    [TaskTab.TrendCharts]: isPerfPluginEnabled,
-    [TaskTab.History]: isMainlineRequester(requester as Requester),
-  };
+        </Tab>
+      ),
+      [TaskTab.Files]: (
+        <Tab
+          key="task-files-tab"
+          data-cy="task-files-tab"
+          name={
+            <span>
+              {fileCount !== undefined ? (
+                <TabLabelWithBadge
+                  badgeText={fileCount}
+                  badgeVariant="lightgray"
+                  dataCyBadge="files-tab-badge"
+                  tabLabel="Files"
+                />
+              ) : (
+                "Files"
+              )}
+            </span>
+          }
+        >
+          <FileTable execution={execution} taskId={id} />
+        </Tab>
+      ),
+      [TaskTab.Annotations]: (
+        <Tab
+          key="task-build-baron-tab"
+          data-cy="task-build-baron-tab"
+          name="Failure Details"
+        >
+          <BuildBaron
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            annotation={annotation}
+            execution={execution}
+            taskId={id}
+            userCanModify={canModifyAnnotation}
+          />
+        </Tab>
+      ),
+      [TaskTab.TrendCharts]: (
+        <Tab
+          key="trend-charts-tab"
+          data-cy="trend-charts-tab"
+          name="Trend Charts"
+        >
+          <TrendChartsPlugin taskId={id} />
+        </Tab>
+      ),
+      [TaskTab.History]: (
+        <Tab
+          key="task-history-tab"
+          data-cy="task-history-tab"
+          name={
+            <TabLabelWithBadge
+              badgeText="Beta"
+              badgeVariant="blue"
+              tabLabel="Task History"
+            />
+          }
+        >
+          <TaskHistory task={task} />
+        </Tab>
+      ),
+    }),
+    [],
+  );
 
   const activeTabs = Object.keys(tabMap).filter(
     // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -185,12 +188,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     defaultTab = activeTabs.indexOf(TaskTab.ExecutionTasks);
   } else if (failedTestCount > 0) {
     defaultTab = activeTabs.indexOf(TaskTab.Tests);
-  } else if (
-    totalTestCount > 0 &&
-    failedTestCount === 0 &&
-    isFailedTaskStatus(displayStatus) &&
-    !isDisplayTask
-  ) {
+  } else if (failedTestCount === 0 || !isDisplayTask) {
     defaultTab = activeTabs.indexOf(TaskTab.Logs);
   } else if (totalTestCount > 0) {
     defaultTab = activeTabs.indexOf(TaskTab.Tests);
