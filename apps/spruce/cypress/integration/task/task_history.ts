@@ -164,8 +164,8 @@ describe("task history", () => {
         cy.get("button[aria-label='Next page']").as("nextPageButton");
 
         const collapsedViewPages = {
-          first: { order: "12305", date: "March 27, 2025" },
-          next: { order: "12231", date: "March 7, 2025" },
+          first: { order: "12305", date: "Mar 27, 2025" },
+          next: { order: "12224", date: "Mar 7, 2025" },
         };
 
         // Previous page should be disabled.
@@ -214,10 +214,10 @@ describe("task history", () => {
         cy.get("button[aria-label='Next page']").as("nextPageButton");
 
         const expandedViewPages = {
-          first: { order: "12306", date: "March 27, 2025" },
-          second: { order: "12264", date: "March 17, 2025" },
-          third: { order: "12222", date: "March 6, 2025" },
-          last: { order: "12180", date: "February 26, 2025" },
+          first: { order: "12306", date: "Mar 27, 2025" },
+          second: { order: "12262", date: "Mar 17, 2025" },
+          third: { order: "12218", date: "Mar 5, 2025" },
+          last: { order: "12174", date: "Feb 25, 2025" },
         };
 
         // Previous page should be disabled.

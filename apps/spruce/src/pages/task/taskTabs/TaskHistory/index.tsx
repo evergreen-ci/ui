@@ -36,7 +36,7 @@ import {
 interface TaskHistoryProps {
   task: NonNullable<TaskQuery["task"]>;
 }
-const MAX_DATES_PER_PAGE = 8; // Maximum number of dates to assume per page in the timeline
+const MAX_DATES_PER_PAGE = 10; // Maximum number of dates to assume per page in the timeline
 const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const timelineRef = useRef<HTMLDivElement>(null);
   const { width: timelineWidth } = useDimensions<HTMLDivElement>(timelineRef);
