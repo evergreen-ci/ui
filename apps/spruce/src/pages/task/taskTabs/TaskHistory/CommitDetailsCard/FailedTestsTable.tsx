@@ -21,6 +21,8 @@ import { TaskTestResult, TestResult } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskHistoryOptions } from "../types";
 
+const DEFAULT_PAGE_SIZE = 5;
+
 interface CommitDetailsCardProps {
   tests: Omit<TaskTestResult, "filteredTestCount" | "totalTestCount">;
 }
@@ -72,10 +74,7 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
         }),
     ),
     initialState: {
-      pagination: {
-        pageIndex: 0,
-        pageSize: DEFAULT_PAGE_SIZE,
-      },
+      pagination: { pageIndex: 0, pageSize: DEFAULT_PAGE_SIZE },
     },
     state: {
       columnFilters,
@@ -115,8 +114,6 @@ const TableContainer = styled.div`
   gap: ${size.xxs};
   margin-top: ${size.xxs};
 `;
-
-const DEFAULT_PAGE_SIZE = 5;
 
 const getColumns = ({
   onClickLogs,

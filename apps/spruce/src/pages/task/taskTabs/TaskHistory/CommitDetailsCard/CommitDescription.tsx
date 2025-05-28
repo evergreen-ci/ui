@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Disclaimer } from "@leafygreen-ui/typography";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskHistoryAnalytics } from "analytics";
@@ -35,7 +34,7 @@ const CommitDescription: React.FC<CommitDetailsCardProps> = ({
       <WordBreak>
         {jiraLinkify(showDescription ? message : truncatedText, jiraHost)}
         {shouldTruncate ? (
-          <ButtonText
+          <ToggleButton
             onClick={(e) => {
               e.stopPropagation();
               setShowDescription(!showDescription);
@@ -46,7 +45,7 @@ const CommitDescription: React.FC<CommitDetailsCardProps> = ({
             }}
           >
             {showDescription ? "Show less" : "Show more"}
-          </ButtonText>
+          </ToggleButton>
         ) : null}
       </WordBreak>
     </BottomLabel>
@@ -67,11 +66,15 @@ const AuthorLabel = styled.b`
   flex-shrink: 0;
 `;
 
-const ButtonText = styled(Disclaimer)`
+const ToggleButton = styled.button`
+  all: unset;
+
   cursor: pointer;
   color: ${blue.dark1};
   text-decoration: underline;
-  width: fit-content;
-  display: inline-block;
   margin-left: ${size.xxs};
+
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
 `;
