@@ -27,8 +27,8 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
   const hasFilters = value.length > 0;
   const iconColor = hasFilters ? blue.base : gray.dark2;
 
-  const buttonRef = useRef(null);
-  const popoverRef = useRef(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
   // Handle onClickOutside
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));

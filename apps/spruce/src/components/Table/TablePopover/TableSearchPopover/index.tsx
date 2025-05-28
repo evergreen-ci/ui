@@ -34,8 +34,8 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   const iconColor = value === "" ? gray.dark2 : blue.base;
 
   const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
-  const buttonRef = useRef(null);
-  const popoverRef = useRef(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
   // Handle onClickOutside
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
