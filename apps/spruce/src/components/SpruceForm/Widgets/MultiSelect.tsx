@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { Error, Label } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import Dropdown from "components/Dropdown";
 import { TreeSelect, ALL_VALUE } from "components/TreeSelect";
@@ -40,7 +39,7 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   return (
     <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <Container>
-        <Label htmlFor={`${label}-multiselect`}>{label}</Label>
+        <label htmlFor={`${label}-multiselect`}>{label}</label>
         <Dropdown
           buttonText={`${label}: ${
             value.length ? value.join(", ") : "No options selected."
@@ -56,7 +55,9 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
             tData={dropdownOptions}
           />
         </Dropdown>
-        {rawErrors?.length > 0 && <Error>{rawErrors?.join(", ")}</Error>}
+        {rawErrors?.length > 0 && (
+          <span className="error">{rawErrors?.join(", ")}</span>
+        )}
       </Container>
     </ElementWrapper>
   );

@@ -84,23 +84,27 @@ export const useTaskAnalytics = () => {
   });
 
   const {
+    displayName,
+    displayStatus,
     failedTestCount,
     latestExecution,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    project: { identifier } = { identifier: null },
+    project,
     requester = "",
     status: taskStatus,
     versionMetadata: { isPatch } = { isPatch: false },
   } = eventData?.task || {};
+  const { identifier } = project || {};
   const isLatestExecution = latestExecution === execution;
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Task", {
-    "task.status": taskStatus || "",
+    "task.display_status": displayStatus || "",
     "task.execution": execution,
-    "task.is_latest_execution": isLatestExecution,
-    "task.id": taskId || "",
     "task.failed_test_count": failedTestCount || "",
-    "task.project.identifier": identifier,
+    "task.id": taskId || "",
+    "task.is_latest_execution": isLatestExecution,
+    "task.name": displayName || "",
+    "task.project.identifier": identifier || "",
+    "task.status": taskStatus || "",
     "version.is_patch": isPatch,
     "version.requester": requester,
   });

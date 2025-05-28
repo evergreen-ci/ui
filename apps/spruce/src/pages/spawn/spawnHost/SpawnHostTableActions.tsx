@@ -4,15 +4,13 @@ import Button, { Size } from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { copyToClipboard } from "@evg-ui/lib/utils/string";
 import { useSpawnAnalytics } from "analytics";
 import { SECOND } from "constants/index";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
-import { string } from "utils";
 import { EditSpawnHostButton } from "./EditSpawnHostButton";
 import { SpawnHostActionButton } from "./SpawnHostActionButton";
-
-const { copyToClipboard } = string;
 
 export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
   <FlexContainer>
@@ -20,7 +18,6 @@ export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
     <CopySSHCommandButton
       hostStatus={host.status}
       hostUrl={host.persistentDnsName || host.hostUrl}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       user={host.user}
     />
     <EditSpawnHostButton host={host} />
@@ -28,11 +25,11 @@ export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
 );
 
 export const CopySSHCommandButton: React.FC<{
-  user: string;
+  user: string | null | undefined;
   hostUrl: string;
   hostStatus: string;
 }> = ({ hostStatus, hostUrl, user }) => {
-  const sshCommand = `ssh ${user}@${hostUrl}`;
+  const sshCommand = user ? `ssh ${user}@${hostUrl}` : "";
   const spawnAnalytics = useSpawnAnalytics();
 
   const canSSH = hostStatus !== HostStatus.Terminated && !!hostUrl;
@@ -44,11 +41,17 @@ export const CopySSHCommandButton: React.FC<{
   }, [hasCopied]);
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <span
       onClick={(e) => {
         e.stopPropagation();
       }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === "Space") {
+          e.stopPropagation();
+        }
+      }}
+      role="button"
+      tabIndex={0}
     >
       <Tooltip
         align="top"
