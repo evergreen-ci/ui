@@ -116,7 +116,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
     testFailureSearchTerm,
   });
 
-  const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER) - 12;
+  const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER) - 8;
 
   const visibleTasks =
     direction === TaskHistoryDirection.After
