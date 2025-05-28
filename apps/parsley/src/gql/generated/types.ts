@@ -412,7 +412,7 @@ export type Distro = {
   note: Scalars["String"]["output"];
   plannerSettings: PlannerSettings;
   provider: Provider;
-  providerAccount?: Maybe<Scalars["String"]["output"]>;
+  providerAccount: Scalars["String"]["output"];
   providerSettingsList: Array<Scalars["Map"]["output"]>;
   setup: Scalars["String"]["output"];
   setupAsSudo: Scalars["Boolean"]["output"];

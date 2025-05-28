@@ -449,3 +449,9 @@ export const ec2OnDemandProviderSettings = {
     mountPoints: mountPoints.uiSchema,
   },
 };
+
+export const ec2ProviderAccountField = {
+  type: "string" as const,
+  title: "Provider Account",
+  default: "",
+};

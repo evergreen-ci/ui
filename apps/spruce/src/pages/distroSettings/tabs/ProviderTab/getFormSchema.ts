@@ -6,24 +6,24 @@ import {
   staticProviderSettings,
   ec2FleetProviderSettings,
   ec2OnDemandProviderSettings,
+  ec2ProviderAccountField,
 } from "./schemaFields";
 import { textAreaCSS } from "./styles";
 
-const ec2Providers = [Provider.Ec2Fleet, Provider.Ec2OnDemand];
 export const getFormSchema = ({
   awsRegions,
   fleetRegionsInUse,
+  isEC2Provider,
   onDemandRegionsInUse,
   poolMappingInfo,
   pools,
-  providerName,
 }: {
   awsRegions: string[];
   fleetRegionsInUse: string[];
   onDemandRegionsInUse: string[];
   poolMappingInfo: string;
   pools: ContainerPool[];
-  providerName: Provider;
+  isEC2Provider: boolean;
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -59,8 +59,8 @@ export const getFormSchema = ({
               },
             ],
           },
-          ...(ec2Providers.includes(providerName) && {
-            providerAccount: providerAccountField,
+          ...(isEC2Provider && {
+            providerAccount: ec2ProviderAccountField,
           }),
         },
       },
@@ -248,9 +248,3 @@ export const getFormSchema = ({
     },
   },
 });
-
-const providerAccountField = {
-  type: "string" as const,
-  title: "Provider Account",
-  default: "",
-};
