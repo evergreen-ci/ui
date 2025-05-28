@@ -88,18 +88,12 @@
       <span
         class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
       >
-        <a
-          class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
-          data-cy="jira-link"
-          href="https:///browse/DEVPROD-1234"
-          rel="noopener noreferrer"
-          target="_blank"
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do…
+        <button
+          class="css-1btetuz-ToggleButton end94gb0"
         >
-          <span>
-            DEVPROD-1234
-          </span>
-        </a>
-        : Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.
+          Show more
+        </button>
       </span>
     </div>
   </div>

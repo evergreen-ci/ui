@@ -413,7 +413,24 @@ describe("task history", () => {
         });
     });
 
-    it("can search for failures", () => {
+    it("can filter within the table", () => {
+      cy.dataCy("failing-tests-changes-table").should("not.be.visible");
+      cy.get("[aria-label='Accordion icon']").click();
+      cy.dataCy("failing-tests-changes-table").should("be.visible");
+      cy.dataCy("failing-tests-table-row").should("have.length", 3);
+
+      cy.dataCy("test-name-filter").click();
+
+      cy.get('input[placeholder="Test name"]').type("test_lint_1{enter}");
+      cy.dataCy("failing-tests-table-row").should("have.length", 1);
+
+      cy.dataCy("test-name-filter").click();
+      cy.get('input[placeholder="Test name"]').clear();
+      cy.get('input[placeholder="Test name"]').type("{enter}");
+      cy.dataCy("failing-tests-table-row").should("have.length", 3);
+    });
+
+    it("clicking 'Search Failure' button'", () => {
       cy.dataCy("commit-details-card")
         .eq(0)
         .within(() => {
