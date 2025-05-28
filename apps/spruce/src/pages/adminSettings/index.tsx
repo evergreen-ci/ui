@@ -14,11 +14,17 @@ import {
   getAdminSettingsRoute,
   AdminSettingsTabRoutes,
 } from "constants/routes";
+import { AdminSettings, BannerTheme } from "gql/generated/types";
 import { AdminSettingsProvider } from "./Context";
 import { AdminSettingsTabs } from "./Tabs";
 
-const AdminSettings: React.FC = () => {
+const AdminSettingsPage: React.FC = () => {
   usePageTitle("Admin Settings");
+
+  const mockAdminSettings: AdminSettings = {
+    banner: "This is a test announcement banner.",
+    bannerTheme: BannerTheme.Announcement,
+  };
 
   return (
     <AdminSettingsProvider>
@@ -52,7 +58,7 @@ const AdminSettings: React.FC = () => {
         </SideNav>
 
         <SideNavPageContent data-cy="admin-settings-page">
-          <AdminSettingsTabs />
+          <AdminSettingsTabs data={mockAdminSettings} />
         </SideNavPageContent>
       </SideNavPageWrapper>
     </AdminSettingsProvider>
@@ -65,5 +71,4 @@ const ButtonsContainer = styled.div`
   /* Adjust styling as necessary for the button container */
   margin: 0; /* Customize margins based on specific layout needs */
 `;
-
-export default AdminSettings;
+export default AdminSettingsPage;
