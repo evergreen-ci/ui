@@ -2,11 +2,11 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
-import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
+import { Subtitle } from "components/Typography";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
   TaskHistoryDirection,
@@ -170,7 +170,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
         <TestFailureSearchInput numMatchingResults={numMatchingResults} />
       </StickyHeader>
       <ListContent>
-        <Subtitle>Commit Details</Subtitle>
+        <Subtitle as="h6">Commit Details</Subtitle>
         <CommitDetailsList
           currentTask={task}
           loading={loading}

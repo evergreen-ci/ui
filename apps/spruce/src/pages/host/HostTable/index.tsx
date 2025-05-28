@@ -7,7 +7,6 @@ import {
   ColumnFiltersState,
   LeafyGreenTable,
 } from "@leafygreen-ui/table";
-import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
@@ -16,6 +15,7 @@ import Pagination from "components/Pagination";
 import { BaseTable } from "components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
 import { ALL_VALUE } from "components/TreeSelect";
+import { Subtitle } from "components/Typography";
 import { HostEventsQuery, HostEventType } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import usePagination from "hooks/usePagination";
@@ -150,7 +150,7 @@ const HostTable: React.FC<HostTableProps> = ({
   return (
     <HostCard error={error} loading={loading} metaData={false}>
       <TableTitle>
-        <Subtitle>Recent Events</Subtitle>
+        <Subtitle as="h6">Recent Events</Subtitle>
         <PaginationWrapper>
           <Pagination
             currentPage={page}
