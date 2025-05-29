@@ -7,6 +7,10 @@ import {
   TASK_MAPPING,
 } from "./constants.js";
 
+export {
+  targetsFromChangedFiles,
+};
+
 // This file is written in plain JS because it makes the generator super fast. No need to install TypeScript.
 
 const getMergeBase = () => {

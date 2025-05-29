@@ -62,6 +62,12 @@ export type AddFavoriteProjectInput = {
   projectIdentifier: Scalars["String"]["input"];
 };
 
+export type AdminSettings = {
+  __typename?: "AdminSettings";
+  banner?: Maybe<Scalars["String"]["output"]>;
+  bannerTheme?: Maybe<BannerTheme>;
+};
+
 /**
  * Annotation models the metadata that a user can add to a task.
  * It is used as a field within the Task type.
@@ -406,6 +412,7 @@ export type Distro = {
   note: Scalars["String"]["output"];
   plannerSettings: PlannerSettings;
   provider: Provider;
+  providerAccount: Scalars["String"]["output"];
   providerSettingsList: Array<Scalars["Map"]["output"]>;
   setup: Scalars["String"]["output"];
   setupAsSudo: Scalars["Boolean"]["output"];
@@ -474,6 +481,7 @@ export type DistroInput = {
   note: Scalars["String"]["input"];
   plannerSettings: PlannerSettingsInput;
   provider: Provider;
+  providerAccount?: InputMaybe<Scalars["String"]["input"]>;
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
@@ -2810,8 +2818,8 @@ export type Task = {
   details?: Maybe<TaskEndDetail>;
   dispatchTime?: Maybe<Scalars["Time"]["output"]>;
   displayName: Scalars["String"]["output"];
-  displayOnly?: Maybe<Scalars["Boolean"]["output"]>;
   /** This is a task's display status and is what is commonly used on the UI. */
+  displayOnly?: Maybe<Scalars["Boolean"]["output"]>;
   displayStatus: Scalars["String"]["output"];
   displayTask?: Maybe<Task>;
   distroId: Scalars["String"]["output"];
@@ -2851,11 +2859,11 @@ export type Task = {
   startTime?: Maybe<Scalars["Time"]["output"]>;
   /** This is a task's original status. It is the status stored in the database, and is distinct from the displayStatus. */
   status: Scalars["String"]["output"];
+  /** taskLogs returns the tail 100 lines of the task's logs. */
   stepbackInfo?: Maybe<StepbackInfo>;
   tags: Array<Scalars["String"]["output"]>;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
-  /** taskLogs returns the tail 100 lines of the task's logs. */
   taskLogs: TaskLogs;
   taskOwnerTeam?: Maybe<TaskOwnerTeam>;
   tests: TaskTestResult;
@@ -2893,6 +2901,7 @@ export type TaskEndDetail = {
   description?: Maybe<Scalars["String"]["output"]>;
   diskDevices: Array<Scalars["String"]["output"]>;
   failingCommand?: Maybe<Scalars["String"]["output"]>;
+  failureMetadataTags: Array<Scalars["String"]["output"]>;
   oomTracker: OomTrackerInfo;
   status: Scalars["String"]["output"];
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
