@@ -8,6 +8,7 @@ query TaskHistory($options: TaskHistoryOpts!) {
       id
       activated
       canRestart
+      canSchedule
       createTime
       displayStatus
       execution

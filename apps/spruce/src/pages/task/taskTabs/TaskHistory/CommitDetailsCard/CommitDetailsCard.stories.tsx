@@ -10,29 +10,37 @@ export default {
   component: CommitDetailsCard,
   decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
   args: {
-    isCurrentTask: true,
-    status: TaskStatus.Succeeded,
+    activated: true,
     canRestart: true,
+    canSchedule: true,
+    isCurrentTask: true,
+    isMatching: true,
     message:
       "DEVPROD-1234: Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.",
-    isMatching: true,
+    status: TaskStatus.Succeeded,
   },
   argTypes: {
+    activated: {
+      control: { type: "boolean" },
+    },
+    canRestart: {
+      control: { type: "boolean" },
+    },
+    canSchedule: {
+      control: { type: "boolean" },
+    },
     isCurrentTask: {
       control: { type: "boolean" },
     },
-    status: {
-      options: SortedTaskStatus,
-      control: { type: "select" },
-    },
-    canRestart: {
+    isMatching: {
       control: { type: "boolean" },
     },
     message: {
       control: { type: "text" },
     },
-    isMatching: {
-      control: { type: "boolean" },
+    status: {
+      options: SortedTaskStatus,
+      control: { type: "select" },
     },
   },
 } satisfies CustomMeta<TemplateProps>;
@@ -47,41 +55,32 @@ export const WithFailingTests: CustomStoryObj<TemplateProps> = {
   ),
 };
 
-type TemplateProps = {
-  isCurrentTask: boolean;
-  status: TaskStatus;
-  canRestart: boolean;
-  message: string;
-  isMatching: boolean;
-  hasFailingTests: boolean;
+export const WithLongMessage: CustomStoryObj<TemplateProps> = {
+  render: (args) => (
+    <Template
+      {...args}
+      message="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    />
+  ),
 };
 
-const testResults: TestResult[] = [
-  {
-    id: "e2e_test_1",
-    testFile: "e2e_test_1",
-    status: TestStatus.Fail,
-    logs: { urlParsley: "a-parsley-url.mongodb.com" },
-  },
-  {
-    id: "e2e_test_2",
-    testFile: "e2e_test_2",
-    status: TestStatus.Fail,
-    logs: { urlParsley: "b-parsley-url.mongodb.com" },
-  },
-  {
-    id: "e2e_test_3",
-    testFile: "e2e_test_3",
-    status: TestStatus.SilentFail,
-    logs: { urlParsley: "c-parsley-url.mongodb.com" },
-  },
-  {
-    id: "e2e_test_4",
-    testFile: "e2e_test_4",
-    status: TestStatus.Fail,
-    logs: { urlParsley: "s-parsley-url.mongodb.com" },
-  },
-];
+type TemplateProps = {
+  activated: boolean;
+  canRestart: boolean;
+  canSchedule: boolean;
+  hasFailingTests: boolean;
+  isCurrentTask: boolean;
+  isMatching: boolean;
+  message: string;
+  status: TaskStatus;
+};
+
+const testResults: TestResult[] = Array.from({ length: 15 }, (_, idx) => ({
+  id: `e2e_test_${idx}`,
+  testFile: `e2e_test_${idx}`,
+  status: idx % 3 === 0 ? TestStatus.SilentFail : TestStatus.Fail,
+  logs: { urlParsley: `${idx}-parsley-url.mongodb.com` },
+}));
 
 const getStoryTask = (args: TemplateProps) => {
   const task = args.hasFailingTests
@@ -93,8 +92,10 @@ const getStoryTask = (args: TemplateProps) => {
 
   return {
     ...task,
+    activated: args.activated,
     displayStatus: args.status,
     canRestart: args.canRestart,
+    canSchedule: args.canSchedule,
     versionMetadata: {
       ...task.versionMetadata,
       message: args.message,

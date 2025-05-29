@@ -38,8 +38,8 @@ const InactiveCommitsButton: React.FC<Props> = ({
         >
           {inactiveTasks.length}{" "}
           {isExpanded
-            ? "EXPANDED"
-            : pluralize("INACTIVE COMMIT", inactiveTasks.length)}
+            ? "Expanded"
+            : pluralize("Inactive Commit", inactiveTasks.length)}
         </Button>
       </span>
       {isExpanded &&
