@@ -93,6 +93,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
         date: utcDate,
       },
     },
+    fetchPolicy: "cache-first",
     pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (err) => {
       dispatchToast.error(`Unable to get task history: ${err}`);

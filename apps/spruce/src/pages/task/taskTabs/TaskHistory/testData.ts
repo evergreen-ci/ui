@@ -16,6 +16,7 @@ export const tasks: TaskHistoryTask[] = [
     revision: "aef363719d0287e92cd83749a827bae",
     createTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
+    canSchedule: false,
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -32,6 +33,7 @@ export const tasks: TaskHistoryTask[] = [
     revision: "b",
     createTime: new Date("2025-04-03T10:21:13Z"),
     canRestart: true,
+    canSchedule: false,
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -47,7 +49,8 @@ export const tasks: TaskHistoryTask[] = [
     order: 98,
     revision: "ce135c28ba11e9189cae",
     createTime: new Date("2025-04-03T10:20:13Z"),
-    canRestart: true,
+    canRestart: false,
+    canSchedule: true,
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -64,6 +67,7 @@ export const tasks: TaskHistoryTask[] = [
     revision: "d",
     createTime: new Date("2025-04-02T10:22:13Z"),
     canRestart: true,
+    canSchedule: false,
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -80,6 +84,7 @@ export const tasks: TaskHistoryTask[] = [
     revision: "e",
     createTime: new Date("2025-04-02T10:21:13Z"),
     canRestart: true,
+    canSchedule: true,
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -96,6 +101,7 @@ export const tasks: TaskHistoryTask[] = [
     revision: "f",
     createTime: new Date("2025-04-01T10:22:13Z"),
     canRestart: true,
+    canSchedule: false,
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -119,8 +125,9 @@ export const tasks: TaskHistoryTask[] = [
     execution: 0,
     order: 94,
     revision: "g",
-    createTime: new Date("2025-04-01T10:21:13Z"),
-    canRestart: true,
+    createTime: new Date("2025-04-03T10:22:13Z"),
+    canRestart: false,
+    canSchedule: true,
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -135,8 +142,9 @@ export const tasks: TaskHistoryTask[] = [
     execution: 0,
     order: 93,
     revision: "h",
-    createTime: new Date("2025-04-01T10:20:13Z"),
-    canRestart: true,
+    createTime: new Date("2025-04-03T10:22:13Z"),
+    canRestart: false,
+    canSchedule: true,
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -151,8 +159,9 @@ export const tasks: TaskHistoryTask[] = [
     execution: 0,
     order: 92,
     revision: "i",
-    createTime: new Date("2025-04-01T10:18:13Z"),
-    canRestart: true,
+    createTime: new Date("2025-04-03T10:22:13Z"),
+    canRestart: false,
+    canSchedule: true,
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -169,6 +178,7 @@ export const tasks: TaskHistoryTask[] = [
     revision: "j",
     createTime: new Date("2025-03-30T10:22:13Z"),
     canRestart: true,
+    canSchedule: false,
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -185,6 +195,7 @@ export const tasks: TaskHistoryTask[] = [
     revision: "k",
     createTime: new Date("2025-03-29T10:22:13Z"),
     canRestart: true,
+    canSchedule: false,
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
