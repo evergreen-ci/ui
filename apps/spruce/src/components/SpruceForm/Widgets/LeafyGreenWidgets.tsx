@@ -17,7 +17,7 @@ import TextArea from "@leafygreen-ui/text-area";
 import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
 import Toggle from "@leafygreen-ui/toggle";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Description, Label } from "@leafygreen-ui/typography";
+import { Description } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { OneOf } from "@evg-ui/lib/types/utils";
@@ -191,9 +191,7 @@ export const LeafyGreenToggle: React.FC<SpruceWidgetProps> = ({
           onChange={(checked) => onChange(checked)}
           size="xsmall"
         />
-        <Label htmlFor={id} id={`${id}-label`}>
-          {customLabel || label}
-        </Label>
+        <span id={`${id}-label`}>{customLabel || label}</span>
       </ToggleWrapper>
       {descriptionNode ||
         (description && <Description>{description}</Description>)}
@@ -291,9 +289,7 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
     <ElementWrapper css={elementWrapperCSS}>
       {label && (
         <LabelContainer>
-          <Label disabled={disabled} htmlFor={id}>
-            {label}
-          </Label>
+          <span>{label}</span>
         </LabelContainer>
       )}
       <RadioGroup
@@ -360,9 +356,7 @@ export const LeafyGreenRadioBox: React.FC<
     <ElementWrapper css={elementWrapperCSS}>
       {showLabel !== false && (
         <LabelContainer>
-          <Label disabled={disabled} htmlFor={id}>
-            {label}
-          </Label>
+          <span>{label}</span>
           {description && <Description>{description}</Description>}
         </LabelContainer>
       )}
@@ -557,79 +551,95 @@ export const LeafyGreenHorizontalZebraRadio: React.FC<
     enumOptions,
   } = options;
 
-  const valueMap = enumOptions.map(({ value: val }) => val);
-
   return (
     <ElementWrapper css={elementWrapperCSS}>
       {label && (
         <LabelContainer>
-          <Label disabled={disabled} htmlFor={id}>
-            {label}
-          </Label>
+          <span>{label}</span>
         </LabelContainer>
       )}
-      <ZebraRadioContainer>
-        {enumOptions.map((o, index) => {
-          const optionDisabled = enumDisabled?.includes(o.value) ?? false;
-          const { description } = o.schema ?? {};
-          const isChecked = value === o.value;
+      <ZebraTable>
+        <ZebraTableHeader>
+          <ZebraTableRow>
+            <ZebraTableHeaderCell />
+            <ZebraTableHeaderCell>Enabled</ZebraTableHeaderCell>
+            <ZebraTableHeaderCell>Disabled</ZebraTableHeaderCell>
+          </ZebraTableRow>
+        </ZebraTableHeader>
+        <ZebraTableBody>
+          {enumOptions.map((o, index) => {
+            const optionDisabled = enumDisabled?.includes(o.value) ?? false;
+            const isEven = index % 2 === 0;
+            const isEnabled = value === true;
+            const isDisabled = value === false;
 
-          return (
-            <ZebraRadioRow
-              key={valueMap.indexOf(o.value)}
-              isChecked={isChecked}
-              isEven={index % 2 === 0}
-            >
-              <Radio
-                checked={isChecked}
-                data-cy={dataCy}
-                data-label={o.label}
-                description={description}
-                disabled={disabled || optionDisabled}
-                name={`${id}-radio-group`}
-                onChange={() => onChange(o.value)}
-                value={valueMap.indexOf(o.value)}
-              >
-                {o.label}
-              </Radio>
-            </ZebraRadioRow>
-          );
-        })}
-      </ZebraRadioContainer>
+            return (
+              <ZebraTableRow key={`option-${o.label}`} isEven={isEven}>
+                <ZebraTableCell>
+                  <span>{o.label}</span>
+                </ZebraTableCell>
+                <ZebraTableCell>
+                  <RadioInput
+                    checked={isEnabled}
+                    data-cy={`${dataCy}-enabled`}
+                    data-label={`${o.label}-enabled`}
+                    disabled={disabled || optionDisabled}
+                    name={`${id}-${o.label.replace(/\s+/g, "").toLowerCase()}`}
+                    onChange={() => onChange(true)}
+                    type="radio"
+                  />
+                </ZebraTableCell>
+                <ZebraTableCell>
+                  <RadioInput
+                    checked={isDisabled}
+                    data-cy={`${dataCy}-disabled`}
+                    data-label={`${o.label}-disabled`}
+                    disabled={disabled || optionDisabled}
+                    name={`${id}-${o.label.replace(/\s+/g, "").toLowerCase()}`}
+                    onChange={() => onChange(false)}
+                    type="radio"
+                  />
+                </ZebraTableCell>
+              </ZebraTableRow>
+            );
+          })}
+        </ZebraTableBody>
+      </ZebraTable>
     </ElementWrapper>
   );
 };
 
-const ZebraRadioContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+const ZebraTable = styled.table`
   width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
 `;
 
-const ZebraRadioRow = styled.div<{ isEven: boolean; isChecked: boolean }>`
-  display: flex;
-  align-items: center;
-  padding: ${size.xs} ${size.s};
+const ZebraTableHeader = styled.thead`
+  background-color: white;
+`;
+
+const ZebraTableBody = styled.tbody``;
+
+const ZebraTableRow = styled.tr<{ isEven?: boolean }>`
   background-color: ${({ isEven }) => (isEven ? "white" : palette.gray.light1)};
   &:hover {
     background-color: ${palette.gray.light2};
   }
-  /* Ensure radio button and label are horizontally aligned */
-  & > label {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin: 0;
-    /* Radio input styling */
-    & > input[type="radio"] {
-      margin-right: ${size.xs};
-      flex-shrink: 0;
-    }
-    /* Label text styling */
-    & > span {
-      flex: 1;
-      display: flex;
-      align-items: center;
-    }
-  }
+`;
+
+const ZebraTableHeaderCell = styled.th`
+  padding: ${size.xs} ${size.s};
+  text-align: left;
+  font-weight: bold;
+`;
+
+const ZebraTableCell = styled.td`
+  padding: ${size.xs} ${size.s};
+  text-align: left;
+`;
+
+const RadioInput = styled.input`
+  margin: 0;
+  cursor: pointer;
 `;
