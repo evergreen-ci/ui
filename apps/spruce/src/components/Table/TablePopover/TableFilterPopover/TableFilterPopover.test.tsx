@@ -7,7 +7,7 @@ const options: TreeDataEntry[] = [
   { title: "Failed", value: "failed", key: "failed" },
 ];
 
-describe("table search popover", () => {
+describe("table filter popover", () => {
   it("opens the popover when icon is clicked", async () => {
     const user = userEvent.setup();
     render(

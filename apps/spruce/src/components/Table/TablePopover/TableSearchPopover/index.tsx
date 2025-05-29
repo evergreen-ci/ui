@@ -40,7 +40,7 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   // Handle onClickOutside
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
-  // If the value from the URL has changed, update the input.
+  // If the value from the props has changed, update the input.
   useEffect(() => {
     setInput(value);
   }, [value]);
