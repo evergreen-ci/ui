@@ -546,3 +546,90 @@ export const LeafyGreenDatePicker: React.FC<
     </ElementWrapper>
   );
 };
+
+export const LeafyGreenHorizontalZebraRadio: React.FC<
+  EnumSpruceWidgetProps
+> = ({ disabled, id, label, onChange, options, value }) => {
+  const {
+    "data-cy": dataCy,
+    elementWrapperCSS,
+    enumDisabled,
+    enumOptions,
+  } = options;
+
+  const valueMap = enumOptions.map(({ value: val }) => val);
+
+  return (
+    <ElementWrapper css={elementWrapperCSS}>
+      {label && (
+        <LabelContainer>
+          <Label disabled={disabled} htmlFor={id}>
+            {label}
+          </Label>
+        </LabelContainer>
+      )}
+      <ZebraRadioContainer>
+        {enumOptions.map((o, index) => {
+          const optionDisabled = enumDisabled?.includes(o.value) ?? false;
+          const { description } = o.schema ?? {};
+          const isChecked = value === o.value;
+
+          return (
+            <ZebraRadioRow
+              key={valueMap.indexOf(o.value)}
+              isChecked={isChecked}
+              isEven={index % 2 === 0}
+            >
+              <Radio
+                checked={isChecked}
+                data-cy={dataCy}
+                data-label={o.label}
+                description={description}
+                disabled={disabled || optionDisabled}
+                name={`${id}-radio-group`}
+                onChange={() => onChange(o.value)}
+                value={valueMap.indexOf(o.value)}
+              >
+                {o.label}
+              </Radio>
+            </ZebraRadioRow>
+          );
+        })}
+      </ZebraRadioContainer>
+    </ElementWrapper>
+  );
+};
+
+const ZebraRadioContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const ZebraRadioRow = styled.div<{ isEven: boolean; isChecked: boolean }>`
+  display: flex;
+  align-items: center;
+  padding: ${size.xs} ${size.s};
+  background-color: ${({ isEven }) => (isEven ? "white" : palette.gray.light1)};
+  &:hover {
+    background-color: ${palette.gray.light2};
+  }
+  /* Ensure radio button and label are horizontally aligned */
+  & > label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    /* Radio input styling */
+    & > input[type="radio"] {
+      margin-right: ${size.xs};
+      flex-shrink: 0;
+    }
+    /* Label text styling */
+    & > span {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+  }
+`;

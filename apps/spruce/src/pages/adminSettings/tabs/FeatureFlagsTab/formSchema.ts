@@ -132,7 +132,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       ...Object.fromEntries(
         serviceItems.map((item) => [
           item.replace(/\s+/g, "").toLowerCase(),
-          { "ui:widget": widgets.RadioBoxWidget },
+          { "ui:widget": widgets.HorizontalZebraRadioWidget },
         ]),
       ),
     },
@@ -141,7 +141,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       ...Object.fromEntries(
         notificationItems.map((item) => [
           item.replace(/\s+/g, "").toLowerCase(),
-          { "ui:widget": widgets.RadioBoxWidget },
+          { "ui:widget": widgets.HorizontalZebraRadioWidget },
         ]),
       ),
     },
@@ -150,7 +150,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       ...Object.fromEntries(
         featureItems.map((item) => [
           item.replace(/\s+/g, "").toLowerCase(),
-          { "ui:widget": widgets.RadioBoxWidget },
+          { "ui:widget": widgets.HorizontalZebraRadioWidget },
         ]),
       ),
     },
@@ -159,7 +159,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       ...Object.fromEntries(
         batchJobItems.map((item) => [
           item.replace(/\s+/g, "").toLowerCase(),
-          { "ui:widget": widgets.RadioBoxWidget },
+          { "ui:widget": widgets.HorizontalZebraRadioWidget },
         ]),
       ),
     },
