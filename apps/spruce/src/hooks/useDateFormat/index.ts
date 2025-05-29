@@ -3,7 +3,7 @@ import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { getDateCopy, DateCopyOptions } from "utils/string";
 
 /**
- * A custom hook that formats a date string or Date object into a user-friendly format.
+ * `useDateFormat` is a custom hook that formats a date string or Date object into a user-friendly format.
  * It uses the user's timezone and settings for date and time formats.
  * @returns A function that takes a date and options, and returns the formatted date string.
  * @example
