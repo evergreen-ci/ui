@@ -559,13 +559,6 @@ export const LeafyGreenHorizontalZebraRadio: React.FC<
         </LabelContainer>
       )}
       <ZebraTable>
-        <ZebraTableHeader>
-          <ZebraTableRow>
-            <ZebraTableHeaderCell />
-            <ZebraTableHeaderCell>Enabled</ZebraTableHeaderCell>
-            <ZebraTableHeaderCell>Disabled</ZebraTableHeaderCell>
-          </ZebraTableRow>
-        </ZebraTableHeader>
         <ZebraTableBody>
           {enumOptions.map((o, index) => {
             const optionDisabled = enumDisabled?.includes(o.value) ?? false;
@@ -576,30 +569,36 @@ export const LeafyGreenHorizontalZebraRadio: React.FC<
             return (
               <ZebraTableRow key={`option-${o.label}`} isEven={isEven}>
                 <ZebraTableCell>
-                  <span>{o.label}</span>
+                  <FeatureNameCell>{o.label}</FeatureNameCell>
                 </ZebraTableCell>
-                <ZebraTableCell>
-                  <RadioInput
-                    checked={isEnabled}
-                    data-cy={`${dataCy}-enabled`}
-                    data-label={`${o.label}-enabled`}
-                    disabled={disabled || optionDisabled}
-                    name={`${id}-${o.label.replace(/\s+/g, "").toLowerCase()}`}
-                    onChange={() => onChange(true)}
-                    type="radio"
-                  />
-                </ZebraTableCell>
-                <ZebraTableCell>
-                  <RadioInput
-                    checked={isDisabled}
-                    data-cy={`${dataCy}-disabled`}
-                    data-label={`${o.label}-disabled`}
-                    disabled={disabled || optionDisabled}
-                    name={`${id}-${o.label.replace(/\s+/g, "").toLowerCase()}`}
-                    onChange={() => onChange(false)}
-                    type="radio"
-                  />
-                </ZebraTableCell>
+                <RadioButtonsCell>
+                  <RadioButtonGroup>
+                    <RadioButtonLabel>
+                      <RadioInput
+                        checked={isEnabled}
+                        data-cy={`${dataCy}-enabled`}
+                        data-label={`${o.label}-enabled`}
+                        disabled={disabled || optionDisabled}
+                        name={`${id}-${o.label.replace(/\s+/g, "").toLowerCase()}`}
+                        onChange={() => onChange(true)}
+                        type="radio"
+                      />
+                      <RadioLabelText>Enabled</RadioLabelText>
+                    </RadioButtonLabel>
+                    <RadioButtonLabel>
+                      <RadioInput
+                        checked={isDisabled}
+                        data-cy={`${dataCy}-disabled`}
+                        data-label={`${o.label}-disabled`}
+                        disabled={disabled || optionDisabled}
+                        name={`${id}-${o.label.replace(/\s+/g, "").toLowerCase()}`}
+                        onChange={() => onChange(false)}
+                        type="radio"
+                      />
+                      <RadioLabelText>Disabled</RadioLabelText>
+                    </RadioButtonLabel>
+                  </RadioButtonGroup>
+                </RadioButtonsCell>
               </ZebraTableRow>
             );
           })}
@@ -615,10 +614,6 @@ const ZebraTable = styled.table`
   border-spacing: 0;
 `;
 
-const ZebraTableHeader = styled.thead`
-  background-color: white;
-`;
-
 const ZebraTableBody = styled.tbody``;
 
 const ZebraTableRow = styled.tr<{ isEven?: boolean }>`
@@ -628,15 +623,35 @@ const ZebraTableRow = styled.tr<{ isEven?: boolean }>`
   }
 `;
 
-const ZebraTableHeaderCell = styled.th`
-  padding: ${size.xs} ${size.s};
-  text-align: left;
-  font-weight: bold;
-`;
-
 const ZebraTableCell = styled.td`
   padding: ${size.xs} ${size.s};
   text-align: left;
+  vertical-align: middle;
+`;
+
+const FeatureNameCell = styled.span`
+  display: inline-block;
+`;
+
+const RadioButtonsCell = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const RadioButtonGroup = styled.div`
+  display: flex;
+  gap: ${size.l};
+`;
+
+const RadioButtonLabel = styled.label`
+  display: flex;
+  align-items: center;
+  gap: ${size.xs};
+  cursor: pointer;
+`;
+
+const RadioLabelText = styled.span`
+  font-size: 14px;
 `;
 
 const RadioInput = styled.input`
