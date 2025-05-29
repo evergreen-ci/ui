@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 
@@ -19,22 +19,14 @@ import {
   AdminSettingsQuery,
   AdminSettingsQueryVariables,
 } from "gql/generated/types";
+import { ADMIN_SETTINGS } from "gql/queries";
 import { AdminSettingsProvider } from "./Context";
 import { AdminSettingsTabs } from "./Tabs";
-
-const GET_ADMIN_SETTINGS = gql`
-  query AdminSettings {
-    adminSettings {
-      banner
-      bannerTheme
-    }
-  }
-`;
 
 const AdminSettingsPage: React.FC = () => {
   usePageTitle("Admin Settings");
   const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
-    GET_ADMIN_SETTINGS,
+    ADMIN_SETTINGS,
   );
 
   return (
