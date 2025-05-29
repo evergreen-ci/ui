@@ -111,6 +111,22 @@
         data-cy="timeline-box"
       />
       <div
+        aria-label="date-separator"
+        class="date-separator css-1fmm32v-Container et9p33q3"
+      >
+        <div
+          class="date-badge css-1ryjq60-StyledBadge et9p33q2 leafygreen-ui-c62i3c"
+        >
+          4/03
+        </div>
+        <div
+          class="dot css-1cxo7t2-Dot et9p33q1"
+        />
+        <div
+          class="css-uv8ypt-Line et9p33q0"
+        />
+      </div>
+      <div
         class="square css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
         data-cy="collapsed-box"
       >
