@@ -1,0 +1,6 @@
+query AdminSettings {
+  adminSettings {
+    banner
+    bannerTheme
+  }
+}
