@@ -58,6 +58,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     id,
     patchTriggerAliases,
     project,
+    projectID,
     projectIdentifier,
     time,
     variantsTasks,
@@ -217,8 +218,10 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
             </MetadataItem>
             <MetadataItem>
               <MetadataLabel>Project:</MetadataLabel>{" "}
-              <StyledRouterLink to={getProjectPatchesRoute(projectIdentifier)}>
-                {projectIdentifier}
+              <StyledRouterLink
+                to={getProjectPatchesRoute(projectIdentifier || projectID)}
+              >
+                {projectIdentifier || projectID}
               </StyledRouterLink>
             </MetadataItem>
           </MetadataCard>
