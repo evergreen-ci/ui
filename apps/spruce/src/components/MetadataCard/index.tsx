@@ -26,7 +26,7 @@ const MetadataCard: React.FC<Props> = ({
   <SiderCard {...rest}>
     {title && (
       <div>
-        <Title weight="medium">{title}</Title>
+        <MetadataCardTitle weight="medium">{title}</MetadataCardTitle>
         <Divider />
       </div>
     )}
@@ -66,7 +66,7 @@ export const MetadataItem: React.FC<ItemProps> = ({
 export const MetadataLabel = styled.b<{ color?: string }>`
   ${({ color }) => color && `color: ${color};`}
 `;
-const Title = styled(Body)<BodyProps>`
+export const MetadataCardTitle = styled(Body)<BodyProps>`
   font-size: 15px;
 `;
 

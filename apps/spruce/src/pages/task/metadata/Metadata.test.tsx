@@ -103,6 +103,7 @@ const taskSucceeded = {
       oomTracker: {
         detected: false,
       },
+      failureMetadataTags: [],
       diskDevices: [],
     },
   },
