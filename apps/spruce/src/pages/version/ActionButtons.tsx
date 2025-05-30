@@ -12,20 +12,20 @@ import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
 
 interface ActionButtonProps {
-  canReconfigure: boolean;
+  isMergeQueuePatch: boolean;
   isPatch: boolean;
   versionId: string;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
-  canReconfigure,
+  isMergeQueuePatch,
   isPatch,
   versionId,
 }) => {
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
-      disabled={!canReconfigure}
+      disabled={isMergeQueuePatch}
       patchId={versionId}
     />,
     <UnscheduleTasks key="unschedule-tasks" versionId={versionId} />,
@@ -42,6 +42,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     <PageButtonRow>
       <ScheduleTasks isButton versionId={versionId} />
       <RestartPatch
+        disabled={isMergeQueuePatch}
         isButton
         patchId={versionId}
         refetchQueries={["VersionTasks"]}
