@@ -4,7 +4,10 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/src/test_utils";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 import { MockedProvider } from "test_utils/graphql";
 import { tasks } from "../testData";
 import CommitDetailsCard from ".";
@@ -17,7 +20,7 @@ describe("CommitDetailsCard component", () => {
       canRestart: true,
     };
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[getSpruceConfigMock]}>
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
         <CommitDetailsCard
           isCurrentTask={false}
           isMatching
@@ -40,7 +43,7 @@ describe("CommitDetailsCard component", () => {
       canSchedule: true,
     };
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[getSpruceConfigMock]}>
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
         <CommitDetailsCard
           isCurrentTask={false}
           isMatching
@@ -70,7 +73,7 @@ describe("CommitDetailsCard component", () => {
       },
     };
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[getSpruceConfigMock]}>
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
         <CommitDetailsCard
           isCurrentTask={false}
           isMatching
@@ -104,7 +107,7 @@ describe("CommitDetailsCard component", () => {
       ...tasks[5],
     };
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[getSpruceConfigMock]}>
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
         <CommitDetailsCard
           isCurrentTask={false}
           isMatching
@@ -134,7 +137,7 @@ describe("CommitDetailsCard component", () => {
       ...tasks[5],
     };
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[getSpruceConfigMock]}>
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
         <CommitDetailsCard
           isCurrentTask
           isMatching
@@ -155,7 +158,7 @@ describe("CommitDetailsCard component", () => {
       revision: "abcdef",
     };
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[getSpruceConfigMock]}>
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
         <CommitDetailsCard
           isCurrentTask
           isMatching
@@ -181,7 +184,7 @@ describe("CommitDetailsCard component", () => {
       ...tasks[5],
     };
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[getSpruceConfigMock]}>
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
         <CommitDetailsCard
           isCurrentTask={false}
           isMatching={false}
