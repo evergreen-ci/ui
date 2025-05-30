@@ -4,9 +4,8 @@ import {
   Variant as ChipVariant,
   TruncationLocation,
 } from "@leafygreen-ui/chip";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
-import MetadataCard from "components/MetadataCard";
+import MetadataCard, { MetadataCardTitle } from "components/MetadataCard";
 import { Divider } from "components/styles/divider";
 
 interface TagsMetadataProps {
@@ -24,14 +23,11 @@ const TagsMetadata: React.FC<TagsMetadataProps> = ({
     return null;
   }
 
-  const isFailureMetadataTagsOnly = !hasTags && hasFailureMetadataTags;
-  const title = isFailureMetadataTagsOnly ? "Failure Metadata Tags" : "Tags";
-
   return (
     <MetadataCard>
       {hasTags && (
         <div>
-          <Title weight="medium">Tags</Title>
+          <MetadataCardTitle weight="medium">Tags</MetadataCardTitle>
           <Divider />
         </div>
       )}
@@ -51,7 +47,9 @@ const TagsMetadata: React.FC<TagsMetadataProps> = ({
 
       {hasFailureMetadataTags && (
         <div>
-          <Title weight="medium">Failure Metadata Tags</Title>
+          <MetadataCardTitle weight="medium">
+            Failure Metadata Tags
+          </MetadataCardTitle>
           <Divider />
         </div>
       )}
@@ -71,10 +69,6 @@ const TagsMetadata: React.FC<TagsMetadataProps> = ({
     </MetadataCard>
   );
 };
-
-const Title = styled(Body)<BodyProps>`
-  font-size: 15px;
-`;
 
 const TagsContainer = styled.div`
   display: flex;

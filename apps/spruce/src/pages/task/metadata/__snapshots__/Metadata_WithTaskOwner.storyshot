@@ -7,7 +7,7 @@
     >
       <div>
         <p
-          class="css-1k03zl5-Title e1130wzj2 leafygreen-ui-1miy0xp"
+          class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
         >
           Task Metadata
         </p>
@@ -195,7 +195,7 @@
     >
       <div>
         <p
-          class="css-1k03zl5-Title e1130wzj2 leafygreen-ui-1miy0xp"
+          class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
         >
           Host Information
         </p>
@@ -312,7 +312,7 @@
     >
       <div>
         <p
-          class="css-1k03zl5-Title e1130wzj2 leafygreen-ui-1miy0xp"
+          class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
         >
           Tags
         </p>
@@ -386,7 +386,7 @@
       </div>
       <div>
         <p
-          class="css-1k03zl5-Title e12sfkss1 leafygreen-ui-1miy0xp"
+          class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
         >
           Failure Metadata Tags
         </p>
