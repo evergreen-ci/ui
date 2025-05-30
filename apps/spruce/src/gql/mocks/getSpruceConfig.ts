@@ -123,34 +123,37 @@ export const baseVersionAndTaskMock: ApolloMock<
 > = {
   request: {
     query: BASE_VERSION_AND_TASK,
-    variables: { taskId: "task_id" },
+    variables: {
+      taskId:
+        "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+    },
   },
   result: {
     data: {
       __typename: "Query",
       task: {
         __typename: "Task",
-        id: "task_id",
+        id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
         baseTask: {
           __typename: "Task",
           id: "base_task_id",
           displayStatus: "success",
           execution: 0,
         },
-        buildVariant: "variant",
-        displayName: "task_name",
+        buildVariant: "lint",
+        displayName: "lint-agent",
         displayStatus: "success",
         execution: 0,
-        projectIdentifier: "project",
+        projectIdentifier: "evergreen",
         versionMetadata: {
           __typename: "Version",
           id: "version_id",
           baseVersion: {
             __typename: "Version",
             id: "base_version_id",
-            order: 1,
+            order: 3676,
           },
-          isPatch: false,
+          isPatch: true,
         },
       },
     },
@@ -164,11 +167,11 @@ export const lastMainlineCommitMock: ApolloMock<
   request: {
     query: LAST_MAINLINE_COMMIT,
     variables: {
-      projectIdentifier: "project",
-      skipOrderNumber: 0,
+      projectIdentifier: "evergreen",
+      skipOrderNumber: 3676,
       buildVariantOptions: {
-        variants: ["variant"],
-        tasks: ["task"],
+        variants: ["^lint$"],
+        tasks: ["^lint-agent$"],
       },
     },
   },
@@ -192,7 +195,7 @@ export const lastMainlineCommitMock: ApolloMock<
                       id: "task_id",
                       displayStatus: "success",
                       execution: 0,
-                      order: 1,
+                      order: 3676,
                     },
                   ],
                 },
