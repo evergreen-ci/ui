@@ -1,11 +1,14 @@
 import { lazy } from "react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
+import { size } from "@evg-ui/lib/constants/tokens";
+import AIChatModule from "components/AiChatModule";
 import BookmarksBar from "components/BookmarksBar";
 import LogPane from "components/LogPane";
 import { ParsleyRow } from "components/LogRow/RowRenderer";
 import SidePanel from "components/SidePanel";
 import SubHeader from "components/SubHeader";
+import { AiChatProvider } from "context/AiChatProviderContext";
 import { useLogContext } from "context/LogContext";
 
 const SectionsFeatureModal = lazy(
@@ -55,10 +58,22 @@ const LogWindow: React.FC = () => {
           )}
         </LogPaneContainer>
       </ColumnContainer>
+      <AiChatProvider>
+        <FloatingChatModuleContainer>
+          <AIChatModule />
+        </FloatingChatModuleContainer>
+      </AiChatProvider>
     </Container>
   );
 };
 
+const FloatingChatModuleContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  margin: ${size.m} ${size.m};
+`;
 const Container = styled.div`
   display: flex;
   flex-direction: row;
