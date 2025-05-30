@@ -2,21 +2,33 @@ import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
+  BuildBaronQuery,
+  BuildBaronQueryVariables,
   LastMainlineCommitQuery,
   LastMainlineCommitQueryVariables,
   SpruceConfigQuery,
   SpruceConfigQueryVariables,
+  TaskOwnerTeamsForTaskQuery,
+  TaskOwnerTeamsForTaskQueryVariables,
+  TaskStatusesQuery,
+  TaskStatusesQueryVariables,
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
   UserSettingsQuery,
   UserSettingsQueryVariables,
+  VersionQuery,
+  VersionQueryVariables,
 } from "gql/generated/types";
 import {
   BASE_VERSION_AND_TASK,
+  BUILD_BARON,
   LAST_MAINLINE_COMMIT,
   SPRUCE_CONFIG,
+  TASK_OWNER_TEAM,
+  TASK_STATUSES,
   TASK_TEST_SAMPLE,
   USER_SETTINGS,
+  VERSION,
 } from "gql/queries";
 
 export const getSpruceConfigMock: ApolloMock<
@@ -240,6 +252,160 @@ export const taskTestSampleMock: ApolloMock<
           totalTestCount: 10,
         },
       ],
+    },
+  },
+};
+
+export const versionMock: ApolloMock<VersionQuery, VersionQueryVariables> = {
+  request: {
+    query: VERSION,
+    variables: {
+      id: "version_id",
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      version: {
+        __typename: "Version",
+        id: "version_id",
+        activated: true,
+        author: "author",
+        authorEmail: "author@example.com",
+        baseVersion: {
+          __typename: "Version",
+          id: "base_version_id",
+        },
+        createTime: new Date(),
+        errors: [],
+        externalLinksForMetadata: [],
+        finishTime: new Date(),
+        gitTags: [],
+        ignored: false,
+        isPatch: false,
+        manifest: null,
+        message: "commit message",
+        order: 1234,
+        parameters: [],
+        patch: null,
+        previousVersion: null,
+        project: "project",
+        projectIdentifier: "project",
+        projectMetadata: {
+          __typename: "Project",
+          id: "project_id",
+          branch: "main",
+          owner: "owner",
+          repo: "repo",
+        },
+        repo: "repo",
+        requester: "requester",
+        revision: "revision",
+        startTime: new Date(),
+        status: "success",
+        taskCount: 10,
+        versionTiming: null,
+        warnings: [],
+      },
+    },
+  },
+};
+
+export const buildBaronMock: ApolloMock<
+  BuildBaronQuery,
+  BuildBaronQueryVariables
+> = {
+  request: {
+    query: BUILD_BARON,
+    variables: {
+      taskId: "task_id",
+      execution: 0,
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      buildBaron: {
+        __typename: "BuildBaron",
+        bbTicketCreationDefined: true,
+        buildBaronConfigured: true,
+        searchReturnInfo: {
+          __typename: "SearchReturnInfo",
+          featuresURL: "https://example.com/features",
+          issues: [
+            {
+              __typename: "JiraTicket",
+              fields: {
+                __typename: "TicketFields",
+                assigneeDisplayName: "Assignee",
+                created: "2023-05-30T12:00:00Z",
+                resolutionName: "Fixed",
+                status: {
+                  __typename: "JiraStatus",
+                  id: "status_id",
+                  name: "Done",
+                },
+                summary: "Issue summary",
+                updated: "2023-05-30T14:00:00Z",
+              },
+              key: "ISSUE-123",
+            },
+          ],
+          search: "search query",
+          source: "JIRA",
+        },
+      },
+    },
+  },
+};
+
+export const taskOwnerTeamsMock: ApolloMock<
+  TaskOwnerTeamsForTaskQuery,
+  TaskOwnerTeamsForTaskQueryVariables
+> = {
+  request: {
+    query: TASK_OWNER_TEAM,
+    variables: {
+      taskId: "task_id",
+      execution: 0,
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      task: {
+        __typename: "Task",
+        id: "task_id",
+        execution: 0,
+        taskOwnerTeam: {
+          __typename: "TaskOwnerTeam",
+          messages: "",
+          teamName: "Team Name",
+        },
+      },
+    },
+  },
+};
+
+export const taskStatusesMock: ApolloMock<
+  TaskStatusesQuery,
+  TaskStatusesQueryVariables
+> = {
+  request: {
+    query: TASK_STATUSES,
+    variables: {
+      id: "version_id",
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      version: {
+        __typename: "Version",
+        id: "version_id",
+        baseTaskStatuses: ["success", "failed", "running"],
+        taskStatuses: ["success", "failed", "running"],
+      },
     },
   },
 };
