@@ -6215,6 +6215,7 @@ export type DistroQuery = {
     name: string;
     note: string;
     provider: Provider;
+    providerAccount: string;
     providerSettingsList: Array<any>;
     setup: string;
     setupAsSudo: boolean;
