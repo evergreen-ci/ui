@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { siderCardWidth } from "components/styles/Layout";
 import TagsMetadata from ".";
 
 export default {
@@ -55,5 +56,5 @@ export const OnlyTags: CustomStoryObj<typeof TagsMetadata> = {
 };
 
 const Container = styled.div`
-  width: 275px;
+  width: ${siderCardWidth};
 `;

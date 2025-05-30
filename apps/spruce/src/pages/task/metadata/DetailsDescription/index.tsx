@@ -6,6 +6,7 @@ import { isFailedTaskStatus } from "utils/statuses";
 
 const { red } = palette;
 
+const MAX_CHAR = 100;
 const DetailsDescription = ({
   description,
   failingCommand,
@@ -17,7 +18,6 @@ const DetailsDescription = ({
   isContainerTask: boolean;
   status: string;
 }) => {
-  const MAX_CHAR = 100;
   const isFailingTask = isFailedTaskStatus(status);
   const baseCopy = description || failingCommand;
   const fullText = isFailingTask
