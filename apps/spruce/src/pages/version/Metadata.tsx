@@ -1,6 +1,7 @@
 import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useVersionAnalytics } from "analytics";
 import MetadataCard, {
   MetadataItem,
@@ -23,7 +24,7 @@ import { string } from "utils";
 import ManifestBlob from "./ManifestBlob";
 import { ParametersModal } from "./ParametersModal";
 
-const { msToDuration, shortenGithash } = string;
+const { msToDuration } = string;
 
 interface Props {
   version: VersionQuery["version"];
@@ -55,7 +56,7 @@ export const Metadata: React.FC<Props> = ({ version }) => {
   const { sendEvent } = useVersionAnalytics(id);
   const { makespan, timeTaken } = versionTiming || {};
 
-  const { branch, owner, repo } = projectMetadata || {};
+  const { branch, id: projectID, owner, repo } = projectMetadata || {};
 
   const isGithubMergePatch = requester === Requester.GitHubMergeQueue;
 
@@ -63,18 +64,14 @@ export const Metadata: React.FC<Props> = ({ version }) => {
     <MetadataCard title={isPatch ? "Patch Metadata" : "Version Metadata"}>
       <MetadataItem>
         <MetadataLabel>Project:</MetadataLabel>{" "}
-        {projectIdentifier ? (
-          <StyledRouterLink
-            onClick={() =>
-              sendEvent({ name: "Clicked metadata project patches link" })
-            }
-            to={getProjectPatchesRoute(projectIdentifier)}
-          >
-            {projectIdentifier}
-          </StyledRouterLink>
-        ) : (
-          `${owner}/${repo}`
-        )}
+        <StyledRouterLink
+          onClick={() =>
+            sendEvent({ name: "Clicked metadata project patches link" })
+          }
+          to={getProjectPatchesRoute(projectIdentifier || projectID || "")}
+        >
+          {projectIdentifier || `${owner}/${repo}`}
+        </StyledRouterLink>
       </MetadataItem>
       <MetadataItem tooltipDescription="Makespan represents the wall clock time of this version's execution.">
         <MetadataLabel>Makespan:</MetadataLabel>{" "}

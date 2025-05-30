@@ -150,7 +150,7 @@ const ConfigureTasks: React.FC<Props> = ({
   const onClickSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
     const selectedAliasesCopy = { ...selectedAliases };
-    const searchAsRegex = new RegExp(search);
+    const searchAsRegex = new RegExp(search, "i");
     selectedBuildVariants.forEach((v) => {
       if (selectedBuildVariantsCopy?.[v] !== undefined) {
         Object.keys(selectedBuildVariantsCopy[v]).forEach((task) => {

@@ -24,13 +24,11 @@ import {
   LGTableDataType,
 } from "@leafygreen-ui/table";
 import { size } from "@evg-ui/lib/constants/tokens";
-import {
-  TableFilterPopover,
-  TableSearchPopover,
-} from "components/TablePopover";
 import { TreeDataEntry } from "components/TreeSelect";
 import { tableColumnOffset } from "constants/tokens";
 import TableLoader from "./TableLoader";
+import TableFilterPopover from "./TablePopover/TableFilterPopover";
+import TableSearchPopover from "./TablePopover/TableSearchPopover";
 
 const { gray } = palette;
 

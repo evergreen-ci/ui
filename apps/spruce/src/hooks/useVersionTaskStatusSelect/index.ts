@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
+import { usePrevious } from "@evg-ui/lib/hooks";
 import { GroupedBuildVariant } from "gql/generated/types";
-import { usePrevious } from "hooks";
 
 export interface selectedStrings {
   [id: string]: boolean | undefined;

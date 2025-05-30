@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import ExpandedText from "components/ExpandedText";
 import MetadataCard, {
@@ -43,7 +44,7 @@ import RuntimeTimer from "./RuntimeTimer";
 import { Stepback, isInStepback } from "./Stepback";
 import TaskOwnership from "./TaskOwnership";
 
-const { applyStrictRegex, msToDuration, shortenGithash } = string;
+const { applyStrictRegex, msToDuration } = string;
 const { red } = palette;
 
 interface Props {
@@ -105,9 +106,13 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     timeTaken: baseTaskDuration,
     versionMetadata: baseTaskVersionMetadata,
   } = baseTask ?? {};
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const baseCommit = shortenGithash(baseTaskVersionMetadata?.revision);
-  const projectIdentifier = project?.identifier;
+  const {
+    id: projectID,
+    identifier: projectIdentifier,
+    owner,
+    repo,
+  } = project || {};
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
   const taskTrace = details?.traceID;
@@ -141,23 +146,21 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             </StyledRouterLink>
           </MetadataItem>
         )}
-        {projectIdentifier && (
-          <MetadataItem data-cy="task-metadata-project">
-            <MetadataLabel>Project:</MetadataLabel>{" "}
-            <StyledRouterLink
-              data-cy="project-link"
-              onClick={() =>
-                taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
-                  "link.type": "project link",
-                })
-              }
-              to={getProjectPatchesRoute(projectIdentifier)}
-            >
-              {projectIdentifier}
-            </StyledRouterLink>
-          </MetadataItem>
-        )}
+        <MetadataItem data-cy="task-metadata-project">
+          <MetadataLabel>Project:</MetadataLabel>{" "}
+          <StyledRouterLink
+            data-cy="project-link"
+            onClick={() =>
+              taskAnalytics.sendEvent({
+                name: "Clicked metadata link",
+                "link.type": "project link",
+              })
+            }
+            to={getProjectPatchesRoute(projectIdentifier || projectID || "")}
+          >
+            {projectIdentifier || `${owner}/${repo}`}
+          </StyledRouterLink>
+        </MetadataItem>
         <MetadataItem>
           <MetadataLabel>Submitted by:</MetadataLabel> {author}
         </MetadataItem>
@@ -238,7 +241,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           <MetadataItem>
             <MetadataLabel>Base commit:</MetadataLabel>{" "}
             <InlineCode
-              as={Link}
+              as={Link as any}
               data-cy="base-task-link"
               onClick={() =>
                 taskAnalytics.sendEvent({

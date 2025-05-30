@@ -6,11 +6,15 @@ import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
+import Accordion, {
+  AccordionCaretAlign,
+} from "@evg-ui/lib/components/Accordion";
 import Icon from "@evg-ui/lib/components/Icon";
-import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { useTaskHistoryAnalytics } from "analytics";
 import { inactiveElementStyle } from "components/styles";
 import { statusColorMap } from "components/TaskBox";
 import { getGithubCommitUrl } from "constants/externalResources";
@@ -18,22 +22,25 @@ import { getTaskRoute } from "constants/routes";
 import {
   RestartTaskMutation,
   RestartTaskMutationVariables,
+  ScheduleTasksMutation,
+  ScheduleTasksMutationVariables,
 } from "gql/generated/types";
-import { RESTART_TASK } from "gql/mutations";
-import { useDateFormat, useSpruceConfig } from "hooks";
+import { RESTART_TASK, SCHEDULE_TASKS } from "gql/mutations";
+import { useDateFormat } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { isProduction } from "utils/environmentVariables";
-import { jiraLinkify, shortenGithash } from "utils/string";
 import { TaskHistoryTask } from "../types";
+import CommitDescription from "./CommitDescription";
+import FailedTestsTable from "./FailedTestsTable";
 
 const { gray } = palette;
 
 interface CommitDetailsCardProps {
-  task: TaskHistoryTask;
   isCurrentTask: boolean;
   owner: string | undefined;
   repo: string | undefined;
   isMatching: boolean;
+  task: TaskHistoryTask;
 }
 
 const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
@@ -44,18 +51,20 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
   task,
 }) => {
   const {
+    activated,
     canRestart,
+    canSchedule,
     createTime,
     displayStatus,
     id: taskId,
     order,
     revision,
+    tests,
     versionMetadata,
   } = task;
-  const { author, message } = versionMetadata;
+  const { author, id: versionId, message } = versionMetadata;
 
-  const spruceConfig = useSpruceConfig();
-  const jiraHost = spruceConfig?.jira?.host ?? "";
+  const { sendEvent } = useTaskHistoryAnalytics();
 
   const getDateCopy = useDateFormat();
   const createDate = new Date(createTime ?? "");
@@ -70,6 +79,30 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
   const [, setExecution] = useQueryParam("execution", 0);
 
   const dispatchToast = useToastContext();
+
+  const [scheduleTask] = useMutation<
+    ScheduleTasksMutation,
+    ScheduleTasksMutationVariables
+  >(SCHEDULE_TASKS, {
+    variables: { taskIds: [task.id], versionId },
+    onCompleted: () => {
+      dispatchToast.success("Task scheduled to run");
+    },
+    onError: (err) => {
+      dispatchToast.error(`Error scheduling task: ${err.message}`);
+    },
+    update: (cache) => {
+      cache.modify({
+        id: cache.identify(task),
+        fields: {
+          canSchedule: () => false,
+          displayStatus: () => TaskStatus.WillRun,
+          activated: () => true,
+        },
+        broadcast: true,
+      });
+    },
+  });
 
   const [restartTask] = useMutation<
     RestartTaskMutation,
@@ -111,37 +144,70 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
       status={displayStatus as TaskStatus}
     >
       <TopLabel>
-        <InlineCode
-          as={Link}
-          data-cy="downstream-base-commit"
-          to={getTaskRoute(taskId)}
-        >
+        <InlineCode as={Link} data-cy="task-link" to={getTaskRoute(taskId)}>
           {shortenGithash(revision ?? "")}
         </InlineCode>
         <IconButton
           aria-label="GitHub Commit Link"
+          data-cy="github-link"
           href={githubCommitUrl}
           target="__blank"
         >
           <Icon glyph="GitHub" />
         </IconButton>
-        <Button
-          data-cy="restart-button"
-          disabled={!canRestart}
-          onClick={() => restartTask()}
-          size={ButtonSize.XSmall}
-        >
-          Restart Task
-        </Button>
-        {isCurrentTask && <Badge variant={BadgeVariant.Blue}>This Task</Badge>}
+        {activated ? (
+          <Button
+            data-cy="restart-button"
+            disabled={!canRestart}
+            onClick={() => {
+              restartTask();
+              sendEvent({
+                name: "Clicked restart task button",
+                "task.id": task.id,
+              });
+            }}
+            size={ButtonSize.XSmall}
+          >
+            Restart Task
+          </Button>
+        ) : (
+          <Button
+            data-cy="schedule-button"
+            disabled={!canSchedule}
+            onClick={() => {
+              scheduleTask();
+              sendEvent({
+                name: "Clicked schedule task button",
+                "task.id": task.id,
+              });
+            }}
+            size={ButtonSize.XSmall}
+          >
+            Schedule Task
+          </Button>
+        )}
+        {isCurrentTask && (
+          <Badge data-cy="this-task-badge" variant={BadgeVariant.Blue}>
+            This Task
+          </Badge>
+        )}
         <span>{dateCopy}</span>
         {/* Use this to debug issues with pagination. */}
         {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}
       </TopLabel>
-      <BottomLabel>
-        <AuthorLabel>{author} - </AuthorLabel>
-        <WordBreak>{jiraLinkify(message, jiraHost)}</WordBreak>
-      </BottomLabel>
+      {tests.testResults.length > 0 ? (
+        <Accordion
+          caretAlign={AccordionCaretAlign.Start}
+          onToggle={({ isVisible }) =>
+            sendEvent({ name: "Toggled failed tests table", open: isVisible })
+          }
+          title={<CommitDescription author={author} message={message} />}
+        >
+          <FailedTestsTable tests={tests} />
+        </Accordion>
+      ) : (
+        <CommitDescription author={author} message={message} />
+      )}
     </CommitCard>
   );
 };
@@ -173,14 +239,4 @@ const TopLabel = styled.div`
 
 const OrderLabel = styled.div`
   margin-left: auto;
-`;
-
-const AuthorLabel = styled.b`
-  flex-shrink: 0;
-`;
-
-const BottomLabel = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: ${size.xxs};
 `;

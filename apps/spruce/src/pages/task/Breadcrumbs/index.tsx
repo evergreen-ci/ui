@@ -1,8 +1,8 @@
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useBreadcrumbAnalytics } from "analytics";
 import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { useBreadcrumbRoot } from "hooks";
-import { shortenGithash } from "utils/string";
 
 interface TaskPageBreadcrumbsProps {
   displayTask?: {
@@ -36,8 +36,7 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
 
   const messagePrefix = isPatch
     ? `Patch ${patchNumber}`
-    : // @ts-expect-error: FIXME. This comment was added by an automated script.
-      shortenGithash(revision);
+    : shortenGithash(revision);
 
   const messageBreadcrumb = {
     // @ts-expect-error: FIXME. This comment was added by an automated script.

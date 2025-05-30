@@ -5,15 +5,20 @@ export type TaskHistoryTask = Unpacked<
   TaskHistoryQuery["taskHistory"]["tasks"]
 >;
 
+export type TaskHistoryPagination =
+  TaskHistoryQuery["taskHistory"]["pagination"];
+
 export type GroupedTask =
   | {
       inactiveTasks: TaskHistoryTask[];
       task: null;
+      shouldShowDateSeparator: boolean;
       isMatching: false;
     }
   | {
       inactiveTasks: null;
       task: TaskHistoryTask;
+      shouldShowDateSeparator: boolean;
       isMatching: boolean;
     };
 

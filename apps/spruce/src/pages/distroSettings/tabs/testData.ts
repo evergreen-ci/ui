@@ -115,6 +115,7 @@ const distroData: DistroQuery["distro"] = {
       do_not_assign_public_ipv4_address: true,
     },
   ],
+  providerAccount: "aws",
   setup: "ls -alF",
   setupAsSudo: true,
   sshOptions: ["BatchMode=yes", "ConnectTimeout=10"],
