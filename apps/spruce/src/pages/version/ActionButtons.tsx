@@ -25,7 +25,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
-      disabled={isMergeQueuePatch}
+      disabled={!isPatch || isMergeQueuePatch}
       patchId={versionId}
     />,
     <UnscheduleTasks key="unschedule-tasks" versionId={versionId} />,
