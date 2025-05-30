@@ -12,6 +12,7 @@ export const patchQuery: ConfigurePatchQuery = {
     id: "version",
     description: "test",
     projectIdentifier: "spruce",
+    projectID: "spruce",
     author: "mohamed.khelif",
     activated: false,
     generatedTaskCounts: [],

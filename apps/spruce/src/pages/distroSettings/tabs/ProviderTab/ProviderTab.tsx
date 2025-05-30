@@ -1,6 +1,10 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
-import { AwsRegionsQuery, AwsRegionsQueryVariables } from "gql/generated/types";
+import {
+  AwsRegionsQuery,
+  AwsRegionsQueryVariables,
+  Provider,
+} from "gql/generated/types";
 import { AWS_REGIONS } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import { useDistroSettingsContext } from "pages/distroSettings/Context";
@@ -14,6 +18,8 @@ import {
 import { getFormSchema } from "./getFormSchema";
 import { ProviderFormState, TabProps } from "./types";
 import { UnsavedModal } from "./UnsavedModal";
+
+const ec2Providers = [Provider.Ec2Fleet, Provider.Ec2OnDemand];
 
 export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   const { getTab } = useDistroSettingsContext();
@@ -47,6 +53,7 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   const onDemandRegionsInUse = formData?.ec2OnDemandProviderSettings?.map(
     (p) => p.region,
   );
+  const providerName = formData?.provider?.providerName;
 
   const formSchema = useMemo(
     () =>
@@ -56,6 +63,7 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
         onDemandRegionsInUse: onDemandRegionsInUse || [],
         pools: pools || [],
         poolMappingInfo,
+        isEC2Provider: ec2Providers.includes(providerName as Provider),
       }),
     [
       awsRegions,
@@ -63,6 +71,7 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
       onDemandRegionsInUse,
       pools,
       poolMappingInfo,
+      providerName,
     ],
   );
 

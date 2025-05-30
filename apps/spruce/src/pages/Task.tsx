@@ -7,6 +7,7 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
+import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import PageTitle from "components/PageTitle";
 import {
   PageWrapper,
@@ -91,6 +92,10 @@ export const Task = () => {
    */
   const shouldShowOriginalStatus = displayStatus === TaskStatus.KnownIssue;
   const isDisplayTask = executionTasksFull != null;
+
+  if (loading) {
+    return <PatchAndTaskFullPageLoad />;
+  }
   if (error && !task) {
     return <PageDoesNotExist />;
   }

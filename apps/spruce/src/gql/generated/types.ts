@@ -3741,6 +3741,7 @@ export type BasePatchFragment = {
   alias?: string | null;
   author: string;
   description: string;
+  projectID: string;
   status: string;
   parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   variantsTasks: Array<{
@@ -5593,6 +5594,7 @@ export type SchedulePatchMutation = {
     alias?: string | null;
     author: string;
     description: string;
+    projectID: string;
     status: string;
     versionFull?: {
       __typename?: "Version";
@@ -5766,6 +5768,7 @@ export type UpdatePatchDescriptionMutation = {
     alias?: string | null;
     author: string;
     description: string;
+    projectID: string;
     status: string;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     variantsTasks: Array<{
@@ -6215,6 +6218,7 @@ export type DistroQuery = {
     name: string;
     note: string;
     provider: Provider;
+    providerAccount: string;
     providerSettingsList: Array<any>;
     setup: string;
     setupAsSudo: boolean;
@@ -6999,6 +7003,7 @@ export type ConfigurePatchQuery = {
     alias?: string | null;
     author: string;
     description: string;
+    projectID: string;
     status: string;
     childPatchAliases?: Array<{
       __typename?: "ChildPatchAlias";
@@ -8846,6 +8851,7 @@ export type TaskHistoryQuery = {
       id: string;
       activated: boolean;
       canRestart: boolean;
+      canSchedule: boolean;
       createTime?: Date | null;
       displayStatus: string;
       execution: number;

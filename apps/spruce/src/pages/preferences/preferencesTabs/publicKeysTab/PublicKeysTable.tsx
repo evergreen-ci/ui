@@ -3,7 +3,11 @@ import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
-import { useLeafyGreenTable } from "@leafygreen-ui/table";
+import {
+  filterFns,
+  getFilteredRowModel,
+  useLeafyGreenTable,
+} from "@leafygreen-ui/table";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -60,6 +64,12 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
       {
         header: "Name",
         accessorKey: "name",
+        filterFns: filterFns.includesString,
+        meta: {
+          search: {
+            placeholder: "Key name",
+          },
+        },
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         cell: ({ getValue }) => (
           <WordBreak data-cy="table-key-name">{getValue()}</WordBreak>
@@ -117,6 +127,7 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
       // https://github.com/TanStack/table/discussions/4179#discussioncomment-7142606
       size: "auto" as unknown as number,
     },
+    getFilteredRowModel: getFilteredRowModel(),
   });
 
   return (

@@ -8,11 +8,13 @@ type Tab = DistroSettingsTabRoutes.Provider;
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const { containerPool, provider, providerSettingsList } = data;
+  const { containerPool, provider, providerAccount, providerSettingsList } =
+    data;
 
   return {
     provider: {
       providerName: provider,
+      providerAccount: providerAccount,
     },
     staticProviderSettings: {
       ...formProviderSettings(providerSettingsList[0]).staticProviderSettings,
@@ -68,6 +70,7 @@ export const formToGql = ((data, distro) => {
       return {
         ...distro,
         provider: Provider.Ec2Fleet,
+        providerAccount: data.provider.providerAccount,
         providerSettingsList: data.ec2FleetProviderSettings.map((p) => ({
           ...gqlProviderSettings(p).ec2FleetProviderSettings,
         })),
@@ -77,6 +80,7 @@ export const formToGql = ((data, distro) => {
       return {
         ...distro,
         provider: Provider.Ec2OnDemand,
+        providerAccount: data.provider.providerAccount,
         providerSettingsList: data.ec2OnDemandProviderSettings.map((p) => ({
           ...gqlProviderSettings(p).ec2OnDemandProviderSettings,
         })),
