@@ -1,7 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@evg-ui/lib/test_utils";
 import { AdminBanner } from "components/Banners";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 
 const mock = getSpruceConfigMock;
 
@@ -14,7 +17,7 @@ describe("site banner", () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.banner = "Warning to users";
     render(
-      <MockedProvider mocks={[mock]}>
+      <MockedProvider mocks={[mock, getUserSettingsMock]}>
         <AdminBanner />
       </MockedProvider>,
     );
@@ -29,7 +32,7 @@ describe("site banner", () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.bannerTheme = "announcement";
     render(
-      <MockedProvider mocks={[mock]}>
+      <MockedProvider mocks={[mock, getUserSettingsMock]}>
         <AdminBanner />
       </MockedProvider>,
     );
@@ -44,7 +47,7 @@ describe("site banner", () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.bannerTheme = "important";
     render(
-      <MockedProvider mocks={[mock]}>
+      <MockedProvider mocks={[mock, getUserSettingsMock]}>
         <AdminBanner />
       </MockedProvider>,
     );
@@ -59,7 +62,7 @@ describe("site banner", () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.bannerTheme = "information";
     render(
-      <MockedProvider mocks={[mock]}>
+      <MockedProvider mocks={[mock, getUserSettingsMock]}>
         <AdminBanner />
       </MockedProvider>,
     );
@@ -74,7 +77,7 @@ describe("site banner", () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.bannerTheme = "";
     render(
-      <MockedProvider mocks={[mock]}>
+      <MockedProvider mocks={[mock, getUserSettingsMock]}>
         <AdminBanner />
       </MockedProvider>,
     );
@@ -89,7 +92,7 @@ describe("site banner", () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.bannerTheme = "invalid";
     render(
-      <MockedProvider mocks={[mock]}>
+      <MockedProvider mocks={[mock, getUserSettingsMock]}>
         <AdminBanner />
       </MockedProvider>,
     );

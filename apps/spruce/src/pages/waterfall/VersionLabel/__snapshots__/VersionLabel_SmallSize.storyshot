@@ -58,6 +58,20 @@
         </div>
       </div>
       <p
+        class="leafygreen-ui-1tb6tuo"
+      >
+        Triggered by:
+         
+        <a
+          class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+          href="/task/task_id"
+        >
+          <span>
+            evergreen
+          </span>
+        </a>
+      </p>
+      <p
         class="css-69ll71-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
         title="DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)"
         view="waterfall"
