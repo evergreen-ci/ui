@@ -17,6 +17,7 @@ export const WaterfallCommitsRedirect: React.FC = () => {
       name: "Redirected to waterfall page",
       referrer,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

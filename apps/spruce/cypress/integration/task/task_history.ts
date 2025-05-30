@@ -156,7 +156,17 @@ describe("task history", () => {
     it("scheduling a task should reflect the changes on the UI", () => {
       cy.visit(spruceTaskHistoryLink);
 
-      cy.dataCy("task-timeline").children().eq(2).as("taskBox");
+      // We are targeting the 2nd task element in the task timeline and asserting that it state changes from an inactive collapsed task to an active will-run task
+      cy.dataCy("task-timeline")
+        .children()
+        // Filter out date-separators
+        .filter(
+          (index, el) =>
+            !el.hasAttribute("data-cy") ||
+            el.getAttribute("data-cy") !== "date-separator",
+        )
+        .eq(2)
+        .as("taskBox");
       cy.get("@taskBox").should("have.attr", "data-cy", "collapsed-box");
 
       cy.contains("1 Inactive Commit").click();
@@ -199,19 +209,31 @@ describe("task history", () => {
         cy.get("button[aria-label='Previous page']").as("prevPageButton");
         cy.get("button[aria-label='Next page']").as("nextPageButton");
 
-        const firstPageOrder = "12305";
-        const nextPageOrder = "12206";
+        const collapsedViewPages = {
+          first: { order: "12305", date: "Mar 27, 2025" },
+          next: { order: "12224", date: "Mar 7, 2025" },
+        };
 
         // Previous page should be disabled.
         cy.get("@prevPageButton").should("have.attr", "aria-disabled", "true");
         cy.dataCy("commit-details-card").should("be.visible");
-        cy.dataCy("commit-details-card").eq(0).contains(firstPageOrder);
+        cy.dataCy("commit-details-card")
+          .eq(0)
+          .contains(collapsedViewPages.first.order);
+        cy.dataCy("horizontal-date-separator")
+          .first()
+          .contains(collapsedViewPages.first.date);
 
         // Go to next page.
         cy.get("@nextPageButton").should("have.attr", "aria-disabled", "false");
         cy.get("@nextPageButton").click();
         cy.dataCy("commit-details-card").should("be.visible");
-        cy.dataCy("commit-details-card").eq(0).contains(nextPageOrder);
+        cy.dataCy("commit-details-card")
+          .eq(0)
+          .contains(collapsedViewPages.next.order);
+        cy.dataCy("horizontal-date-separator")
+          .first()
+          .contains(collapsedViewPages.next.date);
 
         // Reached last page, next button should be disabled.
         cy.get("@nextPageButton").should("have.attr", "aria-disabled", "true");
@@ -220,8 +242,12 @@ describe("task history", () => {
         cy.get("@prevPageButton").should("have.attr", "aria-disabled", "false");
         cy.get("@prevPageButton").click();
         cy.dataCy("commit-details-card").should("be.visible");
-        cy.dataCy("commit-details-card").eq(0).contains(firstPageOrder);
-
+        cy.dataCy("commit-details-card")
+          .eq(0)
+          .contains(collapsedViewPages.first.order);
+        cy.dataCy("horizontal-date-separator")
+          .first()
+          .contains(collapsedViewPages.first.date);
         // Reached first page, previous button should be disabled.
         cy.get("@prevPageButton").should("have.attr", "aria-disabled", "true");
       });
@@ -233,26 +259,58 @@ describe("task history", () => {
         cy.get("button[aria-label='Previous page']").as("prevPageButton");
         cy.get("button[aria-label='Next page']").as("nextPageButton");
 
-        const firstPageOrder = "12306";
-        const nextPageOrder = "12252";
-        const lastPageOrder = "12198";
+        const expandedViewPages = {
+          first: { order: "12306", date: "Mar 27, 2025" },
+          second: { order: "12262", date: "Mar 17, 2025" },
+          third: { order: "12218", date: "Mar 5, 2025" },
+          last: { order: "12174", date: "Feb 25, 2025" },
+        };
 
         // Previous page should be disabled.
         cy.get("@prevPageButton").should("have.attr", "aria-disabled", "true");
         cy.dataCy("commit-details-card").should("be.visible");
-        cy.dataCy("commit-details-card").eq(0).contains(firstPageOrder);
+        cy.dataCy("commit-details-card")
+          .eq(0)
+          .contains(expandedViewPages.first.order);
+        cy.dataCy("horizontal-date-separator")
+          .first()
+          .contains(expandedViewPages.first.date);
 
         // Go to next page.
         cy.get("@nextPageButton").should("have.attr", "aria-disabled", "false");
+        cy.log("Going to next page");
         cy.get("@nextPageButton").click();
         cy.dataCy("commit-details-card").should("be.visible");
-        cy.dataCy("commit-details-card").eq(0).contains(nextPageOrder);
+        cy.dataCy("commit-details-card")
+          .eq(0)
+          .contains(expandedViewPages.second.order);
+        cy.dataCy("horizontal-date-separator")
+          .first()
+          .contains(expandedViewPages.second.date);
 
         // Go to next page.
         cy.get("@nextPageButton").should("have.attr", "aria-disabled", "false");
+        cy.log("Going to next page");
         cy.get("@nextPageButton").click();
         cy.dataCy("commit-details-card").should("be.visible");
-        cy.dataCy("commit-details-card").eq(0).contains(lastPageOrder);
+        cy.dataCy("commit-details-card")
+          .eq(0)
+          .contains(expandedViewPages.third.order);
+        cy.dataCy("horizontal-date-separator")
+          .first()
+          .contains(expandedViewPages.third.date);
+
+        // Go to next page.
+        cy.get("@nextPageButton").should("have.attr", "aria-disabled", "false");
+        cy.log("Going to next page");
+        cy.get("@nextPageButton").click();
+        cy.dataCy("commit-details-card").should("be.visible");
+        cy.dataCy("commit-details-card")
+          .eq(0)
+          .contains(expandedViewPages.last.order);
+        cy.dataCy("horizontal-date-separator")
+          .first()
+          .contains(expandedViewPages.last.date);
 
         // Reached last page, next button should be disabled.
         cy.get("@nextPageButton").should("have.attr", "aria-disabled", "true");
@@ -261,13 +319,25 @@ describe("task history", () => {
         cy.get("@prevPageButton").should("have.attr", "aria-disabled", "false");
         cy.get("@prevPageButton").click();
         cy.dataCy("commit-details-card").should("be.visible");
-        cy.dataCy("commit-details-card").eq(0).contains(nextPageOrder);
+        cy.dataCy("commit-details-card")
+          .eq(0)
+          .contains(expandedViewPages.third.order);
 
         // Go to previous page.
         cy.get("@prevPageButton").should("have.attr", "aria-disabled", "false");
         cy.get("@prevPageButton").click();
         cy.dataCy("commit-details-card").should("be.visible");
-        cy.dataCy("commit-details-card").eq(0).contains(firstPageOrder);
+        cy.dataCy("commit-details-card")
+          .eq(0)
+          .contains(expandedViewPages.second.order);
+
+        // Go to previous page.
+        cy.get("@prevPageButton").should("have.attr", "aria-disabled", "false");
+        cy.get("@prevPageButton").click();
+        cy.dataCy("commit-details-card").should("be.visible");
+        cy.dataCy("commit-details-card")
+          .eq(0)
+          .contains(expandedViewPages.first.order);
 
         // Reached first page, previous button should be disabled.
         cy.get("@prevPageButton").should("have.attr", "aria-disabled", "true");

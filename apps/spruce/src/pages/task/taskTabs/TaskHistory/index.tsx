@@ -36,7 +36,7 @@ import {
 interface TaskHistoryProps {
   task: NonNullable<TaskQuery["task"]>;
 }
-
+const MAX_DATES_PER_PAGE = 10; // Maximum number of dates to assume per page in the timeline
 const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const timelineRef = useRef<HTMLDivElement>(null);
   const { width: timelineWidth } = useDimensions<HTMLDivElement>(timelineRef);
@@ -53,6 +53,10 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { identifier: projectIdentifier = "" } = project ?? {};
 
   const [queryParams, setQueryParams] = useQueryParams();
+  const [failingTest] = useQueryParam<string>(
+    TaskHistoryOptions.FailingTest,
+    "",
+  );
 
   const [cursorId] = useQueryParam<string>(
     TaskHistoryOptions.CursorID,
@@ -100,10 +104,6 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { pagination, tasks = [] } = taskHistory ?? {};
   const { mostRecentTaskOrder, oldestTaskOrder } = pagination ?? {};
 
-  const [failingTest] = useQueryParam<string>(
-    TaskHistoryOptions.FailingTest,
-    "",
-  );
   const testFailureSearchTerm = failingTest
     ? new RegExp(
         validateRegexp(failingTest) ? failingTest : toEscapedRegex(failingTest),
@@ -111,8 +111,15 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
       )
     : null;
 
-  const groupedTasks = groupTasks(tasks, shouldCollapse, testFailureSearchTerm);
-  const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER);
+  const groupedTasks = groupTasks(tasks, {
+    shouldCollapse,
+    timezone,
+    testFailureSearchTerm,
+  });
+
+  const numVisibleTasks =
+    Math.floor(timelineWidth / SQUARE_WITH_BORDER) - MAX_DATES_PER_PAGE;
+
   const visibleTasks =
     direction === TaskHistoryDirection.After
       ? groupedTasks.slice(-numVisibleTasks)
