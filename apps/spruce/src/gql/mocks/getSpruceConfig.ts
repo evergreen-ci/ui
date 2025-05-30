@@ -18,6 +18,8 @@ import {
   UserSettingsQueryVariables,
   VersionQuery,
   VersionQueryVariables,
+  VersionUpstreamProjectQuery,
+  VersionUpstreamProjectQueryVariables,
 } from "gql/generated/types";
 import {
   BASE_VERSION_AND_TASK,
@@ -29,6 +31,7 @@ import {
   TASK_TEST_SAMPLE,
   USER_SETTINGS,
   VERSION,
+  VERSION_UPSTREAM_PROJECT,
 } from "gql/queries";
 
 export const getSpruceConfigMock: ApolloMock<
@@ -409,3 +412,44 @@ export const taskStatusesMock: ApolloMock<
     },
   },
 };
+
+export const getVersionUpstreamProjectMock = (
+  versionId = "evergreen_ui_aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
+): ApolloMock<
+  VersionUpstreamProjectQuery,
+  VersionUpstreamProjectQueryVariables
+> => ({
+  request: {
+    query: VERSION_UPSTREAM_PROJECT,
+    variables: {
+      versionId,
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      version: {
+        __typename: "Version",
+        id: versionId,
+        upstreamProject: {
+          __typename: "UpstreamProject",
+          owner: "evergreen-ci",
+          project: "evergreen",
+          repo: "evergreen",
+          revision: "abcdefg",
+          task: {
+            __typename: "Task",
+            execution: 0,
+            id: "task_id",
+          },
+          triggerID: "trigger_id",
+          triggerType: "task",
+          version: {
+            __typename: "Version",
+            id: "version_id",
+          },
+        },
+      },
+    },
+  },
+});
