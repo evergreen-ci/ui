@@ -56,5 +56,5 @@ export const OnlyTags: CustomStoryObj<typeof TagsMetadata> = {
 };
 
 const Container = styled.div`
-  width: ${siderCardWidth};
+  width: ${siderCardWidth}px;
 `;
