@@ -35,7 +35,7 @@ import {
   mapIdToFilterParam,
 } from "types/task";
 import { queryString } from "utils";
-import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
+import { getColumnsTemplate } from "./getColumnsTemplate";
 
 const { getLimit, getPage, getString, parseSortString, queryParamAsNumber } =
   queryString;
@@ -46,7 +46,7 @@ interface TestsTableProps {
   task: NonNullable<TaskQuery["task"]>;
 }
 
-export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
+const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { pathname } = useLocation();
   const { sendEvent } = useTaskAnalytics();
 
@@ -289,3 +289,5 @@ const getQueryVariables = (
     pageNum: getPage(queryParams[PaginationQueryParams.Page]),
   };
 };
+
+export default TestsTable;

@@ -11,13 +11,14 @@ import { TaskQuery } from "gql/generated/types";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { RequiredQueryParams, TaskTab } from "types/task";
-import { BuildBaron } from "./taskTabs/buildBaron";
-import { useBuildBaronVariables } from "./taskTabs/buildBaronAndAnnotations";
-import { ExecutionTasksTable } from "./taskTabs/ExecutionTasksTable";
+import BuildBaron, {
+  useBuildBaronVariables,
+} from "./taskTabs/buildBaronAndAnnotations";
+import ExecutionTasksTable from "./taskTabs/ExecutionTasksTable";
 import FileTable from "./taskTabs/FileTable";
-import { Logs } from "./taskTabs/Logs";
+import Logs from "./taskTabs/logs";
 import TaskHistory from "./taskTabs/TaskHistory";
-import { TestsTable } from "./taskTabs/TestsTable";
+import TestsTable from "./taskTabs/testsTable/TestsTable";
 
 interface TaskTabProps {
   isDisplayTask: boolean;
