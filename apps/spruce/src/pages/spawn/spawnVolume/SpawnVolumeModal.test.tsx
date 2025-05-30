@@ -16,7 +16,10 @@ import {
   SubnetAvailabilityZonesQuery,
   SubnetAvailabilityZonesQueryVariables,
 } from "gql/generated/types";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
 import { myVolumesQueryMock } from "gql/mocks/myVolumesQuery";
 import { SPAWN_VOLUME } from "gql/mutations";
@@ -390,5 +393,6 @@ const baseMocks: MockedResponse[] = [
   subnetZonesMock,
   myHostsMock,
   getSpruceConfigMock,
+  getUserSettingsMock,
   myVolumesQueryMock,
 ];

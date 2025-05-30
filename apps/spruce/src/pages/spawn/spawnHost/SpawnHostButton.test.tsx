@@ -7,7 +7,10 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 import { MY_HOSTS } from "gql/queries";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
@@ -20,7 +23,9 @@ describe("spawnHostButton", () => {
   it("disables the spawn host button when the number of hosts that currently exist are greater than or equal to the max number of spawn hosts per user", async () => {
     const { Component } = RenderFakeToastContext(<SpawnHostButton />);
     render(
-      <MockedProvider mocks={[sixHostsMock, getSpruceConfigMock]}>
+      <MockedProvider
+        mocks={[getUserSettingsMock, sixHostsMock, getSpruceConfigMock]}
+      >
         <Component />
       </MockedProvider>,
     );
@@ -35,7 +40,9 @@ describe("spawnHostButton", () => {
   it("enables the spawn host button when the number of hosts that currently exist is less than the max number of spawn hosts per user", async () => {
     const { Component } = RenderFakeToastContext(<SpawnHostButton />);
     render(
-      <MockedProvider mocks={[twoHostsMock, getSpruceConfigMock]}>
+      <MockedProvider
+        mocks={[getUserSettingsMock, twoHostsMock, getSpruceConfigMock]}
+      >
         <Component />
       </MockedProvider>,
     );

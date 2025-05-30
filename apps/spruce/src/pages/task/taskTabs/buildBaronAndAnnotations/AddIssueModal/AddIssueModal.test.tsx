@@ -12,7 +12,10 @@ import {
   AddAnnotationIssueMutation,
   AddAnnotationIssueMutationVariables,
 } from "gql/generated/types";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 import { ADD_ANNOTATION } from "gql/mutations";
 import { AddIssueModal as AddIssueModalToTest } from ".";
 
@@ -22,7 +25,9 @@ const AddIssueModal = (
     "execution" | "taskId" | "visible"
   >,
 ) => (
-  <MockedProvider mocks={[getSpruceConfigMock, addAnnotationMock]}>
+  <MockedProvider
+    mocks={[getSpruceConfigMock, getUserSettingsMock, addAnnotationMock]}
+  >
     <AddIssueModalToTest
       data-cy="add-issue-modal"
       execution={0}
