@@ -21,7 +21,11 @@ const DateSeparator: React.FC<DateSeparatorProps> = ({ date, timezone }) => {
   });
   const dateString = formattedDate || "";
   return (
-    <Container aria-label="date-separator" className="date-separator">
+    <Container
+      aria-label="date-separator"
+      className="date-separator"
+      data-cy="date-separator"
+    >
       <StyledBadge className="date-badge">{dateString}</StyledBadge>
       <Dot className="dot" />
       <Line />

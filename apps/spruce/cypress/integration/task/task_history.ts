@@ -156,7 +156,17 @@ describe("task history", () => {
     it("scheduling a task should reflect the changes on the UI", () => {
       cy.visit(spruceTaskHistoryLink);
 
-      cy.dataCy("task-timeline").children().eq(2).as("taskBox");
+      // We are targeting the 2nd task element in the task timeline and asserting that it state changes from an inactive collapsed task to an active will-run task
+      cy.dataCy("task-timeline")
+        .children()
+        // Filter out date-separators
+        .filter(
+          (index, el) =>
+            !el.hasAttribute("data-cy") ||
+            el.getAttribute("data-cy") !== "date-separator",
+        )
+        .eq(2)
+        .as("taskBox");
       cy.get("@taskBox").should("have.attr", "data-cy", "collapsed-box");
 
       cy.contains("1 Inactive Commit").click();
