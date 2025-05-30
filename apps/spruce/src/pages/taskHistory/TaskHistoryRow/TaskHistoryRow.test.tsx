@@ -14,6 +14,10 @@ import {
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
 } from "gql/generated/types";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 import { TASK_TEST_SAMPLE } from "gql/queries";
 import { TestStatus } from "types/history";
 import TaskHistoryRow from ".";
@@ -43,7 +47,7 @@ interface wrapperProps {
 }
 
 const wrapper: React.FC<wrapperProps> = ({ children, mocks = [], state }) => (
-  <MockedProvider mocks={mocks}>
+  <MockedProvider mocks={[...mocks, getSpruceConfigMock, getUserSettingsMock]}>
     <HistoryTableProvider initialState={{ ...initialState, ...state }}>
       {children}
     </HistoryTableProvider>
