@@ -23,7 +23,7 @@ import { usePolling } from "hooks";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/NotFound";
-import { RequiredQueryParams } from "types/task";
+import { RequiredQueryParams, TaskTab } from "types/task";
 import { ActionButtons } from "./task/ActionButtons";
 import TaskPageBreadcrumbs from "./task/Breadcrumbs";
 import { ExecutionSelect } from "./task/executionDropdown/ExecutionSelector";
@@ -31,7 +31,10 @@ import { Metadata } from "./task/metadata";
 import { TaskTabs } from "./task/TaskTabs";
 
 export const Task = () => {
-  const { [slugs.taskId]: taskId } = useParams();
+  const { [slugs.taskId]: taskId, [slugs.tab]: tab } = useParams<{
+    [slugs.taskId]: string;
+    [slugs.tab]: TaskTab;
+  }>();
   const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
@@ -78,6 +81,7 @@ export const Task = () => {
       navigate(
         getTaskRoute(task.id, {
           ...params,
+          tab,
           execution: task?.latestExecution,
         }),
         { replace: true },
