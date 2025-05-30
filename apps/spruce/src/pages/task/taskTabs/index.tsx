@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
@@ -179,16 +179,21 @@ const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const navigate = useNavigate();
   const { activeTabs, tabMap } = useTabConfig(task, isDisplayTask);
 
-  const tabIndex = getDefaultTab({
-    activeTabs,
-    failedTestCount: task.failedTestCount,
-    isDisplayTask,
-    urlTab,
-  });
+  const tabIndex = useMemo(
+    () =>
+      getDefaultTab({
+        activeTabs,
+        failedTestCount: task.failedTestCount,
+        isDisplayTask,
+        urlTab,
+      }),
+    [activeTabs, task.failedTestCount, isDisplayTask, urlTab],
+  );
 
   // Update the default tab in the url if it isn't populated or if the tab is not the same as the current tab
   useEffect(() => {
-    if (urlTab === undefined || activeTabs[tabIndex] !== urlTab) {
+    const isValidTab = urlTab === undefined || activeTabs.includes(urlTab);
+    if (!isValidTab) {
       navigate(
         getTaskRoute(task.id, {
           ...params,
@@ -206,19 +211,17 @@ const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     }
   }, [urlTab, activeTabs, params, task.id, task.execution, tabIndex]);
 
-  const setURLTab = (newTabIndex: number) => {
-    const newUrl = getTaskRoute(task.id, {
-      ...params,
-      execution: task.execution,
-      tab: activeTabs[newTabIndex],
-    } as GetTaskRouteOptions);
-    navigate(newUrl, { replace: true });
-  };
-  useTabShortcut({
-    currentTab: urlTab ? activeTabs.indexOf(urlTab) : tabIndex,
-    numTabs: activeTabs.length,
-    setSelectedTab: setURLTab,
-  });
+  const setURLTab = useCallback(
+    (newTabIndex: number) => {
+      const newUrl = getTaskRoute(task.id, {
+        ...params,
+        execution: task.execution,
+        tab: activeTabs[newTabIndex],
+      } as GetTaskRouteOptions);
+      navigate(newUrl, { replace: true });
+    },
+    [task.id, task.execution, params, activeTabs, navigate],
+  );
 
   const handleTabChange = (newTab: React.SetStateAction<number>) => {
     const newTabIndex =
@@ -231,6 +234,12 @@ const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     });
     setURLTab(newTabIndex);
   };
+  useTabShortcut({
+    currentTab: tabIndex,
+    numTabs: activeTabs.length,
+    setSelectedTab: handleTabChange,
+  });
+
   return (
     <StyledTabs
       aria-label="Task Page Tabs"
