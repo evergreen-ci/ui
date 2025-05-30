@@ -1,17 +1,17 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import {
-  Body,
-  BodyProps,
-  Overline,
-  OverlineProps,
-} from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
   hoverStyles,
   overlineStyles,
 } from "components/styles/SearchableDropdown";
+import {
+  Body,
+  BodyProps,
+  Overline,
+  OverlineProps,
+} from "components/Typography";
 import { FavoriteStar } from "./FavoriteStar";
 
 const { blue } = palette;

@@ -3,11 +3,11 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Code from "@leafygreen-ui/code";
 import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { Subtitle } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
+import { Subtitle } from "components/Typography";
 import { UserConfigQuery, UserConfigQueryVariables } from "gql/generated/types";
 import { USER_CONFIG } from "gql/queries";
 import { request } from "utils";
@@ -55,7 +55,7 @@ ui_server_host: "${config?.ui_server_host}"
   };
   return (
     <SettingsCard>
-      <Subtitle>Authentication</Subtitle>
+      <Subtitle as="h6">Authentication</Subtitle>
       <CodeContainer>
         <Code language="yaml">{authCode}</Code>
       </CodeContainer>

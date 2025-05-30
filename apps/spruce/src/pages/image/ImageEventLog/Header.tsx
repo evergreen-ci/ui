@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { Disclaimer, Subtitle } from "components/Typography";
 import { useDateFormat } from "hooks";
 
 interface HeaderProps {
