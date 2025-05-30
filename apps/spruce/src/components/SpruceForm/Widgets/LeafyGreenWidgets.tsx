@@ -17,7 +17,7 @@ import TextArea from "@leafygreen-ui/text-area";
 import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
 import Toggle from "@leafygreen-ui/toggle";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Description, Label } from "@leafygreen-ui/typography";
+import { Description } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { OneOf } from "@evg-ui/lib/types/utils";
@@ -191,9 +191,7 @@ export const LeafyGreenToggle: React.FC<SpruceWidgetProps> = ({
           onChange={(checked) => onChange(checked)}
           size="xsmall"
         />
-        <Label htmlFor={id} id={`${id}-label`}>
-          {customLabel || label}
-        </Label>
+        <span id={`${id}-label`}>{customLabel || label}</span>
       </ToggleWrapper>
       {descriptionNode ||
         (description && <Description>{description}</Description>)}
@@ -291,9 +289,7 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
     <ElementWrapper css={elementWrapperCSS}>
       {label && (
         <LabelContainer>
-          <Label disabled={disabled} htmlFor={id}>
-            {label}
-          </Label>
+          <span>{label}</span>
         </LabelContainer>
       )}
       <RadioGroup
@@ -360,9 +356,7 @@ export const LeafyGreenRadioBox: React.FC<
     <ElementWrapper css={elementWrapperCSS}>
       {showLabel !== false && (
         <LabelContainer>
-          <Label disabled={disabled} htmlFor={id}>
-            {label}
-          </Label>
+          <span>{label}</span>
           {description && <Description>{description}</Description>}
         </LabelContainer>
       )}
@@ -546,3 +540,105 @@ export const LeafyGreenDatePicker: React.FC<
     </ElementWrapper>
   );
 };
+
+export const LeafyGreenHorizontalZebraRadio: React.FC<
+  EnumSpruceWidgetProps
+> = ({ disabled, id, label, onChange, options, value }) => {
+  const {
+    "data-cy": dataCy,
+    elementWrapperCSS,
+    enumDisabled,
+    enumOptions,
+  } = options;
+
+  return (
+    <ElementWrapper css={elementWrapperCSS}>
+      {label && (
+        <LabelContainer>
+          <span>{label}</span>
+        </LabelContainer>
+      )}
+      <FeatureList>
+        {enumOptions.map((o, index) => {
+          const optionDisabled = enumDisabled?.includes(o.value) ?? false;
+          const isEven = index % 2 === 0;
+          const isEnabled = value === true;
+          const isDisabled = value === false;
+
+          return (
+            <FeatureRow key={`option-${o.label}`} isEven={isEven}>
+              <FeatureName>{o.label}</FeatureName>
+              <RadioButtonGroup>
+                <RadioOption>
+                  <RadioInput
+                    checked={isEnabled}
+                    data-cy={`${dataCy}-enabled`}
+                    data-label={`${o.label}-enabled`}
+                    disabled={disabled || optionDisabled}
+                    name={`${id}-${o.label.replace(/\s+/g, "").toLowerCase()}`}
+                    onChange={() => onChange(true)}
+                    type="radio"
+                  />
+                  <RadioLabel>Enabled</RadioLabel>
+                </RadioOption>
+                <RadioOption>
+                  <RadioInput
+                    checked={isDisabled}
+                    data-cy={`${dataCy}-disabled`}
+                    data-label={`${o.label}-disabled`}
+                    disabled={disabled || optionDisabled}
+                    name={`${id}-${o.label.replace(/\s+/g, "").toLowerCase()}`}
+                    onChange={() => onChange(false)}
+                    type="radio"
+                  />
+                  <RadioLabel>Disabled</RadioLabel>
+                </RadioOption>
+              </RadioButtonGroup>
+            </FeatureRow>
+          );
+        })}
+      </FeatureList>
+    </ElementWrapper>
+  );
+};
+
+const FeatureList = styled.div`
+  width: 100%;
+`;
+
+const FeatureRow = styled.div<{ isEven?: boolean }>`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${size.s};
+  background-color: ${({ isEven }) => (isEven ? "white" : palette.gray.light1)};
+  &:hover {
+    background-color: ${palette.gray.light2};
+  }
+`;
+
+const FeatureName = styled.div`
+  flex: 1;
+  font-size: 14px;
+`;
+
+const RadioButtonGroup = styled.div`
+  display: flex;
+  gap: ${size.xl};
+`;
+
+const RadioOption = styled.label`
+  display: flex;
+  align-items: center;
+  gap: ${size.xs};
+  cursor: pointer;
+`;
+
+const RadioLabel = styled.span`
+  font-size: 14px;
+`;
+
+const RadioInput = styled.input`
+  margin: 0;
+  cursor: pointer;
+`;

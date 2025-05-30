@@ -1,10 +1,15 @@
 import styled from "@emotion/styled";
-import { H2 } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { AdminSettingsTabRoutes } from "constants/routes";
 import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./formSchema";
 import { TabProps } from "./types";
+
+const PageTitle = styled.h2`
+  margin-bottom: ${size.s};
+  font-size: 24px;
+  font-weight: bold;
+`;
 
 export const AnnouncementTab: React.FC<TabProps> = ({ announcementsData }) => {
   const initialFormState = announcementsData;
@@ -13,7 +18,7 @@ export const AnnouncementTab: React.FC<TabProps> = ({ announcementsData }) => {
   return (
     <>
       <TitleContainer>
-        <H2>Announcements</H2>
+        <PageTitle>Announcements</PageTitle>
       </TitleContainer>
       <BaseTab
         formSchema={formSchema}

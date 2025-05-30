@@ -4,6 +4,7 @@ import { AdminSettings } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { useAdminSettingsContext } from "./Context";
 import { AnnouncementTab } from "./tabs/AnnouncementsTab/AnnouncementTab";
+import { FeatureFlagsTab } from "./tabs/FeatureFlagsTab/FeatureFlagsTab";
 import { gqlToFormMap } from "./tabs/transformers";
 import { FormStateMap, WritableAdminSettingsType } from "./tabs/types";
 
@@ -24,6 +25,7 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   return (
     <Container>
       <AnnouncementTab announcementsData={tabData.announcements} />
+      <FeatureFlagsTab featureFlagsData={tabData["feature-flags"]} />
     </Container>
   );
 };
