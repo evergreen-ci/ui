@@ -28,7 +28,13 @@ const TagsMetadata: React.FC<TagsMetadataProps> = ({
   const title = isFailureMetadataTagsOnly ? "Failure Metadata Tags" : "Tags";
 
   return (
-    <MetadataCard title={title}>
+    <MetadataCard>
+      {hasTags && (
+        <div>
+          <Title weight="medium">Tags</Title>
+          <Divider />
+        </div>
+      )}
       {hasTags && (
         <TagsContainer>
           {tags.map((t) => (
@@ -43,13 +49,12 @@ const TagsMetadata: React.FC<TagsMetadataProps> = ({
         </TagsContainer>
       )}
 
-      {hasTags && hasFailureMetadataTags && (
+      {hasFailureMetadataTags && (
         <div>
           <Title weight="medium">Failure Metadata Tags</Title>
           <Divider />
         </div>
       )}
-
       {hasFailureMetadataTags && (
         <TagsContainer>
           {failureMetadataTags.map((t) => (
