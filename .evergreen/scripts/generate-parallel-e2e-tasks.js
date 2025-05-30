@@ -1,6 +1,6 @@
 import { readdirSync, statSync, writeFileSync } from "fs";
 import { join } from "path";
-import { APPS_DIR, PARALLEL_COUNT, Tasks } from "./constants.js"
+import { APPS_DIR, PACKAGES_DIR, PARALLEL_COUNT, Tasks } from "./constants.js"
 import { hasChangesInDirectory } from "./git-utils.js";
 
 /**
@@ -140,9 +140,11 @@ const generateParallelE2ETasks = (bv) => {
 };
 
 const main = () => {
+    const buildVariant = process.env.BUILD_VARIANT;
+
   // Check if there are any changes in the spruce directory
-  if (!hasChangesInDirectory("spruce")) {
-    console.log("No changes detected in spruce directory, skipping e2e task generation");
+  if (!hasChangesInDirectory(`${APPS_DIR}/${buildVariant}`) && !hasChangesInDirectory(PACKAGES_DIR)) {
+    console.log(`No changes detected in ${buildVariant} or packages directory, skipping e2e task generation`);
     // Write an empty task list to maintain the expected file output
     writeFileSync(
       join(process.cwd(), "/.evergreen", "generate-parallel-e2e-tasks.json"),
@@ -151,7 +153,6 @@ const main = () => {
     return;
   }
 
-  const buildVariant = process.env.BUILD_VARIANT;
   if (buildVariant) {
     const evgObj = generateParallelE2ETasks(buildVariant);
     const evgJson = JSON.stringify(evgObj);
