@@ -28,7 +28,7 @@ import { ActionButtons } from "./task/ActionButtons";
 import TaskPageBreadcrumbs from "./task/Breadcrumbs";
 import { ExecutionSelect } from "./task/executionDropdown/ExecutionSelector";
 import { Metadata } from "./task/metadata";
-import { TaskTabs } from "./task/TaskTabs";
+import TaskTabs from "./task/taskTabs";
 
 export const Task = () => {
   const { [slugs.taskId]: taskId, [slugs.tab]: tab } = useParams<{

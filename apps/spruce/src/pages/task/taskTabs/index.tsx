@@ -11,14 +11,12 @@ import { TaskQuery } from "gql/generated/types";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { RequiredQueryParams, TaskTab } from "types/task";
-import BuildBaron, {
-  useBuildBaronVariables,
-} from "./taskTabs/buildBaronAndAnnotations";
-import ExecutionTasksTable from "./taskTabs/ExecutionTasksTable";
-import FileTable from "./taskTabs/FileTable";
-import Logs from "./taskTabs/logs";
-import TaskHistory from "./taskTabs/TaskHistory";
-import TestsTable from "./taskTabs/testsTable/TestsTable";
+import BuildBaron, { useBuildBaronVariables } from "./buildBaronAndAnnotations";
+import ExecutionTasksTable from "./ExecutionTasksTable";
+import FileTable from "./FileTable";
+import Logs from "./logs";
+import TaskHistory from "./TaskHistory";
+import TestsTable from "./testsTable/TestsTable";
 
 interface TaskTabProps {
   isDisplayTask: boolean;
@@ -173,7 +171,7 @@ const useTabConfig = (
   return { tabMap, activeTabs };
 };
 
-export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
+const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const { [slugs.tab]: urlTab } = useParams<{ [slugs.tab]: TaskTab }>();
   const taskAnalytics = useTaskAnalytics();
   const [execution] = useQueryParam<number | null>(
@@ -254,3 +252,5 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     </StyledTabs>
   );
 };
+
+export default TaskTabs;
