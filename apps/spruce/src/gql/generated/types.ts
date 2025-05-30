@@ -8846,6 +8846,7 @@ export type TaskHistoryQuery = {
       id: string;
       activated: boolean;
       canRestart: boolean;
+      canSchedule: boolean;
       createTime?: Date | null;
       displayStatus: string;
       execution: number;
