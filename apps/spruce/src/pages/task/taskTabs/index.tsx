@@ -8,15 +8,16 @@ import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { isMainlineRequester, Requester } from "constants/requesters";
 import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
-import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
+import { useQueryParams } from "hooks/useQueryParam";
 import { useTabShortcut } from "hooks/useTabShortcut";
-import { RequiredQueryParams, TaskTab } from "types/task";
+import { TaskTab } from "types/task";
 import BuildBaron, { useBuildBaronVariables } from "./buildBaronAndAnnotations";
 import ExecutionTasksTable from "./ExecutionTasksTable";
 import FileTable from "./FileTable";
 import Logs from "./logs";
 import TaskHistory from "./TaskHistory";
 import TestsTable from "./testsTable/TestsTable";
+import { getDefaultTab } from "./utils/getDefaultTab";
 
 interface TaskTabProps {
   isDisplayTask: boolean;
@@ -25,7 +26,6 @@ interface TaskTabProps {
 
 const useTabConfig = (
   task: NonNullable<TaskQuery["task"]>,
-  hasRequiredQueryParams: boolean,
   isDisplayTask: boolean,
 ) => {
   const {
@@ -87,7 +87,7 @@ const useTabConfig = (
           )
         }
       >
-        {hasRequiredQueryParams && <TestsTable task={task} />}
+        <TestsTable task={task} />
       </Tab>
     ),
     [TaskTab.ExecutionTasks]: (
@@ -174,78 +174,67 @@ const useTabConfig = (
 const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const { [slugs.tab]: urlTab } = useParams<{ [slugs.tab]: TaskTab }>();
   const taskAnalytics = useTaskAnalytics();
-  const [execution] = useQueryParam<number | null>(
-    RequiredQueryParams.Execution,
-    null,
-  );
+
   const [params] = useQueryParams();
   const navigate = useNavigate();
-  const { activeTabs, tabMap } = useTabConfig(
-    task,
-    execution !== null,
+  const { activeTabs, tabMap } = useTabConfig(task, isDisplayTask);
+
+  const tabIndex = getDefaultTab({
+    activeTabs,
+    failedTestCount: task.failedTestCount,
     isDisplayTask,
-  );
+    urlTab,
+  });
 
-  const getDefaultTab = (): number => {
-    if (urlTab && activeTabs.includes(urlTab))
-      return activeTabs.indexOf(urlTab);
-    if (isDisplayTask) return activeTabs.indexOf(TaskTab.ExecutionTasks);
-    if (task.failedTestCount > 0) return activeTabs.indexOf(TaskTab.Tests);
-    if (task.failedTestCount === 0 || !isDisplayTask)
-      return activeTabs.indexOf(TaskTab.Logs);
-    if (task.totalTestCount > 0) return activeTabs.indexOf(TaskTab.Tests);
-    return 0;
-  };
-
-  // Update the default tab in the url if it isn't populated
+  // Update the default tab in the url if it isn't populated or if the tab is not the same as the current tab
   useEffect(() => {
-    if (urlTab === undefined) {
+    if (urlTab === undefined || activeTabs[tabIndex] !== urlTab) {
       navigate(
         getTaskRoute(task.id, {
           ...params,
-          tab: activeTabs[getDefaultTab()],
+          tab: activeTabs[tabIndex],
         } as GetTaskRouteOptions),
         { replace: true },
       );
       if (urlTab === undefined) {
         taskAnalytics.sendEvent({
           name: "Redirected to default tab",
-          tab: activeTabs[getDefaultTab()],
+          tab: activeTabs[tabIndex],
         });
       }
       return;
     }
-  }, [urlTab, activeTabs, params, task.id]);
+  }, [urlTab, activeTabs, params, task.id, task.execution, tabIndex]);
 
-  const setURLTab = (tabIndex: number) => {
+  const setURLTab = (newTabIndex: number) => {
     const newUrl = getTaskRoute(task.id, {
       ...params,
-      execution,
-      tab: activeTabs[tabIndex],
+      execution: task.execution,
+      tab: activeTabs[newTabIndex],
     } as GetTaskRouteOptions);
     navigate(newUrl, { replace: true });
   };
   useTabShortcut({
-    currentTab: urlTab ? activeTabs.indexOf(urlTab) : getDefaultTab(),
+    currentTab: urlTab ? activeTabs.indexOf(urlTab) : tabIndex,
     numTabs: activeTabs.length,
     setSelectedTab: setURLTab,
   });
 
   const handleTabChange = (newTab: React.SetStateAction<number>) => {
-    const tabIndex =
+    const newTabIndex =
       typeof newTab === "function"
-        ? newTab(activeTabs.indexOf(urlTab ?? activeTabs[getDefaultTab()]))
+        ? newTab(activeTabs.indexOf(urlTab ?? activeTabs[tabIndex]))
         : newTab;
     taskAnalytics.sendEvent({
       name: "Changed tab",
-      tab: activeTabs[tabIndex],
+      tab: activeTabs[newTabIndex],
     });
-    setURLTab(tabIndex);
+    setURLTab(newTabIndex);
   };
   return (
     <StyledTabs
       aria-label="Task Page Tabs"
-      selected={activeTabs.indexOf(urlTab ?? activeTabs[getDefaultTab()])}
+      selected={tabIndex}
       setSelected={handleTabChange}
     >
       {activeTabs.map((tab) => tabMap[tab])}

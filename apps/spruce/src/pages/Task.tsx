@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -16,11 +16,11 @@ import {
   PageSider,
 } from "components/styles";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { getTaskRoute, slugs } from "constants/routes";
+import { slugs } from "constants/routes";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { TASK } from "gql/queries";
 import { usePolling } from "hooks";
-import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
+import { useQueryParam } from "hooks/useQueryParam";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/NotFound";
 import { RequiredQueryParams, TaskTab } from "types/task";
@@ -31,19 +31,16 @@ import { Metadata } from "./task/metadata";
 import TaskTabs from "./task/taskTabs";
 
 export const Task = () => {
-  const { [slugs.taskId]: taskId, [slugs.tab]: tab } = useParams<{
+  const { [slugs.taskId]: taskId } = useParams<{
     [slugs.taskId]: string;
     [slugs.tab]: TaskTab;
   }>();
   const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
-  const [selectedExecution] = useQueryParam<number | null>(
-    RequiredQueryParams.Execution,
-    null,
-  );
-  const [params] = useQueryParams();
-  const navigate = useNavigate();
+  const [selectedExecution, setSelectedExecution] = useQueryParam<
+    number | null
+  >(RequiredQueryParams.Execution, null);
 
   // Query task data
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
@@ -78,18 +75,9 @@ export const Task = () => {
   // Update the default execution in the url if it isn't populated
   useEffect(() => {
     if (selectedExecution === null && task) {
-      navigate(
-        getTaskRoute(task.id, {
-          ...params,
-          tab,
-          execution: task?.latestExecution,
-        }),
-        { replace: true },
-      );
-
-      return;
+      setSelectedExecution(task.latestExecution);
     }
-  }, [task, params]);
+  }, [task, selectedExecution, setSelectedExecution]);
 
   /**
    * Special handling for known issues and show the original status on the task page.
