@@ -192,8 +192,8 @@ const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
 
   // Update the default tab in the url if it isn't populated or if the tab is not the same as the current tab
   useEffect(() => {
-    const isValidTab = urlTab === undefined || activeTabs.includes(urlTab);
-    if (!isValidTab) {
+    const isValidTab = urlTab && activeTabs.includes(urlTab);
+    if (urlTab === undefined || !isValidTab) {
       navigate(
         getTaskRoute(task.id, {
           ...params,
