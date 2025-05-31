@@ -35,7 +35,7 @@ import {
   mapIdToFilterParam,
 } from "types/task";
 import { queryString } from "utils";
-import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
+import { getColumnsTemplate } from "./getColumnsTemplate";
 
 const { getLimit, getPage, getString, parseSortString, queryParamAsNumber } =
   queryString;
@@ -43,15 +43,14 @@ const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
 interface TestsTableProps {
-  task: TaskQuery["task"];
+  task: NonNullable<TaskQuery["task"]>;
 }
 
-export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
+const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { pathname } = useLocation();
   const { sendEvent } = useTaskAnalytics();
 
   const [queryParams, setQueryParams] = useQueryParams();
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const queryVariables = getQueryVariables(queryParams, task.id);
   const { execution, limitNum, pageNum, sort } = queryVariables;
   const sortBy = sort?.[0]?.sortBy;
@@ -290,3 +289,5 @@ const getQueryVariables = (
     pageNum: getPage(queryParams[PaginationQueryParams.Page]),
   };
 };
+
+export default TestsTable;

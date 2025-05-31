@@ -29,7 +29,7 @@ interface Props {
   isPatch: boolean;
 }
 
-export const ExecutionTasksTable: React.FC<Props> = ({
+const ExecutionTasksTable: React.FC<Props> = ({
   execution,
   executionTasksFull,
   isPatch,
@@ -133,3 +133,5 @@ const defaultSortQueryParam =
     columnKey: TaskSortCategory.Status,
     order: "ascend",
   }) ?? "";
+
+export default ExecutionTasksTable;

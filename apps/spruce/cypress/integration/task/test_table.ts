@@ -35,6 +35,10 @@ describe("Tests Table", () => {
     cy.dataCy("total-count").contains(20);
   });
 
+  it("Automatically sorts by status in ascending order on page load", () => {
+    cy.location("search").should("include", "sortBy=STATUS");
+    cy.location("search").should("include", ASCEND_PARAM);
+  });
   it("Adjusts query params when table headers are clicked", () => {
     const nameSortControl = "button[aria-label='Sort by Name']";
     const statusSortControl = "button[aria-label='Sort by Status']";

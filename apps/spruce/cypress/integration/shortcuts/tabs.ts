@@ -67,9 +67,9 @@ describe("Tab shortcut", () => {
       "true",
     );
     cy.get("body").type("j");
-    cy.dataCy("task-files-tab").should("have.attr", "aria-selected", "true");
-    cy.get("body").type("j");
     cy.dataCy("task-tests-tab").should("have.attr", "aria-selected", "true");
+    cy.get("body").type("j");
+    cy.dataCy("task-files-tab").should("have.attr", "aria-selected", "true");
     cy.get("body").type("j");
     cy.dataCy("task-execution-tab").should(
       "have.attr",
@@ -77,7 +77,7 @@ describe("Tab shortcut", () => {
       "true",
     );
     cy.get("body").type("j");
-    cy.dataCy("task-files-tab").should("have.attr", "aria-selected", "true");
+    cy.dataCy("task-tests-tab").should("have.attr", "aria-selected", "true");
 
     cy.get("body").type("k");
     cy.dataCy("task-execution-tab").should(
@@ -86,8 +86,8 @@ describe("Tab shortcut", () => {
       "true",
     );
     cy.get("body").type("k");
-    cy.dataCy("task-tests-tab").should("have.attr", "aria-selected", "true");
-    cy.get("body").type("k");
     cy.dataCy("task-files-tab").should("have.attr", "aria-selected", "true");
+    cy.get("body").type("k");
+    cy.dataCy("task-tests-tab").should("have.attr", "aria-selected", "true");
   });
 });

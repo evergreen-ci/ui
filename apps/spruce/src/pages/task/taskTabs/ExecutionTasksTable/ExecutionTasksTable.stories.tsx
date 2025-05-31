@@ -1,6 +1,5 @@
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-
-import { ExecutionTasksTable } from ".";
+import ExecutionTasksTable from ".";
 
 export default {
   component: ExecutionTasksTable,

@@ -14,13 +14,7 @@ import { getParsleyTaskLogLink } from "constants/externalResources";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
 import { LogTypes, QueryParams } from "types/task";
-import {
-  EventLog,
-  AgentLog,
-  SystemLog,
-  TaskLog,
-  AllLog,
-} from "./logs/LogTypes";
+import { EventLog, AgentLog, SystemLog, TaskLog, AllLog } from "./LogTypes";
 
 const DEFAULT_LOG_TYPE = LogTypes.Task;
 
@@ -37,7 +31,7 @@ interface Props {
   taskId: string;
   execution: number;
 }
-export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
+const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
   const { sendEvent } = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
@@ -208,3 +202,5 @@ const getLinks = (
     rawLink: `${htmlLink}&text=true`,
   };
 };
+
+export default Logs;

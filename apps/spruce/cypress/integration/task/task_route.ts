@@ -19,6 +19,45 @@ describe("Task Page Route", () => {
     cy.visit(`/task/${tasks[3]}`);
     cy.dataCy("task-status-badge").contains("Succeeded");
   });
+  describe("should redirect to the appropriate task tab depending on the conditions", () => {
+    it("should redirect to the logs tab if the task is running", () => {
+      cy.visit(`/task/${taskStates.runningTask}`);
+      cy.location("pathname").should(
+        "eq",
+        `/task/${taskStates.runningTask}/logs`,
+      );
+    });
+    it("should redirect to the logs tab if the task is in a completed state", () => {
+      cy.visit(`/task/${taskStates.completedSucceededTask}`);
+      cy.location("pathname").should(
+        "eq",
+        `/task/${taskStates.completedSucceededTask}/logs`,
+      );
+    });
+    it("should redirect to the tests tab if the task is completed and has failed tests", () => {
+      cy.visit(`/task/${taskStates.completedFailedTask}`);
+      cy.location("pathname").should(
+        "eq",
+        `/task/${taskStates.completedFailedTask}/tests`,
+      );
+    });
+    it("should redirect to the logs tab if the task is completed as failed and has no failed tests", () => {
+      cy.visit(`/task/${taskStates.completedFailedTaskWithNoFailedTests}`);
+      cy.location("pathname").should(
+        "eq",
+        `/task/${taskStates.completedFailedTaskWithNoFailedTests}/logs`,
+      );
+    });
+    const taskStates = {
+      completedFailedTask:
+        "evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
+      runningTask: "task_annotation_test",
+      completedSucceededTask:
+        "evergreen_ubuntu1604_js_test_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
+      completedFailedTaskWithNoFailedTests:
+        "spruce_ubuntu1604_check_codegen_69c03101ab23f54924309125432862cd4059420f_22_02_24_18_42_11",
+    };
+  });
 
   const tasks = {
     1: "evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
