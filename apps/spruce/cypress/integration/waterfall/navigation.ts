@@ -20,5 +20,8 @@ describe("navigation", () => {
     cy.visit("/commits/evergreen?taskNames=test");
     cy.location("pathname").should("equal", "/project/evergreen/waterfall");
     cy.location("search").should("contain", "tasks=test");
+    cy.visit("/commits/evergreen?buildVariants=Ubuntu");
+    cy.location("pathname").should("equal", "/project/evergreen/waterfall");
+    cy.location("search").should("contain", "buildVariants=Ubuntu");
   });
 });

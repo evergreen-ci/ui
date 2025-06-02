@@ -4,6 +4,19 @@
     data-cy="commit-details-list"
   >
     <div
+      class="css-1293549-Container e1jhrgym1"
+      data-cy="horizontal-date-separator"
+    >
+      <div
+        class="leafygreen-ui-c62i3c"
+      >
+        Apr 3, 2025
+      </div>
+      <div
+        class="css-scnh1d-DashedLine e1jhrgym0"
+      />
+    </div>
+    <div
       class="css-1ffesh7-CommitCard e1a625uv2"
       data-cy="commit-details-card"
     >
@@ -173,7 +186,7 @@
           </div>
         </button>
         <span>
-          Apr 3, 2025, 10:22 AM
+          Apr 3, 2025, 10:21 AM
         </span>
         <div
           class="css-1pa0taf-OrderLabel e1a625uv0"
@@ -248,6 +261,19 @@
       </button>
     </span>
     <div
+      class="css-1293549-Container e1jhrgym1"
+      data-cy="horizontal-date-separator"
+    >
+      <div
+        class="leafygreen-ui-c62i3c"
+      >
+        Apr 2, 2025
+      </div>
+      <div
+        class="css-scnh1d-DashedLine e1jhrgym0"
+      />
+    </div>
+    <div
       class="css-1vbh9ch-CommitCard e1a625uv2"
       data-cy="commit-details-card"
     >
@@ -311,7 +337,7 @@
           </div>
         </button>
         <span>
-          Apr 3, 2025, 10:22 AM
+          Apr 2, 2025, 10:22 AM
         </span>
         <div
           class="css-1pa0taf-OrderLabel e1a625uv0"
@@ -386,6 +412,19 @@
       </button>
     </span>
     <div
+      class="css-1293549-Container e1jhrgym1"
+      data-cy="horizontal-date-separator"
+    >
+      <div
+        class="leafygreen-ui-c62i3c"
+      >
+        Apr 1, 2025
+      </div>
+      <div
+        class="css-scnh1d-DashedLine e1jhrgym0"
+      />
+    </div>
+    <div
       class="css-173zci2-CommitCard e1a625uv2"
       data-cy="commit-details-card"
     >
@@ -449,7 +488,7 @@
           </div>
         </button>
         <span>
-          Apr 3, 2025, 10:22 AM
+          Apr 1, 2025, 10:22 AM
         </span>
         <div
           class="css-1pa0taf-OrderLabel e1a625uv0"
@@ -803,6 +842,19 @@
       </button>
     </span>
     <div
+      class="css-1293549-Container e1jhrgym1"
+      data-cy="horizontal-date-separator"
+    >
+      <div
+        class="leafygreen-ui-c62i3c"
+      >
+        Mar 30, 2025
+      </div>
+      <div
+        class="css-scnh1d-DashedLine e1jhrgym0"
+      />
+    </div>
+    <div
       class="css-14ovsiy-CommitCard e1a625uv2"
       data-cy="commit-details-card"
     >
@@ -866,7 +918,7 @@
           </div>
         </button>
         <span>
-          Apr 3, 2025, 10:22 AM
+          Mar 30, 2025, 10:22 AM
         </span>
         <div
           class="css-1pa0taf-OrderLabel e1a625uv0"
@@ -901,6 +953,19 @@
           : J
         </span>
       </div>
+    </div>
+    <div
+      class="css-1293549-Container e1jhrgym1"
+      data-cy="horizontal-date-separator"
+    >
+      <div
+        class="leafygreen-ui-c62i3c"
+      >
+        Mar 29, 2025
+      </div>
+      <div
+        class="css-scnh1d-DashedLine e1jhrgym0"
+      />
     </div>
     <div
       class="css-todlc7-CommitCard e1a625uv2"
@@ -966,7 +1031,7 @@
           </div>
         </button>
         <span>
-          Apr 3, 2025, 10:22 AM
+          Mar 29, 2025, 10:22 AM
         </span>
         <div
           class="css-1pa0taf-OrderLabel e1a625uv0"

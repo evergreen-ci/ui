@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.0.9",
+  "version": "6.0.11",
   "private": true,
   "type": "module",
   "scripts": {
@@ -108,8 +108,8 @@
     "@leafygreen-ui/tooltip": "^11.1.0",
     "@leafygreen-ui/typography": "^19.0.0",
     "@rjsf/core": "4.2.3",
-    "@sentry/react": "9.22.0",
-    "@sentry/types": "9.22.0",
+    "@sentry/react": "9.24.0",
+    "@sentry/types": "9.24.0",
     "ansi_up": "6.0.2",
     "antd": "4.20.0",
     "date-fns": "3.6.0",
