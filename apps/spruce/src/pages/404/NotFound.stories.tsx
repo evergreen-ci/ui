@@ -4,7 +4,6 @@ import NotFoundSvg from "./NotFoundSvg";
 
 export default {
   component: NotFoundSvg,
-  tags: ["autodocs"],
 } satisfies CustomMeta<typeof NotFoundSvg>;
 
 export const Default404: CustomStoryObj<typeof NotFoundSvg> = {
