@@ -1,5 +1,5 @@
 import { Global } from "@emotion/react";
-import { Decorator } from "@storybook/react";
+import { Decorator } from "@storybook/react-vite";
 import { globalStyles } from "components/styles";
 
 export const decorators: Decorator[] = [

@@ -1,5 +1,5 @@
 import { Global, css } from "@emotion/react";
-import { Decorator } from "@storybook/react";
+import { Decorator } from "@storybook/react-vite";
 import { resetStyles, fontStyles, bodyStyles } from "components/styles";
 
 export const globalStyles = css`

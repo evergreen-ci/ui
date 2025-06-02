@@ -1,5 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { Decorator, Parameters, Preview } from "@storybook/react";
+import { Decorator, Parameters, Preview } from "@storybook/react-vite";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
 const parameters: Parameters = {
