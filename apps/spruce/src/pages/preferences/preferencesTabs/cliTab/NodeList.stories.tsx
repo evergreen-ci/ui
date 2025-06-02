@@ -5,6 +5,7 @@ import { Node } from "pages/preferences/preferencesTabs/cliTab/nodeList/Node";
 export default {
   title: "Pages/Preferences/Node List",
   component: NodeList,
+  tags: ["autodocs"],
 } satisfies CustomMeta<typeof NodeList>;
 
 export const NodeElement: CustomStoryObj<typeof Node> = {
