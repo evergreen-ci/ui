@@ -1,13 +1,158 @@
-import { forwardRef } from "react";
-import { PickerTimeProps } from "antd/es/date-picker/generatePicker";
-import DatePicker from "components/DatePicker";
+import { useEffect, useRef, useState } from "react";
+import styled from "@emotion/styled";
+import { DateType } from "@leafygreen-ui/date-utils";
+import { FormField, FormFieldInputContainer } from "@leafygreen-ui/form-field";
+import IconButton from "@leafygreen-ui/icon-button";
+import { palette } from "@leafygreen-ui/palette";
+import Popover, { Align, Justify } from "@leafygreen-ui/popover";
+import Icon from "@evg-ui/lib/components/Icon";
+import { size } from "@evg-ui/lib/constants/tokens";
+import { PopoverContainer } from "components/styles/Popover";
+import { useOnClickOutside } from "hooks";
+import {
+  hourScrollContainer,
+  minuteScrollContainer,
+  hourOptions,
+  minuteOptions,
+} from "./constants";
+import TimeInput from "./TimeInput";
+import TimePickerOptions from "./TimeOptions";
+import { TimepickerType } from "./types";
+import { scrollToIdx } from "./utils";
 
-export type TimePickerProps = Omit<PickerTimeProps<Date>, "picker">;
+const { gray } = palette;
 
-const TimePicker = forwardRef<any, TimePickerProps>((props, ref) => (
-  <DatePicker {...props} ref={ref} mode={undefined} picker="time" />
-));
+interface TimePickerProps {
+  "data-cy"?: string;
+  disabled: boolean;
+  label?: string;
+  onDateChange: (newDate: DateType) => void;
+  value: Date;
+}
 
-TimePicker.displayName = "TimePicker";
+const TimePicker: React.FC<TimePickerProps> = ({
+  "data-cy": dataCy,
+  disabled = false,
+  label = "",
+  onDateChange,
+  value,
+}) => {
+  const hourValue = value.getHours().toString().padStart(2, "0");
+  const minuteValue = value.getMinutes().toString().padStart(2, "0");
+
+  const formRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const [popoverOpen, setPopoverOpen] = useState(false);
+
+  useOnClickOutside([formRef, popoverRef], () => setPopoverOpen(false));
+
+  // // Scroll to the currently selected option on open.
+  useEffect(() => {
+    if (popoverOpen) {
+      const timeout = setTimeout(() => {
+        const hourIndex = hourOptions.findIndex((v) => v === hourValue);
+        scrollToIdx(hourScrollContainer, hourIndex);
+        const minuteIndex = minuteOptions.findIndex((v) => v === minuteValue);
+        scrollToIdx(minuteScrollContainer, minuteIndex);
+      }, 50);
+      return () => clearTimeout(timeout);
+    }
+  }, [popoverOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <>
+      <FormField
+        ref={formRef}
+        aria-label="Time picker form"
+        data-cy={dataCy}
+        disabled={disabled}
+        label={label}
+      >
+        <FormFieldInputContainer
+          contentEnd={
+            <IconButton
+              aria-label="Clock Icon"
+              onClick={() => {
+                console.log("hihihihi");
+                setPopoverOpen(!popoverOpen);
+              }}
+            >
+              <Icon glyph="Clock" />
+            </IconButton>
+          }
+          role="combobox"
+          tabIndex={-1}
+        >
+          <ContentWrapper>
+            <TimeInput
+              data-cy="hour-input"
+              disabled={disabled}
+              setPopoverOpen={setPopoverOpen}
+              value={hourValue}
+            />
+            <Colon>:</Colon>
+            <TimeInput
+              data-cy="minute-input"
+              disabled={disabled}
+              setPopoverOpen={setPopoverOpen}
+              value={minuteValue}
+            />
+          </ContentWrapper>
+        </FormFieldInputContainer>
+      </FormField>
+      <Popover
+        active={popoverOpen}
+        align={Align.Bottom}
+        justify={Justify.Start}
+        refEl={formRef}
+        spacing={0}
+      >
+        <MenuList ref={popoverRef} data-cy="time-picker-options">
+          <TimePickerOptions
+            currentDateTime={value}
+            data-cy="hour-options"
+            onDateChange={onDateChange}
+            options={hourOptions}
+            scrollContainerId={hourScrollContainer}
+            type={TimepickerType.Hour}
+            value={hourValue}
+          />
+          <VerticalLine />
+          <TimePickerOptions
+            currentDateTime={value}
+            data-cy="minute-options"
+            onDateChange={onDateChange}
+            options={minuteOptions}
+            scrollContainerId={minuteScrollContainer}
+            type={TimepickerType.Minute}
+            value={minuteValue}
+          />
+        </MenuList>
+      </Popover>
+    </>
+  );
+};
+
+const VerticalLine = styled.div`
+  border-left: 1px solid ${gray.light2};
+`;
+
+const Colon = styled.span`
+  margin-bottom: ${size.xxs};
+`;
+
+const MenuList = styled(PopoverContainer)`
+  display: flex;
+  flex-direction: row;
+
+  height: 230px;
+  padding: 0;
+  padding-top: ${size.xs};
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 export default TimePicker;
