@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 
 import VisibilityContainer from ".";
