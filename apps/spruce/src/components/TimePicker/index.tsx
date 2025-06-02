@@ -73,7 +73,6 @@ const TimePicker: React.FC<TimePickerProps> = ({
             <IconButton
               aria-label="Clock Icon"
               onClick={() => {
-                console.log("hihihihi");
                 setPopoverOpen(!popoverOpen);
               }}
             >

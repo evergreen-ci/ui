@@ -135,8 +135,17 @@ describe("editSpawnHostModal", () => {
         </MockedProvider>,
       );
       expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
-      expect(screen.queryByLabelText("Start Time")).toBeDisabled();
-      expect(screen.queryByLabelText("Stop Time")).toBeDisabled();
+
+      const hourInputs = screen.getAllByDataCy("hour-input");
+      expect(hourInputs).toHaveLength(2);
+      expect(hourInputs[0]).toBeDisabled();
+      expect(hourInputs[1]).toBeDisabled();
+
+      const minuteInputs = screen.getAllByDataCy("minute-input");
+      expect(minuteInputs).toHaveLength(2);
+      expect(minuteInputs[0]).toBeDisabled();
+      expect(minuteInputs[1]).toBeDisabled();
+
       expect(
         screen.queryByLabelText("Run continuously for enabled days"),
       ).not.toBeChecked();
@@ -152,6 +161,7 @@ describe("editSpawnHostModal", () => {
       const { Component } = RenderFakeToastContext(
         <EditSpawnHostModal host={baseSpawnHost} onCancel={() => {}} visible />,
       );
+      Element.prototype.scrollTo = () => {};
       render(
         <MockedProvider mocks={baseMocks}>
           <Component />
@@ -169,10 +179,12 @@ describe("editSpawnHostModal", () => {
         .forEach((day) => {
           expect(day).not.toBeDisabled();
         });
-      await user.click(screen.getByLabelText("Start Time"));
-      await user.click(screen.getAllByText("07")[0]);
-      await user.click(screen.getByText("OK", { selector: "span" }));
-      expect(screen.queryByLabelText("Start Time")).toHaveValue("07:00");
+
+      const hourInput = screen.getAllByDataCy("hour-input")[0];
+      await user.click(hourInput);
+      const hourOptions = screen.getByDataCy("hour-options");
+      await user.click(within(hourOptions).getByText("07"));
+      expect(hourInput).toHaveValue("07");
       expect(screen.queryByDataCy("host-uptime-details")).toHaveTextContent(
         "65",
       );

@@ -2,6 +2,7 @@ import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
+  waitFor,
   waitForElementToBeRemoved,
   within,
 } from "@evg-ui/lib/test_utils";
@@ -45,14 +46,19 @@ describe("time picker", () => {
       />,
     );
 
-    const formInput = screen.getByDataCy("hour-input");
-    await user.click(formInput);
+    const iconButton = screen.getByRole("button", { name: "Clock Icon" });
+    await user.click(iconButton);
     const menuOptions = screen.getByDataCy("time-picker-options");
     expect(menuOptions).toBeVisible();
 
+    // Wait for scroll to be called when the menu opens.
+    await waitFor(() => {
+      expect(onScroll).toHaveBeenCalledTimes(2);
+    });
+
     const hourOptions = screen.getByDataCy("hour-options");
     await user.click(within(hourOptions).getByText("04"));
-    expect(onScroll).toHaveBeenCalledTimes(1);
+    expect(onScroll).toHaveBeenCalledTimes(3);
     expect(onDateChange).toHaveBeenCalledTimes(1);
     expect(onDateChange).toHaveBeenCalledWith(
       new Date("2025-01-01T04:33:00.000Z"),
@@ -60,7 +66,7 @@ describe("time picker", () => {
 
     const minuteOptions = screen.getByDataCy("minute-options");
     await user.click(within(minuteOptions).getByText("40"));
-    expect(onScroll).toHaveBeenCalledTimes(2);
+    expect(onScroll).toHaveBeenCalledTimes(4);
     expect(onDateChange).toHaveBeenCalledTimes(2);
     expect(onDateChange).toHaveBeenCalledWith(
       new Date("2025-01-01T04:40:00.000Z"),
