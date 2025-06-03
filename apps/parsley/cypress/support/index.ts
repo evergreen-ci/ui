@@ -129,7 +129,6 @@ declare global {
   beforeEach(() => {
     cy.login();
     cy.setCookie("drawer-opened", "true");
-    cy.setCookie("has-seen-searchbar-guide-cue", "true");
     cy.setCookie("has-seen-sections-prod-feature-modal", "true");
     mutationDispatched = false;
     cy.intercept("POST", "/graphql/query", (req) => {
