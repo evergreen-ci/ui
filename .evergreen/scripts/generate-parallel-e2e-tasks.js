@@ -3,6 +3,8 @@ import { join } from "path";
 import { APPS_DIR, PACKAGES_DIR, PARALLEL_COUNT, Tasks } from "./constants.js"
 import { hasChangesInDirectory } from "./git-utils.js";
 
+const EVERGREEN_DIR = join(process.cwd(), "/.evergreen");
+const TASKS_FILE = join(EVERGREEN_DIR, "generate-parallel-e2e-tasks.json");
 /**
  * getDirSize calculates the size of a directory at a given path, optionally including the size of its subdirectories.
  * @param {string} dirPath - string representing the root directory path
@@ -140,14 +142,14 @@ const generateParallelE2ETasks = (bv) => {
 };
 
 const main = () => {
-    const buildVariant = process.env.BUILD_VARIANT;
+  const buildVariant = process.env.BUILD_VARIANT;
 
-  // Check if there are any changes in the spruce directory
+  // Check if there are any changes in the given build variant directory
   if (!hasChangesInDirectory(`${APPS_DIR}/${buildVariant}`) && !hasChangesInDirectory(PACKAGES_DIR)) {
     console.log(`No changes detected in ${buildVariant} or packages directory, skipping e2e task generation`);
     // Write an empty task list to maintain the expected file output
     writeFileSync(
-      join(process.cwd(), "/.evergreen", "generate-parallel-e2e-tasks.json"),
+      TASKS_FILE,
       JSON.stringify({ tasks: [] })
     );
     return;
@@ -159,7 +161,7 @@ const main = () => {
   
     try {
       writeFileSync(
-        join(process.cwd(), "/.evergreen", "generate-parallel-e2e-tasks.json"),
+        TASKS_FILE,
         evgJson
       );
     } catch (e) {
