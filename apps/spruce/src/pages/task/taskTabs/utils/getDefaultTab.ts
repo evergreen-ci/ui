@@ -59,13 +59,7 @@ export const getDefaultTab = ({
     return activeTabs.indexOf(TaskTab.Logs);
   }
 
-  // Priority 5: If there are any tests (but no failures), show the tests tab
-  // This shows test results even when all tests passed
-  if (failedTestCount > 0) {
-    return activeTabs.indexOf(TaskTab.Tests);
-  }
-
-  // Priority 6: Default to the first tab if none of the above conditions are met
+  // Priority 5: Default to the first tab if none of the above conditions are met
   // This is a safe fallback that ensures we always show something
   return 0;
 };
