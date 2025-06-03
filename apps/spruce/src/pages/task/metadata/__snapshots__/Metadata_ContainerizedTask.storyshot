@@ -191,16 +191,14 @@
     <div
       class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
     >
-      <div>
-        <p
-          class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
-        >
-          Tags
-        </p>
-        <hr
-          class="css-qqg5h5-Divider eb6szep0"
-        />
-      </div>
+      <p
+        class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+      >
+        Tags
+      </p>
+      <hr
+        class="css-qqg5h5-Divider eb6szep0"
+      />
       <div
         class="css-c4cphq-TagsContainer e12sfkss0"
       >
@@ -265,16 +263,14 @@
           </span>
         </span>
       </div>
-      <div>
-        <p
-          class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
-        >
-          Failure Metadata Tags
-        </p>
-        <hr
-          class="css-qqg5h5-Divider eb6szep0"
-        />
-      </div>
+      <p
+        class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+      >
+        Failure Metadata Tags
+      </p>
+      <hr
+        class="css-qqg5h5-Divider eb6szep0"
+      />
       <div
         class="css-c4cphq-TagsContainer e12sfkss0"
       >

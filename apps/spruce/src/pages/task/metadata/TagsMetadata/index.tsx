@@ -26,45 +26,41 @@ const TagsMetadata: React.FC<TagsMetadataProps> = ({
   return (
     <MetadataCard>
       {hasTags && (
-        <div>
+        <>
           <MetadataCardTitle weight="medium">Tags</MetadataCardTitle>
           <Divider />
-        </div>
-      )}
-      {hasTags && (
-        <TagsContainer>
-          {tags.map((t) => (
-            <Chip
-              key={`tag-${t}`}
-              chipCharacterLimit={30}
-              chipTruncationLocation={TruncationLocation.End}
-              label={t}
-              variant={ChipVariant.Gray}
-            />
-          ))}
-        </TagsContainer>
+          <TagsContainer>
+            {tags.map((t) => (
+              <Chip
+                key={`tag-${t}`}
+                chipCharacterLimit={30}
+                chipTruncationLocation={TruncationLocation.End}
+                label={t}
+                variant={ChipVariant.Gray}
+              />
+            ))}
+          </TagsContainer>
+        </>
       )}
 
       {hasFailureMetadataTags && (
-        <div>
+        <>
           <MetadataCardTitle weight="medium">
             Failure Metadata Tags
           </MetadataCardTitle>
           <Divider />
-        </div>
-      )}
-      {hasFailureMetadataTags && (
-        <TagsContainer>
-          {failureMetadataTags.map((t) => (
-            <Chip
-              key={`failure-tag-${t}`}
-              chipCharacterLimit={30}
-              chipTruncationLocation={TruncationLocation.End}
-              label={t}
-              variant={ChipVariant.Gray}
-            />
-          ))}
-        </TagsContainer>
+          <TagsContainer>
+            {failureMetadataTags.map((t) => (
+              <Chip
+                key={`failure-tag-${t}`}
+                chipCharacterLimit={30}
+                chipTruncationLocation={TruncationLocation.End}
+                label={t}
+                variant={ChipVariant.Gray}
+              />
+            ))}
+          </TagsContainer>
+        </>
       )}
     </MetadataCard>
   );
