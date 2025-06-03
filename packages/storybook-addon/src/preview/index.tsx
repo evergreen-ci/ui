@@ -50,7 +50,6 @@ const decorators: Decorator[] = [
 const preview: Preview = {
   parameters,
   decorators,
-  tags: ["autodocs"],
 };
 
 export default preview;
