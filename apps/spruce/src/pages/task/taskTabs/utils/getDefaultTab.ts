@@ -20,8 +20,7 @@ export interface GetDefaultTabParams {
  * 2. Execution tasks (for display tasks)
  * 3. Tests tab (if there are failed tests)
  * 4. Logs tab (if no failed tests or not a display task)
- * 5. Tests tab (if there are any tests)
- * 6. First available tab
+ * 5. The first available tab
  * @param params - Object containing the parameters for determining the default tab
  * @param params.urlTab - The tab specified in the URL, if any
  * @param params.activeTabs - Array of currently active tabs
