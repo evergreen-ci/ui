@@ -7,7 +7,7 @@ import { TaskBox } from ".";
 export default {
   title: "Components/Task Box",
   component: TaskBox,
-} satisfies CustomMeta<TemplateProps>;
+} satisfies CustomMeta<typeof TaskBox>;
 
 export const Default: CustomStoryObj<TemplateProps> = {
   render: (args) => <Template {...args} />,

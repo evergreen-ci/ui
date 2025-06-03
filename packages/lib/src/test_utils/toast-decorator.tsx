@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { ToastContext } from "../context/toast";
 /**
  * Story Decorator that provides a mock ToastContext

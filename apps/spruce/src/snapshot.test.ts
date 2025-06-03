@@ -1,4 +1,4 @@
-import { composeStories, setProjectAnnotations } from "@storybook/react";
+import { composeStories, setProjectAnnotations } from "@storybook/react-vite";
 import { expect } from "vitest";
 import path from "path";
 import { act, render, stubGetClientRects } from "@evg-ui/lib/test_utils";
