@@ -46,6 +46,7 @@ const TASK_MAPPING = {
 };
 
 const APPS_DIR = "apps";
+const PACKAGES_DIR = "packages";
 
 const MARKDOWN_EXT = ".md";
 
@@ -56,6 +57,7 @@ const PARALLEL_COUNT = 4;
 export {
   Tasks,
   APPS_DIR,
+  PACKAGES_DIR,
   IGNORED_FILE_EXTENSIONS,
   PARALLEL_COUNT,
   TASK_MAPPING,
