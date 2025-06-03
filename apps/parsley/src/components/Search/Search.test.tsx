@@ -124,4 +124,48 @@ describe("Search", () => {
       `?${QueryParams.Filters}=100test&${QueryParams.Highlights}=test&search=test`,
     );
   });
+  it("should persist search history", async () => {
+    const user = userEvent.setup();
+    renderSearch();
+    await user.type(screen.getByDataCy("searchbar-input"), "test");
+    await user.type(
+      screen.getByDataCy("searchbar-input"),
+      "{Meta>}{enter}",
+      {},
+    );
+    await user.type(screen.getByDataCy("searchbar-input"), "test2");
+    await user.type(
+      screen.getByDataCy("searchbar-input"),
+      "{Meta>}{enter}",
+      {},
+    );
+    await user.click(screen.getByDataCy("search-suggestion-button"));
+    expect(screen.getByText("test2")).toBeInTheDocument();
+    expect(screen.getByText("test")).toBeInTheDocument();
+  });
+  it("selecting a search suggestion should update the search state", async () => {
+    const user = userEvent.setup();
+    const { hook } = renderSearch();
+    await user.type(screen.getByDataCy("searchbar-input"), "first_search");
+    await user.type(
+      screen.getByDataCy("searchbar-input"),
+      "{Meta>}{enter}",
+      {},
+    );
+    await user.type(screen.getByDataCy("searchbar-input"), "second_search");
+    await user.type(
+      screen.getByDataCy("searchbar-input"),
+      "{Meta>}{enter}",
+      {},
+    );
+    await user.click(screen.getByDataCy("search-suggestion-button"));
+    expect(screen.getByText("first_search")).toBeInTheDocument();
+    await user.click(screen.getByText("first_search"));
+    expect(screen.getByText("first_search")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(hook.current.searchState.searchTerm).toStrictEqual(
+        /first_search/i,
+      );
+    });
+  });
 });
