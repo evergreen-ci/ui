@@ -28,33 +28,33 @@ describe("Task Page Route", () => {
       );
     });
     it("should redirect to the logs tab if the task is in a completed state", () => {
-      cy.visit(`/task/${taskStates.completedSucceededTask}`);
+      cy.visit(`/task/${taskStates.succeededTask}`);
       cy.location("pathname").should(
         "eq",
-        `/task/${taskStates.completedSucceededTask}/logs`,
+        `/task/${taskStates.succeededTask}/logs`,
       );
     });
     it("should redirect to the tests tab if the task is completed and has failed tests", () => {
-      cy.visit(`/task/${taskStates.completedFailedTask}`);
+      cy.visit(`/task/${taskStates.failedTaskWithFailedTests}`);
       cy.location("pathname").should(
         "eq",
-        `/task/${taskStates.completedFailedTask}/tests`,
+        `/task/${taskStates.failedTaskWithFailedTests}/tests`,
       );
     });
     it("should redirect to the logs tab if the task is completed as failed and has no failed tests", () => {
-      cy.visit(`/task/${taskStates.completedFailedTaskWithNoFailedTests}`);
+      cy.visit(`/task/${taskStates.failedTaskWithNoFailedTests}`);
       cy.location("pathname").should(
         "eq",
-        `/task/${taskStates.completedFailedTaskWithNoFailedTests}/logs`,
+        `/task/${taskStates.failedTaskWithNoFailedTests}/logs`,
       );
     });
     const taskStates = {
-      completedFailedTask:
+      failedTaskWithFailedTests:
         "evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
       runningTask: "task_annotation_test",
-      completedSucceededTask:
+      succeededTask:
         "evergreen_ubuntu1604_js_test_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
-      completedFailedTaskWithNoFailedTests:
+      failedTaskWithNoFailedTests:
         "spruce_ubuntu1604_check_codegen_69c03101ab23f54924309125432862cd4059420f_22_02_24_18_42_11",
     };
   });
