@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
+import { Variant } from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
@@ -78,7 +79,7 @@ const useTabConfig = (
           failedTestCount ? (
             <TabLabelWithBadge
               badgeText={failedTestCount}
-              badgeVariant="red"
+              badgeVariant={Variant.Red}
               dataCyBadge="tests-tab-badge"
               tabLabel="Tests"
             />
@@ -111,7 +112,7 @@ const useTabConfig = (
           fileCount !== undefined ? (
             <TabLabelWithBadge
               badgeText={fileCount}
-              badgeVariant="lightgray"
+              badgeVariant={Variant.LightGray}
               dataCyBadge="files-tab-badge"
               tabLabel="Files"
             />
@@ -154,7 +155,7 @@ const useTabConfig = (
         name={
           <TabLabelWithBadge
             badgeText="Beta"
-            badgeVariant="blue"
+            badgeVariant={Variant.Blue}
             tabLabel="Task History"
           />
         }

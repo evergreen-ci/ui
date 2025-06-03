@@ -23,7 +23,7 @@ import { usePolling } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/NotFound";
-import { RequiredQueryParams, TaskTab } from "types/task";
+import { RequiredQueryParams } from "types/task";
 import { ActionButtons } from "./task/ActionButtons";
 import TaskPageBreadcrumbs from "./task/Breadcrumbs";
 import { ExecutionSelect } from "./task/executionDropdown/ExecutionSelector";
@@ -33,7 +33,6 @@ import TaskTabs from "./task/taskTabs";
 export const Task = () => {
   const { [slugs.taskId]: taskId } = useParams<{
     [slugs.taskId]: string;
-    [slugs.tab]: TaskTab;
   }>();
   const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
