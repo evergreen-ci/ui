@@ -210,16 +210,8 @@ const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
       }
       return;
     }
-  }, [
-    urlTab,
-    activeTabs,
-    params,
-    task.id,
-    task.execution,
-    tabIndex,
-    navigate,
-    taskAnalytics,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlTab, activeTabs, params, task.id, task.execution, tabIndex]);
 
   const setURLTab = useCallback(
     (newTabIndex: number) => {
