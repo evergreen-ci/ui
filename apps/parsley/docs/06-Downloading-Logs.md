@@ -20,10 +20,10 @@ evergreen task build TaskLogs --help
 ```
 
 #### Test Logs
-To find the correct value for `<test_log_path>`, look for the lines that say "storing test log file" in the task logs. You can also find this information by looking at the output of `https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/tests` in your browser.
 ```properties
 evergreen task build TestLogs --task_id <task_id> --execution <execution> --log_path <test_log_path> --o output.txt
 ```
+To find the correct value for `<test_log_path>`, look for the lines that say "storing test log file" in the task logs. You can also find this information by looking at the output of `https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/tests` in your browser.
 
 See other options using the following command:
 ```properties
@@ -50,19 +50,19 @@ Use your terminal to fetch logs from the Evergreen REST API. Note that special c
 curl -H Api-User:<your_user_id> -H Api-Key:<your_api_key> https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/build/TaskLogs -o output.txt
 
 # with wget
-wget --header="Api-User:<your_user_id>" --header "Api-Key:<your_api_key>" https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/build/TaskLogs -O output.txt
+wget --header="Api-User:<your_user_id>" --header="Api-Key:<your_api_key>" https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/build/TaskLogs -O output.txt
 ```
 
 #### Test Logs
-To find the correct value for `<test_log_path>`, look for the lines that say "storing test log file" in the task logs. You can also find this information by looking at the output of `https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/tests` in your browser. 
-
 ```properties
 # with cURL
 curl -H Api-User:<your_user_id> -H Api-Key:<your_api_key> https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/build/TestLogs/<test_log_path> -o output.txt
 
 # with wget
-wget --header="Api-User:<your_user_id>" --header "Api-Key:<your_api_key>" https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/build/TestLogs/<test_log_path> -O output.txt
+wget --header="Api-User:<your_user_id>" --header="Api-Key:<your_api_key>" https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/build/TestLogs/<test_log_path> -O output.txt
 ```
+
+To find the correct value for `<test_log_path>`, look for the lines that say "storing test log file" in the task logs. You can also find this information by looking at the output of `https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/tests` in your browser. 
 
 ## Via a Spawn Host
 
