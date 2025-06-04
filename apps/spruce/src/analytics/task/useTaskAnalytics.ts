@@ -69,7 +69,8 @@ type Action =
       name: "Clicked task file Parsley link";
       "file.name": string;
     }
-  | { name: "Clicked relevant commit"; type: CommitType };
+  | { name: "Clicked relevant commit"; type: CommitType }
+  | { name: "Redirected to default tab"; tab: string };
 
 export const useTaskAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();
