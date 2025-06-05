@@ -10,7 +10,7 @@ export type ToastVariant =
 export type ToastParams = {
   variant: Variant;
   closable: boolean;
-  message: string;
+  message: React.ReactNode;
   onClose: () => void;
   shouldTimeout: boolean;
   title: string;
@@ -19,7 +19,7 @@ export type ToastParams = {
 
 // This is a function definition.
 export type DispatchToast = (
-  message: string,
+  message: React.ReactNode,
   closable?: boolean,
   options?: {
     onClose?: () => void;
@@ -30,7 +30,7 @@ export type DispatchToast = (
 
 // This is a function definition.
 export type DispatchToastWithProgress = (
-  message: string,
+  message: React.ReactNode,
   progress?: number,
   closable?: boolean,
   options?: {

@@ -3,17 +3,38 @@ import {
   collapsedGroupedTasks,
   expandedGroupedTasks,
 } from "../testData";
-import { getPrevPageCursor, getNextPageCursor, groupTasks } from ".";
+import {
+  getPrevPageCursor,
+  getNextPageCursor,
+  groupTasks,
+  areDatesOnSameDay,
+  getUTCEndOfDay,
+} from ".";
 
 describe("groupTasks", () => {
   it("groups inactive tasks if shouldCollapse is true", () => {
-    const res = groupTasks(tasks, true);
+    const res = groupTasks(tasks, {
+      shouldCollapse: true,
+      timezone: "America/New_York",
+      testFailureSearchTerm: null,
+    });
     expect(res).toStrictEqual(collapsedGroupedTasks);
   });
 
   it("does not group inactive tasks if shouldCollapse is false", () => {
-    const res = groupTasks(tasks, false);
+    const res = groupTasks(tasks, {
+      shouldCollapse: false,
+      testFailureSearchTerm: null,
+    });
     expect(res).toStrictEqual(expandedGroupedTasks);
+  });
+
+  it("sets isMatching to true if testFailureSearchTerm matches a failing test", () => {
+    const res = groupTasks(tasks, {
+      shouldCollapse: true,
+      testFailureSearchTerm: /e2e_test/,
+    });
+    expect(res[5].isMatching).toBe(true);
   });
 });
 
@@ -38,5 +59,74 @@ describe("getNextPageCursor", () => {
   it("works with inactive task item", () => {
     const res = getNextPageCursor(collapsedGroupedTasks[6]);
     expect(res).toStrictEqual(tasks[8]);
+  });
+});
+
+describe("areDatesOnSameDay", () => {
+  it("returns true for two identical Date objects", () => {
+    const date = new Date("2024-04-22T10:00:00Z");
+    expect(areDatesOnSameDay(date, date)).toBe(true);
+  });
+
+  it("returns true for different times on the same day", () => {
+    const date1 = new Date("2024-04-22T00:00:00Z");
+    const date2 = new Date("2024-04-22T23:59:59Z");
+    expect(areDatesOnSameDay(date1, date2)).toBe(true);
+  });
+
+  it("returns false for different days", () => {
+    const date1 = new Date("2024-04-21T23:59:59Z");
+    const date2 = new Date("2024-04-22T00:00:00Z");
+    expect(areDatesOnSameDay(date1, date2)).toBe(false);
+  });
+
+  it("returns false for same day of month but different months", () => {
+    const date1 = new Date("2024-04-22T12:00:00Z");
+    const date2 = new Date("2024-03-22T12:00:00Z");
+    expect(areDatesOnSameDay(date1, date2)).toBe(false);
+  });
+
+  it("returns false for same month and date but different years", () => {
+    const date1 = new Date("2023-04-22T12:00:00Z");
+    const date2 = new Date("2024-04-22T12:00:00Z");
+    expect(areDatesOnSameDay(date1, date2)).toBe(false);
+  });
+
+  it("accounts for timezone differences", () => {
+    const date1 = new Date("2024-04-22T00:00:00Z"); // UTC
+    const date2 = new Date("2024-04-21T23:00:00Z"); // UTC-1
+    expect(areDatesOnSameDay(date1, date2, "America/New_York")).toBe(true);
+
+    const date3 = new Date("2024-04-21T14:00:00Z"); // 2024-04-22 00:00 JST
+    const date4 = new Date("2024-04-21T13:00:00Z"); // 2024-04-21 22:00 JST
+    expect(areDatesOnSameDay(date3, date4, "Asia/Japan")).toBe(false);
+  });
+});
+describe("getUTCEndOfDay", () => {
+  beforeEach(() => {
+    process.env.TZ = "America/New_York";
+  });
+
+  afterEach(() => {
+    process.env.TZ = "UTC";
+  });
+
+  it("returns undefined if date is null", () => {
+    const res = getUTCEndOfDay(null);
+    expect(res).toBeUndefined();
+  });
+
+  it("calculates the correct date", () => {
+    let res = getUTCEndOfDay("2025-04-05", "Asia/Seoul");
+    expect(res).toStrictEqual(new Date("2025-04-05T14:59:59.000Z"));
+
+    res = getUTCEndOfDay("2025-04-05", "Pacific/Tahiti");
+    expect(res).toStrictEqual(new Date("2025-04-06T09:59:59.000Z"));
+
+    res = getUTCEndOfDay("2025-04-05", "Atlantic/Reykjavik");
+    expect(res).toStrictEqual(new Date("2025-04-05T23:59:59.000Z"));
+
+    res = getUTCEndOfDay("2025-04-05");
+    expect(res).toStrictEqual(new Date("2025-04-06T03:59:59.000Z"));
   });
 });

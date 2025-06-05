@@ -1,7 +1,7 @@
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useBreadcrumbAnalytics } from "analytics";
 import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { useBreadcrumbRoot } from "hooks";
-import { shortenGithash } from "utils/string";
 
 interface VersionPageBreadcrumbsProps {
   patchNumber?: number;
@@ -38,7 +38,6 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   };
 
   const commitBreadcrumb = {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     text: shortenGithash(revision),
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
@@ -50,8 +49,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   };
 
   const breadcrumbs: Breadcrumb[] = [
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    breadcrumbRoot,
+    breadcrumbRoot as Breadcrumb,
     isPatch ? patchBreadcrumb : commitBreadcrumb,
   ];
 

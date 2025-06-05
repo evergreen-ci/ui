@@ -1,15 +1,14 @@
 <div>
   <div
-    class="css-ossmcy-CommitCard e1a625uv4"
+    class="css-1ffesh7-CommitCard e1a625uv2"
     data-cy="commit-details-card"
-    id="commit-card-a"
   >
     <div
-      class="css-12rnwxt-TopLabel e1a625uv3"
+      class="css-12rnwxt-TopLabel e1a625uv1"
     >
       <a
         class="lg-ui-0000 leafygreen-ui-hvznge"
-        data-cy="downstream-base-commit"
+        data-cy="task-link"
         href="/task/a"
       >
         <code
@@ -22,6 +21,7 @@
         aria-disabled="false"
         aria-label="GitHub Commit Link"
         class="leafygreen-ui-tcjr3n"
+        data-cy="github-link"
         href="https://github.com/evergreen-ci/evergreen/commit/aef363719d0287e92cd83749a827bae"
         tabindex="0"
         target="__blank"
@@ -64,6 +64,7 @@
       </button>
       <div
         class="leafygreen-ui-h5xdir"
+        data-cy="this-task-badge"
       >
         This Task
       </div>
@@ -71,22 +72,24 @@
         Apr 3, 2025, 10:22 AM
       </span>
       <div
-        class="css-1pa0taf-OrderLabel e1a625uv2"
+        class="css-1pa0taf-OrderLabel e1a625uv0"
       >
         Order: 
         100
       </div>
     </div>
     <div
-      class="css-1qgx25j-BottomLabel e1a625uv0"
+      class="css-1qgx25j-BottomLabel end94gb2"
     >
       <b
-        class="css-1nvsyyh-AuthorLabel e1a625uv1"
+        class="css-1nvsyyh-AuthorLabel end94gb1"
       >
         Evergreen Admin
          - 
       </b>
-      <span>
+      <span
+        class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+      >
         <a
           class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
           data-cy="jira-link"

@@ -4,11 +4,12 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
+import { copyToClipboard } from "@evg-ui/lib/utils/string";
 import { usePreferencesAnalytics } from "analytics";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useQueryParam } from "hooks/useQueryParam";
-import { copyToClipboard, getJiraFormat } from "utils/string";
+import { getJiraFormat } from "utils/string";
 import { DetailRow } from "../styles";
 
 const ButtonRow: React.FC = () => {

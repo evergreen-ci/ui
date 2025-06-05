@@ -1,0 +1,24 @@
+import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { TaskQuery } from "gql/generated/types";
+import { taskQuery } from "gql/mocks/taskData";
+import { tasks } from "../testData";
+import InactiveCommitsButton from ".";
+
+export default {
+  component: InactiveCommitsButton,
+  decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
+} satisfies CustomMeta<typeof InactiveCommitsButton>;
+
+export const Default: CustomStoryObj<typeof InactiveCommitsButton> = {
+  render: () => <Template />,
+};
+
+const Template = () => (
+  <InactiveCommitsButton currentTask={currentTask} inactiveTasks={tasks} />
+);
+
+const currentTask: NonNullable<TaskQuery["task"]> = {
+  ...taskQuery.task,
+  id: tasks[0].id,
+};

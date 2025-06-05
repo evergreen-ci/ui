@@ -1,4 +1,4 @@
-import { actions } from "@storybook/addon-actions";
+import { actions } from "storybook/actions";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { Event } from "./types";
 import EventLog from ".";

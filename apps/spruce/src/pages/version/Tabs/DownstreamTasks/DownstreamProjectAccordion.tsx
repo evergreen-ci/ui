@@ -3,8 +3,9 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
+import Accordion from "@evg-ui/lib/components/Accordion";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { Accordion } from "components/Accordion";
+import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { getVersionRoute } from "constants/routes";
 import {
@@ -19,7 +20,6 @@ import { VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { ParametersModal } from "pages/version/ParametersModal";
 import { PatchStatus } from "types/patch";
-import { shortenGithash } from "utils/string";
 import DownstreamTasksTable from "./DownstreamTasksTable";
 import { reducer } from "./state";
 
@@ -157,8 +157,8 @@ const DownstreamMetadata: React.FC<DownstreamMetadataProps> = ({
   </FlexRow>
 );
 
-const PaddedText = styled.p`
-  margin-right: ${size.xs};
+const PaddedText = styled.span`
+  padding: ${size.xxs} 0;
 `;
 const ProjectTitleWrapper = styled.div`
   margin-right: ${size.xs};

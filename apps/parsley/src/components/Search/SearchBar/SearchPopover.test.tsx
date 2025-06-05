@@ -42,9 +42,9 @@ describe("search popover", () => {
     await waitFor(() => {
       expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
     });
-    const button = screen.getByRole("button", { name: "apple" });
-    button.focus();
-    expect(button).toHaveFocus();
+    const menuItem = screen.getByRole("menuitem", { name: "apple" });
+    menuItem.focus();
+    expect(menuItem).toHaveFocus();
     await user.keyboard("{Enter}");
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith("apple");
@@ -64,9 +64,9 @@ describe("search popover", () => {
     await waitFor(() => {
       expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
     });
-    const button = screen.getByRole("button", { name: "apple" });
-    button.focus();
-    expect(button).toHaveFocus();
+    const menuItem = screen.getByRole("menuitem", { name: "apple" });
+    menuItem.focus();
+    expect(menuItem).toHaveFocus();
     await user.keyboard(" ");
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith("apple");
@@ -91,6 +91,39 @@ describe("search popover", () => {
       expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
     });
     await user.click(document.body as HTMLElement);
+    expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
+  });
+
+  it("should navigate options with arrow keys and select with enter", async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(
+      <SearchPopover
+        onClick={onClick}
+        searchSuggestions={["apple", "banana", "cherry"]}
+      />,
+    );
+    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await waitFor(() => {
+      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+    });
+
+    const popoverContainer = screen
+      .getByDataCy("search-suggestion-popover")
+      .querySelector("div");
+    popoverContainer?.focus();
+
+    await user.keyboard("{ArrowDown}");
+
+    await user.keyboard("{ArrowDown}");
+
+    await user.keyboard("{ArrowUp}");
+    await user.keyboard("{ArrowUp}");
+
+    await user.keyboard("{Enter}");
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onClick).toHaveBeenCalledWith("cherry");
     expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
   });
 });

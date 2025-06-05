@@ -72,6 +72,7 @@ describe("provider tab", () => {
     const staticDistroData = {
       ...distroData,
       provider: Provider.Static,
+      providerAccount: "",
       containerPool: "",
       providerSettingsList: [
         {
@@ -89,6 +90,7 @@ describe("provider tab", () => {
       ...defaultFormState,
       provider: {
         providerName: Provider.Static,
+        providerAccount: "",
       },
       staticProviderSettings: {
         userData: "",
@@ -102,6 +104,7 @@ describe("provider tab", () => {
     const staticGql: DistroInput = {
       ...distroData,
       provider: Provider.Static,
+      providerAccount: "",
       containerPool: "",
       providerSettingsList: [
         {
@@ -128,6 +131,7 @@ describe("provider tab", () => {
     const dockerDistroData = {
       ...distroData,
       provider: Provider.Docker,
+      providerAccount: "",
       containerPool: "pool-1",
       providerSettingsList: [
         {
@@ -148,6 +152,7 @@ describe("provider tab", () => {
       ...defaultFormState,
       provider: {
         providerName: Provider.Docker,
+        providerAccount: "",
       },
       dockerProviderSettings: {
         imageUrl: "https://some-url",
@@ -166,6 +171,7 @@ describe("provider tab", () => {
     const dockerGql: DistroInput = {
       ...distroData,
       provider: Provider.Docker,
+      providerAccount: "",
       containerPool: "pool-1",
       providerSettingsList: [
         {
@@ -229,6 +235,7 @@ describe("provider tab", () => {
       ...defaultFormState,
       provider: {
         providerName: Provider.Ec2Fleet,
+        providerAccount: "aws",
       },
       ec2FleetProviderSettings: [
         {
@@ -306,6 +313,7 @@ describe("provider tab", () => {
     const ec2Gql: DistroInput = {
       ...distroData,
       provider: Provider.Ec2Fleet,
+      providerAccount: "aws",
       containerPool: "",
       providerSettingsList: [
         {
@@ -384,6 +392,7 @@ describe("provider tab", () => {
       ...defaultFormState,
       provider: {
         providerName: Provider.Ec2OnDemand,
+        providerAccount: "aws",
       },
       ec2FleetProviderSettings: [
         {
@@ -461,6 +470,7 @@ describe("provider tab", () => {
     const ec2Gql: DistroInput = {
       ...distroData,
       provider: Provider.Ec2OnDemand,
+      providerAccount: "aws",
       containerPool: "",
       providerSettingsList: [
         {

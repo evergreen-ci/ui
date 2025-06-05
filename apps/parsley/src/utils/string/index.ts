@@ -1,12 +1,4 @@
 /**
- * `copyToClipboard` copies text to a user's clipboard.
- * @param textToCopy - text to be copied
- */
-export const copyToClipboard = async (textToCopy: string) => {
-  await navigator.clipboard.writeText(textToCopy);
-};
-
-/**
  * `getJiraFormat` constructs a JIRA formatted string with the lines provided.
  * @param indices  - array of numbers representing the line indices you want to copy
  * @param getLine - function that retrieves the log text associated with a log line number
@@ -52,37 +44,7 @@ export const getJiraFormat = (
 export const stringIntersection = (string1: string, string2: string) =>
   string1.includes(string2) || string2.includes(string1);
 
-/**
- * @param str - A string that represents a githash
- * @returns A shortenend version of the input string.
- */
-export const shortenGithash = (str?: string) => str?.substring(0, 7);
-
-/**
- * Function that trims the middle portion of a string. ex: "EvergreenUI" -> "Ev...UI"
- * The resulting length, if trimmed, is maxLength + 1 (due to ellipsis length).
- * @param str - Text to trim
- * @param maxLength - Max length before trimming text
- * @returns The original or trimmed text.
- */
-export const trimStringFromMiddle = (str: string, maxLength: number) => {
-  const ellipsis = "…";
-  const numCharsToRemove = str.length - maxLength;
-
-  // if ellipsis would make the string longer/same, just return original string
-  if (numCharsToRemove <= ellipsis.length) {
-    return str;
-  }
-
-  const midpoint = Math.floor(str.length / 2);
-  const frontOffset = Math.floor(numCharsToRemove / 2);
-  const backOffset = Math.ceil(numCharsToRemove / 2);
-  return (
-    str.substring(0, midpoint - frontOffset) +
-    ellipsis +
-    str.substring(midpoint + backOffset)
-  );
-};
+// shortenGithash and trimStringFromMiddle are now imported from @evg-ui/lib/utils/string
 
 /**
  * `getBytesAsString` returns a string representation of the bytes

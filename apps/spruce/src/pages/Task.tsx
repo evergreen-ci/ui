@@ -1,11 +1,13 @@
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
+import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import PageTitle from "components/PageTitle";
 import {
   PageWrapper,
@@ -18,26 +20,26 @@ import { slugs } from "constants/routes";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { TASK } from "gql/queries";
 import { usePolling } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/NotFound";
 import { RequiredQueryParams } from "types/task";
-import { queryString } from "utils";
 import { ActionButtons } from "./task/ActionButtons";
 import TaskPageBreadcrumbs from "./task/Breadcrumbs";
 import { ExecutionSelect } from "./task/executionDropdown/ExecutionSelector";
 import { Metadata } from "./task/metadata";
-import { TaskTabs } from "./task/TaskTabs";
-
-const { parseQueryString } = queryString;
+import TaskTabs from "./task/taskTabs";
 
 export const Task = () => {
-  const { [slugs.taskId]: taskId } = useParams();
+  const { [slugs.taskId]: taskId } = useParams<{
+    [slugs.taskId]: string;
+  }>();
   const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
-  const location = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
-  const parsed = parseQueryString(location.search);
-  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
+  const [selectedExecution, setSelectedExecution] = useQueryParam<
+    number | null
+  >(RequiredQueryParams.Execution, null);
 
   // Query task data
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
@@ -69,11 +71,22 @@ export const Task = () => {
     versionMetadata,
   } = task ?? {};
 
+  // Update the default execution in the url if it isn't populated
+  useEffect(() => {
+    if (selectedExecution === null && task) {
+      setSelectedExecution(task.latestExecution);
+    }
+  }, [task, selectedExecution, setSelectedExecution]);
+
   /**
    * Special handling for known issues and show the original status on the task page.
    */
   const shouldShowOriginalStatus = displayStatus === TaskStatus.KnownIssue;
   const isDisplayTask = executionTasksFull != null;
+
+  if (loading) {
+    return <PatchAndTaskFullPageLoad />;
+  }
   if (error && !task) {
     return <PageDoesNotExist />;
   }
@@ -127,7 +140,7 @@ export const Task = () => {
       <PageLayout hasSider>
         <PageSider>
           {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-          {latestExecution > 0 && (
+          {latestExecution > 0 && selectedExecution !== null && (
             <ExecutionSelect
               currentExecution={selectedExecution}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -145,7 +158,9 @@ export const Task = () => {
           <Metadata error={error} loading={loading} task={task} />
         </PageSider>
         <StyledPageContent>
-          {task && <TaskTabs isDisplayTask={isDisplayTask} task={task} />}
+          {task && selectedExecution !== null && (
+            <TaskTabs isDisplayTask={isDisplayTask} task={task} />
+          )}
         </StyledPageContent>
       </PageLayout>
     </PageWrapper>

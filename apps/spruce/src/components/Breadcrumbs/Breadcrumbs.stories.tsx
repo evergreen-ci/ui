@@ -1,4 +1,4 @@
-import { actions } from "@storybook/addon-actions";
+import { actions } from "storybook/actions";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import Breadcrumbs from ".";
 

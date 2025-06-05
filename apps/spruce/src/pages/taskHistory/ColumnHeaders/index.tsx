@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
+import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import { context, Cell, hooks } from "components/HistoryTable";
 import { taskHistoryMaxLength as maxLength } from "constants/history";
@@ -11,11 +12,10 @@ import {
   BuildVariantsForTaskNameQueryVariables,
 } from "gql/generated/types";
 import { BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
-import { array, string } from "utils";
+import { array } from "utils";
 
 const { useColumns } = hooks;
 const { convertArrayToObject } = array;
-const { trimStringFromMiddle } = string;
 const { useHistoryTable } = context;
 const { ColumnHeaderCell, LabelCellContainer, LoadingCell } = Cell;
 

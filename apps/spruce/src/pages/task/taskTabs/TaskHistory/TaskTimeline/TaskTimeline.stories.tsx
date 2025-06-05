@@ -4,6 +4,10 @@ import { tasks } from "../testData";
 import { groupTasks } from "../utils";
 import TaskTimeline from ".";
 
+type TaskTimelineType = React.ComponentProps<typeof TaskTimeline> & {
+  shouldCollapse: boolean;
+};
+
 export default {
   component: TaskTimeline,
   args: {
@@ -18,7 +22,7 @@ export default {
       control: { type: "boolean" },
     },
   },
-} satisfies CustomMeta<TemplateProps>;
+} satisfies CustomMeta<TaskTimelineType>;
 
 export const Default: CustomStoryObj<TemplateProps> = {
   render: (args) => <Template {...args} />,
@@ -30,12 +34,16 @@ type TemplateProps = {
 };
 
 const Template = (args: TemplateProps) => {
-  const groupedTasks = groupTasks(tasks, args.shouldCollapse);
+  const groupedTasks = groupTasks(tasks, {
+    shouldCollapse: args.shouldCollapse,
+    testFailureSearchTerm: null,
+  });
   const [selectedTask, setSelectedTask] = useState<string | null>(null);
+
   return (
     <TaskTimeline
       hoveredTask={null}
-      loading={false}
+      loading={args.loading}
       pagination={{
         mostRecentTaskOrder: 10,
         oldestTaskOrder: 1,

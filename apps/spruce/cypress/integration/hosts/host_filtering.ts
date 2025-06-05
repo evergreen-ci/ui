@@ -103,22 +103,23 @@ describe("Hosts page filtering from table filters", () => {
       it(`Filters hosts using table filter dropdowns for ${param}`, () => {
         cy.dataCy(filterIconDataCy).should("be.visible");
         cy.dataCy(filterIconDataCy).click();
-        cy.dataCy(`${filterIconDataCy}-wrapper`).should("be.visible");
+
+        cy.dataCy(`${filterIconDataCy}-wrapper`).as("filterWrapper");
+        cy.get("@filterWrapper").should("be.visible");
         if (param === statusesParam) {
-          cy.dataCy(`${filterIconDataCy}-wrapper`).within(() => {
+          cy.get("@filterWrapper").within(() => {
             cy.getInputByLabel("Running").check({ force: true });
           });
           cy.dataCy(filterIconDataCy).click();
         } else {
-          cy.dataCy(`${filterIconDataCy}-input-filter`).should("be.visible");
-          cy.dataCy(`${filterIconDataCy}-input-filter`).should("be.focused");
-
-          cy.dataCy(`${filterIconDataCy}-input-filter`).type(
-            `${filterValue}{enter}`,
-            { scrollBehavior: false },
-          );
+          cy.get("input[type='search'").as("searchInput");
+          cy.get("@searchInput").should("be.visible");
+          cy.get("@searchInput").should("be.focused");
+          cy.get("@searchInput").type(`${filterValue}{enter}`, {
+            scrollBehavior: false,
+          });
         }
-        cy.dataCy(`${filterIconDataCy}-wrapper`).should("not.exist");
+        cy.get("@filterWrapper").should("not.exist");
         cy.location("search").should("contain", filterUrlParam);
         cy.dataCy("hosts-table").should("have.attr", "data-loading", "false");
 
@@ -128,16 +129,16 @@ describe("Hosts page filtering from table filters", () => {
 
         cy.dataCy(filterIconDataCy).should("be.visible");
         cy.dataCy(filterIconDataCy).click();
-        cy.dataCy(`${filterIconDataCy}-wrapper`).should("be.visible");
+        cy.get("@filterWrapper").should("be.visible");
         if (param === statusesParam) {
-          cy.getInputByLabel("Running").uncheck({ force: true });
+          cy.get("@filterWrapper").within(() => {
+            cy.getInputByLabel("Running").uncheck({ force: true });
+          });
         } else {
-          cy.dataCy(`${filterIconDataCy}-input-filter`).should("be.visible");
-          cy.dataCy(`${filterIconDataCy}-input-filter`)
-            .should("be.focused")
-            .focus();
-          cy.dataCy(`${filterIconDataCy}-input-filter`).clear();
-          cy.dataCy(`${filterIconDataCy}-input-filter`).type("{enter}");
+          cy.get("@searchInput").should("be.visible");
+          cy.get("@searchInput").should("be.focused").focus();
+          cy.get("@searchInput").clear();
+          cy.get("@searchInput").type("{enter}");
         }
       });
     },

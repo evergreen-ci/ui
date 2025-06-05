@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 
 import { SpruceForm, SpruceFormContainer } from ".";

@@ -1,0 +1,89 @@
+<div>
+  <div
+    class="css-b5r3c0"
+  >
+    <div
+      class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
+    >
+      <p
+        class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+      >
+        Tags
+      </p>
+      <hr
+        class="css-qqg5h5-Divider eb6szep0"
+      />
+      <div
+        class="css-c4cphq-TagsContainer e12sfkss0"
+      >
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            tag1
+          </span>
+        </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            tag2
+          </span>
+        </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            tag3
+          </span>
+        </span>
+      </div>
+      <p
+        class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+      >
+        Failure Metadata Tags
+      </p>
+      <hr
+        class="css-qqg5h5-Divider eb6szep0"
+      />
+      <div
+        class="css-c4cphq-TagsContainer e12sfkss0"
+      >
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            failureTag1
+          </span>
+        </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            failureTag2
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

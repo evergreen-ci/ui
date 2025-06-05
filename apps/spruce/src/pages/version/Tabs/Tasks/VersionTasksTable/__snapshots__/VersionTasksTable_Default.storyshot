@@ -129,8 +129,8 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-173-menu"
-          aria-describedby="select-173-description"
+          aria-controls="select-177-menu"
+          aria-describedby="select-177-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -139,7 +139,7 @@
           data-cy="tasks-table-page-size-selector"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-174"
+          id="select-178"
           type="button"
           value="10"
         >
@@ -213,7 +213,7 @@
             >
               Name
               <div
-                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+                class="css-dfh62w-FilterWrapper e1gla5v20"
               >
                 <button
                   aria-disabled="false"
@@ -287,7 +287,7 @@
             >
               Task Status
               <div
-                class="css-12wdkyj-FilterWrapper e4jpuf00"
+                class="css-dfh62w-FilterWrapper e1gla5v20"
               >
                 <button
                   aria-disabled="false"
@@ -362,7 +362,7 @@
             >
               Previous Status
               <div
-                class="css-12wdkyj-FilterWrapper e4jpuf00"
+                class="css-dfh62w-FilterWrapper e1gla5v20"
               >
                 <button
                   aria-disabled="false"
@@ -437,7 +437,7 @@
             >
               Variant
               <div
-                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+                class="css-dfh62w-FilterWrapper e1gla5v20"
               >
                 <button
                   aria-disabled="false"

@@ -8,11 +8,22 @@ query TaskHistory($options: TaskHistoryOpts!) {
       id
       activated
       canRestart
+      canSchedule
       createTime
       displayStatus
       execution
       order
       revision
+      tests(opts: { statuses: ["fail", "silentfail"] }) {
+        testResults {
+          id
+          logs {
+            urlParsley
+          }
+          status
+          testFile
+        }
+      }
       versionMetadata {
         id
         author

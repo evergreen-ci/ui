@@ -1,5 +1,5 @@
 import { Global, css } from "@emotion/react";
-import { Decorator } from "@storybook/react";
+import { Decorator, Preview } from "@storybook/react-vite";
 import { resetStyles, fontStyles, bodyStyles } from "components/styles";
 
 export const globalStyles = css`
@@ -18,3 +18,9 @@ export const decorators: Decorator[] = [
     </>
   ),
 ];
+
+const preview: Preview = {
+  tags: ["autodocs"],
+};
+
+export default preview;

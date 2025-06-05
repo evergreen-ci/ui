@@ -5,14 +5,21 @@ export type TaskHistoryTask = Unpacked<
   TaskHistoryQuery["taskHistory"]["tasks"]
 >;
 
+export type TaskHistoryPagination =
+  TaskHistoryQuery["taskHistory"]["pagination"];
+
 export type GroupedTask =
   | {
       inactiveTasks: TaskHistoryTask[];
       task: null;
+      shouldShowDateSeparator: boolean;
+      isMatching: false;
     }
   | {
       inactiveTasks: null;
       task: TaskHistoryTask;
+      shouldShowDateSeparator: boolean;
+      isMatching: boolean;
     };
 
 export enum ViewOptions {
@@ -26,4 +33,6 @@ export enum TaskHistoryOptions {
   CursorID = "cursor_id",
   IncludeCursor = "include_cursor",
   Direction = "direction",
+  FailingTest = "failing_test",
+  Date = "date",
 }

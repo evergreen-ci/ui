@@ -6,6 +6,10 @@ import { tasks } from "../testData";
 import { groupTasks } from "../utils";
 import CommitDetailsList from ".";
 
+type CommitDetailsListType = React.ComponentProps<typeof CommitDetailsList> & {
+  shouldCollapse: boolean;
+};
+
 export default {
   component: CommitDetailsList,
   decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
@@ -25,10 +29,13 @@ export default {
       control: { type: "text" },
     },
   },
-} satisfies CustomMeta<TemplateProps>;
+} satisfies CustomMeta<CommitDetailsListType>;
 
 export const Default: CustomStoryObj<TemplateProps> = {
   render: (args) => <Template {...args} />,
+};
+export const WithFilterApplied: CustomStoryObj<TemplateProps> = {
+  render: (args) => <WithFilter {...args} />,
 };
 
 type TemplateProps = {
@@ -38,7 +45,24 @@ type TemplateProps = {
 };
 
 const Template = (args: TemplateProps) => {
-  const groupedTasks = groupTasks(tasks, args.shouldCollapse);
+  const groupedTasks = groupTasks(tasks, {
+    shouldCollapse: args.shouldCollapse,
+    testFailureSearchTerm: null,
+  });
+  return (
+    <CommitDetailsList
+      currentTask={currentTask}
+      loading={args.loading}
+      tasks={groupedTasks}
+    />
+  );
+};
+
+const WithFilter = (args: TemplateProps) => {
+  const groupedTasks = groupTasks(tasks, {
+    shouldCollapse: args.shouldCollapse,
+    testFailureSearchTerm: /e2e/,
+  });
   return (
     <CommitDetailsList
       currentTask={currentTask}
