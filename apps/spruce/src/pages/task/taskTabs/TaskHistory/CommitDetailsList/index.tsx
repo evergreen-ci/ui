@@ -58,6 +58,8 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
                   key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
                   currentTask={currentTask}
                   inactiveTasks={inactiveTasks}
+                  selectedTask={selectedTask}
+                  setHoveredTask={setHoveredTask}
                 />
               </>
             );

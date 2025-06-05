@@ -169,6 +169,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
         />
         <TaskTimeline
           ref={timelineRef}
+          currentTask={task}
           hoveredTask={hoveredTask}
           loading={loading}
           pagination={{

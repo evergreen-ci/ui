@@ -24,6 +24,8 @@ describe("InactiveCommitsButton component", () => {
         <InactiveCommitsButton
           currentTask={currentTask}
           inactiveTasks={tasks}
+          selectedTask={null}
+          setHoveredTask={vi.fn()}
         />
       </MockedProvider>,
     );

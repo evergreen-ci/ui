@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { TaskQuery } from "gql/generated/types";
+import { taskQuery } from "gql/mocks/taskData";
 import { tasks } from "../testData";
 import { groupTasks } from "../utils";
 import TaskTimeline from ".";
@@ -42,6 +44,7 @@ const Template = (args: TemplateProps) => {
 
   return (
     <TaskTimeline
+      currentTask={currentTask}
       hoveredTask={null}
       loading={args.loading}
       pagination={{
@@ -55,4 +58,9 @@ const Template = (args: TemplateProps) => {
       tasks={groupedTasks}
     />
   );
+};
+
+const currentTask: NonNullable<TaskQuery["task"]> = {
+  ...taskQuery.task,
+  id: tasks[0].id,
 };

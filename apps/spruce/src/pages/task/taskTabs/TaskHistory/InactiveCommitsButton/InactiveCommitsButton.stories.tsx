@@ -15,7 +15,12 @@ export const Default: CustomStoryObj<typeof InactiveCommitsButton> = {
 };
 
 const Template = () => (
-  <InactiveCommitsButton currentTask={currentTask} inactiveTasks={tasks} />
+  <InactiveCommitsButton
+    currentTask={currentTask}
+    inactiveTasks={tasks}
+    selectedTask={null}
+    setHoveredTask={vi.fn()}
+  />
 );
 
 const currentTask: NonNullable<TaskQuery["task"]> = {

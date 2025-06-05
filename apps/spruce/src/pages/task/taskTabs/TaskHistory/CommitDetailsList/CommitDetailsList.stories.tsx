@@ -53,6 +53,8 @@ const Template = (args: TemplateProps) => {
     <CommitDetailsList
       currentTask={currentTask}
       loading={args.loading}
+      selectedTask={null}
+      setHoveredTask={vi.fn()}
       tasks={groupedTasks}
     />
   );

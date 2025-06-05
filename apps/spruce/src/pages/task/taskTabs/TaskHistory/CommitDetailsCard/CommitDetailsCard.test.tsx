@@ -21,8 +21,10 @@ describe("CommitDetailsCard component", () => {
         <CommitDetailsCard
           isCurrentTask={false}
           isMatching
+          isSelectedTask={false}
           owner="evergreen-ci"
           repo="evergreen"
+          setHoveredTask={vi.fn()}
           task={currentTask}
         />
       </MockedProvider>,
@@ -44,8 +46,10 @@ describe("CommitDetailsCard component", () => {
         <CommitDetailsCard
           isCurrentTask={false}
           isMatching
+          isSelectedTask={false}
           owner="evergreen-ci"
           repo="evergreen"
+          setHoveredTask={vi.fn()}
           task={currentTask}
         />
       </MockedProvider>,
@@ -74,8 +78,10 @@ describe("CommitDetailsCard component", () => {
         <CommitDetailsCard
           isCurrentTask={false}
           isMatching
+          isSelectedTask={false}
           owner="evergreen-ci"
           repo="evergreen"
+          setHoveredTask={vi.fn()}
           task={currentTask}
         />
       </MockedProvider>,
@@ -108,8 +114,10 @@ describe("CommitDetailsCard component", () => {
         <CommitDetailsCard
           isCurrentTask={false}
           isMatching
+          isSelectedTask={false}
           owner="evergreen-ci"
           repo="evergreen"
+          setHoveredTask={vi.fn()}
           task={currentTask}
         />
       </MockedProvider>,
@@ -138,8 +146,10 @@ describe("CommitDetailsCard component", () => {
         <CommitDetailsCard
           isCurrentTask
           isMatching
+          isSelectedTask={false}
           owner="evergreen-ci"
           repo="evergreen"
+          setHoveredTask={vi.fn()}
           task={currentTask}
         />
       </MockedProvider>,
@@ -159,8 +169,10 @@ describe("CommitDetailsCard component", () => {
         <CommitDetailsCard
           isCurrentTask
           isMatching
+          isSelectedTask={false}
           owner="evergreen-ci"
           repo="evergreen"
+          setHoveredTask={vi.fn()}
           task={currentTask}
         />
       </MockedProvider>,
@@ -185,8 +197,10 @@ describe("CommitDetailsCard component", () => {
         <CommitDetailsCard
           isCurrentTask={false}
           isMatching={false}
+          isSelectedTask={false}
           owner="evergreen-ci"
           repo="evergreen"
+          setHoveredTask={vi.fn()}
           task={currentTask}
         />
       </MockedProvider>,

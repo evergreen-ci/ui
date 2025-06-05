@@ -11,10 +11,14 @@ import { TaskHistoryOptions, TaskHistoryTask } from "../types";
 interface Props {
   inactiveTasks: TaskHistoryTask[];
   currentTask: NonNullable<TaskQuery["task"]>;
+  selectedTask: string | null;
+  setHoveredTask: (v: string | null) => void;
 }
 const InactiveCommitsButton: React.FC<Props> = ({
   currentTask,
   inactiveTasks,
+  selectedTask,
+  setHoveredTask,
 }) => {
   const [failingTest] = useQueryParam<string>(
     TaskHistoryOptions.FailingTest,
@@ -48,8 +52,10 @@ const InactiveCommitsButton: React.FC<Props> = ({
             key={inactiveTask.id}
             isCurrentTask={inactiveTask.id === currentTask.id}
             isMatching={!failingTest}
+            isSelectedTask={selectedTask === currentTask.id}
             owner={currentTask.project?.owner}
             repo={currentTask.project?.repo}
+            setHoveredTask={setHoveredTask}
             task={inactiveTask}
           />
         ))}

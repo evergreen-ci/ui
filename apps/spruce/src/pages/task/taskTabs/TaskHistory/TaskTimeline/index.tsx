@@ -9,15 +9,14 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
 import { taskPageWrapperId } from "constants/index";
-import { TaskHistoryDirection } from "gql/generated/types";
+import { TaskHistoryDirection, TaskQuery } from "gql/generated/types";
 import { useUserTimeZone } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { GroupedTask, TaskHistoryOptions, TaskHistoryTask } from "../types";
+import { CurrentTaskBadge } from "./CurrentTaskBadge";
 import DateSeparator from "./DateSeparator";
 
-const { blue, white } = palette;
-
-const { gray } = palette;
+const { blue, gray, white } = palette;
 
 type TaskHistoryPagination = {
   mostRecentTaskOrder: number | undefined;
@@ -33,11 +32,20 @@ interface TimelineProps {
   setSelectedTask: (v: string | null) => void;
   selectedTask: string | null;
   hoveredTask: string | null;
+  currentTask: NonNullable<TaskQuery["task"]>;
 }
 
 const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
   (
-    { hoveredTask, loading, pagination, selectedTask, setSelectedTask, tasks },
+    {
+      currentTask,
+      hoveredTask,
+      loading,
+      pagination,
+      selectedTask,
+      setSelectedTask,
+      tasks,
+    },
     ref,
   ) => {
     const [queryParams, setQueryParams] = useQueryParams();
@@ -93,24 +101,29 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                           timezone={timezone}
                         />
                       )}
-                      <TaskBox
-                        key={task.id}
-                        data-cy="timeline-box"
-                        hovered={isHoveredTask}
-                        id={`task-box-${task.id}`}
-                        onClick={() => {
-                          if (isSelectedTask) {
-                            setSelectedTask(null);
-                          } else {
-                            setSelectedTask(task.id);
-                            scrollToCard(task.id, idx > tasks.length - 5);
-                          }
-                        }}
-                        rightmost={false}
-                        selected={isSelectedTask}
-                        status={task.displayStatus as TaskStatus}
-                        taskId={task.id}
-                      />
+                      <DotWrapper>
+                        <TaskBox
+                          key={task.id}
+                          data-cy="timeline-box"
+                          hovered={isHoveredTask}
+                          id={`task-box-${task.id}`}
+                          onClick={() => {
+                            if (isSelectedTask) {
+                              setSelectedTask(null);
+                            } else {
+                              setSelectedTask(task.id);
+                              scrollToCard(task.id, idx > tasks.length - 5);
+                            }
+                          }}
+                          rightmost={false}
+                          selected={isSelectedTask}
+                          status={task.displayStatus as TaskStatus}
+                          taskId={task.id}
+                        />
+                        <CurrentTaskBadge
+                          isCurrentTask={currentTask.id === task.id}
+                        />
+                      </DotWrapper>
                     </>
                   );
                 } else if (inactiveTasks) {
@@ -177,10 +190,11 @@ const scrollToCard = (taskId: string, isAtListEnd: boolean) => {
     // If the item is at the end of the list, there's no need to adjust the
     // scroll position.
     if (!isAtListEnd) {
-      pageWrapper.scrollBy(0, -80);
+      pageWrapper.scrollBy(0, -190);
     }
   }
 };
+
 const dateSeparatorHoverGroupStyles = css`
   .date-separator {
     .date-badge {
@@ -232,6 +246,22 @@ const dateSeparatorHoverGroupStyles = css`
       .dot {
         opacity: 1;
       }
+    }
+  }
+`;
+
+const DotWrapper = styled.div`
+  position: relative;
+
+  .current-task-badge {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover {
+    .current-task-badge {
+      opacity: 1;
+      pointer-events: auto;
     }
   }
 `;

@@ -237,15 +237,15 @@ const CommitCard = styled.div<{
   :hover {
     border: 1px solid ${blue.base};
   }
-
   ${({ selected }) => selected && `border: 1px solid ${blue.base};`}
-
   /* Styles for the status stripe. Border isn't used as it interferes with hover styles. */
   padding-left: ${size.s};
+
   ${({ status }) => `
      background: linear-gradient(to right, ${statusColorMap[status]} 10px, transparent 0px) no-repeat;
      `}
-  ${({ status }) => `border-left: ${size.xs} solid ${statusColorMap[status]};`}
+
+  ${({ selected }) => selected && `border: 1px solid ${blue.base};`}
 
   ${({ isMatching }) => !isMatching && inactiveElementStyle}
 `;
