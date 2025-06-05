@@ -32,4 +32,5 @@ export const gqlToFormMap: {
   [T in WritableAdminSettingsType]?: GqlToFormFunction<T>;
 } = {
   [AdminSettingsTabRoutes.Announcements]: announcements.gqlToForm,
+  [AdminSettingsTabRoutes.FeatureFlags]: featureFlags.gqlToForm,
 };

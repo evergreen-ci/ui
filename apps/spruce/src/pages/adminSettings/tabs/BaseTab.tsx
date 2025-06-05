@@ -12,6 +12,8 @@ type BaseTabProps<T extends WritableAdminSettingsType> = {
 };
 
 export const BaseTab = <T extends WritableAdminSettingsType>({
+  disabled,
+  formSchema,
   initialFormState,
   tab,
   ...rest
@@ -22,6 +24,8 @@ export const BaseTab = <T extends WritableAdminSettingsType>({
   return (
     <Form<WritableAdminSettingsType, FormStateMap>
       {...rest}
+      disabled={disabled}
+      formSchema={formSchema}
       state={state}
       tab={tab}
     />
