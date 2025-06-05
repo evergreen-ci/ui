@@ -65,7 +65,7 @@ const ToastProviderCore: React.FC<{ children: ReactNode }> = ({ children }) => {
     [pushToast],
   );
 
-  const toastContext = useMemo(() => {
+  const toastContext: ToastContextState = useMemo(() => {
     const defaultOptions = {
       onClose: () => {},
       shouldTimeout: true,
