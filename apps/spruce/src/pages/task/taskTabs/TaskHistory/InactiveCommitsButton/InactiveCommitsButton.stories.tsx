@@ -2,6 +2,7 @@ import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TaskQuery } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
+import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import InactiveCommitsButton from ".";
 
@@ -15,12 +16,9 @@ export const Default: CustomStoryObj<typeof InactiveCommitsButton> = {
 };
 
 const Template = () => (
-  <InactiveCommitsButton
-    currentTask={currentTask}
-    inactiveTasks={tasks}
-    selectedTask={null}
-    setHoveredTask={vi.fn()}
-  />
+  <TaskHistoryContextProvider task={currentTask}>
+    <InactiveCommitsButton inactiveTasks={tasks} />
+  </TaskHistoryContextProvider>
 );
 
 const currentTask: NonNullable<TaskQuery["task"]> = {

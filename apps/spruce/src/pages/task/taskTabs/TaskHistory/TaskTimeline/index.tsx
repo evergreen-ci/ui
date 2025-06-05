@@ -9,9 +9,10 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
 import { taskPageWrapperId } from "constants/index";
-import { TaskHistoryDirection, TaskQuery } from "gql/generated/types";
+import { TaskHistoryDirection } from "gql/generated/types";
 import { useUserTimeZone } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
+import { useTaskHistoryContext } from "../context";
 import { GroupedTask, TaskHistoryOptions, TaskHistoryTask } from "../types";
 import { CurrentTaskBadge } from "./CurrentTaskBadge";
 import DateSeparator from "./DateSeparator";
@@ -29,25 +30,10 @@ interface TimelineProps {
   loading: boolean;
   pagination: TaskHistoryPagination;
   tasks: GroupedTask[];
-  setSelectedTask: (v: string | null) => void;
-  selectedTask: string | null;
-  hoveredTask: string | null;
-  currentTask: NonNullable<TaskQuery["task"]>;
 }
 
 const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
-  (
-    {
-      currentTask,
-      hoveredTask,
-      loading,
-      pagination,
-      selectedTask,
-      setSelectedTask,
-      tasks,
-    },
-    ref,
-  ) => {
+  ({ loading, pagination, tasks }, ref) => {
     const [queryParams, setQueryParams] = useQueryParams();
     const timezone = useUserTimeZone();
     const {
@@ -56,6 +42,9 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
       oldestTaskOrder,
       prevPageCursor,
     } = pagination;
+
+    const { currentTask, hoveredTask, selectedTask, setSelectedTask } =
+      useTaskHistoryContext();
 
     return (
       <Container>
@@ -100,7 +89,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                           timezone={timezone}
                         />
                       )}
-                      <TaskBoxWrapper>
+                      <TaskBoxWrapper className="square">
                         <TaskBox
                           key={task.id}
                           active={isHoveredTask || isSelectedTask}

@@ -18,15 +18,7 @@ describe("CommitDetailsCard component", () => {
     };
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getSpruceConfigMock]}>
-        <CommitDetailsCard
-          isCurrentTask={false}
-          isMatching
-          isSelectedTask={false}
-          owner="evergreen-ci"
-          repo="evergreen"
-          setHoveredTask={vi.fn()}
-          task={currentTask}
-        />
+        <CommitDetailsCard isMatching task={currentTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -43,15 +35,7 @@ describe("CommitDetailsCard component", () => {
     };
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getSpruceConfigMock]}>
-        <CommitDetailsCard
-          isCurrentTask={false}
-          isMatching
-          isSelectedTask={false}
-          owner="evergreen-ci"
-          repo="evergreen"
-          setHoveredTask={vi.fn()}
-          task={currentTask}
-        />
+        <CommitDetailsCard isMatching task={currentTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -75,15 +59,7 @@ describe("CommitDetailsCard component", () => {
     };
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getSpruceConfigMock]}>
-        <CommitDetailsCard
-          isCurrentTask={false}
-          isMatching
-          isSelectedTask={false}
-          owner="evergreen-ci"
-          repo="evergreen"
-          setHoveredTask={vi.fn()}
-          task={currentTask}
-        />
+        <CommitDetailsCard isMatching task={currentTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -111,15 +87,7 @@ describe("CommitDetailsCard component", () => {
     };
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getSpruceConfigMock]}>
-        <CommitDetailsCard
-          isCurrentTask={false}
-          isMatching
-          isSelectedTask={false}
-          owner="evergreen-ci"
-          repo="evergreen"
-          setHoveredTask={vi.fn()}
-          task={currentTask}
-        />
+        <CommitDetailsCard isMatching task={currentTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -143,15 +111,7 @@ describe("CommitDetailsCard component", () => {
     };
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getSpruceConfigMock]}>
-        <CommitDetailsCard
-          isCurrentTask
-          isMatching
-          isSelectedTask={false}
-          owner="evergreen-ci"
-          repo="evergreen"
-          setHoveredTask={vi.fn()}
-          task={currentTask}
-        />
+        <CommitDetailsCard isMatching task={currentTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -166,15 +126,7 @@ describe("CommitDetailsCard component", () => {
     };
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getSpruceConfigMock]}>
-        <CommitDetailsCard
-          isCurrentTask
-          isMatching
-          isSelectedTask={false}
-          owner="evergreen-ci"
-          repo="evergreen"
-          setHoveredTask={vi.fn()}
-          task={currentTask}
-        />
+        <CommitDetailsCard isMatching task={currentTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -194,15 +146,7 @@ describe("CommitDetailsCard component", () => {
     };
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getSpruceConfigMock]}>
-        <CommitDetailsCard
-          isCurrentTask={false}
-          isMatching={false}
-          isSelectedTask={false}
-          owner="evergreen-ci"
-          repo="evergreen"
-          setHoveredTask={vi.fn()}
-          task={currentTask}
-        />
+        <CommitDetailsCard isMatching={false} task={currentTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -218,15 +162,7 @@ describe("CommitDetailsCard component", () => {
     const setHoveredTask = vi.fn();
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getSpruceConfigMock]}>
-        <CommitDetailsCard
-          isCurrentTask={false}
-          isMatching
-          isSelectedTask={false}
-          owner="evergreen-ci"
-          repo="evergreen"
-          setHoveredTask={setHoveredTask}
-          task={currentTask}
-        />
+        <CommitDetailsCard isMatching task={currentTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);

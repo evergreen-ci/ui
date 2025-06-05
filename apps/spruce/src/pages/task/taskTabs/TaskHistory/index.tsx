@@ -22,6 +22,7 @@ import { jiraLinkify } from "utils/string";
 import { validateRegexp } from "utils/validators";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
+import { TaskHistoryContextProvider } from "./context";
 import { Controls } from "./Controls";
 import TaskTimeline from "./TaskTimeline";
 import { TestFailureSearchInput } from "./TestFailureSearchInput";
@@ -150,51 +151,40 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
     }
   }, [direction, setQueryParams, prevPageCursor, queryParams]);
 
-  const [selectedTask, setSelectedTask] = useState<string | null>(null);
-  const [hoveredTask, setHoveredTask] = useState<string | null>(null);
-
   return (
-    <Container>
-      <Banner variant={BannerVariant.Info}>
-        {jiraLinkify(
-          "This page is currently under construction. Performance and functionality bugs may be present. See DEVPROD-6584 for project details.",
-          jiraHost,
-        )}
-      </Banner>
-      <StickyHeader>
-        <Controls
-          date={date}
-          setViewOption={setViewOption}
-          viewOption={viewOption}
-        />
-        <TaskTimeline
-          ref={timelineRef}
-          currentTask={task}
-          hoveredTask={hoveredTask}
-          loading={loading}
-          pagination={{
-            mostRecentTaskOrder,
-            oldestTaskOrder,
-            nextPageCursor,
-            prevPageCursor,
-          }}
-          selectedTask={selectedTask}
-          setSelectedTask={setSelectedTask}
-          tasks={visibleTasks}
-        />
-        <TestFailureSearchInput numMatchingResults={numMatchingResults} />
-      </StickyHeader>
-      <ListContent>
-        <Subtitle>Commit Details</Subtitle>
-        <CommitDetailsList
-          currentTask={task}
-          loading={loading}
-          selectedTask={selectedTask}
-          setHoveredTask={setHoveredTask}
-          tasks={visibleTasks}
-        />
-      </ListContent>
-    </Container>
+    <TaskHistoryContextProvider task={task}>
+      <Container>
+        <Banner variant={BannerVariant.Info}>
+          {jiraLinkify(
+            "This page is currently under construction. Performance and functionality bugs may be present. See DEVPROD-6584 for project details.",
+            jiraHost,
+          )}
+        </Banner>
+        <StickyHeader>
+          <Controls
+            date={date}
+            setViewOption={setViewOption}
+            viewOption={viewOption}
+          />
+          <TaskTimeline
+            ref={timelineRef}
+            loading={loading}
+            pagination={{
+              mostRecentTaskOrder,
+              oldestTaskOrder,
+              nextPageCursor,
+              prevPageCursor,
+            }}
+            tasks={visibleTasks}
+          />
+          <TestFailureSearchInput numMatchingResults={numMatchingResults} />
+        </StickyHeader>
+        <ListContent>
+          <Subtitle>Commit Details</Subtitle>
+          <CommitDetailsList loading={loading} tasks={visibleTasks} />
+        </ListContent>
+      </Container>
+    </TaskHistoryContextProvider>
   );
 };
 

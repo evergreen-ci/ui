@@ -2,7 +2,9 @@ import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { SortedTaskStatus, TaskStatus } from "@evg-ui/lib/types/task";
 import { TestStatus } from "@evg-ui/lib/types/test";
-import { TestResult } from "gql/generated/types";
+import { TaskQuery, TestResult } from "gql/generated/types";
+import { taskQuery } from "gql/mocks/taskData";
+import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import CommitDetailsCard from ".";
 
@@ -12,6 +14,7 @@ type CommitDetailsCardType = React.ComponentProps<typeof CommitDetailsCard> & {
   canSchedule: boolean;
   message: string;
   status: TaskStatus;
+  isCurrentTask: boolean;
 };
 
 export default {
@@ -23,7 +26,6 @@ export default {
     canSchedule: true,
     isCurrentTask: true,
     isMatching: true,
-    isSelectedTask: false,
     message:
       "DEVPROD-1234: Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.",
     status: TaskStatus.Succeeded,
@@ -42,9 +44,6 @@ export default {
       control: { type: "boolean" },
     },
     isMatching: {
-      control: { type: "boolean" },
-    },
-    isSelectedTask: {
       control: { type: "boolean" },
     },
     message: {
@@ -119,14 +118,15 @@ const getStoryTask = (args: TemplateProps) => {
 const Template = (args: TemplateProps) => {
   const storyTask = getStoryTask(args);
   return (
-    <CommitDetailsCard
-      isCurrentTask={args.isCurrentTask}
-      isMatching={args.isMatching}
-      isSelectedTask={args.isSelectedTask}
-      owner="evergreen-ci"
-      repo="evergreen"
-      setHoveredTask={() => {}}
-      task={storyTask}
-    />
+    <TaskHistoryContextProvider
+      task={args.isCurrentTask ? currentTask : taskQuery.task}
+    >
+      <CommitDetailsCard isMatching={args.isMatching} task={storyTask} />
+    </TaskHistoryContextProvider>
   );
+};
+
+const currentTask: NonNullable<TaskQuery["task"]> = {
+  ...taskQuery.task,
+  id: tasks[0].id,
 };

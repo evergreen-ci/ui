@@ -29,6 +29,7 @@ import { RESTART_TASK, SCHEDULE_TASKS } from "gql/mutations";
 import { useDateFormat } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { isProduction } from "utils/environmentVariables";
+import { useTaskHistoryContext } from "../context";
 import { TaskHistoryTask } from "../types";
 import CommitDescription from "./CommitDescription";
 import FailedTestsTable from "./FailedTestsTable";
@@ -36,22 +37,12 @@ import FailedTestsTable from "./FailedTestsTable";
 const { blue, gray } = palette;
 
 interface CommitDetailsCardProps {
-  isCurrentTask: boolean;
-  owner: string | undefined;
-  repo: string | undefined;
-  isSelectedTask: boolean;
-  setHoveredTask: (v: string | null) => void;
   isMatching: boolean;
   task: TaskHistoryTask;
 }
 
 const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
-  isCurrentTask,
   isMatching,
-  isSelectedTask,
-  owner,
-  repo,
-  setHoveredTask,
   task,
 }) => {
   const {
@@ -67,6 +58,12 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     versionMetadata,
   } = task;
   const { author, id: versionId, message } = versionMetadata;
+
+  const { currentTask, selectedTask, setHoveredTask } = useTaskHistoryContext();
+  const owner = currentTask.project?.owner ?? "";
+  const repo = currentTask.project?.repo ?? "";
+  const isCurrentTask = taskId === currentTask.id;
+  const isSelectedTask = taskId === selectedTask;
 
   const { sendEvent } = useTaskHistoryAnalytics();
 
