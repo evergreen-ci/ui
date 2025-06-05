@@ -17,19 +17,19 @@ const MockToastProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const toastContext = useMemo(
     () => ({
-      error: (message: string, closable: boolean = true) =>
+      error: (message: React.ReactNode, closable: boolean = true) =>
         action(`Toast Error`)({ closable, message }),
       hide: () => action(`Toast Hide`)(),
-      info: (message: string, closable: boolean = true) =>
+      info: (message: React.ReactNode, closable: boolean = true) =>
         action(`Toast Info`)({ closable, message }),
       progress: (
-        message: string,
+        message: React.ReactNode,
         progress: number = 0.5,
         closable: boolean = true,
       ) => action(`Toast Info`)({ closable, message, progress }),
-      success: (message: string, closable: boolean = true) =>
+      success: (message: React.ReactNode, closable: boolean = true) =>
         action(`Toast Success`)({ closable, message }),
-      warning: (message: string, closable: boolean = true) =>
+      warning: (message: React.ReactNode, closable: boolean = true) =>
         action(`Toast Warning`)({ closable, message }),
     }),
     [],
