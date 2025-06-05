@@ -91,7 +91,6 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                 if (task) {
                   const isHoveredTask = hoveredTask === task.id;
                   const isSelectedTask = selectedTask === task.id;
-
                   return (
                     <>
                       {shouldShowDateSeparator && (
@@ -104,8 +103,8 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                       <DotWrapper>
                         <TaskBox
                           key={task.id}
+                          active={isHoveredTask || isSelectedTask}
                           data-cy="timeline-box"
-                          hovered={isHoveredTask}
                           id={`task-box-${task.id}`}
                           onClick={() => {
                             if (isSelectedTask) {
@@ -116,7 +115,6 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                             }
                           }}
                           rightmost={false}
-                          selected={isSelectedTask}
                           status={task.displayStatus as TaskStatus}
                           taskId={task.id}
                         />
@@ -286,14 +284,13 @@ const Timeline = styled.div`
 `;
 
 const TaskBox = styled(BaseTaskBox)<{
-  selected: boolean;
-  hovered: boolean;
+  active: boolean;
   taskId: string;
 }>`
   opacity: 0.5;
 
-  ${({ hovered, selected }) =>
-    (selected || hovered) &&
+  ${({ active }) =>
+    active &&
     `
       opacity: 1;
       border: 1px solid ${blue.base};

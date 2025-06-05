@@ -162,7 +162,7 @@ describe("task history", () => {
   });
 
   describe("scheduling tasks", () => {
-    const willRunColor = "rgb(92, 108, 117)";
+    const willRunColor = hexToRGB(gray.dark1);
 
     it("scheduling a task should reflect the changes on the UI", () => {
       cy.visit(spruceTaskHistoryLink);
