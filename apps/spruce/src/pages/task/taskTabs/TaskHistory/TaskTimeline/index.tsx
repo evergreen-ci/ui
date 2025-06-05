@@ -100,7 +100,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                           timezone={timezone}
                         />
                       )}
-                      <DotWrapper>
+                      <TaskBoxWrapper>
                         <TaskBox
                           key={task.id}
                           active={isHoveredTask || isSelectedTask}
@@ -121,7 +121,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                         <CurrentTaskBadge
                           isCurrentTask={currentTask.id === task.id}
                         />
-                      </DotWrapper>
+                      </TaskBoxWrapper>
                     </>
                   );
                 } else if (inactiveTasks) {
@@ -193,6 +193,24 @@ const scrollToCard = (taskId: string, isAtListEnd: boolean) => {
   }
 };
 
+const currentBadgeHoverStyles = css`
+  .current-task-badge {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  :hover {
+    .current-task-badge {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+`;
+
+const TaskBoxWrapper = styled.div`
+  position: relative;
+  ${currentBadgeHoverStyles};
+`;
+
 const dateSeparatorHoverGroupStyles = css`
   .date-separator {
     .date-badge {
@@ -244,22 +262,6 @@ const dateSeparatorHoverGroupStyles = css`
       .dot {
         opacity: 1;
       }
-    }
-  }
-`;
-
-const DotWrapper = styled.div`
-  position: relative;
-
-  .current-task-badge {
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-
-  &:hover {
-    .current-task-badge {
-      opacity: 1;
-      pointer-events: auto;
     }
   }
 `;

@@ -209,4 +209,29 @@ describe("CommitDetailsCard component", () => {
     const card = screen.getByDataCy("commit-details-card");
     expect(card).toHaveStyle("opacity: 0.4");
   });
+
+  it("calls hover function on hover", async () => {
+    const currentTask = {
+      ...tasks[5],
+    };
+    const user = userEvent.setup();
+    const setHoveredTask = vi.fn();
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={[getSpruceConfigMock]}>
+        <CommitDetailsCard
+          isCurrentTask={false}
+          isMatching
+          isSelectedTask={false}
+          owner="evergreen-ci"
+          repo="evergreen"
+          setHoveredTask={setHoveredTask}
+          task={currentTask}
+        />
+      </MockedProvider>,
+    );
+    renderWithRouterMatch(<Component />);
+    const card = screen.getByDataCy("commit-details-card");
+    await user.hover(card);
+    expect(setHoveredTask).toBeCalledTimes(1);
+  });
 });
