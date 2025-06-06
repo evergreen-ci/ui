@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
@@ -9,7 +10,7 @@ interface CurrentTaskBadgeProps {
   isCurrentTask: boolean;
 }
 
-export const CurrentTaskBadge: React.FC<CurrentTaskBadgeProps> = ({
+const CurrentTaskBadge: React.FC<CurrentTaskBadgeProps> = ({
   isCurrentTask,
 }) =>
   isCurrentTask ? (
@@ -17,7 +18,7 @@ export const CurrentTaskBadge: React.FC<CurrentTaskBadgeProps> = ({
       <StyledBadge className="current-task-badge" variant="blue">
         This Task
       </StyledBadge>
-      <Dot className="current-task-dot" />
+      <Dot />
     </>
   ) : null;
 
@@ -38,3 +39,18 @@ const Dot = styled.div`
   border-radius: ${size.m};
   background-color: ${blue.light1};
 `;
+
+export const currentBadgeHoverStyles = css`
+  .current-task-badge {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  :hover {
+    .current-task-badge {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+`;
+
+export default CurrentTaskBadge;
