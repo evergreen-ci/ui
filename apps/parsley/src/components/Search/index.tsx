@@ -6,7 +6,6 @@ import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import SearchBar from "components/Search/SearchBar";
-import SearchBarGuideCue from "components/Search/SearchBarGuideCue";
 import SearchResults from "components/Search/SearchResults";
 import { CaseSensitivity, MatchType, SearchBarActions } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
@@ -19,6 +18,7 @@ import { PROJECT_FILTERS } from "gql/queries";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useHighlightParam } from "hooks/useHighlightParam";
 import { useQueryParams } from "hooks/useQueryParam";
+import { useSearchHistory } from "hooks/useSearchHistory";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { stringifyFilters } from "utils/query-string";
 import { validateRegexp } from "utils/validators";
@@ -38,6 +38,7 @@ const Search: React.FC = () => {
     searchState,
     setSearch,
   } = useLogContext();
+  const { addToHistory, combineWithSuggestions } = useSearchHistory();
   const { highlightFilters } = preferences;
   const { buildID, execution, logType, taskID } = logMetadata ?? {};
   const { hasSearch } = searchState;
@@ -57,6 +58,7 @@ const Search: React.FC = () => {
   const { parsleyFilters } = project || {};
 
   const handleOnSubmit = (selected: string, value: string) => {
+    addToHistory(value);
     switch (selected) {
       case SearchBarActions.Filter:
         if (!filters.some((f) => f.expression === value)) {
@@ -125,17 +127,17 @@ const Search: React.FC = () => {
     );
   };
 
+  const searchSuggestions = combineWithSuggestions(
+    parsleyFilters?.map((p) => p.expression) ?? [],
+  );
   return (
     <Container ref={containerRef}>
-      {hasLogs && containerRef.current && (
-        <SearchBarGuideCue containerRef={containerRef.current} />
-      )}
       <StyledSearchBar
         disabled={!hasLogs}
         onChange={handleOnChange}
         onSubmit={handleOnSubmit}
         paginate={paginate}
-        searchSuggestions={parsleyFilters?.map((p) => p.expression)}
+        searchSuggestions={searchSuggestions}
         validator={validateRegexp}
         validatorMessage="Invalid regular expression"
       />
