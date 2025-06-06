@@ -11,7 +11,7 @@ import LeafyGreenTimePicker from ".";
 describe("time picker", () => {
   beforeEach(() => {
     // scrollTo isn't implemented in JSDom and must be mocked.
-    Element.prototype.scrollTo = () => {};
+    Element.prototype.scrollIntoView = () => {};
   });
 
   it("renders a timepicker with default time selected", () => {
@@ -34,7 +34,7 @@ describe("time picker", () => {
     const onDateChange = vi.fn();
 
     const onScroll = vi.fn();
-    Element.prototype.scrollTo = onScroll;
+    Element.prototype.scrollIntoView = onScroll;
 
     render(
       <LeafyGreenTimePicker

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { DateType } from "@leafygreen-ui/date-utils";
 import { FormField, FormFieldInputContainer } from "@leafygreen-ui/form-field";
@@ -9,16 +9,10 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { PopoverContainer } from "components/styles/Popover";
 import { useOnClickOutside } from "hooks";
-import {
-  hourScrollContainer,
-  minuteScrollContainer,
-  hourOptions,
-  minuteOptions,
-} from "./constants";
+import { hourOptions, minuteOptions } from "./constants";
 import TimeInput from "./TimeInput";
 import TimePickerOptions from "./TimeOptions";
 import { TimepickerType } from "./types";
-import { scrollToIdx } from "./utils";
 
 const { gray } = palette;
 
@@ -45,19 +39,6 @@ const TimePicker: React.FC<TimePickerProps> = ({
   const [popoverOpen, setPopoverOpen] = useState(false);
 
   useOnClickOutside([formRef, popoverRef], () => setPopoverOpen(false));
-
-  // // Scroll to the currently selected option on open.
-  useEffect(() => {
-    if (popoverOpen) {
-      const timeout = setTimeout(() => {
-        const hourIndex = hourOptions.findIndex((v) => v === hourValue);
-        scrollToIdx(hourScrollContainer, hourIndex);
-        const minuteIndex = minuteOptions.findIndex((v) => v === minuteValue);
-        scrollToIdx(minuteScrollContainer, minuteIndex);
-      }, 50);
-      return () => clearTimeout(timeout);
-    }
-  }, [popoverOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -112,7 +93,6 @@ const TimePicker: React.FC<TimePickerProps> = ({
             data-cy="hour-options"
             onDateChange={onDateChange}
             options={hourOptions}
-            scrollContainerId={hourScrollContainer}
             type={TimepickerType.Hour}
             value={hourValue}
           />
@@ -122,7 +102,6 @@ const TimePicker: React.FC<TimePickerProps> = ({
             data-cy="minute-options"
             onDateChange={onDateChange}
             options={minuteOptions}
-            scrollContainerId={minuteScrollContainer}
             type={TimepickerType.Minute}
             value={minuteValue}
           />

@@ -1,15 +1,14 @@
+import { createRef, forwardRef, useLayoutEffect } from "react";
 import styled from "@emotion/styled";
 import { DateType } from "@leafygreen-ui/date-utils";
 import { palette } from "@leafygreen-ui/palette";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
-import { TimepickerType } from "./types";
-import { scrollToIdx } from "./utils";
+import { RefMap, TimepickerType } from "./types";
 
 const { blue, gray } = palette;
 
 interface TimePickerOptionsProps {
   "data-cy": string;
-  scrollContainerId: string;
   value: string;
   onDateChange: (newDate: DateType) => void;
   options: string[];
@@ -22,31 +21,44 @@ const TimePickerOptions: React.FC<TimePickerOptionsProps> = ({
   "data-cy": dataCy,
   onDateChange,
   options,
-  scrollContainerId,
   type,
   value,
-}) => (
-  <TimeOptions data-cy={dataCy} id={scrollContainerId}>
-    {options.map((o, idx) => (
-      <TimePickerOption
-        key={`${scrollContainerId}-${o}`}
-        index={idx}
-        isSelected={value === o}
-        onSelectOption={(val) => {
-          const valAsNumber = Number(val);
-          if (type === TimepickerType.Minute) {
-            currentDateTime.setMinutes(valAsNumber);
-          } else if (type === TimepickerType.Hour) {
-            currentDateTime.setHours(valAsNumber);
-          }
-          onDateChange(currentDateTime);
-        }}
-        scrollContainerId={scrollContainerId}
-        value={o}
-      />
-    ))}
-  </TimeOptions>
-);
+}) => {
+  const optionRefs = options.reduce((acc, v) => {
+    acc[v] = createRef<HTMLButtonElement>();
+    return acc;
+  }, {} as RefMap);
+
+  useLayoutEffect(() => {
+    const timeout = setTimeout(() => {
+      optionRefs[value].current?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
+    return () => clearTimeout(timeout);
+  }, [optionRefs]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <TimeOptions data-cy={dataCy}>
+      {options.map((o) => (
+        <TimePickerOption
+          key={`${type}-${o}`}
+          ref={optionRefs[o]}
+          isSelected={value === o}
+          onSelectOption={(val) => {
+            optionRefs[o].current?.scrollIntoView({ behavior: "smooth" });
+            const valAsNumber = Number(val);
+            if (type === TimepickerType.Minute) {
+              currentDateTime.setMinutes(valAsNumber);
+            } else if (type === TimepickerType.Hour) {
+              currentDateTime.setHours(valAsNumber);
+            }
+            onDateChange(currentDateTime);
+          }}
+          value={o}
+        />
+      ))}
+    </TimeOptions>
+  );
+};
 
 const TimeOptions = styled.div`
   display: flex;
@@ -59,30 +71,25 @@ interface TimePickerOptionProps {
   value: string;
   onSelectOption: (value: string) => void;
   isSelected: boolean;
-  index: number;
-  scrollContainerId: string;
 }
 
-const TimePickerOption: React.FC<TimePickerOptionProps> = ({
-  index,
-  isSelected,
-  onSelectOption,
-  scrollContainerId,
-  value,
-}) => (
-  <Item
-    id={`time-picker-${value}`}
-    onClick={(e) => {
-      e.stopPropagation();
-      onSelectOption(value);
-      scrollToIdx(scrollContainerId, index, "smooth");
-    }}
-    selected={isSelected}
-    type="submit"
-  >
-    {value}
-  </Item>
+const TimePickerOption = forwardRef<HTMLButtonElement, TimePickerOptionProps>(
+  ({ isSelected, onSelectOption, value }, ref) => (
+    <Item
+      ref={ref}
+      id={`time-picker-${value}`}
+      onClick={(e) => {
+        e.stopPropagation();
+        onSelectOption(value);
+      }}
+      selected={isSelected}
+      type="submit"
+    >
+      {value}
+    </Item>
+  ),
 );
+TimePickerOption.displayName = "TimePickerOption";
 
 const Item = styled.button<{ selected: boolean }>`
   all: unset;
