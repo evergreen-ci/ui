@@ -161,7 +161,7 @@ describe("editSpawnHostModal", () => {
       const { Component } = RenderFakeToastContext(
         <EditSpawnHostModal host={baseSpawnHost} onCancel={() => {}} visible />,
       );
-      Element.prototype.scrollTo = () => {};
+      Element.prototype.scrollIntoView = () => {};
       render(
         <MockedProvider mocks={baseMocks}>
           <Component />
