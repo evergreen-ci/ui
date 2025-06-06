@@ -172,7 +172,7 @@ describe("task history", () => {
         .children()
         // Filter out date-separators
         .filter(
-          (index, el) =>
+          (_idx, el) =>
             !el.hasAttribute("data-cy") ||
             el.getAttribute("data-cy") !== "date-separator",
         )
@@ -192,8 +192,14 @@ describe("task history", () => {
       });
       cy.validateToast("success", "Task scheduled to run");
 
-      cy.get("@taskBox").should("have.attr", "data-cy", "timeline-box");
-      cy.get("@taskBox").should("have.css", "background-color", willRunColor);
+      cy.get("@taskBox").should("not.have.attr", "data-cy", "collapsed-box");
+      cy.get("@taskBox").within(() => {
+        cy.dataCy("timeline-box").should(
+          "have.css",
+          "background-color",
+          willRunColor,
+        );
+      });
 
       cy.contains("1 Inactive Commit").should("not.exist");
       cy.get("@taskCard").within(() => {
