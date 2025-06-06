@@ -1,3 +1,14 @@
+import { palette } from "@leafygreen-ui/palette";
+
+const { green, gray, blue } = palette;
+
+export const hexToRGB = (hex: string) => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgb(${r}, ${g}, ${b})`;
+};
+
 describe("task history", () => {
   const spruceTaskHistoryLink =
     "task/spruce_ubuntu1604_e2e_test_b0c52a750150b4f1f67e501bd3351a808939815c_1f7cf49f4ce587c74212d8997da171c4_22_03_10_15_19_05/history";
@@ -74,8 +85,8 @@ describe("task history", () => {
   });
 
   describe("restarting tasks", () => {
-    const successColor = "rgb(0, 163, 92)";
-    const willRunColor = "rgb(92, 108, 117)";
+    const successColor = hexToRGB(green.dark1);
+    const willRunColor = hexToRGB(gray.dark1);
 
     it("restarting the task that is currently being viewed should reflect changes on UI and update the URL", () => {
       cy.visit(spruceTaskHistoryLink);
@@ -151,7 +162,7 @@ describe("task history", () => {
   });
 
   describe("scheduling tasks", () => {
-    const willRunColor = "rgb(92, 108, 117)";
+    const willRunColor = hexToRGB(gray.dark1);
 
     it("scheduling a task should reflect the changes on the UI", () => {
       cy.visit(spruceTaskHistoryLink);
@@ -161,7 +172,7 @@ describe("task history", () => {
         .children()
         // Filter out date-separators
         .filter(
-          (index, el) =>
+          (_idx, el) =>
             !el.hasAttribute("data-cy") ||
             el.getAttribute("data-cy") !== "date-separator",
         )
@@ -181,8 +192,14 @@ describe("task history", () => {
       });
       cy.validateToast("success", "Task scheduled to run");
 
-      cy.get("@taskBox").should("have.attr", "data-cy", "timeline-box");
-      cy.get("@taskBox").should("have.css", "background-color", willRunColor);
+      cy.get("@taskBox").should("not.have.attr", "data-cy", "collapsed-box");
+      cy.get("@taskBox").within(() => {
+        cy.dataCy("timeline-box").should(
+          "have.css",
+          "background-color",
+          willRunColor,
+        );
+      });
 
       cy.contains("1 Inactive Commit").should("not.exist");
       cy.get("@taskCard").within(() => {
@@ -555,6 +572,30 @@ describe("task history", () => {
         "have.value",
         "test_lint_1",
       );
+    });
+  });
+
+  describe("hover and click interactions", () => {
+    const selectedColor = hexToRGB(blue.base);
+
+    it("hovering on commit cards highlight the corresponding task box", () => {
+      cy.visit(mciTaskHistoryLink);
+      cy.dataCy("commit-details-card").eq(35).as("thirdTaskCard");
+      cy.dataCy("timeline-box").eq(35).as("thirdTaskBox");
+
+      cy.get("@thirdTaskCard").trigger("mouseover");
+      cy.get("@thirdTaskBox").should("have.css", "border-color", selectedColor);
+    });
+
+    it("clicking on task box should highlight and scroll to the commit card", () => {
+      cy.visit(mciTaskHistoryLink);
+      cy.dataCy("commit-details-card").eq(16).as("oldTaskCard");
+      cy.dataCy("timeline-box").eq(16).as("oldTaskBox");
+
+      cy.get("@oldTaskBox").click();
+      cy.get("@oldTaskBox").should("have.css", "border-color", selectedColor);
+      cy.get("@oldTaskCard").should("be.visible");
+      cy.get("@oldTaskCard").should("have.css", "border-color", selectedColor);
     });
   });
 });

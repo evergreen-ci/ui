@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
@@ -29,206 +30,229 @@ import { RESTART_TASK, SCHEDULE_TASKS } from "gql/mutations";
 import { useDateFormat } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { isProduction } from "utils/environmentVariables";
+import { stickyHeaderScrollOffset } from "../constants";
+import { useTaskHistoryContext } from "../context";
 import { TaskHistoryTask } from "../types";
 import CommitDescription from "./CommitDescription";
 import FailedTestsTable from "./FailedTestsTable";
 
-const { gray } = palette;
+const { blue, gray } = palette;
 
 interface CommitDetailsCardProps {
-  isCurrentTask: boolean;
-  owner: string | undefined;
-  repo: string | undefined;
   isMatching: boolean;
   task: TaskHistoryTask;
 }
 
-const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
-  isCurrentTask,
-  isMatching,
-  owner,
-  repo,
-  task,
-}) => {
-  const {
-    activated,
-    canRestart,
-    canSchedule,
-    createTime,
-    displayStatus,
-    id: taskId,
-    order,
-    revision,
-    tests,
-    versionMetadata,
-  } = task;
-  const { author, id: versionId, message } = versionMetadata;
+const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
+  ({ isMatching, task }, ref) => {
+    const {
+      activated,
+      canRestart,
+      canSchedule,
+      createTime,
+      displayStatus,
+      id: taskId,
+      order,
+      revision,
+      tests,
+      versionMetadata,
+    } = task;
+    const { author, id: versionId, message } = versionMetadata;
 
-  const { sendEvent } = useTaskHistoryAnalytics();
+    const { currentTask, selectedTask, setHoveredTask } =
+      useTaskHistoryContext();
+    const owner = currentTask.project?.owner ?? "";
+    const repo = currentTask.project?.repo ?? "";
+    const isCurrentTask = taskId === currentTask.id;
+    const isSelectedTask = taskId === selectedTask;
 
-  const getDateCopy = useDateFormat();
-  const createDate = new Date(createTime ?? "");
-  const dateCopy = getDateCopy(createDate, {
-    omitSeconds: true,
-    omitTimezone: true,
-  });
+    const { sendEvent } = useTaskHistoryAnalytics();
 
-  const githubCommitUrl =
-    owner && repo && revision ? getGithubCommitUrl(owner, repo, revision) : "";
+    const getDateCopy = useDateFormat();
+    const createDate = new Date(createTime ?? "");
+    const dateCopy = getDateCopy(createDate, {
+      omitSeconds: true,
+      omitTimezone: true,
+    });
 
-  const [, setExecution] = useQueryParam("execution", 0);
+    const githubCommitUrl =
+      owner && repo && revision
+        ? getGithubCommitUrl(owner, repo, revision)
+        : "";
 
-  const dispatchToast = useToastContext();
+    const [, setExecution] = useQueryParam("execution", 0);
 
-  const [scheduleTask] = useMutation<
-    ScheduleTasksMutation,
-    ScheduleTasksMutationVariables
-  >(SCHEDULE_TASKS, {
-    variables: { taskIds: [task.id], versionId },
-    onCompleted: () => {
-      dispatchToast.success("Task scheduled to run");
-    },
-    onError: (err) => {
-      dispatchToast.error(`Error scheduling task: ${err.message}`);
-    },
-    update: (cache) => {
-      cache.modify({
-        id: cache.identify(task),
-        fields: {
-          canSchedule: () => false,
-          displayStatus: () => TaskStatus.WillRun,
-          activated: () => true,
-        },
-        broadcast: true,
-      });
-    },
-  });
+    const dispatchToast = useToastContext();
 
-  const [restartTask] = useMutation<
-    RestartTaskMutation,
-    RestartTaskMutationVariables
-  >(RESTART_TASK, {
-    variables: { taskId, failedOnly: false },
-    onCompleted: (data) => {
-      dispatchToast.success("Task scheduled to restart");
-      if (isCurrentTask) {
-        const latestExecution = data?.restartTask.latestExecution ?? 0;
-        setExecution(latestExecution);
-      }
-    },
-    onError: (err) =>
-      dispatchToast.error(`Error restarting task: ${err.message}`),
-    update: (cache) => {
-      if (!isCurrentTask) {
+    const [scheduleTask] = useMutation<
+      ScheduleTasksMutation,
+      ScheduleTasksMutationVariables
+    >(SCHEDULE_TASKS, {
+      variables: { taskIds: [task.id], versionId },
+      onCompleted: () => {
+        dispatchToast.success("Task scheduled to run");
+      },
+      onError: (err) => {
+        dispatchToast.error(`Error scheduling task: ${err.message}`);
+      },
+      update: (cache) => {
         cache.modify({
           id: cache.identify(task),
           fields: {
-            canRestart: () => false,
+            canSchedule: () => false,
             displayStatus: () => TaskStatus.WillRun,
-            execution: (cachedExecution: number) => cachedExecution + 1,
+            activated: () => true,
           },
-          broadcast: false,
+          broadcast: true,
         });
-      }
-    },
-    // Only re-request if the current task is restarted. This should be relatively
-    // uncommon.
-    refetchQueries: [isCurrentTask ? "TaskHistory" : ""],
-  });
+      },
+    });
 
-  return (
-    <CommitCard
-      key={taskId}
-      data-cy="commit-details-card"
-      isMatching={isMatching}
-      status={displayStatus as TaskStatus}
-    >
-      <TopLabel>
-        <InlineCode as={Link} data-cy="task-link" to={getTaskRoute(taskId)}>
-          {shortenGithash(revision ?? "")}
-        </InlineCode>
-        <IconButton
-          aria-label="GitHub Commit Link"
-          data-cy="github-link"
-          href={githubCommitUrl}
-          target="__blank"
-        >
-          <Icon glyph="GitHub" />
-        </IconButton>
-        {activated ? (
-          <Button
-            data-cy="restart-button"
-            disabled={!canRestart}
-            onClick={() => {
-              restartTask();
-              sendEvent({
-                name: "Clicked restart task button",
-                "task.id": task.id,
-              });
-            }}
-            size={ButtonSize.XSmall}
+    const [restartTask] = useMutation<
+      RestartTaskMutation,
+      RestartTaskMutationVariables
+    >(RESTART_TASK, {
+      variables: { taskId, failedOnly: false },
+      onCompleted: (data) => {
+        dispatchToast.success("Task scheduled to restart");
+        if (isCurrentTask) {
+          const latestExecution = data?.restartTask.latestExecution ?? 0;
+          setExecution(latestExecution);
+        }
+      },
+      onError: (err) =>
+        dispatchToast.error(`Error restarting task: ${err.message}`),
+      update: (cache) => {
+        if (!isCurrentTask) {
+          cache.modify({
+            id: cache.identify(task),
+            fields: {
+              canRestart: () => false,
+              displayStatus: () => TaskStatus.WillRun,
+              execution: (cachedExecution: number) => cachedExecution + 1,
+            },
+            broadcast: false,
+          });
+        }
+      },
+      // Only re-request if the current task is restarted. This should be relatively
+      // uncommon.
+      refetchQueries: [isCurrentTask ? "TaskHistory" : ""],
+    });
+
+    return (
+      <CommitCard
+        key={taskId}
+        ref={ref}
+        data-cy="commit-details-card"
+        id={`commit-card-${taskId}`}
+        isMatching={isMatching}
+        onMouseEnter={() => setHoveredTask(taskId)}
+        onMouseLeave={() => setHoveredTask(null)}
+        selected={isSelectedTask}
+        status={displayStatus as TaskStatus}
+      >
+        <TopLabel>
+          <InlineCode as={Link} data-cy="task-link" to={getTaskRoute(taskId)}>
+            {shortenGithash(revision ?? "")}
+          </InlineCode>
+          <IconButton
+            aria-label="GitHub Commit Link"
+            data-cy="github-link"
+            href={githubCommitUrl}
+            target="__blank"
           >
-            Restart Task
-          </Button>
+            <Icon glyph="GitHub" />
+          </IconButton>
+          {activated ? (
+            <Button
+              data-cy="restart-button"
+              disabled={!canRestart}
+              onClick={() => {
+                restartTask();
+                sendEvent({
+                  name: "Clicked restart task button",
+                  "task.id": task.id,
+                });
+              }}
+              size={ButtonSize.XSmall}
+            >
+              Restart Task
+            </Button>
+          ) : (
+            <Button
+              data-cy="schedule-button"
+              disabled={!canSchedule}
+              onClick={() => {
+                scheduleTask();
+                sendEvent({
+                  name: "Clicked schedule task button",
+                  "task.id": task.id,
+                });
+              }}
+              size={ButtonSize.XSmall}
+            >
+              Schedule Task
+            </Button>
+          )}
+          {isCurrentTask && (
+            <Badge data-cy="this-task-badge" variant={BadgeVariant.Blue}>
+              This Task
+            </Badge>
+          )}
+          <span>{dateCopy}</span>
+          {/* Use this to debug issues with pagination. */}
+          {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}
+        </TopLabel>
+        {tests.testResults.length > 0 ? (
+          <Accordion
+            caretAlign={AccordionCaretAlign.Start}
+            onToggle={({ isVisible }) =>
+              sendEvent({ name: "Toggled failed tests table", open: isVisible })
+            }
+            title={<CommitDescription author={author} message={message} />}
+          >
+            <FailedTestsTable tests={tests} />
+          </Accordion>
         ) : (
-          <Button
-            data-cy="schedule-button"
-            disabled={!canSchedule}
-            onClick={() => {
-              scheduleTask();
-              sendEvent({
-                name: "Clicked schedule task button",
-                "task.id": task.id,
-              });
-            }}
-            size={ButtonSize.XSmall}
-          >
-            Schedule Task
-          </Button>
+          <CommitDescription author={author} message={message} />
         )}
-        {isCurrentTask && (
-          <Badge data-cy="this-task-badge" variant={BadgeVariant.Blue}>
-            This Task
-          </Badge>
-        )}
-        <span>{dateCopy}</span>
-        {/* Use this to debug issues with pagination. */}
-        {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}
-      </TopLabel>
-      {tests.testResults.length > 0 ? (
-        <Accordion
-          caretAlign={AccordionCaretAlign.Start}
-          onToggle={({ isVisible }) =>
-            sendEvent({ name: "Toggled failed tests table", open: isVisible })
-          }
-          title={<CommitDescription author={author} message={message} />}
-        >
-          <FailedTestsTable tests={tests} />
-        </Accordion>
-      ) : (
-        <CommitDescription author={author} message={message} />
-      )}
-    </CommitCard>
-  );
-};
+      </CommitCard>
+    );
+  },
+);
+CommitDetailsCard.displayName = "CommitDetailsCard";
 
 export default CommitDetailsCard;
 
 const CommitCard = styled.div<{
   status: TaskStatus;
+  selected: boolean;
   isMatching: boolean;
 }>`
   display: flex;
   flex-direction: column;
   gap: ${size.xs};
-
   padding: ${size.xs};
+
   border-radius: ${size.xs};
   border: 1px solid ${gray.light2};
+  :hover {
+    border: 1px solid ${blue.base};
+  }
+  ${({ selected }) => selected && `border: 1px solid ${blue.base};`}
+  /* Styles for the status stripe. Border isn't used as it interferes with hover styles. */
+  padding-left: ${size.s};
 
-  ${({ status }) => `border-left: ${size.xs} solid ${statusColorMap[status]};`}
+  ${({ status }) => `
+     background: linear-gradient(to right, ${statusColorMap[status]} 10px, transparent 0px) no-repeat;
+     `}
 
-  ${({ isMatching }) => !isMatching && inactiveElementStyle}
+  ${({ selected }) => selected && `border: 1px solid ${blue.base};`}
+
+  ${({ isMatching }) => !isMatching && inactiveElementStyle};
+
+  scroll-margin-top: ${stickyHeaderScrollOffset}px;
 `;
 
 const TopLabel = styled.div`

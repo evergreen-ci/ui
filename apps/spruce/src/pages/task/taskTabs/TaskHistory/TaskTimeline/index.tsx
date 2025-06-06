@@ -1,5 +1,4 @@
 import { forwardRef } from "react";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
@@ -11,10 +10,13 @@ import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
 import { TaskHistoryDirection } from "gql/generated/types";
 import { useUserTimeZone } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
+import { useTaskHistoryContext } from "../context";
 import { GroupedTask, TaskHistoryOptions, TaskHistoryTask } from "../types";
-import DateSeparator from "./DateSeparator";
+import CurrentTaskBadge, { currentBadgeHoverStyles } from "./CurrentTaskBadge";
+import DateSeparator, { dateSeparatorHoverGroupStyles } from "./DateSeparator";
 
-const { gray } = palette;
+const { blue, gray, white } = palette;
+
 type TaskHistoryPagination = {
   mostRecentTaskOrder: number | undefined;
   oldestTaskOrder: number | undefined;
@@ -38,6 +40,9 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
       oldestTaskOrder,
       prevPageCursor,
     } = pagination;
+
+    const { currentTask, hoveredTask, selectedTask, setSelectedTask } =
+      useTaskHistoryContext();
 
     return (
       <Container>
@@ -69,8 +74,15 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
           ) : (
             <>
               {tasks.map((t) => {
-                const { inactiveTasks, shouldShowDateSeparator, task } = t;
+                const {
+                  commitCardRef,
+                  inactiveTasks,
+                  shouldShowDateSeparator,
+                  task,
+                } = t;
                 if (task) {
+                  const isHoveredTask = hoveredTask === task.id;
+                  const isSelectedTask = selectedTask === task.id;
                   return (
                     <>
                       {shouldShowDateSeparator && (
@@ -80,13 +92,28 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                           timezone={timezone}
                         />
                       )}
-                      <TaskBox
-                        key={task.id}
-                        className="square"
-                        data-cy="timeline-box"
-                        rightmost={false}
-                        status={task.displayStatus as TaskStatus}
-                      />
+                      <TaskBoxWrapper className="square">
+                        <TaskBox
+                          key={task.id}
+                          active={isHoveredTask || isSelectedTask}
+                          data-cy="timeline-box"
+                          id={`task-box-${task.id}`}
+                          onClick={() => {
+                            if (isSelectedTask) {
+                              setSelectedTask(null);
+                            } else {
+                              setSelectedTask(task.id);
+                              commitCardRef.current?.scrollIntoView();
+                            }
+                          }}
+                          rightmost={false}
+                          status={task.displayStatus as TaskStatus}
+                          taskId={task.id}
+                        />
+                        <CurrentTaskBadge
+                          isCurrentTask={currentTask.id === task.id}
+                        />
+                      </TaskBoxWrapper>
                     </>
                   );
                 } else if (inactiveTasks) {
@@ -145,59 +172,9 @@ TaskTimeline.displayName = "TaskTimeline";
 
 export default TaskTimeline;
 
-const dateSeparatorHoverGroupStyles = css`
-  .date-separator {
-    .date-badge {
-      transition: opacity 0.2s ease;
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .dot {
-      transition: opacity 0.2s ease;
-      opacity: 0;
-    }
-
-    &:hover .date-badge {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* If followed closely by another .date-separator (after a .square), hide that one's badge and show dot */
-    &:has(+ .square + .date-separator) + .square + .date-separator {
-      .date-badge {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      .dot {
-        opacity: 1;
-      }
-
-      &:hover {
-        .date-badge {
-          opacity: 1;
-          pointer-events: auto;
-        }
-
-        .dot {
-          opacity: 0;
-        }
-      }
-    }
-
-    /* When the right-side separator is hovered, apply style to current (left) */
-    &:has(+ .square + .date-separator:hover) {
-      .date-badge {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      .dot {
-        opacity: 1;
-      }
-    }
-  }
+const TaskBoxWrapper = styled.div`
+  position: relative;
+  ${currentBadgeHoverStyles};
 `;
 
 const Container = styled.div`
@@ -219,9 +196,22 @@ const Timeline = styled.div`
   flex-direction: row;
 `;
 
-const TaskBox = styled(BaseTaskBox)`
+const TaskBox = styled(BaseTaskBox)<{
+  active: boolean;
+  taskId: string;
+}>`
   opacity: 0.5;
+
+  ${({ active }) =>
+    active &&
+    `
+      opacity: 1;
+      border: 1px solid ${blue.base};
+      box-shadow: 0 0 0 1px ${white} inset;
+    `};
+
   :hover {
+    cursor: pointer;
     opacity: 1;
   }
 `;

@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-krioxf-CommitList ez8m9z90"
+    class="css-3bzv6j-CommitList ez8m9z90"
     data-cy="commit-details-list"
   >
     <div
@@ -17,8 +17,9 @@
       />
     </div>
     <div
-      class="css-1ffesh7-CommitCard e1a625uv2"
+      class="css-1lln62q-CommitCard e1a625uv2"
       data-cy="commit-details-card"
+      id="commit-card-a"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -123,8 +124,9 @@
       </div>
     </div>
     <div
-      class="css-cfn6u4-CommitCard e1a625uv2"
+      class="css-1hqj786-CommitCard e1a625uv2"
       data-cy="commit-details-card"
+      id="commit-card-b"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -274,8 +276,9 @@
       />
     </div>
     <div
-      class="css-1vbh9ch-CommitCard e1a625uv2"
+      class="css-sgosy0-CommitCard e1a625uv2"
       data-cy="commit-details-card"
+      id="commit-card-d"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -425,8 +428,9 @@
       />
     </div>
     <div
-      class="css-173zci2-CommitCard e1a625uv2"
+      class="css-1al1fti-CommitCard e1a625uv2"
       data-cy="commit-details-card"
+      id="commit-card-f"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -855,8 +859,9 @@
       />
     </div>
     <div
-      class="css-14ovsiy-CommitCard e1a625uv2"
+      class="css-q1753e-CommitCard e1a625uv2"
       data-cy="commit-details-card"
+      id="commit-card-j"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -968,8 +973,9 @@
       />
     </div>
     <div
-      class="css-todlc7-CommitCard e1a625uv2"
+      class="css-qse531-CommitCard e1a625uv2"
       data-cy="commit-details-card"
+      id="commit-card-k"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
