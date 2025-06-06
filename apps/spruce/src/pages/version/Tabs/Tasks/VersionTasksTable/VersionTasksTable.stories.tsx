@@ -1,4 +1,5 @@
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { versionMock } from "gql/mocks/getSpruceConfig";
 import { tasks, taskStatusesMock, versionId } from "./testData";
 import { VersionTasksTable } from ".";
 
@@ -30,7 +31,7 @@ export const Default: CustomStoryObj<typeof VersionTasksTable> = {
   },
   parameters: {
     apolloClient: {
-      mocks: [taskStatusesMock],
+      mocks: [taskStatusesMock, versionMock],
     },
   },
 };

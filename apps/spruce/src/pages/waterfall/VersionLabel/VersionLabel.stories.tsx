@@ -3,6 +3,7 @@ import { StoryObj } from "@storybook/react-vite";
 import {
   getSpruceConfigMock,
   getUserSettingsMock,
+  getVersionUpstreamProjectMock,
 } from "gql/mocks/getSpruceConfig";
 import {
   getTaskStatsMock,
@@ -11,7 +12,6 @@ import {
   versionWithUpstreamProject,
   versionBroken,
 } from "../testData";
-import { getVersionUpstreamProjectMock } from "./testData";
 import { VersionLabel, VersionLabelView } from ".";
 
 export default {
@@ -36,7 +36,11 @@ export const Default: StoryObj<typeof VersionLabel> = {
   ),
   parameters: {
     apolloClient: {
-      mocks: [getSpruceConfigMock, getUserSettingsMock],
+      mocks: [
+        getSpruceConfigMock,
+        getUserSettingsMock,
+        getVersionUpstreamProjectMock(version.id),
+      ],
     },
   },
   args: version,
@@ -45,6 +49,15 @@ export const Default: StoryObj<typeof VersionLabel> = {
 export const GitTag: StoryObj<typeof VersionLabel> = {
   ...Default,
   args: versionWithGitTag,
+  parameters: {
+    apolloClient: {
+      mocks: [
+        getSpruceConfigMock,
+        getUserSettingsMock,
+        getVersionUpstreamProjectMock(versionWithGitTag.id),
+      ],
+    },
+  },
 };
 
 export const UpstreamProject: StoryObj<typeof VersionLabel> = {
@@ -55,7 +68,7 @@ export const UpstreamProject: StoryObj<typeof VersionLabel> = {
       mocks: [
         getSpruceConfigMock,
         getUserSettingsMock,
-        getVersionUpstreamProjectMock,
+        getVersionUpstreamProjectMock(versionWithUpstreamProject.id),
       ],
     },
   },
@@ -70,6 +83,7 @@ export const SmallSize: StoryObj<typeof VersionLabel> = {
         getTaskStatsMock(version.id),
         getSpruceConfigMock,
         getUserSettingsMock,
+        getVersionUpstreamProjectMock(version.id),
       ],
     },
   },
@@ -78,6 +92,15 @@ export const SmallSize: StoryObj<typeof VersionLabel> = {
 export const Broken: StoryObj<typeof VersionLabel> = {
   ...Default,
   args: versionBroken,
+  parameters: {
+    apolloClient: {
+      mocks: [
+        getSpruceConfigMock,
+        getUserSettingsMock,
+        getVersionUpstreamProjectMock(versionBroken.id),
+      ],
+    },
+  },
 };
 
 const Container = styled.div`

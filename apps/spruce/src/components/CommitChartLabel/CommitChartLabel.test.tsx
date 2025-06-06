@@ -6,12 +6,15 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 import CommitChartLabel from ".";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const RenderCommitChartLabel = ({ version }) => (
-  <MockedProvider mocks={[getSpruceConfigMock]}>
+  <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
     <CommitChartLabel
       author={version.author}
       createTime={version.createTime}

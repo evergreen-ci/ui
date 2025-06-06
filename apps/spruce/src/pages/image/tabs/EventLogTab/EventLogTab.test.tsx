@@ -14,11 +14,14 @@ import {
   ImageEventsQueryVariables,
   ImageEventEntryAction,
 } from "gql/generated/types";
+import { getUserSettingsMock } from "gql/mocks/getSpruceConfig";
 import { IMAGE_EVENTS } from "gql/queries";
 import { EventLogTab } from "./EventLogTab";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[imageEventsMock]}>{children}</MockedProvider>
+  <MockedProvider mocks={[imageEventsMock, getUserSettingsMock]}>
+    {children}
+  </MockedProvider>
 );
 enum Column {
   Name = 0,

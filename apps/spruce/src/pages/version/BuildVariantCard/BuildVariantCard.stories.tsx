@@ -1,4 +1,9 @@
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+  versionMock,
+} from "gql/mocks/getSpruceConfig";
 import { mocks } from "./testData";
 import BuildVariantCard from ".";
 
@@ -7,7 +12,7 @@ export default {
   component: BuildVariantCard,
   parameters: {
     apolloClient: {
-      mocks,
+      mocks: [...mocks, getSpruceConfigMock, getUserSettingsMock, versionMock],
     },
   },
 } satisfies CustomMeta<typeof BuildVariantCard>;
