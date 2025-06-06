@@ -1,3 +1,4 @@
+import { RefObject } from "react";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { TaskHistoryQuery } from "gql/generated/types";
 
@@ -14,12 +15,14 @@ export type GroupedTask =
       task: null;
       shouldShowDateSeparator: boolean;
       isMatching: false;
+      commitCardRef: null;
     }
   | {
       inactiveTasks: null;
       task: TaskHistoryTask;
       shouldShowDateSeparator: boolean;
       isMatching: boolean;
+      commitCardRef: RefObject<HTMLDivElement>;
     };
 
 export enum ViewOptions {

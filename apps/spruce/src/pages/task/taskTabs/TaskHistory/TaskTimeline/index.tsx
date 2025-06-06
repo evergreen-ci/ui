@@ -8,7 +8,6 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
-import { taskPageWrapperId } from "constants/index";
 import { TaskHistoryDirection } from "gql/generated/types";
 import { useUserTimeZone } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
@@ -75,8 +74,13 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
             <Skeleton size={SkeletonSize.Small} />
           ) : (
             <>
-              {tasks.map((t, idx) => {
-                const { inactiveTasks, shouldShowDateSeparator, task } = t;
+              {tasks.map((t) => {
+                const {
+                  commitCardRef,
+                  inactiveTasks,
+                  shouldShowDateSeparator,
+                  task,
+                } = t;
                 if (task) {
                   const isHoveredTask = hoveredTask === task.id;
                   const isSelectedTask = selectedTask === task.id;
@@ -100,7 +104,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                               setSelectedTask(null);
                             } else {
                               setSelectedTask(task.id);
-                              scrollToCard(task.id, idx > tasks.length - 5);
+                              commitCardRef.current?.scrollIntoView();
                             }
                           }}
                           rightmost={false}
@@ -168,19 +172,6 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
 TaskTimeline.displayName = "TaskTimeline";
 
 export default TaskTimeline;
-
-const scrollToCard = (taskId: string, isAtListEnd: boolean) => {
-  const element = document.getElementById(`commit-card-${taskId}`);
-  const pageWrapper = document.getElementById(taskPageWrapperId);
-  if (element && pageWrapper) {
-    element.scrollIntoView({ block: "start" });
-    // If the item is at the end of the list, there's no need to adjust the
-    // scroll position.
-    if (!isAtListEnd) {
-      pageWrapper.scrollBy(0, -190);
-    }
-  }
-};
 
 const currentBadgeHoverStyles = css`
   .current-task-badge {

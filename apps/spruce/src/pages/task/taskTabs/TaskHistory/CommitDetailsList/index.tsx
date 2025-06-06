@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { size } from "@evg-ui/lib/constants/tokens";
 import CommitDetailsCard from "../CommitDetailsCard";
+import { stickyHeaderScrollOffset } from "../constants";
 import InactiveCommitsButton from "../InactiveCommitsButton";
 import { GroupedTask } from "../types";
 import DateSeparator from "./DateSeparator";
@@ -21,8 +22,13 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
     ) : (
       <>
         {tasks.map((t) => {
-          const { inactiveTasks, isMatching, shouldShowDateSeparator, task } =
-            t;
+          const {
+            commitCardRef,
+            inactiveTasks,
+            isMatching,
+            shouldShowDateSeparator,
+            task,
+          } = t;
           if (task) {
             return (
               <>
@@ -31,6 +37,7 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
                 )}
                 <CommitDetailsCard
                   key={task.id}
+                  ref={commitCardRef}
                   isMatching={isMatching}
                   task={task}
                 />
@@ -63,4 +70,7 @@ const CommitList = styled.div`
   flex-direction: column;
   gap: ${size.xs};
   overflow-y: scroll;
+
+  padding-top: ${stickyHeaderScrollOffset}px;
+  margin-top: -${stickyHeaderScrollOffset}px;
 `;

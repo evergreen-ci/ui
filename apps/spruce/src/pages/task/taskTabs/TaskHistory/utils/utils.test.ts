@@ -102,6 +102,7 @@ describe("areDatesOnSameDay", () => {
     expect(areDatesOnSameDay(date3, date4, "Asia/Japan")).toBe(false);
   });
 });
+
 describe("getUTCEndOfDay", () => {
   beforeEach(() => {
     process.env.TZ = "America/New_York";
