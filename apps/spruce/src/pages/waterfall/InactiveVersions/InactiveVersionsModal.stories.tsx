@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { StoryObj } from "@storybook/react";
+import { StoryObj } from "@storybook/react-vite";
 import { InactiveVersion } from "../styles";
 import {
   inactiveVersion,
