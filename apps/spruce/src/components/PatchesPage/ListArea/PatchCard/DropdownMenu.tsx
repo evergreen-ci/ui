@@ -37,7 +37,7 @@ export const DropdownMenu: React.FC<Props> = ({
     />,
     <RestartPatch
       key="restart"
-      disabled={!hasVersion}
+      disabled={!hasVersion || isMergeQueuePatch}
       patchId={patchId}
       refetchQueries={refetchQueries}
       visibilityControl={restartModalVisibilityControl}
