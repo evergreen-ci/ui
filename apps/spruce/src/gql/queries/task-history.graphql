@@ -12,6 +12,7 @@ query TaskHistory($options: TaskHistoryOpts!) {
       createTime
       displayStatus
       execution
+      latestExecution
       order
       revision
       tests(opts: { statuses: ["fail", "silentfail"] }) {
