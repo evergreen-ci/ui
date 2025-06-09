@@ -1,19 +1,12 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import {
-  Chip,
-  Variant as ChipVariant,
-  TruncationLocation,
-} from "@leafygreen-ui/chip";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
-import ExpandedText from "components/ExpandedText";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
@@ -34,17 +27,17 @@ import {
   getImageRoute,
 } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
-import { useDateFormat } from "hooks";
-import { string } from "utils";
-import { isFailedTaskStatus } from "utils/statuses";
+import { useDateFormat } from "hooks/useDateFormat";
+import { applyStrictRegex, msToDuration } from "utils/string";
 import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
+import DetailsDescription from "./DetailsDescription";
 import ETATimer from "./ETATimer";
 import RuntimeTimer from "./RuntimeTimer";
 import { Stepback, isInStepback } from "./Stepback";
+import TagsMetadata from "./TagsMetadata";
 import TaskOwnership from "./TaskOwnership";
 
-const { applyStrictRegex, msToDuration } = string;
 const { red } = palette;
 
 interface Props {
@@ -263,6 +256,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             status={details?.status}
           />
         )}
+
         <TaskOwnership execution={execution} taskId={taskId} />
         {details?.timeoutType && details?.timeoutType !== "" && (
           <MetadataItem>
@@ -334,22 +328,24 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             finished.
           </MetadataItem>
         )}
-        {taskTrace && startTime && finishTime && (
+        {startTime && finishTime && (
           <MetadataItem>
             <HoneycombLinkContainer>
-              <StyledLink
-                data-cy="task-trace-link"
-                hideExternalIcon={false}
-                href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
-                onClick={() => {
-                  taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
-                    "link.type": "honeycomb trace link",
-                  });
-                }}
-              >
-                Honeycomb Trace
-              </StyledLink>
+              {taskTrace && (
+                <StyledLink
+                  data-cy="task-trace-link"
+                  hideExternalIcon={false}
+                  href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
+                  onClick={() => {
+                    taskAnalytics.sendEvent({
+                      name: "Clicked metadata link",
+                      "link.type": "honeycomb trace link",
+                    });
+                  }}
+                >
+                  Honeycomb Trace
+                </StyledLink>
+              )}
               <StyledLink
                 data-cy="task-metrics-link"
                 hideExternalIcon={false}
@@ -488,97 +484,17 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         </MetadataCard>
       ) : null}
 
-      {tags && tags.length > 0 ? (
-        <MetadataCard title="Tags">
-          <TagsContainer>
-            {tags.map((t) => (
-              <Chip
-                key={`task-tag-${t}`}
-                chipCharacterLimit={30}
-                chipTruncationLocation={TruncationLocation.End}
-                label={t}
-                variant={ChipVariant.Gray}
-              />
-            ))}
-          </TagsContainer>
-        </MetadataCard>
-      ) : null}
+      <TagsMetadata
+        failureMetadataTags={details?.failureMetadataTags}
+        tags={tags}
+      />
     </>
   );
 };
 
-const DetailsDescription = ({
-  description,
-  failingCommand,
-  isContainerTask,
-  status,
-}: {
-  description: string;
-  failingCommand: string;
-  isContainerTask: boolean;
-  status: string;
-}) => {
-  const MAX_CHAR = 100;
-  const isFailingTask = isFailedTaskStatus(status);
-  const baseCopy = description || failingCommand;
-  const fullText = isFailingTask
-    ? `${processFailingCommand(baseCopy, isContainerTask)}`
-    : `${baseCopy}`;
-
-  const shouldTruncate = fullText.length > MAX_CHAR;
-  const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
-
-  return (
-    <MetadataItem data-cy="task-metadata-description">
-      {isFailingTask ? (
-        <MetadataLabel color={red.base}>Failing Command: </MetadataLabel>
-      ) : (
-        <MetadataLabel>Command: </MetadataLabel>
-      )}
-      {shouldTruncate ? (
-        <>
-          {truncatedText}{" "}
-          <ExpandedText
-            align="right"
-            data-cy="task-metadata-description-tooltip"
-            justify="end"
-            message={description}
-            popoverZIndex={zIndex.tooltip}
-          />
-        </>
-      ) : (
-        fullText
-      )}
-    </MetadataItem>
-  );
-};
-
-const processFailingCommand = (
-  description: string,
-  isContainerTask: boolean,
-): string => {
-  if (description === "stranded") {
-    return isContainerTask
-      ? containerTaskStrandedMessage
-      : hostTaskStrandedMessage;
-  }
-  return description;
-};
-
-const containerTaskStrandedMessage =
-  "Task failed because the container was stranded by the ECS agent.";
-const hostTaskStrandedMessage =
-  "Task failed because spot host was unexpectedly terminated by AWS.";
-
 const HoneycombLinkContainer = styled.span`
   display: flex;
   flex-direction: column;
-`;
-
-const TagsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${size.xs};
 `;
 
 const OOMTrackerMessage = styled(MetadataItem)`

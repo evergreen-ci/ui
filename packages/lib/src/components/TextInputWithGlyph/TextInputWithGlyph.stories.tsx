@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Icon from "@leafygreen-ui/icon";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { TextInputWithGlyph, TextInputWithGlyphProps } from ".";
 
 export default {

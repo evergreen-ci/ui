@@ -6,6 +6,14 @@ import { TestResult } from "gql/generated/types";
 import { tasks } from "../testData";
 import CommitDetailsCard from ".";
 
+type CommitDetailsCardType = React.ComponentProps<typeof CommitDetailsCard> & {
+  activated: boolean;
+  canRestart: boolean;
+  canSchedule: boolean;
+  message: string;
+  status: TaskStatus;
+};
+
 export default {
   component: CommitDetailsCard,
   decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
@@ -43,7 +51,7 @@ export default {
       control: { type: "select" },
     },
   },
-} satisfies CustomMeta<TemplateProps>;
+} satisfies CustomMeta<CommitDetailsCardType>;
 
 export const Default: CustomStoryObj<TemplateProps> = {
   render: (args) => <Template {...args} />,

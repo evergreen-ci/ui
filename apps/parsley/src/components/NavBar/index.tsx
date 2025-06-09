@@ -28,7 +28,7 @@ const NavBar: React.FC = () => {
       <FlexContainer>
         <Logo glyph="ParsleyLogo" size={24} useStroke />
         <LinkContainer>
-          <StyledLink href={docsURL}>Docs</StyledLink>
+          <StyledLink href={`${docsURL}/Home`}>Docs</StyledLink>
           <UploadLink clearLogs={clearLogs} hasLogs={hasLogs} />
         </LinkContainer>
         <Search />

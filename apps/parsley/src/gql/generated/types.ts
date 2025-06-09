@@ -2189,6 +2189,7 @@ export type PublicKeyInput = {
 
 export type Query = {
   __typename?: "Query";
+  adminSettings?: Maybe<AdminSettings>;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
   buildBaron: BuildBaron;
@@ -3284,14 +3285,10 @@ export type UpstreamProject = {
 
 export type UseSpruceOptions = {
   __typename?: "UseSpruceOptions";
-  hasUsedMainlineCommitsBefore?: Maybe<Scalars["Boolean"]["output"]>;
-  hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]["output"]>;
   spruceV1?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type UseSpruceOptionsInput = {
-  hasUsedMainlineCommitsBefore?: InputMaybe<Scalars["Boolean"]["input"]>;
-  hasUsedSpruceBefore?: InputMaybe<Scalars["Boolean"]["input"]>;
   spruceV1?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 

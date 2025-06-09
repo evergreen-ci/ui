@@ -6,6 +6,10 @@ import { tasks } from "../testData";
 import { groupTasks } from "../utils";
 import CommitDetailsList from ".";
 
+type CommitDetailsListType = React.ComponentProps<typeof CommitDetailsList> & {
+  shouldCollapse: boolean;
+};
+
 export default {
   component: CommitDetailsList,
   decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
@@ -21,7 +25,7 @@ export default {
       control: { type: "boolean" },
     },
   },
-} satisfies CustomMeta<TemplateProps>;
+} satisfies CustomMeta<CommitDetailsListType>;
 
 export const Default: CustomStoryObj<TemplateProps> = {
   render: (args) => <Template {...args} />,
