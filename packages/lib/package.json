@@ -14,8 +14,8 @@
     "test": "vitest --typecheck=false"
   },
   "dependencies": {
-    "@emotion/react": "11.13.3",
-    "@emotion/styled": "11.13.0",
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.0",
     "@honeycombio/opentelemetry-web": "^0.5.0",
     "@leafygreen-ui/emotion": "4.0.7",
     "@leafygreen-ui/icon": "^12.6.0",
