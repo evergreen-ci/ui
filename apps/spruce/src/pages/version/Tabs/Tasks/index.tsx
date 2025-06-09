@@ -31,14 +31,16 @@ const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
   const versionAnalytics = useVersionAnalytics(versionId || "");
   const queryVariables = useQueryVariables(search, versionId || "");
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
-  const { limit, page } = queryVariables.taskFilterOptions;
+  const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
-    updateQueryParams({
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      [PatchTasksQueryParams.Duration]: undefined,
-      [PatchTasksQueryParams.Sorts]: defaultSortMethod,
-    });
+    if (sorts && sorts.length === 0) {
+      updateQueryParams({
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        [PatchTasksQueryParams.Duration]: undefined,
+        [PatchTasksQueryParams.Sorts]: defaultSortMethod,
+      });
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const clearQueryParams = () => {

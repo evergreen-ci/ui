@@ -34,14 +34,16 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
   const versionAnalytics = useVersionAnalytics(versionId);
   const queryVariables = useQueryVariables(search, versionId);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
-  const { limit, page } = queryVariables.taskFilterOptions;
+  const { limit, page, sorts } = queryVariables.taskFilterOptions;
   const [hasInitialized, setHasInitialized] = useState(false);
 
   useEffect(() => {
-    setQueryParams({
-      ...queryParams,
-      [TableQueryParams.Sorts]: defaultSort,
-    });
+    if (sorts && sorts.length === 0) {
+      setQueryParams({
+        ...queryParams,
+        [TableQueryParams.Sorts]: defaultSort,
+      });
+    }
     setHasInitialized(true);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
