@@ -10,6 +10,7 @@ type CommitDetailsCardType = React.ComponentProps<typeof CommitDetailsCard> & {
   activated: boolean;
   canRestart: boolean;
   canSchedule: boolean;
+  latestExecution: number;
   message: string;
   status: TaskStatus;
 };
@@ -23,6 +24,7 @@ export default {
     canSchedule: true,
     isCurrentTask: true,
     isMatching: true,
+    latestExecution: 2,
     message:
       "DEVPROD-1234: Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.",
     status: TaskStatus.Succeeded,
@@ -42,6 +44,9 @@ export default {
     },
     isMatching: {
       control: { type: "boolean" },
+    },
+    latestExecution: {
+      control: { type: "number" },
     },
     message: {
       control: { type: "text" },
@@ -79,6 +84,7 @@ type TemplateProps = {
   hasFailingTests: boolean;
   isCurrentTask: boolean;
   isMatching: boolean;
+  latestExecution: number;
   message: string;
   status: TaskStatus;
 };
@@ -104,6 +110,7 @@ const getStoryTask = (args: TemplateProps) => {
     displayStatus: args.status,
     canRestart: args.canRestart,
     canSchedule: args.canSchedule,
+    latestExecution: args.latestExecution,
     versionMetadata: {
       ...task.versionMetadata,
       message: args.message,
