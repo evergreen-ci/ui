@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "@leafygreen-ui/button";
+import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import Tooltip, { Align, Justify } from "@leafygreen-ui/tooltip";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { DropdownItem } from "components/ButtonDropdown";
@@ -28,7 +28,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
   const onClick = () => setIsVisible(!isVisible);
 
   const message = isButton
-    ? "This version cannot be restarted because it is from the GitHub merge queue."
+    ? "This patch cannot be restarted because it is from the GitHub merge queue."
     : "This patch cannot be restarted because it is either unconfigured or from the GitHub merge queue.";
 
   return (
@@ -44,7 +44,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
               data-cy="restart-version"
               disabled={disabled}
               onClick={onClick}
-              size="small"
+              size={ButtonSize.Small}
             >
               Restart
             </Button>
@@ -62,13 +62,11 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
         }
         triggerEvent="hover"
       >
-        {disabled ? message : ""}
+        {message}
       </Tooltip>
       <VersionRestartModal
         onCancel={() => setIsVisible(false)}
-        onOk={() => {
-          setIsVisible(false);
-        }}
+        onOk={() => setIsVisible(false)}
         refetchQueries={refetchQueries}
         versionId={patchId}
         visible={isVisible}

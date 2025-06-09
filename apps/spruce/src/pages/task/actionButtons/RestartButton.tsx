@@ -5,7 +5,7 @@ import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
-import { LoadingButton } from "components/Buttons";
+import { LoadingButton, Size as ButtonSize } from "components/Buttons";
 import { Requester } from "constants/requesters";
 import {
   RestartTaskMutation,
@@ -38,9 +38,8 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
     RestartTaskMutationVariables
   >(RESTART_TASK, {
     onCompleted: (data) => {
-      const { latestExecution, priority } = data.restartTask;
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      if (priority < 0) {
+      const { latestExecution, priority } = data.restartTask ?? {};
+      if ((priority || 0) < 0) {
         dispatchToast.warning(
           "Task scheduled to restart, but is disabled. Enable the task to run.",
         );
@@ -55,11 +54,10 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
   });
 
   const isMenuButton = isDisplayTask && !allExecutionTasksSucceeded;
-  const disabled = isMenuButton
-    ? loadingRestartTask || !canRestart
-    : loadingRestartTask ||
-      !canRestart ||
-      requester === Requester.GitHubMergeQueue;
+  const disabled =
+    loadingRestartTask ||
+    !canRestart ||
+    requester === Requester.GitHubMergeQueue;
 
   return (
     <Tooltip
@@ -75,7 +73,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
                 data-cy="restart-task"
                 disabled={disabled}
                 loading={loadingRestartTask}
-                size="small"
+                size={ButtonSize.Small}
               >
                 Restart
               </LoadingButton>
@@ -119,7 +117,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
                 "task.is_display_task": false,
               });
             }}
-            size="small"
+            size={ButtonSize.Small}
           >
             Restart
           </LoadingButton>
@@ -127,7 +125,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
       }
       triggerEvent="hover"
     >
-      {disabled ? "This task is not restartable." : ""}
+      This task is not restartable.
     </Tooltip>
   );
 };
