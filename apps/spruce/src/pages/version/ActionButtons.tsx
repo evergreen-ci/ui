@@ -44,6 +44,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       <RestartPatch
         disabled={isMergeQueuePatch}
         isButton
+        isMergeQueuePatch={isMergeQueuePatch}
         patchId={versionId}
         refetchQueries={["VersionTasks"]}
       />

@@ -53,11 +53,12 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
     },
   });
 
+  const isMergeQueuePatch = requester === Requester.GitHubMergeQueue;
   const isMenuButton = isDisplayTask && !allExecutionTasksSucceeded;
-  const disabled =
-    loadingRestartTask ||
-    !canRestart ||
-    requester === Requester.GitHubMergeQueue;
+  const disabled = loadingRestartTask || !canRestart || isMergeQueuePatch;
+  const message = isMergeQueuePatch
+    ? "GitHub merge queue tasks cannot be restarted."
+    : "This task is not restartable.";
 
   return (
     <Tooltip
@@ -123,9 +124,8 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
           </LoadingButton>
         )
       }
-      triggerEvent="hover"
     >
-      This task is not restartable.
+      {message}
     </Tooltip>
   );
 };

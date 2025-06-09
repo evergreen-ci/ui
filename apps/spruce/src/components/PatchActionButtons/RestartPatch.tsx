@@ -6,15 +6,18 @@ import { DropdownItem } from "components/ButtonDropdown";
 import { VersionRestartModal } from "components/VersionRestartModal";
 
 interface RestartPatchProps {
-  patchId: string;
   disabled?: boolean;
   isButton?: boolean;
+  isMergeQueuePatch: boolean;
+  patchId: string;
   refetchQueries: string[];
   visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
+
 export const RestartPatch: React.FC<RestartPatchProps> = ({
   disabled = false,
   isButton,
+  isMergeQueuePatch,
   patchId,
   refetchQueries,
   visibilityControl,
@@ -27,9 +30,9 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
 
   const onClick = () => setIsVisible(!isVisible);
 
-  const message = isButton
-    ? "This patch cannot be restarted because it is from the GitHub merge queue."
-    : "This patch cannot be restarted because it is either unconfigured or from the GitHub merge queue.";
+  const message = isMergeQueuePatch
+    ? "GitHub merge queue patches cannot be restarted."
+    : "This patch cannot be restarted.";
 
   return (
     <>
@@ -60,7 +63,6 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
             </span>
           )
         }
-        triggerEvent="hover"
       >
         {message}
       </Tooltip>
