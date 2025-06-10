@@ -2,10 +2,10 @@ import { useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import Popover, { Align } from "@leafygreen-ui/popover";
+import Popover from "@leafygreen-ui/popover";
 import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Divider } from "components/styles";
@@ -63,13 +63,7 @@ export const TaskStatsTooltip: React.FC<
           <Icon glyph="Charts" />
         </IconButton>
       </BtnContainer>
-      <Popover
-        ref={popoverRef}
-        active={open}
-        align={Align.Right}
-        popoverZIndex={zIndex.popover}
-        refEl={buttonRef}
-      >
+      <Popover ref={popoverRef} active={open} align="right" refEl={buttonRef}>
         <PopoverContainer data-cy="task-stats-tooltip">
           <Table>
             <Tbody>

@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import Popover, { Align, Justify } from "@leafygreen-ui/popover";
+import Popover from "@leafygreen-ui/popover";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { PopoverContainer } from "components/styles/Popover";
 import { TreeDataEntry, TreeSelect } from "components/TreeSelect";
@@ -51,9 +51,10 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
       </IconButton>
       <Popover
         active={active}
-        align={Align.Bottom}
-        justify={Justify.Middle}
+        align="bottom"
+        justify="middle"
         refEl={buttonRef}
+        renderMode="portal"
         spacing={DEFAULT_SPACING}
       >
         <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>

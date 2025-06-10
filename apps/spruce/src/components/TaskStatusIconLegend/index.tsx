@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import Popover, { Align, Justify } from "@leafygreen-ui/popover";
+import Popover from "@leafygreen-ui/popover";
 import { Body, Overline } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
@@ -79,9 +79,8 @@ export const TaskStatusIconLegend: React.FC = () => {
       <Popover
         ref={popoverRef}
         active={open}
-        align={Align.Top}
-        justify={Justify.End}
-        popoverZIndex={zIndex.popover}
+        align="top"
+        justify="end"
         refEl={buttonRef}
       >
         <StyledPopoverContainer>
