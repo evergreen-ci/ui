@@ -19,6 +19,7 @@
     <div
       class="css-ubyi0k-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
+      data-task-history-guide-id="commit-details"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -125,6 +126,7 @@
     <div
       class="css-1k17di8-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
+      data-task-history-guide-id="commit-details"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -287,6 +289,7 @@
     <div
       class="css-1km0d1d-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
+      data-task-history-guide-id="commit-details"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -438,6 +441,7 @@
     <div
       class="css-173zci2-CommitCard e1a625uv2"
       data-cy="commit-details-card"
+      data-task-history-guide-id="commit-details"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -868,6 +872,7 @@
     <div
       class="css-qoe4oj-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
+      data-task-history-guide-id="commit-details"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -992,6 +997,7 @@
     <div
       class="css-t743ej-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
+      data-task-history-guide-id="commit-details"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"

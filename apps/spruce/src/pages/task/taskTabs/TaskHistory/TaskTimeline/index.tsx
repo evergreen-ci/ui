@@ -11,10 +11,12 @@ import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
 import { TaskHistoryDirection } from "gql/generated/types";
 import { useUserTimeZone } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
+import { walkthroughTimelineProps } from "../constants";
 import { GroupedTask, TaskHistoryOptions, TaskHistoryTask } from "../types";
 import DateSeparator from "./DateSeparator";
 
 const { gray } = palette;
+
 type TaskHistoryPagination = {
   mostRecentTaskOrder: number | undefined;
   oldestTaskOrder: number | undefined;
@@ -63,7 +65,11 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
         >
           <Icon glyph="ChevronLeft" />
         </IconButton>
-        <Timeline ref={ref} data-cy="task-timeline">
+        <Timeline
+          ref={ref}
+          data-cy="task-timeline"
+          {...walkthroughTimelineProps}
+        >
           {loading ? (
             <Skeleton size={SkeletonSize.Small} />
           ) : (

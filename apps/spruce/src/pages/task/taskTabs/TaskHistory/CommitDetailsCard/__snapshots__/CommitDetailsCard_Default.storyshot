@@ -2,6 +2,7 @@
   <div
     class="css-1ffesh7-CommitCard e1a625uv2"
     data-cy="commit-details-card"
+    data-task-history-guide-id="commit-details"
   >
     <div
       class="css-12rnwxt-TopLabel e1a625uv1"

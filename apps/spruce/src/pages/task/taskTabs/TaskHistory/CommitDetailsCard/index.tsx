@@ -31,6 +31,7 @@ import { useDateFormat } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskTab } from "types/task";
 import { isProduction } from "utils/environmentVariables";
+import { walkthroughCommitCardProps } from "../constants";
 import { TaskHistoryTask } from "../types";
 import CommitDescription from "./CommitDescription";
 import FailedTestsTable from "./FailedTestsTable";
@@ -145,6 +146,7 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
       data-cy="commit-details-card"
       isMatching={isMatching}
       status={displayStatus as TaskStatus}
+      {...walkthroughCommitCardProps}
     >
       <TopLabel>
         <InlineCode

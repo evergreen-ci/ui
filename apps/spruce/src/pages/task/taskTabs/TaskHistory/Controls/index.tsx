@@ -9,6 +9,11 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DateFilter } from "components/DateFilter";
 import { useQueryParams } from "hooks/useQueryParam";
+import {
+  walkthroughDateFilterProps,
+  walkthroughJumpButtonProps,
+  walkthroughInactiveViewProps,
+} from "../constants";
 import { TaskHistoryOptions, ViewOptions } from "../types";
 
 interface ControlsProps {
@@ -29,6 +34,7 @@ export const Controls: React.FC<ControlsProps> = ({
       <LeftContainer>
         <Subtitle>Task History Overview</Subtitle>
         <DateFilter
+          dataCyProps={walkthroughDateFilterProps}
           onChange={(newDate) => {
             setQueryParams({
               ...queryParams,
@@ -53,6 +59,7 @@ export const Controls: React.FC<ControlsProps> = ({
             });
           }}
           size={Size.XSmall}
+          {...walkthroughJumpButtonProps}
         >
           Jump to this task
         </Button>
@@ -62,6 +69,7 @@ export const Controls: React.FC<ControlsProps> = ({
         onChange={(t) => setViewOption(t as ViewOptions)}
         size="xsmall"
         value={viewOption}
+        {...walkthroughInactiveViewProps}
       >
         <SegmentedControlOption
           data-cy="collapsed-option"
