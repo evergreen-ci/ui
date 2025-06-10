@@ -38,7 +38,6 @@ export const WithFilterApplied: CustomStoryObj<TemplateProps> = {
 type TemplateProps = {
   shouldCollapse: boolean;
   loading: boolean;
-  selectedTask: string | null;
 };
 
 const Template = (args: TemplateProps) => {

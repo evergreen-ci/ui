@@ -90,7 +90,6 @@ type TemplateProps = {
   latestExecution: number;
   message: string;
   status: TaskStatus;
-  isSelectedTask: boolean;
 };
 
 const testResults: TestResult[] = Array.from({ length: 15 }, (_, idx) => ({

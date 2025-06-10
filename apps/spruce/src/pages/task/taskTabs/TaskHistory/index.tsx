@@ -189,6 +189,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           <CommitDetailsList loading={loading} tasks={visibleTasks} />
         </ListContent>
       </Container>
+      {/* Remove blocking condition in DEVPROD-17669 */}
       {!isProduction() && <OnboardingTutorial guideCueRef={guideCueRef} />}
     </TaskHistoryContextProvider>
   );

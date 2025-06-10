@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
+import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
 
@@ -15,7 +15,7 @@ const CurrentTaskBadge: React.FC<CurrentTaskBadgeProps> = ({
 }) =>
   isCurrentTask ? (
     <>
-      <StyledBadge className="current-task-badge" variant="blue">
+      <StyledBadge className="current-task-badge" variant={BadgeVariant.Blue}>
         This Task
       </StyledBadge>
       <Dot />
@@ -24,15 +24,17 @@ const CurrentTaskBadge: React.FC<CurrentTaskBadgeProps> = ({
 
 const StyledBadge = styled(Badge)`
   position: absolute;
-  top: 160%;
-  left: -170%;
+  top: 75%;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
   min-width: 80px;
 `;
 
 const Dot = styled.div`
   position: absolute;
-  top: 120%;
-  left: 40%;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
 
   height: ${size.xxs};
   width: ${size.xxs};
