@@ -21,11 +21,11 @@ describe("InactiveCommitsButton component", () => {
   it("Clicking on button shows the inactive commits in order", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
-      <TaskHistoryContextProvider task={currentTask}>
-        <MockedProvider mocks={[getSpruceConfigMock]}>
+      <MockedProvider mocks={[getSpruceConfigMock]}>
+        <TaskHistoryContextProvider task={currentTask}>
           <InactiveCommitsButton inactiveTasks={tasks} />
-        </MockedProvider>
-      </TaskHistoryContextProvider>,
+        </TaskHistoryContextProvider>
+      </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
     expect(screen.getByText("11 Inactive Commits")).toBeInTheDocument();

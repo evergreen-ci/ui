@@ -157,6 +157,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
         onMouseLeave={() => setHoveredTask(null)}
         selected={isSelectedTask}
         status={displayStatus as TaskStatus}
+        {...walkthroughCommitCardProps}
       >
         <TopLabel>
           <InlineCode
