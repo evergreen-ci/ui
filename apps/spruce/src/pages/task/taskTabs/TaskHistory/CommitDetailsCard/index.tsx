@@ -2,6 +2,7 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
+import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
@@ -28,6 +29,7 @@ import {
 import { RESTART_TASK, SCHEDULE_TASKS } from "gql/mutations";
 import { useDateFormat } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
+import { TaskTab } from "types/task";
 import { isProduction } from "utils/environmentVariables";
 import { walkthroughCommitCardProps } from "../constants";
 import { TaskHistoryTask } from "../types";
@@ -58,6 +60,7 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     createTime,
     displayStatus,
     id: taskId,
+    latestExecution,
     order,
     revision,
     tests,
@@ -113,8 +116,8 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
     onCompleted: (data) => {
       dispatchToast.success("Task scheduled to restart");
       if (isCurrentTask) {
-        const latestExecution = data?.restartTask.latestExecution ?? 0;
-        setExecution(latestExecution);
+        const newerExecution = data?.restartTask.latestExecution ?? 0;
+        setExecution(newerExecution);
       }
     },
     onError: (err) =>
@@ -146,7 +149,11 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
       {...walkthroughCommitCardProps}
     >
       <TopLabel>
-        <InlineCode as={Link} data-cy="task-link" to={getTaskRoute(taskId)}>
+        <InlineCode
+          as={Link}
+          data-cy="task-link"
+          to={getTaskRoute(taskId, { tab: TaskTab.History })}
+        >
           {shortenGithash(revision ?? "")}
         </InlineCode>
         <IconButton
@@ -194,6 +201,12 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
           </Badge>
         )}
         <span>{dateCopy}</span>
+        {latestExecution > 0 ? (
+          <Chip
+            label={`Executions: ${latestExecution + 1}`}
+            variant={ChipVariant.Gray}
+          />
+        ) : null}
         {/* Use this to debug issues with pagination. */}
         {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}
       </TopLabel>

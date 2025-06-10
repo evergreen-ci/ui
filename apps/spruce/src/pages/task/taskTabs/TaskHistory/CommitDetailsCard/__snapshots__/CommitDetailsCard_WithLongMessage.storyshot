@@ -10,7 +10,7 @@
       <a
         class="lg-ui-0000 leafygreen-ui-hvznge"
         data-cy="task-link"
-        href="/task/a"
+        href="/task/a/history"
       >
         <code
           class="leafygreen-ui-i6ovbf"
@@ -71,6 +71,17 @@
       </div>
       <span>
         Apr 3, 2025, 10:22 AM
+      </span>
+      <span
+        aria-disabled="false"
+        class="leafygreen-ui-1hdho16"
+      >
+        <span
+          class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+          data-testid="chip-text"
+        >
+          Executions: 3
+        </span>
       </span>
       <div
         class="css-1pa0taf-OrderLabel e1a625uv0"
