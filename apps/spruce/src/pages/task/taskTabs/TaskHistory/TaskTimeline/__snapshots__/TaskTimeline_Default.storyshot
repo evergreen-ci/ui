@@ -33,6 +33,7 @@
     <div
       class="css-7e0rrd-Timeline ezsgi5w1"
       data-cy="task-timeline"
+      data-task-history-guide-id="task-history-overview"
     >
       <div
         aria-label="date-separator"
