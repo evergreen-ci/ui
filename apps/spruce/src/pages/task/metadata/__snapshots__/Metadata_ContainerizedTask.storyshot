@@ -7,7 +7,7 @@
     >
       <div>
         <p
-          class="css-1k03zl5-Title e1130wzj2 leafygreen-ui-1miy0xp"
+          class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
         >
           Task Metadata
         </p>
@@ -155,7 +155,7 @@
     >
       <div>
         <p
-          class="css-1k03zl5-Title e1130wzj2 leafygreen-ui-1miy0xp"
+          class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
         >
           Host Information
         </p>
@@ -191,18 +191,16 @@
     <div
       class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
     >
-      <div>
-        <p
-          class="css-1k03zl5-Title e1130wzj2 leafygreen-ui-1miy0xp"
-        >
-          Tags
-        </p>
-        <hr
-          class="css-qqg5h5-Divider eb6szep0"
-        />
-      </div>
+      <p
+        class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+      >
+        Tags
+      </p>
+      <hr
+        class="css-qqg5h5-Divider eb6szep0"
+      />
       <div
-        class="css-kn3v9h-TagsContainer ebphozh1"
+        class="css-c4cphq-TagsContainer e12sfkss0"
       >
         <span
           aria-disabled="false"
@@ -262,6 +260,62 @@
             >
               waiting_for_next_investigat…
             </span>
+          </span>
+        </span>
+      </div>
+      <p
+        class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+      >
+        Failure Metadata Tags
+      </p>
+      <hr
+        class="css-qqg5h5-Divider eb6szep0"
+      />
+      <div
+        class="css-c4cphq-TagsContainer e12sfkss0"
+      >
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            failure_tag_1
+          </span>
+        </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            failure_tag_2
+          </span>
+        </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            failure_tag_3
+          </span>
+        </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            failure_tag_4
           </span>
         </span>
       </div>

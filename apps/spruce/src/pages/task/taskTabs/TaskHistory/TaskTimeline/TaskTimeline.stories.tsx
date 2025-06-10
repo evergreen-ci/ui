@@ -3,6 +3,10 @@ import { tasks } from "../testData";
 import { groupTasks } from "../utils";
 import TaskTimeline from ".";
 
+type TaskTimelineType = React.ComponentProps<typeof TaskTimeline> & {
+  shouldCollapse: boolean;
+};
+
 export default {
   component: TaskTimeline,
   args: {
@@ -17,7 +21,7 @@ export default {
       control: { type: "boolean" },
     },
   },
-} satisfies CustomMeta<TemplateProps>;
+} satisfies CustomMeta<TaskTimelineType>;
 
 export const Default: CustomStoryObj<TemplateProps> = {
   render: (args) => <Template {...args} />,
@@ -35,7 +39,7 @@ const Template = (args: TemplateProps) => {
   });
   return (
     <TaskTimeline
-      loading={false}
+      loading={args.loading}
       pagination={{
         mostRecentTaskOrder: 10,
         oldestTaskOrder: 1,
