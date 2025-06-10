@@ -2796,6 +2796,21 @@
     lodash "^4.17.21"
     react-transition-group "^4.4.5"
 
+"@leafygreen-ui/popover@^14.0.0":
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/popover/-/popover-14.0.0.tgz#b691f34449fba3b7d889cbd26390371d79e6d82d"
+  integrity sha512-3SqKX71Z1XckGsoJU0urPnS6qDmK0qeuGZAfbuvNgn3l2NgoDdoI8ruTRXETfu5MsYugqIx1E5radDHD8k1Fxg==
+  dependencies:
+    "@floating-ui/react" "^0.26.28"
+    "@leafygreen-ui/emotion" "^5.0.0"
+    "@leafygreen-ui/hooks" "^9.0.0"
+    "@leafygreen-ui/lib" "^15.0.0"
+    "@leafygreen-ui/portal" "^7.0.0"
+    "@leafygreen-ui/tokens" "^3.0.0"
+    "@types/react-transition-group" "^4.4.5"
+    lodash "^4.17.21"
+    react-transition-group "^4.4.5"
+
 "@leafygreen-ui/portal@^5.1.1":
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/portal/-/portal-5.1.1.tgz#7080dd01e03082fbe98f9fbfed424bd9d4e60790"
@@ -2819,6 +2834,14 @@
   dependencies:
     "@leafygreen-ui/hooks" "^8.4.1"
     "@leafygreen-ui/lib" "^14.2.0"
+
+"@leafygreen-ui/portal@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/portal/-/portal-7.0.0.tgz#a841ce0c0ddad48981422536856b8284801912e6"
+  integrity sha512-DFREv1z2rbXooFZLU4ag/rhUBrSoi8yyO9cq0njBp4nk6M0jdkwQq1ZqYL9XZDz7CNRgTBlQy3gPhDNEHHrwwg==
+  dependencies:
+    "@leafygreen-ui/hooks" "^9.0.0"
+    "@leafygreen-ui/lib" "^15.0.0"
 
 "@leafygreen-ui/radio-box-group@^13.0.2":
   version "13.0.2"
