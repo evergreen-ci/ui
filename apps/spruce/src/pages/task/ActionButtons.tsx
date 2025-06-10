@@ -112,8 +112,9 @@ export const ActionButtons: React.FC<Props> = ({
     SetTaskPriorityMutationVariables
   >(SET_TASK_PRIORITY, {
     onCompleted: (data) => {
+      const newPriority = data?.setTaskPriority?.priority || 0;
       dispatchToast.success(
-        data?.setTaskPriority?.priority && data.setTaskPriority.priority >= 0
+        newPriority >= 0
           ? `Priority for task updated to ${data.setTaskPriority.priority}`
           : `Task was successfully disabled`,
       );
