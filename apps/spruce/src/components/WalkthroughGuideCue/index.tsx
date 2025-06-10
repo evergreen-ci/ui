@@ -28,15 +28,6 @@ export type WalkthroughGuideCueProps = {
   walkthroughSteps: WalkthroughStep[];
 };
 
-const getTargetElement = ({
-  dataAttributeName,
-  targetId,
-}: {
-  dataAttributeName: string;
-  targetId: string;
-}) =>
-  document.querySelector(`[${dataAttributeName}="${targetId}"]`) as HTMLElement;
-
 export interface WalkthroughGuideCueRef {
   restart: () => void;
 }
@@ -136,6 +127,15 @@ export const WalkthroughGuideCue = forwardRef<
 });
 
 WalkthroughGuideCue.displayName = "WalkthroughGuideCue";
+
+const getTargetElement = ({
+  dataAttributeName,
+  targetId,
+}: {
+  dataAttributeName: string;
+  targetId: string;
+}) =>
+  document.querySelector(`[${dataAttributeName}="${targetId}"]`) as HTMLElement;
 
 const Backdrop = styled.div`
   position: fixed;

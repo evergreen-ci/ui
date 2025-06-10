@@ -25,7 +25,7 @@ import { validateRegexp } from "utils/validators";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import { Controls } from "./Controls";
-import OnboardingTutorial from "./OnboardingTutorial.tsx";
+import OnboardingTutorial from "./OnboardingTutorial";
 import TaskTimeline from "./TaskTimeline";
 import { TestFailureSearchInput } from "./TestFailureSearchInput";
 import { TaskHistoryOptions, ViewOptions } from "./types";
@@ -192,7 +192,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           />
         </ListContent>
       </Container>
-      {/* Remove condition in DEVPROD-17669 */}
+      {/* Remove blocking condition in DEVPROD-17669 */}
       {!isProduction() && <OnboardingTutorial guideCueRef={guideCueRef} />}
     </>
   );

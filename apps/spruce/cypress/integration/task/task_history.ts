@@ -572,7 +572,11 @@ describe("task history", () => {
 
       cy.dataCy("walkthrough-guide-cue").should("be.visible");
       // Cypress can't handle position:fixed with overlapping elements
-      cy.contains("Task History Overview").should("exist");
+      cy.contains("Task Timeline").should("exist");
+      cy.contains("button", "Next").click();
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("View Options").should("be.visible");
       cy.contains("button", "Next").click();
 
       cy.dataCy("walkthrough-guide-cue").should("be.visible");
@@ -590,10 +594,6 @@ describe("task history", () => {
 
       cy.dataCy("walkthrough-guide-cue").should("be.visible");
       cy.contains("Jump to Current Task").should("be.visible");
-      cy.contains("button", "Next").click();
-
-      cy.dataCy("walkthrough-guide-cue").should("be.visible");
-      cy.contains("View Options").should("be.visible");
       cy.contains("button", "Get started").click();
 
       cy.dataCy("walkthrough-guide-cue").should("not.exist");

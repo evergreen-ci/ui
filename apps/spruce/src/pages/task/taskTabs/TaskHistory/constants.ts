@@ -12,21 +12,27 @@ export const walkthroughSteps: WalkthroughStep[] = [
   {
     title: "Introducing the Task History Tab",
     description:
-      "An at-a-glance view of task history to help with gauging overall task health and investigating test failures.",
+      "An at-a-glance view of task history for gauging overall task health and investigating test failures.",
     targetId: "task-history-tab",
   },
   {
-    title: "Task History Overview",
+    title: "Task Timeline",
     description:
-      "A timeline of this task's previous runs. Paginate to view additional history.",
-    targetId: "task-history-overview",
+      "The timeline shows this task's previous runs. Paginate to view additional history.",
+    targetId: "task-timeline",
     beaconAlign: BeaconAlign.Left,
     tooltipAlign: TooltipAlign.Left,
   },
   {
+    title: "View Options",
+    description:
+      "Choose to collapse or expand inactive commits in the timeline.",
+    targetId: "inactive-commits",
+  },
+  {
     title: "Commit Details",
     description:
-      "Each card is tied to a task in the timeline. Failing tests will be shown here.",
+      "Each card represents a task in the timeline and contains additional commit information.",
     targetId: "commit-details",
     beaconAlign: BeaconAlign.Left,
     tooltipAlign: TooltipAlign.Left,
@@ -34,7 +40,7 @@ export const walkthroughSteps: WalkthroughStep[] = [
   {
     title: "Search Test Failures",
     description:
-      "Search for specific tests to identify common failures between different tasks.",
+      "Search for specific tests to identify common failures across different task runs.",
     targetId: "search-test-failures",
     beaconAlign: BeaconAlign.Left,
     tooltipAlign: TooltipAlign.Left,
@@ -47,13 +53,8 @@ export const walkthroughSteps: WalkthroughStep[] = [
   },
   {
     title: "Jump to Current Task",
-    description: "Use this button to reset the view to the current task.",
+    description: "Use this button to reset the page to its original state.",
     targetId: "jump-to-task",
-  },
-  {
-    title: "View Options",
-    description: "Choose to collapse or expand inactive commits.",
-    targetId: "inactive-commits",
   },
 ];
 
@@ -65,22 +66,22 @@ export const walkthroughTimelineProps = {
   [taskHistoryGuideId]: walkthroughSteps[1].targetId,
 };
 
-export const walkthroughCommitCardProps = {
+export const walkthroughInactiveViewProps = {
   [taskHistoryGuideId]: walkthroughSteps[2].targetId,
 };
 
-export const walkthroughFailureSearchProps = {
+export const walkthroughCommitCardProps = {
   [taskHistoryGuideId]: walkthroughSteps[3].targetId,
 };
 
-export const walkthroughDateFilterProps = {
+export const walkthroughFailureSearchProps = {
   [taskHistoryGuideId]: walkthroughSteps[4].targetId,
 };
 
-export const walkthroughJumpButtonProps = {
+export const walkthroughDateFilterProps = {
   [taskHistoryGuideId]: walkthroughSteps[5].targetId,
 };
 
-export const walkthroughInactiveViewProps = {
+export const walkthroughJumpButtonProps = {
   [taskHistoryGuideId]: walkthroughSteps[6].targetId,
 };
