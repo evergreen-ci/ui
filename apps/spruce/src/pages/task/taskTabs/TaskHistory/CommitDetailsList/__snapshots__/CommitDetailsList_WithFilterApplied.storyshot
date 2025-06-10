@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-3bzv6j-CommitList ez8m9z90"
+    class="css-krioxf-CommitList ez8m9z90"
     data-cy="commit-details-list"
   >
     <div
@@ -17,9 +17,9 @@
       />
     </div>
     <div
-      class="css-e19bdn-CommitCard-inactiveElementStyle e1a625uv2"
+      class="css-ubyi0k-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
-      id="commit-card-a"
+      data-task-history-guide-id="commit-details"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -27,7 +27,7 @@
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
           data-cy="task-link"
-          href="/task/a"
+          href="/task/a/history"
         >
           <code
             class="leafygreen-ui-i6ovbf"
@@ -124,9 +124,9 @@
       </div>
     </div>
     <div
-      class="css-1t2l8pg-CommitCard-inactiveElementStyle e1a625uv2"
+      class="css-1k17di8-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
-      id="commit-card-b"
+      data-task-history-guide-id="commit-details"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -134,7 +134,7 @@
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
           data-cy="task-link"
-          href="/task/b"
+          href="/task/b/history"
         >
           <code
             class="leafygreen-ui-i6ovbf"
@@ -189,6 +189,17 @@
         </button>
         <span>
           Apr 3, 2025, 10:21 AM
+        </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            Executions: 2
+          </span>
         </span>
         <div
           class="css-1pa0taf-OrderLabel e1a625uv0"
@@ -276,9 +287,9 @@
       />
     </div>
     <div
-      class="css-1er61hs-CommitCard-inactiveElementStyle e1a625uv2"
+      class="css-1km0d1d-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
-      id="commit-card-d"
+      data-task-history-guide-id="commit-details"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -286,7 +297,7 @@
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
           data-cy="task-link"
-          href="/task/d"
+          href="/task/d/history"
         >
           <code
             class="leafygreen-ui-i6ovbf"
@@ -428,9 +439,9 @@
       />
     </div>
     <div
-      class="css-1al1fti-CommitCard e1a625uv2"
+      class="css-173zci2-CommitCard e1a625uv2"
       data-cy="commit-details-card"
-      id="commit-card-f"
+      data-task-history-guide-id="commit-details"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -438,7 +449,7 @@
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
           data-cy="task-link"
-          href="/task/f"
+          href="/task/f/history"
         >
           <code
             class="leafygreen-ui-i6ovbf"
@@ -859,9 +870,9 @@
       />
     </div>
     <div
-      class="css-10cpw5g-CommitCard-inactiveElementStyle e1a625uv2"
+      class="css-qoe4oj-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
-      id="commit-card-j"
+      data-task-history-guide-id="commit-details"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -869,7 +880,7 @@
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
           data-cy="task-link"
-          href="/task/j"
+          href="/task/j/history"
         >
           <code
             class="leafygreen-ui-i6ovbf"
@@ -925,6 +936,17 @@
         <span>
           Mar 30, 2025, 10:22 AM
         </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            Executions: 4
+          </span>
+        </span>
         <div
           class="css-1pa0taf-OrderLabel e1a625uv0"
         >
@@ -973,9 +995,9 @@
       />
     </div>
     <div
-      class="css-zbioow-CommitCard-inactiveElementStyle e1a625uv2"
+      class="css-t743ej-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
-      id="commit-card-k"
+      data-task-history-guide-id="commit-details"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -983,7 +1005,7 @@
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
           data-cy="task-link"
-          href="/task/k"
+          href="/task/k/history"
         >
           <code
             class="leafygreen-ui-i6ovbf"

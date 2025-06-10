@@ -10,6 +10,7 @@ import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
 import { TaskHistoryDirection } from "gql/generated/types";
 import { useUserTimeZone } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
+import { walkthroughTimelineProps } from "../constants";
 import { useTaskHistoryContext } from "../context";
 import { GroupedTask, TaskHistoryOptions, TaskHistoryTask } from "../types";
 import CurrentTaskBadge, { currentBadgeHoverStyles } from "./CurrentTaskBadge";
@@ -68,7 +69,11 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
         >
           <Icon glyph="ChevronLeft" />
         </IconButton>
-        <Timeline ref={ref} data-cy="task-timeline">
+        <Timeline
+          ref={ref}
+          data-cy="task-timeline"
+          {...walkthroughTimelineProps}
+        >
           {loading ? (
             <Skeleton size={SkeletonSize.Small} />
           ) : (

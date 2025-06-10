@@ -1,4 +1,4 @@
-import Tooltip from "@leafygreen-ui/tooltip";
+import Tooltip, { Align, Justify } from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useVersionAnalytics, usePatchAnalytics } from "analytics";
@@ -16,23 +16,26 @@ export const LinkToReconfigurePage: React.FC<{
 
   return (
     <Tooltip
+      align={Align.Left}
       enabled={disabled}
-      justify="end"
+      justify={Justify.End}
       popoverZIndex={zIndex.tooltip}
       trigger={
-        <DropdownItem
-          as={Link}
-          data-cy="reconfigure-link"
-          disabled={disabled}
-          onClick={() => {
-            if (!disabled) {
-              sendEvent({ name: "Clicked patch reconfigure link" });
-            }
-          }}
-          to={getPatchRoute(patchId, { configure: true })}
-        >
-          Reconfigure tasks/variants
-        </DropdownItem>
+        <span>
+          <DropdownItem
+            as={Link}
+            data-cy="reconfigure-link"
+            disabled={disabled}
+            onClick={() => {
+              if (!disabled) {
+                sendEvent({ name: "Clicked patch reconfigure link" });
+              }
+            }}
+            to={getPatchRoute(patchId, { configure: true })}
+          >
+            Reconfigure tasks/variants
+          </DropdownItem>
+        </span>
       }
       triggerEvent="hover"
     >

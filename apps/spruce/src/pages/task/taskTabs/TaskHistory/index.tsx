@@ -7,6 +7,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
+import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
   TaskHistoryDirection,
@@ -18,12 +19,14 @@ import { TASK_HISTORY } from "gql/queries";
 import { useSpruceConfig, useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
+import { isProduction } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
 import { validateRegexp } from "utils/validators";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import { TaskHistoryContextProvider } from "./context";
 import { Controls } from "./Controls";
+import OnboardingTutorial from "./OnboardingTutorial";
 import TaskTimeline from "./TaskTimeline";
 import { TestFailureSearchInput } from "./TestFailureSearchInput";
 import { TaskHistoryOptions, ViewOptions } from "./types";
@@ -41,6 +44,8 @@ const MAX_DATES_PER_PAGE = 10; // Maximum number of dates to assume per page in 
 const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const timelineRef = useRef<HTMLDivElement>(null);
   const { width: timelineWidth } = useDimensions<HTMLDivElement>(timelineRef);
+
+  const guideCueRef = useRef<WalkthroughGuideCueRef>(null);
 
   const dispatchToast = useToastContext();
 
@@ -184,6 +189,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           <CommitDetailsList loading={loading} tasks={visibleTasks} />
         </ListContent>
       </Container>
+      {!isProduction() && <OnboardingTutorial guideCueRef={guideCueRef} />}
     </TaskHistoryContextProvider>
   );
 };

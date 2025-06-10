@@ -145,7 +145,7 @@ describe("CommitDetailsCard component", () => {
     );
 
     const taskLink = screen.getByDataCy("task-link");
-    expect(taskLink).toHaveAttribute("href", `/task/${currentTask.id}`);
+    expect(taskLink).toHaveAttribute("href", `/task/${currentTask.id}/history`);
   });
 
   it("decreases opacity if isMatching is 'false'", () => {
