@@ -17,7 +17,14 @@ interface Props {
 export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
   const { status, testFile } = testResult;
   const { url: urlHTML, urlParsley, urlRaw } = testResult.logs ?? {};
-  const { buildVariant, displayName, displayTask, order, project } = task ?? {};
+  const {
+    buildVariant,
+    displayName,
+    displayTask,
+    id: taskId,
+    order,
+    project,
+  } = task ?? {};
   const { sendEvent } = useTaskAnalytics();
   const filters =
     status === TestStatus.Fail
@@ -90,6 +97,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
             filters,
             selectedCommit: order,
             visibleColumns: [buildVariant],
+            taskId,
           })}
         />
       )}

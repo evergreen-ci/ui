@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
-import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
-import { getTaskHistoryRoute, slugs } from "constants/routes";
+import { getTaskHistoryRoute } from "constants/routes";
 import {
   SetTaskPriorityMutation,
   SetTaskPriorityMutationVariables,
@@ -56,6 +55,7 @@ export const ActionButtons: React.FC<Props> = ({
     canSetPriority,
     canUnschedule,
     displayName,
+    id: taskId,
     project,
     versionMetadata,
   } = task || {};
@@ -66,14 +66,12 @@ export const ActionButtons: React.FC<Props> = ({
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-  const { [slugs.taskId]: taskId } = useParams();
   const taskAnalytics = useTaskAnalytics();
 
   const [scheduleTask, { loading: loadingScheduleTask }] = useMutation<
     ScheduleTasksMutation,
     ScheduleTasksMutationVariables
   >(SCHEDULE_TASKS, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { taskIds: [taskId], versionId },
     onCompleted: () => {
       dispatchToast.success("Task marked as scheduled");
@@ -87,7 +85,6 @@ export const ActionButtons: React.FC<Props> = ({
     UnscheduleTaskMutation,
     UnscheduleTaskMutationVariables
   >(UNSCHEDULE_TASK, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { taskId },
     onCompleted: () => {
       dispatchToast.success("Task marked as unscheduled");
@@ -101,10 +98,7 @@ export const ActionButtons: React.FC<Props> = ({
     AbortTaskMutation,
     AbortTaskMutationVariables
   >(ABORT_TASK, {
-    variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      taskId,
-    },
+    variables: { taskId },
     onCompleted: () => {
       dispatchToast.success("Task aborted");
     },
@@ -119,8 +113,7 @@ export const ActionButtons: React.FC<Props> = ({
   >(SET_TASK_PRIORITY, {
     onCompleted: (data) => {
       dispatchToast.success(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        data.setTaskPriority.priority >= 0
+        data?.setTaskPriority?.priority && data.setTaskPriority.priority >= 0
           ? `Priority for task updated to ${data.setTaskPriority.priority}`
           : `Task was successfully disabled`,
       );
@@ -150,6 +143,7 @@ export const ActionButtons: React.FC<Props> = ({
     getTaskHistoryRoute(projectIdentifier, displayName, {
       selectedCommit: !isPatch && order,
       visibleColumns: [buildVariant],
+      taskId: taskId,
     }),
   );
 
@@ -189,7 +183,6 @@ export const ActionButtons: React.FC<Props> = ({
       disabled={disabled || !canDisable}
       onClick={() => {
         setTaskPriority({
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           variables: { taskId, priority: initialPriority < 0 ? 0 : -1 },
         });
       }}
@@ -201,7 +194,6 @@ export const ActionButtons: React.FC<Props> = ({
     >
       {initialPriority < 0 ? "Enable" : "Disable"}
     </DropdownItem>,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     <SetPriority
       key="set-task-priority"
       disabled={disabled || !canSetPriority}
@@ -212,10 +204,7 @@ export const ActionButtons: React.FC<Props> = ({
       key="override-dependencies"
       data-cy="override-dependencies"
       disabled={disabled || !canOverrideDependencies}
-      onClick={() => {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        overrideTaskDependencies({ variables: { taskId } });
-      }}
+      onClick={() => overrideTaskDependencies({ variables: { taskId } })}
     >
       Override Dependencies
     </DropdownItem>,
