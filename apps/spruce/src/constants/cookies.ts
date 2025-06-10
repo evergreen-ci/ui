@@ -13,3 +13,5 @@ export const SLACK_NOTIFICATION_BANNER = "has-closed-slack-banner";
 export const SUBSCRIPTION_METHOD = "subscription-method";
 export const SEEN_WATERFALL_ONBOARDING_TUTORIAL =
   "seen-waterfall-onboarding-tutorial";
+export const SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL =
+  "seen-task-history-onboarding-tutorial";

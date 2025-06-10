@@ -1,3 +1,5 @@
+import { SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL } from "constants/cookies";
+
 describe("task history", () => {
   const spruceTaskHistoryLink =
     "task/spruce_ubuntu1604_e2e_test_b0c52a750150b4f1f67e501bd3351a808939815c_1f7cf49f4ce587c74212d8997da171c4_22_03_10_15_19_05/history";
@@ -555,6 +557,60 @@ describe("task history", () => {
         "have.value",
         "test_lint_1",
       );
+    });
+  });
+
+  describe("onboarding", () => {
+    it("can go through all steps of the walkthrough", () => {
+      cy.clearCookie(SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL);
+      cy.visit(mciTaskHistoryLink);
+
+      cy.dataCy("walkthrough-backdrop").should("be.visible");
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("Introducing the Task History Tab").should("be.visible");
+      cy.contains("button", "Next").click();
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      // Cypress can't handle position:fixed with overlapping elements
+      cy.contains("Task History Overview").should("exist");
+      cy.contains("button", "Next").click();
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("Commit Details").should("be.visible");
+      cy.contains("button", "Next").click();
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      // Cypress can't handle position:fixed with overlapping elements
+      cy.contains("Search Test Failures").should("exist");
+      cy.contains("button", "Next").click();
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("Filter by Date").should("be.visible");
+      cy.contains("button", "Next").click();
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("Jump to Current Task").should("be.visible");
+      cy.contains("button", "Next").click();
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("View Options").should("be.visible");
+      cy.contains("button", "Get started").click();
+
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
+      cy.dataCy("walkthrough-backdrop").should("not.exist");
+    });
+
+    it("can end walkthrough early using the dismiss button", () => {
+      cy.clearCookie(SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL);
+      cy.visit(mciTaskHistoryLink);
+
+      cy.dataCy("walkthrough-backdrop").should("be.visible");
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("Introducing the Task History Tab").should("be.visible");
+
+      cy.get("[aria-label='Close Tooltip']").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
+      cy.dataCy("walkthrough-backdrop").should("not.exist");
     });
   });
 });

@@ -1,6 +1,11 @@
 import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import styled from "@emotion/styled";
-import { GuideCue } from "@leafygreen-ui/guide-cue";
+import {
+  GuideCue,
+  TooltipAlign,
+  TooltipJustify,
+} from "@leafygreen-ui/guide-cue";
+import { Align as BeaconAlign } from "@leafygreen-ui/popover";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 
@@ -9,7 +14,12 @@ export type WalkthroughStep = {
   description: string | React.ReactElement;
   targetId: string;
   shouldClick?: boolean;
+  beaconAlign?: BeaconAlign;
+  tooltipAlign?: TooltipAlign;
+  tooltipJustify?: TooltipJustify;
 };
+
+export { BeaconAlign, TooltipAlign, TooltipJustify };
 
 export type WalkthroughGuideCueProps = {
   dataAttributeName: string;
@@ -68,6 +78,7 @@ export const WalkthroughGuideCue = forwardRef<
           `Cannot find element for the next step in walkthrough: ${nextStep.targetId}`,
         ),
       ).severe();
+      endWalkthrough();
       return;
     }
     if (nextStep.shouldClick) {
@@ -95,6 +106,7 @@ export const WalkthroughGuideCue = forwardRef<
   return (
     <>
       <GuideCue
+        beaconAlign={currentStep.beaconAlign ?? BeaconAlign.CenterHorizontal}
         buttonText={
           currentStepIdx + 1 === walkthroughSteps.length
             ? "Get started"
@@ -113,6 +125,8 @@ export const WalkthroughGuideCue = forwardRef<
         refEl={currentStepRef}
         setOpen={setOpen}
         title={currentStep.title}
+        tooltipAlign={currentStep.tooltipAlign ?? TooltipAlign.Top}
+        tooltipJustify={currentStep.tooltipJustify ?? TooltipJustify.Middle}
       >
         {currentStep.description}
       </GuideCue>
@@ -120,6 +134,8 @@ export const WalkthroughGuideCue = forwardRef<
     </>
   );
 });
+
+WalkthroughGuideCue.displayName = "WalkthroughGuideCue";
 
 const Backdrop = styled.div`
   position: fixed;
