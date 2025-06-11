@@ -18,6 +18,12 @@ import {
   SuspectedIssuesQueryVariables,
 } from "gql/generated/types";
 import {
+  customBuildBaronMock as importedBuildBaronMock,
+  customJiraIssuesMock as importedJiraIssuesMock,
+  customJiraTicketsMock as importedJiraTicketsMock,
+  customSuspectedIssueMock as importedSuspectedIssueMock,
+} from "gql/mocks/buildBaronMock";
+import {
   getSpruceConfigMock,
   getUserSettingsMock,
 } from "gql/mocks/getSpruceConfig";
@@ -44,7 +50,7 @@ describe("buildBaronContent", () => {
 
   it("the BuildBaron component renders without crashing.", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider addTypename={false} mocks={buildBaronMocks}>
+      <MockedProvider mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
@@ -68,7 +74,7 @@ describe("buildBaronContent", () => {
   it("clicking on file a new ticket dispatches a toast", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <MockedProvider addTypename={false} mocks={buildBaronMocks}>
+      <MockedProvider mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
@@ -95,7 +101,7 @@ describe("buildBaronContent", () => {
 
   it("the correct JiraTicket rows are rendered in the component", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider addTypename={false} mocks={buildBaronMocks}>
+      <MockedProvider mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
@@ -321,6 +327,10 @@ const jiraIssuesMock: ApolloMock<
 
 const buildBaronMocks = [
   customCreatedIssuesMock,
+  importedJiraIssuesMock,
+  importedJiraTicketsMock,
+  importedSuspectedIssueMock,
+  importedBuildBaronMock,
   fileJiraTicketMock,
   getBuildBaronMock,
   getJiraTicketsMock,
@@ -329,4 +339,28 @@ const buildBaronMocks = [
   getUserMock,
   jiraIssuesMock,
   suspectedIssueMock,
+  {
+    request: {
+      query: BUILD_BARON,
+      variables: {
+        taskId: "task_id",
+        execution: 0,
+      },
+    },
+    result: {
+      data: buildBaronQuery,
+    },
+  },
+  {
+    request: {
+      query: BUILD_BARON,
+      variables: {
+        taskId: "task_id",
+        execution: 0,
+      },
+    },
+    result: {
+      data: buildBaronQuery,
+    },
+  },
 ];
