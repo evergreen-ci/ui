@@ -138,7 +138,7 @@ const TaskHistoryContents: React.FC = () => {
         available on the Task page.{" "}
         {taskId && (
           <span>
-            See the corresponding Task History tab for the selected commit{" "}
+            See the corresponding page for the selected commit{" "}
             <StyledRouterLink
               to={getTaskRoute(taskId, {
                 tab: TaskTab.History,
