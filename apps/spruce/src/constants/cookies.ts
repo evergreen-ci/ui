@@ -15,3 +15,5 @@ export const SEEN_WATERFALL_ONBOARDING_TUTORIAL =
   "seen-waterfall-onboarding-tutorial";
 export const SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL =
   "seen-task-history-onboarding-tutorial";
+export const TASK_HISTORY_INACTIVE_COMMITS_VIEW =
+  "task-history-inactive-commits-view";
