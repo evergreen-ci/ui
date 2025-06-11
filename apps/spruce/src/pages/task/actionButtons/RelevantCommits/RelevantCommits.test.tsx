@@ -13,6 +13,11 @@ import {
   LastMainlineCommitQuery,
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
+import {
+  baseVersionAndTaskMock,
+  getUserSettingsMock,
+  lastMainlineCommitMock,
+} from "gql/mocks/getSpruceConfig";
 import { taskQuery } from "gql/mocks/taskData";
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { RelevantCommits } from ".";
@@ -24,7 +29,14 @@ describe("relevant commits", () => {
   describe("patch specific", () => {
     it("the button is disabled when there is no base task", async () => {
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={[getPatchTaskWithNoBaseTask]}>
+        <MockedProvider
+          mocks={[
+            getPatchTaskWithNoBaseTask,
+            baseVersionAndTaskMock,
+            lastMainlineCommitMock,
+            getUserSettingsMock,
+          ]}
+        >
           <RelevantCommits task={patchTaskWithNoBaseTask} />
         </MockedProvider>,
       );
@@ -41,7 +53,13 @@ describe("relevant commits", () => {
     it("the button is disabled when getParentTask returns null", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider
-          mocks={[getMainlineTaskWithBaseVersion, getNullParentTask]}
+          mocks={[
+            getMainlineTaskWithBaseVersion,
+            getNullParentTask,
+            baseVersionAndTaskMock,
+            lastMainlineCommitMock,
+            getUserSettingsMock,
+          ]}
         >
           <RelevantCommits task={mainlineTaskWithBaseVersion} />
         </MockedProvider>,
@@ -58,7 +76,13 @@ describe("relevant commits", () => {
     it("the button is disabled when getParentTask returns an error", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider
-          mocks={[getMainlineTaskWithBaseVersion, getParentTaskWithError]}
+          mocks={[
+            getMainlineTaskWithBaseVersion,
+            getParentTaskWithError,
+            baseVersionAndTaskMock,
+            lastMainlineCommitMock,
+            getUserSettingsMock,
+          ]}
         >
           <RelevantCommits task={mainlineTaskWithBaseVersion} />
         </MockedProvider>,
@@ -75,7 +99,14 @@ describe("relevant commits", () => {
 
   it("the button is disabled when no base version exists", async () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[getPatchTaskWithNoBaseVersion]}>
+      <MockedProvider
+        mocks={[
+          getPatchTaskWithNoBaseVersion,
+          baseVersionAndTaskMock,
+          lastMainlineCommitMock,
+          getUserSettingsMock,
+        ]}
+      >
         <RelevantCommits task={patchTaskWithNoBaseVersion} />
       </MockedProvider>,
     );
@@ -96,6 +127,9 @@ describe("relevant commits", () => {
           getPatchTaskWithSuccessfulBaseTask,
           getLastPassingVersion,
           getLastExecutedVersion,
+          baseVersionAndTaskMock,
+          lastMainlineCommitMock,
+          getUserSettingsMock,
         ]}
       >
         <RelevantCommits task={patchTaskWithSuccessfulBaseTask} />
@@ -134,6 +168,9 @@ describe("relevant commits", () => {
           getPatchTaskWithFailingBaseTask,
           getLastPassingVersion,
           getBreakingCommit,
+          baseVersionAndTaskMock,
+          lastMainlineCommitMock,
+          getUserSettingsMock,
         ]}
       >
         <RelevantCommits task={patchTaskWithFailingBaseTask} />
@@ -173,6 +210,9 @@ describe("relevant commits", () => {
           getLastPassingVersion,
           getLastExecutedVersion,
           getBreakingCommit,
+          baseVersionAndTaskMock,
+          lastMainlineCommitMock,
+          getUserSettingsMock,
         ]}
       >
         <RelevantCommits task={patchTaskWithRunningBaseTask} />

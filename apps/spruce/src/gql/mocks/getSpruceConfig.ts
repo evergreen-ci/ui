@@ -1,11 +1,38 @@
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
+  BaseVersionAndTaskQuery,
+  BaseVersionAndTaskQueryVariables,
+  BuildBaronQuery,
+  BuildBaronQueryVariables,
+  LastMainlineCommitQuery,
+  LastMainlineCommitQueryVariables,
   SpruceConfigQuery,
   SpruceConfigQueryVariables,
+  TaskOwnerTeamsForTaskQuery,
+  TaskOwnerTeamsForTaskQueryVariables,
+  TaskStatusesQuery,
+  TaskStatusesQueryVariables,
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables,
   UserSettingsQuery,
   UserSettingsQueryVariables,
+  VersionQuery,
+  VersionQueryVariables,
+  VersionUpstreamProjectQuery,
+  VersionUpstreamProjectQueryVariables,
 } from "gql/generated/types";
-import { SPRUCE_CONFIG, USER_SETTINGS } from "gql/queries";
+import {
+  BASE_VERSION_AND_TASK,
+  BUILD_BARON,
+  LAST_MAINLINE_COMMIT,
+  SPRUCE_CONFIG,
+  TASK_OWNER_TEAM,
+  TASK_STATUSES,
+  TASK_TEST_SAMPLE,
+  USER_SETTINGS,
+  VERSION,
+  VERSION_UPSTREAM_PROJECT,
+} from "gql/queries";
 
 export const getSpruceConfigMock: ApolloMock<
   SpruceConfigQuery,
@@ -104,3 +131,325 @@ export const getUserSettingsMock: ApolloMock<
     },
   },
 };
+
+export const baseVersionAndTaskMock: ApolloMock<
+  BaseVersionAndTaskQuery,
+  BaseVersionAndTaskQueryVariables
+> = {
+  request: {
+    query: BASE_VERSION_AND_TASK,
+    variables: {
+      taskId:
+        "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      task: {
+        __typename: "Task",
+        id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+        baseTask: {
+          __typename: "Task",
+          id: "base_task_id",
+          displayStatus: "success",
+          execution: 0,
+        },
+        buildVariant: "lint",
+        displayName: "lint-agent",
+        displayStatus: "success",
+        execution: 0,
+        projectIdentifier: "evergreen",
+        versionMetadata: {
+          __typename: "Version",
+          id: "version_id",
+          baseVersion: {
+            __typename: "Version",
+            id: "base_version_id",
+            order: 3676,
+          },
+          isPatch: true,
+        },
+      },
+    },
+  },
+};
+
+export const lastMainlineCommitMock: ApolloMock<
+  LastMainlineCommitQuery,
+  LastMainlineCommitQueryVariables
+> = {
+  request: {
+    query: LAST_MAINLINE_COMMIT,
+    variables: {
+      projectIdentifier: "evergreen",
+      skipOrderNumber: 3676,
+      buildVariantOptions: {
+        variants: ["^lint$"],
+        tasks: ["^lint-agent$"],
+      },
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      mainlineCommits: {
+        __typename: "MainlineCommits",
+        versions: [
+          {
+            __typename: "MainlineCommitVersion",
+            version: {
+              __typename: "Version",
+              id: "version_id",
+              buildVariants: [
+                {
+                  __typename: "GroupedBuildVariant",
+                  tasks: [
+                    {
+                      __typename: "Task",
+                      id: "task_id",
+                      displayStatus: "success",
+                      execution: 0,
+                      order: 3676,
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  },
+};
+
+export const taskTestSampleMock: ApolloMock<
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables
+> = {
+  request: {
+    query: TASK_TEST_SAMPLE,
+    variables: {
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      taskIds: [
+        "some_id_1",
+        "some_id_2",
+        "some_id_3",
+        "some_id_4",
+        "some_id_5",
+        "some_id_6",
+        "some_id_7",
+      ],
+      filters: [],
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      taskTestSample: [
+        {
+          __typename: "TaskTestResultSample",
+          execution: 0,
+          matchingFailedTestNames: ["test1", "test2"],
+          taskId: "some_id_1",
+          totalTestCount: 10,
+        },
+      ],
+    },
+  },
+};
+
+export const versionMock: ApolloMock<VersionQuery, VersionQueryVariables> = {
+  request: {
+    query: VERSION,
+    variables: {
+      id: "1",
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      version: {
+        __typename: "Version",
+        id: "version_id",
+        activated: true,
+        author: "author",
+        authorEmail: "author@example.com",
+        baseVersion: {
+          __typename: "Version",
+          id: "base_version_id",
+        },
+        createTime: new Date(),
+        errors: [],
+        externalLinksForMetadata: [],
+        finishTime: new Date(),
+        gitTags: [],
+        ignored: false,
+        isPatch: false,
+        manifest: null,
+        message: "commit message",
+        order: 1234,
+        parameters: [],
+        patch: null,
+        previousVersion: null,
+        project: "project",
+        projectIdentifier: "project",
+        projectMetadata: {
+          __typename: "Project",
+          id: "project_id",
+          branch: "main",
+          owner: "owner",
+          repo: "repo",
+        },
+        repo: "repo",
+        requester: "requester",
+        revision: "revision",
+        startTime: new Date(),
+        status: "success",
+        taskCount: 10,
+        versionTiming: null,
+        warnings: [],
+      },
+    },
+  },
+};
+
+export const buildBaronMock: ApolloMock<
+  BuildBaronQuery,
+  BuildBaronQueryVariables
+> = {
+  request: {
+    query: BUILD_BARON,
+    variables: {
+      taskId: "task_id",
+      execution: 0,
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      buildBaron: {
+        __typename: "BuildBaron",
+        bbTicketCreationDefined: true,
+        buildBaronConfigured: true,
+        searchReturnInfo: {
+          __typename: "SearchReturnInfo",
+          featuresURL: "https://example.com/features",
+          issues: [
+            {
+              __typename: "JiraTicket",
+              fields: {
+                __typename: "TicketFields",
+                assigneeDisplayName: "Assignee",
+                created: "2023-05-30T12:00:00Z",
+                resolutionName: "Fixed",
+                status: {
+                  __typename: "JiraStatus",
+                  id: "status_id",
+                  name: "Done",
+                },
+                summary: "Issue summary",
+                updated: "2023-05-30T14:00:00Z",
+              },
+              key: "ISSUE-123",
+            },
+          ],
+          search: "search query",
+          source: "JIRA",
+        },
+      },
+    },
+  },
+};
+
+export const taskOwnerTeamsMock: ApolloMock<
+  TaskOwnerTeamsForTaskQuery,
+  TaskOwnerTeamsForTaskQueryVariables
+> = {
+  request: {
+    query: TASK_OWNER_TEAM,
+    variables: {
+      taskId: "task_id",
+      execution: 0,
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      task: {
+        __typename: "Task",
+        id: "task_id",
+        execution: 0,
+        taskOwnerTeam: {
+          __typename: "TaskOwnerTeam",
+          messages: "",
+          teamName: "Team Name",
+        },
+      },
+    },
+  },
+};
+
+export const taskStatusesMock: ApolloMock<
+  TaskStatusesQuery,
+  TaskStatusesQueryVariables
+> = {
+  request: {
+    query: TASK_STATUSES,
+    variables: {
+      id: "1",
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      version: {
+        __typename: "Version",
+        id: "version_id",
+        baseTaskStatuses: ["success", "failed", "running"],
+        taskStatuses: ["success", "failed", "running"],
+      },
+    },
+  },
+};
+
+export const getVersionUpstreamProjectMock = (
+  versionId = "evergreen_ui_aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
+): ApolloMock<
+  VersionUpstreamProjectQuery,
+  VersionUpstreamProjectQueryVariables
+> => ({
+  request: {
+    query: VERSION_UPSTREAM_PROJECT,
+    variables: {
+      versionId,
+    },
+  },
+  result: {
+    data: {
+      __typename: "Query",
+      version: {
+        __typename: "Version",
+        id: versionId,
+        upstreamProject: {
+          __typename: "UpstreamProject",
+          owner: "evergreen-ci",
+          project: "evergreen",
+          repo: "evergreen",
+          revision: "abcdefg",
+          task: {
+            __typename: "Task",
+            execution: 0,
+            id: "task_id",
+          },
+          triggerID: "trigger_id",
+          triggerType: "task",
+          version: {
+            __typename: "Version",
+            id: "version_id",
+          },
+        },
+      },
+    },
+  },
+});

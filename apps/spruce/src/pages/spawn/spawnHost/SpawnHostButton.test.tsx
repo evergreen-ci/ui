@@ -58,7 +58,11 @@ describe("spawnHostButton", () => {
     const { Component } = RenderFakeToastContext(<SpawnHostButton />);
     render(
       <MockedProvider
-        mocks={[fiveHostsWithTerminatedMock, getSpruceConfigMock]}
+        mocks={[
+          fiveHostsWithTerminatedMock,
+          getSpruceConfigMock,
+          getUserSettingsMock,
+        ]}
       >
         <Component />
       </MockedProvider>,
