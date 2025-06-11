@@ -1,9 +1,10 @@
-import { KeyboardEvent, useRef, useState } from "react";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { InlineKeyCode } from "@leafygreen-ui/typography";
 import debounce from "lodash.debounce";
 import Icon from "@evg-ui/lib/components/Icon";
 import { TextInputWithGlyph } from "@evg-ui/lib/components/TextInputWithGlyph";
@@ -43,6 +44,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const { sendEvent } = useLogWindowAnalytics();
   const inputRef = useRef<HTMLInputElement>(null);
   const [input, setInput] = useState("");
+  const [autoCompletePlaceholder, setAutoCompletePlaceholder] = useState("");
   const [selected, setSelected] = useState(SearchBarActions.Filter);
 
   const isValid = validator(input);
@@ -77,6 +79,29 @@ const SearchBar: React.FC<SearchBarProps> = ({
     { disabled, ignoreFocus: true },
   );
 
+  useEffect(() => {
+    if (input.length === 0) {
+      setAutoCompletePlaceholder("");
+      return;
+    }
+    // Iterate through searchSuggestions and then the suggestions and return the first suggestion that starts with the input. suggestion should be a string representing the first suggestion in the suggestion group that matches
+    let suggestion = "";
+    for (const group of searchSuggestions) {
+      for (const s of group.suggestions) {
+        if (s.startsWith(input)) {
+          suggestion = s;
+          break;
+        }
+      }
+    }
+
+    if (suggestion && suggestion !== input) {
+      setAutoCompletePlaceholder(suggestion);
+    } else {
+      setAutoCompletePlaceholder("");
+    }
+  }, [input]);
+
   const handleChangeSelect = (value: string) => {
     setSelected(value as SearchBarActions);
     leaveBreadcrumb("search-bar-select", { value }, SentryBreadcrumbTypes.User);
@@ -102,6 +127,17 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    // If the user presses tab and there is a persistent placeholder, complete the suggestion
+    if (e.key === "Tab" && autoCompletePlaceholder.length > 0) {
+      e.preventDefault();
+      handleOnChange(autoCompletePlaceholder);
+      setAutoCompletePlaceholder("");
+      sendEvent({
+        name: "Used search suggestion",
+        suggestion: autoCompletePlaceholder,
+        tabComplete: true,
+      });
+    }
     const commandKey = e.ctrlKey || e.metaKey;
     if (e.key === "Enter" && commandKey && isValid) {
       handleOnSubmit();
@@ -153,7 +189,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
             onClick={(suggestion) => {
               handleOnChange(suggestion);
               inputRef.current?.focus();
-              sendEvent({ name: "Used search suggestion", suggestion });
+              sendEvent({
+                name: "Used search suggestion",
+                suggestion,
+                tabComplete: false,
+              });
               leaveBreadcrumb(
                 "applied-search-suggestion",
                 { suggestion },
@@ -194,6 +234,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
           }
           onChange={(e) => handleOnChange(e.target.value)}
           onKeyDown={handleKeyDown}
+          persistentPlaceholder={
+            autoCompletePlaceholder.length > 0 && (
+              <PlaceholderWrapper>
+                {autoCompletePlaceholder.slice(0, 30)}
+                <span>
+                  <InlineKeyCode>Tab</InlineKeyCode> to complete
+                </span>
+              </PlaceholderWrapper>
+            )
+          }
           placeholder="optional, regexp to search"
           spellCheck={false}
           state={isValid ? "none" : "error"}
@@ -209,6 +259,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
+
+const PlaceholderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.m};
 `;
 
 const StyledSelect = styled(Select)`
@@ -236,9 +292,14 @@ const StyledInput = styled(TextInputWithGlyph)`
   input[data-cy="searchbar-input"] {
     padding-left: 42px;
   }
+
+  span {
+    padding-left: 42px;
+  }
   div[data-lgid="lg-form_field-feedback"] {
     display: none;
   }
+  position: relative;
 `;
 
 const IconButtonWrapper = styled.div`

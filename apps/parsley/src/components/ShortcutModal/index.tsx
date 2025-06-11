@@ -38,6 +38,10 @@ const shortcuts = [
     description: "Paginate backwards to the previous search result",
     keys: [["P"], ["SHIFT", "ENTER"]],
   },
+  {
+    description: "Tab to complete a search suggestion",
+    keys: [["TAB"]],
+  },
 ];
 
 interface ShortcutModalProps {
