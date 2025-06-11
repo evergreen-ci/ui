@@ -151,14 +151,9 @@ describe("search popover", () => {
       .querySelector("div");
     popoverContainer?.focus();
 
-    // Navigate down twice to get to "cherry" (third item)
-    await user.keyboard("{ArrowDown}");
-    await user.keyboard("{ArrowDown}");
-    await user.keyboard("{ArrowDown}");
-
-    // Navigate up twice to get to "apple" (first item)
-    await user.keyboard("{ArrowUp}");
-    await user.keyboard("{ArrowUp}");
+    // Navigate down to get to "banana" (second item)
+    await user.keyboard("{ArrowDown}"); // apple (index 0)
+    await user.keyboard("{ArrowDown}"); // banana (index 1)
 
     await user.keyboard("{Enter}");
 
@@ -195,6 +190,35 @@ describe("search popover", () => {
 
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith("carrot");
+    expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
+  });
+
+  it("should wrap around when navigating with arrow keys", async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(
+      <SearchPopover
+        onClick={onClick}
+        searchSuggestions={mockSearchSuggestions}
+      />,
+    );
+    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await waitFor(() => {
+      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+    });
+
+    const popoverContainer = screen
+      .getByDataCy("search-suggestion-popover")
+      .querySelector("div");
+    popoverContainer?.focus();
+
+    // Navigate up from initial position should wrap to last item
+    await user.keyboard("{ArrowUp}"); // should wrap to "lettuce" (last item)
+
+    await user.keyboard("{Enter}");
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onClick).toHaveBeenCalledWith("lettuce");
     expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
   });
 });
