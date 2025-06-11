@@ -8,6 +8,8 @@ import { PaginationQueryParams } from "constants/queryParams";
 import {
   VersionTasksQuery,
   VersionTasksQueryVariables,
+  TaskSortCategory,
+  SortDirection,
 } from "gql/generated/types";
 import { VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
@@ -16,8 +18,6 @@ import { PatchTasksQueryParams } from "types/task";
 import { parseQueryString } from "utils/queryString";
 import { useQueryVariables } from "../useQueryVariables";
 import { VersionTasksTable } from "./VersionTasksTable";
-
-const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
 interface Props {
   taskCount: number;
@@ -34,7 +34,9 @@ const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
-    if (sorts && sorts.length === 0) {
+    const hasValidSortsForTab =
+      sorts?.some((s) => validSortCategories.includes(s.Key)) || false;
+    if (!hasValidSortsForTab) {
       updateQueryParams({
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         [PatchTasksQueryParams.Duration]: undefined,
@@ -97,3 +99,11 @@ const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
 };
 
 export default Tasks;
+
+const validSortCategories = [
+  TaskSortCategory.Name,
+  TaskSortCategory.Status,
+  TaskSortCategory.BaseStatus,
+  TaskSortCategory.Variant,
+];
+const defaultSortMethod = `${TaskSortCategory.Status}:${SortDirection.Asc};${TaskSortCategory.BaseStatus}:${SortDirection.Desc}`;

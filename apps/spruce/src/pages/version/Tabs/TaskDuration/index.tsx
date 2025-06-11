@@ -38,7 +38,9 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
   const [hasInitialized, setHasInitialized] = useState(false);
 
   useEffect(() => {
-    if (sorts && sorts.length === 0) {
+    const hasValidSortsForTab =
+      sorts?.some((s) => validSortCategories.includes(s.Key)) || false;
+    if (!hasValidSortsForTab) {
       setQueryParams({
         ...queryParams,
         [TableQueryParams.Sorts]: defaultSort,
@@ -136,4 +138,10 @@ const TableControlWrapper = styled.div`
 
 export default TaskDuration;
 
+const validSortCategories = [
+  TaskSortCategory.Name,
+  TaskSortCategory.Status,
+  TaskSortCategory.Variant,
+  TaskSortCategory.Duration,
+];
 const defaultSort = `${TaskSortCategory.Duration}:${SortDirection.Desc}`;
