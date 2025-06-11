@@ -19,6 +19,16 @@ import {
 import { PatchTasksQueryParams } from "types/task";
 import TaskDurationTable, { getInitialParams } from ".";
 
+vi.mock("react-router-dom", async () => {
+  const actual = await vi.importActual("react-router-dom");
+  return {
+    ...actual,
+    useParams: () => ({
+      versionId: "1",
+    }),
+  };
+});
+
 describe("TaskDurationTable", () => {
   it("renders all rows", () => {
     render(

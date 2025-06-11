@@ -286,33 +286,67 @@ export const versionMock: ApolloMock<VersionQuery, VersionQueryVariables> = {
         gitTags: [],
         ignored: false,
         isPatch: false,
-        manifest: null,
         message: "commit message",
         order: 1234,
         parameters: [],
-        patch: null,
-        previousVersion: null,
         project: "project",
         projectIdentifier: "project",
-        projectMetadata: {
-          __typename: "Project",
-          id: "project_id",
-          branch: "main",
-          owner: "owner",
-          repo: "repo",
-        },
         repo: "repo",
         requester: "requester",
         revision: "revision",
         startTime: new Date(),
         status: "success",
-        taskCount: 10,
-        versionTiming: null,
+        upstreamProject: null,
         warnings: [],
       },
     },
   },
 };
+
+export const versionMock1234: ApolloMock<VersionQuery, VersionQueryVariables> =
+  {
+    request: {
+      query: VERSION,
+      variables: {
+        id: "version-1234",
+      },
+    },
+    result: {
+      data: {
+        __typename: "Query",
+        version: {
+          __typename: "Version",
+          id: "version_id",
+          activated: true,
+          author: "author",
+          authorEmail: "author@example.com",
+          baseVersion: {
+            __typename: "Version",
+            id: "base_version_id",
+          },
+          createTime: new Date(),
+          errors: [],
+          externalLinksForMetadata: [],
+          finishTime: new Date(),
+          gitTags: [],
+          ignored: false,
+          isPatch: false,
+          message: "commit message",
+          order: 1234,
+          parameters: [],
+          project: "project",
+          projectIdentifier: "project",
+          repo: "repo",
+          requester: "requester",
+          revision: "revision",
+          startTime: new Date(),
+          status: "success",
+          upstreamProject: null,
+          warnings: [],
+        },
+      },
+    },
+  };
 
 export const buildBaronMock: ApolloMock<
   BuildBaronQuery,
@@ -402,12 +436,77 @@ export const taskStatusesMock: ApolloMock<
   },
   result: {
     data: {
-      __typename: "Query",
       version: {
         __typename: "Version",
-        id: "version_id",
-        baseTaskStatuses: ["success", "failed", "running"],
-        taskStatuses: ["success", "failed", "running"],
+        id: "1",
+        baseTaskStatuses: [],
+        taskStatuses: [],
+      },
+    },
+  },
+};
+
+export const taskStatusesUndefinedMock: ApolloMock<
+  TaskStatusesQuery,
+  TaskStatusesQueryVariables
+> = {
+  request: {
+    query: TASK_STATUSES,
+    variables: {
+      id: undefined as unknown as string,
+    },
+  },
+  result: {
+    data: {
+      version: {
+        __typename: "Version",
+        id: "",
+        baseTaskStatuses: [],
+        taskStatuses: [],
+      },
+    },
+  },
+};
+
+export const taskStatusesEmptyStringMock: ApolloMock<
+  TaskStatusesQuery,
+  TaskStatusesQueryVariables
+> = {
+  request: {
+    query: TASK_STATUSES,
+    variables: {
+      id: "",
+    },
+  },
+  result: {
+    data: {
+      version: {
+        __typename: "Version",
+        id: "",
+        baseTaskStatuses: [],
+        taskStatuses: [],
+      },
+    },
+  },
+};
+
+export const taskStatusesMock1234: ApolloMock<
+  TaskStatusesQuery,
+  TaskStatusesQueryVariables
+> = {
+  request: {
+    query: TASK_STATUSES,
+    variables: {
+      id: "version-1234",
+    },
+  },
+  result: {
+    data: {
+      version: {
+        __typename: "Version",
+        id: "version-1234",
+        baseTaskStatuses: [],
+        taskStatuses: [],
       },
     },
   },
