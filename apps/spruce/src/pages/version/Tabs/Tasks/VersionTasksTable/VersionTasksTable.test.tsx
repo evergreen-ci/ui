@@ -1,4 +1,3 @@
-import { MockedProvider } from "@apollo/client/testing";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -6,13 +5,27 @@ import {
   within,
 } from "@evg-ui/lib/test_utils";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+  versionMock1234,
+  taskStatusesMock1234,
+} from "gql/mocks/getSpruceConfig";
+import { MockedProvider } from "test_utils/graphql";
 import { tasks, versionId } from "./testData";
 import { VersionTasksTable, getInitialState } from ".";
 
 describe("VersionTasksTable", () => {
   it("renders all rows", () => {
     render(
-      <MockedProvider>
+      <MockedProvider
+        mocks={[
+          getSpruceConfigMock,
+          getUserSettingsMock,
+          versionMock1234,
+          taskStatusesMock1234,
+        ]}
+      >
         <VersionTasksTable {...sharedProps} />
       </MockedProvider>,
     );
@@ -22,7 +35,14 @@ describe("VersionTasksTable", () => {
   it("opens nested row on click", async () => {
     const user = userEvent.setup();
     render(
-      <MockedProvider>
+      <MockedProvider
+        mocks={[
+          getSpruceConfigMock,
+          getUserSettingsMock,
+          versionMock1234,
+          taskStatusesMock1234,
+        ]}
+      >
         <VersionTasksTable {...sharedProps} />
       </MockedProvider>,
     );
@@ -38,7 +58,14 @@ describe("VersionTasksTable", () => {
     const user = userEvent.setup();
     const clearQueryParams = vi.fn();
     render(
-      <MockedProvider>
+      <MockedProvider
+        mocks={[
+          getSpruceConfigMock,
+          getUserSettingsMock,
+          versionMock1234,
+          taskStatusesMock1234,
+        ]}
+      >
         <VersionTasksTable
           {...sharedProps}
           clearQueryParams={clearQueryParams}

@@ -6,11 +6,28 @@ import {
 import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { getVersionRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+  versionMock,
+  taskStatusesMock,
+} from "gql/mocks/getSpruceConfig";
 import { applyStrictRegex } from "utils/string";
 import VariantTaskGroup from ".";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
-const Wrapper = ({ children }) => <MockedProvider>{children}</MockedProvider>;
+const Wrapper = ({ children }) => (
+  <MockedProvider
+    mocks={[
+      getSpruceConfigMock,
+      getUserSettingsMock,
+      versionMock,
+      taskStatusesMock,
+    ]}
+  >
+    {children}
+  </MockedProvider>
+);
 const Component = () => (
   <VariantTaskGroup
     displayName="Some Variant"

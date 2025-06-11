@@ -5,7 +5,10 @@ import {
   userEvent,
 } from "@evg-ui/lib/src/test_utils";
 import { TaskQuery } from "gql/generated/types";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 import { taskQuery } from "gql/mocks/taskData";
 import { MockedProvider } from "test_utils/graphql";
 import { TaskHistoryContextProvider } from "../context";
@@ -21,7 +24,7 @@ describe("InactiveCommitsButton component", () => {
   it("Clicking on button shows the inactive commits in order", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[getSpruceConfigMock]}>
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
         <TaskHistoryContextProvider task={currentTask}>
           <InactiveCommitsButton inactiveTasks={tasks} />
         </TaskHistoryContextProvider>
