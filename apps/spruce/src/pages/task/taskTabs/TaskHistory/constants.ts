@@ -91,4 +91,4 @@ export const walkthroughJumpButtonProps = {
  * This is to make it so that `scrollIntoView` works correctly, as `scrollIntoView` will ignore overlapping
  * sticky elements by default.
  */
-export const stickyHeaderScrollOffset = 185;
+export const stickyHeaderScrollOffset = 190;

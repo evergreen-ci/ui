@@ -30,7 +30,7 @@ import {
 import { RESTART_TASK, SCHEDULE_TASKS } from "gql/mutations";
 import { useDateFormat } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
-import { TaskTab } from "types/task";
+import { RequiredQueryParams, TaskTab } from "types/task";
 import { isProduction } from "utils/environmentVariables";
 import {
   stickyHeaderScrollOffset,
@@ -50,6 +50,14 @@ interface CommitDetailsCardProps {
 
 const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
   ({ isMatching, task }, ref) => {
+    const { sendEvent } = useTaskHistoryAnalytics();
+    const dispatchToast = useToastContext();
+    const getDateCopy = useDateFormat();
+
+    const { currentTask, selectedTask, setHoveredTask } =
+      useTaskHistoryContext();
+    const [, setExecution] = useQueryParam(RequiredQueryParams.Execution, 0);
+
     const {
       activated,
       canRestart,
@@ -65,16 +73,11 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
     } = task;
     const { author, id: versionId, message } = versionMetadata;
 
-    const { currentTask, selectedTask, setHoveredTask } =
-      useTaskHistoryContext();
     const owner = currentTask.project?.owner ?? "";
     const repo = currentTask.project?.repo ?? "";
     const isCurrentTask = taskId === currentTask.id;
     const isSelectedTask = taskId === selectedTask;
 
-    const { sendEvent } = useTaskHistoryAnalytics();
-
-    const getDateCopy = useDateFormat();
     const createDate = new Date(createTime ?? "");
     const dateCopy = getDateCopy(createDate, {
       omitSeconds: true,
@@ -85,10 +88,6 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       owner && repo && revision
         ? getGithubCommitUrl(owner, repo, revision)
         : "";
-
-    const [, setExecution] = useQueryParam("execution", 0);
-
-    const dispatchToast = useToastContext();
 
     const [scheduleTask] = useMutation<
       ScheduleTasksMutation,
