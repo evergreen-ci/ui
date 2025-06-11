@@ -165,17 +165,18 @@ describe("task history", () => {
   describe("scheduling tasks", () => {
     const willRunColor = hexToRGB(gray.dark1);
 
-    it("scheduling a task should reflect the changes on the UI", () => {
+    it("scheduling a task in a group of 1 inactive task", () => {
       cy.visit(spruceTaskHistoryLink);
 
-      // We are targeting the 2nd task element in the task timeline and asserting that it state changes from an inactive collapsed task to an active will-run task
+      // Target the 2nd task element in the task timeline and assert that it
+      // changes from an inactive collapsed task to an active will-run task.
       cy.dataCy("task-timeline")
         .children()
         // Filter out date-separators
         .filter(
           (_idx, el) =>
             !el.hasAttribute("data-cy") ||
-            el.getAttribute("data-cy") !== "date-separator",
+            el.getAttribute("data-cy").includes("date-separator"),
         )
         .eq(2)
         .as("taskBox");
@@ -211,6 +212,28 @@ describe("task history", () => {
           "true",
         );
       });
+    });
+
+    it("scheduling a task in a group of multiple inactive tasks", () => {
+      cy.visit(spruceTaskHistoryLink);
+
+      cy.contains("2 Inactive Commit").click();
+      cy.contains("2 Expanded").should("be.visible");
+
+      cy.dataCy("commit-details-card").eq(7).as("taskCard");
+      cy.get("@taskCard").within(() => {
+        cy.dataCy("schedule-button").should(
+          "have.attr",
+          "aria-disabled",
+          "false",
+        );
+        cy.dataCy("schedule-button").click();
+      });
+      cy.validateToast("success", "Task scheduled to run");
+
+      // The other inactive task in the group should still be visible.
+      cy.contains("1 Expanded").should("be.visible");
+      cy.contains("22ea5d7").should("be.visible");
     });
   });
 

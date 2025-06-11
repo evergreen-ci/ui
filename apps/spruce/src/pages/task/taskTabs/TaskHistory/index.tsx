@@ -63,7 +63,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const jiraHost = spruceConfig?.jira?.host ?? "";
 
   const [viewOption, setViewOption] = useState(
-    Cookies.get(TASK_HISTORY_INACTIVE_COMMITS_VIEW) as ViewOptions,
+    (Cookies.get(TASK_HISTORY_INACTIVE_COMMITS_VIEW) as ViewOptions) ??
+      ViewOptions.Collapsed,
   );
   const shouldCollapse = viewOption === ViewOptions.Collapsed;
 
