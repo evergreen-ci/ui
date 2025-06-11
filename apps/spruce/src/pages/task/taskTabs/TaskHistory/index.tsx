@@ -136,7 +136,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
 
   const visibleTasks =
     direction === TaskHistoryDirection.After
-      ? groupedTasks.slice(-numVisibleTasks)
+      ? groupedTasks.slice(-numVisibleTasks + 1)
       : groupedTasks.slice(0, numVisibleTasks);
 
   const prevPageCursor = getPrevPageCursor(visibleTasks);
