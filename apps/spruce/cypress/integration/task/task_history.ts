@@ -635,22 +635,22 @@ describe("task history", () => {
 
     it("hovering on commit cards highlight the corresponding task box", () => {
       cy.visit(mciTaskHistoryLink);
-      cy.dataCy("commit-details-card").eq(35).as("thirdTaskCard");
-      cy.dataCy("timeline-box").eq(35).as("thirdTaskBox");
+      cy.dataCy("commit-details-card").eq(1).as("taskCard");
+      cy.dataCy("timeline-box").eq(1).as("taskBox");
 
-      cy.get("@thirdTaskCard").trigger("mouseover");
-      cy.get("@thirdTaskBox").should("have.css", "border-color", selectedColor);
+      cy.get("@taskCard").trigger("mouseover");
+      cy.get("@taskBox").should("have.css", "border-color", selectedColor);
     });
 
     it("clicking on task box should highlight and scroll to the commit card", () => {
       cy.visit(mciTaskHistoryLink);
-      cy.dataCy("commit-details-card").eq(16).as("oldTaskCard");
-      cy.dataCy("timeline-box").eq(16).as("oldTaskBox");
+      cy.dataCy("commit-details-card").eq(10).as("taskCard");
+      cy.dataCy("timeline-box").eq(10).as("taskBox");
 
-      cy.get("@oldTaskBox").click();
-      cy.get("@oldTaskBox").should("have.css", "border-color", selectedColor);
-      cy.get("@oldTaskCard").should("be.visible");
-      cy.get("@oldTaskCard").should("have.css", "border-color", selectedColor);
+      cy.get("@taskBox").click();
+      cy.get("@taskBox").should("have.css", "border-color", selectedColor);
+      cy.get("@taskCard").should("be.visible");
+      cy.get("@taskCard").should("have.css", "border-color", selectedColor);
     });
   });
 });
