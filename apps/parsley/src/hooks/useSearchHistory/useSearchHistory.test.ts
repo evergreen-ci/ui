@@ -1,13 +1,13 @@
 import { act, renderHook } from "@testing-library/react";
 import { __testing__, useSearchHistory } from ".";
 
-// Mock localStorage for Vitest
-beforeEach(() => {
-  localStorage.clear();
-  vi.restoreAllMocks();
-});
-
 describe("useSearchHistory", () => {
+  // Mock localStorage for Vitest
+  beforeEach(() => {
+    localStorage.clear();
+    vi.restoreAllMocks();
+  });
+
   it("loads history from localStorage on mount", () => {
     localStorage.setItem(
       __testing__.SEARCH_HISTORY_KEY,
