@@ -18,6 +18,8 @@ export default defineConfig({
     specPattern: "cypress/integration/**/*.ts",
     viewportWidth: 1920,
     viewportHeight: 1080,
+    video: true,
+    videoCompression: false,
     setupNodeEvents(on) {
       on("before:run", () => {
         try {
