@@ -6,6 +6,7 @@ import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import SearchBar from "components/Search/SearchBar";
+import SearchBarGuideCue from "components/Search/SearchBarGuideCue";
 import SearchResults from "components/Search/SearchResults";
 import { CaseSensitivity, MatchType, SearchBarActions } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
@@ -129,6 +130,9 @@ const Search: React.FC = () => {
 
   return (
     <Container ref={containerRef}>
+      {hasLogs && containerRef.current && (
+        <SearchBarGuideCue containerRef={containerRef.current} />
+      )}
       <StyledSearchBar
         disabled={!hasLogs}
         onChange={handleOnChange}
