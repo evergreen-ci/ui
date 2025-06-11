@@ -3,6 +3,7 @@ import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { size } from "@evg-ui/lib/constants/tokens";
 import CommitDetailsCard from "../CommitDetailsCard";
 import { stickyHeaderScrollOffset } from "../constants";
+import { useTaskHistoryContext } from "../context";
 import InactiveCommitsButton from "../InactiveCommitsButton";
 import { GroupedTask } from "../types";
 import DateSeparator from "./DateSeparator";
@@ -15,41 +16,49 @@ interface CommitDetailsListProps {
 const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
   loading,
   tasks,
-}) => (
-  <CommitList data-cy="commit-details-list">
-    {loading ? (
-      <ParagraphSkeleton />
-    ) : (
-      <>
-        {tasks.map((t) => {
-          const { commitCardRef, date, inactiveTasks, isMatching, task } = t;
-          if (date) {
-            return (
-              <DateSeparator key={`list-date-separator-${date}`} date={date} />
-            );
-          } else if (task) {
-            return (
-              <CommitDetailsCard
-                key={task.id}
-                ref={commitCardRef}
-                isMatching={isMatching}
-                task={task}
-              />
-            );
-          } else if (inactiveTasks) {
-            return (
-              <InactiveCommitsButton
-                key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
-                inactiveTasks={inactiveTasks}
-              />
-            );
-          }
-          return null;
-        })}
-      </>
-    )}
-  </CommitList>
-);
+}) => {
+  const { expandedMap } = useTaskHistoryContext();
+
+  return (
+    <CommitList data-cy="commit-details-list">
+      {loading ? (
+        <ParagraphSkeleton />
+      ) : (
+        <>
+          {tasks.map((t) => {
+            const { commitCardRef, date, inactiveTasks, isMatching, task } = t;
+            if (date) {
+              return (
+                <DateSeparator
+                  key={`list-date-separator-${date}`}
+                  date={date}
+                />
+              );
+            } else if (task) {
+              return (
+                <CommitDetailsCard
+                  key={task.id}
+                  ref={commitCardRef}
+                  isMatching={isMatching}
+                  task={task}
+                />
+              );
+            } else if (inactiveTasks) {
+              return (
+                <InactiveCommitsButton
+                  key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
+                  defaultOpen={expandedMap.get(inactiveTasks[0].id)}
+                  inactiveTasks={inactiveTasks}
+                />
+              );
+            }
+            return null;
+          })}
+        </>
+      )}
+    </CommitList>
+  );
+};
 
 export default CommitDetailsList;
 

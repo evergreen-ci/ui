@@ -54,8 +54,13 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
     const dispatchToast = useToastContext();
     const getDateCopy = useDateFormat();
 
-    const { currentTask, selectedTask, setHoveredTask } =
-      useTaskHistoryContext();
+    const {
+      currentTask,
+      expandedMap,
+      selectedTask,
+      setExpandedMap,
+      setHoveredTask,
+    } = useTaskHistoryContext();
     const [, setExecution] = useQueryParam(RequiredQueryParams.Execution, 0);
 
     const {
@@ -95,6 +100,9 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
     >(SCHEDULE_TASKS, {
       variables: { taskIds: [task.id], versionId },
       onCompleted: () => {
+        const newMap = new Map(expandedMap);
+        newMap.delete(task.id);
+        setExpandedMap(newMap);
         dispatchToast.success("Task scheduled to run");
       },
       onError: (err) => {

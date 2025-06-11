@@ -5,17 +5,23 @@ import { Size } from "@leafygreen-ui/tokens";
 import pluralize from "pluralize";
 import { useQueryParam } from "hooks/useQueryParam";
 import CommitDetailsCard from "../CommitDetailsCard";
+import { useTaskHistoryContext } from "../context";
 import { TaskHistoryOptions, TaskHistoryTask } from "../types";
 
 interface Props {
+  defaultOpen?: boolean;
   inactiveTasks: TaskHistoryTask[];
 }
-const InactiveCommitsButton: React.FC<Props> = ({ inactiveTasks }) => {
+const InactiveCommitsButton: React.FC<Props> = ({
+  defaultOpen = false,
+  inactiveTasks,
+}) => {
+  const { expandedMap, setExpandedMap } = useTaskHistoryContext();
   const [failingTest] = useQueryParam<string>(
     TaskHistoryOptions.FailingTest,
     "",
   );
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(defaultOpen);
   return (
     <>
       <span>
@@ -28,7 +34,18 @@ const InactiveCommitsButton: React.FC<Props> = ({ inactiveTasks }) => {
               <Icon glyph="ChevronRight" />
             )
           }
-          onClick={() => setIsExpanded(!isExpanded)}
+          onClick={() => {
+            const newMap = new Map(expandedMap);
+            inactiveTasks.forEach((i) => {
+              if (isExpanded) {
+                newMap.delete(i.id);
+              } else {
+                newMap.set(i.id, true);
+              }
+            });
+            setExpandedMap(newMap);
+            setIsExpanded(!isExpanded);
+          }}
           size={Size.XSmall}
         >
           {inactiveTasks.length}{" "}
