@@ -136,7 +136,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
 
   const visibleTasks =
     direction === TaskHistoryDirection.After
-      ? groupedTasks.slice(-numVisibleTasks + 1)
+      ? // Add 1 to exclude the first date that is always present.
+        groupedTasks.slice(-numVisibleTasks + 1)
       : groupedTasks.slice(0, numVisibleTasks);
 
   const prevPageCursor = getPrevPageCursor(visibleTasks);

@@ -26,7 +26,9 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
         {tasks.map((t) => {
           const { date, inactiveTasks, isMatching, task } = t;
           if (date) {
-            return <DateSeparator key={date.toString()} date={date} />;
+            return (
+              <DateSeparator key={`list-date-separator-${date}`} date={date} />
+            );
           } else if (task) {
             return (
               <CommitDetailsCard

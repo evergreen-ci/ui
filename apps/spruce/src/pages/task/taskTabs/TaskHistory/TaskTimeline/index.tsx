@@ -79,7 +79,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                 if (date) {
                   return (
                     <DateSeparator
-                      key={`date-separator-${date}`}
+                      key={`timeline-date-separator-${date}`}
                       date={date}
                       timezone={timezone}
                     />
