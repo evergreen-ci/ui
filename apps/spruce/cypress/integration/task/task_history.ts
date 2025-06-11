@@ -176,7 +176,7 @@ describe("task history", () => {
         .filter(
           (_idx, el) =>
             !el.hasAttribute("data-cy") ||
-            el.getAttribute("data-cy").includes("date-separator"),
+            el.getAttribute("data-cy") !== "date-separator",
         )
         .eq(2)
         .as("taskBox");
