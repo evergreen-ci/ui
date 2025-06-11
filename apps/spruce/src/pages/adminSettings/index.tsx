@@ -20,6 +20,7 @@ import {
 } from "gql/generated/types";
 import { ADMIN_SETTINGS } from "gql/queries";
 import { AdminSettingsProvider } from "./Context";
+import { AdminSaveButton } from "./SaveButton";
 import { AdminSettingsTabs } from "./Tabs";
 
 const AdminSettingsPage: React.FC = () => {
@@ -62,6 +63,7 @@ const AdminSettingsPage: React.FC = () => {
           {data?.adminSettings && (
             <AdminSettingsTabs data={data.adminSettings} />
           )}
+          <AdminSaveButton />
         </AdminSettingsContent>
       </SideNavPageWrapper>
     </AdminSettingsProvider>
