@@ -5,6 +5,7 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
+import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import {
   WalkthroughGuideCue,
   WalkthroughStep,
@@ -12,8 +13,13 @@ import {
 } from ".";
 
 describe("walkthrough guide cue", async () => {
+  beforeEach(() => {
+    vi.spyOn(ErrorReporting, "reportError");
+  });
+
   beforeAll(() => {
     stubGetClientRects();
+    vi.clearAllMocks();
   });
 
   const walkthroughSteps: WalkthroughStep[] = [
@@ -174,5 +180,46 @@ describe("walkthrough guide cue", async () => {
     await user.click(closeButton);
     await guideCueIsNotVisible();
     await backdropIsNotVisible();
+  });
+
+  it("closes the walkthrough if the next step cannot be found", async () => {
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+    const user = userEvent.setup();
+    const onClose = vi.fn();
+    render(
+      <div>
+        <div data-guide-cue-id="step-1">div</div>
+        <WalkthroughGuideCue
+          dataAttributeName="data-guide-cue-id"
+          defaultOpen
+          onClose={onClose}
+          walkthroughSteps={walkthroughSteps}
+        />
+      </div>,
+    );
+
+    // Should see Step 1.
+    await guideCueIsVisible();
+    await backdropIsVisible();
+    expect(screen.getByText("Step 1")).toBeVisible();
+
+    // Step 2 cannot be found, so the walkthrough should end.
+    const nextButton = screen.getByRole("button", { name: "Next" });
+    expect(nextButton).toBeVisible();
+    await user.click(nextButton);
+    await guideCueIsNotVisible();
+    await backdropIsNotVisible();
+    await waitFor(() => {
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    // Errors should be reported.
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+    expect(ErrorReporting.reportError).toHaveBeenCalledTimes(1);
+    expect(ErrorReporting.reportError).toHaveBeenCalledWith(
+      new Error("Cannot find element for the next step in walkthrough: step-2"),
+    );
   });
 });

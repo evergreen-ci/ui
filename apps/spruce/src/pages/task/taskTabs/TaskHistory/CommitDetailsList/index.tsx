@@ -1,20 +1,18 @@
 import styled from "@emotion/styled";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { TaskQuery } from "gql/generated/types";
 import CommitDetailsCard from "../CommitDetailsCard";
+import { stickyHeaderScrollOffset } from "../constants";
 import InactiveCommitsButton from "../InactiveCommitsButton";
 import { GroupedTask } from "../types";
 import DateSeparator from "./DateSeparator";
 
 interface CommitDetailsListProps {
-  currentTask: NonNullable<TaskQuery["task"]>;
   tasks: GroupedTask[];
   loading: boolean;
 }
 
 const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
-  currentTask,
   loading,
   tasks,
 }) => (
@@ -24,36 +22,26 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
     ) : (
       <>
         {tasks.map((t) => {
-          const { inactiveTasks, isMatching, shouldShowDateSeparator, task } =
-            t;
-          if (task) {
+          const { commitCardRef, date, inactiveTasks, isMatching, task } = t;
+          if (date) {
             return (
-              <>
-                {shouldShowDateSeparator && (
-                  <DateSeparator date={task.createTime} />
-                )}
-                <CommitDetailsCard
-                  key={task.id}
-                  isCurrentTask={task.id === currentTask.id}
-                  isMatching={isMatching}
-                  owner={currentTask.project?.owner}
-                  repo={currentTask.project?.repo}
-                  task={task}
-                />
-              </>
+              <DateSeparator key={`list-date-separator-${date}`} date={date} />
+            );
+          } else if (task) {
+            return (
+              <CommitDetailsCard
+                key={task.id}
+                ref={commitCardRef}
+                isMatching={isMatching}
+                task={task}
+              />
             );
           } else if (inactiveTasks) {
             return (
-              <>
-                {shouldShowDateSeparator && (
-                  <DateSeparator date={inactiveTasks[0].createTime} />
-                )}
-                <InactiveCommitsButton
-                  key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
-                  currentTask={currentTask}
-                  inactiveTasks={inactiveTasks}
-                />
-              </>
+              <InactiveCommitsButton
+                key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
+                inactiveTasks={inactiveTasks}
+              />
             );
           }
           return null;
@@ -70,4 +58,7 @@ const CommitList = styled.div`
   flex-direction: column;
   gap: ${size.xs};
   overflow-y: scroll;
+
+  padding-top: ${stickyHeaderScrollOffset}px;
+  margin-top: -${stickyHeaderScrollOffset}px;
 `;

@@ -3,19 +3,14 @@ import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { Size } from "@leafygreen-ui/tokens";
 import pluralize from "pluralize";
-import { TaskQuery } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import CommitDetailsCard from "../CommitDetailsCard";
 import { TaskHistoryOptions, TaskHistoryTask } from "../types";
 
 interface Props {
   inactiveTasks: TaskHistoryTask[];
-  currentTask: NonNullable<TaskQuery["task"]>;
 }
-const InactiveCommitsButton: React.FC<Props> = ({
-  currentTask,
-  inactiveTasks,
-}) => {
+const InactiveCommitsButton: React.FC<Props> = ({ inactiveTasks }) => {
   const [failingTest] = useQueryParam<string>(
     TaskHistoryOptions.FailingTest,
     "",
@@ -46,10 +41,7 @@ const InactiveCommitsButton: React.FC<Props> = ({
         inactiveTasks.map((inactiveTask) => (
           <CommitDetailsCard
             key={inactiveTask.id}
-            isCurrentTask={inactiveTask.id === currentTask.id}
             isMatching={!failingTest}
-            owner={currentTask.project?.owner}
-            repo={currentTask.project?.repo}
             task={inactiveTask}
           />
         ))}

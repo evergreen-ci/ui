@@ -8852,6 +8852,7 @@ export type TaskHistoryQuery = {
       createTime?: Date | null;
       displayStatus: string;
       execution: number;
+      latestExecution: number;
       order: number;
       revision?: string | null;
       tests: {
