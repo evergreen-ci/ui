@@ -1,4 +1,3 @@
-import { MockedProvider } from "@apollo/client/testing";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -9,9 +8,10 @@ import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import {
   getSpruceConfigMock,
   getUserSettingsMock,
-  versionMock,
-  taskStatusesMock,
+  versionMock1234,
+  taskStatusesMock1234,
 } from "gql/mocks/getSpruceConfig";
+import { MockedProvider } from "test_utils/graphql";
 import { tasks, versionId } from "./testData";
 import { VersionTasksTable, getInitialState } from ".";
 
@@ -22,8 +22,8 @@ describe("VersionTasksTable", () => {
         mocks={[
           getSpruceConfigMock,
           getUserSettingsMock,
-          versionMock,
-          taskStatusesMock,
+          versionMock1234,
+          taskStatusesMock1234,
         ]}
       >
         <VersionTasksTable {...sharedProps} />
@@ -39,8 +39,8 @@ describe("VersionTasksTable", () => {
         mocks={[
           getSpruceConfigMock,
           getUserSettingsMock,
-          versionMock,
-          taskStatusesMock,
+          versionMock1234,
+          taskStatusesMock1234,
         ]}
       >
         <VersionTasksTable {...sharedProps} />
@@ -62,8 +62,8 @@ describe("VersionTasksTable", () => {
         mocks={[
           getSpruceConfigMock,
           getUserSettingsMock,
-          versionMock,
-          taskStatusesMock,
+          versionMock1234,
+          taskStatusesMock1234,
         ]}
       >
         <VersionTasksTable
