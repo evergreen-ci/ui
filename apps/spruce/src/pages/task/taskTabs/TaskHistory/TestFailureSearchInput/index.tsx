@@ -9,6 +9,7 @@ import debounce from "lodash.debounce";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { filterInputDebounceTimeout } from "constants/timeouts";
 import { useQueryParam } from "hooks/useQueryParam";
+import { walkthroughFailureSearchProps } from "../constants";
 import { TaskHistoryOptions } from "../types";
 
 interface TestFailureSearchInputProps {
@@ -58,6 +59,7 @@ export const TestFailureSearchInput: React.FC<TestFailureSearchInputProps> = ({
           placeholder="Search failed test"
           size={SearchInputSize.Small}
           value={searchTerm}
+          {...walkthroughFailureSearchProps}
         />
       </InputContainer>
       {numMatchingResults === 0 && failingTest && (

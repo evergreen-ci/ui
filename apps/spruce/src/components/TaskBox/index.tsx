@@ -23,6 +23,8 @@ const getTaskStatusStyle = (status: TaskStatus) => {
 };
 
 const getCollapsedTaskBoxStyles = () => css`
+  min-width: ${SQUARE_SIZE}px;
+  width: fit-content;
   background-color: ${gray.light2};
   border-radius: ${size.xxs};
   text-align: center;
