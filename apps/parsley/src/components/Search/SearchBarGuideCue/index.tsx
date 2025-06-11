@@ -1,13 +1,10 @@
 import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
-import { palette } from "@leafygreen-ui/palette";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
 import Cookie from "js-cookie";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { HAS_SEEN_SEARCHBAR_GUIDE_CUE } from "constants/cookies";
-
-const { green } = palette;
 
 interface SearchBarGuideCueProps {
   containerRef?: HTMLDivElement | null;
@@ -38,21 +35,16 @@ const SearchBarGuideCue: React.FC<SearchBarGuideCueProps> = ({
       portalContainer={containerRef}
       refEl={triggerRef}
       setOpen={setOpenGuideCue}
-      title="New functionality!"
+      title="New tab completion and memory!"
       tooltipAlign="bottom"
     >
       <GuideCueText>
         <span>
-          The text input will perform search by default. You can also use{" "}
-          <InlineKeyCode>Enter</InlineKeyCode> or{" "}
-          <InlineKeyCode>Shift</InlineKeyCode> +{" "}
-          <InlineKeyCode>Enter</InlineKeyCode> to navigate through search
-          results.
+          The search bar now remembers the last few filters you applied!
         </span>
         <span>
-          To submit a filter or highlight, you&apos;ll need to press{" "}
-          <CommandText>⌘/Ctrl</CommandText> + <CommandText>Enter</CommandText>{" "}
-          or use the plus button.
+          It will now suggest a project filter or previous filter as you type.
+          You can <InlineKeyCode>Tab</InlineKeyCode> to complete the suggestion.
         </span>
       </GuideCueText>
     </GuideCue>
@@ -63,10 +55,6 @@ const GuideCueText = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${size.s};
-`;
-
-const CommandText = styled(InlineKeyCode)`
-  color: ${green.base};
 `;
 
 export default SearchBarGuideCue;
