@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-rfcr31-Container-dateSeparatorHoverGroupStyles ezsgi5w2"
+    class="css-dnn8n4-Container-dateSeparatorHoverGroupStyles ezsgi5w2"
   >
     <button
       aria-disabled="true"
@@ -36,7 +36,7 @@
       data-task-history-guide-id="task-timeline"
     >
       <div
-        aria-label="date-separator"
+        aria-label="Date Separator for Task Timeline"
         class="date-separator css-1fmm32v-Container et9p33q3"
         data-cy="date-separator"
       >
@@ -46,20 +46,38 @@
           4/03
         </div>
         <div
-          class="dot css-1cxo7t2-Dot et9p33q1"
+          class="date-dot css-1cxo7t2-Dot et9p33q1"
         />
         <div
           class="css-uv8ypt-Line et9p33q0"
         />
       </div>
       <div
-        class="square ezsgi5w0 css-11rp5yh-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
-        data-cy="timeline-box"
-      />
+        class="square css-11vqzj0-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
+      >
+        <div
+          class="ezsgi5w0 css-1githth-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+          data-cy="timeline-box"
+          id="task-box-a"
+        />
+        <div
+          class="current-task-badge css-z9ak2i-StyledBadge eqwglp71 leafygreen-ui-h5xdir"
+        >
+          This Task
+        </div>
+        <div
+          class="css-u2bv40-Dot eqwglp70"
+        />
+      </div>
       <div
-        class="square ezsgi5w0 css-qjaf42-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
-        data-cy="timeline-box"
-      />
+        class="square css-11vqzj0-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
+      >
+        <div
+          class="ezsgi5w0 css-1o53qdw-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+          data-cy="timeline-box"
+          id="task-box-b"
+        />
+      </div>
       <div
         class="square css-4m3or9-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
         data-cy="collapsed-box"
@@ -67,7 +85,7 @@
         1
       </div>
       <div
-        aria-label="date-separator"
+        aria-label="Date Separator for Task Timeline"
         class="date-separator css-1fmm32v-Container et9p33q3"
         data-cy="date-separator"
       >
@@ -77,16 +95,21 @@
           4/02
         </div>
         <div
-          class="dot css-1cxo7t2-Dot et9p33q1"
+          class="date-dot css-1cxo7t2-Dot et9p33q1"
         />
         <div
           class="css-uv8ypt-Line et9p33q0"
         />
       </div>
       <div
-        class="square ezsgi5w0 css-1dyoxl7-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
-        data-cy="timeline-box"
-      />
+        class="square css-11vqzj0-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
+      >
+        <div
+          class="ezsgi5w0 css-7e7l9x-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+          data-cy="timeline-box"
+          id="task-box-d"
+        />
+      </div>
       <div
         class="square css-4m3or9-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
         data-cy="collapsed-box"
@@ -94,7 +117,7 @@
         1
       </div>
       <div
-        aria-label="date-separator"
+        aria-label="Date Separator for Task Timeline"
         class="date-separator css-1fmm32v-Container et9p33q3"
         data-cy="date-separator"
       >
@@ -104,16 +127,21 @@
           4/01
         </div>
         <div
-          class="dot css-1cxo7t2-Dot et9p33q1"
+          class="date-dot css-1cxo7t2-Dot et9p33q1"
         />
         <div
           class="css-uv8ypt-Line et9p33q0"
         />
       </div>
       <div
-        class="square ezsgi5w0 css-1fy6cmy-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
-        data-cy="timeline-box"
-      />
+        class="square css-11vqzj0-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
+      >
+        <div
+          class="ezsgi5w0 css-14cvnsm-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+          data-cy="timeline-box"
+          id="task-box-f"
+        />
+      </div>
       <div
         class="square css-4m3or9-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
         data-cy="collapsed-box"
@@ -121,7 +149,7 @@
         3
       </div>
       <div
-        aria-label="date-separator"
+        aria-label="Date Separator for Task Timeline"
         class="date-separator css-1fmm32v-Container et9p33q3"
         data-cy="date-separator"
       >
@@ -131,18 +159,23 @@
           3/30
         </div>
         <div
-          class="dot css-1cxo7t2-Dot et9p33q1"
+          class="date-dot css-1cxo7t2-Dot et9p33q1"
         />
         <div
           class="css-uv8ypt-Line et9p33q0"
         />
       </div>
       <div
-        class="square ezsgi5w0 css-rbkdys-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
-        data-cy="timeline-box"
-      />
+        class="square css-11vqzj0-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
+      >
+        <div
+          class="ezsgi5w0 css-uzcmeq-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+          data-cy="timeline-box"
+          id="task-box-j"
+        />
+      </div>
       <div
-        aria-label="date-separator"
+        aria-label="Date Separator for Task Timeline"
         class="date-separator css-1fmm32v-Container et9p33q3"
         data-cy="date-separator"
       >
@@ -152,16 +185,21 @@
           3/29
         </div>
         <div
-          class="dot css-1cxo7t2-Dot et9p33q1"
+          class="date-dot css-1cxo7t2-Dot et9p33q1"
         />
         <div
           class="css-uv8ypt-Line et9p33q0"
         />
       </div>
       <div
-        class="square ezsgi5w0 css-12mk7h0-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
-        data-cy="timeline-box"
-      />
+        class="square css-11vqzj0-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
+      >
+        <div
+          class="ezsgi5w0 css-16ualrf-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+          data-cy="timeline-box"
+          id="task-box-k"
+        />
+      </div>
     </div>
     <button
       aria-disabled="true"

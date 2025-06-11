@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-krioxf-CommitList ez8m9z90"
+    class="css-6ndzxq-CommitList ez8m9z90"
     data-cy="commit-details-list"
   >
     <div
@@ -17,9 +17,10 @@
       />
     </div>
     <div
-      class="css-1ffesh7-CommitCard e1a625uv2"
+      class="css-1m5jqpg-CommitCard e1a625uv2"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
+      id="commit-card-a"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -124,9 +125,10 @@
       </div>
     </div>
     <div
-      class="css-cfn6u4-CommitCard e1a625uv2"
+      class="css-1va7b6q-CommitCard e1a625uv2"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
+      id="commit-card-b"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -287,9 +289,10 @@
       />
     </div>
     <div
-      class="css-1vbh9ch-CommitCard e1a625uv2"
+      class="css-1sdgc41-CommitCard e1a625uv2"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
+      id="commit-card-d"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -439,9 +442,10 @@
       />
     </div>
     <div
-      class="css-173zci2-CommitCard e1a625uv2"
+      class="css-jzrtur-CommitCard e1a625uv2"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
+      id="commit-card-f"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -870,9 +874,10 @@
       />
     </div>
     <div
-      class="css-14ovsiy-CommitCard e1a625uv2"
+      class="css-16azg1b-CommitCard e1a625uv2"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
+      id="commit-card-j"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -995,9 +1000,10 @@
       />
     </div>
     <div
-      class="css-todlc7-CommitCard e1a625uv2"
+      class="css-1ofefj3-CommitCard e1a625uv2"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
+      id="commit-card-k"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"

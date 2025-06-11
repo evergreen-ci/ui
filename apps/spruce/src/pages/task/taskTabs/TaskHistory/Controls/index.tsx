@@ -66,6 +66,7 @@ export const Controls: React.FC<ControlsProps> = ({
       </LeftContainer>
       <SegmentedControl
         aria-controls="[data-cy='task-timeline']"
+        label="Inactive Commits"
         onChange={(t) => setViewOption(t as ViewOptions)}
         size="xsmall"
         value={viewOption}
@@ -75,13 +76,13 @@ export const Controls: React.FC<ControlsProps> = ({
           data-cy="collapsed-option"
           value={ViewOptions.Collapsed}
         >
-          Collapsed
+          Collapse
         </SegmentedControlOption>
         <SegmentedControlOption
           data-cy="expanded-option"
           value={ViewOptions.Expanded}
         >
-          Expanded
+          Expand
         </SegmentedControlOption>
       </SegmentedControl>
     </Container>

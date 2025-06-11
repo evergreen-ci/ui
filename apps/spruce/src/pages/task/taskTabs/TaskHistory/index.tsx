@@ -25,6 +25,7 @@ import { jiraLinkify } from "utils/string";
 import { validateRegexp } from "utils/validators";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
+import { TaskHistoryContextProvider } from "./context";
 import { Controls } from "./Controls";
 import OnboardingTutorial from "./OnboardingTutorial";
 import TaskTimeline from "./TaskTimeline";
@@ -164,7 +165,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   }, [direction, setQueryParams, prevPageCursor, queryParams]);
 
   return (
-    <>
+    <TaskHistoryContextProvider task={task}>
       <Container>
         <Banner variant={BannerVariant.Info}>
           {jiraLinkify(
@@ -194,16 +195,12 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
         </StickyHeader>
         <ListContent>
           <Subtitle>Commit Details</Subtitle>
-          <CommitDetailsList
-            currentTask={task}
-            loading={loading}
-            tasks={visibleTasks}
-          />
+          <CommitDetailsList loading={loading} tasks={visibleTasks} />
         </ListContent>
       </Container>
       {/* Remove blocking condition in DEVPROD-17669 */}
       {!isProduction() && <OnboardingTutorial guideCueRef={guideCueRef} />}
-    </>
+    </TaskHistoryContextProvider>
   );
 };
 

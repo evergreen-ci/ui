@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { fromZonedTime } from "date-fns-tz";
 import { TaskHistoryTask, GroupedTask } from "../types";
 
@@ -28,6 +29,7 @@ export const groupTasks = (
         task: null,
         inactiveTasks: [],
         isMatching: false,
+        commitCardRef: null,
       });
     }
     groupedTasks[groupedTasks.length - 1].inactiveTasks?.push(t);
@@ -44,6 +46,7 @@ export const groupTasks = (
       inactiveTasks: null,
       task: t,
       isMatching,
+      commitCardRef: createRef<HTMLDivElement>(),
     });
   };
 
@@ -53,6 +56,7 @@ export const groupTasks = (
       inactiveTasks: null,
       task: null,
       isMatching: false,
+      commitCardRef: null,
     });
   };
 

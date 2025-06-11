@@ -1,8 +1,9 @@
 <div>
   <div
-    class="css-1ffesh7-CommitCard e1a625uv2"
+    class="css-1m5jqpg-CommitCard e1a625uv2"
     data-cy="commit-details-card"
     data-task-history-guide-id="commit-details"
+    id="commit-card-a"
   >
     <div
       class="css-12rnwxt-TopLabel e1a625uv1"
@@ -23,7 +24,7 @@
         aria-label="GitHub Commit Link"
         class="leafygreen-ui-tcjr3n"
         data-cy="github-link"
-        href="https://github.com/evergreen-ci/evergreen/commit/aef363719d0287e92cd83749a827bae"
+        href="https://github.com/evergreen-ci/spruce/commit/aef363719d0287e92cd83749a827bae"
         tabindex="0"
         target="__blank"
       >

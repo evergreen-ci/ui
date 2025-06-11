@@ -85,3 +85,10 @@ export const walkthroughDateFilterProps = {
 export const walkthroughJumpButtonProps = {
   [taskHistoryGuideId]: walkthroughSteps[6].targetId,
 };
+
+/**
+ * Pixel height that indicates height of the sticky header.
+ * This is to make it so that `scrollIntoView` works correctly, as `scrollIntoView` will ignore overlapping
+ * sticky elements by default.
+ */
+export const stickyHeaderScrollOffset = 190;
