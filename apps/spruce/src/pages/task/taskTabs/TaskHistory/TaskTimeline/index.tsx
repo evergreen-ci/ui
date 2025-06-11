@@ -75,44 +75,34 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
           ) : (
             <>
               {tasks.map((t) => {
-                const { inactiveTasks, shouldShowDateSeparator, task } = t;
-                if (task) {
+                const { date, inactiveTasks, task } = t;
+                if (date) {
                   return (
-                    <>
-                      {shouldShowDateSeparator && (
-                        <DateSeparator
-                          key={`date-separator-${task.createTime}`}
-                          date={task.createTime}
-                          timezone={timezone}
-                        />
-                      )}
-                      <TaskBox
-                        key={task.id}
-                        className="square"
-                        data-cy="timeline-box"
-                        rightmost={false}
-                        status={task.displayStatus as TaskStatus}
-                      />
-                    </>
+                    <DateSeparator
+                      key={`timeline-date-separator-${date}`}
+                      date={date}
+                      timezone={timezone}
+                    />
+                  );
+                } else if (task) {
+                  return (
+                    <TaskBox
+                      key={task.id}
+                      className="square"
+                      data-cy="timeline-box"
+                      rightmost={false}
+                      status={task.displayStatus as TaskStatus}
+                    />
                   );
                 } else if (inactiveTasks) {
                   return (
-                    <>
-                      {shouldShowDateSeparator && (
-                        <DateSeparator
-                          key={`date-separator-${inactiveTasks[0].createTime}`}
-                          date={inactiveTasks[0].createTime}
-                          timezone={timezone}
-                        />
-                      )}
-                      <CollapsedBox
-                        key={inactiveTasks[0].id}
-                        className="square"
-                        data-cy="collapsed-box"
-                      >
-                        {inactiveTasks.length}
-                      </CollapsedBox>
-                    </>
+                    <CollapsedBox
+                      key={inactiveTasks[0].id}
+                      className="square"
+                      data-cy="collapsed-box"
+                    >
+                      {inactiveTasks.length}
+                    </CollapsedBox>
                   );
                 }
                 return null;
@@ -220,9 +210,8 @@ const Container = styled.div`
 `;
 
 const Timeline = styled.div`
-  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex: 1;
 `;
 
 const TaskBox = styled(BaseTaskBox)`

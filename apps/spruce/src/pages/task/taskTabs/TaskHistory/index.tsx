@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
@@ -18,6 +18,7 @@ import {
 import { TASK_HISTORY } from "gql/queries";
 import { useSpruceConfig, useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { isProduction } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
@@ -27,6 +28,7 @@ import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import { Controls } from "./Controls";
 import OnboardingTutorial from "./OnboardingTutorial";
 import TaskTimeline from "./TaskTimeline";
+import { DATE_SEPARATOR_WIDTH } from "./TaskTimeline/DateSeparator";
 import { TestFailureSearchInput } from "./TestFailureSearchInput";
 import { TaskHistoryOptions, ViewOptions } from "./types";
 import {
@@ -39,12 +41,18 @@ import {
 interface TaskHistoryProps {
   task: NonNullable<TaskQuery["task"]>;
 }
-const MAX_DATES_PER_PAGE = 10; // Maximum number of dates to assume per page in the timeline
+
 const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const timelineRef = useRef<HTMLDivElement>(null);
   const { width: timelineWidth } = useDimensions<HTMLDivElement>(timelineRef);
 
   const guideCueRef = useRef<WalkthroughGuideCueRef>(null);
+
+  const headerScrollRef = useRef<HTMLDivElement>(null);
+  const [showShadow, setShowShadow] = useState(false);
+  useIntersectionObserver(headerScrollRef, ([entry]) => {
+    setShowShadow(!entry.isIntersecting);
+  });
 
   const dispatchToast = useToastContext();
 
@@ -122,18 +130,18 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
     testFailureSearchTerm,
   });
 
-  const numVisibleTasks =
-    Math.floor(timelineWidth / SQUARE_WITH_BORDER) - MAX_DATES_PER_PAGE;
+  const numVisibleTasks = Math.floor(
+    timelineWidth / Math.max(SQUARE_WITH_BORDER, DATE_SEPARATOR_WIDTH),
+  );
 
   const visibleTasks =
     direction === TaskHistoryDirection.After
-      ? groupedTasks.slice(-numVisibleTasks)
+      ? // Add 1 to exclude the first date that is always present.
+        groupedTasks.slice(-numVisibleTasks + 1)
       : groupedTasks.slice(0, numVisibleTasks);
 
-  const prevPageCursor = getPrevPageCursor(visibleTasks[0]);
-  const nextPageCursor = getNextPageCursor(
-    visibleTasks[visibleTasks.length - 1],
-  );
+  const prevPageCursor = getPrevPageCursor(visibleTasks);
+  const nextPageCursor = getNextPageCursor(visibleTasks);
 
   const numMatchingResults = useMemo(
     () => visibleTasks.reduce((acc, t) => (t.isMatching ? acc + 1 : acc), 0),
@@ -164,7 +172,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
             jiraHost,
           )}
         </Banner>
-        <StickyHeader>
+        <div ref={headerScrollRef} data-header-observer />
+        <StickyHeader showShadow={showShadow}>
           <Controls
             date={date}
             setViewOption={setViewOption}
@@ -202,7 +211,7 @@ export default TaskHistory;
 
 const Container = styled.div``;
 
-const StickyHeader = styled.div`
+const StickyHeader = styled.div<{ showShadow: boolean }>`
   position: sticky;
   top: -${size.m};
   z-index: 1;
@@ -212,6 +221,15 @@ const StickyHeader = styled.div`
   gap: ${size.xs};
   background: white;
   padding: ${size.xs} 0;
+
+  margin: 0 -${size.xs};
+  padding: ${size.xs} ${size.xs};
+
+  ${({ showShadow }) =>
+    showShadow
+      ? "box-shadow: 0 3px 4px -4px rgba(0, 0, 0, 0.6);"
+      : "box-shadow: unset;"}
+  transition: box-shadow ${transitionDuration.default}ms ease-in-out;
 `;
 
 const ListContent = styled.div`

@@ -10,16 +10,22 @@ export type TaskHistoryPagination =
 
 export type GroupedTask =
   | {
+      date: null;
       inactiveTasks: TaskHistoryTask[];
       task: null;
-      shouldShowDateSeparator: boolean;
       isMatching: false;
     }
   | {
+      date: null;
       inactiveTasks: null;
       task: TaskHistoryTask;
-      shouldShowDateSeparator: boolean;
       isMatching: boolean;
+    }
+  | {
+      date: Date;
+      inactiveTasks: null;
+      task: null;
+      isMatching: false;
     };
 
 export enum ViewOptions {

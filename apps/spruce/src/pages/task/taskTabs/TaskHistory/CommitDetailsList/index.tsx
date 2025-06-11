@@ -24,36 +24,29 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
     ) : (
       <>
         {tasks.map((t) => {
-          const { inactiveTasks, isMatching, shouldShowDateSeparator, task } =
-            t;
-          if (task) {
+          const { date, inactiveTasks, isMatching, task } = t;
+          if (date) {
             return (
-              <>
-                {shouldShowDateSeparator && (
-                  <DateSeparator date={task.createTime} />
-                )}
-                <CommitDetailsCard
-                  key={task.id}
-                  isCurrentTask={task.id === currentTask.id}
-                  isMatching={isMatching}
-                  owner={currentTask.project?.owner}
-                  repo={currentTask.project?.repo}
-                  task={task}
-                />
-              </>
+              <DateSeparator key={`list-date-separator-${date}`} date={date} />
+            );
+          } else if (task) {
+            return (
+              <CommitDetailsCard
+                key={task.id}
+                isCurrentTask={task.id === currentTask.id}
+                isMatching={isMatching}
+                owner={currentTask.project?.owner}
+                repo={currentTask.project?.repo}
+                task={task}
+              />
             );
           } else if (inactiveTasks) {
             return (
-              <>
-                {shouldShowDateSeparator && (
-                  <DateSeparator date={inactiveTasks[0].createTime} />
-                )}
-                <InactiveCommitsButton
-                  key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
-                  currentTask={currentTask}
-                  inactiveTasks={inactiveTasks}
-                />
-              </>
+              <InactiveCommitsButton
+                key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
+                currentTask={currentTask}
+                inactiveTasks={inactiveTasks}
+              />
             );
           }
           return null;

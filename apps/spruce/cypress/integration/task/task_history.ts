@@ -213,7 +213,7 @@ describe("task history", () => {
 
         const collapsedViewPages = {
           first: { order: "12305", date: "Mar 27, 2025" },
-          next: { order: "12224", date: "Mar 7, 2025" },
+          next: { order: "12236", date: "Mar 10, 2025" },
         };
 
         // Previous page should be disabled.
@@ -263,9 +263,9 @@ describe("task history", () => {
 
         const expandedViewPages = {
           first: { order: "12306", date: "Mar 27, 2025" },
-          second: { order: "12262", date: "Mar 17, 2025" },
-          third: { order: "12218", date: "Mar 5, 2025" },
-          last: { order: "12174", date: "Feb 25, 2025" },
+          second: { order: "12261", date: "Mar 17, 2025" },
+          third: { order: "12217", date: "Mar 5, 2025" },
+          last: { order: "12170", date: "Feb 25, 2025" },
         };
 
         // Previous page should be disabled.
