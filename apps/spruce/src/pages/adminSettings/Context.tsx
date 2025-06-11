@@ -1,4 +1,4 @@
-import { Context, useContext, useMemo } from "react";
+import { useContext, useMemo, useCallback } from "react";
 import {
   createSettingsContext,
   getUseHasUnsavedTab,
@@ -18,13 +18,26 @@ const routes = Object.values(WritableAdminSettingsTabs);
 const AdminSettingsContext = createSettingsContext<
   WritableAdminSettingsType,
   FormStateMap
->() as Context<SettingsState<WritableAdminSettingsType, FormStateMap>>;
+>();
 
 const AdminSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { getTab, saveTab, setInitialData, tabs, updateForm } =
     useSettingsState(routes, formToGqlMap);
+
+  const checkHasUnsavedChanges = useCallback(
+    (): boolean => Object.values(tabs).some((tab) => tab.hasChanges),
+    [tabs],
+  );
+
+  const getChangedTabs = useCallback(
+    (): WritableAdminSettingsType[] =>
+      Object.entries(tabs)
+        .filter(([, state]) => state.hasChanges)
+        .map(([key]) => key as WritableAdminSettingsType),
+    [tabs],
+  );
 
   const contextValue = useMemo(
     () => ({
@@ -33,8 +46,18 @@ const AdminSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
       setInitialData,
       tabs,
       updateForm,
+      checkHasUnsavedChanges,
+      getChangedTabs,
     }),
-    [getTab, saveTab, setInitialData, tabs, updateForm],
+    [
+      getTab,
+      saveTab,
+      setInitialData,
+      tabs,
+      updateForm,
+      checkHasUnsavedChanges,
+      getChangedTabs,
+    ],
   );
 
   return (
@@ -44,26 +67,28 @@ const AdminSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-const useAdminSettingsContext = (): SettingsState<
+type AdminSettingsContextType = SettingsState<
   WritableAdminSettingsType,
   FormStateMap
-> => {
+> & {
+  checkHasUnsavedChanges: () => boolean;
+  getChangedTabs: () => WritableAdminSettingsType[];
+};
+
+export const useAdminSettingsContext = (): AdminSettingsContextType => {
   const context = useContext(AdminSettingsContext);
   if (context === undefined || context === null) {
     throw new Error(
-      "useAdminSettingsContext must be used within a AdminSettingsProvider",
+      "useAdminSettingsContext must be used within AdminSettingsProvider",
     );
   }
-  return context;
+
+  return context as AdminSettingsContextType;
 };
 
-const useHasUnsavedTab = getUseHasUnsavedTab(AdminSettingsContext);
+// @ts-expect-error: added by aldo
+export const useHasUnsavedTab = getUseHasUnsavedTab(AdminSettingsContext);
+// @ts-expect-error: added by aldo
+export const usePopulateForm = getUsePopulateForm(AdminSettingsContext);
 
-const usePopulateForm = getUsePopulateForm(AdminSettingsContext);
-
-export {
-  AdminSettingsProvider,
-  useAdminSettingsContext,
-  useHasUnsavedTab,
-  usePopulateForm,
-};
+export { AdminSettingsProvider };

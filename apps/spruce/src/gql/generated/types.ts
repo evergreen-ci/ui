@@ -68,6 +68,11 @@ export type AdminSettings = {
   bannerTheme?: Maybe<BannerTheme>;
 };
 
+export type AdminSettingsInput = {
+  banner?: InputMaybe<Scalars["String"]["input"]>;
+  bannerTheme?: InputMaybe<BannerTheme>;
+};
+
 /**
  * Annotation models the metadata that a user can add to a task.
  * It is used as a field within the Task type.
@@ -1248,6 +1253,7 @@ export type Mutation = {
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
   restartVersions?: Maybe<Array<Version>>;
+  saveAdminSettings: AdminSettings;
   saveDistro: SaveDistroPayload;
   saveProjectSettingsForSection: ProjectSettings;
   saveRepoSettingsForSection: RepoSettings;
@@ -1431,6 +1437,10 @@ export type MutationRestartVersionsArgs = {
   abort: Scalars["Boolean"]["input"];
   versionId: Scalars["String"]["input"];
   versionsToRestart: Array<VersionToRestart>;
+};
+
+export type MutationSaveAdminSettingsArgs = {
+  adminSettings: AdminSettingsInput;
 };
 
 export type MutationSaveDistroArgs = {
@@ -2568,6 +2578,14 @@ export enum RoundingRule {
   Up = "UP",
 }
 
+/**
+ * SpruceConfig defines settings that apply to all users of Evergreen.
+ * For example, if the banner field is populated, then a sitewide banner will be shown to all users.
+ */
+export type SaveAdminSettingsInput = {
+  adminSettings: AdminSettingsInput;
+};
+
 /** SaveDistroInput is the input to the saveDistro mutation. */
 export type SaveDistroInput = {
   distro: DistroInput;
@@ -2714,10 +2732,6 @@ export type SpawnVolumeInput = {
   type: Scalars["String"]["input"];
 };
 
-/**
- * SpruceConfig defines settings that apply to all users of Evergreen.
- * For example, if the banner field is populated, then a sitewide banner will be shown to all users.
- */
 export type SpruceConfig = {
   __typename?: "SpruceConfig";
   banner?: Maybe<Scalars["String"]["output"]>;
@@ -5520,6 +5534,19 @@ export type RestartVersionsMutation = {
       }> | null;
     } | null;
   }> | null;
+};
+
+export type SaveAdminSettingsMutationVariables = Exact<{
+  adminSettings: AdminSettingsInput;
+}>;
+
+export type SaveAdminSettingsMutation = {
+  __typename?: "Mutation";
+  saveAdminSettings: {
+    __typename?: "AdminSettings";
+    banner?: string | null;
+    bannerTheme?: BannerTheme | null;
+  };
 };
 
 export type SaveDistroMutationVariables = Exact<{

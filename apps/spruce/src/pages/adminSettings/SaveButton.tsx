@@ -1,0 +1,64 @@
+import { useMutation } from "@apollo/client";
+import Button from "@leafygreen-ui/button";
+import {
+  SaveAdminSettingsMutation,
+  SaveAdminSettingsMutationVariables,
+} from "gql/generated/types";
+import { SAVE_ADMIN_SETTINGS } from "gql/mutations";
+import { useAdminSettingsContext } from "./Context";
+import { formToGqlMap } from "./tabs/transformers";
+import { FormToGqlFunction } from "./tabs/types";
+
+export const AdminSaveButton = () => {
+  const { checkHasUnsavedChanges, getChangedTabs, getTab } =
+    useAdminSettingsContext();
+  const hasUnsavedChanges = checkHasUnsavedChanges();
+
+  const [saveAdminSettings] = useMutation<
+    SaveAdminSettingsMutation,
+    SaveAdminSettingsMutationVariables
+  >(SAVE_ADMIN_SETTINGS, {
+    onCompleted() {
+      console.log(`Updated admin settings`);
+    },
+    onError(err) {
+      console.error("Error saving admin settings:", err.message);
+    },
+    // refetchQueries: ["Distro"],
+  });
+
+  const handleSave = () => {
+    const changedTabs = getChangedTabs();
+    console.log("Saving changes...", changedTabs);
+
+    changedTabs.forEach((tab) => {
+      if (Object.prototype.hasOwnProperty.call(formToGqlMap, tab)) {
+        const { formData } = getTab(tab);
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
+        const changes = formToGql(formData);
+        console.log(`Saving changes for tab: ${tab}`, changes);
+        saveAdminSettings({
+          variables: {
+            adminSettings: changes,
+          },
+        }).catch((error) => {
+          console.error(`Error saving changes for tab ${tab}:`, error.message);
+        });
+      }
+    });
+  };
+
+  return (
+    <Button
+      data-cy="save-settings-button"
+      disabled={!hasUnsavedChanges}
+      onClick={handleSave}
+      variant="primary"
+    >
+      Save Changes on Page
+    </Button>
+  );
+};
+
+export default AdminSaveButton;
