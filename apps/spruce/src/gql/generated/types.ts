@@ -2189,6 +2189,7 @@ export type PublicKeyInput = {
 
 export type Query = {
   __typename?: "Query";
+  adminSettings?: Maybe<AdminSettings>;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
   buildBaron: BuildBaron;
@@ -8851,6 +8852,7 @@ export type TaskHistoryQuery = {
       createTime?: Date | null;
       displayStatus: string;
       execution: number;
+      latestExecution: number;
       order: number;
       revision?: string | null;
       tests: {

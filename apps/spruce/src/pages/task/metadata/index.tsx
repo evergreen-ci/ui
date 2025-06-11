@@ -328,22 +328,24 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             finished.
           </MetadataItem>
         )}
-        {taskTrace && startTime && finishTime && (
+        {startTime && finishTime && (
           <MetadataItem>
             <HoneycombLinkContainer>
-              <StyledLink
-                data-cy="task-trace-link"
-                hideExternalIcon={false}
-                href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
-                onClick={() => {
-                  taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
-                    "link.type": "honeycomb trace link",
-                  });
-                }}
-              >
-                Honeycomb Trace
-              </StyledLink>
+              {taskTrace && (
+                <StyledLink
+                  data-cy="task-trace-link"
+                  hideExternalIcon={false}
+                  href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
+                  onClick={() => {
+                    taskAnalytics.sendEvent({
+                      name: "Clicked metadata link",
+                      "link.type": "honeycomb trace link",
+                    });
+                  }}
+                >
+                  Honeycomb Trace
+                </StyledLink>
+              )}
               <StyledLink
                 data-cy="task-metrics-link"
                 hideExternalIcon={false}
