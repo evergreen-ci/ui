@@ -31,7 +31,7 @@
       </div>
     </button>
     <div
-      class="css-7e0rrd-Timeline ezsgi5w1"
+      class="css-t11c9f-Timeline ezsgi5w1"
       data-cy="task-timeline"
       data-task-history-guide-id="task-timeline"
     >
@@ -79,7 +79,7 @@
         />
       </div>
       <div
-        class="square css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        class="square css-4m3or9-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
         data-cy="collapsed-box"
       >
         1
@@ -111,7 +111,7 @@
         />
       </div>
       <div
-        class="square css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        class="square css-4m3or9-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
         data-cy="collapsed-box"
       >
         1
@@ -143,7 +143,7 @@
         />
       </div>
       <div
-        class="square css-dun3rh-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        class="square css-4m3or9-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
         data-cy="collapsed-box"
       >
         3

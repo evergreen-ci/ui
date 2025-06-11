@@ -20,17 +20,14 @@ export const groupTasks = (
   },
 ) => {
   const groupedTasks: GroupedTask[] = [];
-
   const { shouldCollapse, testFailureSearchTerm, timezone } = options;
-  const pushInactive = (
-    t: TaskHistoryTask,
-    shouldShowDateSeparator: boolean,
-  ) => {
+
+  const pushInactive = (t: TaskHistoryTask) => {
     if (!groupedTasks?.[groupedTasks.length - 1]?.inactiveTasks) {
       groupedTasks.push({
+        date: null,
         task: null,
         inactiveTasks: [],
-        shouldShowDateSeparator,
         isMatching: false,
         commitCardRef: null,
       });
@@ -38,18 +35,28 @@ export const groupTasks = (
     groupedTasks[groupedTasks.length - 1].inactiveTasks?.push(t);
   };
 
-  const pushActive = (t: TaskHistoryTask, shouldShowDateSeparator: boolean) => {
+  const pushActive = (t: TaskHistoryTask) => {
     const isMatching =
       !testFailureSearchTerm ||
       t.tests.testResults.some(({ testFile }) =>
         testFile.match(testFailureSearchTerm),
       );
     groupedTasks.push({
+      date: null,
       inactiveTasks: null,
       task: t,
       isMatching,
-      shouldShowDateSeparator,
       commitCardRef: createRef<HTMLDivElement>(),
+    });
+  };
+
+  const pushDate = (t: TaskHistoryTask) => {
+    groupedTasks.push({
+      date: new Date(t.createTime ?? ""),
+      inactiveTasks: null,
+      task: null,
+      isMatching: false,
+      commitCardRef: null,
     });
   };
 
@@ -66,10 +73,13 @@ export const groupTasks = (
       );
     }
 
+    if (shouldShowDateSeparator) {
+      pushDate(task);
+    }
     if (!task.activated && shouldCollapse) {
-      pushInactive(task, shouldShowDateSeparator);
+      pushInactive(task);
     } else {
-      pushActive(task, shouldShowDateSeparator);
+      pushActive(task);
     }
   });
 
@@ -78,32 +88,42 @@ export const groupTasks = (
 
 /**
  * `getPrevPageCursor` extracts the task which comes directly before the previous page results.
- * @param item - the first item of visible tasks
+ * @param items - visible tasks
  * @returns the task which can be used as the cursor to go to the previous page
  */
-export const getPrevPageCursor = (item: GroupedTask) => {
+export const getPrevPageCursor = (items: GroupedTask[]) => {
+  // Filter out date separators as they cannot be used as cursors.
+  const item = items.filter((i) => i.date === null)[0];
   if (!item) {
     return null;
   }
   if (item.task) {
     return item.task;
   }
-  return item.inactiveTasks[0];
+  if (item.inactiveTasks) {
+    return item.inactiveTasks[0];
+  }
+  return null;
 };
 
 /**
  * `getNextPageCursor` extracts the task which comes directly before the next page results.
- * @param item - the last item of visible tasks
+ * @param items - visible tasks
  * @returns the task which can be used as the cursor to go to the next page
  */
-export const getNextPageCursor = (item: GroupedTask) => {
+export const getNextPageCursor = (items: GroupedTask[]) => {
+  // Filter out date separators as they cannot be used as cursors.
+  const item = items.filter((i) => i.date === null).slice(-1)[0];
   if (!item) {
     return null;
   }
   if (item.task) {
     return item.task;
   }
-  return item.inactiveTasks[item.inactiveTasks.length - 1];
+  if (item.inactiveTasks) {
+    return item.inactiveTasks[item.inactiveTasks.length - 1];
+  }
+  return null;
 };
 
 /**

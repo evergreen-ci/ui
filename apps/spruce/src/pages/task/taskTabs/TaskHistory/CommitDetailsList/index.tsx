@@ -22,38 +22,26 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
     ) : (
       <>
         {tasks.map((t) => {
-          const {
-            commitCardRef,
-            inactiveTasks,
-            isMatching,
-            shouldShowDateSeparator,
-            task,
-          } = t;
-          if (task) {
+          const { commitCardRef, date, inactiveTasks, isMatching, task } = t;
+          if (date) {
             return (
-              <>
-                {shouldShowDateSeparator && (
-                  <DateSeparator date={task.createTime} />
-                )}
-                <CommitDetailsCard
-                  key={task.id}
-                  ref={commitCardRef}
-                  isMatching={isMatching}
-                  task={task}
-                />
-              </>
+              <DateSeparator key={`list-date-separator-${date}`} date={date} />
+            );
+          } else if (task) {
+            return (
+              <CommitDetailsCard
+                key={task.id}
+                ref={commitCardRef}
+                isMatching={isMatching}
+                task={task}
+              />
             );
           } else if (inactiveTasks) {
             return (
-              <>
-                {shouldShowDateSeparator && (
-                  <DateSeparator date={inactiveTasks[0].createTime} />
-                )}
-                <InactiveCommitsButton
-                  key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
-                  inactiveTasks={inactiveTasks}
-                />
-              </>
+              <InactiveCommitsButton
+                key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
+                inactiveTasks={inactiveTasks}
+              />
             );
           }
           return null;

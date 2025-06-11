@@ -79,66 +79,50 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
           ) : (
             <>
               {tasks.map((t) => {
-                const {
-                  commitCardRef,
-                  inactiveTasks,
-                  shouldShowDateSeparator,
-                  task,
-                } = t;
-                if (task) {
+                const { commitCardRef, date, inactiveTasks, task } = t;
+                if (date) {
+                  return (
+                    <DateSeparator
+                      key={`timeline-date-separator-${date}`}
+                      date={date}
+                      timezone={timezone}
+                    />
+                  );
+                } else if (task) {
                   const isHoveredTask = hoveredTask === task.id;
                   const isSelectedTask = selectedTask === task.id;
                   return (
-                    <>
-                      {shouldShowDateSeparator && (
-                        <DateSeparator
-                          key={`date-separator-${task.createTime}`}
-                          date={task.createTime}
-                          timezone={timezone}
-                        />
-                      )}
-                      <TaskBoxWrapper className="square">
-                        <TaskBox
-                          key={task.id}
-                          active={isHoveredTask || isSelectedTask}
-                          data-cy="timeline-box"
-                          id={`task-box-${task.id}`}
-                          onClick={() => {
-                            if (isSelectedTask) {
-                              setSelectedTask(null);
-                            } else {
-                              setSelectedTask(task.id);
-                              commitCardRef.current?.scrollIntoView();
-                            }
-                          }}
-                          rightmost={false}
-                          status={task.displayStatus as TaskStatus}
-                          taskId={task.id}
-                        />
-                        <CurrentTaskBadge
-                          isCurrentTask={currentTask.id === task.id}
-                        />
-                      </TaskBoxWrapper>
-                    </>
+                    <TaskBoxWrapper key={task.id} className="square">
+                      <TaskBox
+                        active={isHoveredTask || isSelectedTask}
+                        data-cy="timeline-box"
+                        id={`task-box-${task.id}`}
+                        onClick={() => {
+                          if (isSelectedTask) {
+                            setSelectedTask(null);
+                          } else {
+                            setSelectedTask(task.id);
+                            commitCardRef.current?.scrollIntoView();
+                          }
+                        }}
+                        rightmost={false}
+                        status={task.displayStatus as TaskStatus}
+                        taskId={task.id}
+                      />
+                      <CurrentTaskBadge
+                        isCurrentTask={currentTask.id === task.id}
+                      />
+                    </TaskBoxWrapper>
                   );
                 } else if (inactiveTasks) {
                   return (
-                    <>
-                      {shouldShowDateSeparator && (
-                        <DateSeparator
-                          key={`date-separator-${inactiveTasks[0].createTime}`}
-                          date={inactiveTasks[0].createTime}
-                          timezone={timezone}
-                        />
-                      )}
-                      <CollapsedBox
-                        key={inactiveTasks[0].id}
-                        className="square"
-                        data-cy="collapsed-box"
-                      >
-                        {inactiveTasks.length}
-                      </CollapsedBox>
-                    </>
+                    <CollapsedBox
+                      key={inactiveTasks[0].id}
+                      className="square"
+                      data-cy="collapsed-box"
+                    >
+                      {inactiveTasks.length}
+                    </CollapsedBox>
                   );
                 }
                 return null;
@@ -196,9 +180,8 @@ const Container = styled.div`
 `;
 
 const Timeline = styled.div`
-  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex: 1;
 `;
 
 const TaskBox = styled(BaseTaskBox)<{
