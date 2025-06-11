@@ -9,7 +9,6 @@ const MAX_HISTORY_ITEMS = 5;
  * @returns An object containing:
  *   - searchHistory: Array of recent searches
  *   - addToHistory: Function to add a search to history
- *   - combineWithSuggestions: Function to combine history with suggestions
  */
 export const useSearchHistory = () => {
   const [searchHistory, setSearchHistory] = useState<string[]>(() => {
@@ -42,13 +41,8 @@ export const useSearchHistory = () => {
     });
   };
 
-  const combineWithSuggestions = (suggestions: string[] = []): string[] =>
-    // Combine existing suggestions with search history, removing duplicates
-    [...new Set([...searchHistory, ...suggestions])];
-
   return {
     addToHistory,
-    combineWithSuggestions,
     searchHistory,
   };
 };

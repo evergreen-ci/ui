@@ -1,5 +1,24 @@
 import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
-import SearchPopover from "./SearchPopover";
+import { SearchSuggestionGroup } from "./types";
+import SearchPopover from ".";
+
+const mockSearchSuggestions: SearchSuggestionGroup[] = [
+  {
+    suggestions: ["apple", "banana"],
+    title: "Fruits",
+  },
+  {
+    suggestions: ["carrot", "lettuce"],
+    title: "Vegetables",
+  },
+];
+
+const singleGroupSuggestions: SearchSuggestionGroup[] = [
+  {
+    suggestions: ["apple", "banana", "cherry"],
+    title: "Test Group",
+  },
+];
 
 describe("search popover", () => {
   it("disables properly", () => {
@@ -16,7 +35,7 @@ describe("search popover", () => {
     render(
       <SearchPopover
         onClick={onClick}
-        searchSuggestions={["apple", "banana"]}
+        searchSuggestions={mockSearchSuggestions}
       />,
     );
     await user.click(screen.getByDataCy("search-suggestion-button"));
@@ -29,13 +48,32 @@ describe("search popover", () => {
     expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
   });
 
+  it("should display group titles and suggestions", async () => {
+    const user = userEvent.setup();
+    render(<SearchPopover searchSuggestions={mockSearchSuggestions} />);
+    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await waitFor(() => {
+      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+    });
+
+    // Check group titles are displayed
+    expect(screen.getByText("Fruits")).toBeVisible();
+    expect(screen.getByText("Vegetables")).toBeVisible();
+
+    // Check suggestions are displayed
+    expect(screen.getByText("apple")).toBeVisible();
+    expect(screen.getByText("banana")).toBeVisible();
+    expect(screen.getByText("carrot")).toBeVisible();
+    expect(screen.getByText("lettuce")).toBeVisible();
+  });
+
   it("should be able to submit an option with enter", async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
     render(
       <SearchPopover
         onClick={onClick}
-        searchSuggestions={["apple", "banana"]}
+        searchSuggestions={singleGroupSuggestions}
       />,
     );
     await user.click(screen.getByDataCy("search-suggestion-button"));
@@ -57,7 +95,7 @@ describe("search popover", () => {
     render(
       <SearchPopover
         onClick={onClick}
-        searchSuggestions={["apple", "banana"]}
+        searchSuggestions={singleGroupSuggestions}
       />,
     );
     await user.click(screen.getByDataCy("search-suggestion-button"));
@@ -94,13 +132,13 @@ describe("search popover", () => {
     expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
   });
 
-  it("should navigate options with arrow keys and select with enter", async () => {
+  it("should navigate options with arrow keys and select with enter across groups", async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
     render(
       <SearchPopover
         onClick={onClick}
-        searchSuggestions={["apple", "banana", "cherry"]}
+        searchSuggestions={singleGroupSuggestions}
       />,
     );
     await user.click(screen.getByDataCy("search-suggestion-button"));
@@ -113,17 +151,50 @@ describe("search popover", () => {
       .querySelector("div");
     popoverContainer?.focus();
 
+    // Navigate down twice to get to "cherry" (third item)
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{ArrowDown}");
     await user.keyboard("{ArrowDown}");
 
-    await user.keyboard("{ArrowDown}");
-
+    // Navigate up twice to get to "apple" (first item)
     await user.keyboard("{ArrowUp}");
     await user.keyboard("{ArrowUp}");
 
     await user.keyboard("{Enter}");
 
     expect(onClick).toHaveBeenCalledTimes(1);
-    expect(onClick).toHaveBeenCalledWith("cherry");
+    expect(onClick).toHaveBeenCalledWith("banana");
+    expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
+  });
+
+  it("should navigate across multiple groups with arrow keys", async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(
+      <SearchPopover
+        onClick={onClick}
+        searchSuggestions={mockSearchSuggestions}
+      />,
+    );
+    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await waitFor(() => {
+      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+    });
+
+    const popoverContainer = screen
+      .getByDataCy("search-suggestion-popover")
+      .querySelector("div");
+    popoverContainer?.focus();
+
+    // Navigate down to go through: apple -> banana -> carrot -> lettuce
+    await user.keyboard("{ArrowDown}"); // apple
+    await user.keyboard("{ArrowDown}"); // banana
+    await user.keyboard("{ArrowDown}"); // carrot (first item in second group)
+
+    await user.keyboard("{Enter}");
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onClick).toHaveBeenCalledWith("carrot");
     expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
   });
 });

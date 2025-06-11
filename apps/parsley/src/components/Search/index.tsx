@@ -38,7 +38,7 @@ const Search: React.FC = () => {
     searchState,
     setSearch,
   } = useLogContext();
-  const { addToHistory, combineWithSuggestions } = useSearchHistory();
+  const { addToHistory, searchHistory } = useSearchHistory();
   const { highlightFilters } = preferences;
   const { buildID, execution, logType, taskID } = logMetadata ?? {};
   const { hasSearch } = searchState;
@@ -127,9 +127,6 @@ const Search: React.FC = () => {
     );
   };
 
-  const searchSuggestions = combineWithSuggestions(
-    parsleyFilters?.map((p) => p.expression) ?? [],
-  );
   return (
     <Container ref={containerRef}>
       <StyledSearchBar
@@ -137,7 +134,16 @@ const Search: React.FC = () => {
         onChange={handleOnChange}
         onSubmit={handleOnSubmit}
         paginate={paginate}
-        searchSuggestions={searchSuggestions}
+        searchSuggestions={[
+          {
+            suggestions: searchHistory,
+            title: "Previous Searches",
+          },
+          {
+            suggestions: parsleyFilters?.map((p) => p.expression) ?? [],
+            title: "Project Filters",
+          },
+        ]}
         validator={validateRegexp}
         validatorMessage="Invalid regular expression"
       />

@@ -16,6 +16,7 @@ import { SearchBarActions } from "constants/enums";
 import { DIRECTION } from "context/LogContext/types";
 import { useKeyboardShortcut } from "hooks";
 import SearchPopover from "./SearchPopover";
+import { SearchSuggestionGroup } from "./SearchPopover/types";
 
 const { red } = palette;
 interface SearchBarProps {
@@ -24,7 +25,7 @@ interface SearchBarProps {
   onChange?: (value: string) => void;
   onSubmit?: (selected: string, value: string) => void;
   paginate?: (dir: DIRECTION) => void;
-  searchSuggestions?: string[];
+  searchSuggestions?: SearchSuggestionGroup[];
   validator?: (value: string) => boolean;
   validatorMessage?: string;
 }

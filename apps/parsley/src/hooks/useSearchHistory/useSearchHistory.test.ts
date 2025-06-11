@@ -60,16 +60,6 @@ describe("useSearchHistory", () => {
     expect(result.current.searchHistory).toEqual(["real"]);
   });
 
-  it("combines history with suggestions without duplicates", () => {
-    const { result } = renderHook(() => useSearchHistory());
-    act(() => {
-      result.current.addToHistory("a");
-      result.current.addToHistory("b");
-    });
-    const combined = result.current.combineWithSuggestions(["b", "c"]);
-    expect(combined).toEqual(["b", "a", "c"]);
-  });
-
   it("updates localStorage when searchHistory changes", () => {
     const setItemSpy = vi.spyOn(localStorage.__proto__, "setItem");
     const { result } = renderHook(() => useSearchHistory());

@@ -187,8 +187,14 @@ describe("searchbar", () => {
     vi.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     const onChange = vi.fn();
+    const searchSuggestions = [
+      {
+        suggestions: ["apple", "banana"],
+        title: "Fruits",
+      },
+    ];
     render(
-      <SearchBar onChange={onChange} searchSuggestions={["apple", "banana"]} />,
+      <SearchBar onChange={onChange} searchSuggestions={searchSuggestions} />,
     );
 
     await user.click(screen.getByDataCy("search-suggestion-button"));
