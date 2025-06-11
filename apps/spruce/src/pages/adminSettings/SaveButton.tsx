@@ -17,15 +17,7 @@ export const AdminSaveButton = () => {
   const [saveAdminSettings] = useMutation<
     SaveAdminSettingsMutation,
     SaveAdminSettingsMutationVariables
-  >(SAVE_ADMIN_SETTINGS, {
-    onCompleted() {
-      console.log(`Updated admin settings`);
-    },
-    onError(err) {
-      console.error("Error saving admin settings:", err.message);
-    },
-    // refetchQueries: ["Distro"],
-  });
+  >(SAVE_ADMIN_SETTINGS, {});
 
   const handleSave = () => {
     const changedTabs = getChangedTabs();
@@ -37,13 +29,12 @@ export const AdminSaveButton = () => {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
         const changes = formToGql(formData);
-        console.log(`Saving changes for tab: ${tab}`, changes);
         saveAdminSettings({
           variables: {
             adminSettings: changes,
           },
         }).catch((error) => {
-          console.error(`Error saving changes for tab ${tab}:`, error.message);
+          console.error(`Error saving hanges for tab ${tab}:`, error.message);
         });
       }
     });

@@ -86,9 +86,9 @@ export const useAdminSettingsContext = (): AdminSettingsContextType => {
   return context as AdminSettingsContextType;
 };
 
-// @ts-expect-error: added by aldo
+// @ts-expect-error: The type definitions for getUseHasUnsavedTab do not align with AdminSettingsContext.
 export const useHasUnsavedTab = getUseHasUnsavedTab(AdminSettingsContext);
-// @ts-expect-error: added by aldo
+// @ts-expect-error: The type definitions for getUseHasUnsavedTab do not align with AdminSettingsContext.
 export const usePopulateForm = getUsePopulateForm(AdminSettingsContext);
 
 export { AdminSettingsProvider };
