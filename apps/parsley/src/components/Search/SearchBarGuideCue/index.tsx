@@ -35,16 +35,14 @@ const SearchBarGuideCue: React.FC<SearchBarGuideCueProps> = ({
       portalContainer={containerRef}
       refEl={triggerRef}
       setOpen={setOpenGuideCue}
-      title="New tab completion and memory!"
+      title="New: Tab Completion and Memory!"
       tooltipAlign="bottom"
     >
       <GuideCueText>
+        <span>The search bar will now remember your recent searches!</span>
         <span>
-          The search bar now remembers the last few filters you applied!
-        </span>
-        <span>
-          It will now suggest a project filter or previous filter as you type.
-          You can <InlineKeyCode>Tab</InlineKeyCode> to complete the suggestion.
+          It will suggest options as you type. You can use{" "}
+          <InlineKeyCode>Tab</InlineKeyCode> to complete the suggestion.
         </span>
       </GuideCueText>
     </GuideCue>
