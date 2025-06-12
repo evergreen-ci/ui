@@ -1,6 +1,4 @@
 export const ANNOUNCEMENT_TOAST = "announcement-toast";
-export const COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION =
-  "commit-chart-view-options-accordion";
 export const CURRENT_PROJECT = "mci-project-cookie";
 export const DISABLE_QUERY_POLLING = "disable-query-polling";
 export const getNotificationTriggerCookie = (type: string) =>
