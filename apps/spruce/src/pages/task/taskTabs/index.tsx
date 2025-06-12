@@ -153,13 +153,7 @@ const useTabConfig = (
       <Tab
         key="task-history-tab"
         data-cy="task-history-tab"
-        name={
-          <TabLabelWithBadge
-            badgeText="Beta"
-            badgeVariant={Variant.Blue}
-            tabLabel="Task History"
-          />
-        }
+        name="History"
         {...walkthroughHistoryTabProps}
       >
         <TaskHistory task={task} />

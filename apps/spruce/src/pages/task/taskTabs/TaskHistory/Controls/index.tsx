@@ -40,6 +40,10 @@ export const Controls: React.FC<ControlsProps> = ({
         <DateFilter
           dataCyProps={walkthroughDateFilterProps}
           onChange={(newDate) => {
+            sendEvent({
+              name: "Filtered by date",
+              date: newDate,
+            });
             setQueryParams({
               ...queryParams,
               [TaskHistoryOptions.Direction]: undefined,
@@ -54,6 +58,9 @@ export const Controls: React.FC<ControlsProps> = ({
         <Button
           data-cy="jump-to-this-task-button"
           onClick={() => {
+            sendEvent({
+              name: "Clicked jump to this task button",
+            });
             setQueryParams({
               ...queryParams,
               [TaskHistoryOptions.Direction]: undefined,
@@ -72,12 +79,12 @@ export const Controls: React.FC<ControlsProps> = ({
         aria-controls="[data-cy='task-timeline']"
         label="Inactive Commits"
         onChange={(t) => {
-          setViewOption(t as ViewOptions);
-          Cookies.set(TASK_HISTORY_INACTIVE_COMMITS_VIEW, t);
           sendEvent({
             name: "Toggled inactive tasks view",
             expanded: t === ViewOptions.Expanded,
           });
+          setViewOption(t as ViewOptions);
+          Cookies.set(TASK_HISTORY_INACTIVE_COMMITS_VIEW, t);
         }}
         size="xsmall"
         value={viewOption}
