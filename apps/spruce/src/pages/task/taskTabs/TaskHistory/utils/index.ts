@@ -1,5 +1,5 @@
 import { createRef } from "react";
-import { fromZonedTime } from "date-fns-tz";
+import { fromZonedTime, toZonedTime } from "date-fns-tz";
 import { TaskHistoryTask, GroupedTask } from "../types";
 
 /**
@@ -52,7 +52,7 @@ export const groupTasks = (
 
   const pushDate = (t: TaskHistoryTask) => {
     groupedTasks.push({
-      date: new Date(t.createTime ?? ""),
+      date: t.createTime ?? new Date(),
       inactiveTasks: null,
       task: null,
       isMatching: false,
@@ -141,12 +141,9 @@ export const areDatesOnSameDay = (
   if (!date1 || !date2) {
     return false;
   }
-  const parsedDate1 = timezone
-    ? fromZonedTime(new Date(date1), timezone)
-    : new Date(date1);
-  const parsedDate2 = timezone
-    ? fromZonedTime(new Date(date2), timezone)
-    : new Date(date2);
+  // Use toZonedTime as we want to check for date differences in the target timezone.
+  const parsedDate1 = timezone ? toZonedTime(date1, timezone) : new Date(date1);
+  const parsedDate2 = timezone ? toZonedTime(date2, timezone) : new Date(date2);
   return (
     parsedDate1.getFullYear() === parsedDate2.getFullYear() &&
     parsedDate1.getMonth() === parsedDate2.getMonth() &&

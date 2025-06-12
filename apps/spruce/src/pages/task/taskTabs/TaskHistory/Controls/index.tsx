@@ -6,8 +6,11 @@ import {
 } from "@leafygreen-ui/segmented-control";
 import { Size } from "@leafygreen-ui/tokens";
 import { Subtitle } from "@leafygreen-ui/typography";
+import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useTaskHistoryAnalytics } from "analytics";
 import { DateFilter } from "components/DateFilter";
+import { TASK_HISTORY_INACTIVE_COMMITS_VIEW } from "constants/cookies";
 import { useQueryParams } from "hooks/useQueryParam";
 import {
   walkthroughDateFilterProps,
@@ -28,6 +31,7 @@ export const Controls: React.FC<ControlsProps> = ({
   viewOption,
 }) => {
   const [queryParams, setQueryParams] = useQueryParams();
+  const { sendEvent } = useTaskHistoryAnalytics();
 
   return (
     <Container>
@@ -67,7 +71,14 @@ export const Controls: React.FC<ControlsProps> = ({
       <SegmentedControl
         aria-controls="[data-cy='task-timeline']"
         label="Inactive Commits"
-        onChange={(t) => setViewOption(t as ViewOptions)}
+        onChange={(t) => {
+          setViewOption(t as ViewOptions);
+          Cookies.set(TASK_HISTORY_INACTIVE_COMMITS_VIEW, t);
+          sendEvent({
+            name: "Toggled inactive tasks view",
+            expanded: t === ViewOptions.Expanded,
+          });
+        }}
         size="xsmall"
         value={viewOption}
         {...walkthroughInactiveViewProps}
