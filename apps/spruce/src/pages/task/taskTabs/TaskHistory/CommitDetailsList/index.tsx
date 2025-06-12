@@ -17,7 +17,7 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
   loading,
   tasks,
 }) => {
-  const { expandedMap } = useTaskHistoryContext();
+  const { expandedTasksMap } = useTaskHistoryContext();
 
   return (
     <CommitList data-cy="commit-details-list">
@@ -47,7 +47,7 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
               return (
                 <InactiveCommitsButton
                   key={`${inactiveTasks[0].id}-${inactiveTasks[inactiveTasks.length - 1].id}`}
-                  defaultOpen={expandedMap.get(inactiveTasks[0].id)}
+                  defaultOpen={expandedTasksMap.get(inactiveTasks[0].id)}
                   inactiveTasks={inactiveTasks}
                 />
               );

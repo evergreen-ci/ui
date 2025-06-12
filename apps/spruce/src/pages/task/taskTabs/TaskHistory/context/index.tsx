@@ -7,8 +7,8 @@ type TaskHistoryContextState = {
   setSelectedTask: (v: string | null) => void;
   setHoveredTask: (v: string | null) => void;
   currentTask: NonNullable<TaskQuery["task"]>;
-  expandedMap: Map<string, boolean>;
-  setExpandedMap: (v: Map<string, boolean>) => void;
+  expandedTasksMap: Map<string, boolean>;
+  setExpandedTasksMap: (v: Map<string, boolean>) => void;
 };
 
 const TaskHistoryContext = createContext<TaskHistoryContextState | null>(null);
@@ -29,7 +29,9 @@ const TaskHistoryContextProvider: React.FC<{
 }> = ({ children, task }) => {
   const [selectedTask, setSelectedTask] = useState<string | null>(null);
   const [hoveredTask, setHoveredTask] = useState<string | null>(null);
-  const [expandedMap, setExpandedMap] = useState(new Map<string, boolean>());
+  const [expandedTasksMap, setExpandedTasksMap] = useState(
+    new Map<string, boolean>(),
+  );
 
   const memoizedContext = useMemo(
     () => ({
@@ -38,8 +40,8 @@ const TaskHistoryContextProvider: React.FC<{
       hoveredTask,
       setHoveredTask,
       currentTask: task,
-      expandedMap,
-      setExpandedMap,
+      expandedTasksMap,
+      setExpandedTasksMap,
     }),
     [
       selectedTask,
@@ -47,8 +49,8 @@ const TaskHistoryContextProvider: React.FC<{
       hoveredTask,
       setHoveredTask,
       task,
-      expandedMap,
-      setExpandedMap,
+      expandedTasksMap,
+      setExpandedTasksMap,
     ],
   );
   return (

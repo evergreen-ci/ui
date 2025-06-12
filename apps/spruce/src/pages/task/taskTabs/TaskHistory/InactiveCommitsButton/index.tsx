@@ -16,7 +16,7 @@ const InactiveCommitsButton: React.FC<Props> = ({
   defaultOpen = false,
   inactiveTasks,
 }) => {
-  const { expandedMap, setExpandedMap } = useTaskHistoryContext();
+  const { expandedTasksMap, setExpandedTasksMap } = useTaskHistoryContext();
   const [failingTest] = useQueryParam<string>(
     TaskHistoryOptions.FailingTest,
     "",
@@ -35,7 +35,7 @@ const InactiveCommitsButton: React.FC<Props> = ({
             )
           }
           onClick={() => {
-            const newMap = new Map(expandedMap);
+            const newMap = new Map(expandedTasksMap);
             inactiveTasks.forEach((i) => {
               if (isExpanded) {
                 newMap.delete(i.id);
@@ -43,7 +43,7 @@ const InactiveCommitsButton: React.FC<Props> = ({
                 newMap.set(i.id, true);
               }
             });
-            setExpandedMap(newMap);
+            setExpandedTasksMap(newMap);
             setIsExpanded(!isExpanded);
           }}
           size={Size.XSmall}
