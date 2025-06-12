@@ -237,7 +237,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
           persistentPlaceholder={
             autoCompletePlaceholder.length > 0 && (
               <PlaceholderWrapper>
-                {autoCompletePlaceholder.slice(0, 30)}
+                {autoCompletePlaceholder.length > 30
+                  ? `${autoCompletePlaceholder.slice(0, 30)}…`
+                  : autoCompletePlaceholder}
                 <span>
                   <InlineKeyCode>Tab</InlineKeyCode> to complete
                 </span>
