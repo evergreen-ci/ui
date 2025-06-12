@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
@@ -29,219 +30,251 @@ import {
 import { RESTART_TASK, SCHEDULE_TASKS } from "gql/mutations";
 import { useDateFormat } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
-import { TaskTab } from "types/task";
+import { RequiredQueryParams, TaskTab } from "types/task";
 import { isProduction } from "utils/environmentVariables";
+import {
+  stickyHeaderScrollOffset,
+  walkthroughCommitCardProps,
+} from "../constants";
+import { useTaskHistoryContext } from "../context";
 import { TaskHistoryTask } from "../types";
 import CommitDescription from "./CommitDescription";
 import FailedTestsTable from "./FailedTestsTable";
 
-const { gray } = palette;
+const { blue, gray } = palette;
 
 interface CommitDetailsCardProps {
-  isCurrentTask: boolean;
-  owner: string | undefined;
-  repo: string | undefined;
   isMatching: boolean;
   task: TaskHistoryTask;
 }
 
-const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
-  isCurrentTask,
-  isMatching,
-  owner,
-  repo,
-  task,
-}) => {
-  const {
-    activated,
-    canRestart,
-    canSchedule,
-    createTime,
-    displayStatus,
-    id: taskId,
-    latestExecution,
-    order,
-    revision,
-    tests,
-    versionMetadata,
-  } = task;
-  const { author, id: versionId, message } = versionMetadata;
+const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
+  ({ isMatching, task }, ref) => {
+    const { sendEvent } = useTaskHistoryAnalytics();
+    const dispatchToast = useToastContext();
+    const getDateCopy = useDateFormat();
 
-  const { sendEvent } = useTaskHistoryAnalytics();
+    const {
+      currentTask,
+      expandedTasksMap,
+      selectedTask,
+      setExpandedTasksMap,
+      setHoveredTask,
+    } = useTaskHistoryContext();
+    const [, setExecution] = useQueryParam(RequiredQueryParams.Execution, 0);
 
-  const getDateCopy = useDateFormat();
-  const createDate = new Date(createTime ?? "");
-  const dateCopy = getDateCopy(createDate, {
-    omitSeconds: true,
-    omitTimezone: true,
-  });
+    const {
+      activated,
+      canRestart,
+      canSchedule,
+      createTime,
+      displayStatus,
+      id: taskId,
+      latestExecution,
+      order,
+      revision,
+      tests,
+      versionMetadata,
+    } = task;
+    const { author, id: versionId, message } = versionMetadata;
 
-  const githubCommitUrl =
-    owner && repo && revision ? getGithubCommitUrl(owner, repo, revision) : "";
+    const owner = currentTask.project?.owner ?? "";
+    const repo = currentTask.project?.repo ?? "";
+    const isCurrentTask = taskId === currentTask.id;
+    const isSelectedTask = taskId === selectedTask;
 
-  const [, setExecution] = useQueryParam("execution", 0);
+    const createDate = new Date(createTime ?? "");
+    const dateCopy = getDateCopy(createDate, {
+      omitSeconds: true,
+      omitTimezone: true,
+    });
 
-  const dispatchToast = useToastContext();
+    const githubCommitUrl =
+      owner && repo && revision
+        ? getGithubCommitUrl(owner, repo, revision)
+        : "";
 
-  const [scheduleTask] = useMutation<
-    ScheduleTasksMutation,
-    ScheduleTasksMutationVariables
-  >(SCHEDULE_TASKS, {
-    variables: { taskIds: [task.id], versionId },
-    onCompleted: () => {
-      dispatchToast.success("Task scheduled to run");
-    },
-    onError: (err) => {
-      dispatchToast.error(`Error scheduling task: ${err.message}`);
-    },
-    update: (cache) => {
-      cache.modify({
-        id: cache.identify(task),
-        fields: {
-          canSchedule: () => false,
-          displayStatus: () => TaskStatus.WillRun,
-          activated: () => true,
-        },
-        broadcast: true,
-      });
-    },
-  });
-
-  const [restartTask] = useMutation<
-    RestartTaskMutation,
-    RestartTaskMutationVariables
-  >(RESTART_TASK, {
-    variables: { taskId, failedOnly: false },
-    onCompleted: (data) => {
-      dispatchToast.success("Task scheduled to restart");
-      if (isCurrentTask) {
-        const newerExecution = data?.restartTask.latestExecution ?? 0;
-        setExecution(newerExecution);
-      }
-    },
-    onError: (err) =>
-      dispatchToast.error(`Error restarting task: ${err.message}`),
-    update: (cache) => {
-      if (!isCurrentTask) {
+    const [scheduleTask] = useMutation<
+      ScheduleTasksMutation,
+      ScheduleTasksMutationVariables
+    >(SCHEDULE_TASKS, {
+      variables: { taskIds: [task.id], versionId },
+      onCompleted: () => {
+        const newMap = new Map(expandedTasksMap);
+        newMap.delete(task.id);
+        setExpandedTasksMap(newMap);
+        dispatchToast.success("Task scheduled to run");
+      },
+      onError: (err) => {
+        dispatchToast.error(`Error scheduling task: ${err.message}`);
+      },
+      update: (cache) => {
         cache.modify({
           id: cache.identify(task),
           fields: {
-            canRestart: () => false,
+            canSchedule: () => false,
             displayStatus: () => TaskStatus.WillRun,
-            execution: (cachedExecution: number) => cachedExecution + 1,
+            activated: () => true,
           },
-          broadcast: false,
+          broadcast: true,
         });
-      }
-    },
-    // Only re-request if the current task is restarted. This should be relatively
-    // uncommon.
-    refetchQueries: [isCurrentTask ? "TaskHistory" : ""],
-  });
+      },
+    });
 
-  return (
-    <CommitCard
-      key={taskId}
-      data-cy="commit-details-card"
-      isMatching={isMatching}
-      status={displayStatus as TaskStatus}
-    >
-      <TopLabel>
-        <InlineCode
-          as={Link}
-          data-cy="task-link"
-          to={getTaskRoute(taskId, { tab: TaskTab.History })}
-        >
-          {shortenGithash(revision ?? "")}
-        </InlineCode>
-        <IconButton
-          aria-label="GitHub Commit Link"
-          data-cy="github-link"
-          href={githubCommitUrl}
-          target="__blank"
-        >
-          <Icon glyph="GitHub" />
-        </IconButton>
-        {activated ? (
-          <Button
-            data-cy="restart-button"
-            disabled={!canRestart}
-            onClick={() => {
-              restartTask();
-              sendEvent({
-                name: "Clicked restart task button",
-                "task.id": task.id,
-              });
-            }}
-            size={ButtonSize.XSmall}
+    const [restartTask] = useMutation<
+      RestartTaskMutation,
+      RestartTaskMutationVariables
+    >(RESTART_TASK, {
+      variables: { taskId, failedOnly: false },
+      onCompleted: (data) => {
+        dispatchToast.success("Task scheduled to restart");
+        if (isCurrentTask) {
+          const newerExecution = data?.restartTask.latestExecution ?? 0;
+          setExecution(newerExecution);
+        }
+      },
+      onError: (err) =>
+        dispatchToast.error(`Error restarting task: ${err.message}`),
+      update: (cache) => {
+        if (!isCurrentTask) {
+          cache.modify({
+            id: cache.identify(task),
+            fields: {
+              canRestart: () => false,
+              displayStatus: () => TaskStatus.WillRun,
+              execution: (cachedExecution: number) => cachedExecution + 1,
+            },
+            broadcast: false,
+          });
+        }
+      },
+      // Only re-request if the current task is restarted. This should be relatively
+      // uncommon.
+      refetchQueries: [isCurrentTask ? "TaskHistory" : ""],
+    });
+
+    return (
+      <CommitCard
+        key={taskId}
+        ref={ref}
+        data-cy="commit-details-card"
+        id={`commit-card-${taskId}`}
+        isMatching={isMatching}
+        onMouseEnter={() => setHoveredTask(taskId)}
+        onMouseLeave={() => setHoveredTask(null)}
+        selected={isSelectedTask}
+        status={displayStatus as TaskStatus}
+        {...walkthroughCommitCardProps}
+      >
+        <TopLabel>
+          <InlineCode
+            as={Link}
+            data-cy="task-link"
+            to={getTaskRoute(taskId, { tab: TaskTab.History })}
           >
-            Restart Task
-          </Button>
+            {shortenGithash(revision ?? "")}
+          </InlineCode>
+          <IconButton
+            aria-label="GitHub Commit Link"
+            data-cy="github-link"
+            href={githubCommitUrl}
+            target="__blank"
+          >
+            <Icon glyph="GitHub" />
+          </IconButton>
+          {activated ? (
+            <Button
+              data-cy="restart-button"
+              disabled={!canRestart}
+              onClick={() => {
+                restartTask();
+                sendEvent({
+                  name: "Clicked restart task button",
+                  "task.id": task.id,
+                });
+              }}
+              size={ButtonSize.XSmall}
+            >
+              Restart Task
+            </Button>
+          ) : (
+            <Button
+              data-cy="schedule-button"
+              disabled={!canSchedule}
+              onClick={() => {
+                scheduleTask();
+                sendEvent({
+                  name: "Clicked schedule task button",
+                  "task.id": task.id,
+                });
+              }}
+              size={ButtonSize.XSmall}
+            >
+              Schedule Task
+            </Button>
+          )}
+          {isCurrentTask && (
+            <Badge data-cy="this-task-badge" variant={BadgeVariant.Blue}>
+              This Task
+            </Badge>
+          )}
+          <span>{dateCopy}</span>
+          {latestExecution > 0 ? (
+            <Chip
+              label={`Executions: ${latestExecution + 1}`}
+              variant={ChipVariant.Gray}
+            />
+          ) : null}
+          {/* Use this to debug issues with pagination. */}
+          {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}
+        </TopLabel>
+        {tests.testResults.length > 0 ? (
+          <Accordion
+            caretAlign={AccordionCaretAlign.Start}
+            onToggle={({ isVisible }) =>
+              sendEvent({ name: "Toggled failed tests table", open: isVisible })
+            }
+            title={<CommitDescription author={author} message={message} />}
+          >
+            <FailedTestsTable tests={tests} />
+          </Accordion>
         ) : (
-          <Button
-            data-cy="schedule-button"
-            disabled={!canSchedule}
-            onClick={() => {
-              scheduleTask();
-              sendEvent({
-                name: "Clicked schedule task button",
-                "task.id": task.id,
-              });
-            }}
-            size={ButtonSize.XSmall}
-          >
-            Schedule Task
-          </Button>
+          <CommitDescription author={author} message={message} />
         )}
-        {isCurrentTask && (
-          <Badge data-cy="this-task-badge" variant={BadgeVariant.Blue}>
-            This Task
-          </Badge>
-        )}
-        <span>{dateCopy}</span>
-        {latestExecution > 0 ? (
-          <Chip
-            label={`Executions: ${latestExecution + 1}`}
-            variant={ChipVariant.Gray}
-          />
-        ) : null}
-        {/* Use this to debug issues with pagination. */}
-        {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}
-      </TopLabel>
-      {tests.testResults.length > 0 ? (
-        <Accordion
-          caretAlign={AccordionCaretAlign.Start}
-          onToggle={({ isVisible }) =>
-            sendEvent({ name: "Toggled failed tests table", open: isVisible })
-          }
-          title={<CommitDescription author={author} message={message} />}
-        >
-          <FailedTestsTable tests={tests} />
-        </Accordion>
-      ) : (
-        <CommitDescription author={author} message={message} />
-      )}
-    </CommitCard>
-  );
-};
+      </CommitCard>
+    );
+  },
+);
+CommitDetailsCard.displayName = "CommitDetailsCard";
 
 export default CommitDetailsCard;
 
 const CommitCard = styled.div<{
   status: TaskStatus;
+  selected: boolean;
   isMatching: boolean;
 }>`
   display: flex;
   flex-direction: column;
   gap: ${size.xs};
-
   padding: ${size.xs};
+
   border-radius: ${size.xs};
   border: 1px solid ${gray.light2};
+  :hover {
+    border-color: ${blue.base};
+  }
+  ${({ selected }) => selected && `border-color: ${blue.base};`}
 
-  ${({ status }) => `border-left: ${size.xs} solid ${statusColorMap[status]};`}
+  /* Styles for the status stripe. Border isn't used as it interferes with hover styles. */
+  ${({ status }) => `
+     background: linear-gradient(to right, ${statusColorMap[status]} 10px, transparent 0px) no-repeat;
+     `}
+  padding-left: ${size.s};
 
-  ${({ isMatching }) => !isMatching && inactiveElementStyle}
+  ${({ isMatching }) => !isMatching && inactiveElementStyle};
+
+  scroll-margin-top: ${stickyHeaderScrollOffset}px;
 `;
 
 const TopLabel = styled.div`

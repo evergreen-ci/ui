@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.0.14",
+  "version": "6.0.16",
   "private": true,
   "type": "module",
   "scripts": {
@@ -142,7 +142,7 @@
     "@evg-ui/lint-staged": "*",
     "@evg-ui/storybook-addon": "*",
     "@evg-ui/vite-utils": "*",
-    "@graphql-codegen/cli": "5.0.6",
+    "@graphql-codegen/cli": "5.0.7",
     "@graphql-codegen/typescript": "4.1.6",
     "@graphql-codegen/typescript-operations": "4.6.1",
     "@originjs/vite-plugin-commonjs": "1.0.3",

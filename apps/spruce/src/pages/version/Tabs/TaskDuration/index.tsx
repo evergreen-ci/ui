@@ -34,14 +34,18 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
   const versionAnalytics = useVersionAnalytics(versionId);
   const queryVariables = useQueryVariables(search, versionId);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
-  const { limit, page } = queryVariables.taskFilterOptions;
+  const { limit, page, sorts } = queryVariables.taskFilterOptions;
   const [hasInitialized, setHasInitialized] = useState(false);
 
   useEffect(() => {
-    setQueryParams({
-      ...queryParams,
-      [TableQueryParams.Sorts]: defaultSort,
-    });
+    const hasValidSortsForTab =
+      sorts?.some((s) => validSortCategories.includes(s.Key)) || false;
+    if (!hasValidSortsForTab) {
+      setQueryParams({
+        ...queryParams,
+        [TableQueryParams.Sorts]: defaultSort,
+      });
+    }
     setHasInitialized(true);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -134,4 +138,10 @@ const TableControlWrapper = styled.div`
 
 export default TaskDuration;
 
+const validSortCategories = [
+  TaskSortCategory.Name,
+  TaskSortCategory.Status,
+  TaskSortCategory.Variant,
+  TaskSortCategory.Duration,
+];
 const defaultSort = `${TaskSortCategory.Duration}:${SortDirection.Desc}`;

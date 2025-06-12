@@ -7,4 +7,5 @@ export enum TestStatus {
 export enum HistoryQueryParams {
   SelectedCommit = "selectedCommit",
   VisibleColumns = "visibleColumns",
+  TaskID = "taskId",
 }

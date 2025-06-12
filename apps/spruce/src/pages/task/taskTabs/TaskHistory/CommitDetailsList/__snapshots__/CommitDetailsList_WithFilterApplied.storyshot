@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-krioxf-CommitList ez8m9z90"
+    class="css-6ndzxq-CommitList ez8m9z90"
     data-cy="commit-details-list"
   >
     <div
@@ -17,8 +17,10 @@
       />
     </div>
     <div
-      class="css-ubyi0k-CommitCard-inactiveElementStyle e1a625uv2"
+      class="css-1nxqlnv-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
+      data-task-history-guide-id="commit-details"
+      id="commit-card-a"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -123,8 +125,10 @@
       </div>
     </div>
     <div
-      class="css-1k17di8-CommitCard-inactiveElementStyle e1a625uv2"
+      class="css-31ovgm-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
+      data-task-history-guide-id="commit-details"
+      id="commit-card-b"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -285,8 +289,10 @@
       />
     </div>
     <div
-      class="css-1km0d1d-CommitCard-inactiveElementStyle e1a625uv2"
+      class="css-gb9rre-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
+      data-task-history-guide-id="commit-details"
+      id="commit-card-d"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -436,8 +442,10 @@
       />
     </div>
     <div
-      class="css-173zci2-CommitCard e1a625uv2"
+      class="css-jzrtur-CommitCard e1a625uv2"
       data-cy="commit-details-card"
+      data-task-history-guide-id="commit-details"
+      id="commit-card-f"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -866,8 +874,10 @@
       />
     </div>
     <div
-      class="css-qoe4oj-CommitCard-inactiveElementStyle e1a625uv2"
+      class="css-h6wuzn-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
+      data-task-history-guide-id="commit-details"
+      id="commit-card-j"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"
@@ -990,8 +1000,10 @@
       />
     </div>
     <div
-      class="css-t743ej-CommitCard-inactiveElementStyle e1a625uv2"
+      class="css-1d5xl61-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
+      data-task-history-guide-id="commit-details"
+      id="commit-card-k"
     >
       <div
         class="css-12rnwxt-TopLabel e1a625uv1"

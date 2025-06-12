@@ -35,6 +35,10 @@ type Action =
       name: "Toggled commit description";
       expanded: boolean;
     }
+  | {
+      name: "Toggled inactive tasks view";
+      expanded: boolean;
+    }
   | { name: "Toggled failed tests table"; open: boolean };
 
 export const useTaskHistoryAnalytics = () => {

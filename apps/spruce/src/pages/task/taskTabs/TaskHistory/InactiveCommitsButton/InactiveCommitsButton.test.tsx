@@ -8,6 +8,7 @@ import { TaskQuery } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { taskQuery } from "gql/mocks/taskData";
 import { MockedProvider } from "test_utils/graphql";
+import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import InactiveCommitsButton from ".";
 
@@ -21,10 +22,9 @@ describe("InactiveCommitsButton component", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getSpruceConfigMock]}>
-        <InactiveCommitsButton
-          currentTask={currentTask}
-          inactiveTasks={tasks}
-        />
+        <TaskHistoryContextProvider task={currentTask}>
+          <InactiveCommitsButton inactiveTasks={tasks} />
+        </TaskHistoryContextProvider>
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);

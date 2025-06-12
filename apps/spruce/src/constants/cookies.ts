@@ -1,6 +1,4 @@
 export const ANNOUNCEMENT_TOAST = "announcement-toast";
-export const COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION =
-  "commit-chart-view-options-accordion";
 export const CURRENT_PROJECT = "mci-project-cookie";
 export const DISABLE_QUERY_POLLING = "disable-query-polling";
 export const getNotificationTriggerCookie = (type: string) =>
@@ -13,3 +11,7 @@ export const SLACK_NOTIFICATION_BANNER = "has-closed-slack-banner";
 export const SUBSCRIPTION_METHOD = "subscription-method";
 export const SEEN_WATERFALL_ONBOARDING_TUTORIAL =
   "seen-waterfall-onboarding-tutorial";
+export const SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL =
+  "seen-task-history-onboarding-tutorial";
+export const TASK_HISTORY_INACTIVE_COMMITS_VIEW =
+  "task-history-inactive-commits-view";

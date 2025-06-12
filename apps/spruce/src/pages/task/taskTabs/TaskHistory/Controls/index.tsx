@@ -6,9 +6,17 @@ import {
 } from "@leafygreen-ui/segmented-control";
 import { Size } from "@leafygreen-ui/tokens";
 import { Subtitle } from "@leafygreen-ui/typography";
+import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useTaskHistoryAnalytics } from "analytics";
 import { DateFilter } from "components/DateFilter";
+import { TASK_HISTORY_INACTIVE_COMMITS_VIEW } from "constants/cookies";
 import { useQueryParams } from "hooks/useQueryParam";
+import {
+  walkthroughDateFilterProps,
+  walkthroughJumpButtonProps,
+  walkthroughInactiveViewProps,
+} from "../constants";
 import { TaskHistoryOptions, ViewOptions } from "../types";
 
 interface ControlsProps {
@@ -23,12 +31,14 @@ export const Controls: React.FC<ControlsProps> = ({
   viewOption,
 }) => {
   const [queryParams, setQueryParams] = useQueryParams();
+  const { sendEvent } = useTaskHistoryAnalytics();
 
   return (
     <Container>
       <LeftContainer>
         <Subtitle>Task History Overview</Subtitle>
         <DateFilter
+          dataCyProps={walkthroughDateFilterProps}
           onChange={(newDate) => {
             setQueryParams({
               ...queryParams,
@@ -53,27 +63,37 @@ export const Controls: React.FC<ControlsProps> = ({
             });
           }}
           size={Size.XSmall}
+          {...walkthroughJumpButtonProps}
         >
           Jump to this task
         </Button>
       </LeftContainer>
       <SegmentedControl
         aria-controls="[data-cy='task-timeline']"
-        onChange={(t) => setViewOption(t as ViewOptions)}
+        label="Inactive Commits"
+        onChange={(t) => {
+          setViewOption(t as ViewOptions);
+          Cookies.set(TASK_HISTORY_INACTIVE_COMMITS_VIEW, t);
+          sendEvent({
+            name: "Toggled inactive tasks view",
+            expanded: t === ViewOptions.Expanded,
+          });
+        }}
         size="xsmall"
         value={viewOption}
+        {...walkthroughInactiveViewProps}
       >
         <SegmentedControlOption
           data-cy="collapsed-option"
           value={ViewOptions.Collapsed}
         >
-          Collapsed
+          Collapse
         </SegmentedControlOption>
         <SegmentedControlOption
           data-cy="expanded-option"
           value={ViewOptions.Expanded}
         >
-          Expanded
+          Expand
         </SegmentedControlOption>
       </SegmentedControl>
     </Container>

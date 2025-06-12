@@ -5848,6 +5848,17 @@ export type AdminBetaFeaturesQuery = {
   } | null;
 };
 
+export type AdminSettingsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AdminSettingsQuery = {
+  __typename?: "Query";
+  adminSettings?: {
+    __typename?: "AdminSettings";
+    banner?: string | null;
+    bannerTheme?: BannerTheme | null;
+  } | null;
+};
+
 export type AgentLogsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;

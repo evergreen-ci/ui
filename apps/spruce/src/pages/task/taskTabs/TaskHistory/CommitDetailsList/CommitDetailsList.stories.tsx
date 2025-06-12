@@ -2,6 +2,7 @@ import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TaskQuery } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
+import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import { groupTasks } from "../utils";
 import CommitDetailsList from ".";
@@ -45,11 +46,9 @@ const Template = (args: TemplateProps) => {
     testFailureSearchTerm: null,
   });
   return (
-    <CommitDetailsList
-      currentTask={currentTask}
-      loading={args.loading}
-      tasks={groupedTasks}
-    />
+    <TaskHistoryContextProvider task={currentTask}>
+      <CommitDetailsList loading={args.loading} tasks={groupedTasks} />
+    </TaskHistoryContextProvider>
   );
 };
 
@@ -59,11 +58,9 @@ const WithFilter = (args: TemplateProps) => {
     testFailureSearchTerm: /e2e/,
   });
   return (
-    <CommitDetailsList
-      currentTask={currentTask}
-      loading={args.loading}
-      tasks={groupedTasks}
-    />
+    <TaskHistoryContextProvider task={currentTask}>
+      <CommitDetailsList loading={args.loading} tasks={groupedTasks} />
+    </TaskHistoryContextProvider>
   );
 };
 
