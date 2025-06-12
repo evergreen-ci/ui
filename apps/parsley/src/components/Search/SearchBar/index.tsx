@@ -135,7 +135,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       sendEvent({
         name: "Used search suggestion",
         suggestion: autoCompletePlaceholder,
-        tabComplete: true,
+        tab_complete: true,
       });
     }
     const commandKey = e.ctrlKey || e.metaKey;
@@ -192,7 +192,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               sendEvent({
                 name: "Used search suggestion",
                 suggestion,
-                tabComplete: false,
+                tab_complete: false,
               });
               leaveBreadcrumb(
                 "applied-search-suggestion",

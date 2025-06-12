@@ -23,7 +23,11 @@ type Action =
   | { name: "Created new highlight"; "highlight.expression": string }
   | { name: "Deleted existing highlight"; "highlight.expression": string }
   | { name: "Used search"; "search.expression": string }
-  | { name: "Used search suggestion"; suggestion: string; tabComplete: boolean }
+  | {
+      name: "Used search suggestion";
+      suggestion: string;
+      tab_complete: boolean;
+    }
   | {
       name: "Toggled expanded lines";
       option: "All" | "Five";
