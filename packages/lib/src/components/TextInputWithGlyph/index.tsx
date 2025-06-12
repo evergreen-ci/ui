@@ -46,7 +46,6 @@ const PersistentPlaceholder = styled.span`
   pointer-events: none;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
   z-index: 2;
   /* Make sure it doesn't overlap the icon */
   max-width: 100%;
