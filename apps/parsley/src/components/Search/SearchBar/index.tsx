@@ -139,15 +139,15 @@ const SearchBar: React.FC<SearchBarProps> = ({
       });
     }
     const commandKey = e.ctrlKey || e.metaKey;
-    if (e.key === "Enter" && commandKey && isValid) {
+    if (e.key === CharKey.Enter && commandKey && isValid) {
       handleOnSubmit();
-    } else if (e.key === "Enter" && e.shiftKey) {
+    } else if (e.key === CharKey.Enter && e.shiftKey) {
       paginate(DIRECTION.PREVIOUS);
       sendEvent({
         direction: DIRECTION.PREVIOUS,
         name: "Used search result pagination",
       });
-    } else if (e.key === "Enter") {
+    } else if (e.key === CharKey.Enter) {
       paginate(DIRECTION.NEXT);
       sendEvent({
         direction: DIRECTION.NEXT,
