@@ -106,7 +106,7 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
         active={isOpen}
         data-cy="search-suggestion-popover"
         popoverZIndex={zIndex.popover}
-        usePortal={false}
+        usePortal
       >
         <div
           ref={popoverRef}
@@ -116,12 +116,12 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
           tabIndex={0}
         >
           <StyledCard>
-            {searchSuggestions.length > 0 ? (
-              searchSuggestions.map((group, groupIndex) => (
-                <GroupContainer key={group.title}>
-                  <Title>{group.title}</Title>
-                  <Divider />
-                  <Scrollable>
+            <Scrollable>
+              {searchSuggestions.length > 0 ? (
+                searchSuggestions.map((group, groupIndex) => (
+                  <GroupContainer key={group.title}>
+                    <Title>{group.title}</Title>
+                    <Divider />
                     {group.suggestions.map((suggestion, suggestionIndex) => {
                       const globalIndex = getGlobalIndex(
                         groupIndex,
@@ -138,14 +138,14 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
                         </SearchSuggestion>
                       );
                     })}
-                  </Scrollable>
-                </GroupContainer>
-              ))
-            ) : (
-              <StyledBody>
-                No suggestions available for this project.
-              </StyledBody>
-            )}
+                  </GroupContainer>
+                ))
+              ) : (
+                <StyledBody>
+                  No suggestions available for this project.
+                </StyledBody>
+              )}
+            </Scrollable>
           </StyledCard>
         </div>
       </Popover>
@@ -174,7 +174,7 @@ const Title = styled(Overline)<OverlineProps>`
 `;
 
 const StyledBody = styled(Body)<BodyProps>`
-  padding-left: ${size.s};
+  padding: ${size.s};
 `;
 
 const Divider = styled.hr`
@@ -184,10 +184,10 @@ const Divider = styled.hr`
 `;
 
 const GroupContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   &:not(:last-child) {
     border-bottom: 1px solid ${gray.light2};
-    margin-bottom: ${size.xs};
-    padding-bottom: ${size.xs};
   }
 `;
 

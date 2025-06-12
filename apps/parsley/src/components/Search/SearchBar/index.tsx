@@ -100,7 +100,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     } else {
       setAutoCompletePlaceholder("");
     }
-  }, [input]);
+  }, [input, searchSuggestions]);
 
   const handleChangeSelect = (value: string) => {
     setSelected(value as SearchBarActions);
@@ -128,7 +128,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     // If the user presses tab and there is a persistent placeholder, complete the suggestion
-    if (e.key === "Tab" && autoCompletePlaceholder.length > 0) {
+    if (e.key === CharKey.Tab && autoCompletePlaceholder.length > 0) {
       e.preventDefault();
       handleOnChange(autoCompletePlaceholder);
       setAutoCompletePlaceholder("");
