@@ -17,6 +17,7 @@ import ExecutionTasksTable from "./ExecutionTasksTable";
 import FileTable from "./FileTable";
 import Logs from "./logs";
 import TaskHistory from "./TaskHistory";
+import { walkthroughHistoryTabProps } from "./TaskHistory/constants";
 import TestsTable from "./testsTable/TestsTable";
 import { getDefaultTab } from "./utils/getDefaultTab";
 
@@ -152,13 +153,8 @@ const useTabConfig = (
       <Tab
         key="task-history-tab"
         data-cy="task-history-tab"
-        name={
-          <TabLabelWithBadge
-            badgeText="Beta"
-            badgeVariant={Variant.Blue}
-            tabLabel="Task History"
-          />
-        }
+        name="History"
+        {...walkthroughHistoryTabProps}
       >
         <TaskHistory task={task} />
       </Tab>
