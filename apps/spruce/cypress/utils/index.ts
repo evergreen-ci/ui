@@ -74,8 +74,8 @@ export const clickSave = () => {
 };
 
 /**
- * Wait for the AntD task table to fully render and not be in a loading state
- * This function helps ensure table column header button clicks register
+ * Wait for task table to fully render and not be in a loading state.
+ * This function helps ensure table column header button clicks register.
  */
 export const waitForTaskTable = () => {
   cy.dataCy("tasks-table")
