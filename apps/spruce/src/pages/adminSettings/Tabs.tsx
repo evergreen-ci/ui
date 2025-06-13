@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { AdminSettings } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
+import { AdminSaveButton } from "./AdminSaveButton";
 import { useAdminSettingsContext } from "./Context";
 import { AnnouncementTab } from "./tabs/AnnouncementsTab/AnnouncementTab";
 import { gqlToFormMap } from "./tabs/transformers";
@@ -22,9 +23,12 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   useScrollToAnchor();
 
   return (
-    <Container>
-      <AnnouncementTab announcementsData={tabData.announcements} />
-    </Container>
+    <TabsContent>
+      <Forms>
+        <AnnouncementTab announcementsData={tabData.announcements} />
+      </Forms>
+      <AdminSaveButton />
+    </TabsContent>
   );
 };
 
@@ -40,9 +44,14 @@ const getTabData = (data: Props["data"]): FormStateMap =>
     return obj;
   }, {} as FormStateMap);
 
-const Container = styled.div`
+const Forms = styled.div`
   min-width: 600px;
   width: 60%;
+`;
+
+export const TabsContent = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 export default AdminSettingsTabs;

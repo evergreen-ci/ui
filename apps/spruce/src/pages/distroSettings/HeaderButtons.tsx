@@ -24,7 +24,7 @@ export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
         onClick={() => setModalOpen(true)}
         variant="primary"
       >
-        Save Changes on Page
+        Save changes on page
       </Button>
       <SaveModal
         distro={distro}

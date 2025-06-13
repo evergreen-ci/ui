@@ -23,20 +23,23 @@ export const AdminSaveButton = () => {
     const changedTabs = getChangedTabs();
     console.log("Saving changes...", changedTabs);
 
-    changedTabs.forEach((tab) => {
-      if (Object.prototype.hasOwnProperty.call(formToGqlMap, tab)) {
-        const { formData } = getTab(tab);
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
-        const changes = formToGql(formData);
-        saveAdminSettings({
-          variables: {
-            adminSettings: changes,
-          },
-        }).catch((error) => {
-          console.error(`Error saving hanges for tab ${tab}:`, error.message);
-        });
-      }
+    const changedSettings = changedTabs.reduce(
+      (acc, tab) => {
+        if (Object.prototype.hasOwnProperty.call(formToGqlMap, tab)) {
+          const { formData } = getTab(tab);
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
+          const changes = formToGql(formData);
+          return { ...acc, ...changes };
+        }
+        return acc;
+      },
+      {} as SaveAdminSettingsMutationVariables["adminSettings"],
+    );
+    saveAdminSettings({
+      variables: {
+        adminSettings: changedSettings,
+      },
     });
   };
 
@@ -47,7 +50,7 @@ export const AdminSaveButton = () => {
       onClick={handleSave}
       variant="primary"
     >
-      Save Changes on Page
+      Save changes on page
     </Button>
   );
 };

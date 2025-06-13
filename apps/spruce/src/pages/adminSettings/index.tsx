@@ -2,12 +2,12 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Link } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
   SideNav,
   SideNavGroup,
   SideNavItem,
+  SideNavPageContent,
   SideNavPageWrapper,
 } from "components/styles";
 import {
@@ -20,7 +20,6 @@ import {
 } from "gql/generated/types";
 import { ADMIN_SETTINGS } from "gql/queries";
 import { AdminSettingsProvider } from "./Context";
-import { AdminSaveButton } from "./SaveButton";
 import { AdminSettingsTabs } from "./Tabs";
 
 const AdminSettingsPage: React.FC = () => {
@@ -59,12 +58,11 @@ const AdminSettingsPage: React.FC = () => {
           </SideNavGroup>
         </SideNav>
 
-        <AdminSettingsContent data-cy="admin-settings-page">
+        <SideNavPageContent data-cy="admin-settings-page">
           {data?.adminSettings && (
             <AdminSettingsTabs data={data.adminSettings} />
           )}
-          <AdminSaveButton />
-        </AdminSettingsContent>
+        </SideNavPageContent>
       </SideNavPageWrapper>
     </AdminSettingsProvider>
   );
@@ -74,15 +72,6 @@ const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0;
-`;
-
-export const AdminSettingsContent = styled.div`
-  overflow-x: hidden;
-  overflow-y: scroll;
-  flex-grow: 1;
-  padding: ${size.m} ${size.l};
-  display: flex;
-  flex-direction: row;
 `;
 
 export default AdminSettingsPage;
