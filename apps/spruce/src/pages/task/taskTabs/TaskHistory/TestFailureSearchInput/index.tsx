@@ -7,6 +7,7 @@ import {
 import { Label } from "@leafygreen-ui/typography";
 import debounce from "lodash.debounce";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useTaskHistoryAnalytics } from "analytics";
 import { filterInputDebounceTimeout } from "constants/timeouts";
 import { useQueryParam } from "hooks/useQueryParam";
 import { walkthroughFailureSearchProps } from "../constants";
@@ -19,6 +20,7 @@ interface TestFailureSearchInputProps {
 export const TestFailureSearchInput: React.FC<TestFailureSearchInputProps> = ({
   numMatchingResults,
 }) => {
+  const { sendEvent } = useTaskHistoryAnalytics();
   const [failingTest, setFailingTest] = useQueryParam<string>(
     TaskHistoryOptions.FailingTest,
     "",
@@ -37,6 +39,10 @@ export const TestFailureSearchInput: React.FC<TestFailureSearchInputProps> = ({
   const handleOnChange = (value: string) => {
     setSearchTerm(value);
     updateQueryParamWithDebounce(value);
+    sendEvent({
+      name: "Used test failure search",
+      "test.name": value,
+    });
   };
 
   // In the case that some other component has updated the failingTest param, we need to update

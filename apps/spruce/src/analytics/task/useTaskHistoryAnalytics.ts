@@ -9,7 +9,6 @@ import { TASK } from "gql/queries";
 import { useQueryParam } from "hooks/useQueryParam";
 import { RequiredQueryParams } from "types/task";
 
-// TODO: Flesh out with more events in DEVPROD-17669.
 type Action =
   | {
       name: "Clicked test log link";
@@ -28,6 +27,10 @@ type Action =
       "task.id": string;
     }
   | {
+      name: "Clicked task link";
+      "task.id": string;
+    }
+  | {
       name: "Filtered table";
       "table.filters": ColumnFiltersState;
     }
@@ -39,7 +42,28 @@ type Action =
       name: "Toggled inactive tasks view";
       expanded: boolean;
     }
-  | { name: "Toggled failed tests table"; open: boolean };
+  | { name: "Toggled failed tests table"; open: boolean }
+  | {
+      name: "Clicked task box";
+      "task.id": string;
+    }
+  | {
+      name: "Used test failure search";
+      "test.name": string;
+    }
+  | {
+      name: "Clicked jump to this task button";
+    }
+  | { name: "Filtered by date"; date: string }
+  | {
+      name: "Clicked to dismiss walkthrough before completion";
+    }
+  | {
+      name: "Clicked next page button";
+    }
+  | {
+      name: "Clicked previous page button";
+    };
 
 export const useTaskHistoryAnalytics = () => {
   const { [slugs.taskId]: taskId = "" } = useParams();

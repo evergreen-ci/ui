@@ -170,6 +170,12 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
           <InlineCode
             as={Link}
             data-cy="task-link"
+            onClick={() =>
+              sendEvent({
+                name: "Clicked task link",
+                "task.id": taskId,
+              })
+            }
             to={getTaskRoute(taskId, { tab: TaskTab.History })}
           >
             {shortenGithash(revision ?? "")}
@@ -187,11 +193,11 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               data-cy="restart-button"
               disabled={!canRestart}
               onClick={() => {
-                restartTask();
                 sendEvent({
                   name: "Clicked restart task button",
                   "task.id": task.id,
                 });
+                restartTask();
               }}
               size={ButtonSize.XSmall}
             >
@@ -202,11 +208,11 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               data-cy="schedule-button"
               disabled={!canSchedule}
               onClick={() => {
-                scheduleTask();
                 sendEvent({
                   name: "Clicked schedule task button",
                   "task.id": task.id,
                 });
+                scheduleTask();
               }}
               size={ButtonSize.XSmall}
             >

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
 import { Subtitle } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
@@ -18,12 +17,10 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { TASK_HISTORY } from "gql/queries";
-import { useSpruceConfig, useUserTimeZone } from "hooks";
+import { useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
-import { isProduction } from "utils/environmentVariables";
-import { jiraLinkify } from "utils/string";
 import { validateRegexp } from "utils/validators";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
@@ -58,9 +55,6 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   });
 
   const dispatchToast = useToastContext();
-
-  const spruceConfig = useSpruceConfig();
-  const jiraHost = spruceConfig?.jira?.host ?? "";
 
   const [viewOption, setViewOption] = useState(
     (Cookies.get(TASK_HISTORY_INACTIVE_COMMITS_VIEW) ??
@@ -172,12 +166,6 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   return (
     <TaskHistoryContextProvider task={task}>
       <Container>
-        <Banner variant={BannerVariant.Info}>
-          {jiraLinkify(
-            "This page is currently under construction. Performance and functionality bugs may be present. See DEVPROD-6584 for project details.",
-            jiraHost,
-          )}
-        </Banner>
         <div ref={headerScrollRef} data-header-observer />
         <StickyHeader showShadow={showShadow}>
           <Controls
@@ -203,8 +191,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           <CommitDetailsList loading={loading} tasks={visibleTasks} />
         </ListContent>
       </Container>
-      {/* Remove blocking condition in DEVPROD-17669 */}
-      {!isProduction() && <OnboardingTutorial guideCueRef={guideCueRef} />}
+      <OnboardingTutorial guideCueRef={guideCueRef} />
     </TaskHistoryContextProvider>
   );
 };

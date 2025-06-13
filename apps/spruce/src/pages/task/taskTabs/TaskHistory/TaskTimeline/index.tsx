@@ -6,6 +6,7 @@ import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { useTaskHistoryAnalytics } from "analytics";
 import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
 import { TaskHistoryDirection } from "gql/generated/types";
 import { useUserTimeZone } from "hooks";
@@ -35,15 +36,17 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
   ({ loading, pagination, tasks }, ref) => {
     const [queryParams, setQueryParams] = useQueryParams();
     const timezone = useUserTimeZone();
+    const { sendEvent } = useTaskHistoryAnalytics();
+
+    const { currentTask, hoveredTask, selectedTask, setSelectedTask } =
+      useTaskHistoryContext();
+
     const {
       mostRecentTaskOrder,
       nextPageCursor,
       oldestTaskOrder,
       prevPageCursor,
     } = pagination;
-
-    const { currentTask, hoveredTask, selectedTask, setSelectedTask } =
-      useTaskHistoryContext();
 
     return (
       <Container>
@@ -57,6 +60,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
           }
           onClick={() => {
             if (prevPageCursor) {
+              sendEvent({ name: "Clicked previous page button" });
               setQueryParams({
                 ...queryParams,
                 [TaskHistoryOptions.Date]: undefined,
@@ -98,6 +102,10 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                         data-cy="timeline-box"
                         id={`task-box-${task.id}`}
                         onClick={() => {
+                          sendEvent({
+                            name: "Clicked task box",
+                            "task.id": task.id,
+                          });
                           if (isSelectedTask) {
                             setSelectedTask(null);
                           } else {
@@ -140,6 +148,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
           }
           onClick={() => {
             if (nextPageCursor) {
+              sendEvent({ name: "Clicked next page button" });
               setQueryParams({
                 ...queryParams,
                 [TaskHistoryOptions.Date]: undefined,
