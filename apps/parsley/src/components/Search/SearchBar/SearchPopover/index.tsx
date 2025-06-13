@@ -176,6 +176,8 @@ const Title = styled(Overline)<OverlineProps>`
 
 const StyledBody = styled(Body)<BodyProps>`
   padding: ${size.s};
+  display: flex;
+  justify-content: center;
 `;
 
 const Divider = styled.hr`
