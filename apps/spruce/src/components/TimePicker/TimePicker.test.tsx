@@ -10,7 +10,7 @@ import LeafyGreenTimePicker from ".";
 
 describe("time picker", () => {
   beforeEach(() => {
-    // scrollTo isn't implemented in JSDom and must be mocked.
+    // scrollIntoView isn't implemented in JSDom and must be mocked.
     Element.prototype.scrollIntoView = () => {};
   });
 
@@ -27,6 +27,25 @@ describe("time picker", () => {
     expect(hourInput).toHaveValue("12");
     const minuteInput = screen.getByDataCy("minute-input");
     expect(minuteInput).toHaveValue("33");
+  });
+
+  it("can close and open menu via icon button", async () => {
+    const user = userEvent.setup();
+    render(
+      <LeafyGreenTimePicker
+        disabled={false}
+        label=""
+        onDateChange={vi.fn()}
+        value={new Date("2025-01-01T12:33:00Z")}
+      />,
+    );
+    const iconButton = screen.getByRole("button", { name: "Clock Icon" });
+    await user.click(iconButton);
+    expect(screen.getByDataCy("time-picker-options")).toBeVisible();
+    await user.click(iconButton);
+    await waitForElementToBeRemoved(
+      screen.queryByDataCy("time-picker-options"),
+    );
   });
 
   it("can select time via popover options", async () => {
@@ -70,25 +89,6 @@ describe("time picker", () => {
     expect(onDateChange).toHaveBeenCalledTimes(2);
     expect(onDateChange).toHaveBeenCalledWith(
       new Date("2025-01-01T04:40:00.000Z"),
-    );
-  });
-
-  it("can close and open menu via icon button", async () => {
-    const user = userEvent.setup();
-    render(
-      <LeafyGreenTimePicker
-        disabled={false}
-        label=""
-        onDateChange={vi.fn()}
-        value={new Date("2025-01-01T12:33:00Z")}
-      />,
-    );
-    const iconButton = screen.getByRole("button", { name: "Clock Icon" });
-    await user.click(iconButton);
-    expect(screen.getByDataCy("time-picker-options")).toBeVisible();
-    await user.click(iconButton);
-    await waitForElementToBeRemoved(
-      screen.queryByDataCy("time-picker-options"),
     );
   });
 

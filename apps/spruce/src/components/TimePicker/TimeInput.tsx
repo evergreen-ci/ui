@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { size } from "@evg-ui/lib/constants/tokens";
 
 const { blue } = palette;
 
@@ -35,7 +36,7 @@ const StyledInput = styled.input`
   margin: 0;
   border: none;
   outline: none;
-  width: 24px;
+  width: ${size.m};
 
   :focus {
     background-color: ${blue.light3};

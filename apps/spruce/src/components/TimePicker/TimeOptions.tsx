@@ -8,12 +8,12 @@ import { RefMap, TimepickerType } from "./types";
 const { blue, gray } = palette;
 
 interface TimePickerOptionsProps {
+  currentDateTime: Date;
   "data-cy": string;
-  value: string;
   onDateChange: (newDate: DateType) => void;
   options: string[];
   type: TimepickerType;
-  currentDateTime: Date;
+  value: string;
 }
 
 const TimePickerOptions: React.FC<TimePickerOptionsProps> = ({
@@ -29,6 +29,7 @@ const TimePickerOptions: React.FC<TimePickerOptionsProps> = ({
     return acc;
   }, {} as RefMap);
 
+  // Scroll to the selected option when the popover opens.
   useLayoutEffect(() => {
     const timeout = setTimeout(() => {
       optionRefs[value].current?.scrollIntoView({ behavior: "smooth" });
@@ -68,9 +69,9 @@ const TimeOptions = styled.div`
 `;
 
 interface TimePickerOptionProps {
-  value: string;
-  onSelectOption: (value: string) => void;
   isSelected: boolean;
+  onSelectOption: (value: string) => void;
+  value: string;
 }
 
 const TimePickerOption = forwardRef<HTMLButtonElement, TimePickerOptionProps>(
