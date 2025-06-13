@@ -16,6 +16,7 @@ functions:
       working_dir: ui
       env:
         BUILD_VARIANT: ${build_variant}
+        REQUESTER: ${requester}
       binary: "node"
       args:
         - ".evergreen/scripts/generate-parallel-e2e-tasks.js"
