@@ -11,6 +11,7 @@ import {
   OverlineProps,
 } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
+import { CharKey } from "@evg-ui/lib/constants/keys";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import useOnClickOutside from "hooks/useOnClickOutside";
 import { SearchSuggestionGroup } from "./types";
@@ -59,17 +60,17 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (!isOpen || totalSuggestions === 0) return;
 
-    if (e.key === "ArrowUp") {
+    if (e.key === CharKey.ArrowUp) {
       e.preventDefault();
       setSelectedIndex((prevIndex) =>
         prevIndex <= 0 ? totalSuggestions - 1 : prevIndex - 1,
       );
-    } else if (e.key === "ArrowDown") {
+    } else if (e.key === CharKey.ArrowDown) {
       e.preventDefault();
       setSelectedIndex((prevIndex) =>
         prevIndex === totalSuggestions - 1 ? 0 : prevIndex + 1,
       );
-    } else if (e.key === "Enter" && selectedIndex >= 0) {
+    } else if (e.key === CharKey.Enter && selectedIndex >= 0) {
       e.preventDefault();
       handleClick(flattenedSuggestions[selectedIndex]);
     }

@@ -291,12 +291,16 @@ const StyledInput = styled(TextInputWithGlyph)`
     border-bottom-left-radius: 0;
     border-left: none;
   }
+
+  /* This reflect the side dropdown width */
   input[data-cy="searchbar-input"] {
     padding-left: 42px;
   }
 
+  /* This reflects the side dropdown width */
   span {
     padding-left: 42px;
+    left: 12px;
   }
   div[data-lgid="lg-form_field-feedback"] {
     display: none;

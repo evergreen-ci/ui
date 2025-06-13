@@ -14,11 +14,13 @@ export type TextInputWithGlyphProps = {
 export const TextInputWithGlyph: React.FC<TextInputWithGlyphProps> = forwardRef(
   (props, ref) => {
     const { className, icon, persistentPlaceholder, ...rest } = props;
-
+    const hasLabel = !!rest.label && rest.label.length > 0;
     return (
       <TextInputWrapper className={className}>
         {persistentPlaceholder && (
-          <PersistentPlaceholder>{persistentPlaceholder}</PersistentPlaceholder>
+          <PersistentPlaceholder hasLabel={!!hasLabel}>
+            {persistentPlaceholder}
+          </PersistentPlaceholder>
         )}
         <TextInput ref={ref} {...rest} />
         <IconWrapper>{icon}</IconWrapper>
@@ -34,10 +36,12 @@ const TextInputWrapper = styled.div`
   width: 100%;
 `;
 
-const PersistentPlaceholder = styled.span`
+const PersistentPlaceholder = styled.span<{ hasLabel: boolean }>`
+  /* The text input has a .6px border applied which is why we are using magic numbers below */
   position: absolute;
-  left: 12px;
-  top: 0;
+  left: 14.6px;
+  top: ${({ hasLabel }) => (hasLabel ? "22.6px" : "-0.4px")};
+  padding-top: ${({ hasLabel }) => (hasLabel ? "2px" : 0)};
   height: ${textInputHeight};
   display: flex;
   align-items: center;
@@ -47,6 +51,7 @@ const PersistentPlaceholder = styled.span`
   white-space: nowrap;
   overflow: hidden;
   z-index: 2;
+  box-sizing: border-box;
   /* Make sure it doesn't overlap the icon */
   max-width: 100%;
 `;
