@@ -298,7 +298,7 @@ const StyledInput = styled(TextInputWithGlyph)`
   }
 
   /* This reflects the side dropdown width */
-  span {
+  .persistent-placeholder {
     padding-left: 42px;
     left: 12px;
   }
