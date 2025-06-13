@@ -72,13 +72,3 @@ export const clickSave = () => {
     .should("not.have.attr", "aria-disabled", "true")
     .click();
 };
-
-/**
- * Wait for the AntD task table to fully render and not be in a loading state
- * This function helps ensure table column header button clicks register
- */
-export const waitForTaskTable = () => {
-  cy.dataCy("tasks-table")
-    .should("be.visible")
-    .should("not.have.attr", "data-loading", "true");
-};

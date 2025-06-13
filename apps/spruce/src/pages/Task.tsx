@@ -26,7 +26,7 @@ import { PageDoesNotExist } from "pages/NotFound";
 import { RequiredQueryParams } from "types/task";
 import { ActionButtons } from "./task/ActionButtons";
 import TaskPageBreadcrumbs from "./task/Breadcrumbs";
-import { ExecutionSelect } from "./task/executionDropdown/ExecutionSelector";
+import ExecutionSelector from "./task/ExecutionSelector";
 import { Metadata } from "./task/metadata";
 import TaskTabs from "./task/taskTabs";
 
@@ -139,22 +139,22 @@ export const Task = () => {
       />
       <PageLayout hasSider>
         <PageSider>
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-          {latestExecution > 0 && selectedExecution !== null && (
-            <ExecutionSelect
-              currentExecution={selectedExecution}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              id={taskId}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              latestExecution={latestExecution}
-              updateExecution={(n: number) => {
-                taskAnalytics.sendEvent({ name: "Changed execution" });
-                updateQueryParams({
-                  execution: `${n}`,
-                });
-              }}
-            />
-          )}
+          {task &&
+            latestExecution &&
+            latestExecution > 0 &&
+            selectedExecution !== null && (
+              <ExecutionSelector
+                currentExecution={selectedExecution}
+                latestExecution={latestExecution}
+                taskId={task.id}
+                updateExecution={(n: number) => {
+                  taskAnalytics.sendEvent({ name: "Changed execution" });
+                  updateQueryParams({
+                    execution: `${n}`,
+                  });
+                }}
+              />
+            )}
           <Metadata error={error} loading={loading} task={task} />
         </PageSider>
         <StyledPageContent>
