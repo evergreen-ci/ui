@@ -9,7 +9,8 @@ export const WRAP_FORMAT = "wrap-format";
 export const ZEBRA_STRIPING = "zebra-striping";
 
 export const DRAWER_OPENED = "drawer-opened";
-export const HAS_SEEN_SEARCHBAR_GUIDE_CUE = "has-seen-searchbar-guide-cue";
+export const HAS_SEEN_SEARCHBAR_GUIDE_CUE =
+  "has-seen-searchbar-guide-cue-tab-complete";
 
 export const LAST_SELECTED_LOG_TYPE = "last-selected-log-type";
 
