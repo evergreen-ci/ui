@@ -129,8 +129,8 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-111-menu"
-          aria-describedby="select-111-description"
+          aria-controls="select-113-menu"
+          aria-describedby="select-113-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -139,7 +139,7 @@
           data-cy="tasks-table-page-size-selector"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-112"
+          id="select-114"
           type="button"
           value="10"
         >
