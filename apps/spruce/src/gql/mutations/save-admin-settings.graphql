@@ -1,0 +1,6 @@
+mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
+  saveAdminSettings(adminSettings: $adminSettings) {
+    banner
+    bannerTheme
+  }
+}
