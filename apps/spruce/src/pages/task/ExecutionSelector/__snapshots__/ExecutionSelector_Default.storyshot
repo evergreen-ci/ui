@@ -1,6 +1,6 @@
 <div>
   <div
-    class="leafygreen-ui-1iyoj2o css-kakfok-StyledSelect e1x3h6m22"
+    class="leafygreen-ui-1iyoj2o css-1ijai3k-StyledSelect e1x3h6m21"
     data-lgid="lg-select"
   >
     <button
@@ -31,15 +31,11 @@
             class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
             data-lgid="lg-select-button_text"
           >
-            <div
-              class="css-2szcb9-ExecutionInfo e1x3h6m21"
+            <p
+              class="css-1v3xaxa-StyledBody e1x3h6m20 leafygreen-ui-1tb6tuo"
             >
-              <p
-                class="css-1v3xaxa-StyledBody e1x3h6m20 leafygreen-ui-1tb6tuo"
-              >
-                Execution 5
-              </p>
-            </div>
+              Execution 5
+            </p>
           </div>
         </div>
         <svg
