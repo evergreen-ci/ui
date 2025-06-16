@@ -140,21 +140,21 @@ export const Task = () => {
       <PageLayout hasSider>
         <PageSider>
           {task &&
-            latestExecution &&
-            latestExecution > 0 &&
-            selectedExecution !== null && (
-              <ExecutionSelector
-                currentExecution={selectedExecution}
-                latestExecution={latestExecution}
-                taskId={task.id}
-                updateExecution={(n: number) => {
-                  taskAnalytics.sendEvent({ name: "Changed execution" });
-                  updateQueryParams({
-                    execution: `${n}`,
-                  });
-                }}
-              />
-            )}
+          latestExecution &&
+          latestExecution > 0 &&
+          selectedExecution !== null ? (
+            <ExecutionSelector
+              currentExecution={selectedExecution}
+              latestExecution={latestExecution}
+              taskId={task.id}
+              updateExecution={(n: number) => {
+                taskAnalytics.sendEvent({ name: "Changed execution" });
+                updateQueryParams({
+                  execution: `${n}`,
+                });
+              }}
+            />
+          ) : null}
           <Metadata error={error} loading={loading} task={task} />
         </PageSider>
         <StyledPageContent>
