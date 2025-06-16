@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { useTaskHistoryAnalytics } from "analytics";
 import {
   WalkthroughGuideCue,
   WalkthroughGuideCueRef,
@@ -12,18 +13,25 @@ type OnboardingTutorialProps = {
 
 const OnboardingTutorial: React.FC<OnboardingTutorialProps> = ({
   guideCueRef,
-}) => (
-  <WalkthroughGuideCue
-    ref={guideCueRef}
-    dataAttributeName={taskHistoryGuideId}
-    defaultOpen={Cookies.get(SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL) !== "true"}
-    onClose={() =>
-      Cookies.set(SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL, "true", {
-        expires: 365,
-      })
-    }
-    walkthroughSteps={walkthroughSteps}
-  />
-);
+}) => {
+  const { sendEvent } = useTaskHistoryAnalytics();
+
+  return (
+    <WalkthroughGuideCue
+      ref={guideCueRef}
+      dataAttributeName={taskHistoryGuideId}
+      defaultOpen={
+        Cookies.get(SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL) !== "true"
+      }
+      onClose={() => {
+        sendEvent({ name: "Clicked to dismiss walkthrough before completion" });
+        Cookies.set(SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL, "true", {
+          expires: 365,
+        });
+      }}
+      walkthroughSteps={walkthroughSteps}
+    />
+  );
+};
 
 export default OnboardingTutorial;
