@@ -24,10 +24,8 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
 
   return (
     <TabsContent>
-      <Forms>
-        <AnnouncementTab announcementsData={tabData.announcements} />
-      </Forms>
       <AdminSaveButton />
+      <AnnouncementTab announcementsData={tabData.announcements} />
     </TabsContent>
   );
 };
@@ -44,14 +42,11 @@ const getTabData = (data: Props["data"]): FormStateMap =>
     return obj;
   }, {} as FormStateMap);
 
-const Forms = styled.div`
-  min-width: 600px;
-  width: 60%;
-`;
-
 export const TabsContent = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  min-width: 600px;
+  width: 60%;
 `;
 
 export default AdminSettingsTabs;

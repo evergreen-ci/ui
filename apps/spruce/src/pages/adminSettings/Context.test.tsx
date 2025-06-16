@@ -1,5 +1,6 @@
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { AdminSettingsTabRoutes } from "constants/routes";
+import { BannerTheme } from "gql/generated/types";
 import { AdminSettingsProvider, useAdminSettingsContext } from "./Context";
 import { WritableAdminSettingsType } from "./tabs/types";
 
@@ -12,7 +13,7 @@ describe("adminSettingsContext", () => {
       result.current.getTab(AdminSettingsTabRoutes.Announcements).hasChanges,
     ).toBe(false);
   });
-  it("test check unsave settings", async () => {
+  it("checkHasUnsavedChanges", async () => {
     const { result } = renderHook(() => useAdminSettingsContext(), {
       wrapper: AdminSettingsProvider,
     });
@@ -20,7 +21,10 @@ describe("adminSettingsContext", () => {
     act(() => {
       result.current.setInitialData({
         [AdminSettingsTabRoutes.Announcements]: {
-          vars: [],
+          announcements: {
+            banner: "initial text",
+            BannerTheme: BannerTheme.Announcement,
+          },
         },
       } as Record<WritableAdminSettingsType, any>);
     });
@@ -29,7 +33,7 @@ describe("adminSettingsContext", () => {
       result.current.updateForm(AdminSettingsTabRoutes.Announcements)({
         formData: {
           announcements: {
-            banner: "banner text!",
+            banner: "updated text!",
           },
         },
         errors: [],
@@ -37,12 +41,11 @@ describe("adminSettingsContext", () => {
     });
 
     await waitFor(() => {
-      // console.log("After updateForm:", result.current.getChangedTabs());
       expect(result.current.checkHasUnsavedChanges()).toEqual(true);
     });
   });
 
-  it("test get changed tabs", async () => {
+  it("getChangedTabs", async () => {
     const { result } = renderHook(() => useAdminSettingsContext(), {
       wrapper: AdminSettingsProvider,
     });
@@ -50,7 +53,10 @@ describe("adminSettingsContext", () => {
     act(() => {
       result.current.setInitialData({
         [AdminSettingsTabRoutes.Announcements]: {
-          vars: [],
+          announcements: {
+            banner: "initial text",
+            BannerTheme: BannerTheme.Announcement,
+          },
         },
       } as Record<WritableAdminSettingsType, any>);
     });
@@ -59,7 +65,7 @@ describe("adminSettingsContext", () => {
       result.current.updateForm(AdminSettingsTabRoutes.Announcements)({
         formData: {
           announcements: {
-            banner: "text!",
+            banner: "updated text!",
           },
         },
         errors: [],
@@ -67,7 +73,6 @@ describe("adminSettingsContext", () => {
     });
 
     await waitFor(() => {
-      // console.log("After updateForm:", result.current.getChangedTabs());
       expect(result.current.getChangedTabs()).toEqual([
         AdminSettingsTabRoutes.Announcements,
       ]);
