@@ -12,27 +12,26 @@ import { useDateFormat } from "hooks";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 import { ExecutionStatusIcon } from "./ExecutionStatusIcon";
 
-interface ExecutionSelectProps {
-  taskId: string;
+interface ExecutionSelectorProps {
   currentExecution: number;
   latestExecution: number | null;
+  taskId: string;
   updateExecution: (execution: number) => void;
 }
 
-const ExecutionSelector: React.FC<ExecutionSelectProps> = ({
+const ExecutionSelector: React.FC<ExecutionSelectorProps> = ({
   currentExecution,
   latestExecution,
   taskId,
   updateExecution,
 }) => {
-  const allExecutionsResult = useQuery<
+  const { data, loading } = useQuery<
     TaskAllExecutionsQuery,
     TaskAllExecutionsQueryVariables
   >(TASK_ALL_EXECUTIONS, {
     variables: { taskId },
   });
-  const allExecutions = allExecutionsResult?.data?.taskAllExecutions;
-  const executionsLoading = allExecutionsResult?.loading;
+  const allExecutions = data?.taskAllExecutions;
 
   const getDateCopy = useDateFormat();
 
@@ -42,7 +41,7 @@ const ExecutionSelector: React.FC<ExecutionSelectProps> = ({
       allowDeselect={false}
       aria-label="Execution Select"
       data-cy="execution-select"
-      disabled={executionsLoading}
+      disabled={loading}
       onChange={(val: string) => {
         updateExecution(Number(val));
       }}
@@ -51,11 +50,11 @@ const ExecutionSelector: React.FC<ExecutionSelectProps> = ({
     >
       {allExecutions?.map(
         ({ activatedTime, displayStatus, execution, ingestTime }) => {
-          const formattedIndex = formatZeroIndexForDisplay(execution);
           const dateCopy = getDateCopy(
             activatedTime ?? ingestTime ?? new Date(),
             { omitTimezone: true },
           );
+          const formattedIndex = formatZeroIndexForDisplay(execution);
           const optionText =
             execution === latestExecution
               ? `Execution ${formattedIndex} (latest)`
