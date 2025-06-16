@@ -2769,7 +2769,6 @@
   dependencies:
     "@leafygreen-ui/lib" "^15.0.0"
     lodash "^4.17.21"
-
 "@leafygreen-ui/popover@^11.0.17", "@leafygreen-ui/popover@^11.0.18", "@leafygreen-ui/popover@^11.0.8", "@leafygreen-ui/popover@^11.4.0":
   version "11.4.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/popover/-/popover-11.4.0.tgz#cecdea9154acb73040373729086f2dcf8f266913"
@@ -2856,17 +2855,17 @@
     "@leafygreen-ui/palette" "^4.0.9"
     "@leafygreen-ui/tokens" "^2.5.2"
 
-"@leafygreen-ui/radio-group@^12.0.11":
-  version "12.0.11"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-group/-/radio-group-12.0.11.tgz#cba705c09eff7f185a5b99c389975d3864e3714e"
-  integrity sha512-Gr2p96fKFNW8hKkfNH5OIunDjBGAwE2t6a/rtOWpdwj5b3FYejfMcugVoJWpvr8TOOWIjrj1QydMb3h3lEeS+g==
+"@leafygreen-ui/radio-group@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-group/-/radio-group-13.0.0.tgz#907884ee1a65a764e33651e6efddfe6ba20a4704"
+  integrity sha512-wI4LNRs4JZ+SlNcyjbiJaB/rfbs0MHQF2b697mSmWh7yxi6GwVxpEMi3cKrCSu7v5tLwe54+d1JvxB1rTqJ27Q==
   dependencies:
-    "@leafygreen-ui/emotion" "^4.1.1"
-    "@leafygreen-ui/hooks" "^8.4.1"
-    "@leafygreen-ui/lib" "^14.2.0"
-    "@leafygreen-ui/palette" "^4.1.4"
-    "@leafygreen-ui/tokens" "^2.12.2"
-    "@leafygreen-ui/typography" "^20.1.8"
+    "@leafygreen-ui/emotion" "^5.0.0"
+    "@leafygreen-ui/hooks" "^9.0.0"
+    "@leafygreen-ui/lib" "^15.0.0"
+    "@leafygreen-ui/palette" "^5.0.0"
+    "@leafygreen-ui/tokens" "^3.0.0"
+    "@leafygreen-ui/typography" "^21.0.0"
 
 "@leafygreen-ui/ripple@^1.1.13":
   version "1.1.13"
@@ -3157,7 +3156,6 @@
     "@leafygreen-ui/lib" "^15.0.0"
     "@leafygreen-ui/palette" "^5.0.0"
     polished "^4.2.2"
-
 "@leafygreen-ui/tooltip@^11.0.3", "@leafygreen-ui/tooltip@^11.0.4", "@leafygreen-ui/tooltip@^11.1.0":
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-11.1.0.tgz#cb76be7a79e75378c20d1c9b8ffcb2b2327e10a3"
@@ -3253,7 +3251,6 @@
     "@leafygreen-ui/palette" "^5.0.0"
     "@leafygreen-ui/polymorphic" "^3.0.1"
     "@leafygreen-ui/tokens" "^3.1.0"
-
 "@lg-tools/test-harnesses@0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@lg-tools/test-harnesses/-/test-harnesses-0.1.2.tgz#23766e140a934197a240b24863a55bb6afee91ff"
