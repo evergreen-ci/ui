@@ -851,7 +851,7 @@ export type HostEventLogEntry = {
   data: HostEventLogData;
   eventType?: Maybe<HostEventType>;
   id: Scalars["String"]["output"];
-  processedAt: Scalars["Time"]["output"];
+  processedAt?: Maybe<Scalars["Time"]["output"]>;
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
@@ -1873,7 +1873,7 @@ export type PodEventLogEntry = {
   data: PodEventLogData;
   eventType?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
-  processedAt: Scalars["Time"]["output"];
+  processedAt?: Maybe<Scalars["Time"]["output"]>;
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
@@ -2943,7 +2943,7 @@ export type TaskEventLogEntry = {
   data: TaskEventLogData;
   eventType?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
-  processedAt: Scalars["Time"]["output"];
+  processedAt?: Maybe<Scalars["Time"]["output"]>;
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
