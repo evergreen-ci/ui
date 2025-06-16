@@ -68,8 +68,7 @@ const ExecutionSelector: React.FC<ExecutionSelectProps> = ({
               value={execution.toString()}
             >
               <ExecutionInfo>
-                {/* @ts-expect-error: title is not recognized as a prop but will be propagated correctly. */}
-                <StyledBody title={optionText}>{optionText}</StyledBody>
+                <StyledBody>{optionText}</StyledBody>
               </ExecutionInfo>
             </Option>
           );
