@@ -195,6 +195,7 @@
         <span
           aria-disabled="false"
           class="leafygreen-ui-1hdho16"
+          data-cy="execution-chip"
         >
           <span
             class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
@@ -944,6 +945,7 @@
         <span
           aria-disabled="false"
           class="leafygreen-ui-1hdho16"
+          data-cy="execution-chip"
         >
           <span
             class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
