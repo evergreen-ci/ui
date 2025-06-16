@@ -51,14 +51,15 @@ const ExecutionSelector: React.FC<ExecutionSelectProps> = ({
     >
       {allExecutions?.map(
         ({ activatedTime, displayStatus, execution, ingestTime }) => {
-          let optionText = `Execution ${formatZeroIndexForDisplay(execution)}`;
+          const formattedIndex = formatZeroIndexForDisplay(execution);
           const dateCopy = getDateCopy(
             activatedTime ?? ingestTime ?? new Date(),
             { omitTimezone: true },
           );
-          if (execution === latestExecution) {
-            optionText = optionText.concat(" (latest)");
-          }
+          const optionText =
+            execution === latestExecution
+              ? `Execution ${formattedIndex} (latest)`
+              : `Execution ${formattedIndex}`;
           return (
             <Option
               key={execution}
@@ -67,9 +68,7 @@ const ExecutionSelector: React.FC<ExecutionSelectProps> = ({
               glyph={<ExecutionStatusIcon status={displayStatus} />}
               value={execution.toString()}
             >
-              <ExecutionInfo>
-                <StyledBody>{optionText}</StyledBody>
-              </ExecutionInfo>
+              <StyledBody>{optionText}</StyledBody>
             </Option>
           );
         },
@@ -80,12 +79,6 @@ const ExecutionSelector: React.FC<ExecutionSelectProps> = ({
 
 const StyledSelect = styled(Select)`
   margin-bottom: ${size.xs};
-  width: 100%;
-`;
-
-const ExecutionInfo = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 const StyledBody = styled(Body)<BodyProps>`
