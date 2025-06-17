@@ -1,6 +1,5 @@
 import { useMutation } from "@apollo/client";
 import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
-
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   AdminSettingsInput,
@@ -10,7 +9,6 @@ import {
 import { SAVE_ADMIN_SETTINGS } from "gql/mutations";
 import { useAdminSettingsContext } from "./Context";
 import { formToGqlMap } from "./tabs/transformers";
-import { FormToGqlFunction } from "./tabs/types";
 
 export const AdminSaveButton = () => {
   const { checkHasUnsavedChanges, getChangedTabs, getTab } =
@@ -32,22 +30,17 @@ export const AdminSaveButton = () => {
 
   const handleSave = () => {
     const changedTabs = getChangedTabs();
-
     const changedSettings = changedTabs.reduce((acc, tab) => {
-      if (Object.prototype.hasOwnProperty.call(formToGqlMap, tab)) {
+      const formToGql = formToGqlMap[tab];
+      if (formToGql) {
         const { formData } = getTab(tab);
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
+        // @ts-expect-error: getTab needs to return more strongly typed formData
         const changes = formToGql(formData);
         return { ...acc, ...changes };
       }
       return acc;
     }, {} as AdminSettingsInput);
-    saveAdminSettings({
-      variables: {
-        adminSettings: changedSettings,
-      },
-    });
+    saveAdminSettings({ variables: { adminSettings: changedSettings } });
   };
 
   return (
