@@ -5,7 +5,6 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, mergeConfig } from "vite";
 import { checker } from "vite-plugin-checker";
 import envCompatible from "vite-plugin-env-compatible";
-import vitePluginImp from "vite-plugin-imp";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import dns from "dns";
@@ -99,17 +98,6 @@ const getProjectConfig = () => {
           "%REACT_APP_RELEASE_STAGE%",
           "%NODE_ENV%",
           "%PROFILE_HEAD%",
-        ],
-      }),
-      vitePluginImp({
-        optimize: true,
-        libList: [
-          {
-            libName: "lodash",
-            libDirectory: "",
-            camel2DashComponentName: false,
-            style: (name) => `lodash/${name}`,
-          },
         ],
       }),
       // Typescript checking

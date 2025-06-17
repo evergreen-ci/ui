@@ -265,7 +265,7 @@
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.26.8.tgz#821c1d35641c355284d4a870b8a4a7b0c141e367"
   integrity sha512-oH5UPLMWR3L2wEFLnFJ1TZXqHufiTKAiLfqw5zkhS4dKXLJ10yVztfil/twG8EDTA4F/tvVNw9nOl4ZMslB8rQ==
 
-"@babel/core@^7.12.10", "@babel/core@^7.14.0", "@babel/core@^7.18.5", "@babel/core@^7.18.9", "@babel/core@^7.22.9", "@babel/core@^7.26.10":
+"@babel/core@^7.14.0", "@babel/core@^7.18.5", "@babel/core@^7.18.9", "@babel/core@^7.22.9", "@babel/core@^7.26.10":
   version "7.26.10"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.26.10.tgz#5c876f83c8c4dcb233ee4b670c0606f2ac3000f9"
   integrity sha512-vMqyb7XCDMPvJFFOaT9kxtiRh42GwlZEg1/uIgtZshS5a/8OaduUfCi7kynKgc3Tw/6Uo2D+db9qBttghhmxwQ==
@@ -286,7 +286,7 @@
     json5 "^2.2.3"
     semver "^6.3.1"
 
-"@babel/generator@^7.12.11", "@babel/generator@^7.14.0", "@babel/generator@^7.18.13", "@babel/generator@^7.24.5", "@babel/generator@^7.25.0", "@babel/generator@^7.26.10", "@babel/generator@^7.27.0":
+"@babel/generator@^7.14.0", "@babel/generator@^7.18.13", "@babel/generator@^7.24.5", "@babel/generator@^7.25.0", "@babel/generator@^7.26.10", "@babel/generator@^7.27.0":
   version "7.27.0"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.27.0.tgz#764382b5392e5b9aff93cadb190d0745866cbc2c"
   integrity sha512-VybsKvpiN1gU1sdMZIp7FcqphVVKEwcuj02x73uvcHE0PTihx1nlBcowYWhDwjpoAXRv43+gDzyggGnn1XZhVw==
@@ -516,7 +516,7 @@
     js-tokens "^4.0.0"
     picocolors "^1.0.0"
 
-"@babel/parser@^7.1.0", "@babel/parser@^7.12.11", "@babel/parser@^7.14.0", "@babel/parser@^7.16.8", "@babel/parser@^7.20.7", "@babel/parser@^7.24.5":
+"@babel/parser@^7.1.0", "@babel/parser@^7.14.0", "@babel/parser@^7.16.8", "@babel/parser@^7.20.7", "@babel/parser@^7.24.5":
   version "7.24.5"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.24.5.tgz#4a4d5ab4315579e5398a82dcf636ca80c3392790"
   integrity sha512-EOv5IK8arwh3LI47dz1b0tKUb/1uhHAnHJOrjgtQMIpu1uXd9mlFrJg9IUgGUgZ41Ch0K8REPTYpO7B76b4vJg==
@@ -779,7 +779,7 @@
     "@babel/parser" "^7.27.0"
     "@babel/types" "^7.27.0"
 
-"@babel/traverse@^7.12.12", "@babel/traverse@^7.14.0", "@babel/traverse@^7.16.8", "@babel/traverse@^7.18.9":
+"@babel/traverse@^7.14.0", "@babel/traverse@^7.16.8", "@babel/traverse@^7.18.9":
   version "7.24.5"
   resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.24.5.tgz#972aa0bc45f16983bf64aa1f877b2dd0eea7e6f8"
   integrity sha512-7aaBLeDQ4zYcUFDUD41lJc1fG8+5IU9DaNSJAgal866FGvmD5EbWQgnEC6kO1gGLsX0esNkfnJSndbTXA3r7UA==
@@ -11972,19 +11972,6 @@ vite-plugin-env-compatible@2.0.1:
   dependencies:
     dotenv "8.2.0"
     dotenv-expand "5.1.0"
-
-vite-plugin-imp@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/vite-plugin-imp/-/vite-plugin-imp-2.4.0.tgz#de09a0947d787ea1927d67288047698c3f8127cc"
-  integrity sha512-L/6/nvOw+MyNh4UxAlCZHsmKd5MitmHamqqAWB15sbUgVIEz/OQ8jpKr6kkQU0eA/AIe8fkCVbQBlP81ajrqWg==
-  dependencies:
-    "@babel/core" "^7.12.10"
-    "@babel/generator" "^7.12.11"
-    "@babel/parser" "^7.12.11"
-    "@babel/traverse" "^7.12.12"
-    chalk "^4.1.0"
-    param-case "^3.0.4"
-    pascal-case "^3.1.2"
 
 vite-tsconfig-paths@6.0.0-beta.3:
   version "6.0.0-beta.3"
