@@ -5536,6 +5536,19 @@ export type RestartVersionsMutation = {
   }> | null;
 };
 
+export type SaveAdminSettingsMutationVariables = Exact<{
+  adminSettings: AdminSettingsInput;
+}>;
+
+export type SaveAdminSettingsMutation = {
+  __typename?: "Mutation";
+  saveAdminSettings: {
+    __typename?: "AdminSettings";
+    banner?: string | null;
+    bannerTheme?: BannerTheme | null;
+  };
+};
+
 export type SaveDistroMutationVariables = Exact<{
   distro: DistroInput;
   onSave: DistroOnSaveOperation;
