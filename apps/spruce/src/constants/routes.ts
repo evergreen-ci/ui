@@ -328,6 +328,7 @@ const getHistoryRoute = (
   },
   selectedCommit?: number,
   visibleColumns?: string[],
+  taskId?: string,
 ) => {
   if (filters || selectedCommit) {
     const failingTests = toArray(filters?.failingTests);
@@ -337,6 +338,7 @@ const getHistoryRoute = (
       [TestStatus.Failed]: failingTests,
       [TestStatus.Passed]: passingTests,
       [HistoryQueryParams.SelectedCommit]: selectedCommit,
+      [HistoryQueryParams.TaskID]: taskId,
       [HistoryQueryParams.VisibleColumns]: visibleColumns,
     });
     return `${basePath}?${queryParams}`;
@@ -374,15 +376,17 @@ export const getTaskHistoryRoute = (
     };
     selectedCommit?: number;
     visibleColumns?: string[];
+    taskId?: string;
   },
 ) => {
-  const { filters, selectedCommit, visibleColumns } = options || {};
+  const { filters, selectedCommit, taskId, visibleColumns } = options || {};
 
   return getHistoryRoute(
     `${paths.taskHistory}/${encodeURIComponent(projectIdentifier)}/${encodeURIComponent(taskName)}`,
     filters,
     selectedCommit,
     visibleColumns,
+    taskId,
   );
 };
 

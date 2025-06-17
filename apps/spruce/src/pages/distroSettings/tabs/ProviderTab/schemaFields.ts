@@ -278,7 +278,6 @@ const vpcOptions = {
                 type: "string" as const,
                 title: "VPC Subnet Prefix",
                 default: "",
-                minLength: 1,
               },
             },
           },
@@ -305,6 +304,7 @@ const vpcOptions = {
       "ui:description":
         "Looks for subnets like <prefix>.subnet_1a, <prefix>.subnet_1b, etc.",
       "ui:elementWrapperCSS": indentCSS,
+      "ui:optional": true,
     },
   },
 };

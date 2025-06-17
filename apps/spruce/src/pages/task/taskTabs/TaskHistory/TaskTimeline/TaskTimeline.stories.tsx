@@ -1,4 +1,7 @@
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { TaskQuery } from "gql/generated/types";
+import { taskQuery } from "gql/mocks/taskData";
+import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import { groupTasks } from "../utils";
 import TaskTimeline from ".";
@@ -37,16 +40,24 @@ const Template = (args: TemplateProps) => {
     shouldCollapse: args.shouldCollapse,
     testFailureSearchTerm: null,
   });
+
   return (
-    <TaskTimeline
-      loading={args.loading}
-      pagination={{
-        mostRecentTaskOrder: 10,
-        oldestTaskOrder: 1,
-        nextPageCursor: null,
-        prevPageCursor: null,
-      }}
-      tasks={groupedTasks}
-    />
+    <TaskHistoryContextProvider task={currentTask}>
+      <TaskTimeline
+        loading={args.loading}
+        pagination={{
+          mostRecentTaskOrder: 10,
+          oldestTaskOrder: 1,
+          nextPageCursor: null,
+          prevPageCursor: null,
+        }}
+        tasks={groupedTasks}
+      />
+    </TaskHistoryContextProvider>
   );
+};
+
+const currentTask: NonNullable<TaskQuery["task"]> = {
+  ...taskQuery.task,
+  id: tasks[0].id,
 };
