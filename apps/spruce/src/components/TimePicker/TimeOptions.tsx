@@ -94,6 +94,7 @@ TimePickerOption.displayName = "TimePickerOption";
 
 const Item = styled.button<{ selected: boolean }>`
   all: unset;
+  font-family: inherit;
   padding: ${size.xs} 20px;
   cursor: pointer;
 

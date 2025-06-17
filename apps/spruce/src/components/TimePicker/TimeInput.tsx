@@ -30,8 +30,10 @@ const TimeInput: React.FC<TimeInputProps> = ({
 TimeInput.displayName = "TimeInput";
 
 const StyledInput = styled.input`
-  text-align: center;
+  font-family: inherit;
   font-variant-numeric: tabular-nums;
+  text-align: center;
+
   padding: 0;
   margin: 0;
   border: none;

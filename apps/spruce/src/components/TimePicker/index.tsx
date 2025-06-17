@@ -116,7 +116,7 @@ const VerticalLine = styled.div`
 `;
 
 const Colon = styled.span`
-  margin-bottom: ${size.xxs};
+  font-family: inherit;
 `;
 
 const MenuList = styled(PopoverContainer)`
