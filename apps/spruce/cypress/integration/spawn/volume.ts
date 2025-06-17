@@ -159,8 +159,13 @@ describe("Spawn volume page", () => {
         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
       );
       cy.dataCy("volume-size-input").should("have.value", "100");
-      cy.dataCy("date-picker").should("have.value", "2020-06-06");
-      cy.dataCy("time-picker").should("have.value", "15:48:18"); // Defaults to UTC
+      cy.validateDatePickerDate("date-picker", {
+        year: "2020",
+        month: "06",
+        day: "06",
+      });
+      cy.dataCy("hour-input").should("have.value", "15"); // Defaults to UTC
+      cy.dataCy("minute-input").should("have.value", "48");
     });
 
     it("Reopening the edit volume modal should reset form input fields.", () => {

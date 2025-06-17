@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
-
 import { Link } from "react-router-dom";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
@@ -51,7 +50,6 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>
-
           <SideNavGroup glyph={null} header="Restart Tasks">
             {}
           </SideNavGroup>
@@ -73,7 +71,7 @@ const AdminSettingsPage: React.FC = () => {
 const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* Adjust styling as necessary for the button container */
-  margin: 0; /* Customize margins based on specific layout needs */
+  margin: 0;
 `;
+
 export default AdminSettingsPage;

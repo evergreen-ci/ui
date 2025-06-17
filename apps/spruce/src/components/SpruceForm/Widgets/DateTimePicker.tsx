@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
+import { DatePicker } from "@leafygreen-ui/date-picker";
+import { DateType, isInvalidDateObject } from "@leafygreen-ui/date-utils";
 import { Description, Label } from "@leafygreen-ui/typography";
 import { toZonedTime, fromZonedTime } from "date-fns-tz";
 import { size } from "@evg-ui/lib/constants/tokens";
-import DatePicker from "components/DatePicker";
-import AntdTimePicker from "components/TimePicker";
+import LGTimePicker from "components/TimePicker";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import ElementWrapper from "../ElementWrapper";
 import { SpruceWidgetProps } from "./types";
@@ -16,6 +17,7 @@ export const DateTimePicker: React.FC<
     };
   } & SpruceWidgetProps
 > = ({ disabled, id, label, onChange, options, readonly, value = "" }) => {
+  const isDisabled = disabled || readonly;
   const {
     description,
     disableAfter,
@@ -25,24 +27,19 @@ export const DateTimePicker: React.FC<
   } = options;
 
   const timezone = useUserTimeZone();
+
   const currentDateTime = timezone
     ? toZonedTime(new Date(value || null), timezone)
     : new Date(value || null);
-  const isDisabled = disabled || readonly;
-  const handleChange = (d: Date | null) => {
-    if (!d) return;
 
+  const handleChange = (newDate?: DateType) => {
+    if (!newDate) return;
+    if (isInvalidDateObject(newDate)) return;
     if (timezone) {
-      onChange(fromZonedTime(d, timezone).toString());
+      onChange(fromZonedTime(newDate, timezone).toString());
     } else {
-      onChange(d.toString());
+      onChange(newDate.toString());
     }
-  };
-
-  const disabledDate = (current: Date) => {
-    const disablePast = disableBefore ? current < disableBefore : false;
-    const disableFuture = disableAfter ? current > disableAfter : false;
-    return disableFuture || disablePast;
   };
 
   return (
@@ -55,23 +52,20 @@ export const DateTimePicker: React.FC<
       {description && <Description>{description}</Description>}
       <DateTimeContainer>
         <DatePicker
-          allowClear={false}
+          aria-label="date-picker"
           data-cy="date-picker"
           disabled={isDisabled}
-          disabledDate={disabledDate}
-          // @ts-expect-error
-          getPopupContainer={getPopupContainer}
-          onChange={handleChange}
+          max={disableAfter}
+          min={disableBefore}
+          onDateChange={handleChange}
           value={currentDateTime}
         />
-        <AntdTimePicker
-          allowClear={false}
+        {/* TODO: Replace with official component following completion of LG-3931.
+         * Additionally, uninstall @leafygreen-ui/form-field. */}
+        <LGTimePicker
           data-cy="time-picker"
           disabled={isDisabled}
-          disabledDate={disabledDate}
-          // @ts-expect-error
-          getPopupContainer={getPopupContainer}
-          onChange={handleChange}
+          onDateChange={handleChange}
           value={currentDateTime}
         />
       </DateTimeContainer>
@@ -80,22 +74,26 @@ export const DateTimePicker: React.FC<
 };
 
 const DateTimeContainer = styled.div`
+  display: flex;
+  align-items: center;
   > :not(:last-of-type) {
     margin-right: ${size.xs};
   }
 `;
 
-export const TimePicker: React.FC<
-  {
-    options: {
-      format?: string;
-    };
-  } & SpruceWidgetProps
-> = ({ disabled, id, label, onChange, options, readonly, value = "" }) => {
-  const { description, elementWrapperCSS, format, showLabel } = options;
-  const currentDateTime = new Date(value || null);
+export const TimePicker: React.FC<SpruceWidgetProps> = ({
+  disabled,
+  label,
+  onChange,
+  options,
+  readonly,
+  value,
+}) => {
+  const { description, elementWrapperCSS } = options;
   const isDisabled = disabled || readonly;
-  const handleChange = (d: Date | null) => {
+  const currentDateTime = new Date(value || null);
+
+  const handleChange = (d?: DateType) => {
     if (d) {
       onChange(d.toString());
     }
@@ -103,32 +101,16 @@ export const TimePicker: React.FC<
 
   return (
     <ElementWrapper css={elementWrapperCSS}>
-      {showLabel !== false && (
-        <Label disabled={isDisabled} htmlFor={id}>
-          {label}
-        </Label>
-      )}
       {description && <Description>{description}</Description>}
-      <AntdTimePicker
-        allowClear={false}
+      {/* TODO: Replace with official component following completion of LG-3931.
+       * Additionally, uninstall @leafygreen-ui/form-field. */}
+      <LGTimePicker
         data-cy="time-picker"
         disabled={isDisabled}
-        format={format}
-        // @ts-expect-error
-        getPopupContainer={getPopupContainer}
-        id={id}
-        inputReadOnly
-        needConfirm
-        onChange={handleChange}
-        showNow={false}
-        // Disable typing into timepicker due to Antd bug:
-        // https://github.com/ant-design/ant-design/issues/45564
+        label={label}
+        onDateChange={handleChange}
         value={currentDateTime}
       />
     </ElementWrapper>
   );
 };
-
-// Fixes bug where DatePicker won't handle onClick events
-const getPopupContainer = (triggerNode: HTMLElement) =>
-  triggerNode?.parentNode?.parentNode;
