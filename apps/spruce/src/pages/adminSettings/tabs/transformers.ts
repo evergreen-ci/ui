@@ -32,4 +32,13 @@ export const gqlToFormMap: {
   [T in WritableAdminSettingsType]?: GqlToFormFunction<T>;
 } = {
   [AdminSettingsTabRoutes.Announcements]: announcements.gqlToForm,
+  [AdminSettingsTabRoutes.FeatureFlags]: featureFlags.gqlToForm,
+  [AdminSettingsTabRoutes.Runners]: runners.gqlToForm,
+  [AdminSettingsTabRoutes.Web]: web.gqlToForm,
+  [AdminSettingsTabRoutes.Authentication]: authentication.gqlToForm,
+  [AdminSettingsTabRoutes.ExternalCommunications]:
+    externalCommunications.gqlToForm,
+  [AdminSettingsTabRoutes.BackgroundProcessing]: backgroundProcessing.gqlToForm,
+  [AdminSettingsTabRoutes.Providers]: providers.gqlToForm,
+  [AdminSettingsTabRoutes.Other]: other.gqlToForm,
 };
