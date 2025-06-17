@@ -18,7 +18,7 @@ export const Default: CustomStoryObj<typeof TimePicker> = {
   ),
   args: {
     disabled: false,
-    value: new Date(),
+    value: new Date("2025-01-01T12:33:00Z"),
   },
   argTypes: {
     disabled: {
