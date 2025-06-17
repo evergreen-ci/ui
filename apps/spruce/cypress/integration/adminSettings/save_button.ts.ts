@@ -5,7 +5,7 @@ describe("admin settings page", () => {
     cy.visit("/admin-settings");
   });
 
-  it("save button disabled on initial load", () => {
+  it("can save after making changes", () => {
     cy.dataCy("save-settings-button").should(
       "have.attr",
       "aria-disabled",
