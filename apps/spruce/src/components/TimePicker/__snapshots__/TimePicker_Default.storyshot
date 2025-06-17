@@ -23,7 +23,7 @@
             aria-invalid="false"
             aria-label="Time picker form"
             class="lg-ui-form-field-input-0000 css-jj1st0-ContentWrapper e9c2bxn0"
-            id="lg-form_field-input-122"
+            id="lg-form_field-input-4"
           >
             <input
               class="css-122szfx-StyledInput evefz8k0"
@@ -44,7 +44,7 @@
               maxlength="2"
               placeholder="00"
               type="text"
-              value="02"
+              value="18"
             />
           </div>
         </div>
@@ -89,7 +89,7 @@
         class="leafygreen-ui-11ydt2g"
         data-lgid="lg-form_field-feedback"
         data-testid="lg-form_field-feedback"
-        id="lg-form_field-feedback-121"
+        id="lg-form_field-feedback-3"
       />
     </div>
   </div>
