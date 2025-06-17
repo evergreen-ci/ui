@@ -1,5 +1,4 @@
 /// <reference types="vitest" />
-import { esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
@@ -10,8 +9,6 @@ import vitePluginImp from "vite-plugin-imp";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import dns from "dns";
-import * as fs from "fs";
-import { createRequire } from "node:module";
 import path from "path";
 import {
   generateBaseHTTPSViteServerConfig,
@@ -20,14 +17,8 @@ import {
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
 const getProjectConfig = () => {
-  const require = createRequire(import.meta.url);
-
   // Remove when https://github.com/cypress-io/cypress/issues/25397 is resolved.
   dns.setDefaultResultOrder("ipv4first");
-
-  // Do not apply Antd's global styles
-  fs.writeFileSync(require.resolve("antd/es/style/core/global.less"), "");
-  fs.writeFileSync(require.resolve("antd/lib/style/core/global.less"), "");
 
   const serverConfig = generateBaseHTTPSViteServerConfig({
     port: 3000,
@@ -47,8 +38,6 @@ const getProjectConfig = () => {
         define: {
           global: "globalThis",
         },
-        // Enable esbuild polyfill plugins
-        plugins: [esbuildCommonjs(["antd"])],
       },
     },
     build: {
@@ -62,7 +51,6 @@ const getProjectConfig = () => {
               "react-dom",
               "react-router",
               "lodash",
-              "antd",
             ],
           },
         },
@@ -113,15 +101,9 @@ const getProjectConfig = () => {
           "%PROFILE_HEAD%",
         ],
       }),
-      // Dynamic imports of antd styles
       vitePluginImp({
         optimize: true,
         libList: [
-          {
-            libName: "antd",
-            libDirectory: "es",
-            style: (name) => `antd/es/${name}/style/index.js`,
-          },
           {
             libName: "lodash",
             libDirectory: "",

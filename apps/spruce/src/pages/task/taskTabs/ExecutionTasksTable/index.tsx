@@ -19,7 +19,7 @@ import {
 } from "gql/generated/types";
 import { useTableSort } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
-import { parseSortString, toSortString } from "utils/queryString";
+import { parseSortString } from "utils/queryString";
 
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
@@ -128,10 +128,6 @@ const getInitialSorting = (sorts: string): SortingState => {
   return initialSorting;
 };
 
-const defaultSortQueryParam =
-  toSortString({
-    columnKey: TaskSortCategory.Status,
-    order: "ascend",
-  }) ?? "";
+const defaultSortQueryParam = `${TaskSortCategory.Status}:${SortDirection.Asc}`;
 
 export default ExecutionTasksTable;

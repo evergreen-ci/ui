@@ -111,7 +111,6 @@
     "@sentry/react": "9.29.0",
     "@sentry/types": "9.29.0",
     "ansi_up": "6.0.2",
-    "antd": "4.20.0",
     "date-fns": "3.6.0",
     "date-fns-tz": "3.2.0",
     "deep-object-diff": "1.1.9",
