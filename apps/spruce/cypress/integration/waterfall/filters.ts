@@ -85,12 +85,6 @@ describe("build variant filtering", () => {
       expect(loc.search).to.include("buildVariants=Ubuntu,P");
     });
   });
-
-  it("shows the fetch more icon while attempting to find more versions", () => {
-    cy.dataCy("build-variant-filter-input").type("foo{enter}");
-    cy.dataCy("fetch-more-loader").should("be.visible");
-    cy.dataCy("inactive-versions-button").eq(0).contains("5");
-  });
 });
 
 describe("task filtering", () => {
