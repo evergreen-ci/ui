@@ -75,6 +75,10 @@ export const getFormSchema = (
             type: "object" as const,
             title: "Other",
             properties: {
+              projectID: {
+                type: "string" as const,
+                title: "Project ID",
+              },
               displayName: {
                 type: "string" as const,
                 title: "Display Name",
@@ -279,6 +283,11 @@ export const getFormSchema = (
         ...placeholderIf(repoData?.generalConfiguration?.branch),
       },
       other: {
+        projectID: {
+          "ui:widget": widgets.CopyableWidget,
+          "ui:description":
+            "Immutable ID for use in project configuration, such as setting up AWS roles.",
+        },
         displayName: {
           "ui:data-cy": "display-name-input",
         },

@@ -10,29 +10,26 @@ export const gqlToForm = ((data, options = {}) => {
   const projectType = options.projectType ?? ProjectType.Project;
   const { projectRef } = data;
 
+  if (!projectRef) return null;
+
   return {
     generalConfiguration: {
       ...(projectType !== ProjectType.Repo &&
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         "enabled" in projectRef && {
           enabled: projectRef.enabled,
         }),
       repositoryInfo: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         owner: projectRef.owner,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         repo: projectRef.repo,
       },
       ...(projectType !== ProjectType.Repo &&
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         "branch" in projectRef && {
           branch: projectRef.branch,
         }),
       other: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        projectID: projectRef.id,
         displayName: projectRef.displayName,
         ...(projectType !== ProjectType.Repo &&
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           "identifier" in projectRef && {
             identifier: projectRef.identifier,
           }),
@@ -40,38 +37,28 @@ export const gqlToForm = ((data, options = {}) => {
           projectRef?.batchTime ||
           // Allow attached projects to show repo fallback value
           (projectType === ProjectType.AttachedProject ? null : 0),
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         remotePath: projectRef.remotePath,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         spawnHostScriptPath: projectRef.spawnHostScriptPath,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         versionControlEnabled: projectRef.versionControlEnabled,
       },
     },
     projectFlags: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       dispatchingDisabled: projectRef.dispatchingDisabled,
       scheduling: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         deactivatePrevious: projectRef.deactivatePrevious,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         stepbackDisabled: projectRef.stepbackDisabled,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         stepbackBisection: projectRef.stepbackBisect,
         deactivateStepback: null,
       },
       repotracker: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         repotrackerDisabled: projectRef.repotrackerDisabled,
         forceRun: null,
       },
       patch: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         patchingDisabled: projectRef.patchingDisabled,
       },
     },
     historicalTaskDataCaching: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       disabledStatsCache: projectRef.disabledStatsCache,
     },
   };
