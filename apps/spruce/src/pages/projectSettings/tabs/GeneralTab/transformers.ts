@@ -27,10 +27,10 @@ export const gqlToForm = ((data, options = {}) => {
           branch: projectRef.branch,
         }),
       other: {
-        projectID: projectRef.id,
         displayName: projectRef.displayName,
         ...(projectType !== ProjectType.Repo &&
           "identifier" in projectRef && {
+            projectID: projectRef.id,
             identifier: projectRef.identifier,
           }),
         batchTime:
