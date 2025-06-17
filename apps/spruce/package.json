@@ -145,7 +145,6 @@
     "@graphql-codegen/cli": "5.0.7",
     "@graphql-codegen/typescript": "4.1.6",
     "@graphql-codegen/typescript-operations": "4.6.1",
-    "@originjs/vite-plugin-commonjs": "1.0.3",
     "@sentry/vite-plugin": "3.5.0",
     "@storybook/react-vite": "9.0.10",
     "@styled/typescript-styled-plugin": "1.0.1",
