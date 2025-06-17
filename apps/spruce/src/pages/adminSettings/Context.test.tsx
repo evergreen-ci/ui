@@ -2,6 +2,7 @@ import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { AdminSettingsTabRoutes } from "constants/routes";
 import { BannerTheme } from "gql/generated/types";
 import { AdminSettingsProvider, useAdminSettingsContext } from "./Context";
+import { AnnouncementsFormState } from "./tabs/AnnouncementsTab/types";
 import { WritableAdminSettingsType } from "./tabs/types";
 
 describe("adminSettingsContext", () => {
@@ -13,6 +14,7 @@ describe("adminSettingsContext", () => {
       result.current.getTab(AdminSettingsTabRoutes.Announcements).hasChanges,
     ).toBe(false);
   });
+
   it("checkHasUnsavedChanges", async () => {
     const { result } = renderHook(() => useAdminSettingsContext(), {
       wrapper: AdminSettingsProvider,
@@ -23,10 +25,10 @@ describe("adminSettingsContext", () => {
         [AdminSettingsTabRoutes.Announcements]: {
           announcements: {
             banner: "initial text",
-            BannerTheme: BannerTheme.Announcement,
+            bannerTheme: BannerTheme.Announcement,
           },
         },
-      } as Record<WritableAdminSettingsType, any>);
+      } as Record<WritableAdminSettingsType, AnnouncementsFormState>);
     });
 
     act(() => {
@@ -55,10 +57,10 @@ describe("adminSettingsContext", () => {
         [AdminSettingsTabRoutes.Announcements]: {
           announcements: {
             banner: "initial text",
-            BannerTheme: BannerTheme.Announcement,
+            bannerTheme: BannerTheme.Announcement,
           },
         },
-      } as Record<WritableAdminSettingsType, any>);
+      } as Record<WritableAdminSettingsType, AnnouncementsFormState>);
     });
 
     act(() => {
