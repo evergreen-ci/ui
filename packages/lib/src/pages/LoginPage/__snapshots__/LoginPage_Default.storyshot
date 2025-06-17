@@ -16,8 +16,8 @@
             class="leafygreen-ui-6bdaia"
             data-lgid="lg-label"
             data-testid="lg-form_field-label"
-            for="lg-form_field-input-187"
-            id="lg-form_field-label-184"
+            for="lg-form_field-input-192"
+            id="lg-form_field-label-189"
           >
             Username
           </label>
@@ -32,11 +32,11 @@
               aria-describedby=""
               aria-disabled="false"
               aria-invalid="false"
-              aria-labelledby="lg-form_field-label-184"
+              aria-labelledby="lg-form_field-label-189"
               autocomplete="on"
               class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
               data-cy="login-username"
-              id="lg-form_field-input-187"
+              id="lg-form_field-input-192"
               required=""
               type="text"
               value=""
@@ -49,7 +49,7 @@
           class="leafygreen-ui-11ydt2g"
           data-lgid="lg-form_field-feedback"
           data-testid="lg-form_field-feedback"
-          id="lg-form_field-feedback-186"
+          id="lg-form_field-feedback-191"
         />
       </div>
       <div
@@ -63,8 +63,8 @@
             class="leafygreen-ui-6bdaia"
             data-lgid="lg-label"
             data-testid="lg-form_field-label"
-            for="lg-form_field-input-191"
-            id="lg-form_field-label-188"
+            for="lg-form_field-input-196"
+            id="lg-form_field-label-193"
           >
             Password
           </label>
@@ -79,11 +79,11 @@
               aria-describedby=""
               aria-disabled="false"
               aria-invalid="false"
-              aria-labelledby="lg-form_field-label-188"
+              aria-labelledby="lg-form_field-label-193"
               autocomplete="on"
               class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
               data-cy="login-password"
-              id="lg-form_field-input-191"
+              id="lg-form_field-input-196"
               required=""
               type="password"
               value=""
@@ -96,7 +96,7 @@
           class="leafygreen-ui-11ydt2g"
           data-lgid="lg-form_field-feedback"
           data-testid="lg-form_field-feedback"
-          id="lg-form_field-feedback-190"
+          id="lg-form_field-feedback-195"
         />
       </div>
       <button
