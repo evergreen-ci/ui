@@ -608,28 +608,34 @@ describe("task history", () => {
       cy.dataCy("walkthrough-guide-cue").should("be.visible");
       cy.contains("Introducing the Task History Tab").should("be.visible");
       cy.contains("button", "Next").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
 
       cy.dataCy("walkthrough-guide-cue").should("be.visible");
       // Cypress can't handle position:fixed with overlapping elements
       cy.contains("Task Timeline").should("exist");
       cy.contains("button", "Next").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
 
       cy.dataCy("walkthrough-guide-cue").should("be.visible");
       cy.contains("View Options").should("be.visible");
       cy.contains("button", "Next").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
 
       cy.dataCy("walkthrough-guide-cue").should("be.visible");
       cy.contains("Commit Details").should("be.visible");
       cy.contains("button", "Next").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
 
       cy.dataCy("walkthrough-guide-cue").should("be.visible");
       // Cypress can't handle position:fixed with overlapping elements
       cy.contains("Search Test Failures").should("exist");
       cy.contains("button", "Next").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
 
       cy.dataCy("walkthrough-guide-cue").should("be.visible");
       cy.contains("Filter by Date").should("be.visible");
       cy.contains("button", "Next").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
 
       cy.dataCy("walkthrough-guide-cue").should("be.visible");
       cy.contains("Jump to Current Task").should("be.visible");
