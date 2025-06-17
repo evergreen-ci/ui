@@ -132,13 +132,6 @@ const getProjectConfig = () => {
         },
       }),
     ],
-    css: {
-      preprocessorOptions: {
-        less: {
-          javascriptEnabled: true, // enable LESS {@import ...}
-        },
-      },
-    },
   });
 
   const vitestConfig = defineTestConfig({
