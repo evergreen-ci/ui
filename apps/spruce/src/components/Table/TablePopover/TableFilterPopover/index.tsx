@@ -58,12 +58,7 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
       >
         <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
           {options.length > 0 ? (
-            <TreeSelect
-              hasStyling={false}
-              onChange={onChange}
-              state={value}
-              tData={options}
-            />
+            <TreeSelect onChange={onChange} state={value} tData={options} />
           ) : (
             <span>No filters available.</span>
           )}

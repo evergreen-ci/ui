@@ -49,7 +49,6 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
           id={`${label}-multiselect`}
         >
           <TreeSelect
-            hasStyling={false}
             onChange={handleChange}
             state={selectedOptions}
             tData={dropdownOptions}

@@ -34,7 +34,6 @@ export const TaskStatusFilters: React.FC<Props> = ({
           data-cy="task-status-filter"
         >
           <TreeSelect
-            hasStyling={false}
             onChange={onChangeStatusFilter}
             state={selectedStatuses}
             tData={currentStatuses}
@@ -51,7 +50,6 @@ export const TaskStatusFilters: React.FC<Props> = ({
           data-cy="base-task-status-filter"
         >
           <TreeSelect
-            hasStyling={false}
             onChange={onChangeBaseStatusFilter}
             state={selectedBaseStatuses}
             tData={baseStatuses}
