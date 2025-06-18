@@ -1,7 +1,9 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
@@ -22,12 +24,16 @@ import {
 import HistoryTable from "components/HistoryTable/HistoryTable";
 import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
 import { PageWrapper } from "components/styles";
-import { slugs } from "constants/routes";
+import { getTaskRoute, slugs } from "constants/routes";
 import {
   MainlineCommitsForHistoryQuery,
   MainlineCommitsForHistoryQueryVariables,
 } from "gql/generated/types";
 import { MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
+import { useQueryParam } from "hooks/useQueryParam";
+import { TaskHistoryOptions } from "pages/task/taskTabs/TaskHistory/types";
+import { HistoryQueryParams, TestStatus } from "types/history";
+import { TaskTab } from "types/task";
 import { string } from "utils";
 import BuildVariantSelector from "./BuildVariantSelector";
 import ColumnHeaders from "./ColumnHeaders";
@@ -43,6 +49,10 @@ const TaskHistoryContents: React.FC = () => {
     [slugs.projectIdentifier]: projectIdentifier,
     [slugs.taskName]: taskName,
   } = useParams();
+
+  const [taskId] = useQueryParam<string>(HistoryQueryParams.TaskID, "");
+  const [failedTests] = useQueryParam<string[]>(TestStatus.Failed, []);
+
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { ingestNewCommits } = useHistoryTable();
   usePageTitle(`Task History | ${projectIdentifier} | ${taskName}`);
@@ -123,6 +133,24 @@ const TaskHistoryContents: React.FC = () => {
 
   return (
     <PageWrapper>
+      <Banner variant={BannerVariant.Warning}>
+        This page will eventually be deprecated in favor of the Task History tab
+        available on the Task page.{" "}
+        {taskId && (
+          <span>
+            See the corresponding page for the selected commit{" "}
+            <StyledRouterLink
+              to={getTaskRoute(taskId, {
+                tab: TaskTab.History,
+                [TaskHistoryOptions.FailingTest]: failedTests.join("|"),
+              })}
+            >
+              here
+            </StyledRouterLink>
+            .
+          </span>
+        )}
+      </Banner>
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <CenterPage>

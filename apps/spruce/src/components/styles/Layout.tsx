@@ -91,12 +91,3 @@ export const InputLabel = styled.label`
 export const ErrorMessage = styled(Body)<BodyProps>`
   color: ${red.base};
 `;
-
-export const HR = styled.hr`
-  background-color: ${gray.light2};
-  border: 0;
-  height: 1px;
-  width: 100%;
-  margin-top: ${size.m};
-  margin-bottom: ${size.m};
-`;

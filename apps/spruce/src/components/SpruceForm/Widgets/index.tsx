@@ -8,6 +8,7 @@ import {
   LeafyGreenRadio,
   LeafyGreenRadioBox,
   LeafyGreenCheckBox,
+  LeafyGreenCopyable,
   LeafyGreenSegmentedControl,
   LeafyGreenToggle,
 } from "./LeafyGreenWidgets";
@@ -15,6 +16,7 @@ import { MultiSelect } from "./MultiSelect";
 
 const widgets = {
   CheckboxWidget: LeafyGreenCheckBox,
+  CopyableWidget: LeafyGreenCopyable,
   DateWidget: LeafyGreenDatePicker,
   DateTimeWidget: DateTimePicker,
   DayPickerWidget,

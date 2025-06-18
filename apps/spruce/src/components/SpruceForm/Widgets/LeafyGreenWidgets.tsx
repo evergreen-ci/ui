@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
+import Copyable from "@leafygreen-ui/copyable";
 import { DatePicker } from "@leafygreen-ui/date-picker";
 import { palette } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
@@ -162,6 +163,21 @@ const IconContainer = styled.span`
   top: 1px;
   vertical-align: text-top;
 `;
+
+export const LeafyGreenCopyable: React.FC<SpruceWidgetProps> = ({
+  label,
+  options,
+  value,
+}) => {
+  const { description } = options;
+  return (
+    <ElementWrapper limitMaxWidth>
+      <Copyable description={description} label={label}>
+        {value}
+      </Copyable>
+    </ElementWrapper>
+  );
+};
 
 export const LeafyGreenToggle: React.FC<SpruceWidgetProps> = ({
   disabled,

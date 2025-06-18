@@ -1,6 +1,6 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
-
 import { Link } from "react-router-dom";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
@@ -14,17 +14,19 @@ import {
   getAdminSettingsRoute,
   AdminSettingsTabRoutes,
 } from "constants/routes";
-import { AdminSettings, BannerTheme } from "gql/generated/types";
+import {
+  AdminSettingsQuery,
+  AdminSettingsQueryVariables,
+} from "gql/generated/types";
+import { ADMIN_SETTINGS } from "gql/queries";
 import { AdminSettingsProvider } from "./Context";
 import { AdminSettingsTabs } from "./Tabs";
 
 const AdminSettingsPage: React.FC = () => {
   usePageTitle("Admin Settings");
-
-  const mockAdminSettings: AdminSettings = {
-    banner: "This is a test announcement banner.",
-    bannerTheme: BannerTheme.Announcement,
-  };
+  const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
+    ADMIN_SETTINGS,
+  );
 
   return (
     <AdminSettingsProvider>
@@ -48,7 +50,6 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>
-
           <SideNavGroup glyph={null} header="Restart Tasks">
             {}
           </SideNavGroup>
@@ -58,7 +59,9 @@ const AdminSettingsPage: React.FC = () => {
         </SideNav>
 
         <SideNavPageContent data-cy="admin-settings-page">
-          <AdminSettingsTabs data={mockAdminSettings} />
+          {data?.adminSettings && (
+            <AdminSettingsTabs data={data.adminSettings} />
+          )}
         </SideNavPageContent>
       </SideNavPageWrapper>
     </AdminSettingsProvider>
@@ -68,7 +71,7 @@ const AdminSettingsPage: React.FC = () => {
 const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* Adjust styling as necessary for the button container */
-  margin: 0; /* Customize margins based on specific layout needs */
+  margin: 0;
 `;
+
 export default AdminSettingsPage;

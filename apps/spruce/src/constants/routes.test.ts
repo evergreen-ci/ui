@@ -166,93 +166,106 @@ describe("getWaterfallRoute", () => {
 });
 describe("getTaskHistoryRoute", () => {
   it("generates a link to the task history page", () => {
-    expect(getTaskHistoryRoute("someProject", "someTaskId")).toBe(
-      "/task-history/someProject/someTaskId",
+    expect(getTaskHistoryRoute("project", "taskName")).toBe(
+      "/task-history/project/taskName",
     );
   });
   it("escapes special characters projectIdentifier", () => {
     expect(
-      getTaskHistoryRoute(identifierWithSpecialCharacters, "someTaskId"),
-    ).toBe(`/task-history/${escapedIdentifier}/someTaskId`);
+      getTaskHistoryRoute(identifierWithSpecialCharacters, "taskName"),
+    ).toBe(`/task-history/${escapedIdentifier}/taskName`);
   });
   it("escapes special characters taskId", () => {
-    expect(
-      getTaskHistoryRoute("someProject", taskIDWithSpecialCharacters),
-    ).toBe(`/task-history/someProject/${escapedTaskID}`);
+    expect(getTaskHistoryRoute("project", taskIDWithSpecialCharacters)).toBe(
+      `/task-history/project/${escapedTaskID}`,
+    );
   });
   it("generates a link with failing or passing tests", () => {
     expect(
-      getTaskHistoryRoute("someProject", "someTaskId", {
+      getTaskHistoryRoute("project", "taskName", {
         filters: {
           failingTests: ["someFailingTest"],
         },
       }),
-    ).toBe("/task-history/someProject/someTaskId?failed=someFailingTest");
+    ).toBe("/task-history/project/taskName?failed=someFailingTest");
     expect(
-      getTaskHistoryRoute("someProject", "someTaskId", {
+      getTaskHistoryRoute("project", "taskName", {
         filters: {
           failingTests: ["someFailingTest", "someOtherFailingTest"],
         },
       }),
     ).toBe(
-      "/task-history/someProject/someTaskId?failed=someFailingTest,someOtherFailingTest",
+      "/task-history/project/taskName?failed=someFailingTest,someOtherFailingTest",
     );
     expect(
-      getTaskHistoryRoute("someProject", "someTaskId", {
+      getTaskHistoryRoute("project", "taskName", {
         filters: {
           passingTests: ["somePassingTests"],
         },
       }),
-    ).toBe("/task-history/someProject/someTaskId?passed=somePassingTests");
+    ).toBe("/task-history/project/taskName?passed=somePassingTests");
     expect(
-      getTaskHistoryRoute("someProject", "someTaskId", {
+      getTaskHistoryRoute("project", "taskName", {
         filters: {
           passingTests: ["somePassingTests", "someOtherPassingTests"],
         },
       }),
     ).toBe(
-      "/task-history/someProject/someTaskId?passed=somePassingTests,someOtherPassingTests",
+      "/task-history/project/taskName?passed=somePassingTests,someOtherPassingTests",
     );
   });
   it("generates a link with failing and passing tests", () => {
     expect(
-      getTaskHistoryRoute("someProject", "someTaskId", {
+      getTaskHistoryRoute("project", "taskName", {
         filters: {
           failingTests: ["someFailingTest"],
           passingTests: ["somePassingTests"],
         },
       }),
     ).toBe(
-      "/task-history/someProject/someTaskId?failed=someFailingTest&passed=somePassingTests",
+      "/task-history/project/taskName?failed=someFailingTest&passed=somePassingTests",
     );
     expect(
-      getTaskHistoryRoute("someProject", "someTaskId", {
+      getTaskHistoryRoute("project", "taskName", {
         filters: {
           failingTests: ["someFailingTest", "someOtherFailingTest"],
           passingTests: ["somePassingTests", "someOtherPassingTests"],
         },
       }),
     ).toBe(
-      "/task-history/someProject/someTaskId?failed=someFailingTest,someOtherFailingTest&passed=somePassingTests,someOtherPassingTests",
+      "/task-history/project/taskName?failed=someFailingTest,someOtherFailingTest&passed=somePassingTests,someOtherPassingTests",
     );
   });
   it("generates a link with a selectedCommit", () => {
     expect(
-      getTaskHistoryRoute("someProject", "someTaskId", {
+      getTaskHistoryRoute("project", "taskName", {
         selectedCommit: 1,
       }),
-    ).toBe("/task-history/someProject/someTaskId?selectedCommit=1");
+    ).toBe("/task-history/project/taskName?selectedCommit=1");
   });
   it("generates a link with a selectedCommit and test filters", () => {
     expect(
-      getTaskHistoryRoute("someProject", "someTaskId", {
+      getTaskHistoryRoute("project", "taskName", {
         filters: {
           failingTests: ["someFailingTest", "someOtherFailingTest"],
         },
         selectedCommit: 1,
       }),
     ).toBe(
-      "/task-history/someProject/someTaskId?failed=someFailingTest,someOtherFailingTest&selectedCommit=1",
+      "/task-history/project/taskName?failed=someFailingTest,someOtherFailingTest&selectedCommit=1",
+    );
+  });
+  it("generates a link with a task ID", () => {
+    expect(
+      getTaskHistoryRoute("project", "taskName", {
+        filters: {
+          failingTests: ["someFailingTest", "someOtherFailingTest"],
+        },
+        selectedCommit: 1,
+        taskId: "12345",
+      }),
+    ).toBe(
+      "/task-history/project/taskName?failed=someFailingTest,someOtherFailingTest&selectedCommit=1&taskId=12345",
     );
   });
 });

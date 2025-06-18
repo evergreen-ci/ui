@@ -11,14 +11,16 @@ import {
   OverlineProps,
 } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
+import { CharKey } from "@evg-ui/lib/constants/keys";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
-import { useOnClickOutside } from "hooks";
+import useOnClickOutside from "hooks/useOnClickOutside";
+import { SearchSuggestionGroup } from "./types";
 
 const { blue, gray } = palette;
 
 interface SearchPopoverProps {
   disabled?: boolean;
-  searchSuggestions: string[];
+  searchSuggestions: SearchSuggestionGroup[];
   onClick?: (suggestion: string) => void;
 }
 
@@ -31,6 +33,12 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
+
+  // Flatten suggestions for keyboard navigation
+  const flattenedSuggestions = searchSuggestions.flatMap(
+    (group) => group.suggestions,
+  );
+  const totalSuggestions = flattenedSuggestions.length;
 
   useOnClickOutside([buttonRef, popoverRef], () => {
     setIsOpen(false);
@@ -50,22 +58,34 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (!isOpen || searchSuggestions.length === 0) return;
+    if (!isOpen || totalSuggestions === 0) return;
 
-    if (e.key === "ArrowUp") {
+    if (e.key === CharKey.ArrowUp) {
       e.preventDefault();
       setSelectedIndex((prevIndex) =>
-        prevIndex <= 0 ? searchSuggestions.length - 1 : prevIndex - 1,
+        prevIndex <= 0 ? totalSuggestions - 1 : prevIndex - 1,
       );
-    } else if (e.key === "ArrowDown") {
+    } else if (e.key === CharKey.ArrowDown) {
       e.preventDefault();
       setSelectedIndex((prevIndex) =>
-        prevIndex === searchSuggestions.length - 1 ? 0 : prevIndex + 1,
+        prevIndex === totalSuggestions - 1 ? 0 : prevIndex + 1,
       );
-    } else if (e.key === "Enter" && selectedIndex >= 0) {
+    } else if (e.key === CharKey.Enter && selectedIndex >= 0) {
       e.preventDefault();
-      handleClick(searchSuggestions[selectedIndex]);
+      handleClick(flattenedSuggestions[selectedIndex]);
     }
+  };
+
+  // Helper function to get the global index of a suggestion within a group
+  const getGlobalIndex = (
+    groupIndex: number,
+    suggestionIndex: number,
+  ): number => {
+    let globalIndex = 0;
+    for (let i = 0; i < groupIndex; i++) {
+      globalIndex += searchSuggestions[i].suggestions.length;
+    }
+    return globalIndex + suggestionIndex;
   };
 
   return (
@@ -87,7 +107,7 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
         active={isOpen}
         data-cy="search-suggestion-popover"
         popoverZIndex={zIndex.popover}
-        usePortal={false}
+        usePortal
       >
         <div
           ref={popoverRef}
@@ -97,19 +117,29 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
           tabIndex={0}
         >
           <StyledCard>
-            <Title>Search suggestions</Title>
-            <Divider />
             <Scrollable>
               {searchSuggestions.length > 0 ? (
-                searchSuggestions.map((s, index) => (
-                  <SearchSuggestion
-                    key={s}
-                    $isSelected={index === selectedIndex}
-                    onClick={() => handleClick(s)}
-                    role="menuitem"
-                  >
-                    {s}
-                  </SearchSuggestion>
+                searchSuggestions.map((group, groupIndex) => (
+                  <GroupContainer key={group.title}>
+                    <Title>{group.title}</Title>
+                    <Divider />
+                    {group.suggestions.map((suggestion, suggestionIndex) => {
+                      const globalIndex = getGlobalIndex(
+                        groupIndex,
+                        suggestionIndex,
+                      );
+                      return (
+                        <SearchSuggestion
+                          key={`${group.title}-${suggestion}`}
+                          $isSelected={globalIndex === selectedIndex}
+                          onClick={() => handleClick(suggestion)}
+                          role="menuitem"
+                        >
+                          {suggestion}
+                        </SearchSuggestion>
+                      );
+                    })}
+                  </GroupContainer>
                 ))
               ) : (
                 <StyledBody>
@@ -145,13 +175,23 @@ const Title = styled(Overline)<OverlineProps>`
 `;
 
 const StyledBody = styled(Body)<BodyProps>`
-  padding-left: ${size.s};
+  padding: ${size.s};
+  display: flex;
+  justify-content: center;
 `;
 
 const Divider = styled.hr`
   border: 0;
   border-bottom: 1px solid ${gray.light2};
   margin: ${size.xxs} 0;
+`;
+
+const GroupContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  &:not(:last-child) {
+    border-bottom: 1px solid ${gray.light2};
+  }
 `;
 
 const SearchSuggestion = styled.button<{ $isSelected?: boolean }>`
