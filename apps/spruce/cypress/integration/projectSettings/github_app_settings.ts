@@ -76,13 +76,17 @@ describe("GitHub app settings", () => {
 
     // Save different permission groups.
     cy.get("@permission-group-input-0").click();
-    cy.get(selectMenu).within(() => {
-      cy.contains(permissionGroups.readPRs).click();
-    });
+    cy.get(selectMenu)
+      .first()
+      .within(() => {
+        cy.contains(permissionGroups.readPRs).click();
+      });
     cy.get("@permission-group-input-4").click();
-    cy.get(selectMenu).within(() => {
-      cy.contains(permissionGroups.writeIssues).click();
-    });
+    cy.get(selectMenu)
+      .first()
+      .within(() => {
+        cy.contains(permissionGroups.writeIssues).click();
+      });
     cy.dataCy("save-settings-button").scrollIntoView();
     saveButtonEnabled(true);
     clickSave();
@@ -95,13 +99,17 @@ describe("GitHub app settings", () => {
 
     // Return to and save defaults.
     cy.get("@permission-group-input-0").click();
-    cy.get(selectMenu).within(() => {
-      cy.contains(permissionGroups.all).click();
-    });
+    cy.get(selectMenu)
+      .first()
+      .within(() => {
+        cy.contains(permissionGroups.all).click();
+      });
     cy.get("@permission-group-input-4").click();
-    cy.get(selectMenu).within(() => {
-      cy.contains(permissionGroups.all).click();
-    });
+    cy.get(selectMenu)
+      .first()
+      .within(() => {
+        cy.contains(permissionGroups.all).click();
+      });
     cy.dataCy("save-settings-button").scrollIntoView();
     saveButtonEnabled(true);
     clickSave();
