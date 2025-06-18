@@ -23,7 +23,6 @@ export const StatusSelector: React.FC = () => {
       data-cy="my-patch-status-select"
     >
       <TreeSelect
-        hasStyling={false}
         onChange={statusValOnChange}
         state={statusVal}
         tData={treeData}

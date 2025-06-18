@@ -143,6 +143,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               canRestart: () => false,
               displayStatus: () => TaskStatus.WillRun,
               execution: (cachedExecution: number) => cachedExecution + 1,
+              latestExecution: (cachedExecution: number) => cachedExecution + 1,
             },
             broadcast: false,
           });
@@ -227,6 +228,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
           <span>{dateCopy}</span>
           {latestExecution > 0 ? (
             <Chip
+              data-cy="execution-chip"
               label={`Executions: ${latestExecution + 1}`}
               variant={ChipVariant.Gray}
             />

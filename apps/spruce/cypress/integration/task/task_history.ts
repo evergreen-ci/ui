@@ -101,6 +101,7 @@ describe("task history", () => {
         successColor,
       );
       cy.get("@firstTaskCard").within(() => {
+        cy.dataCy("execution-chip").should("not.exist");
         cy.dataCy("restart-button").should(
           "have.attr",
           "aria-disabled",
@@ -117,6 +118,7 @@ describe("task history", () => {
         willRunColor,
       );
       cy.get("@firstTaskCard").within(() => {
+        cy.dataCy("execution-chip").should("be.visible");
         cy.dataCy("restart-button").should(
           "have.attr",
           "aria-disabled",
@@ -137,6 +139,7 @@ describe("task history", () => {
         successColor,
       );
       cy.get("@secondTaskCard").within(() => {
+        cy.dataCy("execution-chip").should("not.exist");
         cy.dataCy("restart-button").should(
           "have.attr",
           "aria-disabled",
@@ -153,6 +156,7 @@ describe("task history", () => {
         willRunColor,
       );
       cy.get("@secondTaskCard").within(() => {
+        cy.dataCy("execution-chip").should("be.visible");
         cy.dataCy("restart-button").should(
           "have.attr",
           "aria-disabled",
