@@ -77,7 +77,7 @@ const RepoSettings: React.FC = () => {
     <ProjectSettingsProvider>
       <ProjectBanner projectIdentifier={repoId} />
       <SideNavPageWrapper>
-        <SideNav aria-label="Project Settings" widthOverride={250}>
+        <SideNav aria-label="Repo Settings" widthOverride={250}>
           <ButtonsContainer>
             <StyledProjectSelect
               getRoute={getProjectSettingsRoute}

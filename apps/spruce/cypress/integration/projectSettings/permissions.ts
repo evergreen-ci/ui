@@ -35,8 +35,8 @@ describe("project/repo permissions", () => {
   describe("repos", () => {
     it("disables fields when user lacks edit permissions", () => {
       cy.login(users.privileged);
-      cy.visit(`/project/${repo}/settings/general`);
-      cy.dataCy("project-settings-page").within(() => {
+      cy.visit(`/repo/${repo}/settings/general`);
+      cy.dataCy("repo-settings-page").within(() => {
         cy.get('input[type="radio"]').should(
           "have.attr",
           "aria-disabled",
@@ -47,8 +47,8 @@ describe("project/repo permissions", () => {
 
     it("enables fields if user has edit permissions", () => {
       cy.login(users.admin);
-      cy.visit(`/project/${repo}/settings/general`);
-      cy.dataCy("project-settings-page").within(() => {
+      cy.visit(`/repo/${repo}/settings/general`);
+      cy.dataCy("repo-settings-page").within(() => {
         cy.get('input[type="radio"]').should(
           "have.attr",
           "aria-disabled",
