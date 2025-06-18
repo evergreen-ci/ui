@@ -85,6 +85,7 @@ const paths = {
   preferences: "/preferences",
   project: "/project",
   projects: "/projects",
+  repo: "/repo",
   spawn: "/spawn",
   task: "/task",
   taskHistory: "/task-history",
@@ -97,16 +98,17 @@ const paths = {
 
 export enum slugs {
   buildId = "buildId",
-  podId = "podId",
   distroId = "distroId",
+  execution = "execution",
   groupId = "groupId",
   hostId = "hostId",
   imageId = "imageId",
   patchId = "patchId",
+  podId = "podId",
   projectIdentifier = "projectIdentifier",
+  repoId = "repoId",
   tab = "tab",
   taskId = "taskId",
-  execution = "execution",
   taskName = "taskName",
   variantName = "variantName",
   versionId = "versionId",
@@ -148,6 +150,7 @@ export const routes = {
   preferences: paths.preferences,
   projectPatches: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Patches}`,
   projectSettings: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Settings}`,
+  repoSettings: `${paths.repo}/:${slugs.repoId}/${PageNames.Settings}`,
   spawn: paths.spawn,
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
@@ -285,10 +288,17 @@ export const getProjectSettingsRoute = (
   tab?: ProjectSettingsTabRoutes,
 ) => {
   // Encode projectId for backwards compatibilty.
-  // Encoding can be removed when all projectIDs
-  // are URL friendly withou encoding
+  // Encoding can be removed when all projectIDs are URL friendly without encoding
   const encodedProjectId = encodeURIComponent(projectId);
   const root = `${paths.project}/${encodedProjectId}/${PageNames.Settings}`;
+  return tab ? `${root}/${tab}` : root;
+};
+
+export const getRepoSettingsRoute = (
+  repoId: string,
+  tab?: ProjectSettingsTabRoutes,
+) => {
+  const root = `${paths.repo}/${repoId}/${PageNames.Settings}`;
   return tab ? `${root}/${tab}` : root;
 };
 

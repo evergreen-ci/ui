@@ -1,7 +1,9 @@
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { ProjectSettingsTabRoutes } from "constants/routes";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { getTabTitle } from "./getTabTitle";
 import { HeaderButtons } from "./HeaderButtons";
 import {
@@ -11,33 +13,41 @@ import {
 import { ProjectType } from "./tabs/utils";
 
 interface Props {
-  atTop: boolean;
   id: string;
   projectType: ProjectType;
   tab: ProjectSettingsTabRoutes;
 }
 
-export const Header: React.FC<Props> = ({ atTop, id, projectType, tab }) => {
+export const Header: React.FC<Props> = ({ id, projectType, tab }) => {
   const { title } = getTabTitle(tab);
   const saveable = Object.values(WritableProjectSettingsTabs).includes(
     tab as WritableProjectSettingsType,
   );
 
+  const headerScrollRef = useRef<HTMLDivElement>(null);
+  const [showShadow, setShowShadow] = useState(false);
+  useIntersectionObserver(headerScrollRef, ([entry]) => {
+    setShowShadow(!entry.isIntersecting);
+  });
+
   return (
-    <Container atTop={atTop}>
-      <H2 data-cy="project-settings-tab-title">{title}</H2>
-      {saveable && (
-        <HeaderButtons
-          id={id}
-          projectType={projectType}
-          tab={tab as WritableProjectSettingsType}
-        />
-      )}
-    </Container>
+    <>
+      <div ref={headerScrollRef} />
+      <Container showShadow={showShadow}>
+        <H2 data-cy="project-settings-tab-title">{title}</H2>
+        {saveable && (
+          <HeaderButtons
+            id={id}
+            projectType={projectType}
+            tab={tab as WritableProjectSettingsType}
+          />
+        )}
+      </Container>
+    </>
   );
 };
 
-const Container = styled.div<{ atTop: boolean }>`
+const Container = styled.div<{ showShadow: boolean }>`
   align-items: start;
   background-color: white;
   display: flex;
@@ -49,9 +59,9 @@ const Container = styled.div<{ atTop: boolean }>`
   top: 0;
   z-index: 1;
 
-  ${({ atTop }) =>
-    atTop
-      ? "box-shadow: unset"
-      : "box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.5); "}
+  ${({ showShadow }) =>
+    showShadow
+      ? "box-shadow: 0 3px 4px -4px rgba(0, 0, 0, 0.6);"
+      : "box-shadow: unset;"}
   transition: box-shadow ${transitionDuration.default}ms ease-in-out;
 `;

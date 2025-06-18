@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -21,6 +20,7 @@ import {
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
+  getRepoSettingsRoute,
   slugs,
 } from "constants/routes";
 import {
@@ -30,47 +30,46 @@ import {
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
-import { useIsScrollAtTop } from "hooks";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { validators } from "utils";
-import { ProjectSettingsProvider } from "./Context";
-import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
-import { getTabTitle } from "./getTabTitle";
-import { ProjectSettingsTabs } from "./Tabs";
-import { projectOnlyTabs } from "./tabs/types";
-import { ProjectType } from "./tabs/utils";
+import { ProjectSettingsProvider } from "../sharedProjectSettings/Context";
+import { CreateDuplicateProjectButton } from "../sharedProjectSettings/CreateDuplicateProjectButton";
+import { getTabTitle } from "../sharedProjectSettings/getTabTitle";
+import { ProjectSettingsTabs } from "../sharedProjectSettings/Tabs";
+import { projectOnlyTabs } from "../sharedProjectSettings/tabs/types";
+import { ProjectType } from "../sharedProjectSettings/tabs/utils";
 
 const { validateObjectId } = validators;
 
 const ProjectSettings: React.FC = () => {
-  usePageTitle(`Project Settings`);
-  const dispatchToast = useToastContext();
-  const { [slugs.projectIdentifier]: projectIdentifier, [slugs.tab]: tab } =
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    useParams<{
-      [slugs.projectIdentifier]: string | null;
-      [slugs.tab]: ProjectSettingsTabRoutes;
-    }>();
-
-  const pageWrapperRef = useRef<HTMLDivElement>(null);
-  const { atTop } = useIsScrollAtTop(pageWrapperRef, 40);
-
-  // If the path includes an Object ID, this page could either be a project or a repo if it is a project we should redirect the user so that they use the identifier.
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const identifierIsObjectId = validateObjectId(projectIdentifier);
-  const [isRepo, setIsRepo] = useState<boolean>(false);
-
   const { sendEvent } = useProjectSettingsAnalytics();
+  const dispatchToast = useToastContext();
+  const {
+    [slugs.projectIdentifier]: projectIdentifier = "",
+    [slugs.tab]: tab,
+  } = useParams<{
+    [slugs.projectIdentifier]: string;
+    [slugs.tab]: ProjectSettingsTabRoutes;
+  }>();
+  usePageTitle(`Project Settings | ${projectIdentifier}`);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Reset state on page change
-    setIsRepo(false);
-  }, [projectIdentifier]);
+  // If the path includes an Object ID, we should redirect the user so that they use the identifier.
+  const identifierIsObjectId = validateObjectId(projectIdentifier);
 
   useProjectRedirect({
     shouldRedirect: identifierIsObjectId,
-    onError: () => {
-      setIsRepo(true);
+
+    onError: (repoId) => {
+      // This redirect can be removed once the repo settings URL change has been baked in long enough.
+      navigate(
+        getRepoSettingsRoute(
+          repoId,
+          tab && projectOnlyTabs.has(tab)
+            ? ProjectSettingsTabRoutes.General
+            : tab,
+        ),
+      );
     },
     sendAnalyticsEvent: (projectId: string, identifier: string) => {
       sendEvent({
@@ -85,8 +84,7 @@ const ProjectSettings: React.FC = () => {
     ProjectSettingsQuery,
     ProjectSettingsQueryVariables
   >(PROJECT_SETTINGS, {
-    skip: identifierIsObjectId,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    skip: identifierIsObjectId || !projectIdentifier,
     variables: { projectIdentifier },
     onError: (e) => {
       dispatchToast.error(
@@ -95,25 +93,13 @@ const ProjectSettings: React.FC = () => {
     },
   });
 
-  const repoId =
-    projectData?.projectSettings?.projectRef?.repoRefId || projectIdentifier;
+  const repoId = projectData?.projectSettings?.projectRef?.repoRefId ?? "";
 
-  // Assign project type in order to show/hide elements that should only appear for repos, attached projects, etc.
-  let projectType: ProjectType;
-  if (isRepo) {
-    projectType = ProjectType.Repo;
-  } else if (projectData?.projectSettings?.projectRef?.repoRefId) {
-    projectType = ProjectType.AttachedProject;
-  } else {
-    projectType = ProjectType.Project;
-  }
-
-  const { data: repoData } = useQuery<
+  const { data: repoData, loading: repoLoading } = useQuery<
     RepoSettingsQuery,
     RepoSettingsQueryVariables
   >(REPO_SETTINGS, {
-    skip: projectLoading || projectType === ProjectType.Project,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    skip: !repoId,
     variables: { repoId },
     onError: (e) => {
       dispatchToast.error(
@@ -122,13 +108,11 @@ const ProjectSettings: React.FC = () => {
     },
   });
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  if (!tabRouteValues.includes(tab)) {
+  if (!tabRouteValues.includes(tab as ProjectSettingsTabRoutes)) {
     return (
       <Navigate
         replace
         to={getProjectSettingsRoute(
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           projectIdentifier,
           ProjectSettingsTabRoutes.General,
         )}
@@ -140,26 +124,20 @@ const ProjectSettings: React.FC = () => {
     projectIdentifier: projectIdentifier ?? "",
     currentTab: tab ?? ProjectSettingsTabRoutes.General,
   };
-  const project =
-    projectType === ProjectType.Repo
-      ? repoData?.repoSettings
-      : projectData?.projectSettings;
-
+  const projectType = repoId
+    ? ProjectType.AttachedProject
+    : ProjectType.Project;
+  const project = projectData?.projectSettings;
+  const repo = repoData?.repoSettings;
+  const ownerName = project?.projectRef?.owner ?? "";
+  const repoName = project?.projectRef?.repo ?? "";
   const hasLoaded =
-    (projectData || projectType === ProjectType.Repo) &&
-    (repoData || projectType === ProjectType.Project) &&
-    project;
-
-  const owner = project?.projectRef?.owner;
-  const repo = project?.projectRef?.repo;
-
-  // If current project is a repo, use "owner/repo" since repos lack identifiers
-  const projectLabel =
-    projectType === ProjectType.Repo ? `${owner}/${repo}` : projectIdentifier;
+    projectType === ProjectType.Project
+      ? !projectLoading && project
+      : !projectLoading && project && !repoLoading && repo;
 
   return (
     <ProjectSettingsProvider>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <SideNavPageWrapper>
         <SideNav aria-label="Project Settings" widthOverride={250}>
@@ -167,14 +145,13 @@ const ProjectSettings: React.FC = () => {
             <StyledProjectSelect
               getRoute={getProjectSettingsRoute}
               isProjectSettingsPage
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              selectedProjectIdentifier={projectLabel}
+              selectedProjectIdentifier={projectIdentifier}
             />
             {projectType === ProjectType.AttachedProject && repoId && (
               <StyledRouterLink
                 arrowAppearance="persist"
                 data-cy="attached-repo-link"
-                to={getProjectSettingsRoute(
+                to={getRepoSettingsRoute(
                   repoId,
                   tab && projectOnlyTabs.has(tab)
                     ? ProjectSettingsTabRoutes.General
@@ -184,20 +161,14 @@ const ProjectSettings: React.FC = () => {
                 <strong>Go to repo settings</strong>
               </StyledRouterLink>
             )}
-
             <CreateDuplicateProjectButton
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              id={project?.projectRef?.id}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              label={projectLabel}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              owner={owner}
+              id={project?.projectRef?.id ?? ""}
+              label={projectIdentifier}
+              owner={ownerName}
               projectType={projectType}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              repo={repo}
+              repo={repoName}
             />
           </ButtonsContainer>
-
           <SideNavGroup>
             <ProjectSettingsNavItem
               {...sharedProps}
@@ -262,7 +233,6 @@ const ProjectSettings: React.FC = () => {
           </SideNavGroup>
         </SideNav>
         <SideNavPageContent
-          ref={pageWrapperRef}
           css={css`
             padding-top: 0;
             margin-top: ${size.m};
@@ -271,10 +241,9 @@ const ProjectSettings: React.FC = () => {
         >
           {hasLoaded ? (
             <ProjectSettingsTabs
-              atTop={atTop}
-              projectData={projectData?.projectSettings}
+              projectData={project}
               projectType={projectType}
-              repoData={repoData?.repoSettings}
+              repoData={repo}
             />
           ) : (
             <FormSkeleton />

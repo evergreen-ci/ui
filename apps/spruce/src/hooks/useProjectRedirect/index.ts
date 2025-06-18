@@ -11,7 +11,7 @@ const { validateObjectId } = validators;
 interface UseProjectRedirectProps {
   sendAnalyticsEvent: (projectId: string, projectIdentifier: string) => void;
   shouldRedirect?: boolean;
-  onError?: (e: Error) => void;
+  onError?: (repoId: string) => void;
 }
 
 /**
@@ -54,13 +54,9 @@ export const useProjectRedirect = ({
       navigate(redirectPathname, { replace: true });
       setAttemptedRedirect(true);
     },
-    onError: (e) => {
+    onError: () => {
       setAttemptedRedirect(true);
-      onError?.(
-        Error(
-          `There was an error loading the project ${projectIdentifier}: ${e.message}`,
-        ),
-      );
+      onError?.(projectIdentifier ?? "");
     },
   });
 

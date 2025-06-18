@@ -1,8 +1,8 @@
 import { AjvError } from "@rjsf/core";
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { WritableProjectSettingsType } from "pages/projectSettings/tabs/types";
 import { ProjectSettingsProvider, useProjectSettingsContext } from "./Context";
+import { WritableProjectSettingsType } from "./tabs/types";
 
 describe("projectSettingsContext", () => {
   it("ensure that tab are initially saved", async () => {

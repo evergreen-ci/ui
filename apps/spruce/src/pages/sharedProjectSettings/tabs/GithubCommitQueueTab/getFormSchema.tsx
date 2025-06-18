@@ -14,7 +14,7 @@ import {
   ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { GithubProjectConflicts } from "gql/generated/types";
-import { getTabTitle } from "pages/projectSettings/getTabTitle";
+import { getTabTitle } from "../../getTabTitle";
 import { alias, form, ProjectType } from "../utils";
 import { githubConflictErrorStyling, sectionHasError } from "./getErrors";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
