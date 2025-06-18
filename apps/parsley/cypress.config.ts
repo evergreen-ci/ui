@@ -31,6 +31,12 @@ export default defineConfig({
           );
           if (!failures) {
             try {
+              // Get the compressed video name which resembles file -compressed.mp4 and delete it
+              const compressedName = results.video.replace(
+                /.mp4$/,
+                "-compressed.mp4",
+              );
+              unlinkSync(compressedName);
               unlinkSync(results.video);
             } catch {
               console.log("unlinkSync failed. Continuing...");
@@ -47,7 +53,8 @@ export default defineConfig({
     mochaFile: "bin/cypress/cypress-[hash].xml",
     testCaseSwitchClassnameAndName: true,
   },
-  videoCompression: false,
+  videoCompression: 0,
+  video: true,
   viewportHeight: 800,
   viewportWidth: 1280,
 });
