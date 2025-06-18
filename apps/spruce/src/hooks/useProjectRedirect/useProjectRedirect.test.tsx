@@ -181,11 +181,7 @@ describe("useProjectRedirect", () => {
     });
     expect(sendAnalyticsEvent).toHaveBeenCalledTimes(0);
     expect(onError).toHaveBeenCalledTimes(1);
-    expect(onError).toHaveBeenCalledWith(
-      Error(
-        `There was an error loading the project ${repoId}: Error finding project by id ${repoId}: 404 (Not Found): project '${repoId}' not found`,
-      ),
-    );
+    expect(onError).toHaveBeenCalledWith(repoId);
   });
 });
 
