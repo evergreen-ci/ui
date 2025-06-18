@@ -18,6 +18,8 @@ export default defineConfig({
     specPattern: "cypress/integration/**/*.ts",
     viewportWidth: 1920,
     viewportHeight: 1080,
+    video: true,
+    videoCompression: 0,
     setupNodeEvents(on) {
       on("before:run", () => {
         try {
@@ -42,6 +44,12 @@ export default defineConfig({
           );
           if (!failures) {
             try {
+              // Get the compressed video name which resembles file -compressed.mp4 and delete it
+              const compressedName = results.video.replace(
+                /.mp4$/,
+                "-compressed.mp4",
+              );
+              unlinkSync(compressedName);
               unlinkSync(results.video);
             } catch {
               console.log("unlinkSync failed. Continuing...");
