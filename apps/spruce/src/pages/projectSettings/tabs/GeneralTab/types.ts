@@ -9,6 +9,7 @@ export interface GeneralFormState {
     };
     branch?: string;
     other: {
+      projectID?: string;
       displayName: string;
       identifier?: string;
       batchTime: number;

@@ -81,6 +81,10 @@ export const getFormSchema = (
                 format: "noStartingOrTrailingWhitespace",
               },
               ...(projectType !== ProjectType.Repo && {
+                projectID: {
+                  type: "string" as const,
+                  title: "Project ID",
+                },
                 identifier: {
                   type: "string" as const,
                   title: "Identifier",
@@ -281,6 +285,11 @@ export const getFormSchema = (
       other: {
         displayName: {
           "ui:data-cy": "display-name-input",
+        },
+        projectID: {
+          "ui:widget": widgets.CopyableWidget,
+          "ui:description":
+            "Immutable ID for use in project configuration, such as setting up AWS roles.",
         },
         identifier: {
           "ui:data-cy": "identifier-input",

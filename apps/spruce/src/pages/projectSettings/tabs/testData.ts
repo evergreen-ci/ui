@@ -28,7 +28,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       text: "",
       theme: BannerTheme.Announcement,
     },
-    id: "project",
+    id: "projectid",
     identifier: "project",
     repoRefId: "repo",
     enabled: false,
