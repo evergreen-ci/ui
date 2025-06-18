@@ -1,4 +1,3 @@
-import { TableProps } from "antd/es/table";
 import { TestSortCategory } from "gql/generated/types";
 
 export enum RequiredQueryParams {
@@ -41,8 +40,6 @@ export const mapIdToFilterParam = Object.entries(mapFilterParamToId).reduce(
   }),
   {},
 );
-
-export type TableOnChange<D> = TableProps<D>["onChange"];
 
 export enum TaskTab {
   Logs = "logs",

@@ -1,38 +1,7 @@
-import { Key, SorterResult } from "antd/es/table/interface";
-import { Task, SortDirection } from "gql/generated/types";
+import { SortDirection } from "gql/generated/types";
 
-export const getSortString = (columnKey: Key, direction: SortDirection) =>
+export const getSortString = (columnKey: string, direction: SortDirection) =>
   columnKey && direction ? `${columnKey}:${direction}` : undefined;
-
-const shortenSortOrder = (order: string) =>
-  order === "ascend" ? SortDirection.Asc : SortDirection.Desc;
-
-// takes sort input from the antd table and translates into part of the query string
-// if sort field is being unset, returns undefined
-export const toSortString = (
-  sorts: SorterResult<Task> | SorterResult<Task>[],
-) => {
-  let sortStrings: string[] = [];
-  if (Array.isArray(sorts)) {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    sortStrings = sorts.map(({ columnKey, order }) =>
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      order ? getSortString(columnKey, shortenSortOrder(order)) : undefined,
-    );
-  } else {
-    sortStrings = [
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      sorts.order
-        ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-          getSortString(sorts.columnKey, shortenSortOrder(sorts.order))
-        : undefined,
-    ];
-  }
-
-  return sortStrings.some((s) => s)
-    ? sortStrings.filter(Boolean).join(";")
-    : undefined;
-};
 
 /**
  * Parses a sort query string or array into an array of sort objects.

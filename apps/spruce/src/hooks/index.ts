@@ -8,7 +8,6 @@ export { useNetworkStatus } from "./useNetworkStatus";
 export { usePageVisibility } from "./usePageVisibility";
 export { usePolling } from "./usePolling";
 export { useStatusesFilter } from "./useStatusesFilter";
-export { useTableInputFilter, useTableCheckboxFilter } from "./useTableFilters";
 export { usePrevious } from "@evg-ui/lib/hooks";
 export { useDisableSpawnExpirationCheckbox } from "./useDisableSpawnExpirationCheckbox";
 export { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
