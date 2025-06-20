@@ -7968,7 +7968,7 @@ export type MyPublicKeysQuery = {
 };
 
 export type RepoEventLogsQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
+  repoId: Scalars["String"]["input"];
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   before?: InputMaybe<Scalars["Time"]["input"]>;
 }>;

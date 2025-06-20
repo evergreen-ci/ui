@@ -13,15 +13,17 @@ type TabProps = {
 };
 
 export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
-  const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
+  const {
+    [slugs.projectIdentifier]: projectIdentifier,
+    [slugs.repoId]: repoId,
+  } = useParams();
 
-  const isRepo = projectType === ProjectType.Repo;
-  const { allEventsFetched, events, fetchMore } = useProjectSettingsEvents(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
+  const { allEventsFetched, events, fetchMore } = useProjectSettingsEvents({
     projectIdentifier,
-    isRepo,
+    repoId,
+    isRepo: projectType === ProjectType.Repo,
     limit,
-  );
+  });
 
   const lastEventTimestamp = events[events.length - 1]?.timestamp;
 

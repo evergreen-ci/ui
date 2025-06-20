@@ -30,6 +30,7 @@ export enum ImageTabRoutes {
   EventLog = "event-log",
 }
 
+// Enums should be ordered in view order.
 export enum ProjectSettingsTabRoutes {
   General = "general",
   Access = "access",
@@ -38,14 +39,14 @@ export enum ProjectSettingsTabRoutes {
   Notifications = "notifications",
   PatchAliases = "patch-aliases",
   VirtualWorkstation = "virtual-workstation",
+  Containers = "containers",
+  ViewsAndFilters = "views-and-filters",
   ProjectTriggers = "project-triggers",
   PeriodicBuilds = "periodic-builds",
   Plugins = "plugins",
-  EventLog = "event-log",
-  Containers = "containers",
-  ViewsAndFilters = "views-and-filters",
   GithubAppSettings = "github-app-settings",
   GithubPermissionGroups = "github-permission-groups",
+  EventLog = "event-log",
 }
 
 export enum AdminSettingsTabRoutes {

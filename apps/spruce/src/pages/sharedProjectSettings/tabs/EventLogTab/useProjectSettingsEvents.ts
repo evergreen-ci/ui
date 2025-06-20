@@ -12,11 +12,17 @@ import { useEvents } from "hooks/useEvents";
 
 const PROJECT_EVENT_LIMIT = 15;
 
-export const useProjectSettingsEvents = (
-  projectIdentifier: string,
-  isRepo: boolean,
-  limit: number = PROJECT_EVENT_LIMIT,
-) => {
+export const useProjectSettingsEvents = ({
+  isRepo,
+  limit = PROJECT_EVENT_LIMIT,
+  projectIdentifier = "",
+  repoId = "",
+}: {
+  projectIdentifier?: string;
+  repoId?: string;
+  isRepo: boolean;
+  limit?: number;
+}) => {
   const dispatchToast = useToastContext();
 
   const { allEventsFetched, onCompleted, setPrevCount } = useEvents(limit);
@@ -30,7 +36,7 @@ export const useProjectSettingsEvents = (
     {
       variables: { projectIdentifier, limit },
       errorPolicy: "all",
-      skip: isRepo,
+      skip: isRepo || !projectIdentifier,
       notifyOnNetworkStatusChange: true,
       onCompleted: ({ projectEvents: { count } }) => onCompleted(count),
       onError: (e) => {
@@ -48,9 +54,9 @@ export const useProjectSettingsEvents = (
   } = useQuery<RepoEventLogsQuery, RepoEventLogsQueryVariables>(
     REPO_EVENT_LOGS,
     {
-      variables: { id: projectIdentifier, limit },
+      variables: { repoId, limit },
       errorPolicy: "all",
-      skip: !isRepo,
+      skip: !isRepo || !repoId,
       notifyOnNetworkStatusChange: true,
       onCompleted: ({ repoEvents: { count } }) => onCompleted(count),
       onError: (e) => {
