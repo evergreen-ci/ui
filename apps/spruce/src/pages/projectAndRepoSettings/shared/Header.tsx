@@ -33,7 +33,7 @@ export const Header: React.FC<Props> = ({ id, projectType, tab }) => {
   return (
     <>
       <div ref={headerScrollRef} />
-      <Container showShadow={showShadow}>
+      <Container saveable={saveable} showShadow={showShadow}>
         <H2 data-cy="project-settings-tab-title">{title}</H2>
         {saveable && (
           <HeaderButtons
@@ -47,7 +47,7 @@ export const Header: React.FC<Props> = ({ id, projectType, tab }) => {
   );
 };
 
-const Container = styled.div<{ showShadow: boolean }>`
+const Container = styled.div<{ showShadow: boolean; saveable: boolean }>`
   align-items: start;
   background-color: white;
   display: flex;
@@ -55,7 +55,8 @@ const Container = styled.div<{ showShadow: boolean }>`
   justify-content: space-between;
   margin: 0 -${size.l};
   padding: 0 ${size.l} ${size.s} ${size.l};
-  position: sticky;
+
+  ${({ saveable }) => saveable && "position: sticky;"}
   top: 0;
   z-index: 1;
 
