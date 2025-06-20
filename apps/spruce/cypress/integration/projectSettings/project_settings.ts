@@ -1,13 +1,13 @@
 import { clickSave } from "../../utils";
 import {
-  getGeneralRoute,
-  getGithubCommitQueueRoute,
+  getProjectSettingsRoute,
   project,
+  ProjectSettingsTabRoutes,
 } from "./constants";
 
 describe("projectSettings/project_settings", () => {
   describe("Renaming the identifier", () => {
-    const origin = getGeneralRoute(project);
+    const origin = getProjectSettingsRoute(project);
 
     beforeEach(() => {
       cy.visit(origin);
@@ -28,7 +28,10 @@ describe("projectSettings/project_settings", () => {
   });
 
   describe("A project that has GitHub webhooks disabled", () => {
-    const origin = getGithubCommitQueueRoute("logkeeper");
+    const origin = getProjectSettingsRoute(
+      "logkeeper",
+      ProjectSettingsTabRoutes.GithubCommitQueue,
+    );
 
     beforeEach(() => {
       cy.visit(origin);
@@ -44,14 +47,14 @@ describe("projectSettings/project_settings", () => {
 
   describe("A project id should redirect to the project identifier", () => {
     const projectId = "602d70a2b2373672ee493189";
-    const origin = getGeneralRoute(projectId);
+    const origin = getProjectSettingsRoute(projectId);
 
     beforeEach(() => {
       cy.visit(origin);
     });
 
     it("Redirects to the project identifier", () => {
-      cy.url().should("include", getGeneralRoute("parsley"));
+      cy.url().should("include", getProjectSettingsRoute("parsley"));
     });
   });
 });

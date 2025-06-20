@@ -17,7 +17,7 @@ export default {
 export const Default: CustomStoryObj<typeof ProjectSelect> = {
   render: () => (
     <ProjectSelect
-      getRoute={getWaterfallRoute}
+      getProjectRoute={getWaterfallRoute}
       selectedProjectIdentifier="evergreen"
     />
   ),
@@ -26,7 +26,7 @@ export const Default: CustomStoryObj<typeof ProjectSelect> = {
 export const WithClickableHeader: CustomStoryObj<typeof ProjectSelect> = {
   render: () => (
     <ProjectSelect
-      getRoute={getWaterfallRoute}
+      getProjectRoute={getWaterfallRoute}
       isProjectSettingsPage
       selectedProjectIdentifier="evergreen"
     />

@@ -1,3 +1,0 @@
-query IsRepo($projectOrRepoId: String!) {
-  isRepo(projectOrRepoId: $projectOrRepoId)
-}

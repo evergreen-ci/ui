@@ -11,6 +11,7 @@ import {
 import { githubPermissionsDocumentationUrl } from "constants/externalResources";
 import {
   getProjectSettingsRoute,
+  getRepoSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { ArrayFieldTemplate } from "./FieldTemplates";
@@ -96,7 +97,7 @@ export const getFormSchema = ({
             <StyledDescription>
               Github Permission Groups are being defaulted to the{" "}
               <StyledRouterLink
-                to={getProjectSettingsRoute(
+                to={getRepoSettingsRoute(
                   repoId,
                   ProjectSettingsTabRoutes.GithubPermissionGroups,
                 )}
