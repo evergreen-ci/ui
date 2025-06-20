@@ -89,7 +89,6 @@ const TaskDurationTable: React.FC<Props> = ({
   const setSorting: OnChangeFn<SortingState> = (s) =>
     getDefaultSorting?.(table).onSortingChange?.(s);
   const tableSortHandler = useTableSort({
-    singleQueryParam: true,
     sendAnalyticsEvents: (sorter) =>
       sendEvent({
         name: "Sorted task duration table",
