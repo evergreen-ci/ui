@@ -1,7 +1,9 @@
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import Code from "@leafygreen-ui/code";
-import { InlineCode, Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps, InlineCode } from "@leafygreen-ui/typography";
 import get from "lodash/get";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { SettingsCard } from "components/SettingsCard";
 import {
   ClientConfigQuery,
@@ -20,13 +22,17 @@ export const VerifyCard = () => {
 
   return (
     <SettingsCard>
-      <Body>
+      <StyledBody>
         On the command line, type <InlineCode>evergreen get-update</InlineCode>.
         It should display:
-      </Body>
-      <Code copyable={false} language="shell">
+      </StyledBody>
+      <Code copyButtonAppearance="none" language="shell">
         {verificationCode}
       </Code>
     </SettingsCard>
   );
 };
+
+const StyledBody = styled(Body)<BodyProps>`
+  margin-bottom: ${size.s};
+`;
