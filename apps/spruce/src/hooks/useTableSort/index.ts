@@ -2,9 +2,7 @@ import { SortingState } from "@leafygreen-ui/table";
 import { TableQueryParams, PaginationQueryParams } from "constants/queryParams";
 import { SortDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
-import { queryString } from "utils";
-
-const { getSortString } = queryString;
+import { getSortString } from "utils/queryString";
 
 interface Props {
   sendAnalyticsEvents?: (sorter: SortingState) => void;
