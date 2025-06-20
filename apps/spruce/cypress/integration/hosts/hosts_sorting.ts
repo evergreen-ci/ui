@@ -156,29 +156,21 @@ describe("Hosts page sorting", () => {
   const distroSortControl = "button[aria-label='Sort by Distro']";
 
   it("Clicking the sort direction filter will set the page query param to 0", () => {
-    cy.visit(`${hostsRoute}?distroId=arfarf&page=5`);
+    cy.visit(`${hostsRoute}?page=5`);
     cy.dataCy("hosts-table").should("be.visible");
     cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");
     cy.get(distroSortControl).click();
-    cy.location("search").should(
-      "equal",
-      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=ASC",
-    );
+    cy.location("search").should("equal", "?page=0&sorts=DISTRO%3AASC");
   });
   it("Clicking a sort direction 3 times will set the page query param to 0, clear the direction & sortBy query param, and preserve the rest", () => {
-    cy.visit(`${hostsRoute}?distroId=arfarf&page=5`);
+    cy.visit(hostsRoute);
+
     cy.get(distroSortControl).click();
-    cy.location("search").should(
-      "equal",
-      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=ASC",
-    );
+    cy.location("search").should("equal", "?page=0&sorts=DISTRO%3AASC");
     cy.get(distroSortControl).click();
-    cy.location("search").should(
-      "equal",
-      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=DESC",
-    );
+    cy.location("search").should("equal", "?page=0&sorts=DISTRO%3ADESC");
     cy.get(distroSortControl).click();
-    cy.location("search").should("equal", "?distroId=arfarf&page=0");
+    cy.location("search").should("equal", "?page=0");
   });
   it("Status sorter is selected by default if no sort params in url", () => {
     cy.visit(hostsRoute);
@@ -190,15 +182,15 @@ describe("Hosts page sorting", () => {
   });
 
   it("Status sorter has initial value of sort param from url", () => {
-    cy.visit(`${hostsRoute}?page=0&sortBy=DISTRO&sortDir=DESC`);
+    cy.visit(`${hostsRoute}?page=0&sorts=DISTRO%3ADESC`);
     cy.contains("th", "Distro").within(() => {
       cy.validateTableSort("desc");
     });
   });
 
   sortByTests.forEach(({ expectedIds, sortBy, sorterName }) => {
-    it(`Sorts by ${sorterName} when sortBy = ${sortBy}`, () => {
-      cy.visit(`${hostsRoute}?sortBy=${sortBy}&limit=10`);
+    it(`Sorts by ${sorterName} when sorts = ${sortBy}`, () => {
+      cy.visit(`${hostsRoute}?sorts=${sortBy}%3AASC&limit=10`);
       cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(expectedIds[index]),
       );
@@ -206,18 +198,16 @@ describe("Hosts page sorting", () => {
   });
 
   sortDirectionTests.forEach(({ expectedIds, order, sortDir }) => {
-    it(`Sorts in ${order} order when sortDir = ${sortDir}`, () => {
-      cy.visit(
-        `${hostsRoute}?page=0&sortBy=CURRENT_TASK&sortDir=${sortDir}&limit=10`,
-      );
+    it(`Sorts in ${order} order when sorts = CURRENT_TASK:${sortDir}`, () => {
+      cy.visit(`${hostsRoute}?page=0&sorts=CURRENT_TASK%3A${sortDir}&limit=10`);
       cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(expectedIds[index]),
       );
     });
   });
 
-  it("Uses default sortBy and sortDir if sortBy or sortDir param is invalid", () => {
-    cy.visit(`${hostsRoute}?sortBy=INVALID&sortDir=INVALID&limit=10`);
+  it("Uses default sorts if sorts param is invalid", () => {
+    cy.visit(`${hostsRoute}?sorts=INVALID%3AINVALID&limit=10`);
     cy.dataCy("leafygreen-table-row").each(($el, index) =>
       cy
         .wrap($el)

@@ -105,7 +105,6 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   };
 
   const updateSorting = useTableSort({
-    singleQueryParam: true,
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
         name: "Sorted tasks table",

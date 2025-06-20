@@ -66,7 +66,6 @@ const ExecutionTasksTable: React.FC<Props> = ({
   );
 
   const tableSortHandler = useTableSort({
-    singleQueryParam: true,
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
         name: "Sorted execution tasks table",

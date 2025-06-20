@@ -66,8 +66,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       appliedDefaultSort.current = pathname;
       setQueryParams({
         ...queryParams,
-        [TableQueryParams.SortBy]: TestSortCategory.Status,
-        [TableQueryParams.SortDir]: SortDirection.Asc,
+        [TableQueryParams.Sorts]: `${TestSortCategory.Status}:${SortDirection.Asc}`,
       });
     }
   }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -214,16 +213,21 @@ const getInitialState = (queryParams: {
   initialFilters: ColumnFiltersState;
   initialSorting: SortingState;
 } => {
-  const {
-    [TableQueryParams.SortBy]: sortBy,
-    [TableQueryParams.SortDir]: sortDir,
-  } = queryParams;
+  const { [TableQueryParams.Sorts]: sorts } = queryParams;
+
+  const initialSorting: SortingState = sorts
+    ? parseSortString(sorts, {
+        sortByKey: "sortBy",
+        sortDirKey: "direction",
+        sortCategoryEnum: TestSortCategory,
+      }).map(({ direction, sortBy }) => ({
+        id: sortBy,
+        desc: direction === SortDirection.Desc,
+      }))
+    : [{ id: TestSortCategory.Status, desc: false }];
 
   return {
-    initialSorting:
-      sortBy && sortDir
-        ? [{ id: sortBy, desc: sortDir === SortDirection.Desc }]
-        : [{ id: TestSortCategory.Status, desc: false }],
+    initialSorting,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     initialFilters: Object.entries(mapFilterParamToId).reduce(
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -242,25 +246,10 @@ const getQueryVariables = (
   queryParams: { [key: string]: any },
   taskId: string,
 ): TaskTestsQueryVariables => {
-  // Detemining sort category
-  const parsedSortBy = getString(queryParams[TableQueryParams.SortBy]);
-  const testSortCategories: string[] = Object.values(TestSortCategory);
-  const sortBy = testSortCategories.includes(parsedSortBy)
-    ? (parsedSortBy as TestSortCategory)
-    : undefined;
   const sorts = queryParams[TableQueryParams.Sorts];
 
-  // Determining sort direction
-  const parsedDirection = getString(queryParams[TableQueryParams.SortDir]);
-  const direction =
-    parsedDirection === SortDirection.Desc
-      ? SortDirection.Desc
-      : SortDirection.Asc;
-
   let sort: TestSortOptions[] = [];
-  if (sortBy && direction) {
-    sort = [{ sortBy, direction }];
-  } else if (sorts) {
+  if (sorts) {
     sort = parseSortString<
       "sortBy",
       "direction",

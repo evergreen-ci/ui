@@ -36,8 +36,7 @@ describe("Tests Table", () => {
   });
 
   it("Automatically sorts by status in ascending order on page load", () => {
-    cy.location("search").should("include", "sortBy=STATUS");
-    cy.location("search").should("include", ASCEND_PARAM);
+    cy.location("search").should("include", "sorts=STATUS%3AASC");
   });
   it("Adjusts query params when table headers are clicked", () => {
     const nameSortControl = "button[aria-label='Sort by Name']";
@@ -47,58 +46,52 @@ describe("Tests Table", () => {
     // Clear default status sort
     cy.get(statusSortControl).click();
     cy.get(statusSortControl).click();
-    cy.location("search").should("not.include", "sortBy");
+    cy.location("search").should("not.include", "sorts");
 
     cy.get(nameSortControl).click();
     cy.location().should((loc) => {
-      expect(loc.search).to.include("sortBy=TEST_NAME");
-      expect(loc.search).to.include(ASCEND_PARAM);
+      expect(loc.search).to.include("sorts=TEST_NAME%3AASC");
     });
 
     // Clear name sort
     cy.get(nameSortControl).click();
     cy.get(nameSortControl).click();
-    cy.location("search").should("not.include", "sortBy");
+    cy.location("search").should("not.include", "sorts");
 
     cy.get(statusSortControl).click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
-      expect(loc.search).to.include("sortBy=STATUS");
-      expect(loc.search).to.include(ASCEND_PARAM);
+      expect(loc.search).to.include("sorts=STATUS%3AASC");
     });
-
     cy.get(statusSortControl).click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
-      expect(loc.search).to.include("sortBy=STATUS");
-      expect(loc.search).to.include(DESCEND_PARAM);
+      expect(loc.search).to.include("sorts=STATUS%3ADESC");
     });
-
     // Clear status sort
     cy.get(statusSortControl).click();
-    cy.location("search").should("not.include", "sortBy");
+    cy.location("search").should("not.include", "sorts");
 
     cy.get(durationSortControl).click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
-      expect(loc.search).to.include("sortBy=DURATION");
-      expect(loc.search).to.include(ASCEND_PARAM);
+      expect(loc.search).to.include("sorts=DURATION%3AASC");
     });
 
     cy.get(durationSortControl).click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
-      expect(loc.search).to.include("sortBy=DURATION");
-      expect(loc.search).to.include(DESCEND_PARAM);
+      expect(loc.search).to.include("sorts=DURATION%3ADESC");
     });
+  });
 
+  it("Supports multiple sorts", () => {
+    const statusSortControl = "button[aria-label='Sort by Status']";
+    const durationSortControl = "button[aria-label='Sort by Time']";
     cy.get(statusSortControl).click();
+    cy.get(durationSortControl).click();
     cy.location().should((loc) => {
-      expect(loc.search).not.to.include("sortBy=DURATION");
-      expect(loc.search).not.to.include("sortBy=STATUS");
-      expect(loc.search).not.to.include(DESCEND_PARAM);
-      expect(loc.search).not.to.include(ASCEND_PARAM);
-      expect(loc.search).to.include("sorts=DURATION%3ADESC%3BSTATUS%3AASC");
+      expect(loc.search).to.include("sorts=STATUS%3ADESC%3BDURATION%3AASC");
     });
   });
 
@@ -209,8 +202,6 @@ describe("Tests Table", () => {
   });
 });
 
-const DESCEND_PARAM = "sortDir=DESC";
-const ASCEND_PARAM = "sortDir=ASC";
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
 const dataCyTableRows = "[data-cy=tests-table] tr td:first-child";

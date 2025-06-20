@@ -2,8 +2,7 @@ enum HostsQueryParams {
   CurrentTaskId = "currentTaskId",
   DistroId = "distroId",
   HostId = "hostId",
-  SortBy = "sortBy",
-  SortDir = "sortDir",
+  Sorts = "sorts",
   StartedBy = "startedBy",
   Statuses = "statuses",
 }
