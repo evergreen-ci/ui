@@ -8,8 +8,8 @@ import {
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
 import { REPO_SETTINGS } from "gql/queries";
-import SharedSettings from "pages/sharedProjectSettings";
-import { ProjectType } from "pages/sharedProjectSettings/tabs/utils";
+import SharedSettings from "./shared";
+import { ProjectType } from "./shared/tabs/utils";
 
 const RepoSettings: React.FC = () => {
   const { [slugs.repoId]: repoId = "" } = useParams<{

@@ -20,12 +20,12 @@ import {
   slugs,
 } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
-import { ProjectType } from "pages/sharedProjectSettings/tabs/utils";
 import { ProjectSettingsProvider } from "./Context";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { getTabTitle } from "./getTabTitle";
 import { ProjectSettingsTabs } from "./Tabs";
 import { projectOnlyTabs } from "./tabs/types";
+import { ProjectType } from "./tabs/utils";
 
 interface SharedSettingsProps {
   hasLoaded: boolean;
@@ -72,7 +72,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
 
   return (
     <ProjectSettingsProvider>
-      <ProjectBanner projectIdentifier={repoId} />
+      {!isRepo && <ProjectBanner projectIdentifier={projectIdentifier} />}
       <SideNavPageWrapper>
         <SideNav aria-label="Shared settings" widthOverride={250}>
           <ButtonsContainer>

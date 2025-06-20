@@ -16,10 +16,10 @@ import {
 } from "gql/generated/types";
 import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
-import SharedSettings from "pages/sharedProjectSettings";
 import { validators } from "utils";
-import { projectOnlyTabs } from "../sharedProjectSettings/tabs/types";
-import { ProjectType } from "../sharedProjectSettings/tabs/utils";
+import SharedSettings from "./shared";
+import { projectOnlyTabs } from "./shared/tabs/types";
+import { ProjectType } from "./shared/tabs/utils";
 
 const { validateObjectId } = validators;
 
