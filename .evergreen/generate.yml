@@ -17,6 +17,7 @@ functions:
       env:
         BUILD_VARIANT: ${build_variant}
         REQUESTER: ${requester}
+        TRIGGER_ID: ${trigger_event_identifier}
       binary: "node"
       args:
         - ".evergreen/scripts/generate-parallel-e2e-tasks.js"

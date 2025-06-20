@@ -3,6 +3,7 @@ import { join } from "path";
 import { APPS_DIR, PACKAGES_DIR, PARALLEL_COUNT, Tasks } from "./constants.js"
 import { hasChangesInDirectory } from "./git-utils.js";
 
+const ALWAYS_GENERATE_TASKS_REQUESTERS = ["trigger", "patch", "commit"];
 const EVERGREEN_DIR = join(process.cwd(), "/.evergreen");
 const TASKS_FILE = join(EVERGREEN_DIR, "generate-parallel-e2e-tasks.json");
 /**
@@ -143,11 +144,15 @@ const generateParallelE2ETasks = (bv) => {
 
 const main = () => {
   const buildVariant = process.env.BUILD_VARIANT;
+  const requester = process.env.REQUESTER;
+  const triggerId = process.env.TRIGGER_ID;
+
   // If the task is triggered by a upstream task, we should always generate the tasks
-  const isDownstreamTask = process.env.REQUESTER === "trigger"
+  const shouldAlwaysGenerateTasks = ALWAYS_GENERATE_TASKS_REQUESTERS.includes(requester);
+  const isDownstreamTask = triggerId !== undefined && triggerId !== "";
 
   // Check if there are any changes in the given build variant directory
-  if (!isDownstreamTask && !hasChangesInDirectory(`${APPS_DIR}/${buildVariant}`) && !hasChangesInDirectory(PACKAGES_DIR)) {
+  if (!shouldAlwaysGenerateTasks && !hasChangesInDirectory(`${APPS_DIR}/${buildVariant}`) && !hasChangesInDirectory(PACKAGES_DIR) && !isDownstreamTask) {
     console.log(`No changes detected in ${buildVariant} or packages directory, skipping e2e task generation`);
     // Write an empty task list to maintain the expected file output
     writeFileSync(
@@ -157,7 +162,7 @@ const main = () => {
     return;
   }
 
-  if (buildVariant || isDownstreamTask) {
+  if (buildVariant || shouldAlwaysGenerateTasks || isDownstreamTask) {
     const evgObj = generateParallelE2ETasks(buildVariant);
     const evgJson = JSON.stringify(evgObj);
   
