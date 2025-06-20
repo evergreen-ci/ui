@@ -7,6 +7,7 @@ import {
 import usePagination from "hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
 import { mapQueryParamToId } from "types/host";
+import { parseSortString } from "utils/queryString";
 import { HostsQueryParams } from "./constants";
 
 const useQueryVariables = (): HostsQueryVariables => {
@@ -14,10 +15,20 @@ const useQueryVariables = (): HostsQueryVariables => {
   const [currentTaskId] = useQueryParam(HostsQueryParams.CurrentTaskId, "");
   const [distroId] = useQueryParam(HostsQueryParams.DistroId, "");
   const [hostId] = useQueryParam(HostsQueryParams.HostId, "");
-  const [sortBy] = useQueryParam(HostsQueryParams.SortBy, HostSortBy.Status);
-  const [sortDir] = useQueryParam(HostsQueryParams.SortDir, SortDirection.Asc);
+  const [sorts] = useQueryParam(HostsQueryParams.Sorts, "");
   const [startedBy] = useQueryParam(HostsQueryParams.StartedBy, "");
   const [statuses] = useQueryParam(HostsQueryParams.Statuses, []);
+
+  // Parse the sorts query param into an array of sort objects
+  const sortsArray = parseSortString(sorts ?? "", {
+    sortByKey: "sortBy",
+    sortDirKey: "sortDir",
+    sortCategoryEnum: HostSortBy,
+  });
+
+  // Default to status sort if no sorts are provided. We only support one sort at a time.
+  const sortBy = sortsArray[0]?.sortBy ?? HostSortBy.Status;
+  const sortDir = sortsArray[0]?.sortDir ?? SortDirection.Asc;
 
   return {
     hostId,
@@ -25,12 +36,8 @@ const useQueryVariables = (): HostsQueryVariables => {
     currentTaskId,
     statuses,
     startedBy,
-    sortBy: Object.values(HostSortBy).includes(sortBy)
-      ? sortBy
-      : HostSortBy.Status,
-    sortDir: Object.values(SortDirection).includes(sortDir)
-      ? sortDir
-      : SortDirection.Asc,
+    sortBy,
+    sortDir,
     page,
     limit,
   };
@@ -55,13 +62,15 @@ const getFilters = (queryParams: HostsQueryVariables): ColumnFiltersState =>
 /**
  * `getSorting` converts query param values into react-table's sorting state.
  * @param queryParams - query params from the URL
- * @param queryParams.sortBy - key indicating the field that is being sorted
- * @param queryParams.sortDir - direction of the sort
+ * @param queryParams.sorts - unified sorts parameter
  * @returns - react-table's sorting state
  */
-const getSorting = ({ sortBy, sortDir }: HostsQueryVariables): SortingState => [
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  { id: sortBy, desc: sortDir === SortDirection.Desc },
-];
+const getSorting = (queryParams: HostsQueryVariables): SortingState => {
+  const { sortBy, sortDir } = queryParams;
+  return [
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    { id: sortBy, desc: sortDir === SortDirection.Desc },
+  ];
+};
 
 export { getFilters, useQueryVariables, getSorting };
