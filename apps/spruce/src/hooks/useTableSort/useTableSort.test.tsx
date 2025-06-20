@@ -52,7 +52,7 @@ describe("useTableSort", () => {
   it("overwrites existing sort", () => {
     const analytics = vi.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?page=0&sortBy=foo&sortDir=ASC"]}>
+      <MemoryRouter initialEntries={["/?page=0&sorts=foo%3AASC"]}>
         {children}
       </MemoryRouter>
     );
@@ -98,7 +98,7 @@ describe("useTableSort", () => {
   it("clears sort", () => {
     const analytics = vi.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?page=0&sortBy=foo&sortDir=ASC"]}>
+      <MemoryRouter initialEntries={["/?page=0&sorts=foo%3AASC"]}>
         {children}
       </MemoryRouter>
     );
@@ -122,7 +122,7 @@ describe("useTableSort", () => {
   it("updates query params when multi-sort is applied", () => {
     const analytics = vi.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?page=0&sortBy=foo&sortDir=ASC"]}>
+      <MemoryRouter initialEntries={["/?page=0&sorts=foo%3AASC"]}>
         {children}
       </MemoryRouter>
     );
