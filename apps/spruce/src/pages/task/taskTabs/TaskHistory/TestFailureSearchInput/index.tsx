@@ -4,7 +4,7 @@ import {
   SearchInput,
   Size as SearchInputSize,
 } from "@leafygreen-ui/search-input";
-import { Label } from "@leafygreen-ui/typography";
+
 import debounce from "lodash.debounce";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskHistoryAnalytics } from "analytics";
@@ -57,7 +57,7 @@ export const TestFailureSearchInput: React.FC<TestFailureSearchInputProps> = ({
   return (
     <>
       <InputContainer>
-        <Label htmlFor={searchInputId}>Search Test Failures</Label>
+        <StyledLabel htmlFor={searchInputId}>Search Test Failures</StyledLabel>
         <SearchInput
           aria-label="Search Test Failure Input"
           id={searchInputId}
@@ -88,6 +88,13 @@ const InputContainer = styled.div`
 
   /* Account for chrome blue focus outline */
   margin: 0 ${size.xxs};
+`;
+
+const StyledLabel = styled.label`
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  margin-bottom: ${size.xxs};
 `;
 
 const NoMatches = styled.div`
