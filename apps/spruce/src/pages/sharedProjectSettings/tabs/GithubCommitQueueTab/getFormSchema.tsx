@@ -11,6 +11,7 @@ import {
 } from "constants/externalResources";
 import {
   getProjectSettingsRoute,
+  getRepoSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { GithubProjectConflicts } from "gql/generated/types";
@@ -347,7 +348,10 @@ export const getFormSchema = (
           "ui:readonly": true,
           "ui:removable": false,
           "ui:descriptionNode": (
-            <GithubTriggerAliasDescription identifier={identifier} />
+            <GithubTriggerAliasDescription
+              identifier={identifier}
+              isRepo={projectType === ProjectType.Repo}
+            />
           ),
           items: {
             "ui:field": "githubTriggerAliasField",
@@ -544,14 +548,22 @@ const userTeamStyling = (
 
 const GithubTriggerAliasDescription = ({
   identifier,
+  isRepo,
 }: {
   identifier: string;
+  isRepo: boolean;
 }) => {
   const tab = ProjectSettingsTabRoutes.PatchAliases;
   return (
     <Description>
       GitHub Trigger Aliases can be configured on the{" "}
-      <StyledRouterLink to={getProjectSettingsRoute(identifier, tab)}>
+      <StyledRouterLink
+        to={
+          isRepo
+            ? getRepoSettingsRoute(identifier, tab)
+            : getProjectSettingsRoute(identifier, tab)
+        }
+      >
         {getTabTitle(tab).title}
       </StyledRouterLink>{" "}
       page.

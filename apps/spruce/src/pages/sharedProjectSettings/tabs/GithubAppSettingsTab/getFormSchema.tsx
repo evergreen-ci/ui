@@ -10,6 +10,7 @@ import {
 import { githubTokenPermissionRestrictionsUrl } from "constants/externalResources";
 import {
   getProjectSettingsRoute,
+  getRepoSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
@@ -166,7 +167,7 @@ export const getFormSchema = ({
               <StyledDescription>
                 Token permission restrictions are being defaulted to the{" "}
                 <StyledRouterLink
-                  to={getProjectSettingsRoute(
+                  to={getRepoSettingsRoute(
                     repoId,
                     ProjectSettingsTabRoutes.GithubAppSettings,
                   )}

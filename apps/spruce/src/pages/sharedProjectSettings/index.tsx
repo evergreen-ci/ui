@@ -77,7 +77,8 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
         <SideNav aria-label="Shared settings" widthOverride={250}>
           <ButtonsContainer>
             <StyledProjectSelect
-              getRoute={getProjectSettingsRoute}
+              getProjectRoute={getProjectSettingsRoute}
+              getRepoRoute={getRepoSettingsRoute}
               isProjectSettingsPage
               selectedProjectIdentifier={projectLabel}
             />

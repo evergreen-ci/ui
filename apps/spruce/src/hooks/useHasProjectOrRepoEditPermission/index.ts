@@ -11,14 +11,14 @@ import {
 } from "gql/queries";
 
 export const useHasProjectOrRepoEditPermission = (
-  projectIdentifier?: string,
-  repoId?: string,
+  projectIdentifier: string = "",
+  repoId: string = "",
 ) => {
   const { data: projectPermissionsData, loading: projectLoading } = useQuery<
     UserProjectSettingsPermissionsQuery,
     UserProjectSettingsPermissionsQueryVariables
   >(USER_PROJECT_SETTINGS_PERMISSIONS, {
-    variables: { projectIdentifier: projectIdentifier ?? "" },
+    variables: { projectIdentifier },
     skip: !projectIdentifier,
     fetchPolicy: "cache-first",
   });
@@ -30,7 +30,7 @@ export const useHasProjectOrRepoEditPermission = (
     UserRepoSettingsPermissionsQuery,
     UserRepoSettingsPermissionsQueryVariables
   >(USER_REPO_SETTINGS_PERMISSIONS, {
-    variables: { repoId: repoId ?? "" },
+    variables: { repoId },
     skip: !repoId,
     fetchPolicy: "cache-first",
   });
