@@ -4,6 +4,7 @@ import { APPS_DIR, PACKAGES_DIR, PARALLEL_COUNT, Tasks } from "./constants.js"
 import { hasChangesInDirectory } from "./git-utils.js";
 
 const ALWAYS_GENERATE_TASKS_REQUESTERS = ["trigger", "patch", "commit"];
+const PARENT_PATCH_USER = "parent_patch";
 const EVERGREEN_DIR = join(process.cwd(), "/.evergreen");
 const TASKS_FILE = join(EVERGREEN_DIR, "generate-parallel-e2e-tasks.json");
 /**
@@ -150,7 +151,9 @@ const main = () => {
   // If the task is triggered by a upstream task, we should always generate the tasks
   const shouldAlwaysGenerateTasks = ALWAYS_GENERATE_TASKS_REQUESTERS.includes(requester);
   const isDownstreamTask = triggerId !== undefined && triggerId !== "";
-  const mustGenerateTasks = shouldAlwaysGenerateTasks || isDownstreamTask;
+  const activatedBy = process.env.ACTIVATED_BY;
+  const isActivatedByParentPatch = activatedBy === PARENT_PATCH_USER;
+  const mustGenerateTasks = shouldAlwaysGenerateTasks || isDownstreamTask || isActivatedByParentPatch;
 
   // Check if there are any changes in the given build variant directory
   if (!mustGenerateTasks && !hasChangesInDirectory(`${APPS_DIR}/${buildVariant}`) && !hasChangesInDirectory(PACKAGES_DIR) && !isDownstreamTask) {
