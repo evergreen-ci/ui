@@ -1,23 +1,18 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
-import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
-import { getTaskHistoryRoute, slugs } from "constants/routes";
+import { getTaskHistoryRoute } from "constants/routes";
 import {
   SetTaskPriorityMutation,
   SetTaskPriorityMutationVariables,
   AbortTaskMutation,
   AbortTaskMutationVariables,
-  RestartTaskMutation,
-  RestartTaskMutationVariables,
   ScheduleTasksMutation,
   ScheduleTasksMutationVariables,
   UnscheduleTaskMutation,
@@ -29,14 +24,13 @@ import {
 import {
   ABORT_TASK,
   OVERRIDE_TASK_DEPENDENCIES,
-  RESTART_TASK,
   SCHEDULE_TASKS,
   SET_TASK_PRIORITY,
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
-import { useQueryParam } from "hooks/useQueryParam";
 import { RelevantCommits } from "./actionButtons/RelevantCommits";
+import { RestartButton } from "./actionButtons/RestartButton";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -57,35 +51,27 @@ export const ActionButtons: React.FC<Props> = ({
     canAbort,
     canDisable,
     canOverrideDependencies,
-    canRestart,
     canSchedule,
     canSetPriority,
     canUnschedule,
     displayName,
-    executionTasksFull,
+    id: taskId,
     project,
     versionMetadata,
   } = task || {};
 
   const { id: versionId, isPatch, order } = versionMetadata || {};
   const { identifier: projectIdentifier } = project || {};
-  const allExecutionTasksSucceeded =
-    executionTasksFull?.every(
-      (t) => t.displayStatus === TaskStatus.Succeeded,
-    ) ?? false;
 
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-  const { [slugs.taskId]: taskId } = useParams();
   const taskAnalytics = useTaskAnalytics();
-  const [, setExecution] = useQueryParam("execution", 0);
 
   const [scheduleTask, { loading: loadingScheduleTask }] = useMutation<
     ScheduleTasksMutation,
     ScheduleTasksMutationVariables
   >(SCHEDULE_TASKS, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { taskIds: [taskId], versionId },
     onCompleted: () => {
       dispatchToast.success("Task marked as scheduled");
@@ -99,7 +85,6 @@ export const ActionButtons: React.FC<Props> = ({
     UnscheduleTaskMutation,
     UnscheduleTaskMutationVariables
   >(UNSCHEDULE_TASK, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { taskId },
     onCompleted: () => {
       dispatchToast.success("Task marked as unscheduled");
@@ -113,10 +98,7 @@ export const ActionButtons: React.FC<Props> = ({
     AbortTaskMutation,
     AbortTaskMutationVariables
   >(ABORT_TASK, {
-    variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      taskId,
-    },
+    variables: { taskId },
     onCompleted: () => {
       dispatchToast.success("Task aborted");
     },
@@ -125,35 +107,14 @@ export const ActionButtons: React.FC<Props> = ({
     },
   });
 
-  const [restartTask, { loading: loadingRestartTask }] = useMutation<
-    RestartTaskMutation,
-    RestartTaskMutationVariables
-  >(RESTART_TASK, {
-    onCompleted: (data) => {
-      const { latestExecution, priority } = data.restartTask;
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      if (priority < 0) {
-        dispatchToast.warning(
-          "Task scheduled to restart, but is disabled. Enable the task to run.",
-        );
-      } else {
-        dispatchToast.success("Task scheduled to restart");
-      }
-      setExecution(latestExecution);
-    },
-    onError: (err) => {
-      dispatchToast.error(`Error restarting task: ${err.message}`);
-    },
-  });
-
   const [setTaskPriority, { loading: loadingSetPriority }] = useMutation<
     SetTaskPriorityMutation,
     SetTaskPriorityMutationVariables
   >(SET_TASK_PRIORITY, {
     onCompleted: (data) => {
+      const newPriority = data?.setTaskPriority?.priority || 0;
       dispatchToast.success(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        data.setTaskPriority.priority >= 0
+        newPriority >= 0
           ? `Priority for task updated to ${data.setTaskPriority.priority}`
           : `Task was successfully disabled`,
       );
@@ -183,12 +144,12 @@ export const ActionButtons: React.FC<Props> = ({
     getTaskHistoryRoute(projectIdentifier, displayName, {
       selectedCommit: !isPatch && order,
       visibleColumns: [buildVariant],
+      taskId: taskId,
     }),
   );
 
   const disabled =
     loadingAbortTask ||
-    loadingRestartTask ||
     loadingSetPriority ||
     loadingUnscheduleTask ||
     loadingScheduleTask ||
@@ -223,7 +184,6 @@ export const ActionButtons: React.FC<Props> = ({
       disabled={disabled || !canDisable}
       onClick={() => {
         setTaskPriority({
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           variables: { taskId, priority: initialPriority < 0 ? 0 : -1 },
         });
       }}
@@ -235,7 +195,6 @@ export const ActionButtons: React.FC<Props> = ({
     >
       {initialPriority < 0 ? "Enable" : "Disable"}
     </DropdownItem>,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     <SetPriority
       key="set-task-priority"
       disabled={disabled || !canSetPriority}
@@ -246,10 +205,7 @@ export const ActionButtons: React.FC<Props> = ({
       key="override-dependencies"
       data-cy="override-dependencies"
       disabled={disabled || !canOverrideDependencies}
-      onClick={() => {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        overrideTaskDependencies({ variables: { taskId } });
-      }}
+      onClick={() => overrideTaskDependencies({ variables: { taskId } })}
     >
       Override Dependencies
     </DropdownItem>,
@@ -287,65 +243,7 @@ export const ActionButtons: React.FC<Props> = ({
         >
           Schedule
         </LoadingButton>
-        {isDisplayTask && !allExecutionTasksSucceeded ? (
-          <Menu
-            trigger={
-              <LoadingButton
-                data-cy="restart-task"
-                disabled={disabled || !canRestart}
-                loading={loadingRestartTask}
-                size="small"
-              >
-                Restart
-              </LoadingButton>
-            }
-          >
-            <MenuItem
-              onClick={() => {
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                restartTask({ variables: { taskId, failedOnly: false } });
-                taskAnalytics.sendEvent({
-                  name: "Clicked restart task button",
-                  allTasks: true,
-                  "task.is_display_task": true,
-                });
-              }}
-            >
-              Restart all tasks
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                restartTask({ variables: { taskId, failedOnly: true } });
-                taskAnalytics.sendEvent({
-                  name: "Clicked restart task button",
-                  allTasks: false,
-                  "task.is_display_task": true,
-                });
-              }}
-            >
-              Restart unsuccessful tasks
-            </MenuItem>
-          </Menu>
-        ) : (
-          <LoadingButton
-            key="restart"
-            data-cy="restart-task"
-            disabled={disabled || !canRestart}
-            loading={loadingRestartTask}
-            onClick={() => {
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              restartTask({ variables: { taskId, failedOnly: false } });
-              taskAnalytics.sendEvent({
-                name: "Clicked restart task button",
-                "task.is_display_task": false,
-              });
-            }}
-            size="small"
-          >
-            Restart
-          </LoadingButton>
-        )}
+        <RestartButton isDisplayTask={isDisplayTask} task={task} />
         <Button
           key="notifications"
           data-cy="notify-task"

@@ -18,21 +18,11 @@ import "./commands";
 import {
   SLACK_NOTIFICATION_BANNER,
   SEEN_WATERFALL_ONBOARDING_TUTORIAL,
+  SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL,
 } from "constants/cookies";
 import { hasOperationName, isMutation } from "../utils/graphql-test-utils";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-
-// This code is included because a ResizeObserver error occurs when opening an antd dropdown.
-// See the issue here: https://github.com/ant-design/ant-design/issues/26621
-// The ResizeObserver error is ignored in cypress to allow the e2e tests to pass.
-const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/;
-Cypress.on("uncaught:exception", (err) => {
-  /* returning false here prevents Cypress from failing the test */
-  if (resizeObserverLoopErrRe.test(err.message)) {
-    return false;
-  }
-});
 
 declare global {
   namespace Cypress {
@@ -160,6 +150,7 @@ const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
     cy.setCookie(bannerCookie, "true");
     cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
     cy.setCookie(SEEN_WATERFALL_ONBOARDING_TUTORIAL, "true");
+    cy.setCookie(SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL, "true");
     mutationDispatched = false;
     clearAmboyDB = false;
     cy.intercept("POST", "/graphql/query", (req) => {

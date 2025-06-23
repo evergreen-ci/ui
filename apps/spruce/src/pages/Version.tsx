@@ -105,9 +105,7 @@ export const VersionPage: React.FC = () => {
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons
-            canReconfigure={
-              !!isPatch && requester !== Requester.GitHubMergeQueue
-            }
+            isMergeQueuePatch={requester === Requester.GitHubMergeQueue}
             isPatch={!!isPatch}
             versionId={versionId}
           />

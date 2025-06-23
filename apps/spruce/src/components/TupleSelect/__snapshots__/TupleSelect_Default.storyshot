@@ -21,8 +21,8 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-128-menu"
-          aria-describedby="select-128-description"
+          aria-controls="select-126-menu"
+          aria-describedby="select-126-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -31,7 +31,7 @@
           data-cy="tuple-select-select"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-129"
+          id="select-127"
           type="button"
           value="build_variant"
         >
@@ -76,7 +76,7 @@
         />
       </div>
       <div
-        class="e5gn9hl0 css-1opv5d5-TextInputWrapper-GroupedTextInput e17optw11"
+        class="e5gn9hl0 css-1jrjm0k-TextInputWrapper-GroupedTextInput e17optw12"
       >
         <div
           aria-label="Tuple Select Input"
@@ -114,7 +114,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-form_field-feedback"
             data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-132"
+            id="lg-form_field-feedback-130"
           />
         </div>
         <div

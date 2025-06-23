@@ -2,9 +2,21 @@ import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { SortedTaskStatus, TaskStatus } from "@evg-ui/lib/types/task";
 import { TestStatus } from "@evg-ui/lib/types/test";
-import { TestResult } from "gql/generated/types";
+import { TaskQuery, TestResult } from "gql/generated/types";
+import { taskQuery } from "gql/mocks/taskData";
+import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import CommitDetailsCard from ".";
+
+type CommitDetailsCardType = React.ComponentProps<typeof CommitDetailsCard> & {
+  activated: boolean;
+  canRestart: boolean;
+  canSchedule: boolean;
+  latestExecution: number;
+  message: string;
+  status: TaskStatus;
+  isCurrentTask: boolean;
+};
 
 export default {
   component: CommitDetailsCard,
@@ -15,6 +27,7 @@ export default {
     canSchedule: true,
     isCurrentTask: true,
     isMatching: true,
+    latestExecution: 2,
     message:
       "DEVPROD-1234: Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.",
     status: TaskStatus.Succeeded,
@@ -35,6 +48,9 @@ export default {
     isMatching: {
       control: { type: "boolean" },
     },
+    latestExecution: {
+      control: { type: "number" },
+    },
     message: {
       control: { type: "text" },
     },
@@ -43,7 +59,7 @@ export default {
       control: { type: "select" },
     },
   },
-} satisfies CustomMeta<TemplateProps>;
+} satisfies CustomMeta<CommitDetailsCardType>;
 
 export const Default: CustomStoryObj<TemplateProps> = {
   render: (args) => <Template {...args} />,
@@ -71,6 +87,7 @@ type TemplateProps = {
   hasFailingTests: boolean;
   isCurrentTask: boolean;
   isMatching: boolean;
+  latestExecution: number;
   message: string;
   status: TaskStatus;
 };
@@ -96,6 +113,7 @@ const getStoryTask = (args: TemplateProps) => {
     displayStatus: args.status,
     canRestart: args.canRestart,
     canSchedule: args.canSchedule,
+    latestExecution: args.latestExecution,
     versionMetadata: {
       ...task.versionMetadata,
       message: args.message,
@@ -106,12 +124,15 @@ const getStoryTask = (args: TemplateProps) => {
 const Template = (args: TemplateProps) => {
   const storyTask = getStoryTask(args);
   return (
-    <CommitDetailsCard
-      isCurrentTask={args.isCurrentTask}
-      isMatching={args.isMatching}
-      owner="evergreen-ci"
-      repo="evergreen"
-      task={storyTask}
-    />
+    <TaskHistoryContextProvider
+      task={args.isCurrentTask ? currentTask : taskQuery.task}
+    >
+      <CommitDetailsCard isMatching={args.isMatching} task={storyTask} />
+    </TaskHistoryContextProvider>
   );
+};
+
+const currentTask: NonNullable<TaskQuery["task"]> = {
+  ...taskQuery.task,
+  id: tasks[0].id,
 };

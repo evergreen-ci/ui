@@ -5,7 +5,6 @@ import { palette } from "@leafygreen-ui/palette";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { FilterInputControls } from "components/FilterInputControls";
-import { tableInputContainerCSS } from "components/styles/Table";
 
 const { gray } = palette;
 
@@ -21,7 +20,6 @@ export interface TreeSelectProps {
   onReset?: () => void;
   onFilter?: () => void;
   "data-cy"?: string;
-  hasStyling?: boolean;
 }
 export interface TreeDataChildEntry {
   title: string;
@@ -34,7 +32,6 @@ export interface TreeDataEntry extends TreeDataChildEntry {
 
 export const TreeSelect: React.FC<TreeSelectProps> = ({
   "data-cy": dataCy,
-  hasStyling = true,
   isDropdown = false,
   isVisible = true,
   onChange,
@@ -84,10 +81,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
         </RelativeWrapper>
       )}
     >
-      <CheckboxContainer
-        data-cy={dataCy || "tree-select-options"}
-        hasStyling={hasStyling}
-      >
+      <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
         {renderCheckboxes({
           state: filteredState,
           tData,
@@ -339,9 +333,6 @@ const OptionsWrapper = styled.div`
 `;
 
 const CheckboxContainer = styled.div`
-  /* props for styled component */
-  ${(props: { hasStyling: boolean }) =>
-    props.hasStyling && tableInputContainerCSS}
   min-width: 150px; // need to set this as side effect of getPopupContainer
   font-weight: normal; // need to set this as side effect of getPopupContainer
 `;

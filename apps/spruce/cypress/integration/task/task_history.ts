@@ -1,3 +1,15 @@
+import { palette } from "@leafygreen-ui/palette";
+import { SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL } from "constants/cookies";
+
+const { green, gray, blue } = palette;
+
+const hexToRGB = (hex: string) => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgb(${r}, ${g}, ${b})`;
+};
+
 describe("task history", () => {
   const spruceTaskHistoryLink =
     "task/spruce_ubuntu1604_e2e_test_b0c52a750150b4f1f67e501bd3351a808939815c_1f7cf49f4ce587c74212d8997da171c4_22_03_10_15_19_05/history";
@@ -74,8 +86,8 @@ describe("task history", () => {
   });
 
   describe("restarting tasks", () => {
-    const successColor = "rgb(0, 163, 92)";
-    const willRunColor = "rgb(92, 108, 117)";
+    const successColor = hexToRGB(green.dark1);
+    const willRunColor = hexToRGB(gray.dark1);
 
     it("restarting the task that is currently being viewed should reflect changes on UI and update the URL", () => {
       cy.visit(spruceTaskHistoryLink);
@@ -89,6 +101,7 @@ describe("task history", () => {
         successColor,
       );
       cy.get("@firstTaskCard").within(() => {
+        cy.dataCy("execution-chip").should("not.exist");
         cy.dataCy("restart-button").should(
           "have.attr",
           "aria-disabled",
@@ -105,6 +118,7 @@ describe("task history", () => {
         willRunColor,
       );
       cy.get("@firstTaskCard").within(() => {
+        cy.dataCy("execution-chip").should("be.visible");
         cy.dataCy("restart-button").should(
           "have.attr",
           "aria-disabled",
@@ -125,6 +139,7 @@ describe("task history", () => {
         successColor,
       );
       cy.get("@secondTaskCard").within(() => {
+        cy.dataCy("execution-chip").should("not.exist");
         cy.dataCy("restart-button").should(
           "have.attr",
           "aria-disabled",
@@ -141,6 +156,7 @@ describe("task history", () => {
         willRunColor,
       );
       cy.get("@secondTaskCard").within(() => {
+        cy.dataCy("execution-chip").should("be.visible");
         cy.dataCy("restart-button").should(
           "have.attr",
           "aria-disabled",
@@ -151,17 +167,18 @@ describe("task history", () => {
   });
 
   describe("scheduling tasks", () => {
-    const willRunColor = "rgb(92, 108, 117)";
+    const willRunColor = hexToRGB(gray.dark1);
 
-    it("scheduling a task should reflect the changes on the UI", () => {
+    it("scheduling a task in a group of 1 inactive task", () => {
       cy.visit(spruceTaskHistoryLink);
 
-      // We are targeting the 2nd task element in the task timeline and asserting that it state changes from an inactive collapsed task to an active will-run task
+      // Target the 2nd task element in the task timeline and assert that it
+      // changes from an inactive collapsed task to an active will-run task.
       cy.dataCy("task-timeline")
         .children()
         // Filter out date-separators
         .filter(
-          (index, el) =>
+          (_idx, el) =>
             !el.hasAttribute("data-cy") ||
             el.getAttribute("data-cy") !== "date-separator",
         )
@@ -181,8 +198,14 @@ describe("task history", () => {
       });
       cy.validateToast("success", "Task scheduled to run");
 
-      cy.get("@taskBox").should("have.attr", "data-cy", "timeline-box");
-      cy.get("@taskBox").should("have.css", "background-color", willRunColor);
+      cy.get("@taskBox").should("not.have.attr", "data-cy", "collapsed-box");
+      cy.get("@taskBox").within(() => {
+        cy.dataCy("timeline-box").should(
+          "have.css",
+          "background-color",
+          willRunColor,
+        );
+      });
 
       cy.contains("1 Inactive Commit").should("not.exist");
       cy.get("@taskCard").within(() => {
@@ -193,6 +216,28 @@ describe("task history", () => {
           "true",
         );
       });
+    });
+
+    it("scheduling a task in a group of multiple inactive tasks", () => {
+      cy.visit(spruceTaskHistoryLink);
+
+      cy.contains("2 Inactive Commit").click();
+      cy.contains("2 Expanded").should("be.visible");
+
+      cy.dataCy("commit-details-card").eq(7).as("taskCard");
+      cy.get("@taskCard").within(() => {
+        cy.dataCy("schedule-button").should(
+          "have.attr",
+          "aria-disabled",
+          "false",
+        );
+        cy.dataCy("schedule-button").click();
+      });
+      cy.validateToast("success", "Task scheduled to run");
+
+      // The other inactive task in the group should still be visible.
+      cy.contains("1 Expanded").should("be.visible");
+      cy.contains("22ea5d7").should("be.visible");
     });
   });
 
@@ -211,7 +256,7 @@ describe("task history", () => {
 
         const collapsedViewPages = {
           first: { order: "12305", date: "Mar 27, 2025" },
-          next: { order: "12224", date: "Mar 7, 2025" },
+          next: { order: "12236", date: "Mar 10, 2025" },
         };
 
         // Previous page should be disabled.
@@ -261,9 +306,9 @@ describe("task history", () => {
 
         const expandedViewPages = {
           first: { order: "12306", date: "Mar 27, 2025" },
-          second: { order: "12262", date: "Mar 17, 2025" },
-          third: { order: "12218", date: "Mar 5, 2025" },
-          last: { order: "12174", date: "Feb 25, 2025" },
+          second: { order: "12261", date: "Mar 17, 2025" },
+          third: { order: "12217", date: "Mar 5, 2025" },
+          last: { order: "12170", date: "Feb 25, 2025" },
         };
 
         // Previous page should be disabled.
@@ -555,6 +600,90 @@ describe("task history", () => {
         "have.value",
         "test_lint_1",
       );
+    });
+  });
+
+  describe("onboarding", () => {
+    it("can go through all steps of the walkthrough", () => {
+      cy.clearCookie(SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL);
+      cy.visit(mciTaskHistoryLink);
+
+      cy.dataCy("walkthrough-backdrop").should("be.visible");
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("Introducing the Task History Tab").should("be.visible");
+      cy.contains("button", "Next").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      // Cypress can't handle position:fixed with overlapping elements
+      cy.contains("Task Timeline").should("exist");
+      cy.contains("button", "Next").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("View Options").should("be.visible");
+      cy.contains("button", "Next").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("Commit Details").should("be.visible");
+      cy.contains("button", "Next").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      // Cypress can't handle position:fixed with overlapping elements
+      cy.contains("Search Test Failures").should("exist");
+      cy.contains("button", "Next").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("Filter by Date").should("be.visible");
+      cy.contains("button", "Next").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
+
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("Jump to Current Task").should("be.visible");
+      cy.contains("button", "Get started").click();
+
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
+      cy.dataCy("walkthrough-backdrop").should("not.exist");
+    });
+
+    it("can end walkthrough early using the dismiss button", () => {
+      cy.clearCookie(SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL);
+      cy.visit(mciTaskHistoryLink);
+
+      cy.dataCy("walkthrough-backdrop").should("be.visible");
+      cy.dataCy("walkthrough-guide-cue").should("be.visible");
+      cy.contains("Introducing the Task History Tab").should("be.visible");
+
+      cy.get("[aria-label='Close Tooltip']").click();
+      cy.dataCy("walkthrough-guide-cue").should("not.exist");
+      cy.dataCy("walkthrough-backdrop").should("not.exist");
+    });
+  });
+
+  describe("hover and click interactions", () => {
+    const selectedColor = hexToRGB(blue.base);
+
+    it("hovering on commit cards highlight the corresponding task box", () => {
+      cy.visit(mciTaskHistoryLink);
+      cy.dataCy("commit-details-card").eq(1).as("taskCard");
+      cy.dataCy("timeline-box").eq(1).as("taskBox");
+
+      cy.get("@taskCard").trigger("mouseover");
+      cy.get("@taskBox").should("have.css", "border-color", selectedColor);
+    });
+
+    it("clicking on task box should highlight and scroll to the commit card", () => {
+      cy.visit(mciTaskHistoryLink);
+      cy.dataCy("commit-details-card").eq(10).as("taskCard");
+      cy.dataCy("timeline-box").eq(10).as("taskBox");
+
+      cy.get("@taskBox").click();
+      cy.get("@taskBox").should("have.css", "border-color", selectedColor);
+      cy.get("@taskCard").should("be.visible");
+      cy.get("@taskCard").should("have.css", "border-color", selectedColor);
     });
   });
 });

@@ -5,7 +5,7 @@ import {
   Meta,
   setProjectAnnotations,
   StoryFn,
-} from "@storybook/react";
+} from "@storybook/react-vite";
 // TODO: Replace with test_utils
 import { act, render } from "@testing-library/react";
 import { expect } from "vitest";

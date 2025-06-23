@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-1p8q5g-TableControlInnerRow-TableControlOuterRow e1xf068s4"
+    class="css-1p8q5g-TableControlInnerRow-TableControlOuterRow e1xf068s3"
   >
     <div
       class="css-1mx1jed-FlexContainer et5phr01"
@@ -42,7 +42,7 @@
       </button>
     </div>
     <div
-      class="css-ltjmsx-TableControlInnerRow e1xf068s5"
+      class="css-ltjmsx-TableControlInnerRow e1xf068s4"
     >
       <div
         class="css-o7pwgi-Container e4w46hm0"
@@ -129,8 +129,8 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-113-menu"
-          aria-describedby="select-113-description"
+          aria-controls="select-111-menu"
+          aria-describedby="select-111-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -139,7 +139,7 @@
           data-cy="tasks-table-page-size-selector"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-114"
+          id="select-112"
           type="button"
           value="10"
         >

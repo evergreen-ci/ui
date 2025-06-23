@@ -1,4 +1,5 @@
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { SearchSuggestionGroup } from "./SearchPopover/types";
 
 import SearchBar from ".";
 
@@ -25,6 +26,36 @@ export const Default: CustomStoryObj<typeof SearchBar> = {
   },
 };
 
+const mockSearchSuggestions: SearchSuggestionGroup[] = [
+  {
+    suggestions: [
+      "console.log",
+      "console.warn",
+      "console.debug",
+      "console.error",
+    ],
+    title: "Console Methods",
+  },
+  {
+    suggestions: [
+      "console.table",
+      "console.group",
+      "console.time",
+      "console.timeEnd",
+    ],
+    title: "Console Advanced",
+  },
+  {
+    suggestions: [
+      "console.clear",
+      "console.dir",
+      "console.count",
+      "console.info",
+    ],
+    title: "Console Utility",
+  },
+];
+
 export const WithSearchSuggestions: CustomStoryObj<typeof SearchBar> = {
   argTypes: {
     disabled: { control: "boolean", description: "Should disable input" },
@@ -37,21 +68,7 @@ export const WithSearchSuggestions: CustomStoryObj<typeof SearchBar> = {
   },
   args: {
     disabled: false,
-    searchSuggestions: [
-      "console.log",
-      "console.warn",
-      "console.debug",
-      "console.error",
-      "console.table",
-      "console.group",
-      "console.time",
-      "console.timeEnd",
-      "console.clear",
-      "console.dir",
-      "console.count",
-      "console.info",
-      "console.dir",
-    ],
+    searchSuggestions: mockSearchSuggestions,
     validator(value) {
       return value !== "bad";
     },

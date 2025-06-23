@@ -68,6 +68,11 @@ export type AdminSettings = {
   bannerTheme?: Maybe<BannerTheme>;
 };
 
+export type AdminSettingsInput = {
+  banner?: InputMaybe<Scalars["String"]["input"]>;
+  bannerTheme?: InputMaybe<BannerTheme>;
+};
+
 /**
  * Annotation models the metadata that a user can add to a task.
  * It is used as a field within the Task type.
@@ -846,7 +851,7 @@ export type HostEventLogEntry = {
   data: HostEventLogData;
   eventType?: Maybe<HostEventType>;
   id: Scalars["String"]["output"];
-  processedAt: Scalars["Time"]["output"];
+  processedAt?: Maybe<Scalars["Time"]["output"]>;
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
@@ -1248,6 +1253,7 @@ export type Mutation = {
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
   restartVersions?: Maybe<Array<Version>>;
+  saveAdminSettings: AdminSettings;
   saveDistro: SaveDistroPayload;
   saveProjectSettingsForSection: ProjectSettings;
   saveRepoSettingsForSection: RepoSettings;
@@ -1431,6 +1437,10 @@ export type MutationRestartVersionsArgs = {
   abort: Scalars["Boolean"]["input"];
   versionId: Scalars["String"]["input"];
   versionsToRestart: Array<VersionToRestart>;
+};
+
+export type MutationSaveAdminSettingsArgs = {
+  adminSettings: AdminSettingsInput;
 };
 
 export type MutationSaveDistroArgs = {
@@ -1863,7 +1873,7 @@ export type PodEventLogEntry = {
   data: PodEventLogData;
   eventType?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
-  processedAt: Scalars["Time"]["output"];
+  processedAt?: Maybe<Scalars["Time"]["output"]>;
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
@@ -2189,6 +2199,7 @@ export type PublicKeyInput = {
 
 export type Query = {
   __typename?: "Query";
+  adminSettings?: Maybe<AdminSettings>;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
   buildBaron: BuildBaron;
@@ -2567,6 +2578,14 @@ export enum RoundingRule {
   Up = "UP",
 }
 
+/**
+ * SpruceConfig defines settings that apply to all users of Evergreen.
+ * For example, if the banner field is populated, then a sitewide banner will be shown to all users.
+ */
+export type SaveAdminSettingsInput = {
+  adminSettings: AdminSettingsInput;
+};
+
 /** SaveDistroInput is the input to the saveDistro mutation. */
 export type SaveDistroInput = {
   distro: DistroInput;
@@ -2713,10 +2732,6 @@ export type SpawnVolumeInput = {
   type: Scalars["String"]["input"];
 };
 
-/**
- * SpruceConfig defines settings that apply to all users of Evergreen.
- * For example, if the banner field is populated, then a sitewide banner will be shown to all users.
- */
 export type SpruceConfig = {
   __typename?: "SpruceConfig";
   banner?: Maybe<Scalars["String"]["output"]>;
@@ -2928,7 +2943,7 @@ export type TaskEventLogEntry = {
   data: TaskEventLogData;
   eventType?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
-  processedAt: Scalars["Time"]["output"];
+  processedAt?: Maybe<Scalars["Time"]["output"]>;
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
@@ -3284,14 +3299,10 @@ export type UpstreamProject = {
 
 export type UseSpruceOptions = {
   __typename?: "UseSpruceOptions";
-  hasUsedMainlineCommitsBefore?: Maybe<Scalars["Boolean"]["output"]>;
-  hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]["output"]>;
   spruceV1?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type UseSpruceOptionsInput = {
-  hasUsedMainlineCommitsBefore?: InputMaybe<Scalars["Boolean"]["input"]>;
-  hasUsedSpruceBefore?: InputMaybe<Scalars["Boolean"]["input"]>;
   spruceV1?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
@@ -5525,6 +5536,19 @@ export type RestartVersionsMutation = {
   }> | null;
 };
 
+export type SaveAdminSettingsMutationVariables = Exact<{
+  adminSettings: AdminSettingsInput;
+}>;
+
+export type SaveAdminSettingsMutation = {
+  __typename?: "Mutation";
+  saveAdminSettings: {
+    __typename?: "AdminSettings";
+    banner?: string | null;
+    bannerTheme?: BannerTheme | null;
+  };
+};
+
 export type SaveDistroMutationVariables = Exact<{
   distro: DistroInput;
   onSave: DistroOnSaveOperation;
@@ -5848,6 +5872,17 @@ export type AdminBetaFeaturesQuery = {
         spruceWaterfallEnabled: boolean;
       };
     };
+  } | null;
+};
+
+export type AdminSettingsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AdminSettingsQuery = {
+  __typename?: "Query";
+  adminSettings?: {
+    __typename?: "AdminSettings";
+    banner?: string | null;
+    bannerTheme?: BannerTheme | null;
   } | null;
 };
 
@@ -6380,7 +6415,7 @@ export type HostEventsQuery = {
         __typename?: "HostEventLogEntry";
         id: string;
         eventType?: HostEventType | null;
-        processedAt: Date;
+        processedAt?: Date | null;
         resourceId: string;
         resourceType: string;
         timestamp?: Date | null;
@@ -7116,7 +7151,7 @@ export type PodEventsQuery = {
         __typename?: "PodEventLogEntry";
         id: string;
         eventType?: string | null;
-        processedAt: Date;
+        processedAt?: Date | null;
         resourceId: string;
         resourceType: string;
         timestamp?: Date | null;
@@ -8855,6 +8890,7 @@ export type TaskHistoryQuery = {
       createTime?: Date | null;
       displayStatus: string;
       execution: number;
+      latestExecution: number;
       order: number;
       revision?: string | null;
       tests: {
@@ -9177,6 +9213,7 @@ export type TaskQuery = {
       description?: string | null;
       diskDevices: Array<string>;
       failingCommand?: string | null;
+      failureMetadataTags: Array<string>;
       status: string;
       timedOut?: boolean | null;
       timeoutType?: string | null;

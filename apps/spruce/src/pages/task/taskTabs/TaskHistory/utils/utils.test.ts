@@ -34,30 +34,31 @@ describe("groupTasks", () => {
       shouldCollapse: true,
       testFailureSearchTerm: /e2e_test/,
     });
-    expect(res[5].isMatching).toBe(true);
+    const filteredRes = res.filter((r) => r.date === null);
+    expect(filteredRes[5].isMatching).toBe(true);
   });
 });
 
 describe("getPrevPageCursor", () => {
   it("works with task item", () => {
-    const res = getPrevPageCursor(collapsedGroupedTasks[0]);
+    const res = getPrevPageCursor(collapsedGroupedTasks);
     expect(res).toStrictEqual(tasks[0]);
   });
 
   it("works with inactive task item", () => {
-    const res = getPrevPageCursor(collapsedGroupedTasks[6]);
+    const res = getPrevPageCursor(collapsedGroupedTasks.slice(9, -3));
     expect(res).toStrictEqual(tasks[6]);
   });
 });
 
 describe("getNextPageCursor", () => {
   it("works with task item", () => {
-    const res = getNextPageCursor(collapsedGroupedTasks[0]);
-    expect(res).toStrictEqual(tasks[0]);
+    const res = getNextPageCursor(collapsedGroupedTasks);
+    expect(res).toStrictEqual(tasks[10]);
   });
 
   it("works with inactive task item", () => {
-    const res = getNextPageCursor(collapsedGroupedTasks[6]);
+    const res = getNextPageCursor(collapsedGroupedTasks.slice(9, -3));
     expect(res).toStrictEqual(tasks[8]);
   });
 });
@@ -102,6 +103,7 @@ describe("areDatesOnSameDay", () => {
     expect(areDatesOnSameDay(date3, date4, "Asia/Japan")).toBe(false);
   });
 });
+
 describe("getUTCEndOfDay", () => {
   beforeEach(() => {
     process.env.TZ = "America/New_York";

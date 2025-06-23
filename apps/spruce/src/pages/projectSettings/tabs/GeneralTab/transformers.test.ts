@@ -98,6 +98,7 @@ const projectForm: GeneralFormState = {
     other: {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       displayName: null,
+      projectID: "projectid",
       identifier: "project",
       batchTime: 0,
       // @ts-expect-error: FIXME. This comment was added by an automated script.

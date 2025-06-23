@@ -187,8 +187,14 @@ describe("searchbar", () => {
     vi.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     const onChange = vi.fn();
+    const searchSuggestions = [
+      {
+        suggestions: ["apple", "banana"],
+        title: "Fruits",
+      },
+    ];
     render(
-      <SearchBar onChange={onChange} searchSuggestions={["apple", "banana"]} />,
+      <SearchBar onChange={onChange} searchSuggestions={searchSuggestions} />,
     );
 
     await user.click(screen.getByDataCy("search-suggestion-button"));
@@ -203,5 +209,58 @@ describe("searchbar", () => {
     vi.advanceTimersByTime(1000);
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenCalledWith("apple");
+  });
+
+  it("should show a persistent placeholder when a suggestion is partially typed", async () => {
+    const user = userEvent.setup();
+    const searchSuggestions = [
+      {
+        suggestions: ["apple", "banana"],
+        title: "Fruits",
+      },
+    ];
+    render(
+      <SearchBar onSubmit={vi.fn()} searchSuggestions={searchSuggestions} />,
+    );
+
+    const input = screen.getByDataCy("searchbar-input") as HTMLInputElement;
+    await user.type(input, "ap");
+    expect(input).toHaveValue("ap");
+    expect(screen.getByText("apple")).toBeVisible();
+  });
+  it("should not show a persistent placeholder when a suggestion is fully typed", async () => {
+    const user = userEvent.setup();
+    const searchSuggestions = [
+      {
+        suggestions: ["apple", "banana"],
+        title: "Fruits",
+      },
+    ];
+    render(
+      <SearchBar onSubmit={vi.fn()} searchSuggestions={searchSuggestions} />,
+    );
+
+    const input = screen.getByDataCy("searchbar-input") as HTMLInputElement;
+    await user.type(input, "apple");
+    expect(input).toHaveValue("apple");
+    expect(screen.queryByText("apple")).toBeNull();
+  });
+  it("tabbing should complete the suggestion", async () => {
+    const user = userEvent.setup();
+    const searchSuggestions = [
+      {
+        suggestions: ["apple", "banana"],
+        title: "Fruits",
+      },
+    ];
+    render(
+      <SearchBar onSubmit={vi.fn()} searchSuggestions={searchSuggestions} />,
+    );
+
+    const input = screen.getByDataCy("searchbar-input") as HTMLInputElement;
+    await user.type(input, "ap");
+    expect(input).toHaveValue("ap");
+    await user.type(input, "{tab}");
+    expect(input).toHaveValue("apple");
   });
 });

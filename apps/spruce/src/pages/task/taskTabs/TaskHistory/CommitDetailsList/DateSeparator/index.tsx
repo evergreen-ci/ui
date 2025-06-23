@@ -5,14 +5,14 @@ import { useDateFormat } from "hooks";
 
 const { gray } = palette;
 interface DateSeparatorProps {
-  date?: Date | null;
+  date: Date;
 }
 const DateSeparator: React.FC<DateSeparatorProps> = ({ date }) => {
   const getDateCopy = useDateFormat();
   return (
     <Container data-cy="horizontal-date-separator">
       <Badge>
-        {getDateCopy(date || "", {
+        {getDateCopy(date, {
           dateOnly: true,
         })}
       </Badge>
