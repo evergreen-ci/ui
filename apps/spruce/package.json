@@ -111,7 +111,7 @@
     "@rjsf/core": "4.2.3",
     "@sentry/react": "9.31.0",
     "@sentry/types": "9.31.0",
-    "ansi_up": "6.0.2",
+    "ansi_up": "6.0.6",
     "date-fns": "3.6.0",
     "date-fns-tz": "3.2.0",
     "deep-object-diff": "1.1.9",
