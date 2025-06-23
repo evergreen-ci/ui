@@ -273,4 +273,11 @@ describe("Repo Settings", () => {
       cy.dataCy("command-input").eq(1).should("have.value", "command 1");
     });
   });
+
+  describe("redirects", () => {
+    it("redirects to repo page from project settings if it's a repo", () => {
+      cy.visit(getProjectSettingsRoute(repo));
+      cy.location("pathname").should("equal", `/${getRepoSettingsRoute(repo)}`);
+    });
+  });
 });
