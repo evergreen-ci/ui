@@ -150,9 +150,10 @@ const main = () => {
   // If the task is triggered by a upstream task, we should always generate the tasks
   const shouldAlwaysGenerateTasks = ALWAYS_GENERATE_TASKS_REQUESTERS.includes(requester);
   const isDownstreamTask = triggerId !== undefined && triggerId !== "";
+  const mustGenerateTasks = shouldAlwaysGenerateTasks || isDownstreamTask;
 
   // Check if there are any changes in the given build variant directory
-  if (!shouldAlwaysGenerateTasks && !hasChangesInDirectory(`${APPS_DIR}/${buildVariant}`) && !hasChangesInDirectory(PACKAGES_DIR) && !isDownstreamTask) {
+  if (!mustGenerateTasks && !hasChangesInDirectory(`${APPS_DIR}/${buildVariant}`) && !hasChangesInDirectory(PACKAGES_DIR) && !isDownstreamTask) {
     console.log(`No changes detected in ${buildVariant} or packages directory, skipping e2e task generation`);
     // Write an empty task list to maintain the expected file output
     writeFileSync(
@@ -162,7 +163,7 @@ const main = () => {
     return;
   }
 
-  if (buildVariant || shouldAlwaysGenerateTasks || isDownstreamTask) {
+  if (buildVariant || mustGenerateTasks) {
     const evgObj = generateParallelE2ETasks(buildVariant);
     const evgJson = JSON.stringify(evgObj);
   
