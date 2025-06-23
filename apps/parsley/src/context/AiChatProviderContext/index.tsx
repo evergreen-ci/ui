@@ -1,4 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from "react";
+import { Link } from "@leafygreen-ui/typography";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useLogContext } from "context/LogContext";
 import { AiChatMessage } from "./types";
 
@@ -31,11 +33,12 @@ export const AiChatProvider: React.FC<{ children: React.ReactNode }> = ({
     },
   ]);
 
+  const dispatchToast = useToastContext();
   const [sessionId, setSessionId] = useState<string | null>(null);
   const { logMetadata } = useLogContext();
   // The AI service URL will be provided later
-  const AI_SERVICE_URL = "http://localhost:8080/parsley_ai";
-
+  const AI_SERVICE_URL =
+    "https://evergreen-ai-service.staging.corp.mongodb.com/parsley_ai";
   const sendMessage = useCallback(
     async (message: string) => {
       setLoading(true);
@@ -63,7 +66,12 @@ export const AiChatProvider: React.FC<{ children: React.ReactNode }> = ({
           const errorText = await response.text();
           setError(errorText);
           setLoading(false);
-          console.log("Error response:", errorText);
+          console.error(errorText);
+          dispatchToast.error(
+            <>
+              An error occurred while fetching AI response. Please try again.
+            </>,
+          );
           throw new Error("Failed to fetch AI response");
         }
         const data = await response.json();
@@ -81,6 +89,15 @@ export const AiChatProvider: React.FC<{ children: React.ReactNode }> = ({
       } catch (err: any) {
         setError(err.message || "Unknown error");
         setLoading(false);
+        dispatchToast.error(
+          <>
+            An error occurred while fetching AI response{" "}
+            <Link href="https://login.corp.mongodb.com/login" target="_blank">
+              You may need to login to continue.
+            </Link>
+            . Please click the link to login and try again.
+          </>,
+        );
         throw err;
       }
     },
