@@ -146,14 +146,12 @@ const generateParallelE2ETasks = (bv) => {
 const main = () => {
   const buildVariant = process.env.BUILD_VARIANT;
   const requester = process.env.REQUESTER;
-  const triggerId = process.env.TRIGGER_ID;
   const activatedBy = process.env.ACTIVATED_BY;
 
   // If the task is triggered by a upstream task, we should always generate the tasks
   const shouldAlwaysGenerateTasks = ALWAYS_GENERATE_TASKS_REQUESTERS.includes(requester);
-  const isDownstreamTask = triggerId !== undefined && triggerId !== "";
   const isActivatedByParentPatch = activatedBy === PARENT_PATCH_USER;
-  const mustGenerateTasks = shouldAlwaysGenerateTasks || isDownstreamTask || isActivatedByParentPatch;
+  const mustGenerateTasks = shouldAlwaysGenerateTasks || isActivatedByParentPatch;
 
   // Check if there are any changes in the given build variant directory
   if (!mustGenerateTasks && !hasChangesInDirectory(`${APPS_DIR}/${buildVariant}`) && !hasChangesInDirectory(PACKAGES_DIR) && !isDownstreamTask) {
