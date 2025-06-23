@@ -147,11 +147,11 @@ const main = () => {
   const buildVariant = process.env.BUILD_VARIANT;
   const requester = process.env.REQUESTER;
   const triggerId = process.env.TRIGGER_ID;
+  const activatedBy = process.env.ACTIVATED_BY;
 
   // If the task is triggered by a upstream task, we should always generate the tasks
   const shouldAlwaysGenerateTasks = ALWAYS_GENERATE_TASKS_REQUESTERS.includes(requester);
   const isDownstreamTask = triggerId !== undefined && triggerId !== "";
-  const activatedBy = process.env.ACTIVATED_BY;
   const isActivatedByParentPatch = activatedBy === PARENT_PATCH_USER;
   const mustGenerateTasks = shouldAlwaysGenerateTasks || isDownstreamTask || isActivatedByParentPatch;
 
