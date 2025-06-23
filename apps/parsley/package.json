@@ -74,7 +74,7 @@
     "@leafygreen-ui/typography": "^19.0.0",
     "@sentry/react": "9.31.0",
     "@sentry/types": "9.31.0",
-    "ansi_up": "6.0.2",
+    "ansi_up": "6.0.6",
     "graphql": "16.10.0",
     "html-react-parser": "3.0.6",
     "js-cookie": "3.0.5",

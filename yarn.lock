@@ -6524,10 +6524,10 @@ ansi-styles@^6.0.0, ansi-styles@^6.1.0, ansi-styles@^6.2.1:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-6.2.1.tgz#0e62320cf99c21afff3b3012192546aacbfb05c5"
   integrity sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==
 
-ansi_up@6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/ansi_up/-/ansi_up-6.0.2.tgz#083adb65be5b21ba283fd105d3102e64f3f0b092"
-  integrity sha512-3G3vKvl1ilEp7J1u6BmULpMA0xVoW/f4Ekqhl8RTrJrhEBkonKn5k3bUc5Xt+qDayA6iDX0jyUh3AbZjB/l0tw==
+ansi_up@6.0.6:
+  version "6.0.6"
+  resolved "https://registry.yarnpkg.com/ansi_up/-/ansi_up-6.0.6.tgz#804faf31f0385e562d2f71275ea8cff0d9dcf6dc"
+  integrity sha512-yIa1x3Ecf8jWP4UWEunNjqNX6gzE4vg2gGz+xqRGY+TBSucnYp6RRdPV4brmtg6bQ1ljD48mZ5iGSEj7QEpRKA==
 
 anymatch@~3.1.2:
   version "3.1.3"
