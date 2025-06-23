@@ -59,6 +59,7 @@ export const AiChatProvider: React.FC<{ children: React.ReactNode }> = ({
             session: sessionId,
             task_id: logMetadata?.taskID,
           }),
+          credentials: "include",
           headers: { "Content-Type": "application/json" },
           method: "POST",
         });
