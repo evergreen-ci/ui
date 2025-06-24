@@ -1,3 +1,4 @@
+import stripAnsi from "strip-ansi";
 import { ProcessedLogLines } from "types/logs";
 import {
   isLogRow,
@@ -59,7 +60,7 @@ const searchLogs = (options: searchOptions): number[] => {
       }
     } else if (isLogRow(processedLogLine)) {
       if (processedLogLine >= lowerBound) {
-        if (searchRegex.test(getLine(processedLogLine))) {
+        if (searchRegex.test(stripAnsi(getLine(processedLogLine)))) {
           matchingLogIndices.add(processedLogLine);
         }
       }
