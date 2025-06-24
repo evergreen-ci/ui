@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-1s8k69e-RowContainer e11863j13"
+    class="emotion-RowContainer e11863j13"
     data-bookmarked="false"
     data-cy="log-row-0"
     data-failed="false"
@@ -10,7 +10,7 @@
     <button
       aria-disabled="false"
       aria-label="Share link"
-      class="css-benkut-MenuIcon e11863j10 leafygreen-ui-tcjr3n"
+      class="emotion-MenuIcon e11863j10 leafygreen-ui-tcjr3n"
       tabindex="0"
     >
       <div
@@ -18,7 +18,7 @@
       >
         <svg
           aria-label="Link Icon"
-          class="css-1629su4-ShareIcon e11863j12"
+          class="emotion-ShareIcon e11863j12"
           data-cy="log-link-0"
           fill="none"
           height="14"
@@ -39,12 +39,12 @@
       </div>
     </button>
     <pre
-      class="css-aekejs-Index e1r3i87w0"
+      class="emotion-Index e1r3i87w0"
       data-cy="line-index-0"
       title="Use shift+click to select multiple lines"
     />
     <pre
-      class="css-xz3lfn-StyledPre e11863j11"
+      class="emotion-StyledPre e11863j11"
     >
       <span
         data-cy="ansi-row"
