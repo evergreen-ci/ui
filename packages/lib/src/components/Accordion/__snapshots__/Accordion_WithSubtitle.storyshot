@@ -1,23 +1,23 @@
 <div>
   <div>
     <div
-      class="css-8km4up"
+      class="emotion-0"
       data-cy="accordion-toggle"
       role="button"
     >
       <button
         aria-disabled="false"
         aria-label="Accordion icon"
-        class="css-tgrklh leafygreen-ui-tcjr3n"
+        class="emotion-1 leafygreen-ui-2"
         style="align-self: center;"
         tabindex="0"
       >
         <div
-          class="leafygreen-ui-xhlipt"
+          class="leafygreen-ui-3"
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v"
+            class="leafygreen-ui-4"
             fill="none"
             height="16"
             role="img"
@@ -39,17 +39,17 @@
       </span>
     </div>
     <div
-      class="css-13ib0d7"
+      class="emotion-5"
     >
       Subtitle
     </div>
     <div
       aria-expanded="false"
-      class="css-10vhx46"
+      class="emotion-6"
       data-cy="accordion-collapse-container"
     >
       <div
-        class="css-1njzqz8"
+        class="emotion-7"
       >
         Accordion content
       </div>

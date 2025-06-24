@@ -1,15 +1,15 @@
 <div>
   <div
-    class="css-yln489"
+    class="emotion-0"
   >
     <div
-      class="persistent-placeholder css-1noqyar"
+      class="persistent-placeholder emotion-1"
     >
       <span>
         Test
          
         <code
-          class="leafygreen-ui-lxrbgu"
+          class="leafygreen-ui-2"
         >
           Tab
         </code>
@@ -17,14 +17,14 @@
       </span>
     </div>
     <div
-      class="leafygreen-ui-1br9h7w"
+      class="leafygreen-ui-3"
       data-lgid="lg-text_input"
     >
       <div
-        class="leafygreen-ui-au9iil"
+        class="leafygreen-ui-4"
       >
         <label
-          class="leafygreen-ui-6bdaia"
+          class="leafygreen-ui-5"
           data-lgid="lg-label"
           data-testid="lg-form_field-label"
           for="lg-form_field-input-188"
@@ -34,10 +34,10 @@
         </label>
       </div>
       <div
-        class="leafygreen-ui-14vpn2b"
+        class="leafygreen-ui-6"
       >
         <div
-          class="leafygreen-ui-1ago99h"
+          class="leafygreen-ui-7"
         >
           <input
             aria-describedby=""
@@ -45,7 +45,7 @@
             aria-invalid="false"
             aria-labelledby="lg-form_field-label-185"
             autocomplete="on"
-            class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+            class="lg-ui-form-field-input-0000 leafygreen-ui-7"
             id="lg-form_field-input-188"
             placeholder="Search"
             required=""
@@ -57,14 +57,14 @@
       <div
         aria-live="polite"
         aria-relevant="all"
-        class="leafygreen-ui-11ydt2g"
+        class="leafygreen-ui-9"
         data-lgid="lg-form_field-feedback"
         data-testid="lg-form_field-feedback"
         id="lg-form_field-feedback-187"
       />
     </div>
     <div
-      class="css-1kijwh"
+      class="emotion-10"
     />
   </div>
 </div>

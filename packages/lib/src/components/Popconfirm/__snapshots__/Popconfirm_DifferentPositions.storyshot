@@ -7,15 +7,15 @@
     >
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-161yf65"
+        class="lg-ui-button-0000 leafygreen-ui-0"
         data-lgid="lg-button"
         type="button"
       >
         <div
-          class="leafygreen-ui-v038xi"
+          class="leafygreen-ui-1"
         />
         <div
-          class="leafygreen-ui-16tr4y"
+          class="leafygreen-ui-2"
         >
           Top Middle
         </div>
@@ -26,15 +26,15 @@
     >
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-161yf65"
+        class="lg-ui-button-0000 leafygreen-ui-0"
         data-lgid="lg-button"
         type="button"
       >
         <div
-          class="leafygreen-ui-v038xi"
+          class="leafygreen-ui-1"
         />
         <div
-          class="leafygreen-ui-16tr4y"
+          class="leafygreen-ui-2"
         >
           Bottom Middle
         </div>
@@ -45,15 +45,15 @@
     >
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-161yf65"
+        class="lg-ui-button-0000 leafygreen-ui-0"
         data-lgid="lg-button"
         type="button"
       >
         <div
-          class="leafygreen-ui-v038xi"
+          class="leafygreen-ui-1"
         />
         <div
-          class="leafygreen-ui-16tr4y"
+          class="leafygreen-ui-2"
         >
           Left Middle
         </div>
@@ -64,15 +64,15 @@
     >
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-161yf65"
+        class="lg-ui-button-0000 leafygreen-ui-0"
         data-lgid="lg-button"
         type="button"
       >
         <div
-          class="leafygreen-ui-v038xi"
+          class="leafygreen-ui-1"
         />
         <div
-          class="leafygreen-ui-16tr4y"
+          class="leafygreen-ui-2"
         >
           Right Middle
         </div>

@@ -1,27 +1,27 @@
 <div>
   <div
-    class="css-134efv6"
+    class="emotion-0"
   >
     <div
-      class="leafygreen-ui-dhdzha"
+      class="leafygreen-ui-1"
       data-cy="test-status-badge"
     >
       Fail
     </div>
     <div
-      class="leafygreen-ui-1uko9cz"
+      class="leafygreen-ui-2"
       data-cy="test-status-badge"
     >
       Skip
     </div>
     <div
-      class="leafygreen-ui-h5xdir"
+      class="leafygreen-ui-3"
       data-cy="test-status-badge"
     >
       Silent Fail
     </div>
     <div
-      class="leafygreen-ui-1ciuhbt"
+      class="leafygreen-ui-4"
       data-cy="test-status-badge"
     >
       Pass

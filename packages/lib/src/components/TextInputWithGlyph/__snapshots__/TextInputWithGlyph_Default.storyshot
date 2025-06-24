@@ -1,16 +1,16 @@
 <div>
   <div
-    class="css-yln489"
+    class="emotion-0"
   >
     <div
-      class="leafygreen-ui-1br9h7w"
+      class="leafygreen-ui-1"
       data-lgid="lg-text_input"
     >
       <div
-        class="leafygreen-ui-au9iil"
+        class="leafygreen-ui-2"
       >
         <label
-          class="leafygreen-ui-6bdaia"
+          class="leafygreen-ui-3"
           data-lgid="lg-label"
           data-testid="lg-form_field-label"
           for="lg-form_field-input-184"
@@ -20,10 +20,10 @@
         </label>
       </div>
       <div
-        class="leafygreen-ui-14vpn2b"
+        class="leafygreen-ui-4"
       >
         <div
-          class="leafygreen-ui-1ago99h"
+          class="leafygreen-ui-5"
         >
           <input
             aria-describedby=""
@@ -31,7 +31,7 @@
             aria-invalid="false"
             aria-labelledby="lg-form_field-label-181"
             autocomplete="on"
-            class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+            class="lg-ui-form-field-input-0000 leafygreen-ui-5"
             id="lg-form_field-input-184"
             placeholder="Search"
             required=""
@@ -43,14 +43,14 @@
       <div
         aria-live="polite"
         aria-relevant="all"
-        class="leafygreen-ui-11ydt2g"
+        class="leafygreen-ui-7"
         data-lgid="lg-form_field-feedback"
         data-testid="lg-form_field-feedback"
         id="lg-form_field-feedback-183"
       />
     </div>
     <div
-      class="css-1kijwh"
+      class="emotion-8"
     >
       <svg
         aria-label="Magnifying Glass Icon"
