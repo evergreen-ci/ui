@@ -1,15 +1,15 @@
 <div>
   <div
-    class="css-14g9t54"
+    class="emotion-0"
   >
     <div
       aria-disabled="false"
-      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="success"
     >
       <div
-        class="css-amsv4f-IconContainer e12dzyme1"
+        class="emotion-IconContainer e12dzyme1"
       >
         <svg
           aria-label="Checkmark Icon"
@@ -35,12 +35,12 @@
     </div>
     <div
       aria-disabled="false"
-      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="failed"
     >
       <div
-        class="css-amsv4f-IconContainer e12dzyme1"
+        class="emotion-IconContainer e12dzyme1"
       >
         <svg
           aria-label="Failure Icon"
@@ -63,12 +63,12 @@
     </div>
     <div
       aria-disabled="false"
-      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="known-issue"
     >
       <div
-        class="css-amsv4f-IconContainer e12dzyme1"
+        class="emotion-IconContainer e12dzyme1"
       >
         <svg
           aria-label="Known failure Icon"
@@ -92,12 +92,12 @@
     </div>
     <div
       aria-disabled="false"
-      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="dispatched"
     >
       <div
-        class="css-amsv4f-IconContainer e12dzyme1"
+        class="emotion-IconContainer e12dzyme1"
       >
         <svg
           aria-label="Refresh Icon"
@@ -121,12 +121,12 @@
     </div>
     <div
       aria-disabled="false"
-      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="setup-failed"
     >
       <div
-        class="css-amsv4f-IconContainer e12dzyme1"
+        class="emotion-IconContainer e12dzyme1"
       >
         <svg
           aria-label="Setup failure Icon"
@@ -161,12 +161,12 @@
     </div>
     <div
       aria-disabled="false"
-      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="system-unresponsive"
     >
       <div
-        class="css-amsv4f-IconContainer e12dzyme1"
+        class="emotion-IconContainer e12dzyme1"
       >
         <svg
           aria-label="System failure Icon"
@@ -194,12 +194,12 @@
     </div>
     <div
       aria-disabled="false"
-      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="test-timed-out"
     >
       <div
-        class="css-amsv4f-IconContainer e12dzyme1"
+        class="emotion-IconContainer e12dzyme1"
       >
         <svg
           aria-label="Timed out Icon"
@@ -226,12 +226,12 @@
     </div>
     <div
       aria-disabled="false"
-      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="aborted"
     >
       <div
-        class="css-amsv4f-IconContainer e12dzyme1"
+        class="emotion-IconContainer e12dzyme1"
       >
         <svg
           aria-label="Will not run Icon"
@@ -266,12 +266,12 @@
     </div>
     <div
       aria-disabled="false"
-      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="will-run"
     >
       <div
-        class="css-amsv4f-IconContainer e12dzyme1"
+        class="emotion-IconContainer e12dzyme1"
       >
         <svg
           aria-label="Calendar Icon"
@@ -305,12 +305,12 @@
     </div>
     <div
       aria-disabled="false"
-      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="inactive"
     >
       <div
-        class="css-amsv4f-IconContainer e12dzyme1"
+        class="emotion-IconContainer e12dzyme1"
       >
         <svg
           aria-label="Will not run Icon"

@@ -1,9 +1,9 @@
 <div>
   <div
-    class="css-1p8q5g-TableControlInnerRow-TableControlOuterRow e1xf068s3"
+    class="emotion-TableControlInnerRow-TableControlOuterRow e1xf068s3"
   >
     <div
-      class="css-1mx1jed-FlexContainer et5phr01"
+      class="emotion-FlexContainer et5phr01"
     >
       <p
         class="leafygreen-ui-1tb6tuo"
@@ -26,7 +26,7 @@
       </p>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-1m0zu1d css-vvan06-PaddedButton et5phr00"
+        class="lg-ui-button-0000 leafygreen-ui-1m0zu1d emotion-PaddedButton et5phr00"
         data-cy="clear-all-filters"
         data-lgid="lg-button"
         type="button"
@@ -42,15 +42,15 @@
       </button>
     </div>
     <div
-      class="css-ltjmsx-TableControlInnerRow e1xf068s4"
+      class="emotion-TableControlInnerRow e1xf068s4"
     >
       <div
-        class="css-o7pwgi-Container e4w46hm0"
+        class="emotion-Container e4w46hm0"
         data-cy="pagination"
       >
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-zzkmfy css-mze5ol-StyledButton e4w46hm2"
+          class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-StyledButton e4w46hm2"
           data-cy="prev-page-button"
           data-lgid="lg-button"
           type="button"
@@ -81,7 +81,7 @@
           </div>
         </button>
         <div
-          class="css-ob08n2-PageLabel e4w46hm1"
+          class="emotion-PageLabel e4w46hm1"
         >
           <small
             class="leafygreen-ui-6flbwy"
@@ -93,7 +93,7 @@
         </div>
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-zzkmfy css-mze5ol-StyledButton e4w46hm2"
+          class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-StyledButton e4w46hm2"
           data-cy="next-page-button"
           data-lgid="lg-button"
           type="button"
@@ -125,7 +125,7 @@
         </button>
       </div>
       <div
-        class="leafygreen-ui-1iyoj2o css-5krlfz-StyledSelect ekttol50"
+        class="leafygreen-ui-1iyoj2o emotion-StyledSelect ekttol50"
         data-lgid="lg-select"
       >
         <button

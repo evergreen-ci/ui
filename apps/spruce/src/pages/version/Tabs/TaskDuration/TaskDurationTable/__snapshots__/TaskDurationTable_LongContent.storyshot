@@ -26,7 +26,7 @@
             >
               Task Name
               <div
-                class="css-dfh62w-FilterWrapper e1gla5v20"
+                class="emotion-FilterWrapper e1gla5v20"
               >
                 <button
                   aria-disabled="false"
@@ -100,7 +100,7 @@
             >
               Status
               <div
-                class="css-dfh62w-FilterWrapper e1gla5v20"
+                class="emotion-FilterWrapper e1gla5v20"
               >
                 <button
                   aria-disabled="false"
@@ -175,7 +175,7 @@
             >
               Build Variant
               <div
-                class="css-dfh62w-FilterWrapper e1gla5v20"
+                class="emotion-FilterWrapper e1gla5v20"
               >
                 <button
                   aria-disabled="false"
@@ -337,12 +337,12 @@
                   class=""
                 >
                   <a
-                    class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                     href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_display_sharding_multiversion_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
                   >
                     <span>
                       <span
-                        class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                        class="emotion-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                       >
                         sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion 
                       </span>
@@ -368,7 +368,7 @@
                 >
                   <div
                     border="#FFCDC7"
-                    class="css-148ze2g-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                    class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                     data-cy="task-status-badge"
                     fill="#FFFFFF"
                     text="#970606"
@@ -413,15 +413,15 @@
                   class=""
                 >
                   <div
-                    class="css-18tifp5-Duration evliklb2"
+                    class="emotion-Duration evliklb2"
                   >
                     <div
-                      class="css-1exoomp-DurationBar evliklb1"
+                      class="emotion-DurationBar evliklb1"
                       color="#DB3030"
                       width="100%"
                     />
                     <p
-                      class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                      class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                       data-lgid="lg-description"
                     >
                       4h 21m

@@ -1,12 +1,12 @@
 <div>
   <div
-    class="css-1mjm61p-Container exz365g3"
+    class="emotion-Container exz365g3"
   >
     <div
-      class="css-z0zdsn-PageHeader exz365g1"
+      class="emotion-PageHeader exz365g1"
     >
       <span
-        class="css-6bgihq-TitleWrapper exz365g0"
+        class="emotion-TitleWrapper exz365g0"
       >
         <h6
           class="leafygreen-ui-19p3n10"
@@ -17,7 +17,7 @@
             Test Page
           </span>
           <div
-            class="css-yrksc4-BadgeWrapper exz365g2"
+            class="emotion-BadgeWrapper exz365g2"
           >
             <div
               class="leafygreen-ui-c62i3c"

@@ -1,10 +1,10 @@
 <div>
   <div
-    class="css-t6ohyf-BaseCell-HeaderCell e1bcz5i61"
+    class="emotion-BaseCell-HeaderCell e1bcz5i61"
     data-cy="header-cell"
   >
     <a
-      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-1kmxc53"
+      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-1kmxc53"
       href="https://spruce.mongodb.com"
     >
       <span>

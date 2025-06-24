@@ -1,23 +1,23 @@
 <div>
   <div
-    class="css-1ry038z-Container e17dnzmx1"
+    class="emotion-Container e17dnzmx1"
   >
     <label
-      class="css-1b6u3gc-StyledLabel e17dnzmx0"
+      class="emotion-StyledLabel e17dnzmx0"
       for="searchable-dropdown-Custom option select"
     >
       Custom option select
     </label>
     <div
-      class="css-gte0m8-Wrapper e17dnzmx5"
+      class="emotion-Wrapper e17dnzmx5"
     >
       <div
-        class="css-1ry038z-Container e1yw4j304"
+        class="emotion-Container e1yw4j304"
         id="searchable-dropdown-Custom option select"
       >
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-5xsnod css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
+          class="lg-ui-button-0000 leafygreen-ui-5xsnod emotion-StyledButton-menuButtonStyleOverrides e1yw4j302"
           data-cy="searchable-dropdown"
           data-lgid="lg-button"
           type="button"
@@ -29,13 +29,13 @@
             class="leafygreen-ui-16tr4y"
           >
             <div
-              class="css-19l4y8w-ButtonContent e1yw4j301"
+              class="emotion-ButtonContent e1yw4j301"
             >
               <div
-                class="css-soeq2u-LabelWrapper e1yw4j303"
+                class="emotion-LabelWrapper e1yw4j303"
               >
                 <p
-                  class="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1tb6tuo"
+                  class="emotion-OverflowBody e1yw4j300 leafygreen-ui-1tb6tuo"
                   data-cy="dropdown-value"
                 >
                   Select an element
