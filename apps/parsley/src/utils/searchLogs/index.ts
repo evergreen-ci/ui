@@ -54,7 +54,7 @@ const searchLogs = (options: searchOptions): number[] => {
         i < processedLogLine.range.end && i <= upperBound;
         i++
       ) {
-        if (i >= lowerBound && searchRegex.test(getLine(i))) {
+        if (i >= lowerBound && searchRegex.test(stripAnsi(getLine(i)))) {
           matchingLogIndices.add(i);
         }
       }
