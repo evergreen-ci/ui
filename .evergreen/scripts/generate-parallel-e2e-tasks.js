@@ -154,7 +154,7 @@ const main = () => {
   const mustGenerateTasks = shouldAlwaysGenerateTasks || isActivatedByParentPatch;
 
   // Check if there are any changes in the given build variant directory
-  if (!mustGenerateTasks && !hasChangesInDirectory(`${APPS_DIR}/${buildVariant}`) && !hasChangesInDirectory(PACKAGES_DIR) && !isDownstreamTask) {
+  if (!mustGenerateTasks && !hasChangesInDirectory(`${APPS_DIR}/${buildVariant}`) && !hasChangesInDirectory(PACKAGES_DIR)) {
     console.log(`No changes detected in ${buildVariant} or packages directory, skipping e2e task generation`);
     // Write an empty task list to maintain the expected file output
     writeFileSync(
