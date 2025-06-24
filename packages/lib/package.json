@@ -11,7 +11,7 @@
     "snapshot": "vitest run snapshot.test.ts",
     "storybook": "storybook dev -p 6008",
     "storybook:build": "storybook build",
-    "test": "vitest --typecheck=false"
+    "test": "vitest --typecheck=false --exclude=src/snapshot.test.ts"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
