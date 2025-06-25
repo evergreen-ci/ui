@@ -4,7 +4,5 @@ export enum PaginationQueryParams {
 }
 
 export enum TableQueryParams {
-  SortBy = "sortBy",
-  SortDir = "sortDir",
   Sorts = "sorts",
 }
