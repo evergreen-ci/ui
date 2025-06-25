@@ -1,8 +1,11 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import Checkbox from "@leafygreen-ui/checkbox";
+import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics } from "analytics";
+import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { PaginationQueryParams } from "constants/queryParams";
 import {
@@ -13,6 +16,7 @@ import {
 } from "gql/generated/types";
 import { VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { parseQueryString } from "utils/queryString";
@@ -32,6 +36,25 @@ const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
   const queryVariables = useQueryVariables(search, versionId || "");
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
+
+  const [includeNeverActivatedTasks, setIncludeNeverActivatedTasks] =
+    useQueryParam(
+      PatchTasksQueryParams.IncludeNeverActivatedTasks,
+      Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true",
+    );
+
+  const handleIncludeNeverActivatedTasksChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
+    setIncludeNeverActivatedTasks(e.target.checked);
+    Cookies.set(
+      INCLUDE_NEVER_ACTIVATED_TASKS,
+      e.target.checked ? "true" : "false",
+    );
+    // versionAnalytics.sendEvent({
+    //   "include_never_activated_tasks": e.target.checked,
+    // });
+  };
 
   useEffect(() => {
     const hasValidSortsForTab =
@@ -59,6 +82,8 @@ const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
       [PaginationQueryParams.Page]: undefined,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Duration]: undefined,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      [PatchTasksQueryParams.IncludeNeverActivatedTasks]: undefined,
       [PatchTasksQueryParams.Sorts]: defaultSortMethod,
     });
     versionAnalytics.sendEvent({
@@ -84,17 +109,27 @@ const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
   const { count = 0, data: tasksData = [] } = tasks || {};
 
   return (
-    <VersionTasksTable
-      clearQueryParams={clearQueryParams}
-      filteredCount={count}
-      isPatch={isPatch ?? false}
-      limit={limit ?? 0}
-      loading={tasksData.length === 0 && loading}
-      page={page ?? 0}
-      tasks={tasksData}
-      totalCount={taskCount}
-      versionId={versionId}
-    />
+    <>
+      <div style={{ marginBottom: 16 }}>
+        <Checkbox
+          checked={includeNeverActivatedTasks}
+          data-cy="include-never-activated-tasks-checkbox"
+          label="Always include all tasks"
+          onChange={handleIncludeNeverActivatedTasksChange}
+        />
+      </div>
+      <VersionTasksTable
+        clearQueryParams={clearQueryParams}
+        filteredCount={count}
+        isPatch={isPatch ?? false}
+        limit={limit ?? 0}
+        loading={tasksData.length === 0 && loading}
+        page={page ?? 0}
+        tasks={tasksData}
+        totalCount={taskCount}
+        versionId={versionId}
+      />
+    </>
   );
 };
 
