@@ -1,3 +1,65 @@
+.emotion-NodeContainer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 88px;
+}
+
+.emotion-NodeHeader {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-Circle {
+  min-height: 56px;
+  min-width: 56px;
+  background-color: #00A35C;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-Index {
+  color: #FFFFFF;
+}
+
+.leafygreen-ui-19p3n10 {
+  margin: unset;
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #001E2B;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+  color: #001E2B;
+}
+
+.emotion-NodeTitle {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  margin-left: 24px;
+}
+
+.emotion-ChildContainer {
+  margin-left: 88px;
+}
+
 <div>
   <div
     class="emotion-NodeContainer e1k5prvz2"

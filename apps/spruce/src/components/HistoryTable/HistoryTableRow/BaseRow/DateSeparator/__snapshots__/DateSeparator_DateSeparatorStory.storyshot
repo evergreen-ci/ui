@@ -1,3 +1,47 @@
+.emotion-Container {
+  width: 100%;
+  padding-right: 32px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-DateWrapper {
+  white-space: nowrap;
+  padding-right: 24px;
+  text-transform: uppercase;
+  color: #3D4F58;
+}
+
+.leafygreen-ui-1tb6tuo {
+  margin: unset;
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #001E2B;
+  font-size: 13px;
+  line-height: 20px;
+  color: #001E2B;
+  font-weight: 400;
+}
+
+.leafygreen-ui-1tb6tuo strong,
+.leafygreen-ui-1tb6tuo b {
+  font-weight: 700;
+}
+
+.emotion-DashedLine {
+  margin-top: 2px;
+  height: 1px;
+  background: linear-gradient(to right, transparent 50%, white 50%),linear-gradient(to right, #C1C7C6, #C1C7C6);
+  -webkit-background-size: 16px 2px,100% 2px;
+  background-size: 16px 2px,100% 2px;
+  width: 100%;
+}
+
 <div>
   <div
     class="emotion-Container e1ogwe4s1"

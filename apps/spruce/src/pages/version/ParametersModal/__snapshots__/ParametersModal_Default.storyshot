@@ -1,3 +1,112 @@
+.emotion-MetadataItemWrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  gap: 4px;
+  line-height: 14px;
+}
+
+.emotion-MetadataItemWrapper:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.emotion-Item-wordBreakCss {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  line-height: 14px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.emotion-Item-wordBreakCss a {
+  line-height: 14px;
+}
+
+.leafygreen-ui-1tb6tuo {
+  margin: unset;
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #001E2B;
+  font-size: 13px;
+  line-height: 20px;
+  color: #001E2B;
+  font-weight: 400;
+}
+
+.leafygreen-ui-1tb6tuo strong,
+.leafygreen-ui-1tb6tuo b {
+  font-weight: 700;
+}
+
+.emotion-overrideStyles {
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.leafygreen-ui-16e7rxl {
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  display: inline;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-decoration-color: transparent;
+  cursor: pointer;
+  font-size: inherit;
+  line-height: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  line-height: 20px;
+  color: #016BF8;
+  font-weight: 400;
+}
+
+.leafygreen-ui-16e7rxl:hover,
+.leafygreen-ui-16e7rxl[data-hover='true'],
+.leafygreen-ui-16e7rxl:focus-visible,
+.leafygreen-ui-16e7rxl[data-focus='true'] {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  -webkit-transition: text-decoration 150ms ease-in-out;
+  transition: text-decoration 150ms ease-in-out;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+
+.leafygreen-ui-16e7rxl:focus {
+  outline: none;
+}
+
+.leafygreen-ui-16e7rxl:hover,
+.leafygreen-ui-16e7rxl[data-hover='true'] {
+  text-decoration-color: #E8EDEB;
+}
+
+.leafygreen-ui-16e7rxl:focus-visible,
+.leafygreen-ui-16e7rxl[data-focus='true'] {
+  text-decoration-color: #016BF8;
+}
+
 <div>
   <span
     class="emotion-MetadataItemWrapper e1130wzj0"

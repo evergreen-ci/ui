@@ -1,3 +1,280 @@
+.emotion-SiderCard-StickyMetadataCard {
+  padding: 16px 16px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  max-height: calc(100vh - 64px - 24px - 24px);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.emotion-SiderCard-StickyMetadataCard:not(:last-of-type) {
+  margin-bottom: 24px;
+}
+
+.leafygreen-ui-1ecxdul {
+  position: relative;
+  -webkit-transition: 150ms ease-in-out;
+  transition: 150ms ease-in-out;
+  transition-property: border,box-shadow;
+  border-radius: 24px;
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+  padding: 24px;
+  min-height: 68px;
+  border: 1px solid #E8EDEB;
+  box-shadow: 0 4px 10px -4px rgba(0,30,43,0.3);
+  background-color: #FFFFFF;
+  color: #1C2D38;
+}
+
+.emotion-MetadataCardTitle {
+  font-size: 15px;
+}
+
+.leafygreen-ui-1miy0xp {
+  margin: unset;
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #001E2B;
+  font-size: 13px;
+  line-height: 20px;
+  color: #001E2B;
+  font-weight: 500;
+}
+
+.leafygreen-ui-1miy0xp strong,
+.leafygreen-ui-1miy0xp b {
+  font-weight: 700;
+}
+
+.emotion-Divider {
+  background-color: #E8EDEB;
+  border: 0;
+  height: 1px;
+  margin: 8px 0;
+}
+
+.emotion-ScrollableBuildVariantStatsContainer {
+  overflow-y: scroll;
+}
+
+.emotion-overrideStyles-wordBreakCss {
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.leafygreen-ui-16e7rxl {
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  display: inline;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-decoration-color: transparent;
+  cursor: pointer;
+  font-size: inherit;
+  line-height: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  line-height: 20px;
+  color: #016BF8;
+  font-weight: 400;
+}
+
+.leafygreen-ui-16e7rxl:hover,
+.leafygreen-ui-16e7rxl[data-hover='true'],
+.leafygreen-ui-16e7rxl:focus-visible,
+.leafygreen-ui-16e7rxl[data-focus='true'] {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  -webkit-transition: text-decoration 150ms ease-in-out;
+  transition: text-decoration 150ms ease-in-out;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+
+.leafygreen-ui-16e7rxl:focus {
+  outline: none;
+}
+
+.leafygreen-ui-16e7rxl:hover,
+.leafygreen-ui-16e7rxl[data-hover='true'] {
+  text-decoration-color: #E8EDEB;
+}
+
+.leafygreen-ui-16e7rxl:focus-visible,
+.leafygreen-ui-16e7rxl[data-focus='true'] {
+  text-decoration-color: #016BF8;
+}
+
+.emotion-TaskBadgeContainer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.leafygreen-ui-cssveg {
+  position: relative;
+}
+
+.leafygreen-ui-cssveg {
+  position: relative;
+}
+
+.leafygreen-ui-cssveg {
+  position: relative;
+}
+
+.emotion-BadgeContainer {
+  height: 32px;
+  width: 64px;
+  border-radius: 4px;
+  border: 1px solid;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+  justify-content: space-evenly;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  line-height: normal;
+  border-color: #C0FAE6;
+  background-color: #E3FCF7;
+  color: #00684A;
+}
+
+.emotion-Number {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 14px;
+}
+
+.emotion-Status {
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+.emotion-BadgeContainer {
+  height: 32px;
+  width: 64px;
+  border-radius: 4px;
+  border: 1px solid;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+  justify-content: space-evenly;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  line-height: normal;
+  border-color: #FFEC9E;
+  background-color: #FEF7DB;
+  color: #944F01;
+}
+
+.emotion-BadgeContainer {
+  height: 32px;
+  width: 64px;
+  border-radius: 4px;
+  border: 1px solid;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+  justify-content: space-evenly;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  line-height: normal;
+  border-color: #FFCDC7;
+  background-color: #FFEAE5;
+  color: #970606;
+}
+
+.emotion-BadgeContainer {
+  height: 32px;
+  width: 64px;
+  border-radius: 4px;
+  border: 1px solid;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+  justify-content: space-evenly;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  line-height: normal;
+  border-color: #E8EDEB;
+  background-color: #F9FBFA;
+  color: #5C6C75;
+}
+
 <div>
   <div
     class="e1dt8lrl1 emotion-SiderCard-StickyMetadataCard e1am38ss0 leafygreen-ui-1ecxdul"

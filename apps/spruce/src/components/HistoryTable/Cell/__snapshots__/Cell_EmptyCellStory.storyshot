@@ -1,3 +1,29 @@
+.emotion-BaseCell-Cell {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  width: 150px;
+  margin: 0 8px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-Circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #C1C7C6;
+  margin: 0 auto;
+}
+
 <div>
   <div
     class="emotion-BaseCell-Cell e1bcz5i62"

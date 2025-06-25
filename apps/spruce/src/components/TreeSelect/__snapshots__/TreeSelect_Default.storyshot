@@ -1,3 +1,171 @@
+.emotion-CheckboxContainer {
+  min-width: 150px;
+  font-weight: normal;
+}
+
+.emotion-CheckboxWrapper {
+  padding-left: 0em;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #E8EDEB;
+}
+
+.leafygreen-ui-55kazc {
+  display: grid;
+  grid-template-columns: 14px auto;
+  grid-template-areas: 'label label' '. description';
+  gap: 0 8px;
+  position: relative;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  z-index: 0;
+}
+
+.leafygreen-ui-1srek1y {
+  color: #001E2B;
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 20px;
+  grid-area: label;
+  display: grid;
+  grid-template-columns: 14px auto;
+  grid-template-areas: 'check text';
+  gap: 8px;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  cursor: pointer;
+}
+
+.leafygreen-ui-1srek1y:hover:not(:focus-within)>.lg-ui-input-0000:not([disabled])+.lg-ui-check-wrapper-0000 {
+  box-shadow: 0 0 0 3px #E8EDEB;
+}
+
+.leafygreen-ui-1a1e5kp {
+  margin: 0;
+  position: absolute;
+  height: 0;
+  width: 0;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.leafygreen-ui-1a1e5kp:focus-visible+.lg-ui-check-wrapper-0000 {
+  box-shadow: 0 0 0 2px #FFFFFF,0 0 0 4px #0498EC;
+}
+
+.leafygreen-ui-nlfut8 {
+  grid-area: check;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  z-index: 1;
+  height: 14px;
+  width: 14px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  border-radius: 3px;
+  border: 2px solid;
+  overflow: hidden;
+  background-color: transparent;
+  -webkit-transition: box-shadow 100ms ease-in-out,background-color 0ms linear,border-color 0ms linear;
+  transition: box-shadow 100ms ease-in-out,background-color 0ms linear,border-color 0ms linear;
+  transition-delay: 0ms,0ms,100ms;
+  border-color: #3D4F58;
+}
+
+.leafygreen-ui-nlfut8:before {
+  content: '';
+  position: absolute;
+  inset: -41.42135623730951%;
+  z-index: 1;
+  border-radius: 100%;
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  transform-origin: center center;
+  -webkit-transition: -webkit-transform 100ms ease-in-out;
+  transition: transform 100ms ease-in-out;
+  transition-delay: 50ms;
+}
+
+.leafygreen-ui-nlfut8:before {
+  background-color: #016BF8;
+}
+
+.leafygreen-ui-6caof5 {
+  z-index: 1;
+  transform-origin: center;
+  -webkit-transition: -webkit-transform 100ms ease-in-out;
+  transition: transform 100ms ease-in-out;
+  -webkit-transform: scale(0) rotate(-45deg);
+  -moz-transform: scale(0) rotate(-45deg);
+  -ms-transform: scale(0) rotate(-45deg);
+  transform: scale(0) rotate(-45deg);
+}
+
+.leafygreen-ui-6vh13p {
+  grid-area: check;
+  position: relative;
+  top: 2px;
+  height: 14px;
+  width: 14px;
+  z-index: 0;
+  border-radius: 100%;
+  opacity: 1;
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  transform-origin: center center;
+  -webkit-transition: 0ms ease-in-out;
+  transition: 0ms ease-in-out;
+  transition-property: transform,opacity;
+  background-color: #1254B7;
+}
+
+.leafygreen-ui-187di61 {
+  -webkit-align-self: baseline;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+  font-weight: 400;
+}
+
+.emotion-CheckboxWrapper {
+  padding-left: 0em;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.emotion-CheckboxWrapper {
+  padding-left: 1em;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
 <div>
   <div
     class="emotion-CheckboxContainer e1mpj03z1"

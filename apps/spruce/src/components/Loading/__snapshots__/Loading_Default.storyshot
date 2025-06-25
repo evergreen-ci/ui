@@ -1,3 +1,181 @@
+.emotion-PageWrapper {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 24px 32px;
+}
+
+.emotion-BreadCrumbSkeleton {
+  width: 300px;
+  margin-bottom: 16px;
+}
+
+.leafygreen-ui-161vd4l {
+  width: 100%;
+  border-radius: 6px;
+  -webkit-background-position: 50vw 0;
+  background-position: 50vw 0;
+  -webkit-animation: SkeletonShimmer 1.5s infinite linear;
+  animation: SkeletonShimmer 1.5s infinite linear;
+  height: 16px;
+  background: linear-gradient(
+          110deg,
+          #E8EDEB 35%,
+          #F9FBFA,
+          #E8EDEB 65%
+        ) 0 0/100vw 100% fixed;
+}
+
+.leafygreen-ui-jv9p3c {
+  width: 100%;
+  border-radius: 6px;
+  -webkit-background-position: 50vw 0;
+  background-position: 50vw 0;
+  -webkit-animation: SkeletonShimmer 1.5s infinite linear;
+  animation: SkeletonShimmer 1.5s infinite linear;
+  height: 32px;
+  background: linear-gradient(
+          110deg,
+          #E8EDEB 35%,
+          #F9FBFA,
+          #E8EDEB 65%
+        ) 0 0/100vw 100% fixed;
+}
+
+.emotion-PageLayout-StyledPageLayout {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  min-height: 0;
+  margin-top: 16px;
+}
+
+.emotion-PageSider {
+  max-width: 275px;
+  min-width: 275px;
+  width: 275px;
+}
+
+.emotion-SiderCard {
+  padding: 16px 16px;
+}
+
+.emotion-SiderCard:not(:last-of-type) {
+  margin-bottom: 24px;
+}
+
+.leafygreen-ui-1ecxdul {
+  position: relative;
+  -webkit-transition: 150ms ease-in-out;
+  transition: 150ms ease-in-out;
+  transition-property: border,box-shadow;
+  border-radius: 24px;
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+  padding: 24px;
+  min-height: 68px;
+  border: 1px solid #E8EDEB;
+  box-shadow: 0 4px 10px -4px rgba(0,30,43,0.3);
+  background-color: #FFFFFF;
+  color: #1C2D38;
+}
+
+.leafygreen-ui-1aligyd {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.leafygreen-ui-1aligyd {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.leafygreen-ui-198akf2 {
+  list-style: none;
+  margin-block: 12px;
+  width: 100%;
+}
+
+.leafygreen-ui-1yhy0n {
+  list-style: none;
+  margin-block: 12px;
+  width: 75%;
+}
+
+.leafygreen-ui-1xaw9mv {
+  list-style: none;
+  margin-block: 12px;
+  width: 50%;
+}
+
+.emotion-PageContent {
+  -webkit-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
+  margin-left: 16px;
+  overflow: hidden;
+}
+
+.leafygreen-ui-fjy1ju {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.leafygreen-ui-fjy1ju {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.leafygreen-ui-wfaekx {
+  background-color: #FFFFFF;
+  box-shadow: 0 3px #E8EDEB;
+}
+
+.leafygreen-ui-wfaekx {
+  background-color: #FFFFFF;
+  box-shadow: 0 3px #E8EDEB;
+}
+
+.leafygreen-ui-g5saio {
+  padding: 10px 40px 10px 8px;
+  text-align: left;
+}
+
+.leafygreen-ui-25noba {
+  padding: 10px 40px 10px 8px;
+}
+
+.leafygreen-ui-25noba {
+  padding: 10px 40px 10px 8px;
+}
+
+.leafygreen-ui-191wf4n {
+  width: 100%;
+  border-radius: 6px;
+  -webkit-background-position: 50vw 0;
+  background-position: 50vw 0;
+  -webkit-animation: SkeletonShimmer 1.5s infinite linear;
+  animation: SkeletonShimmer 1.5s infinite linear;
+  height: 16px;
+  background: linear-gradient(
+          110deg,
+          #E8EDEB 35%,
+          #F9FBFA,
+          #E8EDEB 65%
+        ) 0 0/100vw 100% fixed;
+  margin-top: 2px;
+}
+
 <div>
   <div
     class="emotion-PageWrapper e1xf068s9"

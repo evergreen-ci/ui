@@ -1,3 +1,165 @@
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-InactiveVersion {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-basis: 80px;
+  -ms-flex-preferred-size: 80px;
+  flex-basis: 80px;
+  text-align: center;
+}
+
+.leafygreen-ui-168frnw {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: 1px solid transparent;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+  position: relative;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 0;
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  border-radius: 6px;
+  background-color: #F9FBFA;
+  border-color: #889397;
+  color: #001E2B;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+  height: 22px;
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 1em;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.leafygreen-ui-168frnw:focus-visible,
+.leafygreen-ui-168frnw[data-focus="true"] {
+  outline: none;
+}
+
+.leafygreen-ui-168frnw:active,
+.leafygreen-ui-168frnw[data-active="true"],
+.leafygreen-ui-168frnw:focus,
+.leafygreen-ui-168frnw:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.leafygreen-ui-168frnw:focus-visible,
+.leafygreen-ui-168frnw[data-focus="true"] {
+  color: #001E2B;
+}
+
+.leafygreen-ui-168frnw:hover,
+.leafygreen-ui-168frnw[data-hover="true"],
+.leafygreen-ui-168frnw:active,
+.leafygreen-ui-168frnw[data-active="true"] {
+  color: #001E2B;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 3px #E8EDEB;
+}
+
+.leafygreen-ui-168frnw:focus-visible,
+.leafygreen-ui-168frnw[data-focus="true"] {
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 2px #FFFFFF,0 0 0 4px #0498EC;
+}
+
+.leafygreen-ui-v038xi {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 5px;
+}
+
+.leafygreen-ui-v038xi {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 5px;
+}
+
+.leafygreen-ui-v038xi {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 5px;
+}
+
+.leafygreen-ui-b15bbd {
+  display: grid;
+  grid-auto-flow: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 0;
+  -webkit-transition: all 150 ease-in-out;
+  transition: all 150 ease-in-out;
+  padding: 0 7px;
+  gap: 6px;
+}
+
+.leafygreen-ui-qbpne1 {
+  color: #889397;
+  color: #889397;
+  height: 14px;
+  width: 14px;
+  justify-self: right;
+}
+
+.emotion-InactiveVersionLine {
+  border-left: 2px dashed #889397;
+  height: 0px;
+  position: absolute;
+  margin-left: 50%;
+  top: 30px;
+  z-index: 1;
+}
+
 <div>
   <div
     class="emotion-0"

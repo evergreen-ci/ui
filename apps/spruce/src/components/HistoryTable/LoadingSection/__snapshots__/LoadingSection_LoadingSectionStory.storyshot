@@ -1,3 +1,102 @@
+.emotion-Container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-LabelCellContainer {
+  width: 200px;
+  margin-right: 40px;
+}
+
+.leafygreen-ui-1aligyd {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.leafygreen-ui-1aligyd {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.leafygreen-ui-198akf2 {
+  list-style: none;
+  margin-block: 12px;
+  width: 100%;
+}
+
+.leafygreen-ui-161vd4l {
+  width: 100%;
+  border-radius: 6px;
+  -webkit-background-position: 50vw 0;
+  background-position: 50vw 0;
+  -webkit-animation: SkeletonShimmer 1.5s infinite linear;
+  animation: SkeletonShimmer 1.5s infinite linear;
+  height: 16px;
+  background: linear-gradient(
+          110deg,
+          #E8EDEB 35%,
+          #F9FBFA,
+          #E8EDEB 65%
+        ) 0 0/100vw 100% fixed;
+}
+
+.leafygreen-ui-1yhy0n {
+  list-style: none;
+  margin-block: 12px;
+  width: 75%;
+}
+
+.leafygreen-ui-1xaw9mv {
+  list-style: none;
+  margin-block: 12px;
+  width: 50%;
+}
+
+.emotion-BaseCell-Cell {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  width: 150px;
+  margin: 0 8px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.leafygreen-ui-527cte {
+  width: 100%;
+  border-radius: 6px;
+  -webkit-background-position: 50vw 0;
+  background-position: 50vw 0;
+  background: linear-gradient(
+          110deg,
+          #E8EDEB 35%,
+          #F9FBFA,
+          #E8EDEB 65%
+        ) 0 0/100vw 100% fixed;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+}
+
 <div>
   <div
     class="emotion-Container eubivai0"

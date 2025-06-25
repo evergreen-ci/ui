@@ -1,3 +1,98 @@
+.emotion-HeaderSkeleton {
+  width: 400px;
+}
+
+.leafygreen-ui-jv9p3c {
+  width: 100%;
+  border-radius: 6px;
+  -webkit-background-position: 50vw 0;
+  background-position: 50vw 0;
+  -webkit-animation: SkeletonShimmer 1.5s infinite linear;
+  animation: SkeletonShimmer 1.5s infinite linear;
+  height: 32px;
+  background: linear-gradient(
+          110deg,
+          #E8EDEB 35%,
+          #F9FBFA,
+          #E8EDEB 65%
+        ) 0 0/100vw 100% fixed;
+}
+
+.emotion-ButtonSkeleton {
+  margin-top: 32px;
+  width: 200px;
+}
+
+.leafygreen-ui-fjy1ju {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.leafygreen-ui-fjy1ju {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.emotion-StyledTableSkeleton {
+  margin-top: 20px;
+}
+
+.leafygreen-ui-wfaekx {
+  background-color: #FFFFFF;
+  box-shadow: 0 3px #E8EDEB;
+}
+
+.leafygreen-ui-wfaekx {
+  background-color: #FFFFFF;
+  box-shadow: 0 3px #E8EDEB;
+}
+
+.leafygreen-ui-g5saio {
+  padding: 10px 40px 10px 8px;
+  text-align: left;
+}
+
+.leafygreen-ui-161vd4l {
+  width: 100%;
+  border-radius: 6px;
+  -webkit-background-position: 50vw 0;
+  background-position: 50vw 0;
+  -webkit-animation: SkeletonShimmer 1.5s infinite linear;
+  animation: SkeletonShimmer 1.5s infinite linear;
+  height: 16px;
+  background: linear-gradient(
+          110deg,
+          #E8EDEB 35%,
+          #F9FBFA,
+          #E8EDEB 65%
+        ) 0 0/100vw 100% fixed;
+}
+
+.leafygreen-ui-25noba {
+  padding: 10px 40px 10px 8px;
+}
+
+.leafygreen-ui-25noba {
+  padding: 10px 40px 10px 8px;
+}
+
+.leafygreen-ui-191wf4n {
+  width: 100%;
+  border-radius: 6px;
+  -webkit-background-position: 50vw 0;
+  background-position: 50vw 0;
+  -webkit-animation: SkeletonShimmer 1.5s infinite linear;
+  animation: SkeletonShimmer 1.5s infinite linear;
+  height: 16px;
+  background: linear-gradient(
+          110deg,
+          #E8EDEB 35%,
+          #F9FBFA,
+          #E8EDEB 65%
+        ) 0 0/100vw 100% fixed;
+  margin-top: 2px;
+}
+
 <div>
   <div>
     <div

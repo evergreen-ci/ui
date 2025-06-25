@@ -1,3 +1,7 @@
+.emotion-0 {
+  width: 275px;
+}
+
 <div>
   <div
     class="emotion-0"

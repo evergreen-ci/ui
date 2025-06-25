@@ -1,3 +1,62 @@
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+  justify-content: space-evenly;
+}
+
+.leafygreen-ui-cssveg {
+  position: relative;
+}
+
+.leafygreen-ui-cssveg {
+  position: relative;
+}
+
+.leafygreen-ui-cssveg {
+  position: relative;
+}
+
+.emotion-Container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.emotion-IconContainer {
+  height: 32px;
+  width: 32px;
+  text-align: center;
+}
+
+.leafygreen-ui-zgssm {
+  color: #00A35C;
+}
+
+.leafygreen-ui-4hxv4h {
+  color: #944F01;
+}
+
+.leafygreen-ui-19a71cx {
+  color: #1C2D38;
+}
+
 <div>
   <div
     class="emotion-0"

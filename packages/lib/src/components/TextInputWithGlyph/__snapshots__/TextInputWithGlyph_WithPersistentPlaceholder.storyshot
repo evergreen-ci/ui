@@ -1,3 +1,207 @@
+.emotion-0 {
+  position: relative;
+  width: 100%;
+}
+
+.emotion-0 input {
+  padding-right: 24px;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  height: 36px;
+  color: #5C6C75;
+  opacity: 0.5;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.leafygreen-ui-lxrbgu {
+  font-family: 'Source Code Pro',Menlo,monospace;
+  border: 1px solid;
+  border-radius: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #001E2B;
+  border-color: #1C2D38;
+  background-color: #FFFFFF;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.leafygreen-ui-1br9h7w {
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.leafygreen-ui-au9iil {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 4px;
+}
+
+.leafygreen-ui-6bdaia {
+  color: #001E2B;
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 20px;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.leafygreen-ui-14vpn2b {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 4px;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  width: 100%;
+  height: 36px;
+  font-weight: 400;
+  border: 1px solid;
+  z-index: 1;
+  outline: none;
+  border-radius: 6px;
+  -webkit-transition: 150ms ease-in-out;
+  transition: 150ms ease-in-out;
+  transition-property: border-color,box-shadow;
+  z-index: 0;
+  color: #001E2B;
+  background: #FFFFFF;
+  border: 1px solid;
+  height: 36px;
+  padding-inline: 12px;
+  border-color: #889397;
+}
+
+.leafygreen-ui-14vpn2b .lg-ui-form-field-input-0000 {
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: inherit;
+  background-color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  outline: none;
+  border: none;
+}
+
+.leafygreen-ui-14vpn2b .lg-ui-form-field-icon-0000 svg,
+.leafygreen-ui-14vpn2b svg {
+  min-height: 16px;
+  min-width: 16px;
+}
+
+.leafygreen-ui-14vpn2b .lg-ui-form-field-input-0000:-webkit-autofill {
+  color: #001E2B;
+  background: #FFFFFF;
+  -webkit-text-fill-color: #001E2B;
+  box-shadow: 0 0 0 100px #FFFFFF inset;
+}
+
+.leafygreen-ui-14vpn2b .lg-ui-form-field-input-0000::-webkit-input-placeholder {
+  font-weight: 400;
+  color: #889397;
+}
+
+.leafygreen-ui-14vpn2b .lg-ui-form-field-input-0000::-moz-placeholder {
+  font-weight: 400;
+  color: #889397;
+}
+
+.leafygreen-ui-14vpn2b .lg-ui-form-field-input-0000:-ms-input-placeholder {
+  font-weight: 400;
+  color: #889397;
+}
+
+.leafygreen-ui-14vpn2b .lg-ui-form-field-input-0000::placeholder {
+  font-weight: 400;
+  color: #889397;
+}
+
+.leafygreen-ui-14vpn2b:has(button.lg-ui-form-field-icon-0000) {
+  -webkit-padding-end: 6px;
+  padding-inline-end: 6px;
+}
+
+.leafygreen-ui-14vpn2b:hover:not(:focus),
+.leafygreen-ui-14vpn2b:active:not(:focus) {
+  box-shadow: 0 0 0 3px #E8EDEB;
+}
+
+@supports selector (:has(a, b)) {
+  .leafygreen-ui-14vpn2b:focus-within:not(:has(.lg-ui-form-field-icon-0000:focus)) {
+    box-shadow: 0 0 0 3px #0498EC;
+    border-color: #FFFFFF;
+  }
+}
+
+@supports not selector (:has(a, b)) {
+  .leafygreen-ui-14vpn2b:focus-within {
+    box-shadow: 0 0 0 3px #0498EC;
+    border-color: #FFFFFF;
+  }
+}
+
+.leafygreen-ui-1ago99h {
+  width: 100%;
+}
+
+.leafygreen-ui-11ydt2g {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 4px;
+}
+
+.emotion-10 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  bottom: 0;
+  height: 36px;
+  position: absolute;
+  right: 4px;
+  width: 32px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
 <div>
   <div
     class="emotion-0"

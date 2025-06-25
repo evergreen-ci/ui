@@ -1,3 +1,77 @@
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+  justify-content: space-evenly;
+}
+
+.leafygreen-ui-cssveg {
+  position: relative;
+}
+
+.leafygreen-ui-cssveg {
+  position: relative;
+}
+
+.leafygreen-ui-cssveg {
+  position: relative;
+}
+
+.emotion-Container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.emotion-IconContainer {
+  height: 32px;
+  width: 32px;
+  text-align: center;
+}
+
+.leafygreen-ui-zgssm {
+  color: #00A35C;
+}
+
+.leafygreen-ui-1tb6tuo {
+  margin: unset;
+  font-family: 'Euclid Circular A','Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #001E2B;
+  font-size: 13px;
+  line-height: 20px;
+  color: #001E2B;
+  font-weight: 400;
+}
+
+.leafygreen-ui-1tb6tuo strong,
+.leafygreen-ui-1tb6tuo b {
+  font-weight: 700;
+}
+
+.leafygreen-ui-4hxv4h {
+  color: #944F01;
+}
+
+.leafygreen-ui-19a71cx {
+  color: #1C2D38;
+}
+
 <div>
   <div
     class="emotion-0"
