@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
@@ -12,12 +13,15 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
+import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { Requester } from "constants/requesters";
 import { slugs } from "constants/routes";
 import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
 import { VERSION } from "gql/queries";
 import { usePolling, useSpruceConfig } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { PageDoesNotExist } from "pages/NotFound";
+import { PatchTasksQueryParams } from "types/task";
 import { githubPRLinkify, jiraLinkify } from "utils/string";
 import { ActionButtons } from "./version/ActionButtons";
 import { WarningBanner, ErrorBanner, IgnoredBanner } from "./version/Banners";
@@ -31,7 +35,10 @@ export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const { [slugs.versionId]: versionId = "" } = useParams();
   const dispatchToast = useToastContext();
-
+  const [includeNeverActivatedTasks] = useQueryParam(
+    PatchTasksQueryParams.IncludeNeverActivatedTasks,
+    Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true",
+  );
   const {
     data: versionData,
     loading: versionLoading,
@@ -39,7 +46,7 @@ export const VersionPage: React.FC = () => {
     startPolling,
     stopPolling,
   } = useQuery<VersionQuery, VersionQueryVariables>(VERSION, {
-    variables: { id: versionId },
+    variables: { id: versionId, includeNeverActivatedTasks },
     fetchPolicy: "cache-and-network",
     onError: (error) => {
       dispatchToast.error(

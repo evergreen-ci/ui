@@ -201,6 +201,7 @@ export type BuildBaronSettingsInput = {
  */
 export type BuildVariantOptions = {
   includeBaseTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -3448,6 +3449,11 @@ export type VersionBuildVariantsArgs = {
 };
 
 /** Version models a commit within a project. */
+export type VersionTaskCountArgs = {
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
+/** Version models a commit within a project. */
 export type VersionTaskStatusStatsArgs = {
   options: BuildVariantOptions;
 };
@@ -6019,6 +6025,7 @@ export type BuildBaronQuery = {
 
 export type BuildVariantStatsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
+  includeNeverActivatedTasks: Scalars["Boolean"]["input"];
 }>;
 
 export type BuildVariantStatsQuery = {
@@ -9703,6 +9710,7 @@ export type VersionUpstreamProjectQuery = {
 
 export type VersionQueryVariables = Exact<{
   id: Scalars["String"]["input"];
+  includeNeverActivatedTasks: Scalars["Boolean"]["input"];
 }>;
 
 export type VersionQuery = {
