@@ -802,7 +802,6 @@ export enum HostAccessLevel {
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
   acceptableHostIdleTime: Scalars["Duration"]["output"];
-  autoTuneMaximumHosts: Scalars["Boolean"]["output"];
   feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"]["output"];
   hostsOverallocatedRule: OverallocatedRule;
@@ -814,7 +813,6 @@ export type HostAllocatorSettings = {
 
 export type HostAllocatorSettingsInput = {
   acceptableHostIdleTime: Scalars["Int"]["input"];
-  autoTuneMaximumHosts?: InputMaybe<Scalars["Boolean"]["input"]>;
   feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"]["input"];
   hostsOverallocatedRule: OverallocatedRule;
@@ -1267,6 +1265,7 @@ export type Mutation = {
   setLastRevision: SetLastRevisionPayload;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
+  setTaskPriorities: Array<Task>;
   setTaskPriority: Task;
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
@@ -1490,6 +1489,10 @@ export type MutationSetLastRevisionArgs = {
 export type MutationSetPatchVisibilityArgs = {
   hidden: Scalars["Boolean"]["input"];
   patchIds: Array<Scalars["String"]["input"]>;
+};
+
+export type MutationSetTaskPrioritiesArgs = {
+  taskPriorities: Array<TaskPriority>;
 };
 
 export type MutationSetTaskPriorityArgs = {
@@ -3039,6 +3042,11 @@ export type TaskOwnerTeam = {
   jiraProject: Scalars["String"]["output"];
   messages: Scalars["String"]["output"];
   teamName: Scalars["String"]["output"];
+};
+
+export type TaskPriority = {
+  priority: Scalars["Int"]["input"];
+  taskId: Scalars["String"]["input"];
 };
 
 /**
@@ -5696,6 +5704,20 @@ export type SetPatchVisibilityMutation = {
     __typename?: "Patch";
     id: string;
     hidden: boolean;
+  }>;
+};
+
+export type SetTaskPrioritiesMutationVariables = Exact<{
+  taskPriorities: Array<TaskPriority>;
+}>;
+
+export type SetTaskPrioritiesMutation = {
+  __typename?: "Mutation";
+  setTaskPriorities: Array<{
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    priority?: number | null;
   }>;
 };
 
