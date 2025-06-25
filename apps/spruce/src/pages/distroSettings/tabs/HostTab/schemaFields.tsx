@@ -511,6 +511,19 @@ const hostsOverallocatedRule = {
   },
 };
 
+const autoTuneMaximumHosts = {
+  schema: {
+    type: "boolean" as const,
+    title: "Auto Tune Maximum Hosts",
+    default: false,
+  },
+  uiSchema: (hasEC2Provider: boolean) => ({
+    "ui:description":
+      "Automatically adjust max hosts according to recent host usage.",
+    ...(!hasEC2Provider && { "ui:widget": "hidden" }),
+  }),
+};
+
 const minimumHosts = {
   schema: {
     type: "number" as const,
@@ -649,6 +662,7 @@ export const allocation = {
     hostsOverallocatedRule: hostsOverallocatedRule.schema,
     minimumHosts: minimumHosts.schema,
     maximumHosts: maximumHosts.schema,
+    autoTuneMaximumHosts: autoTuneMaximumHosts.schema,
     acceptableHostIdleTime: acceptableHostIdleTime.schema,
     futureHostFraction: futureHostFraction.schema,
   },
@@ -660,6 +674,7 @@ export const allocation = {
     hostsOverallocatedRule: hostsOverallocatedRule.uiSchema,
     minimumHosts: minimumHosts.uiSchema(hasEC2Provider),
     maximumHosts: maximumHosts.uiSchema(hasEC2Provider),
+    autoTuneMaximumHosts: autoTuneMaximumHosts.uiSchema(hasEC2Provider),
     acceptableHostIdleTime: acceptableHostIdleTime.uiSchema(hasEC2Provider),
     futureHostFraction: futureHostFraction.uiSchema(hasEC2Provider),
   }),

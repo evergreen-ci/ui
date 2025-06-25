@@ -62,6 +62,7 @@ export interface HostFormState {
     maximumHosts: number;
     acceptableHostIdleTime: number;
     futureHostFraction: number;
+    autoTuneMaximumHosts: boolean;
   };
 }
 
