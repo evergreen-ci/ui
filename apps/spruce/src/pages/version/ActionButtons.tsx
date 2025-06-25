@@ -7,6 +7,7 @@ import {
   AddNotification,
   DisableTasks,
   ScheduleUndispatchedBaseTasks,
+  IncludeAllTasksToggle,
 } from "components/PatchActionButtons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
@@ -36,6 +37,10 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       versionId={versionId}
     />,
     <SetPriority key="priority" versionId={versionId} />,
+    <IncludeAllTasksToggle
+      key="include-never-activated-tasks-checkbox"
+      versionId={versionId}
+    />,
   ];
 
   return (
