@@ -53,8 +53,11 @@ export const Task = () => {
     errorPolicy: "all",
     onError: (err) => {
       // We shouldn't show errors about annotation permissions resulting from the task resolver, but we can't separate out the query because we need to identify if the user has permissions to hide the tab accordingly.
-      // Thus, if an error comes from the annotation resolver, don't show a toast.
-      if (!err?.graphQLErrors?.some((e) => e?.path?.includes("annotation"))) {
+      // Thus, if an error comes from the annotation resolver, don't show a toast for it.
+      const hasNonAnnotationErrors = err?.graphQLErrors?.some(
+        (e) => !e?.path?.includes("annotation"),
+      );
+      if (hasNonAnnotationErrors) {
         dispatchToast.error(
           `There was an error loading the task: ${err.message}`,
         );
