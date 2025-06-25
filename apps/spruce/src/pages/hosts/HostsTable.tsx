@@ -106,6 +106,7 @@ export const HostsTable: React.FC<Props> = ({
     state: {
       rowSelection,
     },
+    enableMultiSort: false,
     hasSelectableRows: true,
     manualFiltering: true,
     manualPagination: true,

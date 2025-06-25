@@ -802,6 +802,7 @@ export enum HostAccessLevel {
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
   acceptableHostIdleTime: Scalars["Duration"]["output"];
+  autoTuneMaximumHosts: Scalars["Boolean"]["output"];
   feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"]["output"];
   hostsOverallocatedRule: OverallocatedRule;
@@ -813,6 +814,7 @@ export type HostAllocatorSettings = {
 
 export type HostAllocatorSettingsInput = {
   acceptableHostIdleTime: Scalars["Int"]["input"];
+  autoTuneMaximumHosts?: InputMaybe<Scalars["Boolean"]["input"]>;
   feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"]["input"];
   hostsOverallocatedRule: OverallocatedRule;
