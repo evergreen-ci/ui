@@ -1,16 +1,15 @@
 <div>
   <div
-    class="css-1ry038z-Container e17dnzmx0"
+    class="css-1ry038z-Container e17dnzmx1"
   >
     <label
-      class="leafygreen-ui-ms04bw"
-      data-lgid="lg-label"
+      class="css-1b6u3gc-StyledLabel e17dnzmx0"
       for="searchable-dropdown-Project"
     >
       Project
     </label>
     <div
-      class="css-gte0m8-Wrapper e17dnzmx4"
+      class="css-gte0m8-Wrapper e17dnzmx5"
     >
       <div
         class="css-1ry038z-Container e1yw4j304"
