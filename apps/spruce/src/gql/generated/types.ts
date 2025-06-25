@@ -802,6 +802,7 @@ export enum HostAccessLevel {
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
   acceptableHostIdleTime: Scalars["Duration"]["output"];
+  autoTuneMaximumHosts: Scalars["Boolean"]["output"];
   feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"]["output"];
   hostsOverallocatedRule: OverallocatedRule;
@@ -813,6 +814,7 @@ export type HostAllocatorSettings = {
 
 export type HostAllocatorSettingsInput = {
   acceptableHostIdleTime: Scalars["Int"]["input"];
+  autoTuneMaximumHosts?: InputMaybe<Scalars["Boolean"]["input"]>;
   feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"]["input"];
   hostsOverallocatedRule: OverallocatedRule;
@@ -8991,6 +8993,22 @@ export type TaskStatusesQuery = {
   };
 };
 
+export type TaskTestCountQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskTestCountQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    failedTestCount: number;
+    totalTestCount: number;
+  } | null;
+};
+
 export type TaskTestSampleQueryVariables = Exact<{
   taskIds: Array<Scalars["String"]["input"]>;
   filters: Array<TestFilter>;
@@ -9101,7 +9119,6 @@ export type TaskQuery = {
     distroId: string;
     estimatedStart?: number | null;
     expectedDuration?: number | null;
-    failedTestCount: number;
     finishTime?: Date | null;
     generatedBy?: string | null;
     generatedByName?: string | null;
@@ -9121,7 +9138,6 @@ export type TaskQuery = {
     status: string;
     tags: Array<string>;
     timeTaken?: number | null;
-    totalTestCount: number;
     id: string;
     buildVariant: string;
     buildVariantDisplayName?: string | null;

@@ -8,8 +8,10 @@ import {
   BuildBaronQueryVariables,
   TaskQuery,
   TaskQueryVariables,
+  TaskTestCountQuery,
+  TaskTestCountQueryVariables,
 } from "gql/generated/types";
-import { BUILD_BARON, TASK } from "gql/queries";
+import { BUILD_BARON, TASK, TASK_TEST_COUNT } from "gql/queries";
 import { useQueryParam } from "hooks/useQueryParam";
 import { RequiredQueryParams } from "types/task";
 
@@ -53,12 +55,22 @@ export const useAnnotationAnalytics = () => {
     fetchPolicy: "cache-first",
   });
 
+  const { data: taskTestCountData } = useQuery<
+    TaskTestCountQuery,
+    TaskTestCountQueryVariables
+  >(TASK_TEST_COUNT, {
+    variables: {
+      taskId: taskId || "",
+      execution: execution,
+    },
+    fetchPolicy: "cache-first",
+  });
+  const { failedTestCount } = taskTestCountData?.task || {};
   const { buildBaronConfigured } = bbData?.buildBaron || {};
 
   const {
     displayName,
     displayStatus,
-    failedTestCount,
     latestExecution,
     project,
     requester = "",
@@ -71,7 +83,7 @@ export const useAnnotationAnalytics = () => {
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Annotations", {
     "task.display_status": displayStatus || "",
     "task.execution": execution,
-    "task.failed_test_count": failedTestCount || "",
+    "task.failed_test_count": failedTestCount ?? 0,
     "task.id": taskId || "",
     "task.is_latest_execution": isLatestExecution,
     "task.name": displayName || "",
