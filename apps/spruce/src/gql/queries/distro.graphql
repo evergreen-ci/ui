@@ -48,6 +48,7 @@ query Distro($distroId: String!) {
     }
     hostAllocatorSettings {
       acceptableHostIdleTime
+      autoTuneMaximumHosts
       feedbackRule
       futureHostFraction
       hostsOverallocatedRule
