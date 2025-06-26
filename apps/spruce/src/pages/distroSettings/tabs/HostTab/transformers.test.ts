@@ -75,12 +75,12 @@ const form: HostFormState = {
   },
   allocation: {
     version: HostAllocatorVersion.Utilization,
-    autoTuneMaximumHosts: true,
     roundingRule: RoundingRule.Default,
     feedbackRule: FeedbackRule.Default,
     hostsOverallocatedRule: OverallocatedRule.Default,
     minimumHosts: 0,
     maximumHosts: 0,
+    autoTuneMaximumHosts: true,
     acceptableHostIdleTime: 0,
     futureHostFraction: 0,
   },
