@@ -1,13 +1,3 @@
-.emotion-0 {
-  height: 100px;
-  overflow: scroll;
-  background-color: gray;
-}
-
-.emotion-1 {
-  height: 200px;
-}
-
 <div>
   Scroll the below container out of view and observe the component mounting and unmounting
   <div

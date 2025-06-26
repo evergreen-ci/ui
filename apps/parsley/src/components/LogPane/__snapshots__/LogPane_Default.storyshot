@@ -1,9 +1,3 @@
-.emotion-0 {
-  height: 500px;
-  width: 800px;
-  border: 1px solid black;
-}
-
 <div>
   <div
     class="emotion-0"

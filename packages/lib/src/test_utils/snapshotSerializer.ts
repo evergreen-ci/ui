@@ -12,7 +12,7 @@ const serializer = createSerializer({
     }
     return className;
   },
-  includeStyles: true,
+  includeStyles: false,
 });
 
 export default serializer;
