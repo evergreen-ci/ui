@@ -1268,6 +1268,7 @@ export type Mutation = {
   setLastRevision: SetLastRevisionPayload;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
+  setTaskPriorities: Array<Task>;
   setTaskPriority: Task;
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
@@ -1493,6 +1494,10 @@ export type MutationSetPatchVisibilityArgs = {
   patchIds: Array<Scalars["String"]["input"]>;
 };
 
+export type MutationSetTaskPrioritiesArgs = {
+  taskPriorities: Array<TaskPriority>;
+};
+
 export type MutationSetTaskPriorityArgs = {
   priority: Scalars["Int"]["input"];
   taskId: Scalars["String"]["input"];
@@ -1637,12 +1642,14 @@ export type ParameterInput = {
 export type ParsleyFilter = {
   __typename?: "ParsleyFilter";
   caseSensitive: Scalars["Boolean"]["output"];
+  description: Scalars["String"]["output"];
   exactMatch: Scalars["Boolean"]["output"];
   expression: Scalars["String"]["output"];
 };
 
 export type ParsleyFilterInput = {
   caseSensitive: Scalars["Boolean"]["input"];
+  description?: InputMaybe<Scalars["String"]["input"]>;
   exactMatch: Scalars["Boolean"]["input"];
   expression: Scalars["String"]["input"];
 };
@@ -2914,6 +2921,11 @@ export type TaskContainerCreationOpts = {
   workingDir: Scalars["String"]["output"];
 };
 
+/** TaskCountOptions defines the parameters that are used when counting tasks from a Version. */
+export type TaskCountOptions = {
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
 export type TaskEndDetail = {
   __typename?: "TaskEndDetail";
   description?: Maybe<Scalars["String"]["output"]>;
@@ -3040,6 +3052,11 @@ export type TaskOwnerTeam = {
   jiraProject: Scalars["String"]["output"];
   messages: Scalars["String"]["output"];
   teamName: Scalars["String"]["output"];
+};
+
+export type TaskPriority = {
+  priority: Scalars["Int"]["input"];
+  taskId: Scalars["String"]["input"];
 };
 
 /**
@@ -3450,7 +3467,7 @@ export type VersionBuildVariantsArgs = {
 
 /** Version models a commit within a project. */
 export type VersionTaskCountArgs = {
-  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
+  options?: InputMaybe<TaskCountOptions>;
 };
 
 /** Version models a commit within a project. */
@@ -9705,7 +9722,6 @@ export type VersionQuery = {
         githash: string;
         projectIdentifier: string;
         status: string;
-        taskCount?: number | null;
         parameters: Array<{
           __typename?: "Parameter";
           key: string;
