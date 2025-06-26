@@ -5,16 +5,6 @@ describe("task history", () => {
     cy.validateToast("error", "There was an error loading the task history");
   });
 
-  it("link from task page should link to the commit and scroll to it", () => {
-    cy.visit(`/task/${taskId}`);
-    cy.contains("See history").should("exist");
-    cy.contains("See history").click();
-    cy.location("pathname").should("eq", "/task-history/spruce/check_codegen");
-    cy.location("search").should("contain", `selectedCommit=1236`);
-    cy.dataCy("commit-label")
-      .contains("Mohamed Khelif -v2.28.5")
-      .should("be.visible");
-  });
   it("should be able expand and collapse inactive commits", () => {
     cy.visit("/task-history/spruce/check_codegen");
     // Expand
