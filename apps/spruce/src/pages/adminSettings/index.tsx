@@ -49,6 +49,29 @@ const AdminSettingsPage: React.FC = () => {
                 Announcements
               </SideNavItem>
             </SideNavGroup>
+            <SideNavGroup header="Feature Flags">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-general"
+                to={getAdminSettingsRoute(AdminSettingsTabRoutes.FeatureFlags)}
+              >
+                Services
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-general"
+                to={getAdminSettingsRoute(AdminSettingsTabRoutes.FeatureFlags)}
+              >
+                Notifications
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-general"
+                to={getAdminSettingsRoute(AdminSettingsTabRoutes.FeatureFlags)}
+              >
+                Batch Jobs
+              </SideNavItem>
+            </SideNavGroup>
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Restart Tasks">
             {}

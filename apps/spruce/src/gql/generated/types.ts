@@ -66,11 +66,13 @@ export type AdminSettings = {
   __typename?: "AdminSettings";
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
+  serviceFlags?: Maybe<ServiceFlags>;
 };
 
 export type AdminSettingsInput = {
   banner?: InputMaybe<Scalars["String"]["input"]>;
   bannerTheme?: InputMaybe<BannerTheme>;
+  serviceFlags?: InputMaybe<ServiceFlagsInput>;
 };
 
 /**
@@ -802,6 +804,7 @@ export enum HostAccessLevel {
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
   acceptableHostIdleTime: Scalars["Duration"]["output"];
+  autoTuneMaximumHosts: Scalars["Boolean"]["output"];
   feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"]["output"];
   hostsOverallocatedRule: OverallocatedRule;
@@ -813,6 +816,7 @@ export type HostAllocatorSettings = {
 
 export type HostAllocatorSettingsInput = {
   acceptableHostIdleTime: Scalars["Int"]["input"];
+  autoTuneMaximumHosts?: InputMaybe<Scalars["Boolean"]["input"]>;
   feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"]["input"];
   hostsOverallocatedRule: OverallocatedRule;
@@ -1265,6 +1269,7 @@ export type Mutation = {
   setLastRevision: SetLastRevisionPayload;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
+  setTaskPriorities: Array<Task>;
   setTaskPriority: Task;
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
@@ -1490,6 +1495,10 @@ export type MutationSetPatchVisibilityArgs = {
   patchIds: Array<Scalars["String"]["input"]>;
 };
 
+export type MutationSetTaskPrioritiesArgs = {
+  taskPriorities: Array<TaskPriority>;
+};
+
 export type MutationSetTaskPriorityArgs = {
   priority: Scalars["Int"]["input"];
   taskId: Scalars["String"]["input"];
@@ -1634,12 +1643,14 @@ export type ParameterInput = {
 export type ParsleyFilter = {
   __typename?: "ParsleyFilter";
   caseSensitive: Scalars["Boolean"]["output"];
+  description: Scalars["String"]["output"];
   exactMatch: Scalars["Boolean"]["output"];
   expression: Scalars["String"]["output"];
 };
 
 export type ParsleyFilterInput = {
   caseSensitive: Scalars["Boolean"]["input"];
+  description?: InputMaybe<Scalars["String"]["input"]>;
   exactMatch: Scalars["Boolean"]["input"];
   expression: Scalars["String"]["input"];
 };
@@ -2618,6 +2629,89 @@ export type SelectorInput = {
   type: Scalars["String"]["input"];
 };
 
+export type ServiceFlags = {
+  __typename?: "ServiceFlags";
+  adminParameterStoreDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  agentStartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  alertsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  backgroundCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  backgroundReauthDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  backgroundStatsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cacheStatsEndpointDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cacheStatsJobDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  checkBlockedTasksDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cliUpdatesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cloudCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  degradedModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  elasticIPsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  emailNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  eventProcessingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  evergreenTestResultsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubPRTestingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubStatusAPIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  hostAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  hostInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  jiraNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  podAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  schedulerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  slackNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  sleepScheduleDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  systemFailedTaskRestartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  taskDispatchDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+};
+
+export type ServiceFlagsInput = {
+  adminParameterStoreDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  agentStartDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  alertsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  backgroundCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  backgroundReauthDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  backgroundStatsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  cacheStatsEndpointDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  cacheStatsJobDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  checkBlockedTasksDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  cliUpdatesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  cloudCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  degradedModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  elasticIPsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  emailNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  eventProcessingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  evergreenTestResultsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  githubPRTestingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  githubStatusAPIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  hostAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  hostInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  jiraNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  jwtTokenForCLIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  largeParserProjectsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  podAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  podInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  schedulerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  slackNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sleepScheduleDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  staticAPIKeysDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  systemFailedTaskRestartDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  taskDispatchDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  taskLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
 /**
  * SetLastRevisionInput is the input to the setLastRevision mutation.
  * It contains information used to fix the repotracker error of a project.
@@ -3037,6 +3131,11 @@ export type TaskOwnerTeam = {
   jiraProject: Scalars["String"]["output"];
   messages: Scalars["String"]["output"];
   teamName: Scalars["String"]["output"];
+};
+
+export type TaskPriority = {
+  priority: Scalars["Int"]["input"];
+  taskId: Scalars["String"]["input"];
 };
 
 /**
@@ -5546,6 +5645,47 @@ export type SaveAdminSettingsMutation = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    serviceFlags?: {
+      __typename?: "ServiceFlags";
+      adminParameterStoreDisabled?: boolean | null;
+      agentStartDisabled?: boolean | null;
+      alertsDisabled?: boolean | null;
+      backgroundCleanupDisabled?: boolean | null;
+      backgroundReauthDisabled?: boolean | null;
+      backgroundStatsDisabled?: boolean | null;
+      cacheStatsEndpointDisabled?: boolean | null;
+      cacheStatsJobDisabled?: boolean | null;
+      checkBlockedTasksDisabled?: boolean | null;
+      cliUpdatesDisabled?: boolean | null;
+      cloudCleanupDisabled?: boolean | null;
+      degradedModeDisabled?: boolean | null;
+      elasticIPsDisabled?: boolean | null;
+      emailNotificationsDisabled?: boolean | null;
+      eventProcessingDisabled?: boolean | null;
+      evergreenTestResultsDisabled?: boolean | null;
+      githubPRTestingDisabled?: boolean | null;
+      githubStatusAPIDisabled?: boolean | null;
+      hostAllocatorDisabled?: boolean | null;
+      hostInitDisabled?: boolean | null;
+      jiraNotificationsDisabled?: boolean | null;
+      jwtTokenForCLIDisabled?: boolean | null;
+      largeParserProjectsDisabled?: boolean | null;
+      monitorDisabled?: boolean | null;
+      podAllocatorDisabled?: boolean | null;
+      podInitDisabled?: boolean | null;
+      releaseModeDisabled?: boolean | null;
+      repotrackerDisabled?: boolean | null;
+      schedulerDisabled?: boolean | null;
+      slackNotificationsDisabled?: boolean | null;
+      sleepScheduleDisabled?: boolean | null;
+      staticAPIKeysDisabled?: boolean | null;
+      systemFailedTaskRestartDisabled?: boolean | null;
+      taskDispatchDisabled?: boolean | null;
+      taskLoggingDisabled?: boolean | null;
+      taskReliabilityDisabled?: boolean | null;
+      unrecognizedPodCleanupDisabled?: boolean | null;
+      webhookNotificationsDisabled?: boolean | null;
+    } | null;
   };
 };
 
@@ -5883,6 +6023,47 @@ export type AdminSettingsQuery = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    serviceFlags?: {
+      __typename?: "ServiceFlags";
+      adminParameterStoreDisabled?: boolean | null;
+      agentStartDisabled?: boolean | null;
+      alertsDisabled?: boolean | null;
+      backgroundCleanupDisabled?: boolean | null;
+      backgroundReauthDisabled?: boolean | null;
+      backgroundStatsDisabled?: boolean | null;
+      cacheStatsEndpointDisabled?: boolean | null;
+      cacheStatsJobDisabled?: boolean | null;
+      checkBlockedTasksDisabled?: boolean | null;
+      cliUpdatesDisabled?: boolean | null;
+      cloudCleanupDisabled?: boolean | null;
+      degradedModeDisabled?: boolean | null;
+      elasticIPsDisabled?: boolean | null;
+      emailNotificationsDisabled?: boolean | null;
+      eventProcessingDisabled?: boolean | null;
+      evergreenTestResultsDisabled?: boolean | null;
+      githubPRTestingDisabled?: boolean | null;
+      githubStatusAPIDisabled?: boolean | null;
+      hostAllocatorDisabled?: boolean | null;
+      hostInitDisabled?: boolean | null;
+      jiraNotificationsDisabled?: boolean | null;
+      jwtTokenForCLIDisabled?: boolean | null;
+      largeParserProjectsDisabled?: boolean | null;
+      monitorDisabled?: boolean | null;
+      podAllocatorDisabled?: boolean | null;
+      podInitDisabled?: boolean | null;
+      releaseModeDisabled?: boolean | null;
+      repotrackerDisabled?: boolean | null;
+      schedulerDisabled?: boolean | null;
+      slackNotificationsDisabled?: boolean | null;
+      sleepScheduleDisabled?: boolean | null;
+      staticAPIKeysDisabled?: boolean | null;
+      systemFailedTaskRestartDisabled?: boolean | null;
+      taskDispatchDisabled?: boolean | null;
+      taskLoggingDisabled?: boolean | null;
+      taskReliabilityDisabled?: boolean | null;
+      unrecognizedPodCleanupDisabled?: boolean | null;
+      webhookNotificationsDisabled?: boolean | null;
+    } | null;
   } | null;
 };
 

@@ -66,6 +66,7 @@ export type AdminSettings = {
   __typename?: "AdminSettings";
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
+  featureFlags?: Maybe<FeatureFlags>;
 };
 
 export type AdminSettingsInput = {
@@ -588,6 +589,48 @@ export type ExternalLinkInput = {
   displayName: Scalars["String"]["input"];
   requesters: Array<Scalars["String"]["input"]>;
   urlTemplate: Scalars["String"]["input"];
+};
+
+export type FeatureFlags = {
+  __typename?: "FeatureFlags";
+  adminParameterStoreDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  agentStartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  alertsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  backgroundCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  backgroundReauthDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  backgroundStatsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cacheStatsEndpointDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cacheStatsJobDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  checkBlockedTasksDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cliUpdatesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cloudCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cpuDegradedModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  elasticIPsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  emailNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  eventProcessingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  evergreenTestResultsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubPRTestingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubStatusAPIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  hostAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  hostInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  jiraNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  podAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  schedulerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  slackNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  sleepScheduleDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  systemFailedTaskRestartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  taskDispatchDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export enum FeedbackRule {

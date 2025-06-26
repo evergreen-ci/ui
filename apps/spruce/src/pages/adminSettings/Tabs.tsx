@@ -5,6 +5,7 @@ import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { AdminSaveButton } from "./AdminSaveButton";
 import { useAdminSettingsContext } from "./Context";
 import { AnnouncementTab } from "./tabs/AnnouncementsTab/AnnouncementTab";
+import { FeatureFlagsTab } from "./tabs/FeatureFlagsTab/FeatureFlagsTab";
 import { gqlToFormMap } from "./tabs/transformers";
 import { FormStateMap, WritableAdminSettingsType } from "./tabs/types";
 
@@ -19,13 +20,12 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   useEffect(() => {
     setInitialData(tabData);
   }, [setInitialData, tabData]);
-
   useScrollToAnchor();
-
   return (
     <TabsContent>
       <AdminSaveButton />
       <AnnouncementTab announcementsData={tabData.announcements} />
+      <FeatureFlagsTab featureFlagsData={tabData["feature-flags"]} />
     </TabsContent>
   );
 };
