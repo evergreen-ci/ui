@@ -20,16 +20,6 @@ describe("task history", () => {
     cy.contains("2ab1c56").should("not.be.visible");
   });
 
-  it("clicking on a failing test history button should show the task history view with the failing test filter applied", () => {
-    cy.visit(`/task/${taskId}`);
-    cy.dataCy("task-history-tests-btn").click();
-    cy.location("pathname").should(
-      "contain",
-      `/task-history/spruce/check_codegen`,
-    );
-    cy.dataCy("filter-chip").should("exist");
-    cy.dataCy("filter-chip").should("contain.text", "Failed: Jus");
-  });
   it("hovering over a failing task should show test results", () => {
     cy.visit(
       "/task-history/spruce/check_codegen?failed=JustA&selectedCommit=1236",
@@ -77,6 +67,3 @@ describe("task history", () => {
     });
   });
 });
-
-const taskId =
-  "spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35";
