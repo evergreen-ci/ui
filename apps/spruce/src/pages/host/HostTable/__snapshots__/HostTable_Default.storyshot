@@ -1,9 +1,9 @@
 <div>
   <div
-    class="css-fjns6y-SiderCard ehoeyp90 leafygreen-ui-1ecxdul"
+    class="emotion-SiderCard ehoeyp90 leafygreen-ui-1ecxdul"
   >
     <div
-      class="css-petfxd-TableTitle e1p1q3sw1"
+      class="emotion-TableTitle e1p1q3sw1"
     >
       <h6
         class="leafygreen-ui-19p3n10"
@@ -11,15 +11,15 @@
         Recent Events
       </h6>
       <div
-        class="css-1x3ka24-PaginationWrapper e1p1q3sw0"
+        class="emotion-PaginationWrapper e1p1q3sw0"
       >
         <div
-          class="css-o7pwgi-Container e4w46hm0"
+          class="emotion-Container e4w46hm0"
           data-cy="pagination"
         >
           <button
             aria-disabled="false"
-            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d css-mze5ol-StyledButton e4w46hm2"
+            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d emotion-StyledButton e4w46hm2"
             data-cy="prev-page-button"
             data-lgid="lg-button"
             type="button"
@@ -50,7 +50,7 @@
             </div>
           </button>
           <div
-            class="css-ob08n2-PageLabel e4w46hm1"
+            class="emotion-PageLabel e4w46hm1"
           >
             <small
               class="leafygreen-ui-6flbwy"
@@ -62,7 +62,7 @@
           </div>
           <button
             aria-disabled="true"
-            class="lg-ui-button-0000 leafygreen-ui-zzkmfy css-mze5ol-StyledButton e4w46hm2"
+            class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-StyledButton e4w46hm2"
             data-cy="next-page-button"
             data-lgid="lg-button"
             type="button"
@@ -94,7 +94,7 @@
           </button>
         </div>
         <div
-          class="leafygreen-ui-1iyoj2o css-5krlfz-StyledSelect ekttol50"
+          class="leafygreen-ui-1iyoj2o emotion-StyledSelect ekttol50"
           data-lgid="lg-select"
         >
           <button
@@ -194,7 +194,7 @@
               >
                 Event
                 <div
-                  class="css-dfh62w-FilterWrapper e1gla5v20"
+                  class="emotion-FilterWrapper e1gla5v20"
                 >
                   <button
                     aria-disabled="false"
@@ -633,14 +633,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -670,11 +670,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -777,14 +777,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -814,11 +814,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -920,14 +920,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -957,11 +957,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -1344,14 +1344,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -1381,11 +1381,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -1488,14 +1488,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -1525,11 +1525,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -1743,14 +1743,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -1780,11 +1780,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -1884,7 +1884,7 @@
                       Current running task cleared (was:
                        
                       <a
-                        class="lg-ui-0001 e9hwzqp0 css-1hvkyrf-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 e9hwzqp0 emotion-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
                         data-cy="host-running-task-cleared-link"
                         href="/task/taskId"
                         responsivebreakpoint="1200"
@@ -1950,7 +1950,7 @@
                       Assigned to run task
                        
                       <a
-                        class="lg-ui-0001 e9hwzqp0 css-1hvkyrf-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 e9hwzqp0 emotion-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
                         data-cy="host-running-task-set-link"
                         href="/task/taskId"
                         responsivebreakpoint="1200"
@@ -2018,14 +2018,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -2055,11 +2055,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -2161,14 +2161,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -2198,11 +2198,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -2305,14 +2305,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -2342,11 +2342,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -2462,14 +2462,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -2499,11 +2499,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -2572,14 +2572,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -2609,11 +2609,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -2713,7 +2713,7 @@
                       Task
                        
                       <a
-                        class="lg-ui-0001 e9hwzqp0 css-1hvkyrf-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 e9hwzqp0 emotion-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
                         data-cy="host-task-finished-link"
                         href="/task/taskId"
                         responsivebreakpoint="1200"
@@ -2894,14 +2894,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -2931,11 +2931,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"
@@ -3091,14 +3091,14 @@
                         data-cy="host-event-log"
                       >
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             style="align-self: center;"
                             tabindex="0"
                           >
@@ -3128,11 +3128,11 @@
                         </div>
                         <div
                           aria-expanded="false"
-                          class="css-sstoka-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <span
                               data-cy="host-event-log-content"

@@ -2,15 +2,15 @@
   <div>
     <div
       aria-hidden="true"
-      class="css-h8bbko-HeaderSkeleton e12dscl91 leafygreen-ui-jv9p3c"
+      class="emotion-HeaderSkeleton e12dscl91 leafygreen-ui-jv9p3c"
     />
     <div
       aria-hidden="true"
-      class="css-4en702-ButtonSkeleton e12dscl90 leafygreen-ui-jv9p3c"
+      class="emotion-ButtonSkeleton e12dscl90 leafygreen-ui-jv9p3c"
     />
     <table
       aria-busy="true"
-      class="leafygreen-ui-fjy1ju css-mk6ms-StyledTableSkeleton e12dscl92"
+      class="leafygreen-ui-fjy1ju emotion-StyledTableSkeleton e12dscl92"
     >
       <thead
         class="leafygreen-ui-wfaekx"

@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+    class="emotion-BaseCell-Cell e1bcz5i62"
     data-cy="task-cell"
     title="Succeeded"
   >
@@ -8,12 +8,12 @@
       href="/task/task-1"
     >
       <div
-        class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
+        class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
         data-cy="history-table-icon"
         data-status="success"
       >
         <div
-          class="css-amsv4f-IconContainer e12dzyme1"
+          class="emotion-IconContainer e12dzyme1"
         >
           <svg
             aria-label="Checkmark Icon"

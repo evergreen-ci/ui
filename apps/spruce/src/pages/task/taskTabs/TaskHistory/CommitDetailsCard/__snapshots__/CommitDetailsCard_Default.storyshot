@@ -1,12 +1,12 @@
 <div>
   <div
-    class="css-1m5jqpg-CommitCard e1a625uv2"
+    class="emotion-CommitCard e1a625uv2"
     data-cy="commit-details-card"
     data-task-history-guide-id="commit-details"
     id="commit-card-a"
   >
     <div
-      class="css-12rnwxt-TopLabel e1a625uv1"
+      class="emotion-TopLabel e1a625uv1"
     >
       <a
         class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -86,26 +86,26 @@
         </span>
       </span>
       <div
-        class="css-1pa0taf-OrderLabel e1a625uv0"
+        class="emotion-OrderLabel e1a625uv0"
       >
         Order: 
         100
       </div>
     </div>
     <div
-      class="css-1qgx25j-BottomLabel end94gb2"
+      class="emotion-BottomLabel end94gb2"
     >
       <b
-        class="css-1nvsyyh-AuthorLabel end94gb1"
+        class="emotion-AuthorLabel end94gb1"
       >
         Evergreen Admin
          - 
       </b>
       <span
-        class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+        class="emotion-WordBreak-wordBreakCss e1wygaev0"
       >
         <a
-          class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
           data-cy="jira-link"
           href="https:///browse/DEVPROD-1234"
           rel="noopener noreferrer"

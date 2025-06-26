@@ -201,12 +201,12 @@
                   class=""
                 >
                   <a
-                    class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                     href="/task/some_id_5?execution=5"
                   >
                     <span>
                       <span
-                        class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                        class="emotion-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                       >
                         Some fancy execution task
                       </span>
@@ -234,7 +234,7 @@
                     href="/task/some_id_5?execution=5"
                   >
                     <div
-                      class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                       data-cy="task-status-badge"
                     >
                       Succeeded
@@ -262,7 +262,7 @@
                     href="/task/some_id_5_base?execution=5"
                   >
                     <div
-                      class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                       data-cy="task-status-badge"
                     >
                       Succeeded
@@ -287,7 +287,7 @@
                   class=""
                 >
                   <a
-                    class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                     href="/variant-history/undefined/Windows"
                   >
                     <span>
@@ -325,12 +325,12 @@
                   class=""
                 >
                   <a
-                    class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                     href="/task/some_id_6?execution=5"
                   >
                     <span>
                       <span
-                        class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                        class="emotion-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                       >
                         Another execution task
                       </span>
@@ -358,7 +358,7 @@
                     href="/task/some_id_6?execution=5"
                   >
                     <div
-                      class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                       data-cy="task-status-badge"
                     >
                       Succeeded
@@ -386,7 +386,7 @@
                     href="/task/some_id_6_base?execution=5"
                   >
                     <div
-                      class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                       data-cy="task-status-badge"
                     >
                       Succeeded
@@ -411,7 +411,7 @@
                   class=""
                 >
                   <a
-                    class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                     href="/variant-history/undefined/Windows"
                   >
                     <span>
