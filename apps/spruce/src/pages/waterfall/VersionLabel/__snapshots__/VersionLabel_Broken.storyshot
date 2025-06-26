@@ -1,13 +1,13 @@
 <div>
   <div
-    class="css-1pp2qz6"
+    class="emotion-0"
   >
     <div
-      class="css-5f31us-VersionContainer-columnBasis-wordBreakCss e3zirl03"
+      class="emotion-VersionContainer-columnBasis-wordBreakCss e3zirl03"
       data-cy="version-label-active"
     >
       <div
-        class="css-1idzah1-HeaderLine e3zirl00"
+        class="emotion-HeaderLine e3zirl00"
       >
         <p
           class="leafygreen-ui-1tb6tuo"
@@ -25,14 +25,14 @@
            
           09/19/2024, 10:56
           <div
-            class="css-etc2w8-StyledBadge e3zirl01 leafygreen-ui-dhdzha"
+            class="emotion-StyledBadge e3zirl01 leafygreen-ui-dhdzha"
           >
             Broken
           </div>
         </p>
       </div>
       <p
-        class="css-9ip3is-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+        class="emotion-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
         view="modal"
       >
         <strong>
@@ -41,7 +41,7 @@
          •
          
         <a
-          class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
           data-cy="jira-link"
           href="https://jira.mongodb.org/browse/DEVPROD-11387"
           rel="noopener noreferrer"

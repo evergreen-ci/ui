@@ -22,11 +22,11 @@
             aria-disabled="false"
             aria-invalid="false"
             aria-label="Time picker form"
-            class="lg-ui-form-field-input-0000 css-jj1st0-ContentWrapper e9c2bxn0"
+            class="lg-ui-form-field-input-0000 emotion-ContentWrapper e9c2bxn0"
             id="lg-form_field-input-4"
           >
             <input
-              class="css-122szfx-StyledInput evefz8k0"
+              class="emotion-StyledInput evefz8k0"
               data-cy="hour-input"
               maxlength="2"
               placeholder="00"
@@ -34,12 +34,12 @@
               value="12"
             />
             <span
-              class="css-1lj3q01-Colon e9c2bxn2"
+              class="emotion-Colon e9c2bxn2"
             >
               :
             </span>
             <input
-              class="css-122szfx-StyledInput evefz8k0"
+              class="emotion-StyledInput evefz8k0"
               data-cy="minute-input"
               maxlength="2"
               placeholder="00"

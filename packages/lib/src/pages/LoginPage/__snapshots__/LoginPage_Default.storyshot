@@ -1,9 +1,9 @@
 <div>
   <div
-    class="css-10gu5v4"
+    class="emotion-0"
   >
     <form
-      class="css-p1siur"
+      class="emotion-1"
     >
       <div
         class="leafygreen-ui-1br9h7w"
@@ -101,7 +101,7 @@
       </div>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-x07hfs css-101to94"
+        class="lg-ui-button-0000 leafygreen-ui-x07hfs emotion-17"
         data-cy="login-submit"
         data-lgid="lg-button"
         type="submit"

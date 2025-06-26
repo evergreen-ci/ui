@@ -1,7 +1,7 @@
 <div>
   <div>
     <div
-      class="css-105gl7n-Container e92ehni0"
+      class="emotion-Container e92ehni0"
     >
       <span
         aria-disabled="false"
@@ -155,7 +155,7 @@
       </div>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-5xsnod css-1gs5ebu"
+        class="lg-ui-button-0000 leafygreen-ui-5xsnod emotion-23"
         data-lgid="lg-button"
         type="button"
       >

@@ -2,9 +2,12 @@ import { composeStories, setProjectAnnotations } from "@storybook/react-vite";
 import { expect } from "vitest";
 import path from "path";
 import { act, render, stubGetClientRects } from "@evg-ui/lib/test_utils";
+import snapshotSerializer from "@evg-ui/lib/test_utils/snapshotSerializer";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { projectAnnotations } from "@evg-ui/storybook-addon";
 import * as previewAnnotations from "../.storybook/preview";
+
+expect.addSnapshotSerializer(snapshotSerializer);
 
 setProjectAnnotations([projectAnnotations, previewAnnotations]);
 

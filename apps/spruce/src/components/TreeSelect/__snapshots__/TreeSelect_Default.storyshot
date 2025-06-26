@@ -1,10 +1,10 @@
 <div>
   <div
-    class="css-eev96u-CheckboxContainer e1mpj03z1"
+    class="emotion-CheckboxContainer e1mpj03z1"
     data-cy="tree-select-options"
   >
     <div
-      class="css-j2ntgf-CheckboxWrapper e1mpj03z3"
+      class="emotion-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -59,7 +59,7 @@
       </div>
     </div>
     <div
-      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
+      class="emotion-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -114,7 +114,7 @@
       </div>
     </div>
     <div
-      class="css-154o89o-CheckboxWrapper e1mpj03z3"
+      class="emotion-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -169,7 +169,7 @@
       </div>
     </div>
     <div
-      class="css-154o89o-CheckboxWrapper e1mpj03z3"
+      class="emotion-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -224,7 +224,7 @@
       </div>
     </div>
     <div
-      class="css-154o89o-CheckboxWrapper e1mpj03z3"
+      class="emotion-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -279,7 +279,7 @@
       </div>
     </div>
     <div
-      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
+      class="emotion-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -334,7 +334,7 @@
       </div>
     </div>
     <div
-      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
+      class="emotion-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -389,7 +389,7 @@
       </div>
     </div>
     <div
-      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
+      class="emotion-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -444,7 +444,7 @@
       </div>
     </div>
     <div
-      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
+      class="emotion-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
