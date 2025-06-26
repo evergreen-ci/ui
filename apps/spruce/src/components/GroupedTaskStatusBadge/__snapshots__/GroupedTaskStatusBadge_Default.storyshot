@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-1aantqb"
+    class="emotion-0"
   >
     <div
       class="leafygreen-ui-cssveg"
@@ -10,16 +10,16 @@
         href="/test"
       >
         <div
-          class="css-1d7t73j-BadgeContainer emc61an4"
+          class="emotion-BadgeContainer emc61an4"
           fill="#E3FCF7"
         >
           <span
-            class="css-1f81ztl-Number emc61an2"
+            class="emotion-Number emc61an2"
           >
             20
           </span>
           <span
-            class="css-oqj204-Status emc61an1"
+            class="emotion-Status emc61an1"
           >
             Succeeded
           </span>
@@ -34,16 +34,16 @@
         href="/test"
       >
         <div
-          class="css-1d7t73j-BadgeContainer emc61an4"
+          class="emotion-BadgeContainer emc61an4"
           fill="#E3FCF7"
         >
           <span
-            class="css-1f81ztl-Number emc61an2"
+            class="emotion-Number emc61an2"
           >
             1
           </span>
           <span
-            class="css-oqj204-Status emc61an1"
+            class="emotion-Status emc61an1"
           >
             Succeeded
           </span>
@@ -58,16 +58,16 @@
         href="/test"
       >
         <div
-          class="css-1s2ykav-BadgeContainer emc61an4"
+          class="emotion-BadgeContainer emc61an4"
           fill="#FFEAE5"
         >
           <span
-            class="css-1f81ztl-Number emc61an2"
+            class="emotion-Number emc61an2"
           >
             1
           </span>
           <span
-            class="css-oqj204-Status emc61an1"
+            class="emotion-Status emc61an1"
           >
             Failed
           </span>
@@ -82,16 +82,16 @@
         href="/test"
       >
         <div
-          class="css-16matd4-BadgeContainer emc61an4"
+          class="emotion-BadgeContainer emc61an4"
           fill="#FEF7DB"
         >
           <span
-            class="css-1f81ztl-Number emc61an2"
+            class="emotion-Number emc61an2"
           >
             2
           </span>
           <span
-            class="css-oqj204-Status emc61an1"
+            class="emotion-Status emc61an1"
           >
             Running
           </span>
@@ -106,16 +106,16 @@
         href="/test"
       >
         <div
-          class="css-8wyaho-BadgeContainer emc61an4"
+          class="emotion-BadgeContainer emc61an4"
           fill="#5E0C9E"
         >
           <span
-            class="css-1f81ztl-Number emc61an2"
+            class="emotion-Number emc61an2"
           >
             3
           </span>
           <span
-            class="css-oqj204-Status emc61an1"
+            class="emotion-Status emc61an1"
           >
             System Failed
           </span>
@@ -130,16 +130,16 @@
         href="/test"
       >
         <div
-          class="css-5wnuy6-BadgeContainer emc61an4"
+          class="emotion-BadgeContainer emc61an4"
           fill="#F1D4FD"
         >
           <span
-            class="css-1f81ztl-Number emc61an2"
+            class="emotion-Number emc61an2"
           >
             4
           </span>
           <span
-            class="css-oqj204-Status emc61an1"
+            class="emotion-Status emc61an1"
           >
             Setup Failed
           </span>
@@ -154,16 +154,16 @@
         href="/test"
       >
         <div
-          class="css-5wnuy6-BadgeContainer emc61an4"
+          class="emotion-BadgeContainer emc61an4"
           fill="#F1D4FD"
         >
           <span
-            class="css-1f81ztl-Number emc61an2"
+            class="emotion-Number emc61an2"
           >
             1
           </span>
           <span
-            class="css-oqj204-Status emc61an1"
+            class="emotion-Status emc61an1"
           >
             Setup Failed
           </span>
@@ -178,16 +178,16 @@
         href="/test"
       >
         <div
-          class="css-1wx1xli-BadgeContainer emc61an4"
+          class="emotion-BadgeContainer emc61an4"
           fill="#F9FBFA"
         >
           <span
-            class="css-1f81ztl-Number emc61an2"
+            class="emotion-Number emc61an2"
           >
             5
           </span>
           <span
-            class="css-oqj204-Status emc61an1"
+            class="emotion-Status emc61an1"
           >
             Undispatched
           </span>
@@ -202,16 +202,16 @@
         href="/test"
       >
         <div
-          class="css-1hkjlfn-BadgeContainer emc61an4"
+          class="emotion-BadgeContainer emc61an4"
           fill="#5C6C75"
         >
           <span
-            class="css-1f81ztl-Number emc61an2"
+            class="emotion-Number emc61an2"
           >
             5
           </span>
           <span
-            class="css-oqj204-Status emc61an1"
+            class="emotion-Status emc61an1"
           >
             Scheduled
           </span>

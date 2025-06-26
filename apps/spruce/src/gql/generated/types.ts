@@ -1267,6 +1267,7 @@ export type Mutation = {
   setLastRevision: SetLastRevisionPayload;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
+  setTaskPriorities: Array<Task>;
   setTaskPriority: Task;
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
@@ -1492,6 +1493,10 @@ export type MutationSetPatchVisibilityArgs = {
   patchIds: Array<Scalars["String"]["input"]>;
 };
 
+export type MutationSetTaskPrioritiesArgs = {
+  taskPriorities: Array<TaskPriority>;
+};
+
 export type MutationSetTaskPriorityArgs = {
   priority: Scalars["Int"]["input"];
   taskId: Scalars["String"]["input"];
@@ -1636,12 +1641,14 @@ export type ParameterInput = {
 export type ParsleyFilter = {
   __typename?: "ParsleyFilter";
   caseSensitive: Scalars["Boolean"]["output"];
+  description: Scalars["String"]["output"];
   exactMatch: Scalars["Boolean"]["output"];
   expression: Scalars["String"]["output"];
 };
 
 export type ParsleyFilterInput = {
   caseSensitive: Scalars["Boolean"]["input"];
+  description?: InputMaybe<Scalars["String"]["input"]>;
   exactMatch: Scalars["Boolean"]["input"];
   expression: Scalars["String"]["input"];
 };
@@ -3039,6 +3046,11 @@ export type TaskOwnerTeam = {
   jiraProject: Scalars["String"]["output"];
   messages: Scalars["String"]["output"];
   teamName: Scalars["String"]["output"];
+};
+
+export type TaskPriority = {
+  priority: Scalars["Int"]["input"];
+  taskId: Scalars["String"]["input"];
 };
 
 /**
@@ -8994,6 +9006,22 @@ export type TaskStatusesQuery = {
   };
 };
 
+export type TaskTestCountQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskTestCountQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    failedTestCount: number;
+    totalTestCount: number;
+  } | null;
+};
+
 export type TaskTestSampleQueryVariables = Exact<{
   taskIds: Array<Scalars["String"]["input"]>;
   filters: Array<TestFilter>;
@@ -9104,7 +9132,6 @@ export type TaskQuery = {
     distroId: string;
     estimatedStart?: number | null;
     expectedDuration?: number | null;
-    failedTestCount: number;
     finishTime?: Date | null;
     generatedBy?: string | null;
     generatedByName?: string | null;
@@ -9124,7 +9151,6 @@ export type TaskQuery = {
     status: string;
     tags: Array<string>;
     timeTaken?: number | null;
-    totalTestCount: number;
     id: string;
     buildVariant: string;
     buildVariantDisplayName?: string | null;

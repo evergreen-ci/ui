@@ -5,32 +5,32 @@
       id="ui-options"
     >
       <h3
-        class="css-17gedve-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
+        class="emotion-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
       >
         UI Options
       </h3>
     </a>
     <div
-      class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
+      class="emotion-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
     >
       <form
         class="rjsf"
         novalidate=""
       >
         <div
-          class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v1"
+          class="form-group field field-object emotion-DefaultFieldContainer eny4k1v1"
           id=" root"
         >
           <fieldset
-            class="css-0"
+            class="emotion-8"
             id="root"
           >
             <div
-              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v1"
+              class="form-group field field-boolean emotion-DefaultFieldContainer eny4k1v1"
               id=" root_visible"
             >
               <div
-                class="css-cjejq9-ElementWrapper ee4bs9n0"
+                class="emotion-ElementWrapper ee4bs9n0"
               >
                 <div
                   class="leafygreen-ui-55kazc"
