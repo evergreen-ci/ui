@@ -1,7 +1,0 @@
-query PatchTaskStatuses($id: String!) {
-  patch(patchId: $id) {
-    id
-    baseTaskStatuses
-    taskStatuses
-  }
-}

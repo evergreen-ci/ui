@@ -15,3 +15,4 @@ export const SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL =
   "seen-task-history-onboarding-tutorial";
 export const TASK_HISTORY_INACTIVE_COMMITS_VIEW =
   "task-history-inactive-commits-view";
+export const INCLUDE_NEVER_ACTIVATED_TASKS = "include-never-activated-tasks";

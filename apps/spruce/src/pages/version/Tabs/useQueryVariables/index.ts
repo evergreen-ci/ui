@@ -23,6 +23,8 @@ export const useQueryVariables = (
     [PatchTasksQueryParams.TaskName]: taskName,
     [PatchTasksQueryParams.Statuses]: statuses,
     [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
+    [PatchTasksQueryParams.IncludeNeverActivatedTasks]:
+      includeNeverActivatedTasks,
   } = queryParams;
 
   const sortsToApply: SortOrder[] = sorts
@@ -43,6 +45,7 @@ export const useQueryVariables = (
       sorts: sortsToApply,
       limit,
       page,
+      includeNeverActivatedTasks: includeNeverActivatedTasks === "true",
     },
   };
 };

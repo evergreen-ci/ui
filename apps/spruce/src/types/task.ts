@@ -20,6 +20,7 @@ export enum PatchTasksQueryParams {
   Variant = "variant",
   TaskName = "taskName",
   Duration = "duration",
+  IncludeNeverActivatedTasks = "includeNeverActivatedTasks",
 }
 
 export enum TestAnalysisQueryParams {
