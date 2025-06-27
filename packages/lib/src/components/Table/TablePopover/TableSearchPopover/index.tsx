@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -9,9 +9,9 @@ import {
   Size as SearchInputSize,
 } from "@leafygreen-ui/search-input";
 import { Description } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useOnClickOutside } from "@evg-ui/lib/hooks";
-import { PopoverContainer } from "components/styles/Popover";
+import { size } from "../../../../constants/tokens";
+import { useOnClickOutside } from "../../../../hooks";
+import { PopoverContainer } from "../../../styles/Popover";
 import { DEFAULT_SPACING, FilterWrapper } from "../constants";
 
 const { blue, gray } = palette;

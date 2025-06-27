@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { palette } from "@leafygreen-ui/palette";
-import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { FilterInputControls } from "components/FilterInputControls";
+import { size } from "../../constants/tokens";
+import ConditionalWrapper from "../ConditionalWrapper";
+import { FilterInputControls } from "../FilterInputControls";
 
 const { gray } = palette;
 
@@ -72,15 +72,14 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
     return null;
   }
 
+  const wrapperComponent = (children: React.ReactNode) => (
+    <RelativeWrapper>
+      <OptionsWrapper>{children}</OptionsWrapper>
+    </RelativeWrapper>
+  );
+
   return (
-    <ConditionalWrapper
-      condition={isDropdown}
-      wrapper={(children) => (
-        <RelativeWrapper>
-          <OptionsWrapper>{children}</OptionsWrapper>
-        </RelativeWrapper>
-      )}
-    >
+    <ConditionalWrapper condition={isDropdown} wrapper={wrapperComponent}>
       <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
         {renderCheckboxes({
           state: filteredState,

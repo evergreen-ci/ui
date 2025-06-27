@@ -1,11 +1,11 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import Popover, { Align, Justify } from "@leafygreen-ui/popover";
-import { useOnClickOutside } from "@evg-ui/lib/hooks";
-import { PopoverContainer } from "components/styles/Popover";
-import { TreeDataEntry, TreeSelect } from "components/TreeSelect";
+import { useOnClickOutside } from "../../../../hooks";
+import { PopoverContainer } from "../../../styles/Popover";
+import { TreeDataEntry, TreeSelect } from "../../../TreeSelect";
 import { DEFAULT_SPACING, FilterWrapper } from "../constants";
 
 const { blue, gray } = palette;

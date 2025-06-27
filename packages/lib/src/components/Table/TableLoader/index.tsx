@@ -1,3 +1,4 @@
+import React from "react";
 import LoadingRow from "./LoadingRow";
 
 interface TableLoaderProps {

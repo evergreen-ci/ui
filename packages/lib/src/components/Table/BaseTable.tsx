@@ -188,6 +188,7 @@ const TableHeaderCell = <T extends LGRowData>({
   const { columnDef } = header.column ?? {};
   const { meta } = columnDef;
   return (
+    // @ts-expect-error: LeafyGreen UI component type compatibility issue
     <HeaderCell
       key={header.id}
       header={header}
@@ -257,6 +258,7 @@ const RenderableRow = <T extends LGRowData>({
 }) => (
   <Fragment key={row.id}>
     {!row.isExpandedContent && (
+      // @ts-expect-error: LeafyGreen UI component type compatibility issue
       <Row
         className={css`
           ${isSelected &&
@@ -272,6 +274,7 @@ const RenderableRow = <T extends LGRowData>({
         virtualRow={virtualRow}
       >
         {row.getVisibleCells().map((cell) => (
+          // @ts-expect-error: LeafyGreen UI component type compatibility issue
           <Cell
             key={cell.id}
             cell={cell}
@@ -283,7 +286,10 @@ const RenderableRow = <T extends LGRowData>({
         ))}
       </Row>
     )}
-    {row.isExpandedContent && <StyledExpandedContent row={row} />}
+    {row.isExpandedContent && (
+      // @ts-expect-error: LeafyGreen UI component type compatibility issue
+      <StyledExpandedContent row={row} />
+    )}
   </Fragment>
 );
 

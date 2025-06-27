@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import Dropdown from "components/Dropdown";
-import { TreeSelect, TreeSelectProps } from "components/TreeSelect";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+import { TreeSelect, TreeSelectProps } from ".";
 
 export default {
   component: TreeSelect,
@@ -9,14 +8,6 @@ export default {
 
 export const Default: CustomStoryObj<typeof TreeSelect> = {
   render: (args) => <BaseTreeSelect {...args} />,
-};
-
-export const WithDropdown: CustomStoryObj<typeof TreeSelect> = {
-  render: (args) => (
-    <Dropdown buttonText="Select">
-      <BaseTreeSelect isDropdown {...args} />
-    </Dropdown>
-  ),
 };
 
 const BaseTreeSelect = (props: TreeSelectProps) => {
