@@ -22,6 +22,7 @@ type ChildPatches = NonNullable<
 >["childPatches"];
 
 interface VersionTabProps {
+  setActiveTaskIds: React.Dispatch<React.SetStateAction<string[]>>;
   version: VersionQuery["version"];
 }
 
@@ -76,6 +77,7 @@ const tabMap = ({
   numFailedChildPatches,
   numStartedChildPatches,
   numSuccessChildPatches,
+  setActiveTaskIds,
   taskCount,
   versionId,
 }: {
@@ -84,6 +86,7 @@ const tabMap = ({
   numFailedChildPatches: number;
   numStartedChildPatches: number;
   numSuccessChildPatches: number;
+  setActiveTaskIds: React.Dispatch<React.SetStateAction<string[]>>;
   versionId: string;
   isVariantTimingView: boolean;
 }): {
@@ -91,7 +94,11 @@ const tabMap = ({
 } => ({
   [VersionPageTabs.Tasks]: (
     <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
-      <Tasks taskCount={taskCount} versionId={versionId} />
+      <Tasks
+        setActiveTaskIds={setActiveTaskIds}
+        taskCount={taskCount}
+        versionId={versionId}
+      />
     </Tab>
   ),
   [VersionPageTabs.TaskDuration]: (
@@ -156,7 +163,10 @@ const tabMap = ({
   ),
 });
 
-const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
+const VersionTabs: React.FC<VersionTabProps> = ({
+  setActiveTaskIds,
+  version,
+}) => {
   const { [slugs.tab]: tab } = useParams<{
     [slugs.tab]: VersionPageTabs;
   }>();
@@ -197,6 +207,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       numFailedChildPatches,
       numStartedChildPatches,
       numSuccessChildPatches,
+      setActiveTaskIds,
       versionId: version.id,
       isVariantTimingView: !!queryParams.variant,
     });

@@ -10,10 +10,10 @@ import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   SetVersionPriorityMutation,
   SetVersionPriorityMutationVariables,
-  SetTaskPriorityMutation,
-  SetTaskPriorityMutationVariables,
+  SetTaskPrioritiesMutation,
+  SetTaskPrioritiesMutationVariables,
 } from "gql/generated/types";
-import { SET_VERSION_PRIORITY, SET_TASK_PRIORITY } from "gql/mutations";
+import { SET_VERSION_PRIORITY, SET_TASK_PRIORITIES } from "gql/mutations";
 import SetPriority from ".";
 
 describe("setPriority", () => {
@@ -104,7 +104,7 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
-          <SetPriority initialPriority={10} taskId="task_id" />
+          <SetPriority initialPriority={10} taskIds={["task_id"]} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -121,7 +121,7 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
-          <SetPriority taskId="task_id" />
+          <SetPriority taskIds={["task_id"]} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -143,7 +143,7 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
-          <SetPriority taskId="task_id" />
+          <SetPriority taskIds={["task_id"]} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -165,7 +165,7 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
-          <SetPriority taskId="task_id" />
+          <SetPriority taskIds={["task_id"]} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -187,7 +187,7 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component, dispatchToast } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
-          <SetPriority taskId="task_id" />
+          <SetPriority taskIds={["task_id"]} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -204,6 +204,40 @@ describe("setPriority", () => {
       await user.click(screen.getByRole("button", { name: "Set" }));
       await waitFor(() =>
         expect(dispatchToast.success).toHaveBeenCalledTimes(1),
+      );
+      await waitFor(() =>
+        expect(dispatchToast.success).toHaveBeenCalledWith(
+          "Task priority updated.",
+        ),
+      );
+    });
+
+    it("sets multiple task priorities", async () => {
+      const user = userEvent.setup();
+      const { Component, dispatchToast } = RenderFakeToastContext(
+        <MockedProvider mocks={[setMultipleTaskPriorities]}>
+          <SetPriority taskIds={["task_id", "task_id_2"]} />
+        </MockedProvider>,
+      );
+      renderWithRouterMatch(<Component />);
+
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      await user.click(screen.queryByDataCy("prioritize-task"));
+      await waitFor(() => {
+        expect(
+          screen.queryByDataCy("set-task-priority-popconfirm"),
+        ).toBeVisible();
+      });
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      await user.type(screen.queryByDataCy("task-priority-input"), "99");
+      await user.click(screen.getByRole("button", { name: "Set" }));
+      await waitFor(() =>
+        expect(dispatchToast.success).toHaveBeenCalledTimes(1),
+      );
+      await waitFor(() =>
+        expect(dispatchToast.success).toHaveBeenCalledWith(
+          "Task priorities updated.",
+        ),
       );
     });
   });
@@ -225,21 +259,56 @@ const setVersionPriority: ApolloMock<
 };
 
 const setTaskPriority: ApolloMock<
-  SetTaskPriorityMutation,
-  SetTaskPriorityMutationVariables
+  SetTaskPrioritiesMutation,
+  SetTaskPrioritiesMutationVariables
 > = {
   request: {
-    query: SET_TASK_PRIORITY,
-    variables: { taskId: "task_id", priority: 99 },
+    query: SET_TASK_PRIORITIES,
+    variables: { taskPriorities: [{ taskId: "task_id", priority: 99 }] },
   },
   result: {
     data: {
-      setTaskPriority: {
-        __typename: "Task",
-        execution: 0,
-        id: "task_id",
-        priority: 99,
-      },
+      setTaskPriorities: [
+        {
+          __typename: "Task",
+          execution: 0,
+          id: "task_id",
+          priority: 99,
+        },
+      ],
+    },
+  },
+};
+
+const setMultipleTaskPriorities: ApolloMock<
+  SetTaskPrioritiesMutation,
+  SetTaskPrioritiesMutationVariables
+> = {
+  request: {
+    query: SET_TASK_PRIORITIES,
+    variables: {
+      taskPriorities: [
+        { taskId: "task_id", priority: 99 },
+        { taskId: "task_id_2", priority: 99 },
+      ],
+    },
+  },
+  result: {
+    data: {
+      setTaskPriorities: [
+        {
+          __typename: "Task",
+          execution: 0,
+          id: "task_id",
+          priority: 99,
+        },
+        {
+          __typename: "Task",
+          execution: 0,
+          id: "task_id_2",
+          priority: 99,
+        },
+      ],
     },
   },
 };

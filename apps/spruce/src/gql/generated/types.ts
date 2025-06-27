@@ -5711,6 +5711,20 @@ export type SetPatchVisibilityMutation = {
   }>;
 };
 
+export type SetTaskPrioritiesMutationVariables = Exact<{
+  taskPriorities: Array<TaskPriority>;
+}>;
+
+export type SetTaskPrioritiesMutation = {
+  __typename?: "Mutation";
+  setTaskPriorities: Array<{
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    priority?: number | null;
+  }>;
+};
+
 export type SetTaskPriorityMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
   priority: Scalars["Int"]["input"];
