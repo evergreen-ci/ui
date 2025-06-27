@@ -43,7 +43,7 @@ const AdminSettingsPage: React.FC = () => {
               {}
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-general"
+                data-cy="navitem-admin-announcements"
                 to={getAdminSettingsRoute(AdminSettingsTabRoutes.Announcements)}
               >
                 Announcements
@@ -52,22 +52,22 @@ const AdminSettingsPage: React.FC = () => {
             <SideNavGroup header="Feature Flags">
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-general"
-                to={getAdminSettingsRoute(AdminSettingsTabRoutes.FeatureFlags)}
+                data-cy="navitem-admin-feature-flags"
+                to="/admin-settings#services"
               >
                 Services
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-general"
-                to={getAdminSettingsRoute(AdminSettingsTabRoutes.FeatureFlags)}
+                data-cy="navitem-admin-notifications"
+                to="/admin-settings#notifications"
               >
                 Notifications
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-general"
-                to={getAdminSettingsRoute(AdminSettingsTabRoutes.FeatureFlags)}
+                data-cy="navitem-admin-batch-jobs"
+                to="/admin-settings#batch-jobs"
               >
                 Batch Jobs
               </SideNavItem>

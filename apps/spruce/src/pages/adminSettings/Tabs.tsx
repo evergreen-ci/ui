@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
+import { AdminSettingsTabRoutes } from "constants/routes";
 import { AdminSettings } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { AdminSaveButton } from "./AdminSaveButton";
@@ -24,8 +25,12 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   return (
     <TabsContent>
       <AdminSaveButton />
-      <AnnouncementTab announcementsData={tabData.announcements} />
-      <FeatureFlagsTab featureFlagsData={tabData["feature-flags"]} />
+      <AnnouncementTab
+        announcementsData={tabData[AdminSettingsTabRoutes.Announcements]}
+      />
+      <FeatureFlagsTab
+        featureFlagsData={tabData[AdminSettingsTabRoutes.FeatureFlags]}
+      />
     </TabsContent>
   );
 };

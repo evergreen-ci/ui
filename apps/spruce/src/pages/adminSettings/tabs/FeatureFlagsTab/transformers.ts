@@ -62,6 +62,13 @@ export const gqlToForm = ((data) => ({
       backgroundCleanupDisabled:
         data.serviceFlags?.backgroundCleanupDisabled ?? false,
     },
+    evergreenTestResultsDisabled: false,
+    taskReliabilityDisabled: false,
+    backgroundReauthDisabled: false,
+    staticAPIKeysDisabled: false,
+    elasticIPsDisabled: false,
+    releaseModeDisabled: false,
+    adminParameterStoreDisabled: false,
   },
 })) satisfies GqlToFormFunction<Tab>;
 
@@ -74,6 +81,13 @@ export const formToGql = (({ featureFlags }) => {
       ...notifications,
       ...features,
       ...batchJobs,
+      evergreenTestResultsDisabled: featureFlags.evergreenTestResultsDisabled,
+      taskReliabilityDisabled: featureFlags.taskReliabilityDisabled,
+      backgroundReauthDisabled: featureFlags.backgroundReauthDisabled,
+      staticAPIKeysDisabled: featureFlags.staticAPIKeysDisabled,
+      elasticIPsDisabled: featureFlags.elasticIPsDisabled,
+      releaseModeDisabled: featureFlags.releaseModeDisabled,
+      adminParameterStoreDisabled: featureFlags.adminParameterStoreDisabled,
     },
   };
 }) satisfies FormToGqlFunction<Tab>;

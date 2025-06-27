@@ -1,5 +1,12 @@
 export interface FeatureFlagsFormState {
   featureFlags: {
+    adminParameterStoreDisabled: boolean;
+    releaseModeDisabled: boolean;
+    elasticIPsDisabled: boolean;
+    staticAPIKeysDisabled: boolean;
+    backgroundReauthDisabled: boolean;
+    taskReliabilityDisabled: boolean;
+    evergreenTestResultsDisabled: boolean;
     services: {
       taskDispatchDisabled: boolean;
       largeParserProjectsDisabled: boolean;
