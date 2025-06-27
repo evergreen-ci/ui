@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-1ry038z-Container e5gn9hl4"
+    class="emotion-Container e5gn9hl4"
   >
     <label
       class="leafygreen-ui-ms04bw"
@@ -8,16 +8,16 @@
       for="tuple-select"
     >
       <div
-        class="css-1lh1bx9-LabelContainer e5gn9hl2"
+        class="emotion-LabelContainer e5gn9hl2"
       >
         Tuple Select
       </div>
     </label>
     <div
-      class="css-iyur2e-InputGroup e5gn9hl3"
+      class="emotion-InputGroup e5gn9hl3"
     >
       <div
-        class="leafygreen-ui-1iyoj2o css-1fn6r51-GroupedSelect e5gn9hl1"
+        class="leafygreen-ui-1iyoj2o emotion-GroupedSelect e5gn9hl1"
         data-lgid="lg-select"
       >
         <button
@@ -76,7 +76,7 @@
         />
       </div>
       <div
-        class="e5gn9hl0 css-1jrjm0k-TextInputWrapper-GroupedTextInput e17optw12"
+        class="e5gn9hl0 emotion-TextInputWrapper-GroupedTextInput e17optw12"
       >
         <div
           aria-label="Tuple Select Input"
@@ -118,7 +118,7 @@
           />
         </div>
         <div
-          class="css-4bamt4-IconWrapper e17optw10"
+          class="emotion-IconWrapper e17optw10"
         >
           <button
             aria-disabled="false"

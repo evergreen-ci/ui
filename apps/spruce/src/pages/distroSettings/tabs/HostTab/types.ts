@@ -60,6 +60,7 @@ export interface HostFormState {
     hostsOverallocatedRule: OverallocatedRule;
     minimumHosts: number;
     maximumHosts: number;
+    autoTuneMaximumHosts: boolean;
     acceptableHostIdleTime: number;
     futureHostFraction: number;
   };

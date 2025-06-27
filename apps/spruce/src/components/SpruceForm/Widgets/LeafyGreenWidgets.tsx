@@ -118,7 +118,7 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
     warnings,
   } = options;
   return (
-    <ElementWrapper css={elementWrapperCSS}>
+    <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <Checkbox
         bold={bold || false}
         checked={value}

@@ -6311,6 +6311,7 @@ export type DistroQuery = {
     hostAllocatorSettings: {
       __typename?: "HostAllocatorSettings";
       acceptableHostIdleTime: number;
+      autoTuneMaximumHosts: boolean;
       feedbackRule: FeedbackRule;
       futureHostFraction: number;
       hostsOverallocatedRule: OverallocatedRule;

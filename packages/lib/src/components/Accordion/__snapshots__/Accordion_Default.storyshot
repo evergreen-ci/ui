@@ -1,14 +1,14 @@
 <div>
   <div>
     <div
-      class="css-8km4up"
+      class="emotion-0"
       data-cy="accordion-toggle"
       role="button"
     >
       <button
         aria-disabled="false"
         aria-label="Accordion icon"
-        class="css-tgrklh leafygreen-ui-tcjr3n"
+        class="emotion-1 leafygreen-ui-tcjr3n"
         style="align-self: center;"
         tabindex="0"
       >
@@ -40,11 +40,11 @@
     </div>
     <div
       aria-expanded="false"
-      class="css-10vhx46"
+      class="emotion-5"
       data-cy="accordion-collapse-container"
     >
       <div
-        class="css-1njzqz8"
+        class="emotion-6"
       >
         Accordion content
       </div>

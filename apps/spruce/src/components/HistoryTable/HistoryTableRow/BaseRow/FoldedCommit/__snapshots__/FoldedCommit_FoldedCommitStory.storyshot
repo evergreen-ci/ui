@@ -1,19 +1,19 @@
 <div>
   <div
-    class="css-42nnqo-Column eg8pw9k3"
+    class="emotion-Column eg8pw9k3"
   >
     <div
-      class="css-i09eoq-StyledAccordion eg8pw9k2"
+      class="emotion-StyledAccordion eg8pw9k2"
     >
       <div
-        class="css-16i4gmg-AccordionToggle e1omze814"
+        class="emotion-AccordionToggle e1omze814"
         data-cy="accordion-toggle"
         role="button"
       >
         <button
           aria-disabled="false"
           aria-label="Accordion icon"
-          class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+          class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
           style="align-self: center;"
           tabindex="0"
         >
@@ -40,32 +40,32 @@
           </div>
         </button>
         <div
-          class="css-1fd23ns-AccordionTitle eg8pw9k1"
+          class="emotion-AccordionTitle eg8pw9k1"
         >
           Expand 5 inactive
         </div>
       </div>
       <div
         aria-expanded="false"
-        class="css-sstoka-AnimatedAccordion e1omze812"
+        class="emotion-AnimatedAccordion e1omze812"
         data-cy="accordion-collapse-container"
       >
         <div
-          class="css-jm2qvt-ContentsContainer e1omze811"
+          class="emotion-ContentsContainer e1omze811"
         >
           <div
-            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
+            class="emotion-RowContainer-StyledRowContainer eg8pw9k0"
             data-cy="folded-commit"
           >
             <div
-              class="css-167wnfc-LabelCellContainer e1bcz5i60"
+              class="emotion-LabelCellContainer e1bcz5i60"
             >
               <div
-                class="css-42v5yq-LabelContainer e1cz15301"
+                class="emotion-LabelContainer e1cz15301"
                 data-cy="commit-label"
               >
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   <a
                     class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -87,72 +87,72 @@
                    
                 </p>
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   A developer
                    -
                 </p>
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   v2.17.0
                 </p>
               </div>
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
           </div>
           <div
-            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
+            class="emotion-RowContainer-StyledRowContainer eg8pw9k0"
             data-cy="folded-commit"
           >
             <div
-              class="css-167wnfc-LabelCellContainer e1bcz5i60"
+              class="emotion-LabelCellContainer e1bcz5i60"
             >
               <div
-                class="css-42v5yq-LabelContainer e1cz15301"
+                class="emotion-LabelContainer e1cz15301"
                 data-cy="commit-label"
               >
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   <a
                     class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -174,72 +174,72 @@
                    
                 </p>
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   A developer
                    -
                 </p>
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   v2.17.1
                 </p>
               </div>
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
           </div>
           <div
-            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
+            class="emotion-RowContainer-StyledRowContainer eg8pw9k0"
             data-cy="folded-commit"
           >
             <div
-              class="css-167wnfc-LabelCellContainer e1bcz5i60"
+              class="emotion-LabelCellContainer e1bcz5i60"
             >
               <div
-                class="css-42v5yq-LabelContainer e1cz15301"
+                class="emotion-LabelContainer e1cz15301"
                 data-cy="commit-label"
               >
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   <a
                     class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -261,72 +261,72 @@
                    
                 </p>
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   A developer
                    -
                 </p>
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   v2.17.2
                 </p>
               </div>
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
           </div>
           <div
-            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
+            class="emotion-RowContainer-StyledRowContainer eg8pw9k0"
             data-cy="folded-commit"
           >
             <div
-              class="css-167wnfc-LabelCellContainer e1bcz5i60"
+              class="emotion-LabelCellContainer e1bcz5i60"
             >
               <div
-                class="css-42v5yq-LabelContainer e1cz15301"
+                class="emotion-LabelContainer e1cz15301"
                 data-cy="commit-label"
               >
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   <a
                     class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -348,72 +348,72 @@
                    
                 </p>
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   A developer
                    -
                 </p>
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   v2.17.3
                 </p>
               </div>
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
           </div>
           <div
-            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
+            class="emotion-RowContainer-StyledRowContainer eg8pw9k0"
             data-cy="folded-commit"
           >
             <div
-              class="css-167wnfc-LabelCellContainer e1bcz5i60"
+              class="emotion-LabelCellContainer e1bcz5i60"
             >
               <div
-                class="css-42v5yq-LabelContainer e1cz15301"
+                class="emotion-LabelContainer e1cz15301"
                 data-cy="commit-label"
               >
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   <a
                     class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -435,56 +435,56 @@
                    
                 </p>
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   A developer
                    -
                 </p>
                 <p
-                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                  class="emotion-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   v2.17.4
                 </p>
               </div>
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
             <div
-              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              class="emotion-BaseCell-Cell e1bcz5i62"
               data-cy="empty-cell"
             >
               <div
-                class="css-8xlg5e-Circle e1bcz5i64"
+                class="emotion-Circle e1bcz5i64"
               />
             </div>
           </div>
