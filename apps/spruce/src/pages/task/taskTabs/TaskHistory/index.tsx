@@ -165,7 +165,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
 
   return (
     <TaskHistoryContextProvider task={task}>
-      <Container>
+      <Container data-cy="task-history">
         <div ref={headerScrollRef} data-header-observer />
         <StickyHeader showShadow={showShadow}>
           <Controls

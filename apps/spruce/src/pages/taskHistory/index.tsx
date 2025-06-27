@@ -134,8 +134,8 @@ const TaskHistoryContents: React.FC = () => {
   return (
     <PageWrapper>
       <Banner variant={BannerVariant.Warning}>
-        This page will eventually be deprecated in favor of the Task History tab
-        available on the Task page.{" "}
+        This page will be deprecated on <b>July 9th</b> in favor of the Task
+        History tab available on the Task page.{" "}
         {taskId && (
           <span>
             See the corresponding page for the selected commit{" "}
