@@ -80,7 +80,7 @@ export const ProjectPatches = () => {
         filterComp={
           <>
             <ProjectSelect
-              getRoute={getProjectPatchesRoute}
+              getProjectRoute={getProjectPatchesRoute}
               onSubmit={(p) => {
                 analytics.sendEvent({
                   name: "Changed project",

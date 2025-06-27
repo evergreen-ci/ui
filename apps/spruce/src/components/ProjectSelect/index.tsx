@@ -15,7 +15,8 @@ import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
 interface ProjectSelectProps {
   className?: string;
-  getRoute: (projectIdentifier: string) => string;
+  getProjectRoute: (projectIdentifier: string) => string;
+  getRepoRoute?: (repoIdentifier: string) => string;
   isProjectSettingsPage?: boolean;
   onSubmit?: (projectIdentifier: string) => void;
   selectedProjectIdentifier: string;
@@ -24,7 +25,8 @@ interface ProjectSelectProps {
 
 export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   className,
-  getRoute,
+  getProjectRoute,
+  getRepoRoute = () => "",
   isProjectSettingsPage = false,
   onSubmit = () => {},
   selectedProjectIdentifier,
@@ -110,7 +112,6 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       label={showLabel ? "Project" : null}
       onChange={(projectIdentifier: any) => {
         onSubmit(projectIdentifier);
-        navigate(getRoute(projectIdentifier));
       }}
       optionRenderer={(projectGroup, onClick) => (
         <ProjectOptionGroup
@@ -118,7 +119,14 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           canClickOnRepoGroup={isProjectSettingsPage && projectGroup?.repo?.id}
           name={projectGroup.groupDisplayName}
-          onClick={onClick}
+          onClick={(identifier: string, isRepo: boolean) => {
+            onClick(identifier);
+            if (isRepo) {
+              navigate(getRepoRoute(identifier));
+            } else {
+              navigate(getProjectRoute(identifier));
+            }
+          }}
           projects={projectGroup.projects}
           repoIdentifier={projectGroup?.repo?.id}
           value={value}

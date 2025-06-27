@@ -8,7 +8,7 @@ import {
   GithubProjectConflictsQueryVariables,
 } from "gql/generated/types";
 import { GITHUB_PROJECT_CONFLICTS } from "gql/queries";
-import { useProjectSettingsContext } from "pages/projectSettings/Context";
+import { useProjectSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
 import { ErrorType, getVersionControlError } from "./getErrors";

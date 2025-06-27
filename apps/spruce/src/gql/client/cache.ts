@@ -11,10 +11,10 @@ export const cache = new InMemoryCache({
           keyArgs: ["$distroId"],
         },
         projectEvents: {
-          keyArgs: ["$identifier"],
+          keyArgs: ["$projectIdentifier"],
         },
         repoEvents: {
-          keyArgs: ["$id"],
+          keyArgs: ["$repoId"],
         },
         hasVersion: {
           keyArgs: ["$patchId"],

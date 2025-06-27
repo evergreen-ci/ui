@@ -7,7 +7,6 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
-import { getWaterfallRoute, getProjectSettingsRoute } from "constants/routes";
 import {
   ProjectsQuery,
   ProjectsQueryVariables,
@@ -28,7 +27,7 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
-            getRoute={getWaterfallRoute}
+            getProjectRoute={vi.fn()}
             selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
@@ -44,7 +43,7 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
-            getRoute={getWaterfallRoute}
+            getProjectRoute={vi.fn()}
             selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
@@ -73,7 +72,7 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
-            getRoute={getWaterfallRoute}
+            getProjectRoute={vi.fn()}
             selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
@@ -107,7 +106,7 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
-            getRoute={getProjectSettingsRoute}
+            getProjectRoute={vi.fn()}
             isProjectSettingsPage
             selectedProjectIdentifier="evergreen"
           />
@@ -124,7 +123,7 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
-            getRoute={getProjectSettingsRoute}
+            getProjectRoute={vi.fn()}
             isProjectSettingsPage
             selectedProjectIdentifier="evergreen"
           />
@@ -151,10 +150,13 @@ describe("projectSelect", () => {
 
     it("should be possible to search for projects by a repo name, which should be clickable", async () => {
       const user = userEvent.setup();
+      const getProjectRoute = vi.fn();
+      const getRepoRoute = vi.fn();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
-            getRoute={getProjectSettingsRoute}
+            getProjectRoute={getProjectRoute}
+            getRepoRoute={getRepoRoute}
             isProjectSettingsPage
             selectedProjectIdentifier="evergreen"
           />
@@ -176,11 +178,14 @@ describe("projectSelect", () => {
       const options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(1);
       // Repo name should be a clickable button.
-      expect(
-        screen.getByRole("button", {
-          name: "aaa/totally-different-name",
-        }),
-      ).toBeInTheDocument();
+      const repoOption = screen.getByRole("button", {
+        name: "aaa/totally-different-name",
+      });
+      expect(repoOption).toBeInTheDocument();
+
+      await user.click(repoOption);
+      expect(getProjectRoute).toHaveBeenCalledTimes(0);
+      expect(getRepoRoute).toHaveBeenCalledTimes(1);
     });
 
     it("shows favorited projects twice", async () => {
@@ -188,7 +193,7 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
-            getRoute={getProjectSettingsRoute}
+            getProjectRoute={vi.fn()}
             isProjectSettingsPage
             selectedProjectIdentifier="evergreen"
           />
@@ -211,7 +216,7 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
-            getRoute={getProjectSettingsRoute}
+            getProjectRoute={vi.fn()}
             isProjectSettingsPage
             selectedProjectIdentifier="evergreen"
           />
@@ -238,7 +243,7 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={noDisabledProjectsMock}>
           <ProjectSelect
-            getRoute={getProjectSettingsRoute}
+            getProjectRoute={vi.fn()}
             isProjectSettingsPage
             selectedProjectIdentifier="spruce"
           />

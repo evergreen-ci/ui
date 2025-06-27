@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { useProjectSettingsContext } from "pages/projectSettings/Context";
+import { useProjectSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";

@@ -1,14 +1,15 @@
 import { clickSave } from "../../utils";
 import {
-  getAccessRoute,
-  getGeneralRoute,
+  getProjectSettingsRoute,
+  getRepoSettingsRoute,
+  ProjectSettingsTabRoutes,
   projectUseRepoEnabled,
   repo,
   saveButtonEnabled,
 } from "./constants";
 
 describe("Repo Settings", () => {
-  const origin = getGeneralRoute(repo);
+  const origin = getRepoSettingsRoute(repo);
 
   beforeEach(() => {
     cy.visit(origin);
@@ -82,7 +83,7 @@ describe("Repo Settings", () => {
         saveButtonEnabled(true);
         clickSave();
         cy.validateToast("success", "Successfully updated repo");
-        cy.visit(getGeneralRoute(projectUseRepoEnabled));
+        cy.visit(getProjectSettingsRoute(projectUseRepoEnabled));
         cy.dataCy("navitem-github-commitqueue").click();
         cy.contains("Repo Patch Definition 1")
           .as("patchDefAccordion")
@@ -147,8 +148,6 @@ describe("Repo Settings", () => {
         cy.dataCy("error-banner").should("not.exist");
         clickSave();
         cy.validateToast("success", "Successfully updated repo");
-        cy.visit(getGeneralRoute(projectUseRepoEnabled));
-        cy.dataCy("navitem-github-commitqueue").click();
       });
     });
   });
@@ -173,7 +172,12 @@ describe("Repo Settings", () => {
       // Verify persistence
       cy.reload();
       cy.dataCy("expandable-card-title").contains("my alias name");
-      cy.visit(getAccessRoute(projectUseRepoEnabled));
+      cy.visit(
+        getProjectSettingsRoute(
+          projectUseRepoEnabled,
+          ProjectSettingsTabRoutes.Access,
+        ),
+      );
       cy.dataCy("default-to-repo-button").should(
         "have.attr",
         "aria-disabled",
@@ -267,6 +271,13 @@ describe("Repo Settings", () => {
       cy.validateToast("success", "Successfully updated repo");
       cy.dataCy("command-input").first().should("have.value", "command 2");
       cy.dataCy("command-input").eq(1).should("have.value", "command 1");
+    });
+  });
+
+  describe("redirects", () => {
+    it("redirects to repo page from project settings if it's a repo", () => {
+      cy.visit(getProjectSettingsRoute(repo));
+      cy.location("pathname").should("equal", `/${getRepoSettingsRoute(repo)}`);
     });
   });
 });

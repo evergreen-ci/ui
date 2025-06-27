@@ -67,7 +67,7 @@ const ProjectOptionContainer = styled.div`
 interface OptionGroupProps {
   canClickOnRepoGroup?: boolean;
   name: string;
-  onClick: (identifier: string) => void;
+  onClick: (identifier: string, isRepo: boolean) => void;
   projects: {
     displayName: string;
     identifier: string;
@@ -81,14 +81,13 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
   name,
   onClick,
   projects,
-  repoIdentifier,
+  repoIdentifier = "",
   value,
 }) => {
   const groupHeaderProps = canClickOnRepoGroup
     ? {
         css: hoverStyles,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        onClick: () => onClick(repoIdentifier),
+        onClick: () => onClick(repoIdentifier, true),
         role: "button",
       }
     : {};
@@ -103,7 +102,7 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
             isSelected={
               value === project.displayName || value === project.identifier
             }
-            onClick={onClick}
+            onClick={() => onClick(project.identifier, false)}
             projectIdentifier={project.identifier}
             {...project}
           />

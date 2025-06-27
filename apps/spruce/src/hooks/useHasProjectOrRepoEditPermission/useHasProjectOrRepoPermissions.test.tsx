@@ -2,15 +2,12 @@ import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
-  IsRepoQuery,
-  IsRepoQueryVariables,
   UserProjectSettingsPermissionsQuery,
   UserProjectSettingsPermissionsQueryVariables,
   UserRepoSettingsPermissionsQuery,
   UserRepoSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
 import {
-  IS_REPO,
   USER_PROJECT_SETTINGS_PERMISSIONS,
   USER_REPO_SETTINGS_PERMISSIONS,
 } from "gql/queries";
@@ -28,12 +25,12 @@ describe("useHasProjectOrRepoEditPermission", () => {
   describe("project permission", () => {
     it("correctly determines that user has edit permission", async () => {
       const { result } = renderHook(
-        () => useHasProjectOrRepoEditPermission(projectIdentifier),
+        () => useHasProjectOrRepoEditPermission(projectIdentifier, ""),
         {
           wrapper: ({ children }) =>
             ProviderWrapper({
               children,
-              mocks: [isNotRepo, userHasProjectPermissions],
+              mocks: [userHasProjectPermissions],
             }),
         },
       );
@@ -44,12 +41,12 @@ describe("useHasProjectOrRepoEditPermission", () => {
 
     it("correctly determines that user does NOT have edit permission", async () => {
       const { result } = renderHook(
-        () => useHasProjectOrRepoEditPermission(projectIdentifier),
+        () => useHasProjectOrRepoEditPermission(projectIdentifier, ""),
         {
           wrapper: ({ children }) =>
             ProviderWrapper({
               children,
-              mocks: [isNotRepo, userNoProjectPermissions],
+              mocks: [userNoProjectPermissions],
             }),
         },
       );
@@ -62,12 +59,12 @@ describe("useHasProjectOrRepoEditPermission", () => {
   describe("repo permission", () => {
     it("correctly determines that user has edit permission", async () => {
       const { result } = renderHook(
-        () => useHasProjectOrRepoEditPermission(repoId),
+        () => useHasProjectOrRepoEditPermission("", repoId),
         {
           wrapper: ({ children }) =>
             ProviderWrapper({
               children,
-              mocks: [isRepo, userHasRepoPermissions],
+              mocks: [userHasRepoPermissions],
             }),
         },
       );
@@ -78,12 +75,12 @@ describe("useHasProjectOrRepoEditPermission", () => {
 
     it("correctly determines that user does NOT have edit permission", async () => {
       const { result } = renderHook(
-        () => useHasProjectOrRepoEditPermission(repoId),
+        () => useHasProjectOrRepoEditPermission("", repoId),
         {
           wrapper: ({ children }) =>
             ProviderWrapper({
               children,
-              mocks: [isRepo, userNoRepoPermissions],
+              mocks: [userNoRepoPermissions],
             }),
         },
       );
@@ -96,30 +93,6 @@ describe("useHasProjectOrRepoEditPermission", () => {
 
 const projectIdentifier = "evergreen";
 const repoId = "12345";
-
-const isRepo: ApolloMock<IsRepoQuery, IsRepoQueryVariables> = {
-  request: {
-    query: IS_REPO,
-    variables: { projectOrRepoId: repoId },
-  },
-  result: {
-    data: {
-      isRepo: true,
-    },
-  },
-};
-
-const isNotRepo: ApolloMock<IsRepoQuery, IsRepoQueryVariables> = {
-  request: {
-    query: IS_REPO,
-    variables: { projectOrRepoId: projectIdentifier },
-  },
-  result: {
-    data: {
-      isRepo: false,
-    },
-  },
-};
 
 const userHasProjectPermissions: ApolloMock<
   UserProjectSettingsPermissionsQuery,

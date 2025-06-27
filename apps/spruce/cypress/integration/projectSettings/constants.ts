@@ -1,35 +1,30 @@
-const getSettingsRoute = (identifier: string) =>
-  `project/${identifier}/settings`;
+export enum ProjectSettingsTabRoutes {
+  General = "general",
+  Access = "access",
+  Variables = "variables",
+  GithubCommitQueue = "github-commitqueue",
+  Notifications = "notifications",
+  PatchAliases = "patch-aliases",
+  VirtualWorkstation = "virtual-workstation",
+  ProjectTriggers = "project-triggers",
+  PeriodicBuilds = "periodic-builds",
+  Plugins = "plugins",
+  EventLog = "event-log",
+  Containers = "containers",
+  ViewsAndFilters = "views-and-filters",
+  GithubAppSettings = "github-app-settings",
+  GithubPermissionGroups = "github-permission-groups",
+}
 
-export const getGeneralRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/general`;
+export const getProjectSettingsRoute = (
+  identifier: string,
+  tab: ProjectSettingsTabRoutes = ProjectSettingsTabRoutes.General,
+) => `project/${identifier}/settings/${tab}`;
 
-export const getGithubCommitQueueRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/github-commitqueue`;
-
-export const getNotificationsRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/notifications`;
-
-export const getAccessRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/access`;
-
-export const getPluginsRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/plugins`;
-
-export const getContainersRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/containers`;
-
-export const getAppSettingsRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/github-app-settings`;
-
-export const getPermissionGroupsRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/github-permission-groups`;
-
-export const getViewsAndFiltersRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/views-and-filters`;
-
-export const getVirtualWorkstationRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/virtual-workstation`;
+export const getRepoSettingsRoute = (
+  repoId: string,
+  tab: ProjectSettingsTabRoutes = ProjectSettingsTabRoutes.General,
+) => `repo/${repoId}/settings/${tab}`;
 
 export const project = "spruce";
 export const projectUseRepoEnabled = "evergreen";

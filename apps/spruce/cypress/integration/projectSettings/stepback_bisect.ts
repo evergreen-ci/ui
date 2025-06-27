@@ -1,9 +1,13 @@
 import { clickSave } from "../../utils";
-import { getGeneralRoute, project, projectUseRepoEnabled } from "./constants";
+import {
+  getProjectSettingsRoute,
+  project,
+  projectUseRepoEnabled,
+} from "./constants";
 
 describe("Stepback bisect setting", () => {
   describe("Repo project present", () => {
-    const destination = getGeneralRoute(projectUseRepoEnabled);
+    const destination = getProjectSettingsRoute(projectUseRepoEnabled);
 
     beforeEach(() => {
       cy.visit(destination);
@@ -31,7 +35,7 @@ describe("Stepback bisect setting", () => {
   });
 
   describe("Repo project not present", () => {
-    const destination = getGeneralRoute(project);
+    const destination = getProjectSettingsRoute(project);
 
     beforeEach(() => {
       cy.visit(destination);

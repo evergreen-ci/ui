@@ -1,7 +1,7 @@
-import { getGeneralRoute, project } from "./constants";
+import { getProjectSettingsRoute, project } from "./constants";
 
 describe("Clicking on The Project Select Dropdown", () => {
-  const origin = getGeneralRoute(project);
+  const origin = getProjectSettingsRoute(project);
 
   beforeEach(() => {
     cy.visit(origin);

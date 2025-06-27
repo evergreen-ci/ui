@@ -20,14 +20,21 @@ export const BaseTab = <T extends WritableProjectSettingsType>({
   tab,
   ...rest
 }: BaseTabProps<T>) => {
-  const { [slugs.projectIdentifier]: id } = useParams<{
+  const {
+    [slugs.projectIdentifier]: projectIdentifier,
+    [slugs.repoId]: repoId,
+  } = useParams<{
     [slugs.projectIdentifier]: string;
+    [slugs.repoId]: string;
   }>();
 
   const state = useProjectSettingsContext();
   usePopulateForm(initialFormState, tab);
 
-  const { canEdit, loading } = useHasProjectOrRepoEditPermission(id);
+  const { canEdit, loading } = useHasProjectOrRepoEditPermission(
+    projectIdentifier,
+    repoId,
+  );
 
   return loading ? null : (
     // @ts-expect-error: FIXME. This comment was added by an automated script.

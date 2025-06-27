@@ -1,8 +1,8 @@
 import { clickSave } from "../../utils";
-import { getGeneralRoute, project } from "./constants";
+import { getProjectSettingsRoute, project } from "./constants";
 
 describe("Attaching Spruce to a repo", () => {
-  const origin = getGeneralRoute(project);
+  const origin = getProjectSettingsRoute(project);
 
   beforeEach(() => {
     cy.visit(origin);

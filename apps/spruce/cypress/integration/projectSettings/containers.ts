@@ -1,8 +1,15 @@
 import { clickSave } from "../../utils";
-import { getContainersRoute, saveButtonEnabled } from "./constants";
+import {
+  getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
+  saveButtonEnabled,
+} from "./constants";
 
 describe("projectSettings/containers", () => {
-  const destination = getContainersRoute("spruce");
+  const destination = getProjectSettingsRoute(
+    "spruce",
+    ProjectSettingsTabRoutes.Containers,
+  );
   beforeEach(() => {
     cy.visit(destination);
     // Wait for page content to load.
