@@ -8,7 +8,6 @@ import { TabProps } from "./types";
 
 export const AnnouncementTab: React.FC<TabProps> = ({ announcementsData }) => {
   const initialFormState = announcementsData;
-
   const formSchema = getFormSchema();
   return (
     <>

@@ -135,7 +135,7 @@ export const redirectRoutes = {
 };
 
 export const routes = {
-  adminSettings: paths.adminSettings,
+  adminSettings: `${paths.adminSettings}/*`,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure/:${slugs.tab}?`,
   container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
