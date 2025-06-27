@@ -22,7 +22,6 @@ import { ProjectPatches } from "pages/ProjectPatches";
 import { ProjectSettings } from "pages/ProjectSettings";
 import { Spawn } from "pages/Spawn";
 import { Task } from "pages/Task";
-import { TaskHistory } from "pages/TaskHistory";
 import { TaskQueue } from "pages/TaskQueue";
 import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
@@ -81,7 +80,6 @@ export const Content: React.FC = () => (
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route element={<Task />} path={routes.task} />
-      <Route element={<TaskHistory />} path={routes.taskHistory} />
       <Route element={<TaskQueue />} path={routes.taskQueue} />
       <Route element={<UserPatches />} path={routes.userPatches} />
       <Route
