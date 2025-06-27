@@ -44,7 +44,9 @@ const AdminSettingsPage: React.FC = () => {
               <SideNavItem
                 as={Link}
                 data-cy="navitem-admin-general"
-                to={getAdminSettingsRoute(AdminSettingsTabRoutes.Announcements)}
+                to={getAdminSettingsRoute(
+                  `general/${AdminSettingsTabRoutes.Announcements}`,
+                )}
               >
                 Announcements
               </SideNavItem>

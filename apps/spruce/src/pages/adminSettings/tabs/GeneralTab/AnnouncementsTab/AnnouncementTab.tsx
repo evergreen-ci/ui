@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { AdminSettingsTabRoutes } from "constants/routes";
-import { BaseTab } from "../BaseTab";
+import { BaseTab } from "../../BaseTab";
 import { getFormSchema } from "./formSchema";
 import { TabProps } from "./types";
 

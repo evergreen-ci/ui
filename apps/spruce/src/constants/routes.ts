@@ -135,7 +135,7 @@ export const redirectRoutes = {
 };
 
 export const routes = {
-  adminSettings: `${paths.adminSettings}/*`,
+  adminSettings: paths.adminSettings,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure/:${slugs.tab}?`,
   container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
@@ -414,5 +414,5 @@ export const getTriggerRoute = ({
   return getVersionRoute(upstreamVersion.id);
 };
 
-export const getAdminSettingsRoute = (tab?: AdminSettingsTabRoutes) =>
+export const getAdminSettingsRoute = (tab?: string) =>
   tab ? `${paths.adminSettings}/${tab}` : `${paths.adminSettings}`;
