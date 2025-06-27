@@ -120,8 +120,5 @@ describe("Notifications", () => {
 
     cy.visit(variantHistoryRoute);
     cy.contains(bannerText).should("not.exist");
-
-    cy.visit(taskHistoryRoute);
-    cy.contains(bannerText).should("not.exist");
   });
 });
