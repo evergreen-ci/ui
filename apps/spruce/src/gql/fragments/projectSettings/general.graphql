@@ -7,6 +7,7 @@ fragment ProjectGeneralSettings on Project {
   dispatchingDisabled
   displayName
   enabled
+  hidden
   owner
   patchingDisabled
   remotePath
