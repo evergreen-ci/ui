@@ -8,8 +8,8 @@ import {
   useLeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
+import { BaseTable } from "@evg-ui/lib/components/Table";
 import { usePatchAnalytics, useVersionAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import TableWrapper from "components/Table/TableWrapper";

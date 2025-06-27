@@ -6,8 +6,8 @@ import {
   useLeafyGreenVirtualTable,
 } from "@leafygreen-ui/table";
 import { WordBreak } from "@evg-ui/lib/components/styles";
+import { BaseTable } from "@evg-ui/lib/components/Table";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import { BaseTable } from "./BaseTable";
 
 export default {
   component: BaseTable,
