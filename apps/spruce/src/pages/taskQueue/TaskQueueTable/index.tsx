@@ -10,7 +10,7 @@ import {
   wordBreakCss,
 } from "@evg-ui/lib/components/styles";
 import { useTaskQueueAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import {
   getVersionRoute,

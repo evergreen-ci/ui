@@ -15,7 +15,7 @@ import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { useTaskHistoryAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
 import { TaskTestResult, TestResult } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";

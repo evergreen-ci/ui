@@ -8,7 +8,7 @@ import { StyledRouterLink, StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { amazonEC2InstanceTypeDocumentationUrl } from "constants/externalResources";
 import { defaultEC2Region, MCI_USER } from "constants/hosts";
 import { getAllHostsRoute, getDistroSettingsRoute } from "constants/routes";

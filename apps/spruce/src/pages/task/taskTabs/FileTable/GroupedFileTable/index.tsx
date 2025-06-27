@@ -8,7 +8,7 @@ import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useTaskAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { GroupedFiles } from "../types";
 
 type GroupedFilesFile = Unpacked<GroupedFiles["files"]>;

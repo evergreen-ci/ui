@@ -1,0 +1,51 @@
+<div>
+  <div
+    class="emotion-Container e1yw4j304"
+  >
+    <button
+      aria-disabled="false"
+      class="lg-ui-button-0000 leafygreen-ui-5xsnod emotion-StyledButton-menuButtonStyleOverrides e1yw4j302"
+      data-cy="dropdown-button"
+      data-lgid="lg-button"
+      type="button"
+    >
+      <div
+        class="leafygreen-ui-v038xi"
+      />
+      <div
+        class="leafygreen-ui-16tr4y"
+      >
+        <div
+          class="emotion-ButtonContent e1yw4j301"
+        >
+          <div
+            class="emotion-LabelWrapper e1yw4j303"
+          >
+            <p
+              class="emotion-OverflowBody e1yw4j300 leafygreen-ui-1tb6tuo"
+              data-cy="dropdown-value"
+            >
+              Select
+            </p>
+          </div>
+        </div>
+        <svg
+          alt=""
+          aria-hidden="true"
+          class="leafygreen-ui-15rby6h"
+          fill="none"
+          height="16"
+          role="presentation"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8.679 10.796a.554.554 0 0 1-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+    </button>
+  </div>
+</div>

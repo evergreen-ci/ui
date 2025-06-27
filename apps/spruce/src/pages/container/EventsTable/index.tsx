@@ -10,7 +10,7 @@ import { Unpacked } from "@evg-ui/lib/types/utils";
 import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { SiderCard, TableControlInnerRow } from "components/styles";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { slugs } from "constants/routes";
 import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
 import { POD_EVENTS } from "gql/queries";

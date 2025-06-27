@@ -10,7 +10,7 @@ import {
 } from "@leafygreen-ui/table";
 import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
 import { onChangeHandler } from "components/Table/utils";

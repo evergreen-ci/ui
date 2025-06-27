@@ -12,7 +12,7 @@ import { formatDistanceToNow } from "date-fns";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";

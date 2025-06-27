@@ -11,7 +11,7 @@ import {
 } from "@leafygreen-ui/table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useImageAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
 import { tableColumnOffset } from "constants/tokens";
 import {

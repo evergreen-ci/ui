@@ -7,7 +7,7 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { PlusButton } from "components/Buttons";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { tableColumnOffset } from "constants/tokens";
 
 type ArrayItem = Unpacked<ArrayFieldTemplateProps["items"]>;

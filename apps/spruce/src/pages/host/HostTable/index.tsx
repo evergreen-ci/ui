@@ -13,7 +13,7 @@ import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
 import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
 import { ALL_VALUE } from "components/TreeSelect";
 import { HostEventsQuery, HostEventType } from "gql/generated/types";

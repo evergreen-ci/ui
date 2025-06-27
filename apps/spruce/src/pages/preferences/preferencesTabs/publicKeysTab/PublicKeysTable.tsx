@@ -13,7 +13,7 @@ import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import {
   MyPublicKeysQuery,

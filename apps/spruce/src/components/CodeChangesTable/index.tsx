@@ -1,7 +1,7 @@
 import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import { WordBreak, StyledLink } from "@evg-ui/lib/components/styles";
 import { FileDiffText } from "components/CodeChangesBadge";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { FileDiffsFragment } from "gql/generated/types";
 
 interface CodeChangesTableProps {

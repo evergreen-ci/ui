@@ -6,7 +6,7 @@ import {
   useLeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { useTaskAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { onChangeHandler } from "components/Table/utils";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
