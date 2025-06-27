@@ -2,13 +2,14 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TestStatus } from "@evg-ui/lib/types/test";
+import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
-import { getTaskHistoryRoute } from "constants/routes";
+import { getTaskRoute } from "constants/routes";
 import { TestResult, TaskQuery } from "gql/generated/types";
-import { string } from "utils";
+import { TaskTab } from "types/task";
+import { TaskHistoryOptions } from "../TaskHistory/types";
 import { TaskHistoryTestsButton } from "./logsColumn/TaskHistoryTestsButton";
 
-const { escapeRegex } = string;
 interface Props {
   testResult: TestResult;
   task: TaskQuery["task"];
@@ -17,21 +18,9 @@ interface Props {
 export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
   const { status, testFile } = testResult;
   const { url: urlHTML, urlParsley, urlRaw } = testResult.logs ?? {};
-  const {
-    buildVariant,
-    displayName,
-    displayTask,
-    id: taskId,
-    order,
-    project,
-  } = task ?? {};
+  const { displayTask, id: taskId } = task ?? {};
   const { sendEvent } = useTaskAnalytics();
-  const filters =
-    status === TestStatus.Fail
-      ? {
-          failingTests: [escapeRegex(testFile)],
-        }
-      : null;
+  const filters = status === TestStatus.Fail ? toEscapedRegex(testFile) : null;
 
   const isExecutionTask = displayTask !== null;
   return (
@@ -87,17 +76,14 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           Raw
         </Button>
       )}
-      {filters && !isExecutionTask && (
+      {taskId && filters && !isExecutionTask && (
         <TaskHistoryTestsButton
           onClick={() => {
             sendEvent({ name: "Clicked see history link" });
           }}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          to={getTaskHistoryRoute(project?.identifier, displayName, {
-            filters,
-            selectedCommit: order,
-            visibleColumns: [buildVariant],
-            taskId,
+          to={getTaskRoute(taskId, {
+            tab: TaskTab.History,
+            [TaskHistoryOptions.FailingTest]: filters,
           })}
         />
       )}

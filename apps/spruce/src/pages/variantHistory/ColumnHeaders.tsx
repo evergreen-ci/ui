@@ -5,14 +5,16 @@ import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import { context, Cell, hooks } from "components/HistoryTable";
-import { variantHistoryMaxLength as maxLength } from "constants/history";
-import { getTaskHistoryRoute } from "constants/routes";
+import { getTaskRoute } from "constants/routes";
 import {
   TaskNamesForBuildVariantQuery,
   TaskNamesForBuildVariantQueryVariables,
 } from "gql/generated/types";
 import { TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
+import { TaskHistoryOptions } from "pages/task/taskTabs/TaskHistory/types";
+import { TaskTab } from "types/task";
 import { array } from "utils";
+import { variantHistoryMaxLength as maxLength } from "./constants";
 
 const { mapStringArrayToObject } = array;
 const { ColumnHeaderCell, LabelCellContainer, LoadingCell } = Cell;
@@ -54,11 +56,21 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
 
   const { taskNamesForBuildVariant } = columnData || {};
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const { columnLimit, visibleColumns } = useHistoryTable();
+  const { columnLimit, historyTableFilters, processedCommits, visibleColumns } =
+    useHistoryTable();
 
   const columnMap = mapStringArrayToObject(visibleColumns, "name");
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const activeColumns = useColumns(taskNamesForBuildVariant, (c) => c);
+
+  // @ts-expect-error: History table return values are not typed correctly
+  const firstActiveCommit = processedCommits.find((p) => !!p.commit);
+  const firstTaskId =
+    firstActiveCommit?.commit?.buildVariants?.[0]?.tasks?.[0]?.id;
+
+  // @ts-expect-error: History table return values are not typed correctly
+  const failingTestFilters = historyTableFilters.map((h) => h?.name).join("|");
+
   return (
     <RowContainer>
       <LabelCellContainer />
@@ -71,7 +83,14 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
           <ColumnHeaderCell
             key={`header_cell_${vc}`}
             fullDisplayName={vc}
-            link={getTaskHistoryRoute(projectIdentifier, vc)}
+            link={
+              firstTaskId
+                ? getTaskRoute(firstTaskId, {
+                    tab: TaskTab.History,
+                    [TaskHistoryOptions.FailingTest]: failingTestFilters,
+                  })
+                : ""
+            }
             onClick={() => {
               sendEvent({
                 name: "Clicked column header",

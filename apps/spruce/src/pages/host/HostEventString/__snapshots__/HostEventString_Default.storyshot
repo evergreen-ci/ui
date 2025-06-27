@@ -82,6 +82,20 @@
     <p
       class="leafygreen-ui-1tb6tuo"
     >
+      HOST_ALERTABLE_INSTANCE_TYPE_WARNING_SENT
+    </p>
+    <div
+      class="emotion-1"
+    >
+      <span>
+        HOST_ALERTABLE_INSTANCE_TYPE_WARNING_SENT
+      </span>
+    </div>
+  </div>
+  <div>
+    <p
+      class="leafygreen-ui-1tb6tuo"
+    >
       HOST_CONVERTED_PROVISIONING
     </p>
     <div

@@ -3,13 +3,10 @@
     class="emotion-BaseCell-HeaderCell e1bcz5i61"
     data-cy="header-cell"
   >
-    <a
-      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-1kmxc53"
-      href="https://spruce.mongodb.com"
+    <p
+      class="leafygreen-ui-1lf0hee"
     >
-      <span>
-        displayName
-      </span>
-    </a>
+      displayName
+    </p>
   </div>
 </div>

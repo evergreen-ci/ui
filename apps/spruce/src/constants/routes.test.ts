@@ -5,7 +5,6 @@ import {
   getVersionRoute,
   getSpawnHostRoute,
   getPatchRoute,
-  getTaskHistoryRoute,
   getVariantHistoryRoute,
   getProjectPatchesRoute,
   getWaterfallRoute,
@@ -13,8 +12,6 @@ import {
 
 const identifierWithSpecialCharacters = "!?identifier@";
 const escapedIdentifier = "!%3Fidentifier%40";
-const taskIDWithSpecialCharacters = "bazel_run_/@!:/:format";
-const escapedTaskID = "bazel_run_%2F%40!%3A%2F%3Aformat";
 
 describe("getProjectPatchesRoute", () => {
   it("escapes special characters projectIdentifier", () => {
@@ -162,111 +159,6 @@ describe("getWaterfallRoute", () => {
         variantFilters: ["variant1", "variant2"],
       }),
     ).toBe("/project/someProject/waterfall?buildVariants=variant1,variant2");
-  });
-});
-describe("getTaskHistoryRoute", () => {
-  it("generates a link to the task history page", () => {
-    expect(getTaskHistoryRoute("project", "taskName")).toBe(
-      "/task-history/project/taskName",
-    );
-  });
-  it("escapes special characters projectIdentifier", () => {
-    expect(
-      getTaskHistoryRoute(identifierWithSpecialCharacters, "taskName"),
-    ).toBe(`/task-history/${escapedIdentifier}/taskName`);
-  });
-  it("escapes special characters taskId", () => {
-    expect(getTaskHistoryRoute("project", taskIDWithSpecialCharacters)).toBe(
-      `/task-history/project/${escapedTaskID}`,
-    );
-  });
-  it("generates a link with failing or passing tests", () => {
-    expect(
-      getTaskHistoryRoute("project", "taskName", {
-        filters: {
-          failingTests: ["someFailingTest"],
-        },
-      }),
-    ).toBe("/task-history/project/taskName?failed=someFailingTest");
-    expect(
-      getTaskHistoryRoute("project", "taskName", {
-        filters: {
-          failingTests: ["someFailingTest", "someOtherFailingTest"],
-        },
-      }),
-    ).toBe(
-      "/task-history/project/taskName?failed=someFailingTest,someOtherFailingTest",
-    );
-    expect(
-      getTaskHistoryRoute("project", "taskName", {
-        filters: {
-          passingTests: ["somePassingTests"],
-        },
-      }),
-    ).toBe("/task-history/project/taskName?passed=somePassingTests");
-    expect(
-      getTaskHistoryRoute("project", "taskName", {
-        filters: {
-          passingTests: ["somePassingTests", "someOtherPassingTests"],
-        },
-      }),
-    ).toBe(
-      "/task-history/project/taskName?passed=somePassingTests,someOtherPassingTests",
-    );
-  });
-  it("generates a link with failing and passing tests", () => {
-    expect(
-      getTaskHistoryRoute("project", "taskName", {
-        filters: {
-          failingTests: ["someFailingTest"],
-          passingTests: ["somePassingTests"],
-        },
-      }),
-    ).toBe(
-      "/task-history/project/taskName?failed=someFailingTest&passed=somePassingTests",
-    );
-    expect(
-      getTaskHistoryRoute("project", "taskName", {
-        filters: {
-          failingTests: ["someFailingTest", "someOtherFailingTest"],
-          passingTests: ["somePassingTests", "someOtherPassingTests"],
-        },
-      }),
-    ).toBe(
-      "/task-history/project/taskName?failed=someFailingTest,someOtherFailingTest&passed=somePassingTests,someOtherPassingTests",
-    );
-  });
-  it("generates a link with a selectedCommit", () => {
-    expect(
-      getTaskHistoryRoute("project", "taskName", {
-        selectedCommit: 1,
-      }),
-    ).toBe("/task-history/project/taskName?selectedCommit=1");
-  });
-  it("generates a link with a selectedCommit and test filters", () => {
-    expect(
-      getTaskHistoryRoute("project", "taskName", {
-        filters: {
-          failingTests: ["someFailingTest", "someOtherFailingTest"],
-        },
-        selectedCommit: 1,
-      }),
-    ).toBe(
-      "/task-history/project/taskName?failed=someFailingTest,someOtherFailingTest&selectedCommit=1",
-    );
-  });
-  it("generates a link with a task ID", () => {
-    expect(
-      getTaskHistoryRoute("project", "taskName", {
-        filters: {
-          failingTests: ["someFailingTest", "someOtherFailingTest"],
-        },
-        selectedCommit: 1,
-        taskId: "12345",
-      }),
-    ).toBe(
-      "/task-history/project/taskName?failed=someFailingTest,someOtherFailingTest&selectedCommit=1&taskId=12345",
-    );
   });
 });
 
