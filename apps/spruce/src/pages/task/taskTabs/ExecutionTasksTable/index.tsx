@@ -5,8 +5,8 @@ import {
   SortingState,
   useLeafyGreenTable,
 } from "@leafygreen-ui/table";
-import { useTaskAnalytics } from "analytics";
 import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
+import { useTaskAnalytics } from "analytics";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { onChangeHandler } from "components/Table/utils";
 import { getColumnsTemplate } from "components/TasksTable/Columns";

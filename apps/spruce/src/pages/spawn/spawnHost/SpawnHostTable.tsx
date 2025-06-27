@@ -8,10 +8,10 @@ import {
 } from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
 import { WordBreak } from "@evg-ui/lib/components/styles";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { size } from "@evg-ui/lib/constants/tokens";
 import HostStatusBadge from "components/HostStatusBadge";
 import { DoesNotExpire } from "components/Spawn";
-import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { useQueryParam } from "hooks/useQueryParam";
 import { MyHost, QueryParams } from "types/spawn";
 import SpawnHostCard from "./SpawnHostCard";

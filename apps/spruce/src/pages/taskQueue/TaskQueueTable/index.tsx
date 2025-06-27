@@ -9,8 +9,8 @@ import {
   StyledRouterLink,
   wordBreakCss,
 } from "@evg-ui/lib/components/styles";
-import { useTaskQueueAnalytics } from "analytics";
 import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
+import { useTaskQueueAnalytics } from "analytics";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import {
   getVersionRoute,

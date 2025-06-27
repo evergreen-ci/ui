@@ -6,9 +6,9 @@ import {
   ColumnFiltersState,
   PaginationState,
 } from "@leafygreen-ui/table";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useImageAnalytics } from "analytics";
-import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
 import { DEFAULT_PAGE_SIZE } from "constants/index";
 import {

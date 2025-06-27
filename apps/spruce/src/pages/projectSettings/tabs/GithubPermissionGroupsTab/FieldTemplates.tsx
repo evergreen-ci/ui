@@ -4,10 +4,10 @@ import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import Icon from "@evg-ui/lib/components/Icon";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { PlusButton } from "components/Buttons";
-import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { tableColumnOffset } from "constants/tokens";
 
 type ArrayItem = Unpacked<ArrayFieldTemplateProps["items"]>;

@@ -8,9 +8,9 @@ import {
 } from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DoesNotExpire } from "components/Spawn";
-import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
 import { getSpawnHostRoute } from "constants/routes";
 import { useQueryParam } from "hooks/useQueryParam";
 import { MyVolume, QueryParams, TableVolume } from "types/spawn";

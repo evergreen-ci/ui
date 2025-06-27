@@ -5,8 +5,8 @@ import {
   ColumnFiltersState,
   SortingState,
 } from "@leafygreen-ui/table";
-import { useVersionAnalytics } from "analytics";
 import { BaseTable } from "@evg-ui/lib/components/Table/BaseTable";
+import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import TableWrapper from "components/Table/TableWrapper";
