@@ -2,7 +2,7 @@ import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { AdminSettingsTabRoutes } from "constants/routes";
 import { BannerTheme } from "gql/generated/types";
 import { AdminSettingsProvider, useAdminSettingsContext } from "./Context";
-import { AnnouncementsFormState } from "./tabs/AnnouncementsTab/types";
+import { AnnouncementsFormState } from "./tabs/GeneralTab/AnnouncementsTab/types";
 import { WritableAdminSettingsType } from "./tabs/types";
 
 describe("adminSettingsContext", () => {

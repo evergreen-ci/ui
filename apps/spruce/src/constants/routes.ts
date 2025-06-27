@@ -414,5 +414,5 @@ export const getTriggerRoute = ({
   return getVersionRoute(upstreamVersion.id);
 };
 
-export const getAdminSettingsRoute = (tab?: AdminSettingsTabRoutes) =>
+export const getAdminSettingsRoute = (tab?: string) =>
   tab ? `${paths.adminSettings}/${tab}` : `${paths.adminSettings}`;

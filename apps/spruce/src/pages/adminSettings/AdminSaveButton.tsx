@@ -34,8 +34,7 @@ export const AdminSaveButton = () => {
       const formToGql = formToGqlMap[tab];
       if (formToGql) {
         const { formData } = getTab(tab);
-        // @ts-expect-error: getTab needs to return more strongly typed formData
-        const changes = formToGql(formData);
+        const changes = formToGql(formData as any);
         return { ...acc, ...changes };
       }
       return acc;
