@@ -20,7 +20,7 @@ import {
 } from "gql/generated/types";
 import { ADMIN_SETTINGS } from "gql/queries";
 import { AdminSettingsProvider } from "./Context";
-import { AdminSettingsTabs } from "./Tabs";
+import { AdminSettingsTabs, GeneralSettings } from "./Tabs";
 
 const AdminSettingsPage: React.FC = () => {
   usePageTitle("Admin Settings");
@@ -45,7 +45,7 @@ const AdminSettingsPage: React.FC = () => {
                 as={Link}
                 data-cy="navitem-admin-general"
                 to={getAdminSettingsRoute(
-                  `general/${AdminSettingsTabRoutes.Announcements}`,
+                  `${GeneralSettings}/${AdminSettingsTabRoutes.Announcements}`,
                 )}
               >
                 Announcements

@@ -864,6 +864,7 @@ export enum HostEventType {
   HostAgentDeployFailed = "HOST_AGENT_DEPLOY_FAILED",
   HostAgentMonitorDeployed = "HOST_AGENT_MONITOR_DEPLOYED",
   HostAgentMonitorDeployFailed = "HOST_AGENT_MONITOR_DEPLOY_FAILED",
+  HostAlertableInstanceTypeWarningSent = "HOST_ALERTABLE_INSTANCE_TYPE_WARNING_SENT",
   HostConvertedProvisioning = "HOST_CONVERTED_PROVISIONING",
   HostConvertingProvisioning = "HOST_CONVERTING_PROVISIONING",
   HostConvertingProvisioningError = "HOST_CONVERTING_PROVISIONING_ERROR",

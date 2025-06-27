@@ -12,7 +12,7 @@ import { FormStateMap, WritableAdminSettingsType } from "./tabs/types";
 interface Props {
   data: AdminSettings;
 }
-const GeneralSettings = "general";
+export const GeneralSettings = "general";
 
 export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   const { setInitialData } = useAdminSettingsContext();
