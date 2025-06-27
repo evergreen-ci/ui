@@ -199,7 +199,7 @@ const TableHeaderCell = <T extends LGRowData>({
   const { columnDef } = header.column ?? {};
   const { meta } = columnDef;
   return (
-    // @ts-expect-error: HeaderCell type signature incompatibility with JSX component usage
+    // @ts-expect-error: HeaderCell type signature incompatibility with JSX component usage in lib context
     <HeaderCell
       key={header.id}
       header={header}
@@ -269,7 +269,7 @@ const RenderableRow = <T extends LGRowData>({
 }) => (
   <Fragment key={row.id}>
     {!row.isExpandedContent && (
-      // @ts-expect-error: Row type signature incompatibility with JSX component usage
+      // @ts-expect-error: Row type signature incompatibility with JSX component usage in lib context
       <Row
         className={css`
           ${isSelected &&
@@ -285,7 +285,7 @@ const RenderableRow = <T extends LGRowData>({
         virtualRow={virtualRow}
       >
         {row.getVisibleCells().map((cell) => (
-          // @ts-expect-error: Cell type signature incompatibility with JSX component usage
+          // @ts-expect-error: Cell type signature incompatibility with JSX component usage in lib context
           <Cell
             key={cell.id}
             cell={cell}
@@ -297,7 +297,7 @@ const RenderableRow = <T extends LGRowData>({
         ))}
       </Row>
     )}
-    {/* @ts-expect-error: StyledExpandedContent type signature incompatibility with JSX component usage */}
+    {/* @ts-expect-error: StyledExpandedContent type signature incompatibility with JSX component usage in lib context */}
     {row.isExpandedContent && <StyledExpandedContent row={row} />}
   </Fragment>
 );
