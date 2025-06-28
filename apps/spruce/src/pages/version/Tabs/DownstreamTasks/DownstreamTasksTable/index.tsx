@@ -12,9 +12,9 @@ import {
   BaseTable,
   TableWrapper,
   onChangeHandler,
+  TableControl,
 } from "@evg-ui/lib/components/Table";
 import { usePatchAnalytics, useVersionAnalytics } from "analytics";
-import TableControl from "components/Table/TableControl";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
@@ -147,8 +147,10 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
             dispatch({ type: "clearAllFilters" });
             table.reset();
           }}
-          onPageChange={(p) => dispatch({ type: "setPage", page: p })}
-          onPageSizeChange={(l) => dispatch({ type: "setLimit", limit: l })}
+          onPageChange={(p: number) => dispatch({ type: "setPage", page: p })}
+          onPageSizeChange={(l: number) =>
+            dispatch({ type: "setLimit", limit: l })
+          }
           page={page}
           totalCount={taskCount}
         />

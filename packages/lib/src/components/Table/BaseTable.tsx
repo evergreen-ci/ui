@@ -197,12 +197,11 @@ const TableHeaderCell = <T extends LGRowData>({
 }) => {
   const { columnDef } = header.column ?? {};
   const { meta } = columnDef;
+  const HeaderCellComponent = HeaderCell as any;
   return (
-    // @ts-expect-error: HeaderCell type signature incompatibility with JSX component usage in lib context
-    <HeaderCell
+    <HeaderCellComponent
       key={header.id}
       header={header}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       style={meta?.width && { width: columnDef?.meta?.width }}
     >
       {flexRender(columnDef.header, header.getContext())}
@@ -227,7 +226,7 @@ const TableHeaderCell = <T extends LGRowData>({
             value={(header?.column?.getFilterValue() as string[]) ?? []}
           />
         ) : null)}
-    </HeaderCell>
+    </HeaderCellComponent>
   );
 };
 
@@ -253,54 +252,54 @@ const RenderableRow = <T extends LGRowData>({
   row: LeafyGreenTableRow<T>;
   virtualRow?: VirtualItem;
   isSelected?: boolean;
-}) => (
-  <Fragment key={row.id}>
-    {!row.isExpandedContent && (
-      // @ts-expect-error: Row type signature incompatibility with JSX component usage in lib context
-      <Row
-        className={css`
-          ${isSelected &&
-          `
-           background-color: ${blue.light3} !important;
-           font-weight:bold;
-           `}
-        `}
-        data-cy={dataCyRow}
-        data-index={row.index}
-        data-selected={isSelected}
-        row={row}
-        virtualRow={virtualRow}
-      >
-        {row.getVisibleCells().map((cell) => (
-          // @ts-expect-error: Cell type signature incompatibility with JSX component usage in lib context
-          <Cell
-            key={cell.id}
-            cell={cell}
-            className={cellStyle}
-            style={cellPaddingStyle}
-          >
-            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-          </Cell>
-        ))}
-      </Row>
-    )}
-    {/* @ts-expect-error: StyledExpandedContent type signature incompatibility with JSX component usage in lib context */}
-    {row.isExpandedContent && <StyledExpandedContent row={row} />}
-  </Fragment>
-);
+}) => {
+  const RowComponent = Row as any;
+  const CellComponent = Cell as any;
+  return (
+    <Fragment key={row.id}>
+      {!row.isExpandedContent && (
+        <RowComponent
+          className={css`
+            ${isSelected &&
+            `
+             background-color: ${blue.light3} !important;
+             font-weight:bold;
+             `}
+          `}
+          data-cy={dataCyRow}
+          data-index={row.index}
+          data-selected={isSelected}
+          row={row}
+          virtualRow={virtualRow}
+        >
+          {row.getVisibleCells().map((cell) => (
+            <CellComponent
+              key={cell.id}
+              cell={cell}
+              className={cellStyle}
+              style={cellPaddingStyle}
+            >
+              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            </CellComponent>
+          ))}
+        </RowComponent>
+      )}
+      {row.isExpandedContent && <StyledExpandedContent row={row} />}
+    </Fragment>
+  );
+};
 
 const DefaultEmptyMessage = styled.div`
   margin-top: ${size.s};
   margin-left: ${tableColumnOffset};
 `;
 
-// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of ExpandedContent.
-const StyledExpandedContent = styled(ExpandedContent)`
+const StyledExpandedContent = styled(ExpandedContent as any)`
   > td {
     padding: ${size.xs} 0;
     background-color: ${gray.light3};
   }
-` as typeof ExpandedContent;
+` as any;
 
 const StyledPagination = styled(Pagination)`
   margin-top: ${size.xs};

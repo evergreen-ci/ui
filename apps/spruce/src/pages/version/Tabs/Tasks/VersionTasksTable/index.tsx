@@ -9,9 +9,9 @@ import {
   BaseTable,
   TableWrapper,
   onChangeHandler,
+  TableControl,
 } from "@evg-ui/lib/components/Table";
 import { useVersionAnalytics } from "analytics";
-import TableControl from "components/Table/TableControl";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
@@ -152,7 +152,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             setSorting(defaultSorting);
             clearQueryParams();
           }}
-          onPageSizeChange={(size) =>
+          onPageSizeChange={(size: number) =>
             sendEvent({ name: "Changed page size", "page.size": size })
           }
           page={page}
