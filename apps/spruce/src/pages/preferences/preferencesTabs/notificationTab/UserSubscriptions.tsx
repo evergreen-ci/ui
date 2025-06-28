@@ -11,11 +11,11 @@ import {
   useLeafyGreenTable,
 } from "@leafygreen-ui/table";
 import Icon from "@evg-ui/lib/components/Icon";
+import { BaseTable } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { ShortenedRouterLink } from "components/styles";
-import { BaseTable } from "components/Table/BaseTable";
 import { getSubscriberText } from "constants/subscription";
 import {
   resourceTypeToCopy,
