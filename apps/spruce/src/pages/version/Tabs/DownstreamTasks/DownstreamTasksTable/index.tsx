@@ -8,12 +8,14 @@ import {
   useLeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
-import { BaseTable } from "@evg-ui/lib/components/Table";
+import {
+  BaseTable,
+  TableWrapper,
+  onChangeHandler,
+} from "@evg-ui/lib/components/Table";
 import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
-import TableWrapper from "components/Table/TableWrapper";
-import { onChangeHandler } from "components/Table/utils";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { slugs } from "constants/routes";

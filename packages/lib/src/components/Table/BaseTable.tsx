@@ -26,7 +26,6 @@ import {
 import { size, tableColumnOffset } from "../../constants/tokens";
 import TableLoader from "./TableLoader";
 import TableFilterPopover from "./TablePopover/TableFilterPopover";
-import TableSearchPopover from "./TablePopover/TableSearchPopover";
 
 export interface TreeDataEntry {
   title: string;
@@ -227,19 +226,7 @@ const TableHeaderCell = <T extends LGRowData>({
             }
             value={(header?.column?.getFilterValue() as string[]) ?? []}
           />
-        ) : (
-          <TableSearchPopover
-            data-cy={meta?.search?.["data-cy"]}
-            onConfirm={(value) => {
-              header.column.setFilterValue(value);
-              if (usePagination) {
-                table.firstPage();
-              }
-            }}
-            placeholder={meta?.search?.placeholder}
-            value={(header?.column?.getFilterValue() as string) ?? ""}
-          />
-        ))}
+        ) : null)}
     </HeaderCell>
   );
 };

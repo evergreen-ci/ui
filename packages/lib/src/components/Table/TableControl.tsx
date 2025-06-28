@@ -1,13 +1,9 @@
+import React from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { size } from "@evg-ui/lib/constants/tokens";
-import PageSizeSelector from "components/PageSizeSelector";
-import Pagination from "components/Pagination";
-import { ResultCountLabel } from "components/ResultCountLabel";
-import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
-import usePagination from "hooks/usePagination";
+import { size } from "../../constants/tokens";
 
-interface Props {
+interface TableControlProps {
   filteredCount: number;
   totalCount: number;
   limit: number;
@@ -17,9 +13,36 @@ interface Props {
   onClear: () => void;
   onPageSizeChange?: (pageSize: number) => void;
   onPageChange?: (page: number) => void;
+  ResultCountComponent: React.ComponentType<{
+    numerator: number;
+    denominator: number;
+    dataCyNumerator?: string;
+    dataCyDenominator?: string;
+    label: string;
+  }>;
+  PaginationComponent: React.ComponentType<{
+    currentPage: number;
+    onChange?: (page: number) => void;
+    totalResults: number;
+    pageSize: number;
+    "data-cy"?: string;
+  }>;
+  PageSizeSelectorComponent: React.ComponentType<{
+    value: number;
+    disabled?: boolean;
+    onChange: (pageSize: number) => void;
+    "data-cy"?: string;
+  }>;
+  OuterRowComponent: React.ComponentType<{ children: React.ReactNode }>;
+  InnerRowComponent: React.ComponentType<{ children: React.ReactNode }>;
 }
 
-const TableControl: React.FC<Props> = ({
+const TableControl: React.FC<TableControlProps> = ({
+  InnerRowComponent,
+  OuterRowComponent,
+  PageSizeSelectorComponent,
+  PaginationComponent,
+  ResultCountComponent,
   disabled = false,
   filteredCount,
   label,
@@ -30,20 +53,18 @@ const TableControl: React.FC<Props> = ({
   page,
   totalCount,
 }) => {
-  const { setLimit } = usePagination();
-
-  const handlePageSizeChange = (pageSize: number) => {
-    setLimit(pageSize);
-    onPageSizeChange?.(pageSize);
-  };
   const onClearAll = () => {
     onClear();
   };
 
+  const handlePageSizeChange = (pageSize: number) => {
+    onPageSizeChange?.(pageSize);
+  };
+
   return (
-    <TableControlOuterRow>
+    <OuterRowComponent>
       <FlexContainer>
-        <ResultCountLabel
+        <ResultCountComponent
           dataCyDenominator="total-count"
           dataCyNumerator="filtered-count"
           denominator={totalCount}
@@ -59,22 +80,22 @@ const TableControl: React.FC<Props> = ({
           Clear all filters
         </PaddedButton>
       </FlexContainer>
-      <TableControlInnerRow>
-        <Pagination
+      <InnerRowComponent>
+        <PaginationComponent
           currentPage={page}
           data-cy="tasks-table-pagination"
           onChange={onPageChange}
           pageSize={limit}
           totalResults={filteredCount}
         />
-        <PageSizeSelector
+        <PageSizeSelectorComponent
           data-cy="tasks-table-page-size-selector"
           disabled={disabled}
           onChange={handlePageSizeChange}
           value={limit}
         />
-      </TableControlInnerRow>
-    </TableControlOuterRow>
+      </InnerRowComponent>
+    </OuterRowComponent>
   );
 };
 

@@ -10,10 +10,9 @@ import {
 } from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { BaseTable } from "@evg-ui/lib/components/Table";
+import { BaseTable, onChangeHandler } from "@evg-ui/lib/components/Table";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
-import { onChangeHandler } from "components/Table/utils";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import { HostSortBy, HostsQuery } from "gql/generated/types";
