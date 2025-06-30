@@ -1,12 +1,5 @@
 export interface FeatureFlagsFormState {
   featureFlags: {
-    adminParameterStoreDisabled: boolean;
-    releaseModeDisabled: boolean;
-    elasticIPsDisabled: boolean;
-    staticAPIKeysDisabled: boolean;
-    backgroundReauthDisabled: boolean;
-    taskReliabilityDisabled: boolean;
-    evergreenTestResultsDisabled: boolean;
     services: {
       taskDispatchDisabled: boolean;
       largeParserProjectsDisabled: boolean;
@@ -20,6 +13,8 @@ export interface FeatureFlagsFormState {
       podAllocatorDisabled: boolean;
       unrecognizedPodCleanupDisabled: boolean;
       cloudCleanupDisabled: boolean;
+      taskReliabilityDisabled: boolean;
+      evergreenTestResultsDisabled: boolean;
     };
 
     notifications: {
@@ -41,6 +36,11 @@ export interface FeatureFlagsFormState {
       taskLoggingDisabled: boolean;
       cliUpdatesDisabled: boolean;
       sleepScheduleDisabled: boolean;
+      adminParameterStoreDisabled: boolean;
+      releaseModeDisabled: boolean;
+      elasticIPsDisabled: boolean;
+      staticAPIKeysDisabled: boolean;
+      backgroundReauthDisabled: boolean;
     };
 
     batchJobs: {

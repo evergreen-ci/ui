@@ -15,6 +15,8 @@ const serviceItems: Record<string, string> = {
   podAllocatorDisabled: "Allocate pods for container tasks",
   unrecognizedPodCleanupDisabled: "Clean up unrecognized pods",
   cloudCleanupDisabled: "Cloud Provider Cleanup",
+  taskReliabilityDisabled: "Task Reliability",
+  evergreenTestResultsDisabled: "Evergreen Test Results",
 };
 
 const notificationItems: Record<string, string> = {
@@ -36,6 +38,11 @@ const featureItems: Record<string, string> = {
   taskLoggingDisabled: "Persist task and test logs",
   cliUpdatesDisabled: "Update CLI",
   sleepScheduleDisabled: "Unexpirable host sleep schedule",
+  adminParameterStoreDisabled: "Admin Parameter Store",
+  releaseModeDisabled: "Release Mode",
+  elasticIPsDisabled: "Elastic IPs",
+  staticAPIKeysDisabled: "Static API Keys",
+  backgroundReauthDisabled: "Background Reauthentication",
 };
 
 const batchJobItems: Record<string, string> = {

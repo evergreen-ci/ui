@@ -21,6 +21,10 @@ export const gqlToForm = ((data) => ({
       unrecognizedPodCleanupDisabled:
         data.serviceFlags?.unrecognizedPodCleanupDisabled ?? false,
       cloudCleanupDisabled: data.serviceFlags?.cloudCleanupDisabled ?? false,
+      evergreenTestResultsDisabled:
+        data.serviceFlags?.evergreenTestResultsDisabled ?? false,
+      taskReliabilityDisabled:
+        data.serviceFlags?.taskReliabilityDisabled ?? false,
     },
 
     notifications: {
@@ -51,6 +55,13 @@ export const gqlToForm = ((data) => ({
       taskLoggingDisabled: data.serviceFlags?.taskLoggingDisabled ?? false,
       cliUpdatesDisabled: data.serviceFlags?.cliUpdatesDisabled ?? false,
       sleepScheduleDisabled: data.serviceFlags?.sleepScheduleDisabled ?? false,
+      backgroundReauthDisabled:
+        data.serviceFlags?.backgroundReauthDisabled ?? false,
+      staticAPIKeysDisabled: data.serviceFlags?.staticAPIKeysDisabled ?? false,
+      elasticIPsDisabled: data.serviceFlags?.elasticIPsDisabled ?? false,
+      releaseModeDisabled: data.serviceFlags?.releaseModeDisabled ?? false,
+      adminParameterStoreDisabled:
+        data.serviceFlags?.adminParameterStoreDisabled ?? false,
     },
 
     batchJobs: {
@@ -62,13 +73,6 @@ export const gqlToForm = ((data) => ({
       backgroundCleanupDisabled:
         data.serviceFlags?.backgroundCleanupDisabled ?? false,
     },
-    evergreenTestResultsDisabled: false,
-    taskReliabilityDisabled: false,
-    backgroundReauthDisabled: false,
-    staticAPIKeysDisabled: false,
-    elasticIPsDisabled: false,
-    releaseModeDisabled: false,
-    adminParameterStoreDisabled: false,
   },
 })) satisfies GqlToFormFunction<Tab>;
 
@@ -81,13 +85,6 @@ export const formToGql = (({ featureFlags }) => {
       ...notifications,
       ...features,
       ...batchJobs,
-      evergreenTestResultsDisabled: featureFlags.evergreenTestResultsDisabled,
-      taskReliabilityDisabled: featureFlags.taskReliabilityDisabled,
-      backgroundReauthDisabled: featureFlags.backgroundReauthDisabled,
-      staticAPIKeysDisabled: featureFlags.staticAPIKeysDisabled,
-      elasticIPsDisabled: featureFlags.elasticIPsDisabled,
-      releaseModeDisabled: featureFlags.releaseModeDisabled,
-      adminParameterStoreDisabled: featureFlags.adminParameterStoreDisabled,
     },
   };
 }) satisfies FormToGqlFunction<Tab>;

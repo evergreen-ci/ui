@@ -203,6 +203,7 @@ export type BuildBaronSettingsInput = {
  */
 export type BuildVariantOptions = {
   includeBaseTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -3006,6 +3007,11 @@ export type TaskContainerCreationOpts = {
   workingDir: Scalars["String"]["output"];
 };
 
+/** TaskCountOptions defines the parameters that are used when counting tasks from a Version. */
+export type TaskCountOptions = {
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
 export type TaskEndDetail = {
   __typename?: "TaskEndDetail";
   description?: Maybe<Scalars["String"]["output"]>;
@@ -3543,6 +3549,11 @@ export type VersionBuildVariantStatsArgs = {
 /** Version models a commit within a project. */
 export type VersionBuildVariantsArgs = {
   options: BuildVariantOptions;
+};
+
+/** Version models a commit within a project. */
+export type VersionTaskCountArgs = {
+  options?: InputMaybe<TaskCountOptions>;
 };
 
 /** Version models a commit within a project. */
