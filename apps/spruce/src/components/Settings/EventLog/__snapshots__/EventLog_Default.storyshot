@@ -1,14 +1,14 @@
 <div>
   <div
-    class="css-1jzq22x-Container er8squx1"
+    class="emotion-Container er8squx1"
     data-cy="event-log"
   >
     <div
-      class="css-jrloig-EventLogCard er8squx0 leafygreen-ui-1ecxdul"
+      class="emotion-EventLogCard er8squx0 leafygreen-ui-1ecxdul"
       data-cy="event-log-card"
     >
       <div
-        class="css-1urg914-StyledHeader ez6cbmt0"
+        class="emotion-StyledHeader ez6cbmt0"
       >
         <h6
           class="leafygreen-ui-19p3n10"
@@ -126,7 +126,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         deletedField
                       </span>
@@ -149,7 +149,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         "deleted value"
                       </span>
@@ -207,7 +207,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         stringField
                       </span>
@@ -230,7 +230,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         "original value"
                       </span>
@@ -253,7 +253,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                          
                         "updated value"
@@ -289,7 +289,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         numberField
                       </span>
@@ -312,7 +312,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         96
                       </span>
@@ -335,7 +335,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                          
                         1
@@ -371,7 +371,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         booleanField
                       </span>
@@ -394,7 +394,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         false
                       </span>
@@ -417,7 +417,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                          
                         true
@@ -453,7 +453,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         addedField
                       </span>
@@ -476,7 +476,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       />
                     </div>
                   </div>
@@ -497,7 +497,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                          
                         "added value"
@@ -533,7 +533,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         nested.array[0]
                       </span>
@@ -556,7 +556,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         4
                       </span>
@@ -579,7 +579,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                          
                         1
@@ -615,7 +615,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         nested.array[1]
                       </span>
@@ -638,7 +638,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         5
                       </span>
@@ -661,7 +661,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                          
                         2
@@ -697,7 +697,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         nested.array[2]
                       </span>
@@ -720,7 +720,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         6
                       </span>
@@ -743,7 +743,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                          
                         3
@@ -779,7 +779,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         nested.object.key
                       </span>
@@ -802,7 +802,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         "modified value"
                       </span>
@@ -825,7 +825,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                          
                         "value"
@@ -861,7 +861,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         customKey
                       </span>
@@ -884,7 +884,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                         <b
                           style="color: red;"
@@ -911,7 +911,7 @@
                       class=""
                     >
                       <span
-                        class="css-dbrfx0-CellText e1uhqo6x0"
+                        class="emotion-CellText e1uhqo6x0"
                       >
                          
                         <b

@@ -25,7 +25,7 @@
             >
               Name
               <div
-                class="css-dfh62w-FilterWrapper e1gla5v20"
+                class="emotion-FilterWrapper e1gla5v20"
               >
                 <button
                   aria-disabled="false"
@@ -98,7 +98,7 @@
             >
               Type
               <div
-                class="css-dfh62w-FilterWrapper e1gla5v20"
+                class="emotion-FilterWrapper e1gla5v20"
               >
                 <button
                   aria-disabled="false"
@@ -171,7 +171,7 @@
             >
               Size
               <div
-                class="css-dfh62w-FilterWrapper e1gla5v20"
+                class="emotion-FilterWrapper e1gla5v20"
               >
                 <button
                   aria-disabled="false"
@@ -240,7 +240,7 @@
     </table>
   </div>
   <div
-    class="css-1h8fqjs-DefaultEmptyMessage e1bwwd862"
+    class="emotion-DefaultEmptyMessage e1bwwd862"
   >
     No data to display
   </div>

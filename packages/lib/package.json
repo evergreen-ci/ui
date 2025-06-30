@@ -11,11 +11,11 @@
     "snapshot": "vitest run snapshot.test.ts",
     "storybook": "storybook dev -p 6008",
     "storybook:build": "storybook build",
-    "test": "vitest --typecheck=false"
+    "test": "vitest --typecheck=false --exclude=src/snapshot.test.ts"
   },
   "dependencies": {
-    "@emotion/react": "11.13.3",
-    "@emotion/styled": "11.13.0",
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.0",
     "@honeycombio/opentelemetry-web": "^0.5.0",
     "@leafygreen-ui/emotion": "4.0.7",
     "@leafygreen-ui/icon": "^12.6.0",
@@ -28,6 +28,7 @@
     "query-string": "9.1.1"
   },
   "devDependencies": {
+    "@emotion/jest": "^11.13.0",
     "@evg-ui/eslint-config": "*",
     "@evg-ui/lint-staged": "*",
     "@evg-ui/storybook-addon": "*",

@@ -157,10 +157,10 @@
                     class=""
                   >
                     <div
-                      class="css-vb6kre-TaskCell-wordBreakCss e1hj893t0"
+                      class="emotion-TaskCell-wordBreakCss e1hj893t0"
                     >
                       <a
-                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                         data-cy="current-task-link"
                         href="/task/task_0"
                       >
@@ -212,7 +212,7 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/project/parsley/patches"
                     >
                       <span>
@@ -238,12 +238,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                         </span>
@@ -291,12 +291,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/user/admin/patches"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           admin
                         </span>
@@ -379,10 +379,10 @@
                     class=""
                   >
                     <div
-                      class="css-vb6kre-TaskCell-wordBreakCss e1hj893t0"
+                      class="emotion-TaskCell-wordBreakCss e1hj893t0"
                     >
                       <a
-                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                         data-cy="current-task-link"
                         href="/task/task_1"
                       >
@@ -434,7 +434,7 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/project/parsley/patches"
                     >
                       <span>
@@ -460,12 +460,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                         </span>
@@ -513,12 +513,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/user/admin/patches"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           admin
                         </span>
@@ -601,10 +601,10 @@
                     class=""
                   >
                     <div
-                      class="css-vb6kre-TaskCell-wordBreakCss e1hj893t0"
+                      class="emotion-TaskCell-wordBreakCss e1hj893t0"
                     >
                       <a
-                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                         data-cy="current-task-link"
                         href="/task/task_2"
                       >
@@ -656,7 +656,7 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/project/parsley/patches"
                     >
                       <span>
@@ -682,12 +682,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                         </span>
@@ -735,12 +735,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/user/admin/patches"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           admin
                         </span>
@@ -823,10 +823,10 @@
                     class=""
                   >
                     <div
-                      class="css-vb6kre-TaskCell-wordBreakCss e1hj893t0"
+                      class="emotion-TaskCell-wordBreakCss e1hj893t0"
                     >
                       <a
-                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                         data-cy="current-task-link"
                         href="/task/task_3"
                       >
@@ -878,7 +878,7 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/project/parsley/patches"
                     >
                       <span>
@@ -904,12 +904,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                         </span>
@@ -957,12 +957,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/user/admin/patches"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           admin
                         </span>
@@ -1045,10 +1045,10 @@
                     class=""
                   >
                     <div
-                      class="css-vb6kre-TaskCell-wordBreakCss e1hj893t0"
+                      class="emotion-TaskCell-wordBreakCss e1hj893t0"
                     >
                       <a
-                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                         data-cy="current-task-link"
                         href="/task/task_4"
                       >
@@ -1100,7 +1100,7 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/project/parsley/patches"
                     >
                       <span>
@@ -1126,12 +1126,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                         </span>
@@ -1179,12 +1179,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/user/admin/patches"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           admin
                         </span>
@@ -1267,10 +1267,10 @@
                     class=""
                   >
                     <div
-                      class="css-vb6kre-TaskCell-wordBreakCss e1hj893t0"
+                      class="emotion-TaskCell-wordBreakCss e1hj893t0"
                     >
                       <a
-                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                         data-cy="current-task-link"
                         href="/task/task_5"
                       >
@@ -1322,7 +1322,7 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/project/parsley/patches"
                     >
                       <span>
@@ -1348,12 +1348,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                         </span>
@@ -1401,12 +1401,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/user/admin/patches"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           admin
                         </span>
@@ -1489,10 +1489,10 @@
                     class=""
                   >
                     <div
-                      class="css-vb6kre-TaskCell-wordBreakCss e1hj893t0"
+                      class="emotion-TaskCell-wordBreakCss e1hj893t0"
                     >
                       <a
-                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                         data-cy="current-task-link"
                         href="/task/task_6"
                       >
@@ -1544,7 +1544,7 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/project/parsley/patches"
                     >
                       <span>
@@ -1570,12 +1570,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                         </span>
@@ -1623,12 +1623,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/user/admin/patches"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           admin
                         </span>
@@ -1711,10 +1711,10 @@
                     class=""
                   >
                     <div
-                      class="css-vb6kre-TaskCell-wordBreakCss e1hj893t0"
+                      class="emotion-TaskCell-wordBreakCss e1hj893t0"
                     >
                       <a
-                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                         data-cy="current-task-link"
                         href="/task/task_7"
                       >
@@ -1766,7 +1766,7 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/project/parsley/patches"
                     >
                       <span>
@@ -1792,12 +1792,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                         </span>
@@ -1845,12 +1845,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/user/admin/patches"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           admin
                         </span>
@@ -1933,10 +1933,10 @@
                     class=""
                   >
                     <div
-                      class="css-vb6kre-TaskCell-wordBreakCss e1hj893t0"
+                      class="emotion-TaskCell-wordBreakCss e1hj893t0"
                     >
                       <a
-                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                         data-cy="current-task-link"
                         href="/task/task_8"
                       >
@@ -1988,7 +1988,7 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/project/parsley/patches"
                     >
                       <span>
@@ -2014,12 +2014,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                         </span>
@@ -2067,12 +2067,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/user/admin/patches"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           admin
                         </span>
@@ -2155,10 +2155,10 @@
                     class=""
                   >
                     <div
-                      class="css-vb6kre-TaskCell-wordBreakCss e1hj893t0"
+                      class="emotion-TaskCell-wordBreakCss e1hj893t0"
                     >
                       <a
-                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                         data-cy="current-task-link"
                         href="/task/task_9"
                       >
@@ -2210,7 +2210,7 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/project/parsley/patches"
                     >
                       <span>
@@ -2236,12 +2236,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                         </span>
@@ -2289,12 +2289,12 @@
                     class=""
                   >
                     <a
-                      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                      class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                       href="/user/admin/patches"
                     >
                       <span>
                         <span
-                          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                          class="emotion-WordBreak-wordBreakCss e1wygaev0"
                         >
                           admin
                         </span>

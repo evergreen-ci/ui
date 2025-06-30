@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-dnn8n4-Container-dateSeparatorHoverGroupStyles ezsgi5w2"
+    class="emotion-Container-dateSeparatorHoverGroupStyles ezsgi5w2"
   >
     <button
       aria-disabled="true"
@@ -31,171 +31,171 @@
       </div>
     </button>
     <div
-      class="css-t11c9f-Timeline ezsgi5w1"
+      class="emotion-Timeline ezsgi5w1"
       data-cy="task-timeline"
       data-task-history-guide-id="task-timeline"
     >
       <div
         aria-label="Date Separator for Task Timeline"
-        class="date-separator css-1fmm32v-Container et9p33q3"
+        class="date-separator emotion-Container et9p33q3"
         data-cy="date-separator"
       >
         <div
-          class="date-badge css-1ryjq60-StyledBadge et9p33q2 leafygreen-ui-c62i3c"
+          class="date-badge emotion-StyledBadge et9p33q2 leafygreen-ui-c62i3c"
         >
           4/03
         </div>
         <div
-          class="date-dot css-1cxo7t2-Dot et9p33q1"
+          class="date-dot emotion-Dot et9p33q1"
         />
         <div
-          class="css-uv8ypt-Line et9p33q0"
+          class="emotion-Line et9p33q0"
         />
       </div>
       <div
-        class="square css-11vqzj0-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
+        class="square emotion-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
       >
         <div
-          class="ezsgi5w0 css-1githth-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+          class="ezsgi5w0 emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
           data-cy="timeline-box"
           id="task-box-a"
         />
         <div
-          class="current-task-badge css-z9ak2i-StyledBadge eqwglp71 leafygreen-ui-h5xdir"
+          class="current-task-badge emotion-StyledBadge eqwglp71 leafygreen-ui-h5xdir"
         >
           This Task
         </div>
         <div
-          class="css-u2bv40-Dot eqwglp70"
+          class="emotion-Dot eqwglp70"
         />
       </div>
       <div
-        class="square css-11vqzj0-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
+        class="square emotion-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
       >
         <div
-          class="ezsgi5w0 css-1o53qdw-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+          class="ezsgi5w0 emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
           data-cy="timeline-box"
           id="task-box-b"
         />
       </div>
       <div
-        class="square css-4m3or9-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        class="square emotion-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
         data-cy="collapsed-box"
       >
         1
       </div>
       <div
         aria-label="Date Separator for Task Timeline"
-        class="date-separator css-1fmm32v-Container et9p33q3"
+        class="date-separator emotion-Container et9p33q3"
         data-cy="date-separator"
       >
         <div
-          class="date-badge css-1ryjq60-StyledBadge et9p33q2 leafygreen-ui-c62i3c"
+          class="date-badge emotion-StyledBadge et9p33q2 leafygreen-ui-c62i3c"
         >
           4/02
         </div>
         <div
-          class="date-dot css-1cxo7t2-Dot et9p33q1"
+          class="date-dot emotion-Dot et9p33q1"
         />
         <div
-          class="css-uv8ypt-Line et9p33q0"
+          class="emotion-Line et9p33q0"
         />
       </div>
       <div
-        class="square css-11vqzj0-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
+        class="square emotion-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
       >
         <div
-          class="ezsgi5w0 css-7e7l9x-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+          class="ezsgi5w0 emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
           data-cy="timeline-box"
           id="task-box-d"
         />
       </div>
       <div
-        class="square css-4m3or9-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        class="square emotion-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
         data-cy="collapsed-box"
       >
         1
       </div>
       <div
         aria-label="Date Separator for Task Timeline"
-        class="date-separator css-1fmm32v-Container et9p33q3"
+        class="date-separator emotion-Container et9p33q3"
         data-cy="date-separator"
       >
         <div
-          class="date-badge css-1ryjq60-StyledBadge et9p33q2 leafygreen-ui-c62i3c"
+          class="date-badge emotion-StyledBadge et9p33q2 leafygreen-ui-c62i3c"
         >
           4/01
         </div>
         <div
-          class="date-dot css-1cxo7t2-Dot et9p33q1"
+          class="date-dot emotion-Dot et9p33q1"
         />
         <div
-          class="css-uv8ypt-Line et9p33q0"
+          class="emotion-Line et9p33q0"
         />
       </div>
       <div
-        class="square css-11vqzj0-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
+        class="square emotion-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
       >
         <div
-          class="ezsgi5w0 css-14cvnsm-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+          class="ezsgi5w0 emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
           data-cy="timeline-box"
           id="task-box-f"
         />
       </div>
       <div
-        class="square css-4m3or9-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
+        class="square emotion-CollapsedBox-getTaskBoxStyles-getCollapsedTaskBoxStyles ehu1qo80"
         data-cy="collapsed-box"
       >
         3
       </div>
       <div
         aria-label="Date Separator for Task Timeline"
-        class="date-separator css-1fmm32v-Container et9p33q3"
+        class="date-separator emotion-Container et9p33q3"
         data-cy="date-separator"
       >
         <div
-          class="date-badge css-1ryjq60-StyledBadge et9p33q2 leafygreen-ui-c62i3c"
+          class="date-badge emotion-StyledBadge et9p33q2 leafygreen-ui-c62i3c"
         >
           3/30
         </div>
         <div
-          class="date-dot css-1cxo7t2-Dot et9p33q1"
+          class="date-dot emotion-Dot et9p33q1"
         />
         <div
-          class="css-uv8ypt-Line et9p33q0"
+          class="emotion-Line et9p33q0"
         />
       </div>
       <div
-        class="square css-11vqzj0-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
+        class="square emotion-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
       >
         <div
-          class="ezsgi5w0 css-uzcmeq-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+          class="ezsgi5w0 emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
           data-cy="timeline-box"
           id="task-box-j"
         />
       </div>
       <div
         aria-label="Date Separator for Task Timeline"
-        class="date-separator css-1fmm32v-Container et9p33q3"
+        class="date-separator emotion-Container et9p33q3"
         data-cy="date-separator"
       >
         <div
-          class="date-badge css-1ryjq60-StyledBadge et9p33q2 leafygreen-ui-c62i3c"
+          class="date-badge emotion-StyledBadge et9p33q2 leafygreen-ui-c62i3c"
         >
           3/29
         </div>
         <div
-          class="date-dot css-1cxo7t2-Dot et9p33q1"
+          class="date-dot emotion-Dot et9p33q1"
         />
         <div
-          class="css-uv8ypt-Line et9p33q0"
+          class="emotion-Line et9p33q0"
         />
       </div>
       <div
-        class="square css-11vqzj0-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
+        class="square emotion-TaskBoxWrapper-currentBadgeHoverStyles ezsgi5w3"
       >
         <div
-          class="ezsgi5w0 css-16ualrf-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
+          class="ezsgi5w0 emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle-TaskBox ehu1qo81"
           data-cy="timeline-box"
           id="task-box-k"
         />

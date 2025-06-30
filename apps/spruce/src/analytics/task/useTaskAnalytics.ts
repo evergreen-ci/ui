@@ -7,9 +7,11 @@ import {
   TaskQuery,
   TaskQueryVariables,
   TaskSortCategory,
+  TaskTestCountQuery,
+  TaskTestCountQueryVariables,
   TestSortCategory,
 } from "gql/generated/types";
-import { TASK } from "gql/queries";
+import { TASK, TASK_TEST_COUNT } from "gql/queries";
 import { useQueryParam } from "hooks/useQueryParam";
 import { CommitType } from "pages/task/actionButtons/RelevantCommits/types";
 import { RequiredQueryParams, LogTypes } from "types/task";
@@ -83,11 +85,21 @@ export const useTaskAnalytics = () => {
     errorPolicy: "all",
     fetchPolicy: "cache-first",
   });
+  const { data: taskTestCountData } = useQuery<
+    TaskTestCountQuery,
+    TaskTestCountQueryVariables
+  >(TASK_TEST_COUNT, {
+    variables: {
+      taskId: taskId || "",
+      execution: execution,
+    },
+    fetchPolicy: "cache-first",
+  });
+  const { failedTestCount } = taskTestCountData?.task || {};
 
   const {
     displayName,
     displayStatus,
-    failedTestCount,
     latestExecution,
     project,
     requester = "",

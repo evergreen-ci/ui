@@ -259,4 +259,45 @@ describe("searchLogs", () => {
     const matchingIndices = searchLogs(options);
     expect(matchingIndices).toStrictEqual([1, 2, 5, 8, 9]);
   });
+
+  it("should find matches that include ANSI formatting", () => {
+    const lines = [
+      "[2025/06/24 09:28:08.663] [sentry-vite-plugin] Info: Successfully uploaded source maps to Sentry",
+      "[2025/06/24 09:28:08.663] [2mdist/[22m[32mindex.html",
+    ];
+    const options = {
+      getLine: (index: number) => lines[index],
+      lowerBound: 0,
+      processedLogLines: [0, 1],
+      searchRegex: /dist\/i/,
+    };
+    const matchingIndices = searchLogs(options);
+    expect(matchingIndices).toStrictEqual([1]);
+  });
+
+  it("should find matches that include ANSI formatting within sections", () => {
+    const lines = [
+      "[2025/06/24 09:28:08.663] [sentry-vite-plugin] Info: Successfully uploaded source maps to Sentry",
+      "Function Name",
+      "[2025/06/24 09:28:08.663] [2mdist/[22m[32mindex.html",
+    ];
+    const processedLogLines: ProcessedLogLines = [
+      0,
+      {
+        functionID: "function-1",
+        functionName: "test",
+        isOpen: false,
+        range: { end: 3, start: 1 },
+        rowType: RowType.SectionHeader,
+      },
+    ];
+    const options = {
+      getLine: (index: number) => lines[index],
+      lowerBound: 0,
+      processedLogLines,
+      searchRegex: /dist\/i/,
+    };
+    const matchingIndices = searchLogs(options);
+    expect(matchingIndices).toStrictEqual([2]);
+  });
 });
