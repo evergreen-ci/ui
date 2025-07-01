@@ -1,8 +1,8 @@
-import { AdminSettingsTabRoutes } from "constants/routes";
+import { AdminSettingsGeneralSection } from "constants/routes";
 import { BannerTheme } from "gql/generated/types";
-import { FormToGqlFunction, GqlToFormFunction } from "../types";
+import { FormToGqlFunction, GqlToFormFunction } from "../../types";
 
-type Tab = AdminSettingsTabRoutes.Announcements;
+type Tab = AdminSettingsGeneralSection.Announcements;
 
 export const gqlToForm = ((data) => {
   if (!data) return null;
