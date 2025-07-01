@@ -1,5 +1,5 @@
-import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
-import { TreeDataEntry } from "components/TreeSelect";
+import { render, screen, userEvent } from "test_utils";
+import { TreeDataEntry } from "../../BaseTable";
 import TableFilterPopover from ".";
 
 const options: TreeDataEntry[] = [
