@@ -115,7 +115,7 @@ export const ActionButtons: React.FC<Props> = ({
     onCompleted: (data) => {
       dispatchToast.success(
         data.setTaskPriorities.some(({ priority }) => (priority ?? 0) >= 0)
-          ? `Task ${pluralize("priority", data.setTaskPriorities.length)} updated.`
+          ? `Priority updated for ${data.setTaskPriorities.length} ${pluralize("task", data.setTaskPriorities.length)}.`
           : `${pluralize("Task", data.setTaskPriorities.length)} successfully disabled.`,
       );
     },
