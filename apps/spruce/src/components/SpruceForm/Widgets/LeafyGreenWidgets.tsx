@@ -416,6 +416,80 @@ export const LeafyGreenRadioBox: React.FC<
   );
 };
 
+export const LeafyGreenZebraRadio: React.FC<EnumSpruceWidgetProps> = ({
+  disabled,
+  id,
+  label,
+  onChange,
+  options,
+  value,
+}) => {
+  const { "data-cy": dataCy, enumDisabled, enumOptions, rows = 0 } = options; // Default rows to 0 if undefined
+
+  // RadioBox components do not accept boolean props for value, so use the indices instead.
+  const valueMap = enumOptions.map(({ value: val }) => val);
+  const bgColor = (rows ?? 0) % 2 === 0 ? palette.white : palette.gray.light3;
+  console.log("rowIndex", rows, "bgColor", bgColor);
+
+  return (
+    <ElementWrapper
+      css={css`
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        background-color: ${bgColor};
+        gap: ${size.l};
+      `}
+    >
+      {label && (
+        <LabelContainer
+          css={css`
+            display: flex;
+            flex-direction: row;
+            gap: ${size.l};
+          `}
+        >
+          <Label disabled={disabled} htmlFor={id}>
+            {label}
+          </Label>
+        </LabelContainer>
+      )}
+      <RadioGroup
+        bold={false}
+        css={css`
+          display: flex;
+          flex-direction: row;
+          gap: ${size.l};
+          align-items: end;
+          aligh-self: center;
+        `}
+        data-cy={dataCy}
+        id={id}
+        name={label}
+        onChange={(e) => onChange(valueMap[Number(e.target.value)])}
+        value={valueMap.indexOf(value)}
+      >
+        {enumOptions.map((o) => {
+          const optionDisabled = enumDisabled?.includes(o.value) ?? false;
+          const { description } = o.schema ?? {};
+          return (
+            <Radio
+              key={valueMap.indexOf(o.value)}
+              data-label={o.label}
+              description={description}
+              disabled={disabled || optionDisabled}
+              value={valueMap.indexOf(o.value)}
+            >
+              {o.label}
+            </Radio>
+          );
+        })}
+      </RadioGroup>
+    </ElementWrapper>
+  );
+};
+
 const StyledBanner = styled(Banner)`
   margin-bottom: ${size.s};
 `;
