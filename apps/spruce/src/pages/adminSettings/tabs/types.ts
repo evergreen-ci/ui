@@ -10,7 +10,7 @@ import { ProvidersFormState } from "./GeneralTab/ProvidersTab/types";
 import { RunnersFormState } from "./GeneralTab/RunnersTab/types";
 import { WebFormState } from "./GeneralTab/WebTab/types";
 
-const { EventLog, RestartTasks, ...WritableAdminSettingsTabs } =
+const { EventLog, General, RestartTasks, ...WritableAdminSettingsTabs } =
   AdminSettingsTabRoutes;
 export { WritableAdminSettingsTabs };
 

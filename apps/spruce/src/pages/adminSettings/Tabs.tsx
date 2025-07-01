@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { AdminSettingsTabRoutes } from "constants/routes";
 import { AdminSettings } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { AdminSaveButton } from "./AdminSaveButton";
@@ -12,7 +13,6 @@ import { FormStateMap, WritableAdminSettingsType } from "./tabs/types";
 interface Props {
   data: AdminSettings;
 }
-export const GeneralSettings = "general";
 
 export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   const { setInitialData } = useAdminSettingsContext();
@@ -30,9 +30,12 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
       <Routes>
         <Route
           element={<GeneralTab tabData={tabData} />}
-          path={GeneralSettings}
+          path={AdminSettingsTabRoutes.General}
         />
-        <Route element={<Navigate replace to={GeneralSettings} />} path="*" />
+        <Route
+          element={<Navigate replace to={AdminSettingsTabRoutes.General} />}
+          path="*"
+        />
       </Routes>
     </TabsContent>
   );
