@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-t0zpzm-Container epe837f1"
+    class="emotion-Container epe837f1"
   >
     <h6
       class="leafygreen-ui-19p3n10"
@@ -91,10 +91,10 @@
                     class=""
                   >
                     <div
-                      class="css-1iffxfz-CellContainer epe837f0"
+                      class="emotion-CellContainer epe837f0"
                     >
                       <a
-                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                         data-cy="file-link"
                         href="some_link"
                         target="_self"
@@ -151,10 +151,10 @@
                     class=""
                   >
                     <div
-                      class="css-1iffxfz-CellContainer epe837f0"
+                      class="emotion-CellContainer epe837f0"
                     >
                       <a
-                        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                        class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                         data-cy="file-link"
                         href="another_link"
                         target="_self"

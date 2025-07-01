@@ -1,14 +1,14 @@
 <div>
   <div>
     <div
-      class="css-16i4gmg-AccordionToggle e1omze814"
+      class="emotion-AccordionToggle e1omze814"
       data-cy="accordion-toggle"
       role="button"
     >
       <button
         aria-disabled="false"
         aria-label="Accordion icon"
-        class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+        class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
         style="align-self: start;"
         tabindex="0"
       >
@@ -36,15 +36,15 @@
       </button>
       <span>
         <div
-          class="css-jp8k7a-TitleContainer eea2d852"
+          class="emotion-TitleContainer eea2d852"
         >
           <div
-            class="css-wqsx5z-Title eea2d850"
+            class="emotion-Title eea2d850"
           >
             TestName
           </div>
           <div
-            class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+            class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
             data-cy="task-status-badge"
           >
             1 Failed
@@ -54,14 +54,14 @@
     </div>
     <div
       aria-expanded="false"
-      class="css-sstoka-AnimatedAccordion e1omze812"
+      class="emotion-AnimatedAccordion e1omze812"
       data-cy="accordion-collapse-container"
     >
       <div
-        class="css-1hezny5-ContentsContainer e1omze811"
+        class="emotion-ContentsContainer e1omze811"
       >
         <div
-          class="css-12mjh8o-StyledCard eea2d851 leafygreen-ui-1ecxdul"
+          class="emotion-StyledCard eea2d851 leafygreen-ui-1ecxdul"
         >
           <div
             class="leafygreen-ui-1si66qn"
@@ -211,12 +211,12 @@
                           class=""
                         >
                           <a
-                            class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                            class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                             href="/task/TaskId/tests"
                           >
                             <span>
                               <span
-                                class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                                class="emotion-WordBreak-wordBreakCss e1wygaev0"
                               >
                                 TaskName
                               </span>
@@ -260,7 +260,7 @@
                           class=""
                         >
                           <div
-                            class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+                            class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
                             data-cy="task-status-badge"
                           >
                             Failed

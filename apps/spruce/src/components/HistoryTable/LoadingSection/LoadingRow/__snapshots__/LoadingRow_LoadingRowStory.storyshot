@@ -1,9 +1,9 @@
 <div>
   <div
-    class="css-4c6myl-Container eubivai0"
+    class="emotion-Container eubivai0"
   >
     <div
-      class="css-167wnfc-LabelCellContainer e1bcz5i60"
+      class="emotion-LabelCellContainer e1bcz5i60"
     >
       <ul
         aria-busy="true"
@@ -58,7 +58,7 @@
       </ul>
     </div>
     <div
-      class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+      class="emotion-BaseCell-Cell e1bcz5i62"
       data-cy="loading-cell"
     >
       <div
@@ -67,7 +67,7 @@
       />
     </div>
     <div
-      class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+      class="emotion-BaseCell-Cell e1bcz5i62"
       data-cy="loading-cell"
     >
       <div
@@ -76,7 +76,7 @@
       />
     </div>
     <div
-      class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+      class="emotion-BaseCell-Cell e1bcz5i62"
       data-cy="loading-cell"
     >
       <div

@@ -1,10 +1,10 @@
 <div>
   <div
-    class="css-6ndzxq-CommitList ez8m9z90"
+    class="emotion-CommitList ez8m9z90"
     data-cy="commit-details-list"
   >
     <div
-      class="css-1293549-Container e1jhrgym1"
+      class="emotion-Container e1jhrgym1"
       data-cy="horizontal-date-separator"
     >
       <div
@@ -13,17 +13,17 @@
         Apr 3, 2025
       </div>
       <div
-        class="css-scnh1d-DashedLine e1jhrgym0"
+        class="emotion-DashedLine e1jhrgym0"
       />
     </div>
     <div
-      class="css-1nxqlnv-CommitCard-inactiveElementStyle e1a625uv2"
+      class="emotion-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
       id="commit-card-a"
     >
       <div
-        class="css-12rnwxt-TopLabel e1a625uv1"
+        class="emotion-TopLabel e1a625uv1"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -91,26 +91,26 @@
           Apr 3, 2025, 10:22 AM
         </span>
         <div
-          class="css-1pa0taf-OrderLabel e1a625uv0"
+          class="emotion-OrderLabel e1a625uv0"
         >
           Order: 
           100
         </div>
       </div>
       <div
-        class="css-1qgx25j-BottomLabel end94gb2"
+        class="emotion-BottomLabel end94gb2"
       >
         <b
-          class="css-1nvsyyh-AuthorLabel end94gb1"
+          class="emotion-AuthorLabel end94gb1"
         >
           Evergreen Admin
            - 
         </b>
         <span
-          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+          class="emotion-WordBreak-wordBreakCss e1wygaev0"
         >
           <a
-            class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+            class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
             data-cy="jira-link"
             href="https:///browse/DEVPROD-1234"
             rel="noopener noreferrer"
@@ -125,13 +125,13 @@
       </div>
     </div>
     <div
-      class="css-31ovgm-CommitCard-inactiveElementStyle e1a625uv2"
+      class="emotion-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
       id="commit-card-b"
     >
       <div
-        class="css-12rnwxt-TopLabel e1a625uv1"
+        class="emotion-TopLabel e1a625uv1"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -205,26 +205,26 @@
           </span>
         </span>
         <div
-          class="css-1pa0taf-OrderLabel e1a625uv0"
+          class="emotion-OrderLabel e1a625uv0"
         >
           Order: 
           99
         </div>
       </div>
       <div
-        class="css-1qgx25j-BottomLabel end94gb2"
+        class="emotion-BottomLabel end94gb2"
       >
         <b
-          class="css-1nvsyyh-AuthorLabel end94gb1"
+          class="emotion-AuthorLabel end94gb1"
         >
           Evergreen Admin
            - 
         </b>
         <span
-          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+          class="emotion-WordBreak-wordBreakCss e1wygaev0"
         >
           <a
-            class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+            class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
             data-cy="jira-link"
             href="https:///browse/DEVPROD-1234"
             rel="noopener noreferrer"
@@ -277,7 +277,7 @@
       </button>
     </span>
     <div
-      class="css-1293549-Container e1jhrgym1"
+      class="emotion-Container e1jhrgym1"
       data-cy="horizontal-date-separator"
     >
       <div
@@ -286,17 +286,17 @@
         Apr 2, 2025
       </div>
       <div
-        class="css-scnh1d-DashedLine e1jhrgym0"
+        class="emotion-DashedLine e1jhrgym0"
       />
     </div>
     <div
-      class="css-gb9rre-CommitCard-inactiveElementStyle e1a625uv2"
+      class="emotion-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
       id="commit-card-d"
     >
       <div
-        class="css-12rnwxt-TopLabel e1a625uv1"
+        class="emotion-TopLabel e1a625uv1"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -358,26 +358,26 @@
           Apr 2, 2025, 10:22 AM
         </span>
         <div
-          class="css-1pa0taf-OrderLabel e1a625uv0"
+          class="emotion-OrderLabel e1a625uv0"
         >
           Order: 
           97
         </div>
       </div>
       <div
-        class="css-1qgx25j-BottomLabel end94gb2"
+        class="emotion-BottomLabel end94gb2"
       >
         <b
-          class="css-1nvsyyh-AuthorLabel end94gb1"
+          class="emotion-AuthorLabel end94gb1"
         >
           Evergreen Admin
            - 
         </b>
         <span
-          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+          class="emotion-WordBreak-wordBreakCss e1wygaev0"
         >
           <a
-            class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+            class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
             data-cy="jira-link"
             href="https:///browse/DEVPROD-1234"
             rel="noopener noreferrer"
@@ -430,7 +430,7 @@
       </button>
     </span>
     <div
-      class="css-1293549-Container e1jhrgym1"
+      class="emotion-Container e1jhrgym1"
       data-cy="horizontal-date-separator"
     >
       <div
@@ -439,17 +439,17 @@
         Apr 1, 2025
       </div>
       <div
-        class="css-scnh1d-DashedLine e1jhrgym0"
+        class="emotion-DashedLine e1jhrgym0"
       />
     </div>
     <div
-      class="css-jzrtur-CommitCard e1a625uv2"
+      class="emotion-CommitCard e1a625uv2"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
       id="commit-card-f"
     >
       <div
-        class="css-12rnwxt-TopLabel e1a625uv1"
+        class="emotion-TopLabel e1a625uv1"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -511,7 +511,7 @@
           Apr 1, 2025, 10:22 AM
         </span>
         <div
-          class="css-1pa0taf-OrderLabel e1a625uv0"
+          class="emotion-OrderLabel e1a625uv0"
         >
           Order: 
           95
@@ -519,14 +519,14 @@
       </div>
       <div>
         <div
-          class="css-16i4gmg-AccordionToggle e1omze814"
+          class="emotion-AccordionToggle e1omze814"
           data-cy="accordion-toggle"
           role="button"
         >
           <button
             aria-disabled="false"
             aria-label="Accordion icon"
-            class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
             style="align-self: start;"
             tabindex="0"
           >
@@ -554,19 +554,19 @@
           </button>
           <span>
             <div
-              class="css-1qgx25j-BottomLabel end94gb2"
+              class="emotion-BottomLabel end94gb2"
             >
               <b
-                class="css-1nvsyyh-AuthorLabel end94gb1"
+                class="emotion-AuthorLabel end94gb1"
               >
                 Evergreen Admin
                  - 
               </b>
               <span
-                class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                class="emotion-WordBreak-wordBreakCss e1wygaev0"
               >
                 <a
-                  class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
                   data-cy="jira-link"
                   href="https:///browse/DEVPROD-1234"
                   rel="noopener noreferrer"
@@ -583,14 +583,14 @@
         </div>
         <div
           aria-expanded="false"
-          class="css-sstoka-AnimatedAccordion e1omze812"
+          class="emotion-AnimatedAccordion e1omze812"
           data-cy="accordion-collapse-container"
         >
           <div
-            class="css-1hezny5-ContentsContainer e1omze811"
+            class="emotion-ContentsContainer e1omze811"
           >
             <div
-              class="css-1hjkmga-TableContainer e1bp1fda2"
+              class="emotion-TableContainer e1bp1fda2"
             >
               <div
                 class="leafygreen-ui-1si66qn"
@@ -620,7 +620,7 @@
                         >
                           Test Failure Name
                           <div
-                            class="css-dfh62w-FilterWrapper e1gla5v20"
+                            class="emotion-FilterWrapper e1gla5v20"
                           >
                             <button
                               aria-disabled="false"
@@ -708,7 +708,7 @@
                               class=""
                             >
                               <span
-                                class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+                                class="emotion-WordBreak-wordBreakCss e1wygaev0"
                               >
                                 e2e_test
                               </span>
@@ -755,11 +755,11 @@
                               class=""
                             >
                               <div
-                                class="css-1gi9ejr-ButtonContainer e1bp1fda1"
+                                class="emotion-ButtonContainer e1bp1fda1"
                               >
                                 <button
                                   aria-disabled="false"
-                                  class="lg-ui-button-0000 leafygreen-ui-168frnw css-11mxq61-StyledButton e1bp1fda0"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
                                   data-lgid="lg-button"
                                   type="button"
                                 >
@@ -774,7 +774,7 @@
                                 </button>
                                 <a
                                   aria-disabled="false"
-                                  class="lg-ui-button-0000 leafygreen-ui-168frnw css-11mxq61-StyledButton e1bp1fda0"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
                                   data-lgid="lg-button"
                                   href="a-parsley-url.mongodb.com"
                                   target="__blank"
@@ -862,7 +862,7 @@
       </button>
     </span>
     <div
-      class="css-1293549-Container e1jhrgym1"
+      class="emotion-Container e1jhrgym1"
       data-cy="horizontal-date-separator"
     >
       <div
@@ -871,17 +871,17 @@
         Mar 30, 2025
       </div>
       <div
-        class="css-scnh1d-DashedLine e1jhrgym0"
+        class="emotion-DashedLine e1jhrgym0"
       />
     </div>
     <div
-      class="css-h6wuzn-CommitCard-inactiveElementStyle e1a625uv2"
+      class="emotion-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
       id="commit-card-j"
     >
       <div
-        class="css-12rnwxt-TopLabel e1a625uv1"
+        class="emotion-TopLabel e1a625uv1"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -955,26 +955,26 @@
           </span>
         </span>
         <div
-          class="css-1pa0taf-OrderLabel e1a625uv0"
+          class="emotion-OrderLabel e1a625uv0"
         >
           Order: 
           91
         </div>
       </div>
       <div
-        class="css-1qgx25j-BottomLabel end94gb2"
+        class="emotion-BottomLabel end94gb2"
       >
         <b
-          class="css-1nvsyyh-AuthorLabel end94gb1"
+          class="emotion-AuthorLabel end94gb1"
         >
           Evergreen Admin
            - 
         </b>
         <span
-          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+          class="emotion-WordBreak-wordBreakCss e1wygaev0"
         >
           <a
-            class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+            class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
             data-cy="jira-link"
             href="https:///browse/DEVPROD-1234"
             rel="noopener noreferrer"
@@ -989,7 +989,7 @@
       </div>
     </div>
     <div
-      class="css-1293549-Container e1jhrgym1"
+      class="emotion-Container e1jhrgym1"
       data-cy="horizontal-date-separator"
     >
       <div
@@ -998,17 +998,17 @@
         Mar 29, 2025
       </div>
       <div
-        class="css-scnh1d-DashedLine e1jhrgym0"
+        class="emotion-DashedLine e1jhrgym0"
       />
     </div>
     <div
-      class="css-1d5xl61-CommitCard-inactiveElementStyle e1a625uv2"
+      class="emotion-CommitCard-inactiveElementStyle e1a625uv2"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
       id="commit-card-k"
     >
       <div
-        class="css-12rnwxt-TopLabel e1a625uv1"
+        class="emotion-TopLabel e1a625uv1"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -1070,26 +1070,26 @@
           Mar 29, 2025, 10:22 AM
         </span>
         <div
-          class="css-1pa0taf-OrderLabel e1a625uv0"
+          class="emotion-OrderLabel e1a625uv0"
         >
           Order: 
           90
         </div>
       </div>
       <div
-        class="css-1qgx25j-BottomLabel end94gb2"
+        class="emotion-BottomLabel end94gb2"
       >
         <b
-          class="css-1nvsyyh-AuthorLabel end94gb1"
+          class="emotion-AuthorLabel end94gb1"
         >
           Evergreen Admin
            - 
         </b>
         <span
-          class="css-16elo4e-WordBreak-wordBreakCss e1wygaev0"
+          class="emotion-WordBreak-wordBreakCss e1wygaev0"
         >
           <a
-            class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+            class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
             data-cy="jira-link"
             href="https:///browse/DEVPROD-1234"
             rel="noopener noreferrer"

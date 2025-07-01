@@ -1,13 +1,13 @@
 <div>
   Scroll the below container out of view and observe the component mounting and unmounting
   <div
-    class="css-tgipkw"
+    class="emotion-0"
   >
     <div
-      class="css-p2c4z4"
+      class="emotion-1"
     >
       <div
-        class="css-0"
+        class="emotion-2"
         data-visible="false"
       />
     </div>

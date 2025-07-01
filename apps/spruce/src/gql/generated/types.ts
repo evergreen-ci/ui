@@ -66,11 +66,13 @@ export type AdminSettings = {
   __typename?: "AdminSettings";
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
+  serviceFlags?: Maybe<ServiceFlags>;
 };
 
 export type AdminSettingsInput = {
   banner?: InputMaybe<Scalars["String"]["input"]>;
   bannerTheme?: InputMaybe<BannerTheme>;
+  serviceFlags?: InputMaybe<ServiceFlagsInput>;
 };
 
 /**
@@ -201,6 +203,7 @@ export type BuildBaronSettingsInput = {
  */
 export type BuildVariantOptions = {
   includeBaseTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -2628,6 +2631,89 @@ export type SelectorInput = {
   type: Scalars["String"]["input"];
 };
 
+export type ServiceFlags = {
+  __typename?: "ServiceFlags";
+  adminParameterStoreDisabled: Scalars["Boolean"]["output"];
+  agentStartDisabled: Scalars["Boolean"]["output"];
+  alertsDisabled: Scalars["Boolean"]["output"];
+  backgroundCleanupDisabled: Scalars["Boolean"]["output"];
+  backgroundReauthDisabled: Scalars["Boolean"]["output"];
+  backgroundStatsDisabled: Scalars["Boolean"]["output"];
+  cacheStatsEndpointDisabled: Scalars["Boolean"]["output"];
+  cacheStatsJobDisabled: Scalars["Boolean"]["output"];
+  checkBlockedTasksDisabled: Scalars["Boolean"]["output"];
+  cliUpdatesDisabled: Scalars["Boolean"]["output"];
+  cloudCleanupDisabled: Scalars["Boolean"]["output"];
+  degradedModeDisabled: Scalars["Boolean"]["output"];
+  elasticIPsDisabled: Scalars["Boolean"]["output"];
+  emailNotificationsDisabled: Scalars["Boolean"]["output"];
+  eventProcessingDisabled: Scalars["Boolean"]["output"];
+  evergreenTestResultsDisabled: Scalars["Boolean"]["output"];
+  githubPRTestingDisabled: Scalars["Boolean"]["output"];
+  githubStatusAPIDisabled: Scalars["Boolean"]["output"];
+  hostAllocatorDisabled: Scalars["Boolean"]["output"];
+  hostInitDisabled: Scalars["Boolean"]["output"];
+  jiraNotificationsDisabled: Scalars["Boolean"]["output"];
+  jwtTokenForCLIDisabled: Scalars["Boolean"]["output"];
+  largeParserProjectsDisabled: Scalars["Boolean"]["output"];
+  monitorDisabled: Scalars["Boolean"]["output"];
+  podAllocatorDisabled: Scalars["Boolean"]["output"];
+  podInitDisabled: Scalars["Boolean"]["output"];
+  releaseModeDisabled: Scalars["Boolean"]["output"];
+  repotrackerDisabled: Scalars["Boolean"]["output"];
+  schedulerDisabled: Scalars["Boolean"]["output"];
+  slackNotificationsDisabled: Scalars["Boolean"]["output"];
+  sleepScheduleDisabled: Scalars["Boolean"]["output"];
+  staticAPIKeysDisabled: Scalars["Boolean"]["output"];
+  systemFailedTaskRestartDisabled: Scalars["Boolean"]["output"];
+  taskDispatchDisabled: Scalars["Boolean"]["output"];
+  taskLoggingDisabled: Scalars["Boolean"]["output"];
+  taskReliabilityDisabled: Scalars["Boolean"]["output"];
+  unrecognizedPodCleanupDisabled: Scalars["Boolean"]["output"];
+  webhookNotificationsDisabled: Scalars["Boolean"]["output"];
+};
+
+export type ServiceFlagsInput = {
+  adminParameterStoreDisabled: Scalars["Boolean"]["input"];
+  agentStartDisabled: Scalars["Boolean"]["input"];
+  alertsDisabled: Scalars["Boolean"]["input"];
+  backgroundCleanupDisabled: Scalars["Boolean"]["input"];
+  backgroundReauthDisabled: Scalars["Boolean"]["input"];
+  backgroundStatsDisabled: Scalars["Boolean"]["input"];
+  cacheStatsEndpointDisabled: Scalars["Boolean"]["input"];
+  cacheStatsJobDisabled: Scalars["Boolean"]["input"];
+  checkBlockedTasksDisabled: Scalars["Boolean"]["input"];
+  cliUpdatesDisabled: Scalars["Boolean"]["input"];
+  cloudCleanupDisabled: Scalars["Boolean"]["input"];
+  degradedModeDisabled: Scalars["Boolean"]["input"];
+  elasticIPsDisabled: Scalars["Boolean"]["input"];
+  emailNotificationsDisabled: Scalars["Boolean"]["input"];
+  eventProcessingDisabled: Scalars["Boolean"]["input"];
+  evergreenTestResultsDisabled: Scalars["Boolean"]["input"];
+  githubPRTestingDisabled: Scalars["Boolean"]["input"];
+  githubStatusAPIDisabled: Scalars["Boolean"]["input"];
+  hostAllocatorDisabled: Scalars["Boolean"]["input"];
+  hostInitDisabled: Scalars["Boolean"]["input"];
+  jiraNotificationsDisabled: Scalars["Boolean"]["input"];
+  jwtTokenForCLIDisabled: Scalars["Boolean"]["input"];
+  largeParserProjectsDisabled: Scalars["Boolean"]["input"];
+  monitorDisabled: Scalars["Boolean"]["input"];
+  podAllocatorDisabled: Scalars["Boolean"]["input"];
+  podInitDisabled: Scalars["Boolean"]["input"];
+  releaseModeDisabled: Scalars["Boolean"]["input"];
+  repotrackerDisabled: Scalars["Boolean"]["input"];
+  schedulerDisabled: Scalars["Boolean"]["input"];
+  slackNotificationsDisabled: Scalars["Boolean"]["input"];
+  sleepScheduleDisabled: Scalars["Boolean"]["input"];
+  staticAPIKeysDisabled: Scalars["Boolean"]["input"];
+  systemFailedTaskRestartDisabled: Scalars["Boolean"]["input"];
+  taskDispatchDisabled: Scalars["Boolean"]["input"];
+  taskLoggingDisabled: Scalars["Boolean"]["input"];
+  taskReliabilityDisabled: Scalars["Boolean"]["input"];
+  unrecognizedPodCleanupDisabled: Scalars["Boolean"]["input"];
+  webhookNotificationsDisabled: Scalars["Boolean"]["input"];
+};
+
 /**
  * SetLastRevisionInput is the input to the setLastRevision mutation.
  * It contains information used to fix the repotracker error of a project.
@@ -2919,6 +3005,11 @@ export type TaskContainerCreationOpts = {
   memoryMB: Scalars["Int"]["output"];
   os: Scalars["String"]["output"];
   workingDir: Scalars["String"]["output"];
+};
+
+/** TaskCountOptions defines the parameters that are used when counting tasks from a Version. */
+export type TaskCountOptions = {
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export type TaskEndDetail = {
@@ -3458,6 +3549,11 @@ export type VersionBuildVariantStatsArgs = {
 /** Version models a commit within a project. */
 export type VersionBuildVariantsArgs = {
   options: BuildVariantOptions;
+};
+
+/** Version models a commit within a project. */
+export type VersionTaskCountArgs = {
+  options?: InputMaybe<TaskCountOptions>;
 };
 
 /** Version models a commit within a project. */
@@ -6317,6 +6413,7 @@ export type DistroQuery = {
     hostAllocatorSettings: {
       __typename?: "HostAllocatorSettings";
       acceptableHostIdleTime: number;
+      autoTuneMaximumHosts: boolean;
       feedbackRule: FeedbackRule;
       futureHostFraction: number;
       hostsOverallocatedRule: OverallocatedRule;
@@ -9006,6 +9103,22 @@ export type TaskStatusesQuery = {
   };
 };
 
+export type TaskTestCountQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskTestCountQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    failedTestCount: number;
+    totalTestCount: number;
+  } | null;
+};
+
 export type TaskTestSampleQueryVariables = Exact<{
   taskIds: Array<Scalars["String"]["input"]>;
   filters: Array<TestFilter>;
@@ -9116,7 +9229,6 @@ export type TaskQuery = {
     distroId: string;
     estimatedStart?: number | null;
     expectedDuration?: number | null;
-    failedTestCount: number;
     finishTime?: Date | null;
     generatedBy?: string | null;
     generatedByName?: string | null;
@@ -9136,7 +9248,6 @@ export type TaskQuery = {
     status: string;
     tags: Array<string>;
     timeTaken?: number | null;
-    totalTestCount: number;
     id: string;
     buildVariant: string;
     buildVariantDisplayName?: string | null;

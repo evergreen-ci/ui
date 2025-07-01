@@ -3,26 +3,26 @@
     style="height: 100%; width: 100%;"
   >
     <div
-      class="css-157odwz"
+      class="emotion-0"
       data-cy="error-fallback"
     >
       <div
-        class="css-1xl0rym"
+        class="emotion-1"
       >
         <h1
-          class="css-1t9xarj leafygreen-ui-r0ky5x"
+          class="emotion-2 leafygreen-ui-r0ky5x"
         >
           Error
         </h1>
         <h2
-          class="css-1t9xarj leafygreen-ui-oaqrgz"
+          class="emotion-2 leafygreen-ui-oaqrgz"
         >
           Ouch! That's gotta hurt,
           <br />
            sorry about that!
         </h2>
         <a
-          class="css-fp08na"
+          class="emotion-6"
           href="/"
         >
           Back To Home

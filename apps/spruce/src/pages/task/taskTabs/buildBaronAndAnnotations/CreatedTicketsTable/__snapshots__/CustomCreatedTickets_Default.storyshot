@@ -1,14 +1,14 @@
 <div>
   <h6
-    class="css-17joker-TicketsTitle efcqne01 leafygreen-ui-19p3n10"
+    class="emotion-TicketsTitle efcqne01 leafygreen-ui-19p3n10"
   >
     Create a New Ticket
   </h6>
   <div
-    class="css-t0zpzm-Container eo8g30w0"
+    class="emotion-Container eo8g30w0"
   >
     <div
-      class="leafygreen-ui-cssveg css-4qutsv-ButtonWrapper efcqne00"
+      class="leafygreen-ui-cssveg emotion-ButtonWrapper efcqne00"
     >
       <button
         aria-disabled="false"
@@ -29,19 +29,19 @@
     </div>
   </div>
   <h6
-    class="css-1bcaqaj-TicketsTitle efcqne01 leafygreen-ui-19p3n10"
+    class="emotion-TicketsTitle efcqne01 leafygreen-ui-19p3n10"
   >
     Tickets Created From This Task
   </h6>
   <div
-    class="css-1sw7km2-TicketContainer elmpkl90"
+    class="emotion-TicketContainer elmpkl90"
   >
     <div
-      class="css-1bcnev1-Container e1ch0kli3"
+      class="emotion-Container e1ch0kli3"
       data-cy="annotation-ticket-row"
     >
       <a
-        class="lg-ui-0001 e1ch0kli2 css-rmpwsz-overrideStyles-JiraSummaryLink leafygreen-ui-16e7rxl"
+        class="lg-ui-0001 e1ch0kli2 emotion-overrideStyles-JiraSummaryLink leafygreen-ui-16e7rxl"
         data-cy="DEVPROD-1"
         href="https://spruce.mongodb.com"
         target="_blank"
@@ -52,20 +52,20 @@
         </span>
       </a>
       <div
-        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
+        class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
         data-cy="DEVPROD-1-badge"
       >
         Done
       </div>
       <div
-        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
+        class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
         data-cy="DEVPROD-1-confidence-badge"
       >
         25
         % Confident in suggestion
       </div>
       <div
-        class="css-vrtzhq-BottomMetaDataWrapper e1ch0kli0"
+        class="emotion-BottomMetaDataWrapper e1ch0kli0"
         data-cy="DEVPROD-1-metadata"
       >
         <small
@@ -94,11 +94,11 @@
       </div>
     </div>
     <div
-      class="css-1bcnev1-Container e1ch0kli3"
+      class="emotion-Container e1ch0kli3"
       data-cy="annotation-ticket-row"
     >
       <a
-        class="lg-ui-0001 e1ch0kli2 css-rmpwsz-overrideStyles-JiraSummaryLink leafygreen-ui-16e7rxl"
+        class="lg-ui-0001 e1ch0kli2 emotion-overrideStyles-JiraSummaryLink leafygreen-ui-16e7rxl"
         data-cy="DEVPROD-2"
         href="https://spruce.mongodb.com"
         target="_blank"
@@ -109,20 +109,20 @@
         </span>
       </a>
       <div
-        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
+        class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
         data-cy="DEVPROD-2-badge"
       >
         In Progress
       </div>
       <div
-        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
+        class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
         data-cy="DEVPROD-2-confidence-badge"
       >
         50
         % Confident in suggestion
       </div>
       <div
-        class="css-vrtzhq-BottomMetaDataWrapper e1ch0kli0"
+        class="emotion-BottomMetaDataWrapper e1ch0kli0"
         data-cy="DEVPROD-2-metadata"
       >
         <small

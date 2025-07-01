@@ -3,9 +3,10 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
-import { H2, Disclaimer } from "@leafygreen-ui/typography";
+import { Disclaimer, H2 } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
@@ -21,7 +22,9 @@ import { HostsQuery, HostsQueryVariables } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import usePagination from "hooks/usePagination";
 import { HostsTable } from "pages/hosts/HostsTable";
-import { getFilters, useQueryVariables, getSorting } from "./utils";
+import { getFilters, getSorting, useQueryVariables } from "./utils";
+
+type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
 
 const Hosts: React.FC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
@@ -36,11 +39,11 @@ const Hosts: React.FC = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const initialSorting = useMemo(() => getSorting(queryVariables), []);
 
-  const hasFilters =
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    hostId || currentTaskId || distroId || statuses.length || startedBy;
+  const hasFilters = Boolean(
+    hostId || currentTaskId || distroId || statuses?.length || startedBy,
+  );
 
-  const [selectedHosts, setSelectedHosts] = useState([]);
+  const [selectedHosts, setSelectedHosts] = useState<Host[]>([]);
 
   const {
     canReprovision,
@@ -55,27 +58,21 @@ const Hosts: React.FC = () => {
     let restartJasperErrorMessage = "Jasper cannot be restarted for:";
     let reprovisionErrorMessage =
       "The following hosts cannot be reprovisioned:";
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const errorHosts = [];
-    selectedHosts.forEach((host) => {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
+    const errorHosts: string[] = [];
+    selectedHosts.forEach((host: Host) => {
       const bootstrapMethod = host?.distro?.bootstrapMethod;
       if (
         !(
           (bootstrapMethod === "ssh" || bootstrapMethod === "user-data") &&
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           host?.status === "running"
         )
       ) {
         canRestart = false;
         canRepro = false;
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         errorHosts.push(` ${host?.id}`);
       }
     });
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     restartJasperErrorMessage += ` ${errorHosts}`;
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     reprovisionErrorMessage += ` ${errorHosts}`;
 
     const hostIds = selectedHosts.map(({ id }) => id);
@@ -175,7 +172,6 @@ const Hosts: React.FC = () => {
         initialSorting={initialSorting}
         limit={limit}
         loading={loading && hostItems.length === 0}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         setSelectedHosts={setSelectedHosts}
       />
       <UpdateStatusModal

@@ -1,20 +1,20 @@
 <div>
   <div
-    class="css-b5r3c0"
+    class="emotion-0"
   >
     <div
-      class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
+      class="emotion-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
     >
       <p
-        class="css-lpa3lu-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
       >
         Tags
       </p>
       <hr
-        class="css-qqg5h5-Divider eb6szep0"
+        class="emotion-Divider eb6szep0"
       />
       <div
-        class="css-c4cphq-TagsContainer e12sfkss0"
+        class="emotion-TagsContainer e12sfkss0"
       >
         <span
           aria-disabled="false"

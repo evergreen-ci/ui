@@ -13,7 +13,7 @@ interface ProjectFilterProps {
   removeFilter: (filterToRemove: string) => void;
   active: boolean;
   selected: boolean;
-  filter: ParsleyFilter;
+  filter: Omit<ParsleyFilter, "description">;
 }
 
 const ProjectFilter: React.FC<ProjectFilterProps> = ({

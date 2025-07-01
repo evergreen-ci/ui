@@ -17,8 +17,8 @@ import { onChangeHandler } from "components/Table/utils";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import { HostSortBy, HostsQuery } from "gql/generated/types";
-import { useTableSort } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
+import { useTableSort } from "hooks/useTableSort";
 import { HostsTableFilterParams, mapIdToFilterParam } from "types/host";
 
 type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
@@ -27,9 +27,9 @@ const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
 interface Props {
+  hosts: HostsQuery["hosts"]["hosts"];
   initialFilters: ColumnFiltersState;
   initialSorting: SortingState;
-  hosts: HostsQuery["hosts"]["hosts"];
   limit: number;
   loading: boolean;
   setSelectedHosts: React.Dispatch<React.SetStateAction<Host[]>>;
@@ -43,15 +43,15 @@ export const HostsTable: React.FC<Props> = ({
   loading,
   setSelectedHosts,
 }) => {
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const { sendEvent } = useHostsTableAnalytics();
 
   const [queryParams, setQueryParams] = useQueryParams();
 
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-
   const updateRowSelection = (rowState: RowSelectionState) => {
+    setRowSelection(rowState);
     const selectedHosts = Object.keys(rowState).map(
-      (key) => table.getRowModel().rowsById[key]?.original,
+      (index) => hosts[parseInt(index, 10)],
     );
     setSelectedHosts(selectedHosts);
   };
@@ -106,6 +106,7 @@ export const HostsTable: React.FC<Props> = ({
     state: {
       rowSelection,
     },
+    enableMultiSort: false,
     hasSelectableRows: true,
     manualFiltering: true,
     manualPagination: true,

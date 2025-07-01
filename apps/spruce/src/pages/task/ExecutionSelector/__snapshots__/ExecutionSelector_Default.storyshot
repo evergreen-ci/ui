@@ -1,6 +1,6 @@
 <div>
   <div
-    class="leafygreen-ui-1iyoj2o css-1ijai3k-StyledSelect e1x3h6m21"
+    class="leafygreen-ui-1iyoj2o emotion-StyledSelect e1x3h6m21"
     data-lgid="lg-select"
   >
     <button
@@ -32,7 +32,7 @@
             data-lgid="lg-select-button_text"
           >
             <p
-              class="css-1v3xaxa-StyledBody e1x3h6m20 leafygreen-ui-1tb6tuo"
+              class="emotion-StyledBody e1x3h6m20 leafygreen-ui-1tb6tuo"
             >
               Execution 5
             </p>

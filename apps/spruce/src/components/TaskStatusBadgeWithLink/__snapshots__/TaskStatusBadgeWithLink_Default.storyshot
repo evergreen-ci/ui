@@ -1,15 +1,15 @@
 <div>
   <div
-    class="css-1p6kesl"
+    class="emotion-0"
   >
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
         >
           Inactive
@@ -17,13 +17,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
         >
           Unstarted
@@ -31,13 +31,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
         >
           Undispatched
@@ -45,13 +45,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-mibpkn"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-mibpkn"
           data-cy="task-status-badge"
         >
           Will Run
@@ -59,13 +59,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
         >
           Unscheduled
@@ -73,13 +73,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1uko9cz"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1uko9cz"
           data-cy="task-status-badge"
         >
           Running
@@ -87,13 +87,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1uko9cz"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1uko9cz"
           data-cy="task-status-badge"
         >
           Dispatched
@@ -101,13 +101,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
         >
           Pending
@@ -115,13 +115,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
           data-cy="task-status-badge"
         >
           Succeeded
@@ -129,13 +129,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
           data-cy="task-status-badge"
         >
           Failed
@@ -143,13 +143,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
           data-cy="task-status-badge"
         >
           Test Timed Out
@@ -157,13 +157,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
           data-cy="task-status-badge"
         >
           Task Timed Out
@@ -171,14 +171,14 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
           border="#B45AF2"
-          class="css-1s6siwj-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
           fill="#F1D4FD"
           text="#5E0C9E"
@@ -188,14 +188,14 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
           border="#2D0B59"
-          class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
           fill="#5E0C9E"
           text="#F9EBFF"
@@ -205,14 +205,14 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
           border="#2D0B59"
-          class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
           fill="#5E0C9E"
           text="#F9EBFF"
@@ -222,14 +222,14 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
           border="#2D0B59"
-          class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
           fill="#5E0C9E"
           text="#F9EBFF"
@@ -239,13 +239,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
         >
           Blocked
@@ -253,13 +253,13 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1?execution=0"
       >
         <div
-          class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
         >
           Aborted
@@ -267,14 +267,14 @@
       </a>
     </div>
     <div
-      class="css-1tojx22"
+      class="emotion-1"
     >
       <a
         href="/task/1/annotations?execution=0"
       >
         <div
           border="#FFCDC7"
-          class="css-148ze2g-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
           fill="#FFFFFF"
           text="#970606"

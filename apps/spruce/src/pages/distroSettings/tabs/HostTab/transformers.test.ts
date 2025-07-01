@@ -80,6 +80,7 @@ const form: HostFormState = {
     hostsOverallocatedRule: OverallocatedRule.Default,
     minimumHosts: 0,
     maximumHosts: 0,
+    autoTuneMaximumHosts: true,
     acceptableHostIdleTime: 0,
     futureHostFraction: 0,
   },

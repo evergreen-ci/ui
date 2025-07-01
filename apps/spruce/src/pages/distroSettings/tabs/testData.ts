@@ -73,6 +73,7 @@ const distroData: DistroQuery["distro"] = {
   },
   hostAllocatorSettings: {
     acceptableHostIdleTime: 0,
+    autoTuneMaximumHosts: true,
     feedbackRule: FeedbackRule.Default,
     futureHostFraction: 0,
     hostsOverallocatedRule: OverallocatedRule.Default,
