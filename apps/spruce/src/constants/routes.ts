@@ -48,8 +48,7 @@ export enum ProjectSettingsTabRoutes {
   GithubPermissionGroups = "github-permission-groups",
 }
 
-export enum AdminSettingsTabRoutes {
-  // Following are sections of the General tab.
+export enum AdminSettingsGeneralSection {
   Announcements = "announcements",
   FeatureFlags = "feature-flags",
   Runners = "runners",
@@ -59,8 +58,9 @@ export enum AdminSettingsTabRoutes {
   BackgroundProcessing = "background-processing",
   Providers = "providers",
   Other = "other",
+}
 
-  // Tabs that correspond to actual routes.
+export enum AdminSettingsTabRoutes {
   General = "general",
   RestartTasks = "restart-tasks",
   EventLog = "event-log",
@@ -419,10 +419,7 @@ export const getTriggerRoute = ({
 };
 
 export const getAdminSettingsRoute = (
-  tab?:
-    | AdminSettingsTabRoutes.General
-    | AdminSettingsTabRoutes.RestartTasks
-    | AdminSettingsTabRoutes.EventLog,
+  tab?: AdminSettingsTabRoutes,
   anchor?: string,
 ) => {
   const pathName = tab

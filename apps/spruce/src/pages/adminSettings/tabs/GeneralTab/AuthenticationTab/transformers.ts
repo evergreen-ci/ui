@@ -1,7 +1,7 @@
-import { AdminSettingsTabRoutes } from "constants/routes";
+import { AdminSettingsGeneralSection } from "constants/routes";
 import { FormToGqlFunction, GqlToFormFunction } from "../../types";
 
-type Tab = AdminSettingsTabRoutes.Authentication;
+type Tab = AdminSettingsGeneralSection.Authentication;
 
 export const gqlToForm = ((data) => {
   if (!data) return {};

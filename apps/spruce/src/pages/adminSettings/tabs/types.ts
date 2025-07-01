@@ -1,4 +1,4 @@
-import { AdminSettingsTabRoutes } from "constants/routes";
+import { AdminSettingsGeneralSection } from "constants/routes";
 import { AdminSettings } from "gql/generated/types";
 import { AnnouncementsFormState } from "./GeneralTab/AnnouncementsTab/types";
 import { AuthenticationFormState } from "./GeneralTab/AuthenticationTab/types";
@@ -10,8 +10,7 @@ import { ProvidersFormState } from "./GeneralTab/ProvidersTab/types";
 import { RunnersFormState } from "./GeneralTab/RunnersTab/types";
 import { WebFormState } from "./GeneralTab/WebTab/types";
 
-const { EventLog, General, RestartTasks, ...WritableAdminSettingsTabs } =
-  AdminSettingsTabRoutes;
+const { ...WritableAdminSettingsTabs } = AdminSettingsGeneralSection;
 export { WritableAdminSettingsTabs };
 
 export type WritableAdminSettingsType =
@@ -19,15 +18,15 @@ export type WritableAdminSettingsType =
 
 export type FormStateMap = {
   [T in WritableAdminSettingsType]: {
-    [AdminSettingsTabRoutes.Announcements]: AnnouncementsFormState;
-    [AdminSettingsTabRoutes.FeatureFlags]: FeatureFlagsFormState;
-    [AdminSettingsTabRoutes.Runners]: RunnersFormState;
-    [AdminSettingsTabRoutes.Web]: WebFormState;
-    [AdminSettingsTabRoutes.Authentication]: AuthenticationFormState;
-    [AdminSettingsTabRoutes.ExternalCommunications]: ExternalCommunicationsFormState;
-    [AdminSettingsTabRoutes.BackgroundProcessing]: BackgroundProcessingFormState;
-    [AdminSettingsTabRoutes.Providers]: ProvidersFormState;
-    [AdminSettingsTabRoutes.Other]: OtherFormState;
+    [AdminSettingsGeneralSection.Announcements]: AnnouncementsFormState;
+    [AdminSettingsGeneralSection.FeatureFlags]: FeatureFlagsFormState;
+    [AdminSettingsGeneralSection.Runners]: RunnersFormState;
+    [AdminSettingsGeneralSection.Web]: WebFormState;
+    [AdminSettingsGeneralSection.Authentication]: AuthenticationFormState;
+    [AdminSettingsGeneralSection.ExternalCommunications]: ExternalCommunicationsFormState;
+    [AdminSettingsGeneralSection.BackgroundProcessing]: BackgroundProcessingFormState;
+    [AdminSettingsGeneralSection.Providers]: ProvidersFormState;
+    [AdminSettingsGeneralSection.Other]: OtherFormState;
   }[T];
 };
 

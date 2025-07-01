@@ -1,5 +1,5 @@
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
-import { AdminSettingsTabRoutes } from "constants/routes";
+import { AdminSettingsGeneralSection } from "constants/routes";
 import { BannerTheme } from "gql/generated/types";
 import { AdminSettingsProvider, useAdminSettingsContext } from "./Context";
 import { AnnouncementsFormState } from "./tabs/GeneralTab/AnnouncementsTab/types";
@@ -11,7 +11,8 @@ describe("adminSettingsContext", () => {
       wrapper: AdminSettingsProvider,
     });
     expect(
-      result.current.getTab(AdminSettingsTabRoutes.Announcements).hasChanges,
+      result.current.getTab(AdminSettingsGeneralSection.Announcements)
+        .hasChanges,
     ).toBe(false);
   });
 
@@ -22,7 +23,7 @@ describe("adminSettingsContext", () => {
 
     act(() => {
       result.current.setInitialData({
-        [AdminSettingsTabRoutes.Announcements]: {
+        [AdminSettingsGeneralSection.Announcements]: {
           announcements: {
             banner: "initial text",
             bannerTheme: BannerTheme.Announcement,
@@ -32,7 +33,7 @@ describe("adminSettingsContext", () => {
     });
 
     act(() => {
-      result.current.updateForm(AdminSettingsTabRoutes.Announcements)({
+      result.current.updateForm(AdminSettingsGeneralSection.Announcements)({
         formData: {
           announcements: {
             banner: "updated text!",
@@ -54,7 +55,7 @@ describe("adminSettingsContext", () => {
 
     act(() => {
       result.current.setInitialData({
-        [AdminSettingsTabRoutes.Announcements]: {
+        [AdminSettingsGeneralSection.Announcements]: {
           announcements: {
             banner: "initial text",
             bannerTheme: BannerTheme.Announcement,
@@ -64,7 +65,7 @@ describe("adminSettingsContext", () => {
     });
 
     act(() => {
-      result.current.updateForm(AdminSettingsTabRoutes.Announcements)({
+      result.current.updateForm(AdminSettingsGeneralSection.Announcements)({
         formData: {
           announcements: {
             banner: "updated text!",
@@ -76,7 +77,7 @@ describe("adminSettingsContext", () => {
 
     await waitFor(() => {
       expect(result.current.getChangedTabs()).toEqual([
-        AdminSettingsTabRoutes.Announcements,
+        AdminSettingsGeneralSection.Announcements,
       ]);
     });
   });
