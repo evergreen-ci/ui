@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Icon from "@leafygreen-ui/icon";
 import { Link } from "react-router-dom";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
@@ -32,19 +31,21 @@ const AdminSettingsPage: React.FC = () => {
     <AdminSettingsProvider>
       <SideNavPageWrapper>
         <SideNav aria-label="Admin Settings" widthOverride={250}>
-          {}
           <ButtonsContainer>{}</ButtonsContainer>
-
           <SideNavGroup
-            glyph={<Icon glyph="Settings" />}
-            header="Admin Settings"
+            collapsible
+            glyph={null}
+            header="General"
+            initialCollapsed={false}
           >
             <SideNavGroup header="Announcements">
-              {}
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-announcements"
-                to={getAdminSettingsRoute(AdminSettingsTabRoutes.Announcements)}
+                data-cy="navitem-admin-general"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "announcements",
+                )}
               >
                 Announcements
               </SideNavItem>
@@ -76,11 +77,10 @@ const AdminSettingsPage: React.FC = () => {
           <SideNavGroup glyph={null} header="Restart Tasks">
             {}
           </SideNavGroup>
-          <SideNavGroup glyph={null} header="Tasks Logs">
+          <SideNavGroup glyph={null} header="Event Log">
             {}
           </SideNavGroup>
         </SideNav>
-
         <SideNavPageContent data-cy="admin-settings-page">
           {data?.adminSettings && (
             <AdminSettingsTabs data={data.adminSettings} />

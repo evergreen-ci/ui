@@ -1,2 +1,1 @@
-export { AnnouncementTab } from "./AnnouncementsTab/AnnouncementTab";
-export { FeatureFlagsTab } from "./FeatureFlagsTab/FeatureFlagsTab";
+export { GeneralTab } from "./GeneralTab/GeneralTab";
