@@ -57,7 +57,7 @@
     "@apollo/server": "^4.11.2",
     "@emotion/css": "11.13.5",
     "@emotion/react": "11.14.0",
-    "@emotion/styled": "11.14.0",
+    "@emotion/styled": "11.14.1",
     "@evg-ui/deploy-utils": "*",
     "@evg-ui/lib": "*",
     "@leafygreen-ui/badge": "^9.0.0",
