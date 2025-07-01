@@ -8,13 +8,13 @@ import {
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
-import { variantHistoryMaxLength as maxLength } from "constants/history";
 import {
   TaskNamesForBuildVariantQuery,
   TaskNamesForBuildVariantQueryVariables,
 } from "gql/generated/types";
 import { TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import ColumnHeaders from "./ColumnHeaders";
+import { variantHistoryMaxLength as maxLength } from "./constants";
 
 const longTaskName = "really_really_really_really_really_really_long_task_name";
 const trimmedTaskName = trimStringFromMiddle(longTaskName, maxLength);
@@ -82,35 +82,6 @@ describe("columnHeaders (Variant History)", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
     });
-  });
-
-  it("should link to corresponding /task-history/:projectId/:taskName page", async () => {
-    const { Component } = RenderFakeToastContext(
-      <ColumnHeaders
-        projectIdentifier="evergreen"
-        variantName="some_variant"
-      />,
-    );
-    render(<Component />, {
-      wrapper: ({ children }) =>
-        ProviderWrapper({
-          children,
-          state: {
-            visibleColumns: ["task1"],
-          },
-          mocks: [mock(["task1"])],
-        }),
-    });
-    await waitFor(() => {
-      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
-    });
-    await waitFor(() => {
-      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(1);
-    });
-    expect(screen.getByRole("link")).toHaveAttribute(
-      "href",
-      "/task-history/evergreen/task1",
-    );
   });
 
   it("should truncate the task name only if it is too long", async () => {

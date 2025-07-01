@@ -34,7 +34,7 @@ describe("taskCell", () => {
     expect(screen.getByDataCy("task-cell")).toBeInTheDocument();
   });
 
-  it("should link to the task page", () => {
+  it("should link to task page history tab", () => {
     render(
       <TaskCell
         loading={false}
@@ -46,7 +46,7 @@ describe("taskCell", () => {
     );
     expect(screen.queryByRole("link")).toHaveAttribute(
       "href",
-      "/task/some-task-id",
+      "/task/some-task-id/history",
     );
   });
 
