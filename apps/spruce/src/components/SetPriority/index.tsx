@@ -72,7 +72,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         onCompleted: (data) => {
           dispatchToast.success(
             data.setTaskPriorities.some(({ priority: p }) => (p ?? 0) >= 0)
-              ? `Task ${pluralize("priority", data.setTaskPriorities.length)} updated.`
+              ? `Priority updated for ${data.setTaskPriorities.length} ${pluralize("tasks", data.setTaskPriorities.length)}.`
               : `${pluralize("Task", data.setTaskPriorities.length)} successfully disabled.`,
           );
         },

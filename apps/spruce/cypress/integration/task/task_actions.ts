@@ -53,7 +53,7 @@ describe("Task Action Buttons", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("disable-enable").click();
-      cy.validateToast("success", "Task priority updated.");
+      cy.validateToast("success", prioritySuccessBannerText);
     });
   });
 

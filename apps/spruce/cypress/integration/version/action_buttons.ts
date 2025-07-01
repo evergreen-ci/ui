@@ -81,7 +81,7 @@ describe("Action Buttons", () => {
       );
       cy.dataCy("prioritize-task").click();
       cy.dataCy("task-priority-input").type(`${priority}{enter}`);
-      cy.validateToast("success", "Task priorities updated");
+      cy.validateToast("success", "Priority updated for 2 tasks.");
     });
 
     it("Should be able to reconfigure the patch", () => {

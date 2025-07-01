@@ -27,7 +27,6 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   const priorityProps = activeTaskIds.length
     ? { taskIds: activeTaskIds }
     : { versionId };
-  console.log(activeTaskIds);
 
   const dropdownItems = [
     <LinkToReconfigurePage

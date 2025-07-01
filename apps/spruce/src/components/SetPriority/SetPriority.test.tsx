@@ -207,7 +207,7 @@ describe("setPriority", () => {
       );
       await waitFor(() =>
         expect(dispatchToast.success).toHaveBeenCalledWith(
-          "Task priority updated.",
+          "Priority updated for 1 task.",
         ),
       );
     });
@@ -221,22 +221,20 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("prioritize-task"));
+      await user.click(screen.getByDataCy("prioritize-task"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.type(screen.queryByDataCy("task-priority-input"), "99");
+      await user.type(screen.getByDataCy("task-priority-input"), "99");
       await user.click(screen.getByRole("button", { name: "Set" }));
       await waitFor(() =>
         expect(dispatchToast.success).toHaveBeenCalledTimes(1),
       );
       await waitFor(() =>
         expect(dispatchToast.success).toHaveBeenCalledWith(
-          "Task priorities updated.",
+          "Priority updated for 2 tasks.",
         ),
       );
     });

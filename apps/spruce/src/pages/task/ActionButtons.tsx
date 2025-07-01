@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import pluralize from "pluralize";

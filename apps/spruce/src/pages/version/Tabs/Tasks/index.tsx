@@ -89,6 +89,8 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
     [tasksData],
   );
   useEffect(() => {
+    // Track the tasks currently shown by the tasks table in order to allow multiple tasks to be activated.
+    // If no filters are applied, unset active tasks in order to activate the entire version.
     if (count === taskCount) {
       setActiveTaskIds([]);
     } else {
