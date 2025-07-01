@@ -1,44 +1,46 @@
-import { AdminSettingsTabRoutes } from "constants/routes";
-import * as announcements from "./AnnouncementsTab/transformers";
-import * as authentication from "./AuthenticationTab/transformers";
-import * as backgroundProcessing from "./BackgroundProcessingTab/transformers";
-import * as externalCommunications from "./ExternalCommunicationsTab/transformers";
-import * as featureFlags from "./FeatureFlagsTab/transformers";
-import * as other from "./OtherTab/transformers";
-import * as providers from "./ProvidersTab/transformers";
-import * as runners from "./RunnersTab/transformers";
+import { AdminSettingsGeneralSection } from "constants/routes";
+import * as announcements from "./GeneralTab/AnnouncementsTab/transformers";
+import * as authentication from "./GeneralTab/AuthenticationTab/transformers";
+import * as backgroundProcessing from "./GeneralTab/BackgroundProcessingTab/transformers";
+import * as externalCommunications from "./GeneralTab/ExternalCommunicationsTab/transformers";
+import * as featureFlags from "./GeneralTab/FeatureFlagsTab/transformers";
+import * as other from "./GeneralTab/OtherTab/transformers";
+import * as providers from "./GeneralTab/ProvidersTab/transformers";
+import * as runners from "./GeneralTab/RunnersTab/transformers";
+import * as web from "./GeneralTab/WebTab/transformers";
 import {
   FormToGqlFunction,
   GqlToFormFunction,
   WritableAdminSettingsType,
 } from "./types";
-import * as web from "./WebTab/transformers";
 
 export const formToGqlMap: {
   [T in WritableAdminSettingsType]: FormToGqlFunction<T>;
 } = {
-  [AdminSettingsTabRoutes.Announcements]: announcements.formToGql,
-  [AdminSettingsTabRoutes.FeatureFlags]: featureFlags.formToGql,
-  [AdminSettingsTabRoutes.Runners]: runners.formToGql,
-  [AdminSettingsTabRoutes.Web]: web.formToGql,
-  [AdminSettingsTabRoutes.Authentication]: authentication.formToGql,
-  [AdminSettingsTabRoutes.ExternalCommunications]:
+  [AdminSettingsGeneralSection.Announcements]: announcements.formToGql,
+  [AdminSettingsGeneralSection.FeatureFlags]: featureFlags.formToGql,
+  [AdminSettingsGeneralSection.Runners]: runners.formToGql,
+  [AdminSettingsGeneralSection.Web]: web.formToGql,
+  [AdminSettingsGeneralSection.Authentication]: authentication.formToGql,
+  [AdminSettingsGeneralSection.ExternalCommunications]:
     externalCommunications.formToGql,
-  [AdminSettingsTabRoutes.BackgroundProcessing]: backgroundProcessing.formToGql,
-  [AdminSettingsTabRoutes.Providers]: providers.formToGql,
-  [AdminSettingsTabRoutes.Other]: other.formToGql,
+  [AdminSettingsGeneralSection.BackgroundProcessing]:
+    backgroundProcessing.formToGql,
+  [AdminSettingsGeneralSection.Providers]: providers.formToGql,
+  [AdminSettingsGeneralSection.Other]: other.formToGql,
 };
 export const gqlToFormMap: {
   [T in WritableAdminSettingsType]?: GqlToFormFunction<T>;
 } = {
-  [AdminSettingsTabRoutes.Announcements]: announcements.gqlToForm,
-  [AdminSettingsTabRoutes.FeatureFlags]: featureFlags.gqlToForm,
-  [AdminSettingsTabRoutes.Runners]: runners.gqlToForm,
-  [AdminSettingsTabRoutes.Web]: web.gqlToForm,
-  [AdminSettingsTabRoutes.Authentication]: authentication.gqlToForm,
-  [AdminSettingsTabRoutes.ExternalCommunications]:
+  [AdminSettingsGeneralSection.Announcements]: announcements.gqlToForm,
+  [AdminSettingsGeneralSection.FeatureFlags]: featureFlags.gqlToForm,
+  [AdminSettingsGeneralSection.Runners]: runners.gqlToForm,
+  [AdminSettingsGeneralSection.Web]: web.gqlToForm,
+  [AdminSettingsGeneralSection.Authentication]: authentication.gqlToForm,
+  [AdminSettingsGeneralSection.ExternalCommunications]:
     externalCommunications.gqlToForm,
-  [AdminSettingsTabRoutes.BackgroundProcessing]: backgroundProcessing.gqlToForm,
-  [AdminSettingsTabRoutes.Providers]: providers.gqlToForm,
-  [AdminSettingsTabRoutes.Other]: other.gqlToForm,
+  [AdminSettingsGeneralSection.BackgroundProcessing]:
+    backgroundProcessing.gqlToForm,
+  [AdminSettingsGeneralSection.Providers]: providers.gqlToForm,
+  [AdminSettingsGeneralSection.Other]: other.gqlToForm,
 };
