@@ -177,7 +177,7 @@
     "rollup-plugin-visualizer": "6.0.3",
     "serve": "14.2.4",
     "storybook": "9.0.15",
-    "typescript": "5.0.3",
+    "typescript": "5.8.3",
     "vite": "6.3.5",
     "vite-plugin-checker": "0.9.3",
     "vite-plugin-env-compatible": "2.0.1",
