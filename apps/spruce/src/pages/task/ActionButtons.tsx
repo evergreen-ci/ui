@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
+import pluralize from "pluralize";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
@@ -9,8 +10,8 @@ import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
 import { getTaskHistoryRoute } from "constants/routes";
 import {
-  SetTaskPriorityMutation,
-  SetTaskPriorityMutationVariables,
+  SetTaskPrioritiesMutation,
+  SetTaskPrioritiesMutationVariables,
   AbortTaskMutation,
   AbortTaskMutationVariables,
   ScheduleTasksMutation,
@@ -25,7 +26,7 @@ import {
   ABORT_TASK,
   OVERRIDE_TASK_DEPENDENCIES,
   SCHEDULE_TASKS,
-  SET_TASK_PRIORITY,
+  SET_TASK_PRIORITIES,
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
@@ -108,15 +109,14 @@ export const ActionButtons: React.FC<Props> = ({
   });
 
   const [setTaskPriority, { loading: loadingSetPriority }] = useMutation<
-    SetTaskPriorityMutation,
-    SetTaskPriorityMutationVariables
-  >(SET_TASK_PRIORITY, {
+    SetTaskPrioritiesMutation,
+    SetTaskPrioritiesMutationVariables
+  >(SET_TASK_PRIORITIES, {
     onCompleted: (data) => {
-      const newPriority = data?.setTaskPriority?.priority || 0;
       dispatchToast.success(
-        newPriority >= 0
-          ? `Priority for task updated to ${data.setTaskPriority.priority}`
-          : `Task was successfully disabled`,
+        data.setTaskPriorities.some(({ priority }) => (priority ?? 0) >= 0)
+          ? `Priority updated for ${data.setTaskPriorities.length} ${pluralize("task", data.setTaskPriorities.length)}.`
+          : `${pluralize("Task", data.setTaskPriorities.length)} successfully disabled.`,
       );
     },
     onError: (err) => {
@@ -184,7 +184,11 @@ export const ActionButtons: React.FC<Props> = ({
       disabled={disabled || !canDisable}
       onClick={() => {
         setTaskPriority({
-          variables: { taskId, priority: initialPriority < 0 ? 0 : -1 },
+          variables: {
+            taskPriorities: [
+              { taskId, priority: initialPriority < 0 ? 0 : -1 },
+            ],
+          },
         });
       }}
       title={
@@ -199,7 +203,7 @@ export const ActionButtons: React.FC<Props> = ({
       key="set-task-priority"
       disabled={disabled || !canSetPriority}
       initialPriority={initialPriority}
-      taskId={taskId}
+      taskIds={[taskId]}
     />,
     <DropdownItem
       key="override-dependencies"
