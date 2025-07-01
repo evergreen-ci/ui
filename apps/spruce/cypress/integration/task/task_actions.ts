@@ -66,7 +66,7 @@ describe("Task Action Buttons", () => {
   });
 });
 
-const prioritySuccessBannerText = "Task priority updated.";
+const prioritySuccessBannerText = "Priority updated for 1 task.";
 const restartSuccessBannerText = "Task scheduled to restart";
 const unscheduleSuccessBannerText = "Task marked as unscheduled";
 const tasks = {
