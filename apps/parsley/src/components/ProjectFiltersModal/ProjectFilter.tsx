@@ -13,7 +13,7 @@ interface ProjectFilterProps {
   removeFilter: (filterToRemove: string) => void;
   active: boolean;
   selected: boolean;
-  filter: Omit<ParsleyFilter, "description">;
+  filter: ParsleyFilter;
 }
 
 const ProjectFilter: React.FC<ProjectFilterProps> = ({
@@ -41,7 +41,9 @@ const ProjectFilter: React.FC<ProjectFilterProps> = ({
   return (
     <ProjectFilterContainer data-cy="project-filter">
       <Checkbox
+        bold={false}
         checked={active || selected}
+        description={filter.description}
         disabled={active}
         label={
           <>

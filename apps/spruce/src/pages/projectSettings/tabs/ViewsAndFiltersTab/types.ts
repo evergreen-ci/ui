@@ -2,6 +2,7 @@ import { ProjectType } from "../utils";
 
 type ParsleyFilter = {
   caseSensitive: boolean;
+  description: string;
   displayTitle?: string;
   exactMatch: boolean;
   expression: string;

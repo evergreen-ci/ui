@@ -22,6 +22,11 @@ export const getFormSchema = (
               minLength: 1,
               format: "validRegex",
             },
+            description: {
+              type: "string" as const,
+              title: "Description",
+              default: "",
+            },
             caseSensitive: {
               type: "boolean" as const,
               title: "Case",

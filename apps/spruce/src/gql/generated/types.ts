@@ -4336,6 +4336,7 @@ export type ProjectSettingsFieldsFragment = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
@@ -4534,6 +4535,7 @@ export type RepoSettingsFieldsFragment = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
@@ -4986,6 +4988,7 @@ export type ProjectEventSettingsFragment = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
@@ -5115,6 +5118,7 @@ export type ProjectViewsAndFiltersSettingsFragment = {
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
+    description: string;
     exactMatch: boolean;
     expression: string;
   }> | null;
@@ -5126,6 +5130,7 @@ export type RepoViewsAndFiltersSettingsFragment = {
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
+    description: string;
     exactMatch: boolean;
     expression: string;
   }> | null;
@@ -7473,6 +7478,7 @@ export type ProjectEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -7686,6 +7692,7 @@ export type ProjectEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -7964,6 +7971,7 @@ export type ProjectSettingsQuery = {
       parsleyFilters?: Array<{
         __typename?: "ParsleyFilter";
         caseSensitive: boolean;
+        description: string;
         exactMatch: boolean;
         expression: string;
       }> | null;
@@ -8225,6 +8233,7 @@ export type RepoEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -8438,6 +8447,7 @@ export type RepoEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -8656,6 +8666,7 @@ export type RepoSettingsQuery = {
       parsleyFilters?: Array<{
         __typename?: "ParsleyFilter";
         caseSensitive: boolean;
+        description: string;
         exactMatch: boolean;
         expression: string;
       }> | null;
