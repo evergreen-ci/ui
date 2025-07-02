@@ -15,7 +15,6 @@ const serviceItems: Record<string, string> = {
   podAllocatorDisabled: "Allocate pods for container tasks",
   unrecognizedPodCleanupDisabled: "Clean up unrecognized pods",
   cloudCleanupDisabled: "Cloud Provider Cleanup",
-  taskReliabilityDisabled: "Task Reliability",
   evergreenTestResultsDisabled: "Evergreen Test Results",
 };
 
@@ -33,15 +32,15 @@ const featureItems: Record<string, string> = {
   repotrackerDisabled: "Track GitHub repositories",
   githubPRTestingDisabled: "Test GitHub pull requests",
   degradedModeDisabled: "CPU Degraded Mode",
-  jwtTokenForCLIDisabled: "Global GitHub Token",
+  jwtTokenForCLIDisabled: "Use JWT token for CLI",
   checkBlockedTasksDisabled: "Check Blocked Tasks",
   taskLoggingDisabled: "Persist task and test logs",
   cliUpdatesDisabled: "Update CLI",
   sleepScheduleDisabled: "Unexpirable host sleep schedule",
   adminParameterStoreDisabled: "Admin Parameter Store",
   releaseModeDisabled: "Release Mode",
-  elasticIPsDisabled: "Elastic IPs",
-  staticAPIKeysDisabled: "Static API Keys",
+  elasticIPsDisabled: "Elastic IPs  for task hosts",
+  staticAPIKeysDisabled: "Static API Keys credentials for users",
   backgroundReauthDisabled: "Background Reauthentication",
 };
 
