@@ -1,12 +1,9 @@
+import { ParsleyFilter as GQLParsleyFilter } from "gql/generated/types";
 import { ProjectType } from "../utils";
 
-type ParsleyFilter = {
-  caseSensitive: boolean;
-  description: string;
+interface ParsleyFilter extends GQLParsleyFilter {
   displayTitle?: string;
-  exactMatch: boolean;
-  expression: string;
-};
+}
 
 export interface ViewsFormState {
   parsleyFilters: ParsleyFilter[];

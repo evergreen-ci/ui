@@ -32,14 +32,15 @@ export const projectFiltersMock: ApolloMock<
           {
             __typename: "ParsleyFilter",
             caseSensitive: true,
-            description: "",
+            description: "This is a description",
             exactMatch: false,
             expression: "active filter",
           },
           {
             __typename: "ParsleyFilter",
             caseSensitive: false,
-            description: "Smiley",
+            description:
+              "This is a longer description that spans the whole width of the modal and overflows onto the next line. This verifies that overflow text wrapping works correctly.",
             exactMatch: false,
             expression: ":D",
           },
