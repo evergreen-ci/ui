@@ -193,14 +193,6 @@ export const sortFunctionDate = <T>(a: T, b: T, key: string) => {
 export const applyStrictRegex = (str: string) => `^${str}$`;
 
 /**
- *
- * @param str - A string that may contain regex operators.
- * @returns A regex that matches on the input.
- */
-export const escapeRegex = (str: string) =>
-  str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-/**
  * Convert an array of strings into a string that lists them, separated by commas and with a coordinating conjunction (i.e. "and" or "or") preceding the last word.
  * E.g. joinWithConjunction(["spruce", "app", "plt"], "and") => "spruce, app, and plt"
  * @param array - List of words.
