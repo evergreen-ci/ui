@@ -4,7 +4,6 @@ import {
   SearchInput,
   Size as SearchInputSize,
 } from "@leafygreen-ui/search-input";
-
 import debounce from "lodash.debounce";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskHistoryAnalytics } from "analytics";
