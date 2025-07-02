@@ -4,16 +4,16 @@ import { BaseTab } from "../../BaseTab";
 import { getFormSchema } from "./formSchema";
 import { TabProps } from "./types";
 
-export const AnnouncementTab: React.FC<TabProps> = ({ announcementsData }) => {
-  const initialFormState = announcementsData;
+export const FeatureFlagsTab: React.FC<TabProps> = ({ featureFlagsData }) => {
+  const initialFormState = featureFlagsData;
   const formSchema = getFormSchema();
   return (
     <>
-      <H2>Announcements</H2>
+      <H2>Feature Flags</H2>
       <BaseTab
         formSchema={formSchema}
         initialFormState={initialFormState}
-        tab={AdminSettingsGeneralSection.Announcements}
+        tab={AdminSettingsGeneralSection.FeatureFlags}
       />
     </>
   );

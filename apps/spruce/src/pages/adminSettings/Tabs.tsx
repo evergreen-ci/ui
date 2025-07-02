@@ -21,9 +21,7 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   useEffect(() => {
     setInitialData(tabData);
   }, [setInitialData, tabData]);
-
   useScrollToAnchor();
-
   return (
     <TabsContent>
       <AdminSaveButton />
