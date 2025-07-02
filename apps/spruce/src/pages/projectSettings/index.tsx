@@ -88,6 +88,11 @@ const ProjectSettings: React.FC = () => {
     skip: identifierIsObjectId,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { projectIdentifier },
+    onCompleted: (data) => {
+      if (data?.projectSettings?.projectRef?.hidden) {
+        dispatchToast.error(`Project is hidden.`);
+      }
+    },
     onError: (e) => {
       dispatchToast.error(
         `There was an error loading the project ${projectIdentifier}: ${e.message}`,
@@ -121,6 +126,10 @@ const ProjectSettings: React.FC = () => {
       );
     },
   });
+
+  if (projectData?.projectSettings?.projectRef?.hidden) {
+    return null;
+  }
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (!tabRouteValues.includes(tab)) {

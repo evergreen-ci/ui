@@ -4099,6 +4099,7 @@ export type ProjectGeneralSettingsFragment = {
   dispatchingDisabled?: boolean | null;
   displayName: string;
   enabled?: boolean | null;
+  hidden?: boolean | null;
   owner: string;
   patchingDisabled?: boolean | null;
   remotePath: string;
@@ -4242,6 +4243,7 @@ export type ProjectSettingsFieldsFragment = {
     dispatchingDisabled?: boolean | null;
     displayName: string;
     enabled?: boolean | null;
+    hidden?: boolean | null;
     owner: string;
     patchingDisabled?: boolean | null;
     remotePath: string;
@@ -7973,6 +7975,7 @@ export type ProjectSettingsQuery = {
       dispatchingDisabled?: boolean | null;
       displayName: string;
       enabled?: boolean | null;
+      hidden?: boolean | null;
       owner: string;
       patchingDisabled?: boolean | null;
       remotePath: string;
