@@ -58,7 +58,6 @@ type Action =
       num_reoccurring_tests: number;
       num_tests: number;
       num_failed_tasks: number;
-      num_tests_that_failed_on_more_than_one_task: number;
     };
 
 export const useVersionAnalytics = (id: string) => {

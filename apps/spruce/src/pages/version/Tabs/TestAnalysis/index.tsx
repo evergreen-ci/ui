@@ -97,10 +97,13 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
 
   useEffect(() => {
     if (data) {
+      const numReoccurringTests = Array.from(groupedTestsMap.values()).filter(
+        (tasks) => tasks.length > 1,
+      ).length;
       sendEvent({
         name: "System Event test analysis tab stats",
-        has_reoccurring_tests: numberOfTestsThatFailedOnMoreThanOneTask > 0,
-        num_reoccurring_tests: numberOfTestsThatFailedOnMoreThanOneTask,
+        has_reoccurring_tests: numReoccurringTests > 0,
+        num_reoccurring_tests: numReoccurringTests,
         num_tests: totalTestCount,
         num_failed_tasks: data?.version?.tasks?.data.length,
         num_tests_that_failed_on_more_than_one_task: Array.from(
@@ -108,6 +111,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
         ).filter((tasks) => tasks.length > 1).length,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
   return (
     <Container>
