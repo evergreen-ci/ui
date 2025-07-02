@@ -62,19 +62,6 @@ export type AddFavoriteProjectInput = {
   projectIdentifier: Scalars["String"]["input"];
 };
 
-export type AdminSettings = {
-  __typename?: "AdminSettings";
-  banner?: Maybe<Scalars["String"]["output"]>;
-  bannerTheme?: Maybe<BannerTheme>;
-  serviceFlags?: Maybe<ServiceFlags>;
-};
-
-export type AdminSettingsInput = {
-  banner?: InputMaybe<Scalars["String"]["input"]>;
-  bannerTheme?: InputMaybe<BannerTheme>;
-  serviceFlags?: InputMaybe<ServiceFlagsInput>;
-};
-
 /**
  * Annotation models the metadata that a user can add to a task.
  * It is used as a field within the Task type.
@@ -203,7 +190,6 @@ export type BuildBaronSettingsInput = {
  */
 export type BuildVariantOptions = {
   includeBaseTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
-  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -326,12 +312,6 @@ export type CreateProjectInput = {
   repoRefId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-export type CursorParams = {
-  cursorId: Scalars["String"]["input"];
-  direction: TaskHistoryDirection;
-  includeCursor: Scalars["Boolean"]["input"];
-};
-
 /** DeactivateStepbackTaskInput is the input to the deactivateStepbackTask mutation. */
 export type DeactivateStepbackTaskInput = {
   buildVariantName: Scalars["String"]["input"];
@@ -420,7 +400,6 @@ export type Distro = {
   note: Scalars["String"]["output"];
   plannerSettings: PlannerSettings;
   provider: Provider;
-  providerAccount: Scalars["String"]["output"];
   providerSettingsList: Array<Scalars["Map"]["output"]>;
   setup: Scalars["String"]["output"];
   setupAsSudo: Scalars["Boolean"]["output"];
@@ -489,7 +468,6 @@ export type DistroInput = {
   note: Scalars["String"]["input"];
   plannerSettings: PlannerSettingsInput;
   provider: Provider;
-  providerAccount?: InputMaybe<Scalars["String"]["input"]>;
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
@@ -591,48 +569,6 @@ export type ExternalLinkInput = {
   displayName: Scalars["String"]["input"];
   requesters: Array<Scalars["String"]["input"]>;
   urlTemplate: Scalars["String"]["input"];
-};
-
-export type FeatureFlags = {
-  __typename?: "FeatureFlags";
-  adminParameterStoreDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  agentStartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  alertsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  backgroundCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  backgroundReauthDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  backgroundStatsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cacheStatsEndpointDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cacheStatsJobDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  checkBlockedTasksDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cliUpdatesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cloudCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  cpuDegradedModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  elasticIPsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  emailNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  eventProcessingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  evergreenTestResultsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  githubPRTestingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  githubStatusAPIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  hostAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  hostInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  jiraNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  podAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  schedulerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  slackNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  sleepScheduleDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  systemFailedTaskRestartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  taskDispatchDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export enum FeedbackRule {
@@ -847,7 +783,6 @@ export enum HostAccessLevel {
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
   acceptableHostIdleTime: Scalars["Duration"]["output"];
-  autoTuneMaximumHosts: Scalars["Boolean"]["output"];
   feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"]["output"];
   hostsOverallocatedRule: OverallocatedRule;
@@ -859,7 +794,6 @@ export type HostAllocatorSettings = {
 
 export type HostAllocatorSettingsInput = {
   acceptableHostIdleTime: Scalars["Int"]["input"];
-  autoTuneMaximumHosts?: InputMaybe<Scalars["Boolean"]["input"]>;
   feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"]["input"];
   hostsOverallocatedRule: OverallocatedRule;
@@ -898,7 +832,7 @@ export type HostEventLogEntry = {
   data: HostEventLogData;
   eventType?: Maybe<HostEventType>;
   id: Scalars["String"]["output"];
-  processedAt?: Maybe<Scalars["Time"]["output"]>;
+  processedAt: Scalars["Time"]["output"];
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
@@ -909,7 +843,6 @@ export enum HostEventType {
   HostAgentDeployFailed = "HOST_AGENT_DEPLOY_FAILED",
   HostAgentMonitorDeployed = "HOST_AGENT_MONITOR_DEPLOYED",
   HostAgentMonitorDeployFailed = "HOST_AGENT_MONITOR_DEPLOY_FAILED",
-  HostAlertableInstanceTypeWarningSent = "HOST_ALERTABLE_INSTANCE_TYPE_WARNING_SENT",
   HostConvertedProvisioning = "HOST_CONVERTED_PROVISIONING",
   HostConvertingProvisioning = "HOST_CONVERTING_PROVISIONING",
   HostConvertingProvisioningError = "HOST_CONVERTING_PROVISIONING_ERROR",
@@ -1301,7 +1234,6 @@ export type Mutation = {
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
   restartVersions?: Maybe<Array<Version>>;
-  saveAdminSettings: AdminSettings;
   saveDistro: SaveDistroPayload;
   saveProjectSettingsForSection: ProjectSettings;
   saveRepoSettingsForSection: RepoSettings;
@@ -1313,7 +1245,6 @@ export type Mutation = {
   setLastRevision: SetLastRevisionPayload;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
-  setTaskPriorities: Array<Task>;
   setTaskPriority: Task;
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
@@ -1488,10 +1419,6 @@ export type MutationRestartVersionsArgs = {
   versionsToRestart: Array<VersionToRestart>;
 };
 
-export type MutationSaveAdminSettingsArgs = {
-  adminSettings: AdminSettingsInput;
-};
-
 export type MutationSaveDistroArgs = {
   opts: SaveDistroInput;
 };
@@ -1537,10 +1464,6 @@ export type MutationSetLastRevisionArgs = {
 export type MutationSetPatchVisibilityArgs = {
   hidden: Scalars["Boolean"]["input"];
   patchIds: Array<Scalars["String"]["input"]>;
-};
-
-export type MutationSetTaskPrioritiesArgs = {
-  taskPriorities: Array<TaskPriority>;
 };
 
 export type MutationSetTaskPriorityArgs = {
@@ -1687,14 +1610,12 @@ export type ParameterInput = {
 export type ParsleyFilter = {
   __typename?: "ParsleyFilter";
   caseSensitive: Scalars["Boolean"]["output"];
-  description: Scalars["String"]["output"];
   exactMatch: Scalars["Boolean"]["output"];
   expression: Scalars["String"]["output"];
 };
 
 export type ParsleyFilterInput = {
   caseSensitive: Scalars["Boolean"]["input"];
-  description?: InputMaybe<Scalars["String"]["input"]>;
   exactMatch: Scalars["Boolean"]["input"];
   expression: Scalars["String"]["input"];
 };
@@ -1928,7 +1849,7 @@ export type PodEventLogEntry = {
   data: PodEventLogData;
   eventType?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
-  processedAt?: Maybe<Scalars["Time"]["output"]>;
+  processedAt: Scalars["Time"]["output"];
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
@@ -2208,7 +2129,6 @@ export enum ProjectSettingsSection {
 
 export type ProjectTasksPair = {
   __typename?: "ProjectTasksPair";
-  allowedBVs: Array<Scalars["String"]["output"]>;
   allowedTasks: Array<Scalars["String"]["output"]>;
   projectId: Scalars["String"]["output"];
 };
@@ -2254,7 +2174,6 @@ export type PublicKeyInput = {
 
 export type Query = {
   __typename?: "Query";
-  adminSettings?: Maybe<AdminSettings>;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
   buildBaron: BuildBaron;
@@ -2291,7 +2210,6 @@ export type Query = {
   subnetAvailabilityZones: Array<Scalars["String"]["output"]>;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
-  taskHistory: TaskHistory;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]["output"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
@@ -2419,10 +2337,6 @@ export type QueryTaskArgs = {
 
 export type QueryTaskAllExecutionsArgs = {
   taskId: Scalars["String"]["input"];
-};
-
-export type QueryTaskHistoryArgs = {
-  options: TaskHistoryOpts;
 };
 
 export type QueryTaskNamesForBuildVariantArgs = {
@@ -2633,14 +2547,6 @@ export enum RoundingRule {
   Up = "UP",
 }
 
-/**
- * SpruceConfig defines settings that apply to all users of Evergreen.
- * For example, if the banner field is populated, then a sitewide banner will be shown to all users.
- */
-export type SaveAdminSettingsInput = {
-  adminSettings: AdminSettingsInput;
-};
-
 /** SaveDistroInput is the input to the saveDistro mutation. */
 export type SaveDistroInput = {
   distro: DistroInput;
@@ -2671,89 +2577,6 @@ export type Selector = {
 export type SelectorInput = {
   data: Scalars["String"]["input"];
   type: Scalars["String"]["input"];
-};
-
-export type ServiceFlags = {
-  __typename?: "ServiceFlags";
-  adminParameterStoreDisabled: Scalars["Boolean"]["output"];
-  agentStartDisabled: Scalars["Boolean"]["output"];
-  alertsDisabled: Scalars["Boolean"]["output"];
-  backgroundCleanupDisabled: Scalars["Boolean"]["output"];
-  backgroundReauthDisabled: Scalars["Boolean"]["output"];
-  backgroundStatsDisabled: Scalars["Boolean"]["output"];
-  cacheStatsEndpointDisabled: Scalars["Boolean"]["output"];
-  cacheStatsJobDisabled: Scalars["Boolean"]["output"];
-  checkBlockedTasksDisabled: Scalars["Boolean"]["output"];
-  cliUpdatesDisabled: Scalars["Boolean"]["output"];
-  cloudCleanupDisabled: Scalars["Boolean"]["output"];
-  degradedModeDisabled: Scalars["Boolean"]["output"];
-  elasticIPsDisabled: Scalars["Boolean"]["output"];
-  emailNotificationsDisabled: Scalars["Boolean"]["output"];
-  eventProcessingDisabled: Scalars["Boolean"]["output"];
-  evergreenTestResultsDisabled: Scalars["Boolean"]["output"];
-  githubPRTestingDisabled: Scalars["Boolean"]["output"];
-  githubStatusAPIDisabled: Scalars["Boolean"]["output"];
-  hostAllocatorDisabled: Scalars["Boolean"]["output"];
-  hostInitDisabled: Scalars["Boolean"]["output"];
-  jiraNotificationsDisabled: Scalars["Boolean"]["output"];
-  jwtTokenForCLIDisabled: Scalars["Boolean"]["output"];
-  largeParserProjectsDisabled: Scalars["Boolean"]["output"];
-  monitorDisabled: Scalars["Boolean"]["output"];
-  podAllocatorDisabled: Scalars["Boolean"]["output"];
-  podInitDisabled: Scalars["Boolean"]["output"];
-  releaseModeDisabled: Scalars["Boolean"]["output"];
-  repotrackerDisabled: Scalars["Boolean"]["output"];
-  schedulerDisabled: Scalars["Boolean"]["output"];
-  slackNotificationsDisabled: Scalars["Boolean"]["output"];
-  sleepScheduleDisabled: Scalars["Boolean"]["output"];
-  staticAPIKeysDisabled: Scalars["Boolean"]["output"];
-  systemFailedTaskRestartDisabled: Scalars["Boolean"]["output"];
-  taskDispatchDisabled: Scalars["Boolean"]["output"];
-  taskLoggingDisabled: Scalars["Boolean"]["output"];
-  taskReliabilityDisabled: Scalars["Boolean"]["output"];
-  unrecognizedPodCleanupDisabled: Scalars["Boolean"]["output"];
-  webhookNotificationsDisabled: Scalars["Boolean"]["output"];
-};
-
-export type ServiceFlagsInput = {
-  adminParameterStoreDisabled: Scalars["Boolean"]["input"];
-  agentStartDisabled: Scalars["Boolean"]["input"];
-  alertsDisabled: Scalars["Boolean"]["input"];
-  backgroundCleanupDisabled: Scalars["Boolean"]["input"];
-  backgroundReauthDisabled: Scalars["Boolean"]["input"];
-  backgroundStatsDisabled: Scalars["Boolean"]["input"];
-  cacheStatsEndpointDisabled: Scalars["Boolean"]["input"];
-  cacheStatsJobDisabled: Scalars["Boolean"]["input"];
-  checkBlockedTasksDisabled: Scalars["Boolean"]["input"];
-  cliUpdatesDisabled: Scalars["Boolean"]["input"];
-  cloudCleanupDisabled: Scalars["Boolean"]["input"];
-  degradedModeDisabled: Scalars["Boolean"]["input"];
-  elasticIPsDisabled: Scalars["Boolean"]["input"];
-  emailNotificationsDisabled: Scalars["Boolean"]["input"];
-  eventProcessingDisabled: Scalars["Boolean"]["input"];
-  evergreenTestResultsDisabled: Scalars["Boolean"]["input"];
-  githubPRTestingDisabled: Scalars["Boolean"]["input"];
-  githubStatusAPIDisabled: Scalars["Boolean"]["input"];
-  hostAllocatorDisabled: Scalars["Boolean"]["input"];
-  hostInitDisabled: Scalars["Boolean"]["input"];
-  jiraNotificationsDisabled: Scalars["Boolean"]["input"];
-  jwtTokenForCLIDisabled: Scalars["Boolean"]["input"];
-  largeParserProjectsDisabled: Scalars["Boolean"]["input"];
-  monitorDisabled: Scalars["Boolean"]["input"];
-  podAllocatorDisabled: Scalars["Boolean"]["input"];
-  podInitDisabled: Scalars["Boolean"]["input"];
-  releaseModeDisabled: Scalars["Boolean"]["input"];
-  repotrackerDisabled: Scalars["Boolean"]["input"];
-  schedulerDisabled: Scalars["Boolean"]["input"];
-  slackNotificationsDisabled: Scalars["Boolean"]["input"];
-  sleepScheduleDisabled: Scalars["Boolean"]["input"];
-  staticAPIKeysDisabled: Scalars["Boolean"]["input"];
-  systemFailedTaskRestartDisabled: Scalars["Boolean"]["input"];
-  taskDispatchDisabled: Scalars["Boolean"]["input"];
-  taskLoggingDisabled: Scalars["Boolean"]["input"];
-  taskReliabilityDisabled: Scalars["Boolean"]["input"];
-  unrecognizedPodCleanupDisabled: Scalars["Boolean"]["input"];
-  webhookNotificationsDisabled: Scalars["Boolean"]["input"];
 };
 
 /**
@@ -2870,6 +2693,10 @@ export type SpawnVolumeInput = {
   type: Scalars["String"]["input"];
 };
 
+/**
+ * SpruceConfig defines settings that apply to all users of Evergreen.
+ * For example, if the banner field is populated, then a sitewide banner will be shown to all users.
+ */
 export type SpruceConfig = {
   __typename?: "SpruceConfig";
   banner?: Maybe<Scalars["String"]["output"]>;
@@ -2971,8 +2798,8 @@ export type Task = {
   details?: Maybe<TaskEndDetail>;
   dispatchTime?: Maybe<Scalars["Time"]["output"]>;
   displayName: Scalars["String"]["output"];
-  /** This is a task's display status and is what is commonly used on the UI. */
   displayOnly?: Maybe<Scalars["Boolean"]["output"]>;
+  /** This is a task's display status and is what is commonly used on the UI. */
   displayStatus: Scalars["String"]["output"];
   displayTask?: Maybe<Task>;
   distroId: Scalars["String"]["output"];
@@ -2987,7 +2814,7 @@ export type Task = {
   generateTask?: Maybe<Scalars["Boolean"]["output"]>;
   generatedBy?: Maybe<Scalars["String"]["output"]>;
   generatedByName?: Maybe<Scalars["String"]["output"]>;
-  hasTestResults: Scalars["Boolean"]["output"];
+  hasCedarResults: Scalars["Boolean"]["output"];
   hostId?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
   imageId: Scalars["String"]["output"];
@@ -3012,13 +2839,12 @@ export type Task = {
   startTime?: Maybe<Scalars["Time"]["output"]>;
   /** This is a task's original status. It is the status stored in the database, and is distinct from the displayStatus. */
   status: Scalars["String"]["output"];
-  /** taskLogs returns the tail 100 lines of the task's logs. */
   stepbackInfo?: Maybe<StepbackInfo>;
   tags: Array<Scalars["String"]["output"]>;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
+  /** taskLogs returns the tail 100 lines of the task's logs. */
   taskLogs: TaskLogs;
-  taskOwnerTeam?: Maybe<TaskOwnerTeam>;
   tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]["output"]>;
   totalTestCount: Scalars["Int"]["output"];
@@ -3049,17 +2875,11 @@ export type TaskContainerCreationOpts = {
   workingDir: Scalars["String"]["output"];
 };
 
-/** TaskCountOptions defines the parameters that are used when counting tasks from a Version. */
-export type TaskCountOptions = {
-  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
-};
-
 export type TaskEndDetail = {
   __typename?: "TaskEndDetail";
   description?: Maybe<Scalars["String"]["output"]>;
   diskDevices: Array<Scalars["String"]["output"]>;
   failingCommand?: Maybe<Scalars["String"]["output"]>;
-  failureMetadataTags: Array<Scalars["String"]["output"]>;
   oomTracker: OomTrackerInfo;
   status: Scalars["String"]["output"];
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3086,7 +2906,7 @@ export type TaskEventLogEntry = {
   data: TaskEventLogData;
   eventType?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
-  processedAt?: Maybe<Scalars["Time"]["output"]>;
+  processedAt: Scalars["Time"]["output"];
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
@@ -3112,32 +2932,6 @@ export type TaskFilterOptions = {
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   taskName?: InputMaybe<Scalars["String"]["input"]>;
   variant?: InputMaybe<Scalars["String"]["input"]>;
-};
-
-export type TaskHistory = {
-  __typename?: "TaskHistory";
-  pagination: TaskHistoryPagination;
-  tasks: Array<Task>;
-};
-
-export enum TaskHistoryDirection {
-  After = "AFTER",
-  Before = "BEFORE",
-}
-
-export type TaskHistoryOpts = {
-  buildVariant: Scalars["String"]["input"];
-  cursorParams: CursorParams;
-  date?: InputMaybe<Scalars["Time"]["input"]>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  projectIdentifier: Scalars["String"]["input"];
-  taskName: Scalars["String"]["input"];
-};
-
-export type TaskHistoryPagination = {
-  __typename?: "TaskHistoryPagination";
-  mostRecentTaskOrder: Scalars["Int"]["output"];
-  oldestTaskOrder: Scalars["Int"]["output"];
 };
 
 export type TaskInfo = {
@@ -3168,23 +2962,6 @@ export type TaskLogs = {
   systemLogs: Array<LogMessage>;
   taskId: Scalars["String"]["output"];
   taskLogs: Array<LogMessage>;
-};
-
-/**
- * TaskOwnerTeam is the return value for the taskOwnerTeam query.
- * It is used to identify the team that owns a task. Based on the FWS team assignment.
- */
-export type TaskOwnerTeam = {
-  __typename?: "TaskOwnerTeam";
-  assignmentType: Scalars["String"]["output"];
-  jiraProject: Scalars["String"]["output"];
-  messages: Scalars["String"]["output"];
-  teamName: Scalars["String"]["output"];
-};
-
-export type TaskPriority = {
-  priority: Scalars["Int"]["input"];
-  taskId: Scalars["String"]["input"];
 };
 
 /**
@@ -3447,10 +3224,14 @@ export type UpstreamProject = {
 
 export type UseSpruceOptions = {
   __typename?: "UseSpruceOptions";
+  hasUsedMainlineCommitsBefore?: Maybe<Scalars["Boolean"]["output"]>;
+  hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]["output"]>;
   spruceV1?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type UseSpruceOptionsInput = {
+  hasUsedMainlineCommitsBefore?: InputMaybe<Scalars["Boolean"]["input"]>;
+  hasUsedSpruceBefore?: InputMaybe<Scalars["Boolean"]["input"]>;
   spruceV1?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
@@ -3594,11 +3375,6 @@ export type VersionBuildVariantsArgs = {
 };
 
 /** Version models a commit within a project. */
-export type VersionTaskCountArgs = {
-  options?: InputMaybe<TaskCountOptions>;
-};
-
-/** Version models a commit within a project. */
 export type VersionTaskStatusStatsArgs = {
   options: BuildVariantOptions;
 };
@@ -3658,8 +3434,10 @@ export type VolumeHost = {
 
 export type Waterfall = {
   __typename?: "Waterfall";
+  buildVariants: Array<WaterfallBuildVariant>;
   flattenedVersions: Array<Version>;
   pagination: WaterfallPagination;
+  versions: Array<WaterfallVersion>;
 };
 
 export type WaterfallBuild = {
@@ -3691,11 +3469,7 @@ export type WaterfallOptions = {
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  /** Toggle case sensitivity when matching on task names. Note that if false, performance will be slower. */
-  taskCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  /** Toggle case sensitivity when matching on variant names. Note that if false, performance will be slower. */
-  variantCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
@@ -3789,10 +3563,10 @@ export type WorkstationSetupCommandInput = {
 
 export type BaseTaskFragment = {
   __typename?: "Task";
-  id: string;
   displayName: string;
   displayStatus: string;
   execution: number;
+  id: string;
   patchNumber?: number | null;
   versionMetadata: {
     __typename?: "Version";
@@ -3832,10 +3606,10 @@ export type LogkeeperTaskQuery = {
     id: string;
     task: {
       __typename?: "Task";
-      id: string;
       displayName: string;
       displayStatus: string;
       execution: number;
+      id: string;
       patchNumber?: number | null;
       tests: {
         __typename?: "TaskTestResult";
@@ -3869,10 +3643,10 @@ export type TaskQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    id: string;
     displayName: string;
     displayStatus: string;
     execution: number;
+    id: string;
     patchNumber?: number | null;
     details?: {
       __typename?: "TaskEndDetail";
@@ -3914,8 +3688,8 @@ export type TestLogUrlAndRenderingTypeQuery = {
       __typename?: "TaskTestResult";
       testResults: Array<{
         __typename?: "TestResult";
-        id: string;
         groupID?: string | null;
+        id: string;
         status: string;
         testFile: string;
         logs: {
@@ -3988,8 +3762,8 @@ export type TaskFilesQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    id: string;
     execution: number;
+    id: string;
     files: {
       __typename?: "TaskFiles";
       groupedFiles: Array<{
