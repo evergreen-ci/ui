@@ -1,4 +1,6 @@
 import { useMemo } from "react";
+import { useParams } from "react-router-dom";
+import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import {
   ColumnFiltersState,
   ColumnFiltering,
@@ -9,14 +11,13 @@ import {
   LGColumnDef,
   LeafyGreenTable,
   OnChangeFn,
-} from "@leafygreen-ui/table";
-import { useParams } from "react-router-dom";
-import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { BaseTable, onChangeHandler } from "@evg-ui/lib/components/Table";
+  BaseTable,
+  onChangeHandler,
+  TablePlaceholder,
+} from "@evg-ui/lib/components/Table";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useVersionAnalytics } from "analytics";
-import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { TaskLink } from "components/TasksTable/TaskLink";
 import { TableQueryParams } from "constants/queryParams";
 import { slugs } from "constants/routes";

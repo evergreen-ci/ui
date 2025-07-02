@@ -1,8 +1,8 @@
-import { LGColumnDef } from "@leafygreen-ui/table";
 import Tooltip from "@leafygreen-ui/tooltip";
 import pluralize from "pluralize";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";

@@ -1,5 +1,5 @@
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
-import TableControl from "../TableControl";
+import TableControl from ".";
 
 export default {
   component: TableControl,

@@ -4,15 +4,13 @@ import {
   LeafyGreenTable,
   ColumnFiltersState,
   SortingState,
-} from "@leafygreen-ui/table";
-import {
   BaseTable,
   TableWrapper,
   onChangeHandler,
   TableControl,
+  TablePlaceholder,
 } from "@evg-ui/lib/components/Table";
 import { useVersionAnalytics } from "analytics";
-import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { TableQueryParams } from "constants/queryParams";

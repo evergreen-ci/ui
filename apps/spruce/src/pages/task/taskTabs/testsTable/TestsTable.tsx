@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useQuery } from "@apollo/client";
+import { useLocation } from "react-router-dom";
 import {
   ColumnFiltering,
   ColumnFiltersState,
@@ -7,9 +8,6 @@ import {
   RowSorting,
   SortingState,
   useLeafyGreenTable,
-} from "@leafygreen-ui/table";
-import { useLocation } from "react-router-dom";
-import {
   BaseTable,
   TableWrapper,
   onChangeHandler,

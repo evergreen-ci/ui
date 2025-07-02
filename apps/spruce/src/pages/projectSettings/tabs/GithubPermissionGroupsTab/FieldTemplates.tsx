@@ -1,10 +1,13 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import Icon from "@evg-ui/lib/components/Icon";
-import { BaseTable } from "@evg-ui/lib/components/Table";
+import {
+  useLeafyGreenTable,
+  LGColumnDef,
+  BaseTable,
+} from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { PlusButton } from "components/Buttons";

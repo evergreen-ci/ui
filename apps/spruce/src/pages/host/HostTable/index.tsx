@@ -1,14 +1,15 @@
 import { useMemo, useState } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Subtitle } from "@leafygreen-ui/typography";
 import {
   useLeafyGreenTable,
   LGColumnDef,
   ColumnFiltersState,
   LeafyGreenTable,
-} from "@leafygreen-ui/table";
-import { Subtitle } from "@leafygreen-ui/typography";
-import { BaseTable, onChangeHandler } from "@evg-ui/lib/components/Table";
+  BaseTable,
+  onChangeHandler,
+} from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";

@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
+import { formatDistanceToNow } from "date-fns";
+import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
   ExpandedState,
   LeafyGreenTableRow,
   useLeafyGreenTable,
-} from "@leafygreen-ui/table";
-import { formatDistanceToNow } from "date-fns";
-import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { BaseTable } from "@evg-ui/lib/components/Table";
+  BaseTable,
+} from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DoesNotExpire } from "components/Spawn";
 import { getSpawnHostRoute } from "constants/routes";

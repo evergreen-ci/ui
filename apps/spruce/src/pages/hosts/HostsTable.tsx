@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { formatDistanceToNow } from "date-fns";
+import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
   ColumnFiltersState,
   ColumnFiltering,
@@ -7,10 +9,9 @@ import {
   SortingState,
   useLeafyGreenTable,
   LeafyGreenTable,
-} from "@leafygreen-ui/table";
-import { formatDistanceToNow } from "date-fns";
-import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { BaseTable, onChangeHandler } from "@evg-ui/lib/components/Table";
+  BaseTable,
+  onChangeHandler,
+} from "@evg-ui/lib/components/Table";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
 import { hostStatuses } from "constants/hosts";

@@ -1,11 +1,14 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
-import { BaseTable } from "@evg-ui/lib/components/Table";
+import {
+  useLeafyGreenTable,
+  LGColumnDef,
+  BaseTable,
+} from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useTaskAnalytics } from "analytics";

@@ -2,17 +2,18 @@ import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import Pagination from "@leafygreen-ui/pagination";
+import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
+import Icon from "@evg-ui/lib/components/Icon";
+import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
   ColumnFiltersState,
   filterFns,
   getFilteredRowModel,
   LGColumnDef,
   useLeafyGreenTable,
-} from "@leafygreen-ui/table";
-import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
-import Icon from "@evg-ui/lib/components/Icon";
-import { WordBreak } from "@evg-ui/lib/components/styles";
-import { BaseTable, onChangeHandler } from "@evg-ui/lib/components/Table";
+  BaseTable,
+  onChangeHandler,
+} from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { useTaskHistoryAnalytics } from "analytics";

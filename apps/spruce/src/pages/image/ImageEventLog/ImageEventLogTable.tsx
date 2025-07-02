@@ -8,8 +8,9 @@ import {
   filterFns,
   getFilteredRowModel,
   getFacetedUniqueValues,
-} from "@leafygreen-ui/table";
-import { BaseTable, onChangeHandler } from "@evg-ui/lib/components/Table";
+  BaseTable,
+  onChangeHandler,
+} from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useImageAnalytics } from "analytics";
 import { tableColumnOffset } from "constants/tokens";

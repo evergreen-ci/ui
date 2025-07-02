@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useParams } from "react-router-dom";
 import {
   ColumnFiltering,
   ColumnFiltersState,
@@ -6,16 +7,13 @@ import {
   SortingState,
   LeafyGreenTable,
   useLeafyGreenTable,
-} from "@leafygreen-ui/table";
-import { useParams } from "react-router-dom";
-import {
   BaseTable,
   TableWrapper,
   onChangeHandler,
   TableControl,
 } from "@evg-ui/lib/components/Table";
+import { TablePlaceholder } from "@evg-ui/lib/components/Table/TablePlaceholder";
 import { usePatchAnalytics, useVersionAnalytics } from "analytics";
-import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { slugs } from "constants/routes";

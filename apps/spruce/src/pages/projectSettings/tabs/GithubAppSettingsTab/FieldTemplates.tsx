@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
-import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
-import { BaseTable } from "@evg-ui/lib/components/Table";
+import {
+  useLeafyGreenTable,
+  LGColumnDef,
+  BaseTable,
+} from "@evg-ui/lib/components/Table";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { tableColumnOffset } from "constants/tokens";
 

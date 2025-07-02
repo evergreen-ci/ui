@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
+import { formatDistanceToNow } from "date-fns";
+import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
   ExpandedState,
   LeafyGreenTableRow,
   useLeafyGreenTable,
-} from "@leafygreen-ui/table";
-import { formatDistanceToNow } from "date-fns";
-import { WordBreak } from "@evg-ui/lib/components/styles";
-import { BaseTable } from "@evg-ui/lib/components/Table";
+  BaseTable,
+} from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import HostStatusBadge from "components/HostStatusBadge";
 import { DoesNotExpire } from "components/Spawn";

@@ -1,13 +1,14 @@
 import { useEffect, useMemo } from "react";
 import {
+  TablePlaceholder,
   LeafyGreenTable,
   RowSorting,
   SortingState,
   useLeafyGreenTable,
-} from "@leafygreen-ui/table";
-import { BaseTable, onChangeHandler } from "@evg-ui/lib/components/Table";
+  BaseTable,
+  onChangeHandler,
+} from "@evg-ui/lib/components/Table";
 import { useTaskAnalytics } from "analytics";
-import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { TableQueryParams } from "constants/queryParams";
