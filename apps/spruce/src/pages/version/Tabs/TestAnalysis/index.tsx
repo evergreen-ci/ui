@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
@@ -9,6 +9,7 @@ import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
+import { useVersionAnalytics } from "analytics";
 import { failedTaskStatuses } from "constants/task";
 import {
   TestAnalysisQuery,
@@ -41,6 +42,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
     "",
   );
 
+  const { sendEvent } = useVersionAnalytics(versionId);
   const dispatchToast = useToastContext();
   const { data, loading } = useQuery<
     TestAnalysisQuery,
@@ -93,6 +95,20 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
   const hasMatchingResults = totalFilteredTestCount > 0;
   const hasResults = Boolean(data) && totalTestCount > 0;
 
+  useEffect(() => {
+    if (data) {
+      sendEvent({
+        name: "System Event test analysis tab stats",
+        has_reoccurring_tests: numberOfTestsThatFailedOnMoreThanOneTask > 0,
+        num_reoccurring_tests: numberOfTestsThatFailedOnMoreThanOneTask,
+        num_tests: totalTestCount,
+        num_failed_tasks: data?.version?.tasks?.data.length,
+        num_tests_that_failed_on_more_than_one_task: Array.from(
+          groupedTestsMap.values(),
+        ).filter((tasks) => tasks.length > 1).length,
+      });
+    }
+  }, [data]);
   return (
     <Container>
       {loading ? (
