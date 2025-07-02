@@ -101,11 +101,13 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     periodicBuilds: [],
     parsleyFilters: [
       {
+        description: "Filter One",
         expression: "filter_1",
         caseSensitive: true,
         exactMatch: true,
       },
       {
+        description: "Filter Two",
         expression: "filter_2",
         caseSensitive: false,
         exactMatch: false,
@@ -308,6 +310,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     ],
     parsleyFilters: [
       {
+        description: "Repo Filter",
         expression: "repo-filter",
         caseSensitive: false,
         exactMatch: false,

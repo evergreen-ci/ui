@@ -3921,6 +3921,7 @@ export type ProjectFiltersQuery = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
