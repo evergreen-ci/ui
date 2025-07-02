@@ -1,7 +1,7 @@
-import Checkbox from "@leafygreen-ui/checkbox";
 import { MenuItem } from "@leafygreen-ui/menu";
-import { Body } from "@leafygreen-ui/typography";
+import Tooltip from "@leafygreen-ui/tooltip";
 import Cookies from "js-cookie";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useVersionAnalytics } from "analytics/version/useVersionAnalytics";
 import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { useQueryParam } from "hooks/useQueryParam";
@@ -23,25 +23,33 @@ export const IncludeAllTasksToggle: React.FC<IncludeAllTasksToggleProps> = ({
     );
 
   const handleIncludeNeverActivatedTasksChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.MouseEvent<HTMLButtonElement>,
   ): void => {
-    setIncludeNeverActivatedTasks(e.target.checked);
-    Cookies.set(INCLUDE_NEVER_ACTIVATED_TASKS, e.target.checked.toString());
+    e.preventDefault();
+    const checked = !includeNeverActivatedTasks;
+    setIncludeNeverActivatedTasks(checked);
+    Cookies.set(INCLUDE_NEVER_ACTIVATED_TASKS, checked.toString());
     versionAnalytics.sendEvent({
       name: "Toggled include never activated tasks",
-      include_never_activated_tasks: e.target.checked,
+      include_never_activated_tasks: checked,
     });
   };
 
   return (
-    <MenuItem>
-      <Checkbox
-        checked={includeNeverActivatedTasks}
-        darkMode
-        data-cy="include-never-activated-tasks-checkbox"
-        label={<Body weight="medium">Include never-activated tasks</Body>}
-        onChange={handleIncludeNeverActivatedTasksChange}
-      />
-    </MenuItem>
+    <Tooltip
+      align="left"
+      popoverZIndex={zIndex.tooltip}
+      trigger={
+        <MenuItem onClick={handleIncludeNeverActivatedTasksChange}>
+          {includeNeverActivatedTasks
+            ? "Exclude never-activated tasks"
+            : "Include never-activated tasks"}
+        </MenuItem>
+      }
+    >
+      {includeNeverActivatedTasks
+        ? "Hide tasks that exist in this version but have never been activated"
+        : "Show tasks that exist in this version but have never been activated"}
+    </Tooltip>
   );
 };
