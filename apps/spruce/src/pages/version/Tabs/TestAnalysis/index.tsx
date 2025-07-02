@@ -106,9 +106,6 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
         num_reoccurring_tests: numReoccurringTests,
         num_tests: totalTestCount,
         num_failed_tasks: data?.version?.tasks?.data.length,
-        num_tests_that_failed_on_more_than_one_task: Array.from(
-          groupedTestsMap.values(),
-        ).filter((tasks) => tasks.length > 1).length,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
