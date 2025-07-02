@@ -8,7 +8,6 @@ import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
-import { getTaskHistoryRoute } from "constants/routes";
 import {
   SetTaskPrioritiesMutation,
   SetTaskPrioritiesMutationVariables,
@@ -29,7 +28,6 @@ import {
   SET_TASK_PRIORITIES,
   UNSCHEDULE_TASK,
 } from "gql/mutations";
-import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { RelevantCommits } from "./actionButtons/RelevantCommits";
 import { RestartButton } from "./actionButtons/RestartButton";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
@@ -48,21 +46,16 @@ export const ActionButtons: React.FC<Props> = ({
   task,
 }) => {
   const {
-    buildVariant,
     canAbort,
     canDisable,
     canOverrideDependencies,
     canSchedule,
     canSetPriority,
     canUnschedule,
-    displayName,
     id: taskId,
-    project,
     versionMetadata,
   } = task || {};
-
-  const { id: versionId, isPatch, order } = versionMetadata || {};
-  const { identifier: projectIdentifier } = project || {};
+  const { id: versionId } = versionMetadata || {};
 
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -139,15 +132,6 @@ export const ActionButtons: React.FC<Props> = ({
     },
   });
 
-  const HistoryLink = useLGButtonRouterLink(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    getTaskHistoryRoute(projectIdentifier, displayName, {
-      selectedCommit: !isPatch && order,
-      visibleColumns: [buildVariant],
-      taskId: taskId,
-    }),
-  );
-
   const disabled =
     loadingAbortTask ||
     loadingSetPriority ||
@@ -218,22 +202,7 @@ export const ActionButtons: React.FC<Props> = ({
   return (
     <>
       <PageButtonRow>
-        {!isExecutionTask && (
-          <>
-            <RelevantCommits task={task} />
-            <Button
-              key="task-history"
-              as={HistoryLink}
-              data-cy="task-history"
-              onClick={() => {
-                taskAnalytics.sendEvent({ name: "Clicked see history link" });
-              }}
-              size="small"
-            >
-              See history
-            </Button>
-          </>
-        )}
+        {!isExecutionTask && <RelevantCommits task={task} />}
         <LoadingButton
           key="schedule"
           data-cy="schedule-task"
