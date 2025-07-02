@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
@@ -57,6 +58,8 @@ export const VersionPage: React.FC = () => {
 
   usePolling({ startPolling, stopPolling, refetch });
 
+  const [activeTaskIds, setActiveTaskIds] = useState<string[]>([]);
+
   if (!versionData && versionLoading) {
     return <PatchAndTaskFullPageLoad />;
   }
@@ -112,6 +115,7 @@ export const VersionPage: React.FC = () => {
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons
+            activeTaskIds={activeTaskIds}
             isMergeQueuePatch={requester === Requester.GitHubMergeQueue}
             isPatch={!!isPatch}
             versionId={versionId}
@@ -131,7 +135,7 @@ export const VersionPage: React.FC = () => {
           <BuildVariantCard versionId={versionId} />
         </PageSider>
         <PageContent>
-          <VersionTabs version={version} />
+          <VersionTabs setActiveTaskIds={setActiveTaskIds} version={version} />
         </PageContent>
       </PageLayout>
     </PageWrapper>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -20,11 +20,12 @@ import { useQueryVariables } from "../useQueryVariables";
 import { VersionTasksTable } from "./VersionTasksTable";
 
 interface Props {
+  setActiveTaskIds: React.Dispatch<React.SetStateAction<string[]>>;
   taskCount: number;
   versionId: string;
 }
 
-const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
+const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
   const dispatchToast = useToastContext();
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
@@ -84,6 +85,20 @@ const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
   const { version } = data || {};
   const { isPatch, tasks } = version || {};
   const { count = 0, data: tasksData = [] } = tasks || {};
+
+  const activeTaskIds = useMemo(
+    () => tasksData.map(({ id }) => id),
+    [tasksData],
+  );
+  useEffect(() => {
+    // Track the tasks currently shown by the tasks table in order to allow multiple tasks to be activated.
+    // If no filters are applied, unset active tasks in order to activate the entire version.
+    if (count === taskCount) {
+      setActiveTaskIds([]);
+    } else {
+      setActiveTaskIds(activeTaskIds);
+    }
+  }, [activeTaskIds]);
 
   return (
     <VersionTasksTable

@@ -13,16 +13,22 @@ import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
 
 interface ActionButtonProps {
+  activeTaskIds: string[];
   isMergeQueuePatch: boolean;
   isPatch: boolean;
   versionId: string;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
+  activeTaskIds,
   isMergeQueuePatch,
   isPatch,
   versionId,
 }) => {
+  const priorityProps = activeTaskIds.length
+    ? { taskIds: activeTaskIds }
+    : { versionId };
+
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
@@ -36,7 +42,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       disabled={!isPatch}
       versionId={versionId}
     />,
-    <SetPriority key="priority" versionId={versionId} />,
+    <SetPriority key="priority" {...priorityProps} />,
     <IncludeAllTasksToggle
       key="include-never-activated-tasks-checkbox"
       versionId={versionId}
