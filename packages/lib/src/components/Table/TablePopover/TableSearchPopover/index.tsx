@@ -22,7 +22,7 @@ interface TableSearchPopoverProps {
 const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   "data-cy": dataCy,
   onConfirm,
-  placeholder,
+  placeholder = "Search",
   value,
 }) => {
   const [input, setInput] = useState(value);

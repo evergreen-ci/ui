@@ -1,8 +1,11 @@
 import { useState, useRef } from "react";
+import styled from "@emotion/styled";
+import Checkbox from "@leafygreen-ui/checkbox";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import Popover, { Align, Justify } from "@leafygreen-ui/popover";
+import { size } from "../../../../constants/tokens";
 import { useOnClickOutside } from "../../../../hooks";
 import { PopoverContainer } from "../../../styles/Popover";
 import { TreeDataEntry } from "../../BaseTable";
@@ -19,6 +22,8 @@ interface TableFilterPopoverProps {
 
 const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
   "data-cy": dataCy,
+  onConfirm,
+  options = [],
   value,
 }) => {
   const [active, setActive] = useState(false);
@@ -30,6 +35,16 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
 
   // Handle onClickOutside
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
+
+  const handleCheckboxChange = (optionValue: string, checked: boolean) => {
+    let newFilters: string[];
+    if (checked) {
+      newFilters = [...value, optionValue];
+    } else {
+      newFilters = value.filter((v) => v !== optionValue);
+    }
+    onConfirm(newFilters);
+  };
 
   return (
     <FilterWrapper>
@@ -51,7 +66,22 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
         spacing={DEFAULT_SPACING}
       >
         <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
-          Filter functionality temporarily disabled during migration.
+          {options.length === 0 ? (
+            <NoFiltersMessage>No filters available.</NoFiltersMessage>
+          ) : (
+            <FilterContainer>
+              {options.map((option) => (
+                <Checkbox
+                  key={option.value}
+                  checked={value.includes(option.value)}
+                  label={option.title}
+                  onChange={(e) =>
+                    handleCheckboxChange(option.value, e.target.checked)
+                  }
+                />
+              ))}
+            </FilterContainer>
+          )}
         </PopoverContainer>
       </Popover>
     </FilterWrapper>
@@ -59,3 +89,17 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
 };
 
 export default TableFilterPopover;
+
+const NoFiltersMessage = styled.div`
+  padding: ${size.xs};
+  color: ${gray.dark1};
+  font-style: italic;
+`;
+
+const FilterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xxs};
+  padding: ${size.xs};
+  min-width: 200px;
+`;
