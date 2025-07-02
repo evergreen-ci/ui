@@ -169,18 +169,21 @@ const projectFiltersMock: ApolloMock<
           {
             __typename: "ParsleyFilter",
             caseSensitive: true,
+            description: "",
             exactMatch: true,
             expression: "my_filter_1",
           },
           {
             __typename: "ParsleyFilter",
             caseSensitive: true,
+            description: "Filter Two",
             exactMatch: false,
             expression: "my_filter_2",
           },
           {
             __typename: "ParsleyFilter",
             caseSensitive: false,
+            description: "",
             exactMatch: false,
             expression: "my_filter_3",
           },

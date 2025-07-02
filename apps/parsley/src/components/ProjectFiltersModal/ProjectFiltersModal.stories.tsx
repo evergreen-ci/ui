@@ -14,7 +14,7 @@ export default {
 const Component = ({ ...args }) => {
   const [, setSearchParams] = useQueryParams();
   const { setLogMetadata } = useLogContext();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     setSearchParams({ filters: ["100active%20filter"] });

@@ -2,5 +2,45 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
   saveAdminSettings(adminSettings: $adminSettings) {
     banner
     bannerTheme
+    serviceFlags {
+      adminParameterStoreDisabled
+      agentStartDisabled
+      alertsDisabled
+      backgroundCleanupDisabled
+      backgroundReauthDisabled
+      backgroundStatsDisabled
+      cacheStatsEndpointDisabled
+      cacheStatsJobDisabled
+      checkBlockedTasksDisabled
+      cliUpdatesDisabled
+      cloudCleanupDisabled
+      degradedModeDisabled
+      elasticIPsDisabled
+      emailNotificationsDisabled
+      eventProcessingDisabled
+      evergreenTestResultsDisabled
+      githubPRTestingDisabled
+      githubStatusAPIDisabled
+      hostAllocatorDisabled
+      hostInitDisabled
+      jiraNotificationsDisabled
+      jwtTokenForCLIDisabled
+      largeParserProjectsDisabled
+      monitorDisabled
+      podAllocatorDisabled
+      podInitDisabled
+      releaseModeDisabled
+      repotrackerDisabled
+      schedulerDisabled
+      slackNotificationsDisabled
+      sleepScheduleDisabled
+      staticAPIKeysDisabled
+      systemFailedTaskRestartDisabled
+      taskDispatchDisabled
+      taskLoggingDisabled
+      taskReliabilityDisabled
+      unrecognizedPodCleanupDisabled
+      webhookNotificationsDisabled
+    }
   }
 }

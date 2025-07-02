@@ -10,11 +10,11 @@ export const gqlToForm = ((data) => {
 
   return {
     parsleyFilters:
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      projectRef.parsleyFilters?.map(
-        ({ caseSensitive, exactMatch, expression }) => ({
+      projectRef?.parsleyFilters?.map(
+        ({ caseSensitive, description, exactMatch, expression }) => ({
           displayTitle: expression,
           expression,
+          description,
           caseSensitive,
           exactMatch,
         }),
@@ -29,8 +29,9 @@ export const formToGql = (({ parsleyFilters }, isRepo, id) => ({
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     parsleyFilters: parsleyFilters.map(
-      ({ caseSensitive, exactMatch, expression }) => ({
+      ({ caseSensitive, description, exactMatch, expression }) => ({
         expression,
+        description,
         caseSensitive,
         exactMatch,
       }),

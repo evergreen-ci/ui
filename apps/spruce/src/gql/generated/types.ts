@@ -4336,6 +4336,7 @@ export type ProjectSettingsFieldsFragment = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
@@ -4534,6 +4535,7 @@ export type RepoSettingsFieldsFragment = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
@@ -4986,6 +4988,7 @@ export type ProjectEventSettingsFragment = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
@@ -5115,6 +5118,7 @@ export type ProjectViewsAndFiltersSettingsFragment = {
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
+    description: string;
     exactMatch: boolean;
     expression: string;
   }> | null;
@@ -5126,6 +5130,7 @@ export type RepoViewsAndFiltersSettingsFragment = {
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
+    description: string;
     exactMatch: boolean;
     expression: string;
   }> | null;
@@ -5657,6 +5662,47 @@ export type SaveAdminSettingsMutation = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    serviceFlags?: {
+      __typename?: "ServiceFlags";
+      adminParameterStoreDisabled: boolean;
+      agentStartDisabled: boolean;
+      alertsDisabled: boolean;
+      backgroundCleanupDisabled: boolean;
+      backgroundReauthDisabled: boolean;
+      backgroundStatsDisabled: boolean;
+      cacheStatsEndpointDisabled: boolean;
+      cacheStatsJobDisabled: boolean;
+      checkBlockedTasksDisabled: boolean;
+      cliUpdatesDisabled: boolean;
+      cloudCleanupDisabled: boolean;
+      degradedModeDisabled: boolean;
+      elasticIPsDisabled: boolean;
+      emailNotificationsDisabled: boolean;
+      eventProcessingDisabled: boolean;
+      evergreenTestResultsDisabled: boolean;
+      githubPRTestingDisabled: boolean;
+      githubStatusAPIDisabled: boolean;
+      hostAllocatorDisabled: boolean;
+      hostInitDisabled: boolean;
+      jiraNotificationsDisabled: boolean;
+      jwtTokenForCLIDisabled: boolean;
+      largeParserProjectsDisabled: boolean;
+      monitorDisabled: boolean;
+      podAllocatorDisabled: boolean;
+      podInitDisabled: boolean;
+      releaseModeDisabled: boolean;
+      repotrackerDisabled: boolean;
+      schedulerDisabled: boolean;
+      slackNotificationsDisabled: boolean;
+      sleepScheduleDisabled: boolean;
+      staticAPIKeysDisabled: boolean;
+      systemFailedTaskRestartDisabled: boolean;
+      taskDispatchDisabled: boolean;
+      taskLoggingDisabled: boolean;
+      taskReliabilityDisabled: boolean;
+      unrecognizedPodCleanupDisabled: boolean;
+      webhookNotificationsDisabled: boolean;
+    } | null;
   };
 };
 
@@ -5805,6 +5851,20 @@ export type SetPatchVisibilityMutation = {
     __typename?: "Patch";
     id: string;
     hidden: boolean;
+  }>;
+};
+
+export type SetTaskPrioritiesMutationVariables = Exact<{
+  taskPriorities: Array<TaskPriority>;
+}>;
+
+export type SetTaskPrioritiesMutation = {
+  __typename?: "Mutation";
+  setTaskPriorities: Array<{
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    priority?: number | null;
   }>;
 };
 
@@ -5994,6 +6054,47 @@ export type AdminSettingsQuery = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    serviceFlags?: {
+      __typename?: "ServiceFlags";
+      adminParameterStoreDisabled: boolean;
+      agentStartDisabled: boolean;
+      alertsDisabled: boolean;
+      backgroundCleanupDisabled: boolean;
+      backgroundReauthDisabled: boolean;
+      backgroundStatsDisabled: boolean;
+      cacheStatsEndpointDisabled: boolean;
+      cacheStatsJobDisabled: boolean;
+      checkBlockedTasksDisabled: boolean;
+      cliUpdatesDisabled: boolean;
+      cloudCleanupDisabled: boolean;
+      degradedModeDisabled: boolean;
+      elasticIPsDisabled: boolean;
+      emailNotificationsDisabled: boolean;
+      eventProcessingDisabled: boolean;
+      evergreenTestResultsDisabled: boolean;
+      githubPRTestingDisabled: boolean;
+      githubStatusAPIDisabled: boolean;
+      hostAllocatorDisabled: boolean;
+      hostInitDisabled: boolean;
+      jiraNotificationsDisabled: boolean;
+      jwtTokenForCLIDisabled: boolean;
+      largeParserProjectsDisabled: boolean;
+      monitorDisabled: boolean;
+      podAllocatorDisabled: boolean;
+      podInitDisabled: boolean;
+      releaseModeDisabled: boolean;
+      repotrackerDisabled: boolean;
+      schedulerDisabled: boolean;
+      slackNotificationsDisabled: boolean;
+      sleepScheduleDisabled: boolean;
+      staticAPIKeysDisabled: boolean;
+      systemFailedTaskRestartDisabled: boolean;
+      taskDispatchDisabled: boolean;
+      taskLoggingDisabled: boolean;
+      taskReliabilityDisabled: boolean;
+      unrecognizedPodCleanupDisabled: boolean;
+      webhookNotificationsDisabled: boolean;
+    } | null;
   } | null;
 };
 
@@ -7473,6 +7574,7 @@ export type ProjectEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -7686,6 +7788,7 @@ export type ProjectEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -7964,6 +8067,7 @@ export type ProjectSettingsQuery = {
       parsleyFilters?: Array<{
         __typename?: "ParsleyFilter";
         caseSensitive: boolean;
+        description: string;
         exactMatch: boolean;
         expression: string;
       }> | null;
@@ -8225,6 +8329,7 @@ export type RepoEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -8438,6 +8543,7 @@ export type RepoEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -8656,6 +8762,7 @@ export type RepoSettingsQuery = {
       parsleyFilters?: Array<{
         __typename?: "ParsleyFilter";
         caseSensitive: boolean;
+        description: string;
         exactMatch: boolean;
         expression: string;
       }> | null;
