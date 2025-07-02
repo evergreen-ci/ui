@@ -7,13 +7,13 @@ import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { useQueryParam } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 
-interface IncludeAllTasksToggleProps {
+interface IncludeNeverActivatedTasksToggleProps {
   versionId: string;
 }
 
-export const IncludeAllTasksToggle: React.FC<IncludeAllTasksToggleProps> = ({
-  versionId,
-}) => {
+export const IncludeNeverActivatedTasksToggle: React.FC<
+  IncludeNeverActivatedTasksToggleProps
+> = ({ versionId }) => {
   const versionAnalytics = useVersionAnalytics(versionId);
 
   const [includeNeverActivatedTasks, setIncludeNeverActivatedTasks] =
