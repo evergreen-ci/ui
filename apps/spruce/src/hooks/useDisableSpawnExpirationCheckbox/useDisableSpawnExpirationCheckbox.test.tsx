@@ -7,7 +7,10 @@ import {
   MyVolumesQuery,
   MyVolumesQueryVariables,
 } from "gql/generated/types";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 import { MY_VOLUMES, MY_HOSTS } from "gql/queries";
 import { useDisableSpawnExpirationCheckbox } from ".";
 
@@ -285,4 +288,9 @@ const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
   },
 };
 
-const mocks = [getSpruceConfigMock, myHostsMock, myVolumesQueryMock];
+const mocks = [
+  getSpruceConfigMock,
+  getUserSettingsMock,
+  myHostsMock,
+  myVolumesQueryMock,
+];

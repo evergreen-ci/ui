@@ -4,7 +4,10 @@ import {
   userEvent,
   screen,
 } from "@evg-ui/lib/test_utils";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 import { foldedCommitData } from "./testData";
 import FoldedCommit from ".";
 
@@ -18,7 +21,7 @@ describe("foldedCommit", () => {
     });
 
     render(
-      <MockedProvider mocks={[getSpruceConfigMock]}>
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
         <FoldedCommit
           data={foldedCommitData}
           index={0}
@@ -42,7 +45,7 @@ describe("foldedCommit", () => {
 
     const user = userEvent.setup();
     render(
-      <MockedProvider mocks={[getSpruceConfigMock]}>
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
         <FoldedCommit
           data={data}
           index={0}

@@ -1,5 +1,8 @@
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 
 import { foldedCommitData } from "./testData";
 import FoldedCommit from ".";
@@ -19,7 +22,7 @@ export const FoldedCommitStory: CustomStoryObj<typeof FoldedCommit> = {
   },
   parameters: {
     apolloClient: {
-      mocks: [getSpruceConfigMock],
+      mocks: [getSpruceConfigMock, getUserSettingsMock],
     },
   },
 };

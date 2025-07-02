@@ -10,13 +10,36 @@ import {
   TaskSortCategory,
   VersionTaskDurationsQuery,
 } from "gql/generated/types";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+  versionMock,
+  taskStatusesMock,
+} from "gql/mocks/getSpruceConfig";
 import { PatchTasksQueryParams } from "types/task";
 import TaskDurationTable, { getInitialParams } from ".";
+
+vi.mock("react-router-dom", async () => {
+  const actual = await vi.importActual("react-router-dom");
+  return {
+    ...actual,
+    useParams: () => ({
+      versionId: "1",
+    }),
+  };
+});
 
 describe("TaskDurationTable", () => {
   it("renders all rows", () => {
     render(
-      <MockedProvider>
+      <MockedProvider
+        mocks={[
+          getSpruceConfigMock,
+          getUserSettingsMock,
+          versionMock,
+          taskStatusesMock,
+        ]}
+      >
         <TaskDurationTable loading={false} numLoadingRows={10} tasks={tasks} />
       </MockedProvider>,
     );
@@ -26,7 +49,14 @@ describe("TaskDurationTable", () => {
   it("opens nested row on click", async () => {
     const user = userEvent.setup();
     render(
-      <MockedProvider>
+      <MockedProvider
+        mocks={[
+          getSpruceConfigMock,
+          getUserSettingsMock,
+          versionMock,
+          taskStatusesMock,
+        ]}
+      >
         <TaskDurationTable loading={false} numLoadingRows={10} tasks={tasks} />
       </MockedProvider>,
     );

@@ -1,34 +1,16 @@
-import { MockedProviderProps } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch,
   screen,
   userEvent,
 } from "@evg-ui/lib/src/test_utils";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { taskQuery } from "gql/mocks/taskData";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 import { MockedProvider } from "test_utils/graphql";
-import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import CommitDetailsCard from ".";
-
-interface ProviderProps {
-  mocks?: MockedProviderProps["mocks"];
-  children: React.ReactNode;
-}
-const ProviderWrapper: React.FC<ProviderProps> = ({ children, mocks = [] }) => (
-  <MockedProvider mocks={mocks}>
-    <TaskHistoryContextProvider task={taskQuery.task}>
-      {children}
-    </TaskHistoryContextProvider>
-  </MockedProvider>
-);
-
-const wrapper = ({ children }: { children: React.ReactNode }) =>
-  ProviderWrapper({
-    children,
-    mocks: [getSpruceConfigMock],
-  });
 
 describe("CommitDetailsCard component", () => {
   it("shows 'Restart Task' button if task is activated", () => {
@@ -38,9 +20,17 @@ describe("CommitDetailsCard component", () => {
       canRestart: true,
     };
     const { Component } = RenderFakeToastContext(
-      <CommitDetailsCard isMatching task={currentTask} />,
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
+        <CommitDetailsCard
+          isCurrentTask={false}
+          isMatching
+          owner="evergreen-ci"
+          repo="evergreen"
+          task={currentTask}
+        />
+      </MockedProvider>,
     );
-    renderWithRouterMatch(<Component />, { wrapper });
+    renderWithRouterMatch(<Component />);
     const restartButton = screen.getByRole("button", { name: "Restart Task" });
     expect(restartButton).toBeVisible();
     expect(restartButton).toHaveAttribute("aria-disabled", "false");
@@ -53,9 +43,17 @@ describe("CommitDetailsCard component", () => {
       canSchedule: true,
     };
     const { Component } = RenderFakeToastContext(
-      <CommitDetailsCard isMatching task={currentTask} />,
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
+        <CommitDetailsCard
+          isCurrentTask={false}
+          isMatching
+          owner="evergreen-ci"
+          repo="evergreen"
+          task={currentTask}
+        />
+      </MockedProvider>,
     );
-    renderWithRouterMatch(<Component />, { wrapper });
+    renderWithRouterMatch(<Component />);
     const scheduleButton = screen.getByRole("button", {
       name: "Schedule Task",
     });
@@ -75,9 +73,17 @@ describe("CommitDetailsCard component", () => {
       },
     };
     const { Component } = RenderFakeToastContext(
-      <CommitDetailsCard isMatching task={currentTask} />,
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
+        <CommitDetailsCard
+          isCurrentTask={false}
+          isMatching
+          owner="evergreen-ci"
+          repo="evergreen"
+          task={currentTask}
+        />
+      </MockedProvider>,
     );
-    renderWithRouterMatch(<Component />, { wrapper });
+    renderWithRouterMatch(<Component />);
     expect(screen.queryByText(longMessage)).toBeNull();
 
     const showMoreButton = screen.getByRole("button", {
@@ -101,9 +107,17 @@ describe("CommitDetailsCard component", () => {
       ...tasks[5],
     };
     const { Component } = RenderFakeToastContext(
-      <CommitDetailsCard isMatching task={currentTask} />,
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
+        <CommitDetailsCard
+          isCurrentTask={false}
+          isMatching
+          owner="evergreen-ci"
+          repo="evergreen"
+          task={currentTask}
+        />
+      </MockedProvider>,
     );
-    renderWithRouterMatch(<Component />, { wrapper });
+    renderWithRouterMatch(<Component />);
 
     const accordionContainer = screen.getByDataCy(
       "accordion-collapse-container",
@@ -121,12 +135,19 @@ describe("CommitDetailsCard component", () => {
   it("shows 'This Task' badge if it's the current task", () => {
     const currentTask = {
       ...tasks[5],
-      id: taskQuery.task.id,
     };
     const { Component } = RenderFakeToastContext(
-      <CommitDetailsCard isMatching task={currentTask} />,
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
+        <CommitDetailsCard
+          isCurrentTask
+          isMatching
+          owner="evergreen-ci"
+          repo="evergreen"
+          task={currentTask}
+        />
+      </MockedProvider>,
     );
-    renderWithRouterMatch(<Component />, { wrapper });
+    renderWithRouterMatch(<Component />);
     const thisTaskBadge = screen.getByDataCy("this-task-badge");
     expect(thisTaskBadge).toBeVisible();
   });
@@ -137,17 +158,25 @@ describe("CommitDetailsCard component", () => {
       revision: "abcdef",
     };
     const { Component } = RenderFakeToastContext(
-      <CommitDetailsCard isMatching task={currentTask} />,
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
+        <CommitDetailsCard
+          isCurrentTask
+          isMatching
+          owner="evergreen-ci"
+          repo="evergreen"
+          task={currentTask}
+        />
+      </MockedProvider>,
     );
-    renderWithRouterMatch(<Component />, { wrapper });
+    renderWithRouterMatch(<Component />);
     const githubLink = screen.getByDataCy("github-link");
     expect(githubLink).toHaveAttribute(
       "href",
-      `https://github.com/${taskQuery.task?.project?.owner}/${taskQuery.task?.project?.repo}/commit/${currentTask.revision}`,
+      `https://github.com/evergreen-ci/evergreen/commit/${currentTask.revision}`,
     );
 
     const taskLink = screen.getByDataCy("task-link");
-    expect(taskLink).toHaveAttribute("href", `/task/${currentTask.id}/history`);
+    expect(taskLink).toHaveAttribute("href", `/task/${currentTask.id}`);
   });
 
   it("decreases opacity if isMatching is 'false'", () => {
@@ -155,9 +184,17 @@ describe("CommitDetailsCard component", () => {
       ...tasks[5],
     };
     const { Component } = RenderFakeToastContext(
-      <CommitDetailsCard isMatching={false} task={currentTask} />,
+      <MockedProvider mocks={[getSpruceConfigMock, getUserSettingsMock]}>
+        <CommitDetailsCard
+          isCurrentTask={false}
+          isMatching={false}
+          owner="evergreen-ci"
+          repo="evergreen"
+          task={currentTask}
+        />
+      </MockedProvider>,
     );
-    renderWithRouterMatch(<Component />, { wrapper });
+    renderWithRouterMatch(<Component />);
     const card = screen.getByDataCy("commit-details-card");
     expect(card).toHaveStyle("opacity: 0.4");
   });
