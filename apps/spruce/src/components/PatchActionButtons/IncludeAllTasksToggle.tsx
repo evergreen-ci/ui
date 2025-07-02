@@ -26,6 +26,7 @@ export const IncludeAllTasksToggle: React.FC<IncludeAllTasksToggleProps> = ({
     e: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     setIncludeNeverActivatedTasks(e.target.checked);
+    Cookies.set(INCLUDE_NEVER_ACTIVATED_TASKS, e.target.checked.toString());
     versionAnalytics.sendEvent({
       name: "Toggled include never activated tasks",
       include_never_activated_tasks: e.target.checked,
@@ -38,7 +39,7 @@ export const IncludeAllTasksToggle: React.FC<IncludeAllTasksToggleProps> = ({
         checked={includeNeverActivatedTasks}
         darkMode
         data-cy="include-never-activated-tasks-checkbox"
-        label={<Body weight="medium">Always include all tasks</Body>}
+        label={<Body weight="medium">Include never-activated tasks</Body>}
         onChange={handleIncludeNeverActivatedTasksChange}
       />
     </MenuItem>
