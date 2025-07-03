@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
-import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
+import { size, transitionDuration, zIndex } from "@evg-ui/lib/constants/tokens";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { getTabTitle } from "./getTabTitle";
@@ -57,8 +57,8 @@ const Container = styled.div<{ showShadow: boolean; saveable: boolean }>`
   padding: 0 ${size.l} ${size.s} ${size.l};
 
   ${({ saveable }) => saveable && "position: sticky;"}
+  z-index: ${zIndex.stickyHeader};
   top: 0;
-  z-index: 1;
 
   ${({ showShadow }) =>
     showShadow
