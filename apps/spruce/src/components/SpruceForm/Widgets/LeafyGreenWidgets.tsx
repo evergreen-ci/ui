@@ -305,8 +305,26 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
   return (
     <ElementWrapper css={elementWrapperCSS}>
       {label && (
-        <LabelContainer>
-          <Label disabled={disabled} htmlFor={id}>
+        <LabelContainer
+          css={
+            inline
+              ? css`
+                  margin-bottom: 0px;
+                `
+              : ""
+          }
+        >
+          <Label
+            css={
+              inline
+                ? css`
+                    font-weight: normal;
+                  `
+                : ""
+            }
+            disabled={disabled}
+            htmlFor={id}
+          >
             {label}
           </Label>
         </LabelContainer>

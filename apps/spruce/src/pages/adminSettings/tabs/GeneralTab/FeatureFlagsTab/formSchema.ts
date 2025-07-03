@@ -72,13 +72,7 @@ const radioCSS = css`
   align-items: center;
   flex-direction: row;
   padding: ${size.xs};
-  &,
-  > div {
-    margin-bottom: 0px;
-    > label {
-      font-weight: normal;
-    }
-  }
+  margin-bottom: 0px;
   max-width: 100%;
 `;
 
