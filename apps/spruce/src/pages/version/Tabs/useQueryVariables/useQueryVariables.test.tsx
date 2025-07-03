@@ -23,7 +23,7 @@ describe("useQueryVariables", () => {
       versionId,
       taskFilterOptions: {
         taskName: "generate",
-        includeNeverActivatedTasks: false,
+        includeNeverActivatedTasks: undefined,
         variant: "",
         statuses: ["success"],
         baseStatuses: [],
@@ -49,7 +49,7 @@ describe("useQueryVariables", () => {
       versionId,
       taskFilterOptions: {
         taskName: "generate",
-        includeNeverActivatedTasks: false,
+        includeNeverActivatedTasks: undefined,
         variant: "",
         statuses: ["success"],
         baseStatuses: [],
@@ -58,6 +58,26 @@ describe("useQueryVariables", () => {
         ],
         page: 0,
         limit: 20,
+      },
+    });
+  });
+  it("includes includeNeverActivatedTasks if it is defined in the search string", () => {
+    const versionId = "version";
+    const search = "page=0&limit=20&includeNeverActivatedTasks=true";
+    const { result } = renderHook(() => useQueryVariables(search, versionId), {
+      wrapper: getWrapper(search),
+    });
+    expect(result.current).toStrictEqual({
+      versionId,
+      taskFilterOptions: {
+        baseStatuses: [],
+        statuses: [],
+        sorts: [],
+        page: 0,
+        limit: 20,
+        includeNeverActivatedTasks: true,
+        taskName: "",
+        variant: "",
       },
     });
   });

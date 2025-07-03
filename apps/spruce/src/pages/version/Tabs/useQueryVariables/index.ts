@@ -35,6 +35,8 @@ export const useQueryVariables = (
       })
     : [];
 
+  const isIncludeNeverActivatedTasksDefined =
+    includeNeverActivatedTasks !== undefined;
   return {
     versionId,
     taskFilterOptions: {
@@ -45,7 +47,9 @@ export const useQueryVariables = (
       sorts: sortsToApply,
       limit,
       page,
-      includeNeverActivatedTasks: includeNeverActivatedTasks === "true",
+      includeNeverActivatedTasks: isIncludeNeverActivatedTasksDefined
+        ? includeNeverActivatedTasks === "true"
+        : undefined,
     },
   };
 };

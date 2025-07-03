@@ -1,9 +1,7 @@
 import { MenuItem } from "@leafygreen-ui/menu";
 import Tooltip from "@leafygreen-ui/tooltip";
-import Cookies from "js-cookie";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useVersionAnalytics } from "analytics/version/useVersionAnalytics";
-import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { useQueryParam } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 
@@ -17,9 +15,9 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
   const versionAnalytics = useVersionAnalytics(versionId);
 
   const [includeNeverActivatedTasks, setIncludeNeverActivatedTasks] =
-    useQueryParam(
+    useQueryParam<boolean | undefined>(
       PatchTasksQueryParams.IncludeNeverActivatedTasks,
-      Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true",
+      undefined,
     );
 
   const handleIncludeNeverActivatedTasksChange = (
@@ -28,7 +26,6 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
     e.preventDefault();
     const checked = !includeNeverActivatedTasks;
     setIncludeNeverActivatedTasks(checked);
-    Cookies.set(INCLUDE_NEVER_ACTIVATED_TASKS, checked.toString());
     versionAnalytics.sendEvent({
       name: "Toggled include never activated tasks",
       include_never_activated_tasks: checked,
