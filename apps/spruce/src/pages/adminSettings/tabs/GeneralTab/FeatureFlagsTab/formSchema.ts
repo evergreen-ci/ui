@@ -1,3 +1,5 @@
+import { css } from "@emotion/react";
+import { palette } from "@leafygreen-ui/palette";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
@@ -51,6 +53,18 @@ const batchJobItems: Record<string, string> = {
   backgroundCleanupDisabled: "Background Data Cleanup",
 };
 
+const zebraCss = css`
+  > div > :nth-child(even) {
+    > :nth-child(odd) {
+      background-color: ${palette.gray.light3};
+    }
+  }
+
+  > div > :not(:last-child) > * {
+    border-bottom: 1px solid ${palette.gray.light2};
+  }
+`;
+
 /**
  * Generates properties for ui form
  * @param items - maps variable names to display names
@@ -85,7 +99,7 @@ function generateUiSchema(
 ): Record<string, Record<string, any>> {
   return Object.keys(items).reduce(
     (acc, key) => {
-      acc[key] = { "ui:widget": widgets.RadioWidget };
+      acc[key] = { "ui:widget": widgets.HorizontalRadioWidget };
       return acc;
     },
     {} as Record<string, Record<string, any>>,
@@ -129,18 +143,22 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
     featureFlags: {
       services: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:css": zebraCss,
         ...generateUiSchema(serviceItems),
       },
       notifications: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:css": zebraCss,
         ...generateUiSchema(notificationItems),
       },
       features: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:css": zebraCss,
         ...generateUiSchema(featureItems),
       },
       batchJobs: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:css": zebraCss,
         ...generateUiSchema(batchJobItems),
       },
     },

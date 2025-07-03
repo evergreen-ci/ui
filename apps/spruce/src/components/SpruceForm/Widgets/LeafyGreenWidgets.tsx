@@ -416,7 +416,7 @@ export const LeafyGreenRadioBox: React.FC<
   );
 };
 
-export const LeafyGreenZebraRadio: React.FC<EnumSpruceWidgetProps> = ({
+export const LeafyGreenHorizontalRadio: React.FC<EnumSpruceWidgetProps> = ({
   disabled,
   id,
   label,
@@ -429,7 +429,6 @@ export const LeafyGreenZebraRadio: React.FC<EnumSpruceWidgetProps> = ({
   // RadioBox components do not accept boolean props for value, so use the indices instead.
   const valueMap = enumOptions.map(({ value: val }) => val);
   const bgColor = (rows ?? 0) % 2 === 0 ? palette.white : palette.gray.light3;
-  console.log("rowIndex", rows, "bgColor", bgColor);
 
   return (
     <ElementWrapper
@@ -439,21 +438,15 @@ export const LeafyGreenZebraRadio: React.FC<EnumSpruceWidgetProps> = ({
         align-items: center;
         flex-direction: row;
         background-color: ${bgColor};
-        gap: ${size.l};
+        padding: ${size.xs};
+        margin-bottom: 0px;
+        max-width: 100%;
       `}
     >
       {label && (
-        <LabelContainer
-          css={css`
-            display: flex;
-            flex-direction: row;
-            gap: ${size.l};
-          `}
-        >
-          <Label disabled={disabled} htmlFor={id}>
-            {label}
-          </Label>
-        </LabelContainer>
+        <Label disabled={disabled} htmlFor={id}>
+          {label}
+        </Label>
       )}
       <RadioGroup
         bold={false}
@@ -462,7 +455,7 @@ export const LeafyGreenZebraRadio: React.FC<EnumSpruceWidgetProps> = ({
           flex-direction: row;
           gap: ${size.l};
           align-items: end;
-          aligh-self: center;
+          align-self: center;
         `}
         data-cy={dataCy}
         id={id}
