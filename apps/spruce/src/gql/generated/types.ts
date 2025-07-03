@@ -7035,12 +7035,6 @@ export type InstanceTypesQuery = {
   instanceTypes: Array<string>;
 };
 
-export type IsRepoQueryVariables = Exact<{
-  projectOrRepoId: Scalars["String"]["input"];
-}>;
-
-export type IsRepoQuery = { __typename?: "Query"; isRepo: boolean };
-
 export type CustomCreatedIssuesQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -8340,7 +8334,7 @@ export type MyPublicKeysQuery = {
 };
 
 export type RepoEventLogsQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
+  repoId: Scalars["String"]["input"];
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   before?: InputMaybe<Scalars["Time"]["input"]>;
 }>;
