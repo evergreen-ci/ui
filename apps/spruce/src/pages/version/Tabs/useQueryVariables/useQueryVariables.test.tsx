@@ -4,12 +4,13 @@ import { TaskSortCategory, SortDirection } from "gql/generated/types";
 import { useQueryVariables } from ".";
 
 describe("useQueryVariables", () => {
-  const getWrapper = (search: string) =>
-    function ({ children }: { children: React.ReactNode }) {
-      return (
-        <MemoryRouter initialEntries={[`?${search}`]}>{children}</MemoryRouter>
-      );
-    };
+  const getWrapper = (search: string) => {
+    const Wrapper = ({ children }: { children: React.ReactNode }) => (
+      <MemoryRouter initialEntries={[`?${search}`]}>{children}</MemoryRouter>
+    );
+    Wrapper.displayName = "TestWrapper";
+    return Wrapper;
+  };
 
   it("returns appropriate variables based on search string", () => {
     const versionId = "version";
@@ -22,6 +23,7 @@ describe("useQueryVariables", () => {
       versionId,
       taskFilterOptions: {
         taskName: "generate",
+        includeNeverActivatedTasks: false,
         variant: "",
         statuses: ["success"],
         baseStatuses: [],
@@ -47,6 +49,7 @@ describe("useQueryVariables", () => {
       versionId,
       taskFilterOptions: {
         taskName: "generate",
+        includeNeverActivatedTasks: false,
         variant: "",
         statuses: ["success"],
         baseStatuses: [],
