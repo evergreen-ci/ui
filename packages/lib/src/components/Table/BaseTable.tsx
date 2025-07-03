@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, Fragment } from "react";
+import React, { ForwardedRef, forwardRef, Fragment } from "react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
 import Pagination from "@leafygreen-ui/pagination";
@@ -23,12 +23,20 @@ import {
   Header,
   LGTableDataType,
 } from "@leafygreen-ui/table";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { TreeDataEntry } from "components/TreeSelect";
-import { tableColumnOffset } from "constants/tokens";
+import { size, tableColumnOffset } from "../../constants/tokens";
 import TableLoader from "./TableLoader";
 import TableFilterPopover from "./TablePopover/TableFilterPopover";
-import TableSearchPopover from "./TablePopover/TableSearchPopover";
+
+export interface TreeDataEntry {
+  title: string;
+  value: string;
+  key: string;
+  children?: Array<{
+    title: string;
+    value: string;
+    key: string;
+  }>;
+}
 
 const { gray } = palette;
 
@@ -56,7 +64,7 @@ declare module "@tanstack/table-core" {
 
 const { blue } = palette;
 
-interface SpruceTableProps<T extends LGRowData> {
+export interface SpruceTableProps<T extends LGRowData> {
   "data-cy-row"?: string;
   "data-cy-table"?: string;
   emptyComponent?: React.ReactNode;
@@ -72,7 +80,8 @@ interface SpruceTableProps<T extends LGRowData> {
   table: LeafyGreenVirtualTable<T> | LeafyGreenTable<T>;
 }
 
-type BaseTableProps<T> = SpruceTableProps<T> & Omit<TableProps<T>, "table">;
+export type BaseTableProps<T> = SpruceTableProps<T> &
+  Omit<TableProps<T>, "table">;
 
 export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
   <T extends LGRowData>(
@@ -188,11 +197,11 @@ const TableHeaderCell = <T extends LGRowData>({
 }) => {
   const { columnDef } = header.column ?? {};
   const { meta } = columnDef;
+  const HeaderCellComponent = HeaderCell as any;
   return (
-    <HeaderCell
+    <HeaderCellComponent
       key={header.id}
       header={header}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       style={meta?.width && { width: columnDef?.meta?.width }}
     >
       {flexRender(columnDef.header, header.getContext())}
@@ -216,20 +225,8 @@ const TableHeaderCell = <T extends LGRowData>({
             }
             value={(header?.column?.getFilterValue() as string[]) ?? []}
           />
-        ) : (
-          <TableSearchPopover
-            data-cy={meta?.search?.["data-cy"]}
-            onConfirm={(value) => {
-              header.column.setFilterValue(value);
-              if (usePagination) {
-                table.firstPage();
-              }
-            }}
-            placeholder={meta?.search?.placeholder}
-            value={(header?.column?.getFilterValue() as string) ?? ""}
-          />
-        ))}
-    </HeaderCell>
+        ) : null)}
+    </HeaderCellComponent>
   );
 };
 
@@ -255,51 +252,54 @@ const RenderableRow = <T extends LGRowData>({
   row: LeafyGreenTableRow<T>;
   virtualRow?: VirtualItem;
   isSelected?: boolean;
-}) => (
-  <Fragment key={row.id}>
-    {!row.isExpandedContent && (
-      <Row
-        className={css`
-          ${isSelected &&
-          `
-           background-color: ${blue.light3} !important;
-           font-weight:bold;
-           `}
-        `}
-        data-cy={dataCyRow}
-        data-index={row.index}
-        data-selected={isSelected}
-        row={row}
-        virtualRow={virtualRow}
-      >
-        {row.getVisibleCells().map((cell) => (
-          <Cell
-            key={cell.id}
-            cell={cell}
-            className={cellStyle}
-            style={cellPaddingStyle}
-          >
-            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-          </Cell>
-        ))}
-      </Row>
-    )}
-    {row.isExpandedContent && <StyledExpandedContent row={row} />}
-  </Fragment>
-);
+}) => {
+  const RowComponent = Row as any;
+  const CellComponent = Cell as any;
+  return (
+    <Fragment key={row.id}>
+      {!row.isExpandedContent && (
+        <RowComponent
+          className={css`
+            ${isSelected &&
+            `
+             background-color: ${blue.light3} !important;
+             font-weight:bold;
+             `}
+          `}
+          data-cy={dataCyRow}
+          data-index={row.index}
+          data-selected={isSelected}
+          row={row}
+          virtualRow={virtualRow}
+        >
+          {row.getVisibleCells().map((cell) => (
+            <CellComponent
+              key={cell.id}
+              cell={cell}
+              className={cellStyle}
+              style={cellPaddingStyle}
+            >
+              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            </CellComponent>
+          ))}
+        </RowComponent>
+      )}
+      {row.isExpandedContent && <StyledExpandedContent row={row} />}
+    </Fragment>
+  );
+};
 
 const DefaultEmptyMessage = styled.div`
   margin-top: ${size.s};
   margin-left: ${tableColumnOffset};
 `;
 
-// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of ExpandedContent.
-const StyledExpandedContent = styled(ExpandedContent)`
+const StyledExpandedContent = styled(ExpandedContent as any)`
   > td {
     padding: ${size.xs} 0;
     background-color: ${gray.light3};
   }
-` as typeof ExpandedContent;
+` as any;
 
 const StyledPagination = styled(Pagination)`
   margin-top: ${size.xs};

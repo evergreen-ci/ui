@@ -3,18 +3,18 @@ import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
+import Popconfirm from "@evg-ui/lib/components/Popconfirm";
+import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
   filterFns,
   getFilteredRowModel,
   useLeafyGreenTable,
-} from "@leafygreen-ui/table";
-import Popconfirm from "@evg-ui/lib/components/Popconfirm";
-import { WordBreak } from "@evg-ui/lib/components/styles";
+  BaseTable,
+} from "@evg-ui/lib/components/Table";
+import { TablePlaceholder } from "@evg-ui/lib/components/Table/TablePlaceholder";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
-import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import {
   MyPublicKeysQuery,
   MyPublicKeysQueryVariables,

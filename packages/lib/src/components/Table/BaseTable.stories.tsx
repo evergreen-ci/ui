@@ -1,12 +1,12 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { css } from "@leafygreen-ui/emotion";
 import {
   LGColumnDef,
   useLeafyGreenTable,
   useLeafyGreenVirtualTable,
 } from "@leafygreen-ui/table";
-import { WordBreak } from "@evg-ui/lib/components/styles";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { CustomStoryObj, CustomMeta } from "../../test_utils/types";
+import { WordBreak } from "../styles";
 import { BaseTable } from "./BaseTable";
 
 export default {

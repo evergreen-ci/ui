@@ -5,11 +5,11 @@ import {
   LGColumnDef,
   ColumnFiltersState,
   PaginationState,
-} from "@leafygreen-ui/table";
+  BaseTable,
+  onChangeHandler,
+} from "@evg-ui/lib/components/Table";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useImageAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
-import { onChangeHandler } from "components/Table/utils";
 import { DEFAULT_PAGE_SIZE } from "constants/index";
 import {
   Toolchain,
