@@ -6142,7 +6142,7 @@ export type BuildBaronQuery = {
 
 export type BuildVariantStatsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
-  includeNeverActivatedTasks: Scalars["Boolean"]["input"];
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type BuildVariantStatsQuery = {

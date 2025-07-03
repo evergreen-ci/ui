@@ -1,4 +1,4 @@
-query BuildVariantStats($id: String!, $includeNeverActivatedTasks: Boolean!) {
+query BuildVariantStats($id: String!, $includeNeverActivatedTasks: Boolean) {
   version(versionId: $id) {
     id
     buildVariantStats(
