@@ -11,7 +11,6 @@ import {
   LeafyGreenCopyable,
   LeafyGreenSegmentedControl,
   LeafyGreenToggle,
-  LeafyGreenHorizontalRadio,
 } from "./LeafyGreenWidgets";
 import { MultiSelect } from "./MultiSelect";
 
@@ -23,7 +22,6 @@ const widgets = {
   DayPickerWidget,
   MultiSelectWidget: MultiSelect,
   RadioWidget: LeafyGreenRadio,
-  HorizontalRadioWidget: LeafyGreenHorizontalRadio,
   RadioBoxWidget: LeafyGreenRadioBox,
   SegmentedControlWidget: LeafyGreenSegmentedControl,
   SelectWidget: LeafyGreenSelect,
