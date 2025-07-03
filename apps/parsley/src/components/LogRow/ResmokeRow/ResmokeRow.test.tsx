@@ -80,6 +80,22 @@ describe("resmokeRow", () => {
 
     expect(screen.queryByDataCy("highlight")).toHaveTextContent("mongod");
   });
+
+  it("should apply a color to lines with ANSI formatting", () => {
+    const rgbRed = "rgb(187, 0, 0)";
+    renderRow(
+      {
+        ...resmokeProps,
+        lineIndex: 9,
+        lineNumber: 9,
+      },
+      {},
+    );
+
+    expect(
+      screen.getByText(logLines[9].substring(44, logLines[9].length - 3)),
+    ).toHaveStyle(`color: ${rgbRed}`);
+  });
 });
 
 const logLines = [
@@ -92,6 +108,7 @@ const logLines = [
   "[j0:sec0] mongod started on port 20001 with pid 30681.",
   "[j0:sec1] Starting mongod on port 20002...",
   `[j0:s0:n0] | 2022-09-21T12:50:19.899+00:00 D2 REPL_HB  4615618 [ReplCoord-0] "Scheduling heartbeat","attr":{"target":"localhost:20004","when":{"$date":"2022-09-21T12:50:21.899Z"}}`,
+  `[query_tester_server_test:20071126022] [31m-{"_id":109,"array":[null,19006,57916,64722,70773,"Managed","reboot Awesome",{"_id":110,"any":false,"date":{"$date":"2019-04-21T12:38:55.127Z"},"num":16865,"obj":{},"str":"Savings Account Syrian Arab Republic"},{"$date":"2019-01-30T08:45:49.630Z"}],"date":{"$date":"2019-11-24T17:33:31.177Z"},"num":46216,"obj":{"num":{"$numberDouble":"NaN"},"obj":{"obj":{"obj":{"array":[{"$numberDecimal":"9.999999999999999999999999999999999E+6144"},{"obj":{"date":{"$date":"2019-05-22T18:08:11.881Z"},"num":1}},[{"$regularExpression":{"pattern":"Bedfordshire|Executive|Designer|National|Towels","options":""}}],{"$date":"2019-08-27T23:11:45.451Z"},{"$date":"2019-12-12T22:46:51.181Z"}]}}}},"str":"Hawaii"},[m`,
   "",
 ];
 

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
+import { useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate } from "react-router-dom";
@@ -8,7 +9,12 @@ import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { isMainlineRequester, Requester } from "constants/requesters";
 import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
-import { TaskQuery } from "gql/generated/types";
+import {
+  TaskQuery,
+  TaskTestCountQuery,
+  TaskTestCountQueryVariables,
+} from "gql/generated/types";
+import { TASK_TEST_COUNT } from "gql/queries";
 import { useQueryParams } from "hooks/useQueryParam";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
@@ -28,15 +34,16 @@ interface TaskTabProps {
 
 const useTabConfig = (
   task: NonNullable<TaskQuery["task"]>,
+  taskTestCountData: TaskTestCountQuery["task"],
   isDisplayTask: boolean,
 ) => {
+  const { failedTestCount } = taskTestCountData || {};
   const {
     annotation,
     canModifyAnnotation,
     displayStatus,
     execution,
     executionTasksFull,
-    failedTestCount,
     files,
     id,
     isPerfPluginEnabled,
@@ -171,20 +178,34 @@ const useTabConfig = (
 const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const { [slugs.tab]: urlTab } = useParams<{ [slugs.tab]: TaskTab }>();
   const taskAnalytics = useTaskAnalytics();
+  const { data: taskTestCountData } = useQuery<
+    TaskTestCountQuery,
+    TaskTestCountQueryVariables
+  >(TASK_TEST_COUNT, {
+    variables: {
+      taskId: task.id,
+      execution: task.execution,
+    },
+  });
+  const { failedTestCount } = taskTestCountData?.task || {};
 
   const [params] = useQueryParams();
   const navigate = useNavigate();
-  const { activeTabs, tabMap } = useTabConfig(task, isDisplayTask);
+  const { activeTabs, tabMap } = useTabConfig(
+    task,
+    taskTestCountData?.task,
+    isDisplayTask,
+  );
 
   const tabIndex = useMemo(
     () =>
       getDefaultTab({
         activeTabs,
-        failedTestCount: task.failedTestCount,
+        failedTestCount: failedTestCount ?? 0,
         isDisplayTask,
         urlTab,
       }),
-    [activeTabs, task.failedTestCount, isDisplayTask, urlTab],
+    [activeTabs, failedTestCount, isDisplayTask, urlTab],
   );
 
   // Update the default tab in the url if it isn't populated or if the tab is not the same as the current tab

@@ -6,7 +6,7 @@
       HOST_AGENT_DEPLOYED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="agent-deployed"
@@ -32,7 +32,7 @@
       HOST_AGENT_DEPLOY_FAILED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span
         data-cy="agent-deploy-failed"
@@ -48,7 +48,7 @@
       HOST_AGENT_MONITOR_DEPLOYED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="agent-monitor-deployed"
@@ -69,7 +69,7 @@
       HOST_AGENT_MONITOR_DEPLOY_FAILED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span
         data-cy="agent-monitor-deploy-failed"
@@ -82,10 +82,24 @@
     <p
       class="leafygreen-ui-1tb6tuo"
     >
+      HOST_ALERTABLE_INSTANCE_TYPE_WARNING_SENT
+    </p>
+    <div
+      class="emotion-1"
+    >
+      <span>
+        HOST_ALERTABLE_INSTANCE_TYPE_WARNING_SENT
+      </span>
+    </div>
+  </div>
+  <div>
+    <p
+      class="leafygreen-ui-1tb6tuo"
+    >
       HOST_CONVERTED_PROVISIONING
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span
         data-cy="host-converted-provisioning"
@@ -105,7 +119,7 @@
       HOST_CONVERTING_PROVISIONING
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span
         data-cy="host-converting-provisioning"
@@ -125,7 +139,7 @@
       HOST_CONVERTING_PROVISIONING_ERROR
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-converting-provisioning-error"
@@ -135,14 +149,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -172,11 +186,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -230,7 +244,7 @@
       HOST_CREATED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="created"
@@ -241,14 +255,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -278,11 +292,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -336,7 +350,7 @@
       HOST_CREATED_ERROR
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span
         data-cy="host-creation-failed"
@@ -346,14 +360,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -383,11 +397,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -441,7 +455,7 @@
       HOST_DNS_NAME_SET
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-dns-name-set"
@@ -460,7 +474,7 @@
       HOST_EXPIRATION_WARNING_SENT
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span
         data-cy="host-expiration-warning-set"
@@ -476,7 +490,7 @@
       HOST_IDLE_NOTIFICATION
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span
         data-cy="host-idle-notification"
@@ -492,7 +506,7 @@
       HOST_JASPER_RESTARTED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-jasper-restarted"
@@ -511,7 +525,7 @@
       HOST_JASPER_RESTARTING
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-jasper-restarting"
@@ -532,7 +546,7 @@
       HOST_JASPER_RESTART_ERROR
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-jasper-restart-error"
@@ -542,14 +556,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -579,11 +593,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -637,7 +651,7 @@
       HOST_MODIFIED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="modified"
@@ -648,14 +662,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -685,11 +699,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -743,7 +757,7 @@
       HOST_PROVISIONED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-provisioned"
@@ -762,7 +776,7 @@
       HOST_PROVISION_ERROR
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span
         data-cy="provision-error"
@@ -778,7 +792,7 @@
       HOST_PROVISION_FAILED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-provision-failed"
@@ -789,14 +803,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -826,11 +840,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -884,7 +898,7 @@
       HOST_RUNNING_TASK_CLEARED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-running-task-cleared"
@@ -892,7 +906,7 @@
         Current running task cleared (was:
          
         <a
-          class="lg-ui-0001 e9hwzqp0 css-1hvkyrf-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 e9hwzqp0 emotion-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
           data-cy="host-running-task-cleared-link"
           href="/task/taskId"
           responsivebreakpoint="1200"
@@ -912,7 +926,7 @@
       HOST_RUNNING_TASK_SET
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-running-task-set"
@@ -920,7 +934,7 @@
         Assigned to run task
          
         <a
-          class="lg-ui-0001 e9hwzqp0 css-1hvkyrf-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 e9hwzqp0 emotion-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
           data-cy="host-running-task-set-link"
           href="/task/taskId"
           responsivebreakpoint="1200"
@@ -940,7 +954,7 @@
       HOST_SCRIPT_EXECUTED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-script-executed"
@@ -950,14 +964,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -987,11 +1001,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1045,7 +1059,7 @@
       HOST_SCRIPT_EXECUTE_FAILED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-script-execute-failed"
@@ -1055,14 +1069,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -1092,11 +1106,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1150,7 +1164,7 @@
       HOST_STARTED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="started"
@@ -1161,14 +1175,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -1198,11 +1212,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1256,7 +1270,7 @@
       HOST_STATUS_CHANGED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-status-changed"
@@ -1280,14 +1294,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -1317,11 +1331,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1341,7 +1355,7 @@
       HOST_STOPPED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="stopped"
@@ -1352,14 +1366,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -1389,11 +1403,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1447,7 +1461,7 @@
       HOST_TASK_FINISHED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <div
         data-cy="host-task-finished"
@@ -1455,7 +1469,7 @@
         Task
          
         <a
-          class="lg-ui-0001 e9hwzqp0 css-1hvkyrf-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 e9hwzqp0 emotion-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
           data-cy="host-task-finished-link"
           href="/task/taskId"
           responsivebreakpoint="1200"
@@ -1481,7 +1495,7 @@
       HOST_TEMPORARY_EXEMPTION_EXPIRATION_WARNING_SENT
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span>
         Temporary exemption expiration warning sent
@@ -1495,7 +1509,7 @@
       HOST_TERMINATED_EXTERNALLY
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span
         data-cy="host-terminated-externally"
@@ -1512,7 +1526,7 @@
       SPAWN_HOST_CREATED_ERROR
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span
         data-cy="spawn-host-creation-failed"
@@ -1522,14 +1536,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -1559,11 +1573,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"
@@ -1617,7 +1631,7 @@
       VOLUME_EXPIRATION_WARNING_SENT
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span
         data-cy="volume-expiration-warning-sent"
@@ -1633,7 +1647,7 @@
       VOLUME_MIGRATION_FAILED
     </p>
     <div
-      class="css-qs3dal"
+      class="emotion-1"
     >
       <span
         data-cy="host-volume-migration-failed"
@@ -1643,14 +1657,14 @@
           data-cy="host-event-log"
         >
           <div
-            class="css-16i4gmg-AccordionToggle e1omze814"
+            class="emotion-AccordionToggle e1omze814"
             data-cy="accordion-toggle"
             role="button"
           >
             <button
               aria-disabled="false"
               aria-label="Accordion icon"
-              class="css-lltsma-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
               style="align-self: center;"
               tabindex="0"
             >
@@ -1680,11 +1694,11 @@
           </div>
           <div
             aria-expanded="false"
-            class="css-sstoka-AnimatedAccordion e1omze812"
+            class="emotion-AnimatedAccordion e1omze812"
             data-cy="accordion-collapse-container"
           >
             <div
-              class="css-1hezny5-ContentsContainer e1omze811"
+              class="emotion-ContentsContainer e1omze811"
             >
               <span
                 data-cy="host-event-log-content"

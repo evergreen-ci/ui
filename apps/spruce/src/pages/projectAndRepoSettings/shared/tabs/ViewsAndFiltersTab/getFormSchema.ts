@@ -22,6 +22,11 @@ export const getFormSchema = (
               minLength: 1,
               format: "validRegex",
             },
+            description: {
+              type: "string" as const,
+              title: "Description",
+              default: "",
+            },
             caseSensitive: {
               type: "boolean" as const,
               title: "Case",
@@ -93,7 +98,11 @@ export const getFormSchema = (
         "ui:displayTitle": "New Parsley Filter",
         "ui:label": false,
         expression: {
+          "ui:widget": "textarea",
           "ui:data-cy": "parsley-filter-expression",
+        },
+        description: {
+          "ui:widget": "textarea",
         },
         caseSensitive: {
           "ui:widget": widgets.SegmentedControlWidget,
@@ -117,6 +126,12 @@ export const getFormSchema = (
         "ui:showLabel": false,
         "ui:useExpandableCard": true,
         items: {
+          expression: {
+            "ui:widget": "textarea",
+          },
+          description: {
+            "ui:widget": "textarea",
+          },
           caseSensitive: {
             "ui:widget": widgets.SegmentedControlWidget,
             "ui:sizeVariant": "xsmall",

@@ -31,6 +31,7 @@ const repoForm: ViewsFormState = {
   parsleyFilters: [
     {
       displayTitle: "repo-filter",
+      description: "Repo Filter",
       expression: "repo-filter",
       caseSensitive: false,
       exactMatch: false,
@@ -44,6 +45,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     id: "repo",
     parsleyFilters: [
       {
+        description: "Repo Filter",
         expression: "repo-filter",
         caseSensitive: false,
         exactMatch: false,
@@ -56,12 +58,14 @@ const projectForm: ViewsFormState = {
   parsleyFilters: [
     {
       displayTitle: "filter_1",
+      description: "Filter One",
       expression: "filter_1",
       caseSensitive: true,
       exactMatch: true,
     },
     {
       displayTitle: "filter_2",
+      description: "Filter Two",
       expression: "filter_2",
       caseSensitive: false,
       exactMatch: false,
@@ -75,14 +79,16 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     id: "project",
     parsleyFilters: [
       {
-        expression: "filter_1",
         caseSensitive: true,
+        description: "Filter One",
         exactMatch: true,
+        expression: "filter_1",
       },
       {
-        expression: "filter_2",
         caseSensitive: false,
+        description: "Filter Two",
         exactMatch: false,
+        expression: "filter_2",
       },
     ],
   },

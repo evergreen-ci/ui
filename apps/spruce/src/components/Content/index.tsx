@@ -101,7 +101,9 @@ export const Content: React.FC = () => (
       <Route element={<Waterfall />} path={routes.waterfall} />
       <Route element={<PageDoesNotExist />} path="*" />
       {isDevelopmentBuild() && (
-        <Route element={<AdminSettings />} path={routes.adminSettings} />
+        <Route element={<AdminSettings />} path={routes.adminSettings}>
+          <Route element={null} path={`:${slugs.tab}`} />
+        </Route>
       )}
     </Route>
   </Routes>

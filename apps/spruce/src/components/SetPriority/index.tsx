@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { NumberInput } from "@leafygreen-ui/number-input";
 import { palette } from "@leafygreen-ui/palette";
+import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -12,20 +13,20 @@ import { useVersionAnalytics, useTaskAnalytics } from "analytics";
 import {
   SetVersionPriorityMutation,
   SetVersionPriorityMutationVariables,
-  SetTaskPriorityMutation,
-  SetTaskPriorityMutationVariables,
+  SetTaskPrioritiesMutation,
+  SetTaskPrioritiesMutationVariables,
 } from "gql/generated/types";
-import { SET_VERSION_PRIORITY, SET_TASK_PRIORITY } from "gql/mutations";
+import { SET_VERSION_PRIORITY, SET_TASK_PRIORITIES } from "gql/mutations";
 
 const { gray, red, yellow } = palette;
 
 type SetPriorityProps = (
   | {
       versionId: string;
-      taskId?: never;
+      taskIds?: never;
     }
   | {
-      taskId: string;
+      taskIds: string[];
       versionId?: never;
     }
 ) & {
@@ -36,7 +37,7 @@ type SetPriorityProps = (
 const SetPriority: React.FC<SetPriorityProps> = ({
   disabled,
   initialPriority = 0,
-  taskId,
+  taskIds,
   versionId,
 }) => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -64,32 +65,37 @@ const SetPriority: React.FC<SetPriorityProps> = ({
       },
     });
 
-  const [setTaskPriority, { loading: loadingSetTaskPriority }] = useMutation<
-    SetTaskPriorityMutation,
-    SetTaskPriorityMutationVariables
-  >(SET_TASK_PRIORITY, {
-    onCompleted: (data) => {
-      dispatchToast.success(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        data.setTaskPriority.priority >= 0
-          ? `Priority for task updated to ${data.setTaskPriority.priority}`
-          : `Task was successfully disabled`,
-      );
-    },
-    onError: (err) => {
-      dispatchToast.error(`Error updating priority for task: ${err.message}`);
-    },
-  });
+  const [setTaskPriorities, { loading: loadingSetTaskPriorities }] =
+    useMutation<SetTaskPrioritiesMutation, SetTaskPrioritiesMutationVariables>(
+      SET_TASK_PRIORITIES,
+      {
+        onCompleted: (data) => {
+          dispatchToast.success(
+            data.setTaskPriorities.some(({ priority: p }) => (p ?? 0) >= 0)
+              ? `Priority updated for ${data.setTaskPriorities.length} ${pluralize("tasks", data.setTaskPriorities.length)}.`
+              : `${pluralize("Task", data.setTaskPriorities.length)} successfully disabled.`,
+          );
+        },
+        onError: (err) => {
+          dispatchToast.error(
+            `Error updating priority for task: ${err.message}`,
+          );
+        },
+      },
+    );
 
   const onConfirm = () => {
-    if (taskId) {
-      setTaskPriority({ variables: { taskId, priority } });
+    if (taskIds) {
+      setTaskPriorities({
+        variables: {
+          taskPriorities: taskIds.map((taskId) => ({ taskId, priority })),
+        },
+      });
       sendTaskEvent({
         name: "Changed task priority",
         "task.priority": priority,
       });
     } else {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setVersionPriority({ variables: { versionId, priority } });
       sendVersionEvent({
         name: "Changed version priority",
@@ -103,26 +109,27 @@ const SetPriority: React.FC<SetPriorityProps> = ({
     inputRef?.select();
   }, [inputRef]);
 
-  const dataCy = taskId ? "task" : "patch";
+  const label = taskIds ? "task" : "patch";
 
   return (
     <>
       <div ref={menuItemRef}>
         <MenuItem
           active={open}
-          data-cy={`prioritize-${dataCy}`}
+          data-cy={`prioritize-${label}`}
           disabled={
-            disabled || loadingSetVersionPriority || loadingSetTaskPriority
+            disabled || loadingSetVersionPriority || loadingSetTaskPriorities
           }
           onClick={() => setOpen(!open)}
         >
-          Set priority
+          Set {label} priority
+          {(taskIds?.length ?? 0) > 1 && ` (${taskIds?.length})`}
         </MenuItem>
       </div>
       <Popconfirm
         align="left"
         confirmText="Set"
-        data-cy={`set-${dataCy}-priority-popconfirm`}
+        data-cy={`set-${label}-priority-popconfirm`}
         onConfirm={onConfirm}
         open={open}
         refEl={menuItemRef}
@@ -130,7 +137,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
       >
         <PriorityInput
           ref={(el) => setInputRef(el)}
-          data-cy={`${dataCy}-priority-input`}
+          data-cy={`${label}-priority-input`}
           inputClassName="priority-input"
           label="Set new priority"
           min={-1}

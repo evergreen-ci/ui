@@ -1,14 +1,14 @@
 <div>
   <div
-    class="css-1jzq22x-Container er8squx1"
+    class="emotion-Container er8squx1"
     data-cy="event-log"
   >
     <div
-      class="css-jrloig-EventLogCard er8squx0 leafygreen-ui-1ecxdul"
+      class="emotion-EventLogCard er8squx0 leafygreen-ui-1ecxdul"
       data-cy="event-log-card"
     >
       <div
-        class="css-1urg914-StyledHeader ez6cbmt0"
+        class="emotion-StyledHeader ez6cbmt0"
       >
         <h6
           class="leafygreen-ui-19p3n10"

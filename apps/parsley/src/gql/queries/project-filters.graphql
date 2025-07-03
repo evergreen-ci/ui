@@ -3,6 +3,7 @@ query ProjectFilters($projectId: String!) {
     id
     parsleyFilters {
       caseSensitive
+      description
       exactMatch
       expression
     }

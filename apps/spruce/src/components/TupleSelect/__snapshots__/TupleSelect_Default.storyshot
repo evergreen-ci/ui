@@ -1,6 +1,6 @@
 <div>
   <div
-    class="css-1ry038z-Container e5gn9hl4"
+    class="emotion-Container e5gn9hl4"
   >
     <label
       class="leafygreen-ui-ms04bw"
@@ -8,21 +8,21 @@
       for="tuple-select"
     >
       <div
-        class="css-1lh1bx9-LabelContainer e5gn9hl2"
+        class="emotion-LabelContainer e5gn9hl2"
       >
         Tuple Select
       </div>
     </label>
     <div
-      class="css-iyur2e-InputGroup e5gn9hl3"
+      class="emotion-InputGroup e5gn9hl3"
     >
       <div
-        class="leafygreen-ui-1iyoj2o css-1fn6r51-GroupedSelect e5gn9hl1"
+        class="leafygreen-ui-1iyoj2o emotion-GroupedSelect e5gn9hl1"
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-128-menu"
-          aria-describedby="select-128-description"
+          aria-controls="select-126-menu"
+          aria-describedby="select-126-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -31,7 +31,7 @@
           data-cy="tuple-select-select"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-129"
+          id="select-127"
           type="button"
           value="build_variant"
         >
@@ -76,7 +76,7 @@
         />
       </div>
       <div
-        class="e5gn9hl0 css-1jrjm0k-TextInputWrapper-GroupedTextInput e17optw12"
+        class="e5gn9hl0 emotion-TextInputWrapper-GroupedTextInput e17optw12"
       >
         <div
           aria-label="Tuple Select Input"
@@ -114,11 +114,11 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-form_field-feedback"
             data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-132"
+            id="lg-form_field-feedback-130"
           />
         </div>
         <div
-          class="css-4bamt4-IconWrapper e17optw10"
+          class="emotion-IconWrapper e17optw10"
         >
           <button
             aria-disabled="false"

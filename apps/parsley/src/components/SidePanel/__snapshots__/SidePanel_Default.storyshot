@@ -1,9 +1,9 @@
 <div>
   <div
-    class="css-3ieiu4"
+    class="emotion-0"
   >
     <div
-      class="lg-ui-side-nav-0000 css-xwi42p-StyledSideNav e1ga8mgi1 leafygreen-ui-f85pfm"
+      class="lg-ui-side-nav-0000 emotion-StyledSideNav e1ga8mgi1 leafygreen-ui-f85pfm"
       data-testid="side-nav-container"
     >
       <div
@@ -12,7 +12,7 @@
         <nav
           aria-label="Side panel"
           class="leafygreen-ui-fw8ayd"
-          id="side-nav-30"
+          id="side-nav-34"
         >
           <div
             class="leafygreen-ui-1nmawjt"
@@ -21,15 +21,15 @@
               class="leafygreen-ui-138pepl"
             >
               <div
-                class="css-1spoa9y-PaddedContainer e1ga8mgi0"
+                class="emotion-PaddedContainer e1ga8mgi0"
               >
                 <li
-                  class="leafygreen-ui-la0n3e css-1e1ebgh-StyledSideNavGroup e15kq6cl3"
+                  class="leafygreen-ui-la0n3e emotion-StyledSideNavGroup e15kq6cl3"
                 >
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-26"
+                    id="menu-group-label-id-30"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -61,11 +61,11 @@
                         class="leafygreen-ui-1tm4spc"
                       >
                         <div
-                          class="css-rk3jif-NavGroupHeader e15kq6cl2"
+                          class="emotion-NavGroupHeader e15kq6cl2"
                           data-cy="filters-nav-group-header"
                         >
                           <div
-                            class="css-101mp63-NavGroupTitle e15kq6cl1"
+                            class="emotion-NavGroupTitle e15kq6cl1"
                           >
                             Filters
                           </div>
@@ -75,7 +75,7 @@
                             1
                           </div>
                           <div
-                            class="css-wk93a7-ModalTrigger e12xhjo61"
+                            class="emotion-ModalTrigger e12xhjo61"
                             role="button"
                             tabindex="0"
                           >
@@ -86,23 +86,23 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-26"
+                    aria-labelledby="menu-group-label-id-30"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
-                      class="css-zkmo5p-FilterWrapper e12xhjo60"
+                      class="emotion-FilterWrapper e12xhjo60"
                       data-cy="filter-active filter"
                     >
                       <div>
                         <div
-                          class="css-16i4gmg-AccordionToggle e1omze814"
+                          class="emotion-AccordionToggle e1omze814"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="css-7x45r8-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
                             open=""
                             style="align-self: start;"
                             tabindex="0"
@@ -130,17 +130,17 @@
                             </div>
                           </button>
                           <div
-                            class="css-ze06g-AccordionTitle e12rc5wm6"
+                            class="emotion-AccordionTitle e12rc5wm6"
                           >
                             <p
                               aria-expanded="true"
-                              class="css-1foaoyi-FilterExpression e12rc5wm4 leafygreen-ui-1tb6tuo"
+                              class="emotion-FilterExpression e12rc5wm4 leafygreen-ui-1tb6tuo"
                               id=":r1:"
                             >
                               active filter
                             </p>
                             <div
-                              class="css-1yy8s1m-IconButtonContainer e12rc5wm3"
+                              class="emotion-IconButtonContainer e12rc5wm3"
                             >
                               <button
                                 aria-checked="true"
@@ -218,17 +218,17 @@
                         </div>
                         <div
                           aria-expanded="true"
-                          class="css-yq0aw7-AnimatedAccordion e1omze812"
+                          class="emotion-AnimatedAccordion e1omze812"
                           data-cy="accordion-collapse-container"
                         >
                           <div
-                            class="css-1hezny5-ContentsContainer e1omze811"
+                            class="emotion-ContentsContainer e1omze811"
                           >
                             <div
-                              class="css-2ra843-AccordionContent e12rc5wm5"
+                              class="emotion-AccordionContent e12rc5wm5"
                             >
                               <div
-                                class="leafygreen-ui-ozfao7 css-7tm8v2-StyledSegmentedControl e12rc5wm0"
+                                class="leafygreen-ui-ozfao7 emotion-StyledSegmentedControl e12rc5wm0"
                               >
                                 <div
                                   class="leafygreen-ui-jmb2kp"
@@ -236,8 +236,8 @@
                                   Case
                                 </div>
                                 <div
-                                  aria-label="segmented-control-31"
-                                  aria-owns="segmented-control-31-0 segmented-control-31-1"
+                                  aria-label="segmented-control-35"
+                                  aria-owns="segmented-control-35-0 segmented-control-35-1"
                                   class="leafygreen-ui-18en4yf"
                                   role="tablist"
                                 >
@@ -253,7 +253,7 @@
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="true"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-31-0"
+                                        id="segmented-control-35-0"
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -282,7 +282,7 @@
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="false"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-31-1"
+                                        id="segmented-control-35-1"
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -308,7 +308,7 @@
                                 </div>
                               </div>
                               <div
-                                class="leafygreen-ui-ozfao7 css-7tm8v2-StyledSegmentedControl e12rc5wm0"
+                                class="leafygreen-ui-ozfao7 emotion-StyledSegmentedControl e12rc5wm0"
                               >
                                 <div
                                   class="leafygreen-ui-jmb2kp"
@@ -316,8 +316,8 @@
                                   Match
                                 </div>
                                 <div
-                                  aria-label="segmented-control-32"
-                                  aria-owns="segmented-control-32-0 segmented-control-32-1"
+                                  aria-label="segmented-control-36"
+                                  aria-owns="segmented-control-36-0 segmented-control-36-1"
                                   class="leafygreen-ui-18en4yf"
                                   role="tablist"
                                 >
@@ -333,7 +333,7 @@
                                         aria-controls="Toggle match type"
                                         aria-selected="true"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-32-0"
+                                        id="segmented-control-36-0"
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -362,7 +362,7 @@
                                         aria-controls="Toggle match type"
                                         aria-selected="false"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-32-1"
+                                        id="segmented-control-36-1"
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -395,12 +395,12 @@
                   </ul>
                 </li>
                 <li
-                  class="leafygreen-ui-la0n3e css-1e1ebgh-StyledSideNavGroup e15kq6cl3"
+                  class="leafygreen-ui-la0n3e emotion-StyledSideNavGroup e15kq6cl3"
                 >
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-27"
+                    id="menu-group-label-id-31"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -437,11 +437,11 @@
                         class="leafygreen-ui-1tm4spc"
                       >
                         <div
-                          class="css-rk3jif-NavGroupHeader e15kq6cl2"
+                          class="emotion-NavGroupHeader e15kq6cl2"
                           data-cy="expanded-lines-nav-group-header"
                         >
                           <div
-                            class="css-101mp63-NavGroupTitle e15kq6cl1"
+                            class="emotion-NavGroupTitle e15kq6cl1"
                           >
                             Expanded Lines
                           </div>
@@ -455,11 +455,11 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-27"
+                    aria-labelledby="menu-group-label-id-31"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
-                      class="css-1l273jb-ExpandedLine e12x67qh0"
+                      class="emotion-ExpandedLine e12x67qh0"
                       data-cy="expanded-row-1-to-10"
                     >
                       <button
@@ -502,12 +502,12 @@
                   </ul>
                 </li>
                 <li
-                  class="leafygreen-ui-la0n3e css-1e1ebgh-StyledSideNavGroup e15kq6cl3"
+                  class="leafygreen-ui-la0n3e emotion-StyledSideNavGroup e15kq6cl3"
                 >
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-28"
+                    id="menu-group-label-id-32"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -537,11 +537,11 @@
                         class="leafygreen-ui-1tm4spc"
                       >
                         <div
-                          class="css-rk3jif-NavGroupHeader e15kq6cl2"
+                          class="emotion-NavGroupHeader e15kq6cl2"
                           data-cy="highlight-nav-group-header"
                         >
                           <div
-                            class="css-101mp63-NavGroupTitle e15kq6cl1"
+                            class="emotion-NavGroupTitle e15kq6cl1"
                           >
                             Highlighted Terms
                           </div>
@@ -555,11 +555,11 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-28"
+                    aria-labelledby="menu-group-label-id-32"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
-                      class="css-1acwkob-HighlightedTerm e1yx6qqn1"
+                      class="emotion-HighlightedTerm e1yx6qqn1"
                     >
                       <button
                         aria-disabled="false"
@@ -591,7 +591,7 @@
                         </div>
                       </button>
                       <mark
-                        class="css-a1j4jw-Highlight-StyledHighlight e1yx6qqn0"
+                        class="emotion-Highlight-StyledHighlight e1yx6qqn0"
                         color="#71F6BA"
                         data-cy="side-nav-highlight"
                       >
@@ -599,7 +599,7 @@
                       </mark>
                     </div>
                     <div
-                      class="css-1acwkob-HighlightedTerm e1yx6qqn1"
+                      class="emotion-HighlightedTerm e1yx6qqn1"
                     >
                       <button
                         aria-disabled="false"
@@ -631,7 +631,7 @@
                         </div>
                       </button>
                       <mark
-                        class="css-11fpwli-Highlight-StyledHighlight e1yx6qqn0"
+                        class="emotion-Highlight-StyledHighlight e1yx6qqn0"
                         color="#C3E7FE"
                         data-cy="side-nav-highlight"
                       >
@@ -726,7 +726,7 @@
           </div>
         </nav>
         <button
-          aria-controls="side-nav-30"
+          aria-controls="side-nav-34"
           aria-expanded="true"
           aria-label="Collapse navigation"
           class="leafygreen-ui-v87gj9"

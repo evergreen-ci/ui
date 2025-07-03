@@ -72,6 +72,7 @@ import TASK_NAMES_FOR_BUILD_VARIANT from "./task-names-for-build-variant.graphql
 import TASK_OWNER_TEAM from "./task-owner-team.graphql";
 import TASK_QUEUE_DISTROS from "./task-queue-distros.graphql";
 import TASK_STATUSES from "./task-statuses.graphql";
+import TASK_TEST_COUNT from "./task-test-count.graphql";
 import TASK_TEST_SAMPLE from "./task-test-sample.graphql";
 import TASK_TESTS_FOR_JOB_LOGS from "./task-tests-for-job-logs.graphql";
 import TASK_TESTS from "./task-tests.graphql";
@@ -172,6 +173,7 @@ export {
   TASK_OWNER_TEAM,
   TASK_QUEUE_DISTROS,
   TASK_STATUSES,
+  TASK_TEST_COUNT,
   TASK_TESTS_FOR_JOB_LOGS,
   TASK_TEST_SAMPLE,
   TASK_TESTS,

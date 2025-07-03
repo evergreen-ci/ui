@@ -41,7 +41,9 @@ const ProjectFilter: React.FC<ProjectFilterProps> = ({
   return (
     <ProjectFilterContainer data-cy="project-filter">
       <Checkbox
+        bold={false}
         checked={active || selected}
+        description={filter.description}
         disabled={active}
         label={
           <>

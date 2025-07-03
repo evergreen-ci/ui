@@ -6,11 +6,13 @@ import {
   setProjectAnnotations,
   StoryFn,
 } from "@storybook/react-vite";
-// TODO: Replace with test_utils
-import { act, render } from "@testing-library/react";
 import { expect } from "vitest";
 import path from "path";
 import { projectAnnotations } from "@evg-ui/storybook-addon";
+import { act, render } from "test_utils";
+import snapshotSerializer from "test_utils/snapshotSerializer";
+
+expect.addSnapshotSerializer(snapshotSerializer);
 
 setProjectAnnotations([projectAnnotations]);
 

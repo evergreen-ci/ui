@@ -1,9 +1,4 @@
-import {
-  render,
-  screen,
-  userEvent,
-  waitForElementToBeRemoved,
-} from "@evg-ui/lib/test_utils";
+import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { DateFilter } from ".";
 
 describe("date filter", () => {
@@ -27,7 +22,6 @@ describe("date filter", () => {
     expect(cell).toHaveAttribute("aria-disabled", "false");
     await user.click(cell);
 
-    await waitForElementToBeRemoved(popover);
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 

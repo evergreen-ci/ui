@@ -1,13 +1,13 @@
 <div>
   <div
-    class="css-1pp2qz6"
+    class="emotion-0"
   >
     <div
-      class="css-5f31us-VersionContainer-columnBasis-wordBreakCss e3zirl03"
+      class="emotion-VersionContainer-columnBasis-wordBreakCss e3zirl03"
       data-cy="version-label-active"
     >
       <div
-        class="css-1idzah1-HeaderLine e3zirl00"
+        class="emotion-HeaderLine e3zirl00"
       >
         <p
           class="leafygreen-ui-1tb6tuo"
@@ -27,7 +27,7 @@
         </p>
       </div>
       <p
-        class="css-9ip3is-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+        class="emotion-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
         view="modal"
       >
         <strong>

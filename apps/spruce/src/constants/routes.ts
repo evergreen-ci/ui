@@ -49,7 +49,7 @@ export enum ProjectSettingsTabRoutes {
   EventLog = "event-log",
 }
 
-export enum AdminSettingsTabRoutes {
+export enum AdminSettingsGeneralSection {
   Announcements = "announcements",
   FeatureFlags = "feature-flags",
   Runners = "runners",
@@ -59,6 +59,10 @@ export enum AdminSettingsTabRoutes {
   BackgroundProcessing = "background-processing",
   Providers = "providers",
   Other = "other",
+}
+
+export enum AdminSettingsTabRoutes {
+  General = "general",
   RestartTasks = "restart-tasks",
   EventLog = "event-log",
 }
@@ -425,5 +429,16 @@ export const getTriggerRoute = ({
   return getVersionRoute(upstreamVersion.id);
 };
 
-export const getAdminSettingsRoute = (tab?: AdminSettingsTabRoutes) =>
-  tab ? `${paths.adminSettings}/${tab}` : `${paths.adminSettings}`;
+export const getAdminSettingsRoute = (
+  tab?: AdminSettingsTabRoutes,
+  anchor?: string,
+) => {
+  const pathName = tab
+    ? `${paths.adminSettings}/${tab}`
+    : `${paths.adminSettings}/${AdminSettingsTabRoutes.General}`;
+
+  if (anchor && pathName.includes(AdminSettingsTabRoutes.General)) {
+    return `${pathName}#${anchor}`;
+  }
+  return pathName;
+};

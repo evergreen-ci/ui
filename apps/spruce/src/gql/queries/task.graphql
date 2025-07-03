@@ -77,7 +77,6 @@ query Task($taskId: String!, $execution: Int) {
       projectIdentifier
     }
     expectedDuration
-    failedTestCount
     files {
       fileCount
     }
@@ -122,7 +121,6 @@ query Task($taskId: String!, $execution: Int) {
     }
     tags
     timeTaken
-    totalTestCount
     versionMetadata {
       id
       author
