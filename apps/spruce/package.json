@@ -94,7 +94,7 @@
     "@leafygreen-ui/popover": "^11.0.17",
     "@leafygreen-ui/radio-box-group": "^13.0.2",
     "@leafygreen-ui/radio-group": "^13.0.0",
-    "@leafygreen-ui/search-input": "^5.0.14",
+    "@leafygreen-ui/search-input": "^6.0.2",
     "@leafygreen-ui/segmented-control": "^8.2.13",
     "@leafygreen-ui/select": "^12.0.0",
     "@leafygreen-ui/side-nav": "^14.1.3",
