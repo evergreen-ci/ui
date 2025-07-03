@@ -1,5 +1,10 @@
 import { users } from "../../constants";
-import { projectUseRepoEnabled, repo } from "./constants";
+import {
+  projectUseRepoEnabled,
+  getRepoSettingsRoute,
+  getProjectSettingsRoute,
+  repo,
+} from "./constants";
 
 describe("project/repo permissions", () => {
   beforeEach(() => {
@@ -9,7 +14,7 @@ describe("project/repo permissions", () => {
   describe("projects", () => {
     it("disables fields when user lacks edit permissions", () => {
       cy.login(users.privileged);
-      cy.visit(`/project/${projectUseRepoEnabled}/settings/general`);
+      cy.visit(getProjectSettingsRoute(projectUseRepoEnabled));
       cy.dataCy("project-settings-page").within(() => {
         cy.get('input[type="radio"]').should(
           "have.attr",
@@ -21,7 +26,7 @@ describe("project/repo permissions", () => {
 
     it("enables fields if user has edit permissions", () => {
       cy.login(users.admin);
-      cy.visit(`/project/${projectUseRepoEnabled}/settings/general`);
+      cy.visit(getProjectSettingsRoute(projectUseRepoEnabled));
       cy.dataCy("project-settings-page").within(() => {
         cy.get('input[type="radio"]').should(
           "have.attr",
@@ -35,7 +40,7 @@ describe("project/repo permissions", () => {
   describe("repos", () => {
     it("disables fields when user lacks edit permissions", () => {
       cy.login(users.privileged);
-      cy.visit(`/repo/${repo}/settings/general`);
+      cy.visit(getRepoSettingsRoute(repo));
       cy.dataCy("repo-settings-page").within(() => {
         cy.get('input[type="radio"]').should(
           "have.attr",
@@ -47,7 +52,7 @@ describe("project/repo permissions", () => {
 
     it("enables fields if user has edit permissions", () => {
       cy.login(users.admin);
-      cy.visit(`/repo/${repo}/settings/general`);
+      cy.visit(getRepoSettingsRoute(repo));
       cy.dataCy("repo-settings-page").within(() => {
         cy.get('input[type="radio"]').should(
           "have.attr",
