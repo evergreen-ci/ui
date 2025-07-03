@@ -73,6 +73,16 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
+                data-cy="navitem-admin-features"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "features",
+                )}
+              >
+                Features
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
                 data-cy="navitem-admin-batch-jobs"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,

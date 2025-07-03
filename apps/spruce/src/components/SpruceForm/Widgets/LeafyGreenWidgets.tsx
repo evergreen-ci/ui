@@ -293,21 +293,31 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
   value,
 }) => {
   const {
+    bold,
     "data-cy": dataCy,
     elementWrapperCSS,
     enumDisabled,
     enumOptions,
     inline,
   } = options;
-
   // RadioGroup components do not accept boolean props for value, so use the indices instead.
   const valueMap = enumOptions.map(({ value: val }) => val);
 
   return (
     <ElementWrapper css={elementWrapperCSS}>
       {label && (
-        <LabelContainer>
-          <Label disabled={disabled} htmlFor={id}>
+        <LabelContainer
+          css={css`
+            ${inline ? "margin-bottom: 0px;" : ""}
+          `}
+        >
+          <Label
+            css={css`
+              font-weight: ${bold ? "bold" : "normal"};
+            `}
+            disabled={disabled}
+            htmlFor={id}
+          >
             {label}
           </Label>
         </LabelContainer>

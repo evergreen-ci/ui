@@ -163,6 +163,9 @@ export const Settings: React.FC<SettingsProps> = ({
           },
           timeFormat: {
             "ui:widget": "radio",
+            "ui:options": {
+              bold: true,
+            },
           },
         }}
       />
