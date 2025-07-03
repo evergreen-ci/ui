@@ -67,6 +67,11 @@ const ProjectSettings: React.FC = () => {
   >(PROJECT_SETTINGS, {
     skip: identifierIsObjectId || !projectIdentifier,
     variables: { projectIdentifier },
+    onCompleted: (data) => {
+      if (data?.projectSettings?.projectRef?.hidden) {
+        dispatchToast.error(`Project is hidden.`);
+      }
+    },
     onError: (e) => {
       dispatchToast.error(
         `There was an error loading the project ${projectIdentifier}: ${e.message}`,
@@ -88,6 +93,10 @@ const ProjectSettings: React.FC = () => {
       );
     },
   });
+
+  if (projectData?.projectSettings?.projectRef?.hidden) {
+    return null;
+  }
 
   const projectType = repoId
     ? ProjectType.AttachedProject
