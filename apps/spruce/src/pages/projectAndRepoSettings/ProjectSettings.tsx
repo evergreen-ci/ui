@@ -79,13 +79,14 @@ const ProjectSettings: React.FC = () => {
     },
   });
 
+  const projectIsHidden = projectData?.projectSettings?.projectRef?.hidden;
   const repoId = projectData?.projectSettings?.projectRef?.repoRefId ?? "";
 
   const { data: repoData, loading: repoLoading } = useQuery<
     RepoSettingsQuery,
     RepoSettingsQueryVariables
   >(REPO_SETTINGS, {
-    skip: !repoId,
+    skip: !repoId || projectIsHidden === true,
     variables: { repoId },
     onError: (e) => {
       dispatchToast.error(
@@ -94,7 +95,7 @@ const ProjectSettings: React.FC = () => {
     },
   });
 
-  if (projectData?.projectSettings?.projectRef?.hidden) {
+  if (projectIsHidden) {
     return null;
   }
 
