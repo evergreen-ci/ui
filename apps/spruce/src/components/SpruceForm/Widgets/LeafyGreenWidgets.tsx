@@ -293,6 +293,7 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
   value,
 }) => {
   const {
+    bold,
     "data-cy": dataCy,
     elementWrapperCSS,
     enumDisabled,
@@ -316,11 +317,13 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
         >
           <Label
             css={
-              inline
+              bold
                 ? css`
+                    font-weight: bold;
+                  `
+                : css`
                     font-weight: normal;
                   `
-                : ""
             }
             disabled={disabled}
             htmlFor={id}
