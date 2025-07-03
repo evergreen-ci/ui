@@ -42,7 +42,7 @@ const ProjectSettings: React.FC = () => {
   useProjectRedirect({
     shouldRedirect: identifierIsObjectId,
     onError: (repoId) => {
-      // This redirect can be removed once the repo settings URL change has been baked in long enough.
+      // DEVPROD-18977: Redirect can be removed once the repo settings URL change has been baked in long enough.
       navigate(
         getRepoSettingsRoute(
           repoId,
