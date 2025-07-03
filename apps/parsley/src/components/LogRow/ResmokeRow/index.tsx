@@ -1,3 +1,4 @@
+import { AnsiUp } from "ansi_up";
 import BaseRow from "components/LogRow/BaseRow";
 import { QueryParams } from "constants/queryParams";
 import { useQueryParam } from "hooks/useQueryParam";
@@ -16,10 +17,18 @@ const ResmokeRow: React.FC<ResmokeRowProps> = ({
   prettyPrint = false,
   ...rest
 }) => {
-  const lineContent = getLine(lineNumber);
+  const ansiUp = new AnsiUp();
+
   const lineColor = getResmokeLineColor(lineNumber);
   const [bookmarks] = useQueryParam<number[]>(QueryParams.Bookmarks, []);
   const bookmarked = bookmarks.includes(lineNumber);
+  let lineContent = getLine(lineNumber);
+
+  if (lineContent === undefined) {
+    return null;
+  }
+
+  lineContent = ansiUp.ansi_to_html(lineContent ?? "");
 
   return lineContent !== undefined ? (
     <BaseRow
