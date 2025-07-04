@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
-import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
@@ -14,7 +13,6 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
-import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { Requester } from "constants/requesters";
 import { slugs } from "constants/routes";
 import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
@@ -36,9 +34,9 @@ export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const { [slugs.versionId]: versionId = "" } = useParams();
   const dispatchToast = useToastContext();
-  const [includeNeverActivatedTasks] = useQueryParam(
+  const [includeNeverActivatedTasks] = useQueryParam<boolean | undefined>(
     PatchTasksQueryParams.IncludeNeverActivatedTasks,
-    Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true",
+    undefined,
   );
   const {
     data: versionData,

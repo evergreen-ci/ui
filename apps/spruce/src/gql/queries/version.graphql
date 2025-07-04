@@ -1,6 +1,6 @@
 #import "../fragments/upstreamProject.graphql"
 
-query Version($id: String!, $includeNeverActivatedTasks: Boolean!) {
+query Version($id: String!, $includeNeverActivatedTasks: Boolean) {
   version(versionId: $id) {
     ...UpstreamProject
     id
