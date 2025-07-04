@@ -1,6 +1,6 @@
 #import "../fragments/upstreamProject.graphql"
 
-query Version($id: String!) {
+query Version($id: String!, $includeNeverActivatedTasks: Boolean) {
   version(versionId: $id) {
     ...UpstreamProject
     id
@@ -50,7 +50,6 @@ query Version($id: String!) {
         }
         projectIdentifier
         status
-        taskCount
         versionFull {
           id
           baseVersion {
@@ -78,7 +77,9 @@ query Version($id: String!) {
     revision
     startTime
     status
-    taskCount
+    taskCount(
+      options: { includeNeverActivatedTasks: $includeNeverActivatedTasks }
+    )
     versionTiming {
       makespan
       timeTaken

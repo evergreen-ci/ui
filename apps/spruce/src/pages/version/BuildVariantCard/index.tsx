@@ -10,19 +10,27 @@ import {
 } from "gql/generated/types";
 import { BUILD_VARIANTS_STATS } from "gql/queries";
 import { usePolling } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
+import { PatchTasksQueryParams } from "types/task";
 import VariantTaskGroup from "./VariantTaskGroup";
 
 interface BuildVariantCardProps {
   versionId: string;
 }
 const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
+  const [includeNeverActivatedTasks] = useQueryParam<boolean | undefined>(
+    PatchTasksQueryParams.IncludeNeverActivatedTasks,
+    undefined,
+  );
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     BuildVariantStatsQuery,
     BuildVariantStatsQueryVariables
   >(BUILD_VARIANTS_STATS, {
     fetchPolicy: "cache-and-network",
-
-    variables: { id: versionId },
+    variables: {
+      id: versionId,
+      includeNeverActivatedTasks,
+    },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });

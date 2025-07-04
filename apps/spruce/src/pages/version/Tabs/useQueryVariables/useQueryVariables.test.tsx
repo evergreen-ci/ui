@@ -4,12 +4,13 @@ import { TaskSortCategory, SortDirection } from "gql/generated/types";
 import { useQueryVariables } from ".";
 
 describe("useQueryVariables", () => {
-  const getWrapper = (search: string) =>
-    function ({ children }: { children: React.ReactNode }) {
-      return (
-        <MemoryRouter initialEntries={[`?${search}`]}>{children}</MemoryRouter>
-      );
-    };
+  const getWrapper = (search: string) => {
+    const Wrapper = ({ children }: { children: React.ReactNode }) => (
+      <MemoryRouter initialEntries={[`?${search}`]}>{children}</MemoryRouter>
+    );
+    Wrapper.displayName = "TestWrapper";
+    return Wrapper;
+  };
 
   it("returns appropriate variables based on search string", () => {
     const versionId = "version";
@@ -22,6 +23,7 @@ describe("useQueryVariables", () => {
       versionId,
       taskFilterOptions: {
         taskName: "generate",
+        includeNeverActivatedTasks: undefined,
         variant: "",
         statuses: ["success"],
         baseStatuses: [],
@@ -47,6 +49,7 @@ describe("useQueryVariables", () => {
       versionId,
       taskFilterOptions: {
         taskName: "generate",
+        includeNeverActivatedTasks: undefined,
         variant: "",
         statuses: ["success"],
         baseStatuses: [],
@@ -55,6 +58,26 @@ describe("useQueryVariables", () => {
         ],
         page: 0,
         limit: 20,
+      },
+    });
+  });
+  it("includes includeNeverActivatedTasks if it is defined in the search string", () => {
+    const versionId = "version";
+    const search = "page=0&limit=20&includeNeverActivatedTasks=true";
+    const { result } = renderHook(() => useQueryVariables(search, versionId), {
+      wrapper: getWrapper(search),
+    });
+    expect(result.current).toStrictEqual({
+      versionId,
+      taskFilterOptions: {
+        baseStatuses: [],
+        statuses: [],
+        sorts: [],
+        page: 0,
+        limit: 20,
+        includeNeverActivatedTasks: true,
+        taskName: "",
+        variant: "",
       },
     });
   });
