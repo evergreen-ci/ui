@@ -1,5 +1,5 @@
 import { AdminSettingsGeneralSection } from "constants/routes";
-import { AdminSettings } from "gql/generated/types";
+import { AdminSettings, AdminSettingsInput } from "gql/generated/types";
 import { AnnouncementsFormState } from "./GeneralTab/AnnouncementsTab/types";
 import { AuthenticationFormState } from "./GeneralTab/AuthenticationTab/types";
 import { BackgroundProcessingFormState } from "./GeneralTab/BackgroundProcessingTab/types";
@@ -34,7 +34,7 @@ export type FormStates = FormStateMap[WritableAdminSettingsType];
 
 export type FormToGqlFunction<T extends WritableAdminSettingsType> = (
   form: FormStateMap[T],
-) => AdminSettings;
+) => AdminSettingsInput;
 
 export type GqlToFormFunction<T extends WritableAdminSettingsType> = (
   data: AdminSettings,

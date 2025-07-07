@@ -1,5 +1,9 @@
 import { clickSave } from "../../utils";
-import { getPluginsRoute, projectUseRepoEnabled } from "./constants";
+import {
+  getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
+  projectUseRepoEnabled,
+} from "./constants";
 
 describe("Plugins", () => {
   const patchPage = "version/5ecedafb562343215a7ff297";
@@ -21,7 +25,12 @@ describe("Plugins", () => {
 
   it("Should be able to set external links to render on patch metadata panel", () => {
     // Add external links.
-    cy.visit(getPluginsRoute(projectUseRepoEnabled));
+    cy.visit(
+      getProjectSettingsRoute(
+        projectUseRepoEnabled,
+        ProjectSettingsTabRoutes.Plugins,
+      ),
+    );
     addMetadataLink({
       displayName: "An external link 1",
       url: "https://example-1.com/{version_id}",
@@ -53,7 +62,12 @@ describe("Plugins", () => {
       );
 
     // Remove external links.
-    cy.visit(getPluginsRoute(projectUseRepoEnabled));
+    cy.visit(
+      getProjectSettingsRoute(
+        projectUseRepoEnabled,
+        ProjectSettingsTabRoutes.Plugins,
+      ),
+    );
     cy.dataCy("delete-item-button").first().click();
     cy.dataCy("delete-item-button").first().click();
     cy.dataCy("save-settings-button").scrollIntoView();

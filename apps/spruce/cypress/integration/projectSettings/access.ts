@@ -1,13 +1,17 @@
 import { clickSave } from "../../utils";
 import {
-  getAccessRoute,
+  getProjectSettingsRoute,
   project,
+  ProjectSettingsTabRoutes,
   projectUseRepoEnabled,
   saveButtonEnabled,
 } from "./constants";
 
 describe("Access page", () => {
-  const origin = getAccessRoute(projectUseRepoEnabled);
+  const origin = getProjectSettingsRoute(
+    projectUseRepoEnabled,
+    ProjectSettingsTabRoutes.Access,
+  );
   beforeEach(() => {
     cy.visit(origin);
     saveButtonEnabled(false);
@@ -56,7 +60,7 @@ describe("Access page", () => {
   });
 
   it("Submitting an invalid admin username produces an error toast", () => {
-    cy.visit(getAccessRoute(project));
+    cy.visit(getProjectSettingsRoute(project, ProjectSettingsTabRoutes.Access));
     cy.contains("Add Username").click();
     cy.getInputByLabel("Username").type("mongodb_user");
     clickSave();
