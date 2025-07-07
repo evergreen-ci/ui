@@ -4,7 +4,7 @@ import { unlinkSync } from "fs";
 
 export default defineConfig({
   e2e: {
-    baseUrl: "http://localhost:4173",
+    baseUrl: "http://localhost:5173",
     experimentalStudio: true,
     video: true,
     setupNodeEvents(on) {

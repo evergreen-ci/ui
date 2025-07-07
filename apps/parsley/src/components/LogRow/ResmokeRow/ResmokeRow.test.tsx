@@ -81,40 +81,68 @@ describe("resmokeRow", () => {
     expect(screen.queryByDataCy("highlight")).toHaveTextContent("mongod");
   });
 
-  it("should apply a color to lines with ANSI formatting", () => {
-    const rgbRed = "rgb(187, 0, 0)";
+  it("should pretty print logs", () => {
     renderRow(
       {
         ...resmokeProps,
-        lineIndex: 9,
-        lineNumber: 9,
-      },
-      {},
-    );
-
-    expect(
-      screen.getByText(logLines[9].substring(44, logLines[9].length - 3)),
-    ).toHaveStyle(`color: ${rgbRed}`);
-  });
-
-  it("should be able to pretty print logs that contain ANSI formatting", () => {
-    renderRow(
-      {
-        ...resmokeProps,
-        lineIndex: 9,
-        lineNumber: 9,
+        lineIndex: 8,
+        lineNumber: 8,
         prettyPrint: true,
       },
       {
-        route: "/?bookmarks=9",
+        route: "/?bookmarks=8",
       },
     );
     expect(
-      screen.getByText("reboot Awesome", {
+      screen.getByText("j0:s0:n0", {
         exact: false,
       }).textContent,
-    ).toBe(
-      `-
+    )
+      .toBe(`[j0:s0:n0] | 2022-09-21T12:50:19.899+00:00 D2 REPL_HB  4615618 [ReplCoord-0] "Scheduling heartbeat","attr":
+{
+    target: "localhost:20004",
+    when: {
+        $date: "2022-09-21T12:50:21.899Z"
+    }
+}
+`);
+  });
+
+  describe("ANSI formatting", () => {
+    it("should apply a color to lines with ANSI formatting", () => {
+      const rgbRed = "rgb(187, 0, 0)";
+      renderRow(
+        {
+          ...resmokeProps,
+          lineIndex: 9,
+          lineNumber: 9,
+        },
+        {},
+      );
+
+      expect(
+        screen.getByText(logLines[9].substring(44, logLines[9].length - 3)),
+      ).toHaveStyle(`color: ${rgbRed}`);
+    });
+
+    it("should pretty print logs that contain ANSI formatting", () => {
+      renderRow(
+        {
+          ...resmokeProps,
+          lineIndex: 9,
+          lineNumber: 9,
+          prettyPrint: true,
+        },
+        {
+          route: "/?bookmarks=9",
+        },
+      );
+      expect(
+        screen.getByText("reboot Awesome", {
+          exact: false,
+        }).textContent,
+      ).toBe(
+        `-
 {
     _id: 109,
     array: [
@@ -184,7 +212,8 @@ describe("resmokeRow", () => {
     str: "Hawaii"
 }
 ,`,
-    );
+      );
+    });
   });
 });
 
