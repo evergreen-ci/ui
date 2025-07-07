@@ -18,6 +18,7 @@ const ResmokeRow: React.FC<ResmokeRowProps> = ({
   ...rest
 }) => {
   const ansiUp = new AnsiUp();
+  ansiUp.escape_html = false;
 
   const lineColor = getResmokeLineColor(lineNumber);
   const [bookmarks] = useQueryParam<number[]>(QueryParams.Bookmarks, []);

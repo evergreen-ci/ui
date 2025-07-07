@@ -96,6 +96,96 @@ describe("resmokeRow", () => {
       screen.getByText(logLines[9].substring(44, logLines[9].length - 3)),
     ).toHaveStyle(`color: ${rgbRed}`);
   });
+
+  it("should be able to pretty print logs that contain ANSI formatting", () => {
+    renderRow(
+      {
+        ...resmokeProps,
+        lineIndex: 9,
+        lineNumber: 9,
+        prettyPrint: true,
+      },
+      {
+        route: "/?bookmarks=9",
+      },
+    );
+    expect(
+      screen.getByText("reboot Awesome", {
+        exact: false,
+      }).textContent,
+    ).toBe(
+      `-
+{
+    _id: 109,
+    array: [
+        null,
+        19006,
+        57916,
+        64722,
+        70773,
+        "Managed",
+        "reboot Awesome",
+        {
+            _id: 110,
+            any: false,
+            date: {
+                $date: "2019-04-21T12:38:55.127Z"
+            },
+            num: 16865,
+            obj: {},
+            str: "Savings Account Syrian Arab Republic"
+        },
+        {
+            $date: "2019-01-30T08:45:49.630Z"
+        }
+    ],
+    date: {
+        $date: "2019-11-24T17:33:31.177Z"
+    },
+    num: 46216,
+    obj: {
+        num: {
+            $numberDouble: "NaN"
+        },
+        obj: {
+            obj: {
+                obj: {
+                    array: [
+                        {
+                            $numberDecimal: "9.999999999999999999999999999999999E+6144"
+                        },
+                        {
+                            obj: {
+                                date: {
+                                    $date: "2019-05-22T18:08:11.881Z"
+                                },
+                                num: 1
+                            }
+                        },
+                        [
+                            {
+                                $regularExpression: {
+                                    pattern: "Bedfordshire|Executive|Designer|National|Towels",
+                                    options: ""
+                                }
+                            }
+                        ],
+                        {
+                            $date: "2019-08-27T23:11:45.451Z"
+                        },
+                        {
+                            $date: "2019-12-12T22:46:51.181Z"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    str: "Hawaii"
+}
+,`,
+    );
+  });
 });
 
 const logLines = [
