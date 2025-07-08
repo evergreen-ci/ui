@@ -67,8 +67,6 @@ export const gqlToForm = ((data) => ({
       cacheStatsJobDisabled: data.serviceFlags?.cacheStatsJobDisabled ?? false,
       cacheStatsEndpointDisabled:
         data.serviceFlags?.cacheStatsEndpointDisabled ?? false,
-      backgroundCleanupDisabled:
-        data.serviceFlags?.backgroundCleanupDisabled ?? false,
     },
   },
 })) satisfies GqlToFormFunction<Tab>;

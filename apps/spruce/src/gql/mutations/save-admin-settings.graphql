@@ -6,7 +6,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       adminParameterStoreDisabled
       agentStartDisabled
       alertsDisabled
-      backgroundCleanupDisabled
       backgroundReauthDisabled
       backgroundStatsDisabled
       cacheStatsEndpointDisabled
