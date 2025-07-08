@@ -2762,7 +2762,6 @@ export type ServiceFlags = {
   elasticIPsDisabled: Scalars["Boolean"]["output"];
   emailNotificationsDisabled: Scalars["Boolean"]["output"];
   eventProcessingDisabled: Scalars["Boolean"]["output"];
-  evergreenTestResultsDisabled: Scalars["Boolean"]["output"];
   githubPRTestingDisabled: Scalars["Boolean"]["output"];
   githubStatusAPIDisabled: Scalars["Boolean"]["output"];
   hostAllocatorDisabled: Scalars["Boolean"]["output"];
@@ -2803,7 +2802,6 @@ export type ServiceFlagsInput = {
   elasticIPsDisabled: Scalars["Boolean"]["input"];
   emailNotificationsDisabled: Scalars["Boolean"]["input"];
   eventProcessingDisabled: Scalars["Boolean"]["input"];
-  evergreenTestResultsDisabled: Scalars["Boolean"]["input"];
   githubPRTestingDisabled: Scalars["Boolean"]["input"];
   githubStatusAPIDisabled: Scalars["Boolean"]["input"];
   hostAllocatorDisabled: Scalars["Boolean"]["input"];
