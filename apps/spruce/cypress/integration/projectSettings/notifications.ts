@@ -1,8 +1,15 @@
 import { clickSave } from "../../utils";
-import { getNotificationsRoute, saveButtonEnabled } from "./constants";
+import {
+  getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
+  saveButtonEnabled,
+} from "./constants";
 
 describe("Notifications", () => {
-  const origin = getNotificationsRoute("evergreen");
+  const origin = getProjectSettingsRoute(
+    "evergreen",
+    ProjectSettingsTabRoutes.Notifications,
+  );
   beforeEach(() => {
     cy.visit(origin);
   });

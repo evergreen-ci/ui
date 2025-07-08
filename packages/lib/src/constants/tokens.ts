@@ -20,6 +20,7 @@ export const zIndex = {
   popover: 1,
   sideNav: 1,
 
+  stickyHeader: 10,
   tooltip: 20,
   toast: 40,
   dropdown: 50,

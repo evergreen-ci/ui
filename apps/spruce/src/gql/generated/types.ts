@@ -66,13 +66,25 @@ export type AdminSettings = {
   __typename?: "AdminSettings";
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
+  hostInit?: Maybe<HostInitConfig>;
+  notify?: Maybe<NotifyConfig>;
+  podLifecycle?: Maybe<PodLifecycleConfig>;
+  repotracker?: Maybe<RepotrackerConfig>;
+  scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
+  taskLimits?: Maybe<TaskLimitsConfig>;
 };
 
 export type AdminSettingsInput = {
   banner?: InputMaybe<Scalars["String"]["input"]>;
   bannerTheme?: InputMaybe<BannerTheme>;
+  hostInit?: InputMaybe<HostInitConfigInput>;
+  notify?: InputMaybe<NotifyConfigInput>;
+  podLifecycle?: InputMaybe<PodLifecycleConfigInput>;
+  repotracker?: InputMaybe<RepotrackerConfigInput>;
+  scheduler?: InputMaybe<SchedulerConfigInput>;
   serviceFlags?: InputMaybe<ServiceFlagsInput>;
+  taskLimits?: InputMaybe<TaskLimitsConfigInput>;
 };
 
 /**
@@ -916,6 +928,21 @@ export type HostEventsInput = {
   sortDir?: InputMaybe<SortDirection>;
 };
 
+export type HostInitConfig = {
+  __typename?: "HostInitConfig";
+  cloudStatusBatchSize?: Maybe<Scalars["Int"]["output"]>;
+  hostThrottle?: Maybe<Scalars["Int"]["output"]>;
+  maxTotalDynamicHosts?: Maybe<Scalars["Int"]["output"]>;
+  provisioningThrottle?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type HostInitConfigInput = {
+  cloudStatusBatchSize: Scalars["Int"]["input"];
+  hostThrottle: Scalars["Int"]["input"];
+  maxTotalDynamicHosts: Scalars["Int"]["input"];
+  provisioningThrottle: Scalars["Int"]["input"];
+};
+
 export enum HostSortBy {
   CurrentTask = "CURRENT_TASK",
   Distro = "DISTRO",
@@ -1593,6 +1620,15 @@ export type NotificationsInput = {
   spawnHostOutcome?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type NotifyConfig = {
+  __typename?: "NotifyConfig";
+  ses?: Maybe<SesConfig>;
+};
+
+export type NotifyConfigInput = {
+  ses: SesConfigInput;
+};
+
 export type OsInfo = {
   __typename?: "OSInfo";
   name: Scalars["String"]["output"];
@@ -1900,6 +1936,19 @@ export type PodEvents = {
   __typename?: "PodEvents";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<PodEventLogEntry>;
+};
+
+export type PodLifecycleConfig = {
+  __typename?: "PodLifecycleConfig";
+  maxParallelPodRequests?: Maybe<Scalars["Int"]["output"]>;
+  maxPodDefinitionCleanupRate?: Maybe<Scalars["Int"]["output"]>;
+  maxSecretCleanupRate?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type PodLifecycleConfigInput = {
+  maxParallelPodRequests: Scalars["Int"]["input"];
+  maxPodDefinitionCleanupRate: Scalars["Int"]["input"];
+  maxSecretCleanupRate: Scalars["Int"]["input"];
 };
 
 export type PreconditionScript = {
@@ -2555,6 +2604,19 @@ export type RepoWorkstationConfig = {
   setupCommands?: Maybe<Array<WorkstationSetupCommand>>;
 };
 
+export type RepotrackerConfig = {
+  __typename?: "RepotrackerConfig";
+  maxConcurrentRequests?: Maybe<Scalars["Int"]["output"]>;
+  maxRepoRevisionsToSearch?: Maybe<Scalars["Int"]["output"]>;
+  numNewRepoRevisionsToFetch?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type RepotrackerConfigInput = {
+  maxConcurrentRequests: Scalars["Int"]["input"];
+  maxRepoRevisionsToSearch: Scalars["Int"]["input"];
+  numNewRepoRevisionsToFetch: Scalars["Int"]["input"];
+};
+
 export type RepotrackerError = {
   __typename?: "RepotrackerError";
   exists: Scalars["Boolean"]["output"];
@@ -2591,6 +2653,15 @@ export enum RoundingRule {
   Up = "UP",
 }
 
+export type SesConfig = {
+  __typename?: "SESConfig";
+  senderAddress?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SesConfigInput = {
+  senderAddress: Scalars["String"]["input"];
+};
+
 /**
  * SpruceConfig defines settings that apply to all users of Evergreen.
  * For example, if the banner field is populated, then a sitewide banner will be shown to all users.
@@ -2610,6 +2681,49 @@ export type SaveDistroPayload = {
   __typename?: "SaveDistroPayload";
   distro: Distro;
   hostCount: Scalars["Int"]["output"];
+};
+
+export type SchedulerConfig = {
+  __typename?: "SchedulerConfig";
+  acceptableHostIdleTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
+  cacheDurationSeconds?: Maybe<Scalars["Int"]["output"]>;
+  commitQueueFactor?: Maybe<Scalars["Int"]["output"]>;
+  expectedRuntimeFactor?: Maybe<Scalars["Int"]["output"]>;
+  futureHostFraction?: Maybe<Scalars["Float"]["output"]>;
+  generateTaskFactor?: Maybe<Scalars["Int"]["output"]>;
+  groupVersions: Scalars["Boolean"]["output"];
+  hostAllocator?: Maybe<HostAllocatorVersion>;
+  hostAllocatorFeedbackRule?: Maybe<FeedbackRule>;
+  hostAllocatorRoundingRule?: Maybe<RoundingRule>;
+  hostsOverallocatedRule?: Maybe<OverallocatedRule>;
+  mainlineTimeInQueueFactor?: Maybe<Scalars["Int"]["output"]>;
+  numDependentsFactor?: Maybe<Scalars["Float"]["output"]>;
+  patchFactor?: Maybe<Scalars["Int"]["output"]>;
+  patchTimeInQueueFactor?: Maybe<Scalars["Int"]["output"]>;
+  stepbackTaskFactor?: Maybe<Scalars["Int"]["output"]>;
+  targetTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
+  taskFinder?: Maybe<FinderVersion>;
+};
+
+export type SchedulerConfigInput = {
+  acceptableHostIdleTimeSeconds: Scalars["Int"]["input"];
+  cacheDurationSeconds: Scalars["Int"]["input"];
+  commitQueueFactor: Scalars["Int"]["input"];
+  expectedRuntimeFactor: Scalars["Int"]["input"];
+  futureHostFraction: Scalars["Float"]["input"];
+  generateTaskFactor: Scalars["Int"]["input"];
+  groupVersions: Scalars["Boolean"]["input"];
+  hostAllocator: HostAllocatorVersion;
+  hostAllocatorFeedbackRule: FeedbackRule;
+  hostAllocatorRoundingRule: RoundingRule;
+  hostsOverallocatedRule: OverallocatedRule;
+  mainlineTimeInQueueFactor: Scalars["Int"]["input"];
+  numDependentsFactor: Scalars["Float"]["input"];
+  patchFactor: Scalars["Int"]["input"];
+  patchTimeInQueueFactor: Scalars["Int"]["input"];
+  stepbackTaskFactor: Scalars["Int"]["input"];
+  targetTimeSeconds: Scalars["Int"]["input"];
+  taskFinder: FinderVersion;
 };
 
 export type SearchReturnInfo = {
@@ -2636,7 +2750,6 @@ export type ServiceFlags = {
   adminParameterStoreDisabled: Scalars["Boolean"]["output"];
   agentStartDisabled: Scalars["Boolean"]["output"];
   alertsDisabled: Scalars["Boolean"]["output"];
-  backgroundCleanupDisabled: Scalars["Boolean"]["output"];
   backgroundReauthDisabled: Scalars["Boolean"]["output"];
   backgroundStatsDisabled: Scalars["Boolean"]["output"];
   cacheStatsEndpointDisabled: Scalars["Boolean"]["output"];
@@ -2648,7 +2761,6 @@ export type ServiceFlags = {
   elasticIPsDisabled: Scalars["Boolean"]["output"];
   emailNotificationsDisabled: Scalars["Boolean"]["output"];
   eventProcessingDisabled: Scalars["Boolean"]["output"];
-  evergreenTestResultsDisabled: Scalars["Boolean"]["output"];
   githubPRTestingDisabled: Scalars["Boolean"]["output"];
   githubStatusAPIDisabled: Scalars["Boolean"]["output"];
   hostAllocatorDisabled: Scalars["Boolean"]["output"];
@@ -2677,7 +2789,6 @@ export type ServiceFlagsInput = {
   adminParameterStoreDisabled: Scalars["Boolean"]["input"];
   agentStartDisabled: Scalars["Boolean"]["input"];
   alertsDisabled: Scalars["Boolean"]["input"];
-  backgroundCleanupDisabled: Scalars["Boolean"]["input"];
   backgroundReauthDisabled: Scalars["Boolean"]["input"];
   backgroundStatsDisabled: Scalars["Boolean"]["input"];
   cacheStatsEndpointDisabled: Scalars["Boolean"]["input"];
@@ -2689,7 +2800,6 @@ export type ServiceFlagsInput = {
   elasticIPsDisabled: Scalars["Boolean"]["input"];
   emailNotificationsDisabled: Scalars["Boolean"]["input"];
   eventProcessingDisabled: Scalars["Boolean"]["input"];
-  evergreenTestResultsDisabled: Scalars["Boolean"]["input"];
   githubPRTestingDisabled: Scalars["Boolean"]["input"];
   githubStatusAPIDisabled: Scalars["Boolean"]["input"];
   hostAllocatorDisabled: Scalars["Boolean"]["input"];
@@ -3102,6 +3212,39 @@ export type TaskInfo = {
   __typename?: "TaskInfo";
   id?: Maybe<Scalars["ID"]["output"]>;
   name?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type TaskLimitsConfig = {
+  __typename?: "TaskLimitsConfig";
+  maxConcurrentLargeParserProjectTasks?: Maybe<Scalars["Int"]["output"]>;
+  maxDailyAutomaticRestarts?: Maybe<Scalars["Int"]["output"]>;
+  maxDegradedModeConcurrentLargeParserProjectTasks?: Maybe<
+    Scalars["Int"]["output"]
+  >;
+  maxDegradedModeParserProjectSize?: Maybe<Scalars["Int"]["output"]>;
+  maxExecTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
+  maxGenerateTaskJSONSize?: Maybe<Scalars["Int"]["output"]>;
+  maxHourlyPatchTasks?: Maybe<Scalars["Int"]["output"]>;
+  maxIncludesPerVersion?: Maybe<Scalars["Int"]["output"]>;
+  maxParserProjectSize?: Maybe<Scalars["Int"]["output"]>;
+  maxPendingGeneratedTasks?: Maybe<Scalars["Int"]["output"]>;
+  maxTaskExecution?: Maybe<Scalars["Int"]["output"]>;
+  maxTasksPerVersion?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type TaskLimitsConfigInput = {
+  maxConcurrentLargeParserProjectTasks: Scalars["Int"]["input"];
+  maxDailyAutomaticRestarts: Scalars["Int"]["input"];
+  maxDegradedModeConcurrentLargeParserProjectTasks: Scalars["Int"]["input"];
+  maxDegradedModeParserProjectSize: Scalars["Int"]["input"];
+  maxExecTimeoutSecs: Scalars["Int"]["input"];
+  maxGenerateTaskJSONSize: Scalars["Int"]["input"];
+  maxHourlyPatchTasks: Scalars["Int"]["input"];
+  maxIncludesPerVersion: Scalars["Int"]["input"];
+  maxParserProjectSize: Scalars["Int"]["input"];
+  maxPendingGeneratedTasks: Scalars["Int"]["input"];
+  maxTaskExecution: Scalars["Int"]["input"];
+  maxTasksPerVersion: Scalars["Int"]["input"];
 };
 
 export type TaskLogLinks = {
@@ -4099,6 +4242,7 @@ export type ProjectGeneralSettingsFragment = {
   dispatchingDisabled?: boolean | null;
   displayName: string;
   enabled?: boolean | null;
+  hidden?: boolean | null;
   owner: string;
   patchingDisabled?: boolean | null;
   remotePath: string;
@@ -4242,6 +4386,7 @@ export type ProjectSettingsFieldsFragment = {
     dispatchingDisabled?: boolean | null;
     displayName: string;
     enabled?: boolean | null;
+    hidden?: boolean | null;
     owner: string;
     patchingDisabled?: boolean | null;
     remotePath: string;
@@ -4336,6 +4481,7 @@ export type ProjectSettingsFieldsFragment = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
@@ -4534,6 +4680,7 @@ export type RepoSettingsFieldsFragment = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
@@ -4986,6 +5133,7 @@ export type ProjectEventSettingsFragment = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
@@ -5115,6 +5263,7 @@ export type ProjectViewsAndFiltersSettingsFragment = {
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
+    description: string;
     exactMatch: boolean;
     expression: string;
   }> | null;
@@ -5126,6 +5275,7 @@ export type RepoViewsAndFiltersSettingsFragment = {
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
+    description: string;
     exactMatch: boolean;
     expression: string;
   }> | null;
@@ -5657,6 +5807,45 @@ export type SaveAdminSettingsMutation = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    serviceFlags?: {
+      __typename?: "ServiceFlags";
+      adminParameterStoreDisabled: boolean;
+      agentStartDisabled: boolean;
+      alertsDisabled: boolean;
+      backgroundReauthDisabled: boolean;
+      backgroundStatsDisabled: boolean;
+      cacheStatsEndpointDisabled: boolean;
+      cacheStatsJobDisabled: boolean;
+      checkBlockedTasksDisabled: boolean;
+      cliUpdatesDisabled: boolean;
+      cloudCleanupDisabled: boolean;
+      degradedModeDisabled: boolean;
+      elasticIPsDisabled: boolean;
+      emailNotificationsDisabled: boolean;
+      eventProcessingDisabled: boolean;
+      githubPRTestingDisabled: boolean;
+      githubStatusAPIDisabled: boolean;
+      hostAllocatorDisabled: boolean;
+      hostInitDisabled: boolean;
+      jiraNotificationsDisabled: boolean;
+      jwtTokenForCLIDisabled: boolean;
+      largeParserProjectsDisabled: boolean;
+      monitorDisabled: boolean;
+      podAllocatorDisabled: boolean;
+      podInitDisabled: boolean;
+      releaseModeDisabled: boolean;
+      repotrackerDisabled: boolean;
+      schedulerDisabled: boolean;
+      slackNotificationsDisabled: boolean;
+      sleepScheduleDisabled: boolean;
+      staticAPIKeysDisabled: boolean;
+      systemFailedTaskRestartDisabled: boolean;
+      taskDispatchDisabled: boolean;
+      taskLoggingDisabled: boolean;
+      taskReliabilityDisabled: boolean;
+      unrecognizedPodCleanupDisabled: boolean;
+      webhookNotificationsDisabled: boolean;
+    } | null;
   };
 };
 
@@ -6008,6 +6197,45 @@ export type AdminSettingsQuery = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    serviceFlags?: {
+      __typename?: "ServiceFlags";
+      adminParameterStoreDisabled: boolean;
+      agentStartDisabled: boolean;
+      alertsDisabled: boolean;
+      backgroundReauthDisabled: boolean;
+      backgroundStatsDisabled: boolean;
+      cacheStatsEndpointDisabled: boolean;
+      cacheStatsJobDisabled: boolean;
+      checkBlockedTasksDisabled: boolean;
+      cliUpdatesDisabled: boolean;
+      cloudCleanupDisabled: boolean;
+      degradedModeDisabled: boolean;
+      elasticIPsDisabled: boolean;
+      emailNotificationsDisabled: boolean;
+      eventProcessingDisabled: boolean;
+      githubPRTestingDisabled: boolean;
+      githubStatusAPIDisabled: boolean;
+      hostAllocatorDisabled: boolean;
+      hostInitDisabled: boolean;
+      jiraNotificationsDisabled: boolean;
+      jwtTokenForCLIDisabled: boolean;
+      largeParserProjectsDisabled: boolean;
+      monitorDisabled: boolean;
+      podAllocatorDisabled: boolean;
+      podInitDisabled: boolean;
+      releaseModeDisabled: boolean;
+      repotrackerDisabled: boolean;
+      schedulerDisabled: boolean;
+      slackNotificationsDisabled: boolean;
+      sleepScheduleDisabled: boolean;
+      staticAPIKeysDisabled: boolean;
+      systemFailedTaskRestartDisabled: boolean;
+      taskDispatchDisabled: boolean;
+      taskLoggingDisabled: boolean;
+      taskReliabilityDisabled: boolean;
+      unrecognizedPodCleanupDisabled: boolean;
+      webhookNotificationsDisabled: boolean;
+    } | null;
   } | null;
 };
 
@@ -6799,12 +7027,6 @@ export type InstanceTypesQuery = {
   instanceTypes: Array<string>;
 };
 
-export type IsRepoQueryVariables = Exact<{
-  projectOrRepoId: Scalars["String"]["input"];
-}>;
-
-export type IsRepoQuery = { __typename?: "Query"; isRepo: boolean };
-
 export type CustomCreatedIssuesQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -7487,6 +7709,7 @@ export type ProjectEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -7700,6 +7923,7 @@ export type ProjectEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -7884,6 +8108,7 @@ export type ProjectSettingsQuery = {
       dispatchingDisabled?: boolean | null;
       displayName: string;
       enabled?: boolean | null;
+      hidden?: boolean | null;
       owner: string;
       patchingDisabled?: boolean | null;
       remotePath: string;
@@ -7978,6 +8203,7 @@ export type ProjectSettingsQuery = {
       parsleyFilters?: Array<{
         __typename?: "ParsleyFilter";
         caseSensitive: boolean;
+        description: string;
         exactMatch: boolean;
         expression: string;
       }> | null;
@@ -8100,7 +8326,7 @@ export type MyPublicKeysQuery = {
 };
 
 export type RepoEventLogsQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
+  repoId: Scalars["String"]["input"];
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   before?: InputMaybe<Scalars["Time"]["input"]>;
 }>;
@@ -8239,6 +8465,7 @@ export type RepoEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -8452,6 +8679,7 @@ export type RepoEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -8670,6 +8898,7 @@ export type RepoSettingsQuery = {
       parsleyFilters?: Array<{
         __typename?: "ParsleyFilter";
         caseSensitive: boolean;
+        description: string;
         exactMatch: boolean;
         expression: string;
       }> | null;
