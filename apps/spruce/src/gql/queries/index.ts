@@ -7,7 +7,6 @@ import BASE_VERSION_AND_TASK from "./base-version-and-task.graphql";
 import BUILD_BARON_CONFIGURED from "./build-baron-configured.graphql";
 import BUILD_BARON from "./build-baron.graphql";
 import BUILD_VARIANTS_STATS from "./build-variant-stats.graphql";
-import BUILD_VARIANTS_FOR_TASK_NAME from "./build-variants-for-task-name.graphql";
 import BUILD_VARIANTS_WITH_CHILDREN from "./build-variants-with-children.graphql";
 import CLIENT_CONFIG from "./client-config.graphql";
 import CODE_CHANGES from "./code-changes.graphql";
@@ -105,7 +104,6 @@ export {
   BASE_VERSION_AND_TASK,
   BUILD_BARON_CONFIGURED,
   BUILD_BARON,
-  BUILD_VARIANTS_FOR_TASK_NAME,
   BUILD_VARIANTS_STATS,
   BUILD_VARIANTS_WITH_CHILDREN,
   CLIENT_CONFIG,
