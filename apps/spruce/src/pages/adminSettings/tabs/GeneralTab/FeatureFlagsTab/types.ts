@@ -46,7 +46,6 @@ export interface FeatureFlagsFormState {
       backgroundStatsDisabled: boolean;
       cacheStatsJobDisabled: boolean;
       cacheStatsEndpointDisabled: boolean;
-      backgroundCleanupDisabled: boolean;
     };
   };
 }
