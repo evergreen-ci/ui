@@ -20,6 +20,7 @@ import { PageDoesNotExist } from "pages/NotFound";
 import { Preferences } from "pages/Preferences";
 import { ProjectPatches } from "pages/ProjectPatches";
 import { ProjectSettings } from "pages/ProjectSettings";
+import { RepoSettings } from "pages/RepoSettings";
 import { Spawn } from "pages/Spawn";
 import { Task } from "pages/Task";
 import { TaskQueue } from "pages/TaskQueue";
@@ -72,6 +73,9 @@ export const Content: React.FC = () => (
       <Route element={<ProjectSettings />} path={routes.projectSettings}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
+      <Route element={<RepoSettings />} path={routes.repoSettings}>
+        <Route element={null} path={`:${slugs.tab}`} />
+      </Route>
       <Route
         element={<ProjectSettingsRedirect />}
         path={redirectRoutes.projectSettings}
@@ -95,7 +99,9 @@ export const Content: React.FC = () => (
       <Route element={<Waterfall />} path={routes.waterfall} />
       <Route element={<PageDoesNotExist />} path="*" />
       {isDevelopmentBuild() && (
-        <Route element={<AdminSettings />} path={routes.adminSettings} />
+        <Route element={<AdminSettings />} path={routes.adminSettings}>
+          <Route element={null} path={`:${slugs.tab}`} />
+        </Route>
       )}
     </Route>
   </Routes>

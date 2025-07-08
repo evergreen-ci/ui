@@ -73,6 +73,7 @@ const TitleContainer = styled.div`
  * @param props.uiSchema."ui:data-cy" - data-cy
  * @param props.uiSchema."ui:description" - description
  * @param props.uiSchema."ui:title" - title
+ * @param props.uiSchema."ui:objectFieldCss" - css style
  * @returns JSX.Element
  */
 export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
@@ -84,6 +85,7 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   uiSchema: {
     "ui:data-cy": dataCy,
     "ui:description": uiDescription,
+    "ui:objectFieldCss": objectFieldCss,
     "ui:title": uiTitle,
   },
 }) => {
@@ -100,6 +102,7 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
         )
       }
       id={`${idSchema.$id}__title`}
+      objectFieldCss={objectFieldCss}
       title={uiTitle || title}
     >
       {properties.map((prop) => prop.content)}

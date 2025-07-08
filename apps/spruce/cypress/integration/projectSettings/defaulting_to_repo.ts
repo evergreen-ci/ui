@@ -1,15 +1,16 @@
 import { clickSave } from "../../utils";
 import {
-  getGeneralRoute,
-  getVirtualWorkstationRoute,
+  getProjectSettingsRoute,
+  getRepoSettingsRoute,
   project,
+  ProjectSettingsTabRoutes,
   projectUseRepoEnabled,
   repo,
   saveButtonEnabled,
 } from "./constants";
 
 describe("Project Settings when defaulting to repo", () => {
-  const origin = getGeneralRoute(projectUseRepoEnabled);
+  const origin = getProjectSettingsRoute(projectUseRepoEnabled);
 
   beforeEach(() => {
     cy.visit(origin);
@@ -20,7 +21,7 @@ describe("Project Settings when defaulting to repo", () => {
       saveButtonEnabled(false);
       cy.dataCy("attached-repo-link")
         .should("have.attr", "href")
-        .and("eq", `/${getGeneralRoute(repo)}`);
+        .and("eq", `/${getRepoSettingsRoute(repo)}`);
     });
 
     it("Preserves edits to the form when navigating between settings tabs and does not show a warning modal", () => {
@@ -92,7 +93,7 @@ describe("Project Settings when defaulting to repo", () => {
         .invoke("attr", "placeholder")
         .should("equal", "0 (Default from repo)");
       // Check if clearing project batch time saves as 0 instead of null
-      cy.visit(getGeneralRoute(project));
+      cy.visit(getProjectSettingsRoute(project));
       cy.dataCy("batch-time-input").should("have.value", 60);
       cy.dataCy("batch-time-input").clear();
       clickSave();
@@ -227,7 +228,7 @@ describe("Project Settings when defaulting to repo", () => {
         .contains("Repo Patch Definition 1")
         .should("not.exist");
       // Save a repo patch definition
-      cy.visit(getGeneralRoute(repo));
+      cy.visit(getRepoSettingsRoute(repo));
       cy.dataCy("navitem-github-commitqueue").click();
       cy.contains("button", "Add Patch Definition").click();
       cy.dataCy("variant-tags-input").first().type("vtag");
@@ -320,7 +321,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("attached-repo-link").click();
       cy.location("pathname").should(
         "equal",
-        `/${getVirtualWorkstationRoute(repo)}`,
+        `/${getRepoSettingsRoute(repo, ProjectSettingsTabRoutes.VirtualWorkstation)}`,
       );
       cy.contains("button", "Add Command").click();
       cy.dataCy("command-input").type("a repo command");

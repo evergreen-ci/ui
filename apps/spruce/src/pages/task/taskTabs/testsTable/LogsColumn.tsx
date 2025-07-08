@@ -21,7 +21,6 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
   const { displayTask, id: taskId } = task ?? {};
   const { sendEvent } = useTaskAnalytics();
   const filters = status === TestStatus.Fail ? toEscapedRegex(testFile) : null;
-
   const isExecutionTask = displayTask !== null;
   return (
     <ButtonWrapper>

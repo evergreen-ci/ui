@@ -1,8 +1,15 @@
 import { clickSave } from "../../utils";
-import { getAppSettingsRoute, saveButtonEnabled } from "./constants";
+import {
+  getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
+  saveButtonEnabled,
+} from "./constants";
 
 describe("GitHub app settings", () => {
-  const destination = getAppSettingsRoute("spruce");
+  const destination = getProjectSettingsRoute(
+    "spruce",
+    ProjectSettingsTabRoutes.GithubAppSettings,
+  );
   const selectMenu = "[role='listbox']";
   const permissionGroups = {
     all: "All app permissions",

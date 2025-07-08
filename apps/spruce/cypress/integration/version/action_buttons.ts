@@ -67,6 +67,23 @@ describe("Action Buttons", () => {
       cy.dataCy("patch-priority-input").type("{enter}");
       cy.validateToast("error", "Error updating priority for patch");
     });
+
+    it("Sets priority for multiple tasks when version page table is filtered", () => {
+      const priority = 10;
+      cy.visit(
+        `${versionPath(mainlineCommit)}/tasks?statuses=failed-umbrella%2Cfailed%2Cknown-issue`,
+      );
+      cy.dataCy("ellipsis-btn").click();
+      cy.dataCy("card-dropdown").should("be.visible");
+      cy.dataCy("prioritize-task").should(
+        "contain.text",
+        "Set task priority (2)",
+      );
+      cy.dataCy("prioritize-task").click();
+      cy.dataCy("task-priority-input").type(`${priority}{enter}`);
+      cy.validateToast("success", "Priority updated for 2 tasks.");
+    });
+
     it("Should be able to reconfigure the patch", () => {
       cy.dataCy("reconfigure-link").should("not.be.disabled");
       cy.dataCy("reconfigure-link").click();

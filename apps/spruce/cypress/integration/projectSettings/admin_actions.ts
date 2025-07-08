@@ -1,8 +1,8 @@
-import { getGeneralRoute, project } from "./constants";
+import { getProjectSettingsRoute, project } from "./constants";
 
 describe("projectSettings/admin_actions", () => {
   describe("Duplicating a project", () => {
-    const destination = getGeneralRoute(project);
+    const destination = getProjectSettingsRoute(project);
 
     it("Successfully duplicates a project with warnings", () => {
       cy.visit(destination);
@@ -27,7 +27,7 @@ describe("projectSettings/admin_actions", () => {
   describe("Creating a new project and deleting it", () => {
     it("Successfully creates a new project and then deletes it", () => {
       // Create project
-      cy.visit(getGeneralRoute(project));
+      cy.visit(getProjectSettingsRoute(project));
       cy.dataCy("new-project-button").click();
       cy.dataCy("new-project-menu").should("be.visible");
       cy.dataCy("create-project-button").click();
@@ -49,7 +49,7 @@ describe("projectSettings/admin_actions", () => {
       cy.url().should("include", "my-new-project");
 
       // Delete project
-      cy.visit(getGeneralRoute("my-new-project"));
+      cy.visit(getProjectSettingsRoute("my-new-project"));
       cy.dataCy("attach-repo-button").click();
       cy.dataCy("attach-repo-modal")
         .find("button")

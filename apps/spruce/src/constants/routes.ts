@@ -30,6 +30,7 @@ export enum ImageTabRoutes {
   EventLog = "event-log",
 }
 
+// Enums should be ordered in view order.
 export enum ProjectSettingsTabRoutes {
   General = "general",
   Access = "access",
@@ -38,17 +39,17 @@ export enum ProjectSettingsTabRoutes {
   Notifications = "notifications",
   PatchAliases = "patch-aliases",
   VirtualWorkstation = "virtual-workstation",
+  Containers = "containers",
+  ViewsAndFilters = "views-and-filters",
   ProjectTriggers = "project-triggers",
   PeriodicBuilds = "periodic-builds",
   Plugins = "plugins",
-  EventLog = "event-log",
-  Containers = "containers",
-  ViewsAndFilters = "views-and-filters",
   GithubAppSettings = "github-app-settings",
   GithubPermissionGroups = "github-permission-groups",
+  EventLog = "event-log",
 }
 
-export enum AdminSettingsTabRoutes {
+export enum AdminSettingsGeneralSection {
   Announcements = "announcements",
   FeatureFlags = "feature-flags",
   Runners = "runners",
@@ -58,6 +59,10 @@ export enum AdminSettingsTabRoutes {
   BackgroundProcessing = "background-processing",
   Providers = "providers",
   Other = "other",
+}
+
+export enum AdminSettingsTabRoutes {
+  General = "general",
   RestartTasks = "restart-tasks",
   EventLog = "event-log",
 }
@@ -85,6 +90,7 @@ const paths = {
   preferences: "/preferences",
   project: "/project",
   projects: "/projects",
+  repo: "/repo",
   spawn: "/spawn",
   task: "/task",
   taskQueue: "/task-queue",
@@ -96,16 +102,17 @@ const paths = {
 
 export enum slugs {
   buildId = "buildId",
-  podId = "podId",
   distroId = "distroId",
+  execution = "execution",
   groupId = "groupId",
   hostId = "hostId",
   imageId = "imageId",
   patchId = "patchId",
+  podId = "podId",
   projectIdentifier = "projectIdentifier",
+  repoId = "repoId",
   tab = "tab",
   taskId = "taskId",
-  execution = "execution",
   taskName = "taskName",
   variantName = "variantName",
   versionId = "versionId",
@@ -147,6 +154,7 @@ export const routes = {
   preferences: paths.preferences,
   projectPatches: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Patches}`,
   projectSettings: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Settings}`,
+  repoSettings: `${paths.repo}/:${slugs.repoId}/${PageNames.Settings}`,
   spawn: paths.spawn,
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
@@ -283,10 +291,17 @@ export const getProjectSettingsRoute = (
   tab?: ProjectSettingsTabRoutes,
 ) => {
   // Encode projectId for backwards compatibilty.
-  // Encoding can be removed when all projectIDs
-  // are URL friendly withou encoding
+  // Encoding can be removed when all projectIDs are URL friendly without encoding
   const encodedProjectId = encodeURIComponent(projectId);
   const root = `${paths.project}/${encodedProjectId}/${PageNames.Settings}`;
+  return tab ? `${root}/${tab}` : root;
+};
+
+export const getRepoSettingsRoute = (
+  repoId: string,
+  tab?: ProjectSettingsTabRoutes,
+) => {
+  const root = `${paths.repo}/${repoId}/${PageNames.Settings}`;
   return tab ? `${root}/${tab}` : root;
 };
 
@@ -388,5 +403,16 @@ export const getTriggerRoute = ({
   return getVersionRoute(upstreamVersion.id);
 };
 
-export const getAdminSettingsRoute = (tab?: AdminSettingsTabRoutes) =>
-  tab ? `${paths.adminSettings}/${tab}` : `${paths.adminSettings}`;
+export const getAdminSettingsRoute = (
+  tab?: AdminSettingsTabRoutes,
+  anchor?: string,
+) => {
+  const pathName = tab
+    ? `${paths.adminSettings}/${tab}`
+    : `${paths.adminSettings}/${AdminSettingsTabRoutes.General}`;
+
+  if (anchor && pathName.includes(AdminSettingsTabRoutes.General)) {
+    return `${pathName}#${anchor}`;
+  }
+  return pathName;
+};

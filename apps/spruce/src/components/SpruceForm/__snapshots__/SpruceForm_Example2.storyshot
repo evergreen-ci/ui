@@ -1,5 +1,7 @@
 <div>
-  <div>
+  <div
+    class="emotion-0"
+  >
     <a
       href="#admin-options"
       id="admin-options"
@@ -22,7 +24,7 @@
           id=" root"
         >
           <fieldset
-            class="emotion-8"
+            class="emotion-0"
             id="root"
           >
             <div
@@ -271,7 +273,7 @@
               >
                 <div
                   aria-label="radio-group-"
-                  class="leafygreen-ui-14o8ny9 emotion-8"
+                  class="leafygreen-ui-14o8ny9 emotion-0"
                   id="root_reprovisionMethod"
                   role="group"
                 >
