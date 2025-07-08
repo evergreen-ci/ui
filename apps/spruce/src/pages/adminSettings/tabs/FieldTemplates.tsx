@@ -1,30 +1,25 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import TextInput from "@leafygreen-ui/text-input";
+import { ArrayFieldTemplateProps } from "@rjsf/core";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import { PlusButton, Variant } from "components/Buttons";
+import { FilterChipType } from "../../../components/FilterChips/FilterChip";
+import FilterChips from "../../../components/FilterChips/index";
 
-import { FormChipType } from "./FormChip";
-import FormChips from ".";
-
-export default {
-  component: FormChips,
-} satisfies CustomMeta<typeof FormChips>;
-
-export const Default: CustomStoryObj<typeof FormChips> = {
-  render: () => <ChipContainer />,
-};
-
-const ChipContainer = () => {
-  const [chips, setChips] = useState<FormChipType[]>([
-    { key: "test", value: "test" },
-  ]);
-
+export const ArrayFieldTemplate: React.FC<
+  Pick<ArrayFieldTemplateProps, "items">
+> = ({ items }) => {
+  const [chips, setChips] = useState<FilterChipType[]>(
+    items.map((item) => ({
+      key: item.children?.props?.formData || "",
+      value: item.children?.props?.formData || "",
+    })),
+  );
   const addChip = (key: string, value: string) => {
     setChips([...chips, { key, value }]);
   };
-  const removeChip = (chip: FormChipType) => {
+  const removeChip = (chip: FilterChipType) => {
     setChips(
       chips.filter(
         (c) => (c.key !== chip.key && c.value !== chip.value) || false,
@@ -34,18 +29,22 @@ const ChipContainer = () => {
   const onClearAll = () => {
     setChips([]);
   };
-
+  console.log("chips", chips);
   return (
-    <div>
-      <FormChipInput onAdd={addChip} />
-      <FormChips chips={chips} onClearAll={onClearAll} onRemove={removeChip} />
-    </div>
+    <>
+      <FilterChipInput onAdd={addChip} />
+      <FilterChips
+        chips={chips}
+        onClearAll={onClearAll}
+        onRemove={(chip) => removeChip(chip)}
+      />
+    </>
   );
 };
 
 // Must use a separate input component to dynamically add chips
 // Since leafygreen knobs rerender the component on every change
-const FormChipInput = ({
+const FilterChipInput = ({
   onAdd,
 }: {
   onAdd: (key: string, value: string) => void;
@@ -59,10 +58,10 @@ const FormChipInput = ({
     setChipValue("");
   };
   return (
-    <StyledFormChipInput>
+    <StyledFilterChipInput>
       <TextInput
         className="text-input"
-        label="Form Chips Input"
+        label="Disabled GraphQL Queries"
         onChange={(e) => {
           setChipValue(e.target.value);
           setChipKey(e.target.value);
@@ -75,11 +74,11 @@ const FormChipInput = ({
         onClick={handleAdd}
         variant={Variant.Primary}
       />
-    </StyledFormChipInput>
+    </StyledFilterChipInput>
   );
 };
 
-const StyledFormChipInput = styled.div`
+const StyledFilterChipInput = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.s};
@@ -97,3 +96,5 @@ const StyledFormChipInput = styled.div`
 const StyledButton = styled(PlusButton)`
   margin-top: 25px;
 `;
+
+export default ArrayFieldTemplate;
