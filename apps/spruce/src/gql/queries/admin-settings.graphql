@@ -6,7 +6,6 @@ query AdminSettings {
       adminParameterStoreDisabled
       agentStartDisabled
       alertsDisabled
-      backgroundCleanupDisabled
       backgroundReauthDisabled
       backgroundStatsDisabled
       cacheStatsEndpointDisabled
