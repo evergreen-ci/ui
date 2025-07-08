@@ -21,8 +21,6 @@ export const gqlToForm = ((data) => ({
       unrecognizedPodCleanupDisabled:
         data.serviceFlags?.unrecognizedPodCleanupDisabled ?? false,
       cloudCleanupDisabled: data.serviceFlags?.cloudCleanupDisabled ?? false,
-      evergreenTestResultsDisabled:
-        data.serviceFlags?.evergreenTestResultsDisabled ?? false,
       taskReliabilityDisabled:
         data.serviceFlags?.taskReliabilityDisabled ?? false,
     },

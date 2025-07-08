@@ -1,6 +1,6 @@
 import { clickSave } from "../../utils";
 
-describe("admin settings page", () => {
+describe("announcements", () => {
   beforeEach(() => {
     cy.visit("/admin-settings");
   });
