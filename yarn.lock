@@ -3131,18 +3131,6 @@
     "@leafygreen-ui/tokens" "^2.5.2"
     "@leafygreen-ui/typography" "^19.0.0"
 
-"@leafygreen-ui/card@^10.0.5":
-  version "10.0.7"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-10.0.7.tgz#b7cecd1771e3c7530492276251921aa5720985f6"
-  integrity sha512-eQFV1IkBuzA4cqT8ozA+13voVDiQD96MGW0JqS8bdZYIjim6HDGLq31PTz1zwuZOvpXa55p/byyBeq94rjSX5w==
-  dependencies:
-    "@leafygreen-ui/box" "^3.1.9"
-    "@leafygreen-ui/emotion" "^4.0.8"
-    "@leafygreen-ui/lib" "^13.3.0"
-    "@leafygreen-ui/palette" "^4.0.9"
-    "@leafygreen-ui/tokens" "^2.5.2"
-    polished "^4.2.2"
-
 "@leafygreen-ui/card@^11.0.0":
   version "11.0.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-11.0.0.tgz#005c42ffb53635e9154de563ac21a25037e63441"
@@ -3167,16 +3155,16 @@
     "@leafygreen-ui/tokens" "^2.12.0"
     polished "^4.2.2"
 
-"@leafygreen-ui/card@^13.0.1":
-  version "13.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-13.0.1.tgz#b3c3e275250b7e98fbfc7d6eac3fa8dd138b0513"
-  integrity sha512-x85J6g+gldU8pV89g0DY9Fz2EqoyqpYJXzDU3ahWojbDjic9bW6AmOnOtLOocXWKZ9el1l8MXgZjAphxdK0D/w==
+"@leafygreen-ui/card@^13.0.1", "@leafygreen-ui/card@^13.0.3":
+  version "13.0.3"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-13.0.3.tgz#ee5ed3ce6fba863c6b2be625dca03f3ccb9a27f1"
+  integrity sha512-MJLr8pElJj61viT4AhcmpqVpMrNw+Ol15dJZ1XWqlVhYI9j1EdCIKboF0RbJuPu11O2o5vIa/TYRctCuPBEEWg==
   dependencies:
     "@leafygreen-ui/emotion" "^5.0.0"
-    "@leafygreen-ui/lib" "^15.0.0"
+    "@leafygreen-ui/lib" "^15.2.0"
     "@leafygreen-ui/palette" "^5.0.0"
-    "@leafygreen-ui/polymorphic" "^3.0.1"
-    "@leafygreen-ui/tokens" "^3.1.0"
+    "@leafygreen-ui/polymorphic" "^3.0.3"
+    "@leafygreen-ui/tokens" "^3.1.2"
     polished "^4.2.2"
 
 "@leafygreen-ui/checkbox@^13.1.2":
@@ -3900,15 +3888,7 @@
     "@leafygreen-ui/lib" "^14.2.0"
     lodash "^4.17.21"
 
-"@leafygreen-ui/polymorphic@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-3.0.1.tgz#efb0d25a11f76b9186773ee202a1cd04666f1eab"
-  integrity sha512-BJBXcdwImu0q5IZNzY9d/J1w1mItpk493oAuy/ZagTTBeMdTv7de2Gi1xx4EAPHyRosrG930cBnD5EuqU0ZR5g==
-  dependencies:
-    "@leafygreen-ui/lib" "^15.0.0"
-    lodash "^4.17.21"
-
-"@leafygreen-ui/polymorphic@^3.0.3":
+"@leafygreen-ui/polymorphic@^3.0.1", "@leafygreen-ui/polymorphic@^3.0.3":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-3.0.3.tgz#cdd8cc5fe440f7c50995ebe63f98d316117c6a27"
   integrity sha512-TIXQLGs+9ffBfkRrUiIVrApcW3M3Iv601V/CT/2g9cG9soXfkPbO4jAYSxy2Vl8WTnMEkVKkFfuU+q91j641wQ==
