@@ -138,6 +138,7 @@ export const getFormSchema = ({
       },
       rdpPassword: {
         // Console error should be resolved by https://jira.mongodb.org/browse/LG-2342.
+        "ui:widget": "password",
         "ui:description": (
           <>
             Password should match the criteria defined{" "}
