@@ -83,7 +83,6 @@ const LoadingCell: React.FC<LoadingCellProps> = ({ isHeader = false }) =>
   );
 
 interface ColumnHeaderCellProps {
-  link: string;
   trimmedDisplayName: string;
   fullDisplayName: string;
   onClick?: () => void;
