@@ -93,7 +93,6 @@ const paths = {
   repo: "/repo",
   spawn: "/spawn",
   task: "/task",
-  taskHistory: "/task-history",
   taskQueue: "/task-queue",
   user: "/user",
   variantHistory: "/variant-history",
@@ -160,7 +159,6 @@ export const routes = {
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
   task: `${paths.task}/:${slugs.taskId}/:${slugs.tab}?`,
-  taskHistory: `${paths.taskHistory}/:${slugs.projectIdentifier}/:${slugs.taskName}`,
   taskQueue: `${paths.taskQueue}/:${slugs.distroId}?`,
   user: paths.user,
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
@@ -378,30 +376,6 @@ export const getVariantHistoryRoute = (
     )}/${variantName}`,
     filters,
     selectedCommit,
-  );
-};
-
-export const getTaskHistoryRoute = (
-  projectIdentifier: string,
-  taskName: string,
-  options?: {
-    filters?: {
-      failingTests?: string[];
-      passingTests?: string[];
-    };
-    selectedCommit?: number;
-    visibleColumns?: string[];
-    taskId?: string;
-  },
-) => {
-  const { filters, selectedCommit, taskId, visibleColumns } = options || {};
-
-  return getHistoryRoute(
-    `${paths.taskHistory}/${encodeURIComponent(projectIdentifier)}/${encodeURIComponent(taskName)}`,
-    filters,
-    selectedCommit,
-    visibleColumns,
-    taskId,
   );
 };
 
