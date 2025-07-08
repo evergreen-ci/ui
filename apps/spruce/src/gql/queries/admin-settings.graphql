@@ -18,7 +18,6 @@ query AdminSettings {
       elasticIPsDisabled
       emailNotificationsDisabled
       eventProcessingDisabled
-      evergreenTestResultsDisabled
       githubPRTestingDisabled
       githubStatusAPIDisabled
       hostAllocatorDisabled

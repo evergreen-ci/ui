@@ -18,7 +18,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       elasticIPsDisabled
       emailNotificationsDisabled
       eventProcessingDisabled
-      evergreenTestResultsDisabled
       githubPRTestingDisabled
       githubStatusAPIDisabled
       hostAllocatorDisabled
