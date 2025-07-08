@@ -3,7 +3,7 @@ import { adminSettings } from "../../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { AnnouncementsFormState } from "./types";
 
-describe("feature flags section", () => {
+describe("announcements section", () => {
   it("correctly converts from GQL to a form", () => {
     expect(gqlToForm(adminSettings)).toStrictEqual(form);
   });
