@@ -1,8 +1,15 @@
 import { clickSave } from "../../utils";
-import { getPermissionGroupsRoute, saveButtonEnabled } from "./constants";
+import {
+  getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
+  saveButtonEnabled,
+} from "./constants";
 
 describe("GitHub permission groups", () => {
-  const destination = getPermissionGroupsRoute("logkeeper");
+  const destination = getProjectSettingsRoute(
+    "logkeeper",
+    ProjectSettingsTabRoutes.GithubPermissionGroups,
+  );
   beforeEach(() => {
     cy.visit(destination);
     // Wait for page content to finish loading.

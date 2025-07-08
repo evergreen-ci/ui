@@ -1,8 +1,15 @@
 import { clickSave } from "../../utils";
-import { getViewsAndFiltersRoute, saveButtonEnabled } from "./constants";
+import {
+  getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
+  saveButtonEnabled,
+} from "./constants";
 
 describe("Views & filters page", () => {
-  const destination = getViewsAndFiltersRoute("sys-perf");
+  const destination = getProjectSettingsRoute(
+    "sys-perf",
+    ProjectSettingsTabRoutes.ViewsAndFilters,
+  );
 
   beforeEach(() => {
     cy.visit(destination);

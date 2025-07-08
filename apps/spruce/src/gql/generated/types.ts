@@ -2750,7 +2750,6 @@ export type ServiceFlags = {
   adminParameterStoreDisabled: Scalars["Boolean"]["output"];
   agentStartDisabled: Scalars["Boolean"]["output"];
   alertsDisabled: Scalars["Boolean"]["output"];
-  backgroundCleanupDisabled: Scalars["Boolean"]["output"];
   backgroundReauthDisabled: Scalars["Boolean"]["output"];
   backgroundStatsDisabled: Scalars["Boolean"]["output"];
   cacheStatsEndpointDisabled: Scalars["Boolean"]["output"];
@@ -2762,7 +2761,6 @@ export type ServiceFlags = {
   elasticIPsDisabled: Scalars["Boolean"]["output"];
   emailNotificationsDisabled: Scalars["Boolean"]["output"];
   eventProcessingDisabled: Scalars["Boolean"]["output"];
-  evergreenTestResultsDisabled: Scalars["Boolean"]["output"];
   githubPRTestingDisabled: Scalars["Boolean"]["output"];
   githubStatusAPIDisabled: Scalars["Boolean"]["output"];
   hostAllocatorDisabled: Scalars["Boolean"]["output"];
@@ -2791,7 +2789,6 @@ export type ServiceFlagsInput = {
   adminParameterStoreDisabled: Scalars["Boolean"]["input"];
   agentStartDisabled: Scalars["Boolean"]["input"];
   alertsDisabled: Scalars["Boolean"]["input"];
-  backgroundCleanupDisabled: Scalars["Boolean"]["input"];
   backgroundReauthDisabled: Scalars["Boolean"]["input"];
   backgroundStatsDisabled: Scalars["Boolean"]["input"];
   cacheStatsEndpointDisabled: Scalars["Boolean"]["input"];
@@ -2803,7 +2800,6 @@ export type ServiceFlagsInput = {
   elasticIPsDisabled: Scalars["Boolean"]["input"];
   emailNotificationsDisabled: Scalars["Boolean"]["input"];
   eventProcessingDisabled: Scalars["Boolean"]["input"];
-  evergreenTestResultsDisabled: Scalars["Boolean"]["input"];
   githubPRTestingDisabled: Scalars["Boolean"]["input"];
   githubStatusAPIDisabled: Scalars["Boolean"]["input"];
   hostAllocatorDisabled: Scalars["Boolean"]["input"];
@@ -4246,6 +4242,7 @@ export type ProjectGeneralSettingsFragment = {
   dispatchingDisabled?: boolean | null;
   displayName: string;
   enabled?: boolean | null;
+  hidden?: boolean | null;
   owner: string;
   patchingDisabled?: boolean | null;
   remotePath: string;
@@ -4389,6 +4386,7 @@ export type ProjectSettingsFieldsFragment = {
     dispatchingDisabled?: boolean | null;
     displayName: string;
     enabled?: boolean | null;
+    hidden?: boolean | null;
     owner: string;
     patchingDisabled?: boolean | null;
     remotePath: string;
@@ -4483,6 +4481,7 @@ export type ProjectSettingsFieldsFragment = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
@@ -4681,6 +4680,7 @@ export type RepoSettingsFieldsFragment = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
@@ -5133,6 +5133,7 @@ export type ProjectEventSettingsFragment = {
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
       caseSensitive: boolean;
+      description: string;
       exactMatch: boolean;
       expression: string;
     }> | null;
@@ -5262,6 +5263,7 @@ export type ProjectViewsAndFiltersSettingsFragment = {
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
+    description: string;
     exactMatch: boolean;
     expression: string;
   }> | null;
@@ -5273,6 +5275,7 @@ export type RepoViewsAndFiltersSettingsFragment = {
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
+    description: string;
     exactMatch: boolean;
     expression: string;
   }> | null;
@@ -5804,6 +5807,45 @@ export type SaveAdminSettingsMutation = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    serviceFlags?: {
+      __typename?: "ServiceFlags";
+      adminParameterStoreDisabled: boolean;
+      agentStartDisabled: boolean;
+      alertsDisabled: boolean;
+      backgroundReauthDisabled: boolean;
+      backgroundStatsDisabled: boolean;
+      cacheStatsEndpointDisabled: boolean;
+      cacheStatsJobDisabled: boolean;
+      checkBlockedTasksDisabled: boolean;
+      cliUpdatesDisabled: boolean;
+      cloudCleanupDisabled: boolean;
+      degradedModeDisabled: boolean;
+      elasticIPsDisabled: boolean;
+      emailNotificationsDisabled: boolean;
+      eventProcessingDisabled: boolean;
+      githubPRTestingDisabled: boolean;
+      githubStatusAPIDisabled: boolean;
+      hostAllocatorDisabled: boolean;
+      hostInitDisabled: boolean;
+      jiraNotificationsDisabled: boolean;
+      jwtTokenForCLIDisabled: boolean;
+      largeParserProjectsDisabled: boolean;
+      monitorDisabled: boolean;
+      podAllocatorDisabled: boolean;
+      podInitDisabled: boolean;
+      releaseModeDisabled: boolean;
+      repotrackerDisabled: boolean;
+      schedulerDisabled: boolean;
+      slackNotificationsDisabled: boolean;
+      sleepScheduleDisabled: boolean;
+      staticAPIKeysDisabled: boolean;
+      systemFailedTaskRestartDisabled: boolean;
+      taskDispatchDisabled: boolean;
+      taskLoggingDisabled: boolean;
+      taskReliabilityDisabled: boolean;
+      unrecognizedPodCleanupDisabled: boolean;
+      webhookNotificationsDisabled: boolean;
+    } | null;
   };
 };
 
@@ -6155,6 +6197,45 @@ export type AdminSettingsQuery = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    serviceFlags?: {
+      __typename?: "ServiceFlags";
+      adminParameterStoreDisabled: boolean;
+      agentStartDisabled: boolean;
+      alertsDisabled: boolean;
+      backgroundReauthDisabled: boolean;
+      backgroundStatsDisabled: boolean;
+      cacheStatsEndpointDisabled: boolean;
+      cacheStatsJobDisabled: boolean;
+      checkBlockedTasksDisabled: boolean;
+      cliUpdatesDisabled: boolean;
+      cloudCleanupDisabled: boolean;
+      degradedModeDisabled: boolean;
+      elasticIPsDisabled: boolean;
+      emailNotificationsDisabled: boolean;
+      eventProcessingDisabled: boolean;
+      githubPRTestingDisabled: boolean;
+      githubStatusAPIDisabled: boolean;
+      hostAllocatorDisabled: boolean;
+      hostInitDisabled: boolean;
+      jiraNotificationsDisabled: boolean;
+      jwtTokenForCLIDisabled: boolean;
+      largeParserProjectsDisabled: boolean;
+      monitorDisabled: boolean;
+      podAllocatorDisabled: boolean;
+      podInitDisabled: boolean;
+      releaseModeDisabled: boolean;
+      repotrackerDisabled: boolean;
+      schedulerDisabled: boolean;
+      slackNotificationsDisabled: boolean;
+      sleepScheduleDisabled: boolean;
+      staticAPIKeysDisabled: boolean;
+      systemFailedTaskRestartDisabled: boolean;
+      taskDispatchDisabled: boolean;
+      taskLoggingDisabled: boolean;
+      taskReliabilityDisabled: boolean;
+      unrecognizedPodCleanupDisabled: boolean;
+      webhookNotificationsDisabled: boolean;
+    } | null;
   } | null;
 };
 
@@ -6908,12 +6989,6 @@ export type InstanceTypesQuery = {
   instanceTypes: Array<string>;
 };
 
-export type IsRepoQueryVariables = Exact<{
-  projectOrRepoId: Scalars["String"]["input"];
-}>;
-
-export type IsRepoQuery = { __typename?: "Query"; isRepo: boolean };
-
 export type CustomCreatedIssuesQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -7582,6 +7657,7 @@ export type ProjectEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -7795,6 +7871,7 @@ export type ProjectEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -7979,6 +8056,7 @@ export type ProjectSettingsQuery = {
       dispatchingDisabled?: boolean | null;
       displayName: string;
       enabled?: boolean | null;
+      hidden?: boolean | null;
       owner: string;
       patchingDisabled?: boolean | null;
       remotePath: string;
@@ -8073,6 +8151,7 @@ export type ProjectSettingsQuery = {
       parsleyFilters?: Array<{
         __typename?: "ParsleyFilter";
         caseSensitive: boolean;
+        description: string;
         exactMatch: boolean;
         expression: string;
       }> | null;
@@ -8195,7 +8274,7 @@ export type MyPublicKeysQuery = {
 };
 
 export type RepoEventLogsQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
+  repoId: Scalars["String"]["input"];
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   before?: InputMaybe<Scalars["Time"]["input"]>;
 }>;
@@ -8334,6 +8413,7 @@ export type RepoEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -8547,6 +8627,7 @@ export type RepoEventLogsQuery = {
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
+            description: string;
             exactMatch: boolean;
             expression: string;
           }> | null;
@@ -8765,6 +8846,7 @@ export type RepoSettingsQuery = {
       parsleyFilters?: Array<{
         __typename?: "ParsleyFilter";
         caseSensitive: boolean;
+        description: string;
         exactMatch: boolean;
         expression: string;
       }> | null;

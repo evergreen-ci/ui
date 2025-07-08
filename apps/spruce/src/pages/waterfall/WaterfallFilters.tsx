@@ -72,7 +72,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
       </DateFilterItem>
       <ProjectFilterItem>
         <ProjectSelect
-          getRoute={projectSelectRoute}
+          getProjectRoute={projectSelectRoute}
           onSubmit={(project: string) => {
             sendEvent({
               name: "Changed project",

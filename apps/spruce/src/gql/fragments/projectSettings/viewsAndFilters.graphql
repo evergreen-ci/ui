@@ -2,6 +2,7 @@ fragment ProjectViewsAndFiltersSettings on Project {
   id
   parsleyFilters {
     caseSensitive
+    description
     exactMatch
     expression
   }
@@ -11,6 +12,7 @@ fragment RepoViewsAndFiltersSettings on RepoRef {
   id
   parsleyFilters {
     caseSensitive
+    description
     exactMatch
     expression
   }

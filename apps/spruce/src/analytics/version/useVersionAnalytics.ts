@@ -55,7 +55,14 @@ type Action =
     }
   | { name: "Toggled display task expansion"; expanded: boolean }
   | { name: "Clicked unschedule tasks button"; abort: boolean }
-  | { name: "Filtered test analysis tab"; "filter.by": string | string[] };
+  | { name: "Filtered test analysis tab"; "filter.by": string | string[] }
+  | {
+      name: "System Event test analysis tab stats";
+      has_reoccurring_tests: boolean;
+      num_reoccurring_tests: number;
+      num_tests: number;
+      num_failed_tasks: number;
+    };
 
 export const useVersionAnalytics = (id: string) => {
   const { data: eventData } = useQuery<VersionQuery, VersionQueryVariables>(
