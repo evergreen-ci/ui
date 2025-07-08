@@ -2750,7 +2750,6 @@ export type ServiceFlags = {
   adminParameterStoreDisabled: Scalars["Boolean"]["output"];
   agentStartDisabled: Scalars["Boolean"]["output"];
   alertsDisabled: Scalars["Boolean"]["output"];
-  backgroundCleanupDisabled: Scalars["Boolean"]["output"];
   backgroundReauthDisabled: Scalars["Boolean"]["output"];
   backgroundStatsDisabled: Scalars["Boolean"]["output"];
   cacheStatsEndpointDisabled: Scalars["Boolean"]["output"];
@@ -2790,7 +2789,6 @@ export type ServiceFlagsInput = {
   adminParameterStoreDisabled: Scalars["Boolean"]["input"];
   agentStartDisabled: Scalars["Boolean"]["input"];
   alertsDisabled: Scalars["Boolean"]["input"];
-  backgroundCleanupDisabled: Scalars["Boolean"]["input"];
   backgroundReauthDisabled: Scalars["Boolean"]["input"];
   backgroundStatsDisabled: Scalars["Boolean"]["input"];
   cacheStatsEndpointDisabled: Scalars["Boolean"]["input"];
