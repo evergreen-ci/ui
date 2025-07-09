@@ -2,14 +2,15 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { IconSkeleton, Skeleton, Size } from "@leafygreen-ui/skeleton-loader";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { Body } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { inactiveElementStyle } from "components/styles";
 import { getTaskRoute } from "constants/routes";
+import { TaskTab } from "types/task";
 import { COLUMN_LABEL_WIDTH, ROW_LABEL_WIDTH } from "../constants";
 import { HistoryTableIcon } from "../HistoryTableIcon";
 
@@ -46,7 +47,9 @@ const TaskCell: React.FC<TaskCellProps> = ({
       onClick={() => {
         onClick({ taskStatus: task.displayStatus });
       }}
-      to={getTaskRoute(task.id)}
+      to={getTaskRoute(task.id, {
+        tab: TaskTab.History,
+      })}
     >
       <HistoryTableIcon
         failingTests={failingTests}
@@ -80,14 +83,12 @@ const LoadingCell: React.FC<LoadingCellProps> = ({ isHeader = false }) =>
   );
 
 interface ColumnHeaderCellProps {
-  link: string;
   trimmedDisplayName: string;
   fullDisplayName: string;
   onClick?: () => void;
 }
 const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
   fullDisplayName,
-  link,
   onClick,
   trimmedDisplayName,
 }) => (
@@ -105,9 +106,9 @@ const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
         </Tooltip>
       )}
     >
-      <StyledRouterLink onClick={onClick} to={link}>
+      <Body onClick={onClick} weight="medium">
         {trimmedDisplayName}
-      </StyledRouterLink>
+      </Body>
     </ConditionalWrapper>
   </HeaderCell>
 );
