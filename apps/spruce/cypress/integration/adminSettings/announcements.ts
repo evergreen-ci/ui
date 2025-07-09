@@ -12,17 +12,12 @@ describe("announcements", () => {
       "true",
     );
 
-    // update banner text field
     cy.getInputByLabel("Banner Text").clear();
     cy.getInputByLabel("Banner Text").type("some more banner text");
 
-    // save button should be enabled after making changes
     clickSave();
-
-    // validate that the toast message is displayed
     cy.validateToast("success", "Settings saved successfully");
 
-    // validate changes persisted
     cy.reload();
     cy.getInputByLabel("Banner Text").should(
       "have.value",

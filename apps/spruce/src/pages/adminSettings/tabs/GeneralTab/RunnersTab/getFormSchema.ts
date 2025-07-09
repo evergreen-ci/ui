@@ -11,7 +11,7 @@ import {
   repotracker,
 } from "./schemaFields";
 
-const gridWrap = css`
+const gridWrapCss = css`
   > div {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -83,31 +83,31 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       },
       taskLimits: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": gridWrap,
+        "ui:objectFieldCss": gridWrapCss,
         "ui:data-cy": "task-limits",
         ...taskLimits.uiSchema,
       },
       hostInit: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": gridWrap,
+        "ui:objectFieldCss": gridWrapCss,
         "ui:data-cy": "host-init",
         ...hostInit.uiSchema,
       },
       podLifecycle: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": gridWrap,
+        "ui:objectFieldCss": gridWrapCss,
         "ui:data-cy": "pod-lifecycle",
         ...podLifecycle.uiSchema,
       },
       scheduler: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": gridWrap,
+        "ui:objectFieldCss": gridWrapCss,
         "ui:data-cy": "scheduler",
         ...scheduler.uiSchema,
       },
       repotracker: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": gridWrap,
+        "ui:objectFieldCss": gridWrapCss,
         "ui:data-cy": "repotracker",
         ...repotracker.uiSchema,
       },

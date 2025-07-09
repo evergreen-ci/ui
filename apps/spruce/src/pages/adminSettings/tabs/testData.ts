@@ -56,7 +56,6 @@ export const adminSettings: AdminSettings = {
     adminParameterStoreDisabled: true,
     agentStartDisabled: true,
     alertsDisabled: true,
-    backgroundCleanupDisabled: true,
     backgroundReauthDisabled: true,
     backgroundStatsDisabled: true,
     cacheStatsEndpointDisabled: true,

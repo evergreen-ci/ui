@@ -58,7 +58,6 @@ const form: FeatureFlagsFormState = {
       backgroundStatsDisabled: true,
       cacheStatsJobDisabled: true,
       cacheStatsEndpointDisabled: true,
-      backgroundCleanupDisabled: true,
     },
   },
 };
@@ -68,7 +67,6 @@ const gql: AdminSettingsInput = {
     adminParameterStoreDisabled: true,
     agentStartDisabled: true,
     alertsDisabled: true,
-    backgroundCleanupDisabled: true,
     backgroundReauthDisabled: true,
     backgroundStatsDisabled: true,
     cacheStatsEndpointDisabled: true,
