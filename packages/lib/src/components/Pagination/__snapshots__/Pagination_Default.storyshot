@@ -4,12 +4,12 @@
     0
   </p>
   <div
-    class="emotion-Container e4w46hm0"
+    class="emotion-0"
     data-cy="pagination"
   >
     <button
       aria-disabled="true"
-      class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-StyledButton e4w46hm2"
+      class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-2"
       data-cy="prev-page-button"
       data-lgid="lg-button"
       type="button"
@@ -40,7 +40,7 @@
       </div>
     </button>
     <div
-      class="emotion-PageLabel e4w46hm1"
+      class="emotion-6"
     >
       <small
         class="leafygreen-ui-6flbwy"
@@ -52,7 +52,7 @@
     </div>
     <button
       aria-disabled="false"
-      class="lg-ui-button-0000 leafygreen-ui-1m0zu1d emotion-StyledButton e4w46hm2"
+      class="lg-ui-button-0000 leafygreen-ui-1m0zu1d emotion-2"
       data-cy="next-page-button"
       data-lgid="lg-button"
       type="button"
