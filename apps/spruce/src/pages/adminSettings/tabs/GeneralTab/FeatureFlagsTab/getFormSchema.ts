@@ -50,7 +50,6 @@ const batchJobItems: Record<string, string> = {
   backgroundStatsDisabled: "Collect background statistics",
   cacheStatsJobDisabled: "Cache historical statistics",
   cacheStatsEndpointDisabled: "Cache historical statistics endpoint",
-  backgroundCleanupDisabled: "Background Data Cleanup",
 };
 
 const zebraCSS = css`

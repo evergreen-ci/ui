@@ -7,17 +7,14 @@ import BASE_VERSION_AND_TASK from "./base-version-and-task.graphql";
 import BUILD_BARON_CONFIGURED from "./build-baron-configured.graphql";
 import BUILD_BARON from "./build-baron.graphql";
 import BUILD_VARIANTS_STATS from "./build-variant-stats.graphql";
-import BUILD_VARIANTS_FOR_TASK_NAME from "./build-variants-for-task-name.graphql";
 import BUILD_VARIANTS_WITH_CHILDREN from "./build-variants-with-children.graphql";
 import CLIENT_CONFIG from "./client-config.graphql";
 import CODE_CHANGES from "./code-changes.graphql";
 import CREATED_TICKETS from "./created-tickets.graphql";
-import DISPLAY_TASK from "./display-task.graphql";
 import DISTRO_EVENTS from "./distro-events.graphql";
 import DISTRO_TASK_QUEUE from "./distro-task-queue.graphql";
 import DISTRO from "./distro.graphql";
 import DISTROS from "./distros.graphql";
-import FAILED_TASK_STATUS_ICON_TOOLTIP from "./failed-task-status-icon-tooltip.graphql";
 import GITHUB_ORGS from "./github-orgs.graphql";
 import GITHUB_PROJECT_CONFLICTS from "./github-project-conflicts.graphql";
 import HAS_VERSION from "./has-version.graphql";
@@ -42,7 +39,6 @@ import MY_HOSTS from "./my-hosts.graphql";
 import MY_VOLUMES from "./my-volumes.graphql";
 import OTHER_USER from "./other-user.graphql";
 import PATCH_CONFIGURE from "./patch-configure.graphql";
-import PATCH_TASK_STATUSES from "./patch-task-statuses.graphql";
 import PATCH from "./patch.graphql";
 import POD_EVENTS from "./pod-events.graphql";
 import POD from "./pod.graphql";
@@ -58,7 +54,6 @@ import REPO_SETTINGS from "./repo-settings.graphql";
 import REPOTRACKER_ERROR from "./repotracker-error.graphql";
 import SECRET_FIELDS from "./secret-fields.graphql";
 import SINGLE_TASK_DISTRO from "./single-task-distro.graphql";
-import SPAWN_EXPIRATION_INFO from "./spawn-expiration.graphql";
 import SPAWN_TASK from "./spawn-task.graphql";
 import SPRUCE_CONFIG from "./spruce-config.graphql";
 import SUBNET_AVAILABILITY_ZONES from "./subnet-availability-zones.graphql";
@@ -105,19 +100,16 @@ export {
   BASE_VERSION_AND_TASK,
   BUILD_BARON_CONFIGURED,
   BUILD_BARON,
-  BUILD_VARIANTS_FOR_TASK_NAME,
   BUILD_VARIANTS_STATS,
   BUILD_VARIANTS_WITH_CHILDREN,
   CLIENT_CONFIG,
   CODE_CHANGES,
   CREATED_TICKETS,
-  DISPLAY_TASK,
   DISTRO_EVENTS,
   DISTRO_TASK_QUEUE,
   DISTRO,
   VERSION_UPSTREAM_PROJECT,
   DISTROS,
-  FAILED_TASK_STATUS_ICON_TOOLTIP,
   GITHUB_ORGS,
   GITHUB_PROJECT_CONFLICTS,
   HAS_VERSION,
@@ -143,7 +135,6 @@ export {
   MY_VOLUMES,
   OTHER_USER,
   PATCH_CONFIGURE,
-  PATCH_TASK_STATUSES,
   PATCH,
   POD_EVENTS,
   POD,
@@ -158,7 +149,6 @@ export {
   REPOTRACKER_ERROR,
   SECRET_FIELDS,
   SINGLE_TASK_DISTRO,
-  SPAWN_EXPIRATION_INFO,
   SPAWN_TASK,
   SPRUCE_CONFIG,
   SUBNET_AVAILABILITY_ZONES,

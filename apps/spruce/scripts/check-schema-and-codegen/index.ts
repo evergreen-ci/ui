@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 import process from "process";
-import { generatedFileName as existingTypesFileName } from "../../codegen";
+import { generatedFileName as existingTypesFileName } from "../../graphql.config";
 import {
   checkIsAncestor,
   generateTypes,
