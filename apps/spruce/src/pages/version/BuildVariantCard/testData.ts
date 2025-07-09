@@ -12,7 +12,7 @@ const mocks: ApolloMock<
   {
     request: {
       query: BUILD_VARIANTS_STATS,
-      variables: { id: "version", includeNeverActivatedTasks: false },
+      variables: { id: "version", includeNeverActivatedTasks: undefined },
     },
     result: {
       data: {
