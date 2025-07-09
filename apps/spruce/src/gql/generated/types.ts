@@ -6371,6 +6371,7 @@ export type BuildBaronQuery = {
 
 export type BuildVariantStatsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type BuildVariantStatsQuery = {
@@ -6508,23 +6509,6 @@ export type CreatedTicketsQuery = {
       status: { __typename?: "JiraStatus"; id: string; name: string };
     };
   }>;
-};
-
-export type DisplayTaskQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  execution?: InputMaybe<Scalars["Int"]["input"]>;
-}>;
-
-export type DisplayTaskQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    displayName: string;
-    execution: number;
-    executionTasks?: Array<string> | null;
-    displayTask?: { __typename?: "Task"; id: string; execution: number } | null;
-  } | null;
 };
 
 export type DistroEventsQueryVariables = Exact<{
@@ -6684,28 +6668,6 @@ export type DistrosQuery = {
     isVirtualWorkStation: boolean;
     name: string;
   }>;
-};
-
-export type FailedTaskStatusIconTooltipQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-}>;
-
-export type FailedTaskStatusIconTooltipQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    execution: number;
-    tests: {
-      __typename?: "TaskTestResult";
-      filteredTestCount: number;
-      testResults: Array<{
-        __typename?: "TestResult";
-        id: string;
-        testFile: string;
-      }>;
-    };
-  } | null;
 };
 
 export type GithubOrgsQueryVariables = Exact<{ [key: string]: never }>;
@@ -7423,20 +7385,6 @@ export type ConfigurePatchQuery = {
       name: string;
       tasks: Array<string>;
     }>;
-  };
-};
-
-export type PatchTaskStatusesQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
-}>;
-
-export type PatchTaskStatusesQuery = {
-  __typename?: "Query";
-  patch: {
-    __typename?: "Patch";
-    id: string;
-    baseTaskStatuses: Array<string>;
-    taskStatuses: Array<string>;
   };
 };
 
@@ -9015,18 +8963,6 @@ export type SingleTaskDistroQuery = {
   } | null;
 };
 
-export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
-
-export type SpawnExpirationInfoQuery = {
-  __typename?: "Query";
-  myHosts: Array<{ __typename?: "Host"; id: string; noExpiration: boolean }>;
-  myVolumes: Array<{
-    __typename?: "Volume";
-    id: string;
-    noExpiration: boolean;
-  }>;
-};
-
 export type SpawnTaskQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
 }>;
@@ -10047,6 +9983,7 @@ export type VersionUpstreamProjectQuery = {
 
 export type VersionQueryVariables = Exact<{
   id: Scalars["String"]["input"];
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type VersionQuery = {
@@ -10106,7 +10043,6 @@ export type VersionQuery = {
         githash: string;
         projectIdentifier: string;
         status: string;
-        taskCount?: number | null;
         parameters: Array<{
           __typename?: "Parameter";
           key: string;

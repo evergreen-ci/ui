@@ -23,6 +23,8 @@ export const useQueryVariables = (
     [PatchTasksQueryParams.TaskName]: taskName,
     [PatchTasksQueryParams.Statuses]: statuses,
     [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
+    [PatchTasksQueryParams.IncludeNeverActivatedTasks]:
+      includeNeverActivatedTasks,
   } = queryParams;
 
   const sortsToApply: SortOrder[] = sorts
@@ -33,6 +35,8 @@ export const useQueryVariables = (
       })
     : [];
 
+  const isIncludeNeverActivatedTasksDefined =
+    includeNeverActivatedTasks !== undefined;
   return {
     versionId,
     taskFilterOptions: {
@@ -43,6 +47,9 @@ export const useQueryVariables = (
       sorts: sortsToApply,
       limit,
       page,
+      includeNeverActivatedTasks: isIncludeNeverActivatedTasksDefined
+        ? includeNeverActivatedTasks === "true"
+        : undefined,
     },
   };
 };

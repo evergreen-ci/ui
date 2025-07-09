@@ -34,6 +34,10 @@ type Action =
   | { name: "Viewed notification modal" }
   | { name: "Viewed schedule tasks modal" }
   | {
+      name: "Toggled include never activated tasks";
+      include_never_activated_tasks: boolean;
+    }
+  | {
       name: "Clicked restart tasks button";
       abort: boolean;
       "task.modified_count": number;
@@ -65,7 +69,7 @@ export const useVersionAnalytics = (id: string) => {
     VERSION,
     {
       skip: !id,
-      variables: { id },
+      variables: { id, includeNeverActivatedTasks: false },
       fetchPolicy: "cache-first",
     },
   );
