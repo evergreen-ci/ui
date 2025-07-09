@@ -13,7 +13,7 @@ describe("feature flags", () => {
     );
 
     // Services section.
-    cy.get('input[name="Dispatch tasks"][data-label="Enabled"').as(
+    cy.get('input[name="Dispatch tasks"][data-label="Enabled"]').as(
       "servicesRadio",
     );
     cy.get("@servicesRadio").scrollIntoView();
@@ -21,15 +21,15 @@ describe("feature flags", () => {
     cy.get("@servicesRadio").click({ force: true });
 
     //  Notifications section.
-    cy.get('input[name="Process notification events"][data-label="Enabled"').as(
-      "notificationsRadio",
-    );
+    cy.get(
+      'input[name="Process notification events"][data-label="Enabled"]',
+    ).as("notificationsRadio");
     cy.get("@notificationsRadio").scrollIntoView();
     cy.get("@notificationsRadio").should("not.have.attr", "checked");
     cy.get("@notificationsRadio").click({ force: true });
 
     // Features section.
-    cy.get('input[name="Track GitHub repositories"][data-label="Enabled"').as(
+    cy.get('input[name="Track GitHub repositories"][data-label="Enabled"]').as(
       "featuresRadio",
     );
     cy.get("@featuresRadio").scrollIntoView();
@@ -38,7 +38,7 @@ describe("feature flags", () => {
 
     // Batch Jobs section.
     cy.get(
-      'input[name="Collect background statistics"][data-label="Enabled"',
+      'input[name="Collect background statistics"][data-label="Enabled"]',
     ).as("batchJobsRadio");
     cy.get("@batchJobsRadio").scrollIntoView();
     cy.get("@batchJobsRadio").should("not.have.attr", "checked");
