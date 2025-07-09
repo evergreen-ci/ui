@@ -15,5 +15,5 @@ export type TaskTableInfo = {
   execution: number;
   executionTasksFull?: TaskTableInfo[] | null;
   projectIdentifier?: string | null;
-  reviewed?: number | null;
+  reviewed?: boolean | null;
 };

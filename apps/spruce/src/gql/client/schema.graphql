@@ -2,5 +2,5 @@
 
 # For defining local-only fields
 extend type Task {
-  reviewed: Int
+  reviewed: Boolean
 }

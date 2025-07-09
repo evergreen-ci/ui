@@ -3074,7 +3074,7 @@ export type Task = {
   projectIdentifier?: Maybe<Scalars["String"]["output"]>;
   requester: Scalars["String"]["output"];
   resetWhenFinished: Scalars["Boolean"]["output"];
-  reviewed?: Maybe<Scalars["Int"]["output"]>;
+  reviewed?: Maybe<Scalars["Boolean"]["output"]>;
   revision?: Maybe<Scalars["String"]["output"]>;
   scheduledTime?: Maybe<Scalars["Time"]["output"]>;
   spawnHostLink?: Maybe<Scalars["String"]["output"]>;
@@ -9473,7 +9473,7 @@ export type TaskQuery = {
     priority?: number | null;
     requester: string;
     resetWhenFinished: boolean;
-    reviewed?: number | null;
+    reviewed?: boolean | null;
     spawnHostLink?: string | null;
     startTime?: Date | null;
     status: string;
@@ -9597,7 +9597,7 @@ export type TaskQuery = {
       displayStatus: string;
       execution: number;
       projectIdentifier?: string | null;
-      reviewed?: number | null;
+      reviewed?: boolean | null;
       revision?: string | null;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };
@@ -9992,7 +9992,7 @@ export type VersionTasksQuery = {
         displayStatus: string;
         execution: number;
         projectIdentifier?: string | null;
-        reviewed?: number | null;
+        reviewed?: boolean | null;
         baseTask?: {
           __typename?: "Task";
           id: string;
@@ -10009,7 +10009,7 @@ export type VersionTasksQuery = {
           displayStatus: string;
           execution: number;
           projectIdentifier?: string | null;
-          reviewed?: number | null;
+          reviewed?: boolean | null;
           baseTask?: {
             __typename?: "Task";
             id: string;

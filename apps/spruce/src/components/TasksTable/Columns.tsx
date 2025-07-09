@@ -7,6 +7,7 @@ import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
 import { TreeDataEntry } from "components/TreeSelect";
+import { showTaskReviewUI } from "constants/featureFlags";
 import { getVariantHistoryRoute } from "constants/routes";
 import { TaskSortCategory } from "gql/generated/types";
 import { ReviewedCheckbox } from "./ReviewedCheckbox";
@@ -26,39 +27,17 @@ export const getColumnsTemplate = ({
   showTaskExecutionLabel?: boolean;
   statusOptions?: TreeDataEntry[];
 }): LGColumnDef<TaskTableInfo>[] => [
-  /* {
-    id: "select-col",
-    // accessorKey: "reviewed",
-    header: "Reviewed",
-    enableColumnFilter: false,
-    size: 50,
-    cell: ({ getValue, row, row: { original } }) => {
-      // console.log(original.displayName, row.getIsSelected());
-      console.log(row.getParentRows());
-      return (
-        <ReviewedCheckbox
-          reviewed={getValue() as number}
-          row={row}
-          task={original}
-          taskId={original.id}
-        />
-      );
-    },
-  }, */
-  {
-    header: "Reviewed",
-    accessorKey: "reviewed",
-    enableColumnFilter: false,
-    size: 0,
-    cell: ({ getValue, row, row: { original } }) => (
-      <ReviewedCheckbox
-        reviewed={getValue() as number}
-        row={row}
-        task={original}
-        taskId={original.id}
-      />
-    ),
-  },
+  ...(showTaskReviewUI
+    ? [
+        {
+          header: "Reviewed",
+          accessorKey: "reviewed",
+          enableColumnFilter: false,
+          size: 0,
+          cell: ({ row }) => <ReviewedCheckbox row={row} />,
+        } as LGColumnDef<TaskTableInfo>, // This typing can be removed when the feature flag is deleted
+      ]
+    : []),
   {
     header: "Name",
     accessorKey: "displayName",
