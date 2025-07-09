@@ -14,7 +14,6 @@ export interface FeatureFlagsFormState {
       unrecognizedPodCleanupDisabled: boolean;
       cloudCleanupDisabled: boolean;
       taskReliabilityDisabled: boolean;
-      evergreenTestResultsDisabled: boolean;
     };
 
     notifications: {
@@ -47,7 +46,6 @@ export interface FeatureFlagsFormState {
       backgroundStatsDisabled: boolean;
       cacheStatsJobDisabled: boolean;
       cacheStatsEndpointDisabled: boolean;
-      backgroundCleanupDisabled: boolean;
     };
   };
 }

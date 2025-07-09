@@ -1,6 +1,6 @@
 {
   "name": "parsley",
-  "version": "3.0.18",
+  "version": "3.0.21",
   "private": true,
   "type": "module",
   "scripts": {
@@ -15,7 +15,7 @@
     "build:profiler:staging": "PROFILER=true PROFILE_HEAD=\"<script src=\"https://localhost:8097\"></script>\" yarn build:staging",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf node_modules && rm -rf build && yarn install",
-    "codegen": "graphql-codegen --config codegen.ts",
+    "codegen": "graphql-codegen --config graphql.config.ts",
     "cy:open": "yarn evg-db-ops --reseed-and-dump; cypress open --config baseUrl=http://localhost:5173",
     "cy:run": "yarn evg-db-ops --reseed-and-dump; cypress run",
     "deploy:beta": "env-cmd -e beta yarn deploy-utils-deploy",
@@ -72,8 +72,8 @@
     "@leafygreen-ui/toggle": "^10.0.4",
     "@leafygreen-ui/tooltip": "^11.1.0",
     "@leafygreen-ui/typography": "^19.0.0",
-    "@sentry/react": "9.33.0",
-    "@sentry/types": "9.33.0",
+    "@sentry/react": "9.35.0",
+    "@sentry/types": "9.35.0",
     "ansi_up": "6.0.6",
     "graphql": "16.10.0",
     "html-react-parser": "3.0.6",

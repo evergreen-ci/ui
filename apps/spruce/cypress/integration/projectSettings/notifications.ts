@@ -105,10 +105,6 @@ describe("Notifications", () => {
     cy.visit(variantHistoryRoute);
     cy.contains(bannerText).should("be.visible");
 
-    const taskHistoryRoute = "task-history/evergreen/test-cloud";
-    cy.visit(taskHistoryRoute);
-    cy.contains(bannerText).should("be.visible");
-
     // clear banner
     cy.visit(origin);
     cy.dataCy("banner-text").clear();
@@ -130,9 +126,6 @@ describe("Notifications", () => {
     cy.contains(bannerText).should("not.exist");
 
     cy.visit(variantHistoryRoute);
-    cy.contains(bannerText).should("not.exist");
-
-    cy.visit(taskHistoryRoute);
     cy.contains(bannerText).should("not.exist");
   });
 });

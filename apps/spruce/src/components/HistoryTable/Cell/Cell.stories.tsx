@@ -37,7 +37,6 @@ export const LoadingCellStory: CustomStoryObj<typeof LoadingCell> = {
 export const ColumnHeaderCellStory: CustomStoryObj<typeof ColumnHeaderCell> = {
   render: (args) => <ColumnHeaderCell {...args} />,
   args: {
-    link: "https://spruce.mongodb.com",
     trimmedDisplayName: "displayName",
     fullDisplayName: "LongWindedDisplayName",
   },
