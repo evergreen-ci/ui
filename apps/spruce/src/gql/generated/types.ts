@@ -2762,7 +2762,6 @@ export type ServiceFlags = {
   elasticIPsDisabled: Scalars["Boolean"]["output"];
   emailNotificationsDisabled: Scalars["Boolean"]["output"];
   eventProcessingDisabled: Scalars["Boolean"]["output"];
-  evergreenTestResultsDisabled: Scalars["Boolean"]["output"];
   githubPRTestingDisabled: Scalars["Boolean"]["output"];
   githubStatusAPIDisabled: Scalars["Boolean"]["output"];
   hostAllocatorDisabled: Scalars["Boolean"]["output"];
@@ -2803,7 +2802,6 @@ export type ServiceFlagsInput = {
   elasticIPsDisabled: Scalars["Boolean"]["input"];
   emailNotificationsDisabled: Scalars["Boolean"]["input"];
   eventProcessingDisabled: Scalars["Boolean"]["input"];
-  evergreenTestResultsDisabled: Scalars["Boolean"]["input"];
   githubPRTestingDisabled: Scalars["Boolean"]["input"];
   githubStatusAPIDisabled: Scalars["Boolean"]["input"];
   hostAllocatorDisabled: Scalars["Boolean"]["input"];
@@ -3078,6 +3076,7 @@ export type Task = {
   projectIdentifier?: Maybe<Scalars["String"]["output"]>;
   requester: Scalars["String"]["output"];
   resetWhenFinished: Scalars["Boolean"]["output"];
+  reviewed?: Maybe<Scalars["Int"]["output"]>;
   revision?: Maybe<Scalars["String"]["output"]>;
   scheduledTime?: Maybe<Scalars["Time"]["output"]>;
   spawnHostLink?: Maybe<Scalars["String"]["output"]>;
@@ -5828,7 +5827,6 @@ export type SaveAdminSettingsMutation = {
       elasticIPsDisabled: boolean;
       emailNotificationsDisabled: boolean;
       eventProcessingDisabled: boolean;
-      evergreenTestResultsDisabled: boolean;
       githubPRTestingDisabled: boolean;
       githubStatusAPIDisabled: boolean;
       hostAllocatorDisabled: boolean;
@@ -6220,7 +6218,6 @@ export type AdminSettingsQuery = {
       elasticIPsDisabled: boolean;
       emailNotificationsDisabled: boolean;
       eventProcessingDisabled: boolean;
-      evergreenTestResultsDisabled: boolean;
       githubPRTestingDisabled: boolean;
       githubStatusAPIDisabled: boolean;
       hostAllocatorDisabled: boolean;
@@ -9494,6 +9491,7 @@ export type TaskQuery = {
     priority?: number | null;
     requester: string;
     resetWhenFinished: boolean;
+    reviewed?: number | null;
     spawnHostLink?: string | null;
     startTime?: Date | null;
     status: string;
@@ -9617,6 +9615,7 @@ export type TaskQuery = {
       displayStatus: string;
       execution: number;
       projectIdentifier?: string | null;
+      reviewed?: number | null;
       revision?: string | null;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };
@@ -10011,6 +10010,7 @@ export type VersionTasksQuery = {
         displayStatus: string;
         execution: number;
         projectIdentifier?: string | null;
+        reviewed?: number | null;
         baseTask?: {
           __typename?: "Task";
           id: string;
@@ -10027,6 +10027,7 @@ export type VersionTasksQuery = {
           displayStatus: string;
           execution: number;
           projectIdentifier?: string | null;
+          reviewed?: number | null;
           baseTask?: {
             __typename?: "Task";
             id: string;

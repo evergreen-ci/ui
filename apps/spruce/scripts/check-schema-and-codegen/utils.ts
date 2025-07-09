@@ -3,7 +3,7 @@ import { execSync } from "child_process";
 import fs from "fs";
 import os from "os";
 import process from "process";
-import { getConfig } from "../../codegen";
+import { getConfig } from "../../graphql.config";
 
 const GITHUB_API = "https://api.github.com";
 const GQL_DIR = "graphql/schema";

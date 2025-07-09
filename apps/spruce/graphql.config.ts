@@ -32,7 +32,7 @@ export const getConfig = ({
     ],
   },
   overwrite: true,
-  schema: "sdlschema/**/*.graphql",
+  schema: ["sdlschema/**/*.graphql", "src/gql/client/schema.graphql"],
   silent,
 });
 
