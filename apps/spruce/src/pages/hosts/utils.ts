@@ -4,7 +4,7 @@ import {
   HostsQueryVariables,
   SortDirection,
 } from "gql/generated/types";
-import usePagination from "hooks/usePagination";
+import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
 import { mapQueryParamToId } from "types/host";
 import { parseSortString } from "utils/queryString";

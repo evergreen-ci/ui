@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { PatchesInput } from "gql/generated/types";
-import usePagination from "hooks/usePagination";
+import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
 import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
 

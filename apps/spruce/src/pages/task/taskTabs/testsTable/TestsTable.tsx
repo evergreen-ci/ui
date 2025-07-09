@@ -13,10 +13,11 @@ import {
   onChangeHandler,
   TableControl,
 } from "@evg-ui/lib/components/Table";
+import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { useTaskAnalytics } from "analytics";
 import { ALL_VALUE } from "components/TreeSelect";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { PaginationQueryParams, TableQueryParams } from "constants/queryParams";
+import { TableQueryParams } from "constants/queryParams";
 import {
   TaskTestsQuery,
   TaskTestsQueryVariables,

@@ -2,6 +2,8 @@ import { useMemo, useState } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
+import Pagination from "components/Pagination";
+import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
 import {
   useLeafyGreenTable,
   LGColumnDef,
@@ -11,14 +13,12 @@ import {
   onChangeHandler,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
+import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
-import PageSizeSelector from "components/PageSizeSelector";
-import Pagination from "components/Pagination";
 import { ALL_VALUE } from "components/TreeSelect";
 import { HostEventsQuery, HostEventType } from "gql/generated/types";
 import { useDateFormat } from "hooks";
-import usePagination from "hooks/usePagination";
 import { useQueryParams } from "hooks/useQueryParam";
 import { HostCard } from "pages/host/HostCard";
 import HostEventString, {

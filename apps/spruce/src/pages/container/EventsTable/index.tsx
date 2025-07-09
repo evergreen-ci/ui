@@ -2,7 +2,9 @@ import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
+import Pagination from "components/Pagination";
 import { useParams } from "react-router-dom";
+import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
 import {
   useLeafyGreenTable,
   LGColumnDef,
@@ -10,15 +12,13 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import PageSizeSelector from "components/PageSizeSelector";
-import Pagination from "components/Pagination";
 import { SiderCard, TableControlInnerRow } from "components/styles";
 import { slugs } from "constants/routes";
 import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
 import { POD_EVENTS } from "gql/queries";
 import { useDateFormat } from "hooks";
-import usePagination from "hooks/usePagination";
 import { EventCopy } from "./EventCopy";
 
 type ContainerEvent = Unpacked<

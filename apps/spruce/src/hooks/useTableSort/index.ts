@@ -1,5 +1,6 @@
 import { SortingState } from "@leafygreen-ui/table";
-import { TableQueryParams, PaginationQueryParams } from "constants/queryParams";
+import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
+import { TableQueryParams } from "constants/queryParams";
 import { SortDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
 import { getSortString } from "utils/queryString";

@@ -1,7 +1,7 @@
 import { MemoryRouter } from "react-router-dom";
-import { renderHook, act } from "@evg-ui/lib/test_utils";
-import { RECENT_PAGE_SIZE_KEY } from "constants/index";
-import { getDefaultPageSize } from "utils/url";
+import { renderHook, act } from "test_utils";
+import { RECENT_PAGE_SIZE_KEY } from "../../constants/pagination";
+import { getDefaultPageSize } from "../../utils/pagination";
 import usePagination from "./index";
 
 describe("usePagination", () => {

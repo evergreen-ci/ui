@@ -27,7 +27,7 @@ import {
   HostEventType,
 } from "gql/generated/types";
 import { HOST, HOST_EVENTS } from "gql/queries/index";
-import usePagination from "hooks/usePagination";
+import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
 import { HostStatus } from "types/host";
 import { HostQueryParams } from "./constants";

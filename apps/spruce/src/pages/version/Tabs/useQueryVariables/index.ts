@@ -1,10 +1,10 @@
+import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { TableQueryParams } from "constants/queryParams";
 import {
   VersionTasksQueryVariables,
   SortOrder,
   TaskSortCategory,
 } from "gql/generated/types";
-import usePagination from "hooks/usePagination";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString, array } from "utils";
 

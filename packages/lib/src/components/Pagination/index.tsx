@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
-import usePagination from "hooks/usePagination";
+import { size } from "../../constants/tokens";
+import usePagination from "../../hooks/usePagination";
+import Icon from "../Icon";
 
 interface Props {
   currentPage: number;

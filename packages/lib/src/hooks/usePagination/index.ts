@@ -1,8 +1,10 @@
 import { useCallback } from "react";
-import { RECENT_PAGE_SIZE_KEY } from "constants/index";
-import { PaginationQueryParams } from "constants/queryParams";
-import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
-import { getDefaultPageSize } from "utils/url";
+import {
+  RECENT_PAGE_SIZE_KEY,
+  PaginationQueryParams,
+} from "../../constants/pagination";
+import { useQueryParam, useQueryParams } from "../../hooks/useQueryParam";
+import { getDefaultPageSize } from "../../utils/pagination";
 
 /**
  * `usePagination` is a hook that manages the page and page size query params
