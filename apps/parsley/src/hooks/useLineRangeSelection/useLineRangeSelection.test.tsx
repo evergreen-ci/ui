@@ -1,7 +1,7 @@
 import { MemoryRouter } from "react-router-dom";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { QueryParams } from "constants/queryParams";
-import { useQueryParams } from "hooks/useQueryParam";
 import useLineRangeSelection from ".";
 
 const useLineRangeSelectionJointHook = () => {

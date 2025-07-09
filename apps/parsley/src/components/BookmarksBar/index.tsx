@@ -6,9 +6,9 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useLogWindowAnalytics } from "analytics";
 import { QueryParams } from "constants/queryParams";
-import { useQueryParam } from "hooks/useQueryParam";
 
 const { gray, green, red } = palette;
 

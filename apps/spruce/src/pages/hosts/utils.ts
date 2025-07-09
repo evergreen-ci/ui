@@ -1,11 +1,11 @@
 import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import {
   HostSortBy,
   HostsQueryVariables,
   SortDirection,
 } from "gql/generated/types";
 import usePagination from "hooks/usePagination";
-import { useQueryParam } from "hooks/useQueryParam";
 import { mapQueryParamToId } from "types/host";
 import { parseSortString } from "utils/queryString";
 import { HostsQueryParams } from "./constants";

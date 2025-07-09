@@ -1,7 +1,7 @@
 import { AnsiUp } from "ansi_up";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import BaseRow from "components/LogRow/BaseRow";
 import { QueryParams } from "constants/queryParams";
-import { useQueryParam } from "hooks/useQueryParam";
 import { formatPrettyPrint } from "utils/prettyPrint";
 import { LogLineRow } from "../types";
 

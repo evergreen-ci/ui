@@ -1,13 +1,13 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import {
   TaskNamesForBuildVariantQuery,
   TaskNamesForBuildVariantQueryVariables,
 } from "gql/generated/types";
 import { TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
-import { useQueryParam } from "hooks/useQueryParam";
 import { HistoryQueryParams } from "types/history";
 
 interface TaskSelectorProps {

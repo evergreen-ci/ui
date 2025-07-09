@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import styled from "@emotion/styled";
+import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
 import { DateFilter } from "components/DateFilter";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
-import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { BuildVariantFilter } from "./BuildVariantFilter";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
 import { PaginationButtons } from "./PaginationButtons";

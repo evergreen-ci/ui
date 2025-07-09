@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { QueryParams } from "constants/queryParams";
-import { useQueryParams } from "hooks/useQueryParam";
 
 /**
  * `useHighlightParam` is a specialized form of useQueryParam. It needs to encode and decode the highlights

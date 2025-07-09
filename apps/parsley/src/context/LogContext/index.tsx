@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import Cookie from "js-cookie";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { PaginatedVirtualListRef } from "components/PaginatedVirtualList/types";
 import {
   CASE_SENSITIVE,
@@ -28,7 +29,6 @@ import {
 import { QueryParams } from "constants/queryParams";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useOpenSectionAndScrollToLine } from "hooks/useOpenSectionAndScrollToLine";
-import { useQueryParam } from "hooks/useQueryParam";
 import { UseSectionsResult, useSections } from "hooks/useSections";
 import { ExpandedLines, ProcessedLogLines } from "types/logs";
 import filterLogs from "utils/filterLogs";

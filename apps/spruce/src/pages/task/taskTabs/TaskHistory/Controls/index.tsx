@@ -8,10 +8,10 @@ import { Size } from "@leafygreen-ui/tokens";
 import { Subtitle } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useTaskHistoryAnalytics } from "analytics";
 import { DateFilter } from "components/DateFilter";
 import { TASK_HISTORY_INACTIVE_COMMITS_VIEW } from "constants/cookies";
-import { useQueryParams } from "hooks/useQueryParam";
 import {
   walkthroughDateFilterProps,
   walkthroughJumpButtonProps,

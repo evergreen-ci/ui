@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
@@ -18,7 +19,6 @@ import {
 import { PROJECT_FILTERS } from "gql/queries";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useHighlightParam } from "hooks/useHighlightParam";
-import { useQueryParams } from "hooks/useQueryParam";
 import { useSearchHistory } from "hooks/useSearchHistory";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { stringifyFilters } from "utils/query-string";

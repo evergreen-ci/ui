@@ -2,13 +2,13 @@ import { useState } from "react";
 import Button from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";
 import { usePreferencesAnalytics } from "analytics";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
-import { useQueryParam } from "hooks/useQueryParam";
 import { getJiraFormat } from "utils/string";
 import { DetailRow } from "../styles";
 
