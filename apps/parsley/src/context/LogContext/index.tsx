@@ -26,7 +26,7 @@ import {
   LogTypes,
   WordWrapFormat,
 } from "constants/enums";
-import { QueryParams } from "constants/queryParams";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useOpenSectionAndScrollToLine } from "hooks/useOpenSectionAndScrollToLine";
 import { UseSectionsResult, useSections } from "hooks/useSections";
@@ -97,15 +97,25 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   initialLogLines,
 }) => {
   const [filters] = useFilterParam();
-  const [bookmarks] = useQueryParam<number[]>(QueryParams.Bookmarks, []);
+  const [bookmarks] = useQueryParam<number[]>(
+    QueryParams.Bookmarks,
+    [],
+    urlParseOptions,
+  );
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
+    urlParseOptions,
   );
-  const [lowerRange] = useQueryParam(QueryParams.LowerRange, 0);
+  const [lowerRange] = useQueryParam(
+    QueryParams.LowerRange,
+    0,
+    urlParseOptions,
+  );
   const [upperRange] = useQueryParam<undefined | number>(
     QueryParams.UpperRange,
     undefined,
+    urlParseOptions,
   );
 
   // Wrap and pretty print settings are evaluated after the logs have initially rendered - see LogPane component.
@@ -114,10 +124,12 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   const [filterLogic, setFilterLogic] = useQueryParam(
     QueryParams.FilterLogic,
     (Cookie.get(FILTER_LOGIC) as FilterLogic) ?? FilterLogic.And,
+    urlParseOptions,
   );
   const [expandableRows, setExpandableRows] = useQueryParam(
     QueryParams.Expandable,
     Cookie.get(EXPANDABLE_ROWS) ? Cookie.get(EXPANDABLE_ROWS) === "true" : true,
+    urlParseOptions,
   );
   const [zebraStriping, setZebraStriping] = useState(
     Cookie.get(ZEBRA_STRIPING) === "true",

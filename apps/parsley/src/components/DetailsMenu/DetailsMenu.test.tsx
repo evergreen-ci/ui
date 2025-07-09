@@ -7,7 +7,7 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
-import { QueryParams } from "constants/queryParams";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import DetailsMenu from ".";
@@ -22,6 +22,7 @@ const renderDetailsMenu = () => {
     useQueryParam: useQueryParam<number | undefined>(
       QueryParams.UpperRange,
       undefined,
+      urlParseOptions,
     ),
   });
   const { Component: DetailsMenuComponent, hook } = renderComponentWithHook(

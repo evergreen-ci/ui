@@ -2,11 +2,12 @@ import { MemoryRouter, useLocation } from "react-router-dom";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { CaseSensitivity, MatchType } from "constants/enums";
+import { urlParseOptions } from "constants/queryParams";
 import { useFilterParam } from ".";
 
 const useFilterJointHook = () => {
   const [filters, setFilters] = useFilterParam();
-  const [allQueryParams] = useQueryParams();
+  const [allQueryParams] = useQueryParams(urlParseOptions);
   return { allQueryParams, filters, setFilters };
 };
 

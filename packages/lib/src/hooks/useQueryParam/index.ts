@@ -4,22 +4,16 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { conditionalToArray } from "../../utils/array";
 import { parseQueryString, stringifyQuery } from "../../utils/query-string";
 
-const defaultParseOptions: ParseOptions = {
-  arrayFormat: "comma",
-  parseBooleans: true,
-  parseNumbers: false,
-};
-
 /**
  * `useQueryParams` returns all of the query params that exist in the url.
  * @param parseOptions - options which define how to parse params from the url (optional)
  * @returns a tuple containing the parsed query params and a function to set the query params
  */
-const useQueryParams = (parseOptions: ParseOptions = defaultParseOptions) => {
+const useQueryParams = (parseOptions: ParseOptions = {}) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const setQueryString = useCallback(
-    (params: { [key: string]: unknown }) => {
+    (params: { [key: string]: any }) => {
       const stringifiedQuery = stringifyQuery(params, {
         skipEmptyString: false,
       });
@@ -47,7 +41,7 @@ const useQueryParams = (parseOptions: ParseOptions = defaultParseOptions) => {
 const useQueryParam = <T>(
   param: string,
   defaultParam: T,
-  parseOptions: ParseOptions = defaultParseOptions,
+  parseOptions: ParseOptions = {},
 ): readonly [T, (set: T) => void] => {
   const [searchParams, setSearchParams] = useQueryParams(parseOptions);
 

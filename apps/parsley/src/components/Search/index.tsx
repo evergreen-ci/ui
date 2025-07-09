@@ -10,7 +10,7 @@ import SearchBar from "components/Search/SearchBar";
 import SearchBarGuideCue from "components/Search/SearchBarGuideCue";
 import SearchResults from "components/Search/SearchResults";
 import { CaseSensitivity, MatchType, SearchBarActions } from "constants/enums";
-import { QueryParams } from "constants/queryParams";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import {
   ProjectFiltersQuery,
@@ -30,7 +30,7 @@ const Search: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [filters, setFilters] = useFilterParam();
   const [highlights, setHighlights] = useHighlightParam();
-  const [searchParams, setSearchParams] = useQueryParams();
+  const [searchParams, setSearchParams] = useQueryParams(urlParseOptions);
   const {
     hasLogs,
     logMetadata,

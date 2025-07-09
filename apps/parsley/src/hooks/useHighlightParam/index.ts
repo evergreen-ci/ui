@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { conditionalToArray } from "@evg-ui/lib/utils/array";
-import { QueryParams } from "constants/queryParams";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 
 /**
  * `useHighlightParam` is a specialized form of useQueryParam. It needs to encode and decode the highlights
@@ -9,7 +9,7 @@ import { QueryParams } from "constants/queryParams";
  * @returns a tuple containing the parsed highlights and a function to set the highlights
  */
 const useHighlightParam = () => {
-  const [searchParams, setSearchParams] = useQueryParams();
+  const [searchParams, setSearchParams] = useQueryParams(urlParseOptions);
 
   const parsedHighlights = useMemo(
     () =>

@@ -1,5 +1,5 @@
 import { useQueryParam } from "@evg-ui/lib/hooks";
-import { QueryParams } from "constants/queryParams";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { SelectedLineRange } from "types/logs";
 import { encodeSelectedLineRange, parseSelectedLineRange } from "./utils";
 
@@ -9,7 +9,7 @@ const useLineRangeSelection = (): readonly [
 ] => {
   const [selectedLineRange, setSelectedLineRange] = useQueryParam<
     string | undefined
-  >(QueryParams.SelectedLineRange, undefined);
+  >(QueryParams.SelectedLineRange, undefined, urlParseOptions);
 
   const setLineRange = ({ endingLine, startingLine }: SelectedLineRange) => {
     let tempEndingLine = endingLine;
