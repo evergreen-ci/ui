@@ -1,5 +1,5 @@
 import { render, screen, userEvent } from "test_utils";
-import { TreeDataEntry } from "../../BaseTable";
+import { TreeDataEntry } from "../../../TreeSelect";
 import TableFilterPopover from ".";
 
 const options: TreeDataEntry[] = [

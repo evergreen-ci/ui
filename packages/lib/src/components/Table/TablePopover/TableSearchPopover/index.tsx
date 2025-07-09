@@ -4,6 +4,10 @@ import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import Popover, { Align, Justify } from "@leafygreen-ui/popover";
+import {
+  SearchInput,
+  Size as SearchInputSize,
+} from "@leafygreen-ui/search-input";
 import { Description } from "@leafygreen-ui/typography";
 import { size } from "../../../../constants/tokens";
 import { useOnClickOutside } from "../../../../hooks";
@@ -22,7 +26,7 @@ interface TableSearchPopoverProps {
 const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   "data-cy": dataCy,
   onConfirm,
-  placeholder = "Search",
+  placeholder,
   value,
 }) => {
   const [input, setInput] = useState(value);
@@ -72,21 +76,14 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
         <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
           <InputContainer>
             <Description>Press enter to filter.</Description>
-            <input
+            <SearchInput
               ref={(el) => setInputRef(el)}
               aria-label="Search table"
-              aria-labelledby="search-input-label"
               data-cy={`${dataCy}-input-filter`}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && onEnter()}
               placeholder={placeholder}
-              style={{
-                padding: "8px 12px",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-                fontSize: "14px",
-                width: "100%",
-              }}
+              size={SearchInputSize.Small}
               value={input}
             />
           </InputContainer>

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "../../../constants/tokens";
 
 interface Props {
   onClickReset: () => void;

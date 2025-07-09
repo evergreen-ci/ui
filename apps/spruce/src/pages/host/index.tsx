@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Code from "@leafygreen-ui/code";
 import { useParams } from "react-router-dom";
+import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -19,7 +20,6 @@ import {
   PageLayout,
   PageContent,
 } from "components/styles";
-import { ALL_VALUE } from "components/TreeSelect";
 import { slugs } from "constants/routes";
 import {
   HostQuery,

@@ -1,4 +1,4 @@
-import React, { ForwardedRef, forwardRef, Fragment } from "react";
+import { ForwardedRef, forwardRef, Fragment } from "react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
 import Pagination from "@leafygreen-ui/pagination";
@@ -23,20 +23,11 @@ import {
   Header,
   LGTableDataType,
 } from "@leafygreen-ui/table";
-import { size, tableColumnOffset } from "../../constants/tokens";
+import { tableColumnOffset, size } from "../../constants/tokens";
+import { TreeDataEntry } from "../TreeSelect";
 import TableLoader from "./TableLoader";
 import TableFilterPopover from "./TablePopover/TableFilterPopover";
-
-export interface TreeDataEntry {
-  title: string;
-  value: string;
-  key: string;
-  children?: Array<{
-    title: string;
-    value: string;
-    key: string;
-  }>;
-}
+import TableSearchPopover from "./TablePopover/TableSearchPopover";
 
 const { gray } = palette;
 
@@ -197,11 +188,11 @@ const TableHeaderCell = <T extends LGRowData>({
 }) => {
   const { columnDef } = header.column ?? {};
   const { meta } = columnDef;
-  const HeaderCellComponent = HeaderCell as any;
   return (
-    <HeaderCellComponent
+    <HeaderCell
       key={header.id}
       header={header}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       style={meta?.width && { width: columnDef?.meta?.width }}
     >
       {flexRender(columnDef.header, header.getContext())}
@@ -225,8 +216,20 @@ const TableHeaderCell = <T extends LGRowData>({
             }
             value={(header?.column?.getFilterValue() as string[]) ?? []}
           />
-        ) : null)}
-    </HeaderCellComponent>
+        ) : (
+          <TableSearchPopover
+            data-cy={meta?.search?.["data-cy"]}
+            onConfirm={(value) => {
+              header.column.setFilterValue(value);
+              if (usePagination) {
+                table.firstPage();
+              }
+            }}
+            placeholder={meta?.search?.placeholder}
+            value={(header?.column?.getFilterValue() as string) ?? ""}
+          />
+        ))}
+    </HeaderCell>
   );
 };
 
@@ -252,54 +255,51 @@ const RenderableRow = <T extends LGRowData>({
   row: LeafyGreenTableRow<T>;
   virtualRow?: VirtualItem;
   isSelected?: boolean;
-}) => {
-  const RowComponent = Row as any;
-  const CellComponent = Cell as any;
-  return (
-    <Fragment key={row.id}>
-      {!row.isExpandedContent && (
-        <RowComponent
-          className={css`
-            ${isSelected &&
-            `
-             background-color: ${blue.light3} !important;
-             font-weight:bold;
-             `}
-          `}
-          data-cy={dataCyRow}
-          data-index={row.index}
-          data-selected={isSelected}
-          row={row}
-          virtualRow={virtualRow}
-        >
-          {row.getVisibleCells().map((cell) => (
-            <CellComponent
-              key={cell.id}
-              cell={cell}
-              className={cellStyle}
-              style={cellPaddingStyle}
-            >
-              {flexRender(cell.column.columnDef.cell, cell.getContext())}
-            </CellComponent>
-          ))}
-        </RowComponent>
-      )}
-      {row.isExpandedContent && <StyledExpandedContent row={row} />}
-    </Fragment>
-  );
-};
+}) => (
+  <Fragment key={row.id}>
+    {!row.isExpandedContent && (
+      <Row
+        className={css`
+          ${isSelected &&
+          `
+           background-color: ${blue.light3} !important;
+           font-weight:bold;
+           `}
+        `}
+        data-cy={dataCyRow}
+        data-index={row.index}
+        data-selected={isSelected}
+        row={row}
+        virtualRow={virtualRow}
+      >
+        {row.getVisibleCells().map((cell) => (
+          <Cell
+            key={cell.id}
+            cell={cell}
+            className={cellStyle}
+            style={cellPaddingStyle}
+          >
+            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+          </Cell>
+        ))}
+      </Row>
+    )}
+    {row.isExpandedContent && <StyledExpandedContent row={row} />}
+  </Fragment>
+);
 
 const DefaultEmptyMessage = styled.div`
   margin-top: ${size.s};
   margin-left: ${tableColumnOffset};
 `;
 
-const StyledExpandedContent = styled(ExpandedContent as any)`
+// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of ExpandedContent.
+const StyledExpandedContent = styled(ExpandedContent)`
   > td {
     padding: ${size.xs} 0;
     background-color: ${gray.light3};
   }
-` as any;
+` as typeof ExpandedContent;
 
 const StyledPagination = styled(Pagination)`
   margin-top: ${size.xs};
