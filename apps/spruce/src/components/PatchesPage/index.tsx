@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import Pagination from "components/Pagination";
 import Cookies from "js-cookie";
 import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
+import Pagination from "@evg-ui/lib/components/Pagination";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";

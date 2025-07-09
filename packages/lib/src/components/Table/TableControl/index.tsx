@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import Pagination from "components/Pagination";
-import { ResultCountLabel } from "components/ResultCountLabel";
-import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { size } from "../../../constants/tokens";
 import usePagination from "../../../hooks/usePagination";
 import PageSizeSelector from "../../PageSizeSelector";
+import Pagination from "../../Pagination";
+import { ResultCountLabel } from "./ResultCountLabel";
+import { TableControlOuterRow, TableControlInnerRow } from "./styles";
 
 interface Props {
   filteredCount: number;
