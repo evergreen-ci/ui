@@ -6391,20 +6391,6 @@ export type BuildVariantStatsQuery = {
   };
 };
 
-export type BuildVariantsForTaskNameQueryVariables = Exact<{
-  projectIdentifier: Scalars["String"]["input"];
-  taskName: Scalars["String"]["input"];
-}>;
-
-export type BuildVariantsForTaskNameQuery = {
-  __typename?: "Query";
-  buildVariantsForTaskName?: Array<{
-    __typename?: "BuildVariantTuple";
-    buildVariant: string;
-    displayName: string;
-  }> | null;
-};
-
 export type BuildVariantsWithChildrenQueryVariables = Exact<{
   id: Scalars["String"]["input"];
   statuses: Array<Scalars["String"]["input"]>;
