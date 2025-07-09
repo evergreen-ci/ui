@@ -30,6 +30,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   const showLabel = uiSchema["ui:showLabel"] ?? true;
   const fieldDataCy = uiSchema["ui:field-data-cy"];
   const descriptionNode = uiSchema["ui:descriptionNode"];
+  const fieldCss = uiSchema["ui:fieldCss"];
   const errors = uiSchema["ui:errors"] ?? (rawErrors?.length ? rawErrors : []);
   const warnings: NonNullable<SpruceWidgetProps["options"]["warnings"]> =
     uiSchema["ui:warnings"] ?? [];
@@ -60,6 +61,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
         <DefaultFieldContainer
           border={border}
           className={classNames}
+          css={fieldCss}
           data-cy={fieldDataCy}
           id={`${sectionId} ${id}`}
         >
