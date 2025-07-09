@@ -5,6 +5,7 @@ import { Body, BodyProps, H2 } from "@leafygreen-ui/typography";
 import { useLocation } from "react-router-dom";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -17,7 +18,6 @@ import {
 } from "gql/generated/types";
 import { VERSION_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
-import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import { useQueryVariables } from "../useQueryVariables";
 import {

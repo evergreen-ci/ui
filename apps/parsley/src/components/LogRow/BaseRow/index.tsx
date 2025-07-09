@@ -4,11 +4,11 @@ import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useLogWindowAnalytics } from "analytics";
 import { WordWrapFormat } from "constants/enums";
-import { QueryParams } from "constants/queryParams";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
-import { useQueryParam } from "hooks/useQueryParam";
 import { LogLineRow } from "../types";
 import { isLineInRange } from "../utils";
 import Highlighter from "./Highlighter";
@@ -63,11 +63,13 @@ const BaseRow: React.FC<BaseRowProps> = ({
   const [shareLine, setShareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
+    urlParseOptions,
   );
 
   const [bookmarks, setBookmarks] = useQueryParam<number[]>(
     QueryParams.Bookmarks,
     [],
+    urlParseOptions,
   );
   const inRange = isLineInRange(range, lineNumber);
 

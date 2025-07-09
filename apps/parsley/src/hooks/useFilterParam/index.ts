@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { conditionalToArray } from "@evg-ui/lib/utils/array";
-import { QueryParams } from "constants/queryParams";
-import { useQueryParams } from "hooks/useQueryParam";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { Filters } from "types/logs";
 import { parseFilters, stringifyFilters } from "utils/query-string";
 
@@ -11,7 +11,7 @@ import { parseFilters, stringifyFilters } from "utils/query-string";
  * @returns a tuple containing the parsed filters and a function to set the filters
  */
 const useFilterParam = (): [Filters, (filters: Filters) => void] => {
-  const [searchParams, setSearchParams] = useQueryParams();
+  const [searchParams, setSearchParams] = useQueryParams(urlParseOptions);
 
   const filtersParam = searchParams[QueryParams.Filters];
   const restParams = useMemo(() => {

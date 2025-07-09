@@ -5,6 +5,7 @@ import {
   ColumnFiltersState,
   SortingState,
 } from "@leafygreen-ui/table";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";
@@ -16,7 +17,6 @@ import { TaskTableInfo } from "components/TasksTable/types";
 import { TableQueryParams } from "constants/queryParams";
 import { TaskSortCategory, SortDirection } from "gql/generated/types";
 import { useTaskStatuses, useTableSort } from "hooks";
-import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import { parseSortString } from "utils/queryString";
 import {

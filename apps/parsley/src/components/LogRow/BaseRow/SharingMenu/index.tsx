@@ -5,12 +5,12 @@ import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";
 import { useLogWindowAnalytics } from "analytics";
-import { QueryParams } from "constants/queryParams";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
-import { useQueryParams } from "hooks/useQueryParam";
 import { getJiraFormat } from "utils/string";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
@@ -22,7 +22,7 @@ const SharingMenu: React.FC = () => {
     setOpenMenu: setOpen,
   } = useMultiLineSelectContext();
   const { getLine, isUploadedLog, processedLogLines } = useLogContext();
-  const [params, setParams] = useQueryParams();
+  const [params, setParams] = useQueryParams(urlParseOptions);
   const dispatchToast = useToastContext();
   const { sendEvent } = useLogWindowAnalytics();
   const setMenuOpen = () => {

@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import MetadataCard from "components/MetadataCard";
 import { navBarHeight } from "components/styles/Layout";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -10,7 +11,6 @@ import {
 } from "gql/generated/types";
 import { BUILD_VARIANTS_STATS } from "gql/queries";
 import { usePolling } from "hooks";
-import { useQueryParam } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import VariantTaskGroup from "./VariantTaskGroup";
 

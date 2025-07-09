@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
-import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { Pagination, WaterfallFilterOptions } from "../types";
 
 interface PaginationButtonsProps {

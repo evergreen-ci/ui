@@ -1,19 +1,15 @@
 import { useCallback, useMemo } from "react";
 import { ParseOptions } from "query-string";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { conditionalToArray } from "@evg-ui/lib/utils/array";
-import {
-  parseQueryString,
-  stringifyQuery,
-} from "@evg-ui/lib/utils/query-string";
-import { QueryParams, urlParseOptions } from "constants/queryParams";
+import { conditionalToArray } from "../../utils/array";
+import { parseQueryString, stringifyQuery } from "../../utils/query-string";
 
 /**
  * `useQueryParams` returns all of the query params that exist in the url.
  * @param parseOptions - options which define how to parse params from the url (optional)
  * @returns a tuple containing the parsed query params and a function to set the query params
  */
-const useQueryParams = (parseOptions: ParseOptions = urlParseOptions) => {
+const useQueryParams = (parseOptions: ParseOptions = {}) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const setQueryString = useCallback(
@@ -43,9 +39,9 @@ const useQueryParams = (parseOptions: ParseOptions = urlParseOptions) => {
  * @returns a tuple containing the parsed query param and a function to set the query param
  */
 const useQueryParam = <T>(
-  param: QueryParams,
+  param: string,
   defaultParam: T,
-  parseOptions: ParseOptions = urlParseOptions,
+  parseOptions: ParseOptions = {},
 ): readonly [T, (set: T) => void] => {
   const [searchParams, setSearchParams] = useQueryParams(parseOptions);
 
