@@ -1,6 +1,6 @@
 import { useMemo } from "react";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { useQueryParam } from "hooks/useQueryParam";
 import { VERSION_LIMIT } from "./constants";
 import {
   Build,

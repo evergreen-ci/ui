@@ -6,6 +6,7 @@ import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { TableQueryParams } from "constants/queryParams";
@@ -17,7 +18,6 @@ import {
 } from "gql/generated/types";
 import { VERSION_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
-import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import { parseQueryString } from "utils/queryString";
 import { useQueryVariables } from "../useQueryVariables";

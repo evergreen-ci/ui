@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { QueryParams } from "constants/queryParams";
-import { useQueryParam } from "hooks/useQueryParam";
+import { useQueryParam } from "@evg-ui/lib/hooks";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { DetailRow, DetailsLabel } from "../styles";
 
 const { red } = palette;
@@ -12,10 +12,12 @@ const SearchRangeInput: React.FC = () => {
   const [lowerBound, setLowerBound] = useQueryParam<number | undefined>(
     QueryParams.LowerRange,
     undefined,
+    urlParseOptions,
   );
   const [upperBound, setUpperBound] = useQueryParam<number | undefined>(
     QueryParams.UpperRange,
     undefined,
+    urlParseOptions,
   );
 
   const hasError =

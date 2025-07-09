@@ -10,9 +10,9 @@ import {
   BaseTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { DoesNotExpire } from "components/Spawn";
 import { getSpawnHostRoute } from "constants/routes";
-import { useQueryParam } from "hooks/useQueryParam";
 import { MyVolume, QueryParams, TableVolume } from "types/spawn";
 import { SpawnVolumeCard } from "./SpawnVolumeCard";
 import { SpawnVolumeTableActions } from "./SpawnVolumeTableActions";

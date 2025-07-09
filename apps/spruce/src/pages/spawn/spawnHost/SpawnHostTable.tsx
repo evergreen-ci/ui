@@ -10,9 +10,9 @@ import {
   BaseTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import HostStatusBadge from "components/HostStatusBadge";
 import { DoesNotExpire } from "components/Spawn";
-import { useQueryParam } from "hooks/useQueryParam";
 import { MyHost, QueryParams } from "types/spawn";
 import SpawnHostCard from "./SpawnHostCard";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";

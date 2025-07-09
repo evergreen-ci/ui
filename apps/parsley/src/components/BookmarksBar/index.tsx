@@ -6,9 +6,9 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useLogWindowAnalytics } from "analytics";
-import { QueryParams } from "constants/queryParams";
-import { useQueryParam } from "hooks/useQueryParam";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 
 const { gray, green, red } = palette;
 
@@ -31,10 +31,12 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
+    urlParseOptions,
   );
   const [bookmarks, setBookmarks] = useQueryParam<number[]>(
     QueryParams.Bookmarks,
     [],
+    urlParseOptions,
   );
 
   // Set the initial bookmarks on load.

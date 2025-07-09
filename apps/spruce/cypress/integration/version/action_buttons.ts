@@ -71,7 +71,7 @@ describe("Action Buttons", () => {
     it("Sets priority for multiple tasks when version page table is filtered", () => {
       const priority = 10;
       cy.visit(
-        `${versionPath(mainlineCommit)}/tasks?statuses=failed-umbrella%2Cfailed%2Cknown-issue`,
+        `${versionPath(mainlineCommit)}/tasks?statuses=failed-umbrella,failed,known-issue`,
       );
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");

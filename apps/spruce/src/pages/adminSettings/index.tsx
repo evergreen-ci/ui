@@ -41,7 +41,7 @@ const AdminSettingsPage: React.FC = () => {
             <SideNavGroup header="Announcements">
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-general"
+                data-cy="navitem-admin-announcements"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
                   "announcements",
@@ -90,6 +90,68 @@ const AdminSettingsPage: React.FC = () => {
                 )}
               >
                 Batch Jobs
+              </SideNavItem>
+            </SideNavGroup>
+            <SideNavGroup header="Runners">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-notify"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "notify",
+                )}
+              >
+                Notify
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-task-limits"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "task-limits",
+                )}
+              >
+                Task Limits
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-host-init"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "host-init",
+                )}
+              >
+                Host Init
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-pod-lifecycle"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "pod-lifecycle",
+                )}
+              >
+                Pod Lifecycle
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-scheduler"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "scheduler",
+                )}
+              >
+                Scheduler
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-repotracker"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "repotracker",
+                )}
+              >
+                Repotracker
               </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>

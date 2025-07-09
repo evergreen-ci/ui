@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { useVersionAnalytics } from "analytics";
@@ -8,7 +9,6 @@ import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { getVersionRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { StatusCount } from "gql/generated/types";
-import { useQueryParam } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import { string, statuses } from "utils";
 

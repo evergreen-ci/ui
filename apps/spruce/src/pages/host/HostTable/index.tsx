@@ -13,13 +13,13 @@ import {
   onChangeHandler,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
 import { ALL_VALUE } from "components/TreeSelect";
 import { HostEventsQuery, HostEventType } from "gql/generated/types";
 import { useDateFormat } from "hooks";
-import { useQueryParams } from "hooks/useQueryParam";
 import { HostCard } from "pages/host/HostCard";
 import HostEventString, {
   formatHostFilterOption,

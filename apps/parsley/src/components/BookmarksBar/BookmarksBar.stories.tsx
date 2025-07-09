@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { QueryParams } from "constants/queryParams";
-import { useQueryParams } from "hooks/useQueryParam";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import BookmarksBar from ".";
 
 export default {
@@ -10,7 +10,7 @@ export default {
 } satisfies CustomMeta<typeof BookmarksBar>;
 
 const Story = ({ ...args }: React.ComponentProps<typeof BookmarksBar>) => {
-  const [, setSearchParams] = useQueryParams();
+  const [, setSearchParams] = useQueryParams(urlParseOptions);
 
   useEffect(() => {
     setSearchParams({

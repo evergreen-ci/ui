@@ -14,6 +14,7 @@ import {
   TableControl,
 } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { ALL_VALUE } from "components/TreeSelect";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -29,7 +30,6 @@ import {
 } from "gql/generated/types";
 import { TASK_TESTS } from "gql/queries";
 import { useTableSort, usePolling } from "hooks";
-import { useQueryParams } from "hooks/useQueryParam";
 import {
   RequiredQueryParams,
   mapFilterParamToId,

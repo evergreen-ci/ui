@@ -3,8 +3,8 @@ import {
   RECENT_PAGE_SIZE_KEY,
   PaginationQueryParams,
 } from "../../constants/pagination";
-import { useQueryParam, useQueryParams } from "../../hooks/useQueryParam";
 import { getDefaultPageSize } from "../../utils/pagination";
+import { useQueryParam, useQueryParams } from "../useQueryParam";
 
 /**
  * `usePagination` is a hook that manages the page and page size query params

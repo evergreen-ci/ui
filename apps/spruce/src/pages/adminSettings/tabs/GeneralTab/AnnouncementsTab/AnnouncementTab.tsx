@@ -1,7 +1,7 @@
 import { H2 } from "@leafygreen-ui/typography";
 import { AdminSettingsGeneralSection } from "constants/routes";
 import { BaseTab } from "../../BaseTab";
-import { getFormSchema } from "./formSchema";
+import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
 export const AnnouncementTab: React.FC<TabProps> = ({ announcementsData }) => {

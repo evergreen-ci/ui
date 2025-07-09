@@ -2,6 +2,47 @@ query AdminSettings {
   adminSettings {
     banner
     bannerTheme
+    hostInit {
+      cloudStatusBatchSize
+      hostThrottle
+      maxTotalDynamicHosts
+      provisioningThrottle
+    }
+    notify {
+      ses {
+        senderAddress
+      }
+    }
+    podLifecycle {
+      maxParallelPodRequests
+      maxPodDefinitionCleanupRate
+      maxSecretCleanupRate
+    }
+    repotracker {
+      maxConcurrentRequests
+      maxRepoRevisionsToSearch
+      numNewRepoRevisionsToFetch
+    }
+    scheduler {
+      acceptableHostIdleTimeSeconds
+      cacheDurationSeconds
+      commitQueueFactor
+      expectedRuntimeFactor
+      futureHostFraction
+      generateTaskFactor
+      groupVersions
+      hostAllocator
+      hostAllocatorFeedbackRule
+      hostAllocatorRoundingRule
+      hostsOverallocatedRule
+      mainlineTimeInQueueFactor
+      numDependentsFactor
+      patchFactor
+      patchTimeInQueueFactor
+      stepbackTaskFactor
+      targetTimeSeconds
+      taskFinder
+    }
     serviceFlags {
       adminParameterStoreDisabled
       agentStartDisabled
@@ -39,6 +80,20 @@ query AdminSettings {
       taskReliabilityDisabled
       unrecognizedPodCleanupDisabled
       webhookNotificationsDisabled
+    }
+    taskLimits {
+      maxConcurrentLargeParserProjectTasks
+      maxDailyAutomaticRestarts
+      maxDegradedModeConcurrentLargeParserProjectTasks
+      maxDegradedModeParserProjectSize
+      maxExecTimeoutSecs
+      maxGenerateTaskJSONSize
+      maxHourlyPatchTasks
+      maxIncludesPerVersion
+      maxParserProjectSize
+      maxPendingGeneratedTasks
+      maxTaskExecution
+      maxTasksPerVersion
     }
   }
 }

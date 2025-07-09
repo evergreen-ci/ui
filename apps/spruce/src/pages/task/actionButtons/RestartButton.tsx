@@ -3,6 +3,7 @@ import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import Tooltip, { Align, Justify } from "@leafygreen-ui/tooltip";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { LoadingButton, Size as ButtonSize } from "components/Buttons";
@@ -13,7 +14,6 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { RESTART_TASK } from "gql/mutations";
-import { useQueryParam } from "hooks/useQueryParam";
 
 interface Props {
   isDisplayTask: boolean;

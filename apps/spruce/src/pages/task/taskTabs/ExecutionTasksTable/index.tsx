@@ -8,6 +8,7 @@ import {
   BaseTable,
   onChangeHandler,
 } from "@evg-ui/lib/components/Table";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
@@ -18,7 +19,6 @@ import {
   SortDirection,
 } from "gql/generated/types";
 import { useTableSort } from "hooks";
-import { useQueryParam } from "hooks/useQueryParam";
 import { parseSortString } from "utils/queryString";
 
 const { getDefaultOptions: getDefaultSorting } = RowSorting;

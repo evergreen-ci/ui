@@ -5,11 +5,11 @@ import {
   useMemo,
   useState,
 } from "react";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
-import { QueryParams } from "constants/queryParams";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import useLineRangeSelection from "hooks/useLineRangeSelection";
-import { useQueryParam } from "hooks/useQueryParam";
 
 type MultiLineSelectContextState = {
   handleSelectLine: (selectedLine: number, shiftClick: boolean) => void;
@@ -44,6 +44,7 @@ const MultiLineSelectContextProvider: React.FC<{
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
+    urlParseOptions,
   );
 
   const hasShareLine = shareLine !== undefined;

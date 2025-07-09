@@ -246,7 +246,7 @@ describe("Host events", () => {
 
     it("filter is properly processed from URL", () => {
       cy.visit(
-        `${pathWithEvents}?eventType=HOST_AGENT_DEPLOYED%2CHOST_AGENT_DEPLOY_FAILED`,
+        `${pathWithEvents}?eventType=HOST_AGENT_DEPLOYED,HOST_AGENT_DEPLOY_FAILED`,
       );
       cy.dataCy("event-type-filter").should(
         "have.attr",
