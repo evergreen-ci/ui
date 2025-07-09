@@ -18,7 +18,6 @@ const serviceItems: Record<string, string> = {
   podAllocatorDisabled: "Allocate pods for container tasks",
   unrecognizedPodCleanupDisabled: "Clean up unrecognized pods",
   cloudCleanupDisabled: "Cloud Provider Cleanup",
-  evergreenTestResultsDisabled: "Evergreen Test Results",
 };
 
 const notificationItems: Record<string, string> = {
@@ -51,7 +50,6 @@ const batchJobItems: Record<string, string> = {
   backgroundStatsDisabled: "Collect background statistics",
   cacheStatsJobDisabled: "Cache historical statistics",
   cacheStatsEndpointDisabled: "Cache historical statistics endpoint",
-  backgroundCleanupDisabled: "Background Data Cleanup",
 };
 
 const zebraCSS = css`

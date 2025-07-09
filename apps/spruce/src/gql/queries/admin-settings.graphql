@@ -6,7 +6,6 @@ query AdminSettings {
       adminParameterStoreDisabled
       agentStartDisabled
       alertsDisabled
-      backgroundCleanupDisabled
       backgroundReauthDisabled
       backgroundStatsDisabled
       cacheStatsEndpointDisabled
@@ -18,7 +17,6 @@ query AdminSettings {
       elasticIPsDisabled
       emailNotificationsDisabled
       eventProcessingDisabled
-      evergreenTestResultsDisabled
       githubPRTestingDisabled
       githubStatusAPIDisabled
       hostAllocatorDisabled

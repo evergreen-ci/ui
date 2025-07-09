@@ -2750,7 +2750,6 @@ export type ServiceFlags = {
   adminParameterStoreDisabled: Scalars["Boolean"]["output"];
   agentStartDisabled: Scalars["Boolean"]["output"];
   alertsDisabled: Scalars["Boolean"]["output"];
-  backgroundCleanupDisabled: Scalars["Boolean"]["output"];
   backgroundReauthDisabled: Scalars["Boolean"]["output"];
   backgroundStatsDisabled: Scalars["Boolean"]["output"];
   cacheStatsEndpointDisabled: Scalars["Boolean"]["output"];
@@ -2762,7 +2761,6 @@ export type ServiceFlags = {
   elasticIPsDisabled: Scalars["Boolean"]["output"];
   emailNotificationsDisabled: Scalars["Boolean"]["output"];
   eventProcessingDisabled: Scalars["Boolean"]["output"];
-  evergreenTestResultsDisabled: Scalars["Boolean"]["output"];
   githubPRTestingDisabled: Scalars["Boolean"]["output"];
   githubStatusAPIDisabled: Scalars["Boolean"]["output"];
   hostAllocatorDisabled: Scalars["Boolean"]["output"];
@@ -2791,7 +2789,6 @@ export type ServiceFlagsInput = {
   adminParameterStoreDisabled: Scalars["Boolean"]["input"];
   agentStartDisabled: Scalars["Boolean"]["input"];
   alertsDisabled: Scalars["Boolean"]["input"];
-  backgroundCleanupDisabled: Scalars["Boolean"]["input"];
   backgroundReauthDisabled: Scalars["Boolean"]["input"];
   backgroundStatsDisabled: Scalars["Boolean"]["input"];
   cacheStatsEndpointDisabled: Scalars["Boolean"]["input"];
@@ -2803,7 +2800,6 @@ export type ServiceFlagsInput = {
   elasticIPsDisabled: Scalars["Boolean"]["input"];
   emailNotificationsDisabled: Scalars["Boolean"]["input"];
   eventProcessingDisabled: Scalars["Boolean"]["input"];
-  evergreenTestResultsDisabled: Scalars["Boolean"]["input"];
   githubPRTestingDisabled: Scalars["Boolean"]["input"];
   githubStatusAPIDisabled: Scalars["Boolean"]["input"];
   hostAllocatorDisabled: Scalars["Boolean"]["input"];

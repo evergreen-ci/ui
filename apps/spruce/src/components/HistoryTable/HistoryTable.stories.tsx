@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
 import HistoryTable from "./HistoryTable";
 import { mainlineCommitData } from "./testData";
@@ -13,35 +12,23 @@ export default {
   component: HistoryTable,
 } satisfies CustomMeta<typeof HistoryTable>;
 
-export const TaskHistoryTable: CustomStoryObj<typeof HistoryTable> = {
-  render: () => (
-    <HistoryTableProvider>
-      <HistoryTableWrapper type="task" />
-    </HistoryTableProvider>
-  ),
-};
-
 export const VariantHistoryTable: CustomStoryObj<typeof HistoryTable> = {
   render: () => (
     <HistoryTableProvider>
-      <HistoryTableWrapper type="variant" />
+      <HistoryTableWrapper />
     </HistoryTableProvider>
   ),
 };
 
-interface HistoryTableWrapperProps {
-  type?: "variant" | "task";
-}
-const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
+const HistoryTableWrapper: React.FC = () => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { addColumns, ingestNewCommits } = useHistoryTable();
   const [isLoading, setIsLoading] = useState(false);
   const [oldData, setOldData] = useState(mainlineCommitData);
   const timeoutRef = useRef(null);
   useEffect(() => {
-    const taskColumns = ["ubuntu1604", "race-detector", "lint"];
     const variantColumns = ["Lint", "test-model-distro", "dist"];
-    addColumns(type === "task" ? taskColumns : variantColumns);
+    addColumns(variantColumns);
     ingestNewCommits(mainlineCommitData);
     return () => {
       if (timeoutRef.current) {
@@ -66,7 +53,7 @@ const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
     <div style={{ height: 600, width: "100%", border: "red 1px solid" }}>
       <HistoryTable loading={isLoading} loadMoreItems={loadMore}>
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-        {type === "task" ? TaskHistoryRow : VariantHistoryRow}
+        {VariantHistoryRow}
       </HistoryTable>
     </div>
   );
