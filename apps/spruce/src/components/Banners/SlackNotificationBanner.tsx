@@ -106,7 +106,7 @@ export const SlackNotificationBanner = () => {
           data-cy="slack-username-input"
           label="Slack Username"
           onChange={(e) => setSlackUsername(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && saveNotificationSettings()}
+          onKeyDown={(e) => e.key === "Enter" && saveNotificationSettings()}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           value={slackUsername}
         />

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { action } from "storybook/actions";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import widgets from "components/SpruceForm/Widgets";
-import { ArrayFieldTemplate } from "pages/adminSettings/tabs/FieldTemplates";
 
 import { SpruceForm, SpruceFormContainer } from ".";
 
@@ -240,13 +239,12 @@ const example4Def = {
   },
   uiSchema: {
     testText: {
-      "ui:ArrayFieldTemplate": ArrayFieldTemplate,
       "ui:addButtonText": "add query",
       "ui:placeholder": "No permissions have been added.",
       "ui:showLabel": false,
       "ui:topAlignDelete": true,
+      "ui:widget": widgets.ChipInputWidget,
       items: {
-        "ui:ObjectFieldTemplate": ArrayFieldTemplate,
         value: {
           "ui:widget": widgets.TextWidget,
           "ui:options": {
