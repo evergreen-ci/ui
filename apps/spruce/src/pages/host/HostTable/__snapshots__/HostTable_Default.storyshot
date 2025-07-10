@@ -1,5 +1,3241 @@
 <div>
-  <div>
-    Failed to render component.
+  <div
+    class="emotion-SiderCard ehoeyp90 leafygreen-ui-1ecxdul"
+  >
+    <div
+      class="emotion-TableTitle e1p1q3sw1"
+    >
+      <h6
+        class="leafygreen-ui-19p3n10"
+      >
+        Recent Events
+      </h6>
+      <div
+        class="emotion-PaginationWrapper e1p1q3sw0"
+      >
+        <div
+          class="emotion-Container eoyd9h20"
+          data-cy="pagination"
+        >
+          <button
+            aria-disabled="false"
+            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d emotion-StyledButton eoyd9h22"
+            data-cy="prev-page-button"
+            data-lgid="lg-button"
+            type="button"
+          >
+            <div
+              class="leafygreen-ui-v038xi"
+            />
+            <div
+              class="leafygreen-ui-16tr4y"
+            >
+              <svg
+                aria-label="Chevron Left Icon"
+                class="leafygreen-ui-yk23yl"
+                fill="none"
+                height="14"
+                role="img"
+                viewBox="0 0 16 16"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M10.778 1.636a1 1 0 0 0-1.414 0l-4.95 4.95-.707.707a1 1 0 0 0 0 1.414l.707.707 4.95 4.95a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L7.243 8l4.242-4.243a1 1 0 0 0 0-1.414l-.707-.707Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+          <div
+            class="emotion-PageLabel eoyd9h21"
+          >
+            <small
+              class="leafygreen-ui-6flbwy"
+            >
+              0
+               / 
+              0
+            </small>
+          </div>
+          <button
+            aria-disabled="true"
+            class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-StyledButton eoyd9h22"
+            data-cy="next-page-button"
+            data-lgid="lg-button"
+            type="button"
+          >
+            <div
+              class="leafygreen-ui-v038xi"
+            />
+            <div
+              class="leafygreen-ui-16tr4y"
+            >
+              <svg
+                aria-label="Chevron Right Icon"
+                class="leafygreen-ui-17pifwg"
+                fill="none"
+                height="14"
+                role="img"
+                viewBox="0 0 16 16"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
+        <div
+          class="leafygreen-ui-1iyoj2o emotion-StyledSelect eng5k480"
+          data-lgid="lg-select"
+        >
+          <button
+            aria-controls="select-126-menu"
+            aria-describedby="select-126-description"
+            aria-disabled="false"
+            aria-expanded="false"
+            aria-invalid="false"
+            aria-labelledby="page-size-select"
+            class="lg-ui-button-0000 leafygreen-ui-c19aul"
+            data-cy="host-event-table-page-size-selector"
+            data-lgid="lg-button"
+            data-testid="leafygreen-ui-select-menubutton"
+            id="select-127"
+            type="button"
+            value="10"
+          >
+            <div
+              class="leafygreen-ui-v038xi"
+            />
+            <div
+              class="leafygreen-ui-16tr4y"
+            >
+              <div
+                class="leafygreen-ui-obh8q1"
+              >
+                <div
+                  class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
+                  data-lgid="lg-select-button_text"
+                >
+                  10 / page
+                </div>
+              </div>
+              <svg
+                alt=""
+                aria-hidden="true"
+                class="leafygreen-ui-fn50nl"
+                height="16"
+                role="presentation"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <path
+                  d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+          </button>
+          <div
+            aria-live="polite"
+            aria-relevant="all"
+            class="leafygreen-ui-11ydt2g"
+            data-lgid="lg-form_field-feedback"
+            data-testid="lg-form_field-feedback"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="leafygreen-ui-1si66qn"
+      tabindex="0"
+    >
+      <div />
+      <table
+        class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
+        data-cy="host-events-table"
+        data-is-sticky="false"
+        data-lgid="lg-table"
+        data-loading="false"
+      >
+        <thead
+          class="leafygreen-ui-181p7kg"
+        >
+          <tr
+            class="leafygreen-ui-5fo1n0"
+          >
+            <th
+              class="leafygreen-ui-1it7wsd"
+              data-lgid="lg-table-header"
+              scope="col"
+              style="width: 25%;"
+            >
+              <div
+                class="leafygreen-ui-11hl1ow"
+              >
+                Date
+              </div>
+            </th>
+            <th
+              class="leafygreen-ui-1it7wsd"
+              data-lgid="lg-table-header"
+              scope="col"
+            >
+              <div
+                class="leafygreen-ui-11hl1ow"
+              >
+                Event
+                <div
+                  class="emotion-FilterWrapper e1vwevg0"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="Table Filter Popover Icon"
+                    class="leafygreen-ui-tcjr3n"
+                    data-cy="event-type-filter"
+                    data-highlighted="false"
+                    tabindex="0"
+                  >
+                    <div
+                      class="leafygreen-ui-xhlipt"
+                    >
+                      <svg
+                        aria-label="Filter Icon"
+                        class=""
+                        color="#3D4F58"
+                        fill="none"
+                        height="16"
+                        role="img"
+                        small="xsmall"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="m6 6.148-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 0 1-.17.376l-3 2.625a.5.5 0 0 1-.83-.376v-8.25Z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="0"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-0"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="agent-deployed"
+                    >
+                      Agent deployed 
+                      with revision
+                       
+                      <b>
+                        abc123
+                      </b>
+                       
+                       from 
+                      <b>
+                        1.2.3
+                      </b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="1"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-1"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      data-cy="agent-deploy-failed"
+                    >
+                      New agent deploy failed
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="2"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-2"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="agent-monitor-deployed"
+                    >
+                      Agent monitor deployed 
+                      with revision
+                       
+                      <b>
+                        abc123
+                      </b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="3"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-3"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      data-cy="agent-monitor-deploy-failed"
+                    >
+                      New agent monitor deploy failed
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="4"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-4"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span>
+                      HOST_ALERTABLE_INSTANCE_TYPE_WARNING_SENT
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="5"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-5"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      data-cy="host-converted-provisioning"
+                    >
+                      Host successfully converted provisioning type
+                       to
+                       
+                      provisioningMethod
+                       method
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="6"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-6"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      data-cy="host-converting-provisioning"
+                    >
+                      Host converting provisioning type
+                       to
+                       
+                      provisioningMethod
+                       method
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="7"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-7"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-converting-provisioning-error"
+                    >
+                      Host encountered error when converting reprovisioning
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Provisioning logs
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-q093uc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="8"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-8"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="created"
+                    >
+                      Host creation 
+                      succeeded
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Additional details
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-q093uc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="9"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-9"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      data-cy="host-creation-failed"
+                    >
+                      Host creation failed.
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Host creation logs
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-q093uc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="10"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-10"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-dns-name-set"
+                    >
+                      DNS Name set to 
+                      <b>
+                        hostname
+                      </b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="11"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-11"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      data-cy="host-expiration-warning-set"
+                    >
+                      Expiration warning sent
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="12"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-12"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      data-cy="host-idle-notification"
+                    >
+                      Idle notification sent
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="13"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-13"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-jasper-restarted"
+                    >
+                      Jasper service restarted with revision 
+                      <b>
+                        abc123
+                      </b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="14"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-14"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-jasper-restarting"
+                    >
+                      Jasper service marked as restarting 
+                      by
+                       
+                      <b>
+                        user
+                      </b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="15"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-15"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-jasper-restart-error"
+                    >
+                      Host encountered error when restarting Jasper service
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Provisioning logs
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-q093uc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="16"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-16"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="modified"
+                    >
+                      Host modify attempt 
+                      succeeded
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Additional details
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-q093uc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="17"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-17"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-provisioned"
+                    >
+                      Marked as 
+                      <b>
+                        provisioned
+                      </b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="18"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-18"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      data-cy="provision-error"
+                    >
+                      Host encountered error during provisioning
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="19"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-19"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-provision-failed"
+                    >
+                      Provisioning failed
+                       
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Provisioning logs
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-q093uc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="20"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-20"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-running-task-cleared"
+                    >
+                      Current running task cleared (was:
+                       
+                      <a
+                        class="lg-ui-0001 e9hwzqp0 emotion-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
+                        data-cy="host-running-task-cleared-link"
+                        href="/task/taskId"
+                        responsivebreakpoint="1200"
+                        title="taskId"
+                      >
+                        <span>
+                          taskId
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="21"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-21"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-running-task-set"
+                    >
+                      Assigned to run task
+                       
+                      <a
+                        class="lg-ui-0001 e9hwzqp0 emotion-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
+                        data-cy="host-running-task-set-link"
+                        href="/task/taskId"
+                        responsivebreakpoint="1200"
+                        title="taskId"
+                      >
+                        <span>
+                          taskId
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="22"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-22"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-script-executed"
+                    >
+                      Executed script on host
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Script logs
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-q093uc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="23"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-23"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-script-execute-failed"
+                    >
+                      Failed to execute script on host
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Script logs
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-q093uc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="24"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-24"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="started"
+                    >
+                      Host start attempt 
+                      succeeded
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Additional details
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-q093uc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="25"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-25"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-status-changed"
+                    >
+                      Status changed from 
+                      <b>
+                        oldStatus
+                      </b>
+                       to 
+                      <b>
+                        newStatus
+                      </b>
+                       
+                      by
+                       
+                      <b>
+                        user
+                      </b>
+                       
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Additional details
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              This is a log message
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="26"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-26"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="stopped"
+                    >
+                      Host stop attempt 
+                      succeeded
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Additional details
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-q093uc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="27"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-27"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      data-cy="host-task-finished"
+                    >
+                      Task
+                       
+                      <a
+                        class="lg-ui-0001 e9hwzqp0 emotion-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
+                        data-cy="host-task-finished-link"
+                        href="/task/taskId"
+                        responsivebreakpoint="1200"
+                        title="taskId"
+                      >
+                        <span>
+                          taskId
+                        </span>
+                      </a>
+                       
+                      completed with status:
+                      <b>
+                         
+                        failed
+                      </b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="28"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-28"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span>
+                      Temporary exemption expiration warning sent
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="29"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-29"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      data-cy="host-terminated-externally"
+                    >
+                      Host terminated externally by 
+                      user
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="30"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-30"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      data-cy="spawn-host-creation-failed"
+                    >
+                      Spawn host creation failed.
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Host creation logs
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-q093uc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="31"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-31"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      data-cy="volume-expiration-warning-sent"
+                    >
+                      Volume expiration warning sent
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="32"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            id="lg-table-row-32"
+          >
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              data-lgid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <span
+                      data-cy="host-volume-migration-failed"
+                    >
+                      Home volume failed to migrate to new host.
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Volume migration logs
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-q093uc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
