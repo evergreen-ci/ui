@@ -329,6 +329,10 @@ const graphQLConfig = {
         groups: ["...", "id", "*"],
       },
     ],
+    "@graphql-eslint/known-directives": [
+      "error",
+      { ignoreClientDirectives: ["client"] },
+    ],
     "@graphql-eslint/no-deprecated": WARN,
     "@graphql-eslint/selection-set-depth": [WARN, { maxDepth: 8 }],
     "spaced-comment": OFF,

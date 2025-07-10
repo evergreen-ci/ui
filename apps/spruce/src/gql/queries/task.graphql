@@ -75,6 +75,7 @@ query Task($taskId: String!, $execution: Int) {
       displayStatus
       execution
       projectIdentifier
+      reviewed @client
     }
     expectedDuration
     files {
@@ -110,6 +111,7 @@ query Task($taskId: String!, $execution: Int) {
     }
     requester
     resetWhenFinished
+    reviewed @client
     spawnHostLink
     startTime
     status
