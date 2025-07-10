@@ -1,4 +1,19 @@
-import { RowSorting, ColumnFiltering } from "@leafygreen-ui/table";
+import {
+  ColumnFiltering,
+  ColumnFiltersState,
+  filterFns,
+  getFacetedUniqueValues,
+  getFacetedMinMaxValues,
+  getFilteredRowModel,
+  LGColumnDef,
+  LGRowData,
+  OnChangeFn,
+  PaginationState,
+  RowSorting,
+  SortingState,
+  useLeafyGreenTable,
+  LeafyGreenTable,
+} from "@leafygreen-ui/table";
 
 export { BaseTable } from "./BaseTable";
 export type { SpruceTableProps, BaseTableProps } from "./BaseTable";
@@ -7,4 +22,21 @@ export { onChangeHandler } from "./utils";
 export { default as TableControl } from "./TableControl";
 export { TablePlaceholder } from "./TablePlaceholder";
 export * from "@leafygreen-ui/table";
-export { RowSorting, ColumnFiltering };
+export {
+  RowSorting,
+  ColumnFiltering,
+  useLeafyGreenTable,
+  filterFns,
+  getFilteredRowModel,
+  getFacetedMinMaxValues,
+  getFacetedUniqueValues,
+};
+export type {
+  LGColumnDef,
+  LGRowData,
+  ColumnFiltersState,
+  PaginationState,
+  OnChangeFn,
+  SortingState,
+  LeafyGreenTable,
+};

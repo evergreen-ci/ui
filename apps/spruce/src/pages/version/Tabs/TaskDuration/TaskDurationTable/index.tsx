@@ -2,18 +2,18 @@ import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import {
-  ColumnFiltersState,
+  BaseTable,
   ColumnFiltering,
+  ColumnFiltersState,
+  getFacetedMinMaxValues,
+  LeafyGreenTable,
+  LGColumnDef,
+  OnChangeFn,
+  onChangeHandler,
   RowSorting,
   SortingState,
-  getFacetedMinMaxValues,
-  useLeafyGreenTable,
-  LGColumnDef,
-  LeafyGreenTable,
-  OnChangeFn,
-  BaseTable,
-  onChangeHandler,
   TablePlaceholder,
+  useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
 
 import { useQueryParams } from "@evg-ui/lib/hooks";
