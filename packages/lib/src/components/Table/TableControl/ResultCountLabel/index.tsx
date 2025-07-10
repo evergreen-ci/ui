@@ -14,6 +14,7 @@ export const ResultCountLabel: React.FC<Props> = ({
   label,
   numerator,
 }) => (
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   <Body>
     <span data-cy={dataCyNumerator}>{numerator}</span>/
     <span data-cy={dataCyDenominator}>{denominator}</span>

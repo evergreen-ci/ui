@@ -22,6 +22,7 @@ import {
   Header,
   LGTableDataType,
   type LGRowData,
+  ExpandedContentProps,
 } from "@leafygreen-ui/table";
 import { tableColumnOffset, size } from "../../constants/tokens";
 import { TreeDataEntry } from "../TreeSelect";
@@ -189,6 +190,7 @@ const TableHeaderCell = <T extends LGRowData>({
   const { columnDef } = header.column ?? {};
   const { meta } = columnDef;
   return (
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     <HeaderCell
       key={header.id}
       header={header}
@@ -258,6 +260,7 @@ const RenderableRow = <T extends LGRowData>({
 }) => (
   <Fragment key={row.id}>
     {!row.isExpandedContent && (
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       <Row
         className={css`
           ${isSelected &&
@@ -273,6 +276,7 @@ const RenderableRow = <T extends LGRowData>({
         virtualRow={virtualRow}
       >
         {row.getVisibleCells().map((cell) => (
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           <Cell
             key={cell.id}
             cell={cell}
@@ -295,7 +299,11 @@ const DefaultEmptyMessage = styled.div`
   margin-left: ${tableColumnOffset};
 `;
 
-const StyledExpandedContent = styled(ExpandedContent)`
+const StyledExpandedContent = styled(
+  ExpandedContent as unknown as React.ComponentType<
+    ExpandedContentProps<unknown>
+  >,
+)`
   > td {
     padding: ${size.xs} 0;
     background-color: ${gray.light3};
