@@ -605,6 +605,12 @@ export type ExternalLinkInput = {
   urlTemplate: Scalars["String"]["input"];
 };
 
+export type FailingCommand = {
+  __typename?: "FailingCommand";
+  failureMetadataTags: Array<Scalars["String"]["output"]>;
+  fullDisplayName: Scalars["String"]["output"];
+};
+
 export enum FeedbackRule {
   Default = "DEFAULT",
   NoFeedback = "NO_FEEDBACK",
@@ -3129,6 +3135,7 @@ export type TaskEndDetail = {
   failingCommand?: Maybe<Scalars["String"]["output"]>;
   failureMetadataTags: Array<Scalars["String"]["output"]>;
   oomTracker: OomTrackerInfo;
+  otherFailingCommands: Array<FailingCommand>;
   status: Scalars["String"]["output"];
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
   timeoutType?: Maybe<Scalars["String"]["output"]>;
@@ -9579,6 +9586,11 @@ export type TaskQuery = {
         detected: boolean;
         pids?: Array<number> | null;
       };
+      otherFailingCommands: Array<{
+        __typename?: "FailingCommand";
+        failureMetadataTags: Array<string>;
+        fullDisplayName: string;
+      }>;
     } | null;
     displayTask?: {
       __typename?: "Task";
