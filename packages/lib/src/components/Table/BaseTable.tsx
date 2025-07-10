@@ -190,11 +190,12 @@ const TableHeaderCell = <T extends LGRowData>({
   const { columnDef } = header.column ?? {};
   const { meta } = columnDef;
   return (
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: This is a workaround to fix the type error
     <HeaderCell
       key={header.id}
       header={header}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: This is a workaround to fix the type error
       style={meta?.width && { width: columnDef?.meta?.width }}
     >
       {flexRender(columnDef.header, header.getContext())}
@@ -260,7 +261,8 @@ const RenderableRow = <T extends LGRowData>({
 }) => (
   <Fragment key={row.id}>
     {!row.isExpandedContent && (
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore: This is a workaround to fix the type error
       <Row
         className={css`
           ${isSelected &&
@@ -276,7 +278,8 @@ const RenderableRow = <T extends LGRowData>({
         virtualRow={virtualRow}
       >
         {row.getVisibleCells().map((cell) => (
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore: This is a workaround to fix the type error
           <Cell
             key={cell.id}
             cell={cell}
