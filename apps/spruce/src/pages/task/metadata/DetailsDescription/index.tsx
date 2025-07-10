@@ -1,25 +1,26 @@
+import styled from "@emotion/styled";
+import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { palette } from "@leafygreen-ui/palette";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import ExpandedText from "components/ExpandedText";
 import { MetadataItem, MetadataLabel } from "components/MetadataCard";
+import { TaskEndDetail } from "gql/generated/types";
 import { isFailedTaskStatus } from "utils/statuses";
 
 const { red } = palette;
 
 const MAX_CHAR = 100;
 const DetailsDescription = ({
-  description,
-  failingCommand,
+  details,
   isContainerTask,
-  status,
 }: {
-  description: string;
-  failingCommand: string;
+  details: TaskEndDetail;
   isContainerTask: boolean;
-  status: string;
 }) => {
+  const { description, failingCommand, otherFailingCommands, status } =
+    details ?? {};
   const isFailingTask = isFailedTaskStatus(status);
-  const baseCopy = description || failingCommand;
+  const baseCopy = description || failingCommand || "";
   const fullText = isFailingTask
     ? `${processFailingCommand(baseCopy, isContainerTask)}`
     : `${baseCopy}`;
@@ -28,29 +29,71 @@ const DetailsDescription = ({
   const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
 
   return (
-    <MetadataItem data-cy="task-metadata-description">
-      {isFailingTask ? (
-        <MetadataLabel color={red.base}>Failing Command: </MetadataLabel>
-      ) : (
-        <MetadataLabel>Command: </MetadataLabel>
-      )}
-      {shouldTruncate ? (
-        <>
-          {truncatedText}{" "}
-          <ExpandedText
-            align="right"
-            data-cy="task-metadata-description-tooltip"
-            justify="end"
-            message={description}
-            popoverZIndex={zIndex.tooltip}
-          />
-        </>
-      ) : (
-        fullText
-      )}
-    </MetadataItem>
+    <>
+      <MetadataItem data-cy="task-metadata-command">
+        {isFailingTask ? (
+          <MetadataLabel color={red.base}>Failing Command: </MetadataLabel>
+        ) : (
+          <MetadataLabel>Command: </MetadataLabel>
+        )}
+        {shouldTruncate ? (
+          <>
+            {truncatedText}{" "}
+            <ExpandedText
+              align="right"
+              data-cy="task-metadata-command-tooltip"
+              justify="end"
+              message={description ?? ""}
+              popoverZIndex={zIndex.tooltip}
+            />
+          </>
+        ) : (
+          fullText
+        )}
+      </MetadataItem>
+      {otherFailingCommands.length > 0 ? (
+        <MetadataItem data-cy="task-metadata-other-failing-commands">
+          <MetadataLabel>Other Failing Commands: </MetadataLabel>
+          <OtherFailingCommandContainer>
+            {otherFailingCommands.map(
+              ({ failureMetadataTags, fullDisplayName }) => (
+                <OtherFailingCommand key={fullDisplayName}>
+                  {fullDisplayName}
+                  <ChipContainer>
+                    {failureMetadataTags.map((t) => (
+                      <Chip
+                        key={`${fullDisplayName}-${t}`}
+                        label={t}
+                        variant={ChipVariant.Gray}
+                      />
+                    ))}
+                  </ChipContainer>
+                </OtherFailingCommand>
+              ),
+            )}
+          </OtherFailingCommandContainer>
+        </MetadataItem>
+      ) : null}
+    </>
   );
 };
+
+const OtherFailingCommandContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xxs};
+  padding-left: ${size.s};
+  margin: ${size.xxs} 0 0 0;
+`;
+
+const OtherFailingCommand = styled.li``;
+
+const ChipContainer = styled.div`
+  margin-top: ${size.xxs};
+  display: flex;
+  gap: ${size.xxs};
+  flex-wrap: wrap;
+`;
 
 const processFailingCommand = (
   description: string,

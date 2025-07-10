@@ -53,6 +53,10 @@ query Task($taskId: String!, $execution: Int) {
         detected
         pids
       }
+      otherFailingCommands {
+        failureMetadataTags
+        fullDisplayName
+      }
       status
       timedOut
       timeoutType

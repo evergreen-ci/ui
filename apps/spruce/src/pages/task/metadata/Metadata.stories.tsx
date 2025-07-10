@@ -120,6 +120,7 @@ export const OOMTracker: CustomStoryObj<typeof Metadata> = {
             status: TaskStatus.Failed,
             type: "type",
             failureMetadataTags: [],
+            otherFailingCommands: [],
           },
         }}
       />
