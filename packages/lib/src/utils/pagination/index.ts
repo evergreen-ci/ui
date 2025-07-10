@@ -6,7 +6,7 @@ import {
 
 /**
  * Returns the most recent page size from local storage or the default page size
- * @returns The default page size
+ * @returns The recent or default page size
  */
 export const getDefaultPageSize = () => {
   const pageSizeFromLocalStorage = localStorage.getItem(RECENT_PAGE_SIZE_KEY);
