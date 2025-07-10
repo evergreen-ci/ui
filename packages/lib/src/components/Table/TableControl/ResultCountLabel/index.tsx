@@ -14,7 +14,8 @@ export const ResultCountLabel: React.FC<Props> = ({
   label,
   numerator,
 }) => (
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: FIXME. This component is throwing an invalid type
   <Body>
     <span data-cy={dataCyNumerator}>{numerator}</span>/
     <span data-cy={dataCyDenominator}>{denominator}</span>
