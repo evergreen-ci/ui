@@ -60,7 +60,7 @@ describe("metadata", () => {
     expect(screen.getByDataCy("task-metrics-link")).toBeInTheDocument();
   });
 
-  it.only("renders failing command and other failing commands", async () => {
+  it("renders failing command and other failing commands", async () => {
     const user = userEvent.setup();
     render(<Metadata loading={false} task={taskSucceeded.task} />, {
       route: `/task/${taskId}`,
