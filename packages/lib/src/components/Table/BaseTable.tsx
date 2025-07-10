@@ -56,7 +56,7 @@ declare module "@tanstack/table-core" {
 
 const { blue } = palette;
 
-export interface SpruceTableProps<T extends LGRowData> {
+interface SpruceTableProps<T extends LGRowData> {
   "data-cy-row"?: string;
   "data-cy-table"?: string;
   emptyComponent?: React.ReactNode;
@@ -72,8 +72,7 @@ export interface SpruceTableProps<T extends LGRowData> {
   table: LeafyGreenVirtualTable<T> | LeafyGreenTable<T>;
 }
 
-export type BaseTableProps<T> = SpruceTableProps<T> &
-  Omit<TableProps<T>, "table">;
+type BaseTableProps<T> = SpruceTableProps<T> & Omit<TableProps<T>, "table">;
 
 export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
   <T extends LGRowData>(
