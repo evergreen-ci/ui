@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { action } from "storybook/actions";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import widgets from "components/SpruceForm/Widgets";
 
 import { SpruceForm, SpruceFormContainer } from ".";
 
@@ -37,6 +38,17 @@ export const Example3: CustomStoryObj<typeof SpruceForm> = {
       schema={example3Def.schema}
       title="UI Options"
       uiSchema={example3Def.uiSchema}
+    />
+  ),
+};
+
+export const Example4: CustomStoryObj<typeof SpruceForm> = {
+  render: () => (
+    <BaseForm
+      data={example4Def.formData}
+      schema={example4Def.schema}
+      title="UI Options"
+      uiSchema={example4Def.uiSchema}
     />
   ),
 };
@@ -200,5 +212,55 @@ const example3Def = {
   },
   formData: {
     visible: true,
+  },
+};
+
+const example4Def = {
+  schema: {
+    type: "object" as const,
+    properties: {
+      testText: {
+        title: "This is the only visible page element",
+        type: "array" as const,
+        default: [],
+        items: {
+          type: "string" as const,
+          properties: {
+            value: {
+              type: "string" as const,
+              title: "Text",
+              default: "",
+              minLength: 1,
+            },
+          },
+        },
+      },
+    },
+  },
+  uiSchema: {
+    testText: {
+      "ui:addButtonText": "add query",
+      "ui:placeholder": "No permissions have been added.",
+      "ui:showLabel": false,
+      "ui:topAlignDelete": true,
+      "ui:widget": widgets.ChipInputWidget,
+      items: {
+        value: {
+          "ui:widget": widgets.TextWidget,
+          "ui:options": {
+            label: false,
+            placeholder: "Enter text",
+            width: "100%",
+          },
+          "ui:elementWrapperCSS": {
+            width: "100%",
+            maxWidth: "100%",
+          },
+        },
+      },
+    },
+  },
+  formData: {
+    testText: ["text1", "text2", "text3"],
   },
 };
