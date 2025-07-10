@@ -21,8 +21,6 @@ export const gqlToForm = ((data) => ({
       unrecognizedPodCleanupDisabled:
         data.serviceFlags?.unrecognizedPodCleanupDisabled ?? false,
       cloudCleanupDisabled: data.serviceFlags?.cloudCleanupDisabled ?? false,
-      evergreenTestResultsDisabled:
-        data.serviceFlags?.evergreenTestResultsDisabled ?? false,
       taskReliabilityDisabled:
         data.serviceFlags?.taskReliabilityDisabled ?? false,
     },
@@ -69,8 +67,6 @@ export const gqlToForm = ((data) => ({
       cacheStatsJobDisabled: data.serviceFlags?.cacheStatsJobDisabled ?? false,
       cacheStatsEndpointDisabled:
         data.serviceFlags?.cacheStatsEndpointDisabled ?? false,
-      backgroundCleanupDisabled:
-        data.serviceFlags?.backgroundCleanupDisabled ?? false,
     },
   },
 })) satisfies GqlToFormFunction<Tab>;

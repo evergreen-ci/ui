@@ -1,3 +1,6 @@
+import { css } from "@emotion/react";
+import { palette } from "@leafygreen-ui/palette";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
@@ -15,7 +18,6 @@ const serviceItems: Record<string, string> = {
   podAllocatorDisabled: "Allocate pods for container tasks",
   unrecognizedPodCleanupDisabled: "Clean up unrecognized pods",
   cloudCleanupDisabled: "Cloud Provider Cleanup",
-  evergreenTestResultsDisabled: "Evergreen Test Results",
 };
 
 const notificationItems: Record<string, string> = {
@@ -48,8 +50,29 @@ const batchJobItems: Record<string, string> = {
   backgroundStatsDisabled: "Collect background statistics",
   cacheStatsJobDisabled: "Cache historical statistics",
   cacheStatsEndpointDisabled: "Cache historical statistics endpoint",
-  backgroundCleanupDisabled: "Background Data Cleanup",
 };
+
+const zebraCSS = css`
+  > div > {
+    :nth-child(even) {
+      background-color: ${palette.gray.light3};
+    }
+
+    :not(:last-child) {
+      border-bottom: 1px solid ${palette.gray.light2};
+    }
+  }
+`;
+
+const radioCSS = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: ${size.xs};
+  margin-bottom: 0px;
+  max-width: 100%;
+`;
 
 /**
  * Generates properties for ui form
@@ -85,7 +108,13 @@ function generateUiSchema(
 ): Record<string, Record<string, any>> {
   return Object.keys(items).reduce(
     (acc, key) => {
-      acc[key] = { "ui:widget": widgets.RadioWidget };
+      acc[key] = {
+        "ui:widget": widgets.RadioWidget,
+        "ui:options": {
+          inline: true,
+          elementWrapperCSS: radioCSS,
+        },
+      };
       return acc;
     },
     {} as Record<string, Record<string, any>>,
@@ -129,18 +158,22 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
     featureFlags: {
       services: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:objectFieldCss": zebraCSS,
         ...generateUiSchema(serviceItems),
       },
       notifications: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:objectFieldCss": zebraCSS,
         ...generateUiSchema(notificationItems),
       },
       features: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:objectFieldCss": zebraCSS,
         ...generateUiSchema(featureItems),
       },
       batchJobs: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:objectFieldCss": zebraCSS,
         ...generateUiSchema(batchJobItems),
       },
     },

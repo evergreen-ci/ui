@@ -36,14 +36,12 @@ type ProjectSettings = ProjectSettingsQuery["projectSettings"];
 type RepoSettings = RepoSettingsQuery["repoSettings"];
 
 interface Props {
-  atTop: boolean;
   projectData?: ProjectSettings;
   projectType: ProjectType;
   repoData?: RepoSettings;
 }
 
 export const ProjectSettingsTabs: React.FC<Props> = ({
-  atTop,
   projectData,
   projectType,
   repoData,
@@ -53,9 +51,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
   }>();
   const { setInitialData } = useProjectSettingsContext();
 
-  const projectId = projectData?.projectRef?.id;
-  const repoId = repoData?.projectRef?.id;
-  const identifier = projectData?.projectRef?.identifier;
+  const projectId = projectData?.projectRef?.id ?? "";
+  const repoId = repoData?.projectRef?.id ?? "";
+  const identifier = projectData?.projectRef?.identifier ?? "";
 
   const tabData: TabDataProps = useMemo(
     // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -82,12 +80,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     <Container>
       <NavigationModal />
       <Header
-        atTop={atTop}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         id={projectId || repoId}
         projectType={projectType}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        tab={tab}
+        tab={tab as ProjectSettingsTabRoutes}
       />
       <Routes>
         <Route
@@ -116,7 +111,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         <Route
           element={
             <VariablesTab
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.Variables].projectData
@@ -135,12 +129,10 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 projectData?.githubWebhooksEnabled ||
                 repoData?.githubWebhooksEnabled
               }
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
               }
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               projectId={projectId}
               projectType={projectType}
               repoData={
@@ -197,7 +189,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         <Route
           element={
             <VirtualWorkstationTab
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.VirtualWorkstation].projectData
@@ -213,7 +204,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         <Route
           element={
             <ContainersTab
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.Containers].projectData
@@ -227,7 +217,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         <Route
           element={
             <ViewsAndFiltersTab
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier}
               projectData={
                 tabData[ProjectSettingsTabRoutes.ViewsAndFilters].projectData
@@ -277,18 +266,15 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 ...(repoData?.projectRef?.githubDynamicTokenPermissionGroups ??
                   []),
               ]}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier}
               projectData={
                 tabData[ProjectSettingsTabRoutes.GithubAppSettings].projectData
               }
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               projectId={projectId}
               projectType={projectType}
               repoData={
                 tabData[ProjectSettingsTabRoutes.GithubAppSettings].repoData
               }
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               repoId={repoId}
             />
           }
@@ -297,7 +283,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         <Route
           element={
             <PermissionGroupsTab
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier}
               projectData={
                 tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
@@ -308,7 +293,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
                   .repoData
               }
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               repoId={repoId}
             />
           }

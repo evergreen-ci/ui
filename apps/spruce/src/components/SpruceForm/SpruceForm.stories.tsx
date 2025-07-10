@@ -170,6 +170,7 @@ const example2Def = {
       "ui:widget": "radio",
       "ui:options": {
         label: false,
+        bold: true,
       },
     },
     "ui:options": {

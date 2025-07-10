@@ -11,7 +11,7 @@ const { validateObjectId } = validators;
 interface UseProjectRedirectProps {
   sendAnalyticsEvent: (projectId: string, projectIdentifier: string) => void;
   shouldRedirect?: boolean;
-  onError?: (e: Error) => void;
+  onError?: (repoId: string) => void;
 }
 
 /**
@@ -27,10 +27,10 @@ export const useProjectRedirect = ({
   sendAnalyticsEvent = () => {},
   shouldRedirect,
 }: UseProjectRedirectProps) => {
-  const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
+  const { [slugs.projectIdentifier]: projectIdentifier = "" } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
+
   const needsRedirect = validateObjectId(projectIdentifier) && shouldRedirect;
 
   const [attemptedRedirect, setAttemptedRedirect] = useState(false);
@@ -38,29 +38,22 @@ export const useProjectRedirect = ({
   const { loading } = useQuery<ProjectQuery, ProjectQueryVariables>(PROJECT, {
     skip: !needsRedirect,
     variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       idOrIdentifier: projectIdentifier,
     },
     onCompleted: (projectData) => {
       const { identifier } = projectData.project;
       const currentUrl = location.pathname.concat(location.search);
       const redirectPathname = currentUrl.replace(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         projectIdentifier,
         identifier,
       );
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       sendAnalyticsEvent(projectIdentifier, identifier);
       navigate(redirectPathname, { replace: true });
       setAttemptedRedirect(true);
     },
-    onError: (e) => {
+    onError: () => {
       setAttemptedRedirect(true);
-      onError?.(
-        Error(
-          `There was an error loading the project ${projectIdentifier}: ${e.message}`,
-        ),
-      );
+      onError?.(projectIdentifier ?? "");
     },
   });
 
