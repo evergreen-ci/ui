@@ -11,6 +11,7 @@ export type TextInputWithGlyphProps = {
   persistentPlaceholder?: React.ReactNode;
 } & TextInputProps;
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const TextInputWithGlyph: React.FC<TextInputWithGlyphProps> = forwardRef(
   (props, ref) => {
     const { className, icon, persistentPlaceholder, ...rest } = props;

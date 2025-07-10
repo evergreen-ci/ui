@@ -9,7 +9,6 @@ import {
   flexRender,
   HeaderCell,
   HeaderRow,
-  type LGRowData,
   Row,
   type RowData,
   Table,
@@ -22,6 +21,7 @@ import {
   LeafyGreenVirtualTable,
   Header,
   LGTableDataType,
+  type LGRowData,
 } from "@leafygreen-ui/table";
 import { tableColumnOffset, size } from "../../constants/tokens";
 import { TreeDataEntry } from "../TreeSelect";
@@ -284,7 +284,9 @@ const RenderableRow = <T extends LGRowData>({
         ))}
       </Row>
     )}
-    {row.isExpandedContent && <StyledExpandedContent row={row} />}
+    {row.isExpandedContent && (
+      <StyledExpandedContent row={row as LeafyGreenTableRow<unknown>} />
+    )}
   </Fragment>
 );
 
@@ -293,13 +295,12 @@ const DefaultEmptyMessage = styled.div`
   margin-left: ${tableColumnOffset};
 `;
 
-// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of ExpandedContent.
 const StyledExpandedContent = styled(ExpandedContent)`
   > td {
     padding: ${size.xs} 0;
     background-color: ${gray.light3};
   }
-` as typeof ExpandedContent;
+`;
 
 const StyledPagination = styled(Pagination)`
   margin-top: ${size.xs};

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Select, Option } from "@leafygreen-ui/select";
+import { Select, Option, SelectProps } from "@leafygreen-ui/select";
 import { PAGE_SIZES } from "../../constants/pagination";
 import { zIndex } from "../../constants/tokens";
 
@@ -40,7 +40,9 @@ const PageSizeSelector: React.FC<Props> = ({
   </StyledSelect>
 );
 
-const StyledSelect = styled(Select)`
+const StyledSelect = styled(
+  Select as unknown as React.ComponentType<Partial<SelectProps>>,
+)`
   width: 120px;
 `;
 
