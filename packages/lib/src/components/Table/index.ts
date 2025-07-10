@@ -13,6 +13,10 @@ import {
   SortingState,
   useLeafyGreenTable,
   LeafyGreenTable,
+  RowSelectionState,
+  LeafyGreenTableRow,
+  ExpandedState,
+  useLeafyGreenVirtualTable,
 } from "@leafygreen-ui/table";
 
 export { BaseTable } from "./BaseTable";
@@ -28,6 +32,7 @@ export {
   getFilteredRowModel,
   getFacetedMinMaxValues,
   getFacetedUniqueValues,
+  useLeafyGreenVirtualTable,
 };
 export type {
   LGColumnDef,
@@ -37,4 +42,7 @@ export type {
   OnChangeFn,
   SortingState,
   LeafyGreenTable,
+  RowSelectionState,
+  LeafyGreenTableRow,
+  ExpandedState,
 };
