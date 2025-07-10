@@ -74,6 +74,8 @@ describe("Tab shortcut", () => {
     cy.get("body").type("j");
     cy.dataCy("task-files-tab").should("have.attr", "aria-selected", "true");
     cy.get("body").type("j");
+    cy.dataCy("task-history-tab").should("have.attr", "aria-selected", "true");
+    cy.get("body").type("j");
     cy.dataCy("task-execution-tab").should(
       "have.attr",
       "aria-selected",
@@ -88,6 +90,8 @@ describe("Tab shortcut", () => {
       "aria-selected",
       "true",
     );
+    cy.get("body").type("k");
+    cy.dataCy("task-history-tab").should("have.attr", "aria-selected", "true");
     cy.get("body").type("k");
     cy.dataCy("task-files-tab").should("have.attr", "aria-selected", "true");
     cy.get("body").type("k");

@@ -40,9 +40,10 @@ import {
 
 interface TaskHistoryProps {
   task: NonNullable<TaskQuery["task"]>;
+  cursorTaskId: string;
 }
 
-const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
+const TaskHistory: React.FC<TaskHistoryProps> = ({ cursorTaskId, task }) => {
   const timelineRef = useRef<HTMLDivElement>(null);
   const { width: timelineWidth } = useDimensions<HTMLDivElement>(timelineRef);
 
@@ -73,7 +74,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
 
   const [cursorId] = useQueryParam<string>(
     TaskHistoryOptions.CursorID,
-    task.id,
+    cursorTaskId,
   );
   const [direction] = useQueryParam<TaskHistoryDirection>(
     TaskHistoryOptions.Direction,
