@@ -1,10 +1,13 @@
 import { useMemo } from "react";
-import { LGColumnDef, useLeafyGreenTable } from "@leafygreen-ui/table";
 import { Link } from "@leafygreen-ui/typography";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
+import {
+  TablePlaceholder,
+  LGColumnDef,
+  useLeafyGreenTable,
+  BaseTable,
+} from "@evg-ui/lib/components/Table";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
-import { BaseTable } from "components/Table/BaseTable";
-import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { getParsleyLogkeeperTestLogURL } from "constants/externalResources";
 import {
   EvergreenTestResult,

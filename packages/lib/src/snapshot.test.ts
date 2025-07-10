@@ -71,18 +71,47 @@ describe(`${options.suite}`, () => {
   });
 
   beforeEach(() => {
-    const mockIntersectionObserver = vi.fn((callback) => {
-      callback([
-        {
-          isIntersecting: true,
-        },
-      ]);
-      return {
+    const mockIntersectionObserver = vi.fn((callback) =>
+      // Don't call callback immediately to avoid timing issues
+      ({
         disconnect: vi.fn(),
-        observe: vi.fn(),
+        observe: vi.fn((target) => {
+          // Call callback after a small delay to simulate real behavior
+          setTimeout(() => {
+            callback([
+              {
+                isIntersecting: true,
+                target,
+                boundingClientRect: {
+                  x: 0,
+                  y: 0,
+                  width: 100,
+                  height: 100,
+                  top: 0,
+                  left: 0,
+                  right: 100,
+                  bottom: 100,
+                },
+                intersectionRatio: 1,
+                intersectionRect: {
+                  x: 0,
+                  y: 0,
+                  width: 100,
+                  height: 100,
+                  top: 0,
+                  left: 0,
+                  right: 100,
+                  bottom: 100,
+                },
+                rootBounds: null,
+                time: Date.now(),
+              },
+            ]);
+          }, 0);
+        }),
         unobserve: vi.fn(),
-      };
-    });
+      }),
+    );
 
     vi.stubGlobal("IntersectionObserver", mockIntersectionObserver);
   });

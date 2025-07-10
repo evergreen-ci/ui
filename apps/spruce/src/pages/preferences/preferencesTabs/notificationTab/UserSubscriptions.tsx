@@ -4,18 +4,18 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Pagination from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
+import Icon from "@evg-ui/lib/components/Icon";
 import {
   getFacetedUniqueValues,
   getFilteredRowModel,
   filterFns,
   useLeafyGreenTable,
-} from "@leafygreen-ui/table";
-import Icon from "@evg-ui/lib/components/Icon";
+  BaseTable,
+} from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { ShortenedRouterLink } from "components/styles";
-import { BaseTable } from "components/Table/BaseTable";
 import { getSubscriberText } from "constants/subscription";
 import {
   resourceTypeToCopy,

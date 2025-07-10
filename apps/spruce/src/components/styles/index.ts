@@ -14,8 +14,6 @@ import {
   SideNavPageWrapper,
   PageTitle,
   PageWrapper,
-  TableControlInnerRow,
-  TableControlOuterRow,
 } from "./Layout";
 import { ShortenedRouterLink } from "./Link";
 import { SideNav, SideNavGroup, SideNavItem } from "./SideNav";
@@ -41,8 +39,6 @@ export {
   SideNavPageContent,
   SideNavPageWrapper,
   SiderCard,
-  TableControlInnerRow,
-  TableControlOuterRow,
   globalStyles,
   GlobalStyles,
 };

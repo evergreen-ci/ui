@@ -4,23 +4,23 @@ import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { Disclaimer, H2 } from "@leafygreen-ui/typography";
+import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
+import Pagination from "@evg-ui/lib/components/Pagination";
+import {
+  TableControlOuterRow,
+  TableControlInnerRow,
+} from "@evg-ui/lib/components/Table/TableControl/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";
-import PageSizeSelector from "components/PageSizeSelector";
-import Pagination from "components/Pagination";
-import {
-  TableControlOuterRow,
-  TableControlInnerRow,
-  PageWrapper,
-} from "components/styles";
+import { PageWrapper } from "components/styles";
 import { HostsQuery, HostsQueryVariables } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
-import usePagination from "hooks/usePagination";
 import { HostsTable } from "pages/hosts/HostsTable";
 import { getFilters, getSorting, useQueryVariables } from "./utils";
 

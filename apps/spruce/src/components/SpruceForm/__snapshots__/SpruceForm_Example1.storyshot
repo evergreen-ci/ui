@@ -44,23 +44,23 @@
                     <label
                       class="leafygreen-ui-qj0u2k"
                       data-lgid="lg-label"
-                      for="select-92"
-                      id="select-91-label"
+                      for="select-90"
+                      id="select-89-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-91-menu"
-                    aria-describedby="select-91-description"
+                    aria-controls="select-89-menu"
+                    aria-describedby="select-89-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-91-label"
+                    aria-labelledby="select-89-label"
                     class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
                     data-lgid="lg-button"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-92"
+                    id="select-90"
                     type="button"
                     value="legacy-ssh"
                   >
@@ -187,8 +187,8 @@
                                 class="leafygreen-ui-6bdaia"
                                 data-lgid="lg-label"
                                 data-testid="lg-form_field-label"
-                                for="lg-form_field-input-96"
-                                id="lg-form_field-label-93"
+                                for="lg-form_field-input-94"
+                                id="lg-form_field-label-91"
                               >
                                 key
                               </label>
@@ -203,10 +203,10 @@
                                   aria-describedby=""
                                   aria-disabled="false"
                                   aria-invalid="false"
-                                  aria-labelledby="lg-form_field-label-93"
+                                  aria-labelledby="lg-form_field-label-91"
                                   autocomplete="on"
                                   class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                                  id="lg-form_field-input-96"
+                                  id="lg-form_field-input-94"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -219,7 +219,7 @@
                               class="leafygreen-ui-11ydt2g"
                               data-lgid="lg-form_field-feedback"
                               data-testid="lg-form_field-feedback"
-                              id="lg-form_field-feedback-95"
+                              id="lg-form_field-feedback-93"
                             />
                           </div>
                         </div>
@@ -242,8 +242,8 @@
                                 class="leafygreen-ui-6bdaia"
                                 data-lgid="lg-label"
                                 data-testid="lg-form_field-label"
-                                for="lg-form_field-input-100"
-                                id="lg-form_field-label-97"
+                                for="lg-form_field-input-98"
+                                id="lg-form_field-label-95"
                               >
                                 value
                               </label>
@@ -258,10 +258,10 @@
                                   aria-describedby=""
                                   aria-disabled="false"
                                   aria-invalid="false"
-                                  aria-labelledby="lg-form_field-label-97"
+                                  aria-labelledby="lg-form_field-label-95"
                                   autocomplete="on"
                                   class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                                  id="lg-form_field-input-100"
+                                  id="lg-form_field-input-98"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -274,7 +274,7 @@
                               class="leafygreen-ui-11ydt2g"
                               data-lgid="lg-form_field-feedback"
                               data-testid="lg-form_field-feedback"
-                              id="lg-form_field-feedback-99"
+                              id="lg-form_field-feedback-97"
                             />
                           </div>
                         </div>
@@ -338,8 +338,8 @@
                       class="leafygreen-ui-6bdaia"
                       data-lgid="lg-label"
                       data-testid="lg-form_field-label"
-                      for="textarea-105"
-                      id="lg-form_field-label-101"
+                      for="textarea-103"
+                      id="lg-form_field-label-99"
                     >
                       Valid Projects
                     </label>
@@ -354,9 +354,9 @@
                         aria-describedby=""
                         aria-disabled="false"
                         aria-invalid="false"
-                        aria-labelledby="lg-form_field-label-101"
+                        aria-labelledby="lg-form_field-label-99"
                         class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
-                        id="textarea-105"
+                        id="textarea-103"
                         rows="5"
                         title="Valid Projects"
                       />
@@ -368,7 +368,7 @@
                     class="leafygreen-ui-11ydt2g"
                     data-lgid="lg-form_field-feedback"
                     data-testid="lg-form_field-feedback"
-                    id="lg-form_field-feedback-103"
+                    id="lg-form_field-feedback-101"
                   />
                 </div>
               </div>

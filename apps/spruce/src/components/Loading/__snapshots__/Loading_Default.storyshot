@@ -1,6 +1,6 @@
 <div>
   <div
-    class="emotion-PageWrapper e1xf068s9"
+    class="emotion-PageWrapper e1xf068s7"
   >
     <div
       aria-hidden="true"
@@ -14,7 +14,7 @@
       class="emotion-PageLayout-StyledPageLayout e1mc893m1"
     >
       <aside
-        class="emotion-PageSider e1xf068s7"
+        class="emotion-PageSider e1xf068s5"
         width="275"
       >
         <div
@@ -129,7 +129,7 @@
         </div>
       </aside>
       <main
-        class="emotion-PageContent e1xf068s6"
+        class="emotion-PageContent e1xf068s4"
       >
         <table
           aria-busy="true"

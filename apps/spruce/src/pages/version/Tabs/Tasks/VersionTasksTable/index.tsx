@@ -4,14 +4,14 @@ import {
   LeafyGreenTable,
   ColumnFiltersState,
   SortingState,
-} from "@leafygreen-ui/table";
+  BaseTable,
+  TableWrapper,
+  onChangeHandler,
+  TableControl,
+  TablePlaceholder,
+} from "@evg-ui/lib/components/Table";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
-import TableControl from "components/Table/TableControl";
-import { TablePlaceholder } from "components/Table/TablePlaceholder";
-import TableWrapper from "components/Table/TableWrapper";
-import { onChangeHandler } from "components/Table/utils";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { TableQueryParams } from "constants/queryParams";
@@ -150,7 +150,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             setSorting(defaultSorting);
             clearQueryParams();
           }}
-          onPageSizeChange={(size) =>
+          onPageSizeChange={(size: number) =>
             sendEvent({ name: "Changed page size", "page.size": size })
           }
           page={page}

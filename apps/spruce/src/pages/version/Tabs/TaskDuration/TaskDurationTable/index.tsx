@@ -1,24 +1,25 @@
 import { useMemo } from "react";
-import {
-  ColumnFiltersState,
-  ColumnFiltering,
-  RowSorting,
-  SortingState,
-  getFacetedMinMaxValues,
-  useLeafyGreenTable,
-  LGColumnDef,
-  LeafyGreenTable,
-  OnChangeFn,
-} from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
+import {
+  BaseTable,
+  ColumnFiltering,
+  ColumnFiltersState,
+  getFacetedMinMaxValues,
+  LeafyGreenTable,
+  LGColumnDef,
+  OnChangeFn,
+  onChangeHandler,
+  RowSorting,
+  SortingState,
+  TablePlaceholder,
+  useLeafyGreenTable,
+} from "@evg-ui/lib/components/Table";
+
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useVersionAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
-import { TablePlaceholder } from "components/Table/TablePlaceholder";
-import { onChangeHandler } from "components/Table/utils";
 import { TaskLink } from "components/TasksTable/TaskLink";
 import { TableQueryParams } from "constants/queryParams";
 import { slugs } from "constants/routes";

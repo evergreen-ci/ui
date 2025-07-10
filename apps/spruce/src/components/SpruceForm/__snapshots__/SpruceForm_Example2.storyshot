@@ -41,16 +41,16 @@
                   <label
                     class="leafygreen-ui-1srek1y"
                     data-lgid="lg-label"
-                    for="checkbox-106"
-                    id="checkbox-106-label"
+                    for="checkbox-104"
+                    id="checkbox-104-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-106-label"
+                      aria-labelledby="checkbox-104-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-106"
+                      id="checkbox-104"
                       type="checkbox"
                     />
                     <div
@@ -100,16 +100,16 @@
                   <label
                     class="leafygreen-ui-1srek1y"
                     data-lgid="lg-label"
-                    for="checkbox-107"
-                    id="checkbox-107-label"
+                    for="checkbox-105"
+                    id="checkbox-105-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-107-label"
+                      aria-labelledby="checkbox-105-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-107"
+                      id="checkbox-105"
                       type="checkbox"
                     />
                     <div
@@ -159,16 +159,16 @@
                   <label
                     class="leafygreen-ui-1srek1y"
                     data-lgid="lg-label"
-                    for="checkbox-108"
-                    id="checkbox-108-label"
+                    for="checkbox-106"
+                    id="checkbox-106-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-108-label"
+                      aria-labelledby="checkbox-106-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-108"
+                      id="checkbox-106"
                       type="checkbox"
                     />
                     <div
@@ -218,17 +218,17 @@
                   <label
                     class="leafygreen-ui-1srek1y"
                     data-lgid="lg-label"
-                    for="checkbox-109"
-                    id="checkbox-109-label"
+                    for="checkbox-107"
+                    id="checkbox-107-label"
                   >
                     <input
                       aria-checked="true"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-109-label"
+                      aria-labelledby="checkbox-107-label"
                       checked=""
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-109"
+                      id="checkbox-107"
                       type="checkbox"
                     />
                     <div

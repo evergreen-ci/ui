@@ -1,5 +1,5 @@
+import { TreeSelect } from "@evg-ui/lib/components/TreeSelect";
 import Dropdown from "components/Dropdown";
-import { TreeSelect } from "components/TreeSelect";
 import { noFilterMessage } from "constants/strings";
 import { useStatusesFilter } from "hooks";
 import {

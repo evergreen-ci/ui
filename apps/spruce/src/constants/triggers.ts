@@ -1,4 +1,4 @@
-import { TreeDataEntry } from "components/TreeSelect";
+import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
 import { NotificationMethods } from "types/subscription";
 import {
   ExtraField,
