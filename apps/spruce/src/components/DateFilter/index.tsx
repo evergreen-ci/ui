@@ -2,7 +2,6 @@ import { DatePicker } from "@leafygreen-ui/date-picker";
 import { DateType } from "@leafygreen-ui/date-utils";
 import { Size } from "@leafygreen-ui/tokens";
 import { subDays, subYears } from "date-fns";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { StringMap } from "@evg-ui/lib/types/utils";
 import { isProduction } from "utils/environmentVariables";
 
@@ -41,7 +40,6 @@ export const DateFilter: React.FC<DateFilterProps> = ({
       // Testing environments should not have a minimum date restriction due to static test data.
       min={isProduction() ? subDays(subYears(today, 1), 1) : undefined}
       onDateChange={handleChange}
-      popoverZIndex={zIndex.popover}
       size={size}
       value={value.length ? new Date(value) : undefined}
       {...dataCyProps}

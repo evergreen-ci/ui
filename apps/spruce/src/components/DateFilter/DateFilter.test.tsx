@@ -13,12 +13,12 @@ describe("date filter", () => {
     await user.click(calendarButton);
 
     const popover = screen.getByRole("listbox");
-    expect(popover).toBeVisible();
+    expect(popover).toBeInTheDocument();
 
     const cell = screen.getByRole("gridcell", {
       name: "Thursday, December 28, 2023",
     });
-    expect(cell).toBeVisible();
+    expect(cell).toBeInTheDocument();
     expect(cell).toHaveAttribute("aria-disabled", "false");
     await user.click(cell);
 

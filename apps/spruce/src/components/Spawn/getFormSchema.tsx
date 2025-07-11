@@ -332,16 +332,10 @@ export const getExpirationDetailsSchema = ({
         "ui:disableBefore": add(today, { days: 1 }),
         "ui:disableAfter": add(today, { days: 30 }),
         "ui:widget": "date-time",
-        "ui:elementWrapperCSS": datePickerCSS,
       },
     },
   };
 };
-
-const datePickerCSS = css`
-  position: relative;
-  z-index: 1;
-`;
 
 type PublicKeyProps = {
   canEditSshKeys?: boolean;
