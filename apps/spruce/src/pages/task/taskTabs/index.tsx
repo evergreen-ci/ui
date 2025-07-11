@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate } from "react-router-dom";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -15,7 +16,6 @@ import {
   TaskTestCountQueryVariables,
 } from "gql/generated/types";
 import { TASK_TEST_COUNT } from "gql/queries";
-import { useQueryParams } from "hooks/useQueryParam";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
 import BuildBaron, { useBuildBaronVariables } from "./buildBaronAndAnnotations";

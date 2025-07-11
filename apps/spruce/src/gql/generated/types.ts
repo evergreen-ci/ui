@@ -6197,6 +6197,50 @@ export type AdminSettingsQuery = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    hostInit?: {
+      __typename?: "HostInitConfig";
+      cloudStatusBatchSize?: number | null;
+      hostThrottle?: number | null;
+      maxTotalDynamicHosts?: number | null;
+      provisioningThrottle?: number | null;
+    } | null;
+    notify?: {
+      __typename?: "NotifyConfig";
+      ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
+    } | null;
+    podLifecycle?: {
+      __typename?: "PodLifecycleConfig";
+      maxParallelPodRequests?: number | null;
+      maxPodDefinitionCleanupRate?: number | null;
+      maxSecretCleanupRate?: number | null;
+    } | null;
+    repotracker?: {
+      __typename?: "RepotrackerConfig";
+      maxConcurrentRequests?: number | null;
+      maxRepoRevisionsToSearch?: number | null;
+      numNewRepoRevisionsToFetch?: number | null;
+    } | null;
+    scheduler?: {
+      __typename?: "SchedulerConfig";
+      acceptableHostIdleTimeSeconds?: number | null;
+      cacheDurationSeconds?: number | null;
+      commitQueueFactor?: number | null;
+      expectedRuntimeFactor?: number | null;
+      futureHostFraction?: number | null;
+      generateTaskFactor?: number | null;
+      groupVersions: boolean;
+      hostAllocator?: HostAllocatorVersion | null;
+      hostAllocatorFeedbackRule?: FeedbackRule | null;
+      hostAllocatorRoundingRule?: RoundingRule | null;
+      hostsOverallocatedRule?: OverallocatedRule | null;
+      mainlineTimeInQueueFactor?: number | null;
+      numDependentsFactor?: number | null;
+      patchFactor?: number | null;
+      patchTimeInQueueFactor?: number | null;
+      stepbackTaskFactor?: number | null;
+      targetTimeSeconds?: number | null;
+      taskFinder?: FinderVersion | null;
+    } | null;
     serviceFlags?: {
       __typename?: "ServiceFlags";
       adminParameterStoreDisabled: boolean;
@@ -6235,6 +6279,21 @@ export type AdminSettingsQuery = {
       taskReliabilityDisabled: boolean;
       unrecognizedPodCleanupDisabled: boolean;
       webhookNotificationsDisabled: boolean;
+    } | null;
+    taskLimits?: {
+      __typename?: "TaskLimitsConfig";
+      maxConcurrentLargeParserProjectTasks?: number | null;
+      maxDailyAutomaticRestarts?: number | null;
+      maxDegradedModeConcurrentLargeParserProjectTasks?: number | null;
+      maxDegradedModeParserProjectSize?: number | null;
+      maxExecTimeoutSecs?: number | null;
+      maxGenerateTaskJSONSize?: number | null;
+      maxHourlyPatchTasks?: number | null;
+      maxIncludesPerVersion?: number | null;
+      maxParserProjectSize?: number | null;
+      maxPendingGeneratedTasks?: number | null;
+      maxTaskExecution?: number | null;
+      maxTasksPerVersion?: number | null;
     } | null;
   } | null;
 };
@@ -6370,6 +6429,7 @@ export type BuildBaronQuery = {
 
 export type BuildVariantStatsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type BuildVariantStatsQuery = {
@@ -6388,20 +6448,6 @@ export type BuildVariantStatsQuery = {
       }>;
     }> | null;
   };
-};
-
-export type BuildVariantsForTaskNameQueryVariables = Exact<{
-  projectIdentifier: Scalars["String"]["input"];
-  taskName: Scalars["String"]["input"];
-}>;
-
-export type BuildVariantsForTaskNameQuery = {
-  __typename?: "Query";
-  buildVariantsForTaskName?: Array<{
-    __typename?: "BuildVariantTuple";
-    buildVariant: string;
-    displayName: string;
-  }> | null;
 };
 
 export type BuildVariantsWithChildrenQueryVariables = Exact<{
@@ -6521,23 +6567,6 @@ export type CreatedTicketsQuery = {
       status: { __typename?: "JiraStatus"; id: string; name: string };
     };
   }>;
-};
-
-export type DisplayTaskQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  execution?: InputMaybe<Scalars["Int"]["input"]>;
-}>;
-
-export type DisplayTaskQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    displayName: string;
-    execution: number;
-    executionTasks?: Array<string> | null;
-    displayTask?: { __typename?: "Task"; id: string; execution: number } | null;
-  } | null;
 };
 
 export type DistroEventsQueryVariables = Exact<{
@@ -6697,28 +6726,6 @@ export type DistrosQuery = {
     isVirtualWorkStation: boolean;
     name: string;
   }>;
-};
-
-export type FailedTaskStatusIconTooltipQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-}>;
-
-export type FailedTaskStatusIconTooltipQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    execution: number;
-    tests: {
-      __typename?: "TaskTestResult";
-      filteredTestCount: number;
-      testResults: Array<{
-        __typename?: "TestResult";
-        id: string;
-        testFile: string;
-      }>;
-    };
-  } | null;
 };
 
 export type GithubOrgsQueryVariables = Exact<{ [key: string]: never }>;
@@ -7436,20 +7443,6 @@ export type ConfigurePatchQuery = {
       name: string;
       tasks: Array<string>;
     }>;
-  };
-};
-
-export type PatchTaskStatusesQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
-}>;
-
-export type PatchTaskStatusesQuery = {
-  __typename?: "Query";
-  patch: {
-    __typename?: "Patch";
-    id: string;
-    baseTaskStatuses: Array<string>;
-    taskStatuses: Array<string>;
   };
 };
 
@@ -9028,18 +9021,6 @@ export type SingleTaskDistroQuery = {
   } | null;
 };
 
-export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
-
-export type SpawnExpirationInfoQuery = {
-  __typename?: "Query";
-  myHosts: Array<{ __typename?: "Host"; id: string; noExpiration: boolean }>;
-  myVolumes: Array<{
-    __typename?: "Volume";
-    id: string;
-    noExpiration: boolean;
-  }>;
-};
-
 export type SpawnTaskQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
 }>;
@@ -10056,6 +10037,7 @@ export type VersionUpstreamProjectQuery = {
 
 export type VersionQueryVariables = Exact<{
   id: Scalars["String"]["input"];
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type VersionQuery = {
@@ -10115,7 +10097,6 @@ export type VersionQuery = {
         githash: string;
         projectIdentifier: string;
         status: string;
-        taskCount?: number | null;
         parameters: Array<{
           __typename?: "Parameter";
           key: string;

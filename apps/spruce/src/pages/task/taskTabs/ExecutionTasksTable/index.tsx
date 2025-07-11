@@ -5,6 +5,7 @@ import {
   SortingState,
   useLeafyGreenTable,
 } from "@leafygreen-ui/table";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
@@ -18,7 +19,6 @@ import {
   SortDirection,
 } from "gql/generated/types";
 import { useTableSort } from "hooks";
-import { useQueryParam } from "hooks/useQueryParam";
 import { parseSortString } from "utils/queryString";
 
 const { getDefaultOptions: getDefaultSorting } = RowSorting;

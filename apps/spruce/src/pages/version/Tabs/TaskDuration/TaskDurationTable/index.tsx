@@ -12,6 +12,7 @@ import {
 } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useVersionAnalytics } from "analytics";
@@ -27,7 +28,6 @@ import {
   TaskSortCategory,
 } from "gql/generated/types";
 import { useTableSort, useTaskStatuses } from "hooks";
-import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import { parseSortString } from "utils/queryString";
 import { TaskDurationCell } from "./TaskDurationCell";

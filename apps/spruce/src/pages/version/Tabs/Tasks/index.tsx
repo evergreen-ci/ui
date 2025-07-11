@@ -60,6 +60,8 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
       [PaginationQueryParams.Page]: undefined,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Duration]: undefined,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      [PatchTasksQueryParams.IncludeNeverActivatedTasks]: undefined,
       [PatchTasksQueryParams.Sorts]: defaultSortMethod,
     });
     versionAnalytics.sendEvent({

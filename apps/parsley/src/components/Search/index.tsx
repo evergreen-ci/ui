@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
@@ -9,7 +10,7 @@ import SearchBar from "components/Search/SearchBar";
 import SearchBarGuideCue from "components/Search/SearchBarGuideCue";
 import SearchResults from "components/Search/SearchResults";
 import { CaseSensitivity, MatchType, SearchBarActions } from "constants/enums";
-import { QueryParams } from "constants/queryParams";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import {
   ProjectFiltersQuery,
@@ -18,7 +19,6 @@ import {
 import { PROJECT_FILTERS } from "gql/queries";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useHighlightParam } from "hooks/useHighlightParam";
-import { useQueryParams } from "hooks/useQueryParam";
 import { useSearchHistory } from "hooks/useSearchHistory";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { stringifyFilters } from "utils/query-string";
@@ -30,7 +30,7 @@ const Search: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [filters, setFilters] = useFilterParam();
   const [highlights, setHighlights] = useHighlightParam();
-  const [searchParams, setSearchParams] = useQueryParams();
+  const [searchParams, setSearchParams] = useQueryParams(urlParseOptions);
   const {
     hasLogs,
     logMetadata,

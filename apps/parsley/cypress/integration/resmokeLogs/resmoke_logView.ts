@@ -260,7 +260,7 @@ describe("resmokeLogs/resmoke_logView", () => {
       cy.dataCy("log-row-19").dblclick({ force: true });
       cy.dataCy("log-row-19")
         .invoke("height")
-        .should("be.greaterThan", defaultRowHeight);
+        .should("be.greaterThan", defaultRowHeight * 14);
     });
   });
 

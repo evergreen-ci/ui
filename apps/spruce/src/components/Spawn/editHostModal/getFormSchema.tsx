@@ -137,6 +137,7 @@ export const getFormSchema = ({
         "ui:description": volumes.length === 0 ? "No volumes available." : "",
       },
       rdpPassword: {
+        "ui:inputType": "password",
         // Console error should be resolved by https://jira.mongodb.org/browse/LG-2342.
         "ui:description": (
           <>

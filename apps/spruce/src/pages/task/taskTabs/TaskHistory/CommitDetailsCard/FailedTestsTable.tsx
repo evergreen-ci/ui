@@ -13,12 +13,12 @@ import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import Icon from "@evg-ui/lib/components/Icon";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { useTaskHistoryAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
 import { TaskTestResult, TestResult } from "gql/generated/types";
-import { useQueryParam } from "hooks/useQueryParam";
 import { TaskHistoryOptions } from "../types";
 
 const DEFAULT_PAGE_SIZE = 5;

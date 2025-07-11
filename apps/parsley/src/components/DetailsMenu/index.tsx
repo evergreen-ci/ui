@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import PopoverButton from "components/PopoverButton";
-import { QueryParams } from "constants/queryParams";
-import { useQueryParam } from "hooks/useQueryParam";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import DetailsMenuCard from "./DetailsMenuCard";
 
 const { green } = palette;
@@ -16,10 +16,12 @@ const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
   const [lowerRange] = useQueryParam<undefined | number>(
     QueryParams.LowerRange,
     undefined,
+    urlParseOptions,
   );
   const [upperRange] = useQueryParam<undefined | number>(
     QueryParams.UpperRange,
     undefined,
+    urlParseOptions,
   );
   const [changeVisible, setChangeVisible] = useState(false);
 
