@@ -1,8 +1,8 @@
 import { MenuItem } from "@leafygreen-ui/menu";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics/version/useVersionAnalytics";
-import { useQueryParam } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 
 interface IncludeNeverActivatedTasksToggleProps {

@@ -1,7 +1,7 @@
 import { useCallback } from "react";
+import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { RECENT_PAGE_SIZE_KEY } from "constants/index";
 import { PaginationQueryParams } from "constants/queryParams";
-import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { getDefaultPageSize } from "utils/url";
 
 /**

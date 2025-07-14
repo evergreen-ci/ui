@@ -2,9 +2,9 @@ import { useTransition } from "react";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { SortedTaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
-import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
 
 export const StatusFilter = () => {

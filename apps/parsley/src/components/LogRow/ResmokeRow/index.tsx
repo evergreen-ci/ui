@@ -1,7 +1,7 @@
 import { AnsiUp } from "ansi_up";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import BaseRow from "components/LogRow/BaseRow";
-import { QueryParams } from "constants/queryParams";
-import { useQueryParam } from "hooks/useQueryParam";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { formatPrettyPrint } from "utils/prettyPrint";
 import { LogLineRow } from "../types";
 
@@ -21,7 +21,11 @@ const ResmokeRow: React.FC<ResmokeRowProps> = ({
   ansiUp.escape_html = false;
 
   const lineColor = getResmokeLineColor(lineNumber);
-  const [bookmarks] = useQueryParam<number[]>(QueryParams.Bookmarks, []);
+  const [bookmarks] = useQueryParam<number[]>(
+    QueryParams.Bookmarks,
+    [],
+    urlParseOptions,
+  );
   const bookmarked = bookmarks.includes(lineNumber);
   let lineContent = getLine(lineNumber);
 

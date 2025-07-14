@@ -1,9 +1,9 @@
 import { useTransition } from "react";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
 import { requesterToTitle, mainlineRequesters } from "constants/requesters";
-import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
 
 export const RequesterFilter = () => {

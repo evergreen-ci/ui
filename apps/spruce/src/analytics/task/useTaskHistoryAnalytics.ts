@@ -2,11 +2,11 @@ import { useQuery } from "@apollo/client";
 import { ColumnFiltersState } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { TASK } from "gql/queries";
-import { useQueryParam } from "hooks/useQueryParam";
 import { RequiredQueryParams } from "types/task";
 
 type Action =
