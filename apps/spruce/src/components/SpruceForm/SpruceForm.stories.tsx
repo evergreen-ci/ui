@@ -222,15 +222,13 @@ const example4Def = {
       testText: {
         title: "This is the only visible page element",
         type: "array" as const,
+        uniqueItems: true,
         default: [],
         items: {
           type: "string" as const,
           properties: {
             value: {
               type: "string" as const,
-              title: "Text",
-              default: "",
-              minLength: 1,
             },
           },
         },
@@ -239,25 +237,7 @@ const example4Def = {
   },
   uiSchema: {
     testText: {
-      "ui:addButtonText": "add query",
-      "ui:placeholder": "No permissions have been added.",
-      "ui:showLabel": false,
-      "ui:topAlignDelete": true,
       "ui:widget": widgets.ChipInputWidget,
-      items: {
-        value: {
-          "ui:widget": widgets.TextWidget,
-          "ui:options": {
-            label: false,
-            placeholder: "Enter text",
-            width: "100%",
-          },
-          "ui:elementWrapperCSS": {
-            width: "100%",
-            maxWidth: "100%",
-          },
-        },
-      },
     },
   },
   formData: {

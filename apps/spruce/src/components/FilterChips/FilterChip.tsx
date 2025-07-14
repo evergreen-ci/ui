@@ -9,25 +9,25 @@ const maxChipLength = 25;
 
 interface FilterChipType {
   key: string;
-  title: string;
-  value?: string;
+  title?: string;
+  value: string;
 }
 interface FilterChipProps {
   chip: FilterChipType;
   onClose: () => void;
-  showTitleOnly: boolean;
+  showValueOnly: boolean;
 }
 
 const FilterChip: React.FC<FilterChipProps> = ({
   chip,
   onClose,
-  showTitleOnly,
+  showValueOnly,
 }) => (
   <Chip
     chipCharacterLimit={maxChipLength}
     chipTruncationLocation={TruncationLocation.Middle}
     data-cy="filter-chip"
-    label={showTitleOnly ? chip.title : `${chip.title}: ${chip.value}`}
+    label={showValueOnly ? chip.value : `${chip.title}: ${chip.value}`}
     onDismiss={onClose}
     popoverZIndex={zIndex.tooltip}
     variant={ChipVariant.Gray}

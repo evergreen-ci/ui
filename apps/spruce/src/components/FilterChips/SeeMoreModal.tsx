@@ -11,14 +11,14 @@ interface SeeMoreModalProps {
   notVisibleCount: number;
   onRemoveChip: (chip: FilterChipType) => void;
   onClearAll: () => void;
-  showTitleOnly: boolean;
+  showValueOnly: boolean;
 }
 export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
   chips,
   notVisibleCount,
   onClearAll,
   onRemoveChip,
-  showTitleOnly,
+  showValueOnly,
 }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -36,14 +36,10 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
         <ChipContainer>
           {chips.map((c) => (
             <FilterChip
-              key={
-                showTitleOnly
-                  ? `filter_chip_${c.key}`
-                  : `filter_chip_${c.key}_${c.value}`
-              }
+              key={`filter_chip_${c.key}_${c.value}`}
               chip={c}
               onClose={() => onRemoveChip(c)}
-              showTitleOnly={showTitleOnly}
+              showValueOnly={showValueOnly}
             />
           ))}
         </ChipContainer>

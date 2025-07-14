@@ -2,13 +2,14 @@ import { useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import TextInput from "@leafygreen-ui/text-input";
+import { CharKey } from "@evg-ui/lib/constants/keys";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { PlusButton, Variant } from "components/Buttons";
 import FilterChips from "../../FilterChips/index";
 import ElementWrapper from "../ElementWrapper";
 import { SpruceWidgetProps } from "./types";
 
-export const LeafyGreenChipInput: React.FC<SpruceWidgetProps> = ({
+export const ChipInput: React.FC<SpruceWidgetProps> = ({
   disabled,
   label,
   onChange,
@@ -21,7 +22,7 @@ export const LeafyGreenChipInput: React.FC<SpruceWidgetProps> = ({
   const isDisabled = disabled || readonly;
   const chips = value.map((v: string) => ({
     key: v,
-    title: v,
+    value: v,
   }));
   const handleAdd = () => {
     onChange([...value, text]);
@@ -39,15 +40,15 @@ export const LeafyGreenChipInput: React.FC<SpruceWidgetProps> = ({
       `}
     >
       <InputWrapper>
-        <ChipInput
+        <ChipInputStyle
           data-cy={dataCy}
           disabled={isDisabled}
           label={label}
           onChange={(e) => setText(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && text && handleAdd()}
+          onKeyDown={(e) => e.key === CharKey.Enter && text && handleAdd()}
           value={text}
         />
-        <StyledButton
+        <PlusButton
           disabled={isDisabled || text.trim().length === 0}
           onClick={handleAdd}
           variant={Variant.Primary}
@@ -56,8 +57,8 @@ export const LeafyGreenChipInput: React.FC<SpruceWidgetProps> = ({
       <FilterChips
         chips={chips}
         onClearAll={() => onChange([])}
-        onRemove={(chip) => removeChip(chip.title)}
-        showTitleOnly
+        onRemove={(chip) => removeChip(chip.value)}
+        showValueOnly
       />
     </ElementWrapper>
   );
@@ -67,7 +68,7 @@ const chipStyles = css`
   flex-direction: column;
   gap: ${size.xs};
 `;
-const ChipInput = styled(TextInput)`
+const ChipInputStyle = styled(TextInput)`
   flex-grow: 1;
 `;
 const InputWrapper = styled.div`
@@ -75,7 +76,4 @@ const InputWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   gap: ${size.xs};
-`;
-const StyledButton = styled(PlusButton)`
-  margin-top: 25px;
 `;
