@@ -129,8 +129,8 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-177-menu"
-          aria-describedby="select-177-description"
+          aria-controls="select-181-menu"
+          aria-describedby="select-181-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -139,7 +139,7 @@
           data-cy="tasks-table-page-size-selector"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-178"
+          id="select-182"
           type="button"
           value="10"
         >
@@ -203,6 +203,17 @@
         <tr
           class="leafygreen-ui-5fo1n0"
         >
+          <th
+            class="leafygreen-ui-gr2tm4"
+            data-lgid="lg-table-header"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-11hl1ow"
+            >
+              Reviewed
+            </div>
+          </th>
           <th
             class="leafygreen-ui-1r58gm9"
             data-lgid="lg-table-header"
@@ -513,8 +524,71 @@
           data-index="0"
           data-lgid="lg-table-row"
           data-selected="false"
-          id="lg-table-row-0"
+          id="lg-table-row-evergreen_ui_spruce_check_codegen_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
         >
+          <td
+            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <div
+                    class="leafygreen-ui-55kazc"
+                    data-lgid="lg-checkbox"
+                  >
+                    <label
+                      class="leafygreen-ui-1srek1y"
+                      data-lgid="lg-label"
+                      for="checkbox-183"
+                      id="checkbox-183-label"
+                    >
+                      <input
+                        aria-checked="false"
+                        aria-disabled="false"
+                        aria-label="reviewed"
+                        aria-labelledby="checkbox-183-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        id="checkbox-183"
+                        type="checkbox"
+                      />
+                      <div
+                        class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                      >
+                        <svg
+                          class="leafygreen-ui-6caof5"
+                          fill="none"
+                          height="10"
+                          stroke="#FFFFFF"
+                          viewBox="0 0 10 10"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                            stroke="#FFFFFF"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
@@ -531,13 +605,13 @@
                 >
                   <a
                     class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-                    href="/task/some_id?execution=0"
+                    href="/task/evergreen_ui_spruce_check_codegen_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                   >
                     <span>
                       <span
                         class="emotion-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                       >
-                        Some Fancy ID
+                        check_codegen
                       </span>
                     </span>
                   </a>
@@ -560,13 +634,13 @@
                   class=""
                 >
                   <a
-                    href="/task/some_id?execution=0"
+                    href="/task/evergreen_ui_spruce_check_codegen_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                   >
                     <div
-                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1uko9cz"
+                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                       data-cy="task-status-badge"
                     >
-                      Running
+                      Succeeded
                     </div>
                   </a>
                 </div>
@@ -588,13 +662,13 @@
                   class=""
                 >
                   <a
-                    href="/task/some_base_task?execution=0"
+                    href="/task/evergreen_ui_spruce_check_codegen_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27?execution=0"
                   >
                     <div
-                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                       data-cy="task-status-badge"
                     >
-                      Unscheduled
+                      Succeeded
                     </div>
                   </a>
                 </div>
@@ -617,10 +691,10 @@
                 >
                   <a
                     class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-                    href="/variant-history/evg/ubuntu1604"
+                    href="/variant-history/evergreen-ui/spruce"
                   >
                     <span>
-                      Ubuntu 16.04
+                      Spruce
                     </span>
                   </a>
                 </div>
@@ -637,8 +711,71 @@
           data-index="1"
           data-lgid="lg-table-row"
           data-selected="false"
-          id="lg-table-row-1"
+          id="lg-table-row-evergreen_ui_spruce_lint_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
         >
+          <td
+            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <div
+                    class="leafygreen-ui-55kazc"
+                    data-lgid="lg-checkbox"
+                  >
+                    <label
+                      class="leafygreen-ui-1srek1y"
+                      data-lgid="lg-label"
+                      for="checkbox-184"
+                      id="checkbox-184-label"
+                    >
+                      <input
+                        aria-checked="false"
+                        aria-disabled="false"
+                        aria-label="reviewed"
+                        aria-labelledby="checkbox-184-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        id="checkbox-184"
+                        type="checkbox"
+                      />
+                      <div
+                        class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                      >
+                        <svg
+                          class="leafygreen-ui-6caof5"
+                          fill="none"
+                          height="10"
+                          stroke="#FFFFFF"
+                          viewBox="0 0 10 10"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                            stroke="#FFFFFF"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
@@ -655,13 +792,13 @@
                 >
                   <a
                     class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-                    href="/task/some_id_2?execution=0"
+                    href="/task/evergreen_ui_spruce_lint_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                   >
                     <span>
                       <span
                         class="emotion-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                       >
-                        Some other Fancy ID
+                        lint
                       </span>
                     </span>
                   </a>
@@ -684,7 +821,7 @@
                   class=""
                 >
                   <a
-                    href="/task/some_id_2?execution=0"
+                    href="/task/evergreen_ui_spruce_lint_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                   >
                     <div
                       class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
@@ -712,13 +849,13 @@
                   class=""
                 >
                   <a
-                    href="/task/some_base_task_2?execution=0"
+                    href="/task/evergreen_ui_spruce_lint_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27?execution=0"
                   >
                     <div
-                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                       data-cy="task-status-badge"
                     >
-                      Failed
+                      Succeeded
                     </div>
                   </a>
                 </div>
@@ -741,10 +878,10 @@
                 >
                   <a
                     class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-                    href="/variant-history/evg/ubuntu1604"
+                    href="/variant-history/evergreen-ui/spruce"
                   >
                     <span>
-                      Ubuntu 16.04
+                      Spruce
                     </span>
                   </a>
                 </div>
@@ -761,8 +898,71 @@
           data-index="2"
           data-lgid="lg-table-row"
           data-selected="false"
-          id="lg-table-row-2"
+          id="lg-table-row-evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
         >
+          <td
+            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <div
+                    class="leafygreen-ui-55kazc"
+                    data-lgid="lg-checkbox"
+                  >
+                    <label
+                      class="leafygreen-ui-1srek1y"
+                      data-lgid="lg-label"
+                      for="checkbox-185"
+                      id="checkbox-185-label"
+                    >
+                      <input
+                        aria-checked="false"
+                        aria-disabled="false"
+                        aria-label="reviewed"
+                        aria-labelledby="checkbox-185-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        id="checkbox-185"
+                        type="checkbox"
+                      />
+                      <div
+                        class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                      >
+                        <svg
+                          class="leafygreen-ui-6caof5"
+                          fill="none"
+                          height="10"
+                          stroke="#FFFFFF"
+                          viewBox="0 0 10 10"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                            stroke="#FFFFFF"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
@@ -779,13 +979,13 @@
                 >
                   <a
                     class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-                    href="/task/some_id_3?execution=0"
+                    href="/task/evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                   >
                     <span>
                       <span
                         class="emotion-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                       >
-                        Some different Fancy ID
+                        type_check
                       </span>
                     </span>
                   </a>
@@ -808,7 +1008,7 @@
                   class=""
                 >
                   <a
-                    href="/task/some_id_3?execution=0"
+                    href="/task/evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                   >
                     <div
                       class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
@@ -836,13 +1036,13 @@
                   class=""
                 >
                   <a
-                    href="/task/some_base_task_3?execution=0"
+                    href="/task/evergreen_ui_spruce_type_check_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27?execution=0"
                   >
                     <div
-                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                       data-cy="task-status-badge"
                     >
-                      Failed
+                      Succeeded
                     </div>
                   </a>
                 </div>
@@ -865,10 +1065,10 @@
                 >
                   <a
                     class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-                    href="/variant-history/evg/Windows"
+                    href="/variant-history/evergreen-ui/spruce"
                   >
                     <span>
-                      Windows 97
+                      Spruce
                     </span>
                   </a>
                 </div>
@@ -885,7 +1085,7 @@
           data-index="3"
           data-lgid="lg-table-row"
           data-selected="false"
-          id="lg-table-row-3"
+          id="lg-table-row-evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-jlin17"
@@ -931,15 +1131,78 @@
                 <div
                   class=""
                 >
+                  <div
+                    class="leafygreen-ui-55kazc"
+                    data-lgid="lg-checkbox"
+                  >
+                    <label
+                      class="leafygreen-ui-1srek1y"
+                      data-lgid="lg-label"
+                      for="checkbox-186"
+                      id="checkbox-186-label"
+                    >
+                      <input
+                        aria-checked="false"
+                        aria-disabled="false"
+                        aria-label="reviewed"
+                        aria-labelledby="checkbox-186-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        id="checkbox-186"
+                        type="checkbox"
+                      />
+                      <div
+                        class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                      >
+                        <svg
+                          class="leafygreen-ui-6caof5"
+                          fill="none"
+                          height="10"
+                          stroke="#FFFFFF"
+                          viewBox="0 0 10 10"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                            stroke="#FFFFFF"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-6m4hlf leafygreen-ui-jlin17"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
                   <a
                     class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-                    href="/task/some_id_4?execution=0"
+                    href="/task/evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                   >
                     <span>
                       <span
                         class="emotion-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                       >
-                        Some Fancy Display Task
+                        e2e_parallel
                       </span>
                     </span>
                   </a>
@@ -962,7 +1225,7 @@
                   class=""
                 >
                   <a
-                    href="/task/some_id_4?execution=0"
+                    href="/task/evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                   >
                     <div
                       class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
@@ -988,18 +1251,7 @@
               >
                 <div
                   class=""
-                >
-                  <a
-                    href="/task/some_base_task_4?execution=0"
-                  >
-                    <div
-                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
-                      data-cy="task-status-badge"
-                    >
-                      Failed
-                    </div>
-                  </a>
-                </div>
+                />
               </div>
             </div>
           </td>
@@ -1019,10 +1271,10 @@
                 >
                   <a
                     class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-                    href="/variant-history/evg/Windows"
+                    href="/variant-history/evergreen-ui/spruce"
                   >
                     <span>
-                      Windows 97
+                      Spruce
                     </span>
                   </a>
                 </div>
