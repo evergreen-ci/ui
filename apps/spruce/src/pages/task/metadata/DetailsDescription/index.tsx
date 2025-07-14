@@ -53,30 +53,42 @@ const DetailsDescription = ({
       </MetadataItem>
       {otherFailingCommands.length > 0 ? (
         <MetadataItem data-cy="task-metadata-other-failing-commands">
-          <MetadataLabel>Other Failing Commands: </MetadataLabel>
-          <OtherFailingCommandContainer>
-            {otherFailingCommands.map(
-              ({ failureMetadataTags, fullDisplayName }) => (
-                <OtherFailingCommand key={fullDisplayName}>
-                  {fullDisplayName}
-                  <ChipContainer>
-                    {failureMetadataTags.map((t) => (
-                      <Chip
-                        key={`${fullDisplayName}-${t}`}
-                        label={t}
-                        variant={ChipVariant.Gray}
-                      />
-                    ))}
-                  </ChipContainer>
-                </OtherFailingCommand>
-              ),
-            )}
-          </OtherFailingCommandContainer>
+          <details>
+            <MetadataSummary data-cy="other-failing-commands-summary">
+              <MetadataLabel>
+                Other Failing Commands ({otherFailingCommands.length})
+              </MetadataLabel>
+            </MetadataSummary>
+            <OtherFailingCommandContainer>
+              {otherFailingCommands.map(
+                ({ failureMetadataTags, fullDisplayName }) => (
+                  <OtherFailingCommand key={fullDisplayName}>
+                    {fullDisplayName}
+                    <ChipContainer>
+                      {failureMetadataTags.map((t) => (
+                        <Chip
+                          key={`${fullDisplayName}-${t}`}
+                          label={t}
+                          variant={ChipVariant.Gray}
+                        />
+                      ))}
+                    </ChipContainer>
+                  </OtherFailingCommand>
+                ),
+              )}
+            </OtherFailingCommandContainer>
+          </details>
         </MetadataItem>
       ) : null}
     </>
   );
 };
+
+const MetadataSummary = styled.summary`
+  :hover {
+    cursor: pointer;
+  }
+`;
 
 const OtherFailingCommandContainer = styled.ul`
   display: flex;

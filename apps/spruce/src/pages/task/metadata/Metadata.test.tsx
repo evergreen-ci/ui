@@ -79,6 +79,9 @@ describe("metadata", () => {
     expect(
       screen.getByDataCy("task-metadata-other-failing-commands"),
     ).toBeInTheDocument();
+    expect(screen.queryByText("other failing command")).not.toBeVisible();
+    await user.click(screen.getByDataCy("other-failing-commands-summary"));
+    expect(screen.getByText("other failing command")).toBeVisible();
   });
 });
 
@@ -121,7 +124,7 @@ const taskSucceeded: TaskQueryType = {
       diskDevices: [],
       otherFailingCommands: [
         {
-          fullDisplayName: "failing command",
+          fullDisplayName: "other failing command",
           failureMetadataTags: ["tag1", "tag2"],
         },
       ],
