@@ -11,12 +11,14 @@ interface SeeMoreModalProps {
   notVisibleCount: number;
   onRemoveChip: (chip: FilterChipType) => void;
   onClearAll: () => void;
+  showValueOnly: boolean;
 }
 export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
   chips,
   notVisibleCount,
   onClearAll,
   onRemoveChip,
+  showValueOnly,
 }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -37,6 +39,7 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
               key={`filter_chip_${c.key}_${c.value}`}
               chip={c}
               onClose={() => onRemoveChip(c)}
+              showValueOnly={showValueOnly}
             />
           ))}
         </ChipContainer>
@@ -45,7 +48,7 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
           size={Size.XSmall}
           variant={Variant.Default}
         >
-          Clear all filters
+          Clear all
         </Button>
       </DisplayModal>
     </>
