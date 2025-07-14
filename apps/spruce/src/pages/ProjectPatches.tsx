@@ -4,6 +4,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
 import { ProjectBanner } from "components/Banners";
 import { PatchesPage } from "components/PatchesPage";
@@ -18,7 +19,6 @@ import {
 } from "gql/generated/types";
 import { PROJECT_PATCHES } from "gql/queries";
 import { usePolling } from "hooks";
-import { useQueryParam } from "hooks/useQueryParam";
 import { PatchPageQueryParams } from "types/patch";
 
 export const ProjectPatches = () => {

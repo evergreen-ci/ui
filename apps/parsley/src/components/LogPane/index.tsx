@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { css } from "@leafygreen-ui/emotion";
 import Cookies from "js-cookie";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
@@ -9,7 +10,6 @@ import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/cookies";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useParsleySettings } from "hooks/useParsleySettings";
-import { useQueryParam } from "hooks/useQueryParam";
 import { findLineIndex } from "utils/findLineIndex";
 
 interface LogPaneProps {

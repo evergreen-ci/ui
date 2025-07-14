@@ -1,15 +1,15 @@
 import { act, waitFor } from "@testing-library/react";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import {
   renderWithRouterMatch as render,
   renderComponentWithHook,
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
-import { QueryParams } from "constants/queryParams";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
-import { useQueryParam } from "hooks/useQueryParam";
 import DetailsMenu from ".";
 
 /**
@@ -22,6 +22,7 @@ const renderDetailsMenu = () => {
     useQueryParam: useQueryParam<number | undefined>(
       QueryParams.UpperRange,
       undefined,
+      urlParseOptions,
     ),
   });
   const { Component: DetailsMenuComponent, hook } = renderComponentWithHook(

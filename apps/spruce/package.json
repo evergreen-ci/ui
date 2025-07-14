@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.0.30",
+  "version": "6.0.34",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,7 +16,7 @@
     "check-schema-and-codegen": "env-cmd -e local vite-node scripts/check-schema-and-codegen/script.ts",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf node_modules && rm -rf dist && yarn install",
-    "codegen": "graphql-codegen-esm --config codegen.ts",
+    "codegen": "graphql-codegen-esm --config graphql.config.ts",
     "cy:open": "yarn evg-db-ops --reseed-and-dump; cypress open",
     "cy:run": "yarn evg-db-ops --reseed-and-dump; cypress run",
     "cy:test": "yarn evg-db-ops --reseed-and-dump; cypress run --spec",
@@ -71,7 +71,7 @@
     "@leafygreen-ui/combobox": "^9.1.4",
     "@leafygreen-ui/confirmation-modal": "^5.0.9",
     "@leafygreen-ui/copyable": "^11.0.1",
-    "@leafygreen-ui/date-picker": "^1.2.2",
+    "@leafygreen-ui/date-picker": "^4.0.3",
     "@leafygreen-ui/date-utils": "^0.1.2",
     "@leafygreen-ui/emotion": "^4.0.7",
     "@leafygreen-ui/empty-state": "^2.0.15",

@@ -487,7 +487,7 @@ export type DistroInput = {
   disableShallowClone: Scalars["Boolean"]["input"];
   disabled: Scalars["Boolean"]["input"];
   dispatcherSettings: DispatcherSettingsInput;
-  execUser?: InputMaybe<Scalars["String"]["input"]>;
+  execUser: Scalars["String"]["input"];
   expansions: Array<ExpansionInput>;
   finderSettings: FinderSettingsInput;
   homeVolumeSettings: HomeVolumeSettingsInput;
@@ -496,12 +496,12 @@ export type DistroInput = {
   imageId: Scalars["String"]["input"];
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
-  mountpoints?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  mountpoints: Array<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
   note: Scalars["String"]["input"];
   plannerSettings: PlannerSettingsInput;
   provider: Provider;
-  providerAccount?: InputMaybe<Scalars["String"]["input"]>;
+  providerAccount: Scalars["String"]["input"];
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
@@ -510,7 +510,7 @@ export type DistroInput = {
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
   validProjects: Array<Scalars["String"]["input"]>;
-  warningNote?: InputMaybe<Scalars["String"]["input"]>;
+  warningNote: Scalars["String"]["input"];
   workDir: Scalars["String"]["input"];
 };
 
@@ -835,7 +835,7 @@ export type HostAllocatorSettings = {
 
 export type HostAllocatorSettingsInput = {
   acceptableHostIdleTime: Scalars["Int"]["input"];
-  autoTuneMaximumHosts?: InputMaybe<Scalars["Boolean"]["input"]>;
+  autoTuneMaximumHosts: Scalars["Boolean"]["input"];
   feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"]["input"];
   hostsOverallocatedRule: OverallocatedRule;
@@ -1873,7 +1873,7 @@ export type PlannerSettings = {
   generateTaskFactor: Scalars["Int"]["output"];
   groupVersions: Scalars["Boolean"]["output"];
   mainlineTimeInQueueFactor: Scalars["Int"]["output"];
-  numDependentsFactor?: Maybe<Scalars["Float"]["output"]>;
+  numDependentsFactor: Scalars["Float"]["output"];
   patchFactor: Scalars["Int"]["output"];
   patchTimeInQueueFactor: Scalars["Int"]["output"];
   targetTime: Scalars["Duration"]["output"];
@@ -1886,7 +1886,7 @@ export type PlannerSettingsInput = {
   generateTaskFactor: Scalars["Int"]["input"];
   groupVersions: Scalars["Boolean"]["input"];
   mainlineTimeInQueueFactor: Scalars["Int"]["input"];
-  numDependentsFactor?: InputMaybe<Scalars["Float"]["input"]>;
+  numDependentsFactor: Scalars["Float"]["input"];
   patchFactor: Scalars["Int"]["input"];
   patchTimeInQueueFactor: Scalars["Int"]["input"];
   targetTime: Scalars["Int"]["input"];
@@ -6204,6 +6204,50 @@ export type AdminSettingsQuery = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    hostInit?: {
+      __typename?: "HostInitConfig";
+      cloudStatusBatchSize?: number | null;
+      hostThrottle?: number | null;
+      maxTotalDynamicHosts?: number | null;
+      provisioningThrottle?: number | null;
+    } | null;
+    notify?: {
+      __typename?: "NotifyConfig";
+      ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
+    } | null;
+    podLifecycle?: {
+      __typename?: "PodLifecycleConfig";
+      maxParallelPodRequests?: number | null;
+      maxPodDefinitionCleanupRate?: number | null;
+      maxSecretCleanupRate?: number | null;
+    } | null;
+    repotracker?: {
+      __typename?: "RepotrackerConfig";
+      maxConcurrentRequests?: number | null;
+      maxRepoRevisionsToSearch?: number | null;
+      numNewRepoRevisionsToFetch?: number | null;
+    } | null;
+    scheduler?: {
+      __typename?: "SchedulerConfig";
+      acceptableHostIdleTimeSeconds?: number | null;
+      cacheDurationSeconds?: number | null;
+      commitQueueFactor?: number | null;
+      expectedRuntimeFactor?: number | null;
+      futureHostFraction?: number | null;
+      generateTaskFactor?: number | null;
+      groupVersions: boolean;
+      hostAllocator?: HostAllocatorVersion | null;
+      hostAllocatorFeedbackRule?: FeedbackRule | null;
+      hostAllocatorRoundingRule?: RoundingRule | null;
+      hostsOverallocatedRule?: OverallocatedRule | null;
+      mainlineTimeInQueueFactor?: number | null;
+      numDependentsFactor?: number | null;
+      patchFactor?: number | null;
+      patchTimeInQueueFactor?: number | null;
+      stepbackTaskFactor?: number | null;
+      targetTimeSeconds?: number | null;
+      taskFinder?: FinderVersion | null;
+    } | null;
     serviceFlags?: {
       __typename?: "ServiceFlags";
       adminParameterStoreDisabled: boolean;
@@ -6242,6 +6286,21 @@ export type AdminSettingsQuery = {
       taskReliabilityDisabled: boolean;
       unrecognizedPodCleanupDisabled: boolean;
       webhookNotificationsDisabled: boolean;
+    } | null;
+    taskLimits?: {
+      __typename?: "TaskLimitsConfig";
+      maxConcurrentLargeParserProjectTasks?: number | null;
+      maxDailyAutomaticRestarts?: number | null;
+      maxDegradedModeConcurrentLargeParserProjectTasks?: number | null;
+      maxDegradedModeParserProjectSize?: number | null;
+      maxExecTimeoutSecs?: number | null;
+      maxGenerateTaskJSONSize?: number | null;
+      maxHourlyPatchTasks?: number | null;
+      maxIncludesPerVersion?: number | null;
+      maxParserProjectSize?: number | null;
+      maxPendingGeneratedTasks?: number | null;
+      maxTaskExecution?: number | null;
+      maxTasksPerVersion?: number | null;
     } | null;
   } | null;
 };
@@ -6377,6 +6436,7 @@ export type BuildBaronQuery = {
 
 export type BuildVariantStatsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type BuildVariantStatsQuery = {
@@ -6516,23 +6576,6 @@ export type CreatedTicketsQuery = {
   }>;
 };
 
-export type DisplayTaskQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  execution?: InputMaybe<Scalars["Int"]["input"]>;
-}>;
-
-export type DisplayTaskQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    displayName: string;
-    execution: number;
-    executionTasks?: Array<string> | null;
-    displayTask?: { __typename?: "Task"; id: string; execution: number } | null;
-  } | null;
-};
-
 export type DistroEventsQueryVariables = Exact<{
   distroId: Scalars["String"]["input"];
   limit?: InputMaybe<Scalars["Int"]["input"]>;
@@ -6669,7 +6712,7 @@ export type DistroQuery = {
       generateTaskFactor: number;
       groupVersions: boolean;
       mainlineTimeInQueueFactor: number;
-      numDependentsFactor?: number | null;
+      numDependentsFactor: number;
       patchFactor: number;
       patchTimeInQueueFactor: number;
       targetTime: number;
@@ -6690,28 +6733,6 @@ export type DistrosQuery = {
     isVirtualWorkStation: boolean;
     name: string;
   }>;
-};
-
-export type FailedTaskStatusIconTooltipQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-}>;
-
-export type FailedTaskStatusIconTooltipQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    execution: number;
-    tests: {
-      __typename?: "TaskTestResult";
-      filteredTestCount: number;
-      testResults: Array<{
-        __typename?: "TestResult";
-        id: string;
-        testFile: string;
-      }>;
-    };
-  } | null;
 };
 
 export type GithubOrgsQueryVariables = Exact<{ [key: string]: never }>;
@@ -7429,20 +7450,6 @@ export type ConfigurePatchQuery = {
       name: string;
       tasks: Array<string>;
     }>;
-  };
-};
-
-export type PatchTaskStatusesQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
-}>;
-
-export type PatchTaskStatusesQuery = {
-  __typename?: "Query";
-  patch: {
-    __typename?: "Patch";
-    id: string;
-    baseTaskStatuses: Array<string>;
-    taskStatuses: Array<string>;
   };
 };
 
@@ -9021,18 +9028,6 @@ export type SingleTaskDistroQuery = {
   } | null;
 };
 
-export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
-
-export type SpawnExpirationInfoQuery = {
-  __typename?: "Query";
-  myHosts: Array<{ __typename?: "Host"; id: string; noExpiration: boolean }>;
-  myVolumes: Array<{
-    __typename?: "Volume";
-    id: string;
-    noExpiration: boolean;
-  }>;
-};
-
 export type SpawnTaskQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
 }>;
@@ -10054,6 +10049,7 @@ export type VersionUpstreamProjectQuery = {
 
 export type VersionQueryVariables = Exact<{
   id: Scalars["String"]["input"];
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type VersionQuery = {
@@ -10113,7 +10109,6 @@ export type VersionQuery = {
         githash: string;
         projectIdentifier: string;
         status: string;
-        taskCount?: number | null;
         parameters: Array<{
           __typename?: "Parameter";
           key: string;

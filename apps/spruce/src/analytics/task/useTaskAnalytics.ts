@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 import {
@@ -12,7 +13,6 @@ import {
   TestSortCategory,
 } from "gql/generated/types";
 import { TASK, TASK_TEST_COUNT } from "gql/queries";
-import { useQueryParam } from "hooks/useQueryParam";
 import { CommitType } from "pages/task/actionButtons/RelevantCommits/types";
 import { RequiredQueryParams, LogTypes } from "types/task";
 

@@ -1,12 +1,12 @@
 import { MemoryRouter } from "react-router-dom";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { act, renderHook } from "@evg-ui/lib/test_utils";
-import { QueryParams } from "constants/queryParams";
-import { useQueryParams } from "hooks/useQueryParam";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import useLineRangeSelection from ".";
 
 const useLineRangeSelectionJointHook = () => {
   const [range, setRange] = useLineRangeSelection();
-  const [allQueryParams] = useQueryParams();
+  const [allQueryParams] = useQueryParams(urlParseOptions);
   return { allQueryParams, range, setRange };
 };
 const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (

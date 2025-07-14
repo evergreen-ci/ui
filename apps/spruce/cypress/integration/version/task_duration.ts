@@ -31,7 +31,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("task-duration-table-row").should("have.length", 3);
       cy.location("search").should(
         "include",
-        "page=0&sorts=DURATION%3ADESC&statuses=running-umbrella%2Cstarted%2Cdispatched",
+        "page=0&sorts=DURATION%3ADESC&statuses=running-umbrella,started,dispatched",
       );
       // Clear status filter.
       cy.dataCy("status-filter-popover").click();

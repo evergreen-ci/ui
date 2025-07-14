@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
@@ -19,6 +20,7 @@ import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
 import { VERSION } from "gql/queries";
 import { usePolling, useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/NotFound";
+import { PatchTasksQueryParams } from "types/task";
 import { githubPRLinkify, jiraLinkify } from "utils/string";
 import { ActionButtons } from "./version/ActionButtons";
 import { WarningBanner, ErrorBanner, IgnoredBanner } from "./version/Banners";
@@ -32,7 +34,10 @@ export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const { [slugs.versionId]: versionId = "" } = useParams();
   const dispatchToast = useToastContext();
-
+  const [includeNeverActivatedTasks] = useQueryParam<boolean | undefined>(
+    PatchTasksQueryParams.IncludeNeverActivatedTasks,
+    undefined,
+  );
   const {
     data: versionData,
     loading: versionLoading,
@@ -40,7 +45,7 @@ export const VersionPage: React.FC = () => {
     startPolling,
     stopPolling,
   } = useQuery<VersionQuery, VersionQueryVariables>(VERSION, {
-    variables: { id: versionId },
+    variables: { id: versionId, includeNeverActivatedTasks },
     fetchPolicy: "cache-and-network",
     onError: (error) => {
       dispatchToast.error(

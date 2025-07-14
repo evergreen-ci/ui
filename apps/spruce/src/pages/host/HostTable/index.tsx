@@ -9,6 +9,7 @@ import {
 } from "@leafygreen-ui/table";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
 import PageSizeSelector from "components/PageSizeSelector";
@@ -19,7 +20,6 @@ import { ALL_VALUE } from "components/TreeSelect";
 import { HostEventsQuery, HostEventType } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import usePagination from "hooks/usePagination";
-import { useQueryParams } from "hooks/useQueryParam";
 import { HostCard } from "pages/host/HostCard";
 import HostEventString, {
   formatHostFilterOption,
