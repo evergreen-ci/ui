@@ -1,3 +1,4 @@
+import { InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import {
   renderWithRouterMatch as render,
@@ -6,13 +7,26 @@ import {
   within,
 } from "@evg-ui/lib/test_utils";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
+import { TASK } from "gql/queries";
 import { tasks, versionId } from "./testData";
 import { VersionTasksTable, getInitialState } from ".";
+
+const cache = new InMemoryCache();
+
+tasks.forEach((task) => {
+  cache.writeQuery({
+    query: TASK,
+    variables: { taskId: task.id, execution: task.execution },
+    data: {
+      task,
+    },
+  });
+});
 
 describe("VersionTasksTable", () => {
   it("renders all rows", () => {
     render(
-      <MockedProvider>
+      <MockedProvider cache={cache}>
         <VersionTasksTable {...sharedProps} />
       </MockedProvider>,
     );
@@ -26,12 +40,12 @@ describe("VersionTasksTable", () => {
         <VersionTasksTable {...sharedProps} />
       </MockedProvider>,
     );
-    expect(screen.queryByText("Another execution task")).toBeNull();
+    expect(screen.queryByText("e2e_spruce_0")).toBeNull();
     const expandRowButton = within(
       screen.getAllByDataCy("tasks-table-row")[3],
     ).getByRole("button");
     await user.click(expandRowButton);
-    expect(screen.queryByText("Another execution task")).toBeVisible();
+    expect(screen.queryByText("e2e_spruce_0")).toBeVisible();
   });
 
   it("calls clearQueryParams function when button is clicked", async () => {

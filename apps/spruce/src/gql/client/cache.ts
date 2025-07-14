@@ -126,9 +126,9 @@ export const cache = new InMemoryCache({
           },
         },
         reviewed: {
-          read(existing): number {
-            // TODO: Fetch stored value for this field, and return 0 if none is found.
-            return existing ?? 0;
+          read(existing) {
+            // TODO: Fetch stored value for this field, and return false if none is found.
+            return existing ?? false;
           },
         },
         taskLogs: {
