@@ -44,11 +44,9 @@ const useFilterChipQueryParams = (
     updateQueryParams(params);
   };
   const handleOnRemove = (chip: FilterChipType) => {
-    if (chip.value) {
-      const updatedParam = popQueryParams(queryParams[chip.key], chip.value);
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      updateQueryParams({ [chip.key]: updatedParam });
-    }
+    const updatedParam = popQueryParams(queryParams[chip.key], chip.value);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    updateQueryParams({ [chip.key]: updatedParam });
   };
 
   return {

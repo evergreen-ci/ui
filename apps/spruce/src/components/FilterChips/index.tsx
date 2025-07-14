@@ -29,11 +29,7 @@ const FilterChips: React.FC<FilterChipsProps> = ({
     <Container>
       {visibleChips.map((c) => (
         <FilterChip
-          key={
-            showValueOnly
-              ? `filter_chip_${c.key}`
-              : `filter_chip_${c.key}_${c.value}`
-          }
+          key={`filter_chip_${c.key}_${c.value}`}
           chip={c}
           onClose={() => {
             handleOnRemove(c);
