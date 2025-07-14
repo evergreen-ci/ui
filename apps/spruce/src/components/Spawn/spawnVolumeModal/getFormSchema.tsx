@@ -152,7 +152,6 @@ export const getFormSchema = ({
           "ui:disableBefore": add(today, { days: 1 }),
           "ui:disableAfter": add(today, { days: 30 }),
           "ui:widget": "date-time",
-          "ui:elementWrapperCSS": datePickerCSS,
         },
         noExpiration: {
           "ui:disabled": disableExpirationCheckbox,
@@ -169,11 +168,6 @@ export const getFormSchema = ({
     },
   },
 });
-
-const datePickerCSS = css`
-  position: relative;
-  z-index: 1;
-`;
 
 const checkboxCSS = css`
   margin-bottom: 0;
