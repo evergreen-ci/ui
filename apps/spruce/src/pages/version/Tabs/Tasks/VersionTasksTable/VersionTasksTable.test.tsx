@@ -7,20 +7,31 @@ import {
   within,
 } from "@evg-ui/lib/test_utils";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
-import { TASK } from "gql/queries";
-import { tasks, versionId } from "./testData";
+import { VERSION_TASKS } from "gql/queries";
+import { versionTasks } from "./testData";
 import { VersionTasksTable, getInitialState } from ".";
 
-const cache = new InMemoryCache();
+const versionId = versionTasks.data.version.id;
+const tasks = versionTasks.data.version.tasks.data;
 
-tasks.forEach((task) => {
-  cache.writeQuery({
-    query: TASK,
-    variables: { taskId: task.id, execution: task.execution },
-    data: {
-      task,
+const cache = new InMemoryCache({
+  typePolicies: {
+    Task: {
+      fields: {
+        reviewed: {
+          read(existing) {
+            return existing ?? false;
+          },
+        },
+      },
     },
-  });
+  },
+});
+
+cache.writeQuery({
+  query: VERSION_TASKS,
+  variables: { versionId },
+  data: versionTasks.data,
 });
 
 describe("VersionTasksTable", () => {
@@ -36,7 +47,7 @@ describe("VersionTasksTable", () => {
   it("opens nested row on click", async () => {
     const user = userEvent.setup();
     render(
-      <MockedProvider>
+      <MockedProvider cache={cache}>
         <VersionTasksTable {...sharedProps} />
       </MockedProvider>,
     );
@@ -52,7 +63,7 @@ describe("VersionTasksTable", () => {
     const user = userEvent.setup();
     const clearQueryParams = vi.fn();
     render(
-      <MockedProvider>
+      <MockedProvider cache={cache}>
         <VersionTasksTable
           {...sharedProps}
           clearQueryParams={clearQueryParams}

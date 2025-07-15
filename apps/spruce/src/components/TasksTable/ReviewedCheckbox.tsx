@@ -48,8 +48,9 @@ export const ReviewedCheckbox: React.FC<{
 
   return (
     <Checkbox
-      aria-label="reviewed"
+      aria-label={`Mark as ${checked ? "un" : ""}reviewed`}
       checked={checked}
+      data-lgid={`lg-reviewed-${row.original.id}`}
       indeterminate={indeterminate}
       onChange={handleClick}
     />

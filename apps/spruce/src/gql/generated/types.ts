@@ -31,6 +31,19 @@ export type Scalars = {
   Time: { input: Date; output: Date };
 };
 
+export type ApiConfig = {
+  __typename?: "APIConfig";
+  corpUrl?: Maybe<Scalars["String"]["output"]>;
+  httpListenAddr?: Maybe<Scalars["String"]["output"]>;
+  url?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type ApiConfigInput = {
+  corpUrl: Scalars["String"]["input"];
+  httpListenAddr: Scalars["String"]["input"];
+  url: Scalars["String"]["input"];
+};
+
 export type AwsConfig = {
   __typename?: "AWSConfig";
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
@@ -64,8 +77,10 @@ export type AddFavoriteProjectInput = {
 
 export type AdminSettings = {
   __typename?: "AdminSettings";
+  api?: Maybe<ApiConfig>;
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
+  disabledGQLQueries: Array<Scalars["String"]["output"]>;
   hostInit?: Maybe<HostInitConfig>;
   notify?: Maybe<NotifyConfig>;
   podLifecycle?: Maybe<PodLifecycleConfig>;
@@ -73,11 +88,14 @@ export type AdminSettings = {
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
   taskLimits?: Maybe<TaskLimitsConfig>;
+  ui?: Maybe<UiConfig>;
 };
 
 export type AdminSettingsInput = {
+  api?: InputMaybe<ApiConfigInput>;
   banner?: InputMaybe<Scalars["String"]["input"]>;
   bannerTheme?: InputMaybe<BannerTheme>;
+  disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   hostInit?: InputMaybe<HostInitConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
   podLifecycle?: InputMaybe<PodLifecycleConfigInput>;
@@ -85,6 +103,7 @@ export type AdminSettingsInput = {
   scheduler?: InputMaybe<SchedulerConfigInput>;
   serviceFlags?: InputMaybe<ServiceFlagsInput>;
   taskLimits?: InputMaybe<TaskLimitsConfigInput>;
+  ui?: InputMaybe<UiConfigInput>;
 };
 
 /**
@@ -413,6 +432,7 @@ export type Distro = {
   aliases: Array<Scalars["String"]["output"]>;
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["output"];
+  availableRegions: Array<Scalars["String"]["output"]>;
   bootstrapSettings: BootstrapSettings;
   containerPool: Scalars["String"]["output"];
   disableShallowClone: Scalars["Boolean"]["output"];
@@ -3501,8 +3521,38 @@ export type TriggerAliasInput = {
 export type UiConfig = {
   __typename?: "UIConfig";
   betaFeatures: BetaFeatures;
+  cacheTemplates?: Maybe<Scalars["Boolean"]["output"]>;
+  corsOrigins: Array<Scalars["String"]["output"]>;
+  csrfKey?: Maybe<Scalars["String"]["output"]>;
   defaultProject: Scalars["String"]["output"];
+  fileStreamingContentTypes: Array<Scalars["String"]["output"]>;
+  helpUrl?: Maybe<Scalars["String"]["output"]>;
+  httpListenAddr?: Maybe<Scalars["String"]["output"]>;
+  loginDomain?: Maybe<Scalars["String"]["output"]>;
+  parsleyUrl?: Maybe<Scalars["String"]["output"]>;
+  secret?: Maybe<Scalars["String"]["output"]>;
+  stagingEnvironment?: Maybe<Scalars["String"]["output"]>;
+  uiv2Url?: Maybe<Scalars["String"]["output"]>;
+  url?: Maybe<Scalars["String"]["output"]>;
   userVoice?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type UiConfigInput = {
+  betaFeatures: BetaFeaturesInput;
+  cacheTemplates: Scalars["Boolean"]["input"];
+  corsOrigins: Array<Scalars["String"]["input"]>;
+  csrfKey: Scalars["String"]["input"];
+  defaultProject: Scalars["String"]["input"];
+  fileStreamingContentTypes: Array<Scalars["String"]["input"]>;
+  helpUrl: Scalars["String"]["input"];
+  httpListenAddr: Scalars["String"]["input"];
+  loginDomain: Scalars["String"]["input"];
+  parsleyUrl: Scalars["String"]["input"];
+  secret: Scalars["String"]["input"];
+  stagingEnvironment: Scalars["String"]["input"];
+  uiv2Url: Scalars["String"]["input"];
+  url: Scalars["String"]["input"];
+  userVoice: Scalars["String"]["input"];
 };
 
 export type UpdateBetaFeaturesInput = {
@@ -3894,6 +3944,11 @@ export type WorkstationSetupCommand = {
 export type WorkstationSetupCommandInput = {
   command: Scalars["String"]["input"];
   directory?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type TaskReviewedFragment = {
+  __typename?: "Task";
+  reviewed?: boolean | null;
 };
 
 export type AnnotationFragment = {
