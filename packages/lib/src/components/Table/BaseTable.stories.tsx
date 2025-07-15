@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { css } from "@leafygreen-ui/emotion";
 import {
   LGColumnDef,

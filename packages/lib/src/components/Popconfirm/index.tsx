@@ -14,12 +14,6 @@ type PopconfirmProps = Omit<
   "data-cy"?: string;
   onConfirm?: (e?: React.MouseEvent) => void;
   children: React.ReactNode;
-  onEnter?: () => void;
-  onEntering?: () => void;
-  onEntered?: () => void;
-  onExit?: () => void;
-  onExited?: () => void;
-  onExiting?: () => void;
 };
 
 const Popconfirm: React.FC<PopconfirmProps> = ({
@@ -28,12 +22,6 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
   confirmText = "Yes",
   onClose = () => {},
   onConfirm = () => {},
-  onEnter = () => {},
-  onEntered = () => {},
-  onEntering = () => {},
-  onExit = () => {},
-  onExited = () => {},
-  onExiting = () => {},
   open: controlledOpen,
   refEl,
   setOpen: controlledSetOpen,
@@ -71,12 +59,6 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
   return (
     <Tooltip
       onClose={onClose}
-      onEnter={onEnter}
-      onEntered={onEntered}
-      onEntering={onEntering}
-      onExit={onExit}
-      onExited={onExited}
-      onExiting={onExiting}
       open={open}
       popoverZIndex={zIndex.popover}
       refEl={refEl}

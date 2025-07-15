@@ -195,7 +195,7 @@ const TableHeaderCell = <T extends LGRowData>({
       key={header.id}
       header={header}
       // @ts-expect-error: This is a workaround to fix the type error
-      style={meta?.width && { width: columnDef?.meta?.width }}
+      style={meta?.width && { width: meta.width }}
     >
       {flexRender(columnDef.header, header.getContext())}
       {header.column.getCanFilter() &&
@@ -302,9 +302,7 @@ const DefaultEmptyMessage = styled.div`
 `;
 
 const StyledExpandedContent = styled(
-  ExpandedContent as unknown as React.ComponentType<
-    ExpandedContentProps<unknown>
-  >,
+  ExpandedContent as React.ComponentType<ExpandedContentProps<LGRowData>>,
 )`
   > td {
     padding: ${size.xs} 0;
