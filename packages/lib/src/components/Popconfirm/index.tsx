@@ -5,7 +5,10 @@ import Tooltip, { TooltipProps } from "@leafygreen-ui/tooltip";
 import { size, zIndex } from "../../constants/tokens";
 import { wordBreakCss } from "../styles";
 
-type PopconfirmProps = TooltipProps & {
+type PopconfirmProps = Omit<
+  TooltipProps,
+  "onEnter" | "onEntering" | "onEntered" | "onExit" | "onExited" | "onExiting"
+> & {
   confirmDisabled?: boolean;
   confirmText?: string;
   "data-cy"?: string;

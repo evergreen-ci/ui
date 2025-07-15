@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -27,7 +26,6 @@ import { validateRegexp } from "utils/validators";
 const Search: React.FC = () => {
   const { sendEvent } = useLogWindowAnalytics();
 
-  const containerRef = useRef<HTMLDivElement>(null);
   const [filters, setFilters] = useFilterParam();
   const [highlights, setHighlights] = useHighlightParam();
   const [searchParams, setSearchParams] = useQueryParams(urlParseOptions);
@@ -129,10 +127,8 @@ const Search: React.FC = () => {
   };
 
   return (
-    <Container ref={containerRef}>
-      {hasLogs && containerRef.current && (
-        <SearchBarGuideCue containerRef={containerRef.current} />
-      )}
+    <Container>
+      {hasLogs && <SearchBarGuideCue />}
       <StyledSearchBar
         disabled={!hasLogs}
         onChange={handleOnChange}

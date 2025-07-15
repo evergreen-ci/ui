@@ -1,18 +1,18 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
+import { formatDistanceToNow } from "date-fns";
+import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
   ExpandedState,
   LeafyGreenTableRow,
   useLeafyGreenTable,
-} from "@leafygreen-ui/table";
-import { formatDistanceToNow } from "date-fns";
-import { WordBreak } from "@evg-ui/lib/components/styles";
+  BaseTable,
+} from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import HostStatusBadge from "components/HostStatusBadge";
 import { DoesNotExpire } from "components/Spawn";
-import { BaseTable } from "components/Table/BaseTable";
 import { MyHost, QueryParams } from "types/spawn";
 import SpawnHostCard from "./SpawnHostCard";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";

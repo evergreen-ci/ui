@@ -213,21 +213,21 @@
                 >
                   <div
                     class="leafygreen-ui-55kazc"
-                    data-lgid="lg-checkbox"
+                    data-lgid="lg-reviewed-some_id_5"
                   >
                     <label
                       class="leafygreen-ui-1srek1y"
                       data-lgid="lg-label"
-                      for="checkbox-158"
-                      id="checkbox-158-label"
+                      for="checkbox-149"
+                      id="checkbox-149-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
-                        aria-label="reviewed"
-                        aria-labelledby="checkbox-158-label"
+                        aria-label="Mark as reviewed"
+                        aria-labelledby="checkbox-149-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                        id="checkbox-158"
+                        id="checkbox-149"
                         type="checkbox"
                       />
                       <div
@@ -406,21 +406,21 @@
                 >
                   <div
                     class="leafygreen-ui-55kazc"
-                    data-lgid="lg-checkbox"
+                    data-lgid="lg-reviewed-some_id_6"
                   >
                     <label
                       class="leafygreen-ui-1srek1y"
                       data-lgid="lg-label"
-                      for="checkbox-159"
-                      id="checkbox-159-label"
+                      for="checkbox-150"
+                      id="checkbox-150-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
-                        aria-label="reviewed"
-                        aria-labelledby="checkbox-159-label"
+                        aria-label="Mark as reviewed"
+                        aria-labelledby="checkbox-150-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                        id="checkbox-159"
+                        id="checkbox-150"
                         type="checkbox"
                       />
                       <div

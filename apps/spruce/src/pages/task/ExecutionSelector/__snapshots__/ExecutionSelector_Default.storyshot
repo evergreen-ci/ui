@@ -4,8 +4,8 @@
     data-lgid="lg-select"
   >
     <button
-      aria-controls="select-142-menu"
-      aria-describedby="select-142-description"
+      aria-controls="select-133-menu"
+      aria-describedby="select-133-description"
       aria-disabled="false"
       aria-expanded="false"
       aria-invalid="false"
@@ -14,7 +14,7 @@
       data-cy="execution-select"
       data-lgid="lg-button"
       data-testid="leafygreen-ui-select-menubutton"
-      id="select-143"
+      id="select-134"
       type="button"
       value="4"
     >

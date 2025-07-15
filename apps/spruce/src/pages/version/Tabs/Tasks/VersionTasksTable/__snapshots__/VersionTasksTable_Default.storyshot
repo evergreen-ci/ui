@@ -1,9 +1,9 @@
 <div>
   <div
-    class="emotion-TableControlInnerRow-TableControlOuterRow e1xf068s3"
+    class="emotion-TableControlInnerRow-TableControlOuterRow e126chf30"
   >
     <div
-      class="emotion-FlexContainer et5phr01"
+      class="emotion-FlexContainer exfkvvb1"
     >
       <p
         class="leafygreen-ui-1tb6tuo"
@@ -26,7 +26,7 @@
       </p>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-1m0zu1d emotion-PaddedButton et5phr00"
+        class="lg-ui-button-0000 leafygreen-ui-1m0zu1d emotion-PaddedButton exfkvvb0"
         data-cy="clear-all-filters"
         data-lgid="lg-button"
         type="button"
@@ -42,15 +42,15 @@
       </button>
     </div>
     <div
-      class="emotion-TableControlInnerRow e1xf068s4"
+      class="emotion-TableControlInnerRow e126chf31"
     >
       <div
-        class="emotion-Container e4w46hm0"
+        class="emotion-Container eoyd9h20"
         data-cy="pagination"
       >
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-StyledButton e4w46hm2"
+          class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-StyledButton eoyd9h22"
           data-cy="prev-page-button"
           data-lgid="lg-button"
           type="button"
@@ -81,7 +81,7 @@
           </div>
         </button>
         <div
-          class="emotion-PageLabel e4w46hm1"
+          class="emotion-PageLabel eoyd9h21"
         >
           <small
             class="leafygreen-ui-6flbwy"
@@ -93,7 +93,7 @@
         </div>
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-StyledButton e4w46hm2"
+          class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-StyledButton eoyd9h22"
           data-cy="next-page-button"
           data-lgid="lg-button"
           type="button"
@@ -125,12 +125,12 @@
         </button>
       </div>
       <div
-        class="leafygreen-ui-1iyoj2o emotion-StyledSelect ekttol50"
+        class="leafygreen-ui-1iyoj2o emotion-StyledSelect eng5k480"
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-181-menu"
-          aria-describedby="select-181-description"
+          aria-controls="select-172-menu"
+          aria-describedby="select-172-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -139,7 +139,7 @@
           data-cy="tasks-table-page-size-selector"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-182"
+          id="select-173"
           type="button"
           value="10"
         >
@@ -224,7 +224,7 @@
             >
               Name
               <div
-                class="emotion-FilterWrapper e1gla5v20"
+                class="emotion-FilterWrapper e1vwevg0"
               >
                 <button
                   aria-disabled="false"
@@ -298,7 +298,7 @@
             >
               Task Status
               <div
-                class="emotion-FilterWrapper e1gla5v20"
+                class="emotion-FilterWrapper e1vwevg0"
               >
                 <button
                   aria-disabled="false"
@@ -373,7 +373,7 @@
             >
               Previous Status
               <div
-                class="emotion-FilterWrapper e1gla5v20"
+                class="emotion-FilterWrapper e1vwevg0"
               >
                 <button
                   aria-disabled="false"
@@ -448,7 +448,7 @@
             >
               Variant
               <div
-                class="emotion-FilterWrapper e1gla5v20"
+                class="emotion-FilterWrapper e1vwevg0"
               >
                 <button
                   aria-disabled="false"
@@ -524,7 +524,7 @@
           data-index="0"
           data-lgid="lg-table-row"
           data-selected="false"
-          id="lg-table-row-evergreen_ui_spruce_check_codegen_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
+          id="lg-table-row-evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
@@ -542,21 +542,21 @@
                 >
                   <div
                     class="leafygreen-ui-55kazc"
-                    data-lgid="lg-checkbox"
+                    data-lgid="lg-reviewed-evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
                   >
                     <label
                       class="leafygreen-ui-1srek1y"
                       data-lgid="lg-label"
-                      for="checkbox-183"
-                      id="checkbox-183-label"
+                      for="checkbox-174"
+                      id="checkbox-174-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
-                        aria-label="reviewed"
-                        aria-labelledby="checkbox-183-label"
+                        aria-label="Mark as reviewed"
+                        aria-labelledby="checkbox-174-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                        id="checkbox-183"
+                        id="checkbox-174"
                         type="checkbox"
                       />
                       <div
@@ -605,13 +605,13 @@
                 >
                   <a
                     class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-                    href="/task/evergreen_ui_spruce_check_codegen_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
+                    href="/task/evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                   >
                     <span>
                       <span
                         class="emotion-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                       >
-                        check_codegen
+                        snapshots
                       </span>
                     </span>
                   </a>
@@ -634,7 +634,7 @@
                   class=""
                 >
                   <a
-                    href="/task/evergreen_ui_spruce_check_codegen_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
+                    href="/task/evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                   >
                     <div
                       class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
@@ -662,7 +662,7 @@
                   class=""
                 >
                   <a
-                    href="/task/evergreen_ui_spruce_check_codegen_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27?execution=0"
+                    href="/task/evergreen_ui_spruce_snapshots_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27?execution=0"
                   >
                     <div
                       class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
@@ -711,7 +711,7 @@
           data-index="1"
           data-lgid="lg-table-row"
           data-selected="false"
-          id="lg-table-row-evergreen_ui_spruce_lint_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
+          id="lg-table-row-evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
@@ -729,21 +729,21 @@
                 >
                   <div
                     class="leafygreen-ui-55kazc"
-                    data-lgid="lg-checkbox"
+                    data-lgid="lg-reviewed-evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
                   >
                     <label
                       class="leafygreen-ui-1srek1y"
                       data-lgid="lg-label"
-                      for="checkbox-184"
-                      id="checkbox-184-label"
+                      for="checkbox-175"
+                      id="checkbox-175-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
-                        aria-label="reviewed"
-                        aria-labelledby="checkbox-184-label"
+                        aria-label="Mark as reviewed"
+                        aria-labelledby="checkbox-175-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                        id="checkbox-184"
+                        id="checkbox-175"
                         type="checkbox"
                       />
                       <div
@@ -792,13 +792,13 @@
                 >
                   <a
                     class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-                    href="/task/evergreen_ui_spruce_lint_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
+                    href="/task/evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                   >
                     <span>
                       <span
                         class="emotion-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                       >
-                        lint
+                        test
                       </span>
                     </span>
                   </a>
@@ -821,7 +821,7 @@
                   class=""
                 >
                   <a
-                    href="/task/evergreen_ui_spruce_lint_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
+                    href="/task/evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                   >
                     <div
                       class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
@@ -849,7 +849,7 @@
                   class=""
                 >
                   <a
-                    href="/task/evergreen_ui_spruce_lint_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27?execution=0"
+                    href="/task/evergreen_ui_spruce_test_26012f78a3769aad078554f89d1de580a312d629_25_07_01_16_16_27?execution=0"
                   >
                     <div
                       class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
@@ -916,21 +916,21 @@
                 >
                   <div
                     class="leafygreen-ui-55kazc"
-                    data-lgid="lg-checkbox"
+                    data-lgid="lg-reviewed-evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
                   >
                     <label
                       class="leafygreen-ui-1srek1y"
                       data-lgid="lg-label"
-                      for="checkbox-185"
-                      id="checkbox-185-label"
+                      for="checkbox-176"
+                      id="checkbox-176-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
-                        aria-label="reviewed"
-                        aria-labelledby="checkbox-185-label"
+                        aria-label="Mark as reviewed"
+                        aria-labelledby="checkbox-176-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                        id="checkbox-185"
+                        id="checkbox-176"
                         type="checkbox"
                       />
                       <div
@@ -1133,21 +1133,21 @@
                 >
                   <div
                     class="leafygreen-ui-55kazc"
-                    data-lgid="lg-checkbox"
+                    data-lgid="lg-reviewed-evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
                   >
                     <label
                       class="leafygreen-ui-1srek1y"
                       data-lgid="lg-label"
-                      for="checkbox-186"
-                      id="checkbox-186-label"
+                      for="checkbox-177"
+                      id="checkbox-177-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
-                        aria-label="reviewed"
-                        aria-labelledby="checkbox-186-label"
+                        aria-label="Mark as reviewed"
+                        aria-labelledby="checkbox-177-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                        id="checkbox-186"
+                        id="checkbox-177"
                         type="checkbox"
                       />
                       <div

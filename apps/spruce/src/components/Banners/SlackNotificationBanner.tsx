@@ -6,6 +6,7 @@ import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import Cookies from "js-cookie";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
+import { CharKey } from "@evg-ui/lib/constants/keys";
 import { fontSize } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { SLACK_NOTIFICATION_BANNER } from "constants/cookies";
@@ -106,7 +107,9 @@ export const SlackNotificationBanner = () => {
           data-cy="slack-username-input"
           label="Slack Username"
           onChange={(e) => setSlackUsername(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && saveNotificationSettings()}
+          onKeyDown={(e) =>
+            e.key === CharKey.Enter && saveNotificationSettings()
+          }
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           value={slackUsername}
         />

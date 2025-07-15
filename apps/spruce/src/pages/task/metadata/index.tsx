@@ -250,10 +250,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         )}
         {(details?.description || details?.failingCommand) && (
           <DetailsDescription
-            description={details?.description ?? ""}
-            failingCommand={details?.failingCommand ?? ""}
+            details={details}
             isContainerTask={isContainerTask}
-            status={details?.status}
           />
         )}
 

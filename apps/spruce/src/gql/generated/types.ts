@@ -6260,6 +6260,7 @@ export type AdminSettingsQuery = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    disabledGQLQueries: Array<string>;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -9638,6 +9639,11 @@ export type TaskQuery = {
         detected: boolean;
         pids?: Array<number> | null;
       };
+      otherFailingCommands: Array<{
+        __typename?: "FailingCommand";
+        failureMetadataTags: Array<string>;
+        fullDisplayName: string;
+      }>;
     } | null;
     displayTask?: {
       __typename?: "Task";

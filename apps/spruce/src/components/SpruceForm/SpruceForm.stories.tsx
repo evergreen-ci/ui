@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { action } from "storybook/actions";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import widgets from "components/SpruceForm/Widgets";
 
 import { SpruceForm, SpruceFormContainer } from ".";
 
@@ -37,6 +38,17 @@ export const Example3: CustomStoryObj<typeof SpruceForm> = {
       schema={example3Def.schema}
       title="UI Options"
       uiSchema={example3Def.uiSchema}
+    />
+  ),
+};
+
+export const Example4: CustomStoryObj<typeof SpruceForm> = {
+  render: () => (
+    <BaseForm
+      data={example4Def.formData}
+      schema={example4Def.schema}
+      title="UI Options"
+      uiSchema={example4Def.uiSchema}
     />
   ),
 };
@@ -200,5 +212,35 @@ const example3Def = {
   },
   formData: {
     visible: true,
+  },
+};
+
+const example4Def = {
+  schema: {
+    type: "object" as const,
+    properties: {
+      testText: {
+        title: "This is the only visible page element",
+        type: "array" as const,
+        uniqueItems: true,
+        default: [],
+        items: {
+          type: "string" as const,
+          properties: {
+            value: {
+              type: "string" as const,
+            },
+          },
+        },
+      },
+    },
+  },
+  uiSchema: {
+    testText: {
+      "ui:widget": widgets.ChipInputWidget,
+    },
+  },
+  formData: {
+    testText: ["text1", "text2", "text3"],
   },
 };

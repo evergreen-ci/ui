@@ -14,12 +14,12 @@
         class="emotion-PaginationWrapper e1p1q3sw0"
       >
         <div
-          class="emotion-Container e4w46hm0"
+          class="emotion-Container eoyd9h20"
           data-cy="pagination"
         >
           <button
             aria-disabled="false"
-            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d emotion-StyledButton e4w46hm2"
+            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d emotion-StyledButton eoyd9h22"
             data-cy="prev-page-button"
             data-lgid="lg-button"
             type="button"
@@ -50,7 +50,7 @@
             </div>
           </button>
           <div
-            class="emotion-PageLabel e4w46hm1"
+            class="emotion-PageLabel eoyd9h21"
           >
             <small
               class="leafygreen-ui-6flbwy"
@@ -62,7 +62,7 @@
           </div>
           <button
             aria-disabled="true"
-            class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-StyledButton e4w46hm2"
+            class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-StyledButton eoyd9h22"
             data-cy="next-page-button"
             data-lgid="lg-button"
             type="button"
@@ -94,12 +94,12 @@
           </button>
         </div>
         <div
-          class="leafygreen-ui-1iyoj2o emotion-StyledSelect ekttol50"
+          class="leafygreen-ui-1iyoj2o emotion-StyledSelect eng5k480"
           data-lgid="lg-select"
         >
           <button
-            aria-controls="select-139-menu"
-            aria-describedby="select-139-description"
+            aria-controls="select-130-menu"
+            aria-describedby="select-130-description"
             aria-disabled="false"
             aria-expanded="false"
             aria-invalid="false"
@@ -108,7 +108,7 @@
             data-cy="host-event-table-page-size-selector"
             data-lgid="lg-button"
             data-testid="leafygreen-ui-select-menubutton"
-            id="select-140"
+            id="select-131"
             type="button"
             value="10"
           >
@@ -194,7 +194,7 @@
               >
                 Event
                 <div
-                  class="emotion-FilterWrapper e1gla5v20"
+                  class="emotion-FilterWrapper e1vwevg0"
                 >
                   <button
                     aria-disabled="false"

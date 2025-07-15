@@ -6,7 +6,6 @@ import {
   TooltipJustify,
 } from "@leafygreen-ui/guide-cue";
 import { Align as BeaconAlign } from "@leafygreen-ui/popover";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 
 export type WalkthroughStep = {
@@ -112,7 +111,6 @@ export const WalkthroughGuideCue = forwardRef<
         }}
         onPrimaryButtonClick={onPrimaryButtonClick}
         open={open}
-        popoverZIndex={zIndex.tooltip}
         refEl={currentStepRef}
         setOpen={setOpen}
         title={currentStep.title}

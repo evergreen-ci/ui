@@ -1,17 +1,17 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
+import { formatDistanceToNow } from "date-fns";
+import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
   ExpandedState,
   LeafyGreenTableRow,
   useLeafyGreenTable,
-} from "@leafygreen-ui/table";
-import { formatDistanceToNow } from "date-fns";
-import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
+  BaseTable,
+} from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { DoesNotExpire } from "components/Spawn";
-import { BaseTable } from "components/Table/BaseTable";
 import { getSpawnHostRoute } from "constants/routes";
 import { MyVolume, QueryParams, TableVolume } from "types/spawn";
 import { SpawnVolumeCard } from "./SpawnVolumeCard";
