@@ -21,8 +21,8 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-113-menu"
-          aria-describedby="select-113-description"
+          aria-controls="select-117-menu"
+          aria-describedby="select-117-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -31,7 +31,7 @@
           data-cy="tuple-select-select"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-114"
+          id="select-118"
           type="button"
           value="build_variant"
         >
@@ -114,7 +114,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-form_field-feedback"
             data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-117"
+            id="lg-form_field-feedback-121"
           />
         </div>
         <div

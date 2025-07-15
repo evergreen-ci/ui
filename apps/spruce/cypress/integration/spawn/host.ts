@@ -271,7 +271,10 @@ describe("Navigating to Spawn Host page", () => {
     cy.dataCy("edit-host-button").eq(2).click();
     cy.dataCy("edit-spawn-host-modal").should("be.visible");
 
-    cy.getInputByLabel("Temporary Sleep Schedule Exemption").click();
+    cy.get("input[id='year']").as("startOfDateInput");
+    cy.get("input[id='day']").as("endOfDateInput");
+
+    cy.get("@startOfDateInput").click();
     cy.get("td[aria-current=true]").as("currentDateCell");
 
     // Select a date in the future either this month or next month
@@ -306,21 +309,20 @@ describe("Navigating to Spawn Host page", () => {
     cy.contains("button", "Save").should("have.attr", "aria-disabled", "false");
 
     // LG Date Picker does not respond well to .clear()
-    cy.getInputByLabel("Temporary Sleep Schedule Exemption").type(
+    cy.get("@endOfDateInput").type(
       "{backspace}{backspace}{backspace}{backspace}{backspace}",
     );
 
     // Select a date in the past
-    cy.getInputByLabel("Temporary Sleep Schedule Exemption").type("20250101");
+    cy.get("@startOfDateInput").type("20250101");
     cy.get("body").click();
     cy.contains("button", "Save").should("have.attr", "aria-disabled", "true");
 
-    cy.getInputByLabel("Temporary Sleep Schedule Exemption").type(
+    // Select a date too far in the future
+    cy.get("@endOfDateInput").type(
       "{backspace}{backspace}{backspace}{backspace}{backspace}",
     );
-
-    // Select a date too far in the future
-    cy.getInputByLabel("Temporary Sleep Schedule Exemption").type("20600115");
+    cy.get("@startOfDateInput").type("20600115");
     cy.contains("button", "Save").should("have.attr", "aria-disabled", "true");
   });
 });
