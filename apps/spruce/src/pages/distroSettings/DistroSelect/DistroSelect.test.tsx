@@ -78,18 +78,21 @@ const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
         {
           __typename: "Distro",
           adminOnly: false,
+          availableRegions: [],
           isVirtualWorkStation: true,
           name: "localhost",
         },
         {
           __typename: "Distro",
           adminOnly: true,
+          availableRegions: [],
           isVirtualWorkStation: false,
           name: "localhost2",
         },
         {
           __typename: "Distro",
           adminOnly: true,
+          availableRegions: [],
           isVirtualWorkStation: true,
           name: "abc",
         },

@@ -109,6 +109,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
+    availableRegions: selectedDistro?.availableRegions ?? [],
     distroIdQueryParam,
     hostUptimeWarnings,
     isMigration: false,
