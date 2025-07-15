@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "@emotion/styled";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { size } from "../../../constants/tokens";
