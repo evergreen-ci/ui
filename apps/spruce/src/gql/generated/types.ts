@@ -9632,6 +9632,11 @@ export type TaskQuery = {
         detected: boolean;
         pids?: Array<number> | null;
       };
+      otherFailingCommands: Array<{
+        __typename?: "FailingCommand";
+        failureMetadataTags: Array<string>;
+        fullDisplayName: string;
+      }>;
     } | null;
     displayTask?: {
       __typename?: "Task";
