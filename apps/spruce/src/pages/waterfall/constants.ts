@@ -28,6 +28,7 @@ export const walkthroughSteps: WalkthroughStep[] = [
     description:
       "Pin variants to the top of the page to help with debugging and monitoring common workflows.",
     targetId: "build-variant-pin",
+    tooltipJustify: TooltipJustify.Start,
   },
   {
     title: "Jump to Date",
