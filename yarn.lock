@@ -3021,15 +3021,6 @@
     "@leafygreen-ui/hooks" "^9.1.1"
     "@leafygreen-ui/lib" "^15.2.0"
 
-"@leafygreen-ui/a11y@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/a11y/-/a11y-3.0.2.tgz#14189bac076813c00d395d0aa23a1055e9c4bb1c"
-  integrity sha512-iUI5F5O472ohzjvlkXbA2wf9mi8Ba6UC3uOcbaPD9m2TedPVjKQ3EdmOHpbClwsfeg+MBwDl6owiA0r/Jz4mKw==
-  dependencies:
-    "@leafygreen-ui/emotion" "^5.0.0"
-    "@leafygreen-ui/hooks" "^9.1.1"
-    "@leafygreen-ui/lib" "^15.2.0"
-
 "@leafygreen-ui/badge@^9.0.0", "@leafygreen-ui/badge@^9.0.10":
   version "9.0.10"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-9.0.10.tgz#2b5a01f719f8f978195e38e126cb30ca31f8c2f6"
@@ -3381,13 +3372,13 @@
     timezone-mock "^1.3.6"
     weekstart "^2.0.0"
 
-"@leafygreen-ui/descendants@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/descendants/-/descendants-1.0.1.tgz#cccf7e9b488fb036a1990fa60e6260be6f004cdb"
-  integrity sha512-hNCZyduixj3An/MjHufHWzDQXsnK5UzDyUSF5LvulBQy7AOVOJLdKlwepvaWj76rQz95tWPSgIkDrolQcv6RAA==
+"@leafygreen-ui/descendants@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/descendants/-/descendants-3.0.2.tgz#89db94912c3876faf03d224bbc2cf74441f4c558"
+  integrity sha512-3KUe9StJx6BrXmIRzdYfHnWYsRUsc7qOrTfgJqb70EMtw6ddzx/O4pXtIlDBNzT75p5HY6rqQyV0hySl0Oe6Ig==
   dependencies:
-    "@leafygreen-ui/hooks" "^8.1.3"
-    "@leafygreen-ui/lib" "^13.7.0"
+    "@leafygreen-ui/hooks" "^9.1.1"
+    "@leafygreen-ui/lib" "^15.2.0"
     lodash "^4.17.21"
 
 "@leafygreen-ui/emotion@4.0.7":
@@ -3531,15 +3522,6 @@
     lodash "^4.17.21"
 
 "@leafygreen-ui/hooks@^9.0.0", "@leafygreen-ui/hooks@^9.1.1":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-9.1.1.tgz#a2a8f986cc20f77dd042591fdb35ce2de91c0f32"
-  integrity sha512-WVAu5NgFo5eALb7Z2E8v2mEaUtiGXsOrOGX8fLHSU75Xs343SGWllwxqqGnhf+bbUNlSXBAbprHAD3/Yn4QcyQ==
-  dependencies:
-    "@leafygreen-ui/lib" "^15.2.0"
-    "@leafygreen-ui/tokens" "^3.1.2"
-    lodash "^4.17.21"
-
-"@leafygreen-ui/hooks@^9.1.1":
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-9.1.1.tgz#a2a8f986cc20f77dd042591fdb35ce2de91c0f32"
   integrity sha512-WVAu5NgFo5eALb7Z2E8v2mEaUtiGXsOrOGX8fLHSU75Xs343SGWllwxqqGnhf+bbUNlSXBAbprHAD3/Yn4QcyQ==
@@ -3746,7 +3728,7 @@
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
-"@leafygreen-ui/lib@^13.3.0", "@leafygreen-ui/lib@^13.4.0", "@leafygreen-ui/lib@^13.5.0", "@leafygreen-ui/lib@^13.6.0", "@leafygreen-ui/lib@^13.6.1", "@leafygreen-ui/lib@^13.7.0", "@leafygreen-ui/lib@^13.8.1":
+"@leafygreen-ui/lib@^13.3.0", "@leafygreen-ui/lib@^13.4.0", "@leafygreen-ui/lib@^13.5.0", "@leafygreen-ui/lib@^13.6.0", "@leafygreen-ui/lib@^13.6.1", "@leafygreen-ui/lib@^13.8.1":
   version "13.8.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-13.8.2.tgz#520ce89d724ddcf5b48376e2b1814563806d22f4"
   integrity sha512-UxtZauF0rsB2dT0dsFYadcs9qa22Wk3PJaSXOCoI8BRPxyV8H4H6B+FQuFjCeLpKWFYOGLee9di3Xsqd4ewa8Q==
@@ -3940,15 +3922,7 @@
     "@leafygreen-ui/lib" "^14.2.0"
     lodash "^4.17.21"
 
-"@leafygreen-ui/polymorphic@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-3.0.1.tgz#efb0d25a11f76b9186773ee202a1cd04666f1eab"
-  integrity sha512-BJBXcdwImu0q5IZNzY9d/J1w1mItpk493oAuy/ZagTTBeMdTv7de2Gi1xx4EAPHyRosrG930cBnD5EuqU0ZR5g==
-  dependencies:
-    "@leafygreen-ui/lib" "^15.0.0"
-    lodash "^4.17.21"
-
-"@leafygreen-ui/polymorphic@^3.0.3":
+"@leafygreen-ui/polymorphic@^3.0.1", "@leafygreen-ui/polymorphic@^3.0.3":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-3.0.3.tgz#cdd8cc5fe440f7c50995ebe63f98d316117c6a27"
   integrity sha512-TIXQLGs+9ffBfkRrUiIVrApcW3M3Iv601V/CT/2g9cG9soXfkPbO4jAYSxy2Vl8WTnMEkVKkFfuU+q91j641wQ==
@@ -4283,21 +4257,21 @@
     react-fast-compare "3.2.2"
     react-intersection-observer "^8.25.1"
 
-"@leafygreen-ui/tabs@^13.1.1":
-  version "13.1.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-13.1.1.tgz#b2f796516df8e81d2ca2247a291884589916b3ec"
-  integrity sha512-hmUAKNE8EpQDTqEmPaAfLxaOxXXLt1O0fQQJ+pmbpEoj/8JN6Vg4gTk9KZYh7T0M3bRBNgN9szncvepdGUGuJA==
+"@leafygreen-ui/tabs@^17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-17.0.0.tgz#7653e99173ac7b52487a2d84bed4188610baa374"
+  integrity sha512-kL3syps51bsa2zrJfj1UCjebc7fjWpJFDIkpyKrtNM7xMPS4bmbQ978l+X75VuY/oIbE7QEAZOikALy5UDuRIg==
   dependencies:
-    "@leafygreen-ui/a11y" "^1.5.0"
-    "@leafygreen-ui/descendants" "^1.0.0"
-    "@leafygreen-ui/emotion" "^4.0.8"
-    "@leafygreen-ui/hooks" "^8.2.0"
-    "@leafygreen-ui/lib" "^13.7.0"
-    "@leafygreen-ui/palette" "^4.1.0"
-    "@leafygreen-ui/polymorphic" "^2.0.2"
-    "@leafygreen-ui/tokens" "^2.10.0"
-    "@leafygreen-ui/typography" "^19.3.0"
-    "@lg-tools/test-harnesses" "0.1.2"
+    "@leafygreen-ui/a11y" "^3.0.2"
+    "@leafygreen-ui/descendants" "^3.0.2"
+    "@leafygreen-ui/emotion" "^5.0.0"
+    "@leafygreen-ui/hooks" "^9.1.1"
+    "@leafygreen-ui/lib" "^15.2.0"
+    "@leafygreen-ui/palette" "^5.0.0"
+    "@leafygreen-ui/polymorphic" "^3.0.3"
+    "@leafygreen-ui/tokens" "^3.1.2"
+    "@leafygreen-ui/typography" "^22.0.1"
+    "@lg-tools/test-harnesses" "^0.3.2"
 
 "@leafygreen-ui/text-area@^9.1.2":
   version "9.1.2"
@@ -4365,7 +4339,7 @@
   dependencies:
     "@leafygreen-ui/palette" "^3.4.5"
 
-"@leafygreen-ui/tokens@^2.0.3", "@leafygreen-ui/tokens@^2.10.0", "@leafygreen-ui/tokens@^2.11.3", "@leafygreen-ui/tokens@^2.12.0", "@leafygreen-ui/tokens@^2.12.2", "@leafygreen-ui/tokens@^2.2.0", "@leafygreen-ui/tokens@^2.5.2", "@leafygreen-ui/tokens@^2.7.0", "@leafygreen-ui/tokens@^2.8.0", "@leafygreen-ui/tokens@^2.9.0":
+"@leafygreen-ui/tokens@^2.0.3", "@leafygreen-ui/tokens@^2.11.3", "@leafygreen-ui/tokens@^2.12.0", "@leafygreen-ui/tokens@^2.12.2", "@leafygreen-ui/tokens@^2.2.0", "@leafygreen-ui/tokens@^2.5.2", "@leafygreen-ui/tokens@^2.7.0", "@leafygreen-ui/tokens@^2.8.0", "@leafygreen-ui/tokens@^2.9.0":
   version "2.12.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.12.2.tgz#1e17cfc45aab69acdc4b8d7969f1d45c5934681e"
   integrity sha512-eVHQOk7lExNjGPVpLv2sGMUmAH0ZIpmu86NHe4n3RzHNQ2ziJUnw1CN94N6Y09qv00LvrZ2I05kbxLfX+kktvw==
@@ -4433,7 +4407,7 @@
     lodash "^4.17.21"
     polished "^4.2.2"
 
-"@leafygreen-ui/typography@^19.0.0", "@leafygreen-ui/typography@^19.1.1", "@leafygreen-ui/typography@^19.2.0", "@leafygreen-ui/typography@^19.2.1", "@leafygreen-ui/typography@^19.3.0":
+"@leafygreen-ui/typography@^19.0.0", "@leafygreen-ui/typography@^19.1.1", "@leafygreen-ui/typography@^19.2.0", "@leafygreen-ui/typography@^19.2.1":
   version "19.3.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-19.3.0.tgz#f430af672b88b27a8a6bfef8bee8984214420ca5"
   integrity sha512-pgTRcc4usW/S9nDDzkf5Ac/JPEybhWtOnDpmrp99mAJHM6tH48Pd1HjRNHWjn6bnh0nXWjwANXX1ZEe+8ggCNg==
@@ -4517,13 +4491,6 @@
     rollup-plugin-polyfill-node "0.13.0"
     typescript "~5.8.0"
 
-"@lg-tools/test-harnesses@0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@lg-tools/test-harnesses/-/test-harnesses-0.1.2.tgz#23766e140a934197a240b24863a55bb6afee91ff"
-  integrity sha512-Fb6bb9v69ey7Z9LOWMZUVNgyk5Xlgi3+CC78aqB7aFyOt0/9YSldWmxDp4tLRRu5cY8cmW3xqo5uLGT9JyWLWQ==
-  dependencies:
-    "@testing-library/dom" "9.3.1"
-
 "@lg-tools/test-harnesses@^0.1.2", "@lg-tools/test-harnesses@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@lg-tools/test-harnesses/-/test-harnesses-0.1.4.tgz#efac8e4c611b6115a6909d07911b5df1feee9f5f"
@@ -4538,14 +4505,7 @@
   dependencies:
     "@testing-library/dom" "9.3.1"
 
-"@lg-tools/test-harnesses@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@lg-tools/test-harnesses/-/test-harnesses-0.3.1.tgz#cf72966ee03a52e95bdca75d1e644a83ec98622e"
-  integrity sha512-3DFWicFhyxyqbNzIvXrVtovNZMu0nmlEzsr9Mi1nOurqCvNp3GAJmkMah1uTXWRFv6FEN6bbWWgkN73ZrZWLwg==
-  dependencies:
-    "@testing-library/dom" "9.3.1"
-
-"@lg-tools/test-harnesses@^0.3.2":
+"@lg-tools/test-harnesses@^0.3.1", "@lg-tools/test-harnesses@^0.3.2":
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/@lg-tools/test-harnesses/-/test-harnesses-0.3.2.tgz#6e8dd1471666095ce7ba75775a34fe47efa4e9e0"
   integrity sha512-SShuDQP8jK9NSK9M3PeBTQ8OoVihrq1/fyrM55B5EABZPjle7tIrMjM5n71YnmDsXAAX5z8PFBpZQHySJmJAgA==
