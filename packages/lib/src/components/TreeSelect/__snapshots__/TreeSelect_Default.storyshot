@@ -1,0 +1,502 @@
+<div>
+  <div
+    class="emotion-0"
+    data-cy="tree-select-options"
+  >
+    <div
+      class="emotion-1"
+    >
+      <div
+        class="leafygreen-ui-55kazc cy-checkbox"
+        data-lgid="lg-checkbox"
+      >
+        <label
+          class="leafygreen-ui-1srek1y"
+          data-lgid="lg-label"
+          for="checkbox-193"
+          id="checkbox-193-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-193-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="checkbox"
+            id="checkbox-193"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-187di61"
+          >
+            All
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="emotion-9"
+    >
+      <div
+        class="leafygreen-ui-55kazc cy-checkbox"
+        data-lgid="lg-checkbox"
+      >
+        <label
+          class="leafygreen-ui-1srek1y"
+          data-lgid="lg-label"
+          for="checkbox-194"
+          id="checkbox-194-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-194-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="checkbox"
+            id="checkbox-194"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-187di61"
+          >
+            Shapes
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="emotion-17"
+    >
+      <div
+        class="leafygreen-ui-55kazc cy-checkbox"
+        data-lgid="lg-checkbox"
+      >
+        <label
+          class="leafygreen-ui-1srek1y"
+          data-lgid="lg-label"
+          for="checkbox-195"
+          id="checkbox-195-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-195-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="checkbox"
+            id="checkbox-195"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-187di61"
+          >
+            rectangle
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="emotion-17"
+    >
+      <div
+        class="leafygreen-ui-55kazc cy-checkbox"
+        data-lgid="lg-checkbox"
+      >
+        <label
+          class="leafygreen-ui-1srek1y"
+          data-lgid="lg-label"
+          for="checkbox-196"
+          id="checkbox-196-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-196-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="checkbox"
+            id="checkbox-196"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-187di61"
+          >
+            circle
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="emotion-17"
+    >
+      <div
+        class="leafygreen-ui-55kazc cy-checkbox"
+        data-lgid="lg-checkbox"
+      >
+        <label
+          class="leafygreen-ui-1srek1y"
+          data-lgid="lg-label"
+          for="checkbox-197"
+          id="checkbox-197-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-197-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="checkbox"
+            id="checkbox-197"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-187di61"
+          >
+            rhombus
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="emotion-9"
+    >
+      <div
+        class="leafygreen-ui-55kazc cy-checkbox"
+        data-lgid="lg-checkbox"
+      >
+        <label
+          class="leafygreen-ui-1srek1y"
+          data-lgid="lg-label"
+          for="checkbox-198"
+          id="checkbox-198-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-198-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="checkbox"
+            id="checkbox-198"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-187di61"
+          >
+            Pass
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="emotion-9"
+    >
+      <div
+        class="leafygreen-ui-55kazc cy-checkbox"
+        data-lgid="lg-checkbox"
+      >
+        <label
+          class="leafygreen-ui-1srek1y"
+          data-lgid="lg-label"
+          for="checkbox-199"
+          id="checkbox-199-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-199-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="checkbox"
+            id="checkbox-199"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-187di61"
+          >
+            REALLY LONG TITLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE!!!!!!!!!!!!!!!!!
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="emotion-9"
+    >
+      <div
+        class="leafygreen-ui-55kazc cy-checkbox"
+        data-lgid="lg-checkbox"
+      >
+        <label
+          class="leafygreen-ui-1srek1y"
+          data-lgid="lg-label"
+          for="checkbox-200"
+          id="checkbox-200-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-200-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="checkbox"
+            id="checkbox-200"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-187di61"
+          >
+            Skip
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="emotion-9"
+    >
+      <div
+        class="leafygreen-ui-55kazc cy-checkbox"
+        data-lgid="lg-checkbox"
+      >
+        <label
+          class="leafygreen-ui-1srek1y"
+          data-lgid="lg-label"
+          for="checkbox-201"
+          id="checkbox-201-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-201-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="checkbox"
+            id="checkbox-201"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-187di61"
+          >
+            Silent Fail
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

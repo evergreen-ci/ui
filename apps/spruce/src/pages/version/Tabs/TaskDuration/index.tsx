@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useLocation } from "react-router-dom";
+import { TableControl } from "@evg-ui/lib/components/Table";
+import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
-import TableControl from "components/Table/TableControl";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { PaginationQueryParams, TableQueryParams } from "constants/queryParams";
+import { TableQueryParams } from "constants/queryParams";
 import {
   SortDirection,
   TaskSortCategory,

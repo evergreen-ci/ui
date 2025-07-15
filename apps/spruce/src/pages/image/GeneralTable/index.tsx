@@ -1,9 +1,12 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
-import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import {
+  useLeafyGreenTable,
+  LGColumnDef,
+  BaseTable,
+} from "@evg-ui/lib/components/Table";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { BaseTable } from "components/Table/BaseTable";
 import { getTaskRoute } from "constants/routes";
 import {
   ImageGeneralQuery,

@@ -85,7 +85,7 @@ describe("filterChips", () => {
     render(
       <FilterChips chips={chips} onClearAll={onClearAll} onRemove={vi.fn()} />,
     );
-    await user.click(screen.getByRole("button", { name: "Clear filters" }));
+    await user.click(screen.getByRole("button", { name: "Clear all" }));
     expect(onClearAll).toHaveBeenCalledTimes(1);
   });
 

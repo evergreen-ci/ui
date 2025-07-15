@@ -3,16 +3,10 @@ import styled from "@emotion/styled";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
 import Cookie from "js-cookie";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { HAS_SEEN_SEARCHBAR_GUIDE_CUE } from "constants/cookies";
 
-interface SearchBarGuideCueProps {
-  containerRef?: HTMLDivElement | null;
-}
-
-const SearchBarGuideCue: React.FC<SearchBarGuideCueProps> = ({
-  containerRef,
-}) => {
+const SearchBarGuideCue: React.FC = () => {
   const triggerRef = useRef<HTMLDivElement | null>(null);
 
   const [openGuideCue, setOpenGuideCue] = useState(
@@ -31,8 +25,6 @@ const SearchBarGuideCue: React.FC<SearchBarGuideCueProps> = ({
       numberOfSteps={1}
       onPrimaryButtonClick={onHideCue}
       open={openGuideCue}
-      popoverZIndex={zIndex.popover}
-      portalContainer={containerRef}
       refEl={triggerRef}
       setOpen={setOpenGuideCue}
       title="New: Tab Completion and Memory!"
