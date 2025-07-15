@@ -3021,7 +3021,17 @@
     "@leafygreen-ui/hooks" "^9.1.1"
     "@leafygreen-ui/lib" "^15.2.0"
 
-"@leafygreen-ui/badge@^9.0.0", "@leafygreen-ui/badge@^9.0.10":
+"@leafygreen-ui/badge@^10.0.3":
+  version "10.0.3"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-10.0.3.tgz#d1cd6a7450d4e3de5115526d6f6e9f3fd2a79ad6"
+  integrity sha512-q+nzw1SZFdcdWpFzGbzrpnkWBNU4KBDaipnpkzC+h4EoNia606zCO2XASVIr8QTUxjJtkD5+WwwkUrxEwW4kPw==
+  dependencies:
+    "@leafygreen-ui/emotion" "^5.0.0"
+    "@leafygreen-ui/lib" "^15.2.0"
+    "@leafygreen-ui/palette" "^5.0.0"
+    "@leafygreen-ui/tokens" "^3.1.2"
+
+"@leafygreen-ui/badge@^9.0.0":
   version "9.0.10"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-9.0.10.tgz#2b5a01f719f8f978195e38e126cb30ca31f8c2f6"
   integrity sha512-JemEpBvqlMHZlf9WnrZfLZi8ICzwUULRH84Zeeb5eOxViX8t/FnB3F7EpRJRWVC/CBSMaczdvg0pvTi3ODHeiw==
@@ -3405,18 +3415,18 @@
     "@emotion/css" "^11.1.3"
     "@emotion/server" "^11.4.0"
 
-"@leafygreen-ui/empty-state@^2.0.15":
-  version "2.0.15"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/empty-state/-/empty-state-2.0.15.tgz#c9b066cd74658de88dd31e09c197dab50117777f"
-  integrity sha512-YEznhc50O5TYMM3VVL9NEL/KQoM+fL5pXcsI3sL0EWSTFyL0vM9BxwZ+0xxc6xerXXhhjciNdA710AGV0XgIGg==
+"@leafygreen-ui/empty-state@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/empty-state/-/empty-state-3.0.4.tgz#efeeec89aa5be32e9388083250469ddd49f80d22"
+  integrity sha512-ViwEgeehHIXx3IVIRT3T1hkpCBhu4QlAQmmxFUPv1OBzLGsCsz5K/1saEA3eIRwYnYyDVev3CKJOoT9BGvkFTA==
   dependencies:
-    "@leafygreen-ui/badge" "^9.0.10"
-    "@leafygreen-ui/button" "^23.1.6"
-    "@leafygreen-ui/emotion" "^4.1.1"
-    "@leafygreen-ui/lib" "^14.2.0"
-    "@leafygreen-ui/palette" "^4.1.4"
-    "@leafygreen-ui/tokens" "^2.12.2"
-    "@leafygreen-ui/typography" "^20.1.9"
+    "@leafygreen-ui/badge" "^10.0.3"
+    "@leafygreen-ui/button" "^25.0.0"
+    "@leafygreen-ui/emotion" "^5.0.0"
+    "@leafygreen-ui/lib" "^15.2.0"
+    "@leafygreen-ui/palette" "^5.0.0"
+    "@leafygreen-ui/tokens" "^3.1.2"
+    "@leafygreen-ui/typography" "^22.0.1"
 
 "@leafygreen-ui/expandable-card@^3.1.0":
   version "3.2.4"
