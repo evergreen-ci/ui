@@ -11,6 +11,7 @@ import {
 export const adminSettings: AdminSettings = {
   banner: "Hello",
   bannerTheme: BannerTheme.Information,
+  disabledGQLQueries: [],
   hostInit: {
     cloudStatusBatchSize: 1,
     hostThrottle: 1,
