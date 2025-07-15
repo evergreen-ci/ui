@@ -1,6 +1,6 @@
 {
   "name": "parsley",
-  "version": "3.0.22",
+  "version": "3.0.23",
   "private": true,
   "type": "module",
   "scripts": {
@@ -72,8 +72,6 @@
     "@leafygreen-ui/toggle": "^10.0.4",
     "@leafygreen-ui/tooltip": "^11.1.0",
     "@leafygreen-ui/typography": "^19.0.0",
-    "@sentry/react": "9.35.0",
-    "@sentry/types": "9.35.0",
     "ansi_up": "6.0.6",
     "graphql": "16.10.0",
     "html-react-parser": "3.0.6",
@@ -101,7 +99,7 @@
     "@graphql-codegen/cli": "5.0.7",
     "@graphql-codegen/typescript": "4.1.6",
     "@graphql-codegen/typescript-operations": "4.6.1",
-    "@sentry/vite-plugin": "3.5.0",
+    "@sentry/vite-plugin": "^3.5.0",
     "@storybook/react-vite": "^9.0.15",
     "@storybook/testing-library": "^0.2.2",
     "@styled/typescript-styled-plugin": "1.0.1",
