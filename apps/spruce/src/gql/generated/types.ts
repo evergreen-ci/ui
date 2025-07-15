@@ -3946,11 +3946,6 @@ export type WorkstationSetupCommandInput = {
   directory?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-export type TaskReviewedFragment = {
-  __typename?: "Task";
-  reviewed?: boolean | null;
-};
-
 export type AnnotationFragment = {
   __typename?: "Annotation";
   id: string;
