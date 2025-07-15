@@ -95,7 +95,7 @@ const OtherFailingCommandContainer = styled.ul`
   flex-direction: column;
   gap: ${size.xxs};
   padding-left: ${size.s};
-  margin: ${size.xxs} 0 0 0;
+  margin: ${size.xs} 0 0 0;
 `;
 
 const OtherFailingCommand = styled.li``;
