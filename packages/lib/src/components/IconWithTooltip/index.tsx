@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Tooltip from "@leafygreen-ui/tooltip";
+import Tooltip, { TooltipProps } from "@leafygreen-ui/tooltip";
 import { zIndex } from "../../constants/tokens";
 import Icon from "../Icon";
 
@@ -27,8 +27,9 @@ const IconWithTooltip: React.FC<IconWithTooltipProps> = ({
   </StyledTooltip>
 );
 
-// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of Tooltip.
-const StyledTooltip = styled(Tooltip)`
+const StyledTooltip = styled(
+  Tooltip as React.ComponentType<Partial<TooltipProps>>,
+)`
   max-width: 300px;
 `;
 
