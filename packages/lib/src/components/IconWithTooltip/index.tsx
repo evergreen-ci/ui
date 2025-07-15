@@ -28,7 +28,7 @@ const IconWithTooltip: React.FC<IconWithTooltipProps> = ({
 );
 
 const StyledTooltip = styled(
-  Tooltip as unknown as React.ComponentType<Partial<TooltipProps>>,
+  Tooltip as React.ComponentType<Partial<TooltipProps>>,
 )`
   max-width: 300px;
 `;
