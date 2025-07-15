@@ -255,11 +255,10 @@ const VersionTabs: React.FC<VersionTabProps> = ({
   return selectedTab ? (
     <StyledTabs
       aria-label="Version Tabs"
-      selected={activeTabs.indexOf(selectedTab)}
-      // @ts-expect-error: LeafyGreen typing for setSelected is too strict.
-      setSelected={(tabIndex: number) =>
+      onValueChange={(tabIndex: number) =>
         activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex], true)
       }
+      value={activeTabs.indexOf(selectedTab)}
     >
       {activeTabs.map((t: VersionPageTabs) => allTabs[t])}
     </StyledTabs>

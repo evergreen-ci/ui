@@ -36,8 +36,8 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
         <H3>Parsley Settings</H3>
         <Tabs
           aria-label="Details Card Tabs"
-          selected={selectedTab}
-          setSelected={setSelectedTab}
+          onValueChange={setSelectedTab}
+          value={selectedTab}
         >
           <Tab data-cy="search-and-filter-tab" name="Search & Filter">
             <Row>

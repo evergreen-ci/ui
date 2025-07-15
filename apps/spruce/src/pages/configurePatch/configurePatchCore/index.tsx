@@ -242,9 +242,8 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
         <PageContent>
           <StyledTabs
             aria-label="Configure Patch Tabs"
-            selected={tabToIndexMap[selectedTab]}
-            // @ts-expect-error: LeafyGreen typing of setSelected is too strict.
-            setSelected={(i: number) => setSelectedTab(indexToTabMap[i])}
+            onValueChange={(i: number) => setSelectedTab(indexToTabMap[i])}
+            value={tabToIndexMap[selectedTab]}
           >
             <Tab data-cy="tasks-tab" name="Configure">
               <ConfigureTasks
