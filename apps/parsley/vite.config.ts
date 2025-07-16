@@ -31,6 +31,7 @@ const getProjectConfig = () => {
   // https://vitejs.dev/config/
   const viteConfig = defineConfig({
     server: serverConfig,
+    publicDir: "../../packages/lib/public",
     build: {
       rollupOptions: {
         plugins: [],
