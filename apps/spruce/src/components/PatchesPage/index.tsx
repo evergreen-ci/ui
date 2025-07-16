@@ -65,6 +65,8 @@ export const PatchesPage: React.FC<Props> = ({
     });
   };
 
+  const filteredCount = patches?.filteredPatchCount ?? 0;
+
   return (
     <PageWrapper>
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
@@ -87,7 +89,7 @@ export const PatchesPage: React.FC<Props> = ({
         />
       </FiltersWrapperSpaceBetween>
       <PaginationButtons
-        filteredPatchCount={patches?.filteredPatchCount}
+        filteredPatchCount={filteredCount}
         pageType={pageType}
       />
       <ListArea
@@ -95,12 +97,12 @@ export const PatchesPage: React.FC<Props> = ({
         pageType={pageType}
         patches={patches?.patches || []}
       />
-      {!loading && (
+      {!loading && filteredCount > 10 ? (
         <PaginationButtons
-          filteredPatchCount={patches?.filteredPatchCount}
+          filteredPatchCount={filteredCount}
           pageType={pageType}
         />
-      )}
+      ) : null}
     </PageWrapper>
   );
 };
