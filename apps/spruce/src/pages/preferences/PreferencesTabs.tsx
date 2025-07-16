@@ -52,16 +52,6 @@ export const PreferencesTabs: React.FC = () => {
           }
           path={PreferencesTabRoutes.CLI}
         />
-        {/* Delete this redirect in DEVPROD-14564. */}
-        <Route
-          element={
-            <Navigate
-              replace
-              to={getPreferencesRoute(PreferencesTabRoutes.UISettings)}
-            />
-          }
-          path="/newUI"
-        />
         <Route
           element={
             <Container>
