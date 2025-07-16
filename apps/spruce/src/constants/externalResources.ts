@@ -46,6 +46,8 @@ export const githubAppCredentialsDocumentationUrl =
 
 export const ignoredFilesDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files#ignoring-changes-to-certain-files`;
 
+export const redactedVarsDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files#expansions`;
+
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;
 
 export const containersOnboardingDocumentationUrl = `${wikiBaseUrl}/Containers/Container-Tasks`;
