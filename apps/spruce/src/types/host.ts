@@ -8,7 +8,7 @@ export enum HostStatus {
   // yellow: host-starting
   Starting = "starting",
   Provisioning = "provisioning",
-  Initializing = "initializing",
+  Uninitialized = "uninitialized",
 
   // red: host-terminated
   Terminated = "terminated",

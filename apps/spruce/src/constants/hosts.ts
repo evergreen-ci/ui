@@ -28,9 +28,9 @@ export const hostStatuses: Status[] = [
     key: HostStatus.Provisioning,
   },
   {
-    title: "Initializing",
-    value: HostStatus.Initializing,
-    key: HostStatus.Initializing,
+    title: "Uninitialized",
+    value: HostStatus.Uninitialized,
+    key: HostStatus.Uninitialized,
   },
   {
     title: "Provision Failed",
