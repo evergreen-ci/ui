@@ -205,7 +205,6 @@ describe("provider tab", () => {
           instance_type: "m5.xlarge",
           key_name: "admin",
 
-          fallback: true,
           iam_instance_profile_arn: "profile-east",
           is_vpc: true,
           subnet_id: "subnet-east",
@@ -312,7 +311,6 @@ describe("provider tab", () => {
           instance_type: "m5.xlarge",
           key_name: "admin",
 
-          fallback: true,
           iam_instance_profile_arn: "profile-east",
           is_vpc: true,
           subnet_id: "subnet-east",

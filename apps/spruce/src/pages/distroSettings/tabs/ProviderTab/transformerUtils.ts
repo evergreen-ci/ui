@@ -17,7 +17,6 @@ interface ProviderSettingsList {
   instance_type: string;
   key_name: string;
 
-  fallback: boolean;
   iam_instance_profile_arn: string;
   do_not_assign_public_ipv4_address: boolean;
   is_vpc: boolean;
