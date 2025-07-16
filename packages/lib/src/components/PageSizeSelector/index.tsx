@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
-import { Select, Option, SelectProps } from "@leafygreen-ui/select";
+import {
+  Select,
+  Option,
+  SelectProps,
+  Size as SelectSize,
+} from "@leafygreen-ui/select";
 import { PAGE_SIZES } from "../../constants/pagination";
 import { zIndex } from "../../constants/tokens";
 
@@ -30,7 +35,7 @@ const PageSizeSelector: React.FC<Props> = ({
     disabled={disabled}
     onChange={(pageSize: string) => onChange(parseInt(pageSize, 10))}
     popoverZIndex={zIndex.popover}
-    size="small"
+    size={SelectSize.Small}
     value={value.toString()}
     {...rest}
   >
