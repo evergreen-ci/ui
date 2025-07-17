@@ -10,6 +10,7 @@ import MetadataCard, {
 import {
   getGithubCommitUrl,
   getGithubMergeQueueUrl,
+  getGithubPRUrl,
 } from "constants/externalResources";
 import { Requester } from "constants/requesters";
 import {
@@ -21,16 +22,16 @@ import {
 import { VersionQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { string } from "utils";
+import { ParametersModal } from "../ParametersModal";
 import ManifestBlob from "./ManifestBlob";
-import { ParametersModal } from "./ParametersModal";
 
 const { msToDuration } = string;
 
-interface Props {
-  version: VersionQuery["version"];
+interface MetadataProps {
+  version: NonNullable<VersionQuery["version"]>;
 }
 
-export const Metadata: React.FC<Props> = ({ version }) => {
+export const Metadata: React.FC<MetadataProps> = ({ version }) => {
   const getDateCopy = useDateFormat();
   const {
     author,
@@ -44,6 +45,7 @@ export const Metadata: React.FC<Props> = ({ version }) => {
     isPatch,
     manifest,
     parameters,
+    patch,
     previousVersion,
     projectIdentifier,
     projectMetadata,
@@ -52,13 +54,17 @@ export const Metadata: React.FC<Props> = ({ version }) => {
     startTime,
     upstreamProject,
     versionTiming,
-  } = version || {};
+  } = version;
   const { sendEvent } = useVersionAnalytics(id);
   const { makespan, timeTaken } = versionTiming || {};
+  const { githubPatchData } = patch || {};
+  const { headHash, prNumber } = githubPatchData || {};
 
   const { branch, id: projectID, owner, repo } = projectMetadata || {};
+  const hasOwnerAndRepo = !!owner && !!repo;
 
   const isGithubMergePatch = requester === Requester.GitHubMergeQueue;
+  const isGitHubPullRequest = requester === Requester.GitHubPR;
 
   return (
     <MetadataCard title={isPatch ? "Patch Metadata" : "Version Metadata"}>
@@ -114,6 +120,20 @@ export const Metadata: React.FC<Props> = ({ version }) => {
           {author}
         </StyledRouterLink>
       </MetadataItem>
+      {isGitHubPullRequest && headHash && hasOwnerAndRepo && prNumber && (
+        <MetadataItem>
+          <MetadataLabel>GitHub PR commit:</MetadataLabel>{" "}
+          <InlineCode
+            data-cy="github-pr-commit"
+            href={getGithubPRUrl(owner, repo, prNumber, headHash)}
+            onClick={() =>
+              sendEvent({ name: "Clicked metadata github commit link" })
+            }
+          >
+            {shortenGithash(headHash)}
+          </InlineCode>
+        </MetadataItem>
+      )}
       {isPatch && baseVersion ? (
         <BaseCommitMetadata
           baseVersionId={baseVersion.id}
@@ -138,7 +158,7 @@ export const Metadata: React.FC<Props> = ({ version }) => {
           </InlineCode>
         </MetadataItem>
       )}
-      {isGithubMergePatch && owner && repo && branch && (
+      {isGithubMergePatch && hasOwnerAndRepo && branch && (
         <MetadataItem>
           <StyledLink
             data-cy="github-merge-queue-link"
@@ -149,7 +169,7 @@ export const Metadata: React.FC<Props> = ({ version }) => {
           </StyledLink>
         </MetadataItem>
       )}
-      {!isPatch && owner && repo && revision && (
+      {!isPatch && hasOwnerAndRepo && revision && (
         <MetadataItem>
           <MetadataLabel>GitHub commit:</MetadataLabel>{" "}
           <InlineCode

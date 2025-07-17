@@ -754,6 +754,18 @@ export type GithubPrSubscriber = {
   repo: Scalars["String"]["output"];
 };
 
+export type GithubPatch = {
+  __typename?: "GithubPatch";
+  author?: Maybe<Scalars["String"]["output"]>;
+  baseOwner?: Maybe<Scalars["String"]["output"]>;
+  baseRepo?: Maybe<Scalars["String"]["output"]>;
+  headBranch?: Maybe<Scalars["String"]["output"]>;
+  headHash?: Maybe<Scalars["String"]["output"]>;
+  headOwner?: Maybe<Scalars["String"]["output"]>;
+  headRepo?: Maybe<Scalars["String"]["output"]>;
+  prNumber?: Maybe<Scalars["Int"]["output"]>;
+};
+
 /**
  * GithubProjectConflicts is the return value for the githubProjectConflicts query.
  * Its contains information about potential conflicts in the commit checks, the commit queue, and PR testing.
@@ -1768,6 +1780,7 @@ export type Patch = {
   duration?: Maybe<PatchDuration>;
   generatedTaskCounts: Array<GeneratedTaskCountResults>;
   githash: Scalars["String"]["output"];
+  githubPatchData?: Maybe<GithubPatch>;
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
   moduleCodeChanges: Array<ModuleCodeChange>;
@@ -10198,6 +10211,11 @@ export type VersionQuery = {
           baseVersion?: { __typename?: "Version"; id: string } | null;
         } | null;
       }> | null;
+      githubPatchData?: {
+        __typename?: "GithubPatch";
+        headHash?: string | null;
+        prNumber?: number | null;
+      } | null;
     } | null;
     previousVersion?: {
       __typename?: "Version";

@@ -82,6 +82,13 @@ export const getGithubCommitUrl = (
   githash: string,
 ) => `https://github.com/${owner}/${repo}/commit/${githash}`;
 
+export const getGithubPRUrl = (
+  owner: string,
+  repo: string,
+  prNumber: number,
+  headHash: string,
+) => `https://github.com/${owner}/${repo}/pull/${prNumber}/commits/${headHash}`;
+
 export const getGithubMergeQueueUrl = (
   owner: string,
   repo: string,
