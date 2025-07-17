@@ -43,7 +43,7 @@ const useQueryParam = <T>(
   defaultParam: T,
   parseOptions?: ParseOptions,
 ): readonly [T, (set: T) => void] => {
-  const [searchParams, setSearchParams] = useQueryParams(parseOptions ?? {});
+  const [searchParams, setSearchParams] = useQueryParams(parseOptions);
 
   const setQueryParam = useCallback(
     (value: T) => {
