@@ -171,17 +171,20 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       Object.keys(allQueryParams).includes(WaterfallFilterOptions.Statuses) ||
       Object.keys(allQueryParams).includes(WaterfallFilterOptions.Task) ||
       Object.keys(allQueryParams).includes(WaterfallFilterOptions.BuildVariant);
-    if (activeVersionIds.length < VERSION_LIMIT && hasServerParams) {
-      const filters = {
-        requesters: allQueryParams[
-          WaterfallFilterOptions.Requesters
-        ] as string[],
-        statuses: allQueryParams[WaterfallFilterOptions.Statuses] as string[],
-        tasks: allQueryParams[WaterfallFilterOptions.Task] as string[],
-        variants: allQueryParams[
-          WaterfallFilterOptions.BuildVariant
-        ] as string[],
-      };
+
+    const filters = {
+      requesters: allQueryParams[WaterfallFilterOptions.Requesters] as string[],
+      statuses: allQueryParams[WaterfallFilterOptions.Statuses] as string[],
+      tasks: allQueryParams[WaterfallFilterOptions.Task] as string[],
+      variants: allQueryParams[WaterfallFilterOptions.BuildVariant] as string[],
+    };
+    const sameFilters =
+      JSON.stringify(filters) === JSON.stringify(serverFilters);
+    if (
+      activeVersionIds.length < VERSION_LIMIT &&
+      hasServerParams &&
+      !sameFilters
+    ) {
       startTransition(() => {
         setServerFilters(filters);
       });
