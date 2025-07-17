@@ -127,7 +127,7 @@
       >
         <p
           class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
-          data-cy="task-metadata-description"
+          data-cy="task-metadata-command"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"

@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useParams } from "react-router-dom";
 import {
   ColumnFiltering,
   ColumnFiltersState,
@@ -6,14 +7,13 @@ import {
   SortingState,
   LeafyGreenTable,
   useLeafyGreenTable,
-} from "@leafygreen-ui/table";
-import { useParams } from "react-router-dom";
+  BaseTable,
+  TableWrapper,
+  onChangeHandler,
+  TableControl,
+} from "@evg-ui/lib/components/Table";
+import { TablePlaceholder } from "@evg-ui/lib/components/Table/TablePlaceholder";
 import { usePatchAnalytics, useVersionAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
-import TableControl from "components/Table/TableControl";
-import { TablePlaceholder } from "components/Table/TablePlaceholder";
-import TableWrapper from "components/Table/TableWrapper";
-import { onChangeHandler } from "components/Table/utils";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { slugs } from "constants/routes";
@@ -145,8 +145,10 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
             dispatch({ type: "clearAllFilters" });
             table.reset();
           }}
-          onPageChange={(p) => dispatch({ type: "setPage", page: p })}
-          onPageSizeChange={(l) => dispatch({ type: "setLimit", limit: l })}
+          onPageChange={(p: number) => dispatch({ type: "setPage", page: p })}
+          onPageSizeChange={(l: number) =>
+            dispatch({ type: "setLimit", limit: l })
+          }
           page={page}
           totalCount={taskCount}
         />

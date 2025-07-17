@@ -1,7 +1,7 @@
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskQuery } from "gql/generated/types";
 
-type TaskQueryType = {
+export type TaskQueryType = {
   task: NonNullable<TaskQuery["task"]>;
 };
 
@@ -41,6 +41,7 @@ export const taskQuery: TaskQueryType = {
         "failure_tag_3",
         "failure_tag_4",
       ],
+      otherFailingCommands: [],
     },
     timeTaken: null,
     annotation: null,

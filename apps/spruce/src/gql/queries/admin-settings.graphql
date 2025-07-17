@@ -2,6 +2,7 @@ query AdminSettings {
   adminSettings {
     banner
     bannerTheme
+    disabledGQLQueries
     hostInit {
       cloudStatusBatchSize
       hostThrottle

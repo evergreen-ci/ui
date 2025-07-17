@@ -269,8 +269,8 @@ const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   return (
     <StyledTabs
       aria-label="Task Page Tabs"
-      selected={tabIndex}
-      setSelected={handleTabChange}
+      onValueChange={handleTabChange}
+      value={tabIndex}
     >
       {activeTabs.map((tab) => tabMap[tab])}
     </StyledTabs>

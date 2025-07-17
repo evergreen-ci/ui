@@ -31,6 +31,19 @@ export type Scalars = {
   Time: { input: Date; output: Date };
 };
 
+export type ApiConfig = {
+  __typename?: "APIConfig";
+  corpUrl?: Maybe<Scalars["String"]["output"]>;
+  httpListenAddr?: Maybe<Scalars["String"]["output"]>;
+  url?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type ApiConfigInput = {
+  corpUrl: Scalars["String"]["input"];
+  httpListenAddr: Scalars["String"]["input"];
+  url: Scalars["String"]["input"];
+};
+
 export type AwsConfig = {
   __typename?: "AWSConfig";
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
@@ -62,10 +75,33 @@ export type AddFavoriteProjectInput = {
   projectIdentifier: Scalars["String"]["input"];
 };
 
+export type AdminEvent = {
+  __typename?: "AdminEvent";
+  after?: Maybe<Scalars["Map"]["output"]>;
+  before?: Maybe<Scalars["Map"]["output"]>;
+  section?: Maybe<Scalars["String"]["output"]>;
+  timestamp: Scalars["Time"]["output"];
+  user: Scalars["String"]["output"];
+};
+
+/** AdminEventsInput is the input to the adminEvents query. */
+export type AdminEventsInput = {
+  before?: InputMaybe<Scalars["Time"]["input"]>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type AdminEventsPayload = {
+  __typename?: "AdminEventsPayload";
+  count: Scalars["Int"]["output"];
+  eventLogEntries: Array<AdminEvent>;
+};
+
 export type AdminSettings = {
   __typename?: "AdminSettings";
+  api?: Maybe<ApiConfig>;
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
+  disabledGQLQueries: Array<Scalars["String"]["output"]>;
   hostInit?: Maybe<HostInitConfig>;
   notify?: Maybe<NotifyConfig>;
   podLifecycle?: Maybe<PodLifecycleConfig>;
@@ -73,11 +109,14 @@ export type AdminSettings = {
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
   taskLimits?: Maybe<TaskLimitsConfig>;
+  ui?: Maybe<UiConfig>;
 };
 
 export type AdminSettingsInput = {
+  api?: InputMaybe<ApiConfigInput>;
   banner?: InputMaybe<Scalars["String"]["input"]>;
   bannerTheme?: InputMaybe<BannerTheme>;
+  disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   hostInit?: InputMaybe<HostInitConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
   podLifecycle?: InputMaybe<PodLifecycleConfigInput>;
@@ -85,6 +124,7 @@ export type AdminSettingsInput = {
   scheduler?: InputMaybe<SchedulerConfigInput>;
   serviceFlags?: InputMaybe<ServiceFlagsInput>;
   taskLimits?: InputMaybe<TaskLimitsConfigInput>;
+  ui?: InputMaybe<UiConfigInput>;
 };
 
 /**
@@ -413,6 +453,7 @@ export type Distro = {
   aliases: Array<Scalars["String"]["output"]>;
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["output"];
+  availableRegions: Array<Scalars["String"]["output"]>;
   bootstrapSettings: BootstrapSettings;
   containerPool: Scalars["String"]["output"];
   disableShallowClone: Scalars["Boolean"]["output"];
@@ -487,7 +528,7 @@ export type DistroInput = {
   disableShallowClone: Scalars["Boolean"]["input"];
   disabled: Scalars["Boolean"]["input"];
   dispatcherSettings: DispatcherSettingsInput;
-  execUser?: InputMaybe<Scalars["String"]["input"]>;
+  execUser: Scalars["String"]["input"];
   expansions: Array<ExpansionInput>;
   finderSettings: FinderSettingsInput;
   homeVolumeSettings: HomeVolumeSettingsInput;
@@ -496,12 +537,12 @@ export type DistroInput = {
   imageId: Scalars["String"]["input"];
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
-  mountpoints?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  mountpoints: Array<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
   note: Scalars["String"]["input"];
   plannerSettings: PlannerSettingsInput;
   provider: Provider;
-  providerAccount?: InputMaybe<Scalars["String"]["input"]>;
+  providerAccount: Scalars["String"]["input"];
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
@@ -510,7 +551,7 @@ export type DistroInput = {
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
   validProjects: Array<Scalars["String"]["input"]>;
-  warningNote?: InputMaybe<Scalars["String"]["input"]>;
+  warningNote: Scalars["String"]["input"];
   workDir: Scalars["String"]["input"];
 };
 
@@ -603,6 +644,12 @@ export type ExternalLinkInput = {
   displayName: Scalars["String"]["input"];
   requesters: Array<Scalars["String"]["input"]>;
   urlTemplate: Scalars["String"]["input"];
+};
+
+export type FailingCommand = {
+  __typename?: "FailingCommand";
+  failureMetadataTags: Array<Scalars["String"]["output"]>;
+  fullDisplayName: Scalars["String"]["output"];
 };
 
 export enum FeedbackRule {
@@ -705,6 +752,18 @@ export type GithubPrSubscriber = {
   prNumber?: Maybe<Scalars["Int"]["output"]>;
   ref: Scalars["String"]["output"];
   repo: Scalars["String"]["output"];
+};
+
+export type GithubPatch = {
+  __typename?: "GithubPatch";
+  author?: Maybe<Scalars["String"]["output"]>;
+  baseOwner?: Maybe<Scalars["String"]["output"]>;
+  baseRepo?: Maybe<Scalars["String"]["output"]>;
+  headBranch?: Maybe<Scalars["String"]["output"]>;
+  headHash?: Maybe<Scalars["String"]["output"]>;
+  headOwner?: Maybe<Scalars["String"]["output"]>;
+  headRepo?: Maybe<Scalars["String"]["output"]>;
+  prNumber?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /**
@@ -829,7 +888,7 @@ export type HostAllocatorSettings = {
 
 export type HostAllocatorSettingsInput = {
   acceptableHostIdleTime: Scalars["Int"]["input"];
-  autoTuneMaximumHosts?: InputMaybe<Scalars["Boolean"]["input"]>;
+  autoTuneMaximumHosts: Scalars["Boolean"]["input"];
   feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"]["input"];
   hostsOverallocatedRule: OverallocatedRule;
@@ -1721,6 +1780,7 @@ export type Patch = {
   duration?: Maybe<PatchDuration>;
   generatedTaskCounts: Array<GeneratedTaskCountResults>;
   githash: Scalars["String"]["output"];
+  githubPatchData?: Maybe<GithubPatch>;
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
   moduleCodeChanges: Array<ModuleCodeChange>;
@@ -1867,7 +1927,7 @@ export type PlannerSettings = {
   generateTaskFactor: Scalars["Int"]["output"];
   groupVersions: Scalars["Boolean"]["output"];
   mainlineTimeInQueueFactor: Scalars["Int"]["output"];
-  numDependentsFactor?: Maybe<Scalars["Float"]["output"]>;
+  numDependentsFactor: Scalars["Float"]["output"];
   patchFactor: Scalars["Int"]["output"];
   patchTimeInQueueFactor: Scalars["Int"]["output"];
   targetTime: Scalars["Duration"]["output"];
@@ -1880,7 +1940,7 @@ export type PlannerSettingsInput = {
   generateTaskFactor: Scalars["Int"]["input"];
   groupVersions: Scalars["Boolean"]["input"];
   mainlineTimeInQueueFactor: Scalars["Int"]["input"];
-  numDependentsFactor?: InputMaybe<Scalars["Float"]["input"]>;
+  numDependentsFactor: Scalars["Float"]["input"];
   patchFactor: Scalars["Int"]["input"];
   patchTimeInQueueFactor: Scalars["Int"]["input"];
   targetTime: Scalars["Int"]["input"];
@@ -2261,6 +2321,7 @@ export type PublicKeyInput = {
 
 export type Query = {
   __typename?: "Query";
+  adminEvents: AdminEventsPayload;
   adminSettings?: Maybe<AdminSettings>;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
@@ -2307,6 +2368,10 @@ export type Query = {
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
   waterfall: Waterfall;
+};
+
+export type QueryAdminEventsArgs = {
+  opts: AdminEventsInput;
 };
 
 export type QueryBbGetCreatedTicketsArgs = {
@@ -2662,10 +2727,6 @@ export type SesConfigInput = {
   senderAddress: Scalars["String"]["input"];
 };
 
-/**
- * SpruceConfig defines settings that apply to all users of Evergreen.
- * For example, if the banner field is populated, then a sitewide banner will be shown to all users.
- */
 export type SaveAdminSettingsInput = {
   adminSettings: AdminSettingsInput;
 };
@@ -2938,6 +2999,10 @@ export type SpawnVolumeInput = {
   type: Scalars["String"]["input"];
 };
 
+/**
+ * SpruceConfig defines settings that apply to all users of Evergreen.
+ * For example, if the banner field is populated, then a sitewide banner will be shown to all users.
+ */
 export type SpruceConfig = {
   __typename?: "SpruceConfig";
   banner?: Maybe<Scalars["String"]["output"]>;
@@ -3129,6 +3194,7 @@ export type TaskEndDetail = {
   failingCommand?: Maybe<Scalars["String"]["output"]>;
   failureMetadataTags: Array<Scalars["String"]["output"]>;
   oomTracker: OomTrackerInfo;
+  otherFailingCommands: Array<FailingCommand>;
   status: Scalars["String"]["output"];
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
   timeoutType?: Maybe<Scalars["String"]["output"]>;
@@ -3493,8 +3559,38 @@ export type TriggerAliasInput = {
 export type UiConfig = {
   __typename?: "UIConfig";
   betaFeatures: BetaFeatures;
+  cacheTemplates?: Maybe<Scalars["Boolean"]["output"]>;
+  corsOrigins: Array<Scalars["String"]["output"]>;
+  csrfKey?: Maybe<Scalars["String"]["output"]>;
   defaultProject: Scalars["String"]["output"];
+  fileStreamingContentTypes: Array<Scalars["String"]["output"]>;
+  helpUrl?: Maybe<Scalars["String"]["output"]>;
+  httpListenAddr?: Maybe<Scalars["String"]["output"]>;
+  loginDomain?: Maybe<Scalars["String"]["output"]>;
+  parsleyUrl?: Maybe<Scalars["String"]["output"]>;
+  secret?: Maybe<Scalars["String"]["output"]>;
+  stagingEnvironment?: Maybe<Scalars["String"]["output"]>;
+  uiv2Url?: Maybe<Scalars["String"]["output"]>;
+  url?: Maybe<Scalars["String"]["output"]>;
   userVoice?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type UiConfigInput = {
+  betaFeatures: BetaFeaturesInput;
+  cacheTemplates: Scalars["Boolean"]["input"];
+  corsOrigins: Array<Scalars["String"]["input"]>;
+  csrfKey: Scalars["String"]["input"];
+  defaultProject: Scalars["String"]["input"];
+  fileStreamingContentTypes: Array<Scalars["String"]["input"]>;
+  helpUrl: Scalars["String"]["input"];
+  httpListenAddr: Scalars["String"]["input"];
+  loginDomain: Scalars["String"]["input"];
+  parsleyUrl: Scalars["String"]["input"];
+  secret: Scalars["String"]["input"];
+  stagingEnvironment: Scalars["String"]["input"];
+  uiv2Url: Scalars["String"]["input"];
+  url: Scalars["String"]["input"];
+  userVoice: Scalars["String"]["input"];
 };
 
 export type UpdateBetaFeaturesInput = {

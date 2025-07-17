@@ -19,8 +19,7 @@ export const zIndex = {
   modal: 1,
   popover: 1,
   sideNav: 1,
-
-  stickyHeader: 10,
+  stickyHeader: 1,
   tooltip: 20,
   toast: 40,
   dropdown: 50,
@@ -34,5 +33,11 @@ export const fontSize = {
 } as const;
 
 export const textInputHeight = "36px";
+
+/**
+ * The LeafyGreen table header columns have a default left padding of 32px.
+ * This constant can be used to achieve alignment with the header columns.
+ */
+export const tableColumnOffset = size.l;
 
 export { transitionDuration };

@@ -2,16 +2,19 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { css } from "@leafygreen-ui/emotion";
-import { LGColumnDef, useLeafyGreenVirtualTable } from "@leafygreen-ui/table";
 import { Body } from "@leafygreen-ui/typography";
 import {
   WordBreak,
   StyledRouterLink,
   wordBreakCss,
 } from "@evg-ui/lib/components/styles";
+import {
+  LGColumnDef,
+  useLeafyGreenVirtualTable,
+  BaseTable,
+  TablePlaceholder,
+} from "@evg-ui/lib/components/Table";
 import { useTaskQueueAnalytics } from "analytics";
-import { BaseTable } from "components/Table/BaseTable";
-import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import {
   getVersionRoute,
   getTaskRoute,

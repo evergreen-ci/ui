@@ -5,19 +5,16 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
-import PageSizeSelector from "components/PageSizeSelector";
-import Pagination from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import TextInputWithValidation from "components/TextInputWithValidation";
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useFilterInputChangeHandler } from "hooks";
-import usePagination from "hooks/usePagination";
 import { PatchPageQueryParams } from "types/patch";
 import { validateRegexp } from "utils/validators";
 import ListArea from "./ListArea";
+import { PaginationButtons } from "./PaginationButtons";
 import { StatusSelector } from "./StatusSelector";
-import { usePatchesQueryParams } from "./usePatchesQueryParams";
 
 interface Props {
   filterComp?: React.ReactNode;
@@ -39,14 +36,6 @@ export const PatchesPage: React.FC<Props> = ({
   const projectPatchesAnalytics = useProjectPatchesAnalytics();
   const analytics =
     pageType === "project" ? projectPatchesAnalytics : userPatchesAnalytics;
-
-  // Handle pagination logic.
-  const { setLimit } = usePagination();
-  const { limit, page } = usePatchesQueryParams();
-  const handlePageSizeChange = (pageSize: number): void => {
-    setLimit(pageSize);
-    analytics.sendEvent({ name: "Changed page size" });
-  };
 
   // Handle filtering by patch description.
   const { setAndSubmitInputValue } = useFilterInputChangeHandler({
@@ -76,6 +65,8 @@ export const PatchesPage: React.FC<Props> = ({
     });
   };
 
+  const filteredCount = patches?.filteredPatchCount ?? 0;
+
   return (
     <PageWrapper>
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
@@ -97,32 +88,24 @@ export const PatchesPage: React.FC<Props> = ({
           onChange={includeHiddenCheckboxOnChange}
         />
       </FiltersWrapperSpaceBetween>
-      <PaginationRow>
-        <Pagination
-          currentPage={page}
-          pageSize={limit}
-          totalResults={patches?.filteredPatchCount ?? 0}
-        />
-        <PageSizeSelector
-          data-cy="my-patches-page-size-selector"
-          onChange={handlePageSizeChange}
-          value={limit}
-        />
-      </PaginationRow>
+      <PaginationButtons
+        filteredPatchCount={filteredCount}
+        pageType={pageType}
+      />
       <ListArea
         loading={loading}
         pageType={pageType}
         patches={patches?.patches || []}
       />
+      {!loading && filteredCount > 10 ? (
+        <PaginationButtons
+          filteredPatchCount={filteredCount}
+          pageType={pageType}
+        />
+      ) : null}
     </PageWrapper>
   );
 };
-
-const PaginationRow = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`;
 
 const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
   display: grid;

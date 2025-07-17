@@ -62,16 +62,6 @@ export const PageTitle = styled(H2)<H2Props>`
   margin-bottom: ${size.s};
 `;
 
-export const TableControlInnerRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const TableControlOuterRow = styled(TableControlInnerRow)`
-  padding-bottom: ${size.xs};
-`;
-
 export const PageButtonRow = styled.div`
   display: flex;
   align-items: flex-start;

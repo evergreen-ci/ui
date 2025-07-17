@@ -1,3 +1,4 @@
+import { ChipInput } from "./ChipInput";
 import { DateTimePicker, TimePicker } from "./DateTimePicker";
 import { DayPickerWidget } from "./DayPicker";
 import {
@@ -16,6 +17,7 @@ import { MultiSelect } from "./MultiSelect";
 
 const widgets = {
   CheckboxWidget: LeafyGreenCheckBox,
+  ChipInputWidget: ChipInput,
   CopyableWidget: LeafyGreenCopyable,
   DateWidget: LeafyGreenDatePicker,
   DateTimeWidget: DateTimePicker,
