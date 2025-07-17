@@ -75,6 +75,27 @@ export type AddFavoriteProjectInput = {
   projectIdentifier: Scalars["String"]["input"];
 };
 
+export type AdminEvent = {
+  __typename?: "AdminEvent";
+  after?: Maybe<Scalars["Map"]["output"]>;
+  before?: Maybe<Scalars["Map"]["output"]>;
+  section?: Maybe<Scalars["String"]["output"]>;
+  timestamp: Scalars["Time"]["output"];
+  user: Scalars["String"]["output"];
+};
+
+/** AdminEventsInput is the input to the adminEvents query. */
+export type AdminEventsInput = {
+  before?: InputMaybe<Scalars["Time"]["input"]>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type AdminEventsPayload = {
+  __typename?: "AdminEventsPayload";
+  count: Scalars["Int"]["output"];
+  eventLogEntries: Array<AdminEvent>;
+};
+
 export type AdminSettings = {
   __typename?: "AdminSettings";
   api?: Maybe<ApiConfig>;
@@ -731,6 +752,18 @@ export type GithubPrSubscriber = {
   prNumber?: Maybe<Scalars["Int"]["output"]>;
   ref: Scalars["String"]["output"];
   repo: Scalars["String"]["output"];
+};
+
+export type GithubPatch = {
+  __typename?: "GithubPatch";
+  author?: Maybe<Scalars["String"]["output"]>;
+  baseOwner?: Maybe<Scalars["String"]["output"]>;
+  baseRepo?: Maybe<Scalars["String"]["output"]>;
+  headBranch?: Maybe<Scalars["String"]["output"]>;
+  headHash?: Maybe<Scalars["String"]["output"]>;
+  headOwner?: Maybe<Scalars["String"]["output"]>;
+  headRepo?: Maybe<Scalars["String"]["output"]>;
+  prNumber?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /**
@@ -1747,6 +1780,7 @@ export type Patch = {
   duration?: Maybe<PatchDuration>;
   generatedTaskCounts: Array<GeneratedTaskCountResults>;
   githash: Scalars["String"]["output"];
+  githubPatchData?: Maybe<GithubPatch>;
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
   moduleCodeChanges: Array<ModuleCodeChange>;
@@ -2287,6 +2321,7 @@ export type PublicKeyInput = {
 
 export type Query = {
   __typename?: "Query";
+  adminEvents: AdminEventsPayload;
   adminSettings?: Maybe<AdminSettings>;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
@@ -2333,6 +2368,10 @@ export type Query = {
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
   waterfall: Waterfall;
+};
+
+export type QueryAdminEventsArgs = {
+  opts: AdminEventsInput;
 };
 
 export type QueryBbGetCreatedTicketsArgs = {
@@ -2688,10 +2727,6 @@ export type SesConfigInput = {
   senderAddress: Scalars["String"]["input"];
 };
 
-/**
- * SpruceConfig defines settings that apply to all users of Evergreen.
- * For example, if the banner field is populated, then a sitewide banner will be shown to all users.
- */
 export type SaveAdminSettingsInput = {
   adminSettings: AdminSettingsInput;
 };
@@ -2964,6 +2999,10 @@ export type SpawnVolumeInput = {
   type: Scalars["String"]["input"];
 };
 
+/**
+ * SpruceConfig defines settings that apply to all users of Evergreen.
+ * For example, if the banner field is populated, then a sitewide banner will be shown to all users.
+ */
 export type SpruceConfig = {
   __typename?: "SpruceConfig";
   banner?: Maybe<Scalars["String"]["output"]>;

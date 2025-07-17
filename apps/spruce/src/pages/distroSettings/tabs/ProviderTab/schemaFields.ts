@@ -1,11 +1,6 @@
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
-import {
-  textAreaCSS,
-  mergeCheckboxCSS,
-  capacityCheckboxCSS,
-  indentCSS,
-} from "./styles";
-import { BuildType, FleetInstanceType } from "./types";
+import { textAreaCSS, mergeCheckboxCSS, indentCSS } from "./styles";
+import { BuildType } from "./types";
 
 const userData = {
   schema: {
@@ -164,77 +159,6 @@ const sshKeyName = {
   },
   uiSchema: {
     "ui:description": "SSH key to add to the host machine.",
-  },
-};
-
-const fleetOptions = {
-  schema: {
-    type: "object" as const,
-    title: "",
-    properties: {
-      fleetInstanceType: {
-        type: "string" as const,
-        title: "Fleet Instance Type",
-        default: FleetInstanceType.Spot,
-        oneOf: [
-          {
-            type: "string" as const,
-            title: "Spot",
-            enum: [FleetInstanceType.Spot],
-          },
-          {
-            type: "string" as const,
-            title: "Spot with on-demand fallback",
-            enum: [FleetInstanceType.SpotWithOnDemandFallback],
-          },
-          {
-            type: "string" as const,
-            title: "On-demand",
-            enum: [FleetInstanceType.OnDemand],
-          },
-        ],
-      },
-    },
-    dependencies: {
-      fleetInstanceType: {
-        oneOf: [
-          {
-            properties: {
-              fleetInstanceType: {
-                enum: [FleetInstanceType.OnDemand],
-              },
-            },
-          },
-          {
-            properties: {
-              fleetInstanceType: {
-                enum: [
-                  FleetInstanceType.Spot,
-                  FleetInstanceType.SpotWithOnDemandFallback,
-                ],
-              },
-              useCapacityOptimization: {
-                type: "boolean" as const,
-                title: "Capacity optimization",
-                default: false,
-              },
-            },
-          },
-        ],
-      },
-    },
-  },
-  uiSchema: {
-    fleetInstanceType: {
-      "ui:allowDeselect": false,
-    },
-    useCapacityOptimization: {
-      "ui:data-cy": "use-capacity-optimization",
-      "ui:bold": true,
-      "ui:description":
-        "Use the capacity-optimized allocation strategy for spot (default: lowest-cost)",
-      "ui:elementWrapperCSS": capacityCheckboxCSS,
-    },
   },
 };
 
@@ -399,7 +323,6 @@ export const ec2FleetProviderSettings = {
     amiId: amiId.schema,
     instanceType: instanceType.schema,
     sshKeyName: sshKeyName.schema,
-    fleetOptions: fleetOptions.schema,
     instanceProfileARN: instanceProfileARN.schema,
     doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.schema,
     mergeUserData: mergeUserData.schema,
@@ -413,7 +336,6 @@ export const ec2FleetProviderSettings = {
     instanceType: instanceType.uiSchema,
     sshKeyName: sshKeyName.uiSchema,
     instanceProfileARN: instanceProfileARN.uiSchema,
-    fleetOptions: fleetOptions.uiSchema,
     doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.uiSchema,
     mergeUserData: mergeUserData.uiSchema,
     userData: userData.uiSchema,
