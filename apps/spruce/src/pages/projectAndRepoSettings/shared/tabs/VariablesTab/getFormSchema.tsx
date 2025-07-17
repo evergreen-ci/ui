@@ -124,8 +124,11 @@ const getDescription = (projectType: ProjectType) => {
       <Description>
         Variables defined here will be used by all branches attached to this
         project, unless a variable is specifically overridden in the branch.
-        Variables will be redacted in logs according to the conditions outlined{" "}
-        <StyledLink href={redactedVarsDocumentationUrl}>here</StyledLink>.
+        Variables will be redacted in logs if they meet{" "}
+        <StyledLink href={redactedVarsDocumentationUrl}>
+          certain conditions
+        </StyledLink>
+        .
       </Description>
     );
   }
@@ -135,8 +138,11 @@ const getDescription = (projectType: ProjectType) => {
         Variables are sourced from both the repo-level and branch-level
         settings. If a variable name is defined at both the repo-level and
         branch-level, then the branch variable will override the repo variable.
-        Variables will be redacted in logs according to the conditions outlined{" "}
-        <StyledLink href={redactedVarsDocumentationUrl}>here</StyledLink>.
+        Variables will be redacted in logs if they meet{" "}
+        <StyledLink href={redactedVarsDocumentationUrl}>
+          certain conditions
+        </StyledLink>
+        .
       </Description>
     );
   }
