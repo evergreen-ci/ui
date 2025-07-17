@@ -93,13 +93,6 @@ describe("provider section", () => {
     });
 
     it("shows and hides fields correctly", () => {
-      // Fleet options.
-      cy.getInputByLabel("Fleet Instance Type").contains("On-demand");
-      cy.contains("Capacity optimization").should("not.exist");
-
-      cy.selectLGOption("Fleet Instance Type", "Spot");
-      cy.contains("Capacity optimization").should("exist");
-
       // VPC options.
       cy.dataCy("use-vpc").should("be.checked");
       cy.contains("Default VPC Subnet ID").should("exist");
@@ -123,7 +116,7 @@ describe("provider section", () => {
       cy.getInputByLabel("SSH Key Name").as("keyNameInput");
       cy.get("@keyNameInput").clear();
       cy.get("@keyNameInput").type("my ssh key");
-      cy.selectLGOption("Fleet Instance Type", "Spot");
+
       cy.contains("button", "Add mount point").click();
       cy.getInputByLabel("Device Name").type("device name");
       cy.getInputByLabel("Size").type("200");
@@ -134,7 +127,7 @@ describe("provider section", () => {
       cy.selectLGOption("Region", "us-east-1");
       cy.get("@keyNameInput").clear();
       cy.get("@keyNameInput").type("mci");
-      cy.selectLGOption("Fleet Instance Type", "On-demand");
+
       cy.dataCy("mount-points").within(() => {
         cy.dataCy("delete-item-button").click();
       });

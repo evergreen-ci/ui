@@ -58,8 +58,8 @@ export const clickOnPageSizeBtnAndAssertURLandTableSize = (
   pageSize: number,
   dataCyTableRows: string,
 ) => {
-  cy.get("button[aria-labelledby='page-size-select']").click();
-  cy.contains(`${pageSize} / page`).click();
+  cy.get("button[aria-labelledby='page-size-select']").first().click();
+  cy.contains(`${pageSize} / page`).first().click();
   cy.get(dataCyTableRows).should("have.length.of.at.most", pageSize);
   cy.location("search").should("include", `limit=${pageSize}`);
 };
