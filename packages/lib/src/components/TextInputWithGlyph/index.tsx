@@ -11,22 +11,23 @@ export type TextInputWithGlyphProps = {
   persistentPlaceholder?: React.ReactNode;
 } & TextInputProps;
 
-export const TextInputWithGlyph: React.FC<TextInputWithGlyphProps> = forwardRef(
-  (props, ref) => {
-    const { className, icon, persistentPlaceholder, ...rest } = props;
-    return (
-      <TextInputWrapper className={className}>
-        {persistentPlaceholder && (
-          <PersistentPlaceholder className="persistent-placeholder">
-            {persistentPlaceholder}
-          </PersistentPlaceholder>
-        )}
-        <TextInput ref={ref} {...rest} />
-        <IconWrapper>{icon}</IconWrapper>
-      </TextInputWrapper>
-    );
-  },
-);
+export const TextInputWithGlyph = forwardRef<
+  HTMLInputElement,
+  TextInputWithGlyphProps
+>((props, ref) => {
+  const { className, icon, persistentPlaceholder, ...rest } = props;
+  return (
+    <TextInputWrapper className={className}>
+      {persistentPlaceholder && (
+        <PersistentPlaceholder className="persistent-placeholder">
+          {persistentPlaceholder}
+        </PersistentPlaceholder>
+      )}
+      <TextInput ref={ref} {...rest} />
+      <IconWrapper>{icon}</IconWrapper>
+    </TextInputWrapper>
+  );
+});
 
 TextInputWithGlyph.displayName = "TextInputWithGlyph";
 

@@ -10,7 +10,7 @@ export default {
 } satisfies Meta<typeof TextInputWithGlyph>;
 
 export const Default: StoryObj<typeof TextInputWithGlyph> = {
-  render: (args) => <Input {...args} />,
+  render: ({ ref, ...args }) => <Input {...args} />,
   args: {
     label: "Some search field",
     placeholder: "Search",
@@ -48,7 +48,7 @@ const InputWithPersistentPlaceholder = (props: TextInputWithGlyphProps) => {
 };
 
 export const WithPersistentPlaceholder: StoryObj<typeof TextInputWithGlyph> = {
-  render: (args) => <InputWithPersistentPlaceholder {...args} />,
+  render: ({ ref, ...args }) => <InputWithPersistentPlaceholder {...args} />,
   args: {
     label: "Some search field",
     placeholder: "Search",

@@ -34,14 +34,19 @@ describe("AuthProvider", () => {
     // Save original location
     originalLocation = window.location;
     // Mock window.location
-    delete (window as any).location;
-    window.location = { ...originalLocation, href: "test-url" } as Location;
+    Object.defineProperty(window, "location", {
+      value: { ...originalLocation, href: "test-url" },
+      writable: true,
+    });
     const mockData = { data: { spruceConfig: { userId: "mohamed" } } };
     (fetchWithRetry as Mock).mockResolvedValue(mockData);
   });
   afterEach(() => {
     // Restore original location after test
-    window.location = originalLocation;
+    Object.defineProperty(window, "location", {
+      value: originalLocation,
+      writable: true,
+    });
     vi.clearAllMocks();
   });
 
