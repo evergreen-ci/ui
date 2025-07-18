@@ -1,5 +1,11 @@
 import { css } from "@emotion/react";
 
+/**
+ * Definitions for font faces.
+ *
+ * WOFF2 files use an absolute path because they're used for the actual application.
+ * WOFF files use a relative path because they're only used for Storybook, which is less important.
+ */
 export const fontStyles = css`
   /* 
    * Euclid
@@ -13,7 +19,7 @@ export const fontStyles = css`
     src:
       url("/static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff2")
         format("woff2"),
-      url("/static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff")
+      url("static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff")
         format("woff");
   }
 
@@ -25,7 +31,7 @@ export const fontStyles = css`
     src:
       url("/static/fonts/EuclidCircularA/EuclidCircularA-SemiboldItalic-WebXL.woff2")
         format("woff2"),
-      url("/static/fonts/EuclidCircularA/EuclidCircularA-SemiboldItalic-WebXL.woff")
+      url("static/fonts/EuclidCircularA/EuclidCircularA-SemiboldItalic-WebXL.woff")
         format("woff");
   }
 
@@ -37,7 +43,7 @@ export const fontStyles = css`
     src:
       url("/static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff2")
         format("woff2"),
-      url("/static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff")
+      url("static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff")
         format("woff");
   }
 
@@ -49,7 +55,7 @@ export const fontStyles = css`
     src:
       url("/static/fonts/EuclidCircularA/EuclidCircularA-MediumItalic-WebXL.woff2")
         format("woff2"),
-      url("/static/fonts/EuclidCircularA/EuclidCircularA-MediumItalic-WebXL.woff")
+      url("static/fonts/EuclidCircularA/EuclidCircularA-MediumItalic-WebXL.woff")
         format("woff");
   }
 
@@ -61,7 +67,7 @@ export const fontStyles = css`
     src:
       url("/static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff2")
         format("woff2"),
-      url("/static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff")
+      url("static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff")
         format("woff");
   }
 
@@ -73,7 +79,7 @@ export const fontStyles = css`
     src:
       url("/static/fonts/EuclidCircularA/EuclidCircularA-RegularItalic-WebXL.woff2")
         format("woff2"),
-      url("/static/fonts/EuclidCircularA/EuclidCircularA-RegularItalic-WebXL.woff")
+      url("static/fonts/EuclidCircularA/EuclidCircularA-RegularItalic-WebXL.woff")
         format("woff");
   }
 
@@ -89,7 +95,7 @@ export const fontStyles = css`
     src:
       url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Bold.woff2")
         format("woff2"),
-      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Bold.woff")
+      url("static/fonts/MongoDBValueSerif/MongoDBValueSerif-Bold.woff")
         format("woff");
   }
 
@@ -101,7 +107,7 @@ export const fontStyles = css`
     src:
       url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Medium.woff2")
         format("woff2"),
-      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Medium.woff")
+      url("static/fonts/MongoDBValueSerif/MongoDBValueSerif-Medium.woff")
         format("woff");
   }
 
@@ -113,7 +119,7 @@ export const fontStyles = css`
     src:
       url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff2")
         format("woff2"),
-      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff")
+      url("static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff")
         format("woff");
   }
 
@@ -129,7 +135,7 @@ export const fontStyles = css`
     src:
       url("/static/fonts/SourceCodePro/SourceCodePro-Regular.otf.woff2")
         format("woff2"),
-      url("/static/fonts/SourceCodePro/SourceCodePro-Regular.otf.woff")
+      url("static/fonts/SourceCodePro/SourceCodePro-Regular.otf.woff")
         format("woff");
   }
 `;

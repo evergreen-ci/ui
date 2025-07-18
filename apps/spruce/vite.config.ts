@@ -39,6 +39,7 @@ const getProjectConfig = () => {
         },
       },
     },
+    publicDir: "../../packages/lib/public",
     build: {
       sourcemap: true,
       rollupOptions: {
