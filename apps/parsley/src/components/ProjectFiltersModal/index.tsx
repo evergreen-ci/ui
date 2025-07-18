@@ -1,22 +1,33 @@
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
-import { Body } from "@leafygreen-ui/typography";
+import { Disclaimer } from "@leafygreen-ui/typography";
+import Icon from "@evg-ui/lib/components/Icon";
+import {
+  BaseTable,
+  LGColumnDef,
+  RowSelectionState,
+  onChangeHandler,
+  useLeafyGreenTable,
+} from "@evg-ui/lib/components/Table";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
+import { CaseSensitivity, MatchType } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import {
+  ParsleyFilter,
   ProjectFiltersQuery,
   ProjectFiltersQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_FILTERS } from "gql/queries";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useTaskQuery } from "hooks/useTaskQuery";
-import ProjectFilter from "./ProjectFilter";
-import useSelectedFiltersState from "./state";
+import { Filters } from "types/logs";
+import { parseFilter, stringifyFilter } from "utils/query-string";
 
 interface ProjectFiltersModalProps {
   open: boolean;
@@ -28,7 +39,6 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
   setOpen,
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
-  const { dispatch, state } = useSelectedFiltersState();
   const [filters, setFilters] = useFilterParam();
 
   const { logMetadata } = useLogContext();
@@ -47,31 +57,53 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
   );
   const { project } = data || {};
   const { parsleyFilters } = project || {};
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const selectedFilters = Object.entries(rowSelection)
+    .filter(([, enabled]) => enabled)
+    .map(([index]) => parsleyFilters?.[Number(index)])
+    .filter((f): f is ParsleyFilter => f !== undefined);
 
   const onConfirm = () => {
+    const newFilters = selectedFilters.map((f) => ({
+      ...f,
+      caseSensitive: f.caseSensitive
+        ? CaseSensitivity.Sensitive
+        : CaseSensitivity.Insensitive,
+      matchType: f.exactMatch ? MatchType.Exact : MatchType.Inverse,
+      visible: true,
+    }));
+    const deduplicatedFilters = deduplicateFilters(filters, newFilters);
     // Apply selected filters.
-    const newFilters = filters.concat(state.selectedFilters);
-    setFilters(newFilters);
+    setFilters(deduplicatedFilters);
 
     // Send relevant tracking events.
     leaveBreadcrumb(
       "applied-project-filters",
-      { filters: state.selectedFilters },
+      { filters: selectedFilters },
       SentryBreadcrumbTypes.User,
     );
     sendEvent({
-      "filter.expressions": state.selectedFilters.map((f) => f.expression),
+      "filter.expressions": selectedFilters.map((f) => f.expression),
       name: "Used project filters",
     });
     setOpen(false);
-    dispatch({ type: "RESET" });
   };
 
   const onCancel = () => {
     setOpen(false);
-    dispatch({ type: "RESET" });
   };
 
+  const table = useLeafyGreenTable({
+    columns,
+    data: parsleyFilters ?? [],
+    enableColumnFilters: false,
+    enableSorting: false,
+    hasSelectableRows: true,
+    onRowSelectionChange: onChangeHandler<RowSelectionState>(setRowSelection),
+    state: {
+      rowSelection,
+    },
+  });
   return (
     <ConfirmationModal
       cancelButtonProps={{
@@ -79,7 +111,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       }}
       confirmButtonProps={{
         children: "Apply filters",
-        disabled: state.selectedFilters.length === 0,
+        disabled: selectedFilters.length === 0,
         onClick: onConfirm,
       }}
       css={css`
@@ -90,39 +122,40 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       setOpen={setOpen}
       title="Project Filters"
     >
-      <Scrollable>
-        {parsleyFilters && parsleyFilters.length > 0 ? (
-          parsleyFilters.map((filter) => (
-            <ProjectFilter
-              key={filter.expression}
-              active={!!filters.find((f) => f.expression === filter.expression)}
-              addFilter={(filterToAdd) =>
-                dispatch({ filterToAdd, type: "ADD_FILTER" })
-              }
-              filter={filter}
-              removeFilter={(filterToRemove) => {
-                dispatch({ filterToRemove, type: "REMOVE_FILTER" });
-              }}
-              selected={
-                !!state.selectedFilters.find(
-                  (f) => f.expression === filter.expression,
-                )
-              }
-            />
-          ))
-        ) : (
-          <Body data-cy="no-filters-message">
-            No filters have been defined for this project.
-          </Body>
-        )}
-      </Scrollable>
+      <BaseTable shouldAlternateRowColor table={table} />
     </ConfirmationModal>
   );
 };
 
-const Scrollable = styled.div`
-  max-height: 60vh;
-  overflow-y: scroll;
-`;
+const columns: LGColumnDef<
+  Unpacked<ProjectFiltersQuery["project"]["parsleyFilters"]>
+>[] = [
+  {
+    accessorKey: "expression",
+    cell: ({ getValue, row }) => (
+      <div>
+        {getValue() as string}
+        <Disclaimer>{row.original.description}</Disclaimer>
+      </div>
+    ),
+    header: "Expression",
+  },
+  {
+    accessorKey: "caseSensitive",
+    cell: ({ getValue }) => getValue() === true && <Icon glyph="Checkmark" />,
+    header: "Case Sensitive",
+  },
+  {
+    accessorKey: "exactMatch",
+    cell: ({ getValue }) => getValue() === true && <Icon glyph="Checkmark" />,
+    header: "Exact Match",
+  },
+];
+
+const deduplicateFilters = (filters: Filters, newFilters: Filters) => {
+  const filterSet = new Set(filters.map((f) => stringifyFilter(f)));
+  newFilters.forEach((f) => filterSet.add(stringifyFilter(f)));
+  return Array.from(filterSet).map((f) => parseFilter(f));
+};
 
 export default ProjectFiltersModal;
