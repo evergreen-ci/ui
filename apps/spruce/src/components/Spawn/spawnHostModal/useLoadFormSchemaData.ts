@@ -1,15 +1,14 @@
 import { useQuery } from "@apollo/client";
+import { defaultEC2Region } from "constants/hosts";
 import {
   DistrosQuery,
   DistrosQueryVariables,
-  AwsRegionsQuery,
-  AwsRegionsQueryVariables,
   MyPublicKeysQuery,
   MyPublicKeysQueryVariables,
   MyVolumesQuery,
   MyHostsQueryVariables,
 } from "gql/generated/types";
-import { AWS_REGIONS, DISTROS, MY_PUBLIC_KEYS, MY_VOLUMES } from "gql/queries";
+import { DISTROS, MY_PUBLIC_KEYS, MY_VOLUMES } from "gql/queries";
 import {
   useDisableSpawnExpirationCheckbox,
   useSpruceConfig,
@@ -21,11 +20,6 @@ interface Props {
   host: { noExpiration: boolean };
 }
 export const useLoadFormSchemaData = (p?: Props) => {
-  const { data: awsData, loading: awsLoading } = useQuery<
-    AwsRegionsQuery,
-    AwsRegionsQueryVariables
-  >(AWS_REGIONS);
-
   const { data: distrosData, loading: distrosLoading } = useQuery<
     DistrosQuery,
     DistrosQueryVariables
@@ -40,8 +34,6 @@ export const useLoadFormSchemaData = (p?: Props) => {
     MyPublicKeysQueryVariables
   >(MY_PUBLIC_KEYS);
 
-  const spruceConfig = useSpruceConfig();
-
   const { userSettings } = useUserSettings();
   const { region: userAwsRegion } = userSettings ?? {};
 
@@ -54,22 +46,25 @@ export const useLoadFormSchemaData = (p?: Props) => {
     false,
     p?.host,
   );
-  const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
-    disableExpirationCheckbox,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
-    isVolume: false,
-  });
+
+  const spruceConfig = useSpruceConfig();
+  const noExpirationCheckboxTooltip =
+    getNoExpirationCheckboxTooltipCopy({
+      disableExpirationCheckbox,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
+      isVolume: false,
+    }) ?? "";
+
   return {
     formSchemaInput: {
-      awsRegions: awsData?.awsRegions,
       disableExpirationCheckbox,
-      distros: distrosData?.distros,
-      myPublicKeys: publicKeysData?.myPublicKeys,
+      distros: distrosData?.distros ?? [],
+      myPublicKeys: publicKeysData?.myPublicKeys ?? [],
       noExpirationCheckboxTooltip,
-      userAwsRegion,
-      volumes: volumesData?.myVolumes,
+      userAwsRegion: userAwsRegion ?? defaultEC2Region,
+      volumes: volumesData?.myVolumes ?? [],
     },
-    loading: distrosLoading || publicKeyLoading || awsLoading || volumesLoading,
+    loading: distrosLoading || publicKeyLoading || volumesLoading,
   };
 };

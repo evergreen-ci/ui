@@ -9,7 +9,7 @@ import { parseQueryString, stringifyQuery } from "../../utils/query-string";
  * @param parseOptions - options which define how to parse params from the url (optional)
  * @returns a tuple containing the parsed query params and a function to set the query params
  */
-const useQueryParams = (parseOptions: ParseOptions = {}) => {
+const useQueryParams = (parseOptions?: ParseOptions) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const setQueryString = useCallback(
@@ -23,7 +23,7 @@ const useQueryParams = (parseOptions: ParseOptions = {}) => {
   );
 
   const searchParamsObject = useMemo(
-    () => parseQueryString(searchParams.toString(), parseOptions),
+    () => parseQueryString(searchParams.toString(), parseOptions ?? {}),
     [searchParams, parseOptions],
   );
   return [searchParamsObject, setQueryString] as const;
@@ -41,7 +41,7 @@ const useQueryParams = (parseOptions: ParseOptions = {}) => {
 const useQueryParam = <T>(
   param: string,
   defaultParam: T,
-  parseOptions: ParseOptions = {},
+  parseOptions?: ParseOptions,
 ): readonly [T, (set: T) => void] => {
   const [searchParams, setSearchParams] = useQueryParams(parseOptions);
 

@@ -17,6 +17,7 @@ import {
   walkthroughJumpButtonProps,
   walkthroughInactiveViewProps,
 } from "../constants";
+import { useTaskHistoryContext } from "../context";
 import { TaskHistoryOptions, ViewOptions } from "../types";
 
 interface ControlsProps {
@@ -30,6 +31,7 @@ export const Controls: React.FC<ControlsProps> = ({
   setViewOption,
   viewOption,
 }) => {
+  const { isPatch } = useTaskHistoryContext();
   const [queryParams, setQueryParams] = useQueryParams();
   const { sendEvent } = useTaskHistoryAnalytics();
 
@@ -72,7 +74,7 @@ export const Controls: React.FC<ControlsProps> = ({
           size={Size.XSmall}
           {...walkthroughJumpButtonProps}
         >
-          Jump to this task
+          Jump to {isPatch ? "base task" : "this task"}
         </Button>
       </LeftContainer>
       <SegmentedControl

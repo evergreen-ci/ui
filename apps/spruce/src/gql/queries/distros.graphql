@@ -2,6 +2,7 @@ query Distros($onlySpawnable: Boolean!) {
   distros(onlySpawnable: $onlySpawnable) {
     adminOnly
     aliases
+    availableRegions
     isVirtualWorkStation
     name
   }

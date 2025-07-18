@@ -98,33 +98,121 @@ export type AdminEventsPayload = {
 
 export type AdminSettings = {
   __typename?: "AdminSettings";
+  amboy?: Maybe<AmboyConfig>;
+  amboyDB?: Maybe<AmboyDbConfig>;
   api?: Maybe<ApiConfig>;
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
   hostInit?: Maybe<HostInitConfig>;
+  loggerConfig?: Maybe<LoggerConfig>;
   notify?: Maybe<NotifyConfig>;
   podLifecycle?: Maybe<PodLifecycleConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
   taskLimits?: Maybe<TaskLimitsConfig>;
+  triggers?: Maybe<TriggerConfig>;
   ui?: Maybe<UiConfig>;
 };
 
 export type AdminSettingsInput = {
+  amboy?: InputMaybe<AmboyConfigInput>;
+  amboyDB?: InputMaybe<AmboyDbConfigInput>;
   api?: InputMaybe<ApiConfigInput>;
   banner?: InputMaybe<Scalars["String"]["input"]>;
   bannerTheme?: InputMaybe<BannerTheme>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   hostInit?: InputMaybe<HostInitConfigInput>;
+  loggerConfig?: InputMaybe<LoggerConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
   podLifecycle?: InputMaybe<PodLifecycleConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
   serviceFlags?: InputMaybe<ServiceFlagsInput>;
   taskLimits?: InputMaybe<TaskLimitsConfigInput>;
+  triggers?: InputMaybe<TriggerConfigInput>;
   ui?: InputMaybe<UiConfigInput>;
+};
+
+export type AmboyConfig = {
+  __typename?: "AmboyConfig";
+  groupBackgroundCreateFrequencyMinutes?: Maybe<Scalars["Int"]["output"]>;
+  groupDefaultWorkers?: Maybe<Scalars["Int"]["output"]>;
+  groupPruneFrequencyMinutes?: Maybe<Scalars["Int"]["output"]>;
+  groupTTLMinutes?: Maybe<Scalars["Int"]["output"]>;
+  localStorage?: Maybe<Scalars["Int"]["output"]>;
+  lockTimeoutMinutes?: Maybe<Scalars["Int"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  namedQueues: Array<AmboyNamedQueueConfig>;
+  poolSizeLocal?: Maybe<Scalars["Int"]["output"]>;
+  poolSizeRemote?: Maybe<Scalars["Int"]["output"]>;
+  retry?: Maybe<AmboyRetryConfig>;
+  sampleSize?: Maybe<Scalars["Int"]["output"]>;
+  singleName?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type AmboyConfigInput = {
+  groupBackgroundCreateFrequencyMinutes: Scalars["Int"]["input"];
+  groupDefaultWorkers: Scalars["Int"]["input"];
+  groupPruneFrequencyMinutes: Scalars["Int"]["input"];
+  groupTTLMinutes: Scalars["Int"]["input"];
+  localStorage: Scalars["Int"]["input"];
+  lockTimeoutMinutes: Scalars["Int"]["input"];
+  name: Scalars["String"]["input"];
+  namedQueues: Array<AmboyNamedQueueConfigInput>;
+  poolSizeLocal: Scalars["Int"]["input"];
+  poolSizeRemote: Scalars["Int"]["input"];
+  retry: AmboyRetryConfigInput;
+  sampleSize: Scalars["Int"]["input"];
+  singleName: Scalars["String"]["input"];
+};
+
+export type AmboyDbConfig = {
+  __typename?: "AmboyDBConfig";
+  database?: Maybe<Scalars["String"]["output"]>;
+  url?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type AmboyDbConfigInput = {
+  database: Scalars["String"]["input"];
+  url: Scalars["String"]["input"];
+};
+
+export type AmboyNamedQueueConfig = {
+  __typename?: "AmboyNamedQueueConfig";
+  lockTimeoutSeconds?: Maybe<Scalars["Int"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  numWorkers?: Maybe<Scalars["Int"]["output"]>;
+  regexp?: Maybe<Scalars["String"]["output"]>;
+  sampleSize?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type AmboyNamedQueueConfigInput = {
+  lockTimeoutSeconds: Scalars["Int"]["input"];
+  name: Scalars["String"]["input"];
+  numWorkers: Scalars["Int"]["input"];
+  regexp: Scalars["String"]["input"];
+  sampleSize: Scalars["Int"]["input"];
+};
+
+export type AmboyRetryConfig = {
+  __typename?: "AmboyRetryConfig";
+  maxCapacity?: Maybe<Scalars["Int"]["output"]>;
+  maxRetryAttempts?: Maybe<Scalars["Int"]["output"]>;
+  maxRetryTimeSeconds?: Maybe<Scalars["Int"]["output"]>;
+  numWorkers?: Maybe<Scalars["Int"]["output"]>;
+  retryBackoffSeconds?: Maybe<Scalars["Int"]["output"]>;
+  staleRetryingMonitorIntervalSeconds?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type AmboyRetryConfigInput = {
+  maxCapacity: Scalars["Int"]["input"];
+  maxRetryAttempts: Scalars["Int"]["input"];
+  maxRetryTimeSeconds: Scalars["Int"]["input"];
+  numWorkers: Scalars["Int"]["input"];
+  retryBackoffSeconds: Scalars["Int"]["input"];
+  staleRetryingMonitorIntervalSeconds: Scalars["Int"]["input"];
 };
 
 /**
@@ -754,6 +842,18 @@ export type GithubPrSubscriber = {
   repo: Scalars["String"]["output"];
 };
 
+export type GithubPatch = {
+  __typename?: "GithubPatch";
+  author?: Maybe<Scalars["String"]["output"]>;
+  baseOwner?: Maybe<Scalars["String"]["output"]>;
+  baseRepo?: Maybe<Scalars["String"]["output"]>;
+  headBranch?: Maybe<Scalars["String"]["output"]>;
+  headHash?: Maybe<Scalars["String"]["output"]>;
+  headOwner?: Maybe<Scalars["String"]["output"]>;
+  headRepo?: Maybe<Scalars["String"]["output"]>;
+  prNumber?: Maybe<Scalars["Int"]["output"]>;
+};
+
 /**
  * GithubProjectConflicts is the return value for the githubProjectConflicts query.
  * Its contains information about potential conflicts in the commit checks, the commit queue, and PR testing.
@@ -1186,6 +1286,21 @@ export type JiraTicket = {
   key: Scalars["String"]["output"];
 };
 
+export type LogBuffering = {
+  __typename?: "LogBuffering";
+  count?: Maybe<Scalars["Int"]["output"]>;
+  durationSeconds?: Maybe<Scalars["Int"]["output"]>;
+  incomingBufferFactor?: Maybe<Scalars["Int"]["output"]>;
+  useAsync: Scalars["Boolean"]["output"];
+};
+
+export type LogBufferingInput = {
+  count: Scalars["Int"]["input"];
+  durationSeconds: Scalars["Int"]["input"];
+  incomingBufferFactor: Scalars["Int"]["input"];
+  useAsync: Scalars["Boolean"]["input"];
+};
+
 export type LogMessage = {
   __typename?: "LogMessage";
   message?: Maybe<Scalars["String"]["output"]>;
@@ -1193,6 +1308,23 @@ export type LogMessage = {
   timestamp?: Maybe<Scalars["Time"]["output"]>;
   type?: Maybe<Scalars["String"]["output"]>;
   version?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type LoggerConfig = {
+  __typename?: "LoggerConfig";
+  buffer?: Maybe<LogBuffering>;
+  defaultLevel?: Maybe<Scalars["String"]["output"]>;
+  logkeeperURL?: Maybe<Scalars["String"]["output"]>;
+  redactKeys: Array<Scalars["String"]["output"]>;
+  thresholdLevel?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type LoggerConfigInput = {
+  buffer: LogBufferingInput;
+  defaultLevel: Scalars["String"]["input"];
+  logkeeperURL: Scalars["String"]["input"];
+  redactKeys: Array<Scalars["String"]["input"]>;
+  thresholdLevel: Scalars["String"]["input"];
 };
 
 export type LogkeeperBuild = {
@@ -1669,11 +1801,15 @@ export type NotificationsInput = {
 
 export type NotifyConfig = {
   __typename?: "NotifyConfig";
+  bufferIntervalSeconds?: Maybe<Scalars["Int"]["output"]>;
+  bufferTargetPerInterval?: Maybe<Scalars["Int"]["output"]>;
   ses?: Maybe<SesConfig>;
 };
 
 export type NotifyConfigInput = {
-  ses: SesConfigInput;
+  bufferIntervalSeconds?: InputMaybe<Scalars["Int"]["input"]>;
+  bufferTargetPerInterval?: InputMaybe<Scalars["Int"]["input"]>;
+  ses?: InputMaybe<SesConfigInput>;
 };
 
 export type OsInfo = {
@@ -1768,6 +1904,7 @@ export type Patch = {
   duration?: Maybe<PatchDuration>;
   generatedTaskCounts: Array<GeneratedTaskCountResults>;
   githash: Scalars["String"]["output"];
+  githubPatchData?: Maybe<GithubPatch>;
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
   moduleCodeChanges: Array<ModuleCodeChange>;
@@ -3541,6 +3678,15 @@ export type TriggerAliasInput = {
   status: Scalars["String"]["input"];
   taskRegex: Scalars["String"]["input"];
   unscheduleDownstreamVersions?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
+export type TriggerConfig = {
+  __typename?: "TriggerConfig";
+  generateTaskDistro?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type TriggerConfigInput = {
+  generateTaskDistro: Scalars["String"]["input"];
 };
 
 export type UiConfig = {
