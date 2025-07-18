@@ -1,7 +1,11 @@
 import { css } from "@emotion/react";
+import { Description } from "@leafygreen-ui/typography";
+import { StyledLink } from "@evg-ui/lib/components/styles";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { redactedVarsDocumentationUrl } from "constants/externalResources";
 import { ProjectType } from "../utils";
 import { VariablesFormState } from "./types";
 import { VariableRow } from "./VariableRow";
@@ -69,7 +73,7 @@ export const getFormSchema = (
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     vars: {
       "ui:addButtonText": "Add variables",
-      "ui:description": getDescription(projectType),
+      "ui:descriptionNode": getDescription(projectType),
       "ui:fullWidth": true,
       "ui:orderable": false,
       "ui:secondaryButton": modalButton,
@@ -114,16 +118,36 @@ export const getFormSchema = (
   },
 });
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-const getDescription = (projectType: ProjectType): string => {
+const getDescription = (projectType: ProjectType) => {
   if (projectType === ProjectType.Repo) {
-    return "Variables defined here will be used by all branches attached to this project, unless a variable is specifically overridden in the branch.";
+    return (
+      <Description>
+        Variables defined here will be used by all branches attached to this
+        project, unless a variable is specifically overridden in the branch.
+        Variables will be redacted in logs if they meet{" "}
+        <StyledLink href={redactedVarsDocumentationUrl}>
+          certain conditions
+        </StyledLink>
+        .
+      </Description>
+    );
   }
   if (projectType === ProjectType.AttachedProject) {
-    return "Variables are sourced from both the repo-level and branch-level settings. If a variable name is defined at both the repo-level and branch-level, then the branch variable will override the repo variable.";
+    return (
+      <Description>
+        Variables are sourced from both the repo-level and branch-level
+        settings. If a variable name is defined at both the repo-level and
+        branch-level, then the branch variable will override the repo variable.
+        Variables will be redacted in logs if they meet{" "}
+        <StyledLink href={redactedVarsDocumentationUrl}>
+          certain conditions
+        </StyledLink>
+        .
+      </Description>
+    );
   }
 };
 
 const varCSS = css`
-  margin-bottom: 4px;
+  margin-bottom: ${size.xxs};
 `;

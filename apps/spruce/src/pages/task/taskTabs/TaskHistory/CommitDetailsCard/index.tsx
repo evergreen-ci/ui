@@ -55,8 +55,10 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
     const getDateCopy = useDateFormat();
 
     const {
+      baseTaskId,
       currentTask,
       expandedTasksMap,
+      isPatch,
       selectedTask,
       setExpandedTasksMap,
       setHoveredTask,
@@ -80,7 +82,9 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
 
     const owner = currentTask.project?.owner ?? "";
     const repo = currentTask.project?.repo ?? "";
-    const isCurrentTask = taskId === currentTask.id;
+    const isCurrentTask = isPatch
+      ? taskId === baseTaskId
+      : taskId === currentTask.id;
     const isSelectedTask = taskId === selectedTask;
 
     const createDate = new Date(createTime ?? "");
@@ -222,7 +226,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
           )}
           {isCurrentTask && (
             <Badge data-cy="this-task-badge" variant={BadgeVariant.Blue}>
-              This Task
+              {isPatch ? "Base" : "This"} Task
             </Badge>
           )}
           <span>{dateCopy}</span>
