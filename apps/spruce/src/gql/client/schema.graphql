@@ -1,0 +1,6 @@
+# eslint-disable @graphql-eslint/executable-definitions
+
+# For defining local-only fields
+extend type Task {
+  reviewed: Boolean
+}

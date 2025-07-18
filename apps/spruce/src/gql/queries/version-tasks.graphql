@@ -37,8 +37,10 @@ query VersionTasks(
           displayStatus
           execution
           projectIdentifier
+          reviewed @client
         }
         projectIdentifier
+        reviewed @client
       }
     }
   }
