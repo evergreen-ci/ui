@@ -120,20 +120,6 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           {author}
         </StyledRouterLink>
       </MetadataItem>
-      {isGitHubPullRequest && hasOwnerAndRepo && headHash && prNumber && (
-        <MetadataItem>
-          <MetadataLabel>GitHub PR commit:</MetadataLabel>{" "}
-          <InlineCode
-            data-cy="github-pr-commit"
-            href={getGithubPRUrl(owner, repo, prNumber, headHash)}
-            onClick={() =>
-              sendEvent({ name: "Clicked metadata github commit link" })
-            }
-          >
-            {shortenGithash(headHash)}
-          </InlineCode>
-        </MetadataItem>
-      )}
       {isPatch && baseVersion ? (
         <BaseCommitMetadata
           baseVersionId={baseVersion.id}
@@ -155,6 +141,20 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
             to={getVersionRoute(previousVersion?.id || "")}
           >
             {shortenGithash(previousVersion?.revision || "")}
+          </InlineCode>
+        </MetadataItem>
+      )}
+      {isGitHubPullRequest && hasOwnerAndRepo && headHash && prNumber && (
+        <MetadataItem>
+          <MetadataLabel>GitHub PR commit:</MetadataLabel>{" "}
+          <InlineCode
+            data-cy="github-pr-commit"
+            href={getGithubPRUrl(owner, repo, prNumber, headHash)}
+            onClick={() =>
+              sendEvent({ name: "Clicked metadata github commit link" })
+            }
+          >
+            {shortenGithash(headHash)}
           </InlineCode>
         </MetadataItem>
       )}
