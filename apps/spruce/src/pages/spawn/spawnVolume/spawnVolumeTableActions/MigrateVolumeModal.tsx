@@ -16,6 +16,7 @@ import {
   MigrateVolumeMutationVariables,
 } from "gql/generated/types";
 import { MIGRATE_VOLUME } from "gql/mutations";
+import { useUserTimeZone } from "hooks";
 import { AZToRegion } from "pages/spawn/utils";
 import { TableVolume } from "types/spawn";
 import { initialState, Page, reducer } from "./migrateVolumeReducer";
@@ -44,6 +45,9 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     host: volume.host,
   });
+  const timeZone =
+    useUserTimeZone() || Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   const [migrateVolumeMutation, { loading: loadingMigration }] = useMutation<
     MigrateVolumeMutation,
     MigrateVolumeMutationVariables
@@ -77,14 +81,15 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     availableRegions: selectedDistro?.availableRegions ?? [],
-    distros: distros ?? [],
+    distros,
     isMigration: true,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     userAwsRegion: AZToRegion(volume.availabilityZone),
+    timeZone,
   });
+
   useVirtualWorkstationDefaultExpiration({
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    isVirtualWorkstation: selectedDistro?.isVirtualWorkStation,
+    isVirtualWorkstation: selectedDistro?.isVirtualWorkStation ?? false,
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
     formState: form,
     setFormState: (formState) =>
@@ -101,7 +106,6 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     const mutationInput = formToGql({
       isVirtualWorkStation: !!selectedDistro?.isVirtualWorkStation,
       formData: form,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       myPublicKeys: formSchemaInput.myPublicKeys,
       migrateVolumeId: volume.id,
     });
