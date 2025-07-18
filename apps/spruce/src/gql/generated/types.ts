@@ -10345,6 +10345,11 @@ export type VersionQuery = {
           baseVersion?: { __typename?: "Version"; id: string } | null;
         } | null;
       }> | null;
+      githubPatchData?: {
+        __typename?: "GithubPatch";
+        headHash?: string | null;
+        prNumber?: number | null;
+      } | null;
     } | null;
     previousVersion?: {
       __typename?: "Version";

@@ -58,6 +58,10 @@ query Version($id: String!, $includeNeverActivatedTasks: Boolean) {
           status
         }
       }
+      githubPatchData {
+        headHash
+        prNumber
+      }
       patchNumber
     }
     previousVersion {
