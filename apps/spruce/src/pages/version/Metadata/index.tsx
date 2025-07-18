@@ -120,7 +120,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           {author}
         </StyledRouterLink>
       </MetadataItem>
-      {isGitHubPullRequest && headHash && hasOwnerAndRepo && prNumber && (
+      {isGitHubPullRequest && hasOwnerAndRepo && headHash && prNumber && (
         <MetadataItem>
           <MetadataLabel>GitHub PR commit:</MetadataLabel>{" "}
           <InlineCode
