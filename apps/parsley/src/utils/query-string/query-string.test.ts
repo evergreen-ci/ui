@@ -1,7 +1,34 @@
 import { CaseSensitivity, MatchType } from "constants/enums";
-import { parseFilters, stringifyFilters } from ".";
+import {
+  parseFilter,
+  parseFilters,
+  stringifyFilter,
+  stringifyFilters,
+} from ".";
 
 describe("filters", () => {
+  describe("stringifyFilter", () => {
+    it("can handle empty input", () => {
+      expect(
+        stringifyFilter({
+          caseSensitive: CaseSensitivity.Insensitive,
+          expression: "",
+          matchType: MatchType.Exact,
+          visible: false,
+        }),
+      ).toStrictEqual("000");
+    });
+    it("can handle a single filter", () => {
+      expect(
+        stringifyFilter({
+          caseSensitive: CaseSensitivity.Insensitive,
+          expression: "hello-i-am-a-filter",
+          matchType: MatchType.Exact,
+          visible: true,
+        }),
+      ).toStrictEqual("100hello-i-am-a-filter");
+    });
+  });
   describe("stringifyFilters", () => {
     it("can handle empty input", () => {
       expect(stringifyFilters([])).toStrictEqual([]);
@@ -53,6 +80,24 @@ describe("filters", () => {
           },
         ]),
       ).toStrictEqual(["100ran%20in%20d%7B3%2C%7D"]);
+    });
+  });
+  describe("parseFilter", () => {
+    it("can handle empty input", () => {
+      expect(parseFilter("")).toStrictEqual({
+        caseSensitive: CaseSensitivity.Insensitive,
+        expression: "",
+        matchType: MatchType.Exact,
+        visible: false,
+      });
+    });
+    it("can handle a single filter", () => {
+      expect(parseFilter("100hello-i-am-a-filter")).toStrictEqual({
+        caseSensitive: CaseSensitivity.Insensitive,
+        expression: "hello-i-am-a-filter",
+        matchType: MatchType.Exact,
+        visible: true,
+      });
     });
   });
   describe("parseFilters", () => {
