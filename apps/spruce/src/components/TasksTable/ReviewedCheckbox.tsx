@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { gql } from "@apollo/client";
+import { gql, useApolloClient } from "@apollo/client";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { LeafyGreenTableRow } from "@leafygreen-ui/table";
-import { cache } from "gql/client/cache";
 import { TaskTableInfo } from "./types";
 
 export const ReviewedCheckbox: React.FC<{
   row: LeafyGreenTableRow<TaskTableInfo>;
 }> = ({ row }) => {
+  const { cache } = useApolloClient();
   const task = row.original;
 
   const someChecked = row.subRows.some((sr) => sr.original.reviewed);
