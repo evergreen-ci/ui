@@ -1,7 +1,7 @@
 import { HostStatus } from "types/host";
 
 interface Status {
-  title: keyof typeof HostStatus | "Provision Failed";
+  title: keyof typeof HostStatus | "Provision Failed" | "Building Failed";
   value: HostStatus;
   key: HostStatus;
 }
@@ -12,12 +12,6 @@ export const hostStatuses: Status[] = [
     value: HostStatus.Running,
     key: HostStatus.Running,
   },
-  {
-    title: "Uninitialized",
-    value: HostStatus.Uninitialized,
-    key: HostStatus.Uninitialized,
-  },
-
   {
     title: "Building",
     value: HostStatus.Building,
@@ -34,6 +28,11 @@ export const hostStatuses: Status[] = [
     key: HostStatus.Provisioning,
   },
   {
+    title: "Uninitialized",
+    value: HostStatus.Uninitialized,
+    key: HostStatus.Uninitialized,
+  },
+  {
     title: "Provision Failed",
     value: HostStatus.ProvisionFailed,
     key: HostStatus.ProvisionFailed,
@@ -47,6 +46,11 @@ export const hostStatuses: Status[] = [
     title: "Decommissioned",
     value: HostStatus.Decommissioned,
     key: HostStatus.Decommissioned,
+  },
+  {
+    title: "Building Failed",
+    value: HostStatus.BuildingFailed,
+    key: HostStatus.BuildingFailed,
   },
 ];
 

@@ -8,6 +8,7 @@ export enum HostStatus {
   // yellow: host-starting
   Starting = "starting",
   Provisioning = "provisioning",
+  Uninitialized = "uninitialized",
 
   // red: host-terminated
   Terminated = "terminated",
@@ -18,8 +19,8 @@ export enum HostStatus {
   ProvisionFailed = "provision failed",
 
   // sometimes shows not found error on old UI
-  Uninitialized = "initializing",
   Building = "building",
+  BuildingFailed = "building-failed",
 
   // doesn't show up on the hosts page
   Success = "success",
