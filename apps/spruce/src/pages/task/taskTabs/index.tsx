@@ -8,7 +8,6 @@ import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { isMainlineRequester, Requester } from "constants/requesters";
 import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import {
   TaskQuery,
@@ -49,7 +48,6 @@ const useTabConfig = (
     id,
     isPerfPluginEnabled,
     logs: logLinks,
-    requester,
     versionMetadata,
   } = task;
   const baseTaskId = baseTask?.id || "";
@@ -165,12 +163,7 @@ const useTabConfig = (
         name="History"
         {...walkthroughHistoryTabProps}
       >
-        <TaskHistory
-          cursorTaskId={
-            isMainlineRequester(requester as Requester) ? task.id : baseTaskId
-          }
-          task={task}
-        />
+        <TaskHistory baseTaskId={baseTaskId} task={task} />
       </Tab>
     ),
   };

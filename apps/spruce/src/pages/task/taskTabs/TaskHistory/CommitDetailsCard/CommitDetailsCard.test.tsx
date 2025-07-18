@@ -18,7 +18,11 @@ interface ProviderProps {
 }
 const ProviderWrapper: React.FC<ProviderProps> = ({ children, mocks = [] }) => (
   <MockedProvider mocks={mocks}>
-    <TaskHistoryContextProvider task={taskQuery.task}>
+    <TaskHistoryContextProvider
+      baseTaskId=""
+      isPatch={false}
+      task={taskQuery.task}
+    >
       {children}
     </TaskHistoryContextProvider>
   </MockedProvider>

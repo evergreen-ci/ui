@@ -8,15 +8,17 @@ const { blue } = palette;
 
 interface CurrentTaskBadgeProps {
   isCurrentTask: boolean;
+  isPatch: boolean;
 }
 
 const CurrentTaskBadge: React.FC<CurrentTaskBadgeProps> = ({
   isCurrentTask,
+  isPatch,
 }) =>
   isCurrentTask ? (
     <>
       <StyledBadge className="current-task-badge" variant={BadgeVariant.Blue}>
-        This Task
+        {isPatch ? "Base" : "This"} Task
       </StyledBadge>
       <Dot />
     </>
