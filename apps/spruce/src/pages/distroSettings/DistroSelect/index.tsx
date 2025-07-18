@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   Combobox,
@@ -34,24 +34,45 @@ export const DistroSelect: React.FC<DistroSelectProps> = ({
     [distrosData?.distros],
   );
 
+  const [filteredOptions, setFilteredOptions] = useState(
+    distrosData?.distros?.map(({ name }) => name) ?? [],
+  );
+
   return loading ? null : (
     <Combobox
       clearable={false}
       data-cy="distro-select"
+      filteredOptions={filteredOptions}
       label="Distro"
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       onChange={(distroId: string) => {
         navigate(getDistroSettingsRoute(distroId));
+      }}
+      onFilter={(input) => {
+        const filter = input.toLowerCase();
+        setFilteredOptions(
+          distrosData?.distros
+            ?.filter(
+              ({ aliases, name }) =>
+                name.toLowerCase().includes(filter) ||
+                aliases.some((a: string) => a.toLowerCase().includes(filter)),
+            )
+            ?.map(({ name }) => name) ?? [],
+        );
       }}
       placeholder="Select distro"
       popoverZIndex={zIndex.popover}
       portalClassName="distro-select-options"
       value={selectedDistro}
     >
-      {nonAdminOnly.map(({ name }) => (
-        <ComboboxOption key={name} value={name}>
-          {name}
-        </ComboboxOption>
+      {nonAdminOnly.map(({ aliases, name }) => (
+        <ComboboxOption
+          key={name}
+          description={
+            aliases.length ? `Aliases: ${aliases.map((a) => a).join(", ")}` : ""
+          }
+          value={name}
+        />
       ))}
       {adminOnly.length > 0 && (
         <ComboboxGroup label="Admin-Only">
@@ -67,7 +88,9 @@ export const DistroSelect: React.FC<DistroSelectProps> = ({
 };
 
 // Returns an array of [adminOnlyDistros, nonAdminOnlyDistros]
-const filterAdminOnlyDistros = (distros: DistrosQuery["distros"]) =>
+const filterAdminOnlyDistros = (
+  distros: DistrosQuery["distros"],
+): Array<DistrosQuery["distros"]> =>
   distros.reduce(
     (accum, distro) => {
       const [adminOnly, nonAdminOnly] = accum;
