@@ -10,6 +10,9 @@ const getEvergreenTaskURL = (taskID: string, execution: string | number) => {
   )}`;
 };
 
+const getProjectSettingsURL = (projectID: string, tab: string) =>
+  `${spruceURL}/project/${projectID}/settings/${tab}`;
+
 const getLogkeeperJobLogsURL = (buildID: string) =>
   `${spruceURL}/job-logs/${buildID}`;
 
@@ -19,4 +22,9 @@ const getEvergreenJobLogsURL = (
   groupID: string,
 ) => `${spruceURL}/job-logs/${taskID}/${execution}/${groupID}`;
 
-export { getEvergreenTaskURL, getLogkeeperJobLogsURL, getEvergreenJobLogsURL };
+export {
+  getEvergreenTaskURL,
+  getProjectSettingsURL,
+  getLogkeeperJobLogsURL,
+  getEvergreenJobLogsURL,
+};

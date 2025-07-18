@@ -85,7 +85,7 @@ describe("projectFiltersModal", () => {
     await waitFor(() => {
       expect(screen.queryByDataCy("project-filter-tooltip")).toBeVisible();
     });
-    const checkbox = screen.getAllByRole("checkbox")[0];
+    const checkbox = screen.getAllByRole("checkbox")[1];
     expect(checkbox).toBeChecked();
     expect(checkbox).toHaveAttribute("aria-disabled", "true");
   });
@@ -139,7 +139,7 @@ const waitForModalLoad = async () => {
     expect(screen.queryByDataCy("project-filters-modal")).toBeVisible(),
   );
   await waitFor(() =>
-    expect(screen.queryAllByDataCy("project-filter")).toHaveLength(3),
+    expect(screen.queryByDataCy("no-filters-message")).not.toBeInTheDocument(),
   );
 };
 

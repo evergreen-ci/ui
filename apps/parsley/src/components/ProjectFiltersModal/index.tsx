@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { Disclaimer, Link } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import {
   BaseTable,
   LGColumnDef,
   RowSelectionState,
+  TablePlaceholder,
   onChangeHandler,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
@@ -17,6 +18,7 @@ import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import { CaseSensitivity, MatchType } from "constants/enums";
+import { getProjectSettingsURL } from "constants/externalURLTemplates";
 import { useLogContext } from "context/LogContext";
 import {
   ParsleyFilter,
@@ -104,6 +106,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       rowSelection,
     },
   });
+
   return (
     <ConfirmationModal
       cancelButtonProps={{
@@ -122,7 +125,30 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       setOpen={setOpen}
       title="Project Filters"
     >
-      <BaseTable shouldAlternateRowColor table={table} />
+      <BaseTable
+        emptyComponent={
+          <TablePlaceholder
+            data-cy="no-filters-message"
+            glyph="MagnifyingGlass"
+            message={
+              <p>
+                No filters found! Project filters can be defined in the{" "}
+                <Link
+                  href={getProjectSettingsURL(
+                    projectMetadata?.id ?? "",
+                    "views-and-filters",
+                  )}
+                >
+                  project settings
+                </Link>
+                .
+              </p>
+            }
+          />
+        }
+        shouldAlternateRowColor
+        table={table}
+      />
     </ConfirmationModal>
   );
 };
