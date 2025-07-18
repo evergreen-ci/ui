@@ -63,51 +63,34 @@ const read = (task: NonNullable<TaskQuery["task"]>) =>
 describe("mark as reviewed button", () => {
   it("the button causes an update to the cache and rerenders accordingly", async () => {
     const user = userEvent.setup();
-    const query = read(taskData);
-    const { rerender } = render(
+    render(
       <MockedProvider cache={cache}>
-        <MarkReviewed task={query} />
+        <MarkReviewed execution={taskData.execution} taskId={taskData.id} />
       </MockedProvider>,
     );
     expect(screen.getByRole("button")).toHaveTextContent("Mark reviewed");
     await user.click(screen.getByRole("button"));
 
-    // Since this component does not read directly from the query itself, manually refresh the data passed in as a prop
-    const refreshedQuery = read(taskData);
-    rerender(
-      <MockedProvider cache={cache}>
-        <MarkReviewed task={refreshedQuery} />
-      </MockedProvider>,
-    );
     expect(screen.getByRole("button")).toHaveTextContent("Mark unreviewed");
 
     await user.click(screen.getByRole("button"));
-    const secondRefreshedQuery = read(taskData);
-    rerender(
-      <MockedProvider cache={cache}>
-        <MarkReviewed task={secondRefreshedQuery} />
-      </MockedProvider>,
-    );
     expect(screen.getByRole("button")).toHaveTextContent("Mark reviewed");
   });
 
   it("on a display task, the button updates all of its execution tasks", async () => {
     const user = userEvent.setup();
-    const query = read(displayTaskData);
-    const { rerender } = render(
+    render(
       <MockedProvider cache={cache}>
-        <MarkReviewed task={query} />
+        <MarkReviewed
+          execution={displayTaskData.execution}
+          taskId={displayTaskData.id}
+        />
       </MockedProvider>,
     );
     expect(screen.getByRole("button")).toHaveTextContent("Mark reviewed");
 
     await user.click(screen.getByRole("button"));
     const refreshedQuery = read(displayTaskData);
-    rerender(
-      <MockedProvider cache={cache}>
-        <MarkReviewed task={refreshedQuery} />
-      </MockedProvider>,
-    );
     expect(screen.getByRole("button")).toHaveTextContent("Mark unreviewed");
     expect(
       refreshedQuery?.executionTasksFull?.every(
@@ -117,11 +100,6 @@ describe("mark as reviewed button", () => {
 
     await user.click(screen.getByRole("button"));
     const secondRefreshedQuery = read(displayTaskData);
-    rerender(
-      <MockedProvider cache={cache}>
-        <MarkReviewed task={secondRefreshedQuery} />
-      </MockedProvider>,
-    );
     expect(screen.getByRole("button")).toHaveTextContent("Mark reviewed");
     expect(
       secondRefreshedQuery?.executionTasksFull?.every(
@@ -132,11 +110,13 @@ describe("mark as reviewed button", () => {
 
   it("on an execution task, the button updates the task and its display task", async () => {
     const user = userEvent.setup();
-    const query = read(displayTaskData);
-    const { rerender } = render(
+    const executionTask = displayTaskData
+      ?.executionTasksFull?.[0] as NonNullable<TaskQuery["task"]>;
+    render(
       <MockedProvider cache={cache}>
         <MarkReviewed
-          task={query.executionTasksFull?.[0] as NonNullable<TaskQuery["task"]>}
+          execution={executionTask.execution}
+          taskId={executionTask.id}
         />
       </MockedProvider>,
     );
@@ -144,48 +124,65 @@ describe("mark as reviewed button", () => {
 
     await user.click(screen.getByRole("button"));
     const refreshedQuery = read(displayTaskData);
-    rerender(
-      <MockedProvider cache={cache}>
-        <MarkReviewed
-          task={
-            refreshedQuery.executionTasksFull?.[0] as NonNullable<
-              TaskQuery["task"]
-            >
-          }
-        />
-      </MockedProvider>,
-    );
     expect(screen.getByRole("button")).toHaveTextContent("Mark unreviewed");
     expect(refreshedQuery?.executionTasksFull?.[0].reviewed).toBe(true);
     expect(refreshedQuery.reviewed).toBe(false);
 
     await user.click(screen.getByRole("button"));
     const secondRefreshedQuery = read(displayTaskData);
-    rerender(
-      <MockedProvider cache={cache}>
-        <MarkReviewed
-          task={
-            secondRefreshedQuery.executionTasksFull?.[0] as NonNullable<
-              TaskQuery["task"]
-            >
-          }
-        />
-      </MockedProvider>,
-    );
     expect(screen.getByRole("button")).toHaveTextContent("Mark reviewed");
     expect(secondRefreshedQuery?.executionTasksFull?.[0].reviewed).toBe(false);
     expect(secondRefreshedQuery.reviewed).toBe(false);
   });
 
   it("disables button for a successful task", () => {
-    const query = read(displayTaskData);
+    const executionTask = displayTaskData
+      ?.executionTasksFull?.[3] as NonNullable<TaskQuery["task"]>;
     render(
       <MockedProvider cache={cache}>
         <MarkReviewed
-          task={query.executionTasksFull?.[3] as NonNullable<TaskQuery["task"]>}
+          execution={executionTask.execution}
+          taskId={executionTask.id}
         />
       </MockedProvider>,
     );
     expect(screen.getByRole("button")).toHaveAttribute("aria-disabled", "true");
+  });
+
+  it("updates parent state when all children are marked as reviewed", async () => {
+    const user = userEvent.setup();
+    render(
+      <MockedProvider cache={cache}>
+        <div>
+          {displayTaskData?.executionTasksFull?.map(({ execution, id }) => (
+            <MarkReviewed key={id} execution={execution} taskId={id} />
+          ))}
+          <MarkReviewed
+            execution={displayTaskData.execution}
+            taskId={displayTaskData.id}
+          />
+        </div>
+      </MockedProvider>,
+    );
+    const buttons = screen.getAllByRole("button");
+    await user.click(buttons[0]);
+    await user.click(buttons[1]);
+    await user.click(buttons[2]);
+    expect(buttons[3]).toHaveAttribute("aria-disabled", "true");
+
+    expect(screen.getAllByRole("button")[0]).toHaveTextContent(
+      "Mark unreviewed",
+    );
+    expect(screen.getAllByRole("button")[1]).toHaveTextContent(
+      "Mark unreviewed",
+    );
+    expect(screen.getAllByRole("button")[2]).toHaveTextContent(
+      "Mark unreviewed",
+    );
+    // Successful task does not have its state updated
+    expect(screen.getAllByRole("button")[3]).toHaveTextContent("Mark reviewed");
+    expect(screen.getAllByRole("button")[4]).toHaveTextContent(
+      "Mark unreviewed",
+    );
   });
 });

@@ -1,18 +1,16 @@
 import { InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import { getTestUtils } from "@leafygreen-ui/checkbox";
+import { getTestUtils as getTableUtils } from "@leafygreen-ui/table";
 import {
   fireEvent,
+  waitFor,
   renderWithRouterMatch as render,
   screen,
   userEvent,
   within,
 } from "@evg-ui/lib/test_utils";
-import {
-  SortDirection,
-  TaskSortCategory,
-  VersionTasksQuery,
-} from "gql/generated/types";
+import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { VERSION_TASKS } from "gql/queries";
 import { versionTasks } from "./testData";
 import { VersionTasksTable, getInitialState } from ".";
@@ -39,16 +37,6 @@ cache.writeQuery({
   variables: { versionId },
   data: versionTasks.data,
 });
-
-const readTasks = () =>
-  (
-    cache.readQuery({
-      query: VERSION_TASKS,
-      variables: {
-        versionId: versionId,
-      },
-    }) as VersionTasksQuery
-  ).version.tasks.data;
 
 describe("VersionTasksTable", () => {
   it("renders all rows", () => {
@@ -93,13 +81,12 @@ describe("VersionTasksTable", () => {
 
   describe("marking tasks as reviewed", () => {
     it("allows checking a task", async () => {
-      const cacheTasks = readTasks();
-      const { rerender } = render(
+      render(
         <MockedProvider cache={cache}>
-          <VersionTasksTable {...sharedProps} tasks={cacheTasks} />
+          <VersionTasksTable {...sharedProps} />
         </MockedProvider>,
       );
-      expect(screen.queryAllByLabelText("Mark as reviewed")).toHaveLength(3);
+      expect(screen.queryAllByLabelText("Mark as reviewed")).toHaveLength(4);
 
       const { getInput, getInputValue, isDisabled } = getTestUtils(
         `lg-reviewed-${tasks[0].id}`,
@@ -110,29 +97,83 @@ describe("VersionTasksTable", () => {
       // Use fireEvent because this checkbox has no label to click.
       // This is how LG tests their checkboxes ¯\_(ツ)_/¯
       fireEvent.click(getInput());
+      await waitFor(() => {
+        expect(getInputValue()).toBe(true);
+      });
 
-      const updatedCacheTasks = readTasks();
-      rerender(
-        <MockedProvider cache={cache}>
-          <VersionTasksTable {...sharedProps} tasks={updatedCacheTasks} />
-        </MockedProvider>,
-      );
-      expect(getTestUtils(`lg-reviewed-${tasks[0].id}`).getInputValue()).toBe(
-        true,
-      );
+      fireEvent.click(getInput());
+      await waitFor(() => {
+        expect(getInputValue()).toBe(false);
+      });
     });
 
     it("disables the checkbox for successful tasks", async () => {
-      const cacheTasks = readTasks();
       render(
         <MockedProvider cache={cache}>
-          <VersionTasksTable {...sharedProps} tasks={cacheTasks} />
+          <VersionTasksTable {...sharedProps} />
         </MockedProvider>,
       );
 
       expect(getTestUtils(`lg-reviewed-${tasks[1].id}`).isDisabled()).toBe(
         true,
       );
+    });
+
+    it("checking a display task marks unsuccessful children", async () => {
+      const user = userEvent.setup();
+      render(
+        <MockedProvider cache={cache}>
+          <VersionTasksTable {...sharedProps} />
+        </MockedProvider>,
+      );
+      expect(screen.queryAllByLabelText("Mark as reviewed")).toHaveLength(4);
+
+      let displayTask = getTestUtils(`lg-reviewed-${tasks[3].id}`);
+      expect(displayTask.isDisabled()).toBe(false);
+      expect(displayTask.getInputValue()).toBe(false);
+
+      // Use fireEvent because this checkbox has no label to click.
+      // This is how LG tests their checkboxes ¯\_(ツ)_/¯
+      fireEvent.click(displayTask.getInput());
+
+      const { getRowByIndex } = getTableUtils();
+      // @ts-expect-error This does exist, incorrect typing from LeafyGreen
+      const { getExpandButton } = getRowByIndex(3);
+      await user.click(getExpandButton());
+
+      expect(displayTask.getInputValue()).toBe(true);
+
+      const executionTask0 = getTestUtils(
+        `lg-reviewed-${tasks[3]?.executionTasksFull?.[0]?.id}`,
+      );
+      const executionTask1 = getTestUtils(
+        `lg-reviewed-${tasks[3]?.executionTasksFull?.[1]?.id}`,
+      );
+      const executionTask2 = getTestUtils(
+        `lg-reviewed-${tasks[3]?.executionTasksFull?.[2]?.id}`,
+      );
+      const executionTask3 = getTestUtils(
+        `lg-reviewed-${tasks[3]?.executionTasksFull?.[3]?.id}`,
+      );
+      expect(executionTask0.getInputValue()).toBe(true);
+      expect(executionTask1.getInputValue()).toBe(true);
+      expect(executionTask2.getInputValue()).toBe(true);
+      expect(executionTask3.getInputValue()).toBe(false);
+
+      fireEvent.click(executionTask0.getInput());
+      await waitFor(() => {
+        expect(executionTask0.getInputValue()).toBe(false);
+      });
+
+      displayTask = getTestUtils(`lg-reviewed-${tasks[3].id}`);
+      expect(displayTask.isIndeterminate()).toBe(true);
+      expect(displayTask.getInputValue()).toBe(false);
+
+      fireEvent.click(executionTask1.getInput());
+      fireEvent.click(executionTask2.getInput());
+      await waitFor(() => {
+        expect(displayTask.isIndeterminate()).toBe(false);
+      });
     });
   });
 });

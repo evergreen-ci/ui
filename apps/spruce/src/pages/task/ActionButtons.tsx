@@ -203,7 +203,7 @@ export const ActionButtons: React.FC<Props> = ({
   return (
     <>
       <PageButtonRow>
-        <MarkReviewed task={task} />
+        <MarkReviewed execution={task.execution} taskId={task.id} />
         {!isExecutionTask && <RelevantCommits task={task} />}
         <LoadingButton
           key="schedule"
