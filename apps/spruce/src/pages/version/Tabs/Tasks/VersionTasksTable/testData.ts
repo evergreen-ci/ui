@@ -50,7 +50,7 @@ export const versionTasks = {
             buildVariantDisplayName: "Spruce",
             dependsOn: null,
             displayName: "snapshots",
-            displayStatus: "success",
+            displayStatus: "failed",
             execution: 0,
             executionTasksFull: null,
             projectIdentifier: "evergreen-ui",

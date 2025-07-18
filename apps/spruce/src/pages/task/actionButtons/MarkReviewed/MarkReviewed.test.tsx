@@ -1,6 +1,7 @@
 import { gql, InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskQuery } from "gql/generated/types";
 import { TASK } from "gql/queries";
 import { taskData, displayTaskData } from "./taskData";
@@ -46,9 +47,11 @@ const read = (task: NonNullable<TaskQuery["task"]>) =>
     fragment: gql`
       fragment ReviewedTask on Task {
         id
+        displayStatus
         execution
         executionTasksFull {
           id
+          displayStatus
           execution
           reviewed
         }
@@ -107,7 +110,9 @@ describe("mark as reviewed button", () => {
     );
     expect(screen.getByRole("button")).toHaveTextContent("Mark unreviewed");
     expect(
-      refreshedQuery?.executionTasksFull?.every(({ reviewed }) => reviewed),
+      refreshedQuery?.executionTasksFull?.every(
+        (t) => t.reviewed || t.displayStatus === TaskStatus.Succeeded,
+      ),
     ).toBe(true);
 
     await user.click(screen.getByRole("button"));
@@ -170,5 +175,17 @@ describe("mark as reviewed button", () => {
     expect(screen.getByRole("button")).toHaveTextContent("Mark reviewed");
     expect(secondRefreshedQuery?.executionTasksFull?.[0].reviewed).toBe(false);
     expect(secondRefreshedQuery.reviewed).toBe(false);
+  });
+
+  it("disables button for a successful task", () => {
+    const query = read(displayTaskData);
+    render(
+      <MockedProvider cache={cache}>
+        <MarkReviewed
+          task={query.executionTasksFull?.[3] as NonNullable<TaskQuery["task"]>}
+        />
+      </MockedProvider>,
+    );
+    expect(screen.getByRole("button")).toHaveAttribute("aria-disabled", "true");
   });
 });

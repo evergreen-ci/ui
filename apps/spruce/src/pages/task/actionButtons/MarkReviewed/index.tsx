@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { gql, useApolloClient } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { showTaskReviewUI } from "constants/featureFlags";
 import { TaskQuery } from "gql/generated/types";
 
 export const MarkReviewed: React.FC<{
   task: Pick<
     NonNullable<TaskQuery["task"]>,
-    "id" | "execution" | "reviewed" | "executionTasksFull"
+    "id" | "displayStatus" | "execution" | "reviewed" | "executionTasksFull"
   >;
 }> = ({ task }) => {
   const { cache } = useApolloClient();
@@ -21,6 +22,7 @@ export const MarkReviewed: React.FC<{
               reviewed
               executionTasksFull {
                 id
+                displayStatus
                 execution
                 reviewed
               }
@@ -31,10 +33,13 @@ export const MarkReviewed: React.FC<{
           ...data,
           reviewed: !data.reviewed,
           executionTasksFull: data.executionTasksFull.map(
-            (e: TaskQuery["task"]) => ({
-              ...e,
-              reviewed: !data.reviewed,
-            }),
+            (e: TaskQuery["task"]) =>
+              e?.displayStatus === TaskStatus.Succeeded
+                ? e
+                : {
+                    ...e,
+                    reviewed: !data.reviewed,
+                  },
           ),
         }),
       );
@@ -57,7 +62,9 @@ export const MarkReviewed: React.FC<{
   };
 
   const reviewed = task?.executionTasksFull?.length
-    ? task.executionTasksFull.every((e) => e.reviewed)
+    ? task.executionTasksFull.every(
+        (e) => e.displayStatus === TaskStatus.Succeeded || e.reviewed,
+      )
     : task.reviewed;
 
   useEffect(() => {
@@ -80,7 +87,11 @@ export const MarkReviewed: React.FC<{
   }, [reviewed]);
 
   return showTaskReviewUI ? (
-    <Button onClick={handleClick} size={Size.Small}>
+    <Button
+      disabled={task.displayStatus === TaskStatus.Succeeded}
+      onClick={handleClick}
+      size={Size.Small}
+    >
       {task.reviewed ? "Mark unreviewed" : "Mark reviewed"}
     </Button>
   ) : null;
