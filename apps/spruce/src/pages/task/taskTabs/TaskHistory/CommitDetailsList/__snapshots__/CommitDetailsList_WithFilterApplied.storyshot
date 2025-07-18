@@ -85,7 +85,8 @@
           class="leafygreen-ui-h5xdir"
           data-cy="this-task-badge"
         >
-          This Task
+          This
+           Task
         </div>
         <span>
           Apr 3, 2025, 10:22 AM

@@ -8,7 +8,6 @@ import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { isMainlineRequester, Requester } from "constants/requesters";
 import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import {
   TaskQuery,
@@ -40,6 +39,7 @@ const useTabConfig = (
   const { failedTestCount } = taskTestCountData || {};
   const {
     annotation,
+    baseTask,
     canModifyAnnotation,
     displayStatus,
     execution,
@@ -48,9 +48,9 @@ const useTabConfig = (
     id,
     isPerfPluginEnabled,
     logs: logLinks,
-    requester,
     versionMetadata,
   } = task;
+  const baseTaskId = baseTask?.id || "";
   const { fileCount } = files ?? {};
 
   const { showBuildBaron } = useBuildBaronVariables({
@@ -70,7 +70,7 @@ const useTabConfig = (
     [TaskTab.Files]: true,
     [TaskTab.Annotations]: showBuildBaron,
     [TaskTab.TrendCharts]: isPerfPluginEnabled,
-    [TaskTab.History]: isMainlineRequester(requester as Requester),
+    [TaskTab.History]: true,
   };
 
   const tabMap: Record<TaskTab, JSX.Element> = {
@@ -163,7 +163,7 @@ const useTabConfig = (
         name="History"
         {...walkthroughHistoryTabProps}
       >
-        <TaskHistory task={task} />
+        <TaskHistory baseTaskId={baseTaskId} task={task} />
       </Tab>
     ),
   };

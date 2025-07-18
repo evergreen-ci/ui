@@ -16,7 +16,7 @@ export const Default: CustomStoryObj<typeof InactiveCommitsButton> = {
 };
 
 const Template = () => (
-  <TaskHistoryContextProvider task={currentTask}>
+  <TaskHistoryContextProvider baseTaskId="" isPatch={false} task={currentTask}>
     <InactiveCommitsButton inactiveTasks={tasks} />
   </TaskHistoryContextProvider>
 );

@@ -2,14 +2,12 @@ import { useQuery } from "@apollo/client";
 import {
   DistrosQuery,
   DistrosQueryVariables,
-  AwsRegionsQuery,
-  AwsRegionsQueryVariables,
   MyPublicKeysQuery,
   MyPublicKeysQueryVariables,
   MyVolumesQuery,
   MyHostsQueryVariables,
 } from "gql/generated/types";
-import { AWS_REGIONS, DISTROS, MY_PUBLIC_KEYS, MY_VOLUMES } from "gql/queries";
+import { DISTROS, MY_PUBLIC_KEYS, MY_VOLUMES } from "gql/queries";
 import {
   useDisableSpawnExpirationCheckbox,
   useSpruceConfig,
@@ -21,11 +19,6 @@ interface Props {
   host: { noExpiration: boolean };
 }
 export const useLoadFormSchemaData = (p?: Props) => {
-  const { data: awsData, loading: awsLoading } = useQuery<
-    AwsRegionsQuery,
-    AwsRegionsQueryVariables
-  >(AWS_REGIONS);
-
   const { data: distrosData, loading: distrosLoading } = useQuery<
     DistrosQuery,
     DistrosQueryVariables
@@ -62,7 +55,6 @@ export const useLoadFormSchemaData = (p?: Props) => {
   });
   return {
     formSchemaInput: {
-      awsRegions: awsData?.awsRegions,
       disableExpirationCheckbox,
       distros: distrosData?.distros,
       myPublicKeys: publicKeysData?.myPublicKeys,
@@ -70,6 +62,6 @@ export const useLoadFormSchemaData = (p?: Props) => {
       userAwsRegion,
       volumes: volumesData?.myVolumes,
     },
-    loading: distrosLoading || publicKeyLoading || awsLoading || volumesLoading,
+    loading: distrosLoading || publicKeyLoading || volumesLoading,
   };
 };
