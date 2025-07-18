@@ -73,10 +73,11 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     [distros, form?.requiredSection?.distro],
   );
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    distros,
+    availableRegions: selectedDistro?.availableRegions ?? [],
+    distros: distros ?? [],
     isMigration: true,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     userAwsRegion: AZToRegion(volume.availabilityZone),
