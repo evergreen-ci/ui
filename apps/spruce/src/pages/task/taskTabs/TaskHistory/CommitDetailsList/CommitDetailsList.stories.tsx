@@ -8,6 +8,7 @@ import { groupTasks } from "../utils";
 import CommitDetailsList from ".";
 
 type CommitDetailsListType = React.ComponentProps<typeof CommitDetailsList> & {
+  isPatch: boolean;
   shouldCollapse: boolean;
 };
 
@@ -15,14 +16,18 @@ export default {
   component: CommitDetailsList,
   decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
   args: {
-    shouldCollapse: true,
+    isPatch: false,
     loading: false,
+    shouldCollapse: true,
   },
   argTypes: {
-    shouldCollapse: {
+    isPatch: {
       control: { type: "boolean" },
     },
     loading: {
+      control: { type: "boolean" },
+    },
+    shouldCollapse: {
       control: { type: "boolean" },
     },
   },
@@ -36,8 +41,9 @@ export const WithFilterApplied: CustomStoryObj<TemplateProps> = {
 };
 
 type TemplateProps = {
-  shouldCollapse: boolean;
+  isPatch: boolean;
   loading: boolean;
+  shouldCollapse: boolean;
 };
 
 const Template = (args: TemplateProps) => {
@@ -46,7 +52,11 @@ const Template = (args: TemplateProps) => {
     testFailureSearchTerm: null,
   });
   return (
-    <TaskHistoryContextProvider task={currentTask}>
+    <TaskHistoryContextProvider
+      baseTaskId={args.isPatch ? currentTask.id : ""}
+      isPatch={args.isPatch}
+      task={currentTask}
+    >
       <CommitDetailsList loading={args.loading} tasks={groupedTasks} />
     </TaskHistoryContextProvider>
   );
@@ -58,7 +68,11 @@ const WithFilter = (args: TemplateProps) => {
     testFailureSearchTerm: /e2e/,
   });
   return (
-    <TaskHistoryContextProvider task={currentTask}>
+    <TaskHistoryContextProvider
+      baseTaskId={args.isPatch ? currentTask.id : ""}
+      isPatch={args.isPatch}
+      task={currentTask}
+    >
       <CommitDetailsList loading={args.loading} tasks={groupedTasks} />
     </TaskHistoryContextProvider>
   );
