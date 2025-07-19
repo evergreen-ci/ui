@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
@@ -17,7 +17,6 @@ import { Unpacked } from "@evg-ui/lib/types/utils";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
-import { CaseSensitivity, MatchType } from "constants/enums";
 import { getProjectSettingsURL } from "constants/externalURLTemplates";
 import { useLogContext } from "context/LogContext";
 import {
@@ -30,6 +29,7 @@ import { useFilterParam } from "hooks/useFilterParam";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { Filters } from "types/logs";
 import { parseFilter, stringifyFilter } from "utils/query-string";
+import { convertParsleyFilterToFilter } from "./utils";
 
 interface ProjectFiltersModalProps {
   open: boolean;
@@ -66,14 +66,9 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     .filter((f): f is ParsleyFilter => f !== undefined);
 
   const onConfirm = () => {
-    const newFilters = selectedFilters.map((f) => ({
-      ...f,
-      caseSensitive: f.caseSensitive
-        ? CaseSensitivity.Sensitive
-        : CaseSensitivity.Insensitive,
-      matchType: f.exactMatch ? MatchType.Exact : MatchType.Inverse,
-      visible: true,
-    }));
+    const newFilters = selectedFilters.map((f) =>
+      convertParsleyFilterToFilter(f),
+    );
     const deduplicatedFilters = deduplicateFilters(filters, newFilters);
     // Apply selected filters.
     setFilters(deduplicatedFilters);
@@ -95,10 +90,25 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     setOpen(false);
   };
 
+  const isRowDisabled = useCallback(
+    (rowIndex: number) => {
+      const parsleyFilter = parsleyFilters?.[rowIndex];
+      if (parsleyFilter === undefined) {
+        return false;
+      }
+      return filters.some(
+        (f) =>
+          stringifyFilter(f) ===
+          stringifyFilter(convertParsleyFilterToFilter(parsleyFilter)),
+      );
+    },
+    [filters, parsleyFilters],
+  );
   const table = useLeafyGreenTable({
     columns,
     data: parsleyFilters ?? [],
     enableColumnFilters: false,
+    enableRowSelection: (row) => !isRowDisabled(row.index),
     enableSorting: false,
     hasSelectableRows: true,
     onRowSelectionChange: onChangeHandler<RowSelectionState>(setRowSelection),
@@ -106,6 +116,11 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       rowSelection,
     },
   });
+
+  const disabledRowIndexes =
+    parsleyFilters
+      ?.map((_, index) => index)
+      .filter((index) => isRowDisabled(index)) ?? [];
 
   return (
     <ConfirmationModal
@@ -126,6 +141,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       title="Project Filters"
     >
       <BaseTable
+        disabledRowIndexes={disabledRowIndexes}
         emptyComponent={
           <TablePlaceholder
             data-cy="no-filters-message"
