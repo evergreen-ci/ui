@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
@@ -42,95 +42,95 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const [filters, setFilters] = useFilterParam();
-
   const { logMetadata } = useLogContext();
   const { buildID, execution, logType, taskID } = logMetadata ?? {};
 
   const { task } = useTaskQuery({ buildID, execution, logType, taskID });
-  const { versionMetadata } = task ?? {};
-  const { projectMetadata } = versionMetadata ?? {};
+  const projectId = task?.versionMetadata?.projectMetadata?.id ?? "";
 
   const { data } = useQuery<ProjectFiltersQuery, ProjectFiltersQueryVariables>(
     PROJECT_FILTERS,
     {
-      skip: !projectMetadata?.id,
-      variables: { projectId: projectMetadata?.id ?? "" },
+      skip: !projectId,
+      variables: { projectId },
     },
   );
-  const { project } = data || {};
-  const { parsleyFilters } = project || {};
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const selectedFilters = Object.entries(rowSelection)
-    .filter(([, enabled]) => enabled)
-    .map(([index]) => parsleyFilters?.[Number(index)])
-    .filter((f): f is ParsleyFilter => f !== undefined);
 
-  const onConfirm = () => {
-    const newFilters = selectedFilters.map((f) =>
-      convertParsleyFilterToFilter(f),
-    );
-    const deduplicatedFilters = deduplicateFilters(filters, newFilters);
-    // Apply selected filters.
-    setFilters(deduplicatedFilters);
+  const parsleyFilters = useMemo(
+    () => data?.project?.parsleyFilters ?? [],
+    [data?.project?.parsleyFilters],
+  );
 
-    // Send relevant tracking events.
+  const isRowDisabled = useCallback(
+    (index: number) => {
+      const parsleyFilter = parsleyFilters[index];
+      if (!parsleyFilter) return false;
+      const filterStr = stringifyFilter(
+        convertParsleyFilterToFilter(parsleyFilter),
+      );
+      return filters.some((f) => stringifyFilter(f) === filterStr);
+    },
+    [filters, parsleyFilters],
+  );
+
+  const initialSelection: RowSelectionState = useMemo(
+    () =>
+      parsleyFilters.reduce((acc, _, index) => {
+        if (isRowDisabled(index)) acc[index] = true;
+        return acc;
+      }, {} as RowSelectionState),
+    [isRowDisabled, parsleyFilters],
+  );
+
+  const [rowSelection, setRowSelection] =
+    useState<RowSelectionState>(initialSelection);
+
+  const selectedFilters = useMemo(
+    () =>
+      Object.entries(rowSelection)
+        .filter(([, selected]) => selected)
+        .map(([index]) => parsleyFilters[Number(index)])
+        .filter((f): f is ParsleyFilter => f !== undefined),
+    [rowSelection, parsleyFilters],
+  );
+
+  const handleConfirm = () => {
+    const newFilters = selectedFilters.map(convertParsleyFilterToFilter);
+    const deduplicated = deduplicateFilters(filters, newFilters);
+    setFilters(deduplicated);
+
     leaveBreadcrumb(
       "applied-project-filters",
       { filters: selectedFilters },
       SentryBreadcrumbTypes.User,
     );
+
     sendEvent({
       "filter.expressions": selectedFilters.map((f) => f.expression),
       name: "Used project filters",
     });
+
     setOpen(false);
   };
 
-  const onCancel = () => {
-    setOpen(false);
-  };
-
-  const isRowDisabled = useCallback(
-    (rowIndex: number) => {
-      const parsleyFilter = parsleyFilters?.[rowIndex];
-      if (parsleyFilter === undefined) {
-        return false;
-      }
-      return filters.some(
-        (f) =>
-          stringifyFilter(f) ===
-          stringifyFilter(convertParsleyFilterToFilter(parsleyFilter)),
-      );
-    },
-    [filters, parsleyFilters],
-  );
   const table = useLeafyGreenTable({
     columns,
-    data: parsleyFilters ?? [],
+    data: parsleyFilters,
     enableColumnFilters: false,
     enableRowSelection: (row) => !isRowDisabled(row.index),
     enableSorting: false,
     hasSelectableRows: true,
-    onRowSelectionChange: onChangeHandler<RowSelectionState>(setRowSelection),
-    state: {
-      rowSelection,
-    },
+    onRowSelectionChange: onChangeHandler(setRowSelection),
+    state: { rowSelection },
   });
-
-  const disabledRowIndexes =
-    parsleyFilters
-      ?.map((_, index) => index)
-      .filter((index) => isRowDisabled(index)) ?? [];
 
   return (
     <ConfirmationModal
-      cancelButtonProps={{
-        onClick: onCancel,
-      }}
+      cancelButtonProps={{ onClick: () => setOpen(false) }}
       confirmButtonProps={{
         children: "Apply filters",
         disabled: selectedFilters.length === 0,
-        onClick: onConfirm,
+        onClick: handleConfirm,
       }}
       css={css`
         z-index: ${zIndex.modal};
@@ -141,7 +141,9 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       title="Project Filters"
     >
       <BaseTable
-        disabledRowIndexes={disabledRowIndexes}
+        disabledRowIndexes={parsleyFilters
+          .map((_, index) => index)
+          .filter(isRowDisabled)}
         emptyComponent={
           <TablePlaceholder
             data-cy="no-filters-message"
@@ -150,10 +152,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
               <p>
                 No filters found! Project filters can be defined in the{" "}
                 <Link
-                  href={getProjectSettingsURL(
-                    projectMetadata?.id ?? "",
-                    "views-and-filters",
-                  )}
+                  href={getProjectSettingsURL(projectId, "views-and-filters")}
                 >
                   project settings
                 </Link>
@@ -194,10 +193,10 @@ const columns: LGColumnDef<
   },
 ];
 
-const deduplicateFilters = (filters: Filters, newFilters: Filters) => {
-  const filterSet = new Set(filters.map((f) => stringifyFilter(f)));
-  newFilters.forEach((f) => filterSet.add(stringifyFilter(f)));
-  return Array.from(filterSet).map((f) => parseFilter(f));
+const deduplicateFilters = (existing: Filters, incoming: Filters): Filters => {
+  const seen = new Set(existing.map(stringifyFilter));
+  incoming.forEach((f) => seen.add(stringifyFilter(f)));
+  return Array.from(seen).map(parseFilter);
 };
 
 export default ProjectFiltersModal;
