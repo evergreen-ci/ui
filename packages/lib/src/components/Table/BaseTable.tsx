@@ -67,6 +67,9 @@ interface SpruceTableProps<T extends LGRowData> {
   numTotalItems?: number;
   /** rows that will have a blue tint to represent that they are selected */
   selectedRowIndexes?: number[];
+  /** rows that will have a disabled style */
+  disabledRowIndexes?: number[];
+  /** whether the table is paginated */
   usePagination?: boolean;
   /** Object returned from the useLeafyGreenTable or useLeafyGreenVirtualTable hook */
   table: LeafyGreenVirtualTable<T> | LeafyGreenTable<T>;
@@ -79,6 +82,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
     {
       "data-cy-row": dataCyRow,
       "data-cy-table": dataCyTable,
+      disabledRowIndexes = [],
       emptyComponent,
       loading,
       loadingRows = 5,
@@ -134,6 +138,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                     <RenderableRow
                       key={row.id}
                       dataCyRow={dataCyRow}
+                      disabled={disabledRowIndexes?.includes(row.index)}
                       isSelected={selectedRowIndexes.includes(row.index)}
                       row={row}
                       virtualRow={vr}
@@ -144,6 +149,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                   <RenderableRow
                     key={row.id}
                     dataCyRow={dataCyRow}
+                    disabled={disabledRowIndexes?.includes(row.index)}
                     isSelected={selectedRowIndexes.includes(row.index)}
                     row={row}
                   />
@@ -249,6 +255,7 @@ const cellStyle = css`
 
 const RenderableRow = <T extends LGRowData>({
   dataCyRow = "leafygreen-table-row",
+  disabled = false,
   isSelected = false,
   row,
   virtualRow,
@@ -257,6 +264,7 @@ const RenderableRow = <T extends LGRowData>({
   row: LeafyGreenTableRow<T>;
   virtualRow?: VirtualItem;
   isSelected?: boolean;
+  disabled?: boolean;
 }) => (
   <Fragment key={row.id}>
     {!row.isExpandedContent && (
@@ -273,6 +281,7 @@ const RenderableRow = <T extends LGRowData>({
         data-cy={dataCyRow}
         data-index={row.index}
         data-selected={isSelected}
+        disabled={disabled}
         row={row}
         virtualRow={virtualRow}
       >
