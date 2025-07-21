@@ -99,7 +99,7 @@
     "@graphql-codegen/cli": "5.0.7",
     "@graphql-codegen/typescript": "4.1.6",
     "@graphql-codegen/typescript-operations": "4.6.1",
-    "@sentry/vite-plugin": "^3.5.0",
+    "@sentry/vite-plugin": "^4.0.0",
     "@storybook/react-vite": "^9.0.17",
     "@storybook/testing-library": "^0.2.2",
     "@styled/typescript-styled-plugin": "1.0.1",
