@@ -7,6 +7,7 @@ type Action =
   | { name: "Clicked job logs link" }
   | { name: "Clicked raw logs link" }
   | { name: "Clicked HTML logs link" }
+  | { name: "Clicked copy raw format button" }
   | { name: "Clicked copy to Jira format button" }
   | { name: "Toggled word wrap"; on: boolean }
   | { name: "Toggled word wrap format"; format: WordWrapFormat }
