@@ -6953,6 +6953,7 @@ export type DistrosQuery = {
   distros: Array<{
     __typename?: "Distro";
     adminOnly: boolean;
+    aliases: Array<string>;
     availableRegions: Array<string>;
     isVirtualWorkStation: boolean;
     name: string;
