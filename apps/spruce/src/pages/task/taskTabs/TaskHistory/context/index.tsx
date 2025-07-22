@@ -9,6 +9,8 @@ type TaskHistoryContextState = {
   currentTask: NonNullable<TaskQuery["task"]>;
   expandedTasksMap: Map<string, boolean>;
   setExpandedTasksMap: (v: Map<string, boolean>) => void;
+  baseTaskId: string;
+  isPatch: boolean;
 };
 
 const TaskHistoryContext = createContext<TaskHistoryContextState | null>(null);
@@ -24,9 +26,11 @@ const useTaskHistoryContext = () => {
 };
 
 const TaskHistoryContextProvider: React.FC<{
-  task: NonNullable<TaskQuery["task"]>;
+  baseTaskId: string;
   children: React.ReactNode;
-}> = ({ children, task }) => {
+  isPatch: boolean;
+  task: NonNullable<TaskQuery["task"]>;
+}> = ({ baseTaskId, children, isPatch, task }) => {
   const [selectedTask, setSelectedTask] = useState<string | null>(null);
   const [hoveredTask, setHoveredTask] = useState<string | null>(null);
   const [expandedTasksMap, setExpandedTasksMap] = useState(
@@ -39,18 +43,22 @@ const TaskHistoryContextProvider: React.FC<{
       setSelectedTask,
       hoveredTask,
       setHoveredTask,
-      currentTask: task,
       expandedTasksMap,
       setExpandedTasksMap,
+      currentTask: task,
+      baseTaskId,
+      isPatch,
     }),
     [
       selectedTask,
       setSelectedTask,
       hoveredTask,
       setHoveredTask,
-      task,
       expandedTasksMap,
       setExpandedTasksMap,
+      task,
+      baseTaskId,
+      isPatch,
     ],
   );
   return (

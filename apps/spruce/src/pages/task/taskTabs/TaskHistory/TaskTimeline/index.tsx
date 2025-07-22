@@ -38,8 +38,14 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
     const timezone = useUserTimeZone();
     const { sendEvent } = useTaskHistoryAnalytics();
 
-    const { currentTask, hoveredTask, selectedTask, setSelectedTask } =
-      useTaskHistoryContext();
+    const {
+      baseTaskId,
+      currentTask,
+      hoveredTask,
+      isPatch,
+      selectedTask,
+      setSelectedTask,
+    } = useTaskHistoryContext();
 
     const {
       mostRecentTaskOrder,
@@ -118,7 +124,12 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                         taskId={task.id}
                       />
                       <CurrentTaskBadge
-                        isCurrentTask={currentTask.id === task.id}
+                        isCurrentTask={
+                          isPatch
+                            ? baseTaskId === task.id
+                            : currentTask.id === task.id
+                        }
+                        isPatch={isPatch}
                       />
                     </TaskBoxWrapper>
                   );

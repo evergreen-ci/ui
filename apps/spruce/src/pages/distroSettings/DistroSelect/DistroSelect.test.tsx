@@ -65,6 +65,28 @@ describe("distro select", () => {
     await user.type(screen.getByPlaceholderText("Select distro"), "abc");
     expect(screen.getAllByRole("option")).toHaveLength(1);
   });
+
+  it("searching for an alias returns related distros", async () => {
+    const user = userEvent.setup();
+    render(<DistroSelect selectedDistro="localhost" />, {
+      wrapper,
+    });
+    await waitFor(() => {
+      expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
+    });
+
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    await user.click(screen.getByLabelText("Distro"));
+    expect(screen.getByRole("listbox")).toBeVisible();
+
+    expect(screen.getAllByRole("option")).toHaveLength(3);
+    await user.clear(screen.getByPlaceholderText("Select distro"));
+    await user.type(
+      screen.getByPlaceholderText("Select distro"),
+      "alphabetical",
+    );
+    expect(screen.getAllByRole("option")).toHaveLength(1);
+  });
 });
 
 const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
@@ -78,18 +100,24 @@ const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
         {
           __typename: "Distro",
           adminOnly: false,
+          aliases: [],
+          availableRegions: [],
           isVirtualWorkStation: true,
           name: "localhost",
         },
         {
           __typename: "Distro",
           adminOnly: true,
+          aliases: [],
+          availableRegions: [],
           isVirtualWorkStation: false,
           name: "localhost2",
         },
         {
           __typename: "Distro",
+          aliases: ["alphabetical"],
           adminOnly: true,
+          availableRegions: [],
           isVirtualWorkStation: true,
           name: "abc",
         },

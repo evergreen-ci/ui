@@ -1,5 +1,5 @@
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { BuildType, ProviderFormState, FleetInstanceType } from "./types";
+import { BuildType, ProviderFormState } from "./types";
 
 /**
  * The provider settings list is untyped in the backend, so we manually define types here.
@@ -16,11 +16,7 @@ interface ProviderSettingsList {
   ami: string;
   instance_type: string;
   key_name: string;
-  fleet_options: {
-    use_on_demand: boolean;
-    use_capacity_optimized: boolean;
-  };
-  fallback: boolean;
+
   iam_instance_profile_arn: string;
   do_not_assign_public_ipv4_address: boolean;
   is_vpc: boolean;
@@ -36,21 +32,6 @@ interface ProviderSettingsList {
   }>;
   region: string;
 }
-
-const getFleetInstanceType = (
-  providerSettings: Partial<ProviderSettingsList> = {},
-) => {
-  if (providerSettings.fleet_options?.use_on_demand) {
-    return FleetInstanceType.OnDemand;
-  }
-  if (
-    !providerSettings.fleet_options?.use_on_demand &&
-    providerSettings.fallback
-  ) {
-    return FleetInstanceType.SpotWithOnDemandFallback;
-  }
-  return FleetInstanceType.Spot;
-};
 
 export const formProviderSettings = (
   providerSettings: Partial<ProviderSettingsList> = {},
@@ -78,11 +59,6 @@ export const formProviderSettings = (
     amiId: providerSettings.ami ?? "",
     instanceType: providerSettings.instance_type ?? "",
     sshKeyName: providerSettings.key_name ?? "",
-    fleetOptions: {
-      fleetInstanceType: getFleetInstanceType(providerSettings),
-      useCapacityOptimization:
-        providerSettings.fleet_options?.use_capacity_optimized ?? false,
-    },
     instanceProfileARN: providerSettings.iam_instance_profile_arn ?? "",
     doNotAssignPublicIPv4Address:
       providerSettings.do_not_assign_public_ipv4_address ?? false,
@@ -137,7 +113,7 @@ type ProviderSettings = ProviderFormState["staticProviderSettings"] &
 export const gqlProviderSettings = (
   providerSettings: Partial<ProviderSettings> = {},
 ) => {
-  const { fleetOptions, vpcOptions } = providerSettings;
+  const { vpcOptions } = providerSettings;
   return {
     staticProviderSettings: {
       user_data: providerSettings.userData,
@@ -165,17 +141,6 @@ export const gqlProviderSettings = (
       ami: providerSettings.amiId,
       instance_type: providerSettings.instanceType,
       key_name: providerSettings.sshKeyName,
-      fleet_options: {
-        use_on_demand:
-          fleetOptions?.fleetInstanceType === FleetInstanceType.OnDemand,
-        use_capacity_optimized:
-          fleetOptions?.fleetInstanceType === FleetInstanceType.OnDemand
-            ? false
-            : fleetOptions?.useCapacityOptimization,
-      },
-      fallback:
-        fleetOptions?.fleetInstanceType ===
-        FleetInstanceType.SpotWithOnDemandFallback,
       iam_instance_profile_arn: providerSettings.instanceProfileARN,
       do_not_assign_public_ipv4_address:
         providerSettings.doNotAssignPublicIPv4Address,

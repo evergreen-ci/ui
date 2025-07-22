@@ -7,20 +7,25 @@ import { groupTasks } from "../utils";
 import TaskTimeline from ".";
 
 type TaskTimelineType = React.ComponentProps<typeof TaskTimeline> & {
+  isPatch: boolean;
   shouldCollapse: boolean;
 };
 
 export default {
   component: TaskTimeline,
   args: {
-    shouldCollapse: true,
+    isPatch: false,
     loading: false,
+    shouldCollapse: true,
   },
   argTypes: {
-    shouldCollapse: {
+    isPatch: {
       control: { type: "boolean" },
     },
     loading: {
+      control: { type: "boolean" },
+    },
+    shouldCollapse: {
       control: { type: "boolean" },
     },
   },
@@ -31,8 +36,9 @@ export const Default: CustomStoryObj<TemplateProps> = {
 };
 
 type TemplateProps = {
-  shouldCollapse: boolean;
+  isPatch: boolean;
   loading: boolean;
+  shouldCollapse: boolean;
 };
 
 const Template = (args: TemplateProps) => {
@@ -42,7 +48,11 @@ const Template = (args: TemplateProps) => {
   });
 
   return (
-    <TaskHistoryContextProvider task={currentTask}>
+    <TaskHistoryContextProvider
+      baseTaskId={args.isPatch ? currentTask.id : ""}
+      isPatch={args.isPatch}
+      task={currentTask}
+    >
       <TaskTimeline
         loading={args.loading}
         pagination={{

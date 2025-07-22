@@ -22,7 +22,11 @@ describe("InactiveCommitsButton component", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getSpruceConfigMock]}>
-        <TaskHistoryContextProvider task={currentTask}>
+        <TaskHistoryContextProvider
+          baseTaskId=""
+          isPatch={false}
+          task={currentTask}
+        >
           <InactiveCommitsButton inactiveTasks={tasks} />
         </TaskHistoryContextProvider>
       </MockedProvider>,

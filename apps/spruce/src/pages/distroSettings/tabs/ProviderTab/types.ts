@@ -5,12 +5,6 @@ export enum BuildType {
   Pull = "pull",
 }
 
-export enum FleetInstanceType {
-  Spot = "spot",
-  OnDemand = "on-demand",
-  SpotWithOnDemandFallback = "fallback",
-}
-
 export type ProviderFormState = {
   provider: {
     providerName: Provider;
@@ -41,10 +35,6 @@ export type ProviderFormState = {
     amiId: string;
     instanceType: string;
     sshKeyName: string;
-    fleetOptions: {
-      fleetInstanceType: FleetInstanceType;
-      useCapacityOptimization: boolean;
-    };
     instanceProfileARN: string;
     doNotAssignPublicIPv4Address: boolean;
     vpcOptions: {
