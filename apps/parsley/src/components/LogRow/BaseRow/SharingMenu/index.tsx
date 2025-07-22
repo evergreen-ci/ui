@@ -89,6 +89,7 @@ const SharingMenu: React.FC = () => {
       open={open}
       setOpen={setMenuOpen}
       trigger={
+        // @ts-expect-error: Styled LeafyGreen component throws an error
         <MenuIcon
           aria-label="Expand share menu"
           data-cy="sharing-menu-button"

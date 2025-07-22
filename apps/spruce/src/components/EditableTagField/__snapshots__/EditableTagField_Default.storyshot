@@ -109,7 +109,7 @@
       <button
         aria-disabled="false"
         aria-label="Delete Tag"
-        class="leafygreen-ui-tcjr3n"
+        class="leafygreen-ui-1u7amgm"
         tabindex="0"
       >
         <div
@@ -128,7 +128,7 @@
           >
             <path
               clip-rule="evenodd"
-              d="M5 2a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1v1H2V3a1 1 0 0 1 1-1h2Zm9 3H2l1.678 8.392A2 2 0 0 0 5.64 15h4.72a2 2 0 0 0 1.962-1.608L14 5Z"
+              d="M5 2a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1v1H2V3a1 1 0 0 1 1-1zm9 3H2l1.678 8.392A2 2 0 0 0 5.64 15h4.72a2 2 0 0 0 1.962-1.608z"
               fill="currentColor"
               fill-rule="evenodd"
             />
@@ -243,7 +243,7 @@
       <button
         aria-disabled="false"
         aria-label="Delete Tag"
-        class="leafygreen-ui-tcjr3n"
+        class="leafygreen-ui-1u7amgm"
         tabindex="0"
       >
         <div
@@ -262,7 +262,7 @@
           >
             <path
               clip-rule="evenodd"
-              d="M5 2a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1v1H2V3a1 1 0 0 1 1-1h2Zm9 3H2l1.678 8.392A2 2 0 0 0 5.64 15h4.72a2 2 0 0 0 1.962-1.608L14 5Z"
+              d="M5 2a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1v1H2V3a1 1 0 0 1 1-1zm9 3H2l1.678 8.392A2 2 0 0 0 5.64 15h4.72a2 2 0 0 0 1.962-1.608z"
               fill="currentColor"
               fill-rule="evenodd"
             />
@@ -377,7 +377,7 @@
       <button
         aria-disabled="false"
         aria-label="Delete Tag"
-        class="leafygreen-ui-tcjr3n"
+        class="leafygreen-ui-1u7amgm"
         tabindex="0"
       >
         <div
@@ -396,7 +396,7 @@
           >
             <path
               clip-rule="evenodd"
-              d="M5 2a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1v1H2V3a1 1 0 0 1 1-1h2Zm9 3H2l1.678 8.392A2 2 0 0 0 5.64 15h4.72a2 2 0 0 0 1.962-1.608L14 5Z"
+              d="M5 2a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1v1H2V3a1 1 0 0 1 1-1zm9 3H2l1.678 8.392A2 2 0 0 0 5.64 15h4.72a2 2 0 0 0 1.962-1.608z"
               fill="currentColor"
               fill-rule="evenodd"
             />
@@ -433,7 +433,7 @@
           >
             <path
               clip-rule="evenodd"
-              d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1h-1Z"
+              d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1z"
               fill="currentColor"
               fill-rule="evenodd"
             />

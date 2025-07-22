@@ -4,7 +4,7 @@
     aria-expanded="false"
     aria-haspopup="true"
     aria-label="Expand share menu"
-    class="emotion-MenuIcon ev9qq3j1 leafygreen-ui-tcjr3n"
+    class="emotion-MenuIcon ev9qq3j1 leafygreen-ui-1u7amgm"
     data-cy="sharing-menu-button"
     tabindex="0"
   >
@@ -23,7 +23,7 @@
       >
         <path
           clip-rule="evenodd"
-          d="M2.75 6a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm5 0a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm6.75 1.75a1.75 1.75 0 1 0-3.5 0 1.75 1.75 0 0 0 3.5 0Z"
+          d="M2.75 6a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5m5 0a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5m6.75 1.75a1.75 1.75 0 1 0-3.5 0 1.75 1.75 0 0 0 3.5 0"
           fill="currentColor"
           fill-rule="evenodd"
         />
