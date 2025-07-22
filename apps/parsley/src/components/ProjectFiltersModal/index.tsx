@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
 import { Disclaimer, Link } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
+import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
   LGColumnDef,
@@ -21,7 +22,6 @@ import { useLogWindowAnalytics } from "analytics";
 import { getProjectSettingsURL } from "constants/externalURLTemplates";
 import { useLogContext } from "context/LogContext";
 import {
-  ParsleyFilter,
   ProjectFiltersQuery,
   ProjectFiltersQueryVariables,
 } from "gql/generated/types";
@@ -63,6 +63,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
 
   const parsleyFilters = useMemo(
     () => data?.project?.parsleyFilters ?? [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [projectFiltersLoading],
   );
 
@@ -93,14 +94,20 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     setRowSelection(initialSelection);
   }, [isRowDisabled, parsleyFilters]);
 
-  const selectedFilters = useMemo(
-    () =>
-      Object.entries(rowSelection)
-        .filter(([, selected]) => selected)
-        .map(([index]) => parsleyFilters[Number(index)])
-        .filter((f): f is ParsleyFilter => f !== undefined),
-    [rowSelection, parsleyFilters],
-  );
+  const table = useLeafyGreenTable({
+    columns,
+    data: parsleyFilters,
+    enableColumnFilters: false,
+    enableRowSelection: (row) => !isRowDisabled(row.index),
+    enableSorting: false,
+    hasSelectableRows: true,
+
+    onRowSelectionChange: onChangeHandler(setRowSelection),
+    state: { rowSelection },
+  });
+  const selectedFilters = table
+    .getSelectedRowModel()
+    .rows.map(({ original }) => original);
 
   const handleConfirm = useCallback(() => {
     const newFilters = selectedFilters.map(convertParsleyFilterToFilter);
@@ -122,22 +129,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, selectedFilters, setFilters]);
 
-  const table = useLeafyGreenTable({
-    columns,
-    data: parsleyFilters,
-    enableColumnFilters: false,
-    enableRowSelection: (row) => !isRowDisabled(row.index),
-    enableSorting: false,
-    hasSelectableRows: true,
-    onRowSelectionChange: onChangeHandler(setRowSelection),
-    state: { rowSelection },
-  });
-
-  const hasNewFilters = useMemo(() => {
-    const newFilters = selectedFilters.map(convertParsleyFilterToFilter);
-    const deduplicated = deduplicateFilters(filters, newFilters);
-    return deduplicated.length > filters.length;
-  }, [filters, selectedFilters]);
+  const hasNewFilters = table.getSelectedRowModel().rows.length > 0;
 
   return (
     <ConfirmationModal
@@ -179,6 +171,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
         loading={projectFiltersLoading || taskQueryLoading}
         shouldAlternateRowColor
         table={table}
+        verticalAlignment="top"
       />
     </ConfirmationModal>
   );
@@ -198,6 +191,9 @@ const columns: LGColumnDef<
       </>
     ),
     header: "Expression",
+    meta: {
+      width: "80%",
+    },
   },
   {
     accessorKey: "caseSensitive",
@@ -218,9 +214,6 @@ const deduplicateFilters = (existing: Filters, incoming: Filters): Filters => {
 };
 
 const FilterExpressionContainer = styled.div`
-  white-space: wrap;
-  width: 340px;
-  word-break: break-word;
-  overflow-wrap: break-word;
+  ${wordBreakCss}
 `;
 export default ProjectFiltersModal;

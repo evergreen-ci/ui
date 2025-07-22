@@ -125,10 +125,10 @@ describe("projectFiltersModal", () => {
     const checkboxes = screen.getAllByRole("checkbox");
     const checkbox2 = checkboxes[2];
     const checkbox3 = checkboxes[3];
-    const checkbox2Label = checkbox2.nextElementSibling;
-    const checkbox3Label = checkbox3.nextElementSibling;
-    await user.click(checkbox2Label!);
-    await user.click(checkbox3Label!);
+    const checkbox2Label = checkbox2.nextElementSibling as HTMLElement;
+    const checkbox3Label = checkbox3.nextElementSibling as HTMLElement;
+    await user.click(checkbox2Label);
+    await user.click(checkbox3Label);
 
     expect(
       screen.queryByRole("button", { name: "Apply filters" }),
