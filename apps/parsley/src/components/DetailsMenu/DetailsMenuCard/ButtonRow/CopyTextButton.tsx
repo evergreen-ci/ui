@@ -3,7 +3,9 @@ import { css } from "@emotion/react";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { palette } from "@leafygreen-ui/palette";
 import { SplitButton } from "@leafygreen-ui/split-button";
+import Tooltip from "@leafygreen-ui/tooltip";
 import Cookies from "js-cookie";
+import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import Icon from "@evg-ui/lib/components/Icon";
 import { transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -82,25 +84,40 @@ export const CopyTextButton: React.FC = () => {
   );
   const { [copyDefault]: primaryOption, ...selectableOptions } = copyOptions;
   return (
-    <SplitButton
-      css={css`
-        /* Apply min-width to avoid elements moving when copied state is shown */
-        min-width: 138px;
+    <ConditionalWrapper
+      condition={bookmarks.length === 0}
+      // eslint-disable-next-line react/no-unstable-nested-components
+      wrapper={(children) => (
+        <Tooltip
+          align="top"
+          justify="middle"
+          trigger={children}
+          triggerEvent="hover"
+        >
+          No bookmarks to copy.
+        </Tooltip>
+      )}
+    >
+      <div>
+        <SplitButton
+          css={css`
+            /* Apply min-width to avoid elements moving when copied state is shown */
+            min-width: 138px;
 
-        button:first-of-type {
-          /* Align to left so icon doesn't move during copied state */
-          width: 100%;
-          & > div {
-            justify-content: start;
-          }
+            button:first-of-type {
+              /* Align to left so icon doesn't move during copied state */
+              width: 100%;
+              & > div {
+                justify-content: start;
+              }
 
-          & > div > svg {
-            transition:
-              color ${transitionDuration.default}ms ease-in-out,
-              background-image ${transitionDuration.default}ms ease-in-out;
+              & > div > svg {
+                transition:
+                  color ${transitionDuration.default}ms ease-in-out,
+                  background-image ${transitionDuration.default}ms ease-in-out;
 
-            ${copied &&
-            `color: ${palette.green.base};
+                ${copied &&
+                `color: ${palette.green.base};
 
 ${checkmarkWithCircleGlyph}
 
@@ -109,25 +126,28 @@ ${checkmarkWithCircleGlyph}
   color: transparent;
 }
             `}
-          }
-        }
-      `}
-      disabled={!bookmarks.length}
-      label={copied ? "Copied" : primaryOption.label}
-      leftGlyph={<Icon data-testid="copy-glyph" glyph="Copy" />}
-      menuItems={Object.values(selectableOptions).map(
-        ({ handleClick, label }) => (
-          <MenuItem
-            key="label"
-            glyph={<Icon data-testid="copy-glyph" glyph="Copy" />}
-            onClick={handleClick}
-          >
-            {label}
-          </MenuItem>
-        ),
-      )}
-      onClick={primaryOption.handleClick}
-    />
+              }
+            }
+          `}
+          data-cy="copy-text-button"
+          disabled={!bookmarks.length}
+          label={copied ? "Copied" : primaryOption.label}
+          leftGlyph={<Icon data-testid="copy-glyph" glyph="Copy" />}
+          menuItems={Object.values(selectableOptions).map(
+            ({ handleClick, label }) => (
+              <MenuItem
+                key="label"
+                glyph={<Icon data-testid="copy-glyph" glyph="Copy" />}
+                onClick={handleClick}
+              >
+                {label}
+              </MenuItem>
+            ),
+          )}
+          onClick={primaryOption.handleClick}
+        />
+      </div>
+    </ConditionalWrapper>
   );
 };
 
