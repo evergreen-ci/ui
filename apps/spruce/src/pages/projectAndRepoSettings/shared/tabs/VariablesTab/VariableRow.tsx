@@ -10,10 +10,12 @@ const { yellow } = palette;
 export const VariableRow: React.FC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
 > = ({ formData, properties, uiSchema }) => {
-  const [variableName, variableValue, isPrivate, isAdminOnly] = getFields(
+  const [variableName, variableValue, isPrivate] = getFields(
     properties,
     formData.isDisabled,
   );
+  const [, , , isAdminOnly] = getFields(properties, false);
+
   const repoData = uiSchema?.options?.repoData;
   const inRepo = repoData
     ? // @ts-expect-error: FIXME. This comment was added by an automated script.

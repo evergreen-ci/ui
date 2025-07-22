@@ -48,6 +48,19 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
+          class="leafygreen-ui-c62i3c"
+        >
+          Initializing
+        </div>
+      </div>
+    </div>
+    <div
+      class="emotion-1"
+    >
+      <div
+        class="emotion-HostStatusWrapper e1bt0ccw0"
+      >
+        <div
           class="leafygreen-ui-dhdzha"
         >
           Terminated
@@ -123,7 +136,7 @@
         <div
           class="leafygreen-ui-c62i3c"
         >
-          Initializing
+          Building
         </div>
       </div>
     </div>
@@ -136,7 +149,7 @@
         <div
           class="leafygreen-ui-c62i3c"
         >
-          Building
+          Build Failed
         </div>
       </div>
     </div>
