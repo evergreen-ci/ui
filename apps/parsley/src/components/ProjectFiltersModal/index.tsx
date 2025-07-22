@@ -145,6 +145,8 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       data-cy="project-filters-modal"
       open={open}
       setOpen={setOpen}
+      // @ts-expect-error - size is not a valid prop for ConfirmationModal but it is valid for the underlying Modal component
+      size="large"
       title="Project Filters"
     >
       <BaseTable
