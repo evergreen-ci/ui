@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
 import { Disclaimer, Link } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -189,10 +190,12 @@ const columns: LGColumnDef<
   {
     accessorKey: "expression",
     cell: ({ getValue, row }) => (
-      <div>
-        {getValue() as string}
+      <>
+        <FilterExpressionContainer title={getValue() as string}>
+          {getValue() as string}
+        </FilterExpressionContainer>
         <Disclaimer>{row.original.description}</Disclaimer>
-      </div>
+      </>
     ),
     header: "Expression",
   },
@@ -214,4 +217,10 @@ const deduplicateFilters = (existing: Filters, incoming: Filters): Filters => {
   return Array.from(seen).map(parseFilter);
 };
 
+const FilterExpressionContainer = styled.div`
+  white-space: wrap;
+  width: 340px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+`;
 export default ProjectFiltersModal;
