@@ -45,7 +45,6 @@
     "@emotion/styled": "11.14.1",
     "@evg-ui/deploy-utils": "*",
     "@evg-ui/lib": "*",
-    "@honeycombio/opentelemetry-web": "^0.4.0",
     "@leafygreen-ui/badge": "^9.0.0",
     "@leafygreen-ui/button": "^21.0.6",
     "@leafygreen-ui/card": "^10.0.5",
