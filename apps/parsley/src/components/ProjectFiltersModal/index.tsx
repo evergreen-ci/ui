@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
@@ -42,25 +42,30 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const [filters, setFilters] = useFilterParam();
+  // Data Fetching
   const { logMetadata } = useLogContext();
   const { buildID, execution, logType, taskID } = logMetadata ?? {};
-
-  const { task } = useTaskQuery({ buildID, execution, logType, taskID });
+  const { loading: taskQueryLoading, task } = useTaskQuery({
+    buildID,
+    execution,
+    logType,
+    taskID,
+  });
   const projectId = task?.versionMetadata?.projectMetadata?.id ?? "";
-
-  const { data } = useQuery<ProjectFiltersQuery, ProjectFiltersQueryVariables>(
-    PROJECT_FILTERS,
-    {
-      skip: !projectId,
-      variables: { projectId },
-    },
-  );
+  const { data, loading: projectFiltersLoading } = useQuery<
+    ProjectFiltersQuery,
+    ProjectFiltersQueryVariables
+  >(PROJECT_FILTERS, {
+    skip: !projectId,
+    variables: { projectId },
+  });
 
   const parsleyFilters = useMemo(
     () => data?.project?.parsleyFilters ?? [],
-    [data?.project?.parsleyFilters],
+    [projectFiltersLoading],
   );
 
+  // A row is disabled if the filter it represents is already in the URL.
   const isRowDisabled = useCallback(
     (index: number) => {
       const parsleyFilter = parsleyFilters[index];
@@ -73,17 +78,19 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     [filters, parsleyFilters],
   );
 
-  const initialSelection: RowSelectionState = useMemo(
-    () =>
-      parsleyFilters.reduce((acc, _, index) => {
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+
+  useEffect(() => {
+    // Determine the initial selection of filters. If a filter is already in the URL, it should be checked.
+    const initialSelection: RowSelectionState = parsleyFilters.reduce(
+      (acc, _, index) => {
         if (isRowDisabled(index)) acc[index] = true;
         return acc;
-      }, {} as RowSelectionState),
-    [isRowDisabled, parsleyFilters],
-  );
-
-  const [rowSelection, setRowSelection] =
-    useState<RowSelectionState>(initialSelection);
+      },
+      {} as RowSelectionState,
+    );
+    setRowSelection(initialSelection);
+  }, [isRowDisabled, parsleyFilters]);
 
   const selectedFilters = useMemo(
     () =>
@@ -94,7 +101,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     [rowSelection, parsleyFilters],
   );
 
-  const handleConfirm = () => {
+  const handleConfirm = useCallback(() => {
     const newFilters = selectedFilters.map(convertParsleyFilterToFilter);
     const deduplicated = deduplicateFilters(filters, newFilters);
     setFilters(deduplicated);
@@ -111,7 +118,8 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     });
 
     setOpen(false);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters, selectedFilters, setFilters]);
 
   const table = useLeafyGreenTable({
     columns,
@@ -124,12 +132,18 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     state: { rowSelection },
   });
 
+  const hasNewFilters = useMemo(() => {
+    const newFilters = selectedFilters.map(convertParsleyFilterToFilter);
+    const deduplicated = deduplicateFilters(filters, newFilters);
+    return deduplicated.length > filters.length;
+  }, [filters, selectedFilters]);
+
   return (
     <ConfirmationModal
       cancelButtonProps={{ onClick: () => setOpen(false) }}
       confirmButtonProps={{
         children: "Apply filters",
-        disabled: selectedFilters.length === 0,
+        disabled: !hasNewFilters,
         onClick: handleConfirm,
       }}
       css={css`
@@ -161,6 +175,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
             }
           />
         }
+        loading={projectFiltersLoading || taskQueryLoading}
         shouldAlternateRowColor
         table={table}
       />
