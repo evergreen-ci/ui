@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { defaultEC2Region } from "constants/hosts";
 import {
   DistrosQuery,
   DistrosQueryVariables,
@@ -33,8 +34,6 @@ export const useLoadFormSchemaData = (p?: Props) => {
     MyPublicKeysQueryVariables
   >(MY_PUBLIC_KEYS);
 
-  const spruceConfig = useSpruceConfig();
-
   const { userSettings } = useUserSettings();
   const { region: userAwsRegion } = userSettings ?? {};
 
@@ -47,20 +46,24 @@ export const useLoadFormSchemaData = (p?: Props) => {
     false,
     p?.host,
   );
-  const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
-    disableExpirationCheckbox,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
-    isVolume: false,
-  });
+
+  const spruceConfig = useSpruceConfig();
+  const noExpirationCheckboxTooltip =
+    getNoExpirationCheckboxTooltipCopy({
+      disableExpirationCheckbox,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
+      isVolume: false,
+    }) ?? "";
+
   return {
     formSchemaInput: {
       disableExpirationCheckbox,
-      distros: distrosData?.distros,
-      myPublicKeys: publicKeysData?.myPublicKeys,
+      distros: distrosData?.distros ?? [],
+      myPublicKeys: publicKeysData?.myPublicKeys ?? [],
       noExpirationCheckboxTooltip,
-      userAwsRegion,
-      volumes: volumesData?.myVolumes,
+      userAwsRegion: userAwsRegion ?? defaultEC2Region,
+      volumes: volumesData?.myVolumes ?? [],
     },
     loading: distrosLoading || publicKeyLoading || volumesLoading,
   };
