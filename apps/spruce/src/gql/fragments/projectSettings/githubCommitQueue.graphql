@@ -4,7 +4,8 @@ fragment ProjectGithubSettings on Project {
     enabled
   }
   githubChecksEnabled
-  githubTriggerAliases
+  githubMQTriggerAliases
+  githubPRTriggerAliases
   gitTagAuthorizedTeams
   gitTagAuthorizedUsers
   gitTagVersionsEnabled
@@ -19,7 +20,8 @@ fragment RepoGithubSettings on RepoRef {
     enabled
   }
   githubChecksEnabled
-  githubTriggerAliases
+  githubMQTriggerAliases
+  githubPRTriggerAliases
   gitTagAuthorizedTeams
   gitTagAuthorizedUsers
   gitTagVersionsEnabled

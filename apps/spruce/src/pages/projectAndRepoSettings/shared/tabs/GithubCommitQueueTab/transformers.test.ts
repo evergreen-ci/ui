@@ -65,7 +65,8 @@ const projectForm: GCQFormState = {
         },
       ],
     },
-    githubTriggerAliases: [],
+    githubPRTriggerAliases: [],
+    githubMQTriggerAliases: [],
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     githubChecksEnabled: null,
     githubChecks: {
@@ -332,7 +333,8 @@ const mergedForm: GCQFormState = {
         githubPrAliases: [],
       },
     },
-    githubTriggerAliases: [],
+    githubPRTriggerAliases: [],
+    githubMQTriggerAliases: [],
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     githubChecksEnabled: null,
     githubChecks: {

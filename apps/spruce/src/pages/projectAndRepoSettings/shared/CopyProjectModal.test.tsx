@@ -331,7 +331,8 @@ const projectSettingsMock: ApolloMock<
           perfEnabled: false,
           notifyOnBuildFailure: false,
           patchTriggerAliases: [],
-          githubTriggerAliases: [],
+          githubPRTriggerAliases: [],
+          githubMQTriggerAliases: [],
           workstationConfig: {
             gitClone: false,
             setupCommands: null,
