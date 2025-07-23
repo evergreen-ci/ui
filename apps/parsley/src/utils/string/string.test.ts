@@ -6,6 +6,7 @@ import {
 import {
   getBytesAsString,
   getJiraFormat,
+  getRawLines,
   isFailingLine,
   stringIntersection,
   trimLogLineToMaxSize,
@@ -22,6 +23,35 @@ describe("copyToClipboard", () => {
     copyToClipboard("copy text");
     expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(1);
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith("copy text");
+  });
+});
+
+describe("getRawLines", () => {
+  const logLines = ["zero", "one", "two", "three", "four", "five"];
+  const getLine = (lineNumber: number) => logLines[lineNumber];
+
+  it("should add an ellipsis between lines if they are not adjacent to each other", () => {
+    const bookmarks = [0, 5];
+    expect(getRawLines(bookmarks, getLine)).toBe(
+      `${logLines[0]}\n...\n${logLines[5]}\n`,
+    );
+  });
+
+  it("should not add an ellipsis if the lines are adjacent", () => {
+    const bookmarks = [0, 1];
+    expect(getRawLines(bookmarks, getLine)).toBe(
+      `${logLines[0]}\n${logLines[1]}\n`,
+    );
+  });
+
+  it("should return an empty string when there are no bookmarks", () => {
+    const bookmarks: number[] = [];
+    expect(getRawLines(bookmarks, getLine)).toBe("");
+  });
+
+  it("should handle out of bounds bookmarks", () => {
+    const bookmarks = [6];
+    expect(getRawLines(bookmarks, getLine)).toBe(``);
   });
 });
 

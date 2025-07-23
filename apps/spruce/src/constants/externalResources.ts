@@ -46,6 +46,8 @@ export const githubAppCredentialsDocumentationUrl =
 
 export const ignoredFilesDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files#ignoring-changes-to-certain-files`;
 
+export const redactedVarsDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files#expansions`;
+
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;
 
 export const containersOnboardingDocumentationUrl = `${wikiBaseUrl}/Containers/Container-Tasks`;
@@ -81,6 +83,13 @@ export const getGithubCommitUrl = (
   repo: string,
   githash: string,
 ) => `https://github.com/${owner}/${repo}/commit/${githash}`;
+
+export const getGithubPRUrl = (
+  owner: string,
+  repo: string,
+  prNumber: number,
+  headHash: string,
+) => `https://github.com/${owner}/${repo}/pull/${prNumber}/commits/${headHash}`;
 
 export const getGithubMergeQueueUrl = (
   owner: string,

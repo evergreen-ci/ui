@@ -137,6 +137,11 @@ export type AdminSettingsInput = {
   ui?: InputMaybe<UiConfigInput>;
 };
 
+export type AdminTasksToRestartPayload = {
+  __typename?: "AdminTasksToRestartPayload";
+  tasksToRestart: Array<Task>;
+};
+
 export type AmboyConfig = {
   __typename?: "AmboyConfig";
   groupBackgroundCreateFrequencyMinutes?: Maybe<Scalars["Int"]["output"]>;
@@ -1547,6 +1552,7 @@ export type Mutation = {
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
+  restartAdminTasks: RestartAdminTasksPayload;
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
   restartVersions?: Maybe<Array<Version>>;
@@ -1720,6 +1726,10 @@ export type MutationRemoveVolumeArgs = {
 
 export type MutationReprovisionToNewArgs = {
   hostIds: Array<Scalars["String"]["input"]>;
+};
+
+export type MutationRestartAdminTasksArgs = {
+  opts: RestartAdminTasksOptions;
 };
 
 export type MutationRestartJasperArgs = {
@@ -2580,6 +2590,7 @@ export type Query = {
   __typename?: "Query";
   adminEvents: AdminEventsPayload;
   adminSettings?: Maybe<AdminSettings>;
+  adminTasksToRestart: AdminTasksToRestartPayload;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
   buildBaron: BuildBaron;
@@ -2629,6 +2640,10 @@ export type Query = {
 
 export type QueryAdminEventsArgs = {
   opts: AdminEventsInput;
+};
+
+export type QueryAdminTasksToRestartArgs = {
+  opts: RestartAdminTasksOptions;
 };
 
 export type QueryBbGetCreatedTicketsArgs = {
@@ -2967,6 +2982,19 @@ export type ResourceLimitsInput = {
   numProcesses: Scalars["Int"]["input"];
   numTasks: Scalars["Int"]["input"];
   virtualMemoryKb: Scalars["Int"]["input"];
+};
+
+export type RestartAdminTasksOptions = {
+  endTime: Scalars["Time"]["input"];
+  includeSetupFailed: Scalars["Boolean"]["input"];
+  includeSystemFailed: Scalars["Boolean"]["input"];
+  includeTestFailed: Scalars["Boolean"]["input"];
+  startTime: Scalars["Time"]["input"];
+};
+
+export type RestartAdminTasksPayload = {
+  __typename?: "RestartAdminTasksPayload";
+  numRestartedTasks: Scalars["Int"]["output"];
 };
 
 export enum RoundingRule {
@@ -7086,6 +7114,8 @@ export type DistrosQuery = {
   distros: Array<{
     __typename?: "Distro";
     adminOnly: boolean;
+    aliases: Array<string>;
+    availableRegions: Array<string>;
     isVirtualWorkStation: boolean;
     name: string;
   }>;
@@ -10477,6 +10507,11 @@ export type VersionQuery = {
           baseVersion?: { __typename?: "Version"; id: string } | null;
         } | null;
       }> | null;
+      githubPatchData?: {
+        __typename?: "GithubPatch";
+        headHash?: string | null;
+        prNumber?: number | null;
+      } | null;
     } | null;
     previousVersion?: {
       __typename?: "Version";

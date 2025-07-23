@@ -1,7 +1,7 @@
 import { DistroInput, Provider } from "gql/generated/types";
 import { distroData } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
-import { BuildType, FleetInstanceType, ProviderFormState } from "./types";
+import { BuildType, ProviderFormState } from "./types";
 
 const defaultFormState = {
   staticProviderSettings: {
@@ -26,10 +26,6 @@ const defaultFormState = {
       region: "",
       displayTitle: undefined,
       amiId: "",
-      fleetOptions: {
-        fleetInstanceType: FleetInstanceType.Spot,
-        useCapacityOptimization: false,
-      },
       instanceProfileARN: "",
       instanceType: "",
       mergeUserData: false,
@@ -208,11 +204,7 @@ describe("provider tab", () => {
           ami: "ami-east",
           instance_type: "m5.xlarge",
           key_name: "admin",
-          fleet_options: {
-            use_on_demand: false,
-            use_capacity_optimized: true,
-          },
-          fallback: true,
+
           iam_instance_profile_arn: "profile-east",
           is_vpc: true,
           subnet_id: "subnet-east",
@@ -243,10 +235,6 @@ describe("provider tab", () => {
           region: "us-east-1",
           displayTitle: "us-east-1",
           amiId: "ami-east",
-          fleetOptions: {
-            fleetInstanceType: FleetInstanceType.SpotWithOnDemandFallback,
-            useCapacityOptimization: true,
-          },
           instanceProfileARN: "profile-east",
           instanceType: "m5.xlarge",
           mergeUserData: false,
@@ -322,11 +310,7 @@ describe("provider tab", () => {
           ami: "ami-east",
           instance_type: "m5.xlarge",
           key_name: "admin",
-          fleet_options: {
-            use_on_demand: false,
-            use_capacity_optimized: true,
-          },
-          fallback: true,
+
           iam_instance_profile_arn: "profile-east",
           is_vpc: true,
           subnet_id: "subnet-east",
@@ -400,10 +384,6 @@ describe("provider tab", () => {
           region: "us-east-1",
           displayTitle: "us-east-1",
           amiId: "ami-east",
-          fleetOptions: {
-            fleetInstanceType: FleetInstanceType.Spot,
-            useCapacityOptimization: false,
-          },
           instanceProfileARN: "profile-east",
           instanceType: "m5.xlarge",
           mergeUserData: false,

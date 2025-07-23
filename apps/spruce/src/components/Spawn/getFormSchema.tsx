@@ -233,7 +233,6 @@ const Details: React.FC<{ totalUptimeHours: number }> = ({
   totalUptimeHours,
 }) => (
   <DetailsDiv data-cy="host-uptime-details">
-    {" "}
     • {totalUptimeHours} host uptime hours per week
   </DetailsDiv>
 );
