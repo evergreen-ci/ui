@@ -25,6 +25,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  BooleanMap: { input: any; output: any };
   Duration: { input: number; output: number };
   Map: { input: any; output: any };
   StringMap: { input: { [key: string]: any }; output: { [key: string]: any } };
@@ -104,15 +105,22 @@ export type AdminSettings = {
   authConfig?: Maybe<AuthConfig>;
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
+  cedar?: Maybe<CedarConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
+  fws?: Maybe<FwsConfig>;
   hostInit?: Maybe<HostInitConfig>;
+  jira?: Maybe<JiraConfig>;
   loggerConfig?: Maybe<LoggerConfig>;
   notify?: Maybe<NotifyConfig>;
   podLifecycle?: Maybe<PodLifecycleConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
+  runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
+  slack?: Maybe<SlackConfig>;
+  splunk?: Maybe<SplunkConfig>;
   taskLimits?: Maybe<TaskLimitsConfig>;
+  testSelection?: Maybe<TestSelectionConfig>;
   triggers?: Maybe<TriggerConfig>;
   ui?: Maybe<UiConfig>;
 };
@@ -124,15 +132,22 @@ export type AdminSettingsInput = {
   authConfig?: InputMaybe<AuthConfigInput>;
   banner?: InputMaybe<Scalars["String"]["input"]>;
   bannerTheme?: InputMaybe<BannerTheme>;
+  cedar?: InputMaybe<CedarConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  fws?: InputMaybe<FwsConfigInput>;
   hostInit?: InputMaybe<HostInitConfigInput>;
+  jira?: InputMaybe<JiraConfigInput>;
   loggerConfig?: InputMaybe<LoggerConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
   podLifecycle?: InputMaybe<PodLifecycleConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
+  runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
   serviceFlags?: InputMaybe<ServiceFlagsInput>;
+  slack?: InputMaybe<SlackConfigInput>;
+  splunk?: InputMaybe<SplunkConfigInput>;
   taskLimits?: InputMaybe<TaskLimitsConfigInput>;
+  testSelection?: InputMaybe<TestSelectionConfigInput>;
   triggers?: InputMaybe<TriggerConfigInput>;
   ui?: InputMaybe<UiConfigInput>;
 };
@@ -398,6 +413,17 @@ export type BuildVariantTuple = {
   __typename?: "BuildVariantTuple";
   buildVariant: Scalars["String"]["output"];
   displayName: Scalars["String"]["output"];
+};
+
+export type CedarConfig = {
+  __typename?: "CedarConfig";
+  dbName: Scalars["String"]["output"];
+  dbUrl: Scalars["String"]["output"];
+};
+
+export type CedarConfigInput = {
+  dbName: Scalars["String"]["input"];
+  dbUrl: Scalars["String"]["input"];
 };
 
 export type ChildPatchAlias = {
@@ -777,6 +803,15 @@ export type ExternalLinkInput = {
   displayName: Scalars["String"]["input"];
   requesters: Array<Scalars["String"]["input"]>;
   urlTemplate: Scalars["String"]["input"];
+};
+
+export type FwsConfig = {
+  __typename?: "FWSConfig";
+  url: Scalars["String"]["output"];
+};
+
+export type FwsConfigInput = {
+  url: Scalars["String"]["input"];
 };
 
 export type FailingCommand = {
@@ -1327,6 +1362,13 @@ export type JiraConfig = {
   __typename?: "JiraConfig";
   email?: Maybe<Scalars["String"]["output"]>;
   host?: Maybe<Scalars["String"]["output"]>;
+  personalAccessToken?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type JiraConfigInput = {
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  host?: InputMaybe<Scalars["String"]["input"]>;
+  personalAccessToken?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type JiraIssueSubscriber = {
@@ -2310,8 +2352,9 @@ export type Project = {
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   githubDynamicTokenPermissionGroups: Array<GitHubDynamicTokenPermissionGroup>;
+  githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
+  githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
-  githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   hidden?: Maybe<Scalars["Boolean"]["output"]>;
   id: Scalars["String"]["output"];
   identifier: Scalars["String"]["output"];
@@ -2450,8 +2493,9 @@ export type ProjectInput = {
   githubDynamicTokenPermissionGroups?: InputMaybe<
     Array<GitHubDynamicTokenPermissionGroupInput>
   >;
+  githubMQTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  githubPRTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
-  githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   identifier?: InputMaybe<Scalars["String"]["input"]>;
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -2836,8 +2880,9 @@ export type RepoRef = {
   gitTagVersionsEnabled: Scalars["Boolean"]["output"];
   githubChecksEnabled: Scalars["Boolean"]["output"];
   githubDynamicTokenPermissionGroups: Array<GitHubDynamicTokenPermissionGroup>;
+  githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
+  githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
-  githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
   notifyOnBuildFailure: Scalars["Boolean"]["output"];
@@ -2882,8 +2927,9 @@ export type RepoRefInput = {
   githubDynamicTokenPermissionGroups?: InputMaybe<
     Array<GitHubDynamicTokenPermissionGroupInput>
   >;
+  githubMQTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  githubPRTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
-  githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3002,6 +3048,17 @@ export enum RoundingRule {
   Down = "DOWN",
   Up = "UP",
 }
+
+export type RuntimeEnvironmentConfig = {
+  __typename?: "RuntimeEnvironmentConfig";
+  apiKey?: Maybe<Scalars["String"]["output"]>;
+  baseUrl: Scalars["String"]["output"];
+};
+
+export type RuntimeEnvironmentConfigInput = {
+  apiKey?: InputMaybe<Scalars["String"]["input"]>;
+  baseUrl: Scalars["String"]["input"];
+};
 
 export type SesConfig = {
   __typename?: "SESConfig";
@@ -3191,7 +3248,40 @@ export type SingleTaskDistroConfig = {
 
 export type SlackConfig = {
   __typename?: "SlackConfig";
+  level?: Maybe<PriorityLevel>;
   name?: Maybe<Scalars["String"]["output"]>;
+  options?: Maybe<SlackOptions>;
+  token?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SlackConfigInput = {
+  level: PriorityLevel;
+  name: Scalars["String"]["input"];
+  options?: InputMaybe<SlackOptionsInput>;
+  token: Scalars["String"]["input"];
+};
+
+export type SlackOptions = {
+  __typename?: "SlackOptions";
+  allFields?: Maybe<Scalars["Boolean"]["output"]>;
+  basicMetadata?: Maybe<Scalars["Boolean"]["output"]>;
+  channel?: Maybe<Scalars["String"]["output"]>;
+  fields?: Maybe<Scalars["Boolean"]["output"]>;
+  fieldsSet?: Maybe<Scalars["BooleanMap"]["output"]>;
+  hostname?: Maybe<Scalars["String"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SlackOptionsInput = {
+  allFields?: InputMaybe<Scalars["Boolean"]["input"]>;
+  basicMetadata?: InputMaybe<Scalars["Boolean"]["input"]>;
+  channel?: InputMaybe<Scalars["String"]["input"]>;
+  fields?: InputMaybe<Scalars["Boolean"]["input"]>;
+  fieldsSet?: InputMaybe<Scalars["BooleanMap"]["input"]>;
+  hostname?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type SleepSchedule = {
@@ -3282,6 +3372,28 @@ export type SpawnVolumeInput = {
   noExpiration?: InputMaybe<Scalars["Boolean"]["input"]>;
   size: Scalars["Int"]["input"];
   type: Scalars["String"]["input"];
+};
+
+export type SplunkConfig = {
+  __typename?: "SplunkConfig";
+  splunkConnectionInfo: SplunkConnectionInfo;
+};
+
+export type SplunkConfigInput = {
+  splunkConnectionInfo: SplunkConnectionInfoInput;
+};
+
+export type SplunkConnectionInfo = {
+  __typename?: "SplunkConnectionInfo";
+  channel: Scalars["String"]["output"];
+  serverUrl: Scalars["String"]["output"];
+  token: Scalars["String"]["output"];
+};
+
+export type SplunkConnectionInfoInput = {
+  channel: Scalars["String"]["input"];
+  serverUrl: Scalars["String"]["input"];
+  token: Scalars["String"]["input"];
 };
 
 /**
@@ -3773,6 +3885,15 @@ export type TestResult = {
   status: Scalars["String"]["output"];
   taskId?: Maybe<Scalars["String"]["output"]>;
   testFile: Scalars["String"]["output"];
+};
+
+export type TestSelectionConfig = {
+  __typename?: "TestSelectionConfig";
+  url: Scalars["String"]["output"];
+};
+
+export type TestSelectionConfigInput = {
+  url: Scalars["String"]["input"];
 };
 
 export enum TestSortCategory {
@@ -4667,7 +4788,8 @@ export type ProjectGithubSettingsFragment = {
   __typename?: "Project";
   id: string;
   githubChecksEnabled?: boolean | null;
-  githubTriggerAliases?: Array<string> | null;
+  githubMQTriggerAliases?: Array<string> | null;
+  githubPRTriggerAliases?: Array<string> | null;
   gitTagAuthorizedTeams?: Array<string> | null;
   gitTagAuthorizedUsers?: Array<string> | null;
   gitTagVersionsEnabled?: boolean | null;
@@ -4681,7 +4803,8 @@ export type RepoGithubSettingsFragment = {
   __typename?: "RepoRef";
   id: string;
   githubChecksEnabled: boolean;
-  githubTriggerAliases?: Array<string> | null;
+  githubMQTriggerAliases?: Array<string> | null;
+  githubPRTriggerAliases?: Array<string> | null;
   gitTagAuthorizedTeams?: Array<string> | null;
   gitTagAuthorizedUsers?: Array<string> | null;
   gitTagVersionsEnabled: boolean;
@@ -4698,7 +4821,8 @@ export type ProjectGithubCommitQueueFragment = {
     __typename?: "Project";
     id: string;
     githubChecksEnabled?: boolean | null;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
@@ -4716,7 +4840,8 @@ export type RepoGithubCommitQueueFragment = {
     __typename?: "RepoRef";
     id: string;
     githubChecksEnabled: boolean;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled: boolean;
@@ -4734,7 +4859,8 @@ export type ProjectEventGithubCommitQueueFragment = {
     __typename?: "Project";
     id: string;
     githubChecksEnabled?: boolean | null;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
@@ -4787,7 +4913,8 @@ export type ProjectSettingsFieldsFragment = {
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
     githubChecksEnabled?: boolean | null;
     gitTagAuthorizedTeams?: Array<string> | null;
@@ -4991,7 +5118,8 @@ export type RepoSettingsFieldsFragment = {
     stepbackDisabled: boolean;
     versionControlEnabled: boolean;
     notifyOnBuildFailure: boolean;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     perfEnabled: boolean;
     githubChecksEnabled: boolean;
     gitTagAuthorizedTeams?: Array<string> | null;
@@ -5229,7 +5357,8 @@ export type SubscriptionsFragment = {
 export type ProjectPatchAliasSettingsFragment = {
   __typename?: "Project";
   id: string;
-  githubTriggerAliases?: Array<string> | null;
+  githubMQTriggerAliases?: Array<string> | null;
+  githubPRTriggerAliases?: Array<string> | null;
   patchTriggerAliases?: Array<{
     __typename?: "PatchTriggerAlias";
     alias: string;
@@ -5249,7 +5378,8 @@ export type ProjectPatchAliasSettingsFragment = {
 export type RepoPatchAliasSettingsFragment = {
   __typename?: "RepoRef";
   id: string;
-  githubTriggerAliases?: Array<string> | null;
+  githubMQTriggerAliases?: Array<string> | null;
+  githubPRTriggerAliases?: Array<string> | null;
   patchTriggerAliases?: Array<{
     __typename?: "PatchTriggerAlias";
     alias: string;
@@ -5445,7 +5575,8 @@ export type ProjectEventSettingsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
     githubChecksEnabled?: boolean | null;
     gitTagAuthorizedTeams?: Array<string> | null;
@@ -8017,7 +8148,8 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
-          githubTriggerAliases?: Array<string> | null;
+          githubMQTriggerAliases?: Array<string> | null;
+          githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
@@ -8231,7 +8363,8 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
-          githubTriggerAliases?: Array<string> | null;
+          githubMQTriggerAliases?: Array<string> | null;
+          githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
@@ -8505,7 +8638,8 @@ export type ProjectSettingsQuery = {
       stepbackDisabled?: boolean | null;
       versionControlEnabled?: boolean | null;
       notifyOnBuildFailure?: boolean | null;
-      githubTriggerAliases?: Array<string> | null;
+      githubMQTriggerAliases?: Array<string> | null;
+      githubPRTriggerAliases?: Array<string> | null;
       perfEnabled?: boolean | null;
       githubChecksEnabled?: boolean | null;
       gitTagAuthorizedTeams?: Array<string> | null;
@@ -8773,7 +8907,8 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
-          githubTriggerAliases?: Array<string> | null;
+          githubMQTriggerAliases?: Array<string> | null;
+          githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
@@ -8987,7 +9122,8 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
-          githubTriggerAliases?: Array<string> | null;
+          githubMQTriggerAliases?: Array<string> | null;
+          githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
@@ -9205,7 +9341,8 @@ export type RepoSettingsQuery = {
       stepbackDisabled: boolean;
       versionControlEnabled: boolean;
       notifyOnBuildFailure: boolean;
-      githubTriggerAliases?: Array<string> | null;
+      githubMQTriggerAliases?: Array<string> | null;
+      githubPRTriggerAliases?: Array<string> | null;
       perfEnabled: boolean;
       githubChecksEnabled: boolean;
       gitTagAuthorizedTeams?: Array<string> | null;
