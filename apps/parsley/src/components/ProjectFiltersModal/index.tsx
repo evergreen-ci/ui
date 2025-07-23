@@ -43,7 +43,6 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const [filters, setFilters] = useFilterParam();
-  // Data Fetching
   const { logMetadata } = useLogContext();
   const { buildID, execution, logType, taskID } = logMetadata ?? {};
   const { loading: taskQueryLoading, task } = useTaskQuery({
@@ -105,11 +104,11 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     onRowSelectionChange: onChangeHandler(setRowSelection),
     state: { rowSelection },
   });
-  const selectedFilters = table
-    .getSelectedRowModel()
-    .rows.map(({ original }) => original);
 
   const handleConfirm = useCallback(() => {
+    const selectedFilters = table
+      .getSelectedRowModel()
+      .rows.map(({ original }) => original);
     const newFilters = selectedFilters.map(convertParsleyFilterToFilter);
     const deduplicated = deduplicateFilters(filters, newFilters);
     setFilters(deduplicated);
@@ -127,7 +126,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
 
     setOpen(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, selectedFilters, setFilters]);
+  }, [filters, setFilters]);
 
   const hasNewFilters = table.getSelectedRowModel().rows.length > 0;
 
