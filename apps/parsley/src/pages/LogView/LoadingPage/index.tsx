@@ -128,6 +128,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
           <FlexRow>
             <LogoContainer>
               <AnimationWrapper>
+                {/* @ts-expect-error: useStroke is not recognized as a valid prop */}
                 <Icon glyph="ParsleyLogo" size={36} useStroke />
               </AnimationWrapper>
               <StyledBody>Downloading log...</StyledBody>

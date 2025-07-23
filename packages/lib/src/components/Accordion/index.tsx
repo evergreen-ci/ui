@@ -78,6 +78,7 @@ const Accordion: React.FC<AccordionProps> = ({
         onClick={toggleAccordionHandler}
         role="button"
       >
+        {/* @ts-expect-error: Styled LeafyGreen component throws an error */}
         <AccordionIcon
           aria-label="Accordion icon"
           open={accordionOpen}
