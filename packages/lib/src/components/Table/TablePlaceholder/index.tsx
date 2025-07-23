@@ -3,7 +3,7 @@ import { size } from "../../../constants/tokens";
 import Icon, { glyphs } from "../../Icon";
 
 interface Props {
-  message: string;
+  message: string | React.ReactNode;
   glyph?: keyof typeof glyphs;
   spin?: boolean;
 }
@@ -12,8 +12,9 @@ export const TablePlaceholder: React.FC<Props> = ({
   glyph = "CurlyBraces",
   message,
   spin = false,
+  ...props
 }) => (
-  <PlaceholderWrapper>
+  <PlaceholderWrapper {...props}>
     <SpinningIcon glyph={glyph} size="large" spin={spin ? "spin" : "no-spin"} />
     <div>{message}</div>
   </PlaceholderWrapper>

@@ -31,3 +31,14 @@ globalThis.jest = {
   ...globalThis.jest,
   advanceTimersByTime: vi.advanceTimersByTime.bind(vi),
 };
+
+// LeafyGreen tables require an IntersectionObserver.
+beforeEach(() => {
+  const mockIntersectionObserver = vi.fn();
+  mockIntersectionObserver.mockReturnValue({
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+  });
+  vi.stubGlobal("IntersectionObserver", mockIntersectionObserver);
+});
