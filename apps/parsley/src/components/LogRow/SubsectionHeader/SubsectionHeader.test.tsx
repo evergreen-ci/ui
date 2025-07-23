@@ -30,6 +30,21 @@ describe("SubsectionHeader", () => {
     expect(screen.getByText("Command: shell.exec (step 1 of 4)")).toBeVisible();
   });
 
+  it("displays command description if present", () => {
+    renderWithRouterMatch(
+      <SubsectionHeader
+        {...subsectionHeaderProps}
+        commandDescription="doing stuff"
+      />,
+      {
+        wrapper,
+      },
+    );
+    expect(
+      screen.getByText("Command: shell.exec — doing stuff (step 1 of 4)"),
+    ).toBeVisible();
+  });
+
   it("renders as opened if 'open' prop is true", async () => {
     renderWithRouterMatch(
       <SubsectionHeader {...subsectionHeaderProps} open />,
@@ -126,6 +141,7 @@ describe("SubsectionHeader", () => {
 });
 
 const subsectionHeaderProps = {
+  commandDescription: undefined,
   commandID: "command-1",
   commandName: "shell.exec",
   functionID: "function-1",

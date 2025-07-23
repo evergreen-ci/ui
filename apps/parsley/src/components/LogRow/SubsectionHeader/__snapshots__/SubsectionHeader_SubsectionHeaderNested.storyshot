@@ -42,7 +42,9 @@
       >
         Command: 
         shell.exec
-         (step 
+         
+        — Downloading MongoDB binary 
+        (step 
         1 of 4
         )
       </p>
@@ -103,7 +105,8 @@
       >
         Command: 
         shell.exec
-         (step 
+         
+        (step 
         1 of 4
         )
       </p>
@@ -165,7 +168,8 @@
       >
         Command: 
         shell.exec
-         (step 
+         
+        (step 
         1 of 4
         )
       </p>

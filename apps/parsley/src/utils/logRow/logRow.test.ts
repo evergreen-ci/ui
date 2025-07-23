@@ -71,6 +71,7 @@ describe("includesLineNumber", () => {
   describe("when logLine is a SubsectionHeaderRow", () => {
     it("returns true when range includes lineNumber", () => {
       const logLine: ProcessedLogLine = {
+        commandDescription: undefined,
         commandID: "cmd1",
         commandName: "Command 1",
         functionID: "func1",
@@ -87,6 +88,7 @@ describe("includesLineNumber", () => {
 
     it("returns false when range does not include lineNumber", () => {
       const logLine: ProcessedLogLine = {
+        commandDescription: undefined,
         commandID: "cmd1",
         commandName: "Command 1",
         functionID: "func1",

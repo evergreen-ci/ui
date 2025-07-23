@@ -91,6 +91,7 @@ describe("useSections", () => {
       expect(result.current.sectionData).toStrictEqual({
         commands: [
           {
+            commandDescription: undefined,
             commandID: "command-1",
             commandName: "c1",
             functionID: "function-1",
@@ -419,6 +420,7 @@ describe("useSections", () => {
   const sectionDataForLogsWithOneCommand: sectionUtils.SectionData = {
     commands: [
       {
+        commandDescription: undefined,
         commandID: "command-1",
         commandName: "c1",
         functionID: "function-1",
