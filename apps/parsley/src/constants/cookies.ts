@@ -16,3 +16,4 @@ export const LAST_SELECTED_LOG_TYPE = "last-selected-log-type";
 
 export const HAS_SEEN_SECTIONS_PROD_FEATURE_MODAL =
   "has-seen-sections-prod-feature-modal";
+export const COPY_FORMAT = "default-copy-format";
