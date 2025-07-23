@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import {
   FeedbackRule,
   FinderVersion,
@@ -6,6 +5,7 @@ import {
   OverallocatedRule,
   RoundingRule,
 } from "gql/generated/types";
+import { fullWidthCss } from "pages/adminSettings/styles";
 
 export const notify = {
   schema: {
@@ -180,10 +180,6 @@ const overallocatedOptions = [
     enum: [OverallocatedRule.Terminate],
   },
 ];
-
-const fullWidthCss = css`
-  grid-column: span 2;
-`;
 
 export const scheduler = {
   schema: {
