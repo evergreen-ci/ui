@@ -177,7 +177,7 @@
       <tbody>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
           data-cy="execution-tasks-table-row"
           data-depth="0"
           data-expanded="false"
@@ -301,7 +301,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
           data-cy="execution-tasks-table-row"
           data-depth="0"
           data-expanded="false"
