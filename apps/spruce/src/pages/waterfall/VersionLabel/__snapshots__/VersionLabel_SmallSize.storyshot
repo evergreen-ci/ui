@@ -31,7 +31,7 @@
           <button
             aria-disabled="false"
             aria-label="Show task stats"
-            class="leafygreen-ui-tcjr3n"
+            class="leafygreen-ui-1u7amgm"
             data-cy="task-stats-tooltip-button"
             tabindex="0"
           >
@@ -49,7 +49,7 @@
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M11.5 13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1v10ZM7.5 14a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1ZM2.5 14a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-1Z"
+                  d="M11.5 13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1zM7.5 14a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1zM2.5 14a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1z"
                   fill="currentColor"
                 />
               </svg>

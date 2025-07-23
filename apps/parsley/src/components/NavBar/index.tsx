@@ -26,6 +26,7 @@ const NavBar: React.FC = () => {
   return (
     <Container>
       <FlexContainer>
+        {/* @ts-expect-error: useStroke is not recognized as a valid prop */}
         <Logo glyph="ParsleyLogo" size={24} useStroke />
         <LinkContainer>
           <StyledLink href={`${docsURL}/Home`}>Docs</StyledLink>
@@ -33,7 +34,6 @@ const NavBar: React.FC = () => {
         </LinkContainer>
         <Search />
       </FlexContainer>
-
       <FlexContainer>
         <IconButton
           aria-label="Open shortcut modal"
@@ -52,7 +52,6 @@ const NavBar: React.FC = () => {
           </Button>
         )}
       </FlexContainer>
-
       <ShortcutModal open={open} setOpen={setOpen} />
     </Container>
   );

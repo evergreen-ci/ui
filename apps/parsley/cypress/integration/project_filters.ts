@@ -4,6 +4,8 @@ describe("project filters", () => {
   const resmokeLogLink =
     "/resmoke/7e208050e166b1a9025c817b67eee48d/test/1716e17b99558fd9c5e2faf70a00d15d";
 
+  const getTableCheckbox = (index: number) =>
+    cy.get(`[aria-label="Select row ${index}"]`);
   beforeEach(() => {
     cy.resetDrawerState();
   });
@@ -20,9 +22,7 @@ describe("project filters", () => {
     cy.visit(resmokeLogLink);
     cy.contains("View project filters").click();
     cy.dataCy("project-filters-modal").should("be.visible");
-    cy.getInputByLabel("(NETWORK|ASIO|EXECUTOR|CONNPOOL|REPL_HB)").check({
-      force: true,
-    });
+    getTableCheckbox(0).check({ force: true });
     cy.contains("button", "Apply filters").click();
     cy.location("search").should(
       "contain",
@@ -35,9 +35,7 @@ describe("project filters", () => {
     cy.visit(resmokeLogLink);
     cy.contains("View project filters").click();
     cy.dataCy("project-filters-modal").should("be.visible");
-    cy.getInputByLabel('"Connection accepted","attr"').check({
-      force: true,
-    });
+    getTableCheckbox(3).check({ force: true });
     cy.contains("button", "Apply filters").click();
     cy.location("search").should(
       "contain",
@@ -47,9 +45,9 @@ describe("project filters", () => {
   });
 
   it("should disable checkbox if filter is already applied", () => {
-    cy.visit(`${resmokeLogLink}?filters=100D%255Cd`);
+    cy.visit(`${resmokeLogLink}?filters=111D%255Cd`);
     cy.contains("View project filters").click();
     cy.dataCy("project-filters-modal").should("be.visible");
-    cy.getInputByLabel("D\\d").should("have.attr", "aria-disabled", "true");
+    getTableCheckbox(1).should("have.attr", "aria-disabled", "true");
   });
 });

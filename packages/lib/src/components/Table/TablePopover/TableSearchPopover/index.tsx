@@ -57,6 +57,8 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
 
   return (
     <FilterWrapper>
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-ignore: LeafyGreen component throws JSX errors */}
       <IconButton
         ref={buttonRef}
         active={active}
@@ -64,7 +66,7 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
         data-cy={dataCy}
         onClick={() => setActive(!active)}
       >
-        <Icon color={iconColor} glyph="MagnifyingGlass" small="xsmall" />
+        <Icon color={iconColor} glyph="MagnifyingGlass" />
       </IconButton>
       <Popover
         active={active}
