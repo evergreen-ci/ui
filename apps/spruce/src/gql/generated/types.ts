@@ -4279,6 +4279,41 @@ export type WorkstationSetupCommandInput = {
   directory?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type ReviewedTaskFragment = {
+  __typename?: "Task";
+  id: string;
+  execution: number;
+  displayStatus: string;
+  reviewed?: boolean | null;
+  executionTasksFull?: Array<{
+    __typename?: "Task";
+    id: string;
+    displayStatus: string;
+    execution: number;
+    reviewed?: boolean | null;
+  }> | null;
+};
+
+export type NonDisplayTaskReviewedFragment = {
+  __typename?: "Task";
+  reviewed?: boolean | null;
+};
+
+export type TaskReviewedFragment = {
+  __typename?: "Task";
+  id: string;
+  displayStatus: string;
+  execution: number;
+  reviewed?: boolean | null;
+  executionTasksFull?: Array<{
+    __typename?: "Task";
+    id: string;
+    displayStatus: string;
+    execution: number;
+    reviewed?: boolean | null;
+  }> | null;
+};
+
 export type AnnotationFragment = {
   __typename?: "Annotation";
   id: string;
