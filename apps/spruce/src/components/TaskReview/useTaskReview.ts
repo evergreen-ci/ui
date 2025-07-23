@@ -2,6 +2,7 @@ import { useCallback, useEffect } from "react";
 import { gql, useApolloClient, useFragment } from "@apollo/client";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskQuery } from "gql/generated/types";
+import { REVIEWED_TASK_FRAGMENT } from "./utils";
 
 export const useTaskReview = <T extends NonNullable<TaskQuery["task"]>>({
   execution,
@@ -17,20 +18,7 @@ export const useTaskReview = <T extends NonNullable<TaskQuery["task"]>>({
       id: taskId,
       execution: execution,
     },
-    fragment: gql`
-      fragment ReviewedTask on Task {
-        id
-        execution
-        displayStatus
-        reviewed
-        executionTasksFull {
-          id
-          displayStatus
-          execution
-          reviewed
-        }
-      }
-    `,
+    fragment: REVIEWED_TASK_FRAGMENT,
   });
 
   const cacheTaskId = cache.identify(data);

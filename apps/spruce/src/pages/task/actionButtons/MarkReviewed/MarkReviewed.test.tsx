@@ -1,7 +1,8 @@
-import { gql, InMemoryCache } from "@apollo/client";
+import { InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { REVIEWED_TASK_FRAGMENT } from "components/TaskReview/utils";
 import { TaskQuery } from "gql/generated/types";
 import { TASK } from "gql/queries";
 import { taskData, displayTaskData } from "./taskData";
@@ -44,20 +45,7 @@ cache.writeQuery({
 const read = (task: NonNullable<TaskQuery["task"]>) =>
   cache.readFragment({
     id: cache.identify(task),
-    fragment: gql`
-      fragment ReviewedTask on Task {
-        id
-        displayStatus
-        execution
-        executionTasksFull {
-          id
-          displayStatus
-          execution
-          reviewed
-        }
-        reviewed
-      }
-    `,
+    fragment: REVIEWED_TASK_FRAGMENT,
   }) as NonNullable<TaskQuery["task"]>;
 
 describe("mark as reviewed button", () => {
