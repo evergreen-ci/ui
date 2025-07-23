@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
+import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer, Link } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { wordBreakCss } from "@evg-ui/lib/components/styles";
@@ -31,6 +32,8 @@ import { useTaskQuery } from "hooks/useTaskQuery";
 import { Filters } from "types/logs";
 import { parseFilter, stringifyFilter } from "utils/query-string";
 import { convertParsleyFilterToFilter } from "./utils";
+
+const { gray } = palette;
 
 interface ProjectFiltersModalProps {
   open: boolean;
@@ -170,6 +173,9 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
           />
         }
         loading={projectFiltersLoading || taskQueryLoading}
+        rowCss={css`
+          border-bottom: 1px solid ${gray.light2};
+        `}
         shouldAlternateRowColor
         table={table}
         verticalAlignment="top"
@@ -216,5 +222,7 @@ const deduplicateFilters = (existing: Filters, incoming: Filters): Filters => {
 
 const FilterExpressionContainer = styled.div`
   ${wordBreakCss}
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 `;
 export default ProjectFiltersModal;

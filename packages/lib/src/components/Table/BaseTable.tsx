@@ -1,4 +1,5 @@
 import { ForwardedRef, forwardRef, Fragment } from "react";
+import { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
 import Pagination from "@leafygreen-ui/pagination";
@@ -73,6 +74,8 @@ interface SpruceTableProps<T extends LGRowData> {
   usePagination?: boolean;
   /** Object returned from the useLeafyGreenTable or useLeafyGreenVirtualTable hook */
   table: LeafyGreenVirtualTable<T> | LeafyGreenTable<T>;
+  /** CSS to apply to the table rows */
+  rowCss?: SerializedStyles;
 }
 
 type BaseTableProps<T> = SpruceTableProps<T> & Omit<TableProps<T>, "table">;
@@ -87,6 +90,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
       loading,
       loadingRows = 5,
       numTotalItems,
+      rowCss,
       selectedRowIndexes = [],
       table,
       usePagination = false,
@@ -141,6 +145,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                       disabled={disabledRowIndexes?.includes(row.index)}
                       isSelected={selectedRowIndexes.includes(row.index)}
                       row={row}
+                      rowCss={rowCss}
                       virtualRow={vr}
                     />
                   );
@@ -152,6 +157,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
                     disabled={disabledRowIndexes?.includes(row.index)}
                     isSelected={selectedRowIndexes.includes(row.index)}
                     row={row}
+                    rowCss={rowCss}
                   />
                 ))}
           </TableBody>
@@ -258,6 +264,7 @@ const RenderableRow = <T extends LGRowData>({
   disabled = false,
   isSelected = false,
   row,
+  rowCss,
   virtualRow,
 }: {
   dataCyRow?: string;
@@ -265,6 +272,7 @@ const RenderableRow = <T extends LGRowData>({
   virtualRow?: VirtualItem;
   isSelected?: boolean;
   disabled?: boolean;
+  rowCss?: SerializedStyles;
 }) => (
   <Fragment key={row.id}>
     {!row.isExpandedContent && (
@@ -272,6 +280,7 @@ const RenderableRow = <T extends LGRowData>({
       // @ts-ignore: This is a workaround to fix the type error
       <Row
         className={css`
+          ${rowCss}
           ${isSelected &&
           `
            background-color: ${blue.light3} !important;
