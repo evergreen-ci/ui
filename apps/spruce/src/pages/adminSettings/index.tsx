@@ -193,7 +193,7 @@ const AdminSettingsPage: React.FC = () => {
                   "disabled-graphql-queries",
                 )}
               >
-                Disable GraphQL Queries
+                Disabled GraphQL Queries
               </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>

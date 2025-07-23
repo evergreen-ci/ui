@@ -41,5 +41,6 @@ describe("web", () => {
     cy.get("@apiUrlInput").should("have.value", "http://example.com/api");
     cy.get("@uiUrlInput").should("have.value", "http://example.com/ui");
     cy.get("@waterfallCheckbox").should("have.attr", "checked");
+    cy.get("span[data-testid=chip-text]").contains("query1");
   });
 });

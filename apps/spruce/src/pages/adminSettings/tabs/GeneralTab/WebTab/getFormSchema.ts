@@ -18,6 +18,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
     properties: {
       web: {
         type: "object" as const,
+        title: "",
         properties: {
           api: {
             type: "object" as const,

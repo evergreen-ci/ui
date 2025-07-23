@@ -1,20 +1,5 @@
-import { css } from "@emotion/react";
-import { size } from "@evg-ui/lib/constants/tokens";
 import widgets from "components/SpruceForm/Widgets";
-
-const fullWidthCss = css`
-  grid-column: span 2;
-`;
-
-const radioCSS = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  padding: ${size.xs};
-  margin-bottom: 0px;
-  max-width: 100%;
-`;
+import { fullWidthCss, radioCSS } from "../../sharedStyles";
 
 export const api = {
   schema: {
@@ -25,10 +10,12 @@ export const api = {
     url: {
       type: "string" as const,
       title: "Backend URL",
+      format: "validURL",
     },
     corpUrl: {
       type: "string" as const,
       title: "Corp URL",
+      format: "validURL",
     },
   },
   uiSchema: {},
@@ -39,25 +26,29 @@ export const ui = {
     url: {
       type: "string" as const,
       title: "URL",
+      format: "validURL",
     },
     helpUrl: {
       type: "string" as const,
       title: "Help URL",
+      format: "validURL",
     },
     uiv2Url: {
       type: "string" as const,
       title: "UIv2 URL",
+      format: "validURL",
     },
     parsleyUrl: {
       type: "string" as const,
       title: "Parsley URL",
+      format: "validURL",
     },
     fileStreamingContentTypes: {
       type: "array" as const,
+      title: "File Streaming Content Types",
       items: {
         type: "string" as const,
       },
-      title: "File Streaming Content Types",
     },
     corsOrigins: {
       type: "array" as const,

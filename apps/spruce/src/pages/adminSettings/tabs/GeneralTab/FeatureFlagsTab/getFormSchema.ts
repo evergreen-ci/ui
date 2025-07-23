@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { radioCSS } from "../../sharedStyles";
 
 const serviceItems: Record<string, string> = {
   taskDispatchDisabled: "Dispatch tasks",
@@ -62,16 +62,6 @@ const zebraCSS = css`
       border-bottom: 1px solid ${palette.gray.light2};
     }
   }
-`;
-
-const radioCSS = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  padding: ${size.xs};
-  margin-bottom: 0px;
-  max-width: 100%;
 `;
 
 /**

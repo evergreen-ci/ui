@@ -70,6 +70,5 @@ export const formToGql = (({ web }) => {
     },
     disabledGQLQueries: disabledGQLQueries.queryNames,
   };
-  console.log("formToGql web data", returnVal);
   return returnVal;
 }) satisfies FormToGqlFunction<Tab>;
