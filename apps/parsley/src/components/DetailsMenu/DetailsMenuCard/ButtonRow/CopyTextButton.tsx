@@ -5,7 +5,6 @@ import { palette } from "@leafygreen-ui/palette";
 import { SplitButton } from "@leafygreen-ui/split-button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import Cookies from "js-cookie";
-import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import Icon from "@evg-ui/lib/components/Icon";
 import { transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -26,10 +25,28 @@ enum CopyFormat {
 }
 
 export const CopyTextButton: React.FC = () => {
+  const [bookmarks] = useQueryParam<number[]>(QueryParams.Bookmarks, []);
+  return (
+    <Tooltip
+      align="top"
+      enabled={bookmarks.length === 0}
+      justify="middle"
+      trigger={
+        <div>
+          <Button bookmarks={bookmarks} />
+        </div>
+      }
+      triggerEvent="hover"
+    >
+      No bookmarks to copy.
+    </Tooltip>
+  );
+};
+
+const Button: React.FC<{ bookmarks: number[] }> = ({ bookmarks }) => {
   const { sendEvent } = usePreferencesAnalytics();
   const { getLine } = useLogContext();
 
-  const [bookmarks] = useQueryParam<number[]>(QueryParams.Bookmarks, []);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -84,61 +101,44 @@ export const CopyTextButton: React.FC = () => {
   );
   const { [copyDefault]: primaryOption, ...selectableOptions } = copyOptions;
   return (
-    <ConditionalWrapper
-      condition={bookmarks.length === 0}
-      // eslint-disable-next-line react/no-unstable-nested-components
-      wrapper={(children) => (
-        <Tooltip
-          align="top"
-          justify="middle"
-          trigger={children}
-          triggerEvent="hover"
-        >
-          No bookmarks to copy.
-        </Tooltip>
+    <SplitButton
+      css={css`
+        /* Apply min-width to avoid elements moving when copied state is shown */
+        min-width: 138px;
+
+        button:first-of-type {
+          /* Align to left so icon doesn't move during copied state */
+          width: 100%;
+          & > div {
+            justify-content: start;
+          }
+
+          & > div > svg {
+            transition:
+              color ${transitionDuration.default}ms ease-in-out,
+              background-image ${transitionDuration.default}ms ease-in-out;
+
+            ${copied && copiedStyling}
+          }
+        }
+      `}
+      data-cy="copy-text-button"
+      disabled={!bookmarks.length}
+      label={copied ? "Copied" : primaryOption.label}
+      leftGlyph={<Icon data-testid="copy-glyph" glyph="Copy" />}
+      menuItems={Object.values(selectableOptions).map(
+        ({ handleClick, label }) => (
+          <MenuItem
+            key={label}
+            glyph={<Icon data-testid="copy-glyph" glyph="Copy" />}
+            onClick={handleClick}
+          >
+            {label}
+          </MenuItem>
+        ),
       )}
-    >
-      <div>
-        <SplitButton
-          css={css`
-            /* Apply min-width to avoid elements moving when copied state is shown */
-            min-width: 138px;
-
-            button:first-of-type {
-              /* Align to left so icon doesn't move during copied state */
-              width: 100%;
-              & > div {
-                justify-content: start;
-              }
-
-              & > div > svg {
-                transition:
-                  color ${transitionDuration.default}ms ease-in-out,
-                  background-image ${transitionDuration.default}ms ease-in-out;
-
-                ${copied && copiedStyling}
-              }
-            }
-          `}
-          data-cy="copy-text-button"
-          disabled={!bookmarks.length}
-          label={copied ? "Copied" : primaryOption.label}
-          leftGlyph={<Icon data-testid="copy-glyph" glyph="Copy" />}
-          menuItems={Object.values(selectableOptions).map(
-            ({ handleClick, label }) => (
-              <MenuItem
-                key="label"
-                glyph={<Icon data-testid="copy-glyph" glyph="Copy" />}
-                onClick={handleClick}
-              >
-                {label}
-              </MenuItem>
-            ),
-          )}
-          onClick={primaryOption.handleClick}
-        />
-      </div>
-    </ConditionalWrapper>
+      onClick={primaryOption.handleClick}
+    />
   );
 };
 
