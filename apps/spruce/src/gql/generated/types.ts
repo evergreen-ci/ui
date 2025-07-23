@@ -101,6 +101,7 @@ export type AdminSettings = {
   amboy?: Maybe<AmboyConfig>;
   amboyDB?: Maybe<AmboyDbConfig>;
   api?: Maybe<ApiConfig>;
+  authConfig?: Maybe<AuthConfig>;
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
@@ -120,6 +121,7 @@ export type AdminSettingsInput = {
   amboy?: InputMaybe<AmboyConfigInput>;
   amboyDB?: InputMaybe<AmboyDbConfigInput>;
   api?: InputMaybe<ApiConfigInput>;
+  authConfig?: InputMaybe<AuthConfigInput>;
   banner?: InputMaybe<Scalars["String"]["input"]>;
   bannerTheme?: InputMaybe<BannerTheme>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -133,6 +135,11 @@ export type AdminSettingsInput = {
   taskLimits?: InputMaybe<TaskLimitsConfigInput>;
   triggers?: InputMaybe<TriggerConfigInput>;
   ui?: InputMaybe<UiConfigInput>;
+};
+
+export type AdminTasksToRestartPayload = {
+  __typename?: "AdminTasksToRestartPayload";
+  tasksToRestart: Array<Task>;
 };
 
 export type AmboyConfig = {
@@ -241,6 +248,44 @@ export enum Arch {
   OsxArm_64Bit = "OSX_ARM_64_BIT",
   Windows_64Bit = "WINDOWS_64_BIT",
 }
+
+export type AuthConfig = {
+  __typename?: "AuthConfig";
+  allowServiceUsers?: Maybe<Scalars["Boolean"]["output"]>;
+  backgroundReauthMinutes?: Maybe<Scalars["Int"]["output"]>;
+  github?: Maybe<GitHubAuthConfig>;
+  kanopy?: Maybe<KanopyAuthConfig>;
+  multi?: Maybe<MultiAuthConfig>;
+  naive?: Maybe<NaiveAuthConfig>;
+  okta?: Maybe<OktaConfig>;
+  preferredType?: Maybe<PreferredAuthType>;
+};
+
+export type AuthConfigInput = {
+  allowServiceUsers?: InputMaybe<Scalars["Boolean"]["input"]>;
+  backgroundReauthMinutes?: InputMaybe<Scalars["Int"]["input"]>;
+  github?: InputMaybe<GitHubAuthConfigInput>;
+  kanopy?: InputMaybe<KanopyAuthConfigInput>;
+  multi?: InputMaybe<MultiAuthConfigInput>;
+  naive?: InputMaybe<NaiveAuthConfigInput>;
+  okta?: InputMaybe<OktaConfigInput>;
+  preferredType?: InputMaybe<PreferredAuthType>;
+};
+
+export type AuthUser = {
+  __typename?: "AuthUser";
+  displayName?: Maybe<Scalars["String"]["output"]>;
+  email?: Maybe<Scalars["String"]["output"]>;
+  password?: Maybe<Scalars["String"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type AuthUserInput = {
+  displayName?: InputMaybe<Scalars["String"]["input"]>;
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  password?: InputMaybe<Scalars["String"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
+};
 
 export enum BannerTheme {
   Announcement = "ANNOUNCEMENT",
@@ -799,6 +844,27 @@ export type GeneratedTaskCountResults = {
   taskName?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type GitHubAuthConfig = {
+  __typename?: "GitHubAuthConfig";
+  appId?: Maybe<Scalars["Int"]["output"]>;
+  clientId?: Maybe<Scalars["String"]["output"]>;
+  clientSecret?: Maybe<Scalars["String"]["output"]>;
+  defaultOwner?: Maybe<Scalars["String"]["output"]>;
+  defaultRepo?: Maybe<Scalars["String"]["output"]>;
+  organization?: Maybe<Scalars["String"]["output"]>;
+  users: Array<Scalars["String"]["output"]>;
+};
+
+export type GitHubAuthConfigInput = {
+  appId?: InputMaybe<Scalars["Int"]["input"]>;
+  clientId?: InputMaybe<Scalars["String"]["input"]>;
+  clientSecret?: InputMaybe<Scalars["String"]["input"]>;
+  defaultOwner?: InputMaybe<Scalars["String"]["input"]>;
+  defaultRepo?: InputMaybe<Scalars["String"]["input"]>;
+  organization?: InputMaybe<Scalars["String"]["input"]>;
+  users: Array<Scalars["String"]["input"]>;
+};
+
 export type GitHubDynamicTokenPermissionGroup = {
   __typename?: "GitHubDynamicTokenPermissionGroup";
   name: Scalars["String"]["output"];
@@ -1286,6 +1352,19 @@ export type JiraTicket = {
   key: Scalars["String"]["output"];
 };
 
+export type KanopyAuthConfig = {
+  __typename?: "KanopyAuthConfig";
+  headerName: Scalars["String"]["output"];
+  issuer: Scalars["String"]["output"];
+  keysetURL: Scalars["String"]["output"];
+};
+
+export type KanopyAuthConfigInput = {
+  headerName: Scalars["String"]["input"];
+  issuer: Scalars["String"]["input"];
+  keysetURL: Scalars["String"]["input"];
+};
+
 export type LogBuffering = {
   __typename?: "LogBuffering";
   count?: Maybe<Scalars["Int"]["output"]>;
@@ -1313,18 +1392,18 @@ export type LogMessage = {
 export type LoggerConfig = {
   __typename?: "LoggerConfig";
   buffer?: Maybe<LogBuffering>;
-  defaultLevel?: Maybe<Scalars["String"]["output"]>;
+  defaultLevel?: Maybe<PriorityLevel>;
   logkeeperURL?: Maybe<Scalars["String"]["output"]>;
   redactKeys: Array<Scalars["String"]["output"]>;
-  thresholdLevel?: Maybe<Scalars["String"]["output"]>;
+  thresholdLevel?: Maybe<PriorityLevel>;
 };
 
 export type LoggerConfigInput = {
   buffer: LogBufferingInput;
-  defaultLevel: Scalars["String"]["input"];
+  defaultLevel: PriorityLevel;
   logkeeperURL: Scalars["String"]["input"];
   redactKeys: Array<Scalars["String"]["input"]>;
-  thresholdLevel: Scalars["String"]["input"];
+  thresholdLevel: PriorityLevel;
 };
 
 export type LogkeeperBuild = {
@@ -1427,6 +1506,17 @@ export type MoveProjectInput = {
   projectId: Scalars["String"]["input"];
 };
 
+export type MultiAuthConfig = {
+  __typename?: "MultiAuthConfig";
+  readOnly: Array<Scalars["String"]["output"]>;
+  readWrite: Array<Scalars["String"]["output"]>;
+};
+
+export type MultiAuthConfigInput = {
+  readOnly?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  readWrite?: InputMaybe<Array<Scalars["String"]["input"]>>;
+};
+
 export type Mutation = {
   __typename?: "Mutation";
   abortTask: Task;
@@ -1462,6 +1552,7 @@ export type Mutation = {
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
+  restartAdminTasks: RestartAdminTasksPayload;
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
   restartVersions?: Maybe<Array<Version>>;
@@ -1637,6 +1728,10 @@ export type MutationReprovisionToNewArgs = {
   hostIds: Array<Scalars["String"]["input"]>;
 };
 
+export type MutationRestartAdminTasksArgs = {
+  opts: RestartAdminTasksOptions;
+};
+
 export type MutationRestartJasperArgs = {
   hostIds: Array<Scalars["String"]["input"]>;
 };
@@ -1765,6 +1860,15 @@ export type MutationUpdateVolumeArgs = {
   updateVolumeInput: UpdateVolumeInput;
 };
 
+export type NaiveAuthConfig = {
+  __typename?: "NaiveAuthConfig";
+  users: Array<AuthUser>;
+};
+
+export type NaiveAuthConfigInput = {
+  users?: InputMaybe<Array<AuthUserInput>>;
+};
+
 /** Return type representing whether a distro was created and any validation errors */
 export type NewDistroPayload = {
   __typename?: "NewDistroPayload";
@@ -1816,6 +1920,25 @@ export type OsInfo = {
   __typename?: "OSInfo";
   name: Scalars["String"]["output"];
   version: Scalars["String"]["output"];
+};
+
+export type OktaConfig = {
+  __typename?: "OktaConfig";
+  clientId?: Maybe<Scalars["String"]["output"]>;
+  clientSecret?: Maybe<Scalars["String"]["output"]>;
+  expireAfterMinutes?: Maybe<Scalars["Int"]["output"]>;
+  issuer?: Maybe<Scalars["String"]["output"]>;
+  scopes: Array<Scalars["String"]["output"]>;
+  userGroup?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type OktaConfigInput = {
+  clientId?: InputMaybe<Scalars["String"]["input"]>;
+  clientSecret?: InputMaybe<Scalars["String"]["input"]>;
+  expireAfterMinutes?: InputMaybe<Scalars["Int"]["input"]>;
+  issuer?: InputMaybe<Scalars["String"]["input"]>;
+  scopes?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  userGroup?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type OomTrackerInfo = {
@@ -2146,6 +2269,26 @@ export type PreconditionScriptInput = {
   script: Scalars["String"]["input"];
 };
 
+export enum PreferredAuthType {
+  Github = "GITHUB",
+  Kanopy = "KANOPY",
+  Multi = "MULTI",
+  Naive = "NAIVE",
+  Okta = "OKTA",
+}
+
+export enum PriorityLevel {
+  Alert = "ALERT",
+  Critical = "CRITICAL",
+  Debug = "DEBUG",
+  Emergency = "EMERGENCY",
+  Error = "ERROR",
+  Info = "INFO",
+  Notice = "NOTICE",
+  Trace = "TRACE",
+  Warning = "WARNING",
+}
+
 /** Project models single repository on GitHub. */
 export type Project = {
   __typename?: "Project";
@@ -2447,6 +2590,7 @@ export type Query = {
   __typename?: "Query";
   adminEvents: AdminEventsPayload;
   adminSettings?: Maybe<AdminSettings>;
+  adminTasksToRestart: AdminTasksToRestartPayload;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
   buildBaron: BuildBaron;
@@ -2496,6 +2640,10 @@ export type Query = {
 
 export type QueryAdminEventsArgs = {
   opts: AdminEventsInput;
+};
+
+export type QueryAdminTasksToRestartArgs = {
+  opts: RestartAdminTasksOptions;
 };
 
 export type QueryBbGetCreatedTicketsArgs = {
@@ -2834,6 +2982,19 @@ export type ResourceLimitsInput = {
   numProcesses: Scalars["Int"]["input"];
   numTasks: Scalars["Int"]["input"];
   virtualMemoryKb: Scalars["Int"]["input"];
+};
+
+export type RestartAdminTasksOptions = {
+  endTime: Scalars["Time"]["input"];
+  includeSetupFailed: Scalars["Boolean"]["input"];
+  includeSystemFailed: Scalars["Boolean"]["input"];
+  includeTestFailed: Scalars["Boolean"]["input"];
+  startTime: Scalars["Time"]["input"];
+};
+
+export type RestartAdminTasksPayload = {
+  __typename?: "RestartAdminTasksPayload";
+  numRestartedTasks: Scalars["Int"]["output"];
 };
 
 export enum RoundingRule {
@@ -6036,6 +6197,57 @@ export type SaveAdminSettingsMutation = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    disabledGQLQueries: Array<string>;
+    api?: {
+      __typename?: "APIConfig";
+      corpUrl?: string | null;
+      httpListenAddr?: string | null;
+      url?: string | null;
+    } | null;
+    hostInit?: {
+      __typename?: "HostInitConfig";
+      cloudStatusBatchSize?: number | null;
+      hostThrottle?: number | null;
+      maxTotalDynamicHosts?: number | null;
+      provisioningThrottle?: number | null;
+    } | null;
+    notify?: {
+      __typename?: "NotifyConfig";
+      ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
+    } | null;
+    podLifecycle?: {
+      __typename?: "PodLifecycleConfig";
+      maxParallelPodRequests?: number | null;
+      maxPodDefinitionCleanupRate?: number | null;
+      maxSecretCleanupRate?: number | null;
+    } | null;
+    repotracker?: {
+      __typename?: "RepotrackerConfig";
+      maxConcurrentRequests?: number | null;
+      maxRepoRevisionsToSearch?: number | null;
+      numNewRepoRevisionsToFetch?: number | null;
+    } | null;
+    scheduler?: {
+      __typename?: "SchedulerConfig";
+      acceptableHostIdleTimeSeconds?: number | null;
+      cacheDurationSeconds?: number | null;
+      commitQueueFactor?: number | null;
+      expectedRuntimeFactor?: number | null;
+      futureHostFraction?: number | null;
+      generateTaskFactor?: number | null;
+      groupVersions: boolean;
+      hostAllocator?: HostAllocatorVersion | null;
+      hostAllocatorFeedbackRule?: FeedbackRule | null;
+      hostAllocatorRoundingRule?: RoundingRule | null;
+      hostsOverallocatedRule?: OverallocatedRule | null;
+      mainlineTimeInQueueFactor?: number | null;
+      numDependentsFactor?: number | null;
+      patchFactor?: number | null;
+      patchTimeInQueueFactor?: number | null;
+      stepbackTaskFactor?: number | null;
+      targetTimeSeconds?: number | null;
+      taskFinder?: FinderVersion | null;
+    } | null;
     serviceFlags?: {
       __typename?: "ServiceFlags";
       adminParameterStoreDisabled: boolean;
@@ -6074,6 +6286,42 @@ export type SaveAdminSettingsMutation = {
       taskReliabilityDisabled: boolean;
       unrecognizedPodCleanupDisabled: boolean;
       webhookNotificationsDisabled: boolean;
+    } | null;
+    taskLimits?: {
+      __typename?: "TaskLimitsConfig";
+      maxConcurrentLargeParserProjectTasks?: number | null;
+      maxDailyAutomaticRestarts?: number | null;
+      maxDegradedModeConcurrentLargeParserProjectTasks?: number | null;
+      maxDegradedModeParserProjectSize?: number | null;
+      maxExecTimeoutSecs?: number | null;
+      maxGenerateTaskJSONSize?: number | null;
+      maxHourlyPatchTasks?: number | null;
+      maxIncludesPerVersion?: number | null;
+      maxParserProjectSize?: number | null;
+      maxPendingGeneratedTasks?: number | null;
+      maxTaskExecution?: number | null;
+      maxTasksPerVersion?: number | null;
+    } | null;
+    ui?: {
+      __typename?: "UIConfig";
+      cacheTemplates?: boolean | null;
+      corsOrigins: Array<string>;
+      csrfKey?: string | null;
+      defaultProject: string;
+      fileStreamingContentTypes: Array<string>;
+      helpUrl?: string | null;
+      httpListenAddr?: string | null;
+      loginDomain?: string | null;
+      parsleyUrl?: string | null;
+      secret?: string | null;
+      stagingEnvironment?: string | null;
+      uiv2Url?: string | null;
+      url?: string | null;
+      userVoice?: string | null;
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
     } | null;
   };
 };
@@ -6427,6 +6675,12 @@ export type AdminSettingsQuery = {
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
     disabledGQLQueries: Array<string>;
+    api?: {
+      __typename?: "APIConfig";
+      corpUrl?: string | null;
+      httpListenAddr?: string | null;
+      url?: string | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -6524,6 +6778,27 @@ export type AdminSettingsQuery = {
       maxPendingGeneratedTasks?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
+    } | null;
+    ui?: {
+      __typename?: "UIConfig";
+      cacheTemplates?: boolean | null;
+      corsOrigins: Array<string>;
+      csrfKey?: string | null;
+      defaultProject: string;
+      fileStreamingContentTypes: Array<string>;
+      helpUrl?: string | null;
+      httpListenAddr?: string | null;
+      loginDomain?: string | null;
+      parsleyUrl?: string | null;
+      secret?: string | null;
+      stagingEnvironment?: string | null;
+      uiv2Url?: string | null;
+      url?: string | null;
+      userVoice?: string | null;
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
     } | null;
   } | null;
 };
