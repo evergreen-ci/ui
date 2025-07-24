@@ -202,7 +202,7 @@ const repoForm: GCQFormState = {
       githubPrAliasesOverride: true,
       githubPrAliases: [],
     },
-    githubTriggerAliases: [
+    githubPRTriggerAliases: [
       {
         alias: "alias1",
         childProjectIdentifier: "spruce",
