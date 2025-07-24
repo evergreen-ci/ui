@@ -2352,8 +2352,9 @@ export type Project = {
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   githubDynamicTokenPermissionGroups: Array<GitHubDynamicTokenPermissionGroup>;
+  githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
+  githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
-  githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   hidden?: Maybe<Scalars["Boolean"]["output"]>;
   id: Scalars["String"]["output"];
   identifier: Scalars["String"]["output"];
@@ -2492,8 +2493,9 @@ export type ProjectInput = {
   githubDynamicTokenPermissionGroups?: InputMaybe<
     Array<GitHubDynamicTokenPermissionGroupInput>
   >;
+  githubMQTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  githubPRTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
-  githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   identifier?: InputMaybe<Scalars["String"]["input"]>;
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -2878,8 +2880,9 @@ export type RepoRef = {
   gitTagVersionsEnabled: Scalars["Boolean"]["output"];
   githubChecksEnabled: Scalars["Boolean"]["output"];
   githubDynamicTokenPermissionGroups: Array<GitHubDynamicTokenPermissionGroup>;
+  githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
+  githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
-  githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
   notifyOnBuildFailure: Scalars["Boolean"]["output"];
@@ -2924,8 +2927,9 @@ export type RepoRefInput = {
   githubDynamicTokenPermissionGroups?: InputMaybe<
     Array<GitHubDynamicTokenPermissionGroupInput>
   >;
+  githubMQTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  githubPRTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
-  githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
