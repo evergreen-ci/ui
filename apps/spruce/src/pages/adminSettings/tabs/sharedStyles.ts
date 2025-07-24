@@ -14,3 +14,11 @@ export const radioCSS = css`
   margin-bottom: 0px;
   max-width: 100%;
 `;
+
+export const gridWrapCss = css`
+  > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: ${size.m};
+  }
+`;

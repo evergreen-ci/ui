@@ -89,7 +89,8 @@ export const ui = {
     },
     userVoice: {
       type: "string" as const,
-      title: "User Voice",
+      title: "User Voice URL",
+      format: "validURL",
     },
   },
   uiSchema: {

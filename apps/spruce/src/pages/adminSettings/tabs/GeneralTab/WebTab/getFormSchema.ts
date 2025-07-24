@@ -1,16 +1,8 @@
-import { css } from "@emotion/react";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import { gridWrapCss } from "../../sharedStyles";
 import { api, ui, disabledGQLQueries, betaFeatures } from "./schemaFields";
 
-const gridWrapCss = css`
-  > div {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: ${size.m};
-  }
-`;
 export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
