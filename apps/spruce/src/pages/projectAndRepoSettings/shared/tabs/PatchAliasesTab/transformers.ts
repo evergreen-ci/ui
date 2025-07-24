@@ -14,7 +14,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
   const {
     aliases,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    projectRef: { githubTriggerAliases, patchTriggerAliases },
+    projectRef: { githubPRTriggerAliases, patchTriggerAliases },
   } = data;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { projectType } = options;
@@ -48,7 +48,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
           status: p.status,
           parentAsModule: p.parentAsModule ?? "",
           downstreamRevision: p.downstreamRevision ?? "",
-          isGithubTriggerAlias: githubTriggerAliases?.includes(p.alias),
+          isGithubTriggerAlias: githubPRTriggerAliases?.includes(p.alias),
           displayTitle: p.alias,
         })) ?? [],
     },
@@ -67,11 +67,11 @@ export const formToGql = ((
   );
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const githubTriggerAliases = [];
+  const githubPRTriggerAliases = [];
   const patchTriggerAliases = ptaData.aliasesOverride
     ? ptaData.aliases.map((a) => {
         if (a.isGithubTriggerAlias) {
-          githubTriggerAliases.push(a.alias);
+          githubPRTriggerAliases.push(a.alias);
         }
         return {
           alias: a.alias,
@@ -100,8 +100,12 @@ export const formToGql = ((
 
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    projectRef: { id, patchTriggerAliases, githubTriggerAliases },
+    projectRef: {
+      id,
+      patchTriggerAliases,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      githubPRTriggerAliases,
+    },
     aliases,
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
