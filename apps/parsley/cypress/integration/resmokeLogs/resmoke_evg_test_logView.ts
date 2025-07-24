@@ -151,7 +151,7 @@ describe("resmokeLogs/resmoke_evg_test_logView", () => {
       const logLine1638 = `[ContinuousStepdown:job0] Pausing the stepdown thread.`;
 
       cy.dataCy("details-button").click();
-      cy.dataCy("jira-button").click();
+      cy.dataCy("copy-text-button").click();
       cy.assertValueCopiedToClipboard(
         `{noformat}\n${logLine0}\n...\n${logLine10}\n${logLine11}\n...\n${logLine1638}\n{noformat}`,
       );

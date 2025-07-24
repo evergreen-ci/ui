@@ -39,6 +39,8 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
 
   return (
     <FilterWrapper>
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-ignore: LeafyGreen component throws JSX errors */}
       <IconButton
         ref={buttonRef}
         active={active}
@@ -47,7 +49,7 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
         data-highlighted={hasFilters}
         onClick={() => setActive(!active)}
       >
-        <Icon color={iconColor} glyph="Filter" small="xsmall" />
+        <Icon color={iconColor} glyph="Filter" />
       </IconButton>
       <Popover
         active={active}

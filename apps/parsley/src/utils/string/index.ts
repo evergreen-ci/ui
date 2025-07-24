@@ -1,4 +1,40 @@
 /**
+ * `getRawLines` constructs a string with the lines provided.
+ * @param indices  - array of numbers representing the line indices you want to copy
+ * @param getLine - function that retrieves the log text associated with a log line number
+ * @returns formatted string
+ */
+export const getRawLines = (
+  indices: number[],
+  getLine: (lineNumber: number) => string | undefined,
+) => {
+  if (indices.length === 0) {
+    return "";
+  }
+
+  let logString = "";
+
+  for (let i = 0; i < indices.length; i++) {
+    const indexLine = indices[i];
+    const logText = getLine(indexLine);
+
+    // If indices are out of bounds, stop processing.
+    if (logText === undefined) {
+      break;
+    }
+
+    logString += `${trimSeverity(logText)}\n`;
+
+    // If the current and next indices are not adjacent to each other, insert an
+    // ellipsis in between them.
+    if (i + 1 !== indices.length && indexLine + 1 !== indices[i + 1]) {
+      logString += "...\n";
+    }
+  }
+  return logString;
+};
+
+/**
  * `getJiraFormat` constructs a JIRA formatted string with the lines provided.
  * @param indices  - array of numbers representing the line indices you want to copy
  * @param getLine - function that retrieves the log text associated with a log line number
@@ -12,27 +48,7 @@ export const getJiraFormat = (
     return "";
   }
 
-  let jiraString = "{noformat}\n";
-
-  for (let i = 0; i < indices.length; i++) {
-    const indexLine = indices[i];
-    const logText = getLine(indexLine);
-
-    // If indices are out of bounds, stop processing.
-    if (logText === undefined) {
-      break;
-    }
-
-    jiraString += `${trimSeverity(logText)}\n`;
-
-    // If the current and next indices are not adjacent to each other, insert an
-    // ellipsis in between them.
-    if (i + 1 !== indices.length && indexLine + 1 !== indices[i + 1]) {
-      jiraString += "...\n";
-    }
-  }
-  jiraString += "{noformat}";
-  return jiraString;
+  return `{noformat}\n${getRawLines(indices, getLine)}{noformat}`;
 };
 
 /**

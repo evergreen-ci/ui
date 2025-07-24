@@ -12,7 +12,7 @@
         <nav
           aria-label="Side panel"
           class="leafygreen-ui-fw8ayd"
-          id="side-nav-34"
+          id="side-nav-26"
         >
           <div
             class="leafygreen-ui-1nmawjt"
@@ -29,7 +29,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-30"
+                    id="menu-group-label-id-22"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -51,7 +51,7 @@
                         >
                           <path
                             clip-rule="evenodd"
-                            d="m6 6.148-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 0 1-.17.376l-3 2.625a.5.5 0 0 1-.83-.376v-8.25Z"
+                            d="m6 6.148-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 0 1-.17.376l-3 2.625a.5.5 0 0 1-.83-.376z"
                             fill="currentColor"
                             fill-rule="evenodd"
                           />
@@ -86,7 +86,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-30"
+                    aria-labelledby="menu-group-label-id-22"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -102,7 +102,7 @@
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-1u7amgm"
                             open=""
                             style="align-self: start;"
                             tabindex="0"
@@ -122,7 +122,7 @@
                               >
                                 <path
                                   clip-rule="evenodd"
-                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
                                   fill="currentColor"
                                   fill-rule="evenodd"
                                 />
@@ -160,7 +160,7 @@
                               <button
                                 aria-disabled="false"
                                 aria-label="Edit filter"
-                                class="leafygreen-ui-tcjr3n"
+                                class="leafygreen-ui-1u7amgm"
                                 tabindex="0"
                                 title="Edit filter"
                               >
@@ -178,7 +178,7 @@
                                     xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
-                                      d="M10.922.681a.963.963 0 0 1 1.362 0l1.363 1.363a.963.963 0 0 1 0 1.362L12.284 4.77 9.56 2.044 8.538 3.066l2.724 2.725-7.153 7.153-3.747 1.022 1.022-3.747L10.922.68Z"
+                                      d="M10.922.681a.963.963 0 0 1 1.362 0l1.363 1.363a.963.963 0 0 1 0 1.362L12.284 4.77 9.56 2.044 8.538 3.066l2.724 2.725-7.153 7.153-3.747 1.022 1.022-3.747z"
                                       fill="currentColor"
                                     />
                                   </svg>
@@ -187,7 +187,7 @@
                               <button
                                 aria-disabled="false"
                                 aria-label="Delete filter"
-                                class="leafygreen-ui-tcjr3n"
+                                class="leafygreen-ui-1u7amgm"
                                 tabindex="0"
                                 title="Delete filter"
                               >
@@ -206,7 +206,7 @@
                                   >
                                     <path
                                       clip-rule="evenodd"
-                                      d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414l-.707-.707Z"
+                                      d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414z"
                                       fill="currentColor"
                                       fill-rule="evenodd"
                                     />
@@ -236,8 +236,8 @@
                                   Case
                                 </div>
                                 <div
-                                  aria-label="segmented-control-35"
-                                  aria-owns="segmented-control-35-0 segmented-control-35-1"
+                                  aria-label="segmented-control-27"
+                                  aria-owns="segmented-control-27-0 segmented-control-27-1"
                                   class="leafygreen-ui-18en4yf"
                                   role="tablist"
                                 >
@@ -253,7 +253,7 @@
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="true"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-35-0"
+                                        id="segmented-control-27-0"
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -282,7 +282,7 @@
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="false"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-35-1"
+                                        id="segmented-control-27-1"
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -316,8 +316,8 @@
                                   Match
                                 </div>
                                 <div
-                                  aria-label="segmented-control-36"
-                                  aria-owns="segmented-control-36-0 segmented-control-36-1"
+                                  aria-label="segmented-control-28"
+                                  aria-owns="segmented-control-28-0 segmented-control-28-1"
                                   class="leafygreen-ui-18en4yf"
                                   role="tablist"
                                 >
@@ -333,7 +333,7 @@
                                         aria-controls="Toggle match type"
                                         aria-selected="true"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-36-0"
+                                        id="segmented-control-28-0"
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -362,7 +362,7 @@
                                         aria-controls="Toggle match type"
                                         aria-selected="false"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-36-1"
+                                        id="segmented-control-28-1"
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -400,7 +400,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-31"
+                    id="menu-group-label-id-23"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -455,7 +455,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-31"
+                    aria-labelledby="menu-group-label-id-23"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -465,7 +465,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Delete range"
-                        class="leafygreen-ui-tcjr3n"
+                        class="leafygreen-ui-1u7amgm"
                         tabindex="0"
                       >
                         <div
@@ -483,7 +483,7 @@
                           >
                             <path
                               clip-rule="evenodd"
-                              d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414l-.707-.707Z"
+                              d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414z"
                               fill="currentColor"
                               fill-rule="evenodd"
                             />
@@ -507,7 +507,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-32"
+                    id="menu-group-label-id-24"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -528,7 +528,7 @@
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M8.853 12.031A.1.1 0 0 1 8.926 12h5.824a.25.25 0 0 1 .25.25v1.5a.25.25 0 0 1-.25.25H7.231a.1.1 0 0 1-.072-.168l1.694-1.8ZM4.019 9.193l.375-.374L7.576 12l-.375.375a1 1 0 0 1-.779.29l-.574-.04a1 1 0 0 0-.778.29l-.141.14-1.591-1.59.141-.142a1 1 0 0 0 .29-.778l-.04-.573a1 1 0 0 1 .29-.779ZM11.433 1.779a1 1 0 0 1 1.415 0l1.767 1.768a1 1 0 0 1 0 1.414L8.28 11.296 5.098 8.114l6.335-6.335ZM2.632 12.167l1.593 1.593-.17.172a.25.25 0 0 1-.178.074H1.386a.25.25 0 0 1-.176-.428l1.422-1.41Z"
+                            d="M8.853 12.032A.1.1 0 0 1 8.926 12h5.824a.25.25 0 0 1 .25.25v1.5a.25.25 0 0 1-.25.25H7.231a.1.1 0 0 1-.072-.168zM4.019 9.193l.375-.374L7.576 12l-.375.374a1 1 0 0 1-.779.29l-.574-.04a1 1 0 0 0-.778.29l-.141.14-1.591-1.59.141-.142a1 1 0 0 0 .29-.778l-.04-.573a1 1 0 0 1 .29-.779M11.433 1.779a1 1 0 0 1 1.415 0l1.767 1.768a1 1 0 0 1 0 1.414L8.28 11.296 5.098 8.114zM2.632 12.167l1.593 1.593-.17.172a.25.25 0 0 1-.178.074H1.386a.25.25 0 0 1-.176-.428z"
                             fill="currentColor"
                           />
                         </svg>
@@ -555,7 +555,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-32"
+                    aria-labelledby="menu-group-label-id-24"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -564,7 +564,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Delete highlight"
-                        class="leafygreen-ui-tcjr3n"
+                        class="leafygreen-ui-1u7amgm"
                         data-cy="delete-highlight-button"
                         tabindex="0"
                       >
@@ -583,7 +583,7 @@
                           >
                             <path
                               clip-rule="evenodd"
-                              d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414l-.707-.707Z"
+                              d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414z"
                               fill="currentColor"
                               fill-rule="evenodd"
                             />
@@ -604,7 +604,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Delete highlight"
-                        class="leafygreen-ui-tcjr3n"
+                        class="leafygreen-ui-1u7amgm"
                         data-cy="delete-highlight-button"
                         tabindex="0"
                       >
@@ -623,7 +623,7 @@
                           >
                             <path
                               clip-rule="evenodd"
-                              d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414l-.707-.707Z"
+                              d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414z"
                               fill="currentColor"
                               fill-rule="evenodd"
                             />
@@ -667,7 +667,7 @@
                 >
                   <path
                     clip-rule="evenodd"
-                    d="m6 6.148-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 0 1-.17.376l-3 2.625a.5.5 0 0 1-.83-.376v-8.25Z"
+                    d="m6 6.148-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 0 1-.17.376l-3 2.625a.5.5 0 0 1-.83-.376z"
                     fill="currentColor"
                     fill-rule="evenodd"
                   />
@@ -717,7 +717,7 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M8.853 12.031A.1.1 0 0 1 8.926 12h5.824a.25.25 0 0 1 .25.25v1.5a.25.25 0 0 1-.25.25H7.231a.1.1 0 0 1-.072-.168l1.694-1.8ZM4.019 9.193l.375-.374L7.576 12l-.375.375a1 1 0 0 1-.779.29l-.574-.04a1 1 0 0 0-.778.29l-.141.14-1.591-1.59.141-.142a1 1 0 0 0 .29-.778l-.04-.573a1 1 0 0 1 .29-.779ZM11.433 1.779a1 1 0 0 1 1.415 0l1.767 1.768a1 1 0 0 1 0 1.414L8.28 11.296 5.098 8.114l6.335-6.335ZM2.632 12.167l1.593 1.593-.17.172a.25.25 0 0 1-.178.074H1.386a.25.25 0 0 1-.176-.428l1.422-1.41Z"
+                    d="M8.853 12.032A.1.1 0 0 1 8.926 12h5.824a.25.25 0 0 1 .25.25v1.5a.25.25 0 0 1-.25.25H7.231a.1.1 0 0 1-.072-.168zM4.019 9.193l.375-.374L7.576 12l-.375.374a1 1 0 0 1-.779.29l-.574-.04a1 1 0 0 0-.778.29l-.141.14-1.591-1.59.141-.142a1 1 0 0 0 .29-.778l-.04-.573a1 1 0 0 1 .29-.779M11.433 1.779a1 1 0 0 1 1.415 0l1.767 1.768a1 1 0 0 1 0 1.414L8.28 11.296 5.098 8.114zM2.632 12.167l1.593 1.593-.17.172a.25.25 0 0 1-.178.074H1.386a.25.25 0 0 1-.176-.428z"
                     fill="currentColor"
                   />
                 </svg>
@@ -726,7 +726,7 @@
           </div>
         </nav>
         <button
-          aria-controls="side-nav-34"
+          aria-controls="side-nav-26"
           aria-expanded="true"
           aria-label="Collapse navigation"
           class="leafygreen-ui-v87gj9"

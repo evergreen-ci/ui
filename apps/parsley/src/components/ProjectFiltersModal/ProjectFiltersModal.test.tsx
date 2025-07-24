@@ -36,7 +36,7 @@ describe("projectFiltersModal", () => {
     stubGetClientRects();
     InitializeFakeToastContext();
   });
-  it("shows message when no filters are defined in project", () => {
+  it("shows message when no filters are defined in project", async () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
       <ProjectFiltersModal open setOpen={vi.fn()} />,
@@ -47,6 +47,7 @@ describe("projectFiltersModal", () => {
     act(() => {
       hook.current.setLogMetadata(logMetadata);
     });
+    await waitForModalLoad();
     expect(screen.getByDataCy("no-filters-message")).toBeInTheDocument();
   });
 
@@ -68,25 +69,23 @@ describe("projectFiltersModal", () => {
   });
 
   it("if a filter is already included in the URL, its checkbox will be checked & disabled", async () => {
-    const user = userEvent.setup();
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
       <ProjectFiltersModal open setOpen={vi.fn()} />,
     );
+
     render(<Component />, {
-      route: "?filters=100my_filter_1",
+      route: "?filters=110my_filter_1",
       wrapper: wrapper([projectFiltersMock, evergreenTaskMock]),
     });
     act(() => {
       hook.current.setLogMetadata(logMetadata);
     });
     await waitForModalLoad();
-    await user.hover(screen.getByLabelText("Info With Circle Icon"));
+    const checkbox = screen.getAllByRole("checkbox")[1];
     await waitFor(() => {
-      expect(screen.queryByDataCy("project-filter-tooltip")).toBeVisible();
+      expect(checkbox).toBeChecked();
     });
-    const checkbox = screen.getAllByRole("checkbox")[0];
-    expect(checkbox).toBeChecked();
     expect(checkbox).toHaveAttribute("aria-disabled", "true");
   });
 
@@ -121,9 +120,16 @@ describe("projectFiltersModal", () => {
       hook.current.setLogMetadata(logMetadata);
     });
     await waitForModalLoad();
+
     // LeafyGreen checkbox has pointer-events: none so we click on the labels as a workaround.
-    await user.click(screen.getByText("my_filter_2"));
-    await user.click(screen.getByText("my_filter_3"));
+    const checkboxes = screen.getAllByRole("checkbox");
+    const checkbox2 = checkboxes[2];
+    const checkbox3 = checkboxes[3];
+    const checkbox2Label = checkbox2.nextElementSibling as HTMLElement;
+    const checkbox3Label = checkbox3.nextElementSibling as HTMLElement;
+    await user.click(checkbox2Label);
+    await user.click(checkbox3Label);
+
     expect(
       screen.queryByRole("button", { name: "Apply filters" }),
     ).toHaveAttribute("aria-disabled", "false");
@@ -139,7 +145,9 @@ const waitForModalLoad = async () => {
     expect(screen.queryByDataCy("project-filters-modal")).toBeVisible(),
   );
   await waitFor(() =>
-    expect(screen.queryAllByDataCy("project-filter")).toHaveLength(3),
+    expect(
+      screen.queryByDataCy("table-loader-loading-row"),
+    ).not.toBeInTheDocument(),
   );
 };
 

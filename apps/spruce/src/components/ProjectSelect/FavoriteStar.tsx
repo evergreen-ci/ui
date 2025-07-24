@@ -59,12 +59,17 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
     }
   };
   return (
-    <IconButton
-      aria-label="Add To Favorites"
-      data-cy={dataCy}
-      onClick={onClick}
-    >
-      <Icon fill={isFavorite ? green.dark1 : gray.dark1} glyph="Favorite" />
-    </IconButton>
+    <div>
+      <IconButton
+        aria-label="Add To Favorites"
+        data-cy={dataCy}
+        onClick={onClick}
+      >
+        <Icon
+          fill={isFavorite ? green.dark1 : gray.dark1}
+          glyph={isFavorite ? "Favorite" : "OutlineFavorite"}
+        />
+      </IconButton>
+    </div>
   );
 };
