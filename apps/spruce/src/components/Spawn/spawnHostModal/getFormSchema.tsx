@@ -37,7 +37,6 @@ interface Props {
   isVirtualWorkstation: boolean;
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   noExpirationCheckboxTooltip: string;
-  permanentlyExempt: boolean;
   spawnTaskData?: SpawnTaskQuery["task"];
   timeZone: string;
   useSetupScript?: boolean;
@@ -56,7 +55,6 @@ export const getFormSchema = ({
   isVirtualWorkstation,
   myPublicKeys,
   noExpirationCheckboxTooltip,
-  permanentlyExempt,
   spawnTaskData,
   timeZone,
   useProjectSetupScript = false,
@@ -82,7 +80,7 @@ export const getFormSchema = ({
     hostUptimeWarnings,
     isEditModal: false,
     noExpirationCheckboxTooltip,
-    permanentlyExempt,
+    permanentlyExempt: false,
     timeZone,
   });
   const publicKeys = getPublicKeySchema({ myPublicKeys });

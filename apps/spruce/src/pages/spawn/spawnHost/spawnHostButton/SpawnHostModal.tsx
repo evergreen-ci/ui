@@ -106,7 +106,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     return { enabledHoursCount, warnings };
   }, [formState?.expirationDetails?.hostUptime]);
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     availableRegions: selectedDistro?.availableRegions ?? [],

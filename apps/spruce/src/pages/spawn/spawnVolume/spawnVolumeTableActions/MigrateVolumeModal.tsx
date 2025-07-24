@@ -4,6 +4,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import { getEnabledHoursCount, getHostUptimeWarnings } from "components/Spawn";
 import {
   formToGql,
   getFormSchema,
@@ -42,8 +43,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   const { sendEvent } = useSpawnAnalytics();
 
   const { formSchemaInput, loading: loadingFormData } = useLoadFormSchemaData({
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    host: volume.host,
+    host: volume.host ?? { noExpiration: false },
   });
   const timeZone =
     useUserTimeZone() || Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -77,10 +77,24 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     [distros, form?.requiredSection?.distro],
   );
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  const hostUptimeWarnings = useMemo(() => {
+    const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount(
+      form?.expirationDetails?.hostUptime,
+    );
+    const warnings = getHostUptimeWarnings({
+      enabledHoursCount,
+      enabledWeekdaysCount,
+      runContinuously:
+        form?.expirationDetails?.hostUptime?.sleepSchedule?.timeSelection
+          ?.runContinuously ?? false,
+    });
+    return { enabledHoursCount, warnings };
+  }, [form?.expirationDetails?.hostUptime]);
+
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     availableRegions: selectedDistro?.availableRegions ?? [],
+    hostUptimeWarnings,
     distros,
     isMigration: true,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
@@ -118,7 +132,6 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     });
     migrateVolumeMutation({
       variables: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         spawnHostInput: mutationInput,
         volumeId: volume.id,
       },
