@@ -239,6 +239,7 @@ describe("filterLogs", () => {
         },
         8,
         {
+          commandDescription: undefined,
           commandID: "command-9",
           commandName: "c3",
           functionID: "function-9",

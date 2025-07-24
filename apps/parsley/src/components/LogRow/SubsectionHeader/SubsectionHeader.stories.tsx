@@ -11,7 +11,6 @@ const SubsectionHeaderStory = () => (
   <Container>
     <SubsectionHeader
       {...SubsectionHeaderProps}
-      commandDescription="Downloading MongoDB binary"
       commandName="shell.exec"
       isTopLevelCommand={false}
       lineIndex={0}
@@ -20,6 +19,7 @@ const SubsectionHeaderStory = () => (
     />
     <SubsectionHeader
       {...SubsectionHeaderProps}
+      commandDescription="Updating task expansions"
       commandName="shell.exec"
       isTopLevelCommand={false}
       lineIndex={0}
@@ -28,6 +28,7 @@ const SubsectionHeaderStory = () => (
     />
     <SubsectionHeader
       {...SubsectionHeaderProps}
+      commandDescription="Downloading MongoDB binary"
       commandName="shell.exec"
       isTopLevelCommand={false}
       lineIndex={0}
@@ -40,7 +41,6 @@ const SubsectionHeaderStoryTopLevel = () => (
   <Container>
     <SubsectionHeader
       {...SubsectionHeaderProps}
-      commandDescription="Downloading MongoDB binary"
       commandName="shell.exec"
       isTopLevelCommand
       lineIndex={0}
@@ -49,6 +49,7 @@ const SubsectionHeaderStoryTopLevel = () => (
     />
     <SubsectionHeader
       {...SubsectionHeaderProps}
+      commandDescription="Updating task expansions"
       commandName="shell.exec"
       isTopLevelCommand
       lineIndex={0}
@@ -57,6 +58,7 @@ const SubsectionHeaderStoryTopLevel = () => (
     />
     <SubsectionHeader
       {...SubsectionHeaderProps}
+      commandDescription="Downloading MongoDB binary"
       commandName="shell.exec"
       isTopLevelCommand
       lineIndex={0}

@@ -58,9 +58,7 @@
       >
         Command: 
         shell.exec
-         
-        — Downloading MongoDB binary 
-        (step 
+         (step 
         1 of 4
         )
       </p>
@@ -122,10 +120,10 @@
       >
         Command: 
         shell.exec
-         
-        (step 
+         (step 
         1 of 4
         )
+         — Updating task expansions
       </p>
     </div>
     <div
@@ -168,10 +166,10 @@
       >
         Command: 
         shell.exec
-         
-        (step 
+         (step 
         1 of 4
         )
+         — Downloading MongoDB binary
       </p>
     </div>
   </div>

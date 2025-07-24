@@ -63,8 +63,8 @@ const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
       />
       {status && <SectionStatusIcon status={status} />}
       <Body>
-        Command: {commandName}{" "}
-        {commandDescription && `— ${commandDescription} `}(step {step})
+        Command: {commandName} (step {step})
+        {commandDescription && ` — ${commandDescription}`}
       </Body>
     </div>
   );
