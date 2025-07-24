@@ -41,7 +41,7 @@ describe("SubsectionHeader", () => {
       },
     );
     expect(
-      screen.getByText("Command: shell.exec — doing stuff (step 1 of 4)"),
+      screen.getByText("Command: shell.exec (step 1 of 4) — doing stuff"),
     ).toBeVisible();
   });
 
