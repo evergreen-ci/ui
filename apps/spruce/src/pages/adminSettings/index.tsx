@@ -154,6 +154,48 @@ const AdminSettingsPage: React.FC = () => {
                 Repotracker
               </SideNavItem>
             </SideNavGroup>
+            <SideNavGroup header="Web">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-api-settings"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "api-settings",
+                )}
+              >
+                API
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-ui"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "ui-settings",
+                )}
+              >
+                UI
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-beta-features"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "beta-features",
+                )}
+              >
+                Beta Features
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-disabled-graphql-queries"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "disabled-graphql-queries",
+                )}
+              >
+                Disabled GraphQL Queries
+              </SideNavItem>
+            </SideNavGroup>
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Restart Tasks">
             {}

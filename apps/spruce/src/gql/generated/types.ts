@@ -6314,6 +6314,57 @@ export type SaveAdminSettingsMutation = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    disabledGQLQueries: Array<string>;
+    api?: {
+      __typename?: "APIConfig";
+      corpUrl?: string | null;
+      httpListenAddr?: string | null;
+      url?: string | null;
+    } | null;
+    hostInit?: {
+      __typename?: "HostInitConfig";
+      cloudStatusBatchSize?: number | null;
+      hostThrottle?: number | null;
+      maxTotalDynamicHosts?: number | null;
+      provisioningThrottle?: number | null;
+    } | null;
+    notify?: {
+      __typename?: "NotifyConfig";
+      ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
+    } | null;
+    podLifecycle?: {
+      __typename?: "PodLifecycleConfig";
+      maxParallelPodRequests?: number | null;
+      maxPodDefinitionCleanupRate?: number | null;
+      maxSecretCleanupRate?: number | null;
+    } | null;
+    repotracker?: {
+      __typename?: "RepotrackerConfig";
+      maxConcurrentRequests?: number | null;
+      maxRepoRevisionsToSearch?: number | null;
+      numNewRepoRevisionsToFetch?: number | null;
+    } | null;
+    scheduler?: {
+      __typename?: "SchedulerConfig";
+      acceptableHostIdleTimeSeconds?: number | null;
+      cacheDurationSeconds?: number | null;
+      commitQueueFactor?: number | null;
+      expectedRuntimeFactor?: number | null;
+      futureHostFraction?: number | null;
+      generateTaskFactor?: number | null;
+      groupVersions: boolean;
+      hostAllocator?: HostAllocatorVersion | null;
+      hostAllocatorFeedbackRule?: FeedbackRule | null;
+      hostAllocatorRoundingRule?: RoundingRule | null;
+      hostsOverallocatedRule?: OverallocatedRule | null;
+      mainlineTimeInQueueFactor?: number | null;
+      numDependentsFactor?: number | null;
+      patchFactor?: number | null;
+      patchTimeInQueueFactor?: number | null;
+      stepbackTaskFactor?: number | null;
+      targetTimeSeconds?: number | null;
+      taskFinder?: FinderVersion | null;
+    } | null;
     serviceFlags?: {
       __typename?: "ServiceFlags";
       adminParameterStoreDisabled: boolean;
@@ -6352,6 +6403,42 @@ export type SaveAdminSettingsMutation = {
       taskReliabilityDisabled: boolean;
       unrecognizedPodCleanupDisabled: boolean;
       webhookNotificationsDisabled: boolean;
+    } | null;
+    taskLimits?: {
+      __typename?: "TaskLimitsConfig";
+      maxConcurrentLargeParserProjectTasks?: number | null;
+      maxDailyAutomaticRestarts?: number | null;
+      maxDegradedModeConcurrentLargeParserProjectTasks?: number | null;
+      maxDegradedModeParserProjectSize?: number | null;
+      maxExecTimeoutSecs?: number | null;
+      maxGenerateTaskJSONSize?: number | null;
+      maxHourlyPatchTasks?: number | null;
+      maxIncludesPerVersion?: number | null;
+      maxParserProjectSize?: number | null;
+      maxPendingGeneratedTasks?: number | null;
+      maxTaskExecution?: number | null;
+      maxTasksPerVersion?: number | null;
+    } | null;
+    ui?: {
+      __typename?: "UIConfig";
+      cacheTemplates?: boolean | null;
+      corsOrigins: Array<string>;
+      csrfKey?: string | null;
+      defaultProject: string;
+      fileStreamingContentTypes: Array<string>;
+      helpUrl?: string | null;
+      httpListenAddr?: string | null;
+      loginDomain?: string | null;
+      parsleyUrl?: string | null;
+      secret?: string | null;
+      stagingEnvironment?: string | null;
+      uiv2Url?: string | null;
+      url?: string | null;
+      userVoice?: string | null;
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
     } | null;
   };
 };
@@ -6705,6 +6792,12 @@ export type AdminSettingsQuery = {
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
     disabledGQLQueries: Array<string>;
+    api?: {
+      __typename?: "APIConfig";
+      corpUrl?: string | null;
+      httpListenAddr?: string | null;
+      url?: string | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -6802,6 +6895,27 @@ export type AdminSettingsQuery = {
       maxPendingGeneratedTasks?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
+    } | null;
+    ui?: {
+      __typename?: "UIConfig";
+      cacheTemplates?: boolean | null;
+      corsOrigins: Array<string>;
+      csrfKey?: string | null;
+      defaultProject: string;
+      fileStreamingContentTypes: Array<string>;
+      helpUrl?: string | null;
+      httpListenAddr?: string | null;
+      loginDomain?: string | null;
+      parsleyUrl?: string | null;
+      secret?: string | null;
+      stagingEnvironment?: string | null;
+      uiv2Url?: string | null;
+      url?: string | null;
+      userVoice?: string | null;
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
     } | null;
   } | null;
 };
