@@ -16,7 +16,7 @@ describe("runners section", () => {
   });
 
   it("correctly converts from a form to GQL", () => {
-    expect(formToGql(form)).toStrictEqual(gql);
+    expect(formToGql(form, adminSettings)).toStrictEqual(gql);
   });
 });
 
@@ -83,6 +83,8 @@ const gql: AdminSettingsInput = {
     ses: {
       senderAddress: "evg-sender",
     },
+    bufferIntervalSeconds: 1,
+    bufferTargetPerInterval: 1,
   },
   taskLimits: {
     maxTasksPerVersion: 1,

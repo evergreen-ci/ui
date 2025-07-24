@@ -1,5 +1,37 @@
 query AdminSettings {
   adminSettings {
+    amboy {
+      groupBackgroundCreateFrequencyMinutes
+      groupDefaultWorkers
+      groupPruneFrequencyMinutes
+      groupTTLMinutes
+      localStorage
+      lockTimeoutMinutes
+      name
+      namedQueues {
+        lockTimeoutSeconds
+        name
+        numWorkers
+        regexp
+        sampleSize
+      }
+      poolSizeLocal
+      poolSizeRemote
+      retry {
+        maxCapacity
+        maxRetryAttempts
+        maxRetryTimeSeconds
+        numWorkers
+        retryBackoffSeconds
+        staleRetryingMonitorIntervalSeconds
+      }
+      sampleSize
+      singleName
+    }
+    amboyDB {
+      database
+      url
+    }
     banner
     bannerTheme
     disabledGQLQueries
@@ -9,7 +41,21 @@ query AdminSettings {
       maxTotalDynamicHosts
       provisioningThrottle
     }
+    loggerConfig {
+      buffer {
+        count
+        durationSeconds
+        incomingBufferFactor
+        useAsync
+      }
+      defaultLevel
+      logkeeperURL
+      redactKeys
+      thresholdLevel
+    }
     notify {
+      bufferIntervalSeconds
+      bufferTargetPerInterval
       ses {
         senderAddress
       }
@@ -95,6 +141,9 @@ query AdminSettings {
       maxPendingGeneratedTasks
       maxTaskExecution
       maxTasksPerVersion
+    }
+    triggers {
+      generateTaskDistro
     }
   }
 }

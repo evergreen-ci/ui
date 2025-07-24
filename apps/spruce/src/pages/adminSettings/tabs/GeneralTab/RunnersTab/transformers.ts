@@ -135,7 +135,7 @@ export const gqlToForm = ((data) => {
   };
 }) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql = (({ runners }) => {
+export const formToGql = (({ runners }, data) => {
   const { hostInit, notify, podLifecycle, repotracker, scheduler, taskLimits } =
     runners;
 
@@ -144,6 +144,8 @@ export const formToGql = (({ runners }) => {
       ses: {
         senderAddress: notify.sesEmail,
       },
+      bufferIntervalSeconds: data?.notify?.bufferIntervalSeconds,
+      bufferTargetPerInterval: data?.notify?.bufferTargetPerInterval,
     },
     taskLimits,
     hostInit,

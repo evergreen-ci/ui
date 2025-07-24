@@ -154,6 +154,48 @@ const AdminSettingsPage: React.FC = () => {
                 Repotracker
               </SideNavItem>
             </SideNavGroup>
+            <SideNavGroup header="Background Processing">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-amboy"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "amboy",
+                )}
+              >
+                Amboy
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-logger"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "logger",
+                )}
+              >
+                Logger
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-notification-rate-limits"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "notification-rate-limits",
+                )}
+              >
+                Notification Rate Limits
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-triggers"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "triggers",
+                )}
+              >
+                Triggers
+              </SideNavItem>
+            </SideNavGroup>
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Restart Tasks">
             {}

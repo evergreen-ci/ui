@@ -24,7 +24,7 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   useScrollToAnchor();
   return (
     <TabsContent>
-      <AdminSaveButton />
+      <AdminSaveButton adminSettingsData={data} />
       <Routes>
         <Route
           element={<GeneralTab tabData={tabData} />}

@@ -6705,6 +6705,42 @@ export type AdminSettingsQuery = {
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
     disabledGQLQueries: Array<string>;
+    amboy?: {
+      __typename?: "AmboyConfig";
+      groupBackgroundCreateFrequencyMinutes?: number | null;
+      groupDefaultWorkers?: number | null;
+      groupPruneFrequencyMinutes?: number | null;
+      groupTTLMinutes?: number | null;
+      localStorage?: number | null;
+      lockTimeoutMinutes?: number | null;
+      name?: string | null;
+      poolSizeLocal?: number | null;
+      poolSizeRemote?: number | null;
+      sampleSize?: number | null;
+      singleName?: string | null;
+      namedQueues: Array<{
+        __typename?: "AmboyNamedQueueConfig";
+        lockTimeoutSeconds?: number | null;
+        name?: string | null;
+        numWorkers?: number | null;
+        regexp?: string | null;
+        sampleSize?: number | null;
+      }>;
+      retry?: {
+        __typename?: "AmboyRetryConfig";
+        maxCapacity?: number | null;
+        maxRetryAttempts?: number | null;
+        maxRetryTimeSeconds?: number | null;
+        numWorkers?: number | null;
+        retryBackoffSeconds?: number | null;
+        staleRetryingMonitorIntervalSeconds?: number | null;
+      } | null;
+    } | null;
+    amboyDB?: {
+      __typename?: "AmboyDBConfig";
+      database?: string | null;
+      url?: string | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -6712,8 +6748,24 @@ export type AdminSettingsQuery = {
       maxTotalDynamicHosts?: number | null;
       provisioningThrottle?: number | null;
     } | null;
+    loggerConfig?: {
+      __typename?: "LoggerConfig";
+      defaultLevel?: PriorityLevel | null;
+      logkeeperURL?: string | null;
+      redactKeys: Array<string>;
+      thresholdLevel?: PriorityLevel | null;
+      buffer?: {
+        __typename?: "LogBuffering";
+        count?: number | null;
+        durationSeconds?: number | null;
+        incomingBufferFactor?: number | null;
+        useAsync: boolean;
+      } | null;
+    } | null;
     notify?: {
       __typename?: "NotifyConfig";
+      bufferIntervalSeconds?: number | null;
+      bufferTargetPerInterval?: number | null;
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
     } | null;
     podLifecycle?: {
@@ -6802,6 +6854,10 @@ export type AdminSettingsQuery = {
       maxPendingGeneratedTasks?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
+    } | null;
+    triggers?: {
+      __typename?: "TriggerConfig";
+      generateTaskDistro?: string | null;
     } | null;
   } | null;
 };
