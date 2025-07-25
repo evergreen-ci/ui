@@ -2,7 +2,6 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  // @ts-expect-error
   plugins: [tsconfigPaths()],
   test: {
     environment: "node",
