@@ -1,0 +1,8 @@
+query AdminTasksToRestart($opts: RestartAdminTasksOptions!) {
+  adminTasksToRestart(opts: $opts) {
+    tasksToRestart {
+      id
+      execution
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import ADMIN_BETA_FEATURES from "./admin-beta-features.graphql";
 import ADMIN_SETTINGS from "./admin-settings.graphql";
+import ADMIN_TASKS_TO_RESTART from "./admin-tasks-to-restart.graphql";
 import AGENT_LOGS from "./agent-logs.graphql";
 import ALL_LOGS from "./all-logs.graphql";
 import AWS_REGIONS from "./aws-regions.graphql";
@@ -94,6 +95,7 @@ import WATERFALL from "./waterfall.graphql";
 export {
   ADMIN_BETA_FEATURES,
   ADMIN_SETTINGS,
+  ADMIN_TASKS_TO_RESTART,
   AGENT_LOGS,
   ALL_LOGS,
   AWS_REGIONS,
