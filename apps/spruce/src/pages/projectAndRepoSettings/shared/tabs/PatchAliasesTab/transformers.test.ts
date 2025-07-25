@@ -52,7 +52,8 @@ const projectResult: Pick<
   projectRef: {
     id: "project",
     patchTriggerAliases: null,
-    githubTriggerAliases: [],
+    githubPRTriggerAliases: [],
+    githubMQTriggerAliases: [],
   },
   aliases: [],
 };
@@ -138,7 +139,8 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef" | "aliases"> =
           parentAsModule: "",
         },
       ],
-      githubTriggerAliases: ["alias1"],
+      githubPRTriggerAliases: ["alias1"],
+      githubMQTriggerAliases: ["alias2"],
     },
     aliases: [
       {

@@ -104,7 +104,7 @@ export const getFormSchema = (
                 aliasArray.schema,
               ),
             },
-            githubTriggerAliases: {
+            githubPRTriggerAliases: {
               type: "array" as const,
               title: "GitHub Trigger Aliases",
               items: {
@@ -341,7 +341,7 @@ export const getFormSchema = (
             },
           },
         },
-        githubTriggerAliases: {
+        githubPRTriggerAliases: {
           "ui:addable": false,
           "ui:orderable": false,
           "ui:placeholder": "No GitHub Trigger Aliases are defined.",
