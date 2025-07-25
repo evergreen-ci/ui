@@ -156,7 +156,13 @@ const AdminSettingsPage: React.FC = () => {
             </SideNavGroup>
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Restart Tasks">
-            {}
+            <SideNavItem
+              as={Link}
+              data-cy="navitem-admin-restart-tasls"
+              to={getAdminSettingsRoute(AdminSettingsTabRoutes.RestartTasks)}
+            >
+              Restart Tasks
+            </SideNavItem>
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Event Log">
             {}

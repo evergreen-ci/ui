@@ -6248,6 +6248,18 @@ export type ReprovisionToNewMutation = {
   reprovisionToNew: number;
 };
 
+export type RestartAdminTasksMutationVariables = Exact<{
+  opts: RestartAdminTasksOptions;
+}>;
+
+export type RestartAdminTasksMutation = {
+  __typename?: "Mutation";
+  restartAdminTasks: {
+    __typename?: "RestartAdminTasksPayload";
+    numRestartedTasks: number;
+  };
+};
+
 export type RestartJasperMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]["input"]>;
 }>;
@@ -6804,6 +6816,22 @@ export type AdminSettingsQuery = {
       maxTasksPerVersion?: number | null;
     } | null;
   } | null;
+};
+
+export type AdminTasksToRestartQueryVariables = Exact<{
+  opts: RestartAdminTasksOptions;
+}>;
+
+export type AdminTasksToRestartQuery = {
+  __typename?: "Query";
+  adminTasksToRestart: {
+    __typename?: "AdminTasksToRestartPayload";
+    tasksToRestart: Array<{
+      __typename?: "Task";
+      id: string;
+      execution: number;
+    }>;
+  };
 };
 
 export type AgentLogsQueryVariables = Exact<{
