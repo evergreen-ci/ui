@@ -2,7 +2,6 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { LeafyGreenTableRow } from "@leafygreen-ui/table";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskReview } from "components/TaskReview/useTaskReview";
-import { TaskQuery } from "gql/generated/types";
 import { TaskTableInfo } from "./types";
 
 export const ReviewedCheckbox: React.FC<{
@@ -13,14 +12,13 @@ export const ReviewedCheckbox: React.FC<{
     execution: row.original.execution,
   });
 
-  const someChecked = task?.executionTasksFull?.some(
-    (t: NonNullable<TaskQuery["task"]>) => t.reviewed,
-  );
-  const allChecked = task?.executionTasksFull?.every(
-    (t: NonNullable<TaskQuery["task"]>) =>
-      t.displayStatus === TaskStatus.Succeeded || t.reviewed,
-  );
-  const indeterminate = someChecked && !allChecked;
+  const someChecked: boolean =
+    task?.executionTasksFull?.some((t) => t?.reviewed) ?? false;
+  const allChecked: boolean =
+    task?.executionTasksFull?.every(
+      (t) => t?.displayStatus === TaskStatus.Succeeded || t?.reviewed,
+    ) ?? false;
+  const indeterminate: boolean = someChecked && !allChecked;
 
   const handleClick = () => {
     if (row.subRows.length) {

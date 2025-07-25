@@ -1,10 +1,10 @@
 import { useCallback, useEffect } from "react";
 import { gql, useApolloClient, useFragment } from "@apollo/client";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { TaskQuery } from "gql/generated/types";
+import { ReviewedTaskFragment, TaskQuery } from "gql/generated/types";
 import { REVIEWED_TASK_FRAGMENT } from "./utils";
 
-export const useTaskReview = <T extends NonNullable<TaskQuery["task"]>>({
+export const useTaskReview = ({
   execution,
   taskId,
 }: {
@@ -12,7 +12,7 @@ export const useTaskReview = <T extends NonNullable<TaskQuery["task"]>>({
   taskId: string;
 }) => {
   const { cache } = useApolloClient();
-  const { data } = useFragment({
+  const { data } = useFragment<ReviewedTaskFragment>({
     from: {
       __typename: "Task",
       id: taskId,
@@ -81,17 +81,17 @@ export const useTaskReview = <T extends NonNullable<TaskQuery["task"]>>({
     );
   }, [cache, cacheTaskId]);
 
-  const checked = data?.executionTasksFull?.length
-    ? data.executionTasksFull?.every(
-        (e: T) => e.displayStatus === TaskStatus.Succeeded || e.reviewed,
-      )
-    : data.reviewed;
+  const checked: boolean = data?.executionTasksFull?.length
+    ? (data.executionTasksFull?.every(
+        (e) => e?.displayStatus === TaskStatus.Succeeded || e?.reviewed,
+      ) ?? false)
+    : !!data.reviewed;
 
   useEffect(() => {
     if (data.executionTasksFull?.length) {
       updateTask(checked);
     }
-  }, [checked]);
+  }, [checked, data.executionTasksFull, updateTask]);
 
   return { checked, task: data, updateTask, updateDisplayTask };
 };
