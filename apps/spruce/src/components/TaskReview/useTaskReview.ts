@@ -50,20 +50,7 @@ export const useTaskReview = ({
     cache.updateFragment(
       {
         id: cacheTaskId,
-        fragment: gql`
-          fragment TaskReviewed on Task {
-            id
-            displayStatus
-            execution
-            reviewed
-            executionTasksFull {
-              id
-              displayStatus
-              execution
-              reviewed
-            }
-          }
-        `,
+        fragment: REVIEWED_TASK_FRAGMENT,
       },
       (existing) => ({
         ...existing,

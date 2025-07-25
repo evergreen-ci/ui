@@ -4401,21 +4401,6 @@ export type NonDisplayTaskReviewedFragment = {
   reviewed?: boolean | null;
 };
 
-export type TaskReviewedFragment = {
-  __typename?: "Task";
-  id: string;
-  displayStatus: string;
-  execution: number;
-  reviewed?: boolean | null;
-  executionTasksFull?: Array<{
-    __typename?: "Task";
-    id: string;
-    displayStatus: string;
-    execution: number;
-    reviewed?: boolean | null;
-  }> | null;
-};
-
 export type ReviewedTaskFragment = {
   __typename?: "Task";
   id: string;
