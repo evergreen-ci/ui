@@ -1,7 +1,54 @@
 mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
   saveAdminSettings(adminSettings: $adminSettings) {
+    api {
+      corpUrl
+      httpListenAddr
+      url
+    }
     banner
     bannerTheme
+    disabledGQLQueries
+    hostInit {
+      cloudStatusBatchSize
+      hostThrottle
+      maxTotalDynamicHosts
+      provisioningThrottle
+    }
+    notify {
+      ses {
+        senderAddress
+      }
+    }
+    podLifecycle {
+      maxParallelPodRequests
+      maxPodDefinitionCleanupRate
+      maxSecretCleanupRate
+    }
+    repotracker {
+      maxConcurrentRequests
+      maxRepoRevisionsToSearch
+      numNewRepoRevisionsToFetch
+    }
+    scheduler {
+      acceptableHostIdleTimeSeconds
+      cacheDurationSeconds
+      commitQueueFactor
+      expectedRuntimeFactor
+      futureHostFraction
+      generateTaskFactor
+      groupVersions
+      hostAllocator
+      hostAllocatorFeedbackRule
+      hostAllocatorRoundingRule
+      hostsOverallocatedRule
+      mainlineTimeInQueueFactor
+      numDependentsFactor
+      patchFactor
+      patchTimeInQueueFactor
+      stepbackTaskFactor
+      targetTimeSeconds
+      taskFinder
+    }
     serviceFlags {
       adminParameterStoreDisabled
       agentStartDisabled
@@ -39,6 +86,40 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       taskReliabilityDisabled
       unrecognizedPodCleanupDisabled
       webhookNotificationsDisabled
+    }
+
+    taskLimits {
+      maxConcurrentLargeParserProjectTasks
+      maxDailyAutomaticRestarts
+      maxDegradedModeConcurrentLargeParserProjectTasks
+      maxDegradedModeParserProjectSize
+      maxExecTimeoutSecs
+      maxGenerateTaskJSONSize
+      maxHourlyPatchTasks
+      maxIncludesPerVersion
+      maxParserProjectSize
+      maxPendingGeneratedTasks
+      maxTaskExecution
+      maxTasksPerVersion
+    }
+    ui {
+      betaFeatures {
+        spruceWaterfallEnabled
+      }
+      cacheTemplates
+      corsOrigins
+      csrfKey
+      defaultProject
+      fileStreamingContentTypes
+      helpUrl
+      httpListenAddr
+      loginDomain
+      parsleyUrl
+      secret
+      stagingEnvironment
+      uiv2Url
+      url
+      userVoice
     }
   }
 }

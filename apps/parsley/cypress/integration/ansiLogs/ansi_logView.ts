@@ -1,3 +1,5 @@
+import { getLgIds } from "@leafygreen-ui/split-button";
+
 describe("ansiLogs/ansi_logView", () => {
   describe("Basic evergreen log view", () => {
     const logLink =
@@ -105,9 +107,31 @@ describe("ansiLogs/ansi_logView", () => {
         "[2022/03/02 17:05:21.050] running setup group because we have a new independent task";
 
       cy.toggleDetailsPanel(true);
-      cy.dataCy("jira-button").click();
+      cy.contains("button", "Copy Jira").click();
       cy.assertValueCopiedToClipboard(
         `{noformat}\n${logLine0}\n...\n${logLine10}\n${logLine11}\n...\n${logLine297}\n{noformat}`,
+      );
+    });
+
+    it("should be able to copy bookmarks as raw format", () => {
+      cy.dataCy("log-row-10").dblclick({ scrollBehavior: false });
+      cy.dataCy("log-row-11").dblclick({ scrollBehavior: false });
+
+      const logLine0 =
+        "[2022/03/02 17:01:58.587] Task logger initialized (agent version 2022-02-14 from 00a4c8f3e8e4559cc23e04a019b6d1725c40c3e5).";
+      const logLine10 =
+        "[2022/03/02 17:02:01.610] e391612 EVG-16049 Update spruce project page for admin only variables (#1114)";
+      const logLine11 =
+        "[2022/03/02 17:02:01.610] 04a52b2 EVG-15959 Fix rerender method in test utils (#1118)";
+      const logLine297 =
+        "[2022/03/02 17:05:21.050] running setup group because we have a new independent task";
+
+      cy.toggleDetailsPanel(true);
+
+      cy.get(`[data-testid='${getLgIds().trigger}']`).click();
+      cy.contains("button", "Copy raw").click();
+      cy.assertValueCopiedToClipboard(
+        `${logLine0}\n...\n${logLine10}\n${logLine11}\n...\n${logLine297}\n`,
       );
     });
 

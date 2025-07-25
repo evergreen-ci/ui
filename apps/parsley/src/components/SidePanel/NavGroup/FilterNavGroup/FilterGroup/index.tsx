@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from "react";
+import { MouseEvent, useEffect, useId, useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -111,7 +111,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
             />
             <IconButton
               aria-label="Edit filter"
-              onClick={(e) => {
+              onClick={(e: MouseEvent) => {
                 e.stopPropagation();
                 if (isEditing) {
                   resetEditState();
@@ -124,10 +124,9 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
             >
               <Icon fill={gray.base} glyph="Edit" />
             </IconButton>
-
             <IconButton
               aria-label="Delete filter"
-              onClick={(e) => {
+              onClick={(e: MouseEvent) => {
                 e.stopPropagation();
                 deleteFilter(expression);
               }}
