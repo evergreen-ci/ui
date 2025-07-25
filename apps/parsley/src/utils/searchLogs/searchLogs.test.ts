@@ -81,6 +81,7 @@ describe("searchLogs", () => {
     const processedLogLines: ProcessedLogLines = [
       0,
       {
+        commandDescription: undefined,
         commandID: "command-1",
         commandName: "shell.exec",
         functionID: "function-1",
@@ -122,6 +123,7 @@ describe("searchLogs", () => {
         rowType: RowType.SectionHeader,
       },
       {
+        commandDescription: undefined,
         commandID: "command-1",
         commandName: "shell.exec",
         functionID: "function-1",
@@ -163,6 +165,7 @@ describe("searchLogs", () => {
         rowType: RowType.SectionHeader,
       },
       {
+        commandDescription: undefined,
         commandID: "command-1",
         commandName: "shell.exec",
         functionID: "function-1",
@@ -209,6 +212,7 @@ describe("searchLogs", () => {
         rowType: RowType.SectionHeader,
       },
       {
+        commandDescription: undefined,
         commandID: "command-1",
         commandName: "shell.exec",
         functionID: "function-1",
@@ -219,6 +223,7 @@ describe("searchLogs", () => {
         step: "1 of 1",
       },
       {
+        commandDescription: undefined,
         commandID: "command-2",
         commandName: "shell.exec",
         functionID: "function-1",
@@ -239,6 +244,7 @@ describe("searchLogs", () => {
         rowType: RowType.SectionHeader,
       },
       {
+        commandDescription: undefined,
         commandID: "command-8",
         commandName: "shell.exec",
         functionID: "function-1",

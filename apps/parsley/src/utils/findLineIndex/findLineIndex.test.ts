@@ -51,6 +51,7 @@ describe("findLineIndex", () => {
       rowType: RowType.SectionHeader,
     },
     {
+      commandDescription: undefined,
       commandID: "command-10",
       commandName: "shell.exec",
       functionID: "function-10",
@@ -76,6 +77,7 @@ describe("findLineIndex", () => {
       rowType: RowType.SectionHeader,
     },
     {
+      commandDescription: undefined,
       commandID: "command-15",
       commandName: "shell.exec",
       functionID: "function-15",
@@ -102,6 +104,7 @@ describe("findLineIndex", () => {
       rowType: RowType.SectionHeader,
     },
     {
+      commandDescription: undefined,
       commandID: "command-19",
       commandName: "shell.exec",
       functionID: "function-19",
