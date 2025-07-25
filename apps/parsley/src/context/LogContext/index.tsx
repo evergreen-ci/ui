@@ -142,6 +142,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   const [highlightFilters, setHighlightFilters] = useState(
     Cookie.get(HIGHLIGHT_FILTERS) === "true",
   );
+  const [hideFilters, setHideFilters] = useState(false);
 
   const { dispatch, state } = useLogState(initialLogLines);
   const [processedLogLines, setProcessedLogLines] = useState<ProcessedLogLines>(
@@ -302,6 +303,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
         caseSensitive: state.searchState.caseSensitive,
         expandableRows,
         filterLogic,
+        hideFilters,
         highlightFilters,
         prettyPrint,
         setCaseSensitive: (v: boolean) => {
@@ -315,6 +317,9 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
         setFilterLogic: (v: FilterLogic) => {
           setFilterLogic(v);
           Cookie.set(FILTER_LOGIC, v, { expires: 365 });
+        },
+        setHideFilters: (v: boolean) => {
+          setHideFilters(v);
         },
         setHighlightFilters: (v: boolean) => {
           setHighlightFilters(v);
@@ -379,6 +384,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     [
       expandableRows,
       filterLogic,
+      hideFilters,
       lowerRange,
       matchingLines,
       prettyPrint,
@@ -405,6 +411,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       setFilterLogic,
       setLogMetadata,
       setHighlightFilters,
+      setHideFilters,
       highlightFilters,
       sectioning,
       openSectionAndScrollToLine,
