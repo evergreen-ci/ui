@@ -27,6 +27,7 @@ const defaultFormState = {
       displayTitle: undefined,
       amiId: "",
       instanceProfileARN: "",
+      elasticIpsEnabled: false,
       instanceType: "",
       mergeUserData: false,
       mountPoints: [],
@@ -47,6 +48,7 @@ const defaultFormState = {
       displayTitle: undefined,
       amiId: "",
       instanceProfileARN: "",
+      elasticIpsEnabled: false,
       instanceType: "",
       mergeUserData: false,
       mountPoints: [],
@@ -204,7 +206,7 @@ describe("provider tab", () => {
           ami: "ami-east",
           instance_type: "m5.xlarge",
           key_name: "admin",
-
+          elastic_ips_enabled: false,
           iam_instance_profile_arn: "profile-east",
           is_vpc: true,
           subnet_id: "subnet-east",
@@ -236,6 +238,7 @@ describe("provider tab", () => {
           displayTitle: "us-east-1",
           amiId: "ami-east",
           instanceProfileARN: "profile-east",
+          elasticIpsEnabled: false,
           instanceType: "m5.xlarge",
           mergeUserData: false,
           mountPoints: [
@@ -269,6 +272,7 @@ describe("provider tab", () => {
           displayTitle: "us-east-1",
           amiId: "ami-east",
           instanceProfileARN: "profile-east",
+          elasticIpsEnabled: false,
           instanceType: "m5.xlarge",
           mergeUserData: false,
           mountPoints: [
@@ -310,7 +314,7 @@ describe("provider tab", () => {
           ami: "ami-east",
           instance_type: "m5.xlarge",
           key_name: "admin",
-
+          elastic_ips_enabled: false,
           iam_instance_profile_arn: "profile-east",
           is_vpc: true,
           subnet_id: "subnet-east",
@@ -351,6 +355,7 @@ describe("provider tab", () => {
       providerSettingsList: [
         {
           do_not_assign_public_ipv4_address: true,
+          elastic_ips_enabled: false,
           region: "us-east-1",
           ami: "ami-east",
           instance_type: "m5.xlarge",
@@ -381,6 +386,7 @@ describe("provider tab", () => {
       ec2FleetProviderSettings: [
         {
           doNotAssignPublicIPv4Address: true,
+          elasticIpsEnabled: false,
           region: "us-east-1",
           displayTitle: "us-east-1",
           amiId: "ami-east",
@@ -418,6 +424,7 @@ describe("provider tab", () => {
           displayTitle: "us-east-1",
           amiId: "ami-east",
           instanceProfileARN: "profile-east",
+          elasticIpsEnabled: false,
           instanceType: "m5.xlarge",
           mergeUserData: false,
           mountPoints: [
@@ -461,6 +468,7 @@ describe("provider tab", () => {
           key_name: "admin",
           iam_instance_profile_arn: "profile-east",
           is_vpc: true,
+          elastic_ips_enabled: false,
           subnet_id: "subnet-east",
           vpc_name: "vpc-east",
           mount_points: [
