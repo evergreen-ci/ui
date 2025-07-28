@@ -21,7 +21,7 @@
     "@leafygreen-ui/icon": "^14.1.0",
     "@leafygreen-ui/icon-button": "^17.0.3",
     "@leafygreen-ui/pagination": "^3.0.14",
-    "@leafygreen-ui/palette": "^4.0.9",
+    "@leafygreen-ui/palette": "^5.0.0",
     "@leafygreen-ui/popover": "^11.0.17",
     "@leafygreen-ui/search-input": "^5.0.14",
     "@leafygreen-ui/table": "^13.1.8",
