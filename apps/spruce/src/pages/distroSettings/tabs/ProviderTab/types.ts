@@ -36,6 +36,7 @@ export type ProviderFormState = {
     instanceType: string;
     sshKeyName: string;
     instanceProfileARN: string;
+    elasticIpsEnabled: boolean;
     doNotAssignPublicIPv4Address: boolean;
     vpcOptions: {
       useVpc: boolean;
@@ -61,6 +62,7 @@ export type ProviderFormState = {
     instanceType: string;
     sshKeyName: string;
     instanceProfileARN: string;
+    elasticIpsEnabled: boolean;
     doNotAssignPublicIPv4Address: boolean;
     vpcOptions: {
       useVpc: boolean;
