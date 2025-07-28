@@ -28,6 +28,7 @@ import {
   SET_TASK_PRIORITIES,
   UNSCHEDULE_TASK,
 } from "gql/mutations";
+import { MarkReviewed } from "./actionButtons/MarkReviewed";
 import { RelevantCommits } from "./actionButtons/RelevantCommits";
 import { RestartButton } from "./actionButtons/RestartButton";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
@@ -202,6 +203,7 @@ export const ActionButtons: React.FC<Props> = ({
   return (
     <>
       <PageButtonRow>
+        <MarkReviewed execution={task.execution} taskId={task.id} />
         {!isExecutionTask && <RelevantCommits task={task} />}
         <LoadingButton
           key="schedule"
