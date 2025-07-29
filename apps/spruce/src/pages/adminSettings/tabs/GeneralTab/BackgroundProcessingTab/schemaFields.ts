@@ -7,7 +7,7 @@ import {
   gridWrapCss,
   fullWidthCss,
   nestedObjectGridCss,
-} from "pages/adminSettings/styles";
+} from "../../sharedStyles";
 
 const { gray } = palette;
 
