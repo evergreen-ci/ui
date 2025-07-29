@@ -333,7 +333,6 @@ const mergedForm: GCQFormState = {
       },
     },
     githubPRTriggerAliases: [],
-    githubMQTriggerAliases: [],
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     githubChecksEnabled: null,
     githubChecks: {
