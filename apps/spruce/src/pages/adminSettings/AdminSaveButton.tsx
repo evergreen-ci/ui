@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { AdminSettingsTabRoutes, slugs } from "constants/routes";
 import {
+  AdminSettings,
   AdminSettingsInput,
   SaveAdminSettingsMutation,
   SaveAdminSettingsMutationVariables,
@@ -12,7 +13,13 @@ import { SAVE_ADMIN_SETTINGS } from "gql/mutations";
 import { useAdminSettingsContext } from "./Context";
 import { formToGqlMap } from "./tabs/transformers";
 
-export const AdminSaveButton = () => {
+interface AdminSaveButtonProps {
+  adminSettingsData: AdminSettings;
+}
+
+export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
+  adminSettingsData,
+}) => {
   const { [slugs.tab]: urlTab } = useParams<{
     [slugs.tab]: AdminSettingsTabRoutes;
   }>();
@@ -40,7 +47,7 @@ export const AdminSaveButton = () => {
       const formToGql = formToGqlMap[tab];
       if (formToGql) {
         const { formData } = getTab(tab);
-        const changes = formToGql(formData as any);
+        const changes = formToGql(formData as any, adminSettingsData);
         return { ...acc, ...changes };
       }
       return acc;

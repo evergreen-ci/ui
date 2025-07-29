@@ -1,6 +1,6 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
-import { gridWrapCss } from "../../sharedStyles";
+import { objectGridCss } from "../../sharedStyles";
 import {
   notify,
   taskLimits,
@@ -74,31 +74,31 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       },
       taskLimits: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": gridWrapCss,
+        "ui:objectFieldCss": objectGridCss,
         "ui:data-cy": "task-limits",
         ...taskLimits.uiSchema,
       },
       hostInit: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": gridWrapCss,
+        "ui:objectFieldCss": objectGridCss,
         "ui:data-cy": "host-init",
         ...hostInit.uiSchema,
       },
       podLifecycle: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": gridWrapCss,
+        "ui:objectFieldCss": objectGridCss,
         "ui:data-cy": "pod-lifecycle",
         ...podLifecycle.uiSchema,
       },
       scheduler: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": gridWrapCss,
+        "ui:objectFieldCss": objectGridCss,
         "ui:data-cy": "scheduler",
         ...scheduler.uiSchema,
       },
       repotracker: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": gridWrapCss,
+        "ui:objectFieldCss": objectGridCss,
         "ui:data-cy": "repotracker",
         ...repotracker.uiSchema,
       },
