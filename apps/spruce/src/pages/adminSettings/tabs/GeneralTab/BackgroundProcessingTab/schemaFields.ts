@@ -139,7 +139,7 @@ export const amboy = {
     },
     lockTimeoutMinutes: {
       type: "number" as const,
-      title: "Lock timeout (minutes)",
+      title: "Lock timeout (mins)",
     },
     sampleSize: {
       type: "number" as const,
@@ -151,15 +151,15 @@ export const amboy = {
     },
     groupPruneFrequencyMinutes: {
       type: "number" as const,
-      title: "Group Prune Frequency (minutes)",
+      title: "Group Prune Frequency (mins)",
     },
     groupBackgroundCreateFrequencyMinutes: {
       type: "number" as const,
-      title: "Group Background Create Frequency (minutes)",
+      title: "Group Background Create Frequency (mins)",
     },
     groupTTLMinutes: {
       type: "number" as const,
-      title: "Group TTL (minutes)",
+      title: "Group TTL (mins)",
     },
     retry: retry.schema,
     namedQueues: namedQueues.schema,
@@ -222,6 +222,7 @@ export const loggerConfig = {
     logkeeperURL: {
       type: "string" as const,
       title: "Logkeeper URL",
+      format: "validURL",
     },
     redactKeys: {
       type: "array" as const,
