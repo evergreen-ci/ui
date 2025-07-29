@@ -131,8 +131,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             perfEnabled: false,
             notifyOnBuildFailure: false,
             patchTriggerAliases: [],
-            githubPRTriggerAliases: [],
-            githubMQTriggerAliases: [],
+            githubTriggerAliases: [],
             workstationConfig: {
               gitClone: false,
               setupCommands: null,
@@ -212,8 +211,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             perfEnabled: false,
             notifyOnBuildFailure: false,
             patchTriggerAliases: [],
-            githubPRTriggerAliases: [],
-            githubMQTriggerAliases: [],
+            githubTriggerAliases: [],
             workstationConfig: {
               gitClone: false,
               setupCommands: null,
