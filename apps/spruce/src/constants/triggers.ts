@@ -58,6 +58,7 @@ export const requesterSubscriberOptions = {
   [Requester.Gitter]: "Commit",
   [Requester.Patch]: "Patch",
   [Requester.GitHubPR]: "Pull Request",
+  [Requester.GitHubMergeQueue]: "Merge Queue",
   [Requester.AdHoc]: "Periodic Build",
   [Requester.GitTag]: "Git Tag",
 };
