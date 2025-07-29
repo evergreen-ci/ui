@@ -9,11 +9,11 @@ defaultTime.setMinutes(0);
 export const initialFormState = {
   start: {
     startDate: "",
-    startTime: defaultTime.toString(),
+    startTime: defaultTime.toString(), // 00:00
   },
   end: {
     endDate: "",
-    endTime: defaultTime.toString(),
+    endTime: defaultTime.toString(), // 00:00
   },
   includeTasks: {
     includeTestFailed: true,
@@ -21,6 +21,14 @@ export const initialFormState = {
     includeSetupFailed: true,
   },
 };
+
+const dateTimeCSS = css`
+  > fieldset {
+    display: grid;
+    grid-template-columns: 250px 250px;
+    column-gap: ${size.m};
+  }
+`;
 
 export const restartTasksForm = {
   schema: {
@@ -82,13 +90,7 @@ export const restartTasksForm = {
     "ui:description":
       "Restart failed tasks that started and finished between two times. Uses Eastern timezone regardless of configured timezone.",
     start: {
-      "ui:fieldCss": css`
-        > fieldset {
-          display: grid;
-          grid-template-columns: 250px 250px;
-          column-gap: ${size.m};
-        }
-      `,
+      "ui:fieldCss": dateTimeCSS,
       startDate: {
         "ui:widget": widgets.DateWidget,
         "ui:data-cy": "start-date-picker",
@@ -98,13 +100,7 @@ export const restartTasksForm = {
       },
     },
     end: {
-      "ui:fieldCss": css`
-        > fieldset {
-          display: grid;
-          grid-template-columns: 250px 250px;
-          column-gap: ${size.m};
-        }
-      `,
+      "ui:fieldCss": dateTimeCSS,
       endDate: {
         "ui:widget": widgets.DateWidget,
         "ui:data-cy": "end-date-picker",

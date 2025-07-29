@@ -13,7 +13,3 @@ export interface RestartTasksFormState {
     includeSetupFailed: boolean;
   };
 }
-
-export type RestartTasksTabProps = {
-  restartTasksData: RestartTasksFormState;
-};

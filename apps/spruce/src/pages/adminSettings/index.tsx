@@ -200,7 +200,7 @@ const AdminSettingsPage: React.FC = () => {
           <SideNavGroup glyph={null} header="Restart Tasks">
             <SideNavItem
               as={Link}
-              data-cy="navitem-admin-restart-tasls"
+              data-cy="navitem-admin-restart-tasks"
               to={getAdminSettingsRoute(AdminSettingsTabRoutes.RestartTasks)}
             >
               Restart Tasks

@@ -68,9 +68,7 @@ const RestartTasksModal: React.FC<RestartTasksModalProps> = ({
 
   return (
     <ConfirmationModal
-      cancelButtonProps={{
-        onClick: handleClose,
-      }}
+      cancelButtonProps={{ onClick: handleClose }}
       confirmButtonProps={{
         children: "Confirm",
         disabled: !hasTasksToRestart,
@@ -165,11 +163,11 @@ export const RestartTasksButton: React.FC<RestartTasksButtonProps> = ({
 
 const calculateTargetTime = (date: string, time: string) => {
   const localDate = new Date(date);
-  const targetTime = new Date(time);
 
   // Dates don't store timezone information so we should convert
   // to UTC before sending to backend.
   const targetDate = toZonedTime(localDate, utcTimeZone);
+  const targetTime = new Date(time);
   targetDate.setHours(targetTime.getHours());
   targetDate.setMinutes(targetTime.getMinutes());
   return targetDate;
