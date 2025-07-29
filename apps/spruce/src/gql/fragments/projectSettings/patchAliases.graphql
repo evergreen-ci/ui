@@ -1,7 +1,6 @@
 fragment ProjectPatchAliasSettings on Project {
   id
-  githubMQTriggerAliases
-  githubPRTriggerAliases
+  githubTriggerAliases
   patchTriggerAliases {
     alias
     childProjectIdentifier
@@ -18,8 +17,7 @@ fragment ProjectPatchAliasSettings on Project {
 
 fragment RepoPatchAliasSettings on RepoRef {
   id
-  githubMQTriggerAliases
-  githubPRTriggerAliases
+  githubTriggerAliases
   patchTriggerAliases {
     alias
     childProjectIdentifier
