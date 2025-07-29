@@ -7,8 +7,8 @@
       data-lgid="lg-select"
     >
       <button
-        aria-controls="select-11-menu"
-        aria-describedby="select-11-description"
+        aria-controls="select-3-menu"
+        aria-describedby="select-3-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
@@ -17,7 +17,7 @@
         data-cy="searchbar-select"
         data-lgid="lg-button"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-12"
+        id="select-4"
         type="button"
         value="filter"
       >
@@ -70,7 +70,7 @@
         <button
           aria-disabled="false"
           aria-labelledby="View search suggestions"
-          class="leafygreen-ui-tcjr3n"
+          class="leafygreen-ui-1u7amgm"
           data-cy="search-suggestion-button"
           tabindex="0"
           title="View search suggestions"
@@ -89,11 +89,11 @@
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M12.331 8.5a5 5 0 1 0-8.612.086L5.408 11.5a1 1 0 0 0 .866.499H6.5V6a1.5 1.5 0 1 1 3 0v6h.224a1 1 0 0 0 .863-.496L12.34 8.5h-.009Z"
+                d="M12.331 8.5a5 5 0 1 0-8.612.086L5.408 11.5a1 1 0 0 0 .866.499H6.5V6a1.5 1.5 0 1 1 3 0v6h.224a1 1 0 0 0 .863-.496L12.34 8.5z"
                 fill="currentColor"
               />
               <path
-                d="M7.5 6v6h1V6a.5.5 0 0 0-1 0ZM10 14v-1H6v1a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1Z"
+                d="M7.5 6v6h1V6a.5.5 0 0 0-1 0M10 14v-1H6v1a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1"
                 fill="currentColor"
               />
             </svg>
@@ -108,7 +108,7 @@
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M8.679 10.796a.554.554 0 0 1-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82Z"
+                d="M8.679 10.796a.554.554 0 0 1-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976z"
                 fill="currentColor"
               />
             </svg>
@@ -133,14 +133,14 @@
               class="leafygreen-ui-1ago99h"
             >
               <input
-                aria-describedby="lg-form_field-feedback-15"
+                aria-describedby="lg-form_field-feedback-7"
                 aria-disabled="false"
                 aria-invalid="true"
                 aria-labelledby="searchbar-input"
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="searchbar-input"
-                id="lg-form_field-input-16"
+                id="lg-form_field-input-8"
                 placeholder="optional, regexp to search"
                 required=""
                 spellcheck="false"
@@ -155,7 +155,7 @@
             class="leafygreen-ui-wsgs9n"
             data-lgid="lg-form_field-feedback"
             data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-15"
+            id="lg-form_field-feedback-7"
           >
             <div
               class="leafygreen-ui-1nmw6il"
@@ -207,7 +207,7 @@
             >
               <path
                 clip-rule="evenodd"
-                d="M8.864 1.514a.983.983 0 0 0-1.728 0L1.122 12.539A.987.987 0 0 0 1.986 14h12.028a.987.987 0 0 0 .864-1.461L8.864 1.514ZM7 5a1 1 0 0 1 2 0v4a1 1 0 0 1-2 0V5Zm2 7a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"
+                d="M8.864 1.514a.983.983 0 0 0-1.728 0L1.122 12.539A.987.987 0 0 0 1.986 14h12.028a.987.987 0 0 0 .864-1.461zM7 5a1 1 0 0 1 2 0v4a1 1 0 0 1-2 0zm2 7a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
                 fill="currentColor"
                 fill-rule="evenodd"
               />

@@ -22,6 +22,7 @@ export const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
         __typename: "Task",
         details: {
           description: "",
+          failingCommand: "",
           status: "success",
         },
         displayName: "check_codegen",

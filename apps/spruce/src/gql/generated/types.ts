@@ -25,6 +25,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  BooleanMap: { input: any; output: any };
   Duration: { input: number; output: number };
   Map: { input: any; output: any };
   StringMap: { input: { [key: string]: any }; output: { [key: string]: any } };
@@ -104,15 +105,22 @@ export type AdminSettings = {
   authConfig?: Maybe<AuthConfig>;
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
+  cedar?: Maybe<CedarConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
+  fws?: Maybe<FwsConfig>;
   hostInit?: Maybe<HostInitConfig>;
+  jira?: Maybe<JiraConfig>;
   loggerConfig?: Maybe<LoggerConfig>;
   notify?: Maybe<NotifyConfig>;
   podLifecycle?: Maybe<PodLifecycleConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
+  runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
+  slack?: Maybe<SlackConfig>;
+  splunk?: Maybe<SplunkConfig>;
   taskLimits?: Maybe<TaskLimitsConfig>;
+  testSelection?: Maybe<TestSelectionConfig>;
   triggers?: Maybe<TriggerConfig>;
   ui?: Maybe<UiConfig>;
 };
@@ -124,15 +132,22 @@ export type AdminSettingsInput = {
   authConfig?: InputMaybe<AuthConfigInput>;
   banner?: InputMaybe<Scalars["String"]["input"]>;
   bannerTheme?: InputMaybe<BannerTheme>;
+  cedar?: InputMaybe<CedarConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  fws?: InputMaybe<FwsConfigInput>;
   hostInit?: InputMaybe<HostInitConfigInput>;
+  jira?: InputMaybe<JiraConfigInput>;
   loggerConfig?: InputMaybe<LoggerConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
   podLifecycle?: InputMaybe<PodLifecycleConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
+  runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
   serviceFlags?: InputMaybe<ServiceFlagsInput>;
+  slack?: InputMaybe<SlackConfigInput>;
+  splunk?: InputMaybe<SplunkConfigInput>;
   taskLimits?: InputMaybe<TaskLimitsConfigInput>;
+  testSelection?: InputMaybe<TestSelectionConfigInput>;
   triggers?: InputMaybe<TriggerConfigInput>;
   ui?: InputMaybe<UiConfigInput>;
 };
@@ -398,6 +413,17 @@ export type BuildVariantTuple = {
   __typename?: "BuildVariantTuple";
   buildVariant: Scalars["String"]["output"];
   displayName: Scalars["String"]["output"];
+};
+
+export type CedarConfig = {
+  __typename?: "CedarConfig";
+  dbName: Scalars["String"]["output"];
+  dbUrl: Scalars["String"]["output"];
+};
+
+export type CedarConfigInput = {
+  dbName: Scalars["String"]["input"];
+  dbUrl: Scalars["String"]["input"];
 };
 
 export type ChildPatchAlias = {
@@ -777,6 +803,15 @@ export type ExternalLinkInput = {
   displayName: Scalars["String"]["input"];
   requesters: Array<Scalars["String"]["input"]>;
   urlTemplate: Scalars["String"]["input"];
+};
+
+export type FwsConfig = {
+  __typename?: "FWSConfig";
+  url: Scalars["String"]["output"];
+};
+
+export type FwsConfigInput = {
+  url: Scalars["String"]["input"];
 };
 
 export type FailingCommand = {
@@ -1327,6 +1362,13 @@ export type JiraConfig = {
   __typename?: "JiraConfig";
   email?: Maybe<Scalars["String"]["output"]>;
   host?: Maybe<Scalars["String"]["output"]>;
+  personalAccessToken?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type JiraConfigInput = {
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  host?: InputMaybe<Scalars["String"]["input"]>;
+  personalAccessToken?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type JiraIssueSubscriber = {
@@ -3003,6 +3045,17 @@ export enum RoundingRule {
   Up = "UP",
 }
 
+export type RuntimeEnvironmentConfig = {
+  __typename?: "RuntimeEnvironmentConfig";
+  apiKey?: Maybe<Scalars["String"]["output"]>;
+  baseUrl: Scalars["String"]["output"];
+};
+
+export type RuntimeEnvironmentConfigInput = {
+  apiKey?: InputMaybe<Scalars["String"]["input"]>;
+  baseUrl: Scalars["String"]["input"];
+};
+
 export type SesConfig = {
   __typename?: "SESConfig";
   senderAddress?: Maybe<Scalars["String"]["output"]>;
@@ -3191,7 +3244,40 @@ export type SingleTaskDistroConfig = {
 
 export type SlackConfig = {
   __typename?: "SlackConfig";
+  level?: Maybe<PriorityLevel>;
   name?: Maybe<Scalars["String"]["output"]>;
+  options?: Maybe<SlackOptions>;
+  token?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SlackConfigInput = {
+  level: PriorityLevel;
+  name: Scalars["String"]["input"];
+  options?: InputMaybe<SlackOptionsInput>;
+  token: Scalars["String"]["input"];
+};
+
+export type SlackOptions = {
+  __typename?: "SlackOptions";
+  allFields?: Maybe<Scalars["Boolean"]["output"]>;
+  basicMetadata?: Maybe<Scalars["Boolean"]["output"]>;
+  channel?: Maybe<Scalars["String"]["output"]>;
+  fields?: Maybe<Scalars["Boolean"]["output"]>;
+  fieldsSet?: Maybe<Scalars["BooleanMap"]["output"]>;
+  hostname?: Maybe<Scalars["String"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SlackOptionsInput = {
+  allFields?: InputMaybe<Scalars["Boolean"]["input"]>;
+  basicMetadata?: InputMaybe<Scalars["Boolean"]["input"]>;
+  channel?: InputMaybe<Scalars["String"]["input"]>;
+  fields?: InputMaybe<Scalars["Boolean"]["input"]>;
+  fieldsSet?: InputMaybe<Scalars["BooleanMap"]["input"]>;
+  hostname?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type SleepSchedule = {
@@ -3282,6 +3368,28 @@ export type SpawnVolumeInput = {
   noExpiration?: InputMaybe<Scalars["Boolean"]["input"]>;
   size: Scalars["Int"]["input"];
   type: Scalars["String"]["input"];
+};
+
+export type SplunkConfig = {
+  __typename?: "SplunkConfig";
+  splunkConnectionInfo: SplunkConnectionInfo;
+};
+
+export type SplunkConfigInput = {
+  splunkConnectionInfo: SplunkConnectionInfoInput;
+};
+
+export type SplunkConnectionInfo = {
+  __typename?: "SplunkConnectionInfo";
+  channel: Scalars["String"]["output"];
+  serverUrl: Scalars["String"]["output"];
+  token: Scalars["String"]["output"];
+};
+
+export type SplunkConnectionInfoInput = {
+  channel: Scalars["String"]["input"];
+  serverUrl: Scalars["String"]["input"];
+  token: Scalars["String"]["input"];
 };
 
 /**
@@ -3424,6 +3532,7 @@ export type Task = {
   projectIdentifier?: Maybe<Scalars["String"]["output"]>;
   requester: Scalars["String"]["output"];
   resetWhenFinished: Scalars["Boolean"]["output"];
+  reviewed?: Maybe<Scalars["Boolean"]["output"]>;
   revision?: Maybe<Scalars["String"]["output"]>;
   scheduledTime?: Maybe<Scalars["Time"]["output"]>;
   spawnHostLink?: Maybe<Scalars["String"]["output"]>;
@@ -3773,6 +3882,15 @@ export type TestResult = {
   status: Scalars["String"]["output"];
   taskId?: Maybe<Scalars["String"]["output"]>;
   testFile: Scalars["String"]["output"];
+};
+
+export type TestSelectionConfig = {
+  __typename?: "TestSelectionConfig";
+  url: Scalars["String"]["output"];
+};
+
+export type TestSelectionConfigInput = {
+  url: Scalars["String"]["input"];
 };
 
 export enum TestSortCategory {
@@ -4276,6 +4394,26 @@ export type WorkstationSetupCommand = {
 export type WorkstationSetupCommandInput = {
   command: Scalars["String"]["input"];
   directory?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type NonDisplayTaskReviewedFragment = {
+  __typename?: "Task";
+  reviewed?: boolean | null;
+};
+
+export type ReviewedTaskFragment = {
+  __typename?: "Task";
+  id: string;
+  displayStatus: string;
+  execution: number;
+  reviewed?: boolean | null;
+  executionTasksFull?: Array<{
+    __typename?: "Task";
+    id: string;
+    displayStatus: string;
+    execution: number;
+    reviewed?: boolean | null;
+  }> | null;
 };
 
 export type AnnotationFragment = {
@@ -6131,6 +6269,18 @@ export type ReprovisionToNewMutation = {
   reprovisionToNew: number;
 };
 
+export type RestartAdminTasksMutationVariables = Exact<{
+  opts: RestartAdminTasksOptions;
+}>;
+
+export type RestartAdminTasksMutation = {
+  __typename?: "Mutation";
+  restartAdminTasks: {
+    __typename?: "RestartAdminTasksPayload";
+    numRestartedTasks: number;
+  };
+};
+
 export type RestartJasperMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]["input"]>;
 }>;
@@ -6197,6 +6347,57 @@ export type SaveAdminSettingsMutation = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    disabledGQLQueries: Array<string>;
+    api?: {
+      __typename?: "APIConfig";
+      corpUrl?: string | null;
+      httpListenAddr?: string | null;
+      url?: string | null;
+    } | null;
+    hostInit?: {
+      __typename?: "HostInitConfig";
+      cloudStatusBatchSize?: number | null;
+      hostThrottle?: number | null;
+      maxTotalDynamicHosts?: number | null;
+      provisioningThrottle?: number | null;
+    } | null;
+    notify?: {
+      __typename?: "NotifyConfig";
+      ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
+    } | null;
+    podLifecycle?: {
+      __typename?: "PodLifecycleConfig";
+      maxParallelPodRequests?: number | null;
+      maxPodDefinitionCleanupRate?: number | null;
+      maxSecretCleanupRate?: number | null;
+    } | null;
+    repotracker?: {
+      __typename?: "RepotrackerConfig";
+      maxConcurrentRequests?: number | null;
+      maxRepoRevisionsToSearch?: number | null;
+      numNewRepoRevisionsToFetch?: number | null;
+    } | null;
+    scheduler?: {
+      __typename?: "SchedulerConfig";
+      acceptableHostIdleTimeSeconds?: number | null;
+      cacheDurationSeconds?: number | null;
+      commitQueueFactor?: number | null;
+      expectedRuntimeFactor?: number | null;
+      futureHostFraction?: number | null;
+      generateTaskFactor?: number | null;
+      groupVersions: boolean;
+      hostAllocator?: HostAllocatorVersion | null;
+      hostAllocatorFeedbackRule?: FeedbackRule | null;
+      hostAllocatorRoundingRule?: RoundingRule | null;
+      hostsOverallocatedRule?: OverallocatedRule | null;
+      mainlineTimeInQueueFactor?: number | null;
+      numDependentsFactor?: number | null;
+      patchFactor?: number | null;
+      patchTimeInQueueFactor?: number | null;
+      stepbackTaskFactor?: number | null;
+      targetTimeSeconds?: number | null;
+      taskFinder?: FinderVersion | null;
+    } | null;
     serviceFlags?: {
       __typename?: "ServiceFlags";
       adminParameterStoreDisabled: boolean;
@@ -6235,6 +6436,42 @@ export type SaveAdminSettingsMutation = {
       taskReliabilityDisabled: boolean;
       unrecognizedPodCleanupDisabled: boolean;
       webhookNotificationsDisabled: boolean;
+    } | null;
+    taskLimits?: {
+      __typename?: "TaskLimitsConfig";
+      maxConcurrentLargeParserProjectTasks?: number | null;
+      maxDailyAutomaticRestarts?: number | null;
+      maxDegradedModeConcurrentLargeParserProjectTasks?: number | null;
+      maxDegradedModeParserProjectSize?: number | null;
+      maxExecTimeoutSecs?: number | null;
+      maxGenerateTaskJSONSize?: number | null;
+      maxHourlyPatchTasks?: number | null;
+      maxIncludesPerVersion?: number | null;
+      maxParserProjectSize?: number | null;
+      maxPendingGeneratedTasks?: number | null;
+      maxTaskExecution?: number | null;
+      maxTasksPerVersion?: number | null;
+    } | null;
+    ui?: {
+      __typename?: "UIConfig";
+      cacheTemplates?: boolean | null;
+      corsOrigins: Array<string>;
+      csrfKey?: string | null;
+      defaultProject: string;
+      fileStreamingContentTypes: Array<string>;
+      helpUrl?: string | null;
+      httpListenAddr?: string | null;
+      loginDomain?: string | null;
+      parsleyUrl?: string | null;
+      secret?: string | null;
+      stagingEnvironment?: string | null;
+      uiv2Url?: string | null;
+      url?: string | null;
+      userVoice?: string | null;
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
     } | null;
   };
 };
@@ -6588,40 +6825,10 @@ export type AdminSettingsQuery = {
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
     disabledGQLQueries: Array<string>;
-    amboy?: {
-      __typename?: "AmboyConfig";
-      groupBackgroundCreateFrequencyMinutes?: number | null;
-      groupDefaultWorkers?: number | null;
-      groupPruneFrequencyMinutes?: number | null;
-      groupTTLMinutes?: number | null;
-      localStorage?: number | null;
-      lockTimeoutMinutes?: number | null;
-      name?: string | null;
-      poolSizeLocal?: number | null;
-      poolSizeRemote?: number | null;
-      sampleSize?: number | null;
-      singleName?: string | null;
-      namedQueues: Array<{
-        __typename?: "AmboyNamedQueueConfig";
-        lockTimeoutSeconds?: number | null;
-        name?: string | null;
-        numWorkers?: number | null;
-        regexp?: string | null;
-        sampleSize?: number | null;
-      }>;
-      retry?: {
-        __typename?: "AmboyRetryConfig";
-        maxCapacity?: number | null;
-        maxRetryAttempts?: number | null;
-        maxRetryTimeSeconds?: number | null;
-        numWorkers?: number | null;
-        retryBackoffSeconds?: number | null;
-        staleRetryingMonitorIntervalSeconds?: number | null;
-      } | null;
-    } | null;
-    amboyDB?: {
-      __typename?: "AmboyDBConfig";
-      database?: string | null;
+    api?: {
+      __typename?: "APIConfig";
+      corpUrl?: string | null;
+      httpListenAddr?: string | null;
       url?: string | null;
     } | null;
     hostInit?: {
@@ -6631,24 +6838,8 @@ export type AdminSettingsQuery = {
       maxTotalDynamicHosts?: number | null;
       provisioningThrottle?: number | null;
     } | null;
-    loggerConfig?: {
-      __typename?: "LoggerConfig";
-      defaultLevel?: PriorityLevel | null;
-      logkeeperURL?: string | null;
-      redactKeys: Array<string>;
-      thresholdLevel?: PriorityLevel | null;
-      buffer?: {
-        __typename?: "LogBuffering";
-        count?: number | null;
-        durationSeconds?: number | null;
-        incomingBufferFactor?: number | null;
-        useAsync: boolean;
-      } | null;
-    } | null;
     notify?: {
       __typename?: "NotifyConfig";
-      bufferIntervalSeconds?: number | null;
-      bufferTargetPerInterval?: number | null;
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
     } | null;
     podLifecycle?: {
@@ -6738,11 +6929,44 @@ export type AdminSettingsQuery = {
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
     } | null;
-    triggers?: {
-      __typename?: "TriggerConfig";
-      generateTaskDistro?: string | null;
+    ui?: {
+      __typename?: "UIConfig";
+      cacheTemplates?: boolean | null;
+      corsOrigins: Array<string>;
+      csrfKey?: string | null;
+      defaultProject: string;
+      fileStreamingContentTypes: Array<string>;
+      helpUrl?: string | null;
+      httpListenAddr?: string | null;
+      loginDomain?: string | null;
+      parsleyUrl?: string | null;
+      secret?: string | null;
+      stagingEnvironment?: string | null;
+      uiv2Url?: string | null;
+      url?: string | null;
+      userVoice?: string | null;
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
     } | null;
   } | null;
+};
+
+export type AdminTasksToRestartQueryVariables = Exact<{
+  opts: RestartAdminTasksOptions;
+}>;
+
+export type AdminTasksToRestartQuery = {
+  __typename?: "Query";
+  adminTasksToRestart: {
+    __typename?: "AdminTasksToRestartPayload";
+    tasksToRestart: Array<{
+      __typename?: "Task";
+      id: string;
+      execution: number;
+    }>;
+  };
 };
 
 export type AgentLogsQueryVariables = Exact<{
@@ -9916,6 +10140,7 @@ export type TaskQuery = {
     priority?: number | null;
     requester: string;
     resetWhenFinished: boolean;
+    reviewed?: boolean | null;
     spawnHostLink?: string | null;
     startTime?: Date | null;
     status: string;
@@ -10044,6 +10269,7 @@ export type TaskQuery = {
       displayStatus: string;
       execution: number;
       projectIdentifier?: string | null;
+      reviewed?: boolean | null;
       revision?: string | null;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };
@@ -10438,6 +10664,7 @@ export type VersionTasksQuery = {
         displayStatus: string;
         execution: number;
         projectIdentifier?: string | null;
+        reviewed?: boolean | null;
         baseTask?: {
           __typename?: "Task";
           id: string;
@@ -10454,6 +10681,7 @@ export type VersionTasksQuery = {
           displayStatus: string;
           execution: number;
           projectIdentifier?: string | null;
+          reviewed?: boolean | null;
           baseTask?: {
             __typename?: "Task";
             id: string;

@@ -73,7 +73,7 @@
             >
               <path
                 clip-rule="evenodd"
-                d="M10.778 1.636a1 1 0 0 0-1.414 0l-4.95 4.95-.707.707a1 1 0 0 0 0 1.414l.707.707 4.95 4.95a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L7.243 8l4.242-4.243a1 1 0 0 0 0-1.414l-.707-.707Z"
+                d="M10.778 1.636a1 1 0 0 0-1.414 0l-4.95 4.95-.707.707a1 1 0 0 0 0 1.414l.707.707 4.95 4.95a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L7.243 8l4.242-4.243a1 1 0 0 0 0-1.414z"
                 fill="currentColor"
                 fill-rule="evenodd"
               />
@@ -116,7 +116,7 @@
             >
               <path
                 clip-rule="evenodd"
-                d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
                 fill="currentColor"
                 fill-rule="evenodd"
               />
@@ -129,8 +129,8 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-183-menu"
-          aria-describedby="select-183-description"
+          aria-controls="select-203-menu"
+          aria-describedby="select-203-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -139,7 +139,7 @@
           data-cy="tasks-table-page-size-selector"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-184"
+          id="select-204"
           type="button"
           value="20"
         >

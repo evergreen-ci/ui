@@ -1,6 +1,8 @@
 import { useMutation } from "@apollo/client";
 import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
+import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { AdminSettingsTabRoutes, slugs } from "constants/routes";
 import {
   AdminSettings,
   AdminSettingsInput,
@@ -18,6 +20,10 @@ interface AdminSaveButtonProps {
 export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
   adminSettingsData,
 }) => {
+  const { [slugs.tab]: urlTab } = useParams<{
+    [slugs.tab]: AdminSettingsTabRoutes;
+  }>();
+
   const { checkHasUnsavedChanges, getChangedTabs, getTab } =
     useAdminSettingsContext();
   const hasUnsavedChanges = checkHasUnsavedChanges();
@@ -49,7 +55,11 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
     saveAdminSettings({ variables: { adminSettings: changedSettings } });
   };
 
-  return (
+  const saveable =
+    urlTab !== AdminSettingsTabRoutes.RestartTasks &&
+    urlTab !== AdminSettingsTabRoutes.EventLog;
+
+  return saveable ? (
     <Button
       data-cy="save-settings-button"
       disabled={!hasUnsavedChanges}
@@ -59,7 +69,7 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
     >
       Save changes on page
     </Button>
-  );
+  ) : null;
 };
 
 export default AdminSaveButton;

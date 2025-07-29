@@ -2,7 +2,7 @@
   <button
     aria-disabled="true"
     aria-labelledby="View search suggestions"
-    class="leafygreen-ui-1ykpe4g"
+    class="leafygreen-ui-462o51"
     data-cy="search-suggestion-button"
     tabindex="0"
     title="View search suggestions"
@@ -21,11 +21,11 @@
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M12.331 8.5a5 5 0 1 0-8.612.086L5.408 11.5a1 1 0 0 0 .866.499H6.5V6a1.5 1.5 0 1 1 3 0v6h.224a1 1 0 0 0 .863-.496L12.34 8.5h-.009Z"
+          d="M12.331 8.5a5 5 0 1 0-8.612.086L5.408 11.5a1 1 0 0 0 .866.499H6.5V6a1.5 1.5 0 1 1 3 0v6h.224a1 1 0 0 0 .863-.496L12.34 8.5z"
           fill="currentColor"
         />
         <path
-          d="M7.5 6v6h1V6a.5.5 0 0 0-1 0ZM10 14v-1H6v1a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1Z"
+          d="M7.5 6v6h1V6a.5.5 0 0 0-1 0M10 14v-1H6v1a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1"
           fill="currentColor"
         />
       </svg>
@@ -40,7 +40,7 @@
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M8.679 10.796a.554.554 0 0 1-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82Z"
+          d="M8.679 10.796a.554.554 0 0 1-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976z"
           fill="currentColor"
         />
       </svg>

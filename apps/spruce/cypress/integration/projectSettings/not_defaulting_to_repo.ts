@@ -67,7 +67,12 @@ describe("Project Settings when not defaulting to repo", () => {
         "aria-disabled",
         "true",
       );
-      cy.dataCy("var-admin-input").should("have.attr", "aria-disabled", "true");
+      // Admin checkbox should not be disabled.
+      cy.dataCy("var-admin-input").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
     });
 
     it("Typing a duplicate variable name will disable saving and show an error message", () => {

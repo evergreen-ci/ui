@@ -48,6 +48,19 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
+          class="leafygreen-ui-c62i3c"
+        >
+          Initializing
+        </div>
+      </div>
+    </div>
+    <div
+      class="emotion-1"
+    >
+      <div
+        class="emotion-HostStatusWrapper e1bt0ccw0"
+      >
+        <div
           class="leafygreen-ui-dhdzha"
         >
           Terminated
@@ -67,7 +80,7 @@
           >
             <path
               clip-rule="evenodd"
-              d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14ZM9 4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM8 6a1 1 0 0 1 1 1v4h.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1H7V7h-.5a.5.5 0 0 1 0-1H8Z"
+              d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14M9 4a1 1 0 1 1-2 0 1 1 0 0 1 2 0M8 6a1 1 0 0 1 1 1v4h.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1H7V7h-.5a.5.5 0 0 1 0-1z"
               fill="currentColor"
               fill-rule="evenodd"
             />
@@ -123,7 +136,7 @@
         <div
           class="leafygreen-ui-c62i3c"
         >
-          Initializing
+          Building
         </div>
       </div>
     </div>
@@ -136,7 +149,7 @@
         <div
           class="leafygreen-ui-c62i3c"
         >
-          Building
+          Build Failed
         </div>
       </div>
     </div>

@@ -22,7 +22,7 @@
       <a
         aria-disabled="false"
         aria-label="GitHub Commit Link"
-        class="leafygreen-ui-tcjr3n"
+        class="leafygreen-ui-1u7amgm"
         data-cy="github-link"
         href="https://github.com/evergreen-ci/spruce/commit/aef363719d0287e92cd83749a827bae"
         tabindex="0"
@@ -102,7 +102,7 @@
         <button
           aria-disabled="false"
           aria-label="Accordion icon"
-          class="emotion-AccordionIcon e1omze813 leafygreen-ui-tcjr3n"
+          class="emotion-AccordionIcon e1omze813 leafygreen-ui-1u7amgm"
           style="align-self: start;"
           tabindex="0"
         >
@@ -121,7 +121,7 @@
             >
               <path
                 clip-rule="evenodd"
-                d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
                 fill="currentColor"
                 fill-rule="evenodd"
               />
@@ -201,7 +201,7 @@
                           <button
                             aria-disabled="false"
                             aria-label="Table Search Popover Icon"
-                            class="leafygreen-ui-tcjr3n"
+                            class="leafygreen-ui-1u7amgm"
                             data-cy="test-name-filter"
                             tabindex="0"
                           >
@@ -215,14 +215,13 @@
                                 fill="none"
                                 height="16"
                                 role="img"
-                                small="xsmall"
                                 viewBox="0 0 16 16"
                                 width="16"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
                                   clip-rule="evenodd"
-                                  d="M2.323 9.819a5.302 5.302 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496ZM7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162Z"
+                                  d="M2.323 9.819a5.3 5.3 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496M7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162"
                                   fill="currentColor"
                                   fill-rule="evenodd"
                                 />
@@ -260,7 +259,7 @@
                 <tbody>
                   <tr
                     aria-disabled="false"
-                    class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+                    class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
                     data-cy="failing-tests-table-row"
                     data-depth="0"
                     data-expanded="false"
@@ -375,11 +374,11 @@
                                     xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
-                                      d="M13.823 2.45a.278.278 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.395 1.395 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788c.061-.043.12-.093.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201l-.079-4.045Z"
+                                      d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
                                       fill="currentColor"
                                     />
                                     <path
-                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2h3.25Z"
+                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
                                       fill="currentColor"
                                     />
                                   </svg>
@@ -393,7 +392,7 @@
                   </tr>
                   <tr
                     aria-disabled="false"
-                    class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+                    class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
                     data-cy="failing-tests-table-row"
                     data-depth="0"
                     data-expanded="false"
@@ -508,11 +507,11 @@
                                     xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
-                                      d="M13.823 2.45a.278.278 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.395 1.395 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788c.061-.043.12-.093.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201l-.079-4.045Z"
+                                      d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
                                       fill="currentColor"
                                     />
                                     <path
-                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2h3.25Z"
+                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
                                       fill="currentColor"
                                     />
                                   </svg>
@@ -526,7 +525,7 @@
                   </tr>
                   <tr
                     aria-disabled="false"
-                    class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+                    class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
                     data-cy="failing-tests-table-row"
                     data-depth="0"
                     data-expanded="false"
@@ -641,11 +640,11 @@
                                     xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
-                                      d="M13.823 2.45a.278.278 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.395 1.395 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788c.061-.043.12-.093.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201l-.079-4.045Z"
+                                      d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
                                       fill="currentColor"
                                     />
                                     <path
-                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2h3.25Z"
+                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
                                       fill="currentColor"
                                     />
                                   </svg>
@@ -659,7 +658,7 @@
                   </tr>
                   <tr
                     aria-disabled="false"
-                    class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+                    class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
                     data-cy="failing-tests-table-row"
                     data-depth="0"
                     data-expanded="false"
@@ -774,11 +773,11 @@
                                     xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
-                                      d="M13.823 2.45a.278.278 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.395 1.395 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788c.061-.043.12-.093.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201l-.079-4.045Z"
+                                      d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
                                       fill="currentColor"
                                     />
                                     <path
-                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2h3.25Z"
+                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
                                       fill="currentColor"
                                     />
                                   </svg>
@@ -792,7 +791,7 @@
                   </tr>
                   <tr
                     aria-disabled="false"
-                    class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
+                    class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
                     data-cy="failing-tests-table-row"
                     data-depth="0"
                     data-expanded="false"
@@ -907,11 +906,11 @@
                                     xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
-                                      d="M13.823 2.45a.278.278 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.395 1.395 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788c.061-.043.12-.093.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201l-.079-4.045Z"
+                                      d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
                                       fill="currentColor"
                                     />
                                     <path
-                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2h3.25Z"
+                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
                                       fill="currentColor"
                                     />
                                   </svg>
@@ -953,8 +952,8 @@
                   data-lgid="lg-select"
                 >
                   <button
-                    aria-controls="select-149-menu"
-                    aria-describedby="select-149-description"
+                    aria-controls="select-157-menu"
+                    aria-describedby="select-157-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
@@ -962,7 +961,7 @@
                     class="lg-ui-button-0000 leafygreen-ui-7hcedm"
                     data-lgid="lg-button"
                     data-testid="lg-pagination-page-select"
-                    id="select-150"
+                    id="select-158"
                     type="button"
                     value="1"
                   >

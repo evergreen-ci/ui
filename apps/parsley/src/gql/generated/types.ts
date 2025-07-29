@@ -25,6 +25,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  BooleanMap: { input: any; output: any };
   Duration: { input: number; output: number };
   Map: { input: any; output: any };
   StringMap: { input: { [key: string]: any }; output: { [key: string]: any } };
@@ -101,17 +102,25 @@ export type AdminSettings = {
   amboy?: Maybe<AmboyConfig>;
   amboyDB?: Maybe<AmboyDbConfig>;
   api?: Maybe<ApiConfig>;
+  authConfig?: Maybe<AuthConfig>;
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
+  cedar?: Maybe<CedarConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
+  fws?: Maybe<FwsConfig>;
   hostInit?: Maybe<HostInitConfig>;
+  jira?: Maybe<JiraConfig>;
   loggerConfig?: Maybe<LoggerConfig>;
   notify?: Maybe<NotifyConfig>;
   podLifecycle?: Maybe<PodLifecycleConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
+  runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
+  slack?: Maybe<SlackConfig>;
+  splunk?: Maybe<SplunkConfig>;
   taskLimits?: Maybe<TaskLimitsConfig>;
+  testSelection?: Maybe<TestSelectionConfig>;
   triggers?: Maybe<TriggerConfig>;
   ui?: Maybe<UiConfig>;
 };
@@ -120,19 +129,32 @@ export type AdminSettingsInput = {
   amboy?: InputMaybe<AmboyConfigInput>;
   amboyDB?: InputMaybe<AmboyDbConfigInput>;
   api?: InputMaybe<ApiConfigInput>;
+  authConfig?: InputMaybe<AuthConfigInput>;
   banner?: InputMaybe<Scalars["String"]["input"]>;
   bannerTheme?: InputMaybe<BannerTheme>;
+  cedar?: InputMaybe<CedarConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  fws?: InputMaybe<FwsConfigInput>;
   hostInit?: InputMaybe<HostInitConfigInput>;
+  jira?: InputMaybe<JiraConfigInput>;
   loggerConfig?: InputMaybe<LoggerConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
   podLifecycle?: InputMaybe<PodLifecycleConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
+  runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
   serviceFlags?: InputMaybe<ServiceFlagsInput>;
+  slack?: InputMaybe<SlackConfigInput>;
+  splunk?: InputMaybe<SplunkConfigInput>;
   taskLimits?: InputMaybe<TaskLimitsConfigInput>;
+  testSelection?: InputMaybe<TestSelectionConfigInput>;
   triggers?: InputMaybe<TriggerConfigInput>;
   ui?: InputMaybe<UiConfigInput>;
+};
+
+export type AdminTasksToRestartPayload = {
+  __typename?: "AdminTasksToRestartPayload";
+  tasksToRestart: Array<Task>;
 };
 
 export type AmboyConfig = {
@@ -241,6 +263,44 @@ export enum Arch {
   OsxArm_64Bit = "OSX_ARM_64_BIT",
   Windows_64Bit = "WINDOWS_64_BIT",
 }
+
+export type AuthConfig = {
+  __typename?: "AuthConfig";
+  allowServiceUsers?: Maybe<Scalars["Boolean"]["output"]>;
+  backgroundReauthMinutes?: Maybe<Scalars["Int"]["output"]>;
+  github?: Maybe<GitHubAuthConfig>;
+  kanopy?: Maybe<KanopyAuthConfig>;
+  multi?: Maybe<MultiAuthConfig>;
+  naive?: Maybe<NaiveAuthConfig>;
+  okta?: Maybe<OktaConfig>;
+  preferredType?: Maybe<PreferredAuthType>;
+};
+
+export type AuthConfigInput = {
+  allowServiceUsers?: InputMaybe<Scalars["Boolean"]["input"]>;
+  backgroundReauthMinutes?: InputMaybe<Scalars["Int"]["input"]>;
+  github?: InputMaybe<GitHubAuthConfigInput>;
+  kanopy?: InputMaybe<KanopyAuthConfigInput>;
+  multi?: InputMaybe<MultiAuthConfigInput>;
+  naive?: InputMaybe<NaiveAuthConfigInput>;
+  okta?: InputMaybe<OktaConfigInput>;
+  preferredType?: InputMaybe<PreferredAuthType>;
+};
+
+export type AuthUser = {
+  __typename?: "AuthUser";
+  displayName?: Maybe<Scalars["String"]["output"]>;
+  email?: Maybe<Scalars["String"]["output"]>;
+  password?: Maybe<Scalars["String"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type AuthUserInput = {
+  displayName?: InputMaybe<Scalars["String"]["input"]>;
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  password?: InputMaybe<Scalars["String"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
+};
 
 export enum BannerTheme {
   Announcement = "ANNOUNCEMENT",
@@ -353,6 +413,17 @@ export type BuildVariantTuple = {
   __typename?: "BuildVariantTuple";
   buildVariant: Scalars["String"]["output"];
   displayName: Scalars["String"]["output"];
+};
+
+export type CedarConfig = {
+  __typename?: "CedarConfig";
+  dbName: Scalars["String"]["output"];
+  dbUrl: Scalars["String"]["output"];
+};
+
+export type CedarConfigInput = {
+  dbName: Scalars["String"]["input"];
+  dbUrl: Scalars["String"]["input"];
 };
 
 export type ChildPatchAlias = {
@@ -734,6 +805,15 @@ export type ExternalLinkInput = {
   urlTemplate: Scalars["String"]["input"];
 };
 
+export type FwsConfig = {
+  __typename?: "FWSConfig";
+  url: Scalars["String"]["output"];
+};
+
+export type FwsConfigInput = {
+  url: Scalars["String"]["input"];
+};
+
 export type FailingCommand = {
   __typename?: "FailingCommand";
   failureMetadataTags: Array<Scalars["String"]["output"]>;
@@ -797,6 +877,27 @@ export type GeneratedTaskCountResults = {
   estimatedTasks: Scalars["Int"]["output"];
   taskId?: Maybe<Scalars["String"]["output"]>;
   taskName?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type GitHubAuthConfig = {
+  __typename?: "GitHubAuthConfig";
+  appId?: Maybe<Scalars["Int"]["output"]>;
+  clientId?: Maybe<Scalars["String"]["output"]>;
+  clientSecret?: Maybe<Scalars["String"]["output"]>;
+  defaultOwner?: Maybe<Scalars["String"]["output"]>;
+  defaultRepo?: Maybe<Scalars["String"]["output"]>;
+  organization?: Maybe<Scalars["String"]["output"]>;
+  users: Array<Scalars["String"]["output"]>;
+};
+
+export type GitHubAuthConfigInput = {
+  appId?: InputMaybe<Scalars["Int"]["input"]>;
+  clientId?: InputMaybe<Scalars["String"]["input"]>;
+  clientSecret?: InputMaybe<Scalars["String"]["input"]>;
+  defaultOwner?: InputMaybe<Scalars["String"]["input"]>;
+  defaultRepo?: InputMaybe<Scalars["String"]["input"]>;
+  organization?: InputMaybe<Scalars["String"]["input"]>;
+  users: Array<Scalars["String"]["input"]>;
 };
 
 export type GitHubDynamicTokenPermissionGroup = {
@@ -1261,6 +1362,13 @@ export type JiraConfig = {
   __typename?: "JiraConfig";
   email?: Maybe<Scalars["String"]["output"]>;
   host?: Maybe<Scalars["String"]["output"]>;
+  personalAccessToken?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type JiraConfigInput = {
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  host?: InputMaybe<Scalars["String"]["input"]>;
+  personalAccessToken?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type JiraIssueSubscriber = {
@@ -1284,6 +1392,19 @@ export type JiraTicket = {
   __typename?: "JiraTicket";
   fields: TicketFields;
   key: Scalars["String"]["output"];
+};
+
+export type KanopyAuthConfig = {
+  __typename?: "KanopyAuthConfig";
+  headerName: Scalars["String"]["output"];
+  issuer: Scalars["String"]["output"];
+  keysetURL: Scalars["String"]["output"];
+};
+
+export type KanopyAuthConfigInput = {
+  headerName: Scalars["String"]["input"];
+  issuer: Scalars["String"]["input"];
+  keysetURL: Scalars["String"]["input"];
 };
 
 export type LogBuffering = {
@@ -1313,18 +1434,18 @@ export type LogMessage = {
 export type LoggerConfig = {
   __typename?: "LoggerConfig";
   buffer?: Maybe<LogBuffering>;
-  defaultLevel?: Maybe<Scalars["String"]["output"]>;
+  defaultLevel?: Maybe<PriorityLevel>;
   logkeeperURL?: Maybe<Scalars["String"]["output"]>;
   redactKeys: Array<Scalars["String"]["output"]>;
-  thresholdLevel?: Maybe<Scalars["String"]["output"]>;
+  thresholdLevel?: Maybe<PriorityLevel>;
 };
 
 export type LoggerConfigInput = {
   buffer: LogBufferingInput;
-  defaultLevel: Scalars["String"]["input"];
+  defaultLevel: PriorityLevel;
   logkeeperURL: Scalars["String"]["input"];
   redactKeys: Array<Scalars["String"]["input"]>;
-  thresholdLevel: Scalars["String"]["input"];
+  thresholdLevel: PriorityLevel;
 };
 
 export type LogkeeperBuild = {
@@ -1427,6 +1548,17 @@ export type MoveProjectInput = {
   projectId: Scalars["String"]["input"];
 };
 
+export type MultiAuthConfig = {
+  __typename?: "MultiAuthConfig";
+  readOnly: Array<Scalars["String"]["output"]>;
+  readWrite: Array<Scalars["String"]["output"]>;
+};
+
+export type MultiAuthConfigInput = {
+  readOnly?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  readWrite?: InputMaybe<Array<Scalars["String"]["input"]>>;
+};
+
 export type Mutation = {
   __typename?: "Mutation";
   abortTask: Task;
@@ -1462,6 +1594,7 @@ export type Mutation = {
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
+  restartAdminTasks: RestartAdminTasksPayload;
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
   restartVersions?: Maybe<Array<Version>>;
@@ -1637,6 +1770,10 @@ export type MutationReprovisionToNewArgs = {
   hostIds: Array<Scalars["String"]["input"]>;
 };
 
+export type MutationRestartAdminTasksArgs = {
+  opts: RestartAdminTasksOptions;
+};
+
 export type MutationRestartJasperArgs = {
   hostIds: Array<Scalars["String"]["input"]>;
 };
@@ -1765,6 +1902,15 @@ export type MutationUpdateVolumeArgs = {
   updateVolumeInput: UpdateVolumeInput;
 };
 
+export type NaiveAuthConfig = {
+  __typename?: "NaiveAuthConfig";
+  users: Array<AuthUser>;
+};
+
+export type NaiveAuthConfigInput = {
+  users?: InputMaybe<Array<AuthUserInput>>;
+};
+
 /** Return type representing whether a distro was created and any validation errors */
 export type NewDistroPayload = {
   __typename?: "NewDistroPayload";
@@ -1816,6 +1962,25 @@ export type OsInfo = {
   __typename?: "OSInfo";
   name: Scalars["String"]["output"];
   version: Scalars["String"]["output"];
+};
+
+export type OktaConfig = {
+  __typename?: "OktaConfig";
+  clientId?: Maybe<Scalars["String"]["output"]>;
+  clientSecret?: Maybe<Scalars["String"]["output"]>;
+  expireAfterMinutes?: Maybe<Scalars["Int"]["output"]>;
+  issuer?: Maybe<Scalars["String"]["output"]>;
+  scopes: Array<Scalars["String"]["output"]>;
+  userGroup?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type OktaConfigInput = {
+  clientId?: InputMaybe<Scalars["String"]["input"]>;
+  clientSecret?: InputMaybe<Scalars["String"]["input"]>;
+  expireAfterMinutes?: InputMaybe<Scalars["Int"]["input"]>;
+  issuer?: InputMaybe<Scalars["String"]["input"]>;
+  scopes?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  userGroup?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type OomTrackerInfo = {
@@ -2146,6 +2311,26 @@ export type PreconditionScriptInput = {
   script: Scalars["String"]["input"];
 };
 
+export enum PreferredAuthType {
+  Github = "GITHUB",
+  Kanopy = "KANOPY",
+  Multi = "MULTI",
+  Naive = "NAIVE",
+  Okta = "OKTA",
+}
+
+export enum PriorityLevel {
+  Alert = "ALERT",
+  Critical = "CRITICAL",
+  Debug = "DEBUG",
+  Emergency = "EMERGENCY",
+  Error = "ERROR",
+  Info = "INFO",
+  Notice = "NOTICE",
+  Trace = "TRACE",
+  Warning = "WARNING",
+}
+
 /** Project models single repository on GitHub. */
 export type Project = {
   __typename?: "Project";
@@ -2447,6 +2632,7 @@ export type Query = {
   __typename?: "Query";
   adminEvents: AdminEventsPayload;
   adminSettings?: Maybe<AdminSettings>;
+  adminTasksToRestart: AdminTasksToRestartPayload;
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
   buildBaron: BuildBaron;
@@ -2496,6 +2682,10 @@ export type Query = {
 
 export type QueryAdminEventsArgs = {
   opts: AdminEventsInput;
+};
+
+export type QueryAdminTasksToRestartArgs = {
+  opts: RestartAdminTasksOptions;
 };
 
 export type QueryBbGetCreatedTicketsArgs = {
@@ -2836,11 +3026,35 @@ export type ResourceLimitsInput = {
   virtualMemoryKb: Scalars["Int"]["input"];
 };
 
+export type RestartAdminTasksOptions = {
+  endTime: Scalars["Time"]["input"];
+  includeSetupFailed: Scalars["Boolean"]["input"];
+  includeSystemFailed: Scalars["Boolean"]["input"];
+  includeTestFailed: Scalars["Boolean"]["input"];
+  startTime: Scalars["Time"]["input"];
+};
+
+export type RestartAdminTasksPayload = {
+  __typename?: "RestartAdminTasksPayload";
+  numRestartedTasks: Scalars["Int"]["output"];
+};
+
 export enum RoundingRule {
   Default = "DEFAULT",
   Down = "DOWN",
   Up = "UP",
 }
+
+export type RuntimeEnvironmentConfig = {
+  __typename?: "RuntimeEnvironmentConfig";
+  apiKey?: Maybe<Scalars["String"]["output"]>;
+  baseUrl: Scalars["String"]["output"];
+};
+
+export type RuntimeEnvironmentConfigInput = {
+  apiKey?: InputMaybe<Scalars["String"]["input"]>;
+  baseUrl: Scalars["String"]["input"];
+};
 
 export type SesConfig = {
   __typename?: "SESConfig";
@@ -3030,7 +3244,40 @@ export type SingleTaskDistroConfig = {
 
 export type SlackConfig = {
   __typename?: "SlackConfig";
+  level?: Maybe<PriorityLevel>;
   name?: Maybe<Scalars["String"]["output"]>;
+  options?: Maybe<SlackOptions>;
+  token?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SlackConfigInput = {
+  level: PriorityLevel;
+  name: Scalars["String"]["input"];
+  options?: InputMaybe<SlackOptionsInput>;
+  token: Scalars["String"]["input"];
+};
+
+export type SlackOptions = {
+  __typename?: "SlackOptions";
+  allFields?: Maybe<Scalars["Boolean"]["output"]>;
+  basicMetadata?: Maybe<Scalars["Boolean"]["output"]>;
+  channel?: Maybe<Scalars["String"]["output"]>;
+  fields?: Maybe<Scalars["Boolean"]["output"]>;
+  fieldsSet?: Maybe<Scalars["BooleanMap"]["output"]>;
+  hostname?: Maybe<Scalars["String"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SlackOptionsInput = {
+  allFields?: InputMaybe<Scalars["Boolean"]["input"]>;
+  basicMetadata?: InputMaybe<Scalars["Boolean"]["input"]>;
+  channel?: InputMaybe<Scalars["String"]["input"]>;
+  fields?: InputMaybe<Scalars["Boolean"]["input"]>;
+  fieldsSet?: InputMaybe<Scalars["BooleanMap"]["input"]>;
+  hostname?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type SleepSchedule = {
@@ -3121,6 +3368,28 @@ export type SpawnVolumeInput = {
   noExpiration?: InputMaybe<Scalars["Boolean"]["input"]>;
   size: Scalars["Int"]["input"];
   type: Scalars["String"]["input"];
+};
+
+export type SplunkConfig = {
+  __typename?: "SplunkConfig";
+  splunkConnectionInfo: SplunkConnectionInfo;
+};
+
+export type SplunkConfigInput = {
+  splunkConnectionInfo: SplunkConnectionInfoInput;
+};
+
+export type SplunkConnectionInfo = {
+  __typename?: "SplunkConnectionInfo";
+  channel: Scalars["String"]["output"];
+  serverUrl: Scalars["String"]["output"];
+  token: Scalars["String"]["output"];
+};
+
+export type SplunkConnectionInfoInput = {
+  channel: Scalars["String"]["input"];
+  serverUrl: Scalars["String"]["input"];
+  token: Scalars["String"]["input"];
 };
 
 /**
@@ -3612,6 +3881,15 @@ export type TestResult = {
   status: Scalars["String"]["output"];
   taskId?: Maybe<Scalars["String"]["output"]>;
   testFile: Scalars["String"]["output"];
+};
+
+export type TestSelectionConfig = {
+  __typename?: "TestSelectionConfig";
+  url: Scalars["String"]["output"];
+};
+
+export type TestSelectionConfigInput = {
+  url: Scalars["String"]["input"];
 };
 
 export enum TestSortCategory {

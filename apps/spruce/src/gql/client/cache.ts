@@ -125,6 +125,12 @@ export const cache = new InMemoryCache({
             return mergeObjects(existing, incoming);
           },
         },
+        reviewed: {
+          read(existing) {
+            // TODO DEVPROD-19104: Fetch stored value for this field, and return false if none is found.
+            return existing ?? false;
+          },
+        },
         taskLogs: {
           merge(_, incoming) {
             return incoming;

@@ -4,6 +4,7 @@ import { AnnouncementTab } from "./AnnouncementsTab/AnnouncementTab";
 import { BackgroundProcessingTab } from "./BackgroundProcessingTab/BackgroundProcessingTab";
 import { FeatureFlagsTab } from "./FeatureFlagsTab/FeatureFlagsTab";
 import { RunnersTab } from "./RunnersTab/RunnersTab";
+import { WebTab } from "./WebTab/WebTab";
 
 interface Props {
   tabData: FormStateMap;
@@ -23,5 +24,6 @@ export const GeneralTab: React.FC<Props> = ({ tabData }) => (
         tabData[AdminSettingsGeneralSection.BackgroundProcessing]
       }
     />
+    <WebTab webData={tabData[AdminSettingsGeneralSection.Web]} />
   </>
 );

@@ -7,8 +7,10 @@ import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
+import { showTaskReviewUI } from "constants/featureFlags";
 import { getVariantHistoryRoute } from "constants/routes";
 import { TaskSortCategory } from "gql/generated/types";
+import { ReviewedCheckbox } from "./ReviewedCheckbox";
 import { TaskLink } from "./TaskLink";
 import { TaskTableInfo } from "./types";
 
@@ -25,6 +27,17 @@ export const getColumnsTemplate = ({
   showTaskExecutionLabel?: boolean;
   statusOptions?: TreeDataEntry[];
 }): LGColumnDef<TaskTableInfo>[] => [
+  ...(showTaskReviewUI
+    ? [
+        {
+          header: "Reviewed",
+          accessorKey: "reviewed",
+          enableColumnFilter: false,
+          size: 0,
+          cell: ({ row }) => <ReviewedCheckbox row={row} />,
+        } as LGColumnDef<TaskTableInfo>, // This typing can be removed when the feature flag is deleted
+      ]
+    : []),
   {
     header: "Name",
     accessorKey: "displayName",

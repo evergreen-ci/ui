@@ -12,7 +12,6 @@ import {
 export const adminSettings: AdminSettings = {
   banner: "Hello",
   bannerTheme: BannerTheme.Information,
-  disabledGQLQueries: [],
   hostInit: {
     cloudStatusBatchSize: 1,
     hostThrottle: 1,
@@ -157,4 +156,29 @@ export const adminSettings: AdminSettings = {
   triggers: {
     generateTaskDistro: "archlinux-test",
   },
+  api: {
+    httpListenAddr: "http://localhost:8080",
+    url: "http://localhost:9090",
+    corpUrl: "http://corp.example.com",
+  },
+  ui: {
+    url: "http://ui.example.com",
+    helpUrl: "http://help.example.com",
+    uiv2Url: "http://uiv2.example.com",
+    parsleyUrl: "http://parsley.example.com",
+    httpListenAddr: "http://localhost:8081",
+    secret: "supersecret",
+    defaultProject: "default",
+    corsOrigins: ["http://example.com"],
+    fileStreamingContentTypes: ["application/json"],
+    loginDomain: "example.com",
+    userVoice: "http://uservoice.example.com",
+    csrfKey: "csrf-secret-key",
+    cacheTemplates: true,
+    stagingEnvironment: "staging",
+    betaFeatures: {
+      spruceWaterfallEnabled: true,
+    },
+  },
+  disabledGQLQueries: ["query1", "query2"],
 };

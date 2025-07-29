@@ -1,0 +1,5 @@
+mutation RestartAdminTasks($opts: RestartAdminTasksOptions!) {
+  restartAdminTasks(opts: $opts) {
+    numRestartedTasks
+  }
+}

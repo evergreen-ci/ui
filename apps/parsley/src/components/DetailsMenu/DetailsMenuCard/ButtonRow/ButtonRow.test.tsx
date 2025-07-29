@@ -1,3 +1,4 @@
+import { getLgIds } from "@leafygreen-ui/split-button";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch,
@@ -12,18 +13,18 @@ describe("buttonRow", () => {
   beforeAll(() => {
     InitializeFakeToastContext();
   });
-  describe("jira button", () => {
+  describe("copy button", () => {
     it("should be disabled when there are no bookmarks", async () => {
       const user = userEvent.setup();
       renderWithRouterMatch(<ButtonRow />, {
         wrapper: logContextWrapper(logLines),
       });
-      expect(screen.getByDataCy("jira-button")).toHaveAttribute(
+      expect(screen.getByDataCy("copy-text-button")).toHaveAttribute(
         "aria-disabled",
         "true",
       );
-      // Tooltip should appear even if button is disabled.
-      await user.hover(screen.getByDataCy("jira-button"));
+      // Tooltip should appear only if button is disabled.
+      await user.hover(screen.getByDataCy("copy-text-button"));
       await waitFor(() => {
         expect(screen.getByText("No bookmarks to copy.")).toBeInTheDocument();
       });
@@ -35,19 +36,16 @@ describe("buttonRow", () => {
         route: "?bookmarks=0,2",
         wrapper: logContextWrapper(logLines),
       });
-      const jiraButton = screen.getByDataCy("jira-button");
-      expect(jiraButton).toBeEnabled();
-      // Tooltip text should appear on hover.
-      await user.hover(jiraButton);
+      const copyButton = screen.getByDataCy("copy-text-button");
+      expect(copyButton).toBeEnabled();
+      expect(copyButton).toHaveTextContent("Copy Jira");
+
+      // Button text should change after clicking on the button.
+      await user.click(copyButton);
       await waitFor(() => {
-        expect(
-          screen.getByText("Copy bookmarked lines in JIRA format"),
-        ).toBeInTheDocument();
-      });
-      // Tooltip text should change after clicking on the button.
-      await user.click(jiraButton);
-      await waitFor(() => {
-        expect(screen.getByText("Copied!")).toBeInTheDocument();
+        expect(screen.getByDataCy("copy-text-button")).toHaveTextContent(
+          "Copied",
+        );
       });
     });
 
@@ -58,13 +56,43 @@ describe("buttonRow", () => {
         wrapper: logContextWrapper(logLines),
       });
 
-      const jiraButton = screen.getByDataCy("jira-button");
-      expect(jiraButton).toBeEnabled();
+      const copyButton = screen.getByDataCy("copy-text-button");
+      expect(copyButton).toBeEnabled();
 
-      await user.click(jiraButton);
+      await user.click(copyButton);
       const clipboardText = await navigator.clipboard.readText();
       expect(clipboardText).toBe(
         `{noformat}\n${logLines[0]}\n...\n${logLines[2]}\n...\n${logLines[5]}\n{noformat}`,
+      );
+    });
+
+    it("allows copying raw text and updates the default button functionality", async () => {
+      const user = userEvent.setup({ writeToClipboard: true });
+      renderWithRouterMatch(<ButtonRow />, {
+        route: "?bookmarks=0,2,5",
+        wrapper: logContextWrapper(logLines),
+      });
+
+      const { trigger } = getLgIds();
+      await user.click(screen.getByTestId(trigger));
+      await waitFor(() => {
+        expect(screen.getByText("Copy raw")).toBeVisible();
+      });
+
+      await user.click(screen.getByText("Copy raw"));
+      const clipboardText = await navigator.clipboard.readText();
+      expect(clipboardText).toBe(
+        `${logLines[0]}\n...\n${logLines[2]}\n...\n${logLines[5]}\n`,
+      );
+
+      const copyButton = screen.getByDataCy("copy-text-button");
+      expect(copyButton).toHaveTextContent("Copied");
+
+      await waitFor(
+        () => {
+          expect(copyButton).toHaveTextContent("Copy raw");
+        },
+        { timeout: 2000 },
       );
     });
   });

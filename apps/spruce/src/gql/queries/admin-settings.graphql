@@ -32,6 +32,11 @@ query AdminSettings {
       database
       url
     }
+    api {
+      corpUrl
+      httpListenAddr
+      url
+    }
     banner
     bannerTheme
     disabledGQLQueries
@@ -128,6 +133,7 @@ query AdminSettings {
       unrecognizedPodCleanupDisabled
       webhookNotificationsDisabled
     }
+
     taskLimits {
       maxConcurrentLargeParserProjectTasks
       maxDailyAutomaticRestarts
@@ -144,6 +150,25 @@ query AdminSettings {
     }
     triggers {
       generateTaskDistro
+    }
+    ui {
+      betaFeatures {
+        spruceWaterfallEnabled
+      }
+      cacheTemplates
+      corsOrigins
+      csrfKey
+      defaultProject
+      fileStreamingContentTypes
+      helpUrl
+      httpListenAddr
+      loginDomain
+      parsleyUrl
+      secret
+      stagingEnvironment
+      uiv2Url
+      url
+      userVoice
     }
   }
 }
