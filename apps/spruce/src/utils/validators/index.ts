@@ -52,7 +52,7 @@ const validateJiraURL = (jiraURL: string, url: string): boolean =>
  */
 const validateURL = (url: string): boolean => {
   const validateUrlRegex =
-    /^(https?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-.@:%_+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/;
+    /(^(https?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-.@:%_+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?)|(http:\/\/localhost:\d+)/;
   if (!url) {
     return false;
   }

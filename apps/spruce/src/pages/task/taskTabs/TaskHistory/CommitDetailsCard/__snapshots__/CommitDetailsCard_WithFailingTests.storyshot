@@ -952,8 +952,8 @@
                   data-lgid="lg-select"
                 >
                   <button
-                    aria-controls="select-149-menu"
-                    aria-describedby="select-149-description"
+                    aria-controls="select-157-menu"
+                    aria-describedby="select-157-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
@@ -961,7 +961,7 @@
                     class="lg-ui-button-0000 leafygreen-ui-7hcedm"
                     data-lgid="lg-button"
                     data-testid="lg-pagination-page-select"
-                    id="select-150"
+                    id="select-158"
                     type="button"
                     value="1"
                   >

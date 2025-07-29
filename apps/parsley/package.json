@@ -1,6 +1,6 @@
 {
   "name": "parsley",
-  "version": "3.0.26",
+  "version": "3.0.29",
   "private": true,
   "type": "module",
   "scripts": {
@@ -88,7 +88,7 @@
     "react-router-dom": "6.18.0",
     "react-virtuoso": "4.7.12",
     "strip-ansi": "^7.1.0",
-    "vite-node": "3.1.1",
+    "vite-node": "^3.2.4",
     "xss": "1.0.15"
   },
   "devDependencies": {
@@ -99,7 +99,7 @@
     "@graphql-codegen/cli": "5.0.7",
     "@graphql-codegen/typescript": "4.1.6",
     "@graphql-codegen/typescript-operations": "4.6.1",
-    "@sentry/vite-plugin": "^3.5.0",
+    "@sentry/vite-plugin": "^4.0.0",
     "@storybook/react-vite": "^9.0.17",
     "@storybook/testing-library": "^0.2.2",
     "@styled/typescript-styled-plugin": "1.0.1",
@@ -128,11 +128,11 @@
     "storybook": "^9.0.17",
     "storybook-addon-apollo-client": "^9.0.0",
     "typescript": "5.0.3",
-    "vite": "6.3.5",
+    "vite": "7.0.5",
     "vite-plugin-checker": "0.9.3",
     "vite-plugin-env-compatible": "2.0.1",
     "vite-tsconfig-paths": "6.0.0-beta.3",
-    "vitest": "3.1.1"
+    "vitest": "^3.2.4"
   },
   "engines": {
     "node": ">=22.14.0"
