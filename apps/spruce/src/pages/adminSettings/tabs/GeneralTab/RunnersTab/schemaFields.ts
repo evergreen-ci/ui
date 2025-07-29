@@ -5,7 +5,7 @@ import {
   OverallocatedRule,
   RoundingRule,
 } from "gql/generated/types";
-import { fullWidthCss } from "pages/adminSettings/styles";
+import { fullWidthCss } from "../../sharedStyles";
 
 export const notify = {
   schema: {

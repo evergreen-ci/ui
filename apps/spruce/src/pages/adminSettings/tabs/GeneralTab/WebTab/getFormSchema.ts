@@ -1,6 +1,6 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
-import { gridWrapCss } from "../../sharedStyles";
+import { objectGridCss } from "../../sharedStyles";
 import { api, ui, disabledGQLQueries, betaFeatures } from "./schemaFields";
 
 export const getFormSchema = (): ReturnType<GetFormSchema> => ({
@@ -48,13 +48,13 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
     web: {
       api: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": gridWrapCss,
+        "ui:objectFieldCss": objectGridCss,
         "ui:data-cy": "api-settings",
         ...api.uiSchema,
       },
       ui: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": gridWrapCss,
+        "ui:objectFieldCss": objectGridCss,
         "ui:data-cy": "ui-settings",
         ...ui.uiSchema,
       },

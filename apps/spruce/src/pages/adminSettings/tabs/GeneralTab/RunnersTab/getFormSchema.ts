@@ -1,6 +1,6 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
-import { objectGridCss } from "pages/adminSettings/styles";
+import { objectGridCss } from "../../sharedStyles";
 import {
   notify,
   taskLimits,

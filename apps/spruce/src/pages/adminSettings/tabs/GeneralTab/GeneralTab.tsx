@@ -19,11 +19,11 @@ export const GeneralTab: React.FC<Props> = ({ tabData }) => (
       featureFlagsData={tabData[AdminSettingsGeneralSection.FeatureFlags]}
     />
     <RunnersTab runnersData={tabData[AdminSettingsGeneralSection.Runners]} />
+    <WebTab webData={tabData[AdminSettingsGeneralSection.Web]} />
     <BackgroundProcessingTab
       backgroundProcessingData={
         tabData[AdminSettingsGeneralSection.BackgroundProcessing]
       }
     />
-    <WebTab webData={tabData[AdminSettingsGeneralSection.Web]} />
   </>
 );
