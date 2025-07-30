@@ -1,6 +1,7 @@
 import { AdminSettingsGeneralSection } from "constants/routes";
 import { FormStateMap } from "../types";
 import { AnnouncementTab } from "./AnnouncementsTab/AnnouncementTab";
+import { AuthenticationTab } from "./AuthenticationTab/AuthenticationTab";
 import { BackgroundProcessingTab } from "./BackgroundProcessingTab/BackgroundProcessingTab";
 import { FeatureFlagsTab } from "./FeatureFlagsTab/FeatureFlagsTab";
 import { RunnersTab } from "./RunnersTab/RunnersTab";
@@ -20,6 +21,9 @@ export const GeneralTab: React.FC<Props> = ({ tabData }) => (
     />
     <RunnersTab runnersData={tabData[AdminSettingsGeneralSection.Runners]} />
     <WebTab webData={tabData[AdminSettingsGeneralSection.Web]} />
+    <AuthenticationTab
+      authenticationData={tabData[AdminSettingsGeneralSection.Authentication]}
+    />
     <BackgroundProcessingTab
       backgroundProcessingData={
         tabData[AdminSettingsGeneralSection.BackgroundProcessing]
