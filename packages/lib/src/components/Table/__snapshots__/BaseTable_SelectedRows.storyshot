@@ -8,16 +8,20 @@
       class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
       data-is-sticky="false"
       data-lgid="lg-table"
+      data-testid="lg-table"
     >
       <thead
         class="leafygreen-ui-181p7kg"
       >
         <tr
           class="leafygreen-ui-5fo1n0"
+          data-lgid="lg-table-header_row"
+          data-testid="lg-table-header_row"
         >
           <th
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
+            data-testid="lg-table-header"
             scope="col"
           >
             <div
@@ -62,7 +66,7 @@
                 aria-label="Sort by Name"
                 class="leafygreen-ui-tcjr3n"
                 data-lgid="lg-table-sort_button"
-                data-testid="lg-table-sort-icon-button"
+                data-testid="lg-table-sort_button"
                 tabindex="0"
               >
                 <div
@@ -90,6 +94,7 @@
           <th
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
+            data-testid="lg-table-header"
             scope="col"
           >
             <div
@@ -134,7 +139,7 @@
                 aria-label="Sort by Type"
                 class="leafygreen-ui-tcjr3n"
                 data-lgid="lg-table-sort_button"
-                data-testid="lg-table-sort-icon-button"
+                data-testid="lg-table-sort_button"
                 tabindex="0"
               >
                 <div
@@ -162,6 +167,7 @@
           <th
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
+            data-testid="lg-table-header"
             scope="col"
           >
             <div
@@ -206,7 +212,7 @@
                 aria-label="Sort by Size"
                 class="leafygreen-ui-tcjr3n"
                 data-lgid="lg-table-sort_button"
-                data-testid="lg-table-sort-icon-button"
+                data-testid="lg-table-sort_button"
                 tabindex="0"
               >
                 <div
@@ -243,11 +249,13 @@
           data-index="0"
           data-lgid="lg-table-row"
           data-selected="true"
+          data-testid="lg-table-row"
           id="lg-table-row-0"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -275,6 +283,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -302,6 +311,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -336,11 +346,13 @@
           data-index="1"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-1"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -368,6 +380,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -395,6 +408,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -429,11 +443,13 @@
           data-index="2"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-2"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -461,6 +477,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -488,6 +505,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -522,11 +540,13 @@
           data-index="3"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-3"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -554,6 +574,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -581,6 +602,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -615,11 +637,13 @@
           data-index="4"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-4"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -647,6 +671,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -674,6 +699,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -708,11 +734,13 @@
           data-index="5"
           data-lgid="lg-table-row"
           data-selected="true"
+          data-testid="lg-table-row"
           id="lg-table-row-5"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -740,6 +768,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -767,6 +796,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -801,11 +831,13 @@
           data-index="6"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-6"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -833,6 +865,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -860,6 +893,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -894,11 +928,13 @@
           data-index="7"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-7"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -926,6 +962,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -953,6 +990,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -987,11 +1025,13 @@
           data-index="8"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-8"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1019,6 +1059,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1046,6 +1087,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1080,11 +1122,13 @@
           data-index="9"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-9"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1112,6 +1156,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1139,6 +1184,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1173,11 +1219,13 @@
           data-index="10"
           data-lgid="lg-table-row"
           data-selected="true"
+          data-testid="lg-table-row"
           id="lg-table-row-10"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1205,6 +1253,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1232,6 +1281,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1266,11 +1316,13 @@
           data-index="11"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-11"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1298,6 +1350,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1325,6 +1378,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1359,11 +1413,13 @@
           data-index="12"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-12"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1391,6 +1447,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1418,6 +1475,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1452,11 +1510,13 @@
           data-index="13"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-13"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1484,6 +1544,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1511,6 +1572,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1545,11 +1607,13 @@
           data-index="14"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-14"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1577,6 +1641,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1604,6 +1669,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1638,11 +1704,13 @@
           data-index="15"
           data-lgid="lg-table-row"
           data-selected="true"
+          data-testid="lg-table-row"
           id="lg-table-row-15"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1670,6 +1738,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1697,6 +1766,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1731,11 +1801,13 @@
           data-index="16"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-16"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1763,6 +1835,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1790,6 +1863,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1824,11 +1898,13 @@
           data-index="17"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-17"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1856,6 +1932,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1883,6 +1960,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1917,11 +1995,13 @@
           data-index="18"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-18"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1949,6 +2029,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1976,6 +2057,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2010,11 +2092,13 @@
           data-index="19"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-19"
         >
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2042,6 +2126,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2069,6 +2154,7 @@
           <td
             class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
