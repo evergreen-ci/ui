@@ -64,9 +64,9 @@ export const gqlToForm = ((data, options) => {
   const override = (field: Array<any>) =>
     projectType !== ProjectType.AttachedProject || !!field?.length;
 
-  const githubTriggerAliases =
+  const githubPRTriggerAliases =
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    projectRef.githubTriggerAliases
+    projectRef.githubPRTriggerAliases
       ?.map((aliasName) =>
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         projectRef.patchTriggerAliases.find(({ alias }) => alias === aliasName),
@@ -81,7 +81,7 @@ export const gqlToForm = ((data, options) => {
         githubPrAliasesOverride: override(githubPrAliases),
         githubPrAliases,
       },
-      githubTriggerAliases,
+      githubPRTriggerAliases: githubPRTriggerAliases,
       githubChecksEnabled,
       githubChecks: {
         githubCheckAliasesOverride: override(githubCheckAliases),

@@ -4813,7 +4813,8 @@ export type ProjectGithubSettingsFragment = {
   __typename?: "Project";
   id: string;
   githubChecksEnabled?: boolean | null;
-  githubTriggerAliases?: Array<string> | null;
+  githubMQTriggerAliases?: Array<string> | null;
+  githubPRTriggerAliases?: Array<string> | null;
   gitTagAuthorizedTeams?: Array<string> | null;
   gitTagAuthorizedUsers?: Array<string> | null;
   gitTagVersionsEnabled?: boolean | null;
@@ -4827,7 +4828,8 @@ export type RepoGithubSettingsFragment = {
   __typename?: "RepoRef";
   id: string;
   githubChecksEnabled: boolean;
-  githubTriggerAliases?: Array<string> | null;
+  githubMQTriggerAliases?: Array<string> | null;
+  githubPRTriggerAliases?: Array<string> | null;
   gitTagAuthorizedTeams?: Array<string> | null;
   gitTagAuthorizedUsers?: Array<string> | null;
   gitTagVersionsEnabled: boolean;
@@ -4844,7 +4846,8 @@ export type ProjectGithubCommitQueueFragment = {
     __typename?: "Project";
     id: string;
     githubChecksEnabled?: boolean | null;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
@@ -4862,7 +4865,8 @@ export type RepoGithubCommitQueueFragment = {
     __typename?: "RepoRef";
     id: string;
     githubChecksEnabled: boolean;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled: boolean;
@@ -4880,7 +4884,8 @@ export type ProjectEventGithubCommitQueueFragment = {
     __typename?: "Project";
     id: string;
     githubChecksEnabled?: boolean | null;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
@@ -4933,7 +4938,8 @@ export type ProjectSettingsFieldsFragment = {
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
     githubChecksEnabled?: boolean | null;
     gitTagAuthorizedTeams?: Array<string> | null;
@@ -5137,7 +5143,8 @@ export type RepoSettingsFieldsFragment = {
     stepbackDisabled: boolean;
     versionControlEnabled: boolean;
     notifyOnBuildFailure: boolean;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     perfEnabled: boolean;
     githubChecksEnabled: boolean;
     gitTagAuthorizedTeams?: Array<string> | null;
@@ -5375,7 +5382,8 @@ export type SubscriptionsFragment = {
 export type ProjectPatchAliasSettingsFragment = {
   __typename?: "Project";
   id: string;
-  githubTriggerAliases?: Array<string> | null;
+  githubMQTriggerAliases?: Array<string> | null;
+  githubPRTriggerAliases?: Array<string> | null;
   patchTriggerAliases?: Array<{
     __typename?: "PatchTriggerAlias";
     alias: string;
@@ -5395,7 +5403,8 @@ export type ProjectPatchAliasSettingsFragment = {
 export type RepoPatchAliasSettingsFragment = {
   __typename?: "RepoRef";
   id: string;
-  githubTriggerAliases?: Array<string> | null;
+  githubMQTriggerAliases?: Array<string> | null;
+  githubPRTriggerAliases?: Array<string> | null;
   patchTriggerAliases?: Array<{
     __typename?: "PatchTriggerAlias";
     alias: string;
@@ -5591,7 +5600,8 @@ export type ProjectEventSettingsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
     githubChecksEnabled?: boolean | null;
     gitTagAuthorizedTeams?: Array<string> | null;
@@ -8361,7 +8371,8 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
-          githubTriggerAliases?: Array<string> | null;
+          githubMQTriggerAliases?: Array<string> | null;
+          githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
@@ -8575,7 +8586,8 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
-          githubTriggerAliases?: Array<string> | null;
+          githubMQTriggerAliases?: Array<string> | null;
+          githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
@@ -8849,7 +8861,8 @@ export type ProjectSettingsQuery = {
       stepbackDisabled?: boolean | null;
       versionControlEnabled?: boolean | null;
       notifyOnBuildFailure?: boolean | null;
-      githubTriggerAliases?: Array<string> | null;
+      githubMQTriggerAliases?: Array<string> | null;
+      githubPRTriggerAliases?: Array<string> | null;
       perfEnabled?: boolean | null;
       githubChecksEnabled?: boolean | null;
       gitTagAuthorizedTeams?: Array<string> | null;
@@ -9117,7 +9130,8 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
-          githubTriggerAliases?: Array<string> | null;
+          githubMQTriggerAliases?: Array<string> | null;
+          githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
@@ -9331,7 +9345,8 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
-          githubTriggerAliases?: Array<string> | null;
+          githubMQTriggerAliases?: Array<string> | null;
+          githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
@@ -9549,7 +9564,8 @@ export type RepoSettingsQuery = {
       stepbackDisabled: boolean;
       versionControlEnabled: boolean;
       notifyOnBuildFailure: boolean;
-      githubTriggerAliases?: Array<string> | null;
+      githubMQTriggerAliases?: Array<string> | null;
+      githubPRTriggerAliases?: Array<string> | null;
       perfEnabled: boolean;
       githubChecksEnabled: boolean;
       gitTagAuthorizedTeams?: Array<string> | null;
