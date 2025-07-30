@@ -2352,6 +2352,8 @@ export type Project = {
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   githubDynamicTokenPermissionGroups: Array<GitHubDynamicTokenPermissionGroup>;
+  githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
+  githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
   githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   hidden?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2492,6 +2494,8 @@ export type ProjectInput = {
   githubDynamicTokenPermissionGroups?: InputMaybe<
     Array<GitHubDynamicTokenPermissionGroupInput>
   >;
+  githubMQTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  githubPRTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
   githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
@@ -2878,6 +2882,8 @@ export type RepoRef = {
   gitTagVersionsEnabled: Scalars["Boolean"]["output"];
   githubChecksEnabled: Scalars["Boolean"]["output"];
   githubDynamicTokenPermissionGroups: Array<GitHubDynamicTokenPermissionGroup>;
+  githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
+  githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
   githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
@@ -2924,6 +2930,8 @@ export type RepoRefInput = {
   githubDynamicTokenPermissionGroups?: InputMaybe<
     Array<GitHubDynamicTokenPermissionGroupInput>
   >;
+  githubMQTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  githubPRTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
   githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
@@ -4398,6 +4406,8 @@ export type WorkstationSetupCommandInput = {
 
 export type NonDisplayTaskReviewedFragment = {
   __typename?: "Task";
+  id: string;
+  execution: number;
   reviewed?: boolean | null;
 };
 

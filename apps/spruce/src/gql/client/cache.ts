@@ -1,4 +1,5 @@
 import { InMemoryCache } from "@apollo/client";
+import { readTaskReviewed } from "components/TaskReview/caching";
 import { IMAGE_EVENT_LIMIT } from "pages/image/tabs/EventLogTab/useImageEvents";
 import { mergeTasks, readTasks } from "pages/task/taskTabs/TaskHistory/caching";
 import { mergeVersions, readVersions } from "pages/waterfall/caching";
@@ -126,9 +127,8 @@ export const cache = new InMemoryCache({
           },
         },
         reviewed: {
-          read(existing) {
-            // TODO DEVPROD-19104: Fetch stored value for this field, and return false if none is found.
-            return existing ?? false;
+          read(...args) {
+            return readTaskReviewed(...args);
           },
         },
         taskLogs: {
