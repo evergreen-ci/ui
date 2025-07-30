@@ -2,10 +2,12 @@ import { IDBPDatabase, openDB, DBSchema } from "idb";
 
 const DB_NAME = "spruce-db";
 const STORE_NAME = "task_reviews";
+
+// CAUTION! Updating the store's schema requires updating the DB_VERSION and writing an IndexedDB migration.
 const DB_VERSION = 1;
 
 interface ReviewsDB extends DBSchema {
-  task_reviews: {
+  [STORE_NAME]: {
     key: [taskId: string, execution: number];
     value: boolean;
   };

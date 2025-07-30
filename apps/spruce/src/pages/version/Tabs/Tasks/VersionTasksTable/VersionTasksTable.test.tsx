@@ -1,7 +1,8 @@
 import { InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import { getTestUtils } from "@leafygreen-ui/checkbox";
-import { getTestUtils as getTableUtils } from "@leafygreen-ui/table";
+// @ts-expect-error This does exist, incorrect typing from LeafyGreen
+import { getTestUtils as getTableUtils } from "@leafygreen-ui/table/testing";
 import {
   fireEvent,
   waitFor,
@@ -156,7 +157,6 @@ describe("VersionTasksTable", () => {
       expect(db.setItems).toHaveBeenCalledOnce();
 
       const { getRowByIndex } = getTableUtils();
-      // @ts-expect-error This does exist, incorrect typing from LeafyGreen
       const { getExpandButton } = getRowByIndex(3);
       await user.click(getExpandButton());
 
