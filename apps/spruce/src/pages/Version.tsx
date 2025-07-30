@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { TTLInfo } from "components/404/TTLInfo";
 import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import PageTitle from "components/PageTitle";
@@ -64,8 +65,10 @@ export const VersionPage: React.FC = () => {
 
   if (!versionData) {
     return (
-      <PageWrapper data-cy="version-page">
-        <PageDoesNotExist />
+      <PageWrapper data-cy="version-page" omitPadding>
+        <TTLInfo>
+          <PageDoesNotExist />
+        </TTLInfo>
       </PageWrapper>
     );
   }
