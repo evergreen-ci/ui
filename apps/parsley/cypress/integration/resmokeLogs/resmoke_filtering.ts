@@ -233,4 +233,28 @@ describe("Filtering", () => {
       cy.get("[data-cy^='skipped-lines-row-']").should("not.exist");
     });
   });
+
+  describe("hiding filters", () => {
+    const filter1 = "doesNotMatchAnything";
+    const filter2 = "doesNotMatchAnything2";
+
+    it("should be able to hide and unhide filters", () => {
+      cy.visit(`${logLink}?filters=110${filter1},100${filter2}`);
+      cy.get("[data-cy^='skipped-lines-row-']").should("exist");
+
+      cy.clickToggle("hide-filters-toggle", true, "search-and-filter");
+      cy.get("[data-cy^='skipped-lines-row-']").should("not.exist");
+      cy.location("search").should(
+        "contain",
+        `filters=010${filter1},000${filter2}`,
+      );
+
+      cy.clickToggle("hide-filters-toggle", false, "search-and-filter");
+      cy.get("[data-cy^='skipped-lines-row-']").should("exist");
+      cy.location("search").should(
+        "contain",
+        `filters=110${filter1},100${filter2}`,
+      );
+    });
+  });
 });
