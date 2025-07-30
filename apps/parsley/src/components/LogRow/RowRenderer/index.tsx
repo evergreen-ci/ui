@@ -99,6 +99,7 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
       }
       return (
         <SubsectionHeader
+          commandDescription={processedLogLine.commandDescription}
           commandID={processedLogLine.commandID}
           commandName={processedLogLine.commandName}
           functionID={processedLogLine.functionID}

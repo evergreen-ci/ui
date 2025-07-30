@@ -29,6 +29,7 @@ interface SectionHeaderRow {
 }
 
 interface SubsectionHeaderRow {
+  commandDescription: string | undefined;
   commandID: string;
   commandName: string;
   functionID: string;

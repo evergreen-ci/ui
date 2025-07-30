@@ -106,6 +106,7 @@ describe("useOpenSectionAndScrollToLine", () => {
       rowType: RowType.SectionHeader,
     },
     {
+      commandDescription: undefined,
       commandID: "command-4",
       commandName: "shell.exec",
       functionID: "function-4",
