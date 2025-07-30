@@ -22,6 +22,7 @@ interface ProviderSettingsList {
   is_vpc: boolean;
   subnet_id: string;
   vpc_name: string;
+  elastic_ips_enabled: boolean;
   mount_points: Array<{
     device_name: string;
     virtual_name: string;
@@ -62,6 +63,7 @@ export const formProviderSettings = (
     instanceProfileARN: providerSettings.iam_instance_profile_arn ?? "",
     doNotAssignPublicIPv4Address:
       providerSettings.do_not_assign_public_ipv4_address ?? false,
+    elasticIpsEnabled: providerSettings.elastic_ips_enabled ?? false,
     vpcOptions: {
       useVpc: providerSettings.is_vpc ?? false,
       subnetId: providerSettings.subnet_id ?? "",
@@ -88,6 +90,7 @@ export const formProviderSettings = (
     instanceProfileARN: providerSettings.iam_instance_profile_arn ?? "",
     doNotAssignPublicIPv4Address:
       providerSettings.do_not_assign_public_ipv4_address ?? false,
+    elasticIpsEnabled: providerSettings.elastic_ips_enabled ?? false,
     vpcOptions: {
       useVpc: providerSettings.is_vpc ?? false,
       subnetId: providerSettings.subnet_id ?? "",
@@ -145,6 +148,7 @@ export const gqlProviderSettings = (
       do_not_assign_public_ipv4_address:
         providerSettings.doNotAssignPublicIPv4Address,
       is_vpc: vpcOptions?.useVpc,
+      elastic_ips_enabled: providerSettings.elasticIpsEnabled,
       subnet_id: vpcOptions?.useVpc ? vpcOptions?.subnetId : undefined,
       vpc_name: vpcOptions?.useVpc ? vpcOptions?.subnetPrefix : undefined,
       mount_points:
@@ -169,6 +173,7 @@ export const gqlProviderSettings = (
       do_not_assign_public_ipv4_address:
         providerSettings.doNotAssignPublicIPv4Address,
       is_vpc: vpcOptions?.useVpc,
+      elastic_ips_enabled: providerSettings.elasticIpsEnabled,
       subnet_id: vpcOptions?.useVpc ? vpcOptions?.subnetId : undefined,
       vpc_name: vpcOptions?.useVpc ? vpcOptions?.subnetPrefix : undefined,
       mount_points:
