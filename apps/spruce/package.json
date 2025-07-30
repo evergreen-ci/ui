@@ -38,7 +38,7 @@
     "start": "vite",
     "storybook": "NO_HTTPS=true storybook dev -p 6006",
     "storybook:build": "storybook build",
-    "test": "vitest --typecheck=false --exclude=src/snapshot.test.ts"
+    "test": "vitest --exclude=src/snapshot.test.ts"
   },
   "browserslist": {
     "production": [

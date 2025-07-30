@@ -91,17 +91,19 @@ export const useTaskReview = ({
     );
   }, [cache, cacheTaskId]);
 
+  const allChecked: boolean =
+    data.executionTasksFull?.every(
+      (e) => e?.displayStatus === TaskStatus.Succeeded || e?.reviewed,
+    ) ?? false;
   const checked: boolean = data?.executionTasksFull?.length
-    ? (data.executionTasksFull?.every(
-        (e) => e?.displayStatus === TaskStatus.Succeeded || e?.reviewed,
-      ) ?? false)
+    ? allChecked
     : !!data.reviewed;
 
   useEffect(() => {
-    if (data.executionTasksFull?.length) {
+    if (data.executionTasksFull?.length && checked !== data.reviewed) {
       updateTask(checked);
     }
-  }, [checked, data.executionTasksFull, updateTask]);
+  }, [allChecked]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return { checked, task: data, updateTask, updateDisplayTask };
 };
