@@ -107,12 +107,15 @@ describe("authentication", () => {
     cy.dataCy("naive").within(() => {
       cy.get('[data-cy="add-button"]').as("naiveUsersSection");
       cy.contains("Add").click();
-      cy.get('[id="root_authentication_naive_users_0"]').within(() => {
-        cy.getInputByLabel("Display Name").type("Test User 1");
-        cy.getInputByLabel("Email").type("test1@example.com");
-        cy.getInputByLabel("Password").type("password123");
-        cy.getInputByLabel("Username").type("testuser1");
-      });
+      cy.get('[id="root_authentication_naive_users"]')
+        .children()
+        .first()
+        .within(() => {
+          cy.getInputByLabel("Display Name").type("Test User 1");
+          cy.getInputByLabel("Email").type("test1@example.com");
+          cy.getInputByLabel("Password").type("password123");
+          cy.getInputByLabel("Username").type("testuser1");
+        });
     });
 
     // Multi section
