@@ -6885,6 +6885,52 @@ export type AdminSettingsQuery = {
       httpListenAddr?: string | null;
       url?: string | null;
     } | null;
+    authConfig?: {
+      __typename?: "AuthConfig";
+      allowServiceUsers?: boolean | null;
+      backgroundReauthMinutes?: number | null;
+      preferredType?: PreferredAuthType | null;
+      github?: {
+        __typename?: "GitHubAuthConfig";
+        appId?: number | null;
+        clientId?: string | null;
+        clientSecret?: string | null;
+        defaultOwner?: string | null;
+        defaultRepo?: string | null;
+        organization?: string | null;
+        users: Array<string>;
+      } | null;
+      kanopy?: {
+        __typename?: "KanopyAuthConfig";
+        headerName: string;
+        issuer: string;
+        keysetURL: string;
+      } | null;
+      multi?: {
+        __typename?: "MultiAuthConfig";
+        readOnly: Array<string>;
+        readWrite: Array<string>;
+      } | null;
+      naive?: {
+        __typename?: "NaiveAuthConfig";
+        users: Array<{
+          __typename?: "AuthUser";
+          displayName?: string | null;
+          email?: string | null;
+          password?: string | null;
+          username?: string | null;
+        }>;
+      } | null;
+      okta?: {
+        __typename?: "OktaConfig";
+        clientId?: string | null;
+        clientSecret?: string | null;
+        expireAfterMinutes?: number | null;
+        issuer?: string | null;
+        scopes: Array<string>;
+        userGroup?: string | null;
+      } | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
