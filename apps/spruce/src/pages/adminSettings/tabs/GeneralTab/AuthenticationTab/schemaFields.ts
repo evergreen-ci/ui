@@ -13,10 +13,10 @@ export const radioCSS = css`
   flex-direction: column;
   margin-bottom: 15px;
   max-width: 100%;
-`;
 
-export const boldFont = css`
-  font-weight: bold;
+  > div:first-child label {
+    font-weight: 700;
+  }
 `;
 
 export const usersGridCss = css`
@@ -54,6 +54,16 @@ export const globalConfig = {
       "ui:options": {
         inline: true,
         elementWrapperCSS: radioCSS,
+      },
+    },
+    allowServiceUsers: {
+      "ui:widget": widgets.CheckboxWidget,
+      "ui:options": {
+        elementWrapperCSS: css`
+          > div > label > span {
+            font-weight: 700;
+          }
+        `,
       },
     },
   },
@@ -130,6 +140,8 @@ export const naive = {
     users: {
       "ui:fieldCss": fullWidthCss,
       "ui:fullWidth": true,
+      "ui:orderable": false,
+
       items: {
         "ui:fieldCss": usersGridCss,
       },

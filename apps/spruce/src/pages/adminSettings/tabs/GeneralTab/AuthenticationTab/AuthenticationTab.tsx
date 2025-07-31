@@ -8,7 +8,6 @@ export const AuthenticationTab: React.FC<TabProps> = ({
   authenticationData,
 }) => {
   const initalFormState = authenticationData;
-  console.log("inital form state", initalFormState);
 
   return (
     <>

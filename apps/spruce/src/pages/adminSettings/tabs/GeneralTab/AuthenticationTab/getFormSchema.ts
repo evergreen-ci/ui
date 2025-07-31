@@ -22,44 +22,32 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           globalConfig: {
             type: "object" as const,
             title: "Global Config",
-            properties: {
-              ...globalConfig.schema,
-            },
+            properties: globalConfig.schema,
           },
           okta: {
             type: "object" as const,
             title: "Okta",
-            properties: {
-              ...okta.schema,
-            },
+            properties: okta.schema,
           },
           naive: {
             type: "object" as const,
-            title: "Naive",
-            properties: {
-              ...naive.schema,
-            },
+            title: "Naive Authentication",
+            properties: naive.schema,
           },
           kanopy: {
             type: "object" as const,
-            title: "Kanopy",
-            properties: {
-              ...kanopy.schema,
-            },
+            title: "Kanopy Authentication",
+            properties: kanopy.schema,
           },
           github: {
             type: "object" as const,
-            title: "GitHub",
-            properties: {
-              ...github.schema,
-            },
+            title: "GitHub Authentication",
+            properties: github.schema,
           },
           multi: {
             type: "object" as const,
-            title: "Multi",
-            properties: {
-              ...multi.schema,
-            },
+            title: "Multi Authentication",
+            properties: multi.schema,
           },
         },
       },
