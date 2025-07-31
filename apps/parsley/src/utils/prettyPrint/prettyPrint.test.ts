@@ -102,6 +102,19 @@ describe("prettyPrintFormat", () => {
     );
   });
 
+  it("should preserve escaped quotes around fields", () => {
+    const logLine = `[js_test:command_diagnostics] d20040| 2025-07-01T16:45:38.237+00:00 F  ASSERT   4106400     [conn1] "ScopedDebugInfo","attr":{"scopedDebugInfo":["{\\"curOpDiagnostics\\": \\"{\\"currentOp\\": { op: \\"query\\" }}\\"}"]}`;
+    const result = formatPrettyPrint(logLine);
+    expect(result).toBe(
+      '[js_test:command_diagnostics] d20040| 2025-07-01T16:45:38.237+00:00 F  ASSERT   4106400     [conn1] "ScopedDebugInfo","attr":\n' +
+        "{\n" +
+        "    scopedDebugInfo: [\n" +
+        '        "{\\"curOpDiagnostics\\": \\"{\\"currentOp\\": { op: \\"query\\" }}\\"}"\n' +
+        "    ]\n" +
+        "}\n",
+    );
+  });
+
   it("should be able to pretty print multiple JSON objects in a log line", () => {
     const logLine =
       '[js_test:backup_restore_rolling] 2020-03-02T08:52:04.781+0000 d20521| {"t":{"$date":"2020-03-02T08:52:04.780+0000"},"s":"I",  "c":"RECOVERY","id":23987,"bigNum":123456789098765432134,"ctx":"initandlisten","msg":"WiredTiger recoveryTimestamp. Ts: {recoveryTimestamp}","attr":{"recoveryTimestamp":{"$timestamp":{"t":0,"i":0}}}}and then some more text{"std_get_0_envDataEntry":"distmod","std_get_1_envDataEntry":"rhel62"}a little more text';
