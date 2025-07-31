@@ -210,5 +210,6 @@ const MenuIcon = styled(IconButton)`
   height: ${size.s};
   width: ${size.s};
   margin-left: ${size.xxs};
+  user-select: none;
 `;
 export default BaseRow;
