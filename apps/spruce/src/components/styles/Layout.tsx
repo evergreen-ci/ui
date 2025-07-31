@@ -28,11 +28,11 @@ export const SideNavPageContent = styled.div`
 `;
 
 // Layout elements for non-LG SideNav pages
-export const PageWrapper = styled.div`
+export const PageWrapper = styled.div<{ omitPadding?: boolean }>`
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  padding: ${size.m} ${size.l};
+  padding: ${({ omitPadding }) => (omitPadding ? "0" : `${size.m} ${size.l}`)};
 `;
 export const PageLayout = styled.section<{ hasSider?: boolean }>`
   display: flex;
