@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { PreferredAuthType } from "gql/generated/types";
 import {
@@ -138,12 +139,11 @@ export const naive = {
   },
   uiSchema: {
     users: {
-      "ui:fieldCss": fullWidthCss,
       "ui:fullWidth": true,
       "ui:orderable": false,
 
       items: {
-        "ui:fieldCss": usersGridCss,
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
       },
     },
   },
