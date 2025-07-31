@@ -1,7 +1,10 @@
+import { getLgIds } from "@leafygreen-ui/table";
 import {
   clickOnPageSizeBtnAndAssertURLandTableSize,
   waitForTaskTable,
 } from "../../utils";
+
+const lgIds = getLgIds();
 
 const pathTasks = "/version/5e4ff3abe3c3317e352062e4/tasks";
 const patchDescriptionTasksExist = "dist";
@@ -142,7 +145,43 @@ describe("Task table", () => {
       );
     });
   });
+
+  describe("task review", () => {
+    it("marks tasks as viewed and preserves their state on reload", () => {
+      cy.visit(pathTasks);
+      cy.dataCy(`reviewed-${firstTaskId}`).check({ force: true });
+      cy.dataCy(`reviewed-${firstTaskId}`).should("be.checked");
+
+      cy.get(`button[data-lgid=${lgIds.expandButton}]`).click();
+      cy.dataCy(`reviewed-${executionTaskId1}`).should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
+      cy.dataCy(`reviewed-${executionTaskId2}`).check({ force: true });
+      cy.dataCy(`reviewed-${displayTaskId}`).should("be.checked");
+      cy.dataCy(`reviewed-${displayTaskId}`).uncheck({ force: true });
+      cy.dataCy(`reviewed-${displayTaskId}`).should("not.be.checked");
+      cy.dataCy(`reviewed-${executionTaskId2}`).should("not.be.checked");
+      cy.dataCy(`reviewed-${displayTaskId}`).check({ force: true });
+      cy.dataCy(`reviewed-${displayTaskId}`).should("be.checked");
+      cy.dataCy(`reviewed-${executionTaskId2}`).should("be.checked");
+
+      cy.reload();
+
+      cy.dataCy(`reviewed-${firstTaskId}`).should("be.checked");
+      cy.dataCy(`reviewed-${displayTaskId}`).should("be.checked");
+      cy.get(`button[data-lgid=${lgIds.expandButton}]`).click();
+      cy.dataCy(`reviewed-${executionTaskId2}`).should("be.checked");
+    });
+  });
 });
+
+const firstTaskId =
+  "evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
+const displayTaskId = "evergreen_ubuntu1604_89";
+const executionTaskId1 = "exec1";
+const executionTaskId2 = "exec2";
 
 const dataCyTableDataRows = "[data-cy=tasks-table-row]";
 const dataCyTableRows = "tasks-table-row";

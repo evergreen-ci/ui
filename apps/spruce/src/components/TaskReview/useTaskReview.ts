@@ -2,6 +2,7 @@ import { useCallback, useEffect } from "react";
 import { gql, useApolloClient, useFragment } from "@apollo/client";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { ReviewedTaskFragment, TaskQuery } from "gql/generated/types";
+import { setItem, setItems } from "./db";
 import { REVIEWED_TASK_FRAGMENT } from "./utils";
 
 export const useTaskReview = ({
@@ -31,14 +32,20 @@ export const useTaskReview = ({
           id: cacheTaskId,
           fragment: gql`
             fragment NonDisplayTaskReviewed on Task {
+              id
+              execution
               reviewed
             }
           `,
         },
-        (existing) => ({
-          ...existing,
-          reviewed: newReviewedState ?? !existing.reviewed,
-        }),
+        (existing) => {
+          const reviewedUpdate = newReviewedState ?? !existing.reviewed;
+          setItem([existing.id, existing.execution], reviewedUpdate);
+          return {
+            ...existing,
+            reviewed: reviewedUpdate,
+          };
+        },
       );
     },
     [cache, cacheTaskId],
@@ -52,33 +59,51 @@ export const useTaskReview = ({
         id: cacheTaskId,
         fragment: REVIEWED_TASK_FRAGMENT,
       },
-      (existing) => ({
-        ...existing,
-        reviewed: !existing.reviewed,
-        executionTasksFull:
-          existing?.executionTasksFull?.map((e: TaskQuery["task"]) =>
-            e?.displayStatus === TaskStatus.Succeeded
-              ? e
-              : {
-                  ...e,
-                  reviewed: !existing.reviewed,
-                },
-          ) ?? null,
-      }),
+      (existing) => {
+        const reviewedUpdate = !existing.reviewed;
+        setItems([
+          { key: [existing.id, existing.execution], value: reviewedUpdate },
+          ...existing.executionTasksFull
+            .filter(
+              (e: NonNullable<TaskQuery["task"]>) =>
+                e.displayStatus !== TaskStatus.Succeeded,
+            )
+            .map((e: NonNullable<TaskQuery["task"]>) => ({
+              key: [e.id, e.execution],
+              value: reviewedUpdate,
+            })),
+        ]);
+        return {
+          ...existing,
+          reviewed: reviewedUpdate,
+          executionTasksFull:
+            existing?.executionTasksFull?.map(
+              (e: NonNullable<TaskQuery["task"]>) =>
+                e?.displayStatus === TaskStatus.Succeeded
+                  ? e
+                  : {
+                      ...e,
+                      reviewed: reviewedUpdate,
+                    },
+            ) ?? null,
+        };
+      },
     );
   }, [cache, cacheTaskId]);
 
+  const allChecked: boolean =
+    data.executionTasksFull?.every(
+      (e) => e?.displayStatus === TaskStatus.Succeeded || e?.reviewed,
+    ) ?? false;
   const checked: boolean = data?.executionTasksFull?.length
-    ? (data.executionTasksFull?.every(
-        (e) => e?.displayStatus === TaskStatus.Succeeded || e?.reviewed,
-      ) ?? false)
+    ? allChecked
     : !!data.reviewed;
 
   useEffect(() => {
-    if (data.executionTasksFull?.length) {
+    if (data.executionTasksFull?.length && checked !== data.reviewed) {
       updateTask(checked);
     }
-  }, [checked, data.executionTasksFull, updateTask]);
+  }, [allChecked]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return { checked, task: data, updateTask, updateDisplayTask };
 };

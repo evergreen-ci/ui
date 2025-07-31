@@ -2,11 +2,15 @@ import { InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import * as db from "components/TaskReview/db";
 import { REVIEWED_TASK_FRAGMENT } from "components/TaskReview/utils";
 import { TaskQuery } from "gql/generated/types";
 import { TASK } from "gql/queries";
 import { taskData, displayTaskData } from "./taskData";
 import { MarkReviewed } from ".";
+
+vi.spyOn(db, "setItem");
+vi.spyOn(db, "setItems");
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -49,6 +53,10 @@ const read = (task: NonNullable<TaskQuery["task"]>) =>
   }) as NonNullable<TaskQuery["task"]>;
 
 describe("mark as reviewed button", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it("the button causes an update to the cache and rerenders accordingly", async () => {
     const user = userEvent.setup();
     render(
@@ -57,12 +65,15 @@ describe("mark as reviewed button", () => {
       </MockedProvider>,
     );
     expect(screen.getByRole("button")).toHaveTextContent("Mark reviewed");
+    expect(db.setItem).toHaveBeenCalledTimes(0);
     await user.click(screen.getByRole("button"));
 
     expect(screen.getByRole("button")).toHaveTextContent("Mark unreviewed");
+    expect(db.setItem).toHaveBeenCalledTimes(1);
 
     await user.click(screen.getByRole("button"));
     expect(screen.getByRole("button")).toHaveTextContent("Mark reviewed");
+    expect(db.setItem).toHaveBeenCalledTimes(2);
   });
 
   it("on a display task, the button updates all of its execution tasks", async () => {
@@ -76,6 +87,7 @@ describe("mark as reviewed button", () => {
       </MockedProvider>,
     );
     expect(screen.getByRole("button")).toHaveTextContent("Mark reviewed");
+    expect(db.setItem).toHaveBeenCalledTimes(0);
 
     await user.click(screen.getByRole("button"));
     const refreshedQuery = read(displayTaskData);
@@ -85,6 +97,8 @@ describe("mark as reviewed button", () => {
         (t) => t.reviewed || t.displayStatus === TaskStatus.Succeeded,
       ),
     ).toBe(true);
+    expect(db.setItem).toHaveBeenCalledTimes(0);
+    expect(db.setItems).toHaveBeenCalledTimes(1);
 
     await user.click(screen.getByRole("button"));
     const secondRefreshedQuery = read(displayTaskData);
@@ -94,9 +108,11 @@ describe("mark as reviewed button", () => {
         ({ reviewed }) => reviewed === false,
       ),
     ).toBe(true);
+    expect(db.setItem).toHaveBeenCalledTimes(0);
+    expect(db.setItems).toHaveBeenCalledTimes(2);
   });
 
-  it("on an execution task, the button updates the task and its display task", async () => {
+  it("on an execution task, the button updates the task and its display tasks", async () => {
     const user = userEvent.setup();
     const executionTask = displayTaskData
       ?.executionTasksFull?.[0] as NonNullable<TaskQuery["task"]>;
@@ -152,11 +168,18 @@ describe("mark as reviewed button", () => {
         </div>
       </MockedProvider>,
     );
+    expect(db.setItem).toHaveBeenCalledTimes(0);
+
     const buttons = screen.getAllByRole("button");
     await user.click(buttons[0]);
     await user.click(buttons[1]);
     await user.click(buttons[2]);
     expect(buttons[3]).toHaveAttribute("aria-disabled", "true");
+    expect(db.setItem).toHaveBeenCalledTimes(4);
+    expect(db.setItem).toHaveBeenCalledWith(
+      [displayTaskData.id, displayTaskData.execution],
+      true,
+    );
 
     expect(screen.getAllByRole("button")[0]).toHaveTextContent(
       "Mark unreviewed",
