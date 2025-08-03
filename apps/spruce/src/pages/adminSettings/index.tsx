@@ -196,7 +196,6 @@ const AdminSettingsPage: React.FC = () => {
                 Disabled GraphQL Queries
               </SideNavItem>
             </SideNavGroup>
-
             <SideNavGroup header="External Communication">
               <SideNavItem
                 as={Link}
@@ -258,49 +257,111 @@ const AdminSettingsPage: React.FC = () => {
               >
                 Test Selection
               </SideNavItem>
-            </SideNavGroup>
+              <SideNavGroup header="Authentication">
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-global-config"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "global-config",
+                  )}
+                >
+                  Global Config
+                </SideNavItem>
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-okta"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "okta",
+                  )}
+                >
+                  Okta
+                </SideNavItem>
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-naive-authentication"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "naive-authentication",
+                  )}
+                >
+                  Naive Authentication
+                </SideNavItem>
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-kanopy-authentication"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "kanopy-authentication",
+                  )}
+                >
+                  Kanopy Authentication
+                </SideNavItem>
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-github-authentication"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "github-authentication",
+                  )}
+                >
+                  GitHub Authentication
+                </SideNavItem>
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-multi-authentication"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "multi-authentication",
+                  )}
+                >
+                  Multi Authentication
+                </SideNavItem>
+              </SideNavGroup>
 
-            <SideNavGroup header="Background Processing">
-              <SideNavItem
-                as={Link}
-                data-cy="navitem-admin-amboy"
-                to={getAdminSettingsRoute(
-                  AdminSettingsTabRoutes.General,
-                  "amboy",
-                )}
-              >
-                Amboy
-              </SideNavItem>
-              <SideNavItem
-                as={Link}
-                data-cy="navitem-admin-logger"
-                to={getAdminSettingsRoute(
-                  AdminSettingsTabRoutes.General,
-                  "logger",
-                )}
-              >
-                Logger
-              </SideNavItem>
-              <SideNavItem
-                as={Link}
-                data-cy="navitem-admin-notification-rate-limits"
-                to={getAdminSettingsRoute(
-                  AdminSettingsTabRoutes.General,
-                  "notification-rate-limits",
-                )}
-              >
-                Notification Rate Limits
-              </SideNavItem>
-              <SideNavItem
-                as={Link}
-                data-cy="navitem-admin-triggers"
-                to={getAdminSettingsRoute(
-                  AdminSettingsTabRoutes.General,
-                  "triggers",
-                )}
-              >
-                Triggers
-              </SideNavItem>
+              <SideNavGroup header="Background Processing">
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-amboy"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "amboy",
+                  )}
+                >
+                  Amboy
+                </SideNavItem>
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-logger"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "logger",
+                  )}
+                >
+                  Logger
+                </SideNavItem>
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-notification-rate-limits"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "notification-rate-limits",
+                  )}
+                >
+                  Notification Rate Limits
+                </SideNavItem>
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-triggers"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "triggers",
+                  )}
+                >
+                  Triggers
+                </SideNavItem>
+              </SideNavGroup>
             </SideNavGroup>
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Restart Tasks">
