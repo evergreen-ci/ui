@@ -2,6 +2,7 @@ import { AdminSettingsGeneralSection } from "constants/routes";
 import { FormStateMap } from "../types";
 import { AnnouncementTab } from "./AnnouncementsTab/AnnouncementTab";
 import { BackgroundProcessingTab } from "./BackgroundProcessingTab/BackgroundProcessingTab";
+import { ExternalCommunicationsTab } from "./ExternalCommunicationsTab/ExternalCommunicationTab";
 import { FeatureFlagsTab } from "./FeatureFlagsTab/FeatureFlagsTab";
 import { RunnersTab } from "./RunnersTab/RunnersTab";
 import { WebTab } from "./WebTab/WebTab";
@@ -20,6 +21,11 @@ export const GeneralTab: React.FC<Props> = ({ tabData }) => (
     />
     <RunnersTab runnersData={tabData[AdminSettingsGeneralSection.Runners]} />
     <WebTab webData={tabData[AdminSettingsGeneralSection.Web]} />
+    <ExternalCommunicationsTab
+      ExternalCommunicationsData={
+        tabData[AdminSettingsGeneralSection.ExternalCommunications]
+      }
+    />
     <BackgroundProcessingTab
       backgroundProcessingData={
         tabData[AdminSettingsGeneralSection.BackgroundProcessing]

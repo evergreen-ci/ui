@@ -196,6 +196,70 @@ const AdminSettingsPage: React.FC = () => {
                 Disabled GraphQL Queries
               </SideNavItem>
             </SideNavGroup>
+
+            <SideNavGroup header="External Communication">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-jira"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "jira",
+                )}
+              >
+                Jira
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-slack"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "slack",
+                )}
+              >
+                Slack
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-splunk"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "splunk",
+                )}
+              >
+                Splunk
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-cedar"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "cedar",
+                )}
+              >
+                Cedar
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-runtime-environment"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "runtime-environment",
+                )}
+              >
+                Runtime Environment
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-test-selection"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "test-selection",
+                )}
+              >
+                Test Selection
+              </SideNavItem>
+            </SideNavGroup>
+
             <SideNavGroup header="Background Processing">
               <SideNavItem
                 as={Link}

@@ -45,15 +45,74 @@ export type ApiConfigInput = {
   url: Scalars["String"]["input"];
 };
 
+export type AwsAccountRoleMapping = {
+  __typename?: "AWSAccountRoleMapping";
+  account: Scalars["String"]["output"];
+  role: Scalars["String"]["output"];
+};
+
+export type AwsAccountRoleMappingInput = {
+  account: Scalars["String"]["input"];
+  role: Scalars["String"]["input"];
+};
+
 export type AwsConfig = {
   __typename?: "AWSConfig";
+  accountRoles: Array<AwsAccountRoleMapping>;
+  alertableInstanceTypes: Array<Scalars["String"]["output"]>;
+  allowedInstanceTypes: Array<Scalars["String"]["output"]>;
+  allowedRegions: Array<Scalars["String"]["output"]>;
+  defaultSecurityGroup?: Maybe<Scalars["String"]["output"]>;
+  ec2Keys: Array<Ec2Key>;
+  elasticIPUsageRate?: Maybe<Scalars["Float"]["output"]>;
+  ipamPoolID?: Maybe<Scalars["String"]["output"]>;
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
+  parserProject?: Maybe<ParserProjectS3Config>;
+  persistentDNS?: Maybe<PersistentDnsConfig>;
   pod?: Maybe<AwsPodConfig>;
+  subnets: Array<Subnet>;
+};
+
+export type AwsConfigInput = {
+  accountRoles: Array<AwsAccountRoleMappingInput>;
+  alertableInstanceTypes: Array<Scalars["String"]["input"]>;
+  allowedInstanceTypes: Array<Scalars["String"]["input"]>;
+  allowedRegions: Array<Scalars["String"]["input"]>;
+  defaultSecurityGroup?: InputMaybe<Scalars["String"]["input"]>;
+  ec2Keys: Array<Ec2KeyInput>;
+  elasticIPUsageRate?: InputMaybe<Scalars["Float"]["input"]>;
+  ipamPoolID?: InputMaybe<Scalars["String"]["input"]>;
+  maxVolumeSizePerUser?: InputMaybe<Scalars["Int"]["input"]>;
+  parserProject?: InputMaybe<ParserProjectS3ConfigInput>;
+  persistentDNS?: InputMaybe<PersistentDnsConfigInput>;
+  pod?: InputMaybe<AwsPodConfigInput>;
+  subnets: Array<SubnetInput>;
 };
 
 export type AwsPodConfig = {
   __typename?: "AWSPodConfig";
   ecs?: Maybe<EcsConfig>;
+  region?: Maybe<Scalars["String"]["output"]>;
+  role?: Maybe<Scalars["String"]["output"]>;
+  secretsManager?: Maybe<SecretsManagerConfig>;
+};
+
+export type AwsPodConfigInput = {
+  ecs?: InputMaybe<EcsConfigInput>;
+  region?: InputMaybe<Scalars["String"]["input"]>;
+  role?: InputMaybe<Scalars["String"]["input"]>;
+  secretsManager?: InputMaybe<SecretsManagerConfigInput>;
+};
+
+export type AwsvpcConfig = {
+  __typename?: "AWSVPCConfig";
+  securityGroups: Array<Scalars["String"]["output"]>;
+  subnets: Array<Scalars["String"]["output"]>;
+};
+
+export type AwsvpcConfigInput = {
+  securityGroups: Array<Scalars["String"]["input"]>;
+  subnets: Array<Scalars["String"]["input"]>;
 };
 
 export type AbortInfo = {
@@ -106,13 +165,19 @@ export type AdminSettings = {
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
   cedar?: Maybe<CedarConfig>;
+  containerPools?: Maybe<ContainerPoolsConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
   fws?: Maybe<FwsConfig>;
   hostInit?: Maybe<HostInitConfig>;
   jira?: Maybe<JiraConfig>;
   loggerConfig?: Maybe<LoggerConfig>;
   notify?: Maybe<NotifyConfig>;
+  parameterStore?: Maybe<ParameterStoreConfig>;
+  perfMonitoringKanopyURL?: Maybe<Scalars["String"]["output"]>;
+  perfMonitoringURL?: Maybe<Scalars["String"]["output"]>;
   podLifecycle?: Maybe<PodLifecycleConfig>;
+  projectCreation?: Maybe<ProjectCreationConfig>;
+  providers?: Maybe<CloudProviderConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
   scheduler?: Maybe<SchedulerConfig>;
@@ -133,13 +198,19 @@ export type AdminSettingsInput = {
   banner?: InputMaybe<Scalars["String"]["input"]>;
   bannerTheme?: InputMaybe<BannerTheme>;
   cedar?: InputMaybe<CedarConfigInput>;
+  containerPools?: InputMaybe<ContainerPoolsConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   fws?: InputMaybe<FwsConfigInput>;
   hostInit?: InputMaybe<HostInitConfigInput>;
   jira?: InputMaybe<JiraConfigInput>;
   loggerConfig?: InputMaybe<LoggerConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
+  parameterStore?: InputMaybe<ParameterStoreConfigInput>;
+  perfMonitoringKanopyURL?: InputMaybe<Scalars["String"]["input"]>;
+  perfMonitoringURL?: InputMaybe<Scalars["String"]["input"]>;
   podLifecycle?: InputMaybe<PodLifecycleConfigInput>;
+  projectCreation?: InputMaybe<ProjectCreationConfigInput>;
+  providers?: InputMaybe<CloudProviderConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
@@ -453,6 +524,12 @@ export type ClientConfig = {
 export type CloudProviderConfig = {
   __typename?: "CloudProviderConfig";
   aws?: Maybe<AwsConfig>;
+  docker?: Maybe<DockerConfig>;
+};
+
+export type CloudProviderConfigInput = {
+  aws?: InputMaybe<AwsConfigInput>;
+  docker?: InputMaybe<DockerConfigInput>;
 };
 
 export type CommitQueueParams = {
@@ -482,9 +559,20 @@ export type ContainerPool = {
   port: Scalars["Int"]["output"];
 };
 
+export type ContainerPoolInput = {
+  distro: Scalars["String"]["input"];
+  id: Scalars["String"]["input"];
+  maxContainers: Scalars["Int"]["input"];
+  port: Scalars["Int"]["input"];
+};
+
 export type ContainerPoolsConfig = {
   __typename?: "ContainerPoolsConfig";
   pools: Array<ContainerPool>;
+};
+
+export type ContainerPoolsConfigInput = {
+  pools: Array<ContainerPoolInput>;
 };
 
 export type ContainerResources = {
@@ -739,11 +827,100 @@ export enum DistroSettingsAccess {
   View = "VIEW",
 }
 
+export type DockerConfig = {
+  __typename?: "DockerConfig";
+  apiVersion?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type DockerConfigInput = {
+  apiVersion?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type Ec2Key = {
+  __typename?: "EC2Key";
+  key: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+  secret: Scalars["String"]["output"];
+};
+
+export type Ec2KeyInput = {
+  key: Scalars["String"]["input"];
+  name: Scalars["String"]["input"];
+  secret: Scalars["String"]["input"];
+};
+
+export enum EcsArchitecture {
+  EcsArchAmd64 = "ECS_ARCH_AMD64",
+  EcsArchArm64 = "ECS_ARCH_ARM64",
+}
+
+export type EcsCapacityProvider = {
+  __typename?: "ECSCapacityProvider";
+  arch?: Maybe<EcsArchitecture>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  os?: Maybe<EcsOperatingSystem>;
+  windowsVersion?: Maybe<EcsWindowsVersion>;
+};
+
+export type EcsCapacityProviderInput = {
+  arch?: InputMaybe<EcsArchitecture>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  os?: InputMaybe<EcsOperatingSystem>;
+  windowsVersion?: InputMaybe<EcsWindowsVersion>;
+};
+
+export type EcsClusterConfig = {
+  __typename?: "ECSClusterConfig";
+  name?: Maybe<Scalars["String"]["output"]>;
+  os?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type EcsClusterConfigInput = {
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  os?: InputMaybe<Scalars["String"]["input"]>;
+};
+
 export type EcsConfig = {
   __typename?: "ECSConfig";
-  maxCPU: Scalars["Int"]["output"];
-  maxMemoryMb: Scalars["Int"]["output"];
+  allowedImages: Array<Scalars["String"]["output"]>;
+  awsVPC?: Maybe<AwsvpcConfig>;
+  capacityProviders: Array<EcsCapacityProvider>;
+  clusters: Array<EcsClusterConfig>;
+  executionRole?: Maybe<Scalars["String"]["output"]>;
+  logGroup?: Maybe<Scalars["String"]["output"]>;
+  logRegion?: Maybe<Scalars["String"]["output"]>;
+  logStreamPrefix?: Maybe<Scalars["String"]["output"]>;
+  maxCPU?: Maybe<Scalars["Int"]["output"]>;
+  maxMemoryMb?: Maybe<Scalars["Int"]["output"]>;
+  taskDefinitionPrefix?: Maybe<Scalars["String"]["output"]>;
+  taskRole?: Maybe<Scalars["String"]["output"]>;
 };
+
+export type EcsConfigInput = {
+  allowedImages: Array<Scalars["String"]["input"]>;
+  awsVPC?: InputMaybe<AwsvpcConfigInput>;
+  capacityProviders: Array<EcsCapacityProviderInput>;
+  clusters: Array<EcsClusterConfigInput>;
+  executionRole?: InputMaybe<Scalars["String"]["input"]>;
+  logGroup?: InputMaybe<Scalars["String"]["input"]>;
+  logRegion?: InputMaybe<Scalars["String"]["input"]>;
+  logStreamPrefix?: InputMaybe<Scalars["String"]["input"]>;
+  maxCPU?: InputMaybe<Scalars["Int"]["input"]>;
+  maxMemoryMb?: InputMaybe<Scalars["Int"]["input"]>;
+  taskDefinitionPrefix?: InputMaybe<Scalars["String"]["input"]>;
+  taskRole?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export enum EcsOperatingSystem {
+  EcsOsLinux = "ECS_OS_LINUX",
+  EcsOsWindows = "ECS_OS_WINDOWS",
+}
+
+export enum EcsWindowsVersion {
+  EcsWindowsServer_2016 = "ECS_WINDOWS_SERVER_2016",
+  EcsWindowsServer_2019 = "ECS_WINDOWS_SERVER_2019",
+  EcsWindowsServer_2022 = "ECS_WINDOWS_SERVER_2022",
+}
 
 /**
  * EditSpawnHostInput is the input to the editSpawnHost mutation.
@@ -2001,6 +2178,17 @@ export enum OverallocatedRule {
   Terminate = "TERMINATE",
 }
 
+export type OwnerRepo = {
+  __typename?: "OwnerRepo";
+  owner: Scalars["String"]["output"];
+  repo: Scalars["String"]["output"];
+};
+
+export type OwnerRepoInput = {
+  owner: Scalars["String"]["input"];
+  repo: Scalars["String"]["input"];
+};
+
 export type Package = {
   __typename?: "Package";
   manager: Scalars["String"]["output"];
@@ -2024,6 +2212,32 @@ export type Parameter = {
 export type ParameterInput = {
   key: Scalars["String"]["input"];
   value: Scalars["String"]["input"];
+};
+
+export type ParameterStoreConfig = {
+  __typename?: "ParameterStoreConfig";
+  prefix?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type ParameterStoreConfigInput = {
+  prefix?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type ParserProjectS3Config = {
+  __typename?: "ParserProjectS3Config";
+  bucket?: Maybe<Scalars["String"]["output"]>;
+  generatedJSONPrefix?: Maybe<Scalars["String"]["output"]>;
+  key?: Maybe<Scalars["String"]["output"]>;
+  prefix?: Maybe<Scalars["String"]["output"]>;
+  secret: Scalars["String"]["output"];
+};
+
+export type ParserProjectS3ConfigInput = {
+  bucket?: InputMaybe<Scalars["String"]["input"]>;
+  generatedJSONPrefix?: InputMaybe<Scalars["String"]["input"]>;
+  key?: InputMaybe<Scalars["String"]["input"]>;
+  prefix?: InputMaybe<Scalars["String"]["input"]>;
+  secret: Scalars["String"]["input"];
 };
 
 export type ParsleyFilter = {
@@ -2207,6 +2421,17 @@ export type PermissionsProjectPermissionsArgs = {
 
 export type PermissionsRepoPermissionsArgs = {
   options: RepoPermissionsOptions;
+};
+
+export type PersistentDnsConfig = {
+  __typename?: "PersistentDNSConfig";
+  domain?: Maybe<Scalars["String"]["output"]>;
+  hostedZoneID?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type PersistentDnsConfigInput = {
+  domain?: InputMaybe<Scalars["String"]["input"]>;
+  hostedZoneID?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type PlannerSettings = {
@@ -2436,6 +2661,15 @@ export type ProjectBuildVariant = {
   displayName: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
   tasks: Array<Scalars["String"]["output"]>;
+};
+
+export type ProjectCreationConfig = {
+  __typename?: "ProjectCreationConfig";
+  repoExceptions: Array<OwnerRepo>;
+};
+
+export type ProjectCreationConfigInput = {
+  repoExceptions: Array<OwnerRepoInput>;
 };
 
 export type ProjectEventLogEntry = {
@@ -3141,6 +3375,15 @@ export type SearchReturnInfo = {
   source: Scalars["String"]["output"];
 };
 
+export type SecretsManagerConfig = {
+  __typename?: "SecretsManagerConfig";
+  secretPrefix?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SecretsManagerConfigInput = {
+  secretPrefix?: InputMaybe<Scalars["String"]["input"]>;
+};
+
 export type Selector = {
   __typename?: "Selector";
   data: Scalars["String"]["output"];
@@ -3259,7 +3502,7 @@ export type SlackConfig = {
 };
 
 export type SlackConfigInput = {
-  level: PriorityLevel;
+  level?: InputMaybe<PriorityLevel>;
   name: Scalars["String"]["input"];
   options?: InputMaybe<SlackOptionsInput>;
   token: Scalars["String"]["input"];
@@ -3431,6 +3674,17 @@ export type StepbackInfo = {
   lastPassingStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
   nextStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
   previousStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type Subnet = {
+  __typename?: "Subnet";
+  az: Scalars["String"]["output"];
+  subnetId: Scalars["String"]["output"];
+};
+
+export type SubnetInput = {
+  az: Scalars["String"]["input"];
+  subnetId: Scalars["String"]["input"];
 };
 
 export type Subscriber = {
@@ -6843,6 +7097,8 @@ export type AdminSettingsQuery = {
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
     disabledGQLQueries: Array<string>;
+    perfMonitoringKanopyURL?: string | null;
+    perfMonitoringURL?: string | null;
     amboy?: {
       __typename?: "AmboyConfig";
       groupBackgroundCreateFrequencyMinutes?: number | null;
@@ -6885,12 +7141,24 @@ export type AdminSettingsQuery = {
       httpListenAddr?: string | null;
       url?: string | null;
     } | null;
+    cedar?: {
+      __typename?: "CedarConfig";
+      dbName: string;
+      dbUrl: string;
+    } | null;
+    fws?: { __typename?: "FWSConfig"; url: string } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
       hostThrottle?: number | null;
       maxTotalDynamicHosts?: number | null;
       provisioningThrottle?: number | null;
+    } | null;
+    jira?: {
+      __typename?: "JiraConfig";
+      email?: string | null;
+      host?: string | null;
+      personalAccessToken?: string | null;
     } | null;
     loggerConfig?: {
       __typename?: "LoggerConfig";
@@ -6923,6 +7191,11 @@ export type AdminSettingsQuery = {
       maxConcurrentRequests?: number | null;
       maxRepoRevisionsToSearch?: number | null;
       numNewRepoRevisionsToFetch?: number | null;
+    } | null;
+    runtimeEnvironments?: {
+      __typename?: "RuntimeEnvironmentConfig";
+      apiKey?: string | null;
+      baseUrl: string;
     } | null;
     scheduler?: {
       __typename?: "SchedulerConfig";
@@ -6984,6 +7257,32 @@ export type AdminSettingsQuery = {
       unrecognizedPodCleanupDisabled: boolean;
       webhookNotificationsDisabled: boolean;
     } | null;
+    slack?: {
+      __typename?: "SlackConfig";
+      level?: PriorityLevel | null;
+      name?: string | null;
+      token?: string | null;
+      options?: {
+        __typename?: "SlackOptions";
+        allFields?: boolean | null;
+        basicMetadata?: boolean | null;
+        channel?: string | null;
+        fields?: boolean | null;
+        fieldsSet?: any | null;
+        hostname?: string | null;
+        name?: string | null;
+        username?: string | null;
+      } | null;
+    } | null;
+    splunk?: {
+      __typename?: "SplunkConfig";
+      splunkConnectionInfo: {
+        __typename?: "SplunkConnectionInfo";
+        channel: string;
+        serverUrl: string;
+        token: string;
+      };
+    } | null;
     taskLimits?: {
       __typename?: "TaskLimitsConfig";
       maxConcurrentLargeParserProjectTasks?: number | null;
@@ -6999,6 +7298,7 @@ export type AdminSettingsQuery = {
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
     } | null;
+    testSelection?: { __typename?: "TestSelectionConfig"; url: string } | null;
     triggers?: {
       __typename?: "TriggerConfig";
       generateTaskDistro?: string | null;
@@ -9829,8 +10129,8 @@ export type SpruceConfigQuery = {
           __typename?: "AWSPodConfig";
           ecs?: {
             __typename?: "ECSConfig";
-            maxCPU: number;
-            maxMemoryMb: number;
+            maxCPU?: number | null;
+            maxMemoryMb?: number | null;
           } | null;
         } | null;
       } | null;
