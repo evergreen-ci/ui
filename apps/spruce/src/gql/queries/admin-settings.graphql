@@ -78,6 +78,14 @@ query AdminSettings {
     }
     banner
     bannerTheme
+    containerPools {
+      pools {
+        id
+        distro
+        maxContainers
+        port
+      }
+    }
     disabledGQLQueries
     hostInit {
       cloudStatusBatchSize
@@ -104,10 +112,86 @@ query AdminSettings {
         senderAddress
       }
     }
+    parameterStore {
+      prefix
+    }
     podLifecycle {
       maxParallelPodRequests
       maxPodDefinitionCleanupRate
       maxSecretCleanupRate
+    }
+    projectCreation {
+      repoExceptions {
+        owner
+        repo
+      }
+    }
+
+    providers {
+      aws {
+        accountRoles {
+          account
+          role
+        }
+        alertableInstanceTypes
+        allowedInstanceTypes
+        allowedRegions
+        defaultSecurityGroup
+        ec2Keys {
+          key
+          name
+          secret
+        }
+        elasticIPUsageRate
+        ipamPoolID
+        maxVolumeSizePerUser
+        parserProject {
+          bucket
+          generatedJSONPrefix
+          key
+          secret
+        }
+        persistentDNS {
+          domain
+          hostedZoneID
+        }
+        pod {
+          ecs {
+            allowedImages
+            awsVPC {
+              securityGroups
+              subnets
+            }
+            capacityProviders {
+              arch
+              name
+              os
+              windowsVersion
+            }
+            clusters {
+              name
+              os
+            }
+            executionRole
+            logGroup
+            logRegion
+            logStreamPrefix
+            maxCPU
+            maxMemoryMb
+            taskDefinitionPrefix
+            taskRole
+          }
+          region
+          role
+        }
+        subnets {
+          az
+          subnetId
+        }
+      }
+      docker {
+        apiVersion
+      }
     }
     repotracker {
       maxConcurrentRequests
@@ -134,6 +218,7 @@ query AdminSettings {
       targetTimeSeconds
       taskFinder
     }
+
     serviceFlags {
       adminParameterStoreDisabled
       agentStartDisabled
@@ -172,7 +257,6 @@ query AdminSettings {
       unrecognizedPodCleanupDisabled
       webhookNotificationsDisabled
     }
-
     taskLimits {
       maxConcurrentLargeParserProjectTasks
       maxDailyAutomaticRestarts
