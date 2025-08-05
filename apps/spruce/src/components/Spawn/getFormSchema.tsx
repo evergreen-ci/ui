@@ -223,9 +223,7 @@ const getHostUptimeSchema = ({
     },
     temporarilyExemptUntil: {
       "ui:disableAfter": exemptionRange.disableAfter,
-      "ui:disableBefore": new Date(
-        exemptionRange.disableBefore.setHours(0, 0, 0, 0),
-      ).toISOString(),
+      "ui:disableBefore": exemptionRange.disableBefore,
       "ui:widget": "date",
     },
   },
