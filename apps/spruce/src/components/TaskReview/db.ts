@@ -3,7 +3,8 @@ import { IDBPDatabase, openDB, DBSchema } from "idb";
 const DB_NAME = "spruce-db";
 const STORE_NAME = "task_reviews";
 
-// CAUTION! Updating the store's schema requires updating the DB_VERSION and writing an IndexedDB migration.
+// CAUTION! Updating the store's schema in a way that is not backwards-compatible requires updating the DB_VERSION and writing an IndexedDB migration.
+// https://developer.mozilla.org/en-US/docs/Web/API/IDBVersionChangeEvent
 const DB_VERSION = 1;
 
 interface ReviewsDB extends DBSchema {

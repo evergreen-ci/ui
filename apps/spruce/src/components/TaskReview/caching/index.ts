@@ -2,7 +2,7 @@ import { FieldReadFunction, makeVar } from "@apollo/client";
 import { Task } from "gql/generated/types";
 import { getItem } from "../db";
 
-export const readTaskReviewed = ((existing, { readField, storage }) => {
+export const readTaskReviewed = ((existing, { cache, readField, storage }) => {
   if (existing !== undefined) {
     return existing;
   }
@@ -18,6 +18,20 @@ export const readTaskReviewed = ((existing, { readField, storage }) => {
     getItem([taskId, execution]).then((data) => {
       if (data !== undefined) {
         storage.var(data);
+        cache.modify({
+          id: cache.identify({
+            __typename: "Task",
+            id: taskId,
+            execution,
+          }),
+
+          fields: {
+            reviewed() {
+              return data;
+            },
+          },
+          broadcast: false,
+        });
       }
     });
   }
