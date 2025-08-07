@@ -70,7 +70,7 @@
     "@leafygreen-ui/text-input": "^13.0.2",
     "@leafygreen-ui/toast": "^6.1.27",
     "@leafygreen-ui/toggle": "^10.0.4",
-    "@leafygreen-ui/tooltip": "^11.1.0",
+    "@leafygreen-ui/tooltip": "^14.1.1",
     "@leafygreen-ui/typography": "^19.0.0",
     "ansi_up": "6.0.6",
     "graphql": "16.10.0",

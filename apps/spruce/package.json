@@ -105,7 +105,7 @@
     "@leafygreen-ui/toast": "^6.1.27",
     "@leafygreen-ui/toggle": "^10.0.17",
     "@leafygreen-ui/tokens": "^2.12.0",
-    "@leafygreen-ui/tooltip": "^11.1.0",
+    "@leafygreen-ui/tooltip": "^14.1.1",
     "@leafygreen-ui/typography": "^19.0.0",
     "@rjsf/core": "4.2.3",
     "ansi_up": "6.0.6",
