@@ -1,8 +1,22 @@
-import { Body, H1 } from "@leafygreen-ui/typography";
+import { H2 } from "@leafygreen-ui/typography";
+import { AdminSettingsGeneralSection } from "constants/routes";
+import { BaseTab } from "../../BaseTab";
+import { getFormSchema } from "./getFormSchema";
+import { TabProps } from "./types";
 
-export const AuthenticationTab = () => (
-  <Body>
-    <H1>Authentication</H1>
-    <p>Authentication settings for the application.</p>
-  </Body>
-);
+export const AuthenticationTab: React.FC<TabProps> = ({
+  authenticationData,
+}) => {
+  const initalFormState = authenticationData;
+
+  return (
+    <>
+      <H2>Authentication</H2>
+      <BaseTab
+        formSchema={getFormSchema()}
+        initialFormState={initalFormState}
+        tab={AdminSettingsGeneralSection.Authentication}
+      />
+    </>
+  );
+};

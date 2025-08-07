@@ -37,6 +37,45 @@ query AdminSettings {
       httpListenAddr
       url
     }
+    authConfig {
+      allowServiceUsers
+      backgroundReauthMinutes
+      github {
+        appId
+        clientId
+        clientSecret
+        defaultOwner
+        defaultRepo
+        organization
+        users
+      }
+      kanopy {
+        headerName
+        issuer
+        keysetURL
+      }
+      multi {
+        readOnly
+        readWrite
+      }
+      naive {
+        users {
+          displayName
+          email
+          password
+          username
+        }
+      }
+      okta {
+        clientId
+        clientSecret
+        expireAfterMinutes
+        issuer
+        scopes
+        userGroup
+      }
+      preferredType
+    }
     banner
     bannerTheme
     disabledGQLQueries
