@@ -12,7 +12,10 @@ import {
   UserProjectSettingsPermissionsQueryVariables,
   GithubOrgsQuery,
   GithubOrgsQueryVariables,
+  CopyProjectMutation,
+  CopyProjectMutationVariables,
 } from "gql/generated/types";
+import { COPY_PROJECT } from "gql/mutations";
 import { USER_PROJECT_SETTINGS_PERMISSIONS, GITHUB_ORGS } from "gql/queries";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { ProjectType } from "./tabs/utils";
@@ -21,15 +24,18 @@ const owner = "existing_owner";
 const repo = "existing_repo";
 
 const Button = ({
-  mock = permissionsMock,
+  additionalMocks = [],
+  permMock = permissionsMock,
   projectType = ProjectType.AttachedProject,
 }: {
-  mock?: MockedResponse;
+  additionalMocks?: MockedResponse[];
+  permMock?: MockedResponse;
   projectType?: ProjectType;
 }) => (
-  <MockedProvider mocks={[mock, githubOrgsMock]}>
+  <MockedProvider mocks={[permMock, githubOrgsMock, ...additionalMocks]}>
     <CreateDuplicateProjectButton
       id="my_id"
+      identifier="my_identifier"
       label={`${owner}/${repo}`}
       owner={owner}
       projectType={projectType}
@@ -46,7 +52,7 @@ describe("createDuplicateProjectField", () => {
     > = {
       request: {
         query: USER_PROJECT_SETTINGS_PERMISSIONS,
-        variables: { projectIdentifier: "my_id" },
+        variables: { projectIdentifier: "my_identifier" },
       },
       result: {
         data: {
@@ -66,7 +72,7 @@ describe("createDuplicateProjectField", () => {
       },
     };
     const { Component } = RenderFakeToastContext(
-      <Button mock={lacksPermissionsMock} />,
+      <Button permMock={lacksPermissionsMock} />,
     );
     render(<Component />);
 
@@ -81,7 +87,7 @@ describe("createDuplicateProjectField", () => {
       );
       render(<Component />);
 
-      await screen.findByText("New Project");
+      await screen.findByText("New project");
       await user.click(screen.getByDataCy("new-project-button"));
       await waitFor(() => {
         expect(screen.queryByDataCy("create-project-modal")).toBeVisible();
@@ -96,7 +102,7 @@ describe("createDuplicateProjectField", () => {
       const { Component } = RenderFakeToastContext(<Button />);
       render(<Component />);
 
-      await screen.findByText("New Project");
+      await screen.findByText("New project");
       await user.click(screen.getByDataCy("new-project-button"));
       expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
     });
@@ -106,7 +112,7 @@ describe("createDuplicateProjectField", () => {
       const { Component } = RenderFakeToastContext(<Button />);
       render(<Component />);
 
-      await screen.findByText("New Project");
+      await screen.findByText("New project");
       await user.click(screen.getByDataCy("new-project-button"));
       expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
       await user.click(screen.getByDataCy("create-project-button"));
@@ -117,11 +123,38 @@ describe("createDuplicateProjectField", () => {
     });
 
     it("clicking the 'Duplicate Project' button opens the create project modal and closes the menu", async () => {
+      const newIdentifier = "new_identifier";
+      const copyProjectMock: ApolloMock<
+        CopyProjectMutation,
+        CopyProjectMutationVariables
+      > = {
+        request: {
+          query: COPY_PROJECT,
+          variables: {
+            project: {
+              newProjectIdentifier: newIdentifier,
+              projectIdToCopy: "my_id",
+            },
+            requestS3Creds: false,
+          },
+        },
+        result: {
+          data: {
+            copyProject: {
+              __typename: "Project",
+              id: newIdentifier,
+              identifier: newIdentifier,
+            },
+          },
+        },
+      };
       const user = userEvent.setup();
-      const { Component } = RenderFakeToastContext(<Button />);
+      const { Component, dispatchToast } = RenderFakeToastContext(
+        <Button additionalMocks={[copyProjectMock]} />,
+      );
       render(<Component />);
 
-      await screen.findByText("New Project");
+      await screen.findByText("New project");
       await user.click(screen.getByDataCy("new-project-button"));
       expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
       await user.click(screen.getByDataCy("copy-project-button"));
@@ -129,6 +162,25 @@ describe("createDuplicateProjectField", () => {
         expect(screen.queryByDataCy("copy-project-modal")).toBeVisible();
       });
       expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
+
+      await user.type(
+        screen.getByDataCy("project-name-input"),
+        "new_identifier",
+      );
+
+      const confirmButton = screen.getByRole("button", {
+        name: "Duplicate",
+      });
+      expect(confirmButton).toBeEnabled();
+
+      await user.click(confirmButton);
+      await waitFor(() =>
+        expect(dispatchToast.success).toHaveBeenCalledTimes(1),
+      );
+      await waitFor(() =>
+        expect(dispatchToast.warning).toHaveBeenCalledTimes(0),
+      );
+      await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     });
   });
 });
@@ -139,7 +191,7 @@ const permissionsMock: ApolloMock<
 > = {
   request: {
     query: USER_PROJECT_SETTINGS_PERMISSIONS,
-    variables: { projectIdentifier: "my_id" },
+    variables: { projectIdentifier: "my_identifier" },
   },
   result: {
     data: {
