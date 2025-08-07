@@ -9,7 +9,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
           data-cy="task-status-badge"
         >
           Inactive
@@ -23,7 +23,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
           data-cy="task-status-badge"
         >
           Unstarted
@@ -37,7 +37,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
           data-cy="task-status-badge"
         >
           Undispatched
@@ -51,7 +51,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-mibpkn"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1l6lrtq"
           data-cy="task-status-badge"
         >
           Will Run
@@ -65,7 +65,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
           data-cy="task-status-badge"
         >
           Unscheduled
@@ -79,7 +79,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1uko9cz"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-14pnkbj"
           data-cy="task-status-badge"
         >
           Running
@@ -93,7 +93,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1uko9cz"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-14pnkbj"
           data-cy="task-status-badge"
         >
           Dispatched
@@ -107,7 +107,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
           data-cy="task-status-badge"
         >
           Pending
@@ -121,7 +121,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
           data-cy="task-status-badge"
         >
           Succeeded
@@ -135,7 +135,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
           data-cy="task-status-badge"
         >
           Failed
@@ -149,7 +149,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
           data-cy="task-status-badge"
         >
           Test Timed Out
@@ -163,7 +163,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
           data-cy="task-status-badge"
         >
           Task Timed Out
@@ -178,7 +178,7 @@
       >
         <div
           border="#B45AF2"
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
           data-cy="task-status-badge"
           fill="#F1D4FD"
           text="#5E0C9E"
@@ -195,7 +195,7 @@
       >
         <div
           border="#2D0B59"
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
           data-cy="task-status-badge"
           fill="#5E0C9E"
           text="#F9EBFF"
@@ -212,7 +212,7 @@
       >
         <div
           border="#2D0B59"
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
           data-cy="task-status-badge"
           fill="#5E0C9E"
           text="#F9EBFF"
@@ -229,7 +229,7 @@
       >
         <div
           border="#2D0B59"
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
           data-cy="task-status-badge"
           fill="#5E0C9E"
           text="#F9EBFF"
@@ -245,7 +245,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
           data-cy="task-status-badge"
         >
           Blocked
@@ -259,7 +259,7 @@
         href="/task/1?execution=0"
       >
         <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
           data-cy="task-status-badge"
         >
           Aborted
@@ -274,7 +274,7 @@
       >
         <div
           border="#FFCDC7"
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
           data-cy="task-status-badge"
           fill="#FFFFFF"
           text="#970606"

@@ -8,7 +8,7 @@
       data-cy="horizontal-date-separator"
     >
       <div
-        class="leafygreen-ui-c62i3c"
+        class="leafygreen-ui-sti25g"
       >
         Apr 3, 2025
       </div>
@@ -82,7 +82,7 @@
           </div>
         </button>
         <div
-          class="leafygreen-ui-h5xdir"
+          class="leafygreen-ui-17azklk"
           data-cy="this-task-badge"
         >
           This
@@ -282,7 +282,7 @@
       data-cy="horizontal-date-separator"
     >
       <div
-        class="leafygreen-ui-c62i3c"
+        class="leafygreen-ui-sti25g"
       >
         Apr 2, 2025
       </div>
@@ -435,7 +435,7 @@
       data-cy="horizontal-date-separator"
     >
       <div
-        class="leafygreen-ui-c62i3c"
+        class="leafygreen-ui-sti25g"
       >
         Apr 1, 2025
       </div>
@@ -731,7 +731,7 @@
                               class=""
                             >
                               <div
-                                class="leafygreen-ui-dhdzha"
+                                class="leafygreen-ui-cfigsp"
                                 data-cy="test-status-badge"
                               >
                                 Fail
@@ -866,7 +866,7 @@
       data-cy="horizontal-date-separator"
     >
       <div
-        class="leafygreen-ui-c62i3c"
+        class="leafygreen-ui-sti25g"
       >
         Mar 30, 2025
       </div>
@@ -993,7 +993,7 @@
       data-cy="horizontal-date-separator"
     >
       <div
-        class="leafygreen-ui-c62i3c"
+        class="leafygreen-ui-sti25g"
       >
         Mar 29, 2025
       </div>
