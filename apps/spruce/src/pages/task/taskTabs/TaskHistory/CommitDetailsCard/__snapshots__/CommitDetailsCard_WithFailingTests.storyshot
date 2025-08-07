@@ -65,7 +65,7 @@
         </div>
       </button>
       <div
-        class="leafygreen-ui-h5xdir"
+        class="leafygreen-ui-17azklk"
         data-cy="this-task-badge"
       >
         This
@@ -315,7 +315,7 @@
                             class=""
                           >
                             <div
-                              class="leafygreen-ui-h5xdir"
+                              class="leafygreen-ui-17azklk"
                               data-cy="test-status-badge"
                             >
                               Silent Fail
@@ -452,7 +452,7 @@
                             class=""
                           >
                             <div
-                              class="leafygreen-ui-dhdzha"
+                              class="leafygreen-ui-cfigsp"
                               data-cy="test-status-badge"
                             >
                               Fail
@@ -589,7 +589,7 @@
                             class=""
                           >
                             <div
-                              class="leafygreen-ui-dhdzha"
+                              class="leafygreen-ui-cfigsp"
                               data-cy="test-status-badge"
                             >
                               Fail
@@ -726,7 +726,7 @@
                             class=""
                           >
                             <div
-                              class="leafygreen-ui-h5xdir"
+                              class="leafygreen-ui-17azklk"
                               data-cy="test-status-badge"
                             >
                               Silent Fail
@@ -863,7 +863,7 @@
                             class=""
                           >
                             <div
-                              class="leafygreen-ui-dhdzha"
+                              class="leafygreen-ui-cfigsp"
                               data-cy="test-status-badge"
                             >
                               Fail

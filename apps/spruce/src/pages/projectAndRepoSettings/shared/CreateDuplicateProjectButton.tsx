@@ -18,12 +18,13 @@ const NewProjectButton = (
     size={Size.Small}
     variant={Variant.Primary}
   >
-    New Project
+    New project
   </PlusButton>
 );
 
 interface Props {
-  id: string;
+  id?: string;
+  identifier: string;
   label: string;
   owner: string;
   projectType: ProjectType;
@@ -32,6 +33,7 @@ interface Props {
 
 export const CreateDuplicateProjectButton: React.FC<Props> = ({
   id,
+  identifier,
   label,
   owner,
   projectType,
@@ -41,13 +43,13 @@ export const CreateDuplicateProjectButton: React.FC<Props> = ({
     UserProjectSettingsPermissionsQuery,
     UserProjectSettingsPermissionsQueryVariables
   >(USER_PROJECT_SETTINGS_PERMISSIONS, {
-    variables: { projectIdentifier: id },
-    skip: !id,
+    variables: { projectIdentifier: identifier },
+    skip: !identifier,
   });
 
   const {
     user: {
-      permissions: { canCreateProject },
+      permissions: { canCreateProject, projectPermissions },
     },
   } = data ?? { user: { permissions: {} } };
 
@@ -81,16 +83,17 @@ export const CreateDuplicateProjectButton: React.FC<Props> = ({
               setCreateModalOpen(true);
             }}
           >
-            Create New Project
+            Create new project
           </MenuItem>
           <MenuItem
             data-cy="copy-project-button"
+            disabled={!projectPermissions?.edit}
             onClick={() => {
               setMenuOpen(false);
               setCopyModalOpen(true);
             }}
           >
-            Duplicate Current Project
+            Duplicate current project
           </MenuItem>
         </Menu>
       )}
@@ -102,12 +105,14 @@ export const CreateDuplicateProjectButton: React.FC<Props> = ({
           repo={repo}
         />
       )}
-      <CopyProjectModal
-        handleClose={() => setCopyModalOpen(false)}
-        id={id}
-        label={label}
-        open={copyModalOpen}
-      />
+      {id && (
+        <CopyProjectModal
+          handleClose={() => setCopyModalOpen(false)}
+          id={id}
+          label={label}
+          open={copyModalOpen}
+        />
+      )}
     </>
   );
 };

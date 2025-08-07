@@ -60,7 +60,7 @@
     "@emotion/styled": "11.14.1",
     "@evg-ui/deploy-utils": "*",
     "@evg-ui/lib": "*",
-    "@leafygreen-ui/badge": "^9.0.0",
+    "@leafygreen-ui/badge": "^10.0.4",
     "@leafygreen-ui/banner": "^10.0.3",
     "@leafygreen-ui/button": "^21.0.6",
     "@leafygreen-ui/callout": "^9.0.18",

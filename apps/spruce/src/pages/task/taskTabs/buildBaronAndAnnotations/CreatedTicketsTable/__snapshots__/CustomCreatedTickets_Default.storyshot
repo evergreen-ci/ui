@@ -52,13 +52,13 @@
         </span>
       </a>
       <div
-        class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
+        class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-sti25g"
         data-cy="DEVPROD-1-badge"
       >
         Done
       </div>
       <div
-        class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
+        class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-17azklk"
         data-cy="DEVPROD-1-confidence-badge"
       >
         25
@@ -109,13 +109,13 @@
         </span>
       </a>
       <div
-        class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
+        class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-sti25g"
         data-cy="DEVPROD-2-badge"
       >
         In Progress
       </div>
       <div
-        class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
+        class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-17azklk"
         data-cy="DEVPROD-2-confidence-badge"
       >
         50

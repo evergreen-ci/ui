@@ -44,7 +44,7 @@
             TestName
           </div>
           <div
-            class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+            class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
             data-cy="task-status-badge"
           >
             1 Failed
@@ -271,7 +271,7 @@
                           class=""
                         >
                           <div
-                            class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+                            class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
                             data-cy="task-status-badge"
                           >
                             Failed
