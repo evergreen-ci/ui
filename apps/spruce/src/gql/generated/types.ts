@@ -164,28 +164,48 @@ export type AdminSettings = {
   authConfig?: Maybe<AuthConfig>;
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<BannerTheme>;
+  buckets?: Maybe<BucketsConfig>;
   cedar?: Maybe<CedarConfig>;
+  configDir?: Maybe<Scalars["String"]["output"]>;
   containerPools?: Maybe<ContainerPoolsConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
+  domainName?: Maybe<Scalars["String"]["output"]>;
+  expansions?: Maybe<Scalars["StringMap"]["output"]>;
   fws?: Maybe<FwsConfig>;
+  githubCheckRun?: Maybe<GitHubCheckRunConfig>;
+  githubOrgs?: Maybe<Array<Scalars["String"]["output"]>>;
+  githubPRCreatorOrg?: Maybe<Scalars["String"]["output"]>;
+  githubWebhookSecret?: Maybe<Scalars["String"]["output"]>;
   hostInit?: Maybe<HostInitConfig>;
+  hostJasper?: Maybe<HostJasperConfig>;
   jira?: Maybe<JiraConfig>;
+  jiraNotifications?: Maybe<JiraNotificationsConfig>;
+  kanopySSHKeyPath?: Maybe<Scalars["String"]["output"]>;
+  logPath?: Maybe<Scalars["String"]["output"]>;
   loggerConfig?: Maybe<LoggerConfig>;
   notify?: Maybe<NotifyConfig>;
   parameterStore?: Maybe<ParameterStoreConfig>;
   perfMonitoringKanopyURL?: Maybe<Scalars["String"]["output"]>;
   perfMonitoringURL?: Maybe<Scalars["String"]["output"]>;
   podLifecycle?: Maybe<PodLifecycleConfig>;
+  pprofPort?: Maybe<Scalars["String"]["output"]>;
   projectCreation?: Maybe<ProjectCreationConfig>;
   providers?: Maybe<CloudProviderConfig>;
+  releaseMode?: Maybe<ReleaseModeConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
+  shutdownWaitSeconds?: Maybe<Scalars["Int"]["output"]>;
+  singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
   slack?: Maybe<SlackConfig>;
+  sleepSchedule?: Maybe<SleepScheduleConfig>;
+  spawnhost?: Maybe<SpawnHostConfig>;
   splunk?: Maybe<SplunkConfig>;
+  ssh?: Maybe<SshConfig>;
   taskLimits?: Maybe<TaskLimitsConfig>;
   testSelection?: Maybe<TestSelectionConfig>;
+  tracer?: Maybe<TracerSettings>;
   triggers?: Maybe<TriggerConfig>;
   ui?: Maybe<UiConfig>;
 };
@@ -197,28 +217,48 @@ export type AdminSettingsInput = {
   authConfig?: InputMaybe<AuthConfigInput>;
   banner?: InputMaybe<Scalars["String"]["input"]>;
   bannerTheme?: InputMaybe<BannerTheme>;
+  buckets?: InputMaybe<BucketsConfigInput>;
   cedar?: InputMaybe<CedarConfigInput>;
+  configDir?: InputMaybe<Scalars["String"]["input"]>;
   containerPools?: InputMaybe<ContainerPoolsConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  domainName?: InputMaybe<Scalars["String"]["input"]>;
+  expansions?: InputMaybe<Scalars["StringMap"]["input"]>;
   fws?: InputMaybe<FwsConfigInput>;
+  githubCheckRun?: InputMaybe<GitHubCheckRunConfigInput>;
+  githubOrgs?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  githubPRCreatorOrg?: InputMaybe<Scalars["String"]["input"]>;
+  githubWebhookSecret?: InputMaybe<Scalars["String"]["input"]>;
   hostInit?: InputMaybe<HostInitConfigInput>;
+  hostJasper?: InputMaybe<HostJasperConfigInput>;
   jira?: InputMaybe<JiraConfigInput>;
+  jiraNotifications?: InputMaybe<JiraNotificationsConfigInput>;
+  kanopySSHKeyPath?: InputMaybe<Scalars["String"]["input"]>;
+  logPath?: InputMaybe<Scalars["String"]["input"]>;
   loggerConfig?: InputMaybe<LoggerConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
   parameterStore?: InputMaybe<ParameterStoreConfigInput>;
   perfMonitoringKanopyURL?: InputMaybe<Scalars["String"]["input"]>;
   perfMonitoringURL?: InputMaybe<Scalars["String"]["input"]>;
   podLifecycle?: InputMaybe<PodLifecycleConfigInput>;
+  pprofPort?: InputMaybe<Scalars["String"]["input"]>;
   projectCreation?: InputMaybe<ProjectCreationConfigInput>;
   providers?: InputMaybe<CloudProviderConfigInput>;
+  releaseMode?: InputMaybe<ReleaseModeConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
   serviceFlags?: InputMaybe<ServiceFlagsInput>;
+  shutdownWaitSeconds?: InputMaybe<Scalars["Int"]["input"]>;
+  singleTaskDistro?: InputMaybe<SingleTaskDistroConfigInput>;
   slack?: InputMaybe<SlackConfigInput>;
+  sleepSchedule?: InputMaybe<SleepScheduleConfigInput>;
+  spawnhost?: InputMaybe<SpawnHostConfigInput>;
   splunk?: InputMaybe<SplunkConfigInput>;
+  ssh?: InputMaybe<SshConfigInput>;
   taskLimits?: InputMaybe<TaskLimitsConfigInput>;
   testSelection?: InputMaybe<TestSelectionConfigInput>;
+  tracer?: InputMaybe<TracerSettingsInput>;
   triggers?: InputMaybe<TriggerConfigInput>;
   ui?: InputMaybe<UiConfigInput>;
 };
@@ -422,6 +462,34 @@ export type BootstrapSettingsInput = {
   rootDir: Scalars["String"]["input"];
   serviceUser: Scalars["String"]["input"];
   shellPath: Scalars["String"]["input"];
+};
+
+export type BucketConfig = {
+  __typename?: "BucketConfig";
+  name?: Maybe<Scalars["String"]["output"]>;
+  roleARN?: Maybe<Scalars["String"]["output"]>;
+  testResultsPrefix?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type BucketConfigInput = {
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  roleARN?: InputMaybe<Scalars["String"]["input"]>;
+  testResultsPrefix?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type BucketsConfig = {
+  __typename?: "BucketsConfig";
+  credentials?: Maybe<S3Credentials>;
+  internalBuckets: Array<Scalars["String"]["output"]>;
+  logBucket?: Maybe<BucketConfig>;
+  testResultsBucket?: Maybe<BucketConfig>;
+};
+
+export type BucketsConfigInput = {
+  credentials?: InputMaybe<S3CredentialsInput>;
+  internalBuckets: Array<Scalars["String"]["input"]>;
+  logBucket?: InputMaybe<BucketConfigInput>;
+  testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
 export type Build = {
@@ -1077,6 +1145,15 @@ export type GitHubAuthConfigInput = {
   users: Array<Scalars["String"]["input"]>;
 };
 
+export type GitHubCheckRunConfig = {
+  __typename?: "GitHubCheckRunConfig";
+  checkRunLimit?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type GitHubCheckRunConfigInput = {
+  checkRunLimit?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
 export type GitHubDynamicTokenPermissionGroup = {
   __typename?: "GitHubDynamicTokenPermissionGroup";
   name: Scalars["String"]["output"];
@@ -1368,6 +1445,23 @@ export type HostInitConfigInput = {
   provisioningThrottle: Scalars["Int"]["input"];
 };
 
+export type HostJasperConfig = {
+  __typename?: "HostJasperConfig";
+  binaryName?: Maybe<Scalars["String"]["output"]>;
+  downloadFileName?: Maybe<Scalars["String"]["output"]>;
+  port?: Maybe<Scalars["Int"]["output"]>;
+  url?: Maybe<Scalars["String"]["output"]>;
+  version?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type HostJasperConfigInput = {
+  binaryName?: InputMaybe<Scalars["String"]["input"]>;
+  downloadFileName?: InputMaybe<Scalars["String"]["input"]>;
+  port?: InputMaybe<Scalars["Int"]["input"]>;
+  url?: InputMaybe<Scalars["String"]["input"]>;
+  version?: InputMaybe<Scalars["String"]["input"]>;
+};
+
 export enum HostSortBy {
   CurrentTask = "CURRENT_TASK",
   Distro = "DISTRO",
@@ -1557,6 +1651,43 @@ export type JiraIssueSubscriber = {
 export type JiraIssueSubscriberInput = {
   issueType: Scalars["String"]["input"];
   project: Scalars["String"]["input"];
+};
+
+export type JiraNotificationsConfig = {
+  __typename?: "JiraNotificationsConfig";
+  customFields: Array<JiraNotificationsProjectEntry>;
+};
+
+export type JiraNotificationsConfigInput = {
+  customFields: Array<JiraNotificationsProjectEntryInput>;
+};
+
+export type JiraNotificationsProject = {
+  __typename?: "JiraNotificationsProject";
+  components: Array<Scalars["String"]["output"]>;
+  fields?: Maybe<Scalars["StringMap"]["output"]>;
+  labels: Array<Scalars["String"]["output"]>;
+};
+
+export type JiraNotificationsProjectEntry = {
+  __typename?: "JiraNotificationsProjectEntry";
+  components: Array<Scalars["String"]["output"]>;
+  fields?: Maybe<Scalars["StringMap"]["output"]>;
+  labels: Array<Scalars["String"]["output"]>;
+  project: Scalars["String"]["output"];
+};
+
+export type JiraNotificationsProjectEntryInput = {
+  components: Array<Scalars["String"]["input"]>;
+  fields?: InputMaybe<Scalars["StringMap"]["input"]>;
+  labels: Array<Scalars["String"]["input"]>;
+  project: Scalars["String"]["input"];
+};
+
+export type JiraNotificationsProjectInput = {
+  components: Array<Scalars["String"]["input"]>;
+  fields?: InputMaybe<Scalars["StringMap"]["input"]>;
+  labels: Array<Scalars["String"]["input"]>;
 };
 
 export type JiraStatus = {
@@ -2665,11 +2796,17 @@ export type ProjectBuildVariant = {
 
 export type ProjectCreationConfig = {
   __typename?: "ProjectCreationConfig";
+  jiraProject?: Maybe<Scalars["String"]["output"]>;
   repoExceptions: Array<OwnerRepo>;
+  repoProjectLimit?: Maybe<Scalars["Int"]["output"]>;
+  totalProjectLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ProjectCreationConfigInput = {
+  jiraProject?: InputMaybe<Scalars["String"]["input"]>;
   repoExceptions: Array<OwnerRepoInput>;
+  repoProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
+  totalProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type ProjectEventLogEntry = {
@@ -2825,6 +2962,12 @@ export type ProjectTasksPair = {
   allowedBVs: Array<Scalars["String"]["output"]>;
   allowedTasks: Array<Scalars["String"]["output"]>;
   projectId: Scalars["String"]["output"];
+};
+
+export type ProjectTasksPairInput = {
+  allowedBVs: Array<Scalars["String"]["input"]>;
+  allowedTasks: Array<Scalars["String"]["input"]>;
+  projectID: Scalars["String"]["input"];
 };
 
 export type ProjectVars = {
@@ -3072,6 +3215,19 @@ export type QueryWaterfallArgs = {
   options: WaterfallOptions;
 };
 
+export type ReleaseModeConfig = {
+  __typename?: "ReleaseModeConfig";
+  distroMaxHostsFactor?: Maybe<Scalars["Float"]["output"]>;
+  idleTimeSecondsOverride?: Maybe<Scalars["Int"]["output"]>;
+  targetTimeSecondsOverride?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type ReleaseModeConfigInput = {
+  distroMaxHostsFactor?: InputMaybe<Scalars["Float"]["input"]>;
+  idleTimeSecondsOverride?: InputMaybe<Scalars["Int"]["input"]>;
+  targetTimeSecondsOverride?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
 export type RemoveFavoriteProjectInput = {
   projectIdentifier: Scalars["String"]["input"];
 };
@@ -3298,6 +3454,19 @@ export type RuntimeEnvironmentConfigInput = {
   baseUrl: Scalars["String"]["input"];
 };
 
+export type S3Credentials = {
+  __typename?: "S3Credentials";
+  bucket?: Maybe<Scalars["String"]["output"]>;
+  key?: Maybe<Scalars["String"]["output"]>;
+  secret?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type S3CredentialsInput = {
+  bucket?: InputMaybe<Scalars["String"]["input"]>;
+  key?: InputMaybe<Scalars["String"]["input"]>;
+  secret?: InputMaybe<Scalars["String"]["input"]>;
+};
+
 export type SesConfig = {
   __typename?: "SESConfig";
   senderAddress?: Maybe<Scalars["String"]["output"]>;
@@ -3305,6 +3474,28 @@ export type SesConfig = {
 
 export type SesConfigInput = {
   senderAddress: Scalars["String"]["input"];
+};
+
+export type SshConfig = {
+  __typename?: "SSHConfig";
+  spawnHostKey?: Maybe<SshKeyPair>;
+  taskHostKey?: Maybe<SshKeyPair>;
+};
+
+export type SshConfigInput = {
+  spawnHostKey?: InputMaybe<SshKeyPairInput>;
+  taskHostKey?: InputMaybe<SshKeyPairInput>;
+};
+
+export type SshKeyPair = {
+  __typename?: "SSHKeyPair";
+  name?: Maybe<Scalars["String"]["output"]>;
+  secretARN?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SshKeyPairInput = {
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  secretARN?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type SaveAdminSettingsInput = {
@@ -3493,6 +3684,10 @@ export type SingleTaskDistroConfig = {
   projectTasksPairs: Array<ProjectTasksPair>;
 };
 
+export type SingleTaskDistroConfigInput = {
+  projectTasksPairs: Array<ProjectTasksPairInput>;
+};
+
 export type SlackConfig = {
   __typename?: "SlackConfig";
   level?: Maybe<PriorityLevel>;
@@ -3544,6 +3739,15 @@ export type SleepSchedule = {
   wholeWeekdaysOff: Array<Scalars["Int"]["output"]>;
 };
 
+export type SleepScheduleConfig = {
+  __typename?: "SleepScheduleConfig";
+  permanentlyExemptHosts: Array<Scalars["String"]["output"]>;
+};
+
+export type SleepScheduleConfigInput = {
+  permanentlyExemptHosts: Array<Scalars["String"]["input"]>;
+};
+
 export type SleepScheduleInput = {
   dailyStartTime: Scalars["String"]["input"];
   dailyStopTime: Scalars["String"]["input"];
@@ -3574,9 +3778,15 @@ export type Source = {
 
 export type SpawnHostConfig = {
   __typename?: "SpawnHostConfig";
-  spawnHostsPerUser: Scalars["Int"]["output"];
-  unexpirableHostsPerUser: Scalars["Int"]["output"];
-  unexpirableVolumesPerUser: Scalars["Int"]["output"];
+  spawnHostsPerUser?: Maybe<Scalars["Int"]["output"]>;
+  unexpirableHostsPerUser?: Maybe<Scalars["Int"]["output"]>;
+  unexpirableVolumesPerUser?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type SpawnHostConfigInput = {
+  spawnHostsPerUser?: InputMaybe<Scalars["Int"]["input"]>;
+  unexpirableHostsPerUser?: InputMaybe<Scalars["Int"]["input"]>;
+  unexpirableVolumesPerUser?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 /**
@@ -4194,6 +4404,21 @@ export type ToolchainOpts = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   name?: InputMaybe<Scalars["String"]["input"]>;
   page?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type TracerSettings = {
+  __typename?: "TracerSettings";
+  collectorAPIKey?: Maybe<Scalars["String"]["output"]>;
+  collectorEndpoint?: Maybe<Scalars["String"]["output"]>;
+  collectorInternalEndpoint?: Maybe<Scalars["String"]["output"]>;
+  enabled: Scalars["Boolean"]["output"];
+};
+
+export type TracerSettingsInput = {
+  collectorAPIKey?: InputMaybe<Scalars["String"]["input"]>;
+  collectorEndpoint?: InputMaybe<Scalars["String"]["input"]>;
+  collectorInternalEndpoint?: InputMaybe<Scalars["String"]["input"]>;
+  enabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export type TriggerAlias = {
@@ -10184,9 +10409,9 @@ export type SpruceConfigQuery = {
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
     spawnHost: {
       __typename?: "SpawnHostConfig";
-      spawnHostsPerUser: number;
-      unexpirableHostsPerUser: number;
-      unexpirableVolumesPerUser: number;
+      spawnHostsPerUser?: number | null;
+      unexpirableHostsPerUser?: number | null;
+      unexpirableVolumesPerUser?: number | null;
     };
     ui: { __typename?: "UIConfig"; defaultProject: string };
   } | null;

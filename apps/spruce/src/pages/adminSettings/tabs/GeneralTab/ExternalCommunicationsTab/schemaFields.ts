@@ -1,6 +1,11 @@
+import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { PriorityLevel } from "gql/generated/types";
-import { nestedObjectGridCss, fullWidthCss } from "../../sharedStyles";
+import {
+  nestedObjectGridCss,
+  fullWidthCss,
+  objectGridCss,
+} from "../../sharedStyles";
 
 export const jira = {
   schema: {
@@ -19,6 +24,9 @@ export const jira = {
   },
   uiSchema: {
     "ui:fieldCss": nestedObjectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "jira",
+    "ui:objectFieldCss": objectGridCss,
     personalAccessToken: {
       "ui:widget": widgets.TextWidget,
       "ui:options": {
@@ -75,11 +83,11 @@ export const slack = {
     },
     basicMetadata: {
       type: "boolean" as const,
-      title: "Basic Metadata",
+      title: "Add basic metadata",
     },
     fields: {
       type: "boolean" as const,
-      title: "Fields",
+      title: "Use fields",
     },
     allFields: {
       type: "boolean" as const,
@@ -87,7 +95,9 @@ export const slack = {
     },
   },
   uiSchema: {
-    "ui:fieldCss": nestedObjectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "slack",
     token: {
       "ui:widget": widgets.TextWidget,
       "ui:options": {
@@ -139,7 +149,9 @@ export const splunk = {
     splunkConnectionInfo: splunkConnectionInfo.schema,
   },
   uiSchema: {
-    "ui:fieldCss": nestedObjectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "runtime-environments",
     splunkConnectionInfo: {
       ...splunkConnectionInfo.uiSchema,
     },
@@ -158,7 +170,9 @@ export const runtimeEnvironments = {
     },
   },
   uiSchema: {
-    "ui:fieldCss": nestedObjectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "runtime-environments",
     apiKey: {
       "ui:widget": widgets.TextWidget,
       "ui:options": {
@@ -176,7 +190,9 @@ export const testSelection = {
     },
   },
   uiSchema: {
-    "ui:fieldCss": nestedObjectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "test-selection",
   },
 };
 
@@ -188,7 +204,9 @@ export const fws = {
     },
   },
   uiSchema: {
-    "ui:fieldCss": nestedObjectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "fws",
   },
 };
 
@@ -212,6 +230,8 @@ export const cedar = {
     },
   },
   uiSchema: {
-    "ui:fieldCss": nestedObjectGridCss,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "cedar",
   },
 };

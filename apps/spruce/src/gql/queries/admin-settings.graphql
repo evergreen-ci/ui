@@ -117,7 +117,6 @@ query AdminSettings {
       }
     }
     perfMonitoringKanopyURL
-
     perfMonitoringURL
     podLifecycle {
       maxParallelPodRequests
