@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
+import { fontFamilies } from "@leafygreen-ui/tokens";
 import Icon from "@evg-ui/lib/components/Icon";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -185,25 +186,38 @@ const ShareIcon = styled(Icon)`
   flex-shrink: 0;
 `;
 
-const StyledPre = styled.pre<{
+// NOTE: This was originally a <pre> tag to preserve whitespace and line breaks,
+// but Firefox inserts extra newlines between block-level <pre> elements during text selection,
+// causing unwanted spacing between log lines. To avoid this, we use a <div> and manually
+// apply white-space and wrapping styles to replicate <pre> behavior without the selection quirks.
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1528442
+const StyledPre = styled.div<{
   shouldWrap: boolean;
   wordWrapFormat: WordWrapFormat;
 }>`
-  overflow-y: hidden;
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-right: ${size.xs};
-  /* Remove overflow on pre */
-  overflow: visible;
-  font-family: inherit;
-  line-height: inherit;
+  font-family: ${fontFamilies.code};
   font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  margin-right: ${size.xs};
+
   ${({ shouldWrap, wordWrapFormat }) =>
     shouldWrap &&
     wordWrapFormat === WordWrapFormat.Aggressive &&
-    ` /* wrap on any character */ overflow-wrap: anywhere;`}
+    `
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    `}
+
   ${({ shouldWrap }) =>
-    shouldWrap && ` /* wrap multiple lines */ white-space: break-spaces;`}
+    shouldWrap
+      ? `
+        white-space: break-spaces;
+      `
+      : `
+        white-space: pre;
+      `}
 `;
 
 const MenuIcon = styled(IconButton)`
