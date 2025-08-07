@@ -12,13 +12,19 @@ vi.mock("idb", () => ({
   }),
 }));
 
+const cacheModifyMock = vi.fn();
+
 const readOptions = (storage = {}) =>
   ({
+    cache: {
+      identify: vi.fn(),
+      modify: cacheModifyMock,
+    },
     readField(key: string, obj: StoreObject) {
       return obj && obj[key];
     },
     storage,
-  }) as FieldFunctionOptions;
+  }) as unknown as FieldFunctionOptions;
 
 describe("readTaskReviewed", () => {
   beforeEach(() => {
@@ -30,6 +36,7 @@ describe("readTaskReviewed", () => {
     await waitFor(() => {
       expect(readTaskReviewed(undefined, options)).toBe(true);
     });
+    expect(cacheModifyMock).toHaveBeenCalledOnce();
   });
 
   it("returns false value returned from db", async () => {
@@ -37,6 +44,7 @@ describe("readTaskReviewed", () => {
     await waitFor(() => {
       expect(readTaskReviewed(undefined, options)).toBe(false);
     });
+    expect(cacheModifyMock).toHaveBeenCalledOnce();
   });
 
   it("returns false when not found in db", async () => {
@@ -44,11 +52,13 @@ describe("readTaskReviewed", () => {
     await waitFor(() => {
       expect(readTaskReviewed(undefined, options)).toBe(false);
     });
+    expect(cacheModifyMock).toHaveBeenCalledOnce();
   });
 
   it("returns cached value when included", () => {
     const options = readOptions();
     expect(readTaskReviewed(false, options)).toBe(false);
     expect(readTaskReviewed(true, options)).toBe(true);
+    expect(cacheModifyMock).not.toHaveBeenCalled();
   });
 });

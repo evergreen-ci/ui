@@ -18,21 +18,21 @@ export const readTaskReviewed = ((existing, { cache, readField, storage }) => {
     getItem([taskId, execution]).then((data) => {
       if (data !== undefined) {
         storage.var(data);
-        cache.modify({
-          id: cache.identify({
-            __typename: "Task",
-            id: taskId,
-            execution,
-          }),
-
-          fields: {
-            reviewed() {
-              return data;
-            },
-          },
-          broadcast: false,
-        });
       }
+      cache.modify({
+        id: cache.identify({
+          __typename: "Task",
+          id: taskId,
+          execution,
+        }),
+
+        fields: {
+          reviewed() {
+            return data ?? false;
+          },
+        },
+        broadcast: false,
+      });
     });
   }
   return storage.var();
