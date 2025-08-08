@@ -10,6 +10,7 @@ import {
   CaseSensitiveToggle,
   ExpandableRowsToggle,
   FilterLogicToggle,
+  HideFiltersToggle,
   HighlightFiltersToggle,
   JumpToFailingLineToggle,
   PrettyPrintToggle,
@@ -46,6 +47,7 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
                 <CaseSensitiveToggle />
                 <FilterLogicToggle />
                 <HighlightFiltersToggle />
+                <HideFiltersToggle />
               </Column>
             </Row>
             <ButtonRow />
