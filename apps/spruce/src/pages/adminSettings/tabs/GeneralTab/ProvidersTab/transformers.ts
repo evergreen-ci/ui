@@ -121,7 +121,6 @@ export const formToGql = ((form: ProvidersFormState) => {
     parameterStore: {
       prefix: providers.aws.parameterStorePrefix || undefined,
     },
-
     providers: {
       aws: {
         accountRoles: providers.aws.accountRoles.map((role) => ({

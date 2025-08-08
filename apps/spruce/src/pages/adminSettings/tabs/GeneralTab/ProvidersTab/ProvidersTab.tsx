@@ -8,7 +8,7 @@ import { TabProps } from "./types";
 export const ProvidersTab: React.FC<TabProps> = ({ providersData }) => {
   const initialFormState = providersData;
 
-  const formSchema = useMemo(() => getFormSchema(), []);
+  const formSchema = useMemo(() => getFormSchema, []);
 
   return (
     <>

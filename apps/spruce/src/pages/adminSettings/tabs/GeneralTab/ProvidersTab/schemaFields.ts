@@ -8,7 +8,7 @@ import {
   EcsWindowsVersion,
   EcsArchitecture,
 } from "gql/generated/types";
-import { gridWrapCss, fullWidthCss } from "../../sharedStyles";
+import { gridWrapCss, fullWidthCss, objectGridCss } from "../../sharedStyles";
 
 const { gray } = palette;
 
@@ -64,6 +64,9 @@ export const containerPools = {
     },
   },
   uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "container-pools",
+    "ui:objectFieldCss": objectGridCss,
     pools: {
       "ui:addButtonText": "Add container pool",
       "ui:data-cy": "container-pools-list",
@@ -214,6 +217,9 @@ export const repoExceptions = {
     },
   },
   uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": fullWidthCss,
+    "ui:data-cy": "repo-exceptions",
     repos: {
       "ui:addButtonText": "Add repository exception",
       "ui:orderable": false,
@@ -485,6 +491,9 @@ export const aws = {
     },
   },
   uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "aws-configuration",
     accountRoles: accountRoles.uiSchema,
     alertableInstanceTypes: {
       "ui:widget": widgets.ChipInputWidget,

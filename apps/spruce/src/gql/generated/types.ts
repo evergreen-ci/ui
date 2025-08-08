@@ -3697,7 +3697,7 @@ export type SlackConfig = {
 };
 
 export type SlackConfigInput = {
-  level: PriorityLevel;
+  level?: InputMaybe<PriorityLevel>;
   name: Scalars["String"]["input"];
   options?: InputMaybe<SlackOptionsInput>;
   token: Scalars["String"]["input"];

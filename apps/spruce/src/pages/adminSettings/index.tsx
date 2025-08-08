@@ -310,7 +310,6 @@ const AdminSettingsPage: React.FC = () => {
               >
                 Container Pools
               </SideNavItem>
-
               <SideNavItem
                 as={Link}
                 data-cy="navitem-admin-aws"
