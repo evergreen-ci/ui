@@ -9,7 +9,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-1ciuhbt"
+          class="leafygreen-ui-13vzj3x"
         >
           Running
         </div>
@@ -22,7 +22,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-1uko9cz"
+          class="leafygreen-ui-14pnkbj"
         >
           Starting
         </div>
@@ -35,7 +35,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-1uko9cz"
+          class="leafygreen-ui-14pnkbj"
         >
           Provisioning
         </div>
@@ -48,7 +48,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-c62i3c"
+          class="leafygreen-ui-sti25g"
         >
           Initializing
         </div>
@@ -61,7 +61,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-dhdzha"
+          class="leafygreen-ui-cfigsp"
         >
           Terminated
         </div>
@@ -95,7 +95,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-c62i3c"
+          class="leafygreen-ui-sti25g"
         >
           Decommissioned
         </div>
@@ -108,7 +108,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-c62i3c"
+          class="leafygreen-ui-sti25g"
         >
           Quarantined
         </div>
@@ -121,7 +121,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-c62i3c"
+          class="leafygreen-ui-sti25g"
         >
           Provision Failed
         </div>
@@ -134,7 +134,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-c62i3c"
+          class="leafygreen-ui-sti25g"
         >
           Building
         </div>
@@ -147,7 +147,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-c62i3c"
+          class="leafygreen-ui-sti25g"
         >
           Build Failed
         </div>
@@ -160,7 +160,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-c62i3c"
+          class="leafygreen-ui-sti25g"
         >
           Success
         </div>
@@ -173,7 +173,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-c62i3c"
+          class="leafygreen-ui-sti25g"
         >
           Stopping
         </div>
@@ -186,7 +186,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-c62i3c"
+          class="leafygreen-ui-sti25g"
         >
           Stopped
         </div>
@@ -199,7 +199,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-c62i3c"
+          class="leafygreen-ui-sti25g"
         >
           Failed
         </div>
@@ -212,7 +212,7 @@
         class="emotion-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-c62i3c"
+          class="leafygreen-ui-sti25g"
         >
           External
         </div>

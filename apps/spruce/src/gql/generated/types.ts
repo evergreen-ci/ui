@@ -4885,6 +4885,8 @@ export type WorkstationSetupCommandInput = {
 
 export type NonDisplayTaskReviewedFragment = {
   __typename?: "Task";
+  id: string;
+  execution: number;
   reviewed?: boolean | null;
 };
 

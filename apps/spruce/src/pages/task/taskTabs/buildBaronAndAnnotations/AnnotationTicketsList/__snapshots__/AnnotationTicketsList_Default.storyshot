@@ -21,13 +21,13 @@
           </span>
         </a>
         <div
-          class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-sti25g"
           data-cy="DEVPROD-123-badge"
         >
           status
         </div>
         <div
-          class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
+          class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-17azklk"
           data-cy="DEVPROD-123-confidence-badge"
         >
           50
@@ -152,13 +152,13 @@
           </span>
         </a>
         <div
-          class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
+          class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-sti25g"
           data-cy="DEVPROD-456-badge"
         >
           failed
         </div>
         <div
-          class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
+          class="emotion-StyledBadge e1ch0kli1 leafygreen-ui-17azklk"
           data-cy="DEVPROD-456-confidence-badge"
         >
           99

@@ -3,7 +3,7 @@
     style="height: 800px;"
   >
     <div
-      class="leafygreen-ui-13b37tu leafygreen-ui-1gi31jg"
+      class="leafygreen-ui-12lw227"
       tabindex="0"
     >
       <div />
@@ -12,16 +12,20 @@
         data-cy="task-queue-table"
         data-is-sticky="false"
         data-lgid="lg-table"
+        data-testid="lg-table"
       >
         <thead
           class="leafygreen-ui-181p7kg"
         >
           <tr
             class="leafygreen-ui-5fo1n0"
+            data-lgid="lg-table-header_row"
+            data-testid="lg-table-header_row"
           >
             <th
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
+              data-testid="lg-table-header"
               scope="col"
             >
               <div
@@ -31,6 +35,7 @@
             <th
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
+              data-testid="lg-table-header"
               scope="col"
             >
               <div
@@ -42,6 +47,7 @@
             <th
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
+              data-testid="lg-table-header"
               scope="col"
             >
               <div
@@ -53,6 +59,7 @@
             <th
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
+              data-testid="lg-table-header"
               scope="col"
             >
               <div
@@ -64,6 +71,7 @@
             <th
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
+              data-testid="lg-table-header"
               scope="col"
             >
               <div
@@ -75,6 +83,7 @@
             <th
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
+              data-testid="lg-table-header"
               scope="col"
             >
               <div
@@ -86,6 +95,7 @@
             <th
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
+              data-testid="lg-table-header"
               scope="col"
             >
               <div
@@ -97,6 +107,7 @@
             <th
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
+              data-testid="lg-table-header"
               scope="col"
             >
               <div
@@ -110,18 +121,20 @@
         <tbody>
           <tr
             aria-disabled="false"
-            class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+            class="leafygreen-ui-ef1edo"
             data-cy="leafygreen-table-row"
             data-depth="0"
             data-expanded="false"
             data-index="0"
             data-lgid="lg-table-row"
             data-selected="false"
+            data-testid="lg-table-row"
             id="lg-table-row-0"
           >
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -143,8 +156,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -179,8 +193,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -198,8 +213,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -224,8 +240,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -254,8 +271,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -268,7 +286,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       0
                     </div>
@@ -277,8 +295,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -307,8 +326,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -321,7 +341,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       Commit
                     </div>
@@ -332,18 +352,20 @@
           </tr>
           <tr
             aria-disabled="false"
-            class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+            class="leafygreen-ui-ef1edo"
             data-cy="leafygreen-table-row"
             data-depth="0"
             data-expanded="false"
             data-index="1"
             data-lgid="lg-table-row"
             data-selected="false"
+            data-testid="lg-table-row"
             id="lg-table-row-1"
           >
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -365,8 +387,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -401,8 +424,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -420,8 +444,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -446,8 +471,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -476,8 +502,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -490,7 +517,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       0
                     </div>
@@ -499,8 +526,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -529,8 +557,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -543,7 +572,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       Commit
                     </div>
@@ -554,18 +583,20 @@
           </tr>
           <tr
             aria-disabled="false"
-            class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+            class="leafygreen-ui-ef1edo"
             data-cy="leafygreen-table-row"
             data-depth="0"
             data-expanded="false"
             data-index="2"
             data-lgid="lg-table-row"
             data-selected="false"
+            data-testid="lg-table-row"
             id="lg-table-row-2"
           >
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -587,8 +618,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -623,8 +655,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -642,8 +675,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -668,8 +702,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -698,8 +733,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -712,7 +748,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       0
                     </div>
@@ -721,8 +757,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -751,8 +788,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -765,7 +803,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       Commit
                     </div>
@@ -776,18 +814,20 @@
           </tr>
           <tr
             aria-disabled="false"
-            class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+            class="leafygreen-ui-ef1edo"
             data-cy="leafygreen-table-row"
             data-depth="0"
             data-expanded="false"
             data-index="3"
             data-lgid="lg-table-row"
             data-selected="false"
+            data-testid="lg-table-row"
             id="lg-table-row-3"
           >
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -809,8 +849,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -845,8 +886,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -864,8 +906,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -890,8 +933,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -920,8 +964,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -934,7 +979,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       0
                     </div>
@@ -943,8 +988,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -973,8 +1019,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -987,7 +1034,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       Commit
                     </div>
@@ -998,18 +1045,20 @@
           </tr>
           <tr
             aria-disabled="false"
-            class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+            class="leafygreen-ui-ef1edo"
             data-cy="leafygreen-table-row"
             data-depth="0"
             data-expanded="false"
             data-index="4"
             data-lgid="lg-table-row"
             data-selected="false"
+            data-testid="lg-table-row"
             id="lg-table-row-4"
           >
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1031,8 +1080,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1067,8 +1117,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1086,8 +1137,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1112,8 +1164,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1142,8 +1195,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1156,7 +1210,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       0
                     </div>
@@ -1165,8 +1219,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1195,8 +1250,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1209,7 +1265,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       Commit
                     </div>
@@ -1220,18 +1276,20 @@
           </tr>
           <tr
             aria-disabled="false"
-            class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+            class="leafygreen-ui-ef1edo"
             data-cy="leafygreen-table-row"
             data-depth="0"
             data-expanded="false"
             data-index="5"
             data-lgid="lg-table-row"
             data-selected="false"
+            data-testid="lg-table-row"
             id="lg-table-row-5"
           >
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1253,8 +1311,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1289,8 +1348,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1308,8 +1368,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1334,8 +1395,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1364,8 +1426,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1378,7 +1441,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       0
                     </div>
@@ -1387,8 +1450,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1417,8 +1481,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1431,7 +1496,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       Commit
                     </div>
@@ -1442,18 +1507,20 @@
           </tr>
           <tr
             aria-disabled="false"
-            class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+            class="leafygreen-ui-ef1edo"
             data-cy="leafygreen-table-row"
             data-depth="0"
             data-expanded="false"
             data-index="6"
             data-lgid="lg-table-row"
             data-selected="false"
+            data-testid="lg-table-row"
             id="lg-table-row-6"
           >
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1475,8 +1542,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1511,8 +1579,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1530,8 +1599,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1556,8 +1626,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1586,8 +1657,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1600,7 +1672,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       0
                     </div>
@@ -1609,8 +1681,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1639,8 +1712,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1653,7 +1727,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       Commit
                     </div>
@@ -1664,18 +1738,20 @@
           </tr>
           <tr
             aria-disabled="false"
-            class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+            class="leafygreen-ui-ef1edo"
             data-cy="leafygreen-table-row"
             data-depth="0"
             data-expanded="false"
             data-index="7"
             data-lgid="lg-table-row"
             data-selected="false"
+            data-testid="lg-table-row"
             id="lg-table-row-7"
           >
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1697,8 +1773,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1733,8 +1810,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1752,8 +1830,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1778,8 +1857,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1808,8 +1888,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1822,7 +1903,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       0
                     </div>
@@ -1831,8 +1912,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1861,8 +1943,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1875,7 +1958,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       Commit
                     </div>
@@ -1886,18 +1969,20 @@
           </tr>
           <tr
             aria-disabled="false"
-            class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+            class="leafygreen-ui-ef1edo"
             data-cy="leafygreen-table-row"
             data-depth="0"
             data-expanded="false"
             data-index="8"
             data-lgid="lg-table-row"
             data-selected="false"
+            data-testid="lg-table-row"
             id="lg-table-row-8"
           >
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1919,8 +2004,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1955,8 +2041,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -1974,8 +2061,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2000,8 +2088,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2030,8 +2119,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2044,7 +2134,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       0
                     </div>
@@ -2053,8 +2143,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2083,8 +2174,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2097,7 +2189,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       Commit
                     </div>
@@ -2108,18 +2200,20 @@
           </tr>
           <tr
             aria-disabled="false"
-            class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+            class="leafygreen-ui-ef1edo"
             data-cy="leafygreen-table-row"
             data-depth="0"
             data-expanded="false"
             data-index="9"
             data-lgid="lg-table-row"
             data-selected="false"
+            data-testid="lg-table-row"
             id="lg-table-row-9"
           >
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2141,8 +2235,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2177,8 +2272,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2196,8 +2292,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2222,8 +2319,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2252,8 +2350,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2266,7 +2365,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       0
                     </div>
@@ -2275,8 +2374,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2305,8 +2405,9 @@
               </div>
             </td>
             <td
-              class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+              class="leafygreen-ui-16vw6q"
               data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
               style="padding-bottom: 4px; padding-top: 4px;"
             >
               <div
@@ -2319,7 +2420,7 @@
                     class=""
                   >
                     <div
-                      class="leafygreen-ui-c62i3c"
+                      class="leafygreen-ui-sti25g"
                     >
                       Commit
                     </div>
