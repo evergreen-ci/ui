@@ -3697,7 +3697,7 @@ export type SlackConfig = {
 };
 
 export type SlackConfigInput = {
-  level: PriorityLevel;
+  level?: InputMaybe<PriorityLevel>;
   name: Scalars["String"]["input"];
   options?: InputMaybe<SlackOptionsInput>;
   token: Scalars["String"]["input"];
@@ -7324,6 +7324,8 @@ export type AdminSettingsQuery = {
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
     disabledGQLQueries: Array<string>;
+    perfMonitoringKanopyURL?: string | null;
+    perfMonitoringURL?: string | null;
     amboy?: {
       __typename?: "AmboyConfig";
       groupBackgroundCreateFrequencyMinutes?: number | null;
@@ -7412,12 +7414,24 @@ export type AdminSettingsQuery = {
         userGroup?: string | null;
       } | null;
     } | null;
+    cedar?: {
+      __typename?: "CedarConfig";
+      dbName: string;
+      dbUrl: string;
+    } | null;
+    fws?: { __typename?: "FWSConfig"; url: string } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
       hostThrottle?: number | null;
       maxTotalDynamicHosts?: number | null;
       provisioningThrottle?: number | null;
+    } | null;
+    jira?: {
+      __typename?: "JiraConfig";
+      email?: string | null;
+      host?: string | null;
+      personalAccessToken?: string | null;
     } | null;
     loggerConfig?: {
       __typename?: "LoggerConfig";
@@ -7450,6 +7464,11 @@ export type AdminSettingsQuery = {
       maxConcurrentRequests?: number | null;
       maxRepoRevisionsToSearch?: number | null;
       numNewRepoRevisionsToFetch?: number | null;
+    } | null;
+    runtimeEnvironments?: {
+      __typename?: "RuntimeEnvironmentConfig";
+      apiKey?: string | null;
+      baseUrl: string;
     } | null;
     scheduler?: {
       __typename?: "SchedulerConfig";
@@ -7511,6 +7530,32 @@ export type AdminSettingsQuery = {
       unrecognizedPodCleanupDisabled: boolean;
       webhookNotificationsDisabled: boolean;
     } | null;
+    slack?: {
+      __typename?: "SlackConfig";
+      level?: PriorityLevel | null;
+      name?: string | null;
+      token?: string | null;
+      options?: {
+        __typename?: "SlackOptions";
+        allFields?: boolean | null;
+        basicMetadata?: boolean | null;
+        channel?: string | null;
+        fields?: boolean | null;
+        fieldsSet?: any | null;
+        hostname?: string | null;
+        name?: string | null;
+        username?: string | null;
+      } | null;
+    } | null;
+    splunk?: {
+      __typename?: "SplunkConfig";
+      splunkConnectionInfo: {
+        __typename?: "SplunkConnectionInfo";
+        channel: string;
+        serverUrl: string;
+        token: string;
+      };
+    } | null;
     taskLimits?: {
       __typename?: "TaskLimitsConfig";
       maxConcurrentLargeParserProjectTasks?: number | null;
@@ -7526,6 +7571,7 @@ export type AdminSettingsQuery = {
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
     } | null;
+    testSelection?: { __typename?: "TestSelectionConfig"; url: string } | null;
     triggers?: {
       __typename?: "TriggerConfig";
       generateTaskDistro?: string | null;

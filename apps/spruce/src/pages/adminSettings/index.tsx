@@ -260,47 +260,119 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
             </SideNavGroup>
 
-            <SideNavGroup header="Background Processing">
+            <SideNavGroup header="External Communications">
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-amboy"
+                data-cy="navitem-admin-jira"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
-                  "amboy",
+                  "jira",
                 )}
               >
-                Amboy
+                Jira
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-logger"
+                data-cy="navitem-admin-slack"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
-                  "logger",
+                  "slack",
                 )}
               >
-                Logger
+                Slack
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-notification-rate-limits"
+                data-cy="navitem-admin-splunk"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
-                  "notification-rate-limits",
+                  "splunk",
                 )}
               >
-                Notification Rate Limits
+                Splunk
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-triggers"
+                data-cy="navitem-admin-runtime-environment"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
-                  "triggers",
+                  "runtime-environments",
                 )}
               >
-                Triggers
+                Runtime Environment
               </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-test-selection"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "test-selection",
+                )}
+              >
+                Test Selection
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-foliage-web-services"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "foliage-web-services",
+                )}
+              >
+                Foliage Web Services
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-cedar"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "cedar",
+                )}
+              >
+                Cedar
+              </SideNavItem>
+              <SideNavGroup header="Background Processing">
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-amboy"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "amboy",
+                  )}
+                >
+                  Amboy
+                </SideNavItem>
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-logger"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "logger",
+                  )}
+                >
+                  Logger
+                </SideNavItem>
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-notification-rate-limits"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "notification-rate-limits",
+                  )}
+                >
+                  Notification Rate Limits
+                </SideNavItem>
+                <SideNavItem
+                  as={Link}
+                  data-cy="navitem-admin-triggers"
+                  to={getAdminSettingsRoute(
+                    AdminSettingsTabRoutes.General,
+                    "triggers",
+                  )}
+                >
+                  Triggers
+                </SideNavItem>
+              </SideNavGroup>
             </SideNavGroup>
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Restart Tasks">
