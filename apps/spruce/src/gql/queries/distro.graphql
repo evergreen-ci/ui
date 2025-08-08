@@ -30,6 +30,10 @@ query Distro($distroId: String!) {
       shellPath
     }
     containerPool
+    costData {
+      onDemandRate
+      savingsPlanRate
+    }
     disabled
     disableShallowClone
     dispatcherSettings {

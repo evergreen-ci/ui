@@ -4,3 +4,12 @@
 extend type Task {
   reviewed: Boolean
 }
+
+type CostData {
+  onDemandRate: Float
+  savingsPlanRate: Float
+}
+
+extend type Distro {
+  costData: CostData
+}

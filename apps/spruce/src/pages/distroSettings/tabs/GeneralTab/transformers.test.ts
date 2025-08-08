@@ -32,6 +32,10 @@ const generalForm: GeneralFormState = {
     note: "distro note",
     warningNote: "distro warnings",
   },
+  costData: {
+    onDemandRate: 0,
+    savingsPlanRate: 0,
+  },
 };
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.

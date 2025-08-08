@@ -88,6 +88,22 @@ export const getFormSchema = (
           },
         },
       },
+      costData: {
+        type: "object" as const,
+        title: "Cost Data",
+        properties: {
+          onDemandRate: {
+            type: "number" as const,
+            title: "On Demand Rate",
+            readOnly: true,
+          },
+          savingsPlanRate: {
+            type: "number" as const,
+            title: "Savings Plan Rate",
+            readOnly: true,
+          },
+        },
+      },
     },
   },
   uiSchema: {
@@ -150,6 +166,15 @@ export const getFormSchema = (
         "ui:widget": "textarea",
         "ui:description":
           "This will be displayed to users when selecting this distro as part of evergreen yml validation.",
+      },
+    },
+    costData: {
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      onDemandRate: {
+        "ui:description": "The on-demand rate for this distro.",
+      },
+      savingsPlanRate: {
+        "ui:description": "The savings plan rate for this distro.",
       },
     },
   },
