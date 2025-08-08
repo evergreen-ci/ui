@@ -9,6 +9,8 @@ export const gqlToForm = ((data) => {
   const {
     adminOnly,
     aliases,
+    // @ts-expect-error - costData may not be available in the current GraphQL schema
+    costData,
     disableShallowClone,
     disabled,
     imageId,
@@ -20,19 +22,23 @@ export const gqlToForm = ((data) => {
   } = data;
 
   return {
-    distroName: {
-      name,
-    },
-    distroImage: {
-      image: imageId,
+    costData: {
+      onDemandRate: costData?.onDemandRate ?? 0,
+      savingsPlanRate: costData?.savingsPlanRate ?? 0,
     },
     distroAliases: {
       aliases,
     },
+    distroImage: {
+      image: imageId,
+    },
+    distroName: {
+      name,
+    },
     distroOptions: {
       adminOnly,
-      disabled,
       disableShallowClone,
+      disabled,
       isCluster,
       note,
       singleTaskDistro,
@@ -58,4 +64,5 @@ export const formToGql = ((
   note: distroOptions.note,
   singleTaskDistro: distroOptions.singleTaskDistro,
   warningNote: distroOptions.warningNote,
+  // Note: costData is read-only and not included in the form submission
 })) satisfies FormToGqlFunction<Tab>;

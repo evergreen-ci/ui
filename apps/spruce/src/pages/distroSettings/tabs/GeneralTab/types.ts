@@ -17,6 +17,10 @@ export interface GeneralFormState {
     singleTaskDistro: boolean;
     warningNote: string;
   };
+  costData: {
+    onDemandRate: number;
+    savingsPlanRate: number;
+  };
 }
 
 export type TabProps = {
