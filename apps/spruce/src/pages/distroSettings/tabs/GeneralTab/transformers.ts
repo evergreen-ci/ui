@@ -1,15 +1,23 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
+import { Distro } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 
 type Tab = DistroSettingsTabRoutes.General;
 
-export const gqlToForm = ((data) => {
+// Extended Distro type that includes optional costData field
+type DistroWithCostData = Distro & {
+  costData?: {
+    onDemandRate?: number;
+    savingsPlanRate?: number;
+  };
+};
+
+export const gqlToForm = ((data: DistroWithCostData) => {
   if (!data) return null;
 
   const {
     adminOnly,
     aliases,
-    // @ts-expect-error - costData may not be available in the current GraphQL schema
     costData,
     disableShallowClone,
     disabled,
