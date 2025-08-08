@@ -675,6 +675,17 @@ export type CopyProjectInput = {
   projectIdToCopy: Scalars["String"]["input"];
 };
 
+export type CostData = {
+  __typename?: "CostData";
+  onDemandRate?: Maybe<Scalars["Float"]["output"]>;
+  savingsPlanRate?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type CostDataInput = {
+  onDemandRate?: InputMaybe<Scalars["Float"]["input"]>;
+  savingsPlanRate?: InputMaybe<Scalars["Float"]["input"]>;
+};
+
 /** CreateDistroInput is the input to the createDistro mutation. */
 export type CreateDistroInput = {
   newDistroId: Scalars["String"]["input"];
@@ -771,6 +782,7 @@ export type Distro = {
   availableRegions: Array<Scalars["String"]["output"]>;
   bootstrapSettings: BootstrapSettings;
   containerPool: Scalars["String"]["output"];
+  costData?: Maybe<CostData>;
   disableShallowClone: Scalars["Boolean"]["output"];
   disabled: Scalars["Boolean"]["output"];
   dispatcherSettings: DispatcherSettings;
@@ -840,6 +852,7 @@ export type DistroInput = {
   authorizedKeysFile: Scalars["String"]["input"];
   bootstrapSettings: BootstrapSettingsInput;
   containerPool: Scalars["String"]["input"];
+  costData?: InputMaybe<CostDataInput>;
   disableShallowClone: Scalars["Boolean"]["input"];
   disabled: Scalars["Boolean"]["input"];
   dispatcherSettings: DispatcherSettingsInput;
@@ -940,12 +953,12 @@ export type EcsCapacityProviderInput = {
 export type EcsClusterConfig = {
   __typename?: "ECSClusterConfig";
   name?: Maybe<Scalars["String"]["output"]>;
-  os?: Maybe<Scalars["String"]["output"]>;
+  os?: Maybe<EcsOperatingSystem>;
 };
 
 export type EcsClusterConfigInput = {
   name?: InputMaybe<Scalars["String"]["input"]>;
-  os?: InputMaybe<Scalars["String"]["input"]>;
+  os?: InputMaybe<EcsOperatingSystem>;
 };
 
 export type EcsConfig = {
@@ -980,8 +993,8 @@ export type EcsConfigInput = {
 };
 
 export enum EcsOperatingSystem {
-  EcsOsLinux = "ECS_OS_LINUX",
-  EcsOsWindows = "ECS_OS_WINDOWS",
+  EcsosLinux = "ECSOSLinux",
+  EcsosWindows = "ECSOSWindows",
 }
 
 export enum EcsWindowsVersion {
@@ -3697,7 +3710,7 @@ export type SlackConfig = {
 };
 
 export type SlackConfigInput = {
-  level: PriorityLevel;
+  level?: InputMaybe<PriorityLevel>;
   name: Scalars["String"]["input"];
   options?: InputMaybe<SlackOptionsInput>;
   token: Scalars["String"]["input"];
@@ -7943,6 +7956,11 @@ export type DistroQuery = {
         virtualMemoryKb: number;
       };
     };
+    costData?: {
+      __typename?: "CostData";
+      onDemandRate?: number | null;
+      savingsPlanRate?: number | null;
+    } | null;
     dispatcherSettings: {
       __typename?: "DispatcherSettings";
       version: DispatcherVersion;
