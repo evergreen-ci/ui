@@ -7956,6 +7956,11 @@ export type DistroQuery = {
         virtualMemoryKb: number;
       };
     };
+    costData?: {
+      __typename?: "CostData";
+      onDemandRate?: number | null;
+      savingsPlanRate?: number | null;
+    } | null;
     dispatcherSettings: {
       __typename?: "DispatcherSettings";
       version: DispatcherVersion;

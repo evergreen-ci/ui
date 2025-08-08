@@ -1,18 +1,9 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
-import { Distro } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 
 type Tab = DistroSettingsTabRoutes.General;
 
-// Extended Distro type that includes optional costData field
-type DistroWithCostData = Distro & {
-  costData?: {
-    onDemandRate?: number;
-    savingsPlanRate?: number;
-  };
-};
-
-export const gqlToForm = ((data: DistroWithCostData) => {
+export const gqlToForm = ((data) => {
   if (!data) return null;
 
   const {
