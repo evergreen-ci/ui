@@ -940,12 +940,12 @@ export type EcsCapacityProviderInput = {
 export type EcsClusterConfig = {
   __typename?: "ECSClusterConfig";
   name?: Maybe<Scalars["String"]["output"]>;
-  os?: Maybe<Scalars["String"]["output"]>;
+  os?: Maybe<EcsOperatingSystem>;
 };
 
 export type EcsClusterConfigInput = {
   name?: InputMaybe<Scalars["String"]["input"]>;
-  os?: InputMaybe<Scalars["String"]["input"]>;
+  os?: InputMaybe<EcsOperatingSystem>;
 };
 
 export type EcsConfig = {
@@ -980,8 +980,8 @@ export type EcsConfigInput = {
 };
 
 export enum EcsOperatingSystem {
-  EcsOsLinux = "ECS_OS_LINUX",
-  EcsOsWindows = "ECS_OS_WINDOWS",
+  EcsosLinux = "ECSOSLinux",
+  EcsosWindows = "ECSOSWindows",
 }
 
 export enum EcsWindowsVersion {
@@ -3697,7 +3697,7 @@ export type SlackConfig = {
 };
 
 export type SlackConfigInput = {
-  level: PriorityLevel;
+  level?: InputMaybe<PriorityLevel>;
   name: Scalars["String"]["input"];
   options?: InputMaybe<SlackOptionsInput>;
   token: Scalars["String"]["input"];
@@ -7412,6 +7412,16 @@ export type AdminSettingsQuery = {
         userGroup?: string | null;
       } | null;
     } | null;
+    containerPools?: {
+      __typename?: "ContainerPoolsConfig";
+      pools: Array<{
+        __typename?: "ContainerPool";
+        id: string;
+        distro: string;
+        maxContainers: number;
+        port: number;
+      }>;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -7439,11 +7449,98 @@ export type AdminSettingsQuery = {
       bufferTargetPerInterval?: number | null;
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
     } | null;
+    parameterStore?: {
+      __typename?: "ParameterStoreConfig";
+      prefix?: string | null;
+    } | null;
     podLifecycle?: {
       __typename?: "PodLifecycleConfig";
       maxParallelPodRequests?: number | null;
       maxPodDefinitionCleanupRate?: number | null;
       maxSecretCleanupRate?: number | null;
+    } | null;
+    projectCreation?: {
+      __typename?: "ProjectCreationConfig";
+      repoExceptions: Array<{
+        __typename?: "OwnerRepo";
+        owner: string;
+        repo: string;
+      }>;
+    } | null;
+    providers?: {
+      __typename?: "CloudProviderConfig";
+      aws?: {
+        __typename?: "AWSConfig";
+        alertableInstanceTypes: Array<string>;
+        allowedInstanceTypes: Array<string>;
+        allowedRegions: Array<string>;
+        defaultSecurityGroup?: string | null;
+        elasticIPUsageRate?: number | null;
+        ipamPoolID?: string | null;
+        maxVolumeSizePerUser?: number | null;
+        accountRoles: Array<{
+          __typename?: "AWSAccountRoleMapping";
+          account: string;
+          role: string;
+        }>;
+        ec2Keys: Array<{
+          __typename?: "EC2Key";
+          key: string;
+          name: string;
+          secret: string;
+        }>;
+        parserProject?: {
+          __typename?: "ParserProjectS3Config";
+          bucket?: string | null;
+          generatedJSONPrefix?: string | null;
+          key?: string | null;
+          secret: string;
+        } | null;
+        persistentDNS?: {
+          __typename?: "PersistentDNSConfig";
+          domain?: string | null;
+          hostedZoneID?: string | null;
+        } | null;
+        pod?: {
+          __typename?: "AWSPodConfig";
+          region?: string | null;
+          role?: string | null;
+          ecs?: {
+            __typename?: "ECSConfig";
+            allowedImages: Array<string>;
+            executionRole?: string | null;
+            logGroup?: string | null;
+            logRegion?: string | null;
+            logStreamPrefix?: string | null;
+            maxCPU?: number | null;
+            maxMemoryMb?: number | null;
+            taskDefinitionPrefix?: string | null;
+            taskRole?: string | null;
+            awsVPC?: {
+              __typename?: "AWSVPCConfig";
+              securityGroups: Array<string>;
+              subnets: Array<string>;
+            } | null;
+            capacityProviders: Array<{
+              __typename?: "ECSCapacityProvider";
+              arch?: EcsArchitecture | null;
+              name?: string | null;
+              os?: EcsOperatingSystem | null;
+              windowsVersion?: EcsWindowsVersion | null;
+            }>;
+            clusters: Array<{
+              __typename?: "ECSClusterConfig";
+              name?: string | null;
+              os?: EcsOperatingSystem | null;
+            }>;
+          } | null;
+        } | null;
+        subnets: Array<{ __typename?: "Subnet"; az: string; subnetId: string }>;
+      } | null;
+      docker?: {
+        __typename?: "DockerConfig";
+        apiVersion?: string | null;
+      } | null;
     } | null;
     repotracker?: {
       __typename?: "RepotrackerConfig";
