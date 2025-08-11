@@ -97,7 +97,8 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
               </StyledRouterLink>
             )}
             <CreateDuplicateProjectButton
-              id={projectIdentifier}
+              id={projectData?.projectRef?.id}
+              identifier={projectIdentifier}
               label={projectIdentifier}
               owner={owner}
               projectType={projectType}
