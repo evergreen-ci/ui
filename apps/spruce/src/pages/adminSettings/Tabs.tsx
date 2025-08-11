@@ -6,6 +6,7 @@ import { AdminSettings } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { AdminSaveButton } from "./AdminSaveButton";
 import { useAdminSettingsContext } from "./Context";
+import { EventLogsTab } from "./tabs/EventLogsTab/EventLogsTab";
 import { GeneralTab } from "./tabs/GeneralTab/GeneralTab";
 import { RestartTasksTab } from "./tabs/RestartTasksTab/RestartTasksTab";
 import { gqlToFormMap } from "./tabs/transformers";
@@ -30,6 +31,10 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
         <Route
           element={<GeneralTab tabData={tabData} />}
           path={AdminSettingsTabRoutes.General}
+        />
+        <Route
+          element={<EventLogsTab />}
+          path={AdminSettingsTabRoutes.EventLog}
         />
         <Route
           element={<RestartTasksTab />}

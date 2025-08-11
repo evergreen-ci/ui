@@ -1,7 +1,15 @@
+export interface EventLogEntry {
+  timestamp: string;
+  user: string;
+  section?: string;
+  before?: Record<string, unknown>;
+  after?: Record<string, unknown>;
+}
+
 export interface EventLogsFormState {
   eventLogs: {
-    title: string;
-    author: string;
+    count: number;
+    events: EventLogEntry[];
   };
 }
 

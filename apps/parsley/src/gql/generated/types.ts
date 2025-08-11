@@ -480,14 +480,14 @@ export type BucketConfigInput = {
 export type BucketsConfig = {
   __typename?: "BucketsConfig";
   credentials?: Maybe<S3Credentials>;
-  internalBuckets: Array<Scalars["String"]["output"]>;
+  internalBuckets?: Maybe<Array<Scalars["String"]["output"]>>;
   logBucket?: Maybe<BucketConfig>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
 export type BucketsConfigInput = {
   credentials?: InputMaybe<S3CredentialsInput>;
-  internalBuckets: Array<Scalars["String"]["input"]>;
+  internalBuckets?: InputMaybe<Array<Scalars["String"]["input"]>>;
   logBucket?: InputMaybe<BucketConfigInput>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
@@ -940,12 +940,12 @@ export type EcsCapacityProviderInput = {
 export type EcsClusterConfig = {
   __typename?: "ECSClusterConfig";
   name?: Maybe<Scalars["String"]["output"]>;
-  os?: Maybe<Scalars["String"]["output"]>;
+  os?: Maybe<EcsOperatingSystem>;
 };
 
 export type EcsClusterConfigInput = {
   name?: InputMaybe<Scalars["String"]["input"]>;
-  os?: InputMaybe<Scalars["String"]["input"]>;
+  os?: InputMaybe<EcsOperatingSystem>;
 };
 
 export type EcsConfig = {
@@ -980,8 +980,8 @@ export type EcsConfigInput = {
 };
 
 export enum EcsOperatingSystem {
-  EcsOsLinux = "ECS_OS_LINUX",
-  EcsOsWindows = "ECS_OS_WINDOWS",
+  EcsosLinux = "ECSOSLinux",
+  EcsosWindows = "ECSOSWindows",
 }
 
 export enum EcsWindowsVersion {
@@ -3697,7 +3697,7 @@ export type SlackConfig = {
 };
 
 export type SlackConfigInput = {
-  level: PriorityLevel;
+  level?: InputMaybe<PriorityLevel>;
   name: Scalars["String"]["input"];
   options?: InputMaybe<SlackOptionsInput>;
   token: Scalars["String"]["input"];

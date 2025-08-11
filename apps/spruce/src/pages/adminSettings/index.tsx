@@ -303,6 +303,15 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>
+          <SideNavGroup glyph={null} header="Event Logs">
+            <SideNavItem
+              as={Link}
+              data-cy="navitem-admin-event-logs"
+              to={getAdminSettingsRoute(AdminSettingsTabRoutes.EventLog)}
+            >
+              Event Logs
+            </SideNavItem>
+          </SideNavGroup>
           <SideNavGroup glyph={null} header="Restart Tasks">
             <SideNavItem
               as={Link}
@@ -311,9 +320,6 @@ const AdminSettingsPage: React.FC = () => {
             >
               Restart Tasks
             </SideNavItem>
-          </SideNavGroup>
-          <SideNavGroup glyph={null} header="Event Log">
-            {}
           </SideNavGroup>
         </SideNav>
         <SideNavPageContent data-cy="admin-settings-page">
