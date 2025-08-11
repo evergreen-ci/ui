@@ -1,8 +1,21 @@
-import { Body, H1 } from "@leafygreen-ui/typography";
+import { H2 } from "@leafygreen-ui/typography";
+import { AdminSettingsGeneralSection } from "constants/routes";
+import { BaseTab } from "../../BaseTab";
+import { getFormSchema } from "./getFormSchema";
+import { TabProps } from "./types";
 
-export const OtherTab = () => (
-  <Body>
-    <H1>Other</H1>
-    <p>Other settings for the application.</p>
-  </Body>
-);
+export const OtherTab: React.FC<TabProps> = ({ otherData }) => {
+  const initalFormState = otherData;
+  const formSchema = getFormSchema;
+  console.log("other data", otherData);
+  return (
+    <>
+      <H2>Other</H2>
+      <BaseTab
+        formSchema={formSchema}
+        initialFormState={initalFormState}
+        tab={AdminSettingsGeneralSection.Other}
+      />
+    </>
+  );
+};

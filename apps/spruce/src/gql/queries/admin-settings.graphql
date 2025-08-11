@@ -78,13 +78,50 @@ query AdminSettings {
     }
     banner
     bannerTheme
+    buckets {
+      logBucket {
+        name
+        roleARN
+        testResultsPrefix
+      }
+      testResultsBucket {
+        name
+        roleARN
+        testResultsPrefix
+      }
+    }
+    configDir
     disabledGQLQueries
+    domainName
+    expansions
+    githubCheckRun {
+      checkRunLimit
+    }
+    githubOrgs
+    githubPRCreatorOrg
+    githubWebhookSecret
     hostInit {
       cloudStatusBatchSize
       hostThrottle
       maxTotalDynamicHosts
       provisioningThrottle
     }
+    hostJasper {
+      binaryName
+      downloadFileName
+      port
+      url
+      version
+    }
+    jiraNotifications {
+      customFields {
+        components
+        fields
+        labels
+        project
+      }
+    }
+    kanopySSHKeyPath
     loggerConfig {
       buffer {
         count
@@ -97,6 +134,7 @@ query AdminSettings {
       redactKeys
       thresholdLevel
     }
+    logPath
     notify {
       bufferIntervalSeconds
       bufferTargetPerInterval
@@ -104,10 +142,28 @@ query AdminSettings {
         senderAddress
       }
     }
+    perfMonitoringKanopyURL
+    perfMonitoringURL
     podLifecycle {
       maxParallelPodRequests
       maxPodDefinitionCleanupRate
       maxSecretCleanupRate
+    }
+
+    pprofPort
+    projectCreation {
+      jiraProject
+      repoExceptions {
+        owner
+        repo
+      }
+      repoProjectLimit
+      totalProjectLimit
+    }
+    releaseMode {
+      distroMaxHostsFactor
+      idleTimeSecondsOverride
+      targetTimeSecondsOverride
     }
     repotracker {
       maxConcurrentRequests
@@ -172,7 +228,32 @@ query AdminSettings {
       unrecognizedPodCleanupDisabled
       webhookNotificationsDisabled
     }
-
+    shutdownWaitSeconds
+    singleTaskDistro {
+      projectTasksPairs {
+        allowedBVs
+        allowedTasks
+        projectId
+      }
+    }
+    sleepSchedule {
+      permanentlyExemptHosts
+    }
+    spawnhost {
+      spawnHostsPerUser
+      unexpirableHostsPerUser
+      unexpirableVolumesPerUser
+    }
+    ssh {
+      spawnHostKey {
+        name
+        secretARN
+      }
+      taskHostKey {
+        name
+        secretARN
+      }
+    }
     taskLimits {
       maxConcurrentLargeParserProjectTasks
       maxDailyAutomaticRestarts
@@ -186,6 +267,12 @@ query AdminSettings {
       maxPendingGeneratedTasks
       maxTaskExecution
       maxTasksPerVersion
+    }
+    tracer {
+      collectorAPIKey
+      collectorEndpoint
+      collectorInternalEndpoint
+      enabled
     }
     triggers {
       generateTaskDistro

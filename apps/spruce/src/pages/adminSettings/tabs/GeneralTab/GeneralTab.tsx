@@ -4,6 +4,7 @@ import { AnnouncementTab } from "./AnnouncementsTab/AnnouncementTab";
 import { AuthenticationTab } from "./AuthenticationTab/AuthenticationTab";
 import { BackgroundProcessingTab } from "./BackgroundProcessingTab/BackgroundProcessingTab";
 import { FeatureFlagsTab } from "./FeatureFlagsTab/FeatureFlagsTab";
+import { OtherTab } from "./OtherTab/OtherTab";
 import { RunnersTab } from "./RunnersTab/RunnersTab";
 import { WebTab } from "./WebTab/WebTab";
 
@@ -29,5 +30,6 @@ export const GeneralTab: React.FC<Props> = ({ tabData }) => (
         tabData[AdminSettingsGeneralSection.BackgroundProcessing]
       }
     />
+    <OtherTab otherData={tabData[AdminSettingsGeneralSection.Other]} />
   </>
 );

@@ -302,6 +302,128 @@ const AdminSettingsPage: React.FC = () => {
                 Triggers
               </SideNavItem>
             </SideNavGroup>
+            <SideNavGroup header="Other">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-misc-settings"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "misc-settings",
+                )}
+              >
+                Misc Settings
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-single-task-host-configuration"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "single-task-host-configuration",
+                )}
+              >
+                Single Task Host Configuration
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-bucket-config"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "bucket-config",
+                )}
+              >
+                Bucket Config
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-ssh-keys"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "ssh-keys",
+                )}
+              >
+                SSH Keys
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-expansions"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "expansions",
+                )}
+              >
+                Expansions
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-host-jasper"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "host-jasper",
+                )}
+              >
+                Host Jasper
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-jira-notifications"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "jira-notifications",
+                )}
+              >
+                Jira Notifications
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-spawn-host"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "spawn-host",
+                )}
+              >
+                Spawn Host
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-sleep-schedule"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "sleep-schedule",
+                )}
+              >
+                Sleep Schedule
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-tracer-config"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "tracer-config",
+                )}
+              >
+                Tracer Config
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-project-creation"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "project-creation",
+                )}
+              >
+                Project Creation
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-github-check-run-config"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "github-check-run-config",
+                )}
+              >
+                GitHub Check Run Config
+              </SideNavItem>
+            </SideNavGroup>
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Restart Tasks">
             <SideNavItem

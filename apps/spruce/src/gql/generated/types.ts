@@ -480,14 +480,14 @@ export type BucketConfigInput = {
 export type BucketsConfig = {
   __typename?: "BucketsConfig";
   credentials?: Maybe<S3Credentials>;
-  internalBuckets: Array<Scalars["String"]["output"]>;
+  internalBuckets?: Maybe<Array<Scalars["String"]["output"]>>;
   logBucket?: Maybe<BucketConfig>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
 export type BucketsConfigInput = {
   credentials?: InputMaybe<S3CredentialsInput>;
-  internalBuckets: Array<Scalars["String"]["input"]>;
+  internalBuckets?: InputMaybe<Array<Scalars["String"]["input"]>>;
   logBucket?: InputMaybe<BucketConfigInput>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
@@ -940,12 +940,12 @@ export type EcsCapacityProviderInput = {
 export type EcsClusterConfig = {
   __typename?: "ECSClusterConfig";
   name?: Maybe<Scalars["String"]["output"]>;
-  os?: Maybe<Scalars["String"]["output"]>;
+  os?: Maybe<EcsOperatingSystem>;
 };
 
 export type EcsClusterConfigInput = {
   name?: InputMaybe<Scalars["String"]["input"]>;
-  os?: InputMaybe<Scalars["String"]["input"]>;
+  os?: InputMaybe<EcsOperatingSystem>;
 };
 
 export type EcsConfig = {
@@ -980,8 +980,8 @@ export type EcsConfigInput = {
 };
 
 export enum EcsOperatingSystem {
-  EcsOsLinux = "ECS_OS_LINUX",
-  EcsOsWindows = "ECS_OS_WINDOWS",
+  EcsosLinux = "ECSOSLinux",
+  EcsosWindows = "ECSOSWindows",
 }
 
 export enum EcsWindowsVersion {
@@ -3697,7 +3697,7 @@ export type SlackConfig = {
 };
 
 export type SlackConfigInput = {
-  level: PriorityLevel;
+  level?: InputMaybe<PriorityLevel>;
   name: Scalars["String"]["input"];
   options?: InputMaybe<SlackOptionsInput>;
   token: Scalars["String"]["input"];
@@ -7323,7 +7323,19 @@ export type AdminSettingsQuery = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    configDir?: string | null;
     disabledGQLQueries: Array<string>;
+    domainName?: string | null;
+    expansions?: { [key: string]: any } | null;
+    githubOrgs?: Array<string> | null;
+    githubPRCreatorOrg?: string | null;
+    githubWebhookSecret?: string | null;
+    kanopySSHKeyPath?: string | null;
+    logPath?: string | null;
+    perfMonitoringKanopyURL?: string | null;
+    perfMonitoringURL?: string | null;
+    pprofPort?: string | null;
+    shutdownWaitSeconds?: number | null;
     amboy?: {
       __typename?: "AmboyConfig";
       groupBackgroundCreateFrequencyMinutes?: number | null;
@@ -7412,12 +7424,49 @@ export type AdminSettingsQuery = {
         userGroup?: string | null;
       } | null;
     } | null;
+    buckets?: {
+      __typename?: "BucketsConfig";
+      logBucket?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+        roleARN?: string | null;
+        testResultsPrefix?: string | null;
+      } | null;
+      testResultsBucket?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+        roleARN?: string | null;
+        testResultsPrefix?: string | null;
+      } | null;
+    } | null;
+    githubCheckRun?: {
+      __typename?: "GitHubCheckRunConfig";
+      checkRunLimit?: number | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
       hostThrottle?: number | null;
       maxTotalDynamicHosts?: number | null;
       provisioningThrottle?: number | null;
+    } | null;
+    hostJasper?: {
+      __typename?: "HostJasperConfig";
+      binaryName?: string | null;
+      downloadFileName?: string | null;
+      port?: number | null;
+      url?: string | null;
+      version?: string | null;
+    } | null;
+    jiraNotifications?: {
+      __typename?: "JiraNotificationsConfig";
+      customFields: Array<{
+        __typename?: "JiraNotificationsProjectEntry";
+        components: Array<string>;
+        fields?: { [key: string]: any } | null;
+        labels: Array<string>;
+        project: string;
+      }>;
     } | null;
     loggerConfig?: {
       __typename?: "LoggerConfig";
@@ -7444,6 +7493,23 @@ export type AdminSettingsQuery = {
       maxParallelPodRequests?: number | null;
       maxPodDefinitionCleanupRate?: number | null;
       maxSecretCleanupRate?: number | null;
+    } | null;
+    projectCreation?: {
+      __typename?: "ProjectCreationConfig";
+      jiraProject?: string | null;
+      repoProjectLimit?: number | null;
+      totalProjectLimit?: number | null;
+      repoExceptions: Array<{
+        __typename?: "OwnerRepo";
+        owner: string;
+        repo: string;
+      }>;
+    } | null;
+    releaseMode?: {
+      __typename?: "ReleaseModeConfig";
+      distroMaxHostsFactor?: number | null;
+      idleTimeSecondsOverride?: number | null;
+      targetTimeSecondsOverride?: number | null;
     } | null;
     repotracker?: {
       __typename?: "RepotrackerConfig";
@@ -7511,6 +7577,38 @@ export type AdminSettingsQuery = {
       unrecognizedPodCleanupDisabled: boolean;
       webhookNotificationsDisabled: boolean;
     } | null;
+    singleTaskDistro?: {
+      __typename?: "SingleTaskDistroConfig";
+      projectTasksPairs: Array<{
+        __typename?: "ProjectTasksPair";
+        allowedBVs: Array<string>;
+        allowedTasks: Array<string>;
+        projectId: string;
+      }>;
+    } | null;
+    sleepSchedule?: {
+      __typename?: "SleepScheduleConfig";
+      permanentlyExemptHosts: Array<string>;
+    } | null;
+    spawnhost?: {
+      __typename?: "SpawnHostConfig";
+      spawnHostsPerUser?: number | null;
+      unexpirableHostsPerUser?: number | null;
+      unexpirableVolumesPerUser?: number | null;
+    } | null;
+    ssh?: {
+      __typename?: "SSHConfig";
+      spawnHostKey?: {
+        __typename?: "SSHKeyPair";
+        name?: string | null;
+        secretARN?: string | null;
+      } | null;
+      taskHostKey?: {
+        __typename?: "SSHKeyPair";
+        name?: string | null;
+        secretARN?: string | null;
+      } | null;
+    } | null;
     taskLimits?: {
       __typename?: "TaskLimitsConfig";
       maxConcurrentLargeParserProjectTasks?: number | null;
@@ -7525,6 +7623,13 @@ export type AdminSettingsQuery = {
       maxPendingGeneratedTasks?: number | null;
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
+    } | null;
+    tracer?: {
+      __typename?: "TracerSettings";
+      collectorAPIKey?: string | null;
+      collectorEndpoint?: string | null;
+      collectorInternalEndpoint?: string | null;
+      enabled: boolean;
     } | null;
     triggers?: {
       __typename?: "TriggerConfig";
