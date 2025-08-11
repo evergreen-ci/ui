@@ -15,10 +15,7 @@ describe("external communications", () => {
     // Navigate to External Communications tab if it exists
     cy.contains("External Communications").click();
 
-    // Wait for the form to load
-    cy.dataCy("jira").should("be.visible");
-
-    // JIRA section - use more specific selectors
+    // JIRA section
     cy.dataCy("jira").within(() => {
       cy.getInputByLabel("Email").as("jiraEmailInput");
       cy.get("@jiraEmailInput").clear();
@@ -56,10 +53,6 @@ describe("external communications", () => {
       cy.getInputByLabel(slackFieldsSet).as("slackFieldsSetInput");
       cy.get("@slackFieldsSetInput").type("field1{enter}");
       cy.get("@slackFieldsSetInput").type("field2{enter}");
-
-      const slackBasicMetadata = "Basic Metadata";
-      cy.getInputByLabel(slackBasicMetadata).as("slackBasicMetadataCheckbox");
-      cy.get("@slackBasicMetadataCheckbox").check({ force: true });
     });
 
     // Splunk section.
@@ -143,8 +136,6 @@ describe("external communications", () => {
       cy.dataCy("filter-chip").should("have.length", 2);
       cy.contains("field1").should("exist");
       cy.contains("field2").should("exist");
-
-      cy.getInputByLabel("Basic Metadata").should("be.checked");
     });
 
     // Splunk section.

@@ -151,7 +151,7 @@ export const splunk = {
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:objectFieldCss": objectGridCss,
-    "ui:data-cy": "runtime-environments",
+    "ui:data-cy": "splunk",
     splunkConnectionInfo: {
       ...splunkConnectionInfo.uiSchema,
     },
