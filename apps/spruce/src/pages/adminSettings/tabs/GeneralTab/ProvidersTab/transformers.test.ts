@@ -207,7 +207,7 @@ const gql: AdminSettingsInput = {
           clusters: [
             {
               name: "test-cluster-1",
-              os: EcsOperatingSystem.EcsosWindows,
+              os: EcsOperatingSystem.EcsosLinux,
             },
             {
               name: "test-cluster-2",
