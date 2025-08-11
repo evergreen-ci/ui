@@ -675,6 +675,17 @@ export type CopyProjectInput = {
   projectIdToCopy: Scalars["String"]["input"];
 };
 
+export type CostData = {
+  __typename?: "CostData";
+  onDemandRate?: Maybe<Scalars["Float"]["output"]>;
+  savingsPlanRate?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type CostDataInput = {
+  onDemandRate?: InputMaybe<Scalars["Float"]["input"]>;
+  savingsPlanRate?: InputMaybe<Scalars["Float"]["input"]>;
+};
+
 /** CreateDistroInput is the input to the createDistro mutation. */
 export type CreateDistroInput = {
   newDistroId: Scalars["String"]["input"];
@@ -771,6 +782,7 @@ export type Distro = {
   availableRegions: Array<Scalars["String"]["output"]>;
   bootstrapSettings: BootstrapSettings;
   containerPool: Scalars["String"]["output"];
+  costData?: Maybe<CostData>;
   disableShallowClone: Scalars["Boolean"]["output"];
   disabled: Scalars["Boolean"]["output"];
   dispatcherSettings: DispatcherSettings;
@@ -840,6 +852,7 @@ export type DistroInput = {
   authorizedKeysFile: Scalars["String"]["input"];
   bootstrapSettings: BootstrapSettingsInput;
   containerPool: Scalars["String"]["input"];
+  costData?: InputMaybe<CostDataInput>;
   disableShallowClone: Scalars["Boolean"]["input"];
   disabled: Scalars["Boolean"]["input"];
   dispatcherSettings: DispatcherSettingsInput;
