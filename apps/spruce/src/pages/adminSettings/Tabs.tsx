@@ -1,11 +1,11 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { AdminSettingsTabRoutes } from "constants/routes";
+import { Routes, Route, Navigate, useParams } from "react-router-dom";
+import { AdminSettingsTabRoutes, slugs } from "constants/routes";
 import { AdminSettings } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
-import { AdminSaveButton } from "./AdminSaveButton";
 import { useAdminSettingsContext } from "./Context";
+import { Header } from "./Header";
 import { GeneralTab } from "./tabs/GeneralTab/GeneralTab";
 import { RestartTasksTab } from "./tabs/RestartTasksTab/RestartTasksTab";
 import { gqlToFormMap } from "./tabs/transformers";
@@ -16,6 +16,9 @@ interface Props {
 }
 
 export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
+  const { [slugs.tab]: tab } = useParams<{
+    [slugs.tab]: AdminSettingsTabRoutes;
+  }>();
   const { setInitialData } = useAdminSettingsContext();
 
   const tabData = useMemo(() => getTabData(data), [data]);
@@ -23,9 +26,10 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
     setInitialData(tabData);
   }, [setInitialData, tabData]);
   useScrollToAnchor();
+
   return (
     <TabsContent>
-      <AdminSaveButton adminSettingsData={data} />
+      <Header adminSettingsData={data} tab={tab as AdminSettingsTabRoutes} />
       <Routes>
         <Route
           element={<GeneralTab tabData={tabData} />}
