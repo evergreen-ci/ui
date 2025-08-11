@@ -1,16 +1,13 @@
-import { useMemo } from "react";
 import { H2 } from "@leafygreen-ui/typography";
 import { AdminSettingsGeneralSection } from "constants/routes";
 import { BaseTab } from "../../BaseTab";
-import { getFormSchema } from "./getFormSchema";
+import { formSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
 export const ExternalCommunicationsTab: React.FC<TabProps> = ({
   ExternalCommunicationsData,
 }) => {
   const initialFormState = ExternalCommunicationsData;
-
-  const formSchema = useMemo(() => getFormSchema(), []);
 
   return (
     <>
