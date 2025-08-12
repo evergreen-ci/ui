@@ -315,10 +315,10 @@ const AdminSettingsPage: React.FC = () => {
                 data-cy="navitem-admin-aws"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
-                  "aws",
+                  "aws-configuration",
                 )}
               >
-                AWS
+                AWS Configuration
               </SideNavItem>
               <SideNavItem
                 as={Link}

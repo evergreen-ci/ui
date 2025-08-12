@@ -129,7 +129,7 @@ const clusters = {
           type: "string" as const,
           title: "OS",
           default: EcsOperatingSystem.EcsosLinux,
-          enum: [...Object.values(EcsOperatingSystem)],
+          enum: Object.values(EcsOperatingSystem),
         },
       },
       required: ["name", "os"],
@@ -162,20 +162,20 @@ const capacityProviders = {
         arch: {
           type: "string" as const,
           title: "Architecture",
-          enum: [...Object.values(EcsArchitecture)],
+          enum: Object.values(EcsArchitecture),
           default: [EcsArchitecture.EcsArchAmd64],
         },
         os: {
           type: "string" as const,
           title: "OS",
           default: EcsOperatingSystem.EcsosLinux,
-          enum: [...Object.values(EcsOperatingSystem)],
+          enum: Object.values(EcsOperatingSystem),
         },
         windowsVersion: {
           type: "string" as const,
           title: "Windows Version",
           default: "",
-          enum: [...Object.values(EcsWindowsVersion)],
+          enum: Object.values(EcsWindowsVersion),
         },
       },
       required: ["name"],
@@ -278,8 +278,13 @@ const docker = {
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:fieldCss": fullWidthCss,
+    "ui:fieldCss": css`
+      ${fullWidthCss}
+      border: 1px solid ${gray.light2};
+      border-radius: ${size.s};
+      padding: ${size.m};
+      margin-bottom: ${size.m};
+    `,
   },
 };
 
