@@ -19,6 +19,7 @@ import {
 } from "gql/generated/types";
 import { ADMIN_SETTINGS } from "gql/queries";
 import { AdminSettingsProvider } from "./Context";
+import { getTabTitle } from "./getTabTitle";
 import { AdminSettingsTabs } from "./Tabs";
 
 const AdminSettingsPage: React.FC = () => {
@@ -35,7 +36,7 @@ const AdminSettingsPage: React.FC = () => {
           <SideNavGroup
             collapsible
             glyph={null}
-            header="General"
+            header={getTabTitle(AdminSettingsTabRoutes.General).title}
             initialCollapsed={false}
           >
             <SideNavGroup header="Announcements">
@@ -303,7 +304,10 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>
-          <SideNavGroup glyph={null} header="Restart Tasks">
+          <SideNavGroup
+            glyph={null}
+            header={getTabTitle(AdminSettingsTabRoutes.RestartTasks).title}
+          >
             <SideNavItem
               as={Link}
               data-cy="navitem-admin-restart-tasks"
@@ -312,7 +316,10 @@ const AdminSettingsPage: React.FC = () => {
               Restart Tasks
             </SideNavItem>
           </SideNavGroup>
-          <SideNavGroup glyph={null} header="Event Log">
+          <SideNavGroup
+            glyph={null}
+            header={getTabTitle(AdminSettingsTabRoutes.EventLog).title}
+          >
             {}
           </SideNavGroup>
         </SideNav>
