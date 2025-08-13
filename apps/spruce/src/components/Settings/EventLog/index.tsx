@@ -31,10 +31,10 @@ const EventLog: React.FC<EventLogProps> = ({
   return (
     <Container data-cy="event-log">
       {events.map((event) => {
-        const { after, before, timestamp, user } = event;
+        const { after, before, section, timestamp, user } = event;
         return (
           <EventLogCard key={`event_log_${timestamp}`} data-cy="event-log-card">
-            <Header timestamp={timestamp} user={user} />
+            <Header section={section} timestamp={timestamp} user={user} />
             {eventRenderer ? (
               eventRenderer(event)
             ) : (

@@ -4,6 +4,7 @@ export type Event = {
   after?: JSONObject | null;
   before?: JSONObject | null;
   data?: JSONObject | null;
+  section?: string | null;
   timestamp: Date;
   user: string;
 };

@@ -6,19 +6,35 @@ import { useDateFormat } from "hooks";
 interface Props {
   timestamp: Date;
   user: string;
+  section?: string | null;
 }
 
-export const Header: React.FC<Props> = ({ timestamp, user }) => {
+export const Header: React.FC<Props> = ({ section, timestamp, user }) => {
   const getDateCopy = useDateFormat();
 
   return (
     <StyledHeader>
       <Subtitle>{getDateCopy(timestamp)}</Subtitle>
-      <div>{user}</div>
+      <UserSection>
+        <div>{user}</div>
+        {section && <SectionLabel>Section: {section}</SectionLabel>}
+      </UserSection>
     </StyledHeader>
   );
 };
 
 const StyledHeader = styled.div`
   padding-bottom: ${size.s};
+`;
+
+const UserSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.s};
+`;
+
+const SectionLabel = styled.span`
+  font-size: 12px;
+  color: #6b7280;
+  font-style: italic;
 `;

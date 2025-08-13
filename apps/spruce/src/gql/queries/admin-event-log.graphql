@@ -1,0 +1,12 @@
+query AdminEvents($opts: AdminEventsInput!) {
+  adminEvents(opts: $opts) {
+    count
+    eventLogEntries {
+      after
+      before
+      section
+      timestamp
+      user
+    }
+  }
+}

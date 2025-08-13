@@ -8,6 +8,9 @@ export const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
+        adminEvents: {
+          keyArgs: [],
+        },
         distroEvents: {
           keyArgs: ["$distroId"],
         },

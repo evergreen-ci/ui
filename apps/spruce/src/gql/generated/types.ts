@@ -7328,6 +7328,26 @@ export type AdminBetaFeaturesQuery = {
   } | null;
 };
 
+export type AdminEventsQueryVariables = Exact<{
+  opts: AdminEventsInput;
+}>;
+
+export type AdminEventsQuery = {
+  __typename?: "Query";
+  adminEvents: {
+    __typename?: "AdminEventsPayload";
+    count: number;
+    eventLogEntries: Array<{
+      __typename?: "AdminEvent";
+      after?: any | null;
+      before?: any | null;
+      section?: string | null;
+      timestamp: Date;
+      user: string;
+    }>;
+  };
+};
+
 export type AdminSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AdminSettingsQuery = {
