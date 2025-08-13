@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { H2 } from "@leafygreen-ui/typography";
-import { stickyHeaderContainer } from "components/Settings/sharedStyles";
+import { StickyHeaderContainer } from "components/Settings/sharedStyles";
 import { AdminSettingsTabRoutes } from "constants/routes";
 import { AdminSettings } from "gql/generated/types";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
@@ -22,7 +22,7 @@ export const Header: React.FC<Props> = ({ adminSettingsData, tab }) => {
     setShowShadow(!entry.isIntersecting);
   });
 
-  const Container = stickyHeaderContainer;
+  const Container = StickyHeaderContainer;
 
   return (
     <>

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { size, transitionDuration, zIndex } from "@evg-ui/lib/constants/tokens";
 
-export const stickyHeaderContainer = styled.div<{
+export const StickyHeaderContainer = styled.div<{
   showShadow: boolean;
   saveable: boolean;
 }>`

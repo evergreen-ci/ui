@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
-import styled from "@emotion/styled";
-import { H2, H2Props } from "@leafygreen-ui/typography";
-import { stickyHeaderContainer } from "components/Settings/sharedStyles";
+import { H2 } from "@leafygreen-ui/typography";
+import { StickyHeaderContainer } from "components/Settings/sharedStyles";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { getTabTitle } from "./getTabTitle";
@@ -30,13 +29,13 @@ export const Header: React.FC<Props> = ({ id, projectType, tab }) => {
     setShowShadow(!entry.isIntersecting);
   });
 
-  const Container = stickyHeaderContainer;
+  const Container = StickyHeaderContainer;
 
   return (
     <>
       <div ref={headerScrollRef} />
       <Container saveable={saveable} showShadow={showShadow}>
-        <StyledH2 data-cy="project-settings-tab-title">{title}</StyledH2>
+        <H2 data-cy="project-settings-tab-title">{title}</H2>
         {saveable && (
           <HeaderButtons
             id={id}
@@ -48,5 +47,3 @@ export const Header: React.FC<Props> = ({ id, projectType, tab }) => {
     </>
   );
 };
-
-const StyledH2 = styled(H2)<H2Props>``;

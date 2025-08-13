@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+import Icon from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
   SideNav,
@@ -35,7 +36,7 @@ const AdminSettingsPage: React.FC = () => {
           <ButtonsContainer>{}</ButtonsContainer>
           <SideNavGroup
             collapsible
-            glyph={null}
+            glyph={<Icon glyph="Settings" />}
             header={getTabTitle(AdminSettingsTabRoutes.General).title}
             initialCollapsed={false}
           >
@@ -305,7 +306,7 @@ const AdminSettingsPage: React.FC = () => {
             </SideNavGroup>
           </SideNavGroup>
           <SideNavGroup
-            glyph={null}
+            glyph={<Icon glyph="Refresh" />}
             header={getTabTitle(AdminSettingsTabRoutes.RestartTasks).title}
           >
             <SideNavItem
@@ -317,7 +318,7 @@ const AdminSettingsPage: React.FC = () => {
             </SideNavItem>
           </SideNavGroup>
           <SideNavGroup
-            glyph={null}
+            glyph={<Icon glyph="List" />}
             header={getTabTitle(AdminSettingsTabRoutes.EventLog).title}
           >
             {}
