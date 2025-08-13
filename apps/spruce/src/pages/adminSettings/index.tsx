@@ -26,7 +26,6 @@ const AdminSettingsPage: React.FC = () => {
   const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
     ADMIN_SETTINGS,
   );
-
   return (
     <AdminSettingsProvider>
       <SideNavPageWrapper>
@@ -196,7 +195,6 @@ const AdminSettingsPage: React.FC = () => {
                 Disabled GraphQL Queries
               </SideNavItem>
             </SideNavGroup>
-
             <SideNavGroup header="Authentication">
               <SideNavItem
                 as={Link}
@@ -259,7 +257,6 @@ const AdminSettingsPage: React.FC = () => {
                 Multi Authentication
               </SideNavItem>
             </SideNavGroup>
-
             <SideNavGroup header="External Communications">
               <SideNavItem
                 as={Link}
@@ -331,48 +328,80 @@ const AdminSettingsPage: React.FC = () => {
               >
                 Cedar
               </SideNavItem>
-              <SideNavGroup header="Background Processing">
-                <SideNavItem
-                  as={Link}
-                  data-cy="navitem-admin-amboy"
-                  to={getAdminSettingsRoute(
-                    AdminSettingsTabRoutes.General,
-                    "amboy",
-                  )}
-                >
-                  Amboy
-                </SideNavItem>
-                <SideNavItem
-                  as={Link}
-                  data-cy="navitem-admin-logger"
-                  to={getAdminSettingsRoute(
-                    AdminSettingsTabRoutes.General,
-                    "logger",
-                  )}
-                >
-                  Logger
-                </SideNavItem>
-                <SideNavItem
-                  as={Link}
-                  data-cy="navitem-admin-notification-rate-limits"
-                  to={getAdminSettingsRoute(
-                    AdminSettingsTabRoutes.General,
-                    "notification-rate-limits",
-                  )}
-                >
-                  Notification Rate Limits
-                </SideNavItem>
-                <SideNavItem
-                  as={Link}
-                  data-cy="navitem-admin-triggers"
-                  to={getAdminSettingsRoute(
-                    AdminSettingsTabRoutes.General,
-                    "triggers",
-                  )}
-                >
-                  Triggers
-                </SideNavItem>
-              </SideNavGroup>
+            </SideNavGroup>
+            <SideNavGroup header="Background Processing">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-amboy"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "amboy",
+                )}
+              >
+                Amboy
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-logger"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "logger",
+                )}
+              >
+                Logger
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-notification-rate-limits"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "notification-rate-limits",
+                )}
+              >
+                Notification Rate Limits
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-triggers"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "triggers",
+                )}
+              >
+                Triggers
+              </SideNavItem>
+            </SideNavGroup>
+            <SideNavGroup header="Providers">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-container-pools"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "container-pools",
+                )}
+              >
+                Container Pools
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-aws"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "aws-configuration",
+                )}
+              >
+                AWS Configuration
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-repo-exceptions"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "repo-exceptions",
+                )}
+              >
+                Repo Exceptions
+              </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Restart Tasks">
@@ -385,7 +414,13 @@ const AdminSettingsPage: React.FC = () => {
             </SideNavItem>
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Event Log">
-            {}
+            <SideNavItem
+              as={Link}
+              data-cy="navitem-admin-event-logs"
+              to={getAdminSettingsRoute(AdminSettingsTabRoutes.EventLog)}
+            >
+              Event Logs
+            </SideNavItem>
           </SideNavGroup>
         </SideNav>
         <SideNavPageContent data-cy="admin-settings-page">

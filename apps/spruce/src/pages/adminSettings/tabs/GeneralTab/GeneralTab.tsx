@@ -5,6 +5,7 @@ import { AuthenticationTab } from "./AuthenticationTab/AuthenticationTab";
 import { BackgroundProcessingTab } from "./BackgroundProcessingTab/BackgroundProcessingTab";
 import { ExternalCommunicationsTab } from "./ExternalCommunicationsTab/ExternalCommunicationTab";
 import { FeatureFlagsTab } from "./FeatureFlagsTab/FeatureFlagsTab";
+import { ProvidersTab } from "./ProvidersTab/ProvidersTab";
 import { RunnersTab } from "./RunnersTab/RunnersTab";
 import { WebTab } from "./WebTab/WebTab";
 
@@ -34,6 +35,9 @@ export const GeneralTab: React.FC<Props> = ({ tabData }) => (
       backgroundProcessingData={
         tabData[AdminSettingsGeneralSection.BackgroundProcessing]
       }
+    />
+    <ProvidersTab
+      providersData={tabData[AdminSettingsGeneralSection.Providers]}
     />
   </>
 );
