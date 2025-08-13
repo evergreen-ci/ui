@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import EventLog from "components/Settings/EventLog";
@@ -8,16 +8,14 @@ import {
   AdminEventsQueryVariables,
 } from "gql/generated/types";
 import { ADMIN_EVENT_LOG } from "gql/queries";
-import { useEvents } from "hooks/useEvents";
 
-const ADMIN_EVENT_LIMIT = 100;
+const ADMIN_EVENT_LIMIT = 15;
 
 export const EventLogsTab: React.FC = () => {
   const dispatchToast = useToastContext();
-  const { allEventsFetched, onCompleted, setPrevCount } =
-    useEvents(ADMIN_EVENT_LIMIT);
+  const [allEventsFetched, setAllEventsFetched] = useState(false);
 
-  const { data, fetchMore, loading, previousData } = useQuery<
+  const { data, fetchMore, loading } = useQuery<
     AdminEventsQuery,
     AdminEventsQueryVariables
   >(ADMIN_EVENT_LOG, {
@@ -27,28 +25,26 @@ export const EventLogsTab: React.FC = () => {
       },
     },
     notifyOnNetworkStatusChange: true,
-    onCompleted: ({ adminEvents: { count } }) => onCompleted(count),
+    onCompleted: ({ adminEvents: { eventLogEntries } }) => {
+      if (eventLogEntries.length < ADMIN_EVENT_LIMIT) {
+        setAllEventsFetched(true);
+      }
+    },
     onError: (e) => {
       dispatchToast.error(`Unable to fetch admin events: ${e.message}`);
     },
   });
 
-  const events: Event[] = useMemo(
-    () =>
-      data?.adminEvents?.eventLogEntries?.map((event) => ({
-        after: event.after,
-        before: event.before,
-        timestamp: event.timestamp,
-        user: event.user,
-      })) ?? [],
-    [data],
-  );
+  const events: Event[] =
+    data?.adminEvents?.eventLogEntries?.map((event) => ({
+      after: event.after,
+      before: event.before,
+      section: event.section,
+      timestamp: event.timestamp,
+      user: event.user,
+    })) ?? [];
 
   const lastEventTimestamp = events[events.length - 1]?.timestamp;
-
-  useEffect(() => {
-    setPrevCount(previousData?.adminEvents?.count ?? 0);
-  }, [previousData, setPrevCount]);
 
   if (loading && events.length === 0) {
     return <div>Loading admin event logs...</div>;
@@ -65,6 +61,27 @@ export const EventLogsTab: React.FC = () => {
               limit: ADMIN_EVENT_LIMIT,
               before: lastEventTimestamp,
             },
+          },
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+
+            const newEvents =
+              fetchMoreResult.adminEvents?.eventLogEntries || [];
+
+            if (newEvents.length < ADMIN_EVENT_LIMIT) {
+              setAllEventsFetched(true);
+            }
+
+            return {
+              ...fetchMoreResult,
+              adminEvents: {
+                ...fetchMoreResult.adminEvents,
+                eventLogEntries: [
+                  ...(prev.adminEvents?.eventLogEntries || []),
+                  ...newEvents,
+                ],
+              },
+            };
           },
         });
       }}
