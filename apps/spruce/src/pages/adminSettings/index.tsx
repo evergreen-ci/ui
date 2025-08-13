@@ -26,7 +26,6 @@ const AdminSettingsPage: React.FC = () => {
   const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
     ADMIN_SETTINGS,
   );
-
   return (
     <AdminSettingsProvider>
       <SideNavPageWrapper>
@@ -196,7 +195,6 @@ const AdminSettingsPage: React.FC = () => {
                 Disabled GraphQL Queries
               </SideNavItem>
             </SideNavGroup>
-
             <SideNavGroup header="Authentication">
               <SideNavItem
                 as={Link}
@@ -259,7 +257,6 @@ const AdminSettingsPage: React.FC = () => {
                 Multi Authentication
               </SideNavItem>
             </SideNavGroup>
-
             <SideNavGroup header="Background Processing">
               <SideNavItem
                 as={Link}
@@ -300,6 +297,38 @@ const AdminSettingsPage: React.FC = () => {
                 )}
               >
                 Triggers
+              </SideNavItem>
+            </SideNavGroup>
+            <SideNavGroup header="Providers">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-container-pools"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "container-pools",
+                )}
+              >
+                Container Pools
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-aws"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "aws-configuration",
+                )}
+              >
+                AWS Configuration
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-repo-exceptions"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "repo-exceptions",
+                )}
+              >
+                Repo Exceptions
               </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>
