@@ -86,7 +86,7 @@
     "react-dom": "18.3.1",
     "react-dropzone": "14.3.8",
     "react-router-dom": "6.18.0",
-    "react-virtuoso": "4.7.12",
+    "react-virtuoso": "4.14.0",
     "strip-ansi": "^7.1.0",
     "vite-node": "^3.2.4",
     "xss": "1.0.15"
