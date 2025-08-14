@@ -90,10 +90,25 @@ query AdminSettings {
         testResultsPrefix
       }
     }
+    cedar {
+      dbName
+      dbUrl
+    }
     configDir
+    containerPools {
+      pools {
+        id
+        distro
+        maxContainers
+        port
+      }
+    }
     disabledGQLQueries
     domainName
     expansions
+    fws {
+      url
+    }
     githubCheckRun {
       checkRunLimit
     }
@@ -112,6 +127,11 @@ query AdminSettings {
       port
       url
       version
+    }
+    jira {
+      email
+      host
+      personalAccessToken
     }
     jiraNotifications {
       customFields {
@@ -142,6 +162,9 @@ query AdminSettings {
         senderAddress
       }
     }
+    parameterStore {
+      prefix
+    }
     perfMonitoringKanopyURL
     perfMonitoringURL
     podLifecycle {
@@ -160,6 +183,73 @@ query AdminSettings {
       repoProjectLimit
       totalProjectLimit
     }
+    providers {
+      aws {
+        accountRoles {
+          account
+          role
+        }
+        alertableInstanceTypes
+        allowedInstanceTypes
+        allowedRegions
+        defaultSecurityGroup
+        ec2Keys {
+          key
+          name
+          secret
+        }
+        elasticIPUsageRate
+        ipamPoolID
+        maxVolumeSizePerUser
+        parserProject {
+          bucket
+          generatedJSONPrefix
+          key
+          secret
+        }
+        persistentDNS {
+          domain
+          hostedZoneID
+        }
+        pod {
+          ecs {
+            allowedImages
+            awsVPC {
+              securityGroups
+              subnets
+            }
+            capacityProviders {
+              arch
+              name
+              os
+              windowsVersion
+            }
+            clusters {
+              name
+              os
+            }
+            executionRole
+            logGroup
+            logRegion
+            logStreamPrefix
+            maxCPU
+            maxMemoryMb
+            taskDefinitionPrefix
+            taskRole
+          }
+          region
+          role
+        }
+        subnets {
+          az
+          subnetId
+        }
+      }
+      docker {
+        apiVersion
+      }
+    }
+
     releaseMode {
       distroMaxHostsFactor
       idleTimeSecondsOverride
@@ -169,6 +259,10 @@ query AdminSettings {
       maxConcurrentRequests
       maxRepoRevisionsToSearch
       numNewRepoRevisionsToFetch
+    }
+    runtimeEnvironments {
+      apiKey
+      baseUrl
     }
     scheduler {
       acceptableHostIdleTimeSeconds
@@ -190,6 +284,7 @@ query AdminSettings {
       targetTimeSeconds
       taskFinder
     }
+
     serviceFlags {
       adminParameterStoreDisabled
       agentStartDisabled
@@ -236,6 +331,21 @@ query AdminSettings {
         projectId
       }
     }
+    slack {
+      level
+      name
+      options {
+        allFields
+        basicMetadata
+        channel
+        fields
+        fieldsSet
+        hostname
+        name
+        username
+      }
+      token
+    }
     sleepSchedule {
       permanentlyExemptHosts
     }
@@ -243,6 +353,13 @@ query AdminSettings {
       spawnHostsPerUser
       unexpirableHostsPerUser
       unexpirableVolumesPerUser
+    }
+    splunk {
+      splunkConnectionInfo {
+        channel
+        serverUrl
+        token
+      }
     }
     ssh {
       spawnHostKey {
@@ -267,6 +384,9 @@ query AdminSettings {
       maxPendingGeneratedTasks
       maxTaskExecution
       maxTasksPerVersion
+    }
+    testSelection {
+      url
     }
     tracer {
       collectorAPIKey

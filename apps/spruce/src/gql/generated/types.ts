@@ -7452,6 +7452,22 @@ export type AdminSettingsQuery = {
         testResultsPrefix?: string | null;
       } | null;
     } | null;
+    cedar?: {
+      __typename?: "CedarConfig";
+      dbName: string;
+      dbUrl: string;
+    } | null;
+    containerPools?: {
+      __typename?: "ContainerPoolsConfig";
+      pools: Array<{
+        __typename?: "ContainerPool";
+        id: string;
+        distro: string;
+        maxContainers: number;
+        port: number;
+      }>;
+    } | null;
+    fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
       __typename?: "GitHubCheckRunConfig";
       checkRunLimit?: number | null;
@@ -7470,6 +7486,12 @@ export type AdminSettingsQuery = {
       port?: number | null;
       url?: string | null;
       version?: string | null;
+    } | null;
+    jira?: {
+      __typename?: "JiraConfig";
+      email?: string | null;
+      host?: string | null;
+      personalAccessToken?: string | null;
     } | null;
     jiraNotifications?: {
       __typename?: "JiraNotificationsConfig";
@@ -7501,6 +7523,10 @@ export type AdminSettingsQuery = {
       bufferTargetPerInterval?: number | null;
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
     } | null;
+    parameterStore?: {
+      __typename?: "ParameterStoreConfig";
+      prefix?: string | null;
+    } | null;
     podLifecycle?: {
       __typename?: "PodLifecycleConfig";
       maxParallelPodRequests?: number | null;
@@ -7518,6 +7544,81 @@ export type AdminSettingsQuery = {
         repo: string;
       }>;
     } | null;
+    providers?: {
+      __typename?: "CloudProviderConfig";
+      aws?: {
+        __typename?: "AWSConfig";
+        alertableInstanceTypes: Array<string>;
+        allowedInstanceTypes: Array<string>;
+        allowedRegions: Array<string>;
+        defaultSecurityGroup?: string | null;
+        elasticIPUsageRate?: number | null;
+        ipamPoolID?: string | null;
+        maxVolumeSizePerUser?: number | null;
+        accountRoles: Array<{
+          __typename?: "AWSAccountRoleMapping";
+          account: string;
+          role: string;
+        }>;
+        ec2Keys: Array<{
+          __typename?: "EC2Key";
+          key: string;
+          name: string;
+          secret: string;
+        }>;
+        parserProject?: {
+          __typename?: "ParserProjectS3Config";
+          bucket?: string | null;
+          generatedJSONPrefix?: string | null;
+          key?: string | null;
+          secret: string;
+        } | null;
+        persistentDNS?: {
+          __typename?: "PersistentDNSConfig";
+          domain?: string | null;
+          hostedZoneID?: string | null;
+        } | null;
+        pod?: {
+          __typename?: "AWSPodConfig";
+          region?: string | null;
+          role?: string | null;
+          ecs?: {
+            __typename?: "ECSConfig";
+            allowedImages: Array<string>;
+            executionRole?: string | null;
+            logGroup?: string | null;
+            logRegion?: string | null;
+            logStreamPrefix?: string | null;
+            maxCPU?: number | null;
+            maxMemoryMb?: number | null;
+            taskDefinitionPrefix?: string | null;
+            taskRole?: string | null;
+            awsVPC?: {
+              __typename?: "AWSVPCConfig";
+              securityGroups: Array<string>;
+              subnets: Array<string>;
+            } | null;
+            capacityProviders: Array<{
+              __typename?: "ECSCapacityProvider";
+              arch?: EcsArchitecture | null;
+              name?: string | null;
+              os?: EcsOperatingSystem | null;
+              windowsVersion?: EcsWindowsVersion | null;
+            }>;
+            clusters: Array<{
+              __typename?: "ECSClusterConfig";
+              name?: string | null;
+              os?: EcsOperatingSystem | null;
+            }>;
+          } | null;
+        } | null;
+        subnets: Array<{ __typename?: "Subnet"; az: string; subnetId: string }>;
+      } | null;
+      docker?: {
+        __typename?: "DockerConfig";
+        apiVersion?: string | null;
+      } | null;
+    } | null;
     releaseMode?: {
       __typename?: "ReleaseModeConfig";
       distroMaxHostsFactor?: number | null;
@@ -7529,6 +7630,11 @@ export type AdminSettingsQuery = {
       maxConcurrentRequests?: number | null;
       maxRepoRevisionsToSearch?: number | null;
       numNewRepoRevisionsToFetch?: number | null;
+    } | null;
+    runtimeEnvironments?: {
+      __typename?: "RuntimeEnvironmentConfig";
+      apiKey?: string | null;
+      baseUrl: string;
     } | null;
     scheduler?: {
       __typename?: "SchedulerConfig";
@@ -7599,6 +7705,23 @@ export type AdminSettingsQuery = {
         projectId: string;
       }>;
     } | null;
+    slack?: {
+      __typename?: "SlackConfig";
+      level?: PriorityLevel | null;
+      name?: string | null;
+      token?: string | null;
+      options?: {
+        __typename?: "SlackOptions";
+        allFields?: boolean | null;
+        basicMetadata?: boolean | null;
+        channel?: string | null;
+        fields?: boolean | null;
+        fieldsSet?: any | null;
+        hostname?: string | null;
+        name?: string | null;
+        username?: string | null;
+      } | null;
+    } | null;
     sleepSchedule?: {
       __typename?: "SleepScheduleConfig";
       permanentlyExemptHosts: Array<string>;
@@ -7608,6 +7731,15 @@ export type AdminSettingsQuery = {
       spawnHostsPerUser?: number | null;
       unexpirableHostsPerUser?: number | null;
       unexpirableVolumesPerUser?: number | null;
+    } | null;
+    splunk?: {
+      __typename?: "SplunkConfig";
+      splunkConnectionInfo: {
+        __typename?: "SplunkConnectionInfo";
+        channel: string;
+        serverUrl: string;
+        token: string;
+      };
     } | null;
     ssh?: {
       __typename?: "SSHConfig";
@@ -7637,6 +7769,7 @@ export type AdminSettingsQuery = {
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
     } | null;
+    testSelection?: { __typename?: "TestSelectionConfig"; url: string } | null;
     tracer?: {
       __typename?: "TracerSettings";
       collectorAPIKey?: string | null;
