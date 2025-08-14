@@ -55,7 +55,7 @@ export const getFormSchema: ReturnType<GetFormSchema> = {
           },
           jiraNotificationsFields: {
             type: "object" as const,
-            title: "JIRA Notifications",
+            title: "Jira Notifications",
             properties: jiraNotificationsFields.schema,
           },
           spawnHost: {

@@ -1,27 +1,11 @@
-import { css } from "@emotion/react";
-import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import {
-  gridWrapCss,
+  arrayItemCSS,
   objectGridCss,
   fullWidthCss,
   nestedObjectGridCss,
 } from "../../sharedStyles";
-
-const { gray } = palette;
-
-const arrayItemCSS = css`
-  border: 1px solid ${gray.light2};
-  border-radius: ${size.m};
-  padding: ${size.m};
-  margin-bottom: ${size.s};
-
-  > div > fieldset {
-    ${gridWrapCss};
-  }
-`;
 
 export const miscSettings = {
   schema: {
@@ -287,6 +271,7 @@ export const expansions = {
     "ui:orderable": false,
     "ui:fullWidth": true,
     expansionValues: {
+      "ui:fullWidth": true,
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:arrayItemCSS": arrayItemCSS,
     },
@@ -468,7 +453,7 @@ export const projectCrationSettings = {
     },
     jiraProject: {
       type: "string" as const,
-      title: "JIRA Project",
+      title: "Jira Project",
     },
     repoExceptions: {
       type: "array" as const,
