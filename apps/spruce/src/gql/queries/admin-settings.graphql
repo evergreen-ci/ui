@@ -78,6 +78,10 @@ query AdminSettings {
     }
     banner
     bannerTheme
+    cedar {
+      dbName
+      dbUrl
+    }
     containerPools {
       pools {
         id
@@ -87,11 +91,19 @@ query AdminSettings {
       }
     }
     disabledGQLQueries
+    fws {
+      url
+    }
     hostInit {
       cloudStatusBatchSize
       hostThrottle
       maxTotalDynamicHosts
       provisioningThrottle
+    }
+    jira {
+      email
+      host
+      personalAccessToken
     }
     loggerConfig {
       buffer {
@@ -115,6 +127,8 @@ query AdminSettings {
     parameterStore {
       prefix
     }
+    perfMonitoringKanopyURL
+    perfMonitoringURL
     podLifecycle {
       maxParallelPodRequests
       maxPodDefinitionCleanupRate
@@ -198,6 +212,10 @@ query AdminSettings {
       maxRepoRevisionsToSearch
       numNewRepoRevisionsToFetch
     }
+    runtimeEnvironments {
+      apiKey
+      baseUrl
+    }
     scheduler {
       acceptableHostIdleTimeSeconds
       cacheDurationSeconds
@@ -257,6 +275,28 @@ query AdminSettings {
       unrecognizedPodCleanupDisabled
       webhookNotificationsDisabled
     }
+    slack {
+      level
+      name
+      options {
+        allFields
+        basicMetadata
+        channel
+        fields
+        fieldsSet
+        hostname
+        name
+        username
+      }
+      token
+    }
+    splunk {
+      splunkConnectionInfo {
+        channel
+        serverUrl
+        token
+      }
+    }
     taskLimits {
       maxConcurrentLargeParserProjectTasks
       maxDailyAutomaticRestarts
@@ -270,6 +310,9 @@ query AdminSettings {
       maxPendingGeneratedTasks
       maxTaskExecution
       maxTasksPerVersion
+    }
+    testSelection {
+      url
     }
     triggers {
       generateTaskDistro
