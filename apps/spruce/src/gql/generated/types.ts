@@ -480,14 +480,14 @@ export type BucketConfigInput = {
 export type BucketsConfig = {
   __typename?: "BucketsConfig";
   credentials?: Maybe<S3Credentials>;
-  internalBuckets: Array<Scalars["String"]["output"]>;
+  internalBuckets?: Maybe<Array<Scalars["String"]["output"]>>;
   logBucket?: Maybe<BucketConfig>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
 export type BucketsConfigInput = {
   credentials?: InputMaybe<S3CredentialsInput>;
-  internalBuckets: Array<Scalars["String"]["input"]>;
+  internalBuckets?: InputMaybe<Array<Scalars["String"]["input"]>>;
   logBucket?: InputMaybe<BucketConfigInput>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
