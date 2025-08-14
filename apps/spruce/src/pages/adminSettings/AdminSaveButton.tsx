@@ -1,7 +1,10 @@
 import { useMutation } from "@apollo/client";
 import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
+import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { AdminSettingsTabRoutes, slugs } from "constants/routes";
 import {
+  AdminSettings,
   AdminSettingsInput,
   SaveAdminSettingsMutation,
   SaveAdminSettingsMutationVariables,
@@ -10,7 +13,17 @@ import { SAVE_ADMIN_SETTINGS } from "gql/mutations";
 import { useAdminSettingsContext } from "./Context";
 import { formToGqlMap } from "./tabs/transformers";
 
-export const AdminSaveButton = () => {
+interface AdminSaveButtonProps {
+  adminSettingsData: AdminSettings;
+}
+
+export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
+  adminSettingsData,
+}) => {
+  const { [slugs.tab]: urlTab } = useParams<{
+    [slugs.tab]: AdminSettingsTabRoutes;
+  }>();
+
   const { checkHasUnsavedChanges, getChangedTabs, getTab } =
     useAdminSettingsContext();
   const hasUnsavedChanges = checkHasUnsavedChanges();
@@ -34,7 +47,7 @@ export const AdminSaveButton = () => {
       const formToGql = formToGqlMap[tab];
       if (formToGql) {
         const { formData } = getTab(tab);
-        const changes = formToGql(formData as any);
+        const changes = formToGql(formData as any, adminSettingsData);
         return { ...acc, ...changes };
       }
       return acc;
@@ -42,7 +55,11 @@ export const AdminSaveButton = () => {
     saveAdminSettings({ variables: { adminSettings: changedSettings } });
   };
 
-  return (
+  const saveable =
+    urlTab !== AdminSettingsTabRoutes.RestartTasks &&
+    urlTab !== AdminSettingsTabRoutes.EventLog;
+
+  return saveable ? (
     <Button
       data-cy="save-settings-button"
       disabled={!hasUnsavedChanges}
@@ -52,7 +69,7 @@ export const AdminSaveButton = () => {
     >
       Save changes on page
     </Button>
-  );
+  ) : null;
 };
 
 export default AdminSaveButton;

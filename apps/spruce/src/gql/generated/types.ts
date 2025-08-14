@@ -4017,6 +4017,7 @@ export type Task = {
   projectIdentifier?: Maybe<Scalars["String"]["output"]>;
   requester: Scalars["String"]["output"];
   resetWhenFinished: Scalars["Boolean"]["output"];
+  reviewed?: Maybe<Scalars["Boolean"]["output"]>;
   revision?: Maybe<Scalars["String"]["output"]>;
   scheduledTime?: Maybe<Scalars["Time"]["output"]>;
   spawnHostLink?: Maybe<Scalars["String"]["output"]>;
@@ -4895,6 +4896,28 @@ export type WorkstationSetupCommandInput = {
   directory?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type NonDisplayTaskReviewedFragment = {
+  __typename?: "Task";
+  id: string;
+  execution: number;
+  reviewed?: boolean | null;
+};
+
+export type ReviewedTaskFragment = {
+  __typename?: "Task";
+  id: string;
+  displayStatus: string;
+  execution: number;
+  reviewed?: boolean | null;
+  executionTasksFull?: Array<{
+    __typename?: "Task";
+    id: string;
+    displayStatus: string;
+    execution: number;
+    reviewed?: boolean | null;
+  }> | null;
+};
+
 export type AnnotationFragment = {
   __typename?: "Annotation";
   id: string;
@@ -5284,7 +5307,8 @@ export type ProjectGithubSettingsFragment = {
   __typename?: "Project";
   id: string;
   githubChecksEnabled?: boolean | null;
-  githubTriggerAliases?: Array<string> | null;
+  githubMQTriggerAliases?: Array<string> | null;
+  githubPRTriggerAliases?: Array<string> | null;
   gitTagAuthorizedTeams?: Array<string> | null;
   gitTagAuthorizedUsers?: Array<string> | null;
   gitTagVersionsEnabled?: boolean | null;
@@ -5298,7 +5322,8 @@ export type RepoGithubSettingsFragment = {
   __typename?: "RepoRef";
   id: string;
   githubChecksEnabled: boolean;
-  githubTriggerAliases?: Array<string> | null;
+  githubMQTriggerAliases?: Array<string> | null;
+  githubPRTriggerAliases?: Array<string> | null;
   gitTagAuthorizedTeams?: Array<string> | null;
   gitTagAuthorizedUsers?: Array<string> | null;
   gitTagVersionsEnabled: boolean;
@@ -5315,7 +5340,8 @@ export type ProjectGithubCommitQueueFragment = {
     __typename?: "Project";
     id: string;
     githubChecksEnabled?: boolean | null;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
@@ -5333,7 +5359,8 @@ export type RepoGithubCommitQueueFragment = {
     __typename?: "RepoRef";
     id: string;
     githubChecksEnabled: boolean;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled: boolean;
@@ -5351,7 +5378,8 @@ export type ProjectEventGithubCommitQueueFragment = {
     __typename?: "Project";
     id: string;
     githubChecksEnabled?: boolean | null;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
@@ -5404,7 +5432,8 @@ export type ProjectSettingsFieldsFragment = {
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
     githubChecksEnabled?: boolean | null;
     gitTagAuthorizedTeams?: Array<string> | null;
@@ -5608,7 +5637,8 @@ export type RepoSettingsFieldsFragment = {
     stepbackDisabled: boolean;
     versionControlEnabled: boolean;
     notifyOnBuildFailure: boolean;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     perfEnabled: boolean;
     githubChecksEnabled: boolean;
     gitTagAuthorizedTeams?: Array<string> | null;
@@ -5846,7 +5876,8 @@ export type SubscriptionsFragment = {
 export type ProjectPatchAliasSettingsFragment = {
   __typename?: "Project";
   id: string;
-  githubTriggerAliases?: Array<string> | null;
+  githubMQTriggerAliases?: Array<string> | null;
+  githubPRTriggerAliases?: Array<string> | null;
   patchTriggerAliases?: Array<{
     __typename?: "PatchTriggerAlias";
     alias: string;
@@ -5866,7 +5897,8 @@ export type ProjectPatchAliasSettingsFragment = {
 export type RepoPatchAliasSettingsFragment = {
   __typename?: "RepoRef";
   id: string;
-  githubTriggerAliases?: Array<string> | null;
+  githubMQTriggerAliases?: Array<string> | null;
+  githubPRTriggerAliases?: Array<string> | null;
   patchTriggerAliases?: Array<{
     __typename?: "PatchTriggerAlias";
     alias: string;
@@ -6062,7 +6094,8 @@ export type ProjectEventSettingsFragment = {
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
-    githubTriggerAliases?: Array<string> | null;
+    githubMQTriggerAliases?: Array<string> | null;
+    githubPRTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
     githubChecksEnabled?: boolean | null;
     gitTagAuthorizedTeams?: Array<string> | null;
@@ -6748,6 +6781,18 @@ export type ReprovisionToNewMutation = {
   reprovisionToNew: number;
 };
 
+export type RestartAdminTasksMutationVariables = Exact<{
+  opts: RestartAdminTasksOptions;
+}>;
+
+export type RestartAdminTasksMutation = {
+  __typename?: "Mutation";
+  restartAdminTasks: {
+    __typename?: "RestartAdminTasksPayload";
+    numRestartedTasks: number;
+  };
+};
+
 export type RestartJasperMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]["input"]>;
 }>;
@@ -6814,6 +6859,57 @@ export type SaveAdminSettingsMutation = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    disabledGQLQueries: Array<string>;
+    api?: {
+      __typename?: "APIConfig";
+      corpUrl?: string | null;
+      httpListenAddr?: string | null;
+      url?: string | null;
+    } | null;
+    hostInit?: {
+      __typename?: "HostInitConfig";
+      cloudStatusBatchSize?: number | null;
+      hostThrottle?: number | null;
+      maxTotalDynamicHosts?: number | null;
+      provisioningThrottle?: number | null;
+    } | null;
+    notify?: {
+      __typename?: "NotifyConfig";
+      ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
+    } | null;
+    podLifecycle?: {
+      __typename?: "PodLifecycleConfig";
+      maxParallelPodRequests?: number | null;
+      maxPodDefinitionCleanupRate?: number | null;
+      maxSecretCleanupRate?: number | null;
+    } | null;
+    repotracker?: {
+      __typename?: "RepotrackerConfig";
+      maxConcurrentRequests?: number | null;
+      maxRepoRevisionsToSearch?: number | null;
+      numNewRepoRevisionsToFetch?: number | null;
+    } | null;
+    scheduler?: {
+      __typename?: "SchedulerConfig";
+      acceptableHostIdleTimeSeconds?: number | null;
+      cacheDurationSeconds?: number | null;
+      commitQueueFactor?: number | null;
+      expectedRuntimeFactor?: number | null;
+      futureHostFraction?: number | null;
+      generateTaskFactor?: number | null;
+      groupVersions: boolean;
+      hostAllocator?: HostAllocatorVersion | null;
+      hostAllocatorFeedbackRule?: FeedbackRule | null;
+      hostAllocatorRoundingRule?: RoundingRule | null;
+      hostsOverallocatedRule?: OverallocatedRule | null;
+      mainlineTimeInQueueFactor?: number | null;
+      numDependentsFactor?: number | null;
+      patchFactor?: number | null;
+      patchTimeInQueueFactor?: number | null;
+      stepbackTaskFactor?: number | null;
+      targetTimeSeconds?: number | null;
+      taskFinder?: FinderVersion | null;
+    } | null;
     serviceFlags?: {
       __typename?: "ServiceFlags";
       adminParameterStoreDisabled: boolean;
@@ -6852,6 +6948,42 @@ export type SaveAdminSettingsMutation = {
       taskReliabilityDisabled: boolean;
       unrecognizedPodCleanupDisabled: boolean;
       webhookNotificationsDisabled: boolean;
+    } | null;
+    taskLimits?: {
+      __typename?: "TaskLimitsConfig";
+      maxConcurrentLargeParserProjectTasks?: number | null;
+      maxDailyAutomaticRestarts?: number | null;
+      maxDegradedModeConcurrentLargeParserProjectTasks?: number | null;
+      maxDegradedModeParserProjectSize?: number | null;
+      maxExecTimeoutSecs?: number | null;
+      maxGenerateTaskJSONSize?: number | null;
+      maxHourlyPatchTasks?: number | null;
+      maxIncludesPerVersion?: number | null;
+      maxParserProjectSize?: number | null;
+      maxPendingGeneratedTasks?: number | null;
+      maxTaskExecution?: number | null;
+      maxTasksPerVersion?: number | null;
+    } | null;
+    ui?: {
+      __typename?: "UIConfig";
+      cacheTemplates?: boolean | null;
+      corsOrigins: Array<string>;
+      csrfKey?: string | null;
+      defaultProject: string;
+      fileStreamingContentTypes: Array<string>;
+      helpUrl?: string | null;
+      httpListenAddr?: string | null;
+      loginDomain?: string | null;
+      parsleyUrl?: string | null;
+      secret?: string | null;
+      stagingEnvironment?: string | null;
+      uiv2Url?: string | null;
+      url?: string | null;
+      userVoice?: string | null;
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
     } | null;
   };
 };
@@ -7205,6 +7337,112 @@ export type AdminSettingsQuery = {
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
     disabledGQLQueries: Array<string>;
+    perfMonitoringKanopyURL?: string | null;
+    perfMonitoringURL?: string | null;
+    amboy?: {
+      __typename?: "AmboyConfig";
+      groupBackgroundCreateFrequencyMinutes?: number | null;
+      groupDefaultWorkers?: number | null;
+      groupPruneFrequencyMinutes?: number | null;
+      groupTTLMinutes?: number | null;
+      localStorage?: number | null;
+      lockTimeoutMinutes?: number | null;
+      name?: string | null;
+      poolSizeLocal?: number | null;
+      poolSizeRemote?: number | null;
+      sampleSize?: number | null;
+      singleName?: string | null;
+      namedQueues: Array<{
+        __typename?: "AmboyNamedQueueConfig";
+        lockTimeoutSeconds?: number | null;
+        name?: string | null;
+        numWorkers?: number | null;
+        regexp?: string | null;
+        sampleSize?: number | null;
+      }>;
+      retry?: {
+        __typename?: "AmboyRetryConfig";
+        maxCapacity?: number | null;
+        maxRetryAttempts?: number | null;
+        maxRetryTimeSeconds?: number | null;
+        numWorkers?: number | null;
+        retryBackoffSeconds?: number | null;
+        staleRetryingMonitorIntervalSeconds?: number | null;
+      } | null;
+    } | null;
+    amboyDB?: {
+      __typename?: "AmboyDBConfig";
+      database?: string | null;
+      url?: string | null;
+    } | null;
+    api?: {
+      __typename?: "APIConfig";
+      corpUrl?: string | null;
+      httpListenAddr?: string | null;
+      url?: string | null;
+    } | null;
+    authConfig?: {
+      __typename?: "AuthConfig";
+      allowServiceUsers?: boolean | null;
+      backgroundReauthMinutes?: number | null;
+      preferredType?: PreferredAuthType | null;
+      github?: {
+        __typename?: "GitHubAuthConfig";
+        appId?: number | null;
+        clientId?: string | null;
+        clientSecret?: string | null;
+        defaultOwner?: string | null;
+        defaultRepo?: string | null;
+        organization?: string | null;
+        users: Array<string>;
+      } | null;
+      kanopy?: {
+        __typename?: "KanopyAuthConfig";
+        headerName: string;
+        issuer: string;
+        keysetURL: string;
+      } | null;
+      multi?: {
+        __typename?: "MultiAuthConfig";
+        readOnly: Array<string>;
+        readWrite: Array<string>;
+      } | null;
+      naive?: {
+        __typename?: "NaiveAuthConfig";
+        users: Array<{
+          __typename?: "AuthUser";
+          displayName?: string | null;
+          email?: string | null;
+          password?: string | null;
+          username?: string | null;
+        }>;
+      } | null;
+      okta?: {
+        __typename?: "OktaConfig";
+        clientId?: string | null;
+        clientSecret?: string | null;
+        expireAfterMinutes?: number | null;
+        issuer?: string | null;
+        scopes: Array<string>;
+        userGroup?: string | null;
+      } | null;
+    } | null;
+    cedar?: {
+      __typename?: "CedarConfig";
+      dbName: string;
+      dbUrl: string;
+    } | null;
+    containerPools?: {
+      __typename?: "ContainerPoolsConfig";
+      pools: Array<{
+        __typename?: "ContainerPool";
+        id: string;
+        distro: string;
+        maxContainers: number;
+        port: number;
+      }>;
+    } | null;
+    fws?: { __typename?: "FWSConfig"; url: string } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -7212,9 +7450,35 @@ export type AdminSettingsQuery = {
       maxTotalDynamicHosts?: number | null;
       provisioningThrottle?: number | null;
     } | null;
+    jira?: {
+      __typename?: "JiraConfig";
+      email?: string | null;
+      host?: string | null;
+      personalAccessToken?: string | null;
+    } | null;
+    loggerConfig?: {
+      __typename?: "LoggerConfig";
+      defaultLevel?: PriorityLevel | null;
+      logkeeperURL?: string | null;
+      redactKeys: Array<string>;
+      thresholdLevel?: PriorityLevel | null;
+      buffer?: {
+        __typename?: "LogBuffering";
+        count?: number | null;
+        durationSeconds?: number | null;
+        incomingBufferFactor?: number | null;
+        useAsync: boolean;
+      } | null;
+    } | null;
     notify?: {
       __typename?: "NotifyConfig";
+      bufferIntervalSeconds?: number | null;
+      bufferTargetPerInterval?: number | null;
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
+    } | null;
+    parameterStore?: {
+      __typename?: "ParameterStoreConfig";
+      prefix?: string | null;
     } | null;
     podLifecycle?: {
       __typename?: "PodLifecycleConfig";
@@ -7222,11 +7486,99 @@ export type AdminSettingsQuery = {
       maxPodDefinitionCleanupRate?: number | null;
       maxSecretCleanupRate?: number | null;
     } | null;
+    projectCreation?: {
+      __typename?: "ProjectCreationConfig";
+      repoExceptions: Array<{
+        __typename?: "OwnerRepo";
+        owner: string;
+        repo: string;
+      }>;
+    } | null;
+    providers?: {
+      __typename?: "CloudProviderConfig";
+      aws?: {
+        __typename?: "AWSConfig";
+        alertableInstanceTypes: Array<string>;
+        allowedInstanceTypes: Array<string>;
+        allowedRegions: Array<string>;
+        defaultSecurityGroup?: string | null;
+        elasticIPUsageRate?: number | null;
+        ipamPoolID?: string | null;
+        maxVolumeSizePerUser?: number | null;
+        accountRoles: Array<{
+          __typename?: "AWSAccountRoleMapping";
+          account: string;
+          role: string;
+        }>;
+        ec2Keys: Array<{
+          __typename?: "EC2Key";
+          key: string;
+          name: string;
+          secret: string;
+        }>;
+        parserProject?: {
+          __typename?: "ParserProjectS3Config";
+          bucket?: string | null;
+          generatedJSONPrefix?: string | null;
+          key?: string | null;
+          secret: string;
+        } | null;
+        persistentDNS?: {
+          __typename?: "PersistentDNSConfig";
+          domain?: string | null;
+          hostedZoneID?: string | null;
+        } | null;
+        pod?: {
+          __typename?: "AWSPodConfig";
+          region?: string | null;
+          role?: string | null;
+          ecs?: {
+            __typename?: "ECSConfig";
+            allowedImages: Array<string>;
+            executionRole?: string | null;
+            logGroup?: string | null;
+            logRegion?: string | null;
+            logStreamPrefix?: string | null;
+            maxCPU?: number | null;
+            maxMemoryMb?: number | null;
+            taskDefinitionPrefix?: string | null;
+            taskRole?: string | null;
+            awsVPC?: {
+              __typename?: "AWSVPCConfig";
+              securityGroups: Array<string>;
+              subnets: Array<string>;
+            } | null;
+            capacityProviders: Array<{
+              __typename?: "ECSCapacityProvider";
+              arch?: EcsArchitecture | null;
+              name?: string | null;
+              os?: EcsOperatingSystem | null;
+              windowsVersion?: EcsWindowsVersion | null;
+            }>;
+            clusters: Array<{
+              __typename?: "ECSClusterConfig";
+              name?: string | null;
+              os?: EcsOperatingSystem | null;
+            }>;
+          } | null;
+        } | null;
+        subnets: Array<{ __typename?: "Subnet"; az: string; subnetId: string }>;
+      } | null;
+      docker?: {
+        __typename?: "DockerConfig";
+        apiVersion?: string | null;
+      } | null;
+    } | null;
     repotracker?: {
       __typename?: "RepotrackerConfig";
       maxConcurrentRequests?: number | null;
       maxRepoRevisionsToSearch?: number | null;
       numNewRepoRevisionsToFetch?: number | null;
+    } | null;
+    runtimeEnvironments?: {
+      __typename?: "RuntimeEnvironmentConfig";
+      apiKey?: string | null;
+      baseUrl: string;
     } | null;
     scheduler?: {
       __typename?: "SchedulerConfig";
@@ -7288,6 +7640,32 @@ export type AdminSettingsQuery = {
       unrecognizedPodCleanupDisabled: boolean;
       webhookNotificationsDisabled: boolean;
     } | null;
+    slack?: {
+      __typename?: "SlackConfig";
+      level?: PriorityLevel | null;
+      name?: string | null;
+      token?: string | null;
+      options?: {
+        __typename?: "SlackOptions";
+        allFields?: boolean | null;
+        basicMetadata?: boolean | null;
+        channel?: string | null;
+        fields?: boolean | null;
+        fieldsSet?: any | null;
+        hostname?: string | null;
+        name?: string | null;
+        username?: string | null;
+      } | null;
+    } | null;
+    splunk?: {
+      __typename?: "SplunkConfig";
+      splunkConnectionInfo: {
+        __typename?: "SplunkConnectionInfo";
+        channel: string;
+        serverUrl: string;
+        token: string;
+      };
+    } | null;
     taskLimits?: {
       __typename?: "TaskLimitsConfig";
       maxConcurrentLargeParserProjectTasks?: number | null;
@@ -7303,7 +7681,49 @@ export type AdminSettingsQuery = {
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
     } | null;
+    testSelection?: { __typename?: "TestSelectionConfig"; url: string } | null;
+    triggers?: {
+      __typename?: "TriggerConfig";
+      generateTaskDistro?: string | null;
+    } | null;
+    ui?: {
+      __typename?: "UIConfig";
+      cacheTemplates?: boolean | null;
+      corsOrigins: Array<string>;
+      csrfKey?: string | null;
+      defaultProject: string;
+      fileStreamingContentTypes: Array<string>;
+      helpUrl?: string | null;
+      httpListenAddr?: string | null;
+      loginDomain?: string | null;
+      parsleyUrl?: string | null;
+      secret?: string | null;
+      stagingEnvironment?: string | null;
+      uiv2Url?: string | null;
+      url?: string | null;
+      userVoice?: string | null;
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
+    } | null;
   } | null;
+};
+
+export type AdminTasksToRestartQueryVariables = Exact<{
+  opts: RestartAdminTasksOptions;
+}>;
+
+export type AdminTasksToRestartQuery = {
+  __typename?: "Query";
+  adminTasksToRestart: {
+    __typename?: "AdminTasksToRestartPayload";
+    tasksToRestart: Array<{
+      __typename?: "Task";
+      id: string;
+      execution: number;
+    }>;
+  };
 };
 
 export type AgentLogsQueryVariables = Exact<{
@@ -8634,7 +9054,8 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
-          githubTriggerAliases?: Array<string> | null;
+          githubMQTriggerAliases?: Array<string> | null;
+          githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
@@ -8848,7 +9269,8 @@ export type ProjectEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
-          githubTriggerAliases?: Array<string> | null;
+          githubMQTriggerAliases?: Array<string> | null;
+          githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
@@ -9122,7 +9544,8 @@ export type ProjectSettingsQuery = {
       stepbackDisabled?: boolean | null;
       versionControlEnabled?: boolean | null;
       notifyOnBuildFailure?: boolean | null;
-      githubTriggerAliases?: Array<string> | null;
+      githubMQTriggerAliases?: Array<string> | null;
+      githubPRTriggerAliases?: Array<string> | null;
       perfEnabled?: boolean | null;
       githubChecksEnabled?: boolean | null;
       gitTagAuthorizedTeams?: Array<string> | null;
@@ -9390,7 +9813,8 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
-          githubTriggerAliases?: Array<string> | null;
+          githubMQTriggerAliases?: Array<string> | null;
+          githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
@@ -9604,7 +10028,8 @@ export type RepoEventLogsQuery = {
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
-          githubTriggerAliases?: Array<string> | null;
+          githubMQTriggerAliases?: Array<string> | null;
+          githubPRTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
@@ -9822,7 +10247,8 @@ export type RepoSettingsQuery = {
       stepbackDisabled: boolean;
       versionControlEnabled: boolean;
       notifyOnBuildFailure: boolean;
-      githubTriggerAliases?: Array<string> | null;
+      githubMQTriggerAliases?: Array<string> | null;
+      githubPRTriggerAliases?: Array<string> | null;
       perfEnabled: boolean;
       githubChecksEnabled: boolean;
       gitTagAuthorizedTeams?: Array<string> | null;
@@ -10477,6 +10903,7 @@ export type TaskQuery = {
     priority?: number | null;
     requester: string;
     resetWhenFinished: boolean;
+    reviewed?: boolean | null;
     spawnHostLink?: string | null;
     startTime?: Date | null;
     status: string;
@@ -10605,6 +11032,7 @@ export type TaskQuery = {
       displayStatus: string;
       execution: number;
       projectIdentifier?: string | null;
+      reviewed?: boolean | null;
       revision?: string | null;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };
@@ -10999,6 +11427,7 @@ export type VersionTasksQuery = {
         displayStatus: string;
         execution: number;
         projectIdentifier?: string | null;
+        reviewed?: boolean | null;
         baseTask?: {
           __typename?: "Task";
           id: string;
@@ -11015,6 +11444,7 @@ export type VersionTasksQuery = {
           displayStatus: string;
           execution: number;
           projectIdentifier?: string | null;
+          reviewed?: boolean | null;
           baseTask?: {
             __typename?: "Task";
             id: string;

@@ -167,7 +167,9 @@ export const getFormSchema = (
           "ui:disabled": true,
         },
         nextRunTime: {
-          "ui:disableBefore": new Date(),
+          "ui:disableBefore": new Date(
+            new Date().setHours(0, 0, 0, 0),
+          ).toISOString(),
           "ui:widget": "date-time",
         },
       },

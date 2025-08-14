@@ -1,28 +1,220 @@
 query AdminSettings {
   adminSettings {
+    amboy {
+      groupBackgroundCreateFrequencyMinutes
+      groupDefaultWorkers
+      groupPruneFrequencyMinutes
+      groupTTLMinutes
+      localStorage
+      lockTimeoutMinutes
+      name
+      namedQueues {
+        lockTimeoutSeconds
+        name
+        numWorkers
+        regexp
+        sampleSize
+      }
+      poolSizeLocal
+      poolSizeRemote
+      retry {
+        maxCapacity
+        maxRetryAttempts
+        maxRetryTimeSeconds
+        numWorkers
+        retryBackoffSeconds
+        staleRetryingMonitorIntervalSeconds
+      }
+      sampleSize
+      singleName
+    }
+    amboyDB {
+      database
+      url
+    }
+    api {
+      corpUrl
+      httpListenAddr
+      url
+    }
+    authConfig {
+      allowServiceUsers
+      backgroundReauthMinutes
+      github {
+        appId
+        clientId
+        clientSecret
+        defaultOwner
+        defaultRepo
+        organization
+        users
+      }
+      kanopy {
+        headerName
+        issuer
+        keysetURL
+      }
+      multi {
+        readOnly
+        readWrite
+      }
+      naive {
+        users {
+          displayName
+          email
+          password
+          username
+        }
+      }
+      okta {
+        clientId
+        clientSecret
+        expireAfterMinutes
+        issuer
+        scopes
+        userGroup
+      }
+      preferredType
+    }
     banner
     bannerTheme
+    cedar {
+      dbName
+      dbUrl
+    }
+    containerPools {
+      pools {
+        id
+        distro
+        maxContainers
+        port
+      }
+    }
     disabledGQLQueries
+    fws {
+      url
+    }
     hostInit {
       cloudStatusBatchSize
       hostThrottle
       maxTotalDynamicHosts
       provisioningThrottle
     }
+    jira {
+      email
+      host
+      personalAccessToken
+    }
+    loggerConfig {
+      buffer {
+        count
+        durationSeconds
+        incomingBufferFactor
+        useAsync
+      }
+      defaultLevel
+      logkeeperURL
+      redactKeys
+      thresholdLevel
+    }
     notify {
+      bufferIntervalSeconds
+      bufferTargetPerInterval
       ses {
         senderAddress
       }
     }
+    parameterStore {
+      prefix
+    }
+    perfMonitoringKanopyURL
+    perfMonitoringURL
     podLifecycle {
       maxParallelPodRequests
       maxPodDefinitionCleanupRate
       maxSecretCleanupRate
     }
+    projectCreation {
+      repoExceptions {
+        owner
+        repo
+      }
+    }
+
+    providers {
+      aws {
+        accountRoles {
+          account
+          role
+        }
+        alertableInstanceTypes
+        allowedInstanceTypes
+        allowedRegions
+        defaultSecurityGroup
+        ec2Keys {
+          key
+          name
+          secret
+        }
+        elasticIPUsageRate
+        ipamPoolID
+        maxVolumeSizePerUser
+        parserProject {
+          bucket
+          generatedJSONPrefix
+          key
+          secret
+        }
+        persistentDNS {
+          domain
+          hostedZoneID
+        }
+        pod {
+          ecs {
+            allowedImages
+            awsVPC {
+              securityGroups
+              subnets
+            }
+            capacityProviders {
+              arch
+              name
+              os
+              windowsVersion
+            }
+            clusters {
+              name
+              os
+            }
+            executionRole
+            logGroup
+            logRegion
+            logStreamPrefix
+            maxCPU
+            maxMemoryMb
+            taskDefinitionPrefix
+            taskRole
+          }
+          region
+          role
+        }
+        subnets {
+          az
+          subnetId
+        }
+      }
+      docker {
+        apiVersion
+      }
+    }
     repotracker {
       maxConcurrentRequests
       maxRepoRevisionsToSearch
       numNewRepoRevisionsToFetch
+    }
+    runtimeEnvironments {
+      apiKey
+      baseUrl
     }
     scheduler {
       acceptableHostIdleTimeSeconds
@@ -44,6 +236,7 @@ query AdminSettings {
       targetTimeSeconds
       taskFinder
     }
+
     serviceFlags {
       adminParameterStoreDisabled
       agentStartDisabled
@@ -82,6 +275,28 @@ query AdminSettings {
       unrecognizedPodCleanupDisabled
       webhookNotificationsDisabled
     }
+    slack {
+      level
+      name
+      options {
+        allFields
+        basicMetadata
+        channel
+        fields
+        fieldsSet
+        hostname
+        name
+        username
+      }
+      token
+    }
+    splunk {
+      splunkConnectionInfo {
+        channel
+        serverUrl
+        token
+      }
+    }
     taskLimits {
       maxConcurrentLargeParserProjectTasks
       maxDailyAutomaticRestarts
@@ -95,6 +310,31 @@ query AdminSettings {
       maxPendingGeneratedTasks
       maxTaskExecution
       maxTasksPerVersion
+    }
+    testSelection {
+      url
+    }
+    triggers {
+      generateTaskDistro
+    }
+    ui {
+      betaFeatures {
+        spruceWaterfallEnabled
+      }
+      cacheTemplates
+      corsOrigins
+      csrfKey
+      defaultProject
+      fileStreamingContentTypes
+      helpUrl
+      httpListenAddr
+      loginDomain
+      parsleyUrl
+      secret
+      stagingEnvironment
+      uiv2Url
+      url
+      userVoice
     }
   }
 }

@@ -1,3 +1,4 @@
+import { defaultEC2Region } from "constants/hosts";
 import {
   MyPublicKeysQuery,
   SpawnTaskQuery,
@@ -22,78 +23,84 @@ export const formToGql = ({
   migrateVolumeId,
   myPublicKeys,
   spawnTaskData,
-}: Props): SpawnHostMutationVariables["spawnHostInput"] => {
+}: Props): NonNullable<SpawnHostMutationVariables["spawnHostInput"]> => {
   const {
     expirationDetails,
     homeVolumeDetails,
     loadData,
     publicKeySection,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    requiredSection: { distro, region },
+    requiredSection,
     setupScriptSection,
     userdataScriptSection,
   } = formData || {};
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const { hostUptime } = expirationDetails;
+
+  const { distro = "", region = defaultEC2Region } = requiredSection ?? {};
+  const { defineSetupScriptCheckbox, setupScript } = setupScriptSection ?? {};
+  const { runUserdataScript, userdataScript } = userdataScriptSection ?? {};
+
+  const {
+    loadDataOntoHostAtStartup,
+    runProjectSpecificSetupScript,
+    startHosts,
+  } = loadData ?? {};
+
+  const defaultExpiration = new Date();
+  defaultExpiration.setDate(defaultExpiration.getDate() + 7);
+
+  const {
+    expiration = defaultExpiration,
+    hostUptime,
+    noExpiration = false,
+  } = expirationDetails ?? {};
+
+  const {
+    selectExistingVolume,
+    volumeSelect,
+    volumeSize = DEFAULT_VOLUME_SIZE,
+  } = homeVolumeDetails ?? {};
+
+  const {
+    newPublicKey = "",
+    newPublicKeyName = "",
+    publicKeyNameDropdown = "",
+    savePublicKey = false,
+    useExisting = false,
+  } = publicKeySection ?? {};
+
   return {
     isVirtualWorkStation,
-    userDataScript: userdataScriptSection?.runUserdataScript
-      ? userdataScriptSection.userdataScript
-      : null,
-    expiration: expirationDetails?.noExpiration
-      ? null
-      : // @ts-expect-error: FIXME. This comment was added by an automated script.
-        new Date(expirationDetails?.expiration),
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    noExpiration: expirationDetails?.noExpiration,
+    userDataScript: runUserdataScript ? userdataScript : null,
+    expiration: noExpiration ? null : new Date(expiration),
+    noExpiration: noExpiration,
     sleepSchedule:
-      expirationDetails?.noExpiration && hostUptime
-        ? getSleepSchedule(hostUptime)
-        : null,
+      noExpiration && hostUptime ? getSleepSchedule(hostUptime) : null,
     volumeId:
       migrateVolumeId ||
-      (isVirtualWorkStation && homeVolumeDetails?.selectExistingVolume
-        ? homeVolumeDetails.volumeSelect
-        : null),
+      (isVirtualWorkStation && selectExistingVolume ? volumeSelect : null),
     homeVolumeSize:
       !migrateVolumeId &&
       isVirtualWorkStation &&
-      (!homeVolumeDetails?.selectExistingVolume ||
-        !homeVolumeDetails?.volumeSelect)
-        ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-          homeVolumeDetails.volumeSize || DEFAULT_VOLUME_SIZE
+      (!selectExistingVolume || !volumeSelect)
+        ? volumeSize
         : null,
     publicKey: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      name: publicKeySection?.useExisting
-        ? publicKeySection?.publicKeyNameDropdown
-        : (publicKeySection?.newPublicKeyName ?? ""),
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      key: publicKeySection?.useExisting
-        ? myPublicKeys.find(
-            ({ name }) => name === publicKeySection?.publicKeyNameDropdown,
-          )?.key
-        : // @ts-expect-error: FIXME. This comment was added by an automated script.
-          stripNewLines(publicKeySection.newPublicKey),
+      name: useExisting ? publicKeyNameDropdown : newPublicKeyName,
+      key: useExisting
+        ? (myPublicKeys.find(({ name }) => name === publicKeyNameDropdown)
+            ?.key ?? "")
+        : stripNewLines(newPublicKey),
     },
-    savePublicKey:
-      !publicKeySection?.useExisting && !!publicKeySection?.savePublicKey,
+    savePublicKey: !useExisting && !!savePublicKey,
     distroId: distro,
     region,
     taskId:
-      loadData?.loadDataOntoHostAtStartup && validateTask(spawnTaskData)
-        ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-          spawnTaskData.id
+      loadDataOntoHostAtStartup && validateTask(spawnTaskData)
+        ? spawnTaskData?.id
         : null,
     useProjectSetupScript: !!(
-      loadData?.loadDataOntoHostAtStartup &&
-      loadData?.runProjectSpecificSetupScript
+      loadDataOntoHostAtStartup && runProjectSpecificSetupScript
     ),
-    setUpScript: setupScriptSection?.defineSetupScriptCheckbox
-      ? setupScriptSection?.setupScript
-      : null,
-    spawnHostsStartedByTask: !!(
-      loadData?.loadDataOntoHostAtStartup && loadData?.startHosts
-    ),
+    setUpScript: defineSetupScriptCheckbox ? setupScript : null,
+    spawnHostsStartedByTask: !!(loadDataOntoHostAtStartup && startHosts),
   };
 };

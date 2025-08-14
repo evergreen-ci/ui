@@ -5,13 +5,13 @@ import {
   FinderVersion,
   HostAllocatorVersion,
   OverallocatedRule,
+  PriorityLevel,
   RoundingRule,
 } from "gql/generated/types";
 
 export const adminSettings: AdminSettings = {
   banner: "Hello",
   bannerTheme: BannerTheme.Information,
-  disabledGQLQueries: [],
   hostInit: {
     cloudStatusBatchSize: 1,
     hostThrottle: 1,
@@ -22,6 +22,8 @@ export const adminSettings: AdminSettings = {
     ses: {
       senderAddress: "evg-sender",
     },
+    bufferIntervalSeconds: 1,
+    bufferTargetPerInterval: 1,
   },
   podLifecycle: {
     maxParallelPodRequests: 1,
@@ -105,4 +107,78 @@ export const adminSettings: AdminSettings = {
     maxTaskExecution: 1,
     maxTasksPerVersion: 1,
   },
+  amboy: {
+    name: "amboy",
+    singleName: "single",
+    poolSizeLocal: 1,
+    poolSizeRemote: 1,
+    localStorage: 1,
+    groupDefaultWorkers: 1,
+    groupBackgroundCreateFrequencyMinutes: 1,
+    groupPruneFrequencyMinutes: 1,
+    groupTTLMinutes: 1,
+    lockTimeoutMinutes: 1,
+    sampleSize: 1,
+    retry: {
+      numWorkers: 1,
+      maxCapacity: 1,
+      maxRetryAttempts: 1,
+      maxRetryTimeSeconds: 1,
+      retryBackoffSeconds: 1,
+      staleRetryingMonitorIntervalSeconds: 1,
+    },
+    namedQueues: [
+      {
+        name: "named.queue.1",
+        regexp: "",
+        numWorkers: 1,
+        sampleSize: 1,
+        lockTimeoutSeconds: 1,
+      },
+    ],
+  },
+  amboyDB: {
+    url: "amboy-db-url",
+    database: "amboy-db-name",
+  },
+  loggerConfig: {
+    buffer: {
+      useAsync: true,
+      durationSeconds: 1,
+      count: 1,
+      incomingBufferFactor: 1,
+    },
+    defaultLevel: PriorityLevel.Emergency,
+    thresholdLevel: PriorityLevel.Info,
+    logkeeperURL: "logkeeper-url",
+    redactKeys: ["secret", "key"],
+  },
+  triggers: {
+    generateTaskDistro: "archlinux-test",
+  },
+  api: {
+    httpListenAddr: "http://localhost:8080",
+    url: "http://localhost:9090",
+    corpUrl: "http://corp.example.com",
+  },
+  ui: {
+    url: "http://ui.example.com",
+    helpUrl: "http://help.example.com",
+    uiv2Url: "http://uiv2.example.com",
+    parsleyUrl: "http://parsley.example.com",
+    httpListenAddr: "http://localhost:8081",
+    secret: "supersecret",
+    defaultProject: "default",
+    corsOrigins: ["http://example.com"],
+    fileStreamingContentTypes: ["application/json"],
+    loginDomain: "example.com",
+    userVoice: "http://uservoice.example.com",
+    csrfKey: "csrf-secret-key",
+    cacheTemplates: true,
+    stagingEnvironment: "staging",
+    betaFeatures: {
+      spruceWaterfallEnabled: true,
+    },
+  },
+  disabledGQLQueries: ["query1", "query2"],
 };

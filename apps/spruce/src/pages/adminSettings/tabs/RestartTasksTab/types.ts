@@ -1,10 +1,15 @@
 export interface RestartTasksFormState {
-  startDate: string;
-  startTime: string;
-  endDate: string;
-  endTime: string;
+  start: {
+    startDate: string;
+    startTime: string;
+  };
+  end: {
+    endDate: string;
+    endTime: string;
+  };
+  includeTasks: {
+    includeTestFailed: boolean;
+    includeSystemFailed: boolean;
+    includeSetupFailed: boolean;
+  };
 }
-
-export type RestartTasksTabProps = {
-  restartTasksData: RestartTasksFormState;
-};

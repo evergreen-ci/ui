@@ -26,7 +26,6 @@ const AdminSettingsPage: React.FC = () => {
   const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
     ADMIN_SETTINGS,
   );
-
   return (
     <AdminSettingsProvider>
       <SideNavPageWrapper>
@@ -154,12 +153,274 @@ const AdminSettingsPage: React.FC = () => {
                 Repotracker
               </SideNavItem>
             </SideNavGroup>
+            <SideNavGroup header="Web">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-api-settings"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "api-settings",
+                )}
+              >
+                API
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-ui"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "ui-settings",
+                )}
+              >
+                UI
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-beta-features"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "beta-features",
+                )}
+              >
+                Beta Features
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-disabled-graphql-queries"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "disabled-graphql-queries",
+                )}
+              >
+                Disabled GraphQL Queries
+              </SideNavItem>
+            </SideNavGroup>
+            <SideNavGroup header="Authentication">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-global-config"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "global-config",
+                )}
+              >
+                Global Config
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-okta"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "okta",
+                )}
+              >
+                Okta
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-naive-authentication"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "naive-authentication",
+                )}
+              >
+                Naive Authentication
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-kanopy-authentication"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "kanopy-authentication",
+                )}
+              >
+                Kanopy Authentication
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-github-authentication"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "github-authentication",
+                )}
+              >
+                GitHub Authentication
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-multi-authentication"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "multi-authentication",
+                )}
+              >
+                Multi Authentication
+              </SideNavItem>
+            </SideNavGroup>
+            <SideNavGroup header="External Communications">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-jira"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "jira",
+                )}
+              >
+                Jira
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-slack"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "slack",
+                )}
+              >
+                Slack
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-splunk"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "splunk",
+                )}
+              >
+                Splunk
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-runtime-environment"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "runtime-environments",
+                )}
+              >
+                Runtime Environment
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-test-selection"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "test-selection",
+                )}
+              >
+                Test Selection
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-foliage-web-services"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "foliage-web-services",
+                )}
+              >
+                Foliage Web Services
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-cedar"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "cedar",
+                )}
+              >
+                Cedar
+              </SideNavItem>
+            </SideNavGroup>
+            <SideNavGroup header="Background Processing">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-amboy"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "amboy",
+                )}
+              >
+                Amboy
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-logger"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "logger",
+                )}
+              >
+                Logger
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-notification-rate-limits"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "notification-rate-limits",
+                )}
+              >
+                Notification Rate Limits
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-triggers"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "triggers",
+                )}
+              >
+                Triggers
+              </SideNavItem>
+            </SideNavGroup>
+            <SideNavGroup header="Providers">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-container-pools"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "container-pools",
+                )}
+              >
+                Container Pools
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-aws"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "aws-configuration",
+                )}
+              >
+                AWS Configuration
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-repo-exceptions"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "repo-exceptions",
+                )}
+              >
+                Repo Exceptions
+              </SideNavItem>
+            </SideNavGroup>
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Restart Tasks">
-            {}
+            <SideNavItem
+              as={Link}
+              data-cy="navitem-admin-restart-tasks"
+              to={getAdminSettingsRoute(AdminSettingsTabRoutes.RestartTasks)}
+            >
+              Restart Tasks
+            </SideNavItem>
           </SideNavGroup>
           <SideNavGroup glyph={null} header="Event Log">
-            {}
+            <SideNavItem
+              as={Link}
+              data-cy="navitem-admin-event-logs"
+              to={getAdminSettingsRoute(AdminSettingsTabRoutes.EventLog)}
+            >
+              Event Logs
+            </SideNavItem>
           </SideNavGroup>
         </SideNav>
         <SideNavPageContent data-cy="admin-settings-page">

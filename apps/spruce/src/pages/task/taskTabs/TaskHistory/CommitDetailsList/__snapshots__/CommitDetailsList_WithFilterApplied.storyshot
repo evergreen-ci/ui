@@ -8,7 +8,7 @@
       data-cy="horizontal-date-separator"
     >
       <div
-        class="leafygreen-ui-c62i3c"
+        class="leafygreen-ui-sti25g"
       >
         Apr 3, 2025
       </div>
@@ -82,7 +82,7 @@
           </div>
         </button>
         <div
-          class="leafygreen-ui-h5xdir"
+          class="leafygreen-ui-17azklk"
           data-cy="this-task-badge"
         >
           This
@@ -282,7 +282,7 @@
       data-cy="horizontal-date-separator"
     >
       <div
-        class="leafygreen-ui-c62i3c"
+        class="leafygreen-ui-sti25g"
       >
         Apr 2, 2025
       </div>
@@ -435,7 +435,7 @@
       data-cy="horizontal-date-separator"
     >
       <div
-        class="leafygreen-ui-c62i3c"
+        class="leafygreen-ui-sti25g"
       >
         Apr 1, 2025
       </div>
@@ -603,16 +603,20 @@
                   data-cy="failing-tests-changes-table"
                   data-is-sticky="false"
                   data-lgid="lg-table"
+                  data-testid="lg-table"
                 >
                   <thead
                     class="leafygreen-ui-181p7kg"
                   >
                     <tr
                       class="leafygreen-ui-5fo1n0"
+                      data-lgid="lg-table-header_row"
+                      data-testid="lg-table-header_row"
                     >
                       <th
                         class="leafygreen-ui-1it7wsd"
                         data-lgid="lg-table-header"
+                        data-testid="lg-table-header"
                         scope="col"
                         style="width: 60%;"
                       >
@@ -659,6 +663,7 @@
                       <th
                         class="leafygreen-ui-1it7wsd"
                         data-lgid="lg-table-header"
+                        data-testid="lg-table-header"
                         scope="col"
                         style="width: 80px;"
                       >
@@ -671,6 +676,7 @@
                       <th
                         class="leafygreen-ui-1it7wsd"
                         data-lgid="lg-table-header"
+                        data-testid="lg-table-header"
                         scope="col"
                       >
                         <div
@@ -684,18 +690,20 @@
                   <tbody>
                     <tr
                       aria-disabled="false"
-                      class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+                      class="leafygreen-ui-ef1edo"
                       data-cy="failing-tests-table-row"
                       data-depth="0"
                       data-expanded="false"
                       data-index="0"
                       data-lgid="lg-table-row"
                       data-selected="false"
+                      data-testid="lg-table-row"
                       id="lg-table-row-0"
                     >
                       <td
-                        class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+                        class="leafygreen-ui-16vw6q"
                         data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
                         style="padding-bottom: 4px; padding-top: 4px;"
                       >
                         <div
@@ -717,8 +725,9 @@
                         </div>
                       </td>
                       <td
-                        class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+                        class="leafygreen-ui-16vw6q"
                         data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
                         style="padding-bottom: 4px; padding-top: 4px;"
                       >
                         <div
@@ -731,7 +740,7 @@
                               class=""
                             >
                               <div
-                                class="leafygreen-ui-dhdzha"
+                                class="leafygreen-ui-cfigsp"
                                 data-cy="test-status-badge"
                               >
                                 Fail
@@ -741,8 +750,9 @@
                         </div>
                       </td>
                       <td
-                        class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+                        class="leafygreen-ui-16vw6q"
                         data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
                         style="padding-bottom: 4px; padding-top: 4px;"
                       >
                         <div
@@ -866,7 +876,7 @@
       data-cy="horizontal-date-separator"
     >
       <div
-        class="leafygreen-ui-c62i3c"
+        class="leafygreen-ui-sti25g"
       >
         Mar 30, 2025
       </div>
@@ -993,7 +1003,7 @@
       data-cy="horizontal-date-separator"
     >
       <div
-        class="leafygreen-ui-c62i3c"
+        class="leafygreen-ui-sti25g"
       >
         Mar 29, 2025
       </div>

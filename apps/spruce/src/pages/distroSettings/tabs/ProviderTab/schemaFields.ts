@@ -36,6 +36,18 @@ const doNotAssignPublicIPv4Address = {
   },
 };
 
+const elasticIpsEnabled = {
+  schema: {
+    type: "boolean" as const,
+    title: "Enable Elastic IPs",
+    default: false,
+  },
+  uiSchema: {
+    "ui:bold": true,
+    "ui:description": "Use elastic IPs instead of AWS-provided IPs",
+  },
+};
+
 const securityGroups = {
   schema: {
     type: "array" as const,
@@ -325,6 +337,7 @@ export const ec2FleetProviderSettings = {
     sshKeyName: sshKeyName.schema,
     instanceProfileARN: instanceProfileARN.schema,
     doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.schema,
+    elasticIpsEnabled: elasticIpsEnabled.schema,
     mergeUserData: mergeUserData.schema,
     userData: userData.schema,
     securityGroups: securityGroups.schema,
@@ -337,6 +350,7 @@ export const ec2FleetProviderSettings = {
     sshKeyName: sshKeyName.uiSchema,
     instanceProfileARN: instanceProfileARN.uiSchema,
     doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.uiSchema,
+    elasticIpsEnabled: elasticIpsEnabled.uiSchema,
     mergeUserData: mergeUserData.uiSchema,
     userData: userData.uiSchema,
     securityGroups: securityGroups.uiSchema,
@@ -352,6 +366,7 @@ export const ec2OnDemandProviderSettings = {
     sshKeyName: sshKeyName.schema,
     instanceProfileARN: instanceProfileARN.schema,
     doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.schema,
+    elasticIpsEnabled: elasticIpsEnabled.schema,
     mergeUserData: mergeUserData.schema,
     userData: userData.schema,
     securityGroups: securityGroups.schema,
@@ -364,6 +379,7 @@ export const ec2OnDemandProviderSettings = {
     sshKeyName: sshKeyName.uiSchema,
     instanceProfileARN: instanceProfileARN.uiSchema,
     doNotAssignPublicIPv4Address: doNotAssignPublicIPv4Address.uiSchema,
+    elasticIpsEnabled: elasticIpsEnabled.uiSchema,
     mergeUserData: mergeUserData.uiSchema,
     userData: userData.uiSchema,
     securityGroups: securityGroups.uiSchema,

@@ -7,6 +7,7 @@ import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { AdminSaveButton } from "./AdminSaveButton";
 import { useAdminSettingsContext } from "./Context";
 import { GeneralTab } from "./tabs/GeneralTab/GeneralTab";
+import { RestartTasksTab } from "./tabs/RestartTasksTab/RestartTasksTab";
 import { gqlToFormMap } from "./tabs/transformers";
 import { FormStateMap, WritableAdminSettingsType } from "./tabs/types";
 
@@ -16,7 +17,6 @@ interface Props {
 
 export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   const { setInitialData } = useAdminSettingsContext();
-
   const tabData = useMemo(() => getTabData(data), [data]);
   useEffect(() => {
     setInitialData(tabData);
@@ -24,11 +24,15 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   useScrollToAnchor();
   return (
     <TabsContent>
-      <AdminSaveButton />
+      <AdminSaveButton adminSettingsData={data} />
       <Routes>
         <Route
           element={<GeneralTab tabData={tabData} />}
           path={AdminSettingsTabRoutes.General}
+        />
+        <Route
+          element={<RestartTasksTab />}
+          path={AdminSettingsTabRoutes.RestartTasks}
         />
         <Route
           element={<Navigate replace to={AdminSettingsTabRoutes.General} />}
