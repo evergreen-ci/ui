@@ -63,5 +63,4 @@ export const formToGql = ((
   note: distroOptions.note,
   singleTaskDistro: distroOptions.singleTaskDistro,
   warningNote: distroOptions.warningNote,
-  // Note: costData is read-only and not included in the form submission
 })) satisfies FormToGqlFunction<Tab>;
