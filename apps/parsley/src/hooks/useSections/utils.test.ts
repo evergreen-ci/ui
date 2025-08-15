@@ -19,6 +19,7 @@ describe("processLine", () => {
         "Running command 'ec2.assume_role' in function 'assume-ec2-role' (step 1.3 of 4) in block 'pre'.",
       ),
     ).toStrictEqual({
+      commandDescription: undefined,
       commandName: "ec2.assume_role",
       functionName: "assume-ec2-role",
       status: "Running",
@@ -29,6 +30,7 @@ describe("processLine", () => {
         "Running command 'some_command' ('command_write') in function 'some_function' (step 8 of 9).",
       ),
     ).toStrictEqual({
+      commandDescription: "command_write",
       commandName: "some_command",
       functionName: "some_function",
       status: "Running",
@@ -42,6 +44,7 @@ describe("processLine", () => {
         "Finished command 'shell.exec' in function 'yarn-preview' (step 6 of 9.9) in 415.963µs.",
       ),
     ).toStrictEqual({
+      commandDescription: undefined,
       commandName: "shell.exec",
       functionName: "yarn-preview",
       status: "Finished",
@@ -52,6 +55,7 @@ describe("processLine", () => {
         "Finished command 'some_command' ('cleanup environment') in function 'some_function' (step 5 of 9) in 1.72598ms.",
       ),
     ).toStrictEqual({
+      commandDescription: "cleanup environment",
       commandName: "some_command",
       functionName: "some_function",
       status: "Finished",
@@ -63,6 +67,7 @@ describe("processLine", () => {
     expect(
       processLine("Running command 'subprocess.exec' (step 9 of 9)."),
     ).toStrictEqual({
+      commandDescription: undefined,
       commandName: "subprocess.exec",
       functionName: undefined,
       status: "Running",
@@ -73,12 +78,14 @@ describe("processLine", () => {
         "Finished command 'subprocess.exec' (step 9 of 9) in 1.72598ms.",
       ),
     ).toStrictEqual({
+      commandDescription: undefined,
       commandName: "subprocess.exec",
       functionName: undefined,
       status: "Finished",
       step: "9 of 9",
     });
   });
+
   it("should return null for a log line that does not indicate a section", () => {
     const logLine = "This is a regular log line.";
     expect(processLine(logLine)).toBeNull();
@@ -94,6 +101,7 @@ describe("reduceFn", () => {
     expect(reduceFn(accum, line, logIndex)).toEqual({
       commands: [
         {
+          commandDescription: undefined,
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
@@ -116,6 +124,7 @@ describe("reduceFn", () => {
     const accum: SectionData = {
       commands: [
         {
+          commandDescription: undefined,
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
@@ -139,6 +148,7 @@ describe("reduceFn", () => {
     expect(reduceFn(accum, line, logIndex)).toEqual({
       commands: [
         {
+          commandDescription: undefined,
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
@@ -180,6 +190,7 @@ describe("reduceFn", () => {
     const accum: SectionData = {
       commands: [
         {
+          commandDescription: undefined,
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
@@ -231,6 +242,7 @@ describe("parseSections", () => {
     const expectedSections: SectionData = {
       commands: [
         {
+          commandDescription: undefined,
           commandID: "command-1",
           commandName: "c1",
           functionID: "function-1",
@@ -242,6 +254,7 @@ describe("parseSections", () => {
           step,
         },
         {
+          commandDescription: undefined,
           commandID: "command-3",
           commandName: "c2",
           functionID: "function-1",
@@ -253,6 +266,7 @@ describe("parseSections", () => {
           step,
         },
         {
+          commandDescription: undefined,
           commandID: "command-6",
           commandName: "c3",
           functionID: "function-6",
@@ -264,6 +278,7 @@ describe("parseSections", () => {
           step,
         },
         {
+          commandDescription: undefined,
           commandID: "command-9",
           commandName: "c4",
           functionID: "function-9",
@@ -275,6 +290,7 @@ describe("parseSections", () => {
           step,
         },
         {
+          commandDescription: undefined,
           commandID: "command-11",
           commandName: "c5",
           functionID: "function-11",
@@ -352,6 +368,7 @@ describe("parseSections", () => {
     expect(parseSections(logs)).toEqual({
       commands: [
         {
+          commandDescription: undefined,
           commandID: "command-1",
           commandName: "c1",
           functionID: "function-1",
@@ -363,6 +380,7 @@ describe("parseSections", () => {
           step,
         },
         {
+          commandDescription: undefined,
           commandID: "command-6",
           commandName: "c2",
           functionID: "function-1",
@@ -374,6 +392,7 @@ describe("parseSections", () => {
           step,
         },
         {
+          commandDescription: undefined,
           commandID: "command-9",
           commandName: "c3",
           functionID: "function-9",
@@ -385,6 +404,7 @@ describe("parseSections", () => {
           step,
         },
         {
+          commandDescription: undefined,
           commandID: "command-12",
           commandName: "c4",
           functionID: "function-9",

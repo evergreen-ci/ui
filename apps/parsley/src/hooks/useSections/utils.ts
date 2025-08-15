@@ -10,6 +10,7 @@ enum SectionStatus {
 
 interface SectionLineMetadata {
   commandName: string;
+  commandDescription: string | undefined;
   functionName: string | undefined;
   status: SectionStatus;
   step: string;
@@ -22,14 +23,15 @@ interface SectionLineMetadata {
  */
 export const processLine = (str: string): SectionLineMetadata | null => {
   const regex =
-    /(Running|Finished) command '([^']+)'(?: \('[^']*'\))?(?: in function '([^']+)')? \(step ([^ ]+ of [^)]+)\)[^.]*\./;
+    /(Running|Finished) command '([^']+)'(?: \('([^']+)'\))?(?: \('[^']*'\))?(?: in function '([^']+)')? \(step ([^ ]+ of [^)]+)\)[^.]*\./;
   const match = trimSeverity(str).match(regex);
   if (match) {
     return {
+      commandDescription: match[3],
       commandName: match[2],
-      functionName: match[3],
+      functionName: match[4],
       status: match[1] as SectionStatus,
-      step: match[4],
+      step: match[5],
     };
   }
   return null;
@@ -43,6 +45,7 @@ interface FunctionEntry {
 }
 
 interface CommandEntry {
+  commandDescription: string | undefined;
   commandID: string;
   commandName: string;
   functionID: string;
@@ -124,6 +127,7 @@ const reduceFn = (
       );
     }
     commands.push({
+      commandDescription: currentLine.commandDescription,
       commandID: `command-${logIndex}`,
       commandName: currentLine.commandName,
       functionID: functions[functions.length - 1].functionID,
