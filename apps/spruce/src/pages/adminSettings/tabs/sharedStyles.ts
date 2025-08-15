@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
 
 export const radioCSS = css`
@@ -34,5 +35,18 @@ export const nestedObjectGridCss = css`
     > div:first-of-type {
       ${fullWidthCss};
     }
+  }
+`;
+
+const { gray } = palette;
+
+export const arrayItemCSS = css`
+  border: 1px solid ${gray.light2};
+  border-radius: ${size.m};
+  padding: ${size.m};
+  margin-bottom: ${size.s};
+
+  > div > fieldset {
+    ${gridWrapCss};
   }
 `;

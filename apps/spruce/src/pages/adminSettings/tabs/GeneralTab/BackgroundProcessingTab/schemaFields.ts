@@ -1,15 +1,10 @@
-import { css } from "@emotion/react";
-import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
 import widgets from "components/SpruceForm/Widgets";
 import { PriorityLevel } from "gql/generated/types";
 import {
-  gridWrapCss,
+  arrayItemCSS,
   fullWidthCss,
   nestedObjectGridCss,
 } from "../../sharedStyles";
-
-const { gray } = palette;
 
 const retry = {
   schema: {
@@ -50,17 +45,6 @@ const retry = {
   },
 };
 
-const arrayItemCSS = css`
-  border: 1px solid ${gray.light2};
-  border-radius: ${size.m};
-  padding: ${size.m};
-  margin-bottom: ${size.s};
-
-  // Grid wrap for the inputs inside the array item.
-  > div > fieldset {
-    ${gridWrapCss};
-  }
-`;
 const namedQueues = {
   schema: {
     type: "array" as const,

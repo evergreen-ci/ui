@@ -37,6 +37,7 @@ describe("adminSettingsContext", () => {
         formData: {
           announcements: {
             banner: "updated text!",
+            bannerTheme: BannerTheme.Announcement,
           },
         },
         errors: [],
@@ -69,6 +70,7 @@ describe("adminSettingsContext", () => {
         formData: {
           announcements: {
             banner: "updated text!",
+            bannerTheme: BannerTheme.Announcement,
           },
         },
         errors: [],
