@@ -5,12 +5,12 @@ on: pull_request
 jobs:
   parsley-chromatic:
     name: Parsley Chromatic
-    environment: CI   
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }} # Pull forked repo
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
         # Taken from docs for pull request configuration
