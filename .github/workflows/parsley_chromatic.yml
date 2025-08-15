@@ -1,22 +1,27 @@
 name: "Parsley Chromatic"
-
-on: pull_request
-
+on:
+  pull_request_target:
+    types: [opened, synchronize]
 jobs:
   parsley-chromatic:
-    name: Parsley Chromatic
+    name: Run Parsley Chromatic on fork PR
     runs-on: ubuntu-latest
     steps:
+      - name: Check access
+        if: ${{ github.event.pull_request.author_association != 'COLLABORATOR' && github.event.pull_request.author_association != 'OWNER' }}
+        run: |
+          echo "Event not triggered by a collaborator."
+          exit 1
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }} # Pull forked repo
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
-        # Taken from docs for pull request configuration
         env:
-          CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
-          CHROMATIC_SHA: ${{ github.event.pull_request.head.sha || github.ref }}
+          CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref }}
+          CHROMATIC_SHA: ${{ github.event.pull_request.head.sha }}
           CHROMATIC_SLUG: ${{ github.repository }}
 
       - name: Use Node 22
@@ -32,6 +37,10 @@ jobs:
         with:
           workingDir: apps/parsley
           buildScriptName: storybook:build
-          # https://www.chromatic.com/docs/github-actions/#forked-repositories
-          projectToken: ${{ secrets.CHROMATIC_PARSLEY_TOKEN }} # Likely won't work due to fork restrictions
           autoAcceptChanges: "main"
+          # https://www.chromatic.com/docs/github-actions/#forked-repositories 
+          # This token is published with intention. Tokens cannot be used to access account settings. 
+          # They can only be used for snapshot quota, which is an acceptable tradeoff for open source 
+          # projects. Tokens can be reset via the "Manage" page on Chromatic.
+          projectToken: ${{ secrets.CHROMATIC_PARSLEY_TOKEN }} 
+
