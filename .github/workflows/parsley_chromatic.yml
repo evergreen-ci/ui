@@ -1,0 +1,44 @@
+name: "Parsley Chromatic"
+on: 
+  pull_request:
+    paths:
+      - "apps/parsley/**"
+jobs:
+  parsley-chromatic:
+    name: Run UI Tests
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.pull_request.head.ref, 'chromatic')
+    steps:
+      - name: Check access
+        if: ${{ github.event.pull_request.author_association != 'CONTRIBUTOR' && github.event.pull_request.author_association != 'MEMBER' }}
+        run: |
+          echo "Event not triggered by a collaborator."
+          exit 1
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+        env:
+          CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref }}
+          CHROMATIC_SHA: ${{ github.event.pull_request.head.sha }}
+          CHROMATIC_SLUG: ${{ github.repository }}
+
+      - name: Use Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.17.0
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        with:
+          workingDir: apps/parsley
+          buildScriptName: storybook:build
+          autoAcceptChanges: "main"
+          projectToken: ${{ secrets.CHROMATIC_PARSLEY_TOKEN }} 
+
