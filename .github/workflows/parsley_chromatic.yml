@@ -6,6 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.event.pull_request.head.ref, 'chromatic')
     steps:
+      - name: Echo access
+        run: |
+            echo "${{ github.event.pull_request.author_association }}"
+            exit 0
+
       - name: Check access
         if: ${{ github.event.pull_request.author_association != 'COLLABORATOR' && github.event.pull_request.author_association != 'MEMBER' && github.event.pull_request.author_association != 'OWNER' }}
         run: |
