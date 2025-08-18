@@ -1,7 +1,9 @@
 name: "Parsley Chromatic"
-on:
-  pull_request_target:
-    types: [opened, synchronize]
+on: 
+  pull_request:
+    branches:
+      - chromatic-test
+      - minnakt:chromatic-test
 jobs:
   parsley-chromatic:
     name: Run Parsley Chromatic on fork PR
