@@ -20,7 +20,6 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
     [slugs.tab]: AdminSettingsTabRoutes;
   }>();
   const { setInitialData } = useAdminSettingsContext();
-
   const tabData = useMemo(() => getTabData(data), [data]);
   useEffect(() => {
     setInitialData(tabData);

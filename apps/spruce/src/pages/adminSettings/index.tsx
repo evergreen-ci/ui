@@ -29,7 +29,6 @@ const AdminSettingsPage: React.FC = () => {
   const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
     ADMIN_SETTINGS,
   );
-
   return (
     <AdminSettingsProvider>
       <SideNavPageWrapper>
@@ -199,7 +198,6 @@ const AdminSettingsPage: React.FC = () => {
                 Disabled GraphQL Queries
               </SideNavItem>
             </SideNavGroup>
-
             <SideNavGroup header="Authentication">
               <SideNavItem
                 as={Link}
@@ -262,7 +260,78 @@ const AdminSettingsPage: React.FC = () => {
                 Multi Authentication
               </SideNavItem>
             </SideNavGroup>
-
+            <SideNavGroup header="External Communications">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-jira"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "jira",
+                )}
+              >
+                Jira
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-slack"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "slack",
+                )}
+              >
+                Slack
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-splunk"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "splunk",
+                )}
+              >
+                Splunk
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-runtime-environment"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "runtime-environments",
+                )}
+              >
+                Runtime Environment
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-test-selection"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "test-selection",
+                )}
+              >
+                Test Selection
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-foliage-web-services"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "foliage-web-services",
+                )}
+              >
+                Foliage Web Services
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-cedar"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "cedar",
+                )}
+              >
+                Cedar
+              </SideNavItem>
+            </SideNavGroup>
             <SideNavGroup header="Background Processing">
               <SideNavItem
                 as={Link}
@@ -303,6 +372,38 @@ const AdminSettingsPage: React.FC = () => {
                 )}
               >
                 Triggers
+              </SideNavItem>
+            </SideNavGroup>
+            <SideNavGroup header="Providers">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-container-pools"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "container-pools",
+                )}
+              >
+                Container Pools
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-aws"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "aws-configuration",
+                )}
+              >
+                AWS Configuration
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-repo-exceptions"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "repo-exceptions",
+                )}
+              >
+                Repo Exceptions
               </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>

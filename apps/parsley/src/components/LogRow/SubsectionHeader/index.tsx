@@ -11,6 +11,7 @@ import { CaretToggle } from "../CaretToggle";
 import { SectionStatusIcon } from "../SectionStatusIcon";
 
 interface SubsectionHeaderProps extends Row {
+  commandDescription: string | undefined;
   commandName: string;
   functionID: string;
   commandID: string;
@@ -21,6 +22,7 @@ interface SubsectionHeaderProps extends Row {
 }
 
 const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
+  commandDescription,
   commandID,
   commandName,
   functionID,
@@ -62,6 +64,7 @@ const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
       {status && <SectionStatusIcon status={status} />}
       <Body>
         Command: {commandName} (step {step})
+        {commandDescription && ` — ${commandDescription}`}
       </Body>
     </div>
   );
