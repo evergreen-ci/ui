@@ -2,7 +2,7 @@ name: "Parsley Chromatic"
 on: 
   pull_request:
     paths:
-      - "apps/spruce/**"
+      - "apps/parsley/**"
 jobs:
   parsley-chromatic:
     name: Run Parsley Chromatic on fork PR
