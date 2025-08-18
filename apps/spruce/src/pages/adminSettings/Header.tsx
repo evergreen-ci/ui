@@ -22,15 +22,13 @@ export const Header: React.FC<Props> = ({ adminSettingsData, tab }) => {
     setShowShadow(!entry.isIntersecting);
   });
 
-  const Container = StickyHeaderContainer;
-
   return (
     <>
       <div ref={headerScrollRef} />
-      <Container saveable={saveable} showShadow={showShadow}>
+      <StickyHeaderContainer saveable={saveable} showShadow={showShadow}>
         <H2 data-cy="admin-settings-tab-title">{title}</H2>
         {saveable && <AdminSaveButton adminSettingsData={adminSettingsData} />}
-      </Container>
+      </StickyHeaderContainer>
     </>
   );
 };

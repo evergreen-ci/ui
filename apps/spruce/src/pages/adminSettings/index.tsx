@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -324,7 +325,12 @@ const AdminSettingsPage: React.FC = () => {
             {}
           </SideNavGroup>
         </SideNav>
-        <SideNavPageContent data-cy="admin-settings-page">
+        <SideNavPageContent
+          css={css`
+            padding-top: 0;
+          `}
+          data-cy="admin-settings-page"
+        >
           {data?.adminSettings && (
             <AdminSettingsTabs data={data.adminSettings} />
           )}

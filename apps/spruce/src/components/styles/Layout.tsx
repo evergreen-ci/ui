@@ -24,7 +24,7 @@ export const SideNavPageContent = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
   flex-grow: 1;
-  padding-left: ${size.l};
+  padding: ${size.m};
 `;
 
 // Layout elements for non-LG SideNav pages

@@ -29,12 +29,10 @@ export const Header: React.FC<Props> = ({ id, projectType, tab }) => {
     setShowShadow(!entry.isIntersecting);
   });
 
-  const Container = StickyHeaderContainer;
-
   return (
     <>
       <div ref={headerScrollRef} />
-      <Container saveable={saveable} showShadow={showShadow}>
+      <StickyHeaderContainer saveable={saveable} showShadow={showShadow}>
         <H2 data-cy="project-settings-tab-title">{title}</H2>
         {saveable && (
           <HeaderButtons
@@ -43,7 +41,7 @@ export const Header: React.FC<Props> = ({ id, projectType, tab }) => {
             tab={tab as WritableProjectSettingsType}
           />
         )}
-      </Container>
+      </StickyHeaderContainer>
     </>
   );
 };
