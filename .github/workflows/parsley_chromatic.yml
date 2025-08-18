@@ -1,16 +1,14 @@
 name: "Parsley Chromatic"
-on: pull_request
+on: 
+  pull_request:
+    paths:
+      - "apps/parsley/**"
 jobs:
   parsley-chromatic:
     name: Run Parsley Chromatic on fork PR
     runs-on: ubuntu-latest
     if: startsWith(github.event.pull_request.head.ref, 'chromatic')
     steps:
-      - name: Echo access
-        run: |
-            echo "${{ github.event.pull_request.author_association }}"
-            exit 0
-
       - name: Check access
         if: ${{ github.event.pull_request.author_association != 'CONTRIBUTOR' && github.event.pull_request.author_association != 'MEMBER' }}
         run: |
