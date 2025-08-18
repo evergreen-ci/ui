@@ -17,6 +17,11 @@ describe("announcements", () => {
 
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
+    cy.dataCy("save-settings-button").should(
+      "have.attr",
+      "aria-disabled",
+      "true",
+    );
 
     cy.reload();
     cy.getInputByLabel("Banner Text").should(

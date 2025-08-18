@@ -152,6 +152,11 @@ describe("authentication", () => {
     // Save the changes
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
+    cy.dataCy("save-settings-button").should(
+      "have.attr",
+      "aria-disabled",
+      "true",
+    );
     cy.reload();
 
     // Verify all changes were saved correctly

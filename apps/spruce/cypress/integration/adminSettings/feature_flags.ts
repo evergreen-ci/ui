@@ -46,6 +46,11 @@ describe("feature flags", () => {
 
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
+    cy.dataCy("save-settings-button").should(
+      "have.attr",
+      "aria-disabled",
+      "true",
+    );
 
     cy.reload();
     cy.get("@servicesRadio").should("have.attr", "checked");
