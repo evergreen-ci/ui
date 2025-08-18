@@ -4,7 +4,7 @@ jobs:
   parsley-chromatic:
     name: Run Parsley Chromatic on fork PR
     runs-on: ubuntu-latest
-    if: startsWith(github.event.pull_request.head.ref, 'somethingelse')
+    if: startsWith(github.event.pull_request.head.ref, 'chromatic')
     steps:
       - name: Check access
         if: ${{ github.event.pull_request.author_association != 'COLLABORATOR' && github.event.pull_request.author_association != 'OWNER' }}
