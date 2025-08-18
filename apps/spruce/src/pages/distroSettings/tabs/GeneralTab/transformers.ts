@@ -9,6 +9,7 @@ export const gqlToForm = ((data) => {
   const {
     adminOnly,
     aliases,
+    costData,
     disableShallowClone,
     disabled,
     imageId,
@@ -20,19 +21,23 @@ export const gqlToForm = ((data) => {
   } = data;
 
   return {
-    distroName: {
-      name,
-    },
-    distroImage: {
-      image: imageId,
+    costData: {
+      onDemandRate: costData?.onDemandRate ?? 0,
+      savingsPlanRate: costData?.savingsPlanRate ?? 0,
     },
     distroAliases: {
       aliases,
     },
+    distroImage: {
+      image: imageId,
+    },
+    distroName: {
+      name,
+    },
     distroOptions: {
       adminOnly,
-      disabled,
       disableShallowClone,
+      disabled,
       isCluster,
       note,
       singleTaskDistro,
