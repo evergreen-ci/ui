@@ -5,76 +5,54 @@ import { FormToGqlFunction, GqlToFormFunction } from "../../types";
 type Tab = AdminSettingsGeneralSection.BackgroundProcessing;
 
 export const gqlToForm = ((data) => {
-  if (!data) return null;
-
   const { amboy, amboyDB, loggerConfig, notify, triggers } = data;
-
-  const {
-    groupBackgroundCreateFrequencyMinutes,
-    groupDefaultWorkers,
-    groupPruneFrequencyMinutes,
-    groupTTLMinutes,
-    localStorage,
-    lockTimeoutMinutes,
-    name,
-    namedQueues,
-    poolSizeLocal,
-    poolSizeRemote,
-    retry,
-    sampleSize,
-    singleName,
-  } = amboy ?? {};
-
-  const { buffer, defaultLevel, logkeeperURL, redactKeys, thresholdLevel } =
-    loggerConfig ?? {};
 
   return {
     backgroundProcessing: {
       amboy: {
-        name: name ?? "",
-        singleName: singleName ?? "",
-        poolSizeLocal: poolSizeLocal ?? 0,
-        poolSizeRemote: poolSizeRemote ?? 0,
-        localStorage: localStorage ?? 0,
-        groupDefaultWorkers: groupDefaultWorkers ?? 0,
+        name: amboy?.name ?? "",
+        singleName: amboy?.singleName ?? "",
+        poolSizeLocal: amboy?.poolSizeLocal ?? 0,
+        poolSizeRemote: amboy?.poolSizeRemote ?? 0,
+        localStorage: amboy?.localStorage ?? 0,
+        groupDefaultWorkers: amboy?.groupDefaultWorkers ?? 0,
         groupBackgroundCreateFrequencyMinutes:
-          groupBackgroundCreateFrequencyMinutes ?? 0,
-        groupPruneFrequencyMinutes: groupPruneFrequencyMinutes ?? 0,
-        groupTTLMinutes: groupTTLMinutes ?? 0,
-        lockTimeoutMinutes: lockTimeoutMinutes ?? 0,
-        sampleSize: sampleSize ?? 0,
+          amboy?.groupBackgroundCreateFrequencyMinutes ?? 0,
+        groupPruneFrequencyMinutes: amboy?.groupPruneFrequencyMinutes ?? 0,
+        groupTTLMinutes: amboy?.groupTTLMinutes ?? 0,
+        lockTimeoutMinutes: amboy?.lockTimeoutMinutes ?? 0,
+        sampleSize: amboy?.sampleSize ?? 0,
         retry: {
-          numWorkers: retry?.numWorkers ?? 0,
-          maxCapacity: retry?.maxCapacity ?? 0,
-          maxRetryAttempts: retry?.maxRetryAttempts ?? 0,
-          maxRetryTimeSeconds: retry?.maxRetryTimeSeconds ?? 0,
-          retryBackoffSeconds: retry?.retryBackoffSeconds ?? 0,
+          numWorkers: amboy?.retry?.numWorkers ?? 0,
+          maxCapacity: amboy?.retry?.maxCapacity ?? 0,
+          maxRetryAttempts: amboy?.retry?.maxRetryAttempts ?? 0,
+          maxRetryTimeSeconds: amboy?.retry?.maxRetryTimeSeconds ?? 0,
+          retryBackoffSeconds: amboy?.retry?.retryBackoffSeconds ?? 0,
           staleRetryingMonitorIntervalSeconds:
-            retry?.staleRetryingMonitorIntervalSeconds ?? 0,
+            amboy?.retry?.staleRetryingMonitorIntervalSeconds ?? 0,
         },
-        namedQueues: namedQueues
-          ? namedQueues.map((q) => ({
-              name: q.name ?? "",
-              regexp: q.regexp ?? "",
-              numWorkers: q.numWorkers ?? 0,
-              sampleSize: q.sampleSize ?? 0,
-              lockTimeoutSeconds: q.lockTimeoutSeconds ?? 0,
-            }))
-          : [],
+        namedQueues:
+          amboy?.namedQueues?.map((q) => ({
+            name: q.name ?? "",
+            regexp: q.regexp ?? "",
+            numWorkers: q.numWorkers ?? 0,
+            sampleSize: q.sampleSize ?? 0,
+            lockTimeoutSeconds: q.lockTimeoutSeconds ?? 0,
+          })) ?? [],
         dbURL: amboyDB?.url ?? "",
         dbName: amboyDB?.database ?? "",
       },
       loggerConfig: {
         buffer: {
-          useAsync: buffer?.useAsync ?? false,
-          durationSeconds: buffer?.durationSeconds ?? 0,
-          count: buffer?.count ?? 0,
-          incomingBufferFactor: buffer?.incomingBufferFactor ?? 0,
+          useAsync: loggerConfig?.buffer?.useAsync ?? false,
+          durationSeconds: loggerConfig?.buffer?.durationSeconds ?? 0,
+          count: loggerConfig?.buffer?.count ?? 0,
+          incomingBufferFactor: loggerConfig?.buffer?.incomingBufferFactor ?? 0,
         },
-        defaultLevel: defaultLevel ?? PriorityLevel.Info,
-        thresholdLevel: thresholdLevel ?? PriorityLevel.Info,
-        logkeeperURL: logkeeperURL ?? "",
-        redactKeys: redactKeys ?? [],
+        defaultLevel: loggerConfig?.defaultLevel ?? PriorityLevel.Info,
+        thresholdLevel: loggerConfig?.thresholdLevel ?? PriorityLevel.Info,
+        logkeeperURL: loggerConfig?.logkeeperURL ?? "",
+        redactKeys: loggerConfig?.redactKeys ?? [],
       },
       notificationRateLimits: {
         bufferIntervalSeconds: notify?.bufferIntervalSeconds ?? 0,

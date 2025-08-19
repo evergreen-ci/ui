@@ -73,6 +73,20 @@ export const cache = new InMemoryCache({
         },
       },
     },
+    AdminEventsPayload: {
+      fields: {
+        count: {
+          merge(existing = 0, incoming = 0) {
+            return existing + incoming;
+          },
+        },
+        eventLogEntries: {
+          merge(existing = [], incoming = []) {
+            return [...existing, ...incoming];
+          },
+        },
+      },
+    },
     Image: {
       fields: {
         events: {

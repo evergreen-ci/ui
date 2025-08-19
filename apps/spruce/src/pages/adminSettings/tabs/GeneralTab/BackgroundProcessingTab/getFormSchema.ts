@@ -20,10 +20,12 @@ export const getFormSchema = ({
       backgroundProcessing: {
         type: "object" as const,
         title: "",
+        default: {},
         properties: {
           amboy: {
             type: "object" as const,
             title: "Amboy",
+            default: {},
             properties: {
               ...amboy.schema,
             },
@@ -31,6 +33,7 @@ export const getFormSchema = ({
           loggerConfig: {
             type: "object" as const,
             title: "Logger",
+            default: {},
             properties: {
               ...loggerConfig.schema,
             },
@@ -38,6 +41,7 @@ export const getFormSchema = ({
           notificationRateLimits: {
             type: "object" as const,
             title: "Notification Rate Limits",
+            default: {},
             properties: {
               ...notificationRateLimits.schema,
             },
@@ -45,6 +49,7 @@ export const getFormSchema = ({
           triggers: {
             type: "object" as const,
             title: "Triggers",
+            default: {},
             properties: {
               ...triggers(distros).schema,
             },
