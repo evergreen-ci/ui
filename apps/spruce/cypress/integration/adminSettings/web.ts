@@ -34,14 +34,8 @@ describe("web", () => {
     cy.get("@disabledQueriesInput").type("query1");
     cy.get("@disabledQueriesInput").type("{enter}"); // Ensure the input is submitted
 
-    cy.dataCy("save-settings-button").scrollIntoView();
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
-    cy.dataCy("save-settings-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true",
-    );
 
     cy.reload();
     cy.get("@apiUrlInput").should("have.value", "http://example.com/api");

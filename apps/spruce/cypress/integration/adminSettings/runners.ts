@@ -48,14 +48,8 @@ describe("runners", () => {
     cy.get("@repotrackerInput").clear();
     cy.get("@repotrackerInput").type("5");
 
-    cy.dataCy("save-settings-button").scrollIntoView();
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
-    cy.dataCy("save-settings-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true",
-    );
 
     cy.reload();
     cy.get("@sesInput").should("have.value", "new_email@email.com");

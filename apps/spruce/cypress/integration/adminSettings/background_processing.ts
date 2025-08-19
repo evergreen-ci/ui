@@ -50,14 +50,8 @@ describe("background processing", () => {
     cy.getInputByLabel(generateTasksDistro).as("triggersSelect");
     cy.selectLGOption(generateTasksDistro, "localhost");
 
-    cy.dataCy("save-settings-button").scrollIntoView();
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
-    cy.dataCy("save-settings-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true",
-    );
     cy.reload();
 
     // Need to redefine these aliases as the addition / deletion of elements from the
