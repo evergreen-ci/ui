@@ -113,26 +113,6 @@ const mockAdminSettings: AdminSettings = {
       },
     ],
   },
-  projectRefs: [
-    {
-      id: "project1",
-      displayName: "Project 1",
-    },
-    {
-      id: "project2",
-      displayName: "Project 2",
-    },
-  ],
-  repoRefs: [
-    {
-      id: "repo1",
-      displayName: "Repository 1",
-    },
-    {
-      id: "repo2",
-      displayName: "Repository 2",
-    },
-  ],
   githubCheckRun: {
     checkRunLimit: 10,
   },
@@ -247,26 +227,6 @@ const expectedForm: OtherFormState = {
         },
       ],
     },
-    projectRefs: [
-      {
-        id: "project1",
-        displayName: "Project 1",
-      },
-      {
-        id: "project2",
-        displayName: "Project 2",
-      },
-    ],
-    repoRefs: [
-      {
-        id: "repo1",
-        displayName: "Repository 1",
-      },
-      {
-        id: "repo2",
-        displayName: "Repository 2",
-      },
-    ],
     githubCheckRunConfigurations: {
       checkRunLimit: 10,
     },
@@ -315,6 +275,7 @@ const expectedGql: AdminSettingsInput = {
       key: "cred-key",
       secret: "cred-secret",
     },
+    internalBuckets: [],
   },
   ssh: {
     taskHostKey: {

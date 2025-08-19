@@ -7562,11 +7562,6 @@ export type AdminSettingsQuery = {
         repo: string;
       }>;
     } | null;
-    projectRefs?: Array<{
-      __typename?: "ProjectRefData";
-      id: string;
-      displayName: string;
-    }> | null;
     providers?: {
       __typename?: "CloudProviderConfig";
       aws?: {
@@ -7648,11 +7643,6 @@ export type AdminSettingsQuery = {
       idleTimeSecondsOverride?: number | null;
       targetTimeSecondsOverride?: number | null;
     } | null;
-    repoRefs?: Array<{
-      __typename?: "RepoRefData";
-      id: string;
-      displayName: string;
-    }> | null;
     repotracker?: {
       __typename?: "RepotrackerConfig";
       maxConcurrentRequests?: number | null;

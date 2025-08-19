@@ -183,10 +183,6 @@ query AdminSettings {
       totalProjectLimit
     }
 
-    projectRefs {
-      id
-      displayName
-    }
     providers {
       aws {
         accountRoles {
@@ -259,10 +255,6 @@ query AdminSettings {
       targetTimeSecondsOverride
     }
 
-    repoRefs {
-      id
-      displayName
-    }
     repotracker {
       maxConcurrentRequests
       maxRepoRevisionsToSearch

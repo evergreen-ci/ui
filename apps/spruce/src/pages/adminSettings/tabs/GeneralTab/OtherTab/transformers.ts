@@ -175,18 +175,6 @@ export const gqlToForm = ((data) => {
           })) ?? [],
       },
 
-      projectRefs:
-        data.projectRefs?.map((ref) => ({
-          id: ref.id ?? "",
-          displayName: ref.displayName ?? "",
-        })) ?? [],
-
-      repoRefs:
-        data.repoRefs?.map((ref) => ({
-          id: ref.id ?? "",
-          displayName: ref.displayName ?? "",
-        })) ?? [],
-
       githubCheckRunConfigurations: {
         checkRunLimit: githubCheckRun?.checkRunLimit ?? 0,
       },

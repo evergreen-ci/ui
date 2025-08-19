@@ -104,14 +104,6 @@ export interface OtherFormState {
         repo: string;
       }>;
     };
-    projectRefs: Array<{
-      id: string;
-      displayName: string;
-    }>;
-    repoRefs: Array<{
-      id: string;
-      displayName: string;
-    }>;
 
     githubCheckRunConfigurations: {
       checkRunLimit: number;
