@@ -207,6 +207,8 @@ export const bucketConfig = {
     },
   },
   uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+
     logBucket: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:data-cy": "bucket-config",

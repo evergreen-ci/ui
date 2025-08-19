@@ -419,10 +419,10 @@ const AdminSettingsPage: React.FC = () => {
                 data-cy="navitem-admin-single-task-host-configuration"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
-                  "single-task-host-configuration",
+                  "single-task-distro-configuration",
                 )}
               >
-                Single Task Host Configuration
+                Single Task Distro Configuration
               </SideNavItem>
               <SideNavItem
                 as={Link}
