@@ -6,7 +6,10 @@ import { TabProps } from "./types";
 
 export const OtherTab: React.FC<TabProps> = ({ otherData }) => {
   const initalFormState = otherData;
-  const formSchema = getFormSchema;
+  const formSchema = getFormSchema({
+    projectRefs: otherData.other.projectRefs,
+    repoRefs: otherData.other.repoRefs,
+  });
   return (
     <>
       <H2>Other</H2>

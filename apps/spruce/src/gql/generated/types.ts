@@ -190,8 +190,10 @@ export type AdminSettings = {
   podLifecycle?: Maybe<PodLifecycleConfig>;
   pprofPort?: Maybe<Scalars["String"]["output"]>;
   projectCreation?: Maybe<ProjectCreationConfig>;
+  projectRefs?: Maybe<Array<ProjectRefData>>;
   providers?: Maybe<CloudProviderConfig>;
   releaseMode?: Maybe<ReleaseModeConfig>;
+  repoRefs?: Maybe<Array<RepoRefData>>;
   repotracker?: Maybe<RepotrackerConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
   scheduler?: Maybe<SchedulerConfig>;
@@ -482,6 +484,8 @@ export type BucketsConfig = {
   credentials?: Maybe<S3Credentials>;
   internalBuckets?: Maybe<Array<Scalars["String"]["output"]>>;
   logBucket?: Maybe<BucketConfig>;
+  logBucketLongRetention?: Maybe<BucketConfig>;
+  longRetentionProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -489,6 +493,8 @@ export type BucketsConfigInput = {
   credentials?: InputMaybe<S3CredentialsInput>;
   internalBuckets?: InputMaybe<Array<Scalars["String"]["input"]>>;
   logBucket?: InputMaybe<BucketConfigInput>;
+  logBucketLongRetention?: InputMaybe<BucketConfigInput>;
+  longRetentionProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -2927,6 +2933,12 @@ export type ProjectPermissionsOptions = {
   projectIdentifier: Scalars["String"]["input"];
 };
 
+export type ProjectRefData = {
+  __typename?: "ProjectRefData";
+  displayName: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+};
+
 /** ProjectSettings models the settings for a given Project. */
 export type ProjectSettings = {
   __typename?: "ProjectSettings";
@@ -3312,6 +3324,12 @@ export type RepoRef = {
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
   workstationConfig: RepoWorkstationConfig;
+};
+
+export type RepoRefData = {
+  __typename?: "RepoRefData";
+  displayName: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
 };
 
 export type RepoRefInput = {
@@ -7544,6 +7562,11 @@ export type AdminSettingsQuery = {
         repo: string;
       }>;
     } | null;
+    projectRefs?: Array<{
+      __typename?: "ProjectRefData";
+      id: string;
+      displayName: string;
+    }> | null;
     providers?: {
       __typename?: "CloudProviderConfig";
       aws?: {
@@ -7625,6 +7648,11 @@ export type AdminSettingsQuery = {
       idleTimeSecondsOverride?: number | null;
       targetTimeSecondsOverride?: number | null;
     } | null;
+    repoRefs?: Array<{
+      __typename?: "RepoRefData";
+      id: string;
+      displayName: string;
+    }> | null;
     repotracker?: {
       __typename?: "RepotrackerConfig";
       maxConcurrentRequests?: number | null;

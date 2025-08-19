@@ -41,13 +41,19 @@ const mockAdminSettings: AdminSettings = {
   buckets: {
     logBucket: {
       name: "evergreen-logs",
-      testResultsPrefix: "test-results/",
-      roleARN: "arn:aws:iam::123456789:role/LogRole",
     },
+    logBucketLongRetention: {
+      name: "logBucketLongRetention",
+    },
+    longRetentionProjects: ["project1", "project2"],
     testResultsBucket: {
       name: "evergreen-test-results",
       testResultsPrefix: "results/",
       roleARN: "arn:aws:iam::123456789:role/TestRole",
+    },
+    credentials: {
+      key: "cred-key",
+      secret: "cred-secret",
     },
   },
   ssh: {
@@ -107,6 +113,26 @@ const mockAdminSettings: AdminSettings = {
       },
     ],
   },
+  projectRefs: [
+    {
+      id: "project1",
+      displayName: "Project 1",
+    },
+    {
+      id: "project2",
+      displayName: "Project 2",
+    },
+  ],
+  repoRefs: [
+    {
+      id: "repo1",
+      displayName: "Repository 1",
+    },
+    {
+      id: "repo2",
+      displayName: "Repository 2",
+    },
+  ],
   githubCheckRun: {
     checkRunLimit: 10,
   },
@@ -131,7 +157,7 @@ const expectedForm: OtherFormState = {
         idleTimeSecondsOverride: 600,
       },
     },
-    singleTaskHost: {
+    singleTaskDistro: {
       projectTasksPairs: [
         {
           projectId: "test-project",
@@ -142,14 +168,14 @@ const expectedForm: OtherFormState = {
     },
     bucketConfig: {
       logBucket: {
-        name: "evergreen-logs",
-        testResultsPrefix: "test-results/",
-        roleARN: "arn:aws:iam::123456789:role/LogRole",
-      },
-      testResultsBucket: {
-        name: "evergreen-test-results",
-        testResultsPrefix: "results/",
-        roleARN: "arn:aws:iam::123456789:role/TestRole",
+        defaultLogBucket: "evergreen-logs",
+        logBucketLongRetentionName: "logBucketLongRetention",
+        longRetentionProjects: ["project1", "project2"],
+        testResultsBucketName: "evergreen-test-results",
+        testResultsBucketTestResultsPrefix: "results/",
+        testResultsBucketRoleARN: "arn:aws:iam::123456789:role/TestRole",
+        credentialsKey: "cred-key",
+        credentialsSecret: "cred-secret",
       },
     },
     sshPairs: {
@@ -187,11 +213,10 @@ const expectedForm: OtherFormState = {
       customFields: [
         {
           project: "EVG",
-          fields: JSON.stringify(
-            { priority: "high", team: "platform" },
-            null,
-            2,
-          ),
+          fields: [
+            { key: "priority", value: "high" },
+            { key: "team", value: "platform" },
+          ],
           components: ["backend", "frontend"],
           labels: ["bug", "critical"],
         },
@@ -211,7 +236,7 @@ const expectedForm: OtherFormState = {
       collectorInternalEndpoint: "https://collector-internal.example.com",
       collectorAPIKey: "tracer-api-key",
     },
-    projectCrationSettings: {
+    projectCreationSettings: {
       totalProjectLimit: 100,
       repoProjectLimit: 50,
       jiraProject: "EVG",
@@ -222,6 +247,26 @@ const expectedForm: OtherFormState = {
         },
       ],
     },
+    projectRefs: [
+      {
+        id: "project1",
+        displayName: "Project 1",
+      },
+      {
+        id: "project2",
+        displayName: "Project 2",
+      },
+    ],
+    repoRefs: [
+      {
+        id: "repo1",
+        displayName: "Repository 1",
+      },
+      {
+        id: "repo2",
+        displayName: "Repository 2",
+      },
+    ],
     githubCheckRunConfigurations: {
       checkRunLimit: 10,
     },
@@ -256,13 +301,19 @@ const expectedGql: AdminSettingsInput = {
   buckets: {
     logBucket: {
       name: "evergreen-logs",
-      testResultsPrefix: "test-results/",
-      roleARN: "arn:aws:iam::123456789:role/LogRole",
     },
+    logBucketLongRetention: {
+      name: "logBucketLongRetention",
+    },
+    longRetentionProjects: ["project1", "project2"],
     testResultsBucket: {
       name: "evergreen-test-results",
       testResultsPrefix: "results/",
       roleARN: "arn:aws:iam::123456789:role/TestRole",
+    },
+    credentials: {
+      key: "cred-key",
+      secret: "cred-secret",
     },
   },
   ssh: {

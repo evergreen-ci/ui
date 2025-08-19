@@ -172,7 +172,6 @@ query AdminSettings {
       maxPodDefinitionCleanupRate
       maxSecretCleanupRate
     }
-
     pprofPort
     projectCreation {
       jiraProject
@@ -182,6 +181,11 @@ query AdminSettings {
       }
       repoProjectLimit
       totalProjectLimit
+    }
+
+    projectRefs {
+      id
+      displayName
     }
     providers {
       aws {
@@ -249,11 +253,15 @@ query AdminSettings {
         apiVersion
       }
     }
-
     releaseMode {
       distroMaxHostsFactor
       idleTimeSecondsOverride
       targetTimeSecondsOverride
+    }
+
+    repoRefs {
+      id
+      displayName
     }
     repotracker {
       maxConcurrentRequests

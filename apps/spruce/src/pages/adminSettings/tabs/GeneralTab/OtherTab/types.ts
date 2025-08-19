@@ -18,7 +18,7 @@ export interface OtherFormState {
       };
     };
 
-    singleTaskHost: {
+    singleTaskDistro: {
       projectTasksPairs: Array<{
         projectId: string;
         allowedTasks: string[];
@@ -28,14 +28,14 @@ export interface OtherFormState {
 
     bucketConfig: {
       logBucket: {
-        name: string;
-        testResultsPrefix: string;
-        roleARN: string;
-      };
-      testResultsBucket: {
-        name: string;
-        testResultsPrefix: string;
-        roleARN: string;
+        defaultLogBucket: string;
+        logBucketLongRetentionName: string;
+        longRetentionProjects: string[];
+        testResultsBucketName: string;
+        testResultsBucketTestResultsPrefix: string;
+        testResultsBucketRoleARN: string;
+        credentialsKey: string;
+        credentialsSecret: string;
       };
     };
 
@@ -69,7 +69,10 @@ export interface OtherFormState {
     jiraNotificationsFields: {
       customFields: Array<{
         project: string;
-        fields: string;
+        fields: Array<{
+          key: string;
+          value: string;
+        }>;
         components: string[];
         labels: string[];
       }>;
@@ -92,7 +95,7 @@ export interface OtherFormState {
       collectorAPIKey: string;
     };
 
-    projectCrationSettings: {
+    projectCreationSettings: {
       totalProjectLimit: number;
       repoProjectLimit: number;
       jiraProject: string;
@@ -101,6 +104,14 @@ export interface OtherFormState {
         repo: string;
       }>;
     };
+    projectRefs: Array<{
+      id: string;
+      displayName: string;
+    }>;
+    repoRefs: Array<{
+      id: string;
+      displayName: string;
+    }>;
 
     githubCheckRunConfigurations: {
       checkRunLimit: number;

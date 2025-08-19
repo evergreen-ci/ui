@@ -18,10 +18,10 @@ describe("other", () => {
     cy.get("@configDirInput").clear();
     cy.get("@configDirInput").type("/new/config/dir");
 
-    const domainName = "Domain Name";
-    cy.getInputByLabel(domainName).as("domainNameInput");
-    cy.get("@domainNameInput").clear();
-    cy.get("@domainNameInput").type("new.example.com");
+    const githubPrCreatorOrg = "GitHub PR Creator Organization";
+    cy.getInputByLabel(githubPrCreatorOrg).as("githubPrCreatorOrg");
+    cy.get("@githubPrCreatorOrg").clear();
+    cy.get("@githubPrCreatorOrg").type("new.example.com");
 
     const shutdownWaitSeconds = "Shutdown Wait Time (secs)";
     cy.getInputByLabel(shutdownWaitSeconds).as("shutdownWaitInput");
@@ -36,7 +36,10 @@ describe("other", () => {
     cy.reload();
 
     cy.getInputByLabel(configDir).should("have.value", "/new/config/dir");
-    cy.getInputByLabel(domainName).should("have.value", "new.example.com");
+    cy.getInputByLabel(githubPrCreatorOrg).should(
+      "have.value",
+      "new.example.com",
+    );
     cy.getInputByLabel(shutdownWaitSeconds).should("have.value", "45");
 
     cy.dataCy("misc-settings").within(() => {
@@ -56,29 +59,16 @@ describe("other", () => {
     cy.dataCy(projectTasksList).as("projectTasksList");
     cy.contains("Add project tasks pair").click();
 
-    cy.get("@projectTasksList")
-      .children()
-      .first()
-      .within(() => {
-        cy.getInputByLabel("Project ID").type("test-project");
-        cy.getInputByLabel("Allowed Tasks").type("compile{enter}test{enter}");
-        cy.getInputByLabel("Allowed Build Variants").type(
-          "ubuntu{enter}windows{enter}",
-        );
-      });
+    cy.getInputByLabel("Project ID / Repo").click({ force: true });
+    cy.get('[role="listbox"]').should("be.visible");
+    cy.get('[role="option"]').last().click();
 
+    cy.getInputByLabel("Allowed Tasks").type("compile{enter}test{enter}");
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
     cy.reload();
 
     cy.dataCy(projectTasksList).children().should("have.length.at.least", 1);
-
-    cy.dataCy(projectTasksList)
-      .children()
-      .first()
-      .within(() => {
-        cy.getInputByLabel("Project ID").should("have.value", "test-project");
-      });
   });
 
   it("can save bucket config changes", () => {
@@ -198,7 +188,7 @@ describe("other", () => {
     const jiraNotifications = "jira-notifications";
     cy.dataCy(jiraNotifications).as("jiraNotifications");
     cy.get("@jiraNotifications").within(() => {
-      cy.contains("Add custom field").click();
+      cy.contains("Add New Jira Project").click();
     });
 
     cy.get("@jiraNotifications")

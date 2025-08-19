@@ -4,9 +4,25 @@ import { OtherFormState } from "./types";
 
 type Tab = AdminSettingsGeneralSection.Other;
 
+const convertExpansionsToGql = (
+  expansionValues: Array<{ key: string; value: string }>,
+) => {
+  if (!Array.isArray(expansionValues) || expansionValues.length === 0) {
+    return undefined;
+  }
+
+  const expansionsObj: { [key: string]: string } = {};
+  expansionValues.forEach((item) => {
+    if (item?.key && item?.value) {
+      expansionsObj[item.key.trim()] = item.value.trim();
+    }
+  });
+
+  return Object.keys(expansionsObj).length > 0 ? expansionsObj : undefined;
+};
+
 export const gqlToForm = ((data) => {
   if (!data) return null;
-
   const {
     buckets,
     configDir,
@@ -53,7 +69,7 @@ export const gqlToForm = ((data) => {
         },
       },
 
-      singleTaskHost: {
+      singleTaskDistro: {
         projectTasksPairs:
           singleTaskDistro?.projectTasksPairs?.map((pair) => ({
             projectId: pair.projectId ?? "",
@@ -64,15 +80,16 @@ export const gqlToForm = ((data) => {
 
       bucketConfig: {
         logBucket: {
-          name: buckets?.logBucket?.name ?? "",
-          testResultsPrefix: buckets?.logBucket?.testResultsPrefix ?? "",
-          roleARN: buckets?.logBucket?.roleARN ?? "",
-        },
-        testResultsBucket: {
-          name: buckets?.testResultsBucket?.name ?? "",
-          testResultsPrefix:
+          defaultLogBucket: buckets?.logBucket?.name ?? "",
+          logBucketLongRetentionName:
+            buckets?.logBucketLongRetention?.name ?? "",
+          longRetentionProjects: buckets?.longRetentionProjects ?? [],
+          testResultsBucketName: buckets?.testResultsBucket?.name ?? "",
+          testResultsBucketTestResultsPrefix:
             buckets?.testResultsBucket?.testResultsPrefix ?? "",
-          roleARN: buckets?.testResultsBucket?.roleARN ?? "",
+          testResultsBucketRoleARN: buckets?.testResultsBucket?.roleARN ?? "",
+          credentialsKey: buckets?.credentials?.key ?? "",
+          credentialsSecret: buckets?.credentials?.secret ?? "",
         },
       },
 
@@ -107,12 +124,27 @@ export const gqlToForm = ((data) => {
 
       jiraNotificationsFields: {
         customFields:
-          jiraNotifications?.customFields?.map((field) => ({
-            project: field.project ?? "",
-            fields: field.fields ? JSON.stringify(field.fields, null, 2) : "",
-            components: field.components ?? [],
-            labels: field.labels ?? [],
-          })) ?? [],
+          jiraNotifications?.customFields?.map((field) => {
+            const fieldsObject =
+              field?.fields && typeof field.fields === "object"
+                ? field.fields
+                : {};
+            const fieldsArray = Object.entries(fieldsObject).map(
+              ([key, value]) => ({
+                key: key || "",
+                value: String(value || ""),
+              }),
+            );
+
+            return {
+              project: field?.project ?? "",
+              fields: fieldsArray,
+              components: Array.isArray(field?.components)
+                ? field.components
+                : [],
+              labels: Array.isArray(field?.labels) ? field.labels : [],
+            };
+          }) ?? [],
       },
 
       spawnHost: {
@@ -132,7 +164,7 @@ export const gqlToForm = ((data) => {
         collectorAPIKey: tracer?.collectorAPIKey ?? "",
       },
 
-      projectCrationSettings: {
+      projectCreationSettings: {
         totalProjectLimit: projectCreation?.totalProjectLimit ?? 0,
         repoProjectLimit: projectCreation?.repoProjectLimit ?? 0,
         jiraProject: projectCreation?.jiraProject ?? "",
@@ -142,6 +174,18 @@ export const gqlToForm = ((data) => {
             repo: exception.repo ?? "",
           })) ?? [],
       },
+
+      projectRefs:
+        data.projectRefs?.map((ref) => ({
+          id: ref.id ?? "",
+          displayName: ref.displayName ?? "",
+        })) ?? [],
+
+      repoRefs:
+        data.repoRefs?.map((ref) => ({
+          id: ref.id ?? "",
+          displayName: ref.displayName ?? "",
+        })) ?? [],
 
       githubCheckRunConfigurations: {
         checkRunLimit: githubCheckRun?.checkRunLimit ?? 0,
@@ -179,7 +223,7 @@ export const formToGql = ((form: OtherFormState) => {
     },
 
     singleTaskDistro: {
-      projectTasksPairs: other.singleTaskHost.projectTasksPairs
+      projectTasksPairs: other.singleTaskDistro.projectTasksPairs
         .filter((pair) => pair.projectId)
         .map((pair) => ({
           projectID: pair.projectId,
@@ -190,16 +234,27 @@ export const formToGql = ((form: OtherFormState) => {
 
     buckets: {
       logBucket: {
-        name: other.bucketConfig.logBucket.name || undefined,
-        testResultsPrefix:
-          other.bucketConfig.logBucket.testResultsPrefix || undefined,
-        roleARN: other.bucketConfig.logBucket.roleARN || undefined,
+        name: other.bucketConfig.logBucket.defaultLogBucket || undefined,
       },
+      logBucketLongRetention: {
+        name:
+          other.bucketConfig.logBucket.logBucketLongRetentionName || undefined,
+      },
+      longRetentionProjects:
+        other.bucketConfig.logBucket.longRetentionProjects?.length > 0
+          ? other.bucketConfig.logBucket.longRetentionProjects
+          : undefined,
       testResultsBucket: {
-        name: other.bucketConfig.testResultsBucket.name || undefined,
+        name: other.bucketConfig.logBucket.testResultsBucketName || undefined,
         testResultsPrefix:
-          other.bucketConfig.testResultsBucket.testResultsPrefix || undefined,
-        roleARN: other.bucketConfig.testResultsBucket.roleARN || undefined,
+          other.bucketConfig.logBucket.testResultsBucketTestResultsPrefix ||
+          undefined,
+        roleARN:
+          other.bucketConfig.logBucket.testResultsBucketRoleARN || undefined,
+      },
+      credentials: {
+        key: other.bucketConfig.logBucket.credentialsKey || undefined,
+        secret: other.bucketConfig.logBucket.credentialsSecret || undefined,
       },
     },
 
@@ -216,23 +271,7 @@ export const formToGql = ((form: OtherFormState) => {
 
     kanopySSHKeyPath: other.sshPairs.kanopySSHKeyPath || undefined,
 
-    expansions: (() => {
-      if (
-        !other.expansions.expansionValues ||
-        other.expansions.expansionValues.length === 0
-      ) {
-        return undefined;
-      }
-
-      const expansionsObj: { [key: string]: string } = {};
-      other.expansions.expansionValues.forEach((item) => {
-        if (item.key && item.value) {
-          expansionsObj[item.key.trim()] = item.value.trim();
-        }
-      });
-
-      return Object.keys(expansionsObj).length > 0 ? expansionsObj : undefined;
-    })(),
+    expansions: convertExpansionsToGql(other.expansions?.expansionValues || []),
 
     hostJasper: {
       binaryName: other.hostJasper.binaryName || undefined,
@@ -243,20 +282,25 @@ export const formToGql = ((form: OtherFormState) => {
     },
 
     jiraNotifications: {
-      customFields: other.jiraNotificationsFields.customFields
-        .filter((field) => field.project)
+      customFields: (other.jiraNotificationsFields?.customFields || [])
+        .filter((field) => field?.project)
         .map((field) => {
-          let parsedFields = {};
-          try {
-            parsedFields = field.fields ? JSON.parse(field.fields) : {};
-          } catch {
-            parsedFields = {};
+          const fieldsObj: { [key: string]: string } = {};
+
+          // Safely handle fields array
+          if (Array.isArray(field.fields)) {
+            field.fields.forEach((item) => {
+              if (item?.key && item?.value) {
+                fieldsObj[item.key.trim()] = item.value.trim();
+              }
+            });
           }
+
           return {
             project: field.project,
-            fields: Object.keys(parsedFields).length > 0 ? parsedFields : {},
-            components: field.components || [],
-            labels: field.labels || [],
+            fields: Object.keys(fieldsObj).length > 0 ? fieldsObj : {},
+            components: Array.isArray(field.components) ? field.components : [],
+            labels: Array.isArray(field.labels) ? field.labels : [],
           };
         }),
     },
@@ -284,11 +328,11 @@ export const formToGql = ((form: OtherFormState) => {
 
     projectCreation: {
       totalProjectLimit:
-        other.projectCrationSettings.totalProjectLimit || undefined,
+        other.projectCreationSettings.totalProjectLimit || undefined,
       repoProjectLimit:
-        other.projectCrationSettings.repoProjectLimit || undefined,
-      jiraProject: other.projectCrationSettings.jiraProject || undefined,
-      repoExceptions: other.projectCrationSettings.repoExceptions
+        other.projectCreationSettings.repoProjectLimit || undefined,
+      jiraProject: other.projectCreationSettings.jiraProject || undefined,
+      repoExceptions: other.projectCreationSettings.repoExceptions
         .filter((exception) => exception.owner && exception.repo)
         .map((exception) => ({
           owner: exception.owner,

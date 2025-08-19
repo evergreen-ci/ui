@@ -88,107 +88,133 @@ export const miscSettings = {
   },
 };
 
-export const singleTaskHost = {
-  schema: {
-    projectTasksPairs: {
-      type: "array" as const,
-      title: "Project Tasks Pairs",
-      items: {
-        type: "object" as const,
-        properties: {
-          projectId: {
-            type: "string" as const,
-            title: "Project ID",
-          },
-          allowedTasks: {
-            type: "array" as const,
-            title: "Allowed Tasks",
-            items: {
+export const getSingleTaskDistroSchema = ({
+  projectRefs = [],
+  repoRefs = [],
+}: {
+  projectRefs?: Array<{ id: string; displayName: string }>;
+  repoRefs?: Array<{ id: string; displayName: string }>;
+}) => {
+  const allOptions = [
+    ...projectRefs.map((p) => ({
+      value: p.id,
+      label: `${p.displayName} (Project)`,
+    })),
+    ...repoRefs.map((r) => ({
+      value: r.id,
+      label: `${r.displayName} (Repository)`,
+    })),
+  ];
+
+  return {
+    schema: {
+      projectTasksPairs: {
+        type: "array" as const,
+        title: "Project Tasks Pairs",
+        items: {
+          type: "object" as const,
+          properties: {
+            projectId: {
               type: "string" as const,
+              title: "Project ID / Repo",
+              enum: allOptions.map((o) => o.value),
+              enumNames: allOptions.map((o) => o.label),
             },
+            allowedTasks: {
+              type: "array" as const,
+              title: "Allowed Tasks",
+              items: {
+                type: "string" as const,
+              },
+            },
+            allowedBVs: {
+              type: "array" as const,
+              title: "Allowed Build Variants",
+              items: {
+                type: "string" as const,
+              },
+            },
+          },
+        },
+      },
+    },
+    uiSchema: {
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      "ui:data-cy": "single-task-host",
+      "ui:objectFieldCss": objectGridCss,
+      projectTasksPairs: {
+        "ui:addButtonText": "Add project tasks pair",
+        "ui:data-cy": "project-tasks-pairs-list",
+        "ui:orderable": false,
+        "ui:fullWidth": true,
+        "ui:fieldCss": fullWidthCss,
+        "ui:arrayItemCSS": arrayItemCSS,
+        items: {
+          allowedTasks: {
+            "ui:widget": widgets.ChipInputWidget,
           },
           allowedBVs: {
-            type: "array" as const,
-            title: "Allowed Build Variants",
-            items: {
-              type: "string" as const,
-            },
+            "ui:widget": widgets.ChipInputWidget,
           },
         },
       },
     },
-  },
-  uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "single-task-host",
-    "ui:objectFieldCss": objectGridCss,
-    projectTasksPairs: {
-      "ui:addButtonText": "Add project tasks pair",
-      "ui:data-cy": "project-tasks-pairs-list",
-      "ui:orderable": false,
-      "ui:fullWidth": true,
-      "ui:fieldCss": fullWidthCss,
-      "ui:arrayItemCSS": arrayItemCSS,
-      items: {
-        allowedTasks: {
-          "ui:widget": widgets.ChipInputWidget,
-        },
-        allowedBVs: {
-          "ui:widget": widgets.ChipInputWidget,
-        },
-      },
-    },
-  },
+  };
 };
 
 export const bucketConfig = {
   schema: {
     logBucket: {
       type: "object" as const,
-      title: "Log Bucket",
+      title: "",
       properties: {
-        name: {
+        defaultLogBucket: {
           type: "string" as const,
-          title: "Name",
+          title: "Default Log Bucket",
         },
-        testResultsPrefix: {
+        logBucketLongRetentionName: {
           type: "string" as const,
-          title: "Test Results Prefix",
+          title: "Long Retention Log Bucket",
         },
-        roleARN: {
+        testResultsBucketName: {
           type: "string" as const,
-          title: "Role ARN",
+          title: "Test Results Bucket Name",
         },
-      },
-    },
-    testResultsBucket: {
-      type: "object" as const,
-      title: "Test Results Bucket",
-      properties: {
-        name: {
+        testResultsBucketTestResultsPrefix: {
           type: "string" as const,
-          title: "Name",
+          title: "Test Results Bucket Prefix",
         },
-        testResultsPrefix: {
+        testResultsBucketRoleARN: {
           type: "string" as const,
-          title: "Test Results Prefix",
+          title: "Test Results Bucket Role ARN",
         },
-        roleARN: {
+        credentialsKey: {
           type: "string" as const,
-          title: "Role ARN",
+          title: "S3 Key",
+        },
+        credentialsSecret: {
+          type: "string" as const,
+          title: "S3 Secret",
+        },
+        longRetentionProjects: {
+          type: "array" as const,
+          title: "Projects Requiring Long Retention",
+          items: {
+            type: "string" as const,
+          },
         },
       },
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:data-cy": "bucket-config",
-    "ui:objectFieldCss": objectGridCss,
     logBucket: {
-      "ui:fieldCss": nestedObjectGridCss,
-    },
-    testResultsBucket: {
-      "ui:fieldCss": nestedObjectGridCss,
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      "ui:data-cy": "bucket-config",
+      "ui:objectFieldCss": objectGridCss,
+      longRetentionProjects: {
+        "ui:widget": widgets.ChipInputWidget,
+        "ui:fieldCss": fullWidthCss,
+      },
     },
   },
 };
@@ -268,9 +294,9 @@ export const expansions = {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:addButtonText": "Add expansion",
     "ui:data-cy": "expansions-list",
-    "ui:orderable": false,
     "ui:fullWidth": true,
     expansionValues: {
+      "ui:orderable": false,
       "ui:fullWidth": true,
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:arrayItemCSS": arrayItemCSS,
@@ -313,17 +339,13 @@ export const jiraNotificationsFields = {
   schema: {
     customFields: {
       type: "array" as const,
-      title: "Custom Fields",
+      title: "Jira Projects",
       items: {
         type: "object" as const,
         properties: {
           project: {
             type: "string" as const,
             title: "Project",
-          },
-          fields: {
-            type: "string" as const,
-            title: "Fields (JSON format)",
           },
           components: {
             type: "array" as const,
@@ -339,6 +361,23 @@ export const jiraNotificationsFields = {
               type: "string" as const,
             },
           },
+          fields: {
+            type: "array" as const,
+            title: "Fields",
+            items: {
+              type: "object" as const,
+              properties: {
+                key: {
+                  type: "string" as const,
+                  title: "Field Key",
+                },
+                value: {
+                  type: "string" as const,
+                  title: "Field Value",
+                },
+              },
+            },
+          },
         },
       },
     },
@@ -348,7 +387,7 @@ export const jiraNotificationsFields = {
     "ui:data-cy": "jira-notifications",
     "ui:objectFieldCss": objectGridCss,
     customFields: {
-      "ui:addButtonText": "Add custom field",
+      "ui:addButtonText": "Add New Jira Project",
       "ui:data-cy": "jira-custom-fields-list",
       "ui:orderable": false,
       "ui:fullWidth": true,
@@ -356,8 +395,12 @@ export const jiraNotificationsFields = {
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
         fields: {
-          "ui:widget": widgets.TextareaWidget,
-          "ui:placeholder": 'Enter JSON object, e.g. {"field1": "value1"}',
+          "ui:addButtonText": "Add Field",
+          "ui:data-cy": "jira-fields-list",
+          "ui:orderable": false,
+          "ui:fullWidth": true,
+          "ui:fieldCss": fullWidthCss,
+          "ui:arrayItemCSS": arrayItemCSS,
         },
         components: {
           "ui:widget": widgets.ChipInputWidget,
@@ -441,7 +484,7 @@ export const tracerConfiguration = {
   },
 };
 
-export const projectCrationSettings = {
+export const projectCreationSettings = {
   schema: {
     totalProjectLimit: {
       type: "number" as const,
