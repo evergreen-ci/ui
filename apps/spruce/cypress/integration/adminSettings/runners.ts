@@ -48,6 +48,7 @@ describe("runners", () => {
     cy.get("@repotrackerInput").clear();
     cy.get("@repotrackerInput").type("5");
 
+    cy.dataCy("save-settings-button").scrollIntoView();
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
     cy.dataCy("save-settings-button").should(

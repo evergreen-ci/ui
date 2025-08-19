@@ -44,6 +44,7 @@ describe("feature flags", () => {
     cy.get("@batchJobsRadio").should("not.have.attr", "checked");
     cy.get("@batchJobsRadio").click({ force: true });
 
+    cy.dataCy("save-settings-button").scrollIntoView();
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
     cy.dataCy("save-settings-button").should(

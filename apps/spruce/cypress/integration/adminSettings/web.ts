@@ -34,6 +34,7 @@ describe("web", () => {
     cy.get("@disabledQueriesInput").type("query1");
     cy.get("@disabledQueriesInput").type("{enter}"); // Ensure the input is submitted
 
+    cy.dataCy("save-settings-button").scrollIntoView();
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
     cy.dataCy("save-settings-button").should(

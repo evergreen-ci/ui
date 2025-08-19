@@ -50,6 +50,7 @@ describe("background processing", () => {
     cy.getInputByLabel(generateTasksDistro).as("triggersSelect");
     cy.selectLGOption(generateTasksDistro, "localhost");
 
+    cy.dataCy("save-settings-button").scrollIntoView();
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
     cy.dataCy("save-settings-button").should(
