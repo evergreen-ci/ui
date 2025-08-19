@@ -60,7 +60,7 @@
     "@leafygreen-ui/leafygreen-provider": "^5.0.2",
     "@leafygreen-ui/marketing-modal": "^4.2.3",
     "@leafygreen-ui/menu": "^22.0.8",
-    "@leafygreen-ui/modal": "^17.0.3",
+    "@leafygreen-ui/modal": "^19.0.1",
     "@leafygreen-ui/palette": "^5.0.0",
     "@leafygreen-ui/segmented-control": "^8.2.13",
     "@leafygreen-ui/select": "^12.0.0",
