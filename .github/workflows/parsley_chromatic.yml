@@ -37,9 +37,11 @@ jobs:
       - name: Run Chromatic
         uses: chromaui/action@latest
         with:
+          projectToken: ${{ secrets.CHROMATIC_PARSLEY_TOKEN }}
           workingDir: apps/parsley
           buildScriptName: storybook:build
           autoAcceptChanges: "main"
           onlyChanged: true
-          projectToken: ${{ secrets.CHROMATIC_PARSLEY_TOKEN }} 
+          fromCI: true
+          ci: true
 
