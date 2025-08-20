@@ -275,7 +275,6 @@ const expectedGql: AdminSettingsInput = {
       key: "cred-key",
       secret: "cred-secret",
     },
-    internalBuckets: [],
   },
   ssh: {
     taskHostKey: {

@@ -62,6 +62,7 @@ export const miscSettings = {
         distroMaxHostsFactor: {
           type: "number" as const,
           title: "Distro Max Hosts Factor",
+          default: 1,
         },
         targetTimeSecondsOverride: {
           type: "number" as const,
@@ -84,6 +85,18 @@ export const miscSettings = {
     },
     releaseMode: {
       "ui:fieldCss": nestedObjectGridCss,
+      distroMaxHostsFactor: {
+        "ui:description":
+          "Multiply distro max hosts by this factor (default is 1 if unset).",
+      },
+      targetTimeSecondsOverride: {
+        "ui:description":
+          "Override the target time to clear a task from the queue (ignored if 0)",
+      },
+      idleTimeSecondsOverride: {
+        "ui:description":
+          "Override for the acceptable host idle time (ignored if 0).",
+      },
     },
   },
 };
@@ -146,6 +159,7 @@ export const getSingleTaskDistroSchema = ({
         "ui:addButtonText": "Add project tasks pair",
         "ui:data-cy": "project-tasks-pairs-list",
         "ui:orderable": false,
+        "ui:allowDeselect": false,
         "ui:fullWidth": true,
         "ui:fieldCss": fullWidthCss,
         "ui:arrayItemCSS": arrayItemCSS,
@@ -223,6 +237,10 @@ export const bucketConfig = {
 
 export const sshPairs = {
   schema: {
+    kanopySSHKeyPath: {
+      type: "string" as const,
+      title: "Legacy SSH Key",
+    },
     taskHostKey: {
       type: "object" as const,
       title: "Task Host Key",
@@ -250,10 +268,6 @@ export const sshPairs = {
           title: "Secret ARN",
         },
       },
-    },
-    kanopySSHKeyPath: {
-      type: "string" as const,
-      title: "Legacy SSH Key",
     },
   },
   uiSchema: {

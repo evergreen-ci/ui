@@ -185,33 +185,47 @@ export const gqlToForm = ((data) => {
 export const formToGql = ((form: OtherFormState) => {
   const { other } = form;
 
+  const {
+    bucketConfig,
+    expansions,
+    githubCheckRunConfigurations,
+    hostJasper,
+    jiraNotificationsFields,
+    miscSettings,
+    projectCreationSettings,
+    singleTaskDistro,
+    sleepSchedule,
+    spawnHost,
+    sshPairs,
+    tracerConfiguration,
+  } = other;
+
+  const { kanopySSHKeyPath, ...ssh } = sshPairs;
+
   return {
-    configDir: other.miscSettings.configDir || undefined,
-    domainName: other.miscSettings.domainName || undefined,
+    configDir: miscSettings.configDir || undefined,
+    domainName: miscSettings.domainName || undefined,
     githubOrgs:
-      other.miscSettings.githubOrgs.length > 0
-        ? other.miscSettings.githubOrgs
-        : undefined,
-    githubPRCreatorOrg: other.miscSettings.githubPRCreatorOrg || undefined,
-    githubWebhookSecret: other.miscSettings.githubWebhookSecret || undefined,
-    logPath: other.miscSettings.logPath || undefined,
-    perfMonitoringKanopyURL:
-      other.miscSettings.perfMonitoringKanopyURL || undefined,
-    perfMonitoringURL: other.miscSettings.perfMonitoringURL || undefined,
-    pprofPort: other.miscSettings.pprofPort || undefined,
-    shutdownWaitSeconds: other.miscSettings.shutdownWaitSeconds || undefined,
+      miscSettings.githubOrgs.length > 0 ? miscSettings.githubOrgs : undefined,
+    githubPRCreatorOrg: miscSettings.githubPRCreatorOrg || undefined,
+    githubWebhookSecret: miscSettings.githubWebhookSecret || undefined,
+    logPath: miscSettings.logPath || undefined,
+    perfMonitoringKanopyURL: miscSettings.perfMonitoringKanopyURL || undefined,
+    perfMonitoringURL: miscSettings.perfMonitoringURL || undefined,
+    pprofPort: miscSettings.pprofPort || undefined,
+    shutdownWaitSeconds: miscSettings.shutdownWaitSeconds || undefined,
 
     releaseMode: {
       distroMaxHostsFactor:
-        other.miscSettings.releaseMode.distroMaxHostsFactor || undefined,
+        miscSettings.releaseMode.distroMaxHostsFactor || undefined,
       targetTimeSecondsOverride:
-        other.miscSettings.releaseMode.targetTimeSecondsOverride || undefined,
+        miscSettings.releaseMode.targetTimeSecondsOverride || undefined,
       idleTimeSecondsOverride:
-        other.miscSettings.releaseMode.idleTimeSecondsOverride || undefined,
+        miscSettings.releaseMode.idleTimeSecondsOverride || undefined,
     },
 
     singleTaskDistro: {
-      projectTasksPairs: other.singleTaskDistro.projectTasksPairs
+      projectTasksPairs: singleTaskDistro.projectTasksPairs
         .filter((pair) => pair.projectId)
         .map((pair) => ({
           projectID: pair.projectId,
@@ -222,55 +236,53 @@ export const formToGql = ((form: OtherFormState) => {
 
     buckets: {
       logBucket: {
-        name: other.bucketConfig.logBucket.defaultLogBucket || undefined,
+        name: bucketConfig.logBucket.defaultLogBucket || undefined,
       },
       logBucketLongRetention: {
-        name:
-          other.bucketConfig.logBucket.logBucketLongRetentionName || undefined,
+        name: bucketConfig.logBucket.logBucketLongRetentionName || undefined,
       },
       longRetentionProjects:
-        other.bucketConfig.logBucket.longRetentionProjects?.length > 0
-          ? other.bucketConfig.logBucket.longRetentionProjects
+        bucketConfig.logBucket.longRetentionProjects?.length > 0
+          ? bucketConfig.logBucket.longRetentionProjects
           : undefined,
       testResultsBucket: {
-        name: other.bucketConfig.logBucket.testResultsBucketName || undefined,
+        name: bucketConfig.logBucket.testResultsBucketName || undefined,
         testResultsPrefix:
-          other.bucketConfig.logBucket.testResultsBucketTestResultsPrefix ||
+          bucketConfig.logBucket.testResultsBucketTestResultsPrefix ||
           undefined,
-        roleARN:
-          other.bucketConfig.logBucket.testResultsBucketRoleARN || undefined,
+        roleARN: bucketConfig.logBucket.testResultsBucketRoleARN || undefined,
       },
       credentials: {
-        key: other.bucketConfig.logBucket.credentialsKey || undefined,
-        secret: other.bucketConfig.logBucket.credentialsSecret || undefined,
+        key: bucketConfig.logBucket.credentialsKey || undefined,
+        secret: bucketConfig.logBucket.credentialsSecret || undefined,
       },
     },
 
     ssh: {
       taskHostKey: {
-        name: other.sshPairs.taskHostKey.name || undefined,
-        secretARN: other.sshPairs.taskHostKey.secretARN || undefined,
+        name: ssh.taskHostKey.name || undefined,
+        secretARN: ssh.taskHostKey.secretARN || undefined,
       },
       spawnHostKey: {
-        name: other.sshPairs.spawnHostKey.name || undefined,
-        secretARN: other.sshPairs.spawnHostKey.secretARN || undefined,
+        name: ssh.spawnHostKey.name || undefined,
+        secretARN: ssh.spawnHostKey.secretARN || undefined,
       },
     },
 
-    kanopySSHKeyPath: other.sshPairs.kanopySSHKeyPath || undefined,
+    kanopySSHKeyPath: kanopySSHKeyPath || undefined,
 
-    expansions: convertExpansionsToGql(other.expansions?.expansionValues || []),
+    expansions: convertExpansionsToGql(expansions?.expansionValues || []),
 
     hostJasper: {
-      binaryName: other.hostJasper.binaryName || undefined,
-      downloadFileName: other.hostJasper.downloadFileName || undefined,
-      port: other.hostJasper.port || undefined,
-      url: other.hostJasper.url || undefined,
-      version: other.hostJasper.version || undefined,
+      binaryName: hostJasper.binaryName || undefined,
+      downloadFileName: hostJasper.downloadFileName || undefined,
+      port: hostJasper.port || undefined,
+      url: hostJasper.url || undefined,
+      version: hostJasper.version || undefined,
     },
 
     jiraNotifications: {
-      customFields: (other.jiraNotificationsFields?.customFields || [])
+      customFields: (jiraNotificationsFields?.customFields || [])
         .filter((field) => field?.project)
         .map((field) => {
           const fieldsObj: { [key: string]: string } = {};
@@ -294,33 +306,29 @@ export const formToGql = ((form: OtherFormState) => {
     },
 
     spawnhost: {
-      unexpirableHostsPerUser:
-        other.spawnHost.unexpirableHostsPerUser || undefined,
+      unexpirableHostsPerUser: spawnHost.unexpirableHostsPerUser || undefined,
       unexpirableVolumesPerUser:
-        other.spawnHost.unexpirableVolumesPerUser || undefined,
-      spawnHostsPerUser: other.spawnHost.spawnHostsPerUser || undefined,
+        spawnHost.unexpirableVolumesPerUser || undefined,
+      spawnHostsPerUser: spawnHost.spawnHostsPerUser || undefined,
     },
 
     sleepSchedule: {
-      permanentlyExemptHosts: other.sleepSchedule.permanentlyExemptHosts || [],
+      permanentlyExemptHosts: sleepSchedule.permanentlyExemptHosts || [],
     },
 
     tracer: {
-      enabled: other.tracerConfiguration.enabled,
-      collectorEndpoint:
-        other.tracerConfiguration.collectorEndpoint || undefined,
+      enabled: tracerConfiguration.enabled,
+      collectorEndpoint: tracerConfiguration.collectorEndpoint || undefined,
       collectorInternalEndpoint:
-        other.tracerConfiguration.collectorInternalEndpoint || undefined,
-      collectorAPIKey: other.tracerConfiguration.collectorAPIKey || undefined,
+        tracerConfiguration.collectorInternalEndpoint || undefined,
+      collectorAPIKey: tracerConfiguration.collectorAPIKey || undefined,
     },
 
     projectCreation: {
-      totalProjectLimit:
-        other.projectCreationSettings.totalProjectLimit || undefined,
-      repoProjectLimit:
-        other.projectCreationSettings.repoProjectLimit || undefined,
-      jiraProject: other.projectCreationSettings.jiraProject || undefined,
-      repoExceptions: other.projectCreationSettings.repoExceptions
+      totalProjectLimit: projectCreationSettings.totalProjectLimit || undefined,
+      repoProjectLimit: projectCreationSettings.repoProjectLimit || undefined,
+      jiraProject: projectCreationSettings.jiraProject || undefined,
+      repoExceptions: projectCreationSettings.repoExceptions
         .filter((exception) => exception.owner && exception.repo)
         .map((exception) => ({
           owner: exception.owner,
@@ -329,8 +337,7 @@ export const formToGql = ((form: OtherFormState) => {
     },
 
     githubCheckRun: {
-      checkRunLimit:
-        other.githubCheckRunConfigurations.checkRunLimit || undefined,
+      checkRunLimit: githubCheckRunConfigurations.checkRunLimit || undefined,
     },
   };
 }) satisfies FormToGqlFunction<Tab>;

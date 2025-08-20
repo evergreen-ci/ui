@@ -192,45 +192,6 @@ const capacityProviders = {
   },
 };
 
-export const repoExceptions = {
-  schema: {
-    repos: {
-      type: "array" as const,
-      title: "Repository Exceptions",
-      items: {
-        type: "object" as const,
-        properties: {
-          owner: {
-            type: "string" as const,
-            title: "Owner",
-            default: "",
-          },
-          repo: {
-            type: "string" as const,
-            title: "Repository",
-            default: "",
-          },
-        },
-        required: ["owner", "repo"],
-      },
-      default: [],
-    },
-  },
-  uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:objectFieldCss": fullWidthCss,
-    "ui:data-cy": "repo-exceptions",
-    repos: {
-      "ui:addButtonText": "Add repository exception",
-      "ui:orderable": false,
-      "ui:data-cy": "repo-exceptions",
-      "ui:fullWidth": true,
-      "ui:fieldCss": fullWidthCss,
-      "ui:arrayItemCSS": arrayItemCSS,
-    },
-  },
-};
-
 const subnets = {
   schema: {
     type: "array" as const,
