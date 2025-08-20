@@ -22,8 +22,11 @@ export const OtherTab: React.FC<TabProps> = ({ otherData }) => {
   const formSchema = useMemo(() => {
     const projects =
       viewableProjectsData?.viewableProjectRefs
-        ?.flatMap((group) => group.projects || [])
-        .filter(Boolean) ?? [];
+        ?.flatMap((group) => group.projects)
+        ?.map((p) => ({
+          id: p.id,
+          displayName: p.displayName,
+        })) ?? [];
     const repos =
       viewableProjectsData?.viewableProjectRefs
         ?.filter((group) => group.repo != null)
@@ -32,10 +35,7 @@ export const OtherTab: React.FC<TabProps> = ({ otherData }) => {
           displayName: group.groupDisplayName || group.repo!.id,
         })) ?? [];
     return getFormSchema({
-      projectRefs: projects.map((p) => ({
-        id: p.id,
-        displayName: p.displayName,
-      })),
+      projectRefs: projects,
       repoRefs: repos,
     });
   }, [viewableProjectsData]);

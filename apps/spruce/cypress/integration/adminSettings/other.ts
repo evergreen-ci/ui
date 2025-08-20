@@ -188,7 +188,7 @@ describe("other", () => {
     const jiraNotifications = "jira-notifications";
     cy.dataCy(jiraNotifications).as("jiraNotifications");
     cy.get("@jiraNotifications").within(() => {
-      cy.contains("Add New Jira Project").click();
+      cy.contains("Add new Jira project").click();
     });
 
     cy.get("@jiraNotifications")

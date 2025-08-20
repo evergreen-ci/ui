@@ -37,17 +37,6 @@ export const miscSettings = {
       type: "string" as const,
       title: "Log Path",
     },
-
-    perfMonitoringKanopyURL: {
-      type: "string" as const,
-      title: "Performance Monitoring Kanopy URL",
-      format: "validURL",
-    },
-    perfMonitoringURL: {
-      type: "string" as const,
-      title: "Performance Monitoring URL",
-      format: "validURL",
-    },
     githubOrgs: {
       type: "array" as const,
       title: "GitHub Organizations",
@@ -108,14 +97,16 @@ export const getSingleTaskDistroSchema = ({
   projectRefs?: Array<{ id: string; displayName: string }>;
   repoRefs?: Array<{ id: string; displayName: string }>;
 }) => {
-  const allOptions = [
+  const projectRepoOptions = [
     ...projectRefs.map((p) => ({
-      value: p.id,
-      label: `${p.displayName} (Project)`,
+      type: "string" as const,
+      title: `${p.displayName} (Project)`,
+      enum: [p.id],
     })),
     ...repoRefs.map((r) => ({
-      value: r.id,
-      label: `${r.displayName} (Repository)`,
+      type: "string" as const,
+      title: `${r.displayName} (Repository)`,
+      enum: [r.id],
     })),
   ];
 
@@ -130,8 +121,8 @@ export const getSingleTaskDistroSchema = ({
             projectId: {
               type: "string" as const,
               title: "Project ID / Repo",
-              enum: allOptions.map((o) => o.value),
-              enumNames: allOptions.map((o) => o.label),
+              oneOf: projectRepoOptions,
+              default: "",
             },
             allowedTasks: {
               type: "array" as const,
@@ -159,11 +150,13 @@ export const getSingleTaskDistroSchema = ({
         "ui:addButtonText": "Add project tasks pair",
         "ui:data-cy": "project-tasks-pairs-list",
         "ui:orderable": false,
-        "ui:allowDeselect": false,
         "ui:fullWidth": true,
         "ui:fieldCss": fullWidthCss,
         "ui:arrayItemCSS": arrayItemCSS,
         items: {
+          projectId: {
+            "ui:allowDeselect": false,
+          },
           allowedTasks: {
             "ui:widget": widgets.ChipInputWidget,
           },
@@ -316,6 +309,11 @@ export const expansions = {
       "ui:fullWidth": true,
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:arrayItemCSS": arrayItemCSS,
+      items: {
+        value: {
+          "ui:widget": "textarea",
+        },
+      },
     },
   },
 };
@@ -403,7 +401,7 @@ export const jiraNotificationsFields = {
     "ui:data-cy": "jira-notifications",
     "ui:objectFieldCss": objectGridCss,
     customFields: {
-      "ui:addButtonText": "Add New Jira Project",
+      "ui:addButtonText": "Add new Jira project",
       "ui:data-cy": "jira-custom-fields-list",
       "ui:orderable": false,
       "ui:fullWidth": true,
@@ -411,7 +409,7 @@ export const jiraNotificationsFields = {
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
         fields: {
-          "ui:addButtonText": "Add Field",
+          "ui:addButtonText": "Add custom field",
           "ui:data-cy": "jira-fields-list",
           "ui:orderable": false,
           "ui:fullWidth": true,

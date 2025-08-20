@@ -7,8 +7,6 @@ export interface OtherFormState {
       githubPRCreatorOrg: string;
       githubWebhookSecret: string;
       logPath: string;
-      perfMonitoringKanopyURL: string;
-      perfMonitoringURL: string;
       pprofPort: string;
       shutdownWaitSeconds: number;
       releaseMode: {

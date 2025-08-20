@@ -13,7 +13,7 @@ const convertExpansionsToGql = (
 
   const expansionsObj: { [key: string]: string } = {};
   expansionValues.forEach((item) => {
-    if (item?.key && item?.value) {
+    if (item.key && item.value) {
       expansionsObj[item.key.trim()] = item.value.trim();
     }
   });
@@ -35,8 +35,6 @@ export const gqlToForm = ((data) => {
     hostJasper,
     jiraNotifications,
     logPath,
-    perfMonitoringKanopyURL,
-    perfMonitoringURL,
     pprofPort,
     projectCreation,
     releaseMode,
@@ -57,8 +55,6 @@ export const gqlToForm = ((data) => {
         githubPRCreatorOrg: githubPRCreatorOrg ?? "",
         githubWebhookSecret: githubWebhookSecret ?? "",
         logPath: logPath ?? "",
-        perfMonitoringKanopyURL: perfMonitoringKanopyURL ?? "",
-        perfMonitoringURL: perfMonitoringURL ?? "",
         pprofPort: pprofPort ?? "",
         shutdownWaitSeconds: shutdownWaitSeconds ?? 0,
         releaseMode: {
@@ -210,8 +206,6 @@ export const formToGql = ((form: OtherFormState) => {
     githubPRCreatorOrg: miscSettings.githubPRCreatorOrg || undefined,
     githubWebhookSecret: miscSettings.githubWebhookSecret || undefined,
     logPath: miscSettings.logPath || undefined,
-    perfMonitoringKanopyURL: miscSettings.perfMonitoringKanopyURL || undefined,
-    perfMonitoringURL: miscSettings.perfMonitoringURL || undefined,
     pprofPort: miscSettings.pprofPort || undefined,
     shutdownWaitSeconds: miscSettings.shutdownWaitSeconds || undefined,
 
@@ -242,7 +236,7 @@ export const formToGql = ((form: OtherFormState) => {
         name: bucketConfig.logBucket.logBucketLongRetentionName || undefined,
       },
       longRetentionProjects:
-        bucketConfig.logBucket.longRetentionProjects?.length > 0
+        bucketConfig.logBucket.longRetentionProjects.length > 0
           ? bucketConfig.logBucket.longRetentionProjects
           : undefined,
       testResultsBucket: {
@@ -271,7 +265,7 @@ export const formToGql = ((form: OtherFormState) => {
 
     kanopySSHKeyPath: kanopySSHKeyPath || undefined,
 
-    expansions: convertExpansionsToGql(expansions?.expansionValues || []),
+    expansions: convertExpansionsToGql(expansions.expansionValues),
 
     hostJasper: {
       binaryName: hostJasper.binaryName || undefined,
@@ -282,15 +276,14 @@ export const formToGql = ((form: OtherFormState) => {
     },
 
     jiraNotifications: {
-      customFields: (jiraNotificationsFields?.customFields || [])
-        .filter((field) => field?.project)
+      customFields: jiraNotificationsFields.customFields
+        .filter((field) => field.project)
         .map((field) => {
           const fieldsObj: { [key: string]: string } = {};
-
           // Safely handle fields array
           if (Array.isArray(field.fields)) {
             field.fields.forEach((item) => {
-              if (item?.key && item?.value) {
+              if (item.key && item.value) {
                 fieldsObj[item.key.trim()] = item.value.trim();
               }
             });
