@@ -17,3 +17,5 @@ const isLineInRange = (
 };
 
 export { isLineInRange };
+
+export const fakeConstant = "hello";
