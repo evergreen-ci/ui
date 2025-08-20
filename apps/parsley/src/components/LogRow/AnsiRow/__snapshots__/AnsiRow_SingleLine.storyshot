@@ -43,7 +43,7 @@
       data-cy="line-index-0"
       title="Use shift+click to select multiple lines"
     />
-    <pre
+    <div
       class="emotion-StyledPre e11863j11"
     >
       <span
@@ -51,6 +51,6 @@
       >
         [2022/08/30 14:53:58.774] [grip] 2022/08/30 14:53:17 [p=debug]: [commit='536cdcab21b907c87cd14751ad523ad1d8f23d07' operation='github api query' query='536cdcab21b907c87cd14751ad523ad1d8f23d07' repo='evergreen-ci/evergreen' size='-1' status='200 OK']
       </span>
-    </pre>
+    </div>
   </div>
 </div>
