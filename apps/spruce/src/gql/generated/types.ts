@@ -190,10 +190,8 @@ export type AdminSettings = {
   podLifecycle?: Maybe<PodLifecycleConfig>;
   pprofPort?: Maybe<Scalars["String"]["output"]>;
   projectCreation?: Maybe<ProjectCreationConfig>;
-  projectRefs?: Maybe<Array<ProjectRefData>>;
   providers?: Maybe<CloudProviderConfig>;
   releaseMode?: Maybe<ReleaseModeConfig>;
-  repoRefs?: Maybe<Array<RepoRefData>>;
   repotracker?: Maybe<RepotrackerConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
   scheduler?: Maybe<SchedulerConfig>;
@@ -2933,12 +2931,6 @@ export type ProjectPermissionsOptions = {
   projectIdentifier: Scalars["String"]["input"];
 };
 
-export type ProjectRefData = {
-  __typename?: "ProjectRefData";
-  displayName: Scalars["String"]["output"];
-  id: Scalars["String"]["output"];
-};
-
 /** ProjectSettings models the settings for a given Project. */
 export type ProjectSettings = {
   __typename?: "ProjectSettings";
@@ -3324,12 +3316,6 @@ export type RepoRef = {
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
   workstationConfig: RepoWorkstationConfig;
-};
-
-export type RepoRefData = {
-  __typename?: "RepoRefData";
-  displayName: Scalars["String"]["output"];
-  id: Scalars["String"]["output"];
 };
 
 export type RepoRefInput = {
