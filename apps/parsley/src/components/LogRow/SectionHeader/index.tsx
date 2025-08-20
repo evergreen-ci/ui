@@ -47,7 +47,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         open={open}
       />
       <SectionStatusIcon status={status} />
-      <Body>Changed Text: {functionName}</Body>
+      <Body>Function: {functionName}</Body>
       <ButtonWrapper>
         <SubsectionControls
           functionID={functionID}
