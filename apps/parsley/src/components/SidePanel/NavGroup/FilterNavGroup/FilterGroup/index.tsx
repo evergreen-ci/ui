@@ -122,7 +122,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
               }}
               title="Edit filter"
             >
-              <Icon fill={gray.base} glyph="Refresh" />
+              <Icon fill={gray.base} glyph="Edit" />
             </IconButton>
             <IconButton
               aria-label="Delete filter"

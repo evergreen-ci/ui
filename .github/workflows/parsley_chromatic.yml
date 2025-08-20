@@ -40,5 +40,6 @@ jobs:
           workingDir: apps/parsley
           buildScriptName: storybook:build
           autoAcceptChanges: "main"
+          onlyChanged: true
           projectToken: ${{ secrets.CHROMATIC_PARSLEY_TOKEN }} 
 
