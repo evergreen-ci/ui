@@ -40,7 +40,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
         });
         setCollapsed(collapse);
       }}
-      widthOverride={290}
+      widthOverride={275}
     >
       <PaddedContainer>
         <FilterNavGroup clearExpandedLines={clearExpandedLines} />
