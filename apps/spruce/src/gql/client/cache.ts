@@ -9,7 +9,7 @@ export const cache = new InMemoryCache({
     Query: {
       fields: {
         adminEvents: {
-          keyArgs: [],
+          keyArgs: false,
         },
         distroEvents: {
           keyArgs: ["$distroId"],

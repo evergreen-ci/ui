@@ -1,3 +1,4 @@
+import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import EventLog from "components/Settings/EventLog";
 import { Event } from "components/Settings/EventLog/types";
 import { ADMIN_EVENT_LIMIT, useAdminEvents } from "./useAdminEvents";
@@ -15,7 +16,7 @@ export const EventLogsTab: React.FC = () => {
   }));
 
   if (loading && transformedEvents.length === 0) {
-    return <div>Loading admin event logs...</div>;
+    return <Skeleton />;
   }
 
   return (

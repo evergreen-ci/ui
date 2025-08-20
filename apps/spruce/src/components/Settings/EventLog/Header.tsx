@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { palette } from "@leafygreen-ui/palette";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useDateFormat } from "hooks";
@@ -35,6 +36,6 @@ const UserSection = styled.div`
 
 const SectionLabel = styled.span`
   font-size: 12px;
-  color: #6b7280;
+  color: ${palette.gray.dark1};
   font-style: italic;
 `;
