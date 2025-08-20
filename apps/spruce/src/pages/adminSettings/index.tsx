@@ -1,6 +1,8 @@
 import { useQuery } from "@apollo/client";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+import Icon from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
   SideNav,
@@ -19,6 +21,7 @@ import {
 } from "gql/generated/types";
 import { ADMIN_SETTINGS } from "gql/queries";
 import { AdminSettingsProvider } from "./Context";
+import { getTabTitle } from "./getTabTitle";
 import { AdminSettingsTabs } from "./Tabs";
 
 const AdminSettingsPage: React.FC = () => {
@@ -33,8 +36,8 @@ const AdminSettingsPage: React.FC = () => {
           <ButtonsContainer>{}</ButtonsContainer>
           <SideNavGroup
             collapsible
-            glyph={null}
-            header="General"
+            glyph={<Icon glyph="Settings" />}
+            header={getTabTitle(AdminSettingsTabRoutes.General).title}
             initialCollapsed={false}
           >
             <SideNavGroup header="Announcements">
@@ -404,16 +407,10 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>
-          <SideNavGroup glyph={null} header="Event Logs">
-            <SideNavItem
-              as={Link}
-              data-cy="navitem-admin-event-logs"
-              to={getAdminSettingsRoute(AdminSettingsTabRoutes.EventLog)}
-            >
-              Event Logs
-            </SideNavItem>
-          </SideNavGroup>
-          <SideNavGroup glyph={null} header="Restart Tasks">
+          <SideNavGroup
+            glyph={<Icon glyph="Refresh" />}
+            header={getTabTitle(AdminSettingsTabRoutes.RestartTasks).title}
+          >
             <SideNavItem
               as={Link}
               data-cy="navitem-admin-restart-tasks"
@@ -422,8 +419,25 @@ const AdminSettingsPage: React.FC = () => {
               Restart Tasks
             </SideNavItem>
           </SideNavGroup>
+          <SideNavGroup
+            glyph={<Icon glyph="List" />}
+            header={getTabTitle(AdminSettingsTabRoutes.EventLog).title}
+          >
+            <SideNavItem
+              as={Link}
+              data-cy="navitem-admin-event-logs"
+              to={getAdminSettingsRoute(AdminSettingsTabRoutes.EventLog)}
+            >
+              Event Logs
+            </SideNavItem>
+          </SideNavGroup>
         </SideNav>
-        <SideNavPageContent data-cy="admin-settings-page">
+        <SideNavPageContent
+          css={css`
+            padding-top: 0;
+          `}
+          data-cy="admin-settings-page"
+        >
           {data?.adminSettings && (
             <AdminSettingsTabs data={data.adminSettings} />
           )}

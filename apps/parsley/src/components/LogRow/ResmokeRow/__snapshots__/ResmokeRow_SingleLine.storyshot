@@ -43,7 +43,7 @@
       data-cy="line-index-8"
       title="Use shift+click to select multiple lines"
     />
-    <pre
+    <div
       class="emotion-StyledPre e11863j11"
     >
       <span
@@ -52,6 +52,6 @@
       >
         [j0:s0:n0] | 2022-09-21T12:50:19.923+00:00 D2 REPL_HB  24095   [conn32] "Received heartbeat request","attr":{"from":"localhost:20005","cmdObj":{"replSetHeartbeat":"shard-rs0","configVersion":5,"configTerm":1,"hbv":1,"from":"localhost:20005","fromId":2,"term":1,"primaryId":0,"maxTimeMSOpOnly":10000,"$replData":1,"$clusterTime":{"clusterTime":{"$timestamp":{"t":1663764619,"i":24}},"signature":{"hash":{"$binary":{"base64":"vGCk1d5olY4L+VYegDslPFKywsU=","subType":"0"}},"keyId":7145814532357619736}},"$configTime":{"$timestamp":{"t":1663764618,"i":38}},"$topologyTime":{"$timestamp":{"t":1663764618,"i":6}},"$db":"admin"}}
       </span>
-    </pre>
+    </div>
   </div>
 </div>
