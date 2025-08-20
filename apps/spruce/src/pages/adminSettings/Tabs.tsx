@@ -18,7 +18,6 @@ interface Props {
 
 export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
   const { setInitialData } = useAdminSettingsContext();
-
   const tabData = useMemo(() => getTabData(data), [data]);
   useEffect(() => {
     setInitialData(tabData);

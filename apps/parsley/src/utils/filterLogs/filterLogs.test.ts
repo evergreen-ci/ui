@@ -239,6 +239,7 @@ describe("filterLogs", () => {
         },
         8,
         {
+          commandDescription: undefined,
           commandID: "command-9",
           commandName: "c3",
           functionID: "function-9",
@@ -401,6 +402,7 @@ describe("filterLogs", () => {
   const sectionDataForLogsWithTopLevelCommands: SectionData = {
     commands: [
       {
+        commandDescription: undefined,
         commandID: "command-1",
         commandName: "c1",
         functionID: "function-1",
@@ -412,6 +414,7 @@ describe("filterLogs", () => {
         step: "1 of 4",
       },
       {
+        commandDescription: undefined,
         commandID: "command-6",
         commandName: "c2",
         functionID: "function-1",
@@ -423,6 +426,7 @@ describe("filterLogs", () => {
         step: "1 of 4",
       },
       {
+        commandDescription: undefined,
         commandID: "command-9",
         commandName: "c3",
         functionID: "function-9",
@@ -434,6 +438,7 @@ describe("filterLogs", () => {
         step: "1 of 4",
       },
       {
+        commandDescription: undefined,
         commandID: "command-12",
         commandName: "c4",
         functionID: "function-12",
@@ -479,6 +484,7 @@ describe("filterLogs", () => {
   const sectionData: SectionData = {
     commands: [
       {
+        commandDescription: undefined,
         commandID: "command-1",
         commandName: "c1",
         functionID: "function-1",
@@ -490,6 +496,7 @@ describe("filterLogs", () => {
         step,
       },
       {
+        commandDescription: undefined,
         commandID: "command-6",
         commandName: "c2",
         functionID: "function-1",
@@ -501,6 +508,7 @@ describe("filterLogs", () => {
         step,
       },
       {
+        commandDescription: undefined,
         commandID: "command-9",
         commandName: "c3",
         functionID: "function-9",
@@ -512,6 +520,7 @@ describe("filterLogs", () => {
         step,
       },
       {
+        commandDescription: undefined,
         commandID: "command-12",
         commandName: "c4",
         functionID: "function-9",
@@ -558,6 +567,7 @@ describe("filterLogs", () => {
       rowType: RowType.SectionHeader,
     },
     {
+      commandDescription: undefined,
       commandID: "command-1",
       commandName: "c1",
       functionID: "function-1",
@@ -576,6 +586,7 @@ describe("filterLogs", () => {
     4,
     5,
     {
+      commandDescription: undefined,
       commandID: "command-6",
       commandName: "c2",
       functionID: "function-1",
@@ -602,6 +613,7 @@ describe("filterLogs", () => {
       rowType: RowType.SectionHeader,
     },
     {
+      commandDescription: undefined,
       commandID: "command-9",
       commandName: "c3",
       functionID: "function-9",
@@ -618,6 +630,7 @@ describe("filterLogs", () => {
     10,
     11,
     {
+      commandDescription: undefined,
       commandID: "command-12",
       commandName: "c4",
       functionID: "function-9",
@@ -661,6 +674,7 @@ describe("filterLogs", () => {
       rowType: RowType.SectionHeader,
     },
     {
+      commandDescription: undefined,
       commandID: "command-9",
       commandName: "c3",
       functionID: "function-9",
@@ -674,6 +688,7 @@ describe("filterLogs", () => {
       step,
     },
     {
+      commandDescription: undefined,
       commandID: "command-12",
       commandName: "c4",
       functionID: "function-9",
