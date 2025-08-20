@@ -29,7 +29,7 @@ describe("admin event log page", async () => {
     const { Component } = RenderFakeToastContext(<EventLogsTab />);
     render(<Component />, { wrapper: loadingWrapper });
 
-    expect(document.querySelector(".leafygreen-ui-jv9p3c")).toBeInTheDocument();
+    expect(screen.getByDataCy("admin-events-skeleton")).toBeInTheDocument();
   });
 
   it("does not show a load more button when all events are shown", async () => {
