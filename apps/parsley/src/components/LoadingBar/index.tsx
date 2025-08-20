@@ -40,7 +40,7 @@ const Bar = styled.div<{ progress: number; indeterminate: boolean }>`
     border-bottom-right-radius: ${size.xxs};
     `}
   height: 6px;
-  background-color: ${green.base};
+  background-color: ${green.dark1};
   ${({ indeterminate, progress }) =>
     indeterminate
       ? indeterminateAnimation
