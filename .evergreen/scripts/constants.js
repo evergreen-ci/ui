@@ -47,6 +47,7 @@ const TASK_MAPPING = {
 
 const APPS_DIR = "apps";
 const PACKAGES_DIR = "packages";
+const PACKAGE_JSON = "package.json";
 
 const MARKDOWN_EXT = ".md";
 
@@ -58,6 +59,7 @@ export {
   Tasks,
   APPS_DIR,
   PACKAGES_DIR,
+  PACKAGE_JSON,
   IGNORED_FILE_EXTENSIONS,
   PARALLEL_COUNT,
   TASK_MAPPING,
