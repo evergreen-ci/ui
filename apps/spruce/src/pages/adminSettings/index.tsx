@@ -1,6 +1,8 @@
 import { useQuery } from "@apollo/client";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+import Icon from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
   SideNav,
@@ -19,6 +21,7 @@ import {
 } from "gql/generated/types";
 import { ADMIN_SETTINGS } from "gql/queries";
 import { AdminSettingsProvider } from "./Context";
+import { getTabTitle } from "./getTabTitle";
 import { AdminSettingsTabs } from "./Tabs";
 
 const AdminSettingsPage: React.FC = () => {
@@ -33,8 +36,8 @@ const AdminSettingsPage: React.FC = () => {
           <ButtonsContainer>{}</ButtonsContainer>
           <SideNavGroup
             collapsible
-            glyph={null}
-            header="General"
+            glyph={<Icon glyph="Settings" />}
+            header={getTabTitle(AdminSettingsTabRoutes.General).title}
             initialCollapsed={false}
           >
             <SideNavGroup header="Announcements">
@@ -403,8 +406,133 @@ const AdminSettingsPage: React.FC = () => {
                 Repo Exceptions
               </SideNavItem>
             </SideNavGroup>
+            <SideNavGroup header="Other">
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-misc-settings"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "misc-settings",
+                )}
+              >
+                Misc Settings
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-single-task-host-configuration"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "single-task-distro-configuration",
+                )}
+              >
+                Single Task Distro Configuration
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-bucket-config"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "bucket-config",
+                )}
+              >
+                Bucket Config
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-ssh-keys"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "ssh-keys",
+                )}
+              >
+                SSH Keys
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-expansions"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "expansions",
+                )}
+              >
+                Expansions
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-host-jasper"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "host-jasper",
+                )}
+              >
+                Host Jasper
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-jira-notifications"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "jira-notifications",
+                )}
+              >
+                Jira Notifications
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-spawn-host"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "spawn-host",
+                )}
+              >
+                Spawn Host
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-sleep-schedule"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "sleep-schedule",
+                )}
+              >
+                Sleep Schedule
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-tracer-config"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "tracer-config",
+                )}
+              >
+                Tracer Config
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-project-creation"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "project-creation",
+                )}
+              >
+                Project Creation
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-github-check-run-config"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "github-check-run-config",
+                )}
+              >
+                GitHub Check Run Config
+              </SideNavItem>
+            </SideNavGroup>
           </SideNavGroup>
-          <SideNavGroup glyph={null} header="Restart Tasks">
+          <SideNavGroup
+            glyph={<Icon glyph="Refresh" />}
+            header={getTabTitle(AdminSettingsTabRoutes.RestartTasks).title}
+          >
             <SideNavItem
               as={Link}
               data-cy="navitem-admin-restart-tasks"
@@ -413,17 +541,19 @@ const AdminSettingsPage: React.FC = () => {
               Restart Tasks
             </SideNavItem>
           </SideNavGroup>
-          <SideNavGroup glyph={null} header="Event Log">
-            <SideNavItem
-              as={Link}
-              data-cy="navitem-admin-event-logs"
-              to={getAdminSettingsRoute(AdminSettingsTabRoutes.EventLog)}
-            >
-              Event Logs
-            </SideNavItem>
+          <SideNavGroup
+            glyph={<Icon glyph="List" />}
+            header={getTabTitle(AdminSettingsTabRoutes.EventLog).title}
+          >
+            {}
           </SideNavGroup>
         </SideNav>
-        <SideNavPageContent data-cy="admin-settings-page">
+        <SideNavPageContent
+          css={css`
+            padding-top: 0;
+          `}
+          data-cy="admin-settings-page"
+        >
           {data?.adminSettings && (
             <AdminSettingsTabs data={data.adminSettings} />
           )}

@@ -43,7 +43,7 @@ export const whatChanged = () => {
  * @param {string} directory - The directory to check for changes
  * @returns {boolean} True if there are changes in the specified directory
  */
-export const hasChangesInDirectory = (directory) => {
+export const hasChangesInDirectoryOrFile = (directoryOrFile) => {
   const changes = whatChanged();
-  return changes.some(file => file.startsWith(directory));
+  return changes.some(file => file.startsWith(directoryOrFile));
 }; 
