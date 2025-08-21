@@ -482,6 +482,8 @@ export type BucketsConfig = {
   credentials?: Maybe<S3Credentials>;
   internalBuckets?: Maybe<Array<Scalars["String"]["output"]>>;
   logBucket?: Maybe<BucketConfig>;
+  logBucketLongRetention?: Maybe<BucketConfig>;
+  longRetentionProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -489,6 +491,8 @@ export type BucketsConfigInput = {
   credentials?: InputMaybe<S3CredentialsInput>;
   internalBuckets?: InputMaybe<Array<Scalars["String"]["input"]>>;
   logBucket?: InputMaybe<BucketConfigInput>;
+  logBucketLongRetention?: InputMaybe<BucketConfigInput>;
+  longRetentionProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -2724,7 +2728,6 @@ export type Project = {
   githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
-  githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   hidden?: Maybe<Scalars["Boolean"]["output"]>;
   id: Scalars["String"]["output"];
   identifier: Scalars["String"]["output"];
@@ -2881,7 +2884,6 @@ export type ProjectInput = {
   githubMQTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPRTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
-  githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   identifier?: InputMaybe<Scalars["String"]["input"]>;
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3288,7 +3290,6 @@ export type RepoRef = {
   githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
-  githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
   notifyOnBuildFailure: Scalars["Boolean"]["output"];
@@ -3336,7 +3337,6 @@ export type RepoRefInput = {
   githubMQTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPRTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
-  githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
