@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { PriorityLevel } from "gql/generated/types";
@@ -70,7 +71,7 @@ export const slack = {
     },
     fieldsSet: {
       type: "array" as const,
-      title: "Fields Set",
+      title: "Fields To Set",
       default: [],
       items: {
         type: "string" as const,
@@ -109,7 +110,22 @@ export const slack = {
     },
     fieldsSet: {
       "ui:widget": widgets.ChipInputWidget,
+      "ui:description":
+        "If you specify a list of field names here, only those fields will be attached to the message. Note that this behavior does not apply if all fields is checked below.",
       "ui:fieldCss": fullWidthCss,
+      "ui:elementWrapperCSS": css`
+        margin-bottom: 0;
+      `,
+    },
+    basicMetadata: {
+      "ui:description": "Appends priority and host information to the message.",
+    },
+    fields: {
+      "ui:description": "Appends field information to the message.",
+    },
+    allFields: {
+      "ui:description":
+        "Appends all field information to the message, overriding fields to set.",
     },
   },
 };
@@ -191,8 +207,10 @@ export const testSelection = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:objectFieldCss": objectGridCss,
     "ui:data-cy": "test-selection",
+    url: {
+      "ui:fullWidth": true,
+    },
   },
 };
 
@@ -205,8 +223,10 @@ export const fws = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:objectFieldCss": objectGridCss,
     "ui:data-cy": "fws",
+    url: {
+      "ui:fullWidth": true,
+    },
   },
 };
 

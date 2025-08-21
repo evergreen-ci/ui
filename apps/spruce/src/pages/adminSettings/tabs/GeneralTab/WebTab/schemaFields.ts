@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import widgets from "components/SpruceForm/Widgets";
 import { fullWidthCss, radioCSS } from "../../sharedStyles";
 
@@ -92,6 +93,10 @@ export const ui = {
       title: "User Voice URL",
       format: "validURL",
     },
+    cacheTemplates: {
+      type: "boolean" as const,
+      title: "Cache Templates",
+    },
   },
   uiSchema: {
     fileStreamingContentTypes: {
@@ -101,6 +106,9 @@ export const ui = {
     corsOrigins: {
       "ui:fieldCss": fullWidthCss,
       "ui:widget": widgets.ChipInputWidget,
+    },
+    cacheTemplates: {
+      "ui:description": "Cache HTML templates on the legacy UI.",
     },
   },
 };
@@ -143,6 +151,9 @@ export const disabledGQLQueries = {
   uiSchema: {
     queryNames: {
       "ui:widget": widgets.ChipInputWidget,
+      "ui:elementWrapperCSS": css`
+        margin-bottom: 0;
+      `,
     },
   },
 };

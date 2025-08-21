@@ -13,7 +13,7 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   rawErrors,
   value,
 }) => {
-  const { "data-cy": dataCy, elementWrapperCSS, enumOptions } = options;
+  const { "data-cy": dataCy, elementWrapperCSS, enumOptions = [] } = options;
 
   const dropdownOptions = [
     {

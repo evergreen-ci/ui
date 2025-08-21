@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { PreferredAuthType } from "gql/generated/types";
@@ -105,6 +106,9 @@ export const okta = {
     scopes: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+      "ui:elementWrapperCSS": css`
+        margin-bottom: 0;
+      `,
     },
   },
 };
@@ -188,34 +192,65 @@ export const github = {
     users: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+      "ui:elementWrapperCSS": css`
+        margin-bottom: 0;
+      `,
     },
   },
 };
+
+const validMultiOptions = [
+  PreferredAuthType.Github,
+  PreferredAuthType.Okta,
+  PreferredAuthType.Naive,
+];
+
+const multiOptions = [
+  ...validMultiOptions.map((key) => ({
+    type: "string" as const,
+    title: toSentenceCase(key),
+    enum: [key.toLowerCase()],
+  })),
+  {
+    type: "string" as const,
+    title: "Service Users",
+    enum: ["allow_service_users"],
+  },
+  {
+    type: "string" as const,
+    title: "Only API",
+    enum: ["only_api"],
+  },
+];
 
 export const multi = {
   schema: {
     readWrite: {
       type: "array" as const,
       title: "Read Write",
+      uniqueItems: true,
       items: {
         type: "string" as const,
+        anyOf: multiOptions,
       },
     },
     readOnly: {
       type: "array" as const,
       title: "Read Only",
+      uniqueItems: true,
       items: {
         type: "string" as const,
+        anyOf: multiOptions,
       },
     },
   },
   uiSchema: {
     readWrite: {
-      "ui:widget": widgets.ChipInputWidget,
+      "ui:widget": widgets.MultiSelectWidget,
       "ui:fieldCss": fullWidthCss,
     },
     readOnly: {
-      "ui:widget": widgets.ChipInputWidget,
+      "ui:widget": widgets.MultiSelectWidget,
       "ui:fieldCss": fullWidthCss,
     },
   },

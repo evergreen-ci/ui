@@ -8,7 +8,12 @@ import {
   EcsWindowsVersion,
   EcsArchitecture,
 } from "gql/generated/types";
-import { gridWrapCss, fullWidthCss, objectGridCss } from "../../sharedStyles";
+import {
+  gridWrapCss,
+  fullWidthCss,
+  objectGridCss,
+  nestedObjectGridCss,
+} from "../../sharedStyles";
 
 const { gray } = palette;
 
@@ -112,6 +117,19 @@ const accountRoles = {
   },
 };
 
+const osOptions = [
+  {
+    type: "string" as const,
+    title: "Linux",
+    enum: [EcsOperatingSystem.EcsosLinux],
+  },
+  {
+    type: "string" as const,
+    title: "Windows",
+    enum: [EcsOperatingSystem.EcsosWindows],
+  },
+];
+
 const clusters = {
   schema: {
     type: "array" as const,
@@ -129,7 +147,7 @@ const clusters = {
           type: "string" as const,
           title: "OS",
           default: EcsOperatingSystem.EcsosLinux,
-          enum: Object.values(EcsOperatingSystem),
+          oneOf: osOptions,
         },
       },
       required: ["name", "os"],
@@ -143,8 +161,44 @@ const clusters = {
     "ui:fullWidth": true,
     "ui:fieldCss": fullWidthCss,
     "ui:arrayItemCSS": arrayItemCSS,
+    items: {
+      os: {
+        "ui:allowDeselect": false,
+      },
+    },
   },
 };
+
+const archOptions = [
+  {
+    type: "string" as const,
+    title: "amd64",
+    enum: [EcsArchitecture.EcsArchAmd64],
+  },
+  {
+    type: "string" as const,
+    title: "arm64",
+    enum: [EcsArchitecture.EcsArchArm64],
+  },
+];
+
+const windowsOptions = [
+  {
+    type: "string" as const,
+    title: "Server 2016",
+    enum: [EcsWindowsVersion.EcsWindowsServer_2016],
+  },
+  {
+    type: "string" as const,
+    title: "Server 2019",
+    enum: [EcsWindowsVersion.EcsWindowsServer_2019],
+  },
+  {
+    type: "string" as const,
+    title: "Server 2022",
+    enum: [EcsWindowsVersion.EcsWindowsServer_2022],
+  },
+];
 
 const capacityProviders = {
   schema: {
@@ -162,20 +216,37 @@ const capacityProviders = {
         arch: {
           type: "string" as const,
           title: "Architecture",
-          enum: Object.values(EcsArchitecture),
-          default: [EcsArchitecture.EcsArchAmd64],
+          default: EcsArchitecture.EcsArchAmd64,
+          oneOf: archOptions,
         },
         os: {
           type: "string" as const,
           title: "OS",
           default: EcsOperatingSystem.EcsosLinux,
-          enum: Object.values(EcsOperatingSystem),
+          oneOf: osOptions,
         },
-        windowsVersion: {
-          type: "string" as const,
-          title: "Windows Version",
-          default: "",
-          enum: Object.values(EcsWindowsVersion),
+      },
+      dependencies: {
+        os: {
+          oneOf: [
+            {
+              properties: {
+                // Windows version is only required if OS is Windows.
+                os: { enum: [EcsOperatingSystem.EcsosWindows] },
+                windowsVersion: {
+                  type: "string" as const,
+                  title: "Windows Version",
+                  oneOf: windowsOptions,
+                  default: "",
+                },
+              },
+            },
+            {
+              properties: {
+                os: { enum: [EcsOperatingSystem.EcsosLinux] },
+              },
+            },
+          ],
         },
       },
       required: ["name"],
@@ -189,44 +260,16 @@ const capacityProviders = {
     "ui:fullWidth": true,
     "ui:fieldCss": fullWidthCss,
     "ui:arrayItemCSS": arrayItemCSS,
-  },
-};
-
-export const repoExceptions = {
-  schema: {
-    repos: {
-      type: "array" as const,
-      title: "Repository Exceptions",
-      items: {
-        type: "object" as const,
-        properties: {
-          owner: {
-            type: "string" as const,
-            title: "Owner",
-            default: "",
-          },
-          repo: {
-            type: "string" as const,
-            title: "Repository",
-            default: "",
-          },
-        },
-        required: ["owner", "repo"],
+    items: {
+      arch: {
+        "ui:allowDeselect": false,
       },
-      default: [],
-    },
-  },
-  uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:objectFieldCss": fullWidthCss,
-    "ui:data-cy": "repo-exceptions",
-    repos: {
-      "ui:addButtonText": "Add repository exception",
-      "ui:orderable": false,
-      "ui:data-cy": "repo-exceptions",
-      "ui:fullWidth": true,
-      "ui:fieldCss": fullWidthCss,
-      "ui:arrayItemCSS": arrayItemCSS,
+      os: {
+        "ui:allowDeselect": false,
+      },
+      windowsVersion: {
+        "ui:allowDeselect": false,
+      },
     },
   },
 };
@@ -291,6 +334,7 @@ const docker = {
 export const aws = {
   schema: {
     subnets: subnets.schema,
+    accountRoles: accountRoles.schema,
     ec2Key: {
       type: "string" as const,
       title: "EC2 Key",
@@ -301,46 +345,9 @@ export const aws = {
       title: "EC2 Secret",
       default: "",
     },
-
     parameterStorePrefix: {
       type: "string" as const,
       title: "Parameter Store Prefix",
-      default: "",
-    },
-
-    parserProjectS3Key: {
-      type: "string" as const,
-      title: "Parser Project S3 Key",
-      default: "",
-    },
-    parserProjectS3Secret: {
-      type: "string" as const,
-      title: "Parser Project S3 Secret",
-      default: "",
-    },
-    parserProjectS3Bucket: {
-      type: "string" as const,
-      title: "Parser Project S3 Bucket",
-      default: "",
-    },
-    parserProjectS3Prefix: {
-      type: "string" as const,
-      title: "Parser Project S3 Prefix",
-      default: "",
-    },
-    persistentDNSHostedZoneId: {
-      type: "string" as const,
-      title: "Persistent DNS Hosted Zone ID",
-      default: "",
-    },
-    persistentDNSDomainName: {
-      type: "string" as const,
-      title: "Persistent DNS Domain Name",
-      default: "",
-    },
-    generatedJsonFilesS3Prefix: {
-      type: "string" as const,
-      title: "Generated JSON Files S3 Prefix",
       default: "",
     },
     defaultSecurityGroup: {
@@ -348,7 +355,6 @@ export const aws = {
       title: "Default Security Group",
       default: "",
     },
-
     maxVolumeSizePerUser: {
       type: "number" as const,
       title: "Total EBS Volume Size Per User",
@@ -373,107 +379,6 @@ export const aws = {
       },
       default: [],
     },
-    allowedImages: {
-      type: "array" as const,
-      title: "Allowed Container Images",
-      items: {
-        type: "string" as const,
-        minLength: 1,
-      },
-      default: [],
-    },
-    maxCPU: {
-      type: "number" as const,
-      title: "Pod ECS Max CPU Units Per Pod",
-      default: 0,
-      minimum: 0,
-    },
-    maxMemoryMb: {
-      type: "number" as const,
-      title: "Pod ECS Max Memory (MB) Per Pod",
-      default: 0,
-      minimum: 0,
-    },
-    role: {
-      type: "string" as const,
-      title: "Pod Role",
-      default: "",
-    },
-    region: {
-      type: "string" as const,
-      title: "Pod Region",
-      default: "",
-    },
-
-    podSecretManager: {
-      type: "string" as const,
-      title: "Pod Secret Manager Secret Prefix",
-      default: "",
-    },
-    taskDefinitionPrefix: {
-      type: "string" as const,
-      title: "Pod Task Definition Prefix",
-      default: "",
-    },
-    taskRole: {
-      type: "string" as const,
-      title: "Pod ECS Task Role",
-      default: "",
-    },
-    executionRole: {
-      type: "string" as const,
-      title: "Pod ECS Execution Role",
-      default: "",
-    },
-    logRegion: {
-      type: "string" as const,
-      title: "Pod ECS Log Region",
-      default: "",
-    },
-    logGroup: {
-      type: "string" as const,
-      title: "Pod ECS Log Group",
-      default: "",
-    },
-    logStreamPrefix: {
-      type: "string" as const,
-      title: "Pod ECS Log Stream Prefix",
-      default: "",
-    },
-    accountRoles: accountRoles.schema,
-    awsVPCSubnets: {
-      type: "object" as const,
-      title: "POD ECS AWSVPC Subnets",
-      properties: {
-        subnets: {
-          type: "array" as const,
-          title: "Subnet IDs",
-          items: {
-            type: "string" as const,
-            minLength: 1,
-          },
-          default: [],
-        },
-      },
-    },
-    awsVPCSecurityGroups: {
-      type: "object" as const,
-      title: "POD ECS AWSVPC Security Groups",
-      properties: {
-        securityGroups: {
-          type: "array" as const,
-          title: "Security Group IDs",
-          items: {
-            type: "string" as const,
-            minLength: 1,
-          },
-          default: [],
-        },
-      },
-    },
-    clusters: clusters.schema,
-    capacityProviders: capacityProviders.schema,
-    docker: docker.schema,
     alertableInstanceTypes: {
       type: "array" as const,
       title: "Alertable Instance Types",
@@ -494,11 +399,164 @@ export const aws = {
       title: "IPAM Pool ID",
       default: "",
     },
+    persistentDNS: {
+      type: "object" as const,
+      title: "Persistent DNS",
+      properties: {
+        hostedZoneID: {
+          type: "string" as const,
+          title: "Persistent DNS Hosted Zone ID",
+          default: "",
+        },
+        domain: {
+          type: "string" as const,
+          title: "Persistent DNS Domain Name",
+          default: "",
+        },
+      },
+    },
+    parserProject: {
+      type: "object" as const,
+      title: "Parser Project Settings",
+      properties: {
+        key: {
+          type: "string" as const,
+          title: "Parser Project S3 Key",
+          default: "",
+        },
+        secret: {
+          type: "string" as const,
+          title: "Parser Project S3 Secret",
+          default: "",
+        },
+        bucket: {
+          type: "string" as const,
+          title: "Parser Project S3 Bucket",
+          default: "",
+        },
+        prefix: {
+          type: "string" as const,
+          title: "Parser Project S3 Prefix",
+          default: "",
+        },
+        generatedJSONPrefix: {
+          type: "string" as const,
+          title: "Generated JSON Files S3 Prefix",
+          default: "",
+        },
+      },
+    },
+    pod: {
+      type: "object" as const,
+      title: "Pod ECS Settings",
+      properties: {
+        maxCPU: {
+          type: "number" as const,
+          title: "Pod ECS Max CPU Units Per Pod",
+          default: 0,
+          minimum: 0,
+        },
+        maxMemoryMb: {
+          type: "number" as const,
+          title: "Pod ECS Max Memory (MB) Per Pod",
+          default: 0,
+          minimum: 0,
+        },
+        role: {
+          type: "string" as const,
+          title: "Pod Role",
+          default: "",
+        },
+        region: {
+          type: "string" as const,
+          title: "Pod Region",
+          default: "",
+        },
+        podSecretManager: {
+          type: "string" as const,
+          title: "Pod Secret Manager Secret Prefix",
+          default: "",
+        },
+        allowedImages: {
+          type: "array" as const,
+          title: "Allowed Container Images",
+          items: {
+            type: "string" as const,
+            minLength: 1,
+          },
+          default: [],
+        },
+        taskDefinitionPrefix: {
+          type: "string" as const,
+          title: "Pod Task Definition Prefix",
+          default: "",
+        },
+        taskRole: {
+          type: "string" as const,
+          title: "Pod ECS Task Role",
+          default: "",
+        },
+        executionRole: {
+          type: "string" as const,
+          title: "Pod ECS Execution Role",
+          default: "",
+        },
+        logRegion: {
+          type: "string" as const,
+          title: "Pod ECS Log Region",
+          default: "",
+        },
+        logGroup: {
+          type: "string" as const,
+          title: "Pod ECS Log Group",
+          default: "",
+        },
+        logStreamPrefix: {
+          type: "string" as const,
+          title: "Pod ECS Log Stream Prefix",
+          default: "",
+        },
+        awsVPCSubnets: {
+          type: "object" as const,
+          title: "Pod ECS AWS VPC Subnets",
+          properties: {
+            subnets: {
+              type: "array" as const,
+              title: "Subnet IDs",
+              items: {
+                type: "string" as const,
+                minLength: 1,
+              },
+              default: [],
+            },
+          },
+        },
+        awsVPCSecurityGroups: {
+          type: "object" as const,
+          title: "Pod ECS AWS VPC Security Groups",
+          properties: {
+            securityGroups: {
+              type: "array" as const,
+              title: "Security Group IDs",
+              items: {
+                type: "string" as const,
+                minLength: 1,
+              },
+              default: [],
+            },
+          },
+        },
+        clusters: clusters.schema,
+        capacityProviders: capacityProviders.schema,
+      },
+    },
+    docker: docker.schema,
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:objectFieldCss": objectGridCss,
     "ui:data-cy": "aws-configuration",
+    subnets: subnets.uiSchema,
     accountRoles: accountRoles.uiSchema,
     alertableInstanceTypes: {
       "ui:widget": widgets.ChipInputWidget,
@@ -509,24 +567,39 @@ export const aws = {
     allowedRegions: {
       "ui:widget": widgets.ChipInputWidget,
     },
-    allowedImages: {
-      "ui:widget": widgets.ChipInputWidget,
+    persistentDNS: {
+      "ui:fieldCss": nestedObjectGridCss,
     },
-    clusters: clusters.uiSchema,
-    capacityProviders: capacityProviders.uiSchema,
-    awsVPCSubnets: {
-      "ui:fieldCss": fullWidthCss,
-      subnets: {
+    parserProject: {
+      "ui:fieldCss": nestedObjectGridCss,
+    },
+    pod: {
+      "ui:fieldCss": nestedObjectGridCss,
+      allowedImages: {
         "ui:widget": widgets.ChipInputWidget,
       },
-    },
-    awsVPCSecurityGroups: {
-      "ui:fieldCss": fullWidthCss,
-      securityGroups: {
-        "ui:widget": widgets.ChipInputWidget,
+      awsVPCSubnets: {
+        "ui:fieldCss": fullWidthCss,
+        subnets: {
+          "ui:widget": widgets.ChipInputWidget,
+          "ui:elementWrapperCSS": css`
+            margin-bottom: 0;
+          `,
+        },
       },
+      awsVPCSecurityGroups: {
+        "ui:fieldCss": fullWidthCss,
+        securityGroups: {
+          "ui:widget": widgets.ChipInputWidget,
+          "ui:elementWrapperCSS": css`
+            margin-bottom: 0;
+          `,
+        },
+      },
+      clusters: clusters.uiSchema,
+      capacityProviders: capacityProviders.uiSchema,
     },
-    subnets: subnets.uiSchema,
+
     docker: docker.uiSchema,
   },
 };

@@ -20,64 +20,25 @@ export interface ProvidersFormState {
         az: string;
         subnetId: string;
       }>;
+      accountRoles: Array<{
+        account: string;
+        role: string;
+      }>;
       ec2Key: string;
       ec2Secret: string;
       parameterStorePrefix: string;
-      parserProjectS3Key: string;
-      parserProjectS3Secret: string;
-      parserProjectS3Bucket: string;
-      parserProjectS3Prefix: string;
-      persistentDNSHostedZoneId: string;
-      persistentDNSDomainName: string;
-      generatedJsonFilesS3Prefix: string;
       defaultSecurityGroup: string;
       maxVolumeSizePerUser: number;
       allowedInstanceTypes: string[];
       alertableInstanceTypes: string[];
       allowedRegions: string[];
-      allowedImages: string[];
-      maxCPU: number;
-      maxMemoryMb: number;
-      role: string;
-      region: string;
-      podSecretManager: string;
-      taskDefinitionPrefix: string;
-      taskRole: string;
-      executionRole: string;
-      logRegion: string;
-      logGroup: string;
-      logStreamPrefix: string;
-
-      accountRoles: Array<{
-        account: string;
-        role: string;
-      }>;
-
-      awsVPCSubnets: {
-        subnets: string[];
-      };
-      awsVPCSecurityGroups: {
-        securityGroups: string[];
-      };
-
-      clusters: Array<{
-        name: string;
-        os?: EcsOperatingSystem;
-      }>;
-
-      capacityProviders: Array<{
-        name: string;
-        arch?: EcsArchitecture;
-        os?: EcsOperatingSystem;
-        windowsVersion?: EcsWindowsVersion;
-      }>;
-
-      docker: {
-        apiVersion: string;
-      };
-
       ipamPoolID: string;
       elasticIPUsageRate: number;
+
+      persistentDNS: {
+        hostedZoneID: string;
+        domain: string;
+      };
 
       parserProject: {
         bucket: string;
@@ -86,12 +47,43 @@ export interface ProvidersFormState {
         prefix: string;
         secret: string;
       };
-    };
-    repoExceptions: {
-      repos: Array<{
-        owner: string;
-        repo: string;
-      }>;
+
+      pod: {
+        maxCPU: number;
+        maxMemoryMb: number;
+        role: string;
+        region: string;
+        podSecretManager: string;
+        taskDefinitionPrefix: string;
+        taskRole: string;
+        executionRole: string;
+        logRegion: string;
+        logGroup: string;
+        logStreamPrefix: string;
+        allowedImages: string[];
+        awsVPCSubnets: {
+          subnets: string[];
+        };
+        awsVPCSecurityGroups: {
+          securityGroups: string[];
+        };
+
+        clusters: Array<{
+          name: string;
+          os?: EcsOperatingSystem;
+        }>;
+
+        capacityProviders: Array<{
+          name: string;
+          arch?: EcsArchitecture;
+          os?: EcsOperatingSystem;
+          windowsVersion?: EcsWindowsVersion;
+        }>;
+      };
+
+      docker: {
+        apiVersion: string;
+      };
     };
   };
 }
