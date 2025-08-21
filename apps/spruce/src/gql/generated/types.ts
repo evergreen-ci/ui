@@ -7571,6 +7571,7 @@ export type AdminSettingsQuery = {
           bucket?: string | null;
           generatedJSONPrefix?: string | null;
           key?: string | null;
+          prefix?: string | null;
           secret: string;
         } | null;
         persistentDNS?: {
@@ -7610,6 +7611,10 @@ export type AdminSettingsQuery = {
               name?: string | null;
               os?: EcsOperatingSystem | null;
             }>;
+          } | null;
+          secretsManager?: {
+            __typename?: "SecretsManagerConfig";
+            secretPrefix?: string | null;
           } | null;
         } | null;
         subnets: Array<{ __typename?: "Subnet"; az: string; subnetId: string }>;
