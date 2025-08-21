@@ -56,7 +56,6 @@ export const adminSettings: AdminSettings = {
     taskFinder: FinderVersion.Parallel,
   },
   serviceFlags: {
-    adminParameterStoreDisabled: true,
     agentStartDisabled: true,
     alertsDisabled: true,
     backgroundReauthDisabled: true,
