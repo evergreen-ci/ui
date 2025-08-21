@@ -14,11 +14,11 @@ type ChatbotProps = {
   bodyData?: object;
 } & Pick<LeafyGreenChatProviderProps, "assistantName">;
 
-export const Chatbot = ({
+export const Chatbot: React.FC<ChatbotProps> = ({
   apiUrl,
   assistantName,
   bodyData,
-}: React.PropsWithChildren<ChatbotProps>) => {
+}) => {
   const { messages, sendMessage } = useChat({
     transport: new DefaultChatTransport({
       api: apiUrl,
