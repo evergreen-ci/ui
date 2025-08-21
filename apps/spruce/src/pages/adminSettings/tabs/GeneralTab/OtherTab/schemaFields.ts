@@ -171,59 +171,49 @@ export const getSingleTaskDistroSchema = ({
 
 export const bucketConfig = {
   schema: {
-    logBucket: {
-      type: "object" as const,
-      title: "",
-      properties: {
-        defaultLogBucket: {
-          type: "string" as const,
-          title: "Default Log Bucket",
-        },
-        logBucketLongRetentionName: {
-          type: "string" as const,
-          title: "Long Retention Log Bucket",
-        },
-        testResultsBucketName: {
-          type: "string" as const,
-          title: "Test Results Bucket Name",
-        },
-        testResultsBucketTestResultsPrefix: {
-          type: "string" as const,
-          title: "Test Results Bucket Prefix",
-        },
-        testResultsBucketRoleARN: {
-          type: "string" as const,
-          title: "Test Results Bucket Role ARN",
-        },
-        credentialsKey: {
-          type: "string" as const,
-          title: "S3 Key",
-        },
-        credentialsSecret: {
-          type: "string" as const,
-          title: "S3 Secret",
-        },
-        longRetentionProjects: {
-          type: "array" as const,
-          title: "Projects Requiring Long Retention",
-          items: {
-            type: "string" as const,
-          },
-        },
+    defaultLogBucket: {
+      type: "string" as const,
+      title: "Default Log Bucket",
+    },
+    logBucketLongRetentionName: {
+      type: "string" as const,
+      title: "Long Retention Log Bucket",
+    },
+    testResultsBucketName: {
+      type: "string" as const,
+      title: "Test Results Bucket Name",
+    },
+    testResultsBucketTestResultsPrefix: {
+      type: "string" as const,
+      title: "Test Results Bucket Prefix",
+    },
+    testResultsBucketRoleARN: {
+      type: "string" as const,
+      title: "Test Results Bucket Role ARN",
+    },
+    credentialsKey: {
+      type: "string" as const,
+      title: "S3 Key",
+    },
+    credentialsSecret: {
+      type: "string" as const,
+      title: "S3 Secret",
+    },
+    longRetentionProjects: {
+      type: "array" as const,
+      title: "Projects Requiring Long Retention",
+      items: {
+        type: "string" as const,
       },
     },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-
-    logBucket: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:data-cy": "bucket-config",
-      "ui:objectFieldCss": objectGridCss,
-      longRetentionProjects: {
-        "ui:widget": widgets.ChipInputWidget,
-        "ui:fieldCss": fullWidthCss,
-      },
+    "ui:data-cy": "bucket-config",
+    "ui:objectFieldCss": objectGridCss,
+    longRetentionProjects: {
+      "ui:widget": widgets.ChipInputWidget,
+      "ui:fieldCss": fullWidthCss,
     },
   },
 };
@@ -488,7 +478,7 @@ export const tracerConfiguration = {
     },
     enabled: {
       type: "boolean" as const,
-      title: "Enabled",
+      title: "Enable tracer",
     },
   },
   uiSchema: {

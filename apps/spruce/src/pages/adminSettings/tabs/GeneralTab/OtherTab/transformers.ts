@@ -75,18 +75,15 @@ export const gqlToForm = ((data) => {
       },
 
       bucketConfig: {
-        logBucket: {
-          defaultLogBucket: buckets?.logBucket?.name ?? "",
-          logBucketLongRetentionName:
-            buckets?.logBucketLongRetention?.name ?? "",
-          longRetentionProjects: buckets?.longRetentionProjects ?? [],
-          testResultsBucketName: buckets?.testResultsBucket?.name ?? "",
-          testResultsBucketTestResultsPrefix:
-            buckets?.testResultsBucket?.testResultsPrefix ?? "",
-          testResultsBucketRoleARN: buckets?.testResultsBucket?.roleARN ?? "",
-          credentialsKey: buckets?.credentials?.key ?? "",
-          credentialsSecret: buckets?.credentials?.secret ?? "",
-        },
+        defaultLogBucket: buckets?.logBucket?.name ?? "",
+        logBucketLongRetentionName: buckets?.logBucketLongRetention?.name ?? "",
+        longRetentionProjects: buckets?.longRetentionProjects ?? [],
+        testResultsBucketName: buckets?.testResultsBucket?.name ?? "",
+        testResultsBucketTestResultsPrefix:
+          buckets?.testResultsBucket?.testResultsPrefix ?? "",
+        testResultsBucketRoleARN: buckets?.testResultsBucket?.roleARN ?? "",
+        credentialsKey: buckets?.credentials?.key ?? "",
+        credentialsSecret: buckets?.credentials?.secret ?? "",
       },
 
       sshPairs: {
@@ -230,25 +227,24 @@ export const formToGql = ((form: OtherFormState) => {
 
     buckets: {
       logBucket: {
-        name: bucketConfig.logBucket.defaultLogBucket || undefined,
+        name: bucketConfig.defaultLogBucket || undefined,
       },
       logBucketLongRetention: {
-        name: bucketConfig.logBucket.logBucketLongRetentionName || undefined,
+        name: bucketConfig.logBucketLongRetentionName || undefined,
       },
       longRetentionProjects:
-        bucketConfig.logBucket.longRetentionProjects.length > 0
-          ? bucketConfig.logBucket.longRetentionProjects
+        bucketConfig.longRetentionProjects.length > 0
+          ? bucketConfig.longRetentionProjects
           : undefined,
       testResultsBucket: {
-        name: bucketConfig.logBucket.testResultsBucketName || undefined,
+        name: bucketConfig.testResultsBucketName || undefined,
         testResultsPrefix:
-          bucketConfig.logBucket.testResultsBucketTestResultsPrefix ||
-          undefined,
-        roleARN: bucketConfig.logBucket.testResultsBucketRoleARN || undefined,
+          bucketConfig.testResultsBucketTestResultsPrefix || undefined,
+        roleARN: bucketConfig.testResultsBucketRoleARN || undefined,
       },
       credentials: {
-        key: bucketConfig.logBucket.credentialsKey || undefined,
-        secret: bucketConfig.logBucket.credentialsSecret || undefined,
+        key: bucketConfig.credentialsKey || undefined,
+        secret: bucketConfig.credentialsSecret || undefined,
       },
     },
 

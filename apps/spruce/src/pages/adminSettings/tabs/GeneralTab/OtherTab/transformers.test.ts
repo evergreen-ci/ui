@@ -143,16 +143,14 @@ const expectedForm: OtherFormState = {
       ],
     },
     bucketConfig: {
-      logBucket: {
-        defaultLogBucket: "evergreen-logs",
-        logBucketLongRetentionName: "logBucketLongRetention",
-        longRetentionProjects: ["project1", "project2"],
-        testResultsBucketName: "evergreen-test-results",
-        testResultsBucketTestResultsPrefix: "results/",
-        testResultsBucketRoleARN: "arn:aws:iam::123456789:role/TestRole",
-        credentialsKey: "cred-key",
-        credentialsSecret: "cred-secret",
-      },
+      defaultLogBucket: "evergreen-logs",
+      logBucketLongRetentionName: "logBucketLongRetention",
+      longRetentionProjects: ["project1", "project2"],
+      testResultsBucketName: "evergreen-test-results",
+      testResultsBucketTestResultsPrefix: "results/",
+      testResultsBucketRoleARN: "arn:aws:iam::123456789:role/TestRole",
+      credentialsKey: "cred-key",
+      credentialsSecret: "cred-secret",
     },
     sshPairs: {
       taskHostKey: {
