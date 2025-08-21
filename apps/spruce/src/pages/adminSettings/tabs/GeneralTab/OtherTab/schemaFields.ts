@@ -465,12 +465,10 @@ export const tracerConfiguration = {
     collectorEndpoint: {
       type: "string" as const,
       title: "Collector Endpoint",
-      format: "validURL",
     },
     collectorInternalEndpoint: {
       type: "string" as const,
       title: "Collector Internal Endpoint",
-      format: "validURL",
     },
     collectorAPIKey: {
       type: "string" as const,

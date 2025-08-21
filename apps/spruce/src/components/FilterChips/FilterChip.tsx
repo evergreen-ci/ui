@@ -16,15 +16,17 @@ interface FilterChipProps {
   chip: FilterChipType;
   onClose: () => void;
   showValueOnly: boolean;
+  truncateChips: boolean;
 }
 
 const FilterChip: React.FC<FilterChipProps> = ({
   chip,
   onClose,
   showValueOnly,
+  truncateChips,
 }) => (
   <Chip
-    chipCharacterLimit={maxChipLength}
+    chipCharacterLimit={truncateChips ? maxChipLength : undefined}
     chipTruncationLocation={TruncationLocation.Middle}
     data-cy="filter-chip"
     label={showValueOnly ? chip.value : `${chip.title}: ${chip.value}`}

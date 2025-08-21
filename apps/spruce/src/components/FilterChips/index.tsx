@@ -10,12 +10,14 @@ interface FilterChipsProps {
   onRemove?: (chip: FilterChipType) => void;
   onClearAll?: () => void;
   showValueOnly?: boolean;
+  truncateChips?: boolean;
 }
 const FilterChips: React.FC<FilterChipsProps> = ({
   chips,
   onClearAll = () => {},
   onRemove = () => {},
   showValueOnly = false,
+  truncateChips = true,
 }) => {
   const handleOnRemove = (chip: FilterChipType) => {
     onRemove(chip);
@@ -35,6 +37,7 @@ const FilterChips: React.FC<FilterChipsProps> = ({
             handleOnRemove(c);
           }}
           showValueOnly={showValueOnly}
+          truncateChips={truncateChips}
         />
       ))}
       {chips.length > 8 && (
@@ -44,6 +47,7 @@ const FilterChips: React.FC<FilterChipsProps> = ({
           onClearAll={handleClearAll}
           onRemoveChip={handleOnRemove}
           showValueOnly={showValueOnly}
+          truncateChips={truncateChips}
         />
       )}
       {chips.length > 0 && (
