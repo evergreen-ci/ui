@@ -8,15 +8,19 @@
       data-cy="event-log-card"
     >
       <div
-        class="emotion-StyledHeader ez6cbmt0"
+        class="emotion-StyledHeader ez6cbmt2"
       >
         <h6
           class="leafygreen-ui-19p3n10"
         >
           Aug 31, 2024, 12:00:00 AM UTC
         </h6>
-        <div>
-          Mohamed Khelif
+        <div
+          class="emotion-UserSection ez6cbmt1"
+        >
+          <div>
+            Mohamed Khelif
+          </div>
         </div>
       </div>
       <div
@@ -52,7 +56,7 @@
                   <button
                     aria-disabled="false"
                     aria-label="Sort by Property"
-                    class="leafygreen-ui-1u7amgm"
+                    class="leafygreen-ui-tcjr3n"
                     data-lgid="lg-table-sort_button"
                     data-testid="lg-table-sort_button"
                     tabindex="0"
@@ -71,7 +75,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026zM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1M9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2zM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1"
+                          d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
                           fill="currentColor"
                         />
                       </svg>
