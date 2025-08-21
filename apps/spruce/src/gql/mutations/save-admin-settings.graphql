@@ -50,7 +50,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       taskFinder
     }
     serviceFlags {
-      adminParameterStoreDisabled
       agentStartDisabled
       alertsDisabled
       backgroundReauthDisabled

@@ -39,7 +39,6 @@ const featureItems: Record<string, string> = {
   taskLoggingDisabled: "Persist task and test logs",
   cliUpdatesDisabled: "Update CLI",
   sleepScheduleDisabled: "Unexpirable host sleep schedule",
-  adminParameterStoreDisabled: "Admin Parameter Store",
   releaseModeDisabled: "Release Mode",
   elasticIPsDisabled: "Elastic IPs  for task hosts",
   staticAPIKeysDisabled: "Static API Keys credentials for users",
