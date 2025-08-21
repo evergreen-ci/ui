@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
   SideNav,
@@ -545,12 +546,19 @@ const AdminSettingsPage: React.FC = () => {
             glyph={<Icon glyph="List" />}
             header={getTabTitle(AdminSettingsTabRoutes.EventLog).title}
           >
-            {}
+            <SideNavItem
+              as={Link}
+              data-cy="navitem-admin-event-logs"
+              to={getAdminSettingsRoute(AdminSettingsTabRoutes.EventLog)}
+            >
+              Event Logs
+            </SideNavItem>
           </SideNavGroup>
         </SideNav>
         <SideNavPageContent
           css={css`
             padding-top: 0;
+            margin-top: ${size.m};
           `}
           data-cy="admin-settings-page"
         >

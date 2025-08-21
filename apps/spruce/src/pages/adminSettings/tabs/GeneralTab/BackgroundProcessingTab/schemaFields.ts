@@ -251,13 +251,20 @@ export const triggers = (distros: string[]) => ({
     generateTaskDistro: {
       type: "string" as const,
       title: "Distro for Generated Tasks",
-      oneOf: [
-        ...distros.map((d) => ({
-          type: "string" as const,
-          title: d,
-          enum: [d],
-        })),
-      ],
+      oneOf:
+        distros.length > 0
+          ? distros.map((d) => ({
+              type: "string" as const,
+              title: d,
+              enum: [d],
+            }))
+          : [
+              {
+                type: "string" as const,
+                title: "No distros available",
+                enum: [""],
+              },
+            ],
     },
   },
   uiSchema: {

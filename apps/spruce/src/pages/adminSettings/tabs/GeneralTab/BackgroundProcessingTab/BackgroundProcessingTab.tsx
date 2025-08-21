@@ -17,11 +17,10 @@ export const BackgroundProcessingTab: React.FC<TabProps> = ({
     DISTROS,
     { variables: { onlySpawnable: false } },
   );
-
   const formSchema = useMemo(
     () =>
       getFormSchema({
-        distros: distrosData?.distros.map((d) => d.name) ?? [],
+        distros: distrosData?.distros?.map((d) => d.name) ?? [],
       }),
     [distrosData?.distros],
   );

@@ -52,15 +52,14 @@ export const gqlToForm = ((data) => {
           staleRetryingMonitorIntervalSeconds:
             retry?.staleRetryingMonitorIntervalSeconds ?? 0,
         },
-        namedQueues: namedQueues
-          ? namedQueues.map((q) => ({
-              name: q.name ?? "",
-              regexp: q.regexp ?? "",
-              numWorkers: q.numWorkers ?? 0,
-              sampleSize: q.sampleSize ?? 0,
-              lockTimeoutSeconds: q.lockTimeoutSeconds ?? 0,
-            }))
-          : [],
+        namedQueues:
+          namedQueues?.map((q) => ({
+            name: q.name ?? "",
+            regexp: q.regexp ?? "",
+            numWorkers: q.numWorkers ?? 0,
+            sampleSize: q.sampleSize ?? 0,
+            lockTimeoutSeconds: q.lockTimeoutSeconds ?? 0,
+          })) ?? [],
         dbURL: amboyDB?.url ?? "",
         dbName: amboyDB?.database ?? "",
       },
