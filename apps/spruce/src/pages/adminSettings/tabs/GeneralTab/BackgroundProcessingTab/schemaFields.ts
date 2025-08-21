@@ -246,18 +246,11 @@ export const notificationRateLimits = {
   uiSchema: {},
 };
 
-export const triggers = (distros: string[]) => ({
+export const triggers = {
   schema: {
     generateTaskDistro: {
       type: "string" as const,
       title: "Distro for Generated Tasks",
-      oneOf: [
-        ...distros.map((d) => ({
-          type: "string" as const,
-          title: d,
-          enum: [d],
-        })),
-      ],
     },
   },
   uiSchema: {
@@ -265,4 +258,4 @@ export const triggers = (distros: string[]) => ({
       "ui:allowDeselect": false,
     },
   },
-});
+};

@@ -477,15 +477,6 @@ export const aws = {
           title: "Pod Secret Manager Secret Prefix",
           default: "",
         },
-        allowedImages: {
-          type: "array" as const,
-          title: "Allowed Container Images",
-          items: {
-            type: "string" as const,
-            minLength: 1,
-          },
-          default: [],
-        },
         taskDefinitionPrefix: {
           type: "string" as const,
           title: "Pod Task Definition Prefix",
@@ -515,6 +506,15 @@ export const aws = {
           type: "string" as const,
           title: "Pod ECS Log Stream Prefix",
           default: "",
+        },
+        allowedImages: {
+          type: "array" as const,
+          title: "Allowed Container Images",
+          items: {
+            type: "string" as const,
+            minLength: 1,
+          },
+          default: [],
         },
         awsVPCSubnets: {
           type: "object" as const,
@@ -577,6 +577,7 @@ export const aws = {
       "ui:fieldCss": nestedObjectGridCss,
       allowedImages: {
         "ui:widget": widgets.ChipInputWidget,
+        "ui:fieldCss": fullWidthCss,
       },
       awsVPCSubnets: {
         "ui:fieldCss": fullWidthCss,

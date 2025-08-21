@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { PriorityLevel } from "gql/generated/types";
@@ -113,9 +112,6 @@ export const slack = {
       "ui:description":
         "If you specify a list of field names here, only those fields will be attached to the message. Note that this behavior does not apply if all fields is checked below.",
       "ui:fieldCss": fullWidthCss,
-      "ui:elementWrapperCSS": css`
-        margin-bottom: 0;
-      `,
     },
     basicMetadata: {
       "ui:description": "Appends priority and host information to the message.",
