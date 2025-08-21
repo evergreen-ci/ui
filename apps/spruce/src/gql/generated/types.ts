@@ -3601,6 +3601,7 @@ export type SelectorInput = {
 
 export type ServiceFlags = {
   __typename?: "ServiceFlags";
+  adminParameterStoreDisabled: Scalars["Boolean"]["output"];
   agentStartDisabled: Scalars["Boolean"]["output"];
   alertsDisabled: Scalars["Boolean"]["output"];
   backgroundReauthDisabled: Scalars["Boolean"]["output"];
@@ -3639,6 +3640,7 @@ export type ServiceFlags = {
 };
 
 export type ServiceFlagsInput = {
+  adminParameterStoreDisabled: Scalars["Boolean"]["input"];
   agentStartDisabled: Scalars["Boolean"]["input"];
   alertsDisabled: Scalars["Boolean"]["input"];
   backgroundReauthDisabled: Scalars["Boolean"]["input"];
