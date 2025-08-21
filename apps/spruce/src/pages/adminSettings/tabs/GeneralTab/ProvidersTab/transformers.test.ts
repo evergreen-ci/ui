@@ -247,18 +247,6 @@ const gql: AdminSettingsInput = {
       apiVersion: "1.40",
     },
   },
-  projectCreation: {
-    repoExceptions: [
-      {
-        owner: "evergreen-ci",
-        repo: "evergreen",
-      },
-      {
-        owner: "mongodb",
-        repo: "mongo",
-      },
-    ],
-  },
 };
 
 // Test admin settings data that includes providers information

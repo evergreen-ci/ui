@@ -7336,9 +7336,19 @@ export type AdminSettingsQuery = {
     __typename?: "AdminSettings";
     banner?: string | null;
     bannerTheme?: BannerTheme | null;
+    configDir?: string | null;
     disabledGQLQueries: Array<string>;
+    domainName?: string | null;
+    expansions?: { [key: string]: any } | null;
+    githubOrgs?: Array<string> | null;
+    githubPRCreatorOrg?: string | null;
+    githubWebhookSecret?: string | null;
+    kanopySSHKeyPath?: string | null;
+    logPath?: string | null;
     perfMonitoringKanopyURL?: string | null;
     perfMonitoringURL?: string | null;
+    pprofPort?: string | null;
+    shutdownWaitSeconds?: number | null;
     amboy?: {
       __typename?: "AmboyConfig";
       groupBackgroundCreateFrequencyMinutes?: number | null;
@@ -7427,6 +7437,21 @@ export type AdminSettingsQuery = {
         userGroup?: string | null;
       } | null;
     } | null;
+    buckets?: {
+      __typename?: "BucketsConfig";
+      logBucket?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+        roleARN?: string | null;
+        testResultsPrefix?: string | null;
+      } | null;
+      testResultsBucket?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+        roleARN?: string | null;
+        testResultsPrefix?: string | null;
+      } | null;
+    } | null;
     cedar?: {
       __typename?: "CedarConfig";
       dbName: string;
@@ -7443,6 +7468,10 @@ export type AdminSettingsQuery = {
       }>;
     } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
+    githubCheckRun?: {
+      __typename?: "GitHubCheckRunConfig";
+      checkRunLimit?: number | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -7450,11 +7479,29 @@ export type AdminSettingsQuery = {
       maxTotalDynamicHosts?: number | null;
       provisioningThrottle?: number | null;
     } | null;
+    hostJasper?: {
+      __typename?: "HostJasperConfig";
+      binaryName?: string | null;
+      downloadFileName?: string | null;
+      port?: number | null;
+      url?: string | null;
+      version?: string | null;
+    } | null;
     jira?: {
       __typename?: "JiraConfig";
       email?: string | null;
       host?: string | null;
       personalAccessToken?: string | null;
+    } | null;
+    jiraNotifications?: {
+      __typename?: "JiraNotificationsConfig";
+      customFields: Array<{
+        __typename?: "JiraNotificationsProjectEntry";
+        components: Array<string>;
+        fields?: { [key: string]: any } | null;
+        labels: Array<string>;
+        project: string;
+      }>;
     } | null;
     loggerConfig?: {
       __typename?: "LoggerConfig";
@@ -7488,6 +7535,9 @@ export type AdminSettingsQuery = {
     } | null;
     projectCreation?: {
       __typename?: "ProjectCreationConfig";
+      jiraProject?: string | null;
+      repoProjectLimit?: number | null;
+      totalProjectLimit?: number | null;
       repoExceptions: Array<{
         __typename?: "OwnerRepo";
         owner: string;
@@ -7569,6 +7619,12 @@ export type AdminSettingsQuery = {
         apiVersion?: string | null;
       } | null;
     } | null;
+    releaseMode?: {
+      __typename?: "ReleaseModeConfig";
+      distroMaxHostsFactor?: number | null;
+      idleTimeSecondsOverride?: number | null;
+      targetTimeSecondsOverride?: number | null;
+    } | null;
     repotracker?: {
       __typename?: "RepotrackerConfig";
       maxConcurrentRequests?: number | null;
@@ -7640,6 +7696,15 @@ export type AdminSettingsQuery = {
       unrecognizedPodCleanupDisabled: boolean;
       webhookNotificationsDisabled: boolean;
     } | null;
+    singleTaskDistro?: {
+      __typename?: "SingleTaskDistroConfig";
+      projectTasksPairs: Array<{
+        __typename?: "ProjectTasksPair";
+        allowedBVs: Array<string>;
+        allowedTasks: Array<string>;
+        projectId: string;
+      }>;
+    } | null;
     slack?: {
       __typename?: "SlackConfig";
       level?: PriorityLevel | null;
@@ -7657,6 +7722,16 @@ export type AdminSettingsQuery = {
         username?: string | null;
       } | null;
     } | null;
+    sleepSchedule?: {
+      __typename?: "SleepScheduleConfig";
+      permanentlyExemptHosts: Array<string>;
+    } | null;
+    spawnhost?: {
+      __typename?: "SpawnHostConfig";
+      spawnHostsPerUser?: number | null;
+      unexpirableHostsPerUser?: number | null;
+      unexpirableVolumesPerUser?: number | null;
+    } | null;
     splunk?: {
       __typename?: "SplunkConfig";
       splunkConnectionInfo: {
@@ -7665,6 +7740,19 @@ export type AdminSettingsQuery = {
         serverUrl: string;
         token: string;
       };
+    } | null;
+    ssh?: {
+      __typename?: "SSHConfig";
+      spawnHostKey?: {
+        __typename?: "SSHKeyPair";
+        name?: string | null;
+        secretARN?: string | null;
+      } | null;
+      taskHostKey?: {
+        __typename?: "SSHKeyPair";
+        name?: string | null;
+        secretARN?: string | null;
+      } | null;
     } | null;
     taskLimits?: {
       __typename?: "TaskLimitsConfig";
@@ -7682,6 +7770,13 @@ export type AdminSettingsQuery = {
       maxTasksPerVersion?: number | null;
     } | null;
     testSelection?: { __typename?: "TestSelectionConfig"; url: string } | null;
+    tracer?: {
+      __typename?: "TracerSettings";
+      collectorAPIKey?: string | null;
+      collectorEndpoint?: string | null;
+      collectorInternalEndpoint?: string | null;
+      enabled: boolean;
+    } | null;
     triggers?: {
       __typename?: "TriggerConfig";
       generateTaskDistro?: string | null;
