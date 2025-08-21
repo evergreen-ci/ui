@@ -395,16 +395,6 @@ const AdminSettingsPage: React.FC = () => {
               >
                 AWS Configuration
               </SideNavItem>
-              <SideNavItem
-                as={Link}
-                data-cy="navitem-admin-repo-exceptions"
-                to={getAdminSettingsRoute(
-                  AdminSettingsTabRoutes.General,
-                  "repo-exceptions",
-                )}
-              >
-                Repo Exceptions
-              </SideNavItem>
             </SideNavGroup>
             <SideNavGroup header="Other">
               <SideNavItem
