@@ -211,16 +211,6 @@ const multiOptions = [
     title: toSentenceCase(key),
     enum: [key.toLowerCase()],
   })),
-  {
-    type: "string" as const,
-    title: "Service Users",
-    enum: ["allow_service_users"],
-  },
-  {
-    type: "string" as const,
-    title: "Only API",
-    enum: ["only_api"],
-  },
 ];
 
 export const multi = {
@@ -246,10 +236,12 @@ export const multi = {
   },
   uiSchema: {
     readWrite: {
+      "ui:data-cy": "multi-read-write",
       "ui:widget": widgets.MultiSelectWidget,
       "ui:fieldCss": fullWidthCss,
     },
     readOnly: {
+      "ui:data-cy": "multi-read-only",
       "ui:widget": widgets.MultiSelectWidget,
       "ui:fieldCss": fullWidthCss,
     },
