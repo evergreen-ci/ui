@@ -5,19 +5,21 @@ import FilterChip, { FilterChipType } from "./FilterChip";
 import { SeeMoreModal } from "./SeeMoreModal";
 import useFilterChipQueryParams from "./useFilterChipQueryParams";
 
+const maxChipLength = 25;
+
 interface FilterChipsProps {
   chips: FilterChipType[];
   onRemove?: (chip: FilterChipType) => void;
   onClearAll?: () => void;
   showValueOnly?: boolean;
-  truncateChips?: boolean;
+  truncateChipLength?: number;
 }
 const FilterChips: React.FC<FilterChipsProps> = ({
   chips,
   onClearAll = () => {},
   onRemove = () => {},
   showValueOnly = false,
-  truncateChips = true,
+  truncateChipLength = maxChipLength,
 }) => {
   const handleOnRemove = (chip: FilterChipType) => {
     onRemove(chip);
@@ -37,7 +39,7 @@ const FilterChips: React.FC<FilterChipsProps> = ({
             handleOnRemove(c);
           }}
           showValueOnly={showValueOnly}
-          truncateChips={truncateChips}
+          truncateChipLength={truncateChipLength}
         />
       ))}
       {chips.length > 8 && (
@@ -47,7 +49,7 @@ const FilterChips: React.FC<FilterChipsProps> = ({
           onClearAll={handleClearAll}
           onRemoveChip={handleOnRemove}
           showValueOnly={showValueOnly}
-          truncateChips={truncateChips}
+          truncateChipLength={truncateChipLength}
         />
       )}
       {chips.length > 0 && (

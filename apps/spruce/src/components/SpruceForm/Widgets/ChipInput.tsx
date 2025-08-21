@@ -60,7 +60,7 @@ export const ChipInput: React.FC<SpruceWidgetProps> = ({
         onClearAll={() => onChange([])}
         onRemove={(chip) => removeChip(chip.value)}
         showValueOnly
-        truncateChips={false}
+        truncateChipLength={100}
       />
     </ElementWrapper>
   );

@@ -16,7 +16,6 @@ export const api = {
     corpUrl: {
       type: "string" as const,
       title: "Corp URL",
-      format: "validURL",
     },
   },
   uiSchema: {},
