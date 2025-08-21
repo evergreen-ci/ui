@@ -53,8 +53,6 @@ export const gqlToForm = ((data) => {
           key: providers?.aws?.parserProject?.key ?? "",
           prefix: providers?.aws?.parserProject?.prefix ?? "",
           secret: providers?.aws?.parserProject?.secret ?? "",
-          generatedJsonFilesS3Prefix:
-            providers?.aws?.parserProject?.generatedJSONPrefix ?? "",
         },
         pod: {
           allowedImages: providers?.aws?.pod?.ecs?.allowedImages ?? [],
