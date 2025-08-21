@@ -8,7 +8,6 @@ export const BackgroundProcessingTab: React.FC<TabProps> = ({
   backgroundProcessingData,
 }) => {
   const initialFormState = backgroundProcessingData;
-
   return (
     <>
       <H2>Background Processing</H2>

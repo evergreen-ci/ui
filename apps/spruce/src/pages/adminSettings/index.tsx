@@ -536,7 +536,13 @@ const AdminSettingsPage: React.FC = () => {
             glyph={<Icon glyph="List" />}
             header={getTabTitle(AdminSettingsTabRoutes.EventLog).title}
           >
-            {}
+            <SideNavItem
+              as={Link}
+              data-cy="navitem-admin-event-logs"
+              to={getAdminSettingsRoute(AdminSettingsTabRoutes.EventLog)}
+            >
+              Event Logs
+            </SideNavItem>
           </SideNavGroup>
         </SideNav>
         <SideNavPageContent

@@ -16,10 +16,12 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       backgroundProcessing: {
         type: "object" as const,
         title: "",
+        default: {},
         properties: {
           amboy: {
             type: "object" as const,
             title: "Amboy",
+            default: {},
             properties: {
               ...amboy.schema,
             },
@@ -27,6 +29,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           loggerConfig: {
             type: "object" as const,
             title: "Logger",
+            default: {},
             properties: {
               ...loggerConfig.schema,
             },
@@ -34,6 +37,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           notificationRateLimits: {
             type: "object" as const,
             title: "Notification Rate Limits",
+            default: {},
             properties: {
               ...notificationRateLimits.schema,
             },
@@ -41,6 +45,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           triggers: {
             type: "object" as const,
             title: "Triggers",
+            default: {},
             properties: {
               ...triggers.schema,
             },

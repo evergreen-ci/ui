@@ -1,4 +1,5 @@
 import ADMIN_BETA_FEATURES from "./admin-beta-features.graphql";
+import ADMIN_EVENT_LOG from "./admin-event-log.graphql";
 import ADMIN_SETTINGS from "./admin-settings.graphql";
 import ADMIN_TASKS_TO_RESTART from "./admin-tasks-to-restart.graphql";
 import AGENT_LOGS from "./agent-logs.graphql";
@@ -94,6 +95,7 @@ import WATERFALL from "./waterfall.graphql";
 
 export {
   ADMIN_BETA_FEATURES,
+  ADMIN_EVENT_LOG,
   ADMIN_SETTINGS,
   ADMIN_TASKS_TO_RESTART,
   AGENT_LOGS,

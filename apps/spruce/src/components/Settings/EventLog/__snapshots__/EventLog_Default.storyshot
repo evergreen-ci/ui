@@ -8,15 +8,19 @@
       data-cy="event-log-card"
     >
       <div
-        class="emotion-StyledHeader ez6cbmt0"
+        class="emotion-StyledHeader ez6cbmt2"
       >
         <h6
           class="leafygreen-ui-19p3n10"
         >
           Aug 31, 2024, 12:00:00 AM UTC
         </h6>
-        <div>
-          Mohamed Khelif
+        <div
+          class="emotion-UserSection ez6cbmt1"
+        >
+          <div>
+            Mohamed Khelif
+          </div>
         </div>
       </div>
       <div
