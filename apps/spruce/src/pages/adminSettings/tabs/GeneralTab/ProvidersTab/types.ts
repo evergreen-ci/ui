@@ -87,12 +87,6 @@ export interface ProvidersFormState {
         secret: string;
       };
     };
-    repoExceptions: {
-      repos: Array<{
-        owner: string;
-        repo: string;
-      }>;
-    };
   };
 }
 

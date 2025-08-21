@@ -7,7 +7,7 @@ type Tab = AdminSettingsGeneralSection.Providers;
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const { containerPools, parameterStore, projectCreation, providers } = data;
+  const { containerPools, parameterStore, providers } = data;
 
   return {
     providers: {
@@ -94,13 +94,6 @@ export const gqlToForm = ((data) => {
           prefix: providers?.aws?.parserProject?.prefix ?? "",
           secret: providers?.aws?.parserProject?.secret ?? "",
         },
-      },
-      repoExceptions: {
-        repos:
-          projectCreation?.repoExceptions?.map((exception) => ({
-            owner: exception.owner ?? "",
-            repo: exception.repo ?? "",
-          })) ?? [],
       },
     },
   };
@@ -196,12 +189,6 @@ export const formToGql = ((form: ProvidersFormState) => {
       docker: {
         apiVersion: providers.aws.docker.apiVersion || undefined,
       },
-    },
-    projectCreation: {
-      repoExceptions: providers.repoExceptions.repos.map((exception) => ({
-        owner: exception.owner,
-        repo: exception.repo,
-      })),
     },
   };
 }) satisfies FormToGqlFunction<Tab>;
