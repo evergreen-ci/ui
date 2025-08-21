@@ -127,18 +127,6 @@ const form: ProvidersFormState = {
         secret: "test-parser-secret",
       },
     },
-    repoExceptions: {
-      repos: [
-        {
-          owner: "evergreen-ci",
-          repo: "evergreen",
-        },
-        {
-          owner: "mongodb",
-          repo: "mongo",
-        },
-      ],
-    },
   },
 };
 
@@ -259,18 +247,6 @@ const gql: AdminSettingsInput = {
     docker: {
       apiVersion: "1.40",
     },
-  },
-  projectCreation: {
-    repoExceptions: [
-      {
-        owner: "evergreen-ci",
-        repo: "evergreen",
-      },
-      {
-        owner: "mongodb",
-        repo: "mongo",
-      },
-    ],
   },
 };
 
