@@ -22,7 +22,8 @@ export const getFormSchema = ({
   repoRefs?: Array<{ id: string; displayName: string }>;
 }): ReturnType<GetFormSchema> => {
   const singleTaskDistro = getSingleTaskDistroSchema({ projectRefs, repoRefs });
-
+  console.log("project refs", projectRefs);
+  console.log("project repos", repoRefs);
   return {
     fields: {},
     schema: {

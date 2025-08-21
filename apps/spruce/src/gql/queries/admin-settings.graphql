@@ -79,11 +79,19 @@ query AdminSettings {
     banner
     bannerTheme
     buckets {
+      credentials {
+        key
+        secret
+      }
       logBucket {
         name
         roleARN
         testResultsPrefix
       }
+      logBucketLongRetention {
+        name
+      }
+      longRetentionProjects
       testResultsBucket {
         name
         roleARN
