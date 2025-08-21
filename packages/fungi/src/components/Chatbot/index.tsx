@@ -22,6 +22,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({
   const { messages, sendMessage } = useChat({
     transport: new DefaultChatTransport({
       api: apiUrl,
+      credentials: "include",
       prepareSendMessagesRequest({ id, messages: outgoingMessages }) {
         return {
           body: {
