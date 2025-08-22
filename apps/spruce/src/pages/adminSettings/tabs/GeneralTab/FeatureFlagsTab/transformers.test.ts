@@ -52,7 +52,6 @@ const form: FeatureFlagsFormState = {
       staticAPIKeysDisabled: true,
       elasticIPsDisabled: true,
       releaseModeDisabled: true,
-      adminParameterStoreDisabled: true,
     },
     batchJobs: {
       backgroundStatsDisabled: true,
@@ -64,7 +63,6 @@ const form: FeatureFlagsFormState = {
 
 const gql: AdminSettingsInput = {
   serviceFlags: {
-    adminParameterStoreDisabled: true,
     agentStartDisabled: true,
     alertsDisabled: true,
     backgroundReauthDisabled: true,

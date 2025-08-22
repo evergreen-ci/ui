@@ -298,7 +298,6 @@ query AdminSettings {
     }
 
     serviceFlags {
-      adminParameterStoreDisabled
       agentStartDisabled
       alertsDisabled
       backgroundReauthDisabled
