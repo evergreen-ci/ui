@@ -255,7 +255,7 @@ describe("other", () => {
     );
 
     // Tracer Configuration section.
-    const tracerEnabled = "Enabled";
+    const tracerEnabled = "Enable tracer";
     cy.dataCy("tracer-configuration").within(() => {
       cy.getInputByLabel(tracerEnabled).as("tracerEnabledInput");
       cy.get("@tracerEnabledInput").check({ force: true });

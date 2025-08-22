@@ -25,16 +25,14 @@ export interface OtherFormState {
     };
 
     bucketConfig: {
-      logBucket: {
-        defaultLogBucket: string;
-        logBucketLongRetentionName: string;
-        longRetentionProjects: string[];
-        testResultsBucketName: string;
-        testResultsBucketTestResultsPrefix: string;
-        testResultsBucketRoleARN: string;
-        credentialsKey: string;
-        credentialsSecret: string;
-      };
+      defaultLogBucket: string;
+      logBucketLongRetentionName: string;
+      longRetentionProjects: string[];
+      testResultsBucketName: string;
+      testResultsBucketTestResultsPrefix: string;
+      testResultsBucketRoleARN: string;
+      credentialsKey: string;
+      credentialsSecret: string;
     };
 
     sshPairs: {

@@ -49,7 +49,7 @@ describe("external communications", () => {
       cy.get("@slackChannelInput").clear();
       cy.get("@slackChannelInput").type("#test-channel");
 
-      const slackFieldsSet = "Fields Set";
+      const slackFieldsSet = "Fields To Set";
       cy.getInputByLabel(slackFieldsSet).as("slackFieldsSetInput");
       cy.get("@slackFieldsSetInput").type("field1{enter}");
       cy.get("@slackFieldsSetInput").type("field2{enter}");

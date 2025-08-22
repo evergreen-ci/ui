@@ -18,7 +18,7 @@ export const ChipInput: React.FC<SpruceWidgetProps> = ({
   value = [],
 }) => {
   const [text, setText] = useState("");
-  const { "data-cy": dataCy, elementWrapperCSS } = options;
+  const { "data-cy": dataCy, description, elementWrapperCSS } = options;
   const isDisabled = disabled || readonly;
   const chips = value.map((v: string) => ({
     key: v,
@@ -42,6 +42,7 @@ export const ChipInput: React.FC<SpruceWidgetProps> = ({
       <InputWrapper>
         <ChipInputStyle
           data-cy={dataCy}
+          description={description}
           disabled={isDisabled}
           label={label}
           onChange={(e) => setText(e.target.value)}
@@ -59,6 +60,7 @@ export const ChipInput: React.FC<SpruceWidgetProps> = ({
         onClearAll={() => onChange([])}
         onRemove={(chip) => removeChip(chip.value)}
         showValueOnly
+        truncateChipLength={100}
       />
     </ElementWrapper>
   );

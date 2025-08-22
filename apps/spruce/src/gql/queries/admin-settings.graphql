@@ -213,6 +213,7 @@ query AdminSettings {
           bucket
           generatedJSONPrefix
           key
+          prefix
           secret
         }
         persistentDNS {
@@ -247,6 +248,9 @@ query AdminSettings {
           }
           region
           role
+          secretsManager {
+            secretPrefix
+          }
         }
         subnets {
           az
