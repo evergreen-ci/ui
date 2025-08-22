@@ -18,4 +18,4 @@ const isLineInRange = (
 
 export { isLineInRange };
 
-export const fakeConstant = "hello";
+export const constant1 = "hello";
