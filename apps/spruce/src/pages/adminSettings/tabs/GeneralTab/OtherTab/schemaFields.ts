@@ -179,6 +179,13 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Long Retention Log Bucket",
     },
+    longRetentionProjects: {
+      type: "array" as const,
+      title: "Projects Requiring Long Retention",
+      items: {
+        type: "string" as const,
+      },
+    },
     testResultsBucketName: {
       type: "string" as const,
       title: "Test Results Bucket Name",
@@ -198,13 +205,6 @@ export const bucketConfig = {
     credentialsSecret: {
       type: "string" as const,
       title: "S3 Secret",
-    },
-    longRetentionProjects: {
-      type: "array" as const,
-      title: "Projects Requiring Long Retention",
-      items: {
-        type: "string" as const,
-      },
     },
   },
   uiSchema: {
@@ -273,7 +273,7 @@ export const expansions = {
   schema: {
     expansionValues: {
       type: "array" as const,
-      title: "Expansions",
+      title: "",
       items: {
         type: "object" as const,
         properties: {
@@ -419,6 +419,10 @@ export const jiraNotificationsFields = {
 
 export const spawnHost = {
   schema: {
+    spawnHostsPerUser: {
+      type: "number" as const,
+      title: "Total Spawn Hosts Per User",
+    },
     unexpirableHostsPerUser: {
       type: "number" as const,
       title: "Unexpirable Hosts Per User",
@@ -426,10 +430,6 @@ export const spawnHost = {
     unexpirableVolumesPerUser: {
       type: "number" as const,
       title: "Unexpirable Volumes Per User",
-    },
-    spawnHostsPerUser: {
-      type: "number" as const,
-      title: "Spawn Hosts Per User",
     },
   },
   uiSchema: {
@@ -462,6 +462,10 @@ export const sleepSchedule = {
 
 export const tracerConfiguration = {
   schema: {
+    enabled: {
+      type: "boolean" as const,
+      title: "Enable tracer",
+    },
     collectorEndpoint: {
       type: "string" as const,
       title: "Collector Endpoint",
@@ -474,15 +478,14 @@ export const tracerConfiguration = {
       type: "string" as const,
       title: "Collector API Key",
     },
-    enabled: {
-      type: "boolean" as const,
-      title: "Enable tracer",
-    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "tracer-configuration",
     "ui:objectFieldCss": objectGridCss,
+    enabled: {
+      "ui:fieldCss": fullWidthCss,
+    },
   },
 };
 

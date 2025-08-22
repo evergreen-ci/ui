@@ -410,16 +410,6 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-single-task-host-configuration"
-                to={getAdminSettingsRoute(
-                  AdminSettingsTabRoutes.General,
-                  "single-task-distro-configuration",
-                )}
-              >
-                Single Task Distro Configuration
-              </SideNavItem>
-              <SideNavItem
-                as={Link}
                 data-cy="navitem-admin-bucket-config"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,
@@ -517,6 +507,16 @@ const AdminSettingsPage: React.FC = () => {
                 )}
               >
                 GitHub Check Run Config
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-single-task-host-configuration"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "single-task-distro-configuration",
+                )}
+              >
+                Single Task Distro Configuration
               </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>

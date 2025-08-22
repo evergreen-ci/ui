@@ -49,7 +49,18 @@ export const slack = {
     level: {
       type: "string" as const,
       title: "Priority Level",
-      enum: Object.values(PriorityLevel),
+      oneOf: [
+        {
+          type: "string" as const,
+          title: "None",
+          enum: [""],
+        },
+        ...Object.keys(PriorityLevel).map((p) => ({
+          type: "string" as const,
+          title: p,
+          enum: [p.toUpperCase()],
+        })),
+      ],
       default: "",
     },
     channel: {
@@ -105,12 +116,12 @@ export const slack = {
       },
     },
     level: {
-      "ui:widget": widgets.SelectWidget,
+      "ui:allowDeselect": false,
     },
     fieldsSet: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:description":
-        "If you specify a list of field names here, only those fields will be attached to the message. Note that this behavior does not apply if all fields is checked below.",
+        "If you specify a list of field names here, only those fields will be attached to the message. Note that this behavior does not apply if All Fields is checked below.",
       "ui:fieldCss": fullWidthCss,
     },
     basicMetadata: {
@@ -121,7 +132,7 @@ export const slack = {
     },
     allFields: {
       "ui:description":
-        "Appends all field information to the message, overriding fields to set.",
+        "Appends all field information to the message, overriding Fields To Set.",
     },
   },
 };

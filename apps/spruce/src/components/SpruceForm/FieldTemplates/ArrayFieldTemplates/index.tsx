@@ -160,6 +160,8 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const addButtonText = uiSchema["ui:addButtonText"] || "Add";
   const secondaryButton = uiSchema["ui:secondaryButton"];
   const arrayDataCy = uiSchema["ui:data-cy"];
+
+  const arrayCss = uiSchema["ui:arrayCSS"];
   const arrayItemCss = uiSchema["ui:arrayItemCSS"];
 
   // Override RJSF's default array behavior; add new elements to beginning of array unless otherwise specified.
@@ -197,6 +199,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
         </AddButtonContainer>
       )}
       <ArrayContainer
+        css={arrayCss}
         data-cy={arrayDataCy}
         fullWidth={fullWidth || useExpandableCard}
         hasChildren={!!items?.length}

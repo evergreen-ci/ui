@@ -38,11 +38,6 @@ export const getFormSchema = ({
               title: "Misc Settings",
               properties: miscSettings.schema,
             },
-            singleTaskDistro: {
-              type: "object" as const,
-              title: "Single Task Distro Configuration",
-              properties: singleTaskDistro.schema,
-            },
             bucketConfig: {
               type: "object" as const,
               title: "Bucket Config",
@@ -92,6 +87,11 @@ export const getFormSchema = ({
               type: "object" as const,
               title: "GitHub Check Run Config",
               properties: githubCheckRunConfigurations.schema,
+            },
+            singleTaskDistro: {
+              type: "object" as const,
+              title: "Single Task Distro Configuration",
+              properties: singleTaskDistro.schema,
             },
           },
         },

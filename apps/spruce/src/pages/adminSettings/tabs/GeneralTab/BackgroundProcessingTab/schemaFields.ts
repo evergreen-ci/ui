@@ -133,13 +133,13 @@ export const amboy = {
       type: "number" as const,
       title: "Group Default Workers",
     },
-    groupPruneFrequencyMinutes: {
-      type: "number" as const,
-      title: "Group Prune Frequency (mins)",
-    },
     groupBackgroundCreateFrequencyMinutes: {
       type: "number" as const,
       title: "Group Background Create Frequency (mins)",
+    },
+    groupPruneFrequencyMinutes: {
+      type: "number" as const,
+      title: "Group Prune Frequency (mins)",
     },
     groupTTLMinutes: {
       type: "number" as const,
@@ -234,13 +234,13 @@ export const loggerConfig = {
 
 export const notificationRateLimits = {
   schema: {
-    bufferIntervalSeconds: {
-      type: "number" as const,
-      title: "Time Interval (secs)",
-    },
     bufferTargetPerInterval: {
       type: "number" as const,
       title: "Target per Time Interval (secs)",
+    },
+    bufferIntervalSeconds: {
+      type: "number" as const,
+      title: "Time Interval (secs)",
     },
   },
   uiSchema: {},

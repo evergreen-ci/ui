@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
@@ -59,13 +60,10 @@ export const globalConfig = {
       },
     },
     allowServiceUsers: {
+      "ui:fieldCss": fullWidthCss,
       "ui:widget": widgets.CheckboxWidget,
       "ui:options": {
-        elementWrapperCSS: css`
-          > div > label > span {
-            font-weight: 700;
-          }
-        `,
+        bold: true,
       },
     },
   },
@@ -145,7 +143,14 @@ export const naive = {
     users: {
       "ui:fullWidth": true,
       "ui:orderable": false,
-
+      "ui:arrayCSS": css`
+        margin-bottom: 0;
+      `,
+      "ui:arrayItemCSS": css`
+        > div > div > div {
+          margin-bottom: ${size.m};
+        }
+      `,
       items: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
       },
