@@ -291,12 +291,12 @@ export const expansions = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:addButtonText": "Add expansion",
     "ui:data-cy": "expansions-list",
     "ui:fullWidth": true,
     expansionValues: {
       "ui:orderable": false,
       "ui:fullWidth": true,
+      "ui:addButtonText": "Add expansion",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
@@ -400,6 +400,7 @@ export const jiraNotificationsFields = {
       items: {
         fields: {
           "ui:addButtonText": "Add custom field",
+          "ui:placeholder": "No custom fields defined.",
           "ui:data-cy": "jira-fields-list",
           "ui:orderable": false,
           "ui:fullWidth": true,

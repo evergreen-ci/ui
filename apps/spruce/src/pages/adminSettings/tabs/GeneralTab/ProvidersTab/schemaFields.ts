@@ -33,7 +33,7 @@ export const containerPools = {
   schema: {
     pools: {
       type: "array" as const,
-      title: "Container Pools",
+      title: "",
       items: {
         type: "object" as const,
         properties: {

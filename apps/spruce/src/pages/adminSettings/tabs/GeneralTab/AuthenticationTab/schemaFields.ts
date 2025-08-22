@@ -143,6 +143,7 @@ export const naive = {
     users: {
       "ui:fullWidth": true,
       "ui:orderable": false,
+      "ui:addButtonText": "Add user",
       "ui:arrayCSS": css`
         margin-bottom: 0;
       `,
