@@ -89,9 +89,9 @@ export const gqlToForm = ((data) => {
               windowsVersion: provider.windowsVersion ?? undefined,
             })) ?? [],
         },
-        docker: {
-          apiVersion: providers?.docker?.apiVersion ?? "",
-        },
+      },
+      docker: {
+        apiVersion: providers?.docker?.apiVersion ?? "",
       },
     },
   };
@@ -99,7 +99,7 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = ((form: ProvidersFormState) => {
   const { providers } = form;
-  const { aws, containerPools } = providers;
+  const { aws, containerPools, docker } = providers;
 
   return {
     containerPools: {
@@ -186,7 +186,7 @@ export const formToGql = ((form: ProvidersFormState) => {
         })),
       },
       docker: {
-        apiVersion: aws.docker.apiVersion || undefined,
+        apiVersion: docker.apiVersion || undefined,
       },
     },
   };

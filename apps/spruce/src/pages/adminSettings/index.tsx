@@ -396,6 +396,16 @@ const AdminSettingsPage: React.FC = () => {
               >
                 AWS Configuration
               </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-docker"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "docker",
+                )}
+              >
+                Docker
+              </SideNavItem>
             </SideNavGroup>
             <SideNavGroup header="Other">
               <SideNavItem

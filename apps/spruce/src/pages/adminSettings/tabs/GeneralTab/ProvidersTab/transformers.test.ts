@@ -120,11 +120,11 @@ const form: ProvidersFormState = {
           role: "arn:aws:iam::987654321:role/AnotherRole",
         },
       ],
-      docker: {
-        apiVersion: "1.40",
-      },
       ipamPoolID: "ipam-pool-123",
       elasticIPUsageRate: 0.8,
+    },
+    docker: {
+      apiVersion: "1.40",
     },
   },
 };
@@ -368,17 +368,5 @@ const testAdminSettings = {
     docker: {
       apiVersion: "1.40",
     },
-  },
-  projectCreation: {
-    repoExceptions: [
-      {
-        owner: "evergreen-ci",
-        repo: "evergreen",
-      },
-      {
-        owner: "mongodb",
-        repo: "mongo",
-      },
-    ],
   },
 };

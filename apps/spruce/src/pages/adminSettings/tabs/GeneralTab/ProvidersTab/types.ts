@@ -80,10 +80,10 @@ export interface ProvidersFormState {
           windowsVersion?: EcsWindowsVersion;
         }>;
       };
+    };
 
-      docker: {
-        apiVersion: string;
-      };
+    docker: {
+      apiVersion: string;
     };
   };
 }

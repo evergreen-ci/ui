@@ -308,26 +308,16 @@ const subnets = {
   },
 };
 
-const docker = {
+export const docker = {
   schema: {
-    type: "object" as const,
-    title: "Docker Configuration",
-    properties: {
-      apiVersion: {
-        type: "string" as const,
-        title: "API Version",
-        default: "",
-      },
+    apiVersion: {
+      type: "string" as const,
+      title: "API Version",
+      default: "",
     },
   },
   uiSchema: {
-    "ui:fieldCss": css`
-      ${fullWidthCss}
-      border: 1px solid ${gray.light2};
-      border-radius: ${size.s};
-      padding: ${size.m};
-      margin-bottom: ${size.m};
-    `,
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
   },
 };
 
@@ -550,7 +540,6 @@ export const aws = {
         capacityProviders: capacityProviders.schema,
       },
     },
-    docker: docker.schema,
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
@@ -600,7 +589,5 @@ export const aws = {
       clusters: clusters.uiSchema,
       capacityProviders: capacityProviders.uiSchema,
     },
-
-    docker: docker.uiSchema,
   },
 };
