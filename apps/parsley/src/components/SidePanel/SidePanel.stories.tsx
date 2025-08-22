@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import styled from "@emotion/styled";
 import { userEvent } from "@storybook/testing-library";
+import Cookie from "js-cookie";
 import { actions } from "storybook/actions";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { DRAWER_OPENED } from "constants/cookies";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { projectFiltersMock } from "test_data/projectFilters";
@@ -41,6 +43,9 @@ const Story = ({ ...args }) => {
   }, []);
   const clearExpandedLines = () => actions("clearExpandedLines");
   const collapseLines = () => actions("collapseLines");
+  const [collapsed, setCollapsed] = useState<boolean>(
+    Cookie.get(DRAWER_OPENED) === "true",
+  );
   return (
     <Container>
       <SidePanel
@@ -48,6 +53,8 @@ const Story = ({ ...args }) => {
         clearExpandedLines={clearExpandedLines}
         collapseLines={collapseLines}
         expandedLines={[[1, 10]]}
+        panelCollapsed={collapsed}
+        setPanelCollapsed={setCollapsed}
       />
     </Container>
   );

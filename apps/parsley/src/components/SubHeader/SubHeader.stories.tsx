@@ -80,5 +80,5 @@ const SubheaderWrapper: React.FC<SubheaderWrapperProps> = ({
     setLogMetadata({ ...metaData, logType: LogTypes.LOCAL_UPLOAD });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return <Subheader />;
+  return <Subheader setSidePanelCollapsed={() => {}} />;
 };

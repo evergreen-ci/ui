@@ -1,20 +1,16 @@
+import styled from "@emotion/styled";
 import { Drawer, DrawerLayout } from "@leafygreen-ui/drawer";
 import { Chatbot } from "@evg-ui/fungi/components/Chatbot";
 import { useLogContext } from "context/LogContext";
 import { parsleyChatURL } from "utils/environmentVariables";
+import { useChatbotContext } from "./Context";
 
 type Props = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
+  children: React.ReactNode;
 };
 
-export const ChatDrawer = ({
-  children,
-  open,
-  setOpen,
-}: React.PropsWithChildren<Props>) => {
-  console.log(open, parsleyChatURL);
-
+export const ChatDrawer: React.FC<Props> = ({ children }) => {
+  const { drawerOpen, setDrawerOpen } = useChatbotContext();
   const { logMetadata } = useLogContext();
   const { execution, logType, origin, taskID } = logMetadata ?? {};
 
@@ -31,14 +27,20 @@ export const ChatDrawer = ({
     <DrawerLayout
       displayMode="embedded"
       drawer={
-        <Drawer title="Parsley AI">
+        <StyledDrawer title="Parsley AI">
           <Chatbot apiUrl={parsleyChatURL} bodyData={bodyData} />
-        </Drawer>
+        </StyledDrawer>
       }
-      isDrawerOpen={open}
-      onClose={() => setOpen(false)}
+      isDrawerOpen={drawerOpen}
+      onClose={() => setDrawerOpen(false)}
     >
       {children}
     </DrawerLayout>
   );
 };
+
+const StyledDrawer = styled(Drawer)`
+  > div {
+    padding: 0;
+  }
+`;

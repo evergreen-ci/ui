@@ -1,12 +1,13 @@
 import { lazy, useState } from "react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
+import Cookie from "js-cookie";
 import BookmarksBar from "components/BookmarksBar";
-import { ChatDrawer } from "components/ChatDrawer/ChatDrawer";
 import LogPane from "components/LogPane";
 import { ParsleyRow } from "components/LogRow/RowRenderer";
 import SidePanel from "components/SidePanel";
 import SubHeader from "components/SubHeader";
+import { DRAWER_OPENED } from "constants/cookies";
 import { useLogContext } from "context/LogContext";
 
 const SectionsFeatureModal = lazy(
@@ -24,42 +25,46 @@ const LogWindow: React.FC = () => {
     openSectionAndScrollToLine,
     processedLogLines,
   } = useLogContext();
-  const [open, setOpen] = useState(true);
+
   const rowRenderer = ParsleyRow({ processedLogLines });
 
+  const [sidePanelCollapsed, setSidePanelCollapsed] = useState<boolean>(
+    Cookie.get(DRAWER_OPENED) === "true",
+  );
+
   return (
-    <ChatDrawer open={open} setOpen={setOpen}>
-      <Container data-cy="log-window">
-        <SectionsFeatureModal />
-        <SidePanel
-          clearExpandedLines={clearExpandedLines}
-          collapseLines={collapseLines}
-          expandedLines={expandedLines}
-        />
-        <BookmarksBar
-          failingLine={failingLine}
-          lineCount={lineCount}
-          scrollToLine={openSectionAndScrollToLine}
-        />
-        <ColumnContainer>
-          <SubHeader />
-          <LogPaneContainer>
-            {hasLogs && processedLogLines.length && (
-              <LogPane
-                rowCount={processedLogLines.length}
-                rowRenderer={rowRenderer}
-              />
-            )}
-            {hasLogs === false && (
-              <BasicEmptyState
-                description="No logs were found for this resource"
-                title="No Logs Found"
-              />
-            )}
-          </LogPaneContainer>
-        </ColumnContainer>
-      </Container>
-    </ChatDrawer>
+    <Container data-cy="log-window">
+      <SectionsFeatureModal />
+      <SidePanel
+        clearExpandedLines={clearExpandedLines}
+        collapseLines={collapseLines}
+        expandedLines={expandedLines}
+        panelCollapsed={sidePanelCollapsed}
+        setPanelCollapsed={setSidePanelCollapsed}
+      />
+      <BookmarksBar
+        failingLine={failingLine}
+        lineCount={lineCount}
+        scrollToLine={openSectionAndScrollToLine}
+      />
+      <ColumnContainer>
+        <SubHeader setSidePanelCollapsed={setSidePanelCollapsed} />
+        <LogPaneContainer>
+          {hasLogs && processedLogLines.length && (
+            <LogPane
+              rowCount={processedLogLines.length}
+              rowRenderer={rowRenderer}
+            />
+          )}
+          {hasLogs === false && (
+            <BasicEmptyState
+              description="No logs were found for this resource"
+              title="No Logs Found"
+            />
+          )}
+        </LogPaneContainer>
+      </ColumnContainer>
+    </Container>
   );
 };
 
