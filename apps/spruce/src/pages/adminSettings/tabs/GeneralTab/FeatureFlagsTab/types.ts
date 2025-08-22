@@ -35,7 +35,6 @@ export interface FeatureFlagsFormState {
       taskLoggingDisabled: boolean;
       cliUpdatesDisabled: boolean;
       sleepScheduleDisabled: boolean;
-      adminParameterStoreDisabled: boolean;
       releaseModeDisabled: boolean;
       elasticIPsDisabled: boolean;
       staticAPIKeysDisabled: boolean;

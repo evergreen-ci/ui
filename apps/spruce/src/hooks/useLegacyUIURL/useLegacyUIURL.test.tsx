@@ -15,7 +15,9 @@ describe("useLegacyUIURL", () => {
 
   it("clears the legacy URL when navigating from one with to one without", () => {
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/task/task_id"]}>{children}</MemoryRouter>
+      <MemoryRouter initialEntries={["/version/version_id"]}>
+        {children}
+      </MemoryRouter>
     );
     const { result } = renderHook(
       () => ({
@@ -24,7 +26,7 @@ describe("useLegacyUIURL", () => {
       }),
       { wrapper },
     );
-    expect(result.current.legacyURL).toBe("/task/task_id");
+    expect(result.current.legacyURL).toBe("/version/version_id");
 
     act(() => {
       result.current.navigate("/settings/evergreen/general");
