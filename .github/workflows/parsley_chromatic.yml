@@ -21,10 +21,6 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
-        env:
-          CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref }}
-          CHROMATIC_SHA: ${{ github.event.pull_request.head.sha }}
-          CHROMATIC_SLUG: ${{ github.repository }}
 
       - name: Use Node 22
         uses: actions/setup-node@v4
@@ -44,4 +40,8 @@ jobs:
           onlyChanged: true
           fromCI: true
           ci: true
+        env:
+          CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref }}
+          CHROMATIC_SHA: ${{ github.event.pull_request.head.sha }}
+          CHROMATIC_SLUG: ${{ github.repository }}
 
