@@ -1,8 +1,7 @@
-import { lazy, useState } from "react";
+import { lazy } from "react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import BookmarksBar from "components/BookmarksBar";
-import { ChatDrawer } from "components/ChatDrawer/ChatDrawer";
 import LogPane from "components/LogPane";
 import { ParsleyRow } from "components/LogRow/RowRenderer";
 import SidePanel from "components/SidePanel";
@@ -24,42 +23,37 @@ const LogWindow: React.FC = () => {
     openSectionAndScrollToLine,
     processedLogLines,
   } = useLogContext();
-  const [open, setOpen] = useState(true);
-  const rowRenderer = ParsleyRow({ processedLogLines });
-
   return (
-    <ChatDrawer open={open} setOpen={setOpen}>
-      <Container data-cy="log-window">
-        <SectionsFeatureModal />
-        <SidePanel
-          clearExpandedLines={clearExpandedLines}
-          collapseLines={collapseLines}
-          expandedLines={expandedLines}
-        />
-        <BookmarksBar
-          failingLine={failingLine}
-          lineCount={lineCount}
-          scrollToLine={openSectionAndScrollToLine}
-        />
-        <ColumnContainer>
-          <SubHeader />
-          <LogPaneContainer>
-            {hasLogs && processedLogLines.length && (
-              <LogPane
-                rowCount={processedLogLines.length}
-                rowRenderer={rowRenderer}
-              />
-            )}
-            {hasLogs === false && (
-              <BasicEmptyState
-                description="No logs were found for this resource"
-                title="No Logs Found"
-              />
-            )}
-          </LogPaneContainer>
-        </ColumnContainer>
-      </Container>
-    </ChatDrawer>
+    <Container data-cy="log-window">
+      <SectionsFeatureModal />
+      <SidePanel
+        clearExpandedLines={clearExpandedLines}
+        collapseLines={collapseLines}
+        expandedLines={expandedLines}
+      />
+      <BookmarksBar
+        failingLine={failingLine}
+        lineCount={lineCount}
+        scrollToLine={openSectionAndScrollToLine}
+      />
+      <ColumnContainer>
+        <SubHeader />
+        <LogPaneContainer>
+          {hasLogs && processedLogLines.length && (
+            <LogPane
+              rowCount={processedLogLines.length}
+              rowRenderer={ParsleyRow({ processedLogLines })}
+            />
+          )}
+          {hasLogs === false && (
+            <BasicEmptyState
+              description="No logs were found for this resource"
+              title="No Logs Found"
+            />
+          )}
+        </LogPaneContainer>
+      </ColumnContainer>
+    </Container>
   );
 };
 

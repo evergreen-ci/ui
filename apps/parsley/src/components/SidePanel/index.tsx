@@ -34,7 +34,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
       collapsed={collapsed}
       data-cy={dataCy}
       setCollapsed={(collapse) => {
-        // collapsed represents the initial state of the sidenav
+        // panelCollapsed represents the initial state of the sidenav
         Cookie.set(DRAWER_OPENED, collapsed ? "false" : "true", {
           expires: 365,
         });
