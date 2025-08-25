@@ -9,12 +9,12 @@ import { Message } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
 
-type ChatbotProps = {
+type Props = {
   apiUrl: string;
   bodyData?: object;
 } & Pick<LeafyGreenChatProviderProps, "assistantName">;
 
-export const Chatbot: React.FC<ChatbotProps> = ({
+export const ChatFeed: React.FC<Props> = ({
   apiUrl,
   assistantName,
   bodyData,
