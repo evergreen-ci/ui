@@ -15,7 +15,7 @@ describe("authentication", () => {
     // Navigate to Authentication tab if needed
     cy.contains("Authentication").click();
 
-    // // Global Config section
+    // Global Config section
     const allowServiceUsers = "Allow Service Users";
     cy.getInputByLabel(allowServiceUsers).as("allowServiceUsersCheckbox");
     cy.get("@allowServiceUsersCheckbox").check({ force: true });
@@ -119,15 +119,17 @@ describe("authentication", () => {
     });
 
     // Multi section
-    cy.dataCy("multi").within(() => {
-      const multiReadWrite = "Read Write";
-      cy.getInputByLabel(multiReadWrite).as("multiReadWriteInput");
-      cy.get("@multiReadWriteInput").type("okta{enter}");
-
-      const multiReadOnly = "Read Only";
-      cy.getInputByLabel(multiReadOnly).as("multiReadOnlyInput");
-      cy.get("@multiReadOnlyInput").type("naive{enter}");
+    cy.dataCy("multi-read-write").click();
+    cy.dataCy("multi-read-write-options").within(() => {
+      cy.getInputByLabel("Okta").check({ force: true });
     });
+    cy.dataCy("multi-read-write").click({ force: true });
+
+    cy.dataCy("multi-read-only").click();
+    cy.dataCy("multi-read-only-options").within(() => {
+      cy.getInputByLabel("Naive").check({ force: true });
+    });
+    cy.dataCy("multi-read-only").click({ force: true });
 
     // Kanopy section
     cy.dataCy("kanopy").within(() => {
@@ -228,10 +230,16 @@ describe("authentication", () => {
     });
 
     // Verify Multi settings
-    cy.dataCy("multi").within(() => {
-      cy.get("span[data-cy=filter-chip]").contains("okta");
-      cy.get("span[data-cy=filter-chip]").contains("naive");
+    cy.dataCy("multi-read-write").click();
+    cy.dataCy("multi-read-write-options").within(() => {
+      cy.getInputByLabel("Okta").should("be.checked");
     });
+    cy.dataCy("multi-read-write").click({ force: true });
+    cy.dataCy("multi-read-only").click();
+    cy.dataCy("multi-read-only-options").within(() => {
+      cy.getInputByLabel("Naive").should("be.checked");
+    });
+    cy.dataCy("multi-read-only").click({ force: true });
 
     // Verify Kanopy settings
     cy.dataCy("kanopy").within(() => {

@@ -17,8 +17,6 @@ export const gqlToForm = ((data) => {
     testSelection,
   } = data;
 
-  console.log("fields to set: ", slack?.options?.fieldsSet);
-
   return {
     jira: {
       email: jira?.email ?? "",

@@ -8,11 +8,7 @@ import {
   triggers,
 } from "./schemaFields";
 
-export const getFormSchema = ({
-  distros,
-}: {
-  distros: string[];
-}): ReturnType<GetFormSchema> => ({
+export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as const,
@@ -51,7 +47,7 @@ export const getFormSchema = ({
             title: "Triggers",
             default: {},
             properties: {
-              ...triggers(distros).schema,
+              ...triggers.schema,
             },
           },
         },
@@ -82,7 +78,7 @@ export const getFormSchema = ({
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:objectFieldCss": objectGridCss,
         "ui:data-cy": "triggers",
-        ...triggers(distros).uiSchema,
+        ...triggers.uiSchema,
       },
     },
   },

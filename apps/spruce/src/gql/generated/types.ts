@@ -3601,7 +3601,6 @@ export type SelectorInput = {
 
 export type ServiceFlags = {
   __typename?: "ServiceFlags";
-  adminParameterStoreDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   agentStartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   alertsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   backgroundReauthDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3640,7 +3639,6 @@ export type ServiceFlags = {
 };
 
 export type ServiceFlagsInput = {
-  adminParameterStoreDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   agentStartDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   alertsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   backgroundReauthDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -7600,6 +7598,7 @@ export type AdminSettingsQuery = {
           bucket?: string | null;
           generatedJSONPrefix?: string | null;
           key?: string | null;
+          prefix?: string | null;
           secret: string;
         } | null;
         persistentDNS?: {
@@ -7639,6 +7638,10 @@ export type AdminSettingsQuery = {
               name?: string | null;
               os?: EcsOperatingSystem | null;
             }>;
+          } | null;
+          secretsManager?: {
+            __typename?: "SecretsManagerConfig";
+            secretPrefix?: string | null;
           } | null;
         } | null;
         subnets: Array<{ __typename?: "Subnet"; az: string; subnetId: string }>;

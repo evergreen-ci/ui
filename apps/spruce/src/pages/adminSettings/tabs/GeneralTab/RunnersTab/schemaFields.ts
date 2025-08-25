@@ -220,11 +220,11 @@ export const scheduler = {
     },
     targetTimeSeconds: {
       type: "number" as const,
-      title: "Max Secret Cleanup (Per Job)",
+      title: "Target Time (secs)",
     },
     acceptableHostIdleTimeSeconds: {
       type: "number" as const,
-      title: "Max Secret Cleanup (Per Job)",
+      title: "Acceptable Host Idle Time (secs)",
     },
     patchFactor: {
       type: "number" as const,

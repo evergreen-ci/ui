@@ -171,59 +171,49 @@ export const getSingleTaskDistroSchema = ({
 
 export const bucketConfig = {
   schema: {
-    logBucket: {
-      type: "object" as const,
-      title: "",
-      properties: {
-        defaultLogBucket: {
-          type: "string" as const,
-          title: "Default Log Bucket",
-        },
-        logBucketLongRetentionName: {
-          type: "string" as const,
-          title: "Long Retention Log Bucket",
-        },
-        testResultsBucketName: {
-          type: "string" as const,
-          title: "Test Results Bucket Name",
-        },
-        testResultsBucketTestResultsPrefix: {
-          type: "string" as const,
-          title: "Test Results Bucket Prefix",
-        },
-        testResultsBucketRoleARN: {
-          type: "string" as const,
-          title: "Test Results Bucket Role ARN",
-        },
-        credentialsKey: {
-          type: "string" as const,
-          title: "S3 Key",
-        },
-        credentialsSecret: {
-          type: "string" as const,
-          title: "S3 Secret",
-        },
-        longRetentionProjects: {
-          type: "array" as const,
-          title: "Projects Requiring Long Retention",
-          items: {
-            type: "string" as const,
-          },
-        },
+    defaultLogBucket: {
+      type: "string" as const,
+      title: "Default Log Bucket",
+    },
+    logBucketLongRetentionName: {
+      type: "string" as const,
+      title: "Long Retention Log Bucket",
+    },
+    longRetentionProjects: {
+      type: "array" as const,
+      title: "Projects Requiring Long Retention",
+      items: {
+        type: "string" as const,
       },
+    },
+    testResultsBucketName: {
+      type: "string" as const,
+      title: "Test Results Bucket Name",
+    },
+    testResultsBucketTestResultsPrefix: {
+      type: "string" as const,
+      title: "Test Results Bucket Prefix",
+    },
+    testResultsBucketRoleARN: {
+      type: "string" as const,
+      title: "Test Results Bucket Role ARN",
+    },
+    credentialsKey: {
+      type: "string" as const,
+      title: "S3 Key",
+    },
+    credentialsSecret: {
+      type: "string" as const,
+      title: "S3 Secret",
     },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-
-    logBucket: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:data-cy": "bucket-config",
-      "ui:objectFieldCss": objectGridCss,
-      longRetentionProjects: {
-        "ui:widget": widgets.ChipInputWidget,
-        "ui:fieldCss": fullWidthCss,
-      },
+    "ui:data-cy": "bucket-config",
+    "ui:objectFieldCss": objectGridCss,
+    longRetentionProjects: {
+      "ui:widget": widgets.ChipInputWidget,
+      "ui:fieldCss": fullWidthCss,
     },
   },
 };
@@ -283,7 +273,7 @@ export const expansions = {
   schema: {
     expansionValues: {
       type: "array" as const,
-      title: "Expansions",
+      title: "",
       items: {
         type: "object" as const,
         properties: {
@@ -301,12 +291,12 @@ export const expansions = {
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    "ui:addButtonText": "Add expansion",
     "ui:data-cy": "expansions-list",
     "ui:fullWidth": true,
     expansionValues: {
       "ui:orderable": false,
       "ui:fullWidth": true,
+      "ui:addButtonText": "Add expansion",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:arrayItemCSS": arrayItemCSS,
       items: {
@@ -410,6 +400,7 @@ export const jiraNotificationsFields = {
       items: {
         fields: {
           "ui:addButtonText": "Add custom field",
+          "ui:placeholder": "No custom fields defined.",
           "ui:data-cy": "jira-fields-list",
           "ui:orderable": false,
           "ui:fullWidth": true,
@@ -429,6 +420,10 @@ export const jiraNotificationsFields = {
 
 export const spawnHost = {
   schema: {
+    spawnHostsPerUser: {
+      type: "number" as const,
+      title: "Total Spawn Hosts Per User",
+    },
     unexpirableHostsPerUser: {
       type: "number" as const,
       title: "Unexpirable Hosts Per User",
@@ -436,10 +431,6 @@ export const spawnHost = {
     unexpirableVolumesPerUser: {
       type: "number" as const,
       title: "Unexpirable Volumes Per User",
-    },
-    spawnHostsPerUser: {
-      type: "number" as const,
-      title: "Spawn Hosts Per User",
     },
   },
   uiSchema: {
@@ -472,29 +463,30 @@ export const sleepSchedule = {
 
 export const tracerConfiguration = {
   schema: {
+    enabled: {
+      type: "boolean" as const,
+      title: "Enable tracer",
+    },
     collectorEndpoint: {
       type: "string" as const,
       title: "Collector Endpoint",
-      format: "validURL",
     },
     collectorInternalEndpoint: {
       type: "string" as const,
       title: "Collector Internal Endpoint",
-      format: "validURL",
     },
     collectorAPIKey: {
       type: "string" as const,
       title: "Collector API Key",
-    },
-    enabled: {
-      type: "boolean" as const,
-      title: "Enabled",
     },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "tracer-configuration",
     "ui:objectFieldCss": objectGridCss,
+    enabled: {
+      "ui:fieldCss": fullWidthCss,
+    },
   },
 };
 

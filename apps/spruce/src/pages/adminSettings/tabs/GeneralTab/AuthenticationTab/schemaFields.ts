@@ -1,4 +1,6 @@
 import { css } from "@emotion/react";
+import { size } from "@evg-ui/lib/constants/tokens";
+import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { PreferredAuthType } from "gql/generated/types";
@@ -58,13 +60,10 @@ export const globalConfig = {
       },
     },
     allowServiceUsers: {
+      "ui:fieldCss": fullWidthCss,
       "ui:widget": widgets.CheckboxWidget,
       "ui:options": {
-        elementWrapperCSS: css`
-          > div > label > span {
-            font-weight: 700;
-          }
-        `,
+        bold: true,
       },
     },
   },
@@ -105,6 +104,9 @@ export const okta = {
     scopes: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+      "ui:elementWrapperCSS": css`
+        margin-bottom: 0;
+      `,
     },
   },
 };
@@ -141,7 +143,15 @@ export const naive = {
     users: {
       "ui:fullWidth": true,
       "ui:orderable": false,
-
+      "ui:addButtonText": "Add user",
+      "ui:arrayCSS": css`
+        margin-bottom: 0;
+      `,
+      "ui:arrayItemCSS": css`
+        > div > div > div {
+          margin-bottom: ${size.m};
+        }
+      `,
       items: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
       },
@@ -188,34 +198,57 @@ export const github = {
     users: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+      "ui:elementWrapperCSS": css`
+        margin-bottom: 0;
+      `,
     },
   },
 };
+
+const validMultiOptions = [
+  PreferredAuthType.Github,
+  PreferredAuthType.Okta,
+  PreferredAuthType.Naive,
+];
+
+const multiOptions = [
+  ...validMultiOptions.map((key) => ({
+    type: "string" as const,
+    title: toSentenceCase(key),
+    enum: [key.toLowerCase()],
+  })),
+];
 
 export const multi = {
   schema: {
     readWrite: {
       type: "array" as const,
       title: "Read Write",
+      uniqueItems: true,
       items: {
         type: "string" as const,
+        anyOf: multiOptions,
       },
     },
     readOnly: {
       type: "array" as const,
       title: "Read Only",
+      uniqueItems: true,
       items: {
         type: "string" as const,
+        anyOf: multiOptions,
       },
     },
   },
   uiSchema: {
     readWrite: {
-      "ui:widget": widgets.ChipInputWidget,
+      "ui:data-cy": "multi-read-write",
+      "ui:widget": widgets.MultiSelectWidget,
       "ui:fieldCss": fullWidthCss,
     },
     readOnly: {
-      "ui:widget": widgets.ChipInputWidget,
+      "ui:data-cy": "multi-read-only",
+      "ui:widget": widgets.MultiSelectWidget,
       "ui:fieldCss": fullWidthCss,
     },
   },
