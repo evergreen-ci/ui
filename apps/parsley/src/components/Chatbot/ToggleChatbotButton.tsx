@@ -1,11 +1,11 @@
 import Button, { Size, Variant } from "@leafygreen-ui/button";
+import { useChatContext } from "@evg-ui/fungi/useChatContext";
 import Icon from "@evg-ui/lib/components/Icon";
-import { useChatbotContext } from "./Context";
 
 interface Props {}
 
 export const ToggleChatbotButton: React.FC<Props> = () => {
-  const { setDrawerOpen } = useChatbotContext();
+  const { setDrawerOpen } = useChatContext();
   return (
     <Button
       leftGlyph={<Icon glyph="Sparkle" />}
