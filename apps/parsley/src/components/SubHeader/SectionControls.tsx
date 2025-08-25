@@ -33,7 +33,7 @@ const SectionControls = () => {
             toggleAllSections(true);
             sendEvent({ name: "Clicked open all sections button" });
           }}
-          size="small"
+          size="xsmall"
         >
           Open all sections
         </Button>

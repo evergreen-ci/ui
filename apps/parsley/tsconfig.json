@@ -3,10 +3,13 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
+      "@evg-ui/fungi/*": [
+        "../../../packages/fungi/src/*"
+      ],
       "@evg-ui/lib/*": [
         "../../../packages/lib/src/*"
       ]
-    },
+    }
   },
   "include": [
     "src",
