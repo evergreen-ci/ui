@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Drawer, DrawerLayout } from "@leafygreen-ui/drawer";
-import { useChatContext } from "./useChatContext";
+import { useChatContext } from "../Context";
 
 type Props = {
   children: React.ReactNode;

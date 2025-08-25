@@ -1,6 +1,6 @@
 import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
 import { ChatFeed } from "@evg-ui/fungi/ChatFeed";
-import { ChatProvider } from "@evg-ui/fungi/ChatProvider";
+import { ChatProvider } from "@evg-ui/fungi/Context";
 import { useLogContext } from "context/LogContext";
 import { parsleyChatURL } from "utils/environmentVariables";
 
