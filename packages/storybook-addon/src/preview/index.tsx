@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { Decorator, Parameters, Preview } from "@storybook/react-vite";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
@@ -16,6 +17,11 @@ const parameters: Parameters = {
 };
 
 const decorators: Decorator[] = [
+  (Story) => (
+    <LeafyGreenProvider>
+      <Story />
+    </LeafyGreenProvider>
+  ),
   (
     Story,
     {
