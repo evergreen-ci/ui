@@ -67,7 +67,7 @@
       >
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-161yf65"
+          class="lg-ui-button-0000 leafygreen-ui-1m0zu1d leafygreen-ui-cssveg"
           data-cy="move-btn-DEVPROD-123"
           data-lgid="lg-button"
           type="button"
@@ -100,7 +100,7 @@
         </button>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-161yf65"
+          class="lg-ui-button-0000 leafygreen-ui-1m0zu1d leafygreen-ui-cssveg"
           data-cy="DEVPROD-123-delete-btn"
           data-lgid="lg-button"
           type="button"
@@ -198,7 +198,7 @@
       >
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-161yf65"
+          class="lg-ui-button-0000 leafygreen-ui-1m0zu1d leafygreen-ui-cssveg"
           data-cy="move-btn-DEVPROD-456"
           data-lgid="lg-button"
           type="button"
@@ -231,7 +231,7 @@
         </button>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-161yf65"
+          class="lg-ui-button-0000 leafygreen-ui-1m0zu1d leafygreen-ui-cssveg"
           data-cy="DEVPROD-456-delete-btn"
           data-lgid="lg-button"
           type="button"
