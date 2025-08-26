@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { Drawer, DrawerLayout } from "@leafygreen-ui/drawer";
 import { useChatContext } from "../Context";
 
@@ -18,7 +17,11 @@ export const ChatDrawer: React.FC<Props> = ({
   return (
     <DrawerLayout
       displayMode="embedded"
-      drawer={<StyledDrawer title={title}>{chatContent}</StyledDrawer>}
+      drawer={
+        <Drawer scrollable={false} title={title}>
+          {chatContent}
+        </Drawer>
+      }
       isDrawerOpen={drawerOpen}
       onClose={() => setDrawerOpen(false)}
     >
@@ -26,9 +29,3 @@ export const ChatDrawer: React.FC<Props> = ({
     </DrawerLayout>
   );
 };
-
-const StyledDrawer = styled(Drawer)`
-  > div {
-    padding: 0;
-  }
-`;
