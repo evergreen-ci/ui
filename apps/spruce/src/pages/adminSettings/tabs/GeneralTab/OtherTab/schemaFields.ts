@@ -63,6 +63,24 @@ export const miscSettings = {
         },
       },
     },
+    cost: {
+      type: "object" as const,
+      title: "Cost",
+      properties: {
+        financeFormula: {
+          type: "number" as const,
+          title: "Finance Formula",
+        },
+        savingsPlanDiscount: {
+          type: "number" as const,
+          title: "Savings Plan Discount",
+        },
+        onDemandDiscount: {
+          type: "number" as const,
+          title: "On-Demand Discount",
+        },
+      },
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,

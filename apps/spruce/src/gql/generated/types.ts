@@ -168,6 +168,7 @@ export type AdminSettings = {
   cedar?: Maybe<CedarConfig>;
   configDir?: Maybe<Scalars["String"]["output"]>;
   containerPools?: Maybe<ContainerPoolsConfig>;
+  cost?: Maybe<CostConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
   domainName?: Maybe<Scalars["String"]["output"]>;
   expansions?: Maybe<Scalars["StringMap"]["output"]>;
@@ -221,6 +222,7 @@ export type AdminSettingsInput = {
   cedar?: InputMaybe<CedarConfigInput>;
   configDir?: InputMaybe<Scalars["String"]["input"]>;
   containerPools?: InputMaybe<ContainerPoolsConfigInput>;
+  cost?: InputMaybe<CostConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   domainName?: InputMaybe<Scalars["String"]["input"]>;
   expansions?: InputMaybe<Scalars["StringMap"]["input"]>;
@@ -677,6 +679,19 @@ export type CopyProjectInput = {
   newProjectId?: InputMaybe<Scalars["String"]["input"]>;
   newProjectIdentifier: Scalars["String"]["input"];
   projectIdToCopy: Scalars["String"]["input"];
+};
+
+export type CostConfig = {
+  __typename?: "CostConfig";
+  financeFormula?: Maybe<Scalars["Float"]["output"]>;
+  onDemandDiscount?: Maybe<Scalars["Float"]["output"]>;
+  savingsPlanDiscount?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type CostConfigInput = {
+  financeFormula?: InputMaybe<Scalars["Float"]["input"]>;
+  onDemandDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  savingsPlanDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
 export type CostData = {
@@ -7493,6 +7508,12 @@ export type AdminSettingsQuery = {
         maxContainers: number;
         port: number;
       }>;
+    } | null;
+    cost?: {
+      __typename?: "CostConfig";
+      financeFormula?: number | null;
+      onDemandDiscount?: number | null;
+      savingsPlanDiscount?: number | null;
     } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
