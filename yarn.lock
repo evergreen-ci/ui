@@ -3361,7 +3361,7 @@
     "@leafygreen-ui/palette" "^4.0.9"
     "@leafygreen-ui/tokens" "^2.9.0"
 
-"@leafygreen-ui/code@^19.0.1":
+"@leafygreen-ui/code@19.0.1", "@leafygreen-ui/code@^19.0.1", "@leafygreen-ui/code@^20.0.2":
   version "19.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/code/-/code-19.0.1.tgz#078009659ecf2c40ac271532a5b4d7736c53bdb1"
   integrity sha512-Ya9c+fW/Imza0IlqeFBf4ueHmHdZiL+ScMwVf0YPb+oCYYJ3Z3bAWdg6RIR7ygYD18PHCCD6WFUfM0v01bFxzQ==
@@ -3380,34 +3380,6 @@
     "@leafygreen-ui/tooltip" "^14.0.1"
     "@leafygreen-ui/typography" "^21.0.1"
     "@lg-tools/test-harnesses" "^0.3.1"
-    "@types/facepaint" "^1.2.1"
-    "@types/highlight.js" "^10.1.0"
-    clipboard "^2.0.6"
-    facepaint "^1.2.1"
-    highlight.js "~11.5.0"
-    highlightjs-graphql "^1.0.1"
-    lodash "^4.17.21"
-    polished "^4.2.2"
-
-"@leafygreen-ui/code@^20.0.2":
-  version "20.0.3"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/code/-/code-20.0.3.tgz#625da3b8bed57bb9a5377db96b6c8a85685e4c9d"
-  integrity sha512-GQJW89Xq538ir+yjNfq4ls8+z7ntMZbVrtY3Uj9UmlQ1vd3bK53pVjHt3YvCEoqA1Z7BFZnRv9oYrZ0Nnw+xtQ==
-  dependencies:
-    "@leafygreen-ui/a11y" "^3.0.2"
-    "@leafygreen-ui/button" "^25.0.1"
-    "@leafygreen-ui/emotion" "^5.0.0"
-    "@leafygreen-ui/hooks" "^9.1.1"
-    "@leafygreen-ui/icon" "^14.1.0"
-    "@leafygreen-ui/icon-button" "^17.0.3"
-    "@leafygreen-ui/lib" "^15.2.0"
-    "@leafygreen-ui/palette" "^5.0.0"
-    "@leafygreen-ui/select" "^16.0.3"
-    "@leafygreen-ui/skeleton-loader" "^3.0.3"
-    "@leafygreen-ui/tokens" "^3.2.0"
-    "@leafygreen-ui/tooltip" "^14.1.1"
-    "@leafygreen-ui/typography" "^22.1.0"
-    "@lg-tools/test-harnesses" "^0.3.2"
     "@types/facepaint" "^1.2.1"
     "@types/highlight.js" "^10.1.0"
     clipboard "^2.0.6"
@@ -4488,20 +4460,6 @@
     "@leafygreen-ui/palette" "^5.0.0"
     "@leafygreen-ui/tokens" "^3.1.0"
     "@leafygreen-ui/typography" "^21.0.1"
-    lodash "^4.17.21"
-
-"@leafygreen-ui/skeleton-loader@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/skeleton-loader/-/skeleton-loader-3.0.3.tgz#46d0f2fd45375047b30a6097483f9ccc438e1003"
-  integrity sha512-EGLmk7BoCJlLGAz7eZiQTxkZWtmkgb16mfUP3NnAJO/16BgxeS4WzKY39yGpac81kZBQQCGJaxiTmsFQF30yQQ==
-  dependencies:
-    "@leafygreen-ui/card" "^13.0.3"
-    "@leafygreen-ui/emotion" "^5.0.0"
-    "@leafygreen-ui/icon" "^14.1.0"
-    "@leafygreen-ui/lib" "^15.2.0"
-    "@leafygreen-ui/palette" "^5.0.0"
-    "@leafygreen-ui/tokens" "^3.1.2"
-    "@leafygreen-ui/typography" "^22.0.1"
     lodash "^4.17.21"
 
 "@leafygreen-ui/split-button@^6.1.1":
