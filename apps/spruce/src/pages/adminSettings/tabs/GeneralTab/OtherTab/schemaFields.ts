@@ -105,6 +105,9 @@ export const miscSettings = {
           "Override for the acceptable host idle time (ignored if 0).",
       },
     },
+    cost: {
+      "ui:fieldCss": nestedObjectGridCss,
+    },
   },
 };
 
