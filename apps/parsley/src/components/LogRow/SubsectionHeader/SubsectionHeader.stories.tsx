@@ -19,6 +19,7 @@ const SubsectionHeaderStory = () => (
     />
     <SubsectionHeader
       {...SubsectionHeaderProps}
+      commandDescription="Updating task expansions"
       commandName="shell.exec"
       isTopLevelCommand={false}
       lineIndex={0}
@@ -27,6 +28,7 @@ const SubsectionHeaderStory = () => (
     />
     <SubsectionHeader
       {...SubsectionHeaderProps}
+      commandDescription="Downloading MongoDB binary"
       commandName="shell.exec"
       isTopLevelCommand={false}
       lineIndex={0}
@@ -47,6 +49,7 @@ const SubsectionHeaderStoryTopLevel = () => (
     />
     <SubsectionHeader
       {...SubsectionHeaderProps}
+      commandDescription="Updating task expansions"
       commandName="shell.exec"
       isTopLevelCommand
       lineIndex={0}
@@ -55,6 +58,7 @@ const SubsectionHeaderStoryTopLevel = () => (
     />
     <SubsectionHeader
       {...SubsectionHeaderProps}
+      commandDescription="Downloading MongoDB binary"
       commandName="shell.exec"
       isTopLevelCommand
       lineIndex={0}
@@ -78,6 +82,7 @@ const Container = styled.div`
 `;
 
 const SubsectionHeaderProps = {
+  commandDescription: undefined,
   commandID: "command-1",
   functionID: "function-1",
   step: "1 of 4",

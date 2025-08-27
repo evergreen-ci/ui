@@ -393,10 +393,9 @@ export const getNextHostStart = (
   };
 };
 
-const today = new Date(Date.now());
+const today = setToUTCMidnight(new Date(Date.now()));
+
 export const exemptionRange = {
-  disableBefore: setToUTCMidnight(today),
-  disableAfter: setToUTCMidnight(
-    new Date(today.setMonth(today.getMonth() + 1)),
-  ),
+  disableBefore: new Date(today.setHours(0, 0, 0, 0)).toISOString(),
+  disableAfter: new Date(today.setMonth(today.getMonth() + 1)).toISOString(),
 };

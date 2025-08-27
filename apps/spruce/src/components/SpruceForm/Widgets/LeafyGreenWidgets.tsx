@@ -552,15 +552,20 @@ export const LeafyGreenDatePicker: React.FC<
     };
   } & SpruceWidgetProps
 > = ({ disabled, label, onChange, options, readonly, value = "" }) => {
-  const { description, disableAfter, disableBefore, elementWrapperCSS } =
-    options;
+  const {
+    "data-cy": dataCy = "date-picker",
+    description,
+    disableAfter,
+    disableBefore,
+    elementWrapperCSS,
+  } = options;
 
   const isDisabled = disabled || readonly;
 
   return (
     <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <DatePicker
-        data-cy="date-picker"
+        data-cy={dataCy}
         description={description}
         disabled={isDisabled}
         label={label}

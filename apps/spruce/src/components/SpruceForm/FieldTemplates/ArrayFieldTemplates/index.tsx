@@ -1,4 +1,5 @@
 /* eslint-disable jsdoc/valid-types */
+import { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import ExpandableCard from "@leafygreen-ui/expandable-card";
@@ -23,8 +24,10 @@ const ArrayItem: React.FC<
     title: string;
     topAlignDelete: boolean;
     useExpandableCard: boolean;
+    arrayItemCss: SerializedStyles;
   } & Unpacked<ArrayFieldTemplateProps["items"]>
 > = ({
+  arrayItemCss,
   border,
   children,
   disabled,
@@ -64,7 +67,7 @@ const ArrayItem: React.FC<
       {children}
     </StyledExpandableCard>
   ) : (
-    <ArrayItemRow key={index} border={border} index={index}>
+    <ArrayItemRow key={index} border={border} css={arrayItemCss} index={index}>
       {(hasMoveUp || hasMoveDown) && !readonly && (
         <OrderControls topAlignDelete={topAlignDelete}>
           {hasMoveUp && (
@@ -158,6 +161,9 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const secondaryButton = uiSchema["ui:secondaryButton"];
   const arrayDataCy = uiSchema["ui:data-cy"];
 
+  const arrayCss = uiSchema["ui:arrayCSS"];
+  const arrayItemCss = uiSchema["ui:arrayItemCSS"];
+
   // Override RJSF's default array behavior; add new elements to beginning of array unless otherwise specified.
   const addToEnd = uiSchema["ui:addToEnd"] ?? false;
   const handleAddClick =
@@ -193,6 +199,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
         </AddButtonContainer>
       )}
       <ArrayContainer
+        css={arrayCss}
         data-cy={arrayDataCy}
         fullWidth={fullWidth || useExpandableCard}
         hasChildren={!!items?.length}
@@ -205,6 +212,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
           <ArrayItem
             {...p}
             key={p.key}
+            arrayItemCss={arrayItemCss}
             border={border}
             title={
               formData?.[i]?.displayTitle ??

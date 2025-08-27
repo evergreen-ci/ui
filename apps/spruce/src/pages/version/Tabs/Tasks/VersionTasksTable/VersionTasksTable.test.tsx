@@ -1,7 +1,8 @@
 import { InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import { getTestUtils } from "@leafygreen-ui/checkbox";
-import { getTestUtils as getTableUtils } from "@leafygreen-ui/table";
+// @ts-expect-error This does exist, incorrect typing from LeafyGreen
+import { getTestUtils as getTableUtils } from "@leafygreen-ui/table/testing";
 import {
   fireEvent,
   waitFor,
@@ -10,10 +11,14 @@ import {
   userEvent,
   within,
 } from "@evg-ui/lib/test_utils";
+import * as db from "components/TaskReview/db";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { VERSION_TASKS } from "gql/queries";
 import { versionTasks } from "./testData";
 import { VersionTasksTable, getInitialState } from ".";
+
+vi.spyOn(db, "setItem");
+vi.spyOn(db, "setItems");
 
 const versionId = versionTasks.data.version.id;
 const tasks = versionTasks.data.version.tasks.data;
@@ -39,6 +44,10 @@ cache.writeQuery({
 });
 
 describe("VersionTasksTable", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it("renders all rows", () => {
     render(
       <MockedProvider cache={cache}>
@@ -100,11 +109,20 @@ describe("VersionTasksTable", () => {
       await waitFor(() => {
         expect(getInputValue()).toBe(true);
       });
+      expect(db.setItem).toHaveBeenCalledExactlyOnceWith(
+        [tasks[0].id, tasks[0].execution],
+        true,
+      );
 
       fireEvent.click(getInput());
       await waitFor(() => {
         expect(getInputValue()).toBe(false);
       });
+      expect(db.setItem).toHaveBeenCalledTimes(2);
+      expect(db.setItem).toHaveBeenLastCalledWith(
+        [tasks[0].id, tasks[0].execution],
+        false,
+      );
     });
 
     it("disables the checkbox for successful tasks", async () => {
@@ -135,9 +153,10 @@ describe("VersionTasksTable", () => {
       // Use fireEvent because this checkbox has no label to click.
       // This is how LG tests their checkboxes ¯\_(ツ)_/¯
       fireEvent.click(displayTask.getInput());
+      expect(db.setItem).not.toHaveBeenCalled();
+      expect(db.setItems).toHaveBeenCalledOnce();
 
       const { getRowByIndex } = getTableUtils();
-      // @ts-expect-error This does exist, incorrect typing from LeafyGreen
       const { getExpandButton } = getRowByIndex(3);
       await user.click(getExpandButton());
 
@@ -164,6 +183,19 @@ describe("VersionTasksTable", () => {
       await waitFor(() => {
         expect(executionTask0.getInputValue()).toBe(false);
       });
+      expect(db.setItem).toHaveBeenNthCalledWith(
+        1,
+        [
+          tasks?.[3]?.executionTasksFull?.[0]?.id,
+          tasks?.[3]?.executionTasksFull?.[0]?.execution,
+        ],
+        false,
+      );
+      expect(db.setItem).toHaveBeenNthCalledWith(
+        2,
+        [tasks[3].id, tasks[3].execution],
+        false,
+      );
 
       displayTask = getTestUtils(`lg-reviewed-${tasks[3].id}`);
       expect(displayTask.isIndeterminate()).toBe(true);

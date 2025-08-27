@@ -45,6 +45,10 @@ const distroData: DistroQuery["distro"] = {
     shellPath: "/bin/bash",
   },
   containerPool: "",
+  costData: {
+    onDemandRate: 0.01,
+    savingsPlanRate: 0.02,
+  },
   disabled: false,
   disableShallowClone: true,
   dispatcherSettings: {

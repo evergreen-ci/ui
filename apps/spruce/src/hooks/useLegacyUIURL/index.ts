@@ -20,7 +20,6 @@ export const useLegacyUIURL = (): string | null => {
       [`${routes.version}/*`]: `${uiURL}/version/${id}`,
       [`${routes.configurePatch}/*`]: `${uiURL}/patch/${id}`,
       [routes.userPatches]: `${uiURL}/patches/user/${id}`,
-      [`${routes.task}/*`]: `${uiURL}/task/${id}`,
       [routes.spawnHost]: `${uiURL}/spawn#?resourcetype=hosts`,
       [routes.spawnVolume]: `${uiURL}/spawn#?resourcetype=volumes`,
       [routes.hosts]: `${uiURL}/hosts`,

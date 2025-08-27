@@ -24,15 +24,15 @@ export const SideNavPageContent = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
   flex-grow: 1;
-  padding: ${size.m} ${size.l};
+  padding: ${size.m};
 `;
 
 // Layout elements for non-LG SideNav pages
-export const PageWrapper = styled.div`
+export const PageWrapper = styled.div<{ omitPadding?: boolean }>`
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  padding: ${size.m} ${size.l};
+  padding: ${({ omitPadding }) => (omitPadding ? "0" : `${size.m} ${size.l}`)};
 `;
 export const PageLayout = styled.section<{ hasSider?: boolean }>`
   display: flex;

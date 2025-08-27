@@ -1,33 +1,280 @@
 query AdminSettings {
   adminSettings {
+    amboy {
+      groupBackgroundCreateFrequencyMinutes
+      groupDefaultWorkers
+      groupPruneFrequencyMinutes
+      groupTTLMinutes
+      localStorage
+      lockTimeoutMinutes
+      name
+      namedQueues {
+        lockTimeoutSeconds
+        name
+        numWorkers
+        regexp
+        sampleSize
+      }
+      poolSizeLocal
+      poolSizeRemote
+      retry {
+        maxCapacity
+        maxRetryAttempts
+        maxRetryTimeSeconds
+        numWorkers
+        retryBackoffSeconds
+        staleRetryingMonitorIntervalSeconds
+      }
+      sampleSize
+      singleName
+    }
+    amboyDB {
+      database
+      url
+    }
     api {
       corpUrl
       httpListenAddr
       url
     }
+    authConfig {
+      allowServiceUsers
+      backgroundReauthMinutes
+      github {
+        appId
+        clientId
+        clientSecret
+        defaultOwner
+        defaultRepo
+        organization
+        users
+      }
+      kanopy {
+        headerName
+        issuer
+        keysetURL
+      }
+      multi {
+        readOnly
+        readWrite
+      }
+      naive {
+        users {
+          displayName
+          email
+          password
+          username
+        }
+      }
+      okta {
+        clientId
+        clientSecret
+        expireAfterMinutes
+        issuer
+        scopes
+        userGroup
+      }
+      preferredType
+    }
     banner
     bannerTheme
+    buckets {
+      credentials {
+        key
+        secret
+      }
+      logBucket {
+        name
+        roleARN
+        testResultsPrefix
+      }
+      logBucketLongRetention {
+        name
+      }
+      longRetentionProjects
+      testResultsBucket {
+        name
+        roleARN
+        testResultsPrefix
+      }
+    }
+    cedar {
+      dbName
+      dbUrl
+    }
+    configDir
+    containerPools {
+      pools {
+        id
+        distro
+        maxContainers
+        port
+      }
+    }
     disabledGQLQueries
+    domainName
+    expansions
+    fws {
+      url
+    }
+    githubCheckRun {
+      checkRunLimit
+    }
+    githubOrgs
+    githubPRCreatorOrg
+    githubWebhookSecret
     hostInit {
       cloudStatusBatchSize
       hostThrottle
       maxTotalDynamicHosts
       provisioningThrottle
     }
+    hostJasper {
+      binaryName
+      downloadFileName
+      port
+      url
+      version
+    }
+    jira {
+      email
+      host
+      personalAccessToken
+    }
+    jiraNotifications {
+      customFields {
+        components
+        fields
+        labels
+        project
+      }
+    }
+    kanopySSHKeyPath
+    loggerConfig {
+      buffer {
+        count
+        durationSeconds
+        incomingBufferFactor
+        useAsync
+      }
+      defaultLevel
+      logkeeperURL
+      redactKeys
+      thresholdLevel
+    }
+    logPath
     notify {
+      bufferIntervalSeconds
+      bufferTargetPerInterval
       ses {
         senderAddress
       }
     }
+    parameterStore {
+      prefix
+    }
+    perfMonitoringKanopyURL
+    perfMonitoringURL
     podLifecycle {
       maxParallelPodRequests
       maxPodDefinitionCleanupRate
       maxSecretCleanupRate
     }
+    pprofPort
+    projectCreation {
+      jiraProject
+      repoExceptions {
+        owner
+        repo
+      }
+      repoProjectLimit
+      totalProjectLimit
+    }
+
+    providers {
+      aws {
+        accountRoles {
+          account
+          role
+        }
+        alertableInstanceTypes
+        allowedInstanceTypes
+        allowedRegions
+        defaultSecurityGroup
+        ec2Keys {
+          key
+          name
+          secret
+        }
+        elasticIPUsageRate
+        ipamPoolID
+        maxVolumeSizePerUser
+        parserProject {
+          bucket
+          generatedJSONPrefix
+          key
+          prefix
+          secret
+        }
+        persistentDNS {
+          domain
+          hostedZoneID
+        }
+        pod {
+          ecs {
+            allowedImages
+            awsVPC {
+              securityGroups
+              subnets
+            }
+            capacityProviders {
+              arch
+              name
+              os
+              windowsVersion
+            }
+            clusters {
+              name
+              os
+            }
+            executionRole
+            logGroup
+            logRegion
+            logStreamPrefix
+            maxCPU
+            maxMemoryMb
+            taskDefinitionPrefix
+            taskRole
+          }
+          region
+          role
+          secretsManager {
+            secretPrefix
+          }
+        }
+        subnets {
+          az
+          subnetId
+        }
+      }
+      docker {
+        apiVersion
+      }
+    }
+    releaseMode {
+      distroMaxHostsFactor
+      idleTimeSecondsOverride
+      targetTimeSecondsOverride
+    }
+
     repotracker {
       maxConcurrentRequests
       maxRepoRevisionsToSearch
       numNewRepoRevisionsToFetch
+    }
+    runtimeEnvironments {
+      apiKey
+      baseUrl
     }
     scheduler {
       acceptableHostIdleTimeSeconds
@@ -49,8 +296,8 @@ query AdminSettings {
       targetTimeSeconds
       taskFinder
     }
+
     serviceFlags {
-      adminParameterStoreDisabled
       agentStartDisabled
       alertsDisabled
       backgroundReauthDisabled
@@ -87,7 +334,54 @@ query AdminSettings {
       unrecognizedPodCleanupDisabled
       webhookNotificationsDisabled
     }
-
+    shutdownWaitSeconds
+    singleTaskDistro {
+      projectTasksPairs {
+        allowedBVs
+        allowedTasks
+        projectId
+      }
+    }
+    slack {
+      level
+      name
+      options {
+        allFields
+        basicMetadata
+        channel
+        fields
+        fieldsSet
+        hostname
+        name
+        username
+      }
+      token
+    }
+    sleepSchedule {
+      permanentlyExemptHosts
+    }
+    spawnhost {
+      spawnHostsPerUser
+      unexpirableHostsPerUser
+      unexpirableVolumesPerUser
+    }
+    splunk {
+      splunkConnectionInfo {
+        channel
+        serverUrl
+        token
+      }
+    }
+    ssh {
+      spawnHostKey {
+        name
+        secretARN
+      }
+      taskHostKey {
+        name
+        secretARN
+      }
+    }
     taskLimits {
       maxConcurrentLargeParserProjectTasks
       maxDailyAutomaticRestarts
@@ -101,6 +395,18 @@ query AdminSettings {
       maxPendingGeneratedTasks
       maxTaskExecution
       maxTasksPerVersion
+    }
+    testSelection {
+      url
+    }
+    tracer {
+      collectorAPIKey
+      collectorEndpoint
+      collectorInternalEndpoint
+      enabled
+    }
+    triggers {
+      generateTaskDistro
     }
     ui {
       betaFeatures {

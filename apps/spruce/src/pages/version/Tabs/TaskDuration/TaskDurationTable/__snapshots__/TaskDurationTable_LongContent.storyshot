@@ -9,16 +9,20 @@
       data-cy="task-duration-table"
       data-is-sticky="false"
       data-lgid="lg-table"
+      data-testid="lg-table"
     >
       <thead
         class="leafygreen-ui-181p7kg"
       >
         <tr
           class="leafygreen-ui-5fo1n0"
+          data-lgid="lg-table-header_row"
+          data-testid="lg-table-header_row"
         >
           <th
             class="leafygreen-ui-1jmdxtk"
             data-lgid="lg-table-header"
+            data-testid="lg-table-header"
             scope="col"
           >
             <div
@@ -62,9 +66,9 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Task Name"
-                class="leafygreen-ui-tcjr3n"
+                class="leafygreen-ui-1u7amgm"
                 data-lgid="lg-table-sort_button"
-                data-testid="lg-table-sort-icon-button"
+                data-testid="lg-table-sort_button"
                 tabindex="0"
               >
                 <div
@@ -81,7 +85,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026zM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1M9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2zM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1"
                       fill="currentColor"
                     />
                   </svg>
@@ -92,6 +96,7 @@
           <th
             class="leafygreen-ui-tmb7z5"
             data-lgid="lg-table-header"
+            data-testid="lg-table-header"
             scope="col"
           >
             <div
@@ -136,9 +141,9 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Status"
-                class="leafygreen-ui-tcjr3n"
+                class="leafygreen-ui-1u7amgm"
                 data-lgid="lg-table-sort_button"
-                data-testid="lg-table-sort-icon-button"
+                data-testid="lg-table-sort_button"
                 tabindex="0"
               >
                 <div
@@ -155,7 +160,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026zM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1M9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2zM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1"
                       fill="currentColor"
                     />
                   </svg>
@@ -166,6 +171,7 @@
           <th
             class="leafygreen-ui-1it7wsd"
             data-lgid="lg-table-header"
+            data-testid="lg-table-header"
             scope="col"
           >
             <div
@@ -209,9 +215,9 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Build Variant"
-                class="leafygreen-ui-tcjr3n"
+                class="leafygreen-ui-1u7amgm"
                 data-lgid="lg-table-sort_button"
-                data-testid="lg-table-sort-icon-button"
+                data-testid="lg-table-sort_button"
                 tabindex="0"
               >
                 <div
@@ -228,7 +234,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026zM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1M9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2zM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1"
                       fill="currentColor"
                     />
                   </svg>
@@ -239,6 +245,7 @@
           <th
             class="leafygreen-ui-1jmdxtk"
             data-lgid="lg-table-header"
+            data-testid="lg-table-header"
             scope="col"
           >
             <div
@@ -248,9 +255,9 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Task Duration"
-                class="leafygreen-ui-tcjr3n"
+                class="leafygreen-ui-1u7amgm"
                 data-lgid="lg-table-sort_button"
-                data-testid="lg-table-sort-icon-button"
+                data-testid="lg-table-sort_button"
                 tabindex="0"
               >
                 <div
@@ -267,7 +274,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026zM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1M9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2zM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1"
                       fill="currentColor"
                     />
                   </svg>
@@ -280,18 +287,20 @@
       <tbody>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="task-duration-table-row"
           data-depth="0"
           data-expanded="false"
           data-index="0"
           data-lgid="lg-table-row"
           data-selected="false"
+          data-testid="lg-table-row"
           id="lg-table-row-0"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-jlin17"
+            class="leafygreen-ui-cc078o"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -303,8 +312,9 @@
                 <button
                   aria-disabled="false"
                   aria-label="Expand row"
-                  class="leafygreen-ui-v4n7tr"
+                  class="leafygreen-ui-8yy5a leafygreen-ui-1u7amgm"
                   data-lgid="lg-table-expand_button"
+                  data-testid="lg-table-expand_button"
                   tabindex="0"
                 >
                   <div
@@ -323,7 +333,7 @@
                     >
                       <path
                         clip-rule="evenodd"
-                        d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                        d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
                         fill="currentColor"
                         fill-rule="evenodd"
                       />
@@ -350,8 +360,9 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-jlin17"
+            class="leafygreen-ui-cc078o"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -365,7 +376,7 @@
                 >
                   <div
                     border="#FFCDC7"
-                    class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                    class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-sti25g"
                     data-cy="task-status-badge"
                     fill="#FFFFFF"
                     text="#970606"
@@ -377,8 +388,9 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-jlin17"
+            class="leafygreen-ui-cc078o"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -396,8 +408,9 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-jlin17"
+            class="leafygreen-ui-cc078o"
             data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div

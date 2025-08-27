@@ -65,7 +65,7 @@ const projectForm: GCQFormState = {
         },
       ],
     },
-    githubTriggerAliases: [],
+    githubPRTriggerAliases: [],
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     githubChecksEnabled: null,
     githubChecks: {
@@ -201,7 +201,7 @@ const repoForm: GCQFormState = {
       githubPrAliasesOverride: true,
       githubPrAliases: [],
     },
-    githubTriggerAliases: [
+    githubPRTriggerAliases: [
       {
         alias: "alias1",
         childProjectIdentifier: "spruce",
@@ -332,7 +332,7 @@ const mergedForm: GCQFormState = {
         githubPrAliases: [],
       },
     },
-    githubTriggerAliases: [],
+    githubPRTriggerAliases: [],
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     githubChecksEnabled: null,
     githubChecks: {
