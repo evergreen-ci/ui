@@ -241,15 +241,26 @@ describe("Filtering", () => {
     it("should be able to hide and unhide filters", () => {
       cy.visit(`${logLink}?filters=110${filter1},100${filter2}`);
       cy.get("[data-cy^='skipped-lines-row-']").should("exist");
+      cy.toggleDrawer();
 
-      cy.clickToggle("hide-filters-toggle", true, "search-and-filter");
+      cy.dataCy("show-filters-toggle").click();
+      cy.dataCy("show-filters-toggle").should(
+        "have.attr",
+        "aria-checked",
+        "false",
+      );
       cy.get("[data-cy^='skipped-lines-row-']").should("not.exist");
       cy.location("search").should(
         "contain",
         `filters=010${filter1},000${filter2}`,
       );
 
-      cy.clickToggle("hide-filters-toggle", false, "search-and-filter");
+      cy.dataCy("show-filters-toggle").click();
+      cy.dataCy("show-filters-toggle").should(
+        "have.attr",
+        "aria-checked",
+        "true",
+      );
       cy.get("[data-cy^='skipped-lines-row-']").should("exist");
       cy.location("search").should(
         "contain",
