@@ -2,7 +2,8 @@ name: "Commit Checks"
 on: 
   push:
     branches:
-      - main
+      - minnakt:chromatic_test
+      - chromatic_test
 jobs:
   parsley-chromatic:
     name: Run Chromatic Tests
