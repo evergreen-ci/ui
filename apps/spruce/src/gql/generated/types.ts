@@ -7509,6 +7509,12 @@ export type AdminSettingsQuery = {
         port: number;
       }>;
     } | null;
+    cost?: {
+      __typename?: "CostConfig";
+      financeFormula?: number | null;
+      onDemandDiscount?: number | null;
+      savingsPlanDiscount?: number | null;
+    } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
       __typename?: "GitHubCheckRunConfig";

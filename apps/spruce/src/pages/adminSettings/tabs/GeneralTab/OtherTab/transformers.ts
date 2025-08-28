@@ -26,6 +26,7 @@ export const gqlToForm = ((data) => {
   const {
     buckets,
     configDir,
+    cost,
     domainName,
     expansions,
     githubCheckRun,
@@ -62,6 +63,11 @@ export const gqlToForm = ((data) => {
           targetTimeSecondsOverride:
             releaseMode?.targetTimeSecondsOverride ?? 0,
           idleTimeSecondsOverride: releaseMode?.idleTimeSecondsOverride ?? 0,
+        },
+        cost: {
+          financeFormula: cost?.financeFormula ?? 0,
+          savingsPlanDiscount: cost?.savingsPlanDiscount ?? 0,
+          onDemandDiscount: cost?.onDemandDiscount ?? 0,
         },
       },
 
@@ -213,6 +219,12 @@ export const formToGql = ((form: OtherFormState) => {
         miscSettings.releaseMode.targetTimeSecondsOverride || undefined,
       idleTimeSecondsOverride:
         miscSettings.releaseMode.idleTimeSecondsOverride || undefined,
+    },
+
+    cost: {
+      financeFormula: miscSettings.cost.financeFormula || undefined,
+      savingsPlanDiscount: miscSettings.cost.savingsPlanDiscount || undefined,
+      onDemandDiscount: miscSettings.cost.onDemandDiscount || undefined,
     },
 
     singleTaskDistro: {

@@ -14,6 +14,11 @@ export interface OtherFormState {
         targetTimeSecondsOverride: number;
         idleTimeSecondsOverride: number;
       };
+      cost: {
+        financeFormula: number;
+        savingsPlanDiscount: number;
+        onDemandDiscount: number;
+      };
     };
 
     singleTaskDistro: {

@@ -111,6 +111,11 @@ query AdminSettings {
         port
       }
     }
+    cost {
+      financeFormula
+      onDemandDiscount
+      savingsPlanDiscount
+    }
     disabledGQLQueries
     domainName
     expansions
