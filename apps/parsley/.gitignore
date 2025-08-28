@@ -6,8 +6,8 @@ cypress/screenshots/
 /src/**/*.css
 build.txt
 build.txt-e
+build-storybook.log
 vite.config.ts.timestamp-*
-
 
 # misc
 .DS_Store
