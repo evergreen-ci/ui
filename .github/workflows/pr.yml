@@ -1,13 +1,12 @@
-name: "Parsley Chromatic"
+name: "Pull Request Checks"
 on: 
   pull_request:
     paths:
       - "apps/parsley/**"
 jobs:
   parsley-chromatic:
-    name: Run UI Tests
+    name: Run Chromatic Tests
     runs-on: ubuntu-latest
-    if: startsWith(github.event.pull_request.head.ref, 'chromatic')
     steps:
       - name: Check access
         if: ${{ github.event.pull_request.author_association != 'CONTRIBUTOR' && github.event.pull_request.author_association != 'MEMBER' }}
@@ -21,10 +20,6 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
-        env:
-          CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref }}
-          CHROMATIC_SHA: ${{ github.event.pull_request.head.sha }}
-          CHROMATIC_SLUG: ${{ github.repository }}
 
       - name: Use Node 22
         uses: actions/setup-node@v4
@@ -34,15 +29,19 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Run Chromatic
+      - name: Publish to Chromatic
         uses: chromaui/action@latest
+        env:
+          CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref }}
+          CHROMATIC_SHA: ${{ github.event.pull_request.head.sha }}
+          CHROMATIC_SLUG: ${{ github.repository }}
         with:
           workingDir: apps/parsley
           buildScriptName: storybook:build
-          autoAcceptChanges: "main"
+          onlyChanged: true # TurboSnap
           # https://www.chromatic.com/docs/github-actions/#forked-repositories 
           # This token is published with intention. Tokens cannot be used to access account settings. 
           # They can only be used for snapshot quota, which is an acceptable tradeoff for open source 
           # projects. Tokens can be reset via the "Manage" page on Chromatic.
-          projectToken: ${{ secrets.CHROMATIC_PARSLEY_TOKEN }} 
+          projectToken: chpt_8083ea0d9f4af30
 
