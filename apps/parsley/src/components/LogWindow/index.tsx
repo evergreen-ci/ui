@@ -42,9 +42,7 @@ const LogWindow: React.FC = () => {
           {hasLogs && processedLogLines.length && (
             <LogPane
               rowCount={processedLogLines.length}
-              rowRenderer={ParsleyRow({
-                processedLogLines,
-              })}
+              rowRenderer={ParsleyRow({ processedLogLines })}
             />
           )}
           {hasLogs === false && (
