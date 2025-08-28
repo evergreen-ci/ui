@@ -36,7 +36,9 @@
     "start": "vite",
     "storybook": "NO_HTTPS=true storybook dev -p 6007",
     "storybook:build": "env-cmd -e local storybook build",
-    "test": "vitest --typecheck=false --exclude=src/snapshot.test.ts"
+    "test": "vitest --typecheck=false --exclude=src/snapshot.test.ts",
+    "chromatic": "npx chromatic --dry-run --project-token=chpt_8083ea0d9f4af30 --build-script-name storybook:build",
+    "chromatic:publish": "npx chromatic --project-token=chpt_8083ea0d9f4af30 --build-script-name storybook:build"
   },
   "dependencies": {
     "@apollo/client": "3.10.4",
