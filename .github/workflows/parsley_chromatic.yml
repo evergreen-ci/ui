@@ -1,8 +1,8 @@
-name: "Parsley Chromatic"
+name: "Pull Request Checks"
 on: 
   pull_request:
     paths:
-      - "apps/parsley/**"
+      - "apps/spruce/**"
 jobs:
   parsley-chromatic:
     name: Run UI Tests
