@@ -24,8 +24,9 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
     [slugs.tab]: AdminSettingsTabRoutes;
   }>();
 
-  const { checkHasUnsavedChanges, getChangedTabs, getTab } =
+  const { checkHasUnsavedChanges, getChangedTabs, getTab, saveTab } =
     useAdminSettingsContext();
+  const changedTabs = getChangedTabs();
   const hasUnsavedChanges = checkHasUnsavedChanges();
   const dispatchToast = useToastContext();
 
@@ -34,6 +35,7 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
     SaveAdminSettingsMutationVariables
   >(SAVE_ADMIN_SETTINGS, {
     onCompleted: () => {
+      changedTabs.forEach((t) => saveTab(t));
       dispatchToast.success("Settings saved successfully");
     },
     onError: (err) => {
@@ -42,7 +44,6 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
   });
 
   const handleSave = () => {
-    const changedTabs = getChangedTabs();
     const changedSettings = changedTabs.reduce((acc, tab) => {
       const formToGql = formToGqlMap[tab];
       if (formToGql) {

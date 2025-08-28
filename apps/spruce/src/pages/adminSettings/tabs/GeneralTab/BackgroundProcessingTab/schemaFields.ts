@@ -1,15 +1,10 @@
-import { css } from "@emotion/react";
-import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
 import widgets from "components/SpruceForm/Widgets";
 import { PriorityLevel } from "gql/generated/types";
 import {
-  gridWrapCss,
+  arrayItemCSS,
   fullWidthCss,
   nestedObjectGridCss,
 } from "../../sharedStyles";
-
-const { gray } = palette;
 
 const retry = {
   schema: {
@@ -50,17 +45,6 @@ const retry = {
   },
 };
 
-const arrayItemCSS = css`
-  border: 1px solid ${gray.light2};
-  border-radius: ${size.m};
-  padding: ${size.m};
-  margin-bottom: ${size.s};
-
-  // Grid wrap for the inputs inside the array item.
-  > div > fieldset {
-    ${gridWrapCss};
-  }
-`;
 const namedQueues = {
   schema: {
     type: "array" as const,
@@ -149,13 +133,13 @@ export const amboy = {
       type: "number" as const,
       title: "Group Default Workers",
     },
-    groupPruneFrequencyMinutes: {
-      type: "number" as const,
-      title: "Group Prune Frequency (mins)",
-    },
     groupBackgroundCreateFrequencyMinutes: {
       type: "number" as const,
       title: "Group Background Create Frequency (mins)",
+    },
+    groupPruneFrequencyMinutes: {
+      type: "number" as const,
+      title: "Group Prune Frequency (mins)",
     },
     groupTTLMinutes: {
       type: "number" as const,
@@ -250,30 +234,23 @@ export const loggerConfig = {
 
 export const notificationRateLimits = {
   schema: {
-    bufferIntervalSeconds: {
-      type: "number" as const,
-      title: "Time Interval (secs)",
-    },
     bufferTargetPerInterval: {
       type: "number" as const,
       title: "Target per Time Interval (secs)",
+    },
+    bufferIntervalSeconds: {
+      type: "number" as const,
+      title: "Time Interval (secs)",
     },
   },
   uiSchema: {},
 };
 
-export const triggers = (distros: string[]) => ({
+export const triggers = {
   schema: {
     generateTaskDistro: {
       type: "string" as const,
       title: "Distro for Generated Tasks",
-      oneOf: [
-        ...distros.map((d) => ({
-          type: "string" as const,
-          title: d,
-          enum: [d],
-        })),
-      ],
     },
   },
   uiSchema: {
@@ -281,4 +258,4 @@ export const triggers = (distros: string[]) => ({
       "ui:allowDeselect": false,
     },
   },
-});
+};

@@ -50,30 +50,66 @@ const form: ProvidersFormState = {
       ec2Key: "test-ec2-key",
       ec2Secret: "test-ec2-secret",
       parameterStorePrefix: "/evergreen/test",
-      parserProjectS3Key: "test-parser-key",
-      parserProjectS3Secret: "test-parser-secret",
-      parserProjectS3Bucket: "test-parser-bucket",
-      parserProjectS3Prefix: "test-parser-prefix",
-      persistentDNSHostedZoneId: "Z123456789",
-      persistentDNSDomainName: "test.example.com",
-      generatedJsonFilesS3Prefix: "test-json-prefix",
+      persistentDNS: {
+        hostedZoneID: "Z123456789",
+        domain: "test.example.com",
+      },
+      parserProject: {
+        key: "test-parser-key",
+        secret: "test-parser-secret",
+        bucket: "test-parser-bucket",
+        prefix: "test-parser-prefix",
+        generatedJSONPrefix: "test-json-prefix",
+      },
+      pod: {
+        allowedImages: ["ubuntu:20.04", "amazon/amazonlinux:latest"],
+        maxCPU: 2048,
+        maxMemoryMb: 4096,
+        role: "arn:aws:iam::123456789:role/EcsTaskRole",
+        region: "us-east-1",
+        podSecretManager: "evergreen-secrets",
+        taskDefinitionPrefix: "evg-task",
+        taskRole: "arn:aws:iam::123456789:role/TaskRole",
+        executionRole: "arn:aws:iam::123456789:role/ExecutionRole",
+        logRegion: "us-east-1",
+        logGroup: "/ecs/evergreen",
+        logStreamPrefix: "evg-pod",
+        awsVPCSubnets: {
+          subnets: ["subnet-vpc1", "subnet-vpc2"],
+        },
+        awsVPCSecurityGroups: {
+          securityGroups: ["sg-vpc1", "sg-vpc2"],
+        },
+        clusters: [
+          {
+            name: "test-cluster-1",
+            os: EcsOperatingSystem.EcsosLinux,
+          },
+          {
+            name: "test-cluster-2",
+            os: EcsOperatingSystem.EcsosWindows,
+          },
+        ],
+        capacityProviders: [
+          {
+            name: "test-provider-1",
+            arch: EcsArchitecture.EcsArchAmd64,
+            os: EcsOperatingSystem.EcsosLinux,
+            windowsVersion: undefined,
+          },
+          {
+            name: "test-provider-2",
+            arch: EcsArchitecture.EcsArchArm64,
+            os: EcsOperatingSystem.EcsosWindows,
+            windowsVersion: EcsWindowsVersion.EcsWindowsServer_2019,
+          },
+        ],
+      },
       defaultSecurityGroup: "sg-default123",
       maxVolumeSizePerUser: 100,
       allowedInstanceTypes: ["m5.large", "m5.xlarge", "c5.large"],
       alertableInstanceTypes: ["m5.2xlarge", "c5.2xlarge"],
       allowedRegions: ["us-east-1", "us-west-2"],
-      allowedImages: ["ubuntu:20.04", "amazon/amazonlinux:latest"],
-      maxCPU: 2048,
-      maxMemoryMb: 4096,
-      role: "arn:aws:iam::123456789:role/EcsTaskRole",
-      region: "us-east-1",
-      podSecretManager: "evergreen-secrets",
-      taskDefinitionPrefix: "evg-task",
-      taskRole: "arn:aws:iam::123456789:role/TaskRole",
-      executionRole: "arn:aws:iam::123456789:role/ExecutionRole",
-      logRegion: "us-east-1",
-      logGroup: "/ecs/evergreen",
-      logStreamPrefix: "evg-pod",
       accountRoles: [
         {
           account: "123456789",
@@ -84,60 +120,11 @@ const form: ProvidersFormState = {
           role: "arn:aws:iam::987654321:role/AnotherRole",
         },
       ],
-      awsVPCSubnets: {
-        subnets: ["subnet-vpc1", "subnet-vpc2"],
-      },
-      awsVPCSecurityGroups: {
-        securityGroups: ["sg-vpc1", "sg-vpc2"],
-      },
-      clusters: [
-        {
-          name: "test-cluster-1",
-          os: EcsOperatingSystem.EcsosLinux,
-        },
-        {
-          name: "test-cluster-2",
-          os: EcsOperatingSystem.EcsosWindows,
-        },
-      ],
-      capacityProviders: [
-        {
-          name: "test-provider-1",
-          arch: EcsArchitecture.EcsArchAmd64,
-          os: EcsOperatingSystem.EcsosLinux,
-          windowsVersion: undefined,
-        },
-        {
-          name: "test-provider-2",
-          arch: EcsArchitecture.EcsArchArm64,
-          os: EcsOperatingSystem.EcsosWindows,
-          windowsVersion: EcsWindowsVersion.EcsWindowsServer_2019,
-        },
-      ],
-      docker: {
-        apiVersion: "1.40",
-      },
       ipamPoolID: "ipam-pool-123",
       elasticIPUsageRate: 0.8,
-      parserProject: {
-        bucket: "test-parser-bucket",
-        generatedJSONPrefix: "test-json-prefix",
-        key: "test-parser-key",
-        prefix: "test-parser-prefix",
-        secret: "test-parser-secret",
-      },
     },
-    repoExceptions: {
-      repos: [
-        {
-          owner: "evergreen-ci",
-          repo: "evergreen",
-        },
-        {
-          owner: "mongodb",
-          repo: "mongo",
-        },
-      ],
+    docker: {
+      apiVersion: "1.40",
     },
   },
 };
@@ -260,18 +247,6 @@ const gql: AdminSettingsInput = {
       apiVersion: "1.40",
     },
   },
-  projectCreation: {
-    repoExceptions: [
-      {
-        owner: "evergreen-ci",
-        repo: "evergreen",
-      },
-      {
-        owner: "mongodb",
-        repo: "mongo",
-      },
-    ],
-  },
 };
 
 // Test admin settings data that includes providers information
@@ -393,17 +368,5 @@ const testAdminSettings = {
     docker: {
       apiVersion: "1.40",
     },
-  },
-  projectCreation: {
-    repoExceptions: [
-      {
-        owner: "evergreen-ci",
-        repo: "evergreen",
-      },
-      {
-        owner: "mongodb",
-        repo: "mongo",
-      },
-    ],
   },
 };

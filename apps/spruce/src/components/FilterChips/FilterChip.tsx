@@ -5,8 +5,6 @@ import {
 } from "@leafygreen-ui/chip";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 
-const maxChipLength = 25;
-
 interface FilterChipType {
   key: string;
   title?: string;
@@ -16,15 +14,17 @@ interface FilterChipProps {
   chip: FilterChipType;
   onClose: () => void;
   showValueOnly: boolean;
+  truncateChipLength: number;
 }
 
 const FilterChip: React.FC<FilterChipProps> = ({
   chip,
   onClose,
   showValueOnly,
+  truncateChipLength,
 }) => (
   <Chip
-    chipCharacterLimit={maxChipLength}
+    chipCharacterLimit={truncateChipLength}
     chipTruncationLocation={TruncationLocation.Middle}
     data-cy="filter-chip"
     label={showValueOnly ? chip.value : `${chip.title}: ${chip.value}`}

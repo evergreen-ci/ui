@@ -168,6 +168,7 @@ export type AdminSettings = {
   cedar?: Maybe<CedarConfig>;
   configDir?: Maybe<Scalars["String"]["output"]>;
   containerPools?: Maybe<ContainerPoolsConfig>;
+  cost?: Maybe<CostConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
   domainName?: Maybe<Scalars["String"]["output"]>;
   expansions?: Maybe<Scalars["StringMap"]["output"]>;
@@ -221,6 +222,7 @@ export type AdminSettingsInput = {
   cedar?: InputMaybe<CedarConfigInput>;
   configDir?: InputMaybe<Scalars["String"]["input"]>;
   containerPools?: InputMaybe<ContainerPoolsConfigInput>;
+  cost?: InputMaybe<CostConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   domainName?: InputMaybe<Scalars["String"]["input"]>;
   expansions?: InputMaybe<Scalars["StringMap"]["input"]>;
@@ -482,6 +484,8 @@ export type BucketsConfig = {
   credentials?: Maybe<S3Credentials>;
   internalBuckets?: Maybe<Array<Scalars["String"]["output"]>>;
   logBucket?: Maybe<BucketConfig>;
+  logBucketLongRetention?: Maybe<BucketConfig>;
+  longRetentionProjects?: Maybe<Array<Scalars["String"]["output"]>>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -489,6 +493,8 @@ export type BucketsConfigInput = {
   credentials?: InputMaybe<S3CredentialsInput>;
   internalBuckets?: InputMaybe<Array<Scalars["String"]["input"]>>;
   logBucket?: InputMaybe<BucketConfigInput>;
+  logBucketLongRetention?: InputMaybe<BucketConfigInput>;
+  longRetentionProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -673,6 +679,19 @@ export type CopyProjectInput = {
   newProjectId?: InputMaybe<Scalars["String"]["input"]>;
   newProjectIdentifier: Scalars["String"]["input"];
   projectIdToCopy: Scalars["String"]["input"];
+};
+
+export type CostConfig = {
+  __typename?: "CostConfig";
+  financeFormula?: Maybe<Scalars["Float"]["output"]>;
+  onDemandDiscount?: Maybe<Scalars["Float"]["output"]>;
+  savingsPlanDiscount?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type CostConfigInput = {
+  financeFormula?: InputMaybe<Scalars["Float"]["input"]>;
+  onDemandDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  savingsPlanDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
 export type CostData = {
@@ -2724,7 +2743,6 @@ export type Project = {
   githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
-  githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   hidden?: Maybe<Scalars["Boolean"]["output"]>;
   id: Scalars["String"]["output"];
   identifier: Scalars["String"]["output"];
@@ -2881,7 +2899,6 @@ export type ProjectInput = {
   githubMQTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPRTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
-  githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   identifier?: InputMaybe<Scalars["String"]["input"]>;
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3288,7 +3305,6 @@ export type RepoRef = {
   githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
-  githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
   notifyOnBuildFailure: Scalars["Boolean"]["output"];
@@ -3336,7 +3352,6 @@ export type RepoRefInput = {
   githubMQTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPRTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
-  githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3601,81 +3616,79 @@ export type SelectorInput = {
 
 export type ServiceFlags = {
   __typename?: "ServiceFlags";
-  adminParameterStoreDisabled: Scalars["Boolean"]["output"];
-  agentStartDisabled: Scalars["Boolean"]["output"];
-  alertsDisabled: Scalars["Boolean"]["output"];
-  backgroundReauthDisabled: Scalars["Boolean"]["output"];
-  backgroundStatsDisabled: Scalars["Boolean"]["output"];
-  cacheStatsEndpointDisabled: Scalars["Boolean"]["output"];
-  cacheStatsJobDisabled: Scalars["Boolean"]["output"];
-  checkBlockedTasksDisabled: Scalars["Boolean"]["output"];
-  cliUpdatesDisabled: Scalars["Boolean"]["output"];
-  cloudCleanupDisabled: Scalars["Boolean"]["output"];
-  degradedModeDisabled: Scalars["Boolean"]["output"];
-  elasticIPsDisabled: Scalars["Boolean"]["output"];
-  emailNotificationsDisabled: Scalars["Boolean"]["output"];
-  eventProcessingDisabled: Scalars["Boolean"]["output"];
-  githubPRTestingDisabled: Scalars["Boolean"]["output"];
-  githubStatusAPIDisabled: Scalars["Boolean"]["output"];
-  hostAllocatorDisabled: Scalars["Boolean"]["output"];
-  hostInitDisabled: Scalars["Boolean"]["output"];
-  jiraNotificationsDisabled: Scalars["Boolean"]["output"];
-  jwtTokenForCLIDisabled: Scalars["Boolean"]["output"];
-  largeParserProjectsDisabled: Scalars["Boolean"]["output"];
-  monitorDisabled: Scalars["Boolean"]["output"];
-  podAllocatorDisabled: Scalars["Boolean"]["output"];
-  podInitDisabled: Scalars["Boolean"]["output"];
-  releaseModeDisabled: Scalars["Boolean"]["output"];
-  repotrackerDisabled: Scalars["Boolean"]["output"];
-  schedulerDisabled: Scalars["Boolean"]["output"];
-  slackNotificationsDisabled: Scalars["Boolean"]["output"];
-  sleepScheduleDisabled: Scalars["Boolean"]["output"];
-  staticAPIKeysDisabled: Scalars["Boolean"]["output"];
-  systemFailedTaskRestartDisabled: Scalars["Boolean"]["output"];
-  taskDispatchDisabled: Scalars["Boolean"]["output"];
-  taskLoggingDisabled: Scalars["Boolean"]["output"];
-  taskReliabilityDisabled: Scalars["Boolean"]["output"];
-  unrecognizedPodCleanupDisabled: Scalars["Boolean"]["output"];
-  webhookNotificationsDisabled: Scalars["Boolean"]["output"];
+  agentStartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  alertsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  backgroundReauthDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  backgroundStatsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cacheStatsEndpointDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cacheStatsJobDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  checkBlockedTasksDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cliUpdatesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  cloudCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  degradedModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  elasticIPsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  emailNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  eventProcessingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubPRTestingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubStatusAPIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  hostAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  hostInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  jiraNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  podAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  schedulerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  slackNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  sleepScheduleDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  systemFailedTaskRestartDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  taskDispatchDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type ServiceFlagsInput = {
-  adminParameterStoreDisabled: Scalars["Boolean"]["input"];
-  agentStartDisabled: Scalars["Boolean"]["input"];
-  alertsDisabled: Scalars["Boolean"]["input"];
-  backgroundReauthDisabled: Scalars["Boolean"]["input"];
-  backgroundStatsDisabled: Scalars["Boolean"]["input"];
-  cacheStatsEndpointDisabled: Scalars["Boolean"]["input"];
-  cacheStatsJobDisabled: Scalars["Boolean"]["input"];
-  checkBlockedTasksDisabled: Scalars["Boolean"]["input"];
-  cliUpdatesDisabled: Scalars["Boolean"]["input"];
-  cloudCleanupDisabled: Scalars["Boolean"]["input"];
-  degradedModeDisabled: Scalars["Boolean"]["input"];
-  elasticIPsDisabled: Scalars["Boolean"]["input"];
-  emailNotificationsDisabled: Scalars["Boolean"]["input"];
-  eventProcessingDisabled: Scalars["Boolean"]["input"];
-  githubPRTestingDisabled: Scalars["Boolean"]["input"];
-  githubStatusAPIDisabled: Scalars["Boolean"]["input"];
-  hostAllocatorDisabled: Scalars["Boolean"]["input"];
-  hostInitDisabled: Scalars["Boolean"]["input"];
-  jiraNotificationsDisabled: Scalars["Boolean"]["input"];
-  jwtTokenForCLIDisabled: Scalars["Boolean"]["input"];
-  largeParserProjectsDisabled: Scalars["Boolean"]["input"];
-  monitorDisabled: Scalars["Boolean"]["input"];
-  podAllocatorDisabled: Scalars["Boolean"]["input"];
-  podInitDisabled: Scalars["Boolean"]["input"];
-  releaseModeDisabled: Scalars["Boolean"]["input"];
-  repotrackerDisabled: Scalars["Boolean"]["input"];
-  schedulerDisabled: Scalars["Boolean"]["input"];
-  slackNotificationsDisabled: Scalars["Boolean"]["input"];
-  sleepScheduleDisabled: Scalars["Boolean"]["input"];
-  staticAPIKeysDisabled: Scalars["Boolean"]["input"];
-  systemFailedTaskRestartDisabled: Scalars["Boolean"]["input"];
-  taskDispatchDisabled: Scalars["Boolean"]["input"];
-  taskLoggingDisabled: Scalars["Boolean"]["input"];
-  taskReliabilityDisabled: Scalars["Boolean"]["input"];
-  unrecognizedPodCleanupDisabled: Scalars["Boolean"]["input"];
-  webhookNotificationsDisabled: Scalars["Boolean"]["input"];
+  agentStartDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  alertsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  backgroundReauthDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  backgroundStatsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  cacheStatsEndpointDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  cacheStatsJobDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  checkBlockedTasksDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  cliUpdatesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  cloudCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  degradedModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  elasticIPsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  emailNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  eventProcessingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  githubPRTestingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  githubStatusAPIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  hostAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  hostInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  jiraNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  jwtTokenForCLIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  largeParserProjectsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  podAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  podInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  schedulerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  slackNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sleepScheduleDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  staticAPIKeysDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  systemFailedTaskRestartDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  taskDispatchDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  taskLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /**

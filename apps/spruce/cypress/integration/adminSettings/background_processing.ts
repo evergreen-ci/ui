@@ -48,7 +48,8 @@ describe("background processing", () => {
     // Triggers section.
     const generateTasksDistro = "Distro for Generated Tasks";
     cy.getInputByLabel(generateTasksDistro).as("triggersSelect");
-    cy.selectLGOption(generateTasksDistro, "localhost");
+    cy.get("@triggersSelect").clear();
+    cy.get("@triggersSelect").type("localhost");
 
     clickSave();
     cy.validateToast("success", "Settings saved successfully");

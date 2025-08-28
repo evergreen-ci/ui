@@ -78,10 +78,31 @@ query AdminSettings {
     }
     banner
     bannerTheme
+    buckets {
+      credentials {
+        key
+        secret
+      }
+      logBucket {
+        name
+        roleARN
+        testResultsPrefix
+      }
+      logBucketLongRetention {
+        name
+      }
+      longRetentionProjects
+      testResultsBucket {
+        name
+        roleARN
+        testResultsPrefix
+      }
+    }
     cedar {
       dbName
       dbUrl
     }
+    configDir
     containerPools {
       pools {
         id
@@ -91,20 +112,44 @@ query AdminSettings {
       }
     }
     disabledGQLQueries
+    domainName
+    expansions
     fws {
       url
     }
+    githubCheckRun {
+      checkRunLimit
+    }
+    githubOrgs
+    githubPRCreatorOrg
+    githubWebhookSecret
     hostInit {
       cloudStatusBatchSize
       hostThrottle
       maxTotalDynamicHosts
       provisioningThrottle
     }
+    hostJasper {
+      binaryName
+      downloadFileName
+      port
+      url
+      version
+    }
     jira {
       email
       host
       personalAccessToken
     }
+    jiraNotifications {
+      customFields {
+        components
+        fields
+        labels
+        project
+      }
+    }
+    kanopySSHKeyPath
     loggerConfig {
       buffer {
         count
@@ -117,6 +162,7 @@ query AdminSettings {
       redactKeys
       thresholdLevel
     }
+    logPath
     notify {
       bufferIntervalSeconds
       bufferTargetPerInterval
@@ -134,11 +180,15 @@ query AdminSettings {
       maxPodDefinitionCleanupRate
       maxSecretCleanupRate
     }
+    pprofPort
     projectCreation {
+      jiraProject
       repoExceptions {
         owner
         repo
       }
+      repoProjectLimit
+      totalProjectLimit
     }
 
     providers {
@@ -163,6 +213,7 @@ query AdminSettings {
           bucket
           generatedJSONPrefix
           key
+          prefix
           secret
         }
         persistentDNS {
@@ -197,6 +248,9 @@ query AdminSettings {
           }
           region
           role
+          secretsManager {
+            secretPrefix
+          }
         }
         subnets {
           az
@@ -207,6 +261,12 @@ query AdminSettings {
         apiVersion
       }
     }
+    releaseMode {
+      distroMaxHostsFactor
+      idleTimeSecondsOverride
+      targetTimeSecondsOverride
+    }
+
     repotracker {
       maxConcurrentRequests
       maxRepoRevisionsToSearch
@@ -238,7 +298,6 @@ query AdminSettings {
     }
 
     serviceFlags {
-      adminParameterStoreDisabled
       agentStartDisabled
       alertsDisabled
       backgroundReauthDisabled
@@ -275,6 +334,14 @@ query AdminSettings {
       unrecognizedPodCleanupDisabled
       webhookNotificationsDisabled
     }
+    shutdownWaitSeconds
+    singleTaskDistro {
+      projectTasksPairs {
+        allowedBVs
+        allowedTasks
+        projectId
+      }
+    }
     slack {
       level
       name
@@ -290,11 +357,29 @@ query AdminSettings {
       }
       token
     }
+    sleepSchedule {
+      permanentlyExemptHosts
+    }
+    spawnhost {
+      spawnHostsPerUser
+      unexpirableHostsPerUser
+      unexpirableVolumesPerUser
+    }
     splunk {
       splunkConnectionInfo {
         channel
         serverUrl
         token
+      }
+    }
+    ssh {
+      spawnHostKey {
+        name
+        secretARN
+      }
+      taskHostKey {
+        name
+        secretARN
       }
     }
     taskLimits {
@@ -313,6 +398,12 @@ query AdminSettings {
     }
     testSelection {
       url
+    }
+    tracer {
+      collectorAPIKey
+      collectorEndpoint
+      collectorInternalEndpoint
+      enabled
     }
     triggers {
       generateTaskDistro

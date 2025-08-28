@@ -1,7 +1,7 @@
 import { readdirSync, statSync, writeFileSync } from "fs";
 import { join } from "path";
-import { APPS_DIR, PACKAGES_DIR, PARALLEL_COUNT, Tasks } from "./constants.js"
-import { hasChangesInDirectory } from "./git-utils.js";
+import { APPS_DIR, PACKAGE_JSON, PACKAGES_DIR, PARALLEL_COUNT, Tasks } from "./constants.js"
+import { hasChangesInDirectoryOrFile } from "./git-utils.js";
 
 const ALWAYS_GENERATE_TASKS_REQUESTERS = ["trigger", "patch", "commit"];
 const PARENT_PATCH_USER = "parent_patch";
@@ -153,8 +153,15 @@ const main = () => {
   const isActivatedByParentPatch = activatedBy === PARENT_PATCH_USER;
   const mustGenerateTasks = shouldAlwaysGenerateTasks || isActivatedByParentPatch;
 
-  // Check if there are any changes in the given build variant directory
-  if (!mustGenerateTasks && !hasChangesInDirectory(`${APPS_DIR}/${buildVariant}`) && !hasChangesInDirectory(PACKAGES_DIR)) {
+  // Check if there are any changes in the given build variant directory or package.json
+  const pathsToCheck = [
+    `${APPS_DIR}/${buildVariant}`,
+    PACKAGES_DIR,
+    PACKAGE_JSON,
+    EVERGREEN_DIR,
+  ];
+  const hasRelevantChanges = pathsToCheck.some((path) => hasChangesInDirectoryOrFile(path));
+  if (!mustGenerateTasks && !hasRelevantChanges) {
     console.log(`No changes detected in ${buildVariant} or packages directory, skipping e2e task generation`);
     // Write an empty task list to maintain the expected file output
     writeFileSync(

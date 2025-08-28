@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.0.55",
+  "version": "6.0.59",
   "private": true,
   "type": "module",
   "scripts": {
@@ -87,7 +87,7 @@
     "@leafygreen-ui/loading-indicator": "^3.0.10",
     "@leafygreen-ui/marketing-modal": "^5.0.2",
     "@leafygreen-ui/menu": "^20.0.1",
-    "@leafygreen-ui/modal": "^17.0.3",
+    "@leafygreen-ui/modal": "^19.0.1",
     "@leafygreen-ui/number-input": "^4.1.6",
     "@leafygreen-ui/pagination": "^3.0.14",
     "@leafygreen-ui/palette": "^5.0.0",
@@ -133,7 +133,7 @@
     "react-google-charts": "^5.2.1",
     "react-router-dom": "6.18.0",
     "react-string-replace": "1.1.1",
-    "react-virtuoso": "^4.7.12",
+    "react-virtuoso": "^4.14.0",
     "vite-node": "^3.2.4"
   },
   "devDependencies": {
@@ -149,7 +149,7 @@
     "@sentry/vite-plugin": "^4.1.1",
     "@storybook/react-vite": "^9.0.18",
     "@styled/typescript-styled-plugin": "1.0.1",
-    "@testing-library/jest-dom": "6.6.4",
+    "@testing-library/jest-dom": "6.8.0",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
     "@types/js-cookie": "^3.0.6",
@@ -180,7 +180,7 @@
     "vite": "7.0.5",
     "vite-plugin-checker": "0.9.3",
     "vite-plugin-env-compatible": "2.0.1",
-    "vite-tsconfig-paths": "6.0.0-beta.3",
+    "vite-tsconfig-paths": "6.0.0-beta.4",
     "vitest": "^3.2.4",
     "vitest-canvas-mock": "0.3.3"
   },

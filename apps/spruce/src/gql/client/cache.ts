@@ -8,6 +8,9 @@ export const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
+        adminEvents: {
+          keyArgs: false,
+        },
         distroEvents: {
           keyArgs: ["$distroId"],
         },
@@ -57,6 +60,20 @@ export const cache = new InMemoryCache({
       keyFields: false,
     },
     DistroEventsPayload: {
+      fields: {
+        count: {
+          merge(existing = 0, incoming = 0) {
+            return existing + incoming;
+          },
+        },
+        eventLogEntries: {
+          merge(existing = [], incoming = []) {
+            return [...existing, ...incoming];
+          },
+        },
+      },
+    },
+    AdminEventsPayload: {
       fields: {
         count: {
           merge(existing = 0, incoming = 0) {
