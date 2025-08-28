@@ -5,7 +5,7 @@ on:
       - "apps/parsley/**"
 jobs:
   parsley-chromatic:
-    name: Run Parsley Chromatic on fork PR
+    name: Run UI Tests
     runs-on: ubuntu-latest
     if: startsWith(github.event.pull_request.head.ref, 'chromatic')
     steps:
