@@ -1,4 +1,4 @@
-import Button from "@leafygreen-ui/button";
+import Button, { Size } from "@leafygreen-ui/button";
 import { useLogWindowAnalytics } from "analytics";
 import { useLogContext } from "context/LogContext";
 
@@ -33,7 +33,7 @@ const SectionControls = () => {
             toggleAllSections(true);
             sendEvent({ name: "Clicked open all sections button" });
           }}
-          size="xsmall"
+          size={Size.XSmall}
         >
           Open all sections
         </Button>

@@ -5,7 +5,7 @@
   >
     <div />
     <table
-      class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
+      class="lg-ui-lg-table-0000 leafygreen-ui-fs5nm9 leafygreen-ui-1q0vhjd"
       data-is-sticky="false"
       data-lgid="lg-table"
       data-testid="lg-table"
@@ -29,7 +29,7 @@
             >
               Name
               <div
-                class="emotion-6"
+                class="emotion-7"
               >
                 <button
                   aria-disabled="false"
@@ -102,7 +102,7 @@
             >
               Type
               <div
-                class="emotion-6"
+                class="emotion-7"
               >
                 <button
                   aria-disabled="false"
@@ -175,7 +175,7 @@
             >
               Size
               <div
-                class="emotion-6"
+                class="emotion-7"
               >
                 <button
                   aria-disabled="false"
@@ -242,7 +242,7 @@
       <tbody>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -253,7 +253,7 @@
           id="lg-table-row-0"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -271,7 +271,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 0
                     </span>
@@ -281,7 +281,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -299,7 +299,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 0
                     </span>
@@ -309,7 +309,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -327,7 +327,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 0
                     </span>
@@ -339,7 +339,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -350,7 +350,7 @@
           id="lg-table-row-1"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -368,7 +368,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 1
                     </span>
@@ -378,7 +378,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -396,7 +396,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 1
                     </span>
@@ -406,7 +406,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -424,7 +424,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 1
                     </span>
@@ -436,7 +436,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -447,7 +447,7 @@
           id="lg-table-row-2"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -465,7 +465,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 2
                     </span>
@@ -475,7 +475,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -493,7 +493,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 2
                     </span>
@@ -503,7 +503,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -521,7 +521,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 2
                     </span>
@@ -533,7 +533,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -544,7 +544,7 @@
           id="lg-table-row-3"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -562,7 +562,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 3
                     </span>
@@ -572,7 +572,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -590,7 +590,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 3
                     </span>
@@ -600,7 +600,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -618,7 +618,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 3
                     </span>
@@ -630,7 +630,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -641,7 +641,7 @@
           id="lg-table-row-4"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -659,7 +659,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 4
                     </span>
@@ -669,7 +669,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -687,7 +687,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 4
                     </span>
@@ -697,7 +697,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -715,7 +715,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 4
                     </span>
@@ -727,7 +727,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -738,7 +738,7 @@
           id="lg-table-row-5"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -756,7 +756,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 5
                     </span>
@@ -766,7 +766,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -784,7 +784,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 5
                     </span>
@@ -794,7 +794,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -812,7 +812,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 5
                     </span>
@@ -824,7 +824,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -835,7 +835,7 @@
           id="lg-table-row-6"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -853,7 +853,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 6
                     </span>
@@ -863,7 +863,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -881,7 +881,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 6
                     </span>
@@ -891,7 +891,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -909,7 +909,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 6
                     </span>
@@ -921,7 +921,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -932,7 +932,7 @@
           id="lg-table-row-7"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -950,7 +950,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 7
                     </span>
@@ -960,7 +960,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -978,7 +978,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 7
                     </span>
@@ -988,7 +988,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1006,7 +1006,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 7
                     </span>
@@ -1018,7 +1018,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -1029,7 +1029,7 @@
           id="lg-table-row-8"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1047,7 +1047,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 8
                     </span>
@@ -1057,7 +1057,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1075,7 +1075,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 8
                     </span>
@@ -1085,7 +1085,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1103,7 +1103,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 8
                     </span>
@@ -1115,7 +1115,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -1126,7 +1126,7 @@
           id="lg-table-row-9"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1144,7 +1144,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 9
                     </span>
@@ -1154,7 +1154,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1172,7 +1172,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 9
                     </span>
@@ -1182,7 +1182,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1200,7 +1200,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 9
                     </span>
@@ -1212,7 +1212,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -1223,7 +1223,7 @@
           id="lg-table-row-10"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1241,7 +1241,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 10
                     </span>
@@ -1251,7 +1251,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1269,7 +1269,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 10
                     </span>
@@ -1279,7 +1279,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1297,7 +1297,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 10
                     </span>
@@ -1309,7 +1309,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -1320,7 +1320,7 @@
           id="lg-table-row-11"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1338,7 +1338,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 11
                     </span>
@@ -1348,7 +1348,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1366,7 +1366,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 11
                     </span>
@@ -1376,7 +1376,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1394,7 +1394,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 11
                     </span>
@@ -1406,7 +1406,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -1417,7 +1417,7 @@
           id="lg-table-row-12"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1435,7 +1435,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 12
                     </span>
@@ -1445,7 +1445,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1463,7 +1463,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 12
                     </span>
@@ -1473,7 +1473,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1491,7 +1491,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 12
                     </span>
@@ -1503,7 +1503,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -1514,7 +1514,7 @@
           id="lg-table-row-13"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1532,7 +1532,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 13
                     </span>
@@ -1542,7 +1542,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1560,7 +1560,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 13
                     </span>
@@ -1570,7 +1570,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1588,7 +1588,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 13
                     </span>
@@ -1600,7 +1600,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -1611,7 +1611,7 @@
           id="lg-table-row-14"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1629,7 +1629,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 14
                     </span>
@@ -1639,7 +1639,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1657,7 +1657,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 14
                     </span>
@@ -1667,7 +1667,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1685,7 +1685,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 14
                     </span>
@@ -1697,7 +1697,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -1708,7 +1708,7 @@
           id="lg-table-row-15"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1726,7 +1726,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 15
                     </span>
@@ -1736,7 +1736,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1754,7 +1754,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 15
                     </span>
@@ -1764,7 +1764,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1782,7 +1782,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 15
                     </span>
@@ -1794,7 +1794,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -1805,7 +1805,7 @@
           id="lg-table-row-16"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1823,7 +1823,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 16
                     </span>
@@ -1833,7 +1833,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1851,7 +1851,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 16
                     </span>
@@ -1861,7 +1861,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1879,7 +1879,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 16
                     </span>
@@ -1891,7 +1891,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -1902,7 +1902,7 @@
           id="lg-table-row-17"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1920,7 +1920,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 17
                     </span>
@@ -1930,7 +1930,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1948,7 +1948,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 17
                     </span>
@@ -1958,7 +1958,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -1976,7 +1976,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 17
                     </span>
@@ -1988,7 +1988,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -1999,7 +1999,7 @@
           id="lg-table-row-18"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -2017,7 +2017,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 18
                     </span>
@@ -2027,7 +2027,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -2045,7 +2045,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 18
                     </span>
@@ -2055,7 +2055,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -2073,7 +2073,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 18
                     </span>
@@ -2085,7 +2085,7 @@
         </tr>
         <tr
           aria-disabled="false"
-          class="leafygreen-ui-1j40m9a leafygreen-ui-r22orw"
+          class="leafygreen-ui-ef1edo"
           data-cy="leafygreen-table-row"
           data-depth="0"
           data-expanded="false"
@@ -2096,7 +2096,7 @@
           id="lg-table-row-19"
         >
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -2114,7 +2114,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       name 19
                     </span>
@@ -2124,7 +2124,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -2142,7 +2142,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       type 19
                     </span>
@@ -2152,7 +2152,7 @@
             </div>
           </td>
           <td
-            class="leafygreen-ui-6m4hlf leafygreen-ui-1qv2n80"
+            class="leafygreen-ui-16vw6q"
             data-lgid="lg-table-cell"
             data-testid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
@@ -2170,7 +2170,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-34"
+                      class="emotion-33"
                     >
                       size 19
                     </span>

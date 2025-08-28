@@ -1,5 +1,5 @@
 import Button, { Size, Variant } from "@leafygreen-ui/button";
-import { useChatContext } from "@evg-ui/fungi/useChatContext";
+import { useChatContext } from "@evg-ui/fungi/Context";
 import Icon from "@evg-ui/lib/components/Icon";
 
 interface Props {

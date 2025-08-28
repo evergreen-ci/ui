@@ -1,5 +1,6 @@
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
+import { resolve } from "path";
 
 export default defineConfig({
   test: {
@@ -11,4 +12,13 @@ export default defineConfig({
     globalSetup: "./config/vitest/global-setup.ts",
   },
   plugins: [tsconfigPaths()],
+  resolve: {
+    alias: {
+      "@leafygreen-ui/emotion": resolve(
+        __dirname,
+        "./config/leafygreen-ui/emotion",
+      ),
+    },
+    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
+  },
 });

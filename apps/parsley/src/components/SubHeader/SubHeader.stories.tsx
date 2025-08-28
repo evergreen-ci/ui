@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { MockedProvider } from "@apollo/client/testing";
+import { ChatProvider } from "@evg-ui/fungi/Context";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
@@ -12,7 +13,9 @@ export default {
   decorators: [
     (Story: () => JSX.Element) => (
       <MockedProvider mocks={[evergreenTaskMock, logkeeperMetadataMock]}>
-        <Story />
+        <ChatProvider>
+          <Story />
+        </ChatProvider>
       </MockedProvider>
     ),
   ],
