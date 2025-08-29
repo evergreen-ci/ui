@@ -4908,13 +4908,19 @@ export type WorkstationSetupCommandInput = {
   directory?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-export type UpdateUserSettingsMutationVariables = Exact<{
-  userSettings: UserSettingsInput;
+export type UpdateUserBetaFeaturesMutationVariables = Exact<{
+  opts: UpdateBetaFeaturesInput;
 }>;
 
-export type UpdateUserSettingsMutation = {
+export type UpdateUserBetaFeaturesMutation = {
   __typename?: "Mutation";
-  updateUserSettings: boolean;
+  updateBetaFeatures?: {
+    __typename?: "UpdateBetaFeaturesPayload";
+    betaFeatures?: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled: boolean;
+    } | null;
+  } | null;
 };
 
 export type AdminBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;

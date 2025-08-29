@@ -7300,19 +7300,13 @@ export type UpdateVolumeMutation = {
   updateVolume: boolean;
 };
 
-export type UpdateUserBetaFeaturesMutationVariables = Exact<{
-  opts: UpdateBetaFeaturesInput;
+export type UpdateUserSettingsMutationVariables = Exact<{
+  userSettings: UserSettingsInput;
 }>;
 
-export type UpdateUserBetaFeaturesMutation = {
+export type UpdateUserSettingsMutation = {
   __typename?: "Mutation";
-  updateBetaFeatures?: {
-    __typename?: "UpdateBetaFeaturesPayload";
-    betaFeatures?: {
-      __typename?: "BetaFeatures";
-      spruceWaterfallEnabled: boolean;
-    } | null;
-  } | null;
+  updateUserSettings: boolean;
 };
 
 export type AdminEventsQueryVariables = Exact<{
