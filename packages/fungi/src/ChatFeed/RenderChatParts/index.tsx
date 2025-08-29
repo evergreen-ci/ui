@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { Message, MessageSourceType } from "@lg-chat/message";
 import { UIMessagePart, UIDataTypes, UITools, ToolUIPart } from "ai";
+import RenderToolUse from "./RenderToolUse";
 
 type RenderChatPartsProps = {
   parts: UIMessagePart<UIDataTypes, UITools>[];
@@ -15,9 +15,9 @@ const RenderChatParts: React.FC<RenderChatPartsProps> = ({
   role,
 }) => (
   <>
-    {parts.map((part, index) => (
+    {parts.map((part) => (
       <RenderChatPart
-        key={id + part.type + index}
+        key={`${id}-${part.type}`}
         isSender={role === "user"}
         messageId={id}
         part={part}
@@ -51,41 +51,19 @@ const RenderChatPart: React.FC<RenderChatPartProps> = ({ isSender, part }) => {
   }
 };
 
+/**
+ * Checks if the part is a tool use
+ * @param part The part to check
+ * @returns True if the part is a tool use, false otherwise
+ */
 const isToolUse = (
   part: UIMessagePart<UIDataTypes, UITools>,
 ): part is ToolUIPart => part.type.startsWith("tool-");
-
-type RenderToolUseProps = {
-  tool: ToolUIPart;
-};
-
-const toolNameToLabel = (name: string) => {
-  switch (name) {
-    case "tool-askEvergreenAgentTool":
-      return "Asking Evergreen Agent for more information...";
-    case "tool-logCoreAnalyzerWorkflow":
-      return "Analyzing Logs...";
-    case "tool-askQuestionClassifierAgentTool":
-      return "Refining and Classifying Question...";
-    default:
-      return name;
-  }
-  return name;
-};
 
 const StyledMessage = styled(Message)`
   > div {
     max-width: 100%;
   }
 `;
-
-const RenderToolUse: React.FC<RenderToolUseProps> = ({ tool }) => {
-  console.log(tool);
-  return (
-    <div>
-      <Chip label={toolNameToLabel(tool.type)} variant={ChipVariant.Blue} />
-    </div>
-  );
-};
 
 export default RenderChatParts;
