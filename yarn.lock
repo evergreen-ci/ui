@@ -3791,6 +3791,17 @@
     "@leafygreen-ui/palette" "^4.0.9"
     "@leafygreen-ui/tooltip" "^11.0.3"
 
+"@leafygreen-ui/inline-definition@^9.0.3":
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/inline-definition/-/inline-definition-9.0.3.tgz#986c476b91043d9ccceb24e294eb1964c65f87d3"
+  integrity sha512-5lRXCSEGb6dDpWlkGbldYtMQvOJs0JVds09auDRiZa3n61S5Qy8KgKuhqGzrDua7cY4uk+nJs5xV6bWq0TjMRQ==
+  dependencies:
+    "@leafygreen-ui/emotion" "^5.0.0"
+    "@leafygreen-ui/lib" "^15.2.0"
+    "@leafygreen-ui/palette" "^5.0.0"
+    "@leafygreen-ui/tokens" "^3.1.2"
+    "@leafygreen-ui/tooltip" "^14.1.1"
+
 "@leafygreen-ui/input-option@^2.0.1", "@leafygreen-ui/input-option@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/input-option/-/input-option-2.0.2.tgz#7d6af0494254ebbfa9380b17887ef7af238e424d"
