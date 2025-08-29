@@ -1,9 +1,12 @@
-import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
-import { ChatFeed } from "@evg-ui/fungi/ChatFeed";
+import styled from "@emotion/styled";
+import { ChatDrawer } from "@evg-ui/fungi/components/ChatDrawer";
+import { ChatFeed } from "@evg-ui/fungi/components/ChatFeed";
 import { ChatProvider } from "@evg-ui/fungi/Context";
 import aiPrompts from "constants/aiPrompts";
+import { navbarHeight, subheaderHeight } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import { parsleyChatURL } from "utils/environmentVariables";
+import TermsOfUseDisclaimer from "./TermsOfUseDisclaimer";
 
 interface Props {
   children: React.ReactNode;
@@ -25,18 +28,23 @@ export const Chatbot: React.FC<Props> = ({ children }) => {
 
   return (
     <ChatProvider>
-      <ChatDrawer
+      <StyledChatDrawer
         chatContent={
           <ChatFeed
             apiUrl={parsleyChatURL}
             bodyData={bodyData}
             chatSuggestions={aiPrompts}
+            emptyState={<TermsOfUseDisclaimer />}
           />
         }
         title="Parsley AI"
       >
         {children}
-      </ChatDrawer>
+      </StyledChatDrawer>
     </ChatProvider>
   );
 };
+
+const StyledChatDrawer = styled(ChatDrawer)`
+  height: calc(100% - (${navbarHeight} + ${subheaderHeight}));
+`;

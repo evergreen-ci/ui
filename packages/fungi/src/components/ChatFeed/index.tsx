@@ -1,12 +1,9 @@
 import { useChat } from "@ai-sdk/react";
 import styled from "@emotion/styled";
 import { InputBar } from "@lg-chat/input-bar";
-import {
-  LeafyGreenChatProvider,
-  LeafyGreenChatProviderProps,
-} from "@lg-chat/leafygreen-chat-provider";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
+import { size } from "@evg-ui/lib/constants/tokens";
 import ChatSuggestions from "./ChatSuggestions";
 import RenderChatParts from "./RenderChatParts";
 
@@ -15,11 +12,10 @@ type Props = {
   bodyData?: object;
   chatSuggestions?: string[];
   emptyState?: React.ReactNode;
-} & Pick<LeafyGreenChatProviderProps, "assistantName">;
+};
 
 export const ChatFeed: React.FC<Props> = ({
   apiUrl,
-  assistantName,
   bodyData,
   chatSuggestions,
   emptyState,
@@ -47,28 +43,26 @@ export const ChatFeed: React.FC<Props> = ({
   const hasMessages = messages.length > 0;
   return (
     <Container>
-      <LeafyGreenChatProvider assistantName={assistantName}>
-        {/* This title won't be visible since we're using the compact variant */}
-        {hasMessages && (
-          <MessageFeed>
-            {messages.map(({ id, parts, role }) => (
-              <RenderChatParts key={id} id={id} parts={parts} role={role} />
-            ))}
-          </MessageFeed>
-        )}
-        {!hasMessages && (
-          <>
-            {emptyState}
-            {chatSuggestions && (
-              <ChatSuggestions
-                chatSuggestions={chatSuggestions}
-                handleSend={handleSend}
-              />
-            )}
-          </>
+      <>
+        <ContentArea>
+          {hasMessages ? (
+            <MessageFeed>
+              {messages.map(({ id, parts, role }) => (
+                <RenderChatParts key={id} id={id} parts={parts} role={role} />
+              ))}
+            </MessageFeed>
+          ) : (
+            emptyState && <EmptyStateWrapper>{emptyState}</EmptyStateWrapper>
+          )}
+        </ContentArea>
+        {!hasMessages && chatSuggestions && (
+          <StyledChatSuggestions
+            chatSuggestions={chatSuggestions}
+            handleSend={handleSend}
+          />
         )}
         <StyledInputBar onMessageSend={handleSend} />
-      </LeafyGreenChatProvider>
+      </>
     </Container>
   );
 };
@@ -78,8 +72,30 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  border: red 1px solid;
+`;
+
+const ContentArea = styled.div`
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+`;
+
+const EmptyStateWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledChatSuggestions = styled(ChatSuggestions)`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: ${size.xs};
 `;
 
 const StyledInputBar = styled(InputBar)`
