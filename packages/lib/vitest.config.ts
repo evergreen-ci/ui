@@ -1,3 +1,4 @@
+import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 import { resolve } from "path";
@@ -11,7 +12,14 @@ export default defineConfig({
     setupFiles: "./config/vitest/setupTests.ts",
     globalSetup: "./config/vitest/global-setup.ts",
   },
-  plugins: [tsconfigPaths()],
+  plugins: [
+    tsconfigPaths(),
+    react({
+      babel: {
+        plugins: ["import-graphql"],
+      },
+    }),
+  ],
   resolve: {
     alias: {
       "@leafygreen-ui/emotion": resolve(

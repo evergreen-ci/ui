@@ -24,6 +24,7 @@ const TASK_MAPPING = {
     Tasks.Storybook,
     Tasks.Test,
     Tasks.TypeCheck,
+    Tasks.CheckCodegen
   ],
   parsley: [
     Tasks.CheckCodegen,
