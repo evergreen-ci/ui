@@ -7,6 +7,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 interface ChatSuggestionsProps {
   chatSuggestions: string[];
   handleSend: (message: string) => void;
+  className?: string;
 }
 
 const getRandomSuggestions = (
@@ -25,6 +26,7 @@ const getRandomSuggestions = (
 
 const ChatSuggestions: React.FC<ChatSuggestionsProps> = ({
   chatSuggestions,
+  className,
   handleSend,
 }) => {
   const [chosenSuggestions] = useState<string[]>(() =>
@@ -32,18 +34,18 @@ const ChatSuggestions: React.FC<ChatSuggestionsProps> = ({
   );
 
   return (
-    <Container>
+    <Container className={className}>
       <Disclaimer>Suggested Prompts </Disclaimer>
-      <MessagePrompts>
+      <StyledMessagePrompts>
         {chosenSuggestions.map((suggestion) => (
-          <MessagePrompt
+          <StyledMessagePrompt
             key={suggestion}
             onClick={() => handleSend(suggestion)}
           >
             {suggestion}
-          </MessagePrompt>
+          </StyledMessagePrompt>
         ))}
-      </MessagePrompts>
+      </StyledMessagePrompts>
     </Container>
   );
 };
@@ -51,8 +53,15 @@ const ChatSuggestions: React.FC<ChatSuggestionsProps> = ({
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${size.xs};
   width: 100%;
 `;
 
+const StyledMessagePrompts = styled(MessagePrompts)`
+  gap: ${size.xs};
+  padding-top: ${size.s};
+`;
+
+const StyledMessagePrompt = styled(MessagePrompt)`
+  width: 100%;
+`;
 export default ChatSuggestions;
