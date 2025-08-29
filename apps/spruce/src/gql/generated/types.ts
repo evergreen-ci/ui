@@ -7315,31 +7315,6 @@ export type UpdateUserBetaFeaturesMutation = {
   } | null;
 };
 
-export type UpdateUserSettingsMutationVariables = Exact<{
-  userSettings: UserSettingsInput;
-}>;
-
-export type UpdateUserSettingsMutation = {
-  __typename?: "Mutation";
-  updateUserSettings: boolean;
-};
-
-export type AdminBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
-
-export type AdminBetaFeaturesQuery = {
-  __typename?: "Query";
-  spruceConfig?: {
-    __typename?: "SpruceConfig";
-    ui: {
-      __typename?: "UIConfig";
-      betaFeatures: {
-        __typename?: "BetaFeatures";
-        spruceWaterfallEnabled: boolean;
-      };
-    };
-  } | null;
-};
-
 export type AdminEventsQueryVariables = Exact<{
   opts: AdminEventsInput;
 }>;
@@ -11281,20 +11256,6 @@ export type UndispatchedTasksQuery = {
         displayName: string;
         execution: number;
       }>;
-    };
-  };
-};
-
-export type UserBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
-
-export type UserBetaFeaturesQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    betaFeatures: {
-      __typename?: "BetaFeatures";
-      spruceWaterfallEnabled: boolean;
     };
   };
 };

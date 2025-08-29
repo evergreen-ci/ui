@@ -114,6 +114,7 @@ buildvariants:
       - name: storybook
       - name: test
       - name: type_check
+      - name: check_codegen
 
   - name: deploy-utils
     display_name: Deploy Utils
