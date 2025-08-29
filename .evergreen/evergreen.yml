@@ -108,6 +108,8 @@ buildvariants:
     run_on:
       - ubuntu2204-large
       - ubuntu2204-small
+    modules:
+      - evergreen
     tasks:
       - name: lint
       - name: snapshots
