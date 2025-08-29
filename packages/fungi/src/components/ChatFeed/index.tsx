@@ -29,41 +29,33 @@ export const ChatFeed: React.FC<Props> = ({
   const [isSageAuthenticated, setIsSageAuthenticated] = useState(true);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
-  const startAuthCheck = () => {
-    // Clear any existing interval
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-
-    const checkSageAuthenticated = async () => {
-      try {
-        const response = await fetch(loginUrl, { credentials: "include" });
-        if (response.ok) {
-          setIsSageAuthenticated(true);
-          // Clear interval when authenticated
-          if (intervalId) {
-            clearInterval(intervalId);
-            setIntervalId(null);
-          }
-        } else {
-          setIsSageAuthenticated(false);
-        }
-      } catch (error) {
-        setIsSageAuthenticated(false);
-      }
-    };
-
-    // Initial check
-    checkSageAuthenticated();
-
-    // Set up interval
-    const newIntervalId = setInterval(checkSageAuthenticated, 30000);
+  const beginPollingIsSageAuthenticated = () => {
+    const newIntervalId = setInterval(checkIsSageAuthenticated, 10000);
     setIntervalId(newIntervalId);
   };
 
-  const handleLogin = () => {
-    startAuthCheck();
+  const checkIsSageAuthenticated = async () => {
+    try {
+      const response = await fetch(loginUrl, { credentials: "include" });
+      if (response.ok) {
+        setIsSageAuthenticated(true);
+        // Clear interval when authenticated
+        if (intervalId) {
+          clearInterval(intervalId);
+          setIntervalId(null);
+        }
+      } else {
+        setIsSageAuthenticated(false);
+      }
+    } catch (error) {
+      setIsSageAuthenticated(false);
+    }
   };
+
+  // Initial check for authentication
+  useEffect(() => {
+    checkIsSageAuthenticated();
+  }, []);
 
   // Cleanup on unmount
   useEffect(
@@ -98,7 +90,12 @@ export const ChatFeed: React.FC<Props> = ({
   const hasMessages = messages.length > 0;
   if (!isSageAuthenticated) {
     return (
-      <Login appName={appName} loginUrl={loginUrl} onLogin={handleLogin} />
+      <Login
+        appName={appName}
+        disabled={intervalId !== null}
+        loginUrl={loginUrl}
+        onLogin={beginPollingIsSageAuthenticated}
+      />
     );
   }
   return (

@@ -5,19 +5,26 @@ interface LoginProps {
   onLogin: () => void;
   loginUrl?: string;
   appName: string;
+  disabled: boolean;
 }
 
-const Login: React.FC<LoginProps> = ({ appName, loginUrl, onLogin }) => (
+const Login: React.FC<LoginProps> = ({
+  appName,
+  disabled,
+  loginUrl,
+  onLogin,
+}) => (
   <Container>
     <MessageText>{appName} requires you to login separately</MessageText>
     <Button
       as="a"
+      disabled={disabled}
       href={loginUrl}
       onClick={onLogin}
       target="_blank"
       variant={Variant.BaseGreen}
     >
-      Click here to login
+      {disabled ? "Waiting for login..." : "Click here to login"}
     </Button>
   </Container>
 );
