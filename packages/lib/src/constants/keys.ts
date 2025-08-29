@@ -32,6 +32,7 @@ enum CharKey {
   Y = "y",
   Z = "z",
 
+  Escape = "Escape",
   Enter = "Enter",
   Tab = "Tab",
   ArrowDown = "ArrowDown",
