@@ -10,7 +10,7 @@ const TermsOfUseDisclaimer = () => (
       Parsley AI is powered by generative AI and its responses may be inaccurate
       or incomplete.
     </StyledDisclaimer>
-    <InlineDefinition definition="Generative AI models may generate incorrect or misleading information. Please review the output carefully. Parsley AI is meant to assist you with your queries and not to replace your own judgement.">
+    <InlineDefinition definition="Generative AI models may generate incorrect or misleading information. Please review the output carefully. Parsley AI is meant to assist you with your investigations and not to replace your own judgement.">
       Please review the output carefully.
     </InlineDefinition>
   </Container>
