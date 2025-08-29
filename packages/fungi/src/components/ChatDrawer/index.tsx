@@ -53,7 +53,7 @@ export const ChatDrawer: React.FC<Props> = ({
         tabIndex={-1}
       >
         <PanelHeader>
-          {/* @ts-ignore */}
+          {/* @ts-ignore body component throws an error */}
           <Body weight="bold">{title}</Body>
           <IconButton
             aria-label="Close chat"

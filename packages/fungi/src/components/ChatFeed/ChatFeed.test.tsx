@@ -7,7 +7,7 @@ describe("ChatFeed", () => {
 
     // jsdom doesn't support layouting HTML, so mock this.
     HTMLDivElement.prototype.scrollTo = () => {};
-    render(<ChatFeed apiUrl="/foo" />);
+    render(<ChatFeed apiUrl="/foo" appName="Test App" loginUrl="/login" />);
 
     const message = "Why did my log fail?";
     const textarea = screen.getByRole("textbox");

@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import styled from "@emotion/styled";
 import { InputBar } from "@lg-chat/input-bar";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
 import { size } from "@evg-ui/lib/constants/tokens";
+import Login from "../Login";
 import ChatSuggestions from "./ChatSuggestions";
 import RenderChatParts from "./RenderChatParts";
 
@@ -12,15 +14,68 @@ type Props = {
   bodyData?: object;
   chatSuggestions?: string[];
   emptyState?: React.ReactNode;
+  appName: string;
+  loginUrl: string;
 };
 
 export const ChatFeed: React.FC<Props> = ({
   apiUrl,
+  appName,
   bodyData,
   chatSuggestions,
   emptyState,
+  loginUrl,
 }) => {
-  const { messages, sendMessage } = useChat({
+  const [isSageAuthenticated, setIsSageAuthenticated] = useState(true);
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+
+  const startAuthCheck = () => {
+    // Clear any existing interval
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+
+    const checkSageAuthenticated = async () => {
+      try {
+        const response = await fetch(loginUrl, { credentials: "include" });
+        if (response.ok) {
+          setIsSageAuthenticated(true);
+          // Clear interval when authenticated
+          if (intervalId) {
+            clearInterval(intervalId);
+            setIntervalId(null);
+          }
+        } else {
+          setIsSageAuthenticated(false);
+        }
+      } catch (error) {
+        setIsSageAuthenticated(false);
+      }
+    };
+
+    // Initial check
+    checkSageAuthenticated();
+
+    // Set up interval
+    const newIntervalId = setInterval(checkSageAuthenticated, 30000);
+    setIntervalId(newIntervalId);
+  };
+
+  const handleLogin = () => {
+    startAuthCheck();
+  };
+
+  // Cleanup on unmount
+  useEffect(
+    () => () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    },
+    [intervalId],
+  );
+
+  const { error, messages, sendMessage } = useChat({
     transport: new DefaultChatTransport({
       api: apiUrl,
       credentials: "include",
@@ -41,6 +96,11 @@ export const ChatFeed: React.FC<Props> = ({
   };
 
   const hasMessages = messages.length > 0;
+  if (!isSageAuthenticated) {
+    return (
+      <Login appName={appName} loginUrl={loginUrl} onLogin={handleLogin} />
+    );
+  }
   return (
     <Container>
       <>
@@ -61,7 +121,11 @@ export const ChatFeed: React.FC<Props> = ({
             handleSend={handleSend}
           />
         )}
-        <StyledInputBar onMessageSend={handleSend} />
+        <StyledInputBar
+          errorMessage={error?.message ?? ""}
+          onMessageSend={handleSend}
+          state={error ? "error" : undefined}
+        />
       </>
     </Container>
   );

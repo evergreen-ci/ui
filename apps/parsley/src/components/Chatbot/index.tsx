@@ -5,7 +5,7 @@ import { ChatProvider } from "@evg-ui/fungi/Context";
 import aiPrompts from "constants/aiPrompts";
 import { navbarHeight, subheaderHeight } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
-import { parsleyChatURL } from "utils/environmentVariables";
+import { parsleyChatURL, parsleyLoginURL } from "utils/environmentVariables";
 import TermsOfUseDisclaimer from "./TermsOfUseDisclaimer";
 
 interface Props {
@@ -32,9 +32,11 @@ export const Chatbot: React.FC<Props> = ({ children }) => {
         chatContent={
           <ChatFeed
             apiUrl={parsleyChatURL}
+            appName="Parsley AI"
             bodyData={bodyData}
             chatSuggestions={aiPrompts}
             emptyState={<TermsOfUseDisclaimer />}
+            loginUrl={parsleyLoginURL}
           />
         }
         title="Parsley AI"

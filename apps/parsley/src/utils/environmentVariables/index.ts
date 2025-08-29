@@ -32,7 +32,7 @@ const parsleyURL = process.env.REACT_APP_PARSLEY_URL;
 const parsleyAIURL = import.meta.env.VITE_PARSLEY_AI_URL;
 
 const parsleyChatURL = `${parsleyAIURL}/completions/parsley/conversations/chat`;
-
+const parsleyLoginURL = `${parsleyAIURL}/login`;
 export {
   getSentryDSN,
   evergreenURL,
@@ -41,4 +41,5 @@ export {
   spruceURL,
   parsleyChatURL,
   parsleyURL,
+  parsleyLoginURL,
 };
