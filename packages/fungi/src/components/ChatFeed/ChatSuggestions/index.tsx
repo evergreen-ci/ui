@@ -1,6 +1,8 @@
 import { useState } from "react";
+import styled from "@emotion/styled";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { MessagePrompt, MessagePrompts } from "@lg-chat/message-prompts";
+import { size } from "@evg-ui/lib/constants/tokens";
 
 interface ChatSuggestionsProps {
   chatSuggestions: string[];
@@ -30,15 +32,27 @@ const ChatSuggestions: React.FC<ChatSuggestionsProps> = ({
   );
 
   return (
-    <MessagePrompts>
+    <Container>
       <Disclaimer>Suggested Prompts </Disclaimer>
-      {chosenSuggestions.map((suggestion) => (
-        <MessagePrompt key={suggestion} onClick={() => handleSend(suggestion)}>
-          {suggestion}
-        </MessagePrompt>
-      ))}
-    </MessagePrompts>
+      <MessagePrompts>
+        {chosenSuggestions.map((suggestion) => (
+          <MessagePrompt
+            key={suggestion}
+            onClick={() => handleSend(suggestion)}
+          >
+            {suggestion}
+          </MessagePrompt>
+        ))}
+      </MessagePrompts>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
+  width: 100%;
+`;
 
 export default ChatSuggestions;

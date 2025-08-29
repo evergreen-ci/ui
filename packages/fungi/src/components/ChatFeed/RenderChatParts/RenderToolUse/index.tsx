@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { ToolUIPart } from "ai";
 import Icon from "@evg-ui/lib/components/Icon";
-import { toolLabels } from "../../../constants/toolMappings";
+import { toolLabels } from "../../../../constants/toolMappings";
 
 const AnimatedEllipsis = styled.span`
   display: inline-block;

@@ -1,39 +1,31 @@
 import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
-import { useChatContext } from "../Context";
+import { Body } from "@leafygreen-ui/typography";
+import { CharKey } from "@evg-ui/lib/constants/keys";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
+import { useChatContext } from "../../Context";
 
 type Props = {
   children: React.ReactNode;
   chatContent: React.ReactNode;
   title: string;
+  className?: string;
 };
 
 export const ChatDrawer: React.FC<Props> = ({
   chatContent,
   children,
+  className,
   title,
 }) => {
   const { drawerOpen, setDrawerOpen } = useChatContext();
   const panelRef = useRef<HTMLDivElement>(null);
 
   // Close on ESC
-  useEffect(() => {
-    if (!drawerOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setDrawerOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [drawerOpen, setDrawerOpen]);
-
-  // Lock page scroll when open
-  useEffect(() => {
-    const prev = document.body.style.overflow;
-    if (drawerOpen) document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [drawerOpen]);
+  useKeyboardShortcut({ charKey: CharKey.Escape, modifierKeys: [] }, () =>
+    setDrawerOpen(false),
+  );
 
   // Move focus to panel when opened
   useEffect(() => {
@@ -46,27 +38,20 @@ export const ChatDrawer: React.FC<Props> = ({
 
   return (
     <>
-      {/* Main page is always rendered and interactive */}
       {children}
-
-      {/* Backdrop */}
-      <Backdrop
-        $open={drawerOpen}
-        aria-hidden="true"
-        onClick={() => setDrawerOpen(false)}
-      />
-
       {/* Sliding panel */}
       <Panel
         ref={panelRef}
-        $open={drawerOpen}
         aria-label={title}
         aria-modal="true"
+        className={className}
+        open={drawerOpen}
         role="dialog"
         tabIndex={-1}
       >
         <PanelHeader>
-          <Title>{title}</Title>
+          {/* @ts-expect-error body component throws an error */}
+          <Body weight="bold">{title}</Body>
           <IconButton
             aria-label="Close chat"
             onClick={() => setDrawerOpen(false)}
@@ -81,55 +66,28 @@ export const ChatDrawer: React.FC<Props> = ({
 
 /* ===== Styles ===== */
 
-const Z = {
-  backdrop: 1000,
-  panel: 1001,
-};
-
-const Backdrop = styled.div<{ $open: boolean }>`
+const Panel = styled.div<{ open: boolean }>`
   position: fixed;
-  inset: 0;
-  background: rgba(16, 24, 40, 0.4);
-  opacity: ${(p) => (p.$open ? 1 : 0)};
-  transition: opacity 200ms ease;
-  pointer-events: ${(p) => (p.$open ? "auto" : "none")};
-  z-index: ${Z.backdrop};
-`;
-
-const Panel = styled.div<{ $open: boolean }>`
-  position: fixed;
-  top: 0;
+  bottom: 0;
   right: 0;
-  height: 100dvh;
+  height: 100%;
   width: clamp(320px, 32vw, 520px);
   background: #ffffff;
   box-shadow: -10px 0 30px rgba(0, 0, 0, 0.12);
-  transform: translateX(${(p) => (p.$open ? "0%" : "100%")});
+  transform: translateX(${(p) => (p.open ? "0%" : "100%")});
   transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: ${Z.panel};
+  z-index: ${zIndex.drawer};
   display: flex;
   flex-direction: column;
   outline: none;
-  /* Optional: elevate on mac dark backgrounds */
-  @media (prefers-color-scheme: dark) {
-    background: #0f1115;
-    color: #e6e6e6;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6);
-  }
 `;
 
 const PanelHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px;
+  padding: ${size.s};
   border-bottom: 1px solid rgba(60, 60, 67, 0.12);
-`;
-
-const Title = styled.h3`
-  margin: 0;
-  font-size: 14px;
-  font-weight: 600;
 `;
 
 const IconButton = styled.button`
@@ -153,5 +111,9 @@ const IconButton = styled.button`
 const PanelBody = styled.div`
   flex: 1;
   overflow: auto;
-  padding: 12px 16px 16px;
+  padding: ${size.s};
+  border: red 1px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;

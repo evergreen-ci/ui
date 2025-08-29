@@ -1,5 +1,5 @@
 import { useChat } from "@ai-sdk/react";
-import { ChatWindow } from "@lg-chat/chat-window";
+import styled from "@emotion/styled";
 import { InputBar } from "@lg-chat/input-bar";
 import {
   LeafyGreenChatProvider,
@@ -14,6 +14,7 @@ type Props = {
   apiUrl: string;
   bodyData?: object;
   chatSuggestions?: string[];
+  emptyState?: React.ReactNode;
 } & Pick<LeafyGreenChatProviderProps, "assistantName">;
 
 export const ChatFeed: React.FC<Props> = ({
@@ -21,6 +22,7 @@ export const ChatFeed: React.FC<Props> = ({
   assistantName,
   bodyData,
   chatSuggestions,
+  emptyState,
 }) => {
   const { messages, sendMessage } = useChat({
     transport: new DefaultChatTransport({
@@ -42,23 +44,45 @@ export const ChatFeed: React.FC<Props> = ({
     sendMessage({ text: message });
   };
 
+  const hasMessages = messages.length > 0;
   return (
-    <LeafyGreenChatProvider assistantName={assistantName}>
-      {/* This title won't be visible since we're using the compact variant */}
-      <ChatWindow badgeText="Beta" title="">
-        <MessageFeed>
-          {messages.map(({ id, parts, role }) => (
-            <RenderChatParts key={id} id={id} parts={parts} role={role} />
-          ))}
-        </MessageFeed>
-        {messages.length === 0 && chatSuggestions && (
-          <ChatSuggestions
-            chatSuggestions={chatSuggestions}
-            handleSend={handleSend}
-          />
+    <Container>
+      <LeafyGreenChatProvider assistantName={assistantName}>
+        {/* This title won't be visible since we're using the compact variant */}
+        {hasMessages && (
+          <MessageFeed>
+            {messages.map(({ id, parts, role }) => (
+              <RenderChatParts key={id} id={id} parts={parts} role={role} />
+            ))}
+          </MessageFeed>
         )}
-        <InputBar onMessageSend={handleSend} />
-      </ChatWindow>
-    </LeafyGreenChatProvider>
+        {!hasMessages && (
+          <>
+            {emptyState}
+            {chatSuggestions && (
+              <ChatSuggestions
+                chatSuggestions={chatSuggestions}
+                handleSend={handleSend}
+              />
+            )}
+          </>
+        )}
+        <StyledInputBar onMessageSend={handleSend} />
+      </LeafyGreenChatProvider>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: red 1px solid;
+`;
+
+const StyledInputBar = styled(InputBar)`
+  width: 100%;
+  padding: 0;
+`;
