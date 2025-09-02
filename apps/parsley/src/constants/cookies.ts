@@ -16,4 +16,7 @@ export const LAST_SELECTED_LOG_TYPE = "last-selected-log-type";
 
 export const HAS_SEEN_SECTIONS_PROD_FEATURE_MODAL =
   "has-seen-sections-prod-feature-modal";
+
+export const SEEN_PARSLEY_AI_BETA_MODAL = "has-seen-parsley-ai-model";
+
 export const COPY_FORMAT = "default-copy-format";
