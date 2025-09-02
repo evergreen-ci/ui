@@ -17,7 +17,7 @@ const Button = () => {
 };
 
 const wrapper = ({ children }: React.PropsWithChildren) => (
-  <ChatProvider>
+  <ChatProvider appName="Chat name">
     <Button />
     {children}
   </ChatProvider>
@@ -26,18 +26,15 @@ const wrapper = ({ children }: React.PropsWithChildren) => (
 describe("ChatDrawer", () => {
   it("opens and closes when the context value is updated", async () => {
     const user = userEvent.setup();
-    render(
-      <ChatDrawer chatContent="Chat content" title="Chat drawer title">
-        Page content
-      </ChatDrawer>,
-      { wrapper },
-    );
+    render(<ChatDrawer chatContent="Chat content">Page content</ChatDrawer>, {
+      wrapper,
+    });
 
     expect(screen.getByText("Chat content")).not.toBeVisible();
-    expect(screen.getByText("Chat drawer title")).not.toBeVisible();
+    expect(screen.getByText("Chat name")).not.toBeVisible();
 
     await user.click(screen.getByRole("button", { name: "Toggle drawer" }));
     expect(screen.getByText("Chat content")).toBeVisible();
-    expect(screen.getByText("Chat drawer title")).toBeVisible();
+    expect(screen.getByText("Chat name")).toBeVisible();
   });
 });
