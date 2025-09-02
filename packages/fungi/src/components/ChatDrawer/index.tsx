@@ -72,11 +72,15 @@ const Panel = styled.div<{ open: boolean }>`
   background-color: ${white};
   box-shadow: -${size.xs} 0 ${size.l} rgba(0, 0, 0, 0.12);
   transform: translateX(${(p) => (p.open ? "0%" : "100%")});
-  display: ${(p) => (p.open ? "flex" : "none")};
+  display: flex;
   transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
   z-index: ${zIndex.drawer};
   flex-direction: column;
   outline: none;
+  visibility: ${(p) => (p.open ? "visible" : "hidden")};
+  transition:
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s ${(p) => (p.open ? "0s" : "240ms")};
 `;
 
 const PanelHeader = styled.div`
