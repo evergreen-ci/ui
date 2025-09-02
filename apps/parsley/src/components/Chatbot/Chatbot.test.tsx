@@ -8,6 +8,10 @@ import { logContextWrapper } from "context/LogContext/test_utils";
 import { ToggleChatbotButton } from "./ToggleChatbotButton";
 import { Chatbot } from ".";
 
+// Mock fetch to return successful authentication
+const mockFetch = vi.fn();
+global.fetch = mockFetch;
+
 const wrapper = ({ children }: React.PropsWithChildren) => {
   const MockLogContext = logContextWrapper();
   return (
@@ -20,6 +24,15 @@ const wrapper = ({ children }: React.PropsWithChildren) => {
 describe("ToggleChatbotButton", () => {
   beforeEach(() => {
     HTMLDivElement.prototype.scrollTo = () => {};
+    // Mock successful authentication response
+    mockFetch.mockResolvedValue({
+      ok: true,
+      status: 200,
+    });
+  });
+
+  afterEach(() => {
+    mockFetch.mockClear();
   });
 
   it("opens the Parsley chatbot", async () => {
