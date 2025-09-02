@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import styled from "@emotion/styled";
 import { InputBar } from "@lg-chat/input-bar";
@@ -34,7 +34,7 @@ export const ChatFeed: React.FC<Props> = ({
     setIntervalId(newIntervalId);
   };
 
-  const checkIsSageAuthenticated = async () => {
+  const checkIsSageAuthenticated = useCallback(async () => {
     try {
       const response = await fetch(loginUrl, { credentials: "include" });
       if (response.ok) {
@@ -50,12 +50,12 @@ export const ChatFeed: React.FC<Props> = ({
     } catch (error) {
       setIsSageAuthenticated(false);
     }
-  };
+  }, [loginUrl, intervalId]);
 
   // Initial check for authentication
   useEffect(() => {
     checkIsSageAuthenticated();
-  }, []);
+  }, [checkIsSageAuthenticated]);
 
   // Cleanup on unmount
   useEffect(
