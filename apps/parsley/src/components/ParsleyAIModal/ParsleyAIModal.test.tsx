@@ -1,6 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { GraphQLError } from "graphql";
-import Cookie from "js-cookie";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   UpdateUserBetaFeaturesMutation,
@@ -16,9 +15,6 @@ import {
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import * as analytics from "analytics";
 import { ParsleyAIModal } from ".";
-
-vi.mock("js-cookie");
-const mockedSet = vi.spyOn(Cookie, "set");
 
 export const wrapper = (additionalMocks: MockedResponse[] = []) => {
   const renderContent = ({ children }: React.PropsWithChildren) =>
@@ -52,7 +48,6 @@ describe("parsley AI modal", () => {
     );
     render(<Component />, { wrapper: wrapper() });
     expect(screen.queryByDataCy("parsley-ai-modal")).toBeVisible();
-    expect(mockedSet).toHaveBeenCalledTimes(0);
   });
 
   it("enables beta", async () => {
@@ -68,7 +63,6 @@ describe("parsley AI modal", () => {
     render(<Component />, { wrapper: wrapper([updateBetaFeaturesMock]) });
 
     await user.click(screen.getByRole("button", { name: "Enable it!" }));
-    expect(mockedSet).toHaveBeenCalledTimes(1);
     expect(mockSetOpen).toHaveBeenCalledTimes(1);
     expect(mockSetOpen).toHaveBeenCalledWith(false);
     expect(mockSendEvent).toHaveBeenCalledTimes(1);
@@ -92,7 +86,6 @@ describe("parsley AI modal", () => {
 
     await user.click(screen.getByRole("button", { name: "Enable it!" }));
     expect(dispatchToast.error).toHaveBeenCalledTimes(1);
-    expect(mockedSet).toHaveBeenCalledTimes(1);
     expect(mockSetOpen).toHaveBeenCalledTimes(1);
     expect(mockSetOpen).toHaveBeenCalledWith(false);
     expect(mockSendEvent).toHaveBeenCalledTimes(1);
@@ -124,7 +117,6 @@ describe("parsley AI modal", () => {
       "beta_features.parsley_ai_enabled": false,
       name: "Viewed Parsley AI beta modal",
     });
-    expect(mockedSet).toHaveBeenCalledTimes(1);
   });
 });
 

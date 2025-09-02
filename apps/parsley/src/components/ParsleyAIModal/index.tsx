@@ -2,7 +2,6 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import MarketingModal from "@leafygreen-ui/marketing-modal";
-import Cookies from "js-cookie";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -13,7 +12,6 @@ import {
 import { UPDATE_USER_BETA_FEATURES } from "@evg-ui/lib/gql/mutations";
 import { getSpruceURL } from "@evg-ui/lib/utils/environmentVariables";
 import { useAIAgentAnalytics } from "analytics";
-import { SEEN_PARSLEY_AI_BETA_MODAL } from "constants/cookies";
 import screenshot from "./screenshot.png";
 
 interface ParsleyAIModalProps {
@@ -29,7 +27,6 @@ export const ParsleyAIModal: React.FC<ParsleyAIModalProps> = ({
   const dispatchToast = useToastContext();
 
   const handleClose = (enabledBeta: boolean) => () => {
-    Cookies.set(SEEN_PARSLEY_AI_BETA_MODAL, "true", { expires: 365 });
     sendEvent({
       "beta_features.parsley_ai_enabled": enabledBeta,
       name: "Viewed Parsley AI beta modal",
@@ -49,7 +46,10 @@ export const ParsleyAIModal: React.FC<ParsleyAIModalProps> = ({
       dispatchToast.error(
         <span>
           Failed to enable Parsley AI beta. Visit your{" "}
-          <StyledLink href={`${getSpruceURL()}/preferences`} target="__blank">
+          <StyledLink
+            href={`${getSpruceURL()}/preferences/ui-settings`}
+            target="__blank"
+          >
             UI Settings page
           </StyledLink>{" "}
           to update.
@@ -93,7 +93,10 @@ export const ParsleyAIModal: React.FC<ParsleyAIModalProps> = ({
       <ModalContent>
         Join the beta to begin using Parsley AI today. You can always opt out
         via your{" "}
-        <StyledLink href={`${getSpruceURL()}/preferences`} target="__blank">
+        <StyledLink
+          href={`${getSpruceURL()}/preferences/ui-settings`}
+          target="__blank"
+        >
           UI Settings on Spruce
         </StyledLink>
         .
