@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import styled from "@emotion/styled";
 import { InputBar } from "@lg-chat/input-bar";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
 import { size } from "@evg-ui/lib/constants/tokens";
+import useSageAuthentication from "../../hooks/useSageAuthentication";
 import Login from "../Login";
 import ChatSuggestions from "./ChatSuggestions";
 import RenderChatParts from "./RenderChatParts";
@@ -26,46 +26,8 @@ export const ChatFeed: React.FC<Props> = ({
   emptyState,
   loginUrl,
 }) => {
-  const [isSageAuthenticated, setIsSageAuthenticated] = useState(true);
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
-
-  const beginPollingIsSageAuthenticated = () => {
-    const newIntervalId = setInterval(checkIsSageAuthenticated, 10000);
-    setIntervalId(newIntervalId);
-  };
-
-  const checkIsSageAuthenticated = useCallback(async () => {
-    try {
-      const response = await fetch(loginUrl, { credentials: "include" });
-      if (response.ok) {
-        setIsSageAuthenticated(true);
-        // Clear interval when authenticated
-        if (intervalId) {
-          clearInterval(intervalId);
-          setIntervalId(null);
-        }
-      } else {
-        setIsSageAuthenticated(false);
-      }
-    } catch (error) {
-      setIsSageAuthenticated(false);
-    }
-  }, [loginUrl, intervalId]);
-
-  // Initial check for authentication
-  useEffect(() => {
-    checkIsSageAuthenticated();
-  }, [checkIsSageAuthenticated]);
-
-  // Cleanup on unmount
-  useEffect(
-    () => () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    },
-    [intervalId],
-  );
+  const { beginPollingIsSageAuthenticated, isPolling, isSageAuthenticated } =
+    useSageAuthentication(loginUrl);
 
   const { error, messages, sendMessage } = useChat({
     transport: new DefaultChatTransport({
@@ -92,7 +54,7 @@ export const ChatFeed: React.FC<Props> = ({
     return (
       <Login
         appName={appName}
-        disabled={intervalId !== null}
+        disabled={isPolling}
         loginUrl={loginUrl}
         onLogin={beginPollingIsSageAuthenticated}
       />
