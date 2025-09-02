@@ -310,6 +310,11 @@ const expectedGql: AdminSettingsInput = {
       },
     ],
   },
+  cost: {
+    financeFormula: 0.5,
+    savingsPlanDiscount: 0.1,
+    onDemandDiscount: 0.05,
+  },
   spawnhost: {
     unexpirableHostsPerUser: 2,
     unexpirableVolumesPerUser: 3,
