@@ -415,7 +415,7 @@ query AdminSettings {
     }
     ui {
       betaFeatures {
-        spruceWaterfallEnabled
+        parsleyAIEnabled
       }
       cacheTemplates
       corsOrigins

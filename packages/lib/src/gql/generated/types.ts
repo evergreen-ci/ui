@@ -4920,7 +4920,7 @@ export type UpdateUserBetaFeaturesMutation = {
     __typename?: "UpdateBetaFeaturesPayload";
     betaFeatures?: {
       __typename?: "BetaFeatures";
-      spruceWaterfallEnabled?: boolean | null;
+      parsleyAIEnabled?: boolean | null;
     } | null;
   } | null;
 };
@@ -4935,7 +4935,7 @@ export type AdminBetaFeaturesQuery = {
       __typename?: "UIConfig";
       betaFeatures: {
         __typename?: "BetaFeatures";
-        spruceWaterfallEnabled?: boolean | null;
+        parsleyAIEnabled?: boolean | null;
       };
     };
   } | null;
@@ -4950,7 +4950,7 @@ export type UserBetaFeaturesQuery = {
     userId: string;
     betaFeatures: {
       __typename?: "BetaFeatures";
-      spruceWaterfallEnabled?: boolean | null;
+      parsleyAIEnabled?: boolean | null;
     };
   };
 };

@@ -176,7 +176,7 @@ export const adminSettings: AdminSettings = {
     cacheTemplates: true,
     stagingEnvironment: "staging",
     betaFeatures: {
-      spruceWaterfallEnabled: true,
+      parsleyAIEnabled: true,
     },
   },
   disabledGQLQueries: ["query1", "query2"],

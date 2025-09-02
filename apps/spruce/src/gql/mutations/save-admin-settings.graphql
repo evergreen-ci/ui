@@ -103,7 +103,7 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
     }
     ui {
       betaFeatures {
-        spruceWaterfallEnabled
+        parsleyAIEnabled
       }
       cacheTemplates
       corsOrigins
