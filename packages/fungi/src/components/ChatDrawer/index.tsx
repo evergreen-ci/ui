@@ -53,7 +53,8 @@ export const ChatDrawer: React.FC<Props> = ({
         tabIndex={-1}
       >
         <PanelHeader>
-          {/* @ts-ignore body component throws an error */}
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/* @ts-ignore body component throws an error when compiled into parsley but not here */}
           <Body weight="bold">{title}</Body>
         </PanelHeader>
         <PanelBody>{chatContent}</PanelBody>
@@ -71,9 +72,9 @@ const Panel = styled.div<{ open: boolean }>`
   background-color: ${white};
   box-shadow: -${size.xs} 0 ${size.l} rgba(0, 0, 0, 0.12);
   transform: translateX(${(p) => (p.open ? "0%" : "100%")});
+  display: ${(p) => (p.open ? "flex" : "none")};
   transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
   z-index: ${zIndex.drawer};
-  display: flex;
   flex-direction: column;
   outline: none;
 `;

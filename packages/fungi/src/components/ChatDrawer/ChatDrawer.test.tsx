@@ -2,6 +2,10 @@ import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { ChatProvider, useChatContext } from "../../Context";
 import { ChatDrawer } from ".";
 
+// Mock fetch to return successful authentication
+const mockFetch = vi.fn();
+global.fetch = mockFetch;
+
 const Button = () => {
   const { setDrawerOpen } = useChatContext();
   return (
@@ -24,6 +28,17 @@ const wrapper = ({ children }: React.PropsWithChildren) => (
 );
 
 describe("ChatDrawer", () => {
+  beforeEach(() => {
+    // Mock successful authentication response
+    mockFetch.mockResolvedValue({
+      ok: true,
+      status: 200,
+    });
+  });
+
+  afterEach(() => {
+    mockFetch.mockClear();
+  });
   it("opens and closes when the context value is updated", async () => {
     const user = userEvent.setup();
     render(
