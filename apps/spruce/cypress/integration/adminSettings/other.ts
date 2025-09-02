@@ -47,7 +47,7 @@ describe("other", () => {
     });
   });
 
-  it.only("can save cost settings changes", () => {
+  it("can save cost settings changes", () => {
     cy.dataCy("save-settings-button").should(
       "have.attr",
       "aria-disabled",

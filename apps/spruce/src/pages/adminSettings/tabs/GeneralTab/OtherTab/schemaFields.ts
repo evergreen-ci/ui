@@ -70,14 +70,20 @@ export const miscSettings = {
         financeFormula: {
           type: "number" as const,
           title: "Finance Formula",
+          minimum: 0,
+          maximum: 1,
         },
         savingsPlanDiscount: {
           type: "number" as const,
           title: "Savings Plan Discount",
+          minimum: 0,
+          maximum: 1,
         },
         onDemandDiscount: {
           type: "number" as const,
           title: "On-Demand Discount",
+          minimum: 0,
+          maximum: 1,
         },
       },
     },
@@ -107,6 +113,18 @@ export const miscSettings = {
     },
     cost: {
       "ui:fieldCss": nestedObjectGridCss,
+      financeFormula: {
+        "ui:description":
+          "The formula used to calculate the cost of running a task (value 0-1).",
+      },
+      savingsPlanDiscount: {
+        "ui:description":
+          "The discount applied to tasks that are part of a savings plan (value 0-1).",
+      },
+      onDemandDiscount: {
+        "ui:description":
+          "The discount applied to on-demand tasks (value 0-1).",
+      },
     },
   },
 };

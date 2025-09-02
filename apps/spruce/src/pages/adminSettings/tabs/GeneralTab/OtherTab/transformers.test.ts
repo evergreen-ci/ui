@@ -28,7 +28,7 @@ const mockAdminSettings: AdminSettings = {
     idleTimeSecondsOverride: 600,
   },
   cost: {
-    financeFormula: 1.5,
+    financeFormula: 0.5,
     savingsPlanDiscount: 0.1,
     onDemandDiscount: 0.05,
   },
@@ -138,7 +138,7 @@ const expectedForm: OtherFormState = {
         idleTimeSecondsOverride: 600,
       },
       cost: {
-        financeFormula: 1.5,
+        financeFormula: 0.5,
         savingsPlanDiscount: 0.1,
         onDemandDiscount: 0.05,
       },
@@ -250,11 +250,6 @@ const expectedGql: AdminSettingsInput = {
     distroMaxHostsFactor: 2,
     targetTimeSecondsOverride: 300,
     idleTimeSecondsOverride: 600,
-  },
-  cost: {
-    financeFormula: 1.5,
-    savingsPlanDiscount: 0.1,
-    onDemandDiscount: 0.05,
   },
   singleTaskDistro: {
     projectTasksPairs: [

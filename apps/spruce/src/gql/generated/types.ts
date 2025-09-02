@@ -424,11 +424,13 @@ export enum BannerTheme {
 
 export type BetaFeatures = {
   __typename?: "BetaFeatures";
-  spruceWaterfallEnabled: Scalars["Boolean"]["output"];
+  parsleyAIEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  spruceWaterfallEnabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type BetaFeaturesInput = {
-  spruceWaterfallEnabled: Scalars["Boolean"]["input"];
+  parsleyAIEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  spruceWaterfallEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export enum BootstrapMethod {
@@ -6994,7 +6996,7 @@ export type SaveAdminSettingsMutation = {
       userVoice?: string | null;
       betaFeatures: {
         __typename?: "BetaFeatures";
-        spruceWaterfallEnabled: boolean;
+        spruceWaterfallEnabled?: boolean | null;
       };
     } | null;
   };
@@ -7310,7 +7312,7 @@ export type UpdateUserBetaFeaturesMutation = {
     __typename?: "UpdateBetaFeaturesPayload";
     betaFeatures?: {
       __typename?: "BetaFeatures";
-      spruceWaterfallEnabled: boolean;
+      spruceWaterfallEnabled?: boolean | null;
     } | null;
   } | null;
 };
@@ -7334,7 +7336,7 @@ export type AdminBetaFeaturesQuery = {
       __typename?: "UIConfig";
       betaFeatures: {
         __typename?: "BetaFeatures";
-        spruceWaterfallEnabled: boolean;
+        spruceWaterfallEnabled?: boolean | null;
       };
     };
   } | null;
@@ -7851,7 +7853,7 @@ export type AdminSettingsQuery = {
       userVoice?: string | null;
       betaFeatures: {
         __typename?: "BetaFeatures";
-        spruceWaterfallEnabled: boolean;
+        spruceWaterfallEnabled?: boolean | null;
       };
     } | null;
   } | null;
@@ -11300,7 +11302,7 @@ export type UserBetaFeaturesQuery = {
     userId: string;
     betaFeatures: {
       __typename?: "BetaFeatures";
-      spruceWaterfallEnabled: boolean;
+      spruceWaterfallEnabled?: boolean | null;
     };
   };
 };
