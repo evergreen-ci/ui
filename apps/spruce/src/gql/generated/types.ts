@@ -7302,6 +7302,21 @@ export type UpdateVolumeMutation = {
   updateVolume: boolean;
 };
 
+export type UpdateUserBetaFeaturesMutationVariables = Exact<{
+  opts: UpdateBetaFeaturesInput;
+}>;
+
+export type UpdateUserBetaFeaturesMutation = {
+  __typename?: "Mutation";
+  updateBetaFeatures?: {
+    __typename?: "UpdateBetaFeaturesPayload";
+    betaFeatures?: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled?: boolean | null;
+    } | null;
+  } | null;
+};
+
 export type UpdateUserSettingsMutationVariables = Exact<{
   userSettings: UserSettingsInput;
 }>;
@@ -7309,6 +7324,22 @@ export type UpdateUserSettingsMutationVariables = Exact<{
 export type UpdateUserSettingsMutation = {
   __typename?: "Mutation";
   updateUserSettings: boolean;
+};
+
+export type AdminBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AdminBetaFeaturesQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    ui: {
+      __typename?: "UIConfig";
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled?: boolean | null;
+      };
+    };
+  } | null;
 };
 
 export type AdminEventsQueryVariables = Exact<{
@@ -7479,6 +7510,12 @@ export type AdminSettingsQuery = {
         maxContainers: number;
         port: number;
       }>;
+    } | null;
+    cost?: {
+      __typename?: "CostConfig";
+      financeFormula?: number | null;
+      onDemandDiscount?: number | null;
+      savingsPlanDiscount?: number | null;
     } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
@@ -11252,6 +11289,20 @@ export type UndispatchedTasksQuery = {
         displayName: string;
         execution: number;
       }>;
+    };
+  };
+};
+
+export type UserBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserBetaFeaturesQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    betaFeatures: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled?: boolean | null;
     };
   };
 };
