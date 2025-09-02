@@ -24,9 +24,4 @@ export { useResize } from "./useResize";
 export { useRunningTime } from "./useRunningTime";
 export { useTopmostVisibleElement } from "./useTopmostVisibleElement";
 export { useHasProjectOrRepoEditPermission } from "./useHasProjectOrRepoEditPermission";
-export {
-  useAdminBetaFeatures,
-  useUserBetaFeatures,
-  useMergedBetaFeatures,
-} from "./useBetaFeatures";
 export { useIsScrollAtTop } from "./useIsScrollAtTop";

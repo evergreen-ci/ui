@@ -11,7 +11,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 };
 export type MakeEmpty<
   T extends { [key: string]: unknown },
-  K extends keyof T,
+  K extends keyof T
 > = { [_ in K]?: never };
 export type Incremental<T> =
   | T
@@ -4910,223 +4910,47 @@ export type WorkstationSetupCommandInput = {
   directory?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-export type BaseTaskFragment = {
-  __typename?: "Task";
-  id: string;
-  displayName: string;
-  displayStatus: string;
-  execution: number;
-  patchNumber?: number | null;
-  versionMetadata: {
-    __typename?: "Version";
-    id: string;
-    isPatch: boolean;
-    message: string;
-    projectIdentifier: string;
-    revision: string;
-    projectMetadata?: { __typename?: "Project"; id: string } | null;
-  };
-};
-
-export type UpdateParsleySettingsMutationVariables = Exact<{
-  opts: UpdateParsleySettingsInput;
+export type UpdateUserBetaFeaturesMutationVariables = Exact<{
+  opts: UpdateBetaFeaturesInput;
 }>;
 
-export type UpdateParsleySettingsMutation = {
+export type UpdateUserBetaFeaturesMutation = {
   __typename?: "Mutation";
-  updateParsleySettings?: {
-    __typename?: "UpdateParsleySettingsPayload";
-    parsleySettings?: {
-      __typename?: "ParsleySettings";
-      jumpToFailingLineEnabled: boolean;
-      sectionsEnabled: boolean;
+  updateBetaFeatures?: {
+    __typename?: "UpdateBetaFeaturesPayload";
+    betaFeatures?: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled?: boolean | null;
     } | null;
   } | null;
 };
 
-export type LogkeeperTaskQueryVariables = Exact<{
-  buildId: Scalars["String"]["input"];
-}>;
+export type AdminBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type LogkeeperTaskQuery = {
+export type AdminBetaFeaturesQuery = {
   __typename?: "Query";
-  logkeeperBuildMetadata: {
-    __typename?: "LogkeeperBuild";
-    id: string;
-    task: {
-      __typename?: "Task";
-      id: string;
-      displayName: string;
-      displayStatus: string;
-      execution: number;
-      patchNumber?: number | null;
-      tests: {
-        __typename?: "TaskTestResult";
-        testResults: Array<{
-          __typename?: "TestResult";
-          id: string;
-          status: string;
-          testFile: string;
-          logs: { __typename?: "TestLog"; urlRaw?: string | null };
-        }>;
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    ui: {
+      __typename?: "UIConfig";
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled?: boolean | null;
       };
-      versionMetadata: {
-        __typename?: "Version";
-        id: string;
-        isPatch: boolean;
-        message: string;
-        projectIdentifier: string;
-        revision: string;
-        projectMetadata?: { __typename?: "Project"; id: string } | null;
-      };
-    };
-  };
-};
-
-export type TaskQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  execution?: InputMaybe<Scalars["Int"]["input"]>;
-}>;
-
-export type TaskQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    displayName: string;
-    displayStatus: string;
-    execution: number;
-    patchNumber?: number | null;
-    details?: {
-      __typename?: "TaskEndDetail";
-      description?: string | null;
-      failingCommand?: string | null;
-      status: string;
-    } | null;
-    logs: {
-      __typename?: "TaskLogLinks";
-      agentLogLink?: string | null;
-      allLogLink?: string | null;
-      systemLogLink?: string | null;
-      taskLogLink?: string | null;
-    };
-    versionMetadata: {
-      __typename?: "Version";
-      id: string;
-      isPatch: boolean;
-      message: string;
-      projectIdentifier: string;
-      revision: string;
-      projectMetadata?: { __typename?: "Project"; id: string } | null;
     };
   } | null;
 };
 
-export type TestLogUrlAndRenderingTypeQueryVariables = Exact<{
-  taskID: Scalars["String"]["input"];
-  testName: Scalars["String"]["input"];
-  execution: Scalars["Int"]["input"];
-}>;
+export type UserBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type TestLogUrlAndRenderingTypeQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    tests: {
-      __typename?: "TaskTestResult";
-      testResults: Array<{
-        __typename?: "TestResult";
-        id: string;
-        groupID?: string | null;
-        status: string;
-        testFile: string;
-        logs: {
-          __typename?: "TestLog";
-          renderingType?: string | null;
-          url?: string | null;
-          urlRaw?: string | null;
-        };
-      }>;
-    };
-  } | null;
-};
-
-export type UserQueryVariables = Exact<{ [key: string]: never }>;
-
-export type UserQuery = {
-  __typename?: "Query";
-  user: { __typename?: "User"; userId: string };
-};
-
-export type ParsleySettingsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type ParsleySettingsQuery = {
+export type UserBetaFeaturesQuery = {
   __typename?: "Query";
   user: {
     __typename?: "User";
     userId: string;
-    parsleySettings: {
-      __typename?: "ParsleySettings";
-      jumpToFailingLineEnabled: boolean;
-      sectionsEnabled: boolean;
+    betaFeatures: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled?: boolean | null;
     };
   };
-};
-
-export type ProjectFiltersQueryVariables = Exact<{
-  projectId: Scalars["String"]["input"];
-}>;
-
-export type ProjectFiltersQuery = {
-  __typename?: "Query";
-  project: {
-    __typename?: "Project";
-    id: string;
-    parsleyFilters?: Array<{
-      __typename?: "ParsleyFilter";
-      caseSensitive: boolean;
-      description: string;
-      exactMatch: boolean;
-      expression: string;
-    }> | null;
-  };
-};
-
-export type SecretFieldsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type SecretFieldsQuery = {
-  __typename?: "Query";
-  spruceConfig?: {
-    __typename?: "SpruceConfig";
-    secretFields: Array<string>;
-  } | null;
-};
-
-export type TaskFilesQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  execution?: InputMaybe<Scalars["Int"]["input"]>;
-}>;
-
-export type TaskFilesQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    id: string;
-    execution: number;
-    files: {
-      __typename?: "TaskFiles";
-      groupedFiles: Array<{
-        __typename?: "GroupedFiles";
-        execution: number;
-        taskId: string;
-        taskName?: string | null;
-        files?: Array<{
-          __typename?: "File";
-          link: string;
-          name: string;
-        }> | null;
-      }>;
-    };
-  } | null;
 };

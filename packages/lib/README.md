@@ -7,6 +7,19 @@ projects. This centralization of common components and utilities aims to improve
 code reusability and maintainability, ensuring that updates and bug fixes can be
 applied in a single location.
 
+### GraphQL Type Generation
+
+To be able to use code generation, you'll need to create a symlink to the
+`schema` folder in Evergreen. This folder contains the definitions for our
+GraphQL queries, mutations, and types.
+
+To create a symlink, run the following command:
+
+```
+ln -s <path_to_evergreen_repo>/graphql/schema sdlschema
+```
+
+
 ## Best Practices for Managing Dependencies
 
 When moving shared code to the `lib` directory, it is essential to manage
