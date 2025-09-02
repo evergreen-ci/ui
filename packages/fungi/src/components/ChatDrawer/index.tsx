@@ -55,11 +55,6 @@ export const ChatDrawer: React.FC<Props> = ({
         <PanelHeader>
           {/* @ts-ignore body component throws an error */}
           <Body weight="bold">{title}</Body>
-          <IconButton
-            aria-label="Close chat"
-            onClick={() => setDrawerOpen(false)}
-            type="button"
-          />
         </PanelHeader>
         <PanelBody>{chatContent}</PanelBody>
       </Panel>
@@ -89,19 +84,6 @@ const PanelHeader = styled.div`
   justify-content: space-between;
   padding: ${size.s};
   border-bottom: 1px solid rgba(60, 60, 67, 0.12);
-`;
-
-const IconButton = styled.button`
-  appearance: none;
-  border: 0;
-  background: transparent;
-  padding: 6px;
-  border-radius: 8px;
-  cursor: pointer;
-  line-height: 0;
-  &:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
 `;
 
 const PanelBody = styled.div`
