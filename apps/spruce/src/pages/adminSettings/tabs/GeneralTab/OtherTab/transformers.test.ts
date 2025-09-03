@@ -27,6 +27,11 @@ const mockAdminSettings: AdminSettings = {
     targetTimeSecondsOverride: 300,
     idleTimeSecondsOverride: 600,
   },
+  cost: {
+    financeFormula: 0.5,
+    savingsPlanDiscount: 0.1,
+    onDemandDiscount: 0.05,
+  },
   singleTaskDistro: {
     projectTasksPairs: [
       {
@@ -131,6 +136,11 @@ const expectedForm: OtherFormState = {
         distroMaxHostsFactor: 2,
         targetTimeSecondsOverride: 300,
         idleTimeSecondsOverride: 600,
+      },
+      cost: {
+        financeFormula: 0.5,
+        savingsPlanDiscount: 0.1,
+        onDemandDiscount: 0.05,
       },
     },
     singleTaskDistro: {
@@ -299,6 +309,11 @@ const expectedGql: AdminSettingsInput = {
         labels: ["bug", "critical"],
       },
     ],
+  },
+  cost: {
+    financeFormula: 0.5,
+    savingsPlanDiscount: 0.1,
+    onDemandDiscount: 0.05,
   },
   spawnhost: {
     unexpirableHostsPerUser: 2,

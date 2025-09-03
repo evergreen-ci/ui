@@ -6,13 +6,18 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import { ToggleChatbotButton } from "./ToggleChatbotButton";
-import { Chatbot } from ".";
+import { ChatProvider, Chatbot } from ".";
+
+const mockFetch = vi.fn();
+global.fetch = mockFetch;
 
 const wrapper = ({ children }: React.PropsWithChildren) => {
   const MockLogContext = logContextWrapper();
   return (
     <MockLogContext>
-      <Chatbot>{children}</Chatbot>
+      <ChatProvider>
+        <Chatbot>{children}</Chatbot>
+      </ChatProvider>
     </MockLogContext>
   );
 };
@@ -20,11 +25,21 @@ const wrapper = ({ children }: React.PropsWithChildren) => {
 describe("ToggleChatbotButton", () => {
   beforeEach(() => {
     HTMLDivElement.prototype.scrollTo = () => {};
+    mockFetch.mockResolvedValue({
+      ok: true,
+      status: 200,
+    });
+  });
+
+  afterEach(() => {
+    mockFetch.mockClear();
   });
 
   it("opens the Parsley chatbot", async () => {
     const user = userEvent.setup();
-    const { Component } = RenderFakeToastContext(<ToggleChatbotButton />);
+    const { Component } = RenderFakeToastContext(
+      <ToggleChatbotButton setSidePanelCollapsed={() => {}} />,
+    );
     render(<Component />, { wrapper });
     expect(
       screen.getByPlaceholderText("Type your message here"),

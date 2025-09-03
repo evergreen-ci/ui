@@ -424,11 +424,13 @@ export enum BannerTheme {
 
 export type BetaFeatures = {
   __typename?: "BetaFeatures";
-  spruceWaterfallEnabled: Scalars["Boolean"]["output"];
+  parsleyAIEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  spruceWaterfallEnabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type BetaFeaturesInput = {
-  spruceWaterfallEnabled: Scalars["Boolean"]["input"];
+  parsleyAIEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  spruceWaterfallEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export enum BootstrapMethod {
@@ -6994,7 +6996,7 @@ export type SaveAdminSettingsMutation = {
       userVoice?: string | null;
       betaFeatures: {
         __typename?: "BetaFeatures";
-        spruceWaterfallEnabled: boolean;
+        spruceWaterfallEnabled?: boolean | null;
       };
     } | null;
   };
@@ -7300,21 +7302,6 @@ export type UpdateVolumeMutation = {
   updateVolume: boolean;
 };
 
-export type UpdateUserBetaFeaturesMutationVariables = Exact<{
-  opts: UpdateBetaFeaturesInput;
-}>;
-
-export type UpdateUserBetaFeaturesMutation = {
-  __typename?: "Mutation";
-  updateBetaFeatures?: {
-    __typename?: "UpdateBetaFeaturesPayload";
-    betaFeatures?: {
-      __typename?: "BetaFeatures";
-      spruceWaterfallEnabled: boolean;
-    } | null;
-  } | null;
-};
-
 export type UpdateUserSettingsMutationVariables = Exact<{
   userSettings: UserSettingsInput;
 }>;
@@ -7322,22 +7309,6 @@ export type UpdateUserSettingsMutationVariables = Exact<{
 export type UpdateUserSettingsMutation = {
   __typename?: "Mutation";
   updateUserSettings: boolean;
-};
-
-export type AdminBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
-
-export type AdminBetaFeaturesQuery = {
-  __typename?: "Query";
-  spruceConfig?: {
-    __typename?: "SpruceConfig";
-    ui: {
-      __typename?: "UIConfig";
-      betaFeatures: {
-        __typename?: "BetaFeatures";
-        spruceWaterfallEnabled: boolean;
-      };
-    };
-  } | null;
 };
 
 export type AdminEventsQueryVariables = Exact<{
@@ -7508,6 +7479,12 @@ export type AdminSettingsQuery = {
         maxContainers: number;
         port: number;
       }>;
+    } | null;
+    cost?: {
+      __typename?: "CostConfig";
+      financeFormula?: number | null;
+      onDemandDiscount?: number | null;
+      savingsPlanDiscount?: number | null;
     } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
@@ -7845,7 +7822,7 @@ export type AdminSettingsQuery = {
       userVoice?: string | null;
       betaFeatures: {
         __typename?: "BetaFeatures";
-        spruceWaterfallEnabled: boolean;
+        spruceWaterfallEnabled?: boolean | null;
       };
     } | null;
   } | null;
@@ -11281,20 +11258,6 @@ export type UndispatchedTasksQuery = {
         displayName: string;
         execution: number;
       }>;
-    };
-  };
-};
-
-export type UserBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
-
-export type UserBetaFeaturesQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    betaFeatures: {
-      __typename?: "BetaFeatures";
-      spruceWaterfallEnabled: boolean;
     };
   };
 };

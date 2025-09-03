@@ -13,7 +13,7 @@ export default {
   decorators: [
     (Story: () => JSX.Element) => (
       <MockedProvider mocks={[evergreenTaskMock, logkeeperMetadataMock]}>
-        <ChatProvider>
+        <ChatProvider appName="Parsley AI Testing">
           <Story />
         </ChatProvider>
       </MockedProvider>
@@ -83,5 +83,5 @@ const SubheaderWrapper: React.FC<SubheaderWrapperProps> = ({
     setLogMetadata({ ...metaData, logType: LogTypes.LOCAL_UPLOAD });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return <Subheader />;
+  return <Subheader setSidePanelCollapsed={() => {}} />;
 };

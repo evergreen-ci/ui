@@ -1,4 +1,3 @@
-import ADMIN_BETA_FEATURES from "./admin-beta-features.graphql";
 import ADMIN_EVENT_LOG from "./admin-event-log.graphql";
 import ADMIN_SETTINGS from "./admin-settings.graphql";
 import ADMIN_TASKS_TO_RESTART from "./admin-tasks-to-restart.graphql";
@@ -76,7 +75,6 @@ import TASK_TESTS from "./task-tests.graphql";
 import TASK from "./task.graphql";
 import TEST_ANALYSIS from "./test-analysis.graphql";
 import UNSCHEDULED_TASKS from "./undispatched-tasks.graphql";
-import USER_BETA_FEATURES from "./user-beta-features.graphql";
 import USER_CONFIG from "./user-config.graphql";
 import USER_DISTRO_SETTINGS_PERMISSIONS from "./user-distro-settings-permissions.graphql";
 import USER_PATCHES from "./user-patches.graphql";
@@ -94,7 +92,6 @@ import WATERFALL_TASK_STATS from "./waterfall-task-stats.graphql";
 import WATERFALL from "./waterfall.graphql";
 
 export {
-  ADMIN_BETA_FEATURES,
   ADMIN_EVENT_LOG,
   ADMIN_SETTINGS,
   ADMIN_TASKS_TO_RESTART,
@@ -173,7 +170,6 @@ export {
   TASK_TESTS,
   TEST_ANALYSIS,
   UNSCHEDULED_TASKS,
-  USER_BETA_FEATURES,
   USER_CONFIG,
   USER_PATCHES,
   USER_DISTRO_SETTINGS_PERMISSIONS,
