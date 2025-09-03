@@ -1,5 +1,4 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import { LogContextProvider } from "context/LogContext";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   UserBetaFeaturesQuery,
@@ -13,8 +12,9 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { LogContextProvider } from "context/LogContext";
 import { ToggleChatbotButton } from "./ToggleChatbotButton";
-import { ChatProvider, Chatbot } from ".";
+import { Chatbot } from ".";
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;

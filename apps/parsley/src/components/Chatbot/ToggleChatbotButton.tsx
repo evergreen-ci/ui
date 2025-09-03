@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Button, { Size, Variant } from "@leafygreen-ui/button";
-import { ParsleyAIModal } from "components/ParsleyAIModal";
 import { useChatContext } from "@evg-ui/fungi/Context";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useUserBetaFeatures } from "@evg-ui/lib/hooks/useBetaFeatures";
+import { ParsleyAIModal } from "components/ParsleyAIModal";
 
 interface Props {
   setSidePanelCollapsed: React.Dispatch<React.SetStateAction<boolean>>;

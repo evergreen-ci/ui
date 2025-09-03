@@ -1,11 +1,11 @@
+import { Chat } from "@evg-ui/fungi/Chat";
+import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
+import { ChatProvider as FungiProvider } from "@evg-ui/fungi/Context";
 import { useLogContext } from "context/LogContext";
 import {
   parsleyChatLoginURL,
   parsleyChatURL,
 } from "utils/environmentVariables";
-import { Chat } from "@evg-ui/fungi/Chat";
-import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
-import { ChatProvider as FungiProvider } from "@evg-ui/fungi/Context";
 
 export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
