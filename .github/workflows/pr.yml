@@ -3,9 +3,10 @@ on:
   pull_request:
     paths:
       - "apps/parsley/**"
+      - "packages/lib/**"
 jobs:
   parsley-chromatic:
-    name: Run Chromatic Tests
+    name: Parsley Chromatic Tests
     runs-on: ubuntu-latest
     steps:
       - name: Check access
@@ -44,4 +45,3 @@ jobs:
           # They can only be used for snapshot quota, which is an acceptable tradeoff for open source 
           # projects. Tokens can be reset via the "Manage" page on Chromatic.
           projectToken: chpt_8083ea0d9f4af30
-
