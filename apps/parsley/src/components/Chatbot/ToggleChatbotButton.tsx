@@ -14,12 +14,12 @@ export const ToggleChatbotButton: React.FC<Props> = () => {
 
   const { userBetaSettings } = useUserBetaFeatures();
 
-  return (
+  return userBetaSettings ? (
     <>
       <Button
         leftGlyph={<Icon glyph="Sparkle" />}
         onClick={() => {
-          if (userBetaSettings?.parsleyAIEnabled) {
+          if (userBetaSettings.parsleyAIEnabled) {
             setDrawerOpen((o) => !o);
           } else {
             setModalOpen(true);
@@ -32,5 +32,5 @@ export const ToggleChatbotButton: React.FC<Props> = () => {
       </Button>
       <ParsleyAIModal open={modalOpen} setOpen={setModalOpen} />
     </>
-  );
+  ) : null;
 };

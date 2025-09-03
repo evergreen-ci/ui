@@ -35,6 +35,7 @@ export const Chatbot: React.FC<Props> = ({ children }) => {
             loginUrl={parsleyChatLoginURL}
           />
         }
+        data-cy="chat-drawer"
       >
         {children}
       </ChatDrawer>

@@ -16,20 +16,12 @@ import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import * as analytics from "analytics";
 import { ParsleyAIModal } from ".";
 
-export const wrapper = (additionalMocks: MockedResponse[] = []) => {
-  const renderContent = ({ children }: React.PropsWithChildren) =>
-    additionalMocks ? (
-      <MockedProvider
-        addTypename={false}
-        mocks={[...baseMocks, ...additionalMocks]}
-      >
-        {children}
-      </MockedProvider>
-    ) : (
-      <MockedProvider addTypename={false} mocks={baseMocks}>
-        {children}
-      </MockedProvider>
-    );
+const wrapper = (mocks: MockedResponse[] = []) => {
+  const renderContent = ({ children }: React.PropsWithChildren) => (
+    <MockedProvider addTypename={false} mocks={mocks}>
+      {children}
+    </MockedProvider>
+  );
   return renderContent;
 };
 
@@ -163,5 +155,3 @@ const updateBetaFeaturesErrorMock: ApolloMock<
     errors: [new GraphQLError("error!")],
   },
 };
-
-const baseMocks: MockedResponse[] = [];
