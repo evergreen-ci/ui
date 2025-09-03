@@ -47,6 +47,38 @@ describe("other", () => {
     });
   });
 
+  it("can save cost settings changes", () => {
+    cy.dataCy("save-settings-button").should(
+      "have.attr",
+      "aria-disabled",
+      "true",
+    );
+
+    // Cost Settings section.
+    const financeFormula = "Finance Formula";
+    cy.getInputByLabel(financeFormula).as("financeFormulaInput");
+    cy.get("@financeFormulaInput").clear();
+    cy.get("@financeFormulaInput").type("0.5");
+
+    const savingsPlanDiscount = "Savings Plan Discount";
+    cy.getInputByLabel(savingsPlanDiscount).as("savingsPlanDiscountInput");
+    cy.get("@savingsPlanDiscountInput").clear();
+    cy.get("@savingsPlanDiscountInput").type("0.15");
+
+    const onDemandDiscount = "On-Demand Discount";
+    cy.getInputByLabel(onDemandDiscount).as("onDemandDiscountInput");
+    cy.get("@onDemandDiscountInput").clear();
+    cy.get("@onDemandDiscountInput").type("0.08");
+
+    clickSave();
+    cy.validateToast("success", "Settings saved successfully");
+    cy.reload();
+
+    cy.getInputByLabel(financeFormula).should("have.value", "0.5");
+    cy.getInputByLabel(savingsPlanDiscount).should("have.value", "0.15");
+    cy.getInputByLabel(onDemandDiscount).should("have.value", "0.08");
+  });
+
   it("can save single task host changes", () => {
     cy.dataCy("save-settings-button").should(
       "have.attr",

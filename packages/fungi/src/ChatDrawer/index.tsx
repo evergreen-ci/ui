@@ -4,21 +4,16 @@ import { useChatContext } from "../Context";
 type Props = {
   children: React.ReactNode;
   chatContent: React.ReactNode;
-  title: string;
 };
 
-export const ChatDrawer: React.FC<Props> = ({
-  chatContent,
-  children,
-  title,
-}) => {
-  const { drawerOpen, setDrawerOpen } = useChatContext();
+export const ChatDrawer: React.FC<Props> = ({ chatContent, children }) => {
+  const { appName, drawerOpen, setDrawerOpen } = useChatContext();
 
   return (
     <DrawerLayout
       displayMode="embedded"
       drawer={
-        <Drawer scrollable={false} title={title}>
+        <Drawer scrollable={false} title={appName}>
           {chatContent}
         </Drawer>
       }

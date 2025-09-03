@@ -13,7 +13,7 @@ export default {
   decorators: [
     (Story: () => JSX.Element) => (
       <MockedProvider mocks={[evergreenTaskMock, logkeeperMetadataMock]}>
-        <ChatProvider>
+        <ChatProvider appName="Parsley AI Testing">
           <Story />
         </ChatProvider>
       </MockedProvider>
