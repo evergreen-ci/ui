@@ -323,6 +323,7 @@ query AdminSettings {
       jiraNotificationsDisabled
       jwtTokenForCLIDisabled
       largeParserProjectsDisabled
+      legacyUIAdminPageDisabled
       monitorDisabled
       podAllocatorDisabled
       podInitDisabled
