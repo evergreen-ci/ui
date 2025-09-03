@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 import { ChatWindow } from "@lg-chat/chat-window";
 import { InputBar } from "@lg-chat/input-bar";
 import { LeafyGreenChatProvider } from "@lg-chat/leafygreen-chat-provider";
-import { Message } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useChatContext } from "../Context";
 import { Disclaimer } from "../Disclaimer";
+import { MessageRenderer } from "../MessageRenderer";
 import { Suggestions } from "../Suggestions";
 
 export type ChatFeedProps = {
@@ -65,15 +65,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
               )}
             </EmptyContainer>
           ) : (
-            messages.map(({ id, parts, role }) => (
-              <Message key={id} isSender={role === "user"}>
-                {parts.map((part, index) =>
-                  part.type === "text" ? (
-                    <span key={index}>{part.text}</span>
-                  ) : null,
-                )}
-              </Message>
-            ))
+            messages.map((m) => <MessageRenderer key={m.id} {...m} />)
           )}
         </MessageFeed>
         <InputBar onMessageSend={handleSend} />
