@@ -1,6 +1,4 @@
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
-import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   AdminBetaFeaturesQuery,
   AdminBetaFeaturesQueryVariables,
@@ -8,6 +6,8 @@ import {
   UserBetaFeaturesQueryVariables,
 } from "gql/generated/types";
 import { ADMIN_BETA_FEATURES, USER_BETA_FEATURES } from "gql/queries";
+import { renderHook, waitFor } from "test_utils";
+import { ApolloMock } from "test_utils/types";
 import {
   useAdminBetaFeatures,
   useUserBetaFeatures,

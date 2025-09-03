@@ -1,13 +1,21 @@
-import { userEvent, render, screen } from "@evg-ui/lib/test_utils";
-import { Chatbot } from ".";
+import {
+  userEvent,
+  render,
+  screen,
+  createWrapper,
+} from "@evg-ui/lib/test_utils";
+import { ChatProvider } from "../Context";
+import { ChatFeed } from ".";
 
-describe("Chatbot feed", () => {
+describe("ChatFeed", () => {
   it("aligns user messages to the right", async () => {
     const user = userEvent.setup();
 
     // jsdom doesn't support layouting HTML, so mock this.
     HTMLDivElement.prototype.scrollTo = () => {};
-    render(<Chatbot apiUrl="/foo" />);
+    render(<ChatFeed apiUrl="/foo" />, {
+      wrapper: createWrapper(ChatProvider, { appName: "Parsley AI Test" }),
+    });
 
     const message = "Why did my log fail?";
     const textarea = screen.getByRole("textbox");

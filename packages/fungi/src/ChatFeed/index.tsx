@@ -1,27 +1,23 @@
 import { useChat } from "@ai-sdk/react";
 import { ChatWindow } from "@lg-chat/chat-window";
 import { InputBar } from "@lg-chat/input-bar";
-import {
-  LeafyGreenChatProvider,
-  LeafyGreenChatProviderProps,
-} from "@lg-chat/leafygreen-chat-provider";
+import { LeafyGreenChatProvider } from "@lg-chat/leafygreen-chat-provider";
 import { Message } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
+import { useChatContext } from "../Context";
 
-type ChatbotProps = {
+type Props = {
   apiUrl: string;
   bodyData?: object;
-} & Pick<LeafyGreenChatProviderProps, "assistantName">;
+};
 
-export const Chatbot: React.FC<ChatbotProps> = ({
-  apiUrl,
-  assistantName,
-  bodyData,
-}) => {
+export const ChatFeed: React.FC<Props> = ({ apiUrl, bodyData }) => {
+  const { appName } = useChatContext();
   const { messages, sendMessage } = useChat({
     transport: new DefaultChatTransport({
       api: apiUrl,
+      credentials: "include",
       prepareSendMessagesRequest({ id, messages: outgoingMessages }) {
         return {
           body: {
@@ -39,9 +35,8 @@ export const Chatbot: React.FC<ChatbotProps> = ({
   };
 
   return (
-    <LeafyGreenChatProvider assistantName={assistantName}>
-      {/* This title won't be visible since we're using the compact variant */}
-      <ChatWindow title="">
+    <LeafyGreenChatProvider assistantName={appName}>
+      <ChatWindow>
         <MessageFeed>
           {messages.map(({ id, parts, role }) => (
             <Message key={id} isSender={role === "user"}>

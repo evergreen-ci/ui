@@ -1,6 +1,9 @@
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
+import {
+  useAdminBetaFeatures,
+  useUserBetaFeatures,
+} from "@evg-ui/lib/hooks/useBetaFeatures";
 import { SettingsCard } from "components/SettingsCard";
-import { useAdminBetaFeatures, useUserBetaFeatures } from "hooks";
 import { BetaFeatureSettings } from "./uiSettingsTab/BetaFeatures";
 import { PreferenceToggles } from "./uiSettingsTab/PreferenceToggles";
 

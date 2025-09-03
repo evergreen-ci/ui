@@ -11,13 +11,14 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
-    "codegen": "for app in spruce parsley; do yarn workspace $app run codegen; done",
+    "codegen": "for app in spruce parsley @evg-ui/lib; do yarn workspace $app run codegen; done",
     "prepare": "husky",
-    "storybook": "concurrently \"yarn workspace spruce run storybook --no-open\" \"yarn workspace parsley run storybook --no-open\" \"yarn workspace @evg-ui/lib run storybook --no-open\" \"sleep 5 && storybook dev\"",
+    "storybook": "concurrently \"yarn workspace spruce run storybook --no-open\" \"yarn workspace parsley run storybook --no-open\" \"yarn workspace @evg-ui/lib run storybook --no-open\" \"yarn workspace @evg-ui/fungi run storybook --no-open\" \"sleep 5 && storybook dev\"",
     "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts",
     "postinstall": "yarn workspace @evg-ui/vite-utils run compile"
   },
   "resolutions": {
+    "@leafygreen-ui/code": "19.0.1",
     "@testing-library/dom": "10.1.0",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.0",

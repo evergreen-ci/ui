@@ -46,6 +46,7 @@
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@evg-ui/deploy-utils": "*",
+    "@evg-ui/fungi": "*",
     "@evg-ui/lib": "*",
     "@leafygreen-ui/badge": "^10.0.4",
     "@leafygreen-ui/button": "^21.0.6",
