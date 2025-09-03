@@ -10,7 +10,7 @@ interface Props {
 
 export const Chatbot: React.FC<Props> = ({ children }) => {
   const { logMetadata } = useLogContext();
-  const { execution, logType, origin, taskID } = logMetadata ?? {};
+  const { execution, logType, origin, taskID, testID } = logMetadata ?? {};
 
   const bodyData = {
     logMetadata: {
@@ -18,6 +18,7 @@ export const Chatbot: React.FC<Props> = ({ children }) => {
       log_type: logType,
       origin,
       task_id: taskID,
+      test_id: testID,
     },
   };
 
