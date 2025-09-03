@@ -27,7 +27,7 @@ taking the following steps.
    Run the below command in the root of the Parsley repository.
 
 ```sh
-brew install mkcert
+brew install mkcert nss
 mkcert -install
 mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem parsley-local.corp.mongodb.com
 ```

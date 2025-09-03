@@ -1,8 +1,11 @@
+import { Chat } from "@evg-ui/fungi/Chat";
 import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
-import { ChatFeed } from "@evg-ui/fungi/ChatFeed";
 import { ChatProvider } from "@evg-ui/fungi/Context";
 import { useLogContext } from "context/LogContext";
-import { parsleyChatURL } from "utils/environmentVariables";
+import {
+  parsleyChatLoginURL,
+  parsleyChatURL,
+} from "utils/environmentVariables";
 
 interface Props {
   children: React.ReactNode;
@@ -10,7 +13,7 @@ interface Props {
 
 export const Chatbot: React.FC<Props> = ({ children }) => {
   const { logMetadata } = useLogContext();
-  const { execution, logType, origin, taskID } = logMetadata ?? {};
+  const { execution, logType, origin, taskID, testID } = logMetadata ?? {};
 
   const bodyData = {
     logMetadata: {
@@ -18,14 +21,20 @@ export const Chatbot: React.FC<Props> = ({ children }) => {
       log_type: logType,
       origin,
       task_id: taskID,
+      test_id: testID,
     },
   };
 
   return (
-    <ChatProvider>
+    <ChatProvider appName="Parsley AI">
       <ChatDrawer
-        chatContent={<ChatFeed apiUrl={parsleyChatURL} bodyData={bodyData} />}
-        title="Parsley AI"
+        chatContent={
+          <Chat
+            apiUrl={parsleyChatURL}
+            bodyData={bodyData}
+            loginUrl={parsleyChatLoginURL}
+          />
+        }
       >
         {children}
       </ChatDrawer>
