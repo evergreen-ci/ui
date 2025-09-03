@@ -6,7 +6,7 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import { ToggleChatbotButton } from "./ToggleChatbotButton";
-import { Chatbot } from ".";
+import { ChatProvider, Chatbot } from ".";
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
@@ -15,7 +15,9 @@ const wrapper = ({ children }: React.PropsWithChildren) => {
   const MockLogContext = logContextWrapper();
   return (
     <MockLogContext>
-      <Chatbot>{children}</Chatbot>
+      <ChatProvider>
+        <Chatbot>{children}</Chatbot>
+      </ChatProvider>
     </MockLogContext>
   );
 };
