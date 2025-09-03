@@ -6,6 +6,7 @@ import { LeafyGreenChatProvider } from "@lg-chat/leafygreen-chat-provider";
 import { Message } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useChatContext } from "../Context";
 import { Disclaimer } from "../Disclaimer";
 import { Suggestions } from "../Suggestions";
@@ -95,6 +96,7 @@ const StyledChatWindow = styled(ChatWindow)`
 const EmptyContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: ${size.s};
   height: 100%;
   justify-content: space-between;
 `;
