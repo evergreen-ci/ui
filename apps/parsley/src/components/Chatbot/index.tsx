@@ -32,6 +32,14 @@ export const Chatbot: React.FC<Props> = ({ children }) => {
           <Chat
             apiUrl={parsleyChatURL}
             bodyData={bodyData}
+            disclaimerContent={
+              <>
+                Generative AI models may produce incorrect or misleading
+                information. Please review the output carefully. Parsley AI is
+                meant to assist with investigations and not to replace your own
+                judgement.
+              </>
+            }
             loginUrl={parsleyChatLoginURL}
           />
         }

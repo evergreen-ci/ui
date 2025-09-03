@@ -6,13 +6,19 @@ import { Message } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
 import { useChatContext } from "../Context";
+import { Disclaimer } from "../Disclaimer";
 
-type Props = {
+export type ChatFeedProps = {
   apiUrl: string;
   bodyData?: object;
+  disclaimerContent?: React.ReactNode;
 };
 
-export const ChatFeed: React.FC<Props> = ({ apiUrl, bodyData }) => {
+export const ChatFeed: React.FC<ChatFeedProps> = ({
+  apiUrl,
+  bodyData,
+  disclaimerContent,
+}) => {
   const { appName } = useChatContext();
   const { messages, sendMessage } = useChat({
     transport: new DefaultChatTransport({
@@ -34,19 +40,25 @@ export const ChatFeed: React.FC<Props> = ({ apiUrl, bodyData }) => {
     sendMessage({ text: message });
   };
 
+  const hasMessages = messages?.length > 0;
+
   return (
     <LeafyGreenChatProvider assistantName={appName}>
       <ChatWindow>
         <MessageFeed>
-          {messages.map(({ id, parts, role }) => (
-            <Message key={id} isSender={role === "user"}>
-              {parts.map((part, index) =>
-                part.type === "text" ? (
-                  <span key={index}>{part.text}</span>
-                ) : null,
-              )}
-            </Message>
-          ))}
+          {!hasMessages && disclaimerContent ? (
+            <Disclaimer>{disclaimerContent}</Disclaimer>
+          ) : (
+            messages.map(({ id, parts, role }) => (
+              <Message key={id} isSender={role === "user"}>
+                {parts.map((part, index) =>
+                  part.type === "text" ? (
+                    <span key={index}>{part.text}</span>
+                  ) : null,
+                )}
+              </Message>
+            ))
+          )}
         </MessageFeed>
         <InputBar onMessageSend={handleSend} />
       </ChatWindow>

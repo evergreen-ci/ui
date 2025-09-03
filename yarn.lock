@@ -3981,6 +3981,19 @@
     "@leafygreen-ui/tokens" "^2.11.3"
     "@leafygreen-ui/typography" "^20.0.2"
 
+"@leafygreen-ui/marketing-modal@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/marketing-modal/-/marketing-modal-8.0.0.tgz#0545a163b5ccfa711943328657c997e3ff3192b0"
+  integrity sha512-RuOoor1FXOddgvYrmt42Lb6OIOcOrME+xU/v7VSt+t9tpXaktPL2Sxp5ZlmVxwOj/nNQuh1xJjfeEpCQxViOBg==
+  dependencies:
+    "@leafygreen-ui/button" "^25.0.2"
+    "@leafygreen-ui/emotion" "^5.0.0"
+    "@leafygreen-ui/lib" "^15.2.0"
+    "@leafygreen-ui/modal" "^20.0.0"
+    "@leafygreen-ui/palette" "^5.0.0"
+    "@leafygreen-ui/tokens" "^3.2.1"
+    "@leafygreen-ui/typography" "^22.1.0"
+
 "@leafygreen-ui/menu@^20.0.1":
   version "20.0.3"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/menu/-/menu-20.0.3.tgz#36a413a99a66fd3b88c167a52460be1a6f6d9305"
@@ -4091,6 +4104,21 @@
     focus-trap-react "^9.0.2"
     polished "^4.2.2"
     react-transition-group "^4.4.5"
+
+"@leafygreen-ui/modal@^20.0.0":
+  version "20.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/modal/-/modal-20.0.0.tgz#f2c8d5145e1f3e8f78de7a18aede1c5139f2b222"
+  integrity sha512-l0g1GPAL0saM3TajOKPOaEQnaf7IxtvYEiPSTM33yY5AxHg4uvYWMgpLlYNMNtQhRJY+AA+hp1ZgoL5fXj9pDA==
+  dependencies:
+    "@leafygreen-ui/emotion" "^5.0.0"
+    "@leafygreen-ui/hooks" "^9.1.1"
+    "@leafygreen-ui/icon" "^14.3.0"
+    "@leafygreen-ui/icon-button" "^17.0.3"
+    "@leafygreen-ui/lib" "^15.2.0"
+    "@leafygreen-ui/palette" "^5.0.0"
+    "@leafygreen-ui/tokens" "^3.2.1"
+    "@lg-tools/test-harnesses" "^0.3.2"
+    polished "^4.2.2"
 
 "@leafygreen-ui/number-input@^4.1.6":
   version "4.1.6"
@@ -4779,6 +4807,17 @@
     "@leafygreen-ui/lib" "^15.2.0"
     "@leafygreen-ui/palette" "^5.0.0"
     "@leafygreen-ui/tokens" "^3.2.1"
+
+"@lg-chat/chat-disclaimer@^4.0.7":
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/@lg-chat/chat-disclaimer/-/chat-disclaimer-4.0.7.tgz#58b5349396cd2a8ae03f699dace43be6743ee169"
+  integrity sha512-jlIQNDM0A4sbiMVKsh5yK1Ogq8+FEr+r41RY5DmcJw+41rB/FiBVSUF9irt6BC+Kvj3BPHb+EKN87eutvsffvg==
+  dependencies:
+    "@leafygreen-ui/emotion" "^5.0.0"
+    "@leafygreen-ui/lib" "^15.2.0"
+    "@leafygreen-ui/marketing-modal" "^8.0.0"
+    "@leafygreen-ui/tokens" "^3.2.1"
+    "@leafygreen-ui/typography" "^22.1.0"
 
 "@lg-chat/chat-window@^4.1.2":
   version "4.1.2"
