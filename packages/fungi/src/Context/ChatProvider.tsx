@@ -6,7 +6,11 @@ export type ChatContextState = {
   setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const ChatContext = createContext<ChatContextState | null>(null);
+export const ChatContext = createContext<ChatContextState>({
+  appName: "",
+  drawerOpen: false,
+  setDrawerOpen: () => {},
+});
 
 type ProviderProps = {
   appName: string;
