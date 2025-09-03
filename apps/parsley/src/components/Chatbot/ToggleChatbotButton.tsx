@@ -23,11 +23,10 @@ export const ToggleChatbotButton: React.FC<Props> = ({
       <Button
         leftGlyph={<Icon glyph="Sparkle" />}
         onClick={() => {
-          if (!drawerOpen) {
-            setSidePanelCollapsed(true);
-          }
-
           if (userBetaSettings.parsleyAIEnabled) {
+            if (!drawerOpen) {
+              setSidePanelCollapsed(true);
+            }
             setDrawerOpen((o) => !o);
           } else {
             setModalOpen(true);

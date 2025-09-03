@@ -14,7 +14,7 @@ import {
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { LogContextProvider } from "context/LogContext";
 import { ToggleChatbotButton } from "./ToggleChatbotButton";
-import { Chatbot } from ".";
+import { ChatProvider, Chatbot } from ".";
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
@@ -23,7 +23,9 @@ const wrapper = (mocks: MockedResponse[] = []) => {
   const renderContent = ({ children }: React.PropsWithChildren) => (
     <MockedProvider mocks={mocks}>
       <LogContextProvider initialLogLines={[]}>
-        <Chatbot>{children}</Chatbot>
+        <ChatProvider>
+          <Chatbot>{children}</Chatbot>
+        </ChatProvider>
       </LogContextProvider>
     </MockedProvider>
   );
@@ -46,7 +48,7 @@ describe("ToggleChatbotButton", () => {
   it("opens the Parsley chatbot", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
-      <ToggleChatbotButton setSidePanelCollapsed={() => {}} />,
+      <ToggleChatbotButton setSidePanelCollapsed={vi.fn()} />,
     );
     render(<Component />, { wrapper: wrapper([userBetaFeaturesEnabledMock]) });
 
@@ -59,6 +61,7 @@ describe("ToggleChatbotButton", () => {
     );
     await user.click(screen.getByRole("button", { name: "Parsley AI" }));
     expect(screen.queryByDataCy("parsley-ai-modal")).not.toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Type your message here")).toBeVisible();
     await waitFor(() => {
       expect(screen.getByDataCy("chat-drawer")).toHaveAttribute(
         "aria-hidden",
