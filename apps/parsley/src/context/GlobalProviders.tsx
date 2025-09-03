@@ -1,5 +1,6 @@
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { ToastProvider } from "@evg-ui/lib/context/toast";
+import { ChatProvider } from "components/Chatbot";
 import GQLProvider from "gql/GQLProvider";
 import { LogContextProvider } from "./LogContext";
 import { MultiLineSelectContextProvider } from "./MultiLineSelectContext";
@@ -17,7 +18,7 @@ const GlobalProviders: React.FC<{ children: React.ReactElement }> = ({
       <GQLProvider>
         <LogContextProvider>
           <MultiLineSelectContextProvider>
-            {children}
+            <ChatProvider>{children}</ChatProvider>
           </MultiLineSelectContextProvider>
         </LogContextProvider>
       </GQLProvider>

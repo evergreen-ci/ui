@@ -1,13 +1,15 @@
-import { lazy, useState } from "react";
+import { Fragment, lazy, useState } from "react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import Cookie from "js-cookie";
 import BookmarksBar from "components/BookmarksBar";
+import { Chatbot } from "components/Chatbot";
 import LogPane from "components/LogPane";
 import { ParsleyRow } from "components/LogRow/RowRenderer";
 import SidePanel from "components/SidePanel";
 import SubHeader from "components/SubHeader";
 import { DRAWER_OPENED } from "constants/cookies";
+import { showAI } from "constants/featureFlags";
 import { useLogContext } from "context/LogContext";
 
 const SectionsFeatureModal = lazy(
@@ -32,6 +34,8 @@ const LogWindow: React.FC = () => {
     Cookie.get(DRAWER_OPENED) === "true",
   );
 
+  const ChatWrapper = showAI ? Chatbot : Fragment;
+
   return (
     <Container data-cy="log-window">
       <SectionsFeatureModal />
@@ -49,20 +53,22 @@ const LogWindow: React.FC = () => {
       />
       <ColumnContainer>
         <SubHeader setSidePanelCollapsed={setSidePanelCollapsed} />
-        <LogPaneContainer>
-          {hasLogs && processedLogLines.length && (
-            <LogPane
-              rowCount={processedLogLines.length}
-              rowRenderer={rowRenderer}
-            />
-          )}
-          {hasLogs === false && (
-            <BasicEmptyState
-              description="No logs were found for this resource"
-              title="No Logs Found"
-            />
-          )}
-        </LogPaneContainer>
+        <ChatWrapper>
+          <LogPaneContainer>
+            {hasLogs && processedLogLines.length && (
+              <LogPane
+                rowCount={processedLogLines.length}
+                rowRenderer={rowRenderer}
+              />
+            )}
+            {hasLogs === false && (
+              <BasicEmptyState
+                description="No logs were found for this resource"
+                title="No Logs Found"
+              />
+            )}
+          </LogPaneContainer>
+        </ChatWrapper>
       </ColumnContainer>
     </Container>
   );
