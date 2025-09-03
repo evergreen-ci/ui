@@ -1,14 +1,18 @@
 import { useState } from "react";
 import Button, { Size, Variant } from "@leafygreen-ui/button";
+import { ParsleyAIModal } from "components/ParsleyAIModal";
 import { useChatContext } from "@evg-ui/fungi/Context";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useUserBetaFeatures } from "@evg-ui/lib/hooks/useBetaFeatures";
-import { ParsleyAIModal } from "components/ParsleyAIModal";
 
-interface Props {}
+interface Props {
+  setSidePanelCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-export const ToggleChatbotButton: React.FC<Props> = () => {
-  const { setDrawerOpen } = useChatContext();
+export const ToggleChatbotButton: React.FC<Props> = ({
+  setSidePanelCollapsed,
+}) => {
+  const { drawerOpen, setDrawerOpen } = useChatContext();
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -19,6 +23,10 @@ export const ToggleChatbotButton: React.FC<Props> = () => {
       <Button
         leftGlyph={<Icon glyph="Sparkle" />}
         onClick={() => {
+          if (!drawerOpen) {
+            setSidePanelCollapsed(true);
+          }
+
           if (userBetaSettings.parsleyAIEnabled) {
             setDrawerOpen((o) => !o);
           } else {

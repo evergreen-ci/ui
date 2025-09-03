@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { LogContextProvider } from "context/LogContext";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   UserBetaFeaturesQuery,
@@ -12,9 +13,8 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
-import { LogContextProvider } from "context/LogContext";
 import { ToggleChatbotButton } from "./ToggleChatbotButton";
-import { Chatbot } from ".";
+import { ChatProvider, Chatbot } from ".";
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
@@ -45,7 +45,9 @@ describe("ToggleChatbotButton", () => {
 
   it("opens the Parsley chatbot", async () => {
     const user = userEvent.setup();
-    const { Component } = RenderFakeToastContext(<ToggleChatbotButton />);
+    const { Component } = RenderFakeToastContext(
+      <ToggleChatbotButton setSidePanelCollapsed={() => {}} />,
+    );
     render(<Component />, { wrapper: wrapper([userBetaFeaturesEnabledMock]) });
 
     await waitFor(() => {

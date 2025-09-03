@@ -1,21 +1,23 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useAdminBetaFeatures } from "@evg-ui/lib/hooks/useBetaFeatures";
 import Breadcrumbs from "components/Breadcrumbs";
 import { ToggleChatbotButton } from "components/Chatbot/ToggleChatbotButton";
 import { showAI } from "constants/featureFlags";
 import { subheaderHeight } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
+import Icon from "@evg-ui/lib/components/Icon";
+import { size } from "@evg-ui/lib/constants/tokens";
+import { useAdminBetaFeatures } from "@evg-ui/lib/hooks/useBetaFeatures";
 import { EvergreenTaskSubHeader } from "./EvergreenTaskSubHeader";
 import { SectionControls } from "./SectionControls";
 
 const { gray } = palette;
 
-interface SubHeaderProps {}
+interface SubHeaderProps {
+  setSidePanelCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const SubHeader: React.FC<SubHeaderProps> = () => {
+const SubHeader: React.FC<SubHeaderProps> = ({ setSidePanelCollapsed }) => {
   const { isUploadedLog, logMetadata } = useLogContext();
   const { buildID, execution, fileName, groupID, logType, taskID, testID } =
     logMetadata || {};
@@ -58,7 +60,9 @@ const SubHeader: React.FC<SubHeaderProps> = () => {
           </Header>
           {/* Shows on all non-prod environments by default. Only shows on production if Parsley AI is enabled in Admin Settings. */}
           {(showAI || adminBetaSettings?.parsleyAIEnabled) && (
-            <ToggleChatbotButton />
+            <ToggleChatbotButton
+              setSidePanelCollapsed={setSidePanelCollapsed}
+            />
           )}
         </>
       )}
