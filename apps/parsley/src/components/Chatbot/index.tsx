@@ -1,6 +1,7 @@
 import { Chat } from "@evg-ui/fungi/Chat";
 import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
 import { ChatProvider } from "@evg-ui/fungi/Context";
+import { aiPrompts } from "constants/aiPrompts";
 import { useLogContext } from "context/LogContext";
 import {
   parsleyChatLoginURL,
@@ -32,6 +33,7 @@ export const Chatbot: React.FC<Props> = ({ children }) => {
           <Chat
             apiUrl={parsleyChatURL}
             bodyData={bodyData}
+            chatSuggestions={aiPrompts}
             disclaimerContent={
               <>
                 Generative AI models may produce incorrect or misleading

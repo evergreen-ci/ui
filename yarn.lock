@@ -4892,6 +4892,17 @@
     react-intersection-observer "^8.25.1"
     react-keyed-flatten-children "^2.2.1"
 
+"@lg-chat/message-prompts@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@lg-chat/message-prompts/-/message-prompts-4.0.3.tgz#3f0f528374f879c09469dc1e4d7bd4ef27010179"
+  integrity sha512-qDGWbB7ySPq+SpbfjBVC81tAUAcX9t5dHEQqygi2qCkdMvBMBNTr7gz16/XMdnlQ2z2wubpcRsyY3H6yEKSI5g==
+  dependencies:
+    "@leafygreen-ui/emotion" "^5.0.0"
+    "@leafygreen-ui/lib" "^15.2.0"
+    "@leafygreen-ui/palette" "^5.0.0"
+    "@leafygreen-ui/tokens" "^3.1.2"
+    "@leafygreen-ui/typography" "^22.0.1"
+
 "@lg-chat/message-rating@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@lg-chat/message-rating/-/message-rating-5.0.0.tgz#09b20494ca3aa56449f58be0038866f81dfaab1f"
