@@ -23,9 +23,11 @@ describe("web", () => {
     cy.get("@uiUrlInput").type("http://example.com/ui");
 
     // Beta Features section.
-    cy.get('input[type="radio"][data-label="No"]').as("waterfallCheckbox");
-    cy.get("@waterfallCheckbox").scrollIntoView();
-    cy.get("@waterfallCheckbox").click({ force: true });
+    cy.get('input[name="Parsley AI Agent"][data-label="Disabled"]').as(
+      "betaFeatureCheckbox",
+    );
+    cy.get("@betaFeatureCheckbox").scrollIntoView();
+    cy.get("@betaFeatureCheckbox").click({ force: true });
 
     // Disabled GraphQL Queries section.
     cy.getInputByLabel("Disabled GraphQL Queries").as("disabledQueriesInput");
@@ -40,7 +42,7 @@ describe("web", () => {
     cy.reload();
     cy.get("@apiUrlInput").should("have.value", "http://example.com/api");
     cy.get("@uiUrlInput").should("have.value", "http://example.com/ui");
-    cy.get("@waterfallCheckbox").should("have.attr", "checked");
+    cy.get("@betaFeatureCheckbox").should("have.attr", "checked");
     cy.get("span[data-cy=filter-chip]").contains("query1");
   });
 });
