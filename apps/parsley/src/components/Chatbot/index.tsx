@@ -15,11 +15,14 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { logMetadata } = useLogContext();
-  const { execution, logType, origin, taskID, testID } = logMetadata ?? {};
+  const { execution, fileName, groupID, logType, origin, taskID, testID } =
+    logMetadata ?? {};
 
   const bodyData = {
     logMetadata: {
       execution: Number(execution),
+      fileName: fileName,
+      group_id: groupID,
       log_type: logType,
       origin,
       task_id: taskID,
