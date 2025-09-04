@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
@@ -6,6 +7,7 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { DRAWER_OPENED } from "constants/cookies";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import SidePanel from ".";
 
@@ -13,6 +15,19 @@ vi.mock("js-cookie");
 const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 const wrapper = logContextWrapper();
+
+const SidePanelWrapper = () => {
+  const [collapsed, setCollapsed] = useState<boolean>(
+    Cookie.get(DRAWER_OPENED) === "true",
+  );
+  return (
+    <SidePanel
+      {...props}
+      panelCollapsed={collapsed}
+      setPanelCollapsed={setCollapsed}
+    />
+  );
+};
 
 describe("sidePanel", () => {
   beforeEach(() => {
@@ -23,21 +38,21 @@ describe("sidePanel", () => {
   });
 
   it("should be uncollapsed if the user has never seen the filters drawer before", () => {
-    render(<SidePanel {...props} />, { wrapper });
+    render(<SidePanelWrapper />, { wrapper });
     const collapseButton = screen.getByLabelText("Collapse navigation");
     expect(collapseButton).toHaveAttribute("aria-expanded", "true");
   });
 
   it("should be collapsed if the user has seen the filters drawer before", () => {
     mockedGet.mockImplementation(() => "true");
-    render(<SidePanel {...props} />, { wrapper });
+    render(<SidePanelWrapper />, { wrapper });
     const collapseButton = screen.getByLabelText("Collapse navigation");
     expect(collapseButton).toHaveAttribute("aria-expanded", "false");
   });
 
   it("should be possible to toggle the drawer open and closed", async () => {
     const user = userEvent.setup();
-    render(<SidePanel {...props} />, { wrapper });
+    render(<SidePanelWrapper />, { wrapper });
     const collapseButton = screen.getByLabelText("Collapse navigation");
     expect(collapseButton).toHaveAttribute("aria-expanded", "true");
     await user.click(collapseButton);

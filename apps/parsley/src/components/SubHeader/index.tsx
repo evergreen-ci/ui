@@ -12,9 +12,11 @@ import { SectionControls } from "./SectionControls";
 
 const { gray } = palette;
 
-interface SubHeaderProps {}
+interface SubHeaderProps {
+  setSidePanelCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const SubHeader: React.FC<SubHeaderProps> = () => {
+const SubHeader: React.FC<SubHeaderProps> = ({ setSidePanelCollapsed }) => {
   const { isUploadedLog, logMetadata } = useLogContext();
   const { buildID, execution, fileName, groupID, logType, taskID, testID } =
     logMetadata || {};
@@ -54,7 +56,11 @@ const SubHeader: React.FC<SubHeaderProps> = () => {
             <SectionControls />
           </Header>
 
-          {showAI && <ToggleChatbotButton />}
+          {showAI && (
+            <ToggleChatbotButton
+              setSidePanelCollapsed={setSidePanelCollapsed}
+            />
+          )}
         </>
       )}
     </Container>
