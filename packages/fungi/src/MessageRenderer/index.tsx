@@ -12,6 +12,7 @@ export const MessageRenderer: React.FC<UIMessage> = ({ id, parts, role }) => (
         return (
           <StyledMessage
             key={key}
+            data-cy={`message-${role}`}
             isSender={role === "user"}
             messageBody={part.text}
             sourceType={MessageSourceType.Markdown}
