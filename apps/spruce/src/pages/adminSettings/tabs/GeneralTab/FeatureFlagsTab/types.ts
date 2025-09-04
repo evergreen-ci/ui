@@ -39,6 +39,7 @@ export interface FeatureFlagsFormState {
       elasticIPsDisabled: boolean;
       staticAPIKeysDisabled: boolean;
       backgroundReauthDisabled: boolean;
+      legacyUIAdminPageDisabled: boolean;
     };
 
     batchJobs: {
