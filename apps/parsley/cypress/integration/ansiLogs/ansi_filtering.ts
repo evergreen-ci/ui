@@ -233,4 +233,39 @@ describe("Filtering", () => {
       cy.get("[data-cy^='skipped-lines-row-']").should("not.exist");
     });
   });
+
+  describe("hiding filters", () => {
+    const filter1 = "doesNotMatchAnything";
+    const filter2 = "doesNotMatchAnything2";
+
+    it("should be able to hide and unhide filters", () => {
+      cy.visit(`${logLink}?filters=110${filter1},100${filter2}`);
+      cy.get("[data-cy^='skipped-lines-row-']").should("exist");
+      cy.toggleDrawer();
+
+      cy.dataCy("all-filters-toggle").click();
+      cy.dataCy("all-filters-toggle").should(
+        "have.attr",
+        "aria-checked",
+        "false",
+      );
+      cy.get("[data-cy^='skipped-lines-row-']").should("not.exist");
+      cy.location("search").should(
+        "contain",
+        `filters=010${filter1},000${filter2}`,
+      );
+
+      cy.dataCy("all-filters-toggle").click();
+      cy.dataCy("all-filters-toggle").should(
+        "have.attr",
+        "aria-checked",
+        "true",
+      );
+      cy.get("[data-cy^='skipped-lines-row-']").should("exist");
+      cy.location("search").should(
+        "contain",
+        `filters=110${filter1},100${filter2}`,
+      );
+    });
+  });
 });

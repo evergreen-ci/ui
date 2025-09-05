@@ -74,6 +74,20 @@
                           >
                             1
                           </div>
+                          <button
+                            aria-checked="true"
+                            aria-disabled="false"
+                            aria-labelledby="Show or hide all filters toggle"
+                            class="emotion-StyledToggle eltruqc0 lg-ui-toggle-button-0000 leafygreen-ui-2o8wt6"
+                            data-cy="all-filters-toggle"
+                            data-lgid="lg-toggle"
+                            role="switch"
+                            type="button"
+                          >
+                            <div
+                              class="leafygreen-ui-38rddy"
+                            />
+                          </button>
                           <div
                             class="emotion-ModalTrigger e12xhjo61"
                             role="button"
