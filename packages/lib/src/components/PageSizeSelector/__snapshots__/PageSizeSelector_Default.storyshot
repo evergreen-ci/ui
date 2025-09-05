@@ -10,7 +10,7 @@
       aria-expanded="false"
       aria-invalid="false"
       aria-labelledby="page-size-select"
-      class="lg-ui-button-0000 leafygreen-ui-c19aul"
+      class="lg-ui-button-0000 leafygreen-ui-1m0zu1d leafygreen-ui-1b6wtso"
       data-lgid="lg-button"
       data-testid="leafygreen-ui-select-menubutton"
       id="select-2"
@@ -36,7 +36,7 @@
         <svg
           alt=""
           aria-hidden="true"
-          class="leafygreen-ui-fn50nl"
+          class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
           height="16"
           role="presentation"
           viewBox="0 0 16 16"

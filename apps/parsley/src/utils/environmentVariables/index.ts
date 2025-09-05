@@ -29,6 +29,10 @@ const graphqlURL = process.env.REACT_APP_GRAPHQL_URL;
 const logkeeperURL = process.env.REACT_APP_LOGKEEPER_URL;
 const spruceURL = process.env.REACT_APP_SPRUCE_URL;
 const parsleyURL = process.env.REACT_APP_PARSLEY_URL;
+const parsleyAIURL = import.meta.env.VITE_PARSLEY_AI_URL;
+
+const parsleyChatURL = `${parsleyAIURL}/completions/parsley/conversations/chat`;
+const parsleyChatLoginURL = `${parsleyAIURL}/login`;
 
 export {
   getSentryDSN,
@@ -36,5 +40,7 @@ export {
   graphqlURL,
   logkeeperURL,
   spruceURL,
+  parsleyChatURL,
+  parsleyChatLoginURL,
   parsleyURL,
 };

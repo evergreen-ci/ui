@@ -6,13 +6,13 @@ import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { diff } from "deep-object-diff";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { SpruceForm } from "components/SpruceForm";
 import {
   BetaFeatures,
   UpdateUserBetaFeaturesMutation,
   UpdateUserBetaFeaturesMutationVariables,
-} from "gql/generated/types";
-import { UPDATE_USER_BETA_FEATURES } from "gql/mutations";
+} from "@evg-ui/lib/gql/generated/types";
+import { UPDATE_USER_BETA_FEATURES } from "@evg-ui/lib/gql/mutations";
+import { SpruceForm } from "components/SpruceForm";
 
 type FormState = {
   betaFeatures: BetaFeatures;

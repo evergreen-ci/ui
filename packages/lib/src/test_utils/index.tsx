@@ -139,6 +139,20 @@ const stubGetClientRects = () => {
   };
 };
 
+/**
+ * createWrapper provides a generic way to pass props to a React Component wrapper.
+ * @param Wrapper - Wrapper component
+ * @param props - props to be spread on wrapper
+ * @returns - wrapper with props applied
+ */
+const createWrapper = (
+  Wrapper: React.FC<any>,
+  props: React.ComponentProps<any>,
+) =>
+  function CreatedWrapper({ children }: React.PropsWithChildren) {
+    return <Wrapper {...props}>{children}</Wrapper>;
+  };
+
 export {
   act,
   fireEvent,
@@ -152,6 +166,7 @@ export {
   waitForElementToBeRemoved,
   customWithin as within,
   stubGetClientRects,
+  createWrapper,
 };
 
 export type { RenderWithRouterMatchOptions };
