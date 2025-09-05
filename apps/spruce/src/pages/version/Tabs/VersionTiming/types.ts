@@ -18,7 +18,7 @@ export const GANTT_CHART_COLUMN_HEADERS = [
   { type: "string", label: "Dependencies" },
 ] as const;
 
-type GanttChartColumnHeaders = typeof GANTT_CHART_COLUMN_HEADERS;
+export type GanttChartColumnHeaders = typeof GANTT_CHART_COLUMN_HEADERS;
 
 /**
  * GanttChartDataRow represents a single row of data in the Gantt chart.

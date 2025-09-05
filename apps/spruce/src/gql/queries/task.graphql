@@ -78,8 +78,10 @@ query Task($taskId: String!, $execution: Int) {
       displayName
       displayStatus
       execution
+      finishTime
       projectIdentifier
       reviewed @client
+      startTime
     }
     expectedDuration
     files {
