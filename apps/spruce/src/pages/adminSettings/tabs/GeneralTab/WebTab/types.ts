@@ -22,7 +22,7 @@ export interface WebFormState {
       stagingEnvironment: string;
     };
     betaFeatures: {
-      spruceWaterfallEnabled: boolean;
+      parsleyAIEnabled: boolean;
     };
     disabledGQLQueries: {
       queryNames: string[];

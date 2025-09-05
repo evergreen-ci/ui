@@ -36,7 +36,7 @@ const form: WebFormState = {
       stagingEnvironment: "staging",
     },
     betaFeatures: {
-      spruceWaterfallEnabled: true,
+      parsleyAIEnabled: true,
     },
     disabledGQLQueries: {
       queryNames: ["query1", "query2"],
@@ -66,7 +66,7 @@ const gql: AdminSettingsInput = {
     cacheTemplates: true,
     stagingEnvironment: "staging",
     betaFeatures: {
-      spruceWaterfallEnabled: true,
+      parsleyAIEnabled: true,
     },
   },
   disabledGQLQueries: ["query1", "query2"],

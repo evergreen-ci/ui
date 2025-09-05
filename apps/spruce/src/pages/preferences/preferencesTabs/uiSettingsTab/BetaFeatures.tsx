@@ -81,12 +81,20 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
             betaFeatures: {
               title: "Beta Features",
               type: "object" as const,
-              properties: {},
+              properties: {
+                parsleyAIEnabled: radioSchema({
+                  title: "Allow AI Agent in Parsley",
+                }),
+              },
             },
           },
         }}
         uiSchema={{
           betaFeatures: {
+            parsleyAIEnabled: radioUiSchema({
+              dataCy: "parsley-ai-enabled",
+              isAdminEnabled: adminBetaSettings?.parsleyAIEnabled ?? false,
+            }),
             "ui:description": (
               <DescriptionWrapper>
                 <span>
@@ -115,7 +123,6 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const radioSchema = ({ title }: { title: string }) => ({
   type: "boolean" as const,
   title,
@@ -134,7 +141,6 @@ const radioSchema = ({ title }: { title: string }) => ({
   ],
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const radioUiSchema = ({
   dataCy,
   isAdminEnabled,

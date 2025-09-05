@@ -4,4 +4,5 @@ export type AnalyticsIdentifier =
   | "Preferences"
   | "LoadingPage"
   | "Shortcut"
-  | "SectionsFeatureDiscovery";
+  | "SectionsFeatureDiscovery"
+  | "AIAgent";
