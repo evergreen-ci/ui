@@ -28,7 +28,7 @@ import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
 import { VersionPage } from "pages/Version";
 import { Waterfall } from "pages/Waterfall";
-import { isDevelopmentBuild } from "utils/environmentVariables";
+import { isProduction } from "utils/environmentVariables";
 import { Layout } from "./Layout";
 
 export const Content: React.FC = () => (
@@ -98,7 +98,7 @@ export const Content: React.FC = () => (
       />
       <Route element={<Waterfall />} path={routes.waterfall} />
       <Route element={<PageDoesNotExist />} path="*" />
-      {isDevelopmentBuild() && (
+      {!isProduction() && (
         <Route element={<AdminSettings />} path={routes.adminSettings}>
           <Route element={null} path={`:${slugs.tab}`} />
         </Route>
