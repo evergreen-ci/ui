@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
+import Banner, { Variant } from "@leafygreen-ui/banner";
 import { ToolUIPart } from "ai";
 import Icon from "@evg-ui/lib/components/Icon";
 import { AnimatedEllipsis } from "../AnimatedEllipsis";
@@ -10,8 +10,15 @@ export const ToolRenderer: React.FC<ToolUIPart> = (tool) => {
   if (!toolName) {
     return null;
   }
+
+  const variant = tool.state === "output-error" ? Variant.Danger : Variant.Info;
+
   return (
-    <StyledBanner data-cy="tool-use-chip" image={<StyledIcon glyph="Wrench" />}>
+    <StyledBanner
+      data-cy="tool-use-chip"
+      image={<StyledIcon glyph="Wrench" />}
+      variant={variant}
+    >
       {toolName}
     </StyledBanner>
   );
