@@ -10,8 +10,8 @@ import { CaseSensitivity, MatchType } from "constants/enums";
 import { useFilterParam } from "hooks/useFilterParam";
 import { Filter } from "types/logs";
 import BaseNavGroup from "../BaseNavGroup";
+import AllFiltersToggle from "./AllFiltersToggle";
 import FilterGroup from "./FilterGroup";
-import ShowFiltersToggle from "./ShowFiltersToggle";
 
 const { green } = palette;
 
@@ -83,7 +83,7 @@ const FilterNavGroup: React.FC<FilterNavGroupProps> = ({
       <BaseNavGroup
         additionalHeaderText={
           <>
-            <ShowFiltersToggle />
+            <AllFiltersToggle />
             <ModalTrigger
               onClick={() => setOpen(true)}
               role="button"

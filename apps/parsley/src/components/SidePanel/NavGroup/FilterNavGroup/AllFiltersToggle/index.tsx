@@ -5,7 +5,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import { useFilterParam } from "hooks/useFilterParam";
 
-const ShowFiltersToggle: React.FC = () => {
+const AllFiltersToggle: React.FC = () => {
   const { sendEvent } = useLogWindowAnalytics();
   const [showFilters, setShowFilters] = useState(true);
   const [filters, setFilters] = useFilterParam();
@@ -16,17 +16,15 @@ const ShowFiltersToggle: React.FC = () => {
       ...f,
       visible: checked,
     }));
-    if (!checked) {
-      sendEvent({ name: "Clicked hide all filters" });
-    }
+    sendEvent({ checked, name: "Clicked all filters toggle" });
     setFilters(newFilters);
   };
 
   return (
     <StyledToggle
-      aria-labelledby="Show filters toggle"
+      aria-labelledby="Show or hide all filters toggle"
       checked={showFilters}
-      data-cy="show-filters-toggle"
+      data-cy="all-filters-toggle"
       onChange={onChange}
       size={ToggleSize.XSmall}
     />
@@ -37,4 +35,4 @@ const StyledToggle = styled(Toggle)`
   margin-left: ${size.xxs};
 `;
 
-export default ShowFiltersToggle;
+export default AllFiltersToggle;

@@ -243,8 +243,8 @@ describe("Filtering", () => {
       cy.get("[data-cy^='skipped-lines-row-']").should("exist");
       cy.toggleDrawer();
 
-      cy.dataCy("show-filters-toggle").click();
-      cy.dataCy("show-filters-toggle").should(
+      cy.dataCy("all-filters-toggle").click();
+      cy.dataCy("all-filters-toggle").should(
         "have.attr",
         "aria-checked",
         "false",
@@ -255,8 +255,8 @@ describe("Filtering", () => {
         `filters=010${filter1},000${filter2}`,
       );
 
-      cy.dataCy("show-filters-toggle").click();
-      cy.dataCy("show-filters-toggle").should(
+      cy.dataCy("all-filters-toggle").click();
+      cy.dataCy("all-filters-toggle").should(
         "have.attr",
         "aria-checked",
         "true",

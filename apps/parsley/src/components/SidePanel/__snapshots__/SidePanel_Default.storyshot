@@ -77,9 +77,9 @@
                           <button
                             aria-checked="true"
                             aria-disabled="false"
-                            aria-labelledby="Show filters toggle"
-                            class="emotion-StyledToggle ex047r00 lg-ui-toggle-button-0000 leafygreen-ui-2o8wt6"
-                            data-cy="show-filters-toggle"
+                            aria-labelledby="Show or hide all filters toggle"
+                            class="emotion-StyledToggle eltruqc0 lg-ui-toggle-button-0000 leafygreen-ui-2o8wt6"
+                            data-cy="all-filters-toggle"
                             data-lgid="lg-toggle"
                             role="switch"
                             type="button"

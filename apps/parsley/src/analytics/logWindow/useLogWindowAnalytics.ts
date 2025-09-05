@@ -8,7 +8,7 @@ type Action =
   | { name: "Created new filter"; "filter.expression": string }
   | { name: "Deleted filter"; "filter.expression": string }
   | { name: "Toggled filter active state"; active: boolean }
-  | { name: "Clicked hide all filters" }
+  | { name: "Clicked all filters toggle"; checked: boolean }
   | { name: "Used project filters"; "filter.expressions": string[] }
   | { name: "Created bookmark" }
   | { name: "Created new share line" }
