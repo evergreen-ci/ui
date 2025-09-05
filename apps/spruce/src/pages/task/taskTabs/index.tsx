@@ -19,6 +19,7 @@ import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
 import BuildBaron, { useBuildBaronVariables } from "./buildBaronAndAnnotations";
 import ExecutionTasksTable from "./ExecutionTasksTable";
+import ExecutionTasksTiming from "./ExecutionTasksTiming";
 import FileTable from "./FileTable";
 import Logs from "./logs";
 import TaskHistory from "./TaskHistory";
@@ -41,6 +42,7 @@ const useTabConfig = (
     annotation,
     baseTask,
     canModifyAnnotation,
+    displayName,
     displayStatus,
     execution,
     executionTasksFull,
@@ -71,6 +73,8 @@ const useTabConfig = (
     [TaskTab.Annotations]: showBuildBaron,
     [TaskTab.TrendCharts]: isPerfPluginEnabled,
     [TaskTab.History]: true,
+    [TaskTab.ExecutionTasksTiming]:
+      isDisplayTask && !!executionTasksFull && executionTasksFull.length > 0,
   };
 
   const tabMap: Record<TaskTab, JSX.Element> = {
@@ -164,6 +168,19 @@ const useTabConfig = (
         {...walkthroughHistoryTabProps}
       >
         <TaskHistory baseTaskId={baseTaskId} task={task} />
+      </Tab>
+    ),
+    [TaskTab.ExecutionTasksTiming]: (
+      <Tab
+        key="execution-tasks-timing-tab"
+        data-cy="execution-tasks-timing-tab"
+        name="Execution Tasks Timing"
+      >
+        <ExecutionTasksTiming
+          executionTasksFull={executionTasksFull}
+          taskId={id}
+          taskName={displayName}
+        />
       </Tab>
     ),
   };
