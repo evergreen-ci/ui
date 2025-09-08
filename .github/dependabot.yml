@@ -2,11 +2,22 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
+    labels:
+      - "dependencies"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "05:00"
+      timezone: "EST"
     open-pull-requests-limit: 5
     commit-message:
       prefix: "CHORE(NPM) - "
+    cooldown:
+      semver-patch-days: 30
+      include:
+        - "@sentry/*"
+        - "storybook"
+        - "@storybook/*"
     groups:
       emotion:
         applies-to: version-updates
