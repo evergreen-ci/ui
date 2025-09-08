@@ -3,12 +3,25 @@ import { ToolRenderer } from "./ToolRenderer";
 
 describe("ToolRenderer", () => {
   it("renders a tool with a loading state if the output is not available", () => {
-    render(
+    const { rerender } = render(
       <ToolRenderer
         {...{
           type: "tool-askEvergreenAgentTool",
           toolCallId: "123",
           state: "input-streaming",
+          input: "test",
+        }}
+      />,
+    );
+    expect(
+      screen.getByText("Asking Evergreen Agent for more information"),
+    ).toBeInTheDocument();
+    rerender(
+      <ToolRenderer
+        {...{
+          type: "tool-askEvergreenAgentTool",
+          state: "input-available",
+          toolCallId: "123",
           input: "test",
         }}
       />,
@@ -31,7 +44,7 @@ describe("ToolRenderer", () => {
       />,
     );
     expect(
-      screen.getByText("Asked Evergreen Agent for more information"),
+      screen.getByText("Received information from the Evergreen Agent"),
     ).toBeInTheDocument();
   });
 
