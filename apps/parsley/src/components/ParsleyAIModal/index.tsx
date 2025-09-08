@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
-import MarketingModal from "@leafygreen-ui/marketing-modal";
+import MarketingModal, { GraphicStyle } from "@leafygreen-ui/marketing-modal";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -76,7 +76,7 @@ export const ParsleyAIModal: React.FC<ParsleyAIModalProps> = ({
       buttonText="Enable it!"
       data-cy="parsley-ai-modal"
       graphic={<Image />}
-      graphicStyle="center"
+      graphicStyle={GraphicStyle.Center}
       linkText="Maybe later, continue without Parsley AI"
       onButtonClick={handleEnableBeta}
       onClose={handleClose(false)}
