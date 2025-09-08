@@ -1,18 +1,13 @@
 import { size } from "@evg-ui/lib/constants/tokens";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { renderableToolLabels } from "./constants";
-import { ToolRenderer } from "./ToolRenderer";
+import { ToolStateEnum } from "./types";
+import { ToolRenderer } from ".";
 
 export default {
   component: ToolRenderer,
 } satisfies CustomMeta<typeof ToolRenderer>;
 
-const allToolStates = [
-  "output-error",
-  "input-streaming",
-  "input-available",
-  "output-available",
-];
 export const Default = {
   argTypes: {
     type: {
@@ -21,7 +16,7 @@ export const Default = {
     },
     state: {
       control: { type: "select" },
-      options: allToolStates,
+      options: Object.values(ToolStateEnum),
       type: "string",
     },
   },
@@ -35,7 +30,7 @@ export const AllTools = {
   argTypes: {
     state: {
       control: { type: "select" },
-      options: allToolStates,
+      options: Object.values(ToolStateEnum),
       type: "string",
     },
   },

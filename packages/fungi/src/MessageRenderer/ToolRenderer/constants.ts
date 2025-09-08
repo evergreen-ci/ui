@@ -1,5 +1,5 @@
 import { glyphs } from "@evg-ui/lib/components/Icon";
-
+import { ToolState } from "./types";
 /**
  * Mapping of tool names to their various states.
  * This should be updated as new tools are added to the agent.
@@ -27,3 +27,13 @@ export const renderableToolLabels: Record<
     glyph: "File",
   },
 };
+
+// 2) Create an enum-like object with compile-time checking
+const satisfiesToolStates = <T extends Record<string, ToolState>>(t: T) => t;
+
+export const ToolStateEnum = satisfiesToolStates({
+  OutputError: "output-error",
+  InputStreaming: "input-streaming",
+  InputAvailable: "input-available",
+  OutputAvailable: "output-available",
+} as const);

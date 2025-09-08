@@ -1,5 +1,6 @@
 import { render, screen } from "@evg-ui/lib/test_utils";
-import { ToolRenderer } from "./ToolRenderer";
+import { ToolStateEnum } from "./types";
+import { ToolRenderer } from ".";
 
 describe("ToolRenderer", () => {
   it("renders a tool with a loading state if the output is not available", () => {
@@ -8,7 +9,7 @@ describe("ToolRenderer", () => {
         {...{
           type: "tool-askEvergreenAgentTool",
           toolCallId: "123",
-          state: "input-streaming",
+          state: ToolStateEnum.InputStreaming,
           input: "test",
         }}
       />,
@@ -20,7 +21,7 @@ describe("ToolRenderer", () => {
       <ToolRenderer
         {...{
           type: "tool-askEvergreenAgentTool",
-          state: "input-available",
+          state: ToolStateEnum.InputAvailable,
           toolCallId: "123",
           input: "test",
         }}
@@ -36,7 +37,7 @@ describe("ToolRenderer", () => {
       <ToolRenderer
         {...{
           type: "tool-askEvergreenAgentTool",
-          state: "output-available",
+          state: ToolStateEnum.OutputAvailable,
           toolCallId: "123",
           input: "test",
           output: { steps: { "123": { startedAt: 1, endedAt: 2 } } },
@@ -53,7 +54,7 @@ describe("ToolRenderer", () => {
       <ToolRenderer
         {...{
           type: "tool-someRandomBackgroundTool",
-          state: "output-available",
+          state: ToolStateEnum.OutputAvailable,
           toolCallId: "123",
           input: "test",
           output: { steps: { "123": { startedAt: 1, endedAt: 2 } } },
@@ -68,7 +69,7 @@ describe("ToolRenderer", () => {
       <ToolRenderer
         {...{
           type: "tool-askEvergreenAgentTool",
-          state: "output-error",
+          state: ToolStateEnum.OutputError,
           toolCallId: "123",
           input: "test",
           errorText: "Error fetching information from Evergreen Agent",
