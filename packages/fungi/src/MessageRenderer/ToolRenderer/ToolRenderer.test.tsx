@@ -1,14 +1,28 @@
 import { render, screen } from "@evg-ui/lib/test_utils";
-import { ToolRenderer } from "./ToolRenderer";
+import { ToolStateEnum } from "./types";
+import { ToolRenderer } from ".";
 
 describe("ToolRenderer", () => {
   it("renders a tool with a loading state if the output is not available", () => {
-    render(
+    const { rerender } = render(
       <ToolRenderer
         {...{
           type: "tool-askEvergreenAgentTool",
           toolCallId: "123",
-          state: "input-streaming",
+          state: ToolStateEnum.InputStreaming,
+          input: "test",
+        }}
+      />,
+    );
+    expect(
+      screen.getByText("Asking Evergreen Agent for more information"),
+    ).toBeInTheDocument();
+    rerender(
+      <ToolRenderer
+        {...{
+          type: "tool-askEvergreenAgentTool",
+          state: ToolStateEnum.InputAvailable,
+          toolCallId: "123",
           input: "test",
         }}
       />,
@@ -23,7 +37,7 @@ describe("ToolRenderer", () => {
       <ToolRenderer
         {...{
           type: "tool-askEvergreenAgentTool",
-          state: "output-available",
+          state: ToolStateEnum.OutputAvailable,
           toolCallId: "123",
           input: "test",
           output: { steps: { "123": { startedAt: 1, endedAt: 2 } } },
@@ -31,7 +45,7 @@ describe("ToolRenderer", () => {
       />,
     );
     expect(
-      screen.getByText("Asked Evergreen Agent for more information"),
+      screen.getByText("Received information from the Evergreen Agent"),
     ).toBeInTheDocument();
   });
 
@@ -40,7 +54,7 @@ describe("ToolRenderer", () => {
       <ToolRenderer
         {...{
           type: "tool-someRandomBackgroundTool",
-          state: "output-available",
+          state: ToolStateEnum.OutputAvailable,
           toolCallId: "123",
           input: "test",
           output: { steps: { "123": { startedAt: 1, endedAt: 2 } } },
@@ -55,7 +69,7 @@ describe("ToolRenderer", () => {
       <ToolRenderer
         {...{
           type: "tool-askEvergreenAgentTool",
-          state: "output-error",
+          state: ToolStateEnum.OutputError,
           toolCallId: "123",
           input: "test",
           errorText: "Error fetching information from Evergreen Agent",
