@@ -6999,7 +6999,7 @@ export type SaveAdminSettingsMutation = {
       userVoice?: string | null;
       betaFeatures: {
         __typename?: "BetaFeatures";
-        spruceWaterfallEnabled?: boolean | null;
+        parsleyAIEnabled?: boolean | null;
       };
     } | null;
   };
@@ -7826,7 +7826,7 @@ export type AdminSettingsQuery = {
       userVoice?: string | null;
       betaFeatures: {
         __typename?: "BetaFeatures";
-        spruceWaterfallEnabled?: boolean | null;
+        parsleyAIEnabled?: boolean | null;
       };
     } | null;
   } | null;

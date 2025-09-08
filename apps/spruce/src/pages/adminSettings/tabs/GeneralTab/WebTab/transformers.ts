@@ -51,7 +51,7 @@ export const gqlToForm = ((data) => {
         userVoice: userVoice ?? "",
       },
       betaFeatures: {
-        spruceWaterfallEnabled: betaFeatures?.spruceWaterfallEnabled ?? false,
+        parsleyAIEnabled: betaFeatures?.parsleyAIEnabled ?? false,
       },
       disabledGQLQueries: {
         queryNames: disabledGQLQueries ?? [],

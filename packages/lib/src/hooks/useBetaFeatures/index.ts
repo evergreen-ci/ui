@@ -58,9 +58,8 @@ export const useMergedBetaFeatures = () => {
   }
 
   const mergedBetaFeatures: BetaFeatures = {
-    spruceWaterfallEnabled:
-      adminBetaSettings.spruceWaterfallEnabled &&
-      userBetaSettings.spruceWaterfallEnabled,
+    parsleyAIEnabled:
+      adminBetaSettings.parsleyAIEnabled && userBetaSettings.parsleyAIEnabled,
   };
 
   return {
