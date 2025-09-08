@@ -13,7 +13,7 @@ describe("ChatFeed", () => {
     HTMLDivElement.prototype.scrollTo = () => {};
   });
 
-  it("aligns user messages to the right", async () => {
+  it("sends user messages", async () => {
     const user = userEvent.setup();
 
     render(<ChatFeed apiUrl="/foo" />, {
@@ -25,9 +25,7 @@ describe("ChatFeed", () => {
 
     await user.type(textarea, message);
     await user.click(screen.getByRole("button"));
-    expect(
-      screen.queryByText(message)?.parentElement?.parentElement,
-    ).toHaveStyle("align-items: flex-end");
+    expect(screen.queryByDataCy("message-user")).toHaveTextContent(message);
   });
 
   describe("prompt suggestions", () => {
@@ -59,9 +57,7 @@ describe("ChatFeed", () => {
       expect(screen.getByText("Bar")).toBeVisible();
       await user.click(screen.getByRole("button", { name: "Bar" }));
       expect(screen.queryByText("Suggested Prompts")).not.toBeInTheDocument();
-      expect(
-        screen.queryByText("Bar")?.parentElement?.parentElement,
-      ).toHaveStyle("align-items: flex-end");
+      expect(screen.queryByDataCy("message-user")).toHaveTextContent("Bar");
     });
   });
 
