@@ -1,4 +1,4 @@
-name: Publish Chromatic action
+name: Publish Chromatic Action for Commits
 inputs:
   working_dir:
     required: true
@@ -9,14 +9,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Publish to Chromatic
-      uses: chromaui/action@latest
-      env:
-        CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref }}
-        CHROMATIC_SHA: ${{ github.event.pull_request.head.sha }}
-        CHROMATIC_SLUG: ${{ github.repository }}
-      with:
-        workingDir: ${{ inputs.working_dir }}
-        buildScriptName: storybook:build
-        onlyChanged: true # TurboSnap
-        projectToken: ${{ inputs.project_token }}
+  - name: Publish to Chromatic (Commit)
+    uses: chromaui/action@latest
+    with:
+      workingDir: ${{ inputs.working_dir }}
+      buildScriptName: storybook:build
+      onlyChanged: true # TurboSnap
+      autoAcceptChanges: true # Always accept changes on main as the new baseline.
+      exitZeroOnChanges: true
+      exitOnceUploaded: true
+      projectToken: ${{ inputs.project_token }}
