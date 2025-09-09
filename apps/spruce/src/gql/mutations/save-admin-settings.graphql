@@ -70,6 +70,7 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       jiraNotificationsDisabled
       jwtTokenForCLIDisabled
       largeParserProjectsDisabled
+      legacyUIAdminPageDisabled
       monitorDisabled
       podAllocatorDisabled
       podInitDisabled
@@ -103,7 +104,7 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
     }
     ui {
       betaFeatures {
-        spruceWaterfallEnabled
+        parsleyAIEnabled
       }
       cacheTemplates
       corsOrigins

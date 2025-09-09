@@ -91,6 +91,7 @@ export const adminSettings: AdminSettings = {
     taskReliabilityDisabled: true,
     unrecognizedPodCleanupDisabled: true,
     webhookNotificationsDisabled: true,
+    legacyUIAdminPageDisabled: true,
   },
   taskLimits: {
     maxConcurrentLargeParserProjectTasks: 1,
@@ -176,7 +177,7 @@ export const adminSettings: AdminSettings = {
     cacheTemplates: true,
     stagingEnvironment: "staging",
     betaFeatures: {
-      spruceWaterfallEnabled: true,
+      parsleyAIEnabled: true,
     },
   },
   disabledGQLQueries: ["query1", "query2"],

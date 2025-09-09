@@ -17,13 +17,14 @@ const Tasks = {
  */
 const TASK_MAPPING = {
   "deploy-utils": [Tasks.Lint, Tasks.Test, Tasks.TypeCheck],
-  fungi: [Tasks.Lint, Tasks.TypeCheck],
+  fungi: [Tasks.Lint, Tasks.Storybook, Tasks.Test, Tasks.TypeCheck],
   lib: [
     Tasks.Lint,
     Tasks.Snapshots,
     Tasks.Storybook,
     Tasks.Test,
     Tasks.TypeCheck,
+    Tasks.CheckCodegen
   ],
   parsley: [
     Tasks.CheckCodegen,

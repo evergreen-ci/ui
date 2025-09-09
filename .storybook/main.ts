@@ -5,6 +5,10 @@ export default {
     name: "@storybook/react-vite",
   },
   refs: {
+    fungi: {
+      title: "Fungi Chat Library",
+      url: "http://localhost:6009",
+    },
     lib: {
       title: "Evergreen UI Library",
       url: "http://localhost:6008",

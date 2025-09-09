@@ -6,13 +6,13 @@ import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { diff } from "deep-object-diff";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { SpruceForm } from "components/SpruceForm";
 import {
   BetaFeatures,
   UpdateUserBetaFeaturesMutation,
   UpdateUserBetaFeaturesMutationVariables,
-} from "gql/generated/types";
-import { UPDATE_USER_BETA_FEATURES } from "gql/mutations";
+} from "@evg-ui/lib/gql/generated/types";
+import { UPDATE_USER_BETA_FEATURES } from "@evg-ui/lib/gql/mutations";
+import { SpruceForm } from "components/SpruceForm";
 
 type FormState = {
   betaFeatures: BetaFeatures;
@@ -81,12 +81,20 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
             betaFeatures: {
               title: "Beta Features",
               type: "object" as const,
-              properties: {},
+              properties: {
+                parsleyAIEnabled: radioSchema({
+                  title: "Allow AI Agent in Parsley",
+                }),
+              },
             },
           },
         }}
         uiSchema={{
           betaFeatures: {
+            parsleyAIEnabled: radioUiSchema({
+              dataCy: "parsley-ai-enabled",
+              isAdminEnabled: adminBetaSettings?.parsleyAIEnabled ?? false,
+            }),
             "ui:description": (
               <DescriptionWrapper>
                 <span>
@@ -115,7 +123,6 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const radioSchema = ({ title }: { title: string }) => ({
   type: "boolean" as const,
   title,
@@ -134,7 +141,6 @@ const radioSchema = ({ title }: { title: string }) => ({
   ],
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const radioUiSchema = ({
   dataCy,
   isAdminEnabled,

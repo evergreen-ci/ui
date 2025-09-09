@@ -10,6 +10,7 @@ import { CaseSensitivity, MatchType } from "constants/enums";
 import { useFilterParam } from "hooks/useFilterParam";
 import { Filter } from "types/logs";
 import BaseNavGroup from "../BaseNavGroup";
+import AllFiltersToggle from "./AllFiltersToggle";
 import FilterGroup from "./FilterGroup";
 
 const { green } = palette;
@@ -81,13 +82,16 @@ const FilterNavGroup: React.FC<FilterNavGroupProps> = ({
       <ProjectFiltersModal open={open} setOpen={setOpen} />
       <BaseNavGroup
         additionalHeaderText={
-          <ModalTrigger
-            onClick={() => setOpen(true)}
-            role="button"
-            tabIndex={0}
-          >
-            View project filters
-          </ModalTrigger>
+          <>
+            <AllFiltersToggle />
+            <ModalTrigger
+              onClick={() => setOpen(true)}
+              role="button"
+              tabIndex={0}
+            >
+              View project filters
+            </ModalTrigger>
+          </>
         }
         data-cy="filters"
         defaultMessage="No filters have been applied."

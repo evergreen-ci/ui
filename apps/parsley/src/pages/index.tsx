@@ -24,8 +24,8 @@ const Layout = () => (
 const Content: React.FC = () => {
   const { user } = useUser();
   localStorage.setItem("userId", user?.userId ?? "");
-
   useAnalyticAttributes(user?.userId ?? "");
+
   return (
     <Routes>
       <Route element={<Layout />}>

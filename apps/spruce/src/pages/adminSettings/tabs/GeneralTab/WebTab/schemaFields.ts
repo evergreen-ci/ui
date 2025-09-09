@@ -114,15 +114,27 @@ export const ui = {
 
 export const betaFeatures = {
   schema: {
-    spruceWaterfallEnabled: {
+    parsleyAIEnabled: {
       type: "boolean" as const,
-      title: "Spruce Waterfall Enabled",
+      title: "Parsley AI Agent",
+      oneOf: [
+        {
+          type: "string" as const,
+          title: "Enabled",
+          enum: [true],
+        },
+        {
+          type: "string" as const,
+          title: "Disabled",
+          enum: [false],
+        },
+      ],
     },
   },
   uiSchema: {
-    spruceWaterfallEnabled: {
+    parsleyAIEnabled: {
       "ui:widget": widgets.RadioWidget,
-      "ui:data-cy": "spruce-waterfall-enabled",
+      "ui:data-cy": "parsley-ai-enabled",
       "ui:options": {
         inline: true,
         elementWrapperCSS: radioCSS,

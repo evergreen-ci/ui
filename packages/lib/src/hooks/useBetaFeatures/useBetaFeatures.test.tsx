@@ -1,6 +1,4 @@
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
-import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   AdminBetaFeaturesQuery,
   AdminBetaFeaturesQueryVariables,
@@ -8,6 +6,8 @@ import {
   UserBetaFeaturesQueryVariables,
 } from "gql/generated/types";
 import { ADMIN_BETA_FEATURES, USER_BETA_FEATURES } from "gql/queries";
+import { renderHook, waitFor } from "test_utils";
+import { ApolloMock } from "test_utils/types";
 import {
   useAdminBetaFeatures,
   useUserBetaFeatures,
@@ -32,9 +32,7 @@ describe("useAdminBetaFeatures", () => {
         }),
     });
     await waitFor(() => {
-      expect(result?.current?.adminBetaSettings?.spruceWaterfallEnabled).toBe(
-        false,
-      );
+      expect(result?.current?.adminBetaSettings?.parsleyAIEnabled).toBe(false);
     });
   });
 });
@@ -49,9 +47,7 @@ describe("useUserBetaFeatures", () => {
         }),
     });
     await waitFor(() => {
-      expect(result?.current?.userBetaSettings?.spruceWaterfallEnabled).toBe(
-        true,
-      );
+      expect(result?.current?.userBetaSettings?.parsleyAIEnabled).toBe(true);
     });
   });
 });
@@ -68,7 +64,7 @@ describe("useMergedBetaFeatures", () => {
     await waitFor(() => {
       expect(result?.current?.betaFeatures).toBeDefined();
     });
-    expect(result?.current?.betaFeatures?.spruceWaterfallEnabled).toBe(false);
+    expect(result?.current?.betaFeatures?.parsleyAIEnabled).toBe(false);
   });
 });
 
@@ -88,7 +84,7 @@ const adminBetaFeatures: ApolloMock<
           __typename: "UIConfig",
           betaFeatures: {
             __typename: "BetaFeatures",
-            spruceWaterfallEnabled: false,
+            parsleyAIEnabled: false,
           },
         },
       },
@@ -111,7 +107,7 @@ const userBetaFeatures: ApolloMock<
         userId: "me",
         betaFeatures: {
           __typename: "BetaFeatures",
-          spruceWaterfallEnabled: true,
+          parsleyAIEnabled: true,
         },
       },
     },

@@ -168,6 +168,7 @@ export type AdminSettings = {
   cedar?: Maybe<CedarConfig>;
   configDir?: Maybe<Scalars["String"]["output"]>;
   containerPools?: Maybe<ContainerPoolsConfig>;
+  cost?: Maybe<CostConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
   domainName?: Maybe<Scalars["String"]["output"]>;
   expansions?: Maybe<Scalars["StringMap"]["output"]>;
@@ -221,6 +222,7 @@ export type AdminSettingsInput = {
   cedar?: InputMaybe<CedarConfigInput>;
   configDir?: InputMaybe<Scalars["String"]["input"]>;
   containerPools?: InputMaybe<ContainerPoolsConfigInput>;
+  cost?: InputMaybe<CostConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   domainName?: InputMaybe<Scalars["String"]["input"]>;
   expansions?: InputMaybe<Scalars["StringMap"]["input"]>;
@@ -422,11 +424,13 @@ export enum BannerTheme {
 
 export type BetaFeatures = {
   __typename?: "BetaFeatures";
-  spruceWaterfallEnabled: Scalars["Boolean"]["output"];
+  parsleyAIEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  spruceWaterfallEnabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type BetaFeaturesInput = {
-  spruceWaterfallEnabled: Scalars["Boolean"]["input"];
+  parsleyAIEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  spruceWaterfallEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export enum BootstrapMethod {
@@ -677,6 +681,19 @@ export type CopyProjectInput = {
   newProjectId?: InputMaybe<Scalars["String"]["input"]>;
   newProjectIdentifier: Scalars["String"]["input"];
   projectIdToCopy: Scalars["String"]["input"];
+};
+
+export type CostConfig = {
+  __typename?: "CostConfig";
+  financeFormula?: Maybe<Scalars["Float"]["output"]>;
+  onDemandDiscount?: Maybe<Scalars["Float"]["output"]>;
+  savingsPlanDiscount?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type CostConfigInput = {
+  financeFormula?: InputMaybe<Scalars["Float"]["input"]>;
+  onDemandDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  savingsPlanDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
 export type CostData = {
@@ -3621,6 +3638,7 @@ export type ServiceFlags = {
   jiraNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  legacyUIAdminPageDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   podAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3659,6 +3677,7 @@ export type ServiceFlagsInput = {
   jiraNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   jwtTokenForCLIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   largeParserProjectsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  legacyUIAdminPageDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   podAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   podInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -6930,6 +6949,7 @@ export type SaveAdminSettingsMutation = {
       jiraNotificationsDisabled?: boolean | null;
       jwtTokenForCLIDisabled?: boolean | null;
       largeParserProjectsDisabled?: boolean | null;
+      legacyUIAdminPageDisabled?: boolean | null;
       monitorDisabled?: boolean | null;
       podAllocatorDisabled?: boolean | null;
       podInitDisabled?: boolean | null;
@@ -6979,7 +6999,7 @@ export type SaveAdminSettingsMutation = {
       userVoice?: string | null;
       betaFeatures: {
         __typename?: "BetaFeatures";
-        spruceWaterfallEnabled: boolean;
+        parsleyAIEnabled?: boolean | null;
       };
     } | null;
   };
@@ -7285,21 +7305,6 @@ export type UpdateVolumeMutation = {
   updateVolume: boolean;
 };
 
-export type UpdateUserBetaFeaturesMutationVariables = Exact<{
-  opts: UpdateBetaFeaturesInput;
-}>;
-
-export type UpdateUserBetaFeaturesMutation = {
-  __typename?: "Mutation";
-  updateBetaFeatures?: {
-    __typename?: "UpdateBetaFeaturesPayload";
-    betaFeatures?: {
-      __typename?: "BetaFeatures";
-      spruceWaterfallEnabled: boolean;
-    } | null;
-  } | null;
-};
-
 export type UpdateUserSettingsMutationVariables = Exact<{
   userSettings: UserSettingsInput;
 }>;
@@ -7307,22 +7312,6 @@ export type UpdateUserSettingsMutationVariables = Exact<{
 export type UpdateUserSettingsMutation = {
   __typename?: "Mutation";
   updateUserSettings: boolean;
-};
-
-export type AdminBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
-
-export type AdminBetaFeaturesQuery = {
-  __typename?: "Query";
-  spruceConfig?: {
-    __typename?: "SpruceConfig";
-    ui: {
-      __typename?: "UIConfig";
-      betaFeatures: {
-        __typename?: "BetaFeatures";
-        spruceWaterfallEnabled: boolean;
-      };
-    };
-  } | null;
 };
 
 export type AdminEventsQueryVariables = Exact<{
@@ -7493,6 +7482,12 @@ export type AdminSettingsQuery = {
         maxContainers: number;
         port: number;
       }>;
+    } | null;
+    cost?: {
+      __typename?: "CostConfig";
+      financeFormula?: number | null;
+      onDemandDiscount?: number | null;
+      savingsPlanDiscount?: number | null;
     } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
@@ -7711,6 +7706,7 @@ export type AdminSettingsQuery = {
       jiraNotificationsDisabled?: boolean | null;
       jwtTokenForCLIDisabled?: boolean | null;
       largeParserProjectsDisabled?: boolean | null;
+      legacyUIAdminPageDisabled?: boolean | null;
       monitorDisabled?: boolean | null;
       podAllocatorDisabled?: boolean | null;
       podInitDisabled?: boolean | null;
@@ -7830,7 +7826,7 @@ export type AdminSettingsQuery = {
       userVoice?: string | null;
       betaFeatures: {
         __typename?: "BetaFeatures";
-        spruceWaterfallEnabled: boolean;
+        parsleyAIEnabled?: boolean | null;
       };
     } | null;
   } | null;
@@ -11266,20 +11262,6 @@ export type UndispatchedTasksQuery = {
         displayName: string;
         execution: number;
       }>;
-    };
-  };
-};
-
-export type UserBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
-
-export type UserBetaFeaturesQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    betaFeatures: {
-      __typename?: "BetaFeatures";
-      spruceWaterfallEnabled: boolean;
     };
   };
 };
