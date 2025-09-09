@@ -1,0 +1,26 @@
+name: Publish Chromatic action
+inputs:
+  working_dir:
+    required: true
+    type: string
+  project_token:
+    required: true
+    type: string
+runs:
+  using: "composite"
+  steps:
+    - name: Publish to Chromatic
+      uses: chromaui/action@latest
+      env:
+        CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref }}
+        CHROMATIC_SHA: ${{ github.event.pull_request.head.sha }}
+        CHROMATIC_SLUG: ${{ github.repository }}
+      with:
+        workingDir: ${{ inputs.working_dir }}
+        buildScriptName: storybook:build
+        onlyChanged: true # TurboSnap
+        # https://www.chromatic.com/docs/github-actions/#forked-repositories 
+        # This token is published with intention. Tokens cannot be used to access account settings. 
+        # They can only be used for snapshot quota, which is an acceptable tradeoff for open source 
+        # projects. Tokens can be reset via the "Manage" page on Chromatic.
+        projectToken: ${{ inputs.project_token }}
