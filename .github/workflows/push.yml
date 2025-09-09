@@ -1,16 +1,13 @@
-name: "Pull Request Checks"
-on: pull_request
+name: "Commit Checks"
+on: 
+  push:
+    branches:
+      - main
 jobs:
-  chromatic:
-    name: Chromatic Tests
+  parsley-chromatic:
+    name: Parsley Chromatic Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Check access
-        if: ${{ github.event.pull_request.author_association != 'CONTRIBUTOR' && github.event.pull_request.author_association != 'MEMBER' }}
-        run: |
-          echo "Event not triggered by a collaborator."
-          exit 1
-
       - name: Checkout code
         uses: actions/checkout@v4
         with:
@@ -20,7 +17,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.17.0
-  
+
       - name: Install dependencies
         run: yarn install
 
@@ -48,28 +45,28 @@ jobs:
 
       - name: Publish Chromatic (Parsley)
         if: steps.changes.outputs.parsley == 'true'
-        uses: ./.github/actions/publish-chromatic-pr
+        uses: ./.github/actions/publish-chromatic-commit
         with:
           working_dir: apps/parsley
           project_token: chpt_8083ea0d9f4af30
       
       - name: Publish Chromatic (Spruce)
         if: steps.changes.outputs.spruce == 'true'
-        uses: ./.github/actions/publish-chromatic-pr
+        uses: ./.github/actions/publish-chromatic-commit
         with:
           working_dir: apps/spruce
           project_token: chpt_676fe75e2c97368
 
       - name: Publish Chromatic (Fungi)
         if: steps.changes.outputs.fungi == 'true'
-        uses: ./.github/actions/publish-chromatic-pr
+        uses: ./.github/actions/publish-chromatic-commit
         with:
           working_dir: packages/fungi
           project_token: chpt_e1e0e3c7dd24944
 
       - name: Publish Chromatic (Lib)
         if: steps.changes.outputs.lib == 'true'
-        uses: ./.github/actions/publish-chromatic-pr
+        uses: ./.github/actions/publish-chromatic-commit
         with:
           working_dir: packages/lib
           project_token: chpt_a5c7789cebbf85e

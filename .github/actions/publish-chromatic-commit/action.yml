@@ -11,11 +11,12 @@ runs:
   steps:
     - name: Publish to Chromatic
       uses: chromaui/action@latest
+      env:
+        CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref }}
+        CHROMATIC_SHA: ${{ github.event.pull_request.head.sha }}
+        CHROMATIC_SLUG: ${{ github.repository }}
       with:
         workingDir: ${{ inputs.working_dir }}
         buildScriptName: storybook:build
         onlyChanged: true # TurboSnap
-        autoAcceptChanges: true # Always accept changes on main as the new baseline.
-        exitZeroOnChanges: true
-        exitOnceUploaded: true
         projectToken: ${{ inputs.project_token }}
