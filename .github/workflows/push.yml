@@ -4,8 +4,8 @@ on:
     branches:
       - main
 jobs:
-  parsley-chromatic:
-    name: Parsley Chromatic Tests
+  chromatic:
+    name: Chromatic Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
