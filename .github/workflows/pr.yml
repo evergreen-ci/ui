@@ -1,19 +1,36 @@
 name: "Pull Request Checks"
 on: pull_request
 jobs:
-  parsley-chromatic:
+  chromatic:
+    name: "Chromatic Tests"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Check access
+        if: ${{ github.event.pull_request.author_association != 'CONTRIBUTOR' && github.event.pull_request.author_association != 'MEMBER' }}
+        run: |
+          echo "Event not triggered by a collaborator."
+          exit 1
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-            fetch-depth: 0
-      - uses: dorny/paths-filter@v3
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - name: Determine changed files
+        uses: dorny/paths-filter@v3
         id: changes
         with:
           filters: |
             parsley:
               - 'apps/parsley/**'
               - 'packages/lib/**'
+              - 'packages/fungi/**'
+            spruce:
+              - 'apps/spruce/**'
+              - 'packages/lib/**'
+            lib:
+              - 'packages/lib/**'
+            fungi:
               - 'packages/fungi/**'
       - name: Parsley Chromatic Tests
         if: steps.changes.outputs.parsley == 'true'
