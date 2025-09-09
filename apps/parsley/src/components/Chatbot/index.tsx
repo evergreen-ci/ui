@@ -1,6 +1,9 @@
+import styled from "@emotion/styled";
+import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { Chat } from "@evg-ui/fungi/Chat";
 import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
 import { ChatProvider as FungiProvider } from "@evg-ui/fungi/Context";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { aiPrompts } from "constants/aiPrompts";
 import { useLogContext } from "context/LogContext";
 import {
@@ -46,8 +49,19 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
         />
       }
       data-cy="chat-drawer"
+      drawerTitle={
+        <DrawerTitle>
+          Parsley AI <Badge variant={BadgeVariant.Blue}>Beta</Badge>
+        </DrawerTitle>
+      }
     >
       {children}
     </ChatDrawer>
   );
 };
+
+const DrawerTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xs};
+`;
