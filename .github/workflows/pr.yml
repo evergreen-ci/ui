@@ -30,16 +30,16 @@ jobs:
         with:
           filters: |
             parsley:
-              - 'nothing/parsley/**'
-              - 'nothing/lib/**'
-              - 'nothing/fungi/**'
+              - 'apps/parsley/**'
+              - 'packages/lib/**'
+              - 'packages/fungi/**'
             spruce:
-              - 'nothing/spruce/**'
-              - 'nothing/lib/**'
+              - 'apps/spruce/**'
+              - 'packages/lib/**'
             lib:
-              - 'nothing/lib/**'
+              - 'packages/lib/**'
             fungi:
-              - 'nothing/fungi/**'
+              - 'packages/fungi/**'
 
       # https://www.chromatic.com/docs/github-actions/#forked-repositories 
       # This tokens are published with intention. Tokens cannot be used to access account settings. 
