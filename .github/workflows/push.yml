@@ -1,11 +1,8 @@
 name: "Commit Checks"
-on: 
-  push:
-    branches:
-      - main
+on: push
 jobs:
-  parsley-chromatic:
-    name: Parsley Chromatic Tests
+  chromatic:
+    name: Chromatic Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
