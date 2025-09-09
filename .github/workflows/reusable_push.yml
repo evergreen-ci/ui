@@ -1,11 +1,16 @@
-name: "Commit Checks"
-on: 
-  push:
-    branches:
-      - main
+name: "Commit Checks Template"
+on:
+  workflow_call:
+    inputs:
+      working_dir:
+        required: true
+        type: string
+      project_token:
+        required: true
+        type: string
 jobs:
   parsley-chromatic:
-    name: Parsley Chromatic Tests
+    name: Commit Chromatic Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,7 +29,7 @@ jobs:
       - name: Publish to Chromatic
         uses: chromaui/action@latest
         with:
-          workingDir: apps/parsley
+          workingDir: ${{ inputs.working_dir }}
           buildScriptName: storybook:build
           onlyChanged: true # TurboSnap
           autoAcceptChanges: true # Always accept changes on main as the new baseline.
@@ -34,4 +39,4 @@ jobs:
           # This token is published with intention. Tokens cannot be used to access account settings. 
           # They can only be used for snapshot quota, which is an acceptable tradeoff for open source 
           # projects. Tokens can be reset via the "Manage" page on Chromatic.
-          projectToken: chpt_8083ea0d9f4af30
+          projectToken: ${{ inputs.project_token }}
