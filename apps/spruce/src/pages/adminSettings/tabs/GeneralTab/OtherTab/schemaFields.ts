@@ -245,6 +245,10 @@ export const bucketConfig = {
       type: "string" as const,
       title: "S3 Secret",
     },
+    failedTasksLogBucket: {
+      type: "string" as const,
+      title: "Failed Tasks Log Bucket",
+    },
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,

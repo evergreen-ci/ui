@@ -58,6 +58,9 @@ const mockAdminSettings: AdminSettings = {
       key: "cred-key",
       secret: "cred-secret",
     },
+    logBucketFailedTasks: {
+      name: "evergreen-failed-tasks",
+    },
   },
   ssh: {
     taskHostKey: {
@@ -161,6 +164,7 @@ const expectedForm: OtherFormState = {
       testResultsBucketRoleARN: "arn:aws:iam::123456789:role/TestRole",
       credentialsKey: "cred-key",
       credentialsSecret: "cred-secret",
+      failedTasksLogBucket: "evergreen-failed-tasks",
     },
     sshPairs: {
       taskHostKey: {
@@ -276,6 +280,9 @@ const expectedGql: AdminSettingsInput = {
     credentials: {
       key: "cred-key",
       secret: "cred-secret",
+    },
+    logBucketFailedTasks: {
+      name: "failed-tasks-log-bucket",
     },
   },
   ssh: {
