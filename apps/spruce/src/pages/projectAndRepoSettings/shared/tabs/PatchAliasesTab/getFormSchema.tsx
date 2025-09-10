@@ -252,7 +252,7 @@ const aliasesUiSchema = {
     isGithubMQTriggerAlias: {
       "ui:data-cy": "github-mq-trigger-alias-checkbox",
       "ui:elementWrapperCSS": css`
-        margin-bottom: ${size.xs};
+        margin-bottom: 0;
       `,
     },
   },
