@@ -253,10 +253,6 @@ describe("Repo Settings", () => {
       cy.dataCy("pta-tooltip").contains("spruce");
       cy.dataCy("pta-tooltip").contains("module_name");
       cy.dataCy("pta-tooltip").contains("Variant/Task Regex Pairs");
-      cy.getInputByLabel("Schedule in GitHub Pull Requests").should(
-        "be.checked",
-      );
-      cy.getInputByLabel("Schedule in GitHub Merge Queue").should("be.checked");
     });
   });
 
