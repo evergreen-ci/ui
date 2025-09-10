@@ -13,8 +13,14 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
 
   const {
     aliases,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    projectRef: { githubPRTriggerAliases, patchTriggerAliases },
+    projectRef: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      githubMQTriggerAliases,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      githubPRTriggerAliases,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      patchTriggerAliases,
+    },
   } = data;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { projectType } = options;
@@ -48,7 +54,8 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
           status: p.status,
           parentAsModule: p.parentAsModule ?? "",
           downstreamRevision: p.downstreamRevision ?? "",
-          isGithubTriggerAlias: githubPRTriggerAliases?.includes(p.alias),
+          isGithubMQTriggerAlias: githubMQTriggerAliases?.includes(p.alias),
+          isGithubPRTriggerAlias: githubPRTriggerAliases?.includes(p.alias),
           displayTitle: p.alias,
         })) ?? [],
     },
@@ -67,10 +74,15 @@ export const formToGql = ((
   );
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
+  const githubMQTriggerAliases = [];
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const githubPRTriggerAliases = [];
   const patchTriggerAliases = ptaData.aliasesOverride
     ? ptaData.aliases.map((a) => {
-        if (a.isGithubTriggerAlias) {
+        if (a.isGithubMQTriggerAlias) {
+          githubMQTriggerAliases.push(a.alias);
+        }
+        if (a.isGithubPRTriggerAlias) {
           githubPRTriggerAliases.push(a.alias);
         }
         return {
@@ -102,9 +114,11 @@ export const formToGql = ((
     ...(isRepo ? { repoId: id } : { projectId: id }),
     projectRef: {
       id,
-      patchTriggerAliases,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      githubMQTriggerAliases,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       githubPRTriggerAliases,
+      patchTriggerAliases,
     },
     aliases,
   };

@@ -143,9 +143,13 @@ export const getFormSchema = (
                     },
                   },
                 },
-                isGithubTriggerAlias: {
+                isGithubPRTriggerAlias: {
                   type: "boolean" as const,
-                  title: "Add to GitHub Trigger Alias",
+                  title: "Schedule in GitHub Pull Requests",
+                },
+                isGithubMQTriggerAlias: {
+                  type: "boolean" as const,
+                  title: "Schedule in GitHub Merge Queue",
                 },
               },
             },
@@ -236,9 +240,13 @@ const aliasesUiSchema = {
         },
       },
     },
-    isGithubTriggerAlias: {
+    isGithubPRTriggerAlias: {
       "ui:border": "top",
-      "ui:data-cy": "github-trigger-alias-checkbox",
+      "ui:data-cy": "github-pr-trigger-alias-checkbox",
+    },
+    isGithubMQTriggerAlias: {
+      "ui:border": "top",
+      "ui:data-cy": "github-mq-trigger-alias-checkbox",
     },
   },
 };
