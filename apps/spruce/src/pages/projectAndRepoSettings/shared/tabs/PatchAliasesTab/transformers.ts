@@ -11,17 +11,13 @@ type Tab = ProjectSettingsTabRoutes.PatchAliases;
 export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
   if (!data) return null;
 
+  const { aliases, projectRef } = data;
   const {
-    aliases,
-    projectRef: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      githubMQTriggerAliases,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      githubPRTriggerAliases,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      patchTriggerAliases,
-    },
-  } = data;
+    githubMQTriggerAliases,
+    githubPRTriggerAliases,
+    patchTriggerAliases,
+  } = projectRef ?? {};
+
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { projectType } = options;
   const isAttachedProject = projectType === ProjectType.AttachedProject;
@@ -40,11 +36,9 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
     patchTriggerAliases: {
       aliasesOverride: !isAttachedProject || !!patchTriggerAliases,
       aliases:
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         patchTriggerAliases?.map((p) => ({
           ...p,
           taskSpecifiers:
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             p.taskSpecifiers?.map((t) => ({
               ...t,
               specifier: t.patchAlias
