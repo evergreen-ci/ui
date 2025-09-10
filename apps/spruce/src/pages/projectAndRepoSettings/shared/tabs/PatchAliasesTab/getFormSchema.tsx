@@ -1,4 +1,6 @@
+import { css } from "@emotion/react";
 import { StyledLink } from "@evg-ui/lib/components/styles";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
@@ -243,9 +245,15 @@ const aliasesUiSchema = {
     isGithubPRTriggerAlias: {
       "ui:border": "top",
       "ui:data-cy": "github-pr-trigger-alias-checkbox",
+      "ui:elementWrapperCSS": css`
+        margin-bottom: ${size.xs};
+      `,
     },
     isGithubMQTriggerAlias: {
       "ui:data-cy": "github-mq-trigger-alias-checkbox",
+      "ui:elementWrapperCSS": css`
+        margin-bottom: ${size.xs};
+      `,
     },
   },
 };
