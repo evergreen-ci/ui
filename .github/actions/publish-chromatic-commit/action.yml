@@ -1,0 +1,21 @@
+name: Publish Chromatic Action for Commits
+inputs:
+  working_dir:
+    required: true
+    type: string
+  project_token:
+    required: true
+    type: string
+runs:
+  using: "composite"
+  steps:
+  - name: Publish to Chromatic (Commit)
+    uses: chromaui/action@latest
+    with:
+      workingDir: ${{ inputs.working_dir }}
+      buildScriptName: storybook:build
+      onlyChanged: true # TurboSnap
+      autoAcceptChanges: true # Always accept changes on main as the new baseline.
+      exitZeroOnChanges: true
+      exitOnceUploaded: true
+      projectToken: ${{ inputs.project_token }}
