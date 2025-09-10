@@ -53,6 +53,7 @@ const projectResult: Pick<
     id: "project",
     patchTriggerAliases: null,
     githubPRTriggerAliases: [],
+    githubMQTriggerAliases: [],
   },
   aliases: [],
 };
