@@ -38,7 +38,7 @@ export interface OtherFormState {
       testResultsBucketRoleARN: string;
       credentialsKey: string;
       credentialsSecret: string;
-      failedTasksLogBucket: string;
+      failedTasksLogBucketName: string;
     };
 
     sshPairs: {

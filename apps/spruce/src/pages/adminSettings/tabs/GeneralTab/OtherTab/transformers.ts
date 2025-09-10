@@ -90,7 +90,7 @@ export const gqlToForm = ((data) => {
         testResultsBucketRoleARN: buckets?.testResultsBucket?.roleARN ?? "",
         credentialsKey: buckets?.credentials?.key ?? "",
         credentialsSecret: buckets?.credentials?.secret ?? "",
-        failedTasksLogBucket: buckets?.logBucketFailedTasks?.name ?? "",
+        failedTasksLogBucketName: buckets?.logBucketFailedTasks?.name ?? "",
       },
 
       sshPairs: {
@@ -245,6 +245,9 @@ export const formToGql = ((form: OtherFormState) => {
       logBucketLongRetention: {
         name: bucketConfig.logBucketLongRetentionName || undefined,
       },
+      logBucketFailedTasks: {
+        name: bucketConfig.failedTasksLogBucketName || undefined,
+      },
       longRetentionProjects:
         bucketConfig.longRetentionProjects.length > 0
           ? bucketConfig.longRetentionProjects
@@ -259,7 +262,6 @@ export const formToGql = ((form: OtherFormState) => {
         key: bucketConfig.credentialsKey || undefined,
         secret: bucketConfig.credentialsSecret || undefined,
       },
-      failedTasksLogBucket: bucketConfig?.failedTasksLogBucket || undefined,
     },
 
     ssh: {

@@ -245,7 +245,7 @@ export const bucketConfig = {
       type: "string" as const,
       title: "S3 Secret",
     },
-    failedTasksLogBucket: {
+    failedTasksLogBucketName: {
       type: "string" as const,
       title: "Failed Tasks Log Bucket",
     },

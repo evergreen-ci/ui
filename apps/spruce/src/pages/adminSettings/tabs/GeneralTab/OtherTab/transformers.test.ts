@@ -164,7 +164,7 @@ const expectedForm: OtherFormState = {
       testResultsBucketRoleARN: "arn:aws:iam::123456789:role/TestRole",
       credentialsKey: "cred-key",
       credentialsSecret: "cred-secret",
-      failedTasksLogBucket: "evergreen-failed-tasks",
+      failedTasksLogBucketName: "evergreen-failed-tasks",
     },
     sshPairs: {
       taskHostKey: {
@@ -282,7 +282,7 @@ const expectedGql: AdminSettingsInput = {
       secret: "cred-secret",
     },
     logBucketFailedTasks: {
-      name: "failed-tasks-log-bucket",
+      name: "evergreen-failed-tasks",
     },
   },
   ssh: {

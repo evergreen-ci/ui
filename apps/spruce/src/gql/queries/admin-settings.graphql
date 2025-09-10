@@ -88,6 +88,9 @@ query AdminSettings {
         roleARN
         testResultsPrefix
       }
+      logBucketFailedTasks {
+        name
+      }
       logBucketLongRetention {
         name
       }
