@@ -173,6 +173,11 @@ describe("getVariantHistoryRoute", () => {
       getVariantHistoryRoute(identifierWithSpecialCharacters, "someVariantId"),
     ).toBe(`/variant-history/${escapedIdentifier}/someVariantId`);
   });
+  it("escapes special characters variantName", () => {
+    expect(getVariantHistoryRoute("someProject", "!?variant@")).toBe(
+      `/variant-history/someProject/!%3Fvariant%40`,
+    );
+  });
   it("generates a link with failing or passing tests", () => {
     expect(
       getVariantHistoryRoute("someProject", "someVariant", {

@@ -10,7 +10,7 @@ import { highlighter } from "./highlighter";
  * @param html - The html string to parse
  * @param searchTerm - The active search term as a regex expression
  * @param highlights - The active highlights as a regex expression
- * @returns - html string converted to an array of domnodes with highlighted text
+ * @returns - html string converted to an array of domNodes with highlighted text
  */
 const highlightHtml = (
   html: string = "",
@@ -48,7 +48,7 @@ const highlightHtml = (
 
         const highlightedHtml = renderHtml(highlightedText, {
           preserveAttributes: ["mark"],
-          transform: {
+          transformNode: {
             mark: Highlight as unknown as React.ReactNode,
           },
         });
