@@ -73,10 +73,8 @@ export const formToGql = ((
     patchAliases.aliasesOverride,
   );
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const githubMQTriggerAliases = [];
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const githubPRTriggerAliases = [];
+  const githubMQTriggerAliases: String[] = [];
+  const githubPRTriggerAliases: String[] = [];
   const patchTriggerAliases = ptaData.aliasesOverride
     ? ptaData.aliases.map((a) => {
         if (a.isGithubMQTriggerAlias) {
@@ -114,9 +112,7 @@ export const formToGql = ((
     ...(isRepo ? { repoId: id } : { projectId: id }),
     projectRef: {
       id,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       githubMQTriggerAliases,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       githubPRTriggerAliases,
       patchTriggerAliases,
     },
