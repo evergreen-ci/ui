@@ -42,9 +42,9 @@ jobs:
               - 'packages/fungi/**'
 
       # https://www.chromatic.com/docs/github-actions/#forked-repositories 
-      # This tokens are published with intention. Tokens cannot be used to access account settings. 
-      # They can only be used for snapshot quota, which is an acceptable tradeoff for open source 
-      # projects. Tokens can be reset via the "Manage" page on Chromatic.
+      # The tokens below are published with intention. Tokens cannot be used to access account settings. 
+      # They can only be used for snapshot quota, which is an acceptable tradeoff for open source projects.
+      # Tokens can be reset via the "Manage" page on Chromatic.
 
       - name: Publish Chromatic (Parsley)
         if: steps.changes.outputs.parsley == 'true'
