@@ -245,7 +245,6 @@ const aliasesUiSchema = {
       "ui:data-cy": "github-pr-trigger-alias-checkbox",
     },
     isGithubMQTriggerAlias: {
-      "ui:border": "top",
       "ui:data-cy": "github-mq-trigger-alias-checkbox",
     },
   },
