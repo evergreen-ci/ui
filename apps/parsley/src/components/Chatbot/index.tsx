@@ -49,7 +49,7 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
         />
       }
       data-cy="chat-drawer"
-      // TODO: Can be removed after beta period for Parsley AI ends.
+      // TODO: `drawerTitle` can be removed after beta period for Parsley AI ends.
       drawerTitle={
         <DrawerTitle>
           Parsley AI <Badge variant={BadgeVariant.Blue}>Beta</Badge>
