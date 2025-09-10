@@ -67,8 +67,8 @@ export const formToGql = ((
     patchAliases.aliasesOverride,
   );
 
-  const githubMQTriggerAliases: String[] = [];
-  const githubPRTriggerAliases: String[] = [];
+  const githubMQTriggerAliases: string[] = [];
+  const githubPRTriggerAliases: string[] = [];
   const patchTriggerAliases = ptaData.aliasesOverride
     ? ptaData.aliases.map((a) => {
         if (a.isGithubMQTriggerAlias) {
