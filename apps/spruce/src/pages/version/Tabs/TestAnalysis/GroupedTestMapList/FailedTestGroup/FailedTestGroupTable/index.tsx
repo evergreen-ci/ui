@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import Button from "@leafygreen-ui/button";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
@@ -8,6 +9,7 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getTaskRoute } from "constants/routes";
+import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import { TaskBuildVariantField } from "pages/version/Tabs/TestAnalysis/types";
 import { TaskTab } from "types/task";
 
@@ -17,8 +19,12 @@ interface FailedTestGroupTableProps {
 const FailedTestGroupTable: React.FC<FailedTestGroupTableProps> = ({
   tasks,
 }) => {
+  const { replaceUrl } = useConditionallyLinkToParsleyBeta();
+
+  const memoizedColumns = useMemo(() => getColumns(replaceUrl), [replaceUrl]);
+
   const table = useLeafyGreenTable<TaskBuildVariantField>({
-    columns,
+    columns: memoizedColumns,
     data: tasks,
     defaultColumn: {
       enableColumnFilter: false,
@@ -33,7 +39,9 @@ const FailedTestGroupTable: React.FC<FailedTestGroupTableProps> = ({
   );
 };
 
-const columns: LGColumnDef<TaskBuildVariantField>[] = [
+const getColumns = (
+  replaceUrl: (url: string) => string,
+): LGColumnDef<TaskBuildVariantField>[] => [
   {
     header: "Task Name",
     accessorKey: "taskName",
@@ -65,7 +73,7 @@ const columns: LGColumnDef<TaskBuildVariantField>[] = [
     cell: ({ row }) => (
       <Button
         data-cy="failed-test-group-parsley-btn"
-        href={row.original.logs.urlParsley}
+        href={replaceUrl(row.original.logs.urlParsley)}
         size="xsmall"
       >
         Parsley
