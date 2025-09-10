@@ -26,14 +26,9 @@ const wrapper = ({ children }: React.PropsWithChildren) => (
 describe("ChatDrawer", () => {
   it("opens and closes when the context value is updated", async () => {
     const user = userEvent.setup();
-    render(
-      <ChatDrawer chatContent="Chat content" drawerTitle="Chat Name">
-        Page content
-      </ChatDrawer>,
-      {
-        wrapper,
-      },
-    );
+    render(<ChatDrawer chatContent="Chat content">Page content</ChatDrawer>, {
+      wrapper,
+    });
 
     expect(screen.getByText("Chat content")).not.toBeVisible();
     expect(screen.getByText("Chat name")).not.toBeVisible();
