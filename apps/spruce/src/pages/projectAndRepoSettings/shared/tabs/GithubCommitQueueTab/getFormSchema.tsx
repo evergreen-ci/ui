@@ -106,7 +106,14 @@ export const getFormSchema = (
             },
             githubPRTriggerAliases: {
               type: "array" as const,
-              title: "GitHub Trigger Aliases",
+              title: "GitHub Pull Request Trigger Aliases",
+              items: {
+                type: "object" as const,
+              },
+            },
+            githubMQTriggerAliases: {
+              type: "array" as const,
+              title: "GitHub Merge Queue Trigger Aliases",
               items: {
                 type: "object" as const,
               },
@@ -344,7 +351,26 @@ export const getFormSchema = (
         githubPRTriggerAliases: {
           "ui:addable": false,
           "ui:orderable": false,
-          "ui:placeholder": "No GitHub Trigger Aliases are defined.",
+          "ui:placeholder":
+            "No aliases are scheduled to run for pull requests.",
+          "ui:readonly": true,
+          "ui:removable": false,
+          "ui:descriptionNode": (
+            <GithubTriggerAliasDescription
+              identifier={identifier}
+              isPR
+              isRepo={projectType === ProjectType.Repo}
+            />
+          ),
+          items: {
+            "ui:field": "githubTriggerAliasField",
+            "ui:label": false,
+          },
+        },
+        githubMQTriggerAliases: {
+          "ui:addable": false,
+          "ui:orderable": false,
+          "ui:placeholder": "No aliases are scheduled to run for merge queue.",
           "ui:readonly": true,
           "ui:removable": false,
           "ui:descriptionNode": (
@@ -548,15 +574,18 @@ const userTeamStyling = (
 
 const GithubTriggerAliasDescription = ({
   identifier,
+  isPR,
   isRepo,
 }: {
   identifier: string;
   isRepo: boolean;
+  isPR?: boolean;
 }) => {
   const tab = ProjectSettingsTabRoutes.PatchAliases;
   return (
     <Description>
-      GitHub Trigger Aliases can be configured on the{" "}
+      Aliases can be configured to run for{" "}
+      {isPR ? "pull requests" : "merge queue"} on the{" "}
       <StyledRouterLink
         to={
           isRepo
