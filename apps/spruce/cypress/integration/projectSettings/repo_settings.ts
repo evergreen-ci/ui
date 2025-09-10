@@ -213,12 +213,18 @@ describe("Repo Settings", () => {
       cy.contains("button", "Variant/Task").click();
       cy.dataCy("variant-regex-input").type(".*");
       cy.dataCy("task-regex-input").type(".*");
-      cy.getInputByLabel("Add to GitHub Trigger Alias").as(
-        "triggerAliasCheckbox",
+      cy.getInputByLabel("Schedule in GitHub Pull Requests").as(
+        "pullRequestCheckbox",
       );
-      cy.get("@triggerAliasCheckbox").should("not.be.checked");
-      cy.get("@triggerAliasCheckbox").check({ force: true });
-      cy.get("@triggerAliasCheckbox").should("be.checked");
+      cy.get("@pullRequestCheckbox").should("not.be.checked");
+      cy.get("@pullRequestCheckbox").check({ force: true });
+      cy.get("@pullRequestCheckbox").should("be.checked");
+      cy.getInputByLabel("Schedule in GitHub Merge Queue").as(
+        "mergeQueueCheckbox",
+      );
+      cy.get("@mergeQueueCheckbox").should("not.be.checked");
+      cy.get("@mergeQueueCheckbox").check({ force: true });
+      cy.get("@mergeQueueCheckbox").should("be.checked");
       clickSave();
       cy.validateToast("success", "Successfully updated repo");
       saveButtonEnabled(false);

@@ -18,7 +18,8 @@ type PatchTriggerAlias = {
   status: string;
   parentAsModule: string;
   downstreamRevision: string;
-  isGithubTriggerAlias: boolean;
+  isGithubMQTriggerAlias: boolean;
+  isGithubPRTriggerAlias: boolean;
 };
 
 export interface PatchAliasesFormState {

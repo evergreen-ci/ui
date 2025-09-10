@@ -11,11 +11,13 @@ type Tab = ProjectSettingsTabRoutes.PatchAliases;
 export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
   if (!data) return null;
 
+  const { aliases, projectRef } = data;
   const {
-    aliases,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    projectRef: { githubPRTriggerAliases, patchTriggerAliases },
-  } = data;
+    githubMQTriggerAliases,
+    githubPRTriggerAliases,
+    patchTriggerAliases,
+  } = projectRef ?? {};
+
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { projectType } = options;
   const isAttachedProject = projectType === ProjectType.AttachedProject;
@@ -34,11 +36,9 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
     patchTriggerAliases: {
       aliasesOverride: !isAttachedProject || !!patchTriggerAliases,
       aliases:
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         patchTriggerAliases?.map((p) => ({
           ...p,
           taskSpecifiers:
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             p.taskSpecifiers?.map((t) => ({
               ...t,
               specifier: t.patchAlias
@@ -48,7 +48,8 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
           status: p.status,
           parentAsModule: p.parentAsModule ?? "",
           downstreamRevision: p.downstreamRevision ?? "",
-          isGithubTriggerAlias: githubPRTriggerAliases?.includes(p.alias),
+          isGithubMQTriggerAlias: githubMQTriggerAliases?.includes(p.alias),
+          isGithubPRTriggerAlias: githubPRTriggerAliases?.includes(p.alias),
           displayTitle: p.alias,
         })) ?? [],
     },
@@ -66,11 +67,14 @@ export const formToGql = ((
     patchAliases.aliasesOverride,
   );
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const githubPRTriggerAliases = [];
+  const githubMQTriggerAliases: string[] = [];
+  const githubPRTriggerAliases: string[] = [];
   const patchTriggerAliases = ptaData.aliasesOverride
     ? ptaData.aliases.map((a) => {
-        if (a.isGithubTriggerAlias) {
+        if (a.isGithubMQTriggerAlias) {
+          githubMQTriggerAliases.push(a.alias);
+        }
+        if (a.isGithubPRTriggerAlias) {
           githubPRTriggerAliases.push(a.alias);
         }
         return {
@@ -102,9 +106,9 @@ export const formToGql = ((
     ...(isRepo ? { repoId: id } : { projectId: id }),
     projectRef: {
       id,
-      patchTriggerAliases,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      githubMQTriggerAliases,
       githubPRTriggerAliases,
+      patchTriggerAliases,
     },
     aliases,
   };
