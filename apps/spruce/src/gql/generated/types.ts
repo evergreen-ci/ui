@@ -7459,6 +7459,10 @@ export type AdminSettingsQuery = {
         roleARN?: string | null;
         testResultsPrefix?: string | null;
       } | null;
+      logBucketFailedTasks?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+      } | null;
       logBucketLongRetention?: {
         __typename?: "BucketConfig";
         name?: string | null;
