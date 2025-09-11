@@ -111,13 +111,6 @@ export const getFormSchema = (
                 type: "object" as const,
               },
             },
-            githubMQTriggerAliases: {
-              type: "array" as const,
-              title: "Merge Queue Trigger Aliases",
-              items: {
-                type: "object" as const,
-              },
-            },
             githubChecksEnabledTitle: {
               type: "null",
               title: "GitHub Commit Checks",
@@ -217,6 +210,13 @@ export const getFormSchema = (
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 repoData?.mergeQueue?.enabled,
               ),
+            },
+            githubMQTriggerAliases: {
+              type: "array" as const,
+              title: "Merge Queue Trigger Aliases",
+              items: {
+                type: "object" as const,
+              },
             },
           },
           dependencies: {
@@ -367,23 +367,6 @@ export const getFormSchema = (
             "ui:label": false,
           },
         },
-        githubMQTriggerAliases: {
-          "ui:addable": false,
-          "ui:orderable": false,
-          "ui:placeholder": "No aliases are scheduled to run for merge queue.",
-          "ui:readonly": true,
-          "ui:removable": false,
-          "ui:descriptionNode": (
-            <GithubTriggerAliasDescription
-              identifier={identifier}
-              isRepo={projectType === ProjectType.Repo}
-            />
-          ),
-          items: {
-            "ui:field": "githubTriggerAliasField",
-            "ui:label": false,
-          },
-        },
         githubChecksEnabledTitle: {
           "ui:sectionTitle": true,
           "ui:description": GitHubChecksAliasesDescription(projectType),
@@ -526,6 +509,23 @@ export const getFormSchema = (
                 isRepo: true,
               }),
             },
+          },
+        },
+        githubMQTriggerAliases: {
+          "ui:addable": false,
+          "ui:orderable": false,
+          "ui:placeholder": "No aliases are scheduled to run for merge queue.",
+          "ui:readonly": true,
+          "ui:removable": false,
+          "ui:descriptionNode": (
+            <GithubTriggerAliasDescription
+              identifier={identifier}
+              isRepo={projectType === ProjectType.Repo}
+            />
+          ),
+          items: {
+            "ui:field": "githubTriggerAliasField",
+            "ui:label": false,
           },
         },
       },

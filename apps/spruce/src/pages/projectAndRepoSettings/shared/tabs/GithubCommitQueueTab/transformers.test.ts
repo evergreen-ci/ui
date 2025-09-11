@@ -131,6 +131,7 @@ const projectForm: GCQFormState = {
         },
       ],
     },
+    githubMQTriggerAliases: [],
   },
 };
 
@@ -221,26 +222,6 @@ const repoForm: GCQFormState = {
         parentAsModule: "",
       },
     ],
-    githubMQTriggerAliases: [
-      {
-        alias: "mq-alias",
-        childProjectIdentifier: "spruce",
-        taskSpecifiers: [
-          {
-            patchAlias: "alias2",
-            taskRegex: "",
-            variantRegex: "",
-          },
-          {
-            patchAlias: "",
-            taskRegex: ".*",
-            variantRegex: ".*",
-          },
-        ],
-        status: "success",
-        parentAsModule: "",
-      },
-    ],
     githubChecksEnabled: true,
     githubChecks: {
       githubCheckAliasesOverride: true,
@@ -285,6 +266,7 @@ const repoForm: GCQFormState = {
       mergeQueueAliasesOverride: true,
       mergeQueueAliases: [],
     },
+    githubMQTriggerAliases: [],
   },
 };
 
@@ -457,5 +439,6 @@ const mergedForm: GCQFormState = {
         mergeQueueAliases: [],
       },
     },
+    githubMQTriggerAliases: [],
   },
 };
