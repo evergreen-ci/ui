@@ -1,7 +1,7 @@
-import { useChat } from "@ai-sdk/react";
+import { UIMessage, useChat, UseChatHelpers } from "@ai-sdk/react";
 import styled from "@emotion/styled";
 import { ChatWindow } from "@lg-chat/chat-window";
-import { InputBar } from "@lg-chat/input-bar";
+import { InputBar, InputBarProps, State } from "@lg-chat/input-bar";
 import { LeafyGreenChatProvider } from "@lg-chat/leafygreen-chat-provider";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
@@ -16,6 +16,7 @@ export type ChatFeedProps = {
   bodyData?: object;
   chatSuggestions?: string[];
   disclaimerContent?: React.ReactNode;
+  onClickSuggestion?: (suggestion: string) => void;
 };
 
 export const ChatFeed: React.FC<ChatFeedProps> = ({
@@ -23,9 +24,10 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   bodyData,
   chatSuggestions,
   disclaimerContent,
+  onClickSuggestion,
 }) => {
   const { appName } = useChatContext();
-  const { messages, sendMessage } = useChat({
+  const { error, messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({
       api: apiUrl,
       credentials: "include",
@@ -45,6 +47,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
     sendMessage({ text: message });
   };
 
+  const inputState = getInputState({ error, status });
   const hasMessages = messages?.length > 0;
 
   return (
@@ -59,7 +62,10 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
               )}
               {chatSuggestions && (
                 <Suggestions
-                  handleSend={handleSend}
+                  handleSend={(s: string) => {
+                    handleSend(s);
+                    onClickSuggestion?.(s);
+                  }}
                   suggestions={chatSuggestions}
                 />
               )}
@@ -68,7 +74,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
             messages.map((m) => <MessageRenderer key={m.id} {...m} />)
           )}
         </MessageFeed>
-        <InputBar onMessageSend={handleSend} />
+        <InputBar {...inputState} onMessageSend={handleSend} />
       </StyledChatWindow>
     </LeafyGreenChatProvider>
   );
@@ -92,3 +98,27 @@ const EmptyContainer = styled.div`
   height: 100%;
   justify-content: space-between;
 `;
+
+const getInputState = ({
+  error,
+  status,
+}: Pick<UseChatHelpers<UIMessage>, "error" | "status">): Pick<
+  InputBarProps,
+  "state" | "errorMessage"
+> => {
+  if (error) {
+    return {
+      state: State.Error,
+      errorMessage: error.toString(),
+    };
+  } else if (status === "streaming" || status === "submitted") {
+    return {
+      state: State.Loading,
+      errorMessage: undefined,
+    };
+  }
+  return {
+    state: State.Unset,
+    errorMessage: undefined,
+  };
+};
