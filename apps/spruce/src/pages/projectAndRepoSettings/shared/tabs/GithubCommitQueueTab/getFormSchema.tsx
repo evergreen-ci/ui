@@ -111,6 +111,13 @@ export const getFormSchema = (
                 type: "object" as const,
               },
             },
+            githubMQTriggerAliases: {
+              type: "array" as const,
+              title: "Merge Queue Trigger Aliases",
+              items: {
+                type: "object" as const,
+              },
+            },
             githubChecksEnabledTitle: {
               type: "null",
               title: "GitHub Commit Checks",
@@ -239,13 +246,6 @@ export const getFormSchema = (
                         // @ts-expect-error: FIXME. This comment was added by an automated script.
                         aliasArray.schema,
                       ),
-                    },
-                    githubMQTriggerAliases: {
-                      type: "array" as const,
-                      title: "Merge Queue Trigger Aliases",
-                      items: {
-                        type: "object" as const,
-                      },
                     },
                   },
                 },
