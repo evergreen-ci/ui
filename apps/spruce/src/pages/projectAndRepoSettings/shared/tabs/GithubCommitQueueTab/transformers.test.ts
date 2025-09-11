@@ -221,6 +221,26 @@ const repoForm: GCQFormState = {
         parentAsModule: "",
       },
     ],
+    githubMQTriggerAliases: [
+      {
+        alias: "mq-alias",
+        childProjectIdentifier: "spruce",
+        taskSpecifiers: [
+          {
+            patchAlias: "alias2",
+            taskRegex: "",
+            variantRegex: "",
+          },
+          {
+            patchAlias: "",
+            taskRegex: ".*",
+            variantRegex: ".*",
+          },
+        ],
+        status: "success",
+        parentAsModule: "",
+      },
+    ],
     githubChecksEnabled: true,
     githubChecks: {
       githubCheckAliasesOverride: true,
