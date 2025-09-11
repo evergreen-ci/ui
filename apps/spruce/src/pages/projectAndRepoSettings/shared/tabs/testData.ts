@@ -218,7 +218,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     manualPrTestingEnabled: false,
     githubChecksEnabled: true,
     githubPRTriggerAliases: ["alias1"],
-    githubMQTriggerAliases: ["alias2"],
+    githubMQTriggerAliases: ["mq-alias"],
     gitTagVersionsEnabled: false,
     gitTagAuthorizedUsers: ["admin"],
     gitTagAuthorizedTeams: [],
@@ -256,6 +256,24 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     patchTriggerAliases: [
       {
         alias: "alias1",
+        childProjectIdentifier: "spruce",
+        taskSpecifiers: [
+          {
+            patchAlias: "alias2",
+            taskRegex: "",
+            variantRegex: "",
+          },
+          {
+            patchAlias: "",
+            taskRegex: ".*",
+            variantRegex: ".*",
+          },
+        ],
+        status: "success",
+        parentAsModule: "",
+      },
+      {
+        alias: "mq-alias",
         childProjectIdentifier: "spruce",
         taskSpecifiers: [
           {
