@@ -13,9 +13,10 @@ const ChatBody: React.FC<ChatFeedProps> = (props) => {
 };
 
 // Create a separate component so we can leverage useAuthContext above
-export const Chat: React.FC<
-  ChatFeedProps & Pick<AuthProviderProps, "loginUrl">
-> = ({ loginUrl, ...rest }) => (
+export const Chat: React.FC<ChatFeedProps & AuthProviderProps> = ({
+  loginUrl,
+  ...rest
+}) => (
   <AuthProvider loginUrl={loginUrl}>
     <ChatBody {...rest} />
   </AuthProvider>

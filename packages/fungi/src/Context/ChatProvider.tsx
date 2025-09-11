@@ -29,7 +29,7 @@ export const ChatProvider: React.FC<ProviderProps> = ({
       drawerOpen,
       setDrawerOpen,
     }),
-    [drawerOpen, setDrawerOpen],
+    [appName, drawerOpen, setDrawerOpen],
   );
 
   return (

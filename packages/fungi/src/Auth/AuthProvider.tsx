@@ -21,11 +21,6 @@ export const AuthContext = createContext<AuthContextState>({
   loginUrl: "",
 });
 
-export type AuthProviderProps = {
-  children: React.ReactNode;
-  loginUrl: string;
-};
-
 export const useAuthContext = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
@@ -36,11 +31,15 @@ export const useAuthContext = () => {
   return context;
 };
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({
+export type AuthProviderProps = {
+  loginUrl: string;
+};
+
+export const AuthProvider = ({
   children,
   loginUrl,
-}) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+}: React.PropsWithChildren<AuthProviderProps>) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
   const checkAuth = useCallback(async () => {
@@ -67,7 +66,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
       clearInterval(intervalId);
       setIntervalId(null);
     }
-    const newIntervalId = setInterval(checkAuth, 10000);
+    const newIntervalId = setInterval(checkAuth, 2000);
     setIntervalId(newIntervalId);
   }, [checkAuth, intervalId]);
 

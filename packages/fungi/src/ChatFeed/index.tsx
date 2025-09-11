@@ -3,7 +3,9 @@ import styled from "@emotion/styled";
 import { ChatWindow } from "@lg-chat/chat-window";
 import { InputBar } from "@lg-chat/input-bar";
 import { LeafyGreenChatProvider } from "@lg-chat/leafygreen-chat-provider";
+import { MessageActionsProps } from "@lg-chat/message-actions";
 import { MessageFeed } from "@lg-chat/message-feed";
+import { MessageRatingValue } from "@lg-chat/message-rating";
 import { DefaultChatTransport } from "ai";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useChatContext } from "../Context";
@@ -16,6 +18,7 @@ export type ChatFeedProps = {
   bodyData?: object;
   chatSuggestions?: string[];
   disclaimerContent?: React.ReactNode;
+  ratingUrl?: string;
 };
 
 export const ChatFeed: React.FC<ChatFeedProps> = ({
@@ -23,6 +26,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   bodyData,
   chatSuggestions,
   disclaimerContent,
+  ratingUrl,
 }) => {
   const { appName } = useChatContext();
   const { messages, sendMessage } = useChat({
@@ -45,6 +49,24 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
     sendMessage({ text: message });
   };
 
+  const handleRatingChange = ratingUrl
+    ? (messageId: string) =>
+        (async (e, options) => {
+          const response = await fetch(ratingUrl, {
+            method: "POST",
+            body: JSON.stringify({
+              messageId,
+              rating: options?.rating === MessageRatingValue.Liked ? 1 : 0,
+              timestamp: new Date(),
+            }),
+          });
+          if (!response.ok) {
+            const err = await response.json();
+            throw new Error(`Rating message: ${err.message}`);
+          }
+        }) satisfies MessageActionsProps["onRatingChange"]
+    : undefined;
+
   const hasMessages = messages?.length > 0;
 
   return (
@@ -65,7 +87,13 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
               )}
             </EmptyContainer>
           ) : (
-            messages.map((m) => <MessageRenderer key={m.id} {...m} />)
+            messages.map((m) => (
+              <MessageRenderer
+                key={m.id}
+                handleVote={handleRatingChange?.(m.id)}
+                {...m}
+              />
+            ))
           )}
         </MessageFeed>
         <InputBar onMessageSend={handleSend} />
