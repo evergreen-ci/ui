@@ -35,41 +35,41 @@ export const gqlToForm = ((data, options) => {
   const { projectType } = options;
 
   const {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     commitQueue,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     gitTagAuthorizedTeams,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     gitTagAuthorizedUsers,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     gitTagVersionsEnabled,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     githubChecksEnabled,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     manualPrTestingEnabled,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     oldestAllowedMergeBase,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     prTestingEnabled,
-  } = projectRef;
+  } = projectRef ?? {};
 
   const {
     gitTagAliases,
     githubCheckAliases,
     githubPrAliases,
     mergeQueueAliases,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-  } = sortAliases(aliases);
+  } = sortAliases(aliases ?? []);
 
   const override = (field: Array<any>) =>
     projectType !== ProjectType.AttachedProject || !!field?.length;
 
   const githubPRTriggerAliases =
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    projectRef.githubPRTriggerAliases
+    projectRef?.githubPRTriggerAliases
       ?.map((aliasName) =>
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        projectRef.patchTriggerAliases.find(({ alias }) => alias === aliasName),
+        projectRef?.patchTriggerAliases?.find(
+          ({ alias }) => alias === aliasName,
+        ),
+      )
+      ?.filter((a) => a) ?? [];
+
+  const githubMQTriggerAliases =
+    projectRef?.githubMQTriggerAliases
+      ?.map((aliasName) =>
+        projectRef?.patchTriggerAliases?.find(
+          ({ alias }) => alias === aliasName,
+        ),
       )
       ?.filter((a) => a) ?? [];
 
@@ -81,7 +81,8 @@ export const gqlToForm = ((data, options) => {
         githubPrAliasesOverride: override(githubPrAliases),
         githubPrAliases,
       },
-      githubPRTriggerAliases: githubPRTriggerAliases,
+      githubMQTriggerAliases,
+      githubPRTriggerAliases,
       githubChecksEnabled,
       githubChecks: {
         githubCheckAliasesOverride: override(githubCheckAliases),
@@ -107,7 +108,7 @@ export const gqlToForm = ((data, options) => {
       },
     },
     mergeQueue: {
-      enabled: commitQueue.enabled,
+      enabled: commitQueue?.enabled ?? false,
       patchDefinitions: {
         mergeQueueAliasesOverride: override(mergeQueueAliases),
         mergeQueueAliases,
