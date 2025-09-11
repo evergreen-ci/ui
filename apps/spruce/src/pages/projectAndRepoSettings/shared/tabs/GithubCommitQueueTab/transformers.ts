@@ -31,8 +31,7 @@ export const gqlToForm = ((data, options) => {
   if (!data) return null;
 
   const { aliases, projectRef } = data;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const { projectType } = options;
+  const { projectType } = options ?? {};
 
   const {
     commitQueue,
