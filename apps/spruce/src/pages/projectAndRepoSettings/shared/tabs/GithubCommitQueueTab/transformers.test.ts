@@ -107,7 +107,7 @@ const projectForm: GCQFormState = {
     },
   },
   mergeQueue: {
-    enabled: null,
+    enabled: false,
     patchDefinitions: {
       mergeQueueAliasesOverride: true,
       mergeQueueAliases: [
@@ -411,7 +411,7 @@ const mergedForm: GCQFormState = {
     },
   },
   mergeQueue: {
-    enabled: null,
+    enabled: false,
     patchDefinitions: {
       mergeQueueAliasesOverride: true,
       mergeQueueAliases: [
