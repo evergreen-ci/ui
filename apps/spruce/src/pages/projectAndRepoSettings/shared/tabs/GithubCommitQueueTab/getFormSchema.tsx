@@ -211,45 +211,25 @@ export const getFormSchema = (
                 repoData?.mergeQueue?.enabled,
               ),
             },
+            patchDefinitions: {
+              type: "object" as const,
+              title: "Merge Queue Patch Definitions",
+              ...overrideRadioBox(
+                "mergeQueueAliases",
+                [
+                  "Override Repo Patch Definition",
+                  "Default to Repo Patch Definition",
+                ],
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                aliasArray.schema,
+              ),
+            },
             githubMQTriggerAliases: {
               type: "array" as const,
               title: "Merge Queue Trigger Aliases",
               items: {
                 type: "object" as const,
               },
-            },
-          },
-          dependencies: {
-            enabled: {
-              oneOf: [
-                {
-                  properties: {
-                    enabled: {
-                      enum: [false],
-                    },
-                  },
-                },
-                {
-                  properties: {
-                    enabled: {
-                      enum: [true],
-                    },
-                    patchDefinitions: {
-                      type: "object" as const,
-                      title: "Merge Queue Patch Definitions",
-                      ...overrideRadioBox(
-                        "mergeQueueAliases",
-                        [
-                          "Override Repo Patch Definition",
-                          "Default to Repo Patch Definition",
-                        ],
-                        // @ts-expect-error: FIXME. This comment was added by an automated script.
-                        aliasArray.schema,
-                      ),
-                    },
-                  },
-                },
-              ],
             },
           },
         },
@@ -483,6 +463,13 @@ export const getFormSchema = (
           ),
         },
         patchDefinitions: {
+          ...hideIf(
+            fieldDisabled(
+              formData?.mergeQueue?.enabled,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              repoData?.mergeQueue?.enabled,
+            ),
+          ),
           ...errorStyling(
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             formData?.mergeQueue?.enabled,
