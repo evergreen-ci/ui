@@ -245,7 +245,16 @@ describe("Repo Settings", () => {
       saveButtonEnabled(false);
       // Verify information on Github page
       cy.dataCy("navitem-github-commitqueue").click();
-      cy.contains("GitHub Trigger Aliases").scrollIntoView();
+      cy.contains("Pull Request Trigger Aliases").scrollIntoView();
+      cy.dataCy("pta-item").should("have.length", 1);
+      cy.contains("my-alias").should("be.visible");
+      cy.dataCy("pta-item").trigger("mouseover");
+      cy.dataCy("pta-tooltip").should("be.visible");
+      cy.dataCy("pta-tooltip").contains("spruce");
+      cy.dataCy("pta-tooltip").contains("module_name");
+      cy.dataCy("pta-tooltip").contains("Variant/Task Regex Pairs");
+
+      cy.contains("Merge Queue Trigger Aliases").scrollIntoView();
       cy.dataCy("pta-item").should("have.length", 1);
       cy.contains("my-alias").should("be.visible");
       cy.dataCy("pta-item").trigger("mouseover");
