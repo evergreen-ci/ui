@@ -137,8 +137,7 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    id,
+    id: id ?? "",
     prTestingEnabled,
     manualPrTestingEnabled,
     githubChecksEnabled,
