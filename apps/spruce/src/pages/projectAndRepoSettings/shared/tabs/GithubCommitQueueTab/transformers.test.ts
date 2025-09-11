@@ -150,7 +150,7 @@ const projectResult: Pick<
     gitTagAuthorizedUsers: ["privileged"],
     gitTagAuthorizedTeams: [],
     commitQueue: {
-      enabled: null,
+      enabled: false,
     },
   },
   aliases: [
@@ -266,7 +266,26 @@ const repoForm: GCQFormState = {
       mergeQueueAliasesOverride: true,
       mergeQueueAliases: [],
     },
-    githubMQTriggerAliases: [],
+    githubMQTriggerAliases: [
+      {
+        alias: "mq-alias",
+        childProjectIdentifier: "spruce",
+        taskSpecifiers: [
+          {
+            patchAlias: "alias2",
+            taskRegex: "",
+            variantRegex: "",
+          },
+          {
+            patchAlias: "",
+            taskRegex: ".*",
+            variantRegex: ".*",
+          },
+        ],
+        status: "success",
+        parentAsModule: "",
+      },
+    ],
   },
 };
 
