@@ -26,7 +26,7 @@ export const ToolRenderer: React.FC<ToolUIPart> = (tool) => {
   return (
     <StyledBanner
       data-cy="tool-use-chip"
-      image={<StyledIcon glyph={toolLabel.glyph} />}
+      image={<StyledIcon fill="currentColor" glyph={toolLabel.glyph} />}
       variant={variant}
     >
       {toolLabel[toolStateToLabelState(tool.state)]}
