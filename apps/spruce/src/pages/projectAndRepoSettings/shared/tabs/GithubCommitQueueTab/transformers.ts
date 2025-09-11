@@ -80,7 +80,6 @@ export const gqlToForm = ((data, options) => {
         githubPrAliasesOverride: override(githubPrAliases),
         githubPrAliases,
       },
-      githubMQTriggerAliases,
       githubPRTriggerAliases,
       githubChecksEnabled,
       githubChecks: {
@@ -112,6 +111,7 @@ export const gqlToForm = ((data, options) => {
         mergeQueueAliasesOverride: override(mergeQueueAliases),
         mergeQueueAliases,
       },
+      githubMQTriggerAliases,
     },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
