@@ -12,37 +12,36 @@ jobs:
       - name: Check access
         if: ${{ github.event.pull_request.author_association != 'CONTRIBUTOR' && github.event.pull_request.author_association != 'MEMBER' }}
         run: |
-          echo "Association: ${{ github.event.pull_request.author_association }}"
           echo "Event not triggered by a collaborator."
           exit 1
 
-      # - name: Checkout code
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: ${{ github.event.pull_request.head.repo.full_name }}
-      #     ref: ${{ github.event.pull_request.head.ref }}
-      #     fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
 
-      # - name: Use Node 22
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: 22.17.0
+      - name: Use Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.17.0
 
-      # - name: Install dependencies
-      #   run: yarn install
+      - name: Install dependencies
+        run: yarn install
 
-      # - name: Publish to Chromatic
-      #   uses: chromaui/action@latest
-      #   env:
-      #     CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref }}
-      #     CHROMATIC_SHA: ${{ github.event.pull_request.head.sha }}
-      #     CHROMATIC_SLUG: ${{ github.repository }}
-      #   with:
-      #     workingDir: apps/parsley
-      #     buildScriptName: storybook:build
-      #     onlyChanged: true # TurboSnap
-      #     # https://www.chromatic.com/docs/github-actions/#forked-repositories 
-      #     # This token is published with intention. Tokens cannot be used to access account settings. 
-      #     # They can only be used for snapshot quota, which is an acceptable tradeoff for open source 
-      #     # projects. Tokens can be reset via the "Manage" page on Chromatic.
-      #     projectToken: chpt_8083ea0d9f4af30
+      - name: Publish to Chromatic
+        uses: chromaui/action@latest
+        env:
+          CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref }}
+          CHROMATIC_SHA: ${{ github.event.pull_request.head.sha }}
+          CHROMATIC_SLUG: ${{ github.repository }}
+        with:
+          workingDir: apps/parsley
+          buildScriptName: storybook:build
+          onlyChanged: true # TurboSnap
+          # https://www.chromatic.com/docs/github-actions/#forked-repositories 
+          # This token is published with intention. Tokens cannot be used to access account settings. 
+          # They can only be used for snapshot quota, which is an acceptable tradeoff for open source 
+          # projects. Tokens can be reset via the "Manage" page on Chromatic.
+          projectToken: chpt_8083ea0d9f4af30
