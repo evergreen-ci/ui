@@ -104,21 +104,24 @@ const getInputState = ({
   status,
 }: Pick<UseChatHelpers<UIMessage>, "error" | "status">): Pick<
   InputBarProps,
-  "state" | "errorMessage"
+  "disableSend" | "errorMessage" | "state"
 > => {
   if (error) {
     return {
-      state: State.Error,
+      disableSend: false,
       errorMessage: error.toString(),
+      state: State.Error,
     };
   } else if (status === "streaming" || status === "submitted") {
     return {
-      state: State.Loading,
+      disableSend: true,
       errorMessage: undefined,
+      state: State.Loading,
     };
   }
   return {
-    state: State.Unset,
+    disableSend: false,
     errorMessage: undefined,
+    state: State.Unset,
   };
 };
