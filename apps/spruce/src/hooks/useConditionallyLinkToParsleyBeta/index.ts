@@ -4,8 +4,8 @@ import { getParsleyUrl, isProduction } from "utils/environmentVariables";
 export const parsleyBetaURL = "https://parsley-beta.corp.mongodb.com";
 
 /**
- * `useShouldLinkToParsleyBeta` is a hook to assist with updating Parsley URLs to redirect to beta.
- * @returns boolean and function
+ * `useConditionallyLinkToParsleyBeta` is a hook to assist with updating Parsley URLs to redirect to beta.
+ * @returns boolean indicating if redirect should trigger, function to update Parsley URLs
  */
 export const useConditionallyLinkToParsleyBeta = () => {
   const { betaFeatures } = useMergedBetaFeatures();
