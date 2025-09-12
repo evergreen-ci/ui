@@ -107,7 +107,7 @@ const projectForm: GCQFormState = {
     },
   },
   mergeQueue: {
-    enabled: null,
+    enabled: false,
     patchDefinitions: {
       mergeQueueAliasesOverride: true,
       mergeQueueAliases: [
@@ -131,6 +131,7 @@ const projectForm: GCQFormState = {
         },
       ],
     },
+    githubMQTriggerAliases: [],
   },
 };
 
@@ -149,7 +150,7 @@ const projectResult: Pick<
     gitTagAuthorizedUsers: ["privileged"],
     gitTagAuthorizedTeams: [],
     commitQueue: {
-      enabled: null,
+      enabled: false,
     },
   },
   aliases: [
@@ -265,6 +266,26 @@ const repoForm: GCQFormState = {
       mergeQueueAliasesOverride: true,
       mergeQueueAliases: [],
     },
+    githubMQTriggerAliases: [
+      {
+        alias: "mq-alias",
+        childProjectIdentifier: "spruce",
+        taskSpecifiers: [
+          {
+            patchAlias: "alias2",
+            taskRegex: "",
+            variantRegex: "",
+          },
+          {
+            patchAlias: "",
+            taskRegex: ".*",
+            variantRegex: ".*",
+          },
+        ],
+        status: "success",
+        parentAsModule: "",
+      },
+    ],
   },
 };
 
@@ -409,7 +430,7 @@ const mergedForm: GCQFormState = {
     },
   },
   mergeQueue: {
-    enabled: null,
+    enabled: false,
     patchDefinitions: {
       mergeQueueAliasesOverride: true,
       mergeQueueAliases: [
@@ -437,5 +458,6 @@ const mergedForm: GCQFormState = {
         mergeQueueAliases: [],
       },
     },
+    githubMQTriggerAliases: [],
   },
 };
