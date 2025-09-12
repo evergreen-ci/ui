@@ -8,7 +8,7 @@ import {
   BaseTable,
 } from "@evg-ui/lib/components/Table";
 import { DisplayModal } from "components/DisplayModal";
-import { MetadataItem } from "components/MetadataCard";
+import { MetadataItem, MetadataLabel } from "components/MetadataCard";
 import { IncludedLocalModule } from "gql/generated/types";
 
 interface Props {
@@ -29,12 +29,13 @@ const IncludedLocalModules: React.FC<Props> = ({ includedLocalModules }) => {
       {includedLocalModules !== undefined &&
         includedLocalModules.length > 0 && (
           <MetadataItem>
+            <MetadataLabel>Local Included Modules: </MetadataLabel>
             {/* @ts-expect-error: Links should have hrefs. */}
             <StyledLink
               data-cy="included-local-modules-link"
               onClick={() => setShowModal(true)}
             >
-              Local Modules
+              Yes (click to view)
             </StyledLink>
           </MetadataItem>
         )}
