@@ -373,7 +373,7 @@ export const getVariantHistoryRoute = (
   return getHistoryRoute(
     `${paths.variantHistory}/${encodeURIComponent(
       projectIdentifier,
-    )}/${variantName}`,
+    )}/${encodeURIComponent(variantName)}`,
     filters,
     selectedCommit,
   );

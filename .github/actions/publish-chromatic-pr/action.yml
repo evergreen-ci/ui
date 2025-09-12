@@ -1,0 +1,22 @@
+name: Publish Chromatic Action for PRs
+inputs:
+  working_dir:
+    required: true
+    type: string
+  project_token:
+    required: true
+    type: string
+runs:
+  using: "composite"
+  steps:
+    - name: Publish to Chromatic (PR)
+      uses: chromaui/action@latest
+      env:
+        CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref }}
+        CHROMATIC_SHA: ${{ github.event.pull_request.head.sha }}
+        CHROMATIC_SLUG: ${{ github.repository }}
+      with:
+        workingDir: ${{ inputs.working_dir }}
+        buildScriptName: storybook:build
+        onlyChanged: true # TurboSnap
+        projectToken: ${{ inputs.project_token }}
