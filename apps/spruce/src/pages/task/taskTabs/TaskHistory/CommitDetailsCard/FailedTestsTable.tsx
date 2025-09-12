@@ -19,6 +19,7 @@ import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { useTaskHistoryAnalytics } from "analytics";
 import { TaskTestResult, TestResult } from "gql/generated/types";
+import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import { TaskHistoryOptions } from "../types";
 
 const DEFAULT_PAGE_SIZE = 5;
@@ -38,6 +39,8 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
     "",
   );
 
+  const { replaceUrl } = useConditionallyLinkToParsleyBeta();
+
   const columns = useMemo(
     () =>
       getColumns({
@@ -53,8 +56,9 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
           });
           setFailingTest(testName);
         },
+        replaceUrl,
       }),
-    [sendEvent, setFailingTest],
+    [sendEvent, setFailingTest, replaceUrl],
   );
 
   const table = useLeafyGreenTable<TestResult>({
@@ -118,9 +122,11 @@ const TableContainer = styled.div`
 const getColumns = ({
   onClickLogs,
   onClickSearchFailure,
+  replaceUrl,
 }: {
   onClickLogs: (testName: string) => void;
   onClickSearchFailure: (testName: string) => void;
+  replaceUrl: (url: string) => string;
 }): LGColumnDef<TestResult>[] => [
   {
     accessorKey: "testFile",
@@ -163,7 +169,7 @@ const getColumns = ({
         </StyledButton>
         {urlParsley && (
           <StyledButton
-            href={urlParsley}
+            href={replaceUrl(urlParsley)}
             onClick={() => onClickLogs(testFile)}
             rightGlyph={<Icon glyph="OpenNewTab" />}
             size={ButtonSize.XSmall}

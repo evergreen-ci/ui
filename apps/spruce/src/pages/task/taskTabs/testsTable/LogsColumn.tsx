@@ -6,6 +6,7 @@ import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import { getTaskRoute } from "constants/routes";
 import { TestResult, TaskQuery } from "gql/generated/types";
+import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import { TaskTab } from "types/task";
 import { TaskHistoryOptions } from "../TaskHistory/types";
 import { TaskHistoryTestsButton } from "./logsColumn/TaskHistoryTestsButton";
@@ -22,12 +23,15 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
   const { sendEvent } = useTaskAnalytics();
   const filters = status === TestStatus.Fail ? toEscapedRegex(testFile) : null;
   const isExecutionTask = displayTask !== null;
+
+  const { replaceUrl } = useConditionallyLinkToParsleyBeta();
+
   return (
     <ButtonWrapper>
       {urlParsley && (
         <Button
           data-cy="test-table-parsley-btn"
-          href={urlParsley}
+          href={replaceUrl(urlParsley)}
           onClick={() =>
             sendEvent({
               name: "Clicked test log link",

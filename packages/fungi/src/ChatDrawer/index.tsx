@@ -6,12 +6,14 @@ type Props = {
   children: React.ReactNode;
   chatContent: React.ReactNode;
   "data-cy"?: string;
+  drawerTitle?: React.ReactNode;
 };
 
 export const ChatDrawer: React.FC<Props> = ({
   chatContent,
   children,
   "data-cy": dataCy,
+  drawerTitle,
 }) => {
   const { appName, drawerOpen, setDrawerOpen } = useChatContext();
 
@@ -19,7 +21,11 @@ export const ChatDrawer: React.FC<Props> = ({
     <DrawerLayout
       displayMode="embedded"
       drawer={
-        <StyledDrawer data-cy={dataCy} scrollable={false} title={appName}>
+        <StyledDrawer
+          data-cy={dataCy}
+          scrollable={false}
+          title={drawerTitle || appName}
+        >
           {chatContent}
         </StyledDrawer>
       }
