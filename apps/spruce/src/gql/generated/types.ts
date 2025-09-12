@@ -1637,6 +1637,12 @@ export type ImageToolchainsPayload = {
   totalCount: Scalars["Int"]["output"];
 };
 
+export type IncludedLocalModule = {
+  __typename?: "IncludedLocalModule";
+  fileName: Scalars["String"]["output"];
+  module: Scalars["String"]["output"];
+};
+
 export type InstanceTag = {
   __typename?: "InstanceTag";
   canBeModified: Scalars["Boolean"]["output"];
@@ -2453,6 +2459,7 @@ export type Patch = {
   githubPatchData?: Maybe<GithubPatch>;
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
+  includedLocalModules: Array<IncludedLocalModule>;
   moduleCodeChanges: Array<ModuleCodeChange>;
   parameters: Array<Parameter>;
   patchNumber: Scalars["Int"]["output"];
@@ -11678,6 +11685,11 @@ export type VersionQuery = {
         headHash?: string | null;
         prNumber?: number | null;
       } | null;
+      includedLocalModules: Array<{
+        __typename?: "IncludedLocalModule";
+        fileName: string;
+        module: string;
+      }>;
     } | null;
     previousVersion?: {
       __typename?: "Version";
