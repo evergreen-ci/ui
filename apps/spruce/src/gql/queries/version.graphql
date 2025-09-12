@@ -62,6 +62,10 @@ query Version($id: String!, $includeNeverActivatedTasks: Boolean) {
         headHash
         prNumber
       }
+      includedLocalModules {
+        fileName
+        module
+      }
       patchNumber
     }
     previousVersion {

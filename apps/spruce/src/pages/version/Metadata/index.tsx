@@ -23,6 +23,7 @@ import { VersionQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { string } from "utils";
 import { ParametersModal } from "../ParametersModal";
+import IncludedLocalModules from "./IncludedLocalModules";
 import ManifestBlob from "./ManifestBlob";
 
 const { msToDuration } = string;
@@ -57,7 +58,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
   } = version;
   const { sendEvent } = useVersionAnalytics(id);
   const { makespan, timeTaken } = versionTiming || {};
-  const { githubPatchData } = patch || {};
+  const { githubPatchData, includedLocalModules } = patch || {};
   const { headHash, prNumber } = githubPatchData || {};
 
   const { branch, id: projectID, owner, repo } = projectMetadata || {};
@@ -183,6 +184,10 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           </InlineCode>
         </MetadataItem>
       )}
+      {includedLocalModules !== undefined &&
+        includedLocalModules.length > 0 && (
+          <IncludedLocalModules includedLocalModules={includedLocalModules} />
+        )}
       {manifest && <ManifestBlob manifest={manifest} />}
       {upstreamProject && (
         <MetadataItem>
