@@ -16,6 +16,22 @@ Parsley AI is an intelligent assistant built directly into the **Parsley Log Vie
 - **Cross-log analysis**
   It can also read related log files and provide summaries, so you can understand issues across multiple runs in one view.
 
+## How does Parsley AI work?
+
+Parsley AI uses a combination of specialized agents to help you debug your log failure and suggest next steps. Everytime you ask a question, Parsley AI will select the appropriate agent or multiple agents to use to answer your question. It will analyze the question and come up with a plan of action.
+
+- **Log Analyzer**
+  This agent is responsible for analyzing the log file and identifying the root cause of the failure. Sometimes referred to as the "Log Core Analyzer".
+  This agent will use the log file to identify the root cause of the failure. It is capable of analyzing a single log file with a guiding prompt on what it should look for.
+
+- **Evergreen Agent**
+  This agent is responsible for querying Evergreen for information about the task or test. It is capable of querying Evergreen for information about the task or test. It can also research specific pieces of information pertaining to the task or test.
+
+## Providing Feedback
+
+Parsley AI is a work in progress and we are constantly improving it. It may not always get it right so use your best judgement. If you have any feedback, please let us know by filing a ticket in the DEVPROD Jira project. And assigning to the Evergreen team.
+If you have feedback about specific responses you can use the "Thumbs Up" and "Thumbs Down" buttons to provide feedback on the response. We will use this feedback to improve the quality of the responses.
+
 ## Getting Started
 
 1. Open a log file in the Parsley Log Viewer.
