@@ -118,10 +118,10 @@ describe("Repo Settings", () => {
         cy.dataCy("cq-card")
           .children()
           .as("cqCardFields")
-          .should("have.length", 1);
+          .should("have.length", 2);
 
         cy.get("@enableCQButton").click();
-        cy.get("@cqCardFields").should("have.length", 2);
+        cy.get("@cqCardFields").should("have.length", 3);
         cy.contains("Merge Queue Patch Definitions").scrollIntoView();
         cy.dataCy("error-banner")
           .contains(
@@ -245,10 +245,28 @@ describe("Repo Settings", () => {
       saveButtonEnabled(false);
       // Verify information on Github page
       cy.dataCy("navitem-github-commitqueue").click();
-      cy.contains("GitHub Trigger Aliases").scrollIntoView();
-      cy.dataCy("pta-item").should("have.length", 1);
-      cy.contains("my-alias").should("be.visible");
-      cy.dataCy("pta-item").trigger("mouseover");
+
+      cy.contains("Pull Request Trigger Aliases").scrollIntoView();
+      cy.dataCy("github-pr-trigger-aliases").within(() => {
+        cy.dataCy("pta-item").should("have.length", 1);
+        cy.contains("my-alias").should("be.visible");
+        cy.dataCy("pta-item").trigger("mouseover");
+      });
+      // The tooltip is rendered in a different part of the DOM so we can't chain the 'within' command.
+      cy.dataCy("pta-tooltip").should("be.visible");
+      cy.dataCy("pta-tooltip").contains("spruce");
+      cy.dataCy("pta-tooltip").contains("module_name");
+      cy.dataCy("pta-tooltip").contains("Variant/Task Regex Pairs");
+      cy.dataCy("github-pr-trigger-aliases").within(() => {
+        cy.dataCy("pta-item").trigger("mouseout");
+      });
+
+      cy.contains("Merge Queue Trigger Aliases").scrollIntoView();
+      cy.dataCy("github-mq-trigger-aliases").within(() => {
+        cy.dataCy("pta-item").should("have.length", 1);
+        cy.contains("my-alias").should("be.visible");
+        cy.dataCy("pta-item").trigger("mouseover");
+      });
       cy.dataCy("pta-tooltip").should("be.visible");
       cy.dataCy("pta-tooltip").contains("spruce");
       cy.dataCy("pta-tooltip").contains("module_name");
