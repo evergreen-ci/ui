@@ -9,6 +9,7 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { getParsleyLogkeeperTestLogURL } from "constants/externalResources";
+import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import {
   EvergreenTestResult,
   JobLogsTableTestResult,
@@ -29,6 +30,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   tests,
 }) => {
   const { sendEvent } = useJobLogsAnalytics(isLogkeeper);
+  const { replaceUrl } = useConditionallyLinkToParsleyBeta();
 
   const logkeeperColumns: LGColumnDef<LogkeeperTestResult>[] = useMemo(
     () => [
@@ -38,8 +40,9 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
         cell: ({ getValue, row }) => (
           <Link
             hideExternalIcon
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            href={getParsleyLogkeeperTestLogURL(buildId, row.original.id)}
+            href={replaceUrl(
+              getParsleyLogkeeperTestLogURL(buildId ?? "", row.original.id),
+            )}
             onClick={() => {
               sendEvent({
                 name: "Clicked Parsley test log link",
@@ -54,7 +57,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
         enableSorting: false,
       },
     ],
-    [buildId, sendEvent],
+    [buildId, replaceUrl, sendEvent],
   );
 
   const evergreenColumns: LGColumnDef<EvergreenTestResult>[] = useMemo(
@@ -65,7 +68,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
         cell: ({ getValue, row }) => (
           <Link
             hideExternalIcon
-            href={row.original?.logs?.urlParsley}
+            href={replaceUrl(row.original?.logs?.urlParsley ?? "")}
             onClick={() => {
               sendEvent({
                 name: "Clicked Parsley test log link",
@@ -86,7 +89,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
         enableSorting: false,
       },
     ],
-    [sendEvent],
+    [sendEvent, replaceUrl],
   );
 
   const table = useLeafyGreenTable<JobLogsTableTestResult>({

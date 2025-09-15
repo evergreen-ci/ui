@@ -40,7 +40,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   children,
   loginUrl,
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
   const checkAuth = useCallback(async () => {
@@ -67,7 +67,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
       clearInterval(intervalId);
       setIntervalId(null);
     }
-    const newIntervalId = setInterval(checkAuth, 10000);
+    const newIntervalId = setInterval(checkAuth, 2000);
     setIntervalId(newIntervalId);
   }, [checkAuth, intervalId]);
 

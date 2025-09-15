@@ -16,6 +16,7 @@ import {
 
 const getMetadata = (
   isLogkeeper: boolean,
+  replaceUrl: (url: string) => string,
   options: {
     logkeeperBuildMetadata:
       | LogkeeperBuildMetadataQuery["logkeeperBuildMetadata"]
@@ -31,8 +32,7 @@ const getMetadata = (
   if (isLogkeeper) {
     const { buildNum, builder } = options.logkeeperBuildMetadata || {};
     return {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      completeLogsURL: getParsleyBuildLogURL(options.buildId),
+      completeLogsURL: replaceUrl(getParsleyBuildLogURL(options.buildId ?? "")),
       builder,
       buildId: options.buildId,
       buildNum,
@@ -46,8 +46,13 @@ const getMetadata = (
     };
   }
   return {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    completeLogsURL: getParsleyCompleteLogsURL(id, execution, options.groupId),
+    completeLogsURL: replaceUrl(
+      getParsleyCompleteLogsURL(
+        id ?? "",
+        execution ?? 0,
+        options.groupId ?? "",
+      ),
+    ),
     displayName,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     execution,
