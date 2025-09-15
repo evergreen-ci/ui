@@ -1,26 +1,27 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { Body, BodyProps, H2 } from "@leafygreen-ui/typography";
+import { useNavigate } from "react-router-dom";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
-import { TaskQuery } from "gql/generated/types";
+import GanttChart from "components/GanttChart";
 import {
   GanttChartData,
   GanttChartDataRow,
   GANTT_CHART_COLUMN_HEADERS,
-} from "pages/version/Tabs/VersionTiming/types";
-import VersionTimingGraph from "pages/version/Tabs/VersionTiming/VersionTimingGraph";
+} from "components/GanttChart/types";
+import { getTaskRoute } from "constants/routes";
+import { TaskQuery } from "gql/generated/types";
 
 interface Props {
   executionTasksFull: NonNullable<TaskQuery["task"]>["executionTasksFull"];
-  taskId: string;
   taskName: string;
 }
 
 const ExecutionTasksTiming: React.FC<Props> = ({
   executionTasksFull,
-  taskId,
   taskName,
 }) => {
+  const navigate = useNavigate();
   const chartData = useMemo((): GanttChartData => {
     if (!executionTasksFull || executionTasksFull.length === 0) {
       return [GANTT_CHART_COLUMN_HEADERS];
@@ -56,11 +57,12 @@ const ExecutionTasksTiming: React.FC<Props> = ({
         <b>{taskName}</b>. This is a Gantt chart showing when each execution
         task started and finished running. Click on a task to visit its page.
       </StyledBody>
-      <VersionTimingGraph
+      <GanttChart
         data={chartData}
-        dataType="task"
         loading={false}
-        versionId={taskId}
+        onRowClick={(selectedId) => {
+          navigate(getTaskRoute(selectedId));
+        }}
       />
     </>
   );

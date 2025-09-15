@@ -178,7 +178,6 @@ const useTabConfig = (
       >
         <ExecutionTasksTiming
           executionTasksFull={executionTasksFull}
-          taskId={id}
           taskName={displayName}
         />
       </Tab>
