@@ -7466,6 +7466,10 @@ export type AdminSettingsQuery = {
         roleARN?: string | null;
         testResultsPrefix?: string | null;
       } | null;
+      logBucketFailedTasks?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+      } | null;
       logBucketLongRetention?: {
         __typename?: "BucketConfig";
         name?: string | null;
@@ -11167,8 +11171,10 @@ export type TaskQuery = {
       displayName: string;
       displayStatus: string;
       execution: number;
+      finishTime?: Date | null;
       projectIdentifier?: string | null;
       reviewed?: boolean | null;
+      startTime?: Date | null;
       revision?: string | null;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };

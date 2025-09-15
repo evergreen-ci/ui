@@ -150,13 +150,7 @@ const tabMap = ({
       key="version-timing-tab"
       data-cy="version-timing-tab"
       id="version-timing-tab"
-      name={
-        <TabLabelWithBadge
-          badgeText="BETA"
-          badgeVariant="green"
-          tabLabel={isVariantTimingView ? "Variant Timing" : "Version Timing"}
-        />
-      }
+      name={isVariantTimingView ? "Variant Timing" : "Version Timing"}
     >
       <VersionTiming taskCount={taskCount} versionId={versionId} />
     </Tab>

@@ -2,15 +2,17 @@ import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Body, BodyProps, H2 } from "@leafygreen-ui/typography";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
+import GanttChart from "components/GanttChart";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { TableQueryParams } from "constants/queryParams";
+import { getTaskRoute, getVersionRoute } from "constants/routes";
 import {
   SortDirection,
   TaskSortCategory,
@@ -19,13 +21,14 @@ import {
 } from "gql/generated/types";
 import { VERSION_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
+import { VersionPageTabs } from "types/patch";
 import { PatchTasksQueryParams } from "types/task";
+import { applyStrictRegex } from "utils/string";
 import { useQueryVariables } from "../useQueryVariables";
 import {
   transformTaskDurationDataToVariantGanttChartData,
   transformTaskDurationDataToTaskGanttChartData,
 } from "./utils";
-import VersionTimingGraph from "./VersionTimingGraph";
 
 interface Props {
   versionId: string;
@@ -37,6 +40,7 @@ const defaultSort = `${TaskSortCategory.Duration}:${SortDirection.Desc}`;
 const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
   const dispatchToast = useToastContext();
   const { search } = useLocation();
+  const navigate = useNavigate();
 
   const [queryParams, setQueryParams] = useQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId);
@@ -133,11 +137,21 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
         page={isVariantTimingView ? page || 0 : 0}
         totalCount={isVariantTimingView ? taskCount : chartData.length - 1}
       />
-      <VersionTimingGraph
+      <GanttChart
         data={chartData}
-        dataType={isVariantTimingView ? "task" : "variant"}
         loading={loading}
-        versionId={versionId}
+        onRowClick={(selectedId) => {
+          if (isVariantTimingView) {
+            navigate(getTaskRoute(selectedId));
+          } else {
+            navigate(
+              getVersionRoute(versionId, {
+                tab: VersionPageTabs.VersionTiming,
+                variant: applyStrictRegex(selectedId),
+              }),
+            );
+          }
+        }}
       />
     </>
   );
