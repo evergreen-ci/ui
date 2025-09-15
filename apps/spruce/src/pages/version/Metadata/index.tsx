@@ -21,12 +21,10 @@ import {
 } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
-import { string } from "utils";
+import { msToDuration } from "utils/string";
 import { ParametersModal } from "../ParametersModal";
 import IncludedLocalModules from "./IncludedLocalModules";
 import ManifestBlob from "./ManifestBlob";
-
-const { msToDuration } = string;
 
 interface MetadataProps {
   version: NonNullable<VersionQuery["version"]>;
