@@ -39,29 +39,25 @@ const GanttChart: React.FC<Props> = ({ data, loading = false, onRowClick }) => {
 
   return (
     <Chart
-      chartEvents={
-        onRowClick
-          ? [
-              {
-                eventName: "select",
-                callback: ({ chartWrapper }) => {
-                  const chart = chartWrapper?.getChart();
-                  const selection = chart?.getSelection();
+      chartEvents={[
+        {
+          eventName: "select",
+          callback: ({ chartWrapper }) => {
+            const chart = chartWrapper?.getChart();
+            const selection = chart?.getSelection();
 
-                  if (selection && selection.length > 0) {
-                    const selectedItem = selection[0];
-                    const rowIndex = selectedItem.row;
-                    const selectedId = chartWrapper
-                      ?.getDataTable()
-                      ?.getValue(rowIndex, 0) as string;
+            if (selection && selection.length > 0 && onRowClick) {
+              const selectedItem = selection[0];
+              const rowIndex = selectedItem.row;
+              const selectedId = chartWrapper
+                ?.getDataTable()
+                ?.getValue(rowIndex, 0) as string;
 
-                    onRowClick(selectedId);
-                  }
-                },
-              },
-            ]
-          : []
-      }
+              onRowClick(selectedId);
+            }
+          },
+        },
+      ]}
       chartType="Gantt"
       data={data}
       height={Math.max(
