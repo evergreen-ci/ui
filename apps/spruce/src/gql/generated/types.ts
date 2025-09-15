@@ -11687,6 +11687,11 @@ export type VersionQuery = {
         headHash?: string | null;
         prNumber?: number | null;
       } | null;
+      includedLocalModules: Array<{
+        __typename?: "IncludedLocalModule";
+        fileName: string;
+        module: string;
+      }>;
     } | null;
     previousVersion?: {
       __typename?: "Version";
