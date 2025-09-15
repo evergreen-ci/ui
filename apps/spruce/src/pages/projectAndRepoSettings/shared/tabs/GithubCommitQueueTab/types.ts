@@ -60,6 +60,7 @@ export interface GCQFormState {
         mergeQueueAliases: Array<AliasFormType>;
       };
     };
+    githubMQTriggerAliases: ProjectPatchAliasSettingsFragment["patchTriggerAliases"];
   };
 }
 
