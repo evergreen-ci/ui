@@ -1,9 +1,9 @@
 import { MessageActions, MessageActionsProps } from "@lg-chat/message-actions";
 
-interface Props {
+export interface MessageEvalProps {
   handleVote?: MessageActionsProps["onRatingChange"];
 }
 
-export const MessageEvaluation: React.FC<Props> = ({ handleVote }) => (
-  <MessageActions onRatingChange={handleVote} />
-);
+export const MessageEvaluation: React.FC<MessageEvalProps> = ({
+  handleVote,
+}) => <MessageActions onRatingChange={handleVote} />;

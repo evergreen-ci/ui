@@ -1,7 +1,7 @@
 import { size } from "@evg-ui/lib/constants/tokens";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { ToolStateEnum } from "../types";
 import { renderableToolLabels } from "./constants";
-import { ToolStateEnum } from "./types";
 import { ToolRenderer } from ".";
 
 export default {

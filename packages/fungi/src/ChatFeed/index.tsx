@@ -3,14 +3,13 @@ import styled from "@emotion/styled";
 import { ChatWindow } from "@lg-chat/chat-window";
 import { InputBar } from "@lg-chat/input-bar";
 import { LeafyGreenChatProvider } from "@lg-chat/leafygreen-chat-provider";
-import { MessageActionsProps } from "@lg-chat/message-actions";
 import { MessageFeed } from "@lg-chat/message-feed";
-import { MessageRatingValue } from "@lg-chat/message-rating";
 import { DefaultChatTransport } from "ai";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useChatContext } from "../Context";
 import { Disclaimer } from "../Disclaimer";
-import { MessageRenderer } from "../MessageRenderer";
+import { MessageEvalProps } from "../MessageEvaluation";
+import { FungiUIMessage, MessageRenderer } from "../MessageRenderer";
 import { Suggestions } from "../Suggestions";
 
 export type ChatFeedProps = {
@@ -18,7 +17,7 @@ export type ChatFeedProps = {
   bodyData?: object;
   chatSuggestions?: string[];
   disclaimerContent?: React.ReactNode;
-  ratingUrl?: string;
+  handleRatingChange?: (id: string) => MessageEvalProps["handleVote"];
 };
 
 export const ChatFeed: React.FC<ChatFeedProps> = ({
@@ -26,10 +25,10 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   bodyData,
   chatSuggestions,
   disclaimerContent,
-  ratingUrl,
+  handleRatingChange,
 }) => {
   const { appName } = useChatContext();
-  const { messages, sendMessage } = useChat({
+  const { messages, sendMessage } = useChat<FungiUIMessage>({
     transport: new DefaultChatTransport({
       api: apiUrl,
       credentials: "include",
@@ -48,24 +47,6 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   const handleSend = (message: string) => {
     sendMessage({ text: message });
   };
-
-  const handleRatingChange = ratingUrl
-    ? (messageId: string) =>
-        (async (e, options) => {
-          const response = await fetch(ratingUrl, {
-            method: "POST",
-            body: JSON.stringify({
-              messageId,
-              rating: options?.rating === MessageRatingValue.Liked ? 1 : 0,
-              timestamp: new Date(),
-            }),
-          });
-          if (!response.ok) {
-            const err = await response.json();
-            throw new Error(`Rating message: ${err.message}`);
-          }
-        }) satisfies MessageActionsProps["onRatingChange"]
-    : undefined;
 
   const hasMessages = messages?.length > 0;
 
@@ -87,13 +68,16 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
               )}
             </EmptyContainer>
           ) : (
-            messages.map((m) => (
-              <MessageRenderer
-                key={m.id}
-                handleVote={handleRatingChange?.(m.id)}
-                {...m}
-              />
-            ))
+            messages.map((m) => {
+              const spanId = m?.metadata?.spanId;
+              return (
+                <MessageRenderer
+                  key={m.id}
+                  handleVote={spanId ? handleRatingChange?.(spanId) : undefined}
+                  {...m}
+                />
+              );
+            })
           )}
         </MessageFeed>
         <InputBar onMessageSend={handleSend} />
