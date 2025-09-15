@@ -106,7 +106,7 @@ export const getFormSchema = (
             },
             githubPRTriggerAliases: {
               type: "array" as const,
-              title: "GitHub Trigger Aliases",
+              title: "Pull Request Trigger Aliases",
               items: {
                 type: "object" as const,
               },
@@ -211,38 +211,25 @@ export const getFormSchema = (
                 repoData?.mergeQueue?.enabled,
               ),
             },
-          },
-          dependencies: {
-            enabled: {
-              oneOf: [
-                {
-                  properties: {
-                    enabled: {
-                      enum: [false],
-                    },
-                  },
-                },
-                {
-                  properties: {
-                    enabled: {
-                      enum: [true],
-                    },
-                    patchDefinitions: {
-                      type: "object" as const,
-                      title: "Merge Queue Patch Definitions",
-                      ...overrideRadioBox(
-                        "mergeQueueAliases",
-                        [
-                          "Override Repo Patch Definition",
-                          "Default to Repo Patch Definition",
-                        ],
-                        // @ts-expect-error: FIXME. This comment was added by an automated script.
-                        aliasArray.schema,
-                      ),
-                    },
-                  },
-                },
-              ],
+            patchDefinitions: {
+              type: "object" as const,
+              title: "Merge Queue Patch Definitions",
+              ...overrideRadioBox(
+                "mergeQueueAliases",
+                [
+                  "Override Repo Patch Definition",
+                  "Default to Repo Patch Definition",
+                ],
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                aliasArray.schema,
+              ),
+            },
+            githubMQTriggerAliases: {
+              type: "array" as const,
+              title: "Merge Queue Trigger Aliases",
+              items: {
+                type: "object" as const,
+              },
             },
           },
         },
@@ -342,14 +329,17 @@ export const getFormSchema = (
           },
         },
         githubPRTriggerAliases: {
+          "ui:data-cy": "github-pr-trigger-aliases",
           "ui:addable": false,
           "ui:orderable": false,
-          "ui:placeholder": "No GitHub Trigger Aliases are defined.",
+          "ui:placeholder":
+            "No aliases are scheduled to run for pull requests.",
           "ui:readonly": true,
           "ui:removable": false,
           "ui:descriptionNode": (
             <GithubTriggerAliasDescription
               identifier={identifier}
+              isPR
               isRepo={projectType === ProjectType.Repo}
             />
           ),
@@ -474,6 +464,13 @@ export const getFormSchema = (
           ),
         },
         patchDefinitions: {
+          ...hideIf(
+            fieldDisabled(
+              formData?.mergeQueue?.enabled,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              repoData?.mergeQueue?.enabled,
+            ),
+          ),
           ...errorStyling(
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             formData?.mergeQueue?.enabled,
@@ -500,6 +497,24 @@ export const getFormSchema = (
                 isRepo: true,
               }),
             },
+          },
+        },
+        githubMQTriggerAliases: {
+          "ui:data-cy": "github-mq-trigger-aliases",
+          "ui:addable": false,
+          "ui:orderable": false,
+          "ui:placeholder": "No aliases are scheduled to run for merge queue.",
+          "ui:readonly": true,
+          "ui:removable": false,
+          "ui:descriptionNode": (
+            <GithubTriggerAliasDescription
+              identifier={identifier}
+              isRepo={projectType === ProjectType.Repo}
+            />
+          ),
+          items: {
+            "ui:field": "githubTriggerAliasField",
+            "ui:label": false,
           },
         },
       },
@@ -548,15 +563,18 @@ const userTeamStyling = (
 
 const GithubTriggerAliasDescription = ({
   identifier,
+  isPR,
   isRepo,
 }: {
   identifier: string;
   isRepo: boolean;
+  isPR?: boolean;
 }) => {
   const tab = ProjectSettingsTabRoutes.PatchAliases;
   return (
     <Description>
-      GitHub Trigger Aliases can be configured on the{" "}
+      Aliases can be configured to run for{" "}
+      {isPR ? "pull requests" : "merge queue"} on the{" "}
       <StyledRouterLink
         to={
           isRepo
