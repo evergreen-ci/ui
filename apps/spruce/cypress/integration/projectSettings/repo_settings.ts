@@ -246,22 +246,26 @@ describe("Repo Settings", () => {
       // Verify information on Github page
       cy.dataCy("navitem-github-commitqueue").click();
       cy.contains("Pull Request Trigger Aliases").scrollIntoView();
-      cy.dataCy("pta-item").should("have.length", 1);
+      cy.find("#root_github").dataCy("pta-item").should("have.length", 1);
       cy.contains("my-alias").should("be.visible");
-      cy.dataCy("pta-item").trigger("mouseover");
-      cy.dataCy("pta-tooltip").should("be.visible");
-      cy.dataCy("pta-tooltip").contains("spruce");
-      cy.dataCy("pta-tooltip").contains("module_name");
-      cy.dataCy("pta-tooltip").contains("Variant/Task Regex Pairs");
+      cy.find("#root_github").dataCy("pta-item").trigger("mouseover");
+      cy.find("#root_github").dataCy("pta-tooltip").should("be.visible");
+      cy.find("#root_github").dataCy("pta-tooltip").contains("spruce");
+      cy.find("#root_github").dataCy("pta-tooltip").contains("module_name");
+      cy.find("#root_github")
+        .dataCy("pta-tooltip")
+        .contains("Variant/Task Regex Pairs");
 
       cy.contains("Merge Queue Trigger Aliases").scrollIntoView();
-      cy.dataCy("pta-item").should("have.length", 1);
+      cy.find("#root_mergeQueue").dataCy("pta-item").should("have.length", 1);
       cy.contains("my-alias").should("be.visible");
-      cy.dataCy("pta-item").trigger("mouseover");
-      cy.dataCy("pta-tooltip").should("be.visible");
-      cy.dataCy("pta-tooltip").contains("spruce");
-      cy.dataCy("pta-tooltip").contains("module_name");
-      cy.dataCy("pta-tooltip").contains("Variant/Task Regex Pairs");
+      cy.find("#root_mergeQueue").dataCy("pta-item").trigger("mouseover");
+      cy.find("#root_mergeQueue").dataCy("pta-tooltip").should("be.visible");
+      cy.find("#root_mergeQueue").dataCy("pta-tooltip").contains("spruce");
+      cy.find("#root_mergeQueue").dataCy("pta-tooltip").contains("module_name");
+      cy.find("#root_mergeQueue")
+        .dataCy("pta-tooltip")
+        .contains("Variant/Task Regex Pairs");
     });
   });
 
