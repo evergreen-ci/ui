@@ -329,6 +329,7 @@ export const getFormSchema = (
           },
         },
         githubPRTriggerAliases: {
+          "ui:data-cy": "github-pr-trigger-aliases",
           "ui:addable": false,
           "ui:orderable": false,
           "ui:placeholder":
@@ -499,6 +500,7 @@ export const getFormSchema = (
           },
         },
         githubMQTriggerAliases: {
+          "ui:data-cy": "github-mq-trigger-aliases",
           "ui:addable": false,
           "ui:orderable": false,
           "ui:placeholder": "No aliases are scheduled to run for merge queue.",
