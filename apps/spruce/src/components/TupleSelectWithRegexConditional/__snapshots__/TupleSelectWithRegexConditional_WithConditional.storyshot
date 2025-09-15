@@ -15,8 +15,8 @@
           class="leafygreen-ui-ozfao7 emotion-PaddedSegmentedControl egmqwjk0"
         >
           <div
-            aria-label="segmented-control-1"
-            aria-owns="segmented-control-1-0 segmented-control-1-1"
+            aria-label="segmented-control-123"
+            aria-owns="segmented-control-123-0 segmented-control-123-1"
             class="leafygreen-ui-18en4yf"
             role="tablist"
           >
@@ -33,7 +33,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="true"
                   class="leafygreen-ui-ypz97o"
-                  id="segmented-control-1-0"
+                  id="segmented-control-123-0"
                   role="tab"
                   tabindex="0"
                   type="button"
@@ -63,7 +63,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="false"
                   class="leafygreen-ui-ypz97o"
-                  id="segmented-control-1-1"
+                  id="segmented-control-123-1"
                   role="tab"
                   tabindex="-1"
                   type="button"
@@ -98,17 +98,17 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-5-menu"
-          aria-describedby="select-5-description"
+          aria-controls="select-124-menu"
+          aria-describedby="select-124-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="Tuple Select Select"
-          class="lg-ui-button-0000 leafygreen-ui-5xsnod leafygreen-ui-z3qisk"
+          class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
           data-cy="tuple-select-select"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-6"
+          id="select-125"
           type="button"
           value="build_variant"
         >
@@ -131,7 +131,7 @@
             <svg
               alt=""
               aria-hidden="true"
-              class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
+              class="leafygreen-ui-fn50nl"
               height="16"
               role="presentation"
               viewBox="0 0 16 16"
@@ -191,7 +191,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-form_field-feedback"
             data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-63"
+            id="lg-form_field-feedback-128"
           />
         </div>
         <div

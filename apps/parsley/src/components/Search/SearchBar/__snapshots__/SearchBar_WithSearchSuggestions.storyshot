@@ -7,17 +7,17 @@
       data-lgid="lg-select"
     >
       <button
-        aria-controls="select-3-menu"
-        aria-describedby="select-3-description"
+        aria-controls="select-10-menu"
+        aria-describedby="select-10-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
-        class="lg-ui-button-0000 leafygreen-ui-5xsnod leafygreen-ui-z3qisk"
+        class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
         data-cy="searchbar-select"
         data-lgid="lg-button"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-4"
+        id="select-11"
         type="button"
         value="filter"
       >
@@ -40,7 +40,7 @@
           <svg
             alt=""
             aria-hidden="true"
-            class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
+            class="leafygreen-ui-fn50nl"
             height="16"
             role="presentation"
             viewBox="0 0 16 16"
@@ -140,7 +140,7 @@
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="searchbar-input"
-                id="lg-form_field-input-8"
+                id="lg-form_field-input-15"
                 placeholder="optional, regexp to search"
                 required=""
                 spellcheck="false"
@@ -155,7 +155,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-form_field-feedback"
             data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-7"
+            id="lg-form_field-feedback-14"
           />
         </div>
         <div

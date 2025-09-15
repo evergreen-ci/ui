@@ -142,8 +142,8 @@
               Case
             </div>
             <div
-              aria-label="segmented-control-1"
-              aria-owns="segmented-control-1-0 segmented-control-1-1"
+              aria-label="segmented-control-16"
+              aria-owns="segmented-control-16-0 segmented-control-16-1"
               class="leafygreen-ui-18en4yf"
               role="tablist"
             >
@@ -159,7 +159,7 @@
                     aria-controls="Toggle case sensitivity"
                     aria-selected="false"
                     class="leafygreen-ui-ypz97o"
-                    id="segmented-control-1-0"
+                    id="segmented-control-16-0"
                     role="tab"
                     tabindex="-1"
                     type="button"
@@ -188,7 +188,7 @@
                     aria-controls="Toggle case sensitivity"
                     aria-selected="true"
                     class="leafygreen-ui-ypz97o"
-                    id="segmented-control-1-1"
+                    id="segmented-control-16-1"
                     role="tab"
                     tabindex="0"
                     type="button"
@@ -222,8 +222,8 @@
               Match
             </div>
             <div
-              aria-label="segmented-control-2"
-              aria-owns="segmented-control-2-0 segmented-control-2-1"
+              aria-label="segmented-control-17"
+              aria-owns="segmented-control-17-0 segmented-control-17-1"
               class="leafygreen-ui-18en4yf"
               role="tablist"
             >
@@ -239,7 +239,7 @@
                     aria-controls="Toggle match type"
                     aria-selected="true"
                     class="leafygreen-ui-ypz97o"
-                    id="segmented-control-2-0"
+                    id="segmented-control-17-0"
                     role="tab"
                     tabindex="0"
                     type="button"
@@ -268,7 +268,7 @@
                     aria-controls="Toggle match type"
                     aria-selected="false"
                     class="leafygreen-ui-ypz97o"
-                    id="segmented-control-2-1"
+                    id="segmented-control-17-1"
                     role="tab"
                     tabindex="-1"
                     type="button"
