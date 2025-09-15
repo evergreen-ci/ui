@@ -182,8 +182,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           </InlineCode>
         </MetadataItem>
       )}
-      {includedLocalModules !== undefined &&
-        includedLocalModules.length > 0 && (
+      {includedLocalModules?.length > 0 && (
           <IncludedLocalModules includedLocalModules={includedLocalModules} />
         )}
       {manifest && <ManifestBlob manifest={manifest} />}
