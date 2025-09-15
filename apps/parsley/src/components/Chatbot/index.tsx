@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import styled from "@emotion/styled";
 import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { Chat, ChatProps, MessageRatingValue } from "@evg-ui/fungi/Chat";
@@ -37,23 +38,26 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
     },
   };
 
-  const handleRatingChange = ((spanId: string) => async (e, options) => {
-    const response = await fetch(ratingURL, {
-      body: JSON.stringify({
-        rating: options?.rating === MessageRatingValue.Liked ? 1 : 0,
-        spanId,
-      }),
-      credentials: "include",
-      headers: {
-        "content-type": "application/json",
-      },
-      method: "POST",
-    });
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(`Rating message: ${err.message}`);
-    }
-  }) satisfies ChatProps["handleRatingChange"];
+  const handleRatingChange = useCallback(
+    ((spanId: string) => async (e, options) => {
+      const response = await fetch(ratingURL, {
+        body: JSON.stringify({
+          rating: options?.rating === MessageRatingValue.Liked ? 1 : 0,
+          spanId,
+        }),
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        method: "POST",
+      });
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(`Rating message: ${err.message}`);
+      }
+    }) satisfies ChatProps["handleRatingChange"],
+    [ratingURL],
+  );
 
   return (
     <ChatDrawer
