@@ -9,7 +9,7 @@ export const Default: CustomStoryObj<typeof Suggestions> = {
   args: {
     handleSend: () => {},
     suggestions: [
-      "Suggested prompt A",
+      "Suggested prompt This is a new one",
       "Suggested prompt B",
       "Suggested prompt C",
     ],
