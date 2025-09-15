@@ -5,11 +5,9 @@ import { MessageEvaluation, MessageEvalProps } from "../MessageEvaluation";
 import { ToolRenderer } from "./ToolRenderer";
 import { FungiUIMessage } from "./types";
 
-export type { FungiUIMessage };
-
 export const MessageRenderer: React.FC<FungiUIMessage & MessageEvalProps> = ({
-  handleVote,
   id,
+  onRatingChange,
   parts,
   role,
 }) => (
@@ -27,7 +25,7 @@ export const MessageRenderer: React.FC<FungiUIMessage & MessageEvalProps> = ({
             sourceType={MessageSourceType.Markdown}
           >
             {!isSender && part.state === "done" && (
-              <MessageEvaluation handleVote={handleVote} />
+              <MessageEvaluation onRatingChange={onRatingChange} />
             )}
           </StyledMessage>
         );
@@ -48,3 +46,5 @@ const StyledMessage = styled(Message)`
 const isToolUse = (
   part: UIMessagePart<UIDataTypes, UITools>,
 ): part is ToolUIPart => part.type.startsWith("tool-");
+
+export type { FungiUIMessage };

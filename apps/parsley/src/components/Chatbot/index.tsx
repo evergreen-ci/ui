@@ -39,7 +39,7 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const handleRatingChange = useCallback(
-    ((spanId: string) => async (e, options) => {
+    ((spanId) => async (e, options) => {
       const response = await fetch(ratingURL, {
         body: JSON.stringify({
           rating: options?.rating === MessageRatingValue.Liked ? 1 : 0,

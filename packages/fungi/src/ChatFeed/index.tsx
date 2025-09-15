@@ -17,7 +17,7 @@ export type ChatFeedProps = {
   bodyData?: object;
   chatSuggestions?: string[];
   disclaimerContent?: React.ReactNode;
-  handleRatingChange?: (id: string) => MessageEvalProps["handleVote"];
+  handleRatingChange?: (spanId: string) => MessageEvalProps["onRatingChange"];
   onClickSuggestion?: (suggestion: string) => void;
 };
 
@@ -79,7 +79,9 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
               return (
                 <MessageRenderer
                   key={m.id}
-                  handleVote={spanId ? handleRatingChange?.(spanId) : undefined}
+                  onRatingChange={
+                    spanId ? handleRatingChange?.(spanId) : undefined
+                  }
                   {...m}
                 />
               );
