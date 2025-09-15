@@ -11171,8 +11171,10 @@ export type TaskQuery = {
       displayName: string;
       displayStatus: string;
       execution: number;
+      finishTime?: Date | null;
       projectIdentifier?: string | null;
       reviewed?: boolean | null;
+      startTime?: Date | null;
       revision?: string | null;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };

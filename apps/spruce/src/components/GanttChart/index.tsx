@@ -2,11 +2,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import Chart from "react-google-charts";
-import { useNavigate } from "react-router-dom";
-import { getTaskRoute, getVersionRoute } from "constants/routes";
-import { VersionPageTabs } from "types/patch";
-import { applyStrictRegex } from "utils/string";
-import { GanttChartData } from "../types";
+import { GanttChartData } from "./types";
 
 const { black, green } = palette;
 const CHART_ROW_HEIGHT_IN_PIXELS = 42;
@@ -15,20 +11,12 @@ const DEFAULT_LABEL_MAX_WIDTH = 300;
 const CHARACTER_WIDTH = 8;
 
 interface Props {
-  versionId: string;
   data: GanttChartData;
-  loading: boolean;
-  dataType: "task" | "variant";
+  loading?: boolean;
+  onRowClick?: (rowId: string) => void;
 }
 
-const VersionTimingGraph: React.FC<Props> = ({
-  data,
-  dataType,
-  loading,
-  versionId,
-}) => {
-  const navigate = useNavigate();
-
+const GanttChart: React.FC<Props> = ({ data, loading = false, onRowClick }) => {
   if (loading) {
     return <ListSkeleton />;
   }
@@ -58,23 +46,14 @@ const VersionTimingGraph: React.FC<Props> = ({
             const chart = chartWrapper?.getChart();
             const selection = chart?.getSelection();
 
-            if (selection && selection.length > 0) {
+            if (selection && selection.length > 0 && onRowClick) {
               const selectedItem = selection[0];
               const rowIndex = selectedItem.row;
               const selectedId = chartWrapper
                 ?.getDataTable()
                 ?.getValue(rowIndex, 0) as string;
 
-              if (dataType === "task") {
-                navigate(getTaskRoute(selectedId));
-              } else {
-                navigate(
-                  getVersionRoute(versionId, {
-                    tab: VersionPageTabs.VersionTiming,
-                    variant: applyStrictRegex(selectedId),
-                  }),
-                );
-              }
+              onRowClick(selectedId);
             }
           },
         },
@@ -119,4 +98,4 @@ const Container = styled.div`
   height: ${MINIMUM_CHART_HEIGHT_IN_PIXELS}px;
 `;
 
-export default VersionTimingGraph;
+export default GanttChart;
