@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { useBaseFontSize } from "@leafygreen-ui/leafygreen-provider";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
 
@@ -17,26 +16,22 @@ const TimeInput: React.FC<TimeInputProps> = ({
   disabled,
   setPopoverOpen,
   value,
-}) => {
-  const fontSize = useBaseFontSize();
-  return (
-    <StyledInput
-      data-cy={dataCy}
-      disabled={disabled}
-      fontSize={fontSize}
-      maxLength={2}
-      onClick={() => setPopoverOpen(true)}
-      placeholder="00"
-      type="text"
-      value={value}
-    />
-  );
-};
+}) => (
+  <StyledInput
+    data-cy={dataCy}
+    disabled={disabled}
+    maxLength={2}
+    onClick={() => setPopoverOpen(true)}
+    placeholder="00"
+    type="text"
+    value={value}
+  />
+);
 TimeInput.displayName = "TimeInput";
 
-const StyledInput = styled.input<{ fontSize: number }>`
+const StyledInput = styled.input`
   font-family: inherit;
-  font-size: ${({ fontSize }) => fontSize}px;
+  font-size: inherit;
   font-variant-numeric: tabular-nums;
   text-align: center;
 
