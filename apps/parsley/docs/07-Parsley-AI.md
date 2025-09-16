@@ -28,11 +28,6 @@ Parsley AI uses a combination of specialized agents to help you debug your log f
 
 - **Evergreen Agent**: This agent is responsible for querying Evergreen for information about the task or test. It can also research specific pieces of information pertaining to the task or test.
 
-## Providing Feedback
-
-Parsley AI is a work in progress and we are constantly improving it. It may not always get it right so use your best judgement. If you have any feedback, please let us know by filing a ticket in the DEVPROD Jira project and adding "Evergreen UI" as the service.
-If you have feedback about specific responses you can use the "Thumbs Up" and "Thumbs Down" buttons to provide feedback on the response. We will use this feedback to improve the quality of the responses.
-
 ## Getting Started
 
 1. Open a log file in the Parsley Log Viewer.
@@ -40,3 +35,8 @@ If you have feedback about specific responses you can use the "Thumbs Up" and "T
 3. If you are not logged in, you will be prompted to login.
 4. Ask a question about your task or test (for example: _“Why did this test fail?”_).
 5. Review Parsley AI’s analysis and suggested next steps.
+
+## Providing Feedback
+
+Parsley AI is a work in progress and we are constantly improving it. It may not always get it right so use your best judgement. If you have any feedback, please let us know by filing a ticket in the DEVPROD Jira project and adding "Evergreen UI" as the service.
+If you have feedback about specific responses you can use the "Thumbs Up" and "Thumbs Down" buttons to provide feedback on the response. We will use this feedback to improve the quality of the responses.
