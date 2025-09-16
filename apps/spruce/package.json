@@ -73,7 +73,7 @@
     "@leafygreen-ui/confirmation-modal": "^5.0.9",
     "@leafygreen-ui/copyable": "^11.0.1",
     "@leafygreen-ui/date-picker": "^4.0.5",
-    "@leafygreen-ui/date-utils": "^0.1.2",
+    "@leafygreen-ui/date-utils": "^0.3.4",
     "@leafygreen-ui/emotion": "^4.0.7",
     "@leafygreen-ui/empty-state": "^3.0.4",
     "@leafygreen-ui/expandable-card": "^3.1.0",

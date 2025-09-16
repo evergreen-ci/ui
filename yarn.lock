@@ -3493,24 +3493,24 @@
     polished "^4.2.2"
     weekstart "^2.0.0"
 
-"@leafygreen-ui/date-utils@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/date-utils/-/date-utils-0.1.2.tgz#93227a796608d7b3e8cf3271eb7daf1765c24fd4"
-  integrity sha512-RmNpHBIfXzkgUBIV7UXD8Gk/OYGRrIxdQAO4EwEvQrHjX7tXsnSNOJrNvWTZRvtB8WZuuvv76LLzVtJTrf8TEg==
-  dependencies:
-    "@leafygreen-ui/lib" "^13.3.0"
-    date-fns "^2.30.0"
-    date-fns-tz "^2.0.0"
-    lodash "^4.17.21"
-    timezone-mock "^1.3.6"
-    weekstart "^2.0.0"
-
 "@leafygreen-ui/date-utils@^0.3.2":
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/date-utils/-/date-utils-0.3.2.tgz#189bf109545d941db07864f8c5257d80d752551e"
   integrity sha512-mvPL2rtgNn3vCjgHmYN0IyzlXvy6ybVOmmEH3Rl/wtyAdhrohpwjawp9LZECmpHYv/1Vwwu8g3UbOByww9R/0Q==
   dependencies:
     "@leafygreen-ui/lib" "^15.2.0"
+    date-fns "^2.30.0"
+    date-fns-tz "^2.0.0"
+    lodash "^4.17.21"
+    timezone-mock "^1.3.6"
+    weekstart "^2.0.0"
+
+"@leafygreen-ui/date-utils@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/date-utils/-/date-utils-0.3.4.tgz#dbd32af6d4eb881c57cb817042bdf472f633af7c"
+  integrity sha512-Utat+90lmR+N80Kau1ccr80clod5GHbBgGAPG6rWms6YRAIb7Pz7KqIfJ8IahIsWCgg/8zMIrg6jpPJsPz9GTg==
+  dependencies:
+    "@leafygreen-ui/lib" "^15.3.0"
     date-fns "^2.30.0"
     date-fns-tz "^2.0.0"
     lodash "^4.17.21"
@@ -3931,6 +3931,13 @@
   version "15.2.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-15.2.0.tgz#277741190da773e2a6acd01cf6fca1f56d215474"
   integrity sha512-wrVJGaqACcYWE/xPHHJREpRvkoy4Biwim1SUuq0hs/lXf6cEMg7MD9x2fUDJ9v6tQmLiFuwRXbJiXrvVXkz4Lg==
+  dependencies:
+    lodash "^4.17.21"
+
+"@leafygreen-ui/lib@^15.3.0":
+  version "15.3.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-15.3.0.tgz#17aabb474c518b76ef5a3820cd9abf43740db3f4"
+  integrity sha512-WuEd60jLO2u3J2MdMHglKTvqC2DmjA/JI6BpCIU35Gim3ruf6+DF1WIyOhhxibqTtnn/5vEY0oAJrd3728UYCQ==
   dependencies:
     lodash "^4.17.21"
 
