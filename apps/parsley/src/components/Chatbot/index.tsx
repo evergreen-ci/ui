@@ -5,6 +5,7 @@ import { Chat, ChatProps, MessageRatingValue } from "@evg-ui/fungi/Chat";
 import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
 import { ChatProvider as FungiProvider } from "@evg-ui/fungi/Context";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { useAIAgentAnalytics } from "analytics";
 import { aiPrompts } from "constants/aiPrompts";
 import { useLogContext } from "context/LogContext";
@@ -40,22 +41,56 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
 
   const handleRatingChange = useCallback(
     ((spanId) => async (e, options) => {
-      const response = await fetch(ratingURL, {
-        body: JSON.stringify({
-          rating: options?.rating === MessageRatingValue.Liked ? 1 : 0,
-          spanId,
-        }),
-        credentials: "include",
-        headers: {
-          "content-type": "application/json",
-        },
-        method: "POST",
-      });
-      if (!response.ok) {
-        const err = await response.json();
-        throw new Error(`Rating message: ${err.message}`);
+      // This should never happen but the handler is oddly typed
+      if (!options) return;
+      try {
+        const response = await fetch(ratingURL, {
+          body: JSON.stringify({
+            rating: options.rating === MessageRatingValue.Liked ? 1 : 0,
+            spanId,
+          }),
+          credentials: "include",
+          headers: {
+            "content-type": "application/json",
+          },
+          method: "POST",
+        });
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(`Rating message: ${err.message}`);
+        }
+      } catch (error: any) {
+        reportError(new Error(error)).warning();
       }
     }) satisfies ChatProps["handleRatingChange"],
+    [ratingURL],
+  );
+
+  const handleSubmitFeedback = useCallback(
+    ((spanId) => async (e, options) => {
+      // This should never happen but the handler is oddly typed
+      if (!options) return;
+      try {
+        const response = await fetch(ratingURL, {
+          body: JSON.stringify({
+            feedback: options.feedback,
+            rating: options.rating === MessageRatingValue.Liked ? 1 : 0,
+            spanId,
+          }),
+          credentials: "include",
+          headers: {
+            "content-type": "application/json",
+          },
+          method: "POST",
+        });
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(`Sending message feedback: ${err.message}`);
+        }
+      } catch (error: any) {
+        reportError(new Error(error)).warning();
+      }
+    }) satisfies ChatProps["handleSubmitFeedback"],
     [ratingURL],
   );
 
@@ -71,6 +106,7 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
               meant to assist with investigations and not to replace your own
               judgement."
           handleRatingChange={handleRatingChange}
+          handleSubmitFeedback={handleSubmitFeedback}
           loginUrl={loginURL}
           onClickSuggestion={(suggestion) => {
             sendEvent({ name: "Clicked suggestion", suggestion });

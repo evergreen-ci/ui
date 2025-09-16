@@ -1,16 +1,16 @@
 import styled from "@emotion/styled";
-import { Message, MessageSourceType } from "@lg-chat/message";
+import {
+  Message,
+  MessageSourceType,
+  MessageActionsProps,
+} from "@lg-chat/message";
 import { UIMessagePart, UIDataTypes, UITools, ToolUIPart } from "ai";
-import { MessageEvaluation, MessageEvalProps } from "../MessageEvaluation";
 import { ToolRenderer } from "./ToolRenderer";
 import { FungiUIMessage } from "./types";
 
-export const MessageRenderer: React.FC<FungiUIMessage & MessageEvalProps> = ({
-  id,
-  onRatingChange,
-  parts,
-  role,
-}) => (
+export const MessageRenderer: React.FC<
+  FungiUIMessage & MessageActionsProps
+> = ({ id, onRatingChange, onSubmitFeedback, parts, role }) => (
   <>
     {parts.map((part, index) => {
       const key = `${id}-${part.type}-${index}`;
@@ -25,7 +25,10 @@ export const MessageRenderer: React.FC<FungiUIMessage & MessageEvalProps> = ({
             sourceType={MessageSourceType.Markdown}
           >
             {!isSender && part.state === "done" && (
-              <MessageEvaluation onRatingChange={onRatingChange} />
+              <Message.Actions
+                onRatingChange={onRatingChange}
+                onSubmitFeedback={onSubmitFeedback}
+              />
             )}
           </StyledMessage>
         );

@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 import { ChatWindow } from "@lg-chat/chat-window";
 import { InputBar, InputBarProps, State } from "@lg-chat/input-bar";
 import { LeafyGreenChatProvider } from "@lg-chat/leafygreen-chat-provider";
+import { MessageActionsProps } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useChatContext } from "../Context";
 import { Disclaimer } from "../Disclaimer";
-import { MessageEvalProps } from "../MessageEvaluation";
 import { FungiUIMessage, MessageRenderer } from "../MessageRenderer";
 import { Suggestions } from "../Suggestions";
 
@@ -17,7 +17,12 @@ export type ChatFeedProps = {
   bodyData?: object;
   chatSuggestions?: string[];
   disclaimerContent?: React.ReactNode;
-  handleRatingChange?: (spanId: string) => MessageEvalProps["onRatingChange"];
+  handleSubmitFeedback?: (
+    spanId: string,
+  ) => MessageActionsProps["onSubmitFeedback"];
+  handleRatingChange?: (
+    spanId: string,
+  ) => MessageActionsProps["onRatingChange"];
   onClickSuggestion?: (suggestion: string) => void;
 };
 
@@ -27,6 +32,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   chatSuggestions,
   disclaimerContent,
   handleRatingChange,
+  handleSubmitFeedback,
   onClickSuggestion,
 }) => {
   const { appName } = useChatContext();
@@ -82,6 +88,9 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
                   onRatingChange={
                     spanId ? handleRatingChange?.(spanId) : undefined
                   }
+                  onSubmitFeedback={
+                    spanId ? handleSubmitFeedback?.(spanId) : undefined
+                  }
                   {...m}
                 />
               );
@@ -96,6 +105,8 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
 
 // Override fixed height of ChatWindow
 const StyledChatWindow = styled(ChatWindow)`
+  /* Remove some generous side padding */
+  padding: 0;
   height: 100%;
   > div {
     height: 100%;
