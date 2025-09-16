@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
+import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
   ColumnFiltersState,
   useLeafyGreenTable,
@@ -54,12 +55,18 @@ const imageEventTypeTreeData = [
     value: ImageEventType.OperatingSystem,
     key: ImageEventType.OperatingSystem,
   },
+  {
+    title: "File",
+    value: ImageEventType.File,
+    key: ImageEventType.File,
+  },
 ];
 
 const eventTypeToLabel = {
   [ImageEventType.Package]: "Package",
   [ImageEventType.Toolchain]: "Toolchain",
   [ImageEventType.OperatingSystem]: "OS",
+  [ImageEventType.File]: "File",
 };
 
 interface ImageEventLogTableProps {
@@ -130,7 +137,9 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
         "data-cy": "image-event-log-name-filter",
         placeholder: "Search name",
       },
+      width: "25%",
     },
+    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
   },
   {
     header: "Type",
@@ -147,15 +156,18 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
         filterOptions: true,
         options: imageEventTypeTreeData,
       },
+      width: "15%",
     },
   },
   {
     header: "Before",
     accessorKey: "before",
+    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
   },
   {
     header: "After",
     accessorKey: "after",
+    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
   },
   {
     header: "Action",
@@ -168,6 +180,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
         filterOptions: true,
         options: imageEventEntryActionTreeData,
       },
+      width: "5%",
     },
     cell: ({ getValue }) => {
       const value = getValue() as ImageEventEntryAction;

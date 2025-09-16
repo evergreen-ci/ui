@@ -1540,6 +1540,7 @@ export type Image = {
   ami: Scalars["String"]["output"];
   distros: Array<Distro>;
   events: ImageEventsPayload;
+  files: ImageFilesPayload;
   id: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
   latestTask?: Maybe<Task>;
@@ -1555,6 +1556,14 @@ export type Image = {
 export type ImageEventsArgs = {
   limit: Scalars["Int"]["input"];
   page: Scalars["Int"]["input"];
+};
+
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type ImageFilesArgs = {
+  opts: ImageFileOpts;
 };
 
 /**
@@ -1605,6 +1614,7 @@ export enum ImageEventEntryAction {
 }
 
 export enum ImageEventType {
+  File = "FILE",
   OperatingSystem = "OPERATING_SYSTEM",
   Package = "PACKAGE",
   Toolchain = "TOOLCHAIN",
@@ -1614,6 +1624,26 @@ export type ImageEventsPayload = {
   __typename?: "ImageEventsPayload";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<ImageEvent>;
+};
+
+export type ImageFile = {
+  __typename?: "ImageFile";
+  name: Scalars["String"]["output"];
+  path: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
+};
+
+export type ImageFileOpts = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type ImageFilesPayload = {
+  __typename?: "ImageFilesPayload";
+  data: Array<ImageFile>;
+  filteredCount: Scalars["Int"]["output"];
+  totalCount: Scalars["Int"]["output"];
 };
 
 export type ImageOperatingSystemPayload = {
@@ -8501,6 +8531,30 @@ export type ImageEventsQuery = {
           name: string;
           type: ImageEventType;
         }>;
+      }>;
+    };
+  } | null;
+};
+
+export type ImageFilesQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  opts: ImageFileOpts;
+}>;
+
+export type ImageFilesQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    files: {
+      __typename?: "ImageFilesPayload";
+      filteredCount: number;
+      totalCount: number;
+      data: Array<{
+        __typename?: "ImageFile";
+        name: string;
+        path: string;
+        version: string;
       }>;
     };
   } | null;
