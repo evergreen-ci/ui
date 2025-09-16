@@ -2,6 +2,10 @@
 
 Parsley AI is an intelligent assistant built directly into the **Parsley Log Viewer**. It’s designed to make debugging faster and easier by helping you understand your log files and related Evergreen task data.
 
+## Demo
+
+👉 [Watch the video demo here](https://youtu.be/kHq4OGowFnk)
+
 ## What Parsley AI Can Do
 
 - **Understand your logs:**
@@ -36,7 +40,3 @@ If you have feedback about specific responses you can use the "Thumbs Up" and "T
 3. If you are not logged in, you will be prompted to login.
 4. Ask a question about your task or test (for example: _“Why did this test fail?”_).
 5. Review Parsley AI’s analysis and suggested next steps.
-
-## Demo
-
-👉 [Watch the video demo here](https://youtu.be/kHq4OGowFnk)
