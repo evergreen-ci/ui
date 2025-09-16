@@ -215,7 +215,7 @@
                             maxlength="2"
                             placeholder="00"
                             type="text"
-                            value="16"
+                            value="15"
                           />
                           <span
                             class="emotion-Colon e9c2bxn2"
@@ -228,7 +228,7 @@
                             maxlength="2"
                             placeholder="00"
                             type="text"
-                            value="51"
+                            value="19"
                           />
                         </div>
                       </div>

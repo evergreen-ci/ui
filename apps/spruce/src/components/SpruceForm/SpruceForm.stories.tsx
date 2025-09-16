@@ -264,7 +264,9 @@ const dateTimeSchema = {
       nextRunTime: {
         type: "string" as const,
         title: "Next Run Time",
-        default: new Date().toUTCString(),
+        default: new Date(
+          "Tue Sep 16 2025 11:19:00 GMT-0400 (Eastern Daylight Time)",
+        ).toString(),
       },
     },
   },
