@@ -6,6 +6,8 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   resolve: {
     alias: {
+      // workaround until LG-4402 is fixed
+      "@emotion/server": "@emotion/css",
       "@leafygreen-ui/emotion": resolve(
         __dirname,
         "./config/leafygreen-ui/emotion",
