@@ -15,6 +15,7 @@ export const MessageRenderer: React.FC<
     {parts.map((part, index) => {
       const key = `${id}-${part.type}-${index}`;
       if (part.type === "text") {
+        const isLastPart = parts.length - 1 === index;
         const isSender = role === "user";
         return (
           <StyledMessage
@@ -24,7 +25,7 @@ export const MessageRenderer: React.FC<
             messageBody={part.text}
             sourceType={MessageSourceType.Markdown}
           >
-            {!isSender && part.state === "done" && (
+            {!isSender && part.state === "done" && isLastPart && (
               <Message.Actions
                 onRatingChange={onRatingChange}
                 onSubmitFeedback={onSubmitFeedback}
