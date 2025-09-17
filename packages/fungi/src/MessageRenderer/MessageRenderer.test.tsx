@@ -17,7 +17,7 @@ describe("MessageRenderer", () => {
         expect(screen.queryByLabelText(likeLabel)).not.toBeInTheDocument();
       });
 
-      it("does not show a rating button when there is no onclick handler", () => {
+      it("does not show a rating button when the message is still streaming", () => {
         const ratingMock = vi.fn();
         render(
           <MessageRenderer
