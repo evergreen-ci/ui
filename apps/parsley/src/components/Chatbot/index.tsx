@@ -43,24 +43,22 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
     ((spanId) => async (e, options) => {
       // This should never happen but the handler is oddly typed
       if (!options) return;
-      try {
-        const response = await fetch(ratingURL, {
-          body: JSON.stringify({
-            rating: options.rating === MessageRatingValue.Liked ? 1 : 0,
-            spanId,
-          }),
-          credentials: "include",
-          headers: {
-            "content-type": "application/json",
-          },
-          method: "POST",
-        });
-        if (!response.ok) {
-          const err = await response.json();
-          throw new Error(`Rating message: ${err.message}`);
-        }
-      } catch (error: any) {
-        reportError(new Error(error)).warning();
+      const response = await fetch(ratingURL, {
+        body: JSON.stringify({
+          rating: options.rating === MessageRatingValue.Liked ? 1 : 0,
+          spanId,
+        }),
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        method: "POST",
+      });
+      if (!response.ok) {
+        const result = await response.json();
+        const err = new Error(`Rating message: ${result.message}`);
+        reportError(err).warning();
+        throw err;
       }
     }) satisfies ChatProps["handleRatingChange"],
     [ratingURL],
@@ -70,25 +68,23 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
     ((spanId) => async (e, options) => {
       // This should never happen but the handler is oddly typed
       if (!options) return;
-      try {
-        const response = await fetch(ratingURL, {
-          body: JSON.stringify({
-            feedback: options.feedback,
-            rating: options.rating === MessageRatingValue.Liked ? 1 : 0,
-            spanId,
-          }),
-          credentials: "include",
-          headers: {
-            "content-type": "application/json",
-          },
-          method: "POST",
-        });
-        if (!response.ok) {
-          const err = await response.json();
-          throw new Error(`Sending message feedback: ${err.message}`);
-        }
-      } catch (error: any) {
-        reportError(new Error(error)).warning();
+      const response = await fetch(ratingURL, {
+        body: JSON.stringify({
+          feedback: options.feedback,
+          rating: options.rating === MessageRatingValue.Liked ? 1 : 0,
+          spanId,
+        }),
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        method: "POST",
+      });
+      if (!response.ok) {
+        const result = await response.json();
+        const err = new Error(`Sending message feedback: ${result.message}`);
+        reportError(err).warning();
+        throw err;
       }
     }) satisfies ChatProps["handleSubmitFeedback"],
     [ratingURL],
