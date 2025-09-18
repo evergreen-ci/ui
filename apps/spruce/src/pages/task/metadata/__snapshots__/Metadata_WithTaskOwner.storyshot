@@ -138,7 +138,7 @@
           Long description that requires use of the inline definition component. This would include details ab...
            
           <span
-            class="leafygreen-ui-cssveg leafygreen-ui-1u6ruom"
+            class="leafygreen-ui-vm4wms"
             tabindex="0"
           >
             <small
@@ -166,7 +166,7 @@
         <span
           aria-disabled="true"
           aria-label="more info"
-          class="leafygreen-ui-cssveg leafygreen-ui-1lho5c2"
+          class="leafygreen-ui-emw599"
           data-testid="info-sprinkle-icon"
           role="button"
           tabindex="0"
@@ -374,7 +374,7 @@
             data-testid="chip-text"
           >
             <span
-              class="leafygreen-ui-cssveg lg-ui-chip-inline-definition-0000 leafygreen-ui-1u6ruom"
+              class="lg-ui-chip-inline-definition-0000 leafygreen-ui-vm4wms"
               tabindex="0"
             >
               waiting_for_next_investigat…

@@ -1,22 +1,37 @@
-import { UIMessage } from "@ai-sdk/react";
 import styled from "@emotion/styled";
-import { Message, MessageSourceType } from "@lg-chat/message";
+import {
+  Message,
+  MessageSourceType,
+  MessageActionsProps,
+} from "@lg-chat/message";
 import { UIMessagePart, UIDataTypes, UITools, ToolUIPart } from "ai";
 import { ToolRenderer } from "./ToolRenderer";
+import { FungiUIMessage } from "./types";
 
-export const MessageRenderer: React.FC<UIMessage> = ({ id, parts, role }) => (
+export const MessageRenderer: React.FC<
+  FungiUIMessage & MessageActionsProps
+> = ({ id, onRatingChange, onSubmitFeedback, parts, role }) => (
   <>
     {parts.map((part, index) => {
       const key = `${id}-${part.type}-${index}`;
       if (part.type === "text") {
+        const isLastPart = parts.length - 1 === index;
+        const isSender = role === "user";
         return (
           <StyledMessage
             key={key}
             data-cy={`message-${role}`}
-            isSender={role === "user"}
+            isSender={isSender}
             messageBody={part.text}
             sourceType={MessageSourceType.Markdown}
-          />
+          >
+            {!isSender && part.state === "done" && isLastPart && (
+              <Message.Actions
+                onRatingChange={onRatingChange}
+                onSubmitFeedback={onSubmitFeedback}
+              />
+            )}
+          </StyledMessage>
         );
       } else if (isToolUse(part)) {
         return <ToolRenderer key={key} {...part} />;
@@ -35,3 +50,5 @@ const StyledMessage = styled(Message)`
 const isToolUse = (
   part: UIMessagePart<UIDataTypes, UITools>,
 ): part is ToolUIPart => part.type.startsWith("tool-");
+
+export type { FungiUIMessage };
