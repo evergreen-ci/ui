@@ -1,0 +1,287 @@
+<div>
+  <div
+    class="emotion-0"
+  >
+    <a
+      href="#periodic-builds"
+      id="periodic-builds"
+    >
+      <h3
+        class="emotion-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
+      >
+        Periodic Builds
+      </h3>
+    </a>
+    <div
+      class="emotion-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
+    >
+      <form
+        class="rjsf"
+        novalidate=""
+      >
+        <div
+          class="form-group field field-object emotion-DefaultFieldContainer eny4k1v1"
+          id=" root"
+        >
+          <fieldset
+            class="emotion-0"
+            id="root"
+          >
+            <div
+              class="form-group field field-string emotion-DefaultFieldContainer eny4k1v1"
+              id=" root_nextRunTime"
+            >
+              <div
+                class="emotion-ElementWrapper ee4bs9n0"
+              >
+                <label
+                  class="leafygreen-ui-ms04bw"
+                  data-lgid="lg-label"
+                  for="root_nextRunTime"
+                >
+                  Next Run Time
+                </label>
+                <div
+                  class="emotion-DateTimeContainer e1xi0150"
+                >
+                  <div
+                    class="leafygreen-ui-1br9h7w"
+                    data-cy="date-picker"
+                    data-lgid="lg-form_field"
+                    data-testid="lg-form_field"
+                  >
+                    <div
+                      class="leafygreen-ui-1iyoj2o"
+                    />
+                    <div
+                      aria-controls="lg-date-picker-menu-7"
+                      aria-expanded="false"
+                      aria-invalid="false"
+                      aria-label="date-picker"
+                      class="leafygreen-ui-1on3uho"
+                      role="combobox"
+                      tabindex="-1"
+                    >
+                      <div
+                        class="leafygreen-ui-1ago99h"
+                      >
+                        <div
+                          aria-describedby=""
+                          aria-disabled="false"
+                          aria-invalid="false"
+                          class="leafygreen-ui-188k96w lg-ui-form-field-input-0000"
+                          id="lg-form_field-input-6"
+                        >
+                          <input
+                            aria-label="year"
+                            autocomplete="off"
+                            class="leafygreen-ui-17osm3l"
+                            data-segment="year"
+                            data-testid="lg-date_picker_input-segment"
+                            id="year"
+                            max="2038"
+                            min="1970"
+                            pattern="[0-9]{4}"
+                            placeholder="Y​Y​Y​Y"
+                            role="spinbutton"
+                            type="text"
+                            value="2025"
+                          />
+                          <span
+                            class="leafygreen-ui-15xv5ui"
+                          >
+                            -
+                          </span>
+                          <input
+                            aria-label="month"
+                            autocomplete="off"
+                            class="leafygreen-ui-1bk33zo"
+                            data-segment="month"
+                            data-testid="lg-date_picker_input-segment"
+                            id="month"
+                            max="12"
+                            min="1"
+                            pattern="[0-9]{2}"
+                            placeholder="M​M"
+                            role="spinbutton"
+                            type="text"
+                            value="09"
+                          />
+                          <span
+                            class="leafygreen-ui-15xv5ui"
+                          >
+                            -
+                          </span>
+                          <input
+                            aria-label="day"
+                            autocomplete="off"
+                            class="leafygreen-ui-boe9vc"
+                            data-segment="day"
+                            data-testid="lg-date_picker_input-segment"
+                            id="day"
+                            max="30"
+                            min="1"
+                            pattern="[0-9]{2}"
+                            placeholder="D​D"
+                            role="spinbutton"
+                            type="text"
+                            value="16"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="leafygreen-ui-44gx6g"
+                      >
+                        <button
+                          aria-disabled="false"
+                          aria-label="Open calendar menu"
+                          class="lg-ui-form-field-icon-0000 leafygreen-ui-at6vvf"
+                          data-lgid="lg-form_field-content_end"
+                          data-testid="lg-form_field-content_end"
+                          tabindex="0"
+                          type="button"
+                        >
+                          <div
+                            class="leafygreen-ui-xhlipt"
+                          >
+                            <svg
+                              aria-label="Calendar Icon"
+                              class=""
+                              fill="none"
+                              height="16"
+                              role="img"
+                              viewBox="0 0 16 16"
+                              width="16"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M4 2a1 1 0 0 1 2 0v1a1 1 0 0 1-2 0z"
+                                fill="currentColor"
+                              />
+                              <path
+                                clip-rule="evenodd"
+                                d="M9 3H7a2 2 0 1 1-4 0 2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2 2 2 0 1 1-4 0m3 4H9v3h3z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                              />
+                              <path
+                                d="M10 3a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      aria-live="polite"
+                      aria-relevant="all"
+                      class="leafygreen-ui-11ydt2g"
+                      data-lgid="lg-form_field-feedback"
+                      data-testid="lg-form_field-feedback"
+                      id="lg-form_field-feedback-5"
+                    />
+                  </div>
+                  <span
+                    class="leafygreen-ui-38lglc"
+                  />
+                  <div
+                    aria-label="Time picker form"
+                    class="leafygreen-ui-1br9h7w"
+                    data-cy="time-picker"
+                  >
+                    <div
+                      class="leafygreen-ui-1iyoj2o"
+                    />
+                    <div
+                      class="leafygreen-ui-14vpn2b"
+                      role="combobox"
+                      tabindex="-1"
+                    >
+                      <div
+                        class="leafygreen-ui-1ago99h"
+                      >
+                        <div
+                          aria-describedby=""
+                          aria-disabled="false"
+                          aria-invalid="false"
+                          aria-label="Time picker form"
+                          class="lg-ui-form-field-input-0000 emotion-ContentWrapper e9c2bxn0"
+                          id="lg-form_field-input-4"
+                        >
+                          <input
+                            class="emotion-StyledInput evefz8k0"
+                            data-cy="hour-input"
+                            maxlength="2"
+                            placeholder="00"
+                            type="text"
+                            value="15"
+                          />
+                          <span
+                            class="emotion-Colon e9c2bxn2"
+                          >
+                            :
+                          </span>
+                          <input
+                            class="emotion-StyledInput evefz8k0"
+                            data-cy="minute-input"
+                            maxlength="2"
+                            placeholder="00"
+                            type="text"
+                            value="19"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="leafygreen-ui-44gx6g"
+                      >
+                        <button
+                          aria-disabled="false"
+                          aria-label="Clock Icon"
+                          class="lg-ui-form-field-icon-0000 leafygreen-ui-1bxz6zl"
+                          data-lgid="lg-form_field-content_end"
+                          data-testid="lg-form_field-content_end"
+                          tabindex="0"
+                        >
+                          <div
+                            class="leafygreen-ui-xhlipt"
+                          >
+                            <svg
+                              aria-label="Clock Icon"
+                              class=""
+                              fill="none"
+                              height="16"
+                              role="img"
+                              viewBox="0 0 16 16"
+                              width="16"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12m-.75-9.25a.75.75 0 0 1 1.5 0v3.16l1.744 1.526a.75.75 0 0 1-.988 1.128L7.511 8.818a.8.8 0 0 1-.19-.25.75.75 0 0 1-.071-.318z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      aria-live="polite"
+                      aria-relevant="all"
+                      class="leafygreen-ui-11ydt2g"
+                      data-lgid="lg-form_field-feedback"
+                      data-testid="lg-form_field-feedback"
+                      id="lg-form_field-feedback-3"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

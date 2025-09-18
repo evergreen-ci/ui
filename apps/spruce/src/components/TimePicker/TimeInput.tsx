@@ -31,6 +31,7 @@ TimeInput.displayName = "TimeInput";
 
 const StyledInput = styled.input`
   font-family: inherit;
+  font-size: inherit;
   font-variant-numeric: tabular-nums;
   text-align: center;
 

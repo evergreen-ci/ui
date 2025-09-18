@@ -53,6 +53,17 @@ export const Example4: CustomStoryObj<typeof SpruceForm> = {
   ),
 };
 
+export const DateTimePicker: CustomStoryObj<typeof SpruceForm> = {
+  render: () => (
+    <BaseForm
+      data={dateTimeSchema.formData}
+      schema={dateTimeSchema.schema}
+      title="Periodic Builds"
+      uiSchema={dateTimeSchema.uiSchema}
+    />
+  ),
+};
+
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const BaseForm = ({ data, schema, title, uiSchema }) => {
   const [formState, setFormState] = useState(data);
@@ -242,5 +253,26 @@ const example4Def = {
   },
   formData: {
     testText: ["text1", "text2", "text3"],
+  },
+};
+
+const dateTimeSchema = {
+  formData: {},
+  schema: {
+    type: "object" as const,
+    properties: {
+      nextRunTime: {
+        type: "string" as const,
+        title: "Next Run Time",
+        default: new Date(
+          "Tue Sep 16 2025 11:19:00 GMT-0400 (Eastern Daylight Time)",
+        ).toString(),
+      },
+    },
+  },
+  uiSchema: {
+    nextRunTime: {
+      "ui:widget": "date-time",
+    },
   },
 };

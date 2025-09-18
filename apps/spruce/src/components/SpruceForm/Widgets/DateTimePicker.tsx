@@ -9,6 +9,11 @@ import { useUserTimeZone } from "hooks/useUserTimeZone";
 import ElementWrapper from "../ElementWrapper";
 import { SpruceWidgetProps } from "./types";
 
+enum Caller {
+  Date,
+  Time,
+}
+
 export const DateTimePicker: React.FC<
   {
     options: {
@@ -32,9 +37,18 @@ export const DateTimePicker: React.FC<
     ? toZonedTime(new Date(value || null), timezone)
     : new Date(value || null);
 
-  const handleChange = (newDate?: DateType) => {
+  const handleChange = (caller: Caller) => (newDate?: DateType) => {
     if (!newDate) return;
     if (isInvalidDateObject(newDate)) return;
+
+    // LG DatePicker overwrites the time, so preserve it as such
+    if (caller === Caller.Date) {
+      const hours = currentDateTime.getUTCHours();
+      const minutes = currentDateTime.getUTCMinutes();
+      newDate.setUTCHours(hours);
+      newDate.setUTCMinutes(minutes);
+    }
+
     if (timezone) {
       onChange(fromZonedTime(newDate, timezone).toString());
     } else {
@@ -57,7 +71,7 @@ export const DateTimePicker: React.FC<
           disabled={isDisabled}
           max={disableAfter}
           min={disableBefore}
-          onDateChange={handleChange}
+          onDateChange={handleChange(Caller.Date)}
           value={currentDateTime}
         />
         {/* TODO: Replace with official component following completion of LG-3931.
@@ -65,7 +79,7 @@ export const DateTimePicker: React.FC<
         <LGTimePicker
           data-cy="time-picker"
           disabled={isDisabled}
-          onDateChange={handleChange}
+          onDateChange={handleChange(Caller.Time)}
           value={currentDateTime}
         />
       </DateTimeContainer>
