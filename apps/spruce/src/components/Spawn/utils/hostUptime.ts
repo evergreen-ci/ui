@@ -1,4 +1,5 @@
 import {
+  add,
   isAfter,
   isBefore,
   differenceInHours,
@@ -396,5 +397,5 @@ const today = new Date();
 
 export const exemptionRange = {
   disableBefore: today,
-  disableAfter: new Date(today.setUTCMonth(today.getUTCMonth() + 1)),
+  disableAfter: add(today, { months: 1 }),
 };

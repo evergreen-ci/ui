@@ -473,12 +473,14 @@ export type BucketConfig = {
   name?: Maybe<Scalars["String"]["output"]>;
   roleARN?: Maybe<Scalars["String"]["output"]>;
   testResultsPrefix?: Maybe<Scalars["String"]["output"]>;
+  type?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type BucketConfigInput = {
   name?: InputMaybe<Scalars["String"]["input"]>;
   roleARN?: InputMaybe<Scalars["String"]["input"]>;
   testResultsPrefix?: InputMaybe<Scalars["String"]["input"]>;
+  type?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type BucketsConfig = {
