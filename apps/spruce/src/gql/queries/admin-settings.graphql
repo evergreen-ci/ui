@@ -99,6 +99,7 @@ query AdminSettings {
         name
         roleARN
         testResultsPrefix
+        type
       }
     }
     cedar {

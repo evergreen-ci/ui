@@ -87,6 +87,7 @@ export const gqlToForm = ((data) => {
         testResultsBucketName: buckets?.testResultsBucket?.name ?? "",
         testResultsBucketTestResultsPrefix:
           buckets?.testResultsBucket?.testResultsPrefix ?? "",
+        testResultsBucketType: buckets?.testResultsBucket?.type ?? "",
         testResultsBucketRoleARN: buckets?.testResultsBucket?.roleARN ?? "",
         credentialsKey: buckets?.credentials?.key ?? "",
         credentialsSecret: buckets?.credentials?.secret ?? "",
@@ -257,6 +258,7 @@ export const formToGql = ((form: OtherFormState) => {
         testResultsPrefix:
           bucketConfig.testResultsBucketTestResultsPrefix || undefined,
         roleARN: bucketConfig.testResultsBucketRoleARN || undefined,
+        type: bucketConfig.testResultsBucketType || undefined,
       },
       credentials: {
         key: bucketConfig.credentialsKey || undefined,
