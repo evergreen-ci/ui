@@ -225,7 +225,10 @@ describe("validator", () => {
       // Hoist date resetting in order to set system-wide date
       // https://github.com/vitest-dev/vitest/issues/5154#issuecomment-1934003114
       vi.hoisted(() => {
-        vi.useFakeTimers().setSystemTime("2024-01-01");
+        vi.useFakeTimers();
+        // Month is 0-indexed (Jan 1 2024)
+        const mockDate = new Date(2024, 0, 1);
+        vi.setSystemTime(mockDate);
       });
     });
 

@@ -1,5 +1,5 @@
-import { setToUTCMidnight } from "@leafygreen-ui/date-utils";
 import {
+  add,
   isAfter,
   isBefore,
   differenceInHours,
@@ -393,9 +393,9 @@ export const getNextHostStart = (
   };
 };
 
-const today = setToUTCMidnight(new Date(Date.now()));
+const today = new Date();
 
 export const exemptionRange = {
-  disableBefore: new Date(today.setHours(0, 0, 0, 0)).toISOString(),
-  disableAfter: new Date(today.setMonth(today.getMonth() + 1)).toISOString(),
+  disableBefore: today,
+  disableAfter: add(today, { months: 1 }),
 };

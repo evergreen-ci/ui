@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 import { DatePicker } from "@leafygreen-ui/date-picker";
-import { DateType, isInvalidDateObject } from "@leafygreen-ui/date-utils";
+import {
+  setToUTCMidnight,
+  DateType,
+  isInvalidDateObject,
+} from "@leafygreen-ui/date-utils";
 import { Description, Label } from "@leafygreen-ui/typography";
 import { toZonedTime, fromZonedTime } from "date-fns-tz";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -69,8 +73,8 @@ export const DateTimePicker: React.FC<
           aria-label="date-picker"
           data-cy="date-picker"
           disabled={isDisabled}
-          max={disableAfter}
-          min={disableBefore}
+          max={disableAfter ? setToUTCMidnight(disableAfter) : undefined}
+          min={disableBefore ? setToUTCMidnight(disableBefore) : undefined}
           onDateChange={handleChange(Caller.Date)}
           value={currentDateTime}
         />
