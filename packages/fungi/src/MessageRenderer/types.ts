@@ -1,3 +1,4 @@
+import { UIMessage } from "@ai-sdk/react";
 import { ToolUIPart } from "ai";
 
 export type ToolState = ToolUIPart["state"];
@@ -10,3 +11,9 @@ export const ToolStateEnum = satisfiesToolStates({
   InputAvailable: "input-available",
   OutputAvailable: "output-available",
 } as const);
+
+type MessageMetadata = {
+  spanId?: string;
+};
+
+export type FungiUIMessage = UIMessage<MessageMetadata>;

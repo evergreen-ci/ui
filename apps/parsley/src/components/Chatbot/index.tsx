@@ -1,16 +1,19 @@
+import { useCallback } from "react";
 import styled from "@emotion/styled";
 import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
-import { Chat } from "@evg-ui/fungi/Chat";
+import { Chat, ChatProps, MessageRatingValue } from "@evg-ui/fungi/Chat";
 import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
 import { ChatProvider as FungiProvider } from "@evg-ui/fungi/Context";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { useAIAgentAnalytics } from "analytics";
 import { aiPrompts } from "constants/aiPrompts";
 import { useLogContext } from "context/LogContext";
-import {
-  parsleyChatLoginURL,
-  parsleyChatURL,
-} from "utils/environmentVariables";
+import { parsleyAIURL } from "utils/environmentVariables";
+
+const chatURL = `${parsleyAIURL}/completions/parsley/conversations/chat`;
+const ratingURL = `${parsleyAIURL}/completions/parsley/conversations/rate`;
+const loginURL = `${parsleyAIURL}/login`;
 
 export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -36,18 +39,71 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
     },
   };
 
+  const handleRatingChange = useCallback(
+    ((spanId) => async (e, options) => {
+      // This should never happen but the handler is oddly typed
+      if (!options) return;
+      const response = await fetch(ratingURL, {
+        body: JSON.stringify({
+          rating: options.rating === MessageRatingValue.Liked ? 1 : 0,
+          spanId,
+        }),
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        method: "POST",
+      });
+      if (!response.ok) {
+        const result = await response.json();
+        const err = new Error(`Rating message: ${result.message}`);
+        reportError(err).warning();
+        throw err;
+      }
+    }) satisfies ChatProps["handleRatingChange"],
+    [ratingURL],
+  );
+
+  const handleSubmitFeedback = useCallback(
+    ((spanId) => async (e, options) => {
+      // This should never happen but the handler is oddly typed
+      if (!options) return;
+      const response = await fetch(ratingURL, {
+        body: JSON.stringify({
+          feedback: options.feedback,
+          rating: options.rating === MessageRatingValue.Liked ? 1 : 0,
+          spanId,
+        }),
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        method: "POST",
+      });
+      if (!response.ok) {
+        const result = await response.json();
+        const err = new Error(`Sending message feedback: ${result.message}`);
+        reportError(err).warning();
+        throw err;
+      }
+    }) satisfies ChatProps["handleSubmitFeedback"],
+    [ratingURL],
+  );
+
   return (
     <ChatDrawer
       chatContent={
         <Chat
-          apiUrl={parsleyChatURL}
+          apiUrl={chatURL}
           bodyData={bodyData}
           chatSuggestions={aiPrompts}
           disclaimerContent="Generative AI models may produce incorrect or misleading
               information. Please review the output carefully. Parsley AI is
               meant to assist with investigations and not to replace your own
               judgement."
-          loginUrl={parsleyChatLoginURL}
+          handleRatingChange={handleRatingChange}
+          handleSubmitFeedback={handleSubmitFeedback}
+          loginUrl={loginURL}
           onClickSuggestion={(suggestion) => {
             sendEvent({ name: "Clicked suggestion", suggestion });
           }}

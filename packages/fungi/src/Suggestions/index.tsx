@@ -23,7 +23,7 @@ export const Suggestions: React.FC<Props> = ({ handleSend, suggestions }) => {
   );
 };
 
-const getNRandom = (items: any[], n: number) => {
+const getNRandom = <T,>(items: T[], n: number) => {
   if (items.length <= n) return items;
   // Fisher-Yates shuffle
   const arr = [...items];
