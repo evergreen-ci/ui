@@ -3,12 +3,13 @@ import styled from "@emotion/styled";
 import { ChatWindow } from "@lg-chat/chat-window";
 import { InputBar, InputBarProps, State } from "@lg-chat/input-bar";
 import { LeafyGreenChatProvider } from "@lg-chat/leafygreen-chat-provider";
+import { MessageActionsProps } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useChatContext } from "../Context";
 import { Disclaimer } from "../Disclaimer";
-import { MessageRenderer } from "../MessageRenderer";
+import { FungiUIMessage, MessageRenderer } from "../MessageRenderer";
 import { Suggestions } from "../Suggestions";
 
 export type ChatFeedProps = {
@@ -16,6 +17,12 @@ export type ChatFeedProps = {
   bodyData?: object;
   chatSuggestions?: string[];
   disclaimerContent?: React.ReactNode;
+  handleSubmitFeedback?: (
+    spanId: string,
+  ) => MessageActionsProps["onSubmitFeedback"];
+  handleRatingChange?: (
+    spanId: string,
+  ) => MessageActionsProps["onRatingChange"];
   onClickSuggestion?: (suggestion: string) => void;
 };
 
@@ -24,10 +31,12 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   bodyData,
   chatSuggestions,
   disclaimerContent,
+  handleRatingChange,
+  handleSubmitFeedback,
   onClickSuggestion,
 }) => {
   const { appName } = useChatContext();
-  const { error, messages, sendMessage, status } = useChat({
+  const { error, messages, sendMessage, status } = useChat<FungiUIMessage>({
     transport: new DefaultChatTransport({
       api: apiUrl,
       credentials: "include",
@@ -71,7 +80,21 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
               )}
             </EmptyContainer>
           ) : (
-            messages.map((m) => <MessageRenderer key={m.id} {...m} />)
+            messages.map((m) => {
+              const spanId = m?.metadata?.spanId;
+              return (
+                <MessageRenderer
+                  key={m.id}
+                  onRatingChange={
+                    spanId ? handleRatingChange?.(spanId) : undefined
+                  }
+                  onSubmitFeedback={
+                    spanId ? handleSubmitFeedback?.(spanId) : undefined
+                  }
+                  {...m}
+                />
+              );
+            })
           )}
         </MessageFeed>
         <InputBar {...inputState} onMessageSend={handleSend} />
@@ -82,6 +105,8 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
 
 // Override fixed height of ChatWindow
 const StyledChatWindow = styled(ChatWindow)`
+  /* Remove some generous side padding */
+  padding: 0;
   height: 100%;
   > div {
     height: 100%;

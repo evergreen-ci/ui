@@ -1,4 +1,12 @@
-import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
+import { MockedProvider } from "@apollo/client/testing";
+import {
+  render,
+  screen,
+  userEvent,
+  waitFor,
+  within,
+} from "@evg-ui/lib/test_utils";
+import { getUserSettingsMock } from "gql/mocks/getSpruceConfig";
 import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("spruce form", () => {
@@ -376,6 +384,97 @@ describe("spruce form", () => {
         expect(screen.getByText("The Garden State")).toBeVisible();
       });
     });
+
+    describe("datetime picker", () => {
+      beforeEach(() => {
+        Element.prototype.scrollIntoView = () => {};
+      });
+
+      it("renders the default time correctly", async () => {
+        const { schema, uiSchema } = dateTimePicker;
+        const onChangeMock = vi.fn();
+        render(
+          <MockedProvider mocks={[getUserSettingsMock]}>
+            <SpruceForm
+              onChange={onChangeMock}
+              schema={schema}
+              uiSchema={uiSchema}
+            />
+          </MockedProvider>,
+        );
+
+        expect(screen.getByLabelText("year")).toHaveValue("2025");
+        expect(screen.getByLabelText("month")).toHaveValue("09");
+        expect(screen.getByLabelText("day")).toHaveValue("16");
+        // Wait for the useUserSettings hook to move to success state
+        expect(await screen.findByDataCy("hour-input")).toHaveValue("11");
+        expect(screen.getByDataCy("minute-input")).toHaveValue("19");
+      });
+
+      it("correctly sets the date, preserving time", async () => {
+        const user = userEvent.setup();
+        const { schema, uiSchema } = dateTimePicker;
+        const onChangeMock = vi.fn();
+        render(
+          <MockedProvider mocks={[getUserSettingsMock]}>
+            <SpruceForm
+              onChange={onChangeMock}
+              schema={schema}
+              uiSchema={uiSchema}
+            />
+          </MockedProvider>,
+        );
+
+        // Wait for the useUserSettings hook to move to success state
+        expect(await screen.findByDataCy("hour-input")).toHaveValue("11");
+
+        user.clear(screen.getByLabelText("day"));
+        await user.type(screen.getByLabelText("day"), "19");
+        expect(onChangeMock).toHaveBeenNthCalledWith(
+          2,
+          expect.objectContaining({
+            formData: {
+              dateTime:
+                "Fri Sep 19 2025 15:19:00 GMT+0000 (Coordinated Universal Time)",
+            },
+          }),
+        );
+      });
+
+      it("correctly sets the time, preserving date", async () => {
+        const user = userEvent.setup();
+        const { schema, uiSchema } = dateTimePicker;
+        const onChangeMock = vi.fn();
+        render(
+          <MockedProvider mocks={[getUserSettingsMock]}>
+            <SpruceForm
+              onChange={onChangeMock}
+              schema={schema}
+              uiSchema={uiSchema}
+            />
+          </MockedProvider>,
+        );
+
+        // Wait for the useUserSettings hook to move to success state
+        expect(await screen.findByDataCy("hour-input")).toHaveValue("11");
+
+        await user.click(screen.getByRole("button", { name: "Clock Icon" }));
+        expect(screen.getByDataCy("time-picker-options")).toBeVisible();
+        await user.click(
+          within(screen.getByDataCy("minute-options")).getByText("56"),
+        );
+
+        expect(onChangeMock).toHaveBeenNthCalledWith(
+          2,
+          expect.objectContaining({
+            formData: {
+              dateTime:
+                "Tue Sep 16 2025 15:56:00 GMT+0000 (Coordinated Universal Time)",
+            },
+          }),
+        );
+      });
+    });
   });
 });
 
@@ -552,6 +651,27 @@ const radioGroup = {
     states: {
       "ui:enumDisabled": ["ct"],
       "ui:widget": "radio",
+    },
+  },
+};
+
+const dateTimePicker = {
+  formData: {},
+  schema: {
+    type: "object" as const,
+    properties: {
+      dateTime: {
+        type: "string" as const,
+        title: "Date Time Picker",
+        default: new Date(
+          "Tue Sep 16 2025 11:19:00 GMT-0400 (Eastern Daylight Time)",
+        ).toString(),
+      },
+    },
+  },
+  uiSchema: {
+    dateTime: {
+      "ui:widget": "date-time",
     },
   },
 };
