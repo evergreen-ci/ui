@@ -53,6 +53,7 @@ const mockAdminSettings: AdminSettings = {
       name: "evergreen-test-results",
       testResultsPrefix: "results/",
       roleARN: "arn:aws:iam::123456789:role/TestRole",
+      type: "s3",
     },
     credentials: {
       key: "cred-key",
@@ -162,6 +163,7 @@ const expectedForm: OtherFormState = {
       testResultsBucketName: "evergreen-test-results",
       testResultsBucketTestResultsPrefix: "results/",
       testResultsBucketRoleARN: "arn:aws:iam::123456789:role/TestRole",
+      testResultsBucketType: "s3",
       credentialsKey: "cred-key",
       credentialsSecret: "cred-secret",
       failedTasksLogBucketName: "evergreen-failed-tasks",
@@ -276,6 +278,7 @@ const expectedGql: AdminSettingsInput = {
       name: "evergreen-test-results",
       testResultsPrefix: "results/",
       roleARN: "arn:aws:iam::123456789:role/TestRole",
+      type: "s3",
     },
     credentials: {
       key: "cred-key",

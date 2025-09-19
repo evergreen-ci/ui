@@ -237,6 +237,10 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Test Results Bucket Role ARN",
     },
+    testResultsBucketType: {
+      type: "string" as const,
+      title: "Test Results Bucket Type",
+    },
     credentialsKey: {
       type: "string" as const,
       title: "S3 Key",

@@ -1,5 +1,5 @@
 import { render, screen } from "@evg-ui/lib/test_utils";
-import { ToolStateEnum } from "./types";
+import { ToolStateEnum } from "../types";
 import { ToolRenderer } from ".";
 
 describe("ToolRenderer", () => {

@@ -16,7 +16,7 @@ export const useConditionallyLinkToParsleyBeta = () => {
     (isProduction() && betaFeatures?.parsleyAIEnabled) ?? false;
 
   const replaceUrl = (originalUrl: string): string =>
-    redirectToBeta
+    redirectToBeta && originalUrl
       ? originalUrl.replace(getParsleyUrl(), parsleyBetaURL)
       : originalUrl;
 

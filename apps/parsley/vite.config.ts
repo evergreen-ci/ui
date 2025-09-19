@@ -99,6 +99,8 @@ const getProjectConfig = () => {
     // It can be potentially removed upon the completion of https://jira.mongodb.org/browse/PD-1543.
     resolve: {
       alias: {
+        // workaround until LG-4402 is fixed
+        "@emotion/server": "@emotion/css",
         "@leafygreen-ui/emotion": path.resolve(
           __dirname,
           "./config/leafygreen-ui/emotion.ts",
