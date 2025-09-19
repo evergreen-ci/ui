@@ -15,7 +15,7 @@ import { useTaskAnalytics } from "analytics";
 import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import { GroupedFiles } from "../types";
 
-type GroupedFilesFile = Unpacked<GroupedFiles["files"]>;
+type GroupedFilesFile = NonNullable<Unpacked<GroupedFiles["files"]>>;
 
 const getColumns = (
   taskAnalytics: ReturnType<typeof useTaskAnalytics>,
@@ -51,7 +51,7 @@ const getColumns = (
               <Button
                 data-cy="parsley-link"
                 disabled={value.row.original.urlParsley === null}
-                href={replaceUrl(value.row.original.urlParsley)}
+                href={replaceUrl(value.row.original.urlParsley ?? "")}
                 onClick={() => {
                   taskAnalytics.sendEvent({
                     name: "Clicked task file Parsley link",
