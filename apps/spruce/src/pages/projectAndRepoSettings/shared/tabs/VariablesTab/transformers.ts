@@ -54,5 +54,4 @@ export const formToGql = (({ vars: varsData }, isRepo, id) => {
     projectRef: { id },
     vars,
   };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

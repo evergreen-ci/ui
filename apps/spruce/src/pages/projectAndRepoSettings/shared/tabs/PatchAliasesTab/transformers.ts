@@ -112,5 +112,4 @@ export const formToGql = ((
     },
     aliases,
   };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

@@ -1,11 +1,10 @@
 import { StringMap } from "@evg-ui/lib/types/utils";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { ProjectSettingsQuery } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 
 type Tab = ProjectSettingsTabRoutes.GithubPermissionGroups;
 
-export const gqlToForm = ((data: ProjectSettingsQuery["projectSettings"]) => {
+export const gqlToForm = ((data) => {
   if (!data) return null;
 
   const { githubAppAuth, projectRef } = data;
@@ -27,7 +26,6 @@ export const gqlToForm = ((data: ProjectSettingsQuery["projectSettings"]) => {
         })),
       })) ?? [],
   };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((formState, isRepo, id) => ({
@@ -37,7 +35,6 @@ export const formToGql = ((formState, isRepo, id) => ({
     privateKey: "",
   },
   projectRef: {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     githubDynamicTokenPermissionGroups:
       formState?.permissionGroups?.map((pg) => {

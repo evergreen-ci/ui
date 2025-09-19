@@ -25,7 +25,6 @@ export const AppSettingsTab: React.FC<TabProps> = ({
   projectId,
   projectType,
   repoData,
-  repoId,
 }) => {
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
@@ -33,23 +32,22 @@ export const AppSettingsTab: React.FC<TabProps> = ({
   );
 
   const isRepo = projectType === ProjectType.Repo;
-  const data = isRepo ? repoData : projectData;
-
-  const isAppDefined =
-    (data?.appCredentials?.githubAppAuth?.appId ?? 0) > 0 &&
-    (data?.appCredentials?.githubAppAuth?.privateKey?.length ?? 0) > 0;
-
   const projectAppId = projectData?.appCredentials?.githubAppAuth?.appId ?? 0;
   const repoAppId = repoData?.appCredentials?.githubAppAuth?.appId ?? 0;
 
   const defaultsToRepo = !isRepo && !(projectAppId > 0) && repoAppId > 0;
+
+  const data = isRepo || defaultsToRepo ? repoData : projectData;
+
+  const isAppDefined =
+    (data?.appCredentials?.githubAppAuth?.appId ?? 0) > 0 &&
+    (data?.appCredentials?.githubAppAuth?.privateKey?.length ?? 0) > 0;
 
   const formSchema = useMemo(
     () =>
       getFormSchema({
         githubPermissionGroups,
         identifier,
-        repoId,
         isAppDefined,
         projectId,
         repoData,
@@ -58,7 +56,6 @@ export const AppSettingsTab: React.FC<TabProps> = ({
     [
       githubPermissionGroups,
       identifier,
-      repoId,
       isAppDefined,
       projectId,
       repoData,

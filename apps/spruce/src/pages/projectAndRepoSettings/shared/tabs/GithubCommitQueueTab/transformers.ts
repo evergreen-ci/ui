@@ -190,5 +190,4 @@ export const formToGql = ((
     projectRef,
     aliases,
   };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

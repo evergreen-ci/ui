@@ -3,7 +3,7 @@ import { ProjectType } from "../utils";
 
 type AppCredentials = {
   githubAppAuth: {
-    appId: number;
+    appId: number | null;
     privateKey: string;
   };
 };

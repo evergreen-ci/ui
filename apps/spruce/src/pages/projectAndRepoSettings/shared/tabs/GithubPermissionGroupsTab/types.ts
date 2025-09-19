@@ -11,7 +11,7 @@ type PermissionGroups = {
 
 type AppCredentials = {
   githubAppAuth: {
-    appId: number;
+    appId: number | null;
     privateKey: string;
   };
 };

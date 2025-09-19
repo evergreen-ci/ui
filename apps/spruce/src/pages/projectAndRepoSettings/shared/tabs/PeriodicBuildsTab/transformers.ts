@@ -70,7 +70,6 @@ export const gqlToForm = ((data, { projectType }) => {
         }),
       ) ?? [],
   };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
@@ -80,7 +79,6 @@ export const formToGql = ((
 ) => ({
   ...(isRepo ? { repoId: id } : { projectId: id }),
   projectRef: {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     periodicBuilds: periodicBuildsOverride
       ? periodicBuilds.map(
