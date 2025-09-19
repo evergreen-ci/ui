@@ -1,5 +1,6 @@
 import { SpruceFormContainer } from "components/SpruceForm";
 import { DistrosTable } from "pages/image/DistrosTable";
+import { FilesTable } from "pages/image/FilesTable";
 import { GeneralTable } from "pages/image/GeneralTable";
 import { OperatingSystemTable } from "pages/image/OperatingSystemTable";
 import { PackagesTable } from "pages/image/PackagesTable";
@@ -48,6 +49,13 @@ export const BuildInformationTab: React.FC<BuildInformationTabProps> = ({
       title={tocItems.toolchains.title}
     >
       <ToolchainsTable imageId={imageId} />
+    </SpruceFormContainer>
+    <SpruceFormContainer
+      data-cy="files-card"
+      id={tocItems.files.observedElementId}
+      title={tocItems.files.title}
+    >
+      <FilesTable imageId={imageId} />
     </SpruceFormContainer>
   </>
 );

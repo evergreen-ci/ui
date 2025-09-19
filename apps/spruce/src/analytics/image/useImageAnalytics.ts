@@ -11,12 +11,13 @@ type Action =
         | "Image Event Log"
         | "Operating System"
         | "Packages"
-        | "Toolchains";
+        | "Toolchains"
+        | "Files";
       "table.filters": ColumnFiltersState;
     }
   | {
       name: "Changed table pagination";
-      "table.name": "Operating System" | "Packages" | "Toolchains";
+      "table.name": "Operating System" | "Packages" | "Toolchains" | "Files";
       "table.pagination": PaginationState;
     }
   | {

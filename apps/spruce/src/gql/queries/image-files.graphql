@@ -1,0 +1,14 @@
+query ImageFiles($imageId: String!, $opts: ImageFileOpts!) {
+  image(imageId: $imageId) {
+    id
+    files(opts: $opts) {
+      data {
+        name
+        path
+        version
+      }
+      filteredCount
+      totalCount
+    }
+  }
+}
