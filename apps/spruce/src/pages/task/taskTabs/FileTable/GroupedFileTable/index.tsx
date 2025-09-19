@@ -15,7 +15,7 @@ import { useTaskAnalytics } from "analytics";
 import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import { GroupedFiles } from "../types";
 
-type GroupedFilesFile = NonNullable<Unpacked<GroupedFiles["files"]>>;
+type GroupedFilesFile = Unpacked<NonNullable<GroupedFiles["files"]>>;
 
 const getColumns = (
   taskAnalytics: ReturnType<typeof useTaskAnalytics>,
