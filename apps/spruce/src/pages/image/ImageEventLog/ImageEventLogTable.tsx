@@ -60,6 +60,7 @@ const eventTypeToLabel = {
   [ImageEventType.Package]: "Package",
   [ImageEventType.Toolchain]: "Toolchain",
   [ImageEventType.OperatingSystem]: "OS",
+  [ImageEventType.File]: "File",
 };
 
 interface ImageEventLogTableProps {
