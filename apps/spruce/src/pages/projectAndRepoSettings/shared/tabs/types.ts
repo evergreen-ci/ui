@@ -52,7 +52,7 @@ export type GqlToFormFunction<T extends WritableProjectSettingsType> = (
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
   options?: { projectType?: ProjectType },
-) => FormStateMap[T];
+) => FormStateMap[T] | null;
 
 export type FormToGqlFunction<T extends WritableProjectSettingsType> = (
   form: FormStateMap[T],

@@ -70,7 +70,6 @@ export const gqlToForm = ((data, { projectType }) => {
         }),
       ) ?? [],
   };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((

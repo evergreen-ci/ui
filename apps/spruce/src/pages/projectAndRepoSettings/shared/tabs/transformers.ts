@@ -35,19 +35,12 @@ export const gqlToFormMap: {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.Notifications]: notifications.gqlToForm,
   [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.gqlToForm,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.gqlToForm,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.gqlToForm,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.gqlToForm,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.Containers]: containers.gqlToForm,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.gqlToForm,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.gqlToForm,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.gqlToForm,
 };
 

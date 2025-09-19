@@ -20,7 +20,6 @@ export const gqlToForm = ((data) => {
         }),
       ) ?? [],
   };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = (({ parsleyFilters }, isRepo, id) => ({
