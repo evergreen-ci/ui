@@ -54,32 +54,18 @@ export const gqlToFormMap: {
 export const formToGqlMap: {
   [T in WritableProjectSettingsType]: FormToGqlFunction<T>;
 } = {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.General]: general.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.Access]: access.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.Plugins]: plugins.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.Variables]: variables.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.GithubCommitQueue]: githubCommitQueue.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.Notifications]: notifications.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.Containers]: containers.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.formToGql,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.formToGql,
 };

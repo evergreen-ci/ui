@@ -148,14 +148,12 @@ export const gqlToForm = ((data, { projectType }) => {
 export const formToGql = ((formState, isRepo, id) => {
   const { banner, buildBreakSettings, subscriptions } = formState;
   const projectRef: ProjectInput = {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,
     ...(banner && { banner: banner.bannerData }),
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const transformedSubscriptions: SubscriptionInput[] = subscriptions.map(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     getGqlPayload(id),
   );
   return {
@@ -163,5 +161,4 @@ export const formToGql = ((formState, isRepo, id) => {
     projectRef,
     subscriptions: transformedSubscriptions,
   };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

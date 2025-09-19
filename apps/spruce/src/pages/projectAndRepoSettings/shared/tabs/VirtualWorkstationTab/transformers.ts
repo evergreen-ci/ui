@@ -35,7 +35,6 @@ export const formToGql = ((
 ) => ({
   ...(isRepo ? { repoId: id } : { projectId: id }),
   projectRef: {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     workstationConfig: {
       gitClone,

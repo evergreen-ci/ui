@@ -26,7 +26,6 @@ export const gqlToForm = ((data) => {
 export const formToGql = (({ parsleyFilters }, isRepo, id) => ({
   ...(isRepo ? { repoId: id } : { projectId: id }),
   projectRef: {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     parsleyFilters: parsleyFilters.map(
       ({ caseSensitive, description, exactMatch, expression }) => ({

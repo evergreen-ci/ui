@@ -45,7 +45,6 @@ export const gqlToForm = ((data, { projectType }) => {
 export const formToGql = (({ triggers, triggersOverride }, isRepo, id) => ({
   ...(isRepo ? { repoId: id } : { projectId: id }),
   projectRef: {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     triggers: triggersOverride
       ? triggers.map((trigger) => ({

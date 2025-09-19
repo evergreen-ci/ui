@@ -26,5 +26,4 @@ export const formToGql = ((formState, isRepo, id) => {
       containerSizeDefinitions: containerSizeDefinitions.variables,
     },
   };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

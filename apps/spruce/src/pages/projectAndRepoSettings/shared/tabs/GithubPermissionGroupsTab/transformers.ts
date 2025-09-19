@@ -37,7 +37,6 @@ export const formToGql = ((formState, isRepo, id) => ({
     privateKey: "",
   },
   projectRef: {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     githubDynamicTokenPermissionGroups:
       formState?.permissionGroups?.map((pg) => {
