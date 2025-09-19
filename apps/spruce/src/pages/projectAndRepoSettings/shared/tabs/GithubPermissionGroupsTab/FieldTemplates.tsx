@@ -17,9 +17,13 @@ import { tableColumnOffset } from "constants/tokens";
 type ArrayItem = Unpacked<ArrayFieldTemplateProps["items"]>;
 
 export const ArrayFieldTemplate: React.FC<
-  Pick<ArrayFieldTemplateProps, "items" | "onAddClick" | "disabled">
-> = ({ disabled, items, onAddClick }) => {
-  const columns = useMemo(() => getColumns(disabled), [disabled]);
+  Pick<
+    ArrayFieldTemplateProps,
+    "items" | "onAddClick" | "disabled" | "readonly"
+  >
+> = ({ disabled, items, onAddClick, readonly }) => {
+  const isDisabled = readonly || disabled;
+  const columns = useMemo(() => getColumns(isDisabled), [isDisabled]);
   const table = useLeafyGreenTable<ArrayItem>({
     columns,
     data: items,
@@ -42,7 +46,7 @@ export const ArrayFieldTemplate: React.FC<
       <ButtonWrapper>
         <PlusButton
           data-cy="add-permission-button"
-          disabled={disabled}
+          disabled={isDisabled}
           onClick={onAddClick}
           size={ButtonSize.Small}
         >
