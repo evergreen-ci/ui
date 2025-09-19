@@ -51,7 +51,11 @@ const getColumns = (
               <Button
                 data-cy="parsley-link"
                 disabled={value.row.original.urlParsley === null}
-                href={replaceUrl(value.row.original.urlParsley ?? "")}
+                href={
+                  value.row.original.urlParsley
+                    ? replaceUrl(value.row.original.urlParsley)
+                    : undefined
+                }
                 onClick={() => {
                   taskAnalytics.sendEvent({
                     name: "Clicked task file Parsley link",
