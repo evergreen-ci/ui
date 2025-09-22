@@ -36,6 +36,7 @@ export interface OtherFormState {
       testResultsBucketName: string;
       testResultsBucketTestResultsPrefix: string;
       testResultsBucketRoleARN: string;
+      testResultsBucketType: string;
       credentialsKey: string;
       credentialsSecret: string;
       failedTasksLogBucketName: string;

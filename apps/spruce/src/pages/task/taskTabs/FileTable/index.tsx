@@ -54,12 +54,11 @@ const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
         validatorErrorMessage="Invalid regex"
       />
       {filteredGroupedFiles.length === 0 && <Body>No files found</Body>}
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {filteredGroupedFiles.map((groupedFile) => (
+      {filteredGroupedFiles.map(({ files: taskFiles, taskName }) => (
         <GroupedFileTable
-          key={groupedFile?.taskName}
-          files={groupedFile?.files}
-          taskName={hasMultipleFileGroups && groupedFile?.taskName}
+          key={taskName}
+          files={taskFiles ?? []}
+          taskName={hasMultipleFileGroups ? (taskName ?? "") : ""}
         />
       ))}
     </>
