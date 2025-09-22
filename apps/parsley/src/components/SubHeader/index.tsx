@@ -2,10 +2,8 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useAdminBetaFeatures } from "@evg-ui/lib/hooks/useBetaFeatures";
 import Breadcrumbs from "components/Breadcrumbs";
 import { ToggleChatbotButton } from "components/Chatbot/ToggleChatbotButton";
-import { showAI } from "constants/featureFlags";
 import { subheaderHeight } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import { EvergreenTaskSubHeader } from "./EvergreenTaskSubHeader";
@@ -21,8 +19,6 @@ const SubHeader: React.FC<SubHeaderProps> = ({ setSidePanelCollapsed }) => {
   const { isUploadedLog, logMetadata } = useLogContext();
   const { buildID, execution, fileName, groupID, logType, taskID, testID } =
     logMetadata || {};
-
-  const { adminBetaSettings } = useAdminBetaFeatures();
 
   return (
     <Container data-cy="log-header">
@@ -58,12 +54,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({ setSidePanelCollapsed }) => {
             )}
             <SectionControls />
           </Header>
-          {/* Shows on all non-prod environments by default. Only shows on production if Parsley AI is enabled in Admin Settings. */}
-          {(showAI || adminBetaSettings?.parsleyAIEnabled) && (
-            <ToggleChatbotButton
-              setSidePanelCollapsed={setSidePanelCollapsed}
-            />
-          )}
+          <ToggleChatbotButton setSidePanelCollapsed={setSidePanelCollapsed} />
         </>
       )}
     </Container>

@@ -1,5 +1,5 @@
 import { useMergedBetaFeatures } from "@evg-ui/lib/hooks/useBetaFeatures";
-import { getParsleyUrl, isProduction } from "utils/environmentVariables";
+import { getParsleyUrl, isEndUserProduction } from "utils/environmentVariables";
 
 export const parsleyBetaURL = "https://parsley-beta.corp.mongodb.com";
 
@@ -13,7 +13,7 @@ export const useConditionallyLinkToParsleyBeta = () => {
   // Redirecting to beta only makes sense on the production environment. The beta must be enabled in Admin
   // Settings and by the given user.
   const redirectToBeta =
-    (isProduction() && betaFeatures?.parsleyAIEnabled) ?? false;
+    (isEndUserProduction() && betaFeatures?.parsleyAIEnabled) ?? false;
 
   const replaceUrl = (originalUrl: string): string =>
     redirectToBeta && originalUrl

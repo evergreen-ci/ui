@@ -1,4 +1,4 @@
-import { getUserStagingKey, isStaging } from "../environment";
+import { getUserStagingKey, isStaging } from "../environmentVariables";
 
 /**
  * getUserStagingHeader generates the correct headers for the Evergreen-Multi staging backend to correctly route requests.
