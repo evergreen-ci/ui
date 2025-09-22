@@ -11,6 +11,7 @@ import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { UserConfigQuery, UserConfigQueryVariables } from "gql/generated/types";
 import { USER_CONFIG } from "gql/queries";
+import { getEvergreenUrl } from "utils/environmentVariables";
 
 export const AuthenticationCard = () => {
   const { data, loading, refetch } = useQuery<
