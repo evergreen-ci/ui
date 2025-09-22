@@ -3,6 +3,14 @@ import { hasOperationName } from "../utils/graphql-test-utils";
 
 type cyGetOptions = Parameters<typeof cy.get>[1];
 
+/* clearDatePickerInput */
+Cypress.Commands.add("clearDatePickerInput", () => {
+  // LG Date Picker does not respond well to .clear()
+  cy.get("input[id='day']").type(
+    "{backspace}{backspace}{backspace}{backspace}{backspace}",
+  );
+});
+
 /* closeBanner */
 Cypress.Commands.add("closeBanner", (dataCy: string) => {
   cy.dataCy(dataCy).within(() => cy.get("[aria-label='X Icon']").click());
