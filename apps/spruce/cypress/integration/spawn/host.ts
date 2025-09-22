@@ -272,7 +272,6 @@ describe("Navigating to Spawn Host page", () => {
     cy.dataCy("edit-spawn-host-modal").should("be.visible");
 
     cy.get("input[id='year']").as("startOfDateInput");
-    cy.get("input[id='day']").as("endOfDateInput");
 
     cy.get("@startOfDateInput").click();
     cy.get("td[aria-current=true]").as("currentDateCell");
@@ -308,20 +307,16 @@ describe("Navigating to Spawn Host page", () => {
 
     cy.contains("button", "Save").should("have.attr", "aria-disabled", "false");
 
-    // LG Date Picker does not respond well to .clear()
-    cy.get("@endOfDateInput").type(
-      "{backspace}{backspace}{backspace}{backspace}{backspace}",
-    );
+    cy.clearDatePickerInput();
 
     // Select a date in the past
     cy.get("@startOfDateInput").type("20250101");
     cy.get("body").click();
     cy.contains("button", "Save").should("have.attr", "aria-disabled", "true");
 
+    cy.clearDatePickerInput();
+
     // Select a date too far in the future
-    cy.get("@endOfDateInput").type(
-      "{backspace}{backspace}{backspace}{backspace}{backspace}",
-    );
     cy.get("@startOfDateInput").type("20600115");
     cy.contains("button", "Save").should("have.attr", "aria-disabled", "true");
   });

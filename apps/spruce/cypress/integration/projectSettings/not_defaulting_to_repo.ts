@@ -172,12 +172,8 @@ describe("Project Settings when not defaulting to repo", () => {
       });
 
       cy.get("input[id='year']").as("startOfDateInput");
-      cy.get("input[id='day']").as("endOfDateInput");
 
-      // LG Date Picker does not respond well to .clear()
-      cy.get("@endOfDateInput").type(
-        "{backspace}{backspace}{backspace}{backspace}{backspace}",
-      );
+      cy.clearDatePickerInput();
 
       cy.get("@startOfDateInput").type("20250101");
       // Check for error text
@@ -188,9 +184,7 @@ describe("Project Settings when not defaulting to repo", () => {
         day: "01",
       });
 
-      cy.get("@endOfDateInput").type(
-        "{backspace}{backspace}{backspace}{backspace}{backspace}",
-      );
+      cy.clearDatePickerInput();
 
       cy.get("@startOfDateInput").type("20250920");
       // No error text
@@ -201,9 +195,7 @@ describe("Project Settings when not defaulting to repo", () => {
         day: "20",
       });
 
-      cy.get("@endOfDateInput").type(
-        "{backspace}{backspace}{backspace}{backspace}{backspace}",
-      );
+      cy.clearDatePickerInput();
 
       cy.get("@startOfDateInput").type("20250916");
       // No error text
