@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
-import { DISABLE_QUERY_POLLING } from "constants/cookies";
+import { DISABLE_QUERY_POLLING, DISABLE_TASK_REVIEW } from "constants/cookies";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
@@ -60,6 +60,16 @@ export const PreferenceToggles: React.FC = () => {
     window.location.reload();
   };
 
+  const handleToggleTaskReview = () => {
+    const nextState = Cookies.get(DISABLE_TASK_REVIEW) !== "true";
+    sendEvent({
+      name: "Toggled task review",
+      value: nextState ? "Enabled" : "Disabled",
+    });
+    Cookies.set(DISABLE_TASK_REVIEW, nextState.toString());
+    window.location.reload();
+  };
+
   return loading ? (
     <ParagraphSkeleton />
   ) : (
@@ -88,6 +98,18 @@ export const PreferenceToggles: React.FC = () => {
         />
         <label htmlFor="polling">
           Allow background polling for active tabs in the current browser.
+        </label>
+      </PreferenceItem>
+      <PreferenceItem>
+        <Toggle
+          aria-label="Toggle task review"
+          checked={Cookies.get(DISABLE_TASK_REVIEW) !== "true"}
+          id="task-review"
+          onChange={handleToggleTaskReview}
+          size={ToggleSize.Small}
+        />
+        <label htmlFor="task-review">
+          Disable individual task review tracking for Evergreen tasks.
         </label>
       </PreferenceItem>
     </>
