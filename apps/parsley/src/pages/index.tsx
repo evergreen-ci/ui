@@ -9,7 +9,7 @@ import { LogTypes } from "constants/enums";
 import { betaURL } from "constants/externalLinks";
 import routes, { slugs } from "constants/routes";
 import { useUser } from "hooks";
-import { isProduction } from "utils/environmentVariables";
+import { isEndUserProduction } from "utils/environmentVariables";
 import NotFound from "./404";
 import LogView from "./LogView";
 
@@ -34,7 +34,7 @@ const Content: React.FC = () => {
   useEffect(() => {
     // If Parsley AI beta is enabled globally, and the user is opted in, redirect to the
     // Parsley Beta URL. Limited to production as beta can only mirror production data.
-    if (isProduction() && betaFeatures?.parsleyAIEnabled) {
+    if (isEndUserProduction() && betaFeatures?.parsleyAIEnabled) {
       const redirectURL = `${betaURL}${pathname}${search}`;
       window.location.replace(redirectURL);
     }

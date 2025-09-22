@@ -2,6 +2,7 @@ import { Fragment, lazy, useState } from "react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import Cookie from "js-cookie";
+import { useAdminBetaFeatures } from "@evg-ui/lib/hooks/useBetaFeatures";
 import BookmarksBar from "components/BookmarksBar";
 import { Chatbot } from "components/Chatbot";
 import LogPane from "components/LogPane";
@@ -9,7 +10,6 @@ import { ParsleyRow } from "components/LogRow/RowRenderer";
 import SidePanel from "components/SidePanel";
 import SubHeader from "components/SubHeader";
 import { DRAWER_OPENED } from "constants/cookies";
-import { showAI } from "constants/featureFlags";
 import { useLogContext } from "context/LogContext";
 
 const SectionsFeatureModal = lazy(
@@ -34,7 +34,8 @@ const LogWindow: React.FC = () => {
     Cookie.get(DRAWER_OPENED) === "true",
   );
 
-  const ChatWrapper = showAI ? Chatbot : Fragment;
+  const { adminBetaSettings } = useAdminBetaFeatures();
+  const ChatWrapper = adminBetaSettings?.parsleyAIEnabled ? Chatbot : Fragment;
 
   return (
     <Container data-cy="log-window">

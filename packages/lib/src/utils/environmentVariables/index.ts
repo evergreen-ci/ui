@@ -41,12 +41,14 @@ export const isStaging = () => getReleaseStage() === ReleaseStage.Staging;
 
 /**
  * `isProduction()` indicates if the current build is a build meant for a production deployment.
+ * @see {@link isEndUserProduction} if implementing a feature flag
  * @returns `true` if the current build is a production build.
  */
 export const isProduction = () => getReleaseStage() === ReleaseStage.Production;
 
 /**
  * `isProductionBuild()` indicates if the current environment is a production bundle.
+ * @see {@link isEndUserProduction} if implementing a feature flag
  * @returns `true` if the current environment is a production build.
  */
 export const isProductionBuild = () =>
@@ -64,6 +66,12 @@ export const isDevelopmentBuild = () =>
  * @returns `true` if the current environment is a test environment.
  */
 export const isTest = () => process.env.NODE_ENV === Environment.Test;
+
+/**
+ * `isEndUserProduction()` targets the end-user environment, useful for feature flags.
+ * @returns `true` only on <app>.mongodb.com
+ */
+export const isEndUserProduction = () => isProduction() && isProductionBuild();
 
 /**
  * `getEvergreenUrl()` - Get the backing evergreen URL from the environment variables
@@ -120,6 +128,13 @@ export const getAppVersion = () => process.env.REACT_APP_VERSION || "";
  */
 export const getHoneycombBaseURL = () =>
   process.env.REACT_APP_HONEYCOMB_BASE_URL || "";
+
+/**
+ * `getUserStagingKey()` - Get the user-specific staging key configured by the deploy task.
+ * @returns - Returns the user's staging key.
+ */
+export const getUserStagingKey = (): string =>
+  process.env.REACT_APP_USER_KEY || "";
 
 /**
  * `getLoginDomain()` - Get the login domain depending on the release stage

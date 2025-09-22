@@ -1,7 +1,8 @@
-import {
+export {
   getReleaseStage,
   isLocal,
   isBeta,
+  isEndUserProduction,
   isStaging,
   isProduction,
   isProductionBuild,
@@ -18,24 +19,3 @@ import {
   getHoneycombBaseURL,
   getLoginDomain,
 } from "@evg-ui/lib/utils/environmentVariables";
-
-export {
-  getReleaseStage,
-  isLocal,
-  isBeta,
-  isStaging,
-  isProduction,
-  isProductionBuild,
-  isDevelopmentBuild,
-  isTest,
-  getEvergreenUrl,
-  getSignalProcessingUrl,
-  getApiUrl,
-  getSentryDSN,
-  getSpruceURL,
-  getGQLUrl,
-  getParsleyUrl,
-  getAppVersion,
-  getHoneycombBaseURL,
-  getLoginDomain,
-};
