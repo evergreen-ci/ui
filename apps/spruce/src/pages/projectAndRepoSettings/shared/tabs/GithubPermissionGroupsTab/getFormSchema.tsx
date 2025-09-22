@@ -87,7 +87,7 @@ export const getFormSchema = ({
       // Show project permission groups for the project if it's not using repo's GitHub app.
       ...(!defaultsToRepo && {
         permissionGroups: {
-          title: "Permission Groups",
+          title: "Token Permission Groups",
           $ref: "#/definitions/permissionGroupsArray",
         },
       }),
@@ -98,7 +98,7 @@ export const getFormSchema = ({
           title: "",
           properties: {
             permissionGroups: {
-              title: "Repo Permission Groups",
+              title: "Repo Token Permission Groups",
               $ref: "#/definitions/permissionGroupsArray",
             },
           },
