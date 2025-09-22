@@ -1,17 +1,17 @@
-import { getEvergreenUrl } from "../environmentVariables";
 import { reportError } from "../errorReporting";
 
-const defaultHeaders = {
+const headers = new Headers({
   "Content-Type": "application/json",
-};
+});
 
 export const post = async (url: string, body: unknown) => {
-  const response = await fetch(`${getEvergreenUrl()}${url}`, {
+  const options: RequestInit = {
     body: JSON.stringify(body),
     credentials: "include",
-    headers: new Headers(defaultHeaders),
+    headers,
     method: "POST",
-  });
+  };
+  const response = await fetch(url, options);
   if (!response.ok) {
     throw new Error(getErrorMessage(response, "POST"));
   }
@@ -20,7 +20,7 @@ export const post = async (url: string, body: unknown) => {
 
 export const postAndHandle = async (...args: Parameters<typeof post>) => {
   try {
-    post(...args);
+    return await post(...args);
   } catch (e: any) {
     handleError(e);
   }

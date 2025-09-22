@@ -81,6 +81,24 @@ describe("request utils", () => {
   });
 
   describe("postAndHandle", () => {
+    beforeAll(() => {
+      expect.extend({
+        // We need a custom matcher because Headers don't behave as a standard object
+        toBeHeader(received: Headers, expected: object) {
+          const receivedString = JSON.stringify(
+            Object.fromEntries(received.entries()),
+          );
+          const expectedString = JSON.stringify(expected);
+          const { equals, isNot } = this;
+          return {
+            pass: equals(receivedString, expectedString),
+            message: () =>
+              `${receivedString} is${isNot ? " not" : ""} ${expectedString}`,
+          };
+        },
+      });
+    });
+
     afterEach(() => {
       vi.clearAllMocks();
     });
@@ -96,12 +114,13 @@ describe("request utils", () => {
 
       const response = await postAndHandle(url, body);
 
-      expect(response).toStrictEqual({ ok: true });
       expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
+        headers: expect.toBeHeader({ "content-type": "application/json" }),
         method: "POST",
         body: JSON.stringify(body),
         credentials: "include",
       });
+      expect(response).toStrictEqual({ ok: true });
     });
 
     it("should handle and report an error for a failed request", async () => {
@@ -119,6 +138,7 @@ describe("request utils", () => {
       await postAndHandle(url, body);
 
       expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
+        headers: expect.toBeHeader({ "content-type": "application/json" }),
         method: "POST",
         body: JSON.stringify(body),
         credentials: "include",
