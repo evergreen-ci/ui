@@ -24,6 +24,15 @@ updates:
         applies-to: version-updates
         patterns:
           - "@emotion/*"
+      eslint:
+        applies-to: version-updates
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "typescript-eslint"
+          - "@emotion/eslint-plugin"
+          - "@eslint/*"
+          - "@graphql-eslint/eslint-plugin"
       graphql-codegen:
         applies-to: version-updates
         patterns:
