@@ -28,6 +28,10 @@ declare global {
   namespace Cypress {
     interface Chainable {
       /**
+       * Clear date from a LeafyGreen datepicker
+       */
+      clearDatePickerInput(): void;
+      /**
        * Close a dismissible LeafyGreen banner with the given data-cy property.
        * @example cy.closeBanner("slack-notification")
        */

@@ -24,6 +24,7 @@ import HOST from "./host.graphql";
 import HOSTS from "./hosts.graphql";
 import IMAGE_DISTROS from "./image-distros.graphql";
 import IMAGE_EVENTS from "./image-events.graphql";
+import IMAGE_FILES from "./image-files.graphql";
 import IMAGE_GENERAL from "./image-general.graphql";
 import IMAGE_OPERATING_SYSTEM from "./image-operating-system.graphql";
 import IMAGE_PACKAGES from "./image-packages.graphql";
@@ -119,6 +120,7 @@ export {
   HOSTS,
   IMAGE_DISTROS,
   IMAGE_EVENTS,
+  IMAGE_FILES,
   IMAGE_GENERAL,
   IMAGE_OPERATING_SYSTEM,
   IMAGE_PACKAGES,

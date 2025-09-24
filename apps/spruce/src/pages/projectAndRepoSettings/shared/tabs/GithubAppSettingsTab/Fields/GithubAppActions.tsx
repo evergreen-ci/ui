@@ -79,8 +79,13 @@ const DeleteAppCredentialsButton: React.FC<{
 
 const GithubAppActions: Field = ({ disabled, uiSchema }) => {
   const {
-    options: { isAppDefined, projectId },
+    options: { defaultsToRepo, isAppDefined, projectId },
   } = uiSchema;
+
+  // You should not be able to delete the repo GitHub app from a project.
+  if (defaultsToRepo) {
+    return null;
+  }
 
   return isAppDefined ? (
     <DeleteAppCredentialsButton

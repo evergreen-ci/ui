@@ -1,26 +1,15 @@
-import {
+export {
   Environment,
   ReleaseStage,
   getReleaseStage,
   isDevelopmentBuild,
+  isEndUserProduction,
   isLocal,
   isProduction,
   isProductionBuild,
   isStaging,
   isTest,
 } from "@evg-ui/lib/utils/environmentVariables";
-
-export {
-  ReleaseStage,
-  Environment,
-  isLocal,
-  isStaging,
-  isProduction,
-  isProductionBuild,
-  isDevelopmentBuild,
-  getReleaseStage,
-  isTest,
-};
 
 const getSentryDSN = () => process.env.REACT_APP_PARSLEY_SENTRY_DSN || "";
 
