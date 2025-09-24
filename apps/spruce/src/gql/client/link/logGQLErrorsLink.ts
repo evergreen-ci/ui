@@ -1,6 +1,5 @@
 import { Operation } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
-import { ApolloServerErrorCode } from "@apollo/server/errors";
 import { GraphQLError } from "graphql";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { deleteNestedKey } from "@evg-ui/lib/utils/object";
@@ -13,9 +12,10 @@ export const reportingFn =
       fingerprint.push(...path);
     }
 
+    // Look for ApolloServerErrorCode magic string
+    // https://github.com/apollographql/apollo-server/blob/265dda9d96265ca2aa81ed1e18b326ee21fe18a2/packages/server/src/errors/index.ts#L6
     const isValidationError =
-      gqlErr.extensions?.code ===
-      ApolloServerErrorCode.GRAPHQL_VALIDATION_FAILED;
+      gqlErr.extensions?.code === "GRAPHQL_VALIDATION_FAILED";
 
     const err = isValidationError
       ? new GraphQLError(

@@ -26,4 +26,9 @@ export const tocItems: {
     observedElementId: "toc-item-toolchains",
     title: "Toolchains",
   },
+  files: {
+    id: "files",
+    observedElementId: "toc-item-files",
+    title: "Files",
+  },
 };

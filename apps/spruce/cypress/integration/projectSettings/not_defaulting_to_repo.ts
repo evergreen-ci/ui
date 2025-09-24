@@ -158,6 +158,55 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("navitem-periodic-builds").click();
     });
 
+    it("allows a user to schedule the next build on the current day", () => {
+      const now = new Date(2025, 8, 16); // month is 0-indexed
+
+      cy.clock(now, ["Date"]);
+      // Reload to apply clock changes
+      cy.reload();
+      cy.dataCy("add-button").click();
+      cy.validateDatePickerDate("date-picker", {
+        year: "2025",
+        month: "09",
+        day: "16",
+      });
+
+      cy.get("input[id='year']").as("startOfDateInput");
+
+      cy.clearDatePickerInput();
+
+      cy.get("@startOfDateInput").type("20250101");
+      // Check for error text
+      cy.contains("Date must be after").should("exist");
+      cy.validateDatePickerDate("date-picker", {
+        year: "2025",
+        month: "01",
+        day: "01",
+      });
+
+      cy.clearDatePickerInput();
+
+      cy.get("@startOfDateInput").type("20250920");
+      // No error text
+      cy.contains("Date must be after").should("not.exist");
+      cy.validateDatePickerDate("date-picker", {
+        year: "2025",
+        month: "09",
+        day: "20",
+      });
+
+      cy.clearDatePickerInput();
+
+      cy.get("@startOfDateInput").type("20250916");
+      // No error text
+      cy.contains("Date must be after").should("not.exist");
+      cy.validateDatePickerDate("date-picker", {
+        year: "2025",
+        month: "09",
+        day: "16",
+      });
+    });
+
     it("Disables save button when interval is NaN or below minimum and allows saving a number in range", () => {
       cy.dataCy("add-button").click();
       cy.dataCy("interval-input").as("intervalInput").type("NaN");

@@ -20,16 +20,16 @@ const createWrapper = (mocks: MockedProviderProps["mocks"]) =>
 
 describe("useConditionallyLinkToParsleyBeta", () => {
   beforeEach(() => {
-    process.env.REACT_APP_PARSLEY_URL = "real_parsley_url";
+    vi.stubEnv("REACT_APP_PARSLEY_URL", "real_parsley_url");
   });
 
   afterAll(() => {
-    process.env.REACT_APP_RELEASE_STAGE = undefined;
-    process.env.REACT_APP_PARSLEY_URL = undefined;
+    vi.unstubAllEnvs();
   });
 
   it("is production and beta feature is enabled", async () => {
-    process.env.REACT_APP_RELEASE_STAGE = "production";
+    vi.stubEnv("REACT_APP_RELEASE_STAGE", "production");
+    vi.stubEnv("NODE_ENV", "production");
 
     const { result } = renderHook(() => useConditionallyLinkToParsleyBeta(), {
       wrapper: createWrapper([adminBetaFeatureEnabled, userBetaFeatureEnabled]),
@@ -45,7 +45,7 @@ describe("useConditionallyLinkToParsleyBeta", () => {
   });
 
   it("is not production and beta feature is enabled", async () => {
-    process.env.REACT_APP_RELEASE_STAGE = "staging";
+    vi.stubEnv("REACT_APP_RELEASE_STAGE", "staging");
 
     const { result } = renderHook(() => useConditionallyLinkToParsleyBeta(), {
       wrapper: createWrapper([adminBetaFeatureEnabled, userBetaFeatureEnabled]),
@@ -61,7 +61,8 @@ describe("useConditionallyLinkToParsleyBeta", () => {
   });
 
   it("is production and admin feature not enabled", async () => {
-    process.env.REACT_APP_RELEASE_STAGE = "production";
+    vi.stubEnv("REACT_APP_RELEASE_STAGE", "production");
+    vi.stubEnv("NODE_ENV", "production");
 
     const { result } = renderHook(() => useConditionallyLinkToParsleyBeta(), {
       wrapper: createWrapper([
@@ -80,7 +81,8 @@ describe("useConditionallyLinkToParsleyBeta", () => {
   });
 
   it("is production and user feature not enabled", async () => {
-    process.env.REACT_APP_RELEASE_STAGE = "production";
+    vi.stubEnv("REACT_APP_RELEASE_STAGE", "production");
+    vi.stubEnv("NODE_ENV", "production");
 
     const { result } = renderHook(() => useConditionallyLinkToParsleyBeta(), {
       wrapper: createWrapper([

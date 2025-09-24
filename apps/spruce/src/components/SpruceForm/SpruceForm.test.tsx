@@ -428,7 +428,7 @@ describe("spruce form", () => {
         // Wait for the useUserSettings hook to move to success state
         expect(await screen.findByDataCy("hour-input")).toHaveValue("11");
 
-        user.clear(screen.getByLabelText("day"));
+        await user.clear(screen.getByLabelText("day"));
         await user.type(screen.getByLabelText("day"), "19");
         expect(onChangeMock).toHaveBeenNthCalledWith(
           2,
