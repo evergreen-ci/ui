@@ -175,33 +175,12 @@ export const getFormSchema = ({
           to define permission groups.
         </StyledDescription>
       ),
-      permissionsByRequester: {
-        ...(!defaultsToRepo && { "ui:widget": "hidden" }),
-        "ui:ArrayFieldTemplate": ArrayFieldTemplate,
-        "ui:addable": false,
-        "ui:orderable": false,
-        "ui:removable": false,
-        "ui:showLabel": false,
-        items: {
-          "ui:ObjectFieldTemplate": FieldRow,
-          requesterType: {
-            "ui:field": RequesterTypeField,
-            "ui:elementWrapperCSS": tokenFieldCss,
-            "ui:showLabel": false,
-          },
-          permissionGroup: {
-            "ui:allowDeselect": false,
-            "ui:ariaLabelledBy": "Permission Group",
-            "ui:data-cy": "permission-group-input",
-            "ui:elementWrapperCSS": tokenFieldCss,
-            "ui:sizeVariant": "small",
-          },
-        },
-      },
+      permissionsByRequester: permissionsByRequesterUISchema,
     },
     repoData: {
       "ui:readonly": true,
       tokenPermissionRestrictions: {
+        ...(!defaultsToRepo && { "ui:widget": "hidden" }),
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:description": (
           <StyledDescription>
@@ -211,28 +190,7 @@ export const getFormSchema = ({
             you want to override the following settings.
           </StyledDescription>
         ),
-        permissionsByRequester: {
-          "ui:ArrayFieldTemplate": ArrayFieldTemplate,
-          "ui:addable": false,
-          "ui:orderable": false,
-          "ui:removable": false,
-          "ui:showLabel": false,
-          items: {
-            "ui:ObjectFieldTemplate": FieldRow,
-            requesterType: {
-              "ui:field": RequesterTypeField,
-              "ui:elementWrapperCSS": tokenFieldCss,
-              "ui:showLabel": false,
-            },
-            permissionGroup: {
-              "ui:allowDeselect": false,
-              "ui:ariaLabelledBy": "Permission Group",
-              "ui:data-cy": "permission-group-input",
-              "ui:elementWrapperCSS": tokenFieldCss,
-              "ui:sizeVariant": "small",
-            },
-          },
-        },
+        permissionsByRequester: permissionsByRequesterUISchema,
       },
     },
   },
@@ -250,3 +208,26 @@ const StyledDescription = styled.span`
   display: block;
   margin-bottom: ${size.xs};
 `;
+
+const permissionsByRequesterUISchema = {
+  "ui:ArrayFieldTemplate": ArrayFieldTemplate,
+  "ui:addable": false,
+  "ui:orderable": false,
+  "ui:removable": false,
+  "ui:showLabel": false,
+  items: {
+    "ui:ObjectFieldTemplate": FieldRow,
+    requesterType: {
+      "ui:field": RequesterTypeField,
+      "ui:elementWrapperCSS": tokenFieldCss,
+      "ui:showLabel": false,
+    },
+    permissionGroup: {
+      "ui:allowDeselect": false,
+      "ui:ariaLabelledBy": "Permission Group",
+      "ui:data-cy": "permission-group-input",
+      "ui:elementWrapperCSS": tokenFieldCss,
+      "ui:sizeVariant": "small",
+    },
+  },
+};
