@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { ChangeEvent, FormEvent, useCallback } from "react";
 import styled from "@emotion/styled";
 import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { Chat, MessageRatingValue } from "@evg-ui/fungi/Chat";
@@ -42,7 +42,7 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
   const handleFeedback = useCallback(
     (spanId: string) =>
       async (
-        e: any,
+        e: FormEvent<HTMLFormElement> | ChangeEvent<HTMLInputElement>,
         options?: { feedback?: string; rating: MessageRatingValue },
       ) => {
         // This should never happen but LG's handler is oddly typed
@@ -62,7 +62,7 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
           handleError,
         );
       },
-    [ratingURL],
+    [],
   );
 
   return (
