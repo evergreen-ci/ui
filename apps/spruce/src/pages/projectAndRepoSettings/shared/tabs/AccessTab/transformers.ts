@@ -23,12 +23,9 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = (({ accessSettings, admin }, isRepo, id) => {
   const projectRef: ProjectInput = {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     restricted: accessSettings.restricted,
     admins: admin.admins,
   };
-
   return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

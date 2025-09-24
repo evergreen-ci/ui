@@ -1,5 +1,6 @@
+import { useMemo } from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -16,8 +17,13 @@ import { tableColumnOffset } from "constants/tokens";
 type ArrayItem = Unpacked<ArrayFieldTemplateProps["items"]>;
 
 export const ArrayFieldTemplate: React.FC<
-  Pick<ArrayFieldTemplateProps, "items" | "onAddClick">
-> = ({ items, onAddClick }) => {
+  Pick<
+    ArrayFieldTemplateProps,
+    "items" | "onAddClick" | "disabled" | "readonly"
+  >
+> = ({ disabled, items, onAddClick, readonly }) => {
+  const isDisabled = readonly || disabled;
+  const columns = useMemo(() => getColumns(isDisabled), [isDisabled]);
   const table = useLeafyGreenTable<ArrayItem>({
     columns,
     data: items,
@@ -31,7 +37,7 @@ export const ArrayFieldTemplate: React.FC<
       <BaseTable
         data-cy="github-permissions-table"
         emptyComponent={
-          <Body style={{ marginLeft: tableColumnOffset }}>
+          <Body style={{ marginLeft: tableColumnOffset, marginTop: size.xs }}>
             No permission groups added yet.
           </Body>
         }
@@ -40,8 +46,9 @@ export const ArrayFieldTemplate: React.FC<
       <ButtonWrapper>
         <PlusButton
           data-cy="add-permission-button"
+          disabled={isDisabled}
           onClick={onAddClick}
-          size="small"
+          size={ButtonSize.Small}
         >
           Add permission
         </PlusButton>
@@ -58,7 +65,7 @@ const HeaderLabel = styled.span`
   width: 100%;
 `;
 
-const columns: LGColumnDef<ArrayItem>[] = [
+const getColumns = (disabled: boolean): LGColumnDef<ArrayItem>[] => [
   {
     header: () => (
       <>
@@ -76,9 +83,10 @@ const columns: LGColumnDef<ArrayItem>[] = [
     cell: ({ row }) => (
       <Button
         data-cy="delete-permission-button"
+        disabled={disabled}
         leftGlyph={<Icon glyph="Trash" />}
         onClick={row.original.onDropIndexClick(row.index)}
-        size="small"
+        size={ButtonSize.Small}
       />
     ),
     size: 10,
