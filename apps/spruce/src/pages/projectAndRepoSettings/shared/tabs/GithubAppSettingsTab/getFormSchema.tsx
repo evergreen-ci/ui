@@ -184,10 +184,10 @@ export const getFormSchema = ({
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:description": (
           <StyledDescription>
-            This project is using GitHub app defined in the corresponding repo
-            and is inheriting the repo&apos;s token permission restrictions. You
-            must create and define a GitHub app specifically for this project if
-            you want to override the following settings.
+            This project is using the GitHub app defined in the corresponding
+            repo, and is inheriting the repo&apos;s token permission
+            restrictions. You must create and define a GitHub app specifically
+            for this project if you want to override the following settings.
           </StyledDescription>
         ),
         permissionsByRequester: permissionsByRequesterUISchema,

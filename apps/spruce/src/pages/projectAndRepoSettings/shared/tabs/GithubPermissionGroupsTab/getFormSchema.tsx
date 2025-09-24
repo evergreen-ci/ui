@@ -145,10 +145,10 @@ export const getFormSchema = ({
         ...(!defaultsToRepo && { "ui:widget": "hidden" }),
         "ui:descriptionNode": (
           <StyledDescription>
-            This project is using GitHub app defined in the corresponding repo
-            and is inheriting the repo&apos;s permission groups. You must create
-            and define a GitHub app specifically for this project if you want to
-            override the following settings.
+            This project is using the GitHub app defined in the corresponding
+            repo, and is inheriting the repo&apos;s permission groups. You must
+            create and define a GitHub app specifically for this project if you
+            want to override the following settings.
           </StyledDescription>
         ),
         "ui:addable": false,
