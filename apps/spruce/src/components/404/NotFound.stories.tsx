@@ -7,9 +7,17 @@ export default {
 } satisfies CustomMeta<typeof NotFoundSvg>;
 
 export const Default404: CustomStoryObj<typeof NotFoundSvg> = {
-  render: () => (
+  render: (args) => (
     <div style={{ height: "100%", width: "100%" }}>
-      <NotFoundSvg />
+      <NotFoundSvg disableAnimations={args.disableAnimations} />
     </div>
   ),
+  args: {
+    disableAnimations: true,
+  },
+  argTypes: {
+    disableAnimations: {
+      control: { type: "boolean" },
+    },
+  },
 };
