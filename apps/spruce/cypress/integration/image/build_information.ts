@@ -166,6 +166,53 @@ describe("build information", () => {
       cy.dataCy("toolchains-table-row").should("have.length", 0);
     });
   });
+
+  describe("files", () => {
+    it("should show the corresponding files", () => {
+      cy.visit("/image/ubuntu2204");
+      cy.dataCy("files-table-row").should("have.length", 10);
+    });
+
+    it("should show different files on different pages", () => {
+      cy.visit("/image/ubuntu2204");
+      cy.dataCy("files-table-row").should("have.length", 10);
+
+      // First file name on first page.
+      cy.dataCy("files-table-row")
+        .first()
+        .find("td")
+        .first()
+        .invoke("text")
+        .as("firstFileName", { type: "static" });
+
+      cy.dataCy("files-card").within(() => {
+        cy.get("[data-testid=lg-pagination-next-button]").click();
+      });
+
+      // First file name on second page.
+      cy.dataCy("files-table-row")
+        .first()
+        .find("td")
+        .first()
+        .invoke("text")
+        .as("nextFileName", { type: "static" });
+
+      // File names should not be equal.
+      cy.get("@firstFileName").then((firstFileName) => {
+        cy.get("@nextFileName").then((nextFileName) => {
+          expect(nextFileName).not.to.equal(firstFileName);
+        });
+      });
+    });
+
+    it("should show no files when filtering for nonexistent item", () => {
+      cy.visit("/image/ubuntu2204");
+      cy.dataCy("files-table-row").should("have.length", 10);
+      cy.dataCy("file-name-filter").click();
+      cy.get('input[placeholder="Name regex"]').type("notarealfile{enter}");
+      cy.dataCy("files-table-row").should("have.length", 0);
+    });
+  });
 });
 
 describe("side nav", () => {
