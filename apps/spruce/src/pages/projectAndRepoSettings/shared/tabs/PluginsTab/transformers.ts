@@ -50,7 +50,6 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     perfEnabled: performanceSettings.perfEnabled,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -72,7 +71,6 @@ export const formToGql = ((
         : null,
   };
   return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;
 
 // conditionally include the buildBaronSettings field based on the useBuildBaron boolean

@@ -75,7 +75,6 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     ...("enabled" in generalConfiguration && {
       enabled: generalConfiguration.enabled,
@@ -103,5 +102,4 @@ export const formToGql = ((
   };
 
   return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;
