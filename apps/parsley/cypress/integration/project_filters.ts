@@ -35,7 +35,7 @@ describe("project filters", () => {
     cy.visit(resmokeLogLink);
     cy.contains("View project filters").click();
     cy.dataCy("project-filters-modal").should("be.visible");
-    cy.contains("NETWORK").click();
+    cy.contains("(NETWORK|ASIO|EXECUTOR|CONNPOOL|REPL_HB)").click();
     getTableCheckbox(1).should("be.checked");
   });
 
