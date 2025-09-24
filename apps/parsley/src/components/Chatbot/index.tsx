@@ -49,7 +49,7 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
         // This should never happen but LG's handler is oddly typed
         if (!options) return;
         try {
-          post(ratingURL, {
+          await post(ratingURL, {
             // Clicking thumb will omit feedback, but otherwise rating and providing feedback do the same thing.
             feedback: options?.feedback,
             rating: options.rating === MessageRatingValue.Liked ? 1 : 0,
