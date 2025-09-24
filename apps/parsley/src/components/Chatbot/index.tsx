@@ -5,7 +5,6 @@ import { Chat, MessageRatingValue } from "@evg-ui/fungi/Chat";
 import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
 import { ChatProvider as FungiProvider } from "@evg-ui/fungi/Context";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { post } from "@evg-ui/lib/utils/request/post";
 import { useAIAgentAnalytics } from "analytics";
 import { aiPrompts } from "constants/aiPrompts";
@@ -48,20 +47,20 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
       ) => {
         // This should never happen but LG's handler is oddly typed
         if (!options) return;
-        try {
-          await post(ratingURL, {
-            // Clicking thumb will omit feedback, but otherwise rating and providing feedback do the same thing.
+        const handleError = (err: Error) => {
+          // Re-throw error to invoke LG error state
+          throw err;
+        };
+        await post(
+          ratingURL,
+          {
+            // Clicking thumb icon will omit `feedback`, but otherwise rating and providing feedback do the same thing.
             feedback: options?.feedback,
             rating: options.rating === MessageRatingValue.Liked ? 1 : 0,
             spanId,
-          });
-        } catch (err: any) {
-          if (err instanceof Error) {
-            reportError(err).warning();
-            // Re-throw error to invoke LG error state
-            throw err;
-          }
-        }
+          },
+          handleError,
+        );
       },
     [ratingURL],
   );

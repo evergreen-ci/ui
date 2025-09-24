@@ -4,33 +4,31 @@ const headers = new Headers({
   "Content-Type": "application/json",
 });
 
-export const post = async (url: string, body: unknown) => {
-  const options: RequestInit = {
-    body: JSON.stringify(body),
-    credentials: "include",
-    headers,
-    method: "POST",
-  };
-  const response = await fetch(url, options);
-  if (!response.ok) {
-    throw new Error(getErrorMessage(response, "POST"));
-  }
-  return response;
-};
-
-export const postAndHandle = async (...args: Parameters<typeof post>) => {
+export const post = async (
+  url: string,
+  body: unknown,
+  handleError?: (e: Error) => void,
+) => {
   try {
-    return await post(...args);
+    const options: RequestInit = {
+      body: JSON.stringify(body),
+      credentials: "include",
+      headers,
+      method: "POST",
+    };
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(getErrorMessage(response, "POST"));
+    }
+    return response;
   } catch (e: any) {
-    handleError(e);
+    const err = e instanceof Error ? e : new Error(e);
+    reportError(err).warning();
+    handleError?.(err);
   }
 };
 
 const getErrorMessage = (response: Response, method: string) => {
   const { status, statusText } = response;
   return `${method} Error: ${status} - ${statusText}`;
-};
-
-const handleError = (error: string) => {
-  reportError(new Error(error)).warning();
 };

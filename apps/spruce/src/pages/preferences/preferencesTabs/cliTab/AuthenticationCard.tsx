@@ -6,7 +6,7 @@ import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Subtitle } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { postAndHandle } from "@evg-ui/lib/utils/request/post";
+import { post } from "@evg-ui/lib/utils/request/post";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { UserConfigQuery, UserConfigQueryVariables } from "gql/generated/types";
@@ -33,7 +33,7 @@ ui_server_host: "${config?.ui_server_host}"
   const resetKey = async (e) => {
     e.preventDefault();
     sendEvent({ name: "Clicked reset API key" });
-    await postAndHandle(`${getEvergreenUrl()}/settings/newkey`, {});
+    await post(`${getEvergreenUrl()}/settings/newkey`, {});
     refetch();
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.

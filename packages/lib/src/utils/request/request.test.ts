@@ -1,4 +1,4 @@
-import { postAndHandle } from "./post";
+import { post } from "./post";
 import { fetchWithRetry } from ".";
 
 describe("request utils", () => {
@@ -80,7 +80,7 @@ describe("request utils", () => {
     });
   });
 
-  describe("postAndHandle", () => {
+  describe("post", () => {
     beforeAll(() => {
       expect.extend({
         // We need a custom matcher because Headers don't behave as a standard object
@@ -112,7 +112,7 @@ describe("request utils", () => {
 
       vi.spyOn(global, "fetch").mockImplementation(fetchMock);
 
-      const response = await postAndHandle(url, body);
+      const response = await post(url, body);
 
       expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
         headers: expect.toBeHeader({ "content-type": "application/json" }),
@@ -135,7 +135,7 @@ describe("request utils", () => {
       vi.spyOn(console, "error").mockImplementation(errorReportingMock);
       vi.spyOn(global, "fetch").mockImplementation(fetchMock);
 
-      await postAndHandle(url, body);
+      await post(url, body);
 
       expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
         headers: expect.toBeHeader({ "content-type": "application/json" }),
