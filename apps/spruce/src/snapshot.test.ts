@@ -78,9 +78,6 @@ describe(`${options.suite}`, () => {
       disconnect: vi.fn(),
     }));
 
-    SVGSVGElement.prototype.pauseAnimations = vi.fn();
-    SVGSVGElement.prototype.unpauseAnimations = vi.fn();
-
     vi.stubGlobal("ResizeObserver", mockResizeObserver);
   });
 
