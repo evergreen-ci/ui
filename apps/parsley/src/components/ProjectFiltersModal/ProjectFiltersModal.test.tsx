@@ -155,7 +155,9 @@ describe("projectFiltersModal", () => {
     await user.click(screen.getByText("my_filter_2"));
     const checkboxes = screen.getAllByRole("checkbox");
     const checkbox2 = checkboxes[2];
-    expect(checkbox2).toBeChecked();
+    await waitFor(() => {
+      expect(checkbox2).toBeChecked();
+    });
   });
 });
 
