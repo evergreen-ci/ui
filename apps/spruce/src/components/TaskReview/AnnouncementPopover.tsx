@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { GuideCue, TooltipAlign } from "@leafygreen-ui/guide-cue";
-import { Body } from "@leafygreen-ui/typography";
+import { palette } from "@leafygreen-ui/palette";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { differenceInDays } from "date-fns";
 import Cookies from "js-cookie";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -10,33 +11,46 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 
-const now = new Date();
-
 export const AnnouncementPopover: React.FC = () => {
+  const now = new Date();
   const infoRef = useRef(null);
 
-  const seenTaskReviewTooltipCookie = Cookies.get(SEEN_TASK_REVIEW_TOOLTIP);
+  const seenTaskReviewTooltipCookie: string | undefined = Cookies.get(
+    SEEN_TASK_REVIEW_TOOLTIP,
+  );
   const neverSeenTaskReviewTooltip = !seenTaskReviewTooltipCookie;
-  const seenTaskReviewTooltipDate = new Date(seenTaskReviewTooltipCookie);
+  const seenTaskReviewTooltipDate = seenTaskReviewTooltipCookie
+    ? new Date(seenTaskReviewTooltipCookie)
+    : now;
 
   const [open, setOpen] = useState(neverSeenTaskReviewTooltip);
+
+  const close = () => {
+    setOpen(false);
+
+    if (neverSeenTaskReviewTooltip) {
+      Cookies.set(
+        SEEN_TASK_REVIEW_TOOLTIP,
+        seenTaskReviewTooltipDate.toString(),
+      );
+    }
+  };
 
   return neverSeenTaskReviewTooltip ||
     differenceInDays(now, seenTaskReviewTooltipDate) < 8 ? (
     <>
       <IconContainer ref={infoRef}>
-        <Icon glyph="InfoWithCircle" onClick={() => setOpen(true)} />
+        <Icon
+          fill={palette.gray.dark2}
+          glyph="InfoWithCircle"
+          onClick={() => setOpen(true)}
+        />
       </IconContainer>
       <GuideCue
         currentStep={1}
         numberOfSteps={1}
-        onPrimaryButtonClick={() => {
-          setOpen(false);
-
-          if (neverSeenTaskReviewTooltip) {
-            Cookies.set(SEEN_TASK_REVIEW_TOOLTIP, now.toString());
-          }
-        }}
+        onDismiss={close}
+        onPrimaryButtonClick={close}
         open={open}
         refEl={infoRef}
         setOpen={setOpen}
@@ -63,7 +77,7 @@ export const AnnouncementPopover: React.FC = () => {
   ) : null;
 };
 
-const StyledBody = styled(Body)`
+const StyledBody = styled(Body)<BodyProps>`
   color: inherit;
 
   :not(:last-of-type) {
