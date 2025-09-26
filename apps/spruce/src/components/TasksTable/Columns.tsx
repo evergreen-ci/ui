@@ -6,6 +6,7 @@ import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
 import { showTaskReviewUI } from "constants/featureFlags";
 import { getVariantHistoryRoute } from "constants/routes";
@@ -30,7 +31,11 @@ export const getColumnsTemplate = ({
   ...(showTaskReviewUI
     ? [
         {
-          header: "Reviewed",
+          header: () => (
+            <>
+              Reviewed <AnnouncementPopover />
+            </>
+          ),
           accessorKey: "reviewed",
           enableColumnFilter: false,
           size: 0,

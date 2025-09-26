@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import styled from "@emotion/styled";
 import {
   useLeafyGreenTable,
   LeafyGreenTable,
@@ -160,7 +161,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       }
       shouldShowBottomTableControl={limit > 10}
     >
-      <BaseTable
+      <StyledBaseTable
         data-cy="tasks-table"
         data-cy-row="tasks-table-row"
         data-loading={loading}
@@ -230,3 +231,10 @@ export const getInitialState = (
     initialFilters,
   };
 };
+
+// If the task review column is present, remove some padding from the left
+const StyledBaseTable = styled(BaseTable)`
+  th:first-of-type#reviewed {
+    padding-left: 12px;
+  }
+`;
