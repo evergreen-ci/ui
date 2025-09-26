@@ -77,6 +77,7 @@ describe(`${options.suite}`, () => {
       unobserve: vi.fn(),
       disconnect: vi.fn(),
     }));
+
     vi.stubGlobal("ResizeObserver", mockResizeObserver);
   });
 
