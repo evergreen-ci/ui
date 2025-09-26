@@ -10,7 +10,6 @@ import {
 import { githubTokenPermissionRestrictionsUrl } from "constants/externalResources";
 import {
   getProjectSettingsRoute,
-  getRepoSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
@@ -32,11 +31,9 @@ export const getFormSchema = ({
   isAppDefined,
   projectId,
   repoData,
-  repoId,
 }: {
   githubPermissionGroups: GitHubDynamicTokenPermissionGroup[];
   identifier: string;
-  repoId: string;
   isAppDefined: boolean;
   projectId: string;
   repoData?: any;
@@ -44,32 +41,8 @@ export const getFormSchema = ({
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as const,
-    properties: {
-      appCredentials: {
-        type: "object" as const,
-        title: "App Credentials",
-        properties: {
-          githubAppAuth: {
-            type: "object" as const,
-            properties: {
-              appId: {
-                type: ["number", "null"],
-                title: "App ID",
-              },
-              privateKey: {
-                type: "string" as const,
-                title: "App Key",
-              },
-            },
-          },
-          actions: {
-            type: "null" as const,
-            title: "",
-          },
-        },
-      },
-      tokenPermissionRestrictions: {
+    definitions: {
+      tokenPermissionRestrictionsObject: {
         type: "object" as const,
         title: "Token Permission Restrictions",
         properties: {
@@ -110,6 +83,46 @@ export const getFormSchema = ({
         },
       },
     },
+    type: "object" as const,
+    properties: {
+      appCredentials: {
+        type: "object" as const,
+        title: "App Credentials",
+        properties: {
+          githubAppAuth: {
+            type: "object" as const,
+            properties: {
+              appId: {
+                type: ["number", "null"],
+                title: "App ID",
+              },
+              privateKey: {
+                type: "string" as const,
+                title: "App Key",
+              },
+            },
+          },
+          actions: {
+            type: "null" as const,
+            title: "",
+          },
+        },
+      },
+      tokenPermissionRestrictions: {
+        title: "Token Permission Restrictions",
+        $ref: "#/definitions/tokenPermissionRestrictionsObject",
+      },
+      repoData: {
+        type: "object" as const,
+        title: "",
+        properties: {
+          tokenPermissionRestrictions: {
+            title: "Repo Token Permission Restrictions",
+            $ref: "#/definitions/tokenPermissionRestrictionsObject",
+          },
+        },
+      },
+    },
   },
   uiSchema: {
     appCredentials: {
@@ -135,10 +148,11 @@ export const getFormSchema = ({
       actions: {
         "ui:field": GithubAppActions,
         "ui:showLabel": false,
-        options: { isAppDefined, projectId },
+        options: { isAppDefined, projectId, defaultsToRepo },
       },
     },
     tokenPermissionRestrictions: {
+      ...(defaultsToRepo && { "ui:widget": "hidden" }),
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:description": (
         <StyledDescription>
@@ -161,44 +175,23 @@ export const getFormSchema = ({
           to define permission groups.
         </StyledDescription>
       ),
-      permissionsByRequester: defaultsToRepo
-        ? {
-            "ui:field": () => (
-              <StyledDescription>
-                Token permission restrictions are being defaulted to the{" "}
-                <StyledRouterLink
-                  to={getRepoSettingsRoute(
-                    repoId,
-                    ProjectSettingsTabRoutes.GithubAppSettings,
-                  )}
-                >
-                  repository settings.
-                </StyledRouterLink>{" "}
-              </StyledDescription>
-            ),
-          }
-        : {
-            "ui:ArrayFieldTemplate": ArrayFieldTemplate,
-            "ui:addable": false,
-            "ui:orderable": false,
-            "ui:removable": false,
-            "ui:showLabel": false,
-            items: {
-              "ui:ObjectFieldTemplate": FieldRow,
-              requesterType: {
-                "ui:field": RequesterTypeField,
-                "ui:elementWrapperCSS": tokenFieldCss,
-                "ui:showLabel": false,
-              },
-              permissionGroup: {
-                "ui:allowDeselect": false,
-                "ui:ariaLabelledBy": "Permission Group",
-                "ui:data-cy": "permission-group-input",
-                "ui:elementWrapperCSS": tokenFieldCss,
-                "ui:sizeVariant": "small",
-              },
-            },
-          },
+      permissionsByRequester: permissionsByRequesterUISchema,
+    },
+    repoData: {
+      "ui:readonly": true,
+      tokenPermissionRestrictions: {
+        ...(!defaultsToRepo && { "ui:widget": "hidden" }),
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:description": (
+          <StyledDescription>
+            This project is using the GitHub app defined in the corresponding
+            repo, and is inheriting the repo&apos;s token permission
+            restrictions. You must create and define a GitHub app specifically
+            for this project if you want to override the following settings.
+          </StyledDescription>
+        ),
+        permissionsByRequester: permissionsByRequesterUISchema,
+      },
     },
   },
 });
@@ -215,3 +208,26 @@ const StyledDescription = styled.span`
   display: block;
   margin-bottom: ${size.xs};
 `;
+
+const permissionsByRequesterUISchema = {
+  "ui:ArrayFieldTemplate": ArrayFieldTemplate,
+  "ui:addable": false,
+  "ui:orderable": false,
+  "ui:removable": false,
+  "ui:showLabel": false,
+  items: {
+    "ui:ObjectFieldTemplate": FieldRow,
+    requesterType: {
+      "ui:field": RequesterTypeField,
+      "ui:elementWrapperCSS": tokenFieldCss,
+      "ui:showLabel": false,
+    },
+    permissionGroup: {
+      "ui:allowDeselect": false,
+      "ui:ariaLabelledBy": "Permission Group",
+      "ui:data-cy": "permission-group-input",
+      "ui:elementWrapperCSS": tokenFieldCss,
+      "ui:sizeVariant": "small",
+    },
+  },
+};

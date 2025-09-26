@@ -27,7 +27,7 @@
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="Tuple Select Select"
-          class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
+          class="lg-ui-button-0000 leafygreen-ui-5xsnod leafygreen-ui-z3qisk"
           data-cy="tuple-select-select"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
@@ -54,7 +54,7 @@
             <svg
               alt=""
               aria-hidden="true"
-              class="leafygreen-ui-fn50nl"
+              class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
               height="16"
               role="presentation"
               viewBox="0 0 16 16"

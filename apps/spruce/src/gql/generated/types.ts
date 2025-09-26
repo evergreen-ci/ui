@@ -8539,6 +8539,30 @@ export type ImageEventsQuery = {
   } | null;
 };
 
+export type ImageFilesQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  opts: ImageFileOpts;
+}>;
+
+export type ImageFilesQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    files: {
+      __typename?: "ImageFilesPayload";
+      filteredCount: number;
+      totalCount: number;
+      data: Array<{
+        __typename?: "ImageFile";
+        name: string;
+        path: string;
+        version: string;
+      }>;
+    };
+  } | null;
+};
+
 export type ImageGeneralQueryVariables = Exact<{
   imageId: Scalars["String"]["input"];
 }>;
