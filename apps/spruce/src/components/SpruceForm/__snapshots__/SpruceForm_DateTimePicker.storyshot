@@ -135,7 +135,7 @@
                         <button
                           aria-disabled="false"
                           aria-label="Open calendar menu"
-                          class="lg-ui-form-field-icon-0000 leafygreen-ui-or9rjx leafygreen-ui-1r51ix4"
+                          class="lg-ui-form-field-icon-0000 leafygreen-ui-18kabg0"
                           data-lgid="lg-form_field-content_end"
                           data-testid="lg-form_field-content_end"
                           tabindex="0"
