@@ -3229,6 +3229,21 @@
     "@lg-tools/test-harnesses" "^0.1.2"
     react-transition-group "^4.4.5"
 
+"@leafygreen-ui/checkbox@^17.0.0":
+  version "17.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-17.0.1.tgz#ede3a89541bb9c97b3a8bcdc9a0eca21ee9f230b"
+  integrity sha512-+37yA4sNqfHXa8OXZc16T+YG7DYJ7KnIMkhZablTLizYPcFZzlveESPLV5Sp3Es9v7WWnvNeLNjyfxh2l+Z+8w==
+  dependencies:
+    "@leafygreen-ui/a11y" "^3.0.0"
+    "@leafygreen-ui/emotion" "^5.0.0"
+    "@leafygreen-ui/hooks" "^9.0.0"
+    "@leafygreen-ui/lib" "^15.0.0"
+    "@leafygreen-ui/palette" "^5.0.0"
+    "@leafygreen-ui/tokens" "^3.1.0"
+    "@leafygreen-ui/typography" "^21.0.1"
+    "@lg-tools/test-harnesses" "^0.3.1"
+    react-transition-group "^4.4.5"
+
 "@leafygreen-ui/checkbox@^18.0.1":
   version "18.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-18.0.1.tgz#e6ad209879811362eef2f52231fc7a264e36825d"

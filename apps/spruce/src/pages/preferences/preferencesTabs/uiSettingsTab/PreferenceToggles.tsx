@@ -61,14 +61,13 @@ export const PreferenceToggles: React.FC = () => {
     window.location.reload();
   };
 
-  const handleToggleTaskReview = () => {
-    const nextState = Cookies.get(DISABLE_TASK_REVIEW) !== "true";
+  const handleToggleTaskReview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nextState = !e.target.checked;
     sendEvent({
       name: "Toggled task review",
       value: nextState ? "Enabled" : "Disabled",
     });
     Cookies.set(DISABLE_TASK_REVIEW, nextState.toString());
-    window.location.reload();
   };
 
   return loading ? (
@@ -95,7 +94,7 @@ export const PreferenceToggles: React.FC = () => {
       </PreferenceItem>
       <PreferenceItem>
         <Checkbox
-          checked={Cookies.get(DISABLE_TASK_REVIEW) !== "true"}
+          defaultChecked={Cookies.get(DISABLE_TASK_REVIEW) !== "true"}
           description="Enable individual task review tracking for unsuccessful tasks. This feature can be accessed from the tasks table on a version page, or on the task page itself."
           label="Task review"
           onChange={handleToggleTaskReview}
