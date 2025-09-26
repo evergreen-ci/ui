@@ -361,7 +361,6 @@ const IconContainer = styled.div`
   align-self: center;
   display: flex;
 `;
-// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of Checkbox.
 const InlineCheckbox = styled(Checkbox)`
   display: inline-flex;
 `;
