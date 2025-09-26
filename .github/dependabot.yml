@@ -37,6 +37,10 @@ updates:
         applies-to: version-updates
         patterns:
           - "@graphql-codegen/*"
+      lg-chat:
+        applies-to: version-updates
+        patterns:
+          - "@lg-chat/*"
       react:
         applies-to: version-updates
         patterns:
