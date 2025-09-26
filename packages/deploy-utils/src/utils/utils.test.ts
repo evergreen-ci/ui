@@ -8,10 +8,12 @@ vi.mock("./git", () => ({
 describe("getAppToDeploy", () => {
   beforeEach(() => {
     vi.mocked(getGitRoot).mockReturnValue("/Users/username/evergreen-ci/ui");
+    vi.stubEnv("npm_package_name", "spruce");
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.unstubAllEnvs();
   });
 
   it("returns app name when run from correct directory", () => {
@@ -43,6 +45,7 @@ describe("getAppToDeploy", () => {
   });
 
   it("throws an error when run from invalid app", () => {
+    vi.stubEnv("npm_package_name", "lobster");
     vi.spyOn(process, "cwd").mockReturnValue(
       "/Users/username/evergreen-ci/ui/apps/lobster",
     );

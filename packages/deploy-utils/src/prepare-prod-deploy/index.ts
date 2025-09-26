@@ -5,16 +5,18 @@ import {
   assertWorkingDirectoryClean,
   getCommitMessages,
   getCurrentlyDeployedCommit,
-  createTagAndPush,
+  createTag,
   deleteTag,
   getLatestTag,
+  push,
   pushTags,
   getReleaseVersion,
 } from "../utils/git";
+import { countdownTimer, green, underline } from "../utils/shell";
 
 /**
  * getAppIfValidEnv ensures that the environment is valid and gets the app being committed.
- * @throws - Will throw an error if not on main branch or uncommitted changes
+ * @throws {Error} - Will throw an error if not on main branch or uncommitted changes
  * @returns - Name of deployable app
  */
 const getAppIfValidEnv = () => {
@@ -81,5 +83,22 @@ export const prepareProdDeploy = async () => {
     return;
   }
 
-  createTagAndPush(version);
+  createTag(app, version);
+  push();
+
+  await countdownTimer(
+    10,
+    (n) => `Waiting ${n}s for Evergreen to pick up the version.`,
+  );
+
+  pushTags();
+
+  console.log("Pushed to remote. Should be deploying soon...");
+  console.log(
+    green(
+      `Track deploy progress at ${underline(
+        "https://spruce.mongodb.com/project/evergreen-ui/waterfall?requesters=git_tag_request",
+      )}`,
+    ),
+  );
 };

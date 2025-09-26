@@ -63,7 +63,7 @@ const getCurrentCommit = () => execTrim("git rev-parse HEAD");
 
 /**
  * `assertMainBranch` is a helper function that checks if the current branch is the main branch.
- * @throws - Will throw an error if current branch is not "main"
+ * @throws {Error} if current branch is not "main"
  */
 const assertMainBranch = () => {
   const branchName = execTrim("git branch --show-current");
@@ -75,7 +75,7 @@ const assertMainBranch = () => {
 
 /**
  * `assertWorkingDirectoryClean` is a helper function that checks if the working directory is clean (i.e. no uncommitted changes).
- * @throws - Will throw an error if uncommitted changes are present.
+ * @throws {Error} if uncommitted changes are present.
  */
 const assertWorkingDirectoryClean = () => {
   const result = execSync("git status --porcelain", { encoding: "utf-8" });

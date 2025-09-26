@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-import { execTrim, green, underline } from "../shell";
+import { execTrim } from "../shell";
 import { DeployableApp } from "../types";
 
 enum ReleaseVersion {
@@ -9,29 +9,30 @@ enum ReleaseVersion {
 }
 
 /**
- * `createTagAndPush` is a helper function that creates a new tag.
- * Pushing occurs in the postversion hook triggered by "yarn version"
+ * `createTag` is a helper function that creates a new tag and associated commit.
+ * @param app - app currently being deployed.
  * @param version - version indicates the type of upgrade of the new tag.
  */
-const createTagAndPush = (version: ReleaseVersion) => {
+const createTag = (app: DeployableApp, version: ReleaseVersion) => {
   console.log("Creating new tag...");
   try {
-    execSync(`yarn version --new-version ${version}`, {
+    execSync(`yarn version ${version}`, {
+      encoding: "utf-8",
+      stdio: "inherit",
+    });
+    const newVersion = execTrim("echo $npm_package_version");
+    const tag = `${app}/v${newVersion}`;
+    execSync(`git commit -a -m "${tag}"`, {
+      encoding: "utf-8",
+      stdio: "inherit",
+    });
+    execSync(`git tag -a ${tag}`, {
       encoding: "utf-8",
       stdio: "inherit",
     });
   } catch (err) {
     throw Error("Creating new tag failed.", { cause: err });
   }
-  // The postversion hook in package.json handles pushing to upstream
-  console.log("Pushed to remote. Should be deploying soon...");
-  console.log(
-    green(
-      `Track deploy progress at ${underline(
-        "https://spruce.mongodb.com/project/evergreen-ui/waterfall?requesters=git_tag_request",
-      )}`,
-    ),
-  );
 };
 
 /**
@@ -106,7 +107,7 @@ const tagIsValid = (app: DeployableApp, matchString: string) =>
   new RegExp(`${app}/v\\d+.\\d+.\\d+`).test(matchString);
 
 export {
-  createTagAndPush,
+  createTag,
   deleteTag,
   getLatestTag,
   getReleaseVersion,

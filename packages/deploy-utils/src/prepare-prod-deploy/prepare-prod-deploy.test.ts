@@ -5,7 +5,7 @@ import {
   assertWorkingDirectoryClean,
   getCommitMessages,
   getCurrentlyDeployedCommit,
-  createTagAndPush,
+  createTag,
   deleteTag,
   getLatestTag,
   pushTags,
@@ -83,8 +83,8 @@ my commit messages`,
       expect(consoleSpy).toHaveBeenCalledWith(
         "This deploy is a patch release.",
       );
-      expect(vi.mocked(createTagAndPush)).toHaveBeenCalledTimes(1);
-      expect(vi.mocked(createTagAndPush)).toHaveBeenCalledWith("patch");
+      expect(vi.mocked(createTag)).toHaveBeenCalledTimes(1);
+      expect(vi.mocked(createTag)).toHaveBeenCalledWith("spruce", "patch");
     });
   });
 

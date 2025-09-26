@@ -19,6 +19,7 @@
     "@types/node": "^22.15.3",
     "eslint": "^9.36.0",
     "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "3.5.1",
     "typescript": "5.1.3",
     "vitest": "^3.2.4"
   },
@@ -26,7 +27,6 @@
     "deploy-utils-build-and-push": "src/build-and-push/script.ts",
     "deploy-utils-deploy": "src/deploy.ts",
     "deploy-utils-email": "src/email/script.ts",
-    "deploy-utils-postversion": "src/postversion/script.ts",
     "deploy-utils-write-previous-deploy": "src/write-previous-deploy/script.ts"
   }
 }
