@@ -191,7 +191,10 @@ const columns: LGColumnDef<
     accessorKey: "expression",
     cell: ({ getValue, row }) => (
       <>
-        <FilterExpressionContainer title={getValue() as string}>
+        <FilterExpressionContainer
+          onClick={() => row.toggleSelected()}
+          title={getValue() as string}
+        >
           {getValue() as string}
         </FilterExpressionContainer>
         <Disclaimer>{row.original.description}</Disclaimer>
