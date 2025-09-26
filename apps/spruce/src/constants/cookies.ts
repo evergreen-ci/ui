@@ -1,6 +1,7 @@
 export const ANNOUNCEMENT_TOAST = "announcement-toast";
 export const CURRENT_PROJECT = "mci-project-cookie";
 export const DISABLE_QUERY_POLLING = "disable-query-polling";
+export const DISABLE_TASK_REVIEW = "disable-task-review";
 export const getNotificationTriggerCookie = (type: string) =>
   `${type}-notification-trigger`;
 export const HIDE_FEEDBACK = "HIDE_FEEDBACK";
