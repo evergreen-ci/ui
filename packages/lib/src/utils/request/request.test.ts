@@ -1,3 +1,4 @@
+import { post } from "./post";
 import { fetchWithRetry } from ".";
 
 describe("request utils", () => {
@@ -76,6 +77,73 @@ describe("request utils", () => {
         message: "Internal Server Error",
       });
       expect(global.fetch).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("post", () => {
+    beforeAll(() => {
+      expect.extend({
+        // We need a custom matcher because Headers don't behave as a standard object
+        toBeHeader(received: Headers, expected: object) {
+          const receivedString = JSON.stringify(
+            Object.fromEntries(received.entries()),
+          );
+          const expectedString = JSON.stringify(expected);
+          const { equals, isNot } = this;
+          return {
+            pass: equals(receivedString, expectedString),
+            message: () =>
+              `${receivedString} is${isNot ? " not" : ""} ${expectedString}`,
+          };
+        },
+      });
+    });
+
+    afterEach(() => {
+      vi.clearAllMocks();
+    });
+
+    it("should make a POST request and return the response for a successful request", async () => {
+      const url = "/api/resource";
+      const body = { key: "value" };
+      const fetchMock = vi.fn().mockResolvedValue({
+        ok: true,
+      });
+
+      vi.spyOn(global, "fetch").mockImplementation(fetchMock);
+
+      const response = await post(url, body);
+
+      expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
+        headers: expect.toBeHeader({ "content-type": "application/json" }),
+        method: "POST",
+        body: JSON.stringify(body),
+        credentials: "include",
+      });
+      expect(response).toStrictEqual({ ok: true });
+    });
+
+    it("should handle and report an error for a failed request", async () => {
+      const url = "/api/resource";
+      const body = { key: "value" };
+      const fetchMock = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 500,
+        statusText: "Internal Server Error",
+      });
+      const errorReportingMock = vi.fn();
+      vi.spyOn(console, "error").mockImplementation(errorReportingMock);
+      vi.spyOn(global, "fetch").mockImplementation(fetchMock);
+
+      await post(url, body);
+
+      expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
+        headers: expect.toBeHeader({ "content-type": "application/json" }),
+        method: "POST",
+        body: JSON.stringify(body),
+        credentials: "include",
+      });
+      expect(errorReportingMock).toHaveBeenCalledTimes(1);
     });
   });
 });

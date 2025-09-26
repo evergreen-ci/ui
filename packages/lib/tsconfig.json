@@ -6,7 +6,8 @@
     "test_utils/custom-queries.ts",
     "./config/vitest/setupTests.ts",
     ".storybook/preview.tsx",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "vitest.d.ts"
   ],
   "compilerOptions": {
     "baseUrl": "src",
