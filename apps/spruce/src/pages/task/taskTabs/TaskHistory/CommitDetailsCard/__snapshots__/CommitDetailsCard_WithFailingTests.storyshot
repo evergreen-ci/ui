@@ -978,8 +978,8 @@
                   data-lgid="lg-select"
                 >
                   <button
-                    aria-controls="select-1-menu"
-                    aria-describedby="select-1-description"
+                    aria-controls="select-144-menu"
+                    aria-describedby="select-144-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
@@ -987,7 +987,7 @@
                     class="lg-ui-button-0000 leafygreen-ui-7hcedm"
                     data-lgid="lg-button"
                     data-testid="lg-pagination-page-select"
-                    id="select-2"
+                    id="select-145"
                     type="button"
                     value="1"
                   >
