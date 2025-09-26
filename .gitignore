@@ -19,3 +19,12 @@ localhost-cert.pem
 localhost-key.pem
 
 .vscode
+
+# Yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
