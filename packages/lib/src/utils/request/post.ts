@@ -21,8 +21,8 @@ export const post = async (
       throw new Error(getErrorMessage(response, "POST"));
     }
     return response;
-  } catch (e: any) {
-    const err = e instanceof Error ? e : new Error(e);
+  } catch (e) {
+    const err = e instanceof Error ? e : new Error(JSON.stringify(e));
     reportError(err).warning();
     handleError?.(err);
   }

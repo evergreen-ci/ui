@@ -42,7 +42,7 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
   const handleFeedback = useCallback(
     (spanId: string) =>
       async (
-        e: FormEvent<HTMLFormElement> | ChangeEvent<HTMLInputElement>,
+        _e: FormEvent<HTMLFormElement> | ChangeEvent<HTMLInputElement>,
         options?: { feedback?: string; rating: MessageRatingValue },
       ) => {
         // This should never happen but LG's handler is oddly typed
