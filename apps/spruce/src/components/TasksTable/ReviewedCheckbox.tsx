@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { LeafyGreenTableRow } from "@leafygreen-ui/table";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -7,17 +8,18 @@ import { TaskTableInfo } from "./types";
 export const ReviewedCheckbox: React.FC<{
   row: LeafyGreenTableRow<TaskTableInfo>;
 }> = ({ row }) => {
-  const { checked, task, updateDisplayTask, updateTask } = useTaskReview({
+  const {
+    allChecked,
+    checked,
+    someChecked,
+    task,
+    updateDisplayTask,
+    updateTask,
+  } = useTaskReview({
     taskId: row.original.id,
     execution: row.original.execution,
   });
 
-  const someChecked: boolean =
-    task?.executionTasksFull?.some((t) => t?.reviewed) ?? false;
-  const allChecked: boolean =
-    task?.executionTasksFull?.every(
-      (t) => t?.displayStatus === TaskStatus.Succeeded || t?.reviewed,
-    ) ?? false;
   const indeterminate: boolean = someChecked && !allChecked;
 
   const handleClick = () => {
@@ -29,7 +31,7 @@ export const ReviewedCheckbox: React.FC<{
   };
 
   return (
-    <Checkbox
+    <StyledCheckbox
       aria-label={`Mark as ${checked ? "un" : ""}reviewed`}
       checked={checked}
       data-cy={`reviewed-${row.original.id}`}
@@ -40,3 +42,8 @@ export const ReviewedCheckbox: React.FC<{
     />
   );
 };
+
+const StyledCheckbox = styled(Checkbox)`
+  float: right;
+  width: fit-content;
+`;

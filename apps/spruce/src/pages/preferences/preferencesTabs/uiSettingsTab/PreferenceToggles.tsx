@@ -1,12 +1,12 @@
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import Checkbox from "@leafygreen-ui/checkbox";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
-import Toggle, { Size as ToggleSize } from "@leafygreen-ui/toggle";
 import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
-import { DISABLE_QUERY_POLLING } from "constants/cookies";
+import { DISABLE_QUERY_POLLING, DISABLE_TASK_REVIEW } from "constants/cookies";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
@@ -33,7 +33,8 @@ export const PreferenceToggles: React.FC = () => {
     },
   });
 
-  const handleOnChangeNewUI = (c: boolean) => {
+  const handleOnChangeNewUI = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const c = e.target.checked;
     sendEvent({
       name: "Toggled spruce",
       value: c ? "Enabled" : "Disabled",
@@ -60,45 +61,50 @@ export const PreferenceToggles: React.FC = () => {
     window.location.reload();
   };
 
+  const handleToggleTaskReview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nextState = !e.target.checked;
+    sendEvent({
+      name: "Toggled task review",
+      value: nextState ? "Enabled" : "Disabled",
+    });
+    Cookies.set(DISABLE_TASK_REVIEW, nextState.toString());
+  };
+
   return loading ? (
     <ParagraphSkeleton />
   ) : (
     <>
       <PreferenceItem>
-        <Toggle
-          aria-label="Toggle new Evergreen UI"
+        <Checkbox
           checked={spruceV1 ?? false}
+          description="Direct all inbound links to the new Evergreen UI whenever possible
+          (e.g. from the CLI, GitHub, etc.)."
           disabled={updateLoading}
-          id="prefer-spruce"
+          label="Use Spruce"
           onChange={handleOnChangeNewUI}
-          size={ToggleSize.Small}
         />
-        <label htmlFor="prefer-spruce">
-          Direct all inbound links to the new Evergreen UI, whenever possible
-          (e.g. from the CLI, GitHub, etc.).
-        </label>
       </PreferenceItem>
       <PreferenceItem>
-        <Toggle
-          aria-label="Toggle background polling"
+        <Checkbox
           checked={Cookies.get(DISABLE_QUERY_POLLING) !== "true"}
-          id="polling"
+          description="Allow background polling for active tabs in the current browser. This allows Spruce to update tasks' statuses more frequently."
+          label="Background polling"
           onChange={handleOnChangePolling}
-          size={ToggleSize.Small}
         />
-        <label htmlFor="polling">
-          Allow background polling for active tabs in the current browser.
-        </label>
+      </PreferenceItem>
+      <PreferenceItem>
+        <Checkbox
+          defaultChecked={Cookies.get(DISABLE_TASK_REVIEW) !== "true"}
+          description="Enable individual task review tracking for unsuccessful tasks. This feature can be accessed from the tasks table on a version page, or on the task page itself."
+          label="Task review"
+          onChange={handleToggleTaskReview}
+        />
       </PreferenceItem>
     </>
   );
 };
 
 const PreferenceItem = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: ${size.xs};
-
   :not(:last-of-type) {
     margin-bottom: ${size.s};
   }
