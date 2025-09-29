@@ -129,17 +129,17 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-203-menu"
-          aria-describedby="select-203-description"
+          aria-controls="select-206-menu"
+          aria-describedby="select-206-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="page-size-select"
-          class="lg-ui-button-0000 leafygreen-ui-c19aul"
+          class="lg-ui-button-0000 leafygreen-ui-1m0zu1d leafygreen-ui-1b6wtso"
           data-cy="tasks-table-page-size-selector"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-204"
+          id="select-207"
           type="button"
           value="20"
         >
@@ -162,7 +162,7 @@
             <svg
               alt=""
               aria-hidden="true"
-              class="leafygreen-ui-fn50nl"
+              class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
               height="16"
               role="presentation"
               viewBox="0 0 16 16"

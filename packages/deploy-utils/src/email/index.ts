@@ -143,7 +143,7 @@ export const makeEmail = ({
  * @param emailFields.from - sender's email address
  * @param emailFields.recipients - recipient email address
  * @param emailFields.subject - dated subject line
- * @throws Error if Evergreen CLI is not found
+ * @throws {Error} if Evergreen CLI is not found
  */
 const evergreenNotify = async (emailFields: EmailFields) => {
   const { body, from, recipients, subject } = emailFields;
