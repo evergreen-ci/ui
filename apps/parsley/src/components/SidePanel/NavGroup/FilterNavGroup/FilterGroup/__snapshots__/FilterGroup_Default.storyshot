@@ -8,7 +8,7 @@
       <button
         aria-disabled="false"
         aria-label="Accordion icon"
-        class="emotion-AccordionIcon e1omze813 leafygreen-ui-1u7amgm"
+        class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
         open=""
         style="align-self: start;"
         tabindex="0"
@@ -53,20 +53,21 @@
             aria-disabled="false"
             aria-label="Hide filter"
             aria-labelledby=":r0:"
-            class="lg-ui-toggle-button-0000 leafygreen-ui-2o8wt6"
+            class="lg-ui-toggle-button-0000 leafygreen-ui-16u1u0t"
             data-lgid="lg-toggle"
+            data-testid="lg-toggle"
             role="switch"
             title="Hide filter"
             type="button"
           >
             <div
-              class="leafygreen-ui-38rddy"
+              class="leafygreen-ui-1b4n90s"
             />
           </button>
           <button
             aria-disabled="false"
             aria-label="Edit filter"
-            class="leafygreen-ui-1u7amgm"
+            class="leafygreen-ui-1r51ix4"
             tabindex="0"
             title="Edit filter"
           >
@@ -93,7 +94,7 @@
           <button
             aria-disabled="false"
             aria-label="Delete filter"
-            class="leafygreen-ui-1u7amgm"
+            class="leafygreen-ui-1r51ix4"
             tabindex="0"
             title="Delete filter"
           >

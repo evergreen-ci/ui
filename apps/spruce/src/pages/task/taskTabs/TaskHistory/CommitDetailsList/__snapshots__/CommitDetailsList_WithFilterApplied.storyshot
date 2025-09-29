@@ -39,7 +39,7 @@
         <a
           aria-disabled="false"
           aria-label="GitHub Commit Link"
-          class="leafygreen-ui-1u7amgm"
+          class="leafygreen-ui-1r51ix4"
           data-cy="github-link"
           href="https://github.com/evergreen-ci/spruce/commit/aef363719d0287e92cd83749a827bae"
           tabindex="0"
@@ -148,7 +148,7 @@
         <a
           aria-disabled="false"
           aria-label="GitHub Commit Link"
-          class="leafygreen-ui-1u7amgm"
+          class="leafygreen-ui-1r51ix4"
           data-cy="github-link"
           href="https://github.com/evergreen-ci/spruce/commit/b"
           tabindex="0"
@@ -313,7 +313,7 @@
         <a
           aria-disabled="false"
           aria-label="GitHub Commit Link"
-          class="leafygreen-ui-1u7amgm"
+          class="leafygreen-ui-1r51ix4"
           data-cy="github-link"
           href="https://github.com/evergreen-ci/spruce/commit/d"
           tabindex="0"
@@ -466,7 +466,7 @@
         <a
           aria-disabled="false"
           aria-label="GitHub Commit Link"
-          class="leafygreen-ui-1u7amgm"
+          class="leafygreen-ui-1r51ix4"
           data-cy="github-link"
           href="https://github.com/evergreen-ci/spruce/commit/f"
           tabindex="0"
@@ -527,7 +527,7 @@
           <button
             aria-disabled="false"
             aria-label="Accordion icon"
-            class="emotion-AccordionIcon e1omze813 leafygreen-ui-1u7amgm"
+            class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
             style="align-self: start;"
             tabindex="0"
           >
@@ -630,7 +630,7 @@
                             <button
                               aria-disabled="false"
                               aria-label="Table Search Popover Icon"
-                              class="leafygreen-ui-1u7amgm"
+                              class="leafygreen-ui-1r51ix4"
                               data-cy="test-name-filter"
                               tabindex="0"
                             >
@@ -907,7 +907,7 @@
         <a
           aria-disabled="false"
           aria-label="GitHub Commit Link"
-          class="leafygreen-ui-1u7amgm"
+          class="leafygreen-ui-1r51ix4"
           data-cy="github-link"
           href="https://github.com/evergreen-ci/spruce/commit/j"
           tabindex="0"
@@ -1034,7 +1034,7 @@
         <a
           aria-disabled="false"
           aria-label="GitHub Commit Link"
-          class="leafygreen-ui-1u7amgm"
+          class="leafygreen-ui-1r51ix4"
           data-cy="github-link"
           href="https://github.com/evergreen-ci/spruce/commit/k"
           tabindex="0"
