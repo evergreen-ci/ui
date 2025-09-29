@@ -75,7 +75,7 @@
     "@leafygreen-ui/date-utils": "^0.3.4",
     "@leafygreen-ui/emotion": "^4.0.7",
     "@leafygreen-ui/empty-state": "^3.0.4",
-    "@leafygreen-ui/expandable-card": "^3.1.0",
+    "@leafygreen-ui/expandable-card": "^5.0.6",
     "@leafygreen-ui/form-field": "^3.0.0",
     "@leafygreen-ui/guide-cue": "^8.0.4",
     "@leafygreen-ui/icon": "^14.1.0",
