@@ -5,7 +5,7 @@
   >
     <div />
     <table
-      class="lg-ui-lg-table-0000 leafygreen-ui-fs5nm9 leafygreen-ui-l8wd63"
+      class="lg-ui-lg-table-0000 leafygreen-ui-1nbgopl"
       data-is-sticky="false"
       data-lgid="lg-table"
       data-testid="lg-table"
@@ -29,12 +29,12 @@
             >
               Name
               <div
-                class="emotion-7"
+                class="emotion-6"
               >
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-1u7amgm"
+                  class="leafygreen-ui-1r51ix4"
                   tabindex="0"
                 >
                   <div
@@ -64,7 +64,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Name"
-                class="leafygreen-ui-1u7amgm"
+                class="leafygreen-ui-1r51ix4"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -102,12 +102,12 @@
             >
               Type
               <div
-                class="emotion-7"
+                class="emotion-6"
               >
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-1u7amgm"
+                  class="leafygreen-ui-1r51ix4"
                   tabindex="0"
                 >
                   <div
@@ -137,7 +137,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Type"
-                class="leafygreen-ui-1u7amgm"
+                class="leafygreen-ui-1r51ix4"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -175,12 +175,12 @@
             >
               Size
               <div
-                class="emotion-7"
+                class="emotion-6"
               >
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-1u7amgm"
+                  class="leafygreen-ui-1r51ix4"
                   tabindex="0"
                 >
                   <div
@@ -210,7 +210,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Size"
-                class="leafygreen-ui-1u7amgm"
+                class="leafygreen-ui-1r51ix4"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -271,7 +271,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 0
                     </span>
@@ -299,7 +299,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 0
                     </span>
@@ -327,7 +327,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 0
                     </span>
@@ -368,7 +368,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 1
                     </span>
@@ -396,7 +396,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 1
                     </span>
@@ -424,7 +424,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 1
                     </span>
@@ -465,7 +465,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 2
                     </span>
@@ -493,7 +493,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 2
                     </span>
@@ -521,7 +521,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 2
                     </span>
@@ -562,7 +562,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 3
                     </span>
@@ -590,7 +590,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 3
                     </span>
@@ -618,7 +618,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 3
                     </span>
@@ -659,7 +659,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 4
                     </span>
@@ -687,7 +687,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 4
                     </span>
@@ -715,7 +715,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 4
                     </span>
@@ -756,7 +756,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 5
                     </span>
@@ -784,7 +784,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 5
                     </span>
@@ -812,7 +812,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 5
                     </span>
@@ -853,7 +853,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 6
                     </span>
@@ -881,7 +881,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 6
                     </span>
@@ -909,7 +909,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 6
                     </span>
@@ -950,7 +950,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 7
                     </span>
@@ -978,7 +978,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 7
                     </span>
@@ -1006,7 +1006,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 7
                     </span>
@@ -1047,7 +1047,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 8
                     </span>
@@ -1075,7 +1075,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 8
                     </span>
@@ -1103,7 +1103,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 8
                     </span>
@@ -1144,7 +1144,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 9
                     </span>
@@ -1172,7 +1172,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 9
                     </span>
@@ -1200,7 +1200,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 9
                     </span>
@@ -1241,7 +1241,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 10
                     </span>
@@ -1269,7 +1269,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 10
                     </span>
@@ -1297,7 +1297,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 10
                     </span>
@@ -1338,7 +1338,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 11
                     </span>
@@ -1366,7 +1366,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 11
                     </span>
@@ -1394,7 +1394,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 11
                     </span>
@@ -1435,7 +1435,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 12
                     </span>
@@ -1463,7 +1463,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 12
                     </span>
@@ -1491,7 +1491,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 12
                     </span>
@@ -1532,7 +1532,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 13
                     </span>
@@ -1560,7 +1560,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 13
                     </span>
@@ -1588,7 +1588,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 13
                     </span>
@@ -1629,7 +1629,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 14
                     </span>
@@ -1657,7 +1657,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 14
                     </span>
@@ -1685,7 +1685,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 14
                     </span>
@@ -1726,7 +1726,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 15
                     </span>
@@ -1754,7 +1754,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 15
                     </span>
@@ -1782,7 +1782,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 15
                     </span>
@@ -1823,7 +1823,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 16
                     </span>
@@ -1851,7 +1851,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 16
                     </span>
@@ -1879,7 +1879,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 16
                     </span>
@@ -1920,7 +1920,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 17
                     </span>
@@ -1948,7 +1948,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 17
                     </span>
@@ -1976,7 +1976,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 17
                     </span>
@@ -2017,7 +2017,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 18
                     </span>
@@ -2045,7 +2045,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 18
                     </span>
@@ -2073,7 +2073,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 18
                     </span>
@@ -2114,7 +2114,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       name 19
                     </span>
@@ -2142,7 +2142,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       type 19
                     </span>
@@ -2170,7 +2170,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-33"
+                      class="emotion-32"
                     >
                       size 19
                     </span>

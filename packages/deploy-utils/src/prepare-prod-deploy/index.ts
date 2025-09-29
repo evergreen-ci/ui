@@ -14,7 +14,7 @@ import {
 
 /**
  * getAppIfValidEnv ensures that the environment is valid and gets the app being committed.
- * @throws - Will throw an error if not on main branch or uncommitted changes
+ * @throws {Error} - Will throw an error if not on main branch or uncommitted changes
  * @returns - Name of deployable app
  */
 const getAppIfValidEnv = () => {

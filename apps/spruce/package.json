@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.0.75",
+  "version": "6.0.76",
   "private": true,
   "type": "module",
   "scripts": {
@@ -104,7 +104,7 @@
     "@leafygreen-ui/text-area": "^9.1.2",
     "@leafygreen-ui/text-input": "^13.0.2",
     "@leafygreen-ui/toast": "^8.0.4",
-    "@leafygreen-ui/toggle": "^10.0.17",
+    "@leafygreen-ui/toggle": "^12.0.6",
     "@leafygreen-ui/tokens": "^2.12.0",
     "@leafygreen-ui/tooltip": "^11.1.0",
     "@leafygreen-ui/typography": "^19.0.0",
