@@ -36,7 +36,7 @@ describe("project filters", () => {
     cy.contains("View project filters").click();
     cy.dataCy("project-filters-modal").should("be.visible");
     cy.contains("(NETWORK|ASIO|EXECUTOR|CONNPOOL|REPL_HB)").click();
-    getTableCheckbox(1).should("be.checked");
+    getTableCheckbox(0).should("be.checked");
   });
 
   it("properly processes filters with commas", () => {

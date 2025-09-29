@@ -227,5 +227,6 @@ const FilterExpressionContainer = styled.div`
   ${wordBreakCss}
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+  cursor: pointer;
 `;
 export default ProjectFiltersModal;
