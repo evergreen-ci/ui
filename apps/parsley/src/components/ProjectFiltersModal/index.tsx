@@ -191,7 +191,10 @@ const columns: LGColumnDef<
     accessorKey: "expression",
     cell: ({ getValue, row }) => (
       <>
-        <FilterExpressionContainer title={getValue() as string}>
+        <FilterExpressionContainer
+          onClick={() => row.toggleSelected()}
+          title={getValue() as string}
+        >
           {getValue() as string}
         </FilterExpressionContainer>
         <Disclaimer>{row.original.description}</Disclaimer>
@@ -224,5 +227,6 @@ const FilterExpressionContainer = styled.div`
   ${wordBreakCss}
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+  cursor: pointer;
 `;
 export default ProjectFiltersModal;
