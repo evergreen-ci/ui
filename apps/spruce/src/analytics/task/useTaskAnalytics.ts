@@ -110,7 +110,10 @@ export const useTaskAnalytics = () => {
   const { identifier } = project || {};
   const isLatestExecution = latestExecution === execution;
 
-  const taskStartTime = startTime ? startTime.toISOString() : "";
+  // Normalize possible Date|string|number start time to ISO string.
+  const taskStartTime = startTime
+    ? new Date(startTime as Date | string | number).toISOString()
+    : "";
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Task", {
     "task.display_status": displayStatus || "",
