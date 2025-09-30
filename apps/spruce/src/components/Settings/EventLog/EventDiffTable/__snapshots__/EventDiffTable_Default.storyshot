@@ -32,7 +32,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Property"
-                class="leafygreen-ui-1u7amgm"
+                class="leafygreen-ui-1r51ix4"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"

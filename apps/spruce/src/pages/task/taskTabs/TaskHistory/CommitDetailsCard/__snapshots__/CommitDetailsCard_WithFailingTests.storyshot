@@ -22,7 +22,7 @@
       <a
         aria-disabled="false"
         aria-label="GitHub Commit Link"
-        class="leafygreen-ui-1u7amgm"
+        class="leafygreen-ui-1r51ix4"
         data-cy="github-link"
         href="https://github.com/evergreen-ci/spruce/commit/aef363719d0287e92cd83749a827bae"
         tabindex="0"
@@ -102,7 +102,7 @@
         <button
           aria-disabled="false"
           aria-label="Accordion icon"
-          class="emotion-AccordionIcon e1omze813 leafygreen-ui-1u7amgm"
+          class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
           style="align-self: start;"
           tabindex="0"
         >
@@ -205,7 +205,7 @@
                           <button
                             aria-disabled="false"
                             aria-label="Table Search Popover Icon"
-                            class="leafygreen-ui-1u7amgm"
+                            class="leafygreen-ui-1r51ix4"
                             data-cy="test-name-filter"
                             tabindex="0"
                           >
@@ -978,8 +978,8 @@
                   data-lgid="lg-select"
                 >
                   <button
-                    aria-controls="select-144-menu"
-                    aria-describedby="select-144-description"
+                    aria-controls="select-1-menu"
+                    aria-describedby="select-1-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
@@ -987,7 +987,7 @@
                     class="lg-ui-button-0000 leafygreen-ui-7hcedm"
                     data-lgid="lg-button"
                     data-testid="lg-pagination-page-select"
-                    id="select-145"
+                    id="select-2"
                     type="button"
                     value="1"
                   >

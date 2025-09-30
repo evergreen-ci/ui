@@ -31,6 +31,14 @@ describe("project filters", () => {
     cy.get("[data-cy^='skipped-lines-row-']").should("exist");
   });
 
+  it("should allow clicking on the filter name to check the checkbox", () => {
+    cy.visit(resmokeLogLink);
+    cy.contains("View project filters").click();
+    cy.dataCy("project-filters-modal").should("be.visible");
+    cy.contains("(NETWORK|ASIO|EXECUTOR|CONNPOOL|REPL_HB)").click();
+    getTableCheckbox(0).should("be.checked");
+  });
+
   it("properly processes filters with commas", () => {
     cy.visit(resmokeLogLink);
     cy.contains("View project filters").click();

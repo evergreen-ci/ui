@@ -21,8 +21,8 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-112-menu"
-          aria-describedby="select-112-description"
+          aria-controls="select-3-menu"
+          aria-describedby="select-3-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -31,7 +31,7 @@
           data-cy="tuple-select-select"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-113"
+          id="select-4"
           type="button"
           value="build_variant"
         >
@@ -114,7 +114,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-form_field-feedback"
             data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-116"
+            id="lg-form_field-feedback-59"
           />
         </div>
         <div
@@ -123,7 +123,7 @@
           <button
             aria-disabled="false"
             aria-label="Select plus button"
-            class="leafygreen-ui-1u7amgm"
+            class="leafygreen-ui-1r51ix4"
             tabindex="0"
           >
             <div
