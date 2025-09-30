@@ -50,8 +50,12 @@ describe("user preferences pages", () => {
 
         cy.dataCy("user-dropdown-link").click();
         cy.contains("a", "UI Settings").click();
-        cy.getInputByLabel("Task review").uncheck({ force: true });
-        cy.getInputByLabel("Task review").should("not.be.checked");
+        cy.getInputByLabel("Task review").click();
+        cy.getInputByLabel("Task review").should(
+          "have.attr",
+          "aria-checked",
+          "false",
+        );
         cy.go("back");
         cy.contains("button", "Mark unreviewed").should("not.exist");
       });
