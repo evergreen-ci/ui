@@ -1,9 +1,11 @@
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-
 import NotFoundSvg from "./NotFoundSvg";
 
 export default {
   component: NotFoundSvg,
+  parameters: {
+    chromatic: { pauseAnimationAtEnd: false },
+  },
 } satisfies CustomMeta<typeof NotFoundSvg>;
 
 export const Default404: CustomStoryObj<typeof NotFoundSvg> = {

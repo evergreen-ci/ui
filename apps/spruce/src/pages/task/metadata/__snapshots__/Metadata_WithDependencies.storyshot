@@ -138,7 +138,7 @@
           Long description that requires use of the inline definition component. This would include details ab...
            
           <span
-            class="leafygreen-ui-vm4wms"
+            class="leafygreen-ui-cssveg leafygreen-ui-1u6ruom"
             tabindex="0"
           >
             <small
@@ -545,7 +545,7 @@
             data-testid="chip-text"
           >
             <span
-              class="lg-ui-chip-inline-definition-0000 leafygreen-ui-vm4wms"
+              class="leafygreen-ui-cssveg lg-ui-chip-inline-definition-0000 leafygreen-ui-1u6ruom"
               tabindex="0"
             >
               waiting_for_next_investigat…

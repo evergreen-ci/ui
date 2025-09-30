@@ -22,7 +22,7 @@
       <a
         aria-disabled="false"
         aria-label="GitHub Commit Link"
-        class="leafygreen-ui-1u7amgm"
+        class="leafygreen-ui-1r51ix4"
         data-cy="github-link"
         href="https://github.com/evergreen-ci/spruce/commit/aef363719d0287e92cd83749a827bae"
         tabindex="0"

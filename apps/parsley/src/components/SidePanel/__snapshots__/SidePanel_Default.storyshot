@@ -12,7 +12,7 @@
         <nav
           aria-label="Side panel"
           class="leafygreen-ui-fw8ayd"
-          id="side-nav-24"
+          id="side-nav-4"
         >
           <div
             class="leafygreen-ui-1nmawjt"
@@ -29,7 +29,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-20"
+                    id="menu-group-label-id-1"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -78,14 +78,15 @@
                             aria-checked="true"
                             aria-disabled="false"
                             aria-labelledby="Show or hide all filters toggle"
-                            class="emotion-StyledToggle eltruqc0 lg-ui-toggle-button-0000 leafygreen-ui-2o8wt6"
+                            class="emotion-StyledToggle eltruqc0 lg-ui-toggle-button-0000 leafygreen-ui-16u1u0t"
                             data-cy="all-filters-toggle"
                             data-lgid="lg-toggle"
+                            data-testid="lg-toggle"
                             role="switch"
                             type="button"
                           >
                             <div
-                              class="leafygreen-ui-38rddy"
+                              class="leafygreen-ui-1b4n90s"
                             />
                           </button>
                           <div
@@ -100,7 +101,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-20"
+                    aria-labelledby="menu-group-label-id-1"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -116,7 +117,7 @@
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-1u7amgm"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
                             open=""
                             style="align-self: start;"
                             tabindex="0"
@@ -161,20 +162,21 @@
                                 aria-disabled="false"
                                 aria-label="Hide filter"
                                 aria-labelledby=":r1:"
-                                class="lg-ui-toggle-button-0000 leafygreen-ui-2o8wt6"
+                                class="lg-ui-toggle-button-0000 leafygreen-ui-16u1u0t"
                                 data-lgid="lg-toggle"
+                                data-testid="lg-toggle"
                                 role="switch"
                                 title="Hide filter"
                                 type="button"
                               >
                                 <div
-                                  class="leafygreen-ui-38rddy"
+                                  class="leafygreen-ui-1b4n90s"
                                 />
                               </button>
                               <button
                                 aria-disabled="false"
                                 aria-label="Edit filter"
-                                class="leafygreen-ui-1u7amgm"
+                                class="leafygreen-ui-1r51ix4"
                                 tabindex="0"
                                 title="Edit filter"
                               >
@@ -201,7 +203,7 @@
                               <button
                                 aria-disabled="false"
                                 aria-label="Delete filter"
-                                class="leafygreen-ui-1u7amgm"
+                                class="leafygreen-ui-1r51ix4"
                                 tabindex="0"
                                 title="Delete filter"
                               >
@@ -250,8 +252,8 @@
                                   Case
                                 </div>
                                 <div
-                                  aria-label="segmented-control-25"
-                                  aria-owns="segmented-control-25-0 segmented-control-25-1"
+                                  aria-label="segmented-control-3"
+                                  aria-owns="segmented-control-3-0 segmented-control-3-1"
                                   class="leafygreen-ui-18en4yf"
                                   role="tablist"
                                 >
@@ -267,7 +269,7 @@
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="true"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-25-0"
+                                        id="segmented-control-3-0"
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -296,7 +298,7 @@
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="false"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-25-1"
+                                        id="segmented-control-3-1"
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -330,8 +332,8 @@
                                   Match
                                 </div>
                                 <div
-                                  aria-label="segmented-control-26"
-                                  aria-owns="segmented-control-26-0 segmented-control-26-1"
+                                  aria-label="segmented-control-4"
+                                  aria-owns="segmented-control-4-0 segmented-control-4-1"
                                   class="leafygreen-ui-18en4yf"
                                   role="tablist"
                                 >
@@ -347,7 +349,7 @@
                                         aria-controls="Toggle match type"
                                         aria-selected="true"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-26-0"
+                                        id="segmented-control-4-0"
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -376,7 +378,7 @@
                                         aria-controls="Toggle match type"
                                         aria-selected="false"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-26-1"
+                                        id="segmented-control-4-1"
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -414,7 +416,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-21"
+                    id="menu-group-label-id-2"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -469,7 +471,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-21"
+                    aria-labelledby="menu-group-label-id-2"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -479,7 +481,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Delete range"
-                        class="leafygreen-ui-1u7amgm"
+                        class="leafygreen-ui-1r51ix4"
                         tabindex="0"
                       >
                         <div
@@ -521,7 +523,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-22"
+                    id="menu-group-label-id-3"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -569,7 +571,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-22"
+                    aria-labelledby="menu-group-label-id-3"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -578,7 +580,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Delete highlight"
-                        class="leafygreen-ui-1u7amgm"
+                        class="leafygreen-ui-1r51ix4"
                         data-cy="delete-highlight-button"
                         tabindex="0"
                       >
@@ -618,7 +620,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Delete highlight"
-                        class="leafygreen-ui-1u7amgm"
+                        class="leafygreen-ui-1r51ix4"
                         data-cy="delete-highlight-button"
                         tabindex="0"
                       >
@@ -740,10 +742,10 @@
           </div>
         </nav>
         <button
-          aria-controls="side-nav-24"
+          aria-controls="side-nav-4"
           aria-expanded="true"
           aria-label="Collapse navigation"
-          class="leafygreen-ui-v87gj9"
+          class="leafygreen-ui-cssveg leafygreen-ui-za3dje"
           data-testid="side-nav-collapse-toggle"
         >
           <div
