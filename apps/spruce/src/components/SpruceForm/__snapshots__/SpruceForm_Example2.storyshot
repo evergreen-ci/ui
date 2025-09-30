@@ -286,7 +286,7 @@
                       for="radio-group--0"
                     >
                       <input
-                        aria-describedby="lg-1"
+                        aria-describedby="lg-5"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         data-label="Restart Jasper service on running hosts of this distro for this update"
@@ -314,7 +314,7 @@
                       for="radio-group--1"
                     >
                       <input
-                        aria-describedby="lg-2"
+                        aria-describedby="lg-6"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         data-label="Reprovision running hosts of this distro for this update"

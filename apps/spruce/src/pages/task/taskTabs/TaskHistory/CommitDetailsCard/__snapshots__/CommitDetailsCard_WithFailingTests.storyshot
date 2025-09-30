@@ -192,6 +192,7 @@
                       class="leafygreen-ui-1it7wsd"
                       data-lgid="lg-table-header"
                       data-testid="lg-table-header"
+                      id="testFile"
                       scope="col"
                       style="width: 60%;"
                     >
@@ -239,6 +240,7 @@
                       class="leafygreen-ui-1it7wsd"
                       data-lgid="lg-table-header"
                       data-testid="lg-table-header"
+                      id="status"
                       scope="col"
                       style="width: 80px;"
                     >
@@ -252,6 +254,7 @@
                       class="leafygreen-ui-1it7wsd"
                       data-lgid="lg-table-header"
                       data-testid="lg-table-header"
+                      id="Actions"
                       scope="col"
                     >
                       <div
@@ -978,8 +981,8 @@
                   data-lgid="lg-select"
                 >
                   <button
-                    aria-controls="select-144-menu"
-                    aria-describedby="select-144-description"
+                    aria-controls="select-1-menu"
+                    aria-describedby="select-1-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
@@ -987,7 +990,7 @@
                     class="lg-ui-button-0000 leafygreen-ui-7hcedm"
                     data-lgid="lg-button"
                     data-testid="lg-pagination-page-select"
-                    id="select-145"
+                    id="select-2"
                     type="button"
                     value="1"
                   >

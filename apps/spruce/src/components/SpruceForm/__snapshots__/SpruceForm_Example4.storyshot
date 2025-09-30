@@ -48,8 +48,8 @@
                         class="leafygreen-ui-6bdaia"
                         data-lgid="lg-label"
                         data-testid="lg-form_field-label"
-                        for="lg-form_field-input-107"
-                        id="lg-form_field-label-104"
+                        for="lg-form_field-input-52"
+                        id="lg-form_field-label-49"
                       >
                         This is the only visible page element
                       </label>
@@ -64,10 +64,10 @@
                           aria-describedby=""
                           aria-disabled="false"
                           aria-invalid="false"
-                          aria-labelledby="lg-form_field-label-104"
+                          aria-labelledby="lg-form_field-label-49"
                           autocomplete="on"
                           class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                          id="lg-form_field-input-107"
+                          id="lg-form_field-input-52"
                           required=""
                           type="text"
                           value=""
@@ -80,7 +80,7 @@
                       class="leafygreen-ui-11ydt2g"
                       data-lgid="lg-form_field-feedback"
                       data-testid="lg-form_field-feedback"
-                      id="lg-form_field-feedback-106"
+                      id="lg-form_field-feedback-51"
                     />
                   </div>
                   <button

@@ -98,8 +98,8 @@
           data-lgid="lg-select"
         >
           <button
-            aria-controls="select-125-menu"
-            aria-describedby="select-125-description"
+            aria-controls="select-7-menu"
+            aria-describedby="select-7-description"
             aria-disabled="false"
             aria-expanded="false"
             aria-invalid="false"
@@ -108,7 +108,7 @@
             data-cy="host-event-table-page-size-selector"
             data-lgid="lg-button"
             data-testid="leafygreen-ui-select-menubutton"
-            id="select-126"
+            id="select-8"
             type="button"
             value="10"
           >
@@ -179,6 +179,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="timestamp"
               scope="col"
               style="width: 25%;"
             >
@@ -192,6 +193,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="eventType"
               scope="col"
             >
               <div

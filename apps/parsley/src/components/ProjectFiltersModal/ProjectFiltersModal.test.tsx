@@ -138,6 +138,27 @@ describe("projectFiltersModal", () => {
       "?filters=100original,111my_filter_2,101my_filter_3",
     );
   });
+
+  it("should allow clicking on the filter name to check the checkbox", async () => {
+    const user = userEvent.setup();
+    const { Component, hook } = renderComponentWithHook(
+      useLogContext,
+      <ProjectFiltersModal open setOpen={vi.fn()} />,
+    );
+    render(<Component />, {
+      wrapper: wrapper([projectFiltersMock, evergreenTaskMock]),
+    });
+    act(() => {
+      hook.current.setLogMetadata(logMetadata);
+    });
+    await waitForModalLoad();
+    await user.click(screen.getByText("my_filter_2"));
+    const checkboxes = screen.getAllByRole("checkbox");
+    const checkbox2 = checkboxes[2];
+    await waitFor(() => {
+      expect(checkbox2).toBeChecked();
+    });
+  });
 });
 
 const waitForModalLoad = async () => {
