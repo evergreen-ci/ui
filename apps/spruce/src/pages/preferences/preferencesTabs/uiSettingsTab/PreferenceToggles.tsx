@@ -1,12 +1,10 @@
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
-import Toggle, { Size as ToggleSize } from "@leafygreen-ui/toggle";
 import Cookies from "js-cookie";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
-import { DISABLE_QUERY_POLLING } from "constants/cookies";
+import { ToggleWithLabel } from "components/ToggleWithLabel";
+import { DISABLE_QUERY_POLLING, DISABLE_TASK_REVIEW } from "constants/cookies";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
@@ -50,13 +48,21 @@ export const PreferenceToggles: React.FC = () => {
     });
   };
 
-  const handleOnChangePolling = () => {
-    const nextState = Cookies.get(DISABLE_QUERY_POLLING) !== "true";
+  const handleOnChangePolling = (c: boolean) => {
     sendEvent({
       name: "Toggled polling",
-      value: nextState ? "Enabled" : "Disabled",
+      value: c ? "Enabled" : "Disabled",
     });
-    Cookies.set(DISABLE_QUERY_POLLING, nextState.toString());
+    Cookies.set(DISABLE_QUERY_POLLING, (!c).toString());
+    window.location.reload();
+  };
+
+  const handleToggleTaskReview = (c: boolean) => {
+    sendEvent({
+      name: "Toggled task review",
+      value: c ? "Enabled" : "Disabled",
+    });
+    Cookies.set(DISABLE_TASK_REVIEW, (!c).toString(), { expires: 365 });
     window.location.reload();
   };
 
@@ -64,42 +70,29 @@ export const PreferenceToggles: React.FC = () => {
     <ParagraphSkeleton />
   ) : (
     <>
-      <PreferenceItem>
-        <Toggle
-          aria-label="Toggle new Evergreen UI"
-          checked={spruceV1 ?? false}
-          disabled={updateLoading}
-          id="prefer-spruce"
-          onChange={handleOnChangeNewUI}
-          size={ToggleSize.Small}
-        />
-        <label htmlFor="prefer-spruce">
-          Direct all inbound links to the new Evergreen UI, whenever possible
-          (e.g. from the CLI, GitHub, etc.).
-        </label>
-      </PreferenceItem>
-      <PreferenceItem>
-        <Toggle
-          aria-label="Toggle background polling"
-          checked={Cookies.get(DISABLE_QUERY_POLLING) !== "true"}
-          id="polling"
-          onChange={handleOnChangePolling}
-          size={ToggleSize.Small}
-        />
-        <label htmlFor="polling">
-          Allow background polling for active tabs in the current browser.
-        </label>
-      </PreferenceItem>
+      <ToggleWithLabel
+        checked={spruceV1 ?? false}
+        description="Direct all inbound links to the new Evergreen UI whenever possible
+          (e.g. from the CLI, GitHub, etc.)."
+        disabled={updateLoading}
+        id="prefer-spruce"
+        label="Use Spruce"
+        onChange={handleOnChangeNewUI}
+      />
+      <ToggleWithLabel
+        checked={Cookies.get(DISABLE_QUERY_POLLING) !== "true"}
+        description="Allow background polling for active tabs in the current browser. This allows Spruce to update tasks' statuses more frequently."
+        id="polling"
+        label="Background polling"
+        onChange={handleOnChangePolling}
+      />
+      <ToggleWithLabel
+        checked={Cookies.get(DISABLE_TASK_REVIEW) !== "true"}
+        description="Enable individual task review tracking for unsuccessful tasks. This feature can be accessed from the tasks table on a version page, or on the task page itself."
+        id="toggle-task-review"
+        label="Task review"
+        onChange={handleToggleTaskReview}
+      />
     </>
   );
 };
-
-const PreferenceItem = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: ${size.xs};
-
-  :not(:last-of-type) {
-    margin-bottom: ${size.s};
-  }
-`;
