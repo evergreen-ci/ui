@@ -43,6 +43,7 @@ export const ReviewedCheckbox: React.FC<{
   );
 };
 
+// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of Checkbox.
 const StyledCheckbox = styled(Checkbox)`
   float: right;
   width: fit-content;

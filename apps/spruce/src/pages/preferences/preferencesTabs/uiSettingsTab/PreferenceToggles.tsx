@@ -31,8 +31,7 @@ export const PreferenceToggles: React.FC = () => {
     },
   });
 
-  const handleOnChangeNewUI = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const c = e.target.checked;
+  const handleOnChangeNewUI = (c: boolean) => {
     sendEvent({
       name: "Toggled spruce",
       value: c ? "Enabled" : "Disabled",
@@ -65,15 +64,6 @@ export const PreferenceToggles: React.FC = () => {
     });
     Cookies.set(DISABLE_TASK_REVIEW, (!c).toString(), { expires: 365 });
     window.location.reload();
-  };
-
-  const handleToggleTaskReview = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const nextState = !e.target.checked;
-    sendEvent({
-      name: "Toggled task review",
-      value: nextState ? "Enabled" : "Disabled",
-    });
-    Cookies.set(DISABLE_TASK_REVIEW, nextState.toString());
   };
 
   return loading ? (
