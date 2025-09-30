@@ -113,6 +113,7 @@ const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
   grid-column-gap: ${size.s};
 `;
 
+// @ts-expect-error
 const HiddenCheckbox = styled(Checkbox)`
   justify-content: flex-end;
 `;

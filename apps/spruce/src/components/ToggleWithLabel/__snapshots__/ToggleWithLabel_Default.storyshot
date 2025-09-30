@@ -1,0 +1,54 @@
+<div>
+  <div
+    class="emotion-ToggleContainer e18fhu020"
+  >
+    <button
+      aria-checked="false"
+      aria-disabled="false"
+      aria-labelledby="my-id-label"
+      class="lg-ui-toggle-button-0000 leafygreen-ui-1equg3i"
+      data-lgid="lg-toggle"
+      data-testid="lg-toggle"
+      id="my-id"
+      role="switch"
+      type="button"
+    >
+      <div
+        class="leafygreen-ui-ix007g"
+      >
+        <svg
+          aria-hidden="true"
+          aria-label="Checkmark Icon"
+          class="leafygreen-ui-1m8vtmm"
+          height="14"
+          role="img"
+          viewBox="0 0 16 16"
+          width="14"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M6.30583 9.05037L11.7611 3.59509C12.1516 3.20457 12.7848 3.20457 13.1753 3.59509L13.8824 4.3022C14.273 4.69273 14.273 5.32589 13.8824 5.71642L6.81525 12.7836C6.38819 13.2106 5.68292 13.1646 5.31505 12.6856L2.26638 8.71605C1.92998 8.27804 2.01235 7.65025 2.45036 7.31385L3.04518 6.85702C3.59269 6.43652 4.37742 6.53949 4.79792 7.087L6.30583 9.05037Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+    </button>
+    <div>
+      <label
+        class="leafygreen-ui-ms04bw"
+        data-lgid="lg-label"
+        for="my-id"
+        id="my-id-label"
+      >
+        My toggle
+      </label>
+      <p
+        class="leafygreen-ui-ogtczq"
+        data-lgid="lg-description"
+      >
+        This is a toggle description.
+      </p>
+    </div>
+  </div>
+</div>
