@@ -7394,6 +7394,7 @@ export type AdminSettingsQuery = {
     githubWebhookSecret?: string | null;
     kanopySSHKeyPath?: string | null;
     logPath?: string | null;
+    oldestAllowedCLIVersion?: string | null;
     perfMonitoringKanopyURL?: string | null;
     perfMonitoringURL?: string | null;
     pprofPort?: string | null;
