@@ -213,7 +213,7 @@ export const formToGql = ((form: OtherFormState) => {
     githubPRCreatorOrg: miscSettings.githubPRCreatorOrg || undefined,
     githubWebhookSecret: miscSettings.githubWebhookSecret || undefined,
     logPath: miscSettings.logPath || undefined,
-    oldestAllowedCLIVersion: miscSettings.oldestAllowedCLIVersion || undefined,
+    oldestAllowedCLIVersion: miscSettings.oldestAllowedCLIVersion,
     pprofPort: miscSettings.pprofPort || undefined,
     shutdownWaitSeconds: miscSettings.shutdownWaitSeconds || undefined,
 
