@@ -11,12 +11,15 @@ functions:
       role_arn: ${USER_STAGING_ARN}
 
   check-codegen:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      script: |
-        ${PREPARE_SHELL}
-        ./scripts/check_codegen.sh
+      binary: bash
+      args:
+        - -c
+        - |
+          ${PREPARE_SHELL}
+          ./scripts/check_codegen.sh
 
   get-project:
     command: git.get_project
@@ -30,11 +33,14 @@ functions:
       type: setup
       params:
         expansion_name: github_token
-    - command: shell.exec
+    - command: subprocess.exec
       params:
-        script: |
-          # Set GitHub app dynamic token to ensure it can clone non-public repos for Go modules.
-          git config --global url."https://x-access-token:${github_token}@github.com/evergreen-ci/".insteadOf https://github.com/evergreen-ci/
+        binary: bash
+        args:
+          - -c
+          - |
+            # Set GitHub app dynamic token to ensure it can clone non-public repos for Go modules.
+            git config --global url."https://x-access-token:${github_token}@github.com/evergreen-ci/".insteadOf https://github.com/evergreen-ci/
 
   run-make-background:
     command: subprocess.exec
@@ -48,12 +54,14 @@ functions:
         GOROOT: ${goroot}
 
   run-logkeeper:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/logkeeper
       background: true
-      script: go run main/logkeeper.go --localPath ../evergreen/_bucketdata
-      shell: bash
+      binary: bash
+      args:
+        - -c
+        - go run main/logkeeper.go --localPath ../evergreen/_bucketdata
       env:
         GOROOT: ${goroot}
         PATH: ${goroot}/bin:$PATH
@@ -89,33 +97,37 @@ functions:
           MONGOSH_DECOMPRESS: ${decompress}
         working_dir: ui/evergreen
         command: make get-mongosh
-    - command: shell.exec
+    - command: subprocess.exec
       type: setup
       params:
         background: true
         # Turn off silent to enable DB logging for debugging purposes
         silent: true
         working_dir: ui/evergreen
-        shell: bash
-        script: | 
-          mkdir -p bin
-          make start-mongod > bin/mongod-logs.txt 2>&1
+        binary: bash
+        args:
+          - -c
+          - |
+            mkdir -p bin
+            make start-mongod > bin/mongod-logs.txt 2>&1
     - command: subprocess.exec
       type: setup
       params:
         working_dir: ui/evergreen
         command: make configure-mongod
-    - command: shell.exec
+    - command: subprocess.exec
       type: setup
       params:
-        shell: bash
-        script: |
-          ${PREPARE_SHELL}
-          cd $PROJECT_DIRECTORY
-          mkdir mongodb-tools && cd mongodb-tools
-          curl ${mongodb_tools_url} -o mongodb-tools.tgz
-          ${decompress} mongodb-tools.tgz
-          mv ./mongodb-*/bin/* .
+        binary: bash
+        args:
+          - -c
+          - |
+            ${PREPARE_SHELL}
+            cd $PROJECT_DIRECTORY
+            mkdir mongodb-tools && cd mongodb-tools
+            curl ${mongodb_tools_url} -o mongodb-tools.tgz
+            ${decompress} mongodb-tools.tgz
+            mv ./mongodb-*/bin/* .
 
   setup-node:
     - command: subprocess.exec
@@ -126,142 +138,173 @@ functions:
     - command: expansions.update
       params:
         file: expansion.yml
-    - command: shell.exec
+    - command: subprocess.exec
       params:
         exec_timeout_secs: 60
-        shell: bash
-        script: |
-          ${PREPARE_SHELL}
+        binary: bash
+        args:
+          - -c
+          - |
+            ${PREPARE_SHELL}
 
-          # Fetch NVM and install it into this task's .nvm directory
-          # Once downloaded, source nvm and install yarn
-          git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
-          cd "$NVM_DIR"
-          git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          cd -
+            # Fetch NVM and install it into this task's .nvm directory
+            # Once downloaded, source nvm and install yarn
+            git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+            cd "$NVM_DIR"
+            git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            cd -
 
-          # Retry the download for Node in case it flakes.
-          for i in {1..5}; do
-            nvm install --no-progress --default ${node_version}
-            [[ $? -eq 0 ]] && break
-            echo "Attempt $i of 5 to install Node failed"
-            sleep 10
-          done
-          npm install -g yarn
-          npm install -g env-cmd
+            # Retry the download for Node in case it flakes.
+            for i in {1..5}; do
+              nvm install --no-progress --default ${node_version}
+              [[ $? -eq 0 ]] && break
+              echo "Attempt $i of 5 to install Node failed"
+              sleep 10
+            done
+            npm install -g yarn
+            npm install -g env-cmd
 
   symlink:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui
-      shell: bash
-      script: |
-        ln -s ${workdir}/ui/evergreen/graphql/schema ${app_dir}/sdlschema
+      binary: bash
+      args:
+        - -c
+        - |
+          ln -s ${workdir}/ui/evergreen/graphql/schema ${app_dir}/sdlschema
 
   wait-for-evergreen:
-    command: shell.exec
+    command: subprocess.exec
     type: setup
     params:
       exec_timeout_secs: 600
       working_dir: ui/.evergreen
-      script: ./scripts/wait-for-evergreen.sh
+      binary: bash
+      args:
+        - ./scripts/wait-for-evergreen.sh
 
   yarn-build:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      shell: bash
-      script: |
-        ${PREPARE_SHELL}
-        yarn build:local
+      binary: bash
+      args:
+        - -c
+        - |
+          ${PREPARE_SHELL}
+          yarn build:local
 
   yarn-cypress:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      shell: bash
+      binary: bash
+      args:
+        - -c
+        - |
+          ${PREPARE_SHELL}
+          # Allow spec filtering for an intentional patch.
+          if [[ "${cypress_spec}" != "" ]]; then
+            CYPRESS_CI=true CYPRESS_SKIP_VERIFY=true yarn cy:run --reporter junit --spec "${cypress_spec}"
+          else
+            CYPRESS_CI=true CYPRESS_SKIP_VERIFY=true yarn cy:run --reporter junit
+          fi
       env:
         STAGING_RUNTIME_ENVIRONMENTS_BASE_URL: ${staging_runtime_environments_base_url}
         STAGING_RUNTIME_ENVIRONMENTS_API_KEY: ${staging_runtime_environments_api_key}
-      script: |
-        ${PREPARE_SHELL}
-        # Allow spec filtering for an intentional patch.
-        if [[ "${cypress_spec}" != "" ]]; then
-          CYPRESS_CI=true CYPRESS_SKIP_VERIFY=true yarn cy:run --reporter junit --spec "${cypress_spec}"
-        else
-          CYPRESS_CI=true CYPRESS_SKIP_VERIFY=true yarn cy:run --reporter junit
-        fi
 
   yarn-eslint:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      shell: bash
-      script: |
-        ${PREPARE_SHELL}
-        yarn eslint:strict
+      binary: bash
+      args:
+        - -c
+        - |
+          ${PREPARE_SHELL}
+          yarn eslint:strict
 
   yarn-install:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      shell: bash
-      script: |
-        ${PREPARE_SHELL}
-        yarn install
+      binary: bash
+      args:
+        - -c
+        - |
+          ${PREPARE_SHELL}
+          yarn install
 
   yarn-preview:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       background: true
-      shell: bash
-      script: |
-        ${PREPARE_SHELL}
-        yarn preview --no-request-logging
+      binary: bash
+      args:
+        - -c
+        - |
+          ${PREPARE_SHELL}
+          yarn preview --no-request-logging
 
   yarn-serve:
-    command: shell.exec
+    command: subprocess.exec
     type: setup
     params:
       working_dir: ui/${app_dir}
       background: true
-      script: |
-        ${PREPARE_SHELL}
-        yarn serve
+      binary: bash
+      args:
+        - -c
+        - |
+          ${PREPARE_SHELL}
+          yarn serve
 
   yarn-snapshot:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      script: |
-        ${PREPARE_SHELL}
-        yarn snapshot
+      binary: bash
+      args:
+        - -c
+        - |
+          ${PREPARE_SHELL}
+          yarn snapshot
 
   yarn-storybook-build:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      script: |
-        ${PREPARE_SHELL}
-        yarn storybook:build
+      binary: bash
+      args:
+        - -c
+        - |
+          ${PREPARE_SHELL}
+          yarn storybook:build
 
   yarn-test:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      script: |
-        ${PREPARE_SHELL}
-        yarn test
+      binary: bash
+      args:
+        - -c
+        - |
+          ${PREPARE_SHELL}
+          yarn test
 
   yarn-tsc:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
-      script: |
-        ${PREPARE_SHELL}
-        yarn check-types
+      binary: bash
+      args:
+        - -c
+        - |
+          ${PREPARE_SHELL}
+          yarn check-types
 
   yarn-verify-backend:
     command: subprocess.exec

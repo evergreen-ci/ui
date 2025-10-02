@@ -1,10 +1,13 @@
 functions:
   write repo name to downstream_expansions.yaml for Pine:
-    - command: shell.exec
+    - command: subprocess.exec
       params:
-        script: |
-          touch downstream_expansions.yaml
-          echo "pine_repo_name: ui" | tee downstream_expansions.yaml
+        binary: bash
+        args:
+          - -c
+          - |
+            touch downstream_expansions.yaml
+            echo "pine_repo_name: ui" | tee downstream_expansions.yaml
 
 tasks:
 - name: write_and_set_downstream_expansions
