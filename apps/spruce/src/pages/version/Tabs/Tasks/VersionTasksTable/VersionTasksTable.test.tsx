@@ -8,6 +8,7 @@ import {
   waitFor,
   renderWithRouterMatch as render,
   screen,
+  stubGetClientRects,
   userEvent,
   within,
 } from "@evg-ui/lib/test_utils";
@@ -44,6 +45,10 @@ cache.writeQuery({
 });
 
 describe("VersionTasksTable", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   beforeEach(() => {
     vi.clearAllMocks();
   });
