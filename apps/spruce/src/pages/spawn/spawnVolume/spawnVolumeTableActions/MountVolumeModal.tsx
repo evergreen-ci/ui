@@ -90,7 +90,6 @@ export const MountVolumeModal: React.FC<Props> = ({
         >
           mount the volume in the host
         </StyledLink>
-        .
         <StyledDisclaimer>
           {`Only shows running hosts in zone ${targetAvailabilityZone}.`}
         </StyledDisclaimer>
