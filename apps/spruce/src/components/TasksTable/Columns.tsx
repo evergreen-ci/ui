@@ -19,12 +19,14 @@ import { TaskTableInfo } from "./types";
 export const getColumnsTemplate = ({
   baseStatusOptions = [],
   isPatch = false,
+  loading = false,
   onClickTaskLink = () => {},
   showTaskExecutionLabel = false,
   statusOptions = [],
 }: {
   baseStatusOptions?: TreeDataEntry[];
   isPatch?: boolean;
+  loading?: boolean;
   onClickTaskLink?: (taskId: string) => void;
   showTaskExecutionLabel?: boolean;
   statusOptions?: TreeDataEntry[];
@@ -36,7 +38,7 @@ export const getColumnsTemplate = ({
           {
             header: () => (
               <>
-                Reviewed <AnnouncementPopover />
+                Reviewed <AnnouncementPopover loading={loading} />
               </>
             ),
             accessorKey: "reviewed",

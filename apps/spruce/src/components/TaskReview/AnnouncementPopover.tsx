@@ -11,7 +11,9 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 
-export const AnnouncementPopover: React.FC = () => {
+export const AnnouncementPopover: React.FC<{ loading?: boolean }> = ({
+  loading = false,
+}) => {
   const now = new Date();
   const infoRef = useRef(null);
 
@@ -36,8 +38,9 @@ export const AnnouncementPopover: React.FC = () => {
     }
   };
 
-  return neverSeenTaskReviewTooltip ||
-    differenceInDays(now, seenTaskReviewTooltipDate) < 8 ? (
+  return !loading &&
+    (neverSeenTaskReviewTooltip ||
+      differenceInDays(now, seenTaskReviewTooltipDate) < 8) ? (
     <>
       <IconContainer ref={infoRef}>
         <Icon
