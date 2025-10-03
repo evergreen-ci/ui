@@ -7,7 +7,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { ModalContent, MountVolumeSelect } from "components/Spawn";
+import { ModalContent, AttachVolumeSelect } from "components/Spawn";
 import { hostMountVolumeDocumentationUrl } from "constants/externalResources";
 import {
   AttachVolumeToHostMutation,
@@ -22,7 +22,7 @@ interface Props {
   volume: MyVolume;
 }
 
-export const MountVolumeModal: React.FC<Props> = ({
+export const AttachVolumeModal: React.FC<Props> = ({
   onCancel,
   visible,
   volume,
@@ -66,16 +66,16 @@ export const MountVolumeModal: React.FC<Props> = ({
         onClick: onCancel,
       }}
       confirmButtonProps={{
-        children: "Mount",
+        children: "Attach",
         disabled: !selectedHostId || loadingAttachVolume,
         onClick: onConfirm,
       }}
-      data-cy="mount-volume-modal"
+      data-cy="attach-volume-modal"
       open={visible}
       title="Attach Volume to Host"
     >
       <ModalContent>
-        <MountVolumeSelect
+        <AttachVolumeSelect
           autofill
           onChange={setSelectedHostId}
           selectedHostId={selectedHostId}
@@ -88,7 +88,7 @@ export const MountVolumeModal: React.FC<Props> = ({
           href={hostMountVolumeDocumentationUrl}
           target="_blank"
         >
-          mount the volume in the host
+          mount the volume to the host
         </StyledLink>
         <StyledDisclaimer>
           {`Only shows running hosts in zone ${targetAvailabilityZone}.`}

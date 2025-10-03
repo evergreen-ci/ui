@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
 import { TableVolume } from "types/spawn";
-import { MountVolumeModal } from "./MountVolumeModal";
+import { AttachVolumeModal } from "./AttachVolumeModal";
 
 interface Props {
   volume: TableVolume;
 }
 
-export const MountButton: React.FC<Props> = ({ volume }) => {
+export const AttachButton: React.FC<Props> = ({ volume }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -21,9 +21,9 @@ export const MountButton: React.FC<Props> = ({ volume }) => {
         }}
         size={Size.XSmall}
       >
-        Mount
+        Attach
       </Button>
-      <MountVolumeModal
+      <AttachVolumeModal
         onCancel={() => setOpenModal(false)}
         visible={openModal}
         volume={volume}
