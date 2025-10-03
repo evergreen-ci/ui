@@ -19,6 +19,8 @@ export const amazonEC2InstanceTypeDocumentationUrl =
 
 export const hostUptimeDocumentationUrl = `${hostsDocumentationUrl}/Spawn-Hosts#unexpirable-host-sleep-schedules`;
 
+export const hostMountVolumeDocumentationUrl = `${hostsDocumentationUrl}/Spawn-Hosts#mounting-additional-storage`;
+
 export const projectDistroSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Project-and-Distro-Settings`;
 
 export const projectSettingsRepoSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Repo-Level-Settings`;

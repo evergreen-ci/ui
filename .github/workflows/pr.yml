@@ -1,7 +1,10 @@
 name: "Pull Request Checks"
-on: pull_request
+on: 
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
 jobs:
   chromatic:
+    if: github.event.pull_request.draft == false
     name: Chromatic Tests
     runs-on: ubuntu-latest
     steps:
