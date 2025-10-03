@@ -40,7 +40,7 @@ describe("AnnouncementPopover", () => {
     });
 
     it("sets a cookie with the date upon close", async () => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
       vi.setSystemTime(fakeDate);
 
       render(<AnnouncementPopover />);
@@ -75,7 +75,7 @@ describe("AnnouncementPopover", () => {
     });
 
     it("opens the tooltip when the button is clicked and doesn't update the cookie date on close", async () => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
       mockedGet.mockReturnValue(fakeDate.toString());
       vi.setSystemTime(oneDayLater);
 
@@ -90,6 +90,11 @@ describe("AnnouncementPopover", () => {
         expect(screen.getByText("New feature: Task Review")).toBeVisible();
       });
       await user.click(screen.getByRole("button", { name: "Got it" }));
+      await waitFor(() => {
+        expect(
+          screen.queryByText("New feature: Task Review"),
+        ).not.toBeInTheDocument();
+      });
       expect(mockedSet).not.toHaveBeenCalled();
     });
   });
