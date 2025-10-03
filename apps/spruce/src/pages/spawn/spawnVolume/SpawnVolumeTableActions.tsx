@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TableVolume } from "types/spawn";
+import { AttachButton } from "./spawnVolumeTableActions/AttachButton";
 import { DeleteVolumeButton } from "./spawnVolumeTableActions/DeleteVolumeButton";
 import { EditButton } from "./spawnVolumeTableActions/EditButton";
 import { MigrateButton } from "./spawnVolumeTableActions/MigrateButton";
-import { MountButton } from "./spawnVolumeTableActions/MountButton";
 import { UnmountButton } from "./spawnVolumeTableActions/UnmountButton";
 
 interface Props {
@@ -35,7 +35,7 @@ export const SpawnVolumeTableActions: React.FC<Props> = ({
         />
       )}
       {!host && !homeVolume && (
-        <MountButton data-cy={`mount-${displayName || id}`} volume={volume} />
+        <AttachButton data-cy={`attach-${displayName || id}`} volume={volume} />
       )}
       <EditButton
         data-cy={`edit-${displayName || id}`}
