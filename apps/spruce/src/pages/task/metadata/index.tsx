@@ -37,6 +37,7 @@ import RuntimeTimer from "./RuntimeTimer";
 import { Stepback, isInStepback } from "./Stepback";
 import TagsMetadata from "./TagsMetadata";
 import TaskOwnership from "./TaskOwnership";
+import { TaskTimingMetadata } from "./TaskTiming";
 
 const { red } = palette;
 
@@ -368,6 +369,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         )}
         {stepback && <Stepback taskId={taskId} />}
       </MetadataCard>
+
+      <TaskTimingMetadata
+        buildVariant={task.buildVariant}
+        taskName={task.displayName}
+      />
 
       {!isDisplayTask && (
         <MetadataCard loading={loading} title="Host Information">

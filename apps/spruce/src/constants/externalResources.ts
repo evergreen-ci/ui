@@ -169,6 +169,43 @@ export const getHoneycombSystemMetricsUrl = (
   )}&omitMissingValues`;
 };
 
+// These values correspond to the computed values displayed on Honeycomb
+export enum TaskTimingMetric {
+  RunTime = "duration_min",
+  WaitTime = "wait_time_min",
+  TotalTime = "total_time_min",
+}
+
+export const getHoneycombTaskTimingURL = ({
+  buildVariant,
+  metric,
+  taskName,
+}: {
+  buildVariant: string;
+  metric: TaskTimingMetric;
+  taskName: string;
+}) => {
+  const query = {
+    time_range: 1209600, // Default to 2 weeks
+    granularity: 0, // 0 yields auto granularity
+    breakdowns: [],
+    calculations: [{ op: "HEATMAP", column: metric }],
+    filters: [
+      // TODO: This exists case can be deleted once we've been collecting activated data for long enough.
+      { column: "evergreen.task.activated_time", op: "exists" },
+      { column: "evergreen.task.name", op: "=", value: taskName },
+      { column: "evergreen.build.name", op: "=", value: buildVariant },
+    ],
+    filter_combination: "AND",
+    orders: [],
+    havings: [],
+    trace_joins: [],
+    limit: 1000,
+    compare_time_offset_seconds: null,
+  };
+  return `${getHoneycombBaseURL()}/datasets/evergreen-agent?query=${JSON.stringify(query)}&omitMissingValues`;
+};
+
 export const adminSettingsURL = `${getEvergreenUrl()}/admin`;
 
 export const buildHostConfigurationRepoURL =
