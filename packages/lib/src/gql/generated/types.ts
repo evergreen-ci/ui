@@ -1437,6 +1437,7 @@ export enum HostEventType {
   HostProvisioned = "HOST_PROVISIONED",
   HostProvisionError = "HOST_PROVISION_ERROR",
   HostProvisionFailed = "HOST_PROVISION_FAILED",
+  HostRebooted = "HOST_REBOOTED",
   HostRunningTaskCleared = "HOST_RUNNING_TASK_CLEARED",
   HostRunningTaskSet = "HOST_RUNNING_TASK_SET",
   HostScriptExecuted = "HOST_SCRIPT_EXECUTED",
@@ -3886,6 +3887,7 @@ export type SpawnHostInput = {
 };
 
 export enum SpawnHostStatusActions {
+  Reboot = "REBOOT",
   Start = "START",
   Stop = "STOP",
   Terminate = "TERMINATE",
