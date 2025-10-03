@@ -185,6 +185,7 @@ export type AdminSettings = {
   logPath?: Maybe<Scalars["String"]["output"]>;
   loggerConfig?: Maybe<LoggerConfig>;
   notify?: Maybe<NotifyConfig>;
+  oldestAllowedCLIVersion?: Maybe<Scalars["String"]["output"]>;
   parameterStore?: Maybe<ParameterStoreConfig>;
   perfMonitoringKanopyURL?: Maybe<Scalars["String"]["output"]>;
   perfMonitoringURL?: Maybe<Scalars["String"]["output"]>;
@@ -239,6 +240,7 @@ export type AdminSettingsInput = {
   logPath?: InputMaybe<Scalars["String"]["input"]>;
   loggerConfig?: InputMaybe<LoggerConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
+  oldestAllowedCLIVersion?: InputMaybe<Scalars["String"]["input"]>;
   parameterStore?: InputMaybe<ParameterStoreConfigInput>;
   perfMonitoringKanopyURL?: InputMaybe<Scalars["String"]["input"]>;
   perfMonitoringURL?: InputMaybe<Scalars["String"]["input"]>;
@@ -1435,6 +1437,7 @@ export enum HostEventType {
   HostProvisioned = "HOST_PROVISIONED",
   HostProvisionError = "HOST_PROVISION_ERROR",
   HostProvisionFailed = "HOST_PROVISION_FAILED",
+  HostRebooted = "HOST_REBOOTED",
   HostRunningTaskCleared = "HOST_RUNNING_TASK_CLEARED",
   HostRunningTaskSet = "HOST_RUNNING_TASK_SET",
   HostScriptExecuted = "HOST_SCRIPT_EXECUTED",
@@ -3884,6 +3887,7 @@ export type SpawnHostInput = {
 };
 
 export enum SpawnHostStatusActions {
+  Reboot = "REBOOT",
   Start = "START",
   Stop = "STOP",
   Terminate = "TERMINATE",

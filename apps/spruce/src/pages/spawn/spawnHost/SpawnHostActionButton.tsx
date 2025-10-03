@@ -29,6 +29,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const action = mapStatusToAction[host.status];
   const canTerminate = host.status !== HostStatus.Terminated;
+  const canReboot = host.status === HostStatus.Running;
 
   // When the UPDATE_SPAWN_HOST_STATUS mutation occurs the host state is not immediately updated, It gets updated a few seconds later.
   // Since the MY_HOSTS query on this components parent polls at a slower rate, this component triggers a poll at a faster interval for that
@@ -139,6 +140,33 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
           />
         )
       )}
+      <Popconfirm
+        confirmDisabled={!checkboxAcknowledged}
+        onConfirm={() => handleClick(SpawnHostStatusActions.Reboot)}
+        trigger={
+          <Button
+            disabled={!canReboot}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            size={Size.XSmall}
+          >
+            <Icon glyph="Refresh" />
+          </Button>
+        }
+      >
+        Reboot host “{host.displayName || host.id}”?
+        {checkboxLabel && (
+          <Checkbox
+            checked={checkboxAcknowledged}
+            label={checkboxLabel}
+            onChange={(e) => {
+              e.nativeEvent.stopPropagation();
+              setCheckboxAcknowledged(!checkboxAcknowledged);
+            }}
+          />
+        )}
+      </Popconfirm>
       <Popconfirm
         confirmDisabled={!checkboxAcknowledged}
         onConfirm={() => handleClick(SpawnHostStatusActions.Terminate)}
