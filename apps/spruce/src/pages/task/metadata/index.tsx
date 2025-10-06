@@ -14,7 +14,7 @@ import MetadataCard, {
 import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
-} from "constants/externalResources";
+} from "constants/externalResources/honeycomb";
 import {
   getDistroSettingsRoute,
   getTaskQueueRoute,
@@ -370,10 +370,13 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         {stepback && <Stepback taskId={taskId} />}
       </MetadataCard>
 
-      <TaskTimingMetadata
-        buildVariant={task.buildVariant}
-        taskName={task.displayName}
-      />
+      {projectIdentifier && (
+        <TaskTimingMetadata
+          buildVariant={task.buildVariant}
+          projectIdentifier={projectIdentifier}
+          taskName={task.displayName}
+        />
+      )}
 
       {!isDisplayTask && (
         <MetadataCard loading={loading} title="Host Information">

@@ -9,18 +9,20 @@ import MetadataCard, {
 import {
   getHoneycombTaskTimingURL,
   TaskTimingMetric,
-} from "constants/externalResources";
+} from "constants/externalResources/honeycomb";
 import { TASK_TIMING_CONFIG_KEY } from "constants/index";
 import { getObject, setObject } from "utils/localStorage";
 import { TaskTimingConfig } from "./TaskTimingConfig";
 
 interface TaskTimingProps {
   buildVariant: string;
+  projectIdentifier: string;
   taskName: string;
 }
 
 export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
   buildVariant,
+  projectIdentifier,
   taskName,
 }) => {
   const taskTimingConfig = getObject(TASK_TIMING_CONFIG_KEY) ?? {};
@@ -44,6 +46,7 @@ export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
       buildVariant,
       metric,
       onlySuccessful,
+      projectIdentifier,
       taskName,
     });
 

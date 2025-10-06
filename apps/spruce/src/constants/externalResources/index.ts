@@ -1,11 +1,5 @@
-import { getUnixTime } from "date-fns";
-import { TaskStatus } from "@evg-ui/lib/types/task";
 import { LogTypes } from "types/task";
-import {
-  getHoneycombBaseURL,
-  getParsleyUrl,
-  getEvergreenUrl,
-} from "utils/environmentVariables";
+import { getParsleyUrl, getEvergreenUrl } from "utils/environmentVariables";
 
 export const wikiBaseUrl =
   "https://docs.devprod.prod.corp.mongodb.com/evergreen";
@@ -121,102 +115,6 @@ export const getParsleyCompleteLogsURL = (
   execution: number | string,
   groupID: string,
 ) => `${getParsleyUrl()}/resmoke/${taskID}/${execution}/${groupID}/all`;
-
-/**
- * Generates a URL for accessing a trace in the Honeycomb dashboard.
- * @param traceId - The ID of the trace.
- * @param startTs - The start timestamp of the trace. Note that this timestamp is truncated to the nearest second.
- * @param endTs - The end timestamp of the trace. Note that this timestamp is rounded up to the nearest second.
- * @returns The URL for accessing the trace in the Honeycomb dashboard.
- */
-export const getHoneycombTraceUrl = (
-  traceId: string,
-  startTs: Date,
-  endTs: Date,
-): string =>
-  `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
-    new Date(startTs),
-  )}&trace_end_ts=${getUnixTime(new Date(endTs)) + 1}`;
-
-export const getHoneycombSystemMetricsUrl = (
-  taskId: string,
-  diskDevices: string[],
-  startTs: Date,
-  endTs: Date,
-): string => {
-  const query = {
-    calculations: [
-      { op: "AVG", column: "system.memory.usage.used" },
-      { op: "AVG", column: "system.cpu.utilization" },
-      { op: "RATE_AVG", column: "system.network.io.transmit" },
-      { op: "RATE_AVG", column: "system.network.io.receive" },
-    ].concat(
-      diskDevices.flatMap((device) => [
-        { op: "RATE_AVG", column: `system.disk.io.${device}.read` },
-        { op: "RATE_AVG", column: `system.disk.io.${device}.write` },
-        { op: "RATE_AVG", column: `system.disk.operations.${device}.read` },
-        {
-          op: "RATE_AVG",
-          column: `system.disk.operations.${device}.write`,
-        },
-        { op: "RATE_AVG", column: `system.disk.io_time.${device}` },
-      ]),
-    ),
-    filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
-    start_time: getUnixTime(new Date(startTs)),
-    end_time: getUnixTime(new Date(endTs)),
-  };
-
-  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(
-    query,
-  )}&omitMissingValues`;
-};
-
-// These values correspond to the computed values displayed on Honeycomb
-export enum TaskTimingMetric {
-  RunTime = "duration_min",
-  WaitTime = "wait_time_min",
-  TotalTime = "total_time_min",
-}
-
-export const getHoneycombTaskTimingURL = ({
-  buildVariant,
-  metric,
-  onlySuccessful,
-  taskName,
-}: {
-  buildVariant: string;
-  metric: TaskTimingMetric;
-  onlySuccessful: boolean;
-  taskName: string;
-}) => {
-  const query = {
-    time_range: 1209600, // Default to 2 weeks
-    granularity: 0, // 0 yields auto granularity
-    calculations: [{ op: "HEATMAP", column: metric }],
-    filters: [
-      { column: "name", op: "=", value: "task" },
-      { column: "evergreen.task.name", op: "=", value: taskName },
-      { column: "evergreen.build.name", op: "=", value: buildVariant },
-      ...(onlySuccessful
-        ? [
-            {
-              column: "evergreen.task.status",
-              op: "=",
-              value: TaskStatus.Succeeded,
-            },
-          ]
-        : []),
-      // TODO: This exists case can be deleted once we've been collecting activated_time metrics for long enough.
-      ...(metric !== TaskTimingMetric.RunTime
-        ? [{ column: "evergreen.task.activated_time", op: "exists" }]
-        : []),
-    ],
-    filter_combination: "AND",
-    limit: 1000,
-  };
-  return `${getHoneycombBaseURL()}/datasets/evergreen-agent?query=${JSON.stringify(query)}&omitMissingValues`;
-};
 
 export const adminSettingsURL = `${getEvergreenUrl()}/admin`;
 
