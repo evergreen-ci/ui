@@ -69,9 +69,10 @@ describe("new distro button", () => {
       });
 
       await screen.findByText("New distro");
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("new-distro-button"));
-      expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
+      await user.click(screen.getByDataCy("new-distro-button"));
+      await waitFor(() => {
+        expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
+      });
     });
 
     it("clicking the 'Create new distro' button opens the create distro modal and closes the menu", async () => {
@@ -83,11 +84,11 @@ describe("new distro button", () => {
       });
 
       await screen.findByText("New distro");
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("new-distro-button"));
-      expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("create-distro-button"));
+      await user.click(screen.getByDataCy("new-distro-button"));
+      await waitFor(() => {
+        expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
+      });
+      await user.click(screen.getByDataCy("create-distro-button"));
       await waitFor(() => {
         expect(screen.queryByDataCy("create-distro-modal")).toBeVisible();
       });
@@ -103,11 +104,11 @@ describe("new distro button", () => {
       });
 
       await screen.findByText("New distro");
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("new-distro-button"));
-      expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("copy-distro-button"));
+      await user.click(screen.getByDataCy("new-distro-button"));
+      await waitFor(() => {
+        expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
+      });
+      await user.click(screen.getByDataCy("copy-distro-button"));
       await waitFor(() => {
         expect(screen.queryByDataCy("copy-distro-modal")).toBeVisible();
       });

@@ -86,7 +86,7 @@
     "@leafygreen-ui/leafygreen-provider": "^5.0.2",
     "@leafygreen-ui/loading-indicator": "^3.0.10",
     "@leafygreen-ui/marketing-modal": "^5.0.2",
-    "@leafygreen-ui/menu": "^20.0.1",
+    "@leafygreen-ui/menu": "^32.1.1",
     "@leafygreen-ui/modal": "^19.0.1",
     "@leafygreen-ui/number-input": "^4.1.6",
     "@leafygreen-ui/pagination": "^3.0.14",
