@@ -14,27 +14,22 @@ interface Props {
   loading?: boolean;
   title?: React.ReactNode;
   children: React.ReactNode;
-  headerContent?: React.ReactNode;
 }
 
 const MetadataCard: React.FC<Props> = ({
   children,
   error,
-  headerContent,
   loading,
   title,
   ...rest
 }) => (
   <SiderCard {...rest}>
-    {title && (
-      <>
-        <div>
-          <MetadataCardTitle weight="medium">{title}</MetadataCardTitle>
-          {headerContent}
-        </div>
-        <Divider />
-      </>
+    {typeof title === "string" ? (
+      <MetadataCardTitle weight="medium">{title}</MetadataCardTitle>
+    ) : (
+      title
     )}
+    <Divider />
     {loading && !error && <ListSkeleton />}
     {error && !loading && (
       <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
