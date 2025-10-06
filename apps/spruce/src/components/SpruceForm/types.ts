@@ -7,7 +7,7 @@ type RecursivelyAddError<T> = T extends object
     } & FieldValidation
   : FieldValidation;
 
-/** typescript utility to coerce @rjsf/core validate prop signature to more accurately represent the shape of the actual validate function signature  */
+/** typescript utility to coerce `@rjsf/core` validate prop signature to more accurately represent the shape of the actual validate function signature  */
 export type ValidateProps<T> = (
   FormState: T,
   errors: RecursivelyAddError<T>,

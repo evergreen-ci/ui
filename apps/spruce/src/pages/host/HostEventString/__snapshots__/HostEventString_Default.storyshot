@@ -895,6 +895,20 @@
     <p
       class="leafygreen-ui-1tb6tuo"
     >
+      HOST_REBOOTED
+    </p>
+    <div
+      class="emotion-1"
+    >
+      <span>
+        HOST_REBOOTED
+      </span>
+    </div>
+  </div>
+  <div>
+    <p
+      class="leafygreen-ui-1tb6tuo"
+    >
       HOST_RUNNING_TASK_CLEARED
     </p>
     <div
