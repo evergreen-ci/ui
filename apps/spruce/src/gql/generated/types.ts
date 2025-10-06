@@ -2815,6 +2815,7 @@ export type Project = {
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
+  testSelection?: Maybe<TestSelectionSettings>;
   tracksPushEvents?: Maybe<Scalars["Boolean"]["output"]>;
   triggers?: Maybe<Array<TriggerAlias>>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2966,6 +2967,7 @@ export type ProjectInput = {
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
+  testSelection?: InputMaybe<TestSelectionSettingsInput>;
   tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3027,6 +3029,7 @@ export enum ProjectSettingsSection {
   PatchAliases = "PATCH_ALIASES",
   PeriodicBuilds = "PERIODIC_BUILDS",
   Plugins = "PLUGINS",
+  TestSelection = "TEST_SELECTION",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
   ViewsAndFilters = "VIEWS_AND_FILTERS",
@@ -3370,6 +3373,7 @@ export type RepoRef = {
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
+  testSelection?: Maybe<RepoTestSelectionSettings>;
   tracksPushEvents: Scalars["Boolean"]["output"];
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
@@ -3417,6 +3421,7 @@ export type RepoRefInput = {
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
+  testSelection?: InputMaybe<TestSelectionSettingsInput>;
   tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3447,6 +3452,12 @@ export type RepoSettingsInput = {
   repoId: Scalars["String"]["input"];
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
+};
+
+export type RepoTestSelectionSettings = {
+  __typename?: "RepoTestSelectionSettings";
+  allowed: Scalars["Boolean"]["output"];
+  defaultEnabled: Scalars["Boolean"]["output"];
 };
 
 export type RepoWorkstationConfig = {
@@ -4438,6 +4449,17 @@ export type TestSelectionConfig = {
 
 export type TestSelectionConfigInput = {
   url: Scalars["String"]["input"];
+};
+
+export type TestSelectionSettings = {
+  __typename?: "TestSelectionSettings";
+  allowed?: Maybe<Scalars["Boolean"]["output"]>;
+  defaultEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+};
+
+export type TestSelectionSettingsInput = {
+  allowed?: InputMaybe<Scalars["Boolean"]["input"]>;
+  defaultEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export enum TestSortCategory {
@@ -5564,6 +5586,11 @@ export type ProjectSettingsFieldsFragment = {
         secret: string;
       };
     };
+    testSelection?: {
+      __typename?: "TestSelectionSettings";
+      allowed?: boolean | null;
+      defaultEnabled?: boolean | null;
+    } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
       alias: string;
@@ -5764,6 +5791,11 @@ export type RepoSettingsFieldsFragment = {
         secret: string;
       };
     };
+    testSelection?: {
+      __typename?: "RepoTestSelectionSettings";
+      allowed: boolean;
+      defaultEnabled: boolean;
+    } | null;
     triggers: Array<{
       __typename?: "TriggerAlias";
       alias: string;
@@ -6220,6 +6252,11 @@ export type ProjectEventSettingsFragment = {
         secret: string;
       };
     };
+    testSelection?: {
+      __typename?: "TestSelectionSettings";
+      allowed?: boolean | null;
+      defaultEnabled?: boolean | null;
+    } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
       alias: string;
@@ -6350,6 +6387,26 @@ export type RepoTriggersSettingsFragment = {
     taskRegex: string;
     unscheduleDownstreamVersions?: boolean | null;
   }>;
+};
+
+export type ProjectTestSelectionSettingsFragment = {
+  __typename?: "Project";
+  id: string;
+  testSelection?: {
+    __typename?: "TestSelectionSettings";
+    allowed?: boolean | null;
+    defaultEnabled?: boolean | null;
+  } | null;
+};
+
+export type RepoTestSelectionSettingsFragment = {
+  __typename?: "RepoRef";
+  id: string;
+  testSelection?: {
+    __typename?: "RepoTestSelectionSettings";
+    allowed: boolean;
+    defaultEnabled: boolean;
+  } | null;
 };
 
 export type VariablesFragment = {
@@ -9320,6 +9377,11 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          testSelection?: {
+            __typename?: "TestSelectionSettings";
+            allowed?: boolean | null;
+            defaultEnabled?: boolean | null;
+          } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
             alias: string;
@@ -9535,6 +9597,11 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          testSelection?: {
+            __typename?: "TestSelectionSettings";
+            allowed?: boolean | null;
+            defaultEnabled?: boolean | null;
+          } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
             alias: string;
@@ -9816,6 +9883,11 @@ export type ProjectSettingsQuery = {
           secret: string;
         };
       };
+      testSelection?: {
+        __typename?: "TestSelectionSettings";
+        allowed?: boolean | null;
+        defaultEnabled?: boolean | null;
+      } | null;
       triggers?: Array<{
         __typename?: "TriggerAlias";
         alias: string;
@@ -10079,6 +10151,11 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          testSelection?: {
+            __typename?: "TestSelectionSettings";
+            allowed?: boolean | null;
+            defaultEnabled?: boolean | null;
+          } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
             alias: string;
@@ -10294,6 +10371,11 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          testSelection?: {
+            __typename?: "TestSelectionSettings";
+            allowed?: boolean | null;
+            defaultEnabled?: boolean | null;
+          } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
             alias: string;
@@ -10514,6 +10596,11 @@ export type RepoSettingsQuery = {
           secret: string;
         };
       };
+      testSelection?: {
+        __typename?: "RepoTestSelectionSettings";
+        allowed: boolean;
+        defaultEnabled: boolean;
+      } | null;
       triggers: Array<{
         __typename?: "TriggerAlias";
         alias: string;

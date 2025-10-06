@@ -43,6 +43,7 @@ export enum ProjectSettingsTabRoutes {
   ViewsAndFilters = "views-and-filters",
   ProjectTriggers = "project-triggers",
   PeriodicBuilds = "periodic-builds",
+  TestSelection = "test-selection",
   Plugins = "plugins",
   GithubAppSettings = "github-app-settings",
   GithubPermissionGroups = "github-permission-groups",
