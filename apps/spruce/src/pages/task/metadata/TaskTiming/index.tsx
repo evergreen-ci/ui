@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { useTaskAnalytics } from "analytics";
 import MetadataCard, {
   MetadataCardTitle,
   MetadataItem,
@@ -25,6 +26,7 @@ export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
   projectIdentifier,
   taskName,
 }) => {
+  const { sendEvent } = useTaskAnalytics();
   const taskTimingConfig = getObject(TASK_TIMING_CONFIG_KEY) ?? {};
   const [onlySuccessful, setOnlySuccessful] = useState(
     taskTimingConfig?.onlySuccessful ?? false,
@@ -41,14 +43,21 @@ export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
     });
   };
 
-  const linkDestination = (metric: TaskTimingMetric) =>
-    getHoneycombTaskTimingURL({
+  const linkProps = (metric: TaskTimingMetric) => ({
+    onClick: () =>
+      sendEvent({
+        name: "Clicked task timing link",
+        metric,
+        only_successful: onlySuccessful,
+      }),
+    to: getHoneycombTaskTimingURL({
       buildVariant,
       metric,
       onlySuccessful,
       projectIdentifier,
       taskName,
-    });
+    }),
+  });
 
   return (
     <MetadataCard
@@ -66,19 +75,19 @@ export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
     >
       <MetadataItem>
         <MetadataLabel>Total Time:</MetadataLabel>{" "}
-        <StyledRouterLink to={linkDestination(TaskTimingMetric.TotalTime)}>
+        <StyledRouterLink {...linkProps(TaskTimingMetric.TotalTime)}>
           Activated &rarr; Finish
         </StyledRouterLink>
       </MetadataItem>
       <MetadataItem>
         <MetadataLabel>Wait Time:</MetadataLabel>{" "}
-        <StyledRouterLink to={linkDestination(TaskTimingMetric.WaitTime)}>
+        <StyledRouterLink {...linkProps(TaskTimingMetric.WaitTime)}>
           Activated &rarr; Start
         </StyledRouterLink>
       </MetadataItem>
       <MetadataItem>
         <MetadataLabel>Run Time:</MetadataLabel>{" "}
-        <StyledRouterLink to={linkDestination(TaskTimingMetric.RunTime)}>
+        <StyledRouterLink {...linkProps(TaskTimingMetric.RunTime)}>
           Start &rarr; Finish
         </StyledRouterLink>
       </MetadataItem>

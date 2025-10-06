@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
+import { TaskTimingMetric } from "constants/externalResources/honeycomb";
 import { slugs } from "constants/routes";
 import {
   TaskQuery,
@@ -72,7 +73,12 @@ type Action =
       "file.name": string;
     }
   | { name: "Clicked relevant commit"; type: CommitType }
-  | { name: "Redirected to default tab"; tab: string };
+  | { name: "Redirected to default tab"; tab: string }
+  | {
+      name: "Clicked task timing link";
+      metric: TaskTimingMetric;
+      only_successful: boolean;
+    };
 
 export const useTaskAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();
