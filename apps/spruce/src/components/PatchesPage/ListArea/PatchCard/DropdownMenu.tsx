@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
@@ -20,7 +19,6 @@ export const DropdownMenu: React.FC<Props> = ({
   isPatchHidden,
   patchId,
 }) => {
-  const restartModalVisibilityControl = useState(false);
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
@@ -41,7 +39,6 @@ export const DropdownMenu: React.FC<Props> = ({
       isMergeQueuePatch={isMergeQueuePatch}
       patchId={patchId}
       refetchQueries={refetchQueries}
-      visibilityControl={restartModalVisibilityControl}
     />,
     <SetPatchVisibility
       key="hide"

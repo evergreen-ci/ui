@@ -1,4 +1,10 @@
-import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
+import {
+  render,
+  screen,
+  userEvent,
+  waitFor,
+  within,
+} from "@evg-ui/lib/test_utils";
 import WarningBanner from ".";
 
 const warnings = ["warning1", "warning2", "warning3"];
@@ -7,14 +13,18 @@ describe("warningBanner", () => {
   it("shows correct text when there is only one warning", () => {
     render(<WarningBanner warnings={warnings.slice(0, 1)} />);
     expect(
-      screen.getByText("1 warning in configuration file"),
+      within(screen.getByRole("alert")).getByText(
+        "1 warning in configuration file",
+      ),
     ).toBeInTheDocument();
   });
 
   it("shows correct text when there are multiple warnings", () => {
     render(<WarningBanner warnings={warnings} />);
     expect(
-      screen.getByText("3 warnings in configuration file"),
+      within(screen.getByRole("alert")).getByText(
+        "3 warnings in configuration file",
+      ),
     ).toBeInTheDocument();
   });
 
@@ -36,7 +46,9 @@ describe("warningBanner", () => {
     expect(
       screen.getByDataCy("configuration-warnings-banner"),
     ).toBeInTheDocument();
-    await user.click(screen.getByLabelText("X Icon"));
+    await user.click(
+      within(screen.getByRole("alert")).getByLabelText("X Icon"),
+    );
     expect(screen.queryByDataCy("configuration-warnings-banner")).toBeNull();
   });
 });

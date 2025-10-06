@@ -30,18 +30,20 @@ const FilterChips: React.FC<FilterChipsProps> = ({
   const visibleChips = chips.slice(0, 8);
   const notVisibleCount = chips.slice(8, chips.length).length;
   return (
-    <Container>
-      {visibleChips.map((c) => (
-        <FilterChip
-          key={`filter_chip_${c.key}_${c.value}`}
-          chip={c}
-          onClose={() => {
-            handleOnRemove(c);
-          }}
-          showValueOnly={showValueOnly}
-          truncateChipLength={truncateChipLength}
-        />
-      ))}
+    <>
+      <Container data-cy="chip-container">
+        {visibleChips.map((c) => (
+          <FilterChip
+            key={`filter_chip_${c.key}_${c.value}`}
+            chip={c}
+            onClose={() => {
+              handleOnRemove(c);
+            }}
+            showValueOnly={showValueOnly}
+            truncateChipLength={truncateChipLength}
+          />
+        ))}
+      </Container>
       {chips.length > 8 && (
         <SeeMoreModal
           chips={chips}
@@ -62,7 +64,7 @@ const FilterChips: React.FC<FilterChipsProps> = ({
           Clear all
         </Button>
       )}
-    </Container>
+    </>
   );
 };
 

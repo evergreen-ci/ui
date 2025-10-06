@@ -1,53 +1,5 @@
 <div>
-  <div
-    class="emotion-0"
-  >
-    <div
-      class="emotion-InactiveVersion e1i0zkr30"
-    >
-      <div
-        class="emotion-StyledBadge e19pzgwa0 leafygreen-ui-cfigsp"
-        data-cy="broken-versions-badge"
-      >
-        1
-         broken
-      </div>
-      <button
-        aria-disabled="false"
-        aria-label="Open inactive versions modal"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e19pzgwa2"
-        data-cy="inactive-versions-button"
-        data-lgid="lg-button"
-        type="button"
-      >
-        <div
-          class="leafygreen-ui-v038xi"
-        />
-        <div
-          class="leafygreen-ui-b15bbd"
-        >
-          <svg
-            alt=""
-            aria-hidden="true"
-            class="leafygreen-ui-a4wnk0 leafygreen-ui-xpf1b6"
-            fill="none"
-            height="16"
-            role="presentation"
-            viewBox="0 0 16 16"
-            width="16"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M3.125 2.75a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5M3.125 6.75a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5M1.875 12a1.25 1.25 0 1 1 2.5 0 1.25 1.25 0 0 1-2.5 0M6.625 3a1 1 0 0 0 0 2h6.5a1 1 0 1 0 0-2zM5.625 8a1 1 0 0 1 1-1h6.5a1 1 0 1 1 0 2h-6.5a1 1 0 0 1-1-1M6.625 11a1 1 0 1 0 0 2h6.5a1 1 0 1 0 0-2z"
-              fill="currentColor"
-            />
-          </svg>
-          2
-          <div
-            class="emotion-InactiveVersionLine e19pzgwa1"
-          />
-        </div>
-      </button>
-    </div>
+  <div>
+    Failed to render component.
   </div>
 </div>

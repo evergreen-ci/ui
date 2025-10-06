@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import Tooltip, { Align, Justify } from "@leafygreen-ui/tooltip";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { DropdownItem } from "components/ButtonDropdown";
 import { VersionRestartModal } from "components/VersionRestartModal";
 
@@ -11,7 +10,6 @@ interface RestartPatchProps {
   isMergeQueuePatch: boolean;
   patchId: string;
   refetchQueries: string[];
-  visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 export const RestartPatch: React.FC<RestartPatchProps> = ({
@@ -20,15 +18,10 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
   isMergeQueuePatch,
   patchId,
   refetchQueries,
-  visibilityControl,
 }) => {
-  const fallbackVisibilityControl = useState(false);
-  const [isVisible, setIsVisible] =
-    visibilityControl !== undefined
-      ? visibilityControl
-      : fallbackVisibilityControl;
+  const [isVisible, setIsVisible] = useState(false);
 
-  const onClick = () => setIsVisible(!isVisible);
+  const onClick = () => setIsVisible((v) => !v);
 
   const message = isMergeQueuePatch
     ? "GitHub merge queue patches cannot be restarted."
@@ -40,7 +33,6 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
         align={isButton ? Align.Top : Align.Left}
         enabled={disabled}
         justify={Justify.End}
-        popoverZIndex={zIndex.tooltip}
         trigger={
           isButton ? (
             <Button

@@ -43,7 +43,7 @@ describe("copy distro modal", () => {
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
-    expect(screen.queryByDataCy("copy-distro-modal")).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("copy-distro-modal")).not.toBeVisible();
   });
 
   it("disables the confirm button on initial render and uses the provided label", () => {

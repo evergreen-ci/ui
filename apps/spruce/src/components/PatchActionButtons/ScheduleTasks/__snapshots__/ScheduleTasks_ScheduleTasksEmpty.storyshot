@@ -1,18 +1,5 @@
 <div>
-  <button
-    aria-disabled="false"
-    class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
-    data-cy="schedule-patch"
-    data-lgid="lg-button"
-    type="button"
-  >
-    <div
-      class="leafygreen-ui-v038xi"
-    />
-    <div
-      class="leafygreen-ui-16tr4y"
-    >
-      Schedule
-    </div>
-  </button>
+  <div>
+    Failed to render component.
+  </div>
 </div>

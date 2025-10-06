@@ -123,7 +123,7 @@ describe("createDuplicateProjectField", () => {
       await waitFor(() => {
         expect(screen.queryByDataCy("create-project-modal")).toBeVisible();
       });
-      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
+      expect(screen.queryByDataCy("new-project-menu")).not.toBeVisible();
     });
 
     it("clicking the 'Duplicate Project' button opens the create project modal and closes the menu", async () => {
@@ -167,7 +167,7 @@ describe("createDuplicateProjectField", () => {
       await waitFor(() => {
         expect(screen.queryByDataCy("copy-project-modal")).toBeVisible();
       });
-      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
+      expect(screen.queryByDataCy("new-project-menu")).not.toBeVisible();
 
       await user.type(
         screen.getByDataCy("project-name-input"),

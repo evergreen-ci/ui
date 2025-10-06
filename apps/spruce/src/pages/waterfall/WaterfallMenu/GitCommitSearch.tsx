@@ -49,7 +49,6 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
       </DropdownItem>
       <ConfirmationModal
         cancelButtonProps={{
-          children: "Cancel",
           onClick: onCancel,
         }}
         confirmButtonProps={{

@@ -92,7 +92,7 @@ describe("new distro button", () => {
       await waitFor(() => {
         expect(screen.queryByDataCy("create-distro-modal")).toBeVisible();
       });
-      expect(screen.queryByDataCy("new-distro-menu")).not.toBeInTheDocument();
+      expect(screen.queryByDataCy("new-distro-menu")).not.toBeVisible();
     });
 
     it("clicking the 'Copy distro' button opens the create distro modal and closes the menu", async () => {
@@ -112,7 +112,7 @@ describe("new distro button", () => {
       await waitFor(() => {
         expect(screen.queryByDataCy("copy-distro-modal")).toBeVisible();
       });
-      expect(screen.queryByDataCy("new-distro-menu")).not.toBeInTheDocument();
+      expect(screen.queryByDataCy("new-distro-menu")).not.toBeVisible();
     });
   });
 });

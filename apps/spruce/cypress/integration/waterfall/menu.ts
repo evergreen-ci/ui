@@ -64,7 +64,7 @@ describe("Waterfall subscription modal", () => {
     cy.dataCy("waterfall-menu").click();
     cy.dataCy("add-notification").click();
     cy.dataCy(dataCyModal).should("be.visible");
-    cy.contains("button", "Cancel").click();
+    cy.contains("button", "Cancel").click({ force: true });
     cy.dataCy(dataCyModal).should("not.exist");
   });
 

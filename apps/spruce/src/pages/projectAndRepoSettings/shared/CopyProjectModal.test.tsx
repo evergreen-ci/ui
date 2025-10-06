@@ -50,7 +50,7 @@ describe("copyProjectField", () => {
     const { Component } = RenderFakeToastContext(<Modal open={false} />);
     render(<Component />);
 
-    expect(screen.queryByDataCy("copy-project-modal")).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("copy-project-modal")).not.toBeVisible();
   });
 
   it("disables the confirm button on initial render and uses the provided label", () => {
@@ -59,7 +59,7 @@ describe("copyProjectField", () => {
 
     expect(screen.queryByText("Duplicate “evergreen”")).toBeVisible();
 
-    expect(screen.getByDataCy("copy-project-modal")).toBeInTheDocument();
+    expect(screen.getByDataCy("copy-project-modal")).toBeVisible();
     const confirmButton = screen.getByRole("button", {
       name: "Duplicate",
     });

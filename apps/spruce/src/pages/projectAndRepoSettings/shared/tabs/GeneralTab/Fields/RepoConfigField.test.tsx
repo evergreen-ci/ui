@@ -203,7 +203,7 @@ describe("repoConfigField", () => {
     it("does not render the Move Repo Modal when the open prop is false", () => {
       const { Component } = RenderFakeToastContext(<MoveModal open={false} />);
       render(<Component />);
-      expect(screen.queryByDataCy("move-repo-modal")).not.toBeInTheDocument();
+      expect(screen.queryByDataCy("move-repo-modal")).not.toBeVisible();
     });
 
     it("disables the confirm button on initial render", () => {
@@ -256,9 +256,8 @@ describe("repoConfigField", () => {
       const { Component } = RenderFakeToastContext(<Field />);
       render(<Component />);
 
-      expect(screen.queryByDataCy("attach-repo-modal")).not.toBeInTheDocument();
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("attach-repo-button"));
+      expect(screen.queryByDataCy("attach-repo-modal")).not.toBeVisible();
+      await user.click(screen.getByDataCy("attach-repo-button"));
       await waitFor(() => {
         expect(screen.queryByDataCy("attach-repo-modal")).toBeVisible();
       });

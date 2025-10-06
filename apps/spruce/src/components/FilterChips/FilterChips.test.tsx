@@ -52,9 +52,17 @@ describe("filterChips", () => {
     render(
       <FilterChips chips={chips} onClearAll={vi.fn()} onRemove={vi.fn()} />,
     );
-    expect(screen.queryAllByDataCy("filter-chip")).toHaveLength(8);
-    expect(screen.getByText("Test 1: value1")).toBeInTheDocument();
-    expect(screen.getByText("Test 8: value8")).toBeInTheDocument();
+    expect(
+      within(screen.getByDataCy("chip-container")).queryAllByDataCy(
+        "filter-chip",
+      ),
+    ).toHaveLength(8);
+    expect(
+      within(screen.getByDataCy("chip-container")).getByText("Test 1: value1"),
+    ).toBeInTheDocument();
+    expect(
+      within(screen.getByDataCy("chip-container")).getByText("Test 8: value8"),
+    ).toBeInTheDocument();
     expect(screen.getByText("see 2 more")).toBeInTheDocument();
   });
 
@@ -64,7 +72,7 @@ describe("filterChips", () => {
       <FilterChips chips={chips} onClearAll={vi.fn()} onRemove={vi.fn()} />,
     );
     await user.click(screen.getByText("see 2 more"));
-    expect(screen.getByDataCy("see-more-modal")).toBeInTheDocument();
+    expect(screen.getByDataCy("see-more-modal")).toBeVisible();
     expect(
       within(screen.getByDataCy("see-more-modal")).queryAllByDataCy(
         "filter-chip",
