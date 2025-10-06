@@ -95,6 +95,7 @@
     >
       <div
         class="emotion-Container e92ehni0"
+        data-cy="chip-container"
       />
     </div>
   </div>

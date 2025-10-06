@@ -11,7 +11,7 @@ describe("Name change modal", () => {
     cy.get("textarea").clear();
     cy.get("textarea").type(newName);
     cy.contains("Confirm").click();
-    cy.get("textarea").should("not.exist");
+    cy.get("textarea").should("not.be.visible");
     cy.contains(newName);
     cy.validateToast("success", "Patch name was successfully updated.", true);
     // revert name change
@@ -19,7 +19,7 @@ describe("Name change modal", () => {
     cy.get("textarea").clear();
     cy.get("textarea").type(originalName);
     cy.contains("Confirm").click();
-    cy.get("textarea").should("not.exist");
+    cy.get("textarea").should("not.be.visible");
     cy.validateToast("success", "Patch name was successfully updated.", true);
     cy.contains(originalName);
   });

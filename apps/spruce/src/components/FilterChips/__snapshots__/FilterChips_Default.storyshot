@@ -2,6 +2,7 @@
   <div>
     <div
       class="emotion-Container e92ehni0"
+      data-cy="chip-container"
     >
       <span
         aria-disabled="false"
@@ -41,23 +42,23 @@
           </svg>
         </button>
       </span>
-      <button
-        aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw"
-        data-cy="clear-filters"
-        data-lgid="lg-button"
-        type="button"
-      >
-        <div
-          class="leafygreen-ui-v038xi"
-        />
-        <div
-          class="leafygreen-ui-b15bbd"
-        >
-          Clear all
-        </div>
-      </button>
     </div>
+    <button
+      aria-disabled="false"
+      class="lg-ui-button-0000 leafygreen-ui-168frnw"
+      data-cy="clear-filters"
+      data-lgid="lg-button"
+      type="button"
+    >
+      <div
+        class="leafygreen-ui-v038xi"
+      />
+      <div
+        class="leafygreen-ui-b15bbd"
+      >
+        Clear all
+      </div>
+    </button>
     <div>
       <div
         class="leafygreen-ui-1br9h7w"

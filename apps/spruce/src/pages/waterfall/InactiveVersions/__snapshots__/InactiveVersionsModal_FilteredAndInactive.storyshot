@@ -1,5 +1,372 @@
 <div>
-  <div>
-    Failed to render component.
+  <div
+    class="emotion-0"
+  >
+    <div
+      class="emotion-InactiveVersion e1i0zkr30"
+    >
+      <dialog
+        class="emotion-StyledModal e1vw2scd1 leafygreen-ui-j7pqgd"
+        data-cy="inactive-versions-modal"
+        data-lgid="lg-modal"
+        data-testid="lg-modal"
+        id="modal-8"
+      >
+        <h3
+          class="leafygreen-ui-feh85s"
+          data-cy="modal-title"
+        >
+          6 Unmatching Versions
+        </h3>
+        <div
+          class="e1dav03y0 emotion-VersionContainer-columnBasis-wordBreakCss-StyledVersionLabel e3zirl03"
+          data-cy="version-label-active"
+          data-highlighted="false"
+        >
+          <div
+            class="emotion-HeaderLine e3zirl00"
+          >
+            <p
+              class="leafygreen-ui-1tb6tuo"
+            >
+              <a
+                class="lg-ui-0000 leafygreen-ui-hvznge"
+                href="/version/evergreen_ui_aec8832bace91f0f3b6d8ad3bb3b27fb4263be83/tasks"
+              >
+                <code
+                  class="leafygreen-ui-i6ovbf"
+                >
+                  aec8832
+                </code>
+              </a>
+               
+              Sep 19, 2024, 2:56 PM
+            </p>
+          </div>
+          <p
+            class="emotion-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+            view="modal"
+          >
+            <strong>
+              Sophie Stadler
+            </strong>
+             •
+             
+            <a
+              class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
+              data-cy="jira-link"
+              href="https:///browse/DEVPROD-11387"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span>
+                DEVPROD-11387
+              </span>
+            </a>
+            : Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)
+          </p>
+        </div>
+        <div
+          class="e1dav03y0 emotion-VersionContainer-columnBasis-wordBreakCss-StyledVersionLabel e3zirl03"
+          data-cy="version-label-active"
+          data-highlighted="false"
+        >
+          <div
+            class="emotion-HeaderLine e3zirl00"
+          >
+            <p
+              class="leafygreen-ui-1tb6tuo"
+            >
+              <a
+                class="lg-ui-0000 leafygreen-ui-hvznge"
+                href="/version/evergreen_ui_deb77a36604446272d610d267f1cd9f95e4fe8ff/tasks"
+              >
+                <code
+                  class="leafygreen-ui-i6ovbf"
+                >
+                  deb77a3
+                </code>
+              </a>
+               
+              Sep 19, 2024, 4:14 PM
+            </p>
+          </div>
+          <p
+            class="emotion-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+            view="modal"
+          >
+            <strong>
+              Sophie Stadler
+            </strong>
+             •
+             
+            parsley/v2.1.64
+          </p>
+          <p
+            class="leafygreen-ui-1tb6tuo"
+          >
+            Git Tags: 
+            parsley/v2.1.64
+          </p>
+        </div>
+        <div
+          class="e1dav03y0 emotion-VersionContainer-columnBasis-wordBreakCss-StyledVersionLabel e3zirl03"
+          data-cy="version-label-inactive"
+          data-highlighted="false"
+        >
+          <div
+            class="emotion-HeaderLine e3zirl00"
+          >
+            <p
+              class="leafygreen-ui-1tb6tuo"
+            >
+              <a
+                class="lg-ui-0000 leafygreen-ui-hvznge"
+                href="/version/81667704832f1021cc9573bd5edafc32/tasks"
+              >
+                <code
+                  class="leafygreen-ui-i6ovbf"
+                >
+                  a659b99
+                </code>
+              </a>
+               
+              Oct 24, 2024, 2:56 PM
+              <div
+                class="emotion-StyledBadge e3zirl01 leafygreen-ui-sti25g"
+              >
+                Inactive
+              </div>
+            </p>
+          </div>
+          <p
+            class="emotion-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+            view="modal"
+          >
+            <strong>
+              Sophie Stadler
+            </strong>
+             •
+             
+            Inactive Version by Sophie Stadler
+          </p>
+        </div>
+        <div
+          class="e1dav03y0 emotion-VersionContainer-columnBasis-wordBreakCss-StyledVersionLabel e3zirl03"
+          data-cy="version-label-active"
+          data-highlighted="false"
+        >
+          <div
+            class="emotion-HeaderLine e3zirl00"
+          >
+            <p
+              class="leafygreen-ui-1tb6tuo"
+            >
+              <a
+                class="lg-ui-0000 leafygreen-ui-hvznge"
+                href="/version/evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a/tasks"
+              >
+                <code
+                  class="leafygreen-ui-i6ovbf"
+                >
+                  1309488
+                </code>
+              </a>
+               
+              Sep 19, 2024, 4:06 PM
+            </p>
+          </div>
+          <p
+            class="emotion-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+            view="modal"
+          >
+            <strong>
+              Sophie Stadler
+            </strong>
+             •
+             
+            spruce/v4.1.87
+          </p>
+          <p
+            class="leafygreen-ui-1tb6tuo"
+          >
+            Git Tags: 
+            spruce/v4.1.87
+          </p>
+        </div>
+        <div
+          class="e1dav03y0 emotion-VersionContainer-columnBasis-wordBreakCss-StyledVersionLabel e3zirl03"
+          data-cy="version-label-active"
+          data-highlighted="false"
+        >
+          <div
+            class="emotion-HeaderLine e3zirl00"
+          >
+            <p
+              class="leafygreen-ui-1tb6tuo"
+            >
+              <a
+                class="lg-ui-0000 leafygreen-ui-hvznge"
+                href="/version/evergreen_ui_aec8832bace91f0f3b6d8ad3bb3b27fb4263be83/tasks"
+              >
+                <code
+                  class="leafygreen-ui-i6ovbf"
+                >
+                  aec8832
+                </code>
+              </a>
+               
+              Sep 19, 2024, 2:56 PM
+              <div
+                class="emotion-StyledBadge e3zirl01 leafygreen-ui-cfigsp"
+              >
+                Broken
+              </div>
+            </p>
+          </div>
+          <p
+            class="emotion-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+            view="modal"
+          >
+            <strong>
+              Sophie Stadler
+            </strong>
+             •
+             
+            <a
+              class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
+              data-cy="jira-link"
+              href="https:///browse/DEVPROD-11387"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span>
+                DEVPROD-11387
+              </span>
+            </a>
+            : Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)
+          </p>
+        </div>
+        <div
+          class="e1dav03y0 emotion-VersionContainer-columnBasis-wordBreakCss-StyledVersionLabel e3zirl03"
+          data-cy="version-label-inactive"
+          data-highlighted="false"
+        >
+          <div
+            class="emotion-HeaderLine e3zirl00"
+          >
+            <p
+              class="leafygreen-ui-1tb6tuo"
+            >
+              <a
+                class="lg-ui-0000 leafygreen-ui-hvznge"
+                href="/version/08576a4e52f9c350430182597a4b22c0/tasks"
+              >
+                <code
+                  class="leafygreen-ui-i6ovbf"
+                >
+                  a659b99
+                </code>
+              </a>
+               
+              Oct 25, 2024, 2:56 PM
+              <div
+                class="emotion-StyledBadge e3zirl01 leafygreen-ui-sti25g"
+              >
+                Inactive
+              </div>
+              <div
+                class="emotion-StyledBadge e3zirl01 leafygreen-ui-cfigsp"
+              >
+                Broken
+              </div>
+            </p>
+          </div>
+          <p
+            class="emotion-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+            view="modal"
+          >
+            <strong>
+              Sophie Stadler
+            </strong>
+             •
+             
+            Inactive Version by Sophie Stadler
+          </p>
+        </div>
+        <button
+          aria-disabled="false"
+          aria-label="Close modal"
+          class="leafygreen-ui-qya81r"
+          data-lgid="lg-modal-close"
+          data-testid="lg-modal-close"
+          id="modal-close_button-7"
+          tabindex="0"
+        >
+          <div
+            class="leafygreen-ui-xhlipt"
+          >
+            <svg
+              aria-label="X Icon"
+              class="leafygreen-ui-1st74h4"
+              height="16"
+              role="img"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M12.2028 3.40381C11.8123 3.01329 11.1791 3.01329 10.7886 3.40381L8.3137 5.87869L5.83883 3.40381C5.44831 3.01329 4.81514 3.01329 4.42462 3.40381L3.71751 4.11092C3.32699 4.50144 3.32699 5.13461 3.71751 5.52513L6.19238 8.00001L3.71751 10.4749C3.32699 10.8654 3.32699 11.4986 3.71751 11.8891L4.42462 12.5962C4.81514 12.9867 5.44831 12.9867 5.83883 12.5962L8.3137 10.1213L10.7886 12.5962C11.1791 12.9867 11.8123 12.9867 12.2028 12.5962L12.9099 11.8891C13.3004 11.4986 13.3004 10.8654 12.9099 10.4749L10.435 8.00001L12.9099 5.52513C13.3004 5.13461 13.3004 4.50144 12.9099 4.11092L12.2028 3.40381Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </dialog>
+      <div
+        class="emotion-StyledBadge e19pzgwa0 leafygreen-ui-cfigsp"
+        data-cy="broken-versions-badge"
+      >
+        2
+         broken
+      </div>
+      <button
+        aria-disabled="false"
+        aria-label="Open inactive versions modal"
+        class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e19pzgwa2"
+        data-cy="inactive-versions-button"
+        data-lgid="lg-button"
+        type="button"
+      >
+        <div
+          class="leafygreen-ui-v038xi"
+        />
+        <div
+          class="leafygreen-ui-b15bbd"
+        >
+          <svg
+            alt=""
+            aria-hidden="true"
+            class="leafygreen-ui-a4wnk0 leafygreen-ui-xpf1b6"
+            fill="none"
+            height="16"
+            role="presentation"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.125 2.75a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5M3.125 6.75a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5M1.875 12a1.25 1.25 0 1 1 2.5 0 1.25 1.25 0 0 1-2.5 0M6.625 3a1 1 0 0 0 0 2h6.5a1 1 0 1 0 0-2zM5.625 8a1 1 0 0 1 1-1h6.5a1 1 0 1 1 0 2h-6.5a1 1 0 0 1-1-1M6.625 11a1 1 0 1 0 0 2h6.5a1 1 0 1 0 0-2z"
+              fill="currentColor"
+            />
+          </svg>
+          6
+          <div
+            class="emotion-InactiveVersionLine e19pzgwa1"
+          />
+        </div>
+      </button>
+    </div>
   </div>
 </div>

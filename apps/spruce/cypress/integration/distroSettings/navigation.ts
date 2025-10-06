@@ -50,7 +50,7 @@ describe("distroSettings/navigation", () => {
         cy.dataCy("waterfall-link").click();
         cy.dataCy("navigation-warning-modal").should("be.visible");
         cy.contains("button", "Cancel").click();
-        cy.dataCy("navigation-warning-modal").should("not.exist");
+        cy.dataCy("navigation-warning-modal").should("not.be.visible");
         cy.location("pathname").should(
           "eq",
           "/distro/localhost/settings/general",
