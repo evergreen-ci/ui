@@ -41,6 +41,10 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({
     }
   }, [showSearch]);
 
+  useEffect(() => {
+    setFilteredMenuItems(menuItems);
+  }, [menuItems]);
+
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilteredMenuItems(
       menuItems.filter((item) => {
