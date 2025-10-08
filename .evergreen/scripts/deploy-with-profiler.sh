@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+# Source shell environment
+eval "${PREPARE_SHELL}"
+
 # Add PROFILER to env if profiler patch parameter is set to true.
 if [ "${profiler}" = "true" ]; then
     echo "PROFILER is set to true, adding profiler to the build"

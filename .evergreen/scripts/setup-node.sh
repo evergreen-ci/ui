@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+# Source shell environment
+eval "${PREPARE_SHELL}"
+
 # Fetch NVM and install it into this task's .nvm directory
 # Once downloaded, source nvm and install yarn
 git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
