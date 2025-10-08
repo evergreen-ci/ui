@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
@@ -28,10 +28,8 @@ import {
   ConfigurePatchQuery,
   ProjectBuildVariant,
   PatchConfigureGeneratedTaskCountsQuery,
-  PatchConfigureGeneratedTaskCountsQueryVariables,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
-import { PATCH_CONFIGURE_GENERATED_TASK_COUNTS } from "gql/queries";
 import { sumActivatedTasksInVariantsTasks } from "utils/tasks/estimatedActivatedTasks";
 import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
@@ -47,26 +45,17 @@ import {
 
 interface ConfigurePatchCoreProps {
   patch: ConfigurePatchQuery["patch"];
+  generatedTaskCounts: PatchConfigureGeneratedTaskCountsQuery["patch"]["generatedTaskCounts"];
+  loadingGeneratedTaskCounts: boolean;
 }
-const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
+const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
+  generatedTaskCounts,
+  loadingGeneratedTaskCounts,
+  patch,
+}) => {
   const navigate = useNavigate();
   const dispatchToast = useToastContext();
 
-  const { data: generatedTaskCountsData, loading: loadingGeneratedTaskCounts } =
-    useQuery<
-      PatchConfigureGeneratedTaskCountsQuery,
-      PatchConfigureGeneratedTaskCountsQueryVariables
-    >(PATCH_CONFIGURE_GENERATED_TASK_COUNTS, {
-      variables: { patchId: patch.id },
-      onError(err) {
-        dispatchToast.error(
-          `Error fetching generated task counts: ${err.message}`,
-        );
-      },
-    });
-  const { generatedTaskCounts } = generatedTaskCountsData?.patch || {
-    generatedTaskCounts: [],
-  };
   const {
     activated,
     author,
