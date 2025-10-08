@@ -120,7 +120,28 @@ functions:
       params:
         exec_timeout_secs: 60
         binary: bash
-        args: ["-c", "${PREPARE_SHELL} && ui/.evergreen/scripts/setup-node.sh"]
+        args:
+          - -c
+          - |
+            ${PREPARE_SHELL}
+
+            # Fetch NVM and install it into this task's .nvm directory
+            # Once downloaded, source nvm and install yarn
+            git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+            cd "$NVM_DIR"
+            git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            cd -
+
+            # Retry the download for Node in case it flakes.
+            for i in {1..5}; do
+              nvm install --no-progress --default ${node_version}
+              [[ $? -eq 0 ]] && break
+              echo "Attempt $i of 5 to install Node failed"
+              sleep 10
+            done
+            npm install -g yarn
+            npm install -g env-cmd
 
   symlink:
     command: subprocess.exec
@@ -151,7 +172,16 @@ functions:
     params:
       working_dir: ui/${app_dir}
       binary: bash
-      args: ["-c", "${PREPARE_SHELL} && ../.evergreen/scripts/run-cypress.sh"]
+      args:
+        - -c
+        - |
+          ${PREPARE_SHELL}
+          # Allow spec filtering for an intentional patch.
+          if [[ "${cypress_spec}" != "" ]]; then
+            CYPRESS_CI=true CYPRESS_SKIP_VERIFY=true yarn cy:run --reporter junit --spec "${cypress_spec}"
+          else
+            CYPRESS_CI=true CYPRESS_SKIP_VERIFY=true yarn cy:run --reporter junit
+          fi
       env:
         STAGING_RUNTIME_ENVIRONMENTS_BASE_URL: ${staging_runtime_environments_base_url}
         STAGING_RUNTIME_ENVIRONMENTS_API_KEY: ${staging_runtime_environments_api_key}
