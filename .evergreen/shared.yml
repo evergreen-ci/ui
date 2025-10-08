@@ -15,11 +15,7 @@ functions:
     params:
       working_dir: ui/${app_dir}
       binary: bash
-      args:
-        - -c
-        - |
-          ${PREPARE_SHELL}
-          ./scripts/check_codegen.sh
+      args: ["-c", "${PREPARE_SHELL} && ./scripts/check_codegen.sh"]
 
   get-project:
     command: git.get_project
@@ -36,11 +32,7 @@ functions:
     - command: subprocess.exec
       params:
         binary: bash
-        args:
-          - -c
-          - |
-            # Set GitHub app dynamic token to ensure it can clone non-public repos for Go modules.
-            git config --global url."https://x-access-token:${github_token}@github.com/evergreen-ci/".insteadOf https://github.com/evergreen-ci/
+        args: ["-c", "git config --global url.\"https://x-access-token:${github_token}@github.com/evergreen-ci/\".insteadOf https://github.com/evergreen-ci/"]
 
   run-make-background:
     command: subprocess.exec
@@ -59,9 +51,7 @@ functions:
       working_dir: ui/logkeeper
       background: true
       binary: bash
-      args:
-        - -c
-        - go run main/logkeeper.go --localPath ../evergreen/_bucketdata
+      args: ["-c", "go run main/logkeeper.go --localPath ../evergreen/_bucketdata"]
       env:
         GOROOT: ${goroot}
         PATH: ${goroot}/bin:$PATH
@@ -105,11 +95,7 @@ functions:
         silent: true
         working_dir: ui/evergreen
         binary: bash
-        args:
-          - -c
-          - |
-            mkdir -p bin
-            make start-mongod > bin/mongod-logs.txt 2>&1
+        args: ["-c", "mkdir -p bin && make start-mongod > bin/mongod-logs.txt 2>&1"]
     - command: subprocess.exec
       type: setup
       params:
@@ -119,15 +105,7 @@ functions:
       type: setup
       params:
         binary: bash
-        args:
-          - -c
-          - |
-            ${PREPARE_SHELL}
-            cd $PROJECT_DIRECTORY
-            mkdir mongodb-tools && cd mongodb-tools
-            curl ${mongodb_tools_url} -o mongodb-tools.tgz
-            ${decompress} mongodb-tools.tgz
-            mv ./mongodb-*/bin/* .
+        args: ["-c", "${PREPARE_SHELL} && cd $PROJECT_DIRECTORY && mkdir mongodb-tools && cd mongodb-tools && curl ${mongodb_tools_url} -o mongodb-tools.tgz && ${decompress} mongodb-tools.tgz && mv ./mongodb-*/bin/* ."]
 
   setup-node:
     - command: subprocess.exec
@@ -170,10 +148,7 @@ functions:
     params:
       working_dir: ui
       binary: bash
-      args:
-        - -c
-        - |
-          ln -s ${workdir}/ui/evergreen/graphql/schema ${app_dir}/sdlschema
+      args: ["-c", "ln -s ${workdir}/ui/evergreen/graphql/schema ${app_dir}/sdlschema"]
 
   wait-for-evergreen:
     command: subprocess.exec
@@ -190,11 +165,7 @@ functions:
     params:
       working_dir: ui/${app_dir}
       binary: bash
-      args:
-        - -c
-        - |
-          ${PREPARE_SHELL}
-          yarn build:local
+      args: ["-c", "${PREPARE_SHELL} && yarn build:local"]
 
   yarn-cypress:
     command: subprocess.exec
@@ -220,22 +191,14 @@ functions:
     params:
       working_dir: ui/${app_dir}
       binary: bash
-      args:
-        - -c
-        - |
-          ${PREPARE_SHELL}
-          yarn eslint:strict
+      args: ["-c", "${PREPARE_SHELL} && yarn eslint:strict"]
 
   yarn-install:
     command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       binary: bash
-      args:
-        - -c
-        - |
-          ${PREPARE_SHELL}
-          yarn install
+      args: ["-c", "${PREPARE_SHELL} && yarn install"]
 
   yarn-preview:
     command: subprocess.exec
@@ -243,11 +206,7 @@ functions:
       working_dir: ui/${app_dir}
       background: true
       binary: bash
-      args:
-        - -c
-        - |
-          ${PREPARE_SHELL}
-          yarn preview --no-request-logging
+      args: ["-c", "${PREPARE_SHELL} && yarn preview --no-request-logging"]
 
   yarn-serve:
     command: subprocess.exec
@@ -256,55 +215,35 @@ functions:
       working_dir: ui/${app_dir}
       background: true
       binary: bash
-      args:
-        - -c
-        - |
-          ${PREPARE_SHELL}
-          yarn serve
+      args: ["-c", "${PREPARE_SHELL} && yarn serve"]
 
   yarn-snapshot:
     command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       binary: bash
-      args:
-        - -c
-        - |
-          ${PREPARE_SHELL}
-          yarn snapshot
+      args: ["-c", "${PREPARE_SHELL} && yarn snapshot"]
 
   yarn-storybook-build:
     command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       binary: bash
-      args:
-        - -c
-        - |
-          ${PREPARE_SHELL}
-          yarn storybook:build
+      args: ["-c", "${PREPARE_SHELL} && yarn storybook:build"]
 
   yarn-test:
     command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       binary: bash
-      args:
-        - -c
-        - |
-          ${PREPARE_SHELL}
-          yarn test
+      args: ["-c", "${PREPARE_SHELL} && yarn test"]
 
   yarn-tsc:
     command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       binary: bash
-      args:
-        - -c
-        - |
-          ${PREPARE_SHELL}
-          yarn check-types
+      args: ["-c", "${PREPARE_SHELL} && yarn check-types"]
 
   yarn-verify-backend:
     command: subprocess.exec
