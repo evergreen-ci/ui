@@ -59,16 +59,15 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({
         <TitleContainer>
           <Body weight="medium">{title} </Body>
         </TitleContainer>
+        <Description>
+          Use Shift + Click to edit multiple variants simultaneously.
+        </Description>
         <StyledSearchInput
-          ref={(el) => el?.focus()}
           aria-labelledby={title}
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder="Search build variants regex"
           size={SearchInputSize.Small}
         />
-        <Description>
-          Use Shift + Click to edit multiple variants simultaneously.
-        </Description>
         <Divider />
       </Container>
       <ScrollableBuildVariantContainer>
@@ -148,7 +147,7 @@ const StyledBadge = styled(Badge)`
 `;
 
 const StyledSearchInput = styled(SearchInput)`
-  margin: ${size.xxs} 0;
+  margin: ${size.xs} 0;
 `;
 
 const ScrollableBuildVariantContainer = styled.div`
