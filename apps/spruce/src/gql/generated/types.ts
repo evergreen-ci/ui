@@ -1974,6 +1974,7 @@ export type Mutation = {
   moveAnnotationIssue: Scalars["Boolean"]["output"];
   overrideTaskDependencies: Task;
   promoteVarsToRepo: Scalars["Boolean"]["output"];
+  quarantineTest: QuarantineTestPayload;
   removeAnnotationIssue: Scalars["Boolean"]["output"];
   removeFavoriteProject: Project;
   removePublicKey: Array<PublicKey>;
@@ -2130,6 +2131,10 @@ export type MutationOverrideTaskDependenciesArgs = {
 
 export type MutationPromoteVarsToRepoArgs = {
   opts: PromoteVarsToRepoInput;
+};
+
+export type MutationQuarantineTestArgs = {
+  opts: QuarantineTestInput;
 };
 
 export type MutationRemoveAnnotationIssueArgs = {
@@ -2815,6 +2820,7 @@ export type Project = {
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
+  testSelection?: Maybe<TestSelectionSettings>;
   tracksPushEvents?: Maybe<Scalars["Boolean"]["output"]>;
   triggers?: Maybe<Array<TriggerAlias>>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2966,6 +2972,7 @@ export type ProjectInput = {
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
+  testSelection?: InputMaybe<TestSelectionSettingsInput>;
   tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3027,6 +3034,7 @@ export enum ProjectSettingsSection {
   PatchAliases = "PATCH_ALIASES",
   PeriodicBuilds = "PERIODIC_BUILDS",
   Plugins = "PLUGINS",
+  TestSelection = "TEST_SELECTION",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
   ViewsAndFilters = "VIEWS_AND_FILTERS",
@@ -3083,6 +3091,16 @@ export type PublicKey = {
 export type PublicKeyInput = {
   key: Scalars["String"]["input"];
   name: Scalars["String"]["input"];
+};
+
+export type QuarantineTestInput = {
+  taskId: Scalars["String"]["input"];
+  testName: Scalars["String"]["input"];
+};
+
+export type QuarantineTestPayload = {
+  __typename?: "QuarantineTestPayload";
+  success: Scalars["Boolean"]["output"];
 };
 
 export type Query = {
@@ -3370,6 +3388,7 @@ export type RepoRef = {
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
+  testSelection?: Maybe<RepoTestSelectionSettings>;
   tracksPushEvents: Scalars["Boolean"]["output"];
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
@@ -3417,6 +3436,7 @@ export type RepoRefInput = {
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
+  testSelection?: InputMaybe<TestSelectionSettingsInput>;
   tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3447,6 +3467,12 @@ export type RepoSettingsInput = {
   repoId: Scalars["String"]["input"];
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
+};
+
+export type RepoTestSelectionSettings = {
+  __typename?: "RepoTestSelectionSettings";
+  allowed: Scalars["Boolean"]["output"];
+  defaultEnabled: Scalars["Boolean"]["output"];
 };
 
 export type RepoWorkstationConfig = {
@@ -4093,6 +4119,7 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
   taskLogs: TaskLogs;
   taskOwnerTeam?: Maybe<TaskOwnerTeam>;
+  testSelectionEnabled: Scalars["Boolean"]["output"];
   tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]["output"]>;
   totalTestCount: Scalars["Int"]["output"];
@@ -4438,6 +4465,17 @@ export type TestSelectionConfig = {
 
 export type TestSelectionConfigInput = {
   url: Scalars["String"]["input"];
+};
+
+export type TestSelectionSettings = {
+  __typename?: "TestSelectionSettings";
+  allowed?: Maybe<Scalars["Boolean"]["output"]>;
+  defaultEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+};
+
+export type TestSelectionSettingsInput = {
+  allowed?: InputMaybe<Scalars["Boolean"]["input"]>;
+  defaultEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export enum TestSortCategory {
@@ -9011,6 +9049,24 @@ export type OtherUserQuery = {
   otherUser: { __typename?: "User"; displayName: string; userId: string };
 };
 
+export type PatchConfigureGeneratedTaskCountsQueryVariables = Exact<{
+  patchId: Scalars["String"]["input"];
+}>;
+
+export type PatchConfigureGeneratedTaskCountsQuery = {
+  __typename?: "Query";
+  patch: {
+    __typename?: "Patch";
+    id: string;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      buildVariantName?: string | null;
+      estimatedTasks: number;
+      taskName?: string | null;
+    }>;
+  };
+};
+
 export type ConfigurePatchQueryVariables = Exact<{
   id: Scalars["String"]["input"];
 }>;
@@ -9042,12 +9098,6 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }> | null;
-    generatedTaskCounts: Array<{
-      __typename?: "GeneratedTaskCountResults";
-      buildVariantName?: string | null;
-      estimatedTasks: number;
-      taskName?: string | null;
-    }>;
     patchTriggerAliases: Array<{
       __typename?: "PatchTriggerAlias";
       alias: string;

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
@@ -27,8 +27,11 @@ import {
   ChildPatchAlias,
   ConfigurePatchQuery,
   ProjectBuildVariant,
+  PatchConfigureGeneratedTaskCountsQuery,
+  PatchConfigureGeneratedTaskCountsQueryVariables,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
+import { PATCH_CONFIGURE_GENERATED_TASK_COUNTS } from "gql/queries";
 import { sumActivatedTasksInVariantsTasks } from "utils/tasks/estimatedActivatedTasks";
 import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
@@ -49,12 +52,26 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
   const navigate = useNavigate();
   const dispatchToast = useToastContext();
 
+  const { data: generatedTaskCountsData, loading: loadingGeneratedTaskCounts } =
+    useQuery<
+      PatchConfigureGeneratedTaskCountsQuery,
+      PatchConfigureGeneratedTaskCountsQueryVariables
+    >(PATCH_CONFIGURE_GENERATED_TASK_COUNTS, {
+      variables: { patchId: patch.id },
+      onError(err) {
+        dispatchToast.error(
+          `Error fetching generated task counts: ${err.message}`,
+        );
+      },
+    });
+  const { generatedTaskCounts } = generatedTaskCountsData?.patch || {
+    generatedTaskCounts: [],
+  };
   const {
     activated,
     author,
     childPatchAliases,
     childPatches,
-    generatedTaskCounts,
     id,
     patchTriggerAliases,
     project,
@@ -165,7 +182,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
 
   const estimatedActivatedTasksCount = sumActivatedTasksInVariantsTasks(
     selectedBuildVariantTasks,
-    generatedTaskCounts,
+    generatedTaskCounts || [],
     initialPatch.variantsTasks,
   );
 
@@ -194,8 +211,13 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
           <LoadingButton
             data-cy="schedule-patch"
             disabled={totalSelectedTaskCount === 0 && aliasCount === 0}
-            loading={loadingScheduledPatch}
+            loading={loadingScheduledPatch || loadingGeneratedTaskCounts}
             onClick={onClickSchedule}
+            title={
+              loadingGeneratedTaskCounts
+                ? "Still estimating total task count"
+                : "Schedule"
+            }
             variant="primary"
           >
             Schedule
