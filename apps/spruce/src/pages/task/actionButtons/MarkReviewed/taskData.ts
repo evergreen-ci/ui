@@ -126,6 +126,9 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
     identifier: "evergreen-ui",
     owner: "evergreen-ci",
     repo: "ui",
+    testSelection: {
+      allowed: false,
+    },
     __typename: "Project",
   },
   requester: "github_pull_request",
@@ -155,6 +158,7 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
     revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
     __typename: "Version",
   },
+  testSelectionEnabled: false,
 };
 
 export const displayTaskData: NonNullable<TaskQuery["task"]> &
@@ -301,6 +305,9 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
     identifier: "evergreen-ui",
     owner: "evergreen-ci",
     repo: "ui",
+    testSelection: {
+      allowed: false,
+    },
     __typename: "Project",
   },
   requester: "github_pull_request",
@@ -323,4 +330,5 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
     revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
     __typename: "Version",
   },
+  testSelectionEnabled: false,
 };

@@ -114,6 +114,9 @@ query Task($taskId: String!, $execution: Int) {
       identifier
       owner
       repo
+      testSelection {
+        allowed
+      }
     }
     requester
     resetWhenFinished
@@ -128,6 +131,7 @@ query Task($taskId: String!, $execution: Int) {
       previousStepbackTaskId
     }
     tags
+    testSelectionEnabled
     timeTaken
     versionMetadata {
       id
