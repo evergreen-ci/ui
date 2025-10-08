@@ -27,6 +27,7 @@ import {
   ChildPatchAlias,
   ConfigurePatchQuery,
   ProjectBuildVariant,
+  PatchConfigureGeneratedTaskCountsQuery,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
 import { sumActivatedTasksInVariantsTasks } from "utils/tasks/estimatedActivatedTasks";
@@ -44,8 +45,14 @@ import {
 
 interface ConfigurePatchCoreProps {
   patch: ConfigurePatchQuery["patch"];
+  generatedTaskCounts: PatchConfigureGeneratedTaskCountsQuery["patch"]["generatedTaskCounts"];
+  loadingGeneratedTaskCounts: boolean;
 }
-const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
+const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
+  generatedTaskCounts,
+  loadingGeneratedTaskCounts,
+  patch,
+}) => {
   const navigate = useNavigate();
   const dispatchToast = useToastContext();
 
@@ -54,7 +61,6 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     author,
     childPatchAliases,
     childPatches,
-    generatedTaskCounts,
     id,
     patchTriggerAliases,
     project,
@@ -165,7 +171,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
 
   const estimatedActivatedTasksCount = sumActivatedTasksInVariantsTasks(
     selectedBuildVariantTasks,
-    generatedTaskCounts,
+    generatedTaskCounts || [],
     initialPatch.variantsTasks,
   );
 
@@ -194,8 +200,13 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
           <LoadingButton
             data-cy="schedule-patch"
             disabled={totalSelectedTaskCount === 0 && aliasCount === 0}
-            loading={loadingScheduledPatch}
+            loading={loadingScheduledPatch || loadingGeneratedTaskCounts}
             onClick={onClickSchedule}
+            title={
+              loadingGeneratedTaskCounts
+                ? "Still estimating total task count"
+                : "Schedule"
+            }
             variant="primary"
           >
             Schedule
