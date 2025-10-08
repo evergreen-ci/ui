@@ -31,21 +31,6 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({
   selectedMenuItems,
   title,
 }) => {
-  const getVisibleItems = (items: MenuItemProps[], filter: string) =>
-    items.filter((item) => {
-      try {
-        const regex = new RegExp(filter, "i");
-        return regex.test(item.displayName) || regex.test(item.name);
-      } catch {
-        // If invalid regex, fallback to substring match
-        const val = filter.toLowerCase();
-        return (
-          item.displayName.toLowerCase().includes(val) ||
-          item.name.toLowerCase().includes(val)
-        );
-      }
-    });
-
   const [searchValue, setSearchValue] = useState("");
 
   const filteredMenuItems = useMemo(
@@ -104,9 +89,20 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({
   );
 };
 
-interface VariantProps {
-  isSelected: boolean;
-}
+const getVisibleItems = (items: MenuItemProps[], filter: string) =>
+  items.filter((item) => {
+    try {
+      const regex = new RegExp(filter, "i");
+      return regex.test(item.displayName) || regex.test(item.name);
+    } catch {
+      // If invalid regex, fallback to substring match
+      const val = filter.toLowerCase();
+      return (
+        item.displayName.toLowerCase().includes(val) ||
+        item.name.toLowerCase().includes(val)
+      );
+    }
+  });
 
 const TitleContainer = styled.div`
   display: flex;
@@ -124,6 +120,10 @@ const StyledSiderCard = styled(SiderCard)`
   padding-left: 0px;
   padding-right: 0px;
 `;
+
+type VariantProps = {
+  isSelected: boolean;
+};
 const BuildVariant = styled.div<VariantProps>`
   display: flex;
   align-items: center;
