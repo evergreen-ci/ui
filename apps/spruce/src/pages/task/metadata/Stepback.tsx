@@ -4,7 +4,7 @@ import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { MetadataItem } from "components/MetadataCard";
+import { MetadataItem, MetadataLabel } from "components/MetadataCard";
 import { TaskQuery } from "gql/generated/types";
 import { useBreakingTask } from "hooks/useBreakingTask";
 import { useLastPassingTask } from "hooks/useLastPassingTask";
@@ -48,7 +48,7 @@ export const Stepback: React.FC<Props> = ({ taskId }) => {
   return (
     <MetadataItem as="div">
       <StepbackWrapper>
-        Stepback:
+        <MetadataLabel>Stepback:</MetadataLabel>
         <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
           When Stepback is completed you can access the breaking commit via the
           relevant commits dropdown.

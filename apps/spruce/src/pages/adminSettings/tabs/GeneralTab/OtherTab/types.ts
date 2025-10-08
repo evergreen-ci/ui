@@ -7,6 +7,7 @@ export interface OtherFormState {
       githubPRCreatorOrg: string;
       githubWebhookSecret: string;
       logPath: string;
+      oldestAllowedCLIVersion: string;
       pprofPort: string;
       shutdownWaitSeconds: number;
       releaseMode: {

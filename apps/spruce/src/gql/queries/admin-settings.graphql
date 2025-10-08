@@ -179,6 +179,7 @@ query AdminSettings {
         senderAddress
       }
     }
+    oldestAllowedCLIVersion
     parameterStore {
       prefix
     }

@@ -104,6 +104,9 @@ export const taskQuery: TaskQueryType = {
       identifier: "spruce",
       repo: "spruce",
       owner: "evergreen-ci",
+      testSelection: {
+        allowed: true,
+      },
     },
     requester: "github_pull_request",
     resetWhenFinished: false,
@@ -123,5 +126,6 @@ export const taskQuery: TaskQueryType = {
       projectIdentifier: "spruce",
       revision: "123j9123u9123",
     },
+    testSelectionEnabled: false,
   },
 };
