@@ -1,12 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import { SearchInput } from "@leafygreen-ui/search-input";
+import {
+  SearchInput,
+  Size as SearchInputSize,
+} from "@leafygreen-ui/search-input";
 import { Body, Description } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/divider";
@@ -30,55 +31,41 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({
   selectedMenuItems,
   title,
 }) => {
-  const [filteredMenuItems, setFilteredMenuItems] =
-    useState<MenuItemProps[]>(menuItems);
-  const searchRef = useRef<HTMLInputElement>(null);
-  const [showSearch, setShowSearch] = useState(false);
+  const getVisibleItems = (items: MenuItemProps[], filter: string) =>
+    items.filter((item) => {
+      try {
+        const regex = new RegExp(filter, "i");
+        return regex.test(item.displayName) || regex.test(item.name);
+      } catch {
+        // If invalid regex, fallback to substring match
+        const val = filter.toLowerCase();
+        return (
+          item.displayName.toLowerCase().includes(val) ||
+          item.name.toLowerCase().includes(val)
+        );
+      }
+    });
 
-  useEffect(() => {
-    if (showSearch) {
-      searchRef.current?.focus();
-    }
-  }, [showSearch]);
+  const [searchValue, setSearchValue] = useState("");
 
-  useEffect(() => {
-    setFilteredMenuItems(menuItems);
-  }, [menuItems]);
+  const filteredMenuItems = useMemo(
+    () => getVisibleItems(menuItems, searchValue),
+    [menuItems, searchValue],
+  );
 
-  const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilteredMenuItems(
-      menuItems.filter((item) => {
-        try {
-          const regex = new RegExp(e.target.value, "i");
-          return regex.test(item.displayName) || regex.test(item.name);
-        } catch {
-          // If invalid regex, fallback to substring match
-          const val = e.target.value.toLowerCase();
-          return (
-            item.displayName.toLowerCase().includes(val) ||
-            item.name.toLowerCase().includes(val)
-          );
-        }
-      }),
-    );
-  };
   return (
     <StyledSiderCard>
       <Container>
         <TitleContainer>
           <Body weight="medium">{title} </Body>
-          <IconButton onClick={() => setShowSearch(!showSearch)}>
-            <Icon glyph="MagnifyingGlass" />
-          </IconButton>
         </TitleContainer>
-        {showSearch && (
-          <SearchInput
-            ref={searchRef}
-            aria-labelledby={title}
-            onChange={onSearchChange}
-            placeholder="Search build variants regex"
-          />
-        )}
+        <StyledSearchInput
+          ref={(el) => el?.focus()}
+          aria-labelledby={title}
+          onChange={(e) => setSearchValue(e.target.value)}
+          placeholder="Search build variants regex"
+          size={SearchInputSize.Small}
+        />
         <Description>
           Use Shift + Click to edit multiple variants simultaneously.
         </Description>
@@ -158,6 +145,10 @@ const VariantName = styled.div`
 
 const StyledBadge = styled(Badge)`
   margin-left: ${size.xs};
+`;
+
+const StyledSearchInput = styled(SearchInput)`
+  margin: ${size.xxs} 0;
 `;
 
 const ScrollableBuildVariantContainer = styled.div`
