@@ -27,7 +27,7 @@ functions:
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
           AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
         binary: bash
-        args: ["../.evergreen/scripts/deploy-with-profiler.sh"]
+        args: ["-c", "${PREPARE_SHELL} && ../.evergreen/scripts/deploy-with-profiler.sh"]
   email:
     - command: subprocess.exec
       params:

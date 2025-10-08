@@ -120,7 +120,7 @@ functions:
       params:
         exec_timeout_secs: 60
         binary: bash
-        args: ["ui/.evergreen/scripts/setup-node.sh"]
+        args: ["-c", "${PREPARE_SHELL} && ui/.evergreen/scripts/setup-node.sh"]
 
   symlink:
     command: subprocess.exec
@@ -151,7 +151,7 @@ functions:
     params:
       working_dir: ui/${app_dir}
       binary: bash
-      args: ["../.evergreen/scripts/run-cypress.sh"]
+      args: ["-c", "${PREPARE_SHELL} && ../.evergreen/scripts/run-cypress.sh"]
       env:
         STAGING_RUNTIME_ENVIRONMENTS_BASE_URL: ${staging_runtime_environments_base_url}
         STAGING_RUNTIME_ENVIRONMENTS_API_KEY: ${staging_runtime_environments_api_key}
