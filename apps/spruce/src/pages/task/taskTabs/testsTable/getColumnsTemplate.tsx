@@ -1,23 +1,30 @@
+import { Size as ButtonSize } from "@leafygreen-ui/button";
+import { LGColumnDef } from "@leafygreen-ui/table";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import { WordBreak } from "@evg-ui/lib/components/styles";
+import { TestStatus } from "@evg-ui/lib/types/test";
+import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import { testStatusesFilterTreeData } from "constants/test";
-import { TestSortCategory, TaskQuery } from "gql/generated/types";
+import { TestSortCategory, TaskQuery, TestResult } from "gql/generated/types";
 import { string } from "utils";
 import { LogsColumn } from "./LogsColumn";
 
 const { msToDuration } = string;
 
 interface GetColumnsTemplateParams {
-  task: TaskQuery["task"];
+  task: NonNullable<TaskQuery["task"]>;
+  quarantineTestFn: (taskId: string, testName: string) => void;
 }
 
-export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
+export const getColumnsTemplate = ({
+  quarantineTestFn,
+  task,
+}: GetColumnsTemplateParams): LGColumnDef<TestResult>[] => [
   {
     header: "Name",
     accessorKey: "testFile",
     id: TestSortCategory.TestName,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ getValue }) => <WordBreak>{getValue()}</WordBreak>,
+    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
     enableColumnFilter: true,
     enableSorting: true,
     meta: {
@@ -34,8 +41,7 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
     id: TestSortCategory.Status,
     enableColumnFilter: true,
     enableSorting: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ getValue }) => <TestStatusBadge status={getValue()} />,
+    cell: ({ getValue }) => <TestStatusBadge status={getValue() as string} />,
     meta: {
       treeSelect: {
         "data-cy": "status-treeselect",
@@ -46,14 +52,12 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
   },
   {
     header: () =>
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       `${task.versionMetadata.isPatch ? "Base" : "Previous"} Status`,
     accessorKey: "baseStatus",
     id: TestSortCategory.BaseStatus,
     enableSorting: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => {
-      const status = getValue();
+      const status = getValue() as string;
       return status && <TestStatusBadge status={status} />;
     },
     meta: {
@@ -65,9 +69,8 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
     accessorKey: "duration",
     id: TestSortCategory.Duration,
     enableSorting: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }): string => {
-      const ms = getValue() * 1000;
+      const ms = (getValue() as number) * 1000;
       return msToDuration(Math.trunc(ms));
     },
     meta: {
@@ -76,11 +79,33 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
   },
   {
     header: "Logs",
-    sorter: false,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    enableSorting: false,
     cell: ({ row }) => <LogsColumn task={task} testResult={row.original} />,
     meta: {
       width: "20%",
+    },
+  },
+  {
+    header: "Actions",
+    id: "actions",
+    enableSorting: false,
+    cell: ({ row }) => (
+      <ButtonDropdown
+        disabled={row.original.status !== TestStatus.Fail}
+        dropdownItems={[
+          <DropdownItem
+            key="quarantine"
+            description="Quarantine test so that it does not run in future task runs."
+            onClick={() => quarantineTestFn(task.id, row.original.testFile)}
+          >
+            Quarantine
+          </DropdownItem>,
+        ]}
+        size={ButtonSize.XSmall}
+      />
+    ),
+    meta: {
+      width: "10%",
     },
   },
 ];
