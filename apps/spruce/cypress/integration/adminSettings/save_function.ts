@@ -501,7 +501,7 @@ describe("admin settings save properly", () => {
     });
   });
 
-  it.only("saves GitHub Webhook Secret parameter store value independently", () => {
+  it("saves GitHub Webhook Secret parameter store value independently", () => {
     cy.dataCy("save-settings-button").should(
       "have.attr",
       "aria-disabled",
@@ -551,6 +551,53 @@ describe("admin settings save properly", () => {
         "have.value",
         "test-webhook-secret",
       );
+    });
+  });
+
+  it("saves Expansions List values independently", () => {
+    cy.dataCy("save-settings-button").should(
+      "have.attr",
+      "aria-disabled",
+      "true",
+    );
+
+    // Set initial Expansions List values
+    cy.dataCy("expansions-list").within(() => {
+      cy.contains("Add").click();
+      cy.getInputByLabel("Key").type("TEST_KEY");
+      cy.getInputByLabel("Value").type("test_value");
+    });
+
+    // Save initial changes
+    clickSave();
+    cy.validateToast("success", "Settings saved successfully");
+    cy.reload();
+
+    // Verify expansions list values persisted
+    cy.dataCy("expansions-list").within(() => {
+      cy.getInputByLabel("Key").should("have.value", "TEST_KEY");
+      cy.getInputByLabel("Value").should("have.value", "test_value");
+    });
+
+    // Change banner message
+    cy.getInputByLabel("Banner Text").clear();
+    cy.getInputByLabel("Banner Text").type("Expansions List test");
+
+    // Save banner change
+    clickSave();
+    cy.validateToast("success", "Settings saved successfully");
+    cy.reload();
+
+    // Verify banner message changed
+    cy.getInputByLabel("Banner Text").should(
+      "have.value",
+      "Expansions List test",
+    );
+
+    // Verify expansions list values remained unchanged
+    cy.dataCy("expansions-list").within(() => {
+      cy.getInputByLabel("Key").should("have.value", "TEST_KEY");
+      cy.getInputByLabel("Value").should("have.value", "test_value");
     });
   });
 });
