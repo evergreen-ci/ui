@@ -36,12 +36,6 @@ describe("admin settings save properly", () => {
       cy.get("@sshKeyInput").type("/test/ssh/key");
     });
 
-    cy.dataCy("expansions-list").within(() => {
-      cy.contains("Add").click();
-      cy.getInputByLabel("Key").type("TEST_KEY");
-      cy.getInputByLabel("Value").type("test_value");
-    });
-
     cy.dataCy("host-jasper").within(() => {
       cy.getInputByLabel("Binary Name").as("binaryNameInput");
       cy.get("@binaryNameInput").clear();
@@ -83,10 +77,6 @@ describe("admin settings save properly", () => {
         "have.value",
         "/test/ssh/key",
       );
-    });
-    cy.dataCy("expansions-list").within(() => {
-      cy.getInputByLabel("Key").should("have.value", "TEST_KEY");
-      cy.getInputByLabel("Value").should("have.value", "test_value");
     });
     cy.dataCy("host-jasper").within(() => {
       cy.getInputByLabel("Binary Name").should("have.value", "test-jasper");
@@ -144,10 +134,6 @@ describe("admin settings save properly", () => {
         "/test/ssh/key",
       );
     });
-    cy.dataCy("expansions-list").within(() => {
-      cy.getInputByLabel("Key").should("have.value", "TEST_KEY");
-      cy.getInputByLabel("Value").should("have.value", "test_value");
-    });
     cy.dataCy("host-jasper").within(() => {
       cy.getInputByLabel("Binary Name").should("have.value", "test-jasper");
     });
@@ -164,440 +150,454 @@ describe("admin settings save properly", () => {
     });
   });
 
-  it("saves Okta Client Secret parameter store value independently", () => {
-    cy.dataCy("save-settings-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true",
-    );
-
-    // Set initial Okta Client Secret value
-    cy.dataCy("okta").within(() => {
-      const oktaClientSecret = "Client Secret";
-      cy.getInputByLabel(oktaClientSecret).as("oktaClientSecretInput");
-      cy.get("@oktaClientSecretInput").clear();
-      cy.get("@oktaClientSecretInput").type("test-okta-secret");
-    });
-    // Set Kanopy Authentication values (for auth validation to work)
-    cy.dataCy("kanopy").within(() => {
-      const headerName = "Header Name";
-      const issuer = "Issuer";
-      const keysetUrl = "Keyset URL";
-      cy.getInputByLabel(headerName).as("headerNameInput");
-      cy.get("@headerNameInput").clear();
-      cy.get("@headerNameInput").type("test-header-name");
-
-      cy.getInputByLabel(issuer).as("issuerInput");
-      cy.get("@issuerInput").clear();
-      cy.get("@issuerInput").type("test-issuer");
-
-      cy.getInputByLabel(keysetUrl).as("keysetUrlInput");
-      cy.get("@keysetUrlInput").clear();
-      cy.get("@keysetUrlInput").type("test-keyset-url");
-    });
-    // Save initial changes
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
-
-    // Verify parameter store value persisted
-    cy.dataCy("okta").within(() => {
-      cy.getInputByLabel("Client Secret").should(
-        "have.value",
-        "test-okta-secret",
+  describe("save parameter store values independently", () => {
+    it("saves Okta Client Secret parameter store value independently", () => {
+      cy.dataCy("save-settings-button").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
       );
-    });
 
-    cy.getInputByLabel("Banner Text").clear();
-    cy.getInputByLabel("Banner Text").type("Okta param store test");
+      // Set initial Okta Client Secret value
+      cy.dataCy("okta").within(() => {
+        const oktaClientSecret = "Client Secret";
+        cy.getInputByLabel(oktaClientSecret).as("oktaClientSecretInput");
+        cy.get("@oktaClientSecretInput").clear();
+        cy.get("@oktaClientSecretInput").type("test-okta-secret");
+      });
+      // Set Kanopy Authentication values (for auth validation to work)
+      cy.dataCy("kanopy").within(() => {
+        const headerName = "Header Name";
+        const issuer = "Issuer";
+        const keysetUrl = "Keyset URL";
+        cy.getInputByLabel(headerName).as("headerNameInput");
+        cy.get("@headerNameInput").clear();
+        cy.get("@headerNameInput").type("test-header-name");
 
-    // Save banner change
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
+        cy.getInputByLabel(issuer).as("issuerInput");
+        cy.get("@issuerInput").clear();
+        cy.get("@issuerInput").type("test-issuer");
 
-    // Verify banner message changed
-    cy.getInputByLabel("Banner Text").should(
-      "have.value",
-      "Okta param store test",
-    );
+        cy.getInputByLabel(keysetUrl).as("keysetUrlInput");
+        cy.get("@keysetUrlInput").clear();
+        cy.get("@keysetUrlInput").type("test-keyset-url");
+      });
+      // Save initial changes
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
 
-    // Verify parameter store value remained unchanged
-    cy.dataCy("okta").within(() => {
-      cy.getInputByLabel("Client Secret").should(
+      // Verify parameter store value persisted
+      cy.dataCy("okta").within(() => {
+        cy.getInputByLabel("Client Secret").should(
+          "have.value",
+          "test-okta-secret",
+        );
+      });
+
+      cy.getInputByLabel("Banner Text").clear();
+      cy.getInputByLabel("Banner Text").type("Okta param store test");
+
+      // Save banner change
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
+
+      // Verify banner message changed
+      cy.getInputByLabel("Banner Text").should(
         "have.value",
-        "test-okta-secret",
+        "Okta param store test",
       );
-    });
-  });
 
-  it("saves Jira Personal Access Token parameter store value independently", () => {
-    cy.dataCy("save-settings-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true",
-    );
-
-    // Set initial Jira PAT value
-    cy.dataCy("jira").within(() => {
-      const jiraPat = "Personal Access Token";
-      cy.getInputByLabel(jiraPat).as("jiraPat");
-      cy.get("@jiraPat").clear();
-      cy.get("@jiraPat").type("test-jira-pat");
+      // Verify parameter store value remained unchanged
+      cy.dataCy("okta").within(() => {
+        cy.getInputByLabel("Client Secret").should(
+          "have.value",
+          "test-okta-secret",
+        );
+      });
     });
 
-    // Save initial changes
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
+    it("saves Jira Personal Access Token parameter store value independently", () => {
+      cy.dataCy("save-settings-button").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
 
-    // Verify parameter store value persisted
-    cy.dataCy("jira").within(() => {
-      cy.getInputByLabel("Personal Access Token").should(
+      // Set initial Jira PAT value
+      cy.dataCy("jira").within(() => {
+        const jiraPat = "Personal Access Token";
+        cy.getInputByLabel(jiraPat).as("jiraPat");
+        cy.get("@jiraPat").clear();
+        cy.get("@jiraPat").type("test-jira-pat");
+      });
+
+      // Save initial changes
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
+
+      // Verify parameter store value persisted
+      cy.dataCy("jira").within(() => {
+        cy.getInputByLabel("Personal Access Token").should(
+          "have.value",
+          "test-jira-pat",
+        );
+      });
+
+      // Change banner message
+      cy.getInputByLabel("Banner Text").clear();
+      cy.getInputByLabel("Banner Text").type("Jira param store test");
+
+      // Save banner change
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
+
+      // Verify banner message changed
+      cy.getInputByLabel("Banner Text").should(
         "have.value",
-        "test-jira-pat",
+        "Jira param store test",
       );
+
+      // Verify parameter store value remained unchanged
+      cy.dataCy("jira").within(() => {
+        cy.getInputByLabel("Personal Access Token").should(
+          "have.value",
+          "test-jira-pat",
+        );
+      });
     });
 
-    // Change banner message
-    cy.getInputByLabel("Banner Text").clear();
-    cy.getInputByLabel("Banner Text").type("Jira param store test");
+    it("saves Slack and Splunk token parameter store values independently", () => {
+      cy.dataCy("save-settings-button").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
 
-    // Save banner change
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
+      // Set initial Slack Token value
+      cy.dataCy("slack").within(() => {
+        const slackToken = "Token";
+        cy.getInputByLabel(slackToken).as("slackTokenInput");
+        cy.get("@slackTokenInput").clear();
+        cy.get("@slackTokenInput").type("xoxb-test-slack-token");
+      });
 
-    // Verify banner message changed
-    cy.getInputByLabel("Banner Text").should(
-      "have.value",
-      "Jira param store test",
-    );
+      // Set initial Splunk Token value
+      cy.dataCy("splunk").within(() => {
+        const splunkToken = "Token";
+        cy.getInputByLabel(splunkToken).as("splunkTokenInput");
+        cy.get("@splunkTokenInput").clear();
+        cy.get("@splunkTokenInput").type("test-splunk-token");
+      });
 
-    // Verify parameter store value remained unchanged
-    cy.dataCy("jira").within(() => {
-      cy.getInputByLabel("Personal Access Token").should(
+      // Save initial changes
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
+
+      // Verify parameter store values persisted
+      cy.dataCy("slack").within(() => {
+        cy.getInputByLabel("Token").should(
+          "have.value",
+          "xoxb-test-slack-token",
+        );
+      });
+
+      cy.dataCy("splunk").within(() => {
+        cy.getInputByLabel("Token").should("have.value", "test-splunk-token");
+      });
+
+      // Change banner message
+      cy.getInputByLabel("Banner Text").clear();
+      cy.getInputByLabel("Banner Text").type("Tokens param store test");
+
+      // Save banner change
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
+
+      // Verify banner message changed
+      cy.getInputByLabel("Banner Text").should(
         "have.value",
-        "test-jira-pat",
+        "Tokens param store test",
       );
-    });
-  });
 
-  it("saves Slack and Splunk token parameter store values independently", () => {
-    cy.dataCy("save-settings-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true",
-    );
+      // Verify parameter store values remained unchanged
+      cy.dataCy("slack").within(() => {
+        cy.getInputByLabel("Token").should(
+          "have.value",
+          "xoxb-test-slack-token",
+        );
+      });
 
-    // Set initial Slack Token value
-    cy.dataCy("slack").within(() => {
-      const slackToken = "Token";
-      cy.getInputByLabel(slackToken).as("slackTokenInput");
-      cy.get("@slackTokenInput").clear();
-      cy.get("@slackTokenInput").type("xoxb-test-slack-token");
+      cy.dataCy("splunk").within(() => {
+        cy.getInputByLabel("Token").should("have.value", "test-splunk-token");
+      });
     });
 
-    // Set initial Splunk Token value
-    cy.dataCy("splunk").within(() => {
-      const splunkToken = "Token";
-      cy.getInputByLabel(splunkToken).as("splunkTokenInput");
-      cy.get("@splunkTokenInput").clear();
-      cy.get("@splunkTokenInput").type("test-splunk-token");
-    });
+    it("saves Runtime Environments API Key parameter store value independently", () => {
+      cy.dataCy("save-settings-button").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
 
-    // Save initial changes
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
+      // Set initial Runtime Environments API Key value
+      cy.dataCy("runtime-environments").within(() => {
+        const apiKey = "API Key";
+        cy.getInputByLabel(apiKey).as("runtimeEnvApiKey");
+        cy.get("@runtimeEnvApiKey").clear();
+        cy.get("@runtimeEnvApiKey").type("test-runtime-env-key");
+      });
 
-    // Verify parameter store values persisted
-    cy.dataCy("slack").within(() => {
-      cy.getInputByLabel("Token").should("have.value", "xoxb-test-slack-token");
-    });
+      // Save initial changes
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
 
-    cy.dataCy("splunk").within(() => {
-      cy.getInputByLabel("Token").should("have.value", "test-splunk-token");
-    });
+      // Verify parameter store value persisted
+      cy.dataCy("runtime-environments").within(() => {
+        cy.getInputByLabel("API Key").should(
+          "have.value",
+          "test-runtime-env-key",
+        );
+      });
 
-    // Change banner message
-    cy.getInputByLabel("Banner Text").clear();
-    cy.getInputByLabel("Banner Text").type("Tokens param store test");
+      // Change banner message
+      cy.getInputByLabel("Banner Text").clear();
+      cy.getInputByLabel("Banner Text").type(
+        "Runtime Environments param store test",
+      );
 
-    // Save banner change
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
+      // Save banner change
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
 
-    // Verify banner message changed
-    cy.getInputByLabel("Banner Text").should(
-      "have.value",
-      "Tokens param store test",
-    );
-
-    // Verify parameter store values remained unchanged
-    cy.dataCy("slack").within(() => {
-      cy.getInputByLabel("Token").should("have.value", "xoxb-test-slack-token");
-    });
-
-    cy.dataCy("splunk").within(() => {
-      cy.getInputByLabel("Token").should("have.value", "test-splunk-token");
-    });
-  });
-
-  it("saves Runtime Environments API Key parameter store value independently", () => {
-    cy.dataCy("save-settings-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true",
-    );
-
-    // Set initial Runtime Environments API Key value
-    cy.dataCy("runtime-environments").within(() => {
-      const apiKey = "API Key";
-      cy.getInputByLabel(apiKey).as("runtimeEnvApiKey");
-      cy.get("@runtimeEnvApiKey").clear();
-      cy.get("@runtimeEnvApiKey").type("test-runtime-env-key");
-    });
-
-    // Save initial changes
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
-
-    // Verify parameter store value persisted
-    cy.dataCy("runtime-environments").within(() => {
-      cy.getInputByLabel("API Key").should(
+      // Verify banner message changed
+      cy.getInputByLabel("Banner Text").should(
         "have.value",
-        "test-runtime-env-key",
+        "Runtime Environments param store test",
       );
+
+      // Verify parameter store value remained unchanged
+      cy.dataCy("runtime-environments").within(() => {
+        cy.getInputByLabel("API Key").should(
+          "have.value",
+          "test-runtime-env-key",
+        );
+      });
     });
 
-    // Change banner message
-    cy.getInputByLabel("Banner Text").clear();
-    cy.getInputByLabel("Banner Text").type(
-      "Runtime Environments param store test",
-    );
+    it("saves AWS EC2 Keys parameter store values independently", () => {
+      cy.dataCy("save-settings-button").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
 
-    // Save banner change
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
+      // Set initial AWS EC2 Keys values
+      cy.dataCy("aws-configuration").within(() => {
+        cy.getInputByLabel("EC2 Key").as("ec2KeyInput");
+        cy.get("@ec2KeyInput").clear();
+        cy.get("@ec2KeyInput").type("test-ec2-key");
 
-    // Verify banner message changed
-    cy.getInputByLabel("Banner Text").should(
-      "have.value",
-      "Runtime Environments param store test",
-    );
+        cy.getInputByLabel("EC2 Secret").as("ec2SecretInput");
+        cy.get("@ec2SecretInput").clear();
+        cy.get("@ec2SecretInput").type("test-ec2-secret");
+      });
 
-    // Verify parameter store value remained unchanged
-    cy.dataCy("runtime-environments").within(() => {
-      cy.getInputByLabel("API Key").should(
+      // Save initial changes
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
+
+      // Verify parameter store values persisted
+      cy.dataCy("aws-configuration").within(() => {
+        cy.getInputByLabel("EC2 Key").should("have.value", "test-ec2-key");
+        cy.getInputByLabel("EC2 Secret").should(
+          "have.value",
+          "test-ec2-secret",
+        );
+      });
+
+      // Change banner message
+      cy.getInputByLabel("Banner Text").clear();
+      cy.getInputByLabel("Banner Text").type("AWS EC2 param store test");
+
+      // Save banner change
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
+
+      // Verify banner message changed
+      cy.getInputByLabel("Banner Text").should(
         "have.value",
-        "test-runtime-env-key",
+        "AWS EC2 param store test",
       );
-    });
-  });
 
-  it("saves AWS EC2 Keys parameter store values independently", () => {
-    cy.dataCy("save-settings-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true",
-    );
-
-    // Set initial AWS EC2 Keys values
-    cy.dataCy("aws-configuration").within(() => {
-      cy.getInputByLabel("EC2 Key").as("ec2KeyInput");
-      cy.get("@ec2KeyInput").clear();
-      cy.get("@ec2KeyInput").type("test-ec2-key");
-
-      cy.getInputByLabel("EC2 Secret").as("ec2SecretInput");
-      cy.get("@ec2SecretInput").clear();
-      cy.get("@ec2SecretInput").type("test-ec2-secret");
+      // Verify parameter store values remained unchanged
+      cy.dataCy("aws-configuration").within(() => {
+        cy.getInputByLabel("EC2 Key").should("have.value", "test-ec2-key");
+        cy.getInputByLabel("EC2 Secret").should(
+          "have.value",
+          "test-ec2-secret",
+        );
+      });
     });
 
-    // Save initial changes
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
+    it("saves S3 Keys parameter store values independently", () => {
+      cy.dataCy("save-settings-button").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
 
-    // Verify parameter store values persisted
-    cy.dataCy("aws-configuration").within(() => {
-      cy.getInputByLabel("EC2 Key").should("have.value", "test-ec2-key");
-      cy.getInputByLabel("EC2 Secret").should("have.value", "test-ec2-secret");
-    });
+      // Set initial S3 Keys values
+      cy.dataCy("bucket-config").within(() => {
+        cy.getInputByLabel("S3 Key").as("s3KeyInput");
+        cy.get("@s3KeyInput").clear();
+        cy.get("@s3KeyInput").type("test-s3-key");
 
-    // Change banner message
-    cy.getInputByLabel("Banner Text").clear();
-    cy.getInputByLabel("Banner Text").type("AWS EC2 param store test");
+        cy.getInputByLabel("S3 Secret").as("s3SecretInput");
+        cy.get("@s3SecretInput").clear();
+        cy.get("@s3SecretInput").type("test-s3-secret");
+      });
 
-    // Save banner change
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
+      // Save initial changes
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
 
-    // Verify banner message changed
-    cy.getInputByLabel("Banner Text").should(
-      "have.value",
-      "AWS EC2 param store test",
-    );
+      // Verify parameter store values persisted
+      cy.dataCy("bucket-config").within(() => {
+        cy.getInputByLabel("S3 Key").should("have.value", "test-s3-key");
+        cy.getInputByLabel("S3 Secret").should("have.value", "test-s3-secret");
+      });
 
-    // Verify parameter store values remained unchanged
-    cy.dataCy("aws-configuration").within(() => {
-      cy.getInputByLabel("EC2 Key").should("have.value", "test-ec2-key");
-      cy.getInputByLabel("EC2 Secret").should("have.value", "test-ec2-secret");
-    });
-  });
+      // Change banner message
+      cy.getInputByLabel("Banner Text").clear();
+      cy.getInputByLabel("Banner Text").type("S3 Keys param store test");
 
-  it("saves S3 Keys parameter store values independently", () => {
-    cy.dataCy("save-settings-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true",
-    );
+      // Save banner change
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
 
-    // Set initial S3 Keys values
-    cy.dataCy("bucket-config").within(() => {
-      cy.getInputByLabel("S3 Key").as("s3KeyInput");
-      cy.get("@s3KeyInput").clear();
-      cy.get("@s3KeyInput").type("test-s3-key");
-
-      cy.getInputByLabel("S3 Secret").as("s3SecretInput");
-      cy.get("@s3SecretInput").clear();
-      cy.get("@s3SecretInput").type("test-s3-secret");
-    });
-
-    // Save initial changes
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
-
-    // Verify parameter store values persisted
-    cy.dataCy("bucket-config").within(() => {
-      cy.getInputByLabel("S3 Key").should("have.value", "test-s3-key");
-      cy.getInputByLabel("S3 Secret").should("have.value", "test-s3-secret");
-    });
-
-    // Change banner message
-    cy.getInputByLabel("Banner Text").clear();
-    cy.getInputByLabel("Banner Text").type("S3 Keys param store test");
-
-    // Save banner change
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
-
-    // Verify banner message changed
-    cy.getInputByLabel("Banner Text").should(
-      "have.value",
-      "S3 Keys param store test",
-    );
-
-    // Verify parameter store values remained unchanged
-    cy.dataCy("bucket-config").within(() => {
-      cy.getInputByLabel("S3 Key").should("have.value", "test-s3-key");
-      cy.getInputByLabel("S3 Secret").should("have.value", "test-s3-secret");
-    });
-  });
-
-  it("saves GitHub Webhook Secret parameter store value independently", () => {
-    cy.dataCy("save-settings-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true",
-    );
-
-    // Set initial GitHub Webhook Secret value
-    cy.dataCy("misc-settings").within(() => {
-      cy.getInputByLabel("Webhook Secret").as("webhookSecretInput");
-      cy.get("@webhookSecretInput").clear();
-      cy.get("@webhookSecretInput").type("test-webhook-secret");
-    });
-
-    // Save initial changes
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
-
-    // Verify parameter store value persisted
-    cy.dataCy("misc-settings").within(() => {
-      cy.getInputByLabel("Webhook Secret").should(
+      // Verify banner message changed
+      cy.getInputByLabel("Banner Text").should(
         "have.value",
-        "test-webhook-secret",
+        "S3 Keys param store test",
       );
+
+      // Verify parameter store values remained unchanged
+      cy.dataCy("bucket-config").within(() => {
+        cy.getInputByLabel("S3 Key").should("have.value", "test-s3-key");
+        cy.getInputByLabel("S3 Secret").should("have.value", "test-s3-secret");
+      });
     });
 
-    // Change banner message
-    cy.getInputByLabel("Banner Text").clear();
-    cy.getInputByLabel("Banner Text").type(
-      "GitHub Webhook Secret param store test",
-    );
+    it("saves GitHub Webhook Secret parameter store value independently", () => {
+      cy.dataCy("save-settings-button").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
 
-    // Save banner change
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
+      // Set initial GitHub Webhook Secret value
+      cy.dataCy("misc-settings").within(() => {
+        cy.getInputByLabel("Webhook Secret").as("webhookSecretInput");
+        cy.get("@webhookSecretInput").clear();
+        cy.get("@webhookSecretInput").type("test-webhook-secret");
+      });
 
-    // Verify banner message changed
-    cy.getInputByLabel("Banner Text").should(
-      "have.value",
-      "GitHub Webhook Secret param store test",
-    );
+      // Save initial changes
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
 
-    // Verify parameter store value remained unchanged
-    cy.dataCy("misc-settings").within(() => {
-      cy.getInputByLabel("Webhook Secret").should(
+      // Verify parameter store value persisted
+      cy.dataCy("misc-settings").within(() => {
+        cy.getInputByLabel("Webhook Secret").should(
+          "have.value",
+          "test-webhook-secret",
+        );
+      });
+
+      // Change banner message
+      cy.getInputByLabel("Banner Text").clear();
+      cy.getInputByLabel("Banner Text").type(
+        "GitHub Webhook Secret param store test",
+      );
+
+      // Save banner change
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
+
+      // Verify banner message changed
+      cy.getInputByLabel("Banner Text").should(
         "have.value",
-        "test-webhook-secret",
+        "GitHub Webhook Secret param store test",
       );
-    });
-  });
 
-  it("saves Expansions List values independently", () => {
-    cy.dataCy("save-settings-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true",
-    );
-
-    // Set initial Expansions List values
-    cy.dataCy("expansions-list").within(() => {
-      cy.contains("Add").click();
-      cy.getInputByLabel("Key").type("TEST_KEY");
-      cy.getInputByLabel("Value").type("test_value");
+      // Verify parameter store value remained unchanged
+      cy.dataCy("misc-settings").within(() => {
+        cy.getInputByLabel("Webhook Secret").should(
+          "have.value",
+          "test-webhook-secret",
+        );
+      });
     });
 
-    // Save initial changes
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
+    it("saves Expansions List values independently", () => {
+      cy.dataCy("save-settings-button").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
 
-    // Verify expansions list values persisted
-    cy.dataCy("expansions-list").within(() => {
-      cy.getInputByLabel("Key").should("have.value", "TEST_KEY");
-      cy.getInputByLabel("Value").should("have.value", "test_value");
-    });
+      // Set initial Expansions List values
+      cy.dataCy("expansions-list").within(() => {
+        cy.contains("Add").click();
+        cy.getInputByLabel("Key").type("TEST_KEY");
+        cy.getInputByLabel("Value").type("test_value");
+      });
 
-    // Change banner message
-    cy.getInputByLabel("Banner Text").clear();
-    cy.getInputByLabel("Banner Text").type("Expansions List test");
+      // Save initial changes
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
 
-    // Save banner change
-    clickSave();
-    cy.validateToast("success", "Settings saved successfully");
-    cy.reload();
+      // Verify expansions list values persisted
+      cy.dataCy("expansions-list").within(() => {
+        cy.getInputByLabel("Key").should("have.value", "TEST_KEY");
+        cy.getInputByLabel("Value").should("have.value", "test_value");
+      });
 
-    // Verify banner message changed
-    cy.getInputByLabel("Banner Text").should(
-      "have.value",
-      "Expansions List test",
-    );
+      // Change banner message
+      cy.getInputByLabel("Banner Text").clear();
+      cy.getInputByLabel("Banner Text").type("Expansions List test");
 
-    // Verify expansions list values remained unchanged
-    cy.dataCy("expansions-list").within(() => {
-      cy.getInputByLabel("Key").should("have.value", "TEST_KEY");
-      cy.getInputByLabel("Value").should("have.value", "test_value");
+      // Save banner change
+      clickSave();
+      cy.validateToast("success", "Settings saved successfully");
+      cy.reload();
+
+      // Verify banner message changed
+      cy.getInputByLabel("Banner Text").should(
+        "have.value",
+        "Expansions List test",
+      );
+
+      // Verify expansions list values remained unchanged
+      cy.dataCy("expansions-list").within(() => {
+        cy.getInputByLabel("Key").should("have.value", "TEST_KEY");
+        cy.getInputByLabel("Value").should("have.value", "test_value");
+      });
     });
   });
 });
