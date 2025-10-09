@@ -72,7 +72,9 @@ const HostEventString: React.FC<HostEventStringProps> = ({
     case HostEventType.HostRebooted:
       return (
         <div data-cy="rebooted">
-          Host reboot attempt {data.successful ? succeededString : failedString}
+          {data.successful
+            ? "Successfully triggered host reboot"
+            : "Failed to trigger host reboot"}
           {data.logs && (
             <HostEventLog isCode logs={data.logs} title="Additional details" />
           )}

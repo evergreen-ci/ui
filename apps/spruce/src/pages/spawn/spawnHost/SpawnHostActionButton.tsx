@@ -33,7 +33,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
 
   // When the UPDATE_SPAWN_HOST_STATUS mutation occurs the host state is not immediately updated, It gets updated a few seconds later.
   // Since the MY_HOSTS query on this components parent polls at a slower rate, this component triggers a poll at a faster interval for that
-  // query when it returns an updated host status the polling is halted. This allows the query to poll slowly and not utilize unnecessary bandwith
+  // query when it returns an updated host status the polling is halted. This allows the query to poll slowly and not utilize unnecessary bandwidth
   // except when an action is performed and we need to fetch updated data.
   const [getMyHosts, { refetch, startPolling, stopPolling }] = useLazyQuery<
     MyHostsQuery,

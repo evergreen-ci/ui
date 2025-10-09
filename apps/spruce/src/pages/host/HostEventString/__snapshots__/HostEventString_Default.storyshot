@@ -903,8 +903,7 @@
       <div
         data-cy="rebooted"
       >
-        Host reboot attempt 
-        succeeded
+        Successfully triggered host reboot
         <div
           data-cy="host-event-log"
         >
