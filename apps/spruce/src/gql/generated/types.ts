@@ -9049,6 +9049,24 @@ export type OtherUserQuery = {
   otherUser: { __typename?: "User"; displayName: string; userId: string };
 };
 
+export type PatchConfigureGeneratedTaskCountsQueryVariables = Exact<{
+  patchId: Scalars["String"]["input"];
+}>;
+
+export type PatchConfigureGeneratedTaskCountsQuery = {
+  __typename?: "Query";
+  patch: {
+    __typename?: "Patch";
+    id: string;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      buildVariantName?: string | null;
+      estimatedTasks: number;
+      taskName?: string | null;
+    }>;
+  };
+};
+
 export type ConfigurePatchQueryVariables = Exact<{
   id: Scalars["String"]["input"];
 }>;
@@ -9080,12 +9098,6 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }> | null;
-    generatedTaskCounts: Array<{
-      __typename?: "GeneratedTaskCountResults";
-      buildVariantName?: string | null;
-      estimatedTasks: number;
-      taskName?: string | null;
-    }>;
     patchTriggerAliases: Array<{
       __typename?: "PatchTriggerAlias";
       alias: string;
@@ -11148,6 +11160,7 @@ export type TaskQuery = {
     startTime?: Date | null;
     status: string;
     tags: Array<string>;
+    testSelectionEnabled: boolean;
     timeTaken?: number | null;
     id: string;
     buildVariant: string;
@@ -11293,6 +11306,10 @@ export type TaskQuery = {
       identifier: string;
       owner: string;
       repo: string;
+      testSelection?: {
+        __typename?: "TestSelectionSettings";
+        allowed?: boolean | null;
+      } | null;
     } | null;
     stepbackInfo?: {
       __typename?: "StepbackInfo";

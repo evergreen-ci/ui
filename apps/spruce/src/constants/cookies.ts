@@ -16,3 +16,4 @@ export const SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL =
   "seen-task-history-onboarding-tutorial";
 export const TASK_HISTORY_INACTIVE_COMMITS_VIEW =
   "task-history-inactive-commits-view";
+export const SEEN_TEST_SELECTION_GUIDE_CUE = "seen-test-selection-guide-cue";
