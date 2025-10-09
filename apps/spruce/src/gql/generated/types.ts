@@ -1974,6 +1974,7 @@ export type Mutation = {
   moveAnnotationIssue: Scalars["Boolean"]["output"];
   overrideTaskDependencies: Task;
   promoteVarsToRepo: Scalars["Boolean"]["output"];
+  quarantineTest: QuarantineTestPayload;
   removeAnnotationIssue: Scalars["Boolean"]["output"];
   removeFavoriteProject: Project;
   removePublicKey: Array<PublicKey>;
@@ -2130,6 +2131,10 @@ export type MutationOverrideTaskDependenciesArgs = {
 
 export type MutationPromoteVarsToRepoArgs = {
   opts: PromoteVarsToRepoInput;
+};
+
+export type MutationQuarantineTestArgs = {
+  opts: QuarantineTestInput;
 };
 
 export type MutationRemoveAnnotationIssueArgs = {
@@ -3086,6 +3091,16 @@ export type PublicKey = {
 export type PublicKeyInput = {
   key: Scalars["String"]["input"];
   name: Scalars["String"]["input"];
+};
+
+export type QuarantineTestInput = {
+  taskId: Scalars["String"]["input"];
+  testName: Scalars["String"]["input"];
+};
+
+export type QuarantineTestPayload = {
+  __typename?: "QuarantineTestPayload";
+  success: Scalars["Boolean"]["output"];
 };
 
 export type Query = {
@@ -4104,6 +4119,7 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
   taskLogs: TaskLogs;
   taskOwnerTeam?: Maybe<TaskOwnerTeam>;
+  testSelectionEnabled: Scalars["Boolean"]["output"];
   tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]["output"]>;
   totalTestCount: Scalars["Int"]["output"];
@@ -9068,6 +9084,24 @@ export type OtherUserQuery = {
   otherUser: { __typename?: "User"; displayName: string; userId: string };
 };
 
+export type PatchConfigureGeneratedTaskCountsQueryVariables = Exact<{
+  patchId: Scalars["String"]["input"];
+}>;
+
+export type PatchConfigureGeneratedTaskCountsQuery = {
+  __typename?: "Query";
+  patch: {
+    __typename?: "Patch";
+    id: string;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      buildVariantName?: string | null;
+      estimatedTasks: number;
+      taskName?: string | null;
+    }>;
+  };
+};
+
 export type ConfigurePatchQueryVariables = Exact<{
   id: Scalars["String"]["input"];
 }>;
@@ -9099,12 +9133,6 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }> | null;
-    generatedTaskCounts: Array<{
-      __typename?: "GeneratedTaskCountResults";
-      buildVariantName?: string | null;
-      estimatedTasks: number;
-      taskName?: string | null;
-    }>;
     patchTriggerAliases: Array<{
       __typename?: "PatchTriggerAlias";
       alias: string;
@@ -11197,6 +11225,7 @@ export type TaskQuery = {
     startTime?: Date | null;
     status: string;
     tags: Array<string>;
+    testSelectionEnabled: boolean;
     timeTaken?: number | null;
     id: string;
     buildVariant: string;
@@ -11342,6 +11371,10 @@ export type TaskQuery = {
       identifier: string;
       owner: string;
       repo: string;
+      testSelection?: {
+        __typename?: "TestSelectionSettings";
+        allowed?: boolean | null;
+      } | null;
     } | null;
     stepbackInfo?: {
       __typename?: "StepbackInfo";
