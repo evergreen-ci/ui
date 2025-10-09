@@ -20,8 +20,8 @@ export const formToGql = ((formState, isRepo, id) => ({
   projectRef: {
     id,
     testSelection: {
-      allowed: formState?.allowed,
-      defaultEnabled: formState?.defaultEnabled,
+      allowed: formState.allowed,
+      defaultEnabled: formState.defaultEnabled,
     },
   },
 })) satisfies FormToGqlFunction<Tab>;
