@@ -77,6 +77,7 @@ jobs:
           working_dir: packages/lib
           project_token: chpt_a5c7789cebbf85e
   dependency-review:
+    name: Dependency Review
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Repository'
