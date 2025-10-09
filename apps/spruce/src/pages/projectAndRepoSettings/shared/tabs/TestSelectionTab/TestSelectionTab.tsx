@@ -4,7 +4,7 @@ import { useProjectSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { TestSelectionFormState, TabProps } from "./types";
+import { TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.TestSelection;
 
@@ -14,10 +14,7 @@ export const TestSelectionTab: React.FC<TabProps> = ({
   repoData,
 }) => {
   const { getTab } = useProjectSettingsContext();
-  const tabData = getTab(tab);
-
-  // @ts-expect-error: not inferencing types correctly
-  const { formData }: { formData: TestSelectionFormState } = tabData;
+  const { formData } = getTab(tab);
 
   const canEnableTaskLevel =
     ((projectType === ProjectType.AttachedProject &&
@@ -38,10 +35,12 @@ export const TestSelectionTab: React.FC<TabProps> = ({
     [projectType, canEnableTaskLevel, repoData],
   );
 
+  if (!initialFormState) {
+    return null;
+  }
   return (
     <BaseTab
       formSchema={formSchema}
-      // @ts-expect-error: not inferencing types correctly
       initialFormState={initialFormState}
       tab={tab}
     />

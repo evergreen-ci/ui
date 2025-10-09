@@ -39,8 +39,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   versionControlEnabled,
 }) => {
   const { getTab } = useProjectSettingsContext();
-  // @ts-expect-error - see TabState for details.
-  const { formData }: { formData: GCQFormState } = getTab(tab);
+  const { formData } = getTab(tab);
 
   const { data } = useQuery<
     GithubProjectConflictsQuery,
