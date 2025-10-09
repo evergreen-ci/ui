@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -156,6 +157,10 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         }
       >
         Reboot host “{host.displayName || host.id}”?
+        <Disclaimer>
+          After triggering a reboot, you will need to wait a few minutes before
+          you can SSH into the machine again.
+        </Disclaimer>
         {checkboxLabel && (
           <Checkbox
             checked={checkboxAcknowledged}
