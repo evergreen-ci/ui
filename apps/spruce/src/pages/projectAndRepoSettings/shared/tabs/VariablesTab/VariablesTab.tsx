@@ -27,10 +27,7 @@ export const VariablesTab: React.FC<TabProps> = ({
   repoData,
 }) => {
   const { getTab } = useProjectSettingsContext();
-  // @ts-expect-error - see TabState for details.
-  const { formData }: { formData: VariablesFormState } = getTab(
-    ProjectSettingsTabRoutes.Variables,
-  );
+  const { formData } = getTab(ProjectSettingsTabRoutes.Variables);
 
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),

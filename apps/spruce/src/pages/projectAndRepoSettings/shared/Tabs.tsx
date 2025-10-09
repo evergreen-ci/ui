@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
+import { showTestSelectionUI } from "constants/featureFlags";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
@@ -23,6 +24,7 @@ import {
   PluginsTab,
   ViewsAndFiltersTab,
   VirtualWorkstationTab,
+  TestSelectionTab,
 } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
 import {
@@ -257,6 +259,22 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           }
           path={ProjectSettingsTabRoutes.PeriodicBuilds}
         />
+        {showTestSelectionUI ? (
+          <Route
+            element={
+              <TestSelectionTab
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.TestSelection].projectData
+                }
+                projectType={projectType}
+                repoData={
+                  tabData[ProjectSettingsTabRoutes.TestSelection].repoData
+                }
+              />
+            }
+            path={ProjectSettingsTabRoutes.TestSelection}
+          />
+        ) : null}
         <Route
           element={
             <AppSettingsTab

@@ -13,6 +13,7 @@ import {
   SideNavPageContent,
   SideNavPageWrapper,
 } from "components/styles";
+import { showTestSelectionUI } from "constants/featureFlags";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -146,16 +147,21 @@ const SharedSettingsNavItem: React.FC<{
   getRoute: (id: string, tab: ProjectSettingsTabRoutes) => string;
   id: string;
   tab: ProjectSettingsTabRoutes;
-}> = ({ currentTab, getRoute, id, tab }) => (
-  <SideNavItem
-    active={tab === currentTab}
-    as={Link}
-    data-cy={`navitem-${tab}`}
-    to={getRoute(id, tab)}
-  >
-    {getTabTitle(tab).title}
-  </SideNavItem>
-);
+}> = ({ currentTab, getRoute, id, tab }) => {
+  if (!showTestSelectionUI && tab === ProjectSettingsTabRoutes.TestSelection) {
+    return null;
+  }
+  return (
+    <SideNavItem
+      active={tab === currentTab}
+      as={Link}
+      data-cy={`navitem-${tab}`}
+      to={getRoute(id, tab)}
+    >
+      {getTabTitle(tab).title}
+    </SideNavItem>
+  );
+};
 
 const tabRouteValues = Object.values(ProjectSettingsTabRoutes);
 
