@@ -8,7 +8,7 @@ metadata:
     evergreen/project-id: 65f08ccac9ec449f57b4015d
 spec:
   type: website
-  owner: evergreen-ui
+  owner: group:default/oktagroup_61a3e0b2f29b988eeef4f7b1  # 10gen-evergreen-team okta group
   lifecycle: production
   system: evergreen
   dependsOn:
@@ -23,9 +23,11 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: spruce
+  annotations:
+    evergreen/project-id: 65f08ccac9ec449f57b4015d
 spec:
   type: website
-  owner: evergreen-ui
+  owner: group:default/oktagroup_61a3e0b2f29b988eeef4f7b1  # 10gen-evergreen-team okta group
   lifecycle: production
   system: evergreen
   subcomponentOf: evergreen-ui
@@ -36,9 +38,12 @@ kind: Component
 metadata:
   name: parsley
   description: Evergreen log viewer
+  annotations:
+    evergreen/project-id: 65f08ccac9ec449f57b4015d
 spec:
   type: website
-  owner: evergreen-ui
+  owner: group:default/oktagroup_61a3e0b2f29b988eeef4f7b1  # 10gen-evergreen-team okta group
   lifecycle: production
   system: evergreen
   subcomponentOf: evergreen-ui
+
