@@ -9,10 +9,7 @@ import { HostFormState, TabProps } from "./types";
 
 export const HostTab: React.FC<TabProps> = ({ distroData, provider }) => {
   const { getTab } = useDistroSettingsContext();
-  // @ts-expect-error - see TabState for details.
-  const { formData }: { formData: HostFormState } = getTab(
-    DistroSettingsTabRoutes.Host,
-  );
+  const { formData } = getTab(DistroSettingsTabRoutes.Host);
   const architecture = formData?.setup?.arch;
 
   const formSchema = useMemo(

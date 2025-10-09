@@ -1,0 +1,10 @@
+query PatchConfigureGeneratedTaskCounts($patchId: String!) {
+  patch(patchId: $patchId) {
+    id
+    generatedTaskCounts {
+      buildVariantName
+      estimatedTasks
+      taskName
+    }
+  }
+}

@@ -20,6 +20,7 @@ const mockAdminSettings: AdminSettings = {
   githubPRCreatorOrg: "evergreen-ci",
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
+  oldestAllowedCLIVersion: "",
   pprofPort: "8080",
   shutdownWaitSeconds: 30,
   releaseMode: {
@@ -134,6 +135,7 @@ const expectedForm: OtherFormState = {
       githubPRCreatorOrg: "evergreen-ci",
       githubWebhookSecret: "webhook-secret",
       logPath: "/var/log/evergreen",
+      oldestAllowedCLIVersion: "",
       pprofPort: "8080",
       shutdownWaitSeconds: 30,
       releaseMode: {
@@ -250,6 +252,7 @@ const expectedGql: AdminSettingsInput = {
   githubPRCreatorOrg: "evergreen-ci",
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
+  oldestAllowedCLIVersion: "",
   pprofPort: "8080",
   shutdownWaitSeconds: 30,
   releaseMode: {
