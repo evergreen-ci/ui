@@ -18,10 +18,6 @@
     "postinstall": "yarn workspace @evg-ui/vite-utils run compile"
   },
   "resolutions": {
-    "@babel/runtime": ">=7.26.10",
-    "**/@lg-tools/build/cross-spawn": ">=7.0.5",
-    "**/@lg-tools/build/rollup": ">=4.22.4",
-    "@leafygreen-ui/code": "19.0.1",
     "@testing-library/dom": "10.1.0",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.0",

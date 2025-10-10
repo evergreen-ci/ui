@@ -199,12 +199,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -305,12 +307,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -410,12 +414,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -606,12 +612,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -712,12 +720,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -853,12 +863,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -958,12 +970,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -1119,12 +1133,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -1224,12 +1240,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -1330,12 +1348,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -1521,12 +1541,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -1691,12 +1713,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -1812,12 +1836,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
