@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import Accordion from "@evg-ui/lib/components/Accordion";
@@ -10,7 +11,6 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import { finishedTaskStatuses } from "constants/task";
 import {
   BuildVariantsWithChildrenQuery,

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Field } from "@rjsf/core";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import {
   ForceRepotrackerRunMutation,

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import TextInput from "@leafygreen-ui/text-input";
 import { Description } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -7,7 +8,6 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics/waterfall/useWaterfallAnalytics";
 import { DropdownItem } from "components/ButtonDropdown";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import { WaterfallFilterOptions } from "../types";
 
 interface GitCommitSearchProps {
