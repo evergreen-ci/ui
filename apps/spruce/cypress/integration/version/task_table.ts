@@ -1,4 +1,5 @@
 import { getLgIds } from "@leafygreen-ui/table";
+import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
 import {
   clickOnPageSizeBtnAndAssertURLandTableSize,
   waitForTaskTable,
@@ -173,6 +174,47 @@ describe("Task table", () => {
       cy.dataCy(`reviewed-${displayTaskId}`).should("be.checked");
       cy.get(`button[data-lgid=${lgIds.expandButton}]`).click();
       cy.dataCy(`reviewed-${executionTaskId2}`).should("be.checked");
+    });
+
+    describe("announcement tooltip", () => {
+      const resetDate = (d: Date) => {
+        cy.clock().then((clock) => {
+          // Need to restore to set a new system date
+          clock.restore();
+        });
+        cy.clock(d, ["Date"]);
+        // Reload to apply clock changes
+        cy.reload();
+      };
+
+      beforeEach(() => {
+        cy.clearCookie(SEEN_TASK_REVIEW_TOOLTIP);
+        cy.visit(pathTasks);
+      });
+
+      it("shows the announcement tooltip open on the first viewing", () => {
+        cy.contains("New feature: Task Review").should("be.visible");
+      });
+
+      it("shows the info icon one day after the initial close and hides it after one week", () => {
+        const now = new Date(2025, 1, 1); // month is 0-indexed
+        resetDate(now);
+        cy.contains("New feature: Task Review").should("be.visible");
+        cy.contains("button", "Got it").click();
+
+        const tomorrow = new Date(2025, 1, 2);
+        resetDate(tomorrow);
+        cy.contains("Reviewed").should("be.visible");
+        cy.contains("New feature: Task Review").should("not.exist");
+        cy.dataCy("announcement-tooltip-trigger").click();
+        cy.contains("New feature: Task Review").should("be.visible");
+
+        const nextWeek = new Date(2025, 1, 9);
+        resetDate(nextWeek);
+        cy.contains("Reviewed").should("be.visible");
+        cy.contains("New feature: Task Review").should("not.exist");
+        cy.dataCy("announcement-tooltip-trigger").should("not.exist");
+      });
     });
   });
 });

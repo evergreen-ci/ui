@@ -21,7 +21,7 @@ export const MarkReviewed: React.FC<{
     }
   };
 
-  const taskReviewEnabled = Cookies.get(DISABLE_TASK_REVIEW) !== "false";
+  const taskReviewEnabled = Cookies.get(DISABLE_TASK_REVIEW) !== "true";
 
   return taskReviewEnabled ? (
     <Button
