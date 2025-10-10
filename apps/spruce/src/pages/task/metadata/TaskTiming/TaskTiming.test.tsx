@@ -48,41 +48,41 @@ describe("task timing metadata", () => {
       localStorage.clear();
     });
 
-    it("updates links to only include successful tasks", async () => {
-      const user = userEvent.setup();
-      render(
-        <TaskTimingMetadata
-          buildVariant="foo"
-          projectIdentifier="evg-ui"
-          taskName="bar"
-        />,
-        { wrapper },
-      );
-
-      screen.getAllByRole("link").forEach((l) => {
-        expect(l).toHaveAttribute(
-          "href",
-          expect.not.stringContaining("success"),
+    it.each([
+      { label: "Only include successful runs", expected: "success" },
+      { label: "Only include waterfall commits", expected: "gitter_request" },
+    ])(
+      "updates links to include the config parameter $expected",
+      async ({ expected, label }) => {
+        const user = userEvent.setup();
+        render(
+          <TaskTimingMetadata
+            buildVariant="foo"
+            projectIdentifier="evg-ui"
+            taskName="bar"
+          />,
+          { wrapper },
         );
-      });
-      await user.click(screen.getByRole("button", { name: "Config" }));
-      expect(
-        screen.getByLabelText("Only include successful runs"),
-      ).not.toBeChecked();
-      await user.click(screen.getByText("Only include successful runs"));
-      expect(
-        screen.getByLabelText("Only include successful runs"),
-      ).toBeChecked();
-      await user.click(document.body);
-      expect(
-        screen.getByLabelText("Only include successful runs"),
-      ).not.toBeVisible();
 
-      expect(screen.getAllByRole("link")).toHaveLength(3);
-      screen.getAllByRole("link").forEach((l) => {
-        expect(l).toHaveAttribute("href", expect.stringContaining("success"));
-      });
-    });
+        screen.getAllByRole("link").forEach((l) => {
+          expect(l).toHaveAttribute(
+            "href",
+            expect.not.stringContaining(expected),
+          );
+        });
+        await user.click(screen.getByRole("button", { name: "Config" }));
+        expect(screen.getByLabelText(label)).not.toBeChecked();
+        await user.click(screen.getByText(label));
+        expect(screen.getByLabelText(label)).toBeChecked();
+        await user.click(document.body);
+        expect(screen.getByLabelText(label)).not.toBeVisible();
+
+        expect(screen.getAllByRole("link")).toHaveLength(3);
+        screen.getAllByRole("link").forEach((l) => {
+          expect(l).toHaveAttribute("href", expect.stringContaining(expected));
+        });
+      },
+    );
 
     it("preserves config via localStorage across projects", async () => {
       const user = userEvent.setup();
@@ -105,7 +105,7 @@ describe("task timing metadata", () => {
       ).toBeChecked();
       unmount();
 
-      render(
+      const { unmount: unmountBaz } = render(
         <TaskTimingMetadata
           buildVariant="fuzz"
           projectIdentifier="different-project"
@@ -116,6 +116,24 @@ describe("task timing metadata", () => {
       await user.click(screen.getByRole("button", { name: "Config" }));
       expect(
         screen.getByLabelText("Only include successful runs"),
+      ).toBeChecked();
+      await user.click(screen.getByText("Only include waterfall commits"));
+      unmountBaz();
+
+      render(
+        <TaskTimingMetadata
+          buildVariant="fuzzer"
+          projectIdentifier="different-project-2"
+          taskName="buzz"
+        />,
+        { wrapper },
+      );
+      await user.click(screen.getByRole("button", { name: "Config" }));
+      expect(
+        screen.getByLabelText("Only include successful runs"),
+      ).toBeChecked();
+      expect(
+        screen.getByLabelText("Only include waterfall commits"),
       ).toBeChecked();
     });
   });
