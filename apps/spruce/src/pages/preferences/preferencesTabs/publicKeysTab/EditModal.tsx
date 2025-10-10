@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import TextArea from "@leafygreen-ui/text-area";
 import TextInput from "@leafygreen-ui/text-input";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import { ErrorMessage } from "components/styles";
 import {
   MyPublicKeysQuery,

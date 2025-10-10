@@ -73,12 +73,14 @@ export const ParsleyAIModal: React.FC<ParsleyAIModalProps> = ({
 
   return (
     <StyledModal
-      buttonText="Enable it!"
+      buttonProps={{
+        children: "Enable it!",
+        onClick: handleEnableBeta,
+      }}
       data-cy="parsley-ai-modal"
       graphic={<Image />}
       graphicStyle={GraphicStyle.Center}
       linkText="Maybe later, continue without Parsley AI"
-      onButtonClick={handleEnableBeta}
       onClose={handleClose(false)}
       onLinkClick={handleClose(false)}
       open={open}

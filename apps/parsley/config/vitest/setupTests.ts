@@ -48,6 +48,26 @@ beforeEach(() => {
     disconnect: vi.fn(),
   }));
   vi.stubGlobal("ResizeObserver", mockResizeObserver);
+
+  // LeafyGreen modals require stubbing dialog
+  // https://github.com/mongodb/leafygreen-ui/blob/22b4d8200b132f24b4cd1a7e4d99b0372ed6fd58/packages/modal/src/utils/getTestUtils.spec.tsx#L36-L54
+  HTMLDialogElement.prototype.show = vi.fn(function mock(
+    this: HTMLDialogElement,
+  ) {
+    this.open = true;
+  });
+
+  HTMLDialogElement.prototype.showModal = vi.fn(function mock(
+    this: HTMLDialogElement,
+  ) {
+    this.open = true;
+  });
+
+  HTMLDialogElement.prototype.close = vi.fn(function mock(
+    this: HTMLDialogElement,
+  ) {
+    this.open = false;
+  });
 });
 
 afterEach(() => {

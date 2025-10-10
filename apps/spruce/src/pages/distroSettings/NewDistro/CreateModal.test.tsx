@@ -39,7 +39,7 @@ describe("create distro modal", () => {
     const { Component } = RenderFakeToastContext(<Modal open={false} />);
     render(<Component />);
 
-    expect(screen.queryByDataCy("create-distro-modal")).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("create-distro-modal")).not.toBeVisible();
   });
 
   it("disables the confirm button on initial render and uses the provided label", () => {

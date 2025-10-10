@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer, Link } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";

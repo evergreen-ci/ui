@@ -5,7 +5,6 @@ import Button, { Size, Variant } from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { slugs } from "constants/routes";
 import {
   UserDistroSettingsPermissionsQuery,
@@ -43,7 +42,6 @@ export const NewDistroButton: React.FC = () => {
       <Menu
         data-cy="new-distro-menu"
         open={menuOpen}
-        popoverZIndex={zIndex.popover}
         setOpen={setMenuOpen}
         trigger={
           <StyledButton

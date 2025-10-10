@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectSettingsAnalytics } from "analytics";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   AttachProjectToRepoMutation,
   AttachProjectToRepoMutationVariables,

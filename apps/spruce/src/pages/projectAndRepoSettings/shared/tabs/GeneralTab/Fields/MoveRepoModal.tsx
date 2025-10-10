@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectSettingsAnalytics } from "analytics";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import {
   AttachProjectToNewRepoMutation,

@@ -30,6 +30,6 @@ describe("Host page restart jasper, reprovision, and update host status buttons"
     });
 
     cy.validateToast("success", "Status was changed to decommissioned");
-    cy.dataCy("update-host-status-modal").should("not.exist");
+    cy.dataCy("update-host-status-modal").should("not.be.visible");
   });
 });

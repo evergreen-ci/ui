@@ -28,14 +28,14 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("schedule-patch").click();
     cy.dataCy("schedule-tasks-modal").should("be.visible");
     cy.contains("Cancel").click();
-    cy.dataCy("schedule-tasks-modal").should("not.exist");
+    cy.dataCy("schedule-tasks-modal").should("not.be.visible");
   });
 
   it("'Schedule' link is disabled for unfinalized patch", () => {
     getPatchCardByDescription(patchWithoutVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
-    cy.dataCy("schedule-patch").should("be.disabled");
+    cy.dataCy("schedule-patch").should("have.attr", "aria-disabled", "true");
   });
 
   it("'Unschedule' link opens popconfirm and unschedules patch", () => {
@@ -52,7 +52,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     getPatchCardByDescription(patchWithoutVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
-    cy.dataCy("unschedule-patch").should("be.disabled");
+    cy.dataCy("unschedule-patch").should("have.attr", "aria-disabled", "true");
   });
 
   it("'Restart' link shows restart patch modal", () => {
@@ -74,7 +74,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     getPatchCardByDescription(patchWithoutVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
-    cy.dataCy("restart-version").should("be.disabled");
+    cy.dataCy("restart-version").should("have.attr", "aria-disabled", "true");
   });
 
   it("Toggle patch visibility", () => {

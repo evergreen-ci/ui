@@ -12,7 +12,7 @@ describe("version/restart_modal", () => {
   describe("Restarting a patch", () => {
     beforeEach(() => {
       cy.visit(path);
-      cy.dataCy("version-restart-modal").should("not.exist");
+      cy.dataCy("version-restart-modal").should("not.be.visible");
       cy.dataCy("restart-version").click();
       cy.dataCy("version-restart-modal").should("be.visible");
     });
@@ -73,7 +73,7 @@ describe("version/restart_modal", () => {
         cy.dataCy("task-status-checkbox").first().click({ force: true });
         cy.contains("button", "Restart").click();
       });
-      cy.dataCy("version-restart-modal").should("not.exist");
+      cy.dataCy("version-restart-modal").should("not.be.visible");
       cy.validateToast("success", "Successfully restarted tasks!");
     });
   });

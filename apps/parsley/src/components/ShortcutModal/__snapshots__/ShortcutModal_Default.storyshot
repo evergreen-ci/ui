@@ -4,4 +4,424 @@
   >
     Open Modal
   </button>
+  <dialog
+    class="emotion-StyledModal ewsr9c74 leafygreen-ui-j7pqgd"
+    data-cy="shortcut-modal"
+    data-lgid="lg-modal"
+    data-testid="lg-modal"
+    id="modal-2"
+    open=""
+  >
+    <div>
+      <div
+        class="emotion-ModalTitle ewsr9c73"
+      >
+        <h3
+          class="leafygreen-ui-feh85s"
+        >
+          Parsley Keyboard Shortcuts
+        </h3>
+      </div>
+      <div
+        class="emotion-ModalRow ewsr9c72"
+      >
+        <div
+          class="emotion-ShortcutKeys ewsr9c71"
+        >
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  SHIFT
+                </code>
+                <span
+                  class="emotion-Divider ewsr9c70"
+                >
+                   + 
+                </span>
+              </span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  ?
+                </code>
+              </span>
+            </span>
+          </span>
+        </div>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Open or close the shortcut modal
+        </p>
+      </div>
+      <div
+        class="emotion-ModalRow ewsr9c72"
+      >
+        <div
+          class="emotion-ShortcutKeys ewsr9c71"
+        >
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  CTRL
+                </code>
+                <span
+                  class="emotion-Divider ewsr9c70"
+                >
+                   + 
+                </span>
+              </span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  F
+                </code>
+              </span>
+            </span>
+            <span
+              class="emotion-Divider ewsr9c70"
+            >
+               / 
+            </span>
+          </span>
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  ⌘
+                </code>
+                <span
+                  class="emotion-Divider ewsr9c70"
+                >
+                   + 
+                </span>
+              </span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  F
+                </code>
+              </span>
+            </span>
+          </span>
+        </div>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Focus on the search input
+        </p>
+      </div>
+      <div
+        class="emotion-ModalRow ewsr9c72"
+      >
+        <div
+          class="emotion-ShortcutKeys ewsr9c71"
+        >
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  CTRL
+                </code>
+                <span
+                  class="emotion-Divider ewsr9c70"
+                >
+                   + 
+                </span>
+              </span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  S
+                </code>
+              </span>
+            </span>
+            <span
+              class="emotion-Divider ewsr9c70"
+            >
+               / 
+            </span>
+          </span>
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  ⌘
+                </code>
+                <span
+                  class="emotion-Divider ewsr9c70"
+                >
+                   + 
+                </span>
+              </span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  S
+                </code>
+              </span>
+            </span>
+          </span>
+        </div>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Toggle between filter and highlight
+        </p>
+      </div>
+      <div
+        class="emotion-ModalRow ewsr9c72"
+      >
+        <div
+          class="emotion-ShortcutKeys ewsr9c71"
+        >
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  CTRL
+                </code>
+                <span
+                  class="emotion-Divider ewsr9c70"
+                >
+                   + 
+                </span>
+              </span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  ENTER
+                </code>
+              </span>
+            </span>
+            <span
+              class="emotion-Divider ewsr9c70"
+            >
+               / 
+            </span>
+          </span>
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  ⌘
+                </code>
+                <span
+                  class="emotion-Divider ewsr9c70"
+                >
+                   + 
+                </span>
+              </span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  ENTER
+                </code>
+              </span>
+            </span>
+          </span>
+        </div>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Apply the filter or highlight
+        </p>
+      </div>
+      <div
+        class="emotion-ModalRow ewsr9c72"
+      >
+        <div
+          class="emotion-ShortcutKeys ewsr9c71"
+        >
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  [
+                </code>
+              </span>
+            </span>
+          </span>
+        </div>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Toggle the side panel
+        </p>
+      </div>
+      <div
+        class="emotion-ModalRow ewsr9c72"
+      >
+        <div
+          class="emotion-ShortcutKeys ewsr9c71"
+        >
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  N
+                </code>
+              </span>
+            </span>
+            <span
+              class="emotion-Divider ewsr9c70"
+            >
+               / 
+            </span>
+          </span>
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  ENTER
+                </code>
+              </span>
+            </span>
+          </span>
+        </div>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Paginate forward to the next search result
+        </p>
+      </div>
+      <div
+        class="emotion-ModalRow ewsr9c72"
+      >
+        <div
+          class="emotion-ShortcutKeys ewsr9c71"
+        >
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  P
+                </code>
+              </span>
+            </span>
+            <span
+              class="emotion-Divider ewsr9c70"
+            >
+               / 
+            </span>
+          </span>
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  SHIFT
+                </code>
+                <span
+                  class="emotion-Divider ewsr9c70"
+                >
+                   + 
+                </span>
+              </span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  ENTER
+                </code>
+              </span>
+            </span>
+          </span>
+        </div>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Paginate backwards to the previous search result
+        </p>
+      </div>
+      <div
+        class="emotion-ModalRow ewsr9c72"
+      >
+        <div
+          class="emotion-ShortcutKeys ewsr9c71"
+        >
+          <span>
+            <span>
+              <span>
+                <code
+                  class="leafygreen-ui-lxrbgu"
+                >
+                  TAB
+                </code>
+              </span>
+            </span>
+          </span>
+        </div>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Tab to complete a search suggestion
+        </p>
+      </div>
+    </div>
+    <button
+      aria-disabled="false"
+      aria-label="Close modal"
+      class="leafygreen-ui-qya81r"
+      data-lgid="lg-modal-close"
+      data-testid="lg-modal-close"
+      id="modal-close_button-1"
+      tabindex="0"
+    >
+      <div
+        class="leafygreen-ui-xhlipt"
+      >
+        <svg
+          aria-label="X Icon"
+          class="leafygreen-ui-1st74h4"
+          height="16"
+          role="img"
+          viewBox="0 0 16 16"
+          width="16"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M12.2028 3.40381C11.8123 3.01329 11.1791 3.01329 10.7886 3.40381L8.3137 5.87869L5.83883 3.40381C5.44831 3.01329 4.81514 3.01329 4.42462 3.40381L3.71751 4.11092C3.32699 4.50144 3.32699 5.13461 3.71751 5.52513L6.19238 8.00001L3.71751 10.4749C3.32699 10.8654 3.32699 11.4986 3.71751 11.8891L4.42462 12.5962C4.81514 12.9867 5.44831 12.9867 5.83883 12.5962L8.3137 10.1213L10.7886 12.5962C11.1791 12.9867 11.8123 12.9867 12.2028 12.5962L12.9099 11.8891C13.3004 11.4986 13.3004 10.8654 12.9099 10.4749L10.435 8.00001L12.9099 5.52513C13.3004 5.13461 13.3004 4.50144 12.9099 4.11092L12.2028 3.40381Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+    </button>
+    <div
+      class="leafygreen-ui-19qd90e"
+    />
+  </dialog>
 </div>

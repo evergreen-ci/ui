@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Select, Option } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useHostsTableAnalytics } from "analytics";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   UpdateHostStatusMutation,
   UpdateHostStatusMutationVariables,

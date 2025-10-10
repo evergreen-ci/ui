@@ -11,7 +11,7 @@ describe("shortcutModal", () => {
   it("should toggle open when user executes keyboard shortcut", async () => {
     const user = userEvent.setup();
     render(<ModalWrapper />);
-    expect(screen.queryByDataCy("shortcut-modal")).toBeNull();
+    expect(screen.queryByDataCy("shortcut-modal")).not.toBeVisible();
 
     await user.keyboard("{Shift>}{?}{/Shift}");
     await waitFor(() => {
@@ -22,7 +22,7 @@ describe("shortcutModal", () => {
   it("should close when the user clicks outside of the modal", async () => {
     const user = userEvent.setup();
     render(<ModalWrapper />);
-    expect(screen.queryByDataCy("shortcut-modal")).toBeNull();
+    expect(screen.queryByDataCy("shortcut-modal")).not.toBeVisible();
 
     await user.keyboard("{Shift>}{?}{/Shift}");
     await waitFor(() => {
@@ -31,7 +31,7 @@ describe("shortcutModal", () => {
 
     await user.click(document.body as HTMLElement);
     await waitFor(() => {
-      expect(screen.queryByDataCy("shortcut-modal")).toBeNull();
+      expect(screen.queryByDataCy("shortcut-modal")).not.toBeVisible();
     });
   });
 });

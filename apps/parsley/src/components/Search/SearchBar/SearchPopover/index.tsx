@@ -107,7 +107,6 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
         active={isOpen}
         data-cy="search-suggestion-popover"
         popoverZIndex={zIndex.popover}
-        usePortal
       >
         <div
           ref={popoverRef}

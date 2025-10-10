@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useLocation } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   getEnabledHoursCount,
   getHostUptimeWarnings,

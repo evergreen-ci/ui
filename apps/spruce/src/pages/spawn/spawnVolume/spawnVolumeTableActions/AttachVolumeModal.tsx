@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import { ModalContent, AttachVolumeSelect } from "components/Spawn";
 import { hostMountVolumeDocumentationUrl } from "constants/externalResources";
 import {

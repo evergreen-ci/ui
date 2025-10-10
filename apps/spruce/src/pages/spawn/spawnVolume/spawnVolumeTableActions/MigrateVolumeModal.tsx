@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { useMutation } from "@apollo/client";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Body } from "@leafygreen-ui/typography";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import { getEnabledHoursCount, getHostUptimeWarnings } from "components/Spawn";
 import {
   formToGql,

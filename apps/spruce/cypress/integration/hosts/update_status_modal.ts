@@ -25,7 +25,7 @@ describe("Update Status Modal", () => {
     cy.dataCy("update-host-status-modal").within(() => {
       cy.contains("button", "Update").click({ force: true });
     });
-    cy.dataCy("update-host-status-modal").should("not.exist");
+    cy.dataCy("update-host-status-modal").should("not.be.visible");
     cy.validateToast("success", "Status was changed to terminated");
   });
 });

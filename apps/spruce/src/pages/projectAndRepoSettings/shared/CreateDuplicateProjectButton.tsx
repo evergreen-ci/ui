@@ -1,7 +1,6 @@
 import { cloneElement, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { PlusButton, Size, Variant } from "components/Buttons";
 import {
   UserProjectSettingsPermissionsQuery,
@@ -72,7 +71,6 @@ export const CreateDuplicateProjectButton: React.FC<Props> = ({
         <Menu
           data-cy="new-project-menu"
           open={menuOpen}
-          popoverZIndex={zIndex.popover}
           setOpen={setMenuOpen}
           trigger={NewProjectButton}
         >

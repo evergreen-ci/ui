@@ -18,7 +18,7 @@ describe("sections feature discovery", () => {
     cy.visit(taskLog);
     cy.dataCy("sections-feature-modal").should("be.visible");
     cy.contains("Let's go").click();
-    cy.dataCy("sections-feature-modal").should("not.exist");
+    cy.dataCy("sections-feature-modal").should("not.be.visible");
     cy.getCookie("has-seen-sections-prod-feature-modal").should(
       "have.property",
       "value",
