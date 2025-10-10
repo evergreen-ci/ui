@@ -10,28 +10,16 @@ import { useSpruceConfig } from "hooks";
 import { useDistroSettingsContext } from "pages/distroSettings/Context";
 import { omitTypename } from "utils/object";
 import { BaseTab } from "../BaseTab";
-import {
-  FormToGqlFunction,
-  WritableDistroSettingsTabs,
-  WritableDistroSettingsType,
-} from "../types";
+import { WritableDistroSettingsTabs } from "../types";
 import { getFormSchema } from "./getFormSchema";
-import { ProviderFormState, TabProps } from "./types";
+import { TabProps } from "./types";
 import { UnsavedModal } from "./UnsavedModal";
 
 const ec2Providers = [Provider.Ec2Fleet, Provider.Ec2OnDemand];
 
 export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   const { getTab } = useDistroSettingsContext();
-
-  // @ts-expect-error - see TabState for details.
-  const {
-    formData,
-    initialData,
-  }: {
-    formData: ProviderFormState;
-    initialData: ReturnType<FormToGqlFunction<WritableDistroSettingsType>>;
-  } = getTab(WritableDistroSettingsTabs.Provider);
+  const { formData, initialData } = getTab(WritableDistroSettingsTabs.Provider);
 
   const { data: awsData } = useQuery<AwsRegionsQuery, AwsRegionsQueryVariables>(
     AWS_REGIONS,

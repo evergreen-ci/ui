@@ -1,0 +1,15 @@
+fragment ProjectTestSelectionSettings on Project {
+  id
+  testSelection {
+    allowed
+    defaultEnabled
+  }
+}
+
+fragment RepoTestSelectionSettings on RepoRef {
+  id
+  testSelection {
+    allowed
+    defaultEnabled
+  }
+}

@@ -13,6 +13,7 @@
 #import "./viewsAndFilters.graphql"
 #import "./permissionGroups.graphql"
 #import "./appSettings.graphql"
+#import "./testSelection.graphql"
 
 fragment ProjectSettingsFields on ProjectSettings {
   ...ProjectAppSettings
@@ -29,6 +30,7 @@ fragment ProjectSettingsFields on ProjectSettings {
     ...ProjectPatchAliasSettings
     ...ProjectPeriodicBuildsSettings
     ...ProjectPluginsSettings
+    ...ProjectTestSelectionSettings
     ...ProjectTriggersSettings
     ...ProjectViewsAndFiltersSettings
     ...ProjectVirtualWorkstationSettings
@@ -59,6 +61,7 @@ fragment RepoSettingsFields on RepoSettings {
     ...RepoPatchAliasSettings
     ...RepoPeriodicBuildsSettings
     ...RepoPluginsSettings
+    ...RepoTestSelectionSettings
     ...RepoTriggersSettings
     ...RepoViewsAndFiltersSettings
     ...RepoVirtualWorkstationSettings

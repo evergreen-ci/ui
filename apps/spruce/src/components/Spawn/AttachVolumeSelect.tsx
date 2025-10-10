@@ -23,7 +23,7 @@ interface Props {
   autofill?: boolean;
 }
 
-export const MountVolumeSelect = ({
+export const AttachVolumeSelect = ({
   autofill,
   label,
   onChange,

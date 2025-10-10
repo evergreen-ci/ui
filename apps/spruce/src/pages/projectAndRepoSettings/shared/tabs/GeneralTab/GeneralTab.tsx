@@ -17,9 +17,7 @@ export const GeneralTab: React.FC<TabProps> = ({
 }) => {
   const { getTab } = useProjectSettingsContext();
   const tabData = getTab(tab);
-
-  // @ts-expect-error - see TabState for details.
-  const { formData }: { formData: GeneralFormState } = tabData;
+  const { formData } = tabData;
   const { initialData } = tabData;
 
   const initialFormState = projectData || repoData;

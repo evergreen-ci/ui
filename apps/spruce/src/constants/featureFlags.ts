@@ -1,1 +1,3 @@
-// Placeholder - import { isEndUserProduction } from "utils/environmentVariables";
+import { isEndUserProduction } from "utils/environmentVariables";
+
+export const showTestSelectionUI = !isEndUserProduction();

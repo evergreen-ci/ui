@@ -36,6 +36,7 @@ export const gqlToForm = ((data) => {
     hostJasper,
     jiraNotifications,
     logPath,
+    oldestAllowedCLIVersion,
     pprofPort,
     projectCreation,
     releaseMode,
@@ -56,6 +57,7 @@ export const gqlToForm = ((data) => {
         githubPRCreatorOrg: githubPRCreatorOrg ?? "",
         githubWebhookSecret: githubWebhookSecret ?? "",
         logPath: logPath ?? "",
+        oldestAllowedCLIVersion: oldestAllowedCLIVersion ?? "",
         pprofPort: pprofPort ?? "",
         shutdownWaitSeconds: shutdownWaitSeconds ?? 0,
         releaseMode: {
@@ -211,6 +213,7 @@ export const formToGql = ((form: OtherFormState) => {
     githubPRCreatorOrg: miscSettings.githubPRCreatorOrg || undefined,
     githubWebhookSecret: miscSettings.githubWebhookSecret || undefined,
     logPath: miscSettings.logPath || undefined,
+    oldestAllowedCLIVersion: miscSettings.oldestAllowedCLIVersion,
     pprofPort: miscSettings.pprofPort || undefined,
     shutdownWaitSeconds: miscSettings.shutdownWaitSeconds || undefined,
 

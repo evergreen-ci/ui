@@ -765,12 +765,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -912,12 +914,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -1058,12 +1062,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -1500,12 +1506,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -1647,12 +1655,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -1911,12 +1921,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -2000,6 +2012,154 @@
                     class=""
                   >
                     <div
+                      data-cy="rebooted"
+                    >
+                      Successfully triggered host reboot
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Additional details
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                                data-testid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-r7fdrc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled="false"
+            class="leafygreen-ui-ef1edo"
+            data-cy="host-events-table-row"
+            data-depth="0"
+            data-expanded="false"
+            data-index="21"
+            data-lgid="lg-table-row"
+            data-selected="false"
+            data-testid="lg-table-row"
+            id="lg-table-row-21"
+          >
+            <td
+              class="leafygreen-ui-16vw6q"
+              data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    Sep 1, 2021, 12:00:00 AM UTC
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class="leafygreen-ui-16vw6q"
+              data-lgid="lg-table-cell"
+              data-testid="lg-table-cell"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-18w181u"
+              >
+                <div
+                  class="leafygreen-ui-mjg5qs"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
                       data-cy="host-running-task-cleared"
                     >
                       Current running task cleared (was:
@@ -2027,11 +2187,11 @@
             data-cy="host-events-table-row"
             data-depth="0"
             data-expanded="false"
-            data-index="21"
+            data-index="22"
             data-lgid="lg-table-row"
             data-selected="false"
             data-testid="lg-table-row"
-            id="lg-table-row-21"
+            id="lg-table-row-22"
           >
             <td
               class="leafygreen-ui-16vw6q"
@@ -2096,11 +2256,11 @@
             data-cy="host-events-table-row"
             data-depth="0"
             data-expanded="false"
-            data-index="22"
+            data-index="23"
             data-lgid="lg-table-row"
             data-selected="false"
             data-testid="lg-table-row"
-            id="lg-table-row-22"
+            id="lg-table-row-23"
           >
             <td
               class="leafygreen-ui-16vw6q"
@@ -2195,12 +2355,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -2242,11 +2404,11 @@
             data-cy="host-events-table-row"
             data-depth="0"
             data-expanded="false"
-            data-index="23"
+            data-index="24"
             data-lgid="lg-table-row"
             data-selected="false"
             data-testid="lg-table-row"
-            id="lg-table-row-23"
+            id="lg-table-row-24"
           >
             <td
               class="leafygreen-ui-16vw6q"
@@ -2341,12 +2503,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -2388,11 +2552,11 @@
             data-cy="host-events-table-row"
             data-depth="0"
             data-expanded="false"
-            data-index="24"
+            data-index="25"
             data-lgid="lg-table-row"
             data-selected="false"
             data-testid="lg-table-row"
-            id="lg-table-row-24"
+            id="lg-table-row-25"
           >
             <td
               class="leafygreen-ui-16vw6q"
@@ -2488,12 +2652,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -2535,11 +2701,11 @@
             data-cy="host-events-table-row"
             data-depth="0"
             data-expanded="false"
-            data-index="25"
+            data-index="26"
             data-lgid="lg-table-row"
             data-selected="false"
             data-testid="lg-table-row"
-            id="lg-table-row-25"
+            id="lg-table-row-26"
           >
             <td
               class="leafygreen-ui-16vw6q"
@@ -2661,11 +2827,11 @@
             data-cy="host-events-table-row"
             data-depth="0"
             data-expanded="false"
-            data-index="26"
+            data-index="27"
             data-lgid="lg-table-row"
             data-selected="false"
             data-testid="lg-table-row"
-            id="lg-table-row-26"
+            id="lg-table-row-27"
           >
             <td
               class="leafygreen-ui-16vw6q"
@@ -2761,12 +2927,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -2808,11 +2976,11 @@
             data-cy="host-events-table-row"
             data-depth="0"
             data-expanded="false"
-            data-index="27"
+            data-index="28"
             data-lgid="lg-table-row"
             data-selected="false"
             data-testid="lg-table-row"
-            id="lg-table-row-27"
+            id="lg-table-row-28"
           >
             <td
               class="leafygreen-ui-16vw6q"
@@ -2883,11 +3051,11 @@
             data-cy="host-events-table-row"
             data-depth="0"
             data-expanded="false"
-            data-index="28"
+            data-index="29"
             data-lgid="lg-table-row"
             data-selected="false"
             data-testid="lg-table-row"
-            id="lg-table-row-28"
+            id="lg-table-row-29"
           >
             <td
               class="leafygreen-ui-16vw6q"
@@ -2938,11 +3106,11 @@
             data-cy="host-events-table-row"
             data-depth="0"
             data-expanded="false"
-            data-index="29"
+            data-index="30"
             data-lgid="lg-table-row"
             data-selected="false"
             data-testid="lg-table-row"
-            id="lg-table-row-29"
+            id="lg-table-row-30"
           >
             <td
               class="leafygreen-ui-16vw6q"
@@ -2996,11 +3164,11 @@
             data-cy="host-events-table-row"
             data-depth="0"
             data-expanded="false"
-            data-index="30"
+            data-index="31"
             data-lgid="lg-table-row"
             data-selected="false"
             data-testid="lg-table-row"
-            id="lg-table-row-30"
+            id="lg-table-row-31"
           >
             <td
               class="leafygreen-ui-16vw6q"
@@ -3095,12 +3263,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -3142,11 +3312,11 @@
             data-cy="host-events-table-row"
             data-depth="0"
             data-expanded="false"
-            data-index="31"
+            data-index="32"
             data-lgid="lg-table-row"
             data-selected="false"
             data-testid="lg-table-row"
-            id="lg-table-row-31"
+            id="lg-table-row-32"
           >
             <td
               class="leafygreen-ui-16vw6q"
@@ -3199,11 +3369,11 @@
             data-cy="host-events-table-row"
             data-depth="0"
             data-expanded="false"
-            data-index="32"
+            data-index="33"
             data-lgid="lg-table-row"
             data-selected="false"
             data-testid="lg-table-row"
-            id="lg-table-row-32"
+            id="lg-table-row-33"
           >
             <td
               class="leafygreen-ui-16vw6q"
@@ -3298,12 +3468,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >

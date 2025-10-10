@@ -15,7 +15,7 @@ interface Props {
 }
 
 /**
- * `data-*` props are not currently supported by @leafygreen-ui/select
+ * `data-*` props are not currently supported by `@leafygreen-ui/select`
  *  https://jira.mongodb.org/browse/EVG-16932
  * @param props - React props passed to the component
  * @param props.value - The current page size

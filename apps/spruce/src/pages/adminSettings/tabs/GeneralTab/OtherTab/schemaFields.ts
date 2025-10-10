@@ -21,6 +21,10 @@ export const miscSettings = {
       type: "string" as const,
       title: "GitHub PR Creator Organization",
     },
+    oldestAllowedCLIVersion: {
+      type: "string" as const,
+      title: "Oldest Allowed CLI Version",
+    },
     shutdownWaitSeconds: {
       type: "number" as const,
       title: "Shutdown Wait Time (secs)",

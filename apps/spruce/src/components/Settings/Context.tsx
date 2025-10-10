@@ -122,7 +122,7 @@ interface SettingsState<
 > {
   tabs: TabState<T, FormStateMap>;
   saveTab: (tab: T) => void;
-  getTab: (tab: T) => TabState<T, FormStateMap>[T];
+  getTab: <K extends T>(tab: K) => TabState<T, FormStateMap>[K];
   updateForm: (tab: T) => (e: OnChangeParams<T, FormStateMap>) => void;
   setInitialData: (
     tabData: Record<T, TabState<T, FormStateMap>[T]["formData"]>,
