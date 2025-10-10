@@ -84,7 +84,6 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
   return (
     <ConfirmationModal
       cancelButtonProps={{
-        children: "Cancel",
         onClick: closeModal,
       }}
       confirmButtonProps={{

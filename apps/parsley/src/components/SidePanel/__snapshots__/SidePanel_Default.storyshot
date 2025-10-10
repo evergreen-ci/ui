@@ -23,6 +23,13 @@
               <div
                 class="emotion-PaddedContainer e1ga8mgi0"
               >
+                <dialog
+                  class="leafygreen-ui-1n4d85c"
+                  data-cy="project-filters-modal"
+                  data-lgid="lg-confirmation_modal"
+                  data-testid="lg-confirmation_modal"
+                  id="modal-3"
+                />
                 <li
                   class="leafygreen-ui-la0n3e emotion-StyledSideNavGroup e15kq6cl3"
                 >
@@ -150,7 +157,7 @@
                             <p
                               aria-expanded="true"
                               class="emotion-FilterExpression e12rc5wm4 leafygreen-ui-1tb6tuo"
-                              id=":r1:"
+                              id=":r9:"
                             >
                               active filter
                             </p>
@@ -161,7 +168,7 @@
                                 aria-checked="true"
                                 aria-disabled="false"
                                 aria-label="Hide filter"
-                                aria-labelledby=":r1:"
+                                aria-labelledby=":r9:"
                                 class="lg-ui-toggle-button-0000 leafygreen-ui-16u1u0t"
                                 data-lgid="lg-toggle"
                                 data-testid="lg-toggle"
