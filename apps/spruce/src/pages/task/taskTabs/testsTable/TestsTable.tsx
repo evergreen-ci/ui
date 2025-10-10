@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useQuery } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import {
   ColumnFiltersState,
@@ -13,7 +13,6 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { showTestSelectionUI } from "constants/featureFlags";
@@ -27,10 +26,7 @@ import {
   TestResult,
   TaskQuery,
   TestSortOptions,
-  QuarantineTestMutation,
-  QuarantineTestMutationVariables,
 } from "gql/generated/types";
-import { QUARANTINE_TEST } from "gql/mutations";
 import { TASK_TESTS } from "gql/queries";
 import { useTableSort, usePolling } from "hooks";
 import {
@@ -51,7 +47,6 @@ interface TestsTableProps {
 const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { pathname } = useLocation();
   const { sendEvent } = useTaskAnalytics();
-  const dispatchToast = useToastContext();
 
   const [queryParams, setQueryParams] = useQueryParams();
   const queryVariables = getQueryVariables(queryParams, task.id);
@@ -83,20 +78,6 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
-
-  const [quarantineTest] = useMutation<
-    QuarantineTestMutation,
-    QuarantineTestMutationVariables
-  >(QUARANTINE_TEST, {
-    onCompleted: () => {
-      dispatchToast.success("Successfully quarantined test.");
-    },
-    onError: (err) => {
-      dispatchToast.error(
-        `Error when attempting to quarantine test: ${err.message}`,
-      );
-    },
-  });
 
   const clearQueryParams = () => {
     table.resetColumnFilters(true);
@@ -146,24 +127,12 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     totalTestCount = 0,
   } = tests ?? {};
 
-  const onQuarantineClick = useCallback(
-    (taskId: string, testName: string) => {
-      sendEvent({
-        name: "Clicked quarantine test button",
-        "test.name": testName,
-      });
-      quarantineTest({ variables: { taskId, testName } });
-    },
-    [sendEvent, quarantineTest],
-  );
-
   const columns = useMemo(
     () =>
       getColumnsTemplate({
         task,
-        quarantineTestFn: onQuarantineClick,
       }),
-    [task, onQuarantineClick],
+    [task],
   );
 
   const table: LeafyGreenTable<TestResult> = useLeafyGreenTable<TestResult>({
