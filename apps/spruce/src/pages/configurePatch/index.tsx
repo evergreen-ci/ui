@@ -10,8 +10,13 @@ import { getVersionRoute, slugs } from "constants/routes";
 import {
   ConfigurePatchQuery,
   ConfigurePatchQueryVariables,
+  PatchConfigureGeneratedTaskCountsQuery,
+  PatchConfigureGeneratedTaskCountsQueryVariables,
 } from "gql/generated/types";
-import { PATCH_CONFIGURE } from "gql/queries";
+import {
+  PATCH_CONFIGURE,
+  PATCH_CONFIGURE_GENERATED_TASK_COUNTS,
+} from "gql/queries";
 import { PageDoesNotExist } from "pages/NotFound";
 import { validateObjectId } from "utils/validators";
 import ConfigurePatchCore from "./configurePatchCore";
@@ -31,6 +36,23 @@ const ConfigurePatch: React.FC = () => {
       dispatchToast.error(err.message);
     },
   });
+
+  const { data: generatedTaskCountsData, loading: loadingGeneratedTaskCounts } =
+    useQuery<
+      PatchConfigureGeneratedTaskCountsQuery,
+      PatchConfigureGeneratedTaskCountsQueryVariables
+    >(PATCH_CONFIGURE_GENERATED_TASK_COUNTS, {
+      variables: { patchId: patchId || "" },
+      skip: !isValidPatchId,
+      onError(err) {
+        dispatchToast.error(
+          `Error fetching generated task counts: ${err.message}`,
+        );
+      },
+    });
+  const { generatedTaskCounts } = generatedTaskCountsData?.patch || {
+    generatedTaskCounts: [],
+  };
 
   const { patch } = data || {};
   usePageTitle(`Configure Patch`);
@@ -53,7 +75,11 @@ const ConfigurePatch: React.FC = () => {
   return (
     <PageWrapper>
       <ProjectBanner projectIdentifier={patch?.projectIdentifier} />
-      <ConfigurePatchCore patch={patch} />
+      <ConfigurePatchCore
+        generatedTaskCounts={generatedTaskCounts}
+        loadingGeneratedTaskCounts={loadingGeneratedTaskCounts}
+        patch={patch}
+      />
     </PageWrapper>
   );
 };

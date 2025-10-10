@@ -5602,6 +5602,11 @@ export type ProjectSettingsFieldsFragment = {
         secret: string;
       };
     };
+    testSelection?: {
+      __typename?: "TestSelectionSettings";
+      allowed?: boolean | null;
+      defaultEnabled?: boolean | null;
+    } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
       alias: string;
@@ -5802,6 +5807,11 @@ export type RepoSettingsFieldsFragment = {
         secret: string;
       };
     };
+    testSelection?: {
+      __typename?: "RepoTestSelectionSettings";
+      allowed: boolean;
+      defaultEnabled: boolean;
+    } | null;
     triggers: Array<{
       __typename?: "TriggerAlias";
       alias: string;
@@ -6258,6 +6268,11 @@ export type ProjectEventSettingsFragment = {
         secret: string;
       };
     };
+    testSelection?: {
+      __typename?: "TestSelectionSettings";
+      allowed?: boolean | null;
+      defaultEnabled?: boolean | null;
+    } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
       alias: string;
@@ -6388,6 +6403,26 @@ export type RepoTriggersSettingsFragment = {
     taskRegex: string;
     unscheduleDownstreamVersions?: boolean | null;
   }>;
+};
+
+export type ProjectTestSelectionSettingsFragment = {
+  __typename?: "Project";
+  id: string;
+  testSelection?: {
+    __typename?: "TestSelectionSettings";
+    allowed?: boolean | null;
+    defaultEnabled?: boolean | null;
+  } | null;
+};
+
+export type RepoTestSelectionSettingsFragment = {
+  __typename?: "RepoRef";
+  id: string;
+  testSelection?: {
+    __typename?: "RepoTestSelectionSettings";
+    allowed: boolean;
+    defaultEnabled: boolean;
+  } | null;
 };
 
 export type VariablesFragment = {
@@ -9049,6 +9084,24 @@ export type OtherUserQuery = {
   otherUser: { __typename?: "User"; displayName: string; userId: string };
 };
 
+export type PatchConfigureGeneratedTaskCountsQueryVariables = Exact<{
+  patchId: Scalars["String"]["input"];
+}>;
+
+export type PatchConfigureGeneratedTaskCountsQuery = {
+  __typename?: "Query";
+  patch: {
+    __typename?: "Patch";
+    id: string;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      buildVariantName?: string | null;
+      estimatedTasks: number;
+      taskName?: string | null;
+    }>;
+  };
+};
+
 export type ConfigurePatchQueryVariables = Exact<{
   id: Scalars["String"]["input"];
 }>;
@@ -9080,12 +9133,6 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }> | null;
-    generatedTaskCounts: Array<{
-      __typename?: "GeneratedTaskCountResults";
-      buildVariantName?: string | null;
-      estimatedTasks: number;
-      taskName?: string | null;
-    }>;
     patchTriggerAliases: Array<{
       __typename?: "PatchTriggerAlias";
       alias: string;
@@ -9358,6 +9405,11 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          testSelection?: {
+            __typename?: "TestSelectionSettings";
+            allowed?: boolean | null;
+            defaultEnabled?: boolean | null;
+          } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
             alias: string;
@@ -9573,6 +9625,11 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          testSelection?: {
+            __typename?: "TestSelectionSettings";
+            allowed?: boolean | null;
+            defaultEnabled?: boolean | null;
+          } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
             alias: string;
@@ -9854,6 +9911,11 @@ export type ProjectSettingsQuery = {
           secret: string;
         };
       };
+      testSelection?: {
+        __typename?: "TestSelectionSettings";
+        allowed?: boolean | null;
+        defaultEnabled?: boolean | null;
+      } | null;
       triggers?: Array<{
         __typename?: "TriggerAlias";
         alias: string;
@@ -10117,6 +10179,11 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          testSelection?: {
+            __typename?: "TestSelectionSettings";
+            allowed?: boolean | null;
+            defaultEnabled?: boolean | null;
+          } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
             alias: string;
@@ -10332,6 +10399,11 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          testSelection?: {
+            __typename?: "TestSelectionSettings";
+            allowed?: boolean | null;
+            defaultEnabled?: boolean | null;
+          } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
             alias: string;
@@ -10552,6 +10624,11 @@ export type RepoSettingsQuery = {
           secret: string;
         };
       };
+      testSelection?: {
+        __typename?: "RepoTestSelectionSettings";
+        allowed: boolean;
+        defaultEnabled: boolean;
+      } | null;
       triggers: Array<{
         __typename?: "TriggerAlias";
         alias: string;
@@ -11148,6 +11225,7 @@ export type TaskQuery = {
     startTime?: Date | null;
     status: string;
     tags: Array<string>;
+    testSelectionEnabled: boolean;
     timeTaken?: number | null;
     id: string;
     buildVariant: string;
@@ -11293,6 +11371,10 @@ export type TaskQuery = {
       identifier: string;
       owner: string;
       repo: string;
+      testSelection?: {
+        __typename?: "TestSelectionSettings";
+        allowed?: boolean | null;
+      } | null;
     } | null;
     stepbackInfo?: {
       __typename?: "StepbackInfo";

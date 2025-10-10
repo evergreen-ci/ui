@@ -147,6 +147,56 @@
           (PIDs: 12345, 67890)
         </p>
       </span>
+      <span
+        class="emotion-MetadataItemWrapper e1130wzj0"
+      >
+        <div
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+        >
+          <span
+            class="leafygreen-ui-38lglc"
+          />
+          <div
+            class="emotion-ItemWrapper el81fjh0"
+          >
+            <b
+              class="emotion-MetadataLabel e1130wzj3"
+            >
+              Test Selection:
+            </b>
+            <span
+              aria-disabled="true"
+              aria-label="more info"
+              class="leafygreen-ui-cssveg leafygreen-ui-1lho5c2"
+              data-testid="info-sprinkle-icon"
+              role="button"
+              tabindex="0"
+            >
+              <svg
+                aria-hidden="true"
+                aria-label="Info With Circle Icon"
+                class="leafygreen-ui-1st74h4"
+                height="13"
+                role="img"
+                viewBox="0 0 16 16"
+                width="13"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM9 4C9 4.55228 8.55228 5 8 5C7.44772 5 7 4.55228 7 4C7 3.44772 7.44772 3 8 3C8.55228 3 9 3.44772 9 4ZM8 6C8.55228 6 9 6.44772 9 7V11H9.5C9.77614 11 10 11.2239 10 11.5C10 11.7761 9.77614 12 9.5 12H6.5C6.22386 12 6 11.7761 6 11.5C6 11.2239 6.22386 11 6.5 11H7V7H6.5C6.22386 7 6 6.77614 6 6.5C6 6.22386 6.22386 6 6.5 6H8Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <div
+              class="leafygreen-ui-sti25g"
+            >
+              disabled
+            </div>
+          </div>
+        </div>
+      </span>
     </div>
     <div
       class="emotion-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"

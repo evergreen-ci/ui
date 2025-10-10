@@ -15,6 +15,7 @@ import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
 } from "constants/externalResources/honeycomb";
+import { showTestSelectionUI } from "constants/featureFlags";
 import {
   getDistroSettingsRoute,
   getTaskQueueRoute,
@@ -38,6 +39,7 @@ import { Stepback, isInStepback } from "./Stepback";
 import TagsMetadata from "./TagsMetadata";
 import TaskOwnership from "./TaskOwnership";
 import { TaskTimingMetadata } from "./TaskTiming";
+import { TestSelection } from "./TestSelection";
 
 const { red } = palette;
 
@@ -90,6 +92,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     spawnHostLink,
     startTime,
     tags,
+    testSelectionEnabled,
     timeTaken,
     versionMetadata,
   } = task;
@@ -106,7 +109,9 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     identifier: projectIdentifier,
     owner,
     repo,
+    testSelection,
   } = project || {};
+  const { allowed: testSelectionEnabledForProject } = testSelection || {};
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
   const taskTrace = details?.traceID;
@@ -327,6 +332,12 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             finished.
           </MetadataItem>
         )}
+        {stepback && <Stepback taskId={taskId} />}
+        {/* Remove when the feature is ready for release in DEVPROD-22837. */}
+        {showTestSelectionUI && testSelectionEnabledForProject && (
+          <TestSelection testSelectionEnabled={testSelectionEnabled} />
+        )}
+
         {startTime && finishTime && (
           <MetadataItem>
             <HoneycombLinkContainer>
@@ -367,7 +378,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             </HoneycombLinkContainer>
           </MetadataItem>
         )}
-        {stepback && <Stepback taskId={taskId} />}
       </MetadataCard>
 
       {projectIdentifier && (
