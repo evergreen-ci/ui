@@ -8,7 +8,7 @@ metadata:
     evergreen/project-id: 65f08ccac9ec449f57b4015d
 spec:
   type: website
-  owner: group:default/oktagroup_61a3e0b2f29b988eeef4f7b1  # 10gen-evergreen-team okta group
+  owner: group:default/oktagroup_63a4baf4355dd783744f0b8d  # 10gen-evergreen-ui okta group
   lifecycle: production
   system: evergreen
   dependsOn:
@@ -27,7 +27,7 @@ metadata:
     evergreen/project-id: 65f08ccac9ec449f57b4015d
 spec:
   type: website
-  owner: group:default/oktagroup_61a3e0b2f29b988eeef4f7b1  # 10gen-evergreen-team okta group
+  owner: group:default/oktagroup_63a4baf4355dd783744f0b8d  # 10gen-evergreen-ui okta group
   lifecycle: production
   system: evergreen
   subcomponentOf: evergreen-ui
@@ -42,7 +42,7 @@ metadata:
     evergreen/project-id: 65f08ccac9ec449f57b4015d
 spec:
   type: website
-  owner: group:default/oktagroup_61a3e0b2f29b988eeef4f7b1  # 10gen-evergreen-team okta group
+  owner: group:default/oktagroup_63a4baf4355dd783744f0b8d  # 10gen-evergreen-ui okta group
   lifecycle: production
   system: evergreen
   subcomponentOf: evergreen-ui
