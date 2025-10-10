@@ -33,7 +33,6 @@ const CheckboxesWrapper = styled.div`
   padding: ${size.xxs};
 `;
 
-/* @ts-expect-error */
 const StyledCheckbox = styled(Checkbox)`
   margin-bottom: ${size.xs};
 
