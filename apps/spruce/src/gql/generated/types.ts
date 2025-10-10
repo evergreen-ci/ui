@@ -4698,6 +4698,9 @@ export type UserConfig = {
   __typename?: "UserConfig";
   api_key: Scalars["String"]["output"];
   api_server_host: Scalars["String"]["output"];
+  oauth_client_id: Scalars["String"]["output"];
+  oauth_connector_id: Scalars["String"]["output"];
+  oauth_issuer: Scalars["String"]["output"];
   ui_server_host: Scalars["String"]["output"];
   user: Scalars["String"]["output"];
 };
@@ -6854,6 +6857,16 @@ export type PromoteVarsToRepoMutationVariables = Exact<{
 export type PromoteVarsToRepoMutation = {
   __typename?: "Mutation";
   promoteVarsToRepo: boolean;
+};
+
+export type QuarantineTestMutationVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  testName: Scalars["String"]["input"];
+}>;
+
+export type QuarantineTestMutation = {
+  __typename?: "Mutation";
+  quarantineTest: { __typename?: "QuarantineTestPayload"; success: boolean };
 };
 
 export type RemoveAnnotationIssueMutationVariables = Exact<{

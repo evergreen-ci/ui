@@ -53,6 +53,10 @@ type Action =
       "log.viewer": LogViewer;
       "test.status": string;
     }
+  | {
+      name: "Clicked quarantine test button";
+      "test.name": string;
+    }
   | { name: "Clicked annotation link"; "link.text": string }
   | { name: "Changed log preview type"; "log.type": LogTypes }
   | { name: "Viewed notification modal" }
