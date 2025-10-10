@@ -1,3 +1,4 @@
+import { Size as ButtonSize } from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
@@ -7,7 +8,7 @@ interface Props {
   disabled?: boolean;
   loading?: boolean;
   dropdownItems: JSX.Element[];
-  size?: "default" | "small" | "large";
+  size?: ButtonSize;
   "data-cy"?: string;
   open?: boolean;
   setOpen?: (open: boolean) => void;
