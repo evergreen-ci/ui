@@ -1,37 +1,45 @@
-import styled from "@emotion/styled";
+import { Dispatch } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Menu, FocusableMenuItem } from "@leafygreen-ui/menu";
+import { Action, TaskTimingConfig } from "./state";
 
 interface Props {
-  handleOnlySuccessfulChange: React.ChangeEventHandler<HTMLInputElement>;
-  onlySuccessful: boolean;
+  state: TaskTimingConfig;
+  dispatch: Dispatch<Action<TaskTimingConfig>>;
 }
 
-export const TaskTimingConfig: React.FC<Props> = ({
-  handleOnlySuccessfulChange,
-  onlySuccessful,
-}) => (
-  <StyledMenu
-    justify="start"
-    renderDarkMenu={false}
-    trigger={<Button size={Size.XSmall}>Config</Button>}
-  >
-    <FocusableMenuItem>
-      <Checkbox
-        checked={onlySuccessful}
-        label="Only include successful runs"
-        onChange={handleOnlySuccessfulChange}
-      />
-    </FocusableMenuItem>
-  </StyledMenu>
-);
+export const TaskTimingConfigMenu: React.FC<Props> = ({ dispatch, state }) => {
+  const handleCheckboxChange =
+    (field: keyof TaskTimingConfig) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch({
+        type: "updateField",
+        field,
+        value: e.target.checked,
+      });
+    };
 
-// Fix incorrect height causing scroll bar in menu item
-const StyledMenu = styled(Menu)`
-  ul {
-    div {
-      height: fit-content;
-    }
-  }
-`;
+  return (
+    <Menu
+      justify="start"
+      renderDarkMenu={false}
+      trigger={<Button size={Size.XSmall}>Config</Button>}
+    >
+      <FocusableMenuItem>
+        <Checkbox
+          checked={state.onlySuccessful}
+          label="Only include successful runs"
+          onChange={handleCheckboxChange("onlySuccessful")}
+        />
+      </FocusableMenuItem>
+      <FocusableMenuItem>
+        <Checkbox
+          checked={state.onlyCommits}
+          label="Only include waterfall commits"
+          onChange={handleCheckboxChange("onlyCommits")}
+        />
+      </FocusableMenuItem>
+    </Menu>
+  );
+};

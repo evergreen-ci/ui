@@ -77,6 +77,7 @@ type Action =
   | {
       name: "Clicked task timing link";
       metric: TaskTimingMetric;
+      only_commits: boolean;
       only_successful: boolean;
     };
 

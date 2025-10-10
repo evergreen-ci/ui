@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useReducer } from "react";
 import styled from "@emotion/styled";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useTaskAnalytics } from "analytics";
@@ -12,8 +12,9 @@ import {
   TaskTimingMetric,
 } from "constants/externalResources/honeycomb";
 import { TASK_TIMING_CONFIG_KEY } from "constants/index";
-import { getObject, setObject } from "utils/localStorage";
-import { TaskTimingConfig } from "./TaskTimingConfig";
+import { setObject } from "utils/localStorage";
+import { createInitialState, reducer } from "./state";
+import { TaskTimingConfigMenu } from "./TaskTimingConfig";
 
 interface TaskTimingProps {
   buildVariant: string;
@@ -27,33 +28,25 @@ export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
   taskName,
 }) => {
   const { sendEvent } = useTaskAnalytics();
-  const taskTimingConfig = getObject(TASK_TIMING_CONFIG_KEY) ?? {};
-  const [onlySuccessful, setOnlySuccessful] = useState(
-    taskTimingConfig?.onlySuccessful ?? false,
-  );
+  const [configState, dispatch] = useReducer(reducer, null, createInitialState);
 
-  const handleOnlySuccessfulChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const newSetting: boolean = e.target.checked;
-    setOnlySuccessful(newSetting);
-    setObject(TASK_TIMING_CONFIG_KEY, {
-      ...taskTimingConfig,
-      onlySuccessful: newSetting,
-    });
-  };
+  useEffect(() => {
+    // Update config in localStorage
+    setObject(TASK_TIMING_CONFIG_KEY, configState);
+  }, [configState]);
 
   const linkProps = (metric: TaskTimingMetric) => ({
     onClick: () =>
       sendEvent({
         name: "Clicked task timing link",
         metric,
-        only_successful: onlySuccessful,
+        only_commits: configState.onlyCommits,
+        only_successful: configState.onlySuccessful,
       }),
     to: getHoneycombTaskTimingURL({
+      ...configState,
       buildVariant,
       metric,
-      onlySuccessful,
       projectIdentifier,
       taskName,
     }),
@@ -66,10 +59,7 @@ export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
           <MetadataCardTitle weight="medium">
             Historical Task Timing
           </MetadataCardTitle>
-          <TaskTimingConfig
-            handleOnlySuccessfulChange={handleOnlySuccessfulChange}
-            onlySuccessful={onlySuccessful}
-          />
+          <TaskTimingConfigMenu dispatch={dispatch} state={configState} />
         </CardHeader>
       }
     >

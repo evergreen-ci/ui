@@ -380,7 +380,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         )}
       </MetadataCard>
 
-      {projectIdentifier && (
+      {projectIdentifier && !isDisplayTask && (
         <TaskTimingMetadata
           buildVariant={task.buildVariant}
           projectIdentifier={projectIdentifier}

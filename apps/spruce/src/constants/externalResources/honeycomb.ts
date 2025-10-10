@@ -1,5 +1,6 @@
 import { getUnixTime } from "date-fns";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { Requester } from "constants/requesters";
 import { getHoneycombBaseURL } from "utils/environmentVariables";
 
 /**
@@ -62,6 +63,7 @@ export enum TaskTimingMetric {
 interface TaskTimingParams {
   buildVariant: string;
   metric: TaskTimingMetric;
+  onlyCommits: boolean;
   onlySuccessful: boolean;
   projectIdentifier: string;
   taskName: string;
@@ -70,14 +72,35 @@ interface TaskTimingParams {
 export const getHoneycombTaskTimingURL = ({
   buildVariant,
   metric,
+  onlyCommits,
   onlySuccessful,
   projectIdentifier,
   taskName,
 }: TaskTimingParams) => {
+  const configurableFilters = [];
+  if (onlyCommits) {
+    configurableFilters.push({
+      column: "evergreen.version.requester",
+      op: "=",
+      value: Requester.Gitter,
+    });
+  }
+  if (onlySuccessful) {
+    configurableFilters.push({
+      column: "evergreen.task.status",
+      op: "=",
+      value: TaskStatus.Succeeded,
+    });
+  }
+
   const query = {
     time_range: 604800, // Default to 1 week
     granularity: 0, // 0 yields auto granularity
-    calculations: [{ op: "HEATMAP", column: metric }],
+    calculations: [
+      { op: "HEATMAP", column: metric },
+      { op: "P99", column: metric },
+      { op: "COUNT" },
+    ],
     filters: [
       { column: "name", op: "=", value: "task" },
       {
@@ -87,16 +110,9 @@ export const getHoneycombTaskTimingURL = ({
       },
       { column: "evergreen.build.name", op: "=", value: buildVariant },
       { column: "evergreen.task.name", op: "=", value: taskName },
-      ...(onlySuccessful
-        ? [
-            {
-              column: "evergreen.task.status",
-              op: "=",
-              value: TaskStatus.Succeeded,
-            },
-          ]
-        : []),
-      // TODO: This exists case can be deleted once we've been collecting activated_time metrics for long enough.
+      ...configurableFilters,
+
+      // TODO DEVPROD-22967: This exists case can be deleted once we've been collecting activated_time metrics for 60 days.
       ...(metric !== TaskTimingMetric.RunTime
         ? [{ column: "evergreen.task.activated_time", op: "exists" }]
         : []),
@@ -104,5 +120,6 @@ export const getHoneycombTaskTimingURL = ({
     filter_combination: "AND",
     limit: 1000,
   };
+
   return `${getHoneycombBaseURL()}/datasets/evergreen-agent?query=${JSON.stringify(query)}&omitMissingValues`;
 };

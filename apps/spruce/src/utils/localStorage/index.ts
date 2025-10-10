@@ -2,10 +2,16 @@ import { reportError } from "@evg-ui/lib/utils/errorReporting";
 
 type LocalStorageObject = Record<string, any>;
 
-export const getObject = (key: string): LocalStorageObject => {
+export const getObject = <T extends LocalStorageObject>(
+  key: string,
+): T | LocalStorageObject => {
   const obj = localStorage.getItem(key);
   try {
-    return obj ? JSON.parse(obj) : {};
+    if (obj) {
+      // If JSON.parse type assertion fails, it returns null
+      return (JSON.parse(obj) as T) ?? {};
+    }
+    return {};
   } catch (e) {
     reportError(
       new Error(`Getting object '${key}' from localStorage`, { cause: e }),
