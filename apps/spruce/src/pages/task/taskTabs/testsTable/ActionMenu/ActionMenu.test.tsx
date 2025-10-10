@@ -27,7 +27,9 @@ describe("action menu for tests table", () => {
     );
     render(<Component />);
     await user.click(screen.getByDataCy("ellipsis-btn"));
-    expect(screen.getByDataCy("card-dropdown")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByDataCy("card-dropdown")).toBeVisible();
+    });
   });
 
   it("cannot quarantine if test is passing'", async () => {
@@ -39,7 +41,9 @@ describe("action menu for tests table", () => {
     );
     render(<Component />);
     await user.click(screen.getByDataCy("ellipsis-btn"));
-    expect(screen.getByDataCy("card-dropdown")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByDataCy("card-dropdown")).toBeVisible();
+    });
     expect(screen.getByDataCy("quarantine-test")).toHaveAttribute(
       "aria-disabled",
       "true",
@@ -55,7 +59,9 @@ describe("action menu for tests table", () => {
     );
     render(<Component />);
     await user.click(screen.getByDataCy("ellipsis-btn"));
-    expect(screen.getByDataCy("card-dropdown")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByDataCy("card-dropdown")).toBeVisible();
+    });
     expect(screen.getByDataCy("quarantine-test")).toHaveAttribute(
       "aria-disabled",
       "false",

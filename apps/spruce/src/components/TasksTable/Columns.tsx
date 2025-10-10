@@ -6,8 +6,8 @@ import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
-import { showTaskReviewUI } from "constants/featureFlags";
 import { getVariantHistoryRoute } from "constants/routes";
 import { TaskSortCategory } from "gql/generated/types";
 import { ReviewedCheckbox } from "./ReviewedCheckbox";
@@ -17,27 +17,29 @@ import { TaskTableInfo } from "./types";
 export const getColumnsTemplate = ({
   baseStatusOptions = [],
   isPatch = false,
+  loading = false,
   onClickTaskLink = () => {},
   showTaskExecutionLabel = false,
   statusOptions = [],
 }: {
   baseStatusOptions?: TreeDataEntry[];
   isPatch?: boolean;
+  loading?: boolean;
   onClickTaskLink?: (taskId: string) => void;
   showTaskExecutionLabel?: boolean;
   statusOptions?: TreeDataEntry[];
 }): LGColumnDef<TaskTableInfo>[] => [
-  ...(showTaskReviewUI
-    ? [
-        {
-          header: "Reviewed",
-          accessorKey: "reviewed",
-          enableColumnFilter: false,
-          size: 0,
-          cell: ({ row }) => <ReviewedCheckbox row={row} />,
-        } as LGColumnDef<TaskTableInfo>, // This typing can be removed when the feature flag is deleted
-      ]
-    : []),
+  {
+    header: () => (
+      <>
+        Reviewed <AnnouncementPopover loading={loading} />
+      </>
+    ),
+    accessorKey: "reviewed",
+    enableColumnFilter: false,
+    size: 0,
+    cell: ({ row }) => <ReviewedCheckbox row={row} />,
+  } as LGColumnDef<TaskTableInfo>,
   {
     header: "Name",
     accessorKey: "displayName",
