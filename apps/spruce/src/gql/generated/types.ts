@@ -6859,6 +6859,16 @@ export type PromoteVarsToRepoMutation = {
   promoteVarsToRepo: boolean;
 };
 
+export type QuarantineTestMutationVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  testName: Scalars["String"]["input"];
+}>;
+
+export type QuarantineTestMutation = {
+  __typename?: "Mutation";
+  quarantineTest: { __typename?: "QuarantineTestPayload"; success: boolean };
+};
+
 export type RemoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution: Scalars["Int"]["input"];

@@ -1,11 +1,9 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import {
-  ColumnFiltering,
   ColumnFiltersState,
   LeafyGreenTable,
-  RowSorting,
   SortingState,
   useLeafyGreenTable,
   BaseTable,
@@ -17,6 +15,7 @@ import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
+import { showTestSelectionUI } from "constants/featureFlags";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { TableQueryParams } from "constants/queryParams";
 import {
@@ -40,8 +39,6 @@ import { getColumnsTemplate } from "./getColumnsTemplate";
 
 const { getLimit, getPage, getString, parseSortString, queryParamAsNumber } =
   queryString;
-const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
-const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
 interface TestsTableProps {
   task: NonNullable<TaskQuery["task"]>;
@@ -86,20 +83,27 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     table.resetColumnFilters(true);
   };
 
+  const { initialFilters, initialSorting } = useMemo(
+    () => getInitialState(queryParams),
+    [], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+
+  const [columnFilters, setColumnFilters] =
+    useState<ColumnFiltersState>(initialFilters);
+
+  const [sorting, setSorting] = useState<SortingState>(initialSorting);
+
   const updateFilters = (filterState: ColumnFiltersState) => {
-    const updatedParams = {
+    const updatedParams: Record<string, unknown> = {
       ...queryParams,
       page: "0",
       ...emptyFilterQueryParams,
     };
-
     filterState.forEach(({ id, value }) => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       const key = mapIdToFilterParam[id];
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       updatedParams[key] = value;
     });
-
     setQueryParams(updatedParams);
     sendEvent({
       name: "Filtered tests table",
@@ -117,22 +121,19 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
 
   const { task: taskData } = data ?? {};
   const { tests } = taskData ?? {};
-  const { filteredTestCount, testResults, totalTestCount } = tests ?? {};
+  const {
+    filteredTestCount = 0,
+    testResults,
+    totalTestCount = 0,
+  } = tests ?? {};
 
-  const { initialFilters, initialSorting } = useMemo(
-    () => getInitialState(queryParams),
-    [], // eslint-disable-line react-hooks/exhaustive-deps
+  const columns = useMemo(
+    () =>
+      getColumnsTemplate({
+        task,
+      }),
+    [task],
   );
-
-  const setSorting = (s: SortingState) =>
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    getDefaultSorting(table).onSortingChange(s);
-
-  const setFilters = (f: ColumnFiltersState) =>
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    getDefaultFiltering(table).onColumnFiltersChange(f);
-
-  const columns = useMemo(() => getColumnsTemplate({ task }), [task]);
 
   const table: LeafyGreenTable<TestResult> = useLeafyGreenTable<TestResult>({
     columns,
@@ -146,9 +147,16 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
     },
+    state: {
+      columnFilters,
+      sorting,
+    },
     initialState: {
-      columnFilters: initialFilters,
-      sorting: initialSorting,
+      columnVisibility: {
+        actions:
+          (showTestSelectionUI && task.project?.testSelection?.allowed) ??
+          false,
+      },
     },
     // Override default requirement for shift-click to multisort.
     isMultiSortEvent: () => true,
@@ -157,12 +165,10 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     manualPagination: true,
     maxMultiSortColCount: 2,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      setFilters,
+      setColumnFilters,
       updateFilters,
     ),
     onSortingChange: onChangeHandler<SortingState>(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setSorting,
       tableSortHandler,
     ),
@@ -172,7 +178,6 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     <TableWrapper
       controls={
         <TableControl
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           filteredCount={filteredTestCount}
           label="tests"
           // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -183,11 +188,9 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
           }}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           page={pageNum}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           totalCount={totalTestCount}
         />
       }
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       shouldShowBottomTableControl={filteredTestCount > 10}
     >
       <BaseTable
