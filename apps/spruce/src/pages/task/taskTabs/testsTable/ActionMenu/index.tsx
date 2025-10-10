@@ -52,6 +52,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   const dropdownItems = [
     <DropdownItem
       key="quarantine"
+      data-cy="quarantine-test"
       description={
         canQuarantine
           ? "Quarantine test so that it does not run in future task runs."
