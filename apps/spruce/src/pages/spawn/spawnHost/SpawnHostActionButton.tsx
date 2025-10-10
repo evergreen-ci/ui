@@ -142,7 +142,6 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         )
       )}
       <Popconfirm
-        confirmDisabled={!checkboxAcknowledged}
         onConfirm={() => handleClick(SpawnHostStatusActions.Reboot)}
         trigger={
           <Button
@@ -161,16 +160,6 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
           After triggering a reboot, you will need to wait a few minutes before
           you can SSH into the machine again.
         </Disclaimer>
-        {checkboxLabel && (
-          <Checkbox
-            checked={checkboxAcknowledged}
-            label={checkboxLabel}
-            onChange={(e) => {
-              e.nativeEvent.stopPropagation();
-              setCheckboxAcknowledged(!checkboxAcknowledged);
-            }}
-          />
-        )}
       </Popconfirm>
       <Popconfirm
         confirmDisabled={!checkboxAcknowledged}
