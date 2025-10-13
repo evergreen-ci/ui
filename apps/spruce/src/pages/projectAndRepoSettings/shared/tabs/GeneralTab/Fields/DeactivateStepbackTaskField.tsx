@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Description } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import {

@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/valid-types */
 import { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";

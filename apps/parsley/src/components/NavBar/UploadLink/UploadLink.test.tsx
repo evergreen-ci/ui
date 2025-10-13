@@ -64,7 +64,7 @@ describe("uploadLink", () => {
     });
     await user.click(confirmButton);
     await waitFor(() => {
-      expect(screen.queryByDataCy("confirmation-modal")).toBeNull();
+      expect(screen.queryByDataCy("confirmation-modal")).not.toBeVisible();
     });
     expect(router.state.location.pathname).toBe("/upload");
     expect(clearLogs).toHaveBeenCalledTimes(1);

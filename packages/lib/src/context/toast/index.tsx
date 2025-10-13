@@ -5,14 +5,12 @@ import {
   useContext,
   useMemo,
 } from "react";
-import { css } from "@leafygreen-ui/emotion";
 import {
   ToastProvider as LGToastProvider,
   Variant,
   useToast,
 } from "@leafygreen-ui/toast";
 import { WordBreak } from "../../components/styles";
-import { zIndex } from "../../constants/tokens";
 import {
   TOAST_TIMEOUT,
   mapLeafyGreenVariantToTitle,
@@ -125,11 +123,7 @@ const ToastProviderCore: React.FC<{ children: ReactNode }> = ({ children }) => {
 };
 
 const ToastProvider: React.FC<{ children?: ReactNode }> = ({ children }) => (
-  <LGToastProvider
-    portalClassName={css`
-      z-index: ${zIndex.toast};
-    `}
-  >
+  <LGToastProvider>
     <ToastProviderCore>{children}</ToastProviderCore>
   </LGToastProvider>
 );

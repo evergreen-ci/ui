@@ -60,7 +60,7 @@ describe("ToggleChatbotButton", () => {
       "true",
     );
     await user.click(screen.getByRole("button", { name: "Parsley AI" }));
-    expect(screen.queryByDataCy("parsley-ai-modal")).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("parsley-ai-modal")).not.toBeVisible();
     expect(screen.getByPlaceholderText("Type your message here")).toBeVisible();
     await waitFor(() => {
       expect(screen.getByDataCy("chat-drawer")).toHaveAttribute(

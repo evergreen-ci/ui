@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import PageSizeSelector from ".";
 
 describe("pageSizeSelector", () => {
@@ -13,9 +13,10 @@ describe("pageSizeSelector", () => {
       />,
     );
     await user.click(screen.getByRole("button", { name: "10 / page" }));
-    expect(screen.queryByText("20 / page")).toBeVisible();
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByText("20 / page"));
+    await waitFor(() => {
+      expect(screen.queryByText("20 / page")).toBeVisible();
+    });
+    await user.click(screen.getByText("20 / page"));
     expect(onChange).toHaveBeenCalledWith(20);
   });
 });
