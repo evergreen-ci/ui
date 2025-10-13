@@ -93,4 +93,5 @@ spec:
     - component:Sentry
     - component:Honeycomb
     - component:evergreen-backend
+    - component:braintrust
 
