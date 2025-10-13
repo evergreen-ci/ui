@@ -10,7 +10,7 @@ import { FungiUIMessage } from "./types";
 
 export const MessageRenderer: React.FC<
   FungiUIMessage & MessageActionsProps
-> = ({ id, onRatingChange, onSubmitFeedback, parts, role }) => (
+> = ({ id, onClickCopy, onRatingChange, onSubmitFeedback, parts, role }) => (
   <>
     {parts.map((part, index) => {
       const key = `${id}-${part.type}-${index}`;
@@ -27,6 +27,7 @@ export const MessageRenderer: React.FC<
           >
             {!isSender && part.state === "done" && isLastPart && (
               <Message.Actions
+                onClickCopy={onClickCopy}
                 onRatingChange={onRatingChange}
                 onSubmitFeedback={onSubmitFeedback}
               />
