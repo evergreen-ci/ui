@@ -23,7 +23,7 @@ describe("Task Action Buttons", () => {
       cy.visit(tasks[3]);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
-      cy.dataCy("abort-task").should("have.attr", "disabled");
+      cy.dataCy("abort-task").should("have.attr", "aria-disabled", "true");
     });
 
     it("Clicking on set priority, entering a priority value and submitting should result in a success toast.", () => {

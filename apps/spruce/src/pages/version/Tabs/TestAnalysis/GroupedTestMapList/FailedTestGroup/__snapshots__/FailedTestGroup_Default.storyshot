@@ -8,7 +8,7 @@
       <button
         aria-disabled="false"
         aria-label="Accordion icon"
-        class="emotion-AccordionIcon e1omze813 leafygreen-ui-1u7amgm"
+        class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
         style="align-self: start;"
         tabindex="0"
       >
@@ -87,6 +87,7 @@
                     class="leafygreen-ui-1it7wsd"
                     data-lgid="lg-table-header"
                     data-testid="lg-table-header"
+                    id="taskName"
                     scope="col"
                   >
                     <div
@@ -96,7 +97,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Sort by Task Name"
-                        class="leafygreen-ui-1u7amgm"
+                        class="leafygreen-ui-1r51ix4"
                         data-lgid="lg-table-sort_button"
                         data-testid="lg-table-sort_button"
                         tabindex="0"
@@ -127,6 +128,7 @@
                     class="leafygreen-ui-1it7wsd"
                     data-lgid="lg-table-header"
                     data-testid="lg-table-header"
+                    id="buildVariant"
                     scope="col"
                   >
                     <div
@@ -136,7 +138,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Sort by Build Variant"
-                        class="leafygreen-ui-1u7amgm"
+                        class="leafygreen-ui-1r51ix4"
                         data-lgid="lg-table-sort_button"
                         data-testid="lg-table-sort_button"
                         tabindex="0"
@@ -167,6 +169,7 @@
                     class="leafygreen-ui-1it7wsd"
                     data-lgid="lg-table-header"
                     data-testid="lg-table-header"
+                    id="displayStatus"
                     scope="col"
                     style="width: 15%;"
                   >
@@ -180,6 +183,7 @@
                     class="leafygreen-ui-1it7wsd"
                     data-lgid="lg-table-header"
                     data-testid="lg-table-header"
+                    id="Logs"
                     scope="col"
                     style="width: 10%;"
                   >

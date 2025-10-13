@@ -25,18 +25,20 @@ const SectionsFeatureModal = () => {
 
   return isViewingTaskLog ? (
     <StyledMarketingModal
-      buttonText="Let's go!"
+      buttonProps={{
+        children: "Let's go!",
+        onClick: () => {
+          closeModal();
+          sendEvent({
+            name: "Clicked feature modal confirm button",
+            release: "prod",
+          });
+        },
+      }}
       data-cy="sections-feature-modal"
       graphic={graphic}
       graphicStyle="center"
       linkText=""
-      onButtonClick={() => {
-        closeModal();
-        sendEvent({
-          name: "Clicked feature modal confirm button",
-          release: "prod",
-        });
-      }}
       onClose={() => {
         closeModal();
         sendEvent({

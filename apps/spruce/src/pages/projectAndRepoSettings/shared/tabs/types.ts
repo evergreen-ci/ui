@@ -16,6 +16,7 @@ import { PatchAliasesFormState } from "./PatchAliasesTab/types";
 import { PeriodicBuildsFormState } from "./PeriodicBuildsTab/types";
 import { PluginsFormState } from "./PluginsTab/types";
 import { ProjectTriggersFormState } from "./ProjectTriggersTab/types";
+import { TestSelectionFormState } from "./TestSelectionTab/types";
 import { ProjectType } from "./utils";
 import { VariablesFormState } from "./VariablesTab/types";
 import { ViewsFormState } from "./ViewsAndFiltersTab/types";
@@ -37,6 +38,7 @@ export type FormStateMap = {
     [ProjectSettingsTabRoutes.GithubCommitQueue]: GCQFormState;
     [ProjectSettingsTabRoutes.GithubAppSettings]: AppSettingsFormState;
     [ProjectSettingsTabRoutes.GithubPermissionGroups]: PermissionGroupsFormState;
+    [ProjectSettingsTabRoutes.TestSelection]: TestSelectionFormState;
   }[T];
 };
 

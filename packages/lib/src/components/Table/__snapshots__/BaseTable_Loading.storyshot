@@ -5,7 +5,7 @@
   >
     <div />
     <table
-      class="lg-ui-lg-table-0000 leafygreen-ui-fs5nm9 leafygreen-ui-1q0vhjd"
+      class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
       data-is-sticky="false"
       data-lgid="lg-table"
       data-testid="lg-table"
@@ -22,6 +22,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="name"
             scope="col"
           >
             <div
@@ -29,12 +30,12 @@
             >
               Name
               <div
-                class="emotion-7"
+                class="emotion-6"
               >
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-1u7amgm"
+                  class="leafygreen-ui-1r51ix4"
                   tabindex="0"
                 >
                   <div
@@ -64,7 +65,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Name"
-                class="leafygreen-ui-1u7amgm"
+                class="leafygreen-ui-1r51ix4"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -95,6 +96,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="type"
             scope="col"
           >
             <div
@@ -102,12 +104,12 @@
             >
               Type
               <div
-                class="emotion-7"
+                class="emotion-6"
               >
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-1u7amgm"
+                  class="leafygreen-ui-1r51ix4"
                   tabindex="0"
                 >
                   <div
@@ -137,7 +139,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Type"
-                class="leafygreen-ui-1u7amgm"
+                class="leafygreen-ui-1r51ix4"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -168,6 +170,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="size"
             scope="col"
           >
             <div
@@ -175,12 +178,12 @@
             >
               Size
               <div
-                class="emotion-7"
+                class="emotion-6"
               >
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-1u7amgm"
+                  class="leafygreen-ui-1r51ix4"
                   tabindex="0"
                 >
                   <div
@@ -210,7 +213,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Size"
-                class="leafygreen-ui-1u7amgm"
+                class="leafygreen-ui-1r51ix4"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -244,7 +247,7 @@
           data-cy="table-loader-loading-row"
         >
           <td
-            class="emotion-29"
+            class="emotion-28"
           >
             <div
               aria-hidden="true"
@@ -252,7 +255,7 @@
             />
           </td>
           <td
-            class="emotion-29"
+            class="emotion-28"
           >
             <div
               aria-hidden="true"
@@ -260,35 +263,7 @@
             />
           </td>
           <td
-            class="emotion-29"
-          >
-            <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </td>
-        </tr>
-        <tr
-          data-cy="table-loader-loading-row"
-        >
-          <td
-            class="emotion-29"
-          >
-            <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </td>
-          <td
-            class="emotion-29"
-          >
-            <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </td>
-          <td
-            class="emotion-29"
+            class="emotion-28"
           >
             <div
               aria-hidden="true"
@@ -300,7 +275,7 @@
           data-cy="table-loader-loading-row"
         >
           <td
-            class="emotion-29"
+            class="emotion-28"
           >
             <div
               aria-hidden="true"
@@ -308,7 +283,7 @@
             />
           </td>
           <td
-            class="emotion-29"
+            class="emotion-28"
           >
             <div
               aria-hidden="true"
@@ -316,35 +291,7 @@
             />
           </td>
           <td
-            class="emotion-29"
-          >
-            <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </td>
-        </tr>
-        <tr
-          data-cy="table-loader-loading-row"
-        >
-          <td
-            class="emotion-29"
-          >
-            <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </td>
-          <td
-            class="emotion-29"
-          >
-            <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </td>
-          <td
-            class="emotion-29"
+            class="emotion-28"
           >
             <div
               aria-hidden="true"
@@ -356,7 +303,7 @@
           data-cy="table-loader-loading-row"
         >
           <td
-            class="emotion-29"
+            class="emotion-28"
           >
             <div
               aria-hidden="true"
@@ -364,7 +311,7 @@
             />
           </td>
           <td
-            class="emotion-29"
+            class="emotion-28"
           >
             <div
               aria-hidden="true"
@@ -372,7 +319,63 @@
             />
           </td>
           <td
-            class="emotion-29"
+            class="emotion-28"
+          >
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </td>
+        </tr>
+        <tr
+          data-cy="table-loader-loading-row"
+        >
+          <td
+            class="emotion-28"
+          >
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </td>
+          <td
+            class="emotion-28"
+          >
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </td>
+          <td
+            class="emotion-28"
+          >
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </td>
+        </tr>
+        <tr
+          data-cy="table-loader-loading-row"
+        >
+          <td
+            class="emotion-28"
+          >
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </td>
+          <td
+            class="emotion-28"
+          >
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </td>
+          <td
+            class="emotion-28"
           >
             <div
               aria-hidden="true"

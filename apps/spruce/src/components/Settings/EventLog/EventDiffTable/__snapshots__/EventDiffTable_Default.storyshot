@@ -5,7 +5,7 @@
   >
     <div />
     <table
-      class="lg-ui-lg-table-0000 leafygreen-ui-fs5nm9 leafygreen-ui-1q0vhjd"
+      class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
       data-cy="event-diff-table"
       data-is-sticky="false"
       data-lgid="lg-table"
@@ -23,6 +23,7 @@
             class="leafygreen-ui-1it7wsd"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="key"
             scope="col"
           >
             <div
@@ -32,7 +33,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Property"
-                class="leafygreen-ui-1u7amgm"
+                class="leafygreen-ui-1r51ix4"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -63,6 +64,7 @@
             class="leafygreen-ui-1it7wsd"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="before"
             scope="col"
           >
             <div
@@ -75,6 +77,7 @@
             class="leafygreen-ui-1it7wsd"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="after"
             scope="col"
           >
             <div

@@ -95,7 +95,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
           menuItems={variants}
           onClick={getClickVariantHandler}
           selectedMenuItems={selectedBuildVariants}
-          title="Select Build Variants and Tasks"
+          title="Select Build Variants"
         />
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {aliases?.length > 0 && (

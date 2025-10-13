@@ -43,7 +43,7 @@ describe("copy distro modal", () => {
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
-    expect(screen.queryByDataCy("copy-distro-modal")).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("copy-distro-modal")).not.toBeVisible();
   });
 
   it("disables the confirm button on initial render and uses the provided label", () => {
@@ -70,8 +70,7 @@ describe("copy distro modal", () => {
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
+    await user.type(screen.getByDataCy("distro-id-input"), newDistroId);
     await user.click(screen.getByRole("button", { name: "Duplicate" }));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
@@ -90,8 +89,7 @@ describe("copy distro modal", () => {
     });
 
     await user.type(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      screen.queryByDataCy("distro-id-input"),
+      screen.getByDataCy("distro-id-input"),
       "string with spaces",
     );
     expect(
@@ -128,8 +126,7 @@ describe("copy distro modal", () => {
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
+    await user.type(screen.getByDataCy("distro-id-input"), newDistroId);
 
     const confirmButton = screen.getByRole("button", {
       name: "Duplicate",

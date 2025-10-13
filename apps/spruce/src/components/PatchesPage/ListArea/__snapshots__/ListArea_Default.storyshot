@@ -105,6 +105,8 @@
     >
       <button
         aria-disabled="false"
+        aria-expanded="false"
+        aria-haspopup="true"
         class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
         data-cy="patch-card-dropdown"
         data-lgid="lg-button"
@@ -135,6 +137,9 @@
           </svg>
         </div>
       </button>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
   </div>
   <div
@@ -243,6 +248,8 @@
     >
       <button
         aria-disabled="false"
+        aria-expanded="false"
+        aria-haspopup="true"
         class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
         data-cy="patch-card-dropdown"
         data-lgid="lg-button"
@@ -273,6 +280,9 @@
           </svg>
         </div>
       </button>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
   </div>
   <div
@@ -381,6 +391,8 @@
     >
       <button
         aria-disabled="false"
+        aria-expanded="false"
+        aria-haspopup="true"
         class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
         data-cy="patch-card-dropdown"
         data-lgid="lg-button"
@@ -411,6 +423,9 @@
           </svg>
         </div>
       </button>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
   </div>
   <div
@@ -519,6 +534,8 @@
     >
       <button
         aria-disabled="false"
+        aria-expanded="false"
+        aria-haspopup="true"
         class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
         data-cy="patch-card-dropdown"
         data-lgid="lg-button"
@@ -549,6 +566,9 @@
           </svg>
         </div>
       </button>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
   </div>
 </div>

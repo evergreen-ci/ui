@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer, Link } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -191,7 +191,10 @@ const columns: LGColumnDef<
     accessorKey: "expression",
     cell: ({ getValue, row }) => (
       <>
-        <FilterExpressionContainer title={getValue() as string}>
+        <FilterExpressionContainer
+          onClick={() => row.toggleSelected()}
+          title={getValue() as string}
+        >
           {getValue() as string}
         </FilterExpressionContainer>
         <Disclaimer>{row.original.description}</Disclaimer>
@@ -224,5 +227,6 @@ const FilterExpressionContainer = styled.div`
   ${wordBreakCss}
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+  cursor: pointer;
 `;
 export default ProjectFiltersModal;

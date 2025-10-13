@@ -6,7 +6,6 @@ import {
   Size as SelectSize,
 } from "@leafygreen-ui/select";
 import { PAGE_SIZES } from "../../constants/pagination";
-import { zIndex } from "../../constants/tokens";
 
 interface Props {
   value: number;
@@ -15,7 +14,7 @@ interface Props {
 }
 
 /**
- * `data-*` props are not currently supported by @leafygreen-ui/select
+ * `data-*` props are not currently supported by `@leafygreen-ui/select`
  *  https://jira.mongodb.org/browse/EVG-16932
  * @param props - React props passed to the component
  * @param props.value - The current page size
@@ -34,7 +33,6 @@ const PageSizeSelector: React.FC<Props> = ({
     aria-labelledby="page-size-select"
     disabled={disabled}
     onChange={(pageSize: string) => onChange(parseInt(pageSize, 10))}
-    popoverZIndex={zIndex.popover}
     size={SelectSize.Small}
     value={value.toString()}
     {...rest}

@@ -30,6 +30,7 @@
               class="leafygreen-ui-1ez629i"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="name"
               scope="col"
             >
               <div
@@ -39,7 +40,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Sort by Name"
-                  class="leafygreen-ui-1u7amgm"
+                  class="leafygreen-ui-1r51ix4"
                   data-lgid="lg-table-sort_button"
                   data-testid="lg-table-sort_button"
                   tabindex="0"
@@ -111,7 +112,7 @@
                       </a>
                       <button
                         aria-disabled="true"
-                        class="lg-ui-button-0000 leafygreen-ui-ma515g"
+                        class="lg-ui-button-0000 leafygreen-ui-zzkmfy leafygreen-ui-cssveg"
                         data-cy="parsley-link"
                         data-lgid="lg-button"
                         type="button"
@@ -173,7 +174,7 @@
                       </a>
                       <a
                         aria-disabled="false"
-                        class="lg-ui-button-0000 leafygreen-ui-161yf65"
+                        class="lg-ui-button-0000 leafygreen-ui-1m0zu1d leafygreen-ui-cssveg"
                         data-cy="parsley-link"
                         data-lgid="lg-button"
                         href="parsley_link"

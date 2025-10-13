@@ -5,19 +5,20 @@
     <div
       class="leafygreen-ui-1iyoj2o emotion-StyledSelect etjwcg13"
       data-lgid="lg-select"
+      data-testid="lg-select"
     >
       <button
-        aria-controls="select-3-menu"
-        aria-describedby="select-3-description"
+        aria-controls="select-1-menu"
+        aria-describedby="select-1-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
         class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
         data-cy="searchbar-select"
-        data-lgid="lg-button"
+        data-lgid="lg-select-trigger"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-4"
+        id="select-2"
         type="button"
         value="filter"
       >
@@ -33,6 +34,7 @@
             <div
               class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
               data-lgid="lg-select-button_text"
+              data-testid="lg-select-button_text"
             >
               Filter
             </div>
@@ -53,6 +55,9 @@
           </svg>
         </div>
       </button>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
       <div
         aria-live="polite"
         aria-relevant="all"
@@ -70,7 +75,7 @@
         <button
           aria-disabled="false"
           aria-labelledby="View search suggestions"
-          class="leafygreen-ui-1u7amgm"
+          class="leafygreen-ui-1r51ix4"
           data-cy="search-suggestion-button"
           tabindex="0"
           title="View search suggestions"
@@ -114,6 +119,9 @@
             </svg>
           </div>
         </button>
+        <span
+          class="leafygreen-ui-38lglc"
+        />
       </div>
       <div
         class="etjwcg11 emotion-TextInputWrapper-StyledInput e17optw12"
@@ -133,14 +141,14 @@
               class="leafygreen-ui-1ago99h"
             >
               <input
-                aria-describedby="lg-form_field-feedback-7"
+                aria-describedby="lg-form_field-feedback-3"
                 aria-disabled="false"
                 aria-invalid="true"
                 aria-labelledby="searchbar-input"
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="searchbar-input"
-                id="lg-form_field-input-8"
+                id="lg-form_field-input-4"
                 placeholder="optional, regexp to search"
                 required=""
                 spellcheck="false"
@@ -155,7 +163,7 @@
             class="leafygreen-ui-wsgs9n"
             data-lgid="lg-form_field-feedback"
             data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-7"
+            id="lg-form_field-feedback-3"
           >
             <div
               class="leafygreen-ui-1nmw6il"

@@ -91,10 +91,16 @@ export const useTaskReview = ({
     );
   }, [cache, cacheTaskId]);
 
+  const someChecked: boolean =
+    (data.displayStatus !== TaskStatus.Succeeded &&
+      data?.executionTasksFull?.some((t) => t?.reviewed)) ??
+    false;
   const allChecked: boolean =
-    data.executionTasksFull?.every(
-      (e) => e?.displayStatus === TaskStatus.Succeeded || e?.reviewed,
-    ) ?? false;
+    (data.displayStatus !== TaskStatus.Succeeded &&
+      data.executionTasksFull?.every(
+        (e) => e?.displayStatus === TaskStatus.Succeeded || e?.reviewed,
+      )) ??
+    false;
   const checked: boolean = data?.executionTasksFull?.length
     ? allChecked
     : !!data.reviewed;
@@ -105,5 +111,12 @@ export const useTaskReview = ({
     }
   }, [allChecked]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return { checked, task: data, updateTask, updateDisplayTask };
+  return {
+    allChecked,
+    checked,
+    someChecked,
+    task: data,
+    updateTask,
+    updateDisplayTask,
+  };
 };

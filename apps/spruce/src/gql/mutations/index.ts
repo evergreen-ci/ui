@@ -26,6 +26,7 @@ import MIGRATE_VOLUME from "./migrate-volume.graphql";
 import MOVE_ANNOTATION from "./move-annotation.graphql";
 import OVERRIDE_TASK_DEPENDENCIES from "./override-task-dependencies.graphql";
 import PROMOTE_VARS_TO_REPO from "./promote-vars-to-repo.graphql";
+import QUARANTINE_TEST from "./quarantine-test.graphql";
 import REMOVE_ANNOTATION from "./remove-annotation.graphql";
 import REMOVE_FAVORITE_PROJECT from "./remove-favorite-project.graphql";
 import REMOVE_PUBLIC_KEY from "./remove-public-key.graphql";
@@ -88,6 +89,7 @@ export {
   MOVE_ANNOTATION,
   OVERRIDE_TASK_DEPENDENCIES,
   PROMOTE_VARS_TO_REPO,
+  QUARANTINE_TEST,
   REMOVE_ANNOTATION,
   REMOVE_FAVORITE_PROJECT,
   REMOVE_PUBLIC_KEY,

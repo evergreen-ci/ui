@@ -52,6 +52,10 @@ type Action =
       "log.viewer": LogViewer;
       "test.status": string;
     }
+  | {
+      name: "Clicked quarantine test button";
+      "test.name": string;
+    }
   | { name: "Clicked annotation link"; "link.text": string }
   | { name: "Changed log preview type"; "log.type": LogTypes }
   | { name: "Viewed notification modal" }
@@ -103,11 +107,17 @@ export const useTaskAnalytics = () => {
     latestExecution,
     project,
     requester = "",
+    startTime,
     status: taskStatus,
     versionMetadata: { isPatch } = { isPatch: false },
   } = eventData?.task || {};
   const { identifier } = project || {};
   const isLatestExecution = latestExecution === execution;
+
+  // Normalize possible Date|string|number start time to ISO string.
+  const taskStartTime = startTime
+    ? new Date(startTime as Date | string | number).toISOString()
+    : "";
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Task", {
     "task.display_status": displayStatus || "",
@@ -117,6 +127,7 @@ export const useTaskAnalytics = () => {
     "task.is_latest_execution": isLatestExecution,
     "task.name": displayName || "",
     "task.project.identifier": identifier || "",
+    "task.start_time": taskStartTime,
     "task.status": taskStatus || "",
     "version.is_patch": isPatch,
     "version.requester": requester,

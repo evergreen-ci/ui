@@ -15,8 +15,8 @@
           class="leafygreen-ui-ozfao7 emotion-PaddedSegmentedControl egmqwjk0"
         >
           <div
-            aria-label="segmented-control-123"
-            aria-owns="segmented-control-123-0 segmented-control-123-1"
+            aria-label="segmented-control-1"
+            aria-owns="segmented-control-1-0 segmented-control-1-1"
             class="leafygreen-ui-18en4yf"
             role="tablist"
           >
@@ -33,7 +33,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="true"
                   class="leafygreen-ui-ypz97o"
-                  id="segmented-control-123-0"
+                  id="segmented-control-1-0"
                   role="tab"
                   tabindex="0"
                   type="button"
@@ -63,7 +63,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="false"
                   class="leafygreen-ui-ypz97o"
-                  id="segmented-control-123-1"
+                  id="segmented-control-1-1"
                   role="tab"
                   tabindex="-1"
                   type="button"
@@ -96,19 +96,20 @@
       <div
         class="leafygreen-ui-1iyoj2o emotion-GroupedSelect e5gn9hl1"
         data-lgid="lg-select"
+        data-testid="lg-select"
       >
         <button
-          aria-controls="select-124-menu"
-          aria-describedby="select-124-description"
+          aria-controls="select-7-menu"
+          aria-describedby="select-7-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="Tuple Select Select"
           class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
           data-cy="tuple-select-select"
-          data-lgid="lg-button"
+          data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-125"
+          id="select-8"
           type="button"
           value="build_variant"
         >
@@ -124,6 +125,7 @@
               <div
                 class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
                 data-lgid="lg-select-button_text"
+                data-testid="lg-select-button_text"
               >
                 Build Variant
               </div>
@@ -144,6 +146,9 @@
             </svg>
           </div>
         </button>
+        <span
+          class="leafygreen-ui-38lglc"
+        />
         <div
           aria-live="polite"
           aria-relevant="all"
@@ -191,7 +196,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-form_field-feedback"
             data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-128"
+            id="lg-form_field-feedback-63"
           />
         </div>
         <div
@@ -200,7 +205,7 @@
           <button
             aria-disabled="false"
             aria-label="Select plus button"
-            class="leafygreen-ui-1u7amgm"
+            class="leafygreen-ui-1r51ix4"
             tabindex="0"
           >
             <div

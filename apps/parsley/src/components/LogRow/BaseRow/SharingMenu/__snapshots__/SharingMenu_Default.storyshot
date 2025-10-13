@@ -4,7 +4,7 @@
     aria-expanded="false"
     aria-haspopup="true"
     aria-label="Expand share menu"
-    class="emotion-MenuIcon ev9qq3j1 leafygreen-ui-1u7amgm"
+    class="emotion-MenuIcon ev9qq3j1 leafygreen-ui-1r51ix4"
     data-cy="sharing-menu-button"
     tabindex="0"
   >
@@ -30,4 +30,7 @@
       </svg>
     </div>
   </button>
+  <span
+    class="leafygreen-ui-38lglc"
+  />
 </div>

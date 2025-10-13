@@ -24,7 +24,41 @@ describe("user preferences pages", () => {
     cy.contains(defaultApiKey).should("not.exist");
   });
 
-  describe("beta features", () => {
-    it("should be able to edit beta features", () => {});
+  describe("ui settings", () => {
+    describe("beta features", () => {
+      it("should be able to edit beta features", () => {});
+    });
+
+    describe("task review", () => {
+      beforeEach(async () => {
+        // Clear IndexedDB data to reset reviewed status between runs
+        if (window.indexedDB.databases) {
+          const dbs = await window.indexedDB.databases();
+          dbs.forEach((db) => {
+            window.indexedDB.deleteDatabase(db.name);
+          });
+        }
+      });
+
+      it("disabling task review should hide review button on a task page", () => {
+        const failedTaskRoute =
+          "/task/evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
+
+        cy.visit(failedTaskRoute);
+        cy.contains("button", "Mark reviewed").click();
+        cy.contains("button", "Mark unreviewed").should("be.visible");
+
+        cy.dataCy("user-dropdown-link").click();
+        cy.contains("a", "UI Settings").click();
+        cy.getInputByLabel("Task review").click();
+        cy.getInputByLabel("Task review").should(
+          "have.attr",
+          "aria-checked",
+          "false",
+        );
+        cy.go("back");
+        cy.contains("button", "Mark unreviewed").should("not.exist");
+      });
+    });
   });
 });
