@@ -69,29 +69,4 @@ spec:
   dependsOn:
     - component:sage
   subcomponentOf: evergreen-ui
----
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: sage
-  description: Server powering the Evergreen AI Service.
-  annotations:
-    evergreen/project-id: 686d2f07ef37320007ad2596
-  links:
-    - url: https://github.com/evergreen-ci/sage
-      title: evergreen-ci/sage
-      icon: github
-spec:
-  type: website
-  owner: group:default/oktagroup_63a4baf4355dd783744f0b8d  # 10gen-evergreen-ui okta group
-  lifecycle: production
-  system: evergreen
-  consumesApis:
-    - evergreen-api-graphql
-    - evergreen-api-rest
-  dependsOn:
-    - component:Sentry
-    - component:Honeycomb
-    - component:evergreen-backend
-    - component:braintrust
 
