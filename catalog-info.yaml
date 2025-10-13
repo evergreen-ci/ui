@@ -10,6 +10,9 @@ metadata:
     - url: https://docs.devprod.prod.corp.mongodb.com/evergreen
       title: Docs on Pine
       icon: dashboard
+    - url: https://github.com/evergreen-ci/ui
+      title: evergreen-ci/ui
+      icon: github
 spec:
   type: website
   owner: group:default/oktagroup_63a4baf4355dd783744f0b8d  # 10gen-evergreen-ui okta group
@@ -33,6 +36,9 @@ metadata:
     - url: https://docs.devprod.prod.corp.mongodb.com/evergreen
       title: Docs on Pine
       icon: dashboard
+    - url: https://github.com/evergreen-ci/ui/tree/main/apps/spruce
+      title: evergreen-ci/ui Spruce
+      icon: github
 spec:
   type: website
   owner: group:default/oktagroup_63a4baf4355dd783744f0b8d  # 10gen-evergreen-ui okta group
@@ -52,10 +58,36 @@ metadata:
     - url: https://docs.devprod.prod.corp.mongodb.com/evergreen
       title: Docs on Pine
       icon: dashboard
+    - url: https://github.com/evergreen-ci/ui/tree/main/apps/parsley
+      title: evergreen-ci/ui Parsley
+      icon: github
 spec:
   type: website
   owner: group:default/oktagroup_63a4baf4355dd783744f0b8d  # 10gen-evergreen-ui okta group
   lifecycle: production
   system: evergreen
+  dependsOn:
+    - component:sage
   subcomponentOf: evergreen-ui
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: sage
+  description: Server powering the Evergreen AI Service.
+  annotations:
+    evergreen/project-id: 686d2f07ef37320007ad2596
+  links:
+    - url: https://github.com/evergreen-ci/sage
+      title: evergreen-ci/sage
+      icon: github
+spec:
+  type: website
+  owner: group:default/oktagroup_63a4baf4355dd783744f0b8d  # 10gen-evergreen-ui okta group
+  lifecycle: production
+  system: evergreen
+  dependsOn:
+    - component:Sentry
+    - component:Honeycomb
+    - component:evergreen-backend
 
