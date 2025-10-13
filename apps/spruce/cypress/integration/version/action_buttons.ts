@@ -13,7 +13,7 @@ describe("Action Buttons", () => {
       cy.dataCy("schedule-patch").click();
       cy.dataCy("schedule-tasks-modal").should("be.visible");
       cy.contains("Cancel").click();
-      cy.dataCy("schedule-tasks-modal").should("not.exist");
+      cy.dataCy("schedule-tasks-modal").should("not.be.visible");
     });
 
     it("Clicking ellipses dropdown shows ellipses options", () => {

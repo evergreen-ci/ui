@@ -4,7 +4,6 @@ import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
 import { TaskQuery } from "gql/generated/types";
 import { useBreakingTask } from "hooks/useBreakingTask";
@@ -66,7 +65,6 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
     </Tooltip>
   ) : (
     <Menu
-      popoverZIndex={zIndex.dropdown}
       trigger={
         <Button rightGlyph={<Icon glyph="CaretDown" />} size={Size.Small}>
           Relevant commits

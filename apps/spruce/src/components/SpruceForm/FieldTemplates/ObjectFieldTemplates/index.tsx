@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/valid-types */
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";

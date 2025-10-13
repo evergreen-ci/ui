@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
 import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
-import { Field } from "@rjsf/core";
-import { StyledLink } from "@evg-ui/lib/components/styles";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   ConfirmationModal,
   Variant as ModalVariant,
-} from "components/ConfirmationModal";
+} from "@leafygreen-ui/confirmation-modal";
+import { Field } from "@rjsf/core";
+import { StyledLink } from "@evg-ui/lib/components/styles";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { githubAppCredentialsDocumentationUrl } from "constants/externalResources";
 import {
   DeleteGithubAppCredentialsMutation,
