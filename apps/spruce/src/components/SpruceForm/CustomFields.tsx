@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import {
   Description,
+  DescriptionProps,
   H3,
   H3Props,
   Subtitle,
@@ -36,6 +37,6 @@ export const DescriptionField: Field = ({ description, id }) =>
     <StyledDescription id={id}>{description}</StyledDescription>
   ) : null;
 
-const StyledDescription = styled(Description)`
+const StyledDescription = styled(Description)<DescriptionProps>`
   margin-bottom: 12px;
 `;

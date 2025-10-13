@@ -3,6 +3,7 @@ import { palette } from "@leafygreen-ui/palette";
 import {
   SideNav as LGSideNav,
   SideNavItem as LGSideNavItem,
+  SideNavItemProps as LGSideNavItemProps,
   SideNavGroup as LGSideNavGroup,
 } from "@leafygreen-ui/side-nav";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
@@ -21,8 +22,7 @@ export const SideNavGroup = LGSideNavGroup;
 
 export const SideNavItem = LGSideNavItem;
 
-interface SideNavItemProps
-  extends Omit<React.ComponentProps<typeof LGSideNavItem>, "as"> {
+interface SideNavItemProps extends Omit<LGSideNavItemProps, "as"> {
   to?: string;
   href?: string;
   glyph?: React.ReactNode;
@@ -39,7 +39,6 @@ export const SideNavItemLink: React.FC<SideNavItemProps> = ({
   </StyledSideNavItemLink>
 );
 
-// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of LGSideNavItem.
 const StyledSideNavItemLink = styled(LGSideNavItem)<SideNavItemProps>`
   color: ${blue.base};
 `;

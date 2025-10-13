@@ -82,9 +82,8 @@ const getProjectConfig = () => {
       }),
       // Use emotion jsx tag instead of React.JSX
       react({
-        jsxImportSource: "@emotion/react",
         babel: {
-          plugins: ["@emotion/babel-plugin", "import-graphql"],
+          plugins: ["import-graphql"],
         },
         // exclude storybook stories
         exclude: [/\.stories\.tsx?$/],

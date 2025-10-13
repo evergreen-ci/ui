@@ -42,18 +42,12 @@ const getProjectConfig = () => {
       tsconfigPaths(),
       react({
         babel: {
-          // @emotion/babel-plugin injects styled component names (e.g. "StyledSelect") into HTML for dev
-          // environments only. It can be toggled for production environments by modifying the parameter
-          // autoLabel. (https://emotion.sh/docs/@emotion/babel-plugin)
-          plugins: ["@emotion/babel-plugin", "import-graphql"],
+          plugins: ["import-graphql"],
         },
         // Exclude storybook stories from fast refresh.
         exclude: /\.stories\.tsx?$/,
         // Only Typescript files should use fast refresh.
         include: ["**/*.tsx", "**/*.ts"],
-
-        // Enables use of css prop on JSX.
-        jsxImportSource: "@emotion/react",
       }),
       envCompatible({
         prefix: "REACT_APP_",

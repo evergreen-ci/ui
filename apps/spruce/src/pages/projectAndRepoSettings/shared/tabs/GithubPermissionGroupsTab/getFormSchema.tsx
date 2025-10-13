@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Description } from "@leafygreen-ui/typography";
+import { Description, DescriptionProps } from "@leafygreen-ui/typography";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm";
@@ -202,6 +202,6 @@ const itemsUISchema = {
   },
 };
 
-const StyledDescription = styled(Description)`
+const StyledDescription = styled(Description)<DescriptionProps>`
   margin-bottom: ${size.xs};
 `;
