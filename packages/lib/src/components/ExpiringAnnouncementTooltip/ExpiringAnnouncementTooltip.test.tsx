@@ -74,6 +74,9 @@ describe("ExpiringAnnouncementTooltip", () => {
         expect(screen.getByText("New Release")).toBeVisible();
       });
       await user.click(screen.getByLabelText("Info With Circle Icon"));
+      await waitFor(() => {
+        expect(screen.queryByText("New Release")).not.toBeVisible();
+      });
     });
 
     it("sets a cookie with the date upon close", async () => {
