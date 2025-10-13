@@ -68,9 +68,7 @@ describe("createProjectField", () => {
     );
     render(<Component />);
 
-    expect(
-      screen.queryByDataCy("create-project-modal"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("create-project-modal")).not.toBeVisible();
   });
 
   it("disables the confirm button on initial render", async () => {

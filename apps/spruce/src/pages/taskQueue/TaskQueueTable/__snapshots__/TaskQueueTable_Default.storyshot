@@ -26,6 +26,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="index"
               scope="col"
             >
               <div
@@ -36,6 +37,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="displayName"
               scope="col"
             >
               <div
@@ -48,6 +50,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="expectedDuration"
               scope="col"
             >
               <div
@@ -60,6 +63,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="projectIdentifier"
               scope="col"
             >
               <div
@@ -72,6 +76,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="version"
               scope="col"
             >
               <div
@@ -84,6 +89,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="priority"
               scope="col"
             >
               <div
@@ -96,6 +102,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="activatedBy"
               scope="col"
             >
               <div
@@ -108,6 +115,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="requester"
               scope="col"
             >
               <div

@@ -96,6 +96,7 @@
         <div
           class="leafygreen-ui-1iyoj2o emotion-StyledSelect eng5k480"
           data-lgid="lg-select"
+          data-testid="lg-select"
         >
           <button
             aria-controls="select-7-menu"
@@ -104,9 +105,9 @@
             aria-expanded="false"
             aria-invalid="false"
             aria-labelledby="page-size-select"
-            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d leafygreen-ui-1b6wtso"
+            class="lg-ui-button-0000 leafygreen-ui-c19aul"
             data-cy="host-event-table-page-size-selector"
-            data-lgid="lg-button"
+            data-lgid="lg-select-trigger"
             data-testid="leafygreen-ui-select-menubutton"
             id="select-8"
             type="button"
@@ -124,6 +125,7 @@
                 <div
                   class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
                   data-lgid="lg-select-button_text"
+                  data-testid="lg-select-button_text"
                 >
                   10 / page
                 </div>
@@ -131,7 +133,7 @@
               <svg
                 alt=""
                 aria-hidden="true"
-                class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
+                class="leafygreen-ui-fn50nl"
                 height="16"
                 role="presentation"
                 viewBox="0 0 16 16"
@@ -144,6 +146,9 @@
               </svg>
             </div>
           </button>
+          <span
+            class="leafygreen-ui-38lglc"
+          />
           <div
             aria-live="polite"
             aria-relevant="all"
@@ -179,6 +184,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="timestamp"
               scope="col"
               style="width: 25%;"
             >
@@ -192,6 +198,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="eventType"
               scope="col"
             >
               <div
