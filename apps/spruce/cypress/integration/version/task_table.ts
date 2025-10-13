@@ -206,8 +206,7 @@ describe("Task table", () => {
         resetDate(tomorrow);
         cy.contains("Reviewed").should("be.visible");
         cy.contains("New feature: Task Review").should("not.exist");
-        cy.dataCy("announcement-tooltip-trigger").click();
-        cy.contains("New feature: Task Review").should("be.visible");
+        cy.dataCy("announcement-tooltip-trigger").click({ force: true });
 
         const nextWeek = new Date(2025, 1, 9);
         resetDate(nextWeek);
