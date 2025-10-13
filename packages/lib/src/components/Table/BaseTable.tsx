@@ -206,6 +206,7 @@ const TableHeaderCell = <T extends LGRowData>({
     <HeaderCell
       key={header.id}
       header={header}
+      id={header.id}
       // @ts-expect-error: This is a workaround to fix the type error
       style={meta?.width && { width: meta.width }}
     >
