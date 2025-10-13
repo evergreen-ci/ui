@@ -1997,7 +1997,21 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/box/-/box-3.1.9.tgz#9199a03e4f8059eae62e48b8227e7cad9f66f94b"
   integrity sha512-hY05VQKDVhqqBH/Dz1kxonjQmqrMR9URa3Dw3YgdLbVUd1hMQkoWbplamiE4S4vq2+81SQBgNw53i+/Vd0Cl0g==
 
-"@leafygreen-ui/button@^21.0.6", "@leafygreen-ui/button@^21.2.0":
+"@leafygreen-ui/button@^21.0.6":
+  version "21.3.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-21.3.0.tgz#cee13fe49eecc8682420c1733fdc95c0793b5e75"
+  integrity sha512-v9qipsRWHQBN9sC4RNWmJ/PVQCcYZdg9Wa+k9Q6LFjgahI1/6BXYTZOP4wPJQDp2AG6+dx2CF7Rp60ymM+wtLw==
+  dependencies:
+    "@leafygreen-ui/box" "^3.1.9"
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/lib" "^13.4.0"
+    "@leafygreen-ui/palette" "^4.0.10"
+    "@leafygreen-ui/ripple" "^1.1.13"
+    "@leafygreen-ui/tokens" "^2.5.2"
+    "@lg-tools/test-harnesses" "^0.1.2"
+    polished "^4.2.2"
+
+"@leafygreen-ui/button@^21.2.0":
   version "21.2.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-21.2.1.tgz#a60c919422fa3fcc13ef840434ad5d04cac44fbc"
   integrity sha512-Ngcve4Q+4e44Q7Lsjd1y70lw7Llq0ZWCUFP2kJA4Vfo+kr1HtxjtUSHVRs+8puCfKiFkusJ34D5dnFaAGL2YmQ==
