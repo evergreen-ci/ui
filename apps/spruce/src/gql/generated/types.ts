@@ -387,6 +387,7 @@ export type AuthConfig = {
   kanopy?: Maybe<KanopyAuthConfig>;
   multi?: Maybe<MultiAuthConfig>;
   naive?: Maybe<NaiveAuthConfig>;
+  oauth?: Maybe<OAuthConfig>;
   okta?: Maybe<OktaConfig>;
   preferredType?: Maybe<PreferredAuthType>;
 };
@@ -398,6 +399,7 @@ export type AuthConfigInput = {
   kanopy?: InputMaybe<KanopyAuthConfigInput>;
   multi?: InputMaybe<MultiAuthConfigInput>;
   naive?: InputMaybe<NaiveAuthConfigInput>;
+  oauth?: InputMaybe<OAuthConfigInput>;
   okta?: InputMaybe<OktaConfigInput>;
   preferredType?: InputMaybe<PreferredAuthType>;
 };
@@ -2346,6 +2348,19 @@ export type NotifyConfigInput = {
   bufferIntervalSeconds?: InputMaybe<Scalars["Int"]["input"]>;
   bufferTargetPerInterval?: InputMaybe<Scalars["Int"]["input"]>;
   ses?: InputMaybe<SesConfigInput>;
+};
+
+export type OAuthConfig = {
+  __typename?: "OAuthConfig";
+  clientId: Scalars["String"]["output"];
+  connectorId: Scalars["String"]["output"];
+  issuer: Scalars["String"]["output"];
+};
+
+export type OAuthConfigInput = {
+  clientId: Scalars["String"]["input"];
+  connectorId: Scalars["String"]["input"];
+  issuer: Scalars["String"]["input"];
 };
 
 export type OsInfo = {
