@@ -156,7 +156,11 @@ const schema = {
 };
 
 const uiSchema = {
+  name: {
+    "ui:data-cy": "key-name-input",
+  },
   key: {
+    "ui:data-cy": "key-value-input",
     "ui:widget": "textarea",
     "ui:description":
       "The SSH key must begin with 'ssh-rsa' or 'ssh-dss' or 'ssh-ed25519' or 'ecdsa-sha2-nistp256'.",
