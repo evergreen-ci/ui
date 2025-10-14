@@ -46,23 +46,23 @@
                       class="leafygreen-ui-1lqrdit"
                       data-lgid="lg-select-label"
                       data-testid="lg-select"
-                      for="select-2"
-                      id="select-1-label"
+                      for="select-4"
+                      id="select-3-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-1-menu"
-                    aria-describedby="select-1-description"
+                    aria-controls="select-3-menu"
+                    aria-describedby="select-3-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-1-label"
+                    aria-labelledby="select-3-label"
                     class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
                     data-lgid="lg-select-trigger"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-2"
+                    id="select-4"
                     type="button"
                     value="legacy-ssh"
                   >
