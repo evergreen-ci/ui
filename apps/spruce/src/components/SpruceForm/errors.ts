@@ -113,6 +113,11 @@ export const transformErrors = (errors: AjvError[]) =>
                 ...error,
                 message: "Value should be a valid URL.",
               };
+            case "validSSHPublicKey":
+              return {
+                ...error,
+                message: "Value should be a valid public SSH key.",
+              };
             default:
               return { ...error, message: "" };
           }
