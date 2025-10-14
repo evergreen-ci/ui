@@ -147,6 +147,11 @@ const gql: AdminSettingsInput = {
       issuer: "https://kanopy.example.com",
       keysetURL: "https://kanopy.example.com/.well-known/jwks.json",
     },
+    oauth: {
+      clientId: "oauth-client-id",
+      connectorId: "oauth-connector-id",
+      issuer: "https://oauth.example.com",
+    },
     multi: {
       readOnly: ["viewer", "guest"],
       readWrite: ["admin", "developer"],
