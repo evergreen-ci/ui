@@ -44,7 +44,7 @@ export const LogMessageLine: React.FC<LogMessageFragment> = ({
 };
 
 const LogLineWrapper = styled.div<{ color: string }>`
-  ${({ color }) => `color: ${color};`}
+  ${({ color }) => color && `color: ${color};`}
 `;
 
 export const getLogColor = (severity?: string): string => {
