@@ -207,7 +207,7 @@ export const github = {
 
 export const oauth = {
   schema: {
-    clientID: {
+    clientId: {
       type: "string" as const,
       title: "Client ID",
     },
@@ -215,7 +215,7 @@ export const oauth = {
       type: "string" as const,
       title: "Issuer",
     },
-    connectorID: {
+    connectorId: {
       type: "string" as const,
       title: "Connector ID",
     },
