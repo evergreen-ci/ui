@@ -12,9 +12,9 @@ export const gqlToForm = ((data) => {
     backgroundReauthMinutes,
     github,
     kanopy,
-    oauth,
     multi,
     naive,
+    oauth,
     okta,
     preferredType,
   } = authConfig ?? {};
@@ -73,7 +73,7 @@ export const gqlToForm = ((data) => {
 export const formToGql = (({ authentication }) => {
   if (!authentication) return {};
 
-  const { github, globalConfig, kanopy, oauth, multi, naive, okta } =
+  const { github, globalConfig, kanopy, multi, naive, oauth, okta } =
     authentication;
 
   return {
