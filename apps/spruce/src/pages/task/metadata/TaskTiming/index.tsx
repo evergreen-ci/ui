@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useTaskAnalytics } from "analytics";
@@ -13,7 +13,7 @@ import {
 } from "constants/externalResources/honeycomb";
 import { TASK_TIMING_CONFIG_KEY } from "constants/index";
 import { setObject } from "utils/localStorage";
-import { createInitialState, reducer } from "./state";
+import { createInitialState } from "./state";
 import { TaskTimingConfigMenu } from "./TaskTimingConfig";
 
 interface TaskTimingProps {
@@ -28,7 +28,7 @@ export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
   taskName,
 }) => {
   const { sendEvent } = useTaskAnalytics();
-  const [configState, dispatch] = useReducer(reducer, null, createInitialState);
+  const [configState, setConfigState] = useState(createInitialState);
 
   useEffect(() => {
     // Update config in localStorage
@@ -59,7 +59,10 @@ export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
           <MetadataCardTitle weight="medium">
             Historical Task Timing
           </MetadataCardTitle>
-          <TaskTimingConfigMenu dispatch={dispatch} state={configState} />
+          <TaskTimingConfigMenu
+            configState={configState}
+            setConfigState={setConfigState}
+          />
         </CardHeader>
       }
     >

@@ -6,24 +6,6 @@ export type TaskTimingConfig = {
   onlySuccessful: boolean;
 };
 
-export type Action<T> = {
-  type: "updateField";
-  field: keyof T;
-  value: T[keyof T];
-};
-
-export const reducer = (
-  state: TaskTimingConfig,
-  action: Action<TaskTimingConfig>,
-) => {
-  switch (action.type) {
-    case "updateField":
-      return { ...state, [action.field]: action.value };
-    default:
-      return state;
-  }
-};
-
 const defaultState: TaskTimingConfig = {
   onlyCommits: false,
   onlySuccessful: false,
