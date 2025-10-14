@@ -63,6 +63,11 @@ const mockAdminSettings: AdminSettings = {
       issuer: "https://kanopy.example.com",
       keysetURL: "https://kanopy.example.com/.well-known/jwks.json",
     },
+    oauth: {
+      clientId: "oauth-client-id",
+      connectorId: "oauth-connector-id",
+      issuer: "https://oauth.example.com",
+    },
   },
   disabledGQLQueries: [],
 };
@@ -115,6 +120,11 @@ const form: AuthenticationFormState = {
       headerName: "X-Auth-Token",
       issuer: "https://kanopy.example.com",
       keysetURL: "https://kanopy.example.com/.well-known/jwks.json",
+    },
+    oauth: {
+      clientId: "oauth-client-id",
+      connectorId: "oauth-connector-id",
+      issuer: "https://oauth.example.com",
     },
   },
 };
