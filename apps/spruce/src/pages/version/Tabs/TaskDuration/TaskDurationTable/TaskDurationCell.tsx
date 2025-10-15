@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Description, DescriptionProps } from "@leafygreen-ui/typography";
+import { Description } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
   mapTaskToBarchartColor,
@@ -47,7 +47,7 @@ const DurationBar = styled.div<{ width: string; color: string }>`
   height: 6px;
 `;
 
-const DurationLabel = styled(Description)<DescriptionProps>`
+const DurationLabel = styled(Description)`
   flex-shrink: 0;
   font-size: 12px;
 `;

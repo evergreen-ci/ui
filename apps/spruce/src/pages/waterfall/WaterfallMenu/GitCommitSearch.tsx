@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import TextInput from "@leafygreen-ui/text-input";
-import { Description, DescriptionProps } from "@leafygreen-ui/typography";
+import { Description } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
@@ -75,6 +75,6 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
   );
 };
 
-const StyledDescription = styled(Description)<DescriptionProps>`
+const StyledDescription = styled(Description)`
   margin-bottom: ${size.xs};
 `;
