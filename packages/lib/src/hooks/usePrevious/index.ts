@@ -1,40 +1,11 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useRef } from "react";
 
-interface State<T> {
-  current: T;
-  previous: T | undefined;
-}
-
-type Action<T> = {
-  type: "UPDATE";
-  payload: T;
-};
-
-/**
- * Reducer function to manage previous and current state values
- * @param state - The current state containing current and previous values
- * @param action - The action to dispatch with new payload
- * @returns Updated state with new current value and previous value preserved
- */
-function reducer<T>(state: State<T>, action: Action<T>): State<T> {
-  if (action.type === "UPDATE" && action.payload !== state.current) {
-    return {
-      current: action.payload,
-      previous: state.current,
-    };
-  }
-  return state;
-}
-
-export const usePrevious = <T>(state: T): T | undefined => {
-  const [{ previous }, dispatch] = useReducer(reducer<T>, {
-    current: state,
-    previous: undefined,
-  });
-
+export const usePrevious = <T>(value: T): T | undefined => {
+  const ref = useRef<T>();
   useEffect(() => {
-    dispatch({ payload: state, type: "UPDATE" });
-  }, [state]);
-
-  return previous;
+    ref.current = value;
+  });
+  // This is not correct use of refs, but it's not possible to fix until DEVPROD-14178 is done
+  // because it throws errors that are not easy to debug.
+  return ref.current;
 };

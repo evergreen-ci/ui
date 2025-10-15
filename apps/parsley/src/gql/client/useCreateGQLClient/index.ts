@@ -20,6 +20,8 @@ import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
 import { graphqlURL } from "utils/environmentVariables";
 
+const cache = new InMemoryCache();
+
 export const useCreateGQLClient = ():
   | ApolloClient<NormalizedCacheObject>
   | undefined => {
@@ -48,7 +50,6 @@ export const useCreateGQLClient = ():
   const gqlClient = useMemo(() => {
     if (!secretFields) return undefined;
 
-    const cache = new InMemoryCache();
     return new ApolloClient({
       cache,
       link: from([

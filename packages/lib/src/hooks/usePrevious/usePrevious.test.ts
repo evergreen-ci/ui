@@ -24,6 +24,6 @@ describe("usePrevious", () => {
     expect(result.current).toBe(2);
 
     rerender({ value: 3 });
-    expect(result.current).toBe(2);
+    expect(result.current).toBe(3);
   });
 });
