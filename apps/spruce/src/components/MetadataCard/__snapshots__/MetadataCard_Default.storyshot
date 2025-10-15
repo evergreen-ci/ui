@@ -7,7 +7,7 @@
     >
       <div>
         <p
-          class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+          class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
         >
           Example Metadata Card
         </p>
@@ -19,7 +19,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -33,7 +33,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -42,13 +42,12 @@
           </b>
            Metadata Value 2
         </p>
-        <span
+        <button
           aria-disabled="true"
           aria-label="more info"
-          class="leafygreen-ui-cssveg leafygreen-ui-1lho5c2"
+          class="leafygreen-ui-1vktzzb"
           data-testid="info-sprinkle-icon"
-          role="button"
-          tabindex="0"
+          type="button"
         >
           <svg
             aria-hidden="true"
@@ -66,13 +65,16 @@
               fill-rule="evenodd"
             />
           </svg>
-        </span>
+          <span
+            class="leafygreen-ui-38lglc"
+          />
+        </button>
       </span>
       <span
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"

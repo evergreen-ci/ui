@@ -7,7 +7,7 @@
     >
       <div>
         <p
-          class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+          class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
         >
           Task Metadata
         </p>
@@ -19,7 +19,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
           data-cy="task-metadata-build-variant"
         >
           <b
@@ -43,7 +43,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
           data-cy="task-metadata-project"
         >
           <b
@@ -67,7 +67,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -82,7 +82,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -101,7 +101,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -126,7 +126,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
           data-cy="task-metadata-command"
         >
           <b
@@ -138,7 +138,7 @@
           Long description that requires use of the inline definition component. This would include details ab...
            
           <span
-            class="leafygreen-ui-cssveg leafygreen-ui-1u6ruom"
+            class="leafygreen-ui-vm4wms"
             tabindex="0"
           >
             <small
@@ -146,6 +146,9 @@
             >
               more
             </small>
+            <span
+              class="leafygreen-ui-38lglc"
+            />
           </span>
         </p>
       </span>
@@ -153,7 +156,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <div
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <span
             class="leafygreen-ui-38lglc"
@@ -166,13 +169,12 @@
             >
               Test Selection:
             </b>
-            <span
+            <button
               aria-disabled="true"
               aria-label="more info"
-              class="leafygreen-ui-cssveg leafygreen-ui-1lho5c2"
+              class="leafygreen-ui-1vktzzb"
               data-testid="info-sprinkle-icon"
-              role="button"
-              tabindex="0"
+              type="button"
             >
               <svg
                 aria-hidden="true"
@@ -190,7 +192,10 @@
                   fill-rule="evenodd"
                 />
               </svg>
-            </span>
+              <span
+                class="leafygreen-ui-38lglc"
+              />
+            </button>
             <div
               class="leafygreen-ui-sti25g"
             >
@@ -205,7 +210,7 @@
     >
       <div>
         <p
-          class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+          class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
         >
           Host Information
         </p>
@@ -217,7 +222,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -241,7 +246,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -264,7 +269,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -287,7 +292,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
           data-cy="task-metadata-ami"
         >
           <b
@@ -303,7 +308,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <a
             class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
@@ -321,7 +326,7 @@
       class="emotion-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
     >
       <p
-        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
       >
         Tags
       </p>
@@ -384,16 +389,19 @@
             data-testid="chip-text"
           >
             <span
-              class="leafygreen-ui-cssveg lg-ui-chip-inline-definition-0000 leafygreen-ui-1u6ruom"
+              class="lg-ui-chip-inline-definition-0000 leafygreen-ui-vm4wms"
               tabindex="0"
             >
               waiting_for_next_investigat…
+              <span
+                class="leafygreen-ui-38lglc"
+              />
             </span>
           </span>
         </span>
       </div>
       <p
-        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
       >
         Failure Metadata Tags
       </p>

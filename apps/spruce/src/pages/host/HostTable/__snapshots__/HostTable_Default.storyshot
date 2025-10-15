@@ -6,7 +6,7 @@
       class="emotion-TableTitle e1p1q3sw1"
     >
       <h6
-        class="leafygreen-ui-19p3n10"
+        class="leafygreen-ui-1c32734"
       >
         Recent Events
       </h6>
@@ -99,8 +99,8 @@
           data-testid="lg-select"
         >
           <button
-            aria-controls="select-9-menu"
-            aria-describedby="select-9-description"
+            aria-controls="select-143-menu"
+            aria-describedby="select-143-description"
             aria-disabled="false"
             aria-expanded="false"
             aria-invalid="false"
@@ -109,7 +109,7 @@
             data-cy="host-event-table-page-size-selector"
             data-lgid="lg-select-trigger"
             data-testid="leafygreen-ui-select-menubutton"
-            id="select-10"
+            id="select-144"
             type="button"
             value="10"
           >
@@ -239,6 +239,9 @@
                       </svg>
                     </div>
                   </button>
+                  <span
+                    class="leafygreen-ui-38lglc"
+                  />
                 </div>
               </div>
             </th>
