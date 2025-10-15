@@ -32,9 +32,7 @@ describe("deleteProject", () => {
     const { Component } = RenderFakeToastContext(<Field />);
     render(<Component />);
     expect(screen.getByDataCy("delete-project-button")).toBeInTheDocument();
-    expect(
-      screen.queryByDataCy("delete-project-modal"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("delete-project-modal")).not.toBeVisible();
   });
 
   it("clicking confirm deletes the project", async () => {

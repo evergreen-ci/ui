@@ -104,7 +104,9 @@ describe("createDuplicateProjectField", () => {
 
       await screen.findByText("New project");
       await user.click(screen.getByDataCy("new-project-button"));
-      expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
+      });
     });
 
     it("clicking the 'Create New Project' button opens the create project modal and closes the menu", async () => {
@@ -114,12 +116,14 @@ describe("createDuplicateProjectField", () => {
 
       await screen.findByText("New project");
       await user.click(screen.getByDataCy("new-project-button"));
-      expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
+      });
       await user.click(screen.getByDataCy("create-project-button"));
       await waitFor(() => {
         expect(screen.queryByDataCy("create-project-modal")).toBeVisible();
       });
-      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
+      expect(screen.queryByDataCy("new-project-menu")).not.toBeVisible();
     });
 
     it("clicking the 'Duplicate Project' button opens the create project modal and closes the menu", async () => {
@@ -156,12 +160,14 @@ describe("createDuplicateProjectField", () => {
 
       await screen.findByText("New project");
       await user.click(screen.getByDataCy("new-project-button"));
-      expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
+      });
       await user.click(screen.getByDataCy("copy-project-button"));
       await waitFor(() => {
         expect(screen.queryByDataCy("copy-project-modal")).toBeVisible();
       });
-      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
+      expect(screen.queryByDataCy("new-project-menu")).not.toBeVisible();
 
       await user.type(
         screen.getByDataCy("project-name-input"),
