@@ -6,16 +6,15 @@ type Props = Omit<ButtonProps, "isLoading"> & {
   loading?: boolean;
 };
 
-export const LoadingButton: ExtendableBox<
-  Props & { ref?: React.Ref<any> },
-  "button"
-> = forwardRef(({ loading = false, ...rest }: Props, ref) => (
-  <LeafyGreenButton
-    ref={ref}
-    isLoading={loading}
-    loadingIndicator={<Spinner />}
-    {...rest}
-  />
-));
+export const LoadingButton = forwardRef<HTMLDivElement, Props>(
+  ({ loading = false, ...rest }, ref) => (
+    <LeafyGreenButton
+      ref={ref}
+      isLoading={loading}
+      loadingIndicator={<Spinner />}
+      {...rest}
+    />
+  ),
+);
 
 LoadingButton.displayName = "LoadingButton";

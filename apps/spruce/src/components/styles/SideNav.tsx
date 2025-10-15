@@ -6,7 +6,7 @@ import {
   SideNavItemProps as LGSideNavItemProps,
   SideNavGroup as LGSideNavGroup,
 } from "@leafygreen-ui/side-nav";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -41,7 +41,7 @@ export const SideNavItemLink: React.FC<SideNavItemProps> = ({
 const StyledSideNavItemLink = styled(LGSideNavItem)<SideNavItemProps>`
   color: ${blue.base};
 `;
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   color: ${blue.base};
   margin-right: ${size.xxs};
 `;

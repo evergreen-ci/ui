@@ -77,7 +77,7 @@ const TextInputWithValidation = forwardRef<
   return (
     <TextInputWithGlyph
       ref={ref}
-      aria-label={ariaLabel}
+      aria-label={ariaLabel ?? ""}
       disabled={disabled}
       icon={
         isValid ? (
