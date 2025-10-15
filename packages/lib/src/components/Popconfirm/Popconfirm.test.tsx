@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import Popconfirm from ".";
 
 describe("controlled popconfirm", () => {
@@ -70,7 +70,9 @@ describe("uncontrolled popconfirm", () => {
       </Popconfirm>,
     );
     await user.click(screen.getByRole("button", { name: "Open" }));
-    expect(screen.getByText("hello")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByText("hello")).toBeVisible();
+    });
     await user.click(screen.getByRole("button", { name: "Open" }));
     expect(onClose).toHaveBeenCalledTimes(1);
     expect(screen.getByText("hello")).not.toBeVisible();

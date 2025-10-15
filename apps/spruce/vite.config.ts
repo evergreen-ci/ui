@@ -83,7 +83,10 @@ const getProjectConfig = () => {
       // Use emotion jsx tag instead of React.JSX
       react({
         babel: {
-          plugins: ["import-graphql"],
+          // @emotion/babel-plugin injects styled component names (e.g. "StyledSelect") into HTML for dev
+          // environments only. It can be toggled for production environments by modifying the parameter
+          // autoLabel. (https://emotion.sh/docs/@emotion/babel-plugin)
+          plugins: ["@emotion/babel-plugin", "import-graphql"],
         },
         // exclude storybook stories
         exclude: [/\.stories\.tsx?$/],

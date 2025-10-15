@@ -41,7 +41,9 @@ describe("time picker", () => {
     );
     const iconButton = screen.getByRole("button", { name: "Clock Icon" });
     await user.click(iconButton);
-    expect(screen.getByDataCy("time-picker-options")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByDataCy("time-picker-options")).toBeVisible();
+    });
     await user.click(iconButton);
     await waitForElementToBeRemoved(
       screen.queryByDataCy("time-picker-options"),
@@ -68,7 +70,9 @@ describe("time picker", () => {
     const iconButton = screen.getByRole("button", { name: "Clock Icon" });
     await user.click(iconButton);
     const menuOptions = screen.getByDataCy("time-picker-options");
-    expect(menuOptions).toBeVisible();
+    await waitFor(() => {
+      expect(menuOptions).toBeVisible();
+    });
 
     // Wait for scroll to be called when the menu opens.
     await waitFor(() => {
