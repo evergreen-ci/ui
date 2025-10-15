@@ -161,20 +161,6 @@ const schema = {
   },
 };
 
-const radioStyles = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: ${size.xs};
-  margin-bottom: 0;
-`;
-
-const radioUISchema = {
-  "ui:widget": "radio",
-  "ui:inline": true,
-  "ui:elementWrapperCSS": radioStyles,
-};
-
 const zebraCSS = css`
   width: 450px;
   > fieldset > div {
@@ -187,6 +173,18 @@ const zebraCSS = css`
   }
   margin-bottom: ${size.s};
 `;
+
+const radioUISchema = {
+  "ui:widget": "radio",
+  "ui:inline": true,
+  "ui:elementWrapperCSS": css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: ${size.xs};
+    margin-bottom: 0;
+  `,
+};
 
 const uiSchema = {
   slackUsername: {
