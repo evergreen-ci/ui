@@ -166,7 +166,7 @@ const radioStyles = css`
   justify-content: space-between;
   align-items: center;
   padding: ${size.xs};
-  margin-bottom: 0px;
+  margin-bottom: 0;
 `;
 
 const radioUISchema = {
@@ -189,11 +189,15 @@ const zebraCSS = css`
 `;
 
 const uiSchema = {
-  slackUsername: { "ui:placeholder": "e.g. john.smith" },
+  slackUsername: {
+    "ui:placeholder": "e.g. john.smith",
+    "ui:data-cy": "slack-username-field",
+  },
   slackMemberId: {
     "ui:description":
       "Click on the three dots next to 'set a status' in your Slack profile, and then 'Copy member ID'.",
     "ui:placeholder": "e.g. U12345678",
+    "ui:data-cy": "slack-member-id-field",
   },
   notifications: {
     "ui:fieldCss": zebraCSS,

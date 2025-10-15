@@ -8,21 +8,17 @@ export const NotificationsTab: React.FC = () => {
   const { loading, userSettings } = useUserSettings();
   const { notifications, slackMemberId, slackUsername } = userSettings ?? {};
 
-  if (loading) {
+  if (loading || !userSettings) {
     return <CardSkeleton />;
-  }
-
-  if (!notifications || !slackMemberId || !slackUsername) {
-    return null;
   }
 
   return (
     <>
       <SettingsCard>
         <Settings
-          notifications={notifications}
-          slackMemberId={slackMemberId}
-          slackUsername={slackUsername}
+          notifications={notifications ?? {}}
+          slackMemberId={slackMemberId ?? ""}
+          slackUsername={slackUsername ?? ""}
         />
       </SettingsCard>
       <UserSubscriptions />
