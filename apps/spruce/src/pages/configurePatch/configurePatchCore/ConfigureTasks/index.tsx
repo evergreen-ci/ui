@@ -8,9 +8,9 @@ import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
 import { CharKey } from "@evg-ui/lib/constants/keys";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
 import TextInput from "components/TextInputWithValidation";
 import { VariantTask } from "gql/generated/types";
-import useKeyboardShortcut from "hooks/useKeyboardShortcut";
 import { validateRegexp } from "utils/validators";
 import {
   AliasState,

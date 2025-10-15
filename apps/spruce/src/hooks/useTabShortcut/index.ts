@@ -1,5 +1,5 @@
 import { CharKey } from "@evg-ui/lib/constants/keys";
-import useKeyboardShortcut from "hooks/useKeyboardShortcut";
+import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
 
 interface Props {
   setSelectedTab: (n: number) => void;

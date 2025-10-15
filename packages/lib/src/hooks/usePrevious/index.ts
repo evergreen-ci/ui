@@ -1,14 +1,40 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useReducer } from "react";
+
+interface State<T> {
+  current: T;
+  previous: T | undefined;
+}
+
+type Action<T> = {
+  type: "UPDATE";
+  payload: T;
+};
 
 /**
- * `usePrevious` is a hook that returns the previous value of a state.
- * @param state - the state to track
- * @returns the previous value of the state
+ * Reducer function to manage previous and current state values
+ * @param state - The current state containing current and previous values
+ * @param action - The action to dispatch with new payload
+ * @returns Updated state with new current value and previous value preserved
  */
+function reducer<T>(state: State<T>, action: Action<T>): State<T> {
+  if (action.type === "UPDATE" && action.payload !== state.current) {
+    return {
+      current: action.payload,
+      previous: state.current,
+    };
+  }
+  return state;
+}
+
 export const usePrevious = <T>(state: T): T | undefined => {
-  const ref = useRef<T>();
+  const [{ previous }, dispatch] = useReducer(reducer<T>, {
+    current: state,
+    previous: undefined,
+  });
+
   useEffect(() => {
-    ref.current = state;
+    dispatch({ payload: state, type: "UPDATE" });
   }, [state]);
-  return ref.current;
+
+  return previous;
 };

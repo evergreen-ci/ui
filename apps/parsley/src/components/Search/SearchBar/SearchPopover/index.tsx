@@ -13,7 +13,7 @@ import {
 import Icon from "@evg-ui/lib/components/Icon";
 import { CharKey } from "@evg-ui/lib/constants/keys";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
-import useOnClickOutside from "hooks/useOnClickOutside";
+import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";
 import { SearchSuggestionGroup } from "./types";
 
 const { blue, gray } = palette;

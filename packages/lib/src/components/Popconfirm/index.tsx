@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Tooltip, { TooltipProps } from "@leafygreen-ui/tooltip";
@@ -34,27 +34,28 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
 
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      popoverRef.current &&
-      !popoverRef.current.contains(event.target as Node) &&
-      (!refEl ||
-        (refEl &&
-          refEl instanceof HTMLElement &&
-          refEl.contains(event.target as Node)))
-    ) {
-      onClose();
-      setOpen(false);
-    }
-  };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(event.target as Node) &&
+        (!refEl ||
+          (refEl &&
+            refEl instanceof HTMLElement &&
+            refEl.contains(event.target as Node)))
+      ) {
+        onClose();
+        setOpen(false);
+      }
+    };
 
-  if (typeof window !== "undefined") {
-    if (open) {
+    if (typeof window !== "undefined" && open) {
       document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
     }
-  }
+  }, [open, onClose, setOpen, refEl]);
 
   return (
     <Tooltip
