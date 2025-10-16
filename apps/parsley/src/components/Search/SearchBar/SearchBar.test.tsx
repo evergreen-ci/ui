@@ -77,8 +77,12 @@ describe("searchbar", () => {
     const input = screen.getByDataCy("searchbar-input");
     await user.type(input, "test");
     expect(input).toHaveValue("test");
-    expect(screen.queryByDataCy("searchbar-error")).toBeVisible();
-    expect(screen.queryByDataCy("searchbar-submit")).toBeNull();
+    const { isError } = getTestUtils();
+    expect(isError()).toBe(true);
+    expect(screen.queryByDataCy("searchbar-submit")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
     expect(onSubmit).not.toHaveBeenCalled();
   });
   it("invalid inputs should not submit", async () => {
