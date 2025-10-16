@@ -7,7 +7,7 @@ import { size, textInputHeight } from "../../constants/tokens";
 const { gray } = palette;
 
 export type TextInputWithGlyphProps = {
-  icon: React.ReactElement;
+  icon?: React.ReactElement;
   persistentPlaceholder?: React.ReactNode;
 } & TextInputProps;
 
@@ -24,7 +24,7 @@ export const TextInputWithGlyph = forwardRef<
         </PersistentPlaceholder>
       )}
       <TextInput ref={ref} {...rest} />
-      <IconWrapper>{icon}</IconWrapper>
+      {icon && <IconWrapper>{icon}</IconWrapper>}
     </TextInputWrapper>
   );
 });

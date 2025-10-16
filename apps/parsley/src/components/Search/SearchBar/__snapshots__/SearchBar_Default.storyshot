@@ -70,7 +70,7 @@
       class="emotion-InputWrapper etjwcg12"
     >
       <div
-        class="emotion-IconButtonWrapper etjwcg10"
+        class="emotion-IconButtonWrapper-SearchBar etjwcg10"
       >
         <button
           aria-disabled="false"
@@ -193,20 +193,27 @@
               data-lgid="lg-text_input-error_message"
               data-testid="lg-text_input-error_message"
             >
-              This input needs your attention
+              Invalid input
             </p>
           </div>
         </div>
-        <div
-          class="emotion-IconWrapper e17optw10"
+      </div>
+      <div
+        class="emotion-IconButtonWrapper-SearchBar etjwcg10"
+      >
+        <button
+          aria-disabled="true"
+          aria-label="Select plus"
+          class="leafygreen-ui-1dt4k34"
+          data-cy="searchbar-submit"
+          tabindex="0"
         >
           <div
-            class="leafygreen-ui-cssveg"
-            data-cy="searchbar-error"
+            class="leafygreen-ui-xhlipt"
           >
             <svg
-              aria-label="Warning Icon"
-              class="leafygreen-ui-1xsx4zj"
+              aria-label="Plus Icon"
+              class=""
               fill="none"
               height="16"
               role="img"
@@ -216,16 +223,13 @@
             >
               <path
                 clip-rule="evenodd"
-                d="M8.864 1.514a.983.983 0 0 0-1.728 0L1.122 12.539A.987.987 0 0 0 1.986 14h12.028a.987.987 0 0 0 .864-1.461zM7 5a1 1 0 0 1 2 0v4a1 1 0 0 1-2 0zm2 7a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
+                d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1z"
                 fill="currentColor"
                 fill-rule="evenodd"
               />
             </svg>
-            <span
-              class="leafygreen-ui-38lglc"
-            />
           </div>
-        </div>
+        </button>
       </div>
     </div>
   </div>

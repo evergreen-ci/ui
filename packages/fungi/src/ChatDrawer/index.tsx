@@ -44,6 +44,9 @@ const StyledDrawer = styled(Drawer)`
       > div:nth-of-type(2) {
         > div {
           height: 100%;
+          > div {
+            height: 100%;
+          }
         }
       }
     }
