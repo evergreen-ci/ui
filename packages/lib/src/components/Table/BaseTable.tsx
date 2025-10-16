@@ -231,12 +231,10 @@ const TableHeaderCell = <T extends LGRowData>({
                 : meta.treeSelect.options
             }
             value={
-              header?.column?.getFilterValue()
-                ? (conditionalToArray(
-                    header?.column?.getFilterValue(),
-                    true,
-                  ) as string[])
-                : []
+              conditionalToArray(
+                header?.column?.getFilterValue() ?? [],
+                true,
+              ) as string[]
             }
           />
         ) : (
