@@ -23,7 +23,9 @@ export type ChatFeedProps = {
   handleRatingChange?: (
     spanId: string,
   ) => MessageActionsProps["onRatingChange"];
+  onClickCopy?: MessageActionsProps["onClickCopy"];
   onClickSuggestion?: (suggestion: string) => void;
+  onSendMessage?: (message: string) => void;
 };
 
 export const ChatFeed: React.FC<ChatFeedProps> = ({
@@ -33,7 +35,9 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   disclaimerContent,
   handleRatingChange,
   handleSubmitFeedback,
+  onClickCopy,
   onClickSuggestion,
+  onSendMessage,
 }) => {
   const { appName } = useChatContext();
   const { error, messages, sendMessage, status } = useChat<FungiUIMessage>({
@@ -53,6 +57,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   });
 
   const handleSend = (message: string) => {
+    onSendMessage?.(message);
     sendMessage({ text: message });
   };
 
@@ -85,6 +90,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
               return (
                 <MessageRenderer
                   key={m.id}
+                  onClickCopy={onClickCopy}
                   onRatingChange={
                     spanId ? handleRatingChange?.(spanId) : undefined
                   }

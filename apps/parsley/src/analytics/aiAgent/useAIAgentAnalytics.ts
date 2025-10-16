@@ -9,6 +9,22 @@ type Action =
   | {
       name: "Clicked suggestion";
       suggestion: string;
+    }
+  | {
+      name: "Used AI agent";
+      message: string;
+    }
+  | {
+      name: "Toggled AI agent panel";
+    }
+  | {
+      name: "Clicked submit feedback button";
+    }
+  | {
+      name: "Clicked submit rating button";
+    }
+  | {
+      name: "Clicked copy response button";
     };
 
 export const useAIAgentAnalytics = () =>
