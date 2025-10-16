@@ -44,7 +44,7 @@ describe("distro select", () => {
       expect(screen.getByRole("listbox")).toBeVisible();
     });
     await user.click(screen.getByText("abc"));
-    expect(screen.queryByDataCy("distro-select-options")).toBeNull();
+    expect(screen.queryByRole("listbox")).not.toBeVisible();
     expect(router.state.location.pathname).toBe("/distro/abc/settings/general");
   });
 
