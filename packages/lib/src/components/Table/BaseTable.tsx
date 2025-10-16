@@ -26,6 +26,7 @@ import {
   ExpandedContentProps,
 } from "@leafygreen-ui/table";
 import { tableColumnOffset, size } from "../../constants/tokens";
+import { conditionalToArray } from "../../utils/array";
 import { TreeDataEntry } from "../TreeSelect";
 import TableLoader from "./TableLoader";
 import TableFilterPopover from "./TablePopover/TableFilterPopover";
@@ -229,7 +230,12 @@ const TableHeaderCell = <T extends LGRowData>({
                   )
                 : meta.treeSelect.options
             }
-            value={(header?.column?.getFilterValue() as string[]) ?? []}
+            value={
+              conditionalToArray(
+                header?.column?.getFilterValue() ?? [],
+                true,
+              ) as string[]
+            }
           />
         ) : (
           <TableSearchPopover
