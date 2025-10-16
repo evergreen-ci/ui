@@ -5,16 +5,14 @@
     <div
       class="emotion-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
     >
-      <div>
-        <p
-          class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
-        >
-          Example Metadata Card
-        </p>
-        <hr
-          class="emotion-Divider eb6szep0"
-        />
-      </div>
+      <p
+        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
+      >
+        Example Metadata Card
+      </p>
+      <hr
+        class="emotion-Divider eb6szep0"
+      />
       <span
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
