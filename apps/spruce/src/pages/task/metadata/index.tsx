@@ -15,7 +15,6 @@ import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
 } from "constants/externalResources/honeycomb";
-import { showTestSelectionUI } from "constants/featureFlags";
 import {
   getDistroSettingsRoute,
   getTaskQueueRoute,
@@ -333,8 +332,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </MetadataItem>
         )}
         {stepback && <Stepback taskId={taskId} />}
-        {/* Remove when the feature is ready for release in DEVPROD-22837. */}
-        {showTestSelectionUI && testSelectionEnabledForProject && (
+        {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
 
