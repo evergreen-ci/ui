@@ -24,12 +24,16 @@ const MetadataCard: React.FC<Props> = ({
   ...rest
 }) => (
   <SiderCard {...rest}>
-    {typeof title === "string" ? (
-      <MetadataCardTitle weight="medium">{title}</MetadataCardTitle>
-    ) : (
-      title
+    {title && (
+      <>
+        {typeof title === "string" ? (
+          <MetadataCardTitle weight="medium">{title}</MetadataCardTitle>
+        ) : (
+          title
+        )}
+        <Divider />
+      </>
     )}
-    <Divider />
     {loading && !error && <ListSkeleton />}
     {error && !loading && (
       <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
