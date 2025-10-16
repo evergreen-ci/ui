@@ -73,7 +73,7 @@ describe("uncontrolled popconfirm", () => {
     await waitFor(() => {
       expect(screen.getByText("hello")).toBeVisible();
     });
-    await user.click(screen.getByRole("button", { name: "Open" }));
+    await user.click(screen.getByRole("button", { name: /Open/i }));
     expect(onClose).toHaveBeenCalledTimes(1);
     expect(screen.getByText("hello")).not.toBeVisible();
   });
