@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -16,8 +16,8 @@ import { REMOVE_PUBLIC_KEY } from "gql/mutations";
 import { EditModal } from "./EditModal";
 
 interface ActionButtonsProps {
-  publicKey: PublicKey;
   myPublicKeys: PublicKey[];
+  publicKey: PublicKey;
 }
 
 export const ActionButtons: React.FC<ActionButtonsProps> = ({
@@ -46,7 +46,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
         data-cy="edit-btn"
         leftGlyph={<Icon glyph="Edit" />}
         onClick={() => setVisible(true)}
-        size="small"
+        size={ButtonSize.Small}
       />
       <EditModal
         initialPublicKey={publicKey}
@@ -64,7 +64,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
           <Button
             data-cy="delete-btn"
             disabled={loadingRemovePublicKey}
-            size="small"
+            size={ButtonSize.Small}
           >
             <Icon glyph="Trash" />
           </Button>
