@@ -1,6 +1,6 @@
 {
   "name": "parsley",
-  "version": "3.0.61",
+  "version": "3.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -50,7 +50,7 @@
     "@leafygreen-ui/badge": "^10.0.4",
     "@leafygreen-ui/button": "^21.0.6",
     "@leafygreen-ui/card": "^10.0.5",
-    "@leafygreen-ui/checkbox": "^13.1.2",
+    "@leafygreen-ui/checkbox": "^18.0.4",
     "@leafygreen-ui/confirmation-modal": "^10.1.0",
     "@leafygreen-ui/copyable": "^8.1.0",
     "@leafygreen-ui/emotion": "^4.0.7",
