@@ -42,7 +42,7 @@ describe("Slack notification banner", () => {
     cy.get('input[name="Patch finish"][data-label="Slack"]').should(
       "be.checked",
     );
-    cy.get('input[name="Patch first failure"][data-label="Slack"]').should(
+    cy.get('input[name="Patch first task failure"][data-label="Slack"]').should(
       "be.checked",
     );
   });
