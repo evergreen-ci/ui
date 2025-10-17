@@ -14,8 +14,7 @@ import MetadataCard, {
 import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
-} from "constants/externalResources";
-import { showTestSelectionUI } from "constants/featureFlags";
+} from "constants/externalResources/honeycomb";
 import {
   getDistroSettingsRoute,
   getTaskQueueRoute,
@@ -38,6 +37,7 @@ import RuntimeTimer from "./RuntimeTimer";
 import { Stepback, isInStepback } from "./Stepback";
 import TagsMetadata from "./TagsMetadata";
 import TaskOwnership from "./TaskOwnership";
+import { TaskTimingMetadata } from "./TaskTiming";
 import { TestSelection } from "./TestSelection";
 
 const { red } = palette;
@@ -332,8 +332,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </MetadataItem>
         )}
         {stepback && <Stepback taskId={taskId} />}
-        {/* Remove when the feature is ready for release in DEVPROD-22837. */}
-        {showTestSelectionUI && testSelectionEnabledForProject && (
+        {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
 
@@ -378,6 +377,14 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </MetadataItem>
         )}
       </MetadataCard>
+
+      {projectIdentifier && !isDisplayTask && (
+        <TaskTimingMetadata
+          buildVariant={task.buildVariant}
+          projectIdentifier={projectIdentifier}
+          taskName={task.displayName}
+        />
+      )}
 
       {!isDisplayTask && (
         <MetadataCard loading={loading} title="Host Information">

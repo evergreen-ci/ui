@@ -99,8 +99,8 @@
           data-testid="lg-select"
         >
           <button
-            aria-controls="select-9-menu"
-            aria-describedby="select-9-description"
+            aria-controls="select-14-menu"
+            aria-describedby="select-14-description"
             aria-disabled="false"
             aria-expanded="false"
             aria-invalid="false"
@@ -109,7 +109,7 @@
             data-cy="host-event-table-page-size-selector"
             data-lgid="lg-select-trigger"
             data-testid="leafygreen-ui-select-menubutton"
-            id="select-10"
+            id="select-15"
             type="button"
             value="10"
           >

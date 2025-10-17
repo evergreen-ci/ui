@@ -46,7 +46,7 @@ export const getFormSchema = ({
     defaultEnabled: {
       "ui:widget": widgets.RadioBoxWidget,
       "ui:description":
-        "If enabled, all tasks run with test selection enabled by default.",
+        "If enabled, all tasks in patches run with test selection enabled by default.",
       ...(!canEnableTaskLevel && {
         "ui:warnings": [
           "This setting will only have an effect if test selection is enabled for the project.",
