@@ -9,6 +9,7 @@ const {
   validateNoStartingOrTrailingWhitespace,
   validatePercentage,
   validateRegexp,
+  validateSSHPublicKey,
   validateSlack,
   validateURL,
   validateURLTemplate,
@@ -28,4 +29,5 @@ export const customFormats = (jiraHost: string) => ({
   validSlack: validateSlack,
   validURL: validateURL,
   validURLTemplate: validateURLTemplate,
+  validSSHPublicKey: validateSSHPublicKey,
 });
