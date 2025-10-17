@@ -35,8 +35,9 @@
                 class="emotion-ElementWrapper ee4bs9n0"
               >
                 <label
-                  class="leafygreen-ui-ms04bw"
-                  data-lgid="lg-label"
+                  class="leafygreen-ui-vk2fo1"
+                  data-lgid="lg-typography-label"
+                  data-testid="lg-typography-label"
                   for="root_nextRunTime"
                 >
                   Next Run Time
@@ -54,7 +55,7 @@
                       class="leafygreen-ui-1iyoj2o"
                     />
                     <div
-                      aria-controls="lg-date-picker-menu-7"
+                      aria-controls="lg-date-picker-menu-117"
                       aria-expanded="false"
                       aria-invalid="false"
                       aria-label="date-picker"
@@ -70,7 +71,7 @@
                           aria-disabled="false"
                           aria-invalid="false"
                           class="leafygreen-ui-188k96w lg-ui-form-field-input-0000"
-                          id="lg-form_field-input-6"
+                          id="lg-form_field-input-116"
                         >
                           <input
                             aria-label="year"
@@ -179,7 +180,7 @@
                       class="leafygreen-ui-11ydt2g"
                       data-lgid="lg-form_field-feedback"
                       data-testid="lg-form_field-feedback"
-                      id="lg-form_field-feedback-5"
+                      id="lg-form_field-feedback-115"
                     />
                   </div>
                   <span
@@ -189,6 +190,8 @@
                     aria-label="Time picker form"
                     class="leafygreen-ui-1br9h7w"
                     data-cy="time-picker"
+                    data-lgid="lg-form_field"
+                    data-testid="lg-form_field"
                   >
                     <div
                       class="leafygreen-ui-1iyoj2o"
@@ -207,7 +210,7 @@
                           aria-invalid="false"
                           aria-label="Time picker form"
                           class="lg-ui-form-field-input-0000 emotion-ContentWrapper e9c2bxn0"
-                          id="lg-form_field-input-4"
+                          id="lg-form_field-input-121"
                         >
                           <input
                             class="emotion-StyledInput evefz8k0"
@@ -273,9 +276,12 @@
                       class="leafygreen-ui-11ydt2g"
                       data-lgid="lg-form_field-feedback"
                       data-testid="lg-form_field-feedback"
-                      id="lg-form_field-feedback-3"
+                      id="lg-form_field-feedback-120"
                     />
                   </div>
+                  <span
+                    class="leafygreen-ui-38lglc"
+                  />
                 </div>
               </div>
             </div>

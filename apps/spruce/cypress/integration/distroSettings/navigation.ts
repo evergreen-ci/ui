@@ -7,7 +7,7 @@ describe("distroSettings/navigation", () => {
     it("navigates to distro when clicked", () => {
       cy.dataCy("distro-select").should("be.visible").click();
       cy.contains("Admin-only").should("exist");
-      cy.get(".distro-select-options").within(() => {
+      cy.get("[role='listbox']").within(() => {
         cy.get("li").last().contains("localhost2");
         cy.contains("rhel71-power8-large").click();
       });

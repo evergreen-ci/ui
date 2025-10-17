@@ -6,6 +6,7 @@ import {
   stubGetClientRects,
   userEvent,
   within,
+  waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { defaultSleepSchedule } from "components/Spawn/utils";
@@ -180,11 +181,15 @@ describe("editSpawnHostModal", () => {
           expect(day).not.toBeDisabled();
         });
 
-      const hourInput = screen.getAllByDataCy("hour-input")[0];
-      await user.click(hourInput);
-      const hourOptions = screen.getByDataCy("hour-options");
-      await user.click(within(hourOptions).getByText("07"));
-      expect(hourInput).toHaveValue("07");
+      await user.click(screen.getAllByDataCy("hour-input")[0]);
+      await waitFor(() => {
+        expect(screen.getByDataCy("hour-options")).toBeVisible();
+      });
+      await user.click(
+        within(screen.getByDataCy("hour-options")).getByText("07"),
+      );
+      await user.click(screen.getByDataCy("edit-spawn-host-modal"));
+      expect(screen.getAllByDataCy("hour-input")[0]).toHaveValue("07");
       expect(screen.queryByDataCy("host-uptime-details")).toHaveTextContent(
         "65",
       );

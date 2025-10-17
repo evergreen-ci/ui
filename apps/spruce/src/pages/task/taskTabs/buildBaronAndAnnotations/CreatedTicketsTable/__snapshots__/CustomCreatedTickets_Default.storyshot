@@ -1,6 +1,6 @@
 <div>
   <h6
-    class="emotion-TicketsTitle efcqne01 leafygreen-ui-19p3n10"
+    class="emotion-TicketsTitle efcqne01 leafygreen-ui-1c32734"
   >
     Create a New Ticket
   </h6>
@@ -26,10 +26,13 @@
           File ticket
         </div>
       </button>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
   </div>
   <h6
-    class="emotion-TicketsTitle efcqne01 leafygreen-ui-19p3n10"
+    class="emotion-TicketsTitle efcqne01 leafygreen-ui-1c32734"
   >
     Tickets Created From This Task
   </h6>

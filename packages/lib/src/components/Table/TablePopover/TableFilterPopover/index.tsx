@@ -3,6 +3,7 @@ import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import Popover, { Align, Justify } from "@leafygreen-ui/popover";
+import { Body } from "@leafygreen-ui/typography";
 import { useOnClickOutside } from "../../../../hooks";
 import { PopoverContainer } from "../../../styles/Popover";
 import { TreeDataEntry, TreeSelect } from "../../../TreeSelect";
@@ -39,8 +40,6 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
 
   return (
     <FilterWrapper>
-      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-      {/* @ts-ignore: LeafyGreen component throws JSX errors */}
       <IconButton
         ref={buttonRef}
         active={active}
@@ -62,7 +61,7 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
           {options.length > 0 ? (
             <TreeSelect onChange={onChange} state={value} tData={options} />
           ) : (
-            <span>No filters available.</span>
+            <Body>No filters available.</Body>
           )}
         </PopoverContainer>
       </Popover>

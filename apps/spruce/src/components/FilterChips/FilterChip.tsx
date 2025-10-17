@@ -3,7 +3,6 @@ import {
   TruncationLocation,
   Variant as ChipVariant,
 } from "@leafygreen-ui/chip";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 
 interface FilterChipType {
   key: string;
@@ -29,7 +28,6 @@ const FilterChip: React.FC<FilterChipProps> = ({
     data-cy="filter-chip"
     label={showValueOnly ? chip.value : `${chip.title}: ${chip.value}`}
     onDismiss={onClose}
-    popoverZIndex={zIndex.tooltip}
     variant={ChipVariant.Gray}
   />
 );

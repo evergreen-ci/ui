@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Popover from "@leafygreen-ui/popover";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { PopoverContainer } from "components/styles/Popover";
 
@@ -41,13 +41,7 @@ export const HostPopover: React.FC<Props> = ({
           {buttonText}
         </Button>
       </ButtonWrapper>
-      <Popover
-        active={active}
-        align="bottom"
-        data-cy={`${dataCy}-popover`}
-        justify="middle"
-        popoverZIndex={zIndex.popover}
-      >
+      <Popover active={active} align="bottom" data-cy={`${dataCy}-popover`}>
         <PopoverContainer ref={popoverRef}>
           {titleText}
 

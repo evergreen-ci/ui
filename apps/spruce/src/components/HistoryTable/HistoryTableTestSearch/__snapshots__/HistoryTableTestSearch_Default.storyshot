@@ -12,16 +12,17 @@
           aria-label="history-table-test-search-input"
           class="leafygreen-ui-1br9h7w"
           data-lgid="lg-text_input"
+          data-testid="lg-text_input"
         >
           <div
             class="leafygreen-ui-au9iil"
           >
             <label
-              class="leafygreen-ui-6bdaia"
-              data-lgid="lg-label"
-              data-testid="lg-form_field-label"
-              for="lg-form_field-input-36"
-              id="lg-form_field-label-33"
+              class="leafygreen-ui-15qqekb"
+              data-lgid="lg-text_input-label"
+              data-testid="lg-text_input"
+              for="lg-form_field-input-70"
+              id="lg-form_field-label-67"
             >
               Filter by Failed Tests
             </label>
@@ -36,10 +37,10 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-33"
+                aria-labelledby="lg-form_field-label-67"
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                id="lg-form_field-input-36"
+                id="lg-form_field-input-70"
                 placeholder="Search test name regex"
                 required=""
                 type="search"
@@ -51,9 +52,9 @@
             aria-live="polite"
             aria-relevant="all"
             class="leafygreen-ui-11ydt2g"
-            data-lgid="lg-form_field-feedback"
-            data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-35"
+            data-lgid="lg-text_input-feedback"
+            data-testid="lg-text_input-feedback"
+            id="lg-form_field-feedback-69"
           />
         </div>
         <div

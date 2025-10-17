@@ -46,7 +46,9 @@ describe("image select", () => {
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     await user.click(screen.getByLabelText("Images"));
-    expect(screen.getByRole("listbox")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByRole("listbox")).toBeVisible();
+    });
     await user.click(screen.getByText("amazon2"));
     expect(router.state.location.pathname).toBe(
       "/image/amazon2/build-information",
@@ -65,7 +67,9 @@ describe("image select", () => {
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     await user.click(screen.getByLabelText("Images"));
-    expect(screen.getByRole("listbox")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByRole("listbox")).toBeVisible();
+    });
 
     expect(screen.getAllByRole("option")).toHaveLength(3);
     await user.clear(screen.getByPlaceholderText("Select an image"));

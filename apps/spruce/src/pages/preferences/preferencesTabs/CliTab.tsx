@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { InlineCode, InlineCodeProps } from "@leafygreen-ui/typography";
+import { InlineCode } from "@leafygreen-ui/typography";
 import {
   DownloadCard,
   AuthenticationCard,
@@ -13,7 +13,7 @@ export const CliTab = () => (
   </RelativeContainer>
 );
 
-const Code = styled(InlineCode)<InlineCodeProps>`
+const Code = styled(InlineCode)`
   font-size: inherit;
 `;
 

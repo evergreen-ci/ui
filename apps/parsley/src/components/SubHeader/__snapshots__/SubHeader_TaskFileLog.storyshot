@@ -32,6 +32,9 @@
           class="leafygreen-ui-cssveg"
         >
           some-file-name.log
+          <span
+            class="leafygreen-ui-38lglc"
+          />
         </div>
       </nav>
     </div>

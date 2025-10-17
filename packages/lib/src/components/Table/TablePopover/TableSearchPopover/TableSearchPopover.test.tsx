@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import TableSearchPopover from ".";
 
 describe("table search popover", () => {
@@ -16,7 +16,9 @@ describe("table search popover", () => {
       name: "Table Search Popover Icon",
     });
     await user.click(icon);
-    expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    });
   });
 
   it("shows value when supplied", async () => {
@@ -32,7 +34,9 @@ describe("table search popover", () => {
       name: "Table Search Popover Icon",
     });
     await user.click(icon);
-    expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    });
     const input = screen.getByPlaceholderText("Search");
     expect(input).toHaveValue("test_value");
   });
@@ -51,7 +55,9 @@ describe("table search popover", () => {
       name: "Table Search Popover Icon",
     });
     await user.click(icon);
-    expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    });
     const input = screen.getByPlaceholderText("Search");
     await user.type(input, "test_value{enter}");
     expect(input).toHaveValue("test_value");
@@ -72,7 +78,9 @@ describe("table search popover", () => {
       name: "Table Search Popover Icon",
     });
     await user.click(icon);
-    expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    });
     const input = screen.getByPlaceholderText("Search");
     expect(input).toHaveFocus();
   });
@@ -90,7 +98,9 @@ describe("table search popover", () => {
       name: "Table Search Popover Icon",
     });
     await user.click(icon);
-    expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    });
     const input = screen.getByPlaceholderText("Search");
     expect(input).toHaveSelection("test_value");
   });

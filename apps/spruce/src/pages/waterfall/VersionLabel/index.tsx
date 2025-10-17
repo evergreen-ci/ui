@@ -92,9 +92,9 @@ export const VersionLabel: React.FC<Props> = ({
         )}
       </HeaderLine>
       <UpstreamProjectLink commitType={commitType} versionId={id} />
-      {/* @ts-expect-error */}
       <CommitMessage
-        title={view === VersionLabelView.Waterfall ? message : null}
+        /* @ts-expect-error - the native title attribute works here */
+        title={view === VersionLabelView.Waterfall ? message : undefined}
         view={view}
       >
         <strong>{author}</strong> &bull;{" "}

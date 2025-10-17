@@ -1,32 +1,33 @@
 import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import TextInput, { TextInputProps } from "@leafygreen-ui/text-input";
+import { TextInput, TextInputProps } from "@leafygreen-ui/text-input";
 import { size, textInputHeight } from "../../constants/tokens";
 
 const { gray } = palette;
 
 export type TextInputWithGlyphProps = {
-  icon: React.ReactElement;
+  icon?: React.ReactElement;
   persistentPlaceholder?: React.ReactNode;
 } & TextInputProps;
 
-export const TextInputWithGlyph: React.FC<TextInputWithGlyphProps> = forwardRef(
-  (props, ref) => {
-    const { className, icon, persistentPlaceholder, ...rest } = props;
-    return (
-      <TextInputWrapper className={className}>
-        {persistentPlaceholder && (
-          <PersistentPlaceholder className="persistent-placeholder">
-            {persistentPlaceholder}
-          </PersistentPlaceholder>
-        )}
-        <TextInput ref={ref} {...rest} />
-        <IconWrapper>{icon}</IconWrapper>
-      </TextInputWrapper>
-    );
-  },
-);
+export const TextInputWithGlyph = forwardRef<
+  HTMLInputElement,
+  TextInputWithGlyphProps
+>((props, ref) => {
+  const { className, icon, persistentPlaceholder, ...rest } = props;
+  return (
+    <TextInputWrapper className={className}>
+      {persistentPlaceholder && (
+        <PersistentPlaceholder className="persistent-placeholder">
+          {persistentPlaceholder}
+        </PersistentPlaceholder>
+      )}
+      <TextInput ref={ref} {...rest} />
+      {icon && <IconWrapper>{icon}</IconWrapper>}
+    </TextInputWrapper>
+  );
+});
 
 TextInputWithGlyph.displayName = "TextInputWithGlyph";
 

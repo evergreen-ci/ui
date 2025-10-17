@@ -96,6 +96,9 @@
             </svg>
             Move to 
             suspected issues
+            <span
+              class="leafygreen-ui-38lglc"
+            />
           </div>
         </button>
         <button
@@ -129,6 +132,9 @@
                 fill-rule="evenodd"
               />
             </svg>
+            <span
+              class="leafygreen-ui-38lglc"
+            />
           </div>
         </button>
       </div>
@@ -227,6 +233,9 @@
             </svg>
             Move to 
             suspected issues
+            <span
+              class="leafygreen-ui-38lglc"
+            />
           </div>
         </button>
         <button
@@ -260,6 +269,9 @@
                 fill-rule="evenodd"
               />
             </svg>
+            <span
+              class="leafygreen-ui-38lglc"
+            />
           </div>
         </button>
       </div>

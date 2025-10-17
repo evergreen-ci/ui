@@ -215,13 +215,12 @@
               Open IDE (Deprecated)
             </span>
           </a>
-          <span
+          <button
             aria-disabled="true"
             aria-label="more info"
-            class="leafygreen-ui-cssveg leafygreen-ui-1lho5c2"
+            class="leafygreen-ui-1vktzzb"
             data-testid="info-sprinkle-icon"
-            role="button"
-            tabindex="0"
+            type="button"
           >
             <svg
               aria-hidden="true"
@@ -239,7 +238,10 @@
                 fill-rule="evenodd"
               />
             </svg>
-          </span>
+            <span
+              class="leafygreen-ui-38lglc"
+            />
+          </button>
         </div>
       </div>
     </div>

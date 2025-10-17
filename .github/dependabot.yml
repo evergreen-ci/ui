@@ -37,6 +37,10 @@ updates:
         applies-to: version-updates
         patterns:
           - "@graphql-codegen/*"
+      leafygreen:
+        applies-to: version-updates
+        patterns:
+          - "@leafygreen-ui/*"
       lg-chat:
         applies-to: version-updates
         patterns:

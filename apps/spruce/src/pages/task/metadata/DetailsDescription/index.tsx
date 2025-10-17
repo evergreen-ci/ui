@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { palette } from "@leafygreen-ui/palette";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import ExpandedText from "components/ExpandedText";
 import { MetadataItem, MetadataLabel } from "components/MetadataCard";
 import { TaskEndDetail } from "gql/generated/types";
@@ -44,7 +44,6 @@ const DetailsDescription = ({
               data-cy="task-metadata-command-tooltip"
               justify="end"
               message={description ?? ""}
-              popoverZIndex={zIndex.tooltip}
             />
           </>
         ) : (

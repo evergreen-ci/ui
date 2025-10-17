@@ -63,6 +63,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -139,6 +142,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -214,6 +220,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -433,7 +442,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -559,7 +569,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -685,7 +696,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -811,7 +823,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -937,7 +950,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -1063,7 +1077,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -1189,7 +1204,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -1315,7 +1331,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -1441,7 +1458,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -1567,7 +1585,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
