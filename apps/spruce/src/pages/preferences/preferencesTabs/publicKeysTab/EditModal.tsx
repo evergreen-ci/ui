@@ -43,7 +43,7 @@ export const EditModal: React.FC<EditModalProps> = ({
     UpdatePublicKeyMutationVariables
   >(UPDATE_PUBLIC_KEY, {
     onCompleted() {
-      dispatchToast.success("Successfully updated public key.");
+      dispatchToast.success("Updated public key.");
     },
     onError(error) {
       dispatchToast.error(
@@ -58,7 +58,7 @@ export const EditModal: React.FC<EditModalProps> = ({
     CreatePublicKeyMutationVariables
   >(CREATE_PUBLIC_KEY, {
     onCompleted() {
-      dispatchToast.success("Successfully created new public key.");
+      dispatchToast.success("Created new public key.");
     },
     onError(error) {
       dispatchToast.error(
