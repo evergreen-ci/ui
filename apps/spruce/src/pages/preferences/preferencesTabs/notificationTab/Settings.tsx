@@ -9,6 +9,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";
+import { notificationFields } from "constants/subscription";
 import {
   Notifications,
   UpdateUserSettingsMutation,
@@ -133,27 +134,27 @@ const schema = {
       properties: {
         buildBreak: {
           type: "string" as const,
-          title: "Build Break",
+          title: notificationFields.buildBreak,
           oneOf: notificationOptions,
         },
         patchFinish: {
           type: "string" as const,
-          title: "Patch Finish",
+          title: notificationFields.patchFinish,
           oneOf: notificationOptions,
         },
         patchFirstFailure: {
           type: "string" as const,
-          title: "Patch First Failure",
+          title: notificationFields.patchFirstFailure,
           oneOf: notificationOptions,
         },
         spawnHostExpiration: {
           type: "string" as const,
-          title: "Spawn Host Expiration",
+          title: notificationFields.spawnHostExpiration,
           oneOf: notificationOptions,
         },
         spawnHostOutcome: {
           type: "string" as const,
-          title: "Spawn Host Outcome",
+          title: notificationFields.spawnHostOutcome,
           oneOf: notificationOptions,
         },
       },
