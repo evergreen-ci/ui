@@ -23,25 +23,38 @@ const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
     undefined,
     urlParseOptions,
   );
-  const [changeVisible, setChangeVisible] = useState(false);
 
   const buttonRef = useRef<HTMLButtonElement>(null);
   const detailsMenuRef = useRef<HTMLDivElement>(null);
-  const firstUpdate = useRef(true);
+  const glowTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Don't show the change animation on the first render
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
+    // Only glow if we have actual range values (not initial undefined state)
+    // This naturally skips the first render when both values are undefined
+    if (lowerRange === undefined && upperRange === undefined) return;
+
     // If the DetailsMenu is already visible, don't show the change animation
     if (detailsMenuRef.current !== null) return;
-    setChangeVisible(true);
-    const timer = setTimeout(() => {
-      setChangeVisible(false);
+
+    const button = buttonRef.current;
+    if (!button) return;
+
+    // Clear any existing timeout
+    if (glowTimeoutRef.current) {
+      clearTimeout(glowTimeoutRef.current);
+    }
+
+    button.classList.add("glow-active");
+    glowTimeoutRef.current = setTimeout(() => {
+      button.classList.remove("glow-active");
     }, 2000);
-    return () => clearTimeout(timer);
+
+    return () => {
+      if (glowTimeoutRef.current) {
+        clearTimeout(glowTimeoutRef.current);
+      }
+      button.classList.remove("glow-active");
+    };
   }, [lowerRange, upperRange]);
 
   return (
@@ -51,7 +64,6 @@ const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
       disabled={disabled}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
-      variant={changeVisible ? "primary" : "default"}
       {...rest}
     >
       <DetailsMenuCard ref={detailsMenuRef} data-cy="details-menu" />
@@ -61,19 +73,18 @@ const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
 
 const AnimatedPopoverButton = styled(PopoverButton)`
   /* Glow animation */
-  ${({ variant }) =>
-    variant === "primary" &&
-    `
+  &.glow-active {
     animation: glow 1s ease-in-out infinite alternate;
-    @keyframes glow {
-      from {
-        box-shadow: 0 0 0px ${green.base};
-      }
-      to {
-        box-shadow: 0 0 20px ${green.base};
-      }
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 0px ${green.base};
     }
-  `}
+    to {
+      box-shadow: 0 0 20px ${green.base};
+    }
+  }
 `;
 
 export default DetailsMenu;

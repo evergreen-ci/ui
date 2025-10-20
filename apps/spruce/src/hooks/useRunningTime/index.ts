@@ -9,25 +9,29 @@ import { differenceInMilliseconds } from "date-fns";
  * - `endTimer` - A function that clears the timer
  */
 export const useRunningTime = (startTime: Date) => {
-  const [runningTime, setRunningTime] = useState(
+  const [runningTime, setRunningTime] = useState(() =>
     differenceInMilliseconds(Date.now(), startTime),
   );
-
-  const timerRef = useRef(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     timerRef.current = setInterval(() => {
       const newRunningTime = differenceInMilliseconds(Date.now(), startTime);
       setRunningTime(newRunningTime > 0 ? newRunningTime : 0);
     }, 1000);
-
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    return () => clearInterval(timerRef.current);
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
   }, [startTime]);
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const endTimer = () => clearInterval(timerRef.current);
+  const endTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  };
 
   return { runningTime, endTimer };
 };

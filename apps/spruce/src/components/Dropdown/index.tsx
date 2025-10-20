@@ -41,8 +41,14 @@ const Dropdown: React.FC<DropdownProps> = ({
   // Borrowed from LeafyGreen - measure the menu width from the button ref.
   const [menuWidth, setMenuWidth] = useState(0);
   useEffect(() => {
-    setMenuWidth(menuButtonRef.current?.clientWidth ?? 0);
-  }, [menuButtonRef.current?.clientWidth]);
+    const updateMenuWidth = () => {
+      setMenuWidth(menuButtonRef.current?.clientWidth ?? 0);
+    };
+    updateMenuWidth();
+    // Update width when window resizes
+    window.addEventListener("resize", updateMenuWidth);
+    return () => window.removeEventListener("resize", updateMenuWidth);
+  }, []);
 
   const handleClickOutside = () => {
     setIsOpen(false);
@@ -104,8 +110,7 @@ class DropdownWithRef extends Component<
   DropdownWithRefProps,
   DropdownWithRefState
 > {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  constructor(props) {
+  constructor(props: DropdownWithRefProps) {
     super(props);
     this.state = {
       isOpen: false,
