@@ -151,6 +151,24 @@ describe("authentication", () => {
       );
     });
 
+    // Kanopy section
+    cy.dataCy("oauth").within(() => {
+      const oauthClientId = "Client ID";
+      cy.getInputByLabel(oauthClientId).as("oauthClientIdInput");
+      cy.get("@oauthClientIdInput").clear();
+      cy.get("@oauthClientIdInput").type("oauth-client-id");
+
+      const oauthIssuer = "Issuer";
+      cy.getInputByLabel(oauthIssuer).as("oauthIssuerInput");
+      cy.get("@oauthIssuerInput").clear();
+      cy.get("@oauthIssuerInput").type("https://test-oauth.example.com");
+
+      const oauthConnectionId = "Connection ID";
+      cy.getInputByLabel(oauthConnectionId).as("oauthConnectionIdInput");
+      cy.get("@oauthConnectionIdInput").clear();
+      cy.get("@oauthConnectionIdInput").type("oauth-connection-id");
+    });
+
     // Save the changes
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
@@ -254,6 +272,19 @@ describe("authentication", () => {
       cy.getInputByLabel("Keyset URL").should(
         "have.value",
         "https://test-kanopy.example.com/.well-known/jwks.json",
+      );
+    });
+
+    // Verify OAuth settings
+    cy.dataCy("oauth").within(() => {
+      cy.getInputByLabel("Client ID").should("have.value", "oauth-client-id");
+      cy.getInputByLabel("Issuer").should(
+        "have.value",
+        "https://test-oauth.example.com",
+      );
+      cy.getInputByLabel("Connection ID").should(
+        "have.value",
+        "oauth-connection-id",
       );
     });
   });
