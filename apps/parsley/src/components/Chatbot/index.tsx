@@ -60,9 +60,17 @@ const ChatbotContent: React.FC<{ children: React.ReactNode }> = ({
 
         // Track when feedback is submitted (has feedback text) vs just rating
         if (options.feedback) {
-          sendEvent({ name: "Clicked submit feedback button" });
+          sendEvent({
+            feedback: options.feedback,
+            name: "Clicked submit feedback button",
+            spanId,
+          });
         }
-        sendEvent({ name: "Clicked submit rating button" });
+        sendEvent({
+          name: "Clicked submit rating button",
+          rating: options.rating,
+          spanId,
+        });
 
         const handleError = (err: Error) => {
           // Re-throw error to invoke LG error state

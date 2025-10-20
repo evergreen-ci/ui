@@ -1,3 +1,4 @@
+import { MessageRatingValue } from "@lg-chat/message-rating";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 
@@ -19,9 +20,13 @@ type Action =
     }
   | {
       name: "Clicked submit feedback button";
+      feedback: string;
+      spanId: string;
     }
   | {
       name: "Clicked submit rating button";
+      rating: MessageRatingValue;
+      spanId: string;
     }
   | {
       name: "Clicked copy response button";
