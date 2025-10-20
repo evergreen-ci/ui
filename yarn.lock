@@ -2694,14 +2694,7 @@
   dependencies:
     lodash "^4.17.21"
 
-"@leafygreen-ui/lib@^15.0.0", "@leafygreen-ui/lib@^15.2.0", "@leafygreen-ui/lib@^15.3.0", "@leafygreen-ui/lib@^15.4.0":
-  version "15.4.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-15.4.0.tgz#d39e2481089c2af44c0be57e0da92661d49734ed"
-  integrity sha512-jF6sJ4+rmhvky7Gs8c1wxtOyiYEhu+I+3M5PFi+xFHjNm/tkxjSfjsz18eEccR6M6li8JGVb2o/OU/mbVg0oqQ==
-  dependencies:
-    lodash "^4.17.21"
-
-"@leafygreen-ui/lib@^15.5.0", "@leafygreen-ui/lib@^15.6.0", "@leafygreen-ui/lib@^15.6.1", "@leafygreen-ui/lib@^15.6.2":
+"@leafygreen-ui/lib@^15.0.0", "@leafygreen-ui/lib@^15.2.0", "@leafygreen-ui/lib@^15.3.0", "@leafygreen-ui/lib@^15.4.0", "@leafygreen-ui/lib@^15.5.0", "@leafygreen-ui/lib@^15.6.0", "@leafygreen-ui/lib@^15.6.1", "@leafygreen-ui/lib@^15.6.2":
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-15.6.2.tgz#268fcd76c129bce675b5e94f739f76bffeed09b4"
   integrity sha512-HsjXXovBqyrXL3Y7V09g2bEidGn58AK/mfoIPMlen/hEcWlbXbefoCzXF7AQqWLhd0F/lS2XgX7+BqVUHXx2/Q==
@@ -3601,13 +3594,15 @@
     "@leafygreen-ui/tokens" "^3.2.4"
     "@leafygreen-ui/typography" "^22.1.3"
 
-"@lg-chat/message-prompts@^4.0.6":
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/@lg-chat/message-prompts/-/message-prompts-4.0.6.tgz#73c5e70f5986c24c9ce88252c7502cbce2245ef2"
-  integrity sha512-2yJDvTNuh4u0iE4IqQLijlHtLxXEG/5dhw431LequlGtiqSmXC1QU0A6m1207gGGqormDjYUdpGeKJ3ruQ62gQ==
+"@lg-chat/message-prompts@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@lg-chat/message-prompts/-/message-prompts-4.1.0.tgz#4f620b327cdcf8b57e6a3e8a88020096fb6fcc79"
+  integrity sha512-Fho4U49SJZV3pUDMkS3Xq7qP6MAhDI4pztKRKs4eodPsCPWMKdPO1bYbwB9j2OKUevcZ1Ko2OW384gJQC+Nx1Q==
   dependencies:
     "@leafygreen-ui/emotion" "^5.0.3"
-    "@leafygreen-ui/lib" "^15.4.0"
+    "@leafygreen-ui/icon" "^14.6.0"
+    "@leafygreen-ui/icon-button" "^17.1.0"
+    "@leafygreen-ui/lib" "^15.6.2"
     "@leafygreen-ui/palette" "^5.0.2"
     "@leafygreen-ui/tokens" "^3.2.4"
     "@leafygreen-ui/typography" "^22.1.3"

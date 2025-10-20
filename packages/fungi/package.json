@@ -24,7 +24,7 @@
     "@lg-chat/leafygreen-chat-provider": "^5.0.2",
     "@lg-chat/message": "^8.2.1",
     "@lg-chat/message-feed": "^7.0.3",
-    "@lg-chat/message-prompts": "^4.0.6",
+    "@lg-chat/message-prompts": "^4.1.0",
     "@lg-chat/message-rating": "^5.0.2",
     "ai": "^5.0.11",
     "react": "18.3.1",
