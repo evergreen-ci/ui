@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 
@@ -40,7 +41,8 @@ export const AuthProvider = ({
   loginUrl,
 }: React.PropsWithChildren<AuthProviderProps>) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+  const [isPolling, setIsPolling] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const checkAuth = useCallback(async () => {
     try {
@@ -48,9 +50,10 @@ export const AuthProvider = ({
       if (response.ok) {
         setIsAuthenticated(true);
         // Clear interval when authenticated
-        if (intervalId) {
-          clearInterval(intervalId);
-          setIntervalId(null);
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+          setIsPolling(false);
         }
       } else {
         setIsAuthenticated(false);
@@ -58,41 +61,43 @@ export const AuthProvider = ({
     } catch (error) {
       setIsAuthenticated(false);
     }
-  }, [loginUrl, intervalId]);
+  }, [loginUrl]);
 
   const beginPollingAuth = useCallback(() => {
     // Clear any existing interval before starting a new one
-    if (intervalId) {
-      clearInterval(intervalId);
-      setIntervalId(null);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
     }
-    const newIntervalId = setInterval(checkAuth, 2000);
-    setIntervalId(newIntervalId);
-  }, [checkAuth, intervalId]);
+    intervalRef.current = setInterval(checkAuth, 2000);
+    setIsPolling(true);
+  }, [checkAuth]);
 
   // Initial check for authentication
   useEffect(() => {
-    checkAuth();
+    const performInitialAuthCheck = async () => {
+      await checkAuth();
+    };
+    performInitialAuthCheck();
   }, [checkAuth]);
 
   // Cleanup on unmount
   useEffect(
     () => () => {
-      if (intervalId) {
-        clearInterval(intervalId);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
     },
-    [intervalId],
+    [],
   );
 
   const memoizedContext = useMemo(
     () => ({
       beginPollingAuth,
       loginUrl,
-      isPolling: intervalId !== null,
+      isPolling,
       isAuthenticated,
     }),
-    [intervalId, isAuthenticated, beginPollingAuth, loginUrl],
+    [isPolling, isAuthenticated, beginPollingAuth, loginUrl],
   );
 
   return (
