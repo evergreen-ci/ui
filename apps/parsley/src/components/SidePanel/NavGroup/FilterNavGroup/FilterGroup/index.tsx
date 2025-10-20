@@ -146,6 +146,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
             <StyledTextInput
               aria-label="Edit filter name"
               aria-labelledby="Edit filter name"
+              autoFocus
               data-cy="edit-filter-name"
               errorMessage={isNewExpressionValid ? "" : validationMessage}
               onChange={(e) => {
