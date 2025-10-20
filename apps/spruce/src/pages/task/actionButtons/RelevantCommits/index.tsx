@@ -17,6 +17,9 @@ interface RelevantCommitsProps {
   task: NonNullable<TaskQuery["task"]>;
 }
 
+const getLinkProps = (disabled: boolean, to: string) =>
+  disabled ? undefined : { as: Link, to };
+
 export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
   const { sendEvent } = useTaskAnalytics();
 
@@ -71,8 +74,8 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
         </Button>
       }
     >
+      {/* @ts-expect-error - conditionally setting as and to props */}
       <MenuItem
-        as={Link}
         disabled={parentLoading}
         onClick={() =>
           sendEvent({
@@ -80,12 +83,12 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
             type: CommitType.Base,
           })
         }
-        to={linkObject[CommitType.Base]}
+        {...getLinkProps(parentLoading, linkObject[CommitType.Base])}
       >
         Go to {versionMetadata?.isPatch ? "base" : "previous"} commit
       </MenuItem>
+      {/* @ts-expect-error - conditionally setting as and to props */}
       <MenuItem
-        as={Link}
         disabled={breakingLoading || breakingTask === undefined}
         onClick={() =>
           sendEvent({
@@ -93,12 +96,15 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
             type: CommitType.Breaking,
           })
         }
-        to={linkObject[CommitType.Breaking]}
+        {...getLinkProps(
+          breakingLoading || breakingTask === undefined,
+          linkObject[CommitType.Breaking],
+        )}
       >
         Go to breaking commit
       </MenuItem>
+      {/* @ts-expect-error - conditionally setting as and to props */}
       <MenuItem
-        as={Link}
         disabled={passingLoading}
         onClick={() =>
           sendEvent({
@@ -106,12 +112,12 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
             type: CommitType.LastPassing,
           })
         }
-        to={linkObject[CommitType.LastPassing]}
+        {...getLinkProps(passingLoading, linkObject[CommitType.LastPassing])}
       >
         Go to last passing version
       </MenuItem>
+      {/* @ts-expect-error - conditionally setting as and to props */}
       <MenuItem
-        as={Link}
         disabled={executedLoading}
         onClick={() =>
           sendEvent({
@@ -119,7 +125,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
             type: CommitType.LastExecuted,
           })
         }
-        to={linkObject[CommitType.LastExecuted]}
+        {...getLinkProps(executedLoading, linkObject[CommitType.LastExecuted])}
       >
         Go to last executed version
       </MenuItem>
