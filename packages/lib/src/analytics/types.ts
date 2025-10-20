@@ -15,7 +15,8 @@ type ActionTypePrefixes =
   | "Toggled"
   | "Viewed"
   | "Used"
-  | "System Event";
+  | "System Event"
+  | "Interacted with";
 
 /**
  * `ActionType` is a type that represents an action that can be sent to our analytics provider.
