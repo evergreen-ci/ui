@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { InstanceTag, ParameterInput } from "gql/generated/types";
@@ -21,7 +21,6 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
   id,
   inputTags,
   onChange,
-  visible,
 }) => {
   const [visibleTags, setVisibleTags] = useState(inputTags);
   // Convert this tag array to an object it makes searching through them faster if there are allot of tags
@@ -55,9 +54,6 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
     return true;
   };
 
-  useEffect(() => {
-    setVisibleTags(inputTags);
-  }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <FlexColumnContainer id={id}>
       {visibleTags.map((tag) => (

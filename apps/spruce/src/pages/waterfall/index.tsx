@@ -10,9 +10,8 @@ import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { slugs } from "constants/routes";
-import { useIsScrollAtTop } from "hooks";
-import { waterfallPageContainerId } from "./constants";
-import { Pagination, WaterfallFilterOptions } from "./types";
+import { waterfallPageContainerId, resetFilterState } from "./constants";
+import { ServerFilters, Pagination, WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
@@ -21,32 +20,26 @@ import WaterfallSkeleton from "./WaterfallSkeleton";
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   usePageTitle(`${projectIdentifier} | Waterfall`);
+  const { sendEvent } = useWaterfallAnalytics();
   const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     validQueryParams,
     urlParamToTitleMap,
   );
 
-  const { sendEvent } = useWaterfallAnalytics();
-
   const [pagination, setPagination] = useState<Pagination>();
-
-  const pageWrapperRef = useRef<HTMLDivElement>(null);
-  const { atTop } = useIsScrollAtTop(pageWrapperRef, 200);
+  const [serverFilters, setServerFilters] =
+    useState<ServerFilters>(resetFilterState);
 
   const guideCueRef = useRef<WalkthroughGuideCueRef>(null);
   const restartWalkthrough = useCallback(
     () => guideCueRef.current?.restart(),
-    [guideCueRef.current],
+    [],
   );
 
   return (
     <>
       <Global styles={navbarStyles} />
-      <PageContainer
-        ref={pageWrapperRef}
-        data-cy="waterfall-page"
-        id={waterfallPageContainerId}
-      >
+      <PageContainer data-cy="waterfall-page" id={waterfallPageContainerId}>
         <ProjectBanner projectIdentifier={projectIdentifier ?? ""} />
         <RepotrackerBanner projectIdentifier={projectIdentifier ?? ""} />
         <WaterfallFilters
@@ -71,10 +64,11 @@ const Waterfall: React.FC = () => {
           <WaterfallErrorBoundary projectIdentifier={projectIdentifier ?? ""}>
             <WaterfallGrid
               key={projectIdentifier}
-              atTop={atTop}
               guideCueRef={guideCueRef}
               projectIdentifier={projectIdentifier ?? ""}
+              serverFilters={serverFilters}
               setPagination={setPagination}
+              setServerFilters={setServerFilters}
             />
           </WaterfallErrorBoundary>
         </Suspense>

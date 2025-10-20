@@ -56,11 +56,14 @@ const FileDropper: React.FC = () => {
     [dispatch, dispatchToast],
   );
 
-  const onClipboardPaste = useCallback((text: string) => {
-    leaveBreadcrumb("Pasted text", {}, SentryBreadcrumbTypes.User);
-    sendEvent({ name: "Used clipboard paste to upload log file" });
-    dispatch({ text, type: "PASTED_TEXT" });
-  }, []);
+  const onClipboardPaste = useCallback(
+    (text: string) => {
+      leaveBreadcrumb("Pasted text", {}, SentryBreadcrumbTypes.User);
+      sendEvent({ name: "Used clipboard paste to upload log file" });
+      dispatch({ text, type: "PASTED_TEXT" });
+    },
+    [dispatch, sendEvent],
+  );
 
   useClipboardPaste(onClipboardPaste);
 
@@ -132,6 +135,7 @@ const FileDropper: React.FC = () => {
       }
     },
     [
+      startTransition,
       setLogMetadata,
       dispatch,
       state.file,

@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useId, useState } from "react";
+import { MouseEvent, useId, useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -43,23 +43,24 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
 
   const [newFilterExpression, setNewFilterExpression] = useState(expression);
   const [isEditing, setIsEditing] = useState(false);
-  const [isValid, setIsValid] = useState(true);
   const [openAccordion, setOpenAccordion] = useState(true);
   const id = useId();
-  useEffect(() => {
-    if (expression) {
-      setIsValid(validateRegexp(expression));
-    }
-  }, [expression]);
+
+  const isValid = useMemo(
+    () => (expression ? validateRegexp(expression) : true),
+    [expression],
+  );
+
+  const isNewExpressionValid =
+    validateRegexp(newFilterExpression) && newFilterExpression !== "";
 
   const resetEditState = () => {
     setIsEditing(false);
     setNewFilterExpression(expression);
-    setIsValid(validateRegexp(expression));
   };
 
   const handleSubmit = () => {
-    if (isValid) {
+    if (isNewExpressionValid) {
       editFilter("expression", newFilterExpression, filter);
       resetEditState();
     }
@@ -145,20 +146,18 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
             <StyledTextInput
               aria-label="Edit filter name"
               aria-labelledby="Edit filter name"
-              autoFocus
               data-cy="edit-filter-name"
-              errorMessage={isValid ? "" : validationMessage}
+              errorMessage={isNewExpressionValid ? "" : validationMessage}
               onChange={(e) => {
                 setNewFilterExpression(e.target.value);
-                setIsValid(
-                  validateRegexp(e.target.value) && e.target.value !== "",
-                );
               }}
-              onKeyDown={(e) => e.key === "Enter" && isValid && handleSubmit()}
+              onKeyDown={(e) =>
+                e.key === "Enter" && isNewExpressionValid && handleSubmit()
+              }
               placeholder="New filter definition"
               sizeVariant="small"
               spellCheck={false}
-              state={isValid ? "none" : "error"}
+              state={isNewExpressionValid ? "none" : "error"}
               type="text"
               value={newFilterExpression}
             />
@@ -167,7 +166,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
                 Cancel
               </Button>
               <Button
-                disabled={!isValid}
+                disabled={!isNewExpressionValid}
                 onClick={handleSubmit}
                 size="xsmall"
                 variant={Variant.PrimaryOutline}
@@ -177,7 +176,6 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
             </ButtonWrapper>
           </>
         )}
-
         <StyledSegmentedControl
           aria-controls="Toggle case sensitivity"
           defaultValue={caseSensitive}

@@ -11,18 +11,15 @@ import {
   WATERFALL_PINNED_VARIANTS_KEY,
 } from "constants/index";
 import { utcTimeZone } from "constants/time";
-import {
-  WaterfallOptions,
-  WaterfallQuery,
-  WaterfallQueryVariables,
-} from "gql/generated/types";
+import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { BuildVariantProvider } from "./BuildVariantContext";
-import { VERSION_LIMIT } from "./constants";
+import { resetFilterState, VERSION_LIMIT } from "./constants";
 import { FetchMoreLoader } from "./FetchMoreLoader";
 import { InactiveVersionsButton } from "./InactiveVersions";
 import { OnboardingTutorial } from "./OnboardingTutorial";
@@ -32,39 +29,40 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
-import { Pagination, WaterfallFilterOptions, Version } from "./types";
+import {
+  Pagination,
+  WaterfallFilterOptions,
+  Version,
+  ServerFilters,
+} from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
-type ServerFilters = Pick<
-  WaterfallOptions,
-  "requesters" | "statuses" | "tasks" | "variants"
->;
-
-const resetFilterState: ServerFilters = {
-  requesters: undefined,
-  statuses: undefined,
-  tasks: undefined,
-  variants: undefined,
-};
-
 type WaterfallGridProps = {
-  atTop: boolean;
   projectIdentifier: string;
   setPagination: (pagination: Pagination) => void;
   guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
+  serverFilters: ServerFilters;
+  setServerFilters: (sf: ServerFilters) => void;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
-  atTop,
   guideCueRef,
   projectIdentifier,
+  serverFilters,
   setPagination,
+  setServerFilters,
 }) => {
   useWaterfallTrace();
   const [queryParams, setQueryParams] = useQueryParams();
   const { sendEvent } = useWaterfallAnalytics();
+
+  const headerScrollRef = useRef<HTMLDivElement>(null);
+  const [showShadow, setShowShadow] = useState(false);
+  useIntersectionObserver(headerScrollRef, ([entry]) => {
+    setShowShadow(!entry.isIntersecting);
+  });
 
   const [pins, setPins] = useState<string[]>(
     getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] ?? [],
@@ -107,9 +105,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
 
   const timezone = useUserTimeZone() ?? utcTimeZone;
-
-  const [serverFilters, setServerFilters] =
-    useState<ServerFilters>(resetFilterState);
 
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
@@ -199,7 +194,8 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   return (
     <Container ref={refEl}>
-      <StickyHeader atTop={atTop}>
+      <div ref={headerScrollRef} />
+      <StickyHeader showShadow={showShadow}>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
           {versions.map(({ inactiveVersions, version }, versionIndex) => {
@@ -258,7 +254,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
 const Container = styled.div``;
 
-const StickyHeader = styled(Row)<{ atTop: boolean }>`
+const StickyHeader = styled(Row)<{ showShadow: boolean }>`
   position: sticky;
   top: -${size.m};
   z-index: 1;
@@ -266,10 +262,10 @@ const StickyHeader = styled(Row)<{ atTop: boolean }>`
   background: white;
   margin: ${size.xxs} -${size.m};
   padding: ${size.xs} ${size.m};
-  ${({ atTop }) =>
-    atTop
-      ? "box-shadow: unset"
-      : "box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.5); "}
+  ${({ showShadow }) =>
+    showShadow
+      ? "box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.5);"
+      : "box-shadow: unset;"}
   transition: box-shadow ${transitionDuration.default}ms ease-in-out;
 `;
 

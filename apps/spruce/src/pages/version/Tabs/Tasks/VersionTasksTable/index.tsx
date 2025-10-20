@@ -68,7 +68,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
 
   const { initialFilters, initialSorting } = useMemo(
     () => getInitialState(queryParams),
-    [], // eslint-disable-line react-hooks/exhaustive-deps
+    [queryParams],
   );
 
   const columns = useMemo(
@@ -84,7 +84,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             "task.id": taskId,
           }),
       }),
-    [baseStatusOptions, statusOptions, isPatch, sendEvent],
+    [baseStatusOptions, statusOptions, isPatch, sendEvent, loading],
   );
 
   const [columnFilters, setColumnFilters] =
