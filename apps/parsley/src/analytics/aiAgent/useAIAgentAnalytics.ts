@@ -12,7 +12,7 @@ type Action =
       suggestion: string;
     }
   | {
-      name: "Used AI agent";
+      name: "Interacted with Parsley AI";
       message: string;
     }
   | {

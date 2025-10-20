@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Drawer, DrawerLayout } from "@leafygreen-ui/drawer";
 import { useChatContext } from "../Context";
@@ -7,6 +8,8 @@ type Props = {
   chatContent: React.ReactNode;
   "data-cy"?: string;
   drawerTitle?: React.ReactNode;
+  onDrawerOpen?: () => void;
+  onDrawerClose?: () => void;
 };
 
 export const ChatDrawer: React.FC<Props> = ({
@@ -14,8 +17,22 @@ export const ChatDrawer: React.FC<Props> = ({
   children,
   "data-cy": dataCy,
   drawerTitle,
+  onDrawerClose,
+  onDrawerOpen,
 }) => {
   const { appName, drawerOpen, setDrawerOpen } = useChatContext();
+
+  useEffect(() => {
+    if (drawerOpen) {
+      onDrawerOpen?.();
+    } else {
+      onDrawerClose?.();
+    }
+  }, [drawerOpen, onDrawerOpen, onDrawerClose]);
+
+  const handleClose = () => {
+    setDrawerOpen(false);
+  };
 
   return (
     <DrawerLayout
@@ -30,7 +47,7 @@ export const ChatDrawer: React.FC<Props> = ({
         </StyledDrawer>
       }
       isDrawerOpen={drawerOpen}
-      onClose={() => setDrawerOpen(false)}
+      onClose={handleClose}
     >
       {children}
     </DrawerLayout>
