@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -29,10 +30,11 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const action = mapStatusToAction[host.status];
   const canTerminate = host.status !== HostStatus.Terminated;
+  const canReboot = host.status === HostStatus.Running;
 
   // When the UPDATE_SPAWN_HOST_STATUS mutation occurs the host state is not immediately updated, It gets updated a few seconds later.
   // Since the MY_HOSTS query on this components parent polls at a slower rate, this component triggers a poll at a faster interval for that
-  // query when it returns an updated host status the polling is halted. This allows the query to poll slowly and not utilize unnecessary bandwith
+  // query when it returns an updated host status the polling is halted. This allows the query to poll slowly and not utilize unnecessary bandwidth
   // except when an action is performed and we need to fetch updated data.
   const [getMyHosts, { refetch, startPolling, stopPolling }] = useLazyQuery<
     MyHostsQuery,
@@ -139,6 +141,26 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
           />
         )
       )}
+      <Popconfirm
+        onConfirm={() => handleClick(SpawnHostStatusActions.Reboot)}
+        trigger={
+          <Button
+            disabled={!canReboot}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            size={Size.XSmall}
+          >
+            <Icon glyph="Refresh" />
+          </Button>
+        }
+      >
+        Reboot host “{host.displayName || host.id}”?
+        <Disclaimer>
+          After triggering a reboot, you will need to wait a few minutes before
+          you can SSH into the machine again.
+        </Disclaimer>
+      </Popconfirm>
       <Popconfirm
         confirmDisabled={!checkboxAcknowledged}
         onConfirm={() => handleClick(SpawnHostStatusActions.Terminate)}

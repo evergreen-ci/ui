@@ -11,7 +11,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 };
 export type MakeEmpty<
   T extends { [key: string]: unknown },
-  K extends keyof T
+  K extends keyof T,
 > = { [_ in K]?: never };
 export type Incremental<T> =
   | T
@@ -387,6 +387,7 @@ export type AuthConfig = {
   kanopy?: Maybe<KanopyAuthConfig>;
   multi?: Maybe<MultiAuthConfig>;
   naive?: Maybe<NaiveAuthConfig>;
+  oauth?: Maybe<OAuthConfig>;
   okta?: Maybe<OktaConfig>;
   preferredType?: Maybe<PreferredAuthType>;
 };
@@ -398,6 +399,7 @@ export type AuthConfigInput = {
   kanopy?: InputMaybe<KanopyAuthConfigInput>;
   multi?: InputMaybe<MultiAuthConfigInput>;
   naive?: InputMaybe<NaiveAuthConfigInput>;
+  oauth?: InputMaybe<OAuthConfigInput>;
   okta?: InputMaybe<OktaConfigInput>;
   preferredType?: InputMaybe<PreferredAuthType>;
 };
@@ -2346,6 +2348,19 @@ export type NotifyConfigInput = {
   bufferIntervalSeconds?: InputMaybe<Scalars["Int"]["input"]>;
   bufferTargetPerInterval?: InputMaybe<Scalars["Int"]["input"]>;
   ses?: InputMaybe<SesConfigInput>;
+};
+
+export type OAuthConfig = {
+  __typename?: "OAuthConfig";
+  clientId: Scalars["String"]["output"];
+  connectorId: Scalars["String"]["output"];
+  issuer: Scalars["String"]["output"];
+};
+
+export type OAuthConfigInput = {
+  clientId: Scalars["String"]["input"];
+  connectorId: Scalars["String"]["input"];
+  issuer: Scalars["String"]["input"];
 };
 
 export type OsInfo = {
@@ -4697,6 +4712,9 @@ export type UserConfig = {
   __typename?: "UserConfig";
   api_key: Scalars["String"]["output"];
   api_server_host: Scalars["String"]["output"];
+  oauth_client_id: Scalars["String"]["output"];
+  oauth_connector_id: Scalars["String"]["output"];
+  oauth_issuer: Scalars["String"]["output"];
   ui_server_host: Scalars["String"]["output"];
   user: Scalars["String"]["output"];
 };

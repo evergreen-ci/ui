@@ -686,4 +686,17 @@ describe("task history", () => {
       cy.get("@taskCard").should("have.css", "border-color", selectedColor);
     });
   });
+
+  describe("historical task timing", () => {
+    it("allows configuring a task timing link", () => {
+      cy.visit(mciTaskHistoryLink);
+      cy.contains("button", "Config").click();
+      cy.contains("label", "Only include successful runs").click();
+      cy.getInputByLabel("Only include successful runs").should("be.checked");
+      cy.contains("button", "Config").click();
+      cy.contains("a", "Activated → Finish")
+        .should("have.attr", "href")
+        .and("include", "success");
+    });
+  });
 });

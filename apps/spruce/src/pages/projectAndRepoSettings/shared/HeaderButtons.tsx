@@ -196,6 +196,8 @@ const mapRouteToSection: Record<
     ProjectSettingsSection.GithubAppSettings,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]:
     ProjectSettingsSection.GithubPermissions,
+  [ProjectSettingsTabRoutes.TestSelection]:
+    ProjectSettingsSection.TestSelection,
 };
 
 const ButtonRow = styled.div`

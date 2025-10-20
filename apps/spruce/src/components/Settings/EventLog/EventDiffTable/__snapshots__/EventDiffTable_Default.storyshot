@@ -23,6 +23,7 @@
             class="leafygreen-ui-1it7wsd"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="key"
             scope="col"
           >
             <div
@@ -63,6 +64,7 @@
             class="leafygreen-ui-1it7wsd"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="before"
             scope="col"
           >
             <div
@@ -75,6 +77,7 @@
             class="leafygreen-ui-1it7wsd"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="after"
             scope="col"
           >
             <div

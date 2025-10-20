@@ -37,30 +37,32 @@
                 <div
                   class="leafygreen-ui-1iyoj2o"
                   data-lgid="lg-select"
+                  data-testid="lg-select"
                 >
                   <div
                     class="leafygreen-ui-e3fvh5"
                   >
                     <label
-                      class="leafygreen-ui-qj0u2k"
-                      data-lgid="lg-label"
-                      for="select-2"
-                      id="select-1-label"
+                      class="leafygreen-ui-1lqrdit"
+                      data-lgid="lg-select-label"
+                      data-testid="lg-select"
+                      for="select-4"
+                      id="select-3-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-1-menu"
-                    aria-describedby="select-1-description"
+                    aria-controls="select-3-menu"
+                    aria-describedby="select-3-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-1-label"
-                    class="lg-ui-button-0000 leafygreen-ui-5xsnod leafygreen-ui-z3qisk"
-                    data-lgid="lg-button"
+                    aria-labelledby="select-3-label"
+                    class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
+                    data-lgid="lg-select-trigger"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-2"
+                    id="select-4"
                     type="button"
                     value="legacy-ssh"
                   >
@@ -76,6 +78,7 @@
                         <div
                           class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
                           data-lgid="lg-select-button_text"
+                          data-testid="lg-select-button_text"
                         >
                           Legacy SSH
                         </div>
@@ -83,7 +86,7 @@
                       <svg
                         alt=""
                         aria-hidden="true"
-                        class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
+                        class="leafygreen-ui-fn50nl"
                         height="16"
                         role="presentation"
                         viewBox="0 0 16 16"
@@ -96,6 +99,9 @@
                       </svg>
                     </div>
                   </button>
+                  <span
+                    class="leafygreen-ui-38lglc"
+                  />
                   <div
                     aria-live="polite"
                     aria-relevant="all"

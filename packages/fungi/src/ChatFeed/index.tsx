@@ -111,8 +111,6 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
 
 // Override fixed height of ChatWindow
 const StyledChatWindow = styled(ChatWindow)`
-  /* Remove some generous side padding */
-  padding: 0;
   height: 100%;
   > div {
     height: 100%;

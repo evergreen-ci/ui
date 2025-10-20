@@ -50,7 +50,7 @@ describe("copyProjectField", () => {
     const { Component } = RenderFakeToastContext(<Modal open={false} />);
     render(<Component />);
 
-    expect(screen.queryByDataCy("copy-project-modal")).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("copy-project-modal")).not.toBeVisible();
   });
 
   it("disables the confirm button on initial render and uses the provided label", () => {

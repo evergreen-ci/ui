@@ -23,6 +23,7 @@ import {
   PluginsTab,
   ViewsAndFiltersTab,
   VirtualWorkstationTab,
+  TestSelectionTab,
 } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
 import {
@@ -256,6 +257,20 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             />
           }
           path={ProjectSettingsTabRoutes.PeriodicBuilds}
+        />
+        <Route
+          element={
+            <TestSelectionTab
+              projectData={
+                tabData[ProjectSettingsTabRoutes.TestSelection].projectData
+              }
+              projectType={projectType}
+              repoData={
+                tabData[ProjectSettingsTabRoutes.TestSelection].repoData
+              }
+            />
+          }
+          path={ProjectSettingsTabRoutes.TestSelection}
         />
         <Route
           element={

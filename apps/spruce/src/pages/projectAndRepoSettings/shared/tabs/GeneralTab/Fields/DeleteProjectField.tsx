@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Description } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import { slugs } from "constants/routes";
 import {
   DeleteProjectMutation,

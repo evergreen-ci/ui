@@ -8,14 +8,13 @@ import {
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
-import { zIndex, size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 
 const { blue } = palette;
 
 export const SideNav = styled(LGSideNav)`
   flex-shrink: 0;
   flex-grow: 0;
-  z-index: ${zIndex.sideNav};
 `;
 
 export const SideNavGroup = LGSideNavGroup;

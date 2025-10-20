@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { AjvError } from "@rjsf/core";
 import { diff } from "deep-object-diff";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   FormState,
   formToGql,

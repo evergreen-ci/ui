@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useDistroSettingsAnalytics } from "analytics";
-import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   DistroOnSaveOperation,
   DistroQuery,

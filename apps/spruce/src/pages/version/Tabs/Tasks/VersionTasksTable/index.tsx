@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import Cookies from "js-cookie";
 import {
   useLeafyGreenTable,
   LeafyGreenTable,
@@ -13,7 +14,9 @@ import {
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
+import { taskReviewStyles } from "components/TasksTable/styles";
 import { TaskTableInfo } from "components/TasksTable/types";
+import { DISABLE_TASK_REVIEW } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
 import { TaskSortCategory, SortDirection } from "gql/generated/types";
 import { useTaskStatuses, useTableSort } from "hooks";
@@ -58,6 +61,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
 }) => {
   const [queryParams, setQueryParams] = useQueryParams();
   const { sendEvent } = useVersionAnalytics(versionId);
+  const taskReviewEnabled = Cookies.get(DISABLE_TASK_REVIEW) !== "true";
 
   const { baseStatuses: baseStatusOptions, currentStatuses: statusOptions } =
     useTaskStatuses({ versionId });
@@ -73,6 +77,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         baseStatusOptions,
         statusOptions,
         isPatch,
+        loading,
         onClickTaskLink: (taskId: string) =>
           sendEvent({
             name: "Clicked task table task link",
@@ -122,6 +127,9 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         sortDescFirst: false,
       },
       getRowId: (originalRow) => originalRow.id,
+      initialState: {
+        columnVisibility: { reviewed: taskReviewEnabled },
+      },
       isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
       state: {
         columnFilters,
@@ -161,6 +169,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       shouldShowBottomTableControl={limit > 10}
     >
       <BaseTable
+        css={taskReviewEnabled && taskReviewStyles}
         data-cy="tasks-table"
         data-cy-row="tasks-table-row"
         data-loading={loading}

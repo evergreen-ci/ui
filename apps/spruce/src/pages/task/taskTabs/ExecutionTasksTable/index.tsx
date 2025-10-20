@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+import Cookies from "js-cookie";
 import {
   TablePlaceholder,
   LeafyGreenTable,
@@ -11,7 +12,9 @@ import {
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
+import { taskReviewStyles } from "components/TasksTable/styles";
 import { TaskTableInfo } from "components/TasksTable/types";
+import { DISABLE_TASK_REVIEW } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
 import {
   TaskQuery,
@@ -35,6 +38,7 @@ const ExecutionTasksTable: React.FC<Props> = ({
   isPatch,
 }) => {
   const { sendEvent } = useTaskAnalytics();
+  const taskReviewEnabled = Cookies.get(DISABLE_TASK_REVIEW) !== "true";
   const [sorts, setSorts] = useQueryParam(TableQueryParams.Sorts, "");
   // Apply default sort if no sorting method is defined.
   useEffect(() => {
@@ -82,6 +86,7 @@ const ExecutionTasksTable: React.FC<Props> = ({
         enableMultiSort: true,
       },
       initialState: {
+        columnVisibility: { reviewed: taskReviewEnabled },
         sorting: initialSorting,
       },
       isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
@@ -95,6 +100,7 @@ const ExecutionTasksTable: React.FC<Props> = ({
 
   return (
     <BaseTable
+      css={taskReviewEnabled && taskReviewStyles}
       data-cy="execution-tasks-table"
       data-cy-row="execution-tasks-table-row"
       emptyComponent={<TablePlaceholder message="No execution tasks found." />}

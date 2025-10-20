@@ -1,16 +1,16 @@
+import { Size as ButtonSize } from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { LoadingButton } from "components/Buttons";
 
 interface Props {
   disabled?: boolean;
   loading?: boolean;
   dropdownItems: JSX.Element[];
-  size?: "default" | "small" | "large";
+  size?: ButtonSize;
   "data-cy"?: string;
   open?: boolean;
-  setOpen?: (open: boolean) => void;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ButtonDropdown: React.FC<Props> = ({
@@ -27,8 +27,6 @@ export const ButtonDropdown: React.FC<Props> = ({
     adjustOnMutation
     data-cy="card-dropdown"
     open={open}
-    popoverZIndex={zIndex.popover}
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     setOpen={setOpen}
     trigger={
       <LoadingButton

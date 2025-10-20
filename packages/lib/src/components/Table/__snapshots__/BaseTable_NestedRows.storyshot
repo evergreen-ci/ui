@@ -22,6 +22,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="name"
             scope="col"
           >
             <div
@@ -95,6 +96,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="type"
             scope="col"
           >
             <div
@@ -168,6 +170,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="size"
             scope="col"
           >
             <div

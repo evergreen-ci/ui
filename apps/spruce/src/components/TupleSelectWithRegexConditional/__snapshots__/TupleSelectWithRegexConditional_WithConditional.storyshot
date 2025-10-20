@@ -96,19 +96,20 @@
       <div
         class="leafygreen-ui-1iyoj2o emotion-GroupedSelect e5gn9hl1"
         data-lgid="lg-select"
+        data-testid="lg-select"
       >
         <button
-          aria-controls="select-5-menu"
-          aria-describedby="select-5-description"
+          aria-controls="select-12-menu"
+          aria-describedby="select-12-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="Tuple Select Select"
-          class="lg-ui-button-0000 leafygreen-ui-5xsnod leafygreen-ui-z3qisk"
+          class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
           data-cy="tuple-select-select"
-          data-lgid="lg-button"
+          data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-6"
+          id="select-13"
           type="button"
           value="build_variant"
         >
@@ -124,6 +125,7 @@
               <div
                 class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
                 data-lgid="lg-select-button_text"
+                data-testid="lg-select-button_text"
               >
                 Build Variant
               </div>
@@ -131,7 +133,7 @@
             <svg
               alt=""
               aria-hidden="true"
-              class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
+              class="leafygreen-ui-fn50nl"
               height="16"
               role="presentation"
               viewBox="0 0 16 16"
@@ -144,6 +146,9 @@
             </svg>
           </div>
         </button>
+        <span
+          class="leafygreen-ui-38lglc"
+        />
         <div
           aria-live="polite"
           aria-relevant="all"

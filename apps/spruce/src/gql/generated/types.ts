@@ -387,6 +387,7 @@ export type AuthConfig = {
   kanopy?: Maybe<KanopyAuthConfig>;
   multi?: Maybe<MultiAuthConfig>;
   naive?: Maybe<NaiveAuthConfig>;
+  oauth?: Maybe<OAuthConfig>;
   okta?: Maybe<OktaConfig>;
   preferredType?: Maybe<PreferredAuthType>;
 };
@@ -398,6 +399,7 @@ export type AuthConfigInput = {
   kanopy?: InputMaybe<KanopyAuthConfigInput>;
   multi?: InputMaybe<MultiAuthConfigInput>;
   naive?: InputMaybe<NaiveAuthConfigInput>;
+  oauth?: InputMaybe<OAuthConfigInput>;
   okta?: InputMaybe<OktaConfigInput>;
   preferredType?: InputMaybe<PreferredAuthType>;
 };
@@ -2346,6 +2348,19 @@ export type NotifyConfigInput = {
   bufferIntervalSeconds?: InputMaybe<Scalars["Int"]["input"]>;
   bufferTargetPerInterval?: InputMaybe<Scalars["Int"]["input"]>;
   ses?: InputMaybe<SesConfigInput>;
+};
+
+export type OAuthConfig = {
+  __typename?: "OAuthConfig";
+  clientId: Scalars["String"]["output"];
+  connectorId: Scalars["String"]["output"];
+  issuer: Scalars["String"]["output"];
+};
+
+export type OAuthConfigInput = {
+  clientId: Scalars["String"]["input"];
+  connectorId: Scalars["String"]["input"];
+  issuer: Scalars["String"]["input"];
 };
 
 export type OsInfo = {
@@ -5605,6 +5620,11 @@ export type ProjectSettingsFieldsFragment = {
         secret: string;
       };
     };
+    testSelection?: {
+      __typename?: "TestSelectionSettings";
+      allowed?: boolean | null;
+      defaultEnabled?: boolean | null;
+    } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
       alias: string;
@@ -5805,6 +5825,11 @@ export type RepoSettingsFieldsFragment = {
         secret: string;
       };
     };
+    testSelection?: {
+      __typename?: "RepoTestSelectionSettings";
+      allowed: boolean;
+      defaultEnabled: boolean;
+    } | null;
     triggers: Array<{
       __typename?: "TriggerAlias";
       alias: string;
@@ -6261,6 +6286,11 @@ export type ProjectEventSettingsFragment = {
         secret: string;
       };
     };
+    testSelection?: {
+      __typename?: "TestSelectionSettings";
+      allowed?: boolean | null;
+      defaultEnabled?: boolean | null;
+    } | null;
     triggers?: Array<{
       __typename?: "TriggerAlias";
       alias: string;
@@ -6391,6 +6421,26 @@ export type RepoTriggersSettingsFragment = {
     taskRegex: string;
     unscheduleDownstreamVersions?: boolean | null;
   }>;
+};
+
+export type ProjectTestSelectionSettingsFragment = {
+  __typename?: "Project";
+  id: string;
+  testSelection?: {
+    __typename?: "TestSelectionSettings";
+    allowed?: boolean | null;
+    defaultEnabled?: boolean | null;
+  } | null;
+};
+
+export type RepoTestSelectionSettingsFragment = {
+  __typename?: "RepoRef";
+  id: string;
+  testSelection?: {
+    __typename?: "RepoTestSelectionSettings";
+    allowed: boolean;
+    defaultEnabled: boolean;
+  } | null;
 };
 
 export type VariablesFragment = {
@@ -6822,6 +6872,16 @@ export type PromoteVarsToRepoMutationVariables = Exact<{
 export type PromoteVarsToRepoMutation = {
   __typename?: "Mutation";
   promoteVarsToRepo: boolean;
+};
+
+export type QuarantineTestMutationVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  testName: Scalars["String"]["input"];
+}>;
+
+export type QuarantineTestMutation = {
+  __typename?: "Mutation";
+  quarantineTest: { __typename?: "QuarantineTestPayload"; success: boolean };
 };
 
 export type RemoveAnnotationIssueMutationVariables = Exact<{
@@ -9373,6 +9433,11 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          testSelection?: {
+            __typename?: "TestSelectionSettings";
+            allowed?: boolean | null;
+            defaultEnabled?: boolean | null;
+          } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
             alias: string;
@@ -9588,6 +9653,11 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          testSelection?: {
+            __typename?: "TestSelectionSettings";
+            allowed?: boolean | null;
+            defaultEnabled?: boolean | null;
+          } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
             alias: string;
@@ -9869,6 +9939,11 @@ export type ProjectSettingsQuery = {
           secret: string;
         };
       };
+      testSelection?: {
+        __typename?: "TestSelectionSettings";
+        allowed?: boolean | null;
+        defaultEnabled?: boolean | null;
+      } | null;
       triggers?: Array<{
         __typename?: "TriggerAlias";
         alias: string;
@@ -10132,6 +10207,11 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          testSelection?: {
+            __typename?: "TestSelectionSettings";
+            allowed?: boolean | null;
+            defaultEnabled?: boolean | null;
+          } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
             alias: string;
@@ -10347,6 +10427,11 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          testSelection?: {
+            __typename?: "TestSelectionSettings";
+            allowed?: boolean | null;
+            defaultEnabled?: boolean | null;
+          } | null;
           triggers?: Array<{
             __typename?: "TriggerAlias";
             alias: string;
@@ -10567,6 +10652,11 @@ export type RepoSettingsQuery = {
           secret: string;
         };
       };
+      testSelection?: {
+        __typename?: "RepoTestSelectionSettings";
+        allowed: boolean;
+        defaultEnabled: boolean;
+      } | null;
       triggers: Array<{
         __typename?: "TriggerAlias";
         alias: string;
@@ -10992,6 +11082,21 @@ export type TaskOwnerTeamsForTaskQuery = {
   } | null;
 };
 
+export type TaskPerfPluginEnabledQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskPerfPluginEnabledQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    isPerfPluginEnabled: boolean;
+  } | null;
+};
+
 export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
@@ -11150,7 +11255,6 @@ export type TaskQuery = {
     hostId?: string | null;
     imageId: string;
     ingestTime?: Date | null;
-    isPerfPluginEnabled: boolean;
     latestExecution: number;
     minQueuePosition: number;
     order: number;
