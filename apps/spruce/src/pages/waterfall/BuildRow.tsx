@@ -98,7 +98,6 @@ export const BuildRow: React.FC<Props> = ({
   return (
     <Row>
       <BuildVariantTitle data-cy="build-variant-label">
-        {/* @ts-expect-error: Styled LeafyGreen component throws an error */}
         <StyledIconButton
           active={pinned}
           aria-label="Pin build variant"

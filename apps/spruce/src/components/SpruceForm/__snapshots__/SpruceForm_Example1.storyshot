@@ -46,23 +46,23 @@
                       class="leafygreen-ui-1lqrdit"
                       data-lgid="lg-select-label"
                       data-testid="lg-select"
-                      for="select-4"
-                      id="select-3-label"
+                      for="select-88"
+                      id="select-87-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-3-menu"
-                    aria-describedby="select-3-description"
+                    aria-controls="select-87-menu"
+                    aria-describedby="select-87-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-3-label"
-                    class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
+                    aria-labelledby="select-87-label"
+                    class="lg-ui-button-0001 leafygreen-ui-1p6i2zy"
                     data-lgid="lg-select-trigger"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-4"
+                    id="select-88"
                     type="button"
                     value="legacy-ssh"
                   >
@@ -117,7 +117,7 @@
               id=" root_expansions"
             >
               <h6
-                class="emotion-StyledSubtitle e63qz861 leafygreen-ui-19p3n10"
+                class="emotion-StyledSubtitle e63qz861 leafygreen-ui-1c32734"
                 id="root_expansions__title"
               >
                 Expansions
@@ -185,16 +185,17 @@
                           <div
                             class="leafygreen-ui-1br9h7w emotion-StyledTextInput eevpusu7"
                             data-lgid="lg-text_input"
+                            data-testid="lg-text_input"
                           >
                             <div
                               class="leafygreen-ui-au9iil"
                             >
                               <label
-                                class="leafygreen-ui-6bdaia"
-                                data-lgid="lg-label"
-                                data-testid="lg-form_field-label"
-                                for="lg-form_field-input-40"
-                                id="lg-form_field-label-37"
+                                class="leafygreen-ui-15qqekb"
+                                data-lgid="lg-text_input-label"
+                                data-testid="lg-text_input"
+                                for="lg-form_field-input-92"
+                                id="lg-form_field-label-89"
                               >
                                 key
                               </label>
@@ -209,10 +210,10 @@
                                   aria-describedby=""
                                   aria-disabled="false"
                                   aria-invalid="false"
-                                  aria-labelledby="lg-form_field-label-37"
+                                  aria-labelledby="lg-form_field-label-89"
                                   autocomplete="on"
                                   class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                                  id="lg-form_field-input-40"
+                                  id="lg-form_field-input-92"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -223,9 +224,9 @@
                               aria-live="polite"
                               aria-relevant="all"
                               class="leafygreen-ui-11ydt2g"
-                              data-lgid="lg-form_field-feedback"
-                              data-testid="lg-form_field-feedback"
-                              id="lg-form_field-feedback-39"
+                              data-lgid="lg-text_input-feedback"
+                              data-testid="lg-text_input-feedback"
+                              id="lg-form_field-feedback-91"
                             />
                           </div>
                         </div>
@@ -240,16 +241,17 @@
                           <div
                             class="leafygreen-ui-1br9h7w emotion-StyledTextInput eevpusu7"
                             data-lgid="lg-text_input"
+                            data-testid="lg-text_input"
                           >
                             <div
                               class="leafygreen-ui-au9iil"
                             >
                               <label
-                                class="leafygreen-ui-6bdaia"
-                                data-lgid="lg-label"
-                                data-testid="lg-form_field-label"
-                                for="lg-form_field-input-44"
-                                id="lg-form_field-label-41"
+                                class="leafygreen-ui-15qqekb"
+                                data-lgid="lg-text_input-label"
+                                data-testid="lg-text_input"
+                                for="lg-form_field-input-96"
+                                id="lg-form_field-label-93"
                               >
                                 value
                               </label>
@@ -264,10 +266,10 @@
                                   aria-describedby=""
                                   aria-disabled="false"
                                   aria-invalid="false"
-                                  aria-labelledby="lg-form_field-label-41"
+                                  aria-labelledby="lg-form_field-label-93"
                                   autocomplete="on"
                                   class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                                  id="lg-form_field-input-44"
+                                  id="lg-form_field-input-96"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -278,9 +280,9 @@
                               aria-live="polite"
                               aria-relevant="all"
                               class="leafygreen-ui-11ydt2g"
-                              data-lgid="lg-form_field-feedback"
-                              data-testid="lg-form_field-feedback"
-                              id="lg-form_field-feedback-43"
+                              data-lgid="lg-text_input-feedback"
+                              data-testid="lg-text_input-feedback"
+                              id="lg-form_field-feedback-95"
                             />
                           </div>
                         </div>
@@ -336,22 +338,23 @@
                 <div
                   class="leafygreen-ui-1br9h7w"
                   data-lgid="lg-text_area"
+                  data-testid="lg-text_area"
                 >
                   <div
                     class="leafygreen-ui-au9iil"
                   >
                     <label
-                      class="leafygreen-ui-6bdaia"
-                      data-lgid="lg-label"
-                      data-testid="lg-form_field-label"
-                      for="textarea-1"
-                      id="lg-form_field-label-45"
+                      class="leafygreen-ui-15qqekb"
+                      data-lgid="lg-text_area-label"
+                      data-testid="lg-text_area"
+                      for="textarea-101"
+                      id="lg-form_field-label-97"
                     >
                       Valid Projects
                     </label>
                   </div>
                   <div
-                    class="leafygreen-ui-1idl53a leafygreen-ui-14vpn2b"
+                    class="leafygreen-ui-o0whc9"
                   >
                     <div
                       class="leafygreen-ui-1ago99h"
@@ -360,9 +363,9 @@
                         aria-describedby=""
                         aria-disabled="false"
                         aria-invalid="false"
-                        aria-labelledby="lg-form_field-label-45"
+                        aria-labelledby="lg-form_field-label-97"
                         class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
-                        id="textarea-1"
+                        id="textarea-101"
                         rows="5"
                         title="Valid Projects"
                       />
@@ -372,9 +375,9 @@
                     aria-live="polite"
                     aria-relevant="all"
                     class="leafygreen-ui-11ydt2g"
-                    data-lgid="lg-form_field-feedback"
-                    data-testid="lg-form_field-feedback"
-                    id="lg-form_field-feedback-47"
+                    data-lgid="lg-text_area-feedback"
+                    data-testid="lg-text_area-feedback"
+                    id="lg-form_field-feedback-99"
                   />
                 </div>
               </div>

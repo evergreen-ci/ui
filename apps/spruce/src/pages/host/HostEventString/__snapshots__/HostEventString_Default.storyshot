@@ -1,7 +1,7 @@
 <div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_AGENT_DEPLOYED
     </p>
@@ -27,7 +27,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_AGENT_DEPLOY_FAILED
     </p>
@@ -43,7 +43,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_AGENT_MONITOR_DEPLOYED
     </p>
@@ -64,7 +64,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_AGENT_MONITOR_DEPLOY_FAILED
     </p>
@@ -80,7 +80,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_ALERTABLE_INSTANCE_TYPE_WARNING_SENT
     </p>
@@ -94,7 +94,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_CONVERTED_PROVISIONING
     </p>
@@ -114,7 +114,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_CONVERTING_PROVISIONING
     </p>
@@ -134,7 +134,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_CONVERTING_PROVISIONING_ERROR
     </p>
@@ -241,7 +241,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_CREATED
     </p>
@@ -349,7 +349,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_CREATED_ERROR
     </p>
@@ -456,7 +456,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_DNS_NAME_SET
     </p>
@@ -475,7 +475,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_EXPIRATION_WARNING_SENT
     </p>
@@ -491,7 +491,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_IDLE_NOTIFICATION
     </p>
@@ -507,7 +507,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_JASPER_RESTARTED
     </p>
@@ -526,7 +526,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_JASPER_RESTARTING
     </p>
@@ -547,7 +547,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_JASPER_RESTART_ERROR
     </p>
@@ -654,7 +654,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_MODIFIED
     </p>
@@ -762,7 +762,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_PROVISIONED
     </p>
@@ -781,7 +781,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_PROVISION_ERROR
     </p>
@@ -797,7 +797,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_PROVISION_FAILED
     </p>
@@ -905,7 +905,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_REBOOTED
     </p>
@@ -1012,7 +1012,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_RUNNING_TASK_CLEARED
     </p>
@@ -1040,7 +1040,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_RUNNING_TASK_SET
     </p>
@@ -1068,7 +1068,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_SCRIPT_EXECUTED
     </p>
@@ -1175,7 +1175,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_SCRIPT_EXECUTE_FAILED
     </p>
@@ -1282,7 +1282,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_STARTED
     </p>
@@ -1390,7 +1390,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_STATUS_CHANGED
     </p>
@@ -1475,7 +1475,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_STOPPED
     </p>
@@ -1583,7 +1583,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_TASK_FINISHED
     </p>
@@ -1617,7 +1617,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_TEMPORARY_EXEMPTION_EXPIRATION_WARNING_SENT
     </p>
@@ -1631,7 +1631,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_TERMINATED_EXTERNALLY
     </p>
@@ -1648,7 +1648,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       SPAWN_HOST_CREATED_ERROR
     </p>
@@ -1755,7 +1755,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       VOLUME_EXPIRATION_WARNING_SENT
     </p>
@@ -1771,7 +1771,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       VOLUME_MIGRATION_FAILED
     </p>
