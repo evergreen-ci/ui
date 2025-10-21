@@ -1,7 +1,7 @@
 import { forwardRef, useCallback, useEffect, useRef } from "react";
 import { ItemContent, Virtuoso, VirtuosoHandle } from "react-virtuoso";
 import { CharKey } from "@evg-ui/lib/constants/keys";
-import { useKeyboardShortcut } from "hooks";
+import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
 import { PaginatedVirtualListRef } from "./types";
 import usePaginatedVirtualList from "./usePaginatedVirtualList";
 

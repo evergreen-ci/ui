@@ -1,4 +1,4 @@
-import { DependencyList, EffectCallback, useEffect, useRef } from "react";
+import { DependencyList, EffectCallback, useEffect, useState } from "react";
 
 /**
  * `usePrevious` is a custom hook that returns the previous value of a given value
@@ -7,11 +7,13 @@ import { DependencyList, EffectCallback, useEffect, useRef } from "react";
  * @returns the previous value
  */
 const usePrevious = <T>(value: T, initialValue: T) => {
-  const ref = useRef(initialValue);
+  const [previous, setPrevious] = useState(initialValue);
+
   useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
+    setPrevious(value);
+  }, [value]);
+
+  return previous;
 };
 
 /**
@@ -38,7 +40,11 @@ const useEffectDebugger = (
   const previousDeps = usePrevious(dependencies, []);
 
   const changedDeps = dependencies.reduce(
-    (accum: Record<string, { before: any; after: any }>, dependency, index) => {
+    (
+      accum: Record<string, { before: unknown; after: unknown }>,
+      dependency,
+      index,
+    ) => {
       if (dependency !== previousDeps[index]) {
         const keyName = dependencyNames[index] || index;
         return {
@@ -52,7 +58,7 @@ const useEffectDebugger = (
 
       return accum;
     },
-    {} as Record<string, { before: any; after: any }>,
+    {} as Record<string, { before: unknown; after: unknown }>,
   );
 
   if (Object.keys(changedDeps).length) {
