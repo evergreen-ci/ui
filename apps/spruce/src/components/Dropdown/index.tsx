@@ -45,10 +45,10 @@ const Dropdown: React.FC<DropdownProps> = ({
       setMenuWidth(menuButtonRef.current?.clientWidth ?? 0);
     };
     updateMenuWidth();
-    // Update width when window resizes
+    // Update width when window resizes.
     window.addEventListener("resize", updateMenuWidth);
     return () => window.removeEventListener("resize", updateMenuWidth);
-  }, []);
+  }, [menuButtonRef.current?.clientWidth]);
 
   const handleClickOutside = () => {
     setIsOpen(false);
