@@ -4,6 +4,8 @@ Type-safe event tracking for user interactions. Built on the [Observability Pack
 
 > **Note:** The observability package handles infrastructure telemetry (page loads, API calls). Use analytics for **business-specific user actions** (button clicks, feature usage).
 
+> **Analytics Events Catalog:** All tracked analytics events are documented in the [Evergreen Analytics Spreadsheet](http://go/evergreen-analytics).
+
 ## Quick Start
 
 ### 1. Create an analytics hook
