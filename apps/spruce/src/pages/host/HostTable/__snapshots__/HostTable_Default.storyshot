@@ -105,7 +105,7 @@
             aria-expanded="false"
             aria-invalid="false"
             aria-labelledby="page-size-select"
-            class="lg-ui-button-0002 leafygreen-ui-c19aul"
+            class="lg-ui-button-0001 leafygreen-ui-c19aul"
             data-cy="host-event-table-page-size-selector"
             data-lgid="lg-select-trigger"
             data-testid="leafygreen-ui-select-menubutton"
@@ -123,7 +123,7 @@
                 class="leafygreen-ui-obh8q1"
               >
                 <div
-                  class="lg-ui-select-menu-0001 leafygreen-ui-17aj16e"
+                  class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
                   data-lgid="lg-select-button_text"
                   data-testid="lg-select-button_text"
                 >
