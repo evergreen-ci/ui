@@ -1,8 +1,9 @@
-import styled from "@emotion/styled";
+import { useRef, useState } from "react";
 import { H2 } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { StickyHeaderContainer } from "components/Settings/sharedStyles";
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { DistroQuery } from "gql/generated/types";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { getTabTitle } from "./getTabTitle";
 import { HeaderButtons } from "./HeaderButtons";
 import {
@@ -21,28 +22,24 @@ export const Header: React.FC<Props> = ({ distro, tab }) => {
     tab as WritableDistroSettingsType,
   );
 
+  const headerScrollRef = useRef<HTMLDivElement>(null);
+  const [showShadow, setShowShadow] = useState(false);
+  useIntersectionObserver(headerScrollRef, ([entry]) => {
+    setShowShadow(!entry.isIntersecting);
+  });
+
   return (
-    <Container>
-      <TitleContainer>
+    <>
+      <div ref={headerScrollRef} />
+      <StickyHeaderContainer saveable={saveable} showShadow={showShadow}>
         <H2 data-cy="distro-settings-tab-title">{title}</H2>
-      </TitleContainer>
-      {saveable && (
-        <HeaderButtons
-          distro={distro}
-          tab={tab as WritableDistroSettingsType}
-        />
-      )}
-    </Container>
+        {saveable && (
+          <HeaderButtons
+            distro={distro}
+            tab={tab as WritableDistroSettingsType}
+          />
+        )}
+      </StickyHeaderContainer>
+    </>
   );
 };
-
-const Container = styled.div`
-  align-items: start;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: ${size.l};
-`;
-
-const TitleContainer = styled.div`
-  margin-right: ${size.s};
-`;

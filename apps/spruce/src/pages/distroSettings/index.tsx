@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Navigate } from "react-router-dom";
@@ -143,7 +144,13 @@ const DistroSettings: React.FC = () => {
             )}
           </SideNavGroup>
         </SideNav>
-        <SideNavPageContent data-cy="distro-settings-page">
+        <SideNavPageContent
+          css={css`
+            padding-top: 0;
+            margin-top: ${size.m};
+          `}
+          data-cy="distro-settings-page"
+        >
           {!loading && data?.distro && (
             <DistroSettingsTabs distro={data.distro} />
           )}
