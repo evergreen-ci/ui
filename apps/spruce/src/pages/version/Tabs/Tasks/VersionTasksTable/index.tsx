@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import {
   useLeafyGreenTable,
@@ -15,6 +14,7 @@ import {
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
+import { taskReviewStyles } from "components/TasksTable/styles";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { DISABLE_TASK_REVIEW } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
@@ -168,7 +168,8 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       }
       shouldShowBottomTableControl={limit > 10}
     >
-      <StyledBaseTable
+      <BaseTable
+        css={taskReviewEnabled && taskReviewStyles}
         data-cy="tasks-table"
         data-cy-row="tasks-table-row"
         data-loading={loading}
@@ -238,10 +239,3 @@ export const getInitialState = (
     initialFilters,
   };
 };
-
-// If the task review column is present, remove some padding from the left
-const StyledBaseTable = styled(BaseTable)`
-  th:first-of-type#reviewed {
-    padding-left: 12px;
-  }
-`;

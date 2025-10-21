@@ -99,8 +99,8 @@
         data-testid="lg-select"
       >
         <button
-          aria-controls="select-7-menu"
-          aria-describedby="select-7-description"
+          aria-controls="select-12-menu"
+          aria-describedby="select-12-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -109,7 +109,7 @@
           data-cy="tuple-select-select"
           data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-8"
+          id="select-13"
           type="button"
           value="build_variant"
         >

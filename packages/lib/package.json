@@ -20,6 +20,7 @@
     "@emotion/styled": "11.14.1",
     "@honeycombio/opentelemetry-web": "^1.0.1",
     "@leafygreen-ui/button": "^21.0.6",
+    "@leafygreen-ui/checkbox": "^18.0.4",
     "@leafygreen-ui/emotion": "4.0.7",
     "@leafygreen-ui/guide-cue": "^8.0.4",
     "@leafygreen-ui/icon": "^14.1.0",
@@ -37,8 +38,8 @@
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/auto-instrumentations-web": "^0.40.0",
     "@opentelemetry/instrumentation-user-interaction": "^0.41.0",
-    "@sentry/core": "^10.15.0",
-    "@sentry/react": "^10.15.0",
+    "@sentry/core": "^10.17.0",
+    "@sentry/react": "^10.17.0",
     "graphql": "16.10.0",
     "query-string": "9.1.1",
     "react-router-dom": "6.18.0"

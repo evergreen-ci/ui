@@ -1,9 +1,8 @@
 import {
-  getParsleyBuildLogURL,
-  getParsleyLogkeeperTestLogURL,
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
-} from "./externalResources";
+} from "./honeycomb";
+import { getParsleyBuildLogURL, getParsleyLogkeeperTestLogURL } from ".";
 
 describe("getParsleyLogkeeperTestLogURL", () => {
   it("generates the correct url", () => {

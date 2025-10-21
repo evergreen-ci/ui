@@ -11082,6 +11082,21 @@ export type TaskOwnerTeamsForTaskQuery = {
   } | null;
 };
 
+export type TaskPerfPluginEnabledQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskPerfPluginEnabledQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    isPerfPluginEnabled: boolean;
+  } | null;
+};
+
 export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
@@ -11240,7 +11255,6 @@ export type TaskQuery = {
     hostId?: string | null;
     imageId: string;
     ingestTime?: Date | null;
-    isPerfPluginEnabled: boolean;
     latestExecution: number;
     minQueuePosition: number;
     order: number;
