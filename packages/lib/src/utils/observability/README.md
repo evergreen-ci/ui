@@ -46,10 +46,18 @@ All Spans/Traces include:
 
 ### `honeycomb.ts` - SDK Initialization
 
-The main entry point for initializing the observability stack.
+The main entry point for initializing the observability stack using the [HoneycombWebSDK](https://docs.honeycomb.io/get-started/start-building/application/web/#honeycomb-web-sdk).
 
 **Key Functions:**
 - `initializeHoneycomb(config: HoneycombConfig)` - Sets up Honeycomb SDK with auto-instrumentation
+
+**Honeycomb Web SDK Features:**
+This implementation leverages Honeycomb's web-specific SDK which provides:
+- Pre-configured OpenTelemetry setup optimized for browser environments
+- Automatic instrumentation for common web operations
+- Built-in trace batching and export
+- Debug visualizations for local development
+- Browser-specific context and performance metrics
 
 **Configuration Interface:**
 ```typescript
@@ -66,11 +74,12 @@ interface HoneycombConfig {
 ```
 
 **Features:**
-- **Auto-Instrumentation** - Document load, HTTP fetch, user interactions
+- **Auto-Instrumentation** - Document load, HTTP fetch, user interactions (via [OpenTelemetry auto-instrumentation](https://docs.honeycomb.io/get-started/start-building/application/web/#add-instrumentation))
 - **GraphQL Detection** - Automatically extracts operation names from GraphQL requests
-- **Trace Propagation** - Connects frontend and backend traces using CORS headers
+- **Trace Propagation** - Connects frontend and backend traces using CORS headers (see [Honeycomb's distributed tracing guide](https://docs.honeycomb.io/get-started/start-building/application/web/#linking-frontend-and-backend-traces))
 - **Resource Attributes** - Adds user ID, environment, and app version to all traces
 - **Custom Span Processor** - Integrates ReactRouterSpanProcessor for route tracking
+- **Local Visualizations** - Debug mode enables [Honeycomb's local trace visualization](https://docs.honeycomb.io/get-started/start-building/application/web/#debug-mode) for development
 
 ### `AttributeStore/` - Global Attribute Management
 
@@ -711,20 +720,73 @@ console.log("Matched route:", result);
 3. Consider disabling user interaction instrumentation
 4. Review custom spans - ensure they're not blocking operations
 
+## Implementation Details
+
+### Based on Honeycomb's Web Instrumentation
+
+This package implements [Honeycomb's recommended approach for web applications](https://docs.honeycomb.io/get-started/start-building/application/web/), which includes:
+
+1. **SDK Initialization** - Using `HoneycombWebSDK` instead of raw OpenTelemetry setup
+2. **Auto-Instrumentation** - Leveraging `getWebAutoInstrumentations()` for common patterns
+3. **Resource Attributes** - Adding service metadata at initialization
+4. **Trace Propagation** - Configuring CORS for frontend-backend correlation
+5. **Debug Mode** - Local visualizations for development
+
+### Key Differences from Honeycomb's Basic Guide
+
+While following Honeycomb's guide, this implementation adds:
+
+- **ReactRouterSpanProcessor** - Custom span processor for React Router integration (not in Honeycomb's base guide)
+- **AttributeStore** - Global attribute management system for dynamic context
+- **GraphQL Detection** - Custom logic to parse and label GraphQL operations
+- **Analytics Integration** - Unified system for user events and infrastructure telemetry
+- **TypeScript** - Full type safety across all observability components
+
+### Honeycomb-Specific Features Used
+
+**Debug Mode with Local Visualizations:**
+```typescript
+initializeHoneycomb({
+  debug: true,
+  localVisualizations: true,  // Enables Honeycomb's debug UI
+  // ...
+});
+```
+
+When enabled, Honeycomb's SDK provides:
+- Console links to view traces in Honeycomb
+- Local trace visualization in the browser
+- Detailed logging of trace export
+
+**Trace Propagation for Backend Correlation:**
+```typescript
+propagateTraceHeaderCorsUrls: [new RegExp(backendURL)]
+```
+
+This enables [linking frontend and backend traces](https://docs.honeycomb.io/get-started/start-building/application/web/#linking-frontend-and-backend-traces) by propagating trace context headers.
+
 ## Dependencies
 
 The observability package relies on these key dependencies (see [package.json](../../../../../package.json)):
 
-- `@honeycombio/opentelemetry-web` (^1.0.1) - Honeycomb's OTEL SDK
+- `@honeycombio/opentelemetry-web` (^1.0.1) - [Honeycomb's Web SDK](https://docs.honeycomb.io/get-started/start-building/application/web/#honeycomb-web-sdk)
 - `@opentelemetry/api` (^1.9.0) - Core OTEL API
-- `@opentelemetry/auto-instrumentations-web` (^0.40.0) - Auto-instrumentation bundle
+- `@opentelemetry/auto-instrumentations-web` (^0.40.0) - [Auto-instrumentation bundle](https://docs.honeycomb.io/get-started/start-building/application/web/#add-instrumentation)
 - `@opentelemetry/instrumentation-user-interaction` (^0.41.0) - User interaction tracking
 - `react-router-dom` (6.18.0) - For route matching in ReactRouterSpanProcessor
 
 ## Further Reading
 
+### Honeycomb Documentation
+- [Honeycomb Web Instrumentation Guide](https://docs.honeycomb.io/get-started/start-building/application/web/) - Official guide this package implements
+- [Honeycomb Web SDK](https://github.com/honeycombio/honeycomb-opentelemetry-web) - SDK source code and examples
+- [Linking Frontend and Backend Traces](https://docs.honeycomb.io/get-started/start-building/application/web/#linking-frontend-and-backend-traces)
+- [Honeycomb Debug Mode](https://docs.honeycomb.io/get-started/start-building/application/web/#debug-mode)
+
+### OpenTelemetry Documentation
 - [OpenTelemetry Documentation](https://opentelemetry.io/docs/)
-- [Honeycomb Documentation](https://docs.honeycomb.io/)
-- [Analytics Module README](../../analytics/README.md)
 - [OTEL JavaScript SDK](https://github.com/open-telemetry/opentelemetry-js)
-- [Honeycomb Web SDK](https://github.com/honeycombio/honeycomb-opentelemetry-web)
+- [Web Auto-Instrumentation](https://opentelemetry.io/docs/instrumentation/js/automatic/)
+
+### Related Internal Documentation
+- [Analytics Module README](../../analytics/README.md) - High-level event tracking built on this infrastructure
