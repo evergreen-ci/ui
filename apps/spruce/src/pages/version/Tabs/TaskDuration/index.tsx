@@ -98,18 +98,12 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
         page={page}
         totalCount={taskCount}
       />
-      {
-        // Ensures that the TaskDurationTable initial sort
-        // button states intialize with the correct default values.
-        hasValidSortsForTab && (
-          <TaskDurationTable
-            loading={loading}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            numLoadingRows={limit}
-            tasks={tasksData}
-          />
-        )
-      }
+      <TaskDurationTable
+        loading={loading}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        numLoadingRows={limit}
+        tasks={tasksData}
+      />
       {shouldShowBottomTableControl && (
         <TableControlWrapper>
           <TableControl
