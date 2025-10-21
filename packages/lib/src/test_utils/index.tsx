@@ -149,11 +149,9 @@ const stubGetClientRects = () => {
  * @param props - props to be spread on wrapper
  * @returns - wrapper with props applied
  */
-const createWrapper = (
-  Wrapper: React.ComponentType<
-    React.PropsWithChildren<Record<string, unknown>>
-  >,
-  props: Record<string, unknown>,
+const createWrapper = <T extends Record<string, unknown>>(
+  Wrapper: React.ComponentType<React.PropsWithChildren<T>>,
+  props: T,
 ) =>
   function CreatedWrapper({ children }: React.PropsWithChildren) {
     return createElement(Wrapper, props, children);

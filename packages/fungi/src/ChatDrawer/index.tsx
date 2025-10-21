@@ -43,6 +43,9 @@ const StyledDrawer = styled(Drawer)`
     > div {
       > div:nth-of-type(2) {
         > div {
+          /* Override default 16px */
+          padding: 0;
+
           height: 100%;
           > div {
             height: 100%;

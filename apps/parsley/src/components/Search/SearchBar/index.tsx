@@ -161,6 +161,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         aria-labelledby="searchbar-select"
         data-cy="searchbar-select"
         disabled={disabled}
+        dropdownWidthBasis="option"
         onChange={handleChangeSelect}
         popoverZIndex={zIndex.popover}
         value={selected}
