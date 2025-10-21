@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, createElement } from "react";
 import {
   act,
   fireEvent,
@@ -111,13 +111,11 @@ const renderComponentWithHook = <
   useHook: T,
   Comp: U,
 ) => {
-  // Create a ref object that will hold the hook result
   const hookRef: { current?: ReturnType<T> } = { current: undefined };
 
   const TestComponent = () => {
     const hookResult = useHook();
-    // Use useEffect to update the ref after render to avoid side effects during render
-    React.useEffect(() => {
+    useEffect(() => {
       hookRef.current = hookResult as ReturnType<T>;
     });
     return Comp;
@@ -158,7 +156,7 @@ const createWrapper = (
   props: Record<string, unknown>,
 ) =>
   function CreatedWrapper({ children }: React.PropsWithChildren) {
-    return React.createElement(Wrapper, props, children);
+    return createElement(Wrapper, props, children);
   };
 
 export {
