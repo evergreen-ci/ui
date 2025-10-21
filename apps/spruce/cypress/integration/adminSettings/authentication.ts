@@ -282,9 +282,9 @@ describe("authentication", () => {
         "have.value",
         "https://test-oauth.example.com",
       );
-      cy.getInputByLabel("Connection ID").should(
+      cy.getInputByLabel("Connector ID").should(
         "have.value",
-        "oauth-connection-id",
+        "oauth-connector-id",
       );
     });
   });
