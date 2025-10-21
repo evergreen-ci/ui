@@ -80,7 +80,6 @@ export const taskQuery: TaskQueryType = {
     execution: 0,
     expectedDuration: 123,
     hostId: "i-0e0e62799806e037d",
-    isPerfPluginEnabled: false,
     latestExecution: 0,
     logs: {
       __typename: "TaskLogLinks",

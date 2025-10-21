@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { VirtuosoHandle } from "react-virtuoso";
+import { usePrevious } from "@evg-ui/lib/hooks/usePrevious";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
-import usePrevious from "hooks/usePrevious";
 import { calculatePageSize, calculateStartingIndex } from "./utils";
 
 interface UsePaginatedVirtualListProps {

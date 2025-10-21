@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { HttpLink, ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
@@ -28,8 +28,6 @@ export const useCreateGQLClient = ():
   | undefined => {
   const { dispatchAuthenticated, logoutAndRedirect } = useAuthProviderContext();
   const [secretFields, setSecretFields] = useState<string[]>();
-  const [gqlClient, setGQLClient] =
-    useState<ApolloClient<NormalizedCacheObject>>();
 
   useEffect(() => {
     fetchWithRetry<SecretFieldsQuery>(getGQLUrl(), secretFieldsReq)
@@ -51,27 +49,26 @@ export const useCreateGQLClient = ():
       });
   }, [dispatchAuthenticated, logoutAndRedirect]);
 
-  useEffect(() => {
-    if (secretFields && !gqlClient) {
-      const client = new ApolloClient({
-        cache,
-        link: authenticateIfSuccessfulLink(dispatchAuthenticated)
-          .concat(authLink(logoutAndRedirect))
-          .concat(logGQLToSentryLink(secretFields))
-          .concat(logGQLErrorsLink(secretFields))
-          .concat(retryLink)
-          .concat(pausePollingLink)
-          .concat(
-            new HttpLink({
-              uri: getGQLUrl(),
-              credentials: "include",
-              headers: getUserStagingHeader(),
-            }),
-          ),
-      });
-      setGQLClient(client);
-    }
-  }, [secretFields, gqlClient, dispatchAuthenticated, logoutAndRedirect]);
+  const gqlClient = useMemo(() => {
+    if (!secretFields) return undefined;
+
+    return new ApolloClient({
+      cache,
+      link: authenticateIfSuccessfulLink(dispatchAuthenticated)
+        .concat(authLink(logoutAndRedirect))
+        .concat(logGQLToSentryLink(secretFields))
+        .concat(logGQLErrorsLink(secretFields))
+        .concat(retryLink)
+        .concat(pausePollingLink)
+        .concat(
+          new HttpLink({
+            uri: getGQLUrl(),
+            credentials: "include",
+            headers: getUserStagingHeader(),
+          }),
+        ),
+    });
+  }, [secretFields, dispatchAuthenticated, logoutAndRedirect]);
 
   return gqlClient;
 };
