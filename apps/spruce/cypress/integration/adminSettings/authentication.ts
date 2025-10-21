@@ -151,7 +151,7 @@ describe("authentication", () => {
       );
     });
 
-    // Kanopy section
+    // OAuth section
     cy.dataCy("oauth").within(() => {
       const oauthClientId = "Client ID";
       cy.getInputByLabel(oauthClientId).as("oauthClientIdInput");
@@ -163,10 +163,10 @@ describe("authentication", () => {
       cy.get("@oauthIssuerInput").clear();
       cy.get("@oauthIssuerInput").type("https://test-oauth.example.com");
 
-      const oauthConnectionId = "Connection ID";
-      cy.getInputByLabel(oauthConnectionId).as("oauthConnectionIdInput");
-      cy.get("@oauthConnectionIdInput").clear();
-      cy.get("@oauthConnectionIdInput").type("oauth-connection-id");
+      const oauthConnectorId = "Connector ID";
+      cy.getInputByLabel(oauthConnectorId).as("oauthConnectorIdInput");
+      cy.get("@oauthConnectorIdInput").clear();
+      cy.get("@oauthConnectorIdInput").type("oauth-connector-id");
     });
 
     // Save the changes
