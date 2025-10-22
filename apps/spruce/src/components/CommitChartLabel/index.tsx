@@ -3,7 +3,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Body, BodyProps, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import ExpandedText from "components/ExpandedText";
 import { getVersionRoute, getTriggerRoute } from "constants/routes";
@@ -101,11 +101,7 @@ const CommitChartLabel: React.FC<Props> = ({
         )}
       </LabelText>
       {shortenMessage && (
-        <ExpandedText
-          data-cy="long-commit-message-tooltip"
-          message={message}
-          popoverZIndex={zIndex.tooltip}
-        />
+        <ExpandedText data-cy="long-commit-message-tooltip" message={message} />
       )}
       {gitTags && (
         <LabelText>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</LabelText>

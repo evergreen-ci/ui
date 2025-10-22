@@ -1,4 +1,4 @@
-import { renderHook } from "../../test_utils";
+import { renderHook } from "test_utils";
 import { usePrevious } from ".";
 
 describe("usePrevious", () => {
@@ -6,6 +6,7 @@ describe("usePrevious", () => {
     const { result } = renderHook(() => usePrevious(0));
     expect(result.current).toBeUndefined();
   });
+
   it("should maintain the previous value of the state", () => {
     const { rerender, result } = renderHook(({ value }) => usePrevious(value), {
       initialProps: { value: 0 },
@@ -19,7 +20,10 @@ describe("usePrevious", () => {
     rerender({ value: 2 });
     expect(result.current).toBe(1);
 
-    rerender({ value: 2 });
+    rerender({ value: 3 });
     expect(result.current).toBe(2);
+
+    rerender({ value: 3 });
+    expect(result.current).toBe(3);
   });
 });

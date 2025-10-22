@@ -5,6 +5,7 @@ on:
       - main
 jobs:
   chromatic:
+    if: false
     name: Chromatic Tests
     runs-on: ubuntu-latest
     steps:

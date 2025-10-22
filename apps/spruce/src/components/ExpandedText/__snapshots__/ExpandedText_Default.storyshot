@@ -1,6 +1,6 @@
 <div>
   <span
-    class="leafygreen-ui-cssveg leafygreen-ui-1u6ruom"
+    class="leafygreen-ui-vm4wms"
     tabindex="0"
   >
     <small
@@ -8,5 +8,8 @@
     >
       more
     </small>
+    <span
+      class="leafygreen-ui-38lglc"
+    />
   </span>
 </div>

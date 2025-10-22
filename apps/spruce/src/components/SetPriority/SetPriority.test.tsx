@@ -27,14 +27,14 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("prioritize-patch"));
-      expect(
-        screen.queryByDataCy("set-patch-priority-popconfirm"),
-      ).toBeVisible();
+      await user.click(screen.getByDataCy("prioritize-patch"));
+      await waitFor(() => {
+        expect(
+          screen.queryByDataCy("set-patch-priority-popconfirm"),
+        ).toBeVisible();
+      });
       expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.type(screen.queryByDataCy("patch-priority-input"), "9");
+      await user.type(screen.getByDataCy("patch-priority-input"), "9");
       expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
     });
 
@@ -47,14 +47,14 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("prioritize-patch"));
-      expect(
-        screen.queryByDataCy("set-patch-priority-popconfirm"),
-      ).toBeVisible();
+      await user.click(screen.getByDataCy("prioritize-patch"));
+      await waitFor(() => {
+        expect(
+          screen.queryByDataCy("set-patch-priority-popconfirm"),
+        ).toBeVisible();
+      });
       expect(screen.queryByDataCy("priority-warning-message")).toBeNull();
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.type(screen.queryByDataCy("patch-priority-input"), "99");
+      await user.type(screen.getByDataCy("patch-priority-input"), "99");
       expect(screen.queryByDataCy("priority-warning-message")).toBeVisible();
     });
 
@@ -67,14 +67,14 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("prioritize-patch"));
-      expect(
-        screen.queryByDataCy("set-patch-priority-popconfirm"),
-      ).toBeVisible();
+      await user.click(screen.getByDataCy("prioritize-patch"));
+      await waitFor(() => {
+        expect(
+          screen.queryByDataCy("set-patch-priority-popconfirm"),
+        ).toBeVisible();
+      });
       expect(screen.queryByDataCy("priority-admin-message")).toBeNull();
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.type(screen.queryByDataCy("patch-priority-input"), "999");
+      await user.type(screen.getByDataCy("patch-priority-input"), "999");
       expect(screen.queryByDataCy("priority-admin-message")).toBeVisible();
     });
 
@@ -87,13 +87,13 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("prioritize-patch"));
-      expect(
-        screen.queryByDataCy("set-patch-priority-popconfirm"),
-      ).toBeVisible();
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.type(screen.queryByDataCy("patch-priority-input"), "99");
+      await user.click(screen.getByDataCy("prioritize-patch"));
+      await waitFor(() => {
+        expect(
+          screen.queryByDataCy("set-patch-priority-popconfirm"),
+        ).toBeVisible();
+      });
+      await user.type(screen.getByDataCy("patch-priority-input"), "99");
       await user.click(screen.getByRole("button", { name: "Set" }));
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
@@ -109,11 +109,12 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("prioritize-task"));
-      expect(
-        screen.queryByDataCy("set-task-priority-popconfirm"),
-      ).toBeVisible();
+      await user.click(screen.getByDataCy("prioritize-task"));
+      await waitFor(() => {
+        expect(
+          screen.queryByDataCy("set-task-priority-popconfirm"),
+        ).toBeVisible();
+      });
       expect(screen.queryByDataCy("task-priority-input")).toHaveValue(10);
     });
 
@@ -126,16 +127,14 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("prioritize-task"));
+      await user.click(screen.getByDataCy("prioritize-task"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
       expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.type(screen.queryByDataCy("task-priority-input"), "9");
+      await user.type(screen.getByDataCy("task-priority-input"), "9");
       expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
     });
 
@@ -148,16 +147,14 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("prioritize-task"));
+      await user.click(screen.getByDataCy("prioritize-task"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
       expect(screen.queryByDataCy("priority-warning-message")).toBeNull();
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.type(screen.queryByDataCy("task-priority-input"), "99");
+      await user.type(screen.getByDataCy("task-priority-input"), "99");
       expect(screen.queryByDataCy("priority-warning-message")).toBeVisible();
     });
 
@@ -170,16 +167,14 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("prioritize-task"));
+      await user.click(screen.getByDataCy("prioritize-task"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
       expect(screen.queryByDataCy("priority-admin-message")).toBeNull();
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.type(screen.queryByDataCy("task-priority-input"), "999");
+      await user.type(screen.getByDataCy("task-priority-input"), "999");
       expect(screen.queryByDataCy("priority-admin-message")).toBeVisible();
     });
 
@@ -192,15 +187,13 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByDataCy("prioritize-task"));
+      await user.click(screen.getByDataCy("prioritize-task"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.type(screen.queryByDataCy("task-priority-input"), "99");
+      await user.type(screen.getByDataCy("task-priority-input"), "99");
       await user.click(screen.getByRole("button", { name: "Set" }));
       await waitFor(() =>
         expect(dispatchToast.success).toHaveBeenCalledTimes(1),

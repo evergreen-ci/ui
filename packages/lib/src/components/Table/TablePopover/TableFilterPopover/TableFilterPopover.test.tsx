@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import { TreeDataEntry } from "../../../TreeSelect";
 import TableFilterPopover from ".";
 
@@ -23,7 +23,9 @@ describe("table filter popover", () => {
       name: "Table Filter Popover Icon",
     });
     await user.click(icon);
-    expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    });
   });
 
   it("shows value when supplied", async () => {
@@ -40,7 +42,9 @@ describe("table filter popover", () => {
       name: "Table Filter Popover Icon",
     });
     await user.click(icon);
-    expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    });
     const checkbox = screen.getByLabelText("Success");
     expect(checkbox).toBeChecked();
   });
@@ -60,7 +64,9 @@ describe("table filter popover", () => {
       name: "Table Filter Popover Icon",
     });
     await user.click(icon);
-    expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    });
 
     const checkboxLabel = screen.getByText("Success"); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
     await user.click(checkboxLabel);
@@ -82,7 +88,9 @@ describe("table filter popover", () => {
       name: "Table Filter Popover Icon",
     });
     await user.click(icon);
-    expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("test-popover-wrapper")).toBeVisible();
+    });
     expect(screen.getByText("No filters available.")).toBeVisible();
   });
 });
