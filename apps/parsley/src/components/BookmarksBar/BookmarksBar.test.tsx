@@ -60,9 +60,11 @@ describe("bookmarks bar", () => {
       },
     );
     await user.click(screen.getByDataCy("clear-bookmarks"));
-    expect(
-      screen.queryByText("Are you sure you want to clear all bookmarks?"),
-    ).toBeVisible();
+    await waitFor(() => {
+      expect(
+        screen.queryByText("Are you sure you want to clear all bookmarks?"),
+      ).toBeVisible();
+    });
     await user.click(screen.getByRole("button", { name: "Yes" }));
     expect(router.state.location.search).toBe("?shareLine=5");
   });

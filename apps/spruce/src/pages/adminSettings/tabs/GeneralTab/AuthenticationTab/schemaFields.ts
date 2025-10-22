@@ -205,6 +205,26 @@ export const github = {
   },
 };
 
+export const oauth = {
+  schema: {
+    clientId: {
+      type: "string" as const,
+      title: "Client ID",
+    },
+    issuer: {
+      type: "string" as const,
+      title: "Issuer",
+    },
+    connectorId: {
+      type: "string" as const,
+      title: "Connector ID",
+    },
+  },
+  uiSchema: {
+    "ui:fieldCss": nestedObjectGridCss,
+  },
+};
+
 const validMultiOptions = [
   PreferredAuthType.Github,
   PreferredAuthType.Okta,

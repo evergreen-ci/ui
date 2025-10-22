@@ -34,79 +34,80 @@ type TextInputWithValidationProps = {
   clearOnSubmit?: boolean;
 } & Omit<TextInputWithGlyphProps, "icon" | "onSubmit" | "onChange">;
 
-const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
-  forwardRef((props, ref) => {
-    const {
-      "aria-label": ariaLabel,
-      clearOnSubmit = false,
-      disabled,
-      label,
-      onChange = () => {},
-      onSubmit = () => {},
-      validator = () => true,
-      validatorErrorMessage = "Invalid input",
-      value = "",
-      ...rest
-    } = props;
+const TextInputWithValidation = forwardRef<
+  HTMLInputElement,
+  TextInputWithValidationProps
+>((props, ref) => {
+  const {
+    "aria-label": ariaLabel,
+    clearOnSubmit = false,
+    disabled,
+    label,
+    onChange = () => {},
+    onSubmit = () => {},
+    validator = () => true,
+    validatorErrorMessage = "Invalid input",
+    value = "",
+    ...rest
+  } = props;
 
-    const [input, setInput] = useState(value);
-    useEffect(() => {
-      setInput(value);
-    }, [value]);
+  const [input, setInput] = useState(value);
+  useEffect(() => {
+    setInput(value);
+  }, [value]);
 
-    const isValid = validator(input);
+  const isValid = validator(input);
 
-    const handleOnSubmit = () => {
-      if (isValid) {
-        onSubmit(input);
-        if (clearOnSubmit) {
-          setInput("");
-        }
+  const handleOnSubmit = () => {
+    if (isValid) {
+      onSubmit(input);
+      if (clearOnSubmit) {
+        setInput("");
       }
-    };
+    }
+  };
 
-    const handleOnChange = (v: string) => {
-      if (validator(v)) {
-        onChange(v);
+  const handleOnChange = (v: string) => {
+    if (validator(v)) {
+      onChange(v);
+    }
+    setInput(v);
+  };
+
+  return (
+    <TextInputWithGlyph
+      ref={ref}
+      aria-label={ariaLabel ?? ""}
+      disabled={disabled}
+      icon={
+        isValid ? (
+          <IconButton
+            aria-label="Select plus button"
+            disabled={disabled}
+            onClick={handleOnSubmit}
+          >
+            <Icon glyph="Plus" />
+          </IconButton>
+        ) : (
+          <IconWithTooltip
+            aria-label="validation error"
+            fill={yellow.base}
+            glyph="Warning"
+          >
+            {validatorErrorMessage}
+          </IconWithTooltip>
+        )
       }
-      setInput(v);
-    };
-
-    return (
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      <TextInputWithGlyph
-        ref={ref}
-        aria-label={ariaLabel}
-        disabled={disabled}
-        icon={
-          isValid ? (
-            <IconButton
-              aria-label="Select plus button"
-              disabled={disabled}
-              onClick={handleOnSubmit}
-            >
-              <Icon glyph="Plus" />
-            </IconButton>
-          ) : (
-            <IconWithTooltip
-              aria-label="validation error"
-              fill={yellow.base}
-              glyph="Warning"
-            >
-              {validatorErrorMessage}
-            </IconWithTooltip>
-          )
-        }
-        label={label}
-        onChange={(e) => handleOnChange(e.target.value)}
-        onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
-          e.key === "Enter" && handleOnSubmit()
-        }
-        value={input}
-        {...rest}
-      />
-    );
-  });
+      label={label}
+      onChange={(e) => handleOnChange(e.target.value)}
+      onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
+        e.key === "Enter" && handleOnSubmit()
+      }
+      value={input}
+      {...rest}
+    />
+  );
+});
 
 TextInputWithValidation.displayName = "TextInputWithValidation";
 export default TextInputWithValidation;

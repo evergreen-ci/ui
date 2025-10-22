@@ -32,7 +32,7 @@ describe("GitHub permission groups", () => {
     cy.dataCy("add-permission-button").click();
     cy.dataCy("permission-type-input").type(invalidGithubPermission);
     cy.dataCy("permission-value-input").click();
-    cy.contains("Write").click();
+    cy.contains("Write").click({ force: true });
     saveButtonEnabled(true);
     cy.dataCy("save-settings-button").scrollIntoView();
     clickSave();

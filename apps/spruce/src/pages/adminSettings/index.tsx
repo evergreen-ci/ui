@@ -240,6 +240,16 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
+                data-cy="navitem-admin-oauth-authentication"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "oauth-authentication",
+                )}
+              >
+                OAuth Authentication
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
                 data-cy="navitem-admin-github-authentication"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,

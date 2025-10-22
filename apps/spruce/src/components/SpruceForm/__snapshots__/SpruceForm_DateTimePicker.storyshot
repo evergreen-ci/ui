@@ -35,8 +35,9 @@
                 class="emotion-ElementWrapper ee4bs9n0"
               >
                 <label
-                  class="leafygreen-ui-ms04bw"
-                  data-lgid="lg-label"
+                  class="leafygreen-ui-vk2fo1"
+                  data-lgid="lg-typography-label"
+                  data-testid="lg-typography-label"
                   for="root_nextRunTime"
                 >
                   Next Run Time
@@ -54,11 +55,11 @@
                       class="leafygreen-ui-1iyoj2o"
                     />
                     <div
-                      aria-controls="lg-date-picker-menu-7"
+                      aria-controls="lg-date-picker-menu-117"
                       aria-expanded="false"
                       aria-invalid="false"
                       aria-label="date-picker"
-                      class="leafygreen-ui-1on3uho"
+                      class="leafygreen-ui-x5qsue"
                       role="combobox"
                       tabindex="-1"
                     >
@@ -69,8 +70,8 @@
                           aria-describedby=""
                           aria-disabled="false"
                           aria-invalid="false"
-                          class="leafygreen-ui-188k96w lg-ui-form-field-input-0000"
-                          id="lg-form_field-input-6"
+                          class="leafygreen-ui-188k96w lg-ui-form-field-input-0002"
+                          id="lg-form_field-input-116"
                         >
                           <input
                             aria-label="year"
@@ -87,6 +88,13 @@
                             type="text"
                             value="2025"
                           />
+                          <div
+                            aria-atomic="true"
+                            aria-live="polite"
+                            class="leafygreen-ui-wvo6b5"
+                          >
+                            year 2025
+                          </div>
                           <span
                             class="leafygreen-ui-15xv5ui"
                           >
@@ -107,6 +115,13 @@
                             type="text"
                             value="09"
                           />
+                          <div
+                            aria-atomic="true"
+                            aria-live="polite"
+                            class="leafygreen-ui-wvo6b5"
+                          >
+                            month 09
+                          </div>
                           <span
                             class="leafygreen-ui-15xv5ui"
                           >
@@ -127,6 +142,13 @@
                             type="text"
                             value="16"
                           />
+                          <div
+                            aria-atomic="true"
+                            aria-live="polite"
+                            class="leafygreen-ui-wvo6b5"
+                          >
+                            day 16
+                          </div>
                         </div>
                       </div>
                       <div
@@ -135,7 +157,7 @@
                         <button
                           aria-disabled="false"
                           aria-label="Open calendar menu"
-                          class="lg-ui-form-field-icon-0000 leafygreen-ui-18kabg0"
+                          class="lg-ui-form-field-icon-0002 leafygreen-ui-18kabg0"
                           data-lgid="lg-form_field-content_end"
                           data-testid="lg-form_field-content_end"
                           tabindex="0"
@@ -179,7 +201,7 @@
                       class="leafygreen-ui-11ydt2g"
                       data-lgid="lg-form_field-feedback"
                       data-testid="lg-form_field-feedback"
-                      id="lg-form_field-feedback-5"
+                      id="lg-form_field-feedback-115"
                     />
                   </div>
                   <span
@@ -189,6 +211,8 @@
                     aria-label="Time picker form"
                     class="leafygreen-ui-1br9h7w"
                     data-cy="time-picker"
+                    data-lgid="lg-form_field"
+                    data-testid="lg-form_field"
                   >
                     <div
                       class="leafygreen-ui-1iyoj2o"
@@ -207,7 +231,7 @@
                           aria-invalid="false"
                           aria-label="Time picker form"
                           class="lg-ui-form-field-input-0000 emotion-ContentWrapper e9c2bxn0"
-                          id="lg-form_field-input-4"
+                          id="lg-form_field-input-121"
                         >
                           <input
                             class="emotion-StyledInput evefz8k0"
@@ -273,9 +297,12 @@
                       class="leafygreen-ui-11ydt2g"
                       data-lgid="lg-form_field-feedback"
                       data-testid="lg-form_field-feedback"
-                      id="lg-form_field-feedback-3"
+                      id="lg-form_field-feedback-120"
                     />
                   </div>
+                  <span
+                    class="leafygreen-ui-38lglc"
+                  />
                 </div>
               </div>
             </div>

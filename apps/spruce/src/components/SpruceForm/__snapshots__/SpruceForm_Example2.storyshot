@@ -43,16 +43,16 @@
                     class="leafygreen-ui-1whk3l"
                     data-lgid="lg-checkbox-label"
                     data-testid="lg-checkbox"
-                    for="checkbox-5"
-                    id="checkbox-5-label"
+                    for="checkbox-102"
+                    id="checkbox-102-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-5-label"
+                      aria-labelledby="checkbox-102-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-5"
+                      id="checkbox-102"
                       type="checkbox"
                     />
                     <div
@@ -104,16 +104,16 @@
                     class="leafygreen-ui-1whk3l"
                     data-lgid="lg-checkbox-label"
                     data-testid="lg-checkbox"
-                    for="checkbox-6"
-                    id="checkbox-6-label"
+                    for="checkbox-103"
+                    id="checkbox-103-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-6-label"
+                      aria-labelledby="checkbox-103-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-6"
+                      id="checkbox-103"
                       type="checkbox"
                     />
                     <div
@@ -165,16 +165,16 @@
                     class="leafygreen-ui-1whk3l"
                     data-lgid="lg-checkbox-label"
                     data-testid="lg-checkbox"
-                    for="checkbox-7"
-                    id="checkbox-7-label"
+                    for="checkbox-104"
+                    id="checkbox-104-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-7-label"
+                      aria-labelledby="checkbox-104-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-7"
+                      id="checkbox-104"
                       type="checkbox"
                     />
                     <div
@@ -226,17 +226,17 @@
                     class="leafygreen-ui-1whk3l"
                     data-lgid="lg-checkbox-label"
                     data-testid="lg-checkbox"
-                    for="checkbox-8"
-                    id="checkbox-8-label"
+                    for="checkbox-105"
+                    id="checkbox-105-label"
                   >
                     <input
                       aria-checked="true"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-8-label"
+                      aria-labelledby="checkbox-105-label"
                       checked=""
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-8"
+                      id="checkbox-105"
                       type="checkbox"
                     />
                     <div
@@ -289,14 +289,15 @@
                     class="leafygreen-ui-jpwlig"
                   >
                     <label
-                      class="leafygreen-ui-1kvd98a"
-                      data-lgid="lg-label"
+                      class="leafygreen-ui-sbxbmi"
+                      data-lgid="lg-typography-label"
+                      data-testid="lg-typography-label"
                       for="radio-group--0"
                     >
                       <input
-                        aria-describedby="lg-1"
+                        aria-describedby="lg-106"
                         aria-disabled="false"
-                        class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
+                        class="lg-ui-radio-group-0002 leafygreen-ui-1sdo19u"
                         data-label="Restart Jasper service on running hosts of this distro for this update"
                         id="radio-group--0"
                         name="radio-group-"
@@ -307,7 +308,7 @@
                         class="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
                       >
                         <div
-                          class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
+                          class="lg-ui-radio-group-0000 leafygreen-ui-mk2bht"
                         />
                       </div>
                       Restart Jasper service on running hosts of this distro for this update
@@ -317,14 +318,15 @@
                     class="leafygreen-ui-jpwlig"
                   >
                     <label
-                      class="leafygreen-ui-1kvd98a"
-                      data-lgid="lg-label"
+                      class="leafygreen-ui-sbxbmi"
+                      data-lgid="lg-typography-label"
+                      data-testid="lg-typography-label"
                       for="radio-group--1"
                     >
                       <input
-                        aria-describedby="lg-2"
+                        aria-describedby="lg-107"
                         aria-disabled="false"
-                        class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
+                        class="lg-ui-radio-group-0002 leafygreen-ui-1sdo19u"
                         data-label="Reprovision running hosts of this distro for this update"
                         id="radio-group--1"
                         name="radio-group-"
@@ -335,7 +337,7 @@
                         class="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
                       >
                         <div
-                          class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
+                          class="lg-ui-radio-group-0000 leafygreen-ui-mk2bht"
                         />
                       </div>
                       Reprovision running hosts of this distro for this update
