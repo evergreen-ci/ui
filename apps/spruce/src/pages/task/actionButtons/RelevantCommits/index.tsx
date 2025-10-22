@@ -17,8 +17,8 @@ interface RelevantCommitsProps {
   task: NonNullable<TaskQuery["task"]>;
 }
 
-const getLinkProps = (disabled: boolean, to: string) =>
-  disabled && to !== undefined ? undefined : { as: Link, to };
+const getLinkProps = (disabled: boolean, to: string | undefined) =>
+  disabled || to === undefined ? {} : { as: Link, to };
 
 export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
   const { sendEvent } = useTaskAnalytics();
