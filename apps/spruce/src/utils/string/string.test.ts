@@ -2,7 +2,6 @@ import { shortenGithash, trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { TimeFormat } from "constants/time";
 import {
   msToDuration,
-  sortFunctionDate,
   sortFunctionString,
   getDateCopy,
   applyStrictRegex,
@@ -54,35 +53,6 @@ describe("msToDuration", () => {
   it("does not convert milli < 1s", () => {
     const ms = 500;
     expect(msToDuration(ms)).toBe("500ms");
-  });
-});
-
-describe("sortFunctionDate", () => {
-  it("fetches correct value from object and sorts by dates", () => {
-    const dates = [
-      { a: "2020-08-21T18:00:07Z" },
-      { a: "2020-08-17T18:00:07Z" },
-      { a: "2020-23-21T18:00:07Z" },
-    ];
-    expect(dates.sort((a, b) => sortFunctionDate(a, b, "a"))).toStrictEqual([
-      { a: "2020-08-17T18:00:07Z" },
-      { a: "2020-08-21T18:00:07Z" },
-      { a: "2020-23-21T18:00:07Z" },
-    ]);
-  });
-  it("fetches correct value from multi layered object and sorts by dates", () => {
-    const dates = [
-      { a: { b: { c: "2020-08-21T18:00:07Z" } } },
-      { a: { b: { c: "2020-08-17T18:00:07Z" } } },
-      { a: { b: { c: "2020-23-21T18:00:07Z" } } },
-    ];
-    expect(dates.sort((a, b) => sortFunctionDate(a, b, "a.b.c"))).toStrictEqual(
-      [
-        { a: { b: { c: "2020-08-17T18:00:07Z" } } },
-        { a: { b: { c: "2020-08-21T18:00:07Z" } } },
-        { a: { b: { c: "2020-23-21T18:00:07Z" } } },
-      ],
-    );
   });
 });
 
