@@ -1,0 +1,6 @@
+mutation ResetUserAPIKey {
+  resetAPIKey {
+    api_key
+    user
+  }
+}

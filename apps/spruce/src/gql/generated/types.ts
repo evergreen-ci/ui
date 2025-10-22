@@ -1982,6 +1982,7 @@ export type Mutation = {
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
+  resetAPIKey?: Maybe<UserConfig>;
   restartAdminTasks: RestartAdminTasksPayload;
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
@@ -6942,6 +6943,17 @@ export type ReprovisionToNewMutationVariables = Exact<{
 export type ReprovisionToNewMutation = {
   __typename?: "Mutation";
   reprovisionToNew: number;
+};
+
+export type ResetUserApiKeyMutationVariables = Exact<{ [key: string]: never }>;
+
+export type ResetUserApiKeyMutation = {
+  __typename?: "Mutation";
+  resetAPIKey?: {
+    __typename?: "UserConfig";
+    api_key: string;
+    user: string;
+  } | null;
 };
 
 export type RestartAdminTasksMutationVariables = Exact<{

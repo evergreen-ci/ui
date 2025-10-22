@@ -135,6 +135,9 @@ export const cache = new InMemoryCache({
     User: {
       keyFields: ["userId"],
     },
+    UserConfig: {
+      keyFields: ["user"],
+    },
     Task: {
       keyFields: ["execution", "id"],
       fields: {
