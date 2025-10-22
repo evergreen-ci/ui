@@ -28,14 +28,16 @@ export const ResetAPIKey: React.FC = () => {
     },
   });
 
+  // Temporary success state to show checkmark in button
   const [success, setSuccess] = useState(false);
-
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setSuccess(false);
-    }, SUCCESS_DURATION);
+    if (success) {
+      const timeoutId = setTimeout(() => {
+        setSuccess(false);
+      }, SUCCESS_DURATION);
 
-    return () => clearTimeout(timeoutId);
+      return () => clearTimeout(timeoutId);
+    }
   }, [success]);
 
   const handleClick = () => {
