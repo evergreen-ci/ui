@@ -102,6 +102,7 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
       }
       id={`${idSchema.$id}__title`}
       objectFieldCss={objectFieldCss}
+      scrollMarginTop={72}
       title={uiTitle || title}
     >
       {properties.map((prop) => prop.content)}
