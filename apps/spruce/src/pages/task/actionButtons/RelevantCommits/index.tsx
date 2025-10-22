@@ -18,7 +18,7 @@ interface RelevantCommitsProps {
 }
 
 const getLinkProps = (disabled: boolean, to: string) =>
-  disabled ? undefined : { as: Link, to };
+  disabled && to !== undefined ? undefined : { as: Link, to };
 
 export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
   const { sendEvent } = useTaskAnalytics();
@@ -74,7 +74,6 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
         </Button>
       }
     >
-      {/* @ts-expect-error - conditionally setting as and to props */}
       <MenuItem
         disabled={parentLoading}
         onClick={() =>
@@ -87,7 +86,6 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
       >
         Go to {versionMetadata?.isPatch ? "base" : "previous"} commit
       </MenuItem>
-      {/* @ts-expect-error - conditionally setting as and to props */}
       <MenuItem
         disabled={breakingLoading || breakingTask === undefined}
         onClick={() =>
@@ -103,7 +101,6 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
       >
         Go to breaking commit
       </MenuItem>
-      {/* @ts-expect-error - conditionally setting as and to props */}
       <MenuItem
         disabled={passingLoading}
         onClick={() =>
@@ -116,7 +113,6 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
       >
         Go to last passing version
       </MenuItem>
-      {/* @ts-expect-error - conditionally setting as and to props */}
       <MenuItem
         disabled={executedLoading}
         onClick={() =>
