@@ -8,10 +8,10 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { useTaskAnalytics } from "analytics";
 import { TaskQuery } from "gql/generated/types";
 import { useBreakingTask } from "hooks/useBreakingTask";
-import { useLastExecutedTask } from "hooks/useLastExecutedTask";
 import { useLastPassingTask } from "hooks/useLastPassingTask";
 import { useParentTask } from "hooks/useParentTask";
 import { CommitType } from "./types";
+import { useLastExecutedTask } from "./useLastExecutedTask";
 import { getLinks } from "./utils";
 
 interface RelevantCommitsProps {
