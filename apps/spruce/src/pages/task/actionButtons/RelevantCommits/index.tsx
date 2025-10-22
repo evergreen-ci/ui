@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
-import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import { Menu, MenuItem, MenuItemProps } from "@leafygreen-ui/menu";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
+import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useTaskAnalytics } from "analytics";
 import { TaskQuery } from "gql/generated/types";
@@ -16,9 +17,6 @@ import { getLinks } from "./utils";
 interface RelevantCommitsProps {
   task: NonNullable<TaskQuery["task"]>;
 }
-
-const getLinkProps = (disabled: boolean, to: string | undefined) =>
-  disabled || to === undefined ? {} : { as: Link, to };
 
 export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
   const { sendEvent } = useTaskAnalytics();
@@ -74,7 +72,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
         </Button>
       }
     >
-      <MenuItem
+      <ConditionalMenuItem
         disabled={parentLoading}
         onClick={() =>
           sendEvent({
@@ -82,11 +80,11 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
             type: CommitType.Base,
           })
         }
-        {...getLinkProps(parentLoading, linkObject[CommitType.Base])}
+        to={linkObject[CommitType.Base]}
       >
         Go to {versionMetadata?.isPatch ? "base" : "previous"} commit
-      </MenuItem>
-      <MenuItem
+      </ConditionalMenuItem>
+      <ConditionalMenuItem
         disabled={breakingLoading || breakingTask === undefined}
         onClick={() =>
           sendEvent({
@@ -94,14 +92,11 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
             type: CommitType.Breaking,
           })
         }
-        {...getLinkProps(
-          breakingLoading || breakingTask === undefined,
-          linkObject[CommitType.Breaking],
-        )}
+        to={linkObject[CommitType.Breaking]}
       >
         Go to breaking commit
-      </MenuItem>
-      <MenuItem
+      </ConditionalMenuItem>
+      <ConditionalMenuItem
         disabled={passingLoading}
         onClick={() =>
           sendEvent({
@@ -109,11 +104,11 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
             type: CommitType.LastPassing,
           })
         }
-        {...getLinkProps(passingLoading, linkObject[CommitType.LastPassing])}
+        to={linkObject[CommitType.LastPassing]}
       >
         Go to last passing version
-      </MenuItem>
-      <MenuItem
+      </ConditionalMenuItem>
+      <ConditionalMenuItem
         disabled={executedLoading}
         onClick={() =>
           sendEvent({
@@ -121,10 +116,37 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
             type: CommitType.LastExecuted,
           })
         }
-        {...getLinkProps(executedLoading, linkObject[CommitType.LastExecuted])}
+        to={linkObject[CommitType.LastExecuted]}
       >
         Go to last executed version
-      </MenuItem>
+      </ConditionalMenuItem>
     </Menu>
   );
 };
+
+type ConditionalMenuItemProps = {
+  disabled: boolean;
+  to: string;
+  onClick: () => void;
+} & MenuItemProps;
+const ConditionalMenuItem: React.FC<ConditionalMenuItemProps> = ({
+  children,
+  disabled,
+  onClick,
+  to,
+  ...props
+}) => (
+  <ConditionalWrapper
+    condition={!!to && !disabled}
+    wrapper={(c) => (
+      <Link onClick={onClick} to={to}>
+        {c}
+      </Link>
+    )}
+  >
+    {/* @ts-expect-error: Can't get around this type error */}
+    <MenuItem as="button" disabled={disabled} onClick={onClick} {...props}>
+      {children}
+    </MenuItem>
+  </ConditionalWrapper>
+);
