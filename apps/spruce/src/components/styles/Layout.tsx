@@ -27,6 +27,11 @@ export const SideNavPageContent = styled.div`
   padding: ${size.m};
 `;
 
+export const SettingsPageContent = styled(SideNavPageContent)`
+  padding-top: 0;
+  margin-top: ${size.m};
+`;
+
 // Layout elements for non-LG SideNav pages
 export const PageWrapper = styled.div<{ omitPadding?: boolean }>`
   height: 100%;

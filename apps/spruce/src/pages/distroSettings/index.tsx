@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Navigate } from "react-router-dom";
@@ -9,10 +8,10 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useDistroSettingsAnalytics } from "analytics";
 import {
+  SettingsPageContent,
   SideNav,
   SideNavGroup,
   SideNavItem,
-  SideNavPageContent,
   SideNavPageWrapper,
 } from "components/styles";
 import { SideNavItemLink } from "components/styles/SideNav";
@@ -144,17 +143,11 @@ const DistroSettings: React.FC = () => {
             )}
           </SideNavGroup>
         </SideNav>
-        <SideNavPageContent
-          css={css`
-            padding-top: 0;
-            margin-top: ${size.m};
-          `}
-          data-cy="distro-settings-page"
-        >
+        <SettingsPageContent data-cy="distro-settings-page">
           {!loading && data?.distro && (
             <DistroSettingsTabs distro={data.distro} />
           )}
-        </SideNavPageContent>
+        </SettingsPageContent>
       </SideNavPageWrapper>
     </DistroSettingsProvider>
   );
