@@ -32,7 +32,11 @@ functions:
     - command: subprocess.exec
       params:
         binary: bash
-        args: ["-c", "git config --global url.\"https://x-access-token:${github_token}@github.com/evergreen-ci/\".insteadOf https://github.com/evergreen-ci/"]
+        args:
+          [
+            "-c",
+            'git config --global url."https://x-access-token:${github_token}@github.com/evergreen-ci/".insteadOf https://github.com/evergreen-ci/',
+          ]
 
   run-make-background:
     command: subprocess.exec
@@ -51,7 +55,8 @@ functions:
       working_dir: ui/logkeeper
       background: true
       binary: bash
-      args: ["-c", "go run main/logkeeper.go --localPath ../evergreen/_bucketdata"]
+      args:
+        ["-c", "go run main/logkeeper.go --localPath ../evergreen/_bucketdata"]
       env:
         GOROOT: ${goroot}
         PATH: ${goroot}/bin:$PATH
@@ -95,17 +100,24 @@ functions:
         silent: true
         working_dir: ui/evergreen
         binary: bash
-        args: ["-c", "mkdir -p bin && make start-mongod > bin/mongod-logs.txt 2>&1"]
+        args:
+          ["-c", "mkdir -p bin && make start-mongod > bin/mongod-logs.txt 2>&1"]
     - command: subprocess.exec
       type: setup
       params:
         working_dir: ui/evergreen
         command: make configure-mongod
-    - command: subprocess.exec
+    - command: shell.exec
       type: setup
       params:
-        binary: bash
-        args: ["-c", "${PREPARE_SHELL} && cd $PROJECT_DIRECTORY && mkdir mongodb-tools && cd mongodb-tools && curl ${mongodb_tools_url} -o mongodb-tools.tgz && ${decompress} mongodb-tools.tgz && mv ./mongodb-*/bin/* ."]
+        shell: bash
+        script: |
+          ${PREPARE_SHELL}
+          cd $PROJECT_DIRECTORY
+          mkdir mongodb-tools && cd mongodb-tools
+          curl ${mongodb_tools_url} -o mongodb-tools.tgz
+          ${decompress} mongodb-tools.tgz
+          mv ./mongodb-*/bin/* .
 
   setup-node:
     - command: subprocess.exec
@@ -148,7 +160,11 @@ functions:
     params:
       working_dir: ui
       binary: bash
-      args: ["-c", "ln -s ${workdir}/ui/evergreen/graphql/schema ${app_dir}/sdlschema"]
+      args:
+        [
+          "-c",
+          "ln -s ${workdir}/ui/evergreen/graphql/schema ${app_dir}/sdlschema",
+        ]
 
   wait-for-evergreen:
     command: subprocess.exec
@@ -294,7 +310,7 @@ tasks:
 
   - name: test
     commands:
-    - func: yarn-test
+      - func: yarn-test
 
   - name: type_check
     commands:
