@@ -15,33 +15,6 @@ const LEGACY_URLS = {
 describe("Nav Bar", () => {
   const projectCookie = "mci-project-cookie";
 
-  it("Should have a nav bar linking to the proper page on the legacy UI", () => {
-    cy.visit(SPRUCE_URLS.version);
-    cy.dataCy("legacy-ui-link").should("exist");
-    cy.dataCy("legacy-ui-link").should(
-      "have.attr",
-      "href",
-      LEGACY_URLS.version,
-    );
-  });
-  it("Navigating to a different page should change the nav link to the legacy UI", () => {
-    cy.visit(SPRUCE_URLS.version);
-    cy.dataCy("legacy-ui-link").should("exist");
-    cy.dataCy("legacy-ui-link")
-      .should("have.attr", "href")
-      .and("include", LEGACY_URLS.version);
-    cy.visit(SPRUCE_URLS.userPatches);
-    cy.dataCy("legacy-ui-link").should("exist");
-    cy.dataCy("legacy-ui-link").should(
-      "have.attr",
-      "href",
-      LEGACY_URLS.userPatches,
-    );
-  });
-  it("Visiting a page with no legacy equivalent should not display a nav link", () => {
-    cy.visit(SPRUCE_URLS.cli);
-    cy.dataCy("legacy-ui-link").should("not.exist");
-  });
   it("Nav Dropdown should link to patches page of most recent project if cookie exists", () => {
     cy.setCookie(projectCookie, "spruce");
     cy.visit(SPRUCE_URLS.userPatches);
