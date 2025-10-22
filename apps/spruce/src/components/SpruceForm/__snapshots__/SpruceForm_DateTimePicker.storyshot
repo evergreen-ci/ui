@@ -3,6 +3,7 @@
     class="emotion-0"
   >
     <a
+      class="emotion-SpruceFormContainer"
       href="#periodic-builds"
       id="periodic-builds"
     >
