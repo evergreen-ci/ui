@@ -69,15 +69,17 @@ functions:
             user: $EVERGREEN_USER
             EOF
             echo "Done populating evergreen.yml"
-    - command: subprocess.exec
+    - command: shell.exec
       params:
         working_dir: ui/${app_dir}
         env:
           EXECUTION: ${execution}
           DEPLOYS_EMAIL: ${DEPLOYS_EMAIL}
           AUTHOR_EMAIL: ${author_email}
-        binary: bash
-        args: ["-c", "${PREPARE_SHELL} && yarn deploy-utils-email"]
+        shell: bash
+        script: |
+          ${PREPARE_SHELL}
+          yarn deploy-utils-email
 
   prepare-user-deploy-vars:
     - command: shell.exec

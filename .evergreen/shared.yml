@@ -11,11 +11,13 @@ functions:
       role_arn: ${USER_STAGING_ARN}
 
   check-codegen:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: ui/${app_dir}
-      binary: bash
-      args: ["-c", "${PREPARE_SHELL} && ./scripts/check_codegen.sh"]
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        ./scripts/check_codegen.sh
 
   get-project:
     command: git.get_project
@@ -177,11 +179,13 @@ functions:
         - ./scripts/wait-for-evergreen.sh
 
   yarn-build:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: ui/${app_dir}
-      binary: bash
-      args: ["-c", "${PREPARE_SHELL} && yarn build:local"]
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn build:local
 
   yarn-cypress:
     command: subprocess.exec
@@ -203,63 +207,79 @@ functions:
         STAGING_RUNTIME_ENVIRONMENTS_API_KEY: ${staging_runtime_environments_api_key}
 
   yarn-eslint:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: ui/${app_dir}
-      binary: bash
-      args: ["-c", "${PREPARE_SHELL} && yarn eslint:strict"]
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn eslint:strict
 
   yarn-install:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: ui/${app_dir}
-      binary: bash
-      args: ["-c", "${PREPARE_SHELL} && yarn install"]
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn install
 
   yarn-preview:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: ui/${app_dir}
       background: true
-      binary: bash
-      args: ["-c", "${PREPARE_SHELL} && yarn preview --no-request-logging"]
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn preview --no-request-logging
 
   yarn-serve:
-    command: subprocess.exec
+    command: shell.exec
     type: setup
     params:
       working_dir: ui/${app_dir}
       background: true
-      binary: bash
-      args: ["-c", "${PREPARE_SHELL} && yarn serve"]
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn serve
 
   yarn-snapshot:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: ui/${app_dir}
-      binary: bash
-      args: ["-c", "${PREPARE_SHELL} && yarn snapshot"]
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn snapshot
 
   yarn-storybook-build:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: ui/${app_dir}
-      binary: bash
-      args: ["-c", "${PREPARE_SHELL} && yarn storybook:build"]
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn storybook:build
 
   yarn-test:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: ui/${app_dir}
-      binary: bash
-      args: ["-c", "${PREPARE_SHELL} && yarn test"]
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn test
 
   yarn-tsc:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: ui/${app_dir}
-      binary: bash
-      args: ["-c", "${PREPARE_SHELL} && yarn check-types"]
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn check-types
 
   yarn-verify-backend:
     command: subprocess.exec
