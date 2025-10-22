@@ -409,9 +409,9 @@ describe("task history", () => {
       cy.dataCy("expanded-option").click();
 
       cy.dataCy("date-picker").click();
-      cy.get("[aria-label^='Select year']").click();
+      cy.get("[aria-label^='select year']").click();
       cy.contains("li", "2025").click({ force: true });
-      cy.get("[aria-label^='Select month']").click();
+      cy.get("[aria-label^='select month']").click();
       cy.contains("li", "Feb").click({ force: true });
       cy.get("[data-iso='2025-02-28']").click();
 
@@ -436,9 +436,9 @@ describe("task history", () => {
       cy.dataCy("expanded-option").click();
 
       cy.dataCy("date-picker").click();
-      cy.get("[aria-label^='Select year']").click();
+      cy.get("[aria-label^='select year']").click();
       cy.contains("li", "2025").click({ force: true });
-      cy.get("[aria-label^='Select month']").click();
+      cy.get("[aria-label^='select month']").click();
       cy.contains("li", "Feb").click({ force: true });
       cy.get("[data-iso='2025-02-28']").click();
 
@@ -499,9 +499,9 @@ describe("task history", () => {
       cy.get("@firstTaskCard").should("contain", "Order: 12306");
 
       cy.dataCy("date-picker").click();
-      cy.get("[aria-label^='Select year']").click();
+      cy.get("[aria-label^='select year']").click();
       cy.contains("li", "2025").click({ force: true });
-      cy.get("[aria-label^='Select month']").click();
+      cy.get("[aria-label^='select month']").click();
       cy.contains("li", "Feb").click({ force: true });
       cy.get("[data-iso='2025-02-28']").click();
       cy.get("@firstTaskCard").should("not.contain", "Order: 12306");
@@ -657,7 +657,7 @@ describe("task history", () => {
       cy.dataCy("walkthrough-guide-cue").should("be.visible");
       cy.contains("Introducing the Task History Tab").should("be.visible");
 
-      cy.get("[aria-label='Close Tooltip']").click();
+      cy.get("[aria-label='Close Tooltip']").click({ force: true });
       cy.dataCy("walkthrough-guide-cue").should("not.exist");
       cy.dataCy("walkthrough-backdrop").should("not.exist");
     });
@@ -684,6 +684,19 @@ describe("task history", () => {
       cy.get("@taskBox").should("have.css", "border-color", selectedColor);
       cy.get("@taskCard").should("be.visible");
       cy.get("@taskCard").should("have.css", "border-color", selectedColor);
+    });
+  });
+
+  describe("historical task timing", () => {
+    it("allows configuring a task timing link", () => {
+      cy.visit(mciTaskHistoryLink);
+      cy.contains("button", "Config").click();
+      cy.contains("label", "Only include successful runs").click();
+      cy.getInputByLabel("Only include successful runs").should("be.checked");
+      cy.contains("button", "Config").click();
+      cy.contains("a", "Activated → Finish")
+        .should("have.attr", "href")
+        .and("include", "success");
     });
   });
 });

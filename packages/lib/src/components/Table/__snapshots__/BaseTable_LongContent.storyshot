@@ -22,6 +22,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="name"
             scope="col"
           >
             <div
@@ -60,6 +61,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -95,6 +99,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="type"
             scope="col"
           >
             <div
@@ -133,6 +138,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -168,6 +176,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="size"
             scope="col"
           >
             <div
@@ -206,6 +215,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -302,7 +314,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long  name 0
                     </span>
@@ -330,7 +342,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long  type 0
                     </span>
@@ -358,7 +370,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long  size 0
                     </span>
@@ -430,7 +442,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long  name 1
                     </span>
@@ -458,7 +470,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long  type 1
                     </span>
@@ -486,7 +498,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long  size 1
                     </span>
@@ -558,7 +570,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long  name 2
                     </span>
@@ -586,7 +598,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long  type 2
                     </span>
@@ -614,7 +626,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long  size 2
                     </span>

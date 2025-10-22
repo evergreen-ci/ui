@@ -10,7 +10,7 @@
         class="emotion-HeaderLine e3zirl00"
       >
         <p
-          class="leafygreen-ui-1tb6tuo"
+          class="leafygreen-ui-26vqpd"
         >
           <a
             class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -56,9 +56,12 @@
             </div>
           </button>
         </div>
+        <span
+          class="leafygreen-ui-38lglc"
+        />
       </div>
       <p
-        class="emotion-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+        class="emotion-CommitMessage e3zirl02 leafygreen-ui-26vqpd"
         title="DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)"
         view="waterfall"
       >

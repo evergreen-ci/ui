@@ -11,7 +11,7 @@
         class="emotion-StyledHeader ez6cbmt2"
       >
         <h6
-          class="leafygreen-ui-19p3n10"
+          class="leafygreen-ui-1c32734"
         >
           Aug 31, 2024, 12:00:00 AM UTC
         </h6>
@@ -47,6 +47,7 @@
                 class="leafygreen-ui-1it7wsd"
                 data-lgid="lg-table-header"
                 data-testid="lg-table-header"
+                id="key"
                 scope="col"
               >
                 <div
@@ -87,6 +88,7 @@
                 class="leafygreen-ui-1it7wsd"
                 data-lgid="lg-table-header"
                 data-testid="lg-table-header"
+                id="before"
                 scope="col"
               >
                 <div
@@ -99,6 +101,7 @@
                 class="leafygreen-ui-1it7wsd"
                 data-lgid="lg-table-header"
                 data-testid="lg-table-header"
+                id="after"
                 scope="col"
               >
                 <div
@@ -980,7 +983,7 @@
       </div>
     </div>
     <h6
-      class="leafygreen-ui-19p3n10"
+      class="leafygreen-ui-1c32734"
     >
       No more events to show.
     </h6>

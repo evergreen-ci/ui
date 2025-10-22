@@ -23,6 +23,7 @@
             class="leafygreen-ui-1jmdxtk"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="taskName"
             scope="col"
           >
             <div
@@ -62,6 +63,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -97,6 +101,7 @@
             class="leafygreen-ui-tmb7z5"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="statuses"
             scope="col"
           >
             <div
@@ -137,6 +142,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -172,6 +180,7 @@
             class="leafygreen-ui-1it7wsd"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="variant"
             scope="col"
           >
             <div
@@ -211,6 +220,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -246,6 +258,7 @@
             class="leafygreen-ui-1jmdxtk"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="duration"
             scope="col"
           >
             <div
@@ -432,7 +445,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       4h 21m
                     </p>

@@ -22,6 +22,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="name"
             scope="col"
           >
             <div
@@ -60,6 +61,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -95,6 +99,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="type"
             scope="col"
           >
             <div
@@ -133,6 +138,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -168,6 +176,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="size"
             scope="col"
           >
             <div
@@ -206,6 +215,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -243,7 +255,7 @@
     </table>
   </div>
   <div
-    class="emotion-28"
+    class="emotion-31"
   >
     No data to display
   </div>

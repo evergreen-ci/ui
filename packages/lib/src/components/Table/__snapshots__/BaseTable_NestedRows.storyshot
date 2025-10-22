@@ -22,6 +22,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="name"
             scope="col"
           >
             <div
@@ -60,6 +61,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -95,6 +99,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="type"
             scope="col"
           >
             <div
@@ -133,6 +138,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -168,6 +176,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="size"
             scope="col"
           >
             <div
@@ -206,6 +215,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -302,7 +314,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       name 0
                     </span>
@@ -330,7 +342,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       type 0
                     </span>
@@ -358,7 +370,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       size 0
                     </span>
@@ -430,7 +442,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       name 1
                     </span>
@@ -458,7 +470,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       type 1
                     </span>
@@ -486,7 +498,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       size 1
                     </span>
@@ -558,7 +570,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       name 2
                     </span>
@@ -586,7 +598,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       type 2
                     </span>
@@ -614,7 +626,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       size 2
                     </span>
@@ -686,7 +698,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       name 3
                     </span>
@@ -714,7 +726,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       type 3
                     </span>
@@ -742,7 +754,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       size 3
                     </span>
@@ -814,7 +826,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       name 4
                     </span>
@@ -842,7 +854,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       type 4
                     </span>
@@ -870,7 +882,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       size 4
                     </span>
@@ -942,7 +954,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       name 5
                     </span>
@@ -970,7 +982,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       type 5
                     </span>
@@ -998,7 +1010,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       size 5
                     </span>
@@ -1070,7 +1082,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       name 6
                     </span>
@@ -1098,7 +1110,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       type 6
                     </span>
@@ -1126,7 +1138,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       size 6
                     </span>
@@ -1198,7 +1210,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       name 7
                     </span>
@@ -1226,7 +1238,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       type 7
                     </span>
@@ -1254,7 +1266,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       size 7
                     </span>
@@ -1326,7 +1338,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       name 8
                     </span>
@@ -1354,7 +1366,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       type 8
                     </span>
@@ -1382,7 +1394,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       size 8
                     </span>
@@ -1454,7 +1466,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       name 9
                     </span>
@@ -1482,7 +1494,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       type 9
                     </span>
@@ -1510,7 +1522,7 @@
                     style="padding: 8px 0px;"
                   >
                     <span
-                      class="emotion-35"
+                      class="emotion-38"
                     >
                       size 9
                     </span>

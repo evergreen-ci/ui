@@ -39,6 +39,9 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.PeriodicBuilds]: {
         title: "Periodic Builds",
       },
+      [ProjectSettingsTabRoutes.TestSelection]: {
+        title: "Test Selection",
+      },
       [ProjectSettingsTabRoutes.Plugins]: {
         title: "Plugins",
       },

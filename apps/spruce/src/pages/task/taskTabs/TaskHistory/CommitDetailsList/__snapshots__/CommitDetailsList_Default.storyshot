@@ -617,6 +617,7 @@
                         class="leafygreen-ui-1it7wsd"
                         data-lgid="lg-table-header"
                         data-testid="lg-table-header"
+                        id="testFile"
                         scope="col"
                         style="width: 60%;"
                       >
@@ -657,6 +658,9 @@
                                 </svg>
                               </div>
                             </button>
+                            <span
+                              class="leafygreen-ui-38lglc"
+                            />
                           </div>
                         </div>
                       </th>
@@ -664,6 +668,7 @@
                         class="leafygreen-ui-1it7wsd"
                         data-lgid="lg-table-header"
                         data-testid="lg-table-header"
+                        id="status"
                         scope="col"
                         style="width: 80px;"
                       >
@@ -677,6 +682,7 @@
                         class="leafygreen-ui-1it7wsd"
                         data-lgid="lg-table-header"
                         data-testid="lg-table-header"
+                        id="Actions"
                         scope="col"
                       >
                         <div

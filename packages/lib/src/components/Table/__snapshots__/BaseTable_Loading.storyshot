@@ -22,6 +22,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="name"
             scope="col"
           >
             <div
@@ -60,6 +61,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -95,6 +99,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="type"
             scope="col"
           >
             <div
@@ -133,6 +138,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -168,6 +176,7 @@
             class="leafygreen-ui-15gh3cs"
             data-lgid="lg-table-header"
             data-testid="lg-table-header"
+            id="size"
             scope="col"
           >
             <div
@@ -206,6 +215,9 @@
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -244,7 +256,7 @@
           data-cy="table-loader-loading-row"
         >
           <td
-            class="emotion-28"
+            class="emotion-31"
           >
             <div
               aria-hidden="true"
@@ -252,7 +264,7 @@
             />
           </td>
           <td
-            class="emotion-28"
+            class="emotion-31"
           >
             <div
               aria-hidden="true"
@@ -260,35 +272,7 @@
             />
           </td>
           <td
-            class="emotion-28"
-          >
-            <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </td>
-        </tr>
-        <tr
-          data-cy="table-loader-loading-row"
-        >
-          <td
-            class="emotion-28"
-          >
-            <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </td>
-          <td
-            class="emotion-28"
-          >
-            <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </td>
-          <td
-            class="emotion-28"
+            class="emotion-31"
           >
             <div
               aria-hidden="true"
@@ -300,7 +284,7 @@
           data-cy="table-loader-loading-row"
         >
           <td
-            class="emotion-28"
+            class="emotion-31"
           >
             <div
               aria-hidden="true"
@@ -308,7 +292,7 @@
             />
           </td>
           <td
-            class="emotion-28"
+            class="emotion-31"
           >
             <div
               aria-hidden="true"
@@ -316,35 +300,7 @@
             />
           </td>
           <td
-            class="emotion-28"
-          >
-            <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </td>
-        </tr>
-        <tr
-          data-cy="table-loader-loading-row"
-        >
-          <td
-            class="emotion-28"
-          >
-            <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </td>
-          <td
-            class="emotion-28"
-          >
-            <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </td>
-          <td
-            class="emotion-28"
+            class="emotion-31"
           >
             <div
               aria-hidden="true"
@@ -356,7 +312,7 @@
           data-cy="table-loader-loading-row"
         >
           <td
-            class="emotion-28"
+            class="emotion-31"
           >
             <div
               aria-hidden="true"
@@ -364,7 +320,7 @@
             />
           </td>
           <td
-            class="emotion-28"
+            class="emotion-31"
           >
             <div
               aria-hidden="true"
@@ -372,7 +328,63 @@
             />
           </td>
           <td
-            class="emotion-28"
+            class="emotion-31"
+          >
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </td>
+        </tr>
+        <tr
+          data-cy="table-loader-loading-row"
+        >
+          <td
+            class="emotion-31"
+          >
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </td>
+          <td
+            class="emotion-31"
+          >
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </td>
+          <td
+            class="emotion-31"
+          >
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </td>
+        </tr>
+        <tr
+          data-cy="table-loader-loading-row"
+        >
+          <td
+            class="emotion-31"
+          >
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </td>
+          <td
+            class="emotion-31"
+          >
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </td>
+          <td
+            class="emotion-31"
           >
             <div
               aria-hidden="true"

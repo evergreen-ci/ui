@@ -6,7 +6,6 @@ import {
   Size as SelectSize,
 } from "@leafygreen-ui/select";
 import { PAGE_SIZES } from "../../constants/pagination";
-import { zIndex } from "../../constants/tokens";
 
 interface Props {
   value: number;
@@ -34,7 +33,6 @@ const PageSizeSelector: React.FC<Props> = ({
     aria-labelledby="page-size-select"
     disabled={disabled}
     onChange={(pageSize: string) => onChange(parseInt(pageSize, 10))}
-    popoverZIndex={zIndex.popover}
     size={SelectSize.Small}
     value={value.toString()}
     {...rest}

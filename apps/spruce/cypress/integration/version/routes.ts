@@ -19,7 +19,7 @@ describe("Version route", () => {
       cy.dataCy("parameters-link").click();
       cy.dataCy("parameters-modal").should("be.visible");
       cy.get('button[aria-label="Close modal"]').click();
-      cy.dataCy("parameters-modal").should("not.exist");
+      cy.dataCy("parameters-modal").should("not.be.visible");
     });
     it("'Base commit' link in metadata links to version page", () => {
       cy.visit(versionRoute(versions[0]));

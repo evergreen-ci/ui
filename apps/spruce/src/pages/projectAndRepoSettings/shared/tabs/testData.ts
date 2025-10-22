@@ -74,6 +74,10 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       enabled: null,
     },
     perfEnabled: true,
+    testSelection: {
+      allowed: null,
+      defaultEnabled: null,
+    },
     buildBaronSettings: {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       ticketCreateProject: null,
@@ -242,6 +246,10 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       enabled: true,
     },
     perfEnabled: true,
+    testSelection: {
+      allowed: true,
+      defaultEnabled: true,
+    },
     buildBaronSettings: {
       ticketCreateProject: "EVG",
       ticketSearchProjects: ["EVG"],

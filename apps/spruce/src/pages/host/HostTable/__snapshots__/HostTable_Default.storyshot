@@ -6,7 +6,7 @@
       class="emotion-TableTitle e1p1q3sw1"
     >
       <h6
-        class="leafygreen-ui-19p3n10"
+        class="leafygreen-ui-1c32734"
       >
         Recent Events
       </h6>
@@ -96,19 +96,20 @@
         <div
           class="leafygreen-ui-1iyoj2o emotion-StyledSelect eng5k480"
           data-lgid="lg-select"
+          data-testid="lg-select"
         >
           <button
-            aria-controls="select-7-menu"
-            aria-describedby="select-7-description"
+            aria-controls="select-143-menu"
+            aria-describedby="select-143-description"
             aria-disabled="false"
             aria-expanded="false"
             aria-invalid="false"
             aria-labelledby="page-size-select"
-            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d leafygreen-ui-1b6wtso"
+            class="lg-ui-button-0001 leafygreen-ui-c19aul"
             data-cy="host-event-table-page-size-selector"
-            data-lgid="lg-button"
+            data-lgid="lg-select-trigger"
             data-testid="leafygreen-ui-select-menubutton"
-            id="select-8"
+            id="select-144"
             type="button"
             value="10"
           >
@@ -124,6 +125,7 @@
                 <div
                   class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
                   data-lgid="lg-select-button_text"
+                  data-testid="lg-select-button_text"
                 >
                   10 / page
                 </div>
@@ -131,7 +133,7 @@
               <svg
                 alt=""
                 aria-hidden="true"
-                class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
+                class="leafygreen-ui-fn50nl"
                 height="16"
                 role="presentation"
                 viewBox="0 0 16 16"
@@ -144,6 +146,9 @@
               </svg>
             </div>
           </button>
+          <span
+            class="leafygreen-ui-38lglc"
+          />
           <div
             aria-live="polite"
             aria-relevant="all"
@@ -179,6 +184,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="timestamp"
               scope="col"
               style="width: 25%;"
             >
@@ -192,6 +198,7 @@
               class="leafygreen-ui-1it7wsd"
               data-lgid="lg-table-header"
               data-testid="lg-table-header"
+              id="eventType"
               scope="col"
             >
               <div
@@ -232,6 +239,9 @@
                       </svg>
                     </div>
                   </button>
+                  <span
+                    class="leafygreen-ui-38lglc"
+                  />
                 </div>
               </div>
             </th>
@@ -763,12 +773,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -910,12 +922,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -1056,12 +1070,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -1498,12 +1514,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -1645,12 +1663,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -1909,12 +1929,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -1997,9 +2019,102 @@
                   <div
                     class=""
                   >
-                    <span>
-                      HOST_REBOOTED
-                    </span>
+                    <div
+                      data-cy="rebooted"
+                    >
+                      Successfully triggered host reboot
+                      <div
+                        data-cy="host-event-log"
+                      >
+                        <div
+                          class="emotion-AccordionToggle e1omze814"
+                          data-cy="accordion-toggle"
+                          role="button"
+                        >
+                          <button
+                            aria-disabled="false"
+                            aria-label="Accordion icon"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
+                            style="align-self: center;"
+                            tabindex="0"
+                          >
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Caret Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <span>
+                            Additional details
+                          </span>
+                        </div>
+                        <div
+                          aria-expanded="false"
+                          class="emotion-AnimatedAccordion e1omze812"
+                          data-cy="accordion-collapse-container"
+                        >
+                          <div
+                            class="emotion-ContentsContainer e1omze811"
+                          >
+                            <span
+                              data-cy="host-event-log-content"
+                            >
+                              <div
+                                class="leafygreen-ui-7g63w3"
+                                data-language="shell"
+                                data-lgid="lg-code"
+                                data-testid="lg-code"
+                              >
+                                <div
+                                  class="leafygreen-ui-r7fdrc"
+                                >
+                                  <pre
+                                    class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
+                                    data-testid="lg-code-pre"
+                                    tabindex="-1"
+                                  >
+                                    <code
+                                      class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                                    >
+                                      <table
+                                        class="leafygreen-ui-1tr4g10"
+                                      >
+                                        <tbody>
+                                          <tr
+                                            class=""
+                                          >
+                                            <td
+                                              class="leafygreen-ui-c8xnd"
+                                            >
+                                              This is a log message
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </code>
+                                  </pre>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2248,12 +2363,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -2394,12 +2511,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -2541,12 +2660,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -2814,12 +2935,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -3148,12 +3271,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >
@@ -3351,12 +3476,14 @@
                                 class="leafygreen-ui-7g63w3"
                                 data-language="shell"
                                 data-lgid="lg-code"
+                                data-testid="lg-code"
                               >
                                 <div
-                                  class="leafygreen-ui-q093uc"
+                                  class="leafygreen-ui-r7fdrc"
                                 >
                                   <pre
                                     class="leafygreen-ui-1csi9re"
+                                    data-lgid="lg-code-pre"
                                     data-testid="lg-code-pre"
                                     tabindex="-1"
                                   >

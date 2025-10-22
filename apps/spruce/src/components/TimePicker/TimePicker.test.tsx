@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { DateType } from "@leafygreen-ui/date-utils";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -41,12 +43,35 @@ describe("time picker", () => {
     );
     const iconButton = screen.getByRole("button", { name: "Clock Icon" });
     await user.click(iconButton);
-    expect(screen.getByDataCy("time-picker-options")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByDataCy("time-picker-options")).toBeVisible();
+    });
     await user.click(iconButton);
     await waitForElementToBeRemoved(
       screen.queryByDataCy("time-picker-options"),
     );
   });
+
+  const CustomRender = ({
+    onDateChange,
+  }: {
+    onDateChange: (d: DateType) => void;
+  }) => {
+    const [date, setDate] = useState(new Date("2025-01-01T12:33:00Z"));
+    const handleChange = (d: DateType) => {
+      setDate(d as Date);
+      onDateChange(d);
+    };
+    return (
+      <LeafyGreenTimePicker
+        data-cy="leafygreen-time-picker"
+        disabled={false}
+        label=""
+        onDateChange={handleChange}
+        value={date}
+      />
+    );
+  };
 
   it("can select time via popover options", async () => {
     const user = userEvent.setup();
@@ -55,20 +80,14 @@ describe("time picker", () => {
     const onScroll = vi.fn();
     Element.prototype.scrollIntoView = onScroll;
 
-    render(
-      <LeafyGreenTimePicker
-        data-cy="leafygreen-time-picker"
-        disabled={false}
-        label=""
-        onDateChange={onDateChange}
-        value={new Date("2025-01-01T12:33:00Z")}
-      />,
-    );
+    render(<CustomRender onDateChange={onDateChange} />);
 
     const iconButton = screen.getByRole("button", { name: "Clock Icon" });
     await user.click(iconButton);
     const menuOptions = screen.getByDataCy("time-picker-options");
-    expect(menuOptions).toBeVisible();
+    await waitFor(() => {
+      expect(menuOptions).toBeVisible();
+    });
 
     // Wait for scroll to be called when the menu opens.
     await waitFor(() => {

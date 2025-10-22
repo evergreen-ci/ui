@@ -15,4 +15,11 @@
       Schedule
     </div>
   </button>
+  <dialog
+    class="leafygreen-ui-353uy9"
+    data-cy="schedule-tasks-modal"
+    data-lgid="lg-confirmation_modal"
+    data-testid="lg-confirmation_modal"
+    id="modal-74"
+  />
 </div>

@@ -1,7 +1,6 @@
 // jest-dom adds custom matchers for asserting on DOM nodes. Works for Vitest too!
 import "@testing-library/jest-dom";
 import "vitest-canvas-mock";
-import React from "react";
 
 // @ts-expect-error: Returning a basic string is acceptable for tests.
 window.crypto.randomUUID = (() => {
@@ -29,23 +28,27 @@ beforeEach(() => {
     disconnect: vi.fn(),
   });
   vi.stubGlobal("IntersectionObserver", mockIntersectionObserver);
-});
 
-vi.mock(
-  "@leafygreen-ui/search-input/node_modules/@leafygreen-ui/icon-button",
-  () => ({
-    __esModule: true,
-    default: vi
-      .fn()
-      .mockImplementation(({ children, ...props }) =>
-        React.createElement(
-          "button",
-          { ...props, "aria-label": props["aria-label"] || "Mock button" },
-          children,
-        ),
-      ),
-  }),
-);
+  // LeafyGreen modals require stubbing dialog
+  // https://github.com/mongodb/leafygreen-ui/blob/22b4d8200b132f24b4cd1a7e4d99b0372ed6fd58/packages/modal/src/utils/getTestUtils.spec.tsx#L36-L54
+  HTMLDialogElement.prototype.show = vi.fn(function mock(
+    this: HTMLDialogElement,
+  ) {
+    this.open = true;
+  });
+
+  HTMLDialogElement.prototype.showModal = vi.fn(function mock(
+    this: HTMLDialogElement,
+  ) {
+    this.open = true;
+  });
+
+  HTMLDialogElement.prototype.close = vi.fn(function mock(
+    this: HTMLDialogElement,
+  ) {
+    this.open = false;
+  });
+});
 
 afterEach(() => {
   vi.unstubAllGlobals();

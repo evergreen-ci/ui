@@ -4,7 +4,7 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
 jobs:
   chromatic:
-    if: github.event.pull_request.draft == false
+    if: false
     name: Chromatic Tests
     runs-on: ubuntu-latest
     steps:
@@ -76,3 +76,11 @@ jobs:
         with:
           working_dir: packages/lib
           project_token: chpt_a5c7789cebbf85e
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v4

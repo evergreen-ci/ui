@@ -1,7 +1,7 @@
 <div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_AGENT_DEPLOYED
     </p>
@@ -27,7 +27,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_AGENT_DEPLOY_FAILED
     </p>
@@ -43,7 +43,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_AGENT_MONITOR_DEPLOYED
     </p>
@@ -64,7 +64,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_AGENT_MONITOR_DEPLOY_FAILED
     </p>
@@ -80,7 +80,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_ALERTABLE_INSTANCE_TYPE_WARNING_SENT
     </p>
@@ -94,7 +94,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_CONVERTED_PROVISIONING
     </p>
@@ -114,7 +114,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_CONVERTING_PROVISIONING
     </p>
@@ -134,7 +134,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_CONVERTING_PROVISIONING_ERROR
     </p>
@@ -199,12 +199,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -239,7 +241,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_CREATED
     </p>
@@ -305,12 +307,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -345,7 +349,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_CREATED_ERROR
     </p>
@@ -410,12 +414,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -450,7 +456,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_DNS_NAME_SET
     </p>
@@ -469,7 +475,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_EXPIRATION_WARNING_SENT
     </p>
@@ -485,7 +491,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_IDLE_NOTIFICATION
     </p>
@@ -501,7 +507,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_JASPER_RESTARTED
     </p>
@@ -520,7 +526,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_JASPER_RESTARTING
     </p>
@@ -541,7 +547,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_JASPER_RESTART_ERROR
     </p>
@@ -606,12 +612,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -646,7 +654,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_MODIFIED
     </p>
@@ -712,12 +720,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -752,7 +762,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_PROVISIONED
     </p>
@@ -771,7 +781,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_PROVISION_ERROR
     </p>
@@ -787,7 +797,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_PROVISION_FAILED
     </p>
@@ -853,12 +863,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -893,21 +905,114 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_REBOOTED
     </p>
     <div
       class="emotion-1"
     >
-      <span>
-        HOST_REBOOTED
-      </span>
+      <div
+        data-cy="rebooted"
+      >
+        Successfully triggered host reboot
+        <div
+          data-cy="host-event-log"
+        >
+          <div
+            class="emotion-AccordionToggle e1omze814"
+            data-cy="accordion-toggle"
+            role="button"
+          >
+            <button
+              aria-disabled="false"
+              aria-label="Accordion icon"
+              class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
+              style="align-self: center;"
+              tabindex="0"
+            >
+              <div
+                class="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="Caret Right Icon"
+                  class="leafygreen-ui-jc2z8v"
+                  fill="none"
+                  height="16"
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+            </button>
+            <span>
+              Additional details
+            </span>
+          </div>
+          <div
+            aria-expanded="false"
+            class="emotion-AnimatedAccordion e1omze812"
+            data-cy="accordion-collapse-container"
+          >
+            <div
+              class="emotion-ContentsContainer e1omze811"
+            >
+              <span
+                data-cy="host-event-log-content"
+              >
+                <div
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
+                  data-testid="lg-code"
+                >
+                  <div
+                    class="leafygreen-ui-r7fdrc"
+                  >
+                    <pre
+                      class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
+                      data-testid="lg-code-pre"
+                      tabindex="-1"
+                    >
+                      <code
+                        class="lg-highlight-hljs-light shell leafygreen-ui-194zjv8"
+                      >
+                        <table
+                          class="leafygreen-ui-1tr4g10"
+                        >
+                          <tbody>
+                            <tr
+                              class=""
+                            >
+                              <td
+                                class="leafygreen-ui-c8xnd"
+                              >
+                                This is a log message
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </code>
+                    </pre>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_RUNNING_TASK_CLEARED
     </p>
@@ -935,7 +1040,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_RUNNING_TASK_SET
     </p>
@@ -963,7 +1068,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_SCRIPT_EXECUTED
     </p>
@@ -1028,12 +1133,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -1068,7 +1175,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_SCRIPT_EXECUTE_FAILED
     </p>
@@ -1133,12 +1240,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -1173,7 +1282,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_STARTED
     </p>
@@ -1239,12 +1348,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -1279,7 +1390,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_STATUS_CHANGED
     </p>
@@ -1364,7 +1475,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_STOPPED
     </p>
@@ -1430,12 +1541,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -1470,7 +1583,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_TASK_FINISHED
     </p>
@@ -1504,7 +1617,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_TEMPORARY_EXEMPTION_EXPIRATION_WARNING_SENT
     </p>
@@ -1518,7 +1631,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       HOST_TERMINATED_EXTERNALLY
     </p>
@@ -1535,7 +1648,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       SPAWN_HOST_CREATED_ERROR
     </p>
@@ -1600,12 +1713,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >
@@ -1640,7 +1755,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       VOLUME_EXPIRATION_WARNING_SENT
     </p>
@@ -1656,7 +1771,7 @@
   </div>
   <div>
     <p
-      class="leafygreen-ui-1tb6tuo"
+      class="leafygreen-ui-26vqpd"
     >
       VOLUME_MIGRATION_FAILED
     </p>
@@ -1721,12 +1836,14 @@
                   class="leafygreen-ui-7g63w3"
                   data-language="shell"
                   data-lgid="lg-code"
+                  data-testid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-q093uc"
+                    class="leafygreen-ui-r7fdrc"
                   >
                     <pre
                       class="leafygreen-ui-1csi9re"
+                      data-lgid="lg-code-pre"
                       data-testid="lg-code-pre"
                       tabindex="-1"
                     >

@@ -3,27 +3,26 @@ import { palette } from "@leafygreen-ui/palette";
 import {
   SideNav as LGSideNav,
   SideNavItem as LGSideNavItem,
+  SideNavItemProps as LGSideNavItemProps,
   SideNavGroup as LGSideNavGroup,
 } from "@leafygreen-ui/side-nav";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
-import { zIndex, size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 
 const { blue } = palette;
 
 export const SideNav = styled(LGSideNav)`
   flex-shrink: 0;
   flex-grow: 0;
-  z-index: ${zIndex.sideNav};
 `;
 
 export const SideNavGroup = LGSideNavGroup;
 
 export const SideNavItem = LGSideNavItem;
 
-interface SideNavItemProps
-  extends Omit<React.ComponentProps<typeof LGSideNavItem>, "as"> {
+interface SideNavItemProps extends Omit<LGSideNavItemProps, "as"> {
   to?: string;
   href?: string;
   glyph?: React.ReactNode;
@@ -33,18 +32,16 @@ export const SideNavItemLink: React.FC<SideNavItemProps> = ({
   glyph,
   ...props
 }) => (
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   <StyledSideNavItemLink as={Link} {...props}>
     <StyledBody weight="medium">{children}</StyledBody>
     <Icon glyph="ArrowRight" />
   </StyledSideNavItemLink>
 );
 
-// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of LGSideNavItem.
 const StyledSideNavItemLink = styled(LGSideNavItem)<SideNavItemProps>`
   color: ${blue.base};
 `;
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   color: ${blue.base};
   margin-right: ${size.xxs};
 `;

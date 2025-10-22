@@ -6,9 +6,16 @@ metadata:
   description: UI for Evergreen
   annotations:
     evergreen/project-id: 65f08ccac9ec449f57b4015d
+  links:
+    - url: https://docs.devprod.prod.corp.mongodb.com/evergreen
+      title: Docs on Pine
+      icon: dashboard
+    - url: https://github.com/evergreen-ci/ui
+      title: evergreen-ci/ui
+      icon: github
 spec:
   type: website
-  owner: evergreen-ui
+  owner: group:10genevergreenui
   lifecycle: production
   system: evergreen
   dependsOn:
@@ -23,9 +30,18 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: spruce
+  annotations:
+    evergreen/project-id: 65f08ccac9ec449f57b4015d
+  links:
+    - url: https://docs.devprod.prod.corp.mongodb.com/evergreen
+      title: Docs on Pine
+      icon: dashboard
+    - url: https://github.com/evergreen-ci/ui/tree/main/apps/spruce
+      title: evergreen-ci/ui Spruce
+      icon: github
 spec:
   type: website
-  owner: evergreen-ui
+  owner: group:10genevergreenui
   lifecycle: production
   system: evergreen
   subcomponentOf: evergreen-ui
@@ -36,9 +52,21 @@ kind: Component
 metadata:
   name: parsley
   description: Evergreen log viewer
+  annotations:
+    evergreen/project-id: 65f08ccac9ec449f57b4015d
+  links:
+    - url: https://docs.devprod.prod.corp.mongodb.com/evergreen
+      title: Docs on Pine
+      icon: dashboard
+    - url: https://github.com/evergreen-ci/ui/tree/main/apps/parsley
+      title: evergreen-ci/ui Parsley
+      icon: github
 spec:
   type: website
-  owner: evergreen-ui
+  owner: group:10genevergreenui
   lifecycle: production
   system: evergreen
+  dependsOn:
+    - component:sage
   subcomponentOf: evergreen-ui
+
