@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import MarketingModal, { GraphicStyle } from "@leafygreen-ui/marketing-modal";
 import { StyledLink } from "@evg-ui/lib/components/styles";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   UpdateUserBetaFeaturesMutation,
@@ -72,13 +72,19 @@ export const ParsleyAIModal: React.FC<ParsleyAIModalProps> = ({
   };
 
   return (
-    <StyledModal
+    <MarketingModal
       buttonProps={{
         children: "Enable it!",
         onClick: handleEnableBeta,
       }}
       data-cy="parsley-ai-modal"
-      graphic={<Image />}
+      graphic={
+        <img
+          alt="Screenshot of new Parsley AI Agent"
+          src={screenshot}
+          width={500}
+        />
+      }
       graphicStyle={GraphicStyle.Center}
       linkText="Maybe later, continue without Parsley AI"
       onClose={handleClose(false)}
@@ -103,26 +109,15 @@ export const ParsleyAIModal: React.FC<ParsleyAIModalProps> = ({
         </StyledLink>
         .
       </ModalContent>
-    </StyledModal>
+    </MarketingModal>
   );
 };
-
-const Image: React.FC = () => (
-  <img alt="Screenshot of new Parsley AI Agent" src={screenshot} />
-);
 
 const Title = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   gap: ${size.xs};
-`;
-
-const StyledModal = styled(MarketingModal)`
-  z-index: ${zIndex.modal};
-  div img {
-    max-width: 85%;
-  }
 `;
 
 const ModalContent = styled.div`
