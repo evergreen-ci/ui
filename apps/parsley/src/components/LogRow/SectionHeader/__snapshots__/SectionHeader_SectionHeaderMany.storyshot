@@ -55,7 +55,7 @@
         />
       </svg>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
       >
         Function: 
         populate_expansions
@@ -117,7 +117,7 @@
         />
       </svg>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
       >
         Function: 
         setup_mongodb_database_and_seed_with_data
@@ -179,7 +179,7 @@
         />
       </svg>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
       >
         Function: 
         build_frontend

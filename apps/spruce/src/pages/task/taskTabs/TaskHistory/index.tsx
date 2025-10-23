@@ -22,6 +22,7 @@ import { TASK_HISTORY } from "gql/queries";
 import { useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
+import { getUTCEndOfDay } from "utils/date";
 import { validateRegexp } from "utils/validators";
 import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
@@ -32,12 +33,7 @@ import TaskTimeline from "./TaskTimeline";
 import { DATE_SEPARATOR_WIDTH } from "./TaskTimeline/DateSeparator";
 import { TestFailureSearchInput } from "./TestFailureSearchInput";
 import { TaskHistoryOptions, ViewOptions } from "./types";
-import {
-  getNextPageCursor,
-  getPrevPageCursor,
-  getUTCEndOfDay,
-  groupTasks,
-} from "./utils";
+import { getNextPageCursor, getPrevPageCursor, groupTasks } from "./utils";
 
 interface TaskHistoryProps {
   task: NonNullable<TaskQuery["task"]>;

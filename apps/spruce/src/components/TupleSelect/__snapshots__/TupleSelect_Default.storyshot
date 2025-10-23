@@ -3,8 +3,9 @@
     class="emotion-Container e5gn9hl4"
   >
     <label
-      class="leafygreen-ui-ms04bw"
-      data-lgid="lg-label"
+      class="leafygreen-ui-vk2fo1"
+      data-lgid="lg-typography-label"
+      data-testid="lg-typography-label"
       for="tuple-select"
     >
       <div
@@ -22,17 +23,17 @@
         data-testid="lg-select"
       >
         <button
-          aria-controls="select-10-menu"
-          aria-describedby="select-10-description"
+          aria-controls="select-130-menu"
+          aria-describedby="select-130-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="Tuple Select Select"
-          class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
+          class="lg-ui-button-0001 leafygreen-ui-1p6i2zy"
           data-cy="tuple-select-select"
           data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-11"
+          id="select-131"
           type="button"
           value="build_variant"
         >
@@ -88,6 +89,7 @@
           aria-labelledby="Tuple Select Input"
           class="leafygreen-ui-1br9h7w"
           data-lgid="lg-text_input"
+          data-testid="lg-text_input"
         >
           <div
             class="leafygreen-ui-1iyoj2o"
@@ -117,9 +119,9 @@
             aria-live="polite"
             aria-relevant="all"
             class="leafygreen-ui-11ydt2g"
-            data-lgid="lg-form_field-feedback"
-            data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-59"
+            data-lgid="lg-text_input-feedback"
+            data-testid="lg-text_input-feedback"
+            id="lg-form_field-feedback-134"
           />
         </div>
         <div

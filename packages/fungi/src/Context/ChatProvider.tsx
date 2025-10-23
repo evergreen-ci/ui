@@ -14,7 +14,7 @@ export const ChatContext = createContext<ChatContextState>({
 
 type ProviderProps = {
   appName: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export const ChatProvider: React.FC<ProviderProps> = ({

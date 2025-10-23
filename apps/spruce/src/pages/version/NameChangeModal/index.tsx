@@ -45,7 +45,6 @@ export const NameChangeModal: React.FC<NameChangeModalProps> = ({
 
   return (
     <>
-      {/* @ts-expect-error: Styled LeafyGreen component throws an error */}
       <StyledIconButton
         aria-label="name-change-modal-trigger"
         data-cy="name-change-modal-trigger"

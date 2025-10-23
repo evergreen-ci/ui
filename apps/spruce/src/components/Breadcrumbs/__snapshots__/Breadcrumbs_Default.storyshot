@@ -13,6 +13,9 @@
           spruce
         </span>
       </a>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
     <svg
       aria-label="Chevron Right Icon"
@@ -36,6 +39,9 @@
       class="leafygreen-ui-cssveg"
     >
       511232
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
   </nav>
 </div>

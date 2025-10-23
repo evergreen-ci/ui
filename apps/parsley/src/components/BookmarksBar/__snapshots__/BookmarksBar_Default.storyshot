@@ -5,6 +5,9 @@
     <div
       class="emotion-Container erobc1r0"
     >
+      <span
+        class="leafygreen-ui-38lglc"
+      />
       <button
         aria-disabled="false"
         class="lg-ui-button-0000 leafygreen-ui-168frnw leafygreen-ui-cssveg emotion-StyledButton erobc1r4"
@@ -19,6 +22,9 @@
           class="leafygreen-ui-b15bbd"
         >
           Clear
+          <span
+            class="leafygreen-ui-38lglc"
+          />
         </div>
       </button>
       <div

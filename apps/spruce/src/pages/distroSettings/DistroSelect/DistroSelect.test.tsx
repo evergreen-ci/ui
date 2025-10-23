@@ -10,8 +10,7 @@ import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
 import { DISTROS } from "gql/queries";
 import { DistroSelect } from ".";
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-const wrapper = ({ children }) => (
+const wrapper = ({ children }: React.PropsWithChildren) => (
   <MockedProvider mocks={[distrosMock]}>{children}</MockedProvider>
 );
 
@@ -41,9 +40,11 @@ describe("distro select", () => {
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     await user.click(screen.getByLabelText("Distro"));
-    expect(screen.getByRole("listbox")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByRole("listbox")).toBeVisible();
+    });
     await user.click(screen.getByText("abc"));
-    expect(screen.queryByDataCy("distro-select-options")).toBeNull();
+    expect(screen.queryByRole("listbox")).not.toBeVisible();
     expect(router.state.location.pathname).toBe("/distro/abc/settings/general");
   });
 
@@ -58,7 +59,9 @@ describe("distro select", () => {
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     await user.click(screen.getByLabelText("Distro"));
-    expect(screen.getByRole("listbox")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByRole("listbox")).toBeVisible();
+    });
 
     expect(screen.getAllByRole("option")).toHaveLength(3);
     await user.clear(screen.getByPlaceholderText("Select distro"));
@@ -77,7 +80,9 @@ describe("distro select", () => {
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     await user.click(screen.getByLabelText("Distro"));
-    expect(screen.getByRole("listbox")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByRole("listbox")).toBeVisible();
+    });
 
     expect(screen.getAllByRole("option")).toHaveLength(3);
     await user.clear(screen.getByPlaceholderText("Select distro"));
