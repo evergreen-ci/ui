@@ -89,9 +89,10 @@ const ChatbotContent: React.FC<{ children: React.ReactNode }> = ({
   }, [sendEvent]);
 
   useEffect(() => {
-    if (drawerOpen) {
-      sendEvent({ name: "Toggled AI agent panel" });
-    }
+    sendEvent({
+      name: "Toggled AI agent panel",
+      open: drawerOpen,
+    });
   }, [drawerOpen, sendEvent]);
 
   return (

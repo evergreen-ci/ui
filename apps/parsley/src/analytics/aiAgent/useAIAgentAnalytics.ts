@@ -17,6 +17,7 @@ type Action =
     }
   | {
       name: "Toggled AI agent panel";
+      open: boolean;
     }
   | {
       name: "Clicked submit feedback button";
