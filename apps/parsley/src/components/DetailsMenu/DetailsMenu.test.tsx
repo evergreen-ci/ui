@@ -52,6 +52,7 @@ describe("detailsMenu", () => {
     renderDetailsMenu();
     expect(screen.getByText("Details")).toBeInTheDocument();
   });
+
   it("clicking on the details menu button should open the details menu", async () => {
     const user = userEvent.setup();
 
@@ -64,6 +65,7 @@ describe("detailsMenu", () => {
     await user.click(detailsButton);
     expect(screen.getByDataCy("details-menu")).toBeInTheDocument();
   });
+
   it("updating search range should flash the details button", async () => {
     vi.useFakeTimers();
 
@@ -73,14 +75,14 @@ describe("detailsMenu", () => {
       name: "Details",
     });
     expect(detailsButton).toBeEnabled();
-    expect(detailsButton).toHaveAttribute("data-variant", "default");
+    expect(detailsButton).not.toHaveClass("glow-active");
     act(() => {
       hook.current.useQueryParam[1](1);
     });
-    expect(detailsButton).toHaveAttribute("data-variant", "primary");
+    expect(detailsButton).toHaveClass("glow-active");
     vi.runAllTimers();
     await waitFor(() => {
-      expect(detailsButton).toHaveAttribute("data-variant", "default");
+      expect(detailsButton).not.toHaveClass("glow-active");
     });
   });
 });

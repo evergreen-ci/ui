@@ -1,4 +1,10 @@
-import { useState, useRef, forwardRef, useImperativeHandle } from "react";
+import {
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+} from "react";
 import styled from "@emotion/styled";
 import {
   GuideCue,
@@ -40,14 +46,6 @@ export const WalkthroughGuideCue = forwardRef<
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
   const currentStepRef = useRef<HTMLElement | null>(null);
 
-  // Exposes a function via the ref to restart the walkthrough.
-  useImperativeHandle(ref, () => ({
-    restart: () => {
-      setActive(true);
-      goToNextStep(0);
-    },
-  }));
-
   const endWalkthrough = () => {
     onClose();
     setActive(false);
@@ -78,6 +76,14 @@ export const WalkthroughGuideCue = forwardRef<
     setOpen(true);
   };
 
+  // Exposes a function via the ref to restart the walkthrough.
+  useImperativeHandle(ref, () => ({
+    restart: () => {
+      setActive(true);
+      goToNextStep(0);
+    },
+  }));
+
   const onPrimaryButtonClick = () => {
     const nextStepIdx = currentStepIdx + 1;
     if (nextStepIdx === walkthroughSteps.length) {
@@ -88,10 +94,14 @@ export const WalkthroughGuideCue = forwardRef<
   };
 
   const currentStep = walkthroughSteps[currentStepIdx];
-  currentStepRef.current = getTargetElement({
-    dataAttributeName,
-    targetId: currentStep.targetId,
-  });
+
+  // Update the ref when the current step changes
+  useEffect(() => {
+    currentStepRef.current = getTargetElement({
+      dataAttributeName,
+      targetId: currentStep.targetId,
+    });
+  }, [dataAttributeName, currentStep.targetId]);
 
   return (
     <>

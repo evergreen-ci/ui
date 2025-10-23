@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useLocation } from "react-router-dom";
@@ -36,18 +36,19 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
   const queryVariables = useQueryVariables(search, versionId);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
-  const [hasInitialized, setHasInitialized] = useState(false);
+
+  const hasValidSortsForTab = useMemo(
+    () => sorts?.some((s) => validSortCategories.includes(s.Key)) || false,
+    [sorts],
+  );
 
   useEffect(() => {
-    const hasValidSortsForTab =
-      sorts?.some((s) => validSortCategories.includes(s.Key)) || false;
     if (!hasValidSortsForTab) {
       setQueryParams({
         ...queryParams,
         [TableQueryParams.Sorts]: defaultSort,
       });
     }
-    setHasInitialized(true);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const clearQueryParams = () => {
@@ -97,18 +98,12 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
         page={page}
         totalCount={taskCount}
       />
-      {
-        // Ensures that the TaskDurationTable initial sort
-        // button states intialize with the correct default values.
-        hasInitialized && (
-          <TaskDurationTable
-            loading={loading}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            numLoadingRows={limit}
-            tasks={tasksData}
-          />
-        )
-      }
+      <TaskDurationTable
+        loading={loading}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        numLoadingRows={limit}
+        tasks={tasksData}
+      />
       {shouldShowBottomTableControl && (
         <TableControlWrapper>
           <TableControl

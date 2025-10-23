@@ -84,7 +84,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
 
   const { initialFilters, initialSorting } = useMemo(
     () => getInitialState(queryParams),
-    [], // eslint-disable-line react-hooks/exhaustive-deps
+    [queryParams],
   );
 
   const [columnFilters, setColumnFilters] =

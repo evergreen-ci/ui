@@ -1,4 +1,4 @@
-import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import { KeyboardEvent, useMemo, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -42,8 +42,22 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const { sendEvent } = useLogWindowAnalytics();
   const inputRef = useRef<HTMLInputElement>(null);
   const [input, setInput] = useState("");
-  const [autoCompletePlaceholder, setAutoCompletePlaceholder] = useState("");
   const [selected, setSelected] = useState(SearchBarActions.Filter);
+
+  const autoCompletePlaceholder = useMemo(() => {
+    if (input.length === 0) {
+      return "";
+    }
+    // Find the first suggestion that starts with the input.
+    for (const group of searchSuggestions) {
+      for (const s of group.suggestions) {
+        if (s.startsWith(input) && s !== input) {
+          return s;
+        }
+      }
+    }
+    return "";
+  }, [input, searchSuggestions]);
 
   const isValid = validator(input);
   const debounceSearch = useRef(
@@ -77,29 +91,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
     { disabled, ignoreFocus: true },
   );
 
-  useEffect(() => {
-    if (input.length === 0) {
-      setAutoCompletePlaceholder("");
-      return;
-    }
-    // Iterate through searchSuggestions and then the suggestions and return the first suggestion that starts with the input. suggestion should be a string representing the first suggestion in the suggestion group that matches
-    let suggestion = "";
-    for (const group of searchSuggestions) {
-      for (const s of group.suggestions) {
-        if (s.startsWith(input)) {
-          suggestion = s;
-          break;
-        }
-      }
-    }
-
-    if (suggestion && suggestion !== input) {
-      setAutoCompletePlaceholder(suggestion);
-    } else {
-      setAutoCompletePlaceholder("");
-    }
-  }, [input, searchSuggestions]);
-
   const handleChangeSelect = (value: string) => {
     setSelected(value as SearchBarActions);
     leaveBreadcrumb("search-bar-select", { value }, SentryBreadcrumbTypes.User);
@@ -129,7 +120,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
     if (e.key === CharKey.Tab && autoCompletePlaceholder.length > 0) {
       e.preventDefault();
       handleOnChange(autoCompletePlaceholder);
-      setAutoCompletePlaceholder("");
       sendEvent({
         name: "Used search suggestion",
         suggestion: autoCompletePlaceholder,

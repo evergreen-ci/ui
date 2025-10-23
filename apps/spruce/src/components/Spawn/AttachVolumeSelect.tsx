@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { Select, Option } from "@leafygreen-ui/select";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -9,11 +9,6 @@ import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { MY_HOSTS } from "gql/queries";
 import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
-
-interface HostOption {
-  id: string;
-  displayName: string;
-}
 
 interface Props {
   targetAvailabilityZone: string;
@@ -31,7 +26,6 @@ export const AttachVolumeSelect = ({
   targetAvailabilityZone,
 }: Props) => {
   const dispatchToast = useToastContext();
-  const [hostOptions, setHostOptions] = useState<HostOption[]>([]); // dropdown option
   const { data, refetch, startPolling, stopPolling } = useQuery<
     MyHostsQuery,
     MyHostsQueryVariables
@@ -43,36 +37,36 @@ export const AttachVolumeSelect = ({
   });
   usePolling({ startPolling, stopPolling, refetch });
 
-  // set host dropdown options
-  useEffect(() => {
-    // User should not be able to make changes to a host if it isn't in the running or stopped status and the host is not in the wrong availability zone
-    const canUpdateHost = (status: string, availabilityZone: string) =>
+  const hostDropdownOptions = useMemo(() => {
+    // User should not be able to make changes to a host if it isn't in the running or stopped status
+    // and if the host is not in the same availability zone.
+    const canUpdateHost = (
+      status: string | null | undefined,
+      availabilityZone: string | null | undefined,
+    ) =>
       availabilityZone === targetAvailabilityZone &&
       (status === HostStatus.Running || status === HostStatus.Stopped);
+
     if (data?.myHosts) {
-      const opts = data.myHosts
-        // Filter hosts that do not have the same availability zone as the volume.
+      return data.myHosts
         .filter(({ availabilityZone, status }) =>
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           canUpdateHost(status, availabilityZone),
         )
-        // Map host to a displayName and ID for the dropdown <Option />
         .map(({ displayName, id }) => ({
           id,
           displayName: displayName || id,
         }))
-        // Sort the dropdown items by display name.
         .sort((a, b) => a.displayName.localeCompare(b.displayName));
-      setHostOptions(opts);
     }
+    return [];
   }, [data, targetAvailabilityZone]);
 
   // set initially selected host in dropdown
   useEffect(() => {
-    if (!selectedHostId && hostOptions.length && autofill) {
-      onChange(hostOptions[0].id);
+    if (!selectedHostId && hostDropdownOptions.length && autofill) {
+      onChange(hostDropdownOptions[0].id);
     }
-  }, [hostOptions, selectedHostId, onChange, autofill]);
+  }, [hostDropdownOptions, selectedHostId, onChange, autofill]);
 
   return (
     <ModalContent>
@@ -90,7 +84,7 @@ export const AttachVolumeSelect = ({
             {" "}
           </Option>
         )}
-        {hostOptions.map(({ displayName, id }) => (
+        {hostDropdownOptions.map(({ displayName, id }) => (
           <Option key={id} data-cy={`${id}-option`} value={id}>
             {displayName}
           </Option>

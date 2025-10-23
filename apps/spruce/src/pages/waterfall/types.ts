@@ -1,7 +1,12 @@
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { WaterfallQuery } from "gql/generated/types";
+import { WaterfallOptions, WaterfallQuery } from "gql/generated/types";
 
 export type Pagination = WaterfallQuery["waterfall"]["pagination"];
+
+export type ServerFilters = Pick<
+  WaterfallOptions,
+  "requesters" | "statuses" | "tasks" | "variants"
+>;
 
 export type Version = Omit<
   Unpacked<WaterfallQuery["waterfall"]["flattenedVersions"]>,

@@ -277,8 +277,8 @@
                   class="leafygreen-ui-xhlipt"
                 >
                   <svg
-                    aria-label="Unsorted Icon"
-                    class="leafygreen-ui-jc2z8v"
+                    aria-label="Sort Descending Icon"
+                    class="leafygreen-ui-1t2jgtk"
                     fill="none"
                     height="16"
                     role="img"
@@ -287,7 +287,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026zM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1M9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2zM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1"
+                      d="M4.45 14.696a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.025h1.312V2.169a1.169 1.169 0 1 1 2.338 0v9.352H6.55c.541 0 .792.672.383 1.026zM8 3a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2zM7 7a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1M8 9a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2z"
                       fill="currentColor"
                     />
                   </svg>

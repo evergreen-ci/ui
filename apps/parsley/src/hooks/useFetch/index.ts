@@ -30,40 +30,43 @@ const useFetch = <T extends object>(
     const abortController = new AbortController();
 
     if (!skip) {
-      setIsLoading(true);
-      fetch(req, {
-        credentials: "include",
-        // Conditionally define signal because AbortController throws error in development's strict mode
-        signal: isProduction() ? abortController.signal : undefined,
-      })
-        .then((response) => {
+      const fetchData = async () => {
+        try {
+          setIsLoading(true);
+          const response = await fetch(req, {
+            credentials: "include",
+            // Conditionally define signal because AbortController throws error in development's strict mode
+            signal: isProduction() ? abortController.signal : undefined,
+          });
+
           if (!response.ok) {
             throw new Error(`making request: ${response.status}`);
           }
-          return response;
-        })
-        .then((response) => response.json() || {})
-        .then((json) => {
+
+          const json = (await response.json()) || {};
           setData(json);
-        })
-        .catch((err: Error) => {
+        } catch (err: unknown) {
+          const errorObj = err as Error;
           leaveBreadcrumb(
             "useFetch",
-            { err, url },
+            { err: errorObj, url },
             SentryBreadcrumbTypes.Error,
           );
-          reportError(err).severe();
-          setError(err.message);
-        })
-        .finally(() => {
+          reportError(errorObj).severe();
+          setError(errorObj.message);
+        } finally {
           setIsLoading(false);
-        });
+        }
+      };
+
+      fetchData();
     }
     return () => {
       // Cancel the request if the component unmounts
       abortController.abort();
     };
   }, [url, skip]);
+
   return { data, error, isLoading };
 };
 

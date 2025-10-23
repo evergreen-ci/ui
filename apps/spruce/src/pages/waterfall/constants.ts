@@ -2,6 +2,7 @@ import { TooltipJustify } from "@leafygreen-ui/guide-cue";
 import { FilterType } from "components/TupleSelectWithRegexConditional";
 import { WalkthroughStep } from "components/WalkthroughGuideCue";
 import { validators } from "utils";
+import { ServerFilters } from "./types";
 
 export const VERSION_LIMIT = 5;
 
@@ -72,3 +73,10 @@ export const tupleSelectOptions = [
 export const displayStatusCacheAddedDate = new Date(
   Date.UTC(2025, 0, 21, 15, 5),
 );
+
+export const resetFilterState: ServerFilters = {
+  requesters: undefined,
+  statuses: undefined,
+  tasks: undefined,
+  variants: undefined,
+};
