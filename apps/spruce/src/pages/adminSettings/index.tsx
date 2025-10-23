@@ -1,15 +1,13 @@
 import { useQuery } from "@apollo/client";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
+  SettingsPageContent,
   SideNav,
   SideNavGroup,
   SideNavItem,
-  SideNavPageContent,
   SideNavPageWrapper,
 } from "components/styles";
 import {
@@ -565,17 +563,11 @@ const AdminSettingsPage: React.FC = () => {
             </SideNavItem>
           </SideNavGroup>
         </SideNav>
-        <SideNavPageContent
-          css={css`
-            padding-top: 0;
-            margin-top: ${size.m};
-          `}
-          data-cy="admin-settings-page"
-        >
+        <SettingsPageContent data-cy="admin-settings-page">
           {data?.adminSettings && (
             <AdminSettingsTabs data={data.adminSettings} />
           )}
-        </SideNavPageContent>
+        </SettingsPageContent>
       </SideNavPageWrapper>
     </AdminSettingsProvider>
   );

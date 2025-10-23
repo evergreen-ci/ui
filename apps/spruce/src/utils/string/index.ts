@@ -164,29 +164,6 @@ export const sortFunctionString = <T>(a: T, b: T, key: string) => {
 };
 
 /**
- * `sortFunctionDate` is a helper function for sorting an array of objects by a date key
- * @param a - the first object to compare
- * @param b - the second object to compare
- * @param key - the key to sort by
- * @returns - a number representing the sort order
- * @example
- * const arr = [{ date: "2021-01-01" }, { date: "2021-01-02" }];
- * arr.sort((a, b) => sortFunctionDate(a, b, "date"));
- * // [{ date: "2021-01-01" }, { date: "2021-01-02" }]
- */
-export const sortFunctionDate = <T>(a: T, b: T, key: string) => {
-  let dateA: Date;
-  let dateB: Date;
-  try {
-    dateA = new Date(get(a, key));
-    dateB = new Date(get(b, key));
-  } catch (e) {
-    throw Error(`Could not convert ${key} to date`);
-  }
-  return dateA.getTime() - dateB.getTime();
-};
-
-/**
  * @param  str - A string that does not contain regex operators.
  * @returns A regex that strictly matches on the input.
  */

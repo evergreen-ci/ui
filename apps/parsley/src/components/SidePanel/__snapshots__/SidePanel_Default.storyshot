@@ -12,7 +12,7 @@
         <nav
           aria-label="Side panel"
           class="leafygreen-ui-fw8ayd"
-          id="side-nav-24"
+          id="side-nav-26"
         >
           <div
             class="leafygreen-ui-1nmawjt"
@@ -28,7 +28,7 @@
                   data-cy="project-filters-modal"
                   data-lgid="lg-confirmation_modal"
                   data-testid="lg-confirmation_modal"
-                  id="modal-19"
+                  id="modal-21"
                 />
                 <li
                   class="leafygreen-ui-la0n3e emotion-StyledSideNavGroup e15kq6cl3"
@@ -36,7 +36,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-20"
+                    id="menu-group-label-id-22"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -108,7 +108,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-20"
+                    aria-labelledby="menu-group-label-id-22"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -259,8 +259,8 @@
                                   Case
                                 </div>
                                 <div
-                                  aria-label="segmented-control-25"
-                                  aria-owns="segmented-control-25-0 segmented-control-25-1"
+                                  aria-label="segmented-control-27"
+                                  aria-owns="segmented-control-27-0 segmented-control-27-1"
                                   class="leafygreen-ui-1698cdy"
                                   role="tablist"
                                 >
@@ -276,7 +276,7 @@
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="true"
                                         class="leafygreen-ui-qlnhrg"
-                                        id="segmented-control-25-0"
+                                        id="segmented-control-27-0"
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -305,7 +305,7 @@
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="false"
                                         class="leafygreen-ui-qlnhrg"
-                                        id="segmented-control-25-1"
+                                        id="segmented-control-27-1"
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -339,8 +339,8 @@
                                   Match
                                 </div>
                                 <div
-                                  aria-label="segmented-control-26"
-                                  aria-owns="segmented-control-26-0 segmented-control-26-1"
+                                  aria-label="segmented-control-28"
+                                  aria-owns="segmented-control-28-0 segmented-control-28-1"
                                   class="leafygreen-ui-1698cdy"
                                   role="tablist"
                                 >
@@ -356,7 +356,7 @@
                                         aria-controls="Toggle match type"
                                         aria-selected="true"
                                         class="leafygreen-ui-qlnhrg"
-                                        id="segmented-control-26-0"
+                                        id="segmented-control-28-0"
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -385,7 +385,7 @@
                                         aria-controls="Toggle match type"
                                         aria-selected="false"
                                         class="leafygreen-ui-qlnhrg"
-                                        id="segmented-control-26-1"
+                                        id="segmented-control-28-1"
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -423,7 +423,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-21"
+                    id="menu-group-label-id-23"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -478,7 +478,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-21"
+                    aria-labelledby="menu-group-label-id-23"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -530,7 +530,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-22"
+                    id="menu-group-label-id-24"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -578,7 +578,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-22"
+                    aria-labelledby="menu-group-label-id-24"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -749,7 +749,7 @@
           </div>
         </nav>
         <button
-          aria-controls="side-nav-24"
+          aria-controls="side-nav-26"
           aria-expanded="true"
           aria-label="Collapse navigation"
           class="leafygreen-ui-v87gj9"

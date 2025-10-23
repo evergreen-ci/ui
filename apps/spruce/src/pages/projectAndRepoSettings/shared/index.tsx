@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, Link, Navigate } from "react-router-dom";
@@ -7,10 +6,10 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
 import {
+  SettingsPageContent,
   SideNav,
   SideNavGroup,
   SideNavItem,
-  SideNavPageContent,
   SideNavPageWrapper,
 } from "components/styles";
 import {
@@ -119,11 +118,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             ))}
           </SideNavGroup>
         </SideNav>
-        <SideNavPageContent
-          css={css`
-            padding-top: 0;
-            margin-top: ${size.m};
-          `}
+        <SettingsPageContent
           data-cy={isRepo ? "repo-settings-page" : "project-settings-page"}
         >
           {hasLoaded ? (
@@ -135,7 +130,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
           ) : (
             <FormSkeleton />
           )}
-        </SideNavPageContent>
+        </SettingsPageContent>
       </SideNavPageWrapper>
     </ProjectSettingsProvider>
   );
