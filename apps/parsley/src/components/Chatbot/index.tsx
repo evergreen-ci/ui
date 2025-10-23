@@ -22,7 +22,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => <FungiProvider appName="Parsley AI">{children}</FungiProvider>;
 
-const ChatbotContent: React.FC<{ children: React.ReactNode }> = ({
+export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { sendEvent } = useAIAgentAnalytics();
@@ -102,10 +102,6 @@ const ChatbotContent: React.FC<{ children: React.ReactNode }> = ({
           apiUrl={chatURL}
           bodyData={bodyData}
           chatSuggestions={aiPrompts}
-          disclaimerContent="Generative AI models may produce incorrect or misleading
-              information. Please review the output carefully. Parsley AI is
-              meant to assist with investigations and not to replace your own
-              judgement."
           handleRatingChange={handleFeedback}
           handleSubmitFeedback={handleFeedback}
           loginUrl={loginURL}
@@ -130,14 +126,6 @@ const ChatbotContent: React.FC<{ children: React.ReactNode }> = ({
     </ChatDrawer>
   );
 };
-
-export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => (
-  <ChatProvider>
-    <ChatbotContent>{children}</ChatbotContent>
-  </ChatProvider>
-);
 
 const DrawerTitle = styled.div`
   display: flex;
