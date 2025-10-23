@@ -1,9 +1,12 @@
-import { ChangeEvent, FormEvent, useCallback } from "react";
+import { ChangeEvent, FormEvent, useCallback, useEffect } from "react";
 import styled from "@emotion/styled";
 import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { Chat, MessageRatingValue } from "@evg-ui/fungi/Chat";
 import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
-import { ChatProvider as FungiProvider } from "@evg-ui/fungi/Context";
+import {
+  ChatProvider as FungiProvider,
+  useChatContext,
+} from "@evg-ui/fungi/Context";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { post } from "@evg-ui/lib/utils/request/post";
 import { useAIAgentAnalytics } from "analytics";
@@ -24,6 +27,7 @@ const ChatbotContent: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const { sendEvent } = useAIAgentAnalytics();
   const { logMetadata } = useLogContext();
+  const { drawerOpen } = useChatContext();
   const { execution, fileName, groupID, logType, origin, taskID, testID } =
     logMetadata ?? {};
 
@@ -83,6 +87,12 @@ const ChatbotContent: React.FC<{ children: React.ReactNode }> = ({
   const handleCopy = useCallback(() => {
     sendEvent({ name: "Clicked copy response button" });
   }, [sendEvent]);
+
+  useEffect(() => {
+    if (drawerOpen) {
+      sendEvent({ name: "Toggled AI agent panel" });
+    }
+  }, [drawerOpen, sendEvent]);
 
   return (
     <ChatDrawer
