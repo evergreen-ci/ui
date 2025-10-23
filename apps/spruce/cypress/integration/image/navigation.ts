@@ -11,8 +11,8 @@ describe("image dropdown", () => {
     cy.visit("/image/amazon2/build-information");
     cy.dataCy("images-select").should("be.visible").as("button");
     cy.get("@button").click();
-    cy.get(".images-select-options").find("li").should("exist");
-    cy.get(".images-select-options").within(() => {
+    cy.get("[role='listbox']").find("li").should("exist");
+    cy.get("[role='listbox']").within(() => {
       cy.get("li").eq(1).click();
       cy.get("li")
         .eq(1)

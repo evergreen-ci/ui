@@ -47,12 +47,13 @@ const TimePickerOptions: React.FC<TimePickerOptionsProps> = ({
           onSelectOption={(val) => {
             optionRefs[o].current?.scrollIntoView({ behavior: "smooth" });
             const valAsNumber = Number(val);
+            const newDate = new Date(currentDateTime);
             if (type === TimepickerType.Minute) {
-              currentDateTime.setMinutes(valAsNumber);
+              newDate.setMinutes(valAsNumber);
             } else if (type === TimepickerType.Hour) {
-              currentDateTime.setHours(valAsNumber);
+              newDate.setHours(valAsNumber);
             }
-            onDateChange(currentDateTime);
+            onDateChange(newDate);
           }}
           value={o}
         />
@@ -80,11 +81,12 @@ const TimePickerOption = forwardRef<HTMLButtonElement, TimePickerOptionProps>(
       ref={ref}
       id={`time-picker-${value}`}
       onClick={(e) => {
+        e.preventDefault();
         e.stopPropagation();
         onSelectOption(value);
       }}
       selected={isSelected}
-      type="submit"
+      type="button"
     >
       {value}
     </Item>

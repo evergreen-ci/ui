@@ -3,6 +3,7 @@ import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
+  waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
@@ -84,9 +85,10 @@ describe("buildBaronContent", () => {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByDataCy("file-ticket-button"));
-    expect(screen.getByDataCy("file-ticket-popconfirm")).toBeVisible();
+    await user.click(screen.getByDataCy("file-ticket-button"));
+    await waitFor(() => {
+      expect(screen.getByDataCy("file-ticket-popconfirm")).toBeVisible();
+    });
     await user.click(screen.getByRole("button", { name: "Yes" }));
     expect(dispatchToast.success).toHaveBeenCalledWith(
       "Successfully requested ticket",

@@ -7581,6 +7581,12 @@ export type AdminSettingsQuery = {
           username?: string | null;
         }>;
       } | null;
+      oauth?: {
+        __typename?: "OAuthConfig";
+        clientId: string;
+        connectorId: string;
+        issuer: string;
+      } | null;
       okta?: {
         __typename?: "OktaConfig";
         clientId?: string | null;

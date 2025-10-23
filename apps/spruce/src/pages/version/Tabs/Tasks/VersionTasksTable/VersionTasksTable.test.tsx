@@ -112,18 +112,24 @@ describe("VersionTasksTable", () => {
       // This is how LG tests their checkboxes ¯\_(ツ)_/¯
       fireEvent.click(getInput());
       await waitFor(() => {
-        expect(getInputValue()).toBe(true);
+        expect(getTestUtils(`lg-reviewed-${tasks[0].id}`).getInputValue()).toBe(
+          true,
+        );
       });
       expect(db.setItem).toHaveBeenCalledExactlyOnceWith(
         [tasks[0].id, tasks[0].execution],
         true,
       );
 
-      fireEvent.click(getInput());
+      fireEvent.click(getTestUtils(`lg-reviewed-${tasks[0].id}`).getInput());
       await waitFor(() => {
-        expect(getInputValue()).toBe(false);
+        expect(getTestUtils(`lg-reviewed-${tasks[0].id}`).getInputValue()).toBe(
+          true,
+        );
       });
-      expect(db.setItem).toHaveBeenCalledTimes(2);
+      await waitFor(() => {
+        expect(db.setItem).toHaveBeenCalledTimes(2);
+      });
       expect(db.setItem).toHaveBeenLastCalledWith(
         [tasks[0].id, tasks[0].execution],
         false,
@@ -165,7 +171,9 @@ describe("VersionTasksTable", () => {
       const { getExpandButton } = getRowByIndex(3);
       await user.click(getExpandButton());
 
-      expect(displayTask.getInputValue()).toBe(true);
+      expect(getTestUtils(`lg-reviewed-${tasks[3].id}`).getInputValue()).toBe(
+        true,
+      );
 
       const executionTask0 = getTestUtils(
         `lg-reviewed-${tasks[3]?.executionTasksFull?.[0]?.id}`,

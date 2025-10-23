@@ -182,7 +182,6 @@ export const transformAliases = (
   override: boolean,
   aliasName?: AliasNames,
 ): ProjectAliasInput[] =>
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   override
     ? aliases.map((a) => {
         const {
@@ -224,7 +223,7 @@ export const transformAliases = (
         return {
           ...(tasks && transformTasks(tasks)),
           ...(variants && transformVariants(variants)),
-          alias: alias || aliasName,
+          alias: alias || aliasName || "",
           description: description || "",
           gitTag: "",
           id: id || "",

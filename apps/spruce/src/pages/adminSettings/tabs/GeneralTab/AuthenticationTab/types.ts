@@ -41,6 +41,11 @@ export interface AuthenticationFormState {
       issuer: string;
       keysetURL: string;
     };
+    oauth: {
+      clientId: string;
+      connectorId: string;
+      issuer: string;
+    };
   };
 }
 

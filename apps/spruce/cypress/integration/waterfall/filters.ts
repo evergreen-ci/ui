@@ -135,9 +135,9 @@ describe("date filter", () => {
     cy.location("search").should("equal", "");
 
     cy.dataCy("date-picker").click();
-    cy.get("[aria-label^='Select year']").click();
+    cy.get("[aria-label^='select year']").click();
     cy.contains("li", "2022").click({ force: true });
-    cy.get("[aria-label^='Select month']").click();
+    cy.get("[aria-label^='select month']").click();
     cy.contains("li", "Feb").click({ force: true });
     cy.get("[data-iso='2022-02-28']").click();
 

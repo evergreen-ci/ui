@@ -233,6 +233,9 @@
                               </svg>
                             </div>
                           </button>
+                          <span
+                            class="leafygreen-ui-38lglc"
+                          />
                         </div>
                       </div>
                     </th>
@@ -964,7 +967,7 @@
                 class="leafygreen-ui-18m7jux"
               >
                 <p
-                  class="leafygreen-ui-1tb6tuo"
+                  class="leafygreen-ui-26vqpd"
                   data-testid="lg-pagination-item-range"
                 >
                   1 - 5
@@ -979,18 +982,19 @@
                 <div
                   class="leafygreen-ui-1iyoj2o"
                   data-lgid="lg-select"
+                  data-testid="lg-select"
                 >
                   <button
-                    aria-controls="select-1-menu"
-                    aria-describedby="select-1-description"
+                    aria-controls="select-190-menu"
+                    aria-describedby="select-190-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
                     aria-label="Set current page"
-                    class="lg-ui-button-0000 leafygreen-ui-7hcedm"
-                    data-lgid="lg-button"
+                    class="lg-ui-button-0000 leafygreen-ui-1rkuilv"
+                    data-lgid="lg-select-trigger"
                     data-testid="lg-pagination-page-select"
-                    id="select-2"
+                    id="select-191"
                     type="button"
                     value="1"
                   >
@@ -1004,8 +1008,9 @@
                         class="leafygreen-ui-obh8q1"
                       >
                         <div
-                          class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
+                          class="lg-ui-select-menu-0001 leafygreen-ui-17aj16e"
                           data-lgid="lg-select-button_text"
+                          data-testid="lg-select-button_text"
                         >
                           1
                         </div>
@@ -1038,7 +1043,7 @@
                   />
                 </div>
                 <p
-                  class="leafygreen-ui-1tb6tuo"
+                  class="leafygreen-ui-26vqpd"
                 >
                   of 
                   3
@@ -1046,7 +1051,7 @@
                 <button
                   aria-disabled="true"
                   aria-label="Previous page"
-                  class="leafygreen-ui-1ykpe4g"
+                  class="leafygreen-ui-1dt4k34"
                   data-testid="lg-pagination-back-button"
                   tabindex="0"
                 >
@@ -1073,7 +1078,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Next page"
-                  class="leafygreen-ui-tcjr3n"
+                  class="leafygreen-ui-1r51ix4"
                   data-testid="lg-pagination-next-button"
                   tabindex="0"
                 >

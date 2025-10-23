@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ApolloClient,
   HttpLink,
@@ -20,13 +20,12 @@ import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
 import { graphqlURL } from "utils/environmentVariables";
 
+const cache = new InMemoryCache();
+
 export const useCreateGQLClient = ():
   | ApolloClient<NormalizedCacheObject>
   | undefined => {
   const { dispatchAuthenticated, logoutAndRedirect } = useAuthProviderContext();
-  const [gqlClient, setGQLClient] =
-    useState<ApolloClient<NormalizedCacheObject>>();
-
   const [secretFields, setSecretFields] = useState<string[]>();
 
   useEffect(() => {
@@ -48,23 +47,21 @@ export const useCreateGQLClient = ():
       });
   }, [logoutAndRedirect, dispatchAuthenticated]);
 
-  useEffect(() => {
-    if (secretFields && !gqlClient) {
-      const cache = new InMemoryCache();
-      const client = new ApolloClient({
-        cache,
-        link: from([
-          logGQLErrorsLink(secretFields),
-          retryLink,
-          new HttpLink({
-            credentials: "include",
-            uri: graphqlURL,
-          }),
-        ]),
-      });
-      setGQLClient(client);
-    }
-  }, [secretFields, gqlClient, logoutAndRedirect]);
+  const gqlClient = useMemo(() => {
+    if (!secretFields) return undefined;
+
+    return new ApolloClient({
+      cache,
+      link: from([
+        logGQLErrorsLink(secretFields),
+        retryLink,
+        new HttpLink({
+          credentials: "include",
+          uri: graphqlURL,
+        }),
+      ]),
+    });
+  }, [secretFields]);
 
   return gqlClient;
 };

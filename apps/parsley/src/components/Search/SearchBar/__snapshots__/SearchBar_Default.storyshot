@@ -8,17 +8,17 @@
       data-testid="lg-select"
     >
       <button
-        aria-controls="select-1-menu"
-        aria-describedby="select-1-description"
+        aria-controls="select-5-menu"
+        aria-describedby="select-5-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
-        class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
+        class="lg-ui-button-0001 leafygreen-ui-1p6i2zy"
         data-cy="searchbar-select"
         data-lgid="lg-select-trigger"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-2"
+        id="select-6"
         type="button"
         value="filter"
       >
@@ -32,7 +32,7 @@
             class="leafygreen-ui-obh8q1"
           >
             <div
-              class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
+              class="lg-ui-select-menu-0001 leafygreen-ui-17aj16e"
               data-lgid="lg-select-button_text"
               data-testid="lg-select-button_text"
             >
@@ -70,7 +70,7 @@
       class="emotion-InputWrapper etjwcg12"
     >
       <div
-        class="emotion-IconButtonWrapper etjwcg10"
+        class="emotion-IconButtonWrapper-SearchBar etjwcg10"
       >
         <button
           aria-disabled="false"
@@ -130,6 +130,7 @@
           aria-labelledby="searchbar-input"
           class="leafygreen-ui-1br9h7w"
           data-lgid="lg-text_input"
+          data-testid="lg-text_input"
         >
           <div
             class="leafygreen-ui-1iyoj2o"
@@ -141,14 +142,14 @@
               class="leafygreen-ui-1ago99h"
             >
               <input
-                aria-describedby="lg-form_field-feedback-3"
+                aria-describedby="lg-form_field-feedback-9"
                 aria-disabled="false"
                 aria-invalid="true"
                 aria-labelledby="searchbar-input"
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="searchbar-input"
-                id="lg-form_field-input-4"
+                id="lg-form_field-input-10"
                 placeholder="optional, regexp to search"
                 required=""
                 spellcheck="false"
@@ -161,9 +162,9 @@
             aria-live="polite"
             aria-relevant="all"
             class="leafygreen-ui-wsgs9n"
-            data-lgid="lg-form_field-feedback"
-            data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-3"
+            data-lgid="lg-text_input-feedback"
+            data-testid="lg-text_input-feedback"
+            id="lg-form_field-feedback-9"
           >
             <div
               class="leafygreen-ui-1nmw6il"
@@ -181,7 +182,7 @@
               >
                 <path
                   clip-rule="evenodd"
-                  d="M8.864 1.514a.983.983 0 0 0-1.728 0L1.122 12.539A.987.987 0 0 0 1.986 14h12.028a.987.987 0 0 0 .864-1.461L8.864 1.514ZM7 5a1 1 0 0 1 2 0v4a1 1 0 0 1-2 0V5Zm2 7a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"
+                  d="M8.864 1.514a.983.983 0 0 0-1.728 0L1.122 12.539A.987.987 0 0 0 1.986 14h12.028a.987.987 0 0 0 .864-1.461zM7 5a1 1 0 0 1 2 0v4a1 1 0 0 1-2 0zm2 7a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
                   fill="currentColor"
                   fill-rule="evenodd"
                 />
@@ -189,23 +190,30 @@
             </div>
             <p
               class="leafygreen-ui-p319dc"
-              data-lgid="lg-form_field-error_message"
-              data-testid="lg-form_field-error_message"
+              data-lgid="lg-text_input-error_message"
+              data-testid="lg-text_input-error_message"
             >
-              This input needs your attention
+              Invalid input
             </p>
           </div>
         </div>
-        <div
-          class="emotion-IconWrapper e17optw10"
+      </div>
+      <div
+        class="emotion-IconButtonWrapper-SearchBar etjwcg10"
+      >
+        <button
+          aria-disabled="true"
+          aria-label="Select plus"
+          class="leafygreen-ui-1dt4k34"
+          data-cy="searchbar-submit"
+          tabindex="0"
         >
           <div
-            class="leafygreen-ui-cssveg"
-            data-cy="searchbar-error"
+            class="leafygreen-ui-xhlipt"
           >
             <svg
-              aria-label="Warning Icon"
-              class="leafygreen-ui-1xsx4zj"
+              aria-label="Plus Icon"
+              class=""
               fill="none"
               height="16"
               role="img"
@@ -215,13 +223,13 @@
             >
               <path
                 clip-rule="evenodd"
-                d="M8.864 1.514a.983.983 0 0 0-1.728 0L1.122 12.539A.987.987 0 0 0 1.986 14h12.028a.987.987 0 0 0 .864-1.461zM7 5a1 1 0 0 1 2 0v4a1 1 0 0 1-2 0zm2 7a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
+                d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1z"
                 fill="currentColor"
                 fill-rule="evenodd"
               />
             </svg>
           </div>
-        </div>
+        </button>
       </div>
     </div>
   </div>

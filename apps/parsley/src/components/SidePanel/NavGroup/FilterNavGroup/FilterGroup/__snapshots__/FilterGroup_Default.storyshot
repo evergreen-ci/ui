@@ -40,8 +40,8 @@
       >
         <p
           aria-expanded="true"
-          class="emotion-FilterExpression e12rc5wm4 leafygreen-ui-1tb6tuo"
-          id=":ra:"
+          class="emotion-FilterExpression e12rc5wm4 leafygreen-ui-26vqpd"
+          id=":rc:"
         >
           Some Filter Expression
         </p>
@@ -52,7 +52,7 @@
             aria-checked="true"
             aria-disabled="false"
             aria-label="Hide filter"
-            aria-labelledby=":ra:"
+            aria-labelledby=":rc:"
             class="lg-ui-toggle-button-0000 leafygreen-ui-16u1u0t"
             data-lgid="lg-toggle"
             data-testid="lg-toggle"
@@ -135,21 +135,21 @@
           class="emotion-AccordionContent e12rc5wm5"
         >
           <div
-            class="leafygreen-ui-ozfao7 emotion-StyledSegmentedControl e12rc5wm0"
+            class="leafygreen-ui-pipgrf emotion-StyledSegmentedControl e12rc5wm0"
           >
             <div
-              class="leafygreen-ui-jmb2kp"
+              class="leafygreen-ui-rnu33t"
             >
               Case
             </div>
             <div
-              aria-label="segmented-control-1"
-              aria-owns="segmented-control-1-0 segmented-control-1-1"
-              class="leafygreen-ui-18en4yf"
+              aria-label="segmented-control-19"
+              aria-owns="segmented-control-19-0 segmented-control-19-1"
+              class="leafygreen-ui-1698cdy"
               role="tablist"
             >
               <div
-                class="leafygreen-ui-z1eqrh"
+                class="leafygreen-ui-vghr9e"
                 data-lg-checked="false"
               >
                 <div
@@ -159,8 +159,8 @@
                   <button
                     aria-controls="Toggle case sensitivity"
                     aria-selected="false"
-                    class="leafygreen-ui-ypz97o"
-                    id="segmented-control-1-0"
+                    class="leafygreen-ui-qlnhrg"
+                    id="segmented-control-19-0"
                     role="tab"
                     tabindex="-1"
                     type="button"
@@ -178,7 +178,7 @@
                 </div>
               </div>
               <div
-                class="leafygreen-ui-z1eqrh"
+                class="leafygreen-ui-vghr9e"
                 data-lg-checked="true"
               >
                 <div
@@ -188,8 +188,8 @@
                   <button
                     aria-controls="Toggle case sensitivity"
                     aria-selected="true"
-                    class="leafygreen-ui-ypz97o"
-                    id="segmented-control-1-1"
+                    class="leafygreen-ui-qlnhrg"
+                    id="segmented-control-19-1"
                     role="tab"
                     tabindex="0"
                     type="button"
@@ -215,21 +215,21 @@
             </div>
           </div>
           <div
-            class="leafygreen-ui-ozfao7 emotion-StyledSegmentedControl e12rc5wm0"
+            class="leafygreen-ui-pipgrf emotion-StyledSegmentedControl e12rc5wm0"
           >
             <div
-              class="leafygreen-ui-jmb2kp"
+              class="leafygreen-ui-rnu33t"
             >
               Match
             </div>
             <div
-              aria-label="segmented-control-2"
-              aria-owns="segmented-control-2-0 segmented-control-2-1"
-              class="leafygreen-ui-18en4yf"
+              aria-label="segmented-control-20"
+              aria-owns="segmented-control-20-0 segmented-control-20-1"
+              class="leafygreen-ui-1698cdy"
               role="tablist"
             >
               <div
-                class="leafygreen-ui-z1eqrh"
+                class="leafygreen-ui-vghr9e"
                 data-lg-checked="true"
               >
                 <div
@@ -239,8 +239,8 @@
                   <button
                     aria-controls="Toggle match type"
                     aria-selected="true"
-                    class="leafygreen-ui-ypz97o"
-                    id="segmented-control-2-0"
+                    class="leafygreen-ui-qlnhrg"
+                    id="segmented-control-20-0"
                     role="tab"
                     tabindex="0"
                     type="button"
@@ -258,7 +258,7 @@
                 </div>
               </div>
               <div
-                class="leafygreen-ui-z1eqrh"
+                class="leafygreen-ui-vghr9e"
                 data-lg-checked="false"
               >
                 <div
@@ -268,8 +268,8 @@
                   <button
                     aria-controls="Toggle match type"
                     aria-selected="false"
-                    class="leafygreen-ui-ypz97o"
-                    id="segmented-control-2-1"
+                    class="leafygreen-ui-qlnhrg"
+                    id="segmented-control-20-1"
                     role="tab"
                     tabindex="-1"
                     type="button"

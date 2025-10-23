@@ -14,6 +14,7 @@ export const gqlToForm = ((data) => {
     kanopy,
     multi,
     naive,
+    oauth,
     okta,
     preferredType,
   } = authConfig ?? {};
@@ -60,6 +61,11 @@ export const gqlToForm = ((data) => {
         issuer: kanopy?.issuer ?? "",
         keysetURL: kanopy?.keysetURL ?? "",
       },
+      oauth: {
+        clientId: oauth?.clientId ?? "",
+        connectorId: oauth?.connectorId ?? "",
+        issuer: oauth?.issuer ?? "",
+      },
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -67,7 +73,8 @@ export const gqlToForm = ((data) => {
 export const formToGql = (({ authentication }) => {
   if (!authentication) return {};
 
-  const { github, globalConfig, kanopy, multi, naive, okta } = authentication;
+  const { github, globalConfig, kanopy, multi, naive, oauth, okta } =
+    authentication;
 
   return {
     authConfig: {
@@ -86,6 +93,11 @@ export const formToGql = (({ authentication }) => {
         headerName: kanopy.headerName,
         issuer: kanopy.issuer,
         keysetURL: kanopy.keysetURL,
+      },
+      oauth: {
+        clientId: oauth.clientId,
+        connectorId: oauth.connectorId,
+        issuer: oauth.issuer,
       },
       multi: {
         readOnly: multi.readOnly,

@@ -4,9 +4,12 @@
     data-cy="header-cell"
   >
     <p
-      class="leafygreen-ui-cssveg leafygreen-ui-1miy0xp"
+      class="leafygreen-ui-13kzwl7"
     >
       displayName
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </p>
   </div>
 </div>

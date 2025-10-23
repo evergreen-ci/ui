@@ -40,16 +40,17 @@
                   <div
                     class="leafygreen-ui-1br9h7w emotion-ChipInputStyle epe0gud1"
                     data-lgid="lg-text_input"
+                    data-testid="lg-text_input"
                   >
                     <div
                       class="leafygreen-ui-au9iil"
                     >
                       <label
-                        class="leafygreen-ui-6bdaia"
-                        data-lgid="lg-label"
-                        data-testid="lg-form_field-label"
-                        for="lg-form_field-input-52"
-                        id="lg-form_field-label-49"
+                        class="leafygreen-ui-15qqekb"
+                        data-lgid="lg-text_input-label"
+                        data-testid="lg-text_input"
+                        for="lg-form_field-input-112"
+                        id="lg-form_field-label-109"
                       >
                         This is the only visible page element
                       </label>
@@ -64,10 +65,10 @@
                           aria-describedby=""
                           aria-disabled="false"
                           aria-invalid="false"
-                          aria-labelledby="lg-form_field-label-49"
+                          aria-labelledby="lg-form_field-label-109"
                           autocomplete="on"
                           class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                          id="lg-form_field-input-52"
+                          id="lg-form_field-input-112"
                           required=""
                           type="text"
                           value=""
@@ -78,9 +79,9 @@
                       aria-live="polite"
                       aria-relevant="all"
                       class="leafygreen-ui-11ydt2g"
-                      data-lgid="lg-form_field-feedback"
-                      data-testid="lg-form_field-feedback"
-                      id="lg-form_field-feedback-51"
+                      data-lgid="lg-text_input-feedback"
+                      data-testid="lg-text_input-feedback"
+                      id="lg-form_field-feedback-111"
                     />
                   </div>
                   <button
@@ -149,7 +150,7 @@
                       >
                         <path
                           clip-rule="evenodd"
-                          d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414l-.707-.707Z"
+                          d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414z"
                           fill="currentColor"
                           fill-rule="evenodd"
                         />
@@ -187,7 +188,7 @@
                       >
                         <path
                           clip-rule="evenodd"
-                          d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414l-.707-.707Z"
+                          d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414z"
                           fill="currentColor"
                           fill-rule="evenodd"
                         />
@@ -225,7 +226,7 @@
                       >
                         <path
                           clip-rule="evenodd"
-                          d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414l-.707-.707Z"
+                          d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414z"
                           fill="currentColor"
                           fill-rule="evenodd"
                         />

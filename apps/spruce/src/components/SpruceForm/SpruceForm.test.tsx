@@ -459,11 +459,14 @@ describe("spruce form", () => {
         expect(await screen.findByDataCy("hour-input")).toHaveValue("11");
 
         await user.click(screen.getByRole("button", { name: "Clock Icon" }));
-        expect(screen.getByDataCy("time-picker-options")).toBeVisible();
+        await waitFor(() => {
+          expect(screen.getByDataCy("time-picker-options")).toBeVisible();
+        });
         await user.click(
           within(screen.getByDataCy("minute-options")).getByText("56"),
         );
 
+        expect(screen.getByDataCy("minute-input")).toHaveValue("56");
         expect(onChangeMock).toHaveBeenNthCalledWith(
           2,
           expect.objectContaining({

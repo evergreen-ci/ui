@@ -36,8 +36,9 @@
     </button>
     <div>
       <label
-        class="leafygreen-ui-ms04bw"
-        data-lgid="lg-label"
+        class="leafygreen-ui-vk2fo1"
+        data-lgid="lg-typography-label"
+        data-testid="lg-typography-label"
         for="my-id"
         id="my-id-label"
       >
@@ -45,7 +46,8 @@
       </label>
       <p
         class="leafygreen-ui-ogtczq"
-        data-lgid="lg-description"
+        data-lgid="lg-typography-description"
+        data-testid="lg-typography-description"
       >
         This is a toggle description.
       </p>

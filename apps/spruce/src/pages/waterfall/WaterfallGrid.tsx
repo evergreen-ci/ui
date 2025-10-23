@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { fromZonedTime } from "date-fns-tz";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
@@ -16,6 +15,7 @@ import { WATERFALL } from "gql/queries";
 import { useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
+import { getUTCEndOfDay } from "utils/date";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { BuildVariantProvider } from "./BuildVariantContext";
@@ -102,9 +102,10 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     WaterfallFilterOptions.Revision,
     null,
   );
-  const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
 
+  const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
   const timezone = useUserTimeZone() ?? utcTimeZone;
+  const utcDate = getUTCEndOfDay(date, timezone);
 
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
@@ -116,7 +117,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           maxOrder,
           minOrder,
           revision,
-          date: date ? fromZonedTime(date, timezone) : undefined,
+          date: utcDate,
           ...serverFilters,
         },
       },

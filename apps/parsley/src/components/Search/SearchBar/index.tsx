@@ -1,25 +1,23 @@
 import { KeyboardEvent, useMemo, useRef, useState } from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import { palette } from "@leafygreen-ui/palette";
 import { Option, Select } from "@leafygreen-ui/select";
-import Tooltip from "@leafygreen-ui/tooltip";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
 import debounce from "lodash.debounce";
 import Icon from "@evg-ui/lib/components/Icon";
 import { TextInputWithGlyph } from "@evg-ui/lib/components/TextInputWithGlyph";
 import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
 import { size, textInputHeight, zIndex } from "@evg-ui/lib/constants/tokens";
+import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import { SearchBarActions } from "constants/enums";
 import { DIRECTION } from "context/LogContext/types";
-import { useKeyboardShortcut } from "hooks";
 import SearchPopover from "./SearchPopover";
 import { SearchSuggestionGroup } from "./SearchPopover/types";
 
-const { red } = palette;
 interface SearchBarProps {
   className?: string;
   disabled?: boolean;
@@ -153,6 +151,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         aria-labelledby="searchbar-select"
         data-cy="searchbar-select"
         disabled={disabled}
+        dropdownWidthBasis="option"
         onChange={handleChangeSelect}
         popoverZIndex={zIndex.popover}
         value={selected}
@@ -173,7 +172,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
         </Option>
       </StyledSelect>
       <InputWrapper>
-        <IconButtonWrapper>
+        <IconButtonWrapper
+          css={css`
+            left: ${size.xxs};
+          `}
+        >
           <SearchPopover
             disabled={disabled}
             onClick={(suggestion) => {
@@ -198,30 +201,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           aria-labelledby="searchbar-input"
           data-cy="searchbar-input"
           disabled={disabled}
-          icon={
-            isValid ? (
-              <IconButton
-                aria-label="Select plus"
-                data-cy="searchbar-submit"
-                disabled={disabled || input.length === 0}
-                onClick={handleOnSubmit}
-              >
-                <Icon glyph="Plus" />
-              </IconButton>
-            ) : (
-              <Tooltip
-                justify="middle"
-                trigger={
-                  <div data-cy="searchbar-error">
-                    <Icon fill={red.base} glyph="Warning" />
-                  </div>
-                }
-                triggerEvent="hover"
-              >
-                {validatorMessage}
-              </Tooltip>
-            )
-          }
+          errorMessage={validatorMessage}
           onChange={(e) => handleOnChange(e.target.value)}
           onKeyDown={handleKeyDown}
           persistentPlaceholder={
@@ -242,6 +222,20 @@ const SearchBar: React.FC<SearchBarProps> = ({
           type="text"
           value={input}
         />
+        <IconButtonWrapper
+          css={css`
+            right: ${size.xxs};
+          `}
+        >
+          <IconButton
+            aria-label="Select plus"
+            data-cy="searchbar-submit"
+            disabled={disabled || input.length === 0 || !isValid}
+            onClick={handleOnSubmit}
+          >
+            <Icon glyph="Plus" />
+          </IconButton>
+        </IconButtonWrapper>
       </InputWrapper>
     </Container>
   );
@@ -250,7 +244,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: start;
 `;
 
 const PlaceholderWrapper = styled.div`
@@ -304,8 +298,7 @@ const IconButtonWrapper = styled.div`
   align-items: center;
 
   position: absolute;
-  bottom: 0;
-  left: ${size.xxs};
+  top: 0 !important;
 
   z-index: 1;
   width: ${size.l};

@@ -128,7 +128,6 @@ const BaseRow: React.FC<BaseRowProps> = ({
       {menuPosition === lineNumber ? (
         <SharingMenu />
       ) : (
-        // @ts-expect-error: Styled LeafyGreen component throws an error
         <MenuIcon aria-label="Share link" onClick={handleClick}>
           <ShareIcon
             data-cy={`log-link-${lineNumber}`}

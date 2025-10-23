@@ -15,7 +15,7 @@ metadata:
       icon: github
 spec:
   type: website
-  owner: group:default/oktagroup_63a4baf4355dd783744f0b8d  # 10gen-evergreen-ui okta group
+  owner: group:10genevergreenui
   lifecycle: production
   system: evergreen
   dependsOn:
@@ -41,7 +41,7 @@ metadata:
       icon: github
 spec:
   type: website
-  owner: group:default/oktagroup_63a4baf4355dd783744f0b8d  # 10gen-evergreen-ui okta group
+  owner: group:10genevergreenui
   lifecycle: production
   system: evergreen
   subcomponentOf: evergreen-ui
@@ -63,7 +63,7 @@ metadata:
       icon: github
 spec:
   type: website
-  owner: group:default/oktagroup_63a4baf4355dd783744f0b8d  # 10gen-evergreen-ui okta group
+  owner: group:10genevergreenui
   lifecycle: production
   system: evergreen
   dependsOn:

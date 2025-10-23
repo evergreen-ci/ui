@@ -51,9 +51,6 @@ const getProjectConfig = () => {
         exclude: /\.stories\.tsx?$/,
         // Only Typescript files should use fast refresh.
         include: ["**/*.tsx", "**/*.ts"],
-
-        // Enables use of css prop on JSX.
-        jsxImportSource: "@emotion/react",
       }),
       envCompatible({
         prefix: "REACT_APP_",
