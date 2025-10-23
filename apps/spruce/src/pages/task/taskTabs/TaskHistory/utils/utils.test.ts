@@ -8,7 +8,6 @@ import {
   getNextPageCursor,
   groupTasks,
   areDatesOnSameDay,
-  getUTCEndOfDay,
 } from ".";
 
 describe("groupTasks", () => {
@@ -101,34 +100,5 @@ describe("areDatesOnSameDay", () => {
     const date3 = new Date("2024-04-21T14:00:00Z"); // 2024-04-22 00:00 JST
     const date4 = new Date("2024-04-21T13:00:00Z"); // 2024-04-21 22:00 JST
     expect(areDatesOnSameDay(date3, date4, "Asia/Japan")).toBe(false);
-  });
-});
-
-describe("getUTCEndOfDay", () => {
-  beforeEach(() => {
-    process.env.TZ = "America/New_York";
-  });
-
-  afterEach(() => {
-    process.env.TZ = "UTC";
-  });
-
-  it("returns undefined if date is null", () => {
-    const res = getUTCEndOfDay(null);
-    expect(res).toBeUndefined();
-  });
-
-  it("calculates the correct date", () => {
-    let res = getUTCEndOfDay("2025-04-05", "Asia/Seoul");
-    expect(res).toStrictEqual(new Date("2025-04-05T14:59:59.000Z"));
-
-    res = getUTCEndOfDay("2025-04-05", "Pacific/Tahiti");
-    expect(res).toStrictEqual(new Date("2025-04-06T09:59:59.000Z"));
-
-    res = getUTCEndOfDay("2025-04-05", "Atlantic/Reykjavik");
-    expect(res).toStrictEqual(new Date("2025-04-05T23:59:59.000Z"));
-
-    res = getUTCEndOfDay("2025-04-05");
-    expect(res).toStrictEqual(new Date("2025-04-06T03:59:59.000Z"));
   });
 });
