@@ -1982,6 +1982,7 @@ export type Mutation = {
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
+  resetAPIKey?: Maybe<UserConfig>;
   restartAdminTasks: RestartAdminTasksPayload;
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
@@ -11654,10 +11655,6 @@ export type UserSettingsQuery = {
         patchFirstFailure?: string | null;
         spawnHostExpiration?: string | null;
         spawnHostOutcome?: string | null;
-      } | null;
-      useSpruceOptions?: {
-        __typename?: "UseSpruceOptions";
-        spruceV1?: boolean | null;
       } | null;
     };
   };
