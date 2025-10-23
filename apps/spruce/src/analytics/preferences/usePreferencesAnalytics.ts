@@ -6,7 +6,6 @@ type Action =
   | { name: "Saved profile info" }
   | {
       name: "Saved beta feature settings";
-      "beta_features.spruce_waterfall_enabled": boolean;
     }
   | { name: "Saved notification preferences" }
   | { name: "Deleted subscriptions" }
@@ -16,7 +15,6 @@ type Action =
   | { name: "Created new public key" }
   | { name: "Changed public key" }
   | { name: "Deleted public key" }
-  | { name: "Toggled spruce"; value: "Enabled" | "Disabled" }
   | { name: "Toggled polling"; value: "Enabled" | "Disabled" }
   | { name: "Toggled task review"; value: "Enabled" | "Disabled" };
 

@@ -11656,10 +11656,6 @@ export type UserSettingsQuery = {
         spawnHostExpiration?: string | null;
         spawnHostOutcome?: string | null;
       } | null;
-      useSpruceOptions?: {
-        __typename?: "UseSpruceOptions";
-        spruceV1?: boolean | null;
-      } | null;
     };
   };
 };
