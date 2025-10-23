@@ -155,7 +155,7 @@ const resetUserAPIKeyMock: ApolloMock<
   result: {
     data: {
       resetAPIKey: {
-        __typename: "APIKey",
+        __typename: "UserConfig",
         api_key: "new-api-key-12345",
         user: "test-user",
       },
