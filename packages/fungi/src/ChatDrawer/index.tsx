@@ -17,6 +17,10 @@ export const ChatDrawer = ({
 }: React.PropsWithChildren<Props>) => {
   const { appName, drawerOpen, setDrawerOpen } = useChatContext();
 
+  const handleClose = () => {
+    setDrawerOpen(false);
+  };
+
   return (
     <StyledDrawerLayout
       displayMode={DisplayMode.Embedded}
@@ -30,7 +34,7 @@ export const ChatDrawer = ({
         </StyledDrawer>
       }
       isDrawerOpen={drawerOpen}
-      onClose={() => setDrawerOpen(false)}
+      onClose={handleClose}
     >
       {children}
     </StyledDrawerLayout>
