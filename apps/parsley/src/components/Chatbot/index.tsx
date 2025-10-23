@@ -22,7 +22,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => <FungiProvider appName="Parsley AI">{children}</FungiProvider>;
 
-const ChatbotContent: React.FC<{ children: React.ReactNode }> = ({
+export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { sendEvent } = useAIAgentAnalytics();
@@ -126,14 +126,6 @@ const ChatbotContent: React.FC<{ children: React.ReactNode }> = ({
     </ChatDrawer>
   );
 };
-
-export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => (
-  <ChatProvider>
-    <ChatbotContent>{children}</ChatbotContent>
-  </ChatProvider>
-);
 
 const DrawerTitle = styled.div`
   display: flex;
