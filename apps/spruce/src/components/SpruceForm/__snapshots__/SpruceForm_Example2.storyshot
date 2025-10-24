@@ -3,6 +3,7 @@
     class="emotion-0"
   >
     <a
+      class="emotion-SpruceFormContainer"
       href="#admin-options"
       id="admin-options"
     >
