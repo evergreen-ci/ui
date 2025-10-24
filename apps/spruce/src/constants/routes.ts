@@ -344,7 +344,7 @@ const getHistoryRoute = (
   visibleColumns?: string[],
   taskId?: string,
 ) => {
-  if (filters || selectedCommit) {
+  if (filters || selectedCommit || visibleColumns || taskId) {
     const failingTests = toArray(filters?.failingTests);
     const passingTests = toArray(filters?.passingTests);
 
@@ -368,15 +368,17 @@ export const getVariantHistoryRoute = (
       passingTests?: string[];
     };
     selectedCommit?: number;
+    visibleColumns?: string[];
   },
 ) => {
-  const { filters, selectedCommit } = options || {};
+  const { filters, selectedCommit, visibleColumns } = options || {};
   return getHistoryRoute(
     `${paths.variantHistory}/${encodeURIComponent(
       projectIdentifier,
     )}/${encodeURIComponent(variantName)}`,
     filters,
     selectedCommit,
+    visibleColumns,
   );
 };
 
