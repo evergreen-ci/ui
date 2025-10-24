@@ -30,7 +30,7 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
   const hasUnsavedChanges = checkHasUnsavedChanges();
   const dispatchToast = useToastContext();
 
-  const [saveAdminSettings] = useMutation<
+  const [saveAdminSettings, { loading }] = useMutation<
     SaveAdminSettingsMutation,
     SaveAdminSettingsMutationVariables
   >(SAVE_ADMIN_SETTINGS, {
@@ -63,7 +63,8 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
   return saveable ? (
     <Button
       data-cy="save-settings-button"
-      disabled={!hasUnsavedChanges}
+      disabled={!hasUnsavedChanges || loading}
+      loading={loading}
       onClick={handleSave}
       style={{ alignSelf: "flex-end" }}
       variant={ButtonVariant.Primary}
