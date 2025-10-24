@@ -64,7 +64,7 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
     <Button
       data-cy="save-settings-button"
       disabled={!hasUnsavedChanges || loading}
-      loading={loading}
+      isLoading={loading}
       onClick={handleSave}
       style={{ alignSelf: "flex-end" }}
       variant={ButtonVariant.Primary}
