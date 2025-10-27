@@ -23,12 +23,15 @@ evergreen task build TaskLogs --help
 ```properties
 evergreen task build TestLogs --task_id <task_id> --execution <execution> --log_path <test_log_path> --o output.txt
 ```
-To find the correct value for `<test_log_path>`, look for the lines that say "storing test log file" in the task logs. You can also find this information by looking at the output of `https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/tests` in your browser.
 
 See other options using the following command:
 ```properties
 evergreen task build TestLogs --help
 ```
+
+To find the correct value for `<test_log_path>`, we recommend viewing `https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/tests` in your browser and using Ctrl + F to locate your test. 
+
+Please note that this endpoint will only show the first 100 tests by default; append the `?limit=<num>` query parameter to show more tests. The test log path can then be grabbed from the `logs.url` field which should contain some value `test_name=<this_is_the_test_log_path>`.
 
 ## Via Spruce
 
@@ -61,8 +64,6 @@ curl -H Api-User:<your_user_id> -H Api-Key:<your_api_key> https://evergreen.mong
 # with wget
 wget --header="Api-User:<your_user_id>" --header="Api-Key:<your_api_key>" https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/build/TestLogs/<test_log_path> -O output.txt
 ```
-
-To find the correct value for `<test_log_path>`, look for the lines that say "storing test log file" in the task logs. You can also find this information by looking at the output of `https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/tests` in your browser. 
 
 ## Via a Spawn Host
 
