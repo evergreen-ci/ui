@@ -111,7 +111,7 @@
     "@testing-library/user-event": "14.6.1",
     "@types/js-cookie": "3.0.6",
     "@types/lodash.debounce": "4.0.7",
-    "@types/node": "^22.15.3",
+    "@types/node": "^24.9.1",
     "@types/pluralize": "0.0.31",
     "@types/prompts": "2.4.9",
     "@types/react": "18.3.12",
