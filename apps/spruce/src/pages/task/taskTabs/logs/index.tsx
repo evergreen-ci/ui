@@ -11,6 +11,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
 import { siderCardWidth } from "components/styles/Layout";
 import { getParsleyTaskLogLink } from "constants/externalResources";
+import { getTaskRawLogRoute } from "constants/routes";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
 import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
@@ -204,7 +205,7 @@ const getLinks = (
   return {
     htmlLink,
     parsleyLink: replaceUrl(getParsleyTaskLogLink(logType, taskId, execution)),
-    rawLink: `${htmlLink}&text=true`,
+    rawLink: getTaskRawLogRoute(taskId, execution, logType),
   };
 };
 

@@ -1,12 +1,20 @@
-import { trimLogLineToMaxSize } from "utils/string";
+import { trimLogLineToMaxSize } from "../string";
+
+export type DecodeStreamPayload = {
+  result: string[];
+  trimmedLines: boolean;
+};
 
 /**
  * `decodeStream` is a helper function that takes a ReadableStream and returns a Promise that resolves to an array of strings.
  * @param stream - ReadableStream to decode
  * @param lineSizeLimit - the maximum length of a line
- * @returns a Promise that resolves to an array of strings
+ * @returns DecodeStreamPayload - string array of text and boolean indicating whether lines were trimmed
  */
-const decodeStream = async (stream: ReadableStream, lineSizeLimit?: number) => {
+const decodeStream = async (
+  stream: ReadableStream,
+  lineSizeLimit?: number,
+): Promise<DecodeStreamPayload> => {
   const decoder = new TextDecoder();
   const reader = stream.getReader();
   const result: string[] = [];

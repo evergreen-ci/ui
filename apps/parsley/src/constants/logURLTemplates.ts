@@ -1,4 +1,8 @@
 import queryString from "query-string";
+import {
+  Origin,
+  constructEvergreenTaskLogURL,
+} from "@evg-ui/lib/constants/logURLTemplates";
 import { stringifyQuery } from "@evg-ui/lib/utils/query-string";
 import { Task as TaskType } from "gql/generated/types";
 import { evergreenURL, logkeeperURL } from "utils/environmentVariables";
@@ -58,13 +62,6 @@ const getResmokeLogURL = (
   return `${logkeeperURL}/build/${buildID}/all?${stringifyQuery(params)}`;
 };
 
-export enum Origin {
-  Agent = "agent",
-  System = "system",
-  Task = "task",
-  All = "all",
-}
-
 const getEvergreenTaskLogURL = (
   logLinks: TaskType["logs"],
   origin: string,
@@ -78,40 +75,6 @@ const getEvergreenTaskLogURL = (
       [Origin.All]: logLinks.allLogLink,
     }[origin] ?? "";
   return queryString.stringifyUrl({ query: params, url });
-};
-
-const mapOriginToType = {
-  [Origin.Agent]: "E",
-  [Origin.All]: "ALL",
-  [Origin.System]: "S",
-  [Origin.Task]: "T",
-};
-
-/**
- * constructEvergreenTaskLogURL constructs an Evergreen task link as a fallback using the task's parameters.
- * @param taskID - the task ID
- * @param execution - the execution number of the task
- * @param origin - the origin of the log
- * @param options - the options for the task log
- * @param options.priority - returned log includes a priority prefix on each line
- * @param options.text - returns the raw log associated with the task
- * @returns an Evergreen URL of the format `/task/${taskID}/${execution}?type=${OriginToType[origin]}&text=true`
- */
-const constructEvergreenTaskLogURL = (
-  taskID: string,
-  execution: string | number,
-  origin: string,
-  options: { priority?: boolean; text?: boolean },
-) => {
-  const { priority, text } = options;
-  const params = {
-    priority,
-    text,
-    type: mapOriginToType[origin as Origin] || undefined,
-  };
-  return `${evergreenURL}/task_log_raw/${taskID}/${execution}?${stringifyQuery(
-    params,
-  )}`;
 };
 
 /**

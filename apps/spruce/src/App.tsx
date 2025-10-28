@@ -8,6 +8,8 @@ import { Content } from "components/Content";
 import { GlobalStyles } from "components/styles";
 import { routes } from "constants/routes";
 import ContextProviders from "context/Providers";
+import { rawLogLoader } from "pages/task/logs/loaders";
+import { RawLog } from "pages/task/logs/RawLog";
 import {
   getEvergreenUrl,
   getSpruceURL,
@@ -37,6 +39,12 @@ const router = createBrowserRouter([
             },
           ]
         : []),
+      // Routes using data loaders cannot be child routes
+      {
+        path: routes.taskRawLog,
+        loader: rawLogLoader,
+        element: <RawLog />,
+      },
       {
         path: "/*",
         element: (
