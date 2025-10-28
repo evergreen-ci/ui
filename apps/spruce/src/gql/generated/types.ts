@@ -3922,6 +3922,7 @@ export type SpawnHostInput = {
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
   spawnHostsStartedByTask?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskId?: InputMaybe<Scalars["String"]["input"]>;
+  useOAuth?: InputMaybe<Scalars["Boolean"]["input"]>;
   useProjectSetupScript?: InputMaybe<Scalars["Boolean"]["input"]>;
   useTaskConfig?: InputMaybe<Scalars["Boolean"]["input"]>;
   userDataScript?: InputMaybe<Scalars["String"]["input"]>;
