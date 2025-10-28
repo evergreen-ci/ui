@@ -42,6 +42,7 @@ export const formToGql = ({
     loadDataOntoHostAtStartup,
     runProjectSpecificSetupScript,
     startHosts,
+    useOAuth,
   } = loadData ?? {};
 
   const defaultExpiration = new Date();
@@ -97,7 +98,7 @@ export const formToGql = ({
       loadDataOntoHostAtStartup && validateTask(spawnTaskData)
         ? spawnTaskData?.id
         : null,
-    useOAuth: !!(loadDataOntoHostAtStartup && loadData?.useOAuth),
+    useOAuth: !!(loadDataOntoHostAtStartup && useOAuth),
     useProjectSetupScript: !!(
       loadDataOntoHostAtStartup && runProjectSpecificSetupScript
     ),
