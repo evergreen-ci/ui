@@ -97,6 +97,7 @@ export const formToGql = ({
       loadDataOntoHostAtStartup && validateTask(spawnTaskData)
         ? spawnTaskData?.id
         : null,
+    useOAuth: !!(loadDataOntoHostAtStartup && loadData?.useOAuth),
     useProjectSetupScript: !!(
       loadDataOntoHostAtStartup && runProjectSpecificSetupScript
     ),
