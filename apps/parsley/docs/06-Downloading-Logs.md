@@ -29,7 +29,7 @@ See other options using the following command:
 evergreen task build TestLogs --help
 ```
 
-To find the correct value for `<test_log_path>`, we recommend viewing `https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/tests` in your browser and using Ctrl + F to locate your test. 
+To find the correct value for `<test_log_path>`, we recommend viewing `https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/tests` ([docs](https://docs.devprod.prod.corp.mongodb.com/evergreen/API/REST-V2-Usage#tag/tests/paths/~1tasks~1%7Btask_id%7D~1tests/get)) in your browser and using Ctrl + F to locate your test. 
 
 Please note that this endpoint will only show the first 100 tests by default; append the `?limit=<num>` query parameter to show more tests. The test log path can then be grabbed from the `logs.url` field which should contain some value `test_name=<this_is_the_test_log_path>`.
 
