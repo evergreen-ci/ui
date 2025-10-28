@@ -5,7 +5,11 @@ import {
 } from "@evg-ui/lib/constants/logURLTemplates";
 import { stringifyQuery } from "@evg-ui/lib/utils/query-string";
 import { Task as TaskType } from "gql/generated/types";
-import { evergreenURL, logkeeperURL } from "utils/environmentVariables";
+import {
+  evergreenURL,
+  logkeeperURL,
+  spruceURL,
+} from "utils/environmentVariables";
 
 /**
  *
@@ -77,6 +81,18 @@ const getEvergreenTaskLogURL = (
   return queryString.stringifyUrl({ query: params, url });
 };
 
+const constructSpruceRawLogURL = (
+  taskID: string,
+  execution: string | number,
+  origin: string,
+) => {
+  const params = {
+    execution,
+    origin,
+  };
+  return `${spruceURL}/task/${taskID}/raw-logs?${stringifyQuery(params)}`;
+};
+
 /**
  *
  * @param taskID - the task ID
@@ -106,6 +122,7 @@ const getEvergreenCompleteLogsURL = (
 
 export {
   constructEvergreenTaskLogURL,
+  constructSpruceRawLogURL,
   getEvergreenCompleteLogsURL,
   getEvergreenTaskFileURL,
   getEvergreenTaskLogURL,
