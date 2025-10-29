@@ -25,8 +25,26 @@ describe("ResetAPIKey", () => {
 
   it("calls mutation when button is clicked", async () => {
     const user = userEvent.setup();
+    const mockNewData = vi.fn(() => ({
+      data: {
+        resetAPIKey: {
+          __typename: "UserConfig",
+          api_key: "new-api-key-12345",
+          user: "test-user",
+        },
+      },
+    }));
+
+    const mockWithNewData = {
+      request: {
+        query: RESET_USER_API_KEY,
+        variables: {},
+      },
+      newData: mockNewData,
+    };
+
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[resetUserAPIKeyMock]}>
+      <MockedProvider mocks={[mockWithNewData]}>
         <ResetAPIKey />
       </MockedProvider>,
     );
@@ -35,9 +53,8 @@ describe("ResetAPIKey", () => {
     const button = screen.getByRole("button", { name: "Reset key" });
     await user.click(button);
 
-    const mutationMock = resetUserAPIKeyMock.result;
     await waitFor(() => {
-      expect(mutationMock).toHaveBeenCalledOnce();
+      expect(mockNewData).toHaveBeenCalledOnce();
     });
   });
 
@@ -68,7 +85,7 @@ const resetUserAPIKeyMock: ApolloMock<
     query: RESET_USER_API_KEY,
     variables: {},
   },
-  result: vi.fn().mockReturnValue({
+  result: {
     data: {
       resetAPIKey: {
         __typename: "UserConfig",
@@ -76,7 +93,7 @@ const resetUserAPIKeyMock: ApolloMock<
         user: "test-user",
       },
     },
-  }) as { data: ResetUserApiKeyMutation },
+  },
 };
 
 const resetUserAPIKeyErrorMock: ApolloMock<
