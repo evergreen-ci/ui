@@ -1,16 +1,16 @@
 import { useMemo } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
-import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import { Menu, MenuItem, MenuItemProps } from "@leafygreen-ui/menu";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useTaskAnalytics } from "analytics";
 import { TaskQuery } from "gql/generated/types";
 import { useBreakingTask } from "hooks/useBreakingTask";
-import { useLastExecutedTask } from "hooks/useLastExecutedTask";
 import { useLastPassingTask } from "hooks/useLastPassingTask";
 import { useParentTask } from "hooks/useParentTask";
 import { CommitType } from "./types";
+import { useLastExecutedTask } from "./useLastExecutedTask";
 import { getLinks } from "./utils";
 
 interface RelevantCommitsProps {
@@ -71,8 +71,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
         </Button>
       }
     >
-      <MenuItem
-        as={Link}
+      <RelevantCommitItem
         disabled={parentLoading}
         onClick={() =>
           sendEvent({
@@ -83,9 +82,8 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
         to={linkObject[CommitType.Base]}
       >
         Go to {versionMetadata?.isPatch ? "base" : "previous"} commit
-      </MenuItem>
-      <MenuItem
-        as={Link}
+      </RelevantCommitItem>
+      <RelevantCommitItem
         disabled={breakingLoading || breakingTask === undefined}
         onClick={() =>
           sendEvent({
@@ -96,9 +94,8 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
         to={linkObject[CommitType.Breaking]}
       >
         Go to breaking commit
-      </MenuItem>
-      <MenuItem
-        as={Link}
+      </RelevantCommitItem>
+      <RelevantCommitItem
         disabled={passingLoading}
         onClick={() =>
           sendEvent({
@@ -109,9 +106,8 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
         to={linkObject[CommitType.LastPassing]}
       >
         Go to last passing version
-      </MenuItem>
-      <MenuItem
-        as={Link}
+      </RelevantCommitItem>
+      <RelevantCommitItem
         disabled={executedLoading}
         onClick={() =>
           sendEvent({
@@ -122,7 +118,29 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
         to={linkObject[CommitType.LastExecuted]}
       >
         Go to last executed version
-      </MenuItem>
+      </RelevantCommitItem>
     </Menu>
+  );
+};
+
+type RelevantCommitItemProps = {
+  disabled: boolean;
+  to: string;
+  onClick: () => void;
+} & MenuItemProps;
+
+const RelevantCommitItem: React.FC<RelevantCommitItemProps> = ({
+  children,
+  disabled,
+  onClick,
+  to,
+}) => {
+  if (disabled) {
+    return <MenuItem disabled>{children}</MenuItem>;
+  }
+  return (
+    <MenuItem as={Link} onClick={onClick} to={to}>
+      {children}
+    </MenuItem>
   );
 };

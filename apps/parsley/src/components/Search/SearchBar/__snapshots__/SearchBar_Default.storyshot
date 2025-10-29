@@ -8,17 +8,17 @@
       data-testid="lg-select"
     >
       <button
-        aria-controls="select-3-menu"
-        aria-describedby="select-3-description"
+        aria-controls="select-5-menu"
+        aria-describedby="select-5-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
-        class="lg-ui-button-0001 leafygreen-ui-1p6i2zy"
+        class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
         data-cy="searchbar-select"
         data-lgid="lg-select-trigger"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-4"
+        id="select-6"
         type="button"
         value="filter"
       >
@@ -142,14 +142,14 @@
               class="leafygreen-ui-1ago99h"
             >
               <input
-                aria-describedby="lg-form_field-feedback-7"
+                aria-describedby="lg-form_field-feedback-9"
                 aria-disabled="false"
                 aria-invalid="true"
                 aria-labelledby="searchbar-input"
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="searchbar-input"
-                id="lg-form_field-input-8"
+                id="lg-form_field-input-10"
                 placeholder="optional, regexp to search"
                 required=""
                 spellcheck="false"
@@ -164,7 +164,7 @@
             class="leafygreen-ui-wsgs9n"
             data-lgid="lg-text_input-feedback"
             data-testid="lg-text_input-feedback"
-            id="lg-form_field-feedback-7"
+            id="lg-form_field-feedback-9"
           >
             <div
               class="leafygreen-ui-1nmw6il"

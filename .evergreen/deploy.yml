@@ -1,24 +1,21 @@
 functions:
   deploy:
-    - command: subprocess.exec
+    - command: shell.exec
       params:
-        binary: bash
-        args:
-          - -c
-          - |
-            if [ "${target}" = "staging" ]; then
-              echo "REACT_APP_HONEYCOMB_ENDPOINT: ${HONEYCOMB_ENDPOINT_STAGING}" >> honeycomb.yml
-              echo "REACT_APP_HONEYCOMB_INGEST_KEY: ${HONEYCOMB_INGEST_KEY_STAGING}" >> honeycomb.yml
-              # If target is production or beta, set the honeycomb endpoint and ingest key to production
-            elif [ "${target}" = "production" ] || [ "${target}" = "beta" ]; then
-              echo "REACT_APP_HONEYCOMB_ENDPOINT: ${HONEYCOMB_ENDPOINT_PROD}" >> honeycomb.yml
-              echo "REACT_APP_HONEYCOMB_INGEST_KEY: ${HONEYCOMB_INGEST_KEY_PROD}" >> honeycomb.yml
-            fi
+        script: |
+          if [ "${target}" = "staging" ]; then
+            echo "REACT_APP_HONEYCOMB_ENDPOINT: ${HONEYCOMB_ENDPOINT_STAGING}" >> honeycomb.yml
+            echo "REACT_APP_HONEYCOMB_INGEST_KEY: ${HONEYCOMB_INGEST_KEY_STAGING}" >> honeycomb.yml
+            # If target is production or beta, set the honeycomb endpoint and ingest key to production
+          elif [ "${target}" = "production" ] || [ "${target}" = "beta" ]; then
+            echo "REACT_APP_HONEYCOMB_ENDPOINT: ${HONEYCOMB_ENDPOINT_PROD}" >> honeycomb.yml
+            echo "REACT_APP_HONEYCOMB_INGEST_KEY: ${HONEYCOMB_INGEST_KEY_PROD}" >> honeycomb.yml
+          fi
     - command: expansions.update
       params:
         redact_file_expansions: true
         file: honeycomb.yml
-    - command: subprocess.exec
+    - command: shell.exec
       params:
         working_dir: ui/${app_dir}
         include_expansions_in_env:
@@ -36,20 +33,17 @@ functions:
           AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
           AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
-        binary: bash
-        args:
-          - -c
-          - |
-            ${PREPARE_SHELL}
-            # Add PROFILER to env if profiler patch parameter is set to true.
-            if [ "${profiler}" = "true" ]; then
-                echo "PROFILER is set to true, adding profiler to the build"
-                PROFILER=true PROFILE_HEAD="<script src=\"https://localhost:8097\"></script>" yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
-            else
-                yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
-            fi
+        script: |
+          ${PREPARE_SHELL}
+          # Add PROFILER to env if profiler patch parameter is set to true.
+          if [ "${profiler}" = "true" ]; then
+              echo "PROFILER is set to true, adding profiler to the build"
+              PROFILER=true PROFILE_HEAD="<script src=\"https://localhost:8097\"></script>" yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
+          else
+              yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
+          fi
   email:
-    - command: subprocess.exec
+    - command: shell.exec
       params:
         working_dir: ui/${app_dir}
         env:
@@ -57,18 +51,15 @@ functions:
           EVERGREEN_UI_SERVER_HOST: ${evergreen_ui_server_host}
           EVERGREEN_API_KEY: ${evergreen_api_key}
           EVERGREEN_USER: ${evergreen_user}
-        binary: bash
-        args:
-          - -c
-          - |
-            echo "populating evergreen.yml"
-            cat <<EOF > .evergreen.yml
-            api_server_host: $EVERGREEN_API_SERVER_HOST
-            ui_server_host: $EVERGREEN_UI_SERVER_HOST
-            api_key: $EVERGREEN_API_KEY
-            user: $EVERGREEN_USER
-            EOF
-            echo "Done populating evergreen.yml"
+        script: |
+          echo "populating evergreen.yml"
+          cat <<EOF > .evergreen.yml
+          api_server_host: $EVERGREEN_API_SERVER_HOST
+          ui_server_host: $EVERGREEN_UI_SERVER_HOST
+          api_key: $EVERGREEN_API_KEY
+          user: $EVERGREEN_USER
+          EOF
+          echo "Done populating evergreen.yml"
     - command: shell.exec
       params:
         working_dir: ui/${app_dir}
@@ -76,7 +67,6 @@ functions:
           EXECUTION: ${execution}
           DEPLOYS_EMAIL: ${DEPLOYS_EMAIL}
           AUTHOR_EMAIL: ${author_email}
-        shell: bash
         script: |
           ${PREPARE_SHELL}
           yarn deploy-utils-email
@@ -85,9 +75,7 @@ functions:
     - command: shell.exec
       type: setup
       params:
-        shell: bash
         script: |
-          ${PREPARE_SHELL}
           if ! [ -z "${staging_user_key}" ]; then
             echo "BUCKET: spruce-${staging_user_key}" >> deploy-vars.yml
             echo "REACT_APP_USER_KEY: ${staging_user_key}" >> deploy-vars.yml
@@ -104,12 +92,12 @@ functions:
         file: deploy-vars.yml
 
   write-previous-deploy:
-    - command: subprocess.exec
+    - command: shell.exec
       params:
         working_dir: ui/${app_dir}
-        binary: bash
-        args:
-          ["-c", "${PREPARE_SHELL} && yarn deploy-utils-write-previous-deploy"]
+        script: |
+          ${PREPARE_SHELL}
+          yarn deploy-utils-write-previous-deploy
 
 tasks:
   - name: deploy-parsley-staging
