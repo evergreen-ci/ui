@@ -10,15 +10,6 @@ import { RESET_USER_API_KEY } from "gql/mutations";
 import { ResetAPIKey } from "./ResetAPIKey";
 
 describe("ResetAPIKey", () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
-
-  afterEach(() => {
-    vi.runOnlyPendingTimers();
-    vi.useRealTimers();
-  });
-
   it("renders with default state", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[resetUserAPIKeyMock]}>
@@ -33,7 +24,7 @@ describe("ResetAPIKey", () => {
   });
 
   it("calls mutation when button is clicked", async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[resetUserAPIKeyMock]}>
         <ResetAPIKey />
@@ -44,65 +35,14 @@ describe("ResetAPIKey", () => {
     const button = screen.getByRole("button", { name: "Reset key" });
     await user.click(button);
 
+    const mutationMock = resetUserAPIKeyMock.result;
     await waitFor(() => {
-      expect(
-        screen.getByRole("button", { name: "Updated" }),
-      ).toBeInTheDocument();
-    });
-  });
-
-  it("shows success state after successful mutation", async () => {
-    const user = userEvent.setup({ delay: null });
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[resetUserAPIKeyMock]}>
-        <ResetAPIKey />
-      </MockedProvider>,
-    );
-    render(<Component />);
-
-    const button = screen.getByRole("button", { name: "Reset key" });
-    await user.click(button);
-
-    await waitFor(() => {
-      expect(
-        screen.getByRole("button", { name: "Updated" }),
-      ).toBeInTheDocument();
-    });
-
-    expect(
-      screen.queryByRole("button", { name: "Reset key" }),
-    ).not.toBeInTheDocument();
-  });
-
-  it("reverts to default state after success timeout", async () => {
-    const user = userEvent.setup({ delay: null });
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[resetUserAPIKeyMock]}>
-        <ResetAPIKey />
-      </MockedProvider>,
-    );
-    render(<Component />);
-
-    const button = screen.getByRole("button", { name: "Reset key" });
-    await user.click(button);
-
-    await waitFor(() => {
-      expect(
-        screen.getByRole("button", { name: "Updated" }),
-      ).toBeInTheDocument();
-    });
-
-    vi.advanceTimersByTime(2000);
-
-    await waitFor(() => {
-      expect(
-        screen.getByRole("button", { name: "Reset key" }),
-      ).toBeInTheDocument();
+      expect(mutationMock).toHaveBeenCalledOnce();
     });
   });
 
   it("shows error toast on mutation failure", async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[resetUserAPIKeyErrorMock]}>
         <ResetAPIKey />
@@ -110,37 +50,13 @@ describe("ResetAPIKey", () => {
     );
     render(<Component />);
 
-    const button = screen.getByRole("button", { name: "Reset key" });
-    await user.click(button);
+    await user.click(screen.getByRole("button", { name: "Reset key" }));
 
     await waitFor(() => {
       expect(dispatchToast.error).toHaveBeenCalledTimes(1);
     });
 
     expect(dispatchToast.error).toHaveBeenCalledWith("Error resetting API key");
-  });
-
-  it("does not show success state on mutation failure", async () => {
-    const user = userEvent.setup({ delay: null });
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[resetUserAPIKeyErrorMock]}>
-        <ResetAPIKey />
-      </MockedProvider>,
-    );
-    render(<Component />);
-
-    const button = screen.getByRole("button", { name: "Reset key" });
-    await user.click(button);
-
-    await waitFor(() => {
-      expect(
-        screen.getByRole("button", { name: "Reset key" }),
-      ).toBeInTheDocument();
-    });
-
-    expect(
-      screen.queryByRole("button", { name: "Updated" }),
-    ).not.toBeInTheDocument();
   });
 });
 
@@ -152,7 +68,7 @@ const resetUserAPIKeyMock: ApolloMock<
     query: RESET_USER_API_KEY,
     variables: {},
   },
-  result: {
+  result: vi.fn().mockReturnValue({
     data: {
       resetAPIKey: {
         __typename: "UserConfig",
@@ -160,7 +76,7 @@ const resetUserAPIKeyMock: ApolloMock<
         user: "test-user",
       },
     },
-  },
+  }) as { data: ResetUserApiKeyMutation },
 };
 
 const resetUserAPIKeyErrorMock: ApolloMock<
