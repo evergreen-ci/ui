@@ -12,15 +12,21 @@ describe("Parsley AI", () => {
     cy.contains("button", "Enable it!").click();
     cy.contains("button", "Enable it!").should("not.exist");
 
-    cy.contains("button", "Parsley AI").click();
+    // Ensure new settings are loaded with AI enabled
+    cy.reload();
+
     cy.intercept("GET", `http://localhost:8080/login`, {
       statusCode: 200,
       body: {
         message: "Logged in successfully, you may close this window",
       },
     }).as("login");
-    cy.contains("Log in").click();
-    cy.wait("@login");
+    cy.contains("button", "Parsley AI").should(
+      "have.attr",
+      "aria-disabled",
+      "false",
+    );
+    cy.contains("button", "Parsley AI").click();
     cy.contains("Suggested Prompts").should("be.visible");
   });
 });
