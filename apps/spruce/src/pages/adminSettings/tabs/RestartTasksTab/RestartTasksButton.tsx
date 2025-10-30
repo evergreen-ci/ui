@@ -3,7 +3,10 @@ import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { Spinner } from "@leafygreen-ui/loading-indicator";
+// @ts-expect-error - LG advises directly importing from this path for simple spinners to avoid importing Lottie.
+// The component works, but the export is incorrectly typed. See LG-5659.
+// https://github.com/mongodb/leafygreen-ui/blob/main/packages/loading-indicator/CHANGELOG.md#major-changes
+import { Spinner } from "@leafygreen-ui/loading-indicator/spinner";
 import { Description } from "@leafygreen-ui/typography";
 import { toZonedTime } from "date-fns-tz";
 import { StyledRouterLink, wordBreakCss } from "@evg-ui/lib/components/styles";
@@ -79,10 +82,10 @@ const RestartTasksModal: React.FC<RestartTasksModalProps> = ({
       title="Submit Restart Tasks"
     >
       {loading ? (
-        <LoadingIndicator
-          description="Loading…"
-          displayOption="large-vertical"
-        />
+        <LoadingIndicatorContainer>
+          <Spinner size="large" />
+          <Description>Loading…</Description>
+        </LoadingIndicatorContainer>
       ) : (
         <div>
           {hasTasksToRestart ? (
@@ -107,8 +110,9 @@ const RestartTasksModal: React.FC<RestartTasksModalProps> = ({
   );
 };
 
-const LoadingIndicator = styled(Spinner)`
-  margin-top: ${size.m};
+const LoadingIndicatorContainer = styled.div`
+  margin: ${size.m} auto 0 auto;
+  text-align: center;
 `;
 
 const TaskLink = styled(StyledRouterLink)`

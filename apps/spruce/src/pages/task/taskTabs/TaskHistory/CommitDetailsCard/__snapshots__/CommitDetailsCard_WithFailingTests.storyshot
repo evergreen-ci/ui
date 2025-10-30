@@ -990,7 +990,7 @@
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-label="Set current page"
+                    aria-label="Set current page, 1"
                     class="lg-ui-button-0000 leafygreen-ui-1rkuilv"
                     data-lgid="lg-select-trigger"
                     data-testid="lg-pagination-page-select"
@@ -1008,7 +1008,7 @@
                         class="leafygreen-ui-obh8q1"
                       >
                         <div
-                          class="lg-ui-select-menu-0001 leafygreen-ui-17aj16e"
+                          class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
                           data-lgid="lg-select-button_text"
                           data-testid="lg-select-button_text"
                         >

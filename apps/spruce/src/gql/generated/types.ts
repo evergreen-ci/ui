@@ -6945,6 +6945,17 @@ export type ReprovisionToNewMutation = {
   reprovisionToNew: number;
 };
 
+export type ResetUserApiKeyMutationVariables = Exact<{ [key: string]: never }>;
+
+export type ResetUserApiKeyMutation = {
+  __typename?: "Mutation";
+  resetAPIKey?: {
+    __typename?: "UserConfig";
+    api_key: string;
+    user: string;
+  } | null;
+};
+
 export type RestartAdminTasksMutationVariables = Exact<{
   opts: RestartAdminTasksOptions;
 }>;
@@ -11655,10 +11666,6 @@ export type UserSettingsQuery = {
         patchFirstFailure?: string | null;
         spawnHostExpiration?: string | null;
         spawnHostOutcome?: string | null;
-      } | null;
-      useSpruceOptions?: {
-        __typename?: "UseSpruceOptions";
-        spruceV1?: boolean | null;
       } | null;
     };
   };

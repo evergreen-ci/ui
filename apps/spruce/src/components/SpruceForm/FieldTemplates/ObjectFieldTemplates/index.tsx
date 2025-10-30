@@ -102,12 +102,15 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
       }
       id={`${idSchema.$id}__title`}
       objectFieldCss={objectFieldCss}
+      scrollMarginTop={cardScrollMarginTop}
       title={uiTitle || title}
     >
       {properties.map((prop) => prop.content)}
     </SpruceFormContainer>
   );
 };
+
+const cardScrollMarginTop = 72;
 
 /**
  * `AccordionFieldTemplate` is a custom ObjectFieldTemplate that renders an accordion with a title and a list of properties.
