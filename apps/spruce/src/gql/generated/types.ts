@@ -9179,6 +9179,10 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }> | null;
+    githubPatchData?: {
+      __typename?: "GithubPatch";
+      prNumber?: number | null;
+    } | null;
     patchTriggerAliases: Array<{
       __typename?: "PatchTriggerAlias";
       alias: string;
@@ -9200,6 +9204,7 @@ export type ConfigurePatchQuery = {
       }>;
     } | null;
     time?: { __typename?: "PatchTime"; submittedAt: string } | null;
+    versionFull?: { __typename?: "Version"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     variantsTasks: Array<{
       __typename?: "VariantTask";

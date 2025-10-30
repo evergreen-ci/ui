@@ -61,6 +61,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
     author,
     childPatchAliases,
     childPatches,
+    githubPatchData,
     id,
     patchTriggerAliases,
     project,
@@ -68,6 +69,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
     projectIdentifier,
     time,
     variantsTasks,
+    version,
   } = patch;
   const { variants = [] } = project || {};
 
@@ -169,6 +171,8 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
     );
   }
 
+  const isUnauthorizedGHPatch = !version.id && githubPatchData.prNumber !== 0;
+
   const estimatedActivatedTasksCount = sumActivatedTasksInVariantsTasks(
     selectedBuildVariantTasks,
     generatedTaskCounts || [],
@@ -206,11 +210,11 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
             title={
               loadingGeneratedTaskCounts
                 ? "Still estimating total task count"
-                : "Schedule"
+                : undefined
             }
             variant="primary"
           >
-            Schedule
+            {isUnauthorizedGHPatch ? "Authorize & Schedule" : "Schedule"}
           </LoadingButton>
         </ButtonWrapper>
       </FlexRow>
