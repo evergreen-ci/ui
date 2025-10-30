@@ -8,7 +8,7 @@ type Size = "large" | "medium";
 
 interface TitleTypographyProps {
   size?: Size;
-  children: React.ReactNode | string;
+  children: React.ReactNode;
 }
 
 const TitleTypography: React.FC<TitleTypographyProps> = ({
