@@ -17,9 +17,6 @@
     "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts",
     "postinstall": "yarn workspace @evg-ui/vite-utils run compile"
   },
-  "resolutions": {
-    "jackspeak": "2.1.1"
-  },
   "devDependencies": {
     "@evg-ui/storybook-addon": "*",
     "@storybook/react-vite": "^9.0.18",
