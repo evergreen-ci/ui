@@ -18,8 +18,19 @@ import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";
 import { ProjectSelect } from ".";
 
 describe("projectSelect", () => {
-  afterEach(() => {
-    vi.restoreAllMocks();
+  const originalResizeObserver = window.ResizeObserver;
+
+  beforeEach(() => {
+    const mockResizeObserver = vi.fn(() => ({
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
+    }));
+    window.ResizeObserver = mockResizeObserver;
+  });
+
+  afterAll(() => {
+    window.ResizeObserver = originalResizeObserver;
   });
 
   describe("not project settings", () => {

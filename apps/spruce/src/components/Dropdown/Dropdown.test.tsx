@@ -2,7 +2,23 @@ import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
 import Dropdown from ".";
 
 const children = () => <div>Some Children</div>;
+
 describe("dropdown", () => {
+  const originalResizeObserver = window.ResizeObserver;
+
+  beforeEach(() => {
+    const mockResizeObserver = vi.fn(() => ({
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
+    }));
+    window.ResizeObserver = mockResizeObserver;
+  });
+
+  afterAll(() => {
+    window.ResizeObserver = originalResizeObserver;
+  });
+
   it("renders a button by default with no dropdown", () => {
     render(<Dropdown buttonText="Some Button"> {children()} </Dropdown>);
     expect(screen.getByText("Some Button")).toBeInTheDocument();

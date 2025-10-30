@@ -131,7 +131,6 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     );
   };
 
-  result.displayName = `${logMetadata?.logType}RowRenderer`;
   return result;
 };
 
