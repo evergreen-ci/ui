@@ -12,9 +12,7 @@ describe("copy button", () => {
     await waitFor(() => {
       expect(screen.getByRole("tooltip")).toHaveTextContent("Copy me!");
     });
-
     await user.click(copyButton);
-
     await waitFor(() => {
       expect(screen.getByRole("tooltip")).toHaveTextContent("Copied!");
     });

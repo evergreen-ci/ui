@@ -362,7 +362,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         buildVariant={buildVariant}
         buildVariantDisplayName={buildVariantDisplayName ?? ""}
         projectIdentifier={projectIdentifier}
-        taskName={task.displayName}
+        taskName={displayTask ? displayTask.displayName : task.displayName}
       />
 
       {projectIdentifier && !isDisplayTask && (
