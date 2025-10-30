@@ -6,6 +6,21 @@ import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 
 type Size = "large" | "medium";
 
+interface TitleTypographyProps {
+  size?: Size;
+  children: React.ReactNode | string;
+}
+
+const TitleTypography: React.FC<TitleTypographyProps> = ({
+  children,
+  size = "medium",
+}) => {
+  if (size === "large") {
+    return <H2>{children}</H2>;
+  }
+  return <Subtitle>{children}</Subtitle>;
+};
+
 interface Props {
   loading: boolean;
   title: string | JSX.Element | React.ReactNode[];
@@ -17,26 +32,13 @@ interface Props {
   children?: React.ReactNode;
 }
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-const TitleTypography: React.FC<TitleTypographyProps> = ({
-  children,
-  size,
-}) => {
-  if (size === "large") {
-    return <H2>{children}</H2>;
-  }
-  if (size === "medium") {
-    return <Subtitle>{children}</Subtitle>;
-  }
-};
-
 const PageTitle: React.FC<Props> = ({
   badge,
   buttons,
   children,
   loading,
   pageTitle = "Evergreen",
-  size = "medium",
+  size,
   subtitle,
   title,
 }) => {
@@ -63,10 +65,6 @@ const PageTitle: React.FC<Props> = ({
   );
 };
 
-interface TitleTypographyProps {
-  size: Size;
-  children: React.ReactNode | string;
-}
 const Container = styled.div<TitleTypographyProps>`
   display: flex;
   flex-direction: column;

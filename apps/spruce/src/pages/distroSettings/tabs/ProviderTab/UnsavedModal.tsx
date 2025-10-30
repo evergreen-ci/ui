@@ -14,30 +14,27 @@ type UnsavedModalProps = {
   shouldBlock: boolean | BlockerFunction;
 };
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const UnsavedModal: React.FC<UnsavedModalProps> = ({
   distro,
   shouldBlock,
 }) => {
   const blocker = useBlocker(shouldBlock);
 
-  return (
-    blocker.state === "blocked" && (
-      <SaveModal
-        banner={
-          <StyledBanner data-cy="provider-warning-banner" variant="warning">
-            Your distro provider changes must be saved or reverted before
-            navigating to a new page.
-          </StyledBanner>
-        }
-        distro={distro}
-        onCancel={() => blocker.reset?.()}
-        onConfirm={() => blocker.proceed?.()}
-        open
-        tab={WritableDistroSettingsTabs.Provider}
-      />
-    )
-  );
+  return blocker.state === "blocked" ? (
+    <SaveModal
+      banner={
+        <StyledBanner data-cy="provider-warning-banner" variant="warning">
+          Your distro provider changes must be saved or reverted before
+          navigating to a new page.
+        </StyledBanner>
+      }
+      distro={distro}
+      onCancel={() => blocker.reset?.()}
+      onConfirm={() => blocker.proceed?.()}
+      open
+      tab={WritableDistroSettingsTabs.Provider}
+    />
+  ) : null;
 };
 
 const StyledBanner = styled(Banner)`

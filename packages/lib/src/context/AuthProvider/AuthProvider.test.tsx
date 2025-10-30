@@ -28,21 +28,17 @@ const wrapper = ({
 }) => <AuthProvider {...authProviderProps} />;
 
 describe("AuthProvider", () => {
-  let originalLocation: Location;
-
   beforeEach(() => {
-    // Save original location
-    originalLocation = window.location;
-    // Mock window.location
-    delete (window as any).location;
-    window.location = { ...originalLocation, href: "test-url" } as Location;
+    vi.spyOn(window, "location", "get").mockReturnValue({
+      href: "test-url",
+    } as Location);
     const mockData = { data: { spruceConfig: { userId: "mohamed" } } };
     (fetchWithRetry as Mock).mockResolvedValue(mockData);
   });
+
   afterEach(() => {
     // Restore original location after test
-    window.location = originalLocation;
-    vi.clearAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("should render children", async () => {
