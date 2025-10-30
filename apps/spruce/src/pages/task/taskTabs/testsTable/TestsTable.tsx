@@ -82,10 +82,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     table.resetColumnFilters(true);
   };
 
-  const { initialFilters, initialSorting } = useMemo(
-    () => getInitialState(queryParams),
-    [queryParams],
-  );
+  const { initialFilters, initialSorting } = getInitialState(queryParams);
 
   const [columnFilters, setColumnFilters] =
     useState<ColumnFiltersState>(initialFilters);

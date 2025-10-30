@@ -66,10 +66,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   const { baseStatuses: baseStatusOptions, currentStatuses: statusOptions } =
     useTaskStatuses({ versionId });
 
-  const { initialFilters, initialSorting } = useMemo(
-    () => getInitialState(queryParams),
-    [queryParams],
-  );
+  const { initialFilters, initialSorting } = getInitialState(queryParams);
 
   const columns = useMemo(
     () =>
