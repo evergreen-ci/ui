@@ -10,7 +10,11 @@ import {
   WATERFALL_PINNED_VARIANTS_KEY,
 } from "constants/index";
 import { utcTimeZone } from "constants/time";
-import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
+import {
+  WaterfallOptions,
+  WaterfallQuery,
+  WaterfallQueryVariables,
+} from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
@@ -19,7 +23,7 @@ import { getUTCEndOfDay } from "utils/date";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { BuildVariantProvider } from "./BuildVariantContext";
-import { resetFilterState, VERSION_LIMIT } from "./constants";
+import { VERSION_LIMIT } from "./constants";
 import { FetchMoreLoader } from "./FetchMoreLoader";
 import { InactiveVersionsButton } from "./InactiveVersions";
 import { OnboardingTutorial } from "./OnboardingTutorial";
@@ -29,30 +33,33 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
-import {
-  Pagination,
-  WaterfallFilterOptions,
-  Version,
-  ServerFilters,
-} from "./types";
+import { Pagination, WaterfallFilterOptions, Version } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
+
+type ServerFilters = Pick<
+  WaterfallOptions,
+  "requesters" | "statuses" | "tasks" | "variants"
+>;
+
+const resetFilterState: ServerFilters = {
+  requesters: undefined,
+  statuses: undefined,
+  tasks: undefined,
+  variants: undefined,
+};
 
 type WaterfallGridProps = {
   projectIdentifier: string;
   setPagination: (pagination: Pagination) => void;
   guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
-  serverFilters: ServerFilters;
-  setServerFilters: (sf: ServerFilters) => void;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   guideCueRef,
   projectIdentifier,
-  serverFilters,
   setPagination,
-  setServerFilters,
 }) => {
   useWaterfallTrace();
   const [queryParams, setQueryParams] = useQueryParams();
@@ -106,6 +113,10 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
   const timezone = useUserTimeZone() ?? utcTimeZone;
   const utcDate = getUTCEndOfDay(date, timezone);
+
+  // TODO DEVPROD-23578: serverFilters can be calculated from queryParams directly, useState should not be necessary
+  const [serverFilters, setServerFilters] =
+    useState<ServerFilters>(resetFilterState);
 
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
@@ -195,7 +206,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   return (
     <Container ref={refEl}>
-      <div ref={headerScrollRef} />
       <StickyHeader showShadow={showShadow}>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">

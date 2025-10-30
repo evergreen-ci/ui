@@ -10,8 +10,8 @@ import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { slugs } from "constants/routes";
-import { waterfallPageContainerId, resetFilterState } from "./constants";
-import { ServerFilters, Pagination, WaterfallFilterOptions } from "./types";
+import { waterfallPageContainerId } from "./constants";
+import { Pagination, WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
@@ -20,15 +20,14 @@ import WaterfallSkeleton from "./WaterfallSkeleton";
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   usePageTitle(`${projectIdentifier} | Waterfall`);
-  const { sendEvent } = useWaterfallAnalytics();
   const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     validQueryParams,
     urlParamToTitleMap,
   );
 
+  const { sendEvent } = useWaterfallAnalytics();
+
   const [pagination, setPagination] = useState<Pagination>();
-  const [serverFilters, setServerFilters] =
-    useState<ServerFilters>(resetFilterState);
 
   const guideCueRef = useRef<WalkthroughGuideCueRef>(null);
   const restartWalkthrough = useCallback(
@@ -66,9 +65,7 @@ const Waterfall: React.FC = () => {
               key={projectIdentifier}
               guideCueRef={guideCueRef}
               projectIdentifier={projectIdentifier ?? ""}
-              serverFilters={serverFilters}
               setPagination={setPagination}
-              setServerFilters={setServerFilters}
             />
           </WaterfallErrorBoundary>
         </Suspense>
