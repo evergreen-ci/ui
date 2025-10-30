@@ -100,10 +100,6 @@ export const getUserSettingsMock: ApolloMock<
             spawnHostExpiration: "",
             spawnHostOutcome: "",
           },
-          useSpruceOptions: {
-            __typename: "UseSpruceOptions",
-            spruceV1: true,
-          },
         },
       },
     },

@@ -3,6 +3,7 @@
     class="emotion-0"
   >
     <a
+      class="emotion-SpruceFormContainer"
       href="#periodic-builds"
       id="periodic-builds"
     >
@@ -59,7 +60,7 @@
                       aria-expanded="false"
                       aria-invalid="false"
                       aria-label="date-picker"
-                      class="leafygreen-ui-x5qsue"
+                      class="leafygreen-ui-1on3uho"
                       role="combobox"
                       tabindex="-1"
                     >
@@ -70,7 +71,7 @@
                           aria-describedby=""
                           aria-disabled="false"
                           aria-invalid="false"
-                          class="leafygreen-ui-188k96w lg-ui-form-field-input-0002"
+                          class="leafygreen-ui-188k96w lg-ui-form-field-input-0000"
                           id="lg-form_field-input-116"
                         >
                           <input
@@ -157,7 +158,7 @@
                         <button
                           aria-disabled="false"
                           aria-label="Open calendar menu"
-                          class="lg-ui-form-field-icon-0002 leafygreen-ui-18kabg0"
+                          class="lg-ui-form-field-icon-0000 leafygreen-ui-18kabg0"
                           data-lgid="lg-form_field-content_end"
                           data-testid="lg-form_field-content_end"
                           tabindex="0"

@@ -54,17 +54,19 @@ describe("Action Buttons", () => {
     it("Clicking 'Set Priority' button shows popconfirm with input and toast on success", () => {
       const priority = "99";
       cy.dataCy("prioritize-patch").click();
-      cy.dataCy("patch-priority-input").type(`${priority}{enter}`);
+      cy.dataCy("patch-priority-input").type(`${priority}{enter}`, {
+        force: true,
+      });
       cy.validateToast("success", priority);
     });
 
     it("Error setting priority shows error toast", () => {
       cy.dataCy("prioritize-patch").click();
-      cy.dataCy("patch-priority-input").type("88");
+      cy.dataCy("patch-priority-input").type("88", { force: true });
       mockErrorResponse({
         errorMessage: "There was an error setting priority",
       });
-      cy.dataCy("patch-priority-input").type("{enter}");
+      cy.dataCy("patch-priority-input").type("{enter}", { force: true });
       cy.validateToast("error", "Error updating priority for patch");
     });
 
@@ -80,7 +82,9 @@ describe("Action Buttons", () => {
         "Set task priority (2)",
       );
       cy.dataCy("prioritize-task").click();
-      cy.dataCy("task-priority-input").type(`${priority}{enter}`);
+      cy.dataCy("task-priority-input").type(`${priority}{enter}`, {
+        force: true,
+      });
       cy.validateToast("success", "Priority updated for 2 tasks.");
     });
 
