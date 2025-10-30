@@ -69,7 +69,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
     projectIdentifier,
     time,
     variantsTasks,
-    version,
+    versionFull,
   } = patch;
   const { variants = [] } = project || {};
 
@@ -171,7 +171,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
     );
   }
 
-  const isUnauthorizedGHPatch = !version.id && githubPatchData.prNumber !== 0;
+  const isUnauthorizedGHPatch = !versionFull?.id && githubPatchData?.prNumber;
 
   const estimatedActivatedTasksCount = sumActivatedTasksInVariantsTasks(
     selectedBuildVariantTasks,
@@ -375,6 +375,7 @@ const ButtonWrapper = styled.div`
   margin-top: ${size.m};
   display: flex;
   gap: ${size.s};
+  white-space: nowrap;
 `;
 
 const FlexRow = styled.div`
