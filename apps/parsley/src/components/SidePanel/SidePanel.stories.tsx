@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import styled from "@emotion/styled";
-import { userEvent } from "@storybook/testing-library";
 import Cookie from "js-cookie";
 import { actions } from "storybook/actions";
 import { useQueryParams } from "@evg-ui/lib/hooks";
@@ -60,7 +59,7 @@ const Story = ({ ...args }) => {
   );
 };
 export const Default: CustomStoryObj<typeof SidePanel> = {
-  play: async () => {
+  play: async ({ userEvent }) => {
     await userEvent.keyboard("[[");
   },
   render: (args) => <Story {...args} />,

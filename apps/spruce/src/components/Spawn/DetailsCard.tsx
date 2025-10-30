@@ -19,13 +19,12 @@ interface CardItem {
 }
 
 const CardField: React.FC<CardItem> = ({ label, value }) =>
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  value !== undefined && (
+  value !== undefined ? (
     <FieldContainer>
       <FieldName>{label}</FieldName>
       <div>{value}</div>
     </FieldContainer>
-  );
+  ) : null;
 
 type FieldMap<T> = {
   [key: string]: (T: T) => JSX.Element;
