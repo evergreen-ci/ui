@@ -38,7 +38,7 @@ export const BuildVariantCard: React.FC<Props> = ({
           </LabelWrapper>
           <CopyButton
             textToCopy={buildVariant}
-            tooltipLabel="Copy Build Variant ID"
+            tooltipLabel="Copy build variant ID"
           />
         </IDWrapper>
       </MetadataItem>

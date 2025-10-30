@@ -49,6 +49,6 @@ export const CopyButton: React.FC<Props> = ({ textToCopy, tooltipLabel }) => {
 };
 
 const StyledIconButton = styled(IconButton)`
-  max-height: 20px;
-  max-width: 20px;
+  max-height: 16px;
+  max-width: 16px;
 `;
