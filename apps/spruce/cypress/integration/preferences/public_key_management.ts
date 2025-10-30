@@ -27,6 +27,7 @@ describe("Public Key Management Page", () => {
 
   describe("Add New Key Modal", () => {
     beforeEach(() => {
+      cy.contains(keyName2).should("be.visible");
       cy.dataCy("add-key-button").click();
     });
 
