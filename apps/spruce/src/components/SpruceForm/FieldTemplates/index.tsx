@@ -12,7 +12,6 @@ export * from "./ObjectFieldTemplates";
 const { gray } = palette;
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
-// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   children,
   classNames,
@@ -34,42 +33,40 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   const errors = uiSchema["ui:errors"] ?? (rawErrors?.length ? rawErrors : []);
   const warnings: NonNullable<SpruceWidgetProps["options"]["warnings"]> =
     uiSchema["ui:warnings"] ?? [];
-  return (
-    !hidden && (
-      <>
-        {isNullType && showLabel && (
-          <CustomTitleField id={id} title={label} uiSchema={uiSchema} />
-        )}
-        {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
-        {isNullType && <>{descriptionNode || description}</>}
-        {isNullType && !!errors.length && (
-          <StyledBanner data-cy="error-banner" variant="danger">
-            {errors.join(", ")}
-          </StyledBanner>
-        )}
-        {isNullType && !!warnings.length && (
-          <StyledBanner data-cy="warning-banner" variant="warning">
-            {warnings.map((w, i) =>
-              typeof w === "string" || w instanceof String ? (
-                <div key={`warning-${i}`}>{w}</div>
-              ) : (
-                w
-              ),
-            )}
-          </StyledBanner>
-        )}
-        <DefaultFieldContainer
-          border={border}
-          className={classNames}
-          css={fieldCss}
-          data-cy={fieldDataCy}
-          id={`${sectionId} ${id}`}
-        >
-          {children}
-        </DefaultFieldContainer>
-      </>
-    )
-  );
+  return !hidden ? (
+    <>
+      {isNullType && showLabel && (
+        <CustomTitleField id={id} title={label} uiSchema={uiSchema} />
+      )}
+      {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
+      {isNullType && <>{descriptionNode || description}</>}
+      {isNullType && !!errors.length && (
+        <StyledBanner data-cy="error-banner" variant="danger">
+          {errors.join(", ")}
+        </StyledBanner>
+      )}
+      {isNullType && !!warnings.length && (
+        <StyledBanner data-cy="warning-banner" variant="warning">
+          {warnings.map((w, i) =>
+            typeof w === "string" || w instanceof String ? (
+              <div key={`warning-${i}`}>{w}</div>
+            ) : (
+              w
+            ),
+          )}
+        </StyledBanner>
+      )}
+      <DefaultFieldContainer
+        border={border}
+        className={classNames}
+        css={fieldCss}
+        data-cy={fieldDataCy}
+        id={`${sectionId} ${id}`}
+      >
+        {children}
+      </DefaultFieldContainer>
+    </>
+  ) : null;
 };
 
 const DefaultFieldContainer = styled.div<{ border?: "top" | "bottom" }>`
