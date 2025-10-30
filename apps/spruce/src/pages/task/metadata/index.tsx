@@ -21,15 +21,15 @@ import {
   getTaskRoute,
   getHostRoute,
   getSpawnHostRoute,
-  getVersionRoute,
   getProjectPatchesRoute,
   getPodRoute,
   getImageRoute,
 } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks/useDateFormat";
-import { applyStrictRegex, msToDuration } from "utils/string";
+import { msToDuration } from "utils/string";
 import { AbortMessage } from "./AbortMessage";
+import { BuildVariantCard } from "./BuildVariant";
 import { DependsOn } from "./DependsOn";
 import DetailsDescription from "./DetailsDescription";
 import ETATimer from "./ETATimer";
@@ -111,7 +111,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     testSelection,
   } = project || {};
   const { allowed: testSelectionEnabledForProject } = testSelection || {};
-  const { author, id: versionID } = versionMetadata ?? {};
+  const { author } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
   const taskTrace = details?.traceID;
   const diskDevices = details?.diskDevices;
@@ -124,26 +124,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   return (
     <>
       <MetadataCard title="Task Metadata">
-        {versionID && buildVariant && (
-          <MetadataItem data-cy="task-metadata-build-variant">
-            <MetadataLabel>Build Variant:</MetadataLabel>{" "}
-            <StyledRouterLink
-              data-cy="build-variant-link"
-              onClick={() =>
-                taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
-                  "link.type": "build variant link",
-                })
-              }
-              to={getVersionRoute(versionID, {
-                page: 0,
-                variant: applyStrictRegex(buildVariant),
-              })}
-            >
-              {buildVariantDisplayName || buildVariant}
-            </StyledRouterLink>
-          </MetadataItem>
-        )}
         <MetadataItem data-cy="task-metadata-project">
           <MetadataLabel>Project:</MetadataLabel>{" "}
           <StyledRouterLink
@@ -377,6 +357,13 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </MetadataItem>
         )}
       </MetadataCard>
+
+      <BuildVariantCard
+        buildVariant={buildVariant}
+        buildVariantDisplayName={buildVariantDisplayName ?? ""}
+        projectIdentifier={projectIdentifier}
+        taskName={displayTask ? displayTask.displayName : task.displayName}
+      />
 
       {projectIdentifier && !isDisplayTask && (
         <TaskTimingMetadata
