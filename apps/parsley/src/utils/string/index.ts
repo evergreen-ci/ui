@@ -82,19 +82,6 @@ export const getBytesAsString = (bytes: number, decimals = 2) => {
 };
 
 /**
- * `trimLogLineToMaxSize` trims a line to the max size limit
- * @param line - the line to trim
- * @param maxSize - the max line size limit
- * @returns the trimmed line
- */
-export const trimLogLineToMaxSize = (line: string, maxSize: number) => {
-  if (line.length > maxSize) {
-    return `${line.substring(0, maxSize)}…`;
-  }
-  return line;
-};
-
-/**
  * `trimSeverity` trims the severity prefix from a line
  * @param line - the line to trim
  * @returns - the line without the severity prefix

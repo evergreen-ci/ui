@@ -8,7 +8,7 @@ import {
   LOG_FILE_DOWNLOAD_TOO_LARGE_WARNING,
   LOG_LINE_TOO_LARGE_WARNING,
 } from "constants/errors";
-import { LOG_FILE_SIZE_LIMIT } from "constants/logs";
+import { LOG_FILE_SIZE_LIMIT, LOG_LINE_SIZE_LIMIT } from "constants/logs";
 import useStateRef from "hooks/useStateRef";
 import { isProduction } from "utils/environmentVariables";
 import { fetchLogFile } from "utils/fetchLogFile";
@@ -57,6 +57,7 @@ const useLogDownloader = ({
         // Conditionally define signal because AbortController throws error in development's strict mode
         abortController: isProduction() ? abortController : undefined,
         downloadSizeLimit,
+        logLineSizeLimit: LOG_LINE_SIZE_LIMIT,
         onIncompleteDownload: (reason, incompleteDownloadError) => {
           reportError(new Error("Incomplete download"), {
             context: {
