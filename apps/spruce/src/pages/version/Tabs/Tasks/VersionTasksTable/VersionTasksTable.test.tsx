@@ -1,7 +1,6 @@
 import { InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import { getTestUtils } from "@leafygreen-ui/checkbox";
-// @ts-expect-error This does exist, incorrect typing from LeafyGreen
 import { getTestUtils as getTableUtils } from "@leafygreen-ui/table/testing";
 import {
   fireEvent,
@@ -168,8 +167,13 @@ describe("VersionTasksTable", () => {
       expect(db.setItems).toHaveBeenCalledOnce();
 
       const { getRowByIndex } = getTableUtils();
-      const { getExpandButton } = getRowByIndex(3);
-      await user.click(getExpandButton());
+      const row = getRowByIndex(3);
+      if (row) {
+        const expandButton = row.getExpandButton();
+        if (expandButton) {
+          await user.click(expandButton);
+        }
+      }
 
       expect(getTestUtils(`lg-reviewed-${tasks[3].id}`).getInputValue()).toBe(
         true,
