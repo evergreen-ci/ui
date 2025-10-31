@@ -41,6 +41,7 @@ interface Props {
   timeZone: string;
   useSetupScript?: boolean;
   useProjectSetupScript?: boolean;
+  useOAuth?: boolean;
   userAwsRegion?: string;
   volumes: MyVolumesQuery["myVolumes"];
 }
@@ -232,6 +233,11 @@ export const getFormSchema = ({
                         title:
                           "Also start any hosts this task started (if applicable)",
                       },
+                      useOAuth: {
+                        type: "boolean" as const,
+                        title:
+                          "Use OAuth authentication to download the task data from Evergreen. This will soon be required, see DEVPROD-4160",
+                      },
                     },
                   },
                 ],
@@ -419,6 +425,11 @@ export const getFormSchema = ({
           },
           startHosts: {
             "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
+            "ui:elementWrapperCSS": childCheckboxCSS,
+          },
+          useOAuth: {
+            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
+            "ui:data-cy": "use-oauth-checkbox",
             "ui:elementWrapperCSS": childCheckboxCSS,
           },
         },
