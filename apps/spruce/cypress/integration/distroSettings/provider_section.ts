@@ -160,9 +160,12 @@ describe("provider section", () => {
       cy.dataCy("expandable-card-title")
         .contains("us-west-1")
         .closest('[data-cy="expandable-card"]')
-        .find('[data-cy="delete-item-button"]')
-        .should("not.be.disabled")
-        .click();
+        .within(() => {
+          cy.dataCy("delete-item-button")
+            .first()
+            .should("have.attr", "aria-disabled", "false")
+            .click();
+        });
       cy.dataCy("expandable-card-title")
         .contains("us-west-1")
         .should("not.exist");
@@ -247,9 +250,12 @@ describe("provider section", () => {
       cy.dataCy("expandable-card-title")
         .contains("us-west-1")
         .closest('[data-cy="expandable-card"]')
-        .find('[data-cy="delete-item-button"]')
-        .should("not.be.disabled")
-        .click();
+        .within(() => {
+          cy.dataCy("delete-item-button")
+            .first()
+            .should("have.attr", "aria-disabled", "false")
+            .click();
+        });
       cy.dataCy("expandable-card-title")
         .contains("us-west-1")
         .should("not.exist");
