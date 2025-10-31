@@ -7,7 +7,6 @@ import {
 } from "constants/externalURLTemplates";
 import {
   constructEvergreenTaskLogURL,
-  constructSpruceRawLogURL,
   getEvergreenCompleteLogsURL,
   getEvergreenTaskFileURL,
   getEvergreenTaskLogURL,
@@ -179,7 +178,9 @@ export const useResolveLogURLAndRenderingType = ({
         ? getEvergreenTaskLogURL(task.logs, origin, {
             text: true,
           })
-        : constructSpruceRawLogURL(taskID, execution, origin);
+        : constructEvergreenTaskLogURL(taskID, execution, origin, {
+            text: true,
+          });
       htmlLogURL = task?.logs
         ? getEvergreenTaskLogURL(task.logs, origin, {
             text: false,

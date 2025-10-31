@@ -1,4 +1,3 @@
-import { generatePath } from "react-router-dom";
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { WaterfallFilterOptions } from "pages/waterfall/types";
@@ -9,7 +8,6 @@ import { ProjectTriggerLevel } from "types/triggers";
 import { toArray } from "utils/array";
 
 export enum PageNames {
-  RawLogs = "raw-logs",
   Patches = "patches",
   Settings = "settings",
 }
@@ -163,7 +161,6 @@ export const routes = {
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
   task: `${paths.task}/:${slugs.taskId}/:${slugs.tab}?`,
   taskQueue: `${paths.taskQueue}/:${slugs.distroId}?`,
-  taskRawLog: `${paths.task}/:${slugs.taskId}/${PageNames.RawLogs}`,
   user: paths.user,
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
   variantHistory: `${paths.variantHistory}/:${slugs.projectIdentifier}/:${slugs.variantName}`,
@@ -241,18 +238,6 @@ export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
   return `${paths.task}/${taskId}${tab ? `/${tab}` : ""}${
     queryParams ? `?${queryParams}` : ""
   }`;
-};
-
-export const getTaskRawLogRoute = (
-  taskId: string,
-  execution: number,
-  origin: string,
-) => {
-  const queryParams = stringifyQuery({
-    origin,
-    execution,
-  });
-  return `${generatePath(routes.taskRawLog, { taskId })}?${queryParams}`;
 };
 
 export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>
