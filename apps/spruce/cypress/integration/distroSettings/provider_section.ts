@@ -136,8 +136,9 @@ describe("provider section", () => {
     });
 
     it("can add and delete region settings", () => {
-      cy.openExpandableCard("us-east-1");
       cy.dataCy("ec2-fleet-provider-settings").should("exist");
+      cy.dataCy("expandable-card-title").contains("us-east-1").should("exist");
+      cy.openExpandableCard("us-east-1");
 
       // Add item for new region.
       cy.contains("button", "Add region settings").click();
@@ -153,8 +154,22 @@ describe("provider section", () => {
       save();
       cy.validateToast("success", "Updated distro.");
 
+      cy.dataCy("expandable-card-title")
+        .contains("us-west-1")
+        .should("exist")
+        .should("be.visible");
+
       // Revert to original state by deleting the new region.
-      cy.dataCy("delete-item-button").first().click();
+      cy.dataCy("expandable-card-title")
+        .contains("us-west-1")
+        .closest('[data-cy="expandable-card"]')
+        .find('[data-cy="delete-item-button"]')
+        .should("be.visible")
+        .should("not.be.disabled")
+        .click();
+      cy.dataCy("expandable-card-title")
+        .contains("us-west-1")
+        .should("not.exist");
       save();
       cy.validateToast("success", "Updated distro.");
 
@@ -214,7 +229,9 @@ describe("provider section", () => {
     });
 
     it("can add and delete region settings", () => {
-      cy.dataCy("ec2-on-demand-provider-settings").should("exist");
+      cy.dataCy("ec2-on-demand-provider-settings")
+        .should("exist")
+        .should("be.visible");
 
       // Add item for new region.
       cy.contains("button", "Add region settings").click();
@@ -230,10 +247,19 @@ describe("provider section", () => {
       save();
       cy.validateToast("success", "Updated distro.");
 
-      cy.dataCy("expandable-card-title").contains("us-west-1").should("exist");
+      cy.dataCy("expandable-card-title")
+        .contains("us-west-1")
+        .should("exist")
+        .should("be.visible");
 
       // Revert to original state by deleting the new region.
-      cy.dataCy("expandable-card-title").contains("us-west-1").next().click();
+      cy.dataCy("expandable-card-title")
+        .contains("us-west-1")
+        .closest('[data-cy="expandable-card"]')
+        .find('[data-cy="delete-item-button"]')
+        .should("be.visible")
+        .should("not.be.disabled")
+        .click();
       cy.dataCy("expandable-card-title")
         .contains("us-west-1")
         .should("not.exist");
