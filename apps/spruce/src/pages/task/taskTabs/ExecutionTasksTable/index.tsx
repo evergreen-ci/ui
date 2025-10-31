@@ -53,10 +53,7 @@ const ExecutionTasksTable: React.FC<Props> = ({
     ...executionTasksFull.map((t) => t.execution),
   ]);
 
-  const initialSorting = useMemo(
-    () => getInitialSorting(sorts),
-    [], // eslint-disable-line react-hooks/exhaustive-deps
-  );
+  const initialSorting = getInitialSorting(sorts);
 
   const columns = useMemo(
     () =>

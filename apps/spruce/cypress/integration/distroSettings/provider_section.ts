@@ -230,6 +230,8 @@ describe("provider section", () => {
       save();
       cy.validateToast("success", "Updated distro.");
 
+      cy.dataCy("expandable-card-title").contains("us-west-1").should("exist");
+
       // Revert to original state by deleting the new region.
       cy.dataCy("delete-item-button").first().click();
       save();

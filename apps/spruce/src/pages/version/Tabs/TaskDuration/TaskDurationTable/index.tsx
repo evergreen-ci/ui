@@ -282,7 +282,12 @@ export const getInitialParams = (queryParams: {
         id: sortCategoryToColumnId[sortCategory],
         desc: direction === SortDirection.Desc,
       }))
-    : [];
+    : [
+        {
+          id: PatchTasksQueryParams.Duration,
+          desc: true,
+        },
+      ];
 
   return {
     initialFilters,

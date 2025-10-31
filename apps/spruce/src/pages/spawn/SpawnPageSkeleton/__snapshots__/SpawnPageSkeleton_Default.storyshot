@@ -20,13 +20,10 @@
             class="leafygreen-ui-g5saio"
           >
             <div
-              aria-hidden="true"
-              class="leafygreen-ui-161vd4l"
-            />
-          </th>
-          <th
-            class="leafygreen-ui-g5saio"
-          >
+              class="leafygreen-ui-wvo6b5"
+            >
+              Loading
+            </div>
             <div
               aria-hidden="true"
               class="leafygreen-ui-161vd4l"
@@ -36,6 +33,11 @@
             class="leafygreen-ui-g5saio"
           >
             <div
+              class="leafygreen-ui-wvo6b5"
+            >
+              Loading
+            </div>
+            <div
               aria-hidden="true"
               class="leafygreen-ui-161vd4l"
             />
@@ -43,6 +45,24 @@
           <th
             class="leafygreen-ui-g5saio"
           >
+            <div
+              class="leafygreen-ui-wvo6b5"
+            >
+              Loading
+            </div>
+            <div
+              aria-hidden="true"
+              class="leafygreen-ui-161vd4l"
+            />
+          </th>
+          <th
+            class="leafygreen-ui-g5saio"
+          >
+            <div
+              class="leafygreen-ui-wvo6b5"
+            >
+              Loading
+            </div>
             <div
               aria-hidden="true"
               class="leafygreen-ui-161vd4l"

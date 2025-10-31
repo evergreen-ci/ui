@@ -24,7 +24,7 @@
           </label>
         </div>
         <div
-          class="leafygreen-ui-k824ar"
+          class="leafygreen-ui-14vpn2b"
         >
           <div
             class="leafygreen-ui-1ago99h"
@@ -35,7 +35,7 @@
               aria-invalid="false"
               aria-labelledby="lg-form_field-label-225"
               autocomplete="on"
-              class="lg-ui-form-field-input-0001 leafygreen-ui-1ago99h"
+              class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
               data-cy="login-username"
               id="lg-form_field-input-228"
               required=""
@@ -72,7 +72,7 @@
           </label>
         </div>
         <div
-          class="leafygreen-ui-k824ar"
+          class="leafygreen-ui-14vpn2b"
         >
           <div
             class="leafygreen-ui-1ago99h"
@@ -83,7 +83,7 @@
               aria-invalid="false"
               aria-labelledby="lg-form_field-label-229"
               autocomplete="on"
-              class="lg-ui-form-field-input-0001 leafygreen-ui-1ago99h"
+              class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
               data-cy="login-password"
               id="lg-form_field-input-232"
               required=""

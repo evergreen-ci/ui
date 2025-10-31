@@ -1,7 +1,7 @@
-import { userEvent } from "@storybook/testing-library";
 import {
   renderWithRouterMatch as render,
   screen,
+  userEvent,
 } from "@evg-ui/lib/test_utils";
 import AllFiltersToggle from ".";
 
