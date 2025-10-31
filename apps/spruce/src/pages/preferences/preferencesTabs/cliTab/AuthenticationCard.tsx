@@ -25,6 +25,11 @@ export const AuthenticationCard = () => {
 api_key: "${data.userConfig.api_key}"
 api_server_host: "${data.userConfig.api_server_host}"
 ui_server_host: "${data.userConfig.ui_server_host}"
+oauth:
+    issuer: "${data.userConfig.oauth_issuer}"
+    client_id: "${data.userConfig.oauth_client_id}"
+    connector_id: "${data.userConfig.oauth_connector_id}"
+    do_not_use_browser: false
 `;
 
   const downloadFile = (e: React.MouseEvent) => {
