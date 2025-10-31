@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import Button from "@leafygreen-ui/button";
 import pluralize from "pluralize";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useTaskAnalytics } from "analytics";
@@ -28,10 +26,10 @@ import {
   SET_TASK_PRIORITIES,
   UNSCHEDULE_TASK,
 } from "gql/mutations";
-import { MarkReviewed } from "./temp/MarkReviewed";
-import { RelevantCommits } from "./temp/RelevantCommits";
-import { RestartButton } from "./temp/RestartButton";
-import { TaskNotificationModal } from "./temp/TaskNotificationModal";
+import { MarkReviewed } from "./MarkReviewed";
+import { NotifyMeButton } from "./Notification";
+import { RelevantCommits } from "./RelevantCommits";
+import { RestartButton } from "./RestartButton";
 
 interface Props {
   initialPriority?: number;
@@ -59,7 +57,6 @@ export const ActionButtons: React.FC<Props> = ({
   const { id: versionId } = versionMetadata || {};
 
   const dispatchToast = useToastContext();
-  const [isVisibleModal, setIsVisibleModal] = useState(false);
 
   const taskAnalytics = useTaskAnalytics();
 
@@ -201,48 +198,31 @@ export const ActionButtons: React.FC<Props> = ({
   ];
 
   return (
-    <>
-      <PageButtonRow>
-        <MarkReviewed execution={task.execution} taskId={task.id} />
-        {!isExecutionTask && <RelevantCommits task={task} />}
-        <LoadingButton
-          key="schedule"
-          data-cy="schedule-task"
-          disabled={disabled || !canSchedule}
-          loading={loadingScheduleTask}
-          onClick={() => {
-            scheduleTask();
-            taskAnalytics.sendEvent({ name: "Clicked schedule task button" });
-          }}
-          size="small"
-        >
-          Schedule
-        </LoadingButton>
-        <RestartButton isDisplayTask={isDisplayTask} task={task} />
-        <Button
-          key="notifications"
-          data-cy="notify-task"
-          disabled={disabled}
-          onClick={() => {
-            taskAnalytics.sendEvent({ name: "Viewed notification modal" });
-            setIsVisibleModal(true);
-          }}
-          size="small"
-        >
-          Notify me
-        </Button>
-        <ButtonDropdown
-          disabled={disabled}
-          dropdownItems={dropdownItems}
-          loading={
-            loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
-          }
-        />
-      </PageButtonRow>
-      <TaskNotificationModal
-        onCancel={() => setIsVisibleModal(false)}
-        visible={isVisibleModal}
+    <PageButtonRow>
+      <MarkReviewed execution={task.execution} taskId={task.id} />
+      {!isExecutionTask && <RelevantCommits task={task} />}
+      <LoadingButton
+        key="schedule"
+        data-cy="schedule-task"
+        disabled={disabled || !canSchedule}
+        loading={loadingScheduleTask}
+        onClick={() => {
+          scheduleTask();
+          taskAnalytics.sendEvent({ name: "Clicked schedule task button" });
+        }}
+        size="small"
+      >
+        Schedule
+      </LoadingButton>
+      <RestartButton isDisplayTask={isDisplayTask} task={task} />
+      <NotifyMeButton taskId={taskId} />
+      <ButtonDropdown
+        disabled={disabled}
+        dropdownItems={dropdownItems}
+        loading={
+          loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
+        }
       />
-    </>
+    </PageButtonRow>
   );
 };
