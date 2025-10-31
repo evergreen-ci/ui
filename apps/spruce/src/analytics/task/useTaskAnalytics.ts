@@ -14,7 +14,7 @@ import {
   TestSortCategory,
 } from "gql/generated/types";
 import { TASK, TASK_TEST_COUNT } from "gql/queries";
-import { CommitType } from "pages/task/actionButtons/RelevantCommits/types";
+import { CommitType } from "pages/task/temp/RelevantCommits/types";
 import { RequiredQueryParams, LogTypes } from "types/task";
 
 type LogViewer = "raw" | "html" | "parsley";

@@ -28,10 +28,10 @@ import {
   SET_TASK_PRIORITIES,
   UNSCHEDULE_TASK,
 } from "gql/mutations";
-import { MarkReviewed } from "./actionButtons/MarkReviewed";
-import { RelevantCommits } from "./actionButtons/RelevantCommits";
-import { RestartButton } from "./actionButtons/RestartButton";
-import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
+import { MarkReviewed } from "./temp/MarkReviewed";
+import { RelevantCommits } from "./temp/RelevantCommits";
+import { RestartButton } from "./temp/RestartButton";
+import { TaskNotificationModal } from "./temp/TaskNotificationModal";
 
 interface Props {
   initialPriority?: number;
