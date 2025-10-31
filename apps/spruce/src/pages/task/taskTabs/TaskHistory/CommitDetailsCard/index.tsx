@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
-import IconButton from "@leafygreen-ui/icon-button";
+import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
@@ -30,6 +30,7 @@ import {
 } from "gql/generated/types";
 import { RESTART_TASK, SCHEDULE_TASKS } from "gql/mutations";
 import { useDateFormat } from "hooks";
+import { NotifyMeButton } from "pages/task/ActionButtons/Notification";
 import { RequiredQueryParams, TaskTab } from "types/task";
 import { isProduction } from "utils/environmentVariables";
 import {
@@ -102,7 +103,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       ScheduleTasksMutation,
       ScheduleTasksMutationVariables
     >(SCHEDULE_TASKS, {
-      variables: { taskIds: [task.id], versionId },
+      variables: { taskIds: [taskId], versionId },
       onCompleted: () => {
         const newMap = new Map(expandedTasksMap);
         newMap.delete(task.id);
@@ -200,7 +201,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               onClick={() => {
                 sendEvent({
                   name: "Clicked restart task button",
-                  "task.id": task.id,
+                  "task.id": taskId,
                 });
                 restartTask();
               }}
@@ -215,7 +216,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               onClick={() => {
                 sendEvent({
                   name: "Clicked schedule task button",
-                  "task.id": task.id,
+                  "task.id": taskId,
                 });
                 scheduleTask();
               }}
@@ -224,6 +225,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               Schedule Task
             </Button>
           )}
+          <NotifyMeButton buttonSize={ButtonSize.XSmall} taskId={taskId} />
           {isCurrentTask && (
             <Badge data-cy="this-task-badge" variant={BadgeVariant.Blue}>
               {isPatch ? "Base" : "This"} Task

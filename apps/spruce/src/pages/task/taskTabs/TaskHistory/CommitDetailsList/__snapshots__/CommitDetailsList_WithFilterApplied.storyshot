@@ -81,6 +81,29 @@
             Restart Task
           </div>
         </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="notify-task"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Notify me
+          </div>
+        </button>
+        <dialog
+          class="leafygreen-ui-353uy9"
+          data-cy="task-notification-modal"
+          data-lgid="lg-confirmation_modal"
+          data-testid="lg-confirmation_modal"
+          id="modal-209"
+        />
         <div
           class="leafygreen-ui-17azklk"
           data-cy="this-task-badge"
@@ -190,6 +213,29 @@
             Restart Task
           </div>
         </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="notify-task"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Notify me
+          </div>
+        </button>
+        <dialog
+          class="leafygreen-ui-353uy9"
+          data-cy="task-notification-modal"
+          data-lgid="lg-confirmation_modal"
+          data-testid="lg-confirmation_modal"
+          id="modal-210"
+        />
         <span>
           Apr 3, 2025, 10:21 AM
         </span>
@@ -355,6 +401,29 @@
             Restart Task
           </div>
         </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="notify-task"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Notify me
+          </div>
+        </button>
+        <dialog
+          class="leafygreen-ui-353uy9"
+          data-cy="task-notification-modal"
+          data-lgid="lg-confirmation_modal"
+          data-testid="lg-confirmation_modal"
+          id="modal-211"
+        />
         <span>
           Apr 2, 2025, 10:22 AM
         </span>
@@ -508,6 +577,29 @@
             Restart Task
           </div>
         </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="notify-task"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Notify me
+          </div>
+        </button>
+        <dialog
+          class="leafygreen-ui-353uy9"
+          data-cy="task-notification-modal"
+          data-lgid="lg-confirmation_modal"
+          data-testid="lg-confirmation_modal"
+          id="modal-212"
+        />
         <span>
           Apr 1, 2025, 10:22 AM
         </span>
@@ -955,6 +1047,29 @@
             Restart Task
           </div>
         </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="notify-task"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Notify me
+          </div>
+        </button>
+        <dialog
+          class="leafygreen-ui-353uy9"
+          data-cy="task-notification-modal"
+          data-lgid="lg-confirmation_modal"
+          data-testid="lg-confirmation_modal"
+          id="modal-213"
+        />
         <span>
           Mar 30, 2025, 10:22 AM
         </span>
@@ -1082,6 +1197,29 @@
             Restart Task
           </div>
         </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="notify-task"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Notify me
+          </div>
+        </button>
+        <dialog
+          class="leafygreen-ui-353uy9"
+          data-cy="task-notification-modal"
+          data-lgid="lg-confirmation_modal"
+          data-testid="lg-confirmation_modal"
+          id="modal-214"
+        />
         <span>
           Mar 29, 2025, 10:22 AM
         </span>
