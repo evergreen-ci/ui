@@ -5,7 +5,7 @@
     Open Modal
   </button>
   <dialog
-    class="emotion-StyledModal ewsr9c74 leafygreen-ui-j7pqgd"
+    class="emotion-StyledModal ewsr9c74 leafygreen-ui-hs2y9s"
     data-cy="shortcut-modal"
     data-lgid="lg-modal"
     data-testid="lg-modal"
