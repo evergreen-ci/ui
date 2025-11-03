@@ -56,7 +56,7 @@ yarn test --project [workspace-name]
 
 ### Storybook
 
-Spruce, Parsley, and @evg-ui/lib all have their own storybooks, but there's also
+Spruce, Parsley, Fungi, and @evg-ui/lib all have their own storybooks, but there's also
 a shared storybook that combines them into one interface. From root, just run:
 
 ```bash
