@@ -27,7 +27,7 @@ import {
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { MarkReviewed } from "./MarkReviewed";
-import { NotifyMeButton } from "./Notification";
+import { NotifyMeButton } from "./NotifyMeButton";
 import { RelevantCommits } from "./RelevantCommits";
 import { RestartButton } from "./RestartButton";
 

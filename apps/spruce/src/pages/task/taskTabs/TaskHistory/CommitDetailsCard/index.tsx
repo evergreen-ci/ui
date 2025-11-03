@@ -30,7 +30,7 @@ import {
 } from "gql/generated/types";
 import { RESTART_TASK, SCHEDULE_TASKS } from "gql/mutations";
 import { useDateFormat } from "hooks";
-import { NotifyMeButton } from "pages/task/ActionButtons/Notification";
+import { NotifyMeButton } from "pages/task/ActionButtons/NotifyMeButton";
 import { RequiredQueryParams, TaskTab } from "types/task";
 import { isProduction } from "utils/environmentVariables";
 import {

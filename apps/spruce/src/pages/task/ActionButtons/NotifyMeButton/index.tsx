@@ -4,17 +4,16 @@ import { useTaskAnalytics } from "analytics";
 import { TaskNotificationModal } from "./TaskNotificationModal";
 
 interface Props {
-  taskId: string;
   buttonSize?: ButtonSize;
+  taskId: string;
 }
 
 export const NotifyMeButton: React.FC<Props> = ({
   buttonSize = ButtonSize.Small,
   taskId,
 }) => {
-  const [isVisibleModal, setIsVisibleModal] = useState(false);
-
   const taskAnalytics = useTaskAnalytics();
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
 
   return (
     <>
