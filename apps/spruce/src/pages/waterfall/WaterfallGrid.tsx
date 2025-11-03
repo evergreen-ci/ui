@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
@@ -114,7 +121,29 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const timezone = useUserTimeZone() ?? utcTimeZone;
   const utcDate = getUTCEndOfDay(date, timezone);
 
-  // TODO DEVPROD-23578: serverFilters can be calculated from queryParams directly, useState should not be necessary
+  const [allQueryParams] = useQueryParams();
+
+  // Calculate what the server filters should be based on query params
+  const desiredServerFilters = useMemo<ServerFilters>(() => {
+    const hasServerParams =
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Requesters) ||
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Statuses) ||
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Task) ||
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.BuildVariant);
+
+    if (!hasServerParams) {
+      return resetFilterState;
+    }
+
+    return {
+      requesters: allQueryParams[WaterfallFilterOptions.Requesters] as string[],
+      statuses: allQueryParams[WaterfallFilterOptions.Statuses] as string[],
+      tasks: allQueryParams[WaterfallFilterOptions.Task] as string[],
+      variants: allQueryParams[WaterfallFilterOptions.BuildVariant] as string[],
+    };
+  }, [allQueryParams]);
+
+  // Use state to control when server filters are actually applied
   const [serverFilters, setServerFilters] =
     useState<ServerFilters>(resetFilterState);
 
@@ -170,33 +199,27 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   });
 
   const [isPending, startTransition] = useTransition();
-  const [allQueryParams] = useQueryParams();
 
+  // Apply server filters based on activeVersionIds and desired filters
   useEffect(() => {
     const hasServerParams =
-      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Requesters) ||
-      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Statuses) ||
-      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Task) ||
-      Object.keys(allQueryParams).includes(WaterfallFilterOptions.BuildVariant);
+      desiredServerFilters.requesters !== undefined ||
+      desiredServerFilters.statuses !== undefined ||
+      desiredServerFilters.tasks !== undefined ||
+      desiredServerFilters.variants !== undefined;
+
     if (activeVersionIds.length < VERSION_LIMIT && hasServerParams) {
-      const filters = {
-        requesters: allQueryParams[
-          WaterfallFilterOptions.Requesters
-        ] as string[],
-        statuses: allQueryParams[WaterfallFilterOptions.Statuses] as string[],
-        tasks: allQueryParams[WaterfallFilterOptions.Task] as string[],
-        variants: allQueryParams[
-          WaterfallFilterOptions.BuildVariant
-        ] as string[],
-      };
+      // Use transition to prevent blocking UI during filter updates
       startTransition(() => {
-        setServerFilters(filters);
+        setServerFilters(desiredServerFilters);
       });
     } else if (!hasServerParams) {
-      // Because this data is already loaded and no animation is necessary, omitting startTransition for snappiness
-      setServerFilters(resetFilterState); // eslint-disable-line react-hooks/set-state-in-effect
+      // Reset filters - use transition for consistency
+      startTransition(() => {
+        setServerFilters(resetFilterState);
+      });
     }
-  }, [allQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [activeVersionIds.length, desiredServerFilters]);
 
   const firstActiveVersionId = activeVersionIds[0];
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
