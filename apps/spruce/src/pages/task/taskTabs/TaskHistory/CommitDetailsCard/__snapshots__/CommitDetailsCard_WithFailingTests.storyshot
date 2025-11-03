@@ -81,7 +81,7 @@
         </div>
       </button>
       <dialog
-        class="leafygreen-ui-353uy9"
+        class="leafygreen-ui-1fxhhyq"
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
