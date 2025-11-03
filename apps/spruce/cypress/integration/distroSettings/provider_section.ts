@@ -136,8 +136,9 @@ describe("provider section", () => {
     });
 
     it("can add and delete region settings", () => {
-      cy.openExpandableCard("us-east-1");
       cy.dataCy("ec2-fleet-provider-settings").should("exist");
+      cy.dataCy("expandable-card-title").contains("us-east-1").should("exist");
+      cy.openExpandableCard("us-east-1");
 
       // Add item for new region.
       cy.contains("button", "Add region settings").click();
@@ -153,8 +154,21 @@ describe("provider section", () => {
       save();
       cy.validateToast("success", "Updated distro.");
 
+      cy.dataCy("expandable-card-title").contains("us-west-1").should("exist");
+
       // Revert to original state by deleting the new region.
-      cy.dataCy("delete-item-button").first().click();
+      cy.dataCy("expandable-card-title")
+        .contains("us-west-1")
+        .closest('[data-cy="expandable-card"]')
+        .within(() => {
+          cy.dataCy("delete-item-button")
+            .first()
+            .should("have.attr", "aria-disabled", "false")
+            .click();
+        });
+      cy.dataCy("expandable-card-title")
+        .contains("us-west-1")
+        .should("not.exist");
       save();
       cy.validateToast("success", "Updated distro.");
 
@@ -233,7 +247,18 @@ describe("provider section", () => {
       cy.dataCy("expandable-card-title").contains("us-west-1").should("exist");
 
       // Revert to original state by deleting the new region.
-      cy.dataCy("delete-item-button").first().click();
+      cy.dataCy("expandable-card-title")
+        .contains("us-west-1")
+        .closest('[data-cy="expandable-card"]')
+        .within(() => {
+          cy.dataCy("delete-item-button")
+            .first()
+            .should("have.attr", "aria-disabled", "false")
+            .click();
+        });
+      cy.dataCy("expandable-card-title")
+        .contains("us-west-1")
+        .should("not.exist");
       save();
       cy.validateToast("success", "Updated distro.");
 
