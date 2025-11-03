@@ -1,30 +1,11 @@
 import {
-  copyToClipboard,
-  shortenGithash,
-  trimStringFromMiddle,
-} from "@evg-ui/lib/utils/string";
-import {
   getBytesAsString,
   getJiraFormat,
   getRawLines,
   isFailingLine,
   stringIntersection,
-  trimLogLineToMaxSize,
   trimSeverity,
 } from ".";
-
-describe("copyToClipboard", () => {
-  it("should copy the correct text", () => {
-    Object.defineProperty(navigator, "clipboard", {
-      value: {
-        writeText: vi.fn(),
-      },
-    });
-    copyToClipboard("copy text");
-    expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(1);
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith("copy text");
-  });
-});
 
 describe("getRawLines", () => {
   const logLines = ["zero", "one", "two", "three", "four", "five"];
@@ -105,26 +86,6 @@ describe("stringIntersection", () => {
   });
 });
 
-describe("shortenGithash", () => {
-  it("shortens githash to 7 characters", () => {
-    expect(shortenGithash("01234567")).toBe("0123456");
-    expect(shortenGithash("012")).toBe("012");
-  });
-  it("handles undefined input", () => {
-    expect(shortenGithash(undefined)).toBe("");
-  });
-});
-
-describe("trimStringFromMiddle", () => {
-  it("trims middle text according to specified params", () => {
-    expect(trimStringFromMiddle("task_name", 4)).toBe("ta…me"); // odd length
-    expect(trimStringFromMiddle("task_name2", 4)).toBe("ta…e2"); // even length
-  });
-  it("doesn't trim middle text if original text is smaller than maxLength specified", () => {
-    expect(trimStringFromMiddle("task_name", 10)).toBe("task_name");
-  });
-});
-
 describe("getBytesAsString", () => {
   const kb = 1024;
   const mb = kb * 1024;
@@ -153,15 +114,6 @@ describe("getBytesAsString", () => {
       expect(getBytesAsString(gb + gb / 2, 1)).toBe("1.5 GB");
       expect(getBytesAsString(gb + gb / 3, 2)).toBe("1.33 GB");
     });
-  });
-});
-
-describe("trimLogLineToMaxSize", () => {
-  it("should not trim a log if it is smaller than the max size", () => {
-    expect(trimLogLineToMaxSize("123", 4)).toBe("123");
-  });
-  it("should trim a log and add an ellipsis if it is longer than the max size", () => {
-    expect(trimLogLineToMaxSize("1234", 3)).toBe("123…");
   });
 });
 

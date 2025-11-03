@@ -239,6 +239,7 @@ export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
     queryParams ? `?${queryParams}` : ""
   }`;
 };
+
 export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>
   `${paths.preferences}/${tab}`;
 

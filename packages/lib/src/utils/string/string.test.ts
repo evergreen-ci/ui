@@ -2,6 +2,7 @@ import {
   toSentenceCase,
   toEscapedRegex,
   shortenGithash,
+  trimLogLineToMaxSize,
   trimStringFromMiddle,
   copyToClipboard,
 } from ".";
@@ -53,5 +54,14 @@ describe("copyToClipboard", () => {
     await copyToClipboard("copy text");
     expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(1);
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith("copy text");
+  });
+});
+
+describe("trimLogLineToMaxSize", () => {
+  it("should not trim a log if it is smaller than the max size", () => {
+    expect(trimLogLineToMaxSize("123", 4)).toBe("123");
+  });
+  it("should trim a log and add an ellipsis if it is longer than the max size", () => {
+    expect(trimLogLineToMaxSize("1234", 3)).toBe("123…");
   });
 });
