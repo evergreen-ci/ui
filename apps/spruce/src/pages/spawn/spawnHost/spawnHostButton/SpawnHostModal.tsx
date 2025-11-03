@@ -117,6 +117,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     timeZone:
       formState?.expirationDetails?.hostUptime?.details?.timeZone || timeZone,
     useSetupScript: !!formState?.setupScriptSection?.defineSetupScriptCheckbox,
+    useOAuth: !!formState?.loadData?.useOAuth,
     useProjectSetupScript: !!formState?.loadData?.runProjectSpecificSetupScript,
   });
 
