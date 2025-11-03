@@ -51,6 +51,7 @@ describe("Public Key Management Page", () => {
     });
 
     it("Should show an error if the key name already exists", () => {
+      cy.dataCy("key-name-input").clear();
       cy.dataCy("key-name-input").type(keyName2, { delay: 0 });
       cy.contains(duplicateKeyError);
     });
