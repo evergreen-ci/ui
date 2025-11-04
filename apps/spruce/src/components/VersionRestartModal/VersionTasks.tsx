@@ -1,41 +1,75 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { Divider } from "components/styles/divider";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { BuildVariantsWithChildrenQuery } from "gql/generated/types";
-import { versionSelectedTasks } from "hooks/useVersionTaskStatusSelect";
 import { BuildVariantAccordion } from "./BuildVariantAccordion";
+import { useSelectRestartTasks } from "./useSelectRestartTasks";
 
 interface VersionTasksProps {
-  baseStatusFilterTerm: string[];
-  selectedTasks: versionSelectedTasks;
-  setBaseStatusFilterTerm: (statuses: string[]) => void;
-  setVersionStatusFilterTerm: (statuses: string[]) => void;
-  toggleSelectedTask: (
-    taskIds: { [patchId: string]: string } | { [patchId: string]: string[] },
-  ) => void;
   version: BuildVariantsWithChildrenQuery["version"];
-  versionStatusFilterTerm: string[];
+  setSelectedTasksMap: React.Dispatch<
+    React.SetStateAction<Map<string, Set<string>>>
+  >;
 }
 
 const VersionTasks: React.FC<VersionTasksProps> = ({
-  baseStatusFilterTerm,
-  selectedTasks,
-  setBaseStatusFilterTerm,
-  setVersionStatusFilterTerm,
-  toggleSelectedTask,
+  setSelectedTasksMap,
   version,
-  versionStatusFilterTerm,
 }) => {
   const { buildVariants, id: versionId } = version || {};
-  const tasks = selectedTasks[versionId] || {};
+
+  const [baseStatusFilters, setBaseStatusFilters] = useState<string[]>([]);
+  const [statusFilters, setStatusFilters] = useState<string[]>([]);
+
+  const { selectByFilters, selectedTasks, toggleSelectedTask } =
+    useSelectRestartTasks(version);
+
+  const onChangeBaseStatusFilters = (filters: string[]) => {
+    setBaseStatusFilters(filters);
+    setSelectedTasksMap((prev) => {
+      const updatedMap = new Map(prev);
+      const updatedSelectedTasks = selectByFilters({
+        baseStatusFilters: filters,
+        statusFilters,
+      });
+      updatedMap.set(versionId, updatedSelectedTasks);
+      return updatedMap;
+    });
+  };
+
+  const onChangeStatusFilters = (filters: string[]) => {
+    setStatusFilters(filters);
+    setSelectedTasksMap((prev) => {
+      const updatedMap = new Map(prev);
+      const updatedSelectedTasks = selectByFilters({
+        baseStatusFilters,
+        statusFilters: filters,
+      });
+      updatedMap.set(versionId, updatedSelectedTasks);
+      return updatedMap;
+    });
+  };
+
+  const onToggleTask = (taskIds: string[], isParentCheckbox: boolean) => {
+    setSelectedTasksMap((prev) => {
+      const updatedMap = new Map(prev);
+      const updatedSelectedTasks = toggleSelectedTask(
+        taskIds,
+        isParentCheckbox,
+      );
+      updatedMap.set(versionId, updatedSelectedTasks);
+      return updatedMap;
+    });
+  };
 
   return versionId && buildVariants ? (
     <>
       <TaskStatusFilters
-        onChangeBaseStatusFilter={setBaseStatusFilterTerm}
-        onChangeStatusFilter={setVersionStatusFilterTerm}
-        selectedBaseStatuses={baseStatusFilterTerm || []}
-        selectedStatuses={versionStatusFilterTerm || []}
+        onChangeBaseStatusFilter={onChangeBaseStatusFilters}
+        onChangeStatusFilter={onChangeStatusFilters}
+        selectedBaseStatuses={baseStatusFilters}
+        selectedStatuses={statusFilters}
         versionId={versionId}
       />
       <ContentWrapper>
@@ -45,11 +79,10 @@ const VersionTasks: React.FC<VersionTasksProps> = ({
             <BuildVariantAccordion
               key={`accordion_${patchBuildVariant.variant}`}
               displayName={patchBuildVariant.displayName}
-              selectedTasks={tasks}
+              selectedTasks={selectedTasks}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               tasks={patchBuildVariant.tasks}
-              toggleSelectedTask={toggleSelectedTask}
-              versionId={versionId}
+              toggleSelectedTask={onToggleTask}
             />
           ))}
         <Divider />
