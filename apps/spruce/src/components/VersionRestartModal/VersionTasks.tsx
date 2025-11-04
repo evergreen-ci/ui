@@ -4,15 +4,13 @@ import { Divider } from "components/styles/divider";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { BuildVariantsWithChildrenQuery } from "gql/generated/types";
 import { BuildVariantAccordion } from "./BuildVariantAccordion";
+import { SelectedTasksMap } from "./types";
 import { useSelectRestartTasks } from "./useSelectRestartTasks";
 
 interface VersionTasksProps {
   version: BuildVariantsWithChildrenQuery["version"];
-  setSelectedTasksMap: React.Dispatch<
-    React.SetStateAction<Map<string, Set<string>>>
-  >;
+  setSelectedTasksMap: React.Dispatch<React.SetStateAction<SelectedTasksMap>>;
 }
-
 const VersionTasks: React.FC<VersionTasksProps> = ({
   setSelectedTasksMap,
   version,

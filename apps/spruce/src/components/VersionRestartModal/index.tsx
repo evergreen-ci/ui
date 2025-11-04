@@ -21,6 +21,7 @@ import {
 import { RESTART_VERSIONS } from "gql/mutations";
 import { BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
 import { sumActivatedTasksInSelectedTasks } from "utils/tasks/estimatedActivatedTasks";
+import { SelectedTasksMap } from "./types";
 import VersionTasks from "./VersionTasks";
 
 interface VersionRestartModalProps {
@@ -30,8 +31,6 @@ interface VersionRestartModalProps {
   versionId: string;
   visible: boolean;
 }
-
-type SelectedTaskMap = Map<string, Set<string>>;
 
 export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   onCancel,
@@ -45,7 +44,7 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
 
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] =
     useState(false);
-  const [selectedTasksMap, setSelectedTasksMap] = useState<SelectedTaskMap>(
+  const [selectedTasksMap, setSelectedTasksMap] = useState<SelectedTasksMap>(
     new Map(),
   );
 
@@ -166,7 +165,7 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   );
 };
 
-const getTaskIds = (selectedTasks: SelectedTaskMap) =>
+const getTaskIds = (selectedTasks: SelectedTasksMap) =>
   Array.from(selectedTasks.entries())
     .map(([versionId, tasks]) => ({
       versionId,
