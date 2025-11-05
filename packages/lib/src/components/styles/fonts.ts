@@ -116,20 +116,4 @@ export const fontStyles = css`
       url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff")
         format("woff");
   }
-
-  /* 
-   * Source Code Pro
-  /*
-
-  /* Regular */
-  @font-face {
-    font-family: "Source Code Pro";
-    font-weight: 400;
-    font-style: normal;
-    src:
-      url("/static/fonts/SourceCodePro/SourceCodePro-Regular.otf.woff2")
-        format("woff2"),
-      url("/static/fonts/SourceCodePro/SourceCodePro-Regular.otf.woff")
-        format("woff");
-  }
 `;

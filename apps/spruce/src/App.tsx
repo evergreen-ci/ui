@@ -8,6 +8,7 @@ import { Content } from "components/Content";
 import { GlobalStyles } from "components/styles";
 import { routes } from "constants/routes";
 import ContextProviders from "context/Providers";
+import { HTMLLog } from "pages/task/logs/HTMLLog";
 import {
   getEvergreenUrl,
   getSpruceURL,
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
             },
           ]
         : []),
+      {
+        path: "/task/:taskId/html-log",
+        element: <HTMLLog />,
+      },
       {
         path: "/*",
         element: (
