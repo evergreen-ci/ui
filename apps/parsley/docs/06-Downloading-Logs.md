@@ -60,11 +60,31 @@ To authenticate your requests, please reference [this documentation](https://doc
 
 ### Task Logs
 
-[Task Logs](https://docs.devprod.prod.corp.mongodb.com/evergreen/API/REST-V2-Usage#tag/tasks/paths/~1tasks~1%7Btask_id%7D~1build~1TaskLogs/get).
+[Route documentation](https://docs.devprod.prod.corp.mongodb.com/evergreen/API/REST-V2-Usage#tag/tasks/paths/~1tasks~1%7Btask_id%7D~1build~1TaskLogs/get).
+
+```bash
+# With cURL
+curl -H "Authorization: Bearer $(evergreen client get-oauth-token)" https://evergreen.corp.mongodb.com/rest/v2/tasks/<task_id>/build/TaskLogs -o output.txt
+
+# With wget
+wget --header="Authorization: Bearer $(evergreen client get-oauth-token)" https://evergreen.corp.mongodb.com/rest/v2/tasks/<task_id>/build/TaskLogs -O output.txt
+```
+
+> Note, your session may be expired. You should run `evergreen auth` to refresh your session before running the above commands.
 
 ### Test Logs
 
-[Test Logs](https://docs.devprod.prod.corp.mongodb.com/evergreen/API/REST-V2-Usage#tag/tasks/paths/~1tasks~1%7Btask_id%7D~1build~1TestLogs~1%7Bpath%7D/get).
+[Route documentation](https://docs.devprod.prod.corp.mongodb.com/evergreen/API/REST-V2-Usage#tag/tasks/paths/~1tasks~1%7Btask_id%7D~1build~1TestLogs~1%7Bpath%7D/get).
+
+```bash
+# With cURL
+curl -H "Authorization: Bearer $(evergreen client get-oauth-token)" https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/build/TestLogs/<test_log_path> -o output.txt
+
+# With wget
+wget --header="Authorization: Bearer $(evergreen client get-oauth-token)" https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/build/TestLogs/<test_log_path> -O output.txt
+```
+
+> Note, your session may be expired. You should run `evergreen auth` to refresh your session before running the above commands.
 
 ## Via a Spawn Host
 
