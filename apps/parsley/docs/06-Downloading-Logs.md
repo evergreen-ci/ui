@@ -60,7 +60,7 @@ To authenticate your requests, please reference [this documentation](https://doc
 
 ### Task Logs
 
-[Task Logs](https://docs.devprod.prod.corp.mongodb.com/evergreen/API/REST-V2-Usage#tag/tasks/paths/~1tasks~1%7Btask_id%7D~1abort/post).
+[Task Logs](https://docs.devprod.prod.corp.mongodb.com/evergreen/API/REST-V2-Usage#tag/tasks/paths/~1tasks~1%7Btask_id%7D~1build~1TaskLogs/get).
 
 ### Test Logs
 
