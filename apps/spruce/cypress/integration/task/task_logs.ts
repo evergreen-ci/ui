@@ -41,7 +41,7 @@ describe("task logs", () => {
       .should("have.attr", "href")
       .and(
         "includes",
-        "task_log_raw/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/0?type=S",
+        "task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/html-log?execution=0&origin=system",
       );
     cy.dataCy("raw-log-btn")
       .should("have.attr", "href")
@@ -140,5 +140,24 @@ describe("task logs", () => {
     cy.get(allLogsButton)
       .should("have.attr", "aria-selected")
       .and("eq", "true");
+  });
+});
+
+describe("HTML log viewer", () => {
+  const taskPageURL =
+    "/task/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/logs";
+
+  beforeEach(() => {
+    cy.visit(taskPageURL);
+  });
+
+  it("loads a HTML log page on click", () => {
+    cy.dataCy("html-log-btn").should("have.attr", "aria-disabled", "false");
+    cy.dataCy("html-log-btn").click();
+    cy.contains("Task logger initialized").should("be.visible");
+    cy.url().should(
+      "include",
+      "/task/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/html-log?execution=0&origin=task",
+    );
   });
 });
