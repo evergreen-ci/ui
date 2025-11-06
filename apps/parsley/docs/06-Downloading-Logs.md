@@ -70,7 +70,7 @@ curl -H "Authorization: Bearer $(evergreen client get-oauth-token)" https://ever
 wget --header="Authorization: Bearer $(evergreen client get-oauth-token)" https://evergreen.corp.mongodb.com/rest/v2/tasks/<task_id>/build/TaskLogs -O output.txt
 ```
 
-> Note, your session may be expired. You should run `evergreen auth` to refresh your session before running the above commands.
+> Note, your session may be expired. You should run `evergreen login` to refresh your session before running the above commands.
 
 ### Test Logs
 
@@ -84,7 +84,7 @@ curl -H "Authorization: Bearer $(evergreen client get-oauth-token)" https://ever
 wget --header="Authorization: Bearer $(evergreen client get-oauth-token)" https://evergreen.mongodb.com/rest/v2/tasks/<task_id>/build/TestLogs/<test_log_path> -O output.txt
 ```
 
-> Note, your session may be expired. You should run `evergreen auth` to refresh your session before running the above commands.
+> Note, your session may be expired. You should run `evergreen login` to refresh your session before running the above commands.
 
 ## Via a Spawn Host
 
