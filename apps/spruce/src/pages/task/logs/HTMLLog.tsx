@@ -161,6 +161,7 @@ export const HTMLLog: React.FC = () => {
       // Using a document fragment to add many lines at once is more performant
       let frag = document.createDocumentFragment();
       let lineNumber = 0;
+      let hasStreamedLinkedLine = false;
       const ansiUp = new AnsiUp();
 
       const htmlStream = new WritableStream<string>({
@@ -192,9 +193,9 @@ export const HTMLLog: React.FC = () => {
             setIsLoading(false);
           }
 
-          // Once linked line has been processed, scroll to it
+          // Once linked line has been processed, queue it for scrolling upon render
           if (lineNumber === linkedLineNumber) {
-            scrollTo(`L${linkedLineNumber}`);
+            hasStreamedLinkedLine = true;
           }
 
           lineNumber += 1;
@@ -203,6 +204,12 @@ export const HTMLLog: React.FC = () => {
             element.appendChild(frag);
             await new Promise(requestAnimationFrame);
             frag = document.createDocumentFragment();
+
+            // scroll to line now that we've called requestAnimationFrame
+            if (hasStreamedLinkedLine) {
+              scrollTo(`L${linkedLineNumber}`);
+              hasStreamedLinkedLine = false;
+            }
           }
         },
         async close() {
