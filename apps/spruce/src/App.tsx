@@ -39,7 +39,7 @@ const router = createBrowserRouter([
           ]
         : []),
       {
-        path: "/task/:taskId/html-log",
+        path: routes.taskHTMLLog,
         element: <HTMLLog />,
       },
       {

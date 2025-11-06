@@ -8,6 +8,7 @@ import { ProjectTriggerLevel } from "types/triggers";
 import { toArray } from "utils/array";
 
 export enum PageNames {
+  HTMLLog = "html-log",
   Patches = "patches",
   Settings = "settings",
 }
@@ -160,6 +161,7 @@ export const routes = {
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
   task: `${paths.task}/:${slugs.taskId}/:${slugs.tab}?`,
+  taskHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.HTMLLog}`,
   taskQueue: `${paths.taskQueue}/:${slugs.distroId}?`,
   user: paths.user,
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,

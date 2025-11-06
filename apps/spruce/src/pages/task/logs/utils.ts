@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 
 const CLASSNAME_LINE_LINK = "line-link";
 const CLASSNAME_LINE_CONTAINER = "line";
-const CLASSNAME_ACTIVE_LINE = "selected-line";
+export const CLASSNAME_ACTIVE_LINE = "selected-line";
 
 const getLineContentDiv = (content: string) => {
   const lineContentDiv = document.createElement("div");
@@ -17,11 +17,14 @@ const parseHash = () => {
 };
 
 const toggleLineHighlight = (e: Event) => {
-  const lineNumber = parseHash();
+  e.preventDefault();
+
+  const currentLineNumber = parseHash();
   const elementId = (e?.currentTarget as HTMLAnchorElement)?.hash;
-  const newLineNumber = parseInt(elementId.toString().substr(2), 10);
+  const newLineNumber = parseInt(elementId.substring(1), 10);
+
   if (!isNaN(newLineNumber) && newLineNumber >= 0) {
-    removeHighlightLine(lineNumber);
+    removeHighlightLine(currentLineNumber);
     setLine(newLineNumber);
   }
 };
@@ -29,7 +32,7 @@ const toggleLineHighlight = (e: Event) => {
 const getLineLink = (lineNumber: number) => {
   const lineLink = document.createElement("a");
   lineLink.classList.add("line-link");
-  lineLink.href = `#L${lineNumber}`;
+  lineLink.href = `#${lineNumber}`;
   lineLink.innerHTML = "🔗";
   lineLink.title = `Link to line ${lineNumber}`;
   lineLink.onclick = toggleLineHighlight;
@@ -49,14 +52,21 @@ const removeHighlightLine = (lineNumber: number) => {
 };
 
 const setLine = (lineNumber: number) => {
+  history.replaceState(null, "", `#L${lineNumber}`);
   addHighlightLine(lineNumber);
 };
 
-export const getLineContainer = (
-  lineNumber: number,
-  htmlContent: string,
-  color?: string,
-) => {
+interface LineContainerInput {
+  color?: string;
+  htmlContent: string;
+  lineNumber: number;
+}
+
+export const getLineContainer = ({
+  color,
+  htmlContent,
+  lineNumber,
+}: LineContainerInput) => {
   const lineLink = getLineLink(lineNumber);
   const lineContentDiv = getLineContentDiv(htmlContent);
 
@@ -71,6 +81,37 @@ export const getLineContainer = (
   lineContainer.appendChild(lineLink);
   lineContainer.appendChild(lineContentDiv);
   return lineContainer;
+};
+
+export interface ValidatedParams {
+  taskId: string;
+  execution: number;
+  origin: string;
+}
+
+export const validateParams = (
+  taskId: string | undefined,
+  execution: string | null,
+  origin: string | null,
+): ValidatedParams => {
+  if (!taskId) {
+    throw new Error("Task ID not specified");
+  }
+
+  const executionNum = parseInt(execution || "", 10);
+  if (isNaN(executionNum)) {
+    throw new Error("Execution not specified");
+  }
+
+  if (!origin) {
+    throw new Error("Log origin type not specified");
+  }
+
+  return {
+    taskId,
+    execution: executionNum,
+    origin,
+  };
 };
 
 export const styles = css`
