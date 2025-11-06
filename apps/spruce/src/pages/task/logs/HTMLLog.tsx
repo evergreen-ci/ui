@@ -22,6 +22,9 @@ import {
   ValidatedParams,
 } from "./utils";
 
+const LOG_FILE_SIZE_LIMIT = 1024 * 1024 * 1024 * 2.5; // 2.5GB
+const BATCH_TIME_MS = 200;
+
 export const HTMLLog: React.FC = () => {
   const { taskId } = useParams<{ taskId: string }>();
   const [searchParams] = useSearchParams();
@@ -29,6 +32,17 @@ export const HTMLLog: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
   const containerRef = useRef<HTMLPreElement | null>(null);
+  const batchRef = useRef(performance.now());
+
+  // Determine whether batchTime has passed since the last animation frame render
+  const shouldPaint = () => {
+    const now = performance.now();
+    if (now - batchRef.current > BATCH_TIME_MS) {
+      batchRef.current = now;
+      return true;
+    }
+    return false;
+  };
 
   const execution = searchParams.get("execution");
   const origin = searchParams.get("origin");
@@ -87,7 +101,11 @@ export const HTMLLog: React.FC = () => {
     const fetchStream = async () => {
       let stream: ReadableStream | null = null;
       try {
-        stream = await streamedFetch(url, { abortController }, span);
+        stream = await streamedFetch(
+          url,
+          { abortController, downloadSizeLimit: LOG_FILE_SIZE_LIMIT },
+          span,
+        );
       } catch (err) {
         // Error unless aborted, this prevents errors in strict mode
         if (!abortController.signal.aborted) {
@@ -140,9 +158,11 @@ export const HTMLLog: React.FC = () => {
         signal: abortController.signal,
       });
 
+      // Using a document fragment to add many lines at once is more performant
+      let frag = document.createDocumentFragment();
+      let lineNumber = 0;
       const ansiUp = new AnsiUp();
 
-      let lineNumber = 0;
       const htmlStream = new WritableStream<string>({
         async write(chunk) {
           const element = containerRef.current;
@@ -165,7 +185,7 @@ export const HTMLLog: React.FC = () => {
             htmlContent: linkifyHtml(ansiUp.ansi_to_html(lineContent)),
             color: severity ? mapLogLevelToColor[severity] : undefined,
           });
-          element.appendChild(lineContainer);
+          frag.appendChild(lineContainer);
 
           // Hide loading skeleton once we have content
           if (lineNumber === 0) {
@@ -179,9 +199,17 @@ export const HTMLLog: React.FC = () => {
 
           lineNumber += 1;
 
-          await new Promise(requestAnimationFrame);
+          if (shouldPaint()) {
+            element.appendChild(frag);
+            await new Promise(requestAnimationFrame);
+            frag = document.createDocumentFragment();
+          }
         },
-        close() {
+        async close() {
+          // Flush any remaining fragments
+          const element = containerRef.current;
+          element?.appendChild?.(frag);
+          await new Promise(requestAnimationFrame);
           setIsLoading(false);
         },
       });

@@ -1,9 +1,10 @@
+import { generatePath } from "react-router";
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { WaterfallFilterOptions } from "pages/waterfall/types";
 import { TestStatus, HistoryQueryParams } from "types/history";
 import { ConfigurePatchPageTabs, VersionPageTabs } from "types/patch";
-import { TaskTab } from "types/task";
+import { LogTypes, TaskTab } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
 import { toArray } from "utils/array";
 
@@ -240,6 +241,18 @@ export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
   return `${paths.task}/${taskId}${tab ? `/${tab}` : ""}${
     queryParams ? `?${queryParams}` : ""
   }`;
+};
+
+export const getTaskHTMLLogRoute = (
+  taskId: string,
+  execution: number,
+  origin: LogTypes,
+) => {
+  const queryParams = stringifyQuery({
+    execution,
+    origin,
+  });
+  return generatePath(`${routes.taskHTMLLog}/?${queryParams}`, { taskId });
 };
 
 export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>
