@@ -60,11 +60,11 @@ To authenticate your requests, please reference [this documentation](https://doc
 
 ### Task Logs
 
-URL: `https://evergreen.corp.mongodb.com/rest/v2/tasks/<task_id>/build/TaskLogs`
+[Task Logs](https://docs.devprod.prod.corp.mongodb.com/evergreen/API/REST-V2-Usage#tag/tasks/paths/~1tasks~1%7Btask_id%7D~1abort/post).
 
 ### Test Logs
 
-URL: `https://evergreen.corp.mongodb.com/rest/v2/tasks/<task_id>/build/TestLogs/<test_log_path>`
+[Test Logs](https://docs.devprod.prod.corp.mongodb.com/evergreen/API/REST-V2-Usage#tag/tasks/paths/~1tasks~1%7Btask_id%7D~1build~1TestLogs~1%7Bpath%7D/get).
 
 ## Via a Spawn Host
 
