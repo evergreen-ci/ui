@@ -26,7 +26,7 @@
     "@lg-chat/message-feed": "^8.0.1",
     "@lg-chat/message-prompts": "^4.1.2",
     "@lg-chat/message-rating": "^6.0.0",
-    "ai": "^5.0.11",
+    "ai": "^5.0.52",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "zod": "^4.1.11"
