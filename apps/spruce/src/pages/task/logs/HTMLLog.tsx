@@ -129,7 +129,9 @@ export const HTMLLog: React.FC = () => {
         return;
       }
 
-      const textStream = stream.pipeThrough(new TextDecoderStream());
+      const textStream = stream.pipeThrough(new TextDecoderStream(), {
+        signal: abortController.signal,
+      });
 
       let lineBuffer = "";
       const lineSplitter = new TransformStream<string, string>({
