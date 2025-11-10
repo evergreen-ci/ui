@@ -56,7 +56,7 @@ describe("parse log select", () => {
 
   it("clicking the 'Process Log' button calls the onParse function", async () => {
     const user = userEvent.setup();
-    mockedGet.mockImplementation(() => LogTypes.LOGKEEPER_LOGS);
+    mockedGet.mockImplementation(() => LogTypes.EVERGREEN_COMPLETE_LOGS);
     const onParse = vi.fn();
     render(
       <ParseLogSelect
