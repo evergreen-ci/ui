@@ -47,7 +47,7 @@
     "react-router-dom": "6.18.0"
   },
   "devDependencies": {
-    "@emotion/jest": "^11.13.0",
+    "@emotion/jest": "^11.14.2",
     "@evg-ui/eslint-config": "*",
     "@evg-ui/lint-staged": "*",
     "@evg-ui/storybook-addon": "*",
