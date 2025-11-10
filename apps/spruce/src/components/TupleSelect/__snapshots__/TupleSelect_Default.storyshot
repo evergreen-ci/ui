@@ -23,8 +23,8 @@
         data-testid="lg-select"
       >
         <button
-          aria-controls="select-130-menu"
-          aria-describedby="select-130-description"
+          aria-controls="select-148-menu"
+          aria-describedby="select-148-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -33,7 +33,7 @@
           data-cy="tuple-select-select"
           data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-131"
+          id="select-149"
           type="button"
           value="build_variant"
         >
@@ -121,7 +121,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_input-feedback"
             data-testid="lg-text_input-feedback"
-            id="lg-form_field-feedback-134"
+            id="lg-form_field-feedback-152"
           />
         </div>
         <div
@@ -137,11 +137,8 @@
               class="leafygreen-ui-xhlipt"
             >
               <svg
-                aria-label="Plus Icon"
-                class=""
                 fill="none"
                 height="16"
-                role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
