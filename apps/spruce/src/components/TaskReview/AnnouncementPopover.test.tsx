@@ -85,7 +85,7 @@ describe("AnnouncementPopover", () => {
         screen.queryByText("New feature: Task Review"),
       ).not.toBeInTheDocument();
 
-      await user.click(screen.getByLabelText("Info With Circle Icon"));
+      await user.click(screen.getByDataCy("announcement-tooltip-trigger"));
       await waitFor(() => {
         expect(screen.getByText("New feature: Task Review")).toBeVisible();
       });
