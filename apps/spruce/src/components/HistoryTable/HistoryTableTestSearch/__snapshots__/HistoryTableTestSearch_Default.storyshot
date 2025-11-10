@@ -21,8 +21,8 @@
               class="leafygreen-ui-15qqekb"
               data-lgid="lg-text_input-label"
               data-testid="lg-text_input"
-              for="lg-form_field-input-70"
-              id="lg-form_field-label-67"
+              for="lg-form_field-input-72"
+              id="lg-form_field-label-69"
             >
               Filter by Failed Tests
             </label>
@@ -37,10 +37,10 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-67"
+                aria-labelledby="lg-form_field-label-69"
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                id="lg-form_field-input-70"
+                id="lg-form_field-input-72"
                 placeholder="Search test name regex"
                 required=""
                 type="search"
@@ -54,7 +54,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_input-feedback"
             data-testid="lg-text_input-feedback"
-            id="lg-form_field-feedback-69"
+            id="lg-form_field-feedback-71"
           />
         </div>
         <div
@@ -70,11 +70,8 @@
               class="leafygreen-ui-xhlipt"
             >
               <svg
-                aria-label="Plus Icon"
-                class=""
                 fill="none"
                 height="16"
-                role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"

@@ -243,11 +243,8 @@
                 class="leafygreen-ui-xhlipt"
               >
                 <svg
-                  aria-label="Copy Icon"
-                  class=""
                   fill="none"
                   height="16"
-                  role="img"
                   viewBox="0 0 16 16"
                   width="16"
                   xmlns="http://www.w3.org/2000/svg"
@@ -563,11 +560,9 @@
           class="emotion-LeftContainer e1dgw5p63"
         >
           <svg
-            aria-label="Calendar Icon"
-            class="leafygreen-ui-19a71cx"
-            fill="none"
+            fill="#1C2D38"
             height="16"
-            role="img"
+            size="16"
             viewBox="0 0 16 16"
             width="16"
             xmlns="http://www.w3.org/2000/svg"
@@ -620,11 +615,9 @@
           class="emotion-LeftContainer e1dgw5p63"
         >
           <svg
-            aria-label="Checkmark Icon"
-            class="leafygreen-ui-zgssm"
-            fill="none"
+            fill="#00A35C"
             height="16"
-            role="img"
+            size="16"
             viewBox="0 0 16 16"
             width="16"
             xmlns="http://www.w3.org/2000/svg"
@@ -669,11 +662,9 @@
           class="emotion-LeftContainer e1dgw5p63"
         >
           <svg
-            aria-label="Refresh Icon"
-            class="leafygreen-ui-4hxv4h"
-            fill="none"
+            fill="#944F01"
             height="16"
-            role="img"
+            size="16"
             viewBox="0 0 16 16"
             width="16"
             xmlns="http://www.w3.org/2000/svg"
