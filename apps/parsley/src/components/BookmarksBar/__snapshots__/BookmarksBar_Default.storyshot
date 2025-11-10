@@ -92,6 +92,7 @@
           </span>
           <svg
             class="emotion-StyledIcon erobc1r1"
+            data-cy="link-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"

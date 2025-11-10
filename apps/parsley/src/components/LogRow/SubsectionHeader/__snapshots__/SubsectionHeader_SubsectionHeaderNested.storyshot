@@ -78,6 +78,7 @@
         </div>
       </button>
       <svg
+        data-cy="section-status-fail"
         fill="#DB3030"
         height="16"
         viewBox="0 0 16 16"
@@ -136,6 +137,7 @@
         </div>
       </button>
       <svg
+        data-cy="section-status-pass"
         fill="#5C6C75"
         height="16"
         viewBox="0 0 16 16"
