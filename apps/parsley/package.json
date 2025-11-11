@@ -47,6 +47,7 @@
     "@evg-ui/deploy-utils": "*",
     "@evg-ui/fungi": "*",
     "@evg-ui/lib": "*",
+    "@evg-ui/analytics-visualizer": "*",
     "@leafygreen-ui/badge": "^10.2.2",
     "@leafygreen-ui/button": "^21.0.6",
     "@leafygreen-ui/card": "^13.2.0",

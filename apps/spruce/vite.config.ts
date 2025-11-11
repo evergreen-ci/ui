@@ -9,6 +9,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import dns from "dns";
 import path from "path";
+import analyticsVisualizer from "@evg-ui/analytics-visualizer";
 import {
   generateBaseHTTPSViteServerConfig,
   bareBonesViteConfig,
@@ -108,6 +109,12 @@ const getProjectConfig = () => {
       visualizer({
         filename: "dist/source_map.html",
         template: "treemap",
+      }),
+      // Analytics visualization
+      analyticsVisualizer({
+        analyticsDir: "src/analytics",
+        appName: "Spruce",
+        honeycombDataset: "spruce",
       }),
       sentryVitePlugin({
         org: "mongodb-org",

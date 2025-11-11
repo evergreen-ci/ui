@@ -60,6 +60,7 @@
     "@emotion/styled": "11.14.1",
     "@evg-ui/deploy-utils": "*",
     "@evg-ui/lib": "*",
+    "@evg-ui/analytics-visualizer": "*",
     "@leafygreen-ui/badge": "^10.2.2",
     "@leafygreen-ui/banner": "^10.2.2",
     "@leafygreen-ui/button": "^21.0.6",

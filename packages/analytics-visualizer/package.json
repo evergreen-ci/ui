@@ -1,0 +1,26 @@
+{
+  "name": "@evg-ui/analytics-visualizer",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check-types": "tsc -p tsconfig.json --noEmit",
+    "eslint:fix": "yarn eslint:strict --fix",
+    "eslint:staged": "STRICT=1 eslint",
+    "eslint:strict": "STRICT=1 eslint ."
+  },
+  "dependencies": {
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "vite": "^5.0.0"
+  },
+  "devDependencies": {
+    "@evg-ui/eslint-config": "*",
+    "@types/node": "^20.0.0",
+    "eslint": "^9.36.0",
+    "vite": "^5.0.0"
+  }
+}

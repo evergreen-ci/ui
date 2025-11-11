@@ -9,11 +9,11 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import dns from "dns";
 import path from "path";
+import analyticsVisualizer from "@evg-ui/analytics-visualizer";
 import {
   generateBaseHTTPSViteServerConfig,
   bareBonesViteConfig,
 } from "@evg-ui/vite-utils";
-import analyticsVisualizer from "./config/analyticsVisualizer";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
 const getProjectConfig = () => {
@@ -74,7 +74,11 @@ const getProjectConfig = () => {
         template: "treemap",
       }),
       // Analytics visualization
-      analyticsVisualizer(),
+      analyticsVisualizer({
+        analyticsDir: "src/analytics",
+        appName: "Parsley",
+        honeycombDataset: "parsley",
+      }),
       sentryVitePlugin({
         authToken: process.env.PARSLEY_SENTRY_AUTH_TOKEN,
         disable: process.env.NODE_ENV === "development",
