@@ -1,18 +1,27 @@
 import * as ts from "typescript";
 import * as fs from "fs";
 import * as path from "path";
+import {
+  EXCLUDED_FILES,
+  ACTION_TYPE_NAME,
+  USE_ANALYTICS_ROOT_HOOK,
+  ACTION_NAME_PROPERTY,
+} from "./constants.ts";
 import type { ActionProperty, Action, IdentifierData } from "./types.ts";
 
 /**
  * Extracts TypeScript type as a string representation
- * @param typeNode
- * @param checker
- * @param program
+ * @param typeNode - The TypeScript type node to convert to a string
+ * @param checker - Type checker instance (currently unused but kept for future use)
+ * @param program - TypeScript program instance (currently unused but kept for future use)
+ * @param _checker
+ * @param _program
+ * @returns String representation of the type
  */
 function getTypeString(
   typeNode: ts.TypeNode,
-  checker: ts.TypeChecker,
-  program?: ts.Program,
+  _checker: ts.TypeChecker,
+  _program?: ts.Program,
 ): string {
   if (ts.isLiteralTypeNode(typeNode)) {
     if (ts.isStringLiteral(typeNode.literal)) {
@@ -35,12 +44,12 @@ function getTypeString(
 
   if (ts.isUnionTypeNode(typeNode)) {
     return typeNode.types
-      .map((t) => getTypeString(t, checker, program))
+      .map((t) => getTypeString(t, _checker, _program))
       .join(" | ");
   }
 
   if (ts.isArrayTypeNode(typeNode)) {
-    return `${getTypeString(typeNode.elementType, checker, program)}[]`;
+    return `${getTypeString(typeNode.elementType, _checker, _program)}[]`;
   }
 
   if (ts.isTypeLiteralNode(typeNode)) {
@@ -52,14 +61,15 @@ function getTypeString(
 
 /**
  * Extracts properties from an object type literal
- * @param node
- * @param checker
- * @param program
+ * @param node - The type literal node containing properties
+ * @param checker - Type checker instance
+ * @param program - TypeScript program instance
+ * @returns Array of extracted properties
  */
 function extractProperties(
   node: ts.TypeLiteralNode,
   checker: ts.TypeChecker,
-  program?: ts.Program,
+  program: ts.Program,
 ): ActionProperty[] {
   const properties: ActionProperty[] = [];
 
@@ -85,10 +95,33 @@ function extractProperties(
 }
 
 /**
+ * Finds the action name property in a type literal node
+ * @param unionMember - The type literal node to search
+ * @returns The name property signature if found, null otherwise
+ */
+function findActionNameProperty(
+  unionMember: ts.TypeLiteralNode,
+): ts.PropertySignature | null {
+  for (const member of unionMember.members) {
+    if (
+      ts.isPropertySignature(member) &&
+      member.name?.getText() === ACTION_NAME_PROPERTY &&
+      member.type &&
+      ts.isLiteralTypeNode(member.type) &&
+      ts.isStringLiteral(member.type.literal)
+    ) {
+      return member;
+    }
+  }
+  return null;
+}
+
+/**
  * Extracts actions from a union type
- * @param typeNode
- * @param checker
- * @param program
+ * @param typeNode - The type alias declaration containing the Action union type
+ * @param checker - Type checker instance
+ * @param program - TypeScript program instance
+ * @returns Array of extracted actions
  */
 function extractActions(
   typeNode: ts.TypeAliasDeclaration,
@@ -97,65 +130,71 @@ function extractActions(
 ): Action[] {
   const actions: Action[] = [];
 
-  if (typeNode.type && ts.isUnionTypeNode(typeNode.type)) {
-    for (const unionMember of typeNode.type.types) {
-      if (ts.isTypeLiteralNode(unionMember)) {
-        // Find the 'name' property
-        const nameProperty = unionMember.members.find(
-          (m) =>
-            ts.isPropertySignature(m) &&
-            m.name?.getText() === "name" &&
-            ts.isLiteralTypeNode(m.type!) &&
-            ts.isStringLiteral(m.type!.literal),
-        ) as ts.PropertySignature | undefined;
+  if (!typeNode.type || !ts.isUnionTypeNode(typeNode.type)) {
+    return actions;
+  }
 
-        if (nameProperty) {
-          const nameLiteral = (nameProperty.type as ts.LiteralTypeNode)
-            .literal as ts.StringLiteral;
-          const actionName = nameLiteral.text;
-
-          // Extract all properties
-          const properties = extractProperties(unionMember, checker, program);
-
-          actions.push({
-            name: actionName,
-            properties: properties.filter((p) => p.name !== "name"), // Exclude 'name' from properties list
-          });
-        }
-      }
+  for (const unionMember of typeNode.type.types) {
+    if (!ts.isTypeLiteralNode(unionMember)) {
+      continue;
     }
+
+    const nameProperty = findActionNameProperty(unionMember);
+    if (!nameProperty) {
+      continue;
+    }
+
+    // Type assertion is safe here because we've already checked the type
+    const nameLiteral = (nameProperty.type as ts.LiteralTypeNode)
+      .literal as ts.StringLiteral;
+    const actionName = nameLiteral.text;
+
+    // Extract all properties
+    const properties = extractProperties(unionMember, checker, program);
+
+    actions.push({
+      name: actionName,
+      properties: properties.filter((p) => p.name !== ACTION_NAME_PROPERTY), // Exclude 'name' from properties list
+    });
   }
 
   return actions;
 }
 
 /**
+ * Checks if a call expression is a useAnalyticsRoot call
+ * @param expression - The call expression to check
+ * @returns True if this is a useAnalyticsRoot call
+ */
+function isUseAnalyticsRootCall(expression: ts.Expression): boolean {
+  if (ts.isIdentifier(expression)) {
+    // Direct call: useAnalyticsRoot(...)
+    return expression.getText() === USE_ANALYTICS_ROOT_HOOK;
+  }
+  if (ts.isPropertyAccessExpression(expression)) {
+    // Property access: something.useAnalyticsRoot(...)
+    return expression.name.getText() === USE_ANALYTICS_ROOT_HOOK;
+  }
+  return false;
+}
+
+/**
  * Extracts identifier from useAnalyticsRoot call
- * @param sourceFile
+ * @param sourceFile - The source file to search
+ * @returns The identifier string if found, null otherwise
  */
 function extractIdentifier(sourceFile: ts.SourceFile): string | null {
   let identifier: string | null = null;
 
   const visit = (node: ts.Node) => {
     if (ts.isCallExpression(node)) {
-      // Check if it's useAnalyticsRoot - could be an identifier or property access
-      const { expression } = node;
-      let isUseAnalyticsRoot = false;
-
-      if (ts.isIdentifier(expression)) {
-        // Direct call: useAnalyticsRoot(...)
-        isUseAnalyticsRoot = expression.getText() === "useAnalyticsRoot";
-      } else if (ts.isPropertyAccessExpression(expression)) {
-        // Property access: something.useAnalyticsRoot(...)
-        isUseAnalyticsRoot = expression.name.getText() === "useAnalyticsRoot";
-      }
-
-      if (isUseAnalyticsRoot) {
+      if (isUseAnalyticsRootCall(node.expression)) {
         // Get the first argument (the identifier string)
         if (node.arguments.length > 0) {
           const arg = node.arguments[0];
           if (ts.isStringLiteral(arg)) {
             identifier = arg.text;
+            // Found it, but continue searching in case there are multiple calls
           }
         }
       }
@@ -315,8 +354,12 @@ function parseAnalyticsFile(filePath: string): IdentifierData | null {
     let actionTypeNode: ts.TypeAliasDeclaration | null = null;
 
     const visit = (node: ts.Node) => {
-      if (ts.isTypeAliasDeclaration(node) && node.name.getText() === "Action") {
+      if (
+        ts.isTypeAliasDeclaration(node) &&
+        node.name.getText() === ACTION_TYPE_NAME
+      ) {
         actionTypeNode = node;
+        // Found it, but continue searching in case there are multiple Action types
       }
       ts.forEachChild(node, visit);
     };
@@ -373,9 +416,7 @@ export function scanAnalyticsDirectory(analyticsDir: string): IdentifierData[] {
         entry.isFile() &&
         entry.name.endsWith(".ts") &&
         !entry.name.endsWith(".d.ts") &&
-        entry.name !== "index.ts" &&
-        entry.name !== "types.ts" &&
-        entry.name !== "useAnalyticAttributes.ts"
+        !EXCLUDED_FILES.includes(entry.name as (typeof EXCLUDED_FILES)[number])
       ) {
         const data = parseAnalyticsFile(fullPath);
         if (data) {

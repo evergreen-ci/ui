@@ -1,5 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
+import {
+  DEFAULT_HONEYCOMB_TIME_RANGE,
+  HONEYCOMB_BASE_URL,
+} from "./constants.ts";
 import type { IdentifierData, AnalyticsVisualizerOptions } from "./types.ts";
 
 /**
@@ -56,7 +60,7 @@ export function generateHTML(
   // Generate Honeycomb URL helper for actions
   const generateHoneycombUrl = (actionName: string): string => {
     const query = {
-      time_range: 604800,
+      time_range: DEFAULT_HONEYCOMB_TIME_RANGE,
       granularity: 0,
       calculations: [{ op: "COUNT" }],
       filters: [
@@ -69,13 +73,13 @@ export function generateHTML(
     };
 
     const queryString = encodeURIComponent(JSON.stringify(query));
-    return `https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/${options.honeycombDataset}?query=${queryString}`;
+    return `${HONEYCOMB_BASE_URL}/${options.honeycombDataset}?query=${queryString}`;
   };
 
   // Generate Honeycomb URL helper for identifiers
   const generateHoneycombIdentifierUrl = (identifier: string): string => {
     const query = {
-      time_range: 604800,
+      time_range: DEFAULT_HONEYCOMB_TIME_RANGE,
       granularity: 0,
       breakdowns: ["name"],
       calculations: [{ op: "COUNT" }],
@@ -88,7 +92,7 @@ export function generateHTML(
     };
 
     const queryString = encodeURIComponent(JSON.stringify(query));
-    return `https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/${options.honeycombDataset}?query=${queryString}`;
+    return `${HONEYCOMB_BASE_URL}/${options.honeycombDataset}?query=${queryString}`;
   };
 
   // Generate GitHub search URL helper
