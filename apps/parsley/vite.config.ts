@@ -13,6 +13,7 @@ import {
   generateBaseHTTPSViteServerConfig,
   bareBonesViteConfig,
 } from "@evg-ui/vite-utils";
+import analyticsVisualizer from "./config/analyticsVisualizer";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
 const getProjectConfig = () => {
@@ -72,6 +73,8 @@ const getProjectConfig = () => {
         filename: "dist/source_map.html",
         template: "treemap",
       }),
+      // Analytics visualization
+      analyticsVisualizer(),
       sentryVitePlugin({
         authToken: process.env.PARSLEY_SENTRY_AUTH_TOKEN,
         disable: process.env.NODE_ENV === "development",

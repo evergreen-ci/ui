@@ -7,6 +7,7 @@
   },
   "include": [
     "vite.config.ts",
-    "config/injectVariablesInHTML.ts"
+    "config/injectVariablesInHTML.ts",
+    "config/analyticsVisualizer.ts"
   ]
 }
