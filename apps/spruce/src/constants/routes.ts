@@ -252,7 +252,7 @@ export const getTaskHTMLLogRoute = (
     execution,
     origin,
   });
-  return generatePath(`${routes.taskHTMLLog}/?${queryParams}`, { taskId });
+  return generatePath(`${routes.taskHTMLLog}?${queryParams}`, { taskId });
 };
 
 export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>

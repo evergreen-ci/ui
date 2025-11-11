@@ -146,18 +146,23 @@ describe("task logs", () => {
 describe("HTML log viewer", () => {
   const taskPageURL =
     "/task/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/logs";
-
-  beforeEach(() => {
-    cy.visit(taskPageURL);
-  });
+  const taskLogURL =
+    "/task/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/html-log?execution=0&origin=task";
 
   it("loads a HTML log page on click", () => {
+    cy.visit(taskPageURL);
+    cy.dataCy("html-log-btn").should("be.visible");
     cy.dataCy("html-log-btn").should("have.attr", "aria-disabled", "false");
     cy.dataCy("html-log-btn").click();
     cy.contains("Task logger initialized").should("be.visible");
-    cy.url().should(
-      "include",
-      "/task/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/html-log?execution=0&origin=task",
-    );
+    cy.url().should("include", taskLogURL);
+  });
+
+  it("scrolls to the selected line when opening an HTML log", () => {
+    cy.visit(`${taskLogURL}#L292`);
+
+    cy.contains(
+      "[2022/03/02 17:05:20.558] Putting spruce/build/source_map.html into mciuploads",
+    ).should("be.visible");
   });
 });
