@@ -19,17 +19,15 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v emotion-AnimatedIcon e1oyg0iq0"
-            fill="none"
+            class="emotion-AnimatedIcon e1oyg0iq0 leafygreen-ui-1vrn39p"
             height="16"
             role="img"
             viewBox="0 0 16 16"
             width="16"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               clip-rule="evenodd"
-              d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
+              d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
               fill="currentColor"
               fill-rule="evenodd"
             />
@@ -37,11 +35,9 @@
         </div>
       </button>
       <svg
-        aria-label="XWith Circle Icon"
-        class="leafygreen-ui-1xsx4zj"
-        fill="none"
+        data-cy="section-status-fail"
+        fill="#DB3030"
         height="16"
-        role="img"
         viewBox="0 0 16 16"
         width="16"
         xmlns="http://www.w3.org/2000/svg"
@@ -80,18 +76,16 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v emotion-AnimatedIcon e1oyg0iq0"
-            fill="none"
+            class="emotion-AnimatedIcon e1oyg0iq0 leafygreen-ui-1vrn39p"
             height="16"
             open=""
             role="img"
             viewBox="0 0 16 16"
             width="16"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               clip-rule="evenodd"
-              d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
+              d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
               fill="currentColor"
               fill-rule="evenodd"
             />
@@ -99,11 +93,9 @@
         </div>
       </button>
       <svg
-        aria-label="Checkmark With Circle Icon"
-        class="leafygreen-ui-jc2z8v"
-        fill="none"
+        data-cy="section-status-pass"
+        fill="#5C6C75"
         height="16"
-        role="img"
         viewBox="0 0 16 16"
         width="16"
         xmlns="http://www.w3.org/2000/svg"
@@ -143,18 +135,16 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v emotion-AnimatedIcon e1oyg0iq0"
-            fill="none"
+            class="emotion-AnimatedIcon e1oyg0iq0 leafygreen-ui-1vrn39p"
             height="16"
             open=""
             role="img"
             viewBox="0 0 16 16"
             width="16"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               clip-rule="evenodd"
-              d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
+              d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
               fill="currentColor"
               fill-rule="evenodd"
             />

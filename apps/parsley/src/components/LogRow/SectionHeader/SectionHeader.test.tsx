@@ -36,9 +36,7 @@ describe("SectionHeader", () => {
       <SectionHeader {...sectionHeaderProps} status={SectionStatus.Pass} />,
       { wrapper },
     );
-    expect(
-      screen.getByLabelText("Checkmark With Circle Icon"),
-    ).toBeInTheDocument();
+    expect(screen.getByDataCy("section-status-pass")).toBeVisible();
   });
 
   it("displays X icon if status is failing", () => {
@@ -46,7 +44,7 @@ describe("SectionHeader", () => {
       <SectionHeader {...sectionHeaderProps} status={SectionStatus.Fail} />,
       { wrapper },
     );
-    expect(screen.getByLabelText("XWith Circle Icon")).toBeInTheDocument();
+    expect(screen.getByDataCy("section-status-fail")).toBeVisible();
   });
 
   it("renders as opened if 'open' prop is true", async () => {

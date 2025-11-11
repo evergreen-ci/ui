@@ -47,23 +47,23 @@
                       class="leafygreen-ui-1lqrdit"
                       data-lgid="lg-select-label"
                       data-testid="lg-select"
-                      for="select-88"
-                      id="select-87-label"
+                      for="select-100"
+                      id="select-99-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-87-menu"
-                    aria-describedby="select-87-description"
+                    aria-controls="select-99-menu"
+                    aria-describedby="select-99-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-87-label"
+                    aria-labelledby="select-99-label"
                     class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
                     data-lgid="lg-select-trigger"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-88"
+                    id="select-100"
                     type="button"
                     value="legacy-ssh"
                   >
@@ -140,7 +140,6 @@
                     class="leafygreen-ui-16tr4y"
                   >
                     <svg
-                      alt=""
                       aria-hidden="true"
                       class="leafygreen-ui-18si895"
                       fill="none"
@@ -195,8 +194,8 @@
                                 class="leafygreen-ui-15qqekb"
                                 data-lgid="lg-text_input-label"
                                 data-testid="lg-text_input"
-                                for="lg-form_field-input-92"
-                                id="lg-form_field-label-89"
+                                for="lg-form_field-input-104"
+                                id="lg-form_field-label-101"
                               >
                                 key
                               </label>
@@ -211,10 +210,10 @@
                                   aria-describedby=""
                                   aria-disabled="false"
                                   aria-invalid="false"
-                                  aria-labelledby="lg-form_field-label-89"
+                                  aria-labelledby="lg-form_field-label-101"
                                   autocomplete="on"
                                   class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                                  id="lg-form_field-input-92"
+                                  id="lg-form_field-input-104"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -227,7 +226,7 @@
                               class="leafygreen-ui-11ydt2g"
                               data-lgid="lg-text_input-feedback"
                               data-testid="lg-text_input-feedback"
-                              id="lg-form_field-feedback-91"
+                              id="lg-form_field-feedback-103"
                             />
                           </div>
                         </div>
@@ -251,8 +250,8 @@
                                 class="leafygreen-ui-15qqekb"
                                 data-lgid="lg-text_input-label"
                                 data-testid="lg-text_input"
-                                for="lg-form_field-input-96"
-                                id="lg-form_field-label-93"
+                                for="lg-form_field-input-108"
+                                id="lg-form_field-label-105"
                               >
                                 value
                               </label>
@@ -267,10 +266,10 @@
                                   aria-describedby=""
                                   aria-disabled="false"
                                   aria-invalid="false"
-                                  aria-labelledby="lg-form_field-label-93"
+                                  aria-labelledby="lg-form_field-label-105"
                                   autocomplete="on"
                                   class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                                  id="lg-form_field-input-96"
+                                  id="lg-form_field-input-108"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -283,7 +282,7 @@
                               class="leafygreen-ui-11ydt2g"
                               data-lgid="lg-text_input-feedback"
                               data-testid="lg-text_input-feedback"
-                              id="lg-form_field-feedback-95"
+                              id="lg-form_field-feedback-107"
                             />
                           </div>
                         </div>
@@ -307,11 +306,9 @@
                         class="leafygreen-ui-16tr4y"
                       >
                         <svg
-                          aria-label="Trash Icon"
                           class="leafygreen-ui-yk23yl"
                           fill="none"
                           height="16"
-                          role="img"
                           viewBox="0 0 16 16"
                           width="16"
                           xmlns="http://www.w3.org/2000/svg"
@@ -348,8 +345,8 @@
                       class="leafygreen-ui-15qqekb"
                       data-lgid="lg-text_area-label"
                       data-testid="lg-text_area"
-                      for="textarea-101"
-                      id="lg-form_field-label-97"
+                      for="textarea-113"
+                      id="lg-form_field-label-109"
                     >
                       Valid Projects
                     </label>
@@ -364,9 +361,9 @@
                         aria-describedby=""
                         aria-disabled="false"
                         aria-invalid="false"
-                        aria-labelledby="lg-form_field-label-97"
+                        aria-labelledby="lg-form_field-label-109"
                         class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
-                        id="textarea-101"
+                        id="textarea-113"
                         rows="5"
                         title="Valid Projects"
                       />
@@ -378,7 +375,7 @@
                     class="leafygreen-ui-11ydt2g"
                     data-lgid="lg-text_area-feedback"
                     data-testid="lg-text_area-feedback"
-                    id="lg-form_field-feedback-99"
+                    id="lg-form_field-feedback-111"
                   />
                 </div>
               </div>

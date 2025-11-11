@@ -17,14 +17,12 @@
         class="leafygreen-ui-xhlipt"
       >
         <svg
-          aria-label="Link Icon"
           class="emotion-ShareIcon e11863j12"
           data-cy="log-link-8"
           fill="none"
-          height="14"
-          role="img"
+          height="16"
           viewBox="0 0 16 16"
-          width="14"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
