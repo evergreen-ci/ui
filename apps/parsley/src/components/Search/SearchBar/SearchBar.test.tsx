@@ -1,4 +1,3 @@
-/* @ts-expect-error - text-input's test harness exports are not correctly typed, but they are present. */
 import { getTestUtils } from "@leafygreen-ui/text-input/testing";
 import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
 import { DIRECTION } from "context/LogContext/types";

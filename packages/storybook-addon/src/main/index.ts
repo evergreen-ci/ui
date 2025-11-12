@@ -1,6 +1,263 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 
-export { previewHead } from "./preview-head";
+// Inline previewHead to avoid ESM import issues with .ts extensions at runtime
+const resetStyles = `
+  /* Reset styles, usage recommended by LeafyGreen. */
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+`;
+
+const fontStyles = `
+  /* Euclid Circular A - Semibold */
+  @font-face {
+    font-family: "Euclid Circular A";
+    font-weight: 700;
+    font-style: normal;
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff2")
+        format("woff2"),
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff")
+        format("woff");
+  }
+
+  /* Euclid Circular A - Semibold Italic */
+  @font-face {
+    font-family: "Euclid Circular A";
+    font-weight: 700;
+    font-style: italic;
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-SemiboldItalic-WebXL.woff2")
+        format("woff2"),
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-SemiboldItalic-WebXL.woff")
+        format("woff");
+  }
+
+  /* Euclid Circular A - Medium */
+  @font-face {
+    font-family: "Euclid Circular A";
+    font-weight: 500;
+    font-style: normal;
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff2")
+        format("woff2"),
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff")
+        format("woff");
+  }
+
+  /* Euclid Circular A - Medium Italic */
+  @font-face {
+    font-family: "Euclid Circular A";
+    font-weight: 500;
+    font-style: italic;
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-MediumItalic-WebXL.woff2")
+        format("woff2"),
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-MediumItalic-WebXL.woff")
+        format("woff");
+  }
+
+  /* Euclid Circular A - Regular */
+  @font-face {
+    font-family: "Euclid Circular A";
+    font-weight: 400;
+    font-style: normal;
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff2")
+        format("woff2"),
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff")
+        format("woff");
+  }
+
+  /* Euclid Circular A - Italic */
+  @font-face {
+    font-family: "Euclid Circular A";
+    font-weight: 400;
+    font-style: italic;
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-RegularItalic-WebXL.woff2")
+        format("woff2"),
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-RegularItalic-WebXL.woff")
+        format("woff");
+  }
+
+  /* MongoDB Value Serif - Bold */
+  @font-face {
+    font-family: "MongoDB Value Serif";
+    font-weight: 700;
+    font-style: normal;
+    src:
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Bold.woff2")
+        format("woff2"),
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Bold.woff")
+        format("woff");
+  }
+
+  /* MongoDB Value Serif - Medium */
+  @font-face {
+    font-family: "MongoDB Value Serif";
+    font-weight: 500;
+    font-style: normal;
+    src:
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Medium.woff2")
+        format("woff2"),
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Medium.woff")
+        format("woff");
+  }
+
+  /* MongoDB Value Serif - Regular */
+  @font-face {
+    font-family: "MongoDB Value Serif";
+    font-weight: 400;
+    font-style: normal;
+    src:
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff2")
+        format("woff2"),
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff")
+        format("woff");
+  }
+
+  /* Source Code Pro - Regular */
+  @font-face {
+    font-family: "Source Code Pro";
+    font-weight: 400;
+    font-style: normal;
+    src:
+      url("/static/fonts/SourceCodePro/SourceCodePro-Regular.otf.woff2")
+        format("woff2"),
+      url("/static/fonts/SourceCodePro/SourceCodePro-Regular.otf.woff")
+        format("woff");
+  }
+`;
+
+export const previewHead: StorybookConfig["previewHead"] = (head) => `
+${head}
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+<style type="text/css">
+  ${fontStyles}
+  ${resetStyles}
+
+  a {
+    text-decoration: none;
+  }
+
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Copied from LeafyGreen: https://github.com/mongodb/leafygreen-ui/blob/9718c2333ce1ba4a708e81a1bfe99bfd4a8b2f73/tools/storybook-addon/src/main/preview-head.ts#L62-L155 */
+
+  /**
+   * Euclid
+   */
+
+
+  /* Semibold */
+  @font-face {
+    font-family: 'Euclid Circular A';
+    src: url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-Semibold-WebXL.woff') format('woff'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-Semibold-WebXL.woff2') format('woff2'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-Semibold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+
+  /* Semibold Italic */
+  @font-face {
+    font-family: 'Euclid Circular A';
+    src: url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-SemiboldItalic-WebXL.woff') format('woff'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-SemiboldItalic-WebXL.woff2') format('woff2'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-SemiboldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+  }
+
+
+  /* Medium */
+  @font-face {
+    font-family: 'Euclid Circular A';
+    src: url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-Medium-WebXL.woff') format('woff'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-Medium-WebXL.woff2') format('woff2'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+
+  /* Medium Italic */
+  @font-face {
+    font-family: 'Euclid Circular A';
+    src: url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-MediumItalic-WebXL.woff') format('woff'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-MediumItalic-WebXL.woff2') format('woff2'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+  }
+
+
+  /* Normal */
+  @font-face {
+    font-family: 'Euclid Circular A';
+    src: url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-Regular-WebXL.woff') format('woff'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-Regular-WebXL.woff2') format('woff2'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+
+  /* Italic */
+  @font-face {
+    font-family: 'Euclid Circular A';
+    src: url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-RegularItalic-WebXL.woff') format('woff'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-RegularItalic-WebXL.woff2') format('woff2'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-RegularItalic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+  }
+
+
+  /**
+   * Value Serif
+   */
+
+
+  /* Bold */
+  @font-face {
+    font-family: 'MongoDB Value Serif';
+    font-weight: 700;
+    src: url('https://d2va9gm4j17fy9.cloudfront.net/fonts/value-serif/MongoDBValueSerif-Bold.woff') format('woff'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/value-serif/MongoDBValueSerif-Bold.woff2') format('woff2'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/value-serif/MongoDBValueSerif-Bold.ttf') format('truetype');
+  }
+
+
+  /* Medium */
+  @font-face {
+    font-family: 'MongoDB Value Serif';
+    font-weight: 500;
+    src: url('https://d2va9gm4j17fy9.cloudfront.net/fonts/value-serif/MongoDBValueSerif-Medium.woff') format('woff'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/value-serif/MongoDBValueSerif-Medium.woff2') format('woff2'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/value-serif/MongoDBValueSerif-Medium.ttf') format('truetype');
+  }
+
+
+  /* Normal */
+  @font-face {
+    font-family: 'MongoDB Value Serif';
+    font-weight: 400;
+    src: url('https://d2va9gm4j17fy9.cloudfront.net/fonts/value-serif/MongoDBValueSerif-Regular.woff') format('woff'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/value-serif/MongoDBValueSerif-Regular.woff2') format('woff2'),
+      url('https://d2va9gm4j17fy9.cloudfront.net/fonts/value-serif/MongoDBValueSerif-Regular.ttf') format('truetype');
+  }
+</style>
+`;
 
 export const stories = ["../src/**/*.stories.@(js|jsx|ts|tsx)"];
 

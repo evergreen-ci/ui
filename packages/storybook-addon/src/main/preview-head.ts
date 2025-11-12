@@ -1,5 +1,136 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import { fontStyles, resetStyles } from "@evg-ui/lib/src/components/styles";
+
+// Inline the styles to avoid importing emotion/React dependencies during preset loading
+const resetStyles = `
+  /* Reset styles, usage recommended by LeafyGreen. */
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+`;
+
+const fontStyles = `
+  /* Euclid Circular A - Semibold */
+  @font-face {
+    font-family: "Euclid Circular A";
+    font-weight: 700;
+    font-style: normal;
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff2")
+        format("woff2"),
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff")
+        format("woff");
+  }
+
+  /* Euclid Circular A - Semibold Italic */
+  @font-face {
+    font-family: "Euclid Circular A";
+    font-weight: 700;
+    font-style: italic;
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-SemiboldItalic-WebXL.woff2")
+        format("woff2"),
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-SemiboldItalic-WebXL.woff")
+        format("woff");
+  }
+
+  /* Euclid Circular A - Medium */
+  @font-face {
+    font-family: "Euclid Circular A";
+    font-weight: 500;
+    font-style: normal;
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff2")
+        format("woff2"),
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff")
+        format("woff");
+  }
+
+  /* Euclid Circular A - Medium Italic */
+  @font-face {
+    font-family: "Euclid Circular A";
+    font-weight: 500;
+    font-style: italic;
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-MediumItalic-WebXL.woff2")
+        format("woff2"),
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-MediumItalic-WebXL.woff")
+        format("woff");
+  }
+
+  /* Euclid Circular A - Regular */
+  @font-face {
+    font-family: "Euclid Circular A";
+    font-weight: 400;
+    font-style: normal;
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff2")
+        format("woff2"),
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff")
+        format("woff");
+  }
+
+  /* Euclid Circular A - Italic */
+  @font-face {
+    font-family: "Euclid Circular A";
+    font-weight: 400;
+    font-style: italic;
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-RegularItalic-WebXL.woff2")
+        format("woff2"),
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-RegularItalic-WebXL.woff")
+        format("woff");
+  }
+
+  /* MongoDB Value Serif - Bold */
+  @font-face {
+    font-family: "MongoDB Value Serif";
+    font-weight: 700;
+    font-style: normal;
+    src:
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Bold.woff2")
+        format("woff2"),
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Bold.woff")
+        format("woff");
+  }
+
+  /* MongoDB Value Serif - Medium */
+  @font-face {
+    font-family: "MongoDB Value Serif";
+    font-weight: 500;
+    font-style: normal;
+    src:
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Medium.woff2")
+        format("woff2"),
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Medium.woff")
+        format("woff");
+  }
+
+  /* MongoDB Value Serif - Regular */
+  @font-face {
+    font-family: "MongoDB Value Serif";
+    font-weight: 400;
+    font-style: normal;
+    src:
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff2")
+        format("woff2"),
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff")
+        format("woff");
+  }
+
+  /* Source Code Pro - Regular */
+  @font-face {
+    font-family: "Source Code Pro";
+    font-weight: 400;
+    font-style: normal;
+    src:
+      url("/static/fonts/SourceCodePro/SourceCodePro-Regular.otf.woff2")
+        format("woff2"),
+      url("/static/fonts/SourceCodePro/SourceCodePro-Regular.otf.woff")
+        format("woff");
+  }
+`;
 
 export const previewHead: StorybookConfig["previewHead"] = (head) => `
 ${head}

@@ -4,7 +4,7 @@ import path from "path";
 import { act, render, stubGetClientRects } from "@evg-ui/lib/test_utils";
 import snapshotSerializer from "@evg-ui/lib/test_utils/snapshotSerializer";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { projectAnnotations } from "@evg-ui/storybook-addon";
+import { projectAnnotations } from "@evg-ui/storybook-addon/preview";
 import * as previewAnnotations from "../.storybook/preview";
 
 expect.addSnapshotSerializer(snapshotSerializer);
