@@ -103,34 +103,48 @@ const extractActionName = (unionMember: ts.TypeLiteralNode): string | null => {
 };
 
 /**
- * Extracts actions from a union type
- * @param typeNode - The type alias declaration containing the Action union type
+ * Extracts actions from a union type or single type literal
+ * @param typeNode - The type alias declaration containing the Action type
  * @returns Array of extracted actions
  */
 const extractActions = (typeNode: ts.TypeAliasDeclaration): Action[] => {
   const actions: Action[] = [];
 
-  if (!typeNode.type || !ts.isUnionTypeNode(typeNode.type)) {
+  if (!typeNode.type) {
     return actions;
   }
 
-  for (const unionMember of typeNode.type.types) {
-    if (!ts.isTypeLiteralNode(unionMember)) {
-      continue;
+  // Handle union type (multiple actions)
+  if (ts.isUnionTypeNode(typeNode.type)) {
+    for (const unionMember of typeNode.type.types) {
+      if (!ts.isTypeLiteralNode(unionMember)) {
+        continue;
+      }
+
+      const actionName = extractActionName(unionMember);
+      if (!actionName) {
+        continue;
+      }
+
+      // Extract all properties
+      const properties = extractProperties(unionMember);
+
+      actions.push({
+        name: actionName,
+        properties: properties.filter((p) => p.name !== ACTION_NAME_PROPERTY), // Exclude 'name' from properties list
+      });
     }
-
-    const actionName = extractActionName(unionMember);
-    if (!actionName) {
-      continue;
+  }
+  // Handle single type literal (single action)
+  else if (ts.isTypeLiteralNode(typeNode.type)) {
+    const actionName = extractActionName(typeNode.type);
+    if (actionName) {
+      const properties = extractProperties(typeNode.type);
+      actions.push({
+        name: actionName,
+        properties: properties.filter((p) => p.name !== ACTION_NAME_PROPERTY), // Exclude 'name' from properties list
+      });
     }
-
-    // Extract all properties
-    const properties = extractProperties(unionMember);
-
-    actions.push({
-      name: actionName,
-      properties: properties.filter((p) => p.name !== ACTION_NAME_PROPERTY), // Exclude 'name' from properties list
-    });
   }
 
   return actions;
