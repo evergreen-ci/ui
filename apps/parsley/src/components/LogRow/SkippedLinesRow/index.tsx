@@ -24,26 +24,22 @@ const SkippedLinesRow: React.FC<SkippedLinesRowProps> = ({
   const { end, start } = range;
   const numSkipped = end - start;
   const lineEndInclusive = end - 1;
-  const canExpandFive = SKIP_NUMBER * 2 < numSkipped;
   const lineText =
     numSkipped !== 1 ? `${numSkipped} Lines Skipped` : "1 Line Skipped";
 
-  const expandFive = () => {
-    if (canExpandFive) {
-      startTransition(() =>
-        expandLines([
-          [start, start + (SKIP_NUMBER - 1)],
-          [lineEndInclusive - (SKIP_NUMBER - 1), lineEndInclusive],
-        ]),
-      );
-    } else {
-      startTransition(() => expandLines([[start, lineEndInclusive]]));
-    }
+  const expand = (direction: "above" | "below") => {
+    startTransition(() =>
+      expandLines([
+        direction === "above"
+          ? [start, start + (SKIP_NUMBER - 1)]
+          : [lineEndInclusive - (SKIP_NUMBER - 1), lineEndInclusive],
+      ]),
+    );
     sendEvent({
-      "line.count": canExpandFive ? SKIP_NUMBER * 2 : numSkipped,
+      "line.count": SKIP_NUMBER < numSkipped ? SKIP_NUMBER : numSkipped,
       name: "Toggled expanded lines",
       open: true,
-      option: "Five",
+      option: `${SKIP_NUMBER} ${direction}`,
     });
   };
 
@@ -69,11 +65,18 @@ const SkippedLinesRow: React.FC<SkippedLinesRowProps> = ({
           All
         </Button>
         <Button
-          leftGlyph={<Icon glyph="UpDownCarets" />}
-          onClick={expandFive}
+          leftGlyph={<Icon glyph="CaretUp" />}
+          onClick={() => expand("above")}
           size="xsmall"
         >
-          {SKIP_NUMBER} Above & Below
+          {SKIP_NUMBER} Above
+        </Button>
+        <Button
+          leftGlyph={<Icon glyph="CaretDown" />}
+          onClick={() => expand("below")}
+          size="xsmall"
+        >
+          {SKIP_NUMBER} Below
         </Button>
       </ButtonContainer>
     </LineWrapper>
