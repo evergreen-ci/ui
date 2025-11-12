@@ -80,6 +80,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-value-input").type(pubKey2, { delay: 0 });
       cy.contains("button", "Save").click();
       cy.dataCy("key-edit-modal").should("not.be.visible");
+      cy.validateToast("success", "Updated public key.");
       cy.dataCy("table-key-name").eq(1).contains(keyName4);
       cy.dataCy("edit-btn").eq(1).click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
@@ -88,6 +89,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-value-input").type(pubKey3, { delay: 0 });
       cy.contains("button", "Save").click();
       cy.dataCy("key-edit-modal").should("not.be.visible");
+      cy.validateToast("success", "Updated public key.");
       cy.dataCy("table-key-name").eq(1).contains(keyName4);
       cy.dataCy("edit-btn").eq(1).click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
@@ -96,6 +98,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-value-input").type(pubKey4, { delay: 0 });
       cy.contains("button", "Save").click();
       cy.dataCy("key-edit-modal").should("not.be.visible");
+      cy.validateToast("success", "Updated public key.");
       cy.dataCy("table-key-name").eq(1).contains(keyName4);
       cy.dataCy("edit-btn").eq(1).click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
