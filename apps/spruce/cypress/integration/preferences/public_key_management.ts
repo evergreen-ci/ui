@@ -19,6 +19,7 @@ describe("Public Key Management Page", () => {
     it("Displays empty message", () => {
       cy.dataCy("delete-btn").first().click();
       cy.contains("button", "Yes").click();
+      cy.dataCy("table-key-name").should("have.length", 1);
       cy.dataCy("delete-btn").first().click();
       cy.contains("button", "Yes").click();
       cy.contains("No keys saved.");
@@ -65,6 +66,7 @@ describe("Public Key Management Page", () => {
     beforeEach(() => {
       cy.visit(route);
       cy.dataCy("edit-btn").first().click();
+      cy.dataCy("key-edit-modal").should("be.visible");
     });
     it("Should not have any errors when the modal opens", () => {
       cy.dataCy("error-message").should("have.length", 0);
