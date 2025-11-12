@@ -53,7 +53,7 @@ buildvariants:
       mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.11.0.tgz
       mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.0.4.tgz
       mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.3.1-linux-x64.tgz
-      node_version: 22.14.0
+      node_version: 22.18.0
     modules:
       - evergreen
       - logkeeper
@@ -79,7 +79,7 @@ buildvariants:
       mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.11.0.tgz
       mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.0.4.tgz
       mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.3.1-linux-x64.tgz
-      node_version: 22.14.0
+      node_version: 22.18.0
     run_on:
       - ubuntu2204-large
       - ubuntu2204-small
@@ -105,7 +105,7 @@ buildvariants:
     expansions:
       app_dir: packages/lib
       goroot: /opt/golang/go1.24
-      node_version: 22.14.0
+      node_version: 22.18.0
     run_on:
       - ubuntu2204-large
       - ubuntu2204-small
@@ -124,7 +124,7 @@ buildvariants:
     expansions:
       app_dir: packages/deploy-utils
       goroot: /opt/golang/go1.24
-      node_version: 22.14.0
+      node_version: 22.18.0
     run_on:
       - ubuntu2204-large
       - ubuntu2204-small
@@ -138,7 +138,7 @@ buildvariants:
     expansions:
       app_dir: packages/fungi
       goroot: /opt/golang/go1.24
-      node_version: 22.14.0
+      node_version: 22.18.0
     run_on:
       - ubuntu2204-large
       - ubuntu2204-small
@@ -152,7 +152,7 @@ buildvariants:
     display_name: Analytics Visualizer
     expansions:
       app_dir: packages/analytics-visualizer
-      node_version: 22.14.0
+      node_version: 22.18.0
     run_on:
       - ubuntu2204-large
       - ubuntu2204-small
@@ -175,7 +175,7 @@ buildvariants:
     display_name: Deploys
     allowed_requesters: ["patch"]
     expansions:
-      node_version: 22.14.0
+      node_version: 22.18.0
     run_on:
       - ubuntu2204-large
     tasks:
