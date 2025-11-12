@@ -87,9 +87,7 @@ const extractProperties = (node: ts.TypeLiteralNode): ActionProperty[] => {
  * @param unionMember - The type literal node to search
  * @returns The action name string if found, null otherwise
  */
-const extractActionName = (
-  unionMember: ts.TypeLiteralNode,
-): string | null => {
+const extractActionName = (unionMember: ts.TypeLiteralNode): string | null => {
   for (const member of unionMember.members) {
     if (
       ts.isPropertySignature(member) &&
@@ -144,12 +142,13 @@ const extractActions = (typeNode: ts.TypeAliasDeclaration): Action[] => {
  * @returns True if this is a useAnalyticsRoot call
  */
 const isUseAnalyticsRootCall = (expression: ts.Expression): boolean => {
-  const name = ts.isIdentifier(expression)
-    ? expression.getText()
-    : ts.isPropertyAccessExpression(expression)
-      ? expression.name.getText()
-      : null;
-  return name === USE_ANALYTICS_ROOT_HOOK;
+  if (ts.isIdentifier(expression)) {
+    return expression.getText() === USE_ANALYTICS_ROOT_HOOK;
+  }
+  if (ts.isPropertyAccessExpression(expression)) {
+    return expression.name.getText() === USE_ANALYTICS_ROOT_HOOK;
+  }
+  return false;
 };
 
 /**

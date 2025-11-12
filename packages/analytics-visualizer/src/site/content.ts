@@ -21,9 +21,16 @@ const generateAction = (
   action: Action,
   options: Required<AnalyticsVisualizerOptions>,
 ): string => {
-  const honeycombUrl = generateHoneycombUrl(action.name, options.honeycombBaseUrl);
-  const githubUrl = generateGitHubSearchUrl(action.name, options.githubOwner, options.githubRepo);
-  
+  const honeycombUrl = generateHoneycombUrl(
+    action.name,
+    options.honeycombBaseUrl,
+  );
+  const githubUrl = generateGitHubSearchUrl(
+    action.name,
+    options.githubOwner,
+    options.githubRepo,
+  );
+
   return `
           <article data-action-name="${action.name.toLowerCase()}" data-properties="${action.properties.map((p) => p.name.toLowerCase()).join(" ")}">
             <header>
@@ -73,7 +80,7 @@ const generateSection = (
     options.githubRepo,
     options.githubBranch,
   );
-  
+
   return `
         <section id="identifier-${item.identifier}" data-identifier="${item.identifier}">
           <header>
@@ -101,8 +108,7 @@ const generateSection = (
 export const generateContent = (
   sortedData: IdentifierData[],
   options: Required<AnalyticsVisualizerOptions>,
-): string => {
-  return `
+): string => `
     <main>
       <div class="content" id="content">
         ${sortedData.map((item) => generateSection(item, options)).join("")}
@@ -113,5 +119,3 @@ export const generateContent = (
       </div>
     </main>
   `;
-};
-

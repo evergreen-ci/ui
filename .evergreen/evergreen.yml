@@ -147,6 +147,19 @@ buildvariants:
       - name: test
       - name: type_check
 
+  - name: analytics-visualizer
+    display_name: Analytics Visualizer
+    expansions:
+      app_dir: packages/analytics-visualizer
+      node_version: 22.14.0
+    run_on:
+      - ubuntu2204-large
+      - ubuntu2204-small
+    tasks:
+      - name: lint
+      - name: test
+      - name: type_check
+
   - name: generator
     display_name: Generator
     patch_only: true
@@ -176,8 +189,7 @@ buildvariants:
     run_on:
       - ubuntu2204-small
     tasks:
-      - name: write_and_set_downstream_expansions           
-
+      - name: write_and_set_downstream_expansions
 
 parameters:
   - key: cypress_spec

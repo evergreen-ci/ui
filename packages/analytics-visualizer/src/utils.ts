@@ -135,4 +135,3 @@ export const generateGitHubFileUrl = (
   const relativePath = path.relative(process.cwd(), filePath);
   return `https://github.com/${githubOwner}/${githubRepo}/blob/${githubBranch}/${relativePath.replace(/\\/g, "/")}`;
 };
-

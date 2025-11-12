@@ -16,6 +16,7 @@ const Tasks = {
  * corresponding tasks.
  */
 const TASK_MAPPING = {
+  "analytics-visualizer": [Tasks.Lint, Tasks.Test, Tasks.TypeCheck],
   "deploy-utils": [Tasks.Lint, Tasks.Test, Tasks.TypeCheck],
   fungi: [Tasks.Lint, Tasks.Storybook, Tasks.Test, Tasks.TypeCheck],
   lib: [

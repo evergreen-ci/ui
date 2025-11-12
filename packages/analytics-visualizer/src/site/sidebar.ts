@@ -12,8 +12,7 @@ export const generateSidebar = (
   sortedData: IdentifierData[],
   actionPrefixes: string[],
   options: Required<AnalyticsVisualizerOptions>,
-): string => {
-  return `
+): string => `
     <aside>
       <header>
         <h1>${escapeHtml(options.appName)} Analytics</h1>
@@ -49,5 +48,3 @@ export const generateSidebar = (
       </nav>
     </aside>
   `;
-};
-

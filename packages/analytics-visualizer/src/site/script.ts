@@ -160,4 +160,3 @@ export const SCRIPT = `
     const prefixFilterSelect = document.getElementById('prefixFilterSelect');
     prefixFilterSelect.addEventListener('change', applyFilters);
   `;
-

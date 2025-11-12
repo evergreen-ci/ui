@@ -1,9 +1,9 @@
-import type { IdentifierData, AnalyticsVisualizerOptions } from "./types.ts";
-import { extractActionPrefixes, escapeHtml } from "./utils.ts";
-import { CSS } from "./site/styles.ts";
+import { generateContent } from "./site/content.ts";
 import { SCRIPT } from "./site/script.ts";
 import { generateSidebar } from "./site/sidebar.ts";
-import { generateContent } from "./site/content.ts";
+import { CSS } from "./site/styles.ts";
+import type { IdentifierData, AnalyticsVisualizerOptions } from "./types.ts";
+import { extractActionPrefixes, escapeHtml } from "./utils.ts";
 
 /**
  * Generates HTML content for the analytics visualization

@@ -269,4 +269,3 @@ export const CSS = `
       background: var(--color-gray-scrollbar);
     }
   `;
-
