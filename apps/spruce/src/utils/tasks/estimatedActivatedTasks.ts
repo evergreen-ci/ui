@@ -1,5 +1,4 @@
 import { GeneratedTaskCountResults, VariantTask } from "gql/generated/types";
-import { versionSelectedTasks } from "hooks/useVersionTaskStatusSelect";
 import { VariantTasksState } from "pages/configurePatch/configurePatchCore/useConfigurePatch/types";
 
 /**
@@ -72,27 +71,24 @@ export const sumActivatedTasksInVariantsTasks = (
  * `sumActivatedTasksInSelectedTasks` Computes tasks for the "Restart Version" modal.
  * Sums the number tasks that are both present the provided `versionSelectedTasks`, with the total `estimatedTasks` from the `GeneratedTaskCounts`
  * array for those tasks`.
- * @param selectedTasks - A versionSelectedTasks object representing the tasks that are currently selected on the page.
+ * @param selectedTasks - Array of sets representing the tasks that are currently selected on the page.
  * @param generatedTaskCounts - An array of objects containing info on the estimated number of tasks that each generator task (a task that calls generate.tasks)
  *  will schedule, including the `taskId`, `buildVariantName`, `taskName`, and `estimatedTasks`.
  * @returns The total sum of tasks that are selected in the `selectedTasks` map and their corresponding `estimatedTasks` that exist in
  * the `generatedTaskCounts` array.
  */
 export const sumActivatedTasksInSelectedTasks = (
-  selectedTasks: versionSelectedTasks,
+  selectedTasks: Set<string>[],
   generatedTaskCounts: GeneratedTaskCountResults[],
 ) =>
   // Sum the total estimated tasks from the selected tasks
-  Object.entries(selectedTasks).reduce(
-    (total, [, tasks]) =>
-      Object.entries(tasks).reduce((innerTotal, [taskId, isSelected]) => {
-        if (isSelected) {
-          const generatedTaskCount =
-            generatedTaskCounts.find((count) => count.taskId === taskId)
-              ?.estimatedTasks || 0;
-          return innerTotal + 1 + generatedTaskCount;
-        }
-        return innerTotal;
+  selectedTasks.reduce(
+    (total, tasks) =>
+      Array.from(tasks).reduce((innerTotal, taskId) => {
+        const generatedTaskCount =
+          generatedTaskCounts.find((count) => count.taskId === taskId)
+            ?.estimatedTasks || 0;
+        return innerTotal + 1 + generatedTaskCount;
       }, total),
     0,
   );
