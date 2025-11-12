@@ -23,6 +23,7 @@ pre:
   - func: yarn-install
 
 post:
+  - func: attach-analytics-visualizer
   - func: assume-ec2-role
   - func: attach-codegen-diff
   - func: attach-cypress-results
