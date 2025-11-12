@@ -114,7 +114,8 @@ const getProjectConfig = () => {
       analyticsVisualizer({
         analyticsDir: "src/analytics",
         appName: "Spruce",
-        honeycombBaseUrl: `${process.env.REACT_APP_HONEYCOMB_BASE_URL}/datasets/spruce`,
+        honeycombBaseUrl:
+          "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/spruce",
       }),
       sentryVitePlugin({
         org: "mongodb-org",
