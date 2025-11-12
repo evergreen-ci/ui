@@ -103,8 +103,8 @@ functions:
       aws_key: ${AWS_ACCESS_KEY_ID}
       aws_secret: ${AWS_SECRET_ACCESS_KEY}
       aws_session_token: ${AWS_SESSION_TOKEN}
-      local_file: "ui/${app_dir}/dist/analytics-visualization.html"
-      remote_file: ${build_variant}/${task_id}/${execution}/analytics-visualization.html
+      local_file: "ui/${app_dir}/dist/analytics.html"
+      remote_file: ${build_variant}/${task_id}/${execution}/analytics.html
       bucket: evg-bucket-evergreen-ui
       content_type: text/html
       permissions: public-read

@@ -18,7 +18,7 @@ export type IdentifierData = {
 export type AnalyticsVisualizerOptions = {
   /** Path to the analytics directory (relative to project root or absolute) */
   analyticsDir: string;
-  /** Output file name (default: "analytics-visualization.html") */
+  /** Output file name (default: "analytics.html") */
   outputFileName?: string;
   /** App name to display in the UI (e.g., "Parsley", "Spruce") */
   appName: string;

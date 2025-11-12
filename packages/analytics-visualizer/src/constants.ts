@@ -20,7 +20,7 @@ export const DEFAULT_GITHUB_CONFIG = {
 } as const;
 
 /** Default output file name */
-export const DEFAULT_OUTPUT_FILE_NAME = "analytics-visualization.html";
+export const DEFAULT_OUTPUT_FILE_NAME = "analytics.html";
 
 /** Type name to look for in analytics files */
 export const ACTION_TYPE_NAME = "Action";

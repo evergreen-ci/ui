@@ -23,7 +23,7 @@ export default defineConfig({
 - `analyticsDir` (required): Path to the analytics directory (relative to project root or absolute)
 - `appName` (required): App name to display in the UI (e.g., "Parsley", "Spruce")
 - `honeycombBaseUrl` (required): Honeycomb base URL including dataset path (e.g., "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/parsley")
-- `outputFileName` (optional): Output file name (default: "analytics-visualization.html")
+- `outputFileName` (optional): Output file name (default: "analytics.html")
 - `githubOwner` (optional): GitHub repository owner (default: "evergreen-ci")
 - `githubRepo` (optional): GitHub repository name (default: "ui")
 - `githubBranch` (optional): GitHub branch (default: "main")
