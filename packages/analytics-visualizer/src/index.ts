@@ -28,20 +28,18 @@ import type { AnalyticsVisualizerOptions } from "./types.ts";
  *     analyticsVisualizer({
  *       analyticsDir: "src/analytics",
  *       appName: "Parsley",
- *       honeycombDataset: "parsley",
+ *       honeycombBaseUrl: `${process.env.REACT_APP_HONEYCOMB_BASE_URL}/datasets/parsley`,
  *     }),
  *   ],
  * });
  * ```
  */
-export default function analyticsVisualizer(
-  options: AnalyticsVisualizerOptions,
-): Plugin {
+const analyticsVisualizer = (options: AnalyticsVisualizerOptions): Plugin => {
   const resolvedOptions: Required<AnalyticsVisualizerOptions> = {
     analyticsDir: options.analyticsDir,
     outputFileName: options.outputFileName || DEFAULT_OUTPUT_FILE_NAME,
     appName: options.appName,
-    honeycombDataset: options.honeycombDataset,
+    honeycombBaseUrl: options.honeycombBaseUrl,
     githubOwner: options.githubOwner || DEFAULT_GITHUB_CONFIG.owner,
     githubRepo: options.githubRepo || DEFAULT_GITHUB_CONFIG.repo,
     githubBranch: options.githubBranch || DEFAULT_GITHUB_CONFIG.branch,
@@ -61,28 +59,10 @@ export default function analyticsVisualizer(
           ? resolvedOptions.analyticsDir
           : path.resolve(process.cwd(), resolvedOptions.analyticsDir);
 
-        if (!fs.existsSync(analyticsDir)) {
-          console.warn(
-            `[analyticsVisualizer] Analytics directory not found: ${analyticsDir}`,
-          );
-          return;
-        }
-
         const data = scanAnalyticsDirectory(analyticsDir);
-
-        if (data.length === 0) {
-          console.warn(
-            `[analyticsVisualizer] No analytics data found in ${analyticsDir}`,
-          );
-          return;
-        }
-
         const html = generateHTML(data, resolvedOptions);
 
-        // Ensure output directory exists
-        if (!fs.existsSync(outputDir)) {
-          fs.mkdirSync(outputDir, { recursive: true });
-        }
+        fs.mkdirSync(outputDir, { recursive: true });
 
         const outputPath = path.resolve(
           outputDir,
@@ -98,4 +78,6 @@ export default function analyticsVisualizer(
       }
     },
   };
-}
+};
+
+export default analyticsVisualizer;

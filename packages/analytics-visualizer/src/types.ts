@@ -22,8 +22,8 @@ export type AnalyticsVisualizerOptions = {
   outputFileName?: string;
   /** App name to display in the UI (e.g., "Parsley", "Spruce") */
   appName: string;
-  /** Honeycomb dataset name (e.g., "parsley", "spruce") */
-  honeycombDataset: string;
+  /** Honeycomb base URL (e.g., "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/parsley") */
+  honeycombBaseUrl: string;
   /** GitHub repository owner (default: "evergreen-ci") */
   githubOwner?: string;
   /** GitHub repository name (default: "ui") */

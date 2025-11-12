@@ -12,7 +12,7 @@ export default defineConfig({
     analyticsVisualizer({
       analyticsDir: "src/analytics",
       appName: "Parsley",
-      honeycombDataset: "parsley",
+      honeycombBaseUrl: "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/parsley",
     }),
   ],
 });
@@ -22,7 +22,7 @@ export default defineConfig({
 
 - `analyticsDir` (required): Path to the analytics directory (relative to project root or absolute)
 - `appName` (required): App name to display in the UI (e.g., "Parsley", "Spruce")
-- `honeycombDataset` (required): Honeycomb dataset name (e.g., "parsley", "spruce")
+- `honeycombBaseUrl` (required): Honeycomb base URL including dataset path (e.g., "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/parsley")
 - `outputFileName` (optional): Output file name (default: "analytics-visualization.html")
 - `githubOwner` (optional): GitHub repository owner (default: "evergreen-ci")
 - `githubRepo` (optional): GitHub repository name (default: "ui")

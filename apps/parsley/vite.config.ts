@@ -77,7 +77,7 @@ const getProjectConfig = () => {
       analyticsVisualizer({
         analyticsDir: "src/analytics",
         appName: "Parsley",
-        honeycombDataset: "parsley",
+        honeycombBaseUrl: `${process.env.REACT_APP_HONEYCOMB_BASE_URL}/datasets/parsley`,
       }),
       sentryVitePlugin({
         authToken: process.env.PARSLEY_SENTRY_AUTH_TOKEN,

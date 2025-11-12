@@ -6,23 +6,17 @@ import {
   ACTION_TYPE_NAME,
   USE_ANALYTICS_ROOT_HOOK,
   ACTION_NAME_PROPERTY,
+  TSCONFIG_FILE_NAME,
+  TYPESCRIPT_SOURCE_EXTENSIONS,
 } from "./constants.ts";
 import type { ActionProperty, Action, IdentifierData } from "./types.ts";
 
 /**
  * Extracts TypeScript type as a string representation
  * @param typeNode - The TypeScript type node to convert to a string
- * @param checker - Type checker instance (currently unused but kept for future use)
- * @param program - TypeScript program instance (currently unused but kept for future use)
- * @param _checker
- * @param _program
  * @returns String representation of the type
  */
-function getTypeString(
-  typeNode: ts.TypeNode,
-  _checker: ts.TypeChecker,
-  _program?: ts.Program,
-): string {
+const getTypeString = (typeNode: ts.TypeNode): string => {
   if (ts.isLiteralTypeNode(typeNode)) {
     if (ts.isStringLiteral(typeNode.literal)) {
       return `"${typeNode.literal.text}"`;
@@ -30,11 +24,13 @@ function getTypeString(
     if (ts.isNumericLiteral(typeNode.literal)) {
       return typeNode.literal.text;
     }
-    if (typeNode.literal.kind === ts.SyntaxKind.TrueKeyword) {
-      return "true";
-    }
-    if (typeNode.literal.kind === ts.SyntaxKind.FalseKeyword) {
-      return "false";
+    if (
+      typeNode.literal.kind === ts.SyntaxKind.TrueKeyword ||
+      typeNode.literal.kind === ts.SyntaxKind.FalseKeyword
+    ) {
+      return typeNode.literal.kind === ts.SyntaxKind.TrueKeyword
+        ? "true"
+        : "false";
     }
   }
 
@@ -43,13 +39,11 @@ function getTypeString(
   }
 
   if (ts.isUnionTypeNode(typeNode)) {
-    return typeNode.types
-      .map((t) => getTypeString(t, _checker, _program))
-      .join(" | ");
+    return typeNode.types.map((t) => getTypeString(t)).join(" | ");
   }
 
   if (ts.isArrayTypeNode(typeNode)) {
-    return `${getTypeString(typeNode.elementType, _checker, _program)}[]`;
+    return `${getTypeString(typeNode.elementType)}[]`;
   }
 
   if (ts.isTypeLiteralNode(typeNode)) {
@@ -57,20 +51,14 @@ function getTypeString(
   }
 
   return typeNode.getText();
-}
+};
 
 /**
  * Extracts properties from an object type literal
  * @param node - The type literal node containing properties
- * @param checker - Type checker instance
- * @param program - TypeScript program instance
  * @returns Array of extracted properties
  */
-function extractProperties(
-  node: ts.TypeLiteralNode,
-  checker: ts.TypeChecker,
-  program: ts.Program,
-): ActionProperty[] {
+const extractProperties = (node: ts.TypeLiteralNode): ActionProperty[] => {
   const properties: ActionProperty[] = [];
 
   for (const member of node.members) {
@@ -79,7 +67,7 @@ function extractProperties(
       const optional = !!member.questionToken;
 
       if (member.type) {
-        const typeString = getTypeString(member.type, checker, program);
+        const typeString = getTypeString(member.type);
         properties.push({
           name,
           type: typeString,
@@ -92,16 +80,16 @@ function extractProperties(
   }
 
   return properties;
-}
+};
 
 /**
- * Finds the action name property in a type literal node
+ * Extracts the action name from a type literal node
  * @param unionMember - The type literal node to search
- * @returns The name property signature if found, null otherwise
+ * @returns The action name string if found, null otherwise
  */
-function findActionNameProperty(
+const extractActionName = (
   unionMember: ts.TypeLiteralNode,
-): ts.PropertySignature | null {
+): string | null => {
   for (const member of unionMember.members) {
     if (
       ts.isPropertySignature(member) &&
@@ -110,24 +98,18 @@ function findActionNameProperty(
       ts.isLiteralTypeNode(member.type) &&
       ts.isStringLiteral(member.type.literal)
     ) {
-      return member;
+      return member.type.literal.text;
     }
   }
   return null;
-}
+};
 
 /**
  * Extracts actions from a union type
  * @param typeNode - The type alias declaration containing the Action union type
- * @param checker - Type checker instance
- * @param program - TypeScript program instance
  * @returns Array of extracted actions
  */
-function extractActions(
-  typeNode: ts.TypeAliasDeclaration,
-  checker: ts.TypeChecker,
-  program: ts.Program,
-): Action[] {
+const extractActions = (typeNode: ts.TypeAliasDeclaration): Action[] => {
   const actions: Action[] = [];
 
   if (!typeNode.type || !ts.isUnionTypeNode(typeNode.type)) {
@@ -139,18 +121,13 @@ function extractActions(
       continue;
     }
 
-    const nameProperty = findActionNameProperty(unionMember);
-    if (!nameProperty) {
+    const actionName = extractActionName(unionMember);
+    if (!actionName) {
       continue;
     }
 
-    // Type assertion is safe here because we've already checked the type
-    const nameLiteral = (nameProperty.type as ts.LiteralTypeNode)
-      .literal as ts.StringLiteral;
-    const actionName = nameLiteral.text;
-
     // Extract all properties
-    const properties = extractProperties(unionMember, checker, program);
+    const properties = extractProperties(unionMember);
 
     actions.push({
       name: actionName,
@@ -159,59 +136,58 @@ function extractActions(
   }
 
   return actions;
-}
+};
 
 /**
  * Checks if a call expression is a useAnalyticsRoot call
  * @param expression - The call expression to check
  * @returns True if this is a useAnalyticsRoot call
  */
-function isUseAnalyticsRootCall(expression: ts.Expression): boolean {
-  if (ts.isIdentifier(expression)) {
-    // Direct call: useAnalyticsRoot(...)
-    return expression.getText() === USE_ANALYTICS_ROOT_HOOK;
-  }
-  if (ts.isPropertyAccessExpression(expression)) {
-    // Property access: something.useAnalyticsRoot(...)
-    return expression.name.getText() === USE_ANALYTICS_ROOT_HOOK;
-  }
-  return false;
-}
+const isUseAnalyticsRootCall = (expression: ts.Expression): boolean => {
+  const name = ts.isIdentifier(expression)
+    ? expression.getText()
+    : ts.isPropertyAccessExpression(expression)
+      ? expression.name.getText()
+      : null;
+  return name === USE_ANALYTICS_ROOT_HOOK;
+};
 
 /**
  * Extracts identifier from useAnalyticsRoot call
  * @param sourceFile - The source file to search
  * @returns The identifier string if found, null otherwise
  */
-function extractIdentifier(sourceFile: ts.SourceFile): string | null {
-  let identifier: string | null = null;
-
-  const visit = (node: ts.Node) => {
+const extractIdentifier = (sourceFile: ts.SourceFile): string | null => {
+  const visit = (node: ts.Node): string | null => {
     if (ts.isCallExpression(node)) {
       if (isUseAnalyticsRootCall(node.expression)) {
         // Get the first argument (the identifier string)
-        if (node.arguments.length > 0) {
-          const arg = node.arguments[0];
-          if (ts.isStringLiteral(arg)) {
-            identifier = arg.text;
-            // Found it, but continue searching in case there are multiple calls
-          }
+        const arg = node.arguments[0];
+        if (arg && ts.isStringLiteral(arg)) {
+          return arg.text;
         }
       }
     }
 
-    ts.forEachChild(node, visit);
+    for (const child of node.getChildren()) {
+      const result = visit(child);
+      if (result) {
+        return result;
+      }
+    }
+
+    return null;
   };
 
-  visit(sourceFile);
-  return identifier;
-}
+  return visit(sourceFile);
+};
 
 /**
  * Parses a TypeScript file and extracts analytics data
- * @param filePath
+ * @param filePath - Absolute path to the TypeScript file to parse
+ * @returns Identifier data with actions if found, null otherwise
  */
-function parseAnalyticsFile(filePath: string): IdentifierData | null {
+const parseAnalyticsFile = (filePath: string): IdentifierData | null => {
   try {
     // Find project root and load tsconfig
     let currentDir = path.dirname(filePath);
@@ -219,7 +195,7 @@ function parseAnalyticsFile(filePath: string): IdentifierData | null {
     let tsconfigPath: string | null = null;
 
     while (currentDir !== path.dirname(currentDir)) {
-      const potentialTsconfig = path.join(currentDir, "tsconfig.json");
+      const potentialTsconfig = path.join(currentDir, TSCONFIG_FILE_NAME);
       if (fs.existsSync(potentialTsconfig)) {
         tsconfigPath = potentialTsconfig;
         projectRoot = currentDir;
@@ -240,7 +216,9 @@ function parseAnalyticsFile(filePath: string): IdentifierData | null {
     );
 
     if (tsconfig.error) {
-      return null;
+      throw new Error(
+        `Failed to parse tsconfig: ${tsconfig.error.messageText}`,
+      );
     }
 
     // Parse compiler options
@@ -263,109 +241,24 @@ function parseAnalyticsFile(filePath: string): IdentifierData | null {
       true,
     );
 
-    // Create a module resolution host
-    const moduleResolutionHost: ts.ModuleResolutionHost = {
-      fileExists: (fileName: string) => fs.existsSync(fileName),
-      readFile: (fileName: string) => fs.readFileSync(fileName, "utf-8"),
-      getCurrentDirectory: () => projectRoot!,
-    };
-
-    // Recursively collect all imported files using TypeScript's module resolution
-    const filesToInclude = new Set<string>();
-    const processedFiles = new Set<string>();
-
-    const collectImportsRecursively = (filePath: string) => {
-      if (processedFiles.has(filePath)) {
-        return; // Avoid cycles
-      }
-      processedFiles.add(filePath);
-      filesToInclude.add(filePath);
-
-      if (!fs.existsSync(filePath)) {
-        return;
-      }
-
-      const content = fs.readFileSync(filePath, "utf-8");
-      const fileSource = ts.createSourceFile(
-        filePath,
-        content,
-        compilerOptions.target || ts.ScriptTarget.Latest,
-        true,
-      );
-
-      const visit = (node: ts.Node) => {
-        // Handle both regular imports and type-only imports
-        if (ts.isImportDeclaration(node)) {
-          const { moduleSpecifier } = node;
-          if (moduleSpecifier && ts.isStringLiteral(moduleSpecifier)) {
-            const importPath = moduleSpecifier.text;
-
-            // Skip external packages
-            if (
-              importPath.startsWith("@evg-ui/") ||
-              importPath.startsWith("@")
-            ) {
-              return;
-            }
-
-            // Use TypeScript's module resolution
-            const resolved = ts.resolveModuleName(
-              importPath,
-              filePath,
-              compilerOptions,
-              moduleResolutionHost,
-            );
-
-            if (
-              resolved.resolvedModule &&
-              resolved.resolvedModule.resolvedFileName
-            ) {
-              const resolvedPath = resolved.resolvedModule.resolvedFileName;
-
-              // Only process TypeScript source files (not .d.ts or node_modules)
-              if (
-                resolvedPath.endsWith(".ts") ||
-                resolvedPath.endsWith(".tsx")
-              ) {
-                // Check if it's within the src directory
-                const srcDir = path.join(projectRoot!, "src");
-                if (resolvedPath.startsWith(srcDir)) {
-                  collectImportsRecursively(resolvedPath);
-                }
-              }
-            }
-          }
-        }
-        ts.forEachChild(node, visit);
-      };
-
-      visit(fileSource);
-    };
-
-    // Start collecting from the source file
-    collectImportsRecursively(filePath);
-
-    const filesArray = Array.from(filesToInclude);
-
-    const program = ts.createProgram(filesArray, compilerOptions);
-    const checker = program.getTypeChecker();
-
     // Find the Action type alias
-    let actionTypeNode: ts.TypeAliasDeclaration | null = null;
-
-    const visit = (node: ts.Node) => {
+    const findActionType = (node: ts.Node): ts.TypeAliasDeclaration | null => {
       if (
         ts.isTypeAliasDeclaration(node) &&
         node.name.getText() === ACTION_TYPE_NAME
       ) {
-        actionTypeNode = node;
-        // Found it, but continue searching in case there are multiple Action types
+        return node;
       }
-      ts.forEachChild(node, visit);
+      for (const child of node.getChildren()) {
+        const result = findActionType(child);
+        if (result) {
+          return result;
+        }
+      }
+      return null;
     };
 
-    visit(sourceFile);
-
+    const actionTypeNode = findActionType(sourceFile);
     if (!actionTypeNode) {
       return null;
     }
@@ -377,7 +270,7 @@ function parseAnalyticsFile(filePath: string): IdentifierData | null {
     }
 
     // Extract actions
-    const actions = extractActions(actionTypeNode, checker, program);
+    const actions = extractActions(actionTypeNode);
 
     if (actions.length === 0) {
       return null;
@@ -391,20 +284,23 @@ function parseAnalyticsFile(filePath: string): IdentifierData | null {
   } catch (error) {
     return null;
   }
-}
+};
 
 /**
  * Scans the analytics directory for all analytics files
- * @param analyticsDir
+ * @param analyticsDir - Path to the directory containing analytics files
+ * @returns Array of identifier data extracted from all analytics files
  */
-export function scanAnalyticsDirectory(analyticsDir: string): IdentifierData[] {
+export const scanAnalyticsDirectory = (
+  analyticsDir: string,
+): IdentifierData[] => {
   const results: IdentifierData[] = [];
 
   /**
-   *
-   * @param dir
+   * Recursively scans a directory for TypeScript analytics files
+   * @param dir - Directory path to scan
    */
-  function scanDir(dir: string) {
+  const scanDir = (dir: string) => {
     const entries = fs.readdirSync(dir, { withFileTypes: true });
 
     for (const entry of entries) {
@@ -414,8 +310,7 @@ export function scanAnalyticsDirectory(analyticsDir: string): IdentifierData[] {
         scanDir(fullPath);
       } else if (
         entry.isFile() &&
-        entry.name.endsWith(".ts") &&
-        !entry.name.endsWith(".d.ts") &&
+        TYPESCRIPT_SOURCE_EXTENSIONS.some((ext) => entry.name.endsWith(ext)) &&
         !EXCLUDED_FILES.includes(entry.name as (typeof EXCLUDED_FILES)[number])
       ) {
         const data = parseAnalyticsFile(fullPath);
@@ -424,8 +319,8 @@ export function scanAnalyticsDirectory(analyticsDir: string): IdentifierData[] {
         }
       }
     }
-  }
+  };
 
   scanDir(analyticsDir);
   return results;
-}
+};
