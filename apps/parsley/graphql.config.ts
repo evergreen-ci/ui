@@ -7,9 +7,7 @@ const config: CodegenConfig = {
       config: {
         arrayInputCoercion: false,
         scalars: {
-          BooleanMap: "{ [key: string]: unknown }",
           Duration: "number",
-          Map: "{ [key: string]: unknown }",
           StringMap: "{ [key: string]: unknown }",
           Time: "Date",
         },

@@ -11,7 +11,7 @@
  * @param redactedString The string to replace the key with if provided.
  * @returns The object with the key removed.
  */
-export function deleteNestedKey<T extends object>(
+export function deleteNestedKey<T extends { [key: string]: unknown }>(
   obj: T,
   keyToUpdate: string | string[],
   redactedString?: string,
@@ -32,6 +32,6 @@ export function deleteNestedKey<T extends object>(
       }
     });
   };
-  deleteKey(obj as { [key: string]: unknown });
+  deleteKey(obj);
   return obj;
 }

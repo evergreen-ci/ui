@@ -25,15 +25,9 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
-  BooleanMap: {
-    input: { [key: string]: unknown };
-    output: { [key: string]: unknown };
-  };
+  BooleanMap: { input: any; output: any };
   Duration: { input: number; output: number };
-  Map: {
-    input: { [key: string]: unknown };
-    output: { [key: string]: unknown };
-  };
+  Map: { input: any; output: any };
   StringMap: {
     input: { [key: string]: unknown };
     output: { [key: string]: unknown };
