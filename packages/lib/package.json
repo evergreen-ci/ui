@@ -7,7 +7,7 @@
     "check-types": "tsc -p tsconfig.json --noEmit",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
-    "eslint:strict": "STRICT=1 eslint .",
+    "eslint:strict": "STRICT=1 eslint --max-warnings 0 .",
     "snapshot": "vitest run snapshot.test.ts",
     "storybook": "storybook dev -p 6008",
     "storybook:build": "storybook build",

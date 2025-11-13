@@ -51,5 +51,5 @@ export interface Analytics<Action extends ActionType> {
 /**
  * `ExtractAnalyticsSendEvent` is a utility type that can be used to extract the sendEvent function from an analytics hook.
  */
-export type ExtractAnalyticsSendEvent<A extends () => Analytics<any>> =
+export type ExtractAnalyticsSendEvent<A extends () => Analytics<ActionType>> =
   ReturnType<A>["sendEvent"];
