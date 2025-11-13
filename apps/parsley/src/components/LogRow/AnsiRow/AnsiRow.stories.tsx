@@ -22,7 +22,7 @@ export default {
 type AnsiRowProps = React.FC<React.ComponentProps<typeof AnsiRow>>;
 
 // Single AnsiRow.
-const SingleLineStory = (args: any) => {
+const SingleLineStory = (args: React.ComponentProps<typeof AnsiRow>) => {
   const { ingestLines, scrollToLine } = useLogContext();
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export const SingleLine: CustomStoryObj<AnsiRowProps> = {
 };
 
 // Multiple AnsiRows.
-const MultiLineStory = (args: any) => {
+const MultiLineStory = (args: React.ComponentProps<typeof AnsiRow>) => {
   const { ingestLines, preferences, processedLogLines, setLogMetadata } =
     useLogContext();
   const { setWrap } = preferences;

@@ -149,7 +149,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
             <StyledTextInput
               aria-label="Edit filter name"
               aria-labelledby="Edit filter name"
-              autoFocus
+              autoFocus // eslint-disable-line jsx-a11y/no-autofocus
               data-cy="edit-filter-name"
               errorMessage={isNewExpressionValid ? "" : validationMessage}
               onChange={(e) => {
