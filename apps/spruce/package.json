@@ -26,7 +26,7 @@
     "dev": "env-cmd -e devLocal yarn start",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
-    "eslint:strict": "STRICT=1 eslint .",
+    "eslint:strict": "STRICT=1 eslint --max-warnings 62 .",
     "evg-db-ops": "../../scripts/evg-db-ops.sh",
     "postinstall": "yarn workspace @evg-ui/vite-utils run compile",
     "postversion": "yarn deploy-utils-postversion",

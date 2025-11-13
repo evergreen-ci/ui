@@ -24,7 +24,10 @@ const getErrorStyle = (
   versionControlEnabled: boolean,
   projectType: ProjectType,
   fieldName: string,
-): { "ui:warnings": string[] } | { "ui:errors": string[] } | {} => {
+):
+  | { "ui:warnings": string[] }
+  | { "ui:errors": string[] }
+  | Record<string, never> => {
   if (errorType === ErrorType.Warning) {
     const definitionLocation = getDefinitionLocation(projectType);
 

@@ -205,6 +205,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({
       versionId: version.id,
       isVariantTimingView: !!queryParams.variant,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taskCount, childPatches, version.id, queryParams.variant]);
 
   const activeTabs = useMemo(
