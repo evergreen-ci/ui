@@ -19,6 +19,7 @@ describe("Public Key Management Page", () => {
     it("Displays empty message", () => {
       cy.dataCy("delete-btn").first().click();
       cy.contains("button", "Yes").click();
+      cy.dataCy("table-key-name").should("have.length", 1);
       cy.dataCy("delete-btn").first().click();
       cy.contains("button", "Yes").click();
       cy.contains("No keys saved.");
@@ -27,18 +28,18 @@ describe("Public Key Management Page", () => {
 
   describe("Add New Key Modal", () => {
     beforeEach(() => {
+      cy.contains(keyName2).should("be.visible");
       cy.dataCy("add-key-button").click();
     });
+
     it("Displays errors when the modal opens", () => {
-      cy.dataCy("error-message").each(($el, index) =>
-        cy.wrap($el).contains([err1, err2][index]),
-      );
+      cy.contains(invalidSSHPublicKeyError).should("be.visible");
     });
 
     it("Error messages go away after typing valid input", () => {
       cy.dataCy("key-name-input").type(keyName3);
       cy.dataCy("key-value-input").type("ssh-dss someHash", { delay: 0 });
-      cy.dataCy("error-message").should("have.length", 0);
+      cy.contains(invalidSSHPublicKeyError).should("not.exist");
     });
 
     it("Should include the public in the public key list after adding", () => {
@@ -51,12 +52,13 @@ describe("Public Key Management Page", () => {
     });
 
     it("Should show an error if the key name already exists", () => {
+      cy.dataCy("key-name-input").clear();
       cy.dataCy("key-name-input").type(keyName2, { delay: 0 });
-      cy.dataCy("error-message").first().contains(err3);
+      cy.contains(duplicateKeyError);
     });
 
     it("Modal has correct title", () => {
-      cy.contains("Add Public Key");
+      cy.contains("Add Public Key").should("be.visible");
     });
   });
 
@@ -64,6 +66,7 @@ describe("Public Key Management Page", () => {
     beforeEach(() => {
       cy.visit(route);
       cy.dataCy("edit-btn").first().click();
+      cy.dataCy("key-edit-modal").should("be.visible");
     });
     it("Should not have any errors when the modal opens", () => {
       cy.dataCy("error-message").should("have.length", 0);
@@ -77,6 +80,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-value-input").type(pubKey2, { delay: 0 });
       cy.contains("button", "Save").click();
       cy.dataCy("key-edit-modal").should("not.be.visible");
+      cy.validateToast("success", "Updated public key.");
       cy.dataCy("table-key-name").eq(1).contains(keyName4);
       cy.dataCy("edit-btn").eq(1).click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
@@ -85,6 +89,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-value-input").type(pubKey3, { delay: 0 });
       cy.contains("button", "Save").click();
       cy.dataCy("key-edit-modal").should("not.be.visible");
+      cy.validateToast("success", "Updated public key.");
       cy.dataCy("table-key-name").eq(1).contains(keyName4);
       cy.dataCy("edit-btn").eq(1).click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
@@ -93,6 +98,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-value-input").type(pubKey4, { delay: 0 });
       cy.contains("button", "Save").click();
       cy.dataCy("key-edit-modal").should("not.be.visible");
+      cy.validateToast("success", "Updated public key.");
       cy.dataCy("table-key-name").eq(1).contains(keyName4);
       cy.dataCy("edit-btn").eq(1).click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
@@ -121,10 +127,9 @@ const keyName1 =
 const keyName2 = "bKey";
 const keyName3 = "a unique key name";
 const keyName4 = "stuff!";
-const err1 = "The key name cannot be empty.";
-const err2 =
-  "The SSH key must begin with 'ssh-rsa' or 'ssh-dss' or 'ssh-ed25519' or 'ecdsa-sha2-nistp256'.";
-const err3 = "The key name already exists.";
+
+const invalidSSHPublicKeyError = "Value should be a valid SSH public key.";
+const duplicateKeyError = "Duplicate key names are not allowed.";
 const pubKey =
   "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAklOUpkDHrfHY17SbrmTIpNLTGK9Tjom/BWDSUGPl+nafzlHDTYW7hdI4yZ5ew18JH4JW9jbhUFrviQzM7xlELEVf4h9lFX5QVkbPppSwg0cda3Pbv7kOdJ/MTyBlWXFCR+HAo3FXRitBqxiX1nKhXpHAZsMciLq8V6RjsNAQwdsdMFvSlVK/7XAt3FaoJoAsncM1Q9x5+3V0Ww68/eIFmb1zuUFljQJKprrX88XypNDvjYNby6vw/Pb0rwert/EnmZ+AW4OZPnTPI89ZPmVMLuayrD2cE86Z/il8b+gw3r3+1nKatmIkjn2so1d01QraTlMqVSsbxNrRFi9wrf+M7Q== schacon@mylaptop.local";
 const pubKey2 =

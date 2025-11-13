@@ -61,12 +61,7 @@ export const Reprovision: React.FC<Props> = ({
     <ConditionalWrapper
       condition={!canReprovision}
       wrapper={(children) => (
-        <Tooltip
-          align="top"
-          justify="middle"
-          trigger={children}
-          triggerEvent="hover"
-        >
+        <Tooltip trigger={children} triggerEvent="hover">
           {reprovisionTooltipMessage}
         </Tooltip>
       )}

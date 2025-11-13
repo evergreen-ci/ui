@@ -27,12 +27,17 @@ export const useKeyboardShortcut = (
   cb: () => void,
   options: UseKeyboardShortcutOptions = {},
 ): void => {
-  if (!keys.modifierKeys?.length && !keys.charKey) {
-    throw new Error("Must provide at least one key.");
-  }
+  // Validate keys in useEffect to avoid issues during render
+  useEffect(() => {
+    if (!keys.modifierKeys?.length && !keys.charKey) {
+      throw new Error("Must provide at least one key.");
+    }
+  }, [keys.modifierKeys, keys.charKey]);
 
   const cbRef = useRef(cb);
-  cbRef.current = cb;
+  useEffect(() => {
+    cbRef.current = cb;
+  }, [cb]);
 
   const {
     disabled = false,

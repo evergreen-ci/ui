@@ -22,13 +22,15 @@
             class="emotion-LabelWrapper e1yw4j303"
           >
             <p
-              class="emotion-OverflowBody e1yw4j300 leafygreen-ui-1tb6tuo"
+              class="emotion-OverflowBody e1yw4j300 leafygreen-ui-26vqpd"
               data-cy="dropdown-value"
             />
           </div>
         </div>
+        <span
+          class="leafygreen-ui-38lglc"
+        />
         <svg
-          alt=""
           aria-hidden="true"
           class="leafygreen-ui-15rby6h"
           fill="none"

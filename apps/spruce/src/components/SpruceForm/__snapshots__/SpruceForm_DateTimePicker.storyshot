@@ -3,6 +3,7 @@
     class="emotion-0"
   >
     <a
+      class="emotion-SpruceFormContainer"
       href="#periodic-builds"
       id="periodic-builds"
     >
@@ -13,7 +14,7 @@
       </h3>
     </a>
     <div
-      class="emotion-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
+      class="emotion-SettingsCard e1h7idos0 leafygreen-ui-1nx5jqg"
     >
       <form
         class="rjsf"
@@ -35,8 +36,9 @@
                 class="emotion-ElementWrapper ee4bs9n0"
               >
                 <label
-                  class="leafygreen-ui-ms04bw"
-                  data-lgid="lg-label"
+                  class="leafygreen-ui-vk2fo1"
+                  data-lgid="lg-typography-label"
+                  data-testid="lg-typography-label"
                   for="root_nextRunTime"
                 >
                   Next Run Time
@@ -54,7 +56,7 @@
                       class="leafygreen-ui-1iyoj2o"
                     />
                     <div
-                      aria-controls="lg-date-picker-menu-7"
+                      aria-controls="lg-date-picker-menu-133"
                       aria-expanded="false"
                       aria-invalid="false"
                       aria-label="date-picker"
@@ -70,7 +72,7 @@
                           aria-disabled="false"
                           aria-invalid="false"
                           class="leafygreen-ui-188k96w lg-ui-form-field-input-0000"
-                          id="lg-form_field-input-6"
+                          id="lg-form_field-input-132"
                         >
                           <input
                             aria-label="year"
@@ -87,6 +89,13 @@
                             type="text"
                             value="2025"
                           />
+                          <div
+                            aria-atomic="true"
+                            aria-live="polite"
+                            class="leafygreen-ui-wvo6b5"
+                          >
+                            year 2025
+                          </div>
                           <span
                             class="leafygreen-ui-15xv5ui"
                           >
@@ -107,6 +116,13 @@
                             type="text"
                             value="09"
                           />
+                          <div
+                            aria-atomic="true"
+                            aria-live="polite"
+                            class="leafygreen-ui-wvo6b5"
+                          >
+                            month 09
+                          </div>
                           <span
                             class="leafygreen-ui-15xv5ui"
                           >
@@ -127,6 +143,13 @@
                             type="text"
                             value="16"
                           />
+                          <div
+                            aria-atomic="true"
+                            aria-live="polite"
+                            class="leafygreen-ui-wvo6b5"
+                          >
+                            day 16
+                          </div>
                         </div>
                       </div>
                       <div
@@ -146,26 +169,24 @@
                           >
                             <svg
                               aria-label="Calendar Icon"
-                              class=""
-                              fill="none"
+                              class="leafygreen-ui-1st74h4"
                               height="16"
                               role="img"
                               viewBox="0 0 16 16"
                               width="16"
-                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M4 2a1 1 0 0 1 2 0v1a1 1 0 0 1-2 0z"
+                                d="M4 2C4 1.44772 4.44772 1 5 1C5.55228 1 6 1.44772 6 2V3C6 3.55228 5.55228 4 5 4C4.44772 4 4 3.55228 4 3V2Z"
                                 fill="currentColor"
                               />
                               <path
                                 clip-rule="evenodd"
-                                d="M9 3H7a2 2 0 1 1-4 0 2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2 2 2 0 1 1-4 0m3 4H9v3h3z"
+                                d="M9 3H7C7 4.10457 6.10457 5 5 5C3.89543 5 3 4.10457 3 3C1.89543 3 1 3.89543 1 5V12C1 13.1046 1.89543 14 3 14H13C14.1046 14 15 13.1046 15 12V5C15 3.89543 14.1046 3 13 3C13 4.10457 12.1046 5 11 5C9.89543 5 9 4.10457 9 3ZM12 7H9V10H12V7Z"
                                 fill="currentColor"
                                 fill-rule="evenodd"
                               />
                               <path
-                                d="M10 3a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0z"
+                                d="M10 3C10 3.55228 10.4477 4 11 4C11.5523 4 12 3.55228 12 3V2C12 1.44772 11.5523 1 11 1C10.4477 1 10 1.44772 10 2V3Z"
                                 fill="currentColor"
                               />
                             </svg>
@@ -179,7 +200,7 @@
                       class="leafygreen-ui-11ydt2g"
                       data-lgid="lg-form_field-feedback"
                       data-testid="lg-form_field-feedback"
-                      id="lg-form_field-feedback-5"
+                      id="lg-form_field-feedback-131"
                     />
                   </div>
                   <span
@@ -189,6 +210,8 @@
                     aria-label="Time picker form"
                     class="leafygreen-ui-1br9h7w"
                     data-cy="time-picker"
+                    data-lgid="lg-form_field"
+                    data-testid="lg-form_field"
                   >
                     <div
                       class="leafygreen-ui-1iyoj2o"
@@ -207,7 +230,7 @@
                           aria-invalid="false"
                           aria-label="Time picker form"
                           class="lg-ui-form-field-input-0000 emotion-ContentWrapper e9c2bxn0"
-                          id="lg-form_field-input-4"
+                          id="lg-form_field-input-137"
                         >
                           <input
                             class="emotion-StyledInput evefz8k0"
@@ -247,11 +270,8 @@
                             class="leafygreen-ui-xhlipt"
                           >
                             <svg
-                              aria-label="Clock Icon"
-                              class=""
                               fill="none"
                               height="16"
-                              role="img"
                               viewBox="0 0 16 16"
                               width="16"
                               xmlns="http://www.w3.org/2000/svg"
@@ -273,9 +293,12 @@
                       class="leafygreen-ui-11ydt2g"
                       data-lgid="lg-form_field-feedback"
                       data-testid="lg-form_field-feedback"
-                      id="lg-form_field-feedback-3"
+                      id="lg-form_field-feedback-136"
                     />
                   </div>
+                  <span
+                    class="leafygreen-ui-38lglc"
+                  />
                 </div>
               </div>
             </div>

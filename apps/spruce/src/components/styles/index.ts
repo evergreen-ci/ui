@@ -10,6 +10,7 @@ import {
   SiteLayout,
   PageLayout,
   PageSider,
+  SettingsPageContent,
   SideNavPageContent,
   SideNavPageWrapper,
   PageTitle,
@@ -39,6 +40,7 @@ export {
   SideNavPageContent,
   SideNavPageWrapper,
   SiderCard,
+  SettingsPageContent,
   globalStyles,
   GlobalStyles,
 };

@@ -59,6 +59,26 @@ describe("ExpiringAnnouncementTooltip", () => {
       expect(screen.queryByText("New Release")).not.toBeInTheDocument();
     });
 
+    it("closes the icon when the icon is clicked", async () => {
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+      render(
+        <ExpiringAnnouncementTooltip
+          cookieName="TEST_COOKIE"
+          title="New Release"
+        >
+          Try out this feature
+        </ExpiringAnnouncementTooltip>,
+      );
+
+      await waitFor(() => {
+        expect(screen.getByText("New Release")).toBeVisible();
+      });
+      await user.click(screen.getByDataCy("announcement-tooltip-trigger"));
+      await waitFor(() => {
+        expect(screen.queryByText("New Release")).not.toBeVisible();
+      });
+    });
+
     it("sets a cookie with the date upon close", async () => {
       const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
       vi.setSystemTime(fakeDate);
@@ -120,7 +140,7 @@ describe("ExpiringAnnouncementTooltip", () => {
       expect(mockedGet).toHaveBeenCalledOnce();
       expect(screen.queryByText("New Release")).not.toBeInTheDocument();
 
-      await user.click(screen.getByLabelText("Info With Circle Icon"));
+      await user.click(screen.getByDataCy("announcement-tooltip-trigger"));
       await waitFor(() => {
         expect(screen.getByText("New Release")).toBeVisible();
       });

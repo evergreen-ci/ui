@@ -20,7 +20,6 @@ import {
 } from "constants/routes";
 import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
 import { USER, SPRUCE_CONFIG } from "gql/queries";
-import { useLegacyUIURL } from "hooks";
 import { validators } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
@@ -31,7 +30,6 @@ const { blue, gray, white } = palette;
 
 export const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthProviderContext();
-  const legacyURL = useLegacyUIURL();
   const { sendEvent } = useNavbarAnalytics();
 
   const { data: userData } = useQuery<UserQuery>(USER);
@@ -97,15 +95,6 @@ export const Navbar: React.FC = () => {
         <AuxiliaryDropdown projectIdentifier={projectIdentifier} />
       </NavActionContainer>
       <NavActionContainer>
-        {legacyURL && (
-          <SecondaryLink
-            data-cy="legacy-ui-link"
-            href={legacyURL}
-            onClick={() => sendEvent({ name: "Clicked legacy UI link" })}
-          >
-            Switch to Legacy UI
-          </SecondaryLink>
-        )}
         <PrimaryAWithIcon
           href={wikiUrl}
           onClick={() => sendEvent({ name: "Clicked EVG wiki link" })}
@@ -167,18 +156,4 @@ const PrimaryAWithIcon = styled(PrimaryA)`
   > svg {
     margin-right: ${size.xxs};
   }
-`;
-
-const secondaryStyle = css`
-  color: ${blue.light2};
-  transition: all 100ms ease-in;
-  flex-shrink: 0;
-
-  :hover {
-    color: ${blue.light1};
-  }
-`;
-
-const SecondaryLink = styled.a`
-  ${secondaryStyle}
 `;

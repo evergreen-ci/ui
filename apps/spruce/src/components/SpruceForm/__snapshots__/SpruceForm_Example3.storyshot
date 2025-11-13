@@ -3,6 +3,7 @@
     class="emotion-0"
   >
     <a
+      class="emotion-SpruceFormContainer"
       href="#ui-options"
       id="ui-options"
     >
@@ -13,7 +14,7 @@
       </h3>
     </a>
     <div
-      class="emotion-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
+      class="emotion-SettingsCard e1h7idos0 leafygreen-ui-1nx5jqg"
     >
       <form
         class="rjsf"
@@ -37,25 +38,27 @@
                 <div
                   class="leafygreen-ui-55kazc"
                   data-lgid="lg-checkbox"
+                  data-testid="lg-checkbox"
                 >
                   <label
-                    class="leafygreen-ui-1srek1y"
-                    data-lgid="lg-label"
-                    for="checkbox-5"
-                    id="checkbox-5-label"
+                    class="leafygreen-ui-1whk3l"
+                    data-lgid="lg-checkbox-label"
+                    data-testid="lg-checkbox"
+                    for="checkbox-120"
+                    id="checkbox-120-label"
                   >
                     <input
                       aria-checked="true"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-5-label"
+                      aria-labelledby="checkbox-120-label"
                       checked=""
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-5"
+                      id="checkbox-120"
                       type="checkbox"
                     />
                     <div
-                      class="lg-ui-check-wrapper-0000 leafygreen-ui-1mf205r"
+                      class="lg-ui-check-wrapper-0000 leafygreen-ui-igs4pj"
                     >
                       <svg
                         class="leafygreen-ui-1degv9q"
@@ -79,7 +82,7 @@
                       class="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
                     />
                     <span
-                      class="leafygreen-ui-187di61"
+                      class="leafygreen-ui-go5q3q"
                     >
                       This is the only visible page element
                     </span>

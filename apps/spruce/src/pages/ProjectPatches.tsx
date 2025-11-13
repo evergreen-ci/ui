@@ -108,7 +108,6 @@ export const ProjectPatches = () => {
   );
 };
 
-// @ts-expect-error: styled isn't directly compatible with LeafyGreen's Checkbox definition.
 const GitHubMergeQueueCheckbox = styled(Checkbox)`
   justify-content: flex-end;
 `;

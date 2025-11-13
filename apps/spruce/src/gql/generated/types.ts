@@ -387,6 +387,7 @@ export type AuthConfig = {
   kanopy?: Maybe<KanopyAuthConfig>;
   multi?: Maybe<MultiAuthConfig>;
   naive?: Maybe<NaiveAuthConfig>;
+  oauth?: Maybe<OAuthConfig>;
   okta?: Maybe<OktaConfig>;
   preferredType?: Maybe<PreferredAuthType>;
 };
@@ -398,6 +399,7 @@ export type AuthConfigInput = {
   kanopy?: InputMaybe<KanopyAuthConfigInput>;
   multi?: InputMaybe<MultiAuthConfigInput>;
   naive?: InputMaybe<NaiveAuthConfigInput>;
+  oauth?: InputMaybe<OAuthConfigInput>;
   okta?: InputMaybe<OktaConfigInput>;
   preferredType?: InputMaybe<PreferredAuthType>;
 };
@@ -1980,6 +1982,7 @@ export type Mutation = {
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
+  resetAPIKey?: Maybe<UserConfig>;
   restartAdminTasks: RestartAdminTasksPayload;
   restartJasper: Scalars["Int"]["output"];
   restartTask: Task;
@@ -2346,6 +2349,19 @@ export type NotifyConfigInput = {
   bufferIntervalSeconds?: InputMaybe<Scalars["Int"]["input"]>;
   bufferTargetPerInterval?: InputMaybe<Scalars["Int"]["input"]>;
   ses?: InputMaybe<SesConfigInput>;
+};
+
+export type OAuthConfig = {
+  __typename?: "OAuthConfig";
+  clientId: Scalars["String"]["output"];
+  connectorId: Scalars["String"]["output"];
+  issuer: Scalars["String"]["output"];
+};
+
+export type OAuthConfigInput = {
+  clientId: Scalars["String"]["input"];
+  connectorId: Scalars["String"]["input"];
+  issuer: Scalars["String"]["input"];
 };
 
 export type OsInfo = {
@@ -3906,6 +3922,7 @@ export type SpawnHostInput = {
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
   spawnHostsStartedByTask?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskId?: InputMaybe<Scalars["String"]["input"]>;
+  useOAuth?: InputMaybe<Scalars["Boolean"]["input"]>;
   useProjectSetupScript?: InputMaybe<Scalars["Boolean"]["input"]>;
   useTaskConfig?: InputMaybe<Scalars["Boolean"]["input"]>;
   userDataScript?: InputMaybe<Scalars["String"]["input"]>;
@@ -6929,6 +6946,17 @@ export type ReprovisionToNewMutation = {
   reprovisionToNew: number;
 };
 
+export type ResetUserApiKeyMutationVariables = Exact<{ [key: string]: never }>;
+
+export type ResetUserApiKeyMutation = {
+  __typename?: "Mutation";
+  resetAPIKey?: {
+    __typename?: "UserConfig";
+    api_key: string;
+    user: string;
+  } | null;
+};
+
 export type RestartAdminTasksMutationVariables = Exact<{
   opts: RestartAdminTasksOptions;
 }>;
@@ -7564,6 +7592,12 @@ export type AdminSettingsQuery = {
           password?: string | null;
           username?: string | null;
         }>;
+      } | null;
+      oauth?: {
+        __typename?: "OAuthConfig";
+        clientId: string;
+        connectorId: string;
+        issuer: string;
       } | null;
       okta?: {
         __typename?: "OktaConfig";
@@ -9146,6 +9180,10 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }> | null;
+    githubPatchData?: {
+      __typename?: "GithubPatch";
+      prNumber?: number | null;
+    } | null;
     patchTriggerAliases: Array<{
       __typename?: "PatchTriggerAlias";
       alias: string;
@@ -9167,6 +9205,7 @@ export type ConfigurePatchQuery = {
       }>;
     } | null;
     time?: { __typename?: "PatchTime"; submittedAt: string } | null;
+    versionFull?: { __typename?: "Version"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     variantsTasks: Array<{
       __typename?: "VariantTask";
@@ -11067,6 +11106,21 @@ export type TaskOwnerTeamsForTaskQuery = {
   } | null;
 };
 
+export type TaskPerfPluginEnabledQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskPerfPluginEnabledQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    isPerfPluginEnabled: boolean;
+  } | null;
+};
+
 export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
@@ -11225,7 +11279,6 @@ export type TaskQuery = {
     hostId?: string | null;
     imageId: string;
     ingestTime?: Date | null;
-    isPerfPluginEnabled: boolean;
     latestExecution: number;
     minQueuePosition: number;
     order: number;
@@ -11484,6 +11537,9 @@ export type UserConfigQuery = {
     __typename?: "UserConfig";
     api_key: string;
     api_server_host: string;
+    oauth_client_id: string;
+    oauth_connector_id: string;
+    oauth_issuer: string;
     ui_server_host: string;
     user: string;
   } | null;
@@ -11619,10 +11675,6 @@ export type UserSettingsQuery = {
         patchFirstFailure?: string | null;
         spawnHostExpiration?: string | null;
         spawnHostOutcome?: string | null;
-      } | null;
-      useSpruceOptions?: {
-        __typename?: "UseSpruceOptions";
-        spruceV1?: boolean | null;
       } | null;
     };
   };

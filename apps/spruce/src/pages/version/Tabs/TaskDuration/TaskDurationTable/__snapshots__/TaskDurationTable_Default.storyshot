@@ -45,24 +45,25 @@
                   >
                     <svg
                       aria-label="Magnifying Glass Icon"
-                      class=""
+                      class="leafygreen-ui-1st74h4"
                       color="#3D4F58"
-                      fill="none"
                       height="16"
                       role="img"
                       viewBox="0 0 16 16"
                       width="16"
-                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
-                        d="M2.323 9.819a5.3 5.3 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496M7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162"
+                        d="M2.3234 9.81874C4.07618 11.5715 6.75062 11.8398 8.78588 10.6244L12.93 14.7685C13.4377 15.2762 14.2608 15.2762 14.7685 14.7685C15.2762 14.2608 15.2762 13.4377 14.7685 12.93L10.6244 8.78588C11.8398 6.75062 11.5715 4.07619 9.81873 2.32341C7.74896 0.253628 4.39318 0.253628 2.3234 2.32341C0.253624 4.39319 0.253624 7.74896 2.3234 9.81874ZM7.98026 4.16188C9.03467 5.2163 9.03467 6.92585 7.98026 7.98026C6.92584 9.03468 5.2163 9.03468 4.16188 7.98026C3.10746 6.92585 3.10746 5.2163 4.16188 4.16188C5.2163 3.10747 6.92584 3.10747 7.98026 4.16188Z"
                         fill="currentColor"
                         fill-rule="evenodd"
                       />
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -77,16 +78,26 @@
                 >
                   <svg
                     aria-label="Unsorted Icon"
-                    class="leafygreen-ui-jc2z8v"
-                    fill="none"
+                    class="leafygreen-ui-1vrn39p"
                     height="16"
                     role="img"
                     viewBox="0 0 16 16"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026zM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1M9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2zM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1"
+                      d="M3.68466 1.14265C3.90429 0.952449 4.23028 0.95245 4.44991 1.14265L6.93156 3.29182C7.34063 3.64609 7.09009 4.31811 6.54893 4.31811H5.23624L5.23624 11.6819H6.54894C7.09009 11.6819 7.34064 12.3539 6.93157 12.7082L4.44992 14.8573C4.23029 15.0476 3.9043 15.0476 3.68467 14.8573L1.20303 12.7082C0.793953 12.3539 1.0445 11.6819 1.58565 11.6819H2.89836V11.6742L2.89835 11.6696L2.89835 4.31811H1.58564C1.04449 4.31811 0.793944 3.64609 1.20302 3.29182L3.68466 1.14265Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 8C8 7.44772 8.44772 7 9 7H14C14.5523 7 15 7.44772 15 8C15 8.55228 14.5523 9 14 9H9C8.44772 9 8 8.55228 8 8Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6H14C14.5523 6 15 5.55228 15 5C15 4.44772 14.5523 4 14 4H9Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 11C8 10.4477 8.44772 10 9 10H14C14.5523 10 15 10.4477 15 11C15 11.5523 14.5523 12 14 12H9C8.44772 12 8 11.5523 8 11Z"
                       fill="currentColor"
                     />
                   </svg>
@@ -121,24 +132,25 @@
                   >
                     <svg
                       aria-label="Filter Icon"
-                      class=""
+                      class="leafygreen-ui-1st74h4"
                       color="#3D4F58"
-                      fill="none"
                       height="16"
                       role="img"
                       viewBox="0 0 16 16"
                       width="16"
-                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
-                        d="m6 6.148-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 0 1-.17.376l-3 2.625a.5.5 0 0 1-.83-.376z"
+                        d="M6 6.14834L2.19955 2.20776C1.79746 1.79085 2.04373 1 2.57564 1H13.4244C13.9563 1 14.2025 1.79085 13.8005 2.20776L10 6.14834V11.7731C10 11.9173 9.93776 12.0545 9.82925 12.1494L6.82925 14.7744C6.50596 15.0573 6 14.8277 6 14.3981V6.14834Z"
                         fill="currentColor"
                         fill-rule="evenodd"
                       />
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -153,16 +165,26 @@
                 >
                   <svg
                     aria-label="Unsorted Icon"
-                    class="leafygreen-ui-jc2z8v"
-                    fill="none"
+                    class="leafygreen-ui-1vrn39p"
                     height="16"
                     role="img"
                     viewBox="0 0 16 16"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026zM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1M9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2zM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1"
+                      d="M3.68466 1.14265C3.90429 0.952449 4.23028 0.95245 4.44991 1.14265L6.93156 3.29182C7.34063 3.64609 7.09009 4.31811 6.54893 4.31811H5.23624L5.23624 11.6819H6.54894C7.09009 11.6819 7.34064 12.3539 6.93157 12.7082L4.44992 14.8573C4.23029 15.0476 3.9043 15.0476 3.68467 14.8573L1.20303 12.7082C0.793953 12.3539 1.0445 11.6819 1.58565 11.6819H2.89836V11.6742L2.89835 11.6696L2.89835 4.31811H1.58564C1.04449 4.31811 0.793944 3.64609 1.20302 3.29182L3.68466 1.14265Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 8C8 7.44772 8.44772 7 9 7H14C14.5523 7 15 7.44772 15 8C15 8.55228 14.5523 9 14 9H9C8.44772 9 8 8.55228 8 8Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6H14C14.5523 6 15 5.55228 15 5C15 4.44772 14.5523 4 14 4H9Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 11C8 10.4477 8.44772 10 9 10H14C14.5523 10 15 10.4477 15 11C15 11.5523 14.5523 12 14 12H9C8.44772 12 8 11.5523 8 11Z"
                       fill="currentColor"
                     />
                   </svg>
@@ -196,24 +218,25 @@
                   >
                     <svg
                       aria-label="Magnifying Glass Icon"
-                      class=""
+                      class="leafygreen-ui-1st74h4"
                       color="#3D4F58"
-                      fill="none"
                       height="16"
                       role="img"
                       viewBox="0 0 16 16"
                       width="16"
-                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
-                        d="M2.323 9.819a5.3 5.3 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496M7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162"
+                        d="M2.3234 9.81874C4.07618 11.5715 6.75062 11.8398 8.78588 10.6244L12.93 14.7685C13.4377 15.2762 14.2608 15.2762 14.7685 14.7685C15.2762 14.2608 15.2762 13.4377 14.7685 12.93L10.6244 8.78588C11.8398 6.75062 11.5715 4.07619 9.81873 2.32341C7.74896 0.253628 4.39318 0.253628 2.3234 2.32341C0.253624 4.39319 0.253624 7.74896 2.3234 9.81874ZM7.98026 4.16188C9.03467 5.2163 9.03467 6.92585 7.98026 7.98026C6.92584 9.03468 5.2163 9.03468 4.16188 7.98026C3.10746 6.92585 3.10746 5.2163 4.16188 4.16188C5.2163 3.10747 6.92584 3.10747 7.98026 4.16188Z"
                         fill="currentColor"
                         fill-rule="evenodd"
                       />
                     </svg>
                   </div>
                 </button>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
               </div>
               <button
                 aria-disabled="false"
@@ -228,16 +251,26 @@
                 >
                   <svg
                     aria-label="Unsorted Icon"
-                    class="leafygreen-ui-jc2z8v"
-                    fill="none"
+                    class="leafygreen-ui-1vrn39p"
                     height="16"
                     role="img"
                     viewBox="0 0 16 16"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026zM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1M9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2zM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1"
+                      d="M3.68466 1.14265C3.90429 0.952449 4.23028 0.95245 4.44991 1.14265L6.93156 3.29182C7.34063 3.64609 7.09009 4.31811 6.54893 4.31811H5.23624L5.23624 11.6819H6.54894C7.09009 11.6819 7.34064 12.3539 6.93157 12.7082L4.44992 14.8573C4.23029 15.0476 3.9043 15.0476 3.68467 14.8573L1.20303 12.7082C0.793953 12.3539 1.0445 11.6819 1.58565 11.6819H2.89836V11.6742L2.89835 11.6696L2.89835 4.31811H1.58564C1.04449 4.31811 0.793944 3.64609 1.20302 3.29182L3.68466 1.14265Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 8C8 7.44772 8.44772 7 9 7H14C14.5523 7 15 7.44772 15 8C15 8.55228 14.5523 9 14 9H9C8.44772 9 8 8.55228 8 8Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6H14C14.5523 6 15 5.55228 15 5C15 4.44772 14.5523 4 14 4H9Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 11C8 10.4477 8.44772 10 9 10H14C14.5523 10 15 10.4477 15 11C15 11.5523 14.5523 12 14 12H9C8.44772 12 8 11.5523 8 11Z"
                       fill="currentColor"
                     />
                   </svg>
@@ -268,17 +301,27 @@
                   class="leafygreen-ui-xhlipt"
                 >
                   <svg
-                    aria-label="Unsorted Icon"
-                    class="leafygreen-ui-jc2z8v"
-                    fill="none"
+                    aria-label="Sort Descending Icon"
+                    class="leafygreen-ui-fn3fl8"
                     height="16"
                     role="img"
                     viewBox="0 0 16 16"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026zM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1M9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2zM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1"
+                      d="M4.44991 14.6959C4.23029 14.8861 3.90429 14.8861 3.68466 14.6959L1.20302 12.5467C0.793944 12.1925 1.04449 11.5205 1.58564 11.5205H2.89835V2.16894C2.89835 1.52335 3.4217 1 4.06729 1C4.71287 1 5.23623 1.52335 5.23623 2.16894V11.5205H6.54893C7.09009 11.5205 7.34063 12.1925 6.93156 12.5467L4.44991 14.6959Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 3C7.44772 3 7 3.44772 7 4C7 4.55229 7.44772 5 8 5H14C14.5523 5 15 4.55229 15 4C15 3.44772 14.5523 3 14 3H8Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M7 7C7 6.44772 7.44772 6 8 6H12C12.5523 6 13 6.44772 13 7C13 7.55229 12.5523 8 12 8H8C7.44772 8 7 7.55229 7 7Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 9C7.44772 9 7 9.44771 7 10C7 10.5523 7.44772 11 8 11H10C10.5523 11 11 10.5523 11 10C11 9.44771 10.5523 9 10 9H8Z"
                       fill="currentColor"
                     />
                   </svg>
@@ -327,17 +370,15 @@
                     <svg
                       alt=""
                       aria-hidden="true"
-                      class="leafygreen-ui-jc2z8v"
-                      fill="none"
+                      class="leafygreen-ui-1vrn39p"
                       height="16"
                       role="presentation"
                       viewBox="0 0 16 16"
                       width="16"
-                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
-                        d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
+                        d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
                         fill="currentColor"
                         fill-rule="evenodd"
                       />
@@ -433,7 +474,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -559,7 +601,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -685,7 +728,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -811,7 +855,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -937,7 +982,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -1063,7 +1109,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -1189,7 +1236,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -1315,7 +1363,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -1441,7 +1490,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>
@@ -1567,7 +1617,8 @@
                     />
                     <p
                       class="emotion-DurationLabel evliklb0 leafygreen-ui-ogtczq"
-                      data-lgid="lg-description"
+                      data-lgid="lg-typography-description"
+                      data-testid="lg-typography-description"
                     >
                       1h 20m
                     </p>

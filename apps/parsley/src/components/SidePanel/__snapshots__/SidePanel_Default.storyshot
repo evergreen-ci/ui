@@ -12,7 +12,7 @@
         <nav
           aria-label="Side panel"
           class="leafygreen-ui-fw8ayd"
-          id="side-nav-4"
+          id="side-nav-42"
         >
           <div
             class="leafygreen-ui-1nmawjt"
@@ -24,11 +24,11 @@
                 class="emotion-PaddedContainer e1ga8mgi0"
               >
                 <dialog
-                  class="leafygreen-ui-1n4d85c"
+                  class="leafygreen-ui-r58vt4"
                   data-cy="project-filters-modal"
                   data-lgid="lg-confirmation_modal"
                   data-testid="lg-confirmation_modal"
-                  id="modal-7"
+                  id="modal-36"
                 />
                 <li
                   class="leafygreen-ui-la0n3e emotion-StyledSideNavGroup e15kq6cl3"
@@ -36,7 +36,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-1"
+                    id="menu-group-label-id-37"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -45,11 +45,8 @@
                         class="leafygreen-ui-z2gibr"
                       >
                         <svg
-                          alt=""
-                          aria-hidden="true"
-                          class="leafygreen-ui-1nviasz"
                           data-testid="side-nav-group-header-icon"
-                          fill="none"
+                          fill="#00684A"
                           height="16"
                           role="presentation"
                           viewBox="0 0 16 16"
@@ -65,7 +62,7 @@
                         </svg>
                       </span>
                       <div
-                        class="leafygreen-ui-1tm4spc"
+                        class="leafygreen-ui-7r050z"
                       >
                         <div
                           class="emotion-NavGroupHeader e15kq6cl2"
@@ -108,7 +105,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-1"
+                    aria-labelledby="menu-group-label-id-37"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -134,17 +131,15 @@
                             >
                               <svg
                                 aria-label="Chevron Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
                                   clip-rule="evenodd"
-                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
+                                  d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
                                   fill="currentColor"
                                   fill-rule="evenodd"
                                 />
@@ -156,8 +151,8 @@
                           >
                             <p
                               aria-expanded="true"
-                              class="emotion-FilterExpression e12rc5wm4 leafygreen-ui-1tb6tuo"
-                              id=":rb:"
+                              class="emotion-FilterExpression e12rc5wm4 leafygreen-ui-26vqpd"
+                              id=":re:"
                             >
                               active filter
                             </p>
@@ -168,7 +163,7 @@
                                 aria-checked="true"
                                 aria-disabled="false"
                                 aria-label="Hide filter"
-                                aria-labelledby=":rb:"
+                                aria-labelledby=":re:"
                                 class="lg-ui-toggle-button-0000 leafygreen-ui-16u1u0t"
                                 data-lgid="lg-toggle"
                                 data-testid="lg-toggle"
@@ -191,11 +186,8 @@
                                   class="leafygreen-ui-xhlipt"
                                 >
                                   <svg
-                                    aria-label="Edit Icon"
-                                    class="leafygreen-ui-a4wnk0"
-                                    fill="none"
+                                    fill="#889397"
                                     height="16"
-                                    role="img"
                                     viewBox="0 0 16 16"
                                     width="16"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -218,13 +210,10 @@
                                   class="leafygreen-ui-xhlipt"
                                 >
                                   <svg
-                                    aria-label="X Icon"
-                                    class="leafygreen-ui-a4wnk0"
-                                    fill="none"
+                                    fill="#889397"
                                     height="16"
-                                    role="img"
                                     viewBox="0 0 16 16"
-                                    width="16"
+                                    width="17"
                                     xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
@@ -251,21 +240,21 @@
                               class="emotion-AccordionContent e12rc5wm5"
                             >
                               <div
-                                class="leafygreen-ui-ozfao7 emotion-StyledSegmentedControl e12rc5wm0"
+                                class="leafygreen-ui-pipgrf emotion-StyledSegmentedControl e12rc5wm0"
                               >
                                 <div
-                                  class="leafygreen-ui-jmb2kp"
+                                  class="leafygreen-ui-rnu33t"
                                 >
                                   Case
                                 </div>
                                 <div
-                                  aria-label="segmented-control-3"
-                                  aria-owns="segmented-control-3-0 segmented-control-3-1"
-                                  class="leafygreen-ui-18en4yf"
+                                  aria-label="segmented-control-44"
+                                  aria-owns="segmented-control-44-0 segmented-control-44-1"
+                                  class="leafygreen-ui-1698cdy"
                                   role="tablist"
                                 >
                                   <div
-                                    class="leafygreen-ui-z1eqrh"
+                                    class="leafygreen-ui-vghr9e"
                                     data-lg-checked="true"
                                   >
                                     <div
@@ -275,8 +264,8 @@
                                       <button
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="true"
-                                        class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-3-0"
+                                        class="leafygreen-ui-qlnhrg"
+                                        id="segmented-control-44-0"
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -294,7 +283,7 @@
                                     </div>
                                   </div>
                                   <div
-                                    class="leafygreen-ui-z1eqrh"
+                                    class="leafygreen-ui-vghr9e"
                                     data-lg-checked="false"
                                   >
                                     <div
@@ -304,8 +293,8 @@
                                       <button
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="false"
-                                        class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-3-1"
+                                        class="leafygreen-ui-qlnhrg"
+                                        id="segmented-control-44-1"
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -331,21 +320,21 @@
                                 </div>
                               </div>
                               <div
-                                class="leafygreen-ui-ozfao7 emotion-StyledSegmentedControl e12rc5wm0"
+                                class="leafygreen-ui-pipgrf emotion-StyledSegmentedControl e12rc5wm0"
                               >
                                 <div
-                                  class="leafygreen-ui-jmb2kp"
+                                  class="leafygreen-ui-rnu33t"
                                 >
                                   Match
                                 </div>
                                 <div
-                                  aria-label="segmented-control-4"
-                                  aria-owns="segmented-control-4-0 segmented-control-4-1"
-                                  class="leafygreen-ui-18en4yf"
+                                  aria-label="segmented-control-45"
+                                  aria-owns="segmented-control-45-0 segmented-control-45-1"
+                                  class="leafygreen-ui-1698cdy"
                                   role="tablist"
                                 >
                                   <div
-                                    class="leafygreen-ui-z1eqrh"
+                                    class="leafygreen-ui-vghr9e"
                                     data-lg-checked="true"
                                   >
                                     <div
@@ -355,8 +344,8 @@
                                       <button
                                         aria-controls="Toggle match type"
                                         aria-selected="true"
-                                        class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-4-0"
+                                        class="leafygreen-ui-qlnhrg"
+                                        id="segmented-control-45-0"
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -374,7 +363,7 @@
                                     </div>
                                   </div>
                                   <div
-                                    class="leafygreen-ui-z1eqrh"
+                                    class="leafygreen-ui-vghr9e"
                                     data-lg-checked="false"
                                   >
                                     <div
@@ -384,8 +373,8 @@
                                       <button
                                         aria-controls="Toggle match type"
                                         aria-selected="false"
-                                        class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-4-1"
+                                        class="leafygreen-ui-qlnhrg"
+                                        id="segmented-control-45-1"
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -423,7 +412,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-2"
+                    id="menu-group-label-id-38"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -457,7 +446,7 @@
                         </svg>
                       </span>
                       <div
-                        class="leafygreen-ui-1tm4spc"
+                        class="leafygreen-ui-7r050z"
                       >
                         <div
                           class="emotion-NavGroupHeader e15kq6cl2"
@@ -478,7 +467,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-2"
+                    aria-labelledby="menu-group-label-id-38"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -495,13 +484,10 @@
                           class="leafygreen-ui-xhlipt"
                         >
                           <svg
-                            aria-label="X Icon"
-                            class=""
                             fill="none"
                             height="16"
-                            role="img"
                             viewBox="0 0 16 16"
-                            width="16"
+                            width="17"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
@@ -514,7 +500,7 @@
                         </div>
                       </button>
                       <div
-                        class="leafygreen-ui-1t92n4"
+                        class="leafygreen-ui-1nwyn6w"
                       >
                         Row 
                         1
@@ -530,7 +516,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-3"
+                    id="menu-group-label-id-39"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -539,11 +525,8 @@
                         class="leafygreen-ui-z2gibr"
                       >
                         <svg
-                          alt=""
-                          aria-hidden="true"
-                          class="leafygreen-ui-1nviasz"
                           data-testid="side-nav-group-header-icon"
-                          fill="none"
+                          fill="#00684A"
                           height="16"
                           role="presentation"
                           viewBox="0 0 16 16"
@@ -557,7 +540,7 @@
                         </svg>
                       </span>
                       <div
-                        class="leafygreen-ui-1tm4spc"
+                        class="leafygreen-ui-7r050z"
                       >
                         <div
                           class="emotion-NavGroupHeader e15kq6cl2"
@@ -578,7 +561,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-3"
+                    aria-labelledby="menu-group-label-id-39"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -595,13 +578,10 @@
                           class="leafygreen-ui-xhlipt"
                         >
                           <svg
-                            aria-label="X Icon"
-                            class=""
                             fill="none"
                             height="16"
-                            role="img"
                             viewBox="0 0 16 16"
-                            width="16"
+                            width="17"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
@@ -635,13 +615,10 @@
                           class="leafygreen-ui-xhlipt"
                         >
                           <svg
-                            aria-label="X Icon"
-                            class=""
                             fill="none"
                             height="16"
-                            role="img"
                             viewBox="0 0 16 16"
-                            width="16"
+                            width="17"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
@@ -677,11 +654,8 @@
                 class="leafygreen-ui-ntn8a7"
               >
                 <svg
-                  alt=""
-                  aria-hidden="true"
-                  class="leafygreen-ui-1nviasz"
                   data-testid="side-nav-group-header-icon"
-                  fill="none"
+                  fill="#00684A"
                   height="16"
                   role="presentation"
                   viewBox="0 0 16 16"
@@ -728,11 +702,8 @@
                 class="leafygreen-ui-ntn8a7"
               >
                 <svg
-                  alt=""
-                  aria-hidden="true"
-                  class="leafygreen-ui-1nviasz"
                   data-testid="side-nav-group-header-icon"
-                  fill="none"
+                  fill="#00684A"
                   height="16"
                   role="presentation"
                   viewBox="0 0 16 16"
@@ -749,10 +720,10 @@
           </div>
         </nav>
         <button
-          aria-controls="side-nav-4"
+          aria-controls="side-nav-42"
           aria-expanded="true"
           aria-label="Collapse navigation"
-          class="leafygreen-ui-cssveg leafygreen-ui-za3dje"
+          class="leafygreen-ui-v87gj9"
           data-testid="side-nav-collapse-toggle"
         >
           <div
@@ -775,6 +746,9 @@
               />
             </svg>
           </div>
+          <span
+            class="leafygreen-ui-38lglc"
+          />
         </button>
       </div>
     </div>

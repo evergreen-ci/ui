@@ -1,3 +1,4 @@
+import { useEffect, createElement } from "react";
 import {
   act,
   fireEvent,
@@ -22,7 +23,7 @@ type CustomRenderOptions = RenderOptions<CustomRenderType>;
 
 interface RenderWithRouterMatchOptions extends CustomRenderOptions {
   route?: string;
-  history?: any;
+  history?: unknown;
   path?: string;
 }
 
@@ -101,25 +102,28 @@ const renderWithRouterMatch = (
  * `renderComponentWithHook` is a utility function that renders a component with a given hook for use in testing
  * @param useHook - The hook to use
  * @param Comp - The component to render
- * @returns - The component and the hook
+ * @returns - The component and the hook result accessible via hook.current
  */
 const renderComponentWithHook = <
-  T extends () => any,
+  T extends () => unknown,
   U extends JSX.Element | null,
 >(
   useHook: T,
   Comp: U,
 ) => {
-  const hook: { current: ReturnType<typeof useHook> } = {
-    current: {} as ReturnType<typeof useHook>,
-  };
-  const Component = () => {
-    hook.current = useHook();
+  const hookRef: { current?: ReturnType<T> } = { current: undefined };
+
+  const TestComponent = () => {
+    const hookResult = useHook();
+    useEffect(() => {
+      hookRef.current = hookResult as ReturnType<T>;
+    });
     return Comp;
   };
+
   return {
-    Component,
-    hook,
+    Component: TestComponent,
+    hook: hookRef as { current: ReturnType<T> },
   };
 };
 
@@ -145,12 +149,12 @@ const stubGetClientRects = () => {
  * @param props - props to be spread on wrapper
  * @returns - wrapper with props applied
  */
-const createWrapper = (
-  Wrapper: React.FC<any>,
-  props: React.ComponentProps<any>,
+const createWrapper = <T extends Record<string, unknown>>(
+  Wrapper: React.ComponentType<React.PropsWithChildren<T>>,
+  props: T,
 ) =>
   function CreatedWrapper({ children }: React.PropsWithChildren) {
-    return <Wrapper {...props}>{children}</Wrapper>;
+    return createElement(Wrapper, props, children);
   };
 
 export {

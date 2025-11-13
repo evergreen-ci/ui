@@ -18,6 +18,9 @@
           class="leafygreen-ui-16tr4y"
         >
           Top Middle
+          <span
+            class="leafygreen-ui-38lglc"
+          />
         </div>
       </button>
     </div>
@@ -37,6 +40,9 @@
           class="leafygreen-ui-16tr4y"
         >
           Bottom Middle
+          <span
+            class="leafygreen-ui-38lglc"
+          />
         </div>
       </button>
     </div>
@@ -56,6 +62,9 @@
           class="leafygreen-ui-16tr4y"
         >
           Left Middle
+          <span
+            class="leafygreen-ui-38lglc"
+          />
         </div>
       </button>
     </div>
@@ -75,6 +84,9 @@
           class="leafygreen-ui-16tr4y"
         >
           Right Middle
+          <span
+            class="leafygreen-ui-38lglc"
+          />
         </div>
       </button>
     </div>

@@ -24,17 +24,15 @@
           <svg
             aria-hidden="true"
             aria-label="X Icon"
-            class=""
-            fill="none"
+            class="leafygreen-ui-1st74h4"
             height="16"
             role="img"
             viewBox="0 0 16 16"
             width="16"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               clip-rule="evenodd"
-              d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414l-.707-.707Z"
+              d="M12.2028 3.40381C11.8123 3.01329 11.1791 3.01329 10.7886 3.40381L8.3137 5.87869L5.83883 3.40381C5.44831 3.01329 4.81514 3.01329 4.42462 3.40381L3.71751 4.11092C3.32699 4.50144 3.32699 5.13461 3.71751 5.52513L6.19238 8.00001L3.71751 10.4749C3.32699 10.8654 3.32699 11.4986 3.71751 11.8891L4.42462 12.5962C4.81514 12.9867 5.44831 12.9867 5.83883 12.5962L8.3137 10.1213L10.7886 12.5962C11.1791 12.9867 11.8123 12.9867 12.2028 12.5962L12.9099 11.8891C13.3004 11.4986 13.3004 10.8654 12.9099 10.4749L10.435 8.00001L12.9099 5.52513C13.3004 5.13461 13.3004 4.50144 12.9099 4.11092L12.2028 3.40381Z"
               fill="currentColor"
               fill-rule="evenodd"
             />
@@ -62,65 +60,19 @@
       <div
         class="leafygreen-ui-1br9h7w"
         data-lgid="lg-text_input"
+        data-testid="lg-text_input"
       >
         <div
           class="leafygreen-ui-au9iil"
         >
           <label
-            class="leafygreen-ui-6bdaia"
-            data-lgid="lg-label"
-            data-testid="lg-form_field-label"
-            for="lg-form_field-input-28"
-            id="lg-form_field-label-25"
-          >
-            key
-          </label>
-        </div>
-        <div
-          class="leafygreen-ui-14vpn2b"
-        >
-          <div
-            class="leafygreen-ui-1ago99h"
-          >
-            <input
-              aria-describedby=""
-              aria-disabled="false"
-              aria-invalid="false"
-              aria-labelledby="lg-form_field-label-25"
-              autocomplete="on"
-              class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-              id="lg-form_field-input-28"
-              placeholder="key"
-              required=""
-              type="text"
-              value=""
-            />
-          </div>
-        </div>
-        <div
-          aria-live="polite"
-          aria-relevant="all"
-          class="leafygreen-ui-11ydt2g"
-          data-lgid="lg-form_field-feedback"
-          data-testid="lg-form_field-feedback"
-          id="lg-form_field-feedback-27"
-        />
-      </div>
-      <div
-        class="leafygreen-ui-1br9h7w"
-        data-lgid="lg-text_input"
-      >
-        <div
-          class="leafygreen-ui-au9iil"
-        >
-          <label
-            class="leafygreen-ui-6bdaia"
-            data-lgid="lg-label"
-            data-testid="lg-form_field-label"
+            class="leafygreen-ui-15qqekb"
+            data-lgid="lg-text_input-label"
+            data-testid="lg-text_input"
             for="lg-form_field-input-32"
             id="lg-form_field-label-29"
           >
-            value
+            key
           </label>
         </div>
         <div
@@ -137,6 +89,54 @@
               autocomplete="on"
               class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
               id="lg-form_field-input-32"
+              placeholder="key"
+              required=""
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          aria-live="polite"
+          aria-relevant="all"
+          class="leafygreen-ui-11ydt2g"
+          data-lgid="lg-text_input-feedback"
+          data-testid="lg-text_input-feedback"
+          id="lg-form_field-feedback-31"
+        />
+      </div>
+      <div
+        class="leafygreen-ui-1br9h7w"
+        data-lgid="lg-text_input"
+        data-testid="lg-text_input"
+      >
+        <div
+          class="leafygreen-ui-au9iil"
+        >
+          <label
+            class="leafygreen-ui-15qqekb"
+            data-lgid="lg-text_input-label"
+            data-testid="lg-text_input"
+            for="lg-form_field-input-36"
+            id="lg-form_field-label-33"
+          >
+            value
+          </label>
+        </div>
+        <div
+          class="leafygreen-ui-14vpn2b"
+        >
+          <div
+            class="leafygreen-ui-1ago99h"
+          >
+            <input
+              aria-describedby=""
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-labelledby="lg-form_field-label-33"
+              autocomplete="on"
+              class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+              id="lg-form_field-input-36"
               placeholder="value"
               required=""
               type="text"
@@ -148,14 +148,14 @@
           aria-live="polite"
           aria-relevant="all"
           class="leafygreen-ui-11ydt2g"
-          data-lgid="lg-form_field-feedback"
-          data-testid="lg-form_field-feedback"
-          id="lg-form_field-feedback-31"
+          data-lgid="lg-text_input-feedback"
+          data-testid="lg-text_input-feedback"
+          id="lg-form_field-feedback-35"
         />
       </div>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-5xsnod emotion-23"
+        class="lg-ui-button-0000 leafygreen-ui-5xsnod emotion-24"
         data-lgid="lg-button"
         type="button"
       >

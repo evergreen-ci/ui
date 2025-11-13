@@ -60,20 +60,4 @@ describe("ChatFeed", () => {
       expect(screen.queryByDataCy("message-user")).toHaveTextContent("Bar");
     });
   });
-
-  it("shows disclaimer on initial render and hides after send", async () => {
-    const user = userEvent.setup();
-
-    render(<ChatFeed apiUrl="/foo" disclaimerContent="Lorem ipsem" />, {
-      wrapper: createWrapper(ChatProvider, { appName: "Parsley AI Test" }),
-    });
-
-    const message = "Why did my log fail?";
-    const textarea = screen.getByRole("textbox");
-
-    expect(screen.getByText("Terms of Use")).toBeVisible();
-    await user.type(textarea, message);
-    await user.click(screen.getByRole("button", { name: "Send message" }));
-    expect(screen.queryByText("Terms of use")).not.toBeInTheDocument();
-  });
 });

@@ -1,20 +1,9 @@
-import { createContext, useMemo, useState } from "react";
-
-export type ChatContextState = {
-  appName: string;
-  drawerOpen: boolean;
-  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-export const ChatContext = createContext<ChatContextState>({
-  appName: "",
-  drawerOpen: false,
-  setDrawerOpen: () => {},
-});
+import { useMemo, useState } from "react";
+import { ChatContext } from "./context";
 
 type ProviderProps = {
   appName: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export const ChatProvider: React.FC<ProviderProps> = ({

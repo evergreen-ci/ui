@@ -27,6 +27,12 @@ export const SideNavPageContent = styled.div`
   padding: ${size.m};
 `;
 
+// Override default margins to support sticky headers on Project/Distro/Admin Settings pages.
+export const SettingsPageContent = styled(SideNavPageContent)`
+  padding-top: 0;
+  margin-top: ${size.m};
+`;
+
 // Layout elements for non-LG SideNav pages
 export const PageWrapper = styled.div<{ omitPadding?: boolean }>`
   height: 100%;

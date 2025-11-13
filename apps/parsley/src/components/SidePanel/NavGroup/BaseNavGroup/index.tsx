@@ -49,7 +49,6 @@ const BaseNavGroup = <T extends {}>({
   </StyledSideNavGroup>
 );
 
-// @ts-expect-error
 const StyledSideNavGroup = styled(SideNavGroup)`
   > div {
     padding: 0;

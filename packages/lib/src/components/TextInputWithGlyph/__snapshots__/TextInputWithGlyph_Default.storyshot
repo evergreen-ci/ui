@@ -5,16 +5,17 @@
     <div
       class="leafygreen-ui-1br9h7w"
       data-lgid="lg-text_input"
+      data-testid="lg-text_input"
     >
       <div
         class="leafygreen-ui-au9iil"
       >
         <label
-          class="leafygreen-ui-6bdaia"
-          data-lgid="lg-label"
-          data-testid="lg-form_field-label"
-          for="lg-form_field-input-4"
-          id="lg-form_field-label-1"
+          class="leafygreen-ui-15qqekb"
+          data-lgid="lg-text_input-label"
+          data-testid="lg-text_input"
+          for="lg-form_field-input-271"
+          id="lg-form_field-label-268"
         >
           Some search field
         </label>
@@ -29,10 +30,10 @@
             aria-describedby=""
             aria-disabled="false"
             aria-invalid="false"
-            aria-labelledby="lg-form_field-label-1"
+            aria-labelledby="lg-form_field-label-268"
             autocomplete="on"
             class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-            id="lg-form_field-input-4"
+            id="lg-form_field-input-271"
             placeholder="Search"
             required=""
             type="text"
@@ -44,9 +45,9 @@
         aria-live="polite"
         aria-relevant="all"
         class="leafygreen-ui-11ydt2g"
-        data-lgid="lg-form_field-feedback"
-        data-testid="lg-form_field-feedback"
-        id="lg-form_field-feedback-3"
+        data-lgid="lg-text_input-feedback"
+        data-testid="lg-text_input-feedback"
+        id="lg-form_field-feedback-270"
       />
     </div>
     <div
@@ -54,17 +55,15 @@
     >
       <svg
         aria-label="Magnifying Glass Icon"
-        class=""
-        fill="none"
+        class="leafygreen-ui-1st74h4"
         height="16"
         role="img"
         viewBox="0 0 16 16"
         width="16"
-        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           clip-rule="evenodd"
-          d="M2.323 9.819a5.3 5.3 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496M7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162"
+          d="M2.3234 9.81874C4.07618 11.5715 6.75062 11.8398 8.78588 10.6244L12.93 14.7685C13.4377 15.2762 14.2608 15.2762 14.7685 14.7685C15.2762 14.2608 15.2762 13.4377 14.7685 12.93L10.6244 8.78588C11.8398 6.75062 11.5715 4.07619 9.81873 2.32341C7.74896 0.253628 4.39318 0.253628 2.3234 2.32341C0.253624 4.39319 0.253624 7.74896 2.3234 9.81874ZM7.98026 4.16188C9.03467 5.2163 9.03467 6.92585 7.98026 7.98026C6.92584 9.03468 5.2163 9.03468 4.16188 7.98026C3.10746 6.92585 3.10746 5.2163 4.16188 4.16188C5.2163 3.10747 6.92584 3.10747 7.98026 4.16188Z"
           fill="currentColor"
           fill-rule="evenodd"
         />

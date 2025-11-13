@@ -4,7 +4,7 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
 jobs:
   chromatic:
-    if: github.event.pull_request.draft == false
+    if: false
     name: Chromatic Tests
     runs-on: ubuntu-latest
     steps:

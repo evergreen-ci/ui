@@ -5,6 +5,8 @@
     <div
       aria-label="Time picker form"
       class="leafygreen-ui-1br9h7w"
+      data-lgid="lg-form_field"
+      data-testid="lg-form_field"
     >
       <div
         class="leafygreen-ui-1iyoj2o"
@@ -23,7 +25,7 @@
             aria-invalid="false"
             aria-label="Time picker form"
             class="lg-ui-form-field-input-0000 emotion-ContentWrapper e9c2bxn0"
-            id="lg-form_field-input-8"
+            id="lg-form_field-input-145"
           >
             <input
               class="emotion-StyledInput evefz8k0"
@@ -63,11 +65,8 @@
               class="leafygreen-ui-xhlipt"
             >
               <svg
-                aria-label="Clock Icon"
-                class=""
                 fill="none"
                 height="16"
-                role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,8 +88,11 @@
         class="leafygreen-ui-11ydt2g"
         data-lgid="lg-form_field-feedback"
         data-testid="lg-form_field-feedback"
-        id="lg-form_field-feedback-7"
+        id="lg-form_field-feedback-144"
       />
     </div>
+    <span
+      class="leafygreen-ui-38lglc"
+    />
   </div>
 </div>

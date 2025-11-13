@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   resolve: {
     alias: {
-      // workaround until LG-4402 is fixed
-      "@emotion/server": "@emotion/css",
+      // Prevent LG from pulling in SSR dependencies.
+      // Can be potentially removed upon the completion of LG-4402.
       "@leafygreen-ui/emotion": resolve(
         __dirname,
         "./config/leafygreen-ui/emotion",

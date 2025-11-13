@@ -1,12 +1,12 @@
 <div>
   <div
-    class="emotion-SiderCard ehoeyp90 leafygreen-ui-1ecxdul"
+    class="emotion-SiderCard ehoeyp90 leafygreen-ui-1nx5jqg"
   >
     <div
       class="emotion-TableTitle e1p1q3sw1"
     >
       <h6
-        class="leafygreen-ui-19p3n10"
+        class="leafygreen-ui-1c32734"
       >
         Recent Events
       </h6>
@@ -31,13 +31,11 @@
               class="leafygreen-ui-16tr4y"
             >
               <svg
-                aria-label="Chevron Left Icon"
                 class="leafygreen-ui-yk23yl"
                 fill="none"
-                height="14"
-                role="img"
+                height="16"
                 viewBox="0 0 16 16"
-                width="14"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -74,13 +72,11 @@
               class="leafygreen-ui-16tr4y"
             >
               <svg
-                aria-label="Chevron Right Icon"
                 class="leafygreen-ui-17pifwg"
                 fill="none"
-                height="14"
-                role="img"
+                height="16"
                 viewBox="0 0 16 16"
-                width="14"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -99,8 +95,8 @@
           data-testid="lg-select"
         >
           <button
-            aria-controls="select-9-menu"
-            aria-describedby="select-9-description"
+            aria-controls="select-177-menu"
+            aria-describedby="select-177-description"
             aria-disabled="false"
             aria-expanded="false"
             aria-invalid="false"
@@ -109,7 +105,7 @@
             data-cy="host-event-table-page-size-selector"
             data-lgid="lg-select-trigger"
             data-testid="leafygreen-ui-select-menubutton"
-            id="select-10"
+            id="select-178"
             type="button"
             value="10"
           >
@@ -221,24 +217,25 @@
                     >
                       <svg
                         aria-label="Filter Icon"
-                        class=""
+                        class="leafygreen-ui-1st74h4"
                         color="#3D4F58"
-                        fill="none"
                         height="16"
                         role="img"
                         viewBox="0 0 16 16"
                         width="16"
-                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           clip-rule="evenodd"
-                          d="m6 6.148-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 0 1-.17.376l-3 2.625a.5.5 0 0 1-.83-.376z"
+                          d="M6 6.14834L2.19955 2.20776C1.79746 1.79085 2.04373 1 2.57564 1H13.4244C13.9563 1 14.2025 1.79085 13.8005 2.20776L10 6.14834V11.7731C10 11.9173 9.93776 12.0545 9.82925 12.1494L6.82925 14.7744C6.50596 15.0573 6 14.8277 6 14.3981V6.14834Z"
                           fill="currentColor"
                           fill-rule="evenodd"
                         />
                       </svg>
                     </div>
                   </button>
+                  <span
+                    class="leafygreen-ui-38lglc"
+                  />
                 </div>
               </div>
             </th>
@@ -736,16 +733,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -885,16 +880,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -1033,16 +1026,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -1477,16 +1468,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -1626,16 +1615,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -1892,16 +1879,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -2040,16 +2025,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -2326,16 +2309,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -2474,16 +2455,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -2623,16 +2602,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -2785,16 +2762,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -2898,16 +2873,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -3234,16 +3207,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>
@@ -3439,16 +3410,14 @@
                             >
                               <svg
                                 aria-label="Caret Right Icon"
-                                class="leafygreen-ui-jc2z8v"
-                                fill="none"
+                                class="leafygreen-ui-1vrn39p"
                                 height="16"
                                 role="img"
                                 viewBox="0 0 16 16"
                                 width="16"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43z"
+                                  d="M10.7962 7.32097C11.0679 7.54729 11.0679 7.95271 10.7962 8.17903L6.97649 11.3604C6.59428 11.6787 6 11.4176 6 10.9313L6 4.56866C6 4.0824 6.59428 3.82129 6.97649 4.13962L10.7962 7.32097Z"
                                   fill="currentColor"
                                 />
                               </svg>

@@ -15,7 +15,6 @@ import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
-import { showTestSelectionUI } from "constants/featureFlags";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { TableQueryParams } from "constants/queryParams";
 import {
@@ -83,10 +82,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     table.resetColumnFilters(true);
   };
 
-  const { initialFilters, initialSorting } = useMemo(
-    () => getInitialState(queryParams),
-    [], // eslint-disable-line react-hooks/exhaustive-deps
-  );
+  const { initialFilters, initialSorting } = getInitialState(queryParams);
 
   const [columnFilters, setColumnFilters] =
     useState<ColumnFiltersState>(initialFilters);
@@ -153,9 +149,7 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     },
     initialState: {
       columnVisibility: {
-        actions:
-          (showTestSelectionUI && task.project?.testSelection?.allowed) ??
-          false,
+        actions: task.project?.testSelection?.allowed ?? false,
       },
     },
     // Override default requirement for shift-click to multisort.

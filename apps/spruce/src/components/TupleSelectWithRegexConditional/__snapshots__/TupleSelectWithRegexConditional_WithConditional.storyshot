@@ -3,8 +3,9 @@
     class="emotion-Container e5gn9hl4"
   >
     <label
-      class="leafygreen-ui-ms04bw"
-      data-lgid="lg-label"
+      class="leafygreen-ui-vk2fo1"
+      data-lgid="lg-typography-label"
+      data-testid="lg-typography-label"
       for="tuple-select"
     >
       <div
@@ -12,16 +13,16 @@
       >
         Tuple Select
         <div
-          class="leafygreen-ui-ozfao7 emotion-PaddedSegmentedControl egmqwjk0"
+          class="leafygreen-ui-pipgrf emotion-PaddedSegmentedControl egmqwjk0"
         >
           <div
-            aria-label="segmented-control-1"
-            aria-owns="segmented-control-1-0 segmented-control-1-1"
-            class="leafygreen-ui-18en4yf"
+            aria-label="segmented-control-154"
+            aria-owns="segmented-control-154-0 segmented-control-154-1"
+            class="leafygreen-ui-1698cdy"
             role="tablist"
           >
             <div
-              class="leafygreen-ui-z1eqrh"
+              class="leafygreen-ui-vghr9e"
               data-lg-checked="true"
             >
               <div
@@ -32,8 +33,8 @@
                 <button
                   aria-controls="tuple-select-with-regex"
                   aria-selected="true"
-                  class="leafygreen-ui-ypz97o"
-                  id="segmented-control-1-0"
+                  class="leafygreen-ui-qlnhrg"
+                  id="segmented-control-154-0"
                   role="tab"
                   tabindex="0"
                   type="button"
@@ -51,7 +52,7 @@
               </div>
             </div>
             <div
-              class="leafygreen-ui-z1eqrh"
+              class="leafygreen-ui-vghr9e"
               data-lg-checked="false"
             >
               <div
@@ -62,8 +63,8 @@
                 <button
                   aria-controls="tuple-select-with-regex"
                   aria-selected="false"
-                  class="leafygreen-ui-ypz97o"
-                  id="segmented-control-1-1"
+                  class="leafygreen-ui-qlnhrg"
+                  id="segmented-control-154-1"
                   role="tab"
                   tabindex="-1"
                   type="button"
@@ -99,8 +100,8 @@
         data-testid="lg-select"
       >
         <button
-          aria-controls="select-7-menu"
-          aria-describedby="select-7-description"
+          aria-controls="select-156-menu"
+          aria-describedby="select-156-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -109,7 +110,7 @@
           data-cy="tuple-select-select"
           data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-8"
+          id="select-157"
           type="button"
           value="build_variant"
         >
@@ -165,6 +166,7 @@
           aria-labelledby="Tuple Select Input"
           class="leafygreen-ui-1br9h7w"
           data-lgid="lg-text_input"
+          data-testid="lg-text_input"
         >
           <div
             class="leafygreen-ui-1iyoj2o"
@@ -194,9 +196,9 @@
             aria-live="polite"
             aria-relevant="all"
             class="leafygreen-ui-11ydt2g"
-            data-lgid="lg-form_field-feedback"
-            data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-63"
+            data-lgid="lg-text_input-feedback"
+            data-testid="lg-text_input-feedback"
+            id="lg-form_field-feedback-160"
           />
         </div>
         <div
@@ -212,11 +214,8 @@
               class="leafygreen-ui-xhlipt"
             >
               <svg
-                aria-label="Plus Icon"
-                class=""
                 fill="none"
                 height="16"
-                role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"

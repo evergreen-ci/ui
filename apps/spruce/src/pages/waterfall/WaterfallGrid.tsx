@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { fromZonedTime } from "date-fns-tz";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
@@ -19,6 +18,8 @@ import {
 import { WATERFALL } from "gql/queries";
 import { useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
+import { getUTCEndOfDay } from "utils/date";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { BuildVariantProvider } from "./BuildVariantContext";
@@ -50,14 +51,12 @@ const resetFilterState: ServerFilters = {
 };
 
 type WaterfallGridProps = {
-  atTop: boolean;
   projectIdentifier: string;
   setPagination: (pagination: Pagination) => void;
   guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
-  atTop,
   guideCueRef,
   projectIdentifier,
   setPagination,
@@ -65,6 +64,12 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   useWaterfallTrace();
   const [queryParams, setQueryParams] = useQueryParams();
   const { sendEvent } = useWaterfallAnalytics();
+
+  const headerScrollRef = useRef<HTMLDivElement>(null);
+  const [showShadow, setShowShadow] = useState(false);
+  useIntersectionObserver(headerScrollRef, ([entry]) => {
+    setShowShadow(!entry.isIntersecting);
+  });
 
   const [pins, setPins] = useState<string[]>(
     getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] ?? [],
@@ -104,10 +109,12 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     WaterfallFilterOptions.Revision,
     null,
   );
+
   const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
-
   const timezone = useUserTimeZone() ?? utcTimeZone;
+  const utcDate = getUTCEndOfDay(date, timezone);
 
+  // TODO DEVPROD-23578: serverFilters can be calculated from queryParams directly, useState should not be necessary
   const [serverFilters, setServerFilters] =
     useState<ServerFilters>(resetFilterState);
 
@@ -121,7 +128,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           maxOrder,
           minOrder,
           revision,
-          date: date ? fromZonedTime(date, timezone) : undefined,
+          date: utcDate,
           ...serverFilters,
         },
       },
@@ -187,7 +194,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       });
     } else if (!hasServerParams) {
       // Because this data is already loaded and no animation is necessary, omitting startTransition for snappiness
-      setServerFilters(resetFilterState);
+      setServerFilters(resetFilterState); // eslint-disable-line react-hooks/set-state-in-effect
     }
   }, [allQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -199,7 +206,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   return (
     <Container ref={refEl}>
-      <StickyHeader atTop={atTop}>
+      <StickyHeader showShadow={showShadow}>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
           {versions.map(({ inactiveVersions, version }, versionIndex) => {
@@ -258,7 +265,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
 const Container = styled.div``;
 
-const StickyHeader = styled(Row)<{ atTop: boolean }>`
+const StickyHeader = styled(Row)<{ showShadow: boolean }>`
   position: sticky;
   top: -${size.m};
   z-index: 1;
@@ -266,10 +273,10 @@ const StickyHeader = styled(Row)<{ atTop: boolean }>`
   background: white;
   margin: ${size.xxs} -${size.m};
   padding: ${size.xs} ${size.m};
-  ${({ atTop }) =>
-    atTop
-      ? "box-shadow: unset"
-      : "box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.5); "}
+  ${({ showShadow }) =>
+    showShadow
+      ? "box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.5);"
+      : "box-shadow: unset;"}
   transition: box-shadow ${transitionDuration.default}ms ease-in-out;
 `;
 

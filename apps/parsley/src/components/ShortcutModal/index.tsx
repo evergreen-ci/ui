@@ -4,7 +4,7 @@ import Modal from "@leafygreen-ui/modal";
 import { Body, H3, InlineKeyCode } from "@leafygreen-ui/typography";
 import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
-import { useKeyboardShortcut, useOnClickOutside } from "hooks";
+import { useKeyboardShortcut, useOnClickOutside } from "@evg-ui/lib/hooks";
 
 const shortcuts = [
   { description: "Open or close the shortcut modal", keys: [["SHIFT", "?"]] },

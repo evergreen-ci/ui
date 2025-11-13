@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, Link, Navigate } from "react-router-dom";
@@ -7,13 +6,12 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
 import {
+  SettingsPageContent,
   SideNav,
   SideNavGroup,
   SideNavItem,
-  SideNavPageContent,
   SideNavPageWrapper,
 } from "components/styles";
-import { showTestSelectionUI } from "constants/featureFlags";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -120,11 +118,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             ))}
           </SideNavGroup>
         </SideNav>
-        <SideNavPageContent
-          css={css`
-            padding-top: 0;
-            margin-top: ${size.m};
-          `}
+        <SettingsPageContent
           data-cy={isRepo ? "repo-settings-page" : "project-settings-page"}
         >
           {hasLoaded ? (
@@ -136,7 +130,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
           ) : (
             <FormSkeleton />
           )}
-        </SideNavPageContent>
+        </SettingsPageContent>
       </SideNavPageWrapper>
     </ProjectSettingsProvider>
   );
@@ -147,21 +141,16 @@ const SharedSettingsNavItem: React.FC<{
   getRoute: (id: string, tab: ProjectSettingsTabRoutes) => string;
   id: string;
   tab: ProjectSettingsTabRoutes;
-}> = ({ currentTab, getRoute, id, tab }) => {
-  if (!showTestSelectionUI && tab === ProjectSettingsTabRoutes.TestSelection) {
-    return null;
-  }
-  return (
-    <SideNavItem
-      active={tab === currentTab}
-      as={Link}
-      data-cy={`navitem-${tab}`}
-      to={getRoute(id, tab)}
-    >
-      {getTabTitle(tab).title}
-    </SideNavItem>
-  );
-};
+}> = ({ currentTab, getRoute, id, tab }) => (
+  <SideNavItem
+    active={tab === currentTab}
+    as={Link}
+    data-cy={`navitem-${tab}`}
+    to={getRoute(id, tab)}
+  >
+    {getTabTitle(tab).title}
+  </SideNavItem>
+);
 
 const tabRouteValues = Object.values(ProjectSettingsTabRoutes);
 

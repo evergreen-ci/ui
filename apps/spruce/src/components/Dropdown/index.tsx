@@ -1,4 +1,4 @@
-import { useRef, Component, useState, useEffect } from "react";
+import { useRef, Component } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -8,6 +8,7 @@ import { Body, BodyProps } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
+import { useDimensions } from "hooks/useDimensions";
 
 const { gray, white } = palette;
 
@@ -38,11 +39,8 @@ const Dropdown: React.FC<DropdownProps> = ({
   const listMenuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Borrowed from LeafyGreen - measure the menu width from the button ref.
-  const [menuWidth, setMenuWidth] = useState(0);
-  useEffect(() => {
-    setMenuWidth(menuButtonRef.current?.clientWidth ?? 0);
-  }, [menuButtonRef.current?.clientWidth]);
+  const menuSize = useDimensions(menuButtonRef);
+  const menuWidth = menuSize?.width ?? 0;
 
   const handleClickOutside = () => {
     setIsOpen(false);
@@ -104,8 +102,7 @@ class DropdownWithRef extends Component<
   DropdownWithRefProps,
   DropdownWithRefState
 > {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  constructor(props) {
+  constructor(props: DropdownWithRefProps) {
     super(props);
     this.state = {
       isOpen: false,

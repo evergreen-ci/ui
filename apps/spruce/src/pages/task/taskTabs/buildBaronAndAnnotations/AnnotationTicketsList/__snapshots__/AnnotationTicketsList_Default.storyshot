@@ -79,7 +79,6 @@
             class="leafygreen-ui-16tr4y"
           >
             <svg
-              alt=""
               aria-hidden="true"
               class="leafygreen-ui-18si895"
               fill="none"
@@ -96,6 +95,9 @@
             </svg>
             Move to 
             suspected issues
+            <span
+              class="leafygreen-ui-38lglc"
+            />
           </div>
         </button>
         <button
@@ -112,7 +114,6 @@
             class="leafygreen-ui-16tr4y"
           >
             <svg
-              alt=""
               aria-hidden="true"
               class="leafygreen-ui-18si895"
               fill="none"
@@ -129,6 +130,9 @@
                 fill-rule="evenodd"
               />
             </svg>
+            <span
+              class="leafygreen-ui-38lglc"
+            />
           </div>
         </button>
       </div>
@@ -210,7 +214,6 @@
             class="leafygreen-ui-16tr4y"
           >
             <svg
-              alt=""
               aria-hidden="true"
               class="leafygreen-ui-18si895"
               fill="none"
@@ -227,6 +230,9 @@
             </svg>
             Move to 
             suspected issues
+            <span
+              class="leafygreen-ui-38lglc"
+            />
           </div>
         </button>
         <button
@@ -243,7 +249,6 @@
             class="leafygreen-ui-16tr4y"
           >
             <svg
-              alt=""
               aria-hidden="true"
               class="leafygreen-ui-18si895"
               fill="none"
@@ -260,6 +265,9 @@
                 fill-rule="evenodd"
               />
             </svg>
+            <span
+              class="leafygreen-ui-38lglc"
+            />
           </div>
         </button>
       </div>

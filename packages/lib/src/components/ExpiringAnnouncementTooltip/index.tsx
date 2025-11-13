@@ -42,7 +42,7 @@ export const ExpiringAnnouncementTooltip: React.FC<
           data-cy="announcement-tooltip-trigger"
           fill={palette.gray.dark2}
           glyph="InfoWithCircle"
-          onClick={() => setOpen(true)}
+          onClick={() => setOpen((o) => !o)}
         />
       </IconContainer>
       <GuideCue

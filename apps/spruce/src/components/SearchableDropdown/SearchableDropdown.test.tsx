@@ -12,6 +12,21 @@ const RenderSearchableDropdown = (
 );
 
 describe("searchableDropdown", () => {
+  const originalResizeObserver = window.ResizeObserver;
+
+  beforeEach(() => {
+    const mockResizeObserver = vi.fn(() => ({
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
+    }));
+    window.ResizeObserver = mockResizeObserver;
+  });
+
+  afterAll(() => {
+    window.ResizeObserver = originalResizeObserver;
+  });
+
   it("sets the label to what ever the current value is", () => {
     render(
       RenderSearchableDropdown({

@@ -10,11 +10,13 @@ import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import {
+  TaskPerfPluginEnabledQuery,
+  TaskPerfPluginEnabledQueryVariables,
   TaskQuery,
   TaskTestCountQuery,
   TaskTestCountQueryVariables,
 } from "gql/generated/types";
-import { TASK_TEST_COUNT } from "gql/queries";
+import { TASK_PERF_PLUGIN_ENABLED, TASK_TEST_COUNT } from "gql/queries";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
 import BuildBaron, { useBuildBaronVariables } from "./buildBaronAndAnnotations";
@@ -35,9 +37,11 @@ interface TaskTabProps {
 const useTabConfig = (
   task: NonNullable<TaskQuery["task"]>,
   taskTestCountData: TaskTestCountQuery["task"],
+  taskPerfPluginEnabledData: TaskPerfPluginEnabledQuery["task"],
   isDisplayTask: boolean,
 ) => {
   const { failedTestCount } = taskTestCountData || {};
+  const { isPerfPluginEnabled } = taskPerfPluginEnabledData || {};
   const {
     annotation,
     baseTask,
@@ -48,7 +52,6 @@ const useTabConfig = (
     executionTasksFull,
     files,
     id,
-    isPerfPluginEnabled,
     logs: logLinks,
     versionMetadata,
   } = task;
@@ -71,7 +74,7 @@ const useTabConfig = (
     [TaskTab.Tests]: true,
     [TaskTab.Files]: true,
     [TaskTab.Annotations]: showBuildBaron,
-    [TaskTab.TrendCharts]: isPerfPluginEnabled,
+    [TaskTab.TrendCharts]: !!isPerfPluginEnabled,
     [TaskTab.History]: true,
     [TaskTab.ExecutionTasksTiming]:
       isDisplayTask && !!executionTasksFull && executionTasksFull.length > 0,
@@ -203,6 +206,15 @@ const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
       execution: task.execution,
     },
   });
+  const { data: taskPerfPluginEnabledData } = useQuery<
+    TaskPerfPluginEnabledQuery,
+    TaskPerfPluginEnabledQueryVariables
+  >(TASK_PERF_PLUGIN_ENABLED, {
+    variables: {
+      taskId: task.id,
+      execution: task.execution,
+    },
+  });
   const { failedTestCount } = taskTestCountData?.task || {};
 
   const [params] = useQueryParams();
@@ -210,6 +222,7 @@ const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const { activeTabs, tabMap } = useTabConfig(
     task,
     taskTestCountData?.task,
+    taskPerfPluginEnabledData?.task,
     isDisplayTask,
   );
 

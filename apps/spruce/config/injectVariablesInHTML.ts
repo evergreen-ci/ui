@@ -1,6 +1,4 @@
-import pkg from "replace-in-file";
-
-const { sync } = pkg;
+import { replaceInFileSync } from "replace-in-file";
 
 export type InjectVariablesInHTMLConfig = {
   files: string | string[];
@@ -34,7 +32,7 @@ export default function injectVariablesInHTML(
     // This hook runs during the build, after the bundle has been written
     writeBundle: async () => {
       try {
-        sync({
+        replaceInFileSync({
           files: options.files,
           from,
           to,

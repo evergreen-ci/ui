@@ -4,14 +4,14 @@
     data-cy="event-log"
   >
     <div
-      class="emotion-EventLogCard er8squx0 leafygreen-ui-1ecxdul"
+      class="emotion-EventLogCard er8squx0 leafygreen-ui-1nx5jqg"
       data-cy="event-log-card"
     >
       <div
         class="emotion-StyledHeader ez6cbmt2"
       >
         <h6
-          class="leafygreen-ui-19p3n10"
+          class="leafygreen-ui-1c32734"
         >
           Aug 31, 2024, 12:00:00 AM UTC
         </h6>
@@ -72,7 +72,7 @@
       </div>
     </div>
     <h6
-      class="leafygreen-ui-19p3n10"
+      class="leafygreen-ui-1c32734"
     >
       No more events to show.
     </h6>

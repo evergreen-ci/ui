@@ -3,47 +3,21 @@
     class="emotion-0"
   >
     <div
-      class="emotion-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
+      class="emotion-SiderCard e1am38ss0 leafygreen-ui-1nx5jqg"
     >
-      <div>
-        <p
-          class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
-        >
-          Task Metadata
-        </p>
-        <hr
-          class="emotion-Divider eb6szep0"
-        />
-      </div>
+      <p
+        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
+      >
+        Task Metadata
+      </p>
+      <hr
+        class="emotion-Divider eb6szep0"
+      />
       <span
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
-          data-cy="task-metadata-build-variant"
-        >
-          <b
-            class="emotion-MetadataLabel e1130wzj3"
-          >
-            Build Variant:
-          </b>
-           
-          <a
-            class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-            data-cy="build-variant-link"
-            href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
-          >
-            <span>
-              Ubuntu 16.04
-            </span>
-          </a>
-        </p>
-      </span>
-      <span
-        class="emotion-MetadataItemWrapper e1130wzj0"
-      >
-        <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
           data-cy="task-metadata-project"
         >
           <b
@@ -67,7 +41,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -82,7 +56,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -101,7 +75,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -126,7 +100,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
           data-cy="task-metadata-command"
         >
           <b
@@ -138,7 +112,7 @@
           Long description that requires use of the inline definition component. This would include details ab...
            
           <span
-            class="leafygreen-ui-cssveg leafygreen-ui-1u6ruom"
+            class="leafygreen-ui-vm4wms"
             tabindex="0"
           >
             <small
@@ -146,6 +120,9 @@
             >
               more
             </small>
+            <span
+              class="leafygreen-ui-38lglc"
+            />
           </span>
         </p>
       </span>
@@ -153,7 +130,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
           data-cy="task-metadata-task-ownership"
         >
           <b
@@ -163,13 +140,12 @@
           </b>
           Evergreen UI Team
         </p>
-        <span
+        <button
           aria-disabled="true"
           aria-label="more info"
-          class="leafygreen-ui-cssveg leafygreen-ui-1lho5c2"
+          class="leafygreen-ui-1vktzzb"
           data-testid="info-sprinkle-icon"
-          role="button"
-          tabindex="0"
+          type="button"
         >
           <svg
             aria-hidden="true"
@@ -187,13 +163,16 @@
               fill-rule="evenodd"
             />
           </svg>
-        </span>
+          <span
+            class="leafygreen-ui-38lglc"
+          />
+        </button>
       </span>
       <span
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <div
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <span
             class="leafygreen-ui-38lglc"
@@ -206,13 +185,12 @@
             >
               Test Selection:
             </b>
-            <span
+            <button
               aria-disabled="true"
               aria-label="more info"
-              class="leafygreen-ui-cssveg leafygreen-ui-1lho5c2"
+              class="leafygreen-ui-1vktzzb"
               data-testid="info-sprinkle-icon"
-              role="button"
-              tabindex="0"
+              type="button"
             >
               <svg
                 aria-hidden="true"
@@ -230,7 +208,10 @@
                   fill-rule="evenodd"
                 />
               </svg>
-            </span>
+              <span
+                class="leafygreen-ui-38lglc"
+              />
+            </button>
             <div
               class="leafygreen-ui-sti25g"
             >
@@ -241,23 +222,225 @@
       </span>
     </div>
     <div
-      class="emotion-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
+      class="emotion-SiderCard e1am38ss0 leafygreen-ui-1nx5jqg"
     >
-      <div>
-        <p
-          class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
-        >
-          Host Information
-        </p>
-        <hr
-          class="emotion-Divider eb6szep0"
-        />
-      </div>
+      <p
+        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
+      >
+        Build Variant
+      </p>
+      <hr
+        class="emotion-Divider eb6szep0"
+      />
       <span
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
+        >
+          <b
+            class="emotion-MetadataLabel e1130wzj3"
+          >
+            Name:
+          </b>
+           
+          <span
+            class="emotion-WordBreak-wordBreakCss e1wygaev0"
+          >
+            Ubuntu 16.04
+          </span>
+        </p>
+      </span>
+      <span
+        class="emotion-MetadataItemWrapper e1130wzj0"
+      >
+        <p
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
+        >
+          <span
+            class="emotion-IDWrapper eekpzw31"
+          >
+            <span
+              class="emotion-LabelWrapper eekpzw30"
+            >
+              <b
+                class="emotion-MetadataLabel-StyledMetadataLabel eekpzw32"
+              >
+                ID:
+              </b>
+              <span
+                class="emotion-WordBreak-wordBreakCss e1wygaev0"
+              >
+                ubuntu1604
+              </span>
+            </span>
+            <button
+              aria-disabled="false"
+              aria-label="Copy text to clipboard"
+              class="emotion-StyledIconButton e1i52nq80 leafygreen-ui-12yvaoo"
+              data-cy="copy-button"
+              tabindex="0"
+            >
+              <div
+                class="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M1 5.714v4.572C1 11.233 1.768 12 2.714 12H5.75V7.11c0-.566.227-1.108.63-1.504l2.294-2.252q.151-.148.326-.262v-.378C9 1.768 8.232 1 7.286 1H5.8v3.429c0 .71-.576 1.285-1.286 1.285zm8-.928L7.257 6.498A.86.86 0 0 0 7 7.11v.688h3.01a.857.857 0 0 0 .857-.858V4h-.717a.86.86 0 0 0-.6.246zM4.867 1H4.15a.86.86 0 0 0-.601.246L1.257 3.498A.86.86 0 0 0 1 4.11v.688h3.01a.857.857 0 0 0 .857-.858zM7 12V8.714h3.514c.71 0 1.286-.575 1.286-1.285V4h1.486C14.233 4 15 4.768 15 5.714v7.572c0 .947-.768 1.714-1.714 1.714H8.714A1.714 1.714 0 0 1 7 13.286z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+                <span
+                  class="leafygreen-ui-38lglc"
+                />
+              </div>
+            </button>
+          </span>
+        </p>
+      </span>
+      <span
+        class="emotion-MetadataItemWrapper e1130wzj0"
+      >
+        <p
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
+        >
+          <a
+            class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
+            href="/variant-history/spruce/ubuntu1604?visibleColumns=e2e_test"
+          >
+            <span>
+              View Build Variant history
+            </span>
+          </a>
+        </p>
+      </span>
+    </div>
+    <div
+      class="emotion-SiderCard e1am38ss0 leafygreen-ui-1nx5jqg"
+    >
+      <div
+        class="emotion-CardHeader e1h3ssq00"
+      >
+        <p
+          class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
+        >
+          Historical Task Timing
+        </p>
+        <button
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Config
+          </div>
+        </button>
+        <span
+          class="leafygreen-ui-38lglc"
+        />
+      </div>
+      <hr
+        class="emotion-Divider eb6szep0"
+      />
+      <span
+        class="emotion-MetadataItemWrapper e1130wzj0"
+      >
+        <p
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
+        >
+          <b
+            class="emotion-MetadataLabel e1130wzj3"
+          >
+            Total Time:
+          </b>
+           
+          <a
+            class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
+            href="/datasets/evergreen-agent?query={"time_range":604800,"granularity":0,"calculations":[{"op":"HEATMAP","column":"total_time_min"},{"op":"P99","column":"total_time_min"},{"op":"COUNT"}],"filters":[{"column":"name","op":"=","value":"task"},{"column":"evergreen.project.identifier","op":"=","value":"spruce"},{"column":"evergreen.build.name","op":"=","value":"ubuntu1604"},{"column":"evergreen.task.name","op":"=","value":"e2e_test"},{"column":"evergreen.task.activated_time","op":"exists"}],"filter_combination":"AND","limit":1000}&omitMissingValues"
+          >
+            <span>
+              Activated → Finish
+            </span>
+          </a>
+        </p>
+      </span>
+      <span
+        class="emotion-MetadataItemWrapper e1130wzj0"
+      >
+        <p
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
+        >
+          <b
+            class="emotion-MetadataLabel e1130wzj3"
+          >
+            Wait Time:
+          </b>
+           
+          <a
+            class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
+            href="/datasets/evergreen-agent?query={"time_range":604800,"granularity":0,"calculations":[{"op":"HEATMAP","column":"wait_time_min"},{"op":"P99","column":"wait_time_min"},{"op":"COUNT"}],"filters":[{"column":"name","op":"=","value":"task"},{"column":"evergreen.project.identifier","op":"=","value":"spruce"},{"column":"evergreen.build.name","op":"=","value":"ubuntu1604"},{"column":"evergreen.task.name","op":"=","value":"e2e_test"},{"column":"evergreen.task.activated_time","op":"exists"}],"filter_combination":"AND","limit":1000}&omitMissingValues"
+          >
+            <span>
+              Activated → Start
+            </span>
+          </a>
+        </p>
+      </span>
+      <span
+        class="emotion-MetadataItemWrapper e1130wzj0"
+      >
+        <p
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
+        >
+          <b
+            class="emotion-MetadataLabel e1130wzj3"
+          >
+            Run Time:
+          </b>
+           
+          <a
+            class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
+            href="/datasets/evergreen-agent?query={"time_range":604800,"granularity":0,"calculations":[{"op":"HEATMAP","column":"duration_min"},{"op":"P99","column":"duration_min"},{"op":"COUNT"}],"filters":[{"column":"name","op":"=","value":"task"},{"column":"evergreen.project.identifier","op":"=","value":"spruce"},{"column":"evergreen.build.name","op":"=","value":"ubuntu1604"},{"column":"evergreen.task.name","op":"=","value":"e2e_test"}],"filter_combination":"AND","limit":1000}&omitMissingValues"
+          >
+            <span>
+              Start → Finish
+            </span>
+          </a>
+        </p>
+      </span>
+    </div>
+    <div
+      class="emotion-SiderCard e1am38ss0 leafygreen-ui-1nx5jqg"
+    >
+      <p
+        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
+      >
+        Host Information
+      </p>
+      <hr
+        class="emotion-Divider eb6szep0"
+      />
+      <span
+        class="emotion-MetadataItemWrapper e1130wzj0"
+      >
+        <p
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -281,7 +464,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -304,7 +487,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <b
             class="emotion-MetadataLabel e1130wzj3"
@@ -327,7 +510,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
           data-cy="task-metadata-ami"
         >
           <b
@@ -343,7 +526,7 @@
         class="emotion-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="emotion-Item-wordBreakCss e1130wzj1 leafygreen-ui-26vqpd"
         >
           <a
             class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
@@ -358,10 +541,10 @@
       </span>
     </div>
     <div
-      class="emotion-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
+      class="emotion-SiderCard e1am38ss0 leafygreen-ui-1nx5jqg"
     >
       <p
-        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
       >
         Tags
       </p>
@@ -424,16 +607,19 @@
             data-testid="chip-text"
           >
             <span
-              class="leafygreen-ui-cssveg lg-ui-chip-inline-definition-0000 leafygreen-ui-1u6ruom"
+              class="lg-ui-chip-inline-definition-0000 leafygreen-ui-vm4wms"
               tabindex="0"
             >
               waiting_for_next_investigat…
+              <span
+                class="leafygreen-ui-38lglc"
+              />
             </span>
           </span>
         </span>
       </div>
       <p
-        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1miy0xp"
+        class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-53k4vi"
       >
         Failure Metadata Tags
       </p>

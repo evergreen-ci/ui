@@ -6,7 +6,7 @@
       class="emotion-1"
     >
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
       >
         <span
           data-cy="filtered-count"
@@ -62,13 +62,11 @@
             class="leafygreen-ui-16tr4y"
           >
             <svg
-              aria-label="Chevron Left Icon"
               class="leafygreen-ui-17pifwg"
               fill="none"
-              height="14"
-              role="img"
+              height="16"
               viewBox="0 0 16 16"
-              width="14"
+              width="16"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -105,13 +103,11 @@
             class="leafygreen-ui-16tr4y"
           >
             <svg
-              aria-label="Chevron Right Icon"
               class="leafygreen-ui-17pifwg"
               fill="none"
-              height="14"
-              role="img"
+              height="16"
               viewBox="0 0 16 16"
-              width="14"
+              width="16"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -130,8 +126,8 @@
         data-testid="lg-select"
       >
         <button
-          aria-controls="select-3-menu"
-          aria-describedby="select-3-description"
+          aria-controls="select-266-menu"
+          aria-describedby="select-266-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -140,7 +136,7 @@
           data-cy="tasks-table-page-size-selector"
           data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-4"
+          id="select-267"
           type="button"
           value="20"
         >

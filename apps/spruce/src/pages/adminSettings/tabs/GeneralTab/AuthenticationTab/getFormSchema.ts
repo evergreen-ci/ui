@@ -8,6 +8,7 @@ import {
   github,
   multi,
   kanopy,
+  oauth,
 } from "./schemaFields";
 
 export const getFormSchema = (): ReturnType<GetFormSchema> => ({
@@ -43,6 +44,11 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
             type: "object" as const,
             title: "GitHub Authentication",
             properties: github.schema,
+          },
+          oauth: {
+            type: "object" as const,
+            title: "OAuth Authentication",
+            properties: oauth.schema,
           },
           multi: {
             type: "object" as const,
@@ -84,6 +90,12 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         "ui:data-cy": "github",
         "ui:objectFieldCss": objectGridCss,
         ...github.uiSchema,
+      },
+      oauth: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:data-cy": "oauth",
+        "ui:objectFieldCss": objectGridCss,
+        ...oauth.uiSchema,
       },
       multi: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,

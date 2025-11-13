@@ -5,11 +5,11 @@
     Open Modal
   </button>
   <dialog
-    class="emotion-StyledModal ewsr9c74 leafygreen-ui-j7pqgd"
+    class="emotion-StyledModal ewsr9c74 leafygreen-ui-hs2y9s"
     data-cy="shortcut-modal"
     data-lgid="lg-modal"
     data-testid="lg-modal"
-    id="modal-6"
+    id="modal-32"
     open=""
   >
     <div>
@@ -53,7 +53,7 @@
           </span>
         </div>
         <p
-          class="leafygreen-ui-1tb6tuo"
+          class="leafygreen-ui-26vqpd"
         >
           Open or close the shortcut modal
         </p>
@@ -117,7 +117,7 @@
           </span>
         </div>
         <p
-          class="leafygreen-ui-1tb6tuo"
+          class="leafygreen-ui-26vqpd"
         >
           Focus on the search input
         </p>
@@ -181,7 +181,7 @@
           </span>
         </div>
         <p
-          class="leafygreen-ui-1tb6tuo"
+          class="leafygreen-ui-26vqpd"
         >
           Toggle between filter and highlight
         </p>
@@ -245,7 +245,7 @@
           </span>
         </div>
         <p
-          class="leafygreen-ui-1tb6tuo"
+          class="leafygreen-ui-26vqpd"
         >
           Apply the filter or highlight
         </p>
@@ -269,7 +269,7 @@
           </span>
         </div>
         <p
-          class="leafygreen-ui-1tb6tuo"
+          class="leafygreen-ui-26vqpd"
         >
           Toggle the side panel
         </p>
@@ -309,7 +309,7 @@
           </span>
         </div>
         <p
-          class="leafygreen-ui-1tb6tuo"
+          class="leafygreen-ui-26vqpd"
         >
           Paginate forward to the next search result
         </p>
@@ -361,7 +361,7 @@
           </span>
         </div>
         <p
-          class="leafygreen-ui-1tb6tuo"
+          class="leafygreen-ui-26vqpd"
         >
           Paginate backwards to the previous search result
         </p>
@@ -385,7 +385,7 @@
           </span>
         </div>
         <p
-          class="leafygreen-ui-1tb6tuo"
+          class="leafygreen-ui-26vqpd"
         >
           Tab to complete a search suggestion
         </p>
@@ -397,7 +397,7 @@
       class="leafygreen-ui-qya81r"
       data-lgid="lg-modal-close"
       data-testid="lg-modal-close"
-      id="modal-close_button-5"
+      id="modal-close_button-31"
       tabindex="0"
     >
       <div

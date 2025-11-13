@@ -1,26 +1,21 @@
-import { useState, useEffect } from "react";
-import { useMutation, useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
+import { useState, useMemo } from "react";
+import { useMutation } from "@apollo/client";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import TextArea from "@leafygreen-ui/text-area";
-import TextInput from "@leafygreen-ui/text-input";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { AjvError } from "@rjsf/core";
+import { diff } from "deep-object-diff";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
-import { ErrorMessage } from "components/styles";
+import { SpruceForm, ValidateProps } from "components/SpruceForm";
 import {
-  MyPublicKeysQuery,
   UpdatePublicKeyMutation,
   UpdatePublicKeyMutationVariables,
-  MyPublicKeysQueryVariables,
   CreatePublicKeyMutation,
   CreatePublicKeyMutationVariables,
+  PublicKey,
 } from "gql/generated/types";
 import { CREATE_PUBLIC_KEY, UPDATE_PUBLIC_KEY } from "gql/mutations";
-import { MY_PUBLIC_KEYS } from "gql/queries";
-import { validators, string } from "utils";
+import { string } from "utils";
 
-const { validateSSHPublicKey } = validators;
 const { stripNewLines } = string;
 
 export interface EditModalPropsState {
@@ -30,24 +25,26 @@ export interface EditModalPropsState {
 
 interface EditModalProps extends EditModalPropsState {
   onCancel: () => void;
+  myPublicKeys: PublicKey[];
 }
 
 export const EditModal: React.FC<EditModalProps> = ({
   initialPublicKey,
+  myPublicKeys,
   onCancel,
   visible,
 }) => {
-  const { data: myKeysData } = useQuery<
-    MyPublicKeysQuery,
-    MyPublicKeysQueryVariables
-  >(MY_PUBLIC_KEYS, { fetchPolicy: "cache-only" });
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
-  const [errors, setErrors] = useState<string[]>([]);
+  const [formErrors, setFormErrors] = useState<AjvError[]>([]);
+
   const [updatePublicKey] = useMutation<
     UpdatePublicKeyMutation,
     UpdatePublicKeyMutationVariables
   >(UPDATE_PUBLIC_KEY, {
+    onCompleted() {
+      dispatchToast.success("Updated public key.");
+    },
     onError(error) {
       dispatchToast.error(
         `There was an error editing the public key: ${error.message}`,
@@ -60,6 +57,9 @@ export const EditModal: React.FC<EditModalProps> = ({
     CreatePublicKeyMutation,
     CreatePublicKeyMutationVariables
   >(CREATE_PUBLIC_KEY, {
+    onCompleted() {
+      dispatchToast.success("Created new public key.");
+    },
     onError(error) {
       dispatchToast.error(
         `There was an error creating the public key: ${error.message}`,
@@ -68,54 +68,38 @@ export const EditModal: React.FC<EditModalProps> = ({
     refetchQueries: ["MyPublicKeys"],
   });
 
-  const [keyName, setKeyName] = useState<string>();
-  const [keyValue, setKeyValue] = useState<string>();
+  const initialState = useMemo(
+    () => ({
+      name: initialPublicKey?.name ?? "",
+      key: initialPublicKey?.key ?? "",
+    }),
+    [initialPublicKey?.name, initialPublicKey?.key],
+  );
+  const replaceKeyName = initialState.name;
+  const [formState, setFormState] = useState<FormState>(initialState);
 
-  // reset state with initial value
-  useEffect(() => {
-    setKeyName(initialPublicKey?.name ?? "");
-    setKeyValue(initialPublicKey?.key ?? "");
-  }, [initialPublicKey]);
-
-  const replaceKeyName = initialPublicKey?.name;
-
-  // form validation
-  useEffect(() => {
-    const inputErrors = [];
-    if (!keyName) {
-      inputErrors.push(EMPTY_KEY_NAME);
-    }
-    if (
-      myKeysData?.myPublicKeys.find(({ name }) => name === keyName) &&
-      keyName !== replaceKeyName
-    ) {
-      inputErrors.push(DUPLICATE_KEY_NAME);
-    }
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    if (!validateSSHPublicKey(keyValue)) {
-      inputErrors.push(INVALID_SSH_KEY);
-    }
-    setErrors(inputErrors);
-  }, [keyName, keyValue, replaceKeyName, myKeysData]);
+  const hasChanges = useMemo(() => {
+    const changes = diff(initialState, formState);
+    return Object.entries(changes).length > 0;
+  }, [initialState, formState]);
 
   const closeModal = () => {
     onCancel();
-    setKeyName("");
-    setKeyValue("");
+    setFormState(initialState);
   };
 
   const onClickSave = () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const nextKeyInfo = { name: keyName, key: stripNewLines(keyValue) };
+    const nextKeyInfo = {
+      name: formState.name,
+      key: stripNewLines(formState.key),
+    };
     if (replaceKeyName) {
       sendEvent({ name: "Changed public key" });
       updatePublicKey({
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         variables: { targetKeyName: replaceKeyName, updateInfo: nextKeyInfo },
       });
     } else {
       sendEvent({ name: "Created new public key" });
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       createPublicKey({ variables: { publicKeyInput: nextKeyInfo } });
     }
     closeModal();
@@ -128,53 +112,70 @@ export const EditModal: React.FC<EditModalProps> = ({
       }}
       confirmButtonProps={{
         children: "Save",
-        disabled: errors.length > 0,
+        disabled: formErrors.length > 0 || !hasChanges,
         onClick: onClickSave,
       }}
       data-cy="key-edit-modal"
       open={visible}
       title={replaceKeyName ? "Update Public Key" : "Add Public Key"}
     >
-      <StyledInput
-        data-cy={KEY_NAME_ID}
-        id={KEY_NAME_ID}
-        label="Key Name"
-        onChange={(e) => {
-          setKeyName(e.target.value);
+      <SpruceForm
+        formData={formState}
+        onChange={({ errors, formData }) => {
+          setFormState(formData);
+          setFormErrors(errors);
         }}
-        spellCheck={false}
-        value={keyName}
+        schema={schema}
+        uiSchema={uiSchema}
+        // @ts-expect-error: Will work regardless of type error
+        validate={validator(myPublicKeys, replaceKeyName)}
       />
-      <TextArea
-        data-cy={KEY_VALUE_ID}
-        id={KEY_VALUE_ID}
-        label="Public Key"
-        onChange={(e) => setKeyValue(e.target.value)}
-        rows={8}
-        spellCheck={false}
-        value={keyValue}
-      />
-      <ErrorContainer>
-        {visible &&
-          errors.map((text) => (
-            <div key={`error_message_${text}`} data-cy="error-message">
-              <ErrorMessage>{text}</ErrorMessage>
-            </div>
-          ))}
-      </ErrorContainer>
     </ConfirmationModal>
   );
 };
 
-const StyledInput = styled(TextInput)`
-  margin-bottom: ${size.m};
-`;
-const ErrorContainer = styled.div`
-  margin-top: ${size.xs};
-`;
-const KEY_NAME_ID = "key-name-input";
-const KEY_VALUE_ID = "key-value-input";
-const DUPLICATE_KEY_NAME = "The key name already exists.";
-const INVALID_SSH_KEY =
-  "The SSH key must begin with 'ssh-rsa' or 'ssh-dss' or 'ssh-ed25519' or 'ecdsa-sha2-nistp256'.";
-const EMPTY_KEY_NAME = "The key name cannot be empty.";
+type FormState = {
+  name: string;
+  key: string;
+};
+
+const schema = {
+  required: ["name", "key"],
+  properties: {
+    name: {
+      type: "string" as const,
+      title: "Key Name",
+      minLength: 1,
+    },
+    key: {
+      type: "string" as const,
+      title: "Public Key",
+      format: "validSSHPublicKey",
+    },
+  },
+};
+
+const uiSchema = {
+  name: {
+    "ui:data-cy": "key-name-input",
+  },
+  key: {
+    "ui:data-cy": "key-value-input",
+    "ui:widget": "textarea",
+    "ui:description":
+      "The SSH key must begin with 'ssh-rsa' or 'ssh-dss' or 'ssh-ed25519' or 'ecdsa-sha2-nistp256'.",
+    "ui:rows": 8,
+  },
+};
+
+export const validator = (myPublicKeys: PublicKey[], replaceKeyName?: string) =>
+  ((formState, errors) => {
+    const { name } = formState;
+    if (!myPublicKeys.length) return errors;
+
+    if (myPublicKeys.find((p) => p.name === name) && name !== replaceKeyName) {
+      errors.name?.addError?.("Duplicate key names are not allowed.");
+    }
+
+    return errors;
+  }) satisfies ValidateProps<FormState>;

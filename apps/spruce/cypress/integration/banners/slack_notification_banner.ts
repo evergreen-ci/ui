@@ -39,6 +39,11 @@ describe("Slack notification banner", () => {
     cy.visit("/preferences/notifications");
     cy.dataCy(slackNotificationBanner).should("not.exist");
     cy.dataCy("slack-username-field").should("contain.value", slackUsername);
-    cy.get('input[value="slack"]').should("be.checked");
+    cy.get('input[name="Patch finish"][data-label="Slack"]').should(
+      "be.checked",
+    );
+    cy.get('input[name="Patch first task failure"][data-label="Slack"]').should(
+      "be.checked",
+    );
   });
 });

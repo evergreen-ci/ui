@@ -12,13 +12,11 @@
         class="emotion-IconContainer e12dzyme1"
       >
         <svg
-          aria-label="Checkmark Icon"
-          class="leafygreen-ui-zgssm"
-          fill="none"
-          height="30"
-          role="img"
+          fill="#00A35C"
+          height="16"
+          size="30"
           viewBox="0 0 16 16"
-          width="30"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -30,7 +28,10 @@
         </svg>
       </div>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
+      />
+      <span
+        class="leafygreen-ui-38lglc"
       />
     </div>
     <div
@@ -56,10 +57,13 @@
         </svg>
       </div>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
       >
         5/10 failing tests
       </p>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
     <div
       aria-disabled="false"
@@ -85,10 +89,13 @@
         </svg>
       </div>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
       >
         1/2 failing tests
       </p>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
     <div
       aria-disabled="false"
@@ -100,13 +107,11 @@
         class="emotion-IconContainer e12dzyme1"
       >
         <svg
-          aria-label="Refresh Icon"
-          class="leafygreen-ui-4hxv4h"
-          fill="none"
-          height="30"
-          role="img"
+          fill="#944F01"
+          height="16"
+          size="30"
           viewBox="0 0 16 16"
-          width="30"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -116,7 +121,10 @@
         </svg>
       </div>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
+      />
+      <span
+        class="leafygreen-ui-38lglc"
       />
     </div>
     <div
@@ -154,10 +162,13 @@
         </svg>
       </div>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
       >
         5/10 failing tests
       </p>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
     <div
       aria-disabled="false"
@@ -187,10 +198,13 @@
         </svg>
       </div>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
       >
         5/10 failing tests
       </p>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
     <div
       aria-disabled="false"
@@ -219,10 +233,13 @@
         </svg>
       </div>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
       >
         5/10 failing tests
       </p>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
     <div
       aria-disabled="false"
@@ -259,10 +276,13 @@
         </svg>
       </div>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
       >
         5/10 failing tests
       </p>
+      <span
+        class="leafygreen-ui-38lglc"
+      />
     </div>
     <div
       aria-disabled="false"
@@ -274,13 +294,11 @@
         class="emotion-IconContainer e12dzyme1"
       >
         <svg
-          aria-label="Calendar Icon"
-          class="leafygreen-ui-19a71cx"
-          fill="none"
-          height="30"
-          role="img"
+          fill="#1C2D38"
+          height="16"
+          size="30"
           viewBox="0 0 16 16"
-          width="30"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -300,7 +318,10 @@
         </svg>
       </div>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
+      />
+      <span
+        class="leafygreen-ui-38lglc"
       />
     </div>
     <div
@@ -338,7 +359,10 @@
         </svg>
       </div>
       <p
-        class="leafygreen-ui-1tb6tuo"
+        class="leafygreen-ui-26vqpd"
+      />
+      <span
+        class="leafygreen-ui-38lglc"
       />
     </div>
   </div>

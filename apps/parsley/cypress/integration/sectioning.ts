@@ -29,10 +29,9 @@ describe("Sectioning", () => {
       "aria-label",
       "Open section",
     );
-    cy.get("[title='Use shift+click to select multiple lines']").should(
-      "have.length",
-      33,
-    );
+    cy.dataCy("section-header").each((header) => {
+      cy.wrap(header).should("have.attr", "aria-expanded", "true");
+    });
     cy.get("[title='Use shift+click to select multiple lines']").each(
       (section, i) => {
         cy.wrap(section).should("have.attr", "data-cy", `line-index-${i}`);

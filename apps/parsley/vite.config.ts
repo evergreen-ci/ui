@@ -51,9 +51,6 @@ const getProjectConfig = () => {
         exclude: /\.stories\.tsx?$/,
         // Only Typescript files should use fast refresh.
         include: ["**/*.tsx", "**/*.ts"],
-
-        // Enables use of css prop on JSX.
-        jsxImportSource: "@emotion/react",
       }),
       envCompatible({
         prefix: "REACT_APP_",
@@ -95,12 +92,10 @@ const getProjectConfig = () => {
       logOverride: { "this-is-undefined-in-esm": "silent" },
     },
 
-    // The resolve field for @leafygreen-ui/emotion is to prevent LG from pulling in SSR dependencies.
-    // It can be potentially removed upon the completion of https://jira.mongodb.org/browse/PD-1543.
     resolve: {
       alias: {
-        // workaround until LG-4402 is fixed
-        "@emotion/server": "@emotion/css",
+        // Prevent LG from pulling in SSR dependencies.
+        // Can be potentially removed upon the completion of LG-4402.
         "@leafygreen-ui/emotion": path.resolve(
           __dirname,
           "./config/leafygreen-ui/emotion.ts",

@@ -9,25 +9,27 @@
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
         data-lgid="lg-checkbox"
+        data-testid="lg-checkbox"
       >
         <label
-          class="leafygreen-ui-1srek1y"
-          data-lgid="lg-label"
-          for="checkbox-1"
-          id="checkbox-1-label"
+          class="leafygreen-ui-1whk3l"
+          data-lgid="lg-checkbox-label"
+          data-testid="lg-checkbox"
+          for="checkbox-277"
+          id="checkbox-277-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-1-label"
+            aria-labelledby="checkbox-277-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-1"
+            id="checkbox-277"
             type="checkbox"
           />
           <div
-            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-13nchij"
           >
             <svg
               class="leafygreen-ui-6caof5"
@@ -51,7 +53,7 @@
             class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
           />
           <span
-            class="leafygreen-ui-187di61"
+            class="leafygreen-ui-go5q3q"
           >
             All
           </span>
@@ -64,25 +66,27 @@
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
         data-lgid="lg-checkbox"
+        data-testid="lg-checkbox"
       >
         <label
-          class="leafygreen-ui-1srek1y"
-          data-lgid="lg-label"
-          for="checkbox-2"
-          id="checkbox-2-label"
+          class="leafygreen-ui-1whk3l"
+          data-lgid="lg-checkbox-label"
+          data-testid="lg-checkbox"
+          for="checkbox-278"
+          id="checkbox-278-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-2-label"
+            aria-labelledby="checkbox-278-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-2"
+            id="checkbox-278"
             type="checkbox"
           />
           <div
-            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-13nchij"
           >
             <svg
               class="leafygreen-ui-6caof5"
@@ -106,7 +110,7 @@
             class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
           />
           <span
-            class="leafygreen-ui-187di61"
+            class="leafygreen-ui-go5q3q"
           >
             Shapes
           </span>
@@ -119,25 +123,27 @@
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
         data-lgid="lg-checkbox"
+        data-testid="lg-checkbox"
       >
         <label
-          class="leafygreen-ui-1srek1y"
-          data-lgid="lg-label"
-          for="checkbox-3"
-          id="checkbox-3-label"
+          class="leafygreen-ui-1whk3l"
+          data-lgid="lg-checkbox-label"
+          data-testid="lg-checkbox"
+          for="checkbox-279"
+          id="checkbox-279-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-3-label"
+            aria-labelledby="checkbox-279-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-3"
+            id="checkbox-279"
             type="checkbox"
           />
           <div
-            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-13nchij"
           >
             <svg
               class="leafygreen-ui-6caof5"
@@ -161,7 +167,7 @@
             class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
           />
           <span
-            class="leafygreen-ui-187di61"
+            class="leafygreen-ui-go5q3q"
           >
             rectangle
           </span>
@@ -174,25 +180,27 @@
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
         data-lgid="lg-checkbox"
+        data-testid="lg-checkbox"
       >
         <label
-          class="leafygreen-ui-1srek1y"
-          data-lgid="lg-label"
-          for="checkbox-4"
-          id="checkbox-4-label"
+          class="leafygreen-ui-1whk3l"
+          data-lgid="lg-checkbox-label"
+          data-testid="lg-checkbox"
+          for="checkbox-280"
+          id="checkbox-280-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-4-label"
+            aria-labelledby="checkbox-280-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-4"
+            id="checkbox-280"
             type="checkbox"
           />
           <div
-            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-13nchij"
           >
             <svg
               class="leafygreen-ui-6caof5"
@@ -216,7 +224,7 @@
             class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
           />
           <span
-            class="leafygreen-ui-187di61"
+            class="leafygreen-ui-go5q3q"
           >
             circle
           </span>
@@ -229,25 +237,27 @@
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
         data-lgid="lg-checkbox"
+        data-testid="lg-checkbox"
       >
         <label
-          class="leafygreen-ui-1srek1y"
-          data-lgid="lg-label"
-          for="checkbox-5"
-          id="checkbox-5-label"
+          class="leafygreen-ui-1whk3l"
+          data-lgid="lg-checkbox-label"
+          data-testid="lg-checkbox"
+          for="checkbox-281"
+          id="checkbox-281-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-5-label"
+            aria-labelledby="checkbox-281-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-5"
+            id="checkbox-281"
             type="checkbox"
           />
           <div
-            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-13nchij"
           >
             <svg
               class="leafygreen-ui-6caof5"
@@ -271,7 +281,7 @@
             class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
           />
           <span
-            class="leafygreen-ui-187di61"
+            class="leafygreen-ui-go5q3q"
           >
             rhombus
           </span>
@@ -284,25 +294,27 @@
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
         data-lgid="lg-checkbox"
+        data-testid="lg-checkbox"
       >
         <label
-          class="leafygreen-ui-1srek1y"
-          data-lgid="lg-label"
-          for="checkbox-6"
-          id="checkbox-6-label"
+          class="leafygreen-ui-1whk3l"
+          data-lgid="lg-checkbox-label"
+          data-testid="lg-checkbox"
+          for="checkbox-282"
+          id="checkbox-282-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-6-label"
+            aria-labelledby="checkbox-282-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-6"
+            id="checkbox-282"
             type="checkbox"
           />
           <div
-            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-13nchij"
           >
             <svg
               class="leafygreen-ui-6caof5"
@@ -326,7 +338,7 @@
             class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
           />
           <span
-            class="leafygreen-ui-187di61"
+            class="leafygreen-ui-go5q3q"
           >
             Pass
           </span>
@@ -339,25 +351,27 @@
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
         data-lgid="lg-checkbox"
+        data-testid="lg-checkbox"
       >
         <label
-          class="leafygreen-ui-1srek1y"
-          data-lgid="lg-label"
-          for="checkbox-7"
-          id="checkbox-7-label"
+          class="leafygreen-ui-1whk3l"
+          data-lgid="lg-checkbox-label"
+          data-testid="lg-checkbox"
+          for="checkbox-283"
+          id="checkbox-283-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-7-label"
+            aria-labelledby="checkbox-283-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-7"
+            id="checkbox-283"
             type="checkbox"
           />
           <div
-            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-13nchij"
           >
             <svg
               class="leafygreen-ui-6caof5"
@@ -381,7 +395,7 @@
             class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
           />
           <span
-            class="leafygreen-ui-187di61"
+            class="leafygreen-ui-go5q3q"
           >
             REALLY LONG TITLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE!!!!!!!!!!!!!!!!!
           </span>
@@ -394,25 +408,27 @@
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
         data-lgid="lg-checkbox"
+        data-testid="lg-checkbox"
       >
         <label
-          class="leafygreen-ui-1srek1y"
-          data-lgid="lg-label"
-          for="checkbox-8"
-          id="checkbox-8-label"
+          class="leafygreen-ui-1whk3l"
+          data-lgid="lg-checkbox-label"
+          data-testid="lg-checkbox"
+          for="checkbox-284"
+          id="checkbox-284-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-8-label"
+            aria-labelledby="checkbox-284-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-8"
+            id="checkbox-284"
             type="checkbox"
           />
           <div
-            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-13nchij"
           >
             <svg
               class="leafygreen-ui-6caof5"
@@ -436,7 +452,7 @@
             class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
           />
           <span
-            class="leafygreen-ui-187di61"
+            class="leafygreen-ui-go5q3q"
           >
             Skip
           </span>
@@ -449,25 +465,27 @@
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
         data-lgid="lg-checkbox"
+        data-testid="lg-checkbox"
       >
         <label
-          class="leafygreen-ui-1srek1y"
-          data-lgid="lg-label"
-          for="checkbox-9"
-          id="checkbox-9-label"
+          class="leafygreen-ui-1whk3l"
+          data-lgid="lg-checkbox-label"
+          data-testid="lg-checkbox"
+          for="checkbox-285"
+          id="checkbox-285-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-9-label"
+            aria-labelledby="checkbox-285-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-9"
+            id="checkbox-285"
             type="checkbox"
           />
           <div
-            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-13nchij"
           >
             <svg
               class="leafygreen-ui-6caof5"
@@ -491,7 +509,7 @@
             class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
           />
           <span
-            class="leafygreen-ui-187di61"
+            class="leafygreen-ui-go5q3q"
           >
             Silent Fail
           </span>

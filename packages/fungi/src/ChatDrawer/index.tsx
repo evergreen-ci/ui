@@ -1,5 +1,4 @@
-import styled from "@emotion/styled";
-import { Drawer, DrawerLayout } from "@leafygreen-ui/drawer";
+import { DisplayMode, Drawer, DrawerLayout } from "@leafygreen-ui/drawer";
 import { useChatContext } from "../Context";
 
 type Props = {
@@ -9,43 +8,34 @@ type Props = {
   drawerTitle?: React.ReactNode;
 };
 
-export const ChatDrawer: React.FC<Props> = ({
+export const ChatDrawer = ({
   chatContent,
   children,
   "data-cy": dataCy,
   drawerTitle,
-}) => {
+}: React.PropsWithChildren<Props>) => {
   const { appName, drawerOpen, setDrawerOpen } = useChatContext();
+
+  const handleClose = () => {
+    setDrawerOpen(false);
+  };
 
   return (
     <DrawerLayout
-      displayMode="embedded"
+      displayMode={DisplayMode.Embedded}
       drawer={
-        <StyledDrawer
+        <Drawer
           data-cy={dataCy}
-          scrollable={false}
+          hasPadding={false}
           title={drawerTitle || appName}
         >
           {chatContent}
-        </StyledDrawer>
+        </Drawer>
       }
       isDrawerOpen={drawerOpen}
-      onClose={() => setDrawerOpen(false)}
+      onClose={handleClose}
     >
       {children}
     </DrawerLayout>
   );
 };
-
-// Make drawer contents take up the whole height
-const StyledDrawer = styled(Drawer)`
-  > div {
-    > div {
-      > div:nth-of-type(2) {
-        > div {
-          height: 100%;
-        }
-      }
-    }
-  }
-`;

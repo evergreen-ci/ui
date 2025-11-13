@@ -93,7 +93,6 @@ query Task($taskId: String!, $execution: Int) {
     hostId
     imageId
     ingestTime
-    isPerfPluginEnabled
     latestExecution
     logs {
       agentLogLink
