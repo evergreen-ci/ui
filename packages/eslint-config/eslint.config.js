@@ -146,7 +146,7 @@ const tsEslintConfig = {
   rules: {
     "@typescript-eslint/ban-ts-comment": ERROR,
     "@typescript-eslint/no-empty-object-type": ERROR,
-    "@typescript-eslint/no-explicit-any": WARN,
+    "@typescript-eslint/no-explicit-any": ERROR,
     "@typescript-eslint/no-namespace": OFF,
 
     // Rules for typescript-eslint. Note that these rules extend the ESLint rules. This can cause conflicts, so the original

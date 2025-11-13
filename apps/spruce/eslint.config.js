@@ -45,6 +45,7 @@ export default tseslint.config(
     rules: {
       "react/display-name": WARN,
       "react/no-unstable-nested-components": OFF, // This rule should be removed as part of EVG-17265.
+      "@typescript-eslint/no-explicit-any": WARN,
     },
   },
 );
