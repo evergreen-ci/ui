@@ -2,6 +2,6 @@ fragment FileDiffs on FileDiff {
   additions
   deletions
   description
-  diffLink
+  diff
   fileName
 }
