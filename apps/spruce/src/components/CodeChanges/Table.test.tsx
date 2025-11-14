@@ -152,11 +152,10 @@ index abc123def..def456abc 100644
 
   it("displays additions and deletions correctly", () => {
     render(<CodeChangesTable fileDiffs={mockFileDiffs} />);
-    expect(screen.getByText("5")).toBeInTheDocument();
-    expect(screen.getByText("8")).toBeInTheDocument();
-    expect(screen.getByText("0")).toBeInTheDocument();
-    expect(screen.getByText("0")).toBeInTheDocument();
-    expect(screen.getByText("8")).toBeInTheDocument();
+    expect(screen.getByText("+5")).toBeInTheDocument();
+    expect(screen.getByText("+8")).toBeInTheDocument();
+    expect(screen.getAllByText("0")).toHaveLength(3);
+    expect(screen.getByText("-8")).toBeInTheDocument();
   });
 
   it("renders table headers correctly", () => {
@@ -202,7 +201,7 @@ index abc123def..def456abc 100644
     ];
     render(<CodeChangesTable fileDiffs={zeroAdditionsDiff} />);
     expect(screen.getByText("0")).toBeInTheDocument();
-    expect(screen.getByText("10")).toBeInTheDocument();
+    expect(screen.getByText("-10")).toBeInTheDocument();
   });
 
   it("handles files with zero deletions", () => {
@@ -217,7 +216,7 @@ index abc123def..def456abc 100644
       },
     ];
     render(<CodeChangesTable fileDiffs={zeroDeletionsDiff} />);
-    expect(screen.getByText("20")).toBeInTheDocument();
+    expect(screen.getByText("+20")).toBeInTheDocument();
     expect(screen.getByText("0")).toBeInTheDocument();
   });
 
@@ -290,8 +289,8 @@ index a1b2c3d4..e5f6g7h8 100644
     expect(
       screen.getByText("src/components/UserProfile/UserProfile.tsx"),
     ).toBeInTheDocument();
-    expect(screen.getByText("2")).toBeInTheDocument();
-    expect(screen.getByText("2")).toBeInTheDocument();
+    expect(screen.getByText("+2")).toBeInTheDocument();
+    expect(screen.getByText("-2")).toBeInTheDocument();
   });
 
   it("handles file renames with significant changes", () => {
@@ -335,7 +334,7 @@ index 12345678..87654321 100644
     ];
     render(<CodeChangesTable fileDiffs={fileRenameWithChangesDiff} />);
     expect(screen.getByText("src/utils/dateHelpers.ts")).toBeInTheDocument();
-    expect(screen.getByText("13")).toBeInTheDocument();
-    expect(screen.getByText("3")).toBeInTheDocument();
+    expect(screen.getByText("+13")).toBeInTheDocument();
+    expect(screen.getByText("-3")).toBeInTheDocument();
   });
 });

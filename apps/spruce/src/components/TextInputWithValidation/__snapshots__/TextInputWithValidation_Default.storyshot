@@ -15,8 +15,8 @@
           class="leafygreen-ui-15qqekb"
           data-lgid="lg-text_input-label"
           data-testid="lg-text_input"
-          for="lg-form_field-input-141"
-          id="lg-form_field-label-138"
+          for="lg-form_field-input-152"
+          id="lg-form_field-label-149"
         >
           Some search field
         </label>
@@ -31,10 +31,10 @@
             aria-describedby=""
             aria-disabled="false"
             aria-invalid="false"
-            aria-labelledby="lg-form_field-label-138"
+            aria-labelledby="lg-form_field-label-149"
             autocomplete="on"
             class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-            id="lg-form_field-input-141"
+            id="lg-form_field-input-152"
             required=""
             type="text"
             value=""
@@ -47,7 +47,7 @@
         class="leafygreen-ui-11ydt2g"
         data-lgid="lg-text_input-feedback"
         data-testid="lg-text_input-feedback"
-        id="lg-form_field-feedback-140"
+        id="lg-form_field-feedback-151"
       />
     </div>
     <div
