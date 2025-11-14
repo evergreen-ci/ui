@@ -11,6 +11,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
 import { siderCardWidth } from "components/styles/Layout";
 import { getParsleyTaskLogLink } from "constants/externalResources";
+import { getTaskHTMLLogRoute } from "constants/routes";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
 import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
@@ -193,18 +194,18 @@ const getLinks = (
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     return { htmlLink: logLinks.eventLogLink };
   }
-  const htmlLink = `${
+  const rawLink = `${
     {
       [LogTypes.Agent]: logLinks.agentLogLink,
       [LogTypes.System]: logLinks.systemLogLink,
       [LogTypes.Task]: logLinks.taskLogLink,
       [LogTypes.All]: logLinks.allLogLink,
     }[logType] ?? ""
-  }`;
+  }&text=true`;
   return {
-    htmlLink,
+    htmlLink: getTaskHTMLLogRoute(taskId, execution, logType),
     parsleyLink: replaceUrl(getParsleyTaskLogLink(logType, taskId, execution)),
-    rawLink: `${htmlLink}&text=true`,
+    rawLink,
   };
 };
 

@@ -1,3 +1,15 @@
+/**
+ * `trimSeverity` trims the severity prefix from a line
+ * @param line - the line to trim
+ * @returns - the line without the severity prefix
+ */
+export const trimSeverity = (line: string) => {
+  if (line.startsWith("[P: ")) {
+    return line.substring(8);
+  }
+  return line;
+};
+
 enum GripLevel {
   Emergency = 100,
   Alert = 90,

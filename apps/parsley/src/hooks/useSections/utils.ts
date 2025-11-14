@@ -1,6 +1,6 @@
+import { trimSeverity } from "@evg-ui/lib/utils/string/logs";
 import { Range } from "types/logs";
 import { includesLineNumber } from "utils/logRow";
-import { trimSeverity } from "utils/string";
 import { SectionState } from ".";
 
 enum SectionStatus {
