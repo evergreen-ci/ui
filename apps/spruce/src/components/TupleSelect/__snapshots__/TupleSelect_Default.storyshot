@@ -29,7 +29,7 @@
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="Tuple Select Select"
-          class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
+          class="lg-ui-button-0002 leafygreen-ui-1p6i2zy"
           data-cy="tuple-select-select"
           data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"

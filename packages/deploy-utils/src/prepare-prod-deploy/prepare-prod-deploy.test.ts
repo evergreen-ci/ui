@@ -26,6 +26,12 @@ vi.mock("../utils/environment");
 
 vi.mock("../utils/git");
 
+vi.mock("../utils/shell", () => ({
+  countdownTimer: vi.fn().mockResolvedValue(undefined),
+  green: vi.fn((text: string) => text),
+  underline: vi.fn((text: string) => text),
+}));
+
 describe("prepareProdDeploy", () => {
   beforeEach(() => {});
 

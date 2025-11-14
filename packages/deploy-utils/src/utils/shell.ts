@@ -1,4 +1,5 @@
 import { execSync } from "child_process";
+import * as readline from "readline";
 
 /**
  * execTrim converts the result of execSync to a string and trims it to avoid the included newlines.
@@ -28,8 +29,8 @@ export const countdownTimer = async (
 
   let i = seconds;
   while (i > 0) {
-    process.stdout.clearLine(0);
-    process.stdout.cursorTo(0);
+    readline.clearLine(process.stdout, 0);
+    readline.cursorTo(process.stdout, 0);
     process.stdout.write(logger(i));
     await sleep(1000); // eslint-disable-line no-await-in-loop
     i -= 1;

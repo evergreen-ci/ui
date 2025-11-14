@@ -14,7 +14,7 @@
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
-        class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
+        class="lg-ui-button-0003 leafygreen-ui-1p6i2zy"
         data-cy="searchbar-select"
         data-lgid="lg-select-trigger"
         data-testid="leafygreen-ui-select-menubutton"

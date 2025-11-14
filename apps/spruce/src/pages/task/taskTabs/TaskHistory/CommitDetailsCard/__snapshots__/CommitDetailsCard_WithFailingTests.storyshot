@@ -1005,7 +1005,7 @@
                     aria-expanded="false"
                     aria-invalid="false"
                     aria-label="Set current page, 1"
-                    class="lg-ui-button-0000 leafygreen-ui-1rkuilv"
+                    class="lg-ui-button-0002 leafygreen-ui-1rkuilv"
                     data-lgid="lg-select-trigger"
                     data-testid="lg-pagination-page-select"
                     id="select-291"
