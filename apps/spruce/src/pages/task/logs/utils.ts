@@ -12,7 +12,7 @@ const getLineContentDiv = (content: string) => {
 
 const parseHash = () => {
   let hash = window.location.hash.toString();
-  hash = hash.length > 1 ? hash.substr(2) : hash;
+  hash = hash.length > 1 ? hash.substring(2) : hash;
   return parseInt(hash, 10);
 };
 
