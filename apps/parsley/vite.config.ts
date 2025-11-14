@@ -9,6 +9,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import dns from "dns";
 import path from "path";
+import analyticsVisualizer from "@evg-ui/analytics-visualizer";
 import {
   generateBaseHTTPSViteServerConfig,
   bareBonesViteConfig,
@@ -71,6 +72,13 @@ const getProjectConfig = () => {
       visualizer({
         filename: "dist/source_map.html",
         template: "treemap",
+      }),
+      // Analytics visualization
+      analyticsVisualizer({
+        analyticsDir: "src/analytics",
+        appName: "Parsley",
+        honeycombBaseUrl:
+          "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/parsley",
       }),
       sentryVitePlugin({
         authToken: process.env.PARSLEY_SENTRY_AUTH_TOKEN,
