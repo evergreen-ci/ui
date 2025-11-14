@@ -27,9 +27,7 @@ export const getConfig = ({
     },
   },
   hooks: {
-    afterAllFileWrite: [
-      `${resolve(process.cwd(), "./node_modules/.bin/prettier")} --write`,
-    ],
+    afterAllFileWrite: ["prettier --write"],
   },
   overwrite: true,
   // Use absolute paths for schema pointers; relative variant was not being resolved in some yarn workspace invocations.
