@@ -118,12 +118,9 @@
           class="leafygreen-ui-xhlipt"
         >
           <svg
-            aria-label="Trash Icon"
-            class=""
             data-cy="user-tag-trash-icon"
             fill="none"
             height="16"
-            role="img"
             viewBox="0 0 16 16"
             width="16"
             xmlns="http://www.w3.org/2000/svg"
@@ -254,12 +251,9 @@
           class="leafygreen-ui-xhlipt"
         >
           <svg
-            aria-label="Trash Icon"
-            class=""
             data-cy="user-tag-trash-icon"
             fill="none"
             height="16"
-            role="img"
             viewBox="0 0 16 16"
             width="16"
             xmlns="http://www.w3.org/2000/svg"
@@ -390,12 +384,9 @@
           class="leafygreen-ui-xhlipt"
         >
           <svg
-            aria-label="Trash Icon"
-            class=""
             data-cy="user-tag-trash-icon"
             fill="none"
             height="16"
-            role="img"
             viewBox="0 0 16 16"
             width="16"
             xmlns="http://www.w3.org/2000/svg"
@@ -427,7 +418,6 @@
           class="leafygreen-ui-16tr4y"
         >
           <svg
-            alt=""
             aria-hidden="true"
             class="leafygreen-ui-18si895"
             fill="none"

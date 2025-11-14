@@ -9,6 +9,7 @@ import {
   leaveBreadcrumb,
   reportError,
 } from "@evg-ui/lib/utils/errorReporting";
+import { decodeStream } from "@evg-ui/lib/utils/streams";
 import { useLogDropAnalytics } from "analytics";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { LOG_LINE_TOO_LARGE_WARNING } from "constants/errors";
@@ -16,7 +17,6 @@ import { LOG_FILE_SIZE_LIMIT, LOG_LINE_SIZE_LIMIT } from "constants/logs";
 import { useLogContext } from "context/LogContext";
 import useClipboardPaste from "hooks/useClipboardPaste";
 import { fileToStream } from "utils/file";
-import { decodeStream } from "utils/streams";
 import { LogDropType } from "./constants";
 import FileSelector from "./FileSelector";
 import LoadingAnimation from "./LoadingAnimation";
@@ -56,11 +56,14 @@ const FileDropper: React.FC = () => {
     [dispatch, dispatchToast],
   );
 
-  const onClipboardPaste = useCallback((text: string) => {
-    leaveBreadcrumb("Pasted text", {}, SentryBreadcrumbTypes.User);
-    sendEvent({ name: "Used clipboard paste to upload log file" });
-    dispatch({ text, type: "PASTED_TEXT" });
-  }, []);
+  const onClipboardPaste = useCallback(
+    (text: string) => {
+      leaveBreadcrumb("Pasted text", {}, SentryBreadcrumbTypes.User);
+      sendEvent({ name: "Used clipboard paste to upload log file" });
+      dispatch({ text, type: "PASTED_TEXT" });
+    },
+    [dispatch, sendEvent],
+  );
 
   useClipboardPaste(onClipboardPaste);
 
@@ -132,6 +135,7 @@ const FileDropper: React.FC = () => {
       }
     },
     [
+      startTransition,
       setLogMetadata,
       dispatch,
       state.file,

@@ -4,40 +4,35 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import Code from "@leafygreen-ui/code";
 import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Subtitle } from "@leafygreen-ui/typography";
-import get from "lodash/get";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { post } from "@evg-ui/lib/utils/request/post";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { UserConfigQuery, UserConfigQueryVariables } from "gql/generated/types";
 import { USER_CONFIG } from "gql/queries";
-import { getEvergreenUrl } from "utils/environmentVariables";
+import { ResetAPIKey } from "./ResetAPIKey";
 
 export const AuthenticationCard = () => {
-  const { data, loading, refetch } = useQuery<
-    UserConfigQuery,
-    UserConfigQueryVariables
-  >(USER_CONFIG);
+  const { data, loading } = useQuery<UserConfigQuery, UserConfigQueryVariables>(
+    USER_CONFIG,
+  );
   const { sendEvent } = usePreferencesAnalytics();
-  if (loading) {
+
+  if (loading || !data?.userConfig) {
     return <CardSkeleton />;
   }
-  const config = get(data, "userConfig");
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const authCode = `user: "${config.user}"
-api_key: "${config?.api_key}"
-api_server_host: "${config?.api_server_host}"
-ui_server_host: "${config?.ui_server_host}"
+
+  const authCode = `user: "${data.userConfig.user}"
+api_key: "${data.userConfig.api_key}"
+api_server_host: "${data.userConfig.api_server_host}"
+ui_server_host: "${data.userConfig.ui_server_host}"
+oauth:
+    issuer: "${data.userConfig.oauth_issuer}"
+    client_id: "${data.userConfig.oauth_client_id}"
+    connector_id: "${data.userConfig.oauth_connector_id}"
+    do_not_use_browser: false
 `;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const resetKey = async (e) => {
-    e.preventDefault();
-    sendEvent({ name: "Clicked reset API key" });
-    await post(`${getEvergreenUrl()}/settings/newkey`, {});
-    refetch();
-  };
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const downloadFile = (e) => {
+
+  const downloadFile = (e: React.MouseEvent) => {
     sendEvent({ name: "Clicked download auth file" });
     // This creates a text blob with the contents of `authCode`
     // It then creates a `a` element and generates an objectUrl pointing to the
@@ -52,6 +47,7 @@ ui_server_host: "${config?.ui_server_host}"
     URL.revokeObjectURL(element.href);
     document.body.removeChild(element);
   };
+
   return (
     <SettingsCard>
       <Subtitle>Authentication</Subtitle>
@@ -62,7 +58,7 @@ ui_server_host: "${config?.ui_server_host}"
         <Button onClick={downloadFile} variant={Variant.Primary}>
           Download file
         </Button>
-        <Button onClick={resetKey}>Reset key</Button>
+        <ResetAPIKey />
       </ButtonGroup>
     </SettingsCard>
   );

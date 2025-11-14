@@ -1,4 +1,5 @@
-import { StreamedFetchOptions, fetchLogFile } from ".";
+import { StreamedFetchOptions } from "@evg-ui/lib/utils/request/streamedFetch";
+import { fetchLogFile } from ".";
 
 describe("fetchLogFile", () => {
   const mockFetch = vi.fn();

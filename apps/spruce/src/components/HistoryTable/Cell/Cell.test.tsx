@@ -18,7 +18,10 @@ describe("taskCell", () => {
       />,
     );
 
-    expect(screen.getByLabelText("Checkmark Icon")).toBeInTheDocument();
+    expect(screen.getByDataCy("history-table-icon")).toHaveAttribute(
+      "data-status",
+      "success",
+    );
     expect(screen.getByDataCy("task-cell")).toBeInTheDocument();
 
     rerender(

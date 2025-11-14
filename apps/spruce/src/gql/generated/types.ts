@@ -3923,6 +3923,7 @@ export type SpawnHostInput = {
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
   spawnHostsStartedByTask?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskId?: InputMaybe<Scalars["String"]["input"]>;
+  useOAuth?: InputMaybe<Scalars["Boolean"]["input"]>;
   useProjectSetupScript?: InputMaybe<Scalars["Boolean"]["input"]>;
   useTaskConfig?: InputMaybe<Scalars["Boolean"]["input"]>;
   userDataScript?: InputMaybe<Scalars["String"]["input"]>;
@@ -6946,6 +6947,17 @@ export type ReprovisionToNewMutation = {
   reprovisionToNew: number;
 };
 
+export type ResetUserApiKeyMutationVariables = Exact<{ [key: string]: never }>;
+
+export type ResetUserApiKeyMutation = {
+  __typename?: "Mutation";
+  resetAPIKey?: {
+    __typename?: "UserConfig";
+    api_key: string;
+    user: string;
+  } | null;
+};
+
 export type RestartAdminTasksMutationVariables = Exact<{
   opts: RestartAdminTasksOptions;
 }>;
@@ -9169,6 +9181,10 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }> | null;
+    githubPatchData?: {
+      __typename?: "GithubPatch";
+      prNumber?: number | null;
+    } | null;
     patchTriggerAliases: Array<{
       __typename?: "PatchTriggerAlias";
       alias: string;
@@ -9190,6 +9206,7 @@ export type ConfigurePatchQuery = {
       }>;
     } | null;
     time?: { __typename?: "PatchTime"; submittedAt: string } | null;
+    versionFull?: { __typename?: "Version"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     variantsTasks: Array<{
       __typename?: "VariantTask";
@@ -11521,6 +11538,9 @@ export type UserConfigQuery = {
     __typename?: "UserConfig";
     api_key: string;
     api_server_host: string;
+    oauth_client_id: string;
+    oauth_connector_id: string;
+    oauth_issuer: string;
     ui_server_host: string;
     user: string;
   } | null;

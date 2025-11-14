@@ -18,7 +18,7 @@
         width="275"
       >
         <div
-          class="emotion-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
+          class="emotion-SiderCard e1am38ss0 leafygreen-ui-1nx5jqg"
         >
           <ul
             aria-busy="true"
@@ -73,7 +73,7 @@
           </ul>
         </div>
         <div
-          class="emotion-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
+          class="emotion-SiderCard e1am38ss0 leafygreen-ui-1nx5jqg"
         >
           <ul
             aria-busy="true"
@@ -143,13 +143,10 @@
                 class="leafygreen-ui-g5saio"
               >
                 <div
-                  aria-hidden="true"
-                  class="leafygreen-ui-161vd4l"
-                />
-              </th>
-              <th
-                class="leafygreen-ui-g5saio"
-              >
+                  class="leafygreen-ui-wvo6b5"
+                >
+                  Loading
+                </div>
                 <div
                   aria-hidden="true"
                   class="leafygreen-ui-161vd4l"
@@ -159,6 +156,11 @@
                 class="leafygreen-ui-g5saio"
               >
                 <div
+                  class="leafygreen-ui-wvo6b5"
+                >
+                  Loading
+                </div>
+                <div
                   aria-hidden="true"
                   class="leafygreen-ui-161vd4l"
                 />
@@ -166,6 +168,24 @@
               <th
                 class="leafygreen-ui-g5saio"
               >
+                <div
+                  class="leafygreen-ui-wvo6b5"
+                >
+                  Loading
+                </div>
+                <div
+                  aria-hidden="true"
+                  class="leafygreen-ui-161vd4l"
+                />
+              </th>
+              <th
+                class="leafygreen-ui-g5saio"
+              >
+                <div
+                  class="leafygreen-ui-wvo6b5"
+                >
+                  Loading
+                </div>
                 <div
                   aria-hidden="true"
                   class="leafygreen-ui-161vd4l"

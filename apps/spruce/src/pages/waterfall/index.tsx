@@ -10,7 +10,6 @@ import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { slugs } from "constants/routes";
-import { useIsScrollAtTop } from "hooks";
 import { waterfallPageContainerId } from "./constants";
 import { Pagination, WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
@@ -30,23 +29,16 @@ const Waterfall: React.FC = () => {
 
   const [pagination, setPagination] = useState<Pagination>();
 
-  const pageWrapperRef = useRef<HTMLDivElement>(null);
-  const { atTop } = useIsScrollAtTop(pageWrapperRef, 200);
-
   const guideCueRef = useRef<WalkthroughGuideCueRef>(null);
   const restartWalkthrough = useCallback(
     () => guideCueRef.current?.restart(),
-    [guideCueRef.current],
+    [],
   );
 
   return (
     <>
       <Global styles={navbarStyles} />
-      <PageContainer
-        ref={pageWrapperRef}
-        data-cy="waterfall-page"
-        id={waterfallPageContainerId}
-      >
+      <PageContainer data-cy="waterfall-page" id={waterfallPageContainerId}>
         <ProjectBanner projectIdentifier={projectIdentifier ?? ""} />
         <RepotrackerBanner projectIdentifier={projectIdentifier ?? ""} />
         <WaterfallFilters
@@ -71,7 +63,6 @@ const Waterfall: React.FC = () => {
           <WaterfallErrorBoundary projectIdentifier={projectIdentifier ?? ""}>
             <WaterfallGrid
               key={projectIdentifier}
-              atTop={atTop}
               guideCueRef={guideCueRef}
               projectIdentifier={projectIdentifier ?? ""}
               setPagination={setPagination}

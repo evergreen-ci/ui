@@ -81,6 +81,29 @@
             Restart Task
           </div>
         </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="notify-task"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Notify me
+          </div>
+        </button>
+        <dialog
+          class="leafygreen-ui-1fxhhyq"
+          data-cy="task-notification-modal"
+          data-lgid="lg-confirmation_modal"
+          data-testid="lg-confirmation_modal"
+          id="modal-308"
+        />
         <div
           class="leafygreen-ui-17azklk"
           data-cy="this-task-badge"
@@ -190,6 +213,29 @@
             Restart Task
           </div>
         </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="notify-task"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Notify me
+          </div>
+        </button>
+        <dialog
+          class="leafygreen-ui-1fxhhyq"
+          data-cy="task-notification-modal"
+          data-lgid="lg-confirmation_modal"
+          data-testid="lg-confirmation_modal"
+          id="modal-309"
+        />
         <span>
           Apr 3, 2025, 10:21 AM
         </span>
@@ -256,17 +302,15 @@
           <svg
             alt=""
             aria-hidden="true"
-            class="leafygreen-ui-xpf1b6"
-            fill="none"
+            class="leafygreen-ui-1st74h4 leafygreen-ui-xpf1b6"
             height="16"
             role="presentation"
             viewBox="0 0 16 16"
             width="16"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               clip-rule="evenodd"
-              d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
+              d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
               fill="currentColor"
               fill-rule="evenodd"
             />
@@ -355,6 +399,29 @@
             Restart Task
           </div>
         </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="notify-task"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Notify me
+          </div>
+        </button>
+        <dialog
+          class="leafygreen-ui-1fxhhyq"
+          data-cy="task-notification-modal"
+          data-lgid="lg-confirmation_modal"
+          data-testid="lg-confirmation_modal"
+          id="modal-311"
+        />
         <span>
           Apr 2, 2025, 10:22 AM
         </span>
@@ -409,17 +476,15 @@
           <svg
             alt=""
             aria-hidden="true"
-            class="leafygreen-ui-xpf1b6"
-            fill="none"
+            class="leafygreen-ui-1st74h4 leafygreen-ui-xpf1b6"
             height="16"
             role="presentation"
             viewBox="0 0 16 16"
             width="16"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               clip-rule="evenodd"
-              d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
+              d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
               fill="currentColor"
               fill-rule="evenodd"
             />
@@ -508,6 +573,29 @@
             Restart Task
           </div>
         </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="notify-task"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Notify me
+          </div>
+        </button>
+        <dialog
+          class="leafygreen-ui-1fxhhyq"
+          data-cy="task-notification-modal"
+          data-lgid="lg-confirmation_modal"
+          data-testid="lg-confirmation_modal"
+          id="modal-313"
+        />
         <span>
           Apr 1, 2025, 10:22 AM
         </span>
@@ -536,17 +624,15 @@
             >
               <svg
                 aria-label="Chevron Right Icon"
-                class="leafygreen-ui-jc2z8v"
-                fill="none"
+                class="leafygreen-ui-1vrn39p"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   clip-rule="evenodd"
-                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
+                  d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
                   fill="currentColor"
                   fill-rule="evenodd"
                 />
@@ -640,18 +726,16 @@
                               >
                                 <svg
                                   aria-label="Magnifying Glass Icon"
-                                  class=""
+                                  class="leafygreen-ui-1st74h4"
                                   color="#3D4F58"
-                                  fill="none"
                                   height="16"
                                   role="img"
                                   viewBox="0 0 16 16"
                                   width="16"
-                                  xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <path
                                     clip-rule="evenodd"
-                                    d="M2.323 9.819a5.3 5.3 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496M7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162"
+                                    d="M2.3234 9.81874C4.07618 11.5715 6.75062 11.8398 8.78588 10.6244L12.93 14.7685C13.4377 15.2762 14.2608 15.2762 14.7685 14.7685C15.2762 14.2608 15.2762 13.4377 14.7685 12.93L10.6244 8.78588C11.8398 6.75062 11.5715 4.07619 9.81873 2.32341C7.74896 0.253628 4.39318 0.253628 2.3234 2.32341C0.253624 4.39319 0.253624 7.74896 2.3234 9.81874ZM7.98026 4.16188C9.03467 5.2163 9.03467 6.92585 7.98026 7.98026C6.92584 9.03468 5.2163 9.03468 4.16188 7.98026C3.10746 6.92585 3.10746 5.2163 4.16188 4.16188C5.2163 3.10747 6.92584 3.10747 7.98026 4.16188Z"
                                     fill="currentColor"
                                     fill-rule="evenodd"
                                   />
@@ -804,7 +888,6 @@
                                   >
                                     Logs
                                     <svg
-                                      alt=""
                                       aria-hidden="true"
                                       class="leafygreen-ui-1q35ofk"
                                       fill="none"
@@ -856,17 +939,15 @@
           <svg
             alt=""
             aria-hidden="true"
-            class="leafygreen-ui-xpf1b6"
-            fill="none"
+            class="leafygreen-ui-1st74h4 leafygreen-ui-xpf1b6"
             height="16"
             role="presentation"
             viewBox="0 0 16 16"
             width="16"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               clip-rule="evenodd"
-              d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414z"
+              d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
               fill="currentColor"
               fill-rule="evenodd"
             />
@@ -955,6 +1036,29 @@
             Restart Task
           </div>
         </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="notify-task"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Notify me
+          </div>
+        </button>
+        <dialog
+          class="leafygreen-ui-1fxhhyq"
+          data-cy="task-notification-modal"
+          data-lgid="lg-confirmation_modal"
+          data-testid="lg-confirmation_modal"
+          id="modal-317"
+        />
         <span>
           Mar 30, 2025, 10:22 AM
         </span>
@@ -1082,6 +1186,29 @@
             Restart Task
           </div>
         </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-cy="notify-task"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Notify me
+          </div>
+        </button>
+        <dialog
+          class="leafygreen-ui-1fxhhyq"
+          data-cy="task-notification-modal"
+          data-lgid="lg-confirmation_modal"
+          data-testid="lg-confirmation_modal"
+          id="modal-318"
+        />
         <span>
           Mar 29, 2025, 10:22 AM
         </span>

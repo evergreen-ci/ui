@@ -5,11 +5,11 @@
     Open Modal
   </button>
   <dialog
-    class="emotion-StyledModal ewsr9c74 leafygreen-ui-j7pqgd"
+    class="emotion-StyledModal ewsr9c74 leafygreen-ui-hs2y9s"
     data-cy="shortcut-modal"
     data-lgid="lg-modal"
     data-testid="lg-modal"
-    id="modal-18"
+    id="modal-32"
     open=""
   >
     <div>
@@ -397,7 +397,7 @@
       class="leafygreen-ui-qya81r"
       data-lgid="lg-modal-close"
       data-testid="lg-modal-close"
-      id="modal-close_button-17"
+      id="modal-close_button-31"
       tabindex="0"
     >
       <div

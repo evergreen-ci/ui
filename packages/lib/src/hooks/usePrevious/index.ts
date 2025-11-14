@@ -12,5 +12,5 @@ export const usePrevious = <T>(state: T): T | undefined => {
   }, [state]);
   // This is not correct use of refs, but it's not possible to fix until DEVPROD-14178 is done
   // because it throws errors that are not easy to debug.
-  return ref.current;
+  return ref.current; // eslint-disable-line react-hooks/refs
 };
