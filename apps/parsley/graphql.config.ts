@@ -8,7 +8,7 @@ const config: CodegenConfig = {
         arrayInputCoercion: false,
         scalars: {
           Duration: "number",
-          StringMap: "{ [key: string]: any }",
+          StringMap: "{ [key: string]: unknown }",
           Time: "Date",
         },
       },

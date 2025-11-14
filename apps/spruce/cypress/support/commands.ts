@@ -125,7 +125,7 @@ Cypress.Commands.add(
   },
 );
 
-Cypress.Commands.add("overwriteGQL", (operationName: string, body: any) => {
+Cypress.Commands.add("overwriteGQL", (operationName: string, body: unknown) => {
   cy.intercept("POST", GQL_URL, (req) => {
     if (hasOperationName(req, operationName)) {
       req.reply((res) => {

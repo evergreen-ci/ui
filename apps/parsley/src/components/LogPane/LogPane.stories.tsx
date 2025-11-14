@@ -31,7 +31,9 @@ export const Default: CustomStoryObj<typeof LogPane> = {
   ),
 };
 
-const LogPaneWithZebraStriping = (args: any) => {
+const LogPaneWithZebraStriping = (
+  args: React.ComponentProps<typeof LogPane>,
+) => {
   const { preferences } = useLogContext();
   const { setZebraStriping } = preferences;
   useEffect(() => {

@@ -285,7 +285,7 @@ export const validator = (permanentlyExempt: boolean) =>
           isBefore(exemptionRange.disableBefore, selectedDate)
         )
       ) {
-        // @ts-expect-error
+        // @ts-expect-error - It doesn't hugely matter where the error is appended
         errors.expirationDetails?.hostUptime?.temporarilyExemptUntil?.addError?.(
           "Invalid date selected; sleep can only be disabled for up to one month.",
         );
@@ -314,7 +314,7 @@ export const validator = (permanentlyExempt: boolean) =>
     if (enabledHoursCount > maxUptimeHours) {
       // Return error based on whether runContinously enabled
       if (timeSelection?.runContinuously) {
-        // @ts-expect-error
+        // @ts-expect-error - It doesn't hugely matter where the error is appended
         errors.expirationDetails?.hostUptime?.details?.uptimeHours?.addError?.(
           "Please pause your host for at least 1 day per week.",
         );
@@ -323,7 +323,7 @@ export const validator = (permanentlyExempt: boolean) =>
       const hourlyRequirement = Math.floor(
         maxUptimeHours / enabledWeekdaysCount,
       );
-      // @ts-expect-error
+      // @ts-expect-error - It doesn't hugely matter where the error is appended
       errors.expirationDetails?.hostUptime?.details?.uptimeHours?.addError?.(
         `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`,
       );

@@ -19,7 +19,8 @@ interface BaseNavGroupProps<T> {
   additionalHeaderText?: ReactNode;
 }
 
-const BaseNavGroup = <T extends {}>({
+// Trailing comma is necessary to indicate this is a generic, not a JSX open tag.
+const BaseNavGroup = <T,>({
   additionalHeaderText,
   children,
   "data-cy": dataCy,

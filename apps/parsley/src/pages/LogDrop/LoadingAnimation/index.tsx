@@ -3,8 +3,7 @@ import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import LoadingBar from "components/LoadingBar";
 
-interface LoadingAnimationProps {}
-const LoadingAnimation: React.FC<LoadingAnimationProps> = () => (
+const LoadingAnimation: React.FC = () => (
   <AnimateIn>
     <StyledBody>Loading log...</StyledBody>
     <LoadingBar indeterminate />

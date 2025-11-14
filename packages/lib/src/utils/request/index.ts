@@ -27,7 +27,7 @@ const getErrorMessage = (response: Response, method: string) => {
   return `${method} Error: ${status} - ${statusText}`;
 };
 
-export const fetchWithRetry = <T = any>(
+export const fetchWithRetry = <T = unknown>(
   url: string,
   options: RequestInit,
   retries: number = 3,

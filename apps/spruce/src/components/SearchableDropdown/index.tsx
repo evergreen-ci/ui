@@ -39,6 +39,8 @@ export interface SearchableDropdownProps<T> {
   value: T | T[];
   valuePlaceholder?: string;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 const SearchableDropdown = <T extends {}>({
   allowMultiSelect = false,
   buttonRenderer,
@@ -175,7 +177,7 @@ const SearchableDropdown = <T extends {}>({
           <SearchInput
             aria-label="Search for options"
             aria-labelledby={label ? `searchable-dropdown-${label}` : undefined}
-            autoFocus
+            autoFocus // eslint-disable-line jsx-a11y/no-autofocus
             className={css`
               padding: 0 ${size.xs};
             `}
@@ -199,6 +201,8 @@ interface SearchableDropdownOptionProps<T> {
   showCheckmark?: boolean;
   value: T;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export const SearchableDropdownOption = <T extends {}>({
   isChecked,
   onClick,

@@ -29,7 +29,9 @@ export const Default: CustomStoryObj<typeof DetailsMenu> = {
   ),
 };
 
-const DetailsMenuWithDownloadedLog = (args: any) => {
+const DetailsMenuWithDownloadedLog = (
+  args: React.ComponentProps<typeof DetailsMenu>,
+) => {
   const { setLogMetadata } = useLogContext();
   useEffect(() => {
     setLogMetadata({

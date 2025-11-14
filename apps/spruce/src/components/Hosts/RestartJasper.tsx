@@ -64,7 +64,7 @@ export const RestartJasper: React.FC<Props> = ({
         <Tooltip
           align="top"
           justify="middle"
-          trigger={children}
+          trigger={children as JSX.Element}
           triggerEvent="hover"
         >
           {jasperTooltipMessage}

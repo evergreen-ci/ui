@@ -22,7 +22,7 @@ type CustomStorybookReactRouterParams = {
   route?: string;
 };
 type CustomStorybookMockApolloProviderParams = {
-  mocks: ApolloMock<any, any>[];
+  mocks: ApolloMock<unknown, unknown>[];
 };
 
 type CustomStorybookParams = {

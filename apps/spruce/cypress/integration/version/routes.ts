@@ -43,7 +43,6 @@ describe("Version route", () => {
     it("Lists the patch's build variants", () => {
       cy.dataCy("build-variants").within(() => {
         cy.dataCy("patch-build-variant").within(
-          // @ts-expect-error
           ($variants) => Array.from($variants).length > 0,
         );
       });

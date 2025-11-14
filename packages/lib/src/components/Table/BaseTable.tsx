@@ -79,8 +79,10 @@ interface SpruceTableProps<T extends LGRowData> {
   rowCss?: SerializedStyles;
 }
 
-type BaseTableProps<T> = SpruceTableProps<T> & Omit<TableProps<T>, "table">;
+type BaseTableProps<T extends LGRowData = LGRowData> = SpruceTableProps<T> &
+  Omit<TableProps<T>, "table">;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
   <T extends LGRowData>(
     {

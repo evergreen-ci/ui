@@ -49,7 +49,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
         <StyledBanner data-cy="warning-banner" variant="warning">
           {warnings.map((w, i) =>
             typeof w === "string" || w instanceof String ? (
-              <div key={`warning-${i}`}>{w}</div>
+              <div key={`warning-${i}`}>{w}</div> // eslint-disable-line  react/no-array-index-key
             ) : (
               w
             ),

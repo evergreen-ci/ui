@@ -26,7 +26,7 @@ export const parseQueryString = (
  * @returns - The query-string string
  */
 export const stringifyQuery = (
-  object: { [key: string]: any },
+  object: { [key: string]: unknown },
   options: StringifyOptions = {},
 ) =>
   queryString.stringify(object, {

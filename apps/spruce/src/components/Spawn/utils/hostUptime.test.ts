@@ -87,7 +87,7 @@ describe("validator", () => {
       },
       {
         expirationDetails: {
-          // @ts-expect-error
+          // @ts-expect-error - Partial error schema for test
           hostUptime: { details: { uptimeHours: { addError: f } } },
         },
       },
@@ -119,7 +119,7 @@ describe("validator", () => {
       },
       {
         expirationDetails: {
-          // @ts-expect-error
+          // @ts-expect-error - Partial error schema for test
           hostUptime: { details: { uptimeHours: { addError: f } } },
         },
       },
@@ -151,7 +151,7 @@ describe("validator", () => {
       },
       {
         expirationDetails: {
-          // @ts-expect-error
+          // @ts-expect-error - Partial error schema for test
           hostUptime: { details: { uptimeHours: { addError: f } } },
         },
       },
@@ -181,7 +181,7 @@ describe("validator", () => {
           noExpiration: true,
         },
       },
-      // @ts-expect-error
+      // @ts-expect-error - Partial error schema for test
       { expirationDetails: { hostUptime: { details: { addError: f } } } },
     );
     expect(f).toHaveBeenCalledTimes(0);
@@ -212,7 +212,7 @@ describe("validator", () => {
       },
       {
         expirationDetails: {
-          // @ts-expect-error
+          // @ts-expect-error - Partial error schema for test
           hostUptime: { temporarilyExemptUntil: { addError: f } },
         },
       },
@@ -261,7 +261,7 @@ describe("validator", () => {
         },
         {
           expirationDetails: {
-            // @ts-expect-error
+            // @ts-expect-error - Partial error schema for test
             hostUptime: { temporarilyExemptUntil: { addError: f } },
           },
         },
@@ -294,7 +294,7 @@ describe("validator", () => {
         },
         {
           expirationDetails: {
-            // @ts-expect-error
+            // @ts-expect-error - Partial error schema for test
             hostUptime: { temporarilyExemptUntil: { addError: f } },
           },
         },
@@ -327,7 +327,7 @@ describe("validator", () => {
         },
         {
           expirationDetails: {
-            // @ts-expect-error
+            // @ts-expect-error - Partial error schema for test
             hostUptime: { temporarilyExemptUntil: { addError: f } },
           },
         },

@@ -17,6 +17,7 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 const ERROR = "error";
+// Warnings are discouraged. Their use should be limited to new rules that cannot have all their violations fixed at once.
 const WARN = "warn";
 const OFF = "off";
 
@@ -143,9 +144,9 @@ const tsEslintConfig = {
     "typescript-eslint": tseslint,
   },
   rules: {
-    "@typescript-eslint/ban-ts-comment": WARN,
-    "@typescript-eslint/no-empty-object-type": WARN,
-    "@typescript-eslint/no-explicit-any": WARN,
+    "@typescript-eslint/ban-ts-comment": ERROR,
+    "@typescript-eslint/no-empty-object-type": ERROR,
+    "@typescript-eslint/no-explicit-any": ERROR,
     "@typescript-eslint/no-namespace": OFF,
 
     // Rules for typescript-eslint. Note that these rules extend the ESLint rules. This can cause conflicts, so the original
@@ -199,7 +200,7 @@ const reactConfig = {
         reservedFirst: ["key", "ref"],
       },
     ],
-    "react/no-array-index-key": WARN,
+    "react/no-array-index-key": ERROR,
     "react/no-unknown-property": [ERROR, { ignore: ["css"] }],
     "react/no-unstable-nested-components": ERROR,
     "react/prop-types": OFF,
@@ -217,7 +218,7 @@ const reactHooksConfig = {
   },
   rules: {
     ...reactHooksPlugin.configs.recommended.rules,
-    "react-hooks/exhaustive-deps": WARN,
+    "react-hooks/exhaustive-deps": ERROR,
     "react-hooks/rules-of-hooks": ERROR,
   },
 };
@@ -236,7 +237,7 @@ const jsxA11yConfig = {
       errorIfStrict,
       { some: ["nesting", "id"] },
     ],
-    "jsx-a11y/no-autofocus": WARN,
+    "jsx-a11y/no-autofocus": ERROR,
   },
 };
 
@@ -333,8 +334,8 @@ const graphQLConfig = {
       "error",
       { ignoreClientDirectives: ["client"] },
     ],
-    "@graphql-eslint/no-deprecated": WARN,
-    "@graphql-eslint/selection-set-depth": [WARN, { maxDepth: 8 }],
+    "@graphql-eslint/no-deprecated": ERROR,
+    "@graphql-eslint/selection-set-depth": [ERROR, { maxDepth: 8 }],
     "spaced-comment": OFF,
 
     // The following two rules are disabled because Spruce and Parsley could have
@@ -360,7 +361,7 @@ const importConfig = {
     ...importPlugin.flatConfigs.recommended.rules,
     ...importPlugin.flatConfigs.typescript.rules,
     "import/first": ERROR,
-    "import/newline-after-import": WARN,
+    "import/newline-after-import": ERROR,
     "import/no-dynamic-require": ERROR,
     "import/no-duplicates": [ERROR, { "prefer-inline": true }],
     "import/no-extraneous-dependencies": OFF,

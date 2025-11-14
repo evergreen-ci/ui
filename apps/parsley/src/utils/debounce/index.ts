@@ -4,7 +4,10 @@
  * @param delay - The amount of time to wait before running the function again
  * @returns The debounced function
  */
-const debounce = <T extends (...args: any[]) => any>(fn: T, delay: number) => {
+const debounce = <T extends (...args: unknown[]) => unknown>(
+  fn: T,
+  delay: number,
+) => {
   let timeout: NodeJS.Timeout;
 
   return (...args: Parameters<T>) => {

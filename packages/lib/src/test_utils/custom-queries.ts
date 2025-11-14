@@ -5,8 +5,10 @@ import {
   GetErrorFunction,
 } from "@testing-library/react";
 
-type OmitFirstArg<F> = F extends (x: any, ...args: infer P) => infer R
-  ? (...args: P) => R
+type OmitFirstArg<F> = F extends (...args: infer Args) => infer R
+  ? Args extends [unknown, ...infer Rest]
+    ? (...args: Rest) => R
+    : never
   : never;
 
 // The queryAllByAttribute is a shortcut for attribute-based matchers

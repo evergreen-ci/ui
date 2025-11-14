@@ -99,7 +99,7 @@ const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
         <Tooltip
           align="top"
           justify="middle"
-          trigger={children}
+          trigger={children as JSX.Element}
           triggerEvent="hover"
         >
           {fullDisplayName}

@@ -5,7 +5,7 @@ import { trimSeverity } from "utils/string";
 import { LogLineRow } from "../types";
 import { getSeverityMapping, mapLogLevelToColor } from "./utils";
 
-interface AnsiRowProps extends LogLineRow {}
+type AnsiRowProps = LogLineRow;
 
 const AnsiRow: React.FC<AnsiRowProps> = ({ getLine, lineNumber, ...rest }) => {
   const ansiUp = new AnsiUp();
