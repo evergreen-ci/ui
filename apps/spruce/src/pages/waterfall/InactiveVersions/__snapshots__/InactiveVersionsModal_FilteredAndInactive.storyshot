@@ -6,11 +6,11 @@
       class="emotion-InactiveVersion e1i0zkr30"
     >
       <dialog
-        class="emotion-StyledModal e1vw2scd1 leafygreen-ui-j7pqgd"
+        class="emotion-StyledModal e1vw2scd1 leafygreen-ui-hs2y9s"
         data-cy="inactive-versions-modal"
         data-lgid="lg-modal"
         data-testid="lg-modal"
-        id="modal-222"
+        id="modal-374"
       />
       <div
         class="emotion-StyledBadge e19pzgwa0 leafygreen-ui-cfigsp"
@@ -34,10 +34,9 @@
           class="leafygreen-ui-b15bbd"
         >
           <svg
-            alt=""
             aria-hidden="true"
-            class="leafygreen-ui-a4wnk0 leafygreen-ui-xpf1b6"
-            fill="none"
+            class="leafygreen-ui-xpf1b6"
+            fill="#889397"
             height="16"
             role="presentation"
             viewBox="0 0 16 16"

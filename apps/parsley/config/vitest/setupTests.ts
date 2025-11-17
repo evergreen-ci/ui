@@ -27,7 +27,7 @@ if (process.env.CI) {
 // It prevents Vitest's fake timers from functioning with user-event.
 // https://github.com/testing-library/react-testing-library/issues/1197
 globalThis.jest = {
-  // @ts-expect-error
+  // @ts-expect-error globalThis.jest is untyped, but that's okay here.
   ...globalThis.jest,
   advanceTimersByTime: vi.advanceTimersByTime.bind(vi),
 };

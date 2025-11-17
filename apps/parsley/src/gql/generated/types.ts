@@ -28,7 +28,10 @@ export type Scalars = {
   BooleanMap: { input: any; output: any };
   Duration: { input: number; output: number };
   Map: { input: any; output: any };
-  StringMap: { input: { [key: string]: any }; output: { [key: string]: any } };
+  StringMap: {
+    input: { [key: string]: unknown };
+    output: { [key: string]: unknown };
+  };
   Time: { input: Date; output: Date };
 };
 

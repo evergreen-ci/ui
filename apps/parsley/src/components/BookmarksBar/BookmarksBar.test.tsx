@@ -47,7 +47,7 @@ describe("bookmarks bar", () => {
     expect((children.item(1) as Element).textContent).toContain("3");
     expect((children.item(2) as Element).textContent).toContain("5");
     expect((children.item(2) as Element).children.item(1)).toStrictEqual(
-      screen.getByLabelText("Link Icon"),
+      screen.getByDataCy("link-icon"),
     );
   });
 

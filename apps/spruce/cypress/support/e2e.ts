@@ -114,7 +114,7 @@ declare global {
        * @param operationName - The operation name of the query
        * @param body - The replacement response body
        */
-      overwriteGQL(operationName: string, body: any): void;
+      overwriteGQL(operationName: string, body: unknown): void;
       /**
        * Command to open expandable card
        * @param cardTitle - The title of the card to expand

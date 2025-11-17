@@ -9,7 +9,7 @@ import {
 } from "@leafygreen-ui/segmented-control";
 import TextInput from "@leafygreen-ui/text-input";
 import Toggle from "@leafygreen-ui/toggle";
-import { Body, BodyProps, Error } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import Accordion, {
   AccordionCaretAlign,
 } from "@evg-ui/lib/components/Accordion";
@@ -87,9 +87,12 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
       title={
         <>
           {showTooltip && (
-            <IconWithTooltip color={red.base} glyph="ImportantWithCircle">
-              Invalid filter expression, please update it!
-              <Error>{validationMessage}</Error>
+            <IconWithTooltip
+              color={red.base}
+              data-cy="validation-error-icon"
+              glyph="ImportantWithCircle"
+            >
+              {validationMessage}
             </IconWithTooltip>
           )}
           <FilterExpression
@@ -146,7 +149,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
             <StyledTextInput
               aria-label="Edit filter name"
               aria-labelledby="Edit filter name"
-              autoFocus
+              autoFocus // eslint-disable-line jsx-a11y/no-autofocus
               data-cy="edit-filter-name"
               errorMessage={isNewExpressionValid ? "" : validationMessage}
               onChange={(e) => {
