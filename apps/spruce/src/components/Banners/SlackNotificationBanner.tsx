@@ -40,7 +40,7 @@ export const SlackNotificationBanner = () => {
       refetchQueries: ["UserSettings"],
     });
 
-  const { userSettings } = useUserSettings();
+  const { loading: loadingUserSettings, userSettings } = useUserSettings();
   const { notifications, slackUsername: defaultSlackUsername } =
     userSettings || {};
   const { patchFinish, patchFirstFailure } = notifications || {};
@@ -82,7 +82,10 @@ export const SlackNotificationBanner = () => {
     (isNotificationSet(patchFirstFailure) || isNotificationSet(patchFinish));
 
   const shouldShowSlackBanner =
-    !defaultSlackUsername && !hasClosedBanner && !hasSetNotifications;
+    !loadingUserSettings &&
+    !defaultSlackUsername &&
+    !hasClosedBanner &&
+    !hasSetNotifications;
 
   return shouldShowSlackBanner ? (
     <Banner
