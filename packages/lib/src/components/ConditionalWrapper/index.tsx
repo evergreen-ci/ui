@@ -1,4 +1,4 @@
-interface ConditionalWrapperProps<T = any> {
+interface ConditionalWrapperProps<T = React.ReactNode> {
   /** Whether or not to render the wrapper or the altWrapper if it is provided */
   condition: boolean;
   /** The wrapper to render around the children if the condition is true */

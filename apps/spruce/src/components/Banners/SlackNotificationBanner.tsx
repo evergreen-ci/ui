@@ -106,7 +106,7 @@ export const SlackNotificationBanner = () => {
         }
       >
         <TextInput
-          autoFocus
+          autoFocus // eslint-disable-line jsx-a11y/no-autofocus
           data-cy="slack-username-input"
           label="Slack Username"
           onChange={(e) => setSlackUsername(e.target.value)}

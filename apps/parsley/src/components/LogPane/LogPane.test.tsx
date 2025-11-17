@@ -2,6 +2,7 @@ import { createRef } from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import Cookie from "js-cookie";
 import { VirtuosoMockContext } from "react-virtuoso";
+import { MockInstance } from "vitest";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -46,8 +47,7 @@ describe("logPane", () => {
   });
 
   it("should not execute wrap and pretty print functionality if cookie is false", async () => {
-    // @ts-expect-error
-    vi.spyOn(Cookie, "get").mockReturnValue("false");
+    (vi.spyOn(Cookie, "get") as MockInstance).mockReturnValue("false");
 
     vi.useFakeTimers();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");
@@ -78,8 +78,7 @@ describe("logPane", () => {
   });
 
   it("should execute wrap and pretty print functionality if cookie is true", async () => {
-    // @ts-expect-error
-    vi.spyOn(Cookie, "get").mockReturnValue("true");
+    (vi.spyOn(Cookie, "get") as MockInstance).mockReturnValue("true");
 
     vi.useFakeTimers();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");
