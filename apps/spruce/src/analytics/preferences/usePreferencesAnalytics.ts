@@ -16,7 +16,7 @@ type Action =
   | { name: "Changed public key" }
   | { name: "Deleted public key" }
   | { name: "Toggled polling"; value: "Enabled" | "Disabled" }
-  | { name: "Toggled task review"; value: "Enabled" | "Disabled" };
+  | { name: "Toggled task review"; enabled: boolean };
 
 export const usePreferencesAnalytics = () =>
   useAnalyticsRoot<Action, AnalyticsIdentifier>("PreferencesPages");
