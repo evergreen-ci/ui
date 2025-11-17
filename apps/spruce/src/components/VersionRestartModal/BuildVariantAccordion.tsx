@@ -1,33 +1,26 @@
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
-import Checkbox from "@leafygreen-ui/checkbox";
+import { Badge } from "@leafygreen-ui/badge";
+import { Checkbox } from "@leafygreen-ui/checkbox";
 import Accordion from "@evg-ui/lib/components/Accordion";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { selectedStrings } from "hooks/useVersionTaskStatusSelect";
 import { TaskStatusCheckboxContainer } from "./TaskStatusCheckboxContainer";
 
 interface BuildVariantAccordionProps {
   displayName: string;
-  selectedTasks: selectedStrings;
+  selectedTasks: Set<string>;
   tasks: {
     id: string;
     baseStatus?: string;
     displayName: string;
     displayStatus: string;
   }[];
-  toggleSelectedTask: (
-    taskIds:
-      | { [versionId: string]: string }
-      | { [versionId: string]: string[] },
-  ) => void;
-  versionId: string;
+  toggleSelectedTask: (taskIds: string[], isParentCheckbox: boolean) => void;
 }
 export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
   displayName,
   selectedTasks,
   tasks,
   toggleSelectedTask,
-  versionId,
 }) => {
   const taskLength = tasks.length;
   const matchingTasks = countMatchingTasks(tasks, selectedTasks);
@@ -40,7 +33,10 @@ export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
         indeterminate={matchingTasks > 0 && matchingTasks !== taskLength}
         label={displayName}
         onChange={() =>
-          toggleSelectedTask({ [versionId]: tasks.map((task) => task.id) })
+          toggleSelectedTask(
+            tasks.map((task) => task.id),
+            true,
+          )
         }
       />
       <BadgeWrapper>
@@ -56,8 +52,9 @@ export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
         <TaskStatusCheckboxContainer
           selectedTasks={selectedTasks}
           tasks={tasks}
-          toggleSelectedTask={toggleSelectedTask}
-          versionId={versionId}
+          toggleSelectedTask={(taskId: string) =>
+            toggleSelectedTask([taskId], false)
+          }
         />
       </Accordion>
     </Wrapper>
@@ -66,11 +63,11 @@ export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
 
 const countMatchingTasks = (
   tasks: { id: string }[],
-  selectedTasks: selectedStrings,
+  selectedTasks: Set<string>,
 ): number => {
   let matchingTasks = 0;
   tasks.forEach((task) => {
-    if (selectedTasks[task.id]) {
+    if (selectedTasks.has(task.id)) {
       matchingTasks += 1;
     }
   });
