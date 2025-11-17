@@ -1,9 +1,12 @@
 import { AnsiUp } from "ansi_up";
 import linkifyHtml from "linkify-html";
+import {
+  getSeverityMapping,
+  mapLogLevelToColor,
+  trimSeverity,
+} from "@evg-ui/lib/utils/string/logs";
 import BaseRow from "components/LogRow/BaseRow";
-import { trimSeverity } from "utils/string";
 import { LogLineRow } from "../types";
-import { getSeverityMapping, mapLogLevelToColor } from "./utils";
 
 type AnsiRowProps = LogLineRow;
 
