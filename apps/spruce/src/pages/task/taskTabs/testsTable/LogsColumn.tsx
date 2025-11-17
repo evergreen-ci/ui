@@ -4,7 +4,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
-import { getTaskRoute } from "constants/routes";
+import { getTaskRoute, getTestHTMLLogRoute } from "constants/routes";
 import { TestResult, TaskQuery } from "gql/generated/types";
 import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import { TaskTab } from "types/task";
@@ -17,14 +17,24 @@ interface Props {
 }
 
 export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
-  const { status, testFile } = testResult;
-  const { url: urlHTML, urlParsley, urlRaw } = testResult.logs ?? {};
-  const { displayTask, id: taskId } = task ?? {};
+  const { execution: testExecution, groupID, status, testFile } = testResult;
+  const { lineNum, testName, urlParsley, urlRaw } = testResult.logs ?? {};
+  const { displayTask, execution: taskExecution, id: taskId } = task ?? {};
   const { sendEvent } = useTaskAnalytics();
   const filters = status === TestStatus.Fail ? toEscapedRegex(testFile) : null;
   const isExecutionTask = displayTask !== null;
 
   const { replaceUrl } = useConditionallyLinkToParsleyBeta();
+
+  const execution = testExecution ?? taskExecution ?? 0;
+  let testHTMLLogRoute =
+    taskId && testName
+      ? getTestHTMLLogRoute(taskId, execution, testName, groupID || undefined)
+      : null;
+
+  if (typeof lineNum !== "undefined") {
+    testHTMLLogRoute += `#L${lineNum}`;
+  }
 
   return (
     <ButtonWrapper>
@@ -45,10 +55,10 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           Parsley
         </Button>
       )}
-      {urlHTML && (
+      {testHTMLLogRoute && (
         <Button
           data-cy="test-table-html-btn"
-          href={urlHTML}
+          href={testHTMLLogRoute}
           onClick={() =>
             sendEvent({
               name: "Clicked test log link",

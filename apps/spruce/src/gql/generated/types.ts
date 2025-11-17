@@ -4453,6 +4453,7 @@ export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]["output"]>;
   renderingType?: Maybe<Scalars["String"]["output"]>;
+  testName?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
   urlParsley?: Maybe<Scalars["String"]["output"]>;
   urlRaw?: Maybe<Scalars["String"]["output"]>;
@@ -11239,6 +11240,8 @@ export type TaskTestsQuery = {
         testFile: string;
         logs: {
           __typename?: "TestLog";
+          lineNum?: number | null;
+          testName?: string | null;
           url?: string | null;
           urlParsley?: string | null;
           urlRaw?: string | null;
