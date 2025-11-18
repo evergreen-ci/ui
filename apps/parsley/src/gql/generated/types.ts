@@ -28,7 +28,10 @@ export type Scalars = {
   BooleanMap: { input: any; output: any };
   Duration: { input: number; output: number };
   Map: { input: any; output: any };
-  StringMap: { input: { [key: string]: any }; output: { [key: string]: any } };
+  StringMap: {
+    input: { [key: string]: unknown };
+    output: { [key: string]: unknown };
+  };
   Time: { input: Date; output: Date };
 };
 
@@ -4452,6 +4455,7 @@ export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]["output"]>;
   renderingType?: Maybe<Scalars["String"]["output"]>;
+  testName?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
   urlParsley?: Maybe<Scalars["String"]["output"]>;
   urlRaw?: Maybe<Scalars["String"]["output"]>;

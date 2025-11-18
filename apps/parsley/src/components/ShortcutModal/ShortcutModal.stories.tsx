@@ -11,7 +11,7 @@ export const Default: CustomStoryObj<typeof ShortcutModal> = {
   render: (args) => <Component {...args} />,
 };
 
-const Component = (args: any) => {
+const Component = (args: React.ComponentProps<typeof ShortcutModal>) => {
   const [open, setOpen] = useState(true);
   return (
     <>

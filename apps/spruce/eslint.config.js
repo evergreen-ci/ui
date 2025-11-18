@@ -43,8 +43,8 @@ export default tseslint.config(
     name: "react/spruce-overrides",
     files: ["src/**/*.ts?(x)"],
     rules: {
-      "react/display-name": WARN,
-      "react/no-unstable-nested-components": OFF, // This rule should be removed as part of EVG-17265.
+      "react/no-unstable-nested-components": OFF, // This rule should be removed as part of DEVPROD-1056.
+      "@typescript-eslint/no-explicit-any": WARN,
     },
   },
 );

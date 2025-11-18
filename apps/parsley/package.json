@@ -1,6 +1,6 @@
 {
   "name": "parsley",
-  "version": "3.1.8",
+  "version": "3.1.9",
   "private": true,
   "type": "module",
   "scripts": {
@@ -23,8 +23,8 @@
     "deploy:prod": "env-cmd -e production yarn deploy-utils-deploy",
     "dev": "env-cmd -e devLocal vite",
     "eslint:fix": "yarn eslint:strict --fix",
-    "eslint:staged": "STRICT=1 eslint",
-    "eslint:strict": "STRICT=1 eslint .",
+    "eslint:staged": "STRICT=1 eslint --concurrency=3",
+    "eslint:strict": "STRICT=1 eslint --concurrency=3 .",
     "evg-db-ops": "../../scripts/evg-db-ops.sh",
     "postinstall": "yarn workspace @evg-ui/vite-utils run compile",
     "postversion": "yarn deploy-utils-postversion",
@@ -119,7 +119,7 @@
     "chromatic": "^13.1.3",
     "cypress": "14.4.1",
     "env-cmd": "10.1.0",
-    "eslint": "^9.36.0",
+    "eslint": "^9.39.1",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-sort-keys-plus": "^1.5.0",
     "prettier": "3.5.1",

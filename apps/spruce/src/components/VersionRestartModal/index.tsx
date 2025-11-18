@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Checkbox from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@leafygreen-ui/checkbox";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
@@ -20,12 +20,8 @@ import {
 } from "gql/generated/types";
 import { RESTART_VERSIONS } from "gql/mutations";
 import { BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
-import { useVersionTaskStatusSelect } from "hooks";
-import {
-  versionSelectedTasks,
-  selectedStrings,
-} from "hooks/useVersionTaskStatusSelect";
 import { sumActivatedTasksInSelectedTasks } from "utils/tasks/estimatedActivatedTasks";
+import { SelectedTasksMap } from "./types";
 import VersionTasks from "./VersionTasks";
 
 interface VersionRestartModalProps {
@@ -36,7 +32,7 @@ interface VersionRestartModalProps {
   visible: boolean;
 }
 
-const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
+export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   onCancel,
   onOk,
   refetchQueries,
@@ -48,6 +44,10 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
 
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] =
     useState(false);
+  const [selectedTasksMap, setSelectedTasksMap] = useState<SelectedTasksMap>(
+    new Map(),
+  );
+
   const [restartVersions, { loading: mutationLoading }] = useMutation<
     RestartVersionsMutation,
     RestartVersionsMutationVariables
@@ -75,27 +75,11 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   });
 
   const { version } = data || {};
-  const { buildVariants, childVersions } = version || {};
-  const {
-    baseStatusFilterTerm,
-    selectedTasks,
-    setBaseStatusFilterTerm,
-    setVersionStatusFilterTerm,
-    toggleSelectedTask,
-    versionStatusFilterTerm,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-  } = useVersionTaskStatusSelect(buildVariants, versionId, childVersions);
+  const { childVersions } = version || {};
 
-  const setVersionStatus =
-    (childVersionId: string) => (selectedFilters: string[]) => {
-      setVersionStatusFilterTerm({ [childVersionId]: selectedFilters });
-    };
-  const setVersionBaseStatus =
-    (childVersionId: string) => (selectedFilters: string[]) => {
-      setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
-    };
-
-  const selectedTotal = selectTasksTotal(selectedTasks || {});
+  const selectedTotal = selectedTasksMap
+    .values()
+    .reduce((acc, set) => acc + set.size, 0);
 
   const handlePatchRestart = () => {
     sendEvent({
@@ -106,15 +90,14 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
     restartVersions({
       variables: {
         versionId,
-        versionsToRestart: getTaskIds(selectedTasks),
+        versionsToRestart: getTaskIds(selectedTasksMap),
         abort: shouldAbortInProgressTasks,
       },
     });
   };
-
   const { generatedTaskCounts = [] } = version ?? {};
   const estimatedActivatedTasksCount = sumActivatedTasksInSelectedTasks(
-    selectedTasks || {},
+    Array.from(selectedTasksMap.values()),
     generatedTaskCounts,
   );
 
@@ -133,20 +116,13 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
       title="Modify Version"
     >
       <TaskSchedulingWarningBanner totalTasks={estimatedActivatedTasksCount} />
-
-      {loading ? (
+      {!version || loading ? (
         <FormSkeleton />
       ) : (
         <>
           <VersionTasks
-            baseStatusFilterTerm={baseStatusFilterTerm[versionId]}
-            selectedTasks={selectedTasks}
-            setBaseStatusFilterTerm={setVersionBaseStatus(versionId)}
-            setVersionStatusFilterTerm={setVersionStatus(versionId)}
-            toggleSelectedTask={toggleSelectedTask}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            setSelectedTasksMap={setSelectedTasksMap}
             version={version}
-            versionStatusFilterTerm={versionStatusFilterTerm[versionId]}
           />
           {childVersions && (
             <div data-cy="select-downstream">
@@ -163,13 +139,8 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
                 >
                   <DownstreamTasksContainer>
                     <VersionTasks
-                      baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
-                      selectedTasks={selectedTasks}
-                      setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
-                      setVersionStatusFilterTerm={setVersionStatus(v?.id)}
-                      toggleSelectedTask={toggleSelectedTask}
+                      setSelectedTasksMap={setSelectedTasksMap}
                       version={v}
-                      versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
                     />
                   </DownstreamTasksContainer>
                 </Accordion>
@@ -194,28 +165,11 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   );
 };
 
-const selectedArray = (selected: selectedStrings) => {
-  const out: string[] = [];
-  Object.keys(selected).forEach((task) => {
-    if (selected[task]) {
-      out.push(task);
-    }
-  });
-
-  return out;
-};
-
-const selectTasksTotal = (selectedTasks: versionSelectedTasks) =>
-  Object.values(selectedTasks).reduce(
-    (total, selectedTask) => selectedArray(selectedTask).length + total,
-    0,
-  );
-
-const getTaskIds = (selectedTasks: versionSelectedTasks) =>
-  Object.entries(selectedTasks)
+const getTaskIds = (selectedTasks: SelectedTasksMap) =>
+  Array.from(selectedTasks.entries())
     .map(([versionId, tasks]) => ({
       versionId,
-      taskIds: selectedArray(tasks),
+      taskIds: Array.from(tasks),
     }))
     .filter(({ taskIds }) => taskIds.length > 0);
 
@@ -226,5 +180,3 @@ const ConfirmationMessage = styled(Body)<BodyProps>`
 const DownstreamTasksContainer = styled.div`
   margin-top: ${size.xxs};
 `;
-
-export default VersionRestartModal;
