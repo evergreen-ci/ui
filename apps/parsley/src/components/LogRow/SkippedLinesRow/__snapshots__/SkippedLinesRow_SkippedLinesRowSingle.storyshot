@@ -59,6 +59,7 @@
             <svg
               aria-hidden="true"
               class="leafygreen-ui-xpf1b6"
+              fill="none"
               height="16"
               role="presentation"
               viewBox="0 0 16 16"
@@ -66,13 +67,43 @@
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M7.527 1.21a.64.64 0 0 1 .948 0l3.327 3.563c.422.452.123 1.227-.475 1.227H4.673c-.599 0-.898-.775-.476-1.227zm3.8 8.79c.598 0 .897.775.475 1.228l-3.327 3.56a.64.64 0 0 1-.948 0l-3.33-3.56C3.775 10.775 4.074 10 4.673 10z"
+                d="M7.321 5.204a.553.553 0 0 1 .858 0l3.181 3.82c.319.382.058.976-.429.976H4.57c-.487 0-.748-.594-.43-.976z"
                 fill="currentColor"
-                fill-rule="evenodd"
               />
             </svg>
             5
-             Above & Below
+             Above
+          </div>
+        </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            <svg
+              aria-hidden="true"
+              class="leafygreen-ui-xpf1b6"
+              fill="none"
+              height="16"
+              role="presentation"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.679 10.796a.554.554 0 0 1-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976z"
+                fill="currentColor"
+              />
+            </svg>
+            5
+             Below
           </div>
         </button>
       </div>
