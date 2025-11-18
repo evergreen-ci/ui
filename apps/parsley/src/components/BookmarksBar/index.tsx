@@ -99,7 +99,9 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
             }}
           >
             <span data-bookmark={l}>{l}</span>
-            {l === shareLine && <StyledIcon glyph="Link" size="small" />}
+            {l === shareLine && (
+              <StyledIcon data-cy="link-icon" glyph="Link" size="small" />
+            )}
           </LogLineNumber>
         ))}
       </LogLineContainer>

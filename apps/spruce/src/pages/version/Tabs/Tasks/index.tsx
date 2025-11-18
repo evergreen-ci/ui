@@ -90,6 +90,7 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
     () => tasksData.map(({ id }) => id),
     [tasksData],
   );
+
   useEffect(() => {
     // Track the tasks currently shown by the tasks table in order to allow multiple tasks to be activated.
     // If no filters are applied, unset active tasks in order to activate the entire version.
@@ -98,7 +99,7 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
     } else {
       setActiveTaskIds(activeTaskIds);
     }
-  }, [activeTaskIds]);
+  }, [activeTaskIds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <VersionTasksTable

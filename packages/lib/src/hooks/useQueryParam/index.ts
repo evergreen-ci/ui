@@ -13,7 +13,7 @@ const useQueryParams = (parseOptions?: ParseOptions) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const setQueryString = useCallback(
-    (params: { [key: string]: any }) => {
+    (params: { [key: string]: unknown }) => {
       const stringifiedQuery = stringifyQuery(params, {
         skipEmptyString: false,
       });

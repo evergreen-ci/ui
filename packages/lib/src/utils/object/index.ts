@@ -11,12 +11,12 @@
  * @param redactedString The string to replace the key with if provided.
  * @returns The object with the key removed.
  */
-export function deleteNestedKey<T extends object>(
+export function deleteNestedKey<T extends { [key: string]: unknown }>(
   obj: T,
   keyToUpdate: string | string[],
   redactedString?: string,
 ): Partial<T> {
-  const deleteKey = (currentObject: { [key: string]: any }) => {
+  const deleteKey = (currentObject: { [key: string]: unknown }) => {
     Object.keys(currentObject).forEach((key) => {
       if (key === keyToUpdate || keyToUpdate?.includes(key)) {
         if (redactedString) {
@@ -28,7 +28,7 @@ export function deleteNestedKey<T extends object>(
         typeof currentObject[key] === "object" &&
         currentObject[key] !== null
       ) {
-        deleteKey(currentObject[key]);
+        deleteKey(currentObject[key] as { [key: string]: unknown });
       }
     });
   };

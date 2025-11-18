@@ -203,13 +203,8 @@ describe("filters", () => {
         filter={{ ...defaultFilter, expression: "invalid (regex" }}
       />,
     );
-    expect(
-      screen.getByLabelText("Important With Circle Icon"),
-    ).toBeInTheDocument();
-    await user.hover(screen.getByLabelText("Important With Circle Icon"));
-    await expect(
-      screen.findByText("Invalid filter expression, please update it!"),
-    ).resolves.toBeInTheDocument();
+    expect(screen.getByDataCy("validation-error-icon")).toBeInTheDocument();
+    await user.hover(screen.getByDataCy("validation-error-icon"));
     await expect(
       screen.findByText("Invalid Regular Expression: Unterminated group"),
     ).resolves.toBeInTheDocument();

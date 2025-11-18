@@ -15,6 +15,9 @@ query ConfigurePatch($id: String!) {
         tasks
       }
     }
+    githubPatchData {
+      prNumber
+    }
     patchTriggerAliases {
       alias
       childProjectId
@@ -34,6 +37,9 @@ query ConfigurePatch($id: String!) {
     projectIdentifier
     time {
       submittedAt
+    }
+    versionFull {
+      id
     }
   }
 }

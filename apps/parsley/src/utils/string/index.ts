@@ -1,3 +1,5 @@
+import { trimSeverity } from "@evg-ui/lib/utils/string/logs";
+
 /**
  * `getRawLines` constructs a string with the lines provided.
  * @param indices  - array of numbers representing the line indices you want to copy
@@ -79,31 +81,6 @@ export const getBytesAsString = (bytes: number, decimals = 2) => {
   const sizes = ["Bytes", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return `${parseFloat((bytes / k ** i).toFixed(dm))} ${sizes[i]}`;
-};
-
-/**
- * `trimLogLineToMaxSize` trims a line to the max size limit
- * @param line - the line to trim
- * @param maxSize - the max line size limit
- * @returns the trimmed line
- */
-export const trimLogLineToMaxSize = (line: string, maxSize: number) => {
-  if (line.length > maxSize) {
-    return `${line.substring(0, maxSize)}…`;
-  }
-  return line;
-};
-
-/**
- * `trimSeverity` trims the severity prefix from a line
- * @param line - the line to trim
- * @returns - the line without the severity prefix
- */
-export const trimSeverity = (line: string) => {
-  if (line.startsWith("[P: ")) {
-    return line.substring(8);
-  }
-  return line;
 };
 
 /**

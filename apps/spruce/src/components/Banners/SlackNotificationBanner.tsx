@@ -40,7 +40,7 @@ export const SlackNotificationBanner = () => {
       refetchQueries: ["UserSettings"],
     });
 
-  const { userSettings } = useUserSettings();
+  const { loading: loadingUserSettings, userSettings } = useUserSettings();
   const { notifications, slackUsername: defaultSlackUsername } =
     userSettings || {};
   const { patchFinish, patchFirstFailure } = notifications || {};
@@ -82,7 +82,10 @@ export const SlackNotificationBanner = () => {
     (isNotificationSet(patchFirstFailure) || isNotificationSet(patchFinish));
 
   const shouldShowSlackBanner =
-    !defaultSlackUsername && !hasClosedBanner && !hasSetNotifications;
+    !loadingUserSettings &&
+    !defaultSlackUsername &&
+    !hasClosedBanner &&
+    !hasSetNotifications;
 
   return shouldShowSlackBanner ? (
     <Banner
@@ -103,7 +106,7 @@ export const SlackNotificationBanner = () => {
         }
       >
         <TextInput
-          autoFocus
+          autoFocus // eslint-disable-line jsx-a11y/no-autofocus
           data-cy="slack-username-input"
           label="Slack Username"
           onChange={(e) => setSlackUsername(e.target.value)}

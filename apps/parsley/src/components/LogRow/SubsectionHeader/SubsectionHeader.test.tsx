@@ -134,9 +134,9 @@ describe("SubsectionHeader", () => {
       />,
       { wrapper },
     );
-    expect(screen.getByLabelText("Checkmark With Circle Icon")).toBeVisible();
+    expect(screen.getByDataCy("section-status-pass")).toBeVisible();
     rerender(<SubsectionHeader {...subsectionHeaderProps} />);
-    expect(screen.queryByLabelText("Checkmark With Circle Icon")).toBeNull();
+    expect(screen.queryByDataCy("section-status-pass")).not.toBeInTheDocument();
   });
 });
 

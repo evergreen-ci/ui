@@ -9,113 +9,18 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="AIModel Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
-          height="16"
-          role="img"
+          fill="#023430"
+          height="14"
+          size="16"
           viewBox="0 0 16 16"
-          width="16"
+          width="13"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.563 5.31v5.38L8 13.44 2.438 10.69V5.31L8 2.558z"
-            stroke="currentColor"
-          />
-          <path
-            d="M8 2v12"
-            stroke="currentColor"
-            stroke-width="0.5"
-          />
-          <path
-            d="m3.1 10.86 9.432-5.66M3.2 5.2l9.432 5.66"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-width="0.5"
-          />
-          <circle
-            cx="8"
-            cy="2.75"
+            clip-rule="evenodd"
+            d="M6.5 0a1.75 1.75 0 0 1 1.73 1.998l1.63.94A1.75 1.75 0 0 1 13 4c0 .812-.554 1.492-1.304 1.69v2.37a1.749 1.749 0 1 1-1.693 2.917L8.23 12q.019.123.02.25A1.75 1.75 0 1 1 4.769 12l-1.773-1.023A1.75 1.75 0 1 1 1.304 8.06V5.69A1.748 1.748 0 1 1 3.14 2.937l1.629-.94A1.75 1.75 0 0 1 6.5 0M3.37 9.088a1.74 1.74 0 0 1 .096 1.004l1.726.997c.269-.302.639-.51 1.058-.57V8.73a1.74 1.74 0 0 1-1.148-.68zm4.44-.93c-.269.303-.64.511-1.06.571v1.79c.419.06.788.268 1.057.57l1.726-.997a1.76 1.76 0 0 1 .049-.872zm.273-1.9a1.74 1.74 0 0 1 .001 1.481L9.8 8.77c.213-.315.528-.555.896-.678V5.658a1.75 1.75 0 0 1-.763-.509zM2.97 5.254c-.187.182-.414.32-.666.405v2.433c.323.108.603.306.811.566L4.861 7.61a1.74 1.74 0 0 1 0-1.22zm.524-1.364q.004.055.006.111c0 .31-.082.602-.224.854L5.102 5.95c.271-.361.68-.612 1.148-.68V3.48a1.74 1.74 0 0 1-1.06-.57zm4.314-.98c-.269.303-.639.51-1.058.57v1.79c.42.06.79.27 1.059.572L9.66 4.729A1.74 1.74 0 0 1 9.5 4q.001-.055.005-.111z"
             fill="currentColor"
-            r="1.75"
-          />
-          <circle
-            cx="8"
-            cy="2.75"
-            r="1.75"
-            stroke="currentColor"
-          />
-          <circle
-            cx="8"
-            cy="13.25"
-            fill="currentColor"
-            r="1.75"
-          />
-          <circle
-            cx="8"
-            cy="13.25"
-            r="1.75"
-            stroke="currentColor"
-          />
-          <circle
-            cx="8"
-            cy="8"
-            fill="currentColor"
-            r="1.75"
-          />
-          <circle
-            cx="8"
-            cy="8"
-            r="1.75"
-            stroke="currentColor"
-          />
-          <circle
-            cx="13.25"
-            cy="5"
-            fill="currentColor"
-            r="1.75"
-          />
-          <circle
-            cx="13.25"
-            cy="5"
-            r="1.75"
-            stroke="currentColor"
-          />
-          <circle
-            cx="13.25"
-            cy="10.75"
-            fill="currentColor"
-            r="1.75"
-          />
-          <circle
-            cx="13.25"
-            cy="10.75"
-            r="1.75"
-            stroke="currentColor"
-          />
-          <circle
-            cx="2.75"
-            cy="10.75"
-            fill="currentColor"
-            r="1.75"
-          />
-          <circle
-            cx="2.75"
-            cy="10.75"
-            r="1.75"
-            stroke="currentColor"
-          />
-          <circle
-            cx="2.75"
-            cy="5"
-            fill="currentColor"
-            r="1.75"
-          />
-          <circle
-            cx="2.75"
-            cy="5"
-            r="1.75"
-            stroke="currentColor"
+            fill-rule="evenodd"
           />
         </svg>
         <span
@@ -133,11 +38,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Activity Feed Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -164,11 +67,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Add File Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -195,11 +96,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="All Products Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -224,11 +123,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Analytics Node Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -258,11 +155,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Apps Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -289,11 +184,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Array Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -318,11 +211,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Arrow Down Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -347,11 +238,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Arrow Left Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -376,11 +265,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Arrow Right Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -405,11 +292,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Arrow Up Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -434,11 +319,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Award Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -469,11 +352,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Beaker Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -500,11 +381,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Bell Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -531,11 +410,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Biometric Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -562,11 +439,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Boolean Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -593,11 +468,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Building Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -624,11 +497,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Bulb Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -657,11 +528,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Calendar Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -696,11 +565,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Camera Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -731,11 +598,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Cap Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -764,11 +629,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Caret Down Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -793,11 +656,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Caret Left Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -822,11 +683,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Caret Right Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -851,11 +710,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Caret Up Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -880,11 +737,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Chart Filled Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -911,11 +766,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Charts Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -940,11 +793,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Checkmark Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -971,11 +822,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Checkmark With Circle Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1002,11 +851,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Chevron Down Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1033,11 +880,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Chevron Left Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1064,11 +909,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Chevron Right Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1095,11 +938,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Chevron Up Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1126,11 +967,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Circle Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -1156,11 +995,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Clock Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1187,11 +1024,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Clock With Arrow Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1220,11 +1055,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Clone Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1253,11 +1086,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Cloud Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1282,11 +1113,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Code Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -1310,11 +1139,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Code Block Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1345,11 +1172,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Coin Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -1373,11 +1198,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Colon Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1402,11 +1225,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Config Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -1430,11 +1251,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Connect Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1461,11 +1280,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Copy Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1492,11 +1309,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Credit Card Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1521,11 +1336,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Curly Braces Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1550,11 +1363,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Cursor Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1581,11 +1392,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Dashboard Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1610,11 +1419,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Database Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -1646,11 +1453,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Diagram Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1675,11 +1480,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Diagram2 Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1704,11 +1507,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Diagram3 Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
-          height="16"
-          role="img"
+          fill="#023430"
+          height="14"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1735,11 +1536,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Disconnect Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1764,11 +1563,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Download Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -1798,11 +1595,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Drag Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1827,11 +1622,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Edit Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1856,11 +1649,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Ellipsis Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1887,11 +1678,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Email Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1920,11 +1709,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Empty Database Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1951,11 +1738,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Empty Folder Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -1980,11 +1765,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Eraser Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2011,11 +1794,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Escalation Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2042,11 +1823,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Export Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2075,11 +1854,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Favorite Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -2103,11 +1880,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Federation Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2134,11 +1909,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="File Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -2166,11 +1939,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Filter Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2197,11 +1968,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Folder Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2226,11 +1995,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Format Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2255,11 +2022,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Full Screen Enter Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -2283,11 +2048,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Full Screen Exit Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -2311,11 +2074,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Function Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -2347,11 +2108,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Gauge Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2376,11 +2135,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Globe Americas Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -2406,11 +2163,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Government Building Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2441,11 +2196,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Guide Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2476,11 +2229,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Hash Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -2506,11 +2257,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Hidden Secondary Node Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2541,11 +2290,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Highlight Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2570,11 +2317,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Home Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2605,11 +2350,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Horizontal Drag Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2634,11 +2377,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Import Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2667,11 +2408,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Important With Circle Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2698,11 +2437,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Info With Circle Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2729,11 +2466,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Internal Employee Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2762,11 +2497,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Invite User Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2795,11 +2528,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Key Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2826,11 +2557,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Laptop Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2861,11 +2590,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Lightning Bolt Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2890,11 +2617,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Link Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2923,11 +2648,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="List Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2952,11 +2675,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Lock Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -2983,11 +2704,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Log In Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3020,11 +2739,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Log Out Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3057,11 +2774,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Magnifying Glass Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3088,11 +2803,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Megaphone Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3119,11 +2832,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Menu Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3148,11 +2859,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Minus Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3177,11 +2886,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Mobile Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3208,11 +2915,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Moon Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3237,11 +2942,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Multi Direction Arrow Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3270,11 +2973,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Multi Layers Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3299,11 +3000,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Nav Collapse Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3334,11 +3033,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Nav Expand Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3369,11 +3066,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="No Filter Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3398,11 +3093,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Not Allowed Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3429,11 +3122,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Note Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3464,11 +3155,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Numbered List Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3493,11 +3182,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Open New Tab Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3526,11 +3213,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Outline Favorite Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3557,11 +3242,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Package Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3586,11 +3269,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Pause Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3615,11 +3296,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Pending Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3646,11 +3325,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Person Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3679,11 +3356,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Person Group Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -3707,11 +3382,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Person With Lock Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3742,11 +3415,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Pin Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3771,11 +3442,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Play Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3800,11 +3469,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Plus Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3831,11 +3498,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Plus With Circle Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3862,11 +3527,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Primary Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3893,11 +3556,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Project Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3928,11 +3589,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Question Mark With Circle Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3959,11 +3618,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Read Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -3992,11 +3649,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Recommended Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4027,11 +3682,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Redo Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4056,11 +3709,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Refresh Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4085,11 +3736,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Relationship Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4114,11 +3763,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Replica Set Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4145,11 +3792,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Resize Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4176,11 +3821,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Resource Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4207,11 +3850,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Return Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4236,11 +3877,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Revert Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4265,11 +3904,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Router Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4294,11 +3931,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="SMS Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4325,11 +3960,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Save Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4360,11 +3993,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Search Index Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4399,11 +4030,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Secondary Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4434,11 +4063,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Serverless Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4463,11 +4090,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Settings Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4494,11 +4119,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Sharded Cluster Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4525,11 +4148,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Shell Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
         >
@@ -4553,11 +4174,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Shield Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4590,11 +4209,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Shirt Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4619,11 +4236,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Shortcut Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4648,11 +4263,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Sort Ascending Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4677,11 +4290,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Sort Descending Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4706,11 +4317,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Sparkle Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4735,11 +4344,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Split Horizontal Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
-          height="16"
-          role="img"
+          fill="#023430"
+          height="14"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4766,11 +4373,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Split Vertical Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
-          height="16"
-          role="img"
+          fill="#023430"
+          height="14"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4797,10 +4402,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Stitch Icon"
-          class="leafygreen-ui-1e29au"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4826,11 +4430,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Stop Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4859,11 +4461,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Streaming Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4888,11 +4488,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="String Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4917,11 +4515,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Sun Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4946,11 +4542,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Support Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -4977,11 +4571,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Sweep Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5008,11 +4600,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Table Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5039,11 +4629,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Tag Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5070,11 +4658,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Temporary Table Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5107,11 +4693,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Thumbs Down Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5138,11 +4722,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Thumbs Up Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5169,11 +4751,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Time Series Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5198,11 +4778,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Time Series Collection Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5231,11 +4809,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Trash Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5262,11 +4838,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Undo Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5291,11 +4865,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="University Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5320,11 +4892,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Unlock Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5351,11 +4921,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Unsorted Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5380,10 +4948,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Up Down Carets Icon"
-          class="leafygreen-ui-1e29au"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5409,11 +4976,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Upload Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5440,11 +5005,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Vertical Ellipsis Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5471,11 +5034,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="View Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5508,11 +5069,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Visibility Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5539,11 +5098,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Visibility Off Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5570,11 +5127,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Warning Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5601,11 +5156,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Wizard Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5632,11 +5185,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Wrench Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5663,11 +5214,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="Write Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -5696,13 +5245,11 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="X Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
-          width="16"
+          width="17"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -5727,11 +5274,9 @@
         class="leafygreen-ui-cssveg emotion-3"
       >
         <svg
-          aria-label="XWith Circle Icon"
-          class="leafygreen-ui-1e29au"
-          fill="none"
+          fill="#023430"
           height="16"
-          role="img"
+          size="16"
           viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"

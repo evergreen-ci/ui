@@ -14,7 +14,6 @@ const overrideStyles = css`
 `;
 
 const StyledLink = (props: LinkProps<"a">) => (
-  // @ts-ignore-error: An internal LeafyGreen type causes this error.
   <Link css={overrideStyles} hideExternalIcon {...props} />
 );
 
@@ -22,7 +21,7 @@ const StyledRouterLink = forwardRef<
   HTMLSpanElement,
   LinkProps<"span"> & RouterLinkProps
 >((props, ref) => (
-  // @ts-ignore-error: An internal LeafyGreen type causes this error.
+  // @ts-expect-error: An internal LeafyGreen type causes this error.
   <Link ref={ref} as={RouterLink} css={overrideStyles} {...props} />
 ));
 

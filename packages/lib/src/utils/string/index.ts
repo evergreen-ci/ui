@@ -60,3 +60,16 @@ export const trimStringFromMiddle = (str: string, maxLength: number) => {
 export const copyToClipboard = async (textToCopy: string) => {
   await navigator.clipboard.writeText(textToCopy);
 };
+
+/**
+ * `trimLogLineToMaxSize` trims a line to the max size limit
+ * @param line - the line to trim
+ * @param maxSize - the max line size limit
+ * @returns the trimmed line
+ */
+export const trimLogLineToMaxSize = (line: string, maxSize: number) => {
+  if (line.length > maxSize) {
+    return `${line.substring(0, maxSize)}…`;
+  }
+  return line;
+};
