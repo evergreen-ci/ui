@@ -20,6 +20,7 @@ export const Diff: React.FC<{ diff: string }> = ({ diff }) => {
             }
 
             return (
+              // eslint-disable-next-line react/no-array-index-key
               <Tag key={i}>
                 {line}
                 <br />

@@ -244,7 +244,7 @@ export const HTMLLog: React.FC = () => {
     return () => {
       abortController.abort();
     };
-  }, [taskId, execution, origin]);
+  }, [taskId, execution, origin]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (error) {
     return (
