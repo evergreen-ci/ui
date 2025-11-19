@@ -262,15 +262,19 @@ export const getTestHTMLLogRoute = (
   execution: number,
   testName: string,
   groupId?: string,
-  lineNum?: string,
+  lineNum?: number,
 ) => {
   const queryParams = stringifyQuery({
     execution,
     testName,
     ...(groupId && { groupId }),
-    ...(lineNum && { lineNum }),
   });
-  return generatePath(`${routes.testHTMLLog}?${queryParams}`, { taskId });
+
+  let path = generatePath(`${routes.testHTMLLog}?${queryParams}`, { taskId });
+  if (typeof lineNum !== "undefined") {
+    path += `#L${lineNum}`;
+  }
+  return path;
 };
 
 export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>

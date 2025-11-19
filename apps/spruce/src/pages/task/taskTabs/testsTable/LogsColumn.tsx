@@ -27,14 +27,16 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
   const { replaceUrl } = useConditionallyLinkToParsleyBeta();
 
   const execution = testExecution ?? taskExecution ?? 0;
-  let testHTMLLogRoute =
+  const testHTMLLogRoute =
     taskId && testName
-      ? getTestHTMLLogRoute(taskId, execution, testName, groupID || undefined)
+      ? getTestHTMLLogRoute(
+          taskId,
+          execution,
+          testName,
+          groupID || undefined,
+          lineNum ?? undefined,
+        )
       : null;
-
-  if (typeof lineNum !== "undefined") {
-    testHTMLLogRoute += `#L${lineNum}`;
-  }
 
   return (
     <ButtonWrapper>
