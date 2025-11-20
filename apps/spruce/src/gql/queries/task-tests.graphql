@@ -25,6 +25,8 @@ query TaskTests(
         baseStatus
         duration
         logs {
+          lineNum
+          testName
           url
           urlParsley
           urlRaw
