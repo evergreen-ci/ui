@@ -1,0 +1,144 @@
+<div>
+  <div
+    class="emotion-DiffContainer enpjtbt5"
+  >
+    <pre
+      class="emotion-Pre enpjtbt4"
+    >
+      <code>
+        <span
+          class="emotion-BaseTag enpjtbt3"
+        >
+          diff --git a/src/components/Button/Button.tsx b/src/components/Button/Button.tsx
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag enpjtbt3"
+        >
+          index 111111111..222222222 100644
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Filestat enpjtbt2"
+        >
+          --- a/src/components/Button/Button.tsx
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Filestat enpjtbt2"
+        >
+          +++ b/src/components/Button/Button.tsx
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag enpjtbt3"
+        >
+          @@ -8,8 +8,17 @@ interface ButtonProps {
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag enpjtbt3"
+        >
+           }
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag enpjtbt3"
+        >
+           
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag enpjtbt3"
+        >
+           export const Button: React.FC&lt;ButtonProps&gt; = ({ variant, children }) =&gt; {
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Deletion enpjtbt0"
+        >
+          -  return &lt;button className={variant}&gt;{children}&lt;/button&gt;;
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Addition enpjtbt1"
+        >
+          +  const baseClass = "btn";
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Addition enpjtbt1"
+        >
+          +  return &lt;button className={`${baseClass} btn-${variant}`}&gt;{children}&lt;/button&gt;;
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag enpjtbt3"
+        >
+           };
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Addition enpjtbt1"
+        >
+          +
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Addition enpjtbt1"
+        >
+          +export const PrimaryButton: React.FC&lt;ButtonProps&gt; = ({ children }) =&gt; {
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Addition enpjtbt1"
+        >
+          +  return &lt;Button variant="primary"&gt;{children}&lt;/Button&gt;;
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Addition enpjtbt1"
+        >
+          +};
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Addition enpjtbt1"
+        >
+          +
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Addition enpjtbt1"
+        >
+          +export const SecondaryButton: React.FC&lt;ButtonProps&gt; = ({ children }) =&gt; {
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Addition enpjtbt1"
+        >
+          +  return &lt;Button variant="secondary"&gt;{children}&lt;/Button&gt;;
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag-Addition enpjtbt1"
+        >
+          +};
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag enpjtbt3"
+        >
+           
+          <br />
+        </span>
+        <span
+          class="emotion-BaseTag enpjtbt3"
+        >
+           export default Button;
+          <br />
+        </span>
+      </code>
+    </pre>
+  </div>
+</div>

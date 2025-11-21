@@ -10,6 +10,7 @@ import { toArray } from "utils/array";
 
 export enum PageNames {
   HTMLLog = "html-log",
+  TestHTMLLog = "test-html-log",
   Patches = "patches",
   Settings = "settings",
 }
@@ -163,6 +164,7 @@ export const routes = {
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
   task: `${paths.task}/:${slugs.taskId}/:${slugs.tab}?`,
   taskHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.HTMLLog}`,
+  testHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.TestHTMLLog}`,
   taskQueue: `${paths.taskQueue}/:${slugs.distroId}?`,
   user: paths.user,
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
@@ -253,6 +255,26 @@ export const getTaskHTMLLogRoute = (
     origin,
   });
   return generatePath(`${routes.taskHTMLLog}?${queryParams}`, { taskId });
+};
+
+export const getTestHTMLLogRoute = (
+  taskId: string,
+  execution: number,
+  testName: string,
+  groupId?: string,
+  lineNum?: number,
+) => {
+  const queryParams = stringifyQuery({
+    execution,
+    testName,
+    ...(groupId && { groupId }),
+  });
+
+  let path = generatePath(`${routes.testHTMLLog}?${queryParams}`, { taskId });
+  if (typeof lineNum !== "undefined") {
+    path += `#L${lineNum}`;
+  }
+  return path;
 };
 
 export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>

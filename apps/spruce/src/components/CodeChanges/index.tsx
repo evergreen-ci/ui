@@ -4,8 +4,6 @@ import Button from "@leafygreen-ui/button";
 import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body, BodyProps, Description } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { CodeChangesBadge } from "components/CodeChangesBadge";
-import { CodeChangesTable } from "components/CodeChangesTable";
 import {
   CodeChangesQuery,
   CodeChangesQueryVariables,
@@ -14,6 +12,8 @@ import {
 import { CODE_CHANGES } from "gql/queries";
 import { commits } from "utils";
 import { formatZeroIndexForDisplay } from "utils/numbers";
+import { CodeChangesBadge } from "./Badge";
+import { CodeChangesTable } from "./Table";
 
 const { bucketByCommit, shouldPreserveCommits } = commits;
 
