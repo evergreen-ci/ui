@@ -70,6 +70,7 @@ export const mocks: ApolloMock<CodeChangesQuery, CodeChangesQueryVariables>[] =
           patch: {
             __typename: "Patch",
             id: "5f4889313627e0544660c800",
+            patchNumber: 0,
             moduleCodeChanges: [
               {
                 __typename: "ModuleCodeChange",
