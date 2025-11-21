@@ -1,4 +1,8 @@
 import { useQuery } from "@apollo/client";
+import {
+  constructEvergreenTaskLogURL,
+  getEvergreenTestLogURL,
+} from "@evg-ui/lib/constants/logURLTemplates";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {
@@ -6,11 +10,9 @@ import {
   getLogkeeperJobLogsURL,
 } from "constants/externalURLTemplates";
 import {
-  constructEvergreenTaskLogURL,
   getEvergreenCompleteLogsURL,
   getEvergreenTaskFileURL,
   getEvergreenTaskLogURL,
-  getEvergreenTestLogURL,
   getResmokeLogURL,
 } from "constants/logURLTemplates";
 import {

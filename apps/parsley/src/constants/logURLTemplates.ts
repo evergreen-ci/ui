@@ -9,33 +9,6 @@ import { evergreenURL, logkeeperURL } from "utils/environmentVariables";
 
 /**
  *
- * @param taskID - the task ID
- * @param execution - the execution number of the task
- * @param testID - the test ID of the test
- * @param options - the options for the test log
- * @param options.text - returns the raw test log
- * @param options.groupID - the group ID
- * @returns an Evergreen URL of the format `/test_log/${taskID}/${execution}?test_name=${testID}&group_id=${groupID}text=true`
- */
-const getEvergreenTestLogURL = (
-  taskID: string,
-  execution: string | number,
-  testID: string,
-  options: { text?: boolean; groupID?: string },
-) => {
-  const { groupID, text } = options;
-  const params = {
-    group_id: groupID,
-    test_name: testID,
-    text,
-  };
-  return `${evergreenURL}/test_log/${taskID}/${execution}?${stringifyQuery(
-    params,
-  )}`;
-};
-
-/**
- *
  * @param buildID - the build ID of the resmoke job
  * @param options - the options for the resmoke log
  * @param options.testID - the testID of the resmoke log omitting this returns the full log
@@ -109,6 +82,5 @@ export {
   getEvergreenCompleteLogsURL,
   getEvergreenTaskFileURL,
   getEvergreenTaskLogURL,
-  getEvergreenTestLogURL,
   getResmokeLogURL,
 };
