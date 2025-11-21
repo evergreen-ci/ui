@@ -11249,6 +11249,8 @@ export type TaskTestsQuery = {
         testFile: string;
         logs: {
           __typename?: "TestLog";
+          lineNum?: number | null;
+          testName?: string | null;
           url?: string | null;
           urlParsley?: string | null;
           urlRaw?: string | null;
