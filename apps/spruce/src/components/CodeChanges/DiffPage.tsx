@@ -3,38 +3,30 @@ import { Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, useSearchParams } from "react-router-dom";
-import { constructEvergreenTaskLogURL } from "@evg-ui/lib/constants/logURLTemplates";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { styles } from "hooks/useHTMLStream/utils";
-import { useHTMLLogStream } from "./useHTMLLogStream";
-import { validateTaskLogParams } from "./utils";
+import { getEvergreenUrl } from "utils/environmentVariables";
+import { useHTMLDiffStream } from "./useHTMLDiffStream";
 
-export const HTMLLog: React.FC = () => {
-  const { taskId } = useParams<{ taskId: string }>();
+export const DiffPage: React.FC = () => {
+  const { versionId } = useParams<{ versionId: string }>();
   const [searchParams] = useSearchParams();
   const containerRef = useRef<HTMLPreElement | null>(null);
 
-  const execution = searchParams.get("execution");
-  const origin = searchParams.get("origin");
+  const patchNumber = searchParams.get("patch_number") || "0";
 
   const url = useMemo(() => {
-    try {
-      const params = validateTaskLogParams(taskId, execution, origin);
-      return constructEvergreenTaskLogURL(
-        params.taskId,
-        params.execution,
-        params.origin,
-        {
-          text: true,
-          priority: true,
-        },
-      );
-    } catch {
+    if (!versionId) {
       return null;
     }
-  }, [taskId, execution, origin]);
+    const patchNum = parseInt(patchNumber, 10);
+    if (isNaN(patchNum)) {
+      return null;
+    }
+    return `${getEvergreenUrl()}/rawdiff/${versionId}/?patch_number=${patchNum}`;
+  }, [versionId, patchNumber]);
 
-  const { error, isLoading } = useHTMLLogStream({
+  const { error, isLoading } = useHTMLDiffStream({
     url,
     containerRef,
   });
@@ -42,7 +34,7 @@ export const HTMLLog: React.FC = () => {
   if (error) {
     return (
       <Container>
-        <div>Error loading log: {error.message}</div>
+        <div>Error loading diff: {error.message}</div>
       </Container>
     );
   }
