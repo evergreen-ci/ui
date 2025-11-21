@@ -6,7 +6,7 @@ export const Diff: React.FC<{ diff: string }> = ({ diff }) => {
   return (
     <DiffContainer>
       <Pre>
-        <Code>
+        <code>
           {lines.map((line, i) => {
             let Tag = BaseTag;
             if (line.substring(0, 3) === "+++") {
@@ -27,7 +27,7 @@ export const Diff: React.FC<{ diff: string }> = ({ diff }) => {
               </Tag>
             );
           })}
-        </Code>
+        </code>
       </Pre>
     </DiffContainer>
   );
@@ -42,8 +42,6 @@ const Pre = styled.pre`
   max-width: 100%;
   overflow-x: scroll;
 `;
-
-const Code = styled.code``;
 
 const BaseTag = styled.span``;
 

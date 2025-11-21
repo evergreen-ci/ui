@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
-import { css } from "@leafygreen-ui/emotion";
+import { LGColumnDef } from "@leafygreen-ui/table";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
   useLeafyGreenTable,
@@ -36,11 +36,7 @@ export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
 
   return (
     <Container>
-      <BaseTable
-        className={css`
-          max-width: 100% !important;
-          table-layout: fixed !important;
-        `}
+      <StyledTable
         data-cy="code-changes-table"
         data-cy-row="code-changes-table-row"
         shouldAlternateRowColor
@@ -50,26 +46,31 @@ export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
   );
 };
 
-const columns = [
+const StyledTable = styled(BaseTable)`
+  max-width: 100% !important;
+  table-layout: fixed !important;
+`;
+
+const columns: LGColumnDef<FileDiffsFragment>[] = [
   {
     accessorKey: "fileName",
     header: "File Name",
     meta: { width: "70%" },
     cell: ({
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       getValue,
+      // @ts-expect-error - getValue is untyped
     }) => <WordBreak>{getValue()}</WordBreak>,
   },
   {
     accessorKey: "additions",
     header: "Additions",
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    // @ts-expect-error - getValue is untyped
     cell: ({ getValue }) => <FileDiffText type="+" value={getValue()} />,
   },
   {
     accessorKey: "deletions",
     header: "Deletions",
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    // @ts-expect-error - getValue is untyped
     cell: ({ getValue }) => <FileDiffText type="-" value={getValue()} />,
   },
 ];
