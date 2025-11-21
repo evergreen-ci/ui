@@ -83,6 +83,10 @@ type Action =
       metric: TaskTimingMetric;
       only_commits: boolean;
       only_successful: boolean;
+    }
+  | {
+      name: "Clicked review task";
+      reviewed: boolean;
     };
 
 export const useTaskAnalytics = () => {
