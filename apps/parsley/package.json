@@ -44,6 +44,7 @@
     "@apollo/client": "3.10.4",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
+    "@evg-ui/analytics-visualizer": "*",
     "@evg-ui/deploy-utils": "*",
     "@evg-ui/fungi": "*",
     "@evg-ui/lib": "*",
@@ -137,6 +138,6 @@
     "vitest": "^3.2.4"
   },
   "engines": {
-    "node": ">=22.14.0"
+    "node": ">=22.18.0"
   }
 }
