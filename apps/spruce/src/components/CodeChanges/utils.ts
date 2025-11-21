@@ -18,3 +18,16 @@ export const getDiffLineType = (line: string): DiffType => {
   }
   return DiffType.Context;
 };
+
+export const getLineStyle = (type: DiffType): React.CSSProperties => {
+  switch (type) {
+    case DiffType.Addition:
+      return { backgroundColor: "#9fa" };
+    case DiffType.Deletion:
+      return { backgroundColor: "#faa" };
+    case DiffType.Filestat:
+      return { fontWeight: "bold" };
+    default:
+      return {};
+  }
+};
