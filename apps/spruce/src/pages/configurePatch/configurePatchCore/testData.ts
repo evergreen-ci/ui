@@ -83,7 +83,11 @@ export const mocks: ApolloMock<CodeChangesQuery, CodeChangesQueryVariables>[] =
                     additions: 1,
                     deletions: 1,
                     description: "diff",
-                    diffLink: "diff",
+                    diff: `diff --git a/diff b/sdiff
+index 6e806d524..8994fd1c8 100644
+--- a/diff
++++ b/diff
+@@ -570,6 +570,8 @@ diff`,
                     fileName: "diff",
                   },
                 ],

@@ -5236,7 +5236,7 @@ export type FileDiffsFragment = {
   additions: number;
   deletions: number;
   description: string;
-  diffLink: string;
+  diff: string;
   fileName: string;
 };
 
@@ -5257,7 +5257,7 @@ export type ModuleCodeChangeFragment = {
     additions: number;
     deletions: number;
     description: string;
-    diffLink: string;
+    diff: string;
     fileName: string;
   }>;
 };
@@ -8273,7 +8273,7 @@ export type CodeChangesQuery = {
         additions: number;
         deletions: number;
         description: string;
-        diffLink: string;
+        diff: string;
         fileName: string;
       }>;
     }>;
