@@ -3,35 +3,36 @@ import { Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, useSearchParams } from "react-router-dom";
-import { constructEvergreenTaskLogURL } from "@evg-ui/lib/constants/logURLTemplates";
+import { getEvergreenTestLogURL } from "@evg-ui/lib/constants/logURLTemplates";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useHTMLLogStream } from "./useHTMLLogStream";
-import { styles, validateTaskLogParams } from "./utils";
+import { styles, validateTestLogParams } from "./utils";
 
-export const HTMLLog: React.FC = () => {
+export const TestHTMLLog: React.FC = () => {
   const { taskId } = useParams<{ taskId: string }>();
   const [searchParams] = useSearchParams();
   const containerRef = useRef<HTMLPreElement | null>(null);
 
   const execution = searchParams.get("execution");
-  const origin = searchParams.get("origin");
+  const testName = searchParams.get("testName");
+  const groupId = searchParams.get("groupId");
 
   const url = useMemo(() => {
     try {
-      const params = validateTaskLogParams(taskId, execution, origin);
-      return constructEvergreenTaskLogURL(
+      const params = validateTestLogParams(taskId, execution, testName);
+      return getEvergreenTestLogURL(
         params.taskId,
         params.execution,
-        params.origin,
+        params.testName,
         {
           text: true,
-          priority: true,
+          groupID: groupId || undefined,
         },
       );
     } catch {
       return null;
     }
-  }, [taskId, execution, origin]);
+  }, [taskId, execution, testName, groupId]);
 
   const { error, isLoading } = useHTMLLogStream({
     url,

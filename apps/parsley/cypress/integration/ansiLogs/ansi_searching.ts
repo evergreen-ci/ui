@@ -82,4 +82,24 @@ describe("Searching", () => {
     cy.dataCy("search-count").should("be.visible");
     cy.dataCy("search-count").should("contain.text", "1/2");
   });
+
+  it("should update search results automatically when filters are removed", () => {
+    const filter = "nonexistent-term";
+    cy.addFilter(filter);
+    cy.get("[data-cy^='skipped-lines-row-']").should("exist");
+
+    cy.addSearch("info");
+    cy.dataCy("search-count").should("be.visible");
+    cy.dataCy("search-count").should("contain.text", "No Matches");
+
+    cy.toggleDrawer();
+    cy.dataCy(`filter-${filter}`).within(() => {
+      cy.get(`[aria-label="Delete filter"]`).click();
+    });
+    cy.location("search").should("not.contain", "filters");
+    cy.get("[data-cy^='skipped-lines-row-']").should("not.exist");
+
+    cy.dataCy("search-count").should("contain.text", "1/4");
+    cy.get("[data-highlighted='true']").should("contain.text", "info");
+  });
 });

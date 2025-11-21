@@ -1,0 +1,76 @@
+<div>
+  <div
+    class="emotion-Container e1y3tyi0"
+  >
+    <div
+      class="leafygreen-ui-1si66qn emotion-StyledTable e1y3tyi1"
+      tabindex="0"
+    >
+      <div />
+      <table
+        class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
+        data-cy="code-changes-table"
+        data-is-sticky="false"
+        data-lgid="lg-table"
+        data-testid="lg-table"
+      >
+        <thead
+          class="leafygreen-ui-181p7kg"
+        >
+          <tr
+            class="leafygreen-ui-5fo1n0"
+            data-lgid="lg-table-header_row"
+            data-testid="lg-table-header_row"
+          >
+            <th
+              class="leafygreen-ui-1it7wsd"
+              data-lgid="lg-table-header"
+              data-testid="lg-table-header"
+              id="fileName"
+              scope="col"
+              style="width: 70%;"
+            >
+              <div
+                class="leafygreen-ui-11hl1ow"
+              >
+                File Name
+              </div>
+            </th>
+            <th
+              class="leafygreen-ui-1it7wsd"
+              data-lgid="lg-table-header"
+              data-testid="lg-table-header"
+              id="additions"
+              scope="col"
+            >
+              <div
+                class="leafygreen-ui-11hl1ow"
+              >
+                Additions
+              </div>
+            </th>
+            <th
+              class="leafygreen-ui-1it7wsd"
+              data-lgid="lg-table-header"
+              data-testid="lg-table-header"
+              id="deletions"
+              scope="col"
+            >
+              <div
+                class="leafygreen-ui-11hl1ow"
+              >
+                Deletions
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+    </div>
+    <div
+      class="emotion-DefaultEmptyMessage ekf2n9h2"
+    >
+      No data to display
+    </div>
+  </div>
+</div>
