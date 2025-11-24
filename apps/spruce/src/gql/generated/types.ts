@@ -1126,7 +1126,6 @@ export type FileDiff = {
   additions: Scalars["Int"]["output"];
   deletions: Scalars["Int"]["output"];
   description: Scalars["String"]["output"];
-  diff: Scalars["String"]["output"];
   diffLink: Scalars["String"]["output"];
   fileName: Scalars["String"]["output"];
 };
