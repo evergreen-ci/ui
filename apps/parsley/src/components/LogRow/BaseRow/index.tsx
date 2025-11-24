@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
+import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import Icon from "@evg-ui/lib/components/Icon";

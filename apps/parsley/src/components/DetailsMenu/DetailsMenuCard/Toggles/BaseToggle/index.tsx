@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import Toggle from "@leafygreen-ui/toggle";
+import { Toggle } from "@leafygreen-ui/toggle";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DetailRow, DetailsLabel } from "../../styles";

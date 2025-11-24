@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
+import { IconButton } from "@leafygreen-ui/icon-button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
