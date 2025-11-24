@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Badge, { Variant } from "@leafygreen-ui/badge";
-import Button from "@leafygreen-ui/button";
+import { Badge, Variant } from "@leafygreen-ui/badge";
+import { Button } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Banner from "@leafygreen-ui/banner";
+import { Banner } from "@leafygreen-ui/banner";
 import Icon from "@evg-ui/lib/components/Icon";
 import { DisplayModal } from "components/DisplayModal";
 import {

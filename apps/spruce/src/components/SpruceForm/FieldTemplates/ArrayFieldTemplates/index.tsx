@@ -1,7 +1,7 @@
 import { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
-import ExpandableCard from "@leafygreen-ui/expandable-card";
+import { Button } from "@leafygreen-ui/button";
+import { ExpandableCard } from "@leafygreen-ui/expandable-card";
 import { palette } from "@leafygreen-ui/palette";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";

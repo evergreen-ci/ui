@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import Button, { Size } from "@leafygreen-ui/button";
-import Checkbox from "@leafygreen-ui/checkbox";
+import { Button, Size } from "@leafygreen-ui/button";
+import { Checkbox } from "@leafygreen-ui/checkbox";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";

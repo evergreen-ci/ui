@@ -1,8 +1,8 @@
 import React, { useMemo, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Checkbox from "@leafygreen-ui/checkbox";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Checkbox } from "@leafygreen-ui/checkbox";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";

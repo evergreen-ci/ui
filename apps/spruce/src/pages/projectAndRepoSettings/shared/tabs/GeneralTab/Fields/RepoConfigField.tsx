@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Button } from "@leafygreen-ui/button";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Field } from "@rjsf/core";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { SpruceForm } from "components/SpruceForm";

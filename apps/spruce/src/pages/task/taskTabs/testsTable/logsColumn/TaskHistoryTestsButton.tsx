@@ -1,4 +1,4 @@
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 
 interface Props {

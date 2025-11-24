@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Description } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";

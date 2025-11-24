@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
-import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
-import Pagination from "@leafygreen-ui/pagination";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
+import { Pagination } from "@leafygreen-ui/pagination";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import Icon from "@evg-ui/lib/components/Icon";
 import { WordBreak } from "@evg-ui/lib/components/styles";

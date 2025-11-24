@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { IconSkeleton, Skeleton, Size } from "@leafygreen-ui/skeleton-loader";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";

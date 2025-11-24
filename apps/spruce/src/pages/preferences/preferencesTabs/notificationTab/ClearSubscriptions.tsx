@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import Button, { Variant } from "@leafygreen-ui/button";
+import { Button, Variant } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import pluralize from "pluralize";
 import { useToastContext } from "@evg-ui/lib/context/toast";
