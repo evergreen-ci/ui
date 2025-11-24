@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
+import Button from "@leafygreen-ui/button";
 import { Pagination } from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";

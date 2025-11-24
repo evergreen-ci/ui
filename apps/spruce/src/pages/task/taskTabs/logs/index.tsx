@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
+import Button from "@leafygreen-ui/button";
 import {
   SegmentedControl,
   SegmentedControlOption,

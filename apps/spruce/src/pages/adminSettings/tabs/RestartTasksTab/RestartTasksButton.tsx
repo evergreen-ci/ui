@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Button, Variant as ButtonVariant } from "@leafygreen-ui/button";
+import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 // @ts-expect-error - LG advises directly importing from this path for simple spinners to avoid importing Lottie.
 // The component works, but the export is incorrectly typed. See LG-5659.

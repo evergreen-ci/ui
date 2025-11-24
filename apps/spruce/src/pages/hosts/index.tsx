@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
-import { Button } from "@leafygreen-ui/button";
+import Button from "@leafygreen-ui/button";
 import { Disclaimer, H2 } from "@leafygreen-ui/typography";
 import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
 import Pagination from "@evg-ui/lib/components/Pagination";

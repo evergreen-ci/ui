@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { Button, Variant, Size } from "@leafygreen-ui/button";
+import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { TextArea } from "@leafygreen-ui/text-area";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { useToastContext } from "@evg-ui/lib/context/toast";

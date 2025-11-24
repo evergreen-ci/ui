@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "@leafygreen-ui/button";
+import Button from "@leafygreen-ui/button";
 import { DistroQuery } from "gql/generated/types";
 import { useDistroSettingsContext } from "./Context";
 import { SaveModal } from "./SaveModal";

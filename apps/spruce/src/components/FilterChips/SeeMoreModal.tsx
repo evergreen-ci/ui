@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Button, Variant, Size } from "@leafygreen-ui/button";
+import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Link } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DisplayModal } from "components/DisplayModal";

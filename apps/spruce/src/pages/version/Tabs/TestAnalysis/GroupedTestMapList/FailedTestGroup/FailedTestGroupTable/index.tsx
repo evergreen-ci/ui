@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Button } from "@leafygreen-ui/button";
+import Button from "@leafygreen-ui/button";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {

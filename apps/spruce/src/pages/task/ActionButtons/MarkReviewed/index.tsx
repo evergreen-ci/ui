@@ -1,4 +1,4 @@
-import { Button, Size } from "@leafygreen-ui/button";
+import Button, { Size } from "@leafygreen-ui/button";
 import Cookies from "js-cookie";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskReview } from "components/TaskReview/useTaskReview";

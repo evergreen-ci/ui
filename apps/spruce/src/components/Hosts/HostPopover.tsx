@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
+import Button from "@leafygreen-ui/button";
 import { Popover } from "@leafygreen-ui/popover";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";

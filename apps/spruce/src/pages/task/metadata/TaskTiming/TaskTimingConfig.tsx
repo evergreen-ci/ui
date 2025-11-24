@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { Button, Size } from "@leafygreen-ui/button";
+import Button, { Size } from "@leafygreen-ui/button";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { Menu, FocusableMenuItem } from "@leafygreen-ui/menu";
 import { TaskTimingConfig } from "./state";

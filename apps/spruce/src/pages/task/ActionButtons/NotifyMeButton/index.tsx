@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
+import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import { useTaskAnalytics } from "analytics";
 import { TaskNotificationModal } from "./TaskNotificationModal";
 

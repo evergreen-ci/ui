@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { Button as LeafyGreenButton, ButtonProps } from "@leafygreen-ui/button";
+import LeafyGreenButton, { ButtonProps } from "@leafygreen-ui/button";
 import { Spinner } from "@leafygreen-ui/loading-indicator";
 
 type Props = Omit<ButtonProps, "isLoading"> & {

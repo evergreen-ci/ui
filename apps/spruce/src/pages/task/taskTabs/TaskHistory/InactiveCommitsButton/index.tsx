@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "@leafygreen-ui/button";
+import Button from "@leafygreen-ui/button";
 import { Icon } from "@leafygreen-ui/icon";
 import { Size } from "@leafygreen-ui/tokens";
 import pluralize from "pluralize";
