@@ -84,6 +84,7 @@ export const getFormSchema = (
         options: { repoData },
         varName: {
           "ui:data-cy": "var-name-input",
+          "ui:elementWrapperCSS": nameCss,
         },
         varValue: {
           "ui:data-cy": "var-value-input",
@@ -109,7 +110,11 @@ export const getFormSchema = (
         "ui:showLabel": false,
         items: {
           "ui:ObjectFieldTemplate": VariableRow,
+          varName: {
+            "ui:elementWrapperCSS": nameCss,
+          },
           varValue: {
+            "ui:elementWrapperCSS": varCSS,
             "ui:widget": widgets.TextareaWidget,
           },
         },
@@ -150,4 +155,8 @@ const getDescription = (projectType: ProjectType) => {
 
 const varCSS = css`
   margin-bottom: ${size.xxs};
+`;
+
+const nameCss = css`
+  margin-bottom: ${size.xs};
 `;
