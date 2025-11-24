@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         element: <TestHTMLLog />,
       },
       {
-        path: routes.versionHTMLDiff,
+        path: routes.versionDiff,
         element: <DiffPage />,
       },
       {

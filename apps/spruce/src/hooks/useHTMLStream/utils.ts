@@ -85,7 +85,7 @@ export const getLineContainer = ({
 
 export const styles = css`
   .${CLASSNAME_ACTIVE_LINE} {
-    background-color: #ffc;
+    background-color: #ffc !important;
 
     .${CLASSNAME_LINE_LINK} {
       opacity: 1 !important;

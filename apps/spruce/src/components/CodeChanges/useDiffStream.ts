@@ -2,21 +2,18 @@ import { useCallback } from "react";
 import { useHTMLStream } from "hooks/useHTMLStream";
 import { getDiffLineType, getLineStyle } from "./utils";
 
-interface UseHTMLDiffStreamOptions {
+interface UseDiffStreamOptions {
   url: string | null;
   containerRef: React.RefObject<HTMLPreElement>;
 }
 
-export const useHTMLDiffStream = ({
-  containerRef,
-  url,
-}: UseHTMLDiffStreamOptions) => {
+export const useDiffStream = ({ containerRef, url }: UseDiffStreamOptions) => {
   const processLine = useCallback((lineContent: string) => {
     const diffType = getDiffLineType(lineContent);
     const style = getLineStyle(diffType);
 
     return {
-      htmlContent: lineContent,
+      htmlContent: escapeHtml(lineContent),
       style,
     };
   }, []);
@@ -28,3 +25,11 @@ export const useHTMLDiffStream = ({
     processLine,
   });
 };
+
+const escapeHtml = (unsafe: string) =>
+  unsafe
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");

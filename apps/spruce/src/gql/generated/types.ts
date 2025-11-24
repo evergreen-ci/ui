@@ -8261,7 +8261,6 @@ export type CodeChangesQuery = {
   patch: {
     __typename?: "Patch";
     id: string;
-    patchNumber: number;
     moduleCodeChanges: Array<{
       __typename?: "ModuleCodeChange";
       branchName: string;

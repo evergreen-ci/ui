@@ -11,7 +11,7 @@ import { toArray } from "utils/array";
 export enum PageNames {
   HTMLLog = "html-log",
   TestHTMLLog = "test-html-log",
-  HTMLDiff = "html-diff",
+  Diff = "diff",
   Patches = "patches",
   Settings = "settings",
 }
@@ -166,7 +166,7 @@ export const routes = {
   task: `${paths.task}/:${slugs.taskId}/:${slugs.tab}?`,
   taskHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.HTMLLog}`,
   testHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.TestHTMLLog}`,
-  versionHTMLDiff: `${paths.version}/:${slugs.versionId}/${PageNames.HTMLDiff}`,
+  versionDiff: `${paths.version}/:${slugs.versionId}/${PageNames.Diff}`,
   taskQueue: `${paths.taskQueue}/:${slugs.distroId}?`,
   user: paths.user,
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
@@ -279,17 +279,10 @@ export const getTestHTMLLogRoute = (
   return path;
 };
 
-export const getVersionHTMLDiffRoute = (
-  versionId: string,
-  patchNumber: number = 0,
-) => {
-  const queryParams = stringifyQuery({
-    patch_number: patchNumber,
-  });
-  return generatePath(`${routes.versionHTMLDiff}?${queryParams}`, {
+export const getVersionDiffRoute = (versionId: string) =>
+  generatePath(`${routes.versionDiff}`, {
     versionId,
   });
-};
 
 export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>
   `${paths.preferences}/${tab}`;

@@ -6,6 +6,5 @@ query CodeChanges($id: String!) {
     moduleCodeChanges {
       ...ModuleCodeChange
     }
-    patchNumber
   }
 }
