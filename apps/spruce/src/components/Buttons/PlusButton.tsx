@@ -12,3 +12,5 @@ export const PlusButton = forwardRef<HTMLDivElement, ButtonProps>(
     />
   ),
 );
+
+PlusButton.displayName = "PlusButton";

@@ -22,7 +22,7 @@ export default {
 type ResmokeRowProps = React.FC<React.ComponentProps<typeof ResmokeRow>>;
 
 // Single ResmokeRow.
-const SingleLineStory = (args: any) => {
+const SingleLineStory = (args: React.ComponentProps<typeof ResmokeRow>) => {
   const { getResmokeLineColor, ingestLines, scrollToLine } = useLogContext();
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export const SingleLine: CustomStoryObj<ResmokeRowProps> = {
 };
 
 // Multiple ResmokeRows.
-const MultipleLinesStory = (args: any) => {
+const MultipleLinesStory = (args: React.ComponentProps<typeof ResmokeRow>) => {
   const { ingestLines, preferences, processedLogLines, setLogMetadata } =
     useLogContext();
   const { setPrettyPrint, setWrap } = preferences;

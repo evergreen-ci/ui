@@ -25,31 +25,34 @@ describe("skippedLinesRow", () => {
     expect(screen.getByText("11 Lines Skipped")).toBeInTheDocument();
   });
 
-  it("should call expandLines function with the correct arguments when expanding 5 lines", async () => {
-    const user = userEvent.setup();
-    const expandLines = vi.fn();
-    renderWithRouterMatch(
-      <SkippedLinesRow
-        {...skippedLinesProps}
-        expandLines={expandLines}
-        lineIndex={0}
-        range={{ end: 11, start: 0 }}
-      />,
-      {
-        wrapper: logContextWrapper(logLines),
-      },
-    );
-    const expandFiveButton = screen.getByRole("button", {
-      name: "5 Above & Below",
-    });
-    expect(expandFiveButton).toBeEnabled();
-    await user.click(expandFiveButton);
-    expect(expandLines).toHaveBeenCalledTimes(1);
-    expect(expandLines).toHaveBeenCalledWith([
-      [0, 4],
-      [6, 10],
-    ]);
-  });
+  it.each([
+    { buttonText: "5 Above", expected: [0, 4] },
+    { buttonText: "5 Below", expected: [6, 10] },
+  ])(
+    "should call expandLines function with the correct arguments when expanding 5 lines in either direction",
+    async ({ buttonText, expected }) => {
+      const user = userEvent.setup();
+      const expandLines = vi.fn();
+      renderWithRouterMatch(
+        <SkippedLinesRow
+          {...skippedLinesProps}
+          expandLines={expandLines}
+          lineIndex={0}
+          range={{ end: 11, start: 0 }}
+        />,
+        {
+          wrapper: logContextWrapper(logLines),
+        },
+      );
+      const expandFiveButton = screen.getByRole("button", {
+        name: buttonText,
+      });
+      expect(expandFiveButton).toBeEnabled();
+      await user.click(expandFiveButton);
+      expect(expandLines).toHaveBeenCalledTimes(1);
+      expect(expandLines).toHaveBeenCalledWith([expected]);
+    },
+  );
 
   it("should call expandLines function with the correct arguments when expanding all lines", async () => {
     const user = userEvent.setup();
@@ -84,10 +87,14 @@ describe("skippedLinesRow", () => {
         wrapper: logContextWrapper(logLines),
       },
     );
-    const expandFiveButton = screen.getByRole("button", {
-      name: "5 Above & Below",
+    const expandAboveButton = screen.getByRole("button", {
+      name: "5 Above",
     });
-    expect(expandFiveButton).not.toHaveAttribute("aria-disabled", "true");
+    const expandBelowButton = screen.getByRole("button", {
+      name: "5 Below",
+    });
+    expect(expandAboveButton).not.toHaveAttribute("aria-disabled", "true");
+    expect(expandBelowButton).not.toHaveAttribute("aria-disabled", "true");
   });
 });
 

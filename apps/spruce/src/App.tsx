@@ -8,6 +8,8 @@ import { Content } from "components/Content";
 import { GlobalStyles } from "components/styles";
 import { routes } from "constants/routes";
 import ContextProviders from "context/Providers";
+import { HTMLLog } from "pages/task/logs/HTMLLog";
+import { TestHTMLLog } from "pages/task/logs/TestHTMLLog";
 import {
   getEvergreenUrl,
   getSpruceURL,
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
             },
           ]
         : []),
+      {
+        path: routes.taskHTMLLog,
+        element: <HTMLLog />,
+      },
+      {
+        path: routes.testHTMLLog,
+        element: <TestHTMLLog />,
+      },
       {
         path: "/*",
         element: (

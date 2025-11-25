@@ -106,11 +106,13 @@ const FileDropper: React.FC = () => {
                         title: "Log not fully loaded",
                       });
                     }
-                  } catch (e: any) {
+                  } catch (e: unknown) {
                     dispatchToast.error(
                       "An error occurred while parsing the log.",
                     );
-                    reportError(e).severe();
+                    reportError(
+                      e instanceof Error ? e : new Error(String(e)),
+                    ).severe();
                   }
                 }
                 break;
