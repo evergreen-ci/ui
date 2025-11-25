@@ -10,7 +10,9 @@
     "vitest.d.ts"
   ],
   "compilerOptions": {
-    "baseUrl": "src",
+    "paths": {
+      "*": ["./src/*"]
+    }
   },
   "references": [
     {
