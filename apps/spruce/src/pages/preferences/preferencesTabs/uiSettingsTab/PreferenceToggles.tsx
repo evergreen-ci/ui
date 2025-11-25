@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Cookies from "js-cookie";
 import { usePreferencesAnalytics } from "analytics";
 import { ToggleWithLabel } from "components/ToggleWithLabel";
@@ -19,11 +19,8 @@ export const PreferenceToggles: React.FC = () => {
       value: c ? "Enabled" : "Disabled",
     });
     setQueryPollingEnabled(c);
+    Cookies.set(DISABLE_QUERY_POLLING, (!c).toString());
   };
-
-  useEffect(() => {
-    Cookies.set(DISABLE_QUERY_POLLING, (!queryPollingEnabled).toString());
-  }, [queryPollingEnabled]);
 
   const handleToggleTaskReview = (c: boolean) => {
     sendEvent({
@@ -31,11 +28,8 @@ export const PreferenceToggles: React.FC = () => {
       enabled: c,
     });
     setTaskReviewEnabled(c);
+    Cookies.set(DISABLE_TASK_REVIEW, (!c).toString());
   };
-
-  useEffect(() => {
-    Cookies.set(DISABLE_TASK_REVIEW, (!taskReviewEnabled).toString());
-  }, [taskReviewEnabled]);
 
   return (
     <>
