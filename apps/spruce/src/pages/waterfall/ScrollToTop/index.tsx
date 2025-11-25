@@ -1,4 +1,4 @@
-import IconButton from "@leafygreen-ui/icon-button";
+import { IconButton } from "@leafygreen-ui/icon-button";
 import { useMatch } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { routes } from "constants/routes";

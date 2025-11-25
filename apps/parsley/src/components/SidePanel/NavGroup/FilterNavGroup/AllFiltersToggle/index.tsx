@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import Toggle, { Size as ToggleSize } from "@leafygreen-ui/toggle";
+import { Toggle, Size as ToggleSize } from "@leafygreen-ui/toggle";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import { useFilterParam } from "hooks/useFilterParam";

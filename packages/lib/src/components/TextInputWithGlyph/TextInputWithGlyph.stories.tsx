@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Icon from "@leafygreen-ui/icon";
+import { Icon } from "@leafygreen-ui/icon";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { TextInputWithGlyph } from ".";

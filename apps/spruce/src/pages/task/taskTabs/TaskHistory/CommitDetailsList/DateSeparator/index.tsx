@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
+import { Badge } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { useDateFormat } from "hooks";
 

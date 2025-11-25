@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Badge, { Variant } from "@leafygreen-ui/badge";
+import { Badge, Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { Disclaimer, H2 } from "@leafygreen-ui/typography";
 import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";

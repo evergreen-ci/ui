@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
-import MarketingModal, { GraphicStyle } from "@leafygreen-ui/marketing-modal";
+import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
+import { GraphicStyle, MarketingModal } from "@leafygreen-ui/marketing-modal";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";

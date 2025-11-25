@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
 import { Menu, MenuItem, MenuItemProps } from "@leafygreen-ui/menu";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useTaskAnalytics } from "analytics";

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Card from "@leafygreen-ui/card";
+import { Card } from "@leafygreen-ui/card";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { LoadingButton } from "components/Buttons";

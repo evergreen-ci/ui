@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Card from "@leafygreen-ui/card";
+import { Card } from "@leafygreen-ui/card";
 import { palette } from "@leafygreen-ui/palette";
 import { transitionDuration } from "@leafygreen-ui/tokens";
 import { H3, H3Props } from "@leafygreen-ui/typography";

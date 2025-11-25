@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Modal, { ModalProps } from "@leafygreen-ui/modal";
+import { Modal, ModalProps } from "@leafygreen-ui/modal";
 import { Body, BodyProps, H3 } from "@leafygreen-ui/typography";
 import { size as tokenSize, zIndex } from "@evg-ui/lib/constants/tokens";
 

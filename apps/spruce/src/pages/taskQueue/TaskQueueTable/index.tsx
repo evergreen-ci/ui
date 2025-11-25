@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
+import { Badge } from "@leafygreen-ui/badge";
 import { css } from "@leafygreen-ui/emotion";
 import { Body } from "@leafygreen-ui/typography";
 import {

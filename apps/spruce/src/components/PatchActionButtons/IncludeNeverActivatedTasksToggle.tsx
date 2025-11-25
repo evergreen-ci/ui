@@ -1,5 +1,5 @@
 import { MenuItem } from "@leafygreen-ui/menu";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics/version/useVersionAnalytics";

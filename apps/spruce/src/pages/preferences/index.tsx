@@ -1,4 +1,4 @@
-import Icon from "@leafygreen-ui/icon";
+import { Icon } from "@leafygreen-ui/icon";
 import { useParams, Link } from "react-router-dom";
 import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";

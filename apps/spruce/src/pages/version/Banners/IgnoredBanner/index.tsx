@@ -1,4 +1,4 @@
-import Banner, { Variant } from "@leafygreen-ui/banner";
+import { Banner, Variant } from "@leafygreen-ui/banner";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { ignoredFilesDocumentationUrl } from "constants/externalResources";
 import { BannerContainer } from "../styles";
