@@ -1,14 +1,14 @@
 import { MouseEvent, useId, useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
-import IconButton from "@leafygreen-ui/icon-button";
+import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import {
   SegmentedControlOption as Option,
   SegmentedControl,
 } from "@leafygreen-ui/segmented-control";
-import TextInput from "@leafygreen-ui/text-input";
-import Toggle from "@leafygreen-ui/toggle";
+import { TextInput } from "@leafygreen-ui/text-input";
+import { Toggle } from "@leafygreen-ui/toggle";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import Accordion, {
   AccordionCaretAlign,

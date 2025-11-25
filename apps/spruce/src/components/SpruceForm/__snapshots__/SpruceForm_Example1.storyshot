@@ -47,23 +47,23 @@
                       class="leafygreen-ui-1lqrdit"
                       data-lgid="lg-select-label"
                       data-testid="lg-select"
-                      for="select-111"
-                      id="select-110-label"
+                      for="select-100"
+                      id="select-99-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-110-menu"
-                    aria-describedby="select-110-description"
+                    aria-controls="select-99-menu"
+                    aria-describedby="select-99-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-110-label"
+                    aria-labelledby="select-99-label"
                     class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
                     data-lgid="lg-select-trigger"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-111"
+                    id="select-100"
                     type="button"
                     value="legacy-ssh"
                   >
@@ -194,8 +194,8 @@
                                 class="leafygreen-ui-15qqekb"
                                 data-lgid="lg-text_input-label"
                                 data-testid="lg-text_input"
-                                for="lg-form_field-input-115"
-                                id="lg-form_field-label-112"
+                                for="lg-form_field-input-104"
+                                id="lg-form_field-label-101"
                               >
                                 key
                               </label>
@@ -210,10 +210,10 @@
                                   aria-describedby=""
                                   aria-disabled="false"
                                   aria-invalid="false"
-                                  aria-labelledby="lg-form_field-label-112"
+                                  aria-labelledby="lg-form_field-label-101"
                                   autocomplete="on"
                                   class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                                  id="lg-form_field-input-115"
+                                  id="lg-form_field-input-104"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -226,7 +226,7 @@
                               class="leafygreen-ui-11ydt2g"
                               data-lgid="lg-text_input-feedback"
                               data-testid="lg-text_input-feedback"
-                              id="lg-form_field-feedback-114"
+                              id="lg-form_field-feedback-103"
                             />
                           </div>
                         </div>
@@ -250,8 +250,8 @@
                                 class="leafygreen-ui-15qqekb"
                                 data-lgid="lg-text_input-label"
                                 data-testid="lg-text_input"
-                                for="lg-form_field-input-119"
-                                id="lg-form_field-label-116"
+                                for="lg-form_field-input-108"
+                                id="lg-form_field-label-105"
                               >
                                 value
                               </label>
@@ -266,10 +266,10 @@
                                   aria-describedby=""
                                   aria-disabled="false"
                                   aria-invalid="false"
-                                  aria-labelledby="lg-form_field-label-116"
+                                  aria-labelledby="lg-form_field-label-105"
                                   autocomplete="on"
                                   class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                                  id="lg-form_field-input-119"
+                                  id="lg-form_field-input-108"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -282,7 +282,7 @@
                               class="leafygreen-ui-11ydt2g"
                               data-lgid="lg-text_input-feedback"
                               data-testid="lg-text_input-feedback"
-                              id="lg-form_field-feedback-118"
+                              id="lg-form_field-feedback-107"
                             />
                           </div>
                         </div>
@@ -345,8 +345,8 @@
                       class="leafygreen-ui-15qqekb"
                       data-lgid="lg-text_area-label"
                       data-testid="lg-text_area"
-                      for="textarea-124"
-                      id="lg-form_field-label-120"
+                      for="textarea-113"
+                      id="lg-form_field-label-109"
                     >
                       Valid Projects
                     </label>
@@ -361,9 +361,9 @@
                         aria-describedby=""
                         aria-disabled="false"
                         aria-invalid="false"
-                        aria-labelledby="lg-form_field-label-120"
+                        aria-labelledby="lg-form_field-label-109"
                         class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
-                        id="textarea-124"
+                        id="textarea-113"
                         rows="5"
                         title="Valid Projects"
                       />
@@ -375,7 +375,7 @@
                     class="leafygreen-ui-11ydt2g"
                     data-lgid="lg-text_area-feedback"
                     data-testid="lg-text_area-feedback"
-                    id="lg-form_field-feedback-122"
+                    id="lg-form_field-feedback-111"
                   />
                 </div>
               </div>

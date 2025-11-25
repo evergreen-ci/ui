@@ -2,7 +2,7 @@ import { ForwardedRef, forwardRef, Fragment } from "react";
 import { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
-import Pagination from "@leafygreen-ui/pagination";
+import { Pagination } from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
 import {
   Cell,

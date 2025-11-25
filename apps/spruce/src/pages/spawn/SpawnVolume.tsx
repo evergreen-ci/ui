@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import Badge, { Variant } from "@leafygreen-ui/badge";
+import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";

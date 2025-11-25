@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
-import Badge, { Variant } from "@leafygreen-ui/badge";
+import { Badge, Variant } from "@leafygreen-ui/badge";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import {
   useLeafyGreenTable,

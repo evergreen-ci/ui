@@ -1,4 +1,4 @@
-import Code from "@leafygreen-ui/code";
+import { Code } from "@leafygreen-ui/code";
 import { JSONValue } from "utils/object/types";
 
 export const LegacyEventEntry: React.FC<{ data: JSONValue }> = ({ data }) => (

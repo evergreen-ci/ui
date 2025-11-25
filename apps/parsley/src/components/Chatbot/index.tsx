@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useCallback, useEffect } from "react";
 import styled from "@emotion/styled";
-import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
+import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { Chat, MessageRatingValue } from "@evg-ui/fungi/Chat";
 import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
 import {
