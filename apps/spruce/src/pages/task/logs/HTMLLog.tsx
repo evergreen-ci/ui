@@ -18,7 +18,11 @@ export const HTMLLog: React.FC = () => {
   const origin = searchParams.get("origin");
 
   usePageVisibilityAnalytics({
-    attributes: { execution, origin, taskId },
+    attributes: {
+      execution: execution ?? "",
+      origin: origin ?? "",
+      taskId: taskId ?? "",
+    },
     identifier: "HTMLLog",
   });
 

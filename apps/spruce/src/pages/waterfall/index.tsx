@@ -21,7 +21,7 @@ import WaterfallSkeleton from "./WaterfallSkeleton";
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   usePageVisibilityAnalytics({
-    attributes: { projectIdentifier },
+    attributes: { projectIdentifier: projectIdentifier ?? "" },
     identifier: "Waterfall",
   });
   usePageTitle(`${projectIdentifier} | Waterfall`);

@@ -39,7 +39,10 @@ const Host: React.FC = () => {
   const dispatchToast = useToastContext();
   const { [slugs.hostId]: hostId } = useParams();
 
-  usePageVisibilityAnalytics({ attributes: { hostId }, identifier: "Host" });
+  usePageVisibilityAnalytics({
+    attributes: { hostId: hostId ?? "" },
+    identifier: "Host",
+  });
 
   const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
     useState<boolean>(false);

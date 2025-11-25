@@ -21,7 +21,10 @@ const Image: React.FC = () => {
     [slugs.imageId]: string;
     [slugs.tab]: ImageTabRoutes;
   }>();
-  usePageVisibilityAnalytics({ attributes: { imageId }, identifier: "Image" });
+  usePageVisibilityAnalytics({
+    attributes: { imageId: imageId ?? "" },
+    identifier: "Image",
+  });
   const { sendEvent } = useImageAnalytics();
 
   const { image: firstImage } = useFirstImage();

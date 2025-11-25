@@ -19,7 +19,12 @@ export const TestHTMLLog: React.FC = () => {
   const groupId = searchParams.get("groupId");
 
   usePageVisibilityAnalytics({
-    attributes: { execution, groupId, taskId, testName },
+    attributes: {
+      execution: execution ?? "",
+      groupId: groupId ?? "",
+      taskId: taskId ?? "",
+      testName: testName ?? "",
+    },
     identifier: "TestHTMLLog",
   });
 

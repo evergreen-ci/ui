@@ -21,7 +21,7 @@ const Container = () => {
   const dispatchToast = useToastContext();
   const { [slugs.podId]: podId } = useParams();
   usePageVisibilityAnalytics({
-    attributes: { podId },
+    attributes: { podId: podId ?? "" },
     identifier: "Container",
   });
   const { data, error, loading } = useQuery<PodQuery, PodQueryVariables>(POD, {

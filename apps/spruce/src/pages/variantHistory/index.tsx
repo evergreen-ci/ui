@@ -44,7 +44,10 @@ const VariantHistoryContents: React.FC = () => {
     [slugs.variantName]: variantName,
   } = useParams();
   usePageVisibilityAnalytics({
-    attributes: { projectIdentifier, variantName },
+    attributes: {
+      projectIdentifier: projectIdentifier ?? "",
+      variantName: variantName ?? "",
+    },
     identifier: "VariantHistory",
   });
   const { sendEvent } = useProjectHistoryAnalytics({ page: "Variant history" });

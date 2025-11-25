@@ -19,7 +19,7 @@ export const UserPatches = () => {
   const dispatchToast = useToastContext();
   const { [slugs.userId]: userId } = useParams();
   usePageVisibilityAnalytics({
-    attributes: { userId },
+    attributes: { userId: userId ?? "" },
     identifier: "UserPatches",
   });
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};

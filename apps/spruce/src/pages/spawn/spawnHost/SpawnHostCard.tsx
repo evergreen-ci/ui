@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { ExtractAnalyticsSendEvent } from "@evg-ui/lib/analytics/types";
+import { ExtractAnalyticsSendEvent } from "@evg-ui/lib/analytics/hooks/types";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";

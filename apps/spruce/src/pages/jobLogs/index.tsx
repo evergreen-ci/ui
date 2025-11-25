@@ -31,11 +31,11 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
 
   usePageVisibilityAnalytics({
     attributes: {
-      buildId: buildIdFromParams,
-      execution: executionFromParams,
-      groupId: groupIdFromParams,
+      buildId: buildIdFromParams ?? "",
+      execution: executionFromParams ?? "",
+      groupId: groupIdFromParams ?? "",
       isLogkeeper,
-      taskId: taskIdFromParams,
+      taskId: taskIdFromParams ?? "",
     },
     identifier: "JobLogs",
   });
