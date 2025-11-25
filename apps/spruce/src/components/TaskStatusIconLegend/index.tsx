@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
-import Popover, { Align, Justify } from "@leafygreen-ui/popover";
+import { IconButton } from "@leafygreen-ui/icon-button";
+import { Popover, Align, Justify } from "@leafygreen-ui/popover";
 import { Body, Overline } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";

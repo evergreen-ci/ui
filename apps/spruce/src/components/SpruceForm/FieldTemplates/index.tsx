@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
+import { Banner } from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
 import { FieldTemplateProps } from "@rjsf/core";
 import { size } from "@evg-ui/lib/constants/tokens";

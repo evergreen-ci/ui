@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Card from "@leafygreen-ui/card";
+import { Card } from "@leafygreen-ui/card";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { MyHost, TableVolume } from "types/spawn";
 

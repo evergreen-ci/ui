@@ -200,6 +200,18 @@ describe("Tests Table", () => {
       });
     });
   });
+
+  describe("Test log links", () => {
+    it("Links to Spruce's HTML viewer", () => {
+      cy.contains("a", "HTML")
+        .first()
+        .should("have.attr", "href")
+        .and(
+          "include",
+          "/test-html-log?execution=0&testName=TestFinalizePatch#L152",
+        );
+    });
+  });
 });
 
 const TESTS_ROUTE =

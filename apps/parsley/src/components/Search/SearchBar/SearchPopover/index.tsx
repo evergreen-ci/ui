@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
-import Card from "@leafygreen-ui/card";
-import IconButton from "@leafygreen-ui/icon-button";
+import { Card } from "@leafygreen-ui/card";
+import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import Popover from "@leafygreen-ui/popover";
+import { Popover } from "@leafygreen-ui/popover";
 import {
   Body,
   BodyProps,

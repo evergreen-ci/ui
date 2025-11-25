@@ -173,6 +173,19 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     renderingType: state.logMetadata?.renderingType,
   });
 
+  const stringifiedProcessedLogLines = useMemo(
+    () =>
+      `${processedLogLines.length}-${stringifiedFilters}-${stringifiedBookmarks}-${stringifiedExpandedLines}-${expandableRows}-${sectioning.sectioningEnabled}`,
+    [
+      processedLogLines.length,
+      stringifiedFilters,
+      stringifiedBookmarks,
+      stringifiedExpandedLines,
+      expandableRows,
+      sectioning.sectioningEnabled,
+    ],
+  );
+
   useEffect(
     () => {
       setProcessedLogLines(
@@ -241,13 +254,16 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       matchCount: results.length,
       type: "SET_MATCH_COUNT",
     });
-
     return results;
-    // processedLogLines doesn't need to be in the dependency array because the search results would
-    // only change if a new filter is applied and a new filter cannot be applied if a search term
-    // is active since they use the same input. This is a perf optimzation that prevents search from
-    // being re-run when a section is toggled.
-  }, [state.searchState.searchTerm, upperRange, lowerRange, getLine, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    state.searchState.searchTerm,
+    upperRange,
+    lowerRange,
+    getLine,
+    dispatch,
+    stringifiedProcessedLogLines, // Use stringifiedProcessedLogLines instead of processedLogLines to avoid expensive array comparisons.
+  ]);
 
   const openSectionAndScrollToLine = useOpenSectionAndScrollToLine(
     processedLogLines,

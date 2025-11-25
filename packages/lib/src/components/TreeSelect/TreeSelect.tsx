@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import Checkbox from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@leafygreen-ui/checkbox";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "../../constants/tokens";
 import ConditionalWrapper from "../ConditionalWrapper";

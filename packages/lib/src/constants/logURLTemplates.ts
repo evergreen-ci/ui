@@ -41,3 +41,30 @@ export const constructEvergreenTaskLogURL = (
     params,
   )}`;
 };
+
+/**
+ *
+ * @param taskID - the task ID
+ * @param execution - the execution number of the task
+ * @param testID - the test ID of the test
+ * @param options - the options for the test log
+ * @param options.text - returns the raw test log
+ * @param options.groupID - the group ID
+ * @returns an Evergreen URL of the format `/test_log/${taskID}/${execution}?test_name=${testID}&group_id=${groupID}text=true`
+ */
+export const getEvergreenTestLogURL = (
+  taskID: string,
+  execution: string | number,
+  testID: string,
+  options: { text?: boolean; groupID?: string },
+) => {
+  const { groupID, text } = options;
+  const params = {
+    group_id: groupID,
+    test_name: testID,
+    text,
+  };
+  return `${getEvergreenUrl()}/test_log/${taskID}/${execution}?${stringifyQuery(
+    params,
+  )}`;
+};
