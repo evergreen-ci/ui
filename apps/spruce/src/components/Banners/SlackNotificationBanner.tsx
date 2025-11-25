@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
+import { Banner } from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
-import TextInput from "@leafygreen-ui/text-input";
+import { TextInput } from "@leafygreen-ui/text-input";
 import Cookies from "js-cookie";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { CharKey } from "@evg-ui/lib/constants/keys";

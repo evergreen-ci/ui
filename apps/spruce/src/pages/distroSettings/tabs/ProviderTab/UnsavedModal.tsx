@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
+import { Banner } from "@leafygreen-ui/banner";
 import {
   unstable_BlockerFunction as BlockerFunction,
   unstable_useBlocker as useBlocker,

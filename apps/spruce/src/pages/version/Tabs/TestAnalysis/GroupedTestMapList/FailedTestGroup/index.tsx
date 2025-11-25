@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Card from "@leafygreen-ui/card";
+import { Card } from "@leafygreen-ui/card";
 import Accordion, {
   AccordionCaretAlign,
 } from "@evg-ui/lib/components/Accordion";

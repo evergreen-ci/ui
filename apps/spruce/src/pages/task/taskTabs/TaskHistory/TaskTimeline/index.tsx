@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
+import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import Icon from "@evg-ui/lib/components/Icon";

@@ -1,7 +1,7 @@
 import { KeyboardEvent, useMemo, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
+import { IconButton } from "@leafygreen-ui/icon-button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
 import debounce from "lodash.debounce";

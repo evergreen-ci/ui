@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import MarketingModal from "@leafygreen-ui/marketing-modal";
+import { MarketingModal } from "@leafygreen-ui/marketing-modal";
 import Cookies from "js-cookie";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useSectionsFeatureDiscoveryAnalytics } from "analytics";

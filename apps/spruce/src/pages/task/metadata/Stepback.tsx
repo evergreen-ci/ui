@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
+import { Badge } from "@leafygreen-ui/badge";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";

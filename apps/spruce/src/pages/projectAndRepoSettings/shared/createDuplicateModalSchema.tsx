@@ -1,5 +1,5 @@
 /* eslint-disable check-file/filename-naming-convention */
-import Banner from "@leafygreen-ui/banner";
+import { Banner } from "@leafygreen-ui/banner";
 import { Field } from "@rjsf/core";
 
 export const projectName = {
