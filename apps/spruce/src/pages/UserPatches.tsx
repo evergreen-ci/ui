@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { PatchesPage } from "components/PatchesPage";
 import { RequesterSelector } from "components/PatchesPage/RequesterSelector";
@@ -17,6 +18,10 @@ import { usePolling, useGetUserPatchesPageTitleAndLink } from "hooks";
 export const UserPatches = () => {
   const dispatchToast = useToastContext();
   const { [slugs.userId]: userId } = useParams();
+  usePageVisibilityAnalytics({
+    attributes: { userId },
+    identifier: "UserPatches",
+  });
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
 
   const patchesInput = usePatchesQueryParams();

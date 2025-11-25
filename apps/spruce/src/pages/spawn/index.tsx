@@ -1,4 +1,5 @@
 import { useParams, Link, Route, Routes, Navigate } from "react-router-dom";
+import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { useSpawnAnalytics } from "analytics";
 import {
   SideNav,
@@ -13,6 +14,7 @@ import { SpawnVolume } from "./SpawnVolume";
 
 const Spawn: React.FC = () => {
   const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: SpawnTab }>();
+  usePageVisibilityAnalytics({ identifier: "Spawn" });
   const spawnAnalytics = useSpawnAnalytics();
 
   return (

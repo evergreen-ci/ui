@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams, useNavigate } from "react-router-dom";
+import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectSettingsAnalytics } from "analytics";
@@ -33,6 +34,7 @@ const ProjectSettings: React.FC = () => {
     [slugs.projectIdentifier]: string;
     [slugs.tab]: ProjectSettingsTabRoutes;
   }>();
+  usePageVisibilityAnalytics({ identifier: "ProjectSettings" });
   usePageTitle(`Project Settings | ${projectIdentifier}`);
   const navigate = useNavigate();
 

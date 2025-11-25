@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import PageTitle from "components/PageTitle";
 import PodStatusBadge from "components/PodStatusBadge";
@@ -19,6 +20,10 @@ import Metadata from "./Metadata";
 const Container = () => {
   const dispatchToast = useToastContext();
   const { [slugs.podId]: podId } = useParams();
+  usePageVisibilityAnalytics({
+    attributes: { podId },
+    identifier: "Container",
+  });
   const { data, error, loading } = useQuery<PodQuery, PodQueryVariables>(POD, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { podId },

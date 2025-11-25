@@ -1,5 +1,6 @@
 import Icon from "@leafygreen-ui/icon";
 import { useParams, Link } from "react-router-dom";
+import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { usePreferencesAnalytics } from "analytics";
 import {
@@ -17,6 +18,7 @@ import {
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 
 const Preferences: React.FC = () => {
+  usePageVisibilityAnalytics({ identifier: "Preferences" });
   usePageTitle("Preferences");
   const { [slugs.tab]: tab } = useParams<{
     [slugs.tab]: PreferencesTabRoutes;

@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Navigate } from "react-router-dom";
+import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -32,6 +33,7 @@ import { NewDistroButton } from "./NewDistro/NewDistroButton";
 import { DistroSettingsTabs } from "./Tabs";
 
 const DistroSettings: React.FC = () => {
+  usePageVisibilityAnalytics({ identifier: "DistroSettings" });
   usePageTitle("Distro Settings");
   const { sendEvent } = useDistroSettingsAnalytics();
   const dispatchToast = useToastContext();

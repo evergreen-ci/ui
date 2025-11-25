@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { Disclaimer, H2 } from "@leafygreen-ui/typography";
+import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
 import Pagination from "@evg-ui/lib/components/Pagination";
 import {
@@ -27,6 +28,7 @@ import { getFilters, getSorting, useQueryVariables } from "./utils";
 type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
 
 const Hosts: React.FC = () => {
+  usePageVisibilityAnalytics({ identifier: "Hosts" });
   const hostsTableAnalytics = useHostsTableAnalytics();
   usePageTitle("Hosts");
   const { setLimit } = usePagination();

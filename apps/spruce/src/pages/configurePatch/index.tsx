@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams, Navigate } from "react-router-dom";
+import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { ProjectBanner } from "components/Banners";
@@ -22,6 +23,7 @@ import { validateObjectId } from "utils/validators";
 import ConfigurePatchCore from "./configurePatchCore";
 
 const ConfigurePatch: React.FC = () => {
+  usePageVisibilityAnalytics({ identifier: "ConfigurePatch" });
   const { [slugs.patchId]: patchId } = useParams();
   const dispatchToast = useToastContext();
 

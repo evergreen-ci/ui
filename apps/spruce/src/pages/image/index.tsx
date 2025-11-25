@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { Link, useParams, Navigate } from "react-router-dom";
+import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useImageAnalytics } from "analytics";
 import {
@@ -20,6 +21,7 @@ const Image: React.FC = () => {
     [slugs.imageId]: string;
     [slugs.tab]: ImageTabRoutes;
   }>();
+  usePageVisibilityAnalytics({ attributes: { imageId }, identifier: "Image" });
   const { sendEvent } = useImageAnalytics();
 
   const { image: firstImage } = useFirstImage();

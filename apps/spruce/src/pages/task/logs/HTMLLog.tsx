@@ -3,6 +3,7 @@ import { Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, useSearchParams } from "react-router-dom";
+import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { constructEvergreenTaskLogURL } from "@evg-ui/lib/constants/logURLTemplates";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useHTMLLogStream } from "./useHTMLLogStream";
@@ -15,6 +16,11 @@ export const HTMLLog: React.FC = () => {
 
   const execution = searchParams.get("execution");
   const origin = searchParams.get("origin");
+
+  usePageVisibilityAnalytics({
+    attributes: { execution, origin, taskId },
+    identifier: "HTMLLog",
+  });
 
   const url = useMemo(() => {
     try {
