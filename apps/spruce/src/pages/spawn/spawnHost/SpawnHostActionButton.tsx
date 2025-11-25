@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
-import Checkbox from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";

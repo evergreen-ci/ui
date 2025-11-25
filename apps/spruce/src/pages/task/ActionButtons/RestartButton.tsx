@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import Tooltip, { Align, Justify } from "@leafygreen-ui/tooltip";
+import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam } from "@evg-ui/lib/hooks";

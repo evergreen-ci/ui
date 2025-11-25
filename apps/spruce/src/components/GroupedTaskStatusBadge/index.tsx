@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { fontSize, size, zIndex } from "@evg-ui/lib/constants/tokens";

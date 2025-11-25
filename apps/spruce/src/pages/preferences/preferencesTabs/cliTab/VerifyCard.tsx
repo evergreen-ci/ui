@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Code from "@leafygreen-ui/code";
+import { Code } from "@leafygreen-ui/code";
 import { Body, BodyProps, InlineCode } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import { size } from "@evg-ui/lib/constants/tokens";
