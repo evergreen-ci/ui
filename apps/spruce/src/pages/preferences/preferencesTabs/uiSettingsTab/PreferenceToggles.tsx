@@ -16,7 +16,7 @@ export const PreferenceToggles: React.FC = () => {
   const handleOnChangePolling = (c: boolean) => {
     sendEvent({
       name: "Toggled polling",
-      value: c ? "Enabled" : "Disabled",
+      enabled: c,
     });
     setQueryPollingEnabled(c);
     Cookies.set(DISABLE_QUERY_POLLING, (!c).toString());

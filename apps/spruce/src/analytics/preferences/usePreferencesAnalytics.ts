@@ -15,7 +15,7 @@ type Action =
   | { name: "Created new public key" }
   | { name: "Changed public key" }
   | { name: "Deleted public key" }
-  | { name: "Toggled polling"; value: "Enabled" | "Disabled" }
+  | { name: "Toggled polling"; enabled: boolean }
   | { name: "Toggled task review"; enabled: boolean };
 
 export const usePreferencesAnalytics = () =>
