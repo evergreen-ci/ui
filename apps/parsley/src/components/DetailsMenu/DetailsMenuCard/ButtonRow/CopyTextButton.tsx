@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { palette } from "@leafygreen-ui/palette";
 import { SplitButton } from "@leafygreen-ui/split-button";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import Cookies from "js-cookie";
 import Icon from "@evg-ui/lib/components/Icon";
 import { transitionDuration } from "@evg-ui/lib/constants/tokens";

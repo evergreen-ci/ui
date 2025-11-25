@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
+import { Badge } from "@leafygreen-ui/badge";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { Link } from "react-router-dom";

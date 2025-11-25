@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Checkbox from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";

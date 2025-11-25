@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
+import { Banner } from "@leafygreen-ui/banner";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { ObjectFieldTemplateProps } from "@rjsf/core";

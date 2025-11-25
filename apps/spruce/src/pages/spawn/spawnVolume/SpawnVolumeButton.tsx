@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";

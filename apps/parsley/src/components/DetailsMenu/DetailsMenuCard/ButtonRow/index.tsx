@@ -1,5 +1,5 @@
 import Button from "@leafygreen-ui/button";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { usePreferencesAnalytics } from "analytics";
 import { useLogContext } from "context/LogContext";

@@ -1,4 +1,4 @@
-import Banner from "@leafygreen-ui/banner";
+import { Banner } from "@leafygreen-ui/banner";
 import { useNetworkStatus } from "hooks";
 
 export const ConnectivityBanner = () => {

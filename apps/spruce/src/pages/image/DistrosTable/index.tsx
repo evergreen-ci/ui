@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
-import Tooltip, { Align, Justify } from "@leafygreen-ui/tooltip";
+import { IconButton } from "@leafygreen-ui/icon-button";
+import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink, StyledLink } from "@evg-ui/lib/components/styles";
 import {

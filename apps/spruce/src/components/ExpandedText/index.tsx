@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import InlineDefinition, {
+import {
+  InlineDefinition,
   InlineDefinitionProps,
 } from "@leafygreen-ui/inline-definition";
 import { palette } from "@leafygreen-ui/palette";

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Badge, { Variant } from "@leafygreen-ui/badge";
+import { Badge, Variant } from "@leafygreen-ui/badge";
 import { size } from "@evg-ui/lib/constants/tokens";
 
 interface Props {
