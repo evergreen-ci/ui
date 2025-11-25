@@ -158,5 +158,5 @@ const varCSS = css`
 `;
 
 const nameCss = css`
-  margin-bottom: ${size.xs};
+  margin-bottom: ${size.xxs};
 `;
