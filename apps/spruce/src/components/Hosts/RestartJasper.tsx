@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useHostsTableAnalytics } from "analytics";
@@ -64,7 +64,7 @@ export const RestartJasper: React.FC<Props> = ({
         <Tooltip
           align="top"
           justify="middle"
-          trigger={children}
+          trigger={children as JSX.Element}
           triggerEvent="hover"
         >
           {jasperTooltipMessage}

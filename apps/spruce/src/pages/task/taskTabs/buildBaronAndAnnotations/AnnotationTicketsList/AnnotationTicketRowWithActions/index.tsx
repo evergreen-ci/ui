@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
@@ -53,21 +53,21 @@ const AnnotationTicketRowWithActions = forwardRef<
           <ButtonContainer>
             {ConditionalWrapper({
               condition: userCanModify,
-              wrapper: (children: JSX.Element) => (
+              wrapper: (children) => (
                 <Popconfirm
                   align="right"
                   onConfirm={() => {
                     // @ts-expect-error: FIXME. This comment was added by an automated script.
                     onMove({ url, issueKey, confidenceScore });
                   }}
-                  trigger={children}
+                  trigger={children as JSX.Element}
                 >
                   Do you want to move this {issueString} to{" "}
                   {isIssue ? "suspected issues" : "issues"}?
                 </Popconfirm>
               ),
-              altWrapper: (children: JSX.Element) => (
-                <Tooltip trigger={children}>
+              altWrapper: (children) => (
+                <Tooltip trigger={children as JSX.Element}>
                   You are not authorized to edit failure details
                 </Tooltip>
               ),
@@ -84,20 +84,20 @@ const AnnotationTicketRowWithActions = forwardRef<
             })}
             {ConditionalWrapper({
               condition: userCanModify,
-              wrapper: (children: JSX.Element) => (
+              wrapper: (children) => (
                 <Popconfirm
                   align="right"
                   onConfirm={() => {
                     // @ts-expect-error: FIXME. This comment was added by an automated script.
                     onRemove(url, issueKey);
                   }}
-                  trigger={children}
+                  trigger={children as JSX.Element}
                 >
                   Do you want to delete this {issueString}?
                 </Popconfirm>
               ),
-              altWrapper: (children: JSX.Element) => (
-                <Tooltip trigger={children}>
+              altWrapper: (children) => (
+                <Tooltip trigger={children as JSX.Element}>
                   You are not authorized to edit failure details
                 </Tooltip>
               ),
@@ -133,5 +133,7 @@ const Container = styled.div`
     background-color: ${gray.light2};
   `}
 `;
+
+AnnotationTicketRowWithActions.displayName = "AnnotationTicketRowWithActions";
 
 export default AnnotationTicketRowWithActions;

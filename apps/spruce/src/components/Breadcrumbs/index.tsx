@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";

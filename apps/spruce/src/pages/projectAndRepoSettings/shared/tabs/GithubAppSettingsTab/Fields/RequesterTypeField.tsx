@@ -1,4 +1,4 @@
-import InlineDefinition from "@leafygreen-ui/inline-definition";
+import { InlineDefinition } from "@leafygreen-ui/inline-definition";
 import { Body } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import {

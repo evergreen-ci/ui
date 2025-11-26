@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import TextInput from "@leafygreen-ui/text-input";
+import { TextInput } from "@leafygreen-ui/text-input";
 import { Description } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";

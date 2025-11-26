@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactNode } from "react";
 import styled from "@emotion/styled";
-import Badge, { Variant } from "@leafygreen-ui/badge";
+import { Badge, Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { SideNavGroup } from "@leafygreen-ui/side-nav";
 import { Body } from "@leafygreen-ui/typography";
@@ -19,7 +19,8 @@ interface BaseNavGroupProps<T> {
   additionalHeaderText?: ReactNode;
 }
 
-const BaseNavGroup = <T extends {}>({
+// Trailing comma is necessary to indicate this is a generic, not a JSX open tag.
+const BaseNavGroup = <T,>({
   additionalHeaderText,
   children,
   "data-cy": dataCy,

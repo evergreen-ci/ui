@@ -7,7 +7,7 @@ import usePaginatedVirtualList from "./usePaginatedVirtualList";
 
 interface PaginatedVirtualListProps {
   rowCount: number;
-  rowRenderer: ItemContent<any, any>;
+  rowRenderer: ItemContent<unknown, unknown>;
   /**
    * The number of lines to render on each page.
    */
@@ -74,10 +74,10 @@ const PaginatedVirtualList = forwardRef<
 
     // Expose scrollToIndex as a ref
     useEffect(() => {
-      if (ref) {
-        (ref as any).current = {
+      if (ref && "current" in ref) {
+        ref.current = {
           scrollToIndex: scrollToLine,
-        } satisfies PaginatedVirtualListRef;
+        };
       }
     }, [ref, scrollToLine]);
 

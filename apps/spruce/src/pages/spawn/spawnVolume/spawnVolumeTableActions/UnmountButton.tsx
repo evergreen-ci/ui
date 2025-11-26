@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -61,7 +61,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
             });
             detachVolume({ variables: { volumeId: volume.id } });
           }}
-          trigger={children}
+          trigger={children as JSX.Element}
         >
           Detach this volume {volumeName} from host {hostName}?
         </Popconfirm>
@@ -71,7 +71,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
         <Tooltip
           align="top"
           justify="middle"
-          trigger={children}
+          trigger={children as JSX.Element}
           triggerEvent="hover"
         >
           Cannot unmount home volume

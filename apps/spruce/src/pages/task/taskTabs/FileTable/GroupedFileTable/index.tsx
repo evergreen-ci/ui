@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {

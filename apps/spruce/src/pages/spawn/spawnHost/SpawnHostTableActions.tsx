@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";

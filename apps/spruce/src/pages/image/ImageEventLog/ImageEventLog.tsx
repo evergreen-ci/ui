@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import Card from "@leafygreen-ui/card";
+import { Card } from "@leafygreen-ui/card";
 import { SearchInput } from "@leafygreen-ui/search-input";
+import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useImageAnalytics } from "analytics";
@@ -30,6 +31,8 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
     setGlobalSearch(e.target.value);
   };
 
+  const initialLoading = events.length === 0 && loading;
+
   const allEventsFetchedCopy =
     events.length > 0 ? "No more events to show." : "No events to show.";
 
@@ -47,6 +50,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
           value={globalSearch}
         />
       </SearchContainer>
+      {initialLoading && <ParagraphSkeleton data-cy="image-events-skeleton" />}
       {events.map((event) => {
         const { amiAfter, amiBefore, entries, timestamp } = event;
         return (

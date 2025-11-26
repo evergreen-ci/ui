@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Callout from "@leafygreen-ui/callout";
+import { Callout } from "@leafygreen-ui/callout";
 import Icon from "@evg-ui/lib/components/Icon";
 import { DisplayModal } from "components/DisplayModal";
 import {

@@ -24,7 +24,7 @@ describe("resmokeLogs/resmoke_evg_test_logView", () => {
     });
     it("should still allow horizontal scrolling when there are few logs on screen", () => {
       cy.addFilter("Putting spruce/");
-      cy.contains("Above & Below").click();
+      cy.contains("Below").click();
       cy.dataCy("paginated-virtual-list").scrollTo("right");
     });
 

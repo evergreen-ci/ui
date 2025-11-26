@@ -4132,6 +4132,7 @@ export type Task = {
   /** taskLogs returns the tail 100 lines of the task's logs. */
   stepbackInfo?: Maybe<StepbackInfo>;
   tags: Array<Scalars["String"]["output"]>;
+  taskCost?: Maybe<TaskCost>;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
   taskLogs: TaskLogs;
@@ -4165,6 +4166,13 @@ export type TaskContainerCreationOpts = {
   memoryMB: Scalars["Int"]["output"];
   os: Scalars["String"]["output"];
   workingDir: Scalars["String"]["output"];
+};
+
+/** TaskCost represents the cost breakdown for a task. */
+export type TaskCost = {
+  __typename?: "TaskCost";
+  adjustedCost?: Maybe<Scalars["Float"]["output"]>;
+  onDemandCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** TaskCountOptions defines the parameters that are used when counting tasks from a Version. */
@@ -4453,6 +4461,7 @@ export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]["output"]>;
   renderingType?: Maybe<Scalars["String"]["output"]>;
+  testName?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
   urlParsley?: Maybe<Scalars["String"]["output"]>;
   urlRaw?: Maybe<Scalars["String"]["output"]>;
@@ -11239,6 +11248,8 @@ export type TaskTestsQuery = {
         testFile: string;
         logs: {
           __typename?: "TestLog";
+          lineNum?: number | null;
+          testName?: string | null;
           url?: string | null;
           urlParsley?: string | null;
           urlRaw?: string | null;

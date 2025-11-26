@@ -1,7 +1,6 @@
 export { useFilterInputChangeHandler } from "./useFilterInputChangeHandler";
 export { useTableSort } from "./useTableSort";
 export { useGetUserPatchesPageTitleAndLink } from "./useGetUserPatchesPageTitleAndLink";
-export { useVersionTaskStatusSelect } from "./useVersionTaskStatusSelect";
 export { useNetworkStatus } from "./useNetworkStatus";
 export { usePageVisibility } from "./usePageVisibility";
 export { usePolling } from "./usePolling";

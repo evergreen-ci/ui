@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Badge, { Variant } from "@leafygreen-ui/badge";
+import { Badge, Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import { size } from "@evg-ui/lib/constants/tokens";

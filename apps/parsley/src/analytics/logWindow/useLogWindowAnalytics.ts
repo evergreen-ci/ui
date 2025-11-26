@@ -31,7 +31,7 @@ type Action =
     }
   | {
       name: "Toggled expanded lines";
-      option: "All" | "Five";
+      option: "All" | `${number} ${"above" | "below"}`;
       "line.count": number;
       open: true;
     }

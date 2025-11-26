@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import InlineDefinition from "@leafygreen-ui/inline-definition";
+import { InlineDefinition } from "@leafygreen-ui/inline-definition";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import EventLog from "components/Settings/EventLog";

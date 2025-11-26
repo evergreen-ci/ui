@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
+import { Badge } from "@leafygreen-ui/badge";
 import { H2, H3 } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { useParams, useNavigate } from "react-router-dom";

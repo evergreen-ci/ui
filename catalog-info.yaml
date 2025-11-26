@@ -1,35 +1,8 @@
----
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: evergreen-ui
-  description: UI for Evergreen
-  annotations:
-    evergreen/project-id: 65f08ccac9ec449f57b4015d
-  links:
-    - url: https://docs.devprod.prod.corp.mongodb.com/evergreen
-      title: Docs on Pine
-      icon: dashboard
-    - url: https://github.com/evergreen-ci/ui
-      title: evergreen-ci/ui
-      icon: github
-spec:
-  type: website
-  owner: group:10genevergreenui
-  lifecycle: production
-  system: evergreen
-  dependsOn:
-    - component:default/Sentry
-    - component:default/Honeycomb
-    - component:default/evergreen-backend
-  consumesApis:
-    - evergreen-api-graphql
-
----
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: spruce
+  title: Spruce
   annotations:
     evergreen/project-id: 65f08ccac9ec449f57b4015d
   links:
@@ -41,16 +14,21 @@ metadata:
       icon: github
 spec:
   type: website
-  owner: group:10genevergreenui
+  owner: group:10gen-evergreen-ui
   lifecycle: production
   system: evergreen
-  subcomponentOf: evergreen-ui
-
+  dependsOn:
+    - component:default/Sentry
+    - component:default/Honeycomb
+    - component:default/evergreen-backend
+  consumesApis:
+    - evergreen-graphql-api
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: parsley
+  title: Parsley
   description: Evergreen log viewer
   annotations:
     evergreen/project-id: 65f08ccac9ec449f57b4015d
@@ -63,10 +41,14 @@ metadata:
       icon: github
 spec:
   type: website
-  owner: group:10genevergreenui
+  owner: group:10gen-evergreen-ui
   lifecycle: production
   system: evergreen
   dependsOn:
     - component:sage
-  subcomponentOf: evergreen-ui
+    - component:default/Sentry
+    - component:default/Honeycomb
+    - component:default/evergreen-backend
+  consumesApis:
+    - evergreen-graphql-api
 
