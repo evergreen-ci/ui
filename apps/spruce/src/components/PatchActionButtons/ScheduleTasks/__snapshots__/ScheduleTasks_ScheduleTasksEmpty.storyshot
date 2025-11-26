@@ -16,7 +16,7 @@
     </div>
   </button>
   <dialog
-    class="leafygreen-ui-17e6ane"
+    class="leafygreen-ui-1fxhhyq"
     data-cy="schedule-tasks-modal"
     data-lgid="lg-confirmation_modal"
     data-testid="lg-confirmation_modal"

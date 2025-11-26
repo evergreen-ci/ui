@@ -81,11 +81,11 @@
         </div>
       </button>
       <dialog
-        class="leafygreen-ui-17e6ane"
+        class="leafygreen-ui-1fxhhyq"
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-279"
+        id="modal-285"
       />
       <div
         class="leafygreen-ui-17azklk"

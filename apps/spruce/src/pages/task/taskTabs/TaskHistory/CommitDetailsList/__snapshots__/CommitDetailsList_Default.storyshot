@@ -98,11 +98,11 @@
           </div>
         </button>
         <dialog
-          class="leafygreen-ui-17e6ane"
+          class="leafygreen-ui-1fxhhyq"
           data-cy="task-notification-modal"
           data-lgid="lg-confirmation_modal"
           data-testid="lg-confirmation_modal"
-          id="modal-291"
+          id="modal-297"
         />
         <div
           class="leafygreen-ui-17azklk"
@@ -230,11 +230,11 @@
           </div>
         </button>
         <dialog
-          class="leafygreen-ui-17e6ane"
+          class="leafygreen-ui-1fxhhyq"
           data-cy="task-notification-modal"
           data-lgid="lg-confirmation_modal"
           data-testid="lg-confirmation_modal"
-          id="modal-292"
+          id="modal-298"
         />
         <span>
           Apr 3, 2025, 10:21 AM
@@ -416,11 +416,11 @@
           </div>
         </button>
         <dialog
-          class="leafygreen-ui-17e6ane"
+          class="leafygreen-ui-1fxhhyq"
           data-cy="task-notification-modal"
           data-lgid="lg-confirmation_modal"
           data-testid="lg-confirmation_modal"
-          id="modal-294"
+          id="modal-300"
         />
         <span>
           Apr 2, 2025, 10:22 AM
@@ -590,11 +590,11 @@
           </div>
         </button>
         <dialog
-          class="leafygreen-ui-17e6ane"
+          class="leafygreen-ui-1fxhhyq"
           data-cy="task-notification-modal"
           data-lgid="lg-confirmation_modal"
           data-testid="lg-confirmation_modal"
-          id="modal-296"
+          id="modal-302"
         />
         <span>
           Apr 1, 2025, 10:22 AM
@@ -1053,11 +1053,11 @@
           </div>
         </button>
         <dialog
-          class="leafygreen-ui-17e6ane"
+          class="leafygreen-ui-1fxhhyq"
           data-cy="task-notification-modal"
           data-lgid="lg-confirmation_modal"
           data-testid="lg-confirmation_modal"
-          id="modal-300"
+          id="modal-306"
         />
         <span>
           Mar 30, 2025, 10:22 AM
@@ -1203,11 +1203,11 @@
           </div>
         </button>
         <dialog
-          class="leafygreen-ui-17e6ane"
+          class="leafygreen-ui-1fxhhyq"
           data-cy="task-notification-modal"
           data-lgid="lg-confirmation_modal"
           data-testid="lg-confirmation_modal"
-          id="modal-301"
+          id="modal-307"
         />
         <span>
           Mar 29, 2025, 10:22 AM
