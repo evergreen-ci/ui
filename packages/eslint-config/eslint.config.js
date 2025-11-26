@@ -202,7 +202,14 @@ const reactConfig = {
     ],
     "react/no-array-index-key": ERROR,
     "react/no-unknown-property": [ERROR, { ignore: ["css"] }],
-    "react/no-unstable-nested-components": ERROR,
+    "react/no-unstable-nested-components": [
+      ERROR,
+      {
+        // This pattern matches prop names like "itemRenderer", "contentRenderer", etc.
+        // It must be written to satisfy glob patterns, not regex.
+        propNamePattern: "{*Renderer,itemContent}",
+      },
+    ],
     "react/prop-types": OFF,
     "react/self-closing-comp": ERROR,
     "react/style-prop-object": ERROR,

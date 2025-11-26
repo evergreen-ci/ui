@@ -1,5 +1,9 @@
 import { WordBreak, StyledLink } from "@evg-ui/lib/components/styles";
-import { useLeafyGreenTable, BaseTable } from "@evg-ui/lib/components/Table";
+import {
+  useLeafyGreenTable,
+  BaseTable,
+  LGColumnDef,
+} from "@evg-ui/lib/components/Table";
 import { FileDiffText } from "components/CodeChangesBadge";
 import { FileDiffsFragment } from "gql/generated/types";
 
@@ -9,7 +13,7 @@ interface CodeChangesTableProps {
 export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
   fileDiffs,
 }) => {
-  const table = useLeafyGreenTable({
+  const table = useLeafyGreenTable<FileDiffsFragment>({
     columns,
     data: fileDiffs ?? [],
     enableColumnFilters: false,
@@ -26,34 +30,34 @@ export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
   );
 };
 
-const columns = [
+const columns: LGColumnDef<FileDiffsFragment>[] = [
   {
     accessorKey: "fileName",
     header: "File Name",
     meta: { width: "70%" },
     cell: ({
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       getValue,
       row: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         original: { diffLink },
       },
     }) => (
       <StyledLink data-cy="fileLink" href={diffLink}>
-        <WordBreak>{getValue()}</WordBreak>
+        <WordBreak>{getValue() as string}</WordBreak>
       </StyledLink>
     ),
   },
   {
     accessorKey: "additions",
     header: "Additions",
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ getValue }) => <FileDiffText type="+" value={getValue()} />,
+    cell: ({ getValue }) => (
+      <FileDiffText type="+" value={getValue() as number} />
+    ),
   },
   {
     accessorKey: "deletions",
     header: "Deletions",
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ getValue }) => <FileDiffText type="-" value={getValue()} />,
+    cell: ({ getValue }) => (
+      <FileDiffText type="-" value={getValue() as number} />
+    ),
   },
 ];

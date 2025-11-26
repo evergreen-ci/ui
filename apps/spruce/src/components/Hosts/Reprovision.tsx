@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { Tooltip } from "@leafygreen-ui/tooltip";
+import { Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useHostsTableAnalytics } from "analytics";
@@ -60,11 +60,9 @@ export const Reprovision: React.FC<Props> = ({
   return (
     <ConditionalWrapper
       condition={!canReprovision}
-      wrapper={(children) => (
-        <Tooltip trigger={children as JSX.Element} triggerEvent="hover">
-          {reprovisionTooltipMessage}
-        </Tooltip>
-      )}
+      wrapper={(children) =>
+        tooltipWrapper(children, reprovisionTooltipMessage)
+      }
     >
       {/* This div is necessary, or else the tooltip will not show. */}
       <div>
@@ -80,3 +78,12 @@ export const Reprovision: React.FC<Props> = ({
     </ConditionalWrapper>
   );
 };
+
+const tooltipWrapper = (
+  children: React.ReactNode,
+  reprovisionTooltipMessage: string,
+) => (
+  <Tooltip trigger={children as JSX.Element} triggerEvent={TriggerEvent.Hover}>
+    {reprovisionTooltipMessage}
+  </Tooltip>
+);

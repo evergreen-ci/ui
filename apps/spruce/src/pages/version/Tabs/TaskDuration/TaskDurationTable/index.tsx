@@ -15,7 +15,7 @@ import {
   TablePlaceholder,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
-
+import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -98,84 +98,7 @@ const TaskDurationTable: React.FC<Props> = ({
   });
 
   const columns: LGColumnDef<TaskDurationData>[] = useMemo(
-    () => [
-      {
-        id: PatchTasksQueryParams.TaskName,
-        accessorKey: "displayName",
-        header: "Task Name",
-        size: 250,
-        enableColumnFilter: true,
-        enableSorting: true,
-        cell: ({
-          getValue,
-          row: {
-            original: { execution, id },
-          },
-        }) => (
-          <TaskLink
-            execution={execution}
-            taskId={id}
-            taskName={getValue() as string}
-          />
-        ),
-        meta: {
-          search: {
-            "data-cy": "task-name-filter-popover",
-          },
-        },
-      },
-      {
-        id: PatchTasksQueryParams.Statuses,
-        accessorKey: "displayStatus",
-        header: "Status",
-        size: 120,
-        enableColumnFilter: true,
-        enableSorting: true,
-        cell: ({ getValue }) => (
-          <TaskStatusBadge status={getValue() as TaskStatus} />
-        ),
-        meta: {
-          treeSelect: {
-            "data-cy": "status-filter-popover",
-            options: statusOptions,
-          },
-        },
-      },
-      {
-        id: PatchTasksQueryParams.Variant,
-        accessorKey: "buildVariantDisplayName",
-        header: "Build Variant",
-        size: 150,
-        enableColumnFilter: true,
-        enableSorting: true,
-        meta: {
-          search: {
-            "data-cy": "build-variant-filter-popover",
-          },
-        },
-      },
-      {
-        id: PatchTasksQueryParams.Duration,
-        accessorKey: "timeTaken",
-        header: "Task Duration",
-        enableColumnFilter: false,
-        enableSorting: true,
-        size: 250,
-        cell: ({
-          column,
-          getValue,
-          row: {
-            original: { displayStatus },
-          },
-        }) => (
-          <TaskDurationCell
-            maxTimeTaken={column.getFacetedMinMaxValues()?.[1] ?? 0}
-            status={displayStatus}
-            timeTaken={getValue() as number}
-          />
-        ),
-      },
-    ],
+    () => getColumns(statusOptions),
     [statusOptions],
   );
 
@@ -229,6 +152,88 @@ const TaskDurationTable: React.FC<Props> = ({
     />
   );
 };
+
+const getColumns = (
+  statusOptions: TreeDataEntry[],
+): LGColumnDef<TaskDurationData>[] => [
+  {
+    id: PatchTasksQueryParams.TaskName,
+    accessorKey: "displayName",
+    header: "Task Name",
+    size: 250,
+    enableColumnFilter: true,
+    enableSorting: true,
+    cell: ({
+      getValue,
+      row: {
+        original: { execution, id },
+      },
+    }) => (
+      <TaskLink
+        execution={execution}
+        taskId={id}
+        taskName={getValue() as string}
+      />
+    ),
+    meta: {
+      search: {
+        "data-cy": "task-name-filter-popover",
+      },
+    },
+  },
+  {
+    id: PatchTasksQueryParams.Statuses,
+    accessorKey: "displayStatus",
+    header: "Status",
+    size: 120,
+    enableColumnFilter: true,
+    enableSorting: true,
+    cell: ({ getValue }) => (
+      <TaskStatusBadge status={getValue() as TaskStatus} />
+    ),
+    meta: {
+      treeSelect: {
+        "data-cy": "status-filter-popover",
+        options: statusOptions,
+      },
+    },
+  },
+  {
+    id: PatchTasksQueryParams.Variant,
+    accessorKey: "buildVariantDisplayName",
+    header: "Build Variant",
+    size: 150,
+    enableColumnFilter: true,
+    enableSorting: true,
+    meta: {
+      search: {
+        "data-cy": "build-variant-filter-popover",
+      },
+    },
+  },
+  {
+    id: PatchTasksQueryParams.Duration,
+    accessorKey: "timeTaken",
+    header: "Task Duration",
+    enableColumnFilter: false,
+    enableSorting: true,
+    size: 250,
+    cell: ({
+      column,
+      getValue,
+      row: {
+        original: { displayStatus },
+      },
+    }) => (
+      <TaskDurationCell
+        maxTimeTaken={column.getFacetedMinMaxValues()?.[1] ?? 0}
+        status={displayStatus}
+        timeTaken={getValue() as number}
+      />
+    ),
+  },
+];
+
 const columnIdToSortCategory: { [key: string]: TaskSortCategory } = {
   [PatchTasksQueryParams.Duration]: TaskSortCategory.Duration,
   [PatchTasksQueryParams.TaskName]: TaskSortCategory.Name,

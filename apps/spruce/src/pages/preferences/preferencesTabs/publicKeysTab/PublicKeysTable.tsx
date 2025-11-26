@@ -21,27 +21,7 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
   myPublicKeys,
 }) => {
   const columns: LGColumnDef<PublicKey>[] = useMemo(
-    () => [
-      {
-        header: "Name",
-        accessorKey: "name",
-        filterFns: filterFns.includesString,
-        meta: {
-          search: {
-            placeholder: "Key name",
-          },
-        },
-        cell: ({ getValue }) => (
-          <WordBreak data-cy="table-key-name">{getValue() as string}</WordBreak>
-        ),
-      },
-      {
-        header: "Actions",
-        cell: ({ row }) => (
-          <ActionButtons myPublicKeys={myPublicKeys} publicKey={row.original} />
-        ),
-      },
-    ],
+    () => getColumns(myPublicKeys),
     [myPublicKeys],
   );
 
@@ -65,3 +45,25 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
     />
   );
 };
+
+const getColumns = (myPublicKeys: PublicKey[]): LGColumnDef<PublicKey>[] => [
+  {
+    header: "Name",
+    accessorKey: "name",
+    filterFn: filterFns.includesString,
+    meta: {
+      search: {
+        placeholder: "Key name",
+      },
+    },
+    cell: ({ getValue }) => (
+      <WordBreak data-cy="table-key-name">{getValue() as string}</WordBreak>
+    ),
+  },
+  {
+    header: "Actions",
+    cell: ({ row }) => (
+      <ActionButtons myPublicKeys={myPublicKeys} publicKey={row.original} />
+    ),
+  },
+];
