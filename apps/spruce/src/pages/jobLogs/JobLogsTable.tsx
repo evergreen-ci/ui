@@ -9,7 +9,6 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { getParsleyLogkeeperTestLogURL } from "constants/externalResources";
-import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import {
   EvergreenTestResult,
   JobLogsTableTestResult,
@@ -30,7 +29,6 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   tests,
 }) => {
   const { sendEvent } = useJobLogsAnalytics(isLogkeeper);
-  const { replaceUrl } = useConditionallyLinkToParsleyBeta();
 
   const logkeeperColumns: LGColumnDef<LogkeeperTestResult>[] = useMemo(
     () => [
@@ -40,9 +38,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
         cell: ({ getValue, row }) => (
           <Link
             hideExternalIcon
-            href={replaceUrl(
-              getParsleyLogkeeperTestLogURL(buildId ?? "", row.original.id),
-            )}
+            href={getParsleyLogkeeperTestLogURL(buildId ?? "", row.original.id)}
             onClick={() => {
               sendEvent({
                 name: "Clicked Parsley test log link",
@@ -57,7 +53,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
         enableSorting: false,
       },
     ],
-    [buildId, replaceUrl, sendEvent],
+    [buildId, sendEvent],
   );
 
   const evergreenColumns: LGColumnDef<EvergreenTestResult>[] = useMemo(
@@ -68,7 +64,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
         cell: ({ getValue, row }) => (
           <Link
             hideExternalIcon
-            href={replaceUrl(row.original?.logs?.urlParsley ?? "")}
+            href={row.original?.logs?.urlParsley}
             onClick={() => {
               sendEvent({
                 name: "Clicked Parsley test log link",
@@ -89,7 +85,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
         enableSorting: false,
       },
     ],
-    [sendEvent, replaceUrl],
+    [sendEvent],
   );
 
   const table = useLeafyGreenTable<JobLogsTableTestResult>({
