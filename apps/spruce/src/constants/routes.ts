@@ -279,10 +279,14 @@ export const getTestHTMLLogRoute = (
   return path;
 };
 
-export const getVersionDiffRoute = (versionId: string) =>
-  generatePath(`${routes.versionDiff}`, {
+export const getVersionDiffRoute = (versionId: string, moduleIndex: number) => {
+  const queryParams = stringifyQuery({
+    patch_number: moduleIndex,
+  });
+  return generatePath(`${routes.versionDiff}?${queryParams}`, {
     versionId,
   });
+};
 
 export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>
   `${paths.preferences}/${tab}`;

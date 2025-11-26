@@ -53,7 +53,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
   return (
     <div data-cy="code-changes">
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {moduleCodeChanges.map((modCodeChange) => {
+      {moduleCodeChanges.map((modCodeChange, index) => {
         const { branchName, fileDiffs, rawLink } = modCodeChange;
 
         const additions = fileDiffs.reduce(
@@ -94,7 +94,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
               <Title>Changes on {branchName}: </Title>
               <StyledButton
                 data-cy="html-diff-btn"
-                href={getVersionDiffRoute(patchId)}
+                href={getVersionDiffRoute(patchId, index)}
                 size="small"
                 title="Open diff as html file"
               >
