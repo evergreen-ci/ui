@@ -58,6 +58,7 @@
     "@emotion/css": "11.13.5",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
+    "@evg-ui/analytics-visualizer": "*",
     "@evg-ui/deploy-utils": "*",
     "@evg-ui/lib": "*",
     "@leafygreen-ui/badge": "^10.2.3",
@@ -182,6 +183,6 @@
     "vitest-canvas-mock": "0.3.3"
   },
   "engines": {
-    "node": ">=22.14.0"
+    "node": ">=22.18.0"
   }
 }
