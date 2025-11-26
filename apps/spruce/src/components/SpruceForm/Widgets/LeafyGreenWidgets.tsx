@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
-import Checkbox from "@leafygreen-ui/checkbox";
-import Copyable from "@leafygreen-ui/copyable";
+import { Banner } from "@leafygreen-ui/banner";
+import { Checkbox } from "@leafygreen-ui/checkbox";
+import { Copyable } from "@leafygreen-ui/copyable";
 import { DatePicker } from "@leafygreen-ui/date-picker";
 import { palette } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
@@ -14,10 +14,10 @@ import {
   SegmentedControlProps,
 } from "@leafygreen-ui/segmented-control";
 import { Option, Select, Size as SelectSize } from "@leafygreen-ui/select";
-import TextArea from "@leafygreen-ui/text-area";
-import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
-import Toggle from "@leafygreen-ui/toggle";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { TextArea } from "@leafygreen-ui/text-area";
+import { TextInput, State as TextInputState } from "@leafygreen-ui/text-input";
+import { Toggle } from "@leafygreen-ui/toggle";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";

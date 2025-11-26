@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import styled from "@emotion/styled";
-import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
+import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { size } from "@evg-ui/lib/constants/tokens";

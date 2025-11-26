@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import Banner, { Variant } from "@leafygreen-ui/banner";
+import { Banner, Variant } from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import Icon from "@evg-ui/lib/components/Icon";

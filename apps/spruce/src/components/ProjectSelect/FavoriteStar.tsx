@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import IconButton from "@leafygreen-ui/icon-button";
+import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useToastContext } from "@evg-ui/lib/context/toast";

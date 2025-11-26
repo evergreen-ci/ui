@@ -1,4 +1,4 @@
-import Tooltip, { Align, Justify } from "@leafygreen-ui/tooltip";
+import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useVersionAnalytics, usePatchAnalytics } from "analytics";

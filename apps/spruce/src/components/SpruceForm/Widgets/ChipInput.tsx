@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import TextInput from "@leafygreen-ui/text-input";
+import { TextInput } from "@leafygreen-ui/text-input";
 import { CharKey } from "@evg-ui/lib/constants/keys";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { PlusButton, Variant } from "components/Buttons";

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
+import { Badge } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { toZonedTime } from "date-fns-tz";
 import { size } from "@evg-ui/lib/constants/tokens";

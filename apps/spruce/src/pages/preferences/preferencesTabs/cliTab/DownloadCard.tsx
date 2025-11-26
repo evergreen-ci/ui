@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import Card from "@leafygreen-ui/card";
+import { Card } from "@leafygreen-ui/card";
 import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import {
   InlineCode,
