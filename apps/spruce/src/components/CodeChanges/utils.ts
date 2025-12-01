@@ -31,3 +31,46 @@ export const getLineStyle = (type: DiffType): React.CSSProperties => {
       return {};
   }
 };
+
+// Check if a line starts a new file diff
+export const isNewFileDiff = (line: string): boolean =>
+  line.indexOf("diff --git") === 0;
+
+// Check if a line is a commit boundary
+export const isCommitBoundary = (line: string): boolean => line === "---";
+
+// Extract filename from a "diff --git" line
+// Format: "diff --git a/path/to/file b/path/to/file"
+export const extractFileNameFromDiffLine = (line: string): string | null => {
+  if (!isNewFileDiff(line)) {
+    return null;
+  }
+  // Extract the part after "diff --git "
+  const parts = line.substring(11).trim().split(/\s+/);
+  if (parts.length >= 2) {
+    // Get the second path (b/path/to/file) and remove the "b/" prefix
+    const filePath = parts[1];
+    if (filePath.startsWith("b/")) {
+      return filePath.substring(2);
+    }
+    // Fallback: if no "b/" prefix, try the first path without "a/" prefix
+    if (parts[0].startsWith("a/")) {
+      return parts[0].substring(2);
+    }
+    return filePath;
+  }
+  return null;
+};
+
+// Check if a filename matches the target filename
+// Handles cases where the diff line might have "a/" or "b/" prefixes
+export const matchesFileName = (
+  diffLine: string,
+  targetFileName: string,
+): boolean => {
+  const extractedFileName = extractFileNameFromDiffLine(diffLine);
+  if (!extractedFileName) {
+    return false;
+  }
+  return extractedFileName === targetFileName;
+};

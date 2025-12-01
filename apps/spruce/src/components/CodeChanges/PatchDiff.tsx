@@ -8,7 +8,7 @@ import { styles } from "hooks/useHTMLStream/utils";
 import { getEvergreenUrl } from "utils/environmentVariables";
 import { useDiffStream } from "./useDiffStream";
 
-export const DiffPage: React.FC = () => {
+export const PatchDiff: React.FC = () => {
   const { versionId } = useParams<{ versionId: string }>();
   const [searchParams] = useSearchParams();
   const containerRef = useRef<HTMLPreElement | null>(null);

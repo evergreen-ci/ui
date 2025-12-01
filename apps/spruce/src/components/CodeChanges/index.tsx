@@ -4,8 +4,6 @@ import Button from "@leafygreen-ui/button";
 import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body, BodyProps, Description } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { CodeChangesBadge } from "components/CodeChangesBadge";
-import { CodeChangesTable } from "components/CodeChangesTable";
 import { getVersionDiffRoute } from "constants/routes";
 import {
   CodeChangesQuery,
@@ -15,6 +13,8 @@ import {
 import { CODE_CHANGES } from "gql/queries";
 import { commits } from "utils";
 import { formatZeroIndexForDisplay } from "utils/numbers";
+import { Badge } from "./Badge";
+import { Table } from "./Table";
 
 const { bucketByCommit, shouldPreserveCommits } = commits;
 
@@ -79,13 +79,24 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
                   </CommitTitle>
                   {description && <Description>{description}</Description>}
                 </CommitContainer>
-                <CodeChangesTable fileDiffs={sortedFileDiffs} />
+                <Table
+                  commitNumber={idx}
+                  fileDiffs={sortedFileDiffs}
+                  moduleIndex={index}
+                  patchId={patchId}
+                />
               </CodeChangeModuleContainer>
             );
           });
         } else {
           const sortedFileDiffs = sortFileDiffs(fileDiffs);
-          codeChanges = <CodeChangesTable fileDiffs={sortedFileDiffs} />;
+          codeChanges = (
+            <Table
+              fileDiffs={sortedFileDiffs}
+              moduleIndex={index}
+              patchId={patchId}
+            />
+          );
         }
 
         return (
@@ -108,7 +119,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
               >
                 Raw
               </StyledButton>
-              <CodeChangesBadge additions={additions} deletions={deletions} />
+              <Badge additions={additions} deletions={deletions} />
             </TitleContainer>
             {codeChanges}
           </div>

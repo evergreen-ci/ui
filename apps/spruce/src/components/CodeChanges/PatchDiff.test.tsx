@@ -1,6 +1,6 @@
 import { vi } from "vitest";
 import { renderWithRouterMatch, screen } from "@evg-ui/lib/test_utils";
-import { DiffPage } from "./DiffPage";
+import { PatchDiff } from "./PatchDiff";
 import * as useDiffStreamModule from "./useDiffStream";
 
 vi.mock("./useDiffStream");
@@ -10,7 +10,7 @@ vi.mock("utils/environmentVariables", () => ({
 
 const mockUseDiffStream = vi.spyOn(useDiffStreamModule, "useDiffStream");
 
-describe("DiffPage", () => {
+describe("PatchDiff", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -21,7 +21,7 @@ describe("DiffPage", () => {
       isLoading: false,
     });
 
-    renderWithRouterMatch(<DiffPage />, {
+    renderWithRouterMatch(<PatchDiff />, {
       path: "/version/:versionId/diff",
       route: "/version/testVersionId/diff",
     });
@@ -38,7 +38,7 @@ describe("DiffPage", () => {
       isLoading: false,
     });
 
-    renderWithRouterMatch(<DiffPage />, {
+    renderWithRouterMatch(<PatchDiff />, {
       path: "/version/:versionId/diff",
       route: "/version/testVersionId/diff?patch_number=2",
     });
@@ -56,7 +56,7 @@ describe("DiffPage", () => {
       isLoading: false,
     });
 
-    renderWithRouterMatch(<DiffPage />, {
+    renderWithRouterMatch(<PatchDiff />, {
       path: "/version/:versionId/diff",
       route: "/version/testVersionId/diff",
     });
@@ -72,7 +72,7 @@ describe("DiffPage", () => {
       isLoading: true,
     });
 
-    renderWithRouterMatch(<DiffPage />, {
+    renderWithRouterMatch(<PatchDiff />, {
       path: "/version/:versionId/diff",
       route: "/version/testVersionId/diff",
     });
