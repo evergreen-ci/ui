@@ -7,7 +7,7 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "check-types": "tsc -p tsconfig.node.json --noEmit",
+    "check-types": "tsc -p tsconfig.node.json",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint ."
