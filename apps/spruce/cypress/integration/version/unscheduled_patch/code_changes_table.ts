@@ -14,7 +14,7 @@ describe("Code Changes Table", () => {
       .and("include", `filediff/${patchId}`);
     cy.dataCy("html-diff-btn")
       .should("have.attr", "href")
-      .and("include", `filediff/${patchId}`);
+      .and("include", `/version/${patchId}/diff`);
     cy.dataCy("raw-diff-btn")
       .should("have.attr", "href")
       .and("include", `rawdiff/${patchId}`);
