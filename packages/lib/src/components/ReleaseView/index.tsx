@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { Card } from "@leafygreen-ui/card";
-import { ProgressBar } from "@leafygreen-ui/progress-bar";
 import { Stepper, Step } from "@leafygreen-ui/stepper";
 import { Subtitle, Link } from "@leafygreen-ui/typography";
 import ReleaseStepBadge from "./ReleaseStepBadge";
@@ -26,15 +25,23 @@ const ReleaseViewCard: React.FC<ReleaseViewCardProps> = ({
   return (
     <Card>
       <TitleContainer>
-        <Subtitle>{releaseName}</Subtitle>
+        <TitleContainerContent>
+          <Subtitle>{releaseName}</Subtitle>
+          {links && links.length > 0 && (
+            <LinksContainer>
+              {links.map((link) => (
+                <Link key={link.label} href={link.href}>
+                  {link.label}
+                </Link>
+              ))}
+            </LinksContainer>
+          )}
+        </TitleContainerContent>
         <ReleaseStepBadge
           status={getOverallReleaseStatus(currentStep, steps.length)}
         />
       </TitleContainer>
-      <ProgressBar
-        label={`Status: ${toPercentage(currentStep / steps.length)}`}
-        value={currentStep / steps.length}
-      />
+
       <StyledStepper currentStep={currentStep} maxDisplayedSteps={5}>
         {steps.map((step) => (
           <Step key={step.name}>
@@ -42,20 +49,9 @@ const ReleaseViewCard: React.FC<ReleaseViewCardProps> = ({
           </Step>
         ))}
       </StyledStepper>
-      {links && links.length > 0 && (
-        <LinksContainer>
-          {links.map((link) => (
-            <Link key={link.label} href={link.href}>
-              {link.label}
-            </Link>
-          ))}
-        </LinksContainer>
-      )}
     </Card>
   );
 };
-
-const toPercentage = (value: number) => `${Math.round(value * 100)}%`;
 
 const getOverallReleaseStatus = (currentStep: number, totalSteps: number) => {
   if (currentStep === 0) {
@@ -76,7 +72,6 @@ const calculateStepCompletion = (steps: ReleaseStep[]) =>
 const LinksContainer = styled.div`
   display: flex;
   gap: 8px;
-  margin-top: 16px;
 `;
 const StyledStepper = styled(Stepper)`
   margin-top: 16px;
@@ -86,5 +81,12 @@ const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+const TitleContainerContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
 `;
 export default ReleaseViewCard;
