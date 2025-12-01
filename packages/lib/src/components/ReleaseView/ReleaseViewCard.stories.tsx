@@ -9,138 +9,11 @@ const meta: CustomMeta<typeof ReleaseViewCard> = {
   argTypes: {
     releaseName: { control: "text" },
     steps: { control: "object" },
+    subRelease: { control: "object" },
   },
 };
 
 export default meta;
-
-export const AtlasRelease: CustomStoryObj<typeof ReleaseViewCard> = {
-  args: {
-    releaseName: "Release v1.0.0",
-    steps: [
-      { name: "Fix", status: ReleaseStepStatus.COMPLETED, duration: 6000000 },
-      {
-        name: "Server Testing",
-        status: ReleaseStepStatus.IN_PROGRESS,
-        duration: 100,
-      },
-      {
-        name: "Atlas End-to-End Testing",
-        status: ReleaseStepStatus.NOT_STARTED,
-        duration: 0,
-      },
-      {
-        name: "Decision to Release",
-        status: ReleaseStepStatus.NOT_STARTED,
-        duration: 0,
-      },
-      { name: "Rollout", status: ReleaseStepStatus.NOT_STARTED, duration: 0 },
-    ],
-    links: [
-      { label: "Jira", href: "https://example.com" },
-      { label: "GitHub", href: "https://example.com" },
-    ],
-  },
-};
-
-export const MongoSyncRelease: CustomStoryObj<typeof ReleaseViewCard> = {
-  args: {
-    releaseName: "mongotune-linux-bin-x86_64-amazon-2",
-    steps: [
-      {
-        name: "Imported",
-        status: ReleaseStepStatus.COMPLETED,
-        duration: 600000,
-      },
-      {
-        name: "Signed",
-        status: ReleaseStepStatus.COMPLETED,
-        duration: 5400000,
-      },
-      {
-        name: "Private Published",
-        status: ReleaseStepStatus.COMPLETED,
-        duration: 2700000,
-      },
-      {
-        name: "Allowed To Publish",
-        status: ReleaseStepStatus.COMPLETED,
-        duration: 300000,
-      },
-      {
-        name: "Published",
-        status: ReleaseStepStatus.COMPLETED,
-        duration: 7200000,
-      },
-      {
-        name: "Signature Published",
-        status: ReleaseStepStatus.COMPLETED,
-        duration: 900000,
-      },
-    ],
-    links: [
-      { label: "Jira", href: "https://example.com" },
-      { label: "GitHub", href: "https://example.com" },
-    ],
-  },
-};
-
-export const SuperLongRelease: CustomStoryObj<typeof ReleaseViewCard> = {
-  args: {
-    releaseName: "Enterprise-Architected-Global-Scale-Release-v9000",
-    steps: [
-      {
-        name: "Concept & Design",
-        status: ReleaseStepStatus.COMPLETED,
-        duration: 172800000,
-      },
-      {
-        name: "Implementation",
-        status: ReleaseStepStatus.COMPLETED,
-        duration: 432000000,
-      },
-      {
-        name: "Code Review",
-        status: ReleaseStepStatus.COMPLETED,
-        duration: 86400000,
-      },
-      {
-        name: "Unit Testing",
-        status: ReleaseStepStatus.COMPLETED,
-        duration: 14400000,
-      },
-      {
-        name: "Integration Testing",
-        status: ReleaseStepStatus.COMPLETED,
-        duration: 21600000,
-      },
-      {
-        name: "Security Audit",
-        status: ReleaseStepStatus.IN_PROGRESS,
-        duration: 172800000,
-      },
-      {
-        name: "Performance Tuning",
-        status: ReleaseStepStatus.NOT_STARTED,
-        duration: 0,
-      },
-      {
-        name: "Beta Release",
-        status: ReleaseStepStatus.NOT_STARTED,
-        duration: 0,
-      },
-      {
-        name: "Global Launch",
-        status: ReleaseStepStatus.NOT_STARTED,
-        duration: 0,
-      },
-    ],
-    links: [
-      { label: "Project Plan", href: "https://example.com/plan" },
-      { label: "Architecture", href: "https://example.com/arch" },
-    ],
-  },
-};
 
 const releasesList = [
   {
@@ -337,6 +210,147 @@ const releasesList = [
     ],
   },
 ];
+
+export const AtlasRelease: CustomStoryObj<typeof ReleaseViewCard> = {
+  args: {
+    releaseName: "Release v1.0.0",
+    steps: [
+      { name: "Fix", status: ReleaseStepStatus.COMPLETED, duration: 6000000 },
+      {
+        name: "Server Testing",
+        status: ReleaseStepStatus.IN_PROGRESS,
+        duration: 100,
+      },
+      {
+        name: "Atlas End-to-End Testing",
+        status: ReleaseStepStatus.NOT_STARTED,
+        duration: 0,
+      },
+      {
+        name: "Decision to Release",
+        status: ReleaseStepStatus.NOT_STARTED,
+        duration: 0,
+      },
+      { name: "Rollout", status: ReleaseStepStatus.NOT_STARTED, duration: 0 },
+    ],
+    links: [
+      { label: "Jira", href: "https://example.com" },
+      { label: "GitHub", href: "https://example.com" },
+    ],
+  },
+};
+
+export const ReleaseWithSubRelease: CustomStoryObj<typeof ReleaseViewCard> = {
+  args: {
+    releaseName: "mongotune-release-1.2.3",
+    steps: [
+      { name: "Build", status: ReleaseStepStatus.COMPLETED, duration: 3000000 },
+      { name: "Test", status: ReleaseStepStatus.COMPLETED, duration: 5000000 },
+      { name: "Deploy", status: ReleaseStepStatus.IN_PROGRESS, duration: 1000 },
+    ],
+    links: [{ label: "Jira", href: "https://example.com" }],
+    subRelease: releasesList,
+  },
+};
+
+export const MongoSyncRelease: CustomStoryObj<typeof ReleaseViewCard> = {
+  args: {
+    releaseName: "mongotune-linux-bin-x86_64-amazon-2",
+    steps: [
+      {
+        name: "Imported",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 600000,
+      },
+      {
+        name: "Signed",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 5400000,
+      },
+      {
+        name: "Private Published",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 2700000,
+      },
+      {
+        name: "Allowed To Publish",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 300000,
+      },
+      {
+        name: "Published",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 7200000,
+      },
+      {
+        name: "Signature Published",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 900000,
+      },
+    ],
+    links: [
+      { label: "Jira", href: "https://example.com" },
+      { label: "GitHub", href: "https://example.com" },
+    ],
+  },
+};
+
+export const SuperLongRelease: CustomStoryObj<typeof ReleaseViewCard> = {
+  args: {
+    releaseName: "Enterprise-Architected-Global-Scale-Release-v9000",
+    steps: [
+      {
+        name: "Concept & Design",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 172800000,
+      },
+      {
+        name: "Implementation",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 432000000,
+      },
+      {
+        name: "Code Review",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 86400000,
+      },
+      {
+        name: "Unit Testing",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 14400000,
+      },
+      {
+        name: "Integration Testing",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 21600000,
+      },
+      {
+        name: "Security Audit",
+        status: ReleaseStepStatus.IN_PROGRESS,
+        duration: 172800000,
+      },
+      {
+        name: "Performance Tuning",
+        status: ReleaseStepStatus.NOT_STARTED,
+        duration: 0,
+      },
+      {
+        name: "Beta Release",
+        status: ReleaseStepStatus.NOT_STARTED,
+        duration: 0,
+      },
+      {
+        name: "Global Launch",
+        status: ReleaseStepStatus.NOT_STARTED,
+        duration: 0,
+      },
+    ],
+    links: [
+      { label: "Project Plan", href: "https://example.com/plan" },
+      { label: "Architecture", href: "https://example.com/arch" },
+    ],
+  },
+};
 
 export const ReleasesCardList: CustomStoryObj<typeof ReleaseViewCard> = {
   render: () => (

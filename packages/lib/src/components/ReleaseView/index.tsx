@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
 import { Card } from "@leafygreen-ui/card";
+import { ExpandableCard } from "@leafygreen-ui/expandable-card";
 import { Stepper, Step } from "@leafygreen-ui/stepper";
 import { Subtitle, Link } from "@leafygreen-ui/typography";
 import ReleaseStepBadge from "./ReleaseStepBadge";
 import ReleaseStepDetails from "./ReleaseStepDetails";
-import { ReleaseStepStatus, ReleaseStep } from "./types";
+import { ReleaseStepStatus, ReleaseStep, SubRelease } from "./types";
 
 interface ReleaseViewCardProps {
   releaseName: string;
@@ -13,42 +14,103 @@ interface ReleaseViewCardProps {
     label: string;
     href: string;
   }[];
+  subRelease?: SubRelease | SubRelease[];
 }
-const ReleaseViewCard: React.FC<ReleaseViewCardProps> = ({
+
+interface ReleaseHeaderProps {
+  links?: {
+    label: string;
+    href: string;
+  }[];
+  releaseName: string;
+  steps: ReleaseStep[];
+}
+
+const ReleaseHeader: React.FC<ReleaseHeaderProps> = ({
   links,
   releaseName,
   steps,
 }) => {
-  // CurrentStep is the percentage of the steps that have the status "completed"
   const currentStep = calculateStepCompletion(steps);
 
   return (
-    <Card>
-      <TitleContainer>
-        <TitleContainerContent>
-          <Subtitle>{releaseName}</Subtitle>
-          {links && links.length > 0 && (
-            <LinksContainer>
-              {links.map((link) => (
-                <Link key={link.label} href={link.href}>
-                  {link.label}
-                </Link>
-              ))}
-            </LinksContainer>
-          )}
-        </TitleContainerContent>
-        <ReleaseStepBadge
-          status={getOverallReleaseStatus(currentStep, steps.length)}
-        />
-      </TitleContainer>
+    <TitleContainer>
+      <TitleContainerContent>
+        <Subtitle>{releaseName}</Subtitle>
+        {links && links.length > 0 && (
+          <LinksContainer>
+            {links.map((link) => (
+              <Link key={link.label} href={link.href}>
+                {link.label}
+              </Link>
+            ))}
+          </LinksContainer>
+        )}
+      </TitleContainerContent>
+      <ReleaseStepBadge
+        status={getOverallReleaseStatus(currentStep, steps.length)}
+      />
+    </TitleContainer>
+  );
+};
 
-      <StyledStepper currentStep={currentStep} maxDisplayedSteps={5}>
-        {steps.map((step) => (
-          <Step key={step.name}>
-            <ReleaseStepDetails step={step} />
-          </Step>
-        ))}
-      </StyledStepper>
+const ReleaseStepperComponent: React.FC<{ steps: ReleaseStep[] }> = ({
+  steps,
+}) => {
+  const currentStep = calculateStepCompletion(steps);
+
+  return (
+    <StyledStepper currentStep={currentStep} maxDisplayedSteps={5}>
+      {steps.map((step) => (
+        <Step key={step.name}>
+          <ReleaseStepDetails step={step} />
+        </Step>
+      ))}
+    </StyledStepper>
+  );
+};
+
+const ReleaseContent: React.FC<Omit<ReleaseViewCardProps, "subRelease">> = ({
+  links,
+  releaseName,
+  steps,
+}) => (
+  <>
+    <ReleaseHeader links={links} releaseName={releaseName} steps={steps} />
+    <ReleaseStepperComponent steps={steps} />
+  </>
+);
+
+const ReleaseViewCard: React.FC<ReleaseViewCardProps> = ({
+  links,
+  releaseName,
+  steps,
+  subRelease,
+}) => {
+  let subReleases: SubRelease[] = [];
+  if (Array.isArray(subRelease)) {
+    subReleases = subRelease;
+  } else if (subRelease) {
+    subReleases = [subRelease];
+  }
+
+  return (
+    <Card>
+      <ReleaseContent links={links} releaseName={releaseName} steps={steps} />
+      {subReleases.map((sub) => (
+        <StyledExpandableCard
+          key={sub.releaseName}
+          title={
+            <ReleaseHeader
+              links={sub.links}
+              releaseName={sub.releaseName}
+              steps={sub.steps}
+            />
+          }
+        >
+          <ReleaseStepperComponent steps={sub.steps} />
+        </StyledExpandableCard>
+      ))}
     </Card>
   );
 };
@@ -62,12 +124,11 @@ const getOverallReleaseStatus = (currentStep: number, totalSteps: number) => {
   return ReleaseStepStatus.COMPLETED;
 };
 const calculateStepCompletion = (steps: ReleaseStep[]) =>
-  steps.reduce((acc, step) => {
-    if (step.status === ReleaseStepStatus.COMPLETED) {
-      return acc + 1;
-    }
-    return acc;
-  }, 0);
+  steps.reduce(
+    (acc, step) =>
+      step.status === ReleaseStepStatus.COMPLETED ? acc + 1 : acc,
+    0,
+  );
 
 const LinksContainer = styled.div`
   display: flex;
@@ -81,6 +142,7 @@ const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 `;
 
 const TitleContainerContent = styled.div`
@@ -89,4 +151,22 @@ const TitleContainerContent = styled.div`
   align-items: center;
   gap: 8px;
 `;
+
+const StyledExpandableCard = styled(ExpandableCard)`
+  margin-top: 16px;
+
+  & > div[role="button"] {
+    grid-template-columns: 1fr 24px;
+
+    & > span {
+      width: 100%;
+
+      & > h6 {
+        display: block !important;
+        width: 100%;
+      }
+    }
+  }
+`;
+
 export default ReleaseViewCard;

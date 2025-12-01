@@ -9,4 +9,13 @@ type ReleaseStep = {
   duration: number;
 };
 
-export { ReleaseStepStatus, type ReleaseStep };
+type SubRelease = {
+  releaseName: string;
+  steps: ReleaseStep[];
+  links?: {
+    label: string;
+    href: string;
+  }[];
+};
+
+export { ReleaseStepStatus, type ReleaseStep, type SubRelease };
