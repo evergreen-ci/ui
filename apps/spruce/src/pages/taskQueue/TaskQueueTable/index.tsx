@@ -15,7 +15,7 @@ import {
   TablePlaceholder,
 } from "@evg-ui/lib/components/Table";
 import { useTaskQueueAnalytics } from "analytics";
-import { isMainlineRequester, Requester } from "constants/requesters";
+import { isWaterfallRequester, Requester } from "constants/requesters";
 import {
   getVersionRoute,
   getTaskRoute,
@@ -177,7 +177,7 @@ const taskQueueTableColumns = (
       accessorKey: "requester",
       cell: (value) => {
         const { requester } = value.row.original;
-        const copy = isMainlineRequester(requester as Requester)
+        const copy = isWaterfallRequester(requester as Requester)
           ? "Commit"
           : "Patch";
         return <Badge>{copy}</Badge>;
