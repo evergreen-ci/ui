@@ -85,6 +85,63 @@ export const MongoSyncRelease: CustomStoryObj<typeof ReleaseViewCard> = {
   },
 };
 
+export const SuperLongRelease: CustomStoryObj<typeof ReleaseViewCard> = {
+  args: {
+    releaseName: "Enterprise-Architected-Global-Scale-Release-v9000",
+    steps: [
+      {
+        name: "Concept & Design",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 172800000,
+      },
+      {
+        name: "Implementation",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 432000000,
+      },
+      {
+        name: "Code Review",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 86400000,
+      },
+      {
+        name: "Unit Testing",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 14400000,
+      },
+      {
+        name: "Integration Testing",
+        status: ReleaseStepStatus.COMPLETED,
+        duration: 21600000,
+      },
+      {
+        name: "Security Audit",
+        status: ReleaseStepStatus.IN_PROGRESS,
+        duration: 172800000,
+      },
+      {
+        name: "Performance Tuning",
+        status: ReleaseStepStatus.NOT_STARTED,
+        duration: 0,
+      },
+      {
+        name: "Beta Release",
+        status: ReleaseStepStatus.NOT_STARTED,
+        duration: 0,
+      },
+      {
+        name: "Global Launch",
+        status: ReleaseStepStatus.NOT_STARTED,
+        duration: 0,
+      },
+    ],
+    links: [
+      { label: "Project Plan", href: "https://example.com/plan" },
+      { label: "Architecture", href: "https://example.com/arch" },
+    ],
+  },
+};
+
 const releasesList = [
   {
     releaseName: "mongotune-linux-bin-x86_64-amazon-2",

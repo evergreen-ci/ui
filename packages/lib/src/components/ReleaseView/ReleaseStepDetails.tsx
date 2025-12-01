@@ -29,6 +29,7 @@ const StepDetails = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+  align-items: center;
 `;
 
 const DurationContainer = styled.div`

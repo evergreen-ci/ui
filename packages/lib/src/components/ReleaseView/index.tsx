@@ -31,8 +31,11 @@ const ReleaseViewCard: React.FC<ReleaseViewCardProps> = ({
           status={getOverallReleaseStatus(currentStep, steps.length)}
         />
       </TitleContainer>
-      <ProgressBar label="Status:" value={currentStep / steps.length} />
-      <StyledStepper currentStep={currentStep}>
+      <ProgressBar
+        label={`Status: ${toPercentage(currentStep / steps.length)}`}
+        value={currentStep / steps.length}
+      />
+      <StyledStepper currentStep={currentStep} maxDisplayedSteps={5}>
         {steps.map((step) => (
           <Step key={step.name}>
             <ReleaseStepDetails step={step} />
@@ -51,6 +54,8 @@ const ReleaseViewCard: React.FC<ReleaseViewCardProps> = ({
     </Card>
   );
 };
+
+const toPercentage = (value: number) => `${Math.round(value * 100)}%`;
 
 const getOverallReleaseStatus = (currentStep: number, totalSteps: number) => {
   if (currentStep === 0) {
