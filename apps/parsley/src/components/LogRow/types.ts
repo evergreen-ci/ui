@@ -11,6 +11,7 @@ interface LogLineRow extends Row {
   failingLine?: number;
   highlightRegex?: RegExp;
   lineNumber: number;
+  prettyPrint: boolean;
   range: {
     lowerRange: number;
     upperRange?: number;
