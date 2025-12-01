@@ -6,6 +6,7 @@ import { Body, BodyProps, Description } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
+import { getVersionDiffRoute } from "constants/routes";
 import {
   CodeChangesQuery,
   CodeChangesQueryVariables,
@@ -52,8 +53,8 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
   return (
     <div data-cy="code-changes">
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {moduleCodeChanges.map((modCodeChange) => {
-        const { branchName, fileDiffs, htmlLink, rawLink } = modCodeChange;
+      {moduleCodeChanges.map((modCodeChange, index) => {
+        const { branchName, fileDiffs, rawLink } = modCodeChange;
 
         const additions = fileDiffs.reduce(
           (total, diff) => total + diff.additions,
@@ -93,7 +94,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
               <Title>Changes on {branchName}: </Title>
               <StyledButton
                 data-cy="html-diff-btn"
-                href={htmlLink}
+                href={getVersionDiffRoute(patchId, index)}
                 size="small"
                 title="Open diff as html file"
               >
