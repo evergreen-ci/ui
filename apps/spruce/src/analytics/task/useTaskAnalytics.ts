@@ -109,6 +109,7 @@ export const useTaskAnalytics = () => {
       execution: execution,
     },
     fetchPolicy: "cache-first",
+    skip: !taskId || execution === null,
   });
   const { failedTestCount } = taskTestCountData?.task || {};
 
