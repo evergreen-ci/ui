@@ -1,5 +1,5 @@
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { TaskQueueItem, TaskQueueItemType } from "gql/generated/types";
+import { TaskQueueItem } from "gql/generated/types";
 import TaskQueueTable from ".";
 
 type TaskQueueColumnData = Omit<TaskQueueItem, "revision">;
@@ -17,7 +17,7 @@ const generateTaskQueue = (length: number): TaskQueueColumnData[] => {
       project:
         "23c73fc8a605de0e6d71f776128544356dca2a243a459db334d3514ae74a1ba7",
       projectIdentifier: "parsley",
-      requester: TaskQueueItemType.Commit,
+      requester: "gitter_request",
       version: "mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe",
       __typename: "TaskQueueItem",
     };

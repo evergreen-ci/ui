@@ -8,6 +8,7 @@ export const HIDE_FEEDBACK = "HIDE_FEEDBACK";
 export const INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES =
   "include-commit-queue-project-patches";
 export const INCLUDE_HIDDEN_PATCHES = "include-hidden-patches";
+export const INCLUDE_NEVER_ACTIVATED_TASKS = "include-never-activated-tasks";
 export const SLACK_NOTIFICATION_BANNER = "has-closed-slack-banner";
 export const SUBSCRIPTION_METHOD = "subscription-method";
 export const SEEN_WATERFALL_ONBOARDING_TUTORIAL =

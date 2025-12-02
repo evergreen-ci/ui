@@ -14,6 +14,7 @@ storybook-static
 vite.config.ts.timestamp-*
 
 tsconfig.tsbuildinfo
+tsconfig.node.tsbuildinfo
 
 localhost-cert.pem
 localhost-key.pem

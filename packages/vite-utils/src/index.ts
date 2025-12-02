@@ -1,4 +1,4 @@
-import { ServerOptions, defineConfig } from "vite";
+import { defineConfig, type ServerOptions } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import dns from "dns";
 import * as fs from "fs";
