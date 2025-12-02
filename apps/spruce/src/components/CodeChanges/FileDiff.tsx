@@ -11,14 +11,11 @@ import { useFileDiffStream } from "./useFileDiffStream";
 import { getRawDiffUrl } from "./utils";
 
 export const FileDiff: React.FC = () => {
-  const { fileName: encodedFileName, versionId } = useParams<{
-    versionId: string;
-    fileName: string;
-  }>();
+  const { versionId } = useParams<{ versionId: string }>();
   const [searchParams] = useSearchParams();
   const containerRef = useRef<HTMLPreElement | null>(null);
 
-  const fileName = encodedFileName ? decodeURIComponent(encodedFileName) : "";
+  const fileName = searchParams.get("file_name") || "";
   const patchNumber = searchParams.get("patch_number") || "0";
   const commitNumber =
     parseInt(searchParams.get("commit_number") || "0", 10) || 0;

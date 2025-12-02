@@ -169,7 +169,7 @@ export const routes = {
   taskHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.HTMLLog}`,
   testHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.TestHTMLLog}`,
   versionDiff: `${paths.version}/:${slugs.versionId}/${PageNames.Diff}`,
-  versionFileDiff: `${paths.version}/:${slugs.versionId}/${PageNames.FileDiff}/:${slugs.fileName}`,
+  versionFileDiff: `${paths.version}/:${slugs.versionId}/${PageNames.FileDiff}`,
   taskQueue: `${paths.taskQueue}/:${slugs.distroId}?`,
   user: paths.user,
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
@@ -294,18 +294,18 @@ export const getVersionDiffRoute = (versionId: string, moduleIndex: number) => {
 export const getFileDiffRoute = (
   versionId: string,
   fileName: string,
-  patchNumber: number,
+  patchNumber?: number,
   commitNumber?: number,
 ) => {
-  const queryParams = stringifyQuery({
-    patch_number: patchNumber,
-    commit_number: commitNumber,
-  });
-  const path = generatePath(routes.versionFileDiff, {
+  const queryParams = {
+    file_name: fileName,
+    ...(patchNumber && { patch_number: patchNumber }),
+    ...(commitNumber && { commit_number: commitNumber }),
+  };
+  const queryString = stringifyQuery(queryParams);
+  return generatePath(`${routes.versionFileDiff}?${queryString}`, {
     versionId,
-    [slugs.fileName]: encodeURIComponent(fileName),
   });
-  return `${path}?${queryParams}`;
 };
 
 export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>

@@ -11,7 +11,7 @@ describe("Code Changes Table", () => {
   it("Should link to code changes when they exist", () => {
     cy.dataCy("fileLink")
       .should("have.attr", "href")
-      .and("include", `filediff/${patchId}`);
+      .and("include", `/version/${patchId}/file-diff`);
     cy.dataCy("html-diff-btn")
       .should("have.attr", "href")
       .and("include", `/version/${patchId}/diff`);

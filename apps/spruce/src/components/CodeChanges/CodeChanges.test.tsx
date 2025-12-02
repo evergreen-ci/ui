@@ -15,6 +15,25 @@ vi.mock("constants/routes", () => ({
     (versionId: string, moduleIndex: number) =>
       `/version/${versionId}/diff?patch_number=${moduleIndex}`,
   ),
+  getFileDiffRoute: vi.fn(
+    (
+      versionId: string,
+      fileName: string,
+      patchNumber?: number,
+      commitNumber?: number,
+    ) => {
+      const params = new URLSearchParams();
+      params.set("file_name", fileName);
+      if (patchNumber !== undefined) {
+        params.set("patch_number", patchNumber.toString());
+      }
+      if (commitNumber !== undefined) {
+        params.set("commit_number", commitNumber.toString());
+      }
+      const query = params.toString();
+      return `/version/${versionId}/file-diff?${query}`;
+    },
+  ),
 }));
 
 const mockGetVersionDiffRoute = vi.mocked(getVersionDiffRoute);
