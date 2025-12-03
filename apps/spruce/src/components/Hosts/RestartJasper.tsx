@@ -1,6 +1,4 @@
 import { useMutation } from "@apollo/client";
-import { Align, Justify, Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
-import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useHostsTableAnalytics } from "analytics";
 import {
@@ -58,35 +56,15 @@ export const RestartJasper: React.FC<Props> = ({
       }?`;
 
   return (
-    <ConditionalWrapper
-      condition={!canRestartJasper}
-      wrapper={(children) => tooltipWrapper(children, jasperTooltipMessage)}
-    >
-      {/* This div is necessary, or else the tooltip will not show. */}
-      <div>
-        <HostPopover
-          buttonText="Restart Jasper"
-          data-cy="restart-jasper-button"
-          disabled={selectedHostIds.length === 0 || !canRestartJasper}
-          loading={loadingRestartJasper}
-          onClick={onClickRestartJasperConfirm}
-          titleText={titleText}
-        />
-      </div>
-    </ConditionalWrapper>
+    <HostPopover
+      buttonText="Restart Jasper"
+      data-cy="restart-jasper-button"
+      disabled={selectedHostIds.length === 0 || !canRestartJasper}
+      loading={loadingRestartJasper}
+      onClick={onClickRestartJasperConfirm}
+      showTooltip={!canRestartJasper}
+      titleText={titleText}
+      tooltipMessage={jasperTooltipMessage}
+    />
   );
 };
-
-const tooltipWrapper = (
-  children: React.ReactNode,
-  jasperTooltipMessage: string,
-) => (
-  <Tooltip
-    align={Align.Top}
-    justify={Justify.Middle}
-    trigger={children as JSX.Element}
-    triggerEvent={TriggerEvent.Hover}
-  >
-    {jasperTooltipMessage}
-  </Tooltip>
-);

@@ -4,7 +4,6 @@ import { IconSkeleton, Skeleton, Size } from "@leafygreen-ui/skeleton-loader";
 import { Align, Justify, Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
-import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -88,31 +87,30 @@ interface ColumnHeaderCellProps {
   onClick?: () => void;
 }
 
-const tooltipWrapper = (children: React.ReactNode, fullDisplayName: string) => (
-  <Tooltip
-    align={Align.Top}
-    justify={Justify.Middle}
-    trigger={children as JSX.Element}
-    triggerEvent={TriggerEvent.Hover}
-  >
-    {fullDisplayName}
-  </Tooltip>
-);
-
 const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
   fullDisplayName,
   onClick,
   trimmedDisplayName,
 }) => (
   <HeaderCell data-cy="header-cell">
-    <ConditionalWrapper
-      condition={trimmedDisplayName !== fullDisplayName}
-      wrapper={(children) => tooltipWrapper(children, fullDisplayName)}
-    >
+    {trimmedDisplayName !== fullDisplayName ? (
+      <Tooltip
+        align={Align.Top}
+        justify={Justify.Middle}
+        trigger={
+          <Body onClick={onClick} weight="medium">
+            {trimmedDisplayName}
+          </Body>
+        }
+        triggerEvent={TriggerEvent.Hover}
+      >
+        {fullDisplayName}
+      </Tooltip>
+    ) : (
       <Body onClick={onClick} weight="medium">
-        {trimmedDisplayName}
+        {fullDisplayName}
       </Body>
-    </ConditionalWrapper>
+    )}
   </HeaderCell>
 );
 
