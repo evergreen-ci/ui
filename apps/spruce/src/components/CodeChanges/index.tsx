@@ -8,7 +8,6 @@ import { getVersionDiffRoute } from "constants/routes";
 import {
   CodeChangesQuery,
   CodeChangesQueryVariables,
-  FileDiffsFragment,
 } from "gql/generated/types";
 import { CODE_CHANGES } from "gql/queries";
 import { Badge } from "./Badge";
@@ -60,13 +59,8 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
           0,
         );
 
-        const sortedFileDiffs = sortFileDiffs(fileDiffs);
         const codeChanges = (
-          <Table
-            fileDiffs={sortedFileDiffs}
-            moduleIndex={index}
-            patchId={patchId}
-          />
+          <Table fileDiffs={fileDiffs} moduleIndex={index} patchId={patchId} />
         );
 
         return (
@@ -98,9 +92,6 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
     </div>
   );
 };
-
-const sortFileDiffs = (fileDiffs: FileDiffsFragment[]): FileDiffsFragment[] =>
-  [...fileDiffs].sort((a, b) => a.fileName.localeCompare(b.fileName));
 
 const StyledSkeleton = styled(Skeleton)`
   width: 400px;

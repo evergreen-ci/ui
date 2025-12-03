@@ -15,7 +15,7 @@ export const FileDiff: React.FC = () => {
   const [searchParams] = useSearchParams();
   const containerRef = useRef<HTMLPreElement | null>(null);
 
-  const fileName = searchParams.get("file_name") || "";
+  const fileName = decodeURIComponent(searchParams.get("file_name") || "");
   const patchNumber = searchParams.get("patch_number") || "0";
   const commitNumber =
     parseInt(searchParams.get("commit_number") || "0", 10) || 0;

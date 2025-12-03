@@ -8,16 +8,14 @@ interface TableProps {
   fileDiffs: FileDiffsFragment[];
   patchId: string;
   moduleIndex: number;
-  commitNumber?: number;
 }
 export const Table: React.FC<TableProps> = ({
-  commitNumber,
   fileDiffs,
   moduleIndex,
   patchId,
 }) => {
   const table = useLeafyGreenTable({
-    columns: getColumns(patchId, moduleIndex, commitNumber),
+    columns: getColumns(patchId, moduleIndex),
     data: fileDiffs ?? [],
     enableColumnFilters: false,
     enableSorting: false,
@@ -33,11 +31,7 @@ export const Table: React.FC<TableProps> = ({
   );
 };
 
-const getColumns = (
-  patchId: string,
-  moduleIndex: number,
-  commitNumber?: number,
-) => [
+const getColumns = (patchId: string, moduleIndex: number) => [
   {
     accessorKey: "fileName",
     header: "File Name",
@@ -47,6 +41,8 @@ const getColumns = (
       getValue,
       row: {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
+        index,
+        // @ts-expect-error: FIXME - implicit column typing does not work correctly
         original: { fileName },
       },
     }) => {
@@ -54,7 +50,7 @@ const getColumns = (
         patchId,
         fileName,
         moduleIndex,
-        commitNumber,
+        index,
       );
       return (
         <StyledLink data-cy="fileLink" href={fileDiffRoute}>

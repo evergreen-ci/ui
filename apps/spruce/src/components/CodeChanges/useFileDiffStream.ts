@@ -1,11 +1,6 @@
 import { useCallback, useRef, useEffect } from "react";
 import { useHTMLStream } from "hooks/useHTMLStream";
-import {
-  getDiffLineType,
-  getLineStyle,
-  isNewFileDiff,
-  isCommitBoundary,
-} from "./utils";
+import { getDiffLineType, getLineStyle, isNewFileDiff } from "./utils";
 
 interface UseFileDiffStreamOptions {
   url: string | null;
@@ -21,43 +16,42 @@ export const useFileDiffStream = ({
   url,
 }: UseFileDiffStreamOptions) => {
   const stateRef = useRef({
-    currentCommitIndex: 0,
+    occurrenceIndex: 0,
     shouldRender: false,
   });
 
-  // Reset state when dependencies change
   useEffect(() => {
     stateRef.current = {
-      currentCommitIndex: 0,
+      occurrenceIndex: 0,
       shouldRender: false,
     };
-  }, [fileName, commitNumber]);
+  }, [fileName, commitNumber, url]);
 
   const processLine = useCallback(
     (lineContent: string) => {
-      const { currentCommitIndex, shouldRender } = stateRef.current;
       const isNewFile = isNewFileDiff(lineContent);
-      const isNextCommit = isCommitBoundary(lineContent);
 
-      // Stop rendering if we've already processed our target file and hit a boundary
-      if (shouldRender && (isNewFile || isNextCommit)) {
+      if (stateRef.current.shouldRender && isNewFile) {
         stateRef.current.shouldRender = false;
         return { htmlContent: "", style: undefined };
       }
 
-      // Check if this is the start of our target file
       if (isNewFile) {
-        const isTargetFile = lineContent.includes(fileName);
-        const isTargetCommit = currentCommitIndex === commitNumber;
+        const filePathMatch = lineContent.match(/b\/(.+)$/);
+        const filePath = filePathMatch ? filePathMatch[1] : "";
+        const isTargetFile =
+          filePath === fileName || lineContent.includes(fileName);
 
-        if (isTargetFile && isTargetCommit) {
-          stateRef.current.shouldRender = true;
-        } else if (isTargetFile) {
-          // Found the file but wrong commit occurrence
-          stateRef.current.currentCommitIndex += 1;
-          stateRef.current.shouldRender = false;
+        if (isTargetFile) {
+          // commitNumber is the 0-indexed occurrence index of this file
+          // Show when occurrenceIndex matches commitNumber
+          if (stateRef.current.occurrenceIndex === commitNumber) {
+            stateRef.current.shouldRender = true;
+          } else {
+            stateRef.current.shouldRender = false;
+          }
+          stateRef.current.occurrenceIndex += 1;
         } else {
-          // Different file
           stateRef.current.shouldRender = false;
         }
       }

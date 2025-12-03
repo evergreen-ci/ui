@@ -36,8 +36,6 @@ export const getLineStyle = (type: DiffType): React.CSSProperties => {
 export const isNewFileDiff = (line: string): boolean =>
   line.startsWith("diff --git");
 
-export const isCommitBoundary = (line: string): boolean => line === "---";
-
 export const getRawDiffUrl = (
   versionId: string | undefined,
   patchNumber: string | number = 0,
