@@ -4310,7 +4310,6 @@ export type TaskLogLinks = {
   __typename?: "TaskLogLinks";
   agentLogLink?: Maybe<Scalars["String"]["output"]>;
   allLogLink?: Maybe<Scalars["String"]["output"]>;
-  eventLogLink?: Maybe<Scalars["String"]["output"]>;
   systemLogLink?: Maybe<Scalars["String"]["output"]>;
   taskLogLink?: Maybe<Scalars["String"]["output"]>;
 };
@@ -11437,7 +11436,6 @@ export type TaskQuery = {
       __typename?: "TaskLogLinks";
       agentLogLink?: string | null;
       allLogLink?: string | null;
-      eventLogLink?: string | null;
       systemLogLink?: string | null;
       taskLogLink?: string | null;
     };
