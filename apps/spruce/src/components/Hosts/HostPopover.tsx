@@ -40,7 +40,7 @@ export const HostPopover: React.FC<Props> = ({
       trigger={
         <Button
           data-cy={dataCy}
-          disabled={disabled}
+          disabled
           onClick={() => setActive((curr) => !curr)}
         >
           {buttonText}
