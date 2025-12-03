@@ -38,6 +38,6 @@ const FileDiffTextContainer = styled("span")`
     props.hasValue &&
     (props.type === "+" ? `color: ${green.dark1};` : `color: ${red.base};`)}
   &:nth-of-type(2) {
-    margin-left: ${size.s};
+    margin-left: ${size.xs};
   }
 `;

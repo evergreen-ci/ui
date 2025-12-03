@@ -1,5 +1,4 @@
 import * as array from "./array";
-import * as commits from "./commits";
 import * as environmentVariables from "./environmentVariables";
 import * as numbers from "./numbers";
 import * as queryString from "./queryString";
@@ -10,7 +9,6 @@ import * as validators from "./validators";
 
 export {
   array,
-  commits,
   environmentVariables,
   numbers,
   queryString,
