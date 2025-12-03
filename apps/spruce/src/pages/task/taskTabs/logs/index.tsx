@@ -187,12 +187,8 @@ const getLinks = (
   execution: number,
   replaceUrl: (url: string) => string,
 ): GetLinksResult => {
-  if (!logLinks) {
+  if (!logLinks || logType === LogTypes.Event) {
     return {};
-  }
-  if (logType === LogTypes.Event) {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    return { htmlLink: logLinks.eventLogLink };
   }
   const rawLink = `${
     {

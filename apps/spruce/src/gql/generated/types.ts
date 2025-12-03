@@ -11432,7 +11432,6 @@ export type TaskQuery = {
       __typename?: "TaskLogLinks";
       agentLogLink?: string | null;
       allLogLink?: string | null;
-      eventLogLink?: string | null;
       systemLogLink?: string | null;
       taskLogLink?: string | null;
     };

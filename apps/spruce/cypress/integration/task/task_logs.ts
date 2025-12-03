@@ -51,12 +51,12 @@ describe("task logs", () => {
       );
   });
 
-  it("Event logs should have an HTML button but not a Raw button nor Parsley button", () => {
+  it("Event logs should not have an HTML button, Raw button, or Parsley button", () => {
     cy.get(eventLogsButton).click({ force: true });
     cy.get(eventLogsButton)
       .should("have.attr", "aria-selected")
       .and("eq", "true");
-    cy.dataCy("html-log-btn").should("exist");
+    cy.dataCy("html-log-btn").should("not.exist");
     cy.dataCy("raw-log-btn").should("not.exist");
     cy.dataCy("parsley-log-btn").should("not.exist");
   });
