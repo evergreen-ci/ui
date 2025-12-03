@@ -3,17 +3,9 @@ import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "../../constants/tokens";
-import ConditionalWrapper from "../ConditionalWrapper";
 import { FilterInputControls } from "./FilterInputControls";
 
 const { gray } = palette;
-
-// Move wrapper function outside of render
-const dropdownWrapper = (children: React.ReactNode) => (
-  <RelativeWrapper>
-    <OptionsWrapper>{children}</OptionsWrapper>
-  </RelativeWrapper>
-);
 
 export const ALL_VALUE = "all";
 const ALL_COPY = "All";
@@ -79,25 +71,63 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
     return null;
   }
 
-  return (
-    <ConditionalWrapper condition={isDropdown} wrapper={dropdownWrapper}>
-      <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
-        {renderCheckboxes({
-          state: filteredState,
-          tData,
-          onChange,
-        })}
-        {onReset && onFilter && (
-          <FilterInputControls
-            onClickReset={onReset}
-            onClickSubmit={onFilter}
-            submitButtonCopy="Filter"
-          />
-        )}
-      </CheckboxContainer>
-    </ConditionalWrapper>
+  return isDropdown ? (
+    <RelativeWrapper>
+      <OptionsWrapper>
+        <CheckboxesWithFilters
+          data-cy={dataCy}
+          filteredState={filteredState}
+          onChange={onChange}
+          onFilter={onFilter}
+          onReset={onReset}
+          tData={tData}
+        />
+      </OptionsWrapper>
+    </RelativeWrapper>
+  ) : (
+    <CheckboxesWithFilters
+      data-cy={dataCy}
+      filteredState={filteredState}
+      onChange={onChange}
+      onFilter={onFilter}
+      onReset={onReset}
+      tData={tData}
+    />
   );
 };
+
+interface CheckboxesWithFiltersProps {
+  "data-cy"?: string;
+  filteredState: string[];
+  onChange: (s: string[]) => void;
+  onFilter?: () => void;
+  onReset?: () => void;
+  tData: TreeDataEntry[];
+}
+
+export const CheckboxesWithFilters: React.FC<CheckboxesWithFiltersProps> = ({
+  "data-cy": dataCy,
+  filteredState,
+  onChange,
+  onFilter,
+  onReset,
+  tData,
+}) => (
+  <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
+    {renderCheckboxes({
+      state: filteredState,
+      tData,
+      onChange,
+    })}
+    {onReset && onFilter && (
+      <FilterInputControls
+        onClickReset={onReset}
+        onClickSubmit={onFilter}
+        submitButtonCopy="Filter"
+      />
+    )}
+  </CheckboxContainer>
+);
 
 // depth first traversal checkbox data.
 // pushes parent then children to rows array
