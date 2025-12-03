@@ -74,7 +74,6 @@ export const mocks: ApolloMock<CodeChangesQuery, CodeChangesQueryVariables>[] =
               {
                 __typename: "ModuleCodeChange",
                 branchName: "main",
-                htmlLink: "htmlLink",
                 rawLink: "rawLink",
                 fileDiffs: [
                   {
@@ -82,7 +81,6 @@ export const mocks: ApolloMock<CodeChangesQuery, CodeChangesQueryVariables>[] =
                     additions: 1,
                     deletions: 1,
                     description: "diff",
-                    diffLink: "diff",
                     fileName: "diff",
                   },
                 ],

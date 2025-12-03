@@ -5,6 +5,5 @@ fragment ModuleCodeChange on ModuleCodeChange {
   fileDiffs {
     ...FileDiffs
   }
-  htmlLink
   rawLink
 }

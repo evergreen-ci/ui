@@ -17,8 +17,6 @@ const input: FileDiffsFragment[] = [
     fileName: "src/pages/Task.tsx",
     additions: 3,
     deletions: 0,
-    diffLink:
-      "http://localhost:9090/filediff/5e4ff3abe3c3317e352062e4?file_name=src%2Fpages%2FTask.tsx&patch_number=1",
     description: "some other commit",
   },
   {
@@ -26,8 +24,6 @@ const input: FileDiffsFragment[] = [
     fileName: "src/App.tsx",
     additions: 0,
     deletions: 32,
-    diffLink:
-      "http://localhost:9090/filediff/5e4ff3abe3c3317e352062e4?file_name=src%2FApp.tsx&patch_number=1",
     description: "crazy cool commit!!!",
   },
   {
@@ -35,8 +31,6 @@ const input: FileDiffsFragment[] = [
     fileName: "src/pages/Patch.tsx",
     additions: 55,
     deletions: 22,
-    diffLink:
-      "http://localhost:9090/filediff/5e4ff3abe3c3317e352062e4?file_name=src%2Fpages%2FPatch.tsx&patch_number=1",
     description: "mega commit",
   },
 ];
@@ -47,8 +41,6 @@ const output = [
       fileName: "src/pages/Task.tsx",
       additions: 3,
       deletions: 0,
-      diffLink:
-        "http://localhost:9090/filediff/5e4ff3abe3c3317e352062e4?file_name=src%2Fpages%2FTask.tsx&patch_number=1",
       description: "some other commit",
     },
   ],
@@ -58,8 +50,6 @@ const output = [
       fileName: "src/App.tsx",
       additions: 0,
       deletions: 32,
-      diffLink:
-        "http://localhost:9090/filediff/5e4ff3abe3c3317e352062e4?file_name=src%2FApp.tsx&patch_number=1",
       description: "crazy cool commit!!!",
     },
   ],
@@ -69,8 +59,6 @@ const output = [
       fileName: "src/pages/Patch.tsx",
       additions: 55,
       deletions: 22,
-      diffLink:
-        "http://localhost:9090/filediff/5e4ff3abe3c3317e352062e4?file_name=src%2Fpages%2FPatch.tsx&patch_number=1",
       description: "mega commit",
     },
   ],
