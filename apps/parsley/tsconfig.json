@@ -1,14 +1,14 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "src",
     "paths": {
       "@evg-ui/fungi/*": [
-        "../../../packages/fungi/src/*"
+        "../../packages/fungi/src/*"
       ],
       "@evg-ui/lib/*": [
-        "../../../packages/lib/src/*"
-      ]
+        "../../packages/lib/src/*"
+      ],
+      "*": ["./src/*"]
     }
   },
   "include": [

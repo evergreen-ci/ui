@@ -1,0 +1,210 @@
+import { MockedProvider } from "@apollo/client/testing";
+import { vi } from "vitest";
+import { renderWithRouterMatch, screen, waitFor } from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { getVersionDiffRoute } from "constants/routes";
+import {
+  CodeChangesQuery,
+  CodeChangesQueryVariables,
+} from "gql/generated/types";
+import { CODE_CHANGES } from "gql/queries";
+import { CodeChanges } from ".";
+
+vi.mock("constants/routes", () => ({
+  getVersionDiffRoute: vi.fn(
+    (versionId: string, moduleIndex: number) =>
+      `/version/${versionId}/diff?patch_number=${moduleIndex}`,
+  ),
+}));
+
+const mockGetVersionDiffRoute = vi.mocked(getVersionDiffRoute);
+
+describe("CodeChanges", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("passes index 0 to getVersionDiffRoute for the first module", async () => {
+    const patchId = "testPatchId";
+    const mocks: ApolloMock<CodeChangesQuery, CodeChangesQueryVariables>[] = [
+      {
+        request: {
+          query: CODE_CHANGES,
+          variables: { id: patchId },
+        },
+        result: {
+          data: {
+            patch: {
+              __typename: "Patch",
+              id: patchId,
+              moduleCodeChanges: [
+                {
+                  __typename: "ModuleCodeChange",
+                  branchName: "main",
+                  htmlLink: "htmlLink",
+                  rawLink: "rawLink",
+                  fileDiffs: [
+                    {
+                      __typename: "FileDiff",
+                      additions: 5,
+                      deletions: 3,
+                      description: "test commit",
+                      diffLink: "diffLink",
+                      fileName: "test.ts",
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        },
+      },
+    ];
+
+    renderWithRouterMatch(
+      <MockedProvider mocks={mocks}>
+        <CodeChanges patchId={patchId} />
+      </MockedProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByDataCy("code-changes")).toBeInTheDocument();
+    });
+
+    expect(mockGetVersionDiffRoute).toHaveBeenCalledWith(patchId, 0);
+    const htmlButton = screen.getByDataCy("html-diff-btn");
+    expect(htmlButton).toHaveAttribute(
+      "href",
+      `/version/${patchId}/diff?patch_number=0`,
+    );
+  });
+
+  it("passes correct index to getVersionDiffRoute for multiple modules", async () => {
+    const patchId = "testPatchId";
+    const mocks: ApolloMock<CodeChangesQuery, CodeChangesQueryVariables>[] = [
+      {
+        request: {
+          query: CODE_CHANGES,
+          variables: { id: patchId },
+        },
+        result: {
+          data: {
+            patch: {
+              __typename: "Patch",
+              id: patchId,
+              moduleCodeChanges: [
+                {
+                  __typename: "ModuleCodeChange",
+                  branchName: "main",
+                  htmlLink: "htmlLink1",
+                  rawLink: "rawLink1",
+                  fileDiffs: [
+                    {
+                      __typename: "FileDiff",
+                      additions: 5,
+                      deletions: 3,
+                      description: "test commit 1",
+                      diffLink: "diffLink1",
+                      fileName: "test1.ts",
+                    },
+                  ],
+                },
+                {
+                  __typename: "ModuleCodeChange",
+                  branchName: "feature",
+                  htmlLink: "htmlLink2",
+                  rawLink: "rawLink2",
+                  fileDiffs: [
+                    {
+                      __typename: "FileDiff",
+                      additions: 10,
+                      deletions: 2,
+                      description: "test commit 2",
+                      diffLink: "diffLink2",
+                      fileName: "test2.ts",
+                    },
+                  ],
+                },
+                {
+                  __typename: "ModuleCodeChange",
+                  branchName: "develop",
+                  htmlLink: "htmlLink3",
+                  rawLink: "rawLink3",
+                  fileDiffs: [
+                    {
+                      __typename: "FileDiff",
+                      additions: 7,
+                      deletions: 1,
+                      description: "test commit 3",
+                      diffLink: "diffLink3",
+                      fileName: "test3.ts",
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        },
+      },
+    ];
+
+    renderWithRouterMatch(
+      <MockedProvider mocks={mocks}>
+        <CodeChanges patchId={patchId} />
+      </MockedProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByDataCy("code-changes")).toBeInTheDocument();
+    });
+
+    expect(mockGetVersionDiffRoute).toHaveBeenCalledTimes(3);
+    expect(mockGetVersionDiffRoute).toHaveBeenNthCalledWith(1, patchId, 0);
+    expect(mockGetVersionDiffRoute).toHaveBeenNthCalledWith(2, patchId, 1);
+    expect(mockGetVersionDiffRoute).toHaveBeenNthCalledWith(3, patchId, 2);
+
+    const htmlButtons = screen.getAllByDataCy("html-diff-btn");
+    expect(htmlButtons).toHaveLength(3);
+    expect(htmlButtons[0]).toHaveAttribute(
+      "href",
+      `/version/${patchId}/diff?patch_number=0`,
+    );
+    expect(htmlButtons[1]).toHaveAttribute(
+      "href",
+      `/version/${patchId}/diff?patch_number=1`,
+    );
+    expect(htmlButtons[2]).toHaveAttribute(
+      "href",
+      `/version/${patchId}/diff?patch_number=2`,
+    );
+  });
+
+  it("displays loading state", () => {
+    const patchId = "testPatchId";
+    const mocks: ApolloMock<CodeChangesQuery, CodeChangesQueryVariables>[] = [
+      {
+        request: {
+          query: CODE_CHANGES,
+          variables: { id: patchId },
+        },
+        result: {
+          data: {
+            patch: {
+              __typename: "Patch",
+              id: patchId,
+              moduleCodeChanges: [],
+            },
+          },
+        },
+      },
+    ];
+
+    renderWithRouterMatch(
+      <MockedProvider mocks={mocks}>
+        <CodeChanges patchId={patchId} />
+      </MockedProvider>,
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+  });
+});

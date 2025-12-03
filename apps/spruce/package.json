@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.1.20",
+  "version": "6.1.22",
   "private": true,
   "type": "module",
   "scripts": {
@@ -28,7 +28,6 @@
     "eslint:staged": "STRICT=1 eslint --concurrency=auto",
     "eslint:strict": "STRICT=1 eslint --max-warnings=62 --concurrency=auto .",
     "evg-db-ops": "../../scripts/evg-db-ops.sh",
-    "postinstall": "yarn workspace @evg-ui/vite-utils run compile",
     "postversion": "yarn deploy-utils-postversion",
     "prepare": "yarn --cwd='../..' prepare",
     "preview": "serve -s dist -p 3000",
@@ -58,6 +57,7 @@
     "@emotion/css": "11.13.5",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
+    "@evg-ui/analytics-visualizer": "*",
     "@evg-ui/deploy-utils": "*",
     "@evg-ui/lib": "*",
     "@leafygreen-ui/badge": "^10.2.3",
@@ -143,7 +143,7 @@
     "@graphql-codegen/cli": "6.0.1",
     "@graphql-codegen/typescript": "5.0.2",
     "@graphql-codegen/typescript-operations": "5.0.2",
-    "@sentry/vite-plugin": "^4.4.0",
+    "@sentry/vite-plugin": "^4.6.0",
     "@storybook/react-vite": "^9.0.18",
     "@styled/typescript-styled-plugin": "1.0.1",
     "@testing-library/jest-dom": "6.9.1",
@@ -182,6 +182,6 @@
     "vitest-canvas-mock": "0.3.3"
   },
   "engines": {
-    "node": ">=22.14.0"
+    "node": ">=22.18.0"
   }
 }

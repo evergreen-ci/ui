@@ -11,7 +11,7 @@ import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { TASK_HISTORY_INACTIVE_COMMITS_VIEW } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { isMainlineRequester, Requester } from "constants/requesters";
+import { isWaterfallRequester, Requester } from "constants/requesters";
 import {
   TaskHistoryDirection,
   TaskHistoryQuery,
@@ -62,7 +62,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
 
   const { buildVariant, displayName: taskName, project, requester } = task;
   const { identifier: projectIdentifier = "" } = project ?? {};
-  const isPatch = !isMainlineRequester(requester as Requester);
+  const isPatch = !isWaterfallRequester(requester as Requester);
 
   const [queryParams, setQueryParams] = useQueryParams();
   const [failingTest] = useQueryParam<string>(

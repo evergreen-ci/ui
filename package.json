@@ -14,8 +14,7 @@
     "codegen": "for app in spruce parsley @evg-ui/lib; do yarn workspace $app run codegen; done",
     "prepare": "husky",
     "storybook": "concurrently \"yarn workspace spruce run storybook --no-open\" \"yarn workspace parsley run storybook --no-open\" \"yarn workspace @evg-ui/lib run storybook --no-open\" \"yarn workspace @evg-ui/fungi run storybook --no-open\" \"sleep 5 && storybook dev\"",
-    "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts",
-    "postinstall": "yarn workspace @evg-ui/vite-utils run compile"
+    "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts"
   },
   "devDependencies": {
     "@evg-ui/storybook-addon": "*",

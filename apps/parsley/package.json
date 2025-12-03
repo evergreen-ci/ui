@@ -1,6 +1,6 @@
 {
   "name": "parsley",
-  "version": "3.1.13",
+  "version": "3.1.15",
   "private": true,
   "type": "module",
   "scripts": {
@@ -26,7 +26,6 @@
     "eslint:staged": "STRICT=1 eslint --concurrency=3",
     "eslint:strict": "STRICT=1 eslint --concurrency=3 .",
     "evg-db-ops": "../../scripts/evg-db-ops.sh",
-    "postinstall": "yarn workspace @evg-ui/vite-utils run compile",
     "postversion": "yarn deploy-utils-postversion",
     "prepare": "yarn --cwd='../..' prepare",
     "preview": "serve -s dist -p 4173",
@@ -44,6 +43,7 @@
     "@apollo/client": "3.10.4",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
+    "@evg-ui/analytics-visualizer": "*",
     "@evg-ui/deploy-utils": "*",
     "@evg-ui/fungi": "*",
     "@evg-ui/lib": "*",
@@ -99,10 +99,11 @@
     "@evg-ui/eslint-config": "*",
     "@evg-ui/lint-staged": "*",
     "@evg-ui/storybook-addon": "*",
+    "@evg-ui/vite-utils": "*",
     "@graphql-codegen/cli": "6.0.1",
     "@graphql-codegen/typescript": "5.0.2",
     "@graphql-codegen/typescript-operations": "5.0.2",
-    "@sentry/vite-plugin": "^4.4.0",
+    "@sentry/vite-plugin": "^4.6.0",
     "@storybook/react-vite": "^9.0.18",
     "@styled/typescript-styled-plugin": "1.0.1",
     "@testing-library/jest-dom": "6.9.1",
@@ -137,6 +138,6 @@
     "vitest": "^3.2.4"
   },
   "engines": {
-    "node": ">=22.14.0"
+    "node": ">=22.18.0"
   }
 }

@@ -11,6 +11,7 @@ import { toArray } from "utils/array";
 export enum PageNames {
   HTMLLog = "html-log",
   TestHTMLLog = "test-html-log",
+  Diff = "diff",
   Patches = "patches",
   Settings = "settings",
 }
@@ -165,6 +166,7 @@ export const routes = {
   task: `${paths.task}/:${slugs.taskId}/:${slugs.tab}?`,
   taskHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.HTMLLog}`,
   testHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.TestHTMLLog}`,
+  versionDiff: `${paths.version}/:${slugs.versionId}/${PageNames.Diff}`,
   taskQueue: `${paths.taskQueue}/:${slugs.distroId}?`,
   user: paths.user,
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
@@ -275,6 +277,15 @@ export const getTestHTMLLogRoute = (
     path += `#L${lineNum}`;
   }
   return path;
+};
+
+export const getVersionDiffRoute = (versionId: string, moduleIndex: number) => {
+  const queryParams = stringifyQuery({
+    patch_number: moduleIndex,
+  });
+  return generatePath(`${routes.versionDiff}?${queryParams}`, {
+    versionId,
+  });
 };
 
 export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>
