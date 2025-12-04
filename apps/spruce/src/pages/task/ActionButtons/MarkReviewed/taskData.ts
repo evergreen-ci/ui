@@ -107,8 +107,6 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
       "https://evergreen.mongodb.com/task_log_raw/evergreen_ui_parsley_test_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51/0?type=E",
     allLogLink:
       "https://evergreen.mongodb.com/task_log_raw/evergreen_ui_parsley_test_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51/0?type=ALL",
-    eventLogLink:
-      "https://evergreen.mongodb.com/event_log/task/evergreen_ui_parsley_test_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51",
     systemLogLink:
       "https://evergreen.mongodb.com/task_log_raw/evergreen_ui_parsley_test_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51/0?type=S",
     taskLogLink:
@@ -285,8 +283,6 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
       "https://evergreen.mongodb.com/task_log_raw/evergreen_ui_spruce_display_e2e_parallel_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51/0?type=E",
     allLogLink:
       "https://evergreen.mongodb.com/task_log_raw/evergreen_ui_spruce_display_e2e_parallel_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51/0?type=ALL",
-    eventLogLink:
-      "https://evergreen.mongodb.com/event_log/task/evergreen_ui_spruce_display_e2e_parallel_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51",
     systemLogLink:
       "https://evergreen.mongodb.com/task_log_raw/evergreen_ui_spruce_display_e2e_parallel_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51/0?type=S",
     taskLogLink:

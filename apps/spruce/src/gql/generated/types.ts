@@ -4373,7 +4373,7 @@ export type TaskQueueItem = {
   priority: Scalars["Int"]["output"];
   project: Scalars["String"]["output"];
   projectIdentifier?: Maybe<Scalars["String"]["output"]>;
-  requester: TaskQueueItemType;
+  requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
   version: Scalars["String"]["output"];
 };
@@ -8337,7 +8337,7 @@ export type DistroTaskQueueQuery = {
     priority: number;
     project: string;
     projectIdentifier?: string | null;
-    requester: TaskQueueItemType;
+    requester: string;
     version: string;
   }>;
 };
@@ -11437,7 +11437,6 @@ export type TaskQuery = {
       __typename?: "TaskLogLinks";
       agentLogLink?: string | null;
       allLogLink?: string | null;
-      eventLogLink?: string | null;
       systemLogLink?: string | null;
       taskLogLink?: string | null;
     };

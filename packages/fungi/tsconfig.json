@@ -9,11 +9,9 @@
     "src/**/*.d.ts"
   ],
   "compilerOptions": {
-    "baseUrl": "src",
     "paths": {
-      "@evg-ui/lib/*": [
-        "../../../packages/lib/src/*"
-      ]
+      "@evg-ui/lib/*": ["../lib/src/*"],
+      "*": ["./src/*"]
     }
   },
   "references": [
