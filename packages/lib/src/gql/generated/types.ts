@@ -4312,7 +4312,6 @@ export type TaskLogLinks = {
   __typename?: "TaskLogLinks";
   agentLogLink?: Maybe<Scalars["String"]["output"]>;
   allLogLink?: Maybe<Scalars["String"]["output"]>;
-  eventLogLink?: Maybe<Scalars["String"]["output"]>;
   systemLogLink?: Maybe<Scalars["String"]["output"]>;
   taskLogLink?: Maybe<Scalars["String"]["output"]>;
 };
@@ -4379,11 +4378,6 @@ export type TaskQueueItem = {
   revision: Scalars["String"]["output"];
   version: Scalars["String"]["output"];
 };
-
-export enum TaskQueueItemType {
-  Commit = "COMMIT",
-  Patch = "PATCH",
-}
 
 export enum TaskSortCategory {
   BaseStatus = "BASE_STATUS",

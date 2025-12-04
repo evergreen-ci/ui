@@ -88,6 +88,34 @@ describe("ansiRow", () => {
     expect(screen.getByDataCy("highlight")).toHaveTextContent("highlight me");
   });
 
+  it("should pretty print logs", () => {
+    renderRow(
+      {
+        ...ansiProps,
+        lineIndex: 11,
+        lineNumber: 11,
+        prettyPrint: true,
+      },
+      {
+        routerOptions: {
+          route: "/?bookmarks=11",
+        },
+      },
+    );
+    expect(
+      screen.getByText("JSON data:", {
+        exact: false,
+      }).textContent,
+    ).toBe(`JSON data:
+{
+    target: "localhost:20004",
+    when: {
+        $date: "2022-09-21T12:50:21.899Z"
+    }
+}
+`);
+  });
+
   describe("when rendering lines with priority", () => {
     it("renders a low-priority line in black", () => {
       const rgbBlack = "rgb(51, 51, 51)";
@@ -133,6 +161,7 @@ const logLines = [
   "Some line with a url https://www.google.com",
   "some random text that should not be highlighted but highlight me should",
   "",
+  `JSON data:{"target":"localhost:20004","when":{"$date":"2022-09-21T12:50:21.899Z"}}`,
 ];
 
 const priorityLogLines = [
