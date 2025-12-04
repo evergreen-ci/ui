@@ -295,12 +295,10 @@ export const getFileDiffRoute = (
   versionId: string,
   fileName: string,
   patchNumber?: number,
-  commitNumber?: number,
 ) => {
   const queryParams = {
     file_name: fileName,
     ...(patchNumber !== undefined && { patch_number: patchNumber }),
-    ...(commitNumber !== undefined && { commit_number: commitNumber }),
   };
   const queryString = stringifyQuery(queryParams);
   return generatePath(`${routes.versionFileDiff}?${queryString}`, {

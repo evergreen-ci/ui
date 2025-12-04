@@ -41,17 +41,10 @@ const getColumns = (patchId: string, moduleIndex: number) => [
       getValue,
       row: {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-        index,
-        // @ts-expect-error: FIXME - implicit column typing does not work correctly
         original: { fileName },
       },
     }) => {
-      const fileDiffRoute = getFileDiffRoute(
-        patchId,
-        fileName,
-        moduleIndex,
-        index,
-      );
+      const fileDiffRoute = getFileDiffRoute(patchId, fileName, moduleIndex);
       return (
         <StyledLink data-cy="fileLink" href={fileDiffRoute}>
           <WordBreak>{getValue()}</WordBreak>

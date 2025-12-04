@@ -45,3 +45,11 @@ export const getRawDiffUrl = (
   }
   return `${getEvergreenUrl()}/rawdiff/${versionId}/?patch_number=${patchNumber}`;
 };
+
+export const escapeHtml = (unsafe: string) =>
+  unsafe
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");

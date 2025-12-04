@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useHTMLStream } from "hooks/useHTMLStream";
-import { getDiffLineType, getLineStyle } from "./utils";
+import { escapeHtml, getDiffLineType, getLineStyle } from "./utils";
 
 interface UsePatchDiffStreamOptions {
   url: string | null;
@@ -28,11 +28,3 @@ export const usePatchDiffStream = ({
     processLine,
   });
 };
-
-const escapeHtml = (unsafe: string) =>
-  unsafe
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");

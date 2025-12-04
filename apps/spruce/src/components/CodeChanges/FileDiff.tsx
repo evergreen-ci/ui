@@ -17,15 +17,12 @@ export const FileDiff: React.FC = () => {
 
   const fileName = decodeURIComponent(searchParams.get("file_name") || "");
   const patchNumber = searchParams.get("patch_number") || "0";
-  const commitNumber =
-    parseInt(searchParams.get("commit_number") || "0", 10) || 0;
   const url = getRawDiffUrl(versionId, patchNumber);
 
   const { error, isLoading } = useFileDiffStream({
     url,
     containerRef,
     fileName,
-    commitNumber,
   });
 
   if (error) {

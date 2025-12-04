@@ -1,63 +1,56 @@
 import { useCallback, useRef, useEffect } from "react";
 import { useHTMLStream } from "hooks/useHTMLStream";
-import { getDiffLineType, getLineStyle, isNewFileDiff } from "./utils";
+import {
+  escapeHtml,
+  getDiffLineType,
+  getLineStyle,
+  isNewFileDiff,
+} from "./utils";
 
 interface UseFileDiffStreamOptions {
   url: string | null;
   containerRef: React.RefObject<HTMLPreElement>;
   fileName: string;
-  commitNumber?: number;
 }
 
 export const useFileDiffStream = ({
-  commitNumber = 0,
   containerRef,
   fileName,
   url,
 }: UseFileDiffStreamOptions) => {
-  const stateRef = useRef({
-    occurrenceIndex: 0,
-    shouldRender: false,
-  });
+  const shouldRenderRef = useRef(false);
 
   useEffect(() => {
-    stateRef.current = {
-      occurrenceIndex: 0,
-      shouldRender: false,
-    };
-  }, [fileName, commitNumber, url]);
+    shouldRenderRef.current = false;
+  }, [fileName]);
 
   const processLine = useCallback(
     (lineContent: string) => {
       const isNewFile = isNewFileDiff(lineContent);
 
-      if (stateRef.current.shouldRender && isNewFile) {
-        stateRef.current.shouldRender = false;
+      if (isNewFile && shouldRenderRef.current) {
+        shouldRenderRef.current = false;
         return { htmlContent: "", style: undefined };
       }
 
       if (isNewFile) {
+        // Extract filename from after 'b/' in git diff output
         const filePathMatch = lineContent.match(/b\/(.+)$/);
-        const filePath = filePathMatch ? filePathMatch[1] : "";
-        const isTargetFile =
-          filePath === fileName || lineContent.includes(fileName);
-
-        if (isTargetFile) {
-          // commitNumber is the 0-indexed occurrence index of this file
-          // Show when occurrenceIndex matches commitNumber
-          if (stateRef.current.occurrenceIndex === commitNumber) {
-            stateRef.current.shouldRender = true;
-          } else {
-            stateRef.current.shouldRender = false;
-          }
-          stateRef.current.occurrenceIndex += 1;
+        if (filePathMatch) {
+          const filePath = filePathMatch[1].trim();
+          const getBasename = (path: string) => {
+            const lastSlash = path.lastIndexOf("/");
+            return lastSlash === -1 ? path : path.substring(lastSlash + 1);
+          };
+          const filePathBasename = getBasename(filePath);
+          const fileNameBasename = getBasename(fileName.trim());
+          shouldRenderRef.current = filePathBasename === fileNameBasename;
         } else {
-          stateRef.current.shouldRender = false;
+          shouldRenderRef.current = false;
         }
       }
 
-      // Render line if it belongs to the target file
-      if (stateRef.current.shouldRender) {
+      if (shouldRenderRef.current) {
         const diffType = getDiffLineType(lineContent);
         const style = getLineStyle(diffType);
         return {
@@ -68,7 +61,7 @@ export const useFileDiffStream = ({
 
       return { htmlContent: "", style: undefined };
     },
-    [fileName, commitNumber],
+    [fileName],
   );
 
   return useHTMLStream({
@@ -78,11 +71,3 @@ export const useFileDiffStream = ({
     processLine,
   });
 };
-
-const escapeHtml = (unsafe: string) =>
-  unsafe
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");

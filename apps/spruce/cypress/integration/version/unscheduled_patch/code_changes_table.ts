@@ -12,7 +12,6 @@ describe("Code Changes Table", () => {
     cy.dataCy("fileLink")
       .should("have.attr", "href")
       .and("include", `/version/${patchId}/file-diff`)
-      .and("include", "commit_number=")
       .and("include", "file_name=")
       .and("include", "patch_number=");
     cy.dataCy("html-diff-btn")
