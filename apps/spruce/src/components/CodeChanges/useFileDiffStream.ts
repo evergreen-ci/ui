@@ -38,13 +38,8 @@ export const useFileDiffStream = ({
         const filePathMatch = lineContent.match(/b\/(.+)$/);
         if (filePathMatch) {
           const filePath = filePathMatch[1].trim();
-          const getBasename = (path: string) => {
-            const lastSlash = path.lastIndexOf("/");
-            return lastSlash === -1 ? path : path.substring(lastSlash + 1);
-          };
-          const filePathBasename = getBasename(filePath);
-          const fileNameBasename = getBasename(fileName.trim());
-          shouldRenderRef.current = filePathBasename === fileNameBasename;
+          const normalizedFileName = fileName.trim();
+          shouldRenderRef.current = filePath === normalizedFileName;
         } else {
           shouldRenderRef.current = false;
         }

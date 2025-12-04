@@ -25,6 +25,14 @@ export const FileDiff: React.FC = () => {
     fileName,
   });
 
+  if (!fileName) {
+    return (
+      <Container>
+        <div>Error: file_name parameter is required</div>
+      </Container>
+    );
+  }
+
   if (error) {
     return (
       <Container>
