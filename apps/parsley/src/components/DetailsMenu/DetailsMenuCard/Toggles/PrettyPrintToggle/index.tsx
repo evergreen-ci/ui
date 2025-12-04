@@ -16,7 +16,7 @@ const PrettyPrintToggle: React.FC = () => {
         setPrettyPrint(value);
         sendEvent({ name: "Toggled pretty print", on: value });
       }}
-      tooltip="Toggle pretty printing for bookmarked lines."
+      tooltip="Pretty print bookmarked lines."
       value={prettyPrint}
     />
   );
