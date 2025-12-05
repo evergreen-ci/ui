@@ -7,32 +7,42 @@ import {
 } from "components/styles";
 import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";
+import { SubsectionHeaderRow } from "types/logs";
+import { includesLineNumber } from "utils/logRow";
 import { CaretToggle } from "../CaretToggle";
 import { SectionStatusIcon } from "../SectionStatusIcon";
 
 interface SubsectionHeaderProps extends Row {
-  commandDescription: string | undefined;
-  commandName: string;
-  functionID: string;
-  commandID: string;
-  open: boolean;
-  step: string;
-  status: SectionStatus | undefined;
-  isTopLevelCommand: boolean;
+  failingLine?: number;
+  subsectionHeaderLine: SubsectionHeaderRow;
 }
 
 const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
-  commandDescription,
-  commandID,
-  commandName,
-  functionID,
-  isTopLevelCommand,
-  open,
-  status,
-  step,
+  failingLine,
+  subsectionHeaderLine,
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const { sectioning } = useLogContext();
+
+  const {
+    commandDescription,
+    commandID,
+    commandName,
+    functionID,
+    isOpen: open,
+    isTopLevelCommand,
+    step,
+  } = subsectionHeaderLine;
+
+  let status: SectionStatus | undefined;
+
+  // Only show status icon for top-level commands.
+  if (isTopLevelCommand) {
+    status = includesLineNumber(subsectionHeaderLine, failingLine)
+      ? SectionStatus.Fail
+      : SectionStatus.Pass;
+  }
+
   return (
     <div
       aria-expanded={open}

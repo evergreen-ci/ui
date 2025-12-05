@@ -1,9 +1,7 @@
 import { LogRenderingTypes } from "constants/enums";
-import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";
 import { useHighlightParam } from "hooks/useHighlightParam";
 import { ProcessedLogLines } from "types/logs";
-import { includesLineNumber } from "utils/logRow";
 import {
   isSectionHeaderRow,
   isSkippedLinesRow,
@@ -76,38 +74,19 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     if (isSectionHeaderRow(processedLogLine)) {
       return (
         <SectionHeader
-          functionID={processedLogLine.functionID}
-          functionName={processedLogLine.functionName ?? ""}
+          failingLine={failingLine}
           lineIndex={index}
-          open={processedLogLine.isOpen}
-          status={
-            includesLineNumber(processedLogLine, failingLine)
-              ? SectionStatus.Fail
-              : SectionStatus.Pass
-          }
+          sectionHeaderLine={processedLogLine}
         />
       );
     }
 
     if (isSubsectionHeaderRow(processedLogLine)) {
-      let status;
-      // Only show status icon for top-level commands
-      if (processedLogLine.isTopLevelCommand) {
-        status = includesLineNumber(processedLogLine, failingLine)
-          ? SectionStatus.Fail
-          : SectionStatus.Pass;
-      }
       return (
         <SubsectionHeader
-          commandDescription={processedLogLine.commandDescription}
-          commandID={processedLogLine.commandID}
-          commandName={processedLogLine.commandName}
-          functionID={processedLogLine.functionID}
-          isTopLevelCommand={processedLogLine.isTopLevelCommand}
+          failingLine={failingLine}
           lineIndex={index}
-          open={processedLogLine.isOpen}
-          status={status}
-          step={processedLogLine.step}
+          subsectionHeaderLine={processedLogLine}
         />
       );
     }

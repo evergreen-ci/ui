@@ -6,25 +6,28 @@ import { Row } from "components/LogRow/types";
 import { sectionHeaderWrapperStyle } from "components/styles";
 import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";
+import { SectionHeaderRow } from "types/logs";
+import { includesLineNumber } from "utils/logRow";
 import { CaretToggle } from "../CaretToggle";
 import { SectionStatusIcon } from "../SectionStatusIcon";
 import { SubsectionControls } from "./SubsectionControls";
 
 interface SectionHeaderProps extends Row {
-  functionName: string;
-  functionID: string;
-  open: boolean;
-  status: SectionStatus;
+  failingLine?: number;
+  sectionHeaderLine: SectionHeaderRow;
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
-  functionID,
-  functionName,
-  open,
-  status,
+  failingLine,
+  sectionHeaderLine,
 }) => {
   const { sectioning } = useLogContext();
   const { sendEvent } = useLogWindowAnalytics();
+
+  const { functionID, functionName = "", isOpen: open } = sectionHeaderLine;
+  const status = includesLineNumber(sectionHeaderLine, failingLine)
+    ? SectionStatus.Fail
+    : SectionStatus.Pass;
 
   return (
     <div
