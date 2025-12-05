@@ -10,7 +10,6 @@ const { gray } = palette;
 export const ALL_VALUE = "all";
 const ALL_COPY = "All";
 export interface TreeSelectProps {
-  isDropdown?: boolean;
   isVisible?: boolean;
   onChange: (s: string[]) => void;
   setOptionsLabel?: (v: string) => void;
@@ -31,7 +30,6 @@ export interface TreeDataEntry extends TreeDataChildEntry {
 
 export const TreeSelect: React.FC<TreeSelectProps> = ({
   "data-cy": dataCy,
-  isDropdown = false,
   isVisible = true,
   onChange,
   onFilter,
@@ -71,63 +69,23 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
     return null;
   }
 
-  return isDropdown ? (
-    <RelativeWrapper>
-      <OptionsWrapper>
-        <CheckboxesWithFilters
-          data-cy={dataCy}
-          filteredState={filteredState}
-          onChange={onChange}
-          onFilter={onFilter}
-          onReset={onReset}
-          tData={tData}
+  return (
+    <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
+      {renderCheckboxes({
+        state: filteredState,
+        tData,
+        onChange,
+      })}
+      {onReset && onFilter && (
+        <FilterInputControls
+          onClickReset={onReset}
+          onClickSubmit={onFilter}
+          submitButtonCopy="Filter"
         />
-      </OptionsWrapper>
-    </RelativeWrapper>
-  ) : (
-    <CheckboxesWithFilters
-      data-cy={dataCy}
-      filteredState={filteredState}
-      onChange={onChange}
-      onFilter={onFilter}
-      onReset={onReset}
-      tData={tData}
-    />
+      )}
+    </CheckboxContainer>
   );
 };
-
-interface CheckboxesWithFiltersProps {
-  "data-cy"?: string;
-  filteredState: string[];
-  onChange: (s: string[]) => void;
-  onFilter?: () => void;
-  onReset?: () => void;
-  tData: TreeDataEntry[];
-}
-
-export const CheckboxesWithFilters: React.FC<CheckboxesWithFiltersProps> = ({
-  "data-cy": dataCy,
-  filteredState,
-  onChange,
-  onFilter,
-  onReset,
-  tData,
-}) => (
-  <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
-    {renderCheckboxes({
-      state: filteredState,
-      tData,
-      onChange,
-    })}
-    {onReset && onFilter && (
-      <FilterInputControls
-        onClickReset={onReset}
-        onClickSubmit={onFilter}
-        submitButtonCopy="Filter"
-      />
-    )}
-  </CheckboxContainer>
-);
 
 // depth first traversal checkbox data.
 // pushes parent then children to rows array
@@ -356,18 +314,7 @@ const CheckboxWrapper = styled.div<{ level: number; isAll: boolean }>`
   ${({ isAll }) => isAll && `border-bottom: 1px solid ${gray.light2};`}
 `;
 
-const OptionsWrapper = styled.div`
-  position: absolute;
-  margin-top: ${size.xxs};
-  width: 100%;
-`;
-
 const CheckboxContainer = styled.div`
   min-width: 150px; // need to set this as side effect of getPopupContainer
   font-weight: normal; // need to set this as side effect of getPopupContainer
-`;
-
-// Used to provide a basis for the absolutely positions OptionsWrapper
-const RelativeWrapper = styled.div`
-  position: relative;
 `;

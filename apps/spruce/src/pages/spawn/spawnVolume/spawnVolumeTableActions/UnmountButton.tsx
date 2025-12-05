@@ -55,10 +55,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
       trigger={
         <Button
           data-cy={`detach-btn-${volume.displayName || volume.id}`}
-          disabled={loadingDetachVolume || isHomeVolume || volume.migrating}
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
+          disabled
           size={Size.XSmall}
         >
           Unmount

@@ -38,11 +38,7 @@ export const HostPopover: React.FC<Props> = ({
   return showTooltip ? (
     <Tooltip
       trigger={
-        <Button
-          data-cy={dataCy}
-          disabled
-          onClick={() => setActive((curr) => !curr)}
-        >
+        <Button data-cy={dataCy} disabled>
           {buttonText}
         </Button>
       }
