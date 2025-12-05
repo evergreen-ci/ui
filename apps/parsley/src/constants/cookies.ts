@@ -7,6 +7,7 @@ export const PRETTY_PRINT_BOOKMARKS = "pretty-print-bookmarks";
 export const WRAP = "wrap";
 export const WRAP_FORMAT = "wrap-format";
 export const ZEBRA_STRIPING = "zebra-striping";
+export const STICKY_HEADERS = "sticky-headers";
 
 export const DRAWER_OPENED = "drawer-opened";
 export const HAS_SEEN_SEARCHBAR_GUIDE_CUE =
