@@ -13,7 +13,6 @@ import reactHooksPlugin from "eslint-plugin-react-hooks";
 import sortDestructureKeysPlugin from "eslint-plugin-sort-destructure-keys";
 import storybookPlugin from "eslint-plugin-storybook";
 import testingLibraryPlugin from "eslint-plugin-testing-library";
-import globals from "globals";
 import tseslint from "typescript-eslint";
 
 const ERROR = "error";
@@ -40,11 +39,6 @@ const globalIgnores = {
 const languageOptions = {
   name: "Language Options",
   languageOptions: {
-    globals: {
-      ...globals.browser,
-      ...globals.node,
-      vi: true,
-    },
     parserOptions: {
       ecmaFeatures: {
         jsx: true,
