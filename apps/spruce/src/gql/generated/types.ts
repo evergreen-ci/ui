@@ -5229,7 +5229,6 @@ export type FileDiffsFragment = {
   additions: number;
   deletions: number;
   description: string;
-  diffLink: string;
   fileName: string;
 };
 
@@ -5243,14 +5242,12 @@ export type LogMessageFragment = {
 export type ModuleCodeChangeFragment = {
   __typename?: "ModuleCodeChange";
   branchName: string;
-  htmlLink: string;
   rawLink: string;
   fileDiffs: Array<{
     __typename?: "FileDiff";
     additions: number;
     deletions: number;
     description: string;
-    diffLink: string;
     fileName: string;
   }>;
 };
@@ -8258,14 +8255,12 @@ export type CodeChangesQuery = {
     moduleCodeChanges: Array<{
       __typename?: "ModuleCodeChange";
       branchName: string;
-      htmlLink: string;
       rawLink: string;
       fileDiffs: Array<{
         __typename?: "FileDiff";
         additions: number;
         deletions: number;
         description: string;
-        diffLink: string;
         fileName: string;
       }>;
     }>;

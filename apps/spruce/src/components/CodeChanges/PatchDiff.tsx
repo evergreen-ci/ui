@@ -1,28 +1,22 @@
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, useSearchParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { styles } from "hooks/useHTMLStream/utils";
-import { getEvergreenUrl } from "utils/environmentVariables";
-import { useDiffStream } from "./useDiffStream";
+import { usePatchDiffStream } from "./usePatchDiffStream";
+import { getRawDiffUrl } from "./utils";
 
-export const DiffPage: React.FC = () => {
+export const PatchDiff: React.FC = () => {
   const { versionId } = useParams<{ versionId: string }>();
   const [searchParams] = useSearchParams();
   const containerRef = useRef<HTMLPreElement | null>(null);
 
   const patchNumber = searchParams.get("patch_number") || "0";
+  const url = getRawDiffUrl(versionId, patchNumber);
 
-  const url = useMemo(() => {
-    if (!versionId) {
-      return null;
-    }
-    return `${getEvergreenUrl()}/rawdiff/${versionId}/?patch_number=${patchNumber}`;
-  }, [patchNumber, versionId]);
-
-  const { error, isLoading } = useDiffStream({
+  const { error, isLoading } = usePatchDiffStream({
     url,
     containerRef,
   });

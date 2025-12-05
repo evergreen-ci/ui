@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Badge } from "@leafygreen-ui/badge";
+import { Badge as LGBadge } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
 
@@ -8,11 +8,11 @@ interface Props {
   deletions: number;
 }
 
-export const CodeChangesBadge: React.FC<Props> = ({ additions, deletions }) => (
-  <Badge>
+export const Badge: React.FC<Props> = ({ additions, deletions }) => (
+  <LGBadge>
     <FileDiffText type="+" value={additions} />
     <FileDiffText type="-" value={deletions} />
-  </Badge>
+  </LGBadge>
 );
 
 interface FileDiffTextProps {
@@ -38,6 +38,6 @@ const FileDiffTextContainer = styled("span")`
     props.hasValue &&
     (props.type === "+" ? `color: ${green.dark1};` : `color: ${red.base};`)}
   &:nth-of-type(2) {
-    margin-left: ${size.s};
+    margin-left: ${size.xs};
   }
 `;

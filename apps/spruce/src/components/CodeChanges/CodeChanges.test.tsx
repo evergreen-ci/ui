@@ -15,6 +15,17 @@ vi.mock("constants/routes", () => ({
     (versionId: string, moduleIndex: number) =>
       `/version/${versionId}/diff?patch_number=${moduleIndex}`,
   ),
+  getFileDiffRoute: vi.fn(
+    (versionId: string, fileName: string, patchNumber?: number) => {
+      const params = new URLSearchParams();
+      params.set("file_name", fileName);
+      if (patchNumber !== undefined) {
+        params.set("patch_number", patchNumber.toString());
+      }
+      const query = params.toString();
+      return `/version/${versionId}/file-diff?${query}`;
+    },
+  ),
 }));
 
 const mockGetVersionDiffRoute = vi.mocked(getVersionDiffRoute);
@@ -41,7 +52,6 @@ describe("CodeChanges", () => {
                 {
                   __typename: "ModuleCodeChange",
                   branchName: "main",
-                  htmlLink: "htmlLink",
                   rawLink: "rawLink",
                   fileDiffs: [
                     {
@@ -49,7 +59,6 @@ describe("CodeChanges", () => {
                       additions: 5,
                       deletions: 3,
                       description: "test commit",
-                      diffLink: "diffLink",
                       fileName: "test.ts",
                     },
                   ],
@@ -96,7 +105,6 @@ describe("CodeChanges", () => {
                 {
                   __typename: "ModuleCodeChange",
                   branchName: "main",
-                  htmlLink: "htmlLink1",
                   rawLink: "rawLink1",
                   fileDiffs: [
                     {
@@ -104,7 +112,6 @@ describe("CodeChanges", () => {
                       additions: 5,
                       deletions: 3,
                       description: "test commit 1",
-                      diffLink: "diffLink1",
                       fileName: "test1.ts",
                     },
                   ],
@@ -112,7 +119,6 @@ describe("CodeChanges", () => {
                 {
                   __typename: "ModuleCodeChange",
                   branchName: "feature",
-                  htmlLink: "htmlLink2",
                   rawLink: "rawLink2",
                   fileDiffs: [
                     {
@@ -120,7 +126,6 @@ describe("CodeChanges", () => {
                       additions: 10,
                       deletions: 2,
                       description: "test commit 2",
-                      diffLink: "diffLink2",
                       fileName: "test2.ts",
                     },
                   ],
@@ -128,7 +133,6 @@ describe("CodeChanges", () => {
                 {
                   __typename: "ModuleCodeChange",
                   branchName: "develop",
-                  htmlLink: "htmlLink3",
                   rawLink: "rawLink3",
                   fileDiffs: [
                     {
@@ -136,7 +140,6 @@ describe("CodeChanges", () => {
                       additions: 7,
                       deletions: 1,
                       description: "test commit 3",
-                      diffLink: "diffLink3",
                       fileName: "test3.ts",
                     },
                   ],

@@ -12,6 +12,7 @@ export enum PageNames {
   HTMLLog = "html-log",
   TestHTMLLog = "test-html-log",
   Diff = "diff",
+  FileDiff = "file-diff",
   Patches = "patches",
   Settings = "settings",
 }
@@ -109,6 +110,7 @@ export enum slugs {
   buildId = "buildId",
   distroId = "distroId",
   execution = "execution",
+  fileName = "fileName",
   groupId = "groupId",
   hostId = "hostId",
   imageId = "imageId",
@@ -167,6 +169,7 @@ export const routes = {
   taskHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.HTMLLog}`,
   testHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.TestHTMLLog}`,
   versionDiff: `${paths.version}/:${slugs.versionId}/${PageNames.Diff}`,
+  versionFileDiff: `${paths.version}/:${slugs.versionId}/${PageNames.FileDiff}`,
   taskQueue: `${paths.taskQueue}/:${slugs.distroId}?`,
   user: paths.user,
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
@@ -284,6 +287,21 @@ export const getVersionDiffRoute = (versionId: string, moduleIndex: number) => {
     patch_number: moduleIndex,
   });
   return generatePath(`${routes.versionDiff}?${queryParams}`, {
+    versionId,
+  });
+};
+
+export const getFileDiffRoute = (
+  versionId: string,
+  fileName: string,
+  patchNumber?: number,
+) => {
+  const queryParams = {
+    file_name: fileName,
+    ...(patchNumber !== undefined && { patch_number: patchNumber }),
+  };
+  const queryString = stringifyQuery(queryParams);
+  return generatePath(`${routes.versionFileDiff}?${queryString}`, {
     versionId,
   });
 };

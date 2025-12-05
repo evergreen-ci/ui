@@ -1,16 +1,21 @@
 import { WordBreak, StyledLink } from "@evg-ui/lib/components/styles";
 import { useLeafyGreenTable, BaseTable } from "@evg-ui/lib/components/Table";
-import { FileDiffText } from "components/CodeChangesBadge";
+import { getFileDiffRoute } from "constants/routes";
 import { FileDiffsFragment } from "gql/generated/types";
+import { FileDiffText } from "./Badge";
 
-interface CodeChangesTableProps {
+interface TableProps {
   fileDiffs: FileDiffsFragment[];
+  patchId: string;
+  moduleIndex: number;
 }
-export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
+export const Table: React.FC<TableProps> = ({
   fileDiffs,
+  moduleIndex,
+  patchId,
 }) => {
   const table = useLeafyGreenTable({
-    columns,
+    columns: getColumns(patchId, moduleIndex),
     data: fileDiffs ?? [],
     enableColumnFilters: false,
     enableSorting: false,
@@ -26,7 +31,7 @@ export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
   );
 };
 
-const columns = [
+const getColumns = (patchId: string, moduleIndex: number) => [
   {
     accessorKey: "fileName",
     header: "File Name",
@@ -36,13 +41,16 @@ const columns = [
       getValue,
       row: {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-        original: { diffLink },
+        original: { fileName },
       },
-    }) => (
-      <StyledLink data-cy="fileLink" href={diffLink}>
-        <WordBreak>{getValue()}</WordBreak>
-      </StyledLink>
-    ),
+    }) => {
+      const fileDiffRoute = getFileDiffRoute(patchId, fileName, moduleIndex);
+      return (
+        <StyledLink data-cy="fileLink" href={fileDiffRoute}>
+          <WordBreak>{getValue()}</WordBreak>
+        </StyledLink>
+      );
+    },
   },
   {
     accessorKey: "additions",
