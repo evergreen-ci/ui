@@ -1,7 +1,6 @@
 import { useQuery, useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
-import { Tooltip } from "@leafygreen-ui/tooltip";
-import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
+import { Align, Justify, Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
@@ -49,45 +48,47 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
   // one of the volumes was a home volume but is no longer attached to a host
   const isHomeVolume = myHosts?.some((h) => h.homeVolumeID === volume.id);
 
-  return (
-    <ConditionalWrapper
-      altWrapper={(children) => (
-        <Popconfirm
-          align="left"
-          onConfirm={() => {
-            spawnAnalytics.sendEvent({
-              name: "Changed unmounted volume on host",
-              "volume.id": volume.id,
-            });
-            detachVolume({ variables: { volumeId: volume.id } });
-          }}
-          trigger={children as JSX.Element}
+  return isHomeVolume ? (
+    <Tooltip
+      align={Align.Left}
+      justify={Justify.Middle}
+      trigger={
+        <Button
+          data-cy={`detach-btn-${volume.displayName || volume.id}`}
+          disabled
+          size={Size.XSmall}
         >
-          Detach this volume {volumeName} from host {hostName}?
-        </Popconfirm>
-      )}
-      condition={isHomeVolume}
-      wrapper={(children) => (
-        <Tooltip
-          align="top"
-          justify="middle"
-          trigger={children as JSX.Element}
-          triggerEvent="hover"
-        >
-          Cannot unmount home volume
-        </Tooltip>
-      )}
+          Unmount
+        </Button>
+      }
+      triggerEvent={TriggerEvent.Hover}
     >
-      <Button
-        data-cy={`detach-btn-${volume.displayName || volume.id}`}
-        disabled={loadingDetachVolume || isHomeVolume || volume.migrating}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        size={Size.XSmall}
-      >
-        Unmount
-      </Button>
-    </ConditionalWrapper>
+      Cannot unmount home volume.
+    </Tooltip>
+  ) : (
+    <Popconfirm
+      align={Align.Left}
+      onConfirm={() => {
+        spawnAnalytics.sendEvent({
+          name: "Changed unmounted volume on host",
+          "volume.id": volume.id,
+        });
+        detachVolume({ variables: { volumeId: volume.id } });
+      }}
+      trigger={
+        <Button
+          data-cy={`detach-btn-${volume.displayName || volume.id}`}
+          disabled={loadingDetachVolume || volume.migrating}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          size={Size.XSmall}
+        >
+          Unmount
+        </Button>
+      }
+    >
+      Detach this volume {volumeName} from host {hostName}?
+    </Popconfirm>
   );
 };

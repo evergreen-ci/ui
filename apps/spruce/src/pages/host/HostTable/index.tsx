@@ -97,34 +97,7 @@ const HostTable: React.FC<HostTableProps> = ({
   const hostEvents = useMemo(() => eventLogEntries ?? [], [eventLogEntries]);
 
   const columns: LGColumnDef<HostEvent>[] = useMemo(
-    () => [
-      {
-        header: "Date",
-        accessorKey: "timestamp",
-        cell: ({ getValue }) => getDateCopy(getValue() as Date),
-        meta: {
-          width: "25%",
-        },
-      },
-      {
-        header: "Event",
-        accessorKey: "eventType",
-        id: HostQueryParams.EventType,
-        cell: ({ getValue, row }) => (
-          <HostEventString
-            data={row.original.data}
-            eventType={getValue() as string}
-          />
-        ),
-        enableColumnFilter: true,
-        meta: {
-          treeSelect: {
-            "data-cy": "event-type-filter",
-            options: eventTypeFilterOptions,
-          },
-        },
-      },
-    ],
+    () => getColumns(getDateCopy, eventTypeFilterOptions),
     [getDateCopy, eventTypeFilterOptions],
   );
 
@@ -177,6 +150,38 @@ const HostTable: React.FC<HostTableProps> = ({
     </HostCard>
   );
 };
+
+const getColumns = (
+  getDateCopy: (date: Date) => string,
+  eventTypeFilterOptions: { title: string; value: string; key: string }[],
+): LGColumnDef<HostEvent>[] => [
+  {
+    header: "Date",
+    accessorKey: "timestamp",
+    cell: ({ getValue }) => getDateCopy(getValue() as Date),
+    meta: {
+      width: "25%",
+    },
+  },
+  {
+    header: "Event",
+    accessorKey: "eventType",
+    id: HostQueryParams.EventType,
+    cell: ({ getValue, row }) => (
+      <HostEventString
+        data={row.original.data}
+        eventType={getValue() as string}
+      />
+    ),
+    enableColumnFilter: true,
+    meta: {
+      treeSelect: {
+        "data-cy": "event-type-filter",
+        options: eventTypeFilterOptions,
+      },
+    },
+  },
+];
 
 const TableTitle = styled.div`
   display: flex;
