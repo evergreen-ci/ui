@@ -4310,7 +4310,6 @@ export type TaskLogLinks = {
   __typename?: "TaskLogLinks";
   agentLogLink?: Maybe<Scalars["String"]["output"]>;
   allLogLink?: Maybe<Scalars["String"]["output"]>;
-  eventLogLink?: Maybe<Scalars["String"]["output"]>;
   systemLogLink?: Maybe<Scalars["String"]["output"]>;
   taskLogLink?: Maybe<Scalars["String"]["output"]>;
 };
@@ -4377,11 +4376,6 @@ export type TaskQueueItem = {
   revision: Scalars["String"]["output"];
   version: Scalars["String"]["output"];
 };
-
-export enum TaskQueueItemType {
-  Commit = "COMMIT",
-  Patch = "PATCH",
-}
 
 export enum TaskSortCategory {
   BaseStatus = "BASE_STATUS",
@@ -5235,7 +5229,6 @@ export type FileDiffsFragment = {
   additions: number;
   deletions: number;
   description: string;
-  diffLink: string;
   fileName: string;
 };
 
@@ -5249,14 +5242,12 @@ export type LogMessageFragment = {
 export type ModuleCodeChangeFragment = {
   __typename?: "ModuleCodeChange";
   branchName: string;
-  htmlLink: string;
   rawLink: string;
   fileDiffs: Array<{
     __typename?: "FileDiff";
     additions: number;
     deletions: number;
     description: string;
-    diffLink: string;
     fileName: string;
   }>;
 };
@@ -8264,14 +8255,12 @@ export type CodeChangesQuery = {
     moduleCodeChanges: Array<{
       __typename?: "ModuleCodeChange";
       branchName: string;
-      htmlLink: string;
       rawLink: string;
       fileDiffs: Array<{
         __typename?: "FileDiff";
         additions: number;
         deletions: number;
         description: string;
-        diffLink: string;
         fileName: string;
       }>;
     }>;
@@ -11437,7 +11426,6 @@ export type TaskQuery = {
       __typename?: "TaskLogLinks";
       agentLogLink?: string | null;
       allLogLink?: string | null;
-      eventLogLink?: string | null;
       systemLogLink?: string | null;
       taskLogLink?: string | null;
     };

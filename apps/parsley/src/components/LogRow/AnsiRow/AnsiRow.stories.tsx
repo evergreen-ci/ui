@@ -36,6 +36,7 @@ const SingleLineStory = (args: React.ComponentProps<typeof AnsiRow>) => {
       highlightRegex={undefined}
       lineIndex={0}
       lineNumber={0}
+      prettyPrint={args.prettyPrint}
       range={{ lowerRange: 0 }}
       scrollToLine={scrollToLine}
       searchTerm={undefined}
@@ -47,6 +48,7 @@ const SingleLineStory = (args: React.ComponentProps<typeof AnsiRow>) => {
 
 export const SingleLine: CustomStoryObj<AnsiRowProps> = {
   args: {
+    prettyPrint: false,
     wordWrapFormat: WordWrapFormat.Standard,
     wrap: false,
   },
@@ -57,7 +59,7 @@ export const SingleLine: CustomStoryObj<AnsiRowProps> = {
 const MultiLineStory = (args: React.ComponentProps<typeof AnsiRow>) => {
   const { ingestLines, preferences, processedLogLines, setLogMetadata } =
     useLogContext();
-  const { setWrap } = preferences;
+  const { setPrettyPrint, setWrap } = preferences;
 
   useEffect(() => {
     setLogMetadata({ logType: LogTypes.EVERGREEN_TASK_LOGS });
@@ -67,6 +69,10 @@ const MultiLineStory = (args: React.ComponentProps<typeof AnsiRow>) => {
   useEffect(() => {
     setWrap(args.wrap);
   }, [args.wrap, setWrap]);
+
+  useEffect(() => {
+    setPrettyPrint(args.prettyPrint);
+  }, [args.prettyPrint, setPrettyPrint]);
 
   return (
     <Container>
@@ -82,6 +88,7 @@ const MultiLineStory = (args: React.ComponentProps<typeof AnsiRow>) => {
 
 export const MultiLines: CustomStoryObj<AnsiRowProps> = {
   args: {
+    prettyPrint: false,
     wordWrapFormat: WordWrapFormat.Standard,
     wrap: false,
   },
@@ -99,6 +106,7 @@ const logLines = [
   "[2022/08/30 14:53:58.774] [grip] 2022/08/30 14:53:17 [p=info]: [hash='536cdcab21b907c87cd14751ad523ad1d8f23d07' message='successfully created version' project='mci' runner='repotracker' version='_536cdcab21b907c87cd14751ad523ad1d8f23d07']",
   "Some line with a url https://www.google.com",
   "[2022/09/09 20:08:18.604] (Use `node --trace-deprecation ...` to show where the warning was created)",
+  `JSON data:{"target":"localhost:20004","when":{"$date":"2022-09-21T12:50:21.899Z"}}`,
 
   "┌\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m─\u001b[39m\u001b[90m┐\u001b[39m",
   "[2022/09/09 19:49:46.103] \u001b[90m  │\u001b[39m \u001b[90mTests:\u001b[39m        \u001b[32m4\u001b[39m                                                                                \u001b[90m│\u001b[39m",

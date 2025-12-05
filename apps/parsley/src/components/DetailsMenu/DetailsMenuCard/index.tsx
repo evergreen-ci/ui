@@ -80,6 +80,8 @@ const Container = styled.div`
   padding: ${size.xs};
   display: flex;
   flex-direction: column;
+  gap: ${size.xxs};
+  text-align: left;
   width: 500px;
 `;
 

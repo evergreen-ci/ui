@@ -9,7 +9,6 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { getParsleyLogkeeperTestLogURL } from "constants/externalResources";
-import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import {
   EvergreenTestResult,
   JobLogsTableTestResult,
@@ -114,11 +113,10 @@ export const ParsleyLink = ({
   buildId?: string;
 }) => {
   const { sendEvent } = useJobLogsAnalytics(isLogkeeper);
-  const { replaceUrl } = useConditionallyLinkToParsleyBeta();
   return (
     <Link
       hideExternalIcon
-      href={replaceUrl(parsleyUrl)}
+      href={parsleyUrl}
       onClick={() => {
         if (buildId) {
           sendEvent({

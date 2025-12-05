@@ -150,6 +150,10 @@ export const useHTMLStream = ({
 
           const { htmlContent, style } = processLine(chunk);
 
+          if (!htmlContent) {
+            return;
+          }
+
           const lineContainer = getLineContainer({
             lineNumber,
             htmlContent,

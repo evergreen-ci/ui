@@ -10,6 +10,7 @@ import { useLogWindowAnalytics } from "analytics";
 import { WordWrapFormat } from "constants/enums";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
+import { formatPrettyPrint } from "utils/prettyPrint";
 import { LogLineRow } from "../types";
 import { isLineInRange } from "../utils";
 import Highlighter from "./Highlighter";
@@ -34,6 +35,7 @@ interface BaseRowProps extends Omit<LogLineRow, "getLine"> {
  * @param BaseRowProps.failingLine - the failing log line number
  * @param BaseRowProps.highlightRegex - the regex to be highlighted
  * @param BaseRowProps.lineNumber - the line number of the line in the log
+ * @param BaseRowProps.prettyPrint - whether or not to pretty print the line
  * @param BaseRowProps.searchLine - the line number of the line that was searched for
  * @param BaseRowProps.searchTerm - the term that was searched for
  * @param BaseRowProps.color - the color of the highlight
@@ -51,6 +53,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
   highlightRegex,
   lineIndex,
   lineNumber,
+  prettyPrint,
   range,
   scrollToLine,
   searchLine,
@@ -111,6 +114,9 @@ const BaseRow: React.FC<BaseRowProps> = ({
       lineNumber <= selectedLines.endingLine) ||
     selectedLines.startingLine === lineNumber;
 
+  const displayContent =
+    bookmarked && prettyPrint ? formatPrettyPrint(children) : children;
+
   return (
     <RowContainer
       {...rest}
@@ -145,7 +151,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
           highlights={highlightRegex}
           searchTerm={inRange ? searchTerm : undefined}
         >
-          {children}
+          {displayContent}
         </Highlighter>
       </StyledPre>
     </RowContainer>

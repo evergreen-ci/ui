@@ -1,3 +1,5 @@
+import { getEvergreenUrl } from "utils/environmentVariables";
+
 export enum DiffType {
   Addition = "addition",
   Context = "context",
@@ -5,15 +7,14 @@ export enum DiffType {
   Filestat = "filestat",
 }
 
-// Determine if a diff line is an addition, deletion, or context
 export const getDiffLineType = (line: string): DiffType => {
-  if (line.substring(0, 3) === "+++") {
+  if (line.startsWith("+++") || line.startsWith("---")) {
     return DiffType.Filestat;
-  } else if (line.substring(0, 3) === "---") {
-    return DiffType.Filestat;
-  } else if (line[0] === "+") {
+  }
+  if (line.startsWith("+")) {
     return DiffType.Addition;
-  } else if (line[0] === "-") {
+  }
+  if (line.startsWith("-")) {
     return DiffType.Deletion;
   }
   return DiffType.Context;
@@ -31,3 +32,24 @@ export const getLineStyle = (type: DiffType): React.CSSProperties => {
       return {};
   }
 };
+
+export const isNewFileDiff = (line: string): boolean =>
+  line.startsWith("diff --git");
+
+export const getRawDiffUrl = (
+  versionId: string | undefined,
+  patchNumber: string | number = 0,
+): string | null => {
+  if (!versionId) {
+    return null;
+  }
+  return `${getEvergreenUrl()}/rawdiff/${versionId}/?patch_number=${patchNumber}`;
+};
+
+export const escapeHtml = (unsafe: string) =>
+  unsafe
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");

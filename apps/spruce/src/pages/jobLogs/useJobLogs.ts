@@ -6,7 +6,6 @@ import {
   TaskTestsForJobLogsQueryVariables,
 } from "gql/generated/types";
 import { LOGKEEPER_BUILD_METADATA, TASK_TESTS_FOR_JOB_LOGS } from "gql/queries";
-import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import { JobLogsMetadata, JobLogsTableTestResult } from "./types";
 import { getFormattedTestResults, getTitle, getMetadata } from "./utils";
 
@@ -81,9 +80,7 @@ const useJobLogsPageData = ({
     groupId,
   );
 
-  const { replaceUrl } = useConditionallyLinkToParsleyBeta();
-
-  const metadata = getMetadata(isLogkeeper, replaceUrl, {
+  const metadata = getMetadata(isLogkeeper, {
     logkeeperBuildMetadata,
     evergreenTask,
     groupId,
