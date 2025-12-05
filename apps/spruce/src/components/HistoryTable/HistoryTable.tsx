@@ -92,6 +92,8 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
       <Virtuoso
         ref={listRef}
         components={{
+          // Assuming this code will be deleted, don't bother fixing ESLint error.
+          // eslint-disable-next-line react/no-unstable-nested-components
           Footer: () =>
             loading ? (
               <LoadingSection
