@@ -1,3 +1,5 @@
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
 import * as emotionPlugin from "@emotion/eslint-plugin";
 import { fixupPluginRules } from "@eslint/compat";
 import eslint from "@eslint/js";
@@ -14,6 +16,9 @@ import sortDestructureKeysPlugin from "eslint-plugin-sort-destructure-keys";
 import storybookPlugin from "eslint-plugin-storybook";
 import testingLibraryPlugin from "eslint-plugin-testing-library";
 import tseslint from "typescript-eslint";
+
+const configDir = dirname(fileURLToPath(import.meta.url));
+const monorepoRoot = dirname(dirname(configDir));
 
 const ERROR = "error";
 // Warnings are discouraged. Their use should be limited to new rules that cannot have all their violations fixed at once.
@@ -122,6 +127,11 @@ const eslintConfig = {
 const tsEslintConfig = {
   name: "typescript-eslint/rules",
   files: ["**/*.ts?(x)"],
+  ignores: [
+    "**/.storybook/**",
+    "**/*.config.ts",
+    "**/cypress/**",
+  ],
   languageOptions: {
     parser: tseslint.parser,
     ecmaVersion: "latest",
@@ -130,8 +140,11 @@ const tsEslintConfig = {
       ecmaFeatures: {
         jsx: true,
       },
-      project: ["./apps/*/tsconfig.json", "./packages/*/tsconfig.json"],
-      tsConfigRootDir: import.meta.url,
+      project: [
+        resolve(monorepoRoot, "./apps/*/tsconfig.json"),
+        resolve(monorepoRoot, "./packages/*/tsconfig.json"),
+      ],
+      tsConfigRootDir: monorepoRoot,
     },
   },
   plugins: {
@@ -139,6 +152,7 @@ const tsEslintConfig = {
   },
   rules: {
     "@typescript-eslint/ban-ts-comment": ERROR,
+    "@typescript-eslint/no-deprecated": WARN,
     "@typescript-eslint/no-empty-object-type": ERROR,
     "@typescript-eslint/no-explicit-any": ERROR,
     "@typescript-eslint/no-namespace": OFF,
