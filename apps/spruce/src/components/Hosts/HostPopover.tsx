@@ -1,6 +1,9 @@
 import { useState, useRef } from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import Button, {
+  Size as ButtonSize,
+  Variant as ButtonVariant,
+} from "@leafygreen-ui/button";
 import { Popover } from "@leafygreen-ui/popover";
 import { Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -66,7 +69,7 @@ export const HostPopover: React.FC<Props> = ({
               <Button
                 disabled={loading}
                 onClick={() => setActive(false)}
-                size="xsmall"
+                size={ButtonSize.XSmall}
               >
                 No
               </Button>
@@ -78,8 +81,8 @@ export const HostPopover: React.FC<Props> = ({
                   onClick();
                   setActive(false);
                 }}
-                size="xsmall"
-                variant="primary"
+                size={ButtonSize.XSmall}
+                variant={ButtonVariant.Primary}
               >
                 Yes
               </Button>
