@@ -2,6 +2,7 @@ import * as emotionPlugin from "@emotion/eslint-plugin";
 import { fixupPluginRules } from "@eslint/compat";
 import eslint from "@eslint/js";
 import graphqlPlugin from "@graphql-eslint/eslint-plugin";
+import { defineConfig } from "eslint/config";
 import disableConflictsPlugin from "eslint-config-prettier";
 import cypressPlugin from "eslint-plugin-cypress/flat";
 import importPlugin from "eslint-plugin-import";
@@ -433,7 +434,7 @@ const prettierEsLintConfig = {
   },
 };
 
-export default tseslint.config(
+export default defineConfig(
   globalIgnores,
   languageOptions,
   eslintConfig,
