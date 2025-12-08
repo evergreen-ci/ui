@@ -1,5 +1,4 @@
 import { format, toZonedTime } from "date-fns-tz";
-import get from "lodash/get";
 import { TimeFormat } from "constants/time";
 
 export { githubPRLinkify, jiraLinkify } from "./Linkify";
@@ -151,9 +150,13 @@ export const getDateCopy = (
  * arr.sort((a, b) => sortFunctionString(a, b, "name"));
  * // [{ name: "a" }, { name: "b" }]
  */
-export const sortFunctionString = <T>(a: T, b: T, key: string) => {
-  const nameA = get(a, key).toUpperCase();
-  const nameB = get(b, key).toUpperCase();
+export const sortFunctionString = <T extends Record<string, unknown>>(
+  a: T,
+  b: T,
+  key: string,
+) => {
+  const nameA = (a?.[key] as string | undefined)?.toUpperCase?.() ?? "";
+  const nameB = (b?.[key] as string | undefined)?.toUpperCase?.() ?? "";
   if (nameA < nameB) {
     return -1;
   }

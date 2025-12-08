@@ -45,23 +45,13 @@ const getProjectConfig = () => {
       rollupOptions: {
         output: {
           manualChunks: {
-            vendor: [
-              "react",
-              "react-router-dom",
-              "react-dom",
-              "react-router",
-              "lodash",
-            ],
+            vendor: ["react", "react-router-dom", "react-dom"],
           },
         },
       },
     },
     resolve: {
       alias: {
-        "@leafygreen-ui/emotion": path.resolve(
-          __dirname,
-          "./config/leafygreen-ui/emotion",
-        ),
         ...(process.env.PROFILER === "true" && {
           "react-dom/client": path.resolve(
             __dirname,

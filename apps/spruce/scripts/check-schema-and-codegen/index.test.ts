@@ -50,7 +50,7 @@ describe("checkSchemaAndCodegen", () => {
     await expect(checkSchemaAndCodegenCore()).resolves.toBe(1);
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "GQL types validation failed: Your local Evergreen code is missing commit {getLatestCommitFromRemote()}. Pull Evergreen and run 'yarn codegen'.",
+      "GQL types validation failed: Your local Evergreen code is missing commit {getLatestCommitFromRemote()}. Pull Evergreen and run 'pnpm codegen'.",
     );
   });
 
@@ -62,7 +62,7 @@ describe("checkSchemaAndCodegen", () => {
     await expect(checkSchemaAndCodegenCore()).resolves.toBe(1);
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "GQL types validation failed: Your local Evergreen code is missing commit {getLatestCommitFromRemote()}. Pull Evergreen and run 'yarn codegen'.",
+      "GQL types validation failed: Your local Evergreen code is missing commit {getLatestCommitFromRemote()}. Pull Evergreen and run 'pnpm codegen'.",
     );
   });
 
@@ -77,7 +77,7 @@ describe("checkSchemaAndCodegen", () => {
     await expect(checkSchemaAndCodegenCore()).resolves.toBe(1);
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "GQL types validation failed: Your GQL types file ({path.resolve()}) is outdated. Run 'yarn codegen'.",
+      "GQL types validation failed: Your GQL types file ({path.resolve()}) is outdated. Run 'pnpm codegen'.",
     );
   });
 });

@@ -7,7 +7,7 @@ import { red } from "./utils/shell";
 import { isTargetEnvironment } from "./utils/types";
 
 if (isRunningOnCI()) {
-  throw Error("yarn deploy:<target> scripts are for local use only!");
+  throw Error("pnpm deploy:<target> scripts are for local use only!");
 }
 
 const target = process.env.REACT_APP_RELEASE_STAGE;
