@@ -4,14 +4,9 @@ import { palette } from "@leafygreen-ui/palette";
 const { blue, green, purple, red, yellow } = palette;
 
 const Highlight = styled.mark<{ "data-cy"?: string; color?: string }>`
-  background-color: ${({ color }) => color};
+  background-color: ${({ color = red.light2 }) => color};
   font-weight: bold;
 `;
-
-Highlight.defaultProps = {
-  color: red.light2,
-  "data-cy": "highlight",
-};
 
 const highlightColorList = [
   green.light1,

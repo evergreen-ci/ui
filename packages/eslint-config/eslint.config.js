@@ -130,6 +130,7 @@ const tsEslintConfig = {
   ignores: [
     "**/.storybook/**",
     "**/*.config.ts",
+    "**/config/**",
     "**/cypress/**",
   ],
   languageOptions: {
