@@ -5,9 +5,9 @@ import {
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import * as analytics from "analytics";
-import { SectionStatus } from "constants/logs";
 import * as logContext from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
+import { RowType } from "types/logs";
 import SubsectionHeader from ".";
 
 const wrapper = logContextWrapper();
@@ -34,7 +34,10 @@ describe("SubsectionHeader", () => {
     renderWithRouterMatch(
       <SubsectionHeader
         {...subsectionHeaderProps}
-        commandDescription="doing stuff"
+        subsectionHeaderLine={{
+          ...baseSubsectionHeaderLine,
+          commandDescription: "doing stuff",
+        }}
       />,
       {
         wrapper,
@@ -47,7 +50,10 @@ describe("SubsectionHeader", () => {
 
   it("renders as opened if 'open' prop is true", async () => {
     renderWithRouterMatch(
-      <SubsectionHeader {...subsectionHeaderProps} open />,
+      <SubsectionHeader
+        {...subsectionHeaderProps}
+        subsectionHeaderLine={{ ...baseSubsectionHeaderLine, isOpen: true }}
+      />,
       {
         wrapper,
       },
@@ -59,10 +65,9 @@ describe("SubsectionHeader", () => {
   });
 
   it("renders as closed if 'open' prop is false", async () => {
-    renderWithRouterMatch(
-      <SubsectionHeader {...subsectionHeaderProps} open={false} />,
-      { wrapper },
-    );
+    renderWithRouterMatch(<SubsectionHeader {...subsectionHeaderProps} />, {
+      wrapper,
+    });
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
@@ -108,47 +113,72 @@ describe("SubsectionHeader", () => {
 
   it("open and close state is controlled by the 'open' prop", async () => {
     const { rerender } = renderWithRouterMatch(
-      <SubsectionHeader {...subsectionHeaderProps} open={false} />,
+      <SubsectionHeader {...subsectionHeaderProps} />,
       { wrapper },
     );
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
-    rerender(<SubsectionHeader {...subsectionHeaderProps} open />);
+    rerender(
+      <SubsectionHeader
+        {...subsectionHeaderProps}
+        subsectionHeaderLine={{ ...baseSubsectionHeaderLine, isOpen: true }}
+      />,
+    );
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
-    rerender(<SubsectionHeader {...subsectionHeaderProps} open={false} />);
+    rerender(<SubsectionHeader {...subsectionHeaderProps} />);
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
   });
+
   it("should show status icon if status is defined and the opposite otherwise", () => {
     const { rerender } = renderWithRouterMatch(
       <SubsectionHeader
         {...subsectionHeaderProps}
-        status={SectionStatus.Pass}
+        subsectionHeaderLine={{
+          ...baseSubsectionHeaderLine,
+          isTopLevelCommand: true,
+        }}
       />,
       { wrapper },
     );
     expect(screen.getByDataCy("section-status-pass")).toBeVisible();
+    rerender(
+      <SubsectionHeader
+        {...subsectionHeaderProps}
+        failingLine={5}
+        subsectionHeaderLine={{
+          ...baseSubsectionHeaderLine,
+          isTopLevelCommand: true,
+        }}
+      />,
+    );
+    expect(screen.getByDataCy("section-status-fail")).toBeVisible();
     rerender(<SubsectionHeader {...subsectionHeaderProps} />);
     expect(screen.queryByDataCy("section-status-pass")).not.toBeInTheDocument();
   });
 });
 
-const subsectionHeaderProps = {
+const baseSubsectionHeaderLine = {
   commandDescription: undefined,
   commandID: "command-1",
   commandName: "shell.exec",
   functionID: "function-1",
+  isOpen: false,
   isTopLevelCommand: false,
-  lineIndex: 0,
-  onToggle: vi.fn(),
-  open: false,
-  status: undefined,
+  range: { end: 10, start: 0 },
+  rowType: RowType.SubsectionHeader as const,
   step: "1 of 4",
+};
+
+const subsectionHeaderProps = {
+  failingLine: undefined,
+  lineIndex: 0,
+  subsectionHeaderLine: baseSubsectionHeaderLine,
 };

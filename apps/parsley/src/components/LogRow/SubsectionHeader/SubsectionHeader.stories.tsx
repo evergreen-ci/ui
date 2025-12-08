@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { SectionStatus } from "constants/logs";
+import { RowType } from "types/logs";
 import SubsectionHeader from ".";
 
 export default {
@@ -10,60 +10,66 @@ export default {
 const SubsectionHeaderStory = () => (
   <Container>
     <SubsectionHeader
-      {...SubsectionHeaderProps}
-      commandName="shell.exec"
-      isTopLevelCommand={false}
+      {...subsectionHeaderProps}
+      failingLine={undefined}
       lineIndex={0}
-      open
-      status={undefined}
+      subsectionHeaderLine={{
+        ...baseSubsectionHeaderLine,
+        isOpen: true,
+      }}
     />
     <SubsectionHeader
-      {...SubsectionHeaderProps}
-      commandDescription="Updating task expansions"
-      commandName="shell.exec"
-      isTopLevelCommand={false}
+      {...subsectionHeaderProps}
+      failingLine={5}
       lineIndex={0}
-      open={false}
-      status={SectionStatus.Fail}
+      subsectionHeaderLine={{
+        ...baseSubsectionHeaderLine,
+        commandDescription: "Updating task expansions",
+      }}
     />
     <SubsectionHeader
-      {...SubsectionHeaderProps}
-      commandDescription="Downloading MongoDB binary"
-      commandName="shell.exec"
-      isTopLevelCommand={false}
+      {...subsectionHeaderProps}
+      failingLine={100}
       lineIndex={0}
-      open
-      status={SectionStatus.Pass}
+      subsectionHeaderLine={{
+        ...baseSubsectionHeaderLine,
+        commandDescription: "Downloading MongoDB binary",
+        isOpen: true,
+      }}
     />
   </Container>
 );
 const SubsectionHeaderStoryTopLevel = () => (
   <Container>
     <SubsectionHeader
-      {...SubsectionHeaderProps}
-      commandName="shell.exec"
-      isTopLevelCommand
+      {...subsectionHeaderProps}
+      failingLine={5}
       lineIndex={0}
-      open={false}
-      status={SectionStatus.Fail}
+      subsectionHeaderLine={{
+        ...baseSubsectionHeaderLine,
+        isTopLevelCommand: true,
+      }}
     />
     <SubsectionHeader
-      {...SubsectionHeaderProps}
-      commandDescription="Updating task expansions"
-      commandName="shell.exec"
-      isTopLevelCommand
+      {...subsectionHeaderProps}
       lineIndex={0}
-      open
-      status={SectionStatus.Pass}
+      subsectionHeaderLine={{
+        ...baseSubsectionHeaderLine,
+        commandDescription: "Updating task expansions",
+        isOpen: true,
+        isTopLevelCommand: true,
+      }}
     />
     <SubsectionHeader
-      {...SubsectionHeaderProps}
-      commandDescription="Downloading MongoDB binary"
-      commandName="shell.exec"
-      isTopLevelCommand
+      {...subsectionHeaderProps}
+      failingLine={undefined}
       lineIndex={0}
-      open
-      status={undefined}
+      subsectionHeaderLine={{
+        ...baseSubsectionHeaderLine,
+        commandDescription: "Downloading MongoDB binary",
+        isOpen: true,
+        isTopLevelCommand: true,
+      }}
     />
   </Container>
 );
@@ -81,9 +87,20 @@ const Container = styled.div`
   width: 800px;
 `;
 
-const SubsectionHeaderProps = {
+const baseSubsectionHeaderLine = {
   commandDescription: undefined,
   commandID: "command-1",
+  commandName: "shell.exec",
   functionID: "function-1",
+  isOpen: false,
+  isTopLevelCommand: false,
+  range: { end: 10, start: 0 },
+  rowType: RowType.SubsectionHeader as const,
   step: "1 of 4",
+};
+
+const subsectionHeaderProps = {
+  failingLine: 11,
+  lineIndex: 0,
+  subsectionHeaderLine: baseSubsectionHeaderLine,
 };
