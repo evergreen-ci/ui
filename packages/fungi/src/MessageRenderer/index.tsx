@@ -5,34 +5,59 @@ import {
   MessageActionsProps,
 } from "@lg-chat/message";
 import { UIMessagePart, UIDataTypes, UITools, ToolUIPart } from "ai";
+import { size } from "@evg-ui/lib/constants/tokens";
+import { ContextChips } from "../ContextChips";
 import { ToolRenderer } from "./ToolRenderer";
 import { FungiUIMessage } from "./types";
 
 export const MessageRenderer: React.FC<
   FungiUIMessage & MessageActionsProps
-> = ({ id, onClickCopy, onRatingChange, onSubmitFeedback, parts, role }) => (
+> = ({
+  id,
+  metadata,
+  onClickCopy,
+  onRatingChange,
+  onSubmitFeedback,
+  parts,
+  role,
+}) => (
   <>
     {parts.map((part, index) => {
       const key = `${id}-${part.type}-${index}`;
       if (part.type === "text") {
         const isLastPart = parts.length - 1 === index;
         const isSender = role === "user";
+
+        const displayText =
+          isSender && metadata?.originalMessage
+            ? metadata.originalMessage
+            : part.text;
+
         return (
-          <StyledMessage
-            key={key}
-            data-cy={`message-${role}`}
-            isSender={isSender}
-            messageBody={part.text}
-            sourceType={MessageSourceType.Markdown}
-          >
-            {!isSender && part.state === "done" && isLastPart && (
-              <Message.Actions
-                onClickCopy={onClickCopy}
-                onRatingChange={onRatingChange}
-                onSubmitFeedback={onSubmitFeedback}
-              />
-            )}
-          </StyledMessage>
+          <MessageContent key={key}>
+            {isSender &&
+              metadata?.selectedLineRanges &&
+              metadata.selectedLineRanges.length > 0 && (
+                <ContextChips
+                  dismissible={false}
+                  selectedLineRanges={metadata.selectedLineRanges}
+                />
+              )}
+            <StyledMessage
+              data-cy={`message-${role}`}
+              isSender={isSender}
+              messageBody={displayText}
+              sourceType={MessageSourceType.Markdown}
+            >
+              {!isSender && part.state === "done" && isLastPart && (
+                <Message.Actions
+                  onClickCopy={onClickCopy}
+                  onRatingChange={onRatingChange}
+                  onSubmitFeedback={onSubmitFeedback}
+                />
+              )}
+            </StyledMessage>
+          </MessageContent>
         );
       } else if (isToolUse(part)) {
         return <ToolRenderer key={key} {...part} />;
@@ -41,6 +66,12 @@ export const MessageRenderer: React.FC<
     })}
   </>
 );
+
+const MessageContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
+`;
 
 const StyledMessage = styled(Message)`
   > div {

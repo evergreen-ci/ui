@@ -6,6 +6,7 @@ import { MessageActionsProps } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
 import { useChatContext } from "../Context";
+import { ContextChips } from "../ContextChips";
 import { FungiUIMessage, MessageRenderer } from "../MessageRenderer";
 import { Suggestions } from "../Suggestions";
 
@@ -34,7 +35,13 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   onClickSuggestion,
   onSendMessage,
 }) => {
-  const { appName } = useChatContext();
+  const {
+    appName,
+    clearSelectedLineRanges,
+    selectedLineRanges,
+    toggleSelectedLineRange,
+  } = useChatContext();
+
   const { error, messages, sendMessage, status } = useChat<FungiUIMessage>({
     transport: new DefaultChatTransport({
       api: apiUrl,
@@ -53,7 +60,30 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
 
   const handleSend = (message: string) => {
     onSendMessage?.(message);
-    sendMessage({ text: message });
+
+    let messageWithContext = message;
+    const selectedLineRangesArray = Array.from(selectedLineRanges.values());
+
+    if (selectedLineRangesArray.length > 0) {
+      const contextText = selectedLineRangesArray
+        .map((range) => {
+          const lineInfo = range.endLine
+            ? `Lines ${range.startLine}-${range.endLine}`
+            : `Line ${range.startLine}`;
+          return `[${lineInfo}]: ${range.content}`;
+        })
+        .join("\n");
+      messageWithContext = message + contextText;
+    }
+
+    sendMessage({
+      text: messageWithContext,
+      metadata: {
+        selectedLineRanges: selectedLineRangesArray,
+        originalMessage: message,
+      },
+    });
+    clearSelectedLineRanges();
   };
 
   const inputState = getInputState({ error, status });
@@ -90,6 +120,11 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
             })
           )}
         </MessageFeed>
+        <ContextChips
+          dismissible
+          onDismiss={(range) => toggleSelectedLineRange(range)}
+          selectedLineRanges={Array.from(selectedLineRanges.values())}
+        />
         <InputBar {...inputState} onMessageSend={handleSend} />
       </ChatWindow>
     </LeafyGreenChatProvider>

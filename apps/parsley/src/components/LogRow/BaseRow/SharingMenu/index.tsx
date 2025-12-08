@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import pluralize from "pluralize";
+import { useChatContext } from "@evg-ui/fungi/Context";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -11,7 +12,7 @@ import { useLogWindowAnalytics } from "analytics";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
-import { getJiraFormat } from "utils/string";
+import { getJiraFormat, getRawLines } from "utils/string";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
 const SharingMenu: React.FC = () => {
@@ -22,12 +23,31 @@ const SharingMenu: React.FC = () => {
     setOpenMenu: setOpen,
   } = useMultiLineSelectContext();
   const { getLine, isUploadedLog, processedLogLines } = useLogContext();
+  const { toggleSelectedLineRange } = useChatContext();
+
   const [params, setParams] = useQueryParams(urlParseOptions);
   const dispatchToast = useToastContext();
   const { sendEvent } = useLogWindowAnalytics();
   const setMenuOpen = () => {
     sendEvent({ name: "Toggled share menu", open });
     setOpen(!open);
+  };
+
+  const handleAddToParsleyAI = async () => {
+    const { endingLine, startingLine } = selectedLines;
+    if (startingLine === undefined) return;
+
+    const lineNumbers = getLinesInProcessedLogLinesFromSelectedLines(
+      processedLogLines,
+      selectedLines,
+    );
+    sendEvent({ name: "Clicked add to Parsley AI button" });
+    setOpen(false);
+    toggleSelectedLineRange({
+      content: getRawLines(lineNumbers, getLine),
+      endLine: endingLine,
+      startLine: startingLine,
+    });
   };
 
   const handleCopySelectedLines = async () => {
@@ -98,6 +118,13 @@ const SharingMenu: React.FC = () => {
         </MenuIcon>
       }
     >
+      <MenuItem
+        glyph={<Icon glyph="Sparkle" />}
+        onClick={handleAddToParsleyAI}
+        title="Ask Parsley AI about these lines."
+      >
+        Add to Parsley AI
+      </MenuItem>
       <MenuItem
         glyph={<Icon glyph="Copy" />}
         onClick={handleCopySelectedLines}

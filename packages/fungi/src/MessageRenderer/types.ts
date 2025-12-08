@@ -1,5 +1,6 @@
 import { UIMessage } from "@ai-sdk/react";
 import { ToolUIPart } from "ai";
+import { SelectedLineRange } from "../Context/context";
 
 export type ToolState = ToolUIPart["state"];
 
@@ -14,6 +15,8 @@ export const ToolStateEnum = satisfiesToolStates({
 
 type MessageMetadata = {
   spanId?: string;
+  selectedLineRanges?: SelectedLineRange[];
+  originalMessage?: string;
 };
 
 export type FungiUIMessage = UIMessage<MessageMetadata>;
