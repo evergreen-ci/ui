@@ -16,7 +16,7 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
   selectedLineRanges,
 }) => (
   <ChipContainer dismissible={dismissible}>
-    {Array.from(selectedLineRanges.entries()).map(([, range]) => {
+    {selectedLineRanges.map((range) => {
       const lineRange = range.endLine
         ? `${range.startLine}-${range.endLine}`
         : `${range.startLine}`;
