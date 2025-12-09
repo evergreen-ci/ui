@@ -16,9 +16,7 @@ export const ChatProvider: React.FC<ProviderProps> = ({
   const chipsArray = useMemo(() => Array.from(chips.values()), [chips]);
 
   const toggleChip = useCallback((chip: Chip) => {
-    const mapKey = chip.endLine
-      ? `${chip.startLine}-${chip.endLine}`
-      : `${chip.startLine}`;
+    const mapKey = chip.identifier;
     setChips((prev) => {
       const newMap = new Map(prev);
       if (newMap.has(mapKey)) {

@@ -6,6 +6,7 @@ import { MessageActionsProps } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
 import { useChatContext } from "../Context";
+import { Chip } from "../Context/context";
 import { ContextChips } from "../ContextChips";
 import { FungiUIMessage, MessageRenderer } from "../MessageRenderer";
 import { Suggestions } from "../Suggestions";
@@ -23,6 +24,7 @@ export type ChatFeedProps = {
   onClickCopy?: MessageActionsProps["onClickCopy"];
   onClickSuggestion?: (suggestion: string) => void;
   onSendMessage?: (message: string) => void;
+  transformMessage?: (message: string, chips: Chip[]) => string;
 };
 
 export const ChatFeed: React.FC<ChatFeedProps> = ({
@@ -34,6 +36,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   onClickCopy,
   onClickSuggestion,
   onSendMessage,
+  transformMessage,
 }) => {
   const { appName, chips, clearChips, toggleChip } = useChatContext();
 
@@ -55,23 +58,11 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
 
   const handleSend = (message: string) => {
     onSendMessage?.(message);
-
-    let messageWithContext = message;
-
-    if (chips.length > 0) {
-      const contextText = chips
-        .map((range) => {
-          const lineInfo = range.endLine
-            ? `Lines ${range.startLine}-${range.endLine}`
-            : `Line ${range.startLine}`;
-          return `[${lineInfo}]: ${range.content}`;
-        })
-        .join("\n");
-      messageWithContext = message + contextText;
-    }
-
+    const transformed = transformMessage
+      ? transformMessage(message, chips)
+      : message;
     sendMessage({
-      text: messageWithContext,
+      text: transformed,
       metadata: {
         chips,
         originalMessage: message,

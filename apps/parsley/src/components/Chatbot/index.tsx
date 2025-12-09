@@ -112,6 +112,17 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
           onSendMessage={(message) => {
             sendEvent({ message, name: "Interacted with Parsley AI" });
           }}
+          transformMessage={(message, chips) => {
+            let transformed = message;
+            if (chips.length > 0) {
+              const instructions = `\nThe user also supplied the following lines as context for their query:\n`;
+              const contextText = chips
+                .map((chip) => `[${chip.label}]: ${chip.content}`)
+                .join("\n");
+              transformed = `${message}${instructions}${contextText}`;
+            }
+            return transformed;
+          }}
         />
       }
       data-cy="chat-drawer"

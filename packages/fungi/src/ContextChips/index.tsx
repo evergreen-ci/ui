@@ -16,27 +16,19 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
   onDismiss,
 }) => (
   <ChipContainer dismissible={dismissible}>
-    {chips.map((chip) => {
-      const lineRange = chip.endLine
-        ? `${chip.startLine}-${chip.endLine}`
-        : `${chip.startLine}`;
-      const label = chip.endLine
-        ? `Context: Lines ${lineRange}`
-        : `Context: Line ${lineRange}`;
-      return (
-        <Chip
-          key={lineRange}
-          label={
-            <>
-              <Icon glyph="Code" />
-              {label}
-            </>
-          }
-          onDismiss={dismissible ? () => onDismiss?.(chip) : undefined}
-          variant={ChipVariant.Purple}
-        />
-      );
-    })}
+    {chips.map((chip) => (
+      <Chip
+        key={chip.identifier}
+        label={
+          <>
+            <Icon glyph="Code" />
+            {chip.label}
+          </>
+        }
+        onDismiss={dismissible ? () => onDismiss?.(chip) : undefined}
+        variant={ChipVariant.Purple}
+      />
+    ))}
   </ChipContainer>
 );
 

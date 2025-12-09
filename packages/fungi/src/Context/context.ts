@@ -1,9 +1,9 @@
 import { createContext } from "react";
 
 export type Chip = {
-  startLine: number;
-  endLine?: number;
   content: string;
+  identifier: string;
+  label: string;
 };
 
 type ChatContextState = {

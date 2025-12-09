@@ -45,8 +45,12 @@ const SharingMenu: React.FC = () => {
     setOpen(false);
     toggleChip({
       content: getRawLines(lineNumbers, getLine),
-      endLine: endingLine,
-      startLine: startingLine,
+      identifier: endingLine
+        ? `lines-${startingLine}-to-${endingLine}`
+        : `line-${startingLine}`,
+      label: endingLine
+        ? `Lines ${startingLine} to ${endingLine}`
+        : `Line ${startingLine}`,
     });
   };
 
