@@ -137,4 +137,31 @@ describe("useFileDiffStream", () => {
       style: undefined,
     });
   });
+
+  it("correctly matches file paths containing 'b/'", () => {
+    renderHook(() =>
+      useFileDiffStream({
+        url: "https://example.com/diff",
+        containerRef: mockContainerRef,
+        fileName: "buildscripts/resmokelib/config.py",
+      }),
+    );
+
+    const result1 = processLine(
+      "diff --git a/buildscripts/resmokelib/config.py b/buildscripts/resmokelib/config.py",
+    );
+    expect(result1.htmlContent).toBeTruthy();
+    expect(result1.style).toBeDefined();
+
+    const result2 = processLine("index 34fefb98beb..5c9f2d43018 100644");
+    expect(result2.htmlContent).toBeTruthy();
+
+    const result3 = processLine(
+      "diff --git a/buildscripts/resmokelib/run/__init__.py b/buildscripts/resmokelib/run/__init__.py",
+    );
+    expect(result3).toEqual({
+      htmlContent: "",
+      style: undefined,
+    });
+  });
 });
