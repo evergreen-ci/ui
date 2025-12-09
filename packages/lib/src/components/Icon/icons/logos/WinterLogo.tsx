@@ -4,7 +4,7 @@ export const WinterLogo = forwardRef<SVGSVGElement>((props, ref) => (
   <svg
     ref={ref}
     {...props}
-    height="52"
+    height="54"
     shapeRendering="geometricPrecision"
     textRendering="geometricPrecision"
     viewBox="0 0 40 39"

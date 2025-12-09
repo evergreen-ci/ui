@@ -123,6 +123,7 @@ const StyledNav = styled.nav`
 const LogoLink = styled(Link)`
   display: flex;
   align-items: center;
+  margin-bottom: ${size.xxs};
 `;
 
 const NavActionContainer = styled.div`
