@@ -16,6 +16,11 @@ export const ChatProvider: React.FC<ProviderProps> = ({
     Map<string, SelectedLineRange>
   >(new Map());
 
+  const selectedLineRangesArray = useMemo(
+    () => Array.from(selectedLineRanges.values()),
+    [selectedLineRanges],
+  );
+
   const toggleSelectedLineRange = useCallback((range: SelectedLineRange) => {
     setDrawerOpen(true);
     const mapKey = range.endLine
@@ -41,7 +46,7 @@ export const ChatProvider: React.FC<ProviderProps> = ({
       appName,
       drawerOpen,
       setDrawerOpen,
-      selectedLineRanges,
+      selectedLineRanges: selectedLineRangesArray,
       toggleSelectedLineRange,
       clearSelectedLineRanges,
     }),
@@ -49,7 +54,7 @@ export const ChatProvider: React.FC<ProviderProps> = ({
       appName,
       drawerOpen,
       setDrawerOpen,
-      selectedLineRanges,
+      selectedLineRangesArray,
       toggleSelectedLineRange,
       clearSelectedLineRanges,
     ],

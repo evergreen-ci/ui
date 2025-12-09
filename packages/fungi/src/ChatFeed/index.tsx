@@ -62,10 +62,9 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
     onSendMessage?.(message);
 
     let messageWithContext = message;
-    const selectedLineRangesArray = Array.from(selectedLineRanges.values());
 
-    if (selectedLineRangesArray.length > 0) {
-      const contextText = selectedLineRangesArray
+    if (selectedLineRanges.length > 0) {
+      const contextText = selectedLineRanges
         .map((range) => {
           const lineInfo = range.endLine
             ? `Lines ${range.startLine}-${range.endLine}`
@@ -79,7 +78,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
     sendMessage({
       text: messageWithContext,
       metadata: {
-        selectedLineRanges: selectedLineRangesArray,
+        selectedLineRanges,
         originalMessage: message,
       },
     });
@@ -123,7 +122,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
         <ContextChips
           dismissible
           onDismiss={(range) => toggleSelectedLineRange(range)}
-          selectedLineRanges={Array.from(selectedLineRanges.values())}
+          selectedLineRanges={selectedLineRanges}
         />
         <InputBar {...inputState} onMessageSend={handleSend} />
       </ChatWindow>

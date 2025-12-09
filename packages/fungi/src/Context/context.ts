@@ -10,7 +10,7 @@ type ChatContextState = {
   appName: string;
   drawerOpen: boolean;
   setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedLineRanges: Map<string, SelectedLineRange>;
+  selectedLineRanges: SelectedLineRange[];
   toggleSelectedLineRange: (range: SelectedLineRange) => void;
   clearSelectedLineRanges: () => void;
 };
@@ -19,7 +19,7 @@ export const ChatContext = createContext<ChatContextState>({
   appName: "",
   drawerOpen: false,
   setDrawerOpen: () => {},
-  selectedLineRanges: new Map(),
+  selectedLineRanges: [],
   toggleSelectedLineRange: () => {},
   clearSelectedLineRanges: () => {},
 });
