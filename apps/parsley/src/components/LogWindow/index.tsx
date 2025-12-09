@@ -1,4 +1,4 @@
-import { Fragment, lazy, useState } from "react";
+import { Fragment, useState } from "react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import Cookie from "js-cookie";
@@ -11,10 +11,6 @@ import SidePanel from "components/SidePanel";
 import SubHeader from "components/SubHeader";
 import { DRAWER_OPENED } from "constants/cookies";
 import { useLogContext } from "context/LogContext";
-
-const SectionsFeatureModal = lazy(
-  () => import("components/SectionsFeatureModal"),
-);
 
 const LogWindow: React.FC = () => {
   const {
@@ -39,7 +35,6 @@ const LogWindow: React.FC = () => {
 
   return (
     <Container data-cy="log-window">
-      <SectionsFeatureModal />
       <SidePanel
         clearExpandedLines={clearExpandedLines}
         collapseLines={collapseLines}

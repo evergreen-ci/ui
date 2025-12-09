@@ -151,6 +151,21 @@
           </svg>
         </div>
       </button>
+      <svg
+        data-cy="section-status-pass"
+        fill="#5C6C75"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14m2.448-10.104a.997.997 0 1 1 1.508 1.306l-4.572 5.28a1 1 0 0 1-1.64-.07l-1.82-2.868a1 1 0 1 1 1.69-1.07l1.1 1.734z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
       <p
         class="leafygreen-ui-26vqpd"
       >
