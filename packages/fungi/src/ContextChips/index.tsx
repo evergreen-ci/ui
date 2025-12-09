@@ -2,25 +2,25 @@ import styled from "@emotion/styled";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { SelectedLineRange } from "../Context/context";
+import { Chip as ContextChip } from "../Context/context";
 
 export type ContextChipsProps = {
-  selectedLineRanges: SelectedLineRange[];
+  chips: ContextChip[];
   dismissible: boolean;
-  onDismiss?: (range: SelectedLineRange) => void;
+  onDismiss?: (chip: ContextChip) => void;
 };
 
 export const ContextChips: React.FC<ContextChipsProps> = ({
+  chips,
   dismissible,
   onDismiss,
-  selectedLineRanges,
 }) => (
   <ChipContainer dismissible={dismissible}>
-    {selectedLineRanges.map((range) => {
-      const lineRange = range.endLine
-        ? `${range.startLine}-${range.endLine}`
-        : `${range.startLine}`;
-      const label = range.endLine
+    {chips.map((chip) => {
+      const lineRange = chip.endLine
+        ? `${chip.startLine}-${chip.endLine}`
+        : `${chip.startLine}`;
+      const label = chip.endLine
         ? `Context: Lines ${lineRange}`
         : `Context: Line ${lineRange}`;
       return (
@@ -32,7 +32,7 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
               {label}
             </>
           }
-          onDismiss={dismissible ? () => onDismiss?.(range) : undefined}
+          onDismiss={dismissible ? () => onDismiss?.(chip) : undefined}
           variant={ChipVariant.Purple}
         />
       );

@@ -35,12 +35,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   onClickSuggestion,
   onSendMessage,
 }) => {
-  const {
-    appName,
-    clearSelectedLineRanges,
-    selectedLineRanges,
-    toggleSelectedLineRange,
-  } = useChatContext();
+  const { appName, chips, clearChips, toggleChip } = useChatContext();
 
   const { error, messages, sendMessage, status } = useChat<FungiUIMessage>({
     transport: new DefaultChatTransport({
@@ -63,8 +58,8 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
 
     let messageWithContext = message;
 
-    if (selectedLineRanges.length > 0) {
-      const contextText = selectedLineRanges
+    if (chips.length > 0) {
+      const contextText = chips
         .map((range) => {
           const lineInfo = range.endLine
             ? `Lines ${range.startLine}-${range.endLine}`
@@ -78,11 +73,11 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
     sendMessage({
       text: messageWithContext,
       metadata: {
-        selectedLineRanges,
+        chips,
         originalMessage: message,
       },
     });
-    clearSelectedLineRanges();
+    clearChips();
   };
 
   const inputState = getInputState({ error, status });
@@ -120,9 +115,9 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
           )}
         </MessageFeed>
         <ContextChips
+          chips={chips}
           dismissible
-          onDismiss={(range) => toggleSelectedLineRange(range)}
-          selectedLineRanges={selectedLineRanges}
+          onDismiss={(chip) => toggleChip(chip)}
         />
         <InputBar {...inputState} onMessageSend={handleSend} />
       </ChatWindow>

@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { ChatContext, SelectedLineRange } from "./context";
+import { ChatContext, Chip } from "./context";
 
 type ProviderProps = {
   appName: string;
@@ -11,34 +11,27 @@ export const ChatProvider: React.FC<ProviderProps> = ({
   children,
 }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [chips, setChips] = useState<Map<string, Chip>>(new Map());
 
-  const [selectedLineRanges, setSelectedLineRanges] = useState<
-    Map<string, SelectedLineRange>
-  >(new Map());
+  const chipsArray = useMemo(() => Array.from(chips.values()), [chips]);
 
-  const selectedLineRangesArray = useMemo(
-    () => Array.from(selectedLineRanges.values()),
-    [selectedLineRanges],
-  );
-
-  const toggleSelectedLineRange = useCallback((range: SelectedLineRange) => {
-    setDrawerOpen(true);
-    const mapKey = range.endLine
-      ? `${range.startLine}-${range.endLine}`
-      : `${range.startLine}`;
-    setSelectedLineRanges((prev) => {
+  const toggleChip = useCallback((chip: Chip) => {
+    const mapKey = chip.endLine
+      ? `${chip.startLine}-${chip.endLine}`
+      : `${chip.startLine}`;
+    setChips((prev) => {
       const newMap = new Map(prev);
       if (newMap.has(mapKey)) {
         newMap.delete(mapKey);
       } else {
-        newMap.set(mapKey, range);
+        newMap.set(mapKey, chip);
       }
       return newMap;
     });
   }, []);
 
-  const clearSelectedLineRanges = useCallback(() => {
-    setSelectedLineRanges(new Map());
+  const clearChips = useCallback(() => {
+    setChips(new Map());
   }, []);
 
   const memoizedContext = useMemo(
@@ -46,18 +39,11 @@ export const ChatProvider: React.FC<ProviderProps> = ({
       appName,
       drawerOpen,
       setDrawerOpen,
-      selectedLineRanges: selectedLineRangesArray,
-      toggleSelectedLineRange,
-      clearSelectedLineRanges,
+      chips: chipsArray,
+      toggleChip,
+      clearChips,
     }),
-    [
-      appName,
-      drawerOpen,
-      setDrawerOpen,
-      selectedLineRangesArray,
-      toggleSelectedLineRange,
-      clearSelectedLineRanges,
-    ],
+    [appName, drawerOpen, setDrawerOpen, chipsArray, toggleChip, clearChips],
   );
 
   return (

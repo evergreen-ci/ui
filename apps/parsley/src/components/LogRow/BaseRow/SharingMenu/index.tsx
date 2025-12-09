@@ -23,7 +23,7 @@ const SharingMenu: React.FC = () => {
     setOpenMenu: setOpen,
   } = useMultiLineSelectContext();
   const { getLine, isUploadedLog, processedLogLines } = useLogContext();
-  const { toggleSelectedLineRange } = useChatContext();
+  const { toggleChip } = useChatContext();
 
   const [params, setParams] = useQueryParams(urlParseOptions);
   const dispatchToast = useToastContext();
@@ -43,7 +43,7 @@ const SharingMenu: React.FC = () => {
     );
     sendEvent({ name: "Clicked add to Parsley AI button" });
     setOpen(false);
-    toggleSelectedLineRange({
+    toggleChip({
       content: getRawLines(lineNumbers, getLine),
       endLine: endingLine,
       startLine: startingLine,

@@ -35,14 +35,9 @@ export const MessageRenderer: React.FC<
 
         return (
           <MessageContent key={key}>
-            {isSender &&
-              metadata?.selectedLineRanges &&
-              metadata.selectedLineRanges.length > 0 && (
-                <ContextChips
-                  dismissible={false}
-                  selectedLineRanges={metadata.selectedLineRanges}
-                />
-              )}
+            {isSender && metadata?.chips && metadata.chips.length > 0 && (
+              <ContextChips chips={metadata.chips} dismissible={false} />
+            )}
             <StyledMessage
               data-cy={`message-${role}`}
               isSender={isSender}
