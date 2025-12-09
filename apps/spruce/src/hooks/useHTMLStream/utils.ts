@@ -103,6 +103,7 @@ export const styles = css`
     padding: 0 4px;
     opacity: 0.4;
     transition: opacity 0.2s;
+    user-select: none;
   }
 
   .${CLASSNAME_LINE_LINK}:hover {
