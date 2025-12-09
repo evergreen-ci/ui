@@ -1,6 +1,6 @@
 import { UIMessage } from "@ai-sdk/react";
 import { ToolUIPart } from "ai";
-import { Chip } from "../Context/context";
+import { ContextChip } from "../Context/context";
 
 export type ToolState = ToolUIPart["state"];
 
@@ -15,7 +15,7 @@ export const ToolStateEnum = satisfiesToolStates({
 
 type MessageMetadata = {
   spanId?: string;
-  chips?: Chip[];
+  chips?: ContextChip[];
   originalMessage?: string;
 };
 

@@ -15,6 +15,20 @@ export const Default = {
     ],
     id: "123",
     role: "user",
+    metadata: {
+      chips: [
+        {
+          content: "this is the first chip content",
+          identifier: "chip-1",
+          label: "Line 1",
+        },
+        {
+          content: "this is the second chip content",
+          identifier: "chip-2",
+          label: "Lines 5-6",
+        },
+      ],
+    },
   },
 } satisfies CustomStoryObj<typeof MessageRenderer>;
 

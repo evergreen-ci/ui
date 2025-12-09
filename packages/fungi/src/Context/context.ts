@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export type Chip = {
+export type ContextChip = {
   content: string;
   identifier: string;
   label: string;
@@ -10,8 +10,8 @@ type ChatContextState = {
   appName: string;
   drawerOpen: boolean;
   setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  chips: Chip[];
-  toggleChip: (chip: Chip) => void;
+  chips: ContextChip[];
+  toggleChip: (chip: ContextChip) => void;
   clearChips: () => void;
 };
 

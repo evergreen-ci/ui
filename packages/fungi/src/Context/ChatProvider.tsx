@@ -1,21 +1,25 @@
 import { useCallback, useMemo, useState } from "react";
-import { ChatContext, Chip } from "./context";
+import { ChatContext, ContextChip } from "./context";
 
-type ProviderProps = {
+export type ChatProviderProps = {
   appName: string;
   children?: React.ReactNode;
+  initialChips?: Map<string, ContextChip>;
 };
 
-export const ChatProvider: React.FC<ProviderProps> = ({
+export const ChatProvider: React.FC<ChatProviderProps> = ({
   appName,
   children,
+  initialChips,
 }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [chips, setChips] = useState<Map<string, Chip>>(new Map());
+  const [chips, setChips] = useState<Map<string, ContextChip>>(
+    initialChips ?? new Map(),
+  );
 
   const chipsArray = useMemo(() => Array.from(chips.values()), [chips]);
 
-  const toggleChip = useCallback((chip: Chip) => {
+  const toggleChip = useCallback((chip: ContextChip) => {
     const mapKey = chip.identifier;
     setChips((prev) => {
       const newMap = new Map(prev);

@@ -6,7 +6,7 @@ import { MessageActionsProps } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
 import { useChatContext } from "../Context";
-import { Chip } from "../Context/context";
+import { ContextChip } from "../Context/context";
 import { ContextChips } from "../ContextChips";
 import { FungiUIMessage, MessageRenderer } from "../MessageRenderer";
 import { Suggestions } from "../Suggestions";
@@ -24,7 +24,7 @@ export type ChatFeedProps = {
   onClickCopy?: MessageActionsProps["onClickCopy"];
   onClickSuggestion?: (suggestion: string) => void;
   onSendMessage?: (message: string) => void;
-  transformMessage?: (message: string, chips: Chip[]) => string;
+  transformMessage?: (message: string, chips: ContextChip[]) => string;
 };
 
 export const ChatFeed: React.FC<ChatFeedProps> = ({

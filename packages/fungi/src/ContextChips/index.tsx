@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { Chip as ContextChip } from "../Context/context";
+import { ContextChip } from "../Context/context";
 
 export type ContextChipsProps = {
   chips: ContextChip[];
@@ -19,6 +19,9 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
     {chips.map((chip) => (
       <Chip
         key={chip.identifier}
+        data-cy={chip.identifier}
+        data-dismissible={dismissible}
+        dismissButtonAriaLabel="Dismiss chip"
         label={
           <>
             <Icon glyph="Code" />
