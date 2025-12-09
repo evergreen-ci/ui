@@ -91,7 +91,6 @@ export const adminSettings: AdminSettings = {
     taskReliabilityDisabled: true,
     unrecognizedPodCleanupDisabled: true,
     webhookNotificationsDisabled: true,
-    legacyUIAdminPageDisabled: true,
   },
   taskLimits: {
     maxConcurrentLargeParserProjectTasks: 1,
