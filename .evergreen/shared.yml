@@ -188,9 +188,9 @@ functions:
         ${PREPARE_SHELL}
         # Allow spec filtering for an intentional patch.
         if [[ "${cypress_spec}" != "" ]]; then
-          CYPRESS_CI=true CYPRESS_SKIP_VERIFY=true pnpm cy:run --reporter junit --spec "${cypress_spec}"
+          CYPRESS_CI=true pnpm cy:run --reporter junit --spec "${cypress_spec}"
         else
-          CYPRESS_CI=true CYPRESS_SKIP_VERIFY=true pnpm cy:run --reporter junit
+          CYPRESS_CI=true pnpm cy:run --reporter junit
         fi
 
   pnpm-eslint:

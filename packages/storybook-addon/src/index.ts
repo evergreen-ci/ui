@@ -1,6 +1,6 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 
-export { addons, previewHead, stories } from "./main";
+export { addons, previewHead, stories, viteFinal } from "./main";
 
 export { default as projectAnnotations } from "./preview";
 

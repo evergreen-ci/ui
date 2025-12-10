@@ -24,13 +24,11 @@ vi.mock("../shell", async () => {
     underline: vi.fn(),
   };
 });
-vi.mock("../environment", async () => {
-  const actual = await vi.importActual("../environment");
-  return {
-    ...actual,
-    getAppToDeploy: vi.fn(),
-  };
-});
+vi.mock("../environment", () => ({
+  getAppToDeploy: vi.fn(),
+  isRunningOnCI: vi.fn(),
+  isTest: true,
+}));
 // Don't mock ./index - import actual functions and spy on them
 
 describe("tagIsValid", () => {

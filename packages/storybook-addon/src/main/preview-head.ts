@@ -1,8 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import {
-  fontStyles,
-  resetStyles,
-} from "@evg-ui/lib/src/components/styles/index";
+import { fontStyles, resetStyles } from "@evg-ui/lib/src/components/styles";
 
 export const previewHead: StorybookConfig["previewHead"] = (head) => `
 ${head}

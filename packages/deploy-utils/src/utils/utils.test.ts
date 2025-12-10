@@ -1,54 +1,37 @@
 import { getAppToDeploy } from "./environment";
-import { getGitRoot } from "./git";
-
-vi.mock("./git", () => ({
-  getGitRoot: vi.fn(),
-}));
 
 describe("getAppToDeploy", () => {
+  const originalEnv = process.env;
+
   beforeEach(() => {
-    vi.mocked(getGitRoot).mockReturnValue("/Users/username/evergreen-ci/ui");
+    process.env = { ...originalEnv };
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
+    process.env = originalEnv;
   });
 
-  it("returns app name when run from correct directory", () => {
-    vi.spyOn(process, "cwd").mockReturnValue(
-      "/Users/username/evergreen-ci/ui/apps/spruce",
-    );
-
+  it("returns app name when PNPM_PACKAGE_NAME is spruce", () => {
+    process.env.PNPM_PACKAGE_NAME = "spruce";
     expect(getAppToDeploy()).toEqual("spruce");
   });
 
-  it("throws an error when run from directory inside app", () => {
-    vi.spyOn(process, "cwd").mockReturnValue(
-      "/Users/username/evergreen-ci/ui/apps/spruce/hello",
-    );
+  it("returns app name when PNPM_PACKAGE_NAME is parsley", () => {
+    process.env.PNPM_PACKAGE_NAME = "parsley";
+    expect(getAppToDeploy()).toEqual("parsley");
+  });
 
+  it("throws an error when PNPM_PACKAGE_NAME is not set", () => {
+    delete process.env.PNPM_PACKAGE_NAME;
     expect(() => getAppToDeploy()).toThrowError(
-      "Must deploy from an app's root directory",
+      "Must deploy from an app's root directory using pnpm",
     );
   });
 
-  it("throws an error when run from non-app directory", () => {
-    vi.spyOn(process, "cwd").mockReturnValue(
-      "/Users/username/evergreen-ci/ui/packages/storybook-addon",
-    );
-
+  it("throws an error when PNPM_PACKAGE_NAME is not a deployable app", () => {
+    process.env.PNPM_PACKAGE_NAME = "some-other-package";
     expect(() => getAppToDeploy()).toThrowError(
-      "Must deploy from an app's root directory",
-    );
-  });
-
-  it("throws an error when run from invalid app", () => {
-    vi.spyOn(process, "cwd").mockReturnValue(
-      "/Users/username/evergreen-ci/ui/apps/lobster",
-    );
-
-    expect(() => getAppToDeploy()).toThrowError(
-      "Must deploy from an app's root directory",
+      "Must deploy from an app's root directory using pnpm",
     );
   });
 });
