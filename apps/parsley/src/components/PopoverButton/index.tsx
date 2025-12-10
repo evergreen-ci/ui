@@ -51,7 +51,10 @@ const PopoverButton: React.FC<PopoverButtonProps> = ({
       {...rest}
     >
       {buttonText}
-      <Popover active={isOpen} onClick={(e) => e.stopPropagation()}>
+      <Popover
+        active={isOpen}
+        onClick={(e: React.MouseEvent) => e.stopPropagation()}
+      >
         <div ref={popoverRef}>
           <Card>{children}</Card>
         </div>

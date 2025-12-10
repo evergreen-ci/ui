@@ -119,11 +119,11 @@ const generateParallelE2ETasks = (bv) => {
       { func: "symlink" },
       { func: "seed-bucket-data" },
       { func: "run-logkeeper" },
-      { func: "yarn-build" },
-      { func: "yarn-preview" },
+      { func: "pnpm-build" },
+      { func: "pnpm-preview" },
       { func: "wait-for-evergreen" },
-      { func: "yarn-verify-backend" },
-      { func: "yarn-cypress", vars: { cypress_spec: spec } },
+      { func: "pnpm-verify-backend" },
+      { func: "pnpm-cypress", vars: { cypress_spec: spec } },
     ],
   }));
   const bvTasks = e2eTasks.map(({ name }) => ({ name }));

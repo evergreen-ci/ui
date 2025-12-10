@@ -51,9 +51,9 @@ describe("getRemotePreviousCommit", () => {
   it("handles a rejection", async () => {
     vi.mocked(get).mockImplementation(errorMock);
 
-    expect(async () => getRemotePreviousCommit("spruce")).rejects.toThrowError(
-      "invalid",
-    );
+    await expect(async () =>
+      getRemotePreviousCommit("spruce"),
+    ).rejects.toThrowError("invalid");
   });
 });
 
@@ -78,7 +78,7 @@ describe("getCurrentlyDeployedCommit", () => {
 
   it("errors with invalid remote and local commits", async () => {
     vi.mocked(get).mockImplementation(errorMock);
-    expect(async () =>
+    await expect(async () =>
       getCurrentlyDeployedCommit("spruce"),
     ).rejects.toThrowError("No valid commit found");
   });

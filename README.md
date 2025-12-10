@@ -11,7 +11,7 @@ Read more about our analytics practices [here](ANALYTICS.md).
 Learn about our monorepo shared library [here](packages/lib/README.md).
 
 Check out the
-[Yarn Workspaces documentation](https://classic.yarnpkg.com/lang/en/docs/workspaces/)
+[pnpm Workspaces documentation](https://pnpm.io/workspaces)
 for more.
 
 ### Dependencies
@@ -19,39 +19,39 @@ for more.
 To upgrade a dependency across workspaces:
 
 ```bash
-yarn upgrade-interactive [--latest] [package-name]
+pnpm update [package-name] --latest --recursive
 ```
 
 To remove all installed dependencies:
 
 ```bash
-yarn clean
+pnpm clean
 ```
 
-You can then rerun `yarn install`.
+You can then rerun `pnpm install`.
 
 ### Scripts
 
 To run a script in a workspace from root:
 
 ```bash
-yarn workspace [workspace-name] run [script-name]
+pnpm --filter [workspace-name] run [script-name]
 ```
 
-For example, `yarn workspace spruce run storybook`.
+For example, `pnpm --filter spruce run storybook`.
 
 ### Testing
 
 To run all unit tests across the repository, from root:
 
 ```bash
-yarn test
+pnpm test
 ```
 
 To run a particular workspace's unit tests from root:
 
 ```bash
-yarn test --project [workspace-name]
+pnpm test --project [workspace-name]
 ```
 
 ### Storybook
@@ -60,5 +60,5 @@ Spruce, Parsley, and @evg-ui/lib all have their own storybooks, but there's also
 a shared storybook that combines them into one interface. From root, just run:
 
 ```bash
-yarn storybook
+pnpm storybook
 ```

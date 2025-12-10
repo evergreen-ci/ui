@@ -287,6 +287,11 @@ const jsDocConfig = {
   ...jsdocPlugin.configs["flat/recommended-typescript-error"],
   name: "jsdoc/rules",
   files: ["**/*.js?(x)", "**/*.ts?(x)"],
+  settings: {
+    jsdoc: {
+      ignoreInternal: true
+    }
+  }
 };
 
 // Storybook ESLint (eslint-plugin-storybook) settings.

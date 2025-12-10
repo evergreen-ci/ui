@@ -18,7 +18,7 @@
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-sort-destructure-keys": "^2.0.0",
-    "eslint-plugin-storybook": "^10.1.4",
+    "eslint-plugin-storybook": "^9",
     "eslint-plugin-testing-library": "^7.13.5",
     "graphql": "16.10.0",
     "prettier": "3.5.1",

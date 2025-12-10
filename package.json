@@ -3,21 +3,14 @@
   "repository": "https://github.com/evergreen-ci/ui",
   "private": true,
   "type": "module",
-  "workspaces": {
-    "packages": [
-      "apps/*",
-      "packages/*"
-    ]
-  },
   "scripts": {
     "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
-    "codegen": "for app in spruce parsley @evg-ui/lib; do yarn workspace $app run codegen; done",
     "prepare": "husky",
-    "storybook": "concurrently \"yarn workspace spruce run storybook --no-open\" \"yarn workspace parsley run storybook --no-open\" \"yarn workspace @evg-ui/lib run storybook --no-open\" \"yarn workspace @evg-ui/fungi run storybook --no-open\" \"sleep 5 && storybook dev\"",
+    "storybook": "concurrently \"pnpm --filter spruce run storybook --no-open\" \"pnpm --filter parsley run storybook --no-open\" \"pnpm --filter @evg-ui/lib run storybook --no-open\" \"pnpm --filter @evg-ui/fungi run storybook --no-open\" \"sleep 5 && storybook dev\"",
     "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts"
   },
   "devDependencies": {
-    "@evg-ui/storybook-addon": "*",
+    "@evg-ui/storybook-addon": "workspace:*",
     "@storybook/react-vite": "^9.0.18",
     "concurrently": "8.2.2",
     "husky": "9.1.7",

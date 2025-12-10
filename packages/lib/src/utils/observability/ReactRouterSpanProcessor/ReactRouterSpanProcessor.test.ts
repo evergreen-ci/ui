@@ -1,3 +1,4 @@
+import { ROOT_CONTEXT } from "@opentelemetry/api";
 import { Span } from "@opentelemetry/sdk-trace-base";
 import { RouteConfig } from "./types";
 import ReactRouterSpanProcessor from ".";
@@ -27,7 +28,7 @@ describe("ReactRouterSpanProcessor", () => {
         writable: true,
       });
 
-      spanProcessor.onStart(mockSpan);
+      spanProcessor.onStart(mockSpan, ROOT_CONTEXT);
 
       expect(mockSpan.setAttribute).toHaveBeenCalledWith(
         "page.route_name",
@@ -48,7 +49,7 @@ describe("ReactRouterSpanProcessor", () => {
         writable: true,
       });
 
-      spanProcessor.onStart(mockSpan);
+      spanProcessor.onStart(mockSpan, ROOT_CONTEXT);
 
       expect(mockSpan.setAttribute).toHaveBeenCalledWith(
         "page.route_name",
@@ -77,7 +78,7 @@ describe("ReactRouterSpanProcessor", () => {
         writable: true,
       });
 
-      spanProcessor.onStart(mockSpan);
+      spanProcessor.onStart(mockSpan, ROOT_CONTEXT);
 
       expect(mockSpan.setAttribute).toHaveBeenCalledWith(
         "page.route_name",
@@ -107,7 +108,7 @@ describe("ReactRouterSpanProcessor", () => {
         writable: true,
       });
 
-      spanProcessor.onStart(mockSpan);
+      spanProcessor.onStart(mockSpan, ROOT_CONTEXT);
 
       expect(mockSpan.setAttribute).toHaveBeenCalledWith(
         "page.route_name",
@@ -136,7 +137,7 @@ describe("ReactRouterSpanProcessor", () => {
         writable: true,
       });
 
-      spanProcessor.onStart(mockSpan);
+      spanProcessor.onStart(mockSpan, ROOT_CONTEXT);
 
       expect(mockSpan.setAttribute).not.toHaveBeenCalled();
     });
@@ -151,7 +152,7 @@ describe("ReactRouterSpanProcessor", () => {
         writable: true,
       });
 
-      spanProcessor.onStart(mockSpan);
+      spanProcessor.onStart(mockSpan, ROOT_CONTEXT);
 
       expect(mockSpan.setAttribute).not.toHaveBeenCalled();
     });
@@ -165,7 +166,7 @@ describe("ReactRouterSpanProcessor", () => {
         writable: true,
       });
 
-      spanProcessor.onStart(mockSpan);
+      spanProcessor.onStart(mockSpan, ROOT_CONTEXT);
 
       expect(mockSpan.setAttribute).toHaveBeenCalledWith(
         "page.route_name",

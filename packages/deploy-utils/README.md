@@ -13,7 +13,7 @@ You must be on the `main` branch if deploying to prod.
 ### How to Deploy:
 
 #### Production
-For production, use `yarn deploy:prod` to push a git tag and trigger a new build. In case of emergency (i.e. Evergreen, GitHub, or other systems are down), a production build can be pushed directly to S3 with `yarn deploy:prod --force`.
+For production, use `pnpm deploy:prod` to push a git tag and trigger a new build. In case of emergency (i.e. Evergreen, GitHub, or other systems are down), a production build can be pushed directly to S3 with `pnpm deploy:prod --force`.
 
 #### Staging and Beta
 For staging and beta environments, run the corresponding deploy task in an Evergreen patch.
