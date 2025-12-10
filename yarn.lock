@@ -2212,6 +2212,17 @@
     "@leafygreen-ui/polymorphic" "^3.1.0"
     "@leafygreen-ui/tokens" "^4.0.0"
 
+"@leafygreen-ui/card@^13.3.0":
+  version "13.3.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-13.3.0.tgz#f37f54f7b2ddc7c2d21377815eaa0e8494e9efc6"
+  integrity sha512-yUFyIQUDQwZi2gKoxJaxLkAKKk/n8fdScqTyd9krP3Hh+gkq7G1x+xXhvXMA79wlbk+WeRTBKZcvKbkgGZQyxg==
+  dependencies:
+    "@leafygreen-ui/emotion" "^5.1.0"
+    "@leafygreen-ui/lib" "^15.7.0"
+    "@leafygreen-ui/palette" "^5.0.2"
+    "@leafygreen-ui/polymorphic" "^3.1.0"
+    "@leafygreen-ui/tokens" "^4.1.0"
+
 "@leafygreen-ui/checkbox@^18.1.4":
   version "18.1.4"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-18.1.4.tgz#4be8d47f9e4a77155b314144900bdfefd53346a6"
@@ -2578,10 +2589,10 @@
   dependencies:
     lodash "^4.17.21"
 
-"@leafygreen-ui/lib@^15.3.0", "@leafygreen-ui/lib@^15.4.0", "@leafygreen-ui/lib@^15.6.1", "@leafygreen-ui/lib@^15.6.2":
-  version "15.6.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-15.6.2.tgz#268fcd76c129bce675b5e94f739f76bffeed09b4"
-  integrity sha512-HsjXXovBqyrXL3Y7V09g2bEidGn58AK/mfoIPMlen/hEcWlbXbefoCzXF7AQqWLhd0F/lS2XgX7+BqVUHXx2/Q==
+"@leafygreen-ui/lib@^15.3.0", "@leafygreen-ui/lib@^15.4.0", "@leafygreen-ui/lib@^15.6.1", "@leafygreen-ui/lib@^15.6.2", "@leafygreen-ui/lib@^15.7.0":
+  version "15.7.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-15.7.0.tgz#6a4f8b9348d69c52e765906f92fc3b2972f5b04b"
+  integrity sha512-qHv7oN2uN7ywdG9lUN/ayFJzzgJELLgNxIo24m64Sl9c8gSWQeCW+NDj3ukoNVH7ME7QPoULseNd1fElonH8Vg==
   dependencies:
     lodash "^4.17.21"
 
@@ -3192,10 +3203,10 @@
     "@leafygreen-ui/tokens" "^4.1.0"
     "@leafygreen-ui/tooltip" "^14.3.0"
 
-"@lg-chat/message@^10.1.0", "@lg-chat/message@^10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@lg-chat/message/-/message-10.1.1.tgz#6a66a027c5bf7bae58c07282ed2c1f029636da16"
-  integrity sha512-TM1Iydq9FHrbGyDpCUyNEpZizeaqgSgHe/YYH3RlDIW7Q7egyJvWzCCIYkXp5abkmqa/3ll+Ho/SW9Ktz5sSdQ==
+"@lg-chat/message@^10.1.0", "@lg-chat/message@^10.1.2":
+  version "10.1.2"
+  resolved "https://registry.yarnpkg.com/@lg-chat/message/-/message-10.1.2.tgz#542c73b9618240569e9ff9c831a6d42b8960e123"
+  integrity sha512-O12YeVqfkkIGVU/r89bMGpynS0UCQj0ofKQ/OJwmhkzRkcZ1rYN2LMFBRG3no7MSnQrrMbnYgy4lqNUz8FTx9Q==
   dependencies:
     "@leafygreen-ui/avatar" "^3.1.6"
     "@leafygreen-ui/badge" "^10.2.3"
@@ -3204,7 +3215,7 @@
     "@leafygreen-ui/hooks" "^9.3.0"
     "@leafygreen-ui/icon" "^14.7.1"
     "@leafygreen-ui/icon-button" "^17.1.4"
-    "@leafygreen-ui/lib" "^15.6.2"
+    "@leafygreen-ui/lib" "^15.7.0"
     "@leafygreen-ui/palette" "^5.0.2"
     "@leafygreen-ui/polymorphic" "^3.1.0"
     "@leafygreen-ui/tokens" "^4.1.0"
@@ -3213,17 +3224,17 @@
     "@lg-chat/lg-markdown" "^5.0.2"
     "@lg-chat/message-feedback" "^9.0.1"
     "@lg-chat/message-rating" "^7.1.0"
-    "@lg-chat/rich-links" "^4.0.6"
+    "@lg-chat/rich-links" "^4.0.7"
 
-"@lg-chat/rich-links@^4.0.6":
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/@lg-chat/rich-links/-/rich-links-4.0.6.tgz#d94ee719a4f070d3298b770d67e9d324b9c562d2"
-  integrity sha512-cvimcFGBrdbFsQaoavJNNZBET3q2FhmB5KPnUVA0BiimI9KCCCRy830RKFz1qLBjAuVmjZUZOL4ECfFKh9SHNQ==
+"@lg-chat/rich-links@^4.0.7":
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/@lg-chat/rich-links/-/rich-links-4.0.7.tgz#30ff9e9d8c4935bd13a7c423fa57e1fd330fae01"
+  integrity sha512-HhOVZC6MqDqpSASnVk6DS9XN3W//hyvNOvRASaRnU9VpkaIYc/h6tuXFWd3ngLipbDlkD7W/KdQkCk/JTK3THw==
   dependencies:
-    "@leafygreen-ui/card" "^13.2.1"
+    "@leafygreen-ui/card" "^13.3.0"
     "@leafygreen-ui/emotion" "^5.1.0"
     "@leafygreen-ui/icon" "^14.7.1"
-    "@leafygreen-ui/lib" "^15.6.2"
+    "@leafygreen-ui/lib" "^15.7.0"
     "@leafygreen-ui/palette" "^5.0.2"
     "@leafygreen-ui/polymorphic" "^3.1.0"
     "@leafygreen-ui/tokens" "^4.1.0"
