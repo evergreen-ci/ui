@@ -28,6 +28,9 @@ const fileToStream = async (
   const reader = sourceStream.getReader();
 
   return new ReadableStream<Uint8Array>({
+    async cancel(reason) {
+      await reader.cancel(reason);
+    },
     async pull(controller) {
       const { done, value } = await reader.read();
       if (done || !value) {
@@ -47,9 +50,6 @@ const fileToStream = async (
         await reader.cancel();
         controller.close();
       }
-    },
-    async cancel(reason) {
-      await reader.cancel(reason);
     },
   });
 };
