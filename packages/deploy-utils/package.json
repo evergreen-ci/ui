@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "workspace:*",
+    "@evg-ui/lint-staged": "workspace:*",
     "@types/node": "^22.15.3",
     "@types/prompts": "2.4.9",
     "eslint": "^9.39.1",

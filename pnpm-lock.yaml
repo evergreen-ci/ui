@@ -723,6 +723,9 @@ importers:
       '@evg-ui/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@evg-ui/lint-staged':
+        specifier: workspace:*
+        version: link:../lint-staged
       '@types/node':
         specifier: ^22.15.3
         version: 22.15.3
@@ -760,6 +763,9 @@ importers:
       '@evg-ui/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@evg-ui/lint-staged':
+        specifier: workspace:*
+        version: link:../lint-staged
       '@types/node':
         specifier: ^22.15.3
         version: 22.15.3
@@ -1195,6 +1201,9 @@ importers:
       '@evg-ui/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@evg-ui/lint-staged':
+        specifier: workspace:*
+        version: link:../lint-staged
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.5.1)
@@ -1208,6 +1217,9 @@ importers:
       '@evg-ui/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@evg-ui/lint-staged':
+        specifier: workspace:*
+        version: link:../lint-staged
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.5.1)
