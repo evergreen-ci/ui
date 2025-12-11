@@ -67,7 +67,7 @@ describe("ChatFeed", () => {
     it("transforms the message using the given prop", async () => {
       const user = userEvent.setup();
       const mockTransformMessage = vi.fn(
-        (message, chips) =>
+        (message, { chips }) =>
           `Transformed: ${message} with ${chips.length} chips`,
       );
       render(
@@ -80,7 +80,7 @@ describe("ChatFeed", () => {
       const textarea = screen.getByRole("textbox");
       await user.type(textarea, message);
       await user.click(screen.getByRole("button", { name: "Send message" }));
-      expect(mockTransformMessage).toHaveBeenCalledWith(message, []);
+      expect(mockTransformMessage).toHaveBeenCalledWith(message, { chips: [] });
       expect(screen.queryByDataCy("message-user")).toHaveTextContent(message);
     });
   });
