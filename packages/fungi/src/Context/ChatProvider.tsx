@@ -20,6 +20,7 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({
   const chipsArray = useMemo(() => Array.from(chips.values()), [chips]);
 
   const toggleChip = useCallback((chip: ContextChip) => {
+    setDrawerOpen(true);
     const mapKey = chip.identifier;
     setChips((prev) => {
       const newMap = new Map(prev);
