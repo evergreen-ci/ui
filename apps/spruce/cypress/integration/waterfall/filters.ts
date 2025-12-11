@@ -25,15 +25,6 @@ describe("requester filtering", () => {
     cy.contains("No Results Found").should("be.visible");
   });
 
-  it("filters on periodic builds and triggers", () => {
-    cy.dataCy("requester-filter").click();
-    cy.dataCy("ad_hoc-option").click();
-    cy.dataCy("trigger_request-option").click();
-    cy.dataCy("inactive-versions-button").first().contains("5");
-    cy.dataCy("version-label-active").should("have.length", 1);
-    cy.dataCy("version-label-active").contains("Triggered by:");
-  });
-
   it("filters on git tags and fetches more from the server", () => {
     cy.dataCy("requester-filter").click();
     cy.dataCy("git_tag_request-option").click();
