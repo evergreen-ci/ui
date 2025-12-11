@@ -34,6 +34,25 @@ globalThis.jest = {
 
 // LeafyGreen tables require an IntersectionObserver.
 beforeEach(() => {
+  if (typeof File !== "undefined" && !File.prototype.stream) {
+    File.prototype.stream = function stream() {
+      const file = this;
+      let offset = 0;
+      return new ReadableStream<Uint8Array>({
+        async pull(controller) {
+          if (offset >= file.size) {
+            controller.close();
+            return;
+          }
+          const chunk = file.slice(offset, offset + POLYFILL_CHUNK_SIZE);
+          offset += POLYFILL_CHUNK_SIZE;
+          const buffer = await readBlobAsArrayBuffer(chunk);
+          controller.enqueue(new Uint8Array(buffer));
+        },
+      });
+    };
+  }
+
   const mockIntersectionObserver = vi.fn();
   mockIntersectionObserver.mockReturnValue({
     observe: vi.fn(),
@@ -69,6 +88,17 @@ beforeEach(() => {
     this.open = false;
   });
 });
+
+const POLYFILL_CHUNK_SIZE = 1024 * 1024 * 10;
+
+const readBlobAsArrayBuffer = (blob: Blob): Promise<ArrayBuffer> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as ArrayBuffer);
+    reader.onerror = () =>
+      reject(reader.error ?? new Error("Unable to read blob chunk."));
+    reader.readAsArrayBuffer(blob);
+  });
 
 afterEach(() => {
   vi.unstubAllGlobals();

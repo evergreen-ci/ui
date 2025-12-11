@@ -18,7 +18,7 @@ const fileToStream = async (
   options: StreamedFileOptions = {},
 ): Promise<ReadableStream<Uint8Array>> => {
   const { fileSizeLimit } = options;
-  const sourceStream = getBlobStream(file);
+  const sourceStream = getFileStream(file);
   // If no size limit is needed, return the browser-provided stream directly.
   if (fileSizeLimit === undefined) {
     return sourceStream;
@@ -54,38 +54,11 @@ const fileToStream = async (
   });
 };
 
-const getBlobStream = (file: File): ReadableStream<Uint8Array> => {
-  if (typeof file.stream === "function") {
-    return file.stream();
+const getFileStream = (file: File): ReadableStream<Uint8Array> => {
+  if (typeof file.stream !== "function") {
+    throw new Error("File.stream() is unavailable in this environment.");
   }
-
-  // Some environments (like our test runner) don't provide File.stream().
-  // Fall back to manually reading the file in chunks with FileReader.
-  let offset = 0;
-  return new ReadableStream<Uint8Array>({
-    async pull(controller) {
-      if (offset >= file.size) {
-        controller.close();
-        return;
-      }
-
-      const chunk = file.slice(offset, offset + CHUNK_SIZE);
-      offset += CHUNK_SIZE;
-      const buffer = await readBlobAsArrayBuffer(chunk);
-      controller.enqueue(new Uint8Array(buffer));
-    },
-  });
+  return file.stream();
 };
-
-const readBlobAsArrayBuffer = (blob: Blob): Promise<ArrayBuffer> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as ArrayBuffer);
-    reader.onerror = () =>
-      reject(reader.error ?? new Error("Unable to read blob chunk."));
-    reader.readAsArrayBuffer(blob);
-  });
-
-const CHUNK_SIZE = 1024 * 1024 * 10; // 10MB
 
 export { fileToStream };
