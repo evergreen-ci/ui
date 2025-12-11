@@ -24,7 +24,7 @@ import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { BuildVariantProvider } from "./BuildVariantContext";
 import { VERSION_LIMIT } from "./constants";
-import { Empty } from "./Empty";
+import { EmptyState } from "./EmptyState";
 import { FetchMoreLoader } from "./FetchMoreLoader";
 import { InactiveVersionsButton } from "./InactiveVersions";
 import { OnboardingTutorial } from "./OnboardingTutorial";
@@ -206,7 +206,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     (revision !== null && v.revision.includes(revision)) || (!!date && i === 0);
 
   if (activeVersionIds.length === 0) {
-    return <Empty />;
+    return <EmptyState />;
   }
 
   return (

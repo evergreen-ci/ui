@@ -4,7 +4,9 @@ import { WalkthroughStep } from "components/WalkthroughGuideCue";
 import { validators } from "utils";
 import { ServerFilters } from "./types";
 
-// Total number of versions checked by the server. Defined on the backend too, so make sure to update both.
+/**
+ * Total number of versions checked by the server. Defined on the backend too, so make sure to update both.
+ */
 export const VERSION_SEARCH_LIMIT = 300;
 export const VERSION_LIMIT = 5;
 
