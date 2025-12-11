@@ -84,10 +84,6 @@ export const useFilters = ({
       const activeBuilds: Build[] = [];
       bv.builds.forEach((b) => {
         if (activeVersions.find(({ id }) => id === b.version)) {
-          // Omit inactive builds when filtering on build variants
-          if (buildVariantFilterRegex.length && !b.activated) {
-            return;
-          }
           if (taskFilterRegex.length || statuses.length) {
             const activeTasks = b.tasks.filter(
               (t) =>
