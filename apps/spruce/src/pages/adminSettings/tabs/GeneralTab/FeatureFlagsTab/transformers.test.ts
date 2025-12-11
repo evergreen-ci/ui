@@ -52,7 +52,6 @@ const form: FeatureFlagsFormState = {
       staticAPIKeysDisabled: true,
       elasticIPsDisabled: true,
       releaseModeDisabled: true,
-      legacyUIAdminPageDisabled: true,
     },
     batchJobs: {
       backgroundStatsDisabled: true,
@@ -99,6 +98,5 @@ const gql: AdminSettingsInput = {
     taskReliabilityDisabled: true,
     unrecognizedPodCleanupDisabled: true,
     webhookNotificationsDisabled: true,
-    legacyUIAdminPageDisabled: true,
   },
 };

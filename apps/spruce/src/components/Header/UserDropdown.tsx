@@ -1,8 +1,11 @@
 import { useQuery } from "@apollo/client";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
-import { adminSettingsURL } from "constants/externalResources";
-import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
+import {
+  PreferencesTabRoutes,
+  getAdminSettingsRoute,
+  getPreferencesRoute,
+} from "constants/routes";
 import { UserQuery } from "gql/generated/types";
 import { USER } from "gql/queries";
 import { MenuItemType, NavDropdown } from "./NavDropdown";
@@ -41,7 +44,7 @@ export const UserDropdown = () => {
     menuItems.splice(-1, 0, {
       "data-cy": "admin-link",
       text: "Admin",
-      href: adminSettingsURL,
+      href: getAdminSettingsRoute(),
       onClick: () => sendEvent({ name: "Clicked admin settings link" }),
     });
   }

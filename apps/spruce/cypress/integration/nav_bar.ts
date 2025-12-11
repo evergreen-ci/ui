@@ -1,16 +1,12 @@
-import { EVG_BASE_URL, users } from "../constants";
+import { users } from "../constants";
 
 const PATCH_ID = "5e4ff3abe3c3317e352062e4";
 const USER_ID = "admin";
 const SPRUCE_URLS = {
+  admin: "/admin-settings/general",
   version: `/version/${PATCH_ID}/tasks`,
   userPatches: `/user/${USER_ID}/patches`,
   cli: `/preferences/cli`,
-};
-const LEGACY_URLS = {
-  version: `${EVG_BASE_URL}/version/${PATCH_ID}`,
-  userPatches: `${EVG_BASE_URL}/patches/user/${USER_ID}`,
-  admin: `${EVG_BASE_URL}/admin`,
 };
 describe("Nav Bar", () => {
   const projectCookie = "mci-project-cookie";
@@ -86,7 +82,7 @@ describe("Nav Bar", () => {
       cy.dataCy("user-dropdown-link").click();
       cy.dataCy("admin-link")
         .should("be.visible")
-        .should("have.attr", "href", LEGACY_URLS.admin);
+        .should("have.attr", "href", SPRUCE_URLS.admin);
     });
 
     it("Should not show Admin button to non-admins", () => {
