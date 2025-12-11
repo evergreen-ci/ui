@@ -289,13 +289,6 @@ CommitDetailsCard.displayName = "CommitDetailsCard";
 
 export default CommitDetailsCard;
 
-const PriorityContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: ${size.xs};
-  margin-left: auto;
-`;
-
 const CommitCard = styled.div<{
   status: TaskStatus;
   selected: boolean;
@@ -328,6 +321,13 @@ const TopLabel = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.xxs};
+`;
+
+const PriorityContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: ${size.xs};
+  margin-left: auto;
 `;
 
 const BottomLabel = styled.div`
