@@ -119,6 +119,8 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   }, [inputRef]);
 
   const label = taskIds ? "task" : "patch";
+  const disableButton =
+    disabled || loadingSetVersionPriority || loadingSetTaskPriorities;
 
   return (
     <>
@@ -126,9 +128,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         <Button
           ref={menuItemRef}
           data-cy="set-priority-button"
-          disabled={
-            disabled || loadingSetVersionPriority || loadingSetTaskPriorities
-          }
+          disabled={disableButton}
           onClick={() => setOpen(!open)}
           size={ButtonSize.XSmall}
         >
@@ -139,9 +139,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
           ref={menuItemRef}
           active={open}
           data-cy="set-priority-menu-item"
-          disabled={
-            disabled || loadingSetVersionPriority || loadingSetTaskPriorities
-          }
+          disabled={disableButton}
           onClick={() => setOpen(!open)}
         >
           Set {label} priority
