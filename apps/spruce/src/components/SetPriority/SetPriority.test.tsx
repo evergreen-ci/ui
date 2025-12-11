@@ -17,6 +17,28 @@ import { SET_VERSION_PRIORITY, SET_TASK_PRIORITIES } from "gql/mutations";
 import SetPriority from ".";
 
 describe("setPriority", () => {
+  describe("isButton prop", () => {
+    it("renders a button when isButton is true", () => {
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider>
+          <SetPriority isButton versionId="version_id" />
+        </MockedProvider>,
+      );
+      renderWithRouterMatch(<Component />);
+      expect(screen.getByDataCy("set-priority-button")).toBeInTheDocument();
+    });
+
+    it("renders a menu item when isButton is false", () => {
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider>
+          <SetPriority versionId="version_id" />
+        </MockedProvider>,
+      );
+      renderWithRouterMatch(<Component />);
+      expect(screen.getByDataCy("set-priority-menu-item")).toBeInTheDocument();
+    });
+  });
+
   describe("patch priority", () => {
     it("shows default message", async () => {
       const user = userEvent.setup();
@@ -27,7 +49,7 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("prioritize-patch"));
+      await user.click(screen.getByDataCy("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-patch-priority-popconfirm"),
@@ -47,7 +69,7 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("prioritize-patch"));
+      await user.click(screen.getByDataCy("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-patch-priority-popconfirm"),
@@ -67,7 +89,7 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("prioritize-patch"));
+      await user.click(screen.getByDataCy("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-patch-priority-popconfirm"),
@@ -87,7 +109,7 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("prioritize-patch"));
+      await user.click(screen.getByDataCy("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-patch-priority-popconfirm"),
@@ -109,7 +131,7 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("prioritize-task"));
+      await user.click(screen.getByDataCy("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm"),
@@ -127,7 +149,7 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("prioritize-task"));
+      await user.click(screen.getByDataCy("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm"),
@@ -147,7 +169,7 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("prioritize-task"));
+      await user.click(screen.getByDataCy("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm"),
@@ -167,7 +189,7 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("prioritize-task"));
+      await user.click(screen.getByDataCy("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm"),
@@ -187,7 +209,7 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("prioritize-task"));
+      await user.click(screen.getByDataCy("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm"),
@@ -214,7 +236,7 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByDataCy("prioritize-task"));
+      await user.click(screen.getByDataCy("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm"),
