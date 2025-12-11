@@ -1,12 +1,12 @@
 <div>
   <div
-    class="emotion-CommitCard e1a625uv3"
+    class="emotion-CommitCard e1a625uv4"
     data-cy="commit-details-card"
     data-task-history-guide-id="commit-details"
     id="commit-card-a"
   >
     <div
-      class="emotion-TopLabel e1a625uv2"
+      class="emotion-TopLabel e1a625uv3"
     >
       <a
         class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -110,7 +110,7 @@
         </span>
       </span>
       <div
-        class="emotion-PriorityContainer e1a625uv4"
+        class="emotion-PriorityContainer e1a625uv2"
       >
         <button
           aria-disabled="true"
