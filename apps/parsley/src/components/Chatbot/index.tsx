@@ -112,9 +112,9 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
           onSendMessage={(message) => {
             sendEvent({ message, name: "Interacted with Parsley AI" });
           }}
-          transformMessage={(message, chips) => {
+          transformMessage={(message, { chips }) => {
             let transformed = message;
-            if (chips.length > 0) {
+            if (chips && chips.length > 0) {
               const contextText = chips
                 .map((chip) => `[${chip.label}]: ${chip.content}`)
                 .join("\n");

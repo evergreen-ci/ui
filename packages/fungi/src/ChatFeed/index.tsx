@@ -24,7 +24,12 @@ export type ChatFeedProps = {
   onClickCopy?: MessageActionsProps["onClickCopy"];
   onClickSuggestion?: (suggestion: string) => void;
   onSendMessage?: (message: string) => void;
-  transformMessage?: (message: string, chips: ContextChip[]) => string;
+  transformMessage?: (
+    message: string,
+    transformers: {
+      chips?: ContextChip[];
+    },
+  ) => string;
 };
 
 export const ChatFeed: React.FC<ChatFeedProps> = ({
@@ -59,7 +64,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   const handleSend = (message: string) => {
     onSendMessage?.(message);
     const transformed = transformMessage
-      ? transformMessage(message, chips)
+      ? transformMessage(message, { chips })
       : message;
     sendMessage({
       text: transformed,
