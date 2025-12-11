@@ -1,9 +1,13 @@
 import { createContext } from "react";
+import { RichLinkVariantName } from "@lg-chat/rich-links";
 
 export type ContextChip = {
   content: string;
   identifier: string;
   label: string;
+  onClick?: () => void;
+  badgeColor?: string; // The types aren't exported from LG
+  badgeVariant?: RichLinkVariantName;
 };
 
 type ChatContextState = {

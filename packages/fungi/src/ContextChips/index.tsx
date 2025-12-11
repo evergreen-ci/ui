@@ -1,5 +1,7 @@
+import { Fragment } from "react";
 import styled from "@emotion/styled";
-import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
+import { IconButton } from "@leafygreen-ui/icon-button";
+import { RichLink } from "@lg-chat/rich-links";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { ContextChip } from "../Context/context";
@@ -17,29 +19,33 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
 }) => (
   <ChipContainer dismissible={dismissible}>
     {chips.map((chip) => (
-      <Chip
-        key={chip.identifier}
-        data-cy={chip.identifier}
-        data-dismissible={dismissible}
-        dismissButtonAriaLabel="Dismiss chip"
-        label={
-          <>
-            <Icon glyph="Code" />
-            {chip.label}
-          </>
-        }
-        onDismiss={dismissible ? () => onDismiss?.(chip) : undefined}
-        variant={ChipVariant.Purple}
-      />
+      <Fragment key={chip.identifier}>
+        <RichLink
+          // @ts-expect-error: The types aren't exported from LG
+          badgeColor={chip.badgeColor ?? "purple"}
+          badgeLabel={chip.label}
+          onLinkClick={() => chip?.onClick?.()}
+          variant={chip.badgeVariant ?? "Code"}
+        >
+          {`${chip.content.slice(0, 30)}...`}
+        </RichLink>
+        {dismissible && (
+          <IconButton onClick={() => onDismiss?.(chip)}>
+            <Icon glyph="X" onClick={() => onDismiss?.(chip)} />
+          </IconButton>
+        )}
+      </Fragment>
     ))}
   </ChipContainer>
 );
 
 const ChipContainer = styled.div<{ dismissible: boolean }>`
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
-  gap: ${size.xs};
+  row-gap: ${size.xs};
+  column-gap: ${size.xxs};
 
   width: 100%;
   ${({ dismissible }) => dismissible && `padding: ${size.xs} ${size.s};`}

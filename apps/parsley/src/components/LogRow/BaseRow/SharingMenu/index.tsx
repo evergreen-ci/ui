@@ -22,7 +22,8 @@ const SharingMenu: React.FC = () => {
     selectedLines,
     setOpenMenu: setOpen,
   } = useMultiLineSelectContext();
-  const { getLine, isUploadedLog, processedLogLines } = useLogContext();
+  const { getLine, isUploadedLog, processedLogLines, scrollToLine } =
+    useLogContext();
   const { toggleChip } = useChatContext();
 
   const [params, setParams] = useQueryParams(urlParseOptions);
@@ -51,6 +52,7 @@ const SharingMenu: React.FC = () => {
       label: endingLine
         ? `Lines ${startingLine} to ${endingLine}`
         : `Line ${startingLine}`,
+      onClick: () => scrollToLine(startingLine),
     });
   };
 
