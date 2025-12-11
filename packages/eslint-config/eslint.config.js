@@ -2,6 +2,7 @@ import * as emotionPlugin from "@emotion/eslint-plugin";
 import { fixupPluginRules } from "@eslint/compat";
 import eslint from "@eslint/js";
 import graphqlPlugin from "@graphql-eslint/eslint-plugin";
+import { defineConfig } from "eslint/config";
 import disableConflictsPlugin from "eslint-config-prettier";
 import cypressPlugin from "eslint-plugin-cypress/flat";
 import importPlugin from "eslint-plugin-import";
@@ -13,7 +14,6 @@ import reactHooksPlugin from "eslint-plugin-react-hooks";
 import sortDestructureKeysPlugin from "eslint-plugin-sort-destructure-keys";
 import storybookPlugin from "eslint-plugin-storybook";
 import testingLibraryPlugin from "eslint-plugin-testing-library";
-import globals from "globals";
 import tseslint from "typescript-eslint";
 
 const ERROR = "error";
@@ -40,11 +40,6 @@ const globalIgnores = {
 const languageOptions = {
   name: "Language Options",
   languageOptions: {
-    globals: {
-      ...globals.browser,
-      ...globals.node,
-      vi: true,
-    },
     parserOptions: {
       ecmaFeatures: {
         jsx: true,
@@ -202,7 +197,14 @@ const reactConfig = {
     ],
     "react/no-array-index-key": ERROR,
     "react/no-unknown-property": [ERROR, { ignore: ["css"] }],
-    "react/no-unstable-nested-components": ERROR,
+    "react/no-unstable-nested-components": [
+      ERROR,
+      {
+        // This pattern matches prop names like "itemRenderer", "contentRenderer", etc.
+        // It must be written to satisfy glob patterns, not regex.
+        propNamePattern: "{*Renderer,itemContent}",
+      },
+    ],
     "react/prop-types": OFF,
     "react/self-closing-comp": ERROR,
     "react/style-prop-object": ERROR,
@@ -426,7 +428,7 @@ const prettierEsLintConfig = {
   },
 };
 
-export default tseslint.config(
+export default defineConfig(
   globalIgnores,
   languageOptions,
   eslintConfig,

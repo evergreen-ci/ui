@@ -1,6 +1,4 @@
 import { useMutation } from "@apollo/client";
-import { Tooltip } from "@leafygreen-ui/tooltip";
-import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useHostsTableAnalytics } from "analytics";
 import {
@@ -58,25 +56,15 @@ export const Reprovision: React.FC<Props> = ({
       }?`;
 
   return (
-    <ConditionalWrapper
-      condition={!canReprovision}
-      wrapper={(children) => (
-        <Tooltip trigger={children as JSX.Element} triggerEvent="hover">
-          {reprovisionTooltipMessage}
-        </Tooltip>
-      )}
-    >
-      {/* This div is necessary, or else the tooltip will not show. */}
-      <div>
-        <HostPopover
-          buttonText="Reprovision"
-          data-cy="reprovision-button"
-          disabled={selectedHostIds.length === 0 || !canReprovision}
-          loading={loadingReprovision}
-          onClick={onClickReprovisionConfirm}
-          titleText={titleText}
-        />
-      </div>
-    </ConditionalWrapper>
+    <HostPopover
+      buttonText="Reprovision"
+      data-cy="reprovision-button"
+      disabled={selectedHostIds.length === 0 || !canReprovision}
+      loading={loadingReprovision}
+      onClick={onClickReprovisionConfirm}
+      showTooltip={!canReprovision}
+      titleText={titleText}
+      tooltipMessage={reprovisionTooltipMessage}
+    />
   );
 };
