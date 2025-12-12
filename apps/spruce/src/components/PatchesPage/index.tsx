@@ -9,7 +9,6 @@ import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import TextInputWithValidation from "components/TextInputWithValidation";
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
-import { useFilterInputChangeHandler } from "hooks";
 import { PatchPageQueryParams } from "types/patch";
 import { validateRegexp } from "utils/validators";
 import ListArea from "./ListArea";
@@ -37,16 +36,19 @@ export const PatchesPage: React.FC<Props> = ({
   const analytics =
     pageType === "project" ? projectPatchesAnalytics : userPatchesAnalytics;
 
+  const [patchName, setPatchName] = useQueryParam<string>(
+    PatchPageQueryParams.PatchName,
+    "",
+  );
+
   // Handle filtering by patch description.
-  const { setAndSubmitInputValue } = useFilterInputChangeHandler({
-    urlParam: PatchPageQueryParams.PatchName,
-    resetPage: true,
-    sendAnalyticsEvent: (filterBy: string) =>
-      analytics.sendEvent({
-        name: "Filtered for patches",
-        "filter.by": filterBy,
-      }),
-  });
+  const handleInputChange = (value: string) => {
+    setPatchName(value);
+    analytics.sendEvent({
+      name: "Filtered for patches",
+      "filter.by": value,
+    });
+  };
 
   // Handle filtering for hidden patches.
   const [includeHiddenCheckboxChecked, setIsIncludeHiddenCheckboxChecked] =
@@ -74,10 +76,11 @@ export const PatchesPage: React.FC<Props> = ({
         <TextInputWithValidation
           aria-label="Search patch descriptions"
           data-cy="patch-description-input"
-          onChange={(value) => setAndSubmitInputValue(value)}
+          onChange={handleInputChange}
           placeholder="Patch description regex"
           validator={validateRegexp}
           validatorErrorMessage="Invalid regex"
+          value={`${patchName}`}
         />
         <StatusSelector />
         {filterComp}
