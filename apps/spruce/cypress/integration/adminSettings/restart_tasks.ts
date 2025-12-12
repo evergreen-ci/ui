@@ -12,9 +12,9 @@ describe("restart tasks", () => {
 
     // Change Start Date.
     cy.dataCy("start-date-picker").click();
-    cy.get("[aria-label^='select year']").click();
+    cy.get("[aria-label*='year']").click();
     cy.contains("li", "2020").click({ force: true });
-    cy.get("[aria-label^='select month']").click();
+    cy.get("[aria-label*='month']").click();
     cy.contains("li", "Feb").click({ force: true });
     cy.get("[data-iso='2020-02-01']").click();
     cy.validateDatePickerDate("start-date-picker", {
@@ -25,9 +25,9 @@ describe("restart tasks", () => {
 
     // Change End Date.
     cy.dataCy("end-date-picker").click();
-    cy.get("[aria-label^='select year']").click();
+    cy.get("[aria-label*='year']").click();
     cy.contains("li", "2021").click({ force: true });
-    cy.get("[aria-label^='select month']").click();
+    cy.get("[aria-label*='month']").click();
     cy.contains("li", "Mar").click({ force: true });
     cy.get("[data-iso='2021-03-01']").click();
     cy.validateDatePickerDate("end-date-picker", {
