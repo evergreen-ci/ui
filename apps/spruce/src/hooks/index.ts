@@ -1,4 +1,3 @@
-export { useFilterInputChangeHandler } from "./useFilterInputChangeHandler";
 export { useTableSort } from "./useTableSort";
 export { useGetUserPatchesPageTitleAndLink } from "./useGetUserPatchesPageTitleAndLink";
 export { useNetworkStatus } from "./useNetworkStatus";
