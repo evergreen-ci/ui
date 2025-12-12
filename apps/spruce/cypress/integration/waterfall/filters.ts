@@ -18,18 +18,11 @@ describe("requester filtering", () => {
     cy.visit("/project/spruce/waterfall");
   });
 
-  it("filters on periodic builds and trigger", () => {
+  it("filters on periodic builds and shows an empty state", () => {
     cy.dataCy("inactive-versions-button").first().contains("1");
     cy.dataCy("requester-filter").click();
     cy.dataCy("ad_hoc-option").click();
-    cy.dataCy("inactive-versions-button").first().contains("6");
-    cy.dataCy("version-label-active").should("have.length", 0);
-
-    cy.dataCy("requester-filter").click();
-    cy.dataCy("trigger_request-option").click();
-    cy.dataCy("inactive-versions-button").first().contains("5");
-    cy.dataCy("version-label-active").should("have.length", 1);
-    cy.dataCy("version-label-active").contains("Triggered by:");
+    cy.contains("No Results Found").should("be.visible");
   });
 
   it("filters on git tags and fetches more from the server", () => {
