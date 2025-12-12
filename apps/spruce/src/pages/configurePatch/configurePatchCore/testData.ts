@@ -13,9 +13,13 @@ export const patchQuery: ConfigurePatchQuery = {
     description: "test",
     projectIdentifier: "spruce",
     projectID: "spruce",
-    author: "mohamed.khelif",
     activated: false,
     status: "created",
+    user: {
+      __typename: "User",
+      userId: "mohamed.khelif",
+      displayName: "Mohamed Khelif",
+    },
     time: {
       submittedAt: "2020-08-28T15:00:17Z",
     },

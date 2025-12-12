@@ -15,6 +15,11 @@ const patchData = {
     repo: "ui",
   },
   status: "failed",
+  user: {
+    __typename: "User" as const,
+    userId: "mohamed.khelif",
+    displayName: "Mohamed Khelif",
+  },
   versionFull: {
     id: "667b2f7f7a878200076f23d1",
     status: "failed",

@@ -4,8 +4,6 @@ fragment PatchesPagePatches on Patches {
     id
     activated
     alias
-    author
-    authorDisplayName
     createTime
     description
     hidden
@@ -16,6 +14,10 @@ fragment PatchesPagePatches on Patches {
       repo
     }
     status
+    user {
+      displayName
+      userId
+    }
     versionFull {
       id
       requester

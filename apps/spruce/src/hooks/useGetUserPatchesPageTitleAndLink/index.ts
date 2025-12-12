@@ -1,34 +1,30 @@
 import { useQuery } from "@apollo/client";
 import { getUserPatchesRoute } from "constants/routes";
-import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
-import { OTHER_USER } from "gql/queries";
+import { User, UserQuery } from "gql/generated/types";
+import { USER } from "gql/queries";
+
+type UserPatchesPageData = {
+  link: string;
+  title: string;
+};
 
 export const useGetUserPatchesPageTitleAndLink = (
-  userId?: string,
-  skip: boolean = false,
-) => {
-  const { data } = useQuery<OtherUserQuery, OtherUserQueryVariables>(
-    OTHER_USER,
-    { variables: { userId }, skip: skip || !userId },
-  );
+  user: Pick<User, "displayName" | "userId"> | undefined,
+): UserPatchesPageData | null => {
+  const { data } = useQuery<UserQuery>(USER);
 
-  if (!data || !userId) {
+  if (!data?.user || !user) {
     return null;
   }
 
-  const { currentUser, otherUser } = data || {};
-  const link = getUserPatchesRoute(userId);
+  const link = getUserPatchesRoute(user.userId);
 
-  if (userId === currentUser.userId) {
+  if (user.userId === data.user.userId) {
     return { link, title: "My Patches" };
   }
 
-  const otherUserDisplayName = otherUser.displayName ?? "";
-  const possessiveModifier =
-    otherUserDisplayName.slice(-1) === "s" ? "'" : "'s";
-
   return {
     link,
-    title: `${otherUserDisplayName}${possessiveModifier} Patches`,
+    title: `${user.displayName || user.userId}’s Patches`,
   };
 };
