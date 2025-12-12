@@ -409,9 +409,9 @@ describe("task history", () => {
       cy.dataCy("expanded-option").click();
 
       cy.dataCy("date-picker").click();
-      cy.get("[aria-label*='year']").click();
+      cy.get("[aria-label*='Select year' i]").click();
       cy.contains("li", "2025").click({ force: true });
-      cy.get("[aria-label*='month']").click();
+      cy.get("[aria-label*='Select month' i]").click();
       cy.contains("li", "Feb").click({ force: true });
       cy.get("[data-iso='2025-02-28']").click();
 
@@ -436,9 +436,9 @@ describe("task history", () => {
       cy.dataCy("expanded-option").click();
 
       cy.dataCy("date-picker").click();
-      cy.get("[aria-label*='year']").click();
+      cy.get("[aria-label*='Select year' i]").click();
       cy.contains("li", "2025").click({ force: true });
-      cy.get("[aria-label*='month']").click();
+      cy.get("[aria-label*='Select month' i]").click();
       cy.contains("li", "Feb").click({ force: true });
       cy.get("[data-iso='2025-02-28']").click();
 
@@ -499,9 +499,9 @@ describe("task history", () => {
       cy.get("@firstTaskCard").should("contain", "Order: 12306");
 
       cy.dataCy("date-picker").click();
-      cy.get("[aria-label*='year']").click();
+      cy.get("[aria-label*='Select year' i]").click();
       cy.contains("li", "2025").click({ force: true });
-      cy.get("[aria-label*='month']").click();
+      cy.get("[aria-label*='Select month' i]").click();
       cy.contains("li", "Feb").click({ force: true });
       cy.get("[data-iso='2025-02-28']").click();
       cy.get("@firstTaskCard").should("not.contain", "Order: 12306");
