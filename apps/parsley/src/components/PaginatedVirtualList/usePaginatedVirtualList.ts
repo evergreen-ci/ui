@@ -3,6 +3,7 @@ import { VirtuosoHandle } from "react-virtuoso";
 import { usePrevious } from "@evg-ui/lib/hooks/usePrevious";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
+import { ScrollAlign } from "types/logs";
 import { calculatePageSize, calculateStartingIndex } from "./utils";
 
 interface UsePaginatedVirtualListProps {
@@ -86,7 +87,7 @@ const usePaginatedVirtualList = ({
       // I'm not sure why, but this seems to fix it ¯\_(ツ)_/¯
       setTimeout(() => {
         ref.current?.scrollToIndex({
-          align: "start",
+          align: ScrollAlign.Start,
           index: pageSize - paginationOffset,
         });
       });
@@ -141,7 +142,7 @@ const usePaginatedVirtualList = ({
       // This setTimeout is necessary to avoid a race condition where the list hasn't finished rendering the next page
       setTimeout(() => {
         ref.current?.scrollToIndex({
-          align: "start",
+          align: ScrollAlign.Start,
           index: nextScrollIndex,
         });
       }, 0);

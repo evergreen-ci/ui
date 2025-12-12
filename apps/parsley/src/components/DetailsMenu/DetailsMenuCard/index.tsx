@@ -14,6 +14,7 @@ import {
   JumpToFailingLineToggle,
   PrettyPrintToggle,
   SectionsToggle,
+  StickyHeadersToggle,
   WordWrapFormatToggle,
   WrapToggle,
   ZebraStripingToggle,
@@ -66,6 +67,7 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
                   checked={sectionsEnabled}
                   updateSettings={updateSettings}
                 />
+                <StickyHeadersToggle />
               </Column>
             </Row>
           </Tab>

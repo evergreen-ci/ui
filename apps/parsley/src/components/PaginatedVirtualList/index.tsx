@@ -19,6 +19,7 @@ interface PaginatedVirtualListProps {
    */
   paginationOffset?: number;
   className?: string;
+  updateStickyHeaders: (startIndex: number) => void;
 }
 
 const PaginatedVirtualList = forwardRef<
@@ -32,6 +33,7 @@ const PaginatedVirtualList = forwardRef<
       paginationThreshold = 10000,
       rowCount,
       rowRenderer,
+      updateStickyHeaders,
     },
     ref,
   ) => {
@@ -97,7 +99,8 @@ const PaginatedVirtualList = forwardRef<
         className={className}
         data-cy="paginated-virtual-list"
         itemContent={itemContent}
-        overscan={300}
+        overscan={0}
+        rangeChanged={(range) => updateStickyHeaders(range.startIndex)}
         totalCount={pageSize}
       />
     );

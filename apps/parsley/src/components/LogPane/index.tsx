@@ -6,10 +6,12 @@ import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import PaginatedVirtualList from "components/PaginatedVirtualList";
+import StickyHeaders from "components/StickyHeaders";
 import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/cookies";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useParsleySettings } from "hooks/useParsleySettings";
+import { useStickyHeaders } from "hooks/useStickyHeaders";
 import { findLineIndex } from "utils/findLineIndex";
 
 interface LogPaneProps {
@@ -17,16 +19,29 @@ interface LogPaneProps {
   rowCount: number;
 }
 const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
-  const { failingLine, listRef, preferences, processedLogLines, scrollToLine } =
-    useLogContext();
+  const {
+    failingLine,
+    listRef,
+    preferences,
+    processedLogLines,
+    scrollToLine,
+    sectioning,
+  } = useLogContext();
   const { sendEvent } = useLogWindowAnalytics();
-  const { setPrettyPrint, setWrap, zebraStriping } = preferences;
+  const { setPrettyPrint, setWrap, stickyHeadersEnabled, zebraStriping } =
+    preferences;
   const { settings } = useParsleySettings();
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
   );
   const performedScroll = useRef(false);
+
+  const { stickyHeaders, updateStickyHeaders } =
+    useStickyHeaders(processedLogLines);
+
+  const applyStickyHeaders =
+    stickyHeadersEnabled && sectioning.sectioningEnabled;
 
   useEffect(() => {
     if (listRef.current && !performedScroll.current && settings) {
@@ -72,14 +87,23 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
   }, [listRef, performedScroll, settings, processedLogLines]);
 
   return (
-    <PaginatedVirtualList
-      ref={listRef}
-      className={zebraStriping ? zebraStripingStyles : undefined}
-      paginationOffset={200}
-      paginationThreshold={500000}
-      rowCount={rowCount}
-      rowRenderer={rowRenderer}
-    />
+    <>
+      {applyStickyHeaders ? (
+        <StickyHeaders
+          sectionHeader={stickyHeaders.sectionHeader}
+          subsectionHeader={stickyHeaders.subsectionHeader}
+        />
+      ) : null}
+      <PaginatedVirtualList
+        ref={listRef}
+        className={zebraStriping ? zebraStripingStyles : undefined}
+        paginationOffset={200}
+        paginationThreshold={500000}
+        rowCount={rowCount}
+        rowRenderer={rowRenderer}
+        updateStickyHeaders={updateStickyHeaders}
+      />
+    </>
   );
 };
 

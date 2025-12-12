@@ -37,7 +37,7 @@ interface Preferences {
   wrap: boolean;
   zebraStriping: boolean;
   highlightFilters: boolean;
-  stickyHeaders: boolean;
+  stickyHeadersEnabled: boolean;
   setCaseSensitive: (caseSensitive: boolean) => void;
   setExpandableRows: (expandableRows: boolean) => void;
   setFilterLogic: (filterLogic: FilterLogic) => void;
@@ -46,7 +46,7 @@ interface Preferences {
   setPrettyPrint: (prettyPrint: boolean) => void;
   setZebraStriping: (zebraStriping: boolean) => void;
   setHighlightFilters: (highlightFilters: boolean) => void;
-  setStickyHeaders: (stickyHeaders: boolean) => void;
+  setStickyHeadersEnabled: (stickyHeaders: boolean) => void;
 }
 
 enum DIRECTION {
