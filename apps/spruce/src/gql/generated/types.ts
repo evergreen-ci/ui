@@ -11024,11 +11024,13 @@ export type TaskHistoryQuery = {
       activated: boolean;
       canRestart: boolean;
       canSchedule: boolean;
+      canSetPriority: boolean;
       createTime?: Date | null;
       displayStatus: string;
       execution: number;
       latestExecution: number;
       order: number;
+      priority?: number | null;
       revision?: string | null;
       tests: {
         __typename?: "TaskTestResult";
