@@ -6,6 +6,8 @@ import { MessageActionsProps } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
 import { useChatContext } from "../Context";
+import { ContextChip } from "../Context/context";
+import { ContextChips } from "../ContextChips";
 import { FungiUIMessage, MessageRenderer } from "../MessageRenderer";
 import { Suggestions } from "../Suggestions";
 
@@ -22,6 +24,12 @@ export type ChatFeedProps = {
   onClickCopy?: MessageActionsProps["onClickCopy"];
   onClickSuggestion?: (suggestion: string) => void;
   onSendMessage?: (message: string) => void;
+  transformMessage?: (
+    message: string,
+    transformers: {
+      chips?: ContextChip[];
+    },
+  ) => string;
 };
 
 export const ChatFeed: React.FC<ChatFeedProps> = ({
@@ -33,8 +41,11 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   onClickCopy,
   onClickSuggestion,
   onSendMessage,
+  transformMessage,
 }) => {
-  const { appName } = useChatContext();
+  const { appName, chips, clearChips, setChipsForMessage, toggleChip } =
+    useChatContext();
+
   const { error, messages, sendMessage, status } = useChat<FungiUIMessage>({
     transport: new DefaultChatTransport({
       api: apiUrl,
@@ -53,7 +64,22 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
 
   const handleSend = (message: string) => {
     onSendMessage?.(message);
-    sendMessage({ text: message });
+    const transformed = transformMessage
+      ? transformMessage(message, { chips })
+      : message;
+
+    // Keep track of what chips are associated with what message separately.
+    const messageId = crypto.randomUUID();
+    setChipsForMessage(messageId, chips);
+
+    sendMessage({
+      text: transformed,
+      metadata: {
+        messageId,
+        originalMessage: message,
+      },
+    });
+    clearChips();
   };
 
   const inputState = getInputState({ error, status });
@@ -90,6 +116,11 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
             })
           )}
         </MessageFeed>
+        <ContextChips
+          chips={chips}
+          dismissible
+          onDismiss={(chip) => toggleChip(chip)}
+        />
         <InputBar {...inputState} onMessageSend={handleSend} />
       </ChatWindow>
     </LeafyGreenChatProvider>

@@ -14,6 +14,8 @@ export const ToolStateEnum = satisfiesToolStates({
 
 type MessageMetadata = {
   spanId?: string;
+  messageId?: string;
+  originalMessage?: string;
 };
 
 export type FungiUIMessage = UIMessage<MessageMetadata>;
