@@ -22,8 +22,7 @@ const SharingMenu: React.FC = () => {
     selectedLines,
     setOpenMenu: setOpen,
   } = useMultiLineSelectContext();
-  const { getLine, isUploadedLog, processedLogLines, scrollToLine } =
-    useLogContext();
+  const { getLine, isUploadedLog, processedLogLines } = useLogContext();
   const { toggleChip } = useChatContext();
 
   const [params, setParams] = useQueryParams(urlParseOptions);
@@ -45,14 +44,15 @@ const SharingMenu: React.FC = () => {
     sendEvent({ name: "Clicked add to Parsley AI button" });
     setOpen(false);
     toggleChip({
-      content: getRawLines(lineNumbers, getLine),
+      badgeColor: "purple",
+      badgeLabel: endingLine
+        ? `Lines ${startingLine} to ${endingLine}`
+        : `Line ${startingLine}`,
+      children: getRawLines(lineNumbers, getLine),
       identifier: endingLine
         ? `lines-${startingLine}-to-${endingLine}`
         : `line-${startingLine}`,
-      label: endingLine
-        ? `Lines ${startingLine} to ${endingLine}`
-        : `Line ${startingLine}`,
-      onClick: () => scrollToLine(startingLine),
+      variant: "Code",
     });
   };
 

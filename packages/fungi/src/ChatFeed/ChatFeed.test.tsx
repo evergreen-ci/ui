@@ -67,7 +67,7 @@ describe("ChatFeed", () => {
     it("transforms the message using the given prop", async () => {
       const user = userEvent.setup();
       const mockTransformMessage = vi.fn(
-        (message, { chips }) =>
+        (message, { pendingChips: chips }) =>
           `Transformed: ${message} with ${chips.length} chips`,
       );
       render(
@@ -80,22 +80,24 @@ describe("ChatFeed", () => {
       const textarea = screen.getByRole("textbox");
       await user.type(textarea, message);
       await user.click(screen.getByRole("button", { name: "Send message" }));
-      expect(mockTransformMessage).toHaveBeenCalledWith(message, { chips: [] });
+      expect(mockTransformMessage).toHaveBeenCalledWith(message, {
+        pendingChips: [],
+      });
       expect(screen.queryByDataCy("message-user")).toHaveTextContent(message);
     });
   });
 
   describe("context chips", () => {
     const chip1: ContextChip = {
-      content: "console.log('test')",
+      children: "console.log('test')",
       identifier: "test-1",
-      label: "Line 1",
+      badgeLabel: "Line 1",
     };
 
     const chip2: ContextChip = {
-      content: "const x = 42;",
+      children: "const x = 42;",
       identifier: "test-2",
-      label: "Lines 5-6",
+      badgeLabel: "Lines 5-6",
     };
 
     const chipMap: Map<string, ContextChip> = new Map();
@@ -146,14 +148,8 @@ describe("ChatFeed", () => {
         }),
       });
 
-      expect(screen.getByDataCy(chip1.identifier)).toHaveAttribute(
-        "data-dismissible",
-        "true",
-      );
-      expect(screen.getByDataCy(chip2.identifier)).toHaveAttribute(
-        "data-dismissible",
-        "true",
-      );
+      expect(screen.getByDataCy(chip1.identifier)).toBeInTheDocument();
+      expect(screen.getByDataCy(chip2.identifier)).toBeInTheDocument();
 
       const message = "Why did my log fail?";
       const textarea = screen.getByRole("textbox");
@@ -161,14 +157,8 @@ describe("ChatFeed", () => {
       await user.click(screen.getByRole("button", { name: "Send message" }));
 
       // Note: the chips are still going to be present because they get rendered alongside the message.
-      expect(screen.getByDataCy(chip1.identifier)).toHaveAttribute(
-        "data-dismissible",
-        "false",
-      );
-      expect(screen.getByDataCy(chip2.identifier)).toHaveAttribute(
-        "data-dismissible",
-        "false",
-      );
+      expect(screen.queryByDataCy(chip1.identifier)).not.toBeInTheDocument();
+      expect(screen.queryByDataCy(chip2.identifier)).not.toBeInTheDocument();
     });
   });
 });

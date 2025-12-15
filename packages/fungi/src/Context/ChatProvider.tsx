@@ -37,26 +37,6 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({
     setChips(new Map());
   }, []);
 
-  const [messageToChipMap, setMessageToChipMap] = useState<
-    Map<string, ContextChip[]>
-  >(new Map());
-
-  const setChipsForMessage = useCallback(
-    (messageId: string, messageChips: ContextChip[]) => {
-      setMessageToChipMap((prev) => {
-        const newMap = new Map(prev);
-        newMap.set(messageId, messageChips);
-        return newMap;
-      });
-    },
-    [],
-  );
-
-  const getChipsForMessage = useCallback(
-    (messageId: string): ContextChip[] => messageToChipMap.get(messageId) ?? [],
-    [messageToChipMap],
-  );
-
   const memoizedContext = useMemo(
     () => ({
       appName,
@@ -65,19 +45,8 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({
       chips: chipsArray,
       toggleChip,
       clearChips,
-      setChipsForMessage,
-      getChipsForMessage,
     }),
-    [
-      appName,
-      drawerOpen,
-      setDrawerOpen,
-      chipsArray,
-      toggleChip,
-      clearChips,
-      setChipsForMessage,
-      getChipsForMessage,
-    ],
+    [appName, drawerOpen, setDrawerOpen, chipsArray, toggleChip, clearChips],
   );
 
   return (

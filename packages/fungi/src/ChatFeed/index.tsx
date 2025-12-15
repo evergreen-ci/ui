@@ -27,7 +27,7 @@ export type ChatFeedProps = {
   transformMessage?: (
     message: string,
     transformers: {
-      chips?: ContextChip[];
+      pendingChips?: ContextChip[];
     },
   ) => string;
 };
@@ -43,8 +43,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   onSendMessage,
   transformMessage,
 }) => {
-  const { appName, chips, clearChips, setChipsForMessage, toggleChip } =
-    useChatContext();
+  const { appName, chips, clearChips, toggleChip } = useChatContext();
 
   const { error, messages, sendMessage, status } = useChat<FungiUIMessage>({
     transport: new DefaultChatTransport({
@@ -65,17 +64,13 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   const handleSend = (message: string) => {
     onSendMessage?.(message);
     const transformed = transformMessage
-      ? transformMessage(message, { chips })
+      ? transformMessage(message, { pendingChips: chips })
       : message;
-
-    // Keep track of what chips are associated with what message separately.
-    const messageId = crypto.randomUUID();
-    setChipsForMessage(messageId, chips);
 
     sendMessage({
       text: transformed,
       metadata: {
-        messageId,
+        chips,
         originalMessage: message,
       },
     });
@@ -116,11 +111,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
             })
           )}
         </MessageFeed>
-        <ContextChips
-          chips={chips}
-          dismissible
-          onDismiss={(chip) => toggleChip(chip)}
-        />
+        <ContextChips chips={chips} onDismiss={(chip) => toggleChip(chip)} />
         <InputBar {...inputState} onMessageSend={handleSend} />
       </ChatWindow>
     </LeafyGreenChatProvider>

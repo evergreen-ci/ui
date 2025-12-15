@@ -7,39 +7,27 @@ import { ContextChip } from "../Context/context";
 
 export type ContextChipsProps = {
   chips: ContextChip[];
-  dismissible: boolean;
-  onDismiss?: (chip: ContextChip) => void;
+  onDismiss: (chip: ContextChip) => void;
 };
 
 export const ContextChips: React.FC<ContextChipsProps> = ({
   chips,
-  dismissible,
   onDismiss,
 }) => (
-  <ChipContainer dismissible={dismissible}>
+  <ChipContainer>
     {chips.map((chip) => (
-      <SingleChip
-        key={chip.identifier}
-        data-cy={chip.identifier}
-        data-dismissible={dismissible}
-      >
+      <SingleChip key={chip.identifier} data-cy={chip.identifier}>
         <RichLink
           // @ts-expect-error: The types aren't exported from LG
-          badgeColor={chip.badgeColor ?? "purple"}
-          badgeLabel={chip.label}
-          onLinkClick={() => chip?.onClick?.()}
-          variant={chip.badgeVariant ?? "Code"}
+          badgeColor={chip.badgeColor ?? "grey"}
+          badgeLabel={chip.badgeLabel}
+          variant={chip.variant}
         >
-          {`${chip.content.slice(0, 30)}...`}
+          {chip.children}
         </RichLink>
-        {dismissible && (
-          <IconButton
-            aria-label="Dismiss chip"
-            onClick={() => onDismiss?.(chip)}
-          >
-            <Icon glyph="X" onClick={() => onDismiss?.(chip)} />
-          </IconButton>
-        )}
+        <IconButton aria-label="Dismiss chip" onClick={() => onDismiss?.(chip)}>
+          <Icon glyph="X" onClick={() => onDismiss?.(chip)} />
+        </IconButton>
       </SingleChip>
     ))}
   </ChipContainer>
@@ -49,14 +37,19 @@ const SingleChip = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.xxs};
+
+  // Overwrite badge styling for RichLink; it's not possible to style RichLink directly.
+  > div > div {
+    flex-shrink: 0;
+  }
 `;
 
-const ChipContainer = styled.div<{ dismissible: boolean }>`
+const ChipContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
-  flex-wrap: wrap;
   gap: ${size.xs};
+  width: 90%;
 
-  width: 100%;
-  ${({ dismissible }) => dismissible && `padding: ${size.xs} ${size.s};`}
+  padding: ${size.xs} ${size.s};
 `;

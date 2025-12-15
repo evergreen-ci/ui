@@ -2,12 +2,11 @@ import { createContext } from "react";
 import { RichLinkVariantName } from "@lg-chat/rich-links";
 
 export type ContextChip = {
-  content: string;
+  children: string;
   identifier: string;
-  label: string;
-  onClick?: () => void;
-  badgeColor?: string; // The types aren't exported from LG
-  badgeVariant?: RichLinkVariantName;
+  badgeLabel: string;
+  badgeColor?: string; // types aren't exported from LG
+  variant?: RichLinkVariantName;
 };
 
 type ChatContextState = {
@@ -17,8 +16,6 @@ type ChatContextState = {
   chips: ContextChip[];
   toggleChip: (chip: ContextChip) => void;
   clearChips: () => void;
-  setChipsForMessage: (message: string, chips: ContextChip[]) => void;
-  getChipsForMessage: (message: string) => ContextChip[];
 };
 
 export const ChatContext = createContext<ChatContextState>({
@@ -28,6 +25,4 @@ export const ChatContext = createContext<ChatContextState>({
   chips: [],
   toggleChip: () => {},
   clearChips: () => {},
-  setChipsForMessage: () => {},
-  getChipsForMessage: () => [],
 });
