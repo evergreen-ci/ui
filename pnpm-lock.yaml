@@ -4,8 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-pnpmfileChecksum: sha256-nVOmFZ6JT8FxIhcN+S5sJXuP1DtIhTre5ZGvjJU+4tk=
-
 importers:
 
   .:
@@ -148,21 +146,6 @@ importers:
       '@opentelemetry/api':
         specifier: ^1.9.0
         version: 1.9.0
-      '@types/js-cookie':
-        specifier: 3.0.6
-        version: 3.0.6
-      '@types/lodash.debounce':
-        specifier: 4.0.7
-        version: 4.0.7
-      '@types/pluralize':
-        specifier: 0.0.31
-        version: 0.0.31
-      '@types/react':
-        specifier: 18.3.12
-        version: 18.3.12
-      '@types/react-dom':
-        specifier: 18.3.1
-        version: 18.3.1
       ansi_up:
         specifier: 6.0.6
         version: 6.0.6
@@ -266,9 +249,24 @@ importers:
       '@testing-library/user-event':
         specifier: 14.6.1
         version: 14.6.1(@testing-library/dom@9.3.1)
+      '@types/js-cookie':
+        specifier: 3.0.6
+        version: 3.0.6
+      '@types/lodash.debounce':
+        specifier: 4.0.7
+        version: 4.0.7
       '@types/node':
         specifier: ^22.15.3
         version: 22.15.3
+      '@types/pluralize':
+        specifier: 0.0.31
+        version: 0.0.31
+      '@types/react':
+        specifier: 18.3.12
+        version: 18.3.12
+      '@types/react-dom':
+        specifier: 18.3.1
+        version: 18.3.1
       '@vitejs/plugin-react':
         specifier: 4.6.0
         version: 4.6.0(vite@7.1.11(@types/node@22.15.3)(jiti@2.5.1)(yaml@2.8.1))
@@ -506,27 +504,6 @@ importers:
       '@tanstack/react-table':
         specifier: ^8.20.5
         version: 8.21.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/js-cookie':
-        specifier: ^3.0.6
-        version: 3.0.6
-      '@types/lodash.debounce':
-        specifier: 4.0.7
-        version: 4.0.7
-      '@types/lodash.isequal':
-        specifier: ^4.5.8
-        version: 4.5.8
-      '@types/lodash.throttle':
-        specifier: ^4.1.9
-        version: 4.1.9
-      '@types/pluralize':
-        specifier: 0.0.33
-        version: 0.0.33
-      '@types/react':
-        specifier: 18.3.12
-        version: 18.3.12
-      '@types/react-dom':
-        specifier: 18.3.1
-        version: 18.3.1
       ansi_up:
         specifier: 6.0.6
         version: 6.0.6
@@ -645,9 +622,30 @@ importers:
       '@testing-library/user-event':
         specifier: 14.6.1
         version: 14.6.1(@testing-library/dom@9.3.1)
+      '@types/js-cookie':
+        specifier: ^3.0.6
+        version: 3.0.6
+      '@types/lodash.debounce':
+        specifier: 4.0.7
+        version: 4.0.7
+      '@types/lodash.isequal':
+        specifier: ^4.5.8
+        version: 4.5.8
+      '@types/lodash.throttle':
+        specifier: ^4.1.9
+        version: 4.1.9
       '@types/node':
         specifier: ^22.15.3
         version: 22.15.3
+      '@types/pluralize':
+        specifier: 0.0.33
+        version: 0.0.33
+      '@types/react':
+        specifier: 18.3.12
+        version: 18.3.12
+      '@types/react-dom':
+        specifier: 18.3.1
+        version: 18.3.1
       '@vitejs/plugin-react':
         specifier: 4.6.0
         version: 4.6.0(vite@7.1.11(@types/node@22.15.3)(jiti@2.5.1)(yaml@2.8.1))
@@ -750,9 +748,6 @@ importers:
       '@evg-ui/lib':
         specifier: workspace:*
         version: link:../lib
-      '@types/prompts':
-        specifier: 2.4.9
-        version: 2.4.9
       prompts:
         specifier: ^2.4.2
         version: 2.4.2
@@ -769,6 +764,9 @@ importers:
       '@types/node':
         specifier: ^22.15.3
         version: 22.15.3
+      '@types/prompts':
+        specifier: 2.4.9
+        version: 2.4.9
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.5.1)
@@ -902,12 +900,6 @@ importers:
       '@lg-chat/message-rating':
         specifier: ^7.1.0
         version: 7.1.0(@leafygreen-ui/leafygreen-provider@5.0.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@lg-chat/leafygreen-chat-provider@6.0.0)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react':
-        specifier: 18.3.12
-        version: 18.3.12
-      '@types/react-dom':
-        specifier: 18.3.1
-        version: 18.3.1
       ai:
         specifier: ^5.0.94
         version: 5.0.94(zod@4.1.12)
@@ -942,6 +934,12 @@ importers:
       '@testing-library/react':
         specifier: 16.3.0
         version: 16.3.0(@testing-library/dom@9.3.1)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/react':
+        specifier: 18.3.12
+        version: 18.3.12
+      '@types/react-dom':
+        specifier: 18.3.1
+        version: 18.3.1
       chromatic:
         specifier: ^13.1.4
         version: 13.1.4
@@ -1055,19 +1053,10 @@ importers:
         version: 10.30.0
       '@sentry/react':
         specifier: ^10.27.0
-        version: 10.30.0(@types/react@18.3.12)(react@18.3.1)
+        version: 10.30.0(react@18.3.1)
       '@tanstack/table-core':
         specifier: ^8.20.5
         version: 8.21.3
-      '@types/js-cookie':
-        specifier: 3.0.6
-        version: 3.0.6
-      '@types/react':
-        specifier: 18.3.12
-        version: 18.3.12
-      '@types/react-dom':
-        specifier: 18.3.1
-        version: 18.3.1
       date-fns:
         specifier: 4.1.0
         version: 4.1.0
@@ -1123,9 +1112,18 @@ importers:
       '@testing-library/user-event':
         specifier: 14.6.1
         version: 14.6.1(@testing-library/dom@9.3.1)
+      '@types/js-cookie':
+        specifier: 3.0.6
+        version: 3.0.6
       '@types/node':
         specifier: ^22.15.3
         version: 22.15.3
+      '@types/react':
+        specifier: 18.3.12
+        version: 18.3.12
+      '@types/react-dom':
+        specifier: 18.3.1
+        version: 18.3.1
       '@vitejs/plugin-react':
         specifier: 4.6.0
         version: 4.6.0(vite@7.1.11(@types/node@22.15.3)(jiti@2.5.1)(yaml@2.8.1))
@@ -1141,6 +1139,9 @@ importers:
       eslint-plugin-prettier:
         specifier: ^5.5.4
         version: 5.5.4(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.39.1(jiti@2.5.1)))(eslint@9.39.1(jiti@2.5.1))(prettier@3.5.1)
+      prettier:
+        specifier: 3.5.1
+        version: 3.5.1
       storybook:
         specifier: ^9.0.18
         version: 9.0.18(@testing-library/dom@9.3.1)(prettier@3.5.1)
@@ -3300,7 +3301,6 @@ packages:
     resolution: {integrity: sha512-3co0QwAU9VrCVBWgpRf/4G19MwzR+DM0sDe9tgN7P3pv/tMlEHhnPFv88nPfuSa2W8uVCpHehvV+GnUPF4V7Ag==}
     engines: {node: '>=18'}
     peerDependencies:
-      '@types/react': '*'
       react: ^16.14.0 || 17.x || 18.x || 19.x
 
   '@sentry/vite-plugin@4.6.0':
@@ -3468,9 +3468,6 @@ packages:
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
-  '@types/extend@3.0.4':
-    resolution: {integrity: sha512-ArMouDUTJEz1SQRpFsT2rIw7DeqICFv5aaVzLSIYMYQSLcwcGOfT3VyglQs/p7K3F7fT4zxr0NWxYZIdifD6dA==}
-
   '@types/facepaint@1.2.5':
     resolution: {integrity: sha512-fi9kvwtC3IQ6Y3QVDkYEZsqEcetAdWD0zqqk8pEHlDXWkgS2WzolWN8Z5PGPT7YJ7ga71CCI0fVKVnVKqV+P6Q==}
 
@@ -3480,11 +3477,6 @@ packages:
   '@types/highlight.js@10.1.0':
     resolution: {integrity: sha512-77hF2dGBsOgnvZll1vymYiNUtqJ8cJfXPD6GG/2M0aLRc29PkvB7Au6sIDjIEFcSICBhCh2+Pyq6WSRS7LUm6A==}
     deprecated: This is a stub types definition. highlight.js provides its own type definitions, so you do not need this installed.
-
-  '@types/hoist-non-react-statics@3.3.7':
-    resolution: {integrity: sha512-PQTyIulDkIDro8P+IHbKCsw7U2xxBYflVzW/FgWdCAePD9xGSidgA76/GeJ6lBKoblyhf9pBY763gbrN+1dI8g==}
-    peerDependencies:
-      '@types/react': '*'
 
   '@types/js-cookie@3.0.6':
     resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
@@ -3537,9 +3529,6 @@ packages:
   '@types/react-dom@18.3.1':
     resolution: {integrity: sha512-qW1Mfv8taImTthu4KoXgDfLuk4bydU6Q/TkADnDWWHwi4NX4BR+LWfTp2sVmTqRrsHvyDDTelgelxJ+SsejKKQ==}
 
-  '@types/react-is@17.0.7':
-    resolution: {integrity: sha512-WrTEiT+c6rgq36QApoy0063uAOdltCrhF0QMXLIgYPaTvIdQhAB8hPb5oGGqX18xToElNILS9UprwU6GyINcJg==}
-
   '@types/react-is@18.3.0':
     resolution: {integrity: sha512-KZJpHUkAdzyKj/kUHJDc6N7KyidftICufJfOFpiG6haL/BDQNQt5i4n1XDUL/nDZAtGLHDSWRYpLzKTAKSvX6w==}
 
@@ -3548,17 +3537,11 @@ packages:
     peerDependencies:
       '@types/react': '*'
 
-  '@types/react@17.0.90':
-    resolution: {integrity: sha512-P9beVR/x06U9rCJzSxtENnOr4BrbJ6VrsrDTc+73TtHv9XHhryXKbjGRB+6oooB2r0G/pQkD/S4dHo/7jUfwFw==}
-
   '@types/react@18.3.12':
     resolution: {integrity: sha512-D2wOSq/d6Agt28q7rSI3jhU7G6aiuzljDGZ2hTZHIkrTLUI+AF3WMeKkEZ9nN2fkBAlcktT6vcZjDFiIhMYEQw==}
 
   '@types/resolve@1.20.6':
     resolution: {integrity: sha512-A4STmOXPhMUtHH+S6ymgE2GiBSMqf4oTvcQZMcHzokuTLVYzXTB8ttjcgxOVaAp2lGwEdzZ0J+cRbbeevQj1UQ==}
-
-  '@types/scheduler@0.16.8':
-    resolution: {integrity: sha512-WZLiwShhwLRmeV6zH+GkbOFT6Z6VklCItrDioxUnv+u4Ll+8vKeFySoFyK/0ctcRpOmwAicELfmys1sDc/Rw+A==}
 
   '@types/semver@7.5.8':
     resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
@@ -11105,12 +11088,10 @@ snapshots:
 
   '@sentry/core@10.30.0': {}
 
-  '@sentry/react@10.30.0(@types/react@18.3.12)(react@18.3.1)':
+  '@sentry/react@10.30.0(react@18.3.1)':
     dependencies:
       '@sentry/browser': 10.30.0
       '@sentry/core': 10.30.0
-      '@types/hoist-non-react-statics': 3.3.7(@types/react@18.3.12)
-      '@types/react': 18.3.12
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
 
@@ -11347,8 +11328,6 @@ snapshots:
 
   '@types/estree@1.0.8': {}
 
-  '@types/extend@3.0.4': {}
-
   '@types/facepaint@1.2.5': {}
 
   '@types/hast@2.3.10':
@@ -11358,11 +11337,6 @@ snapshots:
   '@types/highlight.js@10.1.0':
     dependencies:
       highlight.js: 11.9.0
-
-  '@types/hoist-non-react-statics@3.3.7(@types/react@18.3.12)':
-    dependencies:
-      '@types/react': 18.3.12
-      hoist-non-react-statics: 3.3.2
 
   '@types/js-cookie@3.0.6': {}
 
@@ -11413,10 +11387,6 @@ snapshots:
     dependencies:
       '@types/react': 18.3.12
 
-  '@types/react-is@17.0.7':
-    dependencies:
-      '@types/react': 17.0.90
-
   '@types/react-is@18.3.0':
     dependencies:
       '@types/react': 18.3.12
@@ -11425,20 +11395,12 @@ snapshots:
     dependencies:
       '@types/react': 18.3.12
 
-  '@types/react@17.0.90':
-    dependencies:
-      '@types/prop-types': 15.7.15
-      '@types/scheduler': 0.16.8
-      csstype: 3.2.3
-
   '@types/react@18.3.12':
     dependencies:
       '@types/prop-types': 15.7.15
       csstype: 3.2.3
 
   '@types/resolve@1.20.6': {}
-
-  '@types/scheduler@0.16.8': {}
 
   '@types/semver@7.5.8': {}
 
@@ -14876,7 +14838,6 @@ snapshots:
       '@types/hast': 2.3.10
       '@types/prop-types': 15.7.15
       '@types/react': 18.3.12
-      '@types/react-is': 17.0.7
       '@types/unist': 2.0.11
       comma-separated-tokens: 2.0.3
       hast-util-whitespace: 2.0.1
@@ -15779,7 +15740,6 @@ snapshots:
 
   unified@10.1.2:
     dependencies:
-      '@types/extend': 3.0.4
       '@types/unist': 2.0.11
       bail: 2.0.2
       extend: 3.0.2

@@ -3,6 +3,7 @@
   "repository": "https://github.com/evergreen-ci/ui",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.11.0",
   "scripts": {
     "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
     "prepare": "husky",
