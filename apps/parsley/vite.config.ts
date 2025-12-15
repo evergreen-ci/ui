@@ -102,6 +102,9 @@ const getProjectConfig = () => {
 
     resolve: {
       alias: {
+        // Prevent LG from pulling in SSR dependencies.
+        // Can be potentially removed upon the completion of LG-4402.
+        "@emotion/server": "@emotion/css",
         ...(process.env.PROFILER === "true" && {
           "react-dom/client": path.resolve(
             __dirname,
