@@ -29,7 +29,6 @@ export const ProjectPatches = () => {
 
   usePageVisibilityAnalytics({
     attributes: { projectIdentifier: projectIdentifier ?? "" },
-    identifier: "ProjectPatches",
   });
 
   const [

@@ -41,7 +41,6 @@ const Host: React.FC = () => {
 
   usePageVisibilityAnalytics({
     attributes: { hostId: hostId ?? "" },
-    identifier: "Host",
   });
 
   const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =

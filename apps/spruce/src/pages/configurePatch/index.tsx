@@ -23,7 +23,7 @@ import { validateObjectId } from "utils/validators";
 import ConfigurePatchCore from "./configurePatchCore";
 
 const ConfigurePatch: React.FC = () => {
-  usePageVisibilityAnalytics({ identifier: "ConfigurePatch" });
+  usePageVisibilityAnalytics();
   const { [slugs.patchId]: patchId } = useParams();
   const dispatchToast = useToastContext();
 

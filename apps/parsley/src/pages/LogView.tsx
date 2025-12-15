@@ -11,7 +11,6 @@ interface LogViewProps {
 const LogView: React.FC<LogViewProps> = ({ logType }) => {
   usePageVisibilityAnalytics({
     attributes: { logType },
-    identifier: "LogView",
   });
   const { hasLogs } = useLogContext();
   return hasLogs === null ? <LoadingPage logType={logType} /> : <LogWindow />;

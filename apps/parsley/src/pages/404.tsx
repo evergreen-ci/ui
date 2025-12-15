@@ -4,7 +4,7 @@ import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageV
 const NotFoundSvg = lazy(() => import("./404/NotFoundSvg"));
 
 const NotFound: React.FC = () => {
-  usePageVisibilityAnalytics({ identifier: "404" });
+  usePageVisibilityAnalytics();
   return (
     <Suspense fallback={<div>Loading</div>}>
       <NotFoundSvg />

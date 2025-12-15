@@ -22,7 +22,6 @@ const Container = () => {
   const { [slugs.podId]: podId } = useParams();
   usePageVisibilityAnalytics({
     attributes: { podId: podId ?? "" },
-    identifier: "Container",
   });
   const { data, error, loading } = useQuery<PodQuery, PodQueryVariables>(POD, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.

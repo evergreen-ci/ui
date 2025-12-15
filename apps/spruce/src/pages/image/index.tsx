@@ -23,7 +23,6 @@ const Image: React.FC = () => {
   }>();
   usePageVisibilityAnalytics({
     attributes: { imageId: imageId ?? "" },
-    identifier: "Image",
   });
   const { sendEvent } = useImageAnalytics();
 

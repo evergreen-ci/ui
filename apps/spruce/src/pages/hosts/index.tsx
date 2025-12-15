@@ -28,7 +28,7 @@ import { getFilters, getSorting, useQueryVariables } from "./utils";
 type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
 
 const Hosts: React.FC = () => {
-  usePageVisibilityAnalytics({ identifier: "Hosts" });
+  usePageVisibilityAnalytics();
   const hostsTableAnalytics = useHostsTableAnalytics();
   usePageTitle("Hosts");
   const { setLimit } = usePagination();

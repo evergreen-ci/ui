@@ -22,7 +22,6 @@ const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   usePageVisibilityAnalytics({
     attributes: { projectIdentifier: projectIdentifier ?? "" },
-    identifier: "Waterfall",
   });
   usePageTitle(`${projectIdentifier} | Waterfall`);
   const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(

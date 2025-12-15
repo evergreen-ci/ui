@@ -48,7 +48,6 @@ const VariantHistoryContents: React.FC = () => {
       projectIdentifier: projectIdentifier ?? "",
       variantName: variantName ?? "",
     },
-    identifier: "VariantHistory",
   });
   const { sendEvent } = useProjectHistoryAnalytics({ page: "Variant history" });
   // @ts-expect-error: FIXME. This comment was added by an automated script.

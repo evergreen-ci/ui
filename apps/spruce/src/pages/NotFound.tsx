@@ -2,6 +2,6 @@ import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageV
 import NotFound from "components/404/NotFound";
 
 export const PageDoesNotExist: React.FC = () => {
-  usePageVisibilityAnalytics({ identifier: "NotFound" });
+  usePageVisibilityAnalytics();
   return <NotFound />;
 };

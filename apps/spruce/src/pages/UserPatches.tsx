@@ -20,7 +20,6 @@ export const UserPatches = () => {
   const { [slugs.userId]: userId } = useParams();
   usePageVisibilityAnalytics({
     attributes: { userId: userId ?? "" },
-    identifier: "UserPatches",
   });
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
 

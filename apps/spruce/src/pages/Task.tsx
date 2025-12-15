@@ -86,7 +86,6 @@ export const Task = () => {
       projectIdentifier: versionMetadata?.projectIdentifier ?? "",
       taskId: taskId ?? "",
     },
-    identifier: "Task",
   });
 
   // Update the default execution in the url if it isn't populated

@@ -36,7 +36,6 @@ describe("usePageVisibilityAnalytics", () => {
   it("should track session start on mount", () => {
     renderHook(() =>
       usePageVisibilityAnalytics({
-        identifier: "TestPage",
       }),
     );
 
@@ -51,7 +50,6 @@ describe("usePageVisibilityAnalytics", () => {
   it("should not track events when disabled", () => {
     renderHook(() =>
       usePageVisibilityAnalytics({
-        identifier: "TestPage",
         enabled: false,
       }),
     );
@@ -64,7 +62,6 @@ describe("usePageVisibilityAnalytics", () => {
 
     renderHook(() =>
       usePageVisibilityAnalytics({
-        identifier: "TestPage",
         minDuration: 100,
       }),
     );
@@ -105,7 +102,6 @@ describe("usePageVisibilityAnalytics", () => {
 
     renderHook(() =>
       usePageVisibilityAnalytics({
-        identifier: "TestPage",
         minDuration: 100,
       }),
     );
@@ -140,7 +136,6 @@ describe("usePageVisibilityAnalytics", () => {
 
     renderHook(() =>
       usePageVisibilityAnalytics({
-        identifier: "TestPage",
         minDuration: 1000,
       }),
     );
@@ -169,7 +164,6 @@ describe("usePageVisibilityAnalytics", () => {
 
     const { unmount } = renderHook(() =>
       usePageVisibilityAnalytics({
-        identifier: "TestPage",
         trackSession: true,
         minDuration: 100,
       }),
@@ -218,7 +212,6 @@ describe("usePageVisibilityAnalytics", () => {
   it("should not track session end when trackSession is false", () => {
     const { unmount } = renderHook(() =>
       usePageVisibilityAnalytics({
-        identifier: "TestPage",
         trackSession: false,
       }),
     );
@@ -232,7 +225,6 @@ describe("usePageVisibilityAnalytics", () => {
   it("should pass custom attributes to analytics events", () => {
     renderHook(() =>
       usePageVisibilityAnalytics({
-        identifier: "TestPage",
         attributes: {
           "page.section": "dashboard",
           "user.role": "admin",
@@ -240,7 +232,7 @@ describe("usePageVisibilityAnalytics", () => {
       }),
     );
 
-    expect(useAnalyticsRoot).toHaveBeenCalledWith("TestPage", {
+    expect(useAnalyticsRoot).toHaveBeenCalledWith("PageVisibility", {
       "page.section": "dashboard",
       "user.role": "admin",
     });
@@ -249,7 +241,6 @@ describe("usePageVisibilityAnalytics", () => {
   it("should return current visibility state", () => {
     const { result } = renderHook(() =>
       usePageVisibilityAnalytics({
-        identifier: "TestPage",
       }),
     );
 
@@ -266,7 +257,6 @@ describe("usePageVisibilityAnalytics", () => {
     // To properly test dynamic updates, we'd need to re-render
     const { result: result2 } = renderHook(() =>
       usePageVisibilityAnalytics({
-        identifier: "TestPage",
       }),
     );
 

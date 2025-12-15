@@ -27,10 +27,6 @@ type PageVisibilityAction =
 
 interface UsePageVisibilityAnalyticsOptions {
   /**
-   * The identifier for the page or component being tracked
-   */
-  identifier: string;
-  /**
    * Additional attributes to include with every event
    */
   attributes?: Record<string, string | number | boolean>;
@@ -55,7 +51,6 @@ interface UsePageVisibilityAnalyticsOptions {
 /**
  * Hook that tracks page visibility changes and sends analytics events
  * @param options Configuration options for the visibility tracking
- * @param options.identifier The identifier for the page or component being tracked
  * @param options.attributes Additional attributes to include with every event
  * @param options.enabled Whether to track the visibility changes
  * @param options.trackSession Whether to track session start/end events
@@ -63,21 +58,17 @@ interface UsePageVisibilityAnalyticsOptions {
  * @returns Object with current visibility state and manual tracking methods
  * @example
  * ```typescript
- * const { isVisible } = usePageVisibilityAnalytics({
- *   identifier: "Dashboard",
- *   attributes: { "page.section": "overview" }
- * });
+ * const { isVisible } = usePageVisibilityAnalytics();
  * ```
  */
 export const usePageVisibilityAnalytics = ({
   attributes = {},
   enabled = true,
-  identifier,
   minDuration = 1000,
   trackSession = true,
-}: UsePageVisibilityAnalyticsOptions) => {
+}: UsePageVisibilityAnalyticsOptions = {}) => {
   const { sendEvent } = useAnalyticsRoot<PageVisibilityAction, string>(
-    identifier,
+    "PageVisibility",
     attributes,
   );
 

@@ -34,7 +34,6 @@ const TaskQueue = () => {
   const { [slugs.distroId]: distroId } = useParams();
   usePageVisibilityAnalytics({
     attributes: { distroId: distroId ?? "" },
-    identifier: "TaskQueue",
   });
   const [taskId] = useQueryParam<string | undefined>(
     QueryParams.TaskId,

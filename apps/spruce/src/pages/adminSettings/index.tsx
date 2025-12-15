@@ -25,7 +25,7 @@ import { getTabTitle } from "./getTabTitle";
 import { AdminSettingsTabs } from "./Tabs";
 
 const AdminSettingsPage: React.FC = () => {
-  usePageVisibilityAnalytics({ identifier: "AdminSettings" });
+  usePageVisibilityAnalytics();
   usePageTitle("Admin Settings");
   const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
     ADMIN_SETTINGS,

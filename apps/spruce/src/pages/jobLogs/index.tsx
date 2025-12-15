@@ -37,7 +37,6 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
       isLogkeeper,
       taskId: taskIdFromParams ?? "",
     },
-    identifier: "JobLogs",
   });
 
   const dispatchToast = useToastContext();

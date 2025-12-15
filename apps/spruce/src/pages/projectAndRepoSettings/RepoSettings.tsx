@@ -16,7 +16,7 @@ const RepoSettings: React.FC = () => {
   const { [slugs.repoId]: repoId = "" } = useParams<{
     [slugs.repoId]: string;
   }>();
-  usePageVisibilityAnalytics({ identifier: "RepoSettings" });
+  usePageVisibilityAnalytics();
   const dispatchToast = useToastContext();
   usePageTitle(`Repo Settings | ${repoId}`);
 

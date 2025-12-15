@@ -14,7 +14,7 @@ import { SpawnVolume } from "./SpawnVolume";
 
 const Spawn: React.FC = () => {
   const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: SpawnTab }>();
-  usePageVisibilityAnalytics({ identifier: "Spawn" });
+  usePageVisibilityAnalytics();
   const spawnAnalytics = useSpawnAnalytics();
 
   return (

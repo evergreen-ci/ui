@@ -34,7 +34,7 @@ const ProjectSettings: React.FC = () => {
     [slugs.projectIdentifier]: string;
     [slugs.tab]: ProjectSettingsTabRoutes;
   }>();
-  usePageVisibilityAnalytics({ identifier: "ProjectSettings" });
+  usePageVisibilityAnalytics();
   usePageTitle(`Project Settings | ${projectIdentifier}`);
   const navigate = useNavigate();
 

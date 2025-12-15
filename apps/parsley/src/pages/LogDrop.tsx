@@ -5,7 +5,7 @@ import { useLogContext } from "context/LogContext";
 import FileDropper from "./LogDrop/FileDropper";
 
 const LogDrop = () => {
-  usePageVisibilityAnalytics({ identifier: "LogDrop" });
+  usePageVisibilityAnalytics();
   const { hasLogs, logMetadata } = useLogContext();
   usePageTitle(`${hasLogs ? logMetadata?.fileName : "Upload logs"} | Parsley`);
   return hasLogs ? <LogWindow /> : <FileDropper />;

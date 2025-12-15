@@ -6,7 +6,7 @@ import { UserQuery } from "gql/generated/types";
 import { USER } from "gql/queries";
 
 export const MyPatches: React.FC = () => {
-  usePageVisibilityAnalytics({ identifier: "MyPatches" });
+  usePageVisibilityAnalytics();
   const { data } = useQuery<UserQuery>(USER);
   if (data) {
     return <Navigate replace to={getUserPatchesRoute(data.user.userId)} />;

@@ -33,7 +33,7 @@ import { NewDistroButton } from "./NewDistro/NewDistroButton";
 import { DistroSettingsTabs } from "./Tabs";
 
 const DistroSettings: React.FC = () => {
-  usePageVisibilityAnalytics({ identifier: "DistroSettings" });
+  usePageVisibilityAnalytics();
   usePageTitle("Distro Settings");
   const { sendEvent } = useDistroSettingsAnalytics();
   const dispatchToast = useToastContext();

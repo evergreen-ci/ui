@@ -24,7 +24,6 @@ export const HTMLLog: React.FC = () => {
       origin: origin ?? "",
       taskId: taskId ?? "",
     },
-    identifier: "HTMLLog",
   });
 
   const url = useMemo(() => {

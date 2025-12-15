@@ -63,7 +63,6 @@ export const VersionPage: React.FC = () => {
       projectIdentifier: versionData?.version?.projectIdentifier ?? "",
       versionId,
     },
-    identifier: "Version",
   });
 
   const [activeTaskIds, setActiveTaskIds] = useState<string[]>([]);

@@ -18,7 +18,7 @@ import {
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 
 const Preferences: React.FC = () => {
-  usePageVisibilityAnalytics({ identifier: "Preferences" });
+  usePageVisibilityAnalytics();
   usePageTitle("Preferences");
   const { [slugs.tab]: tab } = useParams<{
     [slugs.tab]: PreferencesTabRoutes;
