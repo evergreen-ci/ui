@@ -35,10 +35,10 @@ globalThis.jest = {
 // LeafyGreen tables require an IntersectionObserver.
 beforeEach(() => {
   if (typeof File !== "undefined" && !File.prototype.stream) {
-    File.prototype.stream = function stream() {
+    File.prototype.stream = function stream(): ReadableStream<Uint8Array<ArrayBuffer>> {
       const file = this;
       let offset = 0;
-      return new ReadableStream<Uint8Array>({
+      return new ReadableStream<Uint8Array<ArrayBuffer>>({
         async pull(controller) {
           if (offset >= file.size) {
             controller.close();
@@ -47,7 +47,7 @@ beforeEach(() => {
           const chunk = file.slice(offset, offset + POLYFILL_CHUNK_SIZE);
           offset += POLYFILL_CHUNK_SIZE;
           const buffer = await readBlobAsArrayBuffer(chunk);
-          controller.enqueue(new Uint8Array(buffer));
+          controller.enqueue(new Uint8Array(buffer) as Uint8Array<ArrayBuffer>);
         },
       });
     };
@@ -94,7 +94,15 @@ const POLYFILL_CHUNK_SIZE = 1024 * 1024 * 10;
 const readBlobAsArrayBuffer = (blob: Blob): Promise<ArrayBuffer> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as ArrayBuffer);
+    reader.onload = () => {
+      // FileReader.result can be ArrayBufferLike, but readAsArrayBuffer specifically returns ArrayBuffer
+      const result = reader.result;
+      if (result instanceof ArrayBuffer) {
+        resolve(result);
+      } else {
+        reject(new Error("Expected ArrayBuffer from FileReader"));
+      }
+    };
     reader.onerror = () =>
       reject(reader.error ?? new Error("Unable to read blob chunk."));
     reader.readAsArrayBuffer(blob);
