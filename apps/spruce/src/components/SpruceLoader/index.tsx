@@ -3,12 +3,12 @@ import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
 
 export const loadable = <
   C extends React.ComponentType<
-    JSX.LibraryManagedAttributes<C, React.ComponentProps<C>>
+    React.JSX.LibraryManagedAttributes<C, React.ComponentProps<C>>
   >,
 >(
   loadableComponent: () => Promise<{ default: C }>,
 ): React.ComponentType<
-  JSX.LibraryManagedAttributes<C, React.ComponentProps<C>>
+  React.JSX.LibraryManagedAttributes<C, React.ComponentProps<C>>
 > => {
   const LoadableComponent = lazy(() => loadableComponent());
   // @ts-expect-error: FIXME. This comment was added by an automated script.

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Modal } from "@leafygreen-ui/modal";
 import { Body, H3, InlineKeyCode } from "@leafygreen-ui/typography";
 import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useKeyboardShortcut, useOnClickOutside } from "@evg-ui/lib/hooks";
 
 const shortcuts = [
@@ -101,9 +101,7 @@ const KeyTuple: React.FC<KeyTupleProps> = ({ keys }) => (
   </span>
 );
 
-const StyledModal = styled(Modal)`
-  z-index: ${zIndex.modal};
-`;
+const StyledModal = styled(Modal)``;
 
 const ModalTitle = styled.div`
   margin-bottom: ${size.l};

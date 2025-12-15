@@ -3727,7 +3727,6 @@ export type ServiceFlags = {
   jiraNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  legacyUIAdminPageDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   podAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3766,7 +3765,6 @@ export type ServiceFlagsInput = {
   jiraNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   jwtTokenForCLIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   largeParserProjectsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  legacyUIAdminPageDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   podAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   podInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -4119,6 +4117,7 @@ export type Task = {
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   pod?: Maybe<Pod>;
+  predictedTaskCost?: Maybe<TaskCost>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"]["output"];

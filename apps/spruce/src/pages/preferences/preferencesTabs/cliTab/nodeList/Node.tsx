@@ -7,7 +7,7 @@ const { green, white } = palette;
 
 export type NodeType = {
   title: React.ReactNode;
-  child?: JSX.Element;
+  child?: React.JSX.Element;
 };
 
 interface NodeProps extends NodeType {

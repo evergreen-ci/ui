@@ -155,7 +155,7 @@ const columns: LGColumnDef<Host>[] = [
     header: "ID",
     accessorKey: "id",
     id: HostSortBy.Id,
-    cell: ({ getValue }): JSX.Element => {
+    cell: ({ getValue }): React.JSX.Element => {
       const id = getValue() as string;
       return (
         <StyledRouterLink data-cy="host-id-link" to={getHostRoute(id)}>

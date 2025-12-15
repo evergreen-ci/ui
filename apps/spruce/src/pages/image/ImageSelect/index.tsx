@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useImageAnalytics } from "analytics";
 import { getImageRoute } from "constants/routes";
@@ -46,7 +45,6 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
           navigate(getImageRoute(imageId));
         }}
         placeholder="Select an image"
-        popoverZIndex={zIndex.popover}
         value={selectedImage}
       >
         {images?.map((image) => (

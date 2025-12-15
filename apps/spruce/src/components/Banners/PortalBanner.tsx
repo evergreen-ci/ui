@@ -2,7 +2,7 @@ import { createPortal } from "react-dom";
 
 interface PortalBannerProps {
   // createPortal does not accept a ReactNode
-  banner: JSX.Element;
+  banner: React.JSX.Element;
 }
 
 export const PortalBanner: React.FC<PortalBannerProps> = ({ banner }) => {
