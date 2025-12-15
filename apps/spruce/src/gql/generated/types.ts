@@ -7108,7 +7108,6 @@ export type SaveAdminSettingsMutation = {
       jiraNotificationsDisabled?: boolean | null;
       jwtTokenForCLIDisabled?: boolean | null;
       largeParserProjectsDisabled?: boolean | null;
-      legacyUIAdminPageDisabled?: boolean | null;
       monitorDisabled?: boolean | null;
       podAllocatorDisabled?: boolean | null;
       podInitDisabled?: boolean | null;
@@ -7877,7 +7876,6 @@ export type AdminSettingsQuery = {
       jiraNotificationsDisabled?: boolean | null;
       jwtTokenForCLIDisabled?: boolean | null;
       largeParserProjectsDisabled?: boolean | null;
-      legacyUIAdminPageDisabled?: boolean | null;
       monitorDisabled?: boolean | null;
       podAllocatorDisabled?: boolean | null;
       podInitDisabled?: boolean | null;
@@ -11026,11 +11024,13 @@ export type TaskHistoryQuery = {
       activated: boolean;
       canRestart: boolean;
       canSchedule: boolean;
+      canSetPriority: boolean;
       createTime?: Date | null;
       displayStatus: string;
       execution: number;
       latestExecution: number;
       order: number;
+      priority?: number | null;
       revision?: string | null;
       tests: {
         __typename?: "TaskTestResult";

@@ -57,8 +57,6 @@ export const gqlToForm = ((data) => ({
       staticAPIKeysDisabled: data.serviceFlags?.staticAPIKeysDisabled ?? false,
       elasticIPsDisabled: data.serviceFlags?.elasticIPsDisabled ?? false,
       releaseModeDisabled: data.serviceFlags?.releaseModeDisabled ?? false,
-      legacyUIAdminPageDisabled:
-        data.serviceFlags?.legacyUIAdminPageDisabled ?? false,
     },
 
     batchJobs: {

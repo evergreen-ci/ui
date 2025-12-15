@@ -1,8 +1,8 @@
+import { defineConfig } from "eslint/config";
 import checkFilePlugin from "eslint-plugin-check-file";
-import tseslint from "typescript-eslint";
 import baseConfig, { WARN, errorIfStrict } from "@evg-ui/eslint-config";
 
-export default tseslint.config(
+export default defineConfig(
   ...baseConfig,
   // Check File ESLint (eslint-plugin-check-file) settings.
   {

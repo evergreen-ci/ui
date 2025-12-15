@@ -18,7 +18,8 @@ type Action =
   | { name: "Toggled zebra stripes"; on: boolean }
   | { name: "Toggled jump to failing line"; on: boolean }
   | { name: "Toggled highlight filters"; on: boolean }
-  | { name: "Toggled sections"; on: boolean };
+  | { name: "Toggled sections"; on: boolean }
+  | { name: "Toggled sticky headers"; on: boolean };
 
 export const usePreferencesAnalytics = () =>
   useAnalyticsRoot<Action, AnalyticsIdentifier>("Preferences");
