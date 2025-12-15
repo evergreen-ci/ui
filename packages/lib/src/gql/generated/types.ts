@@ -4117,6 +4117,7 @@ export type Task = {
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   pod?: Maybe<Pod>;
+  predictedTaskCost?: Maybe<TaskCost>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"]["output"];

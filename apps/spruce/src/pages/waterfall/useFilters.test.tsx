@@ -124,7 +124,7 @@ describe("useFilters", () => {
       expect(result.current).toStrictEqual(filteredWaterfall);
     });
 
-    it("build variant filters are added together with inactive builds omitted", () => {
+    it("build variant filters are added together with inactive builds included", () => {
       const { result } = renderHook(
         () =>
           useFilters({
@@ -140,24 +140,18 @@ describe("useFilters", () => {
       );
 
       const filteredWaterfall = {
-        buildVariants: [
-          {
-            ...buildVariants[0],
-            builds: [buildVariants[0].builds[0]],
-          },
-          buildVariants[1],
-          buildVariants[2],
-        ],
+        buildVariants: [buildVariants[0], buildVariants[1], buildVariants[2]],
         versions: [
           groupedVersions[0],
           groupedVersions[1],
           groupedVersions[2],
           {
-            inactiveVersions: [versions[3], versions[4], versions[5]],
+            inactiveVersions: [versions[3], versions[4]],
             version: null,
           },
+          groupedVersions[4],
         ],
-        activeVersionIds: ["b", "c"],
+        activeVersionIds: ["b", "c", "f"],
       };
 
       expect(result.current).toStrictEqual(filteredWaterfall);

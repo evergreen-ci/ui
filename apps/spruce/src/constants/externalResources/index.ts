@@ -116,8 +116,6 @@ export const getParsleyCompleteLogsURL = (
   groupID: string,
 ) => `${getParsleyUrl()}/resmoke/${taskID}/${execution}/${groupID}/all`;
 
-export const adminSettingsURL = `${getEvergreenUrl()}/admin`;
-
 export const buildHostConfigurationRepoURL =
   "https://github.com/10gen/buildhost-configuration";
 export const buildHostPostConfigRepoURL =

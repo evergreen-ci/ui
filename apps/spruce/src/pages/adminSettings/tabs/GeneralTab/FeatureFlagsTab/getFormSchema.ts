@@ -43,7 +43,6 @@ const featureItems: Record<string, string> = {
   elasticIPsDisabled: "Elastic IPs  for task hosts",
   staticAPIKeysDisabled: "Static API Keys credentials for users",
   backgroundReauthDisabled: "Background Reauthentication",
-  legacyUIAdminPageDisabled: "Legacy UI Admin Page",
 };
 
 const batchJobItems: Record<string, string> = {

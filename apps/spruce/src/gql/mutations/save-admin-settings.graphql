@@ -70,7 +70,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       jiraNotificationsDisabled
       jwtTokenForCLIDisabled
       largeParserProjectsDisabled
-      legacyUIAdminPageDisabled
       monitorDisabled
       podAllocatorDisabled
       podInitDisabled

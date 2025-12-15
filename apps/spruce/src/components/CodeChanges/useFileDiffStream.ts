@@ -35,7 +35,7 @@ export const useFileDiffStream = ({
 
       if (isNewFile) {
         // Extract filename from after 'b/' in git diff output
-        const filePathMatch = lineContent.match(/b\/(.+)$/);
+        const filePathMatch = lineContent.match(/^diff --git a\/.+ b\/(.+)$/);
         if (filePathMatch) {
           const filePath = filePathMatch[1].trim();
           const normalizedFileName = fileName.trim();
