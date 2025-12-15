@@ -1,12 +1,12 @@
 <div>
   <div
-    class="emotion-CommitCard e1a625uv2"
+    class="emotion-CommitCard e1a625uv4"
     data-cy="commit-details-card"
     data-task-history-guide-id="commit-details"
     id="commit-card-a"
   >
     <div
-      class="emotion-TopLabel e1a625uv1"
+      class="emotion-TopLabel e1a625uv3"
     >
       <a
         class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -81,11 +81,11 @@
         </div>
       </button>
       <dialog
-        class="leafygreen-ui-1fxhhyq"
+        class="leafygreen-ui-17e6ane"
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-286"
+        id="modal-279"
       />
       <div
         class="leafygreen-ui-17azklk"
@@ -110,1016 +110,1043 @@
         </span>
       </span>
       <div
-        class="emotion-OrderLabel e1a625uv0"
-      >
-        Order: 
-        100
-      </div>
-    </div>
-    <div>
-      <div
-        class="emotion-AccordionToggle e1omze814"
-        data-cy="accordion-toggle"
-        role="button"
+        class="emotion-PriorityContainer e1a625uv2"
       >
         <button
-          aria-disabled="false"
-          aria-label="Accordion icon"
-          class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
-          style="align-self: start;"
-          tabindex="0"
+          aria-disabled="true"
+          class="lg-ui-button-0000 leafygreen-ui-1cutrhb"
+          data-cy="set-priority-button"
+          data-lgid="lg-button"
+          type="button"
         >
           <div
-            class="leafygreen-ui-xhlipt"
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
           >
-            <svg
-              aria-label="Chevron Right Icon"
-              class="leafygreen-ui-1vrn39p"
-              height="16"
-              role="img"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <path
-                clip-rule="evenodd"
-                d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
+            Set priority
           </div>
         </button>
-        <span>
-          <div
-            class="emotion-BottomLabel end94gb2"
-          >
-            <b
-              class="emotion-AuthorLabel end94gb1"
-            >
-              Evergreen Admin
-               - 
-            </b>
-            <span
-              class="emotion-WordBreak-wordBreakCss e1wygaev0"
-            >
-              <a
-                class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-                data-cy="jira-link"
-                href="https:///browse/DEVPROD-1234"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <span>
-                  DEVPROD-1234
-                </span>
-              </a>
-              : Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.
-            </span>
-          </div>
-        </span>
+        <span
+          class="leafygreen-ui-38lglc"
+        />
       </div>
-      <div
-        aria-expanded="false"
-        class="emotion-AnimatedAccordion e1omze812"
-        data-cy="accordion-collapse-container"
-      >
+    </div>
+    <div
+      class="emotion-BottomLabel e1a625uv1"
+    >
+      <div>
         <div
-          class="emotion-ContentsContainer e1omze811"
+          class="emotion-AccordionToggle e1omze814"
+          data-cy="accordion-toggle"
+          role="button"
+        >
+          <button
+            aria-disabled="false"
+            aria-label="Accordion icon"
+            class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
+            style="align-self: start;"
+            tabindex="0"
+          >
+            <div
+              class="leafygreen-ui-xhlipt"
+            >
+              <svg
+                aria-label="Chevron Right Icon"
+                class="leafygreen-ui-1vrn39p"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+          <span>
+            <div
+              class="emotion-BottomLabel end94gb2"
+            >
+              <b
+                class="emotion-AuthorLabel end94gb1"
+              >
+                Evergreen Admin
+                 - 
+              </b>
+              <span
+                class="emotion-WordBreak-wordBreakCss e1wygaev0"
+              >
+                <a
+                  class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
+                  data-cy="jira-link"
+                  href="https:///browse/DEVPROD-1234"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <span>
+                    DEVPROD-1234
+                  </span>
+                </a>
+                : Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.
+              </span>
+            </div>
+          </span>
+        </div>
+        <div
+          aria-expanded="false"
+          class="emotion-AnimatedAccordion e1omze812"
+          data-cy="accordion-collapse-container"
         >
           <div
-            class="emotion-TableContainer e1bp1fda2"
+            class="emotion-ContentsContainer e1omze811"
           >
             <div
-              class="leafygreen-ui-1si66qn"
-              tabindex="0"
-            >
-              <div />
-              <table
-                class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
-                data-cy="failing-tests-changes-table"
-                data-is-sticky="false"
-                data-lgid="lg-table"
-                data-testid="lg-table"
-              >
-                <thead
-                  class="leafygreen-ui-181p7kg"
-                >
-                  <tr
-                    class="leafygreen-ui-5fo1n0"
-                    data-lgid="lg-table-header_row"
-                    data-testid="lg-table-header_row"
-                  >
-                    <th
-                      class="leafygreen-ui-1it7wsd"
-                      data-lgid="lg-table-header"
-                      data-testid="lg-table-header"
-                      id="testFile"
-                      scope="col"
-                      style="width: 60%;"
-                    >
-                      <div
-                        class="leafygreen-ui-11hl1ow"
-                      >
-                        Test Failure Name
-                        <div
-                          class="emotion-FilterWrapper e1vwevg0"
-                        >
-                          <button
-                            aria-disabled="false"
-                            aria-label="Table Search Popover Icon"
-                            class="leafygreen-ui-1r51ix4"
-                            data-cy="test-name-filter"
-                            tabindex="0"
-                          >
-                            <div
-                              class="leafygreen-ui-xhlipt"
-                            >
-                              <svg
-                                aria-label="Magnifying Glass Icon"
-                                class="leafygreen-ui-1st74h4"
-                                color="#3D4F58"
-                                height="16"
-                                role="img"
-                                viewBox="0 0 16 16"
-                                width="16"
-                              >
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M2.3234 9.81874C4.07618 11.5715 6.75062 11.8398 8.78588 10.6244L12.93 14.7685C13.4377 15.2762 14.2608 15.2762 14.7685 14.7685C15.2762 14.2608 15.2762 13.4377 14.7685 12.93L10.6244 8.78588C11.8398 6.75062 11.5715 4.07619 9.81873 2.32341C7.74896 0.253628 4.39318 0.253628 2.3234 2.32341C0.253624 4.39319 0.253624 7.74896 2.3234 9.81874ZM7.98026 4.16188C9.03467 5.2163 9.03467 6.92585 7.98026 7.98026C6.92584 9.03468 5.2163 9.03468 4.16188 7.98026C3.10746 6.92585 3.10746 5.2163 4.16188 4.16188C5.2163 3.10747 6.92584 3.10747 7.98026 4.16188Z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </div>
-                          </button>
-                          <span
-                            class="leafygreen-ui-38lglc"
-                          />
-                        </div>
-                      </div>
-                    </th>
-                    <th
-                      class="leafygreen-ui-1it7wsd"
-                      data-lgid="lg-table-header"
-                      data-testid="lg-table-header"
-                      id="status"
-                      scope="col"
-                      style="width: 80px;"
-                    >
-                      <div
-                        class="leafygreen-ui-11hl1ow"
-                      >
-                        Failure Type
-                      </div>
-                    </th>
-                    <th
-                      class="leafygreen-ui-1it7wsd"
-                      data-lgid="lg-table-header"
-                      data-testid="lg-table-header"
-                      id="Actions"
-                      scope="col"
-                    >
-                      <div
-                        class="leafygreen-ui-11hl1ow"
-                      >
-                        Actions
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    aria-disabled="false"
-                    class="leafygreen-ui-ef1edo"
-                    data-cy="failing-tests-table-row"
-                    data-depth="0"
-                    data-expanded="false"
-                    data-index="0"
-                    data-lgid="lg-table-row"
-                    data-selected="false"
-                    data-testid="lg-table-row"
-                    id="lg-table-row-0"
-                  >
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <span
-                              class="emotion-WordBreak-wordBreakCss e1wygaev0"
-                            >
-                              e2e_test_0
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <div
-                              class="leafygreen-ui-17azklk"
-                              data-cy="test-status-badge"
-                            >
-                              Silent Fail
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <div
-                              class="emotion-ButtonContainer e1bp1fda1"
-                            >
-                              <button
-                                aria-disabled="false"
-                                class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
-                                data-lgid="lg-button"
-                                type="button"
-                              >
-                                <div
-                                  class="leafygreen-ui-v038xi"
-                                />
-                                <div
-                                  class="leafygreen-ui-b15bbd"
-                                >
-                                  Search Failure
-                                </div>
-                              </button>
-                              <a
-                                aria-disabled="false"
-                                class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
-                                data-lgid="lg-button"
-                                href="0-parsley-url.mongodb.com"
-                                target="__blank"
-                                title="Parsley logs"
-                              >
-                                <div
-                                  class="leafygreen-ui-v038xi"
-                                />
-                                <div
-                                  class="leafygreen-ui-b15bbd"
-                                >
-                                  Logs
-                                  <svg
-                                    aria-hidden="true"
-                                    class="leafygreen-ui-1q35ofk"
-                                    fill="none"
-                                    height="16"
-                                    role="presentation"
-                                    viewBox="0 0 16 16"
-                                    width="16"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
-                                      fill="currentColor"
-                                    />
-                                    <path
-                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
-                                </div>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    aria-disabled="false"
-                    class="leafygreen-ui-ef1edo"
-                    data-cy="failing-tests-table-row"
-                    data-depth="0"
-                    data-expanded="false"
-                    data-index="1"
-                    data-lgid="lg-table-row"
-                    data-selected="false"
-                    data-testid="lg-table-row"
-                    id="lg-table-row-1"
-                  >
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <span
-                              class="emotion-WordBreak-wordBreakCss e1wygaev0"
-                            >
-                              e2e_test_1
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <div
-                              class="leafygreen-ui-cfigsp"
-                              data-cy="test-status-badge"
-                            >
-                              Fail
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <div
-                              class="emotion-ButtonContainer e1bp1fda1"
-                            >
-                              <button
-                                aria-disabled="false"
-                                class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
-                                data-lgid="lg-button"
-                                type="button"
-                              >
-                                <div
-                                  class="leafygreen-ui-v038xi"
-                                />
-                                <div
-                                  class="leafygreen-ui-b15bbd"
-                                >
-                                  Search Failure
-                                </div>
-                              </button>
-                              <a
-                                aria-disabled="false"
-                                class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
-                                data-lgid="lg-button"
-                                href="1-parsley-url.mongodb.com"
-                                target="__blank"
-                                title="Parsley logs"
-                              >
-                                <div
-                                  class="leafygreen-ui-v038xi"
-                                />
-                                <div
-                                  class="leafygreen-ui-b15bbd"
-                                >
-                                  Logs
-                                  <svg
-                                    aria-hidden="true"
-                                    class="leafygreen-ui-1q35ofk"
-                                    fill="none"
-                                    height="16"
-                                    role="presentation"
-                                    viewBox="0 0 16 16"
-                                    width="16"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
-                                      fill="currentColor"
-                                    />
-                                    <path
-                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
-                                </div>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    aria-disabled="false"
-                    class="leafygreen-ui-ef1edo"
-                    data-cy="failing-tests-table-row"
-                    data-depth="0"
-                    data-expanded="false"
-                    data-index="2"
-                    data-lgid="lg-table-row"
-                    data-selected="false"
-                    data-testid="lg-table-row"
-                    id="lg-table-row-2"
-                  >
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <span
-                              class="emotion-WordBreak-wordBreakCss e1wygaev0"
-                            >
-                              e2e_test_2
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <div
-                              class="leafygreen-ui-cfigsp"
-                              data-cy="test-status-badge"
-                            >
-                              Fail
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <div
-                              class="emotion-ButtonContainer e1bp1fda1"
-                            >
-                              <button
-                                aria-disabled="false"
-                                class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
-                                data-lgid="lg-button"
-                                type="button"
-                              >
-                                <div
-                                  class="leafygreen-ui-v038xi"
-                                />
-                                <div
-                                  class="leafygreen-ui-b15bbd"
-                                >
-                                  Search Failure
-                                </div>
-                              </button>
-                              <a
-                                aria-disabled="false"
-                                class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
-                                data-lgid="lg-button"
-                                href="2-parsley-url.mongodb.com"
-                                target="__blank"
-                                title="Parsley logs"
-                              >
-                                <div
-                                  class="leafygreen-ui-v038xi"
-                                />
-                                <div
-                                  class="leafygreen-ui-b15bbd"
-                                >
-                                  Logs
-                                  <svg
-                                    aria-hidden="true"
-                                    class="leafygreen-ui-1q35ofk"
-                                    fill="none"
-                                    height="16"
-                                    role="presentation"
-                                    viewBox="0 0 16 16"
-                                    width="16"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
-                                      fill="currentColor"
-                                    />
-                                    <path
-                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
-                                </div>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    aria-disabled="false"
-                    class="leafygreen-ui-ef1edo"
-                    data-cy="failing-tests-table-row"
-                    data-depth="0"
-                    data-expanded="false"
-                    data-index="3"
-                    data-lgid="lg-table-row"
-                    data-selected="false"
-                    data-testid="lg-table-row"
-                    id="lg-table-row-3"
-                  >
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <span
-                              class="emotion-WordBreak-wordBreakCss e1wygaev0"
-                            >
-                              e2e_test_3
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <div
-                              class="leafygreen-ui-17azklk"
-                              data-cy="test-status-badge"
-                            >
-                              Silent Fail
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <div
-                              class="emotion-ButtonContainer e1bp1fda1"
-                            >
-                              <button
-                                aria-disabled="false"
-                                class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
-                                data-lgid="lg-button"
-                                type="button"
-                              >
-                                <div
-                                  class="leafygreen-ui-v038xi"
-                                />
-                                <div
-                                  class="leafygreen-ui-b15bbd"
-                                >
-                                  Search Failure
-                                </div>
-                              </button>
-                              <a
-                                aria-disabled="false"
-                                class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
-                                data-lgid="lg-button"
-                                href="3-parsley-url.mongodb.com"
-                                target="__blank"
-                                title="Parsley logs"
-                              >
-                                <div
-                                  class="leafygreen-ui-v038xi"
-                                />
-                                <div
-                                  class="leafygreen-ui-b15bbd"
-                                >
-                                  Logs
-                                  <svg
-                                    aria-hidden="true"
-                                    class="leafygreen-ui-1q35ofk"
-                                    fill="none"
-                                    height="16"
-                                    role="presentation"
-                                    viewBox="0 0 16 16"
-                                    width="16"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
-                                      fill="currentColor"
-                                    />
-                                    <path
-                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
-                                </div>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    aria-disabled="false"
-                    class="leafygreen-ui-ef1edo"
-                    data-cy="failing-tests-table-row"
-                    data-depth="0"
-                    data-expanded="false"
-                    data-index="4"
-                    data-lgid="lg-table-row"
-                    data-selected="false"
-                    data-testid="lg-table-row"
-                    id="lg-table-row-4"
-                  >
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <span
-                              class="emotion-WordBreak-wordBreakCss e1wygaev0"
-                            >
-                              e2e_test_4
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <div
-                              class="leafygreen-ui-cfigsp"
-                              data-cy="test-status-badge"
-                            >
-                              Fail
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td
-                      class="leafygreen-ui-16vw6q"
-                      data-lgid="lg-table-cell"
-                      data-testid="lg-table-cell"
-                      style="padding-bottom: 4px; padding-top: 4px;"
-                    >
-                      <div
-                        class="leafygreen-ui-18w181u"
-                      >
-                        <div
-                          class="leafygreen-ui-mjg5qs"
-                        >
-                          <div
-                            class=""
-                          >
-                            <div
-                              class="emotion-ButtonContainer e1bp1fda1"
-                            >
-                              <button
-                                aria-disabled="false"
-                                class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
-                                data-lgid="lg-button"
-                                type="button"
-                              >
-                                <div
-                                  class="leafygreen-ui-v038xi"
-                                />
-                                <div
-                                  class="leafygreen-ui-b15bbd"
-                                >
-                                  Search Failure
-                                </div>
-                              </button>
-                              <a
-                                aria-disabled="false"
-                                class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
-                                data-lgid="lg-button"
-                                href="4-parsley-url.mongodb.com"
-                                target="__blank"
-                                title="Parsley logs"
-                              >
-                                <div
-                                  class="leafygreen-ui-v038xi"
-                                />
-                                <div
-                                  class="leafygreen-ui-b15bbd"
-                                >
-                                  Logs
-                                  <svg
-                                    aria-hidden="true"
-                                    class="leafygreen-ui-1q35ofk"
-                                    fill="none"
-                                    height="16"
-                                    role="presentation"
-                                    viewBox="0 0 16 16"
-                                    width="16"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
-                                      fill="currentColor"
-                                    />
-                                    <path
-                                      d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
-                                </div>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div
-              class="leafygreen-ui-og633j"
+              class="emotion-TableContainer e1bp1fda2"
             >
               <div
-                class="leafygreen-ui-18m7jux"
-              />
-              <div
-                class="leafygreen-ui-18m7jux"
+                class="leafygreen-ui-1si66qn"
+                tabindex="0"
               >
-                <p
-                  class="leafygreen-ui-26vqpd"
-                  data-testid="lg-pagination-item-range"
+                <div />
+                <table
+                  class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
+                  data-cy="failing-tests-changes-table"
+                  data-is-sticky="false"
+                  data-lgid="lg-table"
+                  data-testid="lg-table"
                 >
-                  1 - 5
-                   of
-                   
-                  15 items
-                </p>
+                  <thead
+                    class="leafygreen-ui-181p7kg"
+                  >
+                    <tr
+                      class="leafygreen-ui-5fo1n0"
+                      data-lgid="lg-table-header_row"
+                      data-testid="lg-table-header_row"
+                    >
+                      <th
+                        class="leafygreen-ui-1it7wsd"
+                        data-lgid="lg-table-header"
+                        data-testid="lg-table-header"
+                        id="testFile"
+                        scope="col"
+                        style="width: 60%;"
+                      >
+                        <div
+                          class="leafygreen-ui-11hl1ow"
+                        >
+                          Test Failure Name
+                          <div
+                            class="emotion-FilterWrapper e1vwevg0"
+                          >
+                            <button
+                              aria-disabled="false"
+                              aria-label="Table Search Popover Icon"
+                              class="leafygreen-ui-1r51ix4"
+                              data-cy="test-name-filter"
+                              tabindex="0"
+                            >
+                              <div
+                                class="leafygreen-ui-xhlipt"
+                              >
+                                <svg
+                                  aria-label="Magnifying Glass Icon"
+                                  class="leafygreen-ui-1st74h4"
+                                  color="#3D4F58"
+                                  height="16"
+                                  role="img"
+                                  viewBox="0 0 16 16"
+                                  width="16"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M2.3234 9.81874C4.07618 11.5715 6.75062 11.8398 8.78588 10.6244L12.93 14.7685C13.4377 15.2762 14.2608 15.2762 14.7685 14.7685C15.2762 14.2608 15.2762 13.4377 14.7685 12.93L10.6244 8.78588C11.8398 6.75062 11.5715 4.07619 9.81873 2.32341C7.74896 0.253628 4.39318 0.253628 2.3234 2.32341C0.253624 4.39319 0.253624 7.74896 2.3234 9.81874ZM7.98026 4.16188C9.03467 5.2163 9.03467 6.92585 7.98026 7.98026C6.92584 9.03468 5.2163 9.03468 4.16188 7.98026C3.10746 6.92585 3.10746 5.2163 4.16188 4.16188C5.2163 3.10747 6.92584 3.10747 7.98026 4.16188Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                            </button>
+                            <span
+                              class="leafygreen-ui-38lglc"
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th
+                        class="leafygreen-ui-1it7wsd"
+                        data-lgid="lg-table-header"
+                        data-testid="lg-table-header"
+                        id="status"
+                        scope="col"
+                        style="width: 80px;"
+                      >
+                        <div
+                          class="leafygreen-ui-11hl1ow"
+                        >
+                          Failure Type
+                        </div>
+                      </th>
+                      <th
+                        class="leafygreen-ui-1it7wsd"
+                        data-lgid="lg-table-header"
+                        data-testid="lg-table-header"
+                        id="Actions"
+                        scope="col"
+                      >
+                        <div
+                          class="leafygreen-ui-11hl1ow"
+                        >
+                          Actions
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      aria-disabled="false"
+                      class="leafygreen-ui-ef1edo"
+                      data-cy="failing-tests-table-row"
+                      data-depth="0"
+                      data-expanded="false"
+                      data-index="0"
+                      data-lgid="lg-table-row"
+                      data-selected="false"
+                      data-testid="lg-table-row"
+                      id="lg-table-row-0"
+                    >
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <span
+                                class="emotion-WordBreak-wordBreakCss e1wygaev0"
+                              >
+                                e2e_test_0
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <div
+                                class="leafygreen-ui-17azklk"
+                                data-cy="test-status-badge"
+                              >
+                                Silent Fail
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <div
+                                class="emotion-ButtonContainer e1bp1fda1"
+                              >
+                                <button
+                                  aria-disabled="false"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  data-lgid="lg-button"
+                                  type="button"
+                                >
+                                  <div
+                                    class="leafygreen-ui-v038xi"
+                                  />
+                                  <div
+                                    class="leafygreen-ui-b15bbd"
+                                  >
+                                    Search Failure
+                                  </div>
+                                </button>
+                                <a
+                                  aria-disabled="false"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  data-lgid="lg-button"
+                                  href="0-parsley-url.mongodb.com"
+                                  target="__blank"
+                                  title="Parsley logs"
+                                >
+                                  <div
+                                    class="leafygreen-ui-v038xi"
+                                  />
+                                  <div
+                                    class="leafygreen-ui-b15bbd"
+                                  >
+                                    Logs
+                                    <svg
+                                      aria-hidden="true"
+                                      class="leafygreen-ui-1q35ofk"
+                                      fill="none"
+                                      height="16"
+                                      role="presentation"
+                                      viewBox="0 0 16 16"
+                                      width="16"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
+                                        fill="currentColor"
+                                      />
+                                      <path
+                                        d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr
+                      aria-disabled="false"
+                      class="leafygreen-ui-ef1edo"
+                      data-cy="failing-tests-table-row"
+                      data-depth="0"
+                      data-expanded="false"
+                      data-index="1"
+                      data-lgid="lg-table-row"
+                      data-selected="false"
+                      data-testid="lg-table-row"
+                      id="lg-table-row-1"
+                    >
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <span
+                                class="emotion-WordBreak-wordBreakCss e1wygaev0"
+                              >
+                                e2e_test_1
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <div
+                                class="leafygreen-ui-cfigsp"
+                                data-cy="test-status-badge"
+                              >
+                                Fail
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <div
+                                class="emotion-ButtonContainer e1bp1fda1"
+                              >
+                                <button
+                                  aria-disabled="false"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  data-lgid="lg-button"
+                                  type="button"
+                                >
+                                  <div
+                                    class="leafygreen-ui-v038xi"
+                                  />
+                                  <div
+                                    class="leafygreen-ui-b15bbd"
+                                  >
+                                    Search Failure
+                                  </div>
+                                </button>
+                                <a
+                                  aria-disabled="false"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  data-lgid="lg-button"
+                                  href="1-parsley-url.mongodb.com"
+                                  target="__blank"
+                                  title="Parsley logs"
+                                >
+                                  <div
+                                    class="leafygreen-ui-v038xi"
+                                  />
+                                  <div
+                                    class="leafygreen-ui-b15bbd"
+                                  >
+                                    Logs
+                                    <svg
+                                      aria-hidden="true"
+                                      class="leafygreen-ui-1q35ofk"
+                                      fill="none"
+                                      height="16"
+                                      role="presentation"
+                                      viewBox="0 0 16 16"
+                                      width="16"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
+                                        fill="currentColor"
+                                      />
+                                      <path
+                                        d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr
+                      aria-disabled="false"
+                      class="leafygreen-ui-ef1edo"
+                      data-cy="failing-tests-table-row"
+                      data-depth="0"
+                      data-expanded="false"
+                      data-index="2"
+                      data-lgid="lg-table-row"
+                      data-selected="false"
+                      data-testid="lg-table-row"
+                      id="lg-table-row-2"
+                    >
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <span
+                                class="emotion-WordBreak-wordBreakCss e1wygaev0"
+                              >
+                                e2e_test_2
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <div
+                                class="leafygreen-ui-cfigsp"
+                                data-cy="test-status-badge"
+                              >
+                                Fail
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <div
+                                class="emotion-ButtonContainer e1bp1fda1"
+                              >
+                                <button
+                                  aria-disabled="false"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  data-lgid="lg-button"
+                                  type="button"
+                                >
+                                  <div
+                                    class="leafygreen-ui-v038xi"
+                                  />
+                                  <div
+                                    class="leafygreen-ui-b15bbd"
+                                  >
+                                    Search Failure
+                                  </div>
+                                </button>
+                                <a
+                                  aria-disabled="false"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  data-lgid="lg-button"
+                                  href="2-parsley-url.mongodb.com"
+                                  target="__blank"
+                                  title="Parsley logs"
+                                >
+                                  <div
+                                    class="leafygreen-ui-v038xi"
+                                  />
+                                  <div
+                                    class="leafygreen-ui-b15bbd"
+                                  >
+                                    Logs
+                                    <svg
+                                      aria-hidden="true"
+                                      class="leafygreen-ui-1q35ofk"
+                                      fill="none"
+                                      height="16"
+                                      role="presentation"
+                                      viewBox="0 0 16 16"
+                                      width="16"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
+                                        fill="currentColor"
+                                      />
+                                      <path
+                                        d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr
+                      aria-disabled="false"
+                      class="leafygreen-ui-ef1edo"
+                      data-cy="failing-tests-table-row"
+                      data-depth="0"
+                      data-expanded="false"
+                      data-index="3"
+                      data-lgid="lg-table-row"
+                      data-selected="false"
+                      data-testid="lg-table-row"
+                      id="lg-table-row-3"
+                    >
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <span
+                                class="emotion-WordBreak-wordBreakCss e1wygaev0"
+                              >
+                                e2e_test_3
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <div
+                                class="leafygreen-ui-17azklk"
+                                data-cy="test-status-badge"
+                              >
+                                Silent Fail
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <div
+                                class="emotion-ButtonContainer e1bp1fda1"
+                              >
+                                <button
+                                  aria-disabled="false"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  data-lgid="lg-button"
+                                  type="button"
+                                >
+                                  <div
+                                    class="leafygreen-ui-v038xi"
+                                  />
+                                  <div
+                                    class="leafygreen-ui-b15bbd"
+                                  >
+                                    Search Failure
+                                  </div>
+                                </button>
+                                <a
+                                  aria-disabled="false"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  data-lgid="lg-button"
+                                  href="3-parsley-url.mongodb.com"
+                                  target="__blank"
+                                  title="Parsley logs"
+                                >
+                                  <div
+                                    class="leafygreen-ui-v038xi"
+                                  />
+                                  <div
+                                    class="leafygreen-ui-b15bbd"
+                                  >
+                                    Logs
+                                    <svg
+                                      aria-hidden="true"
+                                      class="leafygreen-ui-1q35ofk"
+                                      fill="none"
+                                      height="16"
+                                      role="presentation"
+                                      viewBox="0 0 16 16"
+                                      width="16"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
+                                        fill="currentColor"
+                                      />
+                                      <path
+                                        d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr
+                      aria-disabled="false"
+                      class="leafygreen-ui-ef1edo"
+                      data-cy="failing-tests-table-row"
+                      data-depth="0"
+                      data-expanded="false"
+                      data-index="4"
+                      data-lgid="lg-table-row"
+                      data-selected="false"
+                      data-testid="lg-table-row"
+                      id="lg-table-row-4"
+                    >
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <span
+                                class="emotion-WordBreak-wordBreakCss e1wygaev0"
+                              >
+                                e2e_test_4
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <div
+                                class="leafygreen-ui-cfigsp"
+                                data-cy="test-status-badge"
+                              >
+                                Fail
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        class="leafygreen-ui-16vw6q"
+                        data-lgid="lg-table-cell"
+                        data-testid="lg-table-cell"
+                        style="padding-bottom: 4px; padding-top: 4px;"
+                      >
+                        <div
+                          class="leafygreen-ui-18w181u"
+                        >
+                          <div
+                            class="leafygreen-ui-mjg5qs"
+                          >
+                            <div
+                              class=""
+                            >
+                              <div
+                                class="emotion-ButtonContainer e1bp1fda1"
+                              >
+                                <button
+                                  aria-disabled="false"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  data-lgid="lg-button"
+                                  type="button"
+                                >
+                                  <div
+                                    class="leafygreen-ui-v038xi"
+                                  />
+                                  <div
+                                    class="leafygreen-ui-b15bbd"
+                                  >
+                                    Search Failure
+                                  </div>
+                                </button>
+                                <a
+                                  aria-disabled="false"
+                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  data-lgid="lg-button"
+                                  href="4-parsley-url.mongodb.com"
+                                  target="__blank"
+                                  title="Parsley logs"
+                                >
+                                  <div
+                                    class="leafygreen-ui-v038xi"
+                                  />
+                                  <div
+                                    class="leafygreen-ui-b15bbd"
+                                  >
+                                    Logs
+                                    <svg
+                                      aria-hidden="true"
+                                      class="leafygreen-ui-1q35ofk"
+                                      fill="none"
+                                      height="16"
+                                      role="presentation"
+                                      viewBox="0 0 16 16"
+                                      width="16"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M13.823 2.45a.28.28 0 0 0-.272-.273l-4.045-.079a.277.277 0 0 0-.201.474l1.08 1.08-2.45 2.452a1.4 1.4 0 0 0-.148.174L5.999 8.065a1.369 1.369 0 1 0 1.936 1.936l1.787-1.788q.092-.065.174-.147l2.451-2.452 1.081 1.081a.277.277 0 0 0 .474-.201z"
+                                        fill="currentColor"
+                                      />
+                                      <path
+                                        d="M7.25 3.129a.75.75 0 0 1 0 1.5H4a.5.5 0 0 0-.5.5v6.864a.5.5 0 0 0 .5.5h6.864a.5.5 0 0 0 .5-.5V8.75a.75.75 0 0 1 1.5 0v3.243a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.129a2 2 0 0 1 2-2z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
               <div
-                class="leafygreen-ui-18m7jux"
+                class="leafygreen-ui-og633j"
               >
                 <div
-                  class="leafygreen-ui-1iyoj2o"
-                  data-lgid="lg-select"
-                  data-testid="lg-select"
+                  class="leafygreen-ui-18m7jux"
+                />
+                <div
+                  class="leafygreen-ui-18m7jux"
                 >
-                  <button
-                    aria-controls="select-290-menu"
-                    aria-describedby="select-290-description"
-                    aria-disabled="false"
-                    aria-expanded="false"
-                    aria-invalid="false"
-                    aria-label="Set current page, 1"
-                    class="lg-ui-button-0000 leafygreen-ui-1rkuilv"
-                    data-lgid="lg-select-trigger"
-                    data-testid="lg-pagination-page-select"
-                    id="select-291"
-                    type="button"
-                    value="1"
+                  <p
+                    class="leafygreen-ui-26vqpd"
+                    data-testid="lg-pagination-item-range"
                   >
-                    <div
-                      class="leafygreen-ui-v038xi"
-                    />
-                    <div
-                      class="leafygreen-ui-b15bbd"
+                    1 - 5
+                     of
+                     
+                    15 items
+                  </p>
+                </div>
+                <div
+                  class="leafygreen-ui-18m7jux"
+                >
+                  <div
+                    class="leafygreen-ui-1iyoj2o"
+                    data-lgid="lg-select"
+                    data-testid="lg-select"
+                  >
+                    <button
+                      aria-controls="select-284-menu"
+                      aria-describedby="select-284-description"
+                      aria-disabled="false"
+                      aria-expanded="false"
+                      aria-invalid="false"
+                      aria-label="Set current page, 1"
+                      class="lg-ui-button-0000 leafygreen-ui-1rkuilv"
+                      data-lgid="lg-select-trigger"
+                      data-testid="lg-pagination-page-select"
+                      id="select-285"
+                      type="button"
+                      value="1"
                     >
                       <div
-                        class="leafygreen-ui-obh8q1"
+                        class="leafygreen-ui-v038xi"
+                      />
+                      <div
+                        class="leafygreen-ui-b15bbd"
                       >
                         <div
-                          class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
-                          data-lgid="lg-select-button_text"
-                          data-testid="lg-select-button_text"
+                          class="leafygreen-ui-obh8q1"
                         >
-                          1
+                          <div
+                            class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
+                            data-lgid="lg-select-button_text"
+                            data-testid="lg-select-button_text"
+                          >
+                            1
+                          </div>
                         </div>
+                        <svg
+                          alt=""
+                          aria-hidden="true"
+                          class="leafygreen-ui-1x6jrwu"
+                          height="16"
+                          role="presentation"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <path
+                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                            fill="currentColor"
+                          />
+                        </svg>
                       </div>
+                    </button>
+                    <span
+                      class="leafygreen-ui-38lglc"
+                    />
+                    <div
+                      aria-live="polite"
+                      aria-relevant="all"
+                      class="leafygreen-ui-11ydt2g"
+                      data-lgid="lg-form_field-feedback"
+                      data-testid="lg-form_field-feedback"
+                    />
+                  </div>
+                  <p
+                    class="leafygreen-ui-26vqpd"
+                  >
+                    of 
+                    3
+                  </p>
+                  <button
+                    aria-disabled="true"
+                    aria-label="Previous page"
+                    class="leafygreen-ui-1dt4k34"
+                    data-testid="lg-pagination-back-button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="leafygreen-ui-xhlipt"
+                    >
                       <svg
-                        alt=""
-                        aria-hidden="true"
-                        class="leafygreen-ui-1x6jrwu"
+                        aria-label="Chevron Left Icon"
+                        class="leafygreen-ui-1st74h4"
                         height="16"
-                        role="presentation"
+                        role="img"
                         viewBox="0 0 16 16"
                         width="16"
                       >
                         <path
-                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                          clip-rule="evenodd"
+                          d="M10.7782 1.63604C10.3877 1.24551 9.75449 1.24551 9.36396 1.63604L4.41421 6.58579L3.70711 7.29289C3.31658 7.68342 3.31658 8.31658 3.70711 8.70711L4.41421 9.41421L9.36396 14.364C9.75448 14.7545 10.3876 14.7545 10.7782 14.364L11.4853 13.6569C11.8758 13.2663 11.8758 12.6332 11.4853 12.2426L7.24264 8L11.4853 3.75736C11.8758 3.36684 11.8758 2.73367 11.4853 2.34315L10.7782 1.63604Z"
                           fill="currentColor"
+                          fill-rule="evenodd"
                         />
                       </svg>
                     </div>
                   </button>
-                  <span
-                    class="leafygreen-ui-38lglc"
-                  />
-                  <div
-                    aria-live="polite"
-                    aria-relevant="all"
-                    class="leafygreen-ui-11ydt2g"
-                    data-lgid="lg-form_field-feedback"
-                    data-testid="lg-form_field-feedback"
-                  />
+                  <button
+                    aria-disabled="false"
+                    aria-label="Next page"
+                    class="leafygreen-ui-1r51ix4"
+                    data-testid="lg-pagination-next-button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="leafygreen-ui-xhlipt"
+                    >
+                      <svg
+                        aria-label="Chevron Right Icon"
+                        class="leafygreen-ui-1st74h4"
+                        height="16"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </button>
                 </div>
-                <p
-                  class="leafygreen-ui-26vqpd"
-                >
-                  of 
-                  3
-                </p>
-                <button
-                  aria-disabled="true"
-                  aria-label="Previous page"
-                  class="leafygreen-ui-1dt4k34"
-                  data-testid="lg-pagination-back-button"
-                  tabindex="0"
-                >
-                  <div
-                    class="leafygreen-ui-xhlipt"
-                  >
-                    <svg
-                      aria-label="Chevron Left Icon"
-                      class="leafygreen-ui-1st74h4"
-                      height="16"
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <path
-                        clip-rule="evenodd"
-                        d="M10.7782 1.63604C10.3877 1.24551 9.75449 1.24551 9.36396 1.63604L4.41421 6.58579L3.70711 7.29289C3.31658 7.68342 3.31658 8.31658 3.70711 8.70711L4.41421 9.41421L9.36396 14.364C9.75448 14.7545 10.3876 14.7545 10.7782 14.364L11.4853 13.6569C11.8758 13.2663 11.8758 12.6332 11.4853 12.2426L7.24264 8L11.4853 3.75736C11.8758 3.36684 11.8758 2.73367 11.4853 2.34315L10.7782 1.63604Z"
-                        fill="currentColor"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </button>
-                <button
-                  aria-disabled="false"
-                  aria-label="Next page"
-                  class="leafygreen-ui-1r51ix4"
-                  data-testid="lg-pagination-next-button"
-                  tabindex="0"
-                >
-                  <div
-                    class="leafygreen-ui-xhlipt"
-                  >
-                    <svg
-                      aria-label="Chevron Right Icon"
-                      class="leafygreen-ui-1st74h4"
-                      height="16"
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <path
-                        clip-rule="evenodd"
-                        d="M5.36396 14.364C5.75449 14.7545 6.38765 14.7545 6.77818 14.364L11.7279 9.41421L12.435 8.70711C12.8256 8.31658 12.8256 7.68342 12.435 7.29289L11.7279 6.58579L6.77817 1.63604C6.38765 1.24552 5.75449 1.24551 5.36396 1.63604L4.65685 2.34315C4.26633 2.73367 4.26633 3.36684 4.65685 3.75736L8.89949 8L4.65685 12.2426C4.26633 12.6332 4.26633 13.2663 4.65686 13.6569L5.36396 14.364Z"
-                        fill="currentColor"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </button>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div
+        class="emotion-OrderLabel e1a625uv0"
+      >
+        Order: 
+        100
       </div>
     </div>
   </div>

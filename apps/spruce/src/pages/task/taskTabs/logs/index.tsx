@@ -14,7 +14,6 @@ import { getParsleyTaskLogLink } from "constants/externalResources";
 import { getTaskHTMLLogRoute } from "constants/routes";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
-import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import { LogTypes, QueryParams } from "types/task";
 import { EventLog, AgentLog, SystemLog, TaskLog, AllLog } from "./LogTypes";
 
@@ -42,8 +41,6 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
     .toString()
     .toLowerCase() as LogTypes;
 
-  const { replaceUrl } = useConditionallyLinkToParsleyBeta();
-
   const [currentLog, setCurrentLog] = useState<LogTypes>(
     Object.values(LogTypes).includes(logTypeParam)
       ? logTypeParam
@@ -66,7 +63,6 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
     currentLog,
     taskId,
     execution,
-    replaceUrl,
   );
   const LogComp = options[currentLog];
 
@@ -185,14 +181,9 @@ const getLinks = (
   logType: LogTypes,
   taskId: string,
   execution: number,
-  replaceUrl: (url: string) => string,
 ): GetLinksResult => {
-  if (!logLinks) {
+  if (!logLinks || logType === LogTypes.Event) {
     return {};
-  }
-  if (logType === LogTypes.Event) {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    return { htmlLink: logLinks.eventLogLink };
   }
   const rawLink = `${
     {
@@ -204,7 +195,7 @@ const getLinks = (
   }&text=true`;
   return {
     htmlLink: getTaskHTMLLogRoute(taskId, execution, logType),
-    parsleyLink: replaceUrl(getParsleyTaskLogLink(logType, taskId, execution)),
+    parsleyLink: getParsleyTaskLogLink(logType, taskId, execution),
     rawLink,
   };
 };

@@ -52,26 +52,7 @@ const EventsTable: React.FC = () => {
   );
 
   const columns: LGColumnDef<ContainerEvent>[] = useMemo(
-    () => [
-      {
-        header: "Date",
-        accessorKey: "timestamp",
-        cell: ({ getValue, row }) => (
-          <span data-cy={`${row.original.eventType}-time`}>
-            {getDateCopy(getValue() as Date)}
-          </span>
-        ),
-      },
-      {
-        header: "Event",
-        cell: ({ row }) => (
-          <EventCopy
-            data-cy={`event-type-${row.original.eventType}`}
-            event={row.original}
-          />
-        ),
-      },
-    ],
+    () => getColumns(getDateCopy),
     [getDateCopy],
   );
 
@@ -112,6 +93,29 @@ const EventsTable: React.FC = () => {
     </SiderCard>
   );
 };
+
+const getColumns = (
+  getDateCopy: (date: Date) => string,
+): LGColumnDef<ContainerEvent>[] => [
+  {
+    header: "Date",
+    accessorKey: "timestamp",
+    cell: ({ getValue, row }) => (
+      <span data-cy={`${row.original.eventType}-time`}>
+        {getDateCopy(getValue() as Date)}
+      </span>
+    ),
+  },
+  {
+    header: "Event",
+    cell: ({ row }) => (
+      <EventCopy
+        data-cy={`event-type-${row.original.eventType}`}
+        event={row.original}
+      />
+    ),
+  },
+];
 
 const StyledSubtitle = styled(Subtitle)<SubtitleProps>`
   margin: ${size.s} 0;

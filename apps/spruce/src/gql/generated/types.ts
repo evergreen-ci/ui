@@ -4310,7 +4310,6 @@ export type TaskLogLinks = {
   __typename?: "TaskLogLinks";
   agentLogLink?: Maybe<Scalars["String"]["output"]>;
   allLogLink?: Maybe<Scalars["String"]["output"]>;
-  eventLogLink?: Maybe<Scalars["String"]["output"]>;
   systemLogLink?: Maybe<Scalars["String"]["output"]>;
   taskLogLink?: Maybe<Scalars["String"]["output"]>;
 };
@@ -4373,15 +4372,10 @@ export type TaskQueueItem = {
   priority: Scalars["Int"]["output"];
   project: Scalars["String"]["output"];
   projectIdentifier?: Maybe<Scalars["String"]["output"]>;
-  requester: TaskQueueItemType;
+  requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
   version: Scalars["String"]["output"];
 };
-
-export enum TaskQueueItemType {
-  Commit = "COMMIT",
-  Patch = "PATCH",
-}
 
 export enum TaskSortCategory {
   BaseStatus = "BASE_STATUS",
@@ -5235,7 +5229,6 @@ export type FileDiffsFragment = {
   additions: number;
   deletions: number;
   description: string;
-  diffLink: string;
   fileName: string;
 };
 
@@ -5249,14 +5242,12 @@ export type LogMessageFragment = {
 export type ModuleCodeChangeFragment = {
   __typename?: "ModuleCodeChange";
   branchName: string;
-  htmlLink: string;
   rawLink: string;
   fileDiffs: Array<{
     __typename?: "FileDiff";
     additions: number;
     deletions: number;
     description: string;
-    diffLink: string;
     fileName: string;
   }>;
 };
@@ -7117,7 +7108,6 @@ export type SaveAdminSettingsMutation = {
       jiraNotificationsDisabled?: boolean | null;
       jwtTokenForCLIDisabled?: boolean | null;
       largeParserProjectsDisabled?: boolean | null;
-      legacyUIAdminPageDisabled?: boolean | null;
       monitorDisabled?: boolean | null;
       podAllocatorDisabled?: boolean | null;
       podInitDisabled?: boolean | null;
@@ -7886,7 +7876,6 @@ export type AdminSettingsQuery = {
       jiraNotificationsDisabled?: boolean | null;
       jwtTokenForCLIDisabled?: boolean | null;
       largeParserProjectsDisabled?: boolean | null;
-      legacyUIAdminPageDisabled?: boolean | null;
       monitorDisabled?: boolean | null;
       podAllocatorDisabled?: boolean | null;
       podInitDisabled?: boolean | null;
@@ -8264,14 +8253,12 @@ export type CodeChangesQuery = {
     moduleCodeChanges: Array<{
       __typename?: "ModuleCodeChange";
       branchName: string;
-      htmlLink: string;
       rawLink: string;
       fileDiffs: Array<{
         __typename?: "FileDiff";
         additions: number;
         deletions: number;
         description: string;
-        diffLink: string;
         fileName: string;
       }>;
     }>;
@@ -8337,7 +8324,7 @@ export type DistroTaskQueueQuery = {
     priority: number;
     project: string;
     projectIdentifier?: string | null;
-    requester: TaskQueueItemType;
+    requester: string;
     version: string;
   }>;
 };
@@ -11037,11 +11024,13 @@ export type TaskHistoryQuery = {
       activated: boolean;
       canRestart: boolean;
       canSchedule: boolean;
+      canSetPriority: boolean;
       createTime?: Date | null;
       displayStatus: string;
       execution: number;
       latestExecution: number;
       order: number;
+      priority?: number | null;
       revision?: string | null;
       tests: {
         __typename?: "TaskTestResult";
@@ -11437,7 +11426,6 @@ export type TaskQuery = {
       __typename?: "TaskLogLinks";
       agentLogLink?: string | null;
       allLogLink?: string | null;
-      eventLogLink?: string | null;
       systemLogLink?: string | null;
       taskLogLink?: string | null;
     };

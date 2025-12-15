@@ -6,11 +6,11 @@
       class="emotion-InactiveVersion e1i0zkr30"
     >
       <dialog
-        class="emotion-StyledModal e1vw2scd1 leafygreen-ui-hs2y9s"
+        class="emotion-StyledModal e1vw2scd1 leafygreen-ui-1i73k7k"
         data-cy="inactive-versions-modal"
         data-lgid="lg-modal"
         data-testid="lg-modal"
-        id="modal-373"
+        id="modal-380"
       />
       <div
         class="emotion-StyledBadge e19pzgwa0 leafygreen-ui-cfigsp"

@@ -17,7 +17,7 @@ const mainlineRequesters = [
   Requester.Trigger,
 ];
 
-export const isMainlineRequester = (requester: Requester) =>
+export const isWaterfallRequester = (requester: Requester) =>
   mainlineRequesters.includes(requester);
 
 const requesterToTitle: PartialRecord<Requester, string> = {

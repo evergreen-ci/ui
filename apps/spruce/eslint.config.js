@@ -1,8 +1,8 @@
+import { defineConfig } from "eslint/config";
 import checkFilePlugin from "eslint-plugin-check-file";
-import tseslint from "typescript-eslint";
-import baseConfig, { WARN, OFF, errorIfStrict } from "@evg-ui/eslint-config";
+import baseConfig, { WARN, errorIfStrict } from "@evg-ui/eslint-config";
 
-export default tseslint.config(
+export default defineConfig(
   ...baseConfig,
   // Check File ESLint (eslint-plugin-check-file) settings.
   {
@@ -43,7 +43,6 @@ export default tseslint.config(
     name: "react/spruce-overrides",
     files: ["src/**/*.ts?(x)"],
     rules: {
-      "react/no-unstable-nested-components": OFF, // This rule should be removed as part of DEVPROD-1056.
       "@typescript-eslint/no-explicit-any": WARN,
     },
   },

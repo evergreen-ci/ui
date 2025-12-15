@@ -1,12 +1,12 @@
 <div>
   <div
-    class="emotion-CommitCard e1a625uv2"
+    class="emotion-CommitCard e1a625uv4"
     data-cy="commit-details-card"
     data-task-history-guide-id="commit-details"
     id="commit-card-a"
   >
     <div
-      class="emotion-TopLabel e1a625uv1"
+      class="emotion-TopLabel e1a625uv3"
     >
       <a
         class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -81,11 +81,11 @@
         </div>
       </button>
       <dialog
-        class="leafygreen-ui-1fxhhyq"
+        class="leafygreen-ui-17e6ane"
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-296"
+        id="modal-290"
       />
       <div
         class="leafygreen-ui-17azklk"
@@ -110,31 +110,58 @@
         </span>
       </span>
       <div
+        class="emotion-PriorityContainer e1a625uv2"
+      >
+        <button
+          aria-disabled="true"
+          class="lg-ui-button-0000 leafygreen-ui-1cutrhb"
+          data-cy="set-priority-button"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Set priority
+          </div>
+        </button>
+        <span
+          class="leafygreen-ui-38lglc"
+        />
+      </div>
+    </div>
+    <div
+      class="emotion-BottomLabel e1a625uv1"
+    >
+      <div
+        class="emotion-BottomLabel end94gb2"
+      >
+        <b
+          class="emotion-AuthorLabel end94gb1"
+        >
+          Evergreen Admin
+           - 
+        </b>
+        <span
+          class="emotion-WordBreak-wordBreakCss e1wygaev0"
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do…
+          <button
+            class="emotion-ToggleButton end94gb0"
+          >
+            Show more
+          </button>
+        </span>
+      </div>
+      <div
         class="emotion-OrderLabel e1a625uv0"
       >
         Order: 
         100
       </div>
-    </div>
-    <div
-      class="emotion-BottomLabel end94gb2"
-    >
-      <b
-        class="emotion-AuthorLabel end94gb1"
-      >
-        Evergreen Admin
-         - 
-      </b>
-      <span
-        class="emotion-WordBreak-wordBreakCss e1wygaev0"
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do…
-        <button
-          class="emotion-ToggleButton end94gb0"
-        >
-          Show more
-        </button>
-      </span>
     </div>
   </div>
 </div>

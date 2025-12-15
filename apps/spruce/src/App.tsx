@@ -4,6 +4,8 @@ import ErrorBoundary from "@evg-ui/lib/components/ErrorBoundary";
 import ProtectedRoute from "@evg-ui/lib/components/ProtectedRoute";
 import { AuthProvider } from "@evg-ui/lib/context/AuthProvider";
 import LoginPage from "@evg-ui/lib/pages/LoginPage";
+import { FileDiff } from "components/CodeChanges/FileDiff";
+import { PatchDiff } from "components/CodeChanges/PatchDiff";
 import { Content } from "components/Content";
 import { GlobalStyles } from "components/styles";
 import { routes } from "constants/routes";
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
       {
         path: routes.testHTMLLog,
         element: <TestHTMLLog />,
+      },
+      {
+        path: routes.versionDiff,
+        element: <PatchDiff />,
+      },
+      {
+        path: routes.versionFileDiff,
+        element: <FileDiff />,
       },
       {
         path: "/*",

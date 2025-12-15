@@ -6,8 +6,9 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { getEvergreenTestLogURL } from "@evg-ui/lib/constants/logURLTemplates";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { styles } from "hooks/useHTMLStream/utils";
 import { useHTMLLogStream } from "./useHTMLLogStream";
-import { styles, validateTestLogParams } from "./utils";
+import { validateTestLogParams } from "./utils";
 
 export const TestHTMLLog: React.FC = () => {
   const { taskId } = useParams<{ taskId: string }>();

@@ -31,11 +31,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
     <EventLog
       allEventsFetched={allEventsFetched}
       customKeyValueRenderConfig={{
-        "vars.vars": (val) => (
-          <StyledInlineDefinition definition="Evergreen does not display project variable values in the event log for security reasons.">
-            {val}
-          </StyledInlineDefinition>
-        ),
+        "vars.vars": renderVars,
       }}
       events={events}
       handleFetchMore={() => {
@@ -49,6 +45,12 @@ export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
     />
   );
 };
+
+const renderVars = (val: string) => (
+  <StyledInlineDefinition definition="Evergreen does not display project variable values in the event log for security reasons.">
+    {val}
+  </StyledInlineDefinition>
+);
 
 const StyledInlineDefinition = styled(InlineDefinition)`
   text-underline-offset: ${size.xxs};

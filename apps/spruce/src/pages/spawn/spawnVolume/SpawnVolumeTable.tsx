@@ -8,6 +8,7 @@ import {
   LeafyGreenTableRow,
   useLeafyGreenTable,
   BaseTable,
+  LGColumnDef,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -34,9 +35,7 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
     volumesCopy.sort(sortByHost);
     return volumes.map((v) => ({
       ...v,
-      renderExpandedContent: (row: LeafyGreenTableRow<TableVolume>) => (
-        <SpawnVolumeCard volume={row.original} />
-      ),
+      renderExpandedContent,
     }));
   }, [volumes]);
 
@@ -72,29 +71,29 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   return <BaseTable shouldAlternateRowColor table={table} />;
 };
 
+const renderExpandedContent = (row: LeafyGreenTableRow<TableVolume>) => (
+  <SpawnVolumeCard volume={row.original} />
+);
+
 const getHostDisplayName = (v: TableVolume) =>
   v?.host?.displayName ? v.host.displayName : v.hostID;
 
 const sortByHost = (a: TableVolume, b: TableVolume) =>
   getHostDisplayName(a).localeCompare(getHostDisplayName(b));
 
-const getColumns = (maxSpawnableLimit: number) => [
+const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
   {
     header: "Volume",
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     accessorFn: ({ displayName, id }) => displayName || id,
     enableSorting: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => (
-      <WordBreak data-cy="vol-name">{getValue()}</WordBreak>
+      <WordBreak data-cy="vol-name">{getValue() as string}</WordBreak>
     ),
   },
   {
     header: "Mounted On",
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     accessorFn: ({ host, hostID }) => host?.displayName || hostID,
     enableSorting: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue, row }) => {
       const hostId = row.original.hostID;
       return (
@@ -103,7 +102,7 @@ const getColumns = (maxSpawnableLimit: number) => [
             data-cy="host-link"
             to={getSpawnHostRoute({ host: hostId })}
           >
-            <WordBreak>{getValue()}</WordBreak>
+            <WordBreak>{getValue() as string}</WordBreak>
           </StyledRouterLink>
         )
       );
@@ -113,9 +112,8 @@ const getColumns = (maxSpawnableLimit: number) => [
     header: "Status",
     accessorKey: "hostID",
     enableSorting: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue, row }) => {
-      const hostId = getValue();
+      const hostId = getValue() as string;
       const { migrating } = row.original;
       return <VolumeStatusBadge hostId={hostId} migrating={migrating} />;
     },
@@ -125,9 +123,8 @@ const getColumns = (maxSpawnableLimit: number) => [
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     accessorFn: ({ expiration }) => new Date(expiration),
     enableSorting: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue, row }) => {
-      const expiration = getValue();
+      const expiration = getValue() as Date;
       const { noExpiration } = row.original;
       const isUnexpirable = noExpiration || !expiration;
       return (
@@ -146,7 +143,6 @@ const getColumns = (maxSpawnableLimit: number) => [
   },
   {
     header: "Actions",
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ row }) => (
       <SpawnVolumeTableActions
         maxSpawnableLimit={maxSpawnableLimit}

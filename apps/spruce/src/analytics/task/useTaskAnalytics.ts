@@ -83,6 +83,10 @@ type Action =
       metric: TaskTimingMetric;
       only_commits: boolean;
       only_successful: boolean;
+    }
+  | {
+      name: "Clicked review task";
+      reviewed: boolean;
     };
 
 export const useTaskAnalytics = () => {
@@ -105,6 +109,7 @@ export const useTaskAnalytics = () => {
       execution: execution,
     },
     fetchPolicy: "cache-first",
+    skip: !taskId || execution === null,
   });
   const { failedTestCount } = taskTestCountData?.task || {};
 
