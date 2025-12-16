@@ -1,37 +1,45 @@
 import { getAppToDeploy } from "./environment";
+import * as git from "./git";
 
 describe("getAppToDeploy", () => {
-  const originalEnv = process.env;
-
-  beforeEach(() => {
-    process.env = { ...originalEnv };
-  });
-
   afterEach(() => {
-    process.env = originalEnv;
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
   });
 
-  it("returns app name when PNPM_PACKAGE_NAME is spruce", () => {
-    process.env.PNPM_PACKAGE_NAME = "spruce";
+  it("returns app name when in spruce directory", () => {
+    vi.spyOn(git, "getGitRoot").mockReturnValue("/repo");
+    vi.stubGlobal("process", { cwd: () => "/repo/apps/spruce" });
     expect(getAppToDeploy()).toEqual("spruce");
   });
 
-  it("returns app name when PNPM_PACKAGE_NAME is parsley", () => {
-    process.env.PNPM_PACKAGE_NAME = "parsley";
+  it("returns app name when in parsley directory", () => {
+    vi.spyOn(git, "getGitRoot").mockReturnValue("/repo");
+    vi.stubGlobal("process", { cwd: () => "/repo/apps/parsley" });
     expect(getAppToDeploy()).toEqual("parsley");
   });
 
-  it("throws an error when PNPM_PACKAGE_NAME is not set", () => {
-    delete process.env.PNPM_PACKAGE_NAME;
+  it("throws an error when run from directory inside app", () => {
+    vi.spyOn(git, "getGitRoot").mockReturnValue("/repo");
+    vi.stubGlobal("process", { cwd: () => "/repo/apps/spruce/src" });
     expect(() => getAppToDeploy()).toThrowError(
-      "Must deploy from an app's root directory using pnpm",
+      "Must deploy from an app's root directory",
     );
   });
 
-  it("throws an error when PNPM_PACKAGE_NAME is not a deployable app", () => {
-    process.env.PNPM_PACKAGE_NAME = "some-other-package";
+  it("throws an error when run from non-app directory", () => {
+    vi.spyOn(git, "getGitRoot").mockReturnValue("/repo");
+    vi.stubGlobal("process", { cwd: () => "/repo/packages/deploy-utils" });
     expect(() => getAppToDeploy()).toThrowError(
-      "Must deploy from an app's root directory using pnpm",
+      "Must deploy from an app's root directory",
+    );
+  });
+
+  it("throws an error when run from invalid app", () => {
+    vi.spyOn(git, "getGitRoot").mockReturnValue("/repo");
+    vi.stubGlobal("process", { cwd: () => "/repo/apps/some-other-app" });
+    expect(() => getAppToDeploy()).toThrowError(
+      "Must deploy from an app's root directory",
     );
   });
 });
