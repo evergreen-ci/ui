@@ -12,7 +12,7 @@ import {
 } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { CharKey } from "@evg-ui/lib/constants/keys";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";
 import { SearchSuggestionGroup } from "./types";
 
@@ -103,11 +103,7 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
           <Icon fill={gray.base} glyph="CaretDown" />
         </>
       </IconButton>
-      <Popover
-        active={isOpen}
-        data-cy="search-suggestion-popover"
-        popoverZIndex={zIndex.popover}
-      >
+      <Popover active={isOpen} data-cy="search-suggestion-popover">
         <div
           ref={popoverRef}
           aria-label="Search suggestions"

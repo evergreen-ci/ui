@@ -11,7 +11,7 @@ import Subheader from ".";
 export default {
   component: Subheader,
   decorators: [
-    (Story: () => JSX.Element) => (
+    (Story: () => React.JSX.Element) => (
       <MockedProvider mocks={[evergreenTaskMock, logkeeperMetadataMock]}>
         <ChatProvider appName="Parsley AI Testing">
           <Story />

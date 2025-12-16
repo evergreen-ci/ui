@@ -44,7 +44,6 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
   return (
     <PageWrapper>
       <PageTitle
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         badge={null}
         buttons={
           <Button

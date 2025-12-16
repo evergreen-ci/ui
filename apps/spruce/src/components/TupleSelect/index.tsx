@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
 import { Label } from "@leafygreen-ui/typography";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import TextInput from "components/TextInputWithValidation";
 
 type option = {
@@ -56,7 +56,6 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
           data-cy={`${dataCy}-select`}
           dropdownWidthBasis="option"
           onChange={(v) => setSelected(v)}
-          popoverZIndex={zIndex.popover}
           value={selected}
         >
           {options.map((o) => (
