@@ -25,6 +25,6 @@ export const useGetUserPatchesPageTitleAndLink = (
 
   return {
     link,
-    title: `${user.displayName || user.userId}’s Patches`,
+    title: `${user.displayName || user.userId}'s Patches`,
   };
 };
