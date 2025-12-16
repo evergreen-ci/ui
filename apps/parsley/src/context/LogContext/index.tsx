@@ -143,7 +143,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   const [highlightFilters, setHighlightFilters] = useState(
     Cookie.get(HIGHLIGHT_FILTERS) === "true",
   );
-  const [stickyHeadersEnabled, setStickyHeadersEnabled] = useState(
+  const [stickyHeaders, setStickyHeaders] = useState(
     Cookie.get(STICKY_HEADERS) === "true",
   );
 
@@ -344,8 +344,8 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
           setPrettyPrint(v);
           Cookie.set(PRETTY_PRINT_BOOKMARKS, v.toString(), { expires: 365 });
         },
-        setStickyHeadersEnabled: (v: boolean) => {
-          setStickyHeadersEnabled(v);
+        setStickyHeaders: (v: boolean) => {
+          setStickyHeaders(v);
           Cookie.set(STICKY_HEADERS, v.toString(), { expires: 365 });
         },
         setWordWrapFormat: (v: WordWrapFormat) => {
@@ -360,7 +360,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
           setZebraStriping(v);
           Cookie.set(ZEBRA_STRIPING, v.toString(), { expires: 365 });
         },
-        stickyHeadersEnabled,
+        stickyHeaders,
         wordWrapFormat,
         wrap,
         zebraStriping,
@@ -411,7 +411,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       searchLine,
       searchResults,
       zebraStriping,
-      stickyHeadersEnabled,
+      stickyHeaders,
       state.expandedLines,
       state.failingLine,
       state.hasLogs,

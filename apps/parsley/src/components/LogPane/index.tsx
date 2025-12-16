@@ -28,8 +28,12 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
     sectioning,
   } = useLogContext();
   const { sendEvent } = useLogWindowAnalytics();
-  const { setPrettyPrint, setWrap, stickyHeadersEnabled, zebraStriping } =
-    preferences;
+  const {
+    setPrettyPrint,
+    setWrap,
+    stickyHeaders: stickyHeadersPreference,
+    zebraStriping,
+  } = preferences;
   const { settings } = useParsleySettings();
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
@@ -40,8 +44,8 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
   const { onStickyHeaderHeightChange, stickyHeaders, updateStickyHeaders } =
     useStickyHeaders(processedLogLines);
 
-  const applyStickyHeaders =
-    stickyHeadersEnabled && sectioning.sectioningEnabled;
+  const stickyHeadersEnabled =
+    stickyHeadersPreference && sectioning.sectioningEnabled;
 
   useEffect(() => {
     if (listRef.current && !performedScroll.current && settings) {
@@ -88,7 +92,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
 
   return (
     <>
-      {applyStickyHeaders ? (
+      {stickyHeadersEnabled ? (
         <StickyHeaders
           onHeightChange={onStickyHeaderHeightChange}
           stickyHeaders={stickyHeaders}
@@ -101,7 +105,10 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
         paginationThreshold={500000}
         rowCount={rowCount}
         rowRenderer={rowRenderer}
-        updateStickyHeaders={updateStickyHeaders}
+        stickyHeadersEnabled={stickyHeadersEnabled}
+        updateStickyHeaders={
+          stickyHeadersEnabled ? updateStickyHeaders : undefined
+        }
       />
     </>
   );

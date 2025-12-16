@@ -5,7 +5,7 @@ import BaseToggle from "../BaseToggle";
 const StickyHeadersToggle: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const { preferences, sectioning } = useLogContext();
-  const { setStickyHeadersEnabled, stickyHeadersEnabled } = preferences;
+  const { setStickyHeaders, stickyHeaders } = preferences;
 
   return (
     <BaseToggle
@@ -13,11 +13,11 @@ const StickyHeadersToggle: React.FC = () => {
       disabled={!sectioning.sectioningEnabled}
       label="Sticky Headers"
       onChange={(value) => {
-        setStickyHeadersEnabled(value);
+        setStickyHeaders(value);
         sendEvent({ name: "Toggled sticky headers", on: value });
       }}
       tooltip="Makes function & command headers sticky. Only available when sections are enabled."
-      value={stickyHeadersEnabled}
+      value={stickyHeaders}
     />
   );
 };
