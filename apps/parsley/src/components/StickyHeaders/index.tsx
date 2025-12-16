@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import SectionHeader from "components/LogRow/SectionHeader";
 import SubsectionHeader from "components/LogRow/SubsectionHeader";
 import { useLogContext } from "context/LogContext";
@@ -63,21 +63,21 @@ const StickyContainer = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  z-index: ${zIndex.stickyHeader};
+  z-index: 1;
 `;
 
 const StickySectionWrapper = styled.div`
   position: sticky;
   top: 0;
   background-color: white;
-  z-index: ${zIndex.stickyHeader};
+  z-index: 1;
 `;
 
 const StickySubsectionWrapper = styled.div<{ hasParentSection: boolean }>`
   position: sticky;
   top: ${({ hasParentSection }) => (hasParentSection ? size.l : "0")};
   background-color: white;
-  z-index: ${zIndex.stickyHeader};
+  z-index: 1;
 `;
 
 export default StickyHeaders;
