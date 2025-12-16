@@ -2529,6 +2529,7 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
+  user: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   versionFull?: Maybe<Version>;
@@ -4809,6 +4810,7 @@ export type Version = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
+  user: User;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
