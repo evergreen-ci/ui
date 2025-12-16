@@ -5631,15 +5631,10 @@ chokidar@^4.0.3:
   dependencies:
     readdirp "^4.0.1"
 
-chromatic@^13.1.3:
-  version "13.1.3"
-  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-13.1.3.tgz#1f88b74c0dd679ca842cc784314c6f1b3f618f96"
-  integrity sha512-aOZDwg1PsDe9/UhiXqS6EJPoCGK91hYbj3HaunV/0Ij492eWLkXIzku/e5cF1t7Ma7cAuGpCQDo0vGHg0UO91w==
-
-chromatic@^13.1.4:
-  version "13.1.4"
-  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-13.1.4.tgz#e06aeb31e15a481ccf8224f22f130a40ad83b828"
-  integrity sha512-6Voxdy2OvSyoA7mJjyiFiWii7d8ng0jBcW97TqL+ptlAWrJhIf10jrJ78KLPDUNOBIPxvx9Vcpe/bUwoLFIG5g==
+chromatic@^13.3.4:
+  version "13.3.4"
+  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-13.3.4.tgz#2fd32d9da88891e1bc64e6a08627b63e2a46ebbb"
+  integrity sha512-TR5rvyH0ESXobBB3bV8jc87AEAFQC7/n+Eb4XWhJz6hW3YNxIQPVjcbgLv+a4oKHEl1dUBueWSoIQsOVGTd+RQ==
 
 ci-info@^4.1.0:
   version "4.2.0"
