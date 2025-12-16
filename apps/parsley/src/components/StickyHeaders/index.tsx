@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import SectionHeader from "components/LogRow/SectionHeader";
@@ -6,23 +7,34 @@ import { useLogContext } from "context/LogContext";
 import { isSectionHeaderRow, isSubsectionHeaderRow } from "utils/logRowTypes";
 
 interface StickyHeaderProps {
+  onHeightChange: (height: number) => void;
   sectionHeader: number | null;
   subsectionHeader: number | null;
 }
 
 const StickyHeaders: React.FC<StickyHeaderProps> = ({
+  onHeightChange,
   sectionHeader,
   subsectionHeader,
 }) => {
   const { failingLine, processedLogLines } = useLogContext();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const sectionHeaderLine =
     sectionHeader !== null ? processedLogLines[sectionHeader] : null;
   const subsectionHeaderLine =
     subsectionHeader !== null ? processedLogLines[subsectionHeader] : null;
 
+  // Measure and report the height of sticky headers whenever they change.
+  useEffect(() => {
+    if (containerRef.current && onHeightChange) {
+      const height = containerRef.current.offsetHeight;
+      onHeightChange(height);
+    }
+  }, [sectionHeader, subsectionHeader, onHeightChange]);
+
   return (
-    <StickyContainer data-cy="sticky-headers">
+    <StickyContainer ref={containerRef} data-cy="sticky-headers">
       {sectionHeaderLine && isSectionHeaderRow(sectionHeaderLine) && (
         <StickySectionWrapper>
           <SectionHeader

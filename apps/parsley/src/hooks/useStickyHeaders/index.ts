@@ -11,6 +11,9 @@ export interface StickyHeaders {
   subsectionHeader: number | null;
 }
 
+/** Height of a single sticky header in pixels */
+const STICKY_HEADER_HEIGHT = 37;
+
 /**
  * Hook to track which section and subsection headers should be displayed as sticky
  * based on the currently visible range of log lines.
@@ -22,13 +25,22 @@ export const useStickyHeaders = (processedLogLines: ProcessedLogLines) => {
     sectionHeader: null,
     subsectionHeader: null,
   });
+  const [stickyHeaderHeight, setStickyHeaderHeight] = useState(0);
 
   const updateStickyHeaders = (startIndex: number) => {
     let sectionHeader: number | null = null;
     let subsectionHeader: number | null = null;
 
-    // TODO: Adjust the earliest visible index
-    const earliestVisibleIndex = startIndex;
+    // Adjust the earliest visible index to account for sticky headers obscuring the top.
+    const offset =
+      stickyHeaderHeight > 0
+        ? Math.ceil(stickyHeaderHeight / STICKY_HEADER_HEIGHT)
+        : 0;
+
+    const earliestVisibleIndex = Math.min(
+      startIndex + offset,
+      processedLogLines.length - 1,
+    );
 
     for (let i = earliestVisibleIndex; i >= 0; i--) {
       const line = processedLogLines[i];
@@ -75,5 +87,9 @@ export const useStickyHeaders = (processedLogLines: ProcessedLogLines) => {
     setStickyHeaders({ sectionHeader, subsectionHeader });
   };
 
-  return { stickyHeaders, updateStickyHeaders };
+  const onStickyHeaderHeightChange = (height: number) => {
+    setStickyHeaderHeight(height);
+  };
+
+  return { onStickyHeaderHeightChange, stickyHeaders, updateStickyHeaders };
 };

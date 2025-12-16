@@ -37,7 +37,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
   );
   const performedScroll = useRef(false);
 
-  const { stickyHeaders, updateStickyHeaders } =
+  const { onStickyHeaderHeightChange, stickyHeaders, updateStickyHeaders } =
     useStickyHeaders(processedLogLines);
 
   const applyStickyHeaders =
@@ -90,6 +90,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
     <>
       {applyStickyHeaders ? (
         <StickyHeaders
+          onHeightChange={onStickyHeaderHeightChange}
           sectionHeader={stickyHeaders.sectionHeader}
           subsectionHeader={stickyHeaders.subsectionHeader}
         />
