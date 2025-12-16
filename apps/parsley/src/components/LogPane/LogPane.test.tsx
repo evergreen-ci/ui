@@ -12,6 +12,7 @@ import {
 import { LogContextProvider } from "context/LogContext";
 import * as logContext from "context/LogContext";
 import { parsleySettingsMock } from "test_data/parsleySettings";
+import { RowType } from "types/logs";
 import LogPane from ".";
 
 const list = Array.from({ length: 100 }, (_, i) => `${i}`);
@@ -56,12 +57,22 @@ describe("logPane", () => {
 
     mockedLogContext.mockImplementation(() => ({
       listRef: createRef(),
+      observeRow: vi.fn(),
       // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
       preferences: {
         setPrettyPrint: mockedSetPrettyPrint,
         setWrap: mockedSetWrap,
+        stickyHeaders: false,
+        zebraStriping: false,
       },
       processedLogLines: Array.from(list.keys()),
+      // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+      sectioning: {
+        sectioningEnabled: false,
+      },
+      setRenderedRange: vi.fn(),
+      unobserveRow: vi.fn(),
+      visibleLines: new Set(),
     }));
 
     RenderFakeToastContext();
@@ -87,12 +98,22 @@ describe("logPane", () => {
 
     mockedLogContext.mockImplementation(() => ({
       listRef: createRef(),
+      observeRow: vi.fn(),
       // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
       preferences: {
         setPrettyPrint: mockedSetPrettyPrint,
         setWrap: mockedSetWrap,
+        stickyHeaders: false,
+        zebraStriping: false,
       },
       processedLogLines: Array.from(list.keys()),
+      // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+      sectioning: {
+        sectioningEnabled: false,
+      },
+      setRenderedRange: vi.fn(),
+      unobserveRow: vi.fn(),
+      visibleLines: new Set(),
     }));
 
     RenderFakeToastContext();
@@ -116,13 +137,23 @@ describe("logPane", () => {
       mockedLogContext.mockImplementation(() => ({
         failingLine: 22,
         listRef: createRef(),
+        observeRow: vi.fn(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
           setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
+          stickyHeaders: false,
+          zebraStriping: false,
         },
         processedLogLines: Array.from(list.keys()),
         scrollToLine: mockedScrollToLine,
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: false,
+        },
+        setRenderedRange: vi.fn(),
+        unobserveRow: vi.fn(),
+        visibleLines: new Set(),
       }));
 
       RenderFakeToastContext();
@@ -143,13 +174,23 @@ describe("logPane", () => {
       mockedLogContext.mockImplementation(() => ({
         failingLine: 22,
         listRef: createRef(),
+        observeRow: vi.fn(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
           setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
+          stickyHeaders: false,
+          zebraStriping: false,
         },
         processedLogLines: Array.from(list.keys()),
         scrollToLine: mockedScrollToLine,
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: false,
+        },
+        setRenderedRange: vi.fn(),
+        unobserveRow: vi.fn(),
+        visibleLines: new Set(),
       }));
 
       RenderFakeToastContext();
@@ -164,6 +205,106 @@ describe("logPane", () => {
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalledWith(5);
       });
+    });
+  });
+
+  describe("sticky headers", () => {
+    it("should render sticky headers when stickyHeaders is enabled and sectioning is enabled", () => {
+      const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+      mockedLogContext.mockImplementation(() => ({
+        listRef: createRef(),
+        observeRow: vi.fn(),
+        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+        preferences: {
+          setPrettyPrint: vi.fn(),
+          setWrap: vi.fn(),
+          stickyHeaders: true,
+          zebraStriping: false,
+        },
+        processedLogLines: [
+          {
+            functionID: "function-1",
+            functionName: "setup",
+            isOpen: true,
+            range: { end: 10, start: 0 },
+            rowType: RowType.SectionHeader,
+          },
+          1,
+          2,
+          3,
+        ],
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: true,
+        },
+        setRenderedRange: vi.fn(),
+        unobserveRow: vi.fn(),
+        visibleLines: new Set([0, 1, 2, 3]),
+      }));
+
+      RenderFakeToastContext();
+      render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
+        wrapper,
+      });
+      expect(screen.getByDataCy("sticky-headers")).toBeInTheDocument();
+    });
+
+    it("should not render sticky headers when stickyHeaders is disabled", () => {
+      const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+      mockedLogContext.mockImplementation(() => ({
+        listRef: createRef(),
+        observeRow: vi.fn(),
+        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+        preferences: {
+          setPrettyPrint: vi.fn(),
+          setWrap: vi.fn(),
+          stickyHeaders: false,
+          zebraStriping: false,
+        },
+        processedLogLines: Array.from(list.keys()),
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: true,
+        },
+        setRenderedRange: vi.fn(),
+        unobserveRow: vi.fn(),
+        visibleLines: new Set(),
+      }));
+
+      RenderFakeToastContext();
+      render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
+        wrapper,
+      });
+      expect(screen.queryByDataCy("sticky-headers")).not.toBeInTheDocument();
+    });
+
+    it("should not render sticky headers when sectioning is disabled", () => {
+      const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+      mockedLogContext.mockImplementation(() => ({
+        listRef: createRef(),
+        observeRow: vi.fn(),
+        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+        preferences: {
+          setPrettyPrint: vi.fn(),
+          setWrap: vi.fn(),
+          stickyHeaders: true,
+          zebraStriping: false,
+        },
+        processedLogLines: Array.from(list.keys()),
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: false,
+        },
+        setRenderedRange: vi.fn(),
+        unobserveRow: vi.fn(),
+        visibleLines: new Set(),
+      }));
+
+      RenderFakeToastContext();
+      render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
+        wrapper,
+      });
+      expect(screen.queryByDataCy("sticky-headers")).not.toBeInTheDocument();
     });
   });
 });

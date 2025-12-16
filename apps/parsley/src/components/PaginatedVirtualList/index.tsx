@@ -108,7 +108,9 @@ const PaginatedVirtualList = forwardRef<
         }}
         className={className}
         data-cy="paginated-virtual-list"
-        increaseViewportBy={overscan === 0 ? { bottom: 50, top: 0 } : undefined}
+        increaseViewportBy={
+          overscan === 0 ? { bottom: 50, top: 0 } : { bottom: 0, top: 0 }
+        }
         itemContent={itemContent}
         overscan={overscan}
         rangeChanged={onRangeChanged}
