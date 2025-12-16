@@ -53,7 +53,8 @@ const ShortcutModal: React.FC<ShortcutModalProps> = ({ open, setOpen }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useKeyboardShortcut(
-    { charKey: CharKey.QuestionMark, modifierKeys: [ModifierKey.Shift] },
+    // Shift + ForwardSlash = QuestionMark
+    { charKey: CharKey.ForwardSlash, modifierKeys: [ModifierKey.Shift] },
     () => {
       setOpen(!open);
     },
@@ -64,7 +65,7 @@ const ShortcutModal: React.FC<ShortcutModalProps> = ({ open, setOpen }) => {
   });
 
   return (
-    <StyledModal data-cy="shortcut-modal" open={open} setOpen={setOpen}>
+    <Modal data-cy="shortcut-modal" open={open} setOpen={setOpen}>
       <div ref={modalRef}>
         <ModalTitle>
           <H3>Parsley Keyboard Shortcuts</H3>
@@ -84,7 +85,7 @@ const ShortcutModal: React.FC<ShortcutModalProps> = ({ open, setOpen }) => {
           </ModalRow>
         ))}
       </div>
-    </StyledModal>
+    </Modal>
   );
 };
 interface KeyTupleProps {
@@ -100,8 +101,6 @@ const KeyTuple: React.FC<KeyTupleProps> = ({ keys }) => (
     ))}
   </span>
 );
-
-const StyledModal = styled(Modal)``;
 
 const ModalTitle = styled.div`
   margin-bottom: ${size.l};

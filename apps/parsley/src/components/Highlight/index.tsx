@@ -3,7 +3,7 @@ import { palette } from "@leafygreen-ui/palette";
 
 const { blue, green, purple, red, yellow } = palette;
 
-const Highlight = styled.mark<{ "data-cy"?: string; color?: string }>`
+const Highlight = styled.mark<{ color?: string }>`
   background-color: ${({ color = red.light2 }) => color};
   font-weight: bold;
 `;

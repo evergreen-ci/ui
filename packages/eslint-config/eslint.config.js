@@ -325,6 +325,7 @@ const cypressConfig = {
   },
   rules: {
     ...cypressPlugin.configs.recommended.rules,
+    "@typescript-eslint/no-namespace": OFF,
   },
 };
 
