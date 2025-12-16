@@ -11938,7 +11938,7 @@ export type VersionQuery = {
       owner: string;
       repo: string;
     } | null;
-    user: { __typename?: "User"; userId: string; displayName: string };
+    user: { __typename?: "User"; displayName: string; userId: string };
     versionTiming?: {
       __typename?: "VersionTiming";
       makespan?: number | null;
