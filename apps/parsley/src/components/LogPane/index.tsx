@@ -101,6 +101,9 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
       <PaginatedVirtualList
         ref={listRef}
         className={zebraStriping ? zebraStripingStyles : undefined}
+        increaseViewportBy={
+          stickyHeadersEnabled ? { bottom: 50, top: 0 } : undefined
+        }
         onRangeChanged={
           stickyHeadersEnabled
             ? ({ startIndex }) => updateStickyHeaders(startIndex)
