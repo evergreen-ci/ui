@@ -26,7 +26,7 @@ interface PaginatedVirtualListProps {
   className?: string;
   overscan: number;
   onRangeChanged?: (range: ListRange) => void;
-  increaseViewportBy?: { top: number; bottom: number };
+  getScrollOffset?: (lineIndex: number) => number;
 }
 
 const PaginatedVirtualList = forwardRef<
@@ -36,7 +36,7 @@ const PaginatedVirtualList = forwardRef<
   (
     {
       className,
-      increaseViewportBy,
+      getScrollOffset,
       onRangeChanged,
       overscan,
       paginationOffset = 10,
@@ -59,6 +59,7 @@ const PaginatedVirtualList = forwardRef<
       scrollToPrevPage,
       startingIndex,
     } = usePaginatedVirtualList({
+      getScrollOffset,
       paginationOffset,
       paginationThreshold,
       ref: listRef,
@@ -107,7 +108,7 @@ const PaginatedVirtualList = forwardRef<
         }}
         className={className}
         data-cy="paginated-virtual-list"
-        increaseViewportBy={increaseViewportBy}
+        increaseViewportBy={overscan === 0 ? { bottom: 50, top: 0 } : undefined}
         itemContent={itemContent}
         overscan={overscan}
         rangeChanged={onRangeChanged}

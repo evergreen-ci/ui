@@ -11,9 +11,11 @@ interface UsePaginatedVirtualListProps {
   paginationThreshold: number;
   paginationOffset: number;
   ref: React.RefObject<Pick<VirtuosoHandle, "scrollToIndex">>;
+  getScrollOffset?: (lineIndex: number) => number;
 }
 
 const usePaginatedVirtualList = ({
+  getScrollOffset,
   paginationOffset,
   paginationThreshold,
   ref,
@@ -141,14 +143,16 @@ const usePaginatedVirtualList = ({
       );
       // This setTimeout is necessary to avoid a race condition where the list hasn't finished rendering the next page
       setTimeout(() => {
+        const offset = getScrollOffset ? getScrollOffset(index) : 0;
         ref.current?.scrollToIndex({
           align: ScrollAlign.Start,
           index: nextScrollIndex,
+          offset,
         });
       }, 0);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [paginationOffset, currentPage, startingIndex],
+    [paginationOffset, currentPage, startingIndex, getScrollOffset],
   );
 
   return {

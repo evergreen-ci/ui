@@ -41,8 +41,12 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
   );
   const performedScroll = useRef(false);
 
-  const { onStickyHeaderHeightChange, stickyHeaders, updateStickyHeaders } =
-    useStickyHeaders(processedLogLines);
+  const {
+    getScrollOffsetForLine,
+    onStickyHeaderHeightChange,
+    stickyHeaders,
+    updateStickyHeaders,
+  } = useStickyHeaders(processedLogLines);
 
   const stickyHeadersEnabled =
     stickyHeadersPreference && sectioning.sectioningEnabled;
@@ -101,8 +105,8 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
       <PaginatedVirtualList
         ref={listRef}
         className={zebraStriping ? zebraStripingStyles : undefined}
-        increaseViewportBy={
-          stickyHeadersEnabled ? { bottom: 50, top: 0 } : undefined
+        getScrollOffset={
+          stickyHeadersEnabled ? getScrollOffsetForLine : undefined
         }
         onRangeChanged={
           stickyHeadersEnabled
