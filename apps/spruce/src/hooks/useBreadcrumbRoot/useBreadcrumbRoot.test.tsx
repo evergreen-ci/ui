@@ -60,6 +60,22 @@ describe("useBreadcrumbRoot", () => {
     expect(result.current.text).toBe("John Doe's Patches");
   });
 
+  it("returns the correct breadcrumb root when the version is a patch belonging to a user with no display name", async () => {
+    const { result } = renderHook(
+      () =>
+        useBreadcrumbRoot(
+          true,
+          { userId: "sys-perf-user", displayName: "" },
+          "spruce",
+        ),
+      { wrapper: OtherUserProvider },
+    );
+    await waitFor(() => {
+      expect(result.current.to).toBe("/user/sys-perf-user/patches");
+    });
+    expect(result.current.text).toBe("sys-perf-user's Patches");
+  });
+
   it("returns the correct breadcrumb root when the version is a commit", () => {
     const { result } = renderHook(
       () =>
