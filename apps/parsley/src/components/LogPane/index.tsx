@@ -101,14 +101,16 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
       <PaginatedVirtualList
         ref={listRef}
         className={zebraStriping ? zebraStripingStyles : undefined}
+        onRangeChanged={
+          stickyHeadersEnabled
+            ? ({ startIndex }) => updateStickyHeaders(startIndex)
+            : undefined
+        }
+        overscan={stickyHeadersEnabled ? 0 : 300}
         paginationOffset={200}
         paginationThreshold={500000}
         rowCount={rowCount}
         rowRenderer={rowRenderer}
-        stickyHeadersEnabled={stickyHeadersEnabled}
-        updateStickyHeaders={
-          stickyHeadersEnabled ? updateStickyHeaders : undefined
-        }
       />
     </>
   );

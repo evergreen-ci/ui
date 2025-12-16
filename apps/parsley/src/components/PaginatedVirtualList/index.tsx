@@ -1,5 +1,10 @@
 import { forwardRef, useCallback, useEffect, useRef } from "react";
-import { ItemContent, Virtuoso, VirtuosoHandle } from "react-virtuoso";
+import {
+  ItemContent,
+  ListRange,
+  Virtuoso,
+  VirtuosoHandle,
+} from "react-virtuoso";
 import { CharKey } from "@evg-ui/lib/constants/keys";
 import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
 import { PaginatedVirtualListRef } from "./types";
@@ -19,8 +24,8 @@ interface PaginatedVirtualListProps {
    */
   paginationOffset?: number;
   className?: string;
-  stickyHeadersEnabled: boolean;
-  updateStickyHeaders?: (startIndex: number) => void;
+  overscan: number;
+  onRangeChanged?: (range: ListRange) => void;
 }
 
 const PaginatedVirtualList = forwardRef<
@@ -30,12 +35,12 @@ const PaginatedVirtualList = forwardRef<
   (
     {
       className,
+      onRangeChanged,
+      overscan,
       paginationOffset = 10,
       paginationThreshold = 10000,
       rowCount,
       rowRenderer,
-      stickyHeadersEnabled,
-      updateStickyHeaders,
     },
     ref,
   ) => {
@@ -101,8 +106,8 @@ const PaginatedVirtualList = forwardRef<
         className={className}
         data-cy="paginated-virtual-list"
         itemContent={itemContent}
-        overscan={stickyHeadersEnabled ? 0 : 300}
-        rangeChanged={(range) => updateStickyHeaders?.(range.startIndex)}
+        overscan={overscan}
+        rangeChanged={onRangeChanged}
         totalCount={pageSize}
       />
     );
