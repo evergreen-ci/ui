@@ -15,7 +15,7 @@ import SubsectionHeader from "../SubsectionHeader";
 
 type RowRendererFunction = (props: {
   processedLogLines: ProcessedLogLines;
-}) => (index: number) => JSX.Element;
+}) => (index: number) => React.JSX.Element;
 
 const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
   const {

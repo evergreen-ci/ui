@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { SideNav } from "@leafygreen-ui/side-nav";
 import Cookie from "js-cookie";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { DRAWER_OPENED } from "constants/cookies";
 import { ExpandedLines } from "types/logs";
 import {
@@ -52,7 +52,6 @@ const SidePanel: React.FC<SidePanelProps> = ({
 );
 
 const StyledSideNav = styled(SideNav)`
-  z-index: ${zIndex.drawer};
   box-shadow: 0 ${size.xxs} ${size.xxs} rgba(0, 0, 0, 0.25);
 `;
 

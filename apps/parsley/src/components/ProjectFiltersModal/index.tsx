@@ -15,7 +15,6 @@ import {
   onChangeHandler,
   useLeafyGreenTable,
 } from "@evg-ui/lib/components/Table";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
@@ -141,9 +140,6 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
         disabled: !hasNewFilters,
         onClick: handleConfirm,
       }}
-      css={css`
-        z-index: ${zIndex.modal};
-      `}
       data-cy="project-filters-modal"
       open={open}
       setOpen={setOpen}

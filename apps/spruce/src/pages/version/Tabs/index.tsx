@@ -90,7 +90,7 @@ const tabMap = ({
   versionId: string;
   isVariantTimingView: boolean;
 }): {
-  [key in VersionPageTabs]: JSX.Element;
+  [key in VersionPageTabs]: React.JSX.Element;
 } => ({
   [VersionPageTabs.Tasks]: (
     <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">

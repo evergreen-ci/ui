@@ -13,7 +13,7 @@ import { VariableRow } from "./VariableRow";
 export const getFormSchema = (
   projectType: ProjectType,
   repoData?: VariablesFormState,
-  modalButton?: JSX.Element,
+  modalButton?: React.JSX.Element,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {

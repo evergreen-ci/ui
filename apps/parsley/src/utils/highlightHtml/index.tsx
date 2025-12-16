@@ -28,7 +28,7 @@ const highlightHtml = (
           highlightedText = highlighter(
             searchTerm,
             highlightedText,
-            (match) => `<mark>${match}</mark>`,
+            (match) => `<mark data-cy="highlight">${match}</mark>`,
           );
         }
 
@@ -40,7 +40,7 @@ const highlightHtml = (
             highlights,
             highlightedText,
             (match, index) =>
-              `<mark color="${
+              `<mark data-cy="highlight" color="${
                 highlightColorList[index % highlightColorList.length]
               }">${match}</mark>`,
           );

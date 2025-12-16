@@ -1,7 +1,6 @@
 import { MenuItem } from "@leafygreen-ui/menu";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import Cookies from "js-cookie";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics/version/useVersionAnalytics";
 import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
@@ -38,7 +37,6 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
   return (
     <Tooltip
       align="left"
-      popoverZIndex={zIndex.tooltip}
       trigger={
         <MenuItem onClick={handleIncludeNeverActivatedTasksChange}>
           {includeNeverActivatedTasks

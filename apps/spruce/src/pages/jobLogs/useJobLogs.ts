@@ -19,7 +19,7 @@ interface UseJobLogsPageParams {
 }
 
 type JobLogsPageData = {
-  title: JSX.Element | string;
+  title: React.ReactNode;
   resultsToRender: JobLogsTableTestResult[];
   loading: boolean;
   status: string;
