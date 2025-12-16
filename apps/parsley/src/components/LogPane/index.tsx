@@ -91,8 +91,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
       {applyStickyHeaders ? (
         <StickyHeaders
           onHeightChange={onStickyHeaderHeightChange}
-          sectionHeader={stickyHeaders.sectionHeader}
-          subsectionHeader={stickyHeaders.subsectionHeader}
+          stickyHeaders={stickyHeaders}
         />
       ) : null}
       <PaginatedVirtualList
