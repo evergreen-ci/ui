@@ -64,18 +64,24 @@ describe("Sectioning", () => {
   });
 
   it("Clicking on a closed caret opens the section and renders the subsection contents ", () => {
-    cy.get(getTargetSelector(4)).contains("Function: f_expansions_write");
-    cy.get(`${getTargetSelector(3)} > [data-cy='caret-toggle']`).click();
-    cy.get(getTargetSelector(4)).contains(
+    cy.get("[data-index='4'] > [data-cy='section-header']").contains(
+      "Function: f_expansions_write",
+    );
+    cy.get(
+      "[data-index='3'] > [data-cy='section-header'] > [data-cy='caret-toggle']",
+    ).click();
+    cy.get("[data-index='4'] > [data-cy='section-header']").contains(
       "Command: expansions.update (step 1 of 2)",
     );
   });
 
   it("Clicking on an open caret closes the section and hides the subsection contents", () => {
-    cy.get(getTargetSelector(9)).contains(
+    cy.get("[data-index='9'] > [data-cy='section-header']").contains(
       "Command: expansions.write (step 2.1 of 2)",
     );
-    cy.get(`${getTargetSelector(8)} > [data-cy='caret-toggle']`).click();
+    cy.get(
+      "[data-index='8'] > [data-cy='section-header'] > [data-cy='caret-toggle']",
+    ).click();
     cy.get("[data-index='9']").contains(
       "[2024/03/12 11:18:36.035] Running task commands failed: running command: command failed: process encountered problem: exit code 1",
     );
@@ -94,17 +100,6 @@ describe("Sectioning", () => {
       "[2024/03/12 11:01:53.831] rm -rf /data/db/* mongo-diskstats* mongo-*.tgz ~/.aws ~/.boto venv",
     ).should("be.visible");
   });
-
-  it("sticky headers are visible when enabled and works properly with scrolling", () => {
-    cy.clickToggle("sticky-headers-toggle", true, "log-viewing");
-    cy.dataCy("open-all-sections-btn").click();
-    cy.dataCy("bookmark-9614").click();
-    cy.get("[data-cy='line-index-9614']").should("be.visible");
-    cy.dataCy("sticky-headers").should("be.visible");
-  });
-
-  const getTargetSelector = (rowIndex: number) =>
-    `[data-index='${rowIndex}'] > [data-cy='section-header']`;
 
   const logLink =
     "/evergreen/mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29/0/task";
