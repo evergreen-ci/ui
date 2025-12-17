@@ -5,33 +5,62 @@ import { ContextChips } from ".";
 describe("ContextChips", () => {
   const chips: ContextChip[] = [
     {
-      children: "console.log('hello')",
+      content: "console.log('hello')",
       identifier: "test-1",
-      badgeLabel: "Line 1",
+      label: "Line 1",
     },
     {
-      children: "const x = 42;",
+      content: "const x = 42;",
       identifier: "test-2",
-      badgeLabel: "Lines 5-6",
+      label: "Lines 5-6",
     },
   ];
 
   it("renders no chips when chips array is empty", () => {
-    render(<ContextChips chips={[]} onDismiss={vi.fn()} />);
+    render(<ContextChips chips={[]} dismissible={false} />);
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
 
   it("renders chips with correct labels", () => {
-    render(<ContextChips chips={chips} onDismiss={vi.fn()} />);
+    render(<ContextChips chips={chips} dismissible={false} />);
     chips.forEach((chip) => {
-      expect(screen.getByText(chip.badgeLabel)).toBeInTheDocument();
+      expect(screen.getByText(chip.label)).toBeInTheDocument();
     });
+  });
+
+  it("calls onClick when a chip is clicked", async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    const clickableChips: ContextChip[] = [chips[0], { ...chips[1], onClick }];
+    render(<ContextChips chips={clickableChips} dismissible={false} />);
+    await user.click(screen.getByText(chips[1].label));
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("renders dismiss buttons when dismissible is true", () => {
+    const mockOnDismiss = vi.fn();
+    render(
+      <ContextChips chips={chips} dismissible onDismiss={mockOnDismiss} />,
+    );
+    const dismissButtons = screen.getAllByRole("button", {
+      name: "Dismiss chip",
+    });
+    expect(dismissButtons).toHaveLength(2);
+  });
+
+  it("does not render dismiss buttons when dismissible is false", () => {
+    render(<ContextChips chips={chips} dismissible={false} />);
+    expect(
+      screen.queryByRole("button", { name: "Dismiss chip" }),
+    ).not.toBeInTheDocument();
   });
 
   it("calls onDismiss when a chip is dismissed", async () => {
     const user = userEvent.setup();
     const mockOnDismiss = vi.fn();
-    render(<ContextChips chips={chips} onDismiss={mockOnDismiss} />);
+    render(
+      <ContextChips chips={chips} dismissible onDismiss={mockOnDismiss} />,
+    );
     const dismissButtons = screen.getAllByRole("button", {
       name: "Dismiss chip",
     });

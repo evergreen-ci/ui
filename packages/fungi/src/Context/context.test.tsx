@@ -17,15 +17,15 @@ describe("useChatContext", () => {
 
   describe("chips", () => {
     const chip1: ContextChip = {
-      children: "console.log('test')",
+      content: "console.log('test')",
       identifier: "test-1",
-      badgeLabel: "Line 1",
+      label: "Line 1",
     };
 
     const chip2: ContextChip = {
-      children: "const x = 42;",
+      content: "const x = 42;",
       identifier: "test-2",
-      badgeLabel: "Lines 5-6",
+      label: "Lines 5-6",
     };
 
     it("starts with empty chips array", () => {
@@ -75,6 +75,43 @@ describe("useChatContext", () => {
         result.current.clearChips();
       });
       expect(result.current.chips).toEqual([]);
+    });
+  });
+
+  describe("messageToChipMap", () => {
+    const chip1: ContextChip = {
+      content: "console.log('test')",
+      identifier: "test-1",
+      label: "Line 1",
+    };
+
+    const chip2: ContextChip = {
+      content: "const x = 42;",
+      identifier: "test-2",
+      label: "Lines 5-6",
+    };
+
+    it("returns empty array for non-existent message ID", () => {
+      const { result } = renderHook(() => useChatContext(), {
+        wrapper: createWrapper(ChatProvider, { appName: "Parsley AI" }),
+      });
+      expect(
+        result.current.getChipsForMessage("non-existent-message-id"),
+      ).toEqual([]);
+    });
+
+    it("can set and get chips for a message", () => {
+      const { result } = renderHook(() => useChatContext(), {
+        wrapper: createWrapper(ChatProvider, { appName: "Parsley AI" }),
+      });
+      const messageId = "123456";
+      act(() => {
+        result.current.setChipsForMessage(messageId, [chip1, chip2]);
+      });
+      expect(result.current.getChipsForMessage(messageId)).toEqual([
+        chip1,
+        chip2,
+      ]);
     });
   });
 });
