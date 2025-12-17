@@ -6,7 +6,7 @@ import { LoadingButton } from "components/Buttons";
 interface Props {
   disabled?: boolean;
   loading?: boolean;
-  dropdownItems: JSX.Element[];
+  dropdownItems: React.JSX.Element[];
   size?: ButtonSize;
   "data-cy"?: string;
   open?: boolean;

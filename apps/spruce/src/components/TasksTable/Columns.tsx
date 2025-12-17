@@ -4,7 +4,6 @@ import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
@@ -49,7 +48,7 @@ export const getColumnsTemplate = ({
       row: {
         original: { execution, id },
       },
-    }): JSX.Element => (
+    }): React.JSX.Element => (
       <TaskLink
         execution={execution}
         onClick={onClickTaskLink}
@@ -83,7 +82,6 @@ export const getColumnsTemplate = ({
         <Tooltip
           data-cy="depends-on-tooltip"
           justify="middle"
-          popoverZIndex={zIndex.tooltip}
           trigger={
             <span>
               <TaskStatusBadgeWithLink

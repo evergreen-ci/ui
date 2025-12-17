@@ -5,7 +5,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useLogWindowAnalytics } from "analytics";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
@@ -73,7 +73,6 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
         <div>Are you sure you want to clear all bookmarks?</div>
       </Popconfirm>
       <Tooltip
-        popoverZIndex={zIndex.tooltip}
         trigger={
           <StyledButton
             ref={clearButtonRef}

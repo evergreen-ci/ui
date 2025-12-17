@@ -1,9 +1,7 @@
 import { useCallback, useState } from "react";
-import { css } from "@emotion/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useLocation, useNavigate } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogDropAnalytics } from "analytics";
@@ -53,9 +51,6 @@ const UploadLink: React.FC<UploadLinkProps> = ({ clearLogs, hasLogs }) => {
             navigate(routes.upload);
           },
         }}
-        css={css`
-          z-index: ${zIndex.modal};
-        `}
         data-cy="confirmation-modal"
         open={open}
         title="Navigating away will clear your current logs."

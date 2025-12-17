@@ -21,7 +21,7 @@ type CommitDetailsCardType = React.ComponentProps<typeof CommitDetailsCard> & {
 
 export default {
   component: CommitDetailsCard,
-  decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
   args: {
     activated: true,
     canRestart: true,

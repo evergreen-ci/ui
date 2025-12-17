@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { DropdownItem } from "components/ButtonDropdown";
 import { VersionRestartModal } from "components/VersionRestartModal";
 
@@ -40,7 +39,6 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
         align={isButton ? Align.Top : Align.Left}
         enabled={disabled}
         justify={Justify.End}
-        popoverZIndex={zIndex.tooltip}
         trigger={
           isButton ? (
             <Button
