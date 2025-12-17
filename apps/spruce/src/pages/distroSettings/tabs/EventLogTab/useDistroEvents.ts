@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   DistroEventsQuery,
   DistroEventsQueryVariables,
 } from "gql/generated/types";
 import { DISTRO_EVENTS } from "gql/queries";
-import { useErrorToast } from "hooks";
 
 export const DISTRO_EVENT_LIMIT = 15;
 

@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import PageTitle from "components/PageTitle";
 import PodStatusBadge from "components/PodStatusBadge";
 import {
@@ -11,7 +12,6 @@ import {
 import { slugs } from "constants/routes";
 import { PodQuery, PodQueryVariables } from "gql/generated/types";
 import { POD } from "gql/queries";
-import { useErrorToast } from "hooks";
 import { PodStatus } from "types/pod";
 import EventsTable from "./EventsTable";
 import Metadata from "./Metadata";

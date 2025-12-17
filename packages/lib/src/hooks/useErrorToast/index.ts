@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { ApolloError } from "@apollo/client";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useToastContext } from "../../context/toast";
 
 /**
  * useErrorToast displays an error toast when a GraphQL query fails.

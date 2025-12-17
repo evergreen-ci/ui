@@ -6,6 +6,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useSpawnAnalytics } from "analytics";
 import { isSleepScheduleActive } from "components/Spawn";
 import {
@@ -17,7 +18,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_SPAWN_HOST_STATUS } from "gql/mutations";
 import { MY_HOSTS } from "gql/queries";
-import { useErrorToast, usePolling } from "hooks";
+import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { PauseSleepScheduleModal } from "./PauseSleepScheduleModal";

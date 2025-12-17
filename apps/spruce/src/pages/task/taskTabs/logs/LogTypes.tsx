@@ -5,6 +5,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, useLocation } from "react-router-dom";
 import { size, fontSize } from "@evg-ui/lib/constants/tokens";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { slugs } from "constants/routes";
 import {
@@ -28,7 +29,7 @@ import {
   TASK_LOGS,
   ALL_LOGS,
 } from "gql/queries";
-import { useErrorToast, usePolling } from "hooks";
+import { usePolling } from "hooks";
 import { RequiredQueryParams } from "types/task";
 import { queryString } from "utils";
 import { LogMessageLine } from "./logTypes/LogMessageLine";

@@ -4,7 +4,11 @@ import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
-import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
+import {
+  useQueryParam,
+  useQueryParams,
+  useErrorToast,
+} from "@evg-ui/lib/hooks";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
@@ -18,7 +22,7 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { TASK_HISTORY } from "gql/queries";
-import { useErrorToast, useUserTimeZone } from "hooks";
+import { useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { getUTCEndOfDay } from "utils/date";

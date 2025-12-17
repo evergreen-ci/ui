@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   BuildBaron,
   Annotation,
@@ -11,7 +12,6 @@ import {
   CreatedTicketsQueryVariables,
 } from "gql/generated/types";
 import { CREATED_TICKETS, JIRA_CUSTOM_CREATED_ISSUES } from "gql/queries";
-import { useErrorToast } from "hooks";
 import AnnotationNote from "./AnnotationNote";
 import { BBCreatedTickets, CustomCreatedTickets } from "./CreatedTicketsTable";
 import { Issues, SuspectedIssues } from "./Issues";

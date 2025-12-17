@@ -12,13 +12,14 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { TableControlInnerRow } from "@evg-ui/lib/components/Table/TableControl/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { SiderCard } from "components/styles";
 import { slugs } from "constants/routes";
 import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
 import { POD_EVENTS } from "gql/queries";
-import { useDateFormat, useErrorToast } from "hooks";
+import { useDateFormat } from "hooks";
 import { EventCopy } from "./EventCopy";
 
 type ContainerEvent = Unpacked<

@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
@@ -11,7 +12,7 @@ import {
   SortDirection,
 } from "gql/generated/types";
 import { VERSION_TASKS } from "gql/queries";
-import { useErrorToast, usePolling } from "hooks";
+import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { parseQueryString } from "utils/queryString";

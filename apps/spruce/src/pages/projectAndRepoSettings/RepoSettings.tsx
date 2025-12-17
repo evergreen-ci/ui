@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { slugs } from "constants/routes";
 import {
@@ -7,7 +8,6 @@ import {
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
 import { REPO_SETTINGS } from "gql/queries";
-import { useErrorToast } from "hooks";
 import SharedSettings from "./shared";
 import { ProjectType } from "./shared/tabs/utils";
 

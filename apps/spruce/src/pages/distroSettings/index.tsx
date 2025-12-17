@@ -4,6 +4,7 @@ import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Navigate } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useDistroSettingsAnalytics } from "analytics";
 import {
@@ -24,7 +25,6 @@ import {
 } from "constants/routes";
 import { DistroQuery, DistroQueryVariables } from "gql/generated/types";
 import { DISTRO } from "gql/queries";
-import { useErrorToast } from "hooks";
 import { DistroSettingsProvider } from "./Context";
 import { DistroSelect } from "./DistroSelect";
 import { getTabTitle } from "./getTabTitle";

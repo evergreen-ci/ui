@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { useQueryParam } from "@evg-ui/lib/hooks";
+import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
 import { ProjectBanner } from "components/Banners";
 import { PatchesPage } from "components/PatchesPage";
@@ -17,7 +17,7 @@ import {
   ProjectPatchesQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_PATCHES } from "gql/queries";
-import { useErrorToast, usePolling } from "hooks";
+import { usePolling } from "hooks";
 import { PatchPageQueryParams } from "types/patch";
 
 export const ProjectPatches = () => {

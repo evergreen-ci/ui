@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { useQueryParam } from "@evg-ui/lib/hooks";
+import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { TTLInfo } from "components/404/TTLInfo";
 import { ProjectBanner } from "components/Banners";
@@ -18,7 +18,7 @@ import { Requester } from "constants/requesters";
 import { slugs } from "constants/routes";
 import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
 import { VERSION } from "gql/queries";
-import { useErrorToast, usePolling, useSpruceConfig } from "hooks";
+import { usePolling, useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/NotFound";
 import { PatchTasksQueryParams } from "types/task";
 import { githubPRLinkify, jiraLinkify } from "utils/string";

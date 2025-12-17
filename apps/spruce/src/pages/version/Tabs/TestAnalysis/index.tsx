@@ -8,7 +8,7 @@ import { H3, Body, H3Props } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParam } from "@evg-ui/lib/hooks";
+import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { useVersionAnalytics } from "analytics";
 import { failedTaskStatuses } from "constants/task";
@@ -17,7 +17,6 @@ import {
   TestAnalysisQueryVariables,
 } from "gql/generated/types";
 import { TEST_ANALYSIS } from "gql/queries";
-import { useErrorToast } from "hooks";
 import { TestAnalysisQueryParams } from "types/task";
 import FilterGroup from "./FilterGroup";
 import GroupedTestMapList from "./GroupedTestMapList";

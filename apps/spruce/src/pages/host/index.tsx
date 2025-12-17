@@ -6,7 +6,7 @@ import { Code } from "@leafygreen-ui/code";
 import { useParams } from "react-router-dom";
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useQueryParam } from "@evg-ui/lib/hooks";
+import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
@@ -28,7 +28,6 @@ import {
   HostEventType,
 } from "gql/generated/types";
 import { HOST, HOST_EVENTS } from "gql/queries/index";
-import { useErrorToast } from "hooks";
 import { HostStatus } from "types/host";
 import { HostQueryParams } from "./constants";
 import HostTable from "./HostTable";

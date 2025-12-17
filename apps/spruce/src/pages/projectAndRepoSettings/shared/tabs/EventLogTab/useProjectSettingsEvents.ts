@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   ProjectEventLogsQuery,
   ProjectEventLogsQueryVariables,
@@ -6,7 +7,6 @@ import {
   RepoEventLogsQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_EVENT_LOGS, REPO_EVENT_LOGS } from "gql/queries";
-import { useErrorToast } from "hooks";
 
 export const PROJECT_EVENT_LIMIT = 15;
 

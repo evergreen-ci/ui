@@ -6,13 +6,14 @@ import {
   LGColumnDef,
   BaseTable,
 } from "@evg-ui/lib/components/Table";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { getTaskRoute } from "constants/routes";
 import {
   ImageGeneralQuery,
   ImageGeneralQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_GENERAL } from "gql/queries";
-import { useDateFormat, useErrorToast } from "hooks";
+import { useDateFormat } from "hooks";
 
 type GeneralInfo = {
   property: string;

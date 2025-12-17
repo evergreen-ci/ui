@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   AdminEventsQuery,
   AdminEventsQueryVariables,
 } from "gql/generated/types";
 import { ADMIN_EVENT_LOG } from "gql/queries";
-import { useErrorToast } from "hooks";
 
 export const ADMIN_EVENT_LIMIT = 15;
 

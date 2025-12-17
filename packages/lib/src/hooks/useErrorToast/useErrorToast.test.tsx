@@ -1,11 +1,10 @@
 import { ApolloError } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
-import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
-import { renderHook } from "@evg-ui/lib/test_utils";
+import { RenderFakeToastContext } from "../../context/toast/__mocks__";
+import { renderHook } from "../../test_utils";
 import { useErrorToast } from ".";
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-const Provider = ({ children }) => (
+const Provider = ({ children }: { children: React.ReactNode }) => (
   <MockedProvider mocks={[]}>{children}</MockedProvider>
 );
 

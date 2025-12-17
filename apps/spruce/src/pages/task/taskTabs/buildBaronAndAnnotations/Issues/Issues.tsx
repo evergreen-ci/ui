@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   IssuesQuery,
   IssuesQueryVariables,
   Annotation,
 } from "gql/generated/types";
 import { JIRA_ISSUES } from "gql/queries";
-import { useErrorToast } from "hooks";
 import AnnotationTickets from "./AnnotationTickets";
 
 interface IssuesProps {

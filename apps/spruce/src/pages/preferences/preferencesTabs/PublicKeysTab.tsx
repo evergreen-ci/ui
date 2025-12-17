@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { PlusButton } from "components/Buttons";
 import {
   MyPublicKeysQuery,
   MyPublicKeysQueryVariables,
 } from "gql/generated/types";
 import { MY_PUBLIC_KEYS } from "gql/queries";
-import { useErrorToast } from "hooks";
 import { EditModal } from "./publicKeysTab/EditModal";
 import { PublicKeysTable } from "./publicKeysTab/PublicKeysTable";
 

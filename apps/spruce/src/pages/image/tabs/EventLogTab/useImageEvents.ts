@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   ImageEventsQuery,
   ImageEventsQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_EVENTS } from "gql/queries";
-import { useErrorToast } from "hooks";
 
 export const IMAGE_EVENT_LIMIT = 5;
 

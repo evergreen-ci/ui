@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams, useNavigate } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectSettingsAnalytics } from "analytics";
 import {
@@ -16,7 +17,6 @@ import {
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
-import { useErrorToast } from "hooks";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { validators } from "utils";
 import SharedSettings from "./shared";

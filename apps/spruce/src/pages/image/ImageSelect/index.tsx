@@ -2,11 +2,11 @@ import { useQuery } from "@apollo/client";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useImageAnalytics } from "analytics";
 import { getImageRoute } from "constants/routes";
 import { ImagesQuery, ImagesQueryVariables } from "gql/generated/types";
 import { IMAGES } from "gql/queries";
-import { useErrorToast } from "hooks";
 
 interface ImageSelectProps {
   selectedImage: string;

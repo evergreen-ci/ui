@@ -10,6 +10,7 @@ import {
   BaseTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { amazonEC2InstanceTypeDocumentationUrl } from "constants/externalResources";
 import { defaultEC2Region, MCI_USER } from "constants/hosts";
@@ -20,7 +21,6 @@ import {
   Provider,
 } from "gql/generated/types";
 import { IMAGE_DISTROS } from "gql/queries";
-import { useErrorToast } from "hooks";
 
 type Distro = Unpacked<NonNullable<ImageDistrosQuery["image"]>["distros"]>;
 

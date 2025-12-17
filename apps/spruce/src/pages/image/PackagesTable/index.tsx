@@ -9,6 +9,7 @@ import {
   onChangeHandler,
 } from "@evg-ui/lib/components/Table";
 import { DEFAULT_PAGE_SIZE } from "@evg-ui/lib/constants/pagination";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useImageAnalytics } from "analytics";
 import {
   Package,
@@ -16,7 +17,6 @@ import {
   ImagePackagesQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_PACKAGES } from "gql/queries";
-import { useErrorToast } from "hooks";
 
 type PackagesTableProps = {
   imageId: string;
