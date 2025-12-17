@@ -1,16 +1,18 @@
 import { useBreadcrumbAnalytics } from "analytics";
 import { getWaterfallRoute } from "constants/routes";
+import { User } from "gql/generated/types";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 
 export const useBreadcrumbRoot = (
   isPatch: boolean,
-  author: string,
+  author: Pick<User, "displayName" | "userId">,
   projectIdentifier: string,
 ) => {
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
 
-  const { link: userPatchesPageLink, title: userPatchesPageTitle } =
-    useGetUserPatchesPageTitleAndLink(author, !isPatch) ?? {};
+  const userPatchesPageData = useGetUserPatchesPageTitleAndLink(author);
+  const userPatchesPageLink = userPatchesPageData?.link ?? "";
+  const userPatchesPageTitle = userPatchesPageData?.title ?? "";
 
   return isPatch
     ? {

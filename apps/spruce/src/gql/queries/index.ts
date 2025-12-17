@@ -39,7 +39,6 @@ import LOGKEEPER_BUILD_METADATA from "./logkeeper-build-metadata.graphql";
 import MAINLINE_COMMITS_FOR_HISTORY from "./mainline-commits-for-history.graphql";
 import MY_HOSTS from "./my-hosts.graphql";
 import MY_VOLUMES from "./my-volumes.graphql";
-import OTHER_USER from "./other-user.graphql";
 import PATCH_CONFIGURE_GENERATED_TASK_COUNTS from "./patch-configure-generated-task-counts.graphql";
 import PATCH_CONFIGURE from "./patch-configure.graphql";
 import PATCH from "./patch.graphql";
@@ -138,7 +137,6 @@ export {
   MY_HOSTS,
   MY_PUBLIC_KEYS,
   MY_VOLUMES,
-  OTHER_USER,
   PATCH_CONFIGURE,
   PATCH_CONFIGURE_GENERATED_TASK_COUNTS,
   PATCH,

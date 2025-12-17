@@ -17,7 +17,6 @@ import { usePolling, useGetUserPatchesPageTitleAndLink } from "hooks";
 export const UserPatches = () => {
   const dispatchToast = useToastContext();
   const { [slugs.userId]: userId } = useParams();
-  const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
 
   const patchesInput = usePatchesQueryParams();
   const isMergeQueueUser = userId === githubMergeQueueUser;
@@ -36,11 +35,14 @@ export const UserPatches = () => {
     },
     fetchPolicy: "cache-and-network",
     pollInterval: DEFAULT_POLL_INTERVAL,
-    skip: !userId,
     onError: (err) => {
       dispatchToast.error(`Error while fetching user patches: ${err.message}`);
     },
   });
+
+  const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(
+    data?.user,
+  ) ?? { title: "" };
   usePolling({ startPolling, stopPolling, refetch });
 
   return (

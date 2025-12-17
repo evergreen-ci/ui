@@ -75,7 +75,6 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
   };
 
   const breadcrumbs: Breadcrumb[] = [
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     breadcrumbRoot,
     messageBreadcrumb,
     ...displayTaskBreadcrumb,

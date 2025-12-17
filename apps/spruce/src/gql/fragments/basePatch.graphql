@@ -2,7 +2,6 @@ fragment BasePatch on Patch {
   id
   activated
   alias
-  author
   description
   parameters {
     key
@@ -10,6 +9,10 @@ fragment BasePatch on Patch {
   }
   projectID
   status
+  user {
+    displayName
+    userId
+  }
   variantsTasks {
     name
     tasks
