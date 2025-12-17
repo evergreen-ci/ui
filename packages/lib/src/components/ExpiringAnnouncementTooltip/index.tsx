@@ -29,7 +29,7 @@ export const ExpiringAnnouncementTooltip: React.FC<
     setOpen(false);
 
     if (neverSeenTooltip) {
-      Cookies.set(cookieName, seenTooltipDate.toString());
+      Cookies.set(cookieName, seenTooltipDate.toString(), { expires: 365 });
     }
   };
 
