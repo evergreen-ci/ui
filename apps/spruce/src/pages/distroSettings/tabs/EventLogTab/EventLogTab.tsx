@@ -3,16 +3,18 @@ import EventLog from "components/Settings/EventLog";
 import EventDiffTable from "components/Settings/EventLog/EventDiffTable";
 import { slugs } from "constants/routes";
 import { LegacyEventEntry } from "./LegacyEventEntry";
-import { useDistroEvents } from "./useDistroEvents";
+import { DISTRO_EVENT_LIMIT, useDistroEvents } from "./useDistroEvents";
 
 type TabProps = {
   limit?: number;
 };
 
-export const EventLogTab: React.FC<TabProps> = ({ limit }) => {
+export const EventLogTab: React.FC<TabProps> = ({
+  limit = DISTRO_EVENT_LIMIT,
+}) => {
   const { [slugs.distroId]: distroId } = useParams();
 
-  const { allEventsFetched, events, fetchMore, loading } = useDistroEvents(
+  const { count, events, fetchMore, loading, previousCount } = useDistroEvents(
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     distroId,
     limit,
@@ -22,7 +24,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit }) => {
 
   return (
     <EventLog
-      allEventsFetched={allEventsFetched}
+      count={count}
       eventRenderer={({ after, before, data }) =>
         after && before ? (
           <EventDiffTable after={after} before={before} />
@@ -39,7 +41,9 @@ export const EventLogTab: React.FC<TabProps> = ({ limit }) => {
           },
         });
       }}
+      limit={limit}
       loading={loading}
+      previousCount={previousCount}
     />
   );
 };

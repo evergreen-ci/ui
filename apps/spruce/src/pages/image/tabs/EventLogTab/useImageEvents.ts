@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import {
   ImageEventsQuery,
@@ -6,7 +6,6 @@ import {
 } from "gql/generated/types";
 import { IMAGE_EVENTS } from "gql/queries";
 import { useErrorToast } from "hooks";
-import { useEvents } from "hooks/useEvents";
 
 export const IMAGE_EVENT_LIMIT = 5;
 
@@ -15,8 +14,6 @@ export const useImageEvents = (
   page: number = 0,
   limit: number = IMAGE_EVENT_LIMIT,
 ) => {
-  const { allEventsFetched, onCompleted, setPrevCount } =
-    useEvents(IMAGE_EVENT_LIMIT);
   const { data, error, fetchMore, loading, previousData } = useQuery<
     ImageEventsQuery,
     ImageEventsQueryVariables
@@ -35,21 +32,11 @@ export const useImageEvents = (
     [data],
   );
 
-  useEffect(() => {
-    if (data?.image?.events?.count !== undefined) {
-      const previousCount = previousData?.image?.events?.count ?? 0;
-      onCompleted(data.image.events.count, previousCount);
-    }
-  }, [data?.image?.events?.count, previousData, onCompleted]);
-
-  useEffect(() => {
-    setPrevCount(previousData?.image?.events?.count ?? 0);
-  }, [previousData, setPrevCount]);
-
   return {
-    allEventsFetched,
+    count: data?.image?.events?.count,
     events,
     fetchMore,
     loading,
+    previousCount: previousData?.image?.events?.count ?? 0,
   };
 };

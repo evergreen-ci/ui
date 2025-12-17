@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import {
   ProjectEventLogsQuery,
@@ -8,9 +7,8 @@ import {
 } from "gql/generated/types";
 import { PROJECT_EVENT_LOGS, REPO_EVENT_LOGS } from "gql/queries";
 import { useErrorToast } from "hooks";
-import { useEvents } from "hooks/useEvents";
 
-const PROJECT_EVENT_LIMIT = 15;
+export const PROJECT_EVENT_LIMIT = 15;
 
 export const useProjectSettingsEvents = ({
   isRepo,
@@ -23,8 +21,6 @@ export const useProjectSettingsEvents = ({
   isRepo: boolean;
   limit?: number;
 }) => {
-  const { allEventsFetched, onCompleted, setPrevCount } = useEvents(limit);
-
   const {
     data: projectEventData,
     error: projectError,
@@ -60,25 +56,13 @@ export const useProjectSettingsEvents = ({
   );
   useErrorToast(repoError, `Unable to fetch events for ${repoId}`);
 
-  // Handle onCompleted for project events
-  useEffect(() => {
-    if (projectEventData?.projectEvents?.count !== undefined) {
-      const previousCount = projectPreviousData?.projectEvents?.count ?? 0;
-      onCompleted(projectEventData.projectEvents.count, previousCount);
-    }
-  }, [
-    projectEventData?.projectEvents?.count,
-    projectPreviousData,
-    onCompleted,
-  ]);
-
-  // Handle onCompleted for repo events
-  useEffect(() => {
-    if (repoEventData?.repoEvents?.count !== undefined) {
-      const previousCount = repoPreviousData?.repoEvents?.count ?? 0;
-      onCompleted(repoEventData.repoEvents.count, previousCount);
-    }
-  }, [repoEventData?.repoEvents?.count, repoPreviousData, onCompleted]);
+  // Determine count and previousCount based on whether we're viewing project or repo
+  const count = isRepo
+    ? repoEventData?.repoEvents?.count
+    : projectEventData?.projectEvents?.count;
+  const previousCount = isRepo
+    ? (repoPreviousData?.repoEvents?.count ?? 0)
+    : (projectPreviousData?.projectEvents?.count ?? 0);
 
   const events = isRepo
     ? repoEventData?.repoEvents?.eventLogEntries || []
@@ -86,13 +70,5 @@ export const useProjectSettingsEvents = ({
 
   const fetchMore = isRepo ? repoFetchMore : projectFetchMore;
 
-  const previousData = isRepo
-    ? repoPreviousData?.repoEvents
-    : projectPreviousData?.projectEvents;
-
-  useEffect(() => {
-    setPrevCount(previousData?.count ?? 0);
-  }, [previousData, setPrevCount]);
-
-  return { allEventsFetched, events, fetchMore };
+  return { count, events, fetchMore, previousCount };
 };
