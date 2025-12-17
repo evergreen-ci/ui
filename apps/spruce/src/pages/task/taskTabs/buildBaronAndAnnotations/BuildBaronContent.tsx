@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   BuildBaron,
   Annotation,
@@ -12,6 +11,7 @@ import {
   CreatedTicketsQueryVariables,
 } from "gql/generated/types";
 import { CREATED_TICKETS, JIRA_CUSTOM_CREATED_ISSUES } from "gql/queries";
+import { useErrorToast } from "hooks";
 import AnnotationNote from "./AnnotationNote";
 import { BBCreatedTickets, CustomCreatedTickets } from "./CreatedTicketsTable";
 import { Issues, SuspectedIssues } from "./Issues";
@@ -35,31 +35,28 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   userCanModify,
 }) => {
   const [selectedRowKey, setSelectedRowKey] = useState("");
-  const dispatchToast = useToastContext();
 
-  const { data: customCreatedTickets } = useQuery<
+  const { data: customCreatedTickets, error: customTicketsError } = useQuery<
     CustomCreatedIssuesQuery,
     CustomCreatedIssuesQueryVariables
   >(JIRA_CUSTOM_CREATED_ISSUES, {
     variables: { taskId, execution },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading the ticket information from Jira: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(
+    customTicketsError,
+    "There was an error loading the ticket information from Jira",
+  );
 
-  const { data: bbCreatedTickets } = useQuery<
+  const { data: bbCreatedTickets, error: bbTicketsError } = useQuery<
     CreatedTicketsQuery,
     CreatedTicketsQueryVariables
   >(CREATED_TICKETS, {
     variables: { taskId },
-    onError(error) {
-      dispatchToast.error(
-        `There was an error getting tickets created for this task: ${error.message}`,
-      );
-    },
   });
+  useErrorToast(
+    bbTicketsError,
+    "There was an error getting tickets created for this task",
+  );
 
   const customTickets = customCreatedTickets?.task?.annotation?.createdIssues;
   const bbTickets = bbCreatedTickets?.bbGetCreatedTickets;

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
@@ -52,20 +52,30 @@ export const Task = () => {
     pollInterval: DEFAULT_POLL_INTERVAL,
     fetchPolicy: "network-only",
     errorPolicy: "all",
-    onError: (err) => {
-      // We shouldn't show errors about annotation permissions resulting from the task resolver, but we can't separate out the query because we need to identify if the user has permissions to hide the tab accordingly.
-      // Thus, if an error comes from the annotation resolver, don't show a toast for it.
-      const hasNonAnnotationErrors = err?.graphQLErrors?.some(
+  });
+  usePolling({ startPolling, stopPolling, refetch });
+
+  // Show error toast for non-annotation errors only
+  const lastErrorMessage = useRef<string | null>(null);
+  useEffect(() => {
+    if (error && error.message !== lastErrorMessage.current) {
+      // We shouldn't show errors about annotation permissions resulting from the task resolver,
+      // but we can't separate out the query because we need to identify if the user has permissions
+      // to hide the tab accordingly. Thus, if an error comes from the annotation resolver, don't show a toast.
+      const hasNonAnnotationErrors = error?.graphQLErrors?.some(
         (e) => !e?.path?.includes("annotation"),
       );
       if (hasNonAnnotationErrors) {
+        lastErrorMessage.current = error.message;
         dispatchToast.error(
-          `There was an error loading the task: ${err.message}`,
+          `There was an error loading the task: ${error.message}`,
         );
       }
-    },
-  });
-  usePolling({ startPolling, stopPolling, refetch });
+    }
+    if (!error) {
+      lastErrorMessage.current = null;
+    }
+  }, [error, dispatchToast]);
 
   const { task } = data ?? {};
   const {

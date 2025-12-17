@@ -12,14 +12,13 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { TableControlInnerRow } from "@evg-ui/lib/components/Table/TableControl/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { SiderCard } from "components/styles";
 import { slugs } from "constants/routes";
 import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
 import { POD_EVENTS } from "gql/queries";
-import { useDateFormat } from "hooks";
+import { useDateFormat, useErrorToast } from "hooks";
 import { EventCopy } from "./EventCopy";
 
 type ContainerEvent = Unpacked<
@@ -31,20 +30,16 @@ const EventsTable: React.FC = () => {
 
   const { limit, page, setLimit } = usePagination();
   const { [slugs.podId]: podId } = useParams();
-  const dispatchToast = useToastContext();
 
-  const { data: podEventsData, loading } = useQuery<
-    PodEventsQuery,
-    PodEventsQueryVariables
-  >(POD_EVENTS, {
+  const {
+    data: podEventsData,
+    error,
+    loading,
+  } = useQuery<PodEventsQuery, PodEventsQueryVariables>(POD_EVENTS, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: podId, page, limit },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading the pod events: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading the pod events");
 
   const { count, eventLogEntries } = useMemo(
     () => podEventsData?.pod.events ?? { eventLogEntries: [], count: 0 },

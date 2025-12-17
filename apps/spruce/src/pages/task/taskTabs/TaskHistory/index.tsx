@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
@@ -19,7 +18,7 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { TASK_HISTORY } from "gql/queries";
-import { useUserTimeZone } from "hooks";
+import { useErrorToast, useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { getUTCEndOfDay } from "utils/date";
@@ -51,8 +50,6 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
   useIntersectionObserver(headerScrollRef, ([entry]) => {
     setShowShadow(!entry.isIntersecting);
   });
-
-  const dispatchToast = useToastContext();
 
   const [viewOption, setViewOption] = useState(
     (Cookies.get(TASK_HISTORY_INACTIVE_COMMITS_VIEW) ??
@@ -87,7 +84,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
   const timezone = useUserTimeZone();
   const utcDate = getUTCEndOfDay(date, timezone);
 
-  const { data, loading } = useQuery<
+  const { data, error, loading } = useQuery<
     TaskHistoryQuery,
     TaskHistoryQueryVariables
   >(TASK_HISTORY, {
@@ -107,10 +104,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
     },
     fetchPolicy: "cache-first",
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError: (err) => {
-      dispatchToast.error(`Unable to get task history: ${err}`);
-    },
   });
+  useErrorToast(error, "Unable to get task history");
 
   const { taskHistory } = data ?? {};
   const { pagination, tasks = [] } = taskHistory ?? {};

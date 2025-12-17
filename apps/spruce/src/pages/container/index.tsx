@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import PageTitle from "components/PageTitle";
 import PodStatusBadge from "components/PodStatusBadge";
 import {
@@ -12,22 +11,18 @@ import {
 import { slugs } from "constants/routes";
 import { PodQuery, PodQueryVariables } from "gql/generated/types";
 import { POD } from "gql/queries";
+import { useErrorToast } from "hooks";
 import { PodStatus } from "types/pod";
 import EventsTable from "./EventsTable";
 import Metadata from "./Metadata";
 
 const Container = () => {
-  const dispatchToast = useToastContext();
   const { [slugs.podId]: podId } = useParams();
   const { data, error, loading } = useQuery<PodQuery, PodQueryVariables>(POD, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { podId },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading the host: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading the container");
   const { pod } = data || {};
   const { id, status } = pod || {};
   return (

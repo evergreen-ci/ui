@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -17,7 +16,7 @@ import {
   VersionTaskDurationsQueryVariables,
 } from "gql/generated/types";
 import { VERSION_TASK_DURATIONS } from "gql/queries";
-import { usePolling } from "hooks";
+import { useErrorToast, usePolling } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
 import { parseQueryString } from "utils/queryString";
 import { useQueryVariables } from "../useQueryVariables";
@@ -28,7 +27,6 @@ interface Props {
   versionId: string;
 }
 const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
-  const dispatchToast = useToastContext();
   const { search } = useLocation();
 
   const [queryParams, setQueryParams] = useQueryParams();
@@ -63,17 +61,15 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
     });
   };
 
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     VersionTaskDurationsQuery,
     VersionTaskDurationsQueryVariables
   >(VERSION_TASK_DURATIONS, {
     variables: queryVariables,
     skip: !hasQueryVariables,
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError: (err) => {
-      dispatchToast.error(`Error fetching patch tasks ${err}`);
-    },
   });
+  useErrorToast(error, "Error fetching patch tasks");
   usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
   const { tasks } = version || {};

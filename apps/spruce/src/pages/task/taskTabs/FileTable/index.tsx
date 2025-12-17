@@ -4,10 +4,10 @@ import styled from "@emotion/styled";
 import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import TextInputWithValidation from "components/TextInputWithValidation";
 import { TaskFilesQuery, TaskFilesQueryVariables } from "gql/generated/types";
 import { TASK_FILES } from "gql/queries";
+import { useErrorToast } from "hooks";
 import { validateRegexp } from "utils/validators";
 import GroupedFileTable from "./GroupedFileTable";
 import { filterGroupedFiles } from "./utils";
@@ -18,19 +18,16 @@ interface FileTableProps {
 }
 const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
   const [search, setSearch] = useState("");
-  const dispatchToast = useToastContext();
-  const { data, loading } = useQuery<TaskFilesQuery, TaskFilesQueryVariables>(
-    TASK_FILES,
-    {
-      variables: {
-        taskId,
-        execution,
-      },
-      onError: (err) => {
-        dispatchToast.error(`Unable to load task files: ${err}`);
-      },
+  const { data, error, loading } = useQuery<
+    TaskFilesQuery,
+    TaskFilesQueryVariables
+  >(TASK_FILES, {
+    variables: {
+      taskId,
+      execution,
     },
-  );
+  });
+  useErrorToast(error, "Unable to load task files");
   const { files } = data?.task ?? {};
   const { groupedFiles = [] } = files ?? {};
   const filteredGroupedFiles = filterGroupedFiles(

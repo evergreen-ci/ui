@@ -6,8 +6,8 @@ export const useEvents = (limit: number) => {
 
   // Hide Load More button when event count < limit is returned,
   // or when an additional fetch fails to load more events.
-  const onCompleted = (count: number) => {
-    if (count - prevCount < limit) {
+  const onCompleted = (count: number, previousCount: number = prevCount) => {
+    if (count - previousCount < limit) {
       setAllEventsFetched(true);
     }
   };

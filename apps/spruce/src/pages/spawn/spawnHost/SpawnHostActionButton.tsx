@@ -17,7 +17,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_SPAWN_HOST_STATUS } from "gql/mutations";
 import { MY_HOSTS } from "gql/queries";
-import { usePolling } from "hooks";
+import { useErrorToast, usePolling } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { PauseSleepScheduleModal } from "./PauseSleepScheduleModal";
@@ -36,17 +36,13 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   // Since the MY_HOSTS query on this components parent polls at a slower rate, this component triggers a poll at a faster interval for that
   // query when it returns an updated host status the polling is halted. This allows the query to poll slowly and not utilize unnecessary bandwidth
   // except when an action is performed and we need to fetch updated data.
-  const [getMyHosts, { refetch, startPolling, stopPolling }] = useLazyQuery<
-    MyHostsQuery,
-    MyHostsQueryVariables
-  >(MY_HOSTS, {
+  const [
+    getMyHosts,
+    { error: hostsError, refetch, startPolling, stopPolling },
+  ] = useLazyQuery<MyHostsQuery, MyHostsQueryVariables>(MY_HOSTS, {
     pollInterval: 3000,
-    onError: (e) => {
-      dispatchToast.error(
-        `There was an error loading your spawn hosts: ${e.message}`,
-      );
-    },
   });
+  useErrorToast(hostsError, "There was an error loading your spawn hosts");
   usePolling({
     startPolling,
     stopPolling,

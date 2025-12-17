@@ -10,7 +10,6 @@ import {
   BaseTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { amazonEC2InstanceTypeDocumentationUrl } from "constants/externalResources";
 import { defaultEC2Region, MCI_USER } from "constants/hosts";
@@ -21,6 +20,7 @@ import {
   Provider,
 } from "gql/generated/types";
 import { IMAGE_DISTROS } from "gql/queries";
+import { useErrorToast } from "hooks";
 
 type Distro = Unpacked<NonNullable<ImageDistrosQuery["image"]>["distros"]>;
 
@@ -29,18 +29,14 @@ type DistrosTableProps = {
 };
 
 export const DistrosTable: React.FC<DistrosTableProps> = ({ imageId }) => {
-  const dispatchToast = useToastContext();
-  const { data: imageData, loading } = useQuery<
-    ImageDistrosQuery,
-    ImageDistrosQueryVariables
-  >(IMAGE_DISTROS, {
+  const {
+    data: imageData,
+    error,
+    loading,
+  } = useQuery<ImageDistrosQuery, ImageDistrosQueryVariables>(IMAGE_DISTROS, {
     variables: { imageId },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading image distros: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading image distros");
 
   const distros = imageData?.image?.distros ?? [];
 

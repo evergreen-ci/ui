@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { useParams, Navigate } from "react-router-dom";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
@@ -17,13 +16,13 @@ import {
   PATCH_CONFIGURE,
   PATCH_CONFIGURE_GENERATED_TASK_COUNTS,
 } from "gql/queries";
+import { useErrorToast } from "hooks";
 import { PageDoesNotExist } from "pages/NotFound";
 import { validateObjectId } from "utils/validators";
 import ConfigurePatchCore from "./configurePatchCore";
 
 const ConfigurePatch: React.FC = () => {
   const { [slugs.patchId]: patchId } = useParams();
-  const dispatchToast = useToastContext();
 
   const isValidPatchId = validateObjectId(patchId || "");
   const { data, error, loading } = useQuery<
@@ -32,24 +31,24 @@ const ConfigurePatch: React.FC = () => {
   >(PATCH_CONFIGURE, {
     skip: !isValidPatchId,
     variables: { id: patchId || "" },
-    onError(err) {
-      dispatchToast.error(err.message);
-    },
   });
+  useErrorToast(error, "Error loading patch configuration");
 
-  const { data: generatedTaskCountsData, loading: loadingGeneratedTaskCounts } =
-    useQuery<
-      PatchConfigureGeneratedTaskCountsQuery,
-      PatchConfigureGeneratedTaskCountsQueryVariables
-    >(PATCH_CONFIGURE_GENERATED_TASK_COUNTS, {
-      variables: { patchId: patchId || "" },
-      skip: !isValidPatchId,
-      onError(err) {
-        dispatchToast.error(
-          `Error fetching generated task counts: ${err.message}`,
-        );
-      },
-    });
+  const {
+    data: generatedTaskCountsData,
+    error: generatedTaskCountsError,
+    loading: loadingGeneratedTaskCounts,
+  } = useQuery<
+    PatchConfigureGeneratedTaskCountsQuery,
+    PatchConfigureGeneratedTaskCountsQueryVariables
+  >(PATCH_CONFIGURE_GENERATED_TASK_COUNTS, {
+    variables: { patchId: patchId || "" },
+    skip: !isValidPatchId,
+  });
+  useErrorToast(
+    generatedTaskCountsError,
+    "Error fetching generated task counts",
+  );
   const { generatedTaskCounts } = generatedTaskCountsData?.patch || {
     generatedTaskCounts: [],
   };

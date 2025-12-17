@@ -1,13 +1,12 @@
 import { useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { Select, Option } from "@leafygreen-ui/select";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { ModalContent } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { MY_HOSTS } from "gql/queries";
-import { usePolling } from "hooks";
+import { useErrorToast, usePolling } from "hooks";
 import { HostStatus } from "types/host";
 
 interface Props {
@@ -25,16 +24,13 @@ export const AttachVolumeSelect = ({
   selectedHostId,
   targetAvailabilityZone,
 }: Props) => {
-  const dispatchToast = useToastContext();
-  const { data, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, refetch, startPolling, stopPolling } = useQuery<
     MyHostsQuery,
     MyHostsQueryVariables
   >(MY_HOSTS, {
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError: (e) => {
-      dispatchToast.error(`There was an error loading hosts: ${e.message}`);
-    },
   });
+  useErrorToast(error, "There was an error loading hosts");
   usePolling({ startPolling, stopPolling, refetch });
 
   const hostDropdownOptions = useMemo(() => {

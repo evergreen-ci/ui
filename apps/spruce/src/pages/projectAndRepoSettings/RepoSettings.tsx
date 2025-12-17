@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { slugs } from "constants/routes";
 import {
@@ -8,6 +7,7 @@ import {
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
 import { REPO_SETTINGS } from "gql/queries";
+import { useErrorToast } from "hooks";
 import SharedSettings from "./shared";
 import { ProjectType } from "./shared/tabs/utils";
 
@@ -15,21 +15,17 @@ const RepoSettings: React.FC = () => {
   const { [slugs.repoId]: repoId = "" } = useParams<{
     [slugs.repoId]: string;
   }>();
-  const dispatchToast = useToastContext();
   usePageTitle(`Repo Settings | ${repoId}`);
 
-  const { data: repoData, loading: repoLoading } = useQuery<
-    RepoSettingsQuery,
-    RepoSettingsQueryVariables
-  >(REPO_SETTINGS, {
+  const {
+    data: repoData,
+    error,
+    loading: repoLoading,
+  } = useQuery<RepoSettingsQuery, RepoSettingsQueryVariables>(REPO_SETTINGS, {
     skip: !repoId,
     variables: { repoId },
-    onError: (e) => {
-      dispatchToast.error(
-        `There was an error loading the repo ${repoId}: ${e.message}`,
-      );
-    },
   });
+  useErrorToast(error, `There was an error loading the repo ${repoId}`);
 
   const repo = repoData?.repoSettings;
 

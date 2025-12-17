@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import {
   UserSettingsQuery,
@@ -10,14 +11,22 @@ type UseUserSettingsOptions = {
 };
 
 export const useUserSettings = (options?: UseUserSettingsOptions) => {
-  const { data, loading } = useQuery<
+  const { data, error, loading } = useQuery<
     UserSettingsQuery,
     UserSettingsQueryVariables
-  >(USER_SETTINGS, {
-    onError(err) {
-      options?.onError?.(err);
-    },
-  });
+  >(USER_SETTINGS);
+
+  const lastErrorMessage = useRef<string | null>(null);
+  useEffect(() => {
+    if (error && error.message !== lastErrorMessage.current) {
+      lastErrorMessage.current = error.message;
+      options?.onError?.(error);
+    }
+    if (!error) {
+      lastErrorMessage.current = null;
+    }
+  }, [error, options]);
+
   const { user } = data || {};
   return { userSettings: user?.settings ?? {}, loading };
 };

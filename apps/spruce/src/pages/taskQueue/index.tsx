@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
@@ -7,7 +7,6 @@ import pluralize from "pluralize";
 import { useParams, useNavigate } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useTaskQueueAnalytics } from "analytics";
@@ -23,6 +22,7 @@ import {
   TaskQueueDistrosQueryVariables,
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE, TASK_QUEUE_DISTROS } from "gql/queries";
+import { useErrorToast } from "hooks";
 import { QueryParams } from "types/task";
 import { DistroOption } from "./DistroOption";
 import TaskQueueTable from "./TaskQueueTable";
@@ -39,41 +39,54 @@ const TaskQueue = () => {
   const [selectedDistro, setSelectedDistro] = useState<
     TaskQueueDistro | undefined
   >(undefined);
-  const dispatchToast = useToastContext();
+  const hasInitialized = useRef(false);
   usePageTitle(`Task Queue - ${distroId}`);
-  const { data: distrosData, loading: loadingDistrosData } = useQuery<
-    TaskQueueDistrosQuery,
-    TaskQueueDistrosQueryVariables
-  >(TASK_QUEUE_DISTROS, {
-    fetchPolicy: "cache-and-network",
-    onCompleted: (data) => {
-      const { taskQueueDistros } = data;
+
+  const {
+    data: distrosData,
+    error: distrosError,
+    loading: loadingDistrosData,
+  } = useQuery<TaskQueueDistrosQuery, TaskQueueDistrosQueryVariables>(
+    TASK_QUEUE_DISTROS,
+    {
+      fetchPolicy: "cache-and-network",
+    },
+  );
+  useErrorToast(distrosError, "There was an error loading distros");
+
+  // Reset initialization flag when distro changes
+  useEffect(() => {
+    hasInitialized.current = false;
+  }, [distroId]);
+
+  // Handle initial navigation and distro selection when data loads
+  useEffect(() => {
+    if (distrosData?.taskQueueDistros && !hasInitialized.current) {
+      hasInitialized.current = true;
+      const { taskQueueDistros } = distrosData;
       const firstDistroInList = taskQueueDistros[0]?.id;
       const defaultDistro = distroId ?? firstDistroInList;
       setSelectedDistro(taskQueueDistros.find((d) => d.id === defaultDistro));
       if (distroId === undefined) {
         navigate(getTaskQueueRoute(defaultDistro));
       }
-    },
-    onError: (err) => {
-      dispatchToast.error(`There was an error loading distros: ${err.message}`);
-    },
-  });
+    }
+  }, [distrosData, distroId, navigate]);
 
-  const { data: taskQueueItemsData, loading: loadingTaskQueueItems } = useQuery<
-    DistroTaskQueueQuery,
-    DistroTaskQueueQueryVariables
-  >(DISTRO_TASK_QUEUE, {
-    fetchPolicy: "cache-and-network",
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { distroId },
-    skip: !distroId,
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading task queue: ${err.message}`,
-      );
+  const {
+    data: taskQueueItemsData,
+    error: taskQueueError,
+    loading: loadingTaskQueueItems,
+  } = useQuery<DistroTaskQueueQuery, DistroTaskQueueQueryVariables>(
+    DISTRO_TASK_QUEUE,
+    {
+      fetchPolicy: "cache-and-network",
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      variables: { distroId },
+      skip: !distroId,
     },
-  });
+  );
+  useErrorToast(taskQueueError, "There was an error loading task queue");
 
   const onChangeDistroSelection = (val: TaskQueueDistro) => {
     taskQueueAnalytics.sendEvent({ name: "Changed distro", distro: val.id });

@@ -9,7 +9,6 @@ import {
   onChangeHandler,
 } from "@evg-ui/lib/components/Table";
 import { DEFAULT_PAGE_SIZE } from "@evg-ui/lib/constants/pagination";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useImageAnalytics } from "analytics";
 import {
   Toolchain,
@@ -17,6 +16,7 @@ import {
   ImageToolchainsQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_TOOLCHAINS } from "gql/queries";
+import { useErrorToast } from "hooks";
 
 type ToolchainsTableProps = {
   imageId: string;
@@ -25,7 +25,6 @@ type ToolchainsTableProps = {
 export const ToolchainsTable: React.FC<ToolchainsTableProps> = ({
   imageId,
 }) => {
-  const dispatchToast = useToastContext();
   const { sendEvent } = useImageAnalytics();
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -33,26 +32,26 @@ export const ToolchainsTable: React.FC<ToolchainsTableProps> = ({
   });
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const { data: imageData, loading } = useQuery<
-    ImageToolchainsQuery,
-    ImageToolchainsQueryVariables
-  >(IMAGE_TOOLCHAINS, {
-    variables: {
-      imageId,
-      opts: {
-        page: pagination.pageIndex,
-        limit: pagination.pageSize,
-        name:
-          (columnFilters.find((filter) => filter.id === "name")
-            ?.value as string) ?? undefined,
+  const {
+    data: imageData,
+    error,
+    loading,
+  } = useQuery<ImageToolchainsQuery, ImageToolchainsQueryVariables>(
+    IMAGE_TOOLCHAINS,
+    {
+      variables: {
+        imageId,
+        opts: {
+          page: pagination.pageIndex,
+          limit: pagination.pageSize,
+          name:
+            (columnFilters.find((filter) => filter.id === "name")
+              ?.value as string) ?? undefined,
+        },
       },
     },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading image toolchains: ${err.message}`,
-      );
-    },
-  });
+  );
+  useErrorToast(error, "There was an error loading image toolchains");
 
   const toolchains = imageData?.image?.toolchains?.data ?? [];
 

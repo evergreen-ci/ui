@@ -2,11 +2,11 @@ import { useQuery } from "@apollo/client";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useImageAnalytics } from "analytics";
 import { getImageRoute } from "constants/routes";
 import { ImagesQuery, ImagesQueryVariables } from "gql/generated/types";
 import { IMAGES } from "gql/queries";
+import { useErrorToast } from "hooks";
 
 interface ImageSelectProps {
   selectedImage: string;
@@ -16,15 +16,12 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
   const { sendEvent } = useImageAnalytics();
   const navigate = useNavigate();
 
-  const dispatchToast = useToastContext();
-  const { data: imagesData, loading } = useQuery<
-    ImagesQuery,
-    ImagesQueryVariables
-  >(IMAGES, {
-    onError: (err) => {
-      dispatchToast.warning(`Failed to retrieve images: ${err.message}`);
-    },
-  });
+  const {
+    data: imagesData,
+    error,
+    loading,
+  } = useQuery<ImagesQuery, ImagesQueryVariables>(IMAGES);
+  useErrorToast(error, "Failed to retrieve images");
 
   const { images } = imagesData || {};
 

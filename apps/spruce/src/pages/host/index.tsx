@@ -6,7 +6,6 @@ import { Code } from "@leafygreen-ui/code";
 import { useParams } from "react-router-dom";
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { UpdateStatusModal } from "components/Hosts";
@@ -29,13 +28,13 @@ import {
   HostEventType,
 } from "gql/generated/types";
 import { HOST, HOST_EVENTS } from "gql/queries/index";
+import { useErrorToast } from "hooks";
 import { HostStatus } from "types/host";
 import { HostQueryParams } from "./constants";
 import HostTable from "./HostTable";
 import { Metadata } from "./Metadata";
 
 const Host: React.FC = () => {
-  const dispatchToast = useToastContext();
   const { [slugs.hostId]: hostId } = useParams();
 
   const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
@@ -53,12 +52,8 @@ const Host: React.FC = () => {
   } = useQuery<HostQuery, HostQueryVariables>(HOST, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: hostId },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading the host: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading the host");
 
   const { data: hostEventData, loading: hostEventLoading } = useQuery<
     HostEventsQuery,

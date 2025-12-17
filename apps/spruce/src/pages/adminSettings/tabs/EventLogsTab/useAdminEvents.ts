@@ -1,20 +1,18 @@
 import { useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   AdminEventsQuery,
   AdminEventsQueryVariables,
 } from "gql/generated/types";
 import { ADMIN_EVENT_LOG } from "gql/queries";
+import { useErrorToast } from "hooks";
 import { useEvents } from "hooks/useEvents";
 
 export const ADMIN_EVENT_LIMIT = 15;
 
 export const useAdminEvents = (limit: number = ADMIN_EVENT_LIMIT) => {
-  const dispatchToast = useToastContext();
-
   const { allEventsFetched, onCompleted, setPrevCount } = useEvents(limit);
-  const { data, fetchMore, loading, previousData } = useQuery<
+  const { data, error, fetchMore, loading, previousData } = useQuery<
     AdminEventsQuery,
     AdminEventsQueryVariables
   >(ADMIN_EVENT_LOG, {
@@ -24,11 +22,8 @@ export const useAdminEvents = (limit: number = ADMIN_EVENT_LIMIT) => {
       },
     },
     notifyOnNetworkStatusChange: true,
-    onCompleted: ({ adminEvents }) => onCompleted(adminEvents?.count ?? 0),
-    onError: (e) => {
-      dispatchToast.error(`Unable to fetch admin events: ${e.message}`);
-    },
   });
+  useErrorToast(error, "Unable to fetch admin events");
 
   const events = useMemo(
     () => data?.adminEvents?.eventLogEntries ?? [],
@@ -40,6 +35,13 @@ export const useAdminEvents = (limit: number = ADMIN_EVENT_LIMIT) => {
   useEffect(() => {
     setPrevCount(previousData?.adminEvents?.count ?? 0);
   }, [previousData, setPrevCount]);
+
+  useEffect(() => {
+    if (data?.adminEvents?.count !== undefined) {
+      const previousCount = previousData?.adminEvents?.count ?? 0;
+      onCompleted(data.adminEvents.count, previousCount);
+    }
+  }, [data?.adminEvents?.count, previousData, onCompleted]);
 
   return {
     allEventsFetched,

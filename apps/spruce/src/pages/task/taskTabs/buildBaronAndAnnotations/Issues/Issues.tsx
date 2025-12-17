@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   IssuesQuery,
   IssuesQueryVariables,
   Annotation,
 } from "gql/generated/types";
 import { JIRA_ISSUES } from "gql/queries";
+import { useErrorToast } from "hooks";
 import AnnotationTickets from "./AnnotationTickets";
 
 interface IssuesProps {
@@ -25,18 +25,16 @@ const Issues: React.FC<IssuesProps> = ({
   taskId,
   userCanModify,
 }) => {
-  const dispatchToast = useToastContext();
   // Query Jira ticket data
-  const { data, loading } = useQuery<IssuesQuery, IssuesQueryVariables>(
+  const { data, error, loading } = useQuery<IssuesQuery, IssuesQueryVariables>(
     JIRA_ISSUES,
     {
       variables: { taskId, execution },
-      onError: (err) => {
-        dispatchToast.error(
-          `There was an error loading the ticket information from Jira: ${err.message}`,
-        );
-      },
     },
+  );
+  useErrorToast(
+    error,
+    "There was an error loading the ticket information from Jira",
   );
   return (
     <AnnotationTickets

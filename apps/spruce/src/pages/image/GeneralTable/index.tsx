@@ -6,14 +6,13 @@ import {
   LGColumnDef,
   BaseTable,
 } from "@evg-ui/lib/components/Table";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { getTaskRoute } from "constants/routes";
 import {
   ImageGeneralQuery,
   ImageGeneralQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_GENERAL } from "gql/queries";
-import { useDateFormat } from "hooks";
+import { useDateFormat, useErrorToast } from "hooks";
 
 type GeneralInfo = {
   property: string;
@@ -25,18 +24,14 @@ type GeneralTableProps = {
 };
 
 export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
-  const dispatchToast = useToastContext();
-  const { data: imageData, loading } = useQuery<
-    ImageGeneralQuery,
-    ImageGeneralQueryVariables
-  >(IMAGE_GENERAL, {
+  const {
+    data: imageData,
+    error,
+    loading,
+  } = useQuery<ImageGeneralQuery, ImageGeneralQueryVariables>(IMAGE_GENERAL, {
     variables: { imageId },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading the image general table: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading the image general table");
 
   const getDateCopy = useDateFormat();
 

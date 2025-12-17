@@ -17,6 +17,7 @@ import {
   TestAnalysisQueryVariables,
 } from "gql/generated/types";
 import { TEST_ANALYSIS } from "gql/queries";
+import { useErrorToast } from "hooks";
 import { TestAnalysisQueryParams } from "types/task";
 import FilterGroup from "./FilterGroup";
 import GroupedTestMapList from "./GroupedTestMapList";
@@ -44,7 +45,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
 
   const { sendEvent } = useVersionAnalytics(versionId);
   const dispatchToast = useToastContext();
-  const { data, loading } = useQuery<
+  const { data, error, loading } = useQuery<
     TestAnalysisQuery,
     TestAnalysisQueryVariables
   >(TEST_ANALYSIS, {
@@ -57,10 +58,8 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
         statuses: ["fail"],
       },
     },
-    onError: (err) => {
-      dispatchToast.error(`Error fetching test analysis: ${err.message}`);
-    },
   });
+  useErrorToast(error, "Error fetching test analysis");
 
   const groupedTestsMap = useMemo(
     () => groupTestsByName(data ? data?.version?.tasks?.data : []),
@@ -70,9 +69,9 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
   let testNameRegex = /./;
   try {
     testNameRegex = new RegExp(testName || "", "i");
-  } catch (error) {
-    reportError(new Error(`Invalid Regexp: ${error}`)).severe();
-    dispatchToast.error(`Invalid Regexp: ${error}`);
+  } catch (e) {
+    reportError(new Error(`Invalid Regexp: ${e}`)).severe();
+    dispatchToast.error(`Invalid Regexp: ${e}`);
   }
 
   const filteredGroupedTestsMap = filterGroupedTests(
