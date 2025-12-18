@@ -1,12 +1,21 @@
+import { css } from "@emotion/react";
 import type { StorybookConfig } from "@storybook/react-vite";
 
-// TODO: FIX STYLES
+export const resetStyles = css`
+  /* Reset styles, usage recommended by LeafyGreen. */
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+`;
 
 export const previewHead: StorybookConfig["previewHead"] = (head) => `
 ${head}
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
 <style type="text/css">
+  ${resetStyles}
 
   a {
     text-decoration: none;

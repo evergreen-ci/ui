@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import { dirname } from "node:path";
 
-function getAbsolutePath(value: string): any {
+const  getAbsolutePath = (value: string) => {
   return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
 }
 
