@@ -5,19 +5,11 @@ import LogPane from "components/LogPane";
 import { ParsleyRow } from "components/LogRow/RowRenderer";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
-import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
 import { ExpandedLines, ProcessedLogLines, RowType } from "types/logs";
 import SkippedLinesRow from ".";
 
 export default {
   component: SkippedLinesRow,
-  decorators: [
-    (Story) => (
-      <MultiLineSelectContextProvider>
-        <Story />
-      </MultiLineSelectContextProvider>
-    ),
-  ],
 } satisfies CustomMeta<typeof SkippedLinesRow>;
 
 const SkippedLinesRowStory = (
