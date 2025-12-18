@@ -32,9 +32,13 @@ export const nestedObjectGridCss = css`
   ${fullWidthCss};
   > fieldset {
     ${gridWrapCss};
+    // Makes title span all columns.
     > div:first-of-type {
       ${fullWidthCss};
     }
+    // Makes description span all columns.
+    > p:first-of-type {
+      ${fullWidthCss};
   }
 `;
 
