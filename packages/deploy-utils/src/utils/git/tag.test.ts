@@ -24,13 +24,11 @@ vi.mock("../shell", async () => {
     underline: vi.fn(),
   };
 });
-vi.mock("../environment", async () => {
-  const actual = await vi.importActual("../environment");
-  return {
-    ...actual,
-    getAppToDeploy: vi.fn(),
-  };
-});
+vi.mock("../environment", () => ({
+  getAppToDeploy: vi.fn(),
+  isRunningOnCI: vi.fn(),
+  isTest: true,
+}));
 // Don't mock ./index - import actual functions and spy on them
 
 describe("tagIsValid", () => {
@@ -117,45 +115,54 @@ describe("createTagAndPush", () => {
     vi.restoreAllMocks();
   });
 
-  it("should call yarn version with patch when version is patch", async () => {
-    vi.mocked(execSync).mockReturnValueOnce(Buffer.from("")); // yarn version
+  it("should call npm version with patch when version is patch", async () => {
+    vi.mocked(execSync).mockReturnValueOnce(Buffer.from("")); // npm version
     vi.mocked(execTrim).mockReturnValue("6.1.16");
 
     await createTagAndPush(ReleaseVersion.Patch);
 
-    expect(execSync).toHaveBeenCalledWith("yarn version --new-version patch", {
-      encoding: "utf-8",
-      stdio: "inherit",
-    });
+    expect(execSync).toHaveBeenCalledWith(
+      "npm version patch --tag-version-prefix spruce/v",
+      {
+        encoding: "utf-8",
+        stdio: "inherit",
+      },
+    );
     expect(consoleLogSpy).toHaveBeenCalledWith("Creating new tag...");
   });
 
-  it("should call yarn version with minor when version is minor", async () => {
-    vi.mocked(execSync).mockReturnValueOnce(Buffer.from("")); // yarn version
+  it("should call npm version with minor when version is minor", async () => {
+    vi.mocked(execSync).mockReturnValueOnce(Buffer.from("")); // npm version
     vi.mocked(execTrim).mockReturnValue("6.2.0");
 
     await createTagAndPush(ReleaseVersion.Minor);
 
-    expect(execSync).toHaveBeenCalledWith("yarn version --new-version minor", {
-      encoding: "utf-8",
-      stdio: "inherit",
-    });
+    expect(execSync).toHaveBeenCalledWith(
+      "npm version minor --tag-version-prefix spruce/v",
+      {
+        encoding: "utf-8",
+        stdio: "inherit",
+      },
+    );
   });
 
-  it("should call yarn version with major when version is major", async () => {
-    vi.mocked(execSync).mockReturnValueOnce(Buffer.from("")); // yarn version
+  it("should call npm version with major when version is major", async () => {
+    vi.mocked(execSync).mockReturnValueOnce(Buffer.from("")); // npm version
     vi.mocked(execTrim).mockReturnValue("7.0.0");
 
     await createTagAndPush(ReleaseVersion.Major);
 
-    expect(execSync).toHaveBeenCalledWith("yarn version --new-version major", {
-      encoding: "utf-8",
-      stdio: "inherit",
-    });
+    expect(execSync).toHaveBeenCalledWith(
+      "npm version major --tag-version-prefix spruce/v",
+      {
+        encoding: "utf-8",
+        stdio: "inherit",
+      },
+    );
   });
 
   it("should log success messages after pushing", async () => {
-    vi.mocked(execSync).mockReturnValueOnce(Buffer.from("")); // yarn version
+    vi.mocked(execSync).mockReturnValueOnce(Buffer.from("")); // npm version
     vi.mocked(execTrim).mockReturnValue("6.1.16");
 
     await createTagAndPush(ReleaseVersion.Patch);
@@ -168,8 +175,8 @@ describe("createTagAndPush", () => {
     );
   });
 
-  it("should throw error when yarn version command fails", async () => {
-    const error = new Error("yarn version failed");
+  it("should throw error when npm version command fails", async () => {
+    const error = new Error("npm version failed");
     vi.mocked(execSync).mockImplementation(() => {
       throw error;
     });

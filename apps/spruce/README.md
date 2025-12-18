@@ -9,11 +9,11 @@ Spruce is the React UI for MongoDB's continuous integration software.
 1. Clone the Spruce GitHub repository
 2. Ensure you have Node.js v22+ and MongoDB Command Line Database Tools
    v100.8.0+ installed
-3. Run `yarn install`
+3. Run `pnpm install`
 4. Start a local Evergreen server by doing the following:
    - Clone the [Evergreen repo](https://github.com/evergreen-ci/evergreen)
    - From the Evergreen directory, run `make local-evergreen`
-5. Run `yarn run dev`. This will launch the app and point it at the local
+5. Run `pnpm run dev`. This will launch the app and point it at the local
    Evergreen server you just started.
 
 ### Running against a remote Evergreen server
@@ -41,7 +41,7 @@ mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem spruce-local.co
    Evergreen server.
 
 ```sh
-yarn <env_name>  # where env_name is the name of the environment you want to run staging or prod
+pnpm <env_name>  # where env_name is the name of the environment you want to run (staging or prod)
 ```
 
 4. Navigate to `https://spruce-local.corp.mongodb.com:8443` in your browser to
@@ -49,7 +49,7 @@ yarn <env_name>  # where env_name is the name of the environment you want to run
 
 ### Storybook
 
-Run `yarn run storybook` to launch storybook and view our shared components.
+Run `pnpm run storybook` to launch storybook and view our shared components.
 
 ### Code Formatting
 
@@ -67,7 +67,7 @@ results.
    to a file named sdlschema in the root of the Spruce directory to enable query
    linting with ESLint like so
    `ln -s <path_to_evergreen_repo>/graphql/schema sdlschema`
-2. Run `yarn run eslint` to see the results of query linting in your terminal or
+2. Run `pnpm run eslint:strict` to see the results of query linting in your terminal or
    install a plugin to integrate ESlint into your editor. If you are using VS
    Code, we recommend ESLint by Dirk Baeumer.
 
@@ -95,7 +95,7 @@ ln -s <path_to_evergreen_repo>/graphql/schema sdlschema
 
 ### Using code generation
 
-- From within the Spruce folder run `yarn codegen`
+- From within the Spruce folder run `pnpm codegen`
 - As long as your queries are declared correctly the types should generate
 
 ### Code generation troubleshooting and tips
@@ -110,10 +110,10 @@ ln -s <path_to_evergreen_repo>/graphql/schema sdlschema
 ### Common errors
 
 - Sometimes you may run into an error where a dependency is out of date or in a
-  broken state. If you run into this issue try running `yarn install` to
+  broken state. If you run into this issue try running `pnpm install` to
   reinstall all dependencies. If that does not work try deleting your
-  `node_modules` folder and running `yarn install` again. You can use the
-  `yarn clean` command to do this for you.
+  `node_modules` folder and running `pnpm install` again. You can use the
+  `pnpm clean` command to do this for you.
 
 ## Testing
 
@@ -158,9 +158,9 @@ which will wait for your hook to rerender before allowing a test to proceed.
 These are the most basic of tests. They do not require any special libraries to
 run and often just test standard JavaScript functions.
 
-- You can run all unit tests using `yarn test run`
-- You can run a specific unit test using `yarn test run <test_name>`
-- You can run Vitest in watch mode using `yarn test`. This will open an
+- You can run all unit tests once using `pnpm test run`
+- You can run a specific unit test using `pnpm test run <test_name>`
+- You can run Vitest in watch mode using `pnpm test`. This will open an
   interactive CLI that can be used to automatically run tests as you update
   them.
 
@@ -173,20 +173,20 @@ about what happens in the UI. Note that you must be running the Evergreen server
 on http://localhost:9090 for the front-end to work.
 
 In order to run the Cypress tests, do the following, assuming you have this repo
-checked out and all the dependencies installed by Yarn:
+checked out and all the dependencies installed by pnpm:
 
 1. Increase the limit on open files by running `ulimit -n 64000` before running
    mongod in the same shell.
 2. Start the evergreen back-end with the sample local test data. You can do this
    by typing `make local-evergreen` in your evergreen folder.
-3. Start the Spruce local server by typing `yarn build:local && yarn serve` in
+3. Start the Spruce local server by typing `pnpm build:local && pnpm serve` in
    this repo.
 4. Run Cypress by typing one of the following:
-   - `yarn cy:open` - opens the Cypress app in interactive mode. You can select
+   - `pnpm cy:open` - opens the Cypress app in interactive mode. You can select
      tests to run from here in the Cypress browser.
-   - `yarn cy:run` - runs all the Cypress tests at the command-line and reports
+   - `pnpm cy:run` - runs all the Cypress tests at the command-line and reports
      the results
-   - `yarn cy:test cypress/integration/hosts/hosts-filtering.ts` - runs tests in
+   - `pnpm cy:test cypress/integration/hosts/hosts-filtering.ts` - runs tests in
      a specific file at the command-line. Replace the final argument with the
      relative path to your test file
 
@@ -225,7 +225,7 @@ production environments.
    committing it to the repository.
 6. Once you have this file you can copy the contents of it to the relevant
    `testdata/local/<collection>.json` file with in the evergreen folder
-7. You can then run `yarn evg-db-ops --reseed` to repopulate the local database
+7. You can then run `pnpm evg-db-ops --reseed` to repopulate the local database
    with your new data.
 
 **Notes**
@@ -241,7 +241,7 @@ Job Logs page. If you'd like to get set up to develop these tests, complete the
 following:
 
 1. Clone the [Logkeeper Repository](https://github.com/evergreen-ci/logkeeper)
-2. Run `yarn bootstrap-s3-logs` to download some sample resmoke logs from s3.
+2. Run `pnpm bootstrap-s3-logs` to download some sample resmoke logs from s3.
 3. Run the command outputted by the previous step to seed the env variables and
    start the local logkeeper server with the following command:
 

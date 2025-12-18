@@ -27,7 +27,7 @@ export const ToggleChatbotButton: React.FC<Props> = ({
             if (!drawerOpen) {
               setSidePanelCollapsed(true);
             }
-            setDrawerOpen((o) => !o);
+            setDrawerOpen((o: boolean) => !o);
           } else {
             setModalOpen(true);
           }

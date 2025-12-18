@@ -20,9 +20,6 @@
     "jsxImportSource": "@emotion/react",
     "noFallthroughCasesInSwitch": true,
     "strict": true,
-    "types": [
-      "vitest/globals",
-      "vitest/jsdom"
-    ]
+    "types": ["vitest/globals"]
   }
 }

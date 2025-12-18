@@ -177,10 +177,10 @@ const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
         cy.log(
           "A mutation that creates an Amboy job was detected. Restoring Amboy.",
         );
-        cy.exec("yarn evg-db-ops --restore amboy");
+        cy.exec("pnpm evg-db-ops --restore amboy");
       }
       cy.log("A mutation was detected. Restoring Evergreen.");
-      cy.exec("yarn evg-db-ops --restore evergreen");
+      cy.exec("pnpm evg-db-ops --restore evergreen");
     }
   });
 })();

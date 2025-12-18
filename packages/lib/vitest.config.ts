@@ -1,7 +1,6 @@
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
-import { resolve } from "path";
 
 export default defineConfig({
   test: {
@@ -21,12 +20,6 @@ export default defineConfig({
     }),
   ],
   resolve: {
-    alias: {
-      "@leafygreen-ui/emotion": resolve(
-        __dirname,
-        "./config/leafygreen-ui/emotion",
-      ),
-    },
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },
 });

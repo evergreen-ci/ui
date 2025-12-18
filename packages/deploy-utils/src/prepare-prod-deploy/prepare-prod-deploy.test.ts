@@ -140,7 +140,7 @@ my commit messages`,
       expect(vi.mocked(deleteTag)).not.toHaveBeenCalled();
       expect(vi.mocked(pushTags)).not.toHaveBeenCalled();
       expect(consoleSpy).toHaveBeenCalledWith(
-        "Deploy cancelled. If systems are experiencing an outage and you'd like to push the deploy directly to S3, run yarn deploy:prod --force.",
+        "Deploy cancelled. If systems are experiencing an outage and you'd like to push the deploy directly to S3, run pnpm deploy:prod --force.",
       );
     });
   });

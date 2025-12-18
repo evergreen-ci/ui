@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // Storybook requires using .ts extensions explicitly for imports.
-export { addons, previewHead, stories } from "./main/index.ts";
+export { addons, previewHead, stories, viteFinal } from "./main/index.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

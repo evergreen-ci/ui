@@ -32,7 +32,7 @@ export const getConfig = ({
     ],
   },
   overwrite: true,
-  // Use absolute paths for schema pointers; relative variant was not being resolved in some yarn workspace invocations.
+  // Use absolute paths for schema pointers; relative variant was not being resolved in some pnpm workspace invocations.
   schema: [
     resolve(process.cwd(), "sdlschema/**/*.graphql"),
     resolve(process.cwd(), "src/gql/client/schema.graphql"),
