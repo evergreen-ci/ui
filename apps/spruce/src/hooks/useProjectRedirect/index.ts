@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { slugs } from "constants/routes";
@@ -34,14 +34,29 @@ export const useProjectRedirect = ({
   const needsRedirect = validateObjectId(projectIdentifier) && shouldRedirect;
 
   const [attemptedRedirect, setAttemptedRedirect] = useState(false);
+  const hasRedirected = useRef(false);
 
-  const { loading } = useQuery<ProjectQuery, ProjectQueryVariables>(PROJECT, {
+  const { data, error, loading } = useQuery<
+    ProjectQuery,
+    ProjectQueryVariables
+  >(PROJECT, {
     skip: !needsRedirect,
     variables: {
       idOrIdentifier: projectIdentifier,
     },
-    onCompleted: (projectData) => {
-      const { identifier } = projectData.project;
+  });
+
+  // Reset redirect flag when project changes
+  useEffect(() => {
+    hasRedirected.current = false;
+    setAttemptedRedirect(false);
+  }, [projectIdentifier]);
+
+  // Handle successful redirect
+  useEffect(() => {
+    if (data?.project && !hasRedirected.current) {
+      hasRedirected.current = true;
+      const { identifier } = data.project;
       const currentUrl = location.pathname.concat(location.search);
       const redirectPathname = currentUrl.replace(
         projectIdentifier,
@@ -50,12 +65,17 @@ export const useProjectRedirect = ({
       sendAnalyticsEvent(projectIdentifier, identifier);
       navigate(redirectPathname, { replace: true });
       setAttemptedRedirect(true);
-    },
-    onError: () => {
+    }
+  }, [data, location, navigate, projectIdentifier, sendAnalyticsEvent]);
+
+  // Handle error
+  useEffect(() => {
+    if (error && !hasRedirected.current) {
+      hasRedirected.current = true;
       setAttemptedRedirect(true);
       onError?.(projectIdentifier ?? "");
-    },
-  });
+    }
+  }, [error, onError, projectIdentifier]);
 
   return {
     isRedirecting: needsRedirect && loading,

@@ -40,7 +40,7 @@
     "chromatic:publish": "npx chromatic --project-token=chpt_8083ea0d9f4af30 --build-script-name storybook:build"
   },
   "dependencies": {
-    "@apollo/client": "3.10.4",
+    "@apollo/client": "^3.14.0",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@evg-ui/analytics-visualizer": "*",

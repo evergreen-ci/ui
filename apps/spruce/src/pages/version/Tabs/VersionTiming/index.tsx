@@ -6,8 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParams } from "@evg-ui/lib/hooks";
+import { useQueryParams, useErrorToast } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import GanttChart from "components/GanttChart";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -38,7 +37,6 @@ interface Props {
 const defaultSort = `${TaskSortCategory.Duration}:${SortDirection.Desc}`;
 
 const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
-  const dispatchToast = useToastContext();
   const { search } = useLocation();
   const navigate = useNavigate();
 
@@ -74,7 +72,7 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
       : undefined,
   };
 
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     VersionTaskDurationsQuery,
     VersionTaskDurationsQueryVariables
   >(VERSION_TASK_DURATIONS, {
@@ -83,10 +81,8 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
       taskFilterOptions,
     },
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError: (err) => {
-      dispatchToast.error(`Error fetching patch tasks ${err}`);
-    },
   });
+  useErrorToast(error, "Error fetching patch tasks");
   usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
   const { tasks } = version || {};

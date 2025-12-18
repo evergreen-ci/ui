@@ -46,9 +46,11 @@ export const Default: CustomStoryObj<typeof EventLog> = {
   render: (args) => <EventLog {...args} />,
   argTypes: {},
   args: {
-    allEventsFetched: true,
+    count: 1,
     events: [event],
+    limit: 15,
     loading: false,
+    previousCount: 0,
     customKeyValueRenderConfig: {
       customKey: (value) => <b style={{ color: "red" }}>{value}</b>,
     },
@@ -70,9 +72,11 @@ export const CustomEventRenderer: CustomStoryObj<typeof EventLog> = {
   ),
   argTypes: {},
   args: {
-    allEventsFetched: true,
+    count: 1,
     events: [event],
+    limit: 15,
     loading: false,
+    previousCount: 0,
     customKeyValueRenderConfig: {
       customKey: (value) => <b style={{ color: "red" }}>{value}</b>,
     },

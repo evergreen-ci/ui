@@ -6,6 +6,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useSpawnAnalytics } from "analytics";
 import { isSleepScheduleActive } from "components/Spawn";
 import {
@@ -36,17 +37,13 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   // Since the MY_HOSTS query on this components parent polls at a slower rate, this component triggers a poll at a faster interval for that
   // query when it returns an updated host status the polling is halted. This allows the query to poll slowly and not utilize unnecessary bandwidth
   // except when an action is performed and we need to fetch updated data.
-  const [getMyHosts, { refetch, startPolling, stopPolling }] = useLazyQuery<
-    MyHostsQuery,
-    MyHostsQueryVariables
-  >(MY_HOSTS, {
+  const [
+    getMyHosts,
+    { error: hostsError, refetch, startPolling, stopPolling },
+  ] = useLazyQuery<MyHostsQuery, MyHostsQueryVariables>(MY_HOSTS, {
     pollInterval: 3000,
-    onError: (e) => {
-      dispatchToast.error(
-        `There was an error loading your spawn hosts: ${e.message}`,
-      );
-    },
   });
+  useErrorToast(hostsError, "There was an error loading your spawn hosts");
   usePolling({
     startPolling,
     stopPolling,

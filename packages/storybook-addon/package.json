@@ -11,7 +11,7 @@
     "eslint:strict": "STRICT=1 eslint ."
   },
   "dependencies": {
-    "@apollo/client": "3.8.4",
+    "@apollo/client": "^3.14.0",
     "@storybook/addon-docs": "^9.0.18",
     "@storybook/addon-links": "^9.0.18",
     "react-router-dom": "6.18.0",

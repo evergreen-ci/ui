@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { PlusButton } from "components/Buttons";
 import {
   MyPublicKeysQuery,
@@ -14,18 +14,13 @@ import { PublicKeysTable } from "./publicKeysTab/PublicKeysTable";
 
 export const PublicKeysTab: React.FC = () => {
   const [visible, setVisible] = useState(false);
-  const dispatchToast = useToastContext();
 
-  const { data: myKeysData, loading: loadingMyPublicKeys } = useQuery<
-    MyPublicKeysQuery,
-    MyPublicKeysQueryVariables
-  >(MY_PUBLIC_KEYS, {
-    onError(error) {
-      dispatchToast.error(
-        `There was an error fetching your public keys: ${error.message}`,
-      );
-    },
-  });
+  const {
+    data: myKeysData,
+    error,
+    loading: loadingMyPublicKeys,
+  } = useQuery<MyPublicKeysQuery, MyPublicKeysQueryVariables>(MY_PUBLIC_KEYS);
+  useErrorToast(error, "There was an error fetching your public keys");
   const myPublicKeys = myKeysData?.myPublicKeys ?? [];
 
   return (

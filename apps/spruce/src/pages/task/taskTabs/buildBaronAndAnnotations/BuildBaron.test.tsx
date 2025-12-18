@@ -45,7 +45,7 @@ describe("buildBaronContent", () => {
 
   it("the BuildBaron component renders without crashing.", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider addTypename={false} mocks={buildBaronMocks}>
+      <MockedProvider mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
@@ -69,7 +69,7 @@ describe("buildBaronContent", () => {
   it("clicking on file a new ticket dispatches a toast", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <MockedProvider addTypename={false} mocks={buildBaronMocks}>
+      <MockedProvider mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
@@ -97,7 +97,7 @@ describe("buildBaronContent", () => {
 
   it("the correct JiraTicket rows are rendered in the component", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider addTypename={false} mocks={buildBaronMocks}>
+      <MockedProvider mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
@@ -124,17 +124,17 @@ describe("buildBaronContent", () => {
       "Resolved",
     );
     expect(screen.queryByDataCy("EVG-12345-metadata")).toHaveTextContent(
-      "Created: Sep 23, 2020Updated: Sep 23, 2020Unassigned",
+      "Created: 09/23/2020Updated: 09/23/2020Unassigned",
     );
 
     expect(screen.queryByDataCy("EVG-12346-badge")).toHaveTextContent("Closed");
     expect(screen.queryByDataCy("EVG-12346-metadata")).toHaveTextContent(
-      "Created: Sep 18, 2020Updated: Sep 18, 2020Assignee: Some Name",
+      "Created: 09/18/2020Updated: 09/18/2020Assignee: Some Name",
     );
 
     expect(screen.queryByDataCy("EVG-12347-badge")).toHaveTextContent("Open");
     expect(screen.queryByDataCy("EVG-12347-metadata")).toHaveTextContent(
-      "Created: Sep 18, 2020Updated: Sep 18, 2020Assignee: Backlog - Evergreen Team",
+      "Created: 09/18/2020Updated: 09/18/2020Assignee: Backlog - Evergreen Team",
     );
   });
 });
