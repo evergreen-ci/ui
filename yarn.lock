@@ -5045,10 +5045,10 @@ ai@5.0.11:
     "@ai-sdk/provider-utils" "3.0.2"
     "@opentelemetry/api" "1.9.0"
 
-ai@^5.0.95:
-  version "5.0.95"
-  resolved "https://registry.yarnpkg.com/ai/-/ai-5.0.95.tgz#007fb2ea1c0c86f1d3f552c050356748b7d29699"
-  integrity sha512-dsvFdYMeGP08zuUQkhKO1UMMXMCb+nro9ZmDdwaAkkTlCGkP3u1S+xaRUDNayu/c0KVkiTtfEroPG//U+kvXzg==
+ai@^5.0.96:
+  version "5.0.96"
+  resolved "https://registry.yarnpkg.com/ai/-/ai-5.0.96.tgz#b18fc8597b9bab55413ff5fdae585d88c1728666"
+  integrity sha512-eSf9V0fKpPglCGb7gib7HoWmgpUbdlm6FAgfvY/lMNfIxKx8WWAfX0RenVqTODVq3OISKcxSs2Gsh+XzgYNm5g==
   dependencies:
     "@ai-sdk/gateway" "2.0.11"
     "@ai-sdk/provider" "2.0.0"
