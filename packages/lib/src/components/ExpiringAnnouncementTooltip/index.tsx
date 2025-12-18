@@ -13,6 +13,17 @@ type Props = {
   loading?: boolean;
 };
 
+/**
+ * ExpiringAnnouncementTooltip displays a clickable info icon with a popover.
+ * On first view, the popover opens automatically. Once dismissed, a cookie is set
+ * and the popover stays closed on future visits. The info icon remains visible
+ * for `activeDays` (default 8) after first dismissal, then disappears entirely.
+ * @param props - React props
+ * @param props.activeDays - number of days the info icon will persist after the tooltip is first viewed
+ * @param props.cookieName - cookie associated with the view state
+ * @param props.loading - whether data present in the tooltip is loading, helps avoid flickering tooltip
+ * @returns React component
+ */
 export const ExpiringAnnouncementTooltip: React.FC<
   Props & Pick<GuideCueProps, "children" | "title" | "tooltipAlign">
 > = ({ activeDays = 8, cookieName, loading = false, ...guideCueProps }) => {
