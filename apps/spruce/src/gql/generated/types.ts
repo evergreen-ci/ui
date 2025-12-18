@@ -3714,6 +3714,7 @@ export type ServiceFlags = {
   checkBlockedTasksDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   cliUpdatesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   cloudCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   degradedModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   elasticIPsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   emailNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3752,6 +3753,7 @@ export type ServiceFlagsInput = {
   checkBlockedTasksDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   cliUpdatesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   cloudCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   degradedModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   elasticIPsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   emailNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;

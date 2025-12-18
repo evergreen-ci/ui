@@ -51,6 +51,8 @@ export const miscSettings = {
     releaseMode: {
       type: "object" as const,
       title: "Release Mode",
+      description:
+        "Release mode allows Evergreen to scale more aggressively by affecting the following factors. Note that it doesn't change task queue ordering; this is still handled by adjusting priorities.",
       properties: {
         distroMaxHostsFactor: {
           type: "number" as const,
