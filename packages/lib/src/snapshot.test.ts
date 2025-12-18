@@ -1,15 +1,19 @@
 /// <reference types="vite/client" />
 
-import { composeStories, Meta, StoryFn } from "@storybook/react-vite";
+import {
+  composeStories,
+  Meta,
+  StoryFn,
+  setProjectAnnotations,
+} from "@storybook/react-vite";
 import { expect } from "vitest";
 import path from "path";
+import * as addonAnnotations from "@evg-ui/storybook-addon/src/preview";
 import { act, render } from "test_utils";
 import snapshotSerializer from "test_utils/snapshotSerializer";
 
 expect.addSnapshotSerializer(snapshotSerializer);
-
-// TODO: FIX
-// setProjectAnnotations([previewAnnotations]);
+setProjectAnnotations([addonAnnotations]);
 
 type StoryFile = {
   default: Meta;

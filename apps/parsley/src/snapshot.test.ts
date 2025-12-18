@@ -1,14 +1,13 @@
-import { composeStories } from "@storybook/react-vite";
+import { composeStories, setProjectAnnotations } from "@storybook/react-vite";
 import { expect } from "vitest";
 import path from "path";
 import { act, render, stubGetClientRects } from "@evg-ui/lib/test_utils";
 import snapshotSerializer from "@evg-ui/lib/test_utils/snapshotSerializer";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import * as addonAnnotations from "@evg-ui/storybook-addon/src/preview";
 
 expect.addSnapshotSerializer(snapshotSerializer);
-
-// TODO: FIX
-// setProjectAnnotations([projectAnnotations, previewAnnotations]);
+setProjectAnnotations([addonAnnotations]);
 
 type StoryFile = {
   default: CustomMeta<unknown>;
