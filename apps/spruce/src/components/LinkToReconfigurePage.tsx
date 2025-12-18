@@ -1,6 +1,5 @@
 import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useVersionAnalytics, usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { getPatchRoute } from "constants/routes";
@@ -19,7 +18,6 @@ export const LinkToReconfigurePage: React.FC<{
       align={Align.Left}
       enabled={disabled}
       justify={Justify.End}
-      popoverZIndex={zIndex.tooltip}
       trigger={
         <span>
           <DropdownItem

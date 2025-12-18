@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useSpawnAnalytics } from "analytics";
 import { PlusButton } from "components/Buttons";
@@ -40,7 +40,6 @@ export const SpawnHostButton: React.FC = () => {
         align="top"
         enabled={reachedMaxNumHosts}
         justify="middle"
-        popoverZIndex={zIndex.tooltip}
         trigger={
           <PlusButton
             data-cy="spawn-host-button"

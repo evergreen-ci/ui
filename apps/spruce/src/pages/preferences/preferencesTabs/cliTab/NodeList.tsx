@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 import { NodeType, Node } from "./nodeList/Node";
 
@@ -30,7 +29,9 @@ const NodeContainer = styled.div`
       top: 0%;
       height: 90%;
       width: 1px;
-      z-index: ${zIndex.backdrop};
+
+      /* Connecting line should appear under circles */
+      z-index: -1;
     }
   }
 `;

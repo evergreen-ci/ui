@@ -7,7 +7,7 @@ import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   PromoteVarsToRepoMutation,
@@ -149,7 +149,6 @@ const DuplicateVarTooltip: React.FC = () => (
   <Tooltip
     data-cy="duplicate-var-tooltip"
     justify="middle"
-    popoverZIndex={zIndex.tooltip}
     trigger={
       <IconContainer data-cy="duplicate-var-icon">
         <Icon glyph="ImportantWithCircle" size="small" />

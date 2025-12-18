@@ -14,7 +14,7 @@ type CommitDetailsListType = React.ComponentProps<typeof CommitDetailsList> & {
 
 export default {
   component: CommitDetailsList,
-  decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
   args: {
     isPatch: false,
     loading: false,

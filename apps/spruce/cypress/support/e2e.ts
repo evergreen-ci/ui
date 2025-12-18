@@ -23,8 +23,6 @@ import {
   SEEN_TEST_SELECTION_GUIDE_CUE,
 } from "constants/cookies";
 import { hasOperationName, isMutation } from "../utils/graphql-test-utils";
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
 
 declare global {
   namespace Cypress {

@@ -1,11 +1,13 @@
-import type { StorybookConfig } from "@storybook/react-vite";
+import { type StorybookConfig } from "@storybook/react-vite";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-export { addons, previewHead, stories, viteFinal } from "./main";
+// Storybook requires using .ts extensions explicitly for imports.
+export { addons, previewHead, stories, viteFinal } from "./main/index.ts";
 
-export { default as projectAnnotations } from "./preview";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export const previewAnnotations: StorybookConfig["previewAnnotations"] = [
-  // Cannot reference module (i.e. require("./preview")) due to Vitest setup.
-  // https://github.com/vitest-dev/vitest/issues/846
-  require.resolve("./preview/index.tsx"),
+  join(__dirname, "preview", "index.tsx"),
 ];
