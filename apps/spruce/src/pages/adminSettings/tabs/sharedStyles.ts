@@ -39,6 +39,7 @@ export const nestedObjectGridCss = css`
     // Makes description span all columns.
     > p:first-of-type {
       ${fullWidthCss};
+    }
   }
 `;
 
