@@ -112,11 +112,11 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
           onSendMessage={(message) => {
             sendEvent({ message, name: "Interacted with Parsley AI" });
           }}
-          transformMessage={(message, { chips }) => {
+          transformMessage={(message, { pendingChips: chips }) => {
             let transformed = message;
             if (chips && chips.length > 0) {
               const contextText = chips
-                .map((chip) => `[${chip.label}]: ${chip.content}`)
+                .map((chip) => `[${chip.badgeLabel}]: ${chip.content}`)
                 .join("\n");
               transformed = `${message}\nThe user also supplied the following lines as context for their query:\n${contextText}`;
             }

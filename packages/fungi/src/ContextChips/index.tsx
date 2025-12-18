@@ -26,19 +26,18 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
         <RichLink
           // @ts-expect-error: The types aren't exported from LG
           badgeColor={chip.badgeColor ?? "purple"}
-          badgeLabel={chip.label}
-          onLinkClick={() => chip?.onClick?.()}
+          badgeLabel={chip.badgeLabel}
           variant={chip.badgeVariant ?? "Code"}
         >
-          {`${chip.content.slice(0, 30)}...`}
+          {chip.content}
         </RichLink>
         {dismissible && (
-          <IconButton
+          <StyledIconButton
             aria-label="Dismiss chip"
             onClick={() => onDismiss?.(chip)}
           >
             <Icon glyph="X" onClick={() => onDismiss?.(chip)} />
-          </IconButton>
+          </StyledIconButton>
         )}
       </SingleChip>
     ))}
@@ -49,14 +48,22 @@ const SingleChip = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.xxs};
+  width: inherit;
+
+  // Overwrite badge styling for RichLink; it's not possible to style RichLink directly.
+  > div > div {
+    flex-shrink: 0;
+  }
 `;
+
+const StyledIconButton = styled(IconButton)``;
 
 const ChipContainer = styled.div<{ dismissible: boolean }>`
   display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: ${size.xs};
 
-  width: 100%;
-  ${({ dismissible }) => dismissible && `padding: ${size.xs} ${size.s};`}
+  ${({ dismissible }) =>
+    dismissible ? `width: calc(100% - ${size.s} * 2);` : `width: 100%;`}
+  ${({ dismissible }) => dismissible && `padding: ${size.xs} 0;`}
 `;

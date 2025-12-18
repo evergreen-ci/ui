@@ -15,6 +15,21 @@ export const Default = {
     ],
     id: "123",
     role: "user",
+    metadata: {
+      originalMessage: "Is this the first time this task has failed?",
+      chips: [
+        {
+          content: "console.log('hello')",
+          identifier: "test-1",
+          badgeLabel: "Line 1",
+        },
+        {
+          content: "console.log('world')",
+          identifier: "test-2",
+          badgeLabel: "Lines 3-5",
+        },
+      ],
+    },
   },
 } satisfies CustomStoryObj<typeof MessageRenderer>;
 

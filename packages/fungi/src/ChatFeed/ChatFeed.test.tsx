@@ -67,8 +67,8 @@ describe("ChatFeed", () => {
     it("transforms the message using the given prop", async () => {
       const user = userEvent.setup();
       const mockTransformMessage = vi.fn(
-        (message, { chips }) =>
-          `Transformed: ${message} with ${chips.length} chips`,
+        (message, { pendingChips }) =>
+          `Transformed: ${message} with ${pendingChips.length} chips`,
       );
       render(
         <ChatFeed apiUrl="/foo" transformMessage={mockTransformMessage} />,
@@ -80,7 +80,9 @@ describe("ChatFeed", () => {
       const textarea = screen.getByRole("textbox");
       await user.type(textarea, message);
       await user.click(screen.getByRole("button", { name: "Send message" }));
-      expect(mockTransformMessage).toHaveBeenCalledWith(message, { chips: [] });
+      expect(mockTransformMessage).toHaveBeenCalledWith(message, {
+        pendingChips: [],
+      });
       expect(screen.queryByDataCy("message-user")).toHaveTextContent(message);
     });
   });
@@ -89,13 +91,13 @@ describe("ChatFeed", () => {
     const chip1: ContextChip = {
       content: "console.log('test')",
       identifier: "test-1",
-      label: "Line 1",
+      badgeLabel: "Line 1",
     };
 
     const chip2: ContextChip = {
       content: "const x = 42;",
       identifier: "test-2",
-      label: "Lines 5-6",
+      badgeLabel: "Lines 5-6",
     };
 
     const chipMap: Map<string, ContextChip> = new Map();
