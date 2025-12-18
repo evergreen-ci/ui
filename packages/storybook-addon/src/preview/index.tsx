@@ -1,3 +1,4 @@
+import { InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { Decorator, Parameters, Preview } from "@storybook/react-vite";
@@ -29,11 +30,16 @@ const decorators: Decorator[] = [
         apolloClient: { MockedProvider: _, ...rest },
       },
     },
-  ) => (
-    <MockedProvider {...rest}>
-      <Story />
-    </MockedProvider>
-  ),
+  ) => {
+    const cache = new InMemoryCache({
+      addTypename: true,
+    });
+    return (
+      <MockedProvider {...rest} cache={cache}>
+        <Story />
+      </MockedProvider>
+    );
+  },
   (Story, context) => {
     const { parameters: storyParameters } = context;
     const { reactRouter } = storyParameters;
