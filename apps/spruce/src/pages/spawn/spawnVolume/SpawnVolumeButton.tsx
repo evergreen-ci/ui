@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { PlusButton } from "components/Buttons";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
@@ -28,7 +28,6 @@ export const SpawnVolumeButton: React.FC<SpawnVolumeButtonProps> = ({
         align="top"
         enabled={reachedMaxVolumeSize}
         justify="middle"
-        popoverZIndex={zIndex.tooltip}
         trigger={
           <PlusButton
             data-cy="spawn-volume-btn"

@@ -106,7 +106,7 @@ const renderWithRouterMatch = (
  */
 const renderComponentWithHook = <
   T extends () => unknown,
-  U extends JSX.Element | null,
+  U extends React.JSX.Element | null,
 >(
   useHook: T,
   Comp: U,

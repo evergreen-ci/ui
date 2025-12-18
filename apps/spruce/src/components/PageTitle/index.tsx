@@ -23,11 +23,11 @@ const TitleTypography: React.FC<TitleTypographyProps> = ({
 
 interface Props {
   loading: boolean;
-  title: string | JSX.Element | React.ReactNode[];
+  title: React.ReactNode;
   pageTitle?: string;
-  subtitle?: string | JSX.Element | React.ReactNode[];
-  badge: JSX.Element;
-  buttons?: JSX.Element;
+  subtitle?: React.ReactNode;
+  badge: React.ReactNode;
+  buttons?: React.ReactNode;
   size?: Size;
   children?: React.ReactNode;
 }

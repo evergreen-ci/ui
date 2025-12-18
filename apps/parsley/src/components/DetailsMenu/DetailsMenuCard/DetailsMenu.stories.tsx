@@ -10,7 +10,7 @@ import DetailsMenu from ".";
 export default {
   component: DetailsMenu,
   decorators: [
-    (Story: () => JSX.Element) => (
+    (Story: () => React.JSX.Element) => (
       <MockedProvider mocks={[parsleySettingsMock]}>
         <Story />
       </MockedProvider>

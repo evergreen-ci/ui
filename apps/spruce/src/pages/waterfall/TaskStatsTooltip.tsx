@@ -5,7 +5,7 @@ import { IconButton } from "@leafygreen-ui/icon-button";
 import { Popover, Align } from "@leafygreen-ui/popover";
 import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Divider } from "components/styles";
@@ -67,7 +67,6 @@ export const TaskStatsTooltip: React.FC<
         ref={popoverRef}
         active={open}
         align={Align.Right}
-        popoverZIndex={zIndex.popover}
         refEl={buttonRef}
       >
         <PopoverContainer data-cy="task-stats-tooltip">

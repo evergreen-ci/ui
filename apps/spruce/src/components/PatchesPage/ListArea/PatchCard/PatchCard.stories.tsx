@@ -5,7 +5,7 @@ import PatchCard from ".";
 
 export default {
   component: PatchCard,
-  decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
 } satisfies CustomMeta<typeof PatchCard>;
 
 export const ProjectPatchCard: CustomStoryObj<typeof PatchCard> = {

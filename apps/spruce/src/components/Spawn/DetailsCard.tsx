@@ -15,7 +15,7 @@ const FieldName = styled.div`
 
 interface CardItem {
   label: string;
-  value: JSX.Element;
+  value: React.JSX.Element;
 }
 
 const CardField: React.FC<CardItem> = ({ label, value }) =>
@@ -27,7 +27,7 @@ const CardField: React.FC<CardItem> = ({ label, value }) =>
   ) : null;
 
 type FieldMap<T> = {
-  [key: string]: (T: T) => JSX.Element;
+  [key: string]: (T: T) => React.JSX.Element;
 };
 
 interface DetailsCardProps {

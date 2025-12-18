@@ -4,7 +4,7 @@ import CustomCreatedTickets from "./CustomCreatedTickets";
 
 export default {
   component: CustomCreatedTickets,
-  decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
 } satisfies CustomMeta<typeof CustomCreatedTickets>;
 
 export const Default: CustomStoryObj<typeof CustomCreatedTickets> = {

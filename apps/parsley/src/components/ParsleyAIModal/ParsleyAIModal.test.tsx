@@ -18,9 +18,7 @@ import { ParsleyAIModal } from ".";
 
 const wrapper = (mocks: MockedResponse[] = []) => {
   const renderContent = ({ children }: React.PropsWithChildren) => (
-    <MockedProvider addTypename={false} mocks={mocks}>
-      {children}
-    </MockedProvider>
+    <MockedProvider mocks={mocks}>{children}</MockedProvider>
   );
   return renderContent;
 };

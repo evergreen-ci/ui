@@ -98,8 +98,8 @@ const renderCheckboxes = ({
   tData: TreeDataEntry[];
   state: string[];
   onChange: (v: [string]) => void;
-}): JSX.Element[] => {
-  const rows: JSX.Element[] = [];
+}): React.JSX.Element[] => {
+  const rows: React.JSX.Element[] = [];
   tData.forEach((entry) => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     renderCheckboxesHelper({ rows, data: entry, onChange, state, tData });
@@ -114,7 +114,7 @@ const renderCheckboxesHelper = ({
   state,
   tData,
 }: {
-  rows: JSX.Element[];
+  rows: React.JSX.Element[];
   data: TreeDataEntry;
   onChange: (v: string[]) => void;
   state: string[];
