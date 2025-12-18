@@ -7,6 +7,7 @@ export type ContextChip = {
   badgeLabel: string;
   badgeColor?: string; // The types aren't exported from LG
   badgeVariant?: RichLinkVariantName;
+  metadata?: Record<string, unknown>;
 };
 
 type ChatContextState = {

@@ -28,6 +28,16 @@ describe("ContextChips", () => {
     });
   });
 
+  it("calls onClick when a chip is clicked", async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(
+      <ContextChips chips={chips} dismissible={false} onClick={onClick} />,
+    );
+    await user.click(screen.getByText(chips[1].badgeLabel));
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
   it("renders dismiss buttons when dismissible is true", () => {
     const mockOnDismiss = vi.fn();
     render(

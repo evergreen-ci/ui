@@ -5,15 +5,18 @@ import {
   MessageActionsProps,
 } from "@lg-chat/message";
 import { UIMessagePart, UIDataTypes, UITools, ToolUIPart } from "ai";
+import { ContextChip } from "../Context/context";
 import { ContextChips } from "../ContextChips";
 import { ToolRenderer } from "./ToolRenderer";
 import { FungiUIMessage } from "./types";
 
 export const MessageRenderer: React.FC<
-  FungiUIMessage & MessageActionsProps
+  FungiUIMessage &
+    MessageActionsProps & { onChipClick?: (chip: ContextChip) => void }
 > = ({
   id,
   metadata,
+  onChipClick,
   onClickCopy,
   onRatingChange,
   onSubmitFeedback,
@@ -42,7 +45,11 @@ export const MessageRenderer: React.FC<
             sourceType={MessageSourceType.Markdown}
           >
             {isSender && chips.length > 0 && (
-              <ContextChips chips={chips} dismissible={false} />
+              <ContextChips
+                chips={chips}
+                dismissible={false}
+                onClick={onChipClick}
+              />
             )}
             {!isSender && part.state === "done" && isLastPart && (
               <Message.Actions

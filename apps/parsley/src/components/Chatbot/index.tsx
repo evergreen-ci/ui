@@ -26,7 +26,7 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { sendEvent } = useAIAgentAnalytics();
-  const { logMetadata } = useLogContext();
+  const { logMetadata, scrollToLine } = useLogContext();
   const { drawerOpen } = useChatContext();
   const { execution, fileName, groupID, logType, origin, taskID, testID } =
     logMetadata ?? {};
@@ -105,6 +105,12 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
           handleRatingChange={handleFeedback}
           handleSubmitFeedback={handleFeedback}
           loginUrl={loginURL}
+          onChipClick={(chip) => {
+            const lineNumber = chip.metadata?.startingLine;
+            if (typeof lineNumber === "number") {
+              scrollToLine(lineNumber);
+            }
+          }}
           onClickCopy={handleCopy}
           onClickSuggestion={(suggestion) => {
             sendEvent({ name: "Clicked suggestion", suggestion });

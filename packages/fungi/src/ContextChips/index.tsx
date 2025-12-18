@@ -9,11 +9,13 @@ export type ContextChipsProps = {
   chips: ContextChip[];
   dismissible: boolean;
   onDismiss?: (chip: ContextChip) => void;
+  onClick?: (chip: ContextChip) => void;
 };
 
 export const ContextChips: React.FC<ContextChipsProps> = ({
   chips,
   dismissible,
+  onClick,
   onDismiss,
 }) => (
   <ChipContainer dismissible={dismissible}>
@@ -27,6 +29,7 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
           // @ts-expect-error: The types aren't exported from LG
           badgeColor={chip.badgeColor ?? "purple"}
           badgeLabel={chip.badgeLabel}
+          onLinkClick={() => onClick?.(chip)}
           variant={chip.badgeVariant ?? "Code"}
         >
           {chip.content}

@@ -51,6 +51,10 @@ const SharingMenu: React.FC = () => {
       identifier: endingLine
         ? `lines-${startingLine}-to-${endingLine}`
         : `line-${startingLine}`,
+      metadata: {
+        endingLine,
+        startingLine,
+      },
     });
   };
 

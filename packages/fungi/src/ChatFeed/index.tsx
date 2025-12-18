@@ -30,6 +30,7 @@ export type ChatFeedProps = {
       pendingChips?: ContextChip[];
     },
   ) => string;
+  onChipClick?: (chip: ContextChip) => void;
 };
 
 export const ChatFeed: React.FC<ChatFeedProps> = ({
@@ -38,6 +39,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   chatSuggestions,
   handleRatingChange,
   handleSubmitFeedback,
+  onChipClick,
   onClickCopy,
   onClickSuggestion,
   onSendMessage,
@@ -97,6 +99,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
               return (
                 <MessageRenderer
                   key={m.id}
+                  onChipClick={onChipClick}
                   onClickCopy={onClickCopy}
                   onRatingChange={
                     spanId ? handleRatingChange?.(spanId) : undefined
@@ -113,7 +116,8 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
         <ContextChips
           chips={chips}
           dismissible
-          onDismiss={(chip) => toggleChip(chip)}
+          onClick={onChipClick}
+          onDismiss={toggleChip}
         />
         <InputBar {...inputState} onMessageSend={handleSend} />
       </ChatWindow>
