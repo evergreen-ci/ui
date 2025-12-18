@@ -80,7 +80,7 @@ const useTabConfig = (
       isDisplayTask && !!executionTasksFull && executionTasksFull.length > 0,
   };
 
-  const tabMap: Record<TaskTab, JSX.Element> = {
+  const tabMap: Record<TaskTab, React.JSX.Element> = {
     [TaskTab.Logs]: (
       <Tab key="task-logs-tab" data-cy="task-logs-tab" name="Logs">
         <Logs execution={execution} logLinks={logLinks} taskId={id} />

@@ -15,7 +15,7 @@ import SidePanel from ".";
 export default {
   component: SidePanel,
   decorators: [
-    (Story: () => JSX.Element) => (
+    (Story: () => React.JSX.Element) => (
       <MockedProvider mocks={[projectFiltersMock, evergreenTaskMock]}>
         <Story />
       </MockedProvider>

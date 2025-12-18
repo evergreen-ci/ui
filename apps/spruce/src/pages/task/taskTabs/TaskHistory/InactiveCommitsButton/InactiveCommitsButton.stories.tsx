@@ -8,7 +8,7 @@ import InactiveCommitsButton from ".";
 
 export default {
   component: InactiveCommitsButton,
-  decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
 } satisfies CustomMeta<typeof InactiveCommitsButton>;
 
 export const Default: CustomStoryObj<typeof InactiveCommitsButton> = {
