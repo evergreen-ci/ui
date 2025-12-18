@@ -18,11 +18,11 @@
   },
   "devDependencies": {
     "@evg-ui/storybook-addon": "*",
-    "@storybook/react-vite": "^9.0.18",
+    "@storybook/react-vite": "^10.1.10",
     "concurrently": "8.2.2",
     "husky": "9.1.7",
     "lint-staged": "16.1.5",
-    "storybook": "^9.0.18",
+    "storybook": "^10.1.10",
     "vitest": "^3.2.4"
   }
 }
