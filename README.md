@@ -1,6 +1,15 @@
 # Evergreen UI
 
-The new home of [Spruce](/apps/spruce) and [Parsley](/apps/parsley).
+The home of [Spruce](/apps/spruce) and [Parsley](/apps/parsley).
+
+## Getting Started
+
+To use this repo, you'll need to:
+
+1. [Install pnpm](https://pnpm.io/installation) (hint: install via `npm` may be the easiest).
+2. Install dependencies: `pnpm install` from anywhere in this repo.
+
+Each application's README has instructions for running that app.
 
 ## Analytics
 
