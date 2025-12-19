@@ -20,11 +20,7 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
 }) => (
   <ChipContainer dismissible={dismissible}>
     {chips.map((chip) => (
-      <SingleChip
-        key={chip.identifier}
-        data-cy={chip.identifier}
-        data-dismissible={dismissible}
-      >
+      <SingleChip key={chip.identifier} data-cy={chip.identifier}>
         <RichLink
           // @ts-expect-error: The types aren't exported from LG
           badgeColor={chip.badgeColor ?? "purple"}
@@ -35,12 +31,12 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
           {chip.content}
         </RichLink>
         {dismissible && (
-          <StyledIconButton
+          <IconButton
             aria-label="Dismiss chip"
             onClick={() => onDismiss?.(chip)}
           >
             <Icon glyph="X" onClick={() => onDismiss?.(chip)} />
-          </StyledIconButton>
+          </IconButton>
         )}
       </SingleChip>
     ))}
@@ -59,14 +55,11 @@ const SingleChip = styled.div`
   }
 `;
 
-const StyledIconButton = styled(IconButton)``;
-
 const ChipContainer = styled.div<{ dismissible: boolean }>`
   display: flex;
   flex-direction: column;
   gap: ${size.xs};
-
+  width: inherit;
   ${({ dismissible }) =>
-    dismissible ? `width: calc(100% - ${size.s} * 2);` : `width: 100%;`}
-  ${({ dismissible }) => dismissible && `padding: ${size.xs} 0;`}
+    dismissible && `padding: ${size.xs} 48px ${size.xs} ${size.s};`}
 `;

@@ -45,7 +45,7 @@ const SharingMenu: React.FC = () => {
     setOpen(false);
     toggleChip({
       badgeLabel: endingLine
-        ? `Lines ${startingLine} to ${endingLine}`
+        ? `Lines ${startingLine}–${endingLine}`
         : `Line ${startingLine}`,
       content: getRawLines(lineNumbers, getLine),
       identifier: endingLine
@@ -126,31 +126,16 @@ const SharingMenu: React.FC = () => {
         </MenuIcon>
       }
     >
-      <MenuItem
-        glyph={<Icon glyph="Sparkle" />}
-        onClick={handleAddToParsleyAI}
-        title="Ask Parsley AI about these lines."
-      >
+      <MenuItem glyph={<Icon glyph="Sparkle" />} onClick={handleAddToParsleyAI}>
         Add to Parsley AI
       </MenuItem>
-      <MenuItem
-        glyph={<Icon glyph="Copy" />}
-        onClick={handleCopySelectedLines}
-        title={`Copy the selected ${pluralize(
-          "line",
-          lineCount,
-        )} to your clipboard with JIRA formatting.`}
-      >
+      <MenuItem glyph={<Icon glyph="Copy" />} onClick={handleCopySelectedLines}>
         Copy selected contents
       </MenuItem>
       {!isUploadedLog && (
         <MenuItem
           glyph={<Icon glyph="Export" />}
           onClick={handleShareLinkToSelectedLines}
-          title={`Copy a link to ${pluralize("this", lineCount)} ${pluralize(
-            "line",
-            lineCount,
-          )}.`}
         >
           Copy share link to selected {pluralize("line", lineCount)}
         </MenuItem>
@@ -158,15 +143,10 @@ const SharingMenu: React.FC = () => {
       <MenuItem
         glyph={<Icon glyph="MagnifyingGlass" />}
         onClick={handleOnlySearchOnRange}
-        title="Limit the range Parsley will search to only these lines."
       >
         Only search on range
       </MenuItem>
-      <MenuItem
-        glyph={<Icon glyph="Trash" />}
-        onClick={clearSelection}
-        title="Clear the selected lines."
-      >
+      <MenuItem glyph={<Icon glyph="Trash" />} onClick={clearSelection}>
         Clear selection
       </MenuItem>
     </StyledMenu>

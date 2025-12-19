@@ -26,7 +26,7 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { sendEvent } = useAIAgentAnalytics();
-  const { logMetadata, scrollToLine } = useLogContext();
+  const { logMetadata, openSectionAndScrollToLine } = useLogContext();
   const { drawerOpen } = useChatContext();
   const { execution, fileName, groupID, logType, origin, taskID, testID } =
     logMetadata ?? {};
@@ -108,7 +108,7 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
           onChipClick={(chip) => {
             const lineNumber = chip.metadata?.startingLine;
             if (typeof lineNumber === "number") {
-              scrollToLine(lineNumber);
+              openSectionAndScrollToLine(lineNumber);
             }
           }}
           onClickCopy={handleCopy}

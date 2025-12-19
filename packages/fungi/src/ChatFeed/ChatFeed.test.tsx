@@ -148,14 +148,13 @@ describe("ChatFeed", () => {
         }),
       });
 
-      expect(screen.getByDataCy(chip1.identifier)).toHaveAttribute(
-        "data-dismissible",
-        "true",
-      );
-      expect(screen.getByDataCy(chip2.identifier)).toHaveAttribute(
-        "data-dismissible",
-        "true",
-      );
+      expect(screen.getByDataCy(chip1.identifier)).toBeInTheDocument();
+      expect(screen.getByDataCy(chip2.identifier)).toBeInTheDocument();
+      expect(
+        screen.getAllByRole("button", {
+          name: "Dismiss chip",
+        }).length,
+      ).toBe(2);
 
       const message = "Why did my log fail?";
       const textarea = screen.getByRole("textbox");
@@ -163,14 +162,13 @@ describe("ChatFeed", () => {
       await user.click(screen.getByRole("button", { name: "Send message" }));
 
       // Note: the chips are still going to be present because they get rendered alongside the message.
-      expect(screen.getByDataCy(chip1.identifier)).toHaveAttribute(
-        "data-dismissible",
-        "false",
-      );
-      expect(screen.getByDataCy(chip2.identifier)).toHaveAttribute(
-        "data-dismissible",
-        "false",
-      );
+      expect(screen.getByDataCy(chip1.identifier)).toBeInTheDocument();
+      expect(screen.getByDataCy(chip2.identifier)).toBeInTheDocument();
+      expect(
+        screen.queryAllByRole("button", {
+          name: "Dismiss chip",
+        }).length,
+      ).toBe(0);
     });
   });
 });
