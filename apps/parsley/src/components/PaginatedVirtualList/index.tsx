@@ -1,5 +1,10 @@
 import { forwardRef, useCallback, useEffect, useRef } from "react";
-import { ItemContent, Virtuoso, VirtuosoHandle } from "react-virtuoso";
+import {
+  ItemContent,
+  ListRange,
+  Virtuoso,
+  VirtuosoHandle,
+} from "react-virtuoso";
 import { CharKey } from "@evg-ui/lib/constants/keys";
 import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
 import { PaginatedVirtualListRef } from "./types";
@@ -19,6 +24,9 @@ interface PaginatedVirtualListProps {
    */
   paginationOffset?: number;
   className?: string;
+  overscan: number;
+  onRangeChanged?: (range: ListRange) => void;
+  getScrollOffset?: (lineIndex: number) => number;
 }
 
 const PaginatedVirtualList = forwardRef<
@@ -28,6 +36,9 @@ const PaginatedVirtualList = forwardRef<
   (
     {
       className,
+      getScrollOffset,
+      onRangeChanged,
+      overscan,
       paginationOffset = 10,
       paginationThreshold = 10000,
       rowCount,
@@ -48,6 +59,7 @@ const PaginatedVirtualList = forwardRef<
       scrollToPrevPage,
       startingIndex,
     } = usePaginatedVirtualList({
+      getScrollOffset,
       paginationOffset,
       paginationThreshold,
       ref: listRef,
@@ -96,8 +108,12 @@ const PaginatedVirtualList = forwardRef<
         }}
         className={className}
         data-cy="paginated-virtual-list"
+        increaseViewportBy={
+          overscan === 0 ? { bottom: 50, top: 0 } : { bottom: 0, top: 0 }
+        }
         itemContent={itemContent}
-        overscan={300}
+        overscan={overscan}
+        rangeChanged={onRangeChanged}
         totalCount={pageSize}
       />
     );

@@ -6,10 +6,12 @@ import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import PaginatedVirtualList from "components/PaginatedVirtualList";
+import StickyHeaders from "components/StickyHeaders";
 import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/cookies";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useParsleySettings } from "hooks/useParsleySettings";
+import { useStickyHeaders } from "hooks/useStickyHeaders";
 import { findLineIndex } from "utils/findLineIndex";
 
 interface LogPaneProps {
@@ -17,16 +19,37 @@ interface LogPaneProps {
   rowCount: number;
 }
 const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
-  const { failingLine, listRef, preferences, processedLogLines, scrollToLine } =
-    useLogContext();
+  const {
+    failingLine,
+    listRef,
+    preferences,
+    processedLogLines,
+    scrollToLine,
+    sectioning,
+  } = useLogContext();
   const { sendEvent } = useLogWindowAnalytics();
-  const { setPrettyPrint, setWrap, zebraStriping } = preferences;
+  const {
+    setPrettyPrint,
+    setWrap,
+    stickyHeaders: stickyHeadersPreference,
+    zebraStriping,
+  } = preferences;
   const { settings } = useParsleySettings();
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
   );
   const performedScroll = useRef(false);
+
+  const {
+    getScrollOffsetForLine,
+    onStickyHeaderHeightChange,
+    stickyHeaders,
+    updateStickyHeaders,
+  } = useStickyHeaders(processedLogLines);
+
+  const stickyHeadersEnabled =
+    stickyHeadersPreference && sectioning.sectioningEnabled;
 
   useEffect(() => {
     if (listRef.current && !performedScroll.current && settings) {
@@ -71,15 +94,33 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listRef, performedScroll, settings, processedLogLines]);
 
+  const stickyHeadersProps = stickyHeadersEnabled
+    ? {
+        getScrollOffset: getScrollOffsetForLine,
+        onRangeChanged: ({ startIndex }: { startIndex: number }) =>
+          updateStickyHeaders(startIndex),
+        overscan: 0,
+      }
+    : { overscan: 300 };
+
   return (
-    <PaginatedVirtualList
-      ref={listRef}
-      className={zebraStriping ? zebraStripingStyles : undefined}
-      paginationOffset={200}
-      paginationThreshold={500000}
-      rowCount={rowCount}
-      rowRenderer={rowRenderer}
-    />
+    <>
+      {stickyHeadersEnabled ? (
+        <StickyHeaders
+          onHeightChange={onStickyHeaderHeightChange}
+          stickyHeaders={stickyHeaders}
+        />
+      ) : null}
+      <PaginatedVirtualList
+        ref={listRef}
+        className={zebraStriping ? zebraStripingStyles : undefined}
+        paginationOffset={200}
+        paginationThreshold={500000}
+        rowCount={rowCount}
+        rowRenderer={rowRenderer}
+        {...stickyHeadersProps}
+      />
+    </>
   );
 };
 
