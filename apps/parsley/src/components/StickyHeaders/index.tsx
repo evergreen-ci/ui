@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
+import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
 import SectionHeader from "components/LogRow/SectionHeader";
 import SubsectionHeader from "components/LogRow/SubsectionHeader";
@@ -58,26 +59,28 @@ const StickyHeaders: React.FC<StickyHeaderProps> = ({
   );
 };
 
+const stickyHeaderZIndex = 1;
+
 const StickyContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: ${stickyHeaderZIndex};
 `;
 
 const StickySectionWrapper = styled.div`
   position: sticky;
   top: 0;
-  background-color: white;
-  z-index: 1;
+  background-color: ${palette.white};
+  z-index: ${stickyHeaderZIndex};
 `;
 
 const StickySubsectionWrapper = styled.div<{ hasParentSection: boolean }>`
   position: sticky;
   top: ${({ hasParentSection }) => (hasParentSection ? size.l : "0")};
-  background-color: white;
-  z-index: 1;
+  background-color: ${palette.white};
+  z-index: ${stickyHeaderZIndex};
 `;
 
 export default StickyHeaders;

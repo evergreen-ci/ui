@@ -22,9 +22,9 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
   const {
     failingLine,
     listRef,
+    openSectionAndScrollToLine,
     preferences,
     processedLogLines,
-    scrollToLine,
     sectioning,
   } = useLogContext();
   const { sendEvent } = useLogWindowAnalytics();
@@ -66,7 +66,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
             { failingLine, initialScrollIndex, shareLine },
             SentryBreadcrumbTypes.User,
           );
-          scrollToLine(initialScrollIndex);
+          openSectionAndScrollToLine(initialScrollIndex);
         } else {
           leaveBreadcrumb(
             "shareLine or failingLine not provided or found in processedLogLines",
@@ -94,6 +94,15 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listRef, performedScroll, settings, processedLogLines]);
 
+  const stickyHeadersProps = stickyHeadersEnabled
+    ? {
+        getScrollOffset: getScrollOffsetForLine,
+        onRangeChanged: ({ startIndex }: { startIndex: number }) =>
+          updateStickyHeaders(startIndex),
+        overscan: 0,
+      }
+    : { overscan: 300 };
+
   return (
     <>
       {stickyHeadersEnabled ? (
@@ -105,19 +114,11 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
       <PaginatedVirtualList
         ref={listRef}
         className={zebraStriping ? zebraStripingStyles : undefined}
-        getScrollOffset={
-          stickyHeadersEnabled ? getScrollOffsetForLine : undefined
-        }
-        onRangeChanged={
-          stickyHeadersEnabled
-            ? ({ startIndex }) => updateStickyHeaders(startIndex)
-            : undefined
-        }
-        overscan={stickyHeadersEnabled ? 0 : 300}
         paginationOffset={200}
         paginationThreshold={500000}
         rowCount={rowCount}
         rowRenderer={rowRenderer}
+        {...stickyHeadersProps}
       />
     </>
   );
