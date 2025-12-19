@@ -22,9 +22,9 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
   const {
     failingLine,
     listRef,
-    openSectionAndScrollToLine,
     preferences,
     processedLogLines,
+    scrollToLine,
     sectioning,
   } = useLogContext();
   const { sendEvent } = useLogWindowAnalytics();
@@ -66,7 +66,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
             { failingLine, initialScrollIndex, shareLine },
             SentryBreadcrumbTypes.User,
           );
-          openSectionAndScrollToLine(initialScrollIndex);
+          scrollToLine(initialScrollIndex);
         } else {
           leaveBreadcrumb(
             "shareLine or failingLine not provided or found in processedLogLines",
