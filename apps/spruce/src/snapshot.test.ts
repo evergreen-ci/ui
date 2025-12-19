@@ -4,12 +4,11 @@ import path from "path";
 import { act, render, stubGetClientRects } from "@evg-ui/lib/test_utils";
 import snapshotSerializer from "@evg-ui/lib/test_utils/snapshotSerializer";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { projectAnnotations } from "@evg-ui/storybook-addon";
-import * as previewAnnotations from "../.storybook/preview";
+import * as addonAnnotations from "@evg-ui/storybook-addon/src/preview";
+import * as sprucePreview from "../.storybook/preview";
 
 expect.addSnapshotSerializer(snapshotSerializer);
-
-setProjectAnnotations([projectAnnotations, previewAnnotations]);
+setProjectAnnotations([addonAnnotations, sprucePreview]);
 
 type StoryFile = {
   default: CustomMeta<unknown>;

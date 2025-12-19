@@ -101,6 +101,8 @@ export const miscSettings = {
       "ui:fieldCss": fullWidthCss,
     },
     releaseMode: {
+      "ui:description":
+        "Release mode allows Evergreen to scale more aggressively by affecting the following factors. Note that it doesn't change task queue ordering; this is still handled by adjusting priorities.",
       "ui:fieldCss": nestedObjectGridCss,
       distroMaxHostsFactor: {
         "ui:description":

@@ -1,8 +1,16 @@
+import { fileURLToPath } from "node:url";
+import { dirname } from "node:path";
+
+// This function was added automatically by Storybook's migration tool.
+const getAbsolutePath = (value: string) => {
+  return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
+}
+
 export default {
-  addons: ["@evg-ui/storybook-addon"],
+  addons: [getAbsolutePath("@evg-ui/storybook-addon")],
   stories: ["./README.mdx"],
   framework: {
-    name: "@storybook/react-vite",
+    name: getAbsolutePath("@storybook/react-vite"),
   },
   refs: {
     fungi: {
@@ -23,3 +31,4 @@ export default {
     },
   },
 };
+
