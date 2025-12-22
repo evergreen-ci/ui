@@ -2416,10 +2416,10 @@
     lodash "^4.17.21"
     polished "^4.2.2"
 
-"@leafygreen-ui/confirmation-modal@^10.2.4":
-  version "10.2.4"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/confirmation-modal/-/confirmation-modal-10.2.4.tgz#d3cb9ea9f6c1858febecad2d0d1fa3a25fd93e49"
-  integrity sha512-xoCSjYIMxg97tIHEXjUchcBJ0/6Dsswl1iMemsJY6lUmqZdV4HVrfcJSS3ylziAN+cKBK8JH/wwL64FcM0e4RA==
+"@leafygreen-ui/confirmation-modal@^10.3.0":
+  version "10.3.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/confirmation-modal/-/confirmation-modal-10.3.0.tgz#b6b298ec4042f545224243ecfeaa851a6b37a35c"
+  integrity sha512-8TdX2p8uq/cUfCMgGpq8KhJuj60GzxILhQ95pdNwd7Z3E6vpRt7QFaJbPE/r03ZljwVdXkql1DcQgmJ3fSUALg==
   dependencies:
     "@leafygreen-ui/button" "^25.1.3"
     "@leafygreen-ui/emotion" "^5.1.0"
@@ -2428,7 +2428,7 @@
     "@leafygreen-ui/modal" "^21.0.0"
     "@leafygreen-ui/palette" "^5.0.2"
     "@leafygreen-ui/text-input" "^16.2.2"
-    "@leafygreen-ui/tokens" "^4.1.0"
+    "@leafygreen-ui/tokens" "^4.2.0"
     "@leafygreen-ui/typography" "^22.2.3"
 
 "@leafygreen-ui/copyable@^12.0.2":
@@ -2712,15 +2712,15 @@
   dependencies:
     lodash "^4.17.21"
 
-"@leafygreen-ui/loading-indicator@^5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/loading-indicator/-/loading-indicator-5.0.3.tgz#5b60d8b87f43537bdca6ee0e895b9cfa337700f5"
-  integrity sha512-KsiqkbAVigB3Fm/Lmnwkw7jm/Pmcqkwf0SZTdnqtOZN9Wv84Pva2kyAZOEeyG1sMHgO1emLHJAXEZuK0qwP7+w==
+"@leafygreen-ui/loading-indicator@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/loading-indicator/-/loading-indicator-5.1.0.tgz#a79acf8c71adb3ac13ca9a520698c462d3fc7ef4"
+  integrity sha512-foOd1/HlYs6FlZXCInnEKH4xiVOhlUwQy8p86pXiE3OP8qZEAgg6PUmxuZzVeUXqaGkvb0P5AilflHlx7Pp1Mg==
   dependencies:
     "@leafygreen-ui/emotion" "^5.1.0"
-    "@leafygreen-ui/lib" "^15.6.2"
+    "@leafygreen-ui/lib" "^15.7.0"
     "@leafygreen-ui/palette" "^5.0.2"
-    "@leafygreen-ui/tokens" "^4.1.0"
+    "@leafygreen-ui/tokens" "^4.2.0"
     "@leafygreen-ui/typography" "^22.2.3"
     "@lg-tools/test-harnesses" "^0.3.4"
     react-lottie-player "^1.5.6"
@@ -3141,13 +3141,13 @@
     "@leafygreen-ui/palette" "^5.0.2"
     polished "^4.2.2"
 
-"@leafygreen-ui/tokens@^4.0.0", "@leafygreen-ui/tokens@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-4.1.0.tgz#11154490546f8bb37d44e7e1aa1baba9dd439884"
-  integrity sha512-5GfNFP0iRT4O+CnqYHpvtCUiT3aStUa2EhrV3tkrTwffemHN10M4G5nc/DhLGLNp2aQDP1+ppAtjZI5zczDSiA==
+"@leafygreen-ui/tokens@^4.0.0", "@leafygreen-ui/tokens@^4.1.0", "@leafygreen-ui/tokens@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-4.2.0.tgz#ea26ce8b0e2f5676de7ca6bbb17fd6be86442a13"
+  integrity sha512-5Bp1mhh8PKi7ZKr17/VNiSz0LL7ipFgR/Ayj7tIW79sbuGmBFt2rlu2lMnH6hQAvYrHWbW/FDqyeq85jOxIdTQ==
   dependencies:
     "@leafygreen-ui/emotion" "^5.1.0"
-    "@leafygreen-ui/lib" "^15.6.2"
+    "@leafygreen-ui/lib" "^15.7.0"
     "@leafygreen-ui/palette" "^5.0.2"
 
 "@leafygreen-ui/toolbar@^1.2.0":
