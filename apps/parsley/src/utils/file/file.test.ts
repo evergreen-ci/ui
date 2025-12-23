@@ -10,25 +10,8 @@ describe("fileToStream", () => {
     const file = new File(["Hello World"], "hello.txt", { type: "text/plain" });
     const stream = await fileToStream(file);
     const reader = stream.getReader();
-    const result = await reader.read();
-    expect(result.value).toStrictEqual(stringToArrayBuffer("Hello World"));
+    const { done, value } = await reader.read();
+    expect(done).toBe(false);
+    expect(new TextDecoder().decode(value)).toBe("Hello World");
   });
 });
-
-describe("stringToArrayBuffer", () => {
-  it("sanity check", () => {
-    const string = "Hello World";
-    const buffer = stringToArrayBuffer(string);
-    expect(buffer.byteLength).toBe(string.length);
-    expect(new TextDecoder().decode(buffer)).toBe(string);
-  });
-});
-const stringToArrayBuffer = (string: string): ArrayBuffer => {
-  const buffer = new ArrayBuffer(string.length);
-  const view = new DataView(buffer);
-  for (let i = 0; i < string.length; i++) {
-    view.setUint8(i, string.charCodeAt(i));
-  }
-
-  return buffer;
-};
