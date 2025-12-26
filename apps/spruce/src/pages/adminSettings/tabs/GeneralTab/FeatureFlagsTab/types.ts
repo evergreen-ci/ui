@@ -40,6 +40,7 @@ export interface FeatureFlagsFormState {
       elasticIPsDisabled: boolean;
       staticAPIKeysDisabled: boolean;
       backgroundReauthDisabled: boolean;
+      debugSpawnHostsDisabled: boolean;
     };
 
     batchJobs: {

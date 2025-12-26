@@ -44,6 +44,7 @@ export const gqlToForm = ((data, options = {}) => {
     },
     projectFlags: {
       dispatchingDisabled: projectRef.dispatchingDisabled,
+      debugSpawnHostsDisabled: projectRef.debugSpawnHostsDisabled,
       scheduling: {
         deactivatePrevious: projectRef.deactivatePrevious,
         stepbackDisabled: projectRef.stepbackDisabled,
@@ -95,6 +96,7 @@ export const formToGql = ((
     dispatchingDisabled: projectFlags.dispatchingDisabled,
     deactivatePrevious: projectFlags.scheduling.deactivatePrevious,
     repotrackerDisabled: projectFlags.repotracker.repotrackerDisabled,
+    debugSpawnHostsDisabled: projectFlags.debugSpawnHostsDisabled,
     stepbackDisabled: projectFlags.scheduling.stepbackDisabled,
     stepbackBisect: projectFlags.scheduling.stepbackBisection,
     patchingDisabled: projectFlags.patch.patchingDisabled,

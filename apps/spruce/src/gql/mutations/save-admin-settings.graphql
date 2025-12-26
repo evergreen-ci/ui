@@ -59,7 +59,7 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       checkBlockedTasksDisabled
       cliUpdatesDisabled
       cloudCleanupDisabled
-      debugSpawnHostDisabled
+      debugSpawnHostsDisabled
       degradedModeDisabled
       elasticIPsDisabled
       emailNotificationsDisabled
