@@ -112,6 +112,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             stepbackBisect: null,
             patchingDisabled: false,
             disabledStatsCache: false,
+            debugSpawnHostsDisabled: false,
             restricted: false,
             admins: ["rsatsrt"],
             buildBaronSettings: {
@@ -189,6 +190,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             versionControlEnabled: false,
             deactivatePrevious: true,
             repotrackerDisabled: false,
+            debugSpawnHostsDisabled: false,
             stepbackDisabled: null,
             stepbackBisect: null,
             patchingDisabled: false,
