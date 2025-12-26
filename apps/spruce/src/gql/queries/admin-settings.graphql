@@ -322,6 +322,7 @@ query AdminSettings {
       checkBlockedTasksDisabled
       cliUpdatesDisabled
       cloudCleanupDisabled
+      debugSpawnHostsDisabled
       degradedModeDisabled
       elasticIPsDisabled
       emailNotificationsDisabled

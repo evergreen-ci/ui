@@ -3,6 +3,7 @@ fragment ProjectGeneralSettings on Project {
   batchTime
   branch
   deactivatePrevious
+  debugSpawnHostsDisabled
   disabledStatsCache
   dispatchingDisabled
   displayName
@@ -23,6 +24,7 @@ fragment RepoGeneralSettings on RepoRef {
   id
   batchTime
   deactivatePrevious
+  debugSpawnHostsDisabled
   disabledStatsCache
   dispatchingDisabled
   displayName
