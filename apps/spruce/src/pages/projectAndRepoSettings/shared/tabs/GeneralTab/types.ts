@@ -20,6 +20,7 @@ export interface GeneralFormState {
   };
   projectFlags: {
     dispatchingDisabled: boolean | null;
+    debugSpawnHostsDisabled: boolean | null;
     scheduling: {
       deactivatePrevious: boolean | null;
       stepbackDisabled: boolean | null;

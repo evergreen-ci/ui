@@ -138,6 +138,16 @@ export const getFormSchema = (
               true,
             ),
           },
+          debugSpawnHostsDisabled: {
+            type: ["boolean", "null"],
+            title: "Debug Spawn Hosts",
+            oneOf: radioBoxOptions(
+              ["Enabled", "Disabled"],
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              repoData?.projectFlags?.debugSpawnHostsDisabled,
+              true,
+            ),
+          },
           repotracker: {
             type: "object" as const,
             title: "Repotracker Settings",
@@ -337,6 +347,11 @@ export const getFormSchema = (
       dispatchingDisabled: {
         "ui:widget": widgets.RadioBoxWidget,
         "ui:description": "Sets if any tasks can be dispatched.",
+      },
+      debugSpawnHostsDisabled: {
+        "ui:widget": widgets.RadioBoxWidget,
+        "ui:description":
+          "Sets if spawn hosts created from tasks can be debug-mode spawn hosts.",
       },
       repotracker: {
         repotrackerDisabled: {
