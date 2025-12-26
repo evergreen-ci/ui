@@ -29,6 +29,7 @@ const form: FeatureFlagsFormState = {
       unrecognizedPodCleanupDisabled: true,
       cloudCleanupDisabled: true,
       taskReliabilityDisabled: true,
+      debugSpawnHostDisabled: true,
     },
     notifications: {
       eventProcessingDisabled: true,
@@ -74,6 +75,7 @@ const gql: AdminSettingsInput = {
     checkBlockedTasksDisabled: true,
     cliUpdatesDisabled: true,
     cloudCleanupDisabled: true,
+    debugSpawnHostDisabled: true,
     degradedModeDisabled: true,
     elasticIPsDisabled: true,
     emailNotificationsDisabled: true,

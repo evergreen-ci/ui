@@ -21,6 +21,11 @@ export const decorators: Decorator[] = [
 
 const preview: Preview = {
   tags: ["autodocs"],
+  parameters: {
+    apolloClient: {
+      mocks: [],
+    },
+  },
 };
 
 export default preview;

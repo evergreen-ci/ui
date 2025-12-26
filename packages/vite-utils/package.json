@@ -19,6 +19,6 @@
     "@evg-ui/eslint-config": "*",
     "eslint": "^9.39.1",
     "typescript": "~5.9.3",
-    "vite-tsconfig-paths": "6.0.0-beta.4"
+    "vite-tsconfig-paths": "^6.0.2"
   }
 }
