@@ -29,6 +29,7 @@ const form: FeatureFlagsFormState = {
       unrecognizedPodCleanupDisabled: true,
       cloudCleanupDisabled: true,
       taskReliabilityDisabled: true,
+      debugSpawnHostsDisabled: true,
     },
     notifications: {
       eventProcessingDisabled: true,
