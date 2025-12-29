@@ -14,6 +14,7 @@ export interface FeatureFlagsFormState {
       unrecognizedPodCleanupDisabled: boolean;
       cloudCleanupDisabled: boolean;
       taskReliabilityDisabled: boolean;
+      debugSpawnHostsDisabled: boolean;
     };
 
     notifications: {
