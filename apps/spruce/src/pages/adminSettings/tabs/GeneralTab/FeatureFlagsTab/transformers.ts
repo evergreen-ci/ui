@@ -23,8 +23,6 @@ export const gqlToForm = ((data) => ({
       cloudCleanupDisabled: data.serviceFlags?.cloudCleanupDisabled ?? false,
       taskReliabilityDisabled:
         data.serviceFlags?.taskReliabilityDisabled ?? false,
-      debugSpawnHostDisabled:
-        data.serviceFlags?.debugSpawnHostsDisabled ?? false,
     },
     notifications: {
       eventProcessingDisabled:
