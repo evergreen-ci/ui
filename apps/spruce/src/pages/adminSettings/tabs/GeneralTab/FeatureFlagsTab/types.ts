@@ -14,7 +14,7 @@ export interface FeatureFlagsFormState {
       unrecognizedPodCleanupDisabled: boolean;
       cloudCleanupDisabled: boolean;
       taskReliabilityDisabled: boolean;
-      debugSpawnHostDisabled: boolean;
+      debugSpawnHostsDisabled: boolean;
     };
 
     notifications: {
@@ -40,6 +40,7 @@ export interface FeatureFlagsFormState {
       elasticIPsDisabled: boolean;
       staticAPIKeysDisabled: boolean;
       backgroundReauthDisabled: boolean;
+      debugSpawnHostsDisabled: boolean;
     };
 
     batchJobs: {
