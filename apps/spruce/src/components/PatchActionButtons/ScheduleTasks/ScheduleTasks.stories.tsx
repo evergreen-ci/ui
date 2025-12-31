@@ -5,7 +5,7 @@ import { ScheduleTasks } from ".";
 
 export default {
   component: ScheduleTasks,
-  decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
   parameters: {
     apolloClient: {
       mocks,

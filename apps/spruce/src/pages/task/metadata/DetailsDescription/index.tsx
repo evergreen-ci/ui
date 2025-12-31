@@ -121,6 +121,6 @@ const processFailingCommand = (
 const containerTaskStrandedMessage =
   "Task failed because the container was stranded by the ECS agent.";
 const hostTaskStrandedMessage =
-  "Task failed because spot host was unexpectedly terminated by AWS.";
+  "Task failed because the host became unreachable unexpectedly";
 
 export default DetailsDescription;

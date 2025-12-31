@@ -6,7 +6,7 @@ import ConfigurePatchCore from ".";
 export default {
   component: ConfigurePatchCore,
   title: "pages/configurePatch/configurePatchCore",
-  decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
   parameters: {
     apolloClient: {
       mocks,

@@ -26,9 +26,10 @@
     "@lg-chat/message-feed": "^9.0.1",
     "@lg-chat/message-prompts": "^4.2.0",
     "@lg-chat/message-rating": "^7.1.0",
-    "ai": "^5.0.94",
+    "ai": "^5.0.97",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "vite-tsconfig-paths": "^6.0.2",
     "zod": "^4.1.11"
   },
   "devDependencies": {
@@ -36,13 +37,13 @@
     "@evg-ui/lib": "*",
     "@evg-ui/lint-staged": "*",
     "@evg-ui/storybook-addon": "*",
-    "@storybook/react-vite": "^9.0.18",
-    "chromatic": "^13.1.4",
+    "@storybook/react-vite": "^10.1.10",
+    "chromatic": "^13.3.4",
     "eslint": "^9.39.1",
     "eslint-plugin-prettier": "^5.5.4",
-    "storybook": "^9.0.18",
+    "storybook": "^10.1.10",
     "typescript": "~5.9.3",
-    "vite-tsconfig-paths": "^6.0.0-beta.4",
+    "vite-tsconfig-paths": "^6.0.2",
     "vitest": "^3.2.4"
   }
 }

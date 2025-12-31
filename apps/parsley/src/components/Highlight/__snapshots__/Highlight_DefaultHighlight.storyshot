@@ -3,8 +3,6 @@
     Should be 
     <mark
       class="emotion-Highlight e1fp893c0"
-      color="#FFCDC7"
-      data-cy="highlight"
     >
       highlighted
     </mark>

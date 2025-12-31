@@ -65,6 +65,7 @@ export const adminSettings: AdminSettings = {
     checkBlockedTasksDisabled: true,
     cliUpdatesDisabled: true,
     cloudCleanupDisabled: true,
+    debugSpawnHostDisabled: true,
     degradedModeDisabled: true,
     elasticIPsDisabled: true,
     emailNotificationsDisabled: true,

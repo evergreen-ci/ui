@@ -157,7 +157,6 @@ export const Task = () => {
         }
         loading={loading}
         pageTitle={`Task${displayName ? ` - ${displayName}` : ""}`}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         title={displayName}
       />
       <PageLayout hasSider>
