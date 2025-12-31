@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
-import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -28,16 +27,6 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
     [slugs.execution]: executionFromParams,
     [slugs.groupId]: groupIdFromParams,
   } = useParams();
-
-  usePageVisibilityAnalytics({
-    attributes: {
-      buildId: buildIdFromParams ?? "",
-      execution: executionFromParams ?? "",
-      groupId: groupIdFromParams ?? "",
-      isLogkeeper,
-      taskId: taskIdFromParams ?? "",
-    },
-  });
 
   const dispatchToast = useToastContext();
 

@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import Icon from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
@@ -25,7 +24,6 @@ import { getTabTitle } from "./getTabTitle";
 import { AdminSettingsTabs } from "./Tabs";
 
 const AdminSettingsPage: React.FC = () => {
-  usePageVisibilityAnalytics();
   usePageTitle("Admin Settings");
   const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
     ADMIN_SETTINGS,

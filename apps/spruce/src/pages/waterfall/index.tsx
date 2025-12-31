@@ -2,7 +2,6 @@ import { Suspense, useCallback, useRef, useState } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
-import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useWaterfallAnalytics } from "analytics";
@@ -20,9 +19,6 @@ import WaterfallSkeleton from "./WaterfallSkeleton";
 
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
-  usePageVisibilityAnalytics({
-    attributes: { projectIdentifier: projectIdentifier ?? "" },
-  });
   usePageTitle(`${projectIdentifier} | Waterfall`);
   const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     validQueryParams,

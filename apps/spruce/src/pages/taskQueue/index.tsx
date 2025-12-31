@@ -5,7 +5,6 @@ import { Badge } from "@leafygreen-ui/badge";
 import { H2, H3 } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { useParams, useNavigate } from "react-router-dom";
-import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -32,9 +31,6 @@ const TaskQueue = () => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
 
   const { [slugs.distroId]: distroId } = useParams();
-  usePageVisibilityAnalytics({
-    attributes: { distroId: distroId ?? "" },
-  });
   const [taskId] = useQueryParam<string | undefined>(
     QueryParams.TaskId,
     undefined,

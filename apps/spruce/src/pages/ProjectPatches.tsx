@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
@@ -26,10 +25,6 @@ export const ProjectPatches = () => {
   const dispatchToast = useToastContext();
   const analytics = useProjectPatchesAnalytics();
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
-
-  usePageVisibilityAnalytics({
-    attributes: { projectIdentifier: projectIdentifier ?? "" },
-  });
 
   const [
     isGitHubMergeQueueCheckboxChecked,

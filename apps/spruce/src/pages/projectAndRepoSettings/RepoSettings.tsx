@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { slugs } from "constants/routes";
@@ -16,7 +15,6 @@ const RepoSettings: React.FC = () => {
   const { [slugs.repoId]: repoId = "" } = useParams<{
     [slugs.repoId]: string;
   }>();
-  usePageVisibilityAnalytics();
   const dispatchToast = useToastContext();
   usePageTitle(`Repo Settings | ${repoId}`);
 

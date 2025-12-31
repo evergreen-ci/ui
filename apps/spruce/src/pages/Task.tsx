@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
-import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -80,13 +79,6 @@ export const Task = () => {
     status,
     versionMetadata,
   } = task ?? {};
-
-  usePageVisibilityAnalytics({
-    attributes: {
-      projectIdentifier: versionMetadata?.projectIdentifier ?? "",
-      taskId: taskId ?? "",
-    },
-  });
 
   // Update the default execution in the url if it isn't populated
   useEffect(() => {

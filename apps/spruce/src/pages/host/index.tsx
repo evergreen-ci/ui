@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Code } from "@leafygreen-ui/code";
 import { useParams } from "react-router-dom";
-import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -38,10 +37,6 @@ import { Metadata } from "./Metadata";
 const Host: React.FC = () => {
   const dispatchToast = useToastContext();
   const { [slugs.hostId]: hostId } = useParams();
-
-  usePageVisibilityAnalytics({
-    attributes: { hostId: hostId ?? "" },
-  });
 
   const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
     useState<boolean>(false);

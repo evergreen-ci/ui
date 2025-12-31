@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
-import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
@@ -43,12 +42,6 @@ const VariantHistoryContents: React.FC = () => {
     [slugs.projectIdentifier]: projectIdentifier,
     [slugs.variantName]: variantName,
   } = useParams();
-  usePageVisibilityAnalytics({
-    attributes: {
-      projectIdentifier: projectIdentifier ?? "",
-      variantName: variantName ?? "",
-    },
-  });
   const { sendEvent } = useProjectHistoryAnalytics({ page: "Variant history" });
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { ingestNewCommits } = useHistoryTable();

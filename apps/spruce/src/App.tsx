@@ -1,5 +1,6 @@
 import * as React from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import ErrorBoundary from "@evg-ui/lib/components/ErrorBoundary";
 import ProtectedRoute from "@evg-ui/lib/components/ProtectedRoute";
 import { AuthProvider } from "@evg-ui/lib/context/AuthProvider";
@@ -71,11 +72,14 @@ const router = createBrowserRouter([
   },
 ]);
 
-const App: React.FC = () => (
-  <>
-    <GlobalStyles />
-    <RouterProvider router={router} />
-  </>
-);
+const App: React.FC = () => {
+  usePageVisibilityAnalytics();
+  return (
+    <>
+      <GlobalStyles />
+      <RouterProvider router={router} />
+    </>
+  );
+};
 
 export default App;

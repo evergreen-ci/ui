@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks/usePageVisibilityAnalytics";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
@@ -57,13 +56,6 @@ export const VersionPage: React.FC = () => {
   });
 
   usePolling({ startPolling, stopPolling, refetch });
-
-  usePageVisibilityAnalytics({
-    attributes: {
-      projectIdentifier: versionData?.version?.projectIdentifier ?? "",
-      versionId,
-    },
-  });
 
   const [activeTaskIds, setActiveTaskIds] = useState<string[]>([]);
 
