@@ -18,7 +18,7 @@ const fileToStream = async (
   options: StreamedFileOptions = {},
 ): Promise<ReadableStream<Uint8Array>> => {
   const { fileSizeLimit } = options;
-  const sourceStream = getFileStream(file);
+  const sourceStream = file.stream();
   // If no size limit is needed, return the browser-provided stream directly.
   if (fileSizeLimit === undefined) {
     return sourceStream;
@@ -52,13 +52,6 @@ const fileToStream = async (
       }
     },
   });
-};
-
-const getFileStream = (file: File): ReadableStream<Uint8Array> => {
-  if (typeof file.stream !== "function") {
-    throw new Error("File.stream() is unavailable in this environment.");
-  }
-  return file.stream();
 };
 
 export { fileToStream };
