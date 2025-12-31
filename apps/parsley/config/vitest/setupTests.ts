@@ -35,16 +35,19 @@ globalThis.jest = {
 // LeafyGreen tables require an IntersectionObserver.
 beforeEach(() => {
   if (typeof File !== "undefined" && !File.prototype.stream) {
-    File.prototype.stream = function stream(): ReadableStream<Uint8Array<ArrayBuffer>> {
-      const file = this;
+    File.prototype.stream = function stream(): ReadableStream<
+      Uint8Array<ArrayBuffer>
+    > {
+      const fileSize = this.size;
+      const fileSlice = this.slice.bind(this);
       let offset = 0;
       return new ReadableStream<Uint8Array<ArrayBuffer>>({
         async pull(controller) {
-          if (offset >= file.size) {
+          if (offset >= fileSize) {
             controller.close();
             return;
           }
-          const chunk = file.slice(offset, offset + POLYFILL_CHUNK_SIZE);
+          const chunk = fileSlice(offset, offset + POLYFILL_CHUNK_SIZE);
           offset += POLYFILL_CHUNK_SIZE;
           const buffer = await readBlobAsArrayBuffer(chunk);
           controller.enqueue(new Uint8Array(buffer) as Uint8Array<ArrayBuffer>);
@@ -96,7 +99,7 @@ const readBlobAsArrayBuffer = (blob: Blob): Promise<ArrayBuffer> =>
     const reader = new FileReader();
     reader.onload = () => {
       // FileReader.result can be ArrayBufferLike, but readAsArrayBuffer specifically returns ArrayBuffer
-      const result = reader.result;
+      const { result } = reader;
       if (result instanceof ArrayBuffer) {
         resolve(result);
       } else {
