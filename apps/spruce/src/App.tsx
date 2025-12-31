@@ -19,6 +19,11 @@ import {
   isLocal,
 } from "utils/environmentVariables";
 
+const AppContents: React.FC = () => {
+  usePageVisibilityAnalytics();
+  return <Outlet />;
+};
+
 const router = createBrowserRouter([
   {
     element: (
@@ -29,7 +34,7 @@ const router = createBrowserRouter([
           remoteAuthURL={`${getEvergreenUrl()}/login`}
           shouldUseLocalAuth={isLocal()}
         >
-          <Outlet />
+          <AppContents />
         </AuthProvider>
       </ErrorBoundary>
     ),
@@ -72,14 +77,11 @@ const router = createBrowserRouter([
   },
 ]);
 
-const App: React.FC = () => {
-  usePageVisibilityAnalytics();
-  return (
-    <>
-      <GlobalStyles />
-      <RouterProvider router={router} />
-    </>
-  );
-};
+const App: React.FC = () => (
+  <>
+    <GlobalStyles />
+    <RouterProvider router={router} />
+  </>
+);
 
 export default App;

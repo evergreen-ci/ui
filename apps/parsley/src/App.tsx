@@ -11,6 +11,11 @@ import { GlobalProviders } from "context";
 import Content from "pages";
 import { evergreenURL, isLocal, parsleyURL } from "utils/environmentVariables";
 
+const AppContents = () => {
+  usePageVisibilityAnalytics();
+  return <Outlet />;
+};
+
 const router = createBrowserRouter([
   {
     children: [
@@ -41,24 +46,21 @@ const router = createBrowserRouter([
           remoteAuthURL={`${evergreenURL}/login`}
           shouldUseLocalAuth={isLocal()}
         >
-          <Outlet />
+          <AppContents />
         </AuthProvider>
       </ErrorBoundary>
     ),
   },
 ]);
 
-const App = () => {
-  usePageVisibilityAnalytics();
-  return (
-    <>
-      <GlobalStyles />
-      <AppWrapper>
-        <RouterProvider router={router} />
-      </AppWrapper>
-    </>
-  );
-};
+const App = () => (
+  <>
+    <GlobalStyles />
+    <AppWrapper>
+      <RouterProvider router={router} />
+    </AppWrapper>
+  </>
+);
 
 const AppWrapper = styled.div`
   display: flex;

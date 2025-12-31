@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { useAnalyticsRoot } from "./useAnalyticsRoot";
 
 type PageVisibilityAction =
@@ -71,6 +72,7 @@ export const usePageVisibilityAnalytics = ({
     "PageVisibility",
     attributes,
   );
+  const { pathname } = useLocation();
 
   // Track timing information
   const visibilityStartTime = useRef<number>(0);
@@ -161,8 +163,15 @@ export const usePageVisibilityAnalytics = ({
           "visibility.timestamp": new Date().toISOString(),
         });
       }
+
+      // Reset state for next page/render
+      visibilityStartTime.current = 0;
+      totalVisibleTime.current = 0;
+      totalHiddenTime.current = 0;
+      stateChangeCount.current = 0;
+      lastVisibilityState.current = null;
     };
-  }, [enabled, sendEvent, trackSession, minDuration]);
+  }, [enabled, sendEvent, trackSession, minDuration, pathname]);
 
   return {
     isVisible: document.visibilityState === "visible",
