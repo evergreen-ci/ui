@@ -2532,6 +2532,7 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
+  user: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   versionFull?: Maybe<Version>;
@@ -3716,6 +3717,7 @@ export type ServiceFlags = {
   checkBlockedTasksDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   cliUpdatesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   cloudCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   degradedModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   elasticIPsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   emailNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3727,7 +3729,6 @@ export type ServiceFlags = {
   jiraNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  legacyUIAdminPageDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   podAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3755,6 +3756,7 @@ export type ServiceFlagsInput = {
   checkBlockedTasksDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   cliUpdatesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   cloudCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   degradedModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   elasticIPsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   emailNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3766,7 +3768,6 @@ export type ServiceFlagsInput = {
   jiraNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   jwtTokenForCLIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   largeParserProjectsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  legacyUIAdminPageDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   podAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   podInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -4119,6 +4120,7 @@ export type Task = {
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   pod?: Maybe<Pod>;
+  predictedTaskCost?: Maybe<TaskCost>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"]["output"];
@@ -4812,6 +4814,7 @@ export type Version = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
+  user: User;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
