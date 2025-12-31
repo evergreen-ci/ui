@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { PolymorphicAs } from "@leafygreen-ui/polymorphic";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
@@ -43,7 +42,7 @@ const MetadataCard: React.FC<Props> = ({
 );
 
 interface ItemProps {
-  as?: PolymorphicAs;
+  as?: BodyProps["as"];
   children: React.ReactNode;
   "data-cy"?: string;
   tooltipDescription?: string;
@@ -70,11 +69,11 @@ export const MetadataItem: React.FC<ItemProps> = ({
 export const MetadataLabel = styled.b<{ color?: string }>`
   ${({ color }) => color && `color: ${color};`}
 `;
-export const MetadataCardTitle = styled(Body)<BodyProps>`
+export const MetadataCardTitle = styled(Body)`
   font-size: 15px;
 `;
 
-const Item = styled(Body)<BodyProps>`
+const Item = styled(Body)`
   ${wordBreakCss}
   font-size: 12px;
   line-height: 14px;

@@ -50,19 +50,15 @@ export const PageLayout = styled.section<{ hasSider?: boolean }>`
 export const siderCardWidth = 275;
 
 export const PageSider = styled.aside<{ width?: number }>`
-  ${({ width = siderCardWidth }) => `
-   max-width: ${width}px;
-   min-width: ${width}px;
-   width: ${width}px;
-   `}
+  max-width: ${({ width }) => width ?? siderCardWidth}px;
+  min-width: ${({ width }) => width ?? siderCardWidth}px;
+  width: ${({ width }) => width ?? siderCardWidth}px;
 `;
 export const PageContent = styled.main`
   flex: auto;
   margin-left: ${size.s};
   overflow: hidden;
 `;
-
-PageSider.defaultProps = { width: siderCardWidth };
 
 export const PageTitle = styled(H2)<H2Props>`
   margin-bottom: ${size.s};

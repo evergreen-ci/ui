@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { fontSize, size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { mapUmbrellaStatusColors } from "constants/task";
@@ -32,7 +32,6 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
       darkMode
       enabled={!!statusCounts}
       justify="middle"
-      popoverZIndex={zIndex.tooltip}
       trigger={
         <div>
           <Link

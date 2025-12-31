@@ -15,7 +15,7 @@ interface TaskDurationCellProps {
   timeTaken: number;
 }
 
-export const TaskDurationCell: React.VFC<TaskDurationCellProps> = ({
+export const TaskDurationCell: React.FC<TaskDurationCellProps> = ({
   maxTimeTaken,
   status,
   timeTaken,

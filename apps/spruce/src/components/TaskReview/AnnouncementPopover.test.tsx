@@ -39,7 +39,7 @@ describe("AnnouncementPopover", () => {
       });
     });
 
-    it("sets a cookie with the date upon close", async () => {
+    it("sets a cookie with the date and expiration upon close", async () => {
       const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
       vi.setSystemTime(fakeDate);
 
@@ -58,6 +58,7 @@ describe("AnnouncementPopover", () => {
       expect(mockedSet).toHaveBeenCalledExactlyOnceWith(
         "seen-task-review-tooltip",
         fakeDate.toString(),
+        { expires: 365 },
       );
     });
   });

@@ -6,7 +6,7 @@ import { ToastContext } from "../context/toast";
  * @param Story - Story to wrap
  * @returns Story with MockToastProvider
  */
-const WithToastContext = (Story: () => JSX.Element) => (
+const WithToastContext = (Story: () => React.JSX.Element) => (
   <MockToastProvider>
     <Story />
   </MockToastProvider>

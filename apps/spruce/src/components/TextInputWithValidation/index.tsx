@@ -100,7 +100,7 @@ const TextInputWithValidation = forwardRef<
       }
       label={label}
       onChange={(e) => handleOnChange(e.target.value)}
-      onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
+      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
         e.key === "Enter" && handleOnSubmit()
       }
       value={input}
