@@ -85,7 +85,7 @@
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-275"
+        id="modal-271"
       />
       <div
         class="leafygreen-ui-17azklk"
@@ -1019,8 +1019,8 @@
                     data-testid="lg-select"
                   >
                     <button
-                      aria-controls="select-280-menu"
-                      aria-describedby="select-280-description"
+                      aria-controls="select-276-menu"
+                      aria-describedby="select-276-description"
                       aria-disabled="false"
                       aria-expanded="false"
                       aria-invalid="false"
@@ -1028,7 +1028,7 @@
                       class="lg-ui-button-0000 leafygreen-ui-1rkuilv"
                       data-lgid="lg-select-trigger"
                       data-testid="lg-pagination-page-select"
-                      id="select-281"
+                      id="select-277"
                       type="button"
                       value="1"
                     >
