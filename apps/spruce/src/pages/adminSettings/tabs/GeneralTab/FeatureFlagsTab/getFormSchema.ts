@@ -18,7 +18,6 @@ const serviceItems: Record<string, string> = {
   podAllocatorDisabled: "Allocate pods for container tasks",
   unrecognizedPodCleanupDisabled: "Clean up unrecognized pods",
   cloudCleanupDisabled: "Cloud Provider Cleanup",
-  debugSpawnHostDisabled: "Debug Spawn Hosts",
 };
 
 const notificationItems: Record<string, string> = {
