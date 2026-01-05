@@ -1,7 +1,8 @@
 import { fileURLToPath } from "node:url";
 import { dirname } from "node:path";
 
-const  getAbsolutePath = (value: string) => {
+// This function was added automatically by Storybook's migration tool.
+const getAbsolutePath = (value: string) => {
   return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
 }
 
