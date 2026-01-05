@@ -147,7 +147,7 @@
     "@storybook/react-vite": "^10.1.10",
     "@styled/typescript-styled-plugin": "1.0.1",
     "@testing-library/jest-dom": "6.9.1",
-    "@testing-library/react": "16.3.0",
+    "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash.debounce": "4.0.7",
