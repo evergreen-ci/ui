@@ -2798,6 +2798,7 @@ export type Project = {
   commitQueue: CommitQueueParams;
   containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
+  debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
   dispatchingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   displayName: Scalars["String"]["output"];
@@ -2953,6 +2954,7 @@ export type ProjectInput = {
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]["input"]>;
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   displayName?: InputMaybe<Scalars["String"]["input"]>;
@@ -3373,6 +3375,7 @@ export type RepoRef = {
   commitQueue: RepoCommitQueueParams;
   containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious: Scalars["Boolean"]["output"];
+  debugSpawnHostsDisabled: Scalars["Boolean"]["output"];
   disabledStatsCache: Scalars["Boolean"]["output"];
   dispatchingDisabled: Scalars["Boolean"]["output"];
   displayName: Scalars["String"]["output"];
@@ -3419,6 +3422,7 @@ export type RepoRefInput = {
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]["input"]>;
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   displayName?: InputMaybe<Scalars["String"]["input"]>;
