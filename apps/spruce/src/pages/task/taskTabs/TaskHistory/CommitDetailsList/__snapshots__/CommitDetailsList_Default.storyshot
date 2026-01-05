@@ -50,6 +50,7 @@
           >
             <svg
               aria-label="GitHub Icon"
+              class=""
               fill="none"
               height="16"
               viewBox="0 0 98 96"
@@ -102,7 +103,7 @@
           data-cy="task-notification-modal"
           data-lgid="lg-confirmation_modal"
           data-testid="lg-confirmation_modal"
-          id="modal-284"
+          id="modal-372"
         />
         <div
           class="leafygreen-ui-17azklk"
@@ -209,6 +210,7 @@
           >
             <svg
               aria-label="GitHub Icon"
+              class=""
               fill="none"
               height="16"
               viewBox="0 0 98 96"
@@ -261,7 +263,7 @@
           data-cy="task-notification-modal"
           data-lgid="lg-confirmation_modal"
           data-testid="lg-confirmation_modal"
-          id="modal-286"
+          id="modal-375"
         />
         <span>
           Apr 3, 2025, 10:21 AM
@@ -422,6 +424,7 @@
           >
             <svg
               aria-label="GitHub Icon"
+              class=""
               fill="none"
               height="16"
               viewBox="0 0 98 96"
@@ -474,7 +477,7 @@
           data-cy="task-notification-modal"
           data-lgid="lg-confirmation_modal"
           data-testid="lg-confirmation_modal"
-          id="modal-289"
+          id="modal-379"
         />
         <span>
           Apr 2, 2025, 10:22 AM
@@ -623,6 +626,7 @@
           >
             <svg
               aria-label="GitHub Icon"
+              class=""
               fill="none"
               height="16"
               viewBox="0 0 98 96"
@@ -675,7 +679,7 @@
           data-cy="task-notification-modal"
           data-lgid="lg-confirmation_modal"
           data-testid="lg-confirmation_modal"
-          id="modal-292"
+          id="modal-383"
         />
         <span>
           Apr 1, 2025, 10:22 AM
@@ -989,6 +993,7 @@
                                     >
                                       Logs
                                       <svg
+                                        alt=""
                                         aria-hidden="true"
                                         class="leafygreen-ui-1q35ofk"
                                         fill="none"
@@ -1113,6 +1118,7 @@
           >
             <svg
               aria-label="GitHub Icon"
+              class=""
               fill="none"
               height="16"
               viewBox="0 0 98 96"
@@ -1165,7 +1171,7 @@
           data-cy="task-notification-modal"
           data-lgid="lg-confirmation_modal"
           data-testid="lg-confirmation_modal"
-          id="modal-297"
+          id="modal-390"
         />
         <span>
           Mar 30, 2025, 10:22 AM
@@ -1290,6 +1296,7 @@
           >
             <svg
               aria-label="GitHub Icon"
+              class=""
               fill="none"
               height="16"
               viewBox="0 0 98 96"
@@ -1342,7 +1349,7 @@
           data-cy="task-notification-modal"
           data-lgid="lg-confirmation_modal"
           data-testid="lg-confirmation_modal"
-          id="modal-299"
+          id="modal-393"
         />
         <span>
           Mar 29, 2025, 10:22 AM
