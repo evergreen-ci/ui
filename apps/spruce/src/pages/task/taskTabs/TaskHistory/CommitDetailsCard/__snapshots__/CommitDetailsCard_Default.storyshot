@@ -86,7 +86,7 @@
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-352"
+        id="modal-344"
       />
       <div
         class="leafygreen-ui-17azklk"
