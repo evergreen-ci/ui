@@ -135,7 +135,8 @@
     "vite-plugin-checker": "0.9.3",
     "vite-plugin-env-compatible": "2.0.1",
     "vite-tsconfig-paths": "^6.0.2",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "vitest-canvas-mock": "0.3.3"
   },
   "engines": {
     "node": ">=22.18.0"
