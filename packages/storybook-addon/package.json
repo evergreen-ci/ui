@@ -13,19 +13,21 @@
   "dependencies": {
     "@apollo/client": "3.10.4",
     "@emotion/react": "11.14.0",
-    "@evg-ui/lib": "workspace:*",
     "@leafygreen-ui/leafygreen-provider": "^5.0.4",
-    "@storybook/addon-docs": "^10.1.10",
-    "@storybook/addon-links": "^10.1.10",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router-dom": "6.18.0",
-    "storybook": "^10.1.10",
-    "storybook-addon-apollo-client": "^10.0.0"
+    "storybook": "^10.1.10"
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
     "eslint": "^9.39.1"
+  },
+  "peerDependencies": {
+    "@storybook/addon-docs": "^10.1.10",
+    "@storybook/addon-links": "^10.1.10",
+    "@storybook/react-vite": "^10.1.10",
+    "storybook-addon-apollo-client": "^10.0.0"
   }
 }
