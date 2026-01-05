@@ -34,10 +34,7 @@ describe("usePageVisibilityAnalytics", () => {
   });
 
   it("should track session start on mount", () => {
-    renderHook(() =>
-      usePageVisibilityAnalytics({
-      }),
-    );
+    renderHook(() => usePageVisibilityAnalytics({}));
 
     expect(mockSendEvent).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -239,10 +236,7 @@ describe("usePageVisibilityAnalytics", () => {
   });
 
   it("should return current visibility state", () => {
-    const { result } = renderHook(() =>
-      usePageVisibilityAnalytics({
-      }),
-    );
+    const { result } = renderHook(() => usePageVisibilityAnalytics({}));
 
     expect(result.current.isVisible).toBe(true);
 
@@ -256,8 +250,7 @@ describe("usePageVisibilityAnalytics", () => {
     // Note: The hook returns document.visibilityState === "visible" at render time
     // To properly test dynamic updates, we'd need to re-render
     const { result: result2 } = renderHook(() =>
-      usePageVisibilityAnalytics({
-      }),
+      usePageVisibilityAnalytics({}),
     );
 
     expect(result2.current.isVisible).toBe(false);
