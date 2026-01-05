@@ -6,7 +6,7 @@ The home of [Spruce](/apps/spruce) and [Parsley](/apps/parsley).
 
 To use this repo, you'll need to:
 
-1. [Install pnpm](https://pnpm.io/installation) (hint: install via `npm` may be the easiest).
+1. [Install pnpm](https://pnpm.io/installation) Installing [via `npm`](https://pnpm.io/installation#using-npm) is recommended.
 2. Install dependencies: `pnpm install` from anywhere in this repo.
 
 Each application's README has instructions for running that app.
