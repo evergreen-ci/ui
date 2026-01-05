@@ -41,7 +41,15 @@ You can then rerun `pnpm install`.
 
 ### Scripts
 
-To run a script in a workspace from root:
+To run a script in all wokspaces from root:
+
+```bash
+pnpm -r run [script-name]
+```
+
+The `-r` flag is shorthand for `--recursive`, and `run` is optional. For example, `pnpm -r codegen` is quite handy to update all packages' generated GraphQL files.
+
+If you'd like to run script in one workspace from root:
 
 ```bash
 pnpm --filter [workspace-name] run [script-name]
