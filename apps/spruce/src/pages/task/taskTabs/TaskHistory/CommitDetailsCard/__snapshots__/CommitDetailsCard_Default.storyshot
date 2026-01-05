@@ -33,6 +33,7 @@
         >
           <svg
             aria-label="GitHub Icon"
+            class=""
             fill="none"
             height="16"
             viewBox="0 0 98 96"
@@ -85,7 +86,7 @@
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-273"
+        id="modal-352"
       />
       <div
         class="leafygreen-ui-17azklk"

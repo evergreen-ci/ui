@@ -16,11 +16,13 @@
           class="emotion-IconContainer e12dzyme1"
         >
           <svg
-            fill="#00A35C"
-            height="16"
-            size="30"
+            aria-label="Checkmark Icon"
+            class="leafygreen-ui-zgssm"
+            fill="none"
+            height="30"
+            role="img"
             viewBox="0 0 16 16"
-            width="16"
+            width="30"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path

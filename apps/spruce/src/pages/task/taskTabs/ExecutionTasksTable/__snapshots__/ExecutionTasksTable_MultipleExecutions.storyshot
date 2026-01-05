@@ -34,9 +34,12 @@
                 class="emotion-IconContainer e1gftxiz0"
               >
                 <svg
+                  aria-label="Info With Circle Icon"
+                  class="leafygreen-ui-1t8pczl"
                   data-cy="announcement-tooltip-trigger"
-                  fill="#3D4F58"
+                  fill="none"
                   height="16"
+                  role="img"
                   viewBox="0 0 16 16"
                   width="16"
                   xmlns="http://www.w3.org/2000/svg"
@@ -392,17 +395,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-some_id_5-label"
                       data-testid="lg-reviewed-some_id_5"
-                      for="checkbox-267"
-                      id="checkbox-267-label"
+                      for="checkbox-345"
+                      id="checkbox-345-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-267-label"
+                        aria-labelledby="checkbox-345-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="reviewed-some_id_5"
-                        id="checkbox-267"
+                        id="checkbox-345"
                         type="checkbox"
                       />
                       <div
@@ -594,17 +597,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-some_id_6-label"
                       data-testid="lg-reviewed-some_id_6"
-                      for="checkbox-268"
-                      id="checkbox-268-label"
+                      for="checkbox-346"
+                      id="checkbox-346-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-268-label"
+                        aria-labelledby="checkbox-346-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="reviewed-some_id_6"
-                        id="checkbox-268"
+                        id="checkbox-346"
                         type="checkbox"
                       />
                       <div
