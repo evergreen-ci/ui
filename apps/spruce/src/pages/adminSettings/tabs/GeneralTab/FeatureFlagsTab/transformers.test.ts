@@ -29,7 +29,6 @@ const form: FeatureFlagsFormState = {
       unrecognizedPodCleanupDisabled: true,
       cloudCleanupDisabled: true,
       taskReliabilityDisabled: true,
-      debugSpawnHostsDisabled: true,
     },
     notifications: {
       eventProcessingDisabled: true,
@@ -53,7 +52,7 @@ const form: FeatureFlagsFormState = {
       staticAPIKeysDisabled: true,
       elasticIPsDisabled: true,
       releaseModeDisabled: true,
-      debugSpawnHostsDisabled: true,
+      debugSpawnHostDisabled: true,
     },
     batchJobs: {
       backgroundStatsDisabled: true,
@@ -68,7 +67,7 @@ const gql: AdminSettingsInput = {
     agentStartDisabled: true,
     alertsDisabled: true,
     backgroundReauthDisabled: true,
-    debugSpawnHostsDisabled: true,
+    debugSpawnHostDisabled: true,
     backgroundStatsDisabled: true,
     cacheStatsEndpointDisabled: true,
     cacheStatsJobDisabled: true,

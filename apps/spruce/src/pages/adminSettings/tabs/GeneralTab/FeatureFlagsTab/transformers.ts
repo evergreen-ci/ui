@@ -23,8 +23,6 @@ export const gqlToForm = ((data) => ({
       cloudCleanupDisabled: data.serviceFlags?.cloudCleanupDisabled ?? false,
       taskReliabilityDisabled:
         data.serviceFlags?.taskReliabilityDisabled ?? false,
-      debugSpawnHostsDisabled:
-        data.serviceFlags?.debugSpawnHostsDisabled ?? false,
     },
     notifications: {
       eventProcessingDisabled:
@@ -59,8 +57,8 @@ export const gqlToForm = ((data) => ({
       staticAPIKeysDisabled: data.serviceFlags?.staticAPIKeysDisabled ?? false,
       elasticIPsDisabled: data.serviceFlags?.elasticIPsDisabled ?? false,
       releaseModeDisabled: data.serviceFlags?.releaseModeDisabled ?? false,
-      debugSpawnHostsDisabled:
-        data.serviceFlags?.debugSpawnHostsDisabled ?? false,
+      debugSpawnHostDisabled:
+        data.serviceFlags?.debugSpawnHostDisabled ?? false,
     },
 
     batchJobs: {

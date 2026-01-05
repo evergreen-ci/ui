@@ -138,16 +138,6 @@ export const getFormSchema = (
               true,
             ),
           },
-          debugSpawnHostsDisabled: {
-            type: ["boolean", "null"],
-            title: "Debug Spawn Hosts",
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              repoData?.projectFlags?.debugSpawnHostsDisabled,
-              true,
-            ),
-          },
           repotracker: {
             type: "object" as const,
             title: "Repotracker Settings",
@@ -168,6 +158,16 @@ export const getFormSchema = (
                 },
               }),
             },
+          },
+          debugSpawnHostsDisabled: {
+            type: ["boolean", "null"],
+            title: "Debug Spawn Hosts",
+            oneOf: radioBoxOptions(
+              ["Enabled", "Disabled"],
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              repoData?.projectFlags?.debugSpawnHostsDisabled,
+              true,
+            ),
           },
           scheduling: {
             type: "object" as const,
@@ -349,9 +349,10 @@ export const getFormSchema = (
         "ui:description": "Sets if any tasks can be dispatched.",
       },
       debugSpawnHostsDisabled: {
-        "ui:widget": widgets.RadioBoxWidget,
-        "ui:description":
-          "Sets if spawn hosts created from tasks can be debug-mode spawn hosts.",
+        // TODO DEVPROD-25833: Unhide this field when the feature is ready
+        "ui:widget": "hidden",
+        // "ui:widget": widgets.RadioBoxWidget,
+        "ui:description": "Sets if project tasks can create debug spawn hosts.", // TODO DEVPROD-25820: Add link to debug spawn hosts documentation
       },
       repotracker: {
         repotrackerDisabled: {
