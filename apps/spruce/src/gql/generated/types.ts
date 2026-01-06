@@ -2798,6 +2798,7 @@ export type Project = {
   commitQueue: CommitQueueParams;
   containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
+  debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
   dispatchingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   displayName: Scalars["String"]["output"];
@@ -2953,6 +2954,7 @@ export type ProjectInput = {
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]["input"]>;
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   displayName?: InputMaybe<Scalars["String"]["input"]>;
@@ -3373,6 +3375,7 @@ export type RepoRef = {
   commitQueue: RepoCommitQueueParams;
   containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious: Scalars["Boolean"]["output"];
+  debugSpawnHostsDisabled: Scalars["Boolean"]["output"];
   disabledStatsCache: Scalars["Boolean"]["output"];
   dispatchingDisabled: Scalars["Boolean"]["output"];
   displayName: Scalars["String"]["output"];
@@ -3419,6 +3422,7 @@ export type RepoRefInput = {
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]["input"]>;
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   displayName?: InputMaybe<Scalars["String"]["input"]>;
@@ -3714,6 +3718,7 @@ export type ServiceFlags = {
   checkBlockedTasksDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   cliUpdatesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   cloudCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   degradedModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   elasticIPsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   emailNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3752,6 +3757,7 @@ export type ServiceFlagsInput = {
   checkBlockedTasksDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   cliUpdatesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   cloudCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   degradedModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   elasticIPsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   emailNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -7098,6 +7104,7 @@ export type SaveAdminSettingsMutation = {
       checkBlockedTasksDisabled?: boolean | null;
       cliUpdatesDisabled?: boolean | null;
       cloudCleanupDisabled?: boolean | null;
+      debugSpawnHostDisabled?: boolean | null;
       degradedModeDisabled?: boolean | null;
       elasticIPsDisabled?: boolean | null;
       emailNotificationsDisabled?: boolean | null;
@@ -7866,6 +7873,7 @@ export type AdminSettingsQuery = {
       checkBlockedTasksDisabled?: boolean | null;
       cliUpdatesDisabled?: boolean | null;
       cloudCleanupDisabled?: boolean | null;
+      debugSpawnHostDisabled?: boolean | null;
       degradedModeDisabled?: boolean | null;
       elasticIPsDisabled?: boolean | null;
       emailNotificationsDisabled?: boolean | null;
