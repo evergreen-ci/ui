@@ -1,5 +1,4 @@
-// jest-dom adds custom matchers for asserting on DOM nodes. Works for Vitest too!
-import "@testing-library/jest-dom";
+import "@testing-library/jest-dom/vitest";
 
 // The following two variables are dummy values used in auth.test.tsx.
 process.env.REACT_APP_EVERGREEN_URL = "http://test-evergreen.com";

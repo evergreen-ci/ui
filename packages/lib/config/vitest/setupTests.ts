@@ -1,5 +1,4 @@
-// jest-dom adds custom matchers for asserting on DOM nodes. Works for Vitest too!
-import "@testing-library/jest-dom";
+import "@testing-library/jest-dom/vitest";
 import "vitest-canvas-mock";
 
 // @ts-expect-error: Workaround for a bug in @testing-library/react.
