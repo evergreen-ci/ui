@@ -238,6 +238,9 @@ export const getFormSchema = ({
                         title:
                           "Use OAuth authentication to download the task data from Evergreen. This will soon be required, see DEVPROD-4160",
                       },
+                      warningBanner: {
+                        type: "null" as const,
+                      },
                     },
                   },
                 ],
@@ -431,6 +434,21 @@ export const getFormSchema = ({
             "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
             "ui:data-cy": "use-oauth-checkbox",
             "ui:elementWrapperCSS": childCheckboxCSS,
+          },
+          warningBanner: {
+            "ui:showLabel": false,
+            "ui:warnings": [
+              <>
+                Spawn hosts with OAuth require additional setup. After SSHing in
+                to your spawnhost, please run the command{" "}
+                <InlineCode>evergreen host fetch</InlineCode>. For more details,
+                refer to the{" "}
+                <StyledRouterLink to="https://docs.devprod.prod.corp.mongodb.com/evergreen/Hosts/Spawn-Hosts#spawning-a-host-from-a-task">
+                  documentation
+                </StyledRouterLink>
+                .
+              </>,
+            ],
           },
         },
       }),
