@@ -38,6 +38,7 @@
     "@evg-ui/lint-staged": "*",
     "@evg-ui/storybook-addon": "*",
     "@storybook/react-vite": "^10.1.10",
+    "@testing-library/jest-dom": "^6.9.1",
     "chromatic": "^13.3.4",
     "eslint": "^9.39.1",
     "eslint-plugin-prettier": "^5.5.4",
