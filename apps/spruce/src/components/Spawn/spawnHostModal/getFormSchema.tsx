@@ -440,7 +440,7 @@ export const getFormSchema = ({
             "ui:warnings": [
               <>
                 Spawn hosts with OAuth require additional setup. After SSHing in
-                to your spawnhost, please run the command{" "}
+                to your spawn host, please run the command{" "}
                 <InlineCode>evergreen host fetch</InlineCode>. For more details,
                 refer to the{" "}
                 <StyledRouterLink to="https://docs.devprod.prod.corp.mongodb.com/evergreen/Hosts/Spawn-Hosts#spawning-a-host-from-a-task">
