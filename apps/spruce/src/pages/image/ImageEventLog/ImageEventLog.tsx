@@ -17,7 +17,7 @@ type ImageEventLogProps = {
   events: ImageEvent[];
   handleFetchMore: () => void;
   limit: number;
-  loading?: boolean;
+  loading: boolean;
   previousCount: number;
 };
 
@@ -29,7 +29,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
   loading,
   previousCount,
 }) => {
-  const { allEventsFetched } = useEvents(limit, count, previousCount);
+  const { allEventsFetched } = useEvents(limit, count, previousCount, loading);
   const { sendEvent } = useImageAnalytics();
 
   const [globalSearch, setGlobalSearch] = useState("");

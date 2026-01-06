@@ -24,12 +24,13 @@ export const EventLogTab: React.FC<TabProps> = ({
     [slugs.repoId]: repoId,
   } = useParams();
 
-  const { count, events, fetchMore, previousCount } = useProjectSettingsEvents({
-    projectIdentifier,
-    repoId,
-    isRepo: projectType === ProjectType.Repo,
-    limit,
-  });
+  const { count, events, fetchMore, loading, previousCount } =
+    useProjectSettingsEvents({
+      projectIdentifier,
+      repoId,
+      isRepo: projectType === ProjectType.Repo,
+      limit,
+    });
 
   const lastEventTimestamp = events[events.length - 1]?.timestamp;
 
@@ -49,6 +50,7 @@ export const EventLogTab: React.FC<TabProps> = ({
         });
       }}
       limit={limit}
+      loading={loading}
       previousCount={previousCount}
     />
   );

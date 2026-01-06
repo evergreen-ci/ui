@@ -25,6 +25,7 @@ export const useProjectSettingsEvents = ({
     data: projectEventData,
     error: projectError,
     fetchMore: projectFetchMore,
+    loading: projectLoading,
     previousData: projectPreviousData,
   } = useQuery<ProjectEventLogsQuery, ProjectEventLogsQueryVariables>(
     PROJECT_EVENT_LOGS,
@@ -44,6 +45,7 @@ export const useProjectSettingsEvents = ({
     data: repoEventData,
     error: repoError,
     fetchMore: repoFetchMore,
+    loading: repoLoading,
     previousData: repoPreviousData,
   } = useQuery<RepoEventLogsQuery, RepoEventLogsQueryVariables>(
     REPO_EVENT_LOGS,
@@ -70,5 +72,7 @@ export const useProjectSettingsEvents = ({
 
   const fetchMore = isRepo ? repoFetchMore : projectFetchMore;
 
-  return { count, events, fetchMore, previousCount };
+  const loading = isRepo ? repoLoading : projectLoading;
+
+  return { count, events, fetchMore, loading, previousCount };
 };

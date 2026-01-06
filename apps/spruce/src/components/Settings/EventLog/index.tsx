@@ -15,7 +15,7 @@ type EventLogProps = {
   events: Event[];
   handleFetchMore: () => void;
   limit: number;
-  loading?: boolean;
+  loading: boolean;
   previousCount: number;
   customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
 };
@@ -30,7 +30,7 @@ const EventLog: React.FC<EventLogProps> = ({
   loading,
   previousCount,
 }) => {
-  const { allEventsFetched } = useEvents(limit, count, previousCount);
+  const { allEventsFetched } = useEvents(limit, count, previousCount, loading);
   const allEventsFetchedCopy =
     events.length > 0 ? "No more events to show." : "No events to show.";
 
