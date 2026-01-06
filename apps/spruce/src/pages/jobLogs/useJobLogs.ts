@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   LogkeeperBuildMetadataQuery,
   LogkeeperBuildMetadataQueryVariables,
@@ -16,7 +16,6 @@ interface UseJobLogsPageParams {
   taskId?: string;
   execution?: string;
   groupId?: string;
-  onError: (err: string) => void;
 }
 
 type JobLogsPageData = {
@@ -31,13 +30,10 @@ const useJobLogsPageData = ({
   execution,
   groupId,
   isLogkeeper,
-  onError,
   taskId,
 }: UseJobLogsPageParams): JobLogsPageData => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const executionAsInt = parseInt(execution, 10);
-  const lastLogkeeperError = useRef<string | null>(null);
-  const lastEvergreenError = useRef<string | null>(null);
 
   const {
     data: logkeeperData,
@@ -51,21 +47,7 @@ const useJobLogsPageData = ({
     variables: { buildId },
     skip: !isLogkeeper,
   });
-
-  useEffect(() => {
-    if (
-      logkeeperError &&
-      logkeeperError.message !== lastLogkeeperError.current
-    ) {
-      lastLogkeeperError.current = logkeeperError.message;
-      onError(
-        `There was an error retrieving logs for this build: ${logkeeperError.message}`,
-      );
-    }
-    if (!logkeeperError) {
-      lastLogkeeperError.current = null;
-    }
-  }, [logkeeperError, onError]);
+  useErrorToast(logkeeperError, "Error retrieving logs for this build");
 
   const {
     data: testResultsData,
@@ -85,21 +67,7 @@ const useJobLogsPageData = ({
       skip: isLogkeeper && (loadingLogkeeper || logkeeperData === undefined),
     },
   );
-
-  useEffect(() => {
-    if (
-      evergreenError &&
-      evergreenError.message !== lastEvergreenError.current
-    ) {
-      lastEvergreenError.current = evergreenError.message;
-      onError(
-        `There was an error retrieving logs for this task: ${evergreenError.message}`,
-      );
-    }
-    if (!evergreenError) {
-      lastEvergreenError.current = null;
-    }
-  }, [evergreenError, onError]);
+  useErrorToast(evergreenError, "Error retrieving logs for this task");
 
   const { logkeeperBuildMetadata } = logkeeperData || {};
 

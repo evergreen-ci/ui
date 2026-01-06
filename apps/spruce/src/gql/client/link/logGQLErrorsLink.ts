@@ -48,7 +48,7 @@ export const reportingFn =
 
 export const logGQLErrorsLink = (secretFields: string[]) =>
   // TODO DEVPROD-25262: Remove this when upgrading, graphQLErrors will be consolidated to error property
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
+
   onError(({ graphQLErrors, operation }) =>
     graphQLErrors?.forEach(reportingFn(secretFields, operation)),
   );
