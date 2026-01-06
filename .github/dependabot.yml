@@ -43,9 +43,6 @@ updates:
         applies-to: version-updates
         patterns:
           - "@leafygreen-ui/*"
-      lg-chat:
-        applies-to: version-updates
-        patterns:
           - "@lg-chat/*"
       react:
         applies-to: version-updates
