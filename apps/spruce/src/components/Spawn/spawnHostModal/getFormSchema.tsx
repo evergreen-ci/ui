@@ -238,8 +238,21 @@ export const getFormSchema = ({
                         title:
                           "Use OAuth authentication to download the task data from Evergreen. This will soon be required, see DEVPROD-4160",
                       },
-                      warningBanner: {
-                        type: "null" as const,
+                    },
+                    dependencies: {
+                      useOAuth: {
+                        oneOf: [
+                          {
+                            properties: {
+                              useOAuth: {
+                                enum: [true],
+                              },
+                              warningBanner: {
+                                type: "null" as const,
+                              },
+                            },
+                          },
+                        ],
                       },
                     },
                   },
