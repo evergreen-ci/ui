@@ -22,7 +22,7 @@
               data-lgid="lg-text_area-label"
               data-testid="lg-text_area"
               for="tag_key_1"
-              id="lg-form_field-label-3"
+              id="lg-form_field-label-6"
             >
               Key
             </label>
@@ -37,7 +37,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-3"
+                aria-labelledby="lg-form_field-label-6"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
                 data-cy="user-tag-key-field"
                 id="tag_key_1"
@@ -53,7 +53,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_area-feedback"
             data-testid="lg-text_area-feedback"
-            id="lg-form_field-feedback-5"
+            id="lg-form_field-feedback-8"
           />
         </div>
       </div>
@@ -73,7 +73,7 @@
               data-lgid="lg-text_area-label"
               data-testid="lg-text_area"
               for="tag_value_1"
-              id="lg-form_field-label-7"
+              id="lg-form_field-label-10"
             >
               Value
             </label>
@@ -88,7 +88,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-7"
+                aria-labelledby="lg-form_field-label-10"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
                 data-cy="user-tag-value-field"
                 id="tag_value_1"
@@ -104,7 +104,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_area-feedback"
             data-testid="lg-text_area-feedback"
-            id="lg-form_field-feedback-9"
+            id="lg-form_field-feedback-12"
           />
         </div>
       </div>
@@ -118,9 +118,12 @@
           class="leafygreen-ui-xhlipt"
         >
           <svg
+            aria-label="Trash Icon"
+            class=""
             data-cy="user-tag-trash-icon"
             fill="none"
             height="16"
+            role="img"
             viewBox="0 0 16 16"
             width="16"
             xmlns="http://www.w3.org/2000/svg"
@@ -155,7 +158,7 @@
               data-lgid="lg-text_area-label"
               data-testid="lg-text_area"
               for="tag_key_2"
-              id="lg-form_field-label-11"
+              id="lg-form_field-label-15"
             >
               Key
             </label>
@@ -170,7 +173,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-11"
+                aria-labelledby="lg-form_field-label-15"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
                 data-cy="user-tag-key-field"
                 id="tag_key_2"
@@ -186,7 +189,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_area-feedback"
             data-testid="lg-text_area-feedback"
-            id="lg-form_field-feedback-13"
+            id="lg-form_field-feedback-17"
           />
         </div>
       </div>
@@ -206,7 +209,7 @@
               data-lgid="lg-text_area-label"
               data-testid="lg-text_area"
               for="tag_value_2"
-              id="lg-form_field-label-15"
+              id="lg-form_field-label-19"
             >
               Value
             </label>
@@ -221,7 +224,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-15"
+                aria-labelledby="lg-form_field-label-19"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
                 data-cy="user-tag-value-field"
                 id="tag_value_2"
@@ -237,7 +240,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_area-feedback"
             data-testid="lg-text_area-feedback"
-            id="lg-form_field-feedback-17"
+            id="lg-form_field-feedback-21"
           />
         </div>
       </div>
@@ -251,9 +254,12 @@
           class="leafygreen-ui-xhlipt"
         >
           <svg
+            aria-label="Trash Icon"
+            class=""
             data-cy="user-tag-trash-icon"
             fill="none"
             height="16"
+            role="img"
             viewBox="0 0 16 16"
             width="16"
             xmlns="http://www.w3.org/2000/svg"
@@ -288,7 +294,7 @@
               data-lgid="lg-text_area-label"
               data-testid="lg-text_area"
               for="tag_key_3"
-              id="lg-form_field-label-19"
+              id="lg-form_field-label-24"
             >
               Key
             </label>
@@ -303,7 +309,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-19"
+                aria-labelledby="lg-form_field-label-24"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
                 data-cy="user-tag-key-field"
                 id="tag_key_3"
@@ -319,7 +325,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_area-feedback"
             data-testid="lg-text_area-feedback"
-            id="lg-form_field-feedback-21"
+            id="lg-form_field-feedback-26"
           />
         </div>
       </div>
@@ -339,7 +345,7 @@
               data-lgid="lg-text_area-label"
               data-testid="lg-text_area"
               for="tag_value_3"
-              id="lg-form_field-label-23"
+              id="lg-form_field-label-28"
             >
               Value
             </label>
@@ -354,7 +360,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-23"
+                aria-labelledby="lg-form_field-label-28"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
                 data-cy="user-tag-value-field"
                 id="tag_value_3"
@@ -370,7 +376,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_area-feedback"
             data-testid="lg-text_area-feedback"
-            id="lg-form_field-feedback-25"
+            id="lg-form_field-feedback-30"
           />
         </div>
       </div>
@@ -384,9 +390,12 @@
           class="leafygreen-ui-xhlipt"
         >
           <svg
+            aria-label="Trash Icon"
+            class=""
             data-cy="user-tag-trash-icon"
             fill="none"
             height="16"
+            role="img"
             viewBox="0 0 16 16"
             width="16"
             xmlns="http://www.w3.org/2000/svg"
@@ -418,6 +427,7 @@
           class="leafygreen-ui-16tr4y"
         >
           <svg
+            alt=""
             aria-hidden="true"
             class="leafygreen-ui-18si895"
             fill="none"

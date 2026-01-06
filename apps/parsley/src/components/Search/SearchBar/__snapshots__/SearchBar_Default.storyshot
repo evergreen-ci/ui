@@ -8,8 +8,8 @@
       data-testid="lg-select"
     >
       <button
-        aria-controls="select-16-menu"
-        aria-describedby="select-16-description"
+        aria-controls="select-30-menu"
+        aria-describedby="select-30-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
@@ -18,7 +18,7 @@
         data-cy="searchbar-select"
         data-lgid="lg-select-trigger"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-17"
+        id="select-31"
         type="button"
         value="filter"
       >
@@ -84,8 +84,11 @@
             class="leafygreen-ui-xhlipt"
           >
             <svg
-              fill="#889397"
+              aria-label="Bulb Icon"
+              class="leafygreen-ui-a4wnk0"
+              fill="none"
               height="16"
+              role="img"
               viewBox="0 0 16 16"
               width="16"
               xmlns="http://www.w3.org/2000/svg"
@@ -100,8 +103,11 @@
               />
             </svg>
             <svg
-              fill="#889397"
+              aria-label="Caret Down Icon"
+              class="leafygreen-ui-a4wnk0"
+              fill="none"
               height="16"
+              role="img"
               viewBox="0 0 16 16"
               width="16"
               xmlns="http://www.w3.org/2000/svg"
@@ -136,14 +142,14 @@
               class="leafygreen-ui-1ago99h"
             >
               <input
-                aria-describedby="lg-form_field-feedback-21"
+                aria-describedby="lg-form_field-feedback-37"
                 aria-disabled="false"
                 aria-invalid="true"
                 aria-labelledby="searchbar-input"
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="searchbar-input"
-                id="lg-form_field-input-22"
+                id="lg-form_field-input-38"
                 placeholder="optional, regexp to search"
                 required=""
                 spellcheck="false"
@@ -158,14 +164,14 @@
             class="leafygreen-ui-wsgs9n"
             data-lgid="lg-text_input-feedback"
             data-testid="lg-text_input-feedback"
-            id="lg-form_field-feedback-21"
+            id="lg-form_field-feedback-37"
           >
             <div
               class="leafygreen-ui-1nmw6il"
             >
               <svg
                 aria-hidden="true"
-                aria-labelledby="icon-title-18"
+                aria-labelledby="icon-title-34"
                 class="leafygreen-ui-1eb10e4"
                 height="16"
                 role="img"
@@ -173,7 +179,7 @@
                 width="16"
               >
                 <title
-                  id="icon-title-18"
+                  id="icon-title-34"
                 >
                   Error
                 </title>
@@ -209,8 +215,11 @@
             class="leafygreen-ui-xhlipt"
           >
             <svg
+              aria-label="Plus Icon"
+              class=""
               fill="none"
               height="16"
+              role="img"
               viewBox="0 0 16 16"
               width="16"
               xmlns="http://www.w3.org/2000/svg"

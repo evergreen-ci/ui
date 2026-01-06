@@ -11,8 +11,11 @@
       class="leafygreen-ui-xhlipt"
     >
       <svg
-        fill="#889397"
+        aria-label="Bulb Icon"
+        class="leafygreen-ui-a4wnk0"
+        fill="none"
         height="16"
+        role="img"
         viewBox="0 0 16 16"
         width="16"
         xmlns="http://www.w3.org/2000/svg"
@@ -27,8 +30,11 @@
         />
       </svg>
       <svg
-        fill="#889397"
+        aria-label="Caret Down Icon"
+        class="leafygreen-ui-a4wnk0"
+        fill="none"
         height="16"
+        role="img"
         viewBox="0 0 16 16"
         width="16"
         xmlns="http://www.w3.org/2000/svg"
