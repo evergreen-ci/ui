@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useLocation } from "react-router-dom";
@@ -105,6 +105,29 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     });
     return { enabledHoursCount, warnings };
   }, [formState?.expirationDetails?.hostUptime]);
+
+  // Force useOAuth to true when jwtTokenForCLIDisabled is false
+  useEffect(() => {
+    if (
+      !formSchemaInput.jwtTokenForCLIDisabled &&
+      spawnTaskData?.task &&
+      formState?.loadData?.loadDataOntoHostAtStartup &&
+      formState?.loadData?.useOAuth !== true
+    ) {
+      setFormState((prev) => ({
+        ...prev,
+        loadData: {
+          ...prev.loadData,
+          useOAuth: true,
+        },
+      }));
+    }
+  }, [
+    formSchemaInput.jwtTokenForCLIDisabled,
+    spawnTaskData?.task,
+    formState?.loadData?.loadDataOntoHostAtStartup,
+    formState?.loadData?.useOAuth,
+  ]);
 
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,

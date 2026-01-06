@@ -56,10 +56,14 @@ export const useLoadFormSchemaData = (p?: Props) => {
       isVolume: false,
     }) ?? "";
 
+  const jwtTokenForCLIDisabled =
+    spruceConfig?.serviceFlags?.jwtTokenForCLIDisabled ?? false;
+
   return {
     formSchemaInput: {
       disableExpirationCheckbox,
       distros: distrosData?.distros ?? [],
+      jwtTokenForCLIDisabled,
       myPublicKeys: publicKeysData?.myPublicKeys ?? [],
       noExpirationCheckboxTooltip,
       userAwsRegion: userAwsRegion ?? defaultEC2Region,
