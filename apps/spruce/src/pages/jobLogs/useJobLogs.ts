@@ -47,7 +47,10 @@ const useJobLogsPageData = ({
     variables: { buildId },
     skip: !isLogkeeper,
   });
-  useErrorToast(logkeeperError, "Error retrieving logs for this build");
+  useErrorToast(
+    logkeeperError,
+    "There was an error retrieving logs for this build",
+  );
 
   const {
     data: testResultsData,
@@ -67,7 +70,10 @@ const useJobLogsPageData = ({
       skip: isLogkeeper && (loadingLogkeeper || logkeeperData === undefined),
     },
   );
-  useErrorToast(evergreenError, "Error retrieving logs for this task");
+  useErrorToast(
+    evergreenError,
+    "There was an error retrieving logs for this task",
+  );
 
   const { logkeeperBuildMetadata } = logkeeperData || {};
 
