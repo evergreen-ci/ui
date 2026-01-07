@@ -45,23 +45,16 @@ const getProjectConfig = () => {
       rollupOptions: {
         output: {
           manualChunks: {
-            vendor: [
-              "react",
-              "react-router-dom",
-              "react-dom",
-              "react-router",
-              "lodash",
-            ],
+            vendor: ["react", "react-router-dom", "react-dom"],
           },
         },
       },
     },
     resolve: {
       alias: {
-        "@leafygreen-ui/emotion": path.resolve(
-          __dirname,
-          "./config/leafygreen-ui/emotion",
-        ),
+        // Prevent LG from pulling in SSR dependencies.
+        // Can be potentially removed upon the completion of LG-4402.
+        "@emotion/server": "@emotion/css",
         ...(process.env.PROFILER === "true" && {
           "react-dom/client": path.resolve(
             __dirname,
