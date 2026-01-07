@@ -1,7 +1,9 @@
-#!/usr/bin/env -S VITE_SCRIPT_MODE=1 vite-node --script
+#!/usr/bin/env vite-node --script
 
 import { push, pushTags } from "../utils/git";
 import { countdownTimer } from "../utils/shell";
+
+process.env.VITE_SCRIPT_MODE = "1";
 
 push();
 
