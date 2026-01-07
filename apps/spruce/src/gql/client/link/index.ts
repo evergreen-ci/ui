@@ -13,8 +13,7 @@ export { pausePollingLink } from "./pausePollingLink";
 
 export const authLink = (logoutAndRedirect: () => void): ApolloLink =>
   // TODO DEVPROD-25262: Remove this eslint-disable when upgrading to Apollo Client 4.0 - networkError will be consolidated to error property
-
-  onError(({ networkError }) => {
+  onError(({ networkError }) => { // eslint-disable-line
     if (
       shouldLogoutAndRedirect((networkError as ServerParseError)?.statusCode)
     ) {
