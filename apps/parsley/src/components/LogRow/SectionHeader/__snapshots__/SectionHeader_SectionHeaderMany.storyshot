@@ -36,9 +36,12 @@
         </div>
       </button>
       <svg
+        aria-label="Checkmark With Circle Icon"
+        class="leafygreen-ui-jc2z8v"
         data-cy="section-status-pass"
-        fill="#5C6C75"
+        fill="none"
         height="16"
+        role="img"
         viewBox="0 0 16 16"
         width="16"
         xmlns="http://www.w3.org/2000/svg"
@@ -94,9 +97,12 @@
         </div>
       </button>
       <svg
+        aria-label="Checkmark With Circle Icon"
+        class="leafygreen-ui-jc2z8v"
         data-cy="section-status-pass"
-        fill="#5C6C75"
+        fill="none"
         height="16"
+        role="img"
         viewBox="0 0 16 16"
         width="16"
         xmlns="http://www.w3.org/2000/svg"
@@ -152,9 +158,12 @@
         </div>
       </button>
       <svg
+        aria-label="XWith Circle Icon"
+        class="leafygreen-ui-1xsx4zj"
         data-cy="section-status-fail"
-        fill="#DB3030"
+        fill="none"
         height="16"
+        role="img"
         viewBox="0 0 16 16"
         width="16"
         xmlns="http://www.w3.org/2000/svg"

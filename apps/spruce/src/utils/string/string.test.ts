@@ -2,7 +2,6 @@ import { shortenGithash, trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { TimeFormat } from "constants/time";
 import {
   msToDuration,
-  sortFunctionString,
   getDateCopy,
   applyStrictRegex,
   joinWithConjunction,
@@ -53,39 +52,6 @@ describe("msToDuration", () => {
   it("does not convert milli < 1s", () => {
     const ms = 500;
     expect(msToDuration(ms)).toBe("500ms");
-  });
-});
-
-describe("sortFunctionString", () => {
-  it("fetches correct value from object and sorts by alphabetical order", () => {
-    const dates = [{ a: "charlie" }, { a: "alpha" }, { a: "beta" }];
-    expect(dates.sort((a, b) => sortFunctionString(a, b, "a"))).toStrictEqual([
-      { a: "alpha" },
-      { a: "beta" },
-      { a: "charlie" },
-    ]);
-  });
-  it("fetches correct value from multi layered object and sorts by alphabetical order", () => {
-    const dates = [
-      { a: { b: { c: "charlie" } } },
-      { a: { b: { c: "alpha" } } },
-      { a: { b: { c: "beta" } } },
-    ];
-    expect(
-      dates.sort((a, b) => sortFunctionString(a, b, "a.b.c")),
-    ).toStrictEqual([
-      { a: { b: { c: "alpha" } } },
-      { a: { b: { c: "beta" } } },
-      { a: { b: { c: "charlie" } } },
-    ]);
-  });
-  it("fetches correct value from object and sorts by alphabetical order regardless of case", () => {
-    const dates = [{ a: "Charlie" }, { a: "Alpha" }, { a: "beta" }];
-    expect(dates.sort((a, b) => sortFunctionString(a, b, "a"))).toStrictEqual([
-      { a: "Alpha" },
-      { a: "beta" },
-      { a: "Charlie" },
-    ]);
   });
 });
 

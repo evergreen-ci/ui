@@ -13,9 +13,9 @@ Parsley is the UI for Evergreen's log viewer. It is the replacement for
 
 1. Clone this GitHub repository.
 2. Ensure you have Node.js v22+ and
-   [Yarn](https://yarnpkg.com/getting-started/install) installed.
-3. Run `yarn`.
-4. Run `yarn run dev`. This will launch the app.
+   [pnpm](https://pnpm.io/installation) installed.
+3. Run `pnpm install`.
+4. Run `pnpm run dev`. This will launch the app.
 
 ### Running against a remote Evergreen server
 
@@ -42,7 +42,7 @@ mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem parsley-local.c
    Evergreen server.
 
 ```sh
-yarn <env_name>  # where env_name is the name of the environment you want to run staging or prod
+pnpm <env_name>  # where env_name is the name of the environment you want to run staging or prod
 ```
 
 4. Navigate to `https://parsley-local.corp.mongodb.com:8444` in your browser to
@@ -64,7 +64,7 @@ develop against them you will need to run both of the servers locally.
 **Logkeeper**
 
 1. Clone the [Logkeeper Repository](https://github.com/evergreen-ci/logkeeper)
-2. Run `yarn bootstrap-s3-logs` to download some sample resmoke logs from s3.
+2. Run `pnpm bootstrap-s3-logs` to download some sample resmoke logs from s3.
 3. Run the command outputted by the previous step to seed the env variables and
    start the local logkeeper server with the following command:
 
@@ -92,10 +92,10 @@ Read more about environment variables
 ### Common errors
 
 - Sometimes you may run into an error where a dependency is out of date or in a
-  broken state. If you run into this issue try running `yarn install` to
+  broken state. If you run into this issue try running `pnpm install` to
   reinstall all dependencies. If that does not work try deleting your
-  `node_modules` folder and running `yarn install` again. You can use the
-  `yarn clean` command to do this for you.
+  `node_modules` folder and running `pnpm install` again. You can use the
+  `pnpm clean` command to do this for you.
 
 ## Deployment
 

@@ -52,7 +52,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
 );
 
 const StyledSideNav = styled(SideNav)`
-  z-index: 2;
+  z-index: 1;
   box-shadow: 0 ${size.xxs} ${size.xxs} rgba(0, 0, 0, 0.25);
 `;
 
