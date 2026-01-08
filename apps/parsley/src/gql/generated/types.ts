@@ -3992,6 +3992,7 @@ export type SpruceConfig = {
   jira?: Maybe<JiraConfig>;
   providers?: Maybe<CloudProviderConfig>;
   secretFields: Array<Scalars["String"]["output"]>;
+  serviceFlags: UserServiceFlags;
   singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
@@ -4731,6 +4732,11 @@ export type UserConfig = {
   oauth_issuer: Scalars["String"]["output"];
   ui_server_host: Scalars["String"]["output"];
   user: Scalars["String"]["output"];
+};
+
+export type UserServiceFlags = {
+  __typename?: "UserServiceFlags";
+  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 /**
