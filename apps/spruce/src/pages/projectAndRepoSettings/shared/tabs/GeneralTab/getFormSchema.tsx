@@ -160,15 +160,21 @@ export const getFormSchema = (
               }),
             },
           },
-          debugSpawnHostsDisabled: {
-            type: ["boolean", "null"],
-            title: "Debug Spawn Hosts",
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              repoData?.projectFlags?.debugSpawnHostsDisabled,
-              true,
-            ),
+          debugSpawnHosts: {
+            type: "object" as const,
+            title: "Debug Spawn Hosts Settings",
+            properties: {
+              debugSpawnHostDisabled: {
+                type: ["boolean", "null"],
+                title: "Debug Spawn Hosts",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  repoData?.projectFlags?.debugSpawnHostsDisabled,
+                  true,
+                ),
+              },
+            },
           },
           scheduling: {
             type: "object" as const,
