@@ -18,7 +18,6 @@ const serviceItems: Record<string, string> = {
   podAllocatorDisabled: "Allocate pods for container tasks",
   unrecognizedPodCleanupDisabled: "Clean up unrecognized pods",
   cloudCleanupDisabled: "Cloud Provider Cleanup",
-  debugSpawnHostDisabled: "Debug spawn hosts",
 };
 
 const notificationItems: Record<string, string> = {
@@ -44,6 +43,7 @@ const featureItems: Record<string, string> = {
   elasticIPsDisabled: "Elastic IPs  for task hosts",
   staticAPIKeysDisabled: "Static API Keys credentials for users",
   backgroundReauthDisabled: "Background Reauthentication",
+  debugSpawnHostDisabled: "Debug spawn hosts",
 };
 
 const batchJobItems: Record<string, string> = {
