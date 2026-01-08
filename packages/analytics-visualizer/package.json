@@ -8,13 +8,14 @@
   },
   "scripts": {
     "check-types": "tsc -p tsconfig.json --noEmit",
-    "eslint:fix": "yarn eslint:strict --fix",
+    "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint .",
     "test": "vitest run"
   },
   "devDependencies": {
-    "@evg-ui/eslint-config": "*",
+    "@evg-ui/eslint-config": "workspace:*",
+    "@evg-ui/lint-staged": "workspace:*",
     "@types/node": "^22.15.3",
     "eslint": "^9.39.1",
     "typescript": "~5.9.3",

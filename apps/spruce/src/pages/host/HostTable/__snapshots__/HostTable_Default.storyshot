@@ -31,11 +31,13 @@
               class="leafygreen-ui-16tr4y"
             >
               <svg
+                aria-label="Chevron Left Icon"
                 class="leafygreen-ui-yk23yl"
                 fill="none"
-                height="16"
+                height="14"
+                role="img"
                 viewBox="0 0 16 16"
-                width="16"
+                width="14"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -72,11 +74,13 @@
               class="leafygreen-ui-16tr4y"
             >
               <svg
+                aria-label="Chevron Right Icon"
                 class="leafygreen-ui-17pifwg"
                 fill="none"
-                height="16"
+                height="14"
+                role="img"
                 viewBox="0 0 16 16"
-                width="16"
+                width="14"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -95,8 +99,8 @@
           data-testid="lg-select"
         >
           <button
-            aria-controls="select-177-menu"
-            aria-describedby="select-177-description"
+            aria-controls="select-241-menu"
+            aria-describedby="select-241-description"
             aria-disabled="false"
             aria-expanded="false"
             aria-invalid="false"
@@ -105,7 +109,7 @@
             data-cy="host-event-table-page-size-selector"
             data-lgid="lg-select-trigger"
             data-testid="leafygreen-ui-select-menubutton"
-            id="select-178"
+            id="select-242"
             type="button"
             value="10"
           >
@@ -129,7 +133,7 @@
               <svg
                 alt=""
                 aria-hidden="true"
-                class="leafygreen-ui-fn50nl"
+                class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
                 height="16"
                 role="presentation"
                 viewBox="0 0 16 16"

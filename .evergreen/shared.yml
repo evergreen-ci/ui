@@ -133,23 +133,17 @@ functions:
         script: |
           ${PREPARE_SHELL}
 
-          # Fetch NVM and install it into this task's .nvm directory
-          # Once downloaded, source nvm and install yarn
-          git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
-          cd "$NVM_DIR"
-          git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          cd -
+          # Install pnpm via standalone script
+          curl -fsSL https://get.pnpm.io/install.sh | env PNPM_HOME="$PNPM_HOME" SHELL="$(which bash)" bash -
 
-          # Retry the download for Node in case it flakes.
+          # pnpm env manages Node.js versions directly.
+          # Retry the Node.js installation in case it flakes.
           for i in {1..5}; do
-            nvm install --no-progress --default ${node_version}
+            pnpm env use --global ${node_version}
             [[ $? -eq 0 ]] && break
             echo "Attempt $i of 5 to install Node failed"
             sleep 10
           done
-          npm install -g yarn
-          npm install -g env-cmd
 
   symlink:
     command: shell.exec
@@ -167,16 +161,16 @@ functions:
       working_dir: ui/.evergreen
       script: ./scripts/wait-for-evergreen.sh
 
-  yarn-build:
+  pnpm-build:
     command: shell.exec
     params:
       working_dir: ui/${app_dir}
       shell: bash
       script: |
         ${PREPARE_SHELL}
-        yarn build:local
+        pnpm build:local
 
-  yarn-cypress:
+  pnpm-cypress:
     command: shell.exec
     params:
       working_dir: ui/${app_dir}
@@ -188,30 +182,30 @@ functions:
         ${PREPARE_SHELL}
         # Allow spec filtering for an intentional patch.
         if [[ "${cypress_spec}" != "" ]]; then
-          CYPRESS_CI=true CYPRESS_SKIP_VERIFY=true yarn cy:run --reporter junit --spec "${cypress_spec}"
+          CYPRESS_CI=true pnpm cy:run --reporter junit --spec "${cypress_spec}"
         else
-          CYPRESS_CI=true CYPRESS_SKIP_VERIFY=true yarn cy:run --reporter junit
+          CYPRESS_CI=true pnpm cy:run --reporter junit
         fi
 
-  yarn-eslint:
+  pnpm-eslint:
     command: shell.exec
     params:
       working_dir: ui/${app_dir}
       shell: bash
       script: |
         ${PREPARE_SHELL}
-        yarn eslint:strict
+        pnpm eslint:strict
 
-  yarn-install:
+  pnpm-install:
     command: shell.exec
     params:
       working_dir: ui/${app_dir}
       shell: bash
       script: |
         ${PREPARE_SHELL}
-        yarn install
+        pnpm install
 
-  yarn-preview:
+  pnpm-preview:
     command: shell.exec
     params:
       working_dir: ui/${app_dir}
@@ -219,9 +213,9 @@ functions:
       shell: bash
       script: |
         ${PREPARE_SHELL}
-        yarn preview --no-request-logging
+        pnpm preview --no-request-logging
 
-  yarn-serve:
+  pnpm-serve:
     command: shell.exec
     type: setup
     params:
@@ -229,41 +223,41 @@ functions:
       background: true
       script: |
         ${PREPARE_SHELL}
-        yarn serve
+        pnpm serve
 
-  yarn-snapshot:
+  pnpm-snapshot:
     command: shell.exec
     params:
       working_dir: ui/${app_dir}
       script: |
         ${PREPARE_SHELL}
-        yarn snapshot
+        pnpm snapshot
 
-  yarn-storybook-build:
+  pnpm-storybook-build:
     command: shell.exec
     params:
       working_dir: ui/${app_dir}
       script: |
         ${PREPARE_SHELL}
-        yarn storybook:build
+        pnpm storybook:build
 
-  yarn-test:
+  pnpm-test:
     command: shell.exec
     params:
       working_dir: ui/${app_dir}
       script: |
         ${PREPARE_SHELL}
-        yarn test
+        pnpm test
 
-  yarn-tsc:
+  pnpm-tsc:
     command: shell.exec
     params:
       working_dir: ui/${app_dir}
       script: |
         ${PREPARE_SHELL}
-        yarn check-types
+        pnpm check-types
 
-  yarn-verify-backend:
+  pnpm-verify-backend:
     command: subprocess.exec
     params:
       working_dir: ui/.evergreen
@@ -278,7 +272,7 @@ tasks:
   - name: compile
     commands:
       - func: symlink
-      - func: yarn-build
+      - func: pnpm-build
 
   # Updates to e2e should also be applied to e2e_parallel in `generate-parallel-e2e-tasks.js`.
   - name: e2e
@@ -291,30 +285,30 @@ tasks:
       - func: symlink
       - func: seed-bucket-data
       - func: run-logkeeper
-      - func: yarn-build
-      - func: yarn-preview
+      - func: pnpm-build
+      - func: pnpm-preview
       - func: wait-for-evergreen
-      - func: yarn-verify-backend
-      - func: yarn-cypress
+      - func: pnpm-verify-backend
+      - func: pnpm-cypress
 
   - name: lint
     commands:
       - func: symlink
-      - func: yarn-eslint
+      - func: pnpm-eslint
 
   - name: snapshots
     commands:
-      - func: yarn-snapshot
+      - func: pnpm-snapshot
 
   - name: storybook
     commands:
-      - func: yarn-storybook-build
+      - func: pnpm-storybook-build
 
   - name: test
     commands:
-    - func: yarn-test
+    - func: pnpm-test
 
   - name: type_check
     commands:
       - func: symlink
-      - func: yarn-tsc
+      - func: pnpm-tsc

@@ -20,7 +20,7 @@ pre:
   - func: assume-ec2-role
   - func: get-project
   - func: setup-node
-  - func: yarn-install
+  - func: pnpm-install
 
 post:
   - func: attach-analytics-visualizer
@@ -164,7 +164,7 @@ buildvariants:
   - name: generator
     display_name: Generator
     patch_only: true
-    # Omit node_version expansion so that yarn-install fails to save time.
+    # Omit node_version expansion so that pnpm-install fails to save time.
     run_on:
       - ubuntu2204-small
     tasks:

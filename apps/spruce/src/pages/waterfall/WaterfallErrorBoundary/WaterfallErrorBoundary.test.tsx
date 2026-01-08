@@ -3,7 +3,6 @@ import {
   fireEvent,
   screen,
 } from "@evg-ui/lib/test_utils";
-import "@testing-library/jest-dom";
 import WaterfallErrorBoundary from ".";
 
 // Mock the utility function

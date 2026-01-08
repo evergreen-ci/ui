@@ -33,12 +33,12 @@ describe("buildAndPush", () => {
     );
   });
 
-  it("fails when yarn build fails", () => {
+  it("fails when pnpm build fails", () => {
     vi.mocked(execSync).mockImplementation(() => {
-      throw Error("mock yarn build error");
+      throw Error("mock pnpm build error");
     });
     expect(() => buildAndPush("my-bucket")).toThrowError(
-      "mock yarn build error",
+      "mock pnpm build error",
     );
     expect(vi.mocked(pushToS3)).not.toHaveBeenCalled();
   });

@@ -16,6 +16,8 @@ export const hostUptimeDocumentationUrl = `${hostsDocumentationUrl}/Spawn-Hosts#
 
 export const hostMountVolumeDocumentationUrl = `${hostsDocumentationUrl}/Spawn-Hosts#mounting-additional-storage`;
 
+export const taskSpawnHostDocumentationUrl = `${hostsDocumentationUrl}/Spawn-Hosts#spawning-a-host-from-a-task`;
+
 export const projectDistroSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Project-and-Distro-Settings`;
 
 export const projectSettingsRepoSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Repo-Level-Settings`;

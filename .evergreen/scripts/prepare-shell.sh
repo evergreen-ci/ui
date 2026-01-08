@@ -1,23 +1,19 @@
 #!/bin/bash
 
 PROJECT_DIRECTORY="$(pwd)"
-NVM_DIR="$PROJECT_DIRECTORY/.nvm"
+PNPM_HOME="$PROJECT_DIRECTORY/.pnpm"
 
 export PROJECT_DIRECTORY
-export NVM_DIR
+export PNPM_HOME
 
 cat <<EOT > expansion.yml
 PREPARE_SHELL: |
     PROJECT_DIRECTORY="$PROJECT_DIRECTORY"
-    NVM_DIR="$NVM_DIR"
+    PNPM_HOME="$PNPM_HOME"
 
-    export PATH=$PROJECT_DIRECTORY/mongodb-tools:$PATH
+    export PATH=$PNPM_HOME:$PROJECT_DIRECTORY/mongodb-tools:\$PATH
     export PROJECT_DIRECTORY
-    export NVM_DIR
-
-    if [ -d "${NVM_DIR}" ]; then
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    fi
+    export PNPM_HOME
 EOT
 
 cat expansion.yml

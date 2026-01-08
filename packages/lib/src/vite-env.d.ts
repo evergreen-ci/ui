@@ -8,6 +8,10 @@ declare global {
     const content: DocumentNode;
     export default content;
   }
+  module "*.svg" {
+    const content: string;
+    export default content;
+  }
   interface Window {
     /**
      * `AttributeStore` is an interface that provides a way to set and remove global attributes for use in OpenTelemetry spans.
