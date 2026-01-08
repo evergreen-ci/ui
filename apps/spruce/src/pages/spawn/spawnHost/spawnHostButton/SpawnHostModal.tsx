@@ -106,29 +106,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     return { enabledHoursCount, warnings };
   }, [formState?.expirationDetails?.hostUptime]);
 
-  // Force useOAuth to true when jwtTokenForCLIDisabled is false
-  useEffect(() => {
-    if (
-      !formSchemaInput.jwtTokenForCLIDisabled &&
-      spawnTaskData?.task &&
-      formState?.loadData?.loadDataOntoHostAtStartup &&
-      formState?.loadData?.useOAuth !== true
-    ) {
-      setFormState((prev) => ({
-        ...prev,
-        loadData: {
-          ...prev.loadData,
-          useOAuth: true,
-        },
-      }));
-    }
-  }, [
-    formSchemaInput.jwtTokenForCLIDisabled,
-    spawnTaskData?.task,
-    formState?.loadData?.loadDataOntoHostAtStartup,
-    formState?.loadData?.useOAuth,
-  ]);
-
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     availableRegions: selectedDistro?.availableRegions ?? [],
