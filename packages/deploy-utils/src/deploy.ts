@@ -1,4 +1,4 @@
-#!/usr/bin/env -S VITE_SCRIPT_MODE=1 vite-node --script
+#!/usr/bin/env vite-node --script
 
 import { buildAndPush } from "./build-and-push";
 import { prepareProdDeploy } from "./prepare-prod-deploy";
@@ -6,8 +6,10 @@ import { isRunningOnCI } from "./utils/environment";
 import { red } from "./utils/shell";
 import { isTargetEnvironment } from "./utils/types";
 
+process.env.VITE_SCRIPT_MODE = "1";
+
 if (isRunningOnCI()) {
-  throw Error("yarn deploy:<target> scripts are for local use only!");
+  throw Error("pnpm deploy:<target> scripts are for local use only!");
 }
 
 const target = process.env.REACT_APP_RELEASE_STAGE;

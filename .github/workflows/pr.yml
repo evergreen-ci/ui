@@ -24,8 +24,13 @@ jobs:
         with:
           node-version: 22.17.0
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Install dependencies
-        run: yarn install
+        run: pnpm install
 
       - name: Determine changed files
         uses: dorny/paths-filter@v3

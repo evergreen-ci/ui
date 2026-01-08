@@ -1,0 +1,10 @@
+packages:
+  - apps/*
+  - packages/*
+configDependencies:
+  '@pnpm/plugin-types-fixer': 0.1.0+sha512-bLww63gRHi7siYTqFJb5qNdcXadU0jv20Et6z5AryMZ7FlLolbEJOrXLpg8+amQZNHHNW1dfFUBGVw/9ezQbFg==
+onlyBuiltDependencies:
+  - cypress
+overrides:
+  glob@>=10.2.0 <10.5.0: '>=10.5.0'
+  qs@<6.14.1: '>=6.14.1'

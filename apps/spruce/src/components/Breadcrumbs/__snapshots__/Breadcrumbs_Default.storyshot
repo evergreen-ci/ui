@@ -18,12 +18,14 @@
       />
     </div>
     <svg
-      class="emotion-PaddedIcon eaak0tv0"
+      aria-label="Chevron Right Icon"
+      class="leafygreen-ui-1t8pczl emotion-PaddedIcon eaak0tv0"
       data-cy="breadcrumb-chevron"
-      fill="#3D4F58"
-      height="16"
+      fill="none"
+      height="14"
+      role="img"
       viewBox="0 0 16 16"
-      width="16"
+      width="14"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

@@ -62,11 +62,13 @@
             class="leafygreen-ui-16tr4y"
           >
             <svg
+              aria-label="Chevron Left Icon"
               class="leafygreen-ui-17pifwg"
               fill="none"
-              height="16"
+              height="14"
+              role="img"
               viewBox="0 0 16 16"
-              width="16"
+              width="14"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -103,11 +105,13 @@
             class="leafygreen-ui-16tr4y"
           >
             <svg
+              aria-label="Chevron Right Icon"
               class="leafygreen-ui-17pifwg"
               fill="none"
-              height="16"
+              height="14"
+              role="img"
               viewBox="0 0 16 16"
-              width="16"
+              width="14"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -126,8 +130,8 @@
         data-testid="lg-select"
       >
         <button
-          aria-controls="select-350-menu"
-          aria-describedby="select-350-description"
+          aria-controls="select-463-menu"
+          aria-describedby="select-463-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -136,7 +140,7 @@
           data-cy="tasks-table-page-size-selector"
           data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-351"
+          id="select-464"
           type="button"
           value="10"
         >
@@ -160,7 +164,7 @@
             <svg
               alt=""
               aria-hidden="true"
-              class="leafygreen-ui-fn50nl"
+              class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
               height="16"
               role="presentation"
               viewBox="0 0 16 16"
@@ -605,17 +609,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25-label"
                       data-testid="lg-reviewed-evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                      for="checkbox-365"
-                      id="checkbox-365-label"
+                      for="checkbox-478"
+                      id="checkbox-478-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-365-label"
+                        aria-labelledby="checkbox-478-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="reviewed-evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                        id="checkbox-365"
+                        id="checkbox-478"
                         type="checkbox"
                       />
                       <div
@@ -801,17 +805,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25-label"
                       data-testid="lg-reviewed-evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                      for="checkbox-366"
-                      id="checkbox-366-label"
+                      for="checkbox-479"
+                      id="checkbox-479-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-366-label"
+                        aria-labelledby="checkbox-479-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="reviewed-evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                        id="checkbox-366"
+                        id="checkbox-479"
                         type="checkbox"
                       />
                       <div
@@ -997,17 +1001,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25-label"
                       data-testid="lg-reviewed-evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                      for="checkbox-367"
-                      id="checkbox-367-label"
+                      for="checkbox-480"
+                      id="checkbox-480-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-367-label"
+                        aria-labelledby="checkbox-480-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="reviewed-evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                        id="checkbox-367"
+                        id="checkbox-480"
                         type="checkbox"
                       />
                       <div
@@ -1222,17 +1226,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25-label"
                       data-testid="lg-reviewed-evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                      for="checkbox-368"
-                      id="checkbox-368-label"
+                      for="checkbox-481"
+                      id="checkbox-481-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-368-label"
+                        aria-labelledby="checkbox-481-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="reviewed-evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                        id="checkbox-368"
+                        id="checkbox-481"
                         type="checkbox"
                       />
                       <div

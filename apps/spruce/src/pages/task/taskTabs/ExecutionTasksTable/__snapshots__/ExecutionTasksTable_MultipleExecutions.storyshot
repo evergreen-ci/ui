@@ -275,17 +275,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-some_id_5-label"
                       data-testid="lg-reviewed-some_id_5"
-                      for="checkbox-264"
-                      id="checkbox-264-label"
+                      for="checkbox-338"
+                      id="checkbox-338-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-264-label"
+                        aria-labelledby="checkbox-338-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="reviewed-some_id_5"
-                        id="checkbox-264"
+                        id="checkbox-338"
                         type="checkbox"
                       />
                       <div
@@ -477,17 +477,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-some_id_6-label"
                       data-testid="lg-reviewed-some_id_6"
-                      for="checkbox-265"
-                      id="checkbox-265-label"
+                      for="checkbox-339"
+                      id="checkbox-339-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-265-label"
+                        aria-labelledby="checkbox-339-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="reviewed-some_id_6"
-                        id="checkbox-265"
+                        id="checkbox-339"
                         type="checkbox"
                       />
                       <div
