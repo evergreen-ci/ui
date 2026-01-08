@@ -46,7 +46,9 @@ const repoForm: GeneralFormState = {
   },
   projectFlags: {
     dispatchingDisabled: true,
-    debugSpawnHostsDisabled: false,
+    debug: {
+      debugSpawnHostsDisabled: false,
+    },
     scheduling: {
       deactivatePrevious: true,
       stepbackDisabled: true,
@@ -112,7 +114,9 @@ const projectForm: GeneralFormState = {
   },
   projectFlags: {
     dispatchingDisabled: null,
-    debugSpawnHostsDisabled: null,
+    debug: {
+      debugSpawnHostsDisabled: null,
+    },
     scheduling: {
       deactivatePrevious: null,
       stepbackDisabled: null,

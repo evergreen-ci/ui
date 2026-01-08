@@ -160,17 +160,17 @@ export const getFormSchema = (
               }),
             },
           },
-          debugSpawnHosts: {
+          debug: {
             type: "object" as const,
-            title: "Debug Spawn Hosts Settings",
+            title: "Debug Settings",
             properties: {
-              debugSpawnHostDisabled: {
+              debugSpawnHostsDisabled: {
                 type: ["boolean", "null"],
                 title: "Debug Spawn Hosts",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  repoData?.projectFlags?.debugSpawnHostsDisabled,
+                  repoData?.projectFlags?.debug?.debugSpawnHostsDisabled,
                   true,
                 ),
               },
@@ -355,12 +355,15 @@ export const getFormSchema = (
         "ui:widget": widgets.RadioBoxWidget,
         "ui:description": "Sets if any tasks can be dispatched.",
       },
-      debugSpawnHostsDisabled: {
-        // TODO DEVPROD-25833: Unhide this field when the feature is ready
-        "ui:widget": showRecreatableTaskEnvironments
-          ? widgets.RadioBoxWidget
-          : "hidden",
-        "ui:description": "Sets if project tasks can create debug spawn hosts.", // TODO DEVPROD-25820: Add link to debug spawn hosts documentation
+      debug: {
+        debugSpawnHostsDisabled: {
+          // TODO DEVPROD-25833: Unhide this field when the feature is ready
+          "ui:widget": showRecreatableTaskEnvironments
+            ? widgets.RadioBoxWidget
+            : "hidden",
+          "ui:description":
+            "Sets if project tasks can create debug spawn hosts.", // TODO DEVPROD-25820: Add link to debug spawn hosts documentation
+        },
       },
       repotracker: {
         repotrackerDisabled: {
