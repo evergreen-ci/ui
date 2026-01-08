@@ -53,6 +53,7 @@
     "chromatic": "^13.3.4",
     "eslint": "^9.39.1",
     "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "3.5.1",
     "storybook": "^10.1.10",
     "storybook-addon-apollo-client": "^10.0.0",
     "typescript": "~5.9.3",

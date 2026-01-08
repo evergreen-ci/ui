@@ -19,7 +19,9 @@ describe("ChatFeed", () => {
     const user = userEvent.setup();
 
     render(<ChatFeed apiUrl="/foo" />, {
-      wrapper: createWrapper(ChatProvider, { appName: "Parsley AI Test" }),
+      wrapper: createWrapper<ChatProviderProps>(ChatProvider, {
+        appName: "Parsley AI Test",
+      }),
     });
 
     const message = "Why did my log fail?";
@@ -35,7 +37,9 @@ describe("ChatFeed", () => {
       const user = userEvent.setup();
 
       render(<ChatFeed apiUrl="/foo" chatSuggestions={["Foo", "Bar"]} />, {
-        wrapper: createWrapper(ChatProvider, { appName: "Parsley AI Test" }),
+        wrapper: createWrapper<ChatProviderProps>(ChatProvider, {
+          appName: "Parsley AI Test",
+        }),
       });
 
       const message = "Why did my log fail?";
@@ -52,7 +56,9 @@ describe("ChatFeed", () => {
       const user = userEvent.setup();
 
       render(<ChatFeed apiUrl="/foo" chatSuggestions={["Foo", "Bar"]} />, {
-        wrapper: createWrapper(ChatProvider, { appName: "Parsley AI Test" }),
+        wrapper: createWrapper<ChatProviderProps>(ChatProvider, {
+          appName: "Parsley AI Test",
+        }),
       });
 
       expect(screen.getByText("Suggested Prompts")).toBeVisible();
@@ -73,7 +79,9 @@ describe("ChatFeed", () => {
       render(
         <ChatFeed apiUrl="/foo" transformMessage={mockTransformMessage} />,
         {
-          wrapper: createWrapper(ChatProvider, { appName: "Parsley AI Test" }),
+          wrapper: createWrapper<ChatProviderProps>(ChatProvider, {
+            appName: "Parsley AI Test",
+          }),
         },
       );
       const message = "Why did my log fail?";
@@ -106,7 +114,9 @@ describe("ChatFeed", () => {
 
     it("renders no chips initially", () => {
       render(<ChatFeed apiUrl="/foo" />, {
-        wrapper: createWrapper(ChatProvider, { appName: "Parsley AI Test" }),
+        wrapper: createWrapper<ChatProviderProps>(ChatProvider, {
+          appName: "Parsley AI Test",
+        }),
       });
       expect(screen.queryByDataCy(chip1.identifier)).not.toBeInTheDocument();
       expect(screen.queryByDataCy(chip2.identifier)).not.toBeInTheDocument();
