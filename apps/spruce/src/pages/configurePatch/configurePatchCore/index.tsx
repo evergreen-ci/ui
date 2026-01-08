@@ -58,7 +58,6 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
 
   const {
     activated,
-    author,
     childPatchAliases,
     childPatches,
     githubPatchData,
@@ -68,6 +67,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
     projectID,
     projectIdentifier,
     time,
+    user,
     variantsTasks,
     versionFull,
   } = patch;
@@ -227,7 +227,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
         <PageSider>
           <MetadataCard title="Patch Metadata">
             <MetadataItem>
-              <MetadataLabel>Submitted by:</MetadataLabel> {author}
+              <MetadataLabel>Submitted by:</MetadataLabel> {user.userId}
             </MetadataItem>
             <MetadataItem>
               <MetadataLabel>Submitted at:</MetadataLabel> {time?.submittedAt}

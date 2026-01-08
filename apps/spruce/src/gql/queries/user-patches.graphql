@@ -2,6 +2,7 @@
 
 query UserPatches($userId: String, $patchesInput: PatchesInput!) {
   user(userId: $userId) {
+    displayName
     patches(patchesInput: $patchesInput) {
       ...PatchesPagePatches
     }
