@@ -73,8 +73,11 @@
               class="leafygreen-ui-xhlipt"
             >
               <svg
-                fill="#889397"
+                aria-label="Edit Icon"
+                class="leafygreen-ui-a4wnk0"
+                fill="none"
                 height="16"
+                role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
@@ -97,10 +100,13 @@
               class="leafygreen-ui-xhlipt"
             >
               <svg
-                fill="#889397"
+                aria-label="X Icon"
+                class="leafygreen-ui-a4wnk0"
+                fill="none"
                 height="16"
+                role="img"
                 viewBox="0 0 16 16"
-                width="17"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -135,8 +141,8 @@
               Case
             </div>
             <div
-              aria-label="segmented-control-34"
-              aria-owns="segmented-control-34-0 segmented-control-34-1"
+              aria-label="segmented-control-64"
+              aria-owns="segmented-control-64-0 segmented-control-64-1"
               class="leafygreen-ui-1698cdy"
               role="tablist"
             >
@@ -152,7 +158,7 @@
                     aria-controls="Toggle case sensitivity"
                     aria-selected="false"
                     class="leafygreen-ui-qlnhrg"
-                    id="segmented-control-34-0"
+                    id="segmented-control-64-0"
                     role="tab"
                     tabindex="-1"
                     type="button"
@@ -181,7 +187,7 @@
                     aria-controls="Toggle case sensitivity"
                     aria-selected="true"
                     class="leafygreen-ui-qlnhrg"
-                    id="segmented-control-34-1"
+                    id="segmented-control-64-1"
                     role="tab"
                     tabindex="0"
                     type="button"
@@ -215,8 +221,8 @@
               Match
             </div>
             <div
-              aria-label="segmented-control-35"
-              aria-owns="segmented-control-35-0 segmented-control-35-1"
+              aria-label="segmented-control-65"
+              aria-owns="segmented-control-65-0 segmented-control-65-1"
               class="leafygreen-ui-1698cdy"
               role="tablist"
             >
@@ -232,7 +238,7 @@
                     aria-controls="Toggle match type"
                     aria-selected="true"
                     class="leafygreen-ui-qlnhrg"
-                    id="segmented-control-35-0"
+                    id="segmented-control-65-0"
                     role="tab"
                     tabindex="0"
                     type="button"
@@ -261,7 +267,7 @@
                     aria-controls="Toggle match type"
                     aria-selected="false"
                     class="leafygreen-ui-qlnhrg"
-                    id="segmented-control-35-1"
+                    id="segmented-control-65-1"
                     role="tab"
                     tabindex="-1"
                     type="button"

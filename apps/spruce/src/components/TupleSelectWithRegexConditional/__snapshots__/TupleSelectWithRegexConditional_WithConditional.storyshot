@@ -16,8 +16,8 @@
           class="leafygreen-ui-pipgrf emotion-PaddedSegmentedControl egmqwjk0"
         >
           <div
-            aria-label="segmented-control-154"
-            aria-owns="segmented-control-154-0 segmented-control-154-1"
+            aria-label="segmented-control-215"
+            aria-owns="segmented-control-215-0 segmented-control-215-1"
             class="leafygreen-ui-1698cdy"
             role="tablist"
           >
@@ -34,7 +34,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="true"
                   class="leafygreen-ui-qlnhrg"
-                  id="segmented-control-154-0"
+                  id="segmented-control-215-0"
                   role="tab"
                   tabindex="0"
                   type="button"
@@ -64,7 +64,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="false"
                   class="leafygreen-ui-qlnhrg"
-                  id="segmented-control-154-1"
+                  id="segmented-control-215-1"
                   role="tab"
                   tabindex="-1"
                   type="button"
@@ -100,8 +100,8 @@
         data-testid="lg-select"
       >
         <button
-          aria-controls="select-156-menu"
-          aria-describedby="select-156-description"
+          aria-controls="select-217-menu"
+          aria-describedby="select-217-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -110,7 +110,7 @@
           data-cy="tuple-select-select"
           data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-157"
+          id="select-218"
           type="button"
           value="build_variant"
         >
@@ -134,7 +134,7 @@
             <svg
               alt=""
               aria-hidden="true"
-              class="leafygreen-ui-fn50nl"
+              class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
               height="16"
               role="presentation"
               viewBox="0 0 16 16"
@@ -172,7 +172,7 @@
             class="leafygreen-ui-1iyoj2o"
           />
           <div
-            class="leafygreen-ui-14vpn2b"
+            class="leafygreen-ui-oxwo2l"
           >
             <div
               class="leafygreen-ui-1ago99h"
@@ -198,7 +198,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_input-feedback"
             data-testid="lg-text_input-feedback"
-            id="lg-form_field-feedback-160"
+            id="lg-form_field-feedback-221"
           />
         </div>
         <div
@@ -214,8 +214,11 @@
               class="leafygreen-ui-xhlipt"
             >
               <svg
+                aria-label="Plus Icon"
+                class=""
                 fill="none"
                 height="16"
+                role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"

@@ -98,7 +98,7 @@ describe("packages table", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(1);
     });
-    expect(screen.getByText("1 - 1 of 1 items")).toBeInTheDocument();
+    expect(screen.getByText("1 - 1 of 1 item")).toBeInTheDocument();
   });
 
   it("supports pagination", async () => {

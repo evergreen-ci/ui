@@ -10,14 +10,14 @@ export default defineConfig({
     setupNodeEvents(on) {
       on("before:run", () => {
         try {
-          execSync("yarn evg-db-ops --dump");
+          execSync("pnpm evg-db-ops --dump");
         } catch (e) {
           console.error(e);
         }
       });
       on("after:run", () => {
         try {
-          execSync("yarn evg-db-ops --clean-up");
+          execSync("pnpm evg-db-ops --clean-up");
         } catch (e) {
           console.error(e);
         }

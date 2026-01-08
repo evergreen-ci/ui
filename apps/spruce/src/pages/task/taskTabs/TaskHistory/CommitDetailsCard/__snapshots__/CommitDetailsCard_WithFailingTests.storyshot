@@ -33,6 +33,7 @@
         >
           <svg
             aria-label="GitHub Icon"
+            class=""
             fill="none"
             height="16"
             viewBox="0 0 98 96"
@@ -85,7 +86,7 @@
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-275"
+        id="modal-347"
       />
       <div
         class="leafygreen-ui-17azklk"
@@ -418,6 +419,7 @@
                                   >
                                     Logs
                                     <svg
+                                      alt=""
                                       aria-hidden="true"
                                       class="leafygreen-ui-1q35ofk"
                                       fill="none"
@@ -554,6 +556,7 @@
                                   >
                                     Logs
                                     <svg
+                                      alt=""
                                       aria-hidden="true"
                                       class="leafygreen-ui-1q35ofk"
                                       fill="none"
@@ -690,6 +693,7 @@
                                   >
                                     Logs
                                     <svg
+                                      alt=""
                                       aria-hidden="true"
                                       class="leafygreen-ui-1q35ofk"
                                       fill="none"
@@ -826,6 +830,7 @@
                                   >
                                     Logs
                                     <svg
+                                      alt=""
                                       aria-hidden="true"
                                       class="leafygreen-ui-1q35ofk"
                                       fill="none"
@@ -962,6 +967,7 @@
                                   >
                                     Logs
                                     <svg
+                                      alt=""
                                       aria-hidden="true"
                                       class="leafygreen-ui-1q35ofk"
                                       fill="none"
@@ -995,10 +1001,10 @@
                 class="leafygreen-ui-og633j"
               >
                 <div
-                  class="leafygreen-ui-18m7jux"
+                  class="leafygreen-ui-myynbc"
                 />
                 <div
-                  class="leafygreen-ui-18m7jux"
+                  class="leafygreen-ui-myynbc"
                 >
                   <p
                     class="leafygreen-ui-26vqpd"
@@ -1011,7 +1017,7 @@
                   </p>
                 </div>
                 <div
-                  class="leafygreen-ui-18m7jux"
+                  class="leafygreen-ui-myynbc"
                 >
                   <div
                     class="leafygreen-ui-1iyoj2o"
@@ -1019,8 +1025,8 @@
                     data-testid="lg-select"
                   >
                     <button
-                      aria-controls="select-280-menu"
-                      aria-describedby="select-280-description"
+                      aria-controls="select-359-menu"
+                      aria-describedby="select-359-description"
                       aria-disabled="false"
                       aria-expanded="false"
                       aria-invalid="false"
@@ -1028,7 +1034,7 @@
                       class="lg-ui-button-0000 leafygreen-ui-1rkuilv"
                       data-lgid="lg-select-trigger"
                       data-testid="lg-pagination-page-select"
-                      id="select-281"
+                      id="select-360"
                       type="button"
                       value="1"
                     >
@@ -1052,7 +1058,7 @@
                         <svg
                           alt=""
                           aria-hidden="true"
-                          class="leafygreen-ui-1x6jrwu"
+                          class="leafygreen-ui-1st74h4 leafygreen-ui-1q35ofk"
                           height="16"
                           role="presentation"
                           viewBox="0 0 16 16"

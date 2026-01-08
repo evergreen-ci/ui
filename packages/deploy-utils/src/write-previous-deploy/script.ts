@@ -1,8 +1,10 @@
-#!/usr/bin/env -S VITE_SCRIPT_MODE=1 vite-node --script
+#!/usr/bin/env vite-node --script
 
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { getAppToDeploy } from "../utils/environment";
 import { getCurrentlyDeployedCommit } from "../utils/git";
+
+process.env.VITE_SCRIPT_MODE = "1";
 
 const dirName = "bin";
 const app = getAppToDeploy();

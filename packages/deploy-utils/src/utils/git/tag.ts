@@ -1,4 +1,5 @@
 import { execSync } from "child_process";
+import { getAppToDeploy } from "../environment";
 import { execTrim, green, underline } from "../shell";
 import { DeployableApp } from "../types";
 
@@ -10,13 +11,14 @@ enum ReleaseVersion {
 
 /**
  * `createTagAndPush` is a helper function that creates a new tag.
- * Pushing occurs in the postversion hook triggered by "yarn version"
+ * Pushing occurs in the postversion hook triggered by "npm version"
  * @param version - version indicates the type of upgrade of the new tag.
  */
 const createTagAndPush = (version: ReleaseVersion) => {
   console.log("Creating new tag...");
+  const app = getAppToDeploy();
   try {
-    execSync(`yarn version --new-version ${version}`, {
+    execSync(`npm version ${version} --tag-version-prefix ${app}/v`, {
       encoding: "utf-8",
       stdio: "inherit",
     });

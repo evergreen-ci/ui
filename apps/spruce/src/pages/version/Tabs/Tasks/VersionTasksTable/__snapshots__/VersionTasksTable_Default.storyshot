@@ -62,11 +62,13 @@
             class="leafygreen-ui-16tr4y"
           >
             <svg
+              aria-label="Chevron Left Icon"
               class="leafygreen-ui-17pifwg"
               fill="none"
-              height="16"
+              height="14"
+              role="img"
               viewBox="0 0 16 16"
-              width="16"
+              width="14"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -103,11 +105,13 @@
             class="leafygreen-ui-16tr4y"
           >
             <svg
+              aria-label="Chevron Right Icon"
               class="leafygreen-ui-17pifwg"
               fill="none"
-              height="16"
+              height="14"
+              role="img"
               viewBox="0 0 16 16"
-              width="16"
+              width="14"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -126,8 +130,8 @@
         data-testid="lg-select"
       >
         <button
-          aria-controls="select-354-menu"
-          aria-describedby="select-354-description"
+          aria-controls="select-463-menu"
+          aria-describedby="select-463-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -136,7 +140,7 @@
           data-cy="tasks-table-page-size-selector"
           data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-355"
+          id="select-464"
           type="button"
           value="10"
         >
@@ -160,7 +164,7 @@
             <svg
               alt=""
               aria-hidden="true"
-              class="leafygreen-ui-fn50nl"
+              class="leafygreen-ui-1st74h4 leafygreen-ui-15rby6h"
               height="16"
               role="presentation"
               viewBox="0 0 16 16"
@@ -218,123 +222,6 @@
               class="leafygreen-ui-11hl1ow"
             >
               Reviewed 
-              <div
-                class="emotion-IconContainer e1gftxiz0"
-              >
-                <svg
-                  data-cy="announcement-tooltip-trigger"
-                  fill="#3D4F58"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14M9 4a1 1 0 1 1-2 0 1 1 0 0 1 2 0M8 6a1 1 0 0 1 1 1v4h.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1H7V7h-.5a.5.5 0 0 1 0-1z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </div>
-              <span
-                class="leafygreen-ui-38lglc"
-              />
-              <div
-                class="leafygreen-ui-760g5g"
-                popover="manual"
-                style="--lg-popover-max_height: 0px; --lg-popover-max_width: 0px;"
-              >
-                <div
-                  class="lg-ui-popover-content-0000"
-                >
-                  <div
-                    aria-labelledby="guide-cue-label"
-                    class="leafygreen-ui-uslaqd"
-                    id="tooltip-undefined"
-                    role="dialog"
-                  >
-                    <span
-                      class="leafygreen-ui-1l7v51g"
-                    >
-                      <div>
-                        <div
-                          class="leafygreen-ui-haw22i"
-                        >
-                          <h2
-                            class="leafygreen-ui-utt8q7"
-                            id="guide-cue-label"
-                          >
-                            <strong>
-                              New feature: Task Review
-                            </strong>
-                          </h2>
-                          <div
-                            class="leafygreen-ui-kowwxt"
-                            id="guide-cue-desc"
-                          >
-                            <p
-                              class="emotion-StyledBody e1lmpn6m0 leafygreen-ui-u8vygl"
-                            >
-                              Mark unsuccessful tasks as reviewed when you're done looking at them. This state is not shared by your teammates and only helps with personal debugging on one machine.
-                            </p>
-                            <p
-                              class="emotion-StyledBody e1lmpn6m0 leafygreen-ui-u8vygl"
-                            >
-                              You can disable this feature in your
-                               
-                              <a
-                                class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-1pub6l0"
-                                href="/preferences/ui-settings"
-                              >
-                                <span>
-                                  UI Settings
-                                </span>
-                              </a>
-                              .
-                            </p>
-                          </div>
-                        </div>
-                        <div
-                          class="leafygreen-ui-fqb2g8"
-                        >
-                          <button
-                            aria-disabled="false"
-                            class="lg-ui-button-0000 leafygreen-ui-1y5d6sr"
-                            data-lgid="lg-button"
-                            type="button"
-                          >
-                            <div
-                              class="leafygreen-ui-v038xi"
-                            />
-                            <div
-                              class="leafygreen-ui-16tr4y"
-                            >
-                              Got it
-                            </div>
-                          </button>
-                        </div>
-                      </div>
-                    </span>
-                    <div
-                      class="leafygreen-ui-rfaomr"
-                    >
-                      <svg
-                        class="leafygreen-ui-1takmzs"
-                        fill="#001E2B"
-                        height="8"
-                        viewBox="0 0 26 8"
-                        width="26"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M27 0H-1v1h.699a10 10 0 017.26 3.123l1.685 1.78a6 6 0 008.712 0l1.686-1.78A10 10 0 0126.302 1H27V0z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </th>
           <th
@@ -722,17 +609,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25-label"
                       data-testid="lg-reviewed-evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                      for="checkbox-370"
-                      id="checkbox-370-label"
+                      for="checkbox-478"
+                      id="checkbox-478-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-370-label"
+                        aria-labelledby="checkbox-478-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="reviewed-evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                        id="checkbox-370"
+                        id="checkbox-478"
                         type="checkbox"
                       />
                       <div
@@ -918,17 +805,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25-label"
                       data-testid="lg-reviewed-evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                      for="checkbox-371"
-                      id="checkbox-371-label"
+                      for="checkbox-479"
+                      id="checkbox-479-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-371-label"
+                        aria-labelledby="checkbox-479-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="reviewed-evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                        id="checkbox-371"
+                        id="checkbox-479"
                         type="checkbox"
                       />
                       <div
@@ -1114,17 +1001,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25-label"
                       data-testid="lg-reviewed-evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                      for="checkbox-372"
-                      id="checkbox-372-label"
+                      for="checkbox-480"
+                      id="checkbox-480-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-372-label"
+                        aria-labelledby="checkbox-480-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="reviewed-evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                        id="checkbox-372"
+                        id="checkbox-480"
                         type="checkbox"
                       />
                       <div
@@ -1339,17 +1226,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25-label"
                       data-testid="lg-reviewed-evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                      for="checkbox-373"
-                      id="checkbox-373-label"
+                      for="checkbox-481"
+                      id="checkbox-481-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-373-label"
+                        aria-labelledby="checkbox-481-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="reviewed-evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
-                        id="checkbox-373"
+                        id="checkbox-481"
                         type="checkbox"
                       />
                       <div
