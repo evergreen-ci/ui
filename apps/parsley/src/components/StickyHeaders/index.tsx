@@ -37,27 +37,36 @@ const StickyHeaders: React.FC<StickyHeaderProps> = ({
 
   return (
     <StickyContainer ref={containerRef} data-cy="sticky-headers">
-      {sectionHeaderLine && isSectionHeaderRow(sectionHeaderLine) && (
-        <StickySectionWrapper>
-          <SectionHeader
-            failingLine={failingLine}
-            lineIndex={sectionHeader!}
-            sectionHeaderLine={sectionHeaderLine}
-          />
-        </StickySectionWrapper>
-      )}
-      {subsectionHeaderLine && isSubsectionHeaderRow(subsectionHeaderLine) && (
-        <StickySubsectionWrapper hasParentSection={sectionHeaderLine !== null}>
-          <SubsectionHeader
-            failingLine={failingLine}
-            lineIndex={subsectionHeader!}
-            subsectionHeaderLine={subsectionHeaderLine}
-          />
-        </StickySubsectionWrapper>
-      )}
+      {isNumber(sectionHeader) &&
+        sectionHeaderLine &&
+        isSectionHeaderRow(sectionHeaderLine) && (
+          <StickySectionWrapper>
+            <SectionHeader
+              failingLine={failingLine}
+              lineIndex={sectionHeader}
+              sectionHeaderLine={sectionHeaderLine}
+            />
+          </StickySectionWrapper>
+        )}
+      {isNumber(subsectionHeader) &&
+        subsectionHeaderLine &&
+        isSubsectionHeaderRow(subsectionHeaderLine) && (
+          <StickySubsectionWrapper
+            hasParentSection={sectionHeaderLine !== null}
+          >
+            <SubsectionHeader
+              failingLine={failingLine}
+              lineIndex={subsectionHeader}
+              subsectionHeaderLine={subsectionHeaderLine}
+            />
+          </StickySubsectionWrapper>
+        )}
     </StickyContainer>
   );
 };
+
+const isNumber = (index: number | null): index is number =>
+  typeof index === "number";
 
 const stickyHeaderZIndex = 1;
 
