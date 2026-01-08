@@ -57,7 +57,6 @@ describe("logPane", () => {
 
     mockedLogContext.mockImplementation(() => ({
       listRef: createRef(),
-      observeRow: vi.fn(),
       // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
       preferences: {
         setPrettyPrint: mockedSetPrettyPrint,
@@ -70,9 +69,6 @@ describe("logPane", () => {
       sectioning: {
         sectioningEnabled: false,
       },
-      setRenderedRange: vi.fn(),
-      unobserveRow: vi.fn(),
-      visibleLines: new Set(),
     }));
 
     RenderFakeToastContext();
@@ -98,7 +94,6 @@ describe("logPane", () => {
 
     mockedLogContext.mockImplementation(() => ({
       listRef: createRef(),
-      observeRow: vi.fn(),
       // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
       preferences: {
         setPrettyPrint: mockedSetPrettyPrint,
@@ -111,9 +106,6 @@ describe("logPane", () => {
       sectioning: {
         sectioningEnabled: false,
       },
-      setRenderedRange: vi.fn(),
-      unobserveRow: vi.fn(),
-      visibleLines: new Set(),
     }));
 
     RenderFakeToastContext();
@@ -137,7 +129,6 @@ describe("logPane", () => {
       mockedLogContext.mockImplementation(() => ({
         failingLine: 22,
         listRef: createRef(),
-        observeRow: vi.fn(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
           setPrettyPrint: vi.fn(),
@@ -151,9 +142,6 @@ describe("logPane", () => {
         sectioning: {
           sectioningEnabled: false,
         },
-        setRenderedRange: vi.fn(),
-        unobserveRow: vi.fn(),
-        visibleLines: new Set(),
       }));
 
       RenderFakeToastContext();
@@ -174,7 +162,6 @@ describe("logPane", () => {
       mockedLogContext.mockImplementation(() => ({
         failingLine: 22,
         listRef: createRef(),
-        observeRow: vi.fn(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
           setPrettyPrint: vi.fn(),
@@ -188,9 +175,6 @@ describe("logPane", () => {
         sectioning: {
           sectioningEnabled: false,
         },
-        setRenderedRange: vi.fn(),
-        unobserveRow: vi.fn(),
-        visibleLines: new Set(),
       }));
 
       RenderFakeToastContext();
@@ -213,7 +197,6 @@ describe("logPane", () => {
       const mockedLogContext = vi.spyOn(logContext, "useLogContext");
       mockedLogContext.mockImplementation(() => ({
         listRef: createRef(),
-        observeRow: vi.fn(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
           setPrettyPrint: vi.fn(),
@@ -237,9 +220,6 @@ describe("logPane", () => {
         sectioning: {
           sectioningEnabled: true,
         },
-        setRenderedRange: vi.fn(),
-        unobserveRow: vi.fn(),
-        visibleLines: new Set([0, 1, 2, 3]),
       }));
 
       RenderFakeToastContext();
@@ -253,7 +233,6 @@ describe("logPane", () => {
       const mockedLogContext = vi.spyOn(logContext, "useLogContext");
       mockedLogContext.mockImplementation(() => ({
         listRef: createRef(),
-        observeRow: vi.fn(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
           setPrettyPrint: vi.fn(),
@@ -266,9 +245,6 @@ describe("logPane", () => {
         sectioning: {
           sectioningEnabled: true,
         },
-        setRenderedRange: vi.fn(),
-        unobserveRow: vi.fn(),
-        visibleLines: new Set(),
       }));
 
       RenderFakeToastContext();
@@ -282,7 +258,6 @@ describe("logPane", () => {
       const mockedLogContext = vi.spyOn(logContext, "useLogContext");
       mockedLogContext.mockImplementation(() => ({
         listRef: createRef(),
-        observeRow: vi.fn(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
           setPrettyPrint: vi.fn(),
@@ -295,9 +270,6 @@ describe("logPane", () => {
         sectioning: {
           sectioningEnabled: false,
         },
-        setRenderedRange: vi.fn(),
-        unobserveRow: vi.fn(),
-        visibleLines: new Set(),
       }));
 
       RenderFakeToastContext();
