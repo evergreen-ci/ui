@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useLocation } from "react-router-dom";
