@@ -19,6 +19,16 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 describe("toast", () => {
   const closeIconLabel = "Close Message";
+
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.clearAllTimers();
+    vi.useRealTimers();
+  });
+
   it("should error when rendered outside of ToastProvider context", () => {
     // This test intentionally throws an error, so we need to mock the error object to prevent it
     // from flooding the test runner.
@@ -140,7 +150,7 @@ describe("toast", () => {
 
   describe("closing the toast", () => {
     it("should be able to close a toast by clicking the X button by default", async () => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
       const { Component, hook } = renderComponentWithHook(
         useToastContext,
         <div />,
@@ -175,7 +185,7 @@ describe("toast", () => {
     });
 
     it("should trigger a callback function onClose", async () => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
       const onClose = vi.fn();
       const { Component, hook } = renderComponentWithHook(
         useToastContext,
@@ -197,7 +207,6 @@ describe("toast", () => {
     });
 
     it("should close on its own after a timeout has completed", async () => {
-      vi.useFakeTimers();
       const { Component, hook } = renderComponentWithHook(
         useToastContext,
         <div />,
@@ -217,7 +226,6 @@ describe("toast", () => {
       await waitFor(() => {
         expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
       });
-      vi.useRealTimers();
     });
   });
 });
