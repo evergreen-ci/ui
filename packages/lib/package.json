@@ -16,7 +16,7 @@
     "chromatic": "npx chromatic --project-token=chpt_a5c7789cebbf85e --build-script-name storybook:build"
   },
   "dependencies": {
-    "@apollo/client": "3.10.4",
+    "@apollo/client": "^3.14.0",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@honeycombio/opentelemetry-web": "^1.1.0",

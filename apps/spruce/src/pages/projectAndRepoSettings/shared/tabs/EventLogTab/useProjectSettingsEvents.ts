@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   ProjectEventLogsQuery,
   ProjectEventLogsQueryVariables,
@@ -8,9 +7,8 @@ import {
   RepoEventLogsQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_EVENT_LOGS, REPO_EVENT_LOGS } from "gql/queries";
-import { useEvents } from "hooks/useEvents";
 
-const PROJECT_EVENT_LIMIT = 15;
+export const PROJECT_EVENT_LIMIT = 15;
 
 export const useProjectSettingsEvents = ({
   isRepo,
@@ -23,13 +21,11 @@ export const useProjectSettingsEvents = ({
   isRepo: boolean;
   limit?: number;
 }) => {
-  const dispatchToast = useToastContext();
-
-  const { allEventsFetched, onCompleted, setPrevCount } = useEvents(limit);
-
   const {
     data: projectEventData,
+    error: projectError,
     fetchMore: projectFetchMore,
+    loading: projectLoading,
     previousData: projectPreviousData,
   } = useQuery<ProjectEventLogsQuery, ProjectEventLogsQueryVariables>(
     PROJECT_EVENT_LOGS,
@@ -38,18 +34,18 @@ export const useProjectSettingsEvents = ({
       errorPolicy: "all",
       skip: isRepo || !projectIdentifier,
       notifyOnNetworkStatusChange: true,
-      onCompleted: ({ projectEvents: { count } }) => onCompleted(count),
-      onError: (e) => {
-        dispatchToast.error(
-          `Unable to fetch events for ${projectIdentifier}: ${e}`,
-        );
-      },
     },
+  );
+  useErrorToast(
+    projectError,
+    `Unable to fetch events for ${projectIdentifier}`,
   );
 
   const {
     data: repoEventData,
+    error: repoError,
     fetchMore: repoFetchMore,
+    loading: repoLoading,
     previousData: repoPreviousData,
   } = useQuery<RepoEventLogsQuery, RepoEventLogsQueryVariables>(
     REPO_EVENT_LOGS,
@@ -58,14 +54,17 @@ export const useProjectSettingsEvents = ({
       errorPolicy: "all",
       skip: !isRepo || !repoId,
       notifyOnNetworkStatusChange: true,
-      onCompleted: ({ repoEvents: { count } }) => onCompleted(count),
-      onError: (e) => {
-        dispatchToast.error(
-          `Unable to fetch events for ${projectIdentifier}: ${e}`,
-        );
-      },
     },
   );
+  useErrorToast(repoError, `Unable to fetch events for ${repoId}`);
+
+  // Determine count and previousCount based on whether we're viewing project or repo
+  const count = isRepo
+    ? repoEventData?.repoEvents?.count
+    : projectEventData?.projectEvents?.count;
+  const previousCount = isRepo
+    ? (repoPreviousData?.repoEvents?.count ?? 0)
+    : (projectPreviousData?.projectEvents?.count ?? 0);
 
   const events = isRepo
     ? repoEventData?.repoEvents?.eventLogEntries || []
@@ -73,13 +72,7 @@ export const useProjectSettingsEvents = ({
 
   const fetchMore = isRepo ? repoFetchMore : projectFetchMore;
 
-  const previousData = isRepo
-    ? repoPreviousData?.repoEvents
-    : projectPreviousData?.projectEvents;
+  const loading = isRepo ? repoLoading : projectLoading;
 
-  useEffect(() => {
-    setPrevCount(previousData?.count ?? 0);
-  }, [previousData, setPrevCount]);
-
-  return { allEventsFetched, events, fetchMore };
+  return { count, events, fetchMore, loading, previousCount };
 };

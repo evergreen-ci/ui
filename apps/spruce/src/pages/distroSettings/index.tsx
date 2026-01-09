@@ -4,7 +4,7 @@ import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Navigate } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useDistroSettingsAnalytics } from "analytics";
 import {
@@ -34,24 +34,19 @@ import { DistroSettingsTabs } from "./Tabs";
 const DistroSettings: React.FC = () => {
   usePageTitle("Distro Settings");
   const { sendEvent } = useDistroSettingsAnalytics();
-  const dispatchToast = useToastContext();
   const { [slugs.distroId]: distroId, [slugs.tab]: currentTab } = useParams<{
     [slugs.distroId]: string;
     [slugs.tab]: DistroSettingsTabRoutes;
   }>();
 
-  const { data, loading } = useQuery<DistroQuery, DistroQueryVariables>(
+  const { data, error, loading } = useQuery<DistroQuery, DistroQueryVariables>(
     DISTRO,
     {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       variables: { distroId },
-      onError: (e) => {
-        dispatchToast.error(
-          `There was an error loading the distro ${distroId}: ${e.message}`,
-        );
-      },
     },
   );
+  useErrorToast(error, `There was an error loading the distro ${distroId}`);
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (!Object.values(DistroSettingsTabRoutes).includes(currentTab)) {

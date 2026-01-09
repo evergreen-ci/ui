@@ -10,7 +10,7 @@ import {
   onChangeHandler,
 } from "@evg-ui/lib/components/Table";
 import { DEFAULT_PAGE_SIZE } from "@evg-ui/lib/constants/pagination";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useImageAnalytics } from "analytics";
 import {
   ImageFilesQuery,
@@ -24,7 +24,6 @@ type FilesTableProps = {
 };
 
 export const FilesTable: React.FC<FilesTableProps> = ({ imageId }) => {
-  const dispatchToast = useToastContext();
   const { sendEvent } = useImageAnalytics();
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -32,10 +31,11 @@ export const FilesTable: React.FC<FilesTableProps> = ({ imageId }) => {
   });
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const { data: imageData, loading } = useQuery<
-    ImageFilesQuery,
-    ImageFilesQueryVariables
-  >(IMAGE_FILES, {
+  const {
+    data: imageData,
+    error,
+    loading,
+  } = useQuery<ImageFilesQuery, ImageFilesQueryVariables>(IMAGE_FILES, {
     variables: {
       imageId,
       opts: {
@@ -46,12 +46,8 @@ export const FilesTable: React.FC<FilesTableProps> = ({ imageId }) => {
             ?.value as string) ?? undefined,
       },
     },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading image files: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading image files");
 
   const files = imageData?.image?.files?.data ?? [];
 

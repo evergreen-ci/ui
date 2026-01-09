@@ -1,12 +1,11 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   ImageEventsQuery,
   ImageEventsQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_EVENTS } from "gql/queries";
-import { useEvents } from "hooks/useEvents";
 
 export const IMAGE_EVENT_LIMIT = 5;
 
@@ -15,11 +14,7 @@ export const useImageEvents = (
   page: number = 0,
   limit: number = IMAGE_EVENT_LIMIT,
 ) => {
-  const dispatchToast = useToastContext();
-
-  const { allEventsFetched, onCompleted, setPrevCount } =
-    useEvents(IMAGE_EVENT_LIMIT);
-  const { data, fetchMore, loading, previousData } = useQuery<
+  const { data, error, fetchMore, loading, previousData } = useQuery<
     ImageEventsQuery,
     ImageEventsQueryVariables
   >(IMAGE_EVENTS, {
@@ -29,24 +24,19 @@ export const useImageEvents = (
       page,
     },
     notifyOnNetworkStatusChange: true,
-    onCompleted: ({ image }) => onCompleted(image?.events?.count ?? 0),
-    onError: (e) => {
-      dispatchToast.error(e.message);
-    },
   });
+  useErrorToast(error, "Unable to fetch image events");
+
   const events = useMemo(
     () => data?.image?.events?.eventLogEntries ?? [],
     [data],
   );
 
-  useEffect(() => {
-    setPrevCount(previousData?.image?.events?.count ?? 0);
-  }, [previousData, setPrevCount]);
-
   return {
-    allEventsFetched,
+    count: data?.image?.events?.count,
     events,
     fetchMore,
     loading,
+    previousCount: previousData?.image?.events?.count ?? 0,
   };
 };

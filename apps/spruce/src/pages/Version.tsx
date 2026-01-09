@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParam } from "@evg-ui/lib/hooks";
+import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { TTLInfo } from "components/404/TTLInfo";
 import { ProjectBanner } from "components/Banners";
@@ -34,13 +33,13 @@ import VersionTabs from "./version/Tabs";
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const { [slugs.versionId]: versionId = "" } = useParams();
-  const dispatchToast = useToastContext();
   const [includeNeverActivatedTasks] = useQueryParam<boolean | undefined>(
     PatchTasksQueryParams.IncludeNeverActivatedTasks,
     undefined,
   );
   const {
     data: versionData,
+    error,
     loading: versionLoading,
     refetch,
     startPolling,
@@ -48,12 +47,8 @@ export const VersionPage: React.FC = () => {
   } = useQuery<VersionQuery, VersionQueryVariables>(VERSION, {
     variables: { id: versionId, includeNeverActivatedTasks },
     fetchPolicy: "cache-and-network",
-    onError: (error) => {
-      dispatchToast.error(
-        `There was an error loading the version: ${error.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading the version");
 
   usePolling({ startPolling, stopPolling, refetch });
 

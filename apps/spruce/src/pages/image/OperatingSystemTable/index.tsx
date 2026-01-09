@@ -9,7 +9,7 @@ import {
   onChangeHandler,
 } from "@evg-ui/lib/components/Table";
 import { DEFAULT_PAGE_SIZE } from "@evg-ui/lib/constants/pagination";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useImageAnalytics } from "analytics";
 import {
   OsInfo,
@@ -25,7 +25,6 @@ type OperatingSystemTableProps = {
 export const OperatingSystemTable: React.FC<OperatingSystemTableProps> = ({
   imageId,
 }) => {
-  const dispatchToast = useToastContext();
   const { sendEvent } = useImageAnalytics();
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -34,25 +33,28 @@ export const OperatingSystemTable: React.FC<OperatingSystemTableProps> = ({
   });
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const { data: osData, loading } = useQuery<
-    ImageOperatingSystemQuery,
-    ImageOperatingSystemQueryVariables
-  >(IMAGE_OPERATING_SYSTEM, {
-    variables: {
-      imageId,
-      opts: {
-        page: pagination.pageIndex,
-        limit: pagination.pageSize,
-        name: columnFilters.find((filter) => filter.id === "name")
-          ?.value as string,
+  const {
+    data: osData,
+    error,
+    loading,
+  } = useQuery<ImageOperatingSystemQuery, ImageOperatingSystemQueryVariables>(
+    IMAGE_OPERATING_SYSTEM,
+    {
+      variables: {
+        imageId,
+        opts: {
+          page: pagination.pageIndex,
+          limit: pagination.pageSize,
+          name: columnFilters.find((filter) => filter.id === "name")
+            ?.value as string,
+        },
       },
     },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading operating system information: ${err.message}`,
-      );
-    },
-  });
+  );
+  useErrorToast(
+    error,
+    "There was an error loading operating system information",
+  );
 
   const operatingSystemInfo = osData?.image?.operatingSystem.data ?? [];
 

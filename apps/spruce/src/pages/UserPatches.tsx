@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { PatchesPage } from "components/PatchesPage";
 import { RequesterSelector } from "components/PatchesPage/RequesterSelector";
 import { usePatchesQueryParams } from "components/PatchesPage/usePatchesQueryParams";
@@ -15,14 +15,13 @@ import { USER_PATCHES } from "gql/queries";
 import { usePolling, useGetUserPatchesPageTitleAndLink } from "hooks";
 
 export const UserPatches = () => {
-  const dispatchToast = useToastContext();
   const { [slugs.userId]: userId } = useParams();
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
 
   const patchesInput = usePatchesQueryParams();
   const isMergeQueueUser = userId === githubMergeQueueUser;
 
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
   >(USER_PATCHES, {
@@ -37,10 +36,8 @@ export const UserPatches = () => {
     fetchPolicy: "cache-and-network",
     pollInterval: DEFAULT_POLL_INTERVAL,
     skip: !userId,
-    onError: (err) => {
-      dispatchToast.error(`Error while fetching user patches: ${err.message}`);
-    },
   });
+  useErrorToast(error, "Error while fetching user patches");
   usePolling({ startPolling, stopPolling, refetch });
 
   return (

@@ -5,7 +5,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, useLocation } from "react-router-dom";
 import { size, fontSize } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { slugs } from "constants/routes";
 import {
@@ -54,7 +54,6 @@ export const AllLog: React.FC<Props> = (props) => {
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const dispatchToast = useToastContext();
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     AllLogsQuery,
     AllLogsQueryVariables
@@ -62,12 +61,8 @@ export const AllLog: React.FC<Props> = (props) => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError(err) {
-      dispatchToast.error(
-        `There was an error loading all logs: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading all logs");
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -89,7 +84,6 @@ export const EventLog: React.FC<Props> = (props) => {
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const dispatchToast = useToastContext();
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskEventLogsQuery,
     TaskEventLogsQueryVariables
@@ -97,12 +91,8 @@ export const EventLog: React.FC<Props> = (props) => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError(err) {
-      dispatchToast.error(
-        `There was an error loading event logs: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading event logs");
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -128,7 +118,6 @@ export const SystemLog: React.FC<Props> = (props) => {
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const dispatchToast = useToastContext();
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     SystemLogsQuery,
     SystemLogsQueryVariables
@@ -136,12 +125,8 @@ export const SystemLog: React.FC<Props> = (props) => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError(err) {
-      dispatchToast.error(
-        `There was an error loading system logs: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading system logs");
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -162,7 +147,6 @@ export const AgentLog: React.FC<Props> = (props) => {
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const dispatchToast = useToastContext();
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     AgentLogsQuery,
     AgentLogsQueryVariables
@@ -170,12 +154,8 @@ export const AgentLog: React.FC<Props> = (props) => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError(err) {
-      dispatchToast.error(
-        `There was an error loading agent logs: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading agent logs");
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -196,7 +176,6 @@ export const TaskLog: React.FC<Props> = (props) => {
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const dispatchToast = useToastContext();
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskLogsQuery,
     TaskLogsQueryVariables
@@ -204,12 +183,8 @@ export const TaskLog: React.FC<Props> = (props) => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError(err) {
-      dispatchToast.error(
-        `There was an error loading task logs: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading task logs");
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
