@@ -1,45 +1,31 @@
-import { useEffect, useRef, useState } from "react";
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
-import { H2, H3 } from "@leafygreen-ui/typography";
+import { H2 } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
-import { useParams, useNavigate } from "react-router-dom";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
 import { PageWrapper } from "components/styles";
-import { MCI_USER } from "constants/hosts";
-import { getTaskQueueRoute, getAllHostsRoute, slugs } from "constants/routes";
+import { getTaskQueueRoute, slugs } from "constants/routes";
 import {
-  DistroTaskQueueQuery,
-  DistroTaskQueueQueryVariables,
   TaskQueueDistro,
   TaskQueueDistrosQuery,
   TaskQueueDistrosQueryVariables,
 } from "gql/generated/types";
-import { DISTRO_TASK_QUEUE, TASK_QUEUE_DISTROS } from "gql/queries";
-import { QueryParams } from "types/task";
+import { TASK_QUEUE_DISTROS } from "gql/queries";
 import { DistroOption } from "./DistroOption";
-import TaskQueueTable from "./TaskQueueTable";
+import TaskQueueContent from "./TaskQueueContent";
 
 const TaskQueue = () => {
-  const taskQueueAnalytics = useTaskQueueAnalytics();
-
   const { [slugs.distroId]: distroId } = useParams();
-  const [taskId] = useQueryParam<string | undefined>(
-    QueryParams.TaskId,
-    undefined,
-  );
   const navigate = useNavigate();
-  const [selectedDistro, setSelectedDistro] = useState<
-    TaskQueueDistro | undefined
-  >(undefined);
-  const hasInitialized = useRef(false);
-  usePageTitle(`Task Queue - ${distroId}`);
+  const taskQueueAnalytics = useTaskQueueAnalytics();
+  usePageTitle(`Task Queue${distroId ? ` - ${distroId}` : ""}`);
 
   const {
     data: distrosData,
@@ -53,48 +39,30 @@ const TaskQueue = () => {
   );
   useErrorToast(distrosError, "There was an error loading distros");
 
-  // Reset initialization flag when distro changes
-  useEffect(() => {
-    hasInitialized.current = false;
-  }, [distroId]);
+  const selectedDistro = useMemo(() => {
+    if (!distrosData?.taskQueueDistros || !distroId) return undefined;
+    return distrosData.taskQueueDistros.find((d) => d.id === distroId);
+  }, [distrosData, distroId]);
 
-  // Handle initial navigation and distro selection when data loads
-  useEffect(() => {
-    if (distrosData?.taskQueueDistros && !hasInitialized.current) {
-      hasInitialized.current = true;
-      const { taskQueueDistros } = distrosData;
-      const firstDistroInList = taskQueueDistros[0]?.id;
-      const defaultDistro = distroId ?? firstDistroInList;
-      setSelectedDistro(taskQueueDistros.find((d) => d.id === defaultDistro));
-      if (distroId === undefined) {
-        navigate(getTaskQueueRoute(defaultDistro));
+  // If no distroId in URL, wait for data then redirect to the first distro
+  if (!distroId) {
+    if (!loadingDistrosData && distrosData?.taskQueueDistros) {
+      const firstDistroId = distrosData.taskQueueDistros[0]?.id;
+      if (firstDistroId) {
+        return <Navigate replace to={getTaskQueueRoute(firstDistroId)} />;
       }
     }
-  }, [distrosData, distroId, navigate]);
-
-  const {
-    data: taskQueueItemsData,
-    error: taskQueueError,
-    loading: loadingTaskQueueItems,
-  } = useQuery<DistroTaskQueueQuery, DistroTaskQueueQueryVariables>(
-    DISTRO_TASK_QUEUE,
-    {
-      fetchPolicy: "cache-and-network",
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      variables: { distroId },
-      skip: !distroId,
-    },
-  );
-  useErrorToast(taskQueueError, "There was an error loading task queue");
+  }
 
   const onChangeDistroSelection = (val: TaskQueueDistro) => {
     taskQueueAnalytics.sendEvent({ name: "Changed distro", distro: val.id });
     navigate(getTaskQueueRoute(val.id));
-    setSelectedDistro(val);
   };
 
   const handleSearch = (options: TaskQueueDistro[], match: string) =>
     options.filter((d) => d.id.toLowerCase().includes(match.toLowerCase()));
+
+  const isDropdownLoading = loadingDistrosData || !selectedDistro;
 
   return (
     <PageWrapper>
@@ -104,7 +72,7 @@ const TaskQueue = () => {
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           buttonRenderer={(option: TaskQueueDistro) => (
             <DistroLabel>
-              {loadingDistrosData || !selectedDistro ? (
+              {isDropdownLoading ? (
                 <Badge>Loading...</Badge>
               ) : (
                 <>
@@ -116,11 +84,11 @@ const TaskQueue = () => {
                   </Badge>
                 </>
               )}
-              <DistroName> {option?.id} </DistroName>
+              <DistroName> {option?.id ?? distroId} </DistroName>
             </DistroLabel>
           )}
           data-cy="distro-dropdown"
-          disabled={selectedDistro === undefined}
+          disabled={isDropdownLoading}
           label="Distro"
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           onChange={onChangeDistroSelection}
@@ -134,30 +102,11 @@ const TaskQueue = () => {
           options={distrosData?.taskQueueDistros}
           searchFunc={handleSearch}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
-          value={selectedDistro}
+          value={selectedDistro ?? (distroId ? { id: distroId } : null)}
           valuePlaceholder="Select a distro"
         />
       </SearchableDropdownWrapper>
-      {
-        /* Only show name & link if distro exists. */
-        !loadingDistrosData && (
-          <TableHeader>
-            <H3>{distroId}</H3>
-            <StyledRouterLink
-              to={getAllHostsRoute({ distroId, startedBy: MCI_USER })}
-            >
-              View hosts
-            </StyledRouterLink>
-          </TableHeader>
-        )
-      }
-      {!loadingTaskQueueItems && (
-        <TaskQueueTable
-          taskId={taskId}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          taskQueue={taskQueueItemsData?.distroTaskQueue}
-        />
-      )}
+      {distroId && <TaskQueueContent distroId={distroId} />}
     </PageWrapper>
   );
 };
@@ -176,10 +125,5 @@ const DistroName = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-const TableHeader = styled.div`
-  display: flex;
-  align-items: center;
-  margin: ${size.m} 0 ${size.s} 0;
-  gap: ${size.s};
-`;
+
 export default TaskQueue;
