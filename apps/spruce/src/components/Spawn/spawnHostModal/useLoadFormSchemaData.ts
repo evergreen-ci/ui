@@ -56,14 +56,15 @@ export const useLoadFormSchemaData = (p?: Props) => {
       isVolume: false,
     }) ?? "";
 
-  const jwtTokenForCLIDisabled =
+  // If OAuth is enabled, the spawn host modal should force the option for OAuth.
+  const oAuthDisabled =
     spruceConfig?.serviceFlags?.jwtTokenForCLIDisabled ?? false;
 
   return {
     formSchemaInput: {
       disableExpirationCheckbox,
       distros: distrosData?.distros ?? [],
-      jwtTokenForCLIDisabled,
+      oAuthDisabled,
       myPublicKeys: publicKeysData?.myPublicKeys ?? [],
       noExpirationCheckboxTooltip,
       userAwsRegion: userAwsRegion ?? defaultEC2Region,

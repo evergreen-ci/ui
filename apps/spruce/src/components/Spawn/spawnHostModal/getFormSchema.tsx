@@ -36,7 +36,7 @@ interface Props {
   };
   isMigration: boolean;
   isVirtualWorkstation: boolean;
-  jwtTokenForCLIDisabled?: boolean;
+  oAuthDisabled?: boolean;
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   noExpirationCheckboxTooltip: string;
   spawnTaskData?: SpawnTaskQuery["task"];
@@ -56,9 +56,9 @@ export const getFormSchema = ({
   hostUptimeWarnings,
   isMigration,
   isVirtualWorkstation,
-  jwtTokenForCLIDisabled = false,
   myPublicKeys,
   noExpirationCheckboxTooltip,
+  oAuthDisabled = false,
   spawnTaskData,
   timeZone,
   useProjectSetupScript = false,
@@ -240,7 +240,7 @@ export const getFormSchema = ({
                         type: "boolean" as const,
                         title:
                           "Use OAuth authentication to download the task data from Evergreen. This will soon be required, see DEVPROD-4160",
-                        default: !jwtTokenForCLIDisabled,
+                        default: !oAuthDisabled,
                       },
                     },
                     dependencies: {
@@ -450,7 +450,7 @@ export const getFormSchema = ({
           useOAuth: {
             "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
             "ui:data-cy": "use-oauth-checkbox",
-            "ui:disabled": !jwtTokenForCLIDisabled,
+            "ui:disabled": !oAuthDisabled,
             "ui:elementWrapperCSS": childCheckboxCSS,
           },
           warningBanner: {
