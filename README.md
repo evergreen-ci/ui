@@ -13,7 +13,7 @@ Each application's README has instructions for running that app.
 
 ## Analytics
 
-Read more about our analytics practices [here](ANALYTICS.md).
+Read more about our analytics practices [here](packages/lib/src/analytics/README.md).
 
 ## Monorepo Tips & Tricks
 
