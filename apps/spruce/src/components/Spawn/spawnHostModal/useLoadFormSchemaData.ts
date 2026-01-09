@@ -56,7 +56,6 @@ export const useLoadFormSchemaData = (p?: Props) => {
       isVolume: false,
     }) ?? "";
 
-  // If OAuth is enabled, the spawn host modal should force the option for OAuth.
   const oAuthDisabled =
     spruceConfig?.serviceFlags?.jwtTokenForCLIDisabled ?? false;
 
