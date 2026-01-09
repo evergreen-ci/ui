@@ -32,7 +32,7 @@
     "@lg-chat/message-prompts": "^4.2.0",
     "@lg-chat/message-rating": "^7.1.0",
     "@lg-chat/rich-links": "^4.0.7",
-    "ai": "^5.0.98",
+    "ai": "^6.0.25",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "vite-tsconfig-paths": "^6.0.2",
