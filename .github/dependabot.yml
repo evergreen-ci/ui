@@ -13,13 +13,13 @@ updates:
     commit-message:
       prefix: "CHORE(NPM) - "
     cooldown:
-      semver-minor-days: 14
-      semver-patch-days: 30
-      include:
-        - "@sentry/*"
-        - "storybook"
-        - "@storybook/*"
+      default-days: 14
     groups:
+      ai:
+        applies-to: version-updates
+        patterns:
+          - "ai"
+          - "@ai-sdk/*"
       emotion:
         applies-to: version-updates
         patterns:
@@ -43,9 +43,6 @@ updates:
         applies-to: version-updates
         patterns:
           - "@leafygreen-ui/*"
-      lg-chat:
-        applies-to: version-updates
-        patterns:
           - "@lg-chat/*"
       react:
         applies-to: version-updates
