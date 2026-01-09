@@ -1,4 +1,4 @@
-#!/usr/bin/env -S VITE_SCRIPT_MODE=1 vite-node --script
+#!/usr/bin/env vite-node --script
 
 import { buildAndPush } from "./build-and-push";
 import { prepareProdDeploy } from "./prepare-prod-deploy";

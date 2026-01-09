@@ -691,6 +691,13 @@ export type CopyProjectInput = {
   projectIdToCopy: Scalars["String"]["input"];
 };
 
+/** Cost represents the cost breakdown for a task or version. */
+export type Cost = {
+  __typename?: "Cost";
+  adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+};
+
 export type CostConfig = {
   __typename?: "CostConfig";
   financeFormula?: Maybe<Scalars["Float"]["output"]>;
@@ -3989,6 +3996,7 @@ export type SpruceConfig = {
   jira?: Maybe<JiraConfig>;
   providers?: Maybe<CloudProviderConfig>;
   secretFields: Array<Scalars["String"]["output"]>;
+  serviceFlags: UserServiceFlags;
   singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
@@ -4121,7 +4129,7 @@ export type Task = {
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   pod?: Maybe<Pod>;
-  predictedTaskCost?: Maybe<TaskCost>;
+  predictedTaskCost?: Maybe<Cost>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"]["output"];
@@ -4138,7 +4146,7 @@ export type Task = {
   /** taskLogs returns the tail 100 lines of the task's logs. */
   stepbackInfo?: Maybe<StepbackInfo>;
   tags: Array<Scalars["String"]["output"]>;
-  taskCost?: Maybe<TaskCost>;
+  taskCost?: Maybe<Cost>;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
   taskLogs: TaskLogs;
@@ -4172,13 +4180,6 @@ export type TaskContainerCreationOpts = {
   memoryMB: Scalars["Int"]["output"];
   os: Scalars["String"]["output"];
   workingDir: Scalars["String"]["output"];
-};
-
-/** TaskCost represents the cost breakdown for a task. */
-export type TaskCost = {
-  __typename?: "TaskCost";
-  adjustedCost?: Maybe<Scalars["Float"]["output"]>;
-  onDemandCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** TaskCountOptions defines the parameters that are used when counting tasks from a Version. */
@@ -4731,6 +4732,11 @@ export type UserConfig = {
   user: Scalars["String"]["output"];
 };
 
+export type UserServiceFlags = {
+  __typename?: "UserServiceFlags";
+  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+};
+
 /**
  * UserSettings is returned by the userSettings query.
  * It contains information about a user's settings, such as their GitHub username or timezone.
@@ -4802,6 +4808,7 @@ export type Version = {
   order: Scalars["Int"]["output"];
   parameters: Array<Parameter>;
   patch?: Maybe<Patch>;
+  predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
   project: Scalars["String"]["output"];
   projectIdentifier: Scalars["String"]["output"];
@@ -5395,6 +5402,7 @@ export type ProjectGeneralSettingsFragment = {
   batchTime: number;
   branch: string;
   deactivatePrevious?: boolean | null;
+  debugSpawnHostsDisabled?: boolean | null;
   disabledStatsCache?: boolean | null;
   dispatchingDisabled?: boolean | null;
   displayName: string;
@@ -5416,6 +5424,7 @@ export type RepoGeneralSettingsFragment = {
   id: string;
   batchTime: number;
   deactivatePrevious: boolean;
+  debugSpawnHostsDisabled: boolean;
   disabledStatsCache: boolean;
   dispatchingDisabled: boolean;
   displayName: string;
@@ -5544,6 +5553,7 @@ export type ProjectSettingsFieldsFragment = {
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
+    debugSpawnHostsDisabled?: boolean | null;
     disabledStatsCache?: boolean | null;
     dispatchingDisabled?: boolean | null;
     displayName: string;
@@ -5757,6 +5767,7 @@ export type RepoSettingsFieldsFragment = {
     restricted: boolean;
     batchTime: number;
     deactivatePrevious: boolean;
+    debugSpawnHostsDisabled: boolean;
     disabledStatsCache: boolean;
     dispatchingDisabled: boolean;
     owner: string;
@@ -6218,6 +6229,7 @@ export type ProjectEventSettingsFragment = {
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
+    debugSpawnHostsDisabled?: boolean | null;
     disabledStatsCache?: boolean | null;
     dispatchingDisabled?: boolean | null;
     displayName: string;
@@ -9385,6 +9397,7 @@ export type ProjectEventLogsQuery = {
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
+          debugSpawnHostsDisabled?: boolean | null;
           disabledStatsCache?: boolean | null;
           dispatchingDisabled?: boolean | null;
           displayName: string;
@@ -9605,6 +9618,7 @@ export type ProjectEventLogsQuery = {
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
+          debugSpawnHostsDisabled?: boolean | null;
           disabledStatsCache?: boolean | null;
           dispatchingDisabled?: boolean | null;
           displayName: string;
@@ -9883,6 +9897,7 @@ export type ProjectSettingsQuery = {
       batchTime: number;
       branch: string;
       deactivatePrevious?: boolean | null;
+      debugSpawnHostsDisabled?: boolean | null;
       disabledStatsCache?: boolean | null;
       dispatchingDisabled?: boolean | null;
       displayName: string;
@@ -10159,6 +10174,7 @@ export type RepoEventLogsQuery = {
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
+          debugSpawnHostsDisabled?: boolean | null;
           disabledStatsCache?: boolean | null;
           dispatchingDisabled?: boolean | null;
           displayName: string;
@@ -10379,6 +10395,7 @@ export type RepoEventLogsQuery = {
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
+          debugSpawnHostsDisabled?: boolean | null;
           disabledStatsCache?: boolean | null;
           dispatchingDisabled?: boolean | null;
           displayName: string;
@@ -10604,6 +10621,7 @@ export type RepoSettingsQuery = {
       restricted: boolean;
       batchTime: number;
       deactivatePrevious: boolean;
+      debugSpawnHostsDisabled: boolean;
       disabledStatsCache: boolean;
       dispatchingDisabled: boolean;
       owner: string;

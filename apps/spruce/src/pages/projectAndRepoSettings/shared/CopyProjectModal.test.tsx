@@ -312,6 +312,7 @@ const projectSettingsMock: ApolloMock<
           stepbackBisect: null,
           patchingDisabled: false,
           disabledStatsCache: false,
+          debugSpawnHostsDisabled: false,
           restricted: false,
           admins: ["admin"],
           buildBaronSettings: {
