@@ -11056,9 +11056,9 @@ export type TaskHistoryQuery = {
       canRestart: boolean;
       canSchedule: boolean;
       canSetPriority: boolean;
-      createTime?: Date | null;
       displayStatus: string;
       execution: number;
+      ingestTime?: Date | null;
       latestExecution: number;
       order: number;
       priority?: number | null;
