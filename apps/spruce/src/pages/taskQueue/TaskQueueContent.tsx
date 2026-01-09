@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { H3 } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -47,7 +48,9 @@ const TaskQueueContent: React.FC<TaskQueueContentProps> = ({ distroId }) => {
           View hosts
         </StyledRouterLink>
       </TableHeader>
-      {!loadingTaskQueueItems && (
+      {loadingTaskQueueItems ? (
+        <TableSkeleton numCols={8} numRows={10} />
+      ) : (
         <TaskQueueTable
           taskId={taskId}
           taskQueue={taskQueueItemsData?.distroTaskQueue ?? []}

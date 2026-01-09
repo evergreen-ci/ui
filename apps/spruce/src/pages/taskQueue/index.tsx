@@ -54,9 +54,12 @@ const TaskQueue = () => {
     }
   }
 
-  const onChangeDistroSelection = (val: TaskQueueDistro) => {
-    taskQueueAnalytics.sendEvent({ name: "Changed distro", distro: val.id });
-    navigate(getTaskQueueRoute(val.id));
+  const onChangeDistroSelection = (
+    val: TaskQueueDistro | TaskQueueDistro[],
+  ) => {
+    const distro = Array.isArray(val) ? val[0] : val;
+    taskQueueAnalytics.sendEvent({ name: "Changed distro", distro: distro.id });
+    navigate(getTaskQueueRoute(distro.id));
   };
 
   const handleSearch = (options: TaskQueueDistro[], match: string) =>
@@ -68,29 +71,30 @@ const TaskQueue = () => {
     <PageWrapper>
       <H2>Task Queue</H2>
       <SearchableDropdownWrapper>
-        <SearchableDropdown
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          buttonRenderer={(option: TaskQueueDistro) => (
-            <DistroLabel>
-              {isDropdownLoading ? (
-                <Badge>Loading...</Badge>
-              ) : (
-                <>
-                  <Badge>
-                    {pluralize("task", option?.taskCount ?? 0, true)}
-                  </Badge>
-                  <Badge>
-                    {pluralize("host", option?.hostCount ?? 0, true)}
-                  </Badge>
-                </>
-              )}
-              <DistroName> {option?.id ?? distroId} </DistroName>
-            </DistroLabel>
-          )}
+        <SearchableDropdown<TaskQueueDistro>
+          buttonRenderer={(option: TaskQueueDistro | TaskQueueDistro[]) => {
+            const distro = Array.isArray(option) ? option[0] : option;
+            return (
+              <DistroLabel>
+                {isDropdownLoading ? (
+                  <Badge>Loading...</Badge>
+                ) : (
+                  <>
+                    <Badge>
+                      {pluralize("task", distro?.taskCount ?? 0, true)}
+                    </Badge>
+                    <Badge>
+                      {pluralize("host", distro?.hostCount ?? 0, true)}
+                    </Badge>
+                  </>
+                )}
+                <DistroName> {distro?.id ?? distroId} </DistroName>
+              </DistroLabel>
+            );
+          }}
           data-cy="distro-dropdown"
           disabled={isDropdownLoading}
           label="Distro"
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           onChange={onChangeDistroSelection}
           optionRenderer={(option, onClick) => (
             <DistroOption
@@ -101,8 +105,9 @@ const TaskQueue = () => {
           )}
           options={distrosData?.taskQueueDistros}
           searchFunc={handleSearch}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          value={selectedDistro ?? (distroId ? { id: distroId } : null)}
+          value={
+            selectedDistro ?? { id: distroId ?? "", hostCount: 0, taskCount: 0 }
+          }
           valuePlaceholder="Select a distro"
         />
       </SearchableDropdownWrapper>
