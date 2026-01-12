@@ -1,5 +1,4 @@
-import { MockedProvider } from "@apollo/client/testing";
-import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
+import { MockedProvider, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
 import { OTHER_USER } from "gql/queries";

@@ -1,10 +1,10 @@
 import { createRef } from "react";
-import { MockedProvider } from "@apollo/client/testing";
 import Cookie from "js-cookie";
 import { VirtuosoMockContext } from "react-virtuoso";
 import { MockInstance } from "vitest";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   waitFor,
