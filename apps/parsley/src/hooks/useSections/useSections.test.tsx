@@ -1,6 +1,10 @@
-import { MockedProvider } from "@apollo/client/testing";
-import { act, renderHook, waitFor } from "@testing-library/react";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
+import {
+  MockedProvider,
+  act,
+  renderHook,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {

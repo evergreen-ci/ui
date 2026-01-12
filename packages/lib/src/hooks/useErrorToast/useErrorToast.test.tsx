@@ -1,7 +1,6 @@
-import { ApolloError } from "@apollo/client";
-import { MockedProvider } from "@apollo/client/testing";
+import { CombinedGraphQLErrors } from "@apollo/client";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
-import { renderHook } from "test_utils";
+import { MockedProvider, renderHook } from "test_utils";
 import { useErrorToast } from ".";
 
 const Provider = ({ children }: { children: React.ReactNode }) => (
@@ -21,7 +20,10 @@ describe("useErrorToast", () => {
 
   it("should show toast when there is an error", () => {
     const { dispatchToast } = RenderFakeToastContext();
-    const error = new ApolloError({ errorMessage: "Network error" });
+    const error = new CombinedGraphQLErrors(
+      { errors: [{ message: "Network error" }] },
+      [{ message: "Network error" }],
+    );
 
     renderHook(() => useErrorToast(error, "Unable to load data"), {
       wrapper: Provider,
@@ -35,7 +37,10 @@ describe("useErrorToast", () => {
 
   it("should not show duplicate toasts for the same error", () => {
     const { dispatchToast } = RenderFakeToastContext();
-    const error = new ApolloError({ errorMessage: "Network error" });
+    const error = new CombinedGraphQLErrors(
+      { errors: [{ message: "Network error" }] },
+      [{ message: "Network error" }],
+    );
 
     const { rerender } = renderHook(
       () => useErrorToast(error, "Unable to load data"),
@@ -53,8 +58,14 @@ describe("useErrorToast", () => {
 
   it("should show new toast when error changes", () => {
     const { dispatchToast } = RenderFakeToastContext();
-    const error1 = new ApolloError({ errorMessage: "Network error" });
-    const error2 = new ApolloError({ errorMessage: "Server error" });
+    const error1 = new CombinedGraphQLErrors(
+      { errors: [{ message: "Network error" }] },
+      [{ message: "Network error" }],
+    );
+    const error2 = new CombinedGraphQLErrors(
+      { errors: [{ message: "Server error" }] },
+      [{ message: "Server error" }],
+    );
 
     const { rerender } = renderHook(
       ({ error }) => useErrorToast(error, "Unable to load data"),
@@ -80,15 +91,18 @@ describe("useErrorToast", () => {
 
   it("should allow new toast after error is cleared and reoccurs", () => {
     const { dispatchToast } = RenderFakeToastContext();
-    const error = new ApolloError({ errorMessage: "Network error" });
-
-    const { rerender } = renderHook<void, { err: ApolloError | undefined }>(
-      ({ err }) => useErrorToast(err, "Unable to load data"),
-      {
-        wrapper: Provider,
-        initialProps: { err: error },
-      },
+    const error = new CombinedGraphQLErrors(
+      { errors: [{ message: "Network error" }] },
+      [{ message: "Network error" }],
     );
+
+    const { rerender } = renderHook<
+      void,
+      { err: CombinedGraphQLErrors | undefined }
+    >(({ err }) => useErrorToast(err, "Unable to load data"), {
+      wrapper: Provider,
+      initialProps: { err: error },
+    });
 
     expect(dispatchToast.error).toHaveBeenCalledTimes(1);
 

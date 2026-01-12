@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { GraphicStyle, MarketingModal } from "@leafygreen-ui/marketing-modal";

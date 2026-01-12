@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { ApolloError } from "@apollo/client";
+import { CombinedGraphQLErrors } from "@apollo/client/errors";
 import { useToastContext } from "../../context/toast";
 
 /**
@@ -14,7 +14,7 @@ import { useToastContext } from "../../context/toast";
  * // Shows toast: "Unable to load data: <error message>"
  */
 export const useErrorToast = (
-  error: ApolloError | undefined,
+  error: CombinedGraphQLErrors | undefined,
   messagePrefix: string,
   shouldDispatchToast: boolean = true,
 ) => {
