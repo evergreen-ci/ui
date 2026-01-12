@@ -100,7 +100,7 @@
   },
   "devDependencies": {
     "@emotion/babel-plugin": "11.13.5",
-    "@eslint/compat": "^2.0.0",
+    "@eslint/compat": "^2.0.1",
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
     "@evg-ui/storybook-addon": "workspace:*",
