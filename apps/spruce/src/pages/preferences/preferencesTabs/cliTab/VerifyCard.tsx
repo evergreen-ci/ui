@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Code } from "@leafygreen-ui/code";
 import { Body, BodyProps, InlineCode } from "@leafygreen-ui/typography";

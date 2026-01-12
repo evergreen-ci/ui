@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useErrorToast } from "@evg-ui/lib/hooks";

@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";

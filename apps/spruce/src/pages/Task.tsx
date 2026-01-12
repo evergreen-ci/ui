@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";

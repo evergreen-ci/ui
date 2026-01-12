@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { Select, Option } from "@leafygreen-ui/select";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { ModalContent } from "components/Spawn";

@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { Form } from "components/Settings/Form";
 import { GetFormSchema, ValidateProps } from "components/SpruceForm";

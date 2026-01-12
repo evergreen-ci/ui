@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { H2 } from "@leafygreen-ui/typography";

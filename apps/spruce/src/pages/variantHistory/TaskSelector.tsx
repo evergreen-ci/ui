@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { useQueryParam } from "@evg-ui/lib/hooks";

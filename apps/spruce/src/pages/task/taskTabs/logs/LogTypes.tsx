@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { useQuery, ApolloError } from "@apollo/client";
+import { ApolloError } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";

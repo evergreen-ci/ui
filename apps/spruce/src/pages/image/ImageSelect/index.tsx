@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Banner } from "@leafygreen-ui/banner";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";

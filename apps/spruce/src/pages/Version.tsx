@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
