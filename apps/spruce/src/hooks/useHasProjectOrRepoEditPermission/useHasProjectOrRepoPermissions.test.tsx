@@ -1,5 +1,9 @@
-import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
-import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
+import {
+  MockedProvider,
+  MockedProviderProps,
+  renderHook,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   UserProjectSettingsPermissionsQuery,

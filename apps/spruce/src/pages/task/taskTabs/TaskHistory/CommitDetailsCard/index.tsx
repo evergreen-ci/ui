@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
@@ -72,9 +72,9 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       canRestart,
       canSchedule,
       canSetPriority,
-      createTime,
       displayStatus,
       id: taskId,
+      ingestTime,
       latestExecution,
       order,
       priority,
@@ -91,8 +91,8 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       : taskId === currentTask.id;
     const isSelectedTask = taskId === selectedTask;
 
-    const createDate = new Date(createTime ?? "");
-    const dateCopy = getDateCopy(createDate, {
+    const ingestDate = new Date(ingestTime ?? "");
+    const dateCopy = getDateCopy(ingestDate, {
       omitSeconds: true,
       omitTimezone: true,
     });

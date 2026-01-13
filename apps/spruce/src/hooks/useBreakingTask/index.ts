@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   BaseVersionAndTaskQuery,

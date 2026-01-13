@@ -1,7 +1,6 @@
-import { MockedProvider } from "@apollo/client/testing";
 import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
-import { renderHook, act } from "@evg-ui/lib/test_utils";
+import { MockedProvider, renderHook, act } from "@evg-ui/lib/test_utils";
 import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getUserMock } from "gql/mocks/getUser";
 import { usePolling } from ".";

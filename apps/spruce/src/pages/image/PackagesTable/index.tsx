@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import {
   useLeafyGreenTable,
   LGColumnDef,
@@ -9,7 +9,7 @@ import {
   onChangeHandler,
 } from "@evg-ui/lib/components/Table";
 import { DEFAULT_PAGE_SIZE } from "@evg-ui/lib/constants/pagination";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useImageAnalytics } from "analytics";
 import {
   Package,
@@ -23,7 +23,6 @@ type PackagesTableProps = {
 };
 
 export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
-  const dispatchToast = useToastContext();
   const { sendEvent } = useImageAnalytics();
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -31,25 +30,25 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
   });
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const { data: packagesData, loading } = useQuery<
-    ImagePackagesQuery,
-    ImagePackagesQueryVariables
-  >(IMAGE_PACKAGES, {
-    variables: {
-      imageId,
-      opts: {
-        page: pagination.pageIndex,
-        limit: pagination.pageSize,
-        name: columnFilters.find((filter) => filter.id === "name")
-          ?.value as string,
+  const {
+    data: packagesData,
+    error,
+    loading,
+  } = useQuery<ImagePackagesQuery, ImagePackagesQueryVariables>(
+    IMAGE_PACKAGES,
+    {
+      variables: {
+        imageId,
+        opts: {
+          page: pagination.pageIndex,
+          limit: pagination.pageSize,
+          name: columnFilters.find((filter) => filter.id === "name")
+            ?.value as string,
+        },
       },
     },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading image packages: ${err.message}`,
-      );
-    },
-  });
+  );
+  useErrorToast(error, "There was an error loading image packages");
 
   const packages = packagesData?.image?.packages.data ?? [];
 

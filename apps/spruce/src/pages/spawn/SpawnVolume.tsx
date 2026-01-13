@@ -1,7 +1,7 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { Title, BadgeWrapper, TitleContainer } from "components/Spawn";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -14,23 +14,19 @@ import { SpawnVolumeButton } from "./spawnVolume/SpawnVolumeButton";
 
 export const SpawnVolume = () => {
   usePageTitle("My Volumes");
-  const dispatchToast = useToastContext();
   const spruceConfig = useSpruceConfig();
 
   const {
     data: volumesData,
+    error,
     loading,
     refetch,
     startPolling,
     stopPolling,
   } = useQuery<MyVolumesQuery, MyVolumesQueryVariables>(MY_VOLUMES, {
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError: (e) => {
-      dispatchToast.error(
-        `There was an error loading your spawn volume: ${e.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading your spawn volume");
   const migrationInProcess = !!volumesData?.myVolumes.find(
     ({ migrating }) => migrating,
   );

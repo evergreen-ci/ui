@@ -46,6 +46,9 @@ const repoForm: GeneralFormState = {
   },
   projectFlags: {
     dispatchingDisabled: true,
+    debug: {
+      debugSpawnHostsDisabled: false,
+    },
     scheduling: {
       deactivatePrevious: true,
       stepbackDisabled: true,
@@ -79,6 +82,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     dispatchingDisabled: true,
     deactivatePrevious: true,
     repotrackerDisabled: false,
+    debugSpawnHostsDisabled: false,
     patchingDisabled: false,
     stepbackDisabled: true,
     stepbackBisect: true,
@@ -110,6 +114,9 @@ const projectForm: GeneralFormState = {
   },
   projectFlags: {
     dispatchingDisabled: null,
+    debug: {
+      debugSpawnHostsDisabled: null,
+    },
     scheduling: {
       deactivatePrevious: null,
       stepbackDisabled: null,
@@ -146,6 +153,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     dispatchingDisabled: null,
     deactivatePrevious: null,
     repotrackerDisabled: null,
+    debugSpawnHostsDisabled: null,
     patchingDisabled: null,
     stepbackDisabled: null,
     stepbackBisect: null,

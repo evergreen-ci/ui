@@ -52,7 +52,7 @@ export const groupTasks = (
 
   const pushDate = (t: TaskHistoryTask) => {
     groupedTasks.push({
-      date: t.createTime ?? new Date(),
+      date: t.ingestTime ?? new Date(),
       inactiveTasks: null,
       task: null,
       isMatching: false,
@@ -67,8 +67,8 @@ export const groupTasks = (
     } else {
       const prevTask = tasks[i - 1];
       shouldShowDateSeparator = !areDatesOnSameDay(
-        prevTask.createTime,
-        task.createTime,
+        prevTask.ingestTime,
+        task.ingestTime,
         timezone,
       );
     }
