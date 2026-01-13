@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { CombinedGraphQLErrors } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
@@ -60,7 +61,8 @@ export const Task = () => {
   useErrorToast(
     error,
     "Loading task",
-    error?.graphQLErrors?.some((e) => !e?.path?.includes("annotation")),
+    CombinedGraphQLErrors.is(error) &&
+      error.errors.some((e) => !e?.path?.includes("annotation")),
   );
 
   const { task } = data ?? {};
@@ -78,10 +80,10 @@ export const Task = () => {
 
   // Update the default execution in the url if it isn't populated
   useEffect(() => {
-    if (selectedExecution === null && task) {
-      setSelectedExecution(task.latestExecution);
+    if (selectedExecution === null && latestExecution !== undefined) {
+      setSelectedExecution(latestExecution);
     }
-  }, [task, selectedExecution, setSelectedExecution]);
+  }, [latestExecution, selectedExecution, setSelectedExecution]);
 
   /**
    * Special handling for known issues and show the original status on the task page.
