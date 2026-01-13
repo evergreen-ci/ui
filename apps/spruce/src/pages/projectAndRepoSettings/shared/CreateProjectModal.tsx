@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";

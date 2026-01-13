@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
@@ -10,7 +10,7 @@ import {
   BaseTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { amazonEC2InstanceTypeDocumentationUrl } from "constants/externalResources";
 import { defaultEC2Region, MCI_USER } from "constants/hosts";
@@ -29,18 +29,14 @@ type DistrosTableProps = {
 };
 
 export const DistrosTable: React.FC<DistrosTableProps> = ({ imageId }) => {
-  const dispatchToast = useToastContext();
-  const { data: imageData, loading } = useQuery<
-    ImageDistrosQuery,
-    ImageDistrosQueryVariables
-  >(IMAGE_DISTROS, {
+  const {
+    data: imageData,
+    error,
+    loading,
+  } = useQuery<ImageDistrosQuery, ImageDistrosQueryVariables>(IMAGE_DISTROS, {
     variables: { imageId },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading image distros: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading image distros");
 
   const distros = imageData?.image?.distros ?? [];
 

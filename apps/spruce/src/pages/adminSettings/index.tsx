@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";

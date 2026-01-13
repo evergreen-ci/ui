@@ -1,8 +1,8 @@
-import { MockedProvider } from "@apollo/client/testing";
 import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
   act,
   renderWithRouterMatch as render,
   renderComponentWithHook,
