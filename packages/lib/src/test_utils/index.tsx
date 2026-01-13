@@ -1,9 +1,9 @@
 import { useEffect, createElement } from "react";
+import { MockLink } from "@apollo/client/testing";
 import {
-  MockLink,
   MockedProvider,
   MockedProviderProps,
-} from "@apollo/client/testing";
+} from "@apollo/client/testing/react";
 import {
   act,
   fireEvent,
