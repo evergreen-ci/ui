@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";

@@ -1,5 +1,5 @@
 import { cloneElement, useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { PlusButton, Size, Variant } from "components/Buttons";
 import {

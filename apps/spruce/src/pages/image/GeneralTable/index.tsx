@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
   useLeafyGreenTable,

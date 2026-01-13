@@ -1,6 +1,9 @@
 import { useEffect, createElement } from "react";
-import { MockLink } from "@apollo/client/testing";
-import { MockedProvider } from "@apollo/client/testing/react";
+import {
+  MockLink,
+  MockedProvider,
+  MockedProviderProps,
+} from "@apollo/client/testing";
 import {
   act,
   fireEvent,
@@ -175,8 +178,9 @@ export {
   customWithin as within,
   stubGetClientRects,
   createWrapper,
-  type MockedResponse,
   MockedProvider,
+  type MockedResponse,
+  type MockedProviderProps,
 };
 
 export type { RenderWithRouterMatchOptions };
