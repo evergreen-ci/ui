@@ -1,9 +1,10 @@
+import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
   leaveBreadcrumb,
@@ -45,14 +46,13 @@ const VariantHistoryContents: React.FC = () => {
   const { sendEvent } = useProjectHistoryAnalytics({ page: "Variant history" });
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { ingestNewCommits } = useHistoryTable();
-  const dispatchToast = useToastContext();
   usePageTitle(`Variant History | ${projectIdentifier} | ${variantName}`);
   useJumpToCommit();
   useTestFilters();
   const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     constants.queryParamsToDisplay,
   );
-  const { data, loading, refetch } = useQuery<
+  const { data, error, loading, refetch } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(MAINLINE_COMMITS_FOR_HISTORY, {
@@ -71,25 +71,28 @@ const VariantHistoryContents: React.FC = () => {
     },
     notifyOnNetworkStatusChange: true, // This is so that we can show the loading state
     fetchPolicy: "no-cache", // This is because we already cache the data in the history table
-    onCompleted({ mainlineCommits }) {
+  });
+
+  const prevLoadingRef = useRef(loading);
+  useEffect(() => {
+    // Trigger only when loading transitions from true to false (query completed)
+    if (prevLoadingRef.current && !loading && data?.mainlineCommits) {
       leaveBreadcrumb(
         "Loaded more commits for variant history",
         {
           projectIdentifier,
           variantName,
           // @ts-expect-error: FIXME. This comment was added by an automated script.
-          numCommits: mainlineCommits.versions.length,
+          numCommits: data.mainlineCommits.versions.length,
         },
         SentryBreadcrumbTypes.UI,
       );
-      ingestNewCommits(mainlineCommits);
-    },
-    onError(err) {
-      dispatchToast.error(
-        `There was an error loading the variant history: ${err.message}`,
-      );
-    },
-  });
+      ingestNewCommits(data.mainlineCommits);
+    }
+    prevLoadingRef.current = loading;
+  }, [loading, data, projectIdentifier, variantName, ingestNewCommits]);
+
+  useErrorToast(error, "There was an error loading the variant history");
 
   const handleLoadMore = () => {
     if (data) {

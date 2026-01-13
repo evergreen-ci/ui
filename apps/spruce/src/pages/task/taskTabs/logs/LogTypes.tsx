@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
@@ -222,7 +221,7 @@ export const TaskLog: React.FC<Props> = (props) => {
 
 const useRenderBody: React.FC<{
   loading: boolean;
-  error: ApolloError;
+  error: Error;
   data: (TaskEventLogEntryType | LogMessageType)[];
   LogContainer?: React.FC<{ children: React.ReactNode }>;
   setNoLogs: (noLogs: boolean) => void;
