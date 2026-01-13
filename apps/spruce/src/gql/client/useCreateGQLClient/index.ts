@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { HttpLink, ApolloClient, NormalizedCacheObject } from "@apollo/client";
+import { HttpLink, ApolloClient } from "@apollo/client";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
   leaveBreadcrumb,
@@ -23,9 +23,7 @@ import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
 import { getGQLUrl } from "utils/environmentVariables";
 
-export const useCreateGQLClient = ():
-  | ApolloClient<NormalizedCacheObject>
-  | undefined => {
+export const useCreateGQLClient = (): ApolloClient | undefined => {
   const { dispatchAuthenticated, logoutAndRedirect } = useAuthProviderContext();
   const [secretFields, setSecretFields] = useState<string[]>();
 

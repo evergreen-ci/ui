@@ -9,6 +9,7 @@ import { ApolloLink, Observable } from "@apollo/client";
 export const pausePollingLink = new ApolloLink((operation, forward) => {
   if (
     (document.hidden || !navigator.onLine) &&
+    operation.operationName &&
     pauseableQueries.includes(operation.operationName)
   ) {
     return new Observable((observer) => {

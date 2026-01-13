@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { ErrorLike } from "@apollo/client";
 import { CombinedGraphQLErrors } from "@apollo/client/errors";
 import { useToastContext } from "../../context/toast";
 
@@ -14,7 +15,7 @@ import { useToastContext } from "../../context/toast";
  * // Shows toast: "Unable to load data: <error message>"
  */
 export const useErrorToast = (
-  error: CombinedGraphQLErrors | undefined,
+  error: ErrorLike | undefined,
   messagePrefix: string,
   shouldDispatchToast: boolean = true,
 ) => {
@@ -23,7 +24,11 @@ export const useErrorToast = (
 
   useEffect(() => {
     // Only show toast if there's a new error we haven't shown yet
-    if (error && error.message !== lastErrorMessage.current) {
+    if (
+      error &&
+      CombinedGraphQLErrors.is(error) &&
+      error.message !== lastErrorMessage.current
+    ) {
       lastErrorMessage.current = error.message;
       if (shouldDispatchToast) {
         dispatchToast.error(`${messagePrefix}: ${error.message}`);

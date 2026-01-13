@@ -53,6 +53,8 @@ export const reportingFn =
 export const logGQLErrorsLink = (secretFields: string[]) =>
   new ErrorLink(({ error, operation }) => {
     if (CombinedGraphQLErrors.is(error)) {
-      error.errors.forEach(() => reportingFn(secretFields, operation));
+      error.errors.forEach((gqlErr) =>
+        reportingFn(secretFields, operation)(gqlErr),
+      );
     }
   });
