@@ -141,7 +141,7 @@ export const useTaskAnalytics = () => {
     "task.project.identifier": identifier || "",
     "task.start_time": taskStartTime,
     "task.status": taskStatus || "",
-    "version.is_patch": isPatch,
+    "version.is_patch": isPatch || false,
     "version.requester": requester,
   });
 };
