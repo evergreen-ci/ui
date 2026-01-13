@@ -63,7 +63,11 @@ export const ProjectPatches = () => {
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "Error while fetching project patches");
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<ProjectPatchesQuery, ProjectPatchesQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
   const { displayName, patches } = data?.project ?? {};
 
   return (

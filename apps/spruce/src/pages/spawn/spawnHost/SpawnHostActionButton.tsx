@@ -44,7 +44,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     pollInterval: 3000,
   });
   useErrorToast(hostsError, "There was an error loading your spawn hosts");
-  usePolling({
+  usePolling<MyHostsQuery, MyHostsQueryVariables>({
     startPolling,
     stopPolling,
     refetch,

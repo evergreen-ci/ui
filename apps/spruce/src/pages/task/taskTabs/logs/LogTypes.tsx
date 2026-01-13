@@ -64,7 +64,11 @@ export const AllLog: React.FC<Props> = (props) => {
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "There was an error loading all logs");
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<AllLogsQuery, AllLogsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const { task } = data || {};
   const { taskLogs } = task || {};
@@ -94,7 +98,11 @@ export const EventLog: React.FC<Props> = (props) => {
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "There was an error loading event logs");
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<TaskEventLogsQuery, TaskEventLogsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const { task } = data || {};
   const { taskLogs } = task || {};
@@ -128,7 +136,11 @@ export const SystemLog: React.FC<Props> = (props) => {
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "There was an error loading system logs");
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<SystemLogsQuery, SystemLogsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const { task } = data || {};
   const { taskLogs } = task || {};
@@ -157,7 +169,11 @@ export const AgentLog: React.FC<Props> = (props) => {
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "There was an error loading agent logs");
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<AgentLogsQuery, AgentLogsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const { task } = data || {};
   const { taskLogs } = task || {};
@@ -186,7 +202,11 @@ export const TaskLog: React.FC<Props> = (props) => {
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "There was an error loading task logs");
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<TaskLogsQuery, TaskLogsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const { task } = data || {};
   const { taskLogs } = task || {};

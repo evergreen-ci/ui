@@ -51,7 +51,11 @@ export const Task = () => {
     fetchPolicy: "network-only",
     errorPolicy: "all",
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<TaskQuery, TaskQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   useErrorToast(
     error,

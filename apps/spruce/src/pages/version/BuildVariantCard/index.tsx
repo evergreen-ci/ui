@@ -33,7 +33,11 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
     },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<BuildVariantStatsQuery, BuildVariantStatsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
   const { version } = data || {};
 
   return (
