@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { useLocation } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components/Table";

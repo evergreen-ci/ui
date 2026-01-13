@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 

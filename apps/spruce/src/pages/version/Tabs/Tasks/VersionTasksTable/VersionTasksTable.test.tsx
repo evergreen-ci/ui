@@ -1,8 +1,8 @@
 import { InMemoryCache } from "@apollo/client";
-import { MockedProvider } from "@apollo/client/testing";
 import { getTestUtils } from "@leafygreen-ui/checkbox";
 import { getTestUtils as getTableUtils } from "@leafygreen-ui/table/testing";
 import {
+  MockedProvider,
   fireEvent,
   waitFor,
   renderWithRouterMatch as render,

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Body, BodyProps, H2 } from "@leafygreen-ui/typography";
 import { useLocation, useNavigate } from "react-router-dom";

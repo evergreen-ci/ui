@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { H2 } from "@leafygreen-ui/typography";
 import { AdminSettingsGeneralSection } from "constants/routes";
 import {

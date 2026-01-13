@@ -1,5 +1,4 @@
-import { MockedProvider } from "@apollo/client/testing";
-import { act, renderHook } from "@evg-ui/lib/test_utils";
+import { MockedProvider, act, renderHook } from "@evg-ui/lib/test_utils";
 import { getUserMock } from "gql/mocks/getUser";
 import { useNetworkStatus } from "hooks";
 

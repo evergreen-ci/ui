@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { defaultEC2Region } from "constants/hosts";
 import {
   DistrosQuery,

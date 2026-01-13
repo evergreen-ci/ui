@@ -1,7 +1,6 @@
 import { ApolloError } from "@apollo/client";
-import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
-import { renderHook } from "test_utils";
+import { MockedProvider, renderHook } from "test_utils";
 import { useErrorToast } from ".";
 
 const Provider = ({ children }: { children: React.ReactNode }) => (

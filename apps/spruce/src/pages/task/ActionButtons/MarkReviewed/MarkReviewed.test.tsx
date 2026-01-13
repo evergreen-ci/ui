@@ -1,6 +1,6 @@
 import { InMemoryCache } from "@apollo/client";
-import { MockedProvider } from "@apollo/client/testing";
 import {
+  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   userEvent,

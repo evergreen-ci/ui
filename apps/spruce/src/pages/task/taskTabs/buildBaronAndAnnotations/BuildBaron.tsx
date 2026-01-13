@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import {
   Annotation,
