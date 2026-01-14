@@ -1,15 +1,11 @@
 import { forwardRef } from "react";
 import styled from "@emotion/styled";
-import Button, { Size } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
-import Tooltip from "@leafygreen-ui/tooltip";
-import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
-import Icon from "@evg-ui/lib/components/Icon";
-import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { size } from "@evg-ui/lib/constants/tokens";
 import AnnotationTicketRow, {
   AnnotationTicketRowProps,
 } from "../AnnotationTicketRow";
+import { AnnotationTicketAction } from "./AnnotationTicketAction";
 
 const { gray } = palette;
 interface AnnotationTicketRowWithActionsProps extends AnnotationTicketRowProps {
@@ -45,71 +41,30 @@ const AnnotationTicketRowWithActions = forwardRef<
     },
     ref,
   ) => {
-    const { confidenceScore, issueKey, loading, url } = rest;
+    const { confidenceScore, issueKey = "", loading, url = "" } = rest;
     return (
       <Container ref={ref} selected={selected}>
         <AnnotationTicketRow {...rest} />
         {!loading && (
           <ButtonContainer>
-            {ConditionalWrapper({
-              condition: userCanModify,
-              wrapper: (children: JSX.Element) => (
-                <Popconfirm
-                  align="right"
-                  onConfirm={() => {
-                    // @ts-expect-error: FIXME. This comment was added by an automated script.
-                    onMove({ url, issueKey, confidenceScore });
-                  }}
-                  trigger={children}
-                >
-                  Do you want to move this {issueString} to{" "}
-                  {isIssue ? "suspected issues" : "issues"}?
-                </Popconfirm>
-              ),
-              altWrapper: (children: JSX.Element) => (
-                <Tooltip trigger={children}>
-                  You are not authorized to edit failure details
-                </Tooltip>
-              ),
-              children: (
-                <Button
-                  data-cy={`move-btn-${issueKey}`}
-                  disabled={!userCanModify}
-                  leftGlyph={<Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />}
-                  size={Size.Small}
-                >
-                  Move to {isIssue ? "suspected issues" : "issues"}
-                </Button>
-              ),
-            })}
-            {ConditionalWrapper({
-              condition: userCanModify,
-              wrapper: (children: JSX.Element) => (
-                <Popconfirm
-                  align="right"
-                  onConfirm={() => {
-                    // @ts-expect-error: FIXME. This comment was added by an automated script.
-                    onRemove(url, issueKey);
-                  }}
-                  trigger={children}
-                >
-                  Do you want to delete this {issueString}?
-                </Popconfirm>
-              ),
-              altWrapper: (children: JSX.Element) => (
-                <Tooltip trigger={children}>
-                  You are not authorized to edit failure details
-                </Tooltip>
-              ),
-              children: (
-                <Button
-                  data-cy={`${issueKey}-delete-btn`}
-                  disabled={!userCanModify}
-                  leftGlyph={<Icon glyph="Trash" />}
-                  size="small"
-                />
-              ),
-            })}
+            <AnnotationTicketAction
+              confirmMessage={`Do you want to move this ${issueString} to ${isIssue ? "suspected issues" : "issues"}?`}
+              data-cy={`move-btn-${issueKey}`}
+              iconGlyph={isIssue ? "ArrowDown" : "ArrowUp"}
+              onConfirm={() => {
+                onMove({ url, issueKey, confidenceScore });
+              }}
+              userCanModify={userCanModify}
+            />
+            <AnnotationTicketAction
+              confirmMessage={`Do you want to delete this ${issueString}?`}
+              data-cy={`${issueKey}-delete-btn`}
+              iconGlyph="Trash"
+              onConfirm={() => {
+                onRemove(url, issueKey);
+              }}
+              userCanModify={userCanModify}
+            />
           </ButtonContainer>
         )}
       </Container>
@@ -128,10 +83,9 @@ const Container = styled.div`
   justify-content: space-between;
   padding: ${size.xs};
   ${({ selected }: { selected?: boolean }) =>
-    selected &&
-    `
-    background-color: ${gray.light2};
-  `}
+    selected && `background-color: ${gray.light2};`}
 `;
+
+AnnotationTicketRowWithActions.displayName = "AnnotationTicketRowWithActions";
 
 export default AnnotationTicketRowWithActions;

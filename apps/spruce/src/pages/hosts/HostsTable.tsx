@@ -8,9 +8,9 @@ import {
   RowSorting,
   SortingState,
   useLeafyGreenTable,
-  LeafyGreenTable,
   BaseTable,
   onChangeHandler,
+  LGColumnDef,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -89,7 +89,7 @@ export const HostsTable: React.FC<Props> = ({
     });
   };
 
-  const table: LeafyGreenTable<Host> = useLeafyGreenTable<Host>({
+  const table = useLeafyGreenTable<Host>({
     columns,
     data: hosts ?? [],
     defaultColumn: {
@@ -150,14 +150,13 @@ const emptyFilterQueryParams = Object.values(HostsTableFilterParams).reduce(
   {},
 );
 
-const columns = [
+const columns: LGColumnDef<Host>[] = [
   {
     header: "ID",
     accessorKey: "id",
     id: HostSortBy.Id,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ getValue }): JSX.Element => {
-      const id = getValue();
+    cell: ({ getValue }): React.JSX.Element => {
+      const id = getValue() as string;
       return (
         <StyledRouterLink data-cy="host-id-link" to={getHostRoute(id)}>
           <WordBreak>{id}</WordBreak>
@@ -206,13 +205,12 @@ const columns = [
     header: "Current Task",
     accessorKey: "runningTask",
     id: HostSortBy.CurrentTask,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => {
-      const task = getValue();
-      return task?.id !== null ? (
+      const task = getValue() as Host["runningTask"];
+      return task?.id ? (
         <StyledRouterLink
           data-cy="current-task-link"
-          to={getTaskRoute(task?.id)}
+          to={getTaskRoute(task.id)}
         >
           <WordBreak all>{task?.name}</WordBreak>
         </StyledRouterLink>
@@ -234,9 +232,8 @@ const columns = [
     header: "Elapsed",
     accessorKey: "elapsed",
     id: HostSortBy.Elapsed,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => {
-      const elapsed = getValue();
+      const elapsed = getValue() as Date;
       return elapsed ? formatDistanceToNow(new Date(elapsed)) : "N/A";
     },
     enableSorting: true,
@@ -248,9 +245,8 @@ const columns = [
     header: "Uptime",
     accessorKey: "uptime",
     id: HostSortBy.Uptime,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => {
-      const uptime = getValue();
+      const uptime = getValue() as Date;
       return uptime ? formatDistanceToNow(new Date(uptime)) : "N/A";
     },
     enableSorting: true,
@@ -262,9 +258,8 @@ const columns = [
     header: "Idle Time",
     accessorKey: "totalIdleTime",
     id: HostSortBy.IdleTime,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => {
-      const totalIdleTime = getValue();
+      const totalIdleTime = getValue() as number;
       return totalIdleTime
         ? formatDistanceToNow(new Date(Date.now() - totalIdleTime))
         : "N/A";
@@ -278,8 +273,7 @@ const columns = [
     header: "Owner",
     accessorKey: "startedBy",
     id: HostSortBy.Owner,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ getValue }) => <WordBreak>{getValue()}</WordBreak>,
+    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
     enableColumnFilter: true,
     enableSorting: true,
     meta: {

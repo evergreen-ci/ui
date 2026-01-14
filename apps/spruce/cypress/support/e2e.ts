@@ -23,8 +23,6 @@ import {
   SEEN_TEST_SELECTION_GUIDE_CUE,
 } from "constants/cookies";
 import { hasOperationName, isMutation } from "../utils/graphql-test-utils";
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
 
 declare global {
   namespace Cypress {
@@ -114,7 +112,7 @@ declare global {
        * @param operationName - The operation name of the query
        * @param body - The replacement response body
        */
-      overwriteGQL(operationName: string, body: any): void;
+      overwriteGQL(operationName: string, body: unknown): void;
       /**
        * Command to open expandable card
        * @param cardTitle - The title of the card to expand
@@ -179,10 +177,10 @@ const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
         cy.log(
           "A mutation that creates an Amboy job was detected. Restoring Amboy.",
         );
-        cy.exec("yarn evg-db-ops --restore amboy");
+        cy.exec("pnpm evg-db-ops --restore amboy");
       }
       cy.log("A mutation was detected. Restoring Evergreen.");
-      cy.exec("yarn evg-db-ops --restore evergreen");
+      cy.exec("pnpm evg-db-ops --restore evergreen");
     }
   });
 })();

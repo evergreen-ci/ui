@@ -1,5 +1,3 @@
-import { getLgIds } from "@leafygreen-ui/split-button";
-
 describe("ansiLogs/ansi_logView", () => {
   describe("Basic evergreen log view", () => {
     const logLink =
@@ -128,7 +126,7 @@ describe("ansiLogs/ansi_logView", () => {
 
       cy.toggleDetailsPanel(true);
 
-      cy.get(`[data-testid='${getLgIds().trigger}']`).click();
+      cy.get(`[aria-label='More options']`).click();
       cy.contains("button", "Copy raw").click();
       cy.assertValueCopiedToClipboard(
         `${logLine0}\n...\n${logLine10}\n${logLine11}\n...\n${logLine297}\n`,

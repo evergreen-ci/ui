@@ -1,13 +1,18 @@
+import { generatePath } from "react-router-dom";
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { WaterfallFilterOptions } from "pages/waterfall/types";
 import { TestStatus, HistoryQueryParams } from "types/history";
 import { ConfigurePatchPageTabs, VersionPageTabs } from "types/patch";
-import { TaskTab } from "types/task";
+import { LogTypes, TaskTab } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
 import { toArray } from "utils/array";
 
 export enum PageNames {
+  HTMLLog = "html-log",
+  TestHTMLLog = "test-html-log",
+  Diff = "diff",
+  FileDiff = "file-diff",
   Patches = "patches",
   Settings = "settings",
 }
@@ -105,6 +110,7 @@ export enum slugs {
   buildId = "buildId",
   distroId = "distroId",
   execution = "execution",
+  fileName = "fileName",
   groupId = "groupId",
   hostId = "hostId",
   imageId = "imageId",
@@ -160,6 +166,10 @@ export const routes = {
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
   task: `${paths.task}/:${slugs.taskId}/:${slugs.tab}?`,
+  taskHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.HTMLLog}`,
+  testHTMLLog: `${paths.task}/:${slugs.taskId}/${PageNames.TestHTMLLog}`,
+  versionDiff: `${paths.version}/:${slugs.versionId}/${PageNames.Diff}`,
+  versionFileDiff: `${paths.version}/:${slugs.versionId}/${PageNames.FileDiff}`,
   taskQueue: `${paths.taskQueue}/:${slugs.distroId}?`,
   user: paths.user,
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
@@ -238,6 +248,62 @@ export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
   return `${paths.task}/${taskId}${tab ? `/${tab}` : ""}${
     queryParams ? `?${queryParams}` : ""
   }`;
+};
+
+export const getTaskHTMLLogRoute = (
+  taskId: string,
+  execution: number,
+  origin: LogTypes,
+) => {
+  const queryParams = stringifyQuery({
+    execution,
+    origin,
+  });
+  return generatePath(`${routes.taskHTMLLog}?${queryParams}`, { taskId });
+};
+
+export const getTestHTMLLogRoute = (
+  taskId: string,
+  execution: number,
+  testName: string,
+  groupId?: string,
+  lineNum?: number,
+) => {
+  const queryParams = stringifyQuery({
+    execution,
+    testName,
+    ...(groupId && { groupId }),
+  });
+
+  let path = generatePath(`${routes.testHTMLLog}?${queryParams}`, { taskId });
+  if (typeof lineNum !== "undefined") {
+    path += `#L${lineNum}`;
+  }
+  return path;
+};
+
+export const getVersionDiffRoute = (versionId: string, moduleIndex: number) => {
+  const queryParams = stringifyQuery({
+    patch_number: moduleIndex,
+  });
+  return generatePath(`${routes.versionDiff}?${queryParams}`, {
+    versionId,
+  });
+};
+
+export const getFileDiffRoute = (
+  versionId: string,
+  fileName: string,
+  patchNumber?: number,
+) => {
+  const queryParams = {
+    file_name: fileName,
+    ...(patchNumber !== undefined && { patch_number: patchNumber }),
+  };
+  const queryString = stringifyQuery(queryParams);
+  return generatePath(`${routes.versionFileDiff}?${queryString}`, {
+    versionId,
+  });
 };
 
 export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>

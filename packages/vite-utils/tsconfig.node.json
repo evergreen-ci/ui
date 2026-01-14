@@ -1,8 +1,15 @@
 {
-    "compilerOptions": {
-        "composite": true,
-        "module": "ESNext",
-        "moduleResolution": "node",
-        "esModuleInterop": true
-    }
+  "compilerOptions": {
+    "noEmit": true,
+    "composite": true,
+    "target": "esnext",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "skipLibCheck": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true
+  },
+  "include": [
+    "src"
+  ]
 }

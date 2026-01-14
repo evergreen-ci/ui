@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { size, transitionDuration, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 
 export const StickyHeaderContainer = styled.div<{
   showShadow: boolean;
@@ -14,7 +14,7 @@ export const StickyHeaderContainer = styled.div<{
   padding: 0 ${size.l} ${size.s} ${size.l};
 
   ${({ saveable }) => saveable && "position: sticky;"}
-  z-index: ${zIndex.stickyHeader};
+  z-index: 1;
   top: 0;
 
   ${({ showShadow }) =>

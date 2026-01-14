@@ -59,6 +59,7 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       checkBlockedTasksDisabled
       cliUpdatesDisabled
       cloudCleanupDisabled
+      debugSpawnHostDisabled
       degradedModeDisabled
       elasticIPsDisabled
       emailNotificationsDisabled
@@ -70,7 +71,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       jiraNotificationsDisabled
       jwtTokenForCLIDisabled
       largeParserProjectsDisabled
-      legacyUIAdminPageDisabled
       monitorDisabled
       podAllocatorDisabled
       podInitDisabled

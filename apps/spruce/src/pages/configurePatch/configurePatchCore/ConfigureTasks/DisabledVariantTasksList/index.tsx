@@ -1,4 +1,4 @@
-import Checkbox from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
 import { VariantTask } from "gql/generated/types";
 import { TaskLayoutGrid } from "../styles";

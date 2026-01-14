@@ -1,4 +1,4 @@
-import Code from "@leafygreen-ui/code";
+import { Code } from "@leafygreen-ui/code";
 import Accordion, {
   AccordionCaretIcon,
 } from "@evg-ui/lib/components/Accordion";

@@ -14,7 +14,7 @@
       </h3>
     </a>
     <div
-      class="emotion-SettingsCard e1h7idos0 leafygreen-ui-1nx5jqg"
+      class="emotion-SettingsCard e1h7idos0 leafygreen-ui-17q42jt"
     >
       <form
         class="rjsf"
@@ -47,23 +47,23 @@
                       class="leafygreen-ui-1lqrdit"
                       data-lgid="lg-select-label"
                       data-testid="lg-select"
-                      for="select-88"
-                      id="select-87-label"
+                      for="select-134"
+                      id="select-133-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-87-menu"
-                    aria-describedby="select-87-description"
+                    aria-controls="select-133-menu"
+                    aria-describedby="select-133-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-87-label"
+                    aria-labelledby="select-133-label"
                     class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
                     data-lgid="lg-select-trigger"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-88"
+                    id="select-134"
                     type="button"
                     value="legacy-ssh"
                   >
@@ -195,14 +195,14 @@
                                 class="leafygreen-ui-15qqekb"
                                 data-lgid="lg-text_input-label"
                                 data-testid="lg-text_input"
-                                for="lg-form_field-input-92"
-                                id="lg-form_field-label-89"
+                                for="lg-form_field-input-139"
+                                id="lg-form_field-label-136"
                               >
                                 key
                               </label>
                             </div>
                             <div
-                              class="leafygreen-ui-14vpn2b"
+                              class="leafygreen-ui-oxwo2l"
                             >
                               <div
                                 class="leafygreen-ui-1ago99h"
@@ -211,10 +211,10 @@
                                   aria-describedby=""
                                   aria-disabled="false"
                                   aria-invalid="false"
-                                  aria-labelledby="lg-form_field-label-89"
+                                  aria-labelledby="lg-form_field-label-136"
                                   autocomplete="on"
                                   class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                                  id="lg-form_field-input-92"
+                                  id="lg-form_field-input-139"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -227,7 +227,7 @@
                               class="leafygreen-ui-11ydt2g"
                               data-lgid="lg-text_input-feedback"
                               data-testid="lg-text_input-feedback"
-                              id="lg-form_field-feedback-91"
+                              id="lg-form_field-feedback-138"
                             />
                           </div>
                         </div>
@@ -251,14 +251,14 @@
                                 class="leafygreen-ui-15qqekb"
                                 data-lgid="lg-text_input-label"
                                 data-testid="lg-text_input"
-                                for="lg-form_field-input-96"
-                                id="lg-form_field-label-93"
+                                for="lg-form_field-input-143"
+                                id="lg-form_field-label-140"
                               >
                                 value
                               </label>
                             </div>
                             <div
-                              class="leafygreen-ui-14vpn2b"
+                              class="leafygreen-ui-oxwo2l"
                             >
                               <div
                                 class="leafygreen-ui-1ago99h"
@@ -267,10 +267,10 @@
                                   aria-describedby=""
                                   aria-disabled="false"
                                   aria-invalid="false"
-                                  aria-labelledby="lg-form_field-label-93"
+                                  aria-labelledby="lg-form_field-label-140"
                                   autocomplete="on"
                                   class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                                  id="lg-form_field-input-96"
+                                  id="lg-form_field-input-143"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -283,7 +283,7 @@
                               class="leafygreen-ui-11ydt2g"
                               data-lgid="lg-text_input-feedback"
                               data-testid="lg-text_input-feedback"
-                              id="lg-form_field-feedback-95"
+                              id="lg-form_field-feedback-142"
                             />
                           </div>
                         </div>
@@ -348,14 +348,14 @@
                       class="leafygreen-ui-15qqekb"
                       data-lgid="lg-text_area-label"
                       data-testid="lg-text_area"
-                      for="textarea-101"
-                      id="lg-form_field-label-97"
+                      for="textarea-149"
+                      id="lg-form_field-label-145"
                     >
                       Valid Projects
                     </label>
                   </div>
                   <div
-                    class="leafygreen-ui-o0whc9"
+                    class="leafygreen-ui-6bxely"
                   >
                     <div
                       class="leafygreen-ui-1ago99h"
@@ -364,9 +364,9 @@
                         aria-describedby=""
                         aria-disabled="false"
                         aria-invalid="false"
-                        aria-labelledby="lg-form_field-label-97"
+                        aria-labelledby="lg-form_field-label-145"
                         class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
-                        id="textarea-101"
+                        id="textarea-149"
                         rows="5"
                         title="Valid Projects"
                       />
@@ -378,7 +378,7 @@
                     class="leafygreen-ui-11ydt2g"
                     data-lgid="lg-text_area-feedback"
                     data-testid="lg-text_area-feedback"
-                    id="lg-form_field-feedback-99"
+                    id="lg-form_field-feedback-147"
                   />
                 </div>
               </div>

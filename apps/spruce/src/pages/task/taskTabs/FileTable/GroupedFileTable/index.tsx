@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
@@ -12,14 +12,12 @@ import {
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useTaskAnalytics } from "analytics";
-import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import { GroupedFiles } from "../types";
 
 type GroupedFilesFile = Unpacked<NonNullable<GroupedFiles["files"]>>;
 
 const getColumns = (
   taskAnalytics: ReturnType<typeof useTaskAnalytics>,
-  replaceUrl: (url: string) => string,
 ): LGColumnDef<GroupedFilesFile>[] => [
   {
     accessorKey: "name",
@@ -51,11 +49,7 @@ const getColumns = (
               <Button
                 data-cy="parsley-link"
                 disabled={value.row.original.urlParsley === null}
-                href={
-                  value.row.original.urlParsley
-                    ? replaceUrl(value.row.original.urlParsley)
-                    : undefined
-                }
+                href={value.row.original.urlParsley ?? undefined}
                 onClick={() => {
                   taskAnalytics.sendEvent({
                     name: "Clicked task file Parsley link",
@@ -85,11 +79,10 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   taskName,
 }) => {
   const taskAnalytics = useTaskAnalytics();
-  const { replaceUrl } = useConditionallyLinkToParsleyBeta();
 
   const memoizedColumns = useMemo(
-    () => getColumns(taskAnalytics, replaceUrl),
-    [taskAnalytics, replaceUrl],
+    () => getColumns(taskAnalytics),
+    [taskAnalytics],
   );
 
   const table = useLeafyGreenTable<GroupedFilesFile>({

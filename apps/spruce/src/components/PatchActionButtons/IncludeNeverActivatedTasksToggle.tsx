@@ -1,8 +1,9 @@
 import { MenuItem } from "@leafygreen-ui/menu";
-import Tooltip from "@leafygreen-ui/tooltip";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
+import { Tooltip } from "@leafygreen-ui/tooltip";
+import Cookies from "js-cookie";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics/version/useVersionAnalytics";
+import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { PatchTasksQueryParams } from "types/task";
 
 interface IncludeNeverActivatedTasksToggleProps {
@@ -17,7 +18,7 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
   const [includeNeverActivatedTasks, setIncludeNeverActivatedTasks] =
     useQueryParam<boolean | undefined>(
       PatchTasksQueryParams.IncludeNeverActivatedTasks,
-      undefined,
+      Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true",
     );
 
   const handleIncludeNeverActivatedTasksChange = (
@@ -26,6 +27,7 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
     e.preventDefault();
     const checked = !includeNeverActivatedTasks;
     setIncludeNeverActivatedTasks(checked);
+    Cookies.set(INCLUDE_NEVER_ACTIVATED_TASKS, checked.toString());
     versionAnalytics.sendEvent({
       name: "Toggled include never activated tasks",
       include_never_activated_tasks: checked,
@@ -35,7 +37,6 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
   return (
     <Tooltip
       align="left"
-      popoverZIndex={zIndex.tooltip}
       trigger={
         <MenuItem onClick={handleIncludeNeverActivatedTasksChange}>
           {includeNeverActivatedTasks

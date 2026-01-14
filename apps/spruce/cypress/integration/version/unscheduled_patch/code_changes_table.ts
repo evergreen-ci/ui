@@ -11,10 +11,13 @@ describe("Code Changes Table", () => {
   it("Should link to code changes when they exist", () => {
     cy.dataCy("fileLink")
       .should("have.attr", "href")
-      .and("include", `filediff/${patchId}`);
+      .and("include", `/version/${patchId}/file-diff`)
+      .and("include", "file_name=")
+      .and("include", "patch_number=");
     cy.dataCy("html-diff-btn")
       .should("have.attr", "href")
-      .and("include", `filediff/${patchId}`);
+      .and("include", `/version/${patchId}/diff`)
+      .and("include", "patch_number=");
     cy.dataCy("raw-diff-btn")
       .should("have.attr", "href")
       .and("include", `rawdiff/${patchId}`);

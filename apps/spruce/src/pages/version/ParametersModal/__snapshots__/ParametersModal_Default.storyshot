@@ -16,10 +16,10 @@
     </p>
   </span>
   <dialog
-    class="emotion-StyledModal e1vw2scd1 leafygreen-ui-u9zslu"
+    class="leafygreen-ui-2bbulp"
     data-cy="parameters-modal"
     data-lgid="lg-modal"
     data-testid="lg-modal"
-    id="modal-228"
+    id="modal-443"
   />
 </div>

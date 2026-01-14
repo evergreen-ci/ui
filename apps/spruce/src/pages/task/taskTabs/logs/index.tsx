@@ -11,9 +11,9 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
 import { siderCardWidth } from "components/styles/Layout";
 import { getParsleyTaskLogLink } from "constants/externalResources";
+import { getTaskHTMLLogRoute } from "constants/routes";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
-import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import { LogTypes, QueryParams } from "types/task";
 import { EventLog, AgentLog, SystemLog, TaskLog, AllLog } from "./LogTypes";
 
@@ -41,8 +41,6 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
     .toString()
     .toLowerCase() as LogTypes;
 
-  const { replaceUrl } = useConditionallyLinkToParsleyBeta();
-
   const [currentLog, setCurrentLog] = useState<LogTypes>(
     Object.values(LogTypes).includes(logTypeParam)
       ? logTypeParam
@@ -65,7 +63,6 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
     currentLog,
     taskId,
     execution,
-    replaceUrl,
   );
   const LogComp = options[currentLog];
 
@@ -184,27 +181,22 @@ const getLinks = (
   logType: LogTypes,
   taskId: string,
   execution: number,
-  replaceUrl: (url: string) => string,
 ): GetLinksResult => {
-  if (!logLinks) {
+  if (!logLinks || logType === LogTypes.Event) {
     return {};
   }
-  if (logType === LogTypes.Event) {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    return { htmlLink: logLinks.eventLogLink };
-  }
-  const htmlLink = `${
+  const rawLink = `${
     {
       [LogTypes.Agent]: logLinks.agentLogLink,
       [LogTypes.System]: logLinks.systemLogLink,
       [LogTypes.Task]: logLinks.taskLogLink,
       [LogTypes.All]: logLinks.allLogLink,
     }[logType] ?? ""
-  }`;
+  }&text=true`;
   return {
-    htmlLink,
-    parsleyLink: replaceUrl(getParsleyTaskLogLink(logType, taskId, execution)),
-    rawLink: `${htmlLink}&text=true`,
+    htmlLink: getTaskHTMLLogRoute(taskId, execution, logType),
+    parsleyLink: getParsleyTaskLogLink(logType, taskId, execution),
+    rawLink,
   };
 };
 

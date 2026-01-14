@@ -9,6 +9,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import dns from "dns";
 import path from "path";
+import analyticsVisualizer from "@evg-ui/analytics-visualizer";
 import {
   generateBaseHTTPSViteServerConfig,
   bareBonesViteConfig,
@@ -44,23 +45,16 @@ const getProjectConfig = () => {
       rollupOptions: {
         output: {
           manualChunks: {
-            vendor: [
-              "react",
-              "react-router-dom",
-              "react-dom",
-              "react-router",
-              "lodash",
-            ],
+            vendor: ["react", "react-router-dom", "react-dom"],
           },
         },
       },
     },
     resolve: {
       alias: {
-        "@leafygreen-ui/emotion": path.resolve(
-          __dirname,
-          "./config/leafygreen-ui/emotion",
-        ),
+        // Prevent LG from pulling in SSR dependencies.
+        // Can be potentially removed upon the completion of LG-4402.
+        "@emotion/server": "@emotion/css",
         ...(process.env.PROFILER === "true" && {
           "react-dom/client": path.resolve(
             __dirname,
@@ -108,6 +102,13 @@ const getProjectConfig = () => {
       visualizer({
         filename: "dist/source_map.html",
         template: "treemap",
+      }),
+      // Analytics visualization
+      analyticsVisualizer({
+        analyticsDir: "src/analytics",
+        appName: "Spruce",
+        honeycombBaseUrl:
+          "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/spruce",
       }),
       sentryVitePlugin({
         org: "mongodb-org",

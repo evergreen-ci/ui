@@ -6,7 +6,7 @@ import { ProjectSelect } from ".";
 
 export default {
   component: ProjectSelect,
-  decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
   parameters: {
     apolloClient: {
       mocks,

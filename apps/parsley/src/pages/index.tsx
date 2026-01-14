@@ -1,15 +1,12 @@
-import { Suspense, lazy, useEffect } from "react";
-import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
+import { Suspense, lazy } from "react";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
-import { useMergedBetaFeatures } from "@evg-ui/lib/hooks/useBetaFeatures";
 import { useAnalyticAttributes } from "analytics";
 import NavBar from "components/NavBar";
 import { PageLayout } from "components/styles";
 import { LogTypes } from "constants/enums";
-import { betaURL } from "constants/externalLinks";
 import routes, { slugs } from "constants/routes";
 import { useUser } from "hooks";
-import { isEndUserProduction } from "utils/environmentVariables";
 import NotFound from "./404";
 import LogView from "./LogView";
 
@@ -28,17 +25,6 @@ const Content: React.FC = () => {
   const { user } = useUser();
   localStorage.setItem("userId", user?.userId ?? "");
   useAnalyticAttributes(user?.userId ?? "");
-
-  const { pathname, search } = useLocation();
-  const { betaFeatures } = useMergedBetaFeatures();
-  useEffect(() => {
-    // If Parsley AI beta is enabled globally, and the user is opted in, redirect to the
-    // Parsley Beta URL. Limited to production as beta can only mirror production data.
-    if (isEndUserProduction() && betaFeatures?.parsleyAIEnabled) {
-      const redirectURL = `${betaURL}${pathname}${search}`;
-      window.location.replace(redirectURL);
-    }
-  }, [betaFeatures?.parsleyAIEnabled]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Routes>

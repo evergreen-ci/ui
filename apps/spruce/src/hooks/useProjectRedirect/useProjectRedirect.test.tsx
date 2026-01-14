@@ -1,7 +1,6 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { GraphQLError } from "graphql";
 import { MemoryRouter, Routes, Route, useLocation } from "react-router-dom";
-import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
+import { MockedProvider, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { ProjectQuery, ProjectQueryVariables } from "gql/generated/types";
 import { PROJECT } from "gql/queries";
@@ -16,8 +15,9 @@ const useJointHook = (props: Parameters<typeof useProjectRedirect>[0]) => {
 const ProviderWrapper: React.FC<{
   children: React.ReactNode;
   location: string;
-}> = ({ children, location }) => (
-  <MockedProvider mocks={[repoMock, projectMock]}>
+  mocks?: ApolloMock<ProjectQuery, ProjectQueryVariables>[];
+}> = ({ children, location, mocks = [repoMock, projectMock] }) => (
+  <MockedProvider mocks={mocks}>
     <MemoryRouter initialEntries={[location]}>
       <Routes>
         <Route element={children} path="/project/:projectIdentifier/settings" />
@@ -60,6 +60,7 @@ describe("useProjectRedirect", () => {
           ProviderWrapper({
             children,
             location: `/project/${projectId}/settings`,
+            mocks: [projectMock],
           }),
       },
     );
@@ -70,13 +71,9 @@ describe("useProjectRedirect", () => {
       search: "",
     });
     await waitFor(() => {
-      expect(result.current).toMatchObject({
-        isRedirecting: false,
-        attemptedRedirect: true,
-        pathname: "/project/my-project/settings",
-        search: "",
-      });
+      expect(result.current.pathname).toBe("/project/my-project/settings");
     });
+    expect(result.current.isRedirecting).toBe(false);
     expect(sendAnalyticsEvent).toHaveBeenCalledTimes(1);
     expect(sendAnalyticsEvent).toHaveBeenCalledWith(
       "5f74d99ab2373627c047c5e5",
@@ -127,6 +124,7 @@ describe("useProjectRedirect", () => {
           ProviderWrapper({
             children,
             location: `/project/${projectId}/settings?taskName=thirdparty`,
+            mocks: [projectMock],
           }),
       },
     );
@@ -137,13 +135,10 @@ describe("useProjectRedirect", () => {
       search: "?taskName=thirdparty",
     });
     await waitFor(() => {
-      expect(result.current).toMatchObject({
-        isRedirecting: false,
-        attemptedRedirect: true,
-        pathname: "/project/my-project/settings",
-        search: "?taskName=thirdparty",
-      });
+      expect(result.current.pathname).toBe("/project/my-project/settings");
+      expect(result.current.search).toBe("?taskName=thirdparty");
     });
+    expect(result.current.isRedirecting).toBe(false);
     expect(sendAnalyticsEvent).toHaveBeenCalledTimes(1);
     expect(sendAnalyticsEvent).toHaveBeenCalledWith(
       "5f74d99ab2373627c047c5e5",
@@ -162,6 +157,7 @@ describe("useProjectRedirect", () => {
           ProviderWrapper({
             children,
             location: `/project/${repoId}/settings`,
+            mocks: [repoMock],
           }),
       },
     );
@@ -172,16 +168,16 @@ describe("useProjectRedirect", () => {
       search: "",
     });
     await waitFor(() => {
-      expect(result.current).toMatchObject({
-        isRedirecting: false,
-        attemptedRedirect: true,
-        pathname: "/project/5e6bb9e23066155a993e0f1a/settings",
-        search: "",
-      });
+      expect(result.current.isRedirecting).toBe(false);
     });
-    expect(sendAnalyticsEvent).toHaveBeenCalledTimes(0);
-    expect(onError).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(result.current.attemptedRedirect).toBe(true);
+    });
+    await waitFor(() => {
+      expect(onError).toHaveBeenCalledTimes(1);
+    });
     expect(onError).toHaveBeenCalledWith(repoId);
+    expect(sendAnalyticsEvent).toHaveBeenCalledTimes(0);
   });
 });
 

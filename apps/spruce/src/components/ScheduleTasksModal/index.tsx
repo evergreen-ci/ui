@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from "react";
-import { useMutation, useLazyQuery } from "@apollo/client";
+import { useMutation, useLazyQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import Checkbox from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@leafygreen-ui/checkbox";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";

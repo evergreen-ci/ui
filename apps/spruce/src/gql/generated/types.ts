@@ -691,6 +691,13 @@ export type CopyProjectInput = {
   projectIdToCopy: Scalars["String"]["input"];
 };
 
+/** Cost represents the cost breakdown for a task or version. */
+export type Cost = {
+  __typename?: "Cost";
+  adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+};
+
 export type CostConfig = {
   __typename?: "CostConfig";
   financeFormula?: Maybe<Scalars["Float"]["output"]>;
@@ -2529,6 +2536,7 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
+  user: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
   versionFull?: Maybe<Version>;
@@ -2797,6 +2805,7 @@ export type Project = {
   commitQueue: CommitQueueParams;
   containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
+  debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
   dispatchingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   displayName: Scalars["String"]["output"];
@@ -2952,6 +2961,7 @@ export type ProjectInput = {
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]["input"]>;
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   displayName?: InputMaybe<Scalars["String"]["input"]>;
@@ -3372,6 +3382,7 @@ export type RepoRef = {
   commitQueue: RepoCommitQueueParams;
   containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious: Scalars["Boolean"]["output"];
+  debugSpawnHostsDisabled: Scalars["Boolean"]["output"];
   disabledStatsCache: Scalars["Boolean"]["output"];
   dispatchingDisabled: Scalars["Boolean"]["output"];
   displayName: Scalars["String"]["output"];
@@ -3418,6 +3429,7 @@ export type RepoRefInput = {
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]["input"]>;
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   displayName?: InputMaybe<Scalars["String"]["input"]>;
@@ -3713,6 +3725,7 @@ export type ServiceFlags = {
   checkBlockedTasksDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   cliUpdatesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   cloudCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   degradedModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   elasticIPsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   emailNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3724,7 +3737,6 @@ export type ServiceFlags = {
   jiraNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  legacyUIAdminPageDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   podAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3752,6 +3764,7 @@ export type ServiceFlagsInput = {
   checkBlockedTasksDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   cliUpdatesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   cloudCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   degradedModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   elasticIPsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   emailNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3763,7 +3776,6 @@ export type ServiceFlagsInput = {
   jiraNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   jwtTokenForCLIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   largeParserProjectsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  legacyUIAdminPageDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   podAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   podInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3984,6 +3996,7 @@ export type SpruceConfig = {
   jira?: Maybe<JiraConfig>;
   providers?: Maybe<CloudProviderConfig>;
   secretFields: Array<Scalars["String"]["output"]>;
+  serviceFlags: UserServiceFlags;
   singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
@@ -4116,6 +4129,7 @@ export type Task = {
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   pod?: Maybe<Pod>;
+  predictedTaskCost?: Maybe<Cost>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"]["output"];
@@ -4132,6 +4146,7 @@ export type Task = {
   /** taskLogs returns the tail 100 lines of the task's logs. */
   stepbackInfo?: Maybe<StepbackInfo>;
   tags: Array<Scalars["String"]["output"]>;
+  taskCost?: Maybe<Cost>;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
   taskLogs: TaskLogs;
@@ -4302,7 +4317,6 @@ export type TaskLogLinks = {
   __typename?: "TaskLogLinks";
   agentLogLink?: Maybe<Scalars["String"]["output"]>;
   allLogLink?: Maybe<Scalars["String"]["output"]>;
-  eventLogLink?: Maybe<Scalars["String"]["output"]>;
   systemLogLink?: Maybe<Scalars["String"]["output"]>;
   taskLogLink?: Maybe<Scalars["String"]["output"]>;
 };
@@ -4365,15 +4379,10 @@ export type TaskQueueItem = {
   priority: Scalars["Int"]["output"];
   project: Scalars["String"]["output"];
   projectIdentifier?: Maybe<Scalars["String"]["output"]>;
-  requester: TaskQueueItemType;
+  requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
   version: Scalars["String"]["output"];
 };
-
-export enum TaskQueueItemType {
-  Commit = "COMMIT",
-  Patch = "PATCH",
-}
 
 export enum TaskSortCategory {
   BaseStatus = "BASE_STATUS",
@@ -4453,6 +4462,7 @@ export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]["output"]>;
   renderingType?: Maybe<Scalars["String"]["output"]>;
+  testName?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
   urlParsley?: Maybe<Scalars["String"]["output"]>;
   urlRaw?: Maybe<Scalars["String"]["output"]>;
@@ -4722,6 +4732,11 @@ export type UserConfig = {
   user: Scalars["String"]["output"];
 };
 
+export type UserServiceFlags = {
+  __typename?: "UserServiceFlags";
+  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+};
+
 /**
  * UserSettings is returned by the userSettings query.
  * It contains information about a user's settings, such as their GitHub username or timezone.
@@ -4793,6 +4808,7 @@ export type Version = {
   order: Scalars["Int"]["output"];
   parameters: Array<Parameter>;
   patch?: Maybe<Patch>;
+  predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
   project: Scalars["String"]["output"];
   projectIdentifier: Scalars["String"]["output"];
@@ -4807,6 +4823,7 @@ export type Version = {
   taskStatuses: Array<Scalars["String"]["output"]>;
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
+  user: User;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
@@ -5226,7 +5243,6 @@ export type FileDiffsFragment = {
   additions: number;
   deletions: number;
   description: string;
-  diffLink: string;
   fileName: string;
 };
 
@@ -5240,14 +5256,12 @@ export type LogMessageFragment = {
 export type ModuleCodeChangeFragment = {
   __typename?: "ModuleCodeChange";
   branchName: string;
-  htmlLink: string;
   rawLink: string;
   fileDiffs: Array<{
     __typename?: "FileDiff";
     additions: number;
     deletions: number;
     description: string;
-    diffLink: string;
     fileName: string;
   }>;
 };
@@ -5388,6 +5402,7 @@ export type ProjectGeneralSettingsFragment = {
   batchTime: number;
   branch: string;
   deactivatePrevious?: boolean | null;
+  debugSpawnHostsDisabled?: boolean | null;
   disabledStatsCache?: boolean | null;
   dispatchingDisabled?: boolean | null;
   displayName: string;
@@ -5409,6 +5424,7 @@ export type RepoGeneralSettingsFragment = {
   id: string;
   batchTime: number;
   deactivatePrevious: boolean;
+  debugSpawnHostsDisabled: boolean;
   disabledStatsCache: boolean;
   dispatchingDisabled: boolean;
   displayName: string;
@@ -5537,6 +5553,7 @@ export type ProjectSettingsFieldsFragment = {
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
+    debugSpawnHostsDisabled?: boolean | null;
     disabledStatsCache?: boolean | null;
     dispatchingDisabled?: boolean | null;
     displayName: string;
@@ -5750,6 +5767,7 @@ export type RepoSettingsFieldsFragment = {
     restricted: boolean;
     batchTime: number;
     deactivatePrevious: boolean;
+    debugSpawnHostsDisabled: boolean;
     disabledStatsCache: boolean;
     dispatchingDisabled: boolean;
     owner: string;
@@ -6211,6 +6229,7 @@ export type ProjectEventSettingsFragment = {
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
+    debugSpawnHostsDisabled?: boolean | null;
     disabledStatsCache?: boolean | null;
     dispatchingDisabled?: boolean | null;
     displayName: string;
@@ -7097,6 +7116,7 @@ export type SaveAdminSettingsMutation = {
       checkBlockedTasksDisabled?: boolean | null;
       cliUpdatesDisabled?: boolean | null;
       cloudCleanupDisabled?: boolean | null;
+      debugSpawnHostDisabled?: boolean | null;
       degradedModeDisabled?: boolean | null;
       elasticIPsDisabled?: boolean | null;
       emailNotificationsDisabled?: boolean | null;
@@ -7108,7 +7128,6 @@ export type SaveAdminSettingsMutation = {
       jiraNotificationsDisabled?: boolean | null;
       jwtTokenForCLIDisabled?: boolean | null;
       largeParserProjectsDisabled?: boolean | null;
-      legacyUIAdminPageDisabled?: boolean | null;
       monitorDisabled?: boolean | null;
       podAllocatorDisabled?: boolean | null;
       podInitDisabled?: boolean | null;
@@ -7866,6 +7885,7 @@ export type AdminSettingsQuery = {
       checkBlockedTasksDisabled?: boolean | null;
       cliUpdatesDisabled?: boolean | null;
       cloudCleanupDisabled?: boolean | null;
+      debugSpawnHostDisabled?: boolean | null;
       degradedModeDisabled?: boolean | null;
       elasticIPsDisabled?: boolean | null;
       emailNotificationsDisabled?: boolean | null;
@@ -7877,7 +7897,6 @@ export type AdminSettingsQuery = {
       jiraNotificationsDisabled?: boolean | null;
       jwtTokenForCLIDisabled?: boolean | null;
       largeParserProjectsDisabled?: boolean | null;
-      legacyUIAdminPageDisabled?: boolean | null;
       monitorDisabled?: boolean | null;
       podAllocatorDisabled?: boolean | null;
       podInitDisabled?: boolean | null;
@@ -8255,14 +8274,12 @@ export type CodeChangesQuery = {
     moduleCodeChanges: Array<{
       __typename?: "ModuleCodeChange";
       branchName: string;
-      htmlLink: string;
       rawLink: string;
       fileDiffs: Array<{
         __typename?: "FileDiff";
         additions: number;
         deletions: number;
         description: string;
-        diffLink: string;
         fileName: string;
       }>;
     }>;
@@ -8328,7 +8345,7 @@ export type DistroTaskQueueQuery = {
     priority: number;
     project: string;
     projectIdentifier?: string | null;
-    requester: TaskQueueItemType;
+    requester: string;
     version: string;
   }>;
 };
@@ -9380,6 +9397,7 @@ export type ProjectEventLogsQuery = {
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
+          debugSpawnHostsDisabled?: boolean | null;
           disabledStatsCache?: boolean | null;
           dispatchingDisabled?: boolean | null;
           displayName: string;
@@ -9600,6 +9618,7 @@ export type ProjectEventLogsQuery = {
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
+          debugSpawnHostsDisabled?: boolean | null;
           disabledStatsCache?: boolean | null;
           dispatchingDisabled?: boolean | null;
           displayName: string;
@@ -9878,6 +9897,7 @@ export type ProjectSettingsQuery = {
       batchTime: number;
       branch: string;
       deactivatePrevious?: boolean | null;
+      debugSpawnHostsDisabled?: boolean | null;
       disabledStatsCache?: boolean | null;
       dispatchingDisabled?: boolean | null;
       displayName: string;
@@ -10154,6 +10174,7 @@ export type RepoEventLogsQuery = {
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
+          debugSpawnHostsDisabled?: boolean | null;
           disabledStatsCache?: boolean | null;
           dispatchingDisabled?: boolean | null;
           displayName: string;
@@ -10374,6 +10395,7 @@ export type RepoEventLogsQuery = {
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
+          debugSpawnHostsDisabled?: boolean | null;
           disabledStatsCache?: boolean | null;
           dispatchingDisabled?: boolean | null;
           displayName: string;
@@ -10599,6 +10621,7 @@ export type RepoSettingsQuery = {
       restricted: boolean;
       batchTime: number;
       deactivatePrevious: boolean;
+      debugSpawnHostsDisabled: boolean;
       disabledStatsCache: boolean;
       dispatchingDisabled: boolean;
       owner: string;
@@ -10887,6 +10910,10 @@ export type SpruceConfigQuery = {
         } | null;
       } | null;
     } | null;
+    serviceFlags: {
+      __typename?: "UserServiceFlags";
+      jwtTokenForCLIDisabled?: boolean | null;
+    };
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
     spawnHost: {
       __typename?: "SpawnHostConfig";
@@ -11028,11 +11055,13 @@ export type TaskHistoryQuery = {
       activated: boolean;
       canRestart: boolean;
       canSchedule: boolean;
-      createTime?: Date | null;
+      canSetPriority: boolean;
       displayStatus: string;
       execution: number;
+      ingestTime?: Date | null;
       latestExecution: number;
       order: number;
+      priority?: number | null;
       revision?: string | null;
       tests: {
         __typename?: "TaskTestResult";
@@ -11239,6 +11268,8 @@ export type TaskTestsQuery = {
         testFile: string;
         logs: {
           __typename?: "TestLog";
+          lineNum?: number | null;
+          testName?: string | null;
           url?: string | null;
           urlParsley?: string | null;
           urlRaw?: string | null;
@@ -11426,7 +11457,6 @@ export type TaskQuery = {
       __typename?: "TaskLogLinks";
       agentLogLink?: string | null;
       allLogLink?: string | null;
-      eventLogLink?: string | null;
       systemLogLink?: string | null;
       taskLogLink?: string | null;
     };

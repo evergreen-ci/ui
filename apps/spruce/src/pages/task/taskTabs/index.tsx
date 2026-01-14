@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { Variant } from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate } from "react-router-dom";
@@ -80,7 +80,7 @@ const useTabConfig = (
       isDisplayTask && !!executionTasksFull && executionTasksFull.length > 0,
   };
 
-  const tabMap: Record<TaskTab, JSX.Element> = {
+  const tabMap: Record<TaskTab, React.JSX.Element> = {
     [TaskTab.Logs]: (
       <Tab key="task-logs-tab" data-cy="task-logs-tab" name="Logs">
         <Logs execution={execution} logLinks={logLinks} taskId={id} />

@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import Pagination from "@leafygreen-ui/pagination";
+import { Pagination } from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import {
@@ -11,6 +11,7 @@ import {
   filterFns,
   useLeafyGreenTable,
   BaseTable,
+  LGColumnDef,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -28,6 +29,7 @@ import {
   DeleteSubscriptionsMutationVariables,
   GeneralSubscription,
   Selector,
+  SubscriberWrapper,
 } from "gql/generated/types";
 import { DELETE_SUBSCRIPTIONS } from "gql/mutations";
 import { useSpruceConfig } from "hooks";
@@ -35,6 +37,7 @@ import {
   NotificationMethods,
   notificationMethodToCopy,
 } from "types/subscription";
+import { ResourceType } from "types/triggers";
 import { jiraLinkify } from "utils/string";
 import { ClearSubscriptions } from "./ClearSubscriptions";
 import { useSubscriptionData } from "./useSubscriptionData";
@@ -86,98 +89,7 @@ const SubscriptionsTable: React.FC<{
   const [columnFilters, setColumnFilters] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
 
-  const columns = useMemo(
-    () => [
-      {
-        accessorKey: "resourceType",
-        id: "resourceType",
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        cell: ({ getValue }) => {
-          const resourceType = getValue();
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          return resourceTypeToCopy[resourceType] ?? resourceType;
-        },
-        enableColumnFilter: true,
-        filterFn: filterFns.arrIncludesSome,
-        header: "Type",
-        meta: {
-          treeSelect: {
-            "data-cy": "status-filter-popover",
-            filterOptions: true,
-            options: resourceTypeTreeData,
-          },
-        },
-      },
-      {
-        header: "ID",
-        accessorKey: "selectors",
-        cell: ({
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          getValue,
-          row: {
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            original: { resourceType },
-          },
-        }) => {
-          const selectors = getValue();
-          const resourceSelector = selectors.find(
-            (s: Selector) => s.type !== "object" && s.type !== "requester",
-          );
-          const { data: selectorId } = resourceSelector ?? {};
-          const route = getResourceRoute(resourceType, resourceSelector);
-
-          return route ? (
-            <ShortenedRouterLink to={route}>{selectorId}</ShortenedRouterLink>
-          ) : (
-            selectorId
-          );
-        },
-      },
-      {
-        accessorKey: "trigger",
-        header: "Event",
-        enableColumnFilter: true,
-        filterFn: filterFns.arrIncludesSome,
-        meta: {
-          treeSelect: {
-            "data-cy": "trigger-filter-popover",
-            filterOptions: true,
-            options: triggerTreeData,
-          },
-        },
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        cell: ({ getValue }) => {
-          const trigger = getValue();
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          return triggerToCopy[trigger] ?? trigger;
-        },
-      },
-      {
-        header: "Notify by",
-        accessorKey: "subscriber.type",
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        cell: ({ getValue }) => {
-          const subscriberType = getValue();
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          return notificationMethodToCopy[subscriberType] ?? subscriberType;
-        },
-      },
-      {
-        header: "Target",
-        accessorKey: "subscriber",
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        cell: ({ getValue }) => {
-          const subscriber = getValue();
-          const text = getSubscriberText(subscriber);
-          return subscriber.type === NotificationMethods.JIRA_COMMENT
-            ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-              jiraLinkify(text, jiraHost)
-            : text;
-        },
-      },
-    ],
-    [jiraHost],
-  );
+  const columns = useMemo(() => getColumns(jiraHost ?? ""), [jiraHost]);
 
   const table = useLeafyGreenTable<GeneralSubscription>({
     columns,
@@ -250,6 +162,90 @@ const SubscriptionsTable: React.FC<{
     </>
   );
 };
+
+const getColumns = (jiraHost: string): LGColumnDef<GeneralSubscription>[] => [
+  {
+    accessorKey: "resourceType",
+    id: "resourceType",
+    cell: ({ getValue }) => {
+      const resourceType = getValue() as ResourceType;
+      return resourceTypeToCopy[resourceType] ?? resourceType;
+    },
+    enableColumnFilter: true,
+    filterFn: filterFns.arrIncludesSome,
+    header: "Type",
+    meta: {
+      treeSelect: {
+        "data-cy": "status-filter-popover",
+        filterOptions: true,
+        options: resourceTypeTreeData,
+      },
+    },
+  },
+  {
+    header: "ID",
+    accessorKey: "selectors",
+    cell: ({
+      getValue,
+      row: {
+        original: { resourceType },
+      },
+    }) => {
+      const selectors = getValue() as Selector[];
+      const resourceSelector = selectors.find(
+        (s) => s.type !== "object" && s.type !== "requester",
+      );
+      const { data: selectorId } = resourceSelector ?? {};
+      const route = getResourceRoute(
+        resourceType as ResourceType,
+        resourceSelector,
+      );
+
+      return route ? (
+        <ShortenedRouterLink to={route}>{selectorId}</ShortenedRouterLink>
+      ) : (
+        selectorId
+      );
+    },
+  },
+  {
+    accessorKey: "trigger",
+    header: "Event",
+    enableColumnFilter: true,
+    filterFn: filterFns.arrIncludesSome,
+    meta: {
+      treeSelect: {
+        "data-cy": "trigger-filter-popover",
+        filterOptions: true,
+        options: triggerTreeData,
+      },
+    },
+    cell: ({ getValue }) => {
+      const trigger = getValue() as keyof typeof triggerToCopy;
+      return triggerToCopy[trigger] ?? trigger;
+    },
+  },
+  {
+    header: "Notify by",
+    accessorKey: "subscriber.type",
+    cell: ({ getValue }) => {
+      const subscriberType =
+        getValue() as keyof typeof notificationMethodToCopy;
+      return notificationMethodToCopy[subscriberType] ?? subscriberType;
+    },
+  },
+  {
+    header: "Target",
+    accessorKey: "subscriber",
+    cell: ({ getValue }) => {
+      const subscriber = getValue() as SubscriberWrapper;
+      const text = getSubscriberText(subscriber) ?? "";
+      return subscriber.type === NotificationMethods.JIRA_COMMENT
+        ? jiraLinkify(text, jiraHost)
+        : text;
+    },
+  },
+];
 
 const InteractiveWrapper = styled.div`
   display: flex;

@@ -1,23 +1,16 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import {
   UserSettingsQuery,
   UserSettingsQueryVariables,
 } from "gql/generated/types";
 import { USER_SETTINGS } from "gql/queries";
 
-type UseUserSettingsOptions = {
-  onError?: (error: Error) => void;
-};
-
-export const useUserSettings = (options?: UseUserSettingsOptions) => {
+export const useUserSettings = () => {
   const { data, loading } = useQuery<
     UserSettingsQuery,
     UserSettingsQueryVariables
-  >(USER_SETTINGS, {
-    onError(err) {
-      options?.onError?.(err);
-    },
-  });
+  >(USER_SETTINGS);
+
   const { user } = data || {};
   return { userSettings: user?.settings ?? {}, loading };
 };

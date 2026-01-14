@@ -1,7 +1,11 @@
 import { useState, useRef } from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
-import Popover from "@leafygreen-ui/popover";
+import Button, {
+  Size as ButtonSize,
+  Variant as ButtonVariant,
+} from "@leafygreen-ui/button";
+import { Popover } from "@leafygreen-ui/popover";
+import { Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { PopoverContainer } from "components/styles/Popover";
@@ -13,6 +17,8 @@ interface Props {
   disabled: boolean;
   onClick: () => void;
   "data-cy"?: string;
+  showTooltip: boolean;
+  tooltipMessage: string;
 }
 
 export const HostPopover: React.FC<Props> = ({
@@ -21,7 +27,9 @@ export const HostPopover: React.FC<Props> = ({
   disabled = false,
   loading,
   onClick,
+  showTooltip,
   titleText,
+  tooltipMessage,
 }) => {
   const [active, setActive] = useState(false);
   const buttonRef = useRef(null);
@@ -30,7 +38,18 @@ export const HostPopover: React.FC<Props> = ({
   // Handle onClickOutside
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
-  return (
+  return showTooltip ? (
+    <Tooltip
+      trigger={
+        <Button data-cy={dataCy} disabled>
+          {buttonText}
+        </Button>
+      }
+      triggerEvent={TriggerEvent.Hover}
+    >
+      {tooltipMessage}
+    </Tooltip>
+  ) : (
     <>
       <ButtonWrapper ref={buttonRef}>
         <Button
@@ -50,7 +69,7 @@ export const HostPopover: React.FC<Props> = ({
               <Button
                 disabled={loading}
                 onClick={() => setActive(false)}
-                size="xsmall"
+                size={ButtonSize.XSmall}
               >
                 No
               </Button>
@@ -62,8 +81,8 @@ export const HostPopover: React.FC<Props> = ({
                   onClick();
                   setActive(false);
                 }}
-                size="xsmall"
-                variant="primary"
+                size={ButtonSize.XSmall}
+                variant={ButtonVariant.Primary}
               >
                 Yes
               </Button>

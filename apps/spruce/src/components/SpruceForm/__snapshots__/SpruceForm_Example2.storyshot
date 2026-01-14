@@ -14,7 +14,7 @@
       </h3>
     </a>
     <div
-      class="emotion-SettingsCard e1h7idos0 leafygreen-ui-1nx5jqg"
+      class="emotion-SettingsCard e1h7idos0 leafygreen-ui-17q42jt"
     >
       <form
         class="rjsf"
@@ -44,16 +44,16 @@
                     class="leafygreen-ui-1whk3l"
                     data-lgid="lg-checkbox-label"
                     data-testid="lg-checkbox"
-                    for="checkbox-102"
-                    id="checkbox-102-label"
+                    for="checkbox-150"
+                    id="checkbox-150-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-102-label"
+                      aria-labelledby="checkbox-150-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-102"
+                      id="checkbox-150"
                       type="checkbox"
                     />
                     <div
@@ -105,16 +105,16 @@
                     class="leafygreen-ui-1whk3l"
                     data-lgid="lg-checkbox-label"
                     data-testid="lg-checkbox"
-                    for="checkbox-103"
-                    id="checkbox-103-label"
+                    for="checkbox-151"
+                    id="checkbox-151-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-103-label"
+                      aria-labelledby="checkbox-151-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-103"
+                      id="checkbox-151"
                       type="checkbox"
                     />
                     <div
@@ -166,16 +166,16 @@
                     class="leafygreen-ui-1whk3l"
                     data-lgid="lg-checkbox-label"
                     data-testid="lg-checkbox"
-                    for="checkbox-104"
-                    id="checkbox-104-label"
+                    for="checkbox-152"
+                    id="checkbox-152-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-104-label"
+                      aria-labelledby="checkbox-152-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-104"
+                      id="checkbox-152"
                       type="checkbox"
                     />
                     <div
@@ -227,17 +227,17 @@
                     class="leafygreen-ui-1whk3l"
                     data-lgid="lg-checkbox-label"
                     data-testid="lg-checkbox"
-                    for="checkbox-105"
-                    id="checkbox-105-label"
+                    for="checkbox-153"
+                    id="checkbox-153-label"
                   >
                     <input
                       aria-checked="true"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-105-label"
+                      aria-labelledby="checkbox-153-label"
                       checked=""
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-105"
+                      id="checkbox-153"
                       type="checkbox"
                     />
                     <div
@@ -296,7 +296,7 @@
                       for="radio-group--0"
                     >
                       <input
-                        aria-describedby="lg-106"
+                        aria-describedby="lg-154"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1sdo19u"
                         data-label="Restart Jasper service on running hosts of this distro for this update"
@@ -325,7 +325,7 @@
                       for="radio-group--1"
                     >
                       <input
-                        aria-describedby="lg-107"
+                        aria-describedby="lg-155"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1sdo19u"
                         data-label="Reprovision running hosts of this distro for this update"

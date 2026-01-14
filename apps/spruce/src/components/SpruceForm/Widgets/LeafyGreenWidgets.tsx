@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
-import Checkbox from "@leafygreen-ui/checkbox";
-import Copyable from "@leafygreen-ui/copyable";
+import { Banner } from "@leafygreen-ui/banner";
+import { Checkbox } from "@leafygreen-ui/checkbox";
+import { Copyable } from "@leafygreen-ui/copyable";
 import { DatePicker } from "@leafygreen-ui/date-picker";
 import { palette } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
@@ -14,13 +14,13 @@ import {
   SegmentedControlProps,
 } from "@leafygreen-ui/segmented-control";
 import { Option, Select, Size as SelectSize } from "@leafygreen-ui/select";
-import TextArea from "@leafygreen-ui/text-area";
-import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
-import Toggle from "@leafygreen-ui/toggle";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { TextArea } from "@leafygreen-ui/text-area";
+import { TextInput, State as TextInputState } from "@leafygreen-ui/text-input";
+import { Toggle } from "@leafygreen-ui/toggle";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { OneOf } from "@evg-ui/lib/types/utils";
 import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
@@ -131,7 +131,6 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
             {tooltipDescription && (
               <Tooltip
                 justify="middle"
-                popoverZIndex={zIndex.tooltip}
                 trigger={
                   <IconContainer>
                     <Icon glyph="InfoWithCircle" size="small" />
@@ -265,7 +264,6 @@ export const LeafyGreenSelect: React.FC<
         name={dataCy}
         onChange={onChange}
         placeholder={placeholder}
-        popoverZIndex={zIndex.dropdown}
         size={sizeVariant as SelectSize}
         state={hasError && !disabled ? "error" : "none"}
       >
@@ -360,7 +358,9 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
 };
 
 export const LeafyGreenRadioBox: React.FC<
-  { options: { description: string | JSX.Element } } & EnumSpruceWidgetProps
+  {
+    options: { description: string | React.JSX.Element };
+  } & EnumSpruceWidgetProps
 > = ({ disabled, id, label, onChange, options, uiSchema, value }) => {
   const {
     "data-cy": dataCy,

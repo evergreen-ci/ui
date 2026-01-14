@@ -4,7 +4,6 @@ import { H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import PageTitle from "components/PageTitle";
 import {
   PageContent,
@@ -28,15 +27,10 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
     [slugs.groupId]: groupIdFromParams,
   } = useParams();
 
-  const dispatchToast = useToastContext();
-
   const { loading, metadata, resultsToRender, title } = useJobLogsPageData({
     buildId: buildIdFromParams,
     execution: executionFromParams,
     groupId: groupIdFromParams,
-    onError: (err) => {
-      dispatchToast.error(err);
-    },
     taskId: taskIdFromParams,
     isLogkeeper,
   });
@@ -44,7 +38,6 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
   return (
     <PageWrapper>
       <PageTitle
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         badge={null}
         buttons={
           <Button

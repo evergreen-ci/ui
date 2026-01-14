@@ -1,11 +1,12 @@
 import { Operation } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
-import { GraphQLError } from "graphql";
+import { GraphQLError, GraphQLFormattedError } from "graphql";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { deleteNestedKey } from "@evg-ui/lib/utils/object";
 
 export const reportingFn =
-  (secretFields: string[], operation: Operation) => (gqlErr: GraphQLError) => {
+  (secretFields: string[], operation: Operation) =>
+  (gqlErr: GraphQLFormattedError) => {
     const fingerprint = [operation.operationName];
     const path = gqlErr?.path?.map((v) => v.toString());
     if (path) {
@@ -46,6 +47,7 @@ export const reportingFn =
   };
 
 export const logGQLErrorsLink = (secretFields: string[]) =>
-  onError(({ graphQLErrors, operation }) =>
-    graphQLErrors?.forEach(reportingFn(secretFields, operation)),
-  );
+  // TODO DEVPROD-25262: Remove this when upgrading, graphQLErrors will be consolidated to error property
+  onError(({ graphQLErrors, operation }) => { // eslint-disable-line
+    return graphQLErrors?.forEach(reportingFn(secretFields, operation));
+  });

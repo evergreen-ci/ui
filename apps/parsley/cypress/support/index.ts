@@ -130,7 +130,6 @@ declare global {
     cy.login();
     cy.setCookie("drawer-opened", "true");
     cy.setCookie("has-seen-searchbar-guide-cue-tab-complete", "true");
-    cy.setCookie("has-seen-sections-prod-feature-modal", "true");
     mutationDispatched = false;
     cy.intercept("POST", "/graphql/query", (req) => {
       const isMutation = req.body.query?.startsWith("mutation");
@@ -143,7 +142,7 @@ declare global {
   afterEach(() => {
     if (mutationDispatched) {
       cy.log("A mutation was detected. Restoring Evergreen.");
-      cy.exec("yarn evg-db-ops --restore evergreen");
+      cy.exec("pnpm evg-db-ops --restore evergreen");
     }
   });
 })();

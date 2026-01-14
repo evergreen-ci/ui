@@ -1,18 +1,25 @@
 {
   "name": "@evg-ui/vite-utils",
   "version": "0.0.0",
-  "main": "dist/index.js",
   "private": true,
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
-    "check-types": "tsc -p tsconfig.json --noEmit",
-    "eslint:fix": "yarn eslint:strict --fix",
+    "check-types": "tsc -p tsconfig.node.json",
+    "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
-    "eslint:strict": "STRICT=1 eslint .",
-    "compile": "tsc"
+    "eslint:strict": "STRICT=1 eslint ."
+  },
+  "dependencies": {
+    "vite": "7.1.11"
   },
   "devDependencies": {
-    "@evg-ui/eslint-config": "*",
-    "eslint": "^9.36.0"
+    "@evg-ui/eslint-config": "workspace:*",
+    "@evg-ui/lint-staged": "workspace:*",
+    "eslint": "^9.39.1",
+    "typescript": "~5.9.3",
+    "vite-tsconfig-paths": "^6.0.2"
   }
 }

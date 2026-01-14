@@ -1,5 +1,5 @@
-import { MockedProvider } from "@apollo/client/testing";
 import {
+  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   userEvent,

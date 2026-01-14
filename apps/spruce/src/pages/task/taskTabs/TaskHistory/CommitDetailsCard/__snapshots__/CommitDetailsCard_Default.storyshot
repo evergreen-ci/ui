@@ -1,12 +1,12 @@
 <div>
   <div
-    class="emotion-CommitCard e1a625uv2"
+    class="emotion-CommitCard e1a625uv4"
     data-cy="commit-details-card"
     data-task-history-guide-id="commit-details"
     id="commit-card-a"
   >
     <div
-      class="emotion-TopLabel e1a625uv1"
+      class="emotion-TopLabel e1a625uv3"
     >
       <a
         class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -33,6 +33,7 @@
         >
           <svg
             aria-label="GitHub Icon"
+            class=""
             fill="none"
             height="16"
             viewBox="0 0 98 96"
@@ -81,11 +82,11 @@
         </div>
       </button>
       <dialog
-        class="leafygreen-ui-1fxhhyq"
+        class="leafygreen-ui-17e6ane"
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-196"
+        id="modal-344"
       />
       <div
         class="leafygreen-ui-17azklk"
@@ -110,37 +111,64 @@
         </span>
       </span>
       <div
+        class="emotion-PriorityContainer e1a625uv2"
+      >
+        <button
+          aria-disabled="true"
+          class="lg-ui-button-0000 leafygreen-ui-1cutrhb"
+          data-cy="set-priority-button"
+          data-lgid="lg-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-b15bbd"
+          >
+            Set priority
+          </div>
+        </button>
+        <span
+          class="leafygreen-ui-38lglc"
+        />
+      </div>
+    </div>
+    <div
+      class="emotion-BottomLabel e1a625uv1"
+    >
+      <div
+        class="emotion-BottomLabel end94gb2"
+      >
+        <b
+          class="emotion-AuthorLabel end94gb1"
+        >
+          Evergreen Admin
+           - 
+        </b>
+        <span
+          class="emotion-WordBreak-wordBreakCss e1wygaev0"
+        >
+          <a
+            class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
+            data-cy="jira-link"
+            href="https:///browse/DEVPROD-1234"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <span>
+              DEVPROD-1234
+            </span>
+          </a>
+          : Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.
+        </span>
+      </div>
+      <div
         class="emotion-OrderLabel e1a625uv0"
       >
         Order: 
         100
       </div>
-    </div>
-    <div
-      class="emotion-BottomLabel end94gb2"
-    >
-      <b
-        class="emotion-AuthorLabel end94gb1"
-      >
-        Evergreen Admin
-         - 
-      </b>
-      <span
-        class="emotion-WordBreak-wordBreakCss e1wygaev0"
-      >
-        <a
-          class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
-          data-cy="jira-link"
-          href="https:///browse/DEVPROD-1234"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <span>
-            DEVPROD-1234
-          </span>
-        </a>
-        : Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.
-      </span>
     </div>
   </div>
 </div>

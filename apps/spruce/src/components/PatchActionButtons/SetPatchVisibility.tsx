@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePatchAnalytics } from "analytics";

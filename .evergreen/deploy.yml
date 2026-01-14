@@ -33,14 +33,15 @@ functions:
           AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
           AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+          VITE_SCRIPT_MODE: "1"
         script: |
           ${PREPARE_SHELL}
           # Add PROFILER to env if profiler patch parameter is set to true.
           if [ "${profiler}" = "true" ]; then
               echo "PROFILER is set to true, adding profiler to the build"
-              PROFILER=true PROFILE_HEAD="<script src=\"https://localhost:8097\"></script>" yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
+              PROFILER=true PROFILE_HEAD="<script src=\"https://localhost:8097\"></script>" pnpm env-cmd --no-override -e "${target}" pnpm deploy-utils-build-and-push
           else
-              yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
+              pnpm env-cmd --no-override -e "${target}" pnpm deploy-utils-build-and-push
           fi
   email:
     - command: shell.exec
@@ -67,9 +68,10 @@ functions:
           EXECUTION: ${execution}
           DEPLOYS_EMAIL: ${DEPLOYS_EMAIL}
           AUTHOR_EMAIL: ${author_email}
+          VITE_SCRIPT_MODE: "1"
         script: |
           ${PREPARE_SHELL}
-          yarn deploy-utils-email
+          pnpm deploy-utils-email
 
   prepare-user-deploy-vars:
     - command: shell.exec
@@ -95,9 +97,11 @@ functions:
     - command: shell.exec
       params:
         working_dir: ui/${app_dir}
+        env:
+          VITE_SCRIPT_MODE: "1"
         script: |
           ${PREPARE_SHELL}
-          yarn deploy-utils-write-previous-deploy
+          pnpm deploy-utils-write-previous-deploy
 
 tasks:
   - name: deploy-parsley-staging

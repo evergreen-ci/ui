@@ -26,7 +26,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const route = podId ? getPodRoute(podId) : getHostRoute(hostId);
   const containerOrHostCopy = podId ? "container" : "host";
-  let message: JSX.Element;
+  let message: React.JSX.Element;
   switch (eventType) {
     case TaskEventType.TaskBlocked:
       message = (

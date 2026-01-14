@@ -1,6 +1,6 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   userEvent,
@@ -98,7 +98,7 @@ describe("files table", () => {
     await waitFor(() => {
       expect(screen.getAllByDataCy("files-table-row")).toHaveLength(1);
     });
-    expect(screen.getByText("1 - 1 of 1 items")).toBeInTheDocument();
+    expect(screen.getByText("1 - 1 of 1 item")).toBeInTheDocument();
   });
 
   it("supports pagination", async () => {

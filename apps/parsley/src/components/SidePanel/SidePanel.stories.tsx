@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { MockedProvider } from "@apollo/client/testing";
 import styled from "@emotion/styled";
 import Cookie from "js-cookie";
 import { actions } from "storybook/actions";
 import { useQueryParams } from "@evg-ui/lib/hooks";
+import { MockedProvider } from "@evg-ui/lib/test_utils";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { DRAWER_OPENED } from "constants/cookies";
 import { LogTypes } from "constants/enums";
@@ -15,7 +15,7 @@ import SidePanel from ".";
 export default {
   component: SidePanel,
   decorators: [
-    (Story: () => JSX.Element) => (
+    (Story: () => React.JSX.Element) => (
       <MockedProvider mocks={[projectFiltersMock, evergreenTaskMock]}>
         <Story />
       </MockedProvider>

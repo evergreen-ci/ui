@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
+import { Banner } from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
-import TextInput from "@leafygreen-ui/text-input";
+import { TextInput } from "@leafygreen-ui/text-input";
 import Cookies from "js-cookie";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { CharKey } from "@evg-ui/lib/constants/keys";
@@ -40,7 +40,7 @@ export const SlackNotificationBanner = () => {
       refetchQueries: ["UserSettings"],
     });
 
-  const { userSettings } = useUserSettings();
+  const { loading: loadingUserSettings, userSettings } = useUserSettings();
   const { notifications, slackUsername: defaultSlackUsername } =
     userSettings || {};
   const { patchFinish, patchFirstFailure } = notifications || {};
@@ -82,7 +82,10 @@ export const SlackNotificationBanner = () => {
     (isNotificationSet(patchFirstFailure) || isNotificationSet(patchFinish));
 
   const shouldShowSlackBanner =
-    !defaultSlackUsername && !hasClosedBanner && !hasSetNotifications;
+    !loadingUserSettings &&
+    !defaultSlackUsername &&
+    !hasClosedBanner &&
+    !hasSetNotifications;
 
   return shouldShowSlackBanner ? (
     <Banner
@@ -103,7 +106,7 @@ export const SlackNotificationBanner = () => {
         }
       >
         <TextInput
-          autoFocus
+          autoFocus // eslint-disable-line jsx-a11y/no-autofocus
           data-cy="slack-username-input"
           label="Slack Username"
           onChange={(e) => setSlackUsername(e.target.value)}

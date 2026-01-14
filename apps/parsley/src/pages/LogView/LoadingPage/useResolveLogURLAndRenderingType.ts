@@ -1,13 +1,15 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
+import {
+  constructEvergreenTaskLogURL,
+  getEvergreenTestLogURL,
+} from "@evg-ui/lib/constants/logURLTemplates";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { getEvergreenJobLogsURL } from "constants/externalURLTemplates";
 import {
-  constructEvergreenTaskLogURL,
   getEvergreenCompleteLogsURL,
   getEvergreenTaskFileURL,
   getEvergreenTaskLogURL,
-  getEvergreenTestLogURL,
 } from "constants/logURLTemplates";
 import {
   TaskFilesQuery,

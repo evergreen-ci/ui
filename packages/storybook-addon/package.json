@@ -6,20 +6,30 @@
   "type": "module",
   "scripts": {
     "check-types": "tsc -p tsconfig.json --noEmit",
-    "eslint:fix": "yarn eslint:strict --fix",
+    "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint ."
   },
   "dependencies": {
-    "@apollo/client": "3.8.4",
-    "@storybook/addon-docs": "^9.0.18",
-    "@storybook/addon-links": "^9.0.18",
+    "@apollo/client": "^3.14.0",
+    "@emotion/react": "11.14.0",
+    "@leafygreen-ui/leafygreen-provider": "^5.0.4",
+    "@storybook/addon-docs": "^10.1.10",
+    "@storybook/addon-links": "^10.1.10",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-router-dom": "6.18.0",
-    "storybook": "^9.0.18",
-    "storybook-addon-apollo-client": "^9.0.0"
+    "storybook": "^10.1.10"
   },
   "devDependencies": {
-    "@evg-ui/eslint-config": "*",
-    "eslint": "^9.36.0"
+    "@evg-ui/eslint-config": "workspace:*",
+    "@evg-ui/lint-staged": "workspace:*",
+    "eslint": "^9.39.1"
+  },
+  "peerDependencies": {
+    "@storybook/addon-docs": "^10.1.10",
+    "@storybook/addon-links": "^10.1.10",
+    "@storybook/react-vite": "^10.1.10",
+    "storybook-addon-apollo-client": "^10.0.0"
   }
 }

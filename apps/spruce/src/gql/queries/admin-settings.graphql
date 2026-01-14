@@ -322,6 +322,7 @@ query AdminSettings {
       checkBlockedTasksDisabled
       cliUpdatesDisabled
       cloudCleanupDisabled
+      debugSpawnHostDisabled
       degradedModeDisabled
       elasticIPsDisabled
       emailNotificationsDisabled
@@ -333,7 +334,6 @@ query AdminSettings {
       jiraNotificationsDisabled
       jwtTokenForCLIDisabled
       largeParserProjectsDisabled
-      legacyUIAdminPageDisabled
       monitorDisabled
       podAllocatorDisabled
       podInitDisabled

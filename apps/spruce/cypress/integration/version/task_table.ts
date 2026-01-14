@@ -1,11 +1,8 @@
-import { getLgIds } from "@leafygreen-ui/table";
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
 import {
   clickOnPageSizeBtnAndAssertURLandTableSize,
   waitForTaskTable,
 } from "../../utils";
-
-const lgIds = getLgIds();
 
 const pathTasks = "/version/5e4ff3abe3c3317e352062e4/tasks";
 const patchDescriptionTasksExist = "dist";
@@ -153,7 +150,7 @@ describe("Task table", () => {
       cy.dataCy(`reviewed-${firstTaskId}`).check({ force: true });
       cy.dataCy(`reviewed-${firstTaskId}`).should("be.checked");
 
-      cy.get(`button[data-lgid=${lgIds.expandButton}]`).click();
+      cy.get(`button[aria-label='Expand row']`).click();
       cy.dataCy(`reviewed-${executionTaskId1}`).should(
         "have.attr",
         "aria-disabled",
@@ -172,7 +169,7 @@ describe("Task table", () => {
 
       cy.dataCy(`reviewed-${firstTaskId}`).should("be.checked");
       cy.dataCy(`reviewed-${displayTaskId}`).should("be.checked");
-      cy.get(`button[data-lgid=${lgIds.expandButton}]`).click();
+      cy.get(`button[aria-label='Expand row']`).click();
       cy.dataCy(`reviewed-${executionTaskId2}`).should("be.checked");
     });
 
@@ -190,6 +187,7 @@ describe("Task table", () => {
       beforeEach(() => {
         cy.clearCookie(SEEN_TASK_REVIEW_TOOLTIP);
         cy.visit(pathTasks);
+        waitForTaskTable();
       });
 
       it("shows the announcement tooltip open on the first viewing", () => {

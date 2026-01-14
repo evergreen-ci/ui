@@ -1,6 +1,10 @@
 import { InMemoryCache } from "@apollo/client";
-import { MockedProvider } from "@apollo/client/testing";
-import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
+import {
+  MockedProvider,
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import * as db from "components/TaskReview/db";
 import { REVIEWED_TASK_FRAGMENT } from "components/TaskReview/utils";

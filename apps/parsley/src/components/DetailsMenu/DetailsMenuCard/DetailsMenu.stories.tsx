@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { MockedProvider } from "@apollo/client/testing";
-import Card from "@leafygreen-ui/card";
+import { Card } from "@leafygreen-ui/card";
+import { MockedProvider } from "@evg-ui/lib/test_utils";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
@@ -10,7 +10,7 @@ import DetailsMenu from ".";
 export default {
   component: DetailsMenu,
   decorators: [
-    (Story: () => JSX.Element) => (
+    (Story: () => React.JSX.Element) => (
       <MockedProvider mocks={[parsleySettingsMock]}>
         <Story />
       </MockedProvider>
@@ -29,7 +29,9 @@ export const Default: CustomStoryObj<typeof DetailsMenu> = {
   ),
 };
 
-const DetailsMenuWithDownloadedLog = (args: any) => {
+const DetailsMenuWithDownloadedLog = (
+  args: React.ComponentProps<typeof DetailsMenu>,
+) => {
   const { setLogMetadata } = useLogContext();
   useEffect(() => {
     setLogMetadata({

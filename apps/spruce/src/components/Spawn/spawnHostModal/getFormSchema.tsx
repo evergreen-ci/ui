@@ -1,10 +1,11 @@
 import { css } from "@emotion/react";
 import { InlineCode } from "@leafygreen-ui/typography";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
+import { taskSpawnHostDocumentationUrl } from "constants/externalResources";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import {
   MyPublicKeysQuery,
@@ -35,6 +36,7 @@ interface Props {
   };
   isMigration: boolean;
   isVirtualWorkstation: boolean;
+  oAuthDisabled?: boolean;
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   noExpirationCheckboxTooltip: string;
   spawnTaskData?: SpawnTaskQuery["task"];
@@ -56,6 +58,7 @@ export const getFormSchema = ({
   isVirtualWorkstation,
   myPublicKeys,
   noExpirationCheckboxTooltip,
+  oAuthDisabled = false,
   spawnTaskData,
   timeZone,
   useProjectSetupScript = false,
@@ -85,6 +88,10 @@ export const getFormSchema = ({
     timeZone,
   });
   const publicKeys = getPublicKeySchema({ myPublicKeys });
+
+  // If OAuth is enabled, the spawn host modal should force the option for OAuth.
+  const oAuthCheckboxIsDisabled = !oAuthDisabled;
+  const defaultOAuthValue = !oAuthDisabled;
 
   return {
     fields: {},
@@ -237,6 +244,23 @@ export const getFormSchema = ({
                         type: "boolean" as const,
                         title:
                           "Use OAuth authentication to download the task data from Evergreen. This will soon be required, see DEVPROD-4160",
+                        default: defaultOAuthValue,
+                      },
+                    },
+                    dependencies: {
+                      useOAuth: {
+                        oneOf: [
+                          {
+                            properties: {
+                              useOAuth: {
+                                enum: [true],
+                              },
+                              warningBanner: {
+                                type: "null" as const,
+                              },
+                            },
+                          },
+                        ],
                       },
                     },
                   },
@@ -430,7 +454,27 @@ export const getFormSchema = ({
           useOAuth: {
             "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
             "ui:data-cy": "use-oauth-checkbox",
+            "ui:disabled": oAuthCheckboxIsDisabled,
             "ui:elementWrapperCSS": childCheckboxCSS,
+          },
+          warningBanner: {
+            "ui:showLabel": false,
+            "ui:warnings": [
+              <>
+                Spawn hosts with OAuth require additional setup. After SSHing in
+                to your spawn host, please run the command{" "}
+                <InlineCode>evergreen host fetch</InlineCode>. For more details,
+                refer to the{" "}
+                <StyledLink
+                  hideExternalIcon={false}
+                  href={taskSpawnHostDocumentationUrl}
+                  target="_blank"
+                >
+                  documentation
+                </StyledLink>
+                .
+              </>,
+            ],
           },
         },
       }),

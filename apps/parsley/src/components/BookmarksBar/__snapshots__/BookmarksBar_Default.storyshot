@@ -93,6 +93,7 @@
           <svg
             aria-label="Link Icon"
             class="emotion-StyledIcon erobc1r1"
+            data-cy="link-icon"
             fill="none"
             height="14"
             role="img"

@@ -1,34 +1,43 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import Card from "@leafygreen-ui/card";
+import { Card } from "@leafygreen-ui/card";
 import { SearchInput } from "@leafygreen-ui/search-input";
+import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useImageAnalytics } from "analytics";
 import { LoadingButton } from "components/Buttons";
+import { useEvents } from "components/Settings/EventLog/useEvents";
 import { ImageEvent } from "gql/generated/types";
 import { Header } from "./Header";
 import { ImageEventLogTable } from "./ImageEventLogTable";
 
 type ImageEventLogProps = {
-  allEventsFetched: boolean;
+  count: number | undefined;
   events: ImageEvent[];
   handleFetchMore: () => void;
-  loading?: boolean;
+  limit: number;
+  loading: boolean;
+  previousCount: number;
 };
 
 export const ImageEventLog: React.FC<ImageEventLogProps> = ({
-  allEventsFetched,
+  count,
   events,
   handleFetchMore,
+  limit,
   loading,
+  previousCount,
 }) => {
+  const { allEventsFetched } = useEvents(limit, count, previousCount, loading);
   const { sendEvent } = useImageAnalytics();
 
   const [globalSearch, setGlobalSearch] = useState("");
   const handleGlobalSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGlobalSearch(e.target.value);
   };
+
+  const initialLoading = events.length === 0 && loading;
 
   const allEventsFetchedCopy =
     events.length > 0 ? "No more events to show." : "No events to show.";
@@ -47,6 +56,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
           value={globalSearch}
         />
       </SearchContainer>
+      {initialLoading && <ParagraphSkeleton data-cy="image-events-skeleton" />}
       {events.map((event) => {
         const { amiAfter, amiBefore, entries, timestamp } = event;
         return (

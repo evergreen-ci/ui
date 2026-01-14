@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import styled from "@emotion/styled";
-import Modal from "@leafygreen-ui/modal";
+import { Modal } from "@leafygreen-ui/modal";
 import { Body, H3, InlineKeyCode } from "@leafygreen-ui/typography";
 import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useKeyboardShortcut, useOnClickOutside } from "@evg-ui/lib/hooks";
 
 const shortcuts = [
@@ -64,7 +64,7 @@ const ShortcutModal: React.FC<ShortcutModalProps> = ({ open, setOpen }) => {
   });
 
   return (
-    <StyledModal data-cy="shortcut-modal" open={open} setOpen={setOpen}>
+    <Modal data-cy="shortcut-modal" open={open} setOpen={setOpen}>
       <div ref={modalRef}>
         <ModalTitle>
           <H3>Parsley Keyboard Shortcuts</H3>
@@ -84,7 +84,7 @@ const ShortcutModal: React.FC<ShortcutModalProps> = ({ open, setOpen }) => {
           </ModalRow>
         ))}
       </div>
-    </StyledModal>
+    </Modal>
   );
 };
 interface KeyTupleProps {
@@ -100,10 +100,6 @@ const KeyTuple: React.FC<KeyTupleProps> = ({ keys }) => (
     ))}
   </span>
 );
-
-const StyledModal = styled(Modal)`
-  z-index: ${zIndex.modal};
-`;
 
 const ModalTitle = styled.div`
   margin-bottom: ${size.l};

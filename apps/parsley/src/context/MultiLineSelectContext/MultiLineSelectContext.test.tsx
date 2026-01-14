@@ -106,9 +106,9 @@ describe("multiLineSelectContext", () => {
     });
     it("initial menuPosition should be the first line if there is not a shared line", () => {
       const { result } = renderHook(useMultiLineSelectContext, {
-        wrapper: (props: any) =>
+        wrapper: (props: { children?: React.ReactNode }) =>
           wrapper({
-            ...props,
+            children: props.children,
             initialEntries: ["/?selectedLineRange=L1-L3"],
           }),
       });
@@ -117,9 +117,9 @@ describe("multiLineSelectContext", () => {
 
     it("initial menuPosition should not conflict with the shared line", () => {
       const { result } = renderHook(useMultiLineSelectContext, {
-        wrapper: (props: any) =>
+        wrapper: (props: { children?: React.ReactNode }) =>
           wrapper({
-            ...props,
+            children: props.children,
             initialEntries: ["/?shareLine=1&selectedLineRange=L1-L3"],
           }),
       });

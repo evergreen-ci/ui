@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
+import { Badge } from "@leafygreen-ui/badge";
 import { formatDistanceToNow } from "date-fns";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
@@ -8,11 +8,13 @@ import {
   LeafyGreenTableRow,
   useLeafyGreenTable,
   BaseTable,
+  LGColumnDef,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import HostStatusBadge from "components/HostStatusBadge";
 import { DoesNotExpire } from "components/Spawn";
+import { HostStatus } from "types/host";
 import { MyHost, QueryParams } from "types/spawn";
 import SpawnHostCard from "./SpawnHostCard";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";
@@ -20,6 +22,7 @@ import { SpawnHostTableActions } from "./SpawnHostTableActions";
 interface SpawnHostTableProps {
   hosts: MyHost[];
 }
+
 export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
   const [selectedHost] = useQueryParam(QueryParams.Host, "");
 
@@ -27,9 +30,7 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
     () =>
       hosts.map((h) => ({
         ...h,
-        renderExpandedContent: (row: LeafyGreenTableRow<MyHost>) => (
-          <SpawnHostCard host={row.original} />
-        ),
+        renderExpandedContent,
       })),
     [hosts],
   );
@@ -60,14 +61,17 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
   return <BaseTable shouldAlternateRowColor table={table} />;
 };
 
-const columns = [
+const renderExpandedContent = (row: LeafyGreenTableRow<MyHost>) => (
+  <SpawnHostCard host={row.original} />
+);
+
+const columns: LGColumnDef<MyHost>[] = [
   {
     header: "Host",
     accessorKey: "id",
     enableSorting: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue, row }) => {
-      const id = getValue();
+      const id = getValue() as string;
       return row.original.distro?.isVirtualWorkStation ? (
         <FlexContainer>
           <NoWrap>{row.original.displayName || id}</NoWrap>
@@ -80,41 +84,37 @@ const columns = [
   },
   {
     header: "Distro",
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    accessorFn: ({ distro: { id } }) => id,
+    accessorKey: "distro.id",
     enableSorting: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ getValue }) => <WordBreak>{getValue()}</WordBreak>,
+    cell: ({ getValue }) => <WordBreak>{getValue() as string}</WordBreak>,
   },
   {
     header: "Status",
     accessorKey: "status",
     enableSorting: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ getValue }) => <HostStatusBadge status={getValue()} />,
+    cell: ({ getValue }) => (
+      <HostStatusBadge status={getValue() as HostStatus} />
+    ),
   },
   {
     header: "Expires In",
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     accessorFn: ({ expiration }) => new Date(expiration),
     enableSorting: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue, row }) =>
       row.original.noExpiration
         ? DoesNotExpire
-        : formatDistanceToNow(getValue()),
+        : formatDistanceToNow(getValue() as Date),
   },
   {
     header: "Uptime",
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     accessorFn: ({ uptime }) => new Date(uptime),
     enableSorting: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ getValue }) => formatDistanceToNow(getValue()),
+    cell: ({ getValue }) => formatDistanceToNow(getValue() as Date),
   },
   {
     header: "Actions",
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ row }) => <SpawnHostTableActions host={row.original} />,
   },
 ];

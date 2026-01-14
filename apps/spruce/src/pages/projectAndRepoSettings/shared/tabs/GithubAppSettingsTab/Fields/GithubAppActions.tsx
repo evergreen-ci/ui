@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
-import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
+import { useMutation } from "@apollo/client/react";
+import { Banner, Variant as BannerVariant } from "@leafygreen-ui/banner";
 import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
 import {
   ConfirmationModal,

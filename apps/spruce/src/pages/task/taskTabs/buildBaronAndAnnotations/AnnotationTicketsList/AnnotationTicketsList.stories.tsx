@@ -4,7 +4,7 @@ import AnnotationTicketsList from ".";
 
 export default {
   component: AnnotationTicketsList,
-  decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
 } satisfies CustomMeta<typeof AnnotationTicketsList>;
 
 export const Default: CustomStoryObj<typeof AnnotationTicketsList> = {

@@ -1,4 +1,4 @@
-import Badge, { Variant } from "@leafygreen-ui/badge";
+import { Badge, Variant } from "@leafygreen-ui/badge";
 import { PatchStatus } from "types/patch";
 
 interface Props {

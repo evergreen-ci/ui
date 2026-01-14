@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-import Badge, { Variant } from "@leafygreen-ui/badge";
-import { Theme } from "@leafygreen-ui/lib";
+import { Badge, Variant } from "@leafygreen-ui/badge";
 import { color } from "@leafygreen-ui/tokens";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
@@ -127,14 +126,13 @@ const VersionContainer = styled.div<
       : !activated &&
         shouldDisableText &&
         `> * {
-      color: ${color[Theme.Light].text.disabled.default};}`}
+      color: ${color.light.text.disabled.default};}`}
 
   p {
     ${wordBreakCss}
   }
   ${({ highlighted }) =>
-    highlighted &&
-    `background-color: ${color[Theme.Light].background.primary.focus};`}
+    highlighted && `background-color: ${color.light.background.primary.focus};`}
 `;
 
 const CommitMessage = styled(Body)<{ view: VersionLabelView }>`

@@ -1,9 +1,8 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useImageAnalytics } from "analytics";
 import { getImageRoute } from "constants/routes";
 import { ImagesQuery, ImagesQueryVariables } from "gql/generated/types";
@@ -17,15 +16,12 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
   const { sendEvent } = useImageAnalytics();
   const navigate = useNavigate();
 
-  const dispatchToast = useToastContext();
-  const { data: imagesData, loading } = useQuery<
-    ImagesQuery,
-    ImagesQueryVariables
-  >(IMAGES, {
-    onError: (err) => {
-      dispatchToast.warning(`Failed to retrieve images: ${err.message}`);
-    },
-  });
+  const {
+    data: imagesData,
+    error,
+    loading,
+  } = useQuery<ImagesQuery, ImagesQueryVariables>(IMAGES);
+  useErrorToast(error, "Failed to retrieve images");
 
   const { images } = imagesData || {};
 
@@ -46,7 +42,6 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
           navigate(getImageRoute(imageId));
         }}
         placeholder="Select an image"
-        popoverZIndex={zIndex.popover}
         value={selectedImage}
       >
         {images?.map((image) => (

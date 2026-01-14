@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
+import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { NumberInput } from "@leafygreen-ui/number-input";
 import { palette } from "@leafygreen-ui/palette";
 import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
-import Popconfirm from "@evg-ui/lib/components/Popconfirm";
+import Popconfirm, { Align, Justify } from "@evg-ui/lib/components/Popconfirm";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics, useTaskAnalytics } from "analytics";
@@ -20,6 +21,8 @@ import { SET_VERSION_PRIORITY, SET_TASK_PRIORITIES } from "gql/mutations";
 
 const { gray, red, yellow } = palette;
 
+export { Align, Justify };
+
 type SetPriorityProps = (
   | {
       versionId: string;
@@ -30,13 +33,19 @@ type SetPriorityProps = (
       versionId?: never;
     }
 ) & {
-  initialPriority?: number;
   disabled?: boolean;
+  initialPriority?: number;
+  isButton?: boolean;
+  popconfirmAlign?: Align;
+  popconfirmJustify?: Justify;
 };
 
 const SetPriority: React.FC<SetPriorityProps> = ({
   disabled,
   initialPriority = 0,
+  isButton = false,
+  popconfirmAlign = Align.Left,
+  popconfirmJustify = Justify.Start,
   taskIds,
   versionId,
 }) => {
@@ -48,7 +57,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   const [priority, setPriority] = useState<number>(initialPriority);
   const [open, setOpen] = useState(false);
   const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
-  const menuItemRef = useRef<HTMLDivElement>(null);
+  const menuItemRef = useRef<HTMLButtonElement>(null);
 
   const [setVersionPriority, { loading: loadingSetVersionPriority }] =
     useMutation<
@@ -110,26 +119,38 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   }, [inputRef]);
 
   const label = taskIds ? "task" : "patch";
+  const disableButton =
+    disabled || loadingSetVersionPriority || loadingSetTaskPriorities;
 
   return (
     <>
-      <div ref={menuItemRef}>
+      {isButton ? (
+        <Button
+          ref={menuItemRef}
+          data-cy="set-priority-button"
+          disabled={disableButton}
+          onClick={() => setOpen(!open)}
+          size={ButtonSize.XSmall}
+        >
+          Set priority
+        </Button>
+      ) : (
         <MenuItem
+          ref={menuItemRef}
           active={open}
-          data-cy={`prioritize-${label}`}
-          disabled={
-            disabled || loadingSetVersionPriority || loadingSetTaskPriorities
-          }
+          data-cy="set-priority-menu-item"
+          disabled={disableButton}
           onClick={() => setOpen(!open)}
         >
           Set {label} priority
           {(taskIds?.length ?? 0) > 1 && ` (${taskIds?.length})`}
         </MenuItem>
-      </div>
+      )}
       <Popconfirm
-        align="left"
+        align={popconfirmAlign}
         confirmText="Set"
         data-cy={`set-${label}-priority-popconfirm`}
+        justify={popconfirmJustify}
         onConfirm={onConfirm}
         open={open}
         refEl={menuItemRef}
@@ -139,10 +160,10 @@ const SetPriority: React.FC<SetPriorityProps> = ({
           ref={(el) => setInputRef(el)}
           data-cy={`${label}-priority-input`}
           inputClassName="priority-input"
-          label="Set new priority"
+          label="Set New Priority"
           min={-1}
           onChange={(e) => setPriority(parseInt(e.target.value, 10))}
-          onKeyPress={(e) => {
+          onKeyDown={(e) => {
             if (e.key === "Enter") {
               onConfirm();
               setOpen(false);
@@ -177,7 +198,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   );
 };
 
-const inputWidth = "180px";
+const inputWidth = "200px";
 
 const PriorityInput = styled(NumberInput)`
   .priority-input {

@@ -9,11 +9,13 @@ query TaskHistory($options: TaskHistoryOpts!) {
       activated
       canRestart
       canSchedule
-      createTime
+      canSetPriority
       displayStatus
       execution
+      ingestTime
       latestExecution
       order
+      priority
       revision
       tests(opts: { statuses: ["fail", "silentfail"] }) {
         testResults {

@@ -1,5 +1,4 @@
 import { format, toZonedTime } from "date-fns-tz";
-import get from "lodash/get";
 import { TimeFormat } from "constants/time";
 
 export { githubPRLinkify, jiraLinkify } from "./Linkify";
@@ -138,29 +137,6 @@ export const getDateCopy = (
   }
 
   return format(new Date(time), finalDateFormat);
-};
-
-/**
- * `sortFunctionString` is a helper function for sorting an array of objects by a string key
- * @param a - the first object to compare
- * @param b - the second object to compare
- * @param key - the key to sort by
- * @returns - a number representing the sort order
- * @example
- * const arr = [{ name: "b" }, { name: "a" }];
- * arr.sort((a, b) => sortFunctionString(a, b, "name"));
- * // [{ name: "a" }, { name: "b" }]
- */
-export const sortFunctionString = <T>(a: T, b: T, key: string) => {
-  const nameA = get(a, key).toUpperCase();
-  const nameB = get(b, key).toUpperCase();
-  if (nameA < nameB) {
-    return -1;
-  }
-  if (nameA > nameB) {
-    return 1;
-  }
-  return 0;
 };
 
 /**

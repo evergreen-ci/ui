@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
+import { Badge } from "@leafygreen-ui/badge";
 import { css } from "@leafygreen-ui/emotion";
 import { Body } from "@leafygreen-ui/typography";
 import {
@@ -15,13 +15,14 @@ import {
   TablePlaceholder,
 } from "@evg-ui/lib/components/Table";
 import { useTaskQueueAnalytics } from "analytics";
+import { isWaterfallRequester, Requester } from "constants/requesters";
 import {
   getVersionRoute,
   getTaskRoute,
   getUserPatchesRoute,
   getProjectPatchesRoute,
 } from "constants/routes";
-import { TaskQueueItem, TaskQueueItemType } from "gql/generated/types";
+import { TaskQueueItem } from "gql/generated/types";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 import { msToDuration } from "utils/string";
 
@@ -36,13 +37,9 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
   taskId,
   taskQueue = [],
 }) => {
-  const taskQueueAnalytics = useTaskQueueAnalytics();
+  const { sendEvent } = useTaskQueueAnalytics();
   const [selectedRowIndexes, setSelectedRowIndexes] = useState<number[]>([]);
-  const columns = useMemo(
-    () => taskQueueTableColumns(taskQueueAnalytics.sendEvent),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
+  const columns = useMemo(() => taskQueueTableColumns(sendEvent), [sendEvent]);
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenVirtualTable<TaskQueueColumnData>({
@@ -179,10 +176,10 @@ const taskQueueTableColumns = (
       header: "Task Type",
       accessorKey: "requester",
       cell: (value) => {
-        const copy = {
-          [TaskQueueItemType.Commit]: "Commit",
-          [TaskQueueItemType.Patch]: "Patch",
-        }[value.row.original.requester];
+        const { requester } = value.row.original;
+        const copy = isWaterfallRequester(requester as Requester)
+          ? "Commit"
+          : "Patch";
         return <Badge>{copy}</Badge>;
       },
     },

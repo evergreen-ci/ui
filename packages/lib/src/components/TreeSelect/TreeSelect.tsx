@@ -1,24 +1,15 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import Checkbox from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@leafygreen-ui/checkbox";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "../../constants/tokens";
-import ConditionalWrapper from "../ConditionalWrapper";
 import { FilterInputControls } from "./FilterInputControls";
 
 const { gray } = palette;
 
-// Move wrapper function outside of render
-const dropdownWrapper = (children: React.ReactNode) => (
-  <RelativeWrapper>
-    <OptionsWrapper>{children}</OptionsWrapper>
-  </RelativeWrapper>
-);
-
 export const ALL_VALUE = "all";
 const ALL_COPY = "All";
 export interface TreeSelectProps {
-  isDropdown?: boolean;
   isVisible?: boolean;
   onChange: (s: string[]) => void;
   setOptionsLabel?: (v: string) => void;
@@ -39,7 +30,6 @@ export interface TreeDataEntry extends TreeDataChildEntry {
 
 export const TreeSelect: React.FC<TreeSelectProps> = ({
   "data-cy": dataCy,
-  isDropdown = false,
   isVisible = true,
   onChange,
   onFilter,
@@ -80,22 +70,20 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
   }
 
   return (
-    <ConditionalWrapper condition={isDropdown} wrapper={dropdownWrapper}>
-      <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
-        {renderCheckboxes({
-          state: filteredState,
-          tData,
-          onChange,
-        })}
-        {onReset && onFilter && (
-          <FilterInputControls
-            onClickReset={onReset}
-            onClickSubmit={onFilter}
-            submitButtonCopy="Filter"
-          />
-        )}
-      </CheckboxContainer>
-    </ConditionalWrapper>
+    <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
+      {renderCheckboxes({
+        state: filteredState,
+        tData,
+        onChange,
+      })}
+      {onReset && onFilter && (
+        <FilterInputControls
+          onClickReset={onReset}
+          onClickSubmit={onFilter}
+          submitButtonCopy="Filter"
+        />
+      )}
+    </CheckboxContainer>
   );
 };
 
@@ -110,8 +98,8 @@ const renderCheckboxes = ({
   tData: TreeDataEntry[];
   state: string[];
   onChange: (v: [string]) => void;
-}): JSX.Element[] => {
-  const rows: JSX.Element[] = [];
+}): React.JSX.Element[] => {
+  const rows: React.JSX.Element[] = [];
   tData.forEach((entry) => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     renderCheckboxesHelper({ rows, data: entry, onChange, state, tData });
@@ -126,7 +114,7 @@ const renderCheckboxesHelper = ({
   state,
   tData,
 }: {
-  rows: JSX.Element[];
+  rows: React.JSX.Element[];
   data: TreeDataEntry;
   onChange: (v: string[]) => void;
   state: string[];
@@ -326,18 +314,7 @@ const CheckboxWrapper = styled.div<{ level: number; isAll: boolean }>`
   ${({ isAll }) => isAll && `border-bottom: 1px solid ${gray.light2};`}
 `;
 
-const OptionsWrapper = styled.div`
-  position: absolute;
-  margin-top: ${size.xxs};
-  width: 100%;
-`;
-
 const CheckboxContainer = styled.div`
   min-width: 150px; // need to set this as side effect of getPopupContainer
   font-weight: normal; // need to set this as side effect of getPopupContainer
-`;
-
-// Used to provide a basis for the absolutely positions OptionsWrapper
-const RelativeWrapper = styled.div`
-  position: relative;
 `;

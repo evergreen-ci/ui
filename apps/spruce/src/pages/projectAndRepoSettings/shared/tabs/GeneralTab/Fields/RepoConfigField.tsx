@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Field } from "@rjsf/core";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { SpruceForm } from "components/SpruceForm";
 import { GithubOrgsQuery } from "gql/generated/types";
 import { GITHUB_ORGS } from "gql/queries";
@@ -79,7 +79,6 @@ export const RepoConfigField: Field = ({
               data-cy="attach-repo-disabled-tooltip"
               enabled={ownerOrRepoHasChanges}
               justify="middle"
-              popoverZIndex={zIndex.popover}
               trigger={
                 <Button
                   data-cy="attach-repo-button"

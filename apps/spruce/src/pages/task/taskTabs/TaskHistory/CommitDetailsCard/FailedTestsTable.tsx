@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
-import Pagination from "@leafygreen-ui/pagination";
+import { Pagination } from "@leafygreen-ui/pagination";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import Icon from "@evg-ui/lib/components/Icon";
 import { WordBreak } from "@evg-ui/lib/components/styles";
@@ -19,7 +19,6 @@ import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { useTaskHistoryAnalytics } from "analytics";
 import { TaskTestResult, TestResult } from "gql/generated/types";
-import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import { TaskHistoryOptions } from "../types";
 
 const DEFAULT_PAGE_SIZE = 5;
@@ -39,8 +38,6 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
     "",
   );
 
-  const { replaceUrl } = useConditionallyLinkToParsleyBeta();
-
   const columns = useMemo(
     () =>
       getColumns({
@@ -56,9 +53,8 @@ const FailedTestsTable: React.FC<CommitDetailsCardProps> = ({ tests }) => {
           });
           setFailingTest(testName);
         },
-        replaceUrl,
       }),
-    [sendEvent, setFailingTest, replaceUrl],
+    [sendEvent, setFailingTest],
   );
 
   const table = useLeafyGreenTable<TestResult>({
@@ -122,11 +118,9 @@ const TableContainer = styled.div`
 const getColumns = ({
   onClickLogs,
   onClickSearchFailure,
-  replaceUrl,
 }: {
   onClickLogs: (testName: string) => void;
   onClickSearchFailure: (testName: string) => void;
-  replaceUrl: (url: string) => string;
 }): LGColumnDef<TestResult>[] => [
   {
     accessorKey: "testFile",
@@ -169,7 +163,7 @@ const getColumns = ({
         </StyledButton>
         {urlParsley && (
           <StyledButton
-            href={replaceUrl(urlParsley)}
+            href={urlParsley}
             onClick={() => onClickLogs(testFile)}
             rightGlyph={<Icon glyph="OpenNewTab" />}
             size={ButtonSize.XSmall}

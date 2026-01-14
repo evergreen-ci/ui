@@ -1,12 +1,11 @@
 import { useMemo, useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import {
   Combobox,
   ComboboxGroup,
   ComboboxOption,
 } from "@leafygreen-ui/combobox";
 import { useNavigate } from "react-router-dom";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { getDistroSettingsRoute } from "constants/routes";
 import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
 import { DISTROS } from "gql/queries";
@@ -61,7 +60,6 @@ export const DistroSelect: React.FC<DistroSelectProps> = ({
         );
       }}
       placeholder="Select distro"
-      popoverZIndex={zIndex.popover}
       value={selectedDistro}
     >
       {nonAdminOnly.map(({ aliases, name }) => (

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { SectionStatus } from "constants/logs";
+import { RowType } from "types/logs";
 import SectionHeader from ".";
 
 export default {
@@ -11,19 +11,29 @@ const SectionHeaderStory = () => (
   <Container>
     <SectionHeader
       {...sectionHeaderProps}
-      functionName="populate_expansions"
       lineIndex={0}
+      sectionHeaderLine={{
+        ...baseSectionHeaderLine,
+        functionName: "populate_expansions",
+      }}
     />
     <SectionHeader
       {...sectionHeaderProps}
-      functionName="setup_mongodb_database_and_seed_with_data"
       lineIndex={1}
+      sectionHeaderLine={{
+        ...baseSectionHeaderLine,
+        functionName: "setup_mongodb_database_and_seed_with_data",
+        range: { end: 8, start: 6 },
+      }}
     />
     <SectionHeader
       {...sectionHeaderProps}
-      functionName="build_frontend"
       lineIndex={2}
-      status={SectionStatus.Fail}
+      sectionHeaderLine={{
+        ...baseSectionHeaderLine,
+        functionName: "build_frontend",
+        range: { end: 12, start: 11 },
+      }}
     />
   </Container>
 );
@@ -39,9 +49,16 @@ const Container = styled.div`
   width: 800px;
 `;
 
-const sectionHeaderProps = {
+const baseSectionHeaderLine = {
   functionID: "function-4",
-  onToggle: () => {},
-  open: true,
-  status: SectionStatus.Pass,
+  functionName: "load_data",
+  isOpen: true,
+  range: { end: 5, start: 2 },
+  rowType: RowType.SectionHeader as const,
+};
+
+const sectionHeaderProps = {
+  failingLine: 11,
+  lineIndex: 0,
+  sectionHeaderLine: baseSectionHeaderLine,
 };

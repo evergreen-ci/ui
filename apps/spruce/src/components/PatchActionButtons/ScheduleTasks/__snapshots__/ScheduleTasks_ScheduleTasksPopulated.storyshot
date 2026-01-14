@@ -16,10 +16,10 @@
     </div>
   </button>
   <dialog
-    class="leafygreen-ui-1fxhhyq"
+    class="leafygreen-ui-17e6ane"
     data-cy="schedule-tasks-modal"
     data-lgid="lg-confirmation_modal"
     data-testid="lg-confirmation_modal"
-    id="modal-73"
+    id="modal-106"
   />
 </div>

@@ -1,4 +1,4 @@
-import Badge from "@leafygreen-ui/badge";
+import { Badge } from "@leafygreen-ui/badge";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import PageTitle from ".";
 

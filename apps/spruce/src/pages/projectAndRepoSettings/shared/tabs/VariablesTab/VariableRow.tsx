@@ -1,11 +1,14 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
-import Icon from "@evg-ui/lib/components/Icon";
+import Icon, { Size } from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { getFields } from "components/SpruceForm/utils";
 
 const { yellow } = palette;
+
+/** Variable names that are reserved for Backstage. */
+const reservedVariableNames = ["__default_bucket", "__default_bucket_role_arn"];
 
 export const VariableRow: React.FC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
@@ -22,15 +25,23 @@ export const VariableRow: React.FC<
       repoData.vars.some(({ varName }) => varName === formData.varName)
     : false;
 
+  const isReserved = reservedVariableNames.includes(formData.varName);
+
   return (
     <RowContainer>
-      <LeftColumn showWarning={inRepo}>
+      <LeftColumn showWarning={inRepo || isReserved}>
         {variableName}
         {inRepo && (
           <span data-cy="override-warning">
-            <OverrideIcon glyph="ImportantWithCircle" size="small" />
+            <OverrideIcon glyph="ImportantWithCircle" size={Size.Small} />
             This will override the variable of the same name defined in the
             repo.
+          </span>
+        )}
+        {isReserved && (
+          <span data-cy="reserved-warning">
+            <OverrideIcon glyph="ImportantWithCircle" size={Size.Small} />
+            This variable name is reserved for Backstage.
           </span>
         )}
       </LeftColumn>

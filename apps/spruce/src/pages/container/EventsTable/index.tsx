@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
@@ -12,7 +12,7 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { TableControlInnerRow } from "@evg-ui/lib/components/Table/TableControl/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { SiderCard } from "components/styles";
@@ -31,20 +31,16 @@ const EventsTable: React.FC = () => {
 
   const { limit, page, setLimit } = usePagination();
   const { [slugs.podId]: podId } = useParams();
-  const dispatchToast = useToastContext();
 
-  const { data: podEventsData, loading } = useQuery<
-    PodEventsQuery,
-    PodEventsQueryVariables
-  >(POD_EVENTS, {
+  const {
+    data: podEventsData,
+    error,
+    loading,
+  } = useQuery<PodEventsQuery, PodEventsQueryVariables>(POD_EVENTS, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: podId, page, limit },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading the pod events: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading the pod events");
 
   const { count, eventLogEntries } = useMemo(
     () => podEventsData?.pod.events ?? { eventLogEntries: [], count: 0 },
@@ -52,26 +48,7 @@ const EventsTable: React.FC = () => {
   );
 
   const columns: LGColumnDef<ContainerEvent>[] = useMemo(
-    () => [
-      {
-        header: "Date",
-        accessorKey: "timestamp",
-        cell: ({ getValue, row }) => (
-          <span data-cy={`${row.original.eventType}-time`}>
-            {getDateCopy(getValue() as Date)}
-          </span>
-        ),
-      },
-      {
-        header: "Event",
-        cell: ({ row }) => (
-          <EventCopy
-            data-cy={`event-type-${row.original.eventType}`}
-            event={row.original}
-          />
-        ),
-      },
-    ],
+    () => getColumns(getDateCopy),
     [getDateCopy],
   );
 
@@ -112,6 +89,29 @@ const EventsTable: React.FC = () => {
     </SiderCard>
   );
 };
+
+const getColumns = (
+  getDateCopy: (date: Date) => string,
+): LGColumnDef<ContainerEvent>[] => [
+  {
+    header: "Date",
+    accessorKey: "timestamp",
+    cell: ({ getValue, row }) => (
+      <span data-cy={`${row.original.eventType}-time`}>
+        {getDateCopy(getValue() as Date)}
+      </span>
+    ),
+  },
+  {
+    header: "Event",
+    cell: ({ row }) => (
+      <EventCopy
+        data-cy={`event-type-${row.original.eventType}`}
+        event={row.original}
+      />
+    ),
+  },
+];
 
 const StyledSubtitle = styled(Subtitle)<SubtitleProps>`
   margin: ${size.s} 0;

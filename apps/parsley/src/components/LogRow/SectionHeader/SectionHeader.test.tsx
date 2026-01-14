@@ -5,9 +5,9 @@ import {
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import * as analytics from "analytics";
-import { SectionStatus } from "constants/logs";
 import * as logContext from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
+import { RowType } from "types/logs";
 import SectionHeader from ".";
 
 const wrapper = logContextWrapper();
@@ -24,33 +24,37 @@ describe("SectionHeader", () => {
     }));
   });
   it("displays function name", () => {
-    renderWithRouterMatch(
-      <SectionHeader {...sectionHeaderProps} functionName="load_data" />,
-      { wrapper },
-    );
-    expect(screen.getByText("Function: load_data")).toBeVisible();
+    renderWithRouterMatch(<SectionHeader {...sectionHeaderProps} />, {
+      wrapper,
+    });
+    expect(
+      screen.getByText(`Function: ${baseSectionHeaderLine.functionName}`),
+    ).toBeVisible();
   });
 
   it("displays checkmark icon if status is passing", () => {
     renderWithRouterMatch(
-      <SectionHeader {...sectionHeaderProps} status={SectionStatus.Pass} />,
+      <SectionHeader {...sectionHeaderProps} failingLine={15} />,
       { wrapper },
     );
-    expect(
-      screen.getByLabelText("Checkmark With Circle Icon"),
-    ).toBeInTheDocument();
+    expect(screen.getByDataCy("section-status-pass")).toBeVisible();
   });
 
   it("displays X icon if status is failing", () => {
     renderWithRouterMatch(
-      <SectionHeader {...sectionHeaderProps} status={SectionStatus.Fail} />,
+      <SectionHeader {...sectionHeaderProps} failingLine={5} />,
       { wrapper },
     );
-    expect(screen.getByLabelText("XWith Circle Icon")).toBeInTheDocument();
+    expect(screen.getByDataCy("section-status-fail")).toBeVisible();
   });
 
   it("renders as opened if 'open' prop is true", async () => {
-    renderWithRouterMatch(<SectionHeader {...sectionHeaderProps} open />);
+    renderWithRouterMatch(
+      <SectionHeader
+        {...sectionHeaderProps}
+        sectionHeaderLine={{ ...baseSectionHeaderLine, isOpen: true }}
+      />,
+    );
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "true",
@@ -58,10 +62,9 @@ describe("SectionHeader", () => {
   });
 
   it("renders as closed if 'open' prop is false", async () => {
-    renderWithRouterMatch(
-      <SectionHeader {...sectionHeaderProps} open={false} />,
-      { wrapper },
-    );
+    renderWithRouterMatch(<SectionHeader {...sectionHeaderProps} />, {
+      wrapper,
+    });
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
@@ -106,19 +109,24 @@ describe("SectionHeader", () => {
 
   it("open and close state is controlled by the 'open' prop", async () => {
     const { rerender } = renderWithRouterMatch(
-      <SectionHeader {...sectionHeaderProps} open={false} />,
+      <SectionHeader {...sectionHeaderProps} />,
       { wrapper },
     );
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
-    rerender(<SectionHeader {...sectionHeaderProps} open />);
+    rerender(
+      <SectionHeader
+        {...sectionHeaderProps}
+        sectionHeaderLine={{ ...baseSectionHeaderLine, isOpen: true }}
+      />,
+    );
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
-    rerender(<SectionHeader {...sectionHeaderProps} open={false} />);
+    rerender(<SectionHeader {...sectionHeaderProps} />);
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
@@ -126,10 +134,16 @@ describe("SectionHeader", () => {
   });
 });
 
-const sectionHeaderProps = {
+const baseSectionHeaderLine = {
   functionID: "function-4",
   functionName: "load_data",
+  isOpen: false,
+  range: { end: 10, start: 0 },
+  rowType: RowType.SectionHeader as const,
+};
+
+const sectionHeaderProps = {
+  failingLine: undefined,
   lineIndex: 0,
-  open: false,
-  status: SectionStatus.Pass,
+  sectionHeaderLine: baseSectionHeaderLine,
 };

@@ -3,10 +3,10 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
-import Popover from "@leafygreen-ui/popover";
+import { Popover } from "@leafygreen-ui/popover";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { useDimensions } from "hooks/useDimensions";
 
@@ -73,7 +73,6 @@ const Dropdown: React.FC<DropdownProps> = ({
           adjustOnMutation
           data-cy={`${dataCy}-options`}
           onClick={(e) => e.stopPropagation()}
-          popoverZIndex={zIndex.dropdown}
           refEl={menuButtonRef}
           style={{
             width: menuWidth,

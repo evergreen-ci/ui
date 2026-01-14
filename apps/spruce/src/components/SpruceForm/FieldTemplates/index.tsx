@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
+import { Banner } from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
 import { FieldTemplateProps } from "@rjsf/core";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -49,7 +49,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
         <StyledBanner data-cy="warning-banner" variant="warning">
           {warnings.map((w, i) =>
             typeof w === "string" || w instanceof String ? (
-              <div key={`warning-${i}`}>{w}</div>
+              <div key={`warning-${i}`}>{w}</div> // eslint-disable-line  react/no-array-index-key
             ) : (
               w
             ),

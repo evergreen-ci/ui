@@ -1,12 +1,12 @@
 import { Size as ButtonSize } from "@leafygreen-ui/button";
-import Icon from "@leafygreen-ui/icon";
+import { Icon } from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { LoadingButton } from "components/Buttons";
 
 interface Props {
   disabled?: boolean;
   loading?: boolean;
-  dropdownItems: JSX.Element[];
+  dropdownItems: React.JSX.Element[];
   size?: ButtonSize;
   "data-cy"?: string;
   open?: boolean;

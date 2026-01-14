@@ -8,6 +8,7 @@ import {
   getVariantHistoryRoute,
   getProjectPatchesRoute,
   getWaterfallRoute,
+  getVersionDiffRoute,
 } from "./routes";
 
 const identifierWithSpecialCharacters = "!?identifier@";
@@ -240,5 +241,13 @@ describe("getVariantHistoryRoute", () => {
         selectedCommit: 1,
       }),
     ).toBe("/variant-history/someProject/someVariant?selectedCommit=1");
+  });
+});
+
+describe("getVersionDiffRoute", () => {
+  it("generates a version diff route with patch_number", () => {
+    expect(getVersionDiffRoute("someVersionId", 0)).toBe(
+      "/version/someVersionId/diff?patch_number=0",
+    );
   });
 });

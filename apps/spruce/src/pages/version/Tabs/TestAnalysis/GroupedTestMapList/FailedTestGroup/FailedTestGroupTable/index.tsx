@@ -9,7 +9,6 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getTaskRoute } from "constants/routes";
-import { useConditionallyLinkToParsleyBeta } from "hooks/useConditionallyLinkToParsleyBeta";
 import { TaskBuildVariantField } from "pages/version/Tabs/TestAnalysis/types";
 import { TaskTab } from "types/task";
 
@@ -19,9 +18,7 @@ interface FailedTestGroupTableProps {
 const FailedTestGroupTable: React.FC<FailedTestGroupTableProps> = ({
   tasks,
 }) => {
-  const { replaceUrl } = useConditionallyLinkToParsleyBeta();
-
-  const memoizedColumns = useMemo(() => getColumns(replaceUrl), [replaceUrl]);
+  const memoizedColumns = useMemo(() => getColumns(), []);
 
   const table = useLeafyGreenTable<TaskBuildVariantField>({
     columns: memoizedColumns,
@@ -39,9 +36,7 @@ const FailedTestGroupTable: React.FC<FailedTestGroupTableProps> = ({
   );
 };
 
-const getColumns = (
-  replaceUrl: (url: string) => string,
-): LGColumnDef<TaskBuildVariantField>[] => [
+const getColumns = (): LGColumnDef<TaskBuildVariantField>[] => [
   {
     header: "Task Name",
     accessorKey: "taskName",
@@ -73,7 +68,7 @@ const getColumns = (
     cell: ({ row }) => (
       <Button
         data-cy="failed-test-group-parsley-btn"
-        href={replaceUrl(row.original.logs.urlParsley)}
+        href={row.original.logs.urlParsley}
         size="xsmall"
       >
         Parsley

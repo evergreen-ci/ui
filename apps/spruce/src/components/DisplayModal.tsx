@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import Modal, { ModalProps } from "@leafygreen-ui/modal";
+import { Modal, ModalProps } from "@leafygreen-ui/modal";
 import { Body, BodyProps, H3 } from "@leafygreen-ui/typography";
-import { size as tokenSize, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size as tokenSize } from "@evg-ui/lib/constants/tokens";
 
 type DisplayModalProps = Omit<ModalProps, "title"> & {
   title?: React.ReactNode | string;
@@ -14,19 +14,14 @@ export const DisplayModal: React.FC<DisplayModalProps> = ({
   title,
   ...rest
 }) => (
-  <StyledModal {...rest}>
+  <Modal {...rest}>
     {title && <H3 data-cy="modal-title">{title}</H3>}
     {subtitle && (
       <StyledSubtitle data-cy="modal-subtitle">{subtitle}</StyledSubtitle>
     )}
     {children}
-  </StyledModal>
+  </Modal>
 );
-
-const StyledModal = styled(Modal)`
-  /* Ensure modal appears above feedback dialog */
-  z-index: ${zIndex.modal};
-`;
 
 const StyledSubtitle = styled(Body)<BodyProps>`
   margin-bottom: ${tokenSize.xs};

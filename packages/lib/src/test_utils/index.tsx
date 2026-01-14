@@ -1,5 +1,10 @@
 import { useEffect, createElement } from "react";
 import {
+  MockedProvider,
+  MockedProviderProps,
+  MockedResponse,
+} from "@apollo/client/testing";
+import {
   act,
   fireEvent,
   queries,
@@ -106,7 +111,7 @@ const renderWithRouterMatch = (
  */
 const renderComponentWithHook = <
   T extends () => unknown,
-  U extends JSX.Element | null,
+  U extends React.JSX.Element | null,
 >(
   useHook: T,
   Comp: U,
@@ -171,6 +176,10 @@ export {
   customWithin as within,
   stubGetClientRects,
   createWrapper,
+  // Apollo testing utils
+  MockedProvider,
+  type MockedProviderProps,
+  type MockedResponse,
 };
 
 export type { RenderWithRouterMatchOptions };

@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-import Tooltip, { TooltipProps } from "@leafygreen-ui/tooltip";
-import { zIndex } from "../../constants/tokens";
+import { Tooltip, TooltipProps } from "@leafygreen-ui/tooltip";
 import Icon from "../Icon";
 
 interface IconWithTooltipProps extends React.ComponentProps<typeof Icon> {
@@ -15,7 +14,6 @@ const IconWithTooltip: React.FC<IconWithTooltipProps> = ({
   <StyledTooltip
     align="top"
     justify="middle"
-    popoverZIndex={zIndex.tooltip}
     trigger={
       <IconWrapper data-cy={dataCy}>
         <Icon {...rest} />

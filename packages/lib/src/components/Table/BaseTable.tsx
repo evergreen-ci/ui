@@ -2,7 +2,7 @@ import { ForwardedRef, forwardRef, Fragment } from "react";
 import { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
-import Pagination from "@leafygreen-ui/pagination";
+import { Pagination } from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
 import {
   Cell,
@@ -79,8 +79,10 @@ interface SpruceTableProps<T extends LGRowData> {
   rowCss?: SerializedStyles;
 }
 
-type BaseTableProps<T> = SpruceTableProps<T> & Omit<TableProps<T>, "table">;
+type BaseTableProps<T extends LGRowData = LGRowData> = SpruceTableProps<T> &
+  Omit<TableProps<T>, "table">;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
   <T extends LGRowData>(
     {

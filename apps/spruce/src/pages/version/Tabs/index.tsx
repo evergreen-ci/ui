@@ -90,7 +90,7 @@ const tabMap = ({
   versionId: string;
   isVariantTimingView: boolean;
 }): {
-  [key in VersionPageTabs]: JSX.Element;
+  [key in VersionPageTabs]: React.JSX.Element;
 } => ({
   [VersionPageTabs.Tasks]: (
     <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
@@ -205,6 +205,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({
       versionId: version.id,
       isVariantTimingView: !!queryParams.variant,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taskCount, childPatches, version.id, queryParams.variant]);
 
   const activeTabs = useMemo(

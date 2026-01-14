@@ -1,21 +1,19 @@
 import { Virtuoso } from "react-virtuoso";
-import { selectedStrings } from "hooks/useVersionTaskStatusSelect";
 import { TaskStatusCheckbox } from "./TaskStatusCheckbox";
 
 interface TaskStatusCheckboxContainerProps {
-  selectedTasks: selectedStrings;
+  selectedTasks: Set<string>;
   tasks: {
     id: string;
     baseStatus?: string;
     displayName: string;
     displayStatus: string;
   }[];
-  toggleSelectedTask: (taskIds: { [patchId: string]: string }) => void;
-  versionId: string;
+  toggleSelectedTask: (taskId: string) => void;
 }
 export const TaskStatusCheckboxContainer: React.FC<
   TaskStatusCheckboxContainerProps
-> = ({ selectedTasks, tasks, toggleSelectedTask, versionId }) => {
+> = ({ selectedTasks, tasks, toggleSelectedTask }) => {
   const possibleListHeight = tasks.length * itemSize;
   const listHeight =
     possibleListHeight < maxListHeight ? possibleListHeight : maxListHeight;
@@ -25,7 +23,7 @@ export const TaskStatusCheckboxContainer: React.FC<
       data={tasks}
       itemContent={(_idx, task) => {
         const { baseStatus, displayName, displayStatus, id: taskId } = task;
-        const checked = !!selectedTasks[taskId];
+        const checked = selectedTasks.has(taskId);
         return (
           <TaskStatusCheckbox
             key={taskId}
@@ -33,9 +31,7 @@ export const TaskStatusCheckboxContainer: React.FC<
             checked={checked}
             displayName={displayName}
             onClick={() => {
-              if (selectedTasks[taskId] !== undefined) {
-                toggleSelectedTask({ [versionId]: taskId });
-              }
+              toggleSelectedTask(taskId);
             }}
             status={displayStatus}
             taskId={taskId}

@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import Tooltip, { TooltipProps } from "@leafygreen-ui/tooltip";
-import { size, zIndex } from "../../constants/tokens";
+import { Tooltip, TooltipProps, Align, Justify } from "@leafygreen-ui/tooltip";
+import { size } from "../../constants/tokens";
 import { wordBreakCss } from "../styles";
+
+export { Align, Justify };
 
 type PopconfirmProps = Omit<
   TooltipProps,
@@ -61,7 +63,6 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
     <Tooltip
       onClose={onClose}
       open={open}
-      popoverZIndex={zIndex.popover}
       refEl={refEl}
       setOpen={setOpen}
       triggerEvent="click"

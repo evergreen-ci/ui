@@ -1,10 +1,10 @@
 import { Fragment } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 
 const { gray } = palette;
@@ -51,7 +51,6 @@ const BreadcrumbFragment: React.FC<BreadcrumbFragmentProps> = ({
       data-cy="breadcrumb-tooltip"
       enabled={shouldTrimMessage}
       justify="middle"
-      popoverZIndex={zIndex.tooltip}
       trigger={
         to ? (
           <div data-cy={dataCy}>

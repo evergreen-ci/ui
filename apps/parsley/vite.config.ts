@@ -9,6 +9,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import dns from "dns";
 import path from "path";
+import analyticsVisualizer from "@evg-ui/analytics-visualizer";
 import {
   generateBaseHTTPSViteServerConfig,
   bareBonesViteConfig,
@@ -72,6 +73,13 @@ const getProjectConfig = () => {
         filename: "dist/source_map.html",
         template: "treemap",
       }),
+      // Analytics visualization
+      analyticsVisualizer({
+        analyticsDir: "src/analytics",
+        appName: "Parsley",
+        honeycombBaseUrl:
+          "https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/parsley",
+      }),
       sentryVitePlugin({
         authToken: process.env.PARSLEY_SENTRY_AUTH_TOKEN,
         disable: process.env.NODE_ENV === "development",
@@ -96,10 +104,7 @@ const getProjectConfig = () => {
       alias: {
         // Prevent LG from pulling in SSR dependencies.
         // Can be potentially removed upon the completion of LG-4402.
-        "@leafygreen-ui/emotion": path.resolve(
-          __dirname,
-          "./config/leafygreen-ui/emotion.ts",
-        ),
+        "@emotion/server": "@emotion/css",
         ...(process.env.PROFILER === "true" && {
           "react-dom/client": path.resolve(
             __dirname,

@@ -1,5 +1,4 @@
 import { GeneratedTaskCountResults, VariantTask } from "gql/generated/types";
-import { versionSelectedTasks } from "hooks/useVersionTaskStatusSelect";
 import { VariantTasksState } from "pages/configurePatch/configurePatchCore/useConfigurePatch/types";
 import {
   sumActivatedTasksInSelectedTasks,
@@ -79,30 +78,22 @@ describe("getNumEstimatedActivatedTasks", () => {
     expect(sumActivatedTasksInSet(set, generatedTaskCounts)).toBe(153);
   });
   it("should compute the correct number of activated tasks to be created when restarting all tasks in a version", () => {
-    const vsts: versionSelectedTasks = {
-      version_id: {
-        "task1-variant2": true,
-        "task2-variant2": true,
-        "task3-variant2": true,
-      },
-    };
-    expect(sumActivatedTasksInSelectedTasks(vsts, generatedTaskCounts)).toBe(
+    const vsts = new Set([
+      "task1-variant2",
+      "task2-variant2",
+      "task3-variant2",
+    ]);
+    expect(sumActivatedTasksInSelectedTasks([vsts], generatedTaskCounts)).toBe(
       153,
     );
   });
   it("should compute the correct number of activated tasks to be created when restarting some tasks in a version", () => {
-    const vsts: versionSelectedTasks = {
-      version_id: {
-        "task1-variant2": true,
-        "task2-variant2": false,
-        "task3-variant2": true,
-      },
-    };
-    expect(sumActivatedTasksInSelectedTasks(vsts, generatedTaskCounts)).toBe(
+    const vsts = new Set(["task1-variant2", "task3-variant2"]);
+    expect(sumActivatedTasksInSelectedTasks([vsts], generatedTaskCounts)).toBe(
       102,
     );
   });
   it("should compute zero for empty input", () => {
-    expect(sumActivatedTasksInSelectedTasks({}, [])).toBe(0);
+    expect(sumActivatedTasksInSelectedTasks([], [])).toBe(0);
   });
 });

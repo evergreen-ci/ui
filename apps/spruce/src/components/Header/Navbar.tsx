@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
-import Icon, { AnimatedIcon, FallLogo } from "@evg-ui/lib/components/Icon";
+import Icon, { AnimatedIcon, WinterLogo } from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
@@ -69,7 +69,7 @@ export const Navbar: React.FC = () => {
           onClick={() => sendEvent({ name: "Clicked logo link" })}
           to={routes.myPatches}
         >
-          <AnimatedIcon icon={FallLogo} />
+          <AnimatedIcon alwaysAnimate icon={WinterLogo} />
         </LogoLink>
         <PrimaryLink
           data-cy="waterfall-link"
@@ -123,6 +123,7 @@ const StyledNav = styled.nav`
 const LogoLink = styled(Link)`
   display: flex;
   align-items: center;
+  margin-bottom: ${size.xxs};
 `;
 
 const NavActionContainer = styled.div`

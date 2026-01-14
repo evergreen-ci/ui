@@ -16,6 +16,8 @@ export const hostUptimeDocumentationUrl = `${hostsDocumentationUrl}/Spawn-Hosts#
 
 export const hostMountVolumeDocumentationUrl = `${hostsDocumentationUrl}/Spawn-Hosts#mounting-additional-storage`;
 
+export const taskSpawnHostDocumentationUrl = `${hostsDocumentationUrl}/Spawn-Hosts#spawning-a-host-from-a-task`;
+
 export const projectDistroSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Project-and-Distro-Settings`;
 
 export const projectSettingsRepoSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Repo-Level-Settings`;
@@ -115,8 +117,6 @@ export const getParsleyCompleteLogsURL = (
   execution: number | string,
   groupID: string,
 ) => `${getParsleyUrl()}/resmoke/${taskID}/${execution}/${groupID}/all`;
-
-export const adminSettingsURL = `${getEvergreenUrl()}/admin`;
 
 export const buildHostConfigurationRepoURL =
   "https://github.com/10gen/buildhost-configuration";

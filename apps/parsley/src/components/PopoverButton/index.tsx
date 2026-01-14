@@ -1,7 +1,7 @@
 import { RefObject, useCallback, useRef } from "react";
 import Button, { ButtonProps } from "@leafygreen-ui/button";
-import Card from "@leafygreen-ui/card";
-import Popover from "@leafygreen-ui/popover";
+import { Card } from "@leafygreen-ui/card";
+import { Popover } from "@leafygreen-ui/popover";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";
 
@@ -51,7 +51,10 @@ const PopoverButton: React.FC<PopoverButtonProps> = ({
       {...rest}
     >
       {buttonText}
-      <Popover active={isOpen} onClick={(e) => e.stopPropagation()}>
+      <Popover
+        active={isOpen}
+        onClick={(e: React.MouseEvent) => e.stopPropagation()}
+      >
         <div ref={popoverRef}>
           <Card>{children}</Card>
         </div>

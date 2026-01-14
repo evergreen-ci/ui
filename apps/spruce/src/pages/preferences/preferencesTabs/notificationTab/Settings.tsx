@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { css } from "@emotion/react";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
