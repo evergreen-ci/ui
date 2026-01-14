@@ -33,6 +33,7 @@ functions:
           AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
           AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+          VITE_SCRIPT_MODE: "1"
         script: |
           ${PREPARE_SHELL}
           # Add PROFILER to env if profiler patch parameter is set to true.
@@ -67,6 +68,7 @@ functions:
           EXECUTION: ${execution}
           DEPLOYS_EMAIL: ${DEPLOYS_EMAIL}
           AUTHOR_EMAIL: ${author_email}
+          VITE_SCRIPT_MODE: "1"
         script: |
           ${PREPARE_SHELL}
           pnpm deploy-utils-email
@@ -95,6 +97,8 @@ functions:
     - command: shell.exec
       params:
         working_dir: ui/${app_dir}
+        env:
+          VITE_SCRIPT_MODE: "1"
         script: |
           ${PREPARE_SHELL}
           pnpm deploy-utils-write-previous-deploy

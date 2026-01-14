@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";

@@ -1,5 +1,4 @@
-import { MockedProvider } from "@apollo/client/testing";
-import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
+import { MockedProvider, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogTypes } from "constants/enums";

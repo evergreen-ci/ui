@@ -5,31 +5,38 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import EventLog from "components/Settings/EventLog";
 import { slugs } from "constants/routes";
 import { ProjectType } from "../utils";
-import { useProjectSettingsEvents } from "./useProjectSettingsEvents";
+import {
+  PROJECT_EVENT_LIMIT,
+  useProjectSettingsEvents,
+} from "./useProjectSettingsEvents";
 
 type TabProps = {
   limit?: number;
   projectType: ProjectType;
 };
 
-export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
+export const EventLogTab: React.FC<TabProps> = ({
+  limit = PROJECT_EVENT_LIMIT,
+  projectType,
+}) => {
   const {
     [slugs.projectIdentifier]: projectIdentifier,
     [slugs.repoId]: repoId,
   } = useParams();
 
-  const { allEventsFetched, events, fetchMore } = useProjectSettingsEvents({
-    projectIdentifier,
-    repoId,
-    isRepo: projectType === ProjectType.Repo,
-    limit,
-  });
+  const { count, events, fetchMore, loading, previousCount } =
+    useProjectSettingsEvents({
+      projectIdentifier,
+      repoId,
+      isRepo: projectType === ProjectType.Repo,
+      limit,
+    });
 
   const lastEventTimestamp = events[events.length - 1]?.timestamp;
 
   return (
     <EventLog
-      allEventsFetched={allEventsFetched}
+      count={count}
       customKeyValueRenderConfig={{
         "vars.vars": renderVars,
       }}
@@ -42,6 +49,9 @@ export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
           },
         });
       }}
+      limit={limit}
+      loading={loading}
+      previousCount={previousCount}
     />
   );
 };

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { MockedProvider } from "@apollo/client/testing";
 import { ChatProvider } from "@evg-ui/fungi/Context";
+import { MockedProvider } from "@evg-ui/lib/test_utils";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";

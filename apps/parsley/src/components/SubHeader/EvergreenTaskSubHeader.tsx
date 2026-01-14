@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { InlineCode } from "@leafygreen-ui/typography";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";

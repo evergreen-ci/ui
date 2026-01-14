@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useCallback, useMemo } from "react";
+import { useQuery } from "@apollo/client/react";
 import {
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
@@ -23,9 +23,6 @@ const useTestResults = (rowIndex: number) => {
   let taskIds: string[] = [];
   let versionId = "";
   const hasTestFilters = historyTableFilters.length > 0;
-  const [taskTestMap, setTaskTestMap] = useState<{
-    [taskId: string]: TaskTestResultSample;
-  }>({});
 
   const commit = getItem(rowIndex);
   if (commit && commit.type === rowType.COMMIT && commit.commit) {
@@ -38,7 +35,7 @@ const useTestResults = (rowIndex: number) => {
   }
 
   const hasDataToQuery = taskIds.length > 0;
-  const { loading } = useQuery<
+  const { data, loading } = useQuery<
     TaskTestSampleQuery,
     TaskTestSampleQueryVariables
   >(TASK_TEST_SAMPLE, {
@@ -48,14 +45,17 @@ const useTestResults = (rowIndex: number) => {
       filters: historyTableFilters,
     },
     skip: !hasDataToQuery,
-    onCompleted: (data) => {
-      const { taskTestSample } = data;
-      if (taskTestSample != null) {
-        const ttm = convertArrayToObject(taskTestSample, "taskId");
-        setTaskTestMap(ttm);
-      }
-    },
   });
+
+  const taskTestSample = data?.taskTestSample;
+  const taskTestMap = useMemo<{
+    [taskId: string]: TaskTestResultSample;
+  }>(() => {
+    if (taskTestSample != null) {
+      return convertArrayToObject(taskTestSample, "taskId");
+    }
+    return {};
+  }, [taskTestSample]);
 
   /** getTaskMetadata returns the properties for a task cell given a task id  */
   const getTaskMetadata = useCallback(

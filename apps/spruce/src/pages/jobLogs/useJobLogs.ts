@@ -1,4 +1,5 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   LogkeeperBuildMetadataQuery,
   LogkeeperBuildMetadataQueryVariables,
@@ -15,7 +16,6 @@ interface UseJobLogsPageParams {
   taskId?: string;
   execution?: string;
   groupId?: string;
-  onError: (err: string) => void;
 }
 
 type JobLogsPageData = {
@@ -30,44 +30,50 @@ const useJobLogsPageData = ({
   execution,
   groupId,
   isLogkeeper,
-  onError,
   taskId,
 }: UseJobLogsPageParams): JobLogsPageData => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const executionAsInt = parseInt(execution, 10);
-  const { data: logkeeperData, loading: loadingLogkeeper } = useQuery<
+
+  const {
+    data: logkeeperData,
+    error: logkeeperError,
+    loading: loadingLogkeeper,
+  } = useQuery<
     LogkeeperBuildMetadataQuery,
     LogkeeperBuildMetadataQueryVariables
   >(LOGKEEPER_BUILD_METADATA, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { buildId },
     skip: !isLogkeeper,
-    onError: (err) => {
-      onError(
-        `There was an error retrieving logs for this build: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(
+    logkeeperError,
+    "There was an error retrieving logs for this build",
+  );
 
-  const { data: testResultsData, loading: loadingEvergreen } = useQuery<
-    TaskTestsForJobLogsQuery,
-    TaskTestsForJobLogsQueryVariables
-  >(TASK_TESTS_FOR_JOB_LOGS, {
-    variables: {
-      id: taskId || logkeeperData?.logkeeperBuildMetadata?.taskId || "",
-      execution:
-        executionAsInt ||
-        logkeeperData?.logkeeperBuildMetadata?.taskExecution ||
-        0,
+  const {
+    data: testResultsData,
+    error: evergreenError,
+    loading: loadingEvergreen,
+  } = useQuery<TaskTestsForJobLogsQuery, TaskTestsForJobLogsQueryVariables>(
+    TASK_TESTS_FOR_JOB_LOGS,
+    {
+      variables: {
+        id: taskId || logkeeperData?.logkeeperBuildMetadata?.taskId || "",
+        execution:
+          executionAsInt ||
+          logkeeperData?.logkeeperBuildMetadata?.taskExecution ||
+          0,
+      },
+      // Skip the query if we're in logkeeper mode and the logkeeper query is still loading
+      skip: isLogkeeper && (loadingLogkeeper || logkeeperData === undefined),
     },
-    // Skip the query if we're in logkeeper mode and the logkeeper query is still loading
-    skip: isLogkeeper && (loadingLogkeeper || logkeeperData === undefined),
-    onError: (err) => {
-      onError(
-        `There was an error retrieving logs for this task: ${err.message}`,
-      );
-    },
-  });
+  );
+  useErrorToast(
+    evergreenError,
+    "There was an error retrieving logs for this task",
+  );
 
   const { logkeeperBuildMetadata } = logkeeperData || {};
 
