@@ -90,7 +90,7 @@
     "@leafygreen-ui/number-input": "^5.0.12",
     "@leafygreen-ui/pagination": "^4.2.0",
     "@leafygreen-ui/palette": "^5.0.2",
-    "@leafygreen-ui/polymorphic": "^1.0.0",
+    "@leafygreen-ui/polymorphic": "^3.1.0",
     "@leafygreen-ui/popover": "^14.2.0",
     "@leafygreen-ui/radio-box-group": "^15.0.10",
     "@leafygreen-ui/radio-group": "^13.0.11",
