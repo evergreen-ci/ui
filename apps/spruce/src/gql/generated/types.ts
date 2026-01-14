@@ -10990,6 +10990,8 @@ export type TaskEventLogsQuery = {
         __typename?: "TaskEventLogEntry";
         id: string;
         eventType?: string | null;
+        resourceId: string;
+        resourceType: string;
         timestamp?: Date | null;
         data: {
           __typename?: "TaskEventLogData";

@@ -39,13 +39,13 @@ const DistroSettings: React.FC = () => {
     [slugs.tab]: DistroSettingsTabRoutes;
   }>();
 
-  const { data, error, loading } = useQuery<DistroQuery, DistroQueryVariables>(
-    DISTRO,
-    {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      variables: { distroId },
-    },
-  );
+  const { data, dataState, error, loading } = useQuery<
+    DistroQuery,
+    DistroQueryVariables
+  >(DISTRO, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    variables: { distroId },
+  });
   useErrorToast(error, `There was an error loading the distro ${distroId}`);
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -57,6 +57,10 @@ const DistroSettings: React.FC = () => {
         to={getDistroSettingsRoute(distroId, DistroSettingsTabRoutes.General)}
       />
     );
+  }
+
+  if (dataState !== "complete") {
+    return null;
   }
 
   const imageId = data?.distro?.imageId ?? "";

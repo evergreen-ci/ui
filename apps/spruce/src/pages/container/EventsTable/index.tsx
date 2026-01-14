@@ -34,6 +34,7 @@ const EventsTable: React.FC = () => {
 
   const {
     data: podEventsData,
+    dataState,
     error,
     loading,
   } = useQuery<PodEventsQuery, PodEventsQueryVariables>(POD_EVENTS, {
@@ -42,10 +43,12 @@ const EventsTable: React.FC = () => {
   });
   useErrorToast(error, "There was an error loading the pod events");
 
-  const { count, eventLogEntries } = useMemo(
-    () => podEventsData?.pod.events ?? { eventLogEntries: [], count: 0 },
-    [podEventsData?.pod?.events],
-  );
+  const { count, eventLogEntries } = useMemo(() => {
+    if (dataState !== "complete") {
+      return { eventLogEntries: [], count: 0 };
+    }
+    return podEventsData?.pod?.events;
+  }, [dataState, podEventsData?.pod?.events]);
 
   const columns: LGColumnDef<ContainerEvent>[] = useMemo(
     () => getColumns(getDateCopy),

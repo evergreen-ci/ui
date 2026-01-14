@@ -27,11 +27,7 @@ export const NewDistroButton: React.FC = () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { distroId },
   });
-  const {
-    user: {
-      permissions: { canCreateDistro },
-    },
-  } = data ?? { user: { permissions: {} } };
+  const canCreateDistro = data?.user?.permissions?.canCreateDistro ?? false;
 
   if (!canCreateDistro) {
     return null;

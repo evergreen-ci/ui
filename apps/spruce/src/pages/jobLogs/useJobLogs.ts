@@ -37,6 +37,7 @@ const useJobLogsPageData = ({
 
   const {
     data: logkeeperData,
+    dataState: logkeeperDataState,
     error: logkeeperError,
     loading: loadingLogkeeper,
   } = useQuery<
@@ -75,13 +76,15 @@ const useJobLogsPageData = ({
     "There was an error retrieving logs for this task",
   );
 
-  const { logkeeperBuildMetadata } = logkeeperData || {};
+  const logkeeperBuildMetadata =
+    logkeeperDataState === "complete"
+      ? logkeeperData?.logkeeperBuildMetadata
+      : undefined;
 
   const { task: evergreenTask } = testResultsData || {};
 
   const resultsToRender = getFormattedTestResults(
     logkeeperBuildMetadata?.tests,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     evergreenTask?.tests?.testResults,
     groupId,
   );

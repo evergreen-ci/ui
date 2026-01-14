@@ -33,21 +33,30 @@ export const useParentTask = (taskId: string) => {
     variants: [string.applyStrictRegex(buildVariant)],
   };
 
-  const { data: parentTaskData, loading } = useQuery<
-    LastMainlineCommitQuery,
-    LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    skip: !versionMetadata || versionMetadata.isPatch,
-    variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      projectIdentifier,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      skipOrderNumber,
-      buildVariantOptions: {
-        ...bvOptionsBase,
+  const {
+    data: parentTaskData,
+    dataState,
+    loading,
+  } = useQuery<LastMainlineCommitQuery, LastMainlineCommitQueryVariables>(
+    LAST_MAINLINE_COMMIT,
+    {
+      skip: !versionMetadata || versionMetadata.isPatch,
+      variables: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        projectIdentifier,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        skipOrderNumber,
+        buildVariantOptions: {
+          ...bvOptionsBase,
+        },
       },
     },
-  });
+  );
+
+  if (dataState !== "complete") {
+    return { task: undefined, loading: true };
+  }
+
   const task = parentTaskData
     ? getTaskFromMainlineCommitsQuery(parentTaskData)
     : undefined;

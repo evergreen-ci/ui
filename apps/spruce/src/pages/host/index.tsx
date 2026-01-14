@@ -46,6 +46,7 @@ const Host: React.FC = () => {
 
   const {
     data: hostData,
+    dataState: hostDataState,
     error,
     loading: hostMetadataLoading,
   } = useQuery<HostQuery, HostQueryVariables>(HOST, {
@@ -68,6 +69,10 @@ const Host: React.FC = () => {
     },
     skip: !hostId,
   });
+
+  if (hostDataState !== "complete") {
+    return null;
+  }
 
   const host = hostData?.host;
   const { distro, hostUrl, persistentDnsName, user } = host || {};

@@ -42,10 +42,15 @@ export const Task = () => {
   >(RequiredQueryParams.Execution, null);
 
   // Query task data
-  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
-    TaskQuery,
-    TaskQueryVariables
-  >(TASK, {
+  const {
+    data,
+    dataState,
+    error,
+    loading,
+    refetch,
+    startPolling,
+    stopPolling,
+  } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
@@ -65,6 +70,20 @@ export const Task = () => {
       error.errors.some((e) => !e?.path?.includes("annotation")),
   );
 
+  // Update the default execution in the url if it isn't populated
+  useEffect(() => {
+    if (
+      selectedExecution === null &&
+      data?.task?.latestExecution !== undefined
+    ) {
+      setSelectedExecution(data.task.latestExecution);
+    }
+  }, [data?.task?.latestExecution, selectedExecution, setSelectedExecution]);
+
+  if (dataState !== "complete") {
+    return <PatchAndTaskFullPageLoad />;
+  }
+
   const { task } = data ?? {};
   const {
     displayName,
@@ -77,13 +96,6 @@ export const Task = () => {
     status,
     versionMetadata,
   } = task ?? {};
-
-  // Update the default execution in the url if it isn't populated
-  useEffect(() => {
-    if (selectedExecution === null && latestExecution !== undefined) {
-      setSelectedExecution(latestExecution);
-    }
-  }, [latestExecution, selectedExecution, setSelectedExecution]);
 
   /**
    * Special handling for known issues and show the original status on the task page.

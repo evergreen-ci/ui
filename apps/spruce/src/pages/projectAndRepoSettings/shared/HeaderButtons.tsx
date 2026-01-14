@@ -84,8 +84,8 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     },
     refetchQueries: ({
       data: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         saveProjectSettingsForSection: {
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           projectRef: { identifier: newIdentifier },
         },
       },

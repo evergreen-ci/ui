@@ -32,22 +32,31 @@ export const useLastPassingTask = (taskId: string) => {
 
   const { task: parentTask } = useParentTask(taskId);
 
-  const { data: lastPassingTaskData, loading } = useQuery<
-    LastMainlineCommitQuery,
-    LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    skip: !parentTask || parentTask.displayStatus === TaskStatus.Succeeded,
-    variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      projectIdentifier,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      skipOrderNumber,
-      buildVariantOptions: {
-        ...bvOptionsBase,
-        statuses: [TaskStatus.Succeeded],
+  const {
+    data: lastPassingTaskData,
+    dataState,
+    loading,
+  } = useQuery<LastMainlineCommitQuery, LastMainlineCommitQueryVariables>(
+    LAST_MAINLINE_COMMIT,
+    {
+      skip: !parentTask || parentTask.displayStatus === TaskStatus.Succeeded,
+      variables: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        projectIdentifier,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        skipOrderNumber,
+        buildVariantOptions: {
+          ...bvOptionsBase,
+          statuses: [TaskStatus.Succeeded],
+        },
       },
     },
-  });
+  );
+
+  if (dataState !== "complete") {
+    return { task: undefined, loading: true };
+  }
+
   const task = lastPassingTaskData
     ? getTaskFromMainlineCommitsQuery(lastPassingTaskData)
     : undefined;

@@ -33,22 +33,31 @@ export const useLastExecutedTask = (taskId: string) => {
 
   const { task: parentTask } = useParentTask(taskId);
 
-  const { data: lastExecutedTaskData, loading } = useQuery<
-    LastMainlineCommitQuery,
-    LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    skip: !parentTask || isFinishedTaskStatus(parentTask.displayStatus),
-    variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      projectIdentifier,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      skipOrderNumber,
-      buildVariantOptions: {
-        ...bvOptionsBase,
-        statuses: finishedTaskStatuses,
+  const {
+    data: lastExecutedTaskData,
+    dataState,
+    loading,
+  } = useQuery<LastMainlineCommitQuery, LastMainlineCommitQueryVariables>(
+    LAST_MAINLINE_COMMIT,
+    {
+      skip: !parentTask || isFinishedTaskStatus(parentTask.displayStatus),
+      variables: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        projectIdentifier,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        skipOrderNumber,
+        buildVariantOptions: {
+          ...bvOptionsBase,
+          statuses: finishedTaskStatuses,
+        },
       },
     },
-  });
+  );
+
+  if (dataState !== "complete") {
+    return { task: undefined, loading };
+  }
+
   const task = lastExecutedTaskData
     ? getTaskFromMainlineCommitsQuery(lastExecutedTaskData)
     : undefined;
