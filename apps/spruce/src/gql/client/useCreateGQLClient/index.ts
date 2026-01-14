@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { HttpLink, ApolloClient } from "@apollo/client";
+import { LocalState } from "@apollo/client/local-state";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
   leaveBreadcrumb,
@@ -52,6 +53,7 @@ export const useCreateGQLClient = (): ApolloClient | undefined => {
 
     return new ApolloClient({
       cache,
+      localState: new LocalState(), // Must define if using @client fields.
       link: authenticateIfSuccessfulLink(dispatchAuthenticated)
         .concat(authLink(logoutAndRedirect))
         .concat(logGQLToSentryLink(secretFields))
