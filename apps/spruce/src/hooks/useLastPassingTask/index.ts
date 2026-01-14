@@ -32,6 +32,9 @@ export const useLastPassingTask = (taskId: string) => {
 
   const { task: parentTask } = useParentTask(taskId);
 
+  const shouldSkip =
+    !parentTask || parentTask.displayStatus === TaskStatus.Succeeded;
+
   const {
     data: lastPassingTaskData,
     dataState,
@@ -39,7 +42,7 @@ export const useLastPassingTask = (taskId: string) => {
   } = useQuery<LastMainlineCommitQuery, LastMainlineCommitQueryVariables>(
     LAST_MAINLINE_COMMIT,
     {
-      skip: !parentTask || parentTask.displayStatus === TaskStatus.Succeeded,
+      skip: shouldSkip,
       variables: {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         projectIdentifier,
@@ -52,6 +55,10 @@ export const useLastPassingTask = (taskId: string) => {
       },
     },
   );
+
+  if (shouldSkip && parentTask?.displayStatus === TaskStatus.Succeeded) {
+    return { task: parentTask, loading: false };
+  }
 
   if (dataState !== "complete") {
     return { task: undefined, loading: true };

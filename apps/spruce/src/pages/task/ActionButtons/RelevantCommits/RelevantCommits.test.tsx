@@ -312,7 +312,7 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
 
 const patchTaskWithFailingBaseTask = {
   ...taskQuery.task,
-  id: "t1",
+  id: "t2",
   execution: 0,
   displayName: "lint-agent",
   buildVariant: "lint",
@@ -351,7 +351,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
   request: {
     query: BASE_VERSION_AND_TASK,
     variables: {
-      taskId: "t1",
+      taskId: "t2",
     },
   },
   result: {

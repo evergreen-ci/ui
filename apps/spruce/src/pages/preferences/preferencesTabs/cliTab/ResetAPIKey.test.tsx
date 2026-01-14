@@ -30,22 +30,25 @@ describe("ResetAPIKey", () => {
 
   it("calls mutation when button is clicked", async () => {
     const user = userEvent.setup();
-    const mockNewData = vi.fn(() => ({
-      data: {
-        resetAPIKey: {
-          __typename: "UserConfig",
-          api_key: "new-api-key-12345",
-          user: "test-user",
-        },
-      },
-    }));
+    let mutationCalled = false;
 
     const mockWithNewData = {
       request: {
         query: RESET_USER_API_KEY,
         variables: {},
       },
-      newData: mockNewData,
+      result: () => {
+        mutationCalled = true;
+        return {
+          data: {
+            resetAPIKey: {
+              __typename: "UserConfig",
+              api_key: "new-api-key-12345",
+              user: "test-user",
+            },
+          },
+        };
+      },
     };
 
     const { Component } = RenderFakeToastContext(
@@ -59,7 +62,7 @@ describe("ResetAPIKey", () => {
     await user.click(button);
 
     await waitFor(() => {
-      expect(mockNewData).toHaveBeenCalledOnce();
+      expect(mutationCalled).toBe(true);
     });
   });
 

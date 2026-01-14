@@ -35,7 +35,11 @@ describe("useLastExecutedTask", () => {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
-          mocks: [getPatchTaskWithRunningBaseTask, getLastExecutedVersion],
+          mocks: [
+            getPatchTaskWithRunningBaseTask,
+            getParentTask,
+            getLastExecutedVersion,
+          ],
         }),
     });
 
@@ -52,6 +56,7 @@ describe("useLastExecutedTask", () => {
           children,
           mocks: [
             getPatchTaskWithRunningBaseTask,
+            getParentTask,
             getLastExecutedVersionWithError,
           ],
         }),
@@ -91,7 +96,7 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
             order: 3676,
             __typename: "Version",
           },
-          isPatch: true,
+          isPatch: false,
           id: "versionMetadataId",
           __typename: "Version",
         },
@@ -102,6 +107,53 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
           __typename: "Task",
         },
         __typename: "Task",
+      },
+    },
+  },
+};
+
+const getParentTask: ApolloMock<
+  LastMainlineCommitQuery,
+  LastMainlineCommitQueryVariables
+> = {
+  request: {
+    query: LAST_MAINLINE_COMMIT,
+    variables: {
+      projectIdentifier: "evergreen",
+      skipOrderNumber: 3676,
+      buildVariantOptions: {
+        tasks: ["^lint-agent$"],
+        variants: ["^lint$"],
+      },
+    },
+  },
+  result: {
+    data: {
+      mainlineCommits: {
+        versions: [
+          {
+            version: {
+              id: "evergreen_parent_version",
+              buildVariants: [
+                {
+                  tasks: [
+                    {
+                      id: "parent_task",
+                      execution: 0,
+                      order: 3676,
+                      displayStatus: "started",
+                      __typename: "Task",
+                    },
+                  ],
+                  __typename: "GroupedBuildVariant",
+                },
+              ],
+              __typename: "Version",
+            },
+            __typename: "MainlineCommitVersion",
+          },
+        ],
+        __typename: "MainlineCommits",
       },
     },
   },

@@ -33,6 +33,8 @@ export const useParentTask = (taskId: string) => {
     variants: [string.applyStrictRegex(buildVariant)],
   };
 
+  const shouldSkip = !versionMetadata || versionMetadata.isPatch;
+
   const {
     data: parentTaskData,
     dataState,
@@ -40,7 +42,7 @@ export const useParentTask = (taskId: string) => {
   } = useQuery<LastMainlineCommitQuery, LastMainlineCommitQueryVariables>(
     LAST_MAINLINE_COMMIT,
     {
-      skip: !versionMetadata || versionMetadata.isPatch,
+      skip: shouldSkip,
       variables: {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         projectIdentifier,
@@ -52,6 +54,10 @@ export const useParentTask = (taskId: string) => {
       },
     },
   );
+
+  if (shouldSkip) {
+    return { task: baseTask, loading: false };
+  }
 
   if (dataState !== "complete") {
     return { task: undefined, loading: true };

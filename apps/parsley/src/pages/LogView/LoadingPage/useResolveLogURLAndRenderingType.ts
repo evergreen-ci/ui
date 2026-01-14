@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client/react";
 import {
   constructEvergreenTaskLogURL,
@@ -229,12 +230,6 @@ export const useResolveLogURLAndRenderingType = ({
         renderingType = renderingTypeFromQuery as LogRenderingTypes;
       } else {
         renderingType = LogRenderingTypes.Default;
-        reportError(new Error("Encountered unsupported renderingType"), {
-          context: {
-            rawLogURL,
-            unsupportedRenderingType: renderingTypeFromQuery,
-          },
-        }).severe();
       }
       if (groupIDFromQuery) {
         jobLogsURL = getEvergreenJobLogsURL(
@@ -248,6 +243,27 @@ export const useResolveLogURLAndRenderingType = ({
     default:
       break;
   }
+
+  // Report error when an unsupported renderingType is encountered.
+  useEffect(() => {
+    const { logs } = testData?.task?.tests.testResults[0] || {};
+    const { renderingType: renderingTypeFromQuery, urlRaw } = logs || {};
+
+    if (
+      logType === LogTypes.EVERGREEN_TEST_LOGS &&
+      renderingTypeFromQuery &&
+      !Object.values(LogRenderingTypes).includes(
+        renderingTypeFromQuery as LogRenderingTypes,
+      )
+    ) {
+      reportError(new Error("Encountered unsupported renderingType"), {
+        context: {
+          rawLogURL: urlRaw || rawLogURL,
+          unsupportedRenderingType: renderingTypeFromQuery,
+        },
+      }).severe();
+    }
+  }, [testData, logType, rawLogURL]);
 
   return {
     downloadURL,
