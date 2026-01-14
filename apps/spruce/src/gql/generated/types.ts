@@ -8110,6 +8110,7 @@ export type BaseVersionAndTaskQuery = {
       id: string;
       displayStatus: string;
       execution: number;
+      order: number;
     } | null;
     versionMetadata: {
       __typename?: "Version";
