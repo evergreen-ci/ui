@@ -13,6 +13,11 @@ describe("project section", () => {
     );
 
     // Update fields.
+    cy.contains("button", "Add expansion").should(
+      "have.attr",
+      "aria-disabled",
+      "false",
+    );
     cy.contains("button", "Add expansion").click();
     cy.getInputByLabel("Key").type("key-name");
     cy.getInputByLabel("Value").type("my-value");

@@ -90,6 +90,8 @@ describe("provider section", () => {
   describe("ec2 fleet", () => {
     beforeEach(() => {
       cy.visit("/distro/ubuntu1804-workstation/settings/provider");
+      cy.dataCy("ec2-fleet-provider-settings").should("exist");
+      cy.dataCy("expandable-card-title").contains("us-east-1").should("exist");
     });
 
     it("shows and hides fields correctly", () => {
@@ -98,7 +100,9 @@ describe("provider section", () => {
       cy.contains("Default VPC Subnet ID").should("exist");
       cy.contains("VPC Subnet Prefix").should("exist");
 
+      cy.dataCy("use-vpc").should("have.attr", "aria-disabled", "false");
       cy.dataCy("use-vpc").uncheck({ force: true });
+      cy.dataCy("use-vpc").should("not.be.checked");
       cy.contains("Default VPC Subnet ID").should("not.exist");
       cy.contains("VPC Subnet Prefix").should("not.exist");
     });
@@ -125,6 +129,7 @@ describe("provider section", () => {
 
       // Revert fields to original values.
       cy.selectLGOption("Region", "us-east-1");
+      cy.getInputByLabel("SSH Key Name").as("keyNameInput");
       cy.get("@keyNameInput").clear();
       cy.get("@keyNameInput").type("mci");
 
@@ -136,7 +141,6 @@ describe("provider section", () => {
     });
 
     it("can add and delete region settings", () => {
-      cy.dataCy("ec2-fleet-provider-settings").should("exist");
       cy.dataCy("expandable-card-title").contains("us-east-1").should("exist");
       cy.openExpandableCard("us-east-1");
 
@@ -154,6 +158,9 @@ describe("provider section", () => {
       save();
       cy.validateToast("success", "Updated distro.");
 
+      cy.reload();
+      cy.dataCy("distro-settings-page").should("exist");
+      cy.dataCy("ec2-fleet-provider-settings").should("exist");
       cy.dataCy("expandable-card-title").contains("us-west-1").should("exist");
 
       // Revert to original state by deleting the new region.
@@ -179,6 +186,7 @@ describe("provider section", () => {
   describe("ec2 on-demand", () => {
     beforeEach(() => {
       cy.visit("/distro/ubuntu1604-parent/settings/provider");
+      cy.dataCy("ec2-on-demand-provider-settings").should("exist");
     });
 
     it("shows and hides fields correctly", () => {
@@ -187,6 +195,7 @@ describe("provider section", () => {
       cy.contains("Default VPC Subnet ID").should("exist");
       cy.contains("VPC Subnet Prefix").should("exist");
 
+      cy.dataCy("use-vpc").should("have.attr", "aria-disabled", "false");
       cy.dataCy("use-vpc").uncheck({ force: true });
       cy.contains("Default VPC Subnet ID").should("not.exist");
       cy.contains("VPC Subnet Prefix").should("not.exist");
@@ -204,6 +213,7 @@ describe("provider section", () => {
       cy.get("@amiInput").clear();
       cy.get("@amiInput").type("ami-1234560");
       cy.getInputByLabel("SSH Key Name").as("keyNameInput");
+      cy.get("@keyNameInput").should("have.attr", "aria-disabled", "false");
       cy.get("@keyNameInput").clear();
       cy.get("@keyNameInput").type("my ssh key");
       cy.getInputByLabel("User Data").type("<powershell></powershell>");
@@ -215,8 +225,10 @@ describe("provider section", () => {
 
       // Revert fields to original values.
       cy.selectLGOption("Region", "us-east-1");
+      cy.getInputByLabel("EC2 AMI ID").as("amiInput");
       cy.get("@amiInput").clear();
       cy.get("@amiInput").type("ami-0000");
+      cy.getInputByLabel("SSH Key Name").as("keyNameInput");
       cy.get("@keyNameInput").clear();
       cy.get("@keyNameInput").type("mci");
       cy.getInputByLabel("User Data").clear();
@@ -228,8 +240,6 @@ describe("provider section", () => {
     });
 
     it("can add and delete region settings", () => {
-      cy.dataCy("ec2-on-demand-provider-settings").should("exist");
-
       // Add item for new region.
       cy.contains("button", "Add region settings").click();
       cy.contains("button", "Add region settings").should("not.exist");
@@ -244,6 +254,9 @@ describe("provider section", () => {
       save();
       cy.validateToast("success", "Updated distro.");
 
+      cy.reload();
+      cy.dataCy("distro-settings-page").should("exist");
+      cy.dataCy("ec2-on-demand-provider-settings").should("exist");
       cy.dataCy("expandable-card-title").contains("us-west-1").should("exist");
 
       // Revert to original state by deleting the new region.
