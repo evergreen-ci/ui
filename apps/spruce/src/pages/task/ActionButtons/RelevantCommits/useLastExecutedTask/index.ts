@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/client/react";
 import { finishedTaskStatuses } from "constants/task";
 import {
   BaseVersionAndTaskQuery,
@@ -8,6 +7,7 @@ import {
 } from "gql/generated/types";
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { useParentTask } from "hooks/useParentTask";
+import { useTypeSafeQuery as useQuery } from "hooks/useTypeSafeQuery";
 import { string } from "utils";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 import { isFinishedTaskStatus } from "utils/statuses";
@@ -33,30 +33,22 @@ export const useLastExecutedTask = (taskId: string) => {
 
   const { task: parentTask } = useParentTask(taskId);
 
-  const {
-    data: lastExecutedTaskData,
-    dataState,
-    loading,
-  } = useQuery<LastMainlineCommitQuery, LastMainlineCommitQueryVariables>(
-    LAST_MAINLINE_COMMIT,
-    {
-      skip: !parentTask || isFinishedTaskStatus(parentTask.displayStatus),
-      variables: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        projectIdentifier,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        skipOrderNumber,
-        buildVariantOptions: {
-          ...bvOptionsBase,
-          statuses: finishedTaskStatuses,
-        },
+  const { data: lastExecutedTaskData, loading } = useQuery<
+    LastMainlineCommitQuery,
+    LastMainlineCommitQueryVariables
+  >(LAST_MAINLINE_COMMIT, {
+    skip: !parentTask || isFinishedTaskStatus(parentTask.displayStatus),
+    variables: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      projectIdentifier,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      skipOrderNumber,
+      buildVariantOptions: {
+        ...bvOptionsBase,
+        statuses: finishedTaskStatuses,
       },
     },
-  );
-
-  if (dataState !== "complete") {
-    return { task: undefined, loading };
-  }
+  });
 
   const task = lastExecutedTaskData
     ? getTaskFromMainlineCommitsQuery(lastExecutedTaskData)

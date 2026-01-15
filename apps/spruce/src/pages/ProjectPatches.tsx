@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
@@ -18,6 +17,7 @@ import {
 } from "gql/generated/types";
 import { PROJECT_PATCHES } from "gql/queries";
 import { usePolling } from "hooks";
+import { useTypeSafeQuery as useQuery } from "hooks/useTypeSafeQuery";
 import { PatchPageQueryParams } from "types/patch";
 
 export const ProjectPatches = () => {
@@ -48,28 +48,20 @@ export const ProjectPatches = () => {
 
   const patchesInput = usePatchesQueryParams();
 
-  const {
-    data,
-    dataState,
-    error,
-    loading,
-    refetch,
-    startPolling,
-    stopPolling,
-  } = useQuery<ProjectPatchesQuery, ProjectPatchesQueryVariables>(
-    PROJECT_PATCHES,
-    {
-      variables: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        projectIdentifier,
-        patchesInput: {
-          ...patchesInput,
-          onlyMergeQueue: isGitHubMergeQueueCheckboxChecked,
-        },
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
+    ProjectPatchesQuery,
+    ProjectPatchesQueryVariables
+  >(PROJECT_PATCHES, {
+    variables: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      projectIdentifier,
+      patchesInput: {
+        ...patchesInput,
+        onlyMergeQueue: isGitHubMergeQueueCheckboxChecked,
       },
-      pollInterval: DEFAULT_POLL_INTERVAL,
     },
-  );
+    pollInterval: DEFAULT_POLL_INTERVAL,
+  });
   useErrorToast(error, "Error while fetching project patches");
   usePolling<ProjectPatchesQuery, ProjectPatchesQueryVariables>({
     startPolling,
@@ -77,9 +69,6 @@ export const ProjectPatches = () => {
     refetch,
   });
 
-  if (dataState !== "complete") {
-    return null;
-  }
   const { displayName, patches } = data?.project ?? {};
 
   return (

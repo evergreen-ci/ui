@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
@@ -20,6 +19,7 @@ import { slugs } from "constants/routes";
 import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
 import { POD_EVENTS } from "gql/queries";
 import { useDateFormat } from "hooks";
+import { useTypeSafeQuery as useQuery } from "hooks/useTypeSafeQuery";
 import { EventCopy } from "./EventCopy";
 
 type ContainerEvent = Unpacked<
@@ -34,7 +34,6 @@ const EventsTable: React.FC = () => {
 
   const {
     data: podEventsData,
-    dataState,
     error,
     loading,
   } = useQuery<PodEventsQuery, PodEventsQueryVariables>(POD_EVENTS, {
@@ -43,12 +42,10 @@ const EventsTable: React.FC = () => {
   });
   useErrorToast(error, "There was an error loading the pod events");
 
-  const { count, eventLogEntries } = useMemo(() => {
-    if (dataState !== "complete") {
-      return { eventLogEntries: [], count: 0 };
-    }
-    return podEventsData?.pod?.events;
-  }, [dataState, podEventsData?.pod?.events]);
+  const { count, eventLogEntries } = useMemo(
+    () => podEventsData?.pod?.events ?? { eventLogEntries: [], count: 0 },
+    [podEventsData?.pod?.events],
+  );
 
   const columns: LGColumnDef<ContainerEvent>[] = useMemo(
     () => getColumns(getDateCopy),
