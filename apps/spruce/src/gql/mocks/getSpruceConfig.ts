@@ -52,10 +52,10 @@ export const getSpruceConfigMock: ApolloMock<
           },
           __typename: "CloudProviderConfig",
         },
-        // TODO: DEVPROD-25588 - Commented out, backend removed this field
-        // serviceFlags: {
-        //   jwtTokenForCLIDisabled: true,
-        // },
+        serviceFlags: {
+          jwtTokenForCLIDisabled: true,
+          __typename: "UserServiceFlags",
+        },
         slack: {
           name: "everygreen_slack",
         },

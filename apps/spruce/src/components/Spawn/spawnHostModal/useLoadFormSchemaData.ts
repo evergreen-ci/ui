@@ -56,10 +56,8 @@ export const useLoadFormSchemaData = (p?: Props) => {
       isVolume: false,
     }) ?? "";
 
-  // TODO: DEVPROD-25588 - Commented out temporarily, backend removed jwtTokenForCLIDisabled
-  // const oAuthDisabled =
-  //   spruceConfig?.serviceFlags?.jwtTokenForCLIDisabled ?? false;
-  const oAuthDisabled = false;
+  const oAuthDisabled =
+    spruceConfig?.serviceFlags?.jwtTokenForCLIDisabled ?? false;
 
   return {
     formSchemaInput: {

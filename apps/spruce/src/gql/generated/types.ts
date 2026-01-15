@@ -10973,6 +10973,10 @@ export type SpruceConfigQuery = {
         } | null;
       } | null;
     } | null;
+    serviceFlags: {
+      __typename?: "UserServiceFlags";
+      jwtTokenForCLIDisabled?: boolean | null;
+    };
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
     spawnHost: {
       __typename?: "SpawnHostConfig";
