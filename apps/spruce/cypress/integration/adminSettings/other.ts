@@ -70,6 +70,27 @@ describe("other", () => {
     cy.get("@onDemandDiscountInput").clear();
     cy.get("@onDemandDiscountInput").type("0.08");
 
+    // S3 Cost Settings.
+    const uploadCostDiscount = "Upload Cost Discount";
+    cy.getInputByLabel(uploadCostDiscount).as("uploadCostDiscountInput");
+    cy.get("@uploadCostDiscountInput").clear();
+    cy.get("@uploadCostDiscountInput").type("0.12");
+
+    const standardStorageCostDiscount = "Standard Storage Cost Discount";
+    cy.getInputByLabel(standardStorageCostDiscount).as(
+      "standardStorageCostDiscountInput",
+    );
+    cy.get("@standardStorageCostDiscountInput").clear();
+    cy.get("@standardStorageCostDiscountInput").type("0.18");
+
+    const infrequentAccessStorageCostDiscount =
+      "Infrequent Access Storage Cost Discount";
+    cy.getInputByLabel(infrequentAccessStorageCostDiscount).as(
+      "infrequentAccessStorageCostDiscountInput",
+    );
+    cy.get("@infrequentAccessStorageCostDiscountInput").clear();
+    cy.get("@infrequentAccessStorageCostDiscountInput").type("0.22");
+
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
     cy.reload();
@@ -77,6 +98,15 @@ describe("other", () => {
     cy.getInputByLabel(financeFormula).should("have.value", "0.5");
     cy.getInputByLabel(savingsPlanDiscount).should("have.value", "0.15");
     cy.getInputByLabel(onDemandDiscount).should("have.value", "0.08");
+    cy.getInputByLabel(uploadCostDiscount).should("have.value", "0.12");
+    cy.getInputByLabel(standardStorageCostDiscount).should(
+      "have.value",
+      "0.18",
+    );
+    cy.getInputByLabel(infrequentAccessStorageCostDiscount).should(
+      "have.value",
+      "0.22",
+    );
   });
 
   it("can save single task host changes", () => {

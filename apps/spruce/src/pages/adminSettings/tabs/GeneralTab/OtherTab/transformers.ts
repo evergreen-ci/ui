@@ -70,6 +70,25 @@ export const gqlToForm = ((data) => {
           financeFormula: cost?.financeFormula ?? 0,
           savingsPlanDiscount: cost?.savingsPlanDiscount ?? 0,
           onDemandDiscount: cost?.onDemandDiscount ?? 0,
+          s3Cost: {
+            uploadCostDiscount:
+              cost?.s3Cost?.upload?.uploadCostDiscount !== null &&
+              cost?.s3Cost?.upload?.uploadCostDiscount !== undefined
+                ? cost.s3Cost.upload.uploadCostDiscount
+                : undefined,
+            standardStorageCostDiscount:
+              cost?.s3Cost?.storage?.standardStorageCostDiscount !== null &&
+              cost?.s3Cost?.storage?.standardStorageCostDiscount !== undefined
+                ? cost.s3Cost.storage.standardStorageCostDiscount
+                : undefined,
+            infrequentAccessStorageCostDiscount:
+              cost?.s3Cost?.storage?.infrequentAccessStorageCostDiscount !==
+                null &&
+              cost?.s3Cost?.storage?.infrequentAccessStorageCostDiscount !==
+                undefined
+                ? cost.s3Cost.storage.infrequentAccessStorageCostDiscount
+                : undefined,
+          },
         },
       },
 
@@ -230,6 +249,25 @@ export const formToGql = ((form: OtherFormState) => {
       financeFormula: miscSettings.cost.financeFormula || undefined,
       savingsPlanDiscount: miscSettings.cost.savingsPlanDiscount || undefined,
       onDemandDiscount: miscSettings.cost.onDemandDiscount || undefined,
+      s3Cost: {
+        upload: {
+          ...(miscSettings.cost.s3Cost.uploadCostDiscount !== undefined && {
+            uploadCostDiscount: miscSettings.cost.s3Cost.uploadCostDiscount,
+          }),
+        },
+        storage: {
+          ...(miscSettings.cost.s3Cost.standardStorageCostDiscount !==
+            undefined && {
+            standardStorageCostDiscount:
+              miscSettings.cost.s3Cost.standardStorageCostDiscount,
+          }),
+          ...(miscSettings.cost.s3Cost.infrequentAccessStorageCostDiscount !==
+            undefined && {
+            infrequentAccessStorageCostDiscount:
+              miscSettings.cost.s3Cost.infrequentAccessStorageCostDiscount,
+          }),
+        },
+      },
     },
 
     singleTaskDistro: {

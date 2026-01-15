@@ -25,9 +25,11 @@ query SpruceConfig {
         }
       }
     }
-    serviceFlags {
-      jwtTokenForCLIDisabled
-    }
+    # TODO: DEVPROD-25588 - Commented out temporarily to unblock codegen
+    # Backend removed jwtTokenForCLIDisabled from SpruceConfig.serviceFlags
+    # serviceFlags {
+    #   jwtTokenForCLIDisabled
+    # }
     slack {
       name
     }

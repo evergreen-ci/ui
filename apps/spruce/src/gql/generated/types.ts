@@ -702,12 +702,14 @@ export type CostConfig = {
   __typename?: "CostConfig";
   financeFormula?: Maybe<Scalars["Float"]["output"]>;
   onDemandDiscount?: Maybe<Scalars["Float"]["output"]>;
+  s3Cost?: Maybe<S3CostConfig>;
   savingsPlanDiscount?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfigInput = {
   financeFormula?: InputMaybe<Scalars["Float"]["input"]>;
   onDemandDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  s3Cost?: InputMaybe<S3CostConfigInput>;
   savingsPlanDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
@@ -3582,6 +3584,17 @@ export type RuntimeEnvironmentConfigInput = {
   baseUrl: Scalars["String"]["input"];
 };
 
+export type S3CostConfig = {
+  __typename?: "S3CostConfig";
+  storage?: Maybe<S3StorageCostConfig>;
+  upload?: Maybe<S3UploadCostConfig>;
+};
+
+export type S3CostConfigInput = {
+  storage?: InputMaybe<S3StorageCostConfigInput>;
+  upload?: InputMaybe<S3UploadCostConfigInput>;
+};
+
 export type S3Credentials = {
   __typename?: "S3Credentials";
   bucket?: Maybe<Scalars["String"]["output"]>;
@@ -3593,6 +3606,26 @@ export type S3CredentialsInput = {
   bucket?: InputMaybe<Scalars["String"]["input"]>;
   key?: InputMaybe<Scalars["String"]["input"]>;
   secret?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type S3StorageCostConfig = {
+  __typename?: "S3StorageCostConfig";
+  infrequentAccessStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+  standardStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type S3StorageCostConfigInput = {
+  infrequentAccessStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  standardStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+};
+
+export type S3UploadCostConfig = {
+  __typename?: "S3UploadCostConfig";
+  uploadCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type S3UploadCostConfigInput = {
+  uploadCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
 export type SesConfig = {
@@ -7061,6 +7094,24 @@ export type SaveAdminSettingsMutation = {
       httpListenAddr?: string | null;
       url?: string | null;
     } | null;
+    cost?: {
+      __typename?: "CostConfig";
+      financeFormula?: number | null;
+      onDemandDiscount?: number | null;
+      savingsPlanDiscount?: number | null;
+      s3Cost?: {
+        __typename?: "S3CostConfig";
+        storage?: {
+          __typename?: "S3StorageCostConfig";
+          infrequentAccessStorageCostDiscount?: number | null;
+          standardStorageCostDiscount?: number | null;
+        } | null;
+        upload?: {
+          __typename?: "S3UploadCostConfig";
+          uploadCostDiscount?: number | null;
+        } | null;
+      } | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -7678,6 +7729,18 @@ export type AdminSettingsQuery = {
       financeFormula?: number | null;
       onDemandDiscount?: number | null;
       savingsPlanDiscount?: number | null;
+      s3Cost?: {
+        __typename?: "S3CostConfig";
+        storage?: {
+          __typename?: "S3StorageCostConfig";
+          infrequentAccessStorageCostDiscount?: number | null;
+          standardStorageCostDiscount?: number | null;
+        } | null;
+        upload?: {
+          __typename?: "S3UploadCostConfig";
+          uploadCostDiscount?: number | null;
+        } | null;
+      } | null;
     } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
@@ -10910,10 +10973,6 @@ export type SpruceConfigQuery = {
         } | null;
       } | null;
     } | null;
-    serviceFlags: {
-      __typename?: "UserServiceFlags";
-      jwtTokenForCLIDisabled?: boolean | null;
-    };
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
     spawnHost: {
       __typename?: "SpawnHostConfig";

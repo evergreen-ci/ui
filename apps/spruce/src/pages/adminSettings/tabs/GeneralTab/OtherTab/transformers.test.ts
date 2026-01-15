@@ -10,6 +10,223 @@ describe("other tab transformers", () => {
   it("correctly converts from a form to GQL", () => {
     expect(formToGql(expectedForm)).toStrictEqual(expectedGql);
   });
+
+  describe("S3 cost transformations", () => {
+    it("converts null s3Cost values from GQL to undefined in form", () => {
+      const gqlWithNullS3Cost: AdminSettings = {
+        ...mockAdminSettings,
+        cost: {
+          financeFormula: 0.5,
+          savingsPlanDiscount: 0.1,
+          onDemandDiscount: 0.05,
+          s3Cost: {
+            upload: {
+              uploadCostDiscount: null,
+            },
+            storage: {
+              standardStorageCostDiscount: null,
+              infrequentAccessStorageCostDiscount: null,
+            },
+          },
+        },
+      };
+
+      const result = gqlToForm(gqlWithNullS3Cost);
+      expect(
+        result!.other.miscSettings.cost.s3Cost.uploadCostDiscount,
+      ).toBeUndefined();
+      expect(
+        result!.other.miscSettings.cost.s3Cost.standardStorageCostDiscount,
+      ).toBeUndefined();
+      expect(
+        result!.other.miscSettings.cost.s3Cost
+          .infrequentAccessStorageCostDiscount,
+      ).toBeUndefined();
+    });
+
+    it("converts set s3Cost values from GQL to form", () => {
+      const gqlWithS3Cost: AdminSettings = {
+        ...mockAdminSettings,
+        cost: {
+          financeFormula: 0.5,
+          savingsPlanDiscount: 0.1,
+          onDemandDiscount: 0.05,
+          s3Cost: {
+            upload: {
+              uploadCostDiscount: 0.15,
+            },
+            storage: {
+              standardStorageCostDiscount: 0.25,
+              infrequentAccessStorageCostDiscount: 0.35,
+            },
+          },
+        },
+      };
+
+      const result = gqlToForm(gqlWithS3Cost);
+      expect(result!.other.miscSettings.cost.s3Cost.uploadCostDiscount).toBe(
+        0.15,
+      );
+      expect(
+        result!.other.miscSettings.cost.s3Cost.standardStorageCostDiscount,
+      ).toBe(0.25);
+      expect(
+        result!.other.miscSettings.cost.s3Cost
+          .infrequentAccessStorageCostDiscount,
+      ).toBe(0.35);
+    });
+
+    it("converts zero s3Cost values from GQL to form", () => {
+      const gqlWithZeroS3Cost: AdminSettings = {
+        ...mockAdminSettings,
+        cost: {
+          financeFormula: 0.5,
+          savingsPlanDiscount: 0.1,
+          onDemandDiscount: 0.05,
+          s3Cost: {
+            upload: {
+              uploadCostDiscount: 0.0,
+            },
+            storage: {
+              standardStorageCostDiscount: 0.0,
+              infrequentAccessStorageCostDiscount: 0.0,
+            },
+          },
+        },
+      };
+
+      const result = gqlToForm(gqlWithZeroS3Cost);
+      expect(result!.other.miscSettings.cost.s3Cost.uploadCostDiscount).toBe(
+        0.0,
+      );
+      expect(
+        result!.other.miscSettings.cost.s3Cost.standardStorageCostDiscount,
+      ).toBe(0.0);
+      expect(
+        result!.other.miscSettings.cost.s3Cost
+          .infrequentAccessStorageCostDiscount,
+      ).toBe(0.0);
+    });
+
+    it("does not send undefined s3Cost values from form to GQL", () => {
+      const formWithUndefinedS3Cost: OtherFormState = {
+        ...expectedForm,
+        other: {
+          ...expectedForm.other,
+          miscSettings: {
+            ...expectedForm.other.miscSettings,
+            cost: {
+              financeFormula: 0.5,
+              savingsPlanDiscount: 0.1,
+              onDemandDiscount: 0.05,
+              s3Cost: {
+                uploadCostDiscount: undefined,
+                standardStorageCostDiscount: undefined,
+                infrequentAccessStorageCostDiscount: undefined,
+              },
+            },
+          },
+        },
+      };
+
+      const result = formToGql(formWithUndefinedS3Cost);
+      expect(result.cost?.s3Cost?.upload).toEqual({});
+      expect(result.cost?.s3Cost?.storage).toEqual({});
+    });
+
+    it("sends set s3Cost values from form to GQL", () => {
+      const formWithS3Cost: OtherFormState = {
+        ...expectedForm,
+        other: {
+          ...expectedForm.other,
+          miscSettings: {
+            ...expectedForm.other.miscSettings,
+            cost: {
+              financeFormula: 0.5,
+              savingsPlanDiscount: 0.1,
+              onDemandDiscount: 0.05,
+              s3Cost: {
+                uploadCostDiscount: 0.15,
+                standardStorageCostDiscount: 0.25,
+                infrequentAccessStorageCostDiscount: 0.35,
+              },
+            },
+          },
+        },
+      };
+
+      const result = formToGql(formWithS3Cost);
+      expect(result.cost?.s3Cost?.upload?.uploadCostDiscount).toBe(0.15);
+      expect(result.cost?.s3Cost?.storage?.standardStorageCostDiscount).toBe(
+        0.25,
+      );
+      expect(
+        result.cost?.s3Cost?.storage?.infrequentAccessStorageCostDiscount,
+      ).toBe(0.35);
+    });
+
+    it("sends zero s3Cost values from form to GQL", () => {
+      const formWithZeroS3Cost: OtherFormState = {
+        ...expectedForm,
+        other: {
+          ...expectedForm.other,
+          miscSettings: {
+            ...expectedForm.other.miscSettings,
+            cost: {
+              financeFormula: 0.5,
+              savingsPlanDiscount: 0.1,
+              onDemandDiscount: 0.05,
+              s3Cost: {
+                uploadCostDiscount: 0.0,
+                standardStorageCostDiscount: 0.0,
+                infrequentAccessStorageCostDiscount: 0.0,
+              },
+            },
+          },
+        },
+      };
+
+      const result = formToGql(formWithZeroS3Cost);
+      expect(result.cost?.s3Cost?.upload?.uploadCostDiscount).toBe(0.0);
+      expect(result.cost?.s3Cost?.storage?.standardStorageCostDiscount).toBe(
+        0.0,
+      );
+      expect(
+        result.cost?.s3Cost?.storage?.infrequentAccessStorageCostDiscount,
+      ).toBe(0.0);
+    });
+
+    it("handles mixed s3Cost values (some set, some undefined)", () => {
+      const formWithMixedS3Cost: OtherFormState = {
+        ...expectedForm,
+        other: {
+          ...expectedForm.other,
+          miscSettings: {
+            ...expectedForm.other.miscSettings,
+            cost: {
+              financeFormula: 0.5,
+              savingsPlanDiscount: 0.1,
+              onDemandDiscount: 0.05,
+              s3Cost: {
+                uploadCostDiscount: 0.15,
+                standardStorageCostDiscount: undefined,
+                infrequentAccessStorageCostDiscount: 0.35,
+              },
+            },
+          },
+        },
+      };
+
+      const result = formToGql(formWithMixedS3Cost);
+      expect(result.cost?.s3Cost?.upload?.uploadCostDiscount).toBe(0.15);
+      expect(
+        result.cost?.s3Cost?.storage?.standardStorageCostDiscount,
+      ).toBeUndefined();
+      expect(
+        result.cost?.s3Cost?.storage?.infrequentAccessStorageCostDiscount,
+      ).toBe(0.35);
+    });
+  });
 });
 
 const mockAdminSettings: AdminSettings = {
@@ -147,6 +364,11 @@ const expectedForm: OtherFormState = {
         financeFormula: 0.5,
         savingsPlanDiscount: 0.1,
         onDemandDiscount: 0.05,
+        s3Cost: {
+          uploadCostDiscount: undefined,
+          standardStorageCostDiscount: undefined,
+          infrequentAccessStorageCostDiscount: undefined,
+        },
       },
     },
     singleTaskDistro: {
@@ -327,6 +549,10 @@ const expectedGql: AdminSettingsInput = {
     financeFormula: 0.5,
     savingsPlanDiscount: 0.1,
     onDemandDiscount: 0.05,
+    s3Cost: {
+      upload: {},
+      storage: {},
+    },
   },
   spawnhost: {
     unexpirableHostsPerUser: 2,
