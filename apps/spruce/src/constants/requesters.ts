@@ -33,6 +33,7 @@ const requesterToTitle: PartialRecord<Requester, string> = {
 };
 
 const requesterToDescription: PartialRecord<Requester, string> = {
+  [Requester.Debug]: "Requests made in debug spawn hosts",
   [Requester.Patch]: "Manual patches made via CLI or API",
   [Requester.Trigger]: "Downstream trigger versions",
 };
