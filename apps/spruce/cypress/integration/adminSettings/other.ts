@@ -109,6 +109,64 @@ describe("other", () => {
     );
   });
 
+  it("can clear S3 cost discount values", () => {
+    cy.dataCy("save-settings-button").should(
+      "have.attr",
+      "aria-disabled",
+      "true",
+    );
+
+    const uploadCostDiscount = "Upload Cost Discount";
+    const standardStorageCostDiscount = "Standard Storage Cost Discount";
+    const infrequentAccessStorageCostDiscount =
+      "Infrequent Access Storage Cost Discount";
+
+    cy.getInputByLabel(uploadCostDiscount).as("uploadCostDiscountInput");
+    cy.get("@uploadCostDiscountInput").clear();
+    cy.get("@uploadCostDiscountInput").type("0.12");
+
+    cy.getInputByLabel(standardStorageCostDiscount).as(
+      "standardStorageCostDiscountInput",
+    );
+    cy.get("@standardStorageCostDiscountInput").clear();
+    cy.get("@standardStorageCostDiscountInput").type("0.18");
+
+    cy.getInputByLabel(infrequentAccessStorageCostDiscount).as(
+      "infrequentAccessStorageCostDiscountInput",
+    );
+    cy.get("@infrequentAccessStorageCostDiscountInput").clear();
+    cy.get("@infrequentAccessStorageCostDiscountInput").type("0.22");
+
+    clickSave();
+    cy.validateToast("success", "Settings saved successfully");
+    cy.reload();
+
+    cy.getInputByLabel(uploadCostDiscount).should("have.value", "0.12");
+    cy.getInputByLabel(standardStorageCostDiscount).should(
+      "have.value",
+      "0.18",
+    );
+    cy.getInputByLabel(infrequentAccessStorageCostDiscount).should(
+      "have.value",
+      "0.22",
+    );
+
+    cy.get("@uploadCostDiscountInput").clear();
+    cy.get("@standardStorageCostDiscountInput").clear();
+    cy.get("@infrequentAccessStorageCostDiscountInput").clear();
+
+    clickSave();
+    cy.validateToast("success", "Settings saved successfully");
+    cy.reload();
+
+    cy.getInputByLabel(uploadCostDiscount).should("have.value", "");
+    cy.getInputByLabel(standardStorageCostDiscount).should("have.value", "");
+    cy.getInputByLabel(infrequentAccessStorageCostDiscount).should(
+      "have.value",
+      "",
+    );
+  });
+
   it("can save single task host changes", () => {
     cy.dataCy("save-settings-button").should(
       "have.attr",
