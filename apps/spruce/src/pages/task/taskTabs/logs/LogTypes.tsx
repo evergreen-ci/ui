@@ -63,7 +63,7 @@ export const AllLog: React.FC<Props> = (props) => {
     variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  useErrorToast(error, "There was an error loading all logs");
+  useErrorToast(error, "There was an error loading combined logs");
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
