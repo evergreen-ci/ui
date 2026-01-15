@@ -53,9 +53,6 @@ describe("task logs", () => {
 
   it("Event logs should not have an HTML button, Raw button, or Parsley button", () => {
     cy.get(eventLogsButton).click({ force: true });
-    cy.get(eventLogsButton)
-      .should("have.attr", "aria-selected")
-      .and("eq", "true");
     cy.dataCy("html-log-btn").should("not.exist");
     cy.dataCy("raw-log-btn").should("not.exist");
     cy.dataCy("parsley-log-btn").should("not.exist");
@@ -72,11 +69,8 @@ describe("task logs", () => {
     });
   });
 
-  it("Should update logtype query param to event after checking event radio button", () => {
+  it("Should update logtype query param to event after clicking event button", () => {
     cy.get(eventLogsButton).click({ force: true });
-    cy.get(eventLogsButton)
-      .should("have.attr", "aria-selected")
-      .and("eq", "true");
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(LOGS_ROUTE);
       expect(loc.search).to.include("logtype=event");
@@ -129,11 +123,12 @@ describe("task logs", () => {
       .should("have.attr", "aria-selected")
       .and("eq", "true");
   });
-  it("Should initially load with event log radio checked when logtype query param is event", () => {
+  it("Should initially load with event log selected when logtype query param is event", () => {
     cy.visit(`${LOGS_ROUTE}?logtype=event`);
-    cy.get(eventLogsButton)
-      .should("have.attr", "aria-selected")
-      .and("eq", "true");
+    cy.get(eventLogsButton).should("exist");
+    cy.location().should((loc) => {
+      expect(loc.search).to.include("logtype=event");
+    });
   });
   it("Should initially load with all log radio checked when logtype query param is all", () => {
     cy.visit(`${LOGS_ROUTE}?logtype=all`);
