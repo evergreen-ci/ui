@@ -54,7 +54,6 @@ export const getSpruceConfigMock: ApolloMock<
         },
         serviceFlags: {
           jwtTokenForCLIDisabled: true,
-          __typename: "UserServiceFlags",
         },
         slack: {
           name: "everygreen_slack",
