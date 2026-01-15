@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import Button, { Variant } from "@leafygreen-ui/button";
 import {
   SegmentedControl,
   SegmentedControlOption,
@@ -85,71 +85,83 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
           <SegmentedControlOption id="cy-system-option" value={LogTypes.System}>
             System Logs
           </SegmentedControlOption>
-          <SegmentedControlOption id="cy-event-option" value={LogTypes.Event}>
-            Event Logs
-          </SegmentedControlOption>
           <SegmentedControlOption id="cy-all-option" value={LogTypes.All}>
-            All Logs
+            Combined Logs
           </SegmentedControlOption>
         </SegmentedControl>
 
-        {(htmlLink || rawLink || parsleyLink) && (
-          <ButtonContainer>
-            {parsleyLink && (
-              <Button
-                data-cy="parsley-log-btn"
-                disabled={noLogs}
-                href={parsleyLink}
-                onClick={() =>
-                  sendEvent({
-                    name: "Clicked log link",
-                    "log.type": currentLog,
-                    "log.viewer": "parsley",
-                  })
-                }
-                title="High-powered log viewer"
-              >
-                Parsley
-              </Button>
-            )}
-            {htmlLink && (
-              <Button
-                data-cy="html-log-btn"
-                disabled={noLogs}
-                href={htmlLink}
-                onClick={() =>
-                  sendEvent({
-                    name: "Clicked log link",
-                    "log.type": currentLog,
-                    "log.viewer": "html",
-                  })
-                }
-                title="Plain, colorized log viewer"
-              >
-                HTML
-              </Button>
-            )}
-            {rawLink && (
-              <Button
-                data-cy="raw-log-btn"
-                disabled={noLogs}
-                href={rawLink}
-                onClick={() =>
-                  sendEvent({
-                    name: "Clicked log link",
-                    "log.type": currentLog,
-                    "log.viewer": "raw",
-                  })
-                }
-                title="Plain text log viewer"
-              >
-                Raw
-              </Button>
-            )}
-          </ButtonContainer>
-        )}
+        <ButtonContainer>
+          <Button
+            data-cy="cy-event-option"
+            onClick={() => onChangeLog(LogTypes.Event)}
+            variant={currentLog === LogTypes.Event ? "primary" : "default"}
+          >
+            Event Log
+          </Button>
+        </ButtonContainer>
       </LogHeader>
-      {LogComp && <LogComp setNoLogs={setNoLogs} />}
+      <LogContentWrapper>
+        {LogComp && <LogComp setNoLogs={setNoLogs} />}
+        {currentLog !== LogTypes.Event && (
+          <>
+            <FadeOverlay />
+            <FloatingButtonContainer>
+              {parsleyLink && (
+                <Button
+                  data-cy="parsley-log-btn"
+                  disabled={noLogs}
+                  href={parsleyLink}
+                  onClick={() =>
+                    sendEvent({
+                      name: "Clicked log link",
+                      "log.type": currentLog,
+                      "log.viewer": "parsley",
+                    })
+                  }
+                  title="View complete logs in Parsley"
+                  variant={Variant.PrimaryOutline}
+                >
+                  Complete Logs on Parsley
+                </Button>
+              )}
+              {htmlLink && (
+                <Button
+                  data-cy="html-log-btn"
+                  disabled={noLogs}
+                  href={htmlLink}
+                  onClick={() =>
+                    sendEvent({
+                      name: "Clicked log link",
+                      "log.type": currentLog,
+                      "log.viewer": "html",
+                    })
+                  }
+                  title="Plain, colorized log viewer"
+                >
+                  HTML
+                </Button>
+              )}
+              {rawLink && (
+                <Button
+                  data-cy="raw-log-btn"
+                  disabled={noLogs}
+                  href={rawLink}
+                  onClick={() =>
+                    sendEvent({
+                      name: "Clicked log link",
+                      "log.type": currentLog,
+                      "log.viewer": "raw",
+                    })
+                  }
+                  title="Plain text log viewer"
+                >
+                  Raw
+                </Button>
+              )}
+            </FloatingButtonContainer>
+          </>
+        )}
+      </LogContentWrapper>
     </LogContainer>
   );
 };
@@ -168,6 +180,35 @@ const LogHeader = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: ${size.xs};
+`;
+
+const LogContentWrapper = styled.div`
+  position: relative;
+`;
+
+const FadeOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+`;
+
+const FloatingButtonContainer = styled.div`
+  position: absolute;
+  top: ${size.s};
+  right: ${size.s};
+  display: flex;
+  gap: ${size.xs};
+  z-index: 2;
 `;
 
 interface GetLinksResult {

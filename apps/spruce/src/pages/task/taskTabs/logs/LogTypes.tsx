@@ -70,7 +70,7 @@ export const AllLog: React.FC<Props> = (props) => {
   const { taskLogs } = task || {};
   const { allLogs } = taskLogs || {};
 
-  // All logs includes task, system, and agent logs. Event logs are not included.
+  // Combined logs includes task, system, and agent logs. Event logs are not included.
   return useRenderBody({
     data: allLogs || [],
     loading,
