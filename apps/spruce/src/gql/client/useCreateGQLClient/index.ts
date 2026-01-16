@@ -56,7 +56,7 @@ export const useCreateGQLClient = (): ApolloClient | undefined => {
       localState: new LocalState(), // Must define if using @client fields.
       defaultOptions: {
         watchQuery: {
-          // It's probably better to use the new default of 'true', but this avoids many errors for now.
+          // TODO DEVPROD-26582: It's probably better to use the new default of 'true', but this avoids many errors for now.
           notifyOnNetworkStatusChange: false,
         },
       },
