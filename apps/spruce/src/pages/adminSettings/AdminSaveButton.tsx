@@ -42,13 +42,10 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
     onCompleted: () => {
       changedTabs.forEach((t) => saveTab(t));
       setInitialData(
-        changedTabs.reduce(
-          (acc, tab) => {
-            const { formData } = getTab(tab);
-            return { ...acc, [tab]: formData };
-          },
-          {} as Record<string, any>,
-        ),
+        changedTabs.reduce((acc, tab) => {
+          const { formData } = getTab(tab);
+          return { ...acc, [tab]: formData };
+        }, {}) as Parameters<typeof setInitialData>[0],
       );
       dispatchToast.success("Settings saved successfully");
     },

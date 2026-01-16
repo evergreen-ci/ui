@@ -133,7 +133,7 @@ describe("useTestContext", () => {
       result.current.saveTab("foo");
       result.current.setInitialData({
         foo: result.current.getTab("foo").formData,
-      } as any);
+      } as Parameters<typeof result.current.setInitialData>[0]);
     });
 
     expect(result.current.getTab("foo").hasChanges).toBe(false);
