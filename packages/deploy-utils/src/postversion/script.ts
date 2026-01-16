@@ -5,8 +5,6 @@ import { getAppToDeploy } from "../utils/environment";
 import { push, pushTags } from "../utils/git";
 import { countdownTimer } from "../utils/shell";
 
-process.env.VITE_SCRIPT_MODE = "1";
-
 // npm version doesn't create commits/tags when run from a monorepo subdirectory
 // because it can't find the .git directory. We manually create them here.
 const app = getAppToDeploy();

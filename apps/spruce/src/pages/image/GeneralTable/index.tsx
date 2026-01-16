@@ -1,12 +1,12 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
   useLeafyGreenTable,
   LGColumnDef,
   BaseTable,
 } from "@evg-ui/lib/components/Table";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { getTaskRoute } from "constants/routes";
 import {
   ImageGeneralQuery,
@@ -25,18 +25,14 @@ type GeneralTableProps = {
 };
 
 export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
-  const dispatchToast = useToastContext();
-  const { data: imageData, loading } = useQuery<
-    ImageGeneralQuery,
-    ImageGeneralQueryVariables
-  >(IMAGE_GENERAL, {
+  const {
+    data: imageData,
+    error,
+    loading,
+  } = useQuery<ImageGeneralQuery, ImageGeneralQueryVariables>(IMAGE_GENERAL, {
     variables: { imageId },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading the image general table: ${err.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading the image general table");
 
   const getDateCopy = useDateFormat();
 

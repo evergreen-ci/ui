@@ -1,6 +1,6 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
 import {
+  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,

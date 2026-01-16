@@ -6,8 +6,6 @@ import { isRunningOnCI } from "./utils/environment";
 import { red } from "./utils/shell";
 import { isTargetEnvironment } from "./utils/types";
 
-process.env.VITE_SCRIPT_MODE = "1";
-
 if (isRunningOnCI()) {
   throw Error("pnpm deploy:<target> scripts are for local use only!");
 }

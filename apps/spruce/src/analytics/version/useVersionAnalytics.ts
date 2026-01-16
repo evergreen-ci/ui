@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import {

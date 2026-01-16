@@ -137,6 +137,10 @@ query AdminSettings {
     githubOrgs
     githubPRCreatorOrg
     githubWebhookSecret
+    graphite {
+      ciOptimizationToken
+      serverUrl
+    }
     hostInit {
       cloudStatusBatchSize
       hostThrottle

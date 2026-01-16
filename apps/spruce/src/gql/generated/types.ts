@@ -177,6 +177,7 @@ export type AdminSettings = {
   githubOrgs?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPRCreatorOrg?: Maybe<Scalars["String"]["output"]>;
   githubWebhookSecret?: Maybe<Scalars["String"]["output"]>;
+  graphite?: Maybe<GraphiteConfig>;
   hostInit?: Maybe<HostInitConfig>;
   hostJasper?: Maybe<HostJasperConfig>;
   jira?: Maybe<JiraConfig>;
@@ -232,6 +233,7 @@ export type AdminSettingsInput = {
   githubOrgs?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPRCreatorOrg?: InputMaybe<Scalars["String"]["input"]>;
   githubWebhookSecret?: InputMaybe<Scalars["String"]["input"]>;
+  graphite?: InputMaybe<GraphiteConfigInput>;
   hostInit?: InputMaybe<HostInitConfigInput>;
   hostJasper?: InputMaybe<HostJasperConfigInput>;
   jira?: InputMaybe<JiraConfigInput>;
@@ -1277,6 +1279,17 @@ export type GithubUser = {
 
 export type GithubUserInput = {
   lastKnownAs?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type GraphiteConfig = {
+  __typename?: "GraphiteConfig";
+  ciOptimizationToken?: Maybe<Scalars["String"]["output"]>;
+  serverUrl?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type GraphiteConfigInput = {
+  ciOptimizationToken?: InputMaybe<Scalars["String"]["input"]>;
+  serverUrl?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type GroupedBuildVariant = {
@@ -7684,6 +7697,11 @@ export type AdminSettingsQuery = {
       __typename?: "GitHubCheckRunConfig";
       checkRunLimit?: number | null;
     } | null;
+    graphite?: {
+      __typename?: "GraphiteConfig";
+      ciOptimizationToken?: string | null;
+      serverUrl?: string | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -10910,6 +10928,10 @@ export type SpruceConfigQuery = {
         } | null;
       } | null;
     } | null;
+    serviceFlags: {
+      __typename?: "UserServiceFlags";
+      jwtTokenForCLIDisabled?: boolean | null;
+    };
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
     spawnHost: {
       __typename?: "SpawnHostConfig";
@@ -11052,9 +11074,9 @@ export type TaskHistoryQuery = {
       canRestart: boolean;
       canSchedule: boolean;
       canSetPriority: boolean;
-      createTime?: Date | null;
       displayStatus: string;
       execution: number;
+      ingestTime?: Date | null;
       latestExecution: number;
       order: number;
       priority?: number | null;

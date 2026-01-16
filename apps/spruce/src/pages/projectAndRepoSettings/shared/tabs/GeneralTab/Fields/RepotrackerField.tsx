@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import Button from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Field } from "@rjsf/core";

@@ -1,4 +1,3 @@
-import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
@@ -7,6 +6,8 @@ import {
 } from "@evg-ui/lib/gql/generated/types";
 import { UPDATE_USER_BETA_FEATURES } from "@evg-ui/lib/gql/mutations";
 import {
+  MockedProvider,
+  MockedResponse,
   render,
   screen,
   stubGetClientRects,

@@ -1,4 +1,3 @@
-import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   UserBetaFeaturesQuery,
@@ -6,6 +5,8 @@ import {
 } from "@evg-ui/lib/gql/generated/types";
 import { USER_BETA_FEATURES } from "@evg-ui/lib/gql/queries";
 import {
+  MockedProvider,
+  MockedResponse,
   renderWithRouterMatch as render,
   screen,
   userEvent,

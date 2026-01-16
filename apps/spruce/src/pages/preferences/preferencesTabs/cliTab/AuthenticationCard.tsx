@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Code } from "@leafygreen-ui/code";

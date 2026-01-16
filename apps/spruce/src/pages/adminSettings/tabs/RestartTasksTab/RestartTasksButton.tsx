@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";

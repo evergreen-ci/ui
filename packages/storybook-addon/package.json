@@ -11,9 +11,11 @@
     "eslint:strict": "STRICT=1 eslint ."
   },
   "dependencies": {
-    "@apollo/client": "3.10.4",
+    "@apollo/client": "^3.14.0",
     "@emotion/react": "11.14.0",
     "@leafygreen-ui/leafygreen-provider": "^5.0.4",
+    "@storybook/addon-docs": "^10.1.10",
+    "@storybook/addon-links": "^10.1.10",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router-dom": "6.18.0",

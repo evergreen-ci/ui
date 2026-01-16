@@ -1,6 +1,8 @@
-import { useQuery } from "@apollo/client";
+import { useEffect, useRef } from "react";
+import { useQuery } from "@apollo/client/react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectSettingsAnalytics } from "analytics";
 import {
@@ -61,39 +63,51 @@ const ProjectSettings: React.FC = () => {
     },
   });
 
-  const { data: projectData, loading: projectLoading } = useQuery<
-    ProjectSettingsQuery,
-    ProjectSettingsQueryVariables
-  >(PROJECT_SETTINGS, {
-    skip: identifierIsObjectId || !projectIdentifier,
-    variables: { projectIdentifier },
-    onCompleted: (data) => {
-      if (data?.projectSettings?.projectRef?.hidden) {
-        dispatchToast.error(`Project is hidden.`);
-      }
+  const {
+    data: projectData,
+    error: projectError,
+    loading: projectLoading,
+  } = useQuery<ProjectSettingsQuery, ProjectSettingsQueryVariables>(
+    PROJECT_SETTINGS,
+    {
+      skip: identifierIsObjectId || !projectIdentifier,
+      variables: { projectIdentifier },
     },
-    onError: (e) => {
-      dispatchToast.error(
-        `There was an error loading the project ${projectIdentifier}: ${e.message}`,
-      );
-    },
-  });
+  );
+  useErrorToast(
+    projectError,
+    `There was an error loading the project ${projectIdentifier}`,
+  );
+
+  // Show error toast if project is hidden
+  const hasShownHiddenToast = useRef(false);
+  useEffect(() => {
+    // Reset ref when project changes
+    hasShownHiddenToast.current = false;
+  }, [projectIdentifier]);
+
+  useEffect(() => {
+    if (
+      projectData?.projectSettings?.projectRef?.hidden &&
+      !hasShownHiddenToast.current
+    ) {
+      hasShownHiddenToast.current = true;
+      dispatchToast.error(`Project is hidden.`);
+    }
+  }, [projectData?.projectSettings?.projectRef?.hidden, dispatchToast]);
 
   const projectIsHidden = projectData?.projectSettings?.projectRef?.hidden;
   const repoId = projectData?.projectSettings?.projectRef?.repoRefId ?? "";
 
-  const { data: repoData, loading: repoLoading } = useQuery<
-    RepoSettingsQuery,
-    RepoSettingsQueryVariables
-  >(REPO_SETTINGS, {
+  const {
+    data: repoData,
+    error: repoError,
+    loading: repoLoading,
+  } = useQuery<RepoSettingsQuery, RepoSettingsQueryVariables>(REPO_SETTINGS, {
     skip: !repoId || projectIsHidden === true,
     variables: { repoId },
-    onError: (e) => {
-      dispatchToast.error(
-        `There was an error loading the repo ${repoId}: ${e.message}`,
-      );
-    },
   });
+  useErrorToast(repoError, `There was an error loading the repo ${repoId}`);
 
   if (projectIsHidden) {
     return null;

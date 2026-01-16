@@ -1,4 +1,4 @@
-import { MockedProvider } from "@apollo/client/testing";
+import { MockedProvider } from "@evg-ui/lib/test_utils";
 import { parsleySettingsMock } from "test_data/parsleySettings";
 import { LogContextProvider } from "..";
 
