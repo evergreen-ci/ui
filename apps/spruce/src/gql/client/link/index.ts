@@ -13,7 +13,7 @@ export { logGQLErrorsLink } from "./logGQLErrorsLink";
 export { pausePollingLink } from "./pausePollingLink";
 
 export const authLink = (logoutAndRedirect: () => void): ApolloLink =>
-  new ErrorLink((error) => {
+  new ErrorLink(({ error }) => {
     if (
       ServerParseError.is(error) &&
       shouldLogoutAndRedirect(error.statusCode)
