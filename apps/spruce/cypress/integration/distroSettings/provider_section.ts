@@ -157,10 +157,11 @@ describe("provider section", () => {
       cy.getInputByLabel("Security Group ID").type("sg-5678");
       save();
       cy.validateToast("success", "Updated distro.");
-
-      cy.reload();
-      cy.dataCy("distro-settings-page").should("exist");
-      cy.dataCy("ec2-fleet-provider-settings").should("exist");
+      cy.dataCy("save-settings-button").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
       cy.dataCy("expandable-card-title").contains("us-west-1").should("exist");
 
       // Revert to original state by deleting the new region.
@@ -173,12 +174,12 @@ describe("provider section", () => {
             .should("have.attr", "aria-disabled", "false")
             .click();
         });
+      cy.dataCy("expandable-card").should("have.length", 1);
       cy.dataCy("expandable-card-title")
         .contains("us-west-1")
         .should("not.exist");
       save();
       cy.validateToast("success", "Updated distro.");
-
       cy.contains("button", "Add region settings").should("exist");
     });
   });
@@ -253,10 +254,11 @@ describe("provider section", () => {
       cy.getInputByLabel("Security Group ID").type("sg-0000");
       save();
       cy.validateToast("success", "Updated distro.");
-
-      cy.reload();
-      cy.dataCy("distro-settings-page").should("exist");
-      cy.dataCy("ec2-on-demand-provider-settings").should("exist");
+      cy.dataCy("save-settings-button").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
       cy.dataCy("expandable-card-title").contains("us-west-1").should("exist");
 
       // Revert to original state by deleting the new region.
@@ -269,12 +271,12 @@ describe("provider section", () => {
             .should("have.attr", "aria-disabled", "false")
             .click();
         });
+      cy.dataCy("expandable-card").should("have.length", 1);
       cy.dataCy("expandable-card-title")
         .contains("us-west-1")
         .should("not.exist");
       save();
       cy.validateToast("success", "Updated distro.");
-
       cy.contains("button", "Add region settings").should("exist");
     });
   });

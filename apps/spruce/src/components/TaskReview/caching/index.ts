@@ -3,10 +3,6 @@ import { Task } from "gql/generated/types";
 import { getItem } from "../db";
 
 export const readTaskReviewed = ((existing, { cache, readField, storage }) => {
-  if (existing !== undefined) {
-    return existing;
-  }
-
   // Look for a saved value in the browser's IndexedDB
   // Using the field's storage object and a reactive variable allows us to get around the "no async reads" rule
   // https://github.com/apollographql/apollo-feature-requests/issues/383#issuecomment-1528063675
@@ -25,7 +21,6 @@ export const readTaskReviewed = ((existing, { cache, readField, storage }) => {
           id: taskId,
           execution,
         }),
-
         fields: {
           reviewed() {
             return data ?? false;
@@ -34,6 +29,13 @@ export const readTaskReviewed = ((existing, { cache, readField, storage }) => {
         broadcast: false,
       });
     });
+  } else if (existing !== undefined) {
+    // When cache has a value, keep storage.var in sync asynchronously.
+    if (storage.var() !== existing) {
+      Promise.resolve().then(() => storage.var(existing));
+    }
+    // Return cache value immediately for real-time updates.
+    return existing;
   }
   return storage.var();
 }) satisfies FieldReadFunction<Task["reviewed"]>;
