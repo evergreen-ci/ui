@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useMutation, useLazyQuery } from "@apollo/client";
+import { useMutation, useLazyQuery } from "@apollo/client/react";
 import Button, { Size } from "@leafygreen-ui/button";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";

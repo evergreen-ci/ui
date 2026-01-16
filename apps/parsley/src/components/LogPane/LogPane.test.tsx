@@ -1,10 +1,10 @@
 import { createRef } from "react";
-import { MockedProvider } from "@apollo/client/testing";
 import Cookie from "js-cookie";
 import { VirtuosoMockContext } from "react-virtuoso";
 import { MockInstance } from "vitest";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  MockedProvider,
   renderWithRouterMatch as render,
   screen,
   waitFor,
@@ -12,6 +12,7 @@ import {
 import { LogContextProvider } from "context/LogContext";
 import * as logContext from "context/LogContext";
 import { parsleySettingsMock } from "test_data/parsleySettings";
+import { RowType } from "types/logs";
 import LogPane from ".";
 
 const list = Array.from({ length: 100 }, (_, i) => `${i}`);
@@ -60,8 +61,14 @@ describe("logPane", () => {
       preferences: {
         setPrettyPrint: mockedSetPrettyPrint,
         setWrap: mockedSetWrap,
+        stickyHeaders: false,
+        zebraStriping: false,
       },
       processedLogLines: Array.from(list.keys()),
+      // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+      sectioning: {
+        sectioningEnabled: false,
+      },
     }));
 
     RenderFakeToastContext();
@@ -91,8 +98,14 @@ describe("logPane", () => {
       preferences: {
         setPrettyPrint: mockedSetPrettyPrint,
         setWrap: mockedSetWrap,
+        stickyHeaders: false,
+        zebraStriping: false,
       },
       processedLogLines: Array.from(list.keys()),
+      // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+      sectioning: {
+        sectioningEnabled: false,
+      },
     }));
 
     RenderFakeToastContext();
@@ -120,9 +133,15 @@ describe("logPane", () => {
         preferences: {
           setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
+          stickyHeaders: false,
+          zebraStriping: false,
         },
         processedLogLines: Array.from(list.keys()),
         scrollToLine: mockedScrollToLine,
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: false,
+        },
       }));
 
       RenderFakeToastContext();
@@ -147,9 +166,15 @@ describe("logPane", () => {
         preferences: {
           setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
+          stickyHeaders: false,
+          zebraStriping: false,
         },
         processedLogLines: Array.from(list.keys()),
         scrollToLine: mockedScrollToLine,
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: false,
+        },
       }));
 
       RenderFakeToastContext();
@@ -164,6 +189,94 @@ describe("logPane", () => {
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalledWith(5);
       });
+    });
+  });
+
+  describe("sticky headers", () => {
+    it("should render sticky headers when stickyHeaders is enabled and sectioning is enabled", () => {
+      const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+      mockedLogContext.mockImplementation(() => ({
+        listRef: createRef(),
+        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+        preferences: {
+          setPrettyPrint: vi.fn(),
+          setWrap: vi.fn(),
+          stickyHeaders: true,
+          zebraStriping: false,
+        },
+        processedLogLines: [
+          {
+            functionID: "function-1",
+            functionName: "setup",
+            isOpen: true,
+            range: { end: 10, start: 0 },
+            rowType: RowType.SectionHeader,
+          },
+          1,
+          2,
+          3,
+        ],
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: true,
+        },
+      }));
+
+      RenderFakeToastContext();
+      render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
+        wrapper,
+      });
+      expect(screen.getByDataCy("sticky-headers")).toBeInTheDocument();
+    });
+
+    it("should not render sticky headers when stickyHeaders is disabled", () => {
+      const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+      mockedLogContext.mockImplementation(() => ({
+        listRef: createRef(),
+        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+        preferences: {
+          setPrettyPrint: vi.fn(),
+          setWrap: vi.fn(),
+          stickyHeaders: false,
+          zebraStriping: false,
+        },
+        processedLogLines: Array.from(list.keys()),
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: true,
+        },
+      }));
+
+      RenderFakeToastContext();
+      render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
+        wrapper,
+      });
+      expect(screen.queryByDataCy("sticky-headers")).not.toBeInTheDocument();
+    });
+
+    it("should not render sticky headers when sectioning is disabled", () => {
+      const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+      mockedLogContext.mockImplementation(() => ({
+        listRef: createRef(),
+        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+        preferences: {
+          setPrettyPrint: vi.fn(),
+          setWrap: vi.fn(),
+          stickyHeaders: true,
+          zebraStriping: false,
+        },
+        processedLogLines: Array.from(list.keys()),
+        // @ts-expect-error - Only mocking a subset of sectioning needed for this test.
+        sectioning: {
+          sectioningEnabled: false,
+        },
+      }));
+
+      RenderFakeToastContext();
+      render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
+        wrapper,
+      });
+      expect(screen.queryByDataCy("sticky-headers")).not.toBeInTheDocument();
     });
   });
 });

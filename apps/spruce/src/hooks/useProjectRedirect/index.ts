@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { slugs } from "constants/routes";
 import { ProjectQuery, ProjectQueryVariables } from "gql/generated/types";

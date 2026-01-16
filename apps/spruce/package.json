@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.1.40",
+  "version": "6.1.42",
   "private": true,
   "type": "module",
   "scripts": {
@@ -90,7 +90,7 @@
     "@leafygreen-ui/number-input": "^5.0.12",
     "@leafygreen-ui/pagination": "^4.2.0",
     "@leafygreen-ui/palette": "^5.0.2",
-    "@leafygreen-ui/polymorphic": "^1.0.0",
+    "@leafygreen-ui/polymorphic": "^3.1.0",
     "@leafygreen-ui/popover": "^14.2.0",
     "@leafygreen-ui/radio-box-group": "^15.0.10",
     "@leafygreen-ui/radio-group": "^13.0.11",
@@ -116,7 +116,7 @@
     "deep-object-diff": "1.1.9",
     "env-cmd": "10.1.0",
     "graphql": "16.10.0",
-    "html-react-parser": "5.2.10",
+    "html-react-parser": "5.2.11",
     "idb": "^8.0.3",
     "js-cookie": "3.0.5",
     "jsdom": "24.0.0",

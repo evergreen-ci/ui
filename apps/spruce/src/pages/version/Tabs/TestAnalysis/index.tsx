@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import { palette } from "@leafygreen-ui/palette";

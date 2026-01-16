@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Code } from "@leafygreen-ui/code";

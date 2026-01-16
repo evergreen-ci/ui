@@ -1,4 +1,4 @@
-import { ApolloProvider } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client/react";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
 import { useCreateGQLClient } from "gql/client/useCreateGQLClient";
 

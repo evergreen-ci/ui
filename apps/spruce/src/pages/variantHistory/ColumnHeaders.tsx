@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
