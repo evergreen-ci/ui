@@ -36,6 +36,10 @@ export interface ExternalCommunicationsFormState {
   fws: {
     url: string;
   };
+  graphite: {
+    ciOptimizationToken: string;
+    serverUrl: string;
+  };
   cedar: {
     dbUrl: string;
     dbName: string;

@@ -10,6 +10,7 @@ export const gqlToForm = ((data) => {
   const {
     cedar,
     fws,
+    graphite,
     jira,
     runtimeEnvironments,
     slack,
@@ -55,6 +56,10 @@ export const gqlToForm = ((data) => {
     fws: {
       url: fws?.url ?? "",
     },
+    graphite: {
+      ciOptimizationToken: graphite?.ciOptimizationToken ?? "",
+      serverUrl: graphite?.serverUrl ?? "",
+    },
     cedar: {
       dbUrl: cedar?.dbUrl ?? "",
       dbName: cedar?.dbName ?? "",
@@ -68,6 +73,7 @@ export const formToGql = ((form) => {
   const {
     cedar,
     fws,
+    graphite,
     jira,
     runtimeEnvironments,
     slack,
@@ -122,6 +128,10 @@ export const formToGql = ((form) => {
     },
     fws: {
       url: fws.url,
+    },
+    graphite: {
+      ciOptimizationToken: graphite.ciOptimizationToken,
+      serverUrl: graphite.serverUrl,
     },
     cedar: {
       dbUrl: cedar.dbUrl,
