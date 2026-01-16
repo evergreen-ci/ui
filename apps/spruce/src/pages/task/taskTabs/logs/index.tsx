@@ -15,7 +15,13 @@ import { getTaskHTMLLogRoute } from "constants/routes";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
 import { LogTypes, QueryParams } from "types/task";
-import { AgentLog, SystemLog, TaskLog, CombinedLog } from "./logTypes";
+import {
+  AgentLog,
+  SystemLog,
+  TaskLog,
+  CombinedLog,
+  EventLog,
+} from "./logTypes";
 
 const DEFAULT_LOG_TYPE = LogTypes.Task;
 
@@ -24,6 +30,7 @@ const options = {
   [LogTypes.System]: SystemLog,
   [LogTypes.Task]: TaskLog,
   [LogTypes.All]: CombinedLog,
+  [LogTypes.Event]: EventLog,
 };
 
 interface Props {
@@ -40,15 +47,11 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
     .toString()
     .toLowerCase() as LogTypes;
 
-  const [currentLog, setCurrentLog] = useState<LogTypes>(() => {
-    // Event log is no longer supported, default to task logs
-    if (logTypeParam === LogTypes.Event) {
-      return DEFAULT_LOG_TYPE;
-    }
-    return Object.values(LogTypes).includes(logTypeParam)
+  const [currentLog, setCurrentLog] = useState<LogTypes>(
+    Object.values(LogTypes).includes(logTypeParam)
       ? logTypeParam
-      : DEFAULT_LOG_TYPE;
-  });
+      : DEFAULT_LOG_TYPE,
+  );
   const [noLogs, setNoLogs] = useState(false);
 
   const onChangeLog = (value: string): void => {
@@ -77,7 +80,7 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
           label="Log Tail"
           name="log-select"
           onChange={onChangeLog}
-          value={currentLog}
+          value={currentLog === LogTypes.Event ? LogTypes.Task : currentLog}
         >
           <SegmentedControlOption id="cy-task-option" value={LogTypes.Task}>
             Task Logs
@@ -92,66 +95,77 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
             Combined Logs
           </SegmentedControlOption>
         </SegmentedControl>
+        <ButtonContainer>
+          <Button
+            data-cy="cy-event-option"
+            onClick={() => onChangeLog(LogTypes.Event)}
+            variant={currentLog === LogTypes.Event ? "primary" : "default"}
+          >
+            Event Log
+          </Button>
+        </ButtonContainer>
       </LogHeader>
       <LogContentWrapper>
         {LogComp && <LogComp setNoLogs={setNoLogs} />}
-        <>
-          <FadeOverlay />
-          <FloatingButtonContainer>
-            {rawLink && (
-              <Button
-                data-cy="raw-log-btn"
-                disabled={noLogs}
-                href={rawLink}
-                onClick={() =>
-                  sendEvent({
-                    name: "Clicked log link",
-                    "log.type": currentLog,
-                    "log.viewer": "raw",
-                  })
-                }
-                title="Plain text log viewer"
-              >
-                Raw
-              </Button>
-            )}
-            {htmlLink && (
-              <Button
-                data-cy="html-log-btn"
-                disabled={noLogs}
-                href={htmlLink}
-                onClick={() =>
-                  sendEvent({
-                    name: "Clicked log link",
-                    "log.type": currentLog,
-                    "log.viewer": "html",
-                  })
-                }
-                title="Plain, colorized log viewer"
-              >
-                HTML
-              </Button>
-            )}
-            {parsleyLink && (
-              <Button
-                data-cy="parsley-log-btn"
-                disabled={noLogs}
-                href={parsleyLink}
-                onClick={() =>
-                  sendEvent({
-                    name: "Clicked log link",
-                    "log.type": currentLog,
-                    "log.viewer": "parsley",
-                  })
-                }
-                title="View complete logs in Parsley"
-                variant={Variant.Primary}
-              >
-                Complete Logs on Parsley
-              </Button>
-            )}
-          </FloatingButtonContainer>
-        </>
+        {currentLog !== LogTypes.Event && (
+          <>
+            <FadeOverlay />
+            <FloatingButtonContainer>
+              {rawLink && (
+                <Button
+                  data-cy="raw-log-btn"
+                  disabled={noLogs}
+                  href={rawLink}
+                  onClick={() =>
+                    sendEvent({
+                      name: "Clicked log link",
+                      "log.type": currentLog,
+                      "log.viewer": "raw",
+                    })
+                  }
+                  title="Plain text log viewer"
+                >
+                  Raw
+                </Button>
+              )}
+              {htmlLink && (
+                <Button
+                  data-cy="html-log-btn"
+                  disabled={noLogs}
+                  href={htmlLink}
+                  onClick={() =>
+                    sendEvent({
+                      name: "Clicked log link",
+                      "log.type": currentLog,
+                      "log.viewer": "html",
+                    })
+                  }
+                  title="Plain, colorized log viewer"
+                >
+                  HTML
+                </Button>
+              )}
+              {parsleyLink && (
+                <Button
+                  data-cy="parsley-log-btn"
+                  disabled={noLogs}
+                  href={parsleyLink}
+                  onClick={() =>
+                    sendEvent({
+                      name: "Clicked log link",
+                      "log.type": currentLog,
+                      "log.viewer": "parsley",
+                    })
+                  }
+                  title="View complete logs in Parsley"
+                  variant={Variant.Primary}
+                >
+                  Complete Logs on Parsley
+                </Button>
+              )}
+            </FloatingButtonContainer>
+          </>
+        )}
       </LogContentWrapper>
     </LogContainer>
   );
@@ -166,6 +180,11 @@ const LogHeader = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${size.s};
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: ${size.xs};
 `;
 
 const LogContentWrapper = styled.div`
