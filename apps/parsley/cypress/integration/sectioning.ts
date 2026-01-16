@@ -101,10 +101,14 @@ describe("Sectioning", () => {
     cy.dataCy("bookmark-9614").click();
     cy.get("[data-cy='line-index-9614']").should("be.visible");
     cy.dataCy("sticky-headers").should("be.visible");
+    cy.dataCy("sticky-headers").contains("Function: run tests");
+    cy.dataCy("sticky-headers").contains(
+      "Command: subprocess.exec (step 2.20 of 2) — check resmoke failure",
+    );
   });
 
   const getTargetSelector = (rowIndex: number) =>
-    `[data-index='${rowIndex}'] > div >  [data-cy='section-header']`;
+    `[data-index='${rowIndex}'] >  [data-cy='section-header']`;
 
   const logLink =
     "/evergreen/mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29/0/task";
