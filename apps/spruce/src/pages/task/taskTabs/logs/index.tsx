@@ -15,7 +15,7 @@ import { getTaskHTMLLogRoute } from "constants/routes";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
 import { LogTypes, QueryParams } from "types/task";
-import { EventLog, AgentLog, SystemLog, TaskLog, AllLog } from "./LogTypes";
+import { AgentLog, SystemLog, TaskLog, CombinedLog } from "./logTypes";
 
 const DEFAULT_LOG_TYPE = LogTypes.Task;
 
@@ -23,8 +23,7 @@ const options = {
   [LogTypes.Agent]: AgentLog,
   [LogTypes.System]: SystemLog,
   [LogTypes.Task]: TaskLog,
-  [LogTypes.Event]: EventLog,
-  [LogTypes.All]: AllLog,
+  [LogTypes.All]: CombinedLog,
 };
 
 interface Props {
@@ -41,11 +40,15 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
     .toString()
     .toLowerCase() as LogTypes;
 
-  const [currentLog, setCurrentLog] = useState<LogTypes>(
-    Object.values(LogTypes).includes(logTypeParam)
+  const [currentLog, setCurrentLog] = useState<LogTypes>(() => {
+    // Event log is no longer supported, default to task logs
+    if (logTypeParam === LogTypes.Event) {
+      return DEFAULT_LOG_TYPE;
+    }
+    return Object.values(LogTypes).includes(logTypeParam)
       ? logTypeParam
-      : DEFAULT_LOG_TYPE,
-  );
+      : DEFAULT_LOG_TYPE;
+  });
   const [noLogs, setNoLogs] = useState(false);
 
   const onChangeLog = (value: string): void => {
@@ -64,7 +67,7 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
     taskId,
     execution,
   );
-  const LogComp = options[currentLog];
+  const LogComp = options[currentLog as keyof typeof options];
 
   return (
     <LogContainer>
@@ -89,78 +92,66 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
             Combined Logs
           </SegmentedControlOption>
         </SegmentedControl>
-
-        <ButtonContainer>
-          <Button
-            data-cy="cy-event-option"
-            onClick={() => onChangeLog(LogTypes.Event)}
-            variant={currentLog === LogTypes.Event ? "primary" : "default"}
-          >
-            Event Log
-          </Button>
-        </ButtonContainer>
       </LogHeader>
       <LogContentWrapper>
         {LogComp && <LogComp setNoLogs={setNoLogs} />}
-        {currentLog !== LogTypes.Event && (
-          <>
-            <FadeOverlay />
-            <FloatingButtonContainer>
-              {parsleyLink && (
-                <Button
-                  data-cy="parsley-log-btn"
-                  disabled={noLogs}
-                  href={parsleyLink}
-                  onClick={() =>
-                    sendEvent({
-                      name: "Clicked log link",
-                      "log.type": currentLog,
-                      "log.viewer": "parsley",
-                    })
-                  }
-                  title="View complete logs in Parsley"
-                  variant={Variant.PrimaryOutline}
-                >
-                  Complete Logs on Parsley
-                </Button>
-              )}
-              {htmlLink && (
-                <Button
-                  data-cy="html-log-btn"
-                  disabled={noLogs}
-                  href={htmlLink}
-                  onClick={() =>
-                    sendEvent({
-                      name: "Clicked log link",
-                      "log.type": currentLog,
-                      "log.viewer": "html",
-                    })
-                  }
-                  title="Plain, colorized log viewer"
-                >
-                  HTML
-                </Button>
-              )}
-              {rawLink && (
-                <Button
-                  data-cy="raw-log-btn"
-                  disabled={noLogs}
-                  href={rawLink}
-                  onClick={() =>
-                    sendEvent({
-                      name: "Clicked log link",
-                      "log.type": currentLog,
-                      "log.viewer": "raw",
-                    })
-                  }
-                  title="Plain text log viewer"
-                >
-                  Raw
-                </Button>
-              )}
-            </FloatingButtonContainer>
-          </>
-        )}
+        <>
+          <FadeOverlay />
+          <FloatingButtonContainer>
+            {rawLink && (
+              <Button
+                data-cy="raw-log-btn"
+                disabled={noLogs}
+                href={rawLink}
+                onClick={() =>
+                  sendEvent({
+                    name: "Clicked log link",
+                    "log.type": currentLog,
+                    "log.viewer": "raw",
+                  })
+                }
+                title="Plain text log viewer"
+              >
+                Raw
+              </Button>
+            )}
+            {htmlLink && (
+              <Button
+                data-cy="html-log-btn"
+                disabled={noLogs}
+                href={htmlLink}
+                onClick={() =>
+                  sendEvent({
+                    name: "Clicked log link",
+                    "log.type": currentLog,
+                    "log.viewer": "html",
+                  })
+                }
+                title="Plain, colorized log viewer"
+              >
+                HTML
+              </Button>
+            )}
+            {parsleyLink && (
+              <Button
+                data-cy="parsley-log-btn"
+                disabled={noLogs}
+                href={parsleyLink}
+                onClick={() =>
+                  sendEvent({
+                    name: "Clicked log link",
+                    "log.type": currentLog,
+                    "log.viewer": "parsley",
+                  })
+                }
+                title="View complete logs in Parsley"
+                variant={Variant.Primary}
+              >
+                Complete Logs on Parsley
+              </Button>
+            )}
+          </FloatingButtonContainer>
+        </>
       </LogContentWrapper>
     </LogContainer>
   );
@@ -175,11 +166,6 @@ const LogHeader = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${size.s};
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: ${size.xs};
 `;
 
 const LogContentWrapper = styled.div`
@@ -223,17 +209,18 @@ const getLinks = (
   taskId: string,
   execution: number,
 ): GetLinksResult => {
-  if (!logLinks || logType === LogTypes.Event) {
+  if (!logLinks) {
     return {};
   }
-  const rawLink = `${
-    {
-      [LogTypes.Agent]: logLinks.agentLogLink,
-      [LogTypes.System]: logLinks.systemLogLink,
-      [LogTypes.Task]: logLinks.taskLogLink,
-      [LogTypes.All]: logLinks.allLogLink,
-    }[logType] ?? ""
-  }&text=true`;
+
+  const logLinkMap: Record<string, string | null | undefined> = {
+    [LogTypes.Agent]: logLinks.agentLogLink,
+    [LogTypes.System]: logLinks.systemLogLink,
+    [LogTypes.Task]: logLinks.taskLogLink,
+    [LogTypes.All]: logLinks.allLogLink,
+  };
+
+  const rawLink = `${logLinkMap[logType] ?? ""}&text=true`;
   return {
     htmlLink: getTaskHTMLLogRoute(taskId, execution, logType),
     parsleyLink: getParsleyTaskLogLink(logType, taskId, execution),
