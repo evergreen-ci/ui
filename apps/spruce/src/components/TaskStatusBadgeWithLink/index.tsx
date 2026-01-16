@@ -4,8 +4,9 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
 
-interface TaskStatusBadgeWithLinkProps
-  extends React.ComponentProps<typeof TaskStatusBadge> {
+interface TaskStatusBadgeWithLinkProps extends React.ComponentProps<
+  typeof TaskStatusBadge
+> {
   id: string;
   execution: number;
 }
