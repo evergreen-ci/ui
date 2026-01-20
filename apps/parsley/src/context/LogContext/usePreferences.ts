@@ -84,7 +84,11 @@ const preferencesReducer = (
 };
 
 const usePreferences = (): Preferences => {
-  const [state, dispatch] = useReducer(preferencesReducer, getInitialState());
+  const [state, dispatch] = useReducer(
+    preferencesReducer,
+    null,
+    getInitialState,
+  );
 
   const [filterLogic, setFilterLogicParam] = useQueryParam(
     QueryParams.FilterLogic,
