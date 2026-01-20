@@ -138,6 +138,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     pollInterval: DEFAULT_POLL_INTERVAL,
     nextFetchPolicy: "cache-and-network",
   });
+  // TODO DEVPROD-26717: This can be removed if the invalid arguments are fixed in useSuspenseQuery.
   const dataIsComplete = dataState === "complete";
 
   // Erase any order query params if we've reached the first page.
