@@ -77,7 +77,7 @@ describe("GitHub app settings", () => {
   });
 
   it("should be able to save different permission groups for requesters, then return to defaults", () => {
-    cy.dataCy("permission-group-input").should("have.length", 7);
+    cy.dataCy("permission-group-input").should("have.length", 8);
     cy.dataCy("permission-group-input").eq(0).as("permission-group-input-0");
     cy.dataCy("permission-group-input").eq(4).as("permission-group-input-4");
 

@@ -332,6 +332,16 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
+                data-cy="navitem-admin-graphite"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "graphite",
+                )}
+              >
+                Graphite
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
                 data-cy="navitem-admin-cedar"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,

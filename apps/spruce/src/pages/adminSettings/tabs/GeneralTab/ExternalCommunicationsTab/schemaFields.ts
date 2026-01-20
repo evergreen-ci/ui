@@ -237,6 +237,30 @@ export const fws = {
   },
 };
 
+export const graphite = {
+  schema: {
+    ciOptimizationToken: {
+      type: "string" as const,
+      title: "CI Optimization Token",
+    },
+    serverUrl: {
+      type: "string" as const,
+      title: "Server URL",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": objectGridCss,
+    "ui:data-cy": "graphite",
+    ciOptimizationToken: {
+      "ui:widget": widgets.TextWidget,
+      "ui:options": {
+        inputType: "password",
+      },
+    },
+  },
+};
+
 export const cedar = {
   schema: {
     dbUrl: {
