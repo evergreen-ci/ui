@@ -2,6 +2,7 @@ import { GetFormSchema } from "components/SpruceForm";
 import {
   cedar,
   fws,
+  graphite,
   jira,
   runtimeEnvironments,
   slack,
@@ -44,6 +45,11 @@ export const formSchema: ReturnType<GetFormSchema> = {
         title: "Foliage Web Services",
         properties: fws.schema,
       },
+      graphite: {
+        type: "object" as const,
+        title: "Graphite",
+        properties: graphite.schema,
+      },
       cedar: {
         type: "object" as const,
         title: "Cedar",
@@ -58,6 +64,7 @@ export const formSchema: ReturnType<GetFormSchema> = {
     runtimeEnvironments: runtimeEnvironments.uiSchema,
     testSelection: testSelection.uiSchema,
     fws: fws.uiSchema,
+    graphite: graphite.uiSchema,
     cedar: cedar.uiSchema,
   },
 };

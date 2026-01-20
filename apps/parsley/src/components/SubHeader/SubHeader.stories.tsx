@@ -68,8 +68,7 @@ export const TaskFileLog: CustomStoryObj<typeof SubheaderWrapper> = {
   render: (args) => <SubheaderWrapper {...args} />,
 };
 interface SubheaderWrapperProps
-  extends LogMetadata,
-    React.ComponentProps<typeof Subheader> {
+  extends LogMetadata, React.ComponentProps<typeof Subheader> {
   isUploadedLog: boolean;
 }
 

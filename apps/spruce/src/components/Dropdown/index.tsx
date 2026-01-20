@@ -86,8 +86,10 @@ const Dropdown: React.FC<DropdownProps> = ({
   );
 };
 
-interface DropdownWithRefProps
-  extends Omit<DropdownProps, "isOpen" | "setIsOpen"> {
+interface DropdownWithRefProps extends Omit<
+  DropdownProps,
+  "isOpen" | "setIsOpen"
+> {
   ref?: React.Ref<DropdownWithRef>;
 }
 
