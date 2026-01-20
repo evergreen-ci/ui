@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
@@ -34,21 +34,22 @@ const EventsTable: React.FC = () => {
 
   const {
     data: podEventsData,
-    dataState,
     error,
     loading,
-  } = useQuery<PodEventsQuery, PodEventsQueryVariables>(POD_EVENTS, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: podId, page, limit },
-  });
+  } = useQuery<PodEventsQuery, PodEventsQueryVariables>(
+    POD_EVENTS,
+    podId
+      ? {
+          variables: { id: podId, page, limit },
+        }
+      : skipToken,
+  );
   useErrorToast(error, "There was an error loading the pod events");
 
-  const { count, eventLogEntries } = useMemo(() => {
-    if (dataState !== "complete") {
-      return { eventLogEntries: [], count: 0 };
-    }
-    return podEventsData?.pod?.events;
-  }, [dataState, podEventsData?.pod?.events]);
+  const { count, eventLogEntries } = useMemo(
+    () => podEventsData?.pod?.events ?? { count: 0, eventLogEntries: [] },
+    [podEventsData?.pod?.events],
+  );
 
   const columns: LGColumnDef<ContainerEvent>[] = useMemo(
     () => getColumns(getDateCopy),

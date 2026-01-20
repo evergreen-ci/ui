@@ -4,11 +4,9 @@ import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { useParams, useLocation } from "react-router-dom";
 import { size, fontSize } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { slugs } from "constants/routes";
 import {
   TaskEventLogsQuery,
   TaskEventLogsQueryVariables,
@@ -31,12 +29,8 @@ import {
   ALL_LOGS,
 } from "gql/queries";
 import { usePolling } from "hooks";
-import { RequiredQueryParams } from "types/task";
-import { queryString } from "utils";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
 import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
-
-const { parseQueryString } = queryString;
 
 const { gray } = palette;
 
@@ -48,6 +42,8 @@ interface LogMessageType extends LogMessageFragment {
 }
 interface Props {
   setNoLogs: (noLogs: boolean) => void;
+  taskId: string;
+  execution: number;
 }
 
 const StyledPre = styled.pre`
@@ -65,6 +61,7 @@ const LogBody: React.FC<{
   setNoLogs: (noLogs: boolean) => void;
 }> = ({ data, error, loading, setNoLogs }) => {
   const noLogs = error !== undefined || data.length === 0;
+
   // Update the value of noLogs in the parent component.
   useEffect(() => {
     setNoLogs(noLogs);
@@ -109,22 +106,12 @@ const LogBody: React.FC<{
   );
 };
 
-export const AllLog: React.FC<Props> = (props) => {
-  const { [slugs.taskId]: taskId } = useParams();
-  const location = useLocation();
-  const parsed = parseQueryString(location.search);
-  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const {
-    data,
-    dataState,
-    error,
-    loading,
-    refetch,
-    startPolling,
-    stopPolling,
-  } = useQuery<AllLogsQuery, AllLogsQueryVariables>(ALL_LOGS, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: taskId, execution: selectedExecution },
+export const AllLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
+    AllLogsQuery,
+    AllLogsQueryVariables
+  >(ALL_LOGS, {
+    variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "There was an error loading all logs");
@@ -134,51 +121,30 @@ export const AllLog: React.FC<Props> = (props) => {
     refetch,
   });
 
-  if (dataState !== "complete") {
-    return null;
-  }
-
   const { task } = data || {};
   const { taskLogs } = task || {};
   const { allLogs } = taskLogs || {};
 
   // All logs includes task, system, and agent logs. Event logs are not included.
   return (
-    <LogBody data={allLogs || []} error={error} loading={loading} {...props} />
+    <LogBody data={allLogs || []} error={error} loading={loading} {...rest} />
   );
 };
 
-export const EventLog: React.FC<Props> = (props) => {
-  const { [slugs.taskId]: taskId } = useParams();
-  const location = useLocation();
-  const parsed = parseQueryString(location.search);
-  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const {
-    data,
-    dataState,
-    error,
-    loading,
-    refetch,
-    startPolling,
-    stopPolling,
-  } = useQuery<TaskEventLogsQuery, TaskEventLogsQueryVariables>(
-    TASK_EVENT_LOGS,
-    {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      variables: { id: taskId, execution: selectedExecution },
-      pollInterval: DEFAULT_POLL_INTERVAL,
-    },
-  );
+export const EventLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
+    TaskEventLogsQuery,
+    TaskEventLogsQueryVariables
+  >(TASK_EVENT_LOGS, {
+    variables: { id: taskId, execution: execution },
+    pollInterval: DEFAULT_POLL_INTERVAL,
+  });
   useErrorToast(error, "There was an error loading event logs");
   usePolling<TaskEventLogsQuery, TaskEventLogsQueryVariables>({
     startPolling,
     stopPolling,
     refetch,
   });
-
-  if (dataState !== "complete") {
-    return null;
-  }
 
   const { task } = data || {};
   const { taskLogs } = task || {};
@@ -190,25 +156,15 @@ export const EventLog: React.FC<Props> = (props) => {
       kind: "taskEventLogEntry" as const,
     })) ?? [];
 
-  return <LogBody data={logs} error={error} loading={loading} {...props} />;
+  return <LogBody data={logs} error={error} loading={loading} {...rest} />;
 };
 
-export const SystemLog: React.FC<Props> = (props) => {
-  const { [slugs.taskId]: taskId } = useParams();
-  const location = useLocation();
-  const parsed = parseQueryString(location.search);
-  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const {
-    data,
-    dataState,
-    error,
-    loading,
-    refetch,
-    startPolling,
-    stopPolling,
-  } = useQuery<SystemLogsQuery, SystemLogsQueryVariables>(SYSTEM_LOGS, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: taskId, execution: selectedExecution },
+export const SystemLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
+    SystemLogsQuery,
+    SystemLogsQueryVariables
+  >(SYSTEM_LOGS, {
+    variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "There was an error loading system logs");
@@ -217,10 +173,6 @@ export const SystemLog: React.FC<Props> = (props) => {
     stopPolling,
     refetch,
   });
-
-  if (dataState !== "complete") {
-    return null;
-  }
 
   const { task } = data || {};
   const { taskLogs } = task || {};
@@ -231,27 +183,17 @@ export const SystemLog: React.FC<Props> = (props) => {
       data={systemLogs || []}
       error={error}
       loading={loading}
-      {...props}
+      {...rest}
     />
   );
 };
 
-export const AgentLog: React.FC<Props> = (props) => {
-  const { [slugs.taskId]: taskId } = useParams();
-  const location = useLocation();
-  const parsed = parseQueryString(location.search);
-  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const {
-    data,
-    dataState,
-    error,
-    loading,
-    refetch,
-    startPolling,
-    stopPolling,
-  } = useQuery<AgentLogsQuery, AgentLogsQueryVariables>(AGENT_LOGS, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: taskId, execution: selectedExecution },
+export const AgentLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
+    AgentLogsQuery,
+    AgentLogsQueryVariables
+  >(AGENT_LOGS, {
+    variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "There was an error loading agent logs");
@@ -261,40 +203,21 @@ export const AgentLog: React.FC<Props> = (props) => {
     refetch,
   });
 
-  if (dataState !== "complete") {
-    return null;
-  }
-
   const { task } = data || {};
   const { taskLogs } = task || {};
   const { agentLogs } = taskLogs || {};
 
   return (
-    <LogBody
-      data={agentLogs || []}
-      error={error}
-      loading={loading}
-      {...props}
-    />
+    <LogBody data={agentLogs || []} error={error} loading={loading} {...rest} />
   );
 };
 
-export const TaskLog: React.FC<Props> = (props) => {
-  const { [slugs.taskId]: taskId } = useParams();
-  const location = useLocation();
-  const parsed = parseQueryString(location.search);
-  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const {
-    data,
-    dataState,
-    error,
-    loading,
-    refetch,
-    startPolling,
-    stopPolling,
-  } = useQuery<TaskLogsQuery, TaskLogsQueryVariables>(TASK_LOGS, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: taskId, execution: selectedExecution },
+export const TaskLog: React.FC<Props> = ({ execution, taskId, ...rest }) => {
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
+    TaskLogsQuery,
+    TaskLogsQueryVariables
+  >(TASK_LOGS, {
+    variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "There was an error loading task logs");
@@ -304,10 +227,6 @@ export const TaskLog: React.FC<Props> = (props) => {
     refetch,
   });
 
-  if (dataState !== "complete") {
-    return null;
-  }
-
   const { task } = data || {};
   const { taskLogs } = task || {};
 
@@ -316,7 +235,7 @@ export const TaskLog: React.FC<Props> = (props) => {
       data={taskLogs?.taskLogs || []}
       error={error}
       loading={loading}
-      {...props}
+      {...rest}
     />
   );
 };

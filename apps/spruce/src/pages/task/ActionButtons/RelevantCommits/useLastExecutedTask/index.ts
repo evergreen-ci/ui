@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { useQuery, skipToken } from "@apollo/client/react";
 import { finishedTaskStatuses } from "constants/task";
 import {
   BaseVersionAndTaskQuery,
@@ -33,30 +33,27 @@ export const useLastExecutedTask = (taskId: string) => {
 
   const { task: parentTask } = useParentTask(taskId);
 
-  const {
-    data: lastExecutedTaskData,
-    dataState,
-    loading,
-  } = useQuery<LastMainlineCommitQuery, LastMainlineCommitQueryVariables>(
+  const { data: lastExecutedTaskData, loading } = useQuery<
+    LastMainlineCommitQuery,
+    LastMainlineCommitQueryVariables
+  >(
     LAST_MAINLINE_COMMIT,
-    {
-      skip: !parentTask || isFinishedTaskStatus(parentTask.displayStatus),
-      variables: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        projectIdentifier,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        skipOrderNumber,
-        buildVariantOptions: {
-          ...bvOptionsBase,
-          statuses: finishedTaskStatuses,
-        },
-      },
-    },
+    projectIdentifier &&
+      skipOrderNumber !== undefined &&
+      parentTask &&
+      !isFinishedTaskStatus(parentTask.displayStatus)
+      ? {
+          variables: {
+            projectIdentifier,
+            skipOrderNumber,
+            buildVariantOptions: {
+              ...bvOptionsBase,
+              statuses: finishedTaskStatuses,
+            },
+          },
+        }
+      : skipToken,
   );
-
-  if (dataState !== "complete") {
-    return { task: undefined, loading };
-  }
 
   const task = lastExecutedTaskData
     ? getTaskFromMainlineCommitsQuery(lastExecutedTaskData)

@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { useQuery, skipToken } from "@apollo/client/react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   BaseVersionAndTaskQuery,
@@ -40,30 +40,27 @@ export const useBreakingTask = (taskId: string) => {
   // The skip order number should be the last passing commit's order number + 1.
   // We use + 2 because internally the query does a less than comparison.
   // https://github.com/evergreen-ci/evergreen/blob/f6751ac3194452d457c0a6fe1a9f9b30dd674c60/model/version.go#L518
-  const {
-    data: breakingTaskData,
-    dataState,
-    loading,
-  } = useQuery<LastMainlineCommitQuery, LastMainlineCommitQueryVariables>(
+  const { data: breakingTaskData, loading } = useQuery<
+    LastMainlineCommitQuery,
+    LastMainlineCommitQueryVariables
+  >(
     LAST_MAINLINE_COMMIT,
-    {
-      skip:
-        !parentTask || !lastPassingTask || !isFailedTaskStatus(displayStatus),
-      variables: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        projectIdentifier,
-        skipOrderNumber: passingOrderNumber + 2,
-        buildVariantOptions: {
-          ...bvOptionsBase,
-          statuses: [TaskStatus.Failed],
-        },
-      },
-    },
+    projectIdentifier &&
+      parentTask &&
+      lastPassingTask &&
+      isFailedTaskStatus(displayStatus)
+      ? {
+          variables: {
+            projectIdentifier,
+            skipOrderNumber: passingOrderNumber + 2,
+            buildVariantOptions: {
+              ...bvOptionsBase,
+              statuses: [TaskStatus.Failed],
+            },
+          },
+        }
+      : skipToken,
   );
-
-  if (dataState !== "complete") {
-    return { task: undefined, loading: true };
-  }
 
   const task = breakingTaskData
     ? getTaskFromMainlineCommitsQuery(breakingTaskData)

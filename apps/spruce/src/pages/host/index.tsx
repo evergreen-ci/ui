@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@apollo/client/react";
+import { useQuery, skipToken } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Code } from "@leafygreen-ui/code";
@@ -46,33 +46,32 @@ const Host: React.FC = () => {
 
   const {
     data: hostData,
-    dataState: hostDataState,
     error,
     loading: hostMetadataLoading,
-  } = useQuery<HostQuery, HostQueryVariables>(HOST, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: hostId },
-  });
+  } = useQuery<HostQuery, HostQueryVariables>(
+    HOST,
+    hostId ? { variables: { id: hostId } } : skipToken,
+  );
   useErrorToast(error, "There was an error loading the host");
 
   const { data: hostEventData, loading: hostEventLoading } = useQuery<
     HostEventsQuery,
     HostEventsQueryVariables
-  >(HOST_EVENTS, {
-    variables: {
-      id: hostId ?? "",
-      opts: {
-        page,
-        limit,
-        eventTypes: eventTypes.filter((e) => e.toString() !== ALL_VALUE),
-      },
-    },
-    skip: !hostId,
-  });
-
-  if (hostDataState !== "complete") {
-    return null;
-  }
+  >(
+    HOST_EVENTS,
+    hostId
+      ? {
+          variables: {
+            id: hostId,
+            opts: {
+              page,
+              limit,
+              eventTypes: eventTypes.filter((e) => e.toString() !== ALL_VALUE),
+            },
+          },
+        }
+      : skipToken,
+  );
 
   const host = hostData?.host;
   const { distro, hostUrl, persistentDnsName, user } = host || {};

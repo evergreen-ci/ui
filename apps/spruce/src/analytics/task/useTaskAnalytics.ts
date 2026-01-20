@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -93,24 +93,31 @@ export const useTaskAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();
 
   const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
-  const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
-    skip: !taskId,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { taskId, execution },
-    errorPolicy: "all",
-    fetchPolicy: "cache-first",
-  });
+  const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(
+    TASK,
+    taskId
+      ? {
+          variables: { taskId, execution },
+          errorPolicy: "all",
+          fetchPolicy: "cache-first",
+        }
+      : skipToken,
+  );
   const { data: taskTestCountData } = useQuery<
     TaskTestCountQuery,
     TaskTestCountQueryVariables
-  >(TASK_TEST_COUNT, {
-    variables: {
-      taskId: taskId || "",
-      execution: execution,
-    },
-    fetchPolicy: "cache-first",
-    skip: !taskId || execution === null,
-  });
+  >(
+    TASK_TEST_COUNT,
+    taskId && execution !== null
+      ? {
+          variables: {
+            taskId,
+            execution,
+          },
+          fetchPolicy: "cache-first",
+        }
+      : skipToken,
+  );
   const { failedTestCount } = taskTestCountData?.task || {};
 
   const {
@@ -141,7 +148,7 @@ export const useTaskAnalytics = () => {
     "task.project.identifier": identifier || "",
     "task.start_time": taskStartTime,
     "task.status": taskStatus || "",
-    "version.is_patch": isPatch || false,
+    "version.is_patch": isPatch,
     "version.requester": requester,
   });
 };

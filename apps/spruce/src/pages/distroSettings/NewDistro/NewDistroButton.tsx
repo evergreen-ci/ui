@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@apollo/client/react";
+import { useQuery, skipToken } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import Button, { Size, Variant } from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
@@ -23,10 +23,14 @@ export const NewDistroButton: React.FC = () => {
   const { data } = useQuery<
     UserDistroSettingsPermissionsQuery,
     UserDistroSettingsPermissionsQueryVariables
-  >(USER_DISTRO_SETTINGS_PERMISSIONS, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { distroId },
-  });
+  >(
+    USER_DISTRO_SETTINGS_PERMISSIONS,
+    distroId
+      ? {
+          variables: { distroId },
+        }
+      : skipToken,
+  );
   const canCreateDistro = data?.user?.permissions?.canCreateDistro ?? false;
 
   if (!canCreateDistro) {
