@@ -297,12 +297,14 @@ describe("useLogContext", () => {
       expect(result.current.preferences.caseSensitive).toBeFalsy();
       expect(result.current.lineCount).toBe(3);
       act(() => {
+        result.current.setSearch("a line");
+      });
+      expect(result.current.searchState.searchRange).toBe(1);
+      expect(result.current.searchState.hasSearch).toBe(true);
+      act(() => {
         result.current.preferences.setCaseSensitive(true);
       });
       expect(result.current.preferences.caseSensitive).toBe(true);
-      act(() => {
-        result.current.setSearch("a line");
-      });
       expect(result.current.searchState.searchRange).toBeUndefined();
       expect(result.current.searchState.hasSearch).toBe(true);
     });

@@ -246,6 +246,18 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       ? searchResults[state.searchState.searchIndex]
       : undefined;
 
+  // Re-trigger search when caseSensitive changes
+  useEffect(() => {
+    if (state.searchState.searchTerm) {
+      dispatch({
+        caseSensitive: preferences.caseSensitive,
+        searchTerm: state.searchState.searchTerm.source,
+        type: "SET_SEARCH_TERM",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preferences.caseSensitive]);
+
   const ingestLines = useCallback(
     (
       lines: string[],
