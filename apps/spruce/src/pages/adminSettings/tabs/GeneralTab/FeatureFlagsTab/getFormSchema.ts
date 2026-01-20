@@ -44,6 +44,7 @@ const featureItems: Record<string, string> = {
   staticAPIKeysDisabled: "Static API Keys credentials for users",
   backgroundReauthDisabled: "Background Reauthentication",
   debugSpawnHostDisabled: "Debug spawn hosts",
+  useGitForGitHubFilesDisabled: "Use git to fetch files from GitHub",
 };
 
 const batchJobItems: Record<string, string> = {

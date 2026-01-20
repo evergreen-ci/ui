@@ -40,6 +40,7 @@ export interface FeatureFlagsFormState {
       staticAPIKeysDisabled: boolean;
       backgroundReauthDisabled: boolean;
       debugSpawnHostDisabled: boolean;
+      useGitForGitHubFilesDisabled: boolean;
     };
 
     batchJobs: {
