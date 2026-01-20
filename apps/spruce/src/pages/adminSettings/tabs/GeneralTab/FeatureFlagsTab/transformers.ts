@@ -67,6 +67,8 @@ export const gqlToForm = ((data) => ({
       cacheStatsJobDisabled: data.serviceFlags?.cacheStatsJobDisabled ?? false,
       cacheStatsEndpointDisabled:
         data.serviceFlags?.cacheStatsEndpointDisabled ?? false,
+      s3LifecycleSyncDisabled:
+        data.serviceFlags?.s3LifecycleSyncDisabled ?? false,
     },
   },
 })) satisfies GqlToFormFunction<Tab>;

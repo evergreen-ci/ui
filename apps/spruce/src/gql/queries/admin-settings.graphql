@@ -343,6 +343,7 @@ query AdminSettings {
       podInitDisabled
       releaseModeDisabled
       repotrackerDisabled
+      s3LifecycleSyncDisabled
       schedulerDisabled
       slackNotificationsDisabled
       sleepScheduleDisabled
