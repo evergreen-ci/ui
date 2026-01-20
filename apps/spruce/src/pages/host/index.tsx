@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Code } from "@leafygreen-ui/code";
@@ -27,7 +28,6 @@ import {
   HostEventType,
 } from "gql/generated/types";
 import { HOST, HOST_EVENTS } from "gql/queries/index";
-import { useTypeSafeQuery as useQuery } from "hooks/useTypeSafeQuery";
 import { HostStatus } from "types/host";
 import { HostQueryParams } from "./constants";
 import HostTable from "./HostTable";
@@ -46,6 +46,7 @@ const Host: React.FC = () => {
 
   const {
     data: hostData,
+    dataState: hostDataState,
     error,
     loading: hostMetadataLoading,
   } = useQuery<HostQuery, HostQueryVariables>(HOST, {
@@ -68,6 +69,10 @@ const Host: React.FC = () => {
     },
     skip: !hostId,
   });
+
+  if (hostDataState !== "complete") {
+    return null;
+  }
 
   const host = hostData?.host;
   const { distro, hostUrl, persistentDnsName, user } = host || {};

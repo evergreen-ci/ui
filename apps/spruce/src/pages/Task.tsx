@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { CombinedGraphQLErrors } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
@@ -21,7 +22,6 @@ import { slugs } from "constants/routes";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { TASK } from "gql/queries";
 import { usePolling } from "hooks";
-import { useTypeSafeQuery as useQuery } from "hooks/useTypeSafeQuery";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/NotFound";
 import { RequiredQueryParams } from "types/task";
@@ -42,10 +42,15 @@ export const Task = () => {
   >(RequiredQueryParams.Execution, null);
 
   // Query task data
-  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
-    TaskQuery,
-    TaskQueryVariables
-  >(TASK, {
+  const {
+    data,
+    dataState,
+    error,
+    loading,
+    refetch,
+    startPolling,
+    stopPolling,
+  } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
@@ -74,6 +79,10 @@ export const Task = () => {
       setSelectedExecution(data.task.latestExecution);
     }
   }, [data?.task?.latestExecution, selectedExecution, setSelectedExecution]);
+
+  if (dataState !== "complete") {
+    return <PatchAndTaskFullPageLoad />;
+  }
 
   const { task } = data ?? {};
   const {

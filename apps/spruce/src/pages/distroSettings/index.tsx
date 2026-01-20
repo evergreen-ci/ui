@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Navigate } from "react-router-dom";
@@ -24,7 +25,6 @@ import {
 } from "constants/routes";
 import { DistroQuery, DistroQueryVariables } from "gql/generated/types";
 import { DISTRO } from "gql/queries";
-import { useTypeSafeQuery as useQuery } from "hooks/useTypeSafeQuery";
 import { DistroSettingsProvider } from "./Context";
 import { DistroSelect } from "./DistroSelect";
 import { getTabTitle } from "./getTabTitle";
@@ -39,13 +39,13 @@ const DistroSettings: React.FC = () => {
     [slugs.tab]: DistroSettingsTabRoutes;
   }>();
 
-  const { data, error, loading } = useQuery<DistroQuery, DistroQueryVariables>(
-    DISTRO,
-    {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      variables: { distroId },
-    },
-  );
+  const { data, dataState, error, loading } = useQuery<
+    DistroQuery,
+    DistroQueryVariables
+  >(DISTRO, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    variables: { distroId },
+  });
   useErrorToast(error, `There was an error loading the distro ${distroId}`);
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -57,6 +57,10 @@ const DistroSettings: React.FC = () => {
         to={getDistroSettingsRoute(distroId, DistroSettingsTabRoutes.General)}
       />
     );
+  }
+
+  if (dataState !== "complete") {
+    return null;
   }
 
   const imageId = data?.distro?.imageId ?? "";

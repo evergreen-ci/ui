@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client/react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   BaseVersionAndTaskQuery,
@@ -7,7 +8,6 @@ import {
 } from "gql/generated/types";
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { useParentTask } from "hooks/useParentTask";
-import { useTypeSafeQuery as useQuery } from "hooks/useTypeSafeQuery";
 import { string } from "utils";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 
@@ -35,25 +35,33 @@ export const useLastPassingTask = (taskId: string) => {
   const shouldSkip =
     !parentTask || parentTask.displayStatus === TaskStatus.Succeeded;
 
-  const { data: lastPassingTaskData, loading } = useQuery<
-    LastMainlineCommitQuery,
-    LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    skip: shouldSkip,
-    variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      projectIdentifier,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      skipOrderNumber,
-      buildVariantOptions: {
-        ...bvOptionsBase,
-        statuses: [TaskStatus.Succeeded],
+  const {
+    data: lastPassingTaskData,
+    dataState,
+    loading,
+  } = useQuery<LastMainlineCommitQuery, LastMainlineCommitQueryVariables>(
+    LAST_MAINLINE_COMMIT,
+    {
+      skip: shouldSkip,
+      variables: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        projectIdentifier,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        skipOrderNumber,
+        buildVariantOptions: {
+          ...bvOptionsBase,
+          statuses: [TaskStatus.Succeeded],
+        },
       },
     },
-  });
+  );
 
   if (shouldSkip && parentTask?.displayStatus === TaskStatus.Succeeded) {
     return { task: parentTask, loading: false };
+  }
+
+  if (dataState !== "complete") {
+    return { task: undefined, loading: true };
   }
 
   const task = lastPassingTaskData

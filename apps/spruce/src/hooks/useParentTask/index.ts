@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client/react";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
@@ -5,7 +6,6 @@ import {
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
-import { useTypeSafeQuery as useQuery } from "hooks/useTypeSafeQuery";
 import { string } from "utils";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 
@@ -35,24 +35,32 @@ export const useParentTask = (taskId: string) => {
 
   const shouldSkip = !versionMetadata || versionMetadata.isPatch;
 
-  const { data: parentTaskData, loading } = useQuery<
-    LastMainlineCommitQuery,
-    LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    skip: shouldSkip,
-    variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      projectIdentifier,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      skipOrderNumber,
-      buildVariantOptions: {
-        ...bvOptionsBase,
+  const {
+    data: parentTaskData,
+    dataState,
+    loading,
+  } = useQuery<LastMainlineCommitQuery, LastMainlineCommitQueryVariables>(
+    LAST_MAINLINE_COMMIT,
+    {
+      skip: shouldSkip,
+      variables: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        projectIdentifier,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        skipOrderNumber,
+        buildVariantOptions: {
+          ...bvOptionsBase,
+        },
       },
     },
-  });
+  );
 
   if (shouldSkip) {
     return { task: baseTask, loading: false };
+  }
+
+  if (dataState !== "complete") {
+    return { task: undefined, loading: true };
   }
 
   const task = parentTaskData
