@@ -1,4 +1,6 @@
 import { getUserStagingKey, isStaging } from "../environmentVariables";
+export { del } from "./delete";
+export { post } from "./post";
 
 /**
  * getUserStagingHeader generates the correct headers for the Evergreen-Multi staging backend to correctly route requests.

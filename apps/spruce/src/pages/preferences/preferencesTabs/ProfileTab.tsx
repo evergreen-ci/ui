@@ -5,6 +5,7 @@ import { AwsRegionsQuery } from "gql/generated/types";
 import { AWS_REGIONS } from "gql/queries";
 import { useUserSettings } from "hooks";
 import { Settings } from "./profileTab/Settings";
+import { CursorApiKeySettings } from "./profileTab/CursorApiKeySettings";
 
 export const ProfileTab: React.FC = () => {
   const { userSettings } = useUserSettings();
@@ -16,8 +17,13 @@ export const ProfileTab: React.FC = () => {
     return <CardSkeleton />;
   }
   return (
-    <SettingsCard>
-      <Settings awsRegions={awsRegions} userSettings={userSettings} />
-    </SettingsCard>
+    <>
+      <SettingsCard>
+        <Settings awsRegions={awsRegions} userSettings={userSettings} />
+      </SettingsCard>
+      <SettingsCard>
+        <CursorApiKeySettings />
+      </SettingsCard>
+    </>
   );
 };
