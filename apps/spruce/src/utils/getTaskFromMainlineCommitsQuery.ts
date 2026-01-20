@@ -5,7 +5,7 @@ import { LastMainlineCommitQuery } from "gql/generated/types";
 // The return value from GetLastMainlineCommitQuery has a lot of nested fields that may or may
 // not exist. The logic to extract the task from it is written in this function.
 export const getTaskFromMainlineCommitsQuery = (
-  data: LastMainlineCommitQuery,
+  data: NonNullable<LastMainlineCommitQuery>,
 ): CommitTask | undefined => {
   const mainlineCommitVersions = data.mainlineCommits?.versions;
   if (mainlineCommitVersions === null || mainlineCommitVersions === undefined) {
@@ -13,8 +13,8 @@ export const getTaskFromMainlineCommitsQuery = (
     return;
   }
   const buildVariants =
-    mainlineCommitVersions.find((v) => v?.version)?.version?.buildVariants ??
-    [];
+    mainlineCommitVersions.find(({ version }) => version)?.version
+      ?.buildVariants ?? [];
   if (buildVariants.length > 1) {
     reportError(
       new Error("Multiple build variants matched previous commit search."),

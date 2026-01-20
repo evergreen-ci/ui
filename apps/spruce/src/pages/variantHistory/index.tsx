@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
@@ -55,34 +55,36 @@ const VariantHistoryContents: React.FC = () => {
   const { data, error, loading, refetch } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
-  >(MAINLINE_COMMITS_FOR_HISTORY, {
-    variables: {
-      mainlineCommitsOptions: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        projectIdentifier,
-        limit: 10,
-        shouldCollapse: true,
-      },
-      buildVariantOptions: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        variants: [applyStrictRegex(variantName)],
-        includeBaseTasks: false,
-      },
-    },
-    notifyOnNetworkStatusChange: true, // This is so that we can show the loading state
-    fetchPolicy: "no-cache", // This is because we already cache the data in the history table
-  });
+  >(
+    MAINLINE_COMMITS_FOR_HISTORY,
+    projectIdentifier && variantName
+      ? {
+          variables: {
+            mainlineCommitsOptions: {
+              projectIdentifier,
+              limit: 10,
+              shouldCollapse: true,
+            },
+            buildVariantOptions: {
+              variants: [applyStrictRegex(variantName)],
+              includeBaseTasks: false,
+            },
+          },
+          notifyOnNetworkStatusChange: true, // This is so that we can show the loading state
+          fetchPolicy: "no-cache", // This is because we already cache the data in the history table
+        }
+      : skipToken,
+  );
 
   const prevLoadingRef = useRef(loading);
   useEffect(() => {
-    // Trigger only when loading transitions from true to false (query completed)
+    // Trigger only when loading transitions from true to false (query completed).
     if (prevLoadingRef.current && !loading && data?.mainlineCommits) {
       leaveBreadcrumb(
         "Loaded more commits for variant history",
         {
           projectIdentifier,
           variantName,
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           numCommits: data.mainlineCommits.versions.length,
         },
         SentryBreadcrumbTypes.UI,
