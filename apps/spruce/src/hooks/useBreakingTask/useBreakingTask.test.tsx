@@ -37,7 +37,6 @@ describe("useBreakingTask", () => {
           children,
           mocks: [
             getPatchTaskWithFailingBaseTask,
-            getParentTaskVersion,
             getLastPassingVersion,
             getBreakingCommit,
           ],
@@ -57,7 +56,6 @@ describe("useBreakingTask", () => {
           children,
           mocks: [
             getPatchTaskWithFailingBaseTask,
-            getParentTaskVersion,
             getLastPassingVersion,
             getBreakingCommitWithError,
           ],
@@ -98,7 +96,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
             order: 3676,
             __typename: "Version",
           },
-          isPatch: false,
+          isPatch: true,
           id: "versionMetadataId",
           __typename: "Version",
         },
@@ -110,53 +108,6 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
           __typename: "Task",
         },
         __typename: "Task",
-      },
-    },
-  },
-};
-
-const getParentTaskVersion: ApolloMock<
-  LastMainlineCommitQuery,
-  LastMainlineCommitQueryVariables
-> = {
-  request: {
-    query: LAST_MAINLINE_COMMIT,
-    variables: {
-      projectIdentifier: "evergreen",
-      skipOrderNumber: 3676,
-      buildVariantOptions: {
-        tasks: ["^lint-agent$"],
-        variants: ["^lint$"],
-      },
-    },
-  },
-  result: {
-    data: {
-      mainlineCommits: {
-        versions: [
-          {
-            version: {
-              id: "evergreen_parent_version",
-              buildVariants: [
-                {
-                  tasks: [
-                    {
-                      id: "parent_task",
-                      execution: 0,
-                      order: 3676,
-                      displayStatus: "failed",
-                      __typename: "Task",
-                    },
-                  ],
-                  __typename: "GroupedBuildVariant",
-                },
-              ],
-              __typename: "Version",
-            },
-            __typename: "MainlineCommitVersion",
-          },
-        ],
-        __typename: "MainlineCommits",
       },
     },
   },
