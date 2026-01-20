@@ -1,5 +1,5 @@
 import type { IdentifierData, AnalyticsVisualizerOptions } from "../types.ts";
-import { escapeHtml } from "../utils.ts";
+import { escapeHtml, toSlug } from "../utils.ts";
 
 /**
  * Generates the sidebar HTML
@@ -38,7 +38,7 @@ export const generateSidebar = (
         ${sortedData
           .map(
             (item) => `
-        <a href="#identifier-${item.identifier}" data-identifier="${item.identifier}">
+        <a href="#identifier-${toSlug(item.identifier)}" data-identifier="${item.identifier}">
           ${item.identifier}
           <span class="text-muted text-small">(${item.actions.length})</span>
         </a>
