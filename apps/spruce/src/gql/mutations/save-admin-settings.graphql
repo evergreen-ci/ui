@@ -85,6 +85,7 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       taskLoggingDisabled
       taskReliabilityDisabled
       unrecognizedPodCleanupDisabled
+      useGitForGitHubFilesDisabled
       webhookNotificationsDisabled
     }
 
