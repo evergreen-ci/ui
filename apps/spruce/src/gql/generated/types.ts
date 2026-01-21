@@ -3765,6 +3765,7 @@ export type ServiceFlags = {
   taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  useGitForGitHubFilesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
@@ -3805,6 +3806,7 @@ export type ServiceFlagsInput = {
   taskLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  useGitForGitHubFilesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 

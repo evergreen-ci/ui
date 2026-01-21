@@ -58,6 +58,7 @@ const form: FeatureFlagsFormState = {
       backgroundStatsDisabled: true,
       cacheStatsJobDisabled: true,
       cacheStatsEndpointDisabled: true,
+      s3LifecycleSyncDisabled: true,
     },
   },
 };
@@ -90,6 +91,7 @@ const gql: AdminSettingsInput = {
     podInitDisabled: true,
     releaseModeDisabled: true,
     repotrackerDisabled: true,
+    s3LifecycleSyncDisabled: true,
     schedulerDisabled: true,
     slackNotificationsDisabled: true,
     sleepScheduleDisabled: true,

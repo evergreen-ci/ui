@@ -46,6 +46,7 @@ export interface FeatureFlagsFormState {
       backgroundStatsDisabled: boolean;
       cacheStatsJobDisabled: boolean;
       cacheStatsEndpointDisabled: boolean;
+      s3LifecycleSyncDisabled: boolean;
     };
   };
 }
