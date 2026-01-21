@@ -7150,6 +7150,7 @@ export type SaveAdminSettingsMutation = {
       podInitDisabled?: boolean | null;
       releaseModeDisabled?: boolean | null;
       repotrackerDisabled?: boolean | null;
+      s3LifecycleSyncDisabled?: boolean | null;
       schedulerDisabled?: boolean | null;
       slackNotificationsDisabled?: boolean | null;
       sleepScheduleDisabled?: boolean | null;
@@ -7925,6 +7926,7 @@ export type AdminSettingsQuery = {
       podInitDisabled?: boolean | null;
       releaseModeDisabled?: boolean | null;
       repotrackerDisabled?: boolean | null;
+      s3LifecycleSyncDisabled?: boolean | null;
       schedulerDisabled?: boolean | null;
       slackNotificationsDisabled?: boolean | null;
       sleepScheduleDisabled?: boolean | null;
