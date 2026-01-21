@@ -7160,6 +7160,7 @@ export type SaveAdminSettingsMutation = {
       taskLoggingDisabled?: boolean | null;
       taskReliabilityDisabled?: boolean | null;
       unrecognizedPodCleanupDisabled?: boolean | null;
+      useGitForGitHubFilesDisabled?: boolean | null;
       webhookNotificationsDisabled?: boolean | null;
     } | null;
     taskLimits?: {
@@ -7935,6 +7936,7 @@ export type AdminSettingsQuery = {
       taskLoggingDisabled?: boolean | null;
       taskReliabilityDisabled?: boolean | null;
       unrecognizedPodCleanupDisabled?: boolean | null;
+      useGitForGitHubFilesDisabled?: boolean | null;
       webhookNotificationsDisabled?: boolean | null;
     } | null;
     singleTaskDistro?: {

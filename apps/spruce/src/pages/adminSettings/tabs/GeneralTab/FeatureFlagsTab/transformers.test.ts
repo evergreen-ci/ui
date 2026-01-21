@@ -53,6 +53,7 @@ const form: FeatureFlagsFormState = {
       elasticIPsDisabled: true,
       releaseModeDisabled: true,
       debugSpawnHostDisabled: true,
+      useGitForGitHubFilesDisabled: true,
     },
     batchJobs: {
       backgroundStatsDisabled: true,
@@ -101,6 +102,7 @@ const gql: AdminSettingsInput = {
     taskLoggingDisabled: true,
     taskReliabilityDisabled: true,
     unrecognizedPodCleanupDisabled: true,
+    useGitForGitHubFilesDisabled: true,
     webhookNotificationsDisabled: true,
   },
 };

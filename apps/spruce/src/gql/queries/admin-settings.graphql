@@ -353,6 +353,7 @@ query AdminSettings {
       taskLoggingDisabled
       taskReliabilityDisabled
       unrecognizedPodCleanupDisabled
+      useGitForGitHubFilesDisabled
       webhookNotificationsDisabled
     }
     shutdownWaitSeconds
