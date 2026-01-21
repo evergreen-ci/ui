@@ -3758,6 +3758,7 @@ export type ServiceFlags = {
   podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  s3LifecycleSyncDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   schedulerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   slackNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   sleepScheduleDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3767,7 +3768,7 @@ export type ServiceFlags = {
   taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  useGitForGitHubFiles?: Maybe<Scalars["Boolean"]["output"]>;
+  useGitForGitHubFilesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
@@ -3798,6 +3799,7 @@ export type ServiceFlagsInput = {
   podInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  s3LifecycleSyncDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   schedulerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   slackNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   sleepScheduleDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
