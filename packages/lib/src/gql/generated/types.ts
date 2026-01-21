@@ -3758,7 +3758,7 @@ export type ServiceFlags = {
   podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  s3LifecycleSyncDisabled?: InputMaybe<Scalars["Boolean"]["output"]>;
+  s3LifecycleSyncDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   schedulerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   slackNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   sleepScheduleDisabled?: Maybe<Scalars["Boolean"]["output"]>;
