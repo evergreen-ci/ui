@@ -343,6 +343,7 @@ query AdminSettings {
       podInitDisabled
       releaseModeDisabled
       repotrackerDisabled
+      s3LifecycleSyncDisabled
       schedulerDisabled
       slackNotificationsDisabled
       sleepScheduleDisabled
@@ -352,6 +353,7 @@ query AdminSettings {
       taskLoggingDisabled
       taskReliabilityDisabled
       unrecognizedPodCleanupDisabled
+      useGitForGitHubFilesDisabled
       webhookNotificationsDisabled
     }
     shutdownWaitSeconds
