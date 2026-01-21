@@ -999,12 +999,16 @@
               </div>
               <div
                 class="leafygreen-ui-og633j"
+                data-lgid="lg-pagination"
+                data-testid="lg-pagination"
               >
                 <div
                   class="leafygreen-ui-myynbc"
                 />
                 <div
                   class="leafygreen-ui-myynbc"
+                  data-lgid="lg-pagination-summary"
+                  data-testid="lg-pagination-summary"
                 >
                   <p
                     class="leafygreen-ui-26vqpd"
@@ -1018,6 +1022,8 @@
                 </div>
                 <div
                   class="leafygreen-ui-myynbc"
+                  data-lgid="lg-pagination-navigation"
+                  data-testid="lg-pagination-navigation"
                 >
                   <div
                     class="leafygreen-ui-1iyoj2o"
