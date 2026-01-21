@@ -51,7 +51,7 @@ const batchJobItems: Record<string, string> = {
   backgroundStatsDisabled: "Collect background statistics",
   cacheStatsJobDisabled: "Cache historical statistics",
   cacheStatsEndpointDisabled: "Cache historical statistics endpoint",
-  s3LifecycleSyncDisabled: "S3 lifecycle sync",
+  s3LifecycleSyncDisabled: "S3 Lifecycle sync",
 };
 
 const zebraCSS = css`
