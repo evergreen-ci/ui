@@ -69,16 +69,6 @@ export const Task = () => {
       error.errors.some((e) => !e?.path?.includes("annotation")),
   );
 
-  // Update the default execution in the url if it isn't populated
-  useEffect(() => {
-    if (
-      selectedExecution === null &&
-      data?.task?.latestExecution !== undefined
-    ) {
-      setSelectedExecution(data.task.latestExecution);
-    }
-  }, [data?.task?.latestExecution, selectedExecution, setSelectedExecution]);
-
   const { task } = data ?? {};
   const {
     displayName,
@@ -91,6 +81,13 @@ export const Task = () => {
     status,
     versionMetadata,
   } = task ?? {};
+
+  // Update the default execution in the url if it isn't populated
+  useEffect(() => {
+    if (selectedExecution === null && task) {
+      setSelectedExecution(task.latestExecution);
+    }
+  }, [task, selectedExecution, setSelectedExecution]);
 
   /**
    * Special handling for known issues and show the original status on the task page.

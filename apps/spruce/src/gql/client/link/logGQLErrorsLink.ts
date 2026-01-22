@@ -51,7 +51,7 @@ export const reportingFn =
   };
 
 export const logGQLErrorsLink = (secretFields: string[]) =>
-  new ErrorLink(({ error, operation }) => { // eslint-disable-line
+  new ErrorLink(({ error, operation }) => {
     if (CombinedGraphQLErrors.is(error)) {
       error.errors.forEach((gqlErr) =>
         reportingFn(secretFields, operation)(gqlErr),

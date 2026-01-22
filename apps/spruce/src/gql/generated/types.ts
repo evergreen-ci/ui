@@ -3942,6 +3942,7 @@ export type SpawnHostInput = {
   distroId: Scalars["String"]["input"];
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
   homeVolumeSize?: InputMaybe<Scalars["Int"]["input"]>;
+  isDebug?: InputMaybe<Scalars["Boolean"]["input"]>;
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   noExpiration: Scalars["Boolean"]["input"];
   publicKey: PublicKeyInput;
