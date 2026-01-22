@@ -82,6 +82,7 @@ export const adminSettings: AdminSettings = {
     podInitDisabled: true,
     releaseModeDisabled: true,
     repotrackerDisabled: true,
+    s3LifecycleSyncDisabled: true,
     schedulerDisabled: true,
     slackNotificationsDisabled: true,
     sleepScheduleDisabled: true,
@@ -91,6 +92,7 @@ export const adminSettings: AdminSettings = {
     taskLoggingDisabled: true,
     taskReliabilityDisabled: true,
     unrecognizedPodCleanupDisabled: true,
+    useGitForGitHubFilesDisabled: true,
     webhookNotificationsDisabled: true,
   },
   taskLimits: {
