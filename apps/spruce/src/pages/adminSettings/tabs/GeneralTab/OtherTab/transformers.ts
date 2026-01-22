@@ -71,23 +71,11 @@ export const gqlToForm = ((data) => {
           savingsPlanDiscount: cost?.savingsPlanDiscount ?? 0,
           onDemandDiscount: cost?.onDemandDiscount ?? 0,
           s3Cost: {
-            uploadCostDiscount:
-              cost?.s3Cost?.upload?.uploadCostDiscount !== null &&
-              cost?.s3Cost?.upload?.uploadCostDiscount !== undefined
-                ? cost.s3Cost.upload.uploadCostDiscount
-                : undefined,
+            uploadCostDiscount: cost?.s3Cost?.upload?.uploadCostDiscount ?? 0,
             standardStorageCostDiscount:
-              cost?.s3Cost?.storage?.standardStorageCostDiscount !== null &&
-              cost?.s3Cost?.storage?.standardStorageCostDiscount !== undefined
-                ? cost.s3Cost.storage.standardStorageCostDiscount
-                : undefined,
+              cost?.s3Cost?.storage?.standardStorageCostDiscount ?? 0,
             infrequentAccessStorageCostDiscount:
-              cost?.s3Cost?.storage?.infrequentAccessStorageCostDiscount !==
-                null &&
-              cost?.s3Cost?.storage?.infrequentAccessStorageCostDiscount !==
-                undefined
-                ? cost.s3Cost.storage.infrequentAccessStorageCostDiscount
-                : undefined,
+              cost?.s3Cost?.storage?.infrequentAccessStorageCostDiscount ?? 0,
           },
         },
       },
@@ -251,21 +239,15 @@ export const formToGql = ((form: OtherFormState) => {
       onDemandDiscount: miscSettings.cost.onDemandDiscount || undefined,
       s3Cost: {
         upload: {
-          ...(miscSettings.cost.s3Cost.uploadCostDiscount !== undefined && {
-            uploadCostDiscount: miscSettings.cost.s3Cost.uploadCostDiscount,
-          }),
+          uploadCostDiscount:
+            miscSettings.cost.s3Cost.uploadCostDiscount || undefined,
         },
         storage: {
-          ...(miscSettings.cost.s3Cost.standardStorageCostDiscount !==
-            undefined && {
-            standardStorageCostDiscount:
-              miscSettings.cost.s3Cost.standardStorageCostDiscount,
-          }),
-          ...(miscSettings.cost.s3Cost.infrequentAccessStorageCostDiscount !==
-            undefined && {
-            infrequentAccessStorageCostDiscount:
-              miscSettings.cost.s3Cost.infrequentAccessStorageCostDiscount,
-          }),
+          standardStorageCostDiscount:
+            miscSettings.cost.s3Cost.standardStorageCostDiscount || undefined,
+          infrequentAccessStorageCostDiscount:
+            miscSettings.cost.s3Cost.infrequentAccessStorageCostDiscount ||
+            undefined,
         },
       },
     },
