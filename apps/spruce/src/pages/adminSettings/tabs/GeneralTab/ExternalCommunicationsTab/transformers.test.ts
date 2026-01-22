@@ -52,6 +52,10 @@ const form: ExternalCommunicationsFormState = {
   fws: {
     url: "fws.example.com",
   },
+  graphite: {
+    ciOptimizationToken: "graphite-token",
+    serverUrl: "graphite.example.com",
+  },
   cedar: {
     dbUrl: "cedar-db.example.com",
     dbName: "cedar-db",
@@ -100,6 +104,10 @@ const gql: AdminSettingsInput = {
   },
   fws: {
     url: "fws.example.com",
+  },
+  graphite: {
+    ciOptimizationToken: "graphite-token",
+    serverUrl: "graphite.example.com",
   },
   cedar: {
     dbUrl: "cedar-db.example.com",
@@ -150,6 +158,10 @@ const mockAdminSettings: AdminSettings = {
   },
   fws: {
     url: "fws.example.com",
+  },
+  graphite: {
+    ciOptimizationToken: "graphite-token",
+    serverUrl: "graphite.example.com",
   },
   cedar: {
     dbUrl: "cedar-db.example.com",
