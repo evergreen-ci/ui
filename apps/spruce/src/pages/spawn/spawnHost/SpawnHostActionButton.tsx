@@ -39,20 +39,20 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   // except when an action is performed and we need to fetch updated data.
   const [
     getMyHosts,
-    { error: hostsError, refetch, startPolling, stopPolling },
+    { called, error: hostsError, refetch, startPolling, stopPolling },
   ] = useLazyQuery<MyHostsQuery, MyHostsQueryVariables>(MY_HOSTS, {
     pollInterval: 3000,
   });
   useErrorToast(hostsError, "There was an error loading your spawn hosts");
-  usePolling({
-    startPolling,
-    stopPolling,
-    refetch,
+  usePolling<MyHostsQuery, MyHostsQueryVariables>({
+    startPolling: called ? startPolling : () => {},
+    stopPolling: called ? stopPolling : () => {},
+    refetch: called ? refetch : () => {},
     initialPollingState: false,
   });
   // Stop polling when we get updated host data
   useEffect(() => {
-    if (stopPolling) {
+    if (called && stopPolling) {
       stopPolling();
     }
   }, [host]); // eslint-disable-line react-hooks/exhaustive-deps

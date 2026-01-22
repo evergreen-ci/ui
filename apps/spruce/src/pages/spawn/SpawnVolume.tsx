@@ -30,7 +30,7 @@ export const SpawnVolume = () => {
   const migrationInProcess = !!volumesData?.myVolumes.find(
     ({ migrating }) => migrating,
   );
-  usePolling({
+  usePolling<MyVolumesQuery, MyVolumesQueryVariables>({
     startPolling,
     stopPolling,
     refetch,

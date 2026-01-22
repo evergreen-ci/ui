@@ -1,4 +1,3 @@
-import { ApolloError } from "@apollo/client";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import MetadataCard, {
@@ -11,7 +10,7 @@ import { PodQuery } from "gql/generated/types";
 const Metadata: React.FC<{
   loading: boolean;
   pod: PodQuery["pod"];
-  error: ApolloError;
+  error: Error;
 }> = ({ error, loading, pod }) => {
   const { task, taskContainerCreationOpts, type } = pod ?? {};
   const { arch, cpu, memoryMB, os, workingDir } =

@@ -1,22 +1,28 @@
 import { useState } from "react";
-import { ApolloQueryResult, OperationVariables } from "@apollo/client";
+import { OperationVariables, ApolloClient } from "@apollo/client";
 import Cookies from "js-cookie";
 import { DISABLE_QUERY_POLLING } from "constants/cookies";
 import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useNetworkStatus } from "hooks/useNetworkStatus";
 import { usePageVisibility } from "hooks/usePageVisibility";
 
-interface Props {
+interface Props<
+  TData = unknown,
+  TVariables extends OperationVariables = OperationVariables,
+> {
   startPolling: (DEFAULT_POLL_INTERVAL: number) => void;
   stopPolling: () => void;
   refetch: (
-    variables?: Partial<OperationVariables>,
-  ) => Promise<ApolloQueryResult<any>> | void;
+    variables?: Partial<TVariables> | undefined,
+  ) => Promise<ApolloClient.QueryResult<TData>> | void;
   shouldPollFaster?: boolean;
   initialPollingState?: boolean;
 }
+
 type usePollingType = {
-  (p: Props): boolean;
+  <TData = unknown, TVariables extends OperationVariables = OperationVariables>(
+    p: Props<TData, TVariables>,
+  ): boolean;
 };
 
 /**

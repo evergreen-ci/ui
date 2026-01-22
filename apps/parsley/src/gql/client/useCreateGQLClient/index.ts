@@ -4,7 +4,6 @@ import {
   ApolloLink,
   HttpLink,
   InMemoryCache,
-  NormalizedCacheObject,
 } from "@apollo/client";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
@@ -22,9 +21,7 @@ import { graphqlURL } from "utils/environmentVariables";
 
 const cache = new InMemoryCache();
 
-export const useCreateGQLClient = ():
-  | ApolloClient<NormalizedCacheObject>
-  | undefined => {
+export const useCreateGQLClient = (): ApolloClient | undefined => {
   const { dispatchAuthenticated, logoutAndRedirect } = useAuthProviderContext();
   const [secretFields, setSecretFields] = useState<string[]>();
 

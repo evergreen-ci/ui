@@ -1,19 +1,17 @@
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { Unpacked } from "@evg-ui/lib/types/utils";
+import {
+  LogkeeperBuildMetadataQuery,
+  TaskTestsForJobLogsQuery,
+} from "gql/generated/types";
 
-type LogkeeperTestResult = {
-  id: string;
-  name: string;
-  groupID?: string;
-};
+type LogkeeperTestResult = Unpacked<
+  LogkeeperBuildMetadataQuery["logkeeperBuildMetadata"]["tests"]
+>;
 
-type EvergreenTestResult = {
-  id: string;
-  testFile: string;
-  groupID?: string;
-  logs?: {
-    urlParsley?: string;
-  };
-};
+type EvergreenTestResult = Unpacked<
+  NonNullable<TaskTestsForJobLogsQuery["task"]>["tests"]["testResults"]
+>;
 
 type JobLogsMetadata = {
   completeLogsURL: string;

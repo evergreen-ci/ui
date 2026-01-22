@@ -3942,6 +3942,7 @@ export type SpawnHostInput = {
   distroId: Scalars["String"]["input"];
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
   homeVolumeSize?: InputMaybe<Scalars["Int"]["input"]>;
+  isDebug?: InputMaybe<Scalars["Boolean"]["input"]>;
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   noExpiration: Scalars["Boolean"]["input"];
   publicKey: PublicKeyInput;
@@ -4950,6 +4951,7 @@ export type WaterfallOptions = {
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order greater than minOrder. Used for paginating backward. */
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
+  omitInactiveBuilds?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
@@ -8136,6 +8138,7 @@ export type BaseVersionAndTaskQuery = {
       id: string;
       displayStatus: string;
       execution: number;
+      order: number;
     } | null;
     versionMetadata: {
       __typename?: "Version";
@@ -11016,6 +11019,8 @@ export type TaskEventLogsQuery = {
         __typename?: "TaskEventLogEntry";
         id: string;
         eventType?: string | null;
+        resourceId: string;
+        resourceType: string;
         timestamp?: Date | null;
         data: {
           __typename?: "TaskEventLogData";

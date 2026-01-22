@@ -76,7 +76,11 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     skip: queryVariables.execution === null,
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<TaskTestsQuery, TaskTestsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const clearQueryParams = () => {
     table.resetColumnFilters(true);

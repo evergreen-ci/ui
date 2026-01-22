@@ -99,6 +99,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
           id: baseTaskId,
           execution: 0,
           displayStatus: "failed",
+          order: 3676,
           __typename: "Task",
         },
         __typename: "Task",

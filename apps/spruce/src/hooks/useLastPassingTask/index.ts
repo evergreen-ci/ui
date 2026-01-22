@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   BaseVersionAndTaskQuery,
@@ -32,22 +32,35 @@ export const useLastPassingTask = (taskId: string) => {
 
   const { task: parentTask } = useParentTask(taskId);
 
+  const shouldSkip =
+    !parentTask || parentTask.displayStatus === TaskStatus.Succeeded;
+
   const { data: lastPassingTaskData, loading } = useQuery<
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    skip: !parentTask || parentTask.displayStatus === TaskStatus.Succeeded,
-    variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      projectIdentifier,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      skipOrderNumber,
-      buildVariantOptions: {
-        ...bvOptionsBase,
-        statuses: [TaskStatus.Succeeded],
-      },
-    },
-  });
+  >(
+    LAST_MAINLINE_COMMIT,
+    projectIdentifier &&
+      skipOrderNumber !== undefined &&
+      parentTask &&
+      !shouldSkip
+      ? {
+          variables: {
+            projectIdentifier,
+            skipOrderNumber,
+            buildVariantOptions: {
+              ...bvOptionsBase,
+              statuses: [TaskStatus.Succeeded],
+            },
+          },
+        }
+      : skipToken,
+  );
+
+  if (shouldSkip && parentTask?.displayStatus === TaskStatus.Succeeded) {
+    return { task: parentTask, loading: false };
+  }
+
   const task = lastPassingTaskData
     ? getTaskFromMainlineCommitsQuery(lastPassingTaskData)
     : undefined;

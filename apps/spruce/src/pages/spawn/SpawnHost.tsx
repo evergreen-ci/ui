@@ -23,7 +23,7 @@ export const SpawnHost = () => {
   const migrationInProcess = !!data?.myHosts.find(
     ({ volumes }) => !!volumes.find(({ migrating }) => migrating),
   );
-  usePolling({
+  usePolling<MyHostsQuery, MyHostsQueryVariables>({
     startPolling,
     stopPolling,
     refetch,

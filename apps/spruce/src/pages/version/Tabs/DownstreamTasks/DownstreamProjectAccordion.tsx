@@ -86,7 +86,11 @@ export const DownstreamProjectAccordion: React.FC<
     },
     fetchPolicy: "cache-and-network",
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<VersionTasksQuery, VersionTasksQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const showSkeleton = !data;
   const { version } = data || {};

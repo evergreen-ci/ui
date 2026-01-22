@@ -50,7 +50,11 @@ export const VersionPage: React.FC = () => {
   });
   useErrorToast(error, "There was an error loading the version");
 
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<VersionQuery, VersionQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const [activeTaskIds, setActiveTaskIds] = useState<string[]>([]);
 

@@ -70,9 +70,14 @@ export const useProjectSettingsEvents = ({
     ? repoEventData?.repoEvents?.eventLogEntries || []
     : projectEventData?.projectEvents?.eventLogEntries || [];
 
-  const fetchMore = isRepo ? repoFetchMore : projectFetchMore;
-
   const loading = isRepo ? repoLoading : projectLoading;
 
-  return { count, events, fetchMore, loading, previousCount };
+  return {
+    count,
+    events,
+    loading,
+    previousCount,
+    projectFetchMore,
+    repoFetchMore,
+  };
 };

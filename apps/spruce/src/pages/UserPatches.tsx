@@ -38,7 +38,11 @@ export const UserPatches = () => {
     skip: !userId,
   });
   useErrorToast(error, "Error while fetching user patches");
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<UserPatchesQuery, UserPatchesQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   return (
     <PatchesPage

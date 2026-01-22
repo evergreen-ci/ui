@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { useQuery, skipToken } from "@apollo/client/react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   BaseVersionAndTaskQuery,
@@ -43,19 +43,25 @@ export const useBreakingTask = (taskId: string) => {
   const { data: breakingTaskData, loading } = useQuery<
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    skip: !parentTask || !lastPassingTask || !isFailedTaskStatus(displayStatus),
-    variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      projectIdentifier,
-      skipOrderNumber: passingOrderNumber + 2,
-      buildVariantOptions: {
-        ...bvOptionsBase,
-        statuses: [TaskStatus.Failed],
-      },
-    },
-  });
+  >(
+    LAST_MAINLINE_COMMIT,
+    projectIdentifier &&
+      parentTask &&
+      lastPassingTask &&
+      isFailedTaskStatus(displayStatus)
+      ? {
+          variables: {
+            projectIdentifier,
+            skipOrderNumber: passingOrderNumber + 2,
+            buildVariantOptions: {
+              ...bvOptionsBase,
+              statuses: [TaskStatus.Failed],
+            },
+          },
+        }
+      : skipToken,
+  );
+
   const task = breakingTaskData
     ? getTaskFromMainlineCommitsQuery(breakingTaskData)
     : undefined;
