@@ -1,6 +1,4 @@
 import { useReducer } from "react";
-import Cookie from "js-cookie";
-import { CASE_SENSITIVE } from "constants/cookies";
 import { LogRenderingTypes } from "constants/enums";
 import { ExpandedLines } from "types/logs";
 import { mergeIntervals } from "utils/expandedLines";
@@ -28,8 +26,7 @@ type Action =
   | { type: "CLEAR_LOGS" }
   | { type: "SET_FILE_NAME"; fileName: string }
   | { type: "SET_LOG_METADATA"; logMetadata: LogMetadata }
-  | { type: "SET_SEARCH_TERM"; searchTerm: string }
-  | { type: "SET_CASE_SENSITIVE"; caseSensitive: boolean }
+  | { type: "SET_SEARCH_TERM"; searchTerm: string; caseSensitive: boolean }
   | { type: "SET_MATCH_COUNT"; matchCount: number }
   | { type: "EXPAND_LINES"; expandedLines: ExpandedLines }
   | { type: "COLLAPSE_LINES"; idx: number }
@@ -41,7 +38,6 @@ const initialState = (initialLogLines?: string[]): LogState => ({
   hasLogs: null,
   logs: initialLogLines || [],
   searchState: {
-    caseSensitive: Cookie.get(CASE_SENSITIVE) === "true",
     hasSearch: false,
     searchIndex: 0,
     searchRange: 0,
@@ -144,7 +140,7 @@ const reducer = (state: LogState, action: Action): LogState => {
       const hasSearch = !!action.searchTerm;
       const searchTerm = new RegExp(
         action.searchTerm,
-        state.searchState.caseSensitive ? "" : "i",
+        action.caseSensitive ? "" : "i",
       );
       return {
         ...state,
@@ -154,32 +150,6 @@ const reducer = (state: LogState, action: Action): LogState => {
           searchIndex: undefined,
           searchRange: undefined,
           searchTerm: hasSearch ? searchTerm : undefined,
-        },
-      };
-    }
-    case "SET_CASE_SENSITIVE": {
-      const { searchTerm } = state.searchState;
-      if (!searchTerm) {
-        return {
-          ...state,
-          searchState: {
-            ...state.searchState,
-            caseSensitive: action.caseSensitive,
-          },
-        };
-      }
-      const newSearchTerm = new RegExp(
-        searchTerm.source,
-        action.caseSensitive ? "" : "i",
-      );
-      return {
-        ...state,
-        searchState: {
-          caseSensitive: action.caseSensitive,
-          hasSearch: true,
-          searchIndex: undefined,
-          searchRange: undefined,
-          searchTerm: newSearchTerm,
         },
       };
     }
