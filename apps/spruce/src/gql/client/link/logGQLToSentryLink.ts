@@ -29,7 +29,7 @@ export const logGQLToSentryLink = (secretFields: string[]): ApolloLink =>
   new ApolloLink(
     (operation, forward) =>
       new Observable((observer) => {
-        forward(operation).subscribe({
+        const subscription = forward(operation).subscribe({
           next: (result) => {
             observer.next(
               leaveBreadcrumbMapFn(operation, secretFields)(result),
@@ -38,5 +38,6 @@ export const logGQLToSentryLink = (secretFields: string[]): ApolloLink =>
           error: observer.error.bind(observer),
           complete: observer.complete.bind(observer),
         });
+        return () => subscription.unsubscribe();
       }),
   );

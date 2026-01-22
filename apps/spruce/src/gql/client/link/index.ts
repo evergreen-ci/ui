@@ -33,7 +33,7 @@ export const authenticateIfSuccessfulLink = (
   new ApolloLink(
     (operation, forward) =>
       new Observable((observer) => {
-        forward(operation).subscribe({
+        const subscription = forward(operation).subscribe({
           next: (response) => {
             if (response && response.data) {
               // If there is data in response, then server responded with 200; therefore, is authenticated.
@@ -54,6 +54,7 @@ export const authenticateIfSuccessfulLink = (
           error: observer.error.bind(observer),
           complete: observer.complete.bind(observer),
         });
+        return () => subscription.unsubscribe();
       }),
   );
 
