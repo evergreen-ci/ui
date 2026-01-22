@@ -10,7 +10,6 @@ interface SearchState {
   searchIndex?: number;
   searchRange?: number;
   hasSearch: boolean;
-  caseSensitive: boolean;
 }
 
 interface LogMetadata {
