@@ -41,6 +41,7 @@ const persistToCookie = (cookieName: string, value: string | boolean): void => {
   Cookie.set(cookieName, value.toString(), { expires: COOKIE_EXPIRY_DAYS });
 };
 
+// Wrap and pretty print settings are evaluated after the logs have initially rendered - see LogPane component.
 const getInitialState = (): PreferencesState => ({
   caseSensitive: Cookie.get(CASE_SENSITIVE) === "true",
   highlightFilters: Cookie.get(HIGHLIGHT_FILTERS) === "true",
