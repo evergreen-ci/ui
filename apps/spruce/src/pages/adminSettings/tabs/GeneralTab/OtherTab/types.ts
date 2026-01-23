@@ -20,9 +20,9 @@ export interface OtherFormState {
         savingsPlanDiscount: number;
         onDemandDiscount: number;
         s3Cost: {
-          uploadCostDiscount?: number;
-          standardStorageCostDiscount?: number;
-          infrequentAccessStorageCostDiscount?: number;
+          uploadCostDiscount: number;
+          standardStorageCostDiscount: number;
+          infrequentAccessStorageCostDiscount: number;
         };
       };
     };

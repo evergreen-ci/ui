@@ -159,11 +159,11 @@ describe("other", () => {
     cy.validateToast("success", "Settings saved successfully");
     cy.reload();
 
-    cy.getInputByLabel(uploadCostDiscount).should("have.value", "");
-    cy.getInputByLabel(standardStorageCostDiscount).should("have.value", "");
+    cy.getInputByLabel(uploadCostDiscount).should("have.value", "0");
+    cy.getInputByLabel(standardStorageCostDiscount).should("have.value", "0");
     cy.getInputByLabel(infrequentAccessStorageCostDiscount).should(
       "have.value",
-      "",
+      "0",
     );
   });
 
