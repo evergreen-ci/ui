@@ -13,6 +13,7 @@ export const gqlToForm = ((data) => {
     graphite,
     jira,
     runtimeEnvironments,
+    sage,
     slack,
     splunk,
     testSelection,
@@ -66,6 +67,9 @@ export const gqlToForm = ((data) => {
       spsKanopyUrl: data.perfMonitoringKanopyURL ?? "",
       spsUrl: data.perfMonitoringURL ?? "",
     },
+    sage: {
+      baseUrl: sage?.baseUrl ?? "",
+    },
   };
 }) satisfies GqlToFormFunction<Tab>;
 
@@ -76,6 +80,7 @@ export const formToGql = ((form) => {
     graphite,
     jira,
     runtimeEnvironments,
+    sage,
     slack,
     splunk,
     testSelection,
@@ -139,5 +144,8 @@ export const formToGql = ((form) => {
     },
     perfMonitoringKanopyURL: cedar.spsKanopyUrl,
     perfMonitoringURL: cedar.spsUrl,
+    sage: {
+      baseUrl: sage.baseUrl || undefined,
+    },
   };
 }) satisfies FormToGqlFunction<Tab>;

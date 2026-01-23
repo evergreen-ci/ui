@@ -118,6 +118,9 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       maxTaskExecution
       maxTasksPerVersion
     }
+    sage {
+      baseUrl
+    }
     ui {
       betaFeatures {
         parsleyAIEnabled
