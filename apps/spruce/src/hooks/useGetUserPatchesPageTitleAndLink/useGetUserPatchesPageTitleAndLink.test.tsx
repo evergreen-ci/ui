@@ -4,7 +4,7 @@ import { UserQuery } from "gql/generated/types";
 import { USER } from "gql/queries";
 import { useGetUserPatchesPageTitleAndLink } from ".";
 
-const mocks: ApolloMock<UserQuery>[] = [
+const mocks: ApolloMock<UserQuery, Record<string, never>>[] = [
   {
     request: {
       query: USER,
@@ -14,6 +14,11 @@ const mocks: ApolloMock<UserQuery>[] = [
         user: {
           userId: "admin",
           displayName: "Evergreen Admin",
+          emailAddress: "admin@example.com",
+          permissions: {
+            canEditAdminSettings: false,
+            __typename: "Permissions",
+          },
           __typename: "User",
         },
       },
