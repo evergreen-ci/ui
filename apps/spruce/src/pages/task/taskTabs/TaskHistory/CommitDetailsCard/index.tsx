@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
@@ -72,9 +72,9 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       canRestart,
       canSchedule,
       canSetPriority,
-      createTime,
       displayStatus,
       id: taskId,
+      ingestTime,
       latestExecution,
       order,
       priority,
@@ -91,8 +91,8 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       : taskId === currentTask.id;
     const isSelectedTask = taskId === selectedTask;
 
-    const createDate = new Date(createTime ?? "");
-    const dateCopy = getDateCopy(createDate, {
+    const ingestDate = new Date(ingestTime ?? "");
+    const dateCopy = getDateCopy(ingestDate, {
       omitSeconds: true,
       omitTimezone: true,
     });
@@ -106,7 +106,6 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       ScheduleTasksMutation,
       ScheduleTasksMutationVariables
     >(SCHEDULE_TASKS, {
-      variables: { taskIds: [taskId], versionId },
       onCompleted: () => {
         const newMap = new Map(expandedTasksMap);
         newMap.delete(task.id);
@@ -134,7 +133,6 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       RestartTaskMutation,
       RestartTaskMutationVariables
     >(RESTART_TASK, {
-      variables: { taskId, failedOnly: false },
       onCompleted: (data) => {
         dispatchToast.success("Task scheduled to restart");
         if (isCurrentTask) {
@@ -208,7 +206,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
                   name: "Clicked restart task button",
                   "task.id": taskId,
                 });
-                restartTask();
+                restartTask({ variables: { taskId, failedOnly: false } });
               }}
               size={ButtonSize.XSmall}
             >
@@ -223,7 +221,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
                   name: "Clicked schedule task button",
                   "task.id": taskId,
                 });
-                scheduleTask();
+                scheduleTask({ variables: { taskIds: [taskId], versionId } });
               }}
               size={ButtonSize.XSmall}
             >

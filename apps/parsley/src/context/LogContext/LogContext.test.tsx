@@ -281,7 +281,7 @@ describe("useLogContext", () => {
       const { result } = renderHook(() => useLogContext(), {
         wrapper: wrapper(["A line 1", "B line 2", "C line 3"]),
       });
-      expect(result.current.searchState.caseSensitive).toBeFalsy();
+      expect(result.current.preferences.caseSensitive).toBeFalsy();
       expect(result.current.lineCount).toBe(3);
       expect(result.current.processedLogLines).toHaveLength(3);
       act(() => {
@@ -294,14 +294,17 @@ describe("useLogContext", () => {
       const { result } = renderHook(() => useLogContext(), {
         wrapper: wrapper(["A line 1", "B line 2", "C line 3"]),
       });
-      expect(result.current.searchState.caseSensitive).toBeFalsy();
+      expect(result.current.preferences.caseSensitive).toBeFalsy();
       expect(result.current.lineCount).toBe(3);
       act(() => {
         result.current.setSearch("a line");
       });
+      expect(result.current.searchState.searchRange).toBe(1);
+      expect(result.current.searchState.hasSearch).toBe(true);
       act(() => {
         result.current.preferences.setCaseSensitive(true);
       });
+      expect(result.current.preferences.caseSensitive).toBe(true);
       expect(result.current.searchState.searchRange).toBeUndefined();
       expect(result.current.searchState.hasSearch).toBe(true);
     });

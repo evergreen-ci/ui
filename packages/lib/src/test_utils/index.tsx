@@ -1,4 +1,9 @@
 import { useEffect, createElement } from "react";
+import { MockLink } from "@apollo/client/testing";
+import {
+  MockedProvider,
+  MockedProviderProps,
+} from "@apollo/client/testing/react";
 import {
   act,
   fireEvent,
@@ -157,6 +162,12 @@ const createWrapper = <T extends Record<string, unknown>>(
     return createElement(Wrapper, props, children);
   };
 
+// TODO DEVPROD-26811: In Apollo v4, they introduced a realistic delay of 20~50ms but this causes several test failures. Set it to 0 for now.
+MockLink.defaultOptions = {
+  delay: 0,
+};
+type MockedResponse = MockLink.MockedResponse;
+
 export {
   act,
   fireEvent,
@@ -171,6 +182,9 @@ export {
   customWithin as within,
   stubGetClientRects,
   createWrapper,
+  MockedProvider,
+  type MockedResponse,
+  type MockedProviderProps,
 };
 
 export type { RenderWithRouterMatchOptions };

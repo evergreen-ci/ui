@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import pluralize from "pluralize";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useTaskAnalytics } from "analytics";
@@ -64,7 +64,6 @@ export const ActionButtons: React.FC<Props> = ({
     ScheduleTasksMutation,
     ScheduleTasksMutationVariables
   >(SCHEDULE_TASKS, {
-    variables: { taskIds: [taskId], versionId },
     onCompleted: () => {
       dispatchToast.success("Task marked as scheduled");
     },
@@ -77,7 +76,6 @@ export const ActionButtons: React.FC<Props> = ({
     UnscheduleTaskMutation,
     UnscheduleTaskMutationVariables
   >(UNSCHEDULE_TASK, {
-    variables: { taskId },
     onCompleted: () => {
       dispatchToast.success("Task marked as unscheduled");
     },
@@ -90,7 +88,6 @@ export const ActionButtons: React.FC<Props> = ({
     AbortTaskMutation,
     AbortTaskMutationVariables
   >(ABORT_TASK, {
-    variables: { taskId },
     onCompleted: () => {
       dispatchToast.success("Task aborted");
     },
@@ -143,7 +140,7 @@ export const ActionButtons: React.FC<Props> = ({
       data-cy="unschedule-task"
       disabled={disabled || !canUnschedule}
       onClick={() => {
-        unscheduleTask();
+        unscheduleTask({ variables: { taskId } });
         taskAnalytics.sendEvent({ name: "Clicked unschedule task button" });
       }}
     >
@@ -154,7 +151,7 @@ export const ActionButtons: React.FC<Props> = ({
       data-cy="abort-task"
       disabled={disabled || !canAbort}
       onClick={() => {
-        abortTask();
+        abortTask({ variables: { taskId } });
         taskAnalytics.sendEvent({ name: "Clicked abort task button" });
       }}
     >
@@ -207,7 +204,7 @@ export const ActionButtons: React.FC<Props> = ({
         disabled={disabled || !canSchedule}
         loading={loadingScheduleTask}
         onClick={() => {
-          scheduleTask();
+          scheduleTask({ variables: { taskIds: [taskId], versionId } });
           taskAnalytics.sendEvent({ name: "Clicked schedule task button" });
         }}
         size="small"

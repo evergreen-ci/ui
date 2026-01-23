@@ -7,26 +7,9 @@ import {
   useRef,
   useState,
 } from "react";
-import Cookie from "js-cookie";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { PaginatedVirtualListRef } from "components/PaginatedVirtualList/types";
-import {
-  CASE_SENSITIVE,
-  EXPANDABLE_ROWS,
-  FILTER_LOGIC,
-  HIGHLIGHT_FILTERS,
-  PRETTY_PRINT_BOOKMARKS,
-  STICKY_HEADERS,
-  WRAP,
-  WRAP_FORMAT,
-  ZEBRA_STRIPING,
-} from "constants/cookies";
-import {
-  FilterLogic,
-  LogRenderingTypes,
-  LogTypes,
-  WordWrapFormat,
-} from "constants/enums";
+import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useOpenSectionAndScrollToLine } from "hooks/useOpenSectionAndScrollToLine";
@@ -38,6 +21,7 @@ import { getColorMapping } from "utils/resmoke";
 import searchLogs from "utils/searchLogs";
 import useLogState from "./state";
 import { DIRECTION, LogMetadata, Preferences, SearchState } from "./types";
+import { usePreferences } from "./usePreferences";
 import { getNextPage } from "./utils";
 
 interface LogContextState {
@@ -119,33 +103,8 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     urlParseOptions,
   );
 
-  // Wrap and pretty print settings are evaluated after the logs have initially rendered - see LogPane component.
-  const [wrap, setWrap] = useState(false);
-  const [prettyPrint, setPrettyPrint] = useState(false);
-  const [filterLogic, setFilterLogic] = useQueryParam(
-    QueryParams.FilterLogic,
-    (Cookie.get(FILTER_LOGIC) as FilterLogic) ?? FilterLogic.And,
-    urlParseOptions,
-  );
-  const [expandableRows, setExpandableRows] = useQueryParam(
-    QueryParams.Expandable,
-    Cookie.get(EXPANDABLE_ROWS) ? Cookie.get(EXPANDABLE_ROWS) === "true" : true,
-    urlParseOptions,
-  );
-  const [zebraStriping, setZebraStriping] = useState(
-    Cookie.get(ZEBRA_STRIPING) === "true",
-  );
-  const [wordWrapFormat, setWordWrapFormat] = useState(
-    (Cookie.get(WRAP_FORMAT) as WordWrapFormat)
-      ? (Cookie.get(WRAP_FORMAT) as WordWrapFormat)
-      : WordWrapFormat.Standard,
-  );
-  const [highlightFilters, setHighlightFilters] = useState(
-    Cookie.get(HIGHLIGHT_FILTERS) === "true",
-  );
-  const [stickyHeaders, setStickyHeaders] = useState(
-    Cookie.get(STICKY_HEADERS) === "true",
-  );
+  const preferences = usePreferences();
+  const { expandableRows, filterLogic } = preferences;
 
   const { dispatch, state } = useLogState(initialLogLines);
   const [processedLogLines, setProcessedLogLines] = useState<ProcessedLogLines>(
@@ -287,6 +246,18 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       ? searchResults[state.searchState.searchIndex]
       : undefined;
 
+  // Re-trigger search when caseSensitive changes
+  useEffect(() => {
+    if (state.searchState.searchTerm) {
+      dispatch({
+        caseSensitive: preferences.caseSensitive,
+        searchTerm: state.searchState.searchTerm.source,
+        type: "SET_SEARCH_TERM",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preferences.caseSensitive]);
+
   const ingestLines = useCallback(
     (
       lines: string[],
@@ -318,53 +289,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       listRef,
       logMetadata: state.logMetadata,
       matchingLines,
-      preferences: {
-        caseSensitive: state.searchState.caseSensitive,
-        expandableRows,
-        filterLogic,
-        highlightFilters,
-        prettyPrint,
-        setCaseSensitive: (v: boolean) => {
-          dispatch({ caseSensitive: v, type: "SET_CASE_SENSITIVE" });
-          Cookie.set(CASE_SENSITIVE, v.toString(), { expires: 365 });
-        },
-        setExpandableRows: (v: boolean) => {
-          setExpandableRows(v);
-          Cookie.set(EXPANDABLE_ROWS, v.toString(), { expires: 365 });
-        },
-        setFilterLogic: (v: FilterLogic) => {
-          setFilterLogic(v);
-          Cookie.set(FILTER_LOGIC, v, { expires: 365 });
-        },
-        setHighlightFilters: (v: boolean) => {
-          setHighlightFilters(v);
-          Cookie.set(HIGHLIGHT_FILTERS, v.toString(), { expires: 365 });
-        },
-        setPrettyPrint: (v: boolean) => {
-          setPrettyPrint(v);
-          Cookie.set(PRETTY_PRINT_BOOKMARKS, v.toString(), { expires: 365 });
-        },
-        setStickyHeaders: (v: boolean) => {
-          setStickyHeaders(v);
-          Cookie.set(STICKY_HEADERS, v.toString(), { expires: 365 });
-        },
-        setWordWrapFormat: (v: WordWrapFormat) => {
-          setWordWrapFormat(v);
-          Cookie.set(WRAP_FORMAT, v.toString(), { expires: 365 });
-        },
-        setWrap: (v: boolean) => {
-          setWrap(v);
-          Cookie.set(WRAP, v.toString(), { expires: 365 });
-        },
-        setZebraStriping: (v: boolean) => {
-          setZebraStriping(v);
-          Cookie.set(ZEBRA_STRIPING, v.toString(), { expires: 365 });
-        },
-        stickyHeaders,
-        wordWrapFormat,
-        wrap,
-        zebraStriping,
-      },
+      preferences,
       processedLogLines,
       range: {
         lowerRange,
@@ -398,20 +323,20 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       },
       setLogMetadata,
       setSearch: (searchTerm: string) => {
-        dispatch({ searchTerm, type: "SET_SEARCH_TERM" });
+        dispatch({
+          caseSensitive: preferences.caseSensitive,
+          searchTerm,
+          type: "SET_SEARCH_TERM",
+        });
       },
     }),
     [
-      expandableRows,
-      filterLogic,
       lowerRange,
       matchingLines,
-      prettyPrint,
+      preferences,
       processedLogLines,
       searchLine,
       searchResults,
-      zebraStriping,
-      stickyHeaders,
       state.expandedLines,
       state.failingLine,
       state.hasLogs,
@@ -419,19 +344,12 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       state.logs.length,
       state.searchState,
       upperRange,
-      wordWrapFormat,
-      setWordWrapFormat,
-      wrap,
       dispatch,
       getLine,
       getResmokeLineColor,
       ingestLines,
       scrollToLine,
-      setExpandableRows,
-      setFilterLogic,
       setLogMetadata,
-      setHighlightFilters,
-      highlightFilters,
       sectioning,
       openSectionAndScrollToLine,
     ],

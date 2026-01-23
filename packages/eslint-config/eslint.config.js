@@ -26,6 +26,7 @@ const ERROR = "error";
 const WARN = "warn";
 const OFF = "off";
 
+const errorIfCI = process.env.CI ? ERROR : OFF;
 const errorIfStrict = process.env.STRICT ? ERROR : WARN;
 
 const globalIgnores = {
@@ -154,7 +155,7 @@ const tsEslintConfig = {
   },
   rules: {
     "@typescript-eslint/ban-ts-comment": ERROR,
-    "@typescript-eslint/no-deprecated": ERROR,
+    "@typescript-eslint/no-deprecated": errorIfCI,
     "@typescript-eslint/no-empty-object-type": ERROR,
     "@typescript-eslint/no-explicit-any": ERROR,
     "@typescript-eslint/no-namespace": OFF,
@@ -302,6 +303,11 @@ const jsDocConfig = {
   ...jsdocPlugin.configs["flat/recommended-typescript-error"],
   name: "jsdoc/rules",
   files: ["**/*.js?(x)", "**/*.ts?(x)"],
+  settings: {
+    jsdoc: {
+      ignoreInternal: true
+    }
+  }
 };
 
 // Storybook ESLint (eslint-plugin-storybook) settings.

@@ -6,8 +6,16 @@ import { sortTasks } from "./sort";
 
 export { sortTasks, groupStatusesByUmbrellaStatus, getCurrentStatuses };
 
-export const isFinishedTaskStatus = (status: string): boolean =>
-  finishedTaskStatuses.includes(status as TaskStatus);
+export const isFinishedTaskStatus = (status: string | undefined): boolean => {
+  if (!status) {
+    return false;
+  }
+  return finishedTaskStatuses.includes(status as TaskStatus);
+};
 
-export const isFailedTaskStatus = (taskStatus: string) =>
-  failedTaskStatuses.includes(taskStatus as TaskStatus);
+export const isFailedTaskStatus = (taskStatus: string | undefined) => {
+  if (!taskStatus) {
+    return false;
+  }
+  return failedTaskStatuses.includes(taskStatus as TaskStatus);
+};

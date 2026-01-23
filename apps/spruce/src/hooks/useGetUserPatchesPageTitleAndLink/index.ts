@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { getUserPatchesRoute } from "constants/routes";
 import { User, UserQuery } from "gql/generated/types";
 import { USER } from "gql/queries";

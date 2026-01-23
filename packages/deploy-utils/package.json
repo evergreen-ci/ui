@@ -5,23 +5,26 @@
   "type": "module",
   "scripts": {
     "check-types": "tsc -p tsconfig.json --noEmit",
-    "eslint:fix": "yarn eslint:strict --fix",
+    "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint .",
     "test": "TZ=UTC vitest"
   },
   "dependencies": {
-    "@evg-ui/lib": "*",
+    "@evg-ui/lib": "workspace:*",
     "prompts": "^2.4.2",
     "vite-node": "^3.2.4"
   },
   "devDependencies": {
-    "@evg-ui/eslint-config": "*",
+    "@evg-ui/eslint-config": "workspace:*",
+    "@evg-ui/lint-staged": "workspace:*",
     "@types/node": "^22.15.3",
     "@types/prompts": "2.4.9",
     "eslint": "^9.39.1",
     "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "3.7.4",
     "typescript": "~5.9.3",
+    "vite-tsconfig-paths": "^6.0.2",
     "vitest": "^3.2.4"
   },
   "bin": {

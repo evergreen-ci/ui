@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
@@ -86,7 +86,11 @@ export const DownstreamProjectAccordion: React.FC<
     },
     fetchPolicy: "cache-and-network",
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<VersionTasksQuery, VersionTasksQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const showSkeleton = !data;
   const { version } = data || {};

@@ -69,9 +69,11 @@
           class="leafygreen-ui-cssveg emotion-IconWrapper e8ojxbj0"
         >
           <svg
-            class="emotion-iconMargin"
-            fill="#DB3030"
+            aria-label="Info With Circle Icon"
+            class="leafygreen-ui-1xsx4zj emotion-iconMargin"
+            fill="none"
             height="16"
+            role="img"
             viewBox="0 0 16 16"
             width="16"
             xmlns="http://www.w3.org/2000/svg"

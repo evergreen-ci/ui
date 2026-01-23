@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { Select, Option } from "@leafygreen-ui/select";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { ModalContent } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -25,17 +25,18 @@ export const AttachVolumeSelect = ({
   selectedHostId,
   targetAvailabilityZone,
 }: Props) => {
-  const dispatchToast = useToastContext();
-  const { data, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, refetch, startPolling, stopPolling } = useQuery<
     MyHostsQuery,
     MyHostsQueryVariables
   >(MY_HOSTS, {
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError: (e) => {
-      dispatchToast.error(`There was an error loading hosts: ${e.message}`);
-    },
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  useErrorToast(error, "There was an error loading hosts");
+  usePolling<MyHostsQuery, MyHostsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const hostDropdownOptions = useMemo(() => {
     // User should not be able to make changes to a host if it isn't in the running or stopped status

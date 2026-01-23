@@ -1,5 +1,5 @@
 import { useReducer, useEffect } from "react";
-import { useMutation, useLazyQuery } from "@apollo/client";
+import { useMutation, useLazyQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
@@ -61,15 +61,14 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
     { called: calledTaskData, data: taskData, loading: loadingTaskData },
   ] = useLazyQuery<UndispatchedTasksQuery, UndispatchedTasksQueryVariables>(
     UNSCHEDULED_TASKS,
-    {
-      variables: { versionId },
-    },
   );
+
   useEffect(() => {
     if (open && !calledTaskData) {
-      loadTaskData();
+      loadTaskData({ variables: { versionId } });
     }
-  }, [calledTaskData, loadTaskData, open]);
+  }, [calledTaskData, loadTaskData, open, versionId]);
+
   useEffect(() => {
     dispatch({ type: "ingestData", taskData });
   }, [taskData]);

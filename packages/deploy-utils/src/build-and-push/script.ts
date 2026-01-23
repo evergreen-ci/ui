@@ -1,4 +1,4 @@
-#!/usr/bin/env -S VITE_SCRIPT_MODE=1 vite-node --script
+#!/usr/bin/env vite-node --script
 
 import { isTargetEnvironment } from "../utils/types";
 import { buildAndPush } from ".";

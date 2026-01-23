@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { useNavigate, useParams } from "react-router-dom";
@@ -60,16 +60,13 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     SaveProjectSettingsForSectionMutation,
     SaveProjectSettingsForSectionMutationVariables
   >(SAVE_PROJECT_SETTINGS_FOR_SECTION, {
-    onCompleted({
-      saveProjectSettingsForSection: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        projectRef: { identifier: newIdentifier },
-      },
-    }) {
+    onCompleted: (data) => {
+      const newIdentifier =
+        data?.saveProjectSettingsForSection?.projectRef?.identifier;
       saveTab(tab);
       dispatchToast.success("Successfully updated project");
 
-      if (identifier !== newIdentifier) {
+      if (newIdentifier && identifier !== newIdentifier) {
         setTimeout(() => {
           navigate(getProjectSettingsRoute(newIdentifier, tab), {
             replace: true,
@@ -77,22 +74,18 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
         }, 500);
       }
     },
-    onError(err) {
+    onError: (err) => {
       dispatchToast.error(
         `There was an error saving the project: ${err.message}`,
       );
     },
-    refetchQueries: ({
-      data: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        saveProjectSettingsForSection: {
-          projectRef: { identifier: newIdentifier },
-        },
-      },
-    }) =>
-      identifier === newIdentifier
+    refetchQueries: (result) => {
+      const newIdentifier =
+        result.data?.saveProjectSettingsForSection?.projectRef?.identifier;
+      return identifier === newIdentifier
         ? ["ProjectSettings", "ViewableProjectRefs", "ProjectBanner"]
-        : [],
+        : [];
+    },
   });
 
   const [saveRepoSection] = useMutation<

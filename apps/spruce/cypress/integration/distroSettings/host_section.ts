@@ -53,7 +53,12 @@ describe("host section", () => {
     });
 
     it("updates mountpoints", { retries: { runMode: 2 } }, () => {
-      cy.contains("button", "Add Mountpoint").click();
+      cy.contains("button", "Add mountpoint").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
+      cy.contains("button", "Add mountpoint").click();
       cy.getInputByLabel("Mountpoint").type("/data");
 
       save();

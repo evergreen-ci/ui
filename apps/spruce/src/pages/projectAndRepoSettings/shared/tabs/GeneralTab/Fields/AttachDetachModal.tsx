@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectSettingsAnalytics } from "analytics";
@@ -37,7 +37,6 @@ export const AttachDetachModal: React.FC<ModalProps> = ({
     AttachProjectToRepoMutation,
     AttachProjectToRepoMutationVariables
   >(ATTACH_PROJECT_TO_REPO, {
-    variables: { projectId },
     onCompleted() {
       dispatchToast.success("Successfully attached to repo");
     },
@@ -58,7 +57,6 @@ export const AttachDetachModal: React.FC<ModalProps> = ({
     DetachProjectFromRepoMutation,
     DetachProjectFromRepoMutationVariables
   >(DETACH_PROJECT_FROM_REPO, {
-    variables: { projectId },
     onCompleted() {
       dispatchToast.success("Successfully detached from repo");
     },
@@ -72,14 +70,14 @@ export const AttachDetachModal: React.FC<ModalProps> = ({
 
   const onConfirm = () => {
     if (shouldAttach) {
-      attachProjectToRepo();
+      attachProjectToRepo({ variables: { projectId } });
       sendEvent({
         name: "Clicked attach project to repo button",
         "repo.owner": repoOwner,
         "repo.name": repoName,
       });
     } else {
-      detachProjectFromRepo();
+      detachProjectFromRepo({ variables: { projectId } });
       sendEvent({
         name: "Clicked detach project from repo button",
         "repo.owner": repoOwner,

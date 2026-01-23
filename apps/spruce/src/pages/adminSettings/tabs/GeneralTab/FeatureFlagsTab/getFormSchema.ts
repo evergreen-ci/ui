@@ -43,12 +43,15 @@ const featureItems: Record<string, string> = {
   elasticIPsDisabled: "Elastic IPs  for task hosts",
   staticAPIKeysDisabled: "Static API Keys credentials for users",
   backgroundReauthDisabled: "Background Reauthentication",
+  debugSpawnHostDisabled: "Debug spawn hosts",
+  useGitForGitHubFilesDisabled: "Use git to fetch files from GitHub",
 };
 
 const batchJobItems: Record<string, string> = {
   backgroundStatsDisabled: "Collect background statistics",
   cacheStatsJobDisabled: "Cache historical statistics",
   cacheStatsEndpointDisabled: "Cache historical statistics endpoint",
+  s3LifecycleSyncDisabled: "S3 Lifecycle sync",
 };
 
 const zebraCSS = css`

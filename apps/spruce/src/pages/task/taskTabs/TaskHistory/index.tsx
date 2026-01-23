@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
+import {
+  useQueryParam,
+  useQueryParams,
+  useErrorToast,
+} from "@evg-ui/lib/hooks";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
@@ -52,8 +55,6 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
     setShowShadow(!entry.isIntersecting);
   });
 
-  const dispatchToast = useToastContext();
-
   const [viewOption, setViewOption] = useState(
     (Cookies.get(TASK_HISTORY_INACTIVE_COMMITS_VIEW) ??
       ViewOptions.Collapsed) as ViewOptions,
@@ -87,7 +88,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
   const timezone = useUserTimeZone();
   const utcDate = getUTCEndOfDay(date, timezone);
 
-  const { data, loading } = useQuery<
+  const { data, error, loading } = useQuery<
     TaskHistoryQuery,
     TaskHistoryQueryVariables
   >(TASK_HISTORY, {
@@ -107,10 +108,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
     },
     fetchPolicy: "cache-first",
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError: (err) => {
-      dispatchToast.error(`Unable to get task history: ${err}`);
-    },
   });
+  useErrorToast(error, "Unable to get task history");
 
   const { taskHistory } = data ?? {};
   const { pagination, tasks = [] } = taskHistory ?? {};

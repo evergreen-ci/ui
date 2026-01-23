@@ -1,5 +1,637 @@
 <div>
-  <div>
-    Failed to render component.
+  <div
+    class="leafygreen-ui-1si66qn emotion-taskReviewStyles"
+    tabindex="0"
+  >
+    <div />
+    <table
+      class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
+      data-cy="execution-tasks-table"
+      data-is-sticky="false"
+      data-lgid="lg-table"
+      data-testid="lg-table"
+    >
+      <thead
+        class="leafygreen-ui-181p7kg"
+      >
+        <tr
+          class="leafygreen-ui-5fo1n0"
+          data-lgid="lg-table-header_row"
+          data-testid="lg-table-header_row"
+        >
+          <th
+            class="leafygreen-ui-gr2tm4"
+            data-lgid="lg-table-header"
+            data-testid="lg-table-header"
+            id="reviewed"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-11hl1ow"
+            >
+              Reviewed 
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-1r58gm9"
+            data-lgid="lg-table-header"
+            data-testid="lg-table-header"
+            id="NAME"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-11hl1ow"
+            >
+              Name
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Name"
+                class="leafygreen-ui-1r51ix4"
+                data-lgid="lg-table-sort_button"
+                data-testid="lg-table-sort_button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-1vrn39p"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <path
+                      d="M3.68466 1.14265C3.90429 0.952449 4.23028 0.95245 4.44991 1.14265L6.93156 3.29182C7.34063 3.64609 7.09009 4.31811 6.54893 4.31811H5.23624L5.23624 11.6819H6.54894C7.09009 11.6819 7.34064 12.3539 6.93157 12.7082L4.44992 14.8573C4.23029 15.0476 3.9043 15.0476 3.68467 14.8573L1.20303 12.7082C0.793953 12.3539 1.0445 11.6819 1.58565 11.6819H2.89836V11.6742L2.89835 11.6696L2.89835 4.31811H1.58564C1.04449 4.31811 0.793944 3.64609 1.20302 3.29182L3.68466 1.14265Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 8C8 7.44772 8.44772 7 9 7H14C14.5523 7 15 7.44772 15 8C15 8.55228 14.5523 9 14 9H9C8.44772 9 8 8.55228 8 8Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6H14C14.5523 6 15 5.55228 15 5C15 4.44772 14.5523 4 14 4H9Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 11C8 10.4477 8.44772 10 9 10H14C14.5523 10 15 10.4477 15 11C15 11.5523 14.5523 12 14 12H9C8.44772 12 8 11.5523 8 11Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-y5jy5e"
+            data-lgid="lg-table-header"
+            data-testid="lg-table-header"
+            id="STATUS"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-11hl1ow"
+            >
+              Task Status
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Task Status"
+                class="leafygreen-ui-1r51ix4"
+                data-lgid="lg-table-sort_button"
+                data-testid="lg-table-sort_button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Sort Ascending Icon"
+                    class="leafygreen-ui-fn3fl8"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <path
+                      d="M4.44991 1.14265C4.23029 0.95245 3.90429 0.952449 3.68466 1.14265L1.20302 3.29182C0.793944 3.64609 1.04449 4.31811 1.58564 4.31811H2.89835V13.6696C2.89835 14.3152 3.4217 14.8386 4.06729 14.8386C4.71287 14.8386 5.23623 14.3152 5.23623 13.6696V4.31811H6.54893C7.09009 4.31811 7.34063 3.64609 6.93156 3.29182L4.44991 1.14265Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 5C7.44772 5 7 5.44772 7 6C7 6.55228 7.44772 7 8 7H14C14.5523 7 15 6.55228 15 6C15 5.44772 14.5523 5 14 5H8Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M7 9C7 8.44772 7.44772 8 8 8H12C12.5523 8 13 8.44772 13 9C13 9.55229 12.5523 10 12 10H8C7.44772 10 7 9.55229 7 9Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 11C7.44772 11 7 11.4477 7 12C7 12.5523 7.44772 13 8 13H10C10.5523 13 11 12.5523 11 12C11 11.4477 10.5523 11 10 11H8Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-y5jy5e"
+            data-lgid="lg-table-header"
+            data-testid="lg-table-header"
+            id="BASE_STATUS"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-11hl1ow"
+            >
+              Base Status
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Base Status"
+                class="leafygreen-ui-1r51ix4"
+                data-lgid="lg-table-sort_button"
+                data-testid="lg-table-sort_button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-1vrn39p"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <path
+                      d="M3.68466 1.14265C3.90429 0.952449 4.23028 0.95245 4.44991 1.14265L6.93156 3.29182C7.34063 3.64609 7.09009 4.31811 6.54893 4.31811H5.23624L5.23624 11.6819H6.54894C7.09009 11.6819 7.34064 12.3539 6.93157 12.7082L4.44992 14.8573C4.23029 15.0476 3.9043 15.0476 3.68467 14.8573L1.20303 12.7082C0.793953 12.3539 1.0445 11.6819 1.58565 11.6819H2.89836V11.6742L2.89835 11.6696L2.89835 4.31811H1.58564C1.04449 4.31811 0.793944 3.64609 1.20302 3.29182L3.68466 1.14265Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 8C8 7.44772 8.44772 7 9 7H14C14.5523 7 15 7.44772 15 8C15 8.55228 14.5523 9 14 9H9C8.44772 9 8 8.55228 8 8Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6H14C14.5523 6 15 5.55228 15 5C15 4.44772 14.5523 4 14 4H9Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 11C8 10.4477 8.44772 10 9 10H14C14.5523 10 15 10.4477 15 11C15 11.5523 14.5523 12 14 12H9C8.44772 12 8 11.5523 8 11Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-1jmdxtk"
+            data-lgid="lg-table-header"
+            data-testid="lg-table-header"
+            id="VARIANT"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-11hl1ow"
+            >
+              Variant
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Variant"
+                class="leafygreen-ui-1r51ix4"
+                data-lgid="lg-table-sort_button"
+                data-testid="lg-table-sort_button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-1vrn39p"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <path
+                      d="M3.68466 1.14265C3.90429 0.952449 4.23028 0.95245 4.44991 1.14265L6.93156 3.29182C7.34063 3.64609 7.09009 4.31811 6.54893 4.31811H5.23624L5.23624 11.6819H6.54894C7.09009 11.6819 7.34064 12.3539 6.93157 12.7082L4.44992 14.8573C4.23029 15.0476 3.9043 15.0476 3.68467 14.8573L1.20303 12.7082C0.793953 12.3539 1.0445 11.6819 1.58565 11.6819H2.89836V11.6742L2.89835 11.6696L2.89835 4.31811H1.58564C1.04449 4.31811 0.793944 3.64609 1.20302 3.29182L3.68466 1.14265Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 8C8 7.44772 8.44772 7 9 7H14C14.5523 7 15 7.44772 15 8C15 8.55228 14.5523 9 14 9H9C8.44772 9 8 8.55228 8 8Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6H14C14.5523 6 15 5.55228 15 5C15 4.44772 14.5523 4 14 4H9Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M8 11C8 10.4477 8.44772 10 9 10H14C14.5523 10 15 10.4477 15 11C15 11.5523 14.5523 12 14 12H9C8.44772 12 8 11.5523 8 11Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          aria-disabled="false"
+          class="leafygreen-ui-ef1edo"
+          data-cy="execution-tasks-table-row"
+          data-depth="0"
+          data-expanded="false"
+          data-index="0"
+          data-lgid="lg-table-row"
+          data-selected="false"
+          data-testid="lg-table-row"
+          id="lg-table-row-0"
+        >
+          <td
+            class="leafygreen-ui-16vw6q"
+            data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <div
+                    class="leafygreen-ui-55kazc emotion-StyledCheckbox e1n1n4q50"
+                    data-lgid="lg-reviewed-some_id_5"
+                    data-testid="lg-reviewed-some_id_5"
+                  >
+                    <label
+                      class="leafygreen-ui-1whk3l"
+                      data-lgid="lg-reviewed-some_id_5-label"
+                      data-testid="lg-reviewed-some_id_5"
+                      for="checkbox-330"
+                      id="checkbox-330-label"
+                    >
+                      <input
+                        aria-checked="false"
+                        aria-disabled="false"
+                        aria-label="Mark as reviewed"
+                        aria-labelledby="checkbox-330-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        data-cy="reviewed-some_id_5"
+                        id="checkbox-330"
+                        type="checkbox"
+                      />
+                      <div
+                        class="lg-ui-check-wrapper-0000 leafygreen-ui-13nchij"
+                      >
+                        <svg
+                          class="leafygreen-ui-6caof5"
+                          fill="none"
+                          height="10"
+                          stroke="#FFFFFF"
+                          viewBox="0 0 10 10"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                            stroke="#FFFFFF"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-16vw6q"
+            data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <a
+                    class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
+                    href="/task/some_id_5?execution=5"
+                  >
+                    <span>
+                      <span
+                        class="emotion-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                      >
+                        Some fancy execution task
+                      </span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-16vw6q"
+            data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <a
+                    href="/task/some_id_5?execution=5"
+                  >
+                    <div
+                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
+                      data-cy="task-status-badge"
+                    >
+                      Succeeded
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-16vw6q"
+            data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <a
+                    href="/task/some_id_5_base?execution=5"
+                  >
+                    <div
+                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
+                      data-cy="task-status-badge"
+                    >
+                      Succeeded
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-16vw6q"
+            data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <a
+                    class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
+                    href="/variant-history/undefined/Windows"
+                  >
+                    <span>
+                      Windows 97
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-disabled="false"
+          class="leafygreen-ui-ef1edo"
+          data-cy="execution-tasks-table-row"
+          data-depth="0"
+          data-expanded="false"
+          data-index="1"
+          data-lgid="lg-table-row"
+          data-selected="false"
+          data-testid="lg-table-row"
+          id="lg-table-row-1"
+        >
+          <td
+            class="leafygreen-ui-16vw6q"
+            data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <div
+                    class="leafygreen-ui-55kazc emotion-StyledCheckbox e1n1n4q50"
+                    data-lgid="lg-reviewed-some_id_6"
+                    data-testid="lg-reviewed-some_id_6"
+                  >
+                    <label
+                      class="leafygreen-ui-1whk3l"
+                      data-lgid="lg-reviewed-some_id_6-label"
+                      data-testid="lg-reviewed-some_id_6"
+                      for="checkbox-331"
+                      id="checkbox-331-label"
+                    >
+                      <input
+                        aria-checked="false"
+                        aria-disabled="false"
+                        aria-label="Mark as reviewed"
+                        aria-labelledby="checkbox-331-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        data-cy="reviewed-some_id_6"
+                        id="checkbox-331"
+                        type="checkbox"
+                      />
+                      <div
+                        class="lg-ui-check-wrapper-0000 leafygreen-ui-13nchij"
+                      >
+                        <svg
+                          class="leafygreen-ui-6caof5"
+                          fill="none"
+                          height="10"
+                          stroke="#FFFFFF"
+                          viewBox="0 0 10 10"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                            stroke="#FFFFFF"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-16vw6q"
+            data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <a
+                    class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
+                    href="/task/some_id_6?execution=5"
+                  >
+                    <span>
+                      <span
+                        class="emotion-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                      >
+                        Another execution task
+                      </span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-16vw6q"
+            data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <a
+                    href="/task/some_id_6?execution=5"
+                  >
+                    <div
+                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
+                      data-cy="task-status-badge"
+                    >
+                      Succeeded
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-16vw6q"
+            data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <a
+                    href="/task/some_id_6_base?execution=5"
+                  >
+                    <div
+                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
+                      data-cy="task-status-badge"
+                    >
+                      Succeeded
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-16vw6q"
+            data-lgid="lg-table-cell"
+            data-testid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <a
+                    class="lg-ui-0001 emotion-overrideStyles leafygreen-ui-16e7rxl"
+                    href="/variant-history/undefined/Windows"
+                  >
+                    <span>
+                      Windows 97
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

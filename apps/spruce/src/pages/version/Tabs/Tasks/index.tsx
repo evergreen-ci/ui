@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { useLocation } from "react-router-dom";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
@@ -26,7 +26,6 @@ interface Props {
 }
 
 const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
-  const dispatchToast = useToastContext();
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId || "");
@@ -69,7 +68,7 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
     });
   };
 
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     VersionTasksQuery,
     VersionTasksQueryVariables
   >(VERSION_TASKS, {
@@ -77,11 +76,13 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
     pollInterval: DEFAULT_POLL_INTERVAL,
     skip: !hasQueryVariables,
     fetchPolicy: "cache-and-network",
-    onError: (err) => {
-      dispatchToast.error(`Error fetching patch tasks ${err}`);
-    },
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  useErrorToast(error, "Error fetching patch tasks");
+  usePolling<VersionTasksQuery, VersionTasksQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
   const { version } = data || {};
   const { isPatch, tasks } = version || {};
   const { count = 0, data: tasksData = [] } = tasks || {};

@@ -1,4 +1,6 @@
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import Cookies from "js-cookie";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
 import ExecutionTasksTable from ".";
 
 export default {
@@ -6,23 +8,29 @@ export default {
 } satisfies CustomMeta<typeof ExecutionTasksTable>;
 
 export const SingleExecution: CustomStoryObj<typeof ExecutionTasksTable> = {
-  render: () => (
-    <ExecutionTasksTable
-      execution={5}
-      executionTasksFull={singleExecution}
-      isPatch
-    />
-  ),
+  render: () => {
+    Cookies.set(SEEN_TASK_REVIEW_TOOLTIP, new Date("2020-01-01").toString());
+    return (
+      <ExecutionTasksTable
+        execution={5}
+        executionTasksFull={singleExecution}
+        isPatch
+      />
+    );
+  },
 };
 
 export const MultipleExecutions: CustomStoryObj<typeof ExecutionTasksTable> = {
-  render: () => (
-    <ExecutionTasksTable
-      execution={14}
-      executionTasksFull={multipleExecutions}
-      isPatch
-    />
-  ),
+  render: () => {
+    Cookies.set(SEEN_TASK_REVIEW_TOOLTIP, new Date("2020-01-01").toString());
+    return (
+      <ExecutionTasksTable
+        execution={14}
+        executionTasksFull={multipleExecutions}
+        isPatch
+      />
+    );
+  },
 };
 
 const singleExecution = [

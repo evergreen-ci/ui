@@ -39,12 +39,15 @@ export interface FeatureFlagsFormState {
       elasticIPsDisabled: boolean;
       staticAPIKeysDisabled: boolean;
       backgroundReauthDisabled: boolean;
+      debugSpawnHostDisabled: boolean;
+      useGitForGitHubFilesDisabled: boolean;
     };
 
     batchJobs: {
       backgroundStatsDisabled: boolean;
       cacheStatsJobDisabled: boolean;
       cacheStatsEndpointDisabled: boolean;
+      s3LifecycleSyncDisabled: boolean;
     };
   };
 }

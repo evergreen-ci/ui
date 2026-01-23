@@ -1,6 +1,5 @@
 import { InMemoryCache } from "@apollo/client";
-import { MockedProvider } from "@apollo/client/testing";
-import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
+import { MockedProvider, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";

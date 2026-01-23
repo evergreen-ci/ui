@@ -52,11 +52,14 @@ const form: FeatureFlagsFormState = {
       staticAPIKeysDisabled: true,
       elasticIPsDisabled: true,
       releaseModeDisabled: true,
+      debugSpawnHostDisabled: true,
+      useGitForGitHubFilesDisabled: true,
     },
     batchJobs: {
       backgroundStatsDisabled: true,
       cacheStatsJobDisabled: true,
       cacheStatsEndpointDisabled: true,
+      s3LifecycleSyncDisabled: true,
     },
   },
 };
@@ -66,6 +69,7 @@ const gql: AdminSettingsInput = {
     agentStartDisabled: true,
     alertsDisabled: true,
     backgroundReauthDisabled: true,
+    debugSpawnHostDisabled: true,
     backgroundStatsDisabled: true,
     cacheStatsEndpointDisabled: true,
     cacheStatsJobDisabled: true,
@@ -88,6 +92,7 @@ const gql: AdminSettingsInput = {
     podInitDisabled: true,
     releaseModeDisabled: true,
     repotrackerDisabled: true,
+    s3LifecycleSyncDisabled: true,
     schedulerDisabled: true,
     slackNotificationsDisabled: true,
     sleepScheduleDisabled: true,
@@ -97,6 +102,7 @@ const gql: AdminSettingsInput = {
     taskLoggingDisabled: true,
     taskReliabilityDisabled: true,
     unrecognizedPodCleanupDisabled: true,
+    useGitForGitHubFilesDisabled: true,
     webhookNotificationsDisabled: true,
   },
 };

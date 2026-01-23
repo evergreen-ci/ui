@@ -1,5 +1,5 @@
 import React from "react";
-import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
+import { MockedProvider, MockedProviderProps } from "@evg-ui/lib/test_utils";
 import { cache } from "gql/client/cache";
 
 const CustomMockedProvider: React.FC<MockedProviderProps> = ({

@@ -79,7 +79,7 @@ describe("ExpiringAnnouncementTooltip", () => {
       });
     });
 
-    it("sets a cookie with the date upon close", async () => {
+    it("sets a cookie with the date and expiration upon close", async () => {
       const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
       vi.setSystemTime(fakeDate);
 
@@ -103,6 +103,7 @@ describe("ExpiringAnnouncementTooltip", () => {
       expect(mockedSet).toHaveBeenCalledExactlyOnceWith(
         "TEST_COOKIE",
         fakeDate.toString(),
+        { expires: 365 },
       );
     });
   });

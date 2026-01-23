@@ -1,5 +1,9 @@
-import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
-import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
+import {
+  MockedProvider,
+  MockedProviderProps,
+  renderHook,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   BaseVersionAndTaskQuery,
@@ -95,6 +99,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
           id: baseTaskId,
           execution: 0,
           displayStatus: "failed",
+          order: 3676,
           __typename: "Task",
         },
         __typename: "Task",

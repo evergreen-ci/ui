@@ -177,6 +177,7 @@ export type AdminSettings = {
   githubOrgs?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPRCreatorOrg?: Maybe<Scalars["String"]["output"]>;
   githubWebhookSecret?: Maybe<Scalars["String"]["output"]>;
+  graphite?: Maybe<GraphiteConfig>;
   hostInit?: Maybe<HostInitConfig>;
   hostJasper?: Maybe<HostJasperConfig>;
   jira?: Maybe<JiraConfig>;
@@ -232,6 +233,7 @@ export type AdminSettingsInput = {
   githubOrgs?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPRCreatorOrg?: InputMaybe<Scalars["String"]["input"]>;
   githubWebhookSecret?: InputMaybe<Scalars["String"]["input"]>;
+  graphite?: InputMaybe<GraphiteConfigInput>;
   hostInit?: InputMaybe<HostInitConfigInput>;
   hostJasper?: InputMaybe<HostJasperConfigInput>;
   jira?: InputMaybe<JiraConfigInput>;
@@ -689,6 +691,13 @@ export type CopyProjectInput = {
   newProjectId?: InputMaybe<Scalars["String"]["input"]>;
   newProjectIdentifier: Scalars["String"]["input"];
   projectIdToCopy: Scalars["String"]["input"];
+};
+
+/** Cost represents the cost breakdown for a task or version. */
+export type Cost = {
+  __typename?: "Cost";
+  adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -1270,6 +1279,17 @@ export type GithubUser = {
 
 export type GithubUserInput = {
   lastKnownAs?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type GraphiteConfig = {
+  __typename?: "GraphiteConfig";
+  ciOptimizationToken?: Maybe<Scalars["String"]["output"]>;
+  serverUrl?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type GraphiteConfigInput = {
+  ciOptimizationToken?: InputMaybe<Scalars["String"]["input"]>;
+  serverUrl?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type GroupedBuildVariant = {
@@ -2798,6 +2818,7 @@ export type Project = {
   commitQueue: CommitQueueParams;
   containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
+  debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
   dispatchingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   displayName: Scalars["String"]["output"];
@@ -2953,6 +2974,7 @@ export type ProjectInput = {
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]["input"]>;
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   displayName?: InputMaybe<Scalars["String"]["input"]>;
@@ -3373,6 +3395,7 @@ export type RepoRef = {
   commitQueue: RepoCommitQueueParams;
   containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious: Scalars["Boolean"]["output"];
+  debugSpawnHostsDisabled: Scalars["Boolean"]["output"];
   disabledStatsCache: Scalars["Boolean"]["output"];
   dispatchingDisabled: Scalars["Boolean"]["output"];
   displayName: Scalars["String"]["output"];
@@ -3419,6 +3442,7 @@ export type RepoRefInput = {
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]["input"]>;
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   displayName?: InputMaybe<Scalars["String"]["input"]>;
@@ -3714,6 +3738,7 @@ export type ServiceFlags = {
   checkBlockedTasksDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   cliUpdatesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   cloudCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   degradedModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   elasticIPsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   emailNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3730,6 +3755,7 @@ export type ServiceFlags = {
   podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  s3LifecycleSyncDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   schedulerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   slackNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   sleepScheduleDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3739,6 +3765,7 @@ export type ServiceFlags = {
   taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  useGitForGitHubFilesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
@@ -3752,6 +3779,7 @@ export type ServiceFlagsInput = {
   checkBlockedTasksDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   cliUpdatesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   cloudCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  debugSpawnHostDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   degradedModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   elasticIPsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   emailNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3768,6 +3796,7 @@ export type ServiceFlagsInput = {
   podInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  s3LifecycleSyncDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   schedulerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   slackNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   sleepScheduleDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3777,6 +3806,7 @@ export type ServiceFlagsInput = {
   taskLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  useGitForGitHubFilesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
@@ -3912,6 +3942,7 @@ export type SpawnHostInput = {
   distroId: Scalars["String"]["input"];
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
   homeVolumeSize?: InputMaybe<Scalars["Int"]["input"]>;
+  isDebug?: InputMaybe<Scalars["Boolean"]["input"]>;
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   noExpiration: Scalars["Boolean"]["input"];
   publicKey: PublicKeyInput;
@@ -3983,6 +4014,7 @@ export type SpruceConfig = {
   jira?: Maybe<JiraConfig>;
   providers?: Maybe<CloudProviderConfig>;
   secretFields: Array<Scalars["String"]["output"]>;
+  serviceFlags: UserServiceFlags;
   singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
@@ -4115,7 +4147,7 @@ export type Task = {
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   pod?: Maybe<Pod>;
-  predictedTaskCost?: Maybe<TaskCost>;
+  predictedTaskCost?: Maybe<Cost>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"]["output"];
@@ -4132,7 +4164,7 @@ export type Task = {
   /** taskLogs returns the tail 100 lines of the task's logs. */
   stepbackInfo?: Maybe<StepbackInfo>;
   tags: Array<Scalars["String"]["output"]>;
-  taskCost?: Maybe<TaskCost>;
+  taskCost?: Maybe<Cost>;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
   taskLogs: TaskLogs;
@@ -4166,13 +4198,6 @@ export type TaskContainerCreationOpts = {
   memoryMB: Scalars["Int"]["output"];
   os: Scalars["String"]["output"];
   workingDir: Scalars["String"]["output"];
-};
-
-/** TaskCost represents the cost breakdown for a task. */
-export type TaskCost = {
-  __typename?: "TaskCost";
-  adjustedCost?: Maybe<Scalars["Float"]["output"]>;
-  onDemandCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** TaskCountOptions defines the parameters that are used when counting tasks from a Version. */
@@ -4725,6 +4750,11 @@ export type UserConfig = {
   user: Scalars["String"]["output"];
 };
 
+export type UserServiceFlags = {
+  __typename?: "UserServiceFlags";
+  jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+};
+
 /**
  * UserSettings is returned by the userSettings query.
  * It contains information about a user's settings, such as their GitHub username or timezone.
@@ -4796,6 +4826,7 @@ export type Version = {
   order: Scalars["Int"]["output"];
   parameters: Array<Parameter>;
   patch?: Maybe<Patch>;
+  predictedCost?: Maybe<Cost>;
   previousVersion?: Maybe<Version>;
   project: Scalars["String"]["output"];
   projectIdentifier: Scalars["String"]["output"];
@@ -4920,6 +4951,7 @@ export type WaterfallOptions = {
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order greater than minOrder. Used for paginating backward. */
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
+  omitInactiveBuilds?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
@@ -5388,6 +5420,7 @@ export type ProjectGeneralSettingsFragment = {
   batchTime: number;
   branch: string;
   deactivatePrevious?: boolean | null;
+  debugSpawnHostsDisabled?: boolean | null;
   disabledStatsCache?: boolean | null;
   dispatchingDisabled?: boolean | null;
   displayName: string;
@@ -5409,6 +5442,7 @@ export type RepoGeneralSettingsFragment = {
   id: string;
   batchTime: number;
   deactivatePrevious: boolean;
+  debugSpawnHostsDisabled: boolean;
   disabledStatsCache: boolean;
   dispatchingDisabled: boolean;
   displayName: string;
@@ -5537,6 +5571,7 @@ export type ProjectSettingsFieldsFragment = {
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
+    debugSpawnHostsDisabled?: boolean | null;
     disabledStatsCache?: boolean | null;
     dispatchingDisabled?: boolean | null;
     displayName: string;
@@ -5750,6 +5785,7 @@ export type RepoSettingsFieldsFragment = {
     restricted: boolean;
     batchTime: number;
     deactivatePrevious: boolean;
+    debugSpawnHostsDisabled: boolean;
     disabledStatsCache: boolean;
     dispatchingDisabled: boolean;
     owner: string;
@@ -6211,6 +6247,7 @@ export type ProjectEventSettingsFragment = {
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
+    debugSpawnHostsDisabled?: boolean | null;
     disabledStatsCache?: boolean | null;
     dispatchingDisabled?: boolean | null;
     displayName: string;
@@ -7097,6 +7134,7 @@ export type SaveAdminSettingsMutation = {
       checkBlockedTasksDisabled?: boolean | null;
       cliUpdatesDisabled?: boolean | null;
       cloudCleanupDisabled?: boolean | null;
+      debugSpawnHostDisabled?: boolean | null;
       degradedModeDisabled?: boolean | null;
       elasticIPsDisabled?: boolean | null;
       emailNotificationsDisabled?: boolean | null;
@@ -7113,6 +7151,7 @@ export type SaveAdminSettingsMutation = {
       podInitDisabled?: boolean | null;
       releaseModeDisabled?: boolean | null;
       repotrackerDisabled?: boolean | null;
+      s3LifecycleSyncDisabled?: boolean | null;
       schedulerDisabled?: boolean | null;
       slackNotificationsDisabled?: boolean | null;
       sleepScheduleDisabled?: boolean | null;
@@ -7122,6 +7161,7 @@ export type SaveAdminSettingsMutation = {
       taskLoggingDisabled?: boolean | null;
       taskReliabilityDisabled?: boolean | null;
       unrecognizedPodCleanupDisabled?: boolean | null;
+      useGitForGitHubFilesDisabled?: boolean | null;
       webhookNotificationsDisabled?: boolean | null;
     } | null;
     taskLimits?: {
@@ -7664,6 +7704,11 @@ export type AdminSettingsQuery = {
       __typename?: "GitHubCheckRunConfig";
       checkRunLimit?: number | null;
     } | null;
+    graphite?: {
+      __typename?: "GraphiteConfig";
+      ciOptimizationToken?: string | null;
+      serverUrl?: string | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -7865,6 +7910,7 @@ export type AdminSettingsQuery = {
       checkBlockedTasksDisabled?: boolean | null;
       cliUpdatesDisabled?: boolean | null;
       cloudCleanupDisabled?: boolean | null;
+      debugSpawnHostDisabled?: boolean | null;
       degradedModeDisabled?: boolean | null;
       elasticIPsDisabled?: boolean | null;
       emailNotificationsDisabled?: boolean | null;
@@ -7881,6 +7927,7 @@ export type AdminSettingsQuery = {
       podInitDisabled?: boolean | null;
       releaseModeDisabled?: boolean | null;
       repotrackerDisabled?: boolean | null;
+      s3LifecycleSyncDisabled?: boolean | null;
       schedulerDisabled?: boolean | null;
       slackNotificationsDisabled?: boolean | null;
       sleepScheduleDisabled?: boolean | null;
@@ -7890,6 +7937,7 @@ export type AdminSettingsQuery = {
       taskLoggingDisabled?: boolean | null;
       taskReliabilityDisabled?: boolean | null;
       unrecognizedPodCleanupDisabled?: boolean | null;
+      useGitForGitHubFilesDisabled?: boolean | null;
       webhookNotificationsDisabled?: boolean | null;
     } | null;
     singleTaskDistro?: {
@@ -8089,6 +8137,7 @@ export type BaseVersionAndTaskQuery = {
       id: string;
       displayStatus: string;
       execution: number;
+      order: number;
     } | null;
     versionMetadata: {
       __typename?: "Version";
@@ -9366,6 +9415,7 @@ export type ProjectEventLogsQuery = {
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
+          debugSpawnHostsDisabled?: boolean | null;
           disabledStatsCache?: boolean | null;
           dispatchingDisabled?: boolean | null;
           displayName: string;
@@ -9586,6 +9636,7 @@ export type ProjectEventLogsQuery = {
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
+          debugSpawnHostsDisabled?: boolean | null;
           disabledStatsCache?: boolean | null;
           dispatchingDisabled?: boolean | null;
           displayName: string;
@@ -9863,6 +9914,7 @@ export type ProjectSettingsQuery = {
       batchTime: number;
       branch: string;
       deactivatePrevious?: boolean | null;
+      debugSpawnHostsDisabled?: boolean | null;
       disabledStatsCache?: boolean | null;
       dispatchingDisabled?: boolean | null;
       displayName: string;
@@ -10139,6 +10191,7 @@ export type RepoEventLogsQuery = {
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
+          debugSpawnHostsDisabled?: boolean | null;
           disabledStatsCache?: boolean | null;
           dispatchingDisabled?: boolean | null;
           displayName: string;
@@ -10359,6 +10412,7 @@ export type RepoEventLogsQuery = {
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
+          debugSpawnHostsDisabled?: boolean | null;
           disabledStatsCache?: boolean | null;
           dispatchingDisabled?: boolean | null;
           displayName: string;
@@ -10584,6 +10638,7 @@ export type RepoSettingsQuery = {
       restricted: boolean;
       batchTime: number;
       deactivatePrevious: boolean;
+      debugSpawnHostsDisabled: boolean;
       disabledStatsCache: boolean;
       dispatchingDisabled: boolean;
       owner: string;
@@ -10872,6 +10927,10 @@ export type SpruceConfigQuery = {
         } | null;
       } | null;
     } | null;
+    serviceFlags: {
+      __typename?: "UserServiceFlags";
+      jwtTokenForCLIDisabled?: boolean | null;
+    };
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
     spawnHost: {
       __typename?: "SpawnHostConfig";
@@ -10948,6 +11007,8 @@ export type TaskEventLogsQuery = {
         __typename?: "TaskEventLogEntry";
         id: string;
         eventType?: string | null;
+        resourceId: string;
+        resourceType: string;
         timestamp?: Date | null;
         data: {
           __typename?: "TaskEventLogData";
@@ -11014,9 +11075,9 @@ export type TaskHistoryQuery = {
       canRestart: boolean;
       canSchedule: boolean;
       canSetPriority: boolean;
-      createTime?: Date | null;
       displayStatus: string;
       execution: number;
+      ingestTime?: Date | null;
       latestExecution: number;
       order: number;
       priority?: number | null;

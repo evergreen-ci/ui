@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { taskStatusesFilterTreeData } from "constants/task";
@@ -31,7 +31,11 @@ export const useTaskStatuses = ({
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
 
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<TaskStatusesQuery, TaskStatusesQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const { version } = data || {};
   const { baseTaskStatuses, taskStatuses } = version || {};

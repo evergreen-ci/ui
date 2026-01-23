@@ -5,20 +5,33 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import EventLog from "components/Settings/EventLog";
 import { slugs } from "constants/routes";
 import { ProjectType } from "../utils";
-import { useProjectSettingsEvents } from "./useProjectSettingsEvents";
+import {
+  PROJECT_EVENT_LIMIT,
+  useProjectSettingsEvents,
+} from "./useProjectSettingsEvents";
 
 type TabProps = {
   limit?: number;
   projectType: ProjectType;
 };
 
-export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
+export const EventLogTab: React.FC<TabProps> = ({
+  limit = PROJECT_EVENT_LIMIT,
+  projectType,
+}) => {
   const {
     [slugs.projectIdentifier]: projectIdentifier,
     [slugs.repoId]: repoId,
   } = useParams();
 
-  const { allEventsFetched, events, fetchMore } = useProjectSettingsEvents({
+  const {
+    count,
+    events,
+    loading,
+    previousCount,
+    projectFetchMore,
+    repoFetchMore,
+  } = useProjectSettingsEvents({
     projectIdentifier,
     repoId,
     isRepo: projectType === ProjectType.Repo,
@@ -27,21 +40,35 @@ export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
 
   const lastEventTimestamp = events[events.length - 1]?.timestamp;
 
+  const handleFetchMore = () => {
+    if (projectType === ProjectType.Repo) {
+      repoFetchMore({
+        variables: {
+          repoId,
+          before: lastEventTimestamp,
+        },
+      });
+    } else {
+      projectFetchMore({
+        variables: {
+          projectIdentifier,
+          before: lastEventTimestamp,
+        },
+      });
+    }
+  };
+
   return (
     <EventLog
-      allEventsFetched={allEventsFetched}
+      count={count}
       customKeyValueRenderConfig={{
         "vars.vars": renderVars,
       }}
       events={events}
-      handleFetchMore={() => {
-        fetchMore({
-          variables: {
-            projectIdentifier,
-            before: lastEventTimestamp,
-          },
-        });
-      }}
+      handleFetchMore={handleFetchMore}
+      limit={limit}
+      loading={loading}
+      previousCount={previousCount}
     />
   );
 };

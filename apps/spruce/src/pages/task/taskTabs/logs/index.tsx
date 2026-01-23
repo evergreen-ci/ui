@@ -149,7 +149,9 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
           </ButtonContainer>
         )}
       </LogHeader>
-      {LogComp && <LogComp setNoLogs={setNoLogs} />}
+      {LogComp && (
+        <LogComp execution={execution} setNoLogs={setNoLogs} taskId={taskId} />
+      )}
     </LogContainer>
   );
 };

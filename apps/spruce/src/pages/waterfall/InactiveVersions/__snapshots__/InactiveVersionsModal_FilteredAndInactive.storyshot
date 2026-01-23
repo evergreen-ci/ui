@@ -10,7 +10,7 @@
         data-cy="inactive-versions-modal"
         data-lgid="lg-modal"
         data-testid="lg-modal"
-        id="modal-381"
+        id="modal-492"
       />
       <div
         class="emotion-StyledBadge e19pzgwa0 leafygreen-ui-cfigsp"
@@ -34,9 +34,10 @@
           class="leafygreen-ui-b15bbd"
         >
           <svg
+            alt=""
             aria-hidden="true"
-            class="leafygreen-ui-xpf1b6"
-            fill="#889397"
+            class="leafygreen-ui-a4wnk0 leafygreen-ui-xpf1b6"
+            fill="none"
             height="16"
             role="presentation"
             viewBox="0 0 16 16"

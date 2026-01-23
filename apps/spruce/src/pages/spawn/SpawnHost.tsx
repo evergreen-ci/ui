@@ -1,7 +1,7 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { TitleContainer, Title, BadgeWrapper } from "components/Spawn";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -13,23 +13,17 @@ import { HostStatus } from "types/host";
 import SpawnPageSkeleton from "./SpawnPageSkeleton";
 
 export const SpawnHost = () => {
-  const dispatchToast = useToastContext();
-
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     MyHostsQuery,
     MyHostsQueryVariables
   >(MY_HOSTS, {
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError: (e) => {
-      dispatchToast.error(
-        `There was an error loading your spawn hosts: ${e.message}`,
-      );
-    },
   });
+  useErrorToast(error, "There was an error loading your spawn hosts");
   const migrationInProcess = !!data?.myHosts.find(
     ({ volumes }) => !!volumes.find(({ migrating }) => migrating),
   );
-  usePolling({
+  usePolling<MyHostsQuery, MyHostsQueryVariables>({
     startPolling,
     stopPolling,
     refetch,

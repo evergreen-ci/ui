@@ -7,8 +7,10 @@ import { TaskBox } from "components/TaskBox";
 
 const { gray, green, purple, red, yellow } = palette;
 
-export interface TaskStatusIconProps
-  extends Omit<IconProps, "glyph" | "fill" | "size"> {
+export interface TaskStatusIconProps extends Omit<
+  IconProps,
+  "glyph" | "fill" | "size"
+> {
   status: string;
   size?: number;
 }
