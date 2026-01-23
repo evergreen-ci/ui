@@ -5,6 +5,7 @@ query BaseVersionAndTask($taskId: String!) {
       id
       displayStatus
       execution
+      order
     }
     buildVariant
     displayName

@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
@@ -33,21 +33,30 @@ export const useParentTask = (taskId: string) => {
     variants: [string.applyStrictRegex(buildVariant)],
   };
 
+  const shouldSkip = !versionMetadata || versionMetadata.isPatch;
+
   const { data: parentTaskData, loading } = useQuery<
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    skip: !versionMetadata || versionMetadata.isPatch,
-    variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      projectIdentifier,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      skipOrderNumber,
-      buildVariantOptions: {
-        ...bvOptionsBase,
-      },
-    },
-  });
+  >(
+    LAST_MAINLINE_COMMIT,
+    projectIdentifier && skipOrderNumber !== undefined && !shouldSkip
+      ? {
+          variables: {
+            projectIdentifier,
+            skipOrderNumber,
+            buildVariantOptions: {
+              ...bvOptionsBase,
+            },
+          },
+        }
+      : skipToken,
+  );
+
+  if (shouldSkip) {
+    return { task: baseTask, loading: false };
+  }
+
   const task = parentTaskData
     ? getTaskFromMainlineCommitsQuery(parentTaskData)
     : undefined;

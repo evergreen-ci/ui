@@ -1,4 +1,4 @@
-import { MockedProvider } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing/react";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { Decorator, Parameters, Preview } from "@storybook/react-vite";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";

@@ -106,7 +106,6 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       ScheduleTasksMutation,
       ScheduleTasksMutationVariables
     >(SCHEDULE_TASKS, {
-      variables: { taskIds: [taskId], versionId },
       onCompleted: () => {
         const newMap = new Map(expandedTasksMap);
         newMap.delete(task.id);
@@ -134,7 +133,6 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       RestartTaskMutation,
       RestartTaskMutationVariables
     >(RESTART_TASK, {
-      variables: { taskId, failedOnly: false },
       onCompleted: (data) => {
         dispatchToast.success("Task scheduled to restart");
         if (isCurrentTask) {
@@ -208,7 +206,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
                   name: "Clicked restart task button",
                   "task.id": taskId,
                 });
-                restartTask();
+                restartTask({ variables: { taskId, failedOnly: false } });
               }}
               size={ButtonSize.XSmall}
             >
@@ -223,7 +221,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
                   name: "Clicked schedule task button",
                   "task.id": taskId,
                 });
-                scheduleTask();
+                scheduleTask({ variables: { taskIds: [taskId], versionId } });
               }}
               size={ButtonSize.XSmall}
             >

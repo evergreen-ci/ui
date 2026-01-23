@@ -32,7 +32,11 @@ export const AttachVolumeSelect = ({
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "There was an error loading hosts");
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<MyHostsQuery, MyHostsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
 
   const hostDropdownOptions = useMemo(() => {
     // User should not be able to make changes to a host if it isn't in the running or stopped status

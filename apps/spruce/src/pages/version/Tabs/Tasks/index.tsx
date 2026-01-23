@@ -78,7 +78,11 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
     fetchPolicy: "cache-and-network",
   });
   useErrorToast(error, "Error fetching patch tasks");
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<VersionTasksQuery, VersionTasksQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
   const { version } = data || {};
   const { isPatch, tasks } = version || {};
   const { count = 0, data: tasksData = [] } = tasks || {};

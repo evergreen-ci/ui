@@ -9,6 +9,7 @@ export const save = (onSave?: DistroOnSaveOperation) => {
   }
 
   cy.dataCy("save-modal").within(() => {
+    cy.contains("button", "Save").should("have.attr", "aria-disabled", "false");
     cy.contains("button", "Save").click();
   });
 };
