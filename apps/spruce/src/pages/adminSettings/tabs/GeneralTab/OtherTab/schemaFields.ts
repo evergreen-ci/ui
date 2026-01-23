@@ -167,7 +167,7 @@ export const miscSettings = {
         },
         iAStorageCostDiscount: {
           "ui:description":
-            "The discount applied to S3 IA storage costs (value 0-1).",
+            "The discount applied to S3 infrequent access storage costs (value 0-1).",
         },
       },
     },
