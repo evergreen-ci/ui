@@ -3623,12 +3623,12 @@ export type S3CredentialsInput = {
 
 export type S3StorageCostConfig = {
   __typename?: "S3StorageCostConfig";
-  infrequentAccessStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+  iAStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
   standardStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type S3StorageCostConfigInput = {
-  infrequentAccessStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  iAStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   standardStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
@@ -7122,7 +7122,7 @@ export type SaveAdminSettingsMutation = {
         __typename?: "S3CostConfig";
         storage?: {
           __typename?: "S3StorageCostConfig";
-          infrequentAccessStorageCostDiscount?: number | null;
+          iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
         upload?: {
@@ -7754,7 +7754,7 @@ export type AdminSettingsQuery = {
         __typename?: "S3CostConfig";
         storage?: {
           __typename?: "S3StorageCostConfig";
-          infrequentAccessStorageCostDiscount?: number | null;
+          iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
         upload?: {

@@ -105,7 +105,7 @@ export const miscSettings = {
               minimum: 0,
               maximum: 1,
             },
-            infrequentAccessStorageCostDiscount: {
+            iAStorageCostDiscount: {
               type: "number" as const,
               title: "Infrequent Access Storage Cost Discount",
               minimum: 0,
@@ -165,9 +165,9 @@ export const miscSettings = {
           "ui:description":
             "The discount applied to S3 standard storage costs (value 0-1).",
         },
-        infrequentAccessStorageCostDiscount: {
+        iAStorageCostDiscount: {
           "ui:description":
-            "The discount applied to S3 infrequent access storage costs (value 0-1).",
+            "The discount applied to S3 IA storage costs (value 0-1).",
         },
       },
     },

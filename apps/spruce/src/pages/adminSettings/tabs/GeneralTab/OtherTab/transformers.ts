@@ -74,8 +74,8 @@ export const gqlToForm = ((data) => {
             uploadCostDiscount: cost?.s3Cost?.upload?.uploadCostDiscount ?? 0,
             standardStorageCostDiscount:
               cost?.s3Cost?.storage?.standardStorageCostDiscount ?? 0,
-            infrequentAccessStorageCostDiscount:
-              cost?.s3Cost?.storage?.infrequentAccessStorageCostDiscount ?? 0,
+            iAStorageCostDiscount:
+              cost?.s3Cost?.storage?.iAStorageCostDiscount ?? 0,
           },
         },
       },
@@ -245,9 +245,8 @@ export const formToGql = ((form: OtherFormState) => {
         storage: {
           standardStorageCostDiscount:
             miscSettings.cost.s3Cost.standardStorageCostDiscount || undefined,
-          infrequentAccessStorageCostDiscount:
-            miscSettings.cost.s3Cost.infrequentAccessStorageCostDiscount ||
-            undefined,
+          iAStorageCostDiscount:
+            miscSettings.cost.s3Cost.iAStorageCostDiscount || undefined,
         },
       },
     },

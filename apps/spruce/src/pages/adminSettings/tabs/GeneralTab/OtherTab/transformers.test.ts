@@ -150,7 +150,7 @@ const expectedForm: OtherFormState = {
         s3Cost: {
           uploadCostDiscount: 0,
           standardStorageCostDiscount: 0,
-          infrequentAccessStorageCostDiscount: 0,
+          iAStorageCostDiscount: 0,
         },
       },
     },
@@ -338,7 +338,7 @@ const expectedGql: AdminSettingsInput = {
       },
       storage: {
         standardStorageCostDiscount: undefined,
-        infrequentAccessStorageCostDiscount: undefined,
+        iAStorageCostDiscount: undefined,
       },
     },
   },

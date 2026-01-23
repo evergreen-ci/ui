@@ -83,13 +83,10 @@ describe("other", () => {
     cy.get("@standardStorageCostDiscountInput").clear();
     cy.get("@standardStorageCostDiscountInput").type("0.18");
 
-    const infrequentAccessStorageCostDiscount =
-      "Infrequent Access Storage Cost Discount";
-    cy.getInputByLabel(infrequentAccessStorageCostDiscount).as(
-      "infrequentAccessStorageCostDiscountInput",
-    );
-    cy.get("@infrequentAccessStorageCostDiscountInput").clear();
-    cy.get("@infrequentAccessStorageCostDiscountInput").type("0.22");
+    const iAStorageCostDiscount = "IA Storage Cost Discount";
+    cy.getInputByLabel(iAStorageCostDiscount).as("iAStorageCostDiscountInput");
+    cy.get("@iAStorageCostDiscountInput").clear();
+    cy.get("@iAStorageCostDiscountInput").type("0.22");
 
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
@@ -103,10 +100,7 @@ describe("other", () => {
       "have.value",
       "0.18",
     );
-    cy.getInputByLabel(infrequentAccessStorageCostDiscount).should(
-      "have.value",
-      "0.22",
-    );
+    cy.getInputByLabel(iAStorageCostDiscount).should("have.value", "0.22");
   });
 
   it("can clear S3 cost discount values", () => {
@@ -118,8 +112,7 @@ describe("other", () => {
 
     const uploadCostDiscount = "Upload Cost Discount";
     const standardStorageCostDiscount = "Standard Storage Cost Discount";
-    const infrequentAccessStorageCostDiscount =
-      "Infrequent Access Storage Cost Discount";
+    const iAStorageCostDiscount = "IA Storage Cost Discount";
 
     cy.getInputByLabel(uploadCostDiscount).as("uploadCostDiscountInput");
     cy.get("@uploadCostDiscountInput").clear();
@@ -131,11 +124,9 @@ describe("other", () => {
     cy.get("@standardStorageCostDiscountInput").clear();
     cy.get("@standardStorageCostDiscountInput").type("0.18");
 
-    cy.getInputByLabel(infrequentAccessStorageCostDiscount).as(
-      "infrequentAccessStorageCostDiscountInput",
-    );
-    cy.get("@infrequentAccessStorageCostDiscountInput").clear();
-    cy.get("@infrequentAccessStorageCostDiscountInput").type("0.22");
+    cy.getInputByLabel(iAStorageCostDiscount).as("iAStorageCostDiscountInput");
+    cy.get("@iAStorageCostDiscountInput").clear();
+    cy.get("@iAStorageCostDiscountInput").type("0.22");
 
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
@@ -146,14 +137,11 @@ describe("other", () => {
       "have.value",
       "0.18",
     );
-    cy.getInputByLabel(infrequentAccessStorageCostDiscount).should(
-      "have.value",
-      "0.22",
-    );
+    cy.getInputByLabel(iAStorageCostDiscount).should("have.value", "0.22");
 
     cy.get("@uploadCostDiscountInput").clear();
     cy.get("@standardStorageCostDiscountInput").clear();
-    cy.get("@infrequentAccessStorageCostDiscountInput").clear();
+    cy.get("@iAStorageCostDiscountInput").clear();
 
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
@@ -161,10 +149,7 @@ describe("other", () => {
 
     cy.getInputByLabel(uploadCostDiscount).should("have.value", "0");
     cy.getInputByLabel(standardStorageCostDiscount).should("have.value", "0");
-    cy.getInputByLabel(infrequentAccessStorageCostDiscount).should(
-      "have.value",
-      "0",
-    );
+    cy.getInputByLabel(iAStorageCostDiscount).should("have.value", "0");
   });
 
   it("can save single task host changes", () => {

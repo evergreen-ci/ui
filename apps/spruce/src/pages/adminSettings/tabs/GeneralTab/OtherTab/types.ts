@@ -22,7 +22,7 @@ export interface OtherFormState {
         s3Cost: {
           uploadCostDiscount: number;
           standardStorageCostDiscount: number;
-          infrequentAccessStorageCostDiscount: number;
+          iAStorageCostDiscount: number;
         };
       };
     };

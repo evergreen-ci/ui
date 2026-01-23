@@ -125,7 +125,7 @@ query AdminSettings {
       onDemandDiscount
       s3Cost {
         storage {
-          infrequentAccessStorageCostDiscount
+          iAStorageCostDiscount
           standardStorageCostDiscount
         }
         upload {
