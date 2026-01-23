@@ -83,7 +83,7 @@ describe("other", () => {
     cy.get("@standardStorageCostDiscountInput").clear();
     cy.get("@standardStorageCostDiscountInput").type("0.18");
 
-    const iAStorageCostDiscount = "IA Storage Cost Discount";
+    const iAStorageCostDiscount = "Infrequent Access Storage Cost Discount";
     cy.getInputByLabel(iAStorageCostDiscount).as("iAStorageCostDiscountInput");
     cy.get("@iAStorageCostDiscountInput").clear();
     cy.get("@iAStorageCostDiscountInput").type("0.22");
@@ -112,7 +112,7 @@ describe("other", () => {
 
     const uploadCostDiscount = "Upload Cost Discount";
     const standardStorageCostDiscount = "Standard Storage Cost Discount";
-    const iAStorageCostDiscount = "IA Storage Cost Discount";
+    const iAStorageCostDiscount = "Infrequent Access Storage Cost Discount";
 
     cy.getInputByLabel(uploadCostDiscount).as("uploadCostDiscountInput");
     cy.get("@uploadCostDiscountInput").clear();
