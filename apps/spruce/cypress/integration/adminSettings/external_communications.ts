@@ -114,6 +114,14 @@ describe("external communications", () => {
       cy.get("@cedarSpsKanopyUrlInput").type("sps-kanopy.test.com");
     });
 
+    // Sage section.
+    cy.dataCy("sage").within(() => {
+      const sageBaseUrl = "Base URL";
+      cy.getInputByLabel(sageBaseUrl).as("sageBaseUrlInput");
+      cy.get("@sageBaseUrlInput").clear();
+      cy.get("@sageBaseUrlInput").type("sage.test.com");
+    });
+
     clickSave();
     cy.validateToast("success", "Settings saved successfully");
 
@@ -174,6 +182,11 @@ describe("external communications", () => {
         "have.value",
         "sps-kanopy.test.com",
       );
+    });
+
+    // Sage section.
+    cy.dataCy("sage").within(() => {
+      cy.getInputByLabel("Base URL").should("have.value", "sage.test.com");
     });
   });
 });
