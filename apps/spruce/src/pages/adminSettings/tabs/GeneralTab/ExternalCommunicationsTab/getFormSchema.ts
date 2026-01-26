@@ -5,6 +5,7 @@ import {
   graphite,
   jira,
   runtimeEnvironments,
+  sage,
   slack,
   splunk,
   testSelection,
@@ -55,6 +56,11 @@ export const formSchema: ReturnType<GetFormSchema> = {
         title: "Cedar",
         properties: cedar.schema,
       },
+      sage: {
+        type: "object" as const,
+        title: "Sage",
+        properties: sage.schema,
+      },
     },
   },
   uiSchema: {
@@ -66,5 +72,6 @@ export const formSchema: ReturnType<GetFormSchema> = {
     fws: fws.uiSchema,
     graphite: graphite.uiSchema,
     cedar: cedar.uiSchema,
+    sage: sage.uiSchema,
   },
 };

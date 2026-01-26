@@ -286,3 +286,21 @@ export const cedar = {
     "ui:data-cy": "cedar",
   },
 };
+
+export const sage = {
+  schema: {
+    baseUrl: {
+      type: "string" as const,
+      title: "Base URL",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "sage",
+    baseUrl: {
+      "ui:fullWidth": true,
+      "ui:description":
+        "The base URL for Sage API (e.g., https://sage.prod.corp.mongodb.com)",
+    },
+  },
+};
