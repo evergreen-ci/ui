@@ -7,6 +7,20 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
     }
     banner
     bannerTheme
+    cost {
+      financeFormula
+      onDemandDiscount
+      s3Cost {
+        storage {
+          iAStorageCostDiscount
+          standardStorageCostDiscount
+        }
+        upload {
+          uploadCostDiscount
+        }
+      }
+      savingsPlanDiscount
+    }
     disabledGQLQueries
     hostInit {
       cloudStatusBatchSize

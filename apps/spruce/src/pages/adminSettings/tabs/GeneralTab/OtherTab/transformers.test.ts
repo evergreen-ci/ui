@@ -147,6 +147,11 @@ const expectedForm: OtherFormState = {
         financeFormula: 0.5,
         savingsPlanDiscount: 0.1,
         onDemandDiscount: 0.05,
+        s3Cost: {
+          uploadCostDiscount: 0,
+          standardStorageCostDiscount: 0,
+          iAStorageCostDiscount: 0,
+        },
       },
     },
     singleTaskDistro: {
@@ -327,6 +332,15 @@ const expectedGql: AdminSettingsInput = {
     financeFormula: 0.5,
     savingsPlanDiscount: 0.1,
     onDemandDiscount: 0.05,
+    s3Cost: {
+      upload: {
+        uploadCostDiscount: undefined,
+      },
+      storage: {
+        standardStorageCostDiscount: undefined,
+        iAStorageCostDiscount: undefined,
+      },
+    },
   },
   spawnhost: {
     unexpirableHostsPerUser: 2,

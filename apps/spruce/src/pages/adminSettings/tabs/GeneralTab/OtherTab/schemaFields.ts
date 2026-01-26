@@ -89,6 +89,30 @@ export const miscSettings = {
           minimum: 0,
           maximum: 1,
         },
+        s3Cost: {
+          type: "object" as const,
+          title: "S3 Cost",
+          properties: {
+            uploadCostDiscount: {
+              type: "number" as const,
+              title: "Upload Cost Discount",
+              minimum: 0,
+              maximum: 1,
+            },
+            standardStorageCostDiscount: {
+              type: "number" as const,
+              title: "Standard Storage Cost Discount",
+              minimum: 0,
+              maximum: 1,
+            },
+            iAStorageCostDiscount: {
+              type: "number" as const,
+              title: "Infrequent Access Storage Cost Discount",
+              minimum: 0,
+              maximum: 1,
+            },
+          },
+        },
       },
     },
   },
@@ -130,6 +154,21 @@ export const miscSettings = {
       onDemandDiscount: {
         "ui:description":
           "The discount applied to on-demand tasks (value 0-1).",
+      },
+      s3Cost: {
+        "ui:fieldCss": nestedObjectGridCss,
+        uploadCostDiscount: {
+          "ui:description":
+            "The discount applied to S3 upload costs (value 0-1).",
+        },
+        standardStorageCostDiscount: {
+          "ui:description":
+            "The discount applied to S3 standard storage costs (value 0-1).",
+        },
+        iAStorageCostDiscount: {
+          "ui:description":
+            "The discount applied to S3 infrequent access storage costs (value 0-1).",
+        },
       },
     },
   },
