@@ -99,6 +99,7 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
           id: baseTaskId,
           execution: 0,
           displayStatus: "started",
+          order: 3676,
           __typename: "Task",
         },
         __typename: "Task",

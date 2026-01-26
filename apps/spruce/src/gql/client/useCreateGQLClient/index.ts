@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
-import { HttpLink, ApolloClient, NormalizedCacheObject } from "@apollo/client";
+import { HttpLink, ApolloClient } from "@apollo/client";
+import { LocalState } from "@apollo/client/local-state";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
   leaveBreadcrumb,
@@ -23,9 +24,7 @@ import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
 import { getGQLUrl } from "utils/environmentVariables";
 
-export const useCreateGQLClient = ():
-  | ApolloClient<NormalizedCacheObject>
-  | undefined => {
+export const useCreateGQLClient = (): ApolloClient | undefined => {
   const { dispatchAuthenticated, logoutAndRedirect } = useAuthProviderContext();
   const [secretFields, setSecretFields] = useState<string[]>();
 
@@ -54,6 +53,13 @@ export const useCreateGQLClient = ():
 
     return new ApolloClient({
       cache,
+      localState: new LocalState(), // Must define if using @client fields.
+      defaultOptions: {
+        watchQuery: {
+          // TODO DEVPROD-26582: It's probably better to use the new default of 'true', but this avoids many errors for now.
+          notifyOnNetworkStatusChange: false,
+        },
+      },
       link: authenticateIfSuccessfulLink(dispatchAuthenticated)
         .concat(authLink(logoutAndRedirect))
         .concat(logGQLToSentryLink(secretFields))

@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 import { useApolloClient, useFragment } from "@apollo/client/react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
-import { ReviewedTaskFragment, TaskQuery } from "gql/generated/types";
+import { ReviewedTaskFragment } from "gql/generated/types";
 import { setItem, setItems } from "./db";
 import { REVIEWED_TASK_FRAGMENT } from "./utils";
 
@@ -30,7 +30,11 @@ export const useTaskReview = ({
   const updateTask = useCallback(
     // Updating a display task whose execution tasks have been modified requires manually specifying its state
     (newReviewedState?: boolean) => {
-      cache.updateFragment(
+      cache.updateFragment<{
+        id: string;
+        execution: number;
+        reviewed: boolean;
+      }>(
         {
           id: cacheTaskId,
           fragment: gql`
@@ -42,6 +46,7 @@ export const useTaskReview = ({
           `,
         },
         (existing) => {
+          if (!existing) return existing;
           const reviewedUpdate = newReviewedState ?? !existing.reviewed;
           setItem([existing.id, existing.execution], reviewedUpdate);
           sendEvent({ name: "Clicked review task", reviewed: reviewedUpdate });
@@ -58,23 +63,21 @@ export const useTaskReview = ({
   // We have to break out display tasks and non-display mostly for testing purposes :(
   // In prod, non-nullable executionTasksFull handles this better.
   const updateDisplayTask = useCallback(() => {
-    cache.updateFragment(
+    cache.updateFragment<ReviewedTaskFragment>(
       {
         id: cacheTaskId,
         fragment: REVIEWED_TASK_FRAGMENT,
       },
       (existing) => {
+        if (!existing) return existing;
         const reviewedUpdate = !existing.reviewed;
         sendEvent({ name: "Clicked review task", reviewed: reviewedUpdate });
         setItems([
           { key: [existing.id, existing.execution], value: reviewedUpdate },
-          ...existing.executionTasksFull
-            .filter(
-              (e: NonNullable<TaskQuery["task"]>) =>
-                e.displayStatus !== TaskStatus.Succeeded,
-            )
-            .map((e: NonNullable<TaskQuery["task"]>) => ({
-              key: [e.id, e.execution],
+          ...(existing.executionTasksFull ?? [])
+            .filter((e) => e.displayStatus !== TaskStatus.Succeeded)
+            .map((e) => ({
+              key: [e.id, e.execution] as [string, number],
               value: reviewedUpdate,
             })),
         ]);
@@ -82,14 +85,13 @@ export const useTaskReview = ({
           ...existing,
           reviewed: reviewedUpdate,
           executionTasksFull:
-            existing?.executionTasksFull?.map(
-              (e: NonNullable<TaskQuery["task"]>) =>
-                e?.displayStatus === TaskStatus.Succeeded
-                  ? e
-                  : {
-                      ...e,
-                      reviewed: reviewedUpdate,
-                    },
+            existing?.executionTasksFull?.map((e) =>
+              e?.displayStatus === TaskStatus.Succeeded
+                ? e
+                : {
+                    ...e,
+                    reviewed: reviewedUpdate,
+                  },
             ) ?? null,
         };
       },

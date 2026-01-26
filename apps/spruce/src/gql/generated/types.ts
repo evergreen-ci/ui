@@ -177,6 +177,7 @@ export type AdminSettings = {
   githubOrgs?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPRCreatorOrg?: Maybe<Scalars["String"]["output"]>;
   githubWebhookSecret?: Maybe<Scalars["String"]["output"]>;
+  graphite?: Maybe<GraphiteConfig>;
   hostInit?: Maybe<HostInitConfig>;
   hostJasper?: Maybe<HostJasperConfig>;
   jira?: Maybe<JiraConfig>;
@@ -232,6 +233,7 @@ export type AdminSettingsInput = {
   githubOrgs?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPRCreatorOrg?: InputMaybe<Scalars["String"]["input"]>;
   githubWebhookSecret?: InputMaybe<Scalars["String"]["input"]>;
+  graphite?: InputMaybe<GraphiteConfigInput>;
   hostInit?: InputMaybe<HostInitConfigInput>;
   hostJasper?: InputMaybe<HostJasperConfigInput>;
   jira?: InputMaybe<JiraConfigInput>;
@@ -702,12 +704,14 @@ export type CostConfig = {
   __typename?: "CostConfig";
   financeFormula?: Maybe<Scalars["Float"]["output"]>;
   onDemandDiscount?: Maybe<Scalars["Float"]["output"]>;
+  s3Cost?: Maybe<S3CostConfig>;
   savingsPlanDiscount?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfigInput = {
   financeFormula?: InputMaybe<Scalars["Float"]["input"]>;
   onDemandDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  s3Cost?: InputMaybe<S3CostConfigInput>;
   savingsPlanDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
@@ -1277,6 +1281,17 @@ export type GithubUser = {
 
 export type GithubUserInput = {
   lastKnownAs?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type GraphiteConfig = {
+  __typename?: "GraphiteConfig";
+  ciOptimizationToken?: Maybe<Scalars["String"]["output"]>;
+  serverUrl?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type GraphiteConfigInput = {
+  ciOptimizationToken?: InputMaybe<Scalars["String"]["input"]>;
+  serverUrl?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type GroupedBuildVariant = {
@@ -3582,6 +3597,17 @@ export type RuntimeEnvironmentConfigInput = {
   baseUrl: Scalars["String"]["input"];
 };
 
+export type S3CostConfig = {
+  __typename?: "S3CostConfig";
+  storage?: Maybe<S3StorageCostConfig>;
+  upload?: Maybe<S3UploadCostConfig>;
+};
+
+export type S3CostConfigInput = {
+  storage?: InputMaybe<S3StorageCostConfigInput>;
+  upload?: InputMaybe<S3UploadCostConfigInput>;
+};
+
 export type S3Credentials = {
   __typename?: "S3Credentials";
   bucket?: Maybe<Scalars["String"]["output"]>;
@@ -3593,6 +3619,26 @@ export type S3CredentialsInput = {
   bucket?: InputMaybe<Scalars["String"]["input"]>;
   key?: InputMaybe<Scalars["String"]["input"]>;
   secret?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type S3StorageCostConfig = {
+  __typename?: "S3StorageCostConfig";
+  iAStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+  standardStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type S3StorageCostConfigInput = {
+  iAStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  standardStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+};
+
+export type S3UploadCostConfig = {
+  __typename?: "S3UploadCostConfig";
+  uploadCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type S3UploadCostConfigInput = {
+  uploadCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
 export type SesConfig = {
@@ -3742,6 +3788,7 @@ export type ServiceFlags = {
   podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  s3LifecycleSyncDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   schedulerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   slackNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   sleepScheduleDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3751,6 +3798,7 @@ export type ServiceFlags = {
   taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  useGitForGitHubFilesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
@@ -3781,6 +3829,7 @@ export type ServiceFlagsInput = {
   podInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  s3LifecycleSyncDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   schedulerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   slackNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   sleepScheduleDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3790,6 +3839,7 @@ export type ServiceFlagsInput = {
   taskLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  useGitForGitHubFilesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
@@ -3925,6 +3975,7 @@ export type SpawnHostInput = {
   distroId: Scalars["String"]["input"];
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
   homeVolumeSize?: InputMaybe<Scalars["Int"]["input"]>;
+  isDebug?: InputMaybe<Scalars["Boolean"]["input"]>;
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   noExpiration: Scalars["Boolean"]["input"];
   publicKey: PublicKeyInput;
@@ -4933,6 +4984,7 @@ export type WaterfallOptions = {
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order greater than minOrder. Used for paginating backward. */
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
+  omitInactiveBuilds?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
@@ -7061,6 +7113,24 @@ export type SaveAdminSettingsMutation = {
       httpListenAddr?: string | null;
       url?: string | null;
     } | null;
+    cost?: {
+      __typename?: "CostConfig";
+      financeFormula?: number | null;
+      onDemandDiscount?: number | null;
+      savingsPlanDiscount?: number | null;
+      s3Cost?: {
+        __typename?: "S3CostConfig";
+        storage?: {
+          __typename?: "S3StorageCostConfig";
+          iAStorageCostDiscount?: number | null;
+          standardStorageCostDiscount?: number | null;
+        } | null;
+        upload?: {
+          __typename?: "S3UploadCostConfig";
+          uploadCostDiscount?: number | null;
+        } | null;
+      } | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -7133,6 +7203,7 @@ export type SaveAdminSettingsMutation = {
       podInitDisabled?: boolean | null;
       releaseModeDisabled?: boolean | null;
       repotrackerDisabled?: boolean | null;
+      s3LifecycleSyncDisabled?: boolean | null;
       schedulerDisabled?: boolean | null;
       slackNotificationsDisabled?: boolean | null;
       sleepScheduleDisabled?: boolean | null;
@@ -7142,6 +7213,7 @@ export type SaveAdminSettingsMutation = {
       taskLoggingDisabled?: boolean | null;
       taskReliabilityDisabled?: boolean | null;
       unrecognizedPodCleanupDisabled?: boolean | null;
+      useGitForGitHubFilesDisabled?: boolean | null;
       webhookNotificationsDisabled?: boolean | null;
     } | null;
     taskLimits?: {
@@ -7678,11 +7750,28 @@ export type AdminSettingsQuery = {
       financeFormula?: number | null;
       onDemandDiscount?: number | null;
       savingsPlanDiscount?: number | null;
+      s3Cost?: {
+        __typename?: "S3CostConfig";
+        storage?: {
+          __typename?: "S3StorageCostConfig";
+          iAStorageCostDiscount?: number | null;
+          standardStorageCostDiscount?: number | null;
+        } | null;
+        upload?: {
+          __typename?: "S3UploadCostConfig";
+          uploadCostDiscount?: number | null;
+        } | null;
+      } | null;
     } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
       __typename?: "GitHubCheckRunConfig";
       checkRunLimit?: number | null;
+    } | null;
+    graphite?: {
+      __typename?: "GraphiteConfig";
+      ciOptimizationToken?: string | null;
+      serverUrl?: string | null;
     } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
@@ -7902,6 +7991,7 @@ export type AdminSettingsQuery = {
       podInitDisabled?: boolean | null;
       releaseModeDisabled?: boolean | null;
       repotrackerDisabled?: boolean | null;
+      s3LifecycleSyncDisabled?: boolean | null;
       schedulerDisabled?: boolean | null;
       slackNotificationsDisabled?: boolean | null;
       sleepScheduleDisabled?: boolean | null;
@@ -7911,6 +8001,7 @@ export type AdminSettingsQuery = {
       taskLoggingDisabled?: boolean | null;
       taskReliabilityDisabled?: boolean | null;
       unrecognizedPodCleanupDisabled?: boolean | null;
+      useGitForGitHubFilesDisabled?: boolean | null;
       webhookNotificationsDisabled?: boolean | null;
     } | null;
     singleTaskDistro?: {
@@ -8110,6 +8201,7 @@ export type BaseVersionAndTaskQuery = {
       id: string;
       displayStatus: string;
       execution: number;
+      order: number;
     } | null;
     versionMetadata: {
       __typename?: "Version";
@@ -10990,6 +11082,8 @@ export type TaskEventLogsQuery = {
         __typename?: "TaskEventLogEntry";
         id: string;
         eventType?: string | null;
+        resourceId: string;
+        resourceType: string;
         timestamp?: Date | null;
         data: {
           __typename?: "TaskEventLogData";

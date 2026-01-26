@@ -32,7 +32,6 @@ export const DefaultSectionToRepoModal = ({
     DefaultSectionToRepoMutation,
     DefaultSectionToRepoMutationVariables
   >(DEFAULT_SECTION_TO_REPO, {
-    variables: { projectId, section },
     onCompleted() {
       dispatchToast.success("Successfully defaulted page to repo");
     },
@@ -52,7 +51,7 @@ export const DefaultSectionToRepoModal = ({
       confirmButtonProps={{
         children: "Confirm",
         onClick: () => {
-          defaultSectionToRepo();
+          defaultSectionToRepo({ variables: { projectId, section } });
           sendEvent({
             name: "Clicked default section to repo button",
             section,

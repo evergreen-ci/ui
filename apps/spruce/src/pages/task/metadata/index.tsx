@@ -1,4 +1,3 @@
-import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
@@ -45,7 +44,7 @@ const { red } = palette;
 interface Props {
   loading: boolean;
   task: TaskQuery["task"];
-  error?: ApolloError;
+  error?: Error;
 }
 
 export const Metadata: React.FC<Props> = ({ error, loading, task }) => {

@@ -5,9 +5,14 @@
   "type": "module",
   "packageManager": "pnpm@10.11.0",
   "scripts": {
+    "check-types": "pnpm -r check-types",
     "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
+    "codegen": "pnpm -r codegen",
+    "eslint:strict": "pnpm -r eslint:strict",
+    "eslint:fix": "pnpm -r eslint:fix",
     "prepare": "husky",
-    "storybook": "pnpm --filter spruce --filter parsley --filter @evg-ui/lib --filter @evg-ui/fungi --parallel run storybook --no-open & sleep 5 && storybook dev",
+    "snapshot": "pnpm -r snapshot",
+    "storybook": "pnpm --filter spruce --filter parsley --filter @evg-ui/* --parallel run storybook --no-open & sleep 5 && storybook dev",
     "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts"
   },
   "devDependencies": {

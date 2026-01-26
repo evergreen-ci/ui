@@ -7,6 +7,20 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
     }
     banner
     bannerTheme
+    cost {
+      financeFormula
+      onDemandDiscount
+      s3Cost {
+        storage {
+          iAStorageCostDiscount
+          standardStorageCostDiscount
+        }
+        upload {
+          uploadCostDiscount
+        }
+      }
+      savingsPlanDiscount
+    }
     disabledGQLQueries
     hostInit {
       cloudStatusBatchSize
@@ -76,6 +90,7 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       podInitDisabled
       releaseModeDisabled
       repotrackerDisabled
+      s3LifecycleSyncDisabled
       schedulerDisabled
       slackNotificationsDisabled
       sleepScheduleDisabled
@@ -85,6 +100,7 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       taskLoggingDisabled
       taskReliabilityDisabled
       unrecognizedPodCleanupDisabled
+      useGitForGitHubFilesDisabled
       webhookNotificationsDisabled
     }
 

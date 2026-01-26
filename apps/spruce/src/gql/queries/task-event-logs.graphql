@@ -17,6 +17,8 @@ query TaskEventLogs($id: String!, $execution: Int) {
           userId
         }
         eventType
+        resourceId
+        resourceType
         timestamp
       }
     }

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client/react";
+import { CombinedGraphQLErrors } from "@apollo/client";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
@@ -44,19 +45,28 @@ export const Task = () => {
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskQuery,
     TaskQueryVariables
-  >(TASK, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { taskId, execution: selectedExecution },
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    fetchPolicy: "network-only",
-    errorPolicy: "all",
+  >(
+    TASK,
+    taskId
+      ? {
+          variables: { taskId: taskId, execution: selectedExecution },
+          pollInterval: DEFAULT_POLL_INTERVAL,
+          fetchPolicy: "network-only",
+          errorPolicy: "all",
+        }
+      : skipToken,
+  );
+  usePolling<TaskQuery, TaskQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
   });
-  usePolling({ startPolling, stopPolling, refetch });
 
   useErrorToast(
     error,
     "Loading task",
-    error?.graphQLErrors?.some((e) => !e?.path?.includes("annotation")),
+    CombinedGraphQLErrors.is(error) &&
+      error.errors.some((e) => !e?.path?.includes("annotation")),
   );
 
   const { task } = data ?? {};

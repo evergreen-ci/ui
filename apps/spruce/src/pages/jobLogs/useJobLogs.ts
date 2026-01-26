@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   LogkeeperBuildMetadataQuery,
@@ -42,11 +42,14 @@ const useJobLogsPageData = ({
   } = useQuery<
     LogkeeperBuildMetadataQuery,
     LogkeeperBuildMetadataQueryVariables
-  >(LOGKEEPER_BUILD_METADATA, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { buildId },
-    skip: !isLogkeeper,
-  });
+  >(
+    LOGKEEPER_BUILD_METADATA,
+    isLogkeeper && buildId
+      ? {
+          variables: { buildId },
+        }
+      : skipToken,
+  );
   useErrorToast(
     logkeeperError,
     "There was an error retrieving logs for this build",
@@ -76,12 +79,10 @@ const useJobLogsPageData = ({
   );
 
   const { logkeeperBuildMetadata } = logkeeperData || {};
-
   const { task: evergreenTask } = testResultsData || {};
 
   const resultsToRender = getFormattedTestResults(
     logkeeperBuildMetadata?.tests,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     evergreenTask?.tests?.testResults,
     groupId,
   );

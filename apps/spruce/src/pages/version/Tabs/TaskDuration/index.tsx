@@ -70,7 +70,11 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "Error fetching patch tasks");
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<VersionTaskDurationsQuery, VersionTaskDurationsQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
   const { version } = data || {};
   const { tasks } = version || {};
   const { count = 0, data: tasksData = [] } = tasks || {};

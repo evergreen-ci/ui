@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
@@ -51,19 +51,28 @@ export const ProjectPatches = () => {
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     ProjectPatchesQuery,
     ProjectPatchesQueryVariables
-  >(PROJECT_PATCHES, {
-    variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      projectIdentifier,
-      patchesInput: {
-        ...patchesInput,
-        onlyMergeQueue: isGitHubMergeQueueCheckboxChecked,
-      },
-    },
-    pollInterval: DEFAULT_POLL_INTERVAL,
-  });
+  >(
+    PROJECT_PATCHES,
+    projectIdentifier
+      ? {
+          variables: {
+            projectIdentifier: projectIdentifier,
+            patchesInput: {
+              ...patchesInput,
+              onlyMergeQueue: isGitHubMergeQueueCheckboxChecked,
+            },
+          },
+          pollInterval: DEFAULT_POLL_INTERVAL,
+        }
+      : skipToken,
+  );
   useErrorToast(error, "Error while fetching project patches");
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling<ProjectPatchesQuery, ProjectPatchesQueryVariables>({
+    startPolling,
+    stopPolling,
+    refetch,
+  });
+
   const { displayName, patches } = data?.project ?? {};
 
   return (

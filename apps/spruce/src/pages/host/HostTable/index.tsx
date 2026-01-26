@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
 import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
@@ -31,7 +30,7 @@ type HostEvent = Unpacked<
 >;
 
 interface HostTableProps {
-  error?: ApolloError;
+  error?: Error;
   eventCount: number;
   eventLogEntries: HostEvent[];
   eventTypes: HostEventType[];

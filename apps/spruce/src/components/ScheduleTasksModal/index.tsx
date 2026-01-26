@@ -61,15 +61,14 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
     { called: calledTaskData, data: taskData, loading: loadingTaskData },
   ] = useLazyQuery<UndispatchedTasksQuery, UndispatchedTasksQueryVariables>(
     UNSCHEDULED_TASKS,
-    {
-      variables: { versionId },
-    },
   );
+
   useEffect(() => {
     if (open && !calledTaskData) {
-      loadTaskData();
+      loadTaskData({ variables: { versionId } });
     }
-  }, [calledTaskData, loadTaskData, open]);
+  }, [calledTaskData, loadTaskData, open, versionId]);
+
   useEffect(() => {
     dispatch({ type: "ingestData", taskData });
   }, [taskData]);
