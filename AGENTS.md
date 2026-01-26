@@ -137,6 +137,20 @@ const StyledWrapper = styled.div`
 - Constants: SCREAMING_SNAKE_CASE
 - Files: Match export name (MyComponent.tsx, useMyHook.ts)
 
+### Comments
+Comments should explain **why** the code does something, not **what** it does. The code should be self-explanatory through clear variable names, function names, and structure.
+
+**Good use of comments:**
+- Documentation for structs, functions, fields, methods
+- Explaining why the code has to do something non-obvious
+
+**Avoid:**
+- Comments that restate what the code already says
+- Comments that explain what the code is doing (let the code speak for itself)
+- Redundant comments that add clutter or maintenance burden
+
+Instead of adding explanatory comments, prefer making the code clearer through better naming and helper functions.
+
 ## Running Different Environments
 
 ### Local Development
