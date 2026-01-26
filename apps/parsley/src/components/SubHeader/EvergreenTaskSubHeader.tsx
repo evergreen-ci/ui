@@ -19,7 +19,6 @@ import { GET_TEST_LOG_URL_AND_RENDERING_TYPE } from "gql/queries";
 import { useTaskQuery } from "hooks/useTaskQuery";
 
 interface Props {
-  buildID: string;
   execution: number;
   fileName?: string;
   groupID?: string;
@@ -29,7 +28,6 @@ interface Props {
 }
 
 export const EvergreenTaskSubHeader: React.FC<Props> = ({
-  buildID,
   execution,
   fileName,
   groupID,
@@ -39,9 +37,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
 }) => {
   const { sendEvent } = usePreferencesAnalytics();
   const { loading: isLoadingTask, task: taskData } = useTaskQuery({
-    buildID,
     execution,
-    logType,
     taskID,
   });
   const { data: testData, loading: isLoadingTest } = useQuery<
@@ -58,7 +54,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
 
   let currentTest: { testFile: string; status: string } | null = null;
   switch (logType) {
-    case LogTypes.LOGKEEPER_LOGS:
+    case LogTypes.EVERGREEN_COMPLETE_LOGS:
       currentTest =
         taskData?.tests?.testResults?.find((test) =>
           test?.logs?.urlRaw?.match(new RegExp(`${testID}`)),

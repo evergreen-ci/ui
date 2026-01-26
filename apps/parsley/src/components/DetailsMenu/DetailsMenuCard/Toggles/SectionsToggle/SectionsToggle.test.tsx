@@ -38,7 +38,9 @@ describe("sections toggle", () => {
     );
     render(<Component />, { wrapper });
     act(() => {
-      hook.current.setLogMetadata({ logType: LogTypes.LOGKEEPER_LOGS });
+      hook.current.setLogMetadata({
+        logType: LogTypes.EVERGREEN_COMPLETE_LOGS,
+      });
     });
     const sectionsToggle = screen.getByDataCy("sections-toggle");
     expect(sectionsToggle).toHaveAttribute("aria-disabled", "true");
