@@ -7165,6 +7165,7 @@ export type SaveAdminSettingsMutation = {
       maxRepoRevisionsToSearch?: number | null;
       numNewRepoRevisionsToFetch?: number | null;
     } | null;
+    sage?: { __typename?: "SageConfig"; baseUrl?: string | null } | null;
     scheduler?: {
       __typename?: "SchedulerConfig";
       acceptableHostIdleTimeSeconds?: number | null;
@@ -7242,7 +7243,6 @@ export type SaveAdminSettingsMutation = {
       maxTaskExecution?: number | null;
       maxTasksPerVersion?: number | null;
     } | null;
-    sage?: { __typename?: "SageConfig"; baseUrl?: string | null } | null;
     ui?: {
       __typename?: "UIConfig";
       cacheTemplates?: boolean | null;

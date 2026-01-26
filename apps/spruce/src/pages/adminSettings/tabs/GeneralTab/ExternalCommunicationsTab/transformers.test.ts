@@ -120,7 +120,7 @@ const gql: AdminSettingsInput = {
   perfMonitoringKanopyURL: "sps-kanopy.example.com",
   sage: {
     baseUrl: "https://sage.devprod.prod.corp.mongodb.com",
-  }
+  },
 };
 
 const mockAdminSettings: AdminSettings = {
@@ -177,5 +177,5 @@ const mockAdminSettings: AdminSettings = {
   perfMonitoringKanopyURL: "sps-kanopy.example.com",
   sage: {
     baseUrl: "https://sage.devprod.prod.corp.mongodb.com",
-  }
+  },
 };
