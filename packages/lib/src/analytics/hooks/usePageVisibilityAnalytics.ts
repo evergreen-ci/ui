@@ -56,7 +56,7 @@ interface UsePageVisibilityAnalyticsOptions {
  * @param options.enabled Whether to track the visibility changes
  * @param options.trackSession Whether to track session start/end events
  * @param options.minDuration Minimum duration in milliseconds before tracking a visibility change
- * @returns Object with current visibility state and manual tracking methods
+ * @returns Object with current visibility state
  * @example
  * ```typescript
  * const { isVisible } = usePageVisibilityAnalytics();
@@ -155,13 +155,17 @@ export const usePageVisibilityAnalytics = ({
           totalHiddenTime.current += finalDuration;
         }
 
-        sendEvent({
-          name: "System Event page visibility session ended",
-          "visibility.total_visible_ms": totalVisibleTime.current,
-          "visibility.total_hidden_ms": totalHiddenTime.current,
-          "visibility.state_changes": stateChangeCount.current,
-          "visibility.timestamp": new Date().toISOString(),
-        });
+        try {
+          sendEvent({
+            name: "System Event page visibility session ended",
+            "visibility.total_visible_ms": totalVisibleTime.current,
+            "visibility.total_hidden_ms": totalHiddenTime.current,
+            "visibility.state_changes": stateChangeCount.current,
+            "visibility.timestamp": new Date().toISOString(),
+          });
+        } catch (e) {
+          // Silently ignore analytics errors
+        }
       }
 
       // Reset state for next page/render
