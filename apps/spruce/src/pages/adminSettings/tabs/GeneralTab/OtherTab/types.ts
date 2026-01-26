@@ -19,6 +19,11 @@ export interface OtherFormState {
         financeFormula: number;
         savingsPlanDiscount: number;
         onDemandDiscount: number;
+        s3Cost: {
+          uploadCostDiscount: number;
+          standardStorageCostDiscount: number;
+          iAStorageCostDiscount: number;
+        };
       };
     };
 

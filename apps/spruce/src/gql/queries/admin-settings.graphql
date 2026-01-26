@@ -123,6 +123,15 @@ query AdminSettings {
     cost {
       financeFormula
       onDemandDiscount
+      s3Cost {
+        storage {
+          iAStorageCostDiscount
+          standardStorageCostDiscount
+        }
+        upload {
+          uploadCostDiscount
+        }
+      }
       savingsPlanDiscount
     }
     disabledGQLQueries
