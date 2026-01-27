@@ -24,6 +24,7 @@ describe("useFilters", () => {
           useFilters({
             activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
+            omitInactiveBuilds: false,
             pins: [],
           }),
         {
@@ -43,6 +44,7 @@ describe("useFilters", () => {
           useFilters({
             activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
+            omitInactiveBuilds: false,
             pins: [],
           }),
         {
@@ -75,6 +77,7 @@ describe("useFilters", () => {
           useFilters({
             activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
+            omitInactiveBuilds: false,
             pins: ["3", "2"],
           }),
         {
@@ -101,6 +104,7 @@ describe("useFilters", () => {
           useFilters({
             activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
+            omitInactiveBuilds: false,
             pins: [],
           }),
         {
@@ -130,6 +134,7 @@ describe("useFilters", () => {
           useFilters({
             activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
+            omitInactiveBuilds: false,
             pins: [],
           }),
         {
@@ -165,6 +170,7 @@ describe("useFilters", () => {
           useFilters({
             activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
+            omitInactiveBuilds: false,
             pins: [],
           }),
         {
@@ -211,6 +217,7 @@ describe("useFilters", () => {
           useFilters({
             activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
+            omitInactiveBuilds: false,
             pins: [],
           }),
         {
@@ -263,6 +270,7 @@ describe("useFilters", () => {
           useFilters({
             activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
+            omitInactiveBuilds: false,
             pins: [],
           }),
         {
@@ -292,6 +300,7 @@ describe("useFilters", () => {
           useFilters({
             activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
+            omitInactiveBuilds: false,
             pins: [],
           }),
         {
@@ -338,6 +347,7 @@ describe("useFilters", () => {
           useFilters({
             activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
+            omitInactiveBuilds: false,
             pins: [],
           }),
         {
@@ -383,6 +393,7 @@ describe("useFilters", () => {
           useFilters({
             activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
+            omitInactiveBuilds: false,
             pins: [],
           }),
         {

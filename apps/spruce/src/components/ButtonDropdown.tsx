@@ -1,19 +1,19 @@
 import { Size as ButtonSize } from "@leafygreen-ui/button";
 import { Icon } from "@leafygreen-ui/icon";
-import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import { Menu, MenuItem, MenuProps } from "@leafygreen-ui/menu";
 import { LoadingButton } from "components/Buttons";
 
-interface Props {
+type Props = {
+  children?: React.ReactNode;
   disabled?: boolean;
-  loading?: boolean;
-  dropdownItems: React.JSX.Element[];
-  size?: ButtonSize;
   "data-cy"?: string;
-  open?: boolean;
-  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-}
+  dropdownItems?: React.ReactNode[];
+  loading?: boolean;
+  size?: ButtonSize;
+} & Omit<MenuProps, "children" | "refEl" | "trigger">;
 
 export const ButtonDropdown: React.FC<Props> = ({
+  children,
   "data-cy": dataCy = "ellipsis-btn",
   disabled = false,
   dropdownItems,
@@ -21,26 +21,26 @@ export const ButtonDropdown: React.FC<Props> = ({
   open = undefined,
   setOpen = undefined,
   size = "small",
-  ...rest
+  ...menuProps
 }) => (
   <Menu
     adjustOnMutation
     data-cy="card-dropdown"
     open={open}
     setOpen={setOpen}
+    {...menuProps}
     trigger={
       <LoadingButton
         data-cy={dataCy}
         disabled={disabled}
         loading={loading}
         size={size}
-        {...rest}
       >
         <Icon glyph="Ellipsis" />
       </LoadingButton>
     }
   >
-    {dropdownItems}
+    {dropdownItems ?? children}
   </Menu>
 );
 

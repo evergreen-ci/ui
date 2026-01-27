@@ -1,6 +1,7 @@
 import { Suspense, useCallback, useRef, useState } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
+import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
@@ -9,6 +10,7 @@ import { ProjectBanner, RepotrackerBanner } from "components/Banners";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
+import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
 import { slugs } from "constants/routes";
 import { waterfallPageContainerId } from "./constants";
 import { Pagination, WaterfallFilterOptions } from "./types";
@@ -29,6 +31,10 @@ const Waterfall: React.FC = () => {
 
   const [pagination, setPagination] = useState<Pagination>();
 
+  const [omitInactiveBuilds, setOmitInactiveBuilds] = useState(
+    Cookies.get(OMIT_INACTIVE_WATERFALL_BUILDS) === "true",
+  );
+
   const guideCueRef = useRef<WalkthroughGuideCueRef>(null);
   const restartWalkthrough = useCallback(
     () => guideCueRef.current?.restart(),
@@ -44,9 +50,11 @@ const Waterfall: React.FC = () => {
         <WaterfallFilters
           // Using a key rerenders the filter components so that uncontrolled components can compute a new initial state
           key={projectIdentifier}
+          omitInactiveBuilds={omitInactiveBuilds}
           pagination={pagination}
           projectIdentifier={projectIdentifier ?? ""}
           restartWalkthrough={restartWalkthrough}
+          setOmitInactiveBuilds={setOmitInactiveBuilds}
         />
         <FilterChips
           chips={chips}
@@ -64,6 +72,7 @@ const Waterfall: React.FC = () => {
             <WaterfallGrid
               key={projectIdentifier}
               guideCueRef={guideCueRef}
+              omitInactiveBuilds={omitInactiveBuilds}
               projectIdentifier={projectIdentifier ?? ""}
               setPagination={setPagination}
             />

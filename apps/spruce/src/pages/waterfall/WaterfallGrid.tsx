@@ -52,13 +52,15 @@ const resetFilterState: ServerFilters = {
 };
 
 type WaterfallGridProps = {
+  guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
+  omitInactiveBuilds: boolean;
   projectIdentifier: string;
   setPagination: (pagination: Pagination) => void;
-  guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   guideCueRef,
+  omitInactiveBuilds,
   projectIdentifier,
   setPagination,
 }) => {
@@ -115,9 +117,40 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const timezone = useUserTimeZone() ?? utcTimeZone;
   const utcDate = getUTCEndOfDay(date, timezone);
 
+  const [allQueryParams] = useQueryParams();
+
+  // Initialize serverFilters from query params to avoid double query
+  const getServerFiltersFromParams = (): ServerFilters => {
+    const hasServerParams =
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Requesters) ||
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Statuses) ||
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Task) ||
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.BuildVariant);
+
+    if (!hasServerParams) {
+      return resetFilterState;
+    }
+
+    return {
+      requesters: allQueryParams[WaterfallFilterOptions.Requesters] as
+        | string[]
+        | undefined,
+      statuses: allQueryParams[WaterfallFilterOptions.Statuses] as
+        | string[]
+        | undefined,
+      tasks: allQueryParams[WaterfallFilterOptions.Task] as
+        | string[]
+        | undefined,
+      variants: allQueryParams[WaterfallFilterOptions.BuildVariant] as
+        | string[]
+        | undefined,
+    };
+  };
+
   // TODO DEVPROD-23578: serverFilters can be calculated from queryParams directly, useState should not be necessary
-  const [serverFilters, setServerFilters] =
-    useState<ServerFilters>(resetFilterState);
+  const [serverFilters, setServerFilters] = useState<ServerFilters>(
+    getServerFiltersFromParams,
+  );
 
   const { data, dataState } = useSuspenseQuery<
     WaterfallQuery,
@@ -129,6 +162,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         limit: VERSION_LIMIT,
         maxOrder,
         minOrder,
+        omitInactiveBuilds,
         revision,
         date: utcDate,
         ...serverFilters,
@@ -173,37 +207,37 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       ? data.waterfall.pagination.activeVersionIds
       : [],
     flattenedVersions: dataIsComplete ? data.waterfall.flattenedVersions : [],
+    omitInactiveBuilds,
     pins,
   });
 
   const [isPending, startTransition] = useTransition();
-  const [allQueryParams] = useQueryParams();
 
   useEffect(() => {
+    const newFilters = getServerFiltersFromParams();
     const hasServerParams =
       Object.keys(allQueryParams).includes(WaterfallFilterOptions.Requesters) ||
       Object.keys(allQueryParams).includes(WaterfallFilterOptions.Statuses) ||
       Object.keys(allQueryParams).includes(WaterfallFilterOptions.Task) ||
       Object.keys(allQueryParams).includes(WaterfallFilterOptions.BuildVariant);
+
+    // Check if filters have actually changed
+    const filtersChanged =
+      JSON.stringify(serverFilters) !== JSON.stringify(newFilters);
+
+    // Only apply server filters if we have server params and need more results
+    // Otherwise, use client-side filtering
     if (activeVersionIds.length < VERSION_LIMIT && hasServerParams) {
-      const filters = {
-        requesters: allQueryParams[
-          WaterfallFilterOptions.Requesters
-        ] as string[],
-        statuses: allQueryParams[WaterfallFilterOptions.Statuses] as string[],
-        tasks: allQueryParams[WaterfallFilterOptions.Task] as string[],
-        variants: allQueryParams[
-          WaterfallFilterOptions.BuildVariant
-        ] as string[],
-      };
-      startTransition(() => {
-        setServerFilters(filters);
-      });
-    } else if (!hasServerParams) {
+      if (filtersChanged) {
+        startTransition(() => {
+          setServerFilters(newFilters);
+        });
+      }
+    } else if (!hasServerParams && filtersChanged) {
       // Because this data is already loaded and no animation is necessary, omitting startTransition for snappiness
       setServerFilters(resetFilterState); // eslint-disable-line react-hooks/set-state-in-effect
     }
-  }, [allQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [allQueryParams, activeVersionIds.length, serverFilters]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const firstActiveVersionId = activeVersionIds[0];
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
@@ -211,7 +245,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const isHighlighted = (v: Version, i: number) =>
     (revision !== null && v.revision.includes(revision)) || (!!date && i === 0);
 
-  if (activeVersionIds.length === 0) {
+  if (dataIsComplete && activeVersionIds.length === 0) {
     return <EmptyState />;
   }
 
