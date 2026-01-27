@@ -93,8 +93,7 @@ const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({
       <CliDownloadButton
         as="a"
         disabled={!link}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        href={link}
+        href={link ?? undefined}
         onClick={() => {
           sendEvent({
             name: "Clicked CLI download link",

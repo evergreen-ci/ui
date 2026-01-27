@@ -21,8 +21,9 @@ const FileSelector: React.FC<FileSelectorProps> = ({ getInputProps, open }) => (
     </Body>
     <Body weight="medium">or</Body>
     <Button
+      as="button"
       leftGlyph={<Icon glyph="Upload" />}
-      onClick={(e) => {
+      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         open();
       }}

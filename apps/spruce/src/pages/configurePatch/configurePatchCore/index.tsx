@@ -206,7 +206,6 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
             disabled={totalSelectedTaskCount === 0 && aliasCount === 0}
             loading={loadingScheduledPatch || loadingGeneratedTaskCounts}
             onClick={onClickSchedule}
-            /* @ts-expect-error - the native title attribute works here */
             title={
               loadingGeneratedTaskCounts
                 ? "Still estimating total task count"

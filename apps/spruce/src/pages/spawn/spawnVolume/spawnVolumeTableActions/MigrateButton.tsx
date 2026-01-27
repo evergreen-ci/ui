@@ -14,9 +14,10 @@ export const MigrateButton: React.FC<Props> = ({ volume }) => {
     <>
       <Button
         ref={triggerRef}
+        as="button"
         data-cy={`migrate-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.stopPropagation();
           setOpenModal(true);
         }}

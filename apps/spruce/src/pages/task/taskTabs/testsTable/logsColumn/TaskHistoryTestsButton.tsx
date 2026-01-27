@@ -15,6 +15,7 @@ export const TaskHistoryTestsButton: React.FC<Props> = ({ onClick, to }) => {
       data-cy="task-history-tests-btn"
       onClick={onClick}
       size="xsmall"
+      to={to}
     >
       History
     </Button>

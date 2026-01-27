@@ -13,9 +13,10 @@ export const AttachButton: React.FC<Props> = ({ volume }) => {
   return (
     <>
       <Button
+        as="button"
         data-cy={`attach-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.stopPropagation();
           setOpenModal(true);
         }}
