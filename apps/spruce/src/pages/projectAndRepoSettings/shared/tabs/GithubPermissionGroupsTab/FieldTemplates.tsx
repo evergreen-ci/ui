@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
-import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import Icon from "@evg-ui/lib/components/Icon";

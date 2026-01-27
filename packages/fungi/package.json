@@ -19,7 +19,7 @@
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@leafygreen-ui/banner": "^10.2.4",
-    "@leafygreen-ui/button": "^21.0.6",
+    "@leafygreen-ui/button": "^25.2.1",
     "@leafygreen-ui/drawer": "^5.2.1",
     "@leafygreen-ui/icon-button": "^17.1.4",
     "@leafygreen-ui/leafygreen-provider": "^5.0.4",

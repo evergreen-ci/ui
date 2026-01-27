@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Button, Size } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics";
 import { EditSpawnHostModal } from "pages/spawn/spawnHost/index";
@@ -31,9 +31,10 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
           justify="middle"
           trigger={
             <Button
+              as="button"
               data-cy="edit-host-button"
               disabled={!canEditSpawnHost}
-              onClick={(e) => {
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 e.stopPropagation();
                 setOpenModal(true);
                 spawnAnalytics.sendEvent({

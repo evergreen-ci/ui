@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";

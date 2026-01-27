@@ -122,7 +122,7 @@
                       </a>
                       <button
                         aria-disabled="true"
-                        class="lg-ui-button-0000 leafygreen-ui-zzkmfy leafygreen-ui-cssveg"
+                        class="lg-ui-button-0000 leafygreen-ui-ma515g"
                         data-cy="parsley-link"
                         data-lgid="lg-button"
                         type="button"
@@ -187,7 +187,7 @@
                       </a>
                       <a
                         aria-disabled="false"
-                        class="lg-ui-button-0000 leafygreen-ui-1m0zu1d leafygreen-ui-cssveg"
+                        class="lg-ui-button-0000 leafygreen-ui-161yf65"
                         data-cy="parsley-link"
                         data-lgid="lg-button"
                         href="parsley_link"

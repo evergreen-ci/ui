@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { Card } from "@leafygreen-ui/card";
 import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import {
@@ -93,8 +93,7 @@ const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({
       <CliDownloadButton
         as="a"
         disabled={!link}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        href={link}
+        href={link ?? undefined}
         onClick={() => {
           sendEvent({
             name: "Clicked CLI download link",

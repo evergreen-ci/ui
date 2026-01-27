@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { InlineCode, Label } from "@leafygreen-ui/typography";
 import Cookie from "js-cookie";

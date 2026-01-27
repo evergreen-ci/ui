@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { size } from "../../constants/tokens";
 import usePagination from "../../hooks/usePagination";

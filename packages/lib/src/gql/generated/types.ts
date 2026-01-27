@@ -200,6 +200,7 @@ export type AdminSettings = {
   releaseMode?: Maybe<ReleaseModeConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
+  sage?: Maybe<SageConfig>;
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
   shutdownWaitSeconds?: Maybe<Scalars["Int"]["output"]>;
@@ -256,6 +257,7 @@ export type AdminSettingsInput = {
   releaseMode?: InputMaybe<ReleaseModeConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
+  sage?: InputMaybe<SageConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
   serviceFlags?: InputMaybe<ServiceFlagsInput>;
   shutdownWaitSeconds?: InputMaybe<Scalars["Int"]["input"]>;
@@ -707,12 +709,14 @@ export type CostConfig = {
   __typename?: "CostConfig";
   financeFormula?: Maybe<Scalars["Float"]["output"]>;
   onDemandDiscount?: Maybe<Scalars["Float"]["output"]>;
+  s3Cost?: Maybe<S3CostConfig>;
   savingsPlanDiscount?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfigInput = {
   financeFormula?: InputMaybe<Scalars["Float"]["input"]>;
   onDemandDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  s3Cost?: InputMaybe<S3CostConfigInput>;
   savingsPlanDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
@@ -3598,6 +3602,17 @@ export type RuntimeEnvironmentConfigInput = {
   baseUrl: Scalars["String"]["input"];
 };
 
+export type S3CostConfig = {
+  __typename?: "S3CostConfig";
+  storage?: Maybe<S3StorageCostConfig>;
+  upload?: Maybe<S3UploadCostConfig>;
+};
+
+export type S3CostConfigInput = {
+  storage?: InputMaybe<S3StorageCostConfigInput>;
+  upload?: InputMaybe<S3UploadCostConfigInput>;
+};
+
 export type S3Credentials = {
   __typename?: "S3Credentials";
   bucket?: Maybe<Scalars["String"]["output"]>;
@@ -3609,6 +3624,26 @@ export type S3CredentialsInput = {
   bucket?: InputMaybe<Scalars["String"]["input"]>;
   key?: InputMaybe<Scalars["String"]["input"]>;
   secret?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type S3StorageCostConfig = {
+  __typename?: "S3StorageCostConfig";
+  iAStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+  standardStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type S3StorageCostConfigInput = {
+  iAStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  standardStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+};
+
+export type S3UploadCostConfig = {
+  __typename?: "S3UploadCostConfig";
+  uploadCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type S3UploadCostConfigInput = {
+  uploadCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
 export type SesConfig = {
@@ -3640,6 +3675,15 @@ export type SshKeyPair = {
 export type SshKeyPairInput = {
   name?: InputMaybe<Scalars["String"]["input"]>;
   secretARN?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type SageConfig = {
+  __typename?: "SageConfig";
+  baseUrl?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SageConfigInput = {
+  baseUrl?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type SaveAdminSettingsInput = {

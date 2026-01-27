@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Button, Size } from "@leafygreen-ui/button";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
@@ -51,9 +51,10 @@ export const DeleteVolumeButton: React.FC<Props> = ({ volume }) => {
       }}
       trigger={
         <Button
+          as="button"
           data-cy={`trash-${volume.displayName || volume.id}`}
           disabled={loadingRemoveVolume || volume.migrating}
-          onClick={(e) => {
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation();
           }}
           size={Size.XSmall}

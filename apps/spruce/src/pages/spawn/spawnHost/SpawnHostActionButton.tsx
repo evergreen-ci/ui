@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client/react";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Button, Size } from "@leafygreen-ui/button";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -142,8 +142,9 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         onConfirm={() => handleClick(SpawnHostStatusActions.Reboot)}
         trigger={
           <Button
+            as="button"
             disabled={!canReboot}
-            onClick={(e) => {
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               e.stopPropagation();
             }}
             size={Size.XSmall}
@@ -163,8 +164,9 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         onConfirm={() => handleClick(SpawnHostStatusActions.Terminate)}
         trigger={
           <Button
+            as="button"
             disabled={!canTerminate}
-            onClick={(e) => {
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               e.stopPropagation();
             }}
             size={Size.XSmall}

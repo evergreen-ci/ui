@@ -68,7 +68,7 @@
         </a>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-cy="restart-button"
           data-lgid="lg-button"
           type="button"
@@ -84,7 +84,7 @@
         </button>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-cy="notify-task"
           data-lgid="lg-button"
           type="button"
@@ -120,7 +120,7 @@
         >
           <button
             aria-disabled="true"
-            class="lg-ui-button-0000 leafygreen-ui-1cutrhb"
+            class="lg-ui-button-0000 leafygreen-ui-stq2kw"
             data-cy="set-priority-button"
             data-lgid="lg-button"
             type="button"
@@ -228,7 +228,7 @@
         </a>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-cy="restart-button"
           data-lgid="lg-button"
           type="button"
@@ -244,7 +244,7 @@
         </button>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-cy="notify-task"
           data-lgid="lg-button"
           type="button"
@@ -285,7 +285,7 @@
         >
           <button
             aria-disabled="true"
-            class="lg-ui-button-0000 leafygreen-ui-1cutrhb"
+            class="lg-ui-button-0000 leafygreen-ui-stq2kw"
             data-cy="set-priority-button"
             data-lgid="lg-button"
             type="button"
@@ -344,7 +344,7 @@
     <span>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw"
+        class="lg-ui-button-0000 leafygreen-ui-ys0yem"
         data-cy="collapsed-card"
         data-lgid="lg-button"
         type="button"
@@ -358,7 +358,7 @@
           <svg
             alt=""
             aria-hidden="true"
-            class="leafygreen-ui-1st74h4 leafygreen-ui-xpf1b6"
+            class="leafygreen-ui-1vwk8qb"
             height="16"
             role="presentation"
             viewBox="0 0 16 16"
@@ -442,7 +442,7 @@
         </a>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-cy="restart-button"
           data-lgid="lg-button"
           type="button"
@@ -458,7 +458,7 @@
         </button>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-cy="notify-task"
           data-lgid="lg-button"
           type="button"
@@ -487,7 +487,7 @@
         >
           <button
             aria-disabled="true"
-            class="lg-ui-button-0000 leafygreen-ui-1cutrhb"
+            class="lg-ui-button-0000 leafygreen-ui-stq2kw"
             data-cy="set-priority-button"
             data-lgid="lg-button"
             type="button"
@@ -546,7 +546,7 @@
     <span>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw"
+        class="lg-ui-button-0000 leafygreen-ui-ys0yem"
         data-cy="collapsed-card"
         data-lgid="lg-button"
         type="button"
@@ -560,7 +560,7 @@
           <svg
             alt=""
             aria-hidden="true"
-            class="leafygreen-ui-1st74h4 leafygreen-ui-xpf1b6"
+            class="leafygreen-ui-1vwk8qb"
             height="16"
             role="presentation"
             viewBox="0 0 16 16"
@@ -644,7 +644,7 @@
         </a>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-cy="restart-button"
           data-lgid="lg-button"
           type="button"
@@ -660,7 +660,7 @@
         </button>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-cy="notify-task"
           data-lgid="lg-button"
           type="button"
@@ -689,7 +689,7 @@
         >
           <button
             aria-disabled="true"
-            class="lg-ui-button-0000 leafygreen-ui-1cutrhb"
+            class="lg-ui-button-0000 leafygreen-ui-stq2kw"
             data-cy="set-priority-button"
             data-lgid="lg-button"
             type="button"
@@ -964,7 +964,7 @@
                                 >
                                   <button
                                     aria-disabled="false"
-                                    class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                    class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e1bp1fda0"
                                     data-lgid="lg-button"
                                     type="button"
                                   >
@@ -979,7 +979,7 @@
                                   </button>
                                   <a
                                     aria-disabled="false"
-                                    class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                    class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e1bp1fda0"
                                     data-lgid="lg-button"
                                     href="a-parsley-url.mongodb.com"
                                     target="__blank"
@@ -1038,7 +1038,7 @@
     <span>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw"
+        class="lg-ui-button-0000 leafygreen-ui-ys0yem"
         data-cy="collapsed-card"
         data-lgid="lg-button"
         type="button"
@@ -1052,7 +1052,7 @@
           <svg
             alt=""
             aria-hidden="true"
-            class="leafygreen-ui-1st74h4 leafygreen-ui-xpf1b6"
+            class="leafygreen-ui-1vwk8qb"
             height="16"
             role="presentation"
             viewBox="0 0 16 16"
@@ -1136,7 +1136,7 @@
         </a>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-cy="restart-button"
           data-lgid="lg-button"
           type="button"
@@ -1152,7 +1152,7 @@
         </button>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-cy="notify-task"
           data-lgid="lg-button"
           type="button"
@@ -1193,7 +1193,7 @@
         >
           <button
             aria-disabled="true"
-            class="lg-ui-button-0000 leafygreen-ui-1cutrhb"
+            class="lg-ui-button-0000 leafygreen-ui-stq2kw"
             data-cy="set-priority-button"
             data-lgid="lg-button"
             type="button"
@@ -1314,7 +1314,7 @@
         </a>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-cy="restart-button"
           data-lgid="lg-button"
           type="button"
@@ -1330,7 +1330,7 @@
         </button>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-cy="notify-task"
           data-lgid="lg-button"
           type="button"
@@ -1359,7 +1359,7 @@
         >
           <button
             aria-disabled="true"
-            class="lg-ui-button-0000 leafygreen-ui-1cutrhb"
+            class="lg-ui-button-0000 leafygreen-ui-stq2kw"
             data-cy="set-priority-button"
             data-lgid="lg-button"
             type="button"

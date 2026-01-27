@@ -87,7 +87,7 @@
                   </div>
                   <button
                     aria-disabled="true"
-                    class="lg-ui-button-0000 leafygreen-ui-ozl6m"
+                    class="lg-ui-button-0000 leafygreen-ui-dkgtw5"
                     data-lgid="lg-button"
                     type="button"
                   >
@@ -230,7 +230,7 @@
                   </span>
                   <button
                     aria-disabled="false"
-                    class="lg-ui-button-0000 leafygreen-ui-168frnw"
+                    class="lg-ui-button-0000 leafygreen-ui-ys0yem"
                     data-cy="clear-filters"
                     data-lgid="lg-button"
                     type="button"

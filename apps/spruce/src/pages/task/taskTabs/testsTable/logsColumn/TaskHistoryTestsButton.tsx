@@ -1,4 +1,4 @@
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 
 interface Props {
@@ -15,6 +15,7 @@ export const TaskHistoryTestsButton: React.FC<Props> = ({ onClick, to }) => {
       data-cy="task-history-tests-btn"
       onClick={onClick}
       size="xsmall"
+      to={to}
     >
       History
     </Button>

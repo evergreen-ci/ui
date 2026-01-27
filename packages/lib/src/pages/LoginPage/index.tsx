@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { TextInput } from "@leafygreen-ui/text-input";
 import { Location, Navigate, useLocation } from "react-router-dom";

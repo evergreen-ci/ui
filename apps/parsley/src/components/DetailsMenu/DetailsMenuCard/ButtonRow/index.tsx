@@ -1,4 +1,4 @@
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { usePreferencesAnalytics } from "analytics";

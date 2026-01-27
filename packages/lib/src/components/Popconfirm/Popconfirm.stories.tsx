@@ -1,4 +1,4 @@
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import { size } from "../../constants/tokens";
 import Popconfirm from ".";
