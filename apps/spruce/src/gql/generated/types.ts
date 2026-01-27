@@ -7440,8 +7440,8 @@ export type SetCursorApiKeyMutation = {
   __typename?: "Mutation";
   setCursorAPIKey: {
     __typename?: "SetCursorAPIKeyPayload";
-    success: boolean;
     keyLastFour?: string | null;
+    success: boolean;
   };
 };
 
