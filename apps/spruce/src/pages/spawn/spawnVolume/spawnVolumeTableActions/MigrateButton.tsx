@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Button, Size } from "@leafygreen-ui/button";
 import { TableVolume } from "types/spawn";
 import { MigrateVolumeModal } from "./MigrateVolumeModal";
 

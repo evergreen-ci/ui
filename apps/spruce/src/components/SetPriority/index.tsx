@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { NumberInput } from "@leafygreen-ui/number-input";
 import { palette } from "@leafygreen-ui/palette";

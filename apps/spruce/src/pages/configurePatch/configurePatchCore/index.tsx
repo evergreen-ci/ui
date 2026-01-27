@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
 import { TextInput } from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
