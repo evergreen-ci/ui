@@ -1,0 +1,6 @@
+query CursorAPIKeyStatus {
+  cursorAPIKeyStatus {
+    keyConfigured
+    keyLastFour
+  }
+}

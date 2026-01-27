@@ -122,3 +122,6 @@ export const buildHostConfigurationRepoURL =
   "https://github.com/10gen/buildhost-configuration";
 export const buildHostPostConfigRepoURL =
   "https://github.com/10gen/buildhost-post-config";
+
+export const cursorAPIKeySettingsUrl =
+  "https://cursor.com/dashboard?tab=integrations";
