@@ -70,13 +70,7 @@ const isNumber = (index: number | null): index is number =>
 
 const stickyHeaderZIndex = 1;
 
-const StickyContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: ${stickyHeaderZIndex};
-`;
+const StickyContainer = styled.div``;
 
 const StickySectionWrapper = styled.div`
   position: sticky;
