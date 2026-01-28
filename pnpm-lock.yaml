@@ -178,8 +178,8 @@ importers:
         specifier: 8.0.0
         version: 8.0.0
       query-string:
-        specifier: 9.1.1
-        version: 9.1.1
+        specifier: 9.3.1
+        version: 9.3.1
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -563,8 +563,8 @@ importers:
         specifier: 8.0.0
         version: 8.0.0
       query-string:
-        specifier: 9.1.1
-        version: 9.1.1
+        specifier: 9.3.1
+        version: 9.3.1
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -1107,8 +1107,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       query-string:
-        specifier: 9.1.1
-        version: 9.1.1
+        specifier: 9.3.1
+        version: 9.3.1
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -6751,8 +6751,8 @@ packages:
     resolution: {integrity: sha512-4EK3+xJl8Ts67nLYNwqw/dsFVnCf+qR7RgXSK9jEEm9unao3njwMDdmsdvoKBKHzxd7tCYz5e5M+SnMjdtXGQQ==}
     engines: {node: '>=0.6'}
 
-  query-string@9.1.1:
-    resolution: {integrity: sha512-MWkCOVIcJP9QSKU52Ngow6bsAWAPlPK2MludXvcrS2bGZSl+T1qX9MZvRIkqUIkGLJquMJHWfsT6eRqUpp4aWg==}
+  query-string@9.3.1:
+    resolution: {integrity: sha512-5fBfMOcDi5SA9qj5jZhWAcTtDfKF5WFdd2uD9nVNlbxVv1baq65aALy6qofpNEGELHvisjjasxQp7BlM9gvMzw==}
     engines: {node: '>=18'}
 
   querystringify@2.2.0:
@@ -15452,7 +15452,7 @@ snapshots:
     dependencies:
       side-channel: 1.1.0
 
-  query-string@9.1.1:
+  query-string@9.3.1:
     dependencies:
       decode-uri-component: 0.4.1
       filter-obj: 5.1.0
