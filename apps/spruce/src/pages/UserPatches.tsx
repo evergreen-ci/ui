@@ -16,7 +16,6 @@ import { usePolling, useGetUserPatchesPageTitleAndLink } from "hooks";
 
 export const UserPatches = () => {
   const { [slugs.userId]: userId } = useParams();
-  const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
 
   const patchesInput = usePatchesQueryParams();
   const isMergeQueueUser = userId === githubMergeQueueUser;
@@ -43,6 +42,10 @@ export const UserPatches = () => {
     stopPolling,
     refetch,
   });
+
+  const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(
+    data?.user,
+  ) ?? { title: "" };
 
   return (
     <PatchesPage
