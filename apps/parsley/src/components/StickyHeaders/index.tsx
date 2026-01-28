@@ -36,7 +36,7 @@ const StickyHeaders: React.FC<StickyHeaderProps> = ({
   }, [sectionHeader, subsectionHeader, onHeightChange]);
 
   return (
-    <StickyContainer ref={containerRef} data-cy="sticky-headers">
+    <StickyHeaderContainer ref={containerRef} data-cy="sticky-headers">
       {isNumber(sectionHeader) &&
         sectionHeaderLine &&
         isSectionHeaderRow(sectionHeaderLine) && (
@@ -61,7 +61,7 @@ const StickyHeaders: React.FC<StickyHeaderProps> = ({
             />
           </StickySubsectionWrapper>
         )}
-    </StickyContainer>
+    </StickyHeaderContainer>
   );
 };
 
@@ -70,7 +70,7 @@ const isNumber = (index: number | null): index is number =>
 
 const stickyHeaderZIndex = 1;
 
-const StickyContainer = styled.div``;
+const StickyHeaderContainer = styled.div``;
 
 const StickySectionWrapper = styled.div`
   position: sticky;
