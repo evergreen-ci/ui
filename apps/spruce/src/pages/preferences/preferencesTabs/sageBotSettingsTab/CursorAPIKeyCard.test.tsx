@@ -8,17 +8,17 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
-  CursorApiKeyStatusQuery,
-  CursorApiKeyStatusQueryVariables,
+  CursorSettingsQuery,
+  CursorSettingsQueryVariables,
 } from "gql/generated/types";
 import { DELETE_CURSOR_API_KEY } from "gql/mutations";
-import { CURSOR_API_KEY_STATUS } from "gql/queries";
+import { CURSOR_SETTINGS } from "gql/queries";
 import { CursorAPIKeyCard } from "./CursorAPIKeyCard";
 
 describe("CursorAPIKeyCard", () => {
   it("renders with no key configured", async () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[cursorAPIKeyStatusNoKeyMock]}>
+      <MockedProvider mocks={[cursorSettingsNoKeyMock]}>
         <CursorAPIKeyCard />
       </MockedProvider>,
     );
@@ -38,7 +38,7 @@ describe("CursorAPIKeyCard", () => {
 
   it("renders with key configured", async () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[cursorAPIKeyStatusWithKeyMock]}>
+      <MockedProvider mocks={[cursorSettingsWithKeyMock]}>
         <CursorAPIKeyCard />
       </MockedProvider>,
     );
@@ -58,7 +58,7 @@ describe("CursorAPIKeyCard", () => {
 
   it("save button is disabled when input is empty", async () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[cursorAPIKeyStatusNoKeyMock]}>
+      <MockedProvider mocks={[cursorSettingsNoKeyMock]}>
         <CursorAPIKeyCard />
       </MockedProvider>,
     );
@@ -97,9 +97,9 @@ describe("CursorAPIKeyCard", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider
         mocks={[
-          cursorAPIKeyStatusWithKeyMock,
+          cursorSettingsWithKeyMock,
           deleteKeyMock,
-          cursorAPIKeyStatusNoKeyMock,
+          cursorSettingsNoKeyMock,
         ]}
       >
         <CursorAPIKeyCard />
@@ -120,18 +120,18 @@ describe("CursorAPIKeyCard", () => {
   });
 });
 
-const cursorAPIKeyStatusNoKeyMock: ApolloMock<
-  CursorApiKeyStatusQuery,
-  CursorApiKeyStatusQueryVariables
+const cursorSettingsNoKeyMock: ApolloMock<
+  CursorSettingsQuery,
+  CursorSettingsQueryVariables
 > = {
   request: {
-    query: CURSOR_API_KEY_STATUS,
+    query: CURSOR_SETTINGS,
     variables: {},
   },
   result: {
     data: {
-      cursorAPIKeyStatus: {
-        __typename: "CursorAPIKeyStatus",
+      cursorSettings: {
+        __typename: "CursorSettings",
         keyConfigured: false,
         keyLastFour: "",
       },
@@ -139,18 +139,18 @@ const cursorAPIKeyStatusNoKeyMock: ApolloMock<
   },
 };
 
-const cursorAPIKeyStatusWithKeyMock: ApolloMock<
-  CursorApiKeyStatusQuery,
-  CursorApiKeyStatusQueryVariables
+const cursorSettingsWithKeyMock: ApolloMock<
+  CursorSettingsQuery,
+  CursorSettingsQueryVariables
 > = {
   request: {
-    query: CURSOR_API_KEY_STATUS,
+    query: CURSOR_SETTINGS,
     variables: {},
   },
   result: {
     data: {
-      cursorAPIKeyStatus: {
-        __typename: "CursorAPIKeyStatus",
+      cursorSettings: {
+        __typename: "CursorSettings",
         keyConfigured: true,
         keyLastFour: "1234",
       },

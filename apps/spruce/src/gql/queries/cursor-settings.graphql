@@ -1,0 +1,6 @@
+query CursorSettings {
+  cursorSettings {
+    keyConfigured
+    keyLastFour
+  }
+}
