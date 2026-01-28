@@ -72,7 +72,7 @@
     "@types/node": "^22.15.3",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
-    "@vitejs/plugin-react": "4.6.0",
+    "@vitejs/plugin-react": "5.1.2",
     "babel-plugin-import-graphql": "^2.8.1",
     "chromatic": "^13.3.4",
     "eslint": "^9.39.1",

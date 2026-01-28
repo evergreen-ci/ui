@@ -23,17 +23,17 @@
         data-testid="lg-select"
       >
         <button
-          aria-controls="select-208-menu"
-          aria-describedby="select-208-description"
+          aria-controls="select-128-menu"
+          aria-describedby="select-128-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="Tuple Select Select"
-          class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
+          class="lg-ui-button-0001 leafygreen-ui-q3iwhh"
           data-cy="tuple-select-select"
           data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-209"
+          id="select-129"
           type="button"
           value="build_variant"
         >
@@ -95,7 +95,7 @@
             class="leafygreen-ui-1iyoj2o"
           />
           <div
-            class="leafygreen-ui-oxwo2l"
+            class="leafygreen-ui-ogxdmc"
           >
             <div
               class="leafygreen-ui-1ago99h"
@@ -121,7 +121,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_input-feedback"
             data-testid="lg-text_input-feedback"
-            id="lg-form_field-feedback-212"
+            id="lg-form_field-feedback-132"
           />
         </div>
         <div
@@ -130,7 +130,7 @@
           <button
             aria-disabled="false"
             aria-label="Select plus button"
-            class="leafygreen-ui-1r51ix4"
+            class="leafygreen-ui-1o2ji0h"
             tabindex="0"
           >
             <div

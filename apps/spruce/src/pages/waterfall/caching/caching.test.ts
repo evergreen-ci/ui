@@ -1,4 +1,5 @@
 import { FieldFunctionOptions } from "@apollo/client";
+import { FieldMergeFunctionOptions } from "@apollo/client/cache";
 import { versions } from "../testData";
 import { mergeVersions, readVersions } from ".";
 
@@ -6,6 +7,12 @@ import { mergeVersions, readVersions } from ".";
 const readField = (field, obj) => obj[field];
 
 describe("mergeVersions", () => {
+  const readFn = {
+    readField,
+    extensions: {},
+    existingData: undefined,
+  } as FieldMergeFunctionOptions;
+
   it("merges version arrays", () => {
     const pagination = {
       activeVersionIds: ["b", "c", "f"],
@@ -25,9 +32,7 @@ describe("mergeVersions", () => {
           flattenedVersions: versions.slice(2, -1),
           pagination,
         },
-        {
-          readField,
-        } as FieldFunctionOptions,
+        readFn,
       ),
     ).toStrictEqual({
       allActiveVersions: new Set(["b", "c", "f"]),
@@ -55,9 +60,7 @@ describe("mergeVersions", () => {
           flattenedVersions: versions.slice(0, 2),
           pagination,
         },
-        {
-          readField,
-        } as FieldFunctionOptions,
+        readFn,
       ),
     ).toStrictEqual({
       allActiveVersions: new Set(["b", "c", "f"]),
@@ -85,9 +88,7 @@ describe("mergeVersions", () => {
           flattenedVersions: versions.slice(2),
           pagination,
         },
-        {
-          readField,
-        } as FieldFunctionOptions,
+        readFn,
       ),
     ).toStrictEqual({
       allActiveVersions: new Set(["b", "c", "f"]),
@@ -115,9 +116,7 @@ describe("mergeVersions", () => {
           flattenedVersions: versions,
           pagination,
         },
-        {
-          readField,
-        } as FieldFunctionOptions,
+        readFn,
       ),
     ).toStrictEqual({
       allActiveVersions: new Set(["b", "c", "f"]),
@@ -146,9 +145,7 @@ describe("mergeVersions", () => {
           flattenedVersions: versions.slice(2),
           pagination,
         },
-        {
-          readField,
-        } as FieldFunctionOptions,
+        readFn,
       ),
     ).toStrictEqual({
       allActiveVersions: new Set(["b", "c", "f", "x", "y"]),
