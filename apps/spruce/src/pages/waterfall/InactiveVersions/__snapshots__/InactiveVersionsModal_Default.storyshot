@@ -10,7 +10,7 @@
         data-cy="inactive-versions-modal"
         data-lgid="lg-modal"
         data-testid="lg-modal"
-        id="modal-488"
+        id="modal-261"
       />
       <button
         aria-disabled="false"
