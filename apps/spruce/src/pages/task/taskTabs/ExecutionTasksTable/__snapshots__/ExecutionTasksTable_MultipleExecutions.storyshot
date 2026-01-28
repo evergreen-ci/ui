@@ -46,7 +46,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Name"
-                class="leafygreen-ui-1r51ix4"
+                class="leafygreen-ui-1o2ji0h"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -97,7 +97,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Task Status"
-                class="leafygreen-ui-1r51ix4"
+                class="leafygreen-ui-1o2ji0h"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -148,7 +148,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Base Status"
-                class="leafygreen-ui-1r51ix4"
+                class="leafygreen-ui-1o2ji0h"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -199,7 +199,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Variant"
-                class="leafygreen-ui-1r51ix4"
+                class="leafygreen-ui-1o2ji0h"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -275,17 +275,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-some_id_5-label"
                       data-testid="lg-reviewed-some_id_5"
-                      for="checkbox-338"
-                      id="checkbox-338-label"
+                      for="checkbox-182"
+                      id="checkbox-182-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-338-label"
-                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        aria-labelledby="checkbox-182-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                         data-cy="reviewed-some_id_5"
-                        id="checkbox-338"
+                        id="checkbox-182"
                         type="checkbox"
                       />
                       <div
@@ -477,17 +477,17 @@
                       class="leafygreen-ui-1whk3l"
                       data-lgid="lg-reviewed-some_id_6-label"
                       data-testid="lg-reviewed-some_id_6"
-                      for="checkbox-339"
-                      id="checkbox-339-label"
+                      for="checkbox-183"
+                      id="checkbox-183-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-                        aria-labelledby="checkbox-339-label"
-                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        aria-labelledby="checkbox-183-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                         data-cy="reviewed-some_id_6"
-                        id="checkbox-339"
+                        id="checkbox-183"
                         type="checkbox"
                       />
                       <div
