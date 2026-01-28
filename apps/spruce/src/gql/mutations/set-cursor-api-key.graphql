@@ -1,0 +1,6 @@
+mutation SetCursorAPIKey($apiKey: String!) {
+  setCursorAPIKey(apiKey: $apiKey) {
+    keyLastFour
+    success
+  }
+}

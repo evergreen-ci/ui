@@ -28,6 +28,7 @@ export enum PreferencesTabRoutes {
   CLI = "cli",
   UISettings = "ui-settings",
   PublicKeys = "publickeys",
+  SageBotSettings = "sage-bot-settings",
 }
 
 export enum ImageTabRoutes {

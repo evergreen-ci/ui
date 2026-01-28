@@ -752,6 +752,13 @@ export type CursorParams = {
   includeCursor: Scalars["Boolean"]["input"];
 };
 
+/** CursorSettings represents the status of a user's Cursor API key stored in Sage. */
+export type CursorSettings = {
+  __typename?: "CursorSettings";
+  keyConfigured: Scalars["Boolean"]["output"];
+  keyLastFour?: Maybe<Scalars["String"]["output"]>;
+};
+
 /** DeactivateStepbackTaskInput is the input to the deactivateStepbackTask mutation. */
 export type DeactivateStepbackTaskInput = {
   buildVariantName: Scalars["String"]["input"];
@@ -763,6 +770,12 @@ export type DeactivateStepbackTaskInput = {
 export type DefaultSectionToRepoInput = {
   projectId: Scalars["String"]["input"];
   section: ProjectSettingsSection;
+};
+
+/** DeleteCursorAPIKeyPayload is the response from deleting a Cursor API key. */
+export type DeleteCursorApiKeyPayload = {
+  __typename?: "DeleteCursorAPIKeyPayload";
+  success: Scalars["Boolean"]["output"];
 };
 
 /** DeleteDistroInput is the input to the deleteDistro mutation. */
@@ -1987,6 +2000,7 @@ export type Mutation = {
   createPublicKey: Array<PublicKey>;
   deactivateStepbackTask: Scalars["Boolean"]["output"];
   defaultSectionToRepo?: Maybe<Scalars["String"]["output"]>;
+  deleteCursorAPIKey: DeleteCursorApiKeyPayload;
   deleteDistro: DeleteDistroPayload;
   deleteGithubAppCredentials?: Maybe<DeleteGithubAppCredentialsPayload>;
   deleteProject: Scalars["Boolean"]["output"];
@@ -2020,6 +2034,7 @@ export type Mutation = {
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
+  setCursorAPIKey: SetCursorApiKeyPayload;
   setLastRevision: SetLastRevisionPayload;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
@@ -2246,6 +2261,10 @@ export type MutationSetAnnotationMetadataLinksArgs = {
   execution: Scalars["Int"]["input"];
   metadataLinks: Array<MetadataLinkInput>;
   taskId: Scalars["String"]["input"];
+};
+
+export type MutationSetCursorApiKeyArgs = {
+  apiKey: Scalars["String"]["input"];
 };
 
 export type MutationSetLastRevisionArgs = {
@@ -3156,6 +3175,7 @@ export type Query = {
   buildBaron: BuildBaron;
   buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
+  cursorSettings: CursorSettings;
   distro?: Maybe<Distro>;
   distroEvents: DistroEventsPayload;
   distroTaskQueue: Array<TaskQueueItem>;
@@ -3852,6 +3872,13 @@ export type ServiceFlagsInput = {
   unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   useGitForGitHubFilesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
+/** SetCursorAPIKeyPayload is the response from setting a Cursor API key. */
+export type SetCursorApiKeyPayload = {
+  __typename?: "SetCursorAPIKeyPayload";
+  keyLastFour?: Maybe<Scalars["String"]["output"]>;
+  success: Scalars["Boolean"]["output"];
 };
 
 /**
@@ -6762,6 +6789,18 @@ export type DefaultSectionToRepoMutation = {
   defaultSectionToRepo?: string | null;
 };
 
+export type DeleteCursorApiKeyMutationVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type DeleteCursorApiKeyMutation = {
+  __typename?: "Mutation";
+  deleteCursorAPIKey: {
+    __typename?: "DeleteCursorAPIKeyPayload";
+    success: boolean;
+  };
+};
+
 export type DeleteDistroMutationVariables = Exact<{
   distroId: Scalars["String"]["input"];
 }>;
@@ -7386,6 +7425,19 @@ export type ScheduleUndispatchedBaseTasksMutation = {
     displayStatus: string;
     execution: number;
   }> | null;
+};
+
+export type SetCursorApiKeyMutationVariables = Exact<{
+  apiKey: Scalars["String"]["input"];
+}>;
+
+export type SetCursorApiKeyMutation = {
+  __typename?: "Mutation";
+  setCursorAPIKey: {
+    __typename?: "SetCursorAPIKeyPayload";
+    keyLastFour?: string | null;
+    success: boolean;
+  };
 };
 
 export type SetLastRevisionMutationVariables = Exact<{
@@ -8410,6 +8462,17 @@ export type CreatedTicketsQuery = {
       status: { __typename?: "JiraStatus"; id: string; name: string };
     };
   }>;
+};
+
+export type CursorSettingsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CursorSettingsQuery = {
+  __typename?: "Query";
+  cursorSettings: {
+    __typename?: "CursorSettings";
+    keyConfigured: boolean;
+    keyLastFour?: string | null;
+  };
 };
 
 export type DistroEventsQueryVariables = Exact<{

@@ -12,6 +12,8 @@ type Action =
   | { name: "Clicked CLI download link"; "download.name": string }
   | { name: "Clicked download auth file" }
   | { name: "Clicked reset API key" }
+  | { name: "Saved Cursor API key" }
+  | { name: "Deleted Cursor API key" }
   | { name: "Created new public key" }
   | { name: "Changed public key" }
   | { name: "Deleted public key" }
