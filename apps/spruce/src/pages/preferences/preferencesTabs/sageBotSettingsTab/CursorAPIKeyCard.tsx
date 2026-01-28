@@ -11,15 +11,15 @@ import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { cursorAPIKeySettingsUrl } from "constants/externalResources";
 import {
-  CursorApiKeyStatusQuery,
-  CursorApiKeyStatusQueryVariables,
+  CursorSettingsQuery,
+  CursorSettingsQueryVariables,
   DeleteCursorApiKeyMutation,
   DeleteCursorApiKeyMutationVariables,
   SetCursorApiKeyMutation,
   SetCursorApiKeyMutationVariables,
 } from "gql/generated/types";
 import { SET_CURSOR_API_KEY, DELETE_CURSOR_API_KEY } from "gql/mutations";
-import { CURSOR_API_KEY_STATUS } from "gql/queries";
+import { CURSOR_SETTINGS } from "gql/queries";
 
 export const CursorAPIKeyCard = () => {
   const dispatchToast = useToastContext();
@@ -27,15 +27,15 @@ export const CursorAPIKeyCard = () => {
   const [apiKey, setApiKey] = useState("");
 
   const { data, loading } = useQuery<
-    CursorApiKeyStatusQuery,
-    CursorApiKeyStatusQueryVariables
-  >(CURSOR_API_KEY_STATUS);
+    CursorSettingsQuery,
+    CursorSettingsQueryVariables
+  >(CURSOR_SETTINGS);
 
   const [setCursorAPIKey, { loading: settingKey }] = useMutation<
     SetCursorApiKeyMutation,
     SetCursorApiKeyMutationVariables
   >(SET_CURSOR_API_KEY, {
-    refetchQueries: ["CursorAPIKeyStatus"],
+    refetchQueries: ["CursorSettings"],
     onCompleted: (result) => {
       if (result.setCursorAPIKey.success) {
         dispatchToast.success("Cursor API key saved successfully.");
@@ -51,7 +51,7 @@ export const CursorAPIKeyCard = () => {
     DeleteCursorApiKeyMutation,
     DeleteCursorApiKeyMutationVariables
   >(DELETE_CURSOR_API_KEY, {
-    refetchQueries: ["CursorAPIKeyStatus"],
+    refetchQueries: ["CursorSettings"],
     onCompleted: (result) => {
       if (result.deleteCursorAPIKey.success) {
         dispatchToast.success("Cursor API key deleted successfully.");
@@ -66,8 +66,8 @@ export const CursorAPIKeyCard = () => {
     return <CardSkeleton />;
   }
 
-  const keyConfigured = data?.cursorAPIKeyStatus?.keyConfigured ?? false;
-  const keyLastFour = data?.cursorAPIKeyStatus?.keyLastFour ?? "";
+  const keyConfigured = data?.cursorSettings?.keyConfigured ?? false;
+  const keyLastFour = data?.cursorSettings?.keyLastFour ?? "";
 
   const handleSave = () => {
     sendEvent({ name: "Saved Cursor API key" });

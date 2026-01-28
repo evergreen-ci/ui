@@ -746,19 +746,17 @@ export type CreateProjectInput = {
   repoRefId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-/** CursorAPIKeyStatus represents the status of a user's Cursor API key stored in Sage. */
-export type CursorApiKeyStatus = {
-  __typename?: "CursorAPIKeyStatus";
-  /** keyConfigured indicates whether the user has a Cursor API key configured. */
-  keyConfigured: Scalars["Boolean"]["output"];
-  /** keyLastFour is the last four characters of the API key, if configured. */
-  keyLastFour?: Maybe<Scalars["String"]["output"]>;
-};
-
 export type CursorParams = {
   cursorId: Scalars["String"]["input"];
   direction: TaskHistoryDirection;
   includeCursor: Scalars["Boolean"]["input"];
+};
+
+/** CursorSettings represents the status of a user's Cursor API key stored in Sage. */
+export type CursorSettings = {
+  __typename?: "CursorSettings";
+  keyConfigured: Scalars["Boolean"]["output"];
+  keyLastFour?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** DeactivateStepbackTaskInput is the input to the deactivateStepbackTask mutation. */
@@ -777,7 +775,6 @@ export type DefaultSectionToRepoInput = {
 /** DeleteCursorAPIKeyPayload is the response from deleting a Cursor API key. */
 export type DeleteCursorApiKeyPayload = {
   __typename?: "DeleteCursorAPIKeyPayload";
-  /** success indicates whether the operation was successful. */
   success: Scalars["Boolean"]["output"];
 };
 
@@ -3178,7 +3175,7 @@ export type Query = {
   buildBaron: BuildBaron;
   buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
-  cursorAPIKeyStatus: CursorApiKeyStatus;
+  cursorSettings: CursorSettings;
   distro?: Maybe<Distro>;
   distroEvents: DistroEventsPayload;
   distroTaskQueue: Array<TaskQueueItem>;
@@ -3880,9 +3877,7 @@ export type ServiceFlagsInput = {
 /** SetCursorAPIKeyPayload is the response from setting a Cursor API key. */
 export type SetCursorApiKeyPayload = {
   __typename?: "SetCursorAPIKeyPayload";
-  /** keyLastFour is the last four characters of the stored API key. */
   keyLastFour?: Maybe<Scalars["String"]["output"]>;
-  /** success indicates whether the operation was successful. */
   success: Scalars["Boolean"]["output"];
 };
 
@@ -8469,12 +8464,12 @@ export type CreatedTicketsQuery = {
   }>;
 };
 
-export type CursorApiKeyStatusQueryVariables = Exact<{ [key: string]: never }>;
+export type CursorSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type CursorApiKeyStatusQuery = {
+export type CursorSettingsQuery = {
   __typename?: "Query";
-  cursorAPIKeyStatus: {
-    __typename?: "CursorAPIKeyStatus";
+  cursorSettings: {
+    __typename?: "CursorSettings";
     keyConfigured: boolean;
     keyLastFour?: string | null;
   };
