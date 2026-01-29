@@ -84,7 +84,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
           <Button
             as="button"
             disabled={confirmDisabled}
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+            onClick={(e) => {
               onConfirm(e);
               setOpen(false);
             }}

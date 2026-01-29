@@ -144,7 +144,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
           <Button
             as="button"
             disabled={!canReboot}
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+            onClick={(e) => {
               e.stopPropagation();
             }}
             size={Size.XSmall}
@@ -166,7 +166,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
           <Button
             as="button"
             disabled={!canTerminate}
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+            onClick={(e) => {
               e.stopPropagation();
             }}
             size={Size.XSmall}

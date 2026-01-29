@@ -34,7 +34,7 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
               as="button"
               data-cy="edit-host-button"
               disabled={!canEditSpawnHost}
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              onClick={(e) => {
                 e.stopPropagation();
                 setOpenModal(true);
                 spawnAnalytics.sendEvent({
