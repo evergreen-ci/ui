@@ -43,6 +43,9 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       maxRepoRevisionsToSearch
       numNewRepoRevisionsToFetch
     }
+    sage {
+      baseUrl
+    }
     scheduler {
       acceptableHostIdleTimeSeconds
       cacheDurationSeconds
@@ -63,6 +66,7 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       targetTimeSeconds
       taskFinder
     }
+
     serviceFlags {
       agentStartDisabled
       alertsDisabled
@@ -103,7 +107,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       useGitForGitHubFilesDisabled
       webhookNotificationsDisabled
     }
-
     taskLimits {
       maxConcurrentLargeParserProjectTasks
       maxDailyAutomaticRestarts

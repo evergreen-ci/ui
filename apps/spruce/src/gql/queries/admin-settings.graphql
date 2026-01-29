@@ -304,6 +304,9 @@ query AdminSettings {
       apiKey
       baseUrl
     }
+    sage {
+      baseUrl
+    }
     scheduler {
       acceptableHostIdleTimeSeconds
       cacheDurationSeconds

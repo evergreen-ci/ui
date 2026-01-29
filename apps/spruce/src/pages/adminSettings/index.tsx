@@ -350,6 +350,16 @@ const AdminSettingsPage: React.FC = () => {
               >
                 Cedar
               </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-sage"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "sage",
+                )}
+              >
+                Sage
+              </SideNavItem>
             </SideNavGroup>
             <SideNavGroup header="Background Processing">
               <SideNavItem

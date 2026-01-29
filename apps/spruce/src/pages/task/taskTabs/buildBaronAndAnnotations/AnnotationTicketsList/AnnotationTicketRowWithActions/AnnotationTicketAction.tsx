@@ -1,4 +1,4 @@
-import Button, { Size } from "@leafygreen-ui/button";
+import { Button, Size } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm, { Align } from "@evg-ui/lib/components/Popconfirm";

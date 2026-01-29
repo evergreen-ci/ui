@@ -197,6 +197,7 @@ export type AdminSettings = {
   releaseMode?: Maybe<ReleaseModeConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
+  sage?: Maybe<SageConfig>;
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
   shutdownWaitSeconds?: Maybe<Scalars["Int"]["output"]>;
@@ -253,6 +254,7 @@ export type AdminSettingsInput = {
   releaseMode?: InputMaybe<ReleaseModeConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
+  sage?: InputMaybe<SageConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
   serviceFlags?: InputMaybe<ServiceFlagsInput>;
   shutdownWaitSeconds?: InputMaybe<Scalars["Int"]["input"]>;
@@ -3670,6 +3672,15 @@ export type SshKeyPair = {
 export type SshKeyPairInput = {
   name?: InputMaybe<Scalars["String"]["input"]>;
   secretARN?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type SageConfig = {
+  __typename?: "SageConfig";
+  baseUrl?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SageConfigInput = {
+  baseUrl?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type SaveAdminSettingsInput = {
@@ -7153,6 +7164,7 @@ export type SaveAdminSettingsMutation = {
       maxRepoRevisionsToSearch?: number | null;
       numNewRepoRevisionsToFetch?: number | null;
     } | null;
+    sage?: { __typename?: "SageConfig"; baseUrl?: string | null } | null;
     scheduler?: {
       __typename?: "SchedulerConfig";
       acceptableHostIdleTimeSeconds?: number | null;
@@ -7941,6 +7953,7 @@ export type AdminSettingsQuery = {
       apiKey?: string | null;
       baseUrl: string;
     } | null;
+    sage?: { __typename?: "SageConfig"; baseUrl?: string | null } | null;
     scheduler?: {
       __typename?: "SchedulerConfig";
       acceptableHostIdleTimeSeconds?: number | null;

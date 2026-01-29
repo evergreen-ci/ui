@@ -46,6 +46,9 @@ export interface ExternalCommunicationsFormState {
     spsUrl: string;
     spsKanopyUrl: string;
   };
+  sage: {
+    baseUrl: string;
+  };
 }
 
 export type TabProps = {
