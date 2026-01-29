@@ -46,11 +46,10 @@ export const CreateDuplicateProjectButton: React.FC<Props> = ({
     skip: !identifier,
   });
 
-  const {
-    user: {
-      permissions: { canCreateProject, projectPermissions },
-    },
-  } = data ?? { user: { permissions: {} } };
+  const canCreateProject = data?.user?.permissions?.canCreateProject ?? false;
+  const projectPermissions = data?.user?.permissions?.projectPermissions ?? {
+    edit: false,
+  };
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [createModalOpen, setCreateModalOpen] = useState(false);

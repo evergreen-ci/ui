@@ -6,6 +6,9 @@ import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
 import { usePatchesQueryParams } from "./usePatchesQueryParams";
 
+// For performance reasons, we stop counting the number of patches at 10000
+const PATCH_COUNT_LIMIT = 10000;
+
 interface PaginationButtonsProps {
   pageType: "project" | "user";
   filteredPatchCount?: number;
@@ -30,6 +33,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   return (
     <PaginationRow>
       <Pagination
+        countLimit={PATCH_COUNT_LIMIT}
         currentPage={page}
         pageSize={limit}
         totalResults={filteredPatchCount}
