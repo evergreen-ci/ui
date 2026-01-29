@@ -17,14 +17,14 @@
             class="leafygreen-ui-15qqekb"
             data-lgid="lg-text_input-label"
             data-testid="lg-text_input"
-            for="lg-form_field-input-230"
-            id="lg-form_field-label-227"
+            for="lg-form_field-input-693"
+            id="lg-form_field-label-690"
           >
             Username
           </label>
         </div>
         <div
-          class="leafygreen-ui-ogxdmc"
+          class="leafygreen-ui-oxwo2l"
         >
           <div
             class="leafygreen-ui-1ago99h"
@@ -33,11 +33,11 @@
               aria-describedby=""
               aria-disabled="false"
               aria-invalid="false"
-              aria-labelledby="lg-form_field-label-227"
+              aria-labelledby="lg-form_field-label-690"
               autocomplete="on"
               class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
               data-cy="login-username"
-              id="lg-form_field-input-230"
+              id="lg-form_field-input-693"
               required=""
               type="text"
               value=""
@@ -50,7 +50,7 @@
           class="leafygreen-ui-11ydt2g"
           data-lgid="lg-text_input-feedback"
           data-testid="lg-text_input-feedback"
-          id="lg-form_field-feedback-229"
+          id="lg-form_field-feedback-692"
         />
       </div>
       <div
@@ -65,14 +65,14 @@
             class="leafygreen-ui-15qqekb"
             data-lgid="lg-text_input-label"
             data-testid="lg-text_input"
-            for="lg-form_field-input-234"
-            id="lg-form_field-label-231"
+            for="lg-form_field-input-697"
+            id="lg-form_field-label-694"
           >
             Password
           </label>
         </div>
         <div
-          class="leafygreen-ui-ogxdmc"
+          class="leafygreen-ui-oxwo2l"
         >
           <div
             class="leafygreen-ui-1ago99h"
@@ -81,11 +81,11 @@
               aria-describedby=""
               aria-disabled="false"
               aria-invalid="false"
-              aria-labelledby="lg-form_field-label-231"
+              aria-labelledby="lg-form_field-label-694"
               autocomplete="on"
               class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
               data-cy="login-password"
-              id="lg-form_field-input-234"
+              id="lg-form_field-input-697"
               required=""
               type="password"
               value=""
@@ -98,7 +98,7 @@
           class="leafygreen-ui-11ydt2g"
           data-lgid="lg-text_input-feedback"
           data-testid="lg-text_input-feedback"
-          id="lg-form_field-feedback-233"
+          id="lg-form_field-feedback-696"
         />
       </div>
       <button
