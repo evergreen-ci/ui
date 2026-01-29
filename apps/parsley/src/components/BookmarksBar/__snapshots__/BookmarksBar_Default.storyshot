@@ -10,7 +10,7 @@
       />
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw leafygreen-ui-cssveg emotion-StyledButton erobc1r4"
+        class="lg-ui-button-0000 emotion-StyledButton erobc1r4 leafygreen-ui-pkst8f"
         data-cy="clear-bookmarks"
         data-lgid="lg-button"
         type="button"

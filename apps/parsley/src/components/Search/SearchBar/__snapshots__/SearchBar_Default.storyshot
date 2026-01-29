@@ -8,17 +8,17 @@
       data-testid="lg-select"
     >
       <button
-        aria-controls="select-5-menu"
-        aria-describedby="select-5-description"
+        aria-controls="select-30-menu"
+        aria-describedby="select-30-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
-        class="lg-ui-button-0000 leafygreen-ui-q3iwhh"
+        class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
         data-cy="searchbar-select"
         data-lgid="lg-select-trigger"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-6"
+        id="select-31"
         type="button"
         value="filter"
       >
@@ -75,7 +75,7 @@
         <button
           aria-disabled="false"
           aria-labelledby="View search suggestions"
-          class="leafygreen-ui-1o2ji0h"
+          class="leafygreen-ui-1r51ix4"
           data-cy="search-suggestion-button"
           tabindex="0"
           title="View search suggestions"
@@ -136,20 +136,20 @@
             class="leafygreen-ui-1iyoj2o"
           />
           <div
-            class="leafygreen-ui-njn39i"
+            class="leafygreen-ui-14f4zql"
           >
             <div
               class="leafygreen-ui-1ago99h"
             >
               <input
-                aria-describedby="lg-form_field-feedback-9"
+                aria-describedby="lg-form_field-feedback-37"
                 aria-disabled="false"
                 aria-invalid="true"
                 aria-labelledby="searchbar-input"
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="searchbar-input"
-                id="lg-form_field-input-10"
+                id="lg-form_field-input-38"
                 placeholder="optional, regexp to search"
                 required=""
                 spellcheck="false"
@@ -164,14 +164,14 @@
             class="leafygreen-ui-wsgs9n"
             data-lgid="lg-text_input-feedback"
             data-testid="lg-text_input-feedback"
-            id="lg-form_field-feedback-9"
+            id="lg-form_field-feedback-37"
           >
             <div
               class="leafygreen-ui-1nmw6il"
             >
               <svg
                 aria-hidden="true"
-                aria-labelledby="icon-title-28"
+                aria-labelledby="icon-title-34"
                 class="leafygreen-ui-1eb10e4"
                 height="16"
                 role="img"
@@ -179,7 +179,7 @@
                 width="16"
               >
                 <title
-                  id="icon-title-28"
+                  id="icon-title-34"
                 >
                   Error
                 </title>
@@ -207,7 +207,7 @@
         <button
           aria-disabled="true"
           aria-label="Select plus"
-          class="leafygreen-ui-mfinn"
+          class="leafygreen-ui-1dt4k34"
           data-cy="searchbar-submit"
           tabindex="0"
         >

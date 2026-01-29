@@ -1,4 +1,4 @@
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { useLogWindowAnalytics } from "analytics";
 import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";

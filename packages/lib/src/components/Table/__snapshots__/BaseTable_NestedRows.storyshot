@@ -35,7 +35,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-1o2ji0h"
+                  class="leafygreen-ui-1r51ix4"
                   tabindex="0"
                 >
                   <div
@@ -66,7 +66,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Name"
-                class="leafygreen-ui-1o2ji0h"
+                class="leafygreen-ui-1r51ix4"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -120,7 +120,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-1o2ji0h"
+                  class="leafygreen-ui-1r51ix4"
                   tabindex="0"
                 >
                   <div
@@ -151,7 +151,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Type"
-                class="leafygreen-ui-1o2ji0h"
+                class="leafygreen-ui-1r51ix4"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -205,7 +205,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-1o2ji0h"
+                  class="leafygreen-ui-1r51ix4"
                   tabindex="0"
                 >
                   <div
@@ -236,7 +236,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Size"
-                class="leafygreen-ui-1o2ji0h"
+                class="leafygreen-ui-1r51ix4"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -303,7 +303,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Expand row"
-                  class="leafygreen-ui-12nxi1l"
+                  class="leafygreen-ui-16o6nd"
                   data-lgid="lg-table-expand_button"
                   data-testid="lg-table-expand_button"
                   tabindex="0"
@@ -429,7 +429,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Expand row"
-                  class="leafygreen-ui-12nxi1l"
+                  class="leafygreen-ui-16o6nd"
                   data-lgid="lg-table-expand_button"
                   data-testid="lg-table-expand_button"
                   tabindex="0"
@@ -555,7 +555,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Expand row"
-                  class="leafygreen-ui-12nxi1l"
+                  class="leafygreen-ui-16o6nd"
                   data-lgid="lg-table-expand_button"
                   data-testid="lg-table-expand_button"
                   tabindex="0"
@@ -681,7 +681,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Expand row"
-                  class="leafygreen-ui-12nxi1l"
+                  class="leafygreen-ui-16o6nd"
                   data-lgid="lg-table-expand_button"
                   data-testid="lg-table-expand_button"
                   tabindex="0"
@@ -807,7 +807,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Expand row"
-                  class="leafygreen-ui-12nxi1l"
+                  class="leafygreen-ui-16o6nd"
                   data-lgid="lg-table-expand_button"
                   data-testid="lg-table-expand_button"
                   tabindex="0"
@@ -933,7 +933,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Expand row"
-                  class="leafygreen-ui-12nxi1l"
+                  class="leafygreen-ui-16o6nd"
                   data-lgid="lg-table-expand_button"
                   data-testid="lg-table-expand_button"
                   tabindex="0"
@@ -1059,7 +1059,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Expand row"
-                  class="leafygreen-ui-12nxi1l"
+                  class="leafygreen-ui-16o6nd"
                   data-lgid="lg-table-expand_button"
                   data-testid="lg-table-expand_button"
                   tabindex="0"
@@ -1185,7 +1185,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Expand row"
-                  class="leafygreen-ui-12nxi1l"
+                  class="leafygreen-ui-16o6nd"
                   data-lgid="lg-table-expand_button"
                   data-testid="lg-table-expand_button"
                   tabindex="0"
@@ -1311,7 +1311,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Expand row"
-                  class="leafygreen-ui-12nxi1l"
+                  class="leafygreen-ui-16o6nd"
                   data-lgid="lg-table-expand_button"
                   data-testid="lg-table-expand_button"
                   tabindex="0"
@@ -1437,7 +1437,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Expand row"
-                  class="leafygreen-ui-12nxi1l"
+                  class="leafygreen-ui-16o6nd"
                   data-lgid="lg-table-expand_button"
                   data-testid="lg-table-expand_button"
                   tabindex="0"

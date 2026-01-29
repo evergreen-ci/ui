@@ -100,7 +100,13 @@ export const convertObjectToArray = <T extends object>(
   return objectEntries.flatMap(([key, value]) => {
     const entries = toArray(value);
 
-    return entries.map((v) => ({ key, value: v }) as KeyValue<T>);
+    return entries.map(
+      (v) =>
+        ({
+          key,
+          value: v,
+        }) as KeyValue<T>,
+    );
   });
 };
 

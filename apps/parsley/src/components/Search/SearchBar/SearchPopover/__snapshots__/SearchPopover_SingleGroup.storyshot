@@ -2,7 +2,7 @@
   <button
     aria-disabled="false"
     aria-labelledby="View search suggestions"
-    class="leafygreen-ui-1o2ji0h"
+    class="leafygreen-ui-1r51ix4"
     data-cy="search-suggestion-button"
     tabindex="0"
     title="View search suggestions"
