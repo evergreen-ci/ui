@@ -5,6 +5,7 @@ import * as queryString from "./queryString";
 import * as statuses from "./statuses";
 import * as string from "./string";
 import * as url from "./url";
+import * as user from "./user";
 import * as validators from "./validators";
 
 export {
@@ -15,5 +16,6 @@ export {
   statuses,
   string,
   url,
+  user,
   validators,
 };

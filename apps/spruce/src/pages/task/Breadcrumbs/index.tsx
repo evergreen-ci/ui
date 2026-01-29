@@ -12,12 +12,15 @@ interface TaskPageBreadcrumbsProps {
   };
   patchNumber?: number;
   taskName: string;
-  versionMetadata?: {
+  versionMetadata: {
     id: string;
     revision: string;
     project: string;
     isPatch: boolean;
-    author: string;
+    user: {
+      userId: string;
+      displayName?: string | null;
+    };
     projectIdentifier: string;
     message: string;
   };
@@ -28,10 +31,13 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
   taskName,
   versionMetadata,
 }) => {
-  const { author, id, isPatch, message, projectIdentifier, revision } =
+  const { id, isPatch, message, projectIdentifier, revision, user } =
     versionMetadata ?? {};
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const breadcrumbRoot = useBreadcrumbRoot(isPatch, author, projectIdentifier);
+  const breadcrumbRoot = useBreadcrumbRoot(
+    isPatch,
+    user?.userId,
+    projectIdentifier,
+  );
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
 
   const messagePrefix = isPatch
@@ -39,7 +45,6 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
     : shortenGithash(revision);
 
   const messageBreadcrumb = {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     to: getVersionRoute(id),
     text: `${messagePrefix} - ${message}`,
     onClick: () => {

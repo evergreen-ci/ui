@@ -34,6 +34,7 @@ import { useDateFormat } from "hooks";
 import { NotifyMeButton } from "pages/task/ActionButtons/NotifyMeButton";
 import { RequiredQueryParams, TaskTab } from "types/task";
 import { isProduction } from "utils/environmentVariables";
+import { getDisplayName } from "utils/user";
 import {
   stickyHeaderScrollOffset,
   walkthroughCommitCardProps,
@@ -82,7 +83,8 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       tests,
       versionMetadata,
     } = task;
-    const { author, id: versionId, message } = versionMetadata;
+    const { id: versionId, message, user } = versionMetadata;
+    const author = getDisplayName(user);
 
     const owner = currentTask.project?.owner ?? "";
     const repo = currentTask.project?.repo ?? "";

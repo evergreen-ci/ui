@@ -20,6 +20,7 @@ import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { PatchStatus } from "types/patch";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
+import { getDisplayName } from "utils/user";
 import { DropdownMenu } from "./DropdownMenu";
 
 type PatchType = Unpacked<PatchesPagePatchesFragment["patches"]>;
@@ -38,8 +39,6 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
     pageType === "project" ? projectPatchesAnalytics : userPatchesAnalytics;
   const {
     activated,
-    author,
-    authorDisplayName,
     createTime,
     description,
     hidden,
@@ -47,6 +46,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
     projectIdentifier,
     projectMetadata,
     status,
+    user,
     versionFull,
   } = patch;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -57,16 +57,17 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
   );
   const isMergeQueuePatch = requester === Requester.GitHubMergeQueue;
 
+  const displayName = getDisplayName(user);
   let patchProject = null;
   if (pageType === "project") {
-    patchProject = unlinkedPRUsers.has(author) ? (
-      authorDisplayName
+    patchProject = unlinkedPRUsers.has(user.userId) ? (
+      displayName
     ) : (
       <StyledRouterLink
         data-cy="user-patches-link"
-        to={getUserPatchesRoute(author)}
+        to={getUserPatchesRoute(user.userId)}
       >
-        <strong>{authorDisplayName}</strong>
+        <strong>{displayName}</strong>
       </StyledRouterLink>
     );
   } else {

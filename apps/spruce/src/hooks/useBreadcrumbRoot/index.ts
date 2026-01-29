@@ -4,13 +4,13 @@ import { useGetUserPatchesPageTitleAndLink } from "hooks";
 
 export const useBreadcrumbRoot = (
   isPatch: boolean,
-  author: string,
+  userId: string,
   projectIdentifier: string,
 ) => {
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
 
   const { link: userPatchesPageLink, title: userPatchesPageTitle } =
-    useGetUserPatchesPageTitleAndLink(author, !isPatch) ?? {};
+    useGetUserPatchesPageTitleAndLink(userId, !isPatch) ?? {};
 
   return isPatch
     ? {

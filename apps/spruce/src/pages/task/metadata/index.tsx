@@ -27,6 +27,7 @@ import {
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks/useDateFormat";
 import { msToDuration } from "utils/string";
+import { getDisplayName } from "utils/user";
 import { AbortMessage } from "./AbortMessage";
 import { BuildVariantCard } from "./BuildVariant";
 import { DependsOn } from "./DependsOn";
@@ -110,7 +111,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     testSelection,
   } = project || {};
   const { allowed: testSelectionEnabledForProject } = testSelection || {};
-  const { author } = versionMetadata ?? {};
+  const { user } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
   const taskTrace = details?.traceID;
   const diskDevices = details?.diskDevices;
@@ -139,7 +140,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </StyledRouterLink>
         </MetadataItem>
         <MetadataItem>
-          <MetadataLabel>Submitted by:</MetadataLabel> {author}
+          <MetadataLabel>Submitted by:</MetadataLabel>{" "}
+          {user && getDisplayName(user)}
         </MetadataItem>
         {ingestTime && (
           <MetadataItem data-cy="task-metadata-submitted-at">

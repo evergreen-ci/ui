@@ -133,13 +133,16 @@ query Task($taskId: String!, $execution: Int) {
     timeTaken
     versionMetadata {
       id
-      author
       isPatch
       message
       order
       project
       projectIdentifier
       revision
+      user {
+        displayName
+        userId
+      }
     }
   }
 }
