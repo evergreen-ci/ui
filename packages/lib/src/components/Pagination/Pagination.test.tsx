@@ -95,4 +95,30 @@ describe("pagination", () => {
       "true",
     );
   });
+
+  describe("countLimit", () => {
+    it("should display 'many' as the page count when totalResults >= countLimit", () => {
+      renderWithRouterMatch(
+        <Pagination
+          countLimit={100}
+          currentPage={0}
+          pageSize={10}
+          totalResults={100}
+        />,
+      );
+      expect(screen.getByText("1 / many")).toBeInTheDocument();
+    });
+
+    it("should display the normal page count when totalResults < countLimit", () => {
+      renderWithRouterMatch(
+        <Pagination
+          countLimit={100}
+          currentPage={0}
+          pageSize={10}
+          totalResults={50}
+        />,
+      );
+      expect(screen.getByText("1 / 5")).toBeInTheDocument();
+    });
+  });
 });
