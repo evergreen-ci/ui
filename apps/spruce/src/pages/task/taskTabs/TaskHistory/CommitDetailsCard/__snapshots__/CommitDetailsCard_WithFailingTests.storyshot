@@ -14,7 +14,7 @@
         href="/task/a/history"
       >
         <code
-          class="leafygreen-ui-i6ovbf"
+          class="leafygreen-ui-7hb0hw"
         >
           aef3637
         </code>
@@ -22,7 +22,7 @@
       <a
         aria-disabled="false"
         aria-label="GitHub Commit Link"
-        class="leafygreen-ui-1r51ix4"
+        class="leafygreen-ui-1o2ji0h"
         data-cy="github-link"
         href="https://github.com/evergreen-ci/spruce/commit/aef363719d0287e92cd83749a827bae"
         tabindex="0"
@@ -86,7 +86,7 @@
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-347"
+        id="modal-161"
       />
       <div
         class="leafygreen-ui-17azklk"
@@ -146,7 +146,7 @@
           <button
             aria-disabled="false"
             aria-label="Accordion icon"
-            class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
+            class="emotion-AccordionIcon e1omze813 leafygreen-ui-1o2ji0h"
             style="align-self: start;"
             tabindex="0"
           >
@@ -248,7 +248,7 @@
                             <button
                               aria-disabled="false"
                               aria-label="Table Search Popover Icon"
-                              class="leafygreen-ui-1r51ix4"
+                              class="leafygreen-ui-1o2ji0h"
                               data-cy="test-name-filter"
                               tabindex="0"
                             >
@@ -999,12 +999,16 @@
               </div>
               <div
                 class="leafygreen-ui-og633j"
+                data-lgid="lg-pagination"
+                data-testid="lg-pagination"
               >
                 <div
                   class="leafygreen-ui-myynbc"
                 />
                 <div
                   class="leafygreen-ui-myynbc"
+                  data-lgid="lg-pagination-summary"
+                  data-testid="lg-pagination-summary"
                 >
                   <p
                     class="leafygreen-ui-26vqpd"
@@ -1018,6 +1022,8 @@
                 </div>
                 <div
                   class="leafygreen-ui-myynbc"
+                  data-lgid="lg-pagination-navigation"
+                  data-testid="lg-pagination-navigation"
                 >
                   <div
                     class="leafygreen-ui-1iyoj2o"
@@ -1025,16 +1031,16 @@
                     data-testid="lg-select"
                   >
                     <button
-                      aria-controls="select-359-menu"
-                      aria-describedby="select-359-description"
+                      aria-controls="select-190-menu"
+                      aria-describedby="select-190-description"
                       aria-disabled="false"
                       aria-expanded="false"
                       aria-invalid="false"
                       aria-label="Set current page, 1"
-                      class="lg-ui-button-0000 leafygreen-ui-1rkuilv"
+                      class="lg-ui-button-0001 leafygreen-ui-1x8yqlx"
                       data-lgid="lg-select-trigger"
                       data-testid="lg-pagination-page-select"
-                      id="select-360"
+                      id="select-191"
                       type="button"
                       value="1"
                     >
@@ -1091,7 +1097,7 @@
                   <button
                     aria-disabled="true"
                     aria-label="Previous page"
-                    class="leafygreen-ui-1dt4k34"
+                    class="leafygreen-ui-mfinn"
                     data-testid="lg-pagination-back-button"
                     tabindex="0"
                   >
@@ -1118,7 +1124,7 @@
                   <button
                     aria-disabled="false"
                     aria-label="Next page"
-                    class="leafygreen-ui-1r51ix4"
+                    class="leafygreen-ui-1o2ji0h"
                     data-testid="lg-pagination-next-button"
                     tabindex="0"
                   >
