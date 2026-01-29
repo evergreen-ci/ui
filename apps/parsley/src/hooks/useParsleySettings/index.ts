@@ -1,18 +1,18 @@
 import { useMutation, useQuery } from "@apollo/client/react";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
-  ParsleySettings,
   ParsleySettingsInput,
   ParsleySettingsQuery,
   ParsleySettingsQueryVariables,
   UpdateParsleySettingsMutation,
   UpdateParsleySettingsMutationVariables,
+  User,
 } from "gql/generated/types";
 import { UPDATE_PARSLEY_SETTINGS } from "gql/mutations";
 import { PARSLEY_SETTINGS } from "gql/queries";
 
 type UseParsleySettingsReturnType = {
-  settings: ParsleySettings | undefined;
+  settings: User["parsleySettings"];
   updateSettings: (settings: ParsleySettingsInput) => void;
 };
 
@@ -27,8 +27,6 @@ const useParsleySettings = (): UseParsleySettingsReturnType => {
     ParsleySettingsQuery,
     ParsleySettingsQueryVariables
   >(PARSLEY_SETTINGS);
-  const { user } = data || {};
-  const { parsleySettings } = user || {};
 
   const dispatchToast = useToastContext();
   const [updateParsleySettings] = useMutation<
@@ -52,7 +50,7 @@ const useParsleySettings = (): UseParsleySettingsReturnType => {
   };
 
   return {
-    settings: parsleySettings,
+    settings: data?.user?.parsleySettings,
     updateSettings,
   };
 };
