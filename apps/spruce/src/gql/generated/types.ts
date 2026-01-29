@@ -2644,6 +2644,7 @@ export type Patches = {
  * Based on the information in PatchesInput, we return a list of Patches for either an individual user or a project.
  */
 export type PatchesInput = {
+  countLimit?: InputMaybe<Scalars["Int"]["input"]>;
   includeHidden?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: Scalars["Int"]["input"];
   onlyMergeQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -4785,14 +4786,14 @@ export type UseSpruceOptionsInput = {
  */
 export type User = {
   __typename?: "User";
-  betaFeatures: BetaFeatures;
-  displayName: Scalars["String"]["output"];
-  emailAddress: Scalars["String"]["output"];
-  parsleyFilters: Array<ParsleyFilter>;
-  parsleySettings: ParsleySettings;
-  patches: Patches;
-  permissions: Permissions;
-  settings: UserSettings;
+  betaFeatures?: Maybe<BetaFeatures>;
+  displayName?: Maybe<Scalars["String"]["output"]>;
+  emailAddress?: Maybe<Scalars["String"]["output"]>;
+  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
+  parsleySettings?: Maybe<ParsleySettings>;
+  patches?: Maybe<Patches>;
+  permissions?: Maybe<Permissions>;
+  settings?: Maybe<UserSettings>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
   userId: Scalars["String"]["output"];
 };
@@ -9313,7 +9314,11 @@ export type OtherUserQueryVariables = Exact<{
 export type OtherUserQuery = {
   __typename?: "Query";
   currentUser: { __typename?: "User"; userId: string };
-  otherUser: { __typename?: "User"; displayName: string; userId: string };
+  otherUser: {
+    __typename?: "User";
+    displayName?: string | null;
+    userId: string;
+  };
 };
 
 export type PatchConfigureGeneratedTaskCountsQueryVariables = Exact<{
@@ -11754,7 +11759,7 @@ export type UserDistroSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: {
+    permissions?: {
       __typename?: "Permissions";
       canCreateDistro: boolean;
       distroPermissions: {
@@ -11762,7 +11767,7 @@ export type UserDistroSettingsPermissionsQuery = {
         admin: boolean;
         edit: boolean;
       };
-    };
+    } | null;
   };
 };
 
@@ -11776,7 +11781,7 @@ export type UserPatchesQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    patches: {
+    patches?: {
       __typename?: "Patches";
       filteredPatchCount: number;
       patches: Array<{
@@ -11812,7 +11817,7 @@ export type UserPatchesQuery = {
           } | null;
         } | null;
       }>;
-    };
+    } | null;
   };
 };
 
@@ -11825,11 +11830,11 @@ export type UserProjectSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: {
+    permissions?: {
       __typename?: "Permissions";
       canCreateProject: boolean;
       projectPermissions: { __typename?: "ProjectPermissions"; edit: boolean };
-    };
+    } | null;
   };
 };
 
@@ -11842,10 +11847,10 @@ export type UserRepoSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: {
+    permissions?: {
       __typename?: "Permissions";
       repoPermissions: { __typename?: "RepoPermissions"; edit: boolean };
-    };
+    } | null;
   };
 };
 
@@ -11856,7 +11861,7 @@ export type UserSettingsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    settings: {
+    settings?: {
       __typename?: "UserSettings";
       dateFormat?: string | null;
       region?: string | null;
@@ -11876,7 +11881,7 @@ export type UserSettingsQuery = {
         spawnHostExpiration?: string | null;
         spawnHostOutcome?: string | null;
       } | null;
-    };
+    } | null;
   };
 };
 
@@ -11887,7 +11892,7 @@ export type UserSubscriptionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    settings: {
+    settings?: {
       __typename?: "UserSettings";
       notifications?: {
         __typename?: "Notifications";
@@ -11897,7 +11902,7 @@ export type UserSubscriptionsQuery = {
         spawnHostExpirationId?: string | null;
         spawnHostOutcomeId?: string | null;
       } | null;
-    };
+    } | null;
     subscriptions?: Array<{
       __typename?: "GeneralSubscription";
       id: string;
@@ -11931,10 +11936,13 @@ export type UserQuery = {
   __typename?: "Query";
   user: {
     __typename?: "User";
-    displayName: string;
-    emailAddress: string;
+    displayName?: string | null;
+    emailAddress?: string | null;
     userId: string;
-    permissions: { __typename?: "Permissions"; canEditAdminSettings: boolean };
+    permissions?: {
+      __typename?: "Permissions";
+      canEditAdminSettings: boolean;
+    } | null;
   };
 };
 
