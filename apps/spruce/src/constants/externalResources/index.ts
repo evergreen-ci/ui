@@ -125,3 +125,6 @@ export const buildHostPostConfigRepoURL =
 
 export const cursorAPIKeySettingsUrl =
   "https://cursor.com/dashboard?tab=integrations";
+
+export const sageBotDocumentationUrl =
+  "https://docs.devprod.prod.corp.mongodb.com/sage/sage-bot/";

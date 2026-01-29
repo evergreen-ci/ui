@@ -9,7 +9,10 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
-import { cursorAPIKeySettingsUrl } from "constants/externalResources";
+import {
+  cursorAPIKeySettingsUrl,
+  sageBotDocumentationUrl,
+} from "constants/externalResources";
 import {
   CursorSettingsQuery,
   CursorSettingsQueryVariables,
@@ -83,14 +86,34 @@ export const CursorAPIKeyCard = () => {
     <SettingsCard data-cy="cursor-api-key-card">
       <Subtitle>Cursor API Key</Subtitle>
       <Description>
-        Your Cursor API key enables sage-bot to create PRs on your behalf. This
-        provides proper attribution, cost tracking, and allows you to view and
-        interact with agent sessions via the Cursor IDE or web UI.
-      </Description>
-      <Description>
-        <Link hideExternalIcon href={cursorAPIKeySettingsUrl} target="_blank">
-          Generate your API key in Cursor settings
+        Your Cursor API key connects your account to{" "}
+        <Link hideExternalIcon href={sageBotDocumentationUrl} target="_blank">
+          Sage Bot
         </Link>
+        , which automatically generates pull requests from Jira tickets. When
+        you add the sage-bot label to a ticket assigned to you, Sage Bot uses
+        your API key to:
+      </Description>
+      <BenefitsList>
+        <li>
+          <strong>Create PRs under your identity</strong> — commits and PRs are
+          attributed to you, not a service account
+        </li>
+        <li>
+          <strong>Track usage costs</strong> — API usage is tied to your Cursor
+          account
+        </li>
+        <li>
+          <strong>Enable session access</strong> — view and interact with the AI
+          agent&apos;s work in Cursor IDE or web UI
+        </li>
+      </BenefitsList>
+      <Description>
+        Don&apos;t have a key?{" "}
+        <Link hideExternalIcon href={cursorAPIKeySettingsUrl} target="_blank">
+          Generate one in Cursor settings
+        </Link>
+        .
       </Description>
 
       {keyConfigured ? (
@@ -138,6 +161,15 @@ export const CursorAPIKeyCard = () => {
 
 const Description = styled(Body)`
   margin: ${size.s} 0;
+`;
+
+const BenefitsList = styled.ul`
+  margin: ${size.s} 0;
+  padding-left: ${size.l};
+
+  li {
+    margin-bottom: ${size.xs};
+  }
 `;
 
 const KeyStatusContainer = styled.div`

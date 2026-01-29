@@ -3175,7 +3175,7 @@ export type Query = {
   buildBaron: BuildBaron;
   buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
-  cursorSettings: CursorSettings;
+  cursorSettings?: Maybe<CursorSettings>;
   distro?: Maybe<Distro>;
   distroEvents: DistroEventsPayload;
   distroTaskQueue: Array<TaskQueueItem>;
@@ -8468,11 +8468,11 @@ export type CursorSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type CursorSettingsQuery = {
   __typename?: "Query";
-  cursorSettings: {
+  cursorSettings?: {
     __typename?: "CursorSettings";
     keyConfigured: boolean;
     keyLastFour?: string | null;
-  };
+  } | null;
 };
 
 export type DistroEventsQueryVariables = Exact<{
