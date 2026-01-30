@@ -10,7 +10,7 @@
         data-cy="inactive-versions-modal"
         data-lgid="lg-modal"
         data-testid="lg-modal"
-        id="modal-263"
+        id="modal-490"
       />
       <div
         class="emotion-StyledBadge e19pzgwa0 leafygreen-ui-cfigsp"
@@ -22,7 +22,7 @@
       <button
         aria-disabled="false"
         aria-label="Open inactive versions modal"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e19pzgwa2"
+        class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e19pzgwa2"
         data-cy="inactive-versions-button"
         data-lgid="lg-button"
         type="button"
@@ -36,7 +36,7 @@
           <svg
             alt=""
             aria-hidden="true"
-            class="leafygreen-ui-a4wnk0 leafygreen-ui-xpf1b6"
+            class="leafygreen-ui-qbpne1"
             fill="none"
             height="16"
             role="presentation"

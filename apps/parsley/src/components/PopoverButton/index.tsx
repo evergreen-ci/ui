@@ -1,5 +1,5 @@
 import { RefObject, useCallback, useRef } from "react";
-import Button, { ButtonProps } from "@leafygreen-ui/button";
+import { Button, ButtonProps } from "@leafygreen-ui/button";
 import { Card } from "@leafygreen-ui/card";
 import { Popover } from "@leafygreen-ui/popover";
 import Icon from "@evg-ui/lib/components/Icon";

@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from "@apollo/client/react";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Button, Size } from "@leafygreen-ui/button";
 import { Align, Justify, Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -77,6 +77,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
       }}
       trigger={
         <Button
+          as="button"
           data-cy={`detach-btn-${volume.displayName || volume.id}`}
           disabled={loadingDetachVolume || volume.migrating}
           onClick={(e) => {

@@ -8,7 +8,7 @@
       <button
         aria-disabled="false"
         aria-label="Accordion icon"
-        class="emotion-AccordionIcon e1omze813 leafygreen-ui-1o2ji0h"
+        class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
         style="align-self: start;"
         tabindex="0"
       >
@@ -95,7 +95,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Sort by Task Name"
-                        class="leafygreen-ui-1o2ji0h"
+                        class="leafygreen-ui-1r51ix4"
                         data-lgid="lg-table-sort_button"
                         data-testid="lg-table-sort_button"
                         tabindex="0"
@@ -146,7 +146,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Sort by Build Variant"
-                        class="leafygreen-ui-1o2ji0h"
+                        class="leafygreen-ui-1r51ix4"
                         data-lgid="lg-table-sort_button"
                         data-testid="lg-table-sort_button"
                         tabindex="0"
@@ -319,7 +319,7 @@
                         >
                           <a
                             aria-disabled="false"
-                            class="lg-ui-button-0000 leafygreen-ui-168frnw"
+                            class="lg-ui-button-0000 leafygreen-ui-ys0yem"
                             data-cy="failed-test-group-parsley-btn"
                             data-lgid="lg-button"
                             href="LogsUrl"

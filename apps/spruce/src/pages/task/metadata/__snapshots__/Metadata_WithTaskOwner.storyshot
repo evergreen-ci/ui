@@ -89,7 +89,7 @@
             href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
           >
             <code
-              class="leafygreen-ui-7hb0hw"
+              class="leafygreen-ui-i6ovbf"
             >
               e0ece5a
             </code>
@@ -143,7 +143,7 @@
         <button
           aria-disabled="true"
           aria-label="more info"
-          class="leafygreen-ui-149kr66"
+          class="leafygreen-ui-1vktzzb"
           data-testid="info-sprinkle-icon"
           type="button"
         >
@@ -188,7 +188,7 @@
             <button
               aria-disabled="true"
               aria-label="more info"
-              class="leafygreen-ui-149kr66"
+              class="leafygreen-ui-1vktzzb"
               data-testid="info-sprinkle-icon"
               type="button"
             >
@@ -277,7 +277,7 @@
             <button
               aria-disabled="false"
               aria-label="Copy text to clipboard"
-              class="emotion-StyledIconButton e1i52nq80 leafygreen-ui-ypejx5"
+              class="emotion-StyledIconButton e1i52nq80 leafygreen-ui-12yvaoo"
               data-cy="copy-button"
               tabindex="0"
             >
@@ -341,7 +341,7 @@
           aria-disabled="false"
           aria-expanded="false"
           aria-haspopup="true"
-          class="lg-ui-button-0000 leafygreen-ui-168frnw"
+          class="lg-ui-button-0000 leafygreen-ui-ys0yem"
           data-lgid="lg-button"
           type="button"
         >

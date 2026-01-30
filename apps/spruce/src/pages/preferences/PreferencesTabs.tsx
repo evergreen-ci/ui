@@ -11,6 +11,7 @@ import { CliTab } from "./preferencesTabs/CliTab";
 import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
 import { ProfileTab } from "./preferencesTabs/ProfileTab";
 import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
+import { SageBotSettingsTab } from "./preferencesTabs/SageBotSettingsTab";
 import { UISettingsTab } from "./preferencesTabs/UISettingsTab";
 
 export const PreferencesTabs: React.FC = () => {
@@ -70,6 +71,14 @@ export const PreferencesTabs: React.FC = () => {
         />
         <Route
           element={
+            <Container>
+              <SageBotSettingsTab />
+            </Container>
+          }
+          path={PreferencesTabRoutes.SageBotSettings}
+        />
+        <Route
+          element={
             <Navigate
               replace
               to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
@@ -103,6 +112,9 @@ const getTitle = (
       [PreferencesTabRoutes.PublicKeys]: {
         title: "Manage Public Keys",
         subtitle: "These keys will be used to SSH into spawned hosts.",
+      },
+      [PreferencesTabRoutes.SageBotSettings]: {
+        title: "Sage Bot Settings",
       },
     }[tab] ?? defaultTitle
   );

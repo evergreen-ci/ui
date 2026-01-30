@@ -14,7 +14,7 @@
         href="/task/a/history"
       >
         <code
-          class="leafygreen-ui-7hb0hw"
+          class="leafygreen-ui-i6ovbf"
         >
           aef3637
         </code>
@@ -22,7 +22,7 @@
       <a
         aria-disabled="false"
         aria-label="GitHub Commit Link"
-        class="leafygreen-ui-1o2ji0h"
+        class="leafygreen-ui-1r51ix4"
         data-cy="github-link"
         href="https://github.com/evergreen-ci/spruce/commit/aef363719d0287e92cd83749a827bae"
         tabindex="0"
@@ -51,7 +51,7 @@
       </a>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw"
+        class="lg-ui-button-0000 leafygreen-ui-ys0yem"
         data-cy="restart-button"
         data-lgid="lg-button"
         type="button"
@@ -67,7 +67,7 @@
       </button>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw"
+        class="lg-ui-button-0000 leafygreen-ui-ys0yem"
         data-cy="notify-task"
         data-lgid="lg-button"
         type="button"
@@ -86,7 +86,7 @@
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-159"
+        id="modal-344"
       />
       <div
         class="leafygreen-ui-17azklk"
@@ -115,7 +115,7 @@
       >
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-1cutrhb"
+          class="lg-ui-button-0000 leafygreen-ui-stq2kw"
           data-cy="set-priority-button"
           data-lgid="lg-button"
           type="button"
