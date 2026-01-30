@@ -75,7 +75,7 @@ describe("Task Duration Tab", () => {
       cy.location("search").should("not.include", "duration");
       cy.get(durationSortControl).click();
       cy.location("search").should("include", "sorts=DURATION%3AASC");
-      const shortestTask = "test-auth";
+      const shortestTask = "clone_test-model";
       cy.contains(shortestTask).should("be.visible");
       cy.dataCy("task-duration-table-row")
         .first()
