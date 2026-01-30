@@ -97,7 +97,7 @@ const SkippedResmokeRowStory = (
   const { setWrap } = preferences;
 
   useEffect(() => {
-    setLogMetadata({ logType: LogTypes.LOGKEEPER_LOGS });
+    setLogMetadata({ logType: LogTypes.EVERGREEN_COMPLETE_LOGS });
     ingestLines(resmokeLogLines, LogRenderingTypes.Resmoke);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

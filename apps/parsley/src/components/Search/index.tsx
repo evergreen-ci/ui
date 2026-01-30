@@ -39,10 +39,10 @@ const Search: React.FC = () => {
   } = useLogContext();
   const { addToHistory, searchHistory } = useSearchHistory();
   const { highlightFilters } = preferences;
-  const { buildID, execution, logType, taskID } = logMetadata ?? {};
+  const { execution, taskID } = logMetadata ?? {};
   const { hasSearch } = searchState;
 
-  const { task } = useTaskQuery({ buildID, execution, logType, taskID });
+  const { task } = useTaskQuery({ execution, taskID });
   const { versionMetadata } = task ?? {};
   const { projectMetadata } = versionMetadata ?? {};
 

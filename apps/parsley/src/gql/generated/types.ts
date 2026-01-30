@@ -5160,45 +5160,6 @@ export type UpdateParsleySettingsMutation = {
   } | null;
 };
 
-export type LogkeeperTaskQueryVariables = Exact<{
-  buildId: Scalars["String"]["input"];
-}>;
-
-export type LogkeeperTaskQuery = {
-  __typename?: "Query";
-  logkeeperBuildMetadata: {
-    __typename?: "LogkeeperBuild";
-    id: string;
-    task: {
-      __typename?: "Task";
-      id: string;
-      displayName: string;
-      displayStatus: string;
-      execution: number;
-      patchNumber?: number | null;
-      tests: {
-        __typename?: "TaskTestResult";
-        testResults: Array<{
-          __typename?: "TestResult";
-          id: string;
-          status: string;
-          testFile: string;
-          logs: { __typename?: "TestLog"; urlRaw?: string | null };
-        }>;
-      };
-      versionMetadata: {
-        __typename?: "Version";
-        id: string;
-        isPatch: boolean;
-        message: string;
-        projectIdentifier: string;
-        revision: string;
-        projectMetadata?: { __typename?: "Project"; id: string } | null;
-      };
-    };
-  };
-};
-
 export type TaskQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;

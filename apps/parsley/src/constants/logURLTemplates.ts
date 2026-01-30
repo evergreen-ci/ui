@@ -5,34 +5,33 @@ import {
 } from "@evg-ui/lib/constants/logURLTemplates";
 import { stringifyQuery } from "@evg-ui/lib/utils/query-string";
 import { Task as TaskType } from "gql/generated/types";
-import { evergreenURL, logkeeperURL } from "utils/environmentVariables";
+import { evergreenURL } from "utils/environmentVariables";
 
 /**
  *
- * @param buildID - the build ID of the resmoke job
- * @param options - the options for the resmoke log
- * @param options.testID - the testID of the resmoke log omitting this returns the full log
- * @param options.raw - returns the raw task log
- * @param options.html - returns the html viewer for the log
- * @param options.metadata - returns the build metadata associated with the log
- * @returns a Logkeeper URL of the format `/build/${buildID}/test/${testID}` or `/build/${buildID}/all`
+ * @param taskID - the task ID
+ * @param execution - the execution number of the task
+ * @param testID - the test ID of the test
+ * @param options - the options for the test log
+ * @param options.text - returns the raw test log
+ * @param options.groupID - the group ID
+ * @returns an Evergreen URL of the format `/test_log/${taskID}/${execution}?test_name=${testID}&group_id=${groupID}text=true`
  */
-const getResmokeLogURL = (
-  buildID: string,
-  options: { testID?: string; raw?: boolean; html?: boolean; metadata?: true },
+const getEvergreenTestLogURL = (
+  taskID: string,
+  execution: string | number,
+  testID: string,
+  options: { text?: boolean; groupID?: string },
 ) => {
-  const { html, metadata, raw, testID } = options;
+  const { groupID, text } = options;
   const params = {
-    html,
-    metadata,
-    raw,
+    group_id: groupID,
+    test_name: testID,
+    text,
   };
-  if (testID) {
-    return `${logkeeperURL}/build/${buildID}/test/${testID}?${stringifyQuery(
-      params,
-    )}`;
-  }
-  return `${logkeeperURL}/build/${buildID}/all?${stringifyQuery(params)}`;
+  return `${evergreenURL}/test_log/${taskID}/${execution}?${stringifyQuery(
+    params,
+  )}`;
 };
 
 const getEvergreenTaskLogURL = (
@@ -82,5 +81,5 @@ export {
   getEvergreenCompleteLogsURL,
   getEvergreenTaskFileURL,
   getEvergreenTaskLogURL,
-  getResmokeLogURL,
+  getEvergreenTestLogURL,
 };

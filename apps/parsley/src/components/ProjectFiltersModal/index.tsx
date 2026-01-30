@@ -46,11 +46,9 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
   const { sendEvent } = useLogWindowAnalytics();
   const [filters, setFilters] = useFilterParam();
   const { logMetadata } = useLogContext();
-  const { buildID, execution, logType, taskID } = logMetadata ?? {};
+  const { execution, taskID } = logMetadata ?? {};
   const { loading: taskQueryLoading, task } = useTaskQuery({
-    buildID,
     execution,
-    logType,
     taskID,
   });
   const projectId = task?.versionMetadata?.projectMetadata?.id ?? "";
