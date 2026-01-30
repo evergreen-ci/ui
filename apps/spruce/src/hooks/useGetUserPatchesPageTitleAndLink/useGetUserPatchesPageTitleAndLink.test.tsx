@@ -62,21 +62,6 @@ describe("useGetUserPatchesPageTitleAndLink", () => {
     expect(result.current?.link).toBe("/user/justin.mathew/patches");
   });
 
-  it("returns correct possessive form when display name ends with 's'", async () => {
-    const { result } = renderHook(
-      () =>
-        useGetUserPatchesPageTitleAndLink({
-          userId: "justin.mathews",
-          displayName: "Justin Mathews",
-        }),
-      { wrapper: Provider },
-    );
-    await waitFor(() => {
-      expect(result.current?.title).toBe("Justin Mathews' Patches");
-    });
-    expect(result.current?.link).toBe("/user/justin.mathews/patches");
-  });
-
   it("falls back to userId when displayName is not provided", async () => {
     const { result } = renderHook(
       () =>

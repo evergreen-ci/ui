@@ -1,10 +1,34 @@
+import { InMemoryCache } from "@apollo/client";
 import { MockedProvider, renderHook, waitFor } from "@evg-ui/lib/test_utils";
-import { getUserMock } from "gql/mocks/getUser";
+import { UserQuery } from "gql/generated/types";
+import { USER } from "gql/queries";
 import { useBreadcrumbRoot } from ".";
+
+const createCacheWithUser = (currentUserId: string = "admin") => {
+  const cache = new InMemoryCache();
+  cache.writeQuery<UserQuery>({
+    query: USER,
+    data: {
+      user: {
+        __typename: "User",
+        userId: currentUserId,
+        displayName: "Evergreen Admin",
+        emailAddress: "admin@example.com",
+        permissions: {
+          canEditAdminSettings: true,
+          __typename: "Permissions",
+        },
+      },
+    },
+  });
+  return cache;
+};
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const Provider = ({ children }) => (
-  <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
+  <MockedProvider cache={createCacheWithUser()} mocks={[]}>
+    {children}
+  </MockedProvider>
 );
 
 describe("useBreadcrumbRoot", () => {
