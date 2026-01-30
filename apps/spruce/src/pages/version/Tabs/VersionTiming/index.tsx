@@ -110,9 +110,10 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
   const description = isVariantTimingView ? (
     <>
       This page is showing a timeline view of task run times in the{" "}
-      <b>{queryParams.variant}</b> variant{taskFilterDescription}. This is a
-      Gantt chart showing when each task started and finished running. You can
-      click on a task to visit the task page.
+      <b>{queryVariables.taskFilterOptions.variant}</b> variant
+      {taskFilterDescription}. This is a Gantt chart showing when each task
+      started and finished running. You can click on a task to visit the task
+      page.
     </>
   ) : (
     "This page is showing a timeline view of variant run times in this version. This is a Gantt chart showing when each variant started and finished running. You can click on a variant to see a view of the tasks that ran."
