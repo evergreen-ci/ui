@@ -31,7 +31,6 @@ import {
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
 import { sumActivatedTasksInVariantsTasks } from "utils/tasks/estimatedActivatedTasks";
-import { getDisplayName } from "utils/user";
 import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
 import { ParametersContent } from "./ParametersContent";
@@ -227,8 +226,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
         <PageSider>
           <MetadataCard title="Patch Metadata">
             <MetadataItem>
-              <MetadataLabel>Submitted by:</MetadataLabel>{" "}
-              {getDisplayName(user)}
+              <MetadataLabel>Submitted by:</MetadataLabel> {user.userId}
             </MetadataItem>
             <MetadataItem>
               <MetadataLabel>Submitted at:</MetadataLabel> {time?.submittedAt}

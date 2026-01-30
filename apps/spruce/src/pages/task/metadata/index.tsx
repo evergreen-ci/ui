@@ -27,7 +27,6 @@ import {
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks/useDateFormat";
 import { msToDuration } from "utils/string";
-import { getDisplayName } from "utils/user";
 import { AbortMessage } from "./AbortMessage";
 import { BuildVariantCard } from "./BuildVariant";
 import { DependsOn } from "./DependsOn";
@@ -140,8 +139,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </StyledRouterLink>
         </MetadataItem>
         <MetadataItem>
-          <MetadataLabel>Submitted by:</MetadataLabel>{" "}
-          {user && getDisplayName(user)}
+          <MetadataLabel>Submitted by:</MetadataLabel> {user.userId}
         </MetadataItem>
         {ingestTime && (
           <MetadataItem data-cy="task-metadata-submitted-at">

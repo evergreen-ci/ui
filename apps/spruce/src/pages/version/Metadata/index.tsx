@@ -22,7 +22,6 @@ import {
 import { VersionQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { msToDuration } from "utils/string";
-import { getDisplayName } from "utils/user";
 import { ParametersModal } from "../ParametersModal";
 import IncludedLocalModules from "./IncludedLocalModules";
 import ManifestBlob from "./ManifestBlob";
@@ -116,7 +115,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           data-cy="user-patches-link"
           to={getUserPatchesRoute(user.userId)}
         >
-          {getDisplayName(user)}
+          {user.userId}
         </StyledRouterLink>
       </MetadataItem>
       {isPatch && baseVersion ? (
