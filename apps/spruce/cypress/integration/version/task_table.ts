@@ -71,7 +71,7 @@ describe("Task table", () => {
 
   it("Task count displays total tasks", () => {
     cy.visit(pathTasks);
-    cy.dataCy("total-count").first().contains("47");
+    cy.dataCy("total-count").first().contains("49");
   });
 
   describe("Changing page number", () => {
