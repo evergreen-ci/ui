@@ -6789,6 +6789,18 @@ export type DefaultSectionToRepoMutation = {
   defaultSectionToRepo?: string | null;
 };
 
+export type DeleteCursorApiKeyMutationVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type DeleteCursorApiKeyMutation = {
+  __typename?: "Mutation";
+  deleteCursorAPIKey: {
+    __typename?: "DeleteCursorAPIKeyPayload";
+    success: boolean;
+  };
+};
+
 export type DeleteDistroMutationVariables = Exact<{
   distroId: Scalars["String"]["input"];
 }>;
@@ -7413,6 +7425,19 @@ export type ScheduleUndispatchedBaseTasksMutation = {
     displayStatus: string;
     execution: number;
   }> | null;
+};
+
+export type SetCursorApiKeyMutationVariables = Exact<{
+  apiKey: Scalars["String"]["input"];
+}>;
+
+export type SetCursorApiKeyMutation = {
+  __typename?: "Mutation";
+  setCursorAPIKey: {
+    __typename?: "SetCursorAPIKeyPayload";
+    keyLastFour?: string | null;
+    success: boolean;
+  };
 };
 
 export type SetLastRevisionMutationVariables = Exact<{
@@ -8437,6 +8462,17 @@ export type CreatedTicketsQuery = {
       status: { __typename?: "JiraStatus"; id: string; name: string };
     };
   }>;
+};
+
+export type CursorSettingsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CursorSettingsQuery = {
+  __typename?: "Query";
+  cursorSettings?: {
+    __typename?: "CursorSettings";
+    keyConfigured: boolean;
+    keyLastFour?: string | null;
+  } | null;
 };
 
 export type DistroEventsQueryVariables = Exact<{
