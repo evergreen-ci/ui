@@ -140,11 +140,6 @@ export const getFormSchema = ({
           title: "Optional Host Details",
           type: "null",
         },
-        isDebug: {
-          title: "Spawn host in Debug Mode",
-          type: "boolean" as const,
-          default: false,
-        },
         userdataScriptSection: {
           type: "object" as const,
           title: "",
@@ -220,6 +215,11 @@ export const getFormSchema = ({
               ],
             },
           },
+        },
+        isDebug: {
+          title: "Spawn host in Debug Mode",
+          type: "boolean" as const,
+          default: false,
         },
         ...(hasValidTask && {
           loadData: {
@@ -381,7 +381,6 @@ export const getFormSchema = ({
         "ui:widget":
           hasValidTask && !isDebugDisabled ? widgets.CheckboxWidget : "hidden",
         "ui:data-cy": "is-debug-toggle",
-        "ui:disabled": isDebugDisabled,
         "ui:description": "Debug Mode that allows users to step through tasks",
       },
       requiredSection: {
