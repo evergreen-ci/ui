@@ -5,12 +5,15 @@ import { useBreadcrumbRoot } from "hooks";
 
 interface VersionPageBreadcrumbsProps {
   patchNumber?: number;
-  versionMetadata?: {
+  versionMetadata: {
     id: string;
     revision: string;
     project: string;
     isPatch: boolean;
-    author: string;
+    user: {
+      userId: string;
+      displayName?: string | null;
+    };
     projectIdentifier: string;
     message: string;
   };
@@ -20,10 +23,8 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   patchNumber,
   versionMetadata,
 }) => {
-  const { author, isPatch, projectIdentifier, revision } =
-    versionMetadata ?? {};
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const breadcrumbRoot = useBreadcrumbRoot(isPatch, author, projectIdentifier);
+  const { isPatch, projectIdentifier, revision, user } = versionMetadata;
+  const breadcrumbRoot = useBreadcrumbRoot(isPatch, user, projectIdentifier);
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
 
   const patchBreadcrumb = {

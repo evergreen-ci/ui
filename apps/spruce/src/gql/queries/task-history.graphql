@@ -29,8 +29,11 @@ query TaskHistory($options: TaskHistoryOpts!) {
       }
       versionMetadata {
         id
-        author
         message
+        user {
+          displayName
+          userId
+        }
       }
     }
   }

@@ -48,7 +48,7 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
     <StyledRowContainer key={commit.id} data-cy="folded-commit">
       <LabelCellContainer>
         <CommitChartLabel
-          author={commit.author}
+          author={commit.user.displayName!}
           createTime={commit.createTime}
           githash={commit.revision}
           gitTags={commit.gitTags}

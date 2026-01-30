@@ -115,7 +115,11 @@ export const taskQuery: TaskQueryType = {
     versionMetadata: {
       __typename: "Version",
       id: "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
-      author: "mohamed.khelif",
+      user: {
+        __typename: "User",
+        userId: "mohamed.khelif",
+        displayName: "Mohamed Khelif",
+      },
       isPatch: false,
       message: "ubuntu_e2e_task",
       order: 1,

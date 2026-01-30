@@ -145,7 +145,11 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
   timeTaken: 127755,
   versionMetadata: {
     id: "68795d3e3ec03f0007deb52c",
-    author: "sophie.stadler",
+    user: {
+      __typename: "User",
+      userId: "sophie.stadler",
+      displayName: "Sophie Stadler",
+    },
     isPatch: true,
     message:
       "'evergreen-ci/ui' pull request #940 by sophstad: DEVPROD-19315: Stabilize useQueryParam hooks (https://github.com/evergreen-ci/ui/pull/940)",
@@ -314,7 +318,11 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
   timeTaken: 2077208,
   versionMetadata: {
     id: "68795d3e3ec03f0007deb52c",
-    author: "sophie.stadler",
+    user: {
+      __typename: "User",
+      userId: "sophie.stadler",
+      displayName: "Sophie Stadler",
+    },
     isPatch: true,
     message:
       "'evergreen-ci/ui' pull request #940 by sophstad: DEVPROD-19315: Stabilize useQueryParam hooks (https://github.com/evergreen-ci/ui/pull/940)",

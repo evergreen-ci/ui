@@ -134,6 +134,14 @@ export const cache = new InMemoryCache({
     },
     User: {
       keyFields: ["userId"],
+      fields: {
+        displayName: {
+          read(existing, { readField }) {
+            // Return userId if displayName is not set so that displayName is always populated
+            return existing || readField("userId");
+          },
+        },
+      },
     },
     UserConfig: {
       keyFields: ["user"],

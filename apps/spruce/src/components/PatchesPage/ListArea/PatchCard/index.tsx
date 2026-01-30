@@ -38,8 +38,6 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
     pageType === "project" ? projectPatchesAnalytics : userPatchesAnalytics;
   const {
     activated,
-    author,
-    authorDisplayName,
     createTime,
     description,
     hidden,
@@ -47,6 +45,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
     projectIdentifier,
     projectMetadata,
     status,
+    user,
     versionFull,
   } = patch;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -59,14 +58,14 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
 
   let patchProject = null;
   if (pageType === "project") {
-    patchProject = unlinkedPRUsers.has(author) ? (
-      authorDisplayName
+    patchProject = unlinkedPRUsers.has(user.userId) ? (
+      user.displayName
     ) : (
       <StyledRouterLink
         data-cy="user-patches-link"
-        to={getUserPatchesRoute(author)}
+        to={getUserPatchesRoute(user.userId)}
       >
-        <strong>{authorDisplayName}</strong>
+        <strong>{user.displayName}</strong>
       </StyledRouterLink>
     );
   } else {

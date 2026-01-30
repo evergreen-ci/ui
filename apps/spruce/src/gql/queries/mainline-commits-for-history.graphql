@@ -13,7 +13,6 @@ query MainlineCommitsForHistory(
     versions {
       rolledUpVersions {
         id
-        author
         createTime
         gitTags {
           pusher
@@ -22,11 +21,14 @@ query MainlineCommitsForHistory(
         message
         order
         revision
+        user {
+          displayName
+          userId
+        }
       }
       version {
         ...UpstreamProject
         id
-        author
         buildVariants(options: $buildVariantOptions) {
           displayName
           tasks {
@@ -45,6 +47,10 @@ query MainlineCommitsForHistory(
         message
         order
         revision
+        user {
+          displayName
+          userId
+        }
       }
     }
   }

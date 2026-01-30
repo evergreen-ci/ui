@@ -76,7 +76,6 @@ export const Task = () => {
     displayTask,
     executionTasksFull,
     latestExecution,
-    patchNumber,
     priority,
     status,
     versionMetadata,
@@ -114,13 +113,10 @@ export const Task = () => {
       <ProjectBanner projectIdentifier={versionMetadata?.projectIdentifier} />
       {task && (
         <TaskPageBreadcrumbs
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          displayTask={displayTask}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          patchNumber={patchNumber}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          taskName={displayName}
-          versionMetadata={versionMetadata}
+          displayTask={task.displayTask || undefined}
+          patchNumber={task.patchNumber || undefined}
+          taskName={task.displayName}
+          versionMetadata={task.versionMetadata}
         />
       )}
       <PageTitle

@@ -9,7 +9,10 @@ import { BuildVariant, Version } from "./types";
 
 export const version: Version = {
   activated: true,
-  author: "Sophie Stadler",
+  user: {
+    userId: "sophie.stadler",
+    displayName: "Sophie Stadler",
+  },
   createTime: new Date("2024-09-19T14:56:08Z"),
   errors: [],
   gitTags: null,
@@ -23,7 +26,10 @@ export const version: Version = {
 
 export const versionWithGitTag: Version = {
   activated: true,
-  author: "Sophie Stadler",
+  user: {
+    userId: "sophie.stadler",
+    displayName: "Sophie Stadler",
+  },
   createTime: new Date("2024-09-19T16:14:10Z"),
   errors: [],
   gitTags: [
@@ -40,7 +46,10 @@ export const versionWithGitTag: Version = {
 
 export const versionWithUpstreamProject: Version = {
   activated: true,
-  author: "Sophie Stadler",
+  user: {
+    userId: "sophie.stadler",
+    displayName: "Sophie Stadler",
+  },
   createTime: new Date("2024-09-19T16:06:54Z"),
   errors: [],
   gitTags: [
@@ -57,7 +66,10 @@ export const versionWithUpstreamProject: Version = {
 
 export const versionBroken: Version = {
   activated: true,
-  author: "Sophie Stadler",
+  user: {
+    userId: "sophie.stadler",
+    displayName: "Sophie Stadler",
+  },
   createTime: new Date("2024-09-19T14:56:08Z"),
   errors: ["errors happened"],
   gitTags: null,
@@ -71,7 +83,10 @@ export const versionBroken: Version = {
 
 export const inactiveVersion: Version = {
   activated: false,
-  author: "Sophie Stadler",
+  user: {
+    userId: "sophie.stadler",
+    displayName: "Sophie Stadler",
+  },
   createTime: new Date("2024-10-24T14:56:08Z"),
   errors: [],
   gitTags: null,
@@ -84,7 +99,10 @@ export const inactiveVersion: Version = {
 
 export const inactiveBrokenVersion: Version = {
   activated: false,
-  author: "Sophie Stadler",
+  user: {
+    userId: "sophie.stadler",
+    displayName: "Sophie Stadler",
+  },
   createTime: new Date("2024-10-25T14:56:08Z"),
   errors: ["Error string"],
   gitTags: null,
@@ -239,7 +257,10 @@ export const getTaskStatsMock = (
 export const versions: Version[] = [
   {
     id: "a",
-    author: "sophie.stadler",
+    user: {
+      userId: "sophie.stadler",
+      displayName: "Sophie Stadler",
+    },
     activated: false,
     createTime: new Date("2024-09-20T14:56:08Z"),
     errors: [],
@@ -251,7 +272,10 @@ export const versions: Version[] = [
   },
   {
     id: "b",
-    author: "sophie.stadler",
+    user: {
+      userId: "sophie.stadler",
+      displayName: "Sophie Stadler",
+    },
     activated: true,
     createTime: new Date("2024-09-19T14:56:08Z"),
     errors: [],
@@ -301,7 +325,10 @@ export const versions: Version[] = [
   },
   {
     id: "c",
-    author: "sophie.stadler",
+    user: {
+      userId: "sophie.stadler",
+      displayName: "Sophie Stadler",
+    },
     activated: true,
     createTime: new Date("2024-09-19T14:56:08Z"),
     errors: [],
@@ -336,7 +363,10 @@ export const versions: Version[] = [
   },
   {
     id: "d",
-    author: "sophie.stadler",
+    user: {
+      userId: "sophie.stadler",
+      displayName: "Sophie Stadler",
+    },
     activated: false,
     createTime: new Date("2024-09-19T14:56:08Z"),
     errors: [],
@@ -347,7 +377,10 @@ export const versions: Version[] = [
   },
   {
     id: "e",
-    author: "sophie.stadler",
+    user: {
+      userId: "sophie.stadler",
+      displayName: "Sophie Stadler",
+    },
     activated: false,
     createTime: new Date("2024-09-19T14:56:08Z"),
     errors: [],
@@ -358,7 +391,10 @@ export const versions: Version[] = [
   },
   {
     id: "f",
-    author: "sophie.stadler",
+    user: {
+      userId: "sophie.stadler",
+      displayName: "Sophie Stadler",
+    },
     activated: true,
     createTime: new Date("2024-09-19T14:56:08Z"),
     errors: [],
