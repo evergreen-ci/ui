@@ -1,5 +1,4 @@
 import CommitChartLabel from "components/CommitChartLabel";
-import { getDisplayName } from "utils/user";
 import { types } from "../..";
 import { LabelCellContainer } from "../../Cell";
 import { useHistoryTable } from "../../HistoryTableContext";
@@ -62,7 +61,7 @@ const BaseRow: React.FC<RowProps> = ({
         <RowContainer data-selected={selected} selected={selected}>
           <LabelCellContainer>
             <CommitChartLabel
-              author={getDisplayName(user)}
+              author={user.displayName!}
               createTime={createTime}
               githash={revision}
               gitTags={gitTags}

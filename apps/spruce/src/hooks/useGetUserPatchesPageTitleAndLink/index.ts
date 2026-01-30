@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client/react";
 import { getUserPatchesRoute } from "constants/routes";
 import { UserQuery } from "gql/generated/types";
 import { USER } from "gql/queries";
-import { getDisplayName } from "utils/user";
 
 interface UserInfo {
   userId: string;
@@ -29,10 +28,8 @@ export const useGetUserPatchesPageTitleAndLink = (
     return { link, title: "My Patches" };
   }
 
-  const otherUserDisplayName = getDisplayName(user);
-
   return {
     link,
-    title: `${otherUserDisplayName}'s Patches`,
+    title: `${user.displayName || user.userId}'s Patches`,
   };
 };

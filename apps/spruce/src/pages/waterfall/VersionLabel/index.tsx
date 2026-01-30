@@ -10,7 +10,6 @@ import { useWaterfallAnalytics } from "analytics";
 import { getVersionRoute } from "constants/routes";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { jiraLinkify } from "utils/string";
-import { getDisplayName } from "utils/user";
 import { columnBasis } from "../styles";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
 import { Version } from "../types";
@@ -97,7 +96,7 @@ export const VersionLabel: React.FC<Props> = ({
         title={view === VersionLabelView.Waterfall ? message : undefined}
         view={view}
       >
-        <strong>{getDisplayName(user)}</strong> &bull;{" "}
+        <strong>{user.displayName}</strong> &bull;{" "}
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
             name: "Clicked commit label",

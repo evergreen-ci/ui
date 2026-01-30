@@ -1,34 +1,32 @@
+import { InMemoryCache } from "@apollo/client";
 import { MockedProvider, renderHook, waitFor } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
-import { UserQuery, UserQueryVariables } from "gql/generated/types";
+import { UserQuery } from "gql/generated/types";
 import { USER } from "gql/queries";
 import { useGetUserPatchesPageTitleAndLink } from ".";
 
-const getUserMock = (
-  userId: string,
-): ApolloMock<UserQuery, UserQueryVariables> => ({
-  request: {
+const createCacheWithUser = (currentUserId: string = "admin") => {
+  const cache = new InMemoryCache();
+  cache.writeQuery<UserQuery>({
     query: USER,
-  },
-  result: {
     data: {
       user: {
-        userId,
+        __typename: "User",
+        userId: currentUserId,
         displayName: "Evergreen Admin",
         emailAddress: "admin@example.com",
         permissions: {
           canEditAdminSettings: true,
           __typename: "Permissions",
         },
-        __typename: "User",
       },
     },
-  },
-});
+  });
+  return cache;
+};
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const Provider = ({ children, currentUserId = "admin" }) => (
-  <MockedProvider mocks={[getUserMock(currentUserId)]}>
+  <MockedProvider cache={createCacheWithUser(currentUserId)} mocks={[]}>
     {children}
   </MockedProvider>
 );

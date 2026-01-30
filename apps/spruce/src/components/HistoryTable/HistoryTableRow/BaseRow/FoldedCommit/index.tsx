@@ -6,7 +6,6 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import CommitChartLabel from "components/CommitChartLabel";
 import { EmptyCell, LabelCellContainer } from "components/HistoryTable/Cell";
 import { FoldedCommitsRow } from "components/HistoryTable/types";
-import { getDisplayName } from "utils/user";
 import { RowContainer } from "../styles";
 
 const { blue } = palette;
@@ -49,7 +48,7 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
     <StyledRowContainer key={commit.id} data-cy="folded-commit">
       <LabelCellContainer>
         <CommitChartLabel
-          author={getDisplayName(commit.user)}
+          author={commit.user.displayName!}
           createTime={commit.createTime}
           githash={commit.revision}
           gitTags={commit.gitTags}

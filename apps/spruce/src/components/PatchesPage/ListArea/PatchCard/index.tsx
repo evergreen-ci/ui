@@ -20,7 +20,6 @@ import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { PatchStatus } from "types/patch";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
-import { getDisplayName } from "utils/user";
 import { DropdownMenu } from "./DropdownMenu";
 
 type PatchType = Unpacked<PatchesPagePatchesFragment["patches"]>;
@@ -57,17 +56,16 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
   );
   const isMergeQueuePatch = requester === Requester.GitHubMergeQueue;
 
-  const displayName = getDisplayName(user);
   let patchProject = null;
   if (pageType === "project") {
     patchProject = unlinkedPRUsers.has(user.userId) ? (
-      displayName
+      user.displayName
     ) : (
       <StyledRouterLink
         data-cy="user-patches-link"
         to={getUserPatchesRoute(user.userId)}
       >
-        <strong>{displayName}</strong>
+        <strong>{user.displayName}</strong>
       </StyledRouterLink>
     );
   } else {
