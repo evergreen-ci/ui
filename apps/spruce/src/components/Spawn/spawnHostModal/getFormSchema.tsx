@@ -22,6 +22,7 @@ import { DistroDropdown } from "./Widgets/DistroDropdown";
 
 interface Props {
   availableRegions: string[];
+  debugSpawnHostDisabled?: boolean;
   disableExpirationCheckbox: boolean;
   distroIdQueryParam?: string;
   distros: {
@@ -50,6 +51,7 @@ interface Props {
 
 export const getFormSchema = ({
   availableRegions,
+  debugSpawnHostDisabled = true,
   disableExpirationCheckbox,
   distroIdQueryParam,
   distros,
@@ -75,6 +77,8 @@ export const getFormSchema = ({
   const hasValidTask = validateTask(spawnTaskData);
   const hasProjectSetupScript = !!project?.spawnHostScriptPath;
   const shouldRenderVolumeSelection = !isMigration && isVirtualWorkstation;
+  const isDebugDisabled =
+    debugSpawnHostDisabled || !!project?.debugSpawnHostsDisabled;
   const availableVolumes = volumes
     ? volumes.filter((v) => v.homeVolume && !v.hostID)
     : [];
@@ -135,6 +139,11 @@ export const getFormSchema = ({
         optionalInformationTitle: {
           title: "Optional Host Details",
           type: "null",
+        },
+        isDebug: {
+          title: "Spawn host in Debug Mode",
+          type: "boolean" as const,
+          default: false,
         },
         userdataScriptSection: {
           type: "object" as const,
@@ -368,6 +377,13 @@ export const getFormSchema = ({
       },
     },
     uiSchema: {
+      isDebug: {
+        "ui:widget":
+          hasValidTask && !isDebugDisabled ? widgets.CheckboxWidget : "hidden",
+        "ui:data-cy": "is-debug-toggle",
+        "ui:disabled": isDebugDisabled,
+        "ui:description": "Debug Mode that allows users to step through tasks",
+      },
       requiredSection: {
         "ui:elementWrapperCSS": css`
           display: flex;
