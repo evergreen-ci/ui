@@ -217,6 +217,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   return (
     <Container ref={refEl}>
+      <div ref={headerScrollRef} />
       <StickyHeader showShadow={showShadow}>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
