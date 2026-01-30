@@ -67,6 +67,10 @@ const useQueryParam = <T>(
 ): readonly [T, (set: T) => void] => {
   const [searchParams, setSearchParams] = useQueryParams(parseOptions);
 
+  // Capture the initial defaultParam to avoid recomputation when callers
+  // pass inline arrays/objects (e.g., useQueryParam("filters", []))
+  const defaultParamRef = useRef(defaultParam);
+
   const setQueryParam = useCallback(
     (value: T) => {
       setSearchParams((current) => ({
@@ -77,18 +81,21 @@ const useQueryParam = <T>(
     [setSearchParams, param],
   );
 
+  // This lint error is a false positive: https://github.com/facebook/react/issues/34775
+  /* eslint-disable react-hooks/refs */
   const queryParam = useMemo(
     () =>
       searchParams[param] !== undefined
         ? (conditionalToArray(
             searchParams[param],
-            Array.isArray(defaultParam),
+            Array.isArray(defaultParamRef.current),
           ) as unknown as T)
-        : defaultParam,
-    [searchParams, param, defaultParam],
+        : defaultParamRef.current,
+    [searchParams, param],
   );
 
   return [queryParam, setQueryParam] as const;
+  /* eslint-enable react-hooks/refs */
 };
 
 export { useQueryParams, useQueryParam };
