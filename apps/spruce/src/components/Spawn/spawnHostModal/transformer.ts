@@ -27,6 +27,7 @@ export const formToGql = ({
   const {
     expirationDetails,
     homeVolumeDetails,
+    isDebug,
     loadData,
     publicKeySection,
     requiredSection,
@@ -70,6 +71,7 @@ export const formToGql = ({
 
   return {
     isVirtualWorkStation,
+    ...(isDebug ? { isDebug: true } : {}),
     userDataScript: runUserdataScript ? userdataScript : null,
     expiration: noExpiration ? null : new Date(expiration),
     noExpiration: noExpiration,
