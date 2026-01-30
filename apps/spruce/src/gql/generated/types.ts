@@ -9314,20 +9314,6 @@ export type MyVolumesQuery = {
   }>;
 };
 
-export type OtherUserQueryVariables = Exact<{
-  userId?: InputMaybe<Scalars["String"]["input"]>;
-}>;
-
-export type OtherUserQuery = {
-  __typename?: "Query";
-  currentUser: { __typename?: "User"; userId: string };
-  otherUser: {
-    __typename?: "User";
-    displayName?: string | null;
-    userId: string;
-  };
-};
-
 export type PatchConfigureGeneratedTaskCountsQueryVariables = Exact<{
   patchId: Scalars["String"]["input"];
 }>;
@@ -11798,6 +11784,7 @@ export type UserPatchesQuery = {
   __typename?: "Query";
   user: {
     __typename?: "User";
+    displayName?: string | null;
     userId: string;
     patches?: {
       __typename?: "Patches";

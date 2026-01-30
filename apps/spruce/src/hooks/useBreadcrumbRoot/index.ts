@@ -2,15 +2,20 @@ import { useBreadcrumbAnalytics } from "analytics";
 import { getWaterfallRoute } from "constants/routes";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 
+interface UserInfo {
+  userId: string;
+  displayName?: string | null;
+}
+
 export const useBreadcrumbRoot = (
   isPatch: boolean,
-  userId: string,
+  user: UserInfo,
   projectIdentifier: string,
 ) => {
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
 
   const { link: userPatchesPageLink, title: userPatchesPageTitle } =
-    useGetUserPatchesPageTitleAndLink(userId, !isPatch) ?? {};
+    useGetUserPatchesPageTitleAndLink(user, !isPatch) ?? {};
 
   return isPatch
     ? {
