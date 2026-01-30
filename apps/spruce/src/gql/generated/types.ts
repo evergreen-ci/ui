@@ -4824,6 +4824,7 @@ export type UserConfig = {
 
 export type UserServiceFlags = {
   __typename?: "UserServiceFlags";
+  debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
@@ -11040,6 +11041,7 @@ export type SpawnTaskQuery = {
     project?: {
       __typename?: "Project";
       id: string;
+      debugSpawnHostsDisabled?: boolean | null;
       spawnHostScriptPath: string;
     } | null;
   } | null;
@@ -11085,6 +11087,7 @@ export type SpruceConfigQuery = {
     } | null;
     serviceFlags: {
       __typename?: "UserServiceFlags";
+      debugSpawnHostDisabled?: boolean | null;
       jwtTokenForCLIDisabled?: boolean | null;
     };
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;

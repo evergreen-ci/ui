@@ -58,11 +58,14 @@ export const useLoadFormSchemaData = (p?: Props) => {
 
   const oAuthDisabled =
     spruceConfig?.serviceFlags?.jwtTokenForCLIDisabled ?? false;
+  const debugSpawnHostDisabled =
+    spruceConfig?.serviceFlags?.debugSpawnHostDisabled ?? false;
 
   return {
     formSchemaInput: {
       disableExpirationCheckbox,
       distros: distrosData?.distros ?? [],
+      debugSpawnHostDisabled,
       oAuthDisabled,
       myPublicKeys: publicKeysData?.myPublicKeys ?? [],
       noExpirationCheckboxTooltip,
