@@ -52,7 +52,7 @@
                       aria-disabled="false"
                       aria-label="checkbox"
                       aria-labelledby="checkbox-150-label"
-                      class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                      class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                       id="checkbox-150"
                       type="checkbox"
                     />
@@ -113,7 +113,7 @@
                       aria-disabled="false"
                       aria-label="checkbox"
                       aria-labelledby="checkbox-151-label"
-                      class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                      class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                       id="checkbox-151"
                       type="checkbox"
                     />
@@ -174,7 +174,7 @@
                       aria-disabled="false"
                       aria-label="checkbox"
                       aria-labelledby="checkbox-152-label"
-                      class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                      class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                       id="checkbox-152"
                       type="checkbox"
                     />
@@ -236,7 +236,7 @@
                       aria-label="checkbox"
                       aria-labelledby="checkbox-153-label"
                       checked=""
-                      class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                      class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                       id="checkbox-153"
                       type="checkbox"
                     />
@@ -298,7 +298,7 @@
                       <input
                         aria-describedby="lg-154"
                         aria-disabled="false"
-                        class="lg-ui-radio-group-0002 leafygreen-ui-1sdo19u"
+                        class="lg-ui-radio-group-0002 leafygreen-ui-4hkcze"
                         data-label="Restart Jasper service on running hosts of this distro for this update"
                         id="radio-group--0"
                         name="radio-group-"
@@ -327,7 +327,7 @@
                       <input
                         aria-describedby="lg-155"
                         aria-disabled="false"
-                        class="lg-ui-radio-group-0002 leafygreen-ui-1sdo19u"
+                        class="lg-ui-radio-group-0002 leafygreen-ui-4hkcze"
                         data-label="Reprovision running hosts of this distro for this update"
                         id="radio-group--1"
                         name="radio-group-"

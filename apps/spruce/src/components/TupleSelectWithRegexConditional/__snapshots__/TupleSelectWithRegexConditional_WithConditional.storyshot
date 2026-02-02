@@ -33,7 +33,7 @@
                 <button
                   aria-controls="tuple-select-with-regex"
                   aria-selected="true"
-                  class="leafygreen-ui-qlnhrg"
+                  class="leafygreen-ui-zcita1"
                   id="segmented-control-215-0"
                   role="tab"
                   tabindex="0"
@@ -63,7 +63,7 @@
                 <button
                   aria-controls="tuple-select-with-regex"
                   aria-selected="false"
-                  class="leafygreen-ui-qlnhrg"
+                  class="leafygreen-ui-zcita1"
                   id="segmented-control-215-1"
                   role="tab"
                   tabindex="-1"
@@ -106,7 +106,7 @@
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="Tuple Select Select"
-          class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
+          class="lg-ui-button-0000 leafygreen-ui-q3iwhh"
           data-cy="tuple-select-select"
           data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
@@ -172,7 +172,7 @@
             class="leafygreen-ui-1iyoj2o"
           />
           <div
-            class="leafygreen-ui-oxwo2l"
+            class="leafygreen-ui-ogxdmc"
           >
             <div
               class="leafygreen-ui-1ago99h"
@@ -207,7 +207,7 @@
           <button
             aria-disabled="false"
             aria-label="Select plus button"
-            class="leafygreen-ui-1r51ix4"
+            class="leafygreen-ui-1o2ji0h"
             tabindex="0"
           >
             <div
