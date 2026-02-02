@@ -76,7 +76,7 @@
     "babel-plugin-import-graphql": "^2.8.1",
     "chromatic": "^13.3.4",
     "eslint": "^9.39.1",
-    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-prettier": "^5.5.5",
     "prettier": "3.7.4",
     "storybook": "^10.1.10",
     "storybook-addon-apollo-client": "^10.0.0",
