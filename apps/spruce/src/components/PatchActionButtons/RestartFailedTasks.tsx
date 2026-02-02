@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { useMutation, useQuery } from "@apollo/client/react";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -20,11 +21,10 @@ interface RestartFailedTasksProps {
   refetchQueries: string[];
 }
 
-export const RestartFailedTasks: React.FC<RestartFailedTasksProps> = ({
-  disabled = false,
-  patchId,
-  refetchQueries,
-}) => {
+export const RestartFailedTasks = forwardRef<
+  HTMLButtonElement,
+  RestartFailedTasksProps
+>(({ disabled = false, patchId, refetchQueries }, ref) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(patchId);
 
@@ -117,6 +117,7 @@ export const RestartFailedTasks: React.FC<RestartFailedTasksProps> = ({
 
   return (
     <MenuItem
+      ref={ref}
       data-cy="restart-failed-tasks"
       disabled={disabled || queryLoading || mutationLoading}
       onClick={handleRestartFailedTasks}
@@ -124,4 +125,6 @@ export const RestartFailedTasks: React.FC<RestartFailedTasksProps> = ({
       Restart failed tasks
     </MenuItem>
   );
-};
+});
+
+RestartFailedTasks.displayName = "MenuItem";
