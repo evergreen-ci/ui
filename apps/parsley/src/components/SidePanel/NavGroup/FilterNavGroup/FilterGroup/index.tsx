@@ -1,6 +1,6 @@
 import { MouseEvent, useId, useMemo, useState } from "react";
 import styled from "@emotion/styled";
-import Button, { Variant } from "@leafygreen-ui/button";
+import { Button, Variant } from "@leafygreen-ui/button";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import {

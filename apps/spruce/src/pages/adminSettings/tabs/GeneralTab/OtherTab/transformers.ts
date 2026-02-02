@@ -70,6 +70,13 @@ export const gqlToForm = ((data) => {
           financeFormula: cost?.financeFormula ?? 0,
           savingsPlanDiscount: cost?.savingsPlanDiscount ?? 0,
           onDemandDiscount: cost?.onDemandDiscount ?? 0,
+          s3Cost: {
+            uploadCostDiscount: cost?.s3Cost?.upload?.uploadCostDiscount ?? 0,
+            standardStorageCostDiscount:
+              cost?.s3Cost?.storage?.standardStorageCostDiscount ?? 0,
+            iAStorageCostDiscount:
+              cost?.s3Cost?.storage?.iAStorageCostDiscount ?? 0,
+          },
         },
       },
 
@@ -230,6 +237,18 @@ export const formToGql = ((form: OtherFormState) => {
       financeFormula: miscSettings.cost.financeFormula || undefined,
       savingsPlanDiscount: miscSettings.cost.savingsPlanDiscount || undefined,
       onDemandDiscount: miscSettings.cost.onDemandDiscount || undefined,
+      s3Cost: {
+        upload: {
+          uploadCostDiscount:
+            miscSettings.cost.s3Cost.uploadCostDiscount || undefined,
+        },
+        storage: {
+          standardStorageCostDiscount:
+            miscSettings.cost.s3Cost.standardStorageCostDiscount || undefined,
+          iAStorageCostDiscount:
+            miscSettings.cost.s3Cost.iAStorageCostDiscount || undefined,
+        },
+      },
     },
 
     singleTaskDistro: {

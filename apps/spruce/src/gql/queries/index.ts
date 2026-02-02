@@ -12,6 +12,7 @@ import BUILD_VARIANTS_WITH_CHILDREN from "./build-variants-with-children.graphql
 import CLIENT_CONFIG from "./client-config.graphql";
 import CODE_CHANGES from "./code-changes.graphql";
 import CREATED_TICKETS from "./created-tickets.graphql";
+import CURSOR_SETTINGS from "./cursor-settings.graphql";
 import DISTRO_EVENTS from "./distro-events.graphql";
 import DISTRO_TASK_QUEUE from "./distro-task-queue.graphql";
 import DISTRO from "./distro.graphql";
@@ -98,6 +99,7 @@ export {
   ADMIN_EVENT_LOG,
   ADMIN_SETTINGS,
   ADMIN_TASKS_TO_RESTART,
+  CURSOR_SETTINGS,
   AGENT_LOGS,
   ALL_LOGS,
   AWS_REGIONS,

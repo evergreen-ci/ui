@@ -319,7 +319,7 @@
                         >
                           <a
                             aria-disabled="false"
-                            class="lg-ui-button-0000 leafygreen-ui-168frnw"
+                            class="lg-ui-button-0000 leafygreen-ui-ys0yem"
                             data-cy="failed-test-group-parsley-btn"
                             data-lgid="lg-button"
                             href="LogsUrl"

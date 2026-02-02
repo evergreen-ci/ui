@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Button, Size } from "@leafygreen-ui/button";
 import { TableVolume } from "types/spawn";
 import { MigrateVolumeModal } from "./MigrateVolumeModal";
 
@@ -14,6 +14,7 @@ export const MigrateButton: React.FC<Props> = ({ volume }) => {
     <>
       <Button
         ref={triggerRef}
+        as="button"
         data-cy={`migrate-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
         onClick={(e) => {

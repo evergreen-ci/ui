@@ -50,7 +50,7 @@ export const UserPatches = () => {
       loading={loading && !data?.user.patches}
       pageTitle={pageTitle || "User Patches"}
       pageType="user"
-      patches={data?.user.patches}
+      patches={data?.user?.patches ?? undefined}
     />
   );
 };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
 import { DropdownItem } from "components/ButtonDropdown";
 import { VersionRestartModal } from "components/VersionRestartModal";

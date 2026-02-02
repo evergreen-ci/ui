@@ -44,6 +44,10 @@ updates:
         patterns:
           - "@leafygreen-ui/*"
           - "@lg-chat/*"
+      otel:
+        applies-to: version-updates
+        patterns:
+          - "@opentelemetry/*"
       react:
         applies-to: version-updates
         patterns:

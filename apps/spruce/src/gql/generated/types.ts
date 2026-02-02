@@ -6791,6 +6791,18 @@ export type DefaultSectionToRepoMutation = {
   defaultSectionToRepo?: string | null;
 };
 
+export type DeleteCursorApiKeyMutationVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type DeleteCursorApiKeyMutation = {
+  __typename?: "Mutation";
+  deleteCursorAPIKey: {
+    __typename?: "DeleteCursorAPIKeyPayload";
+    success: boolean;
+  };
+};
+
 export type DeleteDistroMutationVariables = Exact<{
   distroId: Scalars["String"]["input"];
 }>;
@@ -7153,6 +7165,24 @@ export type SaveAdminSettingsMutation = {
       httpListenAddr?: string | null;
       url?: string | null;
     } | null;
+    cost?: {
+      __typename?: "CostConfig";
+      financeFormula?: number | null;
+      onDemandDiscount?: number | null;
+      savingsPlanDiscount?: number | null;
+      s3Cost?: {
+        __typename?: "S3CostConfig";
+        storage?: {
+          __typename?: "S3StorageCostConfig";
+          iAStorageCostDiscount?: number | null;
+          standardStorageCostDiscount?: number | null;
+        } | null;
+        upload?: {
+          __typename?: "S3UploadCostConfig";
+          uploadCostDiscount?: number | null;
+        } | null;
+      } | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -7176,6 +7206,7 @@ export type SaveAdminSettingsMutation = {
       maxRepoRevisionsToSearch?: number | null;
       numNewRepoRevisionsToFetch?: number | null;
     } | null;
+    sage?: { __typename?: "SageConfig"; baseUrl?: string | null } | null;
     scheduler?: {
       __typename?: "SchedulerConfig";
       acceptableHostIdleTimeSeconds?: number | null;
@@ -7396,6 +7427,19 @@ export type ScheduleUndispatchedBaseTasksMutation = {
     displayStatus: string;
     execution: number;
   }> | null;
+};
+
+export type SetCursorApiKeyMutationVariables = Exact<{
+  apiKey: Scalars["String"]["input"];
+}>;
+
+export type SetCursorApiKeyMutation = {
+  __typename?: "Mutation";
+  setCursorAPIKey: {
+    __typename?: "SetCursorAPIKeyPayload";
+    keyLastFour?: string | null;
+    success: boolean;
+  };
 };
 
 export type SetLastRevisionMutationVariables = Exact<{
@@ -7772,6 +7816,18 @@ export type AdminSettingsQuery = {
       financeFormula?: number | null;
       onDemandDiscount?: number | null;
       savingsPlanDiscount?: number | null;
+      s3Cost?: {
+        __typename?: "S3CostConfig";
+        storage?: {
+          __typename?: "S3StorageCostConfig";
+          iAStorageCostDiscount?: number | null;
+          standardStorageCostDiscount?: number | null;
+        } | null;
+        upload?: {
+          __typename?: "S3UploadCostConfig";
+          uploadCostDiscount?: number | null;
+        } | null;
+      } | null;
     } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
@@ -7952,6 +8008,7 @@ export type AdminSettingsQuery = {
       apiKey?: string | null;
       baseUrl: string;
     } | null;
+    sage?: { __typename?: "SageConfig"; baseUrl?: string | null } | null;
     scheduler?: {
       __typename?: "SchedulerConfig";
       acceptableHostIdleTimeSeconds?: number | null;
@@ -8407,6 +8464,17 @@ export type CreatedTicketsQuery = {
       status: { __typename?: "JiraStatus"; id: string; name: string };
     };
   }>;
+};
+
+export type CursorSettingsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CursorSettingsQuery = {
+  __typename?: "Query";
+  cursorSettings?: {
+    __typename?: "CursorSettings";
+    keyConfigured: boolean;
+    keyLastFour?: string | null;
+  } | null;
 };
 
 export type DistroEventsQueryVariables = Exact<{
