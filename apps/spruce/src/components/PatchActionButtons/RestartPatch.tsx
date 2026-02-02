@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { SplitButton } from "@leafygreen-ui/split-button";
 import { Tooltip, Align, Justify } from "@leafygreen-ui/tooltip";
 import { DropdownItem } from "components/ButtonDropdown";

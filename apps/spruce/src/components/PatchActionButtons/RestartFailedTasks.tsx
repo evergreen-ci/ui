@@ -12,6 +12,7 @@ import {
 } from "gql/generated/types";
 import { RESTART_VERSIONS } from "gql/mutations";
 import { BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
+import { isFailedTaskStatus } from "utils/statuses";
 
 interface RestartFailedTasksProps {
   disabled?: boolean;
@@ -60,16 +61,7 @@ export const RestartFailedTasks: React.FC<RestartFailedTasksProps> = ({
       const taskIds: string[] = [];
       variants?.forEach((bv) => {
         bv.tasks?.forEach((task) => {
-          if (
-            task.displayStatus === TaskStatus.Failed ||
-            task.displayStatus === TaskStatus.TaskTimedOut ||
-            task.displayStatus === TaskStatus.TestTimedOut ||
-            task.displayStatus === TaskStatus.KnownIssue ||
-            task.displayStatus === TaskStatus.SetupFailed ||
-            task.displayStatus === TaskStatus.SystemFailed ||
-            task.displayStatus === TaskStatus.SystemTimedOut ||
-            task.displayStatus === TaskStatus.SystemUnresponsive
-          ) {
+          if (isFailedTaskStatus(task.displayStatus)) {
             taskIds.push(task.id);
           }
         });
