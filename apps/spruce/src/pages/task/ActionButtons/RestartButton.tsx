@@ -36,6 +36,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
     RestartTaskMutation,
     RestartTaskMutationVariables
   >(RESTART_TASK, {
+    refetchQueries: ["TaskAllExecutions"],
     onCompleted: (data) => {
       const { latestExecution, priority } = data.restartTask ?? {};
       if ((priority || 0) < 0) {
