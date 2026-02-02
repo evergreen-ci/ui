@@ -23,7 +23,7 @@ describe("spruce form", () => {
     );
     expect(screen.getByLabelText("Project Cloning Method")).toBeInTheDocument();
     expect(screen.queryByText("Username Label")).not.toBeInTheDocument();
-    expect(screen.queryByDataCy("add-button")).toHaveTextContent("New User");
+    expect(screen.getByDataCy("add-button")).toHaveTextContent("New User");
     expect(screen.getAllByRole("heading", { level: 3 })[1]).toHaveTextContent(
       "Manage Access",
     );
@@ -47,18 +47,13 @@ describe("spruce form", () => {
         />
       </SpruceFormContainer>,
     );
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.clear(screen.queryByDataCy("valid-projects-input"));
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.type(screen.queryByDataCy("valid-projects-input"), "new value");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByDataCy("add-button"));
+    await user.clear(screen.getByDataCy("valid-projects-input"));
+    await user.type(screen.getByDataCy("valid-projects-input"), "new value");
+    await user.click(screen.getByDataCy("add-button"));
     expect(screen.queryAllByDataCy("new-user-input")).toHaveLength(2);
-    await user.type(screen.queryAllByDataCy("new-user-input")[0], "new-user");
+    await user.type(screen.getAllByDataCy("new-user-input")[0], "new-user");
     expect(onChange).toHaveBeenCalled();
-    expect(screen.queryByDataCy("valid-projects-input")).toHaveValue(
-      "new value",
-    );
+    expect(screen.getByDataCy("valid-projects-input")).toHaveValue("new value");
     expect(data).toStrictEqual({
       ...basicForm.formData,
       access: null,
@@ -91,11 +86,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.type(screen.queryByDataCy("text-input"), "new value");
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.clear(screen.queryByDataCy("text-input"));
-          expect(screen.queryByDataCy("text-input")).toHaveValue("");
+          await user.type(screen.getByDataCy("text-input"), "new value");
+          await user.clear(screen.getByDataCy("text-input"));
+          expect(screen.getByDataCy("text-input")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
           expect(formErrors).toStrictEqual([{ stack: "textInput: invisible" }]);
@@ -123,11 +116,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.type(screen.queryByDataCy("text-input"), "new value");
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.clear(screen.queryByDataCy("text-input"));
-          expect(screen.queryByDataCy("text-input")).toHaveValue("");
+          await user.type(screen.getByDataCy("text-input"), "new value");
+          await user.clear(screen.getByDataCy("text-input"));
+          expect(screen.getByDataCy("text-input")).toHaveValue("");
           expect(data).toStrictEqual({
             textInput: "",
           });
@@ -152,13 +143,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.type(screen.queryByDataCy("text-input"), "new value");
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.clear(screen.queryByDataCy("text-input"));
-          expect(screen.queryByDataCy("text-input")).toHaveValue(
-            "myEmptyValue",
-          );
+          await user.type(screen.getByDataCy("text-input"), "new value");
+          await user.clear(screen.getByDataCy("text-input"));
+          expect(screen.getByDataCy("text-input")).toHaveValue("myEmptyValue");
           expect(data).toStrictEqual({
             textInput: "myEmptyValue",
           });
@@ -189,11 +176,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.type(screen.queryByDataCy("text-area"), "new value");
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.clear(screen.queryByDataCy("text-area"));
-          expect(screen.queryByDataCy("text-area")).toHaveValue("");
+          await user.type(screen.getByDataCy("text-area"), "new value");
+          await user.clear(screen.getByDataCy("text-area"));
+          expect(screen.getByDataCy("text-area")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
           expect(formErrors).toStrictEqual([{ stack: "textArea: invisible" }]);
@@ -221,11 +206,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.type(screen.queryByDataCy("text-area"), "new value");
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.clear(screen.queryByDataCy("text-area"));
-          expect(screen.queryByDataCy("text-area")).toHaveValue("");
+          await user.type(screen.getByDataCy("text-area"), "new value");
+          await user.clear(screen.getByDataCy("text-area"));
+          expect(screen.getByDataCy("text-area")).toHaveValue("");
           expect(data).toStrictEqual({
             textArea: "",
           });
@@ -250,11 +233,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.type(screen.queryByDataCy("text-area"), "new value");
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          await user.clear(screen.queryByDataCy("text-area"));
-          expect(screen.queryByDataCy("text-area")).toHaveValue("myEmptyValue");
+          await user.type(screen.getByDataCy("text-area"), "new value");
+          await user.clear(screen.getByDataCy("text-area"));
+          expect(screen.getByDataCy("text-area")).toHaveValue("myEmptyValue");
           expect(data).toStrictEqual({
             textArea: "myEmptyValue",
           });
@@ -289,8 +270,7 @@ describe("spruce form", () => {
             uiSchema={uiSchema}
           />,
         );
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        await user.click(screen.queryByRole("button"));
+        await user.click(screen.getByRole("button"));
         expect(screen.queryAllByText("Vanilla")).toHaveLength(2);
         expect(screen.getByText("Chocolate")).toBeInTheDocument();
         expect(screen.getByText("Strawberry")).toBeInTheDocument();
@@ -327,8 +307,7 @@ describe("spruce form", () => {
             uiSchema={uiSchema}
           />,
         );
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        await user.click(screen.queryByRole("button"));
+        await user.click(screen.getByRole("button"));
 
         // LeafyGreen doesn't label disabled options as such, so instead of checking for a property
         // ensure that the disabled element is not clickable.
@@ -406,8 +385,10 @@ describe("spruce form", () => {
         expect(screen.getByLabelText("year")).toHaveValue("2025");
         expect(screen.getByLabelText("month")).toHaveValue("09");
         expect(screen.getByLabelText("day")).toHaveValue("16");
-        // Wait for the useUserSettings hook to move to success state
-        expect(await screen.findByDataCy("hour-input")).toHaveValue("11");
+        // Wait for the useUserSettings hook to move to success state and timezone conversion to apply
+        await waitFor(() => {
+          expect(screen.getByDataCy("hour-input")).toHaveValue("11");
+        });
         expect(screen.getByDataCy("minute-input")).toHaveValue("19");
       });
 
@@ -425,8 +406,10 @@ describe("spruce form", () => {
           </MockedProvider>,
         );
 
-        // Wait for the useUserSettings hook to move to success state
-        expect(await screen.findByDataCy("hour-input")).toHaveValue("11");
+        // Wait for the useUserSettings hook to move to success state and timezone conversion to apply
+        await waitFor(() => {
+          expect(screen.getByDataCy("hour-input")).toHaveValue("11");
+        });
 
         await user.clear(screen.getByLabelText("day"));
         await user.type(screen.getByLabelText("day"), "19");
@@ -455,8 +438,10 @@ describe("spruce form", () => {
           </MockedProvider>,
         );
 
-        // Wait for the useUserSettings hook to move to success state
-        expect(await screen.findByDataCy("hour-input")).toHaveValue("11");
+        // Wait for the useUserSettings hook to move to success state and timezone conversion to apply
+        await waitFor(() => {
+          expect(screen.getByDataCy("hour-input")).toHaveValue("11");
+        });
 
         await user.click(screen.getByRole("button", { name: "Clock Icon" }));
         await waitFor(() => {
