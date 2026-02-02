@@ -111,7 +111,6 @@ export const RestartFailedTasks: React.FC<RestartFailedTasksProps> = ({
 
     sendEvent({
       name: "Clicked restart failed tasks button",
-      abort: false,
       "task.modified_count": totalFailedTasks,
     });
 
