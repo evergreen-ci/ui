@@ -13,7 +13,6 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { RESTART_TASK } from "gql/mutations";
-import { TASK_ALL_EXECUTIONS } from "gql/queries";
 
 interface Props {
   isDisplayTask: boolean;
@@ -37,7 +36,7 @@ export const RestartButton: React.FC<Props> = ({ isDisplayTask, task }) => {
     RestartTaskMutation,
     RestartTaskMutationVariables
   >(RESTART_TASK, {
-    refetchQueries: [TASK_ALL_EXECUTIONS],
+    refetchQueries: ["TaskAllExecutions"],
     onCompleted: (data) => {
       const { latestExecution, priority } = data.restartTask ?? {};
       if ((priority || 0) < 0) {

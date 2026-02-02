@@ -197,6 +197,7 @@ export type AdminSettings = {
   releaseMode?: Maybe<ReleaseModeConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
+  sage?: Maybe<SageConfig>;
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
   shutdownWaitSeconds?: Maybe<Scalars["Int"]["output"]>;
@@ -253,6 +254,7 @@ export type AdminSettingsInput = {
   releaseMode?: InputMaybe<ReleaseModeConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
+  sage?: InputMaybe<SageConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
   serviceFlags?: InputMaybe<ServiceFlagsInput>;
   shutdownWaitSeconds?: InputMaybe<Scalars["Int"]["input"]>;
@@ -750,6 +752,13 @@ export type CursorParams = {
   includeCursor: Scalars["Boolean"]["input"];
 };
 
+/** CursorSettings represents the status of a user's Cursor API key stored in Sage. */
+export type CursorSettings = {
+  __typename?: "CursorSettings";
+  keyConfigured: Scalars["Boolean"]["output"];
+  keyLastFour?: Maybe<Scalars["String"]["output"]>;
+};
+
 /** DeactivateStepbackTaskInput is the input to the deactivateStepbackTask mutation. */
 export type DeactivateStepbackTaskInput = {
   buildVariantName: Scalars["String"]["input"];
@@ -761,6 +770,12 @@ export type DeactivateStepbackTaskInput = {
 export type DefaultSectionToRepoInput = {
   projectId: Scalars["String"]["input"];
   section: ProjectSettingsSection;
+};
+
+/** DeleteCursorAPIKeyPayload is the response from deleting a Cursor API key. */
+export type DeleteCursorApiKeyPayload = {
+  __typename?: "DeleteCursorAPIKeyPayload";
+  success: Scalars["Boolean"]["output"];
 };
 
 /** DeleteDistroInput is the input to the deleteDistro mutation. */
@@ -1985,6 +2000,7 @@ export type Mutation = {
   createPublicKey: Array<PublicKey>;
   deactivateStepbackTask: Scalars["Boolean"]["output"];
   defaultSectionToRepo?: Maybe<Scalars["String"]["output"]>;
+  deleteCursorAPIKey: DeleteCursorApiKeyPayload;
   deleteDistro: DeleteDistroPayload;
   deleteGithubAppCredentials?: Maybe<DeleteGithubAppCredentialsPayload>;
   deleteProject: Scalars["Boolean"]["output"];
@@ -2018,6 +2034,7 @@ export type Mutation = {
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
+  setCursorAPIKey: SetCursorApiKeyPayload;
   setLastRevision: SetLastRevisionPayload;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
@@ -2244,6 +2261,10 @@ export type MutationSetAnnotationMetadataLinksArgs = {
   execution: Scalars["Int"]["input"];
   metadataLinks: Array<MetadataLinkInput>;
   taskId: Scalars["String"]["input"];
+};
+
+export type MutationSetCursorApiKeyArgs = {
+  apiKey: Scalars["String"]["input"];
 };
 
 export type MutationSetLastRevisionArgs = {
@@ -2623,6 +2644,7 @@ export type Patches = {
  * Based on the information in PatchesInput, we return a list of Patches for either an individual user or a project.
  */
 export type PatchesInput = {
+  countLimit?: InputMaybe<Scalars["Int"]["input"]>;
   includeHidden?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: Scalars["Int"]["input"];
   onlyMergeQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3154,6 +3176,7 @@ export type Query = {
   buildBaron: BuildBaron;
   buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
+  cursorSettings?: Maybe<CursorSettings>;
   distro?: Maybe<Distro>;
   distroEvents: DistroEventsPayload;
   distroTaskQueue: Array<TaskQueueItem>;
@@ -3672,6 +3695,15 @@ export type SshKeyPairInput = {
   secretARN?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type SageConfig = {
+  __typename?: "SageConfig";
+  baseUrl?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SageConfigInput = {
+  baseUrl?: InputMaybe<Scalars["String"]["input"]>;
+};
+
 export type SaveAdminSettingsInput = {
   adminSettings: AdminSettingsInput;
 };
@@ -3841,6 +3873,13 @@ export type ServiceFlagsInput = {
   unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   useGitForGitHubFilesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
+/** SetCursorAPIKeyPayload is the response from setting a Cursor API key. */
+export type SetCursorApiKeyPayload = {
+  __typename?: "SetCursorAPIKeyPayload";
+  keyLastFour?: Maybe<Scalars["String"]["output"]>;
+  success: Scalars["Boolean"]["output"];
 };
 
 /**
@@ -4747,14 +4786,14 @@ export type UseSpruceOptionsInput = {
  */
 export type User = {
   __typename?: "User";
-  betaFeatures: BetaFeatures;
-  displayName: Scalars["String"]["output"];
-  emailAddress: Scalars["String"]["output"];
-  parsleyFilters: Array<ParsleyFilter>;
-  parsleySettings: ParsleySettings;
-  patches: Patches;
-  permissions: Permissions;
-  settings: UserSettings;
+  betaFeatures?: Maybe<BetaFeatures>;
+  displayName?: Maybe<Scalars["String"]["output"]>;
+  emailAddress?: Maybe<Scalars["String"]["output"]>;
+  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
+  parsleySettings?: Maybe<ParsleySettings>;
+  patches?: Maybe<Patches>;
+  permissions?: Maybe<Permissions>;
+  settings?: Maybe<UserSettings>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
   userId: Scalars["String"]["output"];
 };
@@ -4785,6 +4824,7 @@ export type UserConfig = {
 
 export type UserServiceFlags = {
   __typename?: "UserServiceFlags";
+  debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
@@ -9207,7 +9247,11 @@ export type OtherUserQueryVariables = Exact<{
 export type OtherUserQuery = {
   __typename?: "Query";
   currentUser: { __typename?: "User"; userId: string };
-  otherUser: { __typename?: "User"; displayName: string; userId: string };
+  otherUser: {
+    __typename?: "User";
+    displayName?: string | null;
+    userId: string;
+  };
 };
 
 export type PatchConfigureGeneratedTaskCountsQueryVariables = Exact<{
@@ -11648,7 +11692,7 @@ export type UserDistroSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: {
+    permissions?: {
       __typename?: "Permissions";
       canCreateDistro: boolean;
       distroPermissions: {
@@ -11656,7 +11700,7 @@ export type UserDistroSettingsPermissionsQuery = {
         admin: boolean;
         edit: boolean;
       };
-    };
+    } | null;
   };
 };
 
@@ -11670,7 +11714,7 @@ export type UserPatchesQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    patches: {
+    patches?: {
       __typename?: "Patches";
       filteredPatchCount: number;
       patches: Array<{
@@ -11706,7 +11750,7 @@ export type UserPatchesQuery = {
           } | null;
         } | null;
       }>;
-    };
+    } | null;
   };
 };
 
@@ -11719,11 +11763,11 @@ export type UserProjectSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: {
+    permissions?: {
       __typename?: "Permissions";
       canCreateProject: boolean;
       projectPermissions: { __typename?: "ProjectPermissions"; edit: boolean };
-    };
+    } | null;
   };
 };
 
@@ -11736,10 +11780,10 @@ export type UserRepoSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: {
+    permissions?: {
       __typename?: "Permissions";
       repoPermissions: { __typename?: "RepoPermissions"; edit: boolean };
-    };
+    } | null;
   };
 };
 
@@ -11750,7 +11794,7 @@ export type UserSettingsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    settings: {
+    settings?: {
       __typename?: "UserSettings";
       dateFormat?: string | null;
       region?: string | null;
@@ -11770,7 +11814,7 @@ export type UserSettingsQuery = {
         spawnHostExpiration?: string | null;
         spawnHostOutcome?: string | null;
       } | null;
-    };
+    } | null;
   };
 };
 
@@ -11781,7 +11825,7 @@ export type UserSubscriptionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    settings: {
+    settings?: {
       __typename?: "UserSettings";
       notifications?: {
         __typename?: "Notifications";
@@ -11791,7 +11835,7 @@ export type UserSubscriptionsQuery = {
         spawnHostExpirationId?: string | null;
         spawnHostOutcomeId?: string | null;
       } | null;
-    };
+    } | null;
     subscriptions?: Array<{
       __typename?: "GeneralSubscription";
       id: string;
@@ -11825,10 +11869,13 @@ export type UserQuery = {
   __typename?: "Query";
   user: {
     __typename?: "User";
-    displayName: string;
-    emailAddress: string;
+    displayName?: string | null;
+    emailAddress?: string | null;
     userId: string;
-    permissions: { __typename?: "Permissions"; canEditAdminSettings: boolean };
+    permissions?: {
+      __typename?: "Permissions";
+      canEditAdminSettings: boolean;
+    } | null;
   };
 };
 
