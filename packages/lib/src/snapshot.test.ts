@@ -125,8 +125,9 @@ describe(`${options.suite}`, () => {
         it(`${name}`, async () => {
           const { container } = render(story());
           await act(async () => {
+            // Wait for GraphQL queries to resolve with MockLink's default delay.
             await new Promise((resolve) => {
-              setTimeout(resolve, 0);
+              setTimeout(resolve, 100);
             });
           });
           const storyDirectory = path.dirname(filePath);
