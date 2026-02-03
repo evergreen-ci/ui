@@ -1,4 +1,4 @@
-import { glyphs } from "@evg-ui/lib/components/Icon";
+import { glyphs } from "@evg-ui/lib/components";
 import { ToolState } from "../types";
 /**
  * Mapping of tool names to their various states.

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Button, Variant } from "@leafygreen-ui/button";
-import { fontSize, size } from "@evg-ui/lib/constants/tokens";
+import { fontSize, size } from "@evg-ui/lib/constants";
 import { useChatContext } from "../Context";
 import { useAuthContext } from "./AuthProvider";
 

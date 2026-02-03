@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/triple-slash-reference -- pull in .svg/.graphql declarations for consumers */
+/// <reference path="../vite-env.d.ts" />
 export { default as usePagination } from "./usePagination";
 export { useErrorToast } from "./useErrorToast";
 export { useKeyboardShortcut } from "./useKeyboardShortcut";

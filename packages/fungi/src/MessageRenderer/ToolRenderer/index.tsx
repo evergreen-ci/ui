@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { Banner, Variant } from "@leafygreen-ui/banner";
 import { ToolUIPart } from "ai";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { Icon } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { AnimatedEllipsis } from "../../AnimatedEllipsis";
 import { ToolState, ToolStateEnum } from "../types";
 import { renderableToolLabels } from "./constants";

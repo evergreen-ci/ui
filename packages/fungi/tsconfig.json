@@ -10,7 +10,6 @@
   ],
   "compilerOptions": {
     "paths": {
-      "@evg-ui/lib/*": ["../lib/src/*"],
       "*": ["./src/*"]
     }
   },
