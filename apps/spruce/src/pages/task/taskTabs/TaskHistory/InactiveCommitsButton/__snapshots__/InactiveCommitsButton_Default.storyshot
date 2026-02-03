@@ -2,7 +2,7 @@
   <span>
     <button
       aria-disabled="false"
-      class="lg-ui-button-0000 leafygreen-ui-168frnw"
+      class="lg-ui-button-0000 leafygreen-ui-ys0yem"
       data-cy="collapsed-card"
       data-lgid="lg-button"
       type="button"
@@ -16,7 +16,7 @@
         <svg
           alt=""
           aria-hidden="true"
-          class="leafygreen-ui-1st74h4 leafygreen-ui-xpf1b6"
+          class="leafygreen-ui-1vwk8qb"
           height="16"
           role="presentation"
           viewBox="0 0 16 16"

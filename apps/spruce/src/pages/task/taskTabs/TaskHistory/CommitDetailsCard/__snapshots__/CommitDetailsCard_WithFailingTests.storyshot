@@ -51,7 +51,7 @@
       </a>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw"
+        class="lg-ui-button-0000 leafygreen-ui-ys0yem"
         data-cy="restart-button"
         data-lgid="lg-button"
         type="button"
@@ -67,7 +67,7 @@
       </button>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw"
+        class="lg-ui-button-0000 leafygreen-ui-ys0yem"
         data-cy="notify-task"
         data-lgid="lg-button"
         type="button"
@@ -115,7 +115,7 @@
       >
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-1cutrhb"
+          class="lg-ui-button-0000 leafygreen-ui-stq2kw"
           data-cy="set-priority-button"
           data-lgid="lg-button"
           type="button"
@@ -390,7 +390,7 @@
                               >
                                 <button
                                   aria-disabled="false"
-                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e1bp1fda0"
                                   data-lgid="lg-button"
                                   type="button"
                                 >
@@ -405,7 +405,7 @@
                                 </button>
                                 <a
                                   aria-disabled="false"
-                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e1bp1fda0"
                                   data-lgid="lg-button"
                                   href="0-parsley-url.mongodb.com"
                                   target="__blank"
@@ -527,7 +527,7 @@
                               >
                                 <button
                                   aria-disabled="false"
-                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e1bp1fda0"
                                   data-lgid="lg-button"
                                   type="button"
                                 >
@@ -542,7 +542,7 @@
                                 </button>
                                 <a
                                   aria-disabled="false"
-                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e1bp1fda0"
                                   data-lgid="lg-button"
                                   href="1-parsley-url.mongodb.com"
                                   target="__blank"
@@ -664,7 +664,7 @@
                               >
                                 <button
                                   aria-disabled="false"
-                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e1bp1fda0"
                                   data-lgid="lg-button"
                                   type="button"
                                 >
@@ -679,7 +679,7 @@
                                 </button>
                                 <a
                                   aria-disabled="false"
-                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e1bp1fda0"
                                   data-lgid="lg-button"
                                   href="2-parsley-url.mongodb.com"
                                   target="__blank"
@@ -801,7 +801,7 @@
                               >
                                 <button
                                   aria-disabled="false"
-                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e1bp1fda0"
                                   data-lgid="lg-button"
                                   type="button"
                                 >
@@ -816,7 +816,7 @@
                                 </button>
                                 <a
                                   aria-disabled="false"
-                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e1bp1fda0"
                                   data-lgid="lg-button"
                                   href="3-parsley-url.mongodb.com"
                                   target="__blank"
@@ -938,7 +938,7 @@
                               >
                                 <button
                                   aria-disabled="false"
-                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e1bp1fda0"
                                   data-lgid="lg-button"
                                   type="button"
                                 >
@@ -953,7 +953,7 @@
                                 </button>
                                 <a
                                   aria-disabled="false"
-                                  class="lg-ui-button-0000 leafygreen-ui-168frnw emotion-StyledButton e1bp1fda0"
+                                  class="lg-ui-button-0000 leafygreen-ui-ys0yem emotion-StyledButton e1bp1fda0"
                                   data-lgid="lg-button"
                                   href="4-parsley-url.mongodb.com"
                                   target="__blank"

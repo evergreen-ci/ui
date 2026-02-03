@@ -58,6 +58,10 @@ describe("admin event log page", async () => {
       "08/07/2020, 17:57:00 EDT",
     ];
 
+    await waitFor(() => {
+      expect(screen.getByText(expectedTimestamps[0])).toBeInTheDocument();
+    });
+
     expectedTimestamps.forEach((timestamp) => {
       expect(screen.getByText(timestamp)).toBeInTheDocument();
     });

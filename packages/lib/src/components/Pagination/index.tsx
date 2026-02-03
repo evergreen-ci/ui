@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { size } from "../../constants/tokens";
 import usePagination from "../../hooks/usePagination";
 import Icon from "../Icon";
 
 interface Props {
+  countLimit?: number;
   currentPage: number;
   onChange?: (i: number) => void;
   totalResults: number;
@@ -16,6 +17,7 @@ interface Props {
  * Pagination component for navigating between pages of data
  * By default it will update the page query param in the URL
  * @param props - React props passed to the component
+ * @param props.countLimit - optional count for the max value that was queried for. Used to display "many" instead of an exact number
  * @param props.currentPage - the current page
  * @param props.onChange - optional callback for when the page changes (Will override the default behavior of updating the URL query param)
  * @param props.totalResults - total number of results
@@ -23,6 +25,7 @@ interface Props {
  * @returns The Pagination component
  */
 const Pagination: React.FC<Props> = ({
+  countLimit,
   currentPage,
   onChange,
   pageSize,
@@ -39,6 +42,9 @@ const Pagination: React.FC<Props> = ({
     handleChange(currentPage + 1);
   };
 
+  const denominator =
+    countLimit && totalResults >= countLimit ? "many" : numPages;
+
   return (
     <Container data-cy="pagination">
       <StyledButton
@@ -50,7 +56,7 @@ const Pagination: React.FC<Props> = ({
       />
       <PageLabel>
         <Disclaimer>
-          {numPages > 0 ? currentPage + 1 : 0} / {numPages}
+          {numPages > 0 ? currentPage + 1 : 0} / {denominator}
         </Disclaimer>
       </PageLabel>
       <StyledButton
