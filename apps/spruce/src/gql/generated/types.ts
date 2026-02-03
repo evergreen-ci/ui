@@ -5053,7 +5053,6 @@ export type WaterfallTask = {
   displayStatusCache: Scalars["String"]["output"];
   execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
-  status: Scalars["String"]["output"];
 };
 
 export type WaterfallVersion = {
@@ -12253,7 +12252,6 @@ export type WaterfallQuery = {
           displayName: string;
           displayStatusCache: string;
           execution: number;
-          status: string;
         }>;
       }> | null;
     }>;

@@ -26,7 +26,6 @@ export type Build = {
     displayStatusCache: string;
     execution: number;
     id: string;
-    status: string;
   }>;
   version: string;
 };
