@@ -8,6 +8,19 @@ import {
 } from "../../gql/generated/types";
 import { ADMIN_BETA_FEATURES, USER_BETA_FEATURES } from "../../gql/queries";
 
+// Re-export operations and types for consumers (e.g. mutation forms)
+export { UPDATE_USER_BETA_FEATURES } from "../../gql/mutations";
+export { ADMIN_BETA_FEATURES, USER_BETA_FEATURES } from "../../gql/queries";
+export type {
+  AdminBetaFeaturesQuery,
+  AdminBetaFeaturesQueryVariables,
+  BetaFeatures,
+  UpdateUserBetaFeaturesMutation,
+  UpdateUserBetaFeaturesMutationVariables,
+  UserBetaFeaturesQuery,
+  UserBetaFeaturesQueryVariables,
+} from "../../gql/generated/types";
+
 /**
  * `useAdminBetaFeatures` returns the beta features defined at the admin level.
  * @returns an object containing
