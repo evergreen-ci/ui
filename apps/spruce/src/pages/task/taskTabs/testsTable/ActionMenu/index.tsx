@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { Size as ButtonSize } from "@leafygreen-ui/button";
-import { useToastContext } from "@evg-ui/lib/context/toast";
-import { TestStatus } from "@evg-ui/lib/types/test";
+import { useToastContext } from "@evg-ui/lib/context";
+import { TestStatus } from "@evg-ui/lib/types";
 import { useTaskAnalytics } from "analytics";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import {

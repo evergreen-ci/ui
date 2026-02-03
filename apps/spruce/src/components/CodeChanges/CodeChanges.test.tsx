@@ -4,8 +4,8 @@ import {
   renderWithRouterMatch,
   screen,
   waitFor,
+  ApolloMock,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { getVersionDiffRoute } from "constants/routes";
 import {
   CodeChangesQuery,

@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { AttributeStore } from "@evg-ui/lib/utils/observability/types";
+import { AttributeStore } from "@evg-ui/lib/utils";
 
 declare global {
   module "*.graphql" {

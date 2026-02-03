@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 
 // Reduce the amount of padding in the review column
 export const taskReviewStyles = css`

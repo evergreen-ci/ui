@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Icon from "@evg-ui/lib/components/Icon";
+import { Icon } from "@evg-ui/lib/components";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { AddNotification } from "./AddNotification";

@@ -2,7 +2,7 @@ import { forwardRef, useState } from "react";
 import styled from "@emotion/styled";
 import { Tab, Tabs } from "@leafygreen-ui/tabs";
 import { H3 } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import ButtonRow from "./ButtonRow";
 import SearchRangeInput from "./SearchRangeInput";

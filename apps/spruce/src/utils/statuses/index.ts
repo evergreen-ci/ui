@@ -1,4 +1,4 @@
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { failedTaskStatuses, finishedTaskStatuses } from "constants/task";
 import { getCurrentStatuses } from "./getCurrentStatuses";
 import { groupStatusesByUmbrellaStatus } from "./groupStatusesByUmbrellaStatus";

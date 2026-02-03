@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Body, Subtitle } from "@leafygreen-ui/typography";
-import { StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink } from "@evg-ui/lib/components";
 import { dataRetentionDocumentationUrl } from "constants/externalResources";
 
 const background = palette.green.light3;

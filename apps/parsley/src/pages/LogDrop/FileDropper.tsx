@@ -2,14 +2,14 @@ import { useCallback, useTransition } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { FileRejection, useDropzone } from "react-dropzone";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import {
   SentryBreadcrumbTypes,
+  decodeStream,
   leaveBreadcrumb,
   reportError,
-} from "@evg-ui/lib/utils/errorReporting";
-import { decodeStream } from "@evg-ui/lib/utils/streams";
+} from "@evg-ui/lib/utils";
 import { useLogDropAnalytics } from "analytics";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { LOG_LINE_TOO_LARGE_WARNING } from "constants/errors";

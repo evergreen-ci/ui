@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Card } from "@leafygreen-ui/card";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { ErrorWrapper } from "components/ErrorWrapper";
 
 interface Props {

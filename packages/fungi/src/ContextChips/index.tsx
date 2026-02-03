@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { RichLink } from "@lg-chat/rich-links";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { Icon } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { ContextChip } from "../Context/context";
 
 export type ContextChipsProps = {

@@ -9,7 +9,7 @@ export {
   isProductionBuild,
   isStaging,
   isTest,
-} from "@evg-ui/lib/utils/environmentVariables";
+} from "@evg-ui/lib/utils";
 
 const getSentryDSN = () => process.env.REACT_APP_PARSLEY_SENTRY_DSN || "";
 

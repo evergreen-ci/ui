@@ -977,6 +977,12 @@ importers:
       '@types/react-dom':
         specifier: 18.3.1
         version: 18.3.1
+      '@vitejs/plugin-react':
+        specifier: 5.1.2
+        version: 5.1.2(vite@7.3.1(@types/node@22.19.5)(jiti@2.6.1)(yaml@2.8.2))
+      babel-plugin-import-graphql:
+        specifier: ^2.8.1
+        version: 2.8.1(graphql-tag@2.12.6(graphql@16.10.0))(graphql@16.10.0)
       chromatic:
         specifier: ^13.3.4
         version: 13.3.5

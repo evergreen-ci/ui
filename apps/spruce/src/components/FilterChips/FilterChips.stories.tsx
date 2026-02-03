@@ -2,10 +2,10 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { TextInput } from "@leafygreen-ui/text-input";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { size } from "@evg-ui/lib/constants";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils";
 
-import { toSentenceCase } from "@evg-ui/lib/utils/string";
+import { toSentenceCase } from "@evg-ui/lib/utils";
 import { FilterChipType } from "./FilterChip";
 import FilterChips from ".";
 

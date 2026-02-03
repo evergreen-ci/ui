@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { leaveBreadcrumb, reportError } from "@evg-ui/lib/utils/errorReporting";
-import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
+import {
+  SentryBreadcrumbTypes,
+  leaveBreadcrumb,
+  reportError,
+} from "@evg-ui/lib/utils";
 import { isProduction } from "utils/environmentVariables";
 /**
  * `useFetch` is a custom hook that downloads json from a given URL.

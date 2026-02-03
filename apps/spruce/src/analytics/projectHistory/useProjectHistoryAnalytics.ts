@@ -1,4 +1,4 @@
-import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics";
 import { AnalyticsIdentifier } from "analytics/types";
 import { FilterType } from "components/TupleSelectWithRegexConditional";
 

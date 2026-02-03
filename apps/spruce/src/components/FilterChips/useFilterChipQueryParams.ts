@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { toSentenceCase } from "@evg-ui/lib/utils/string";
+import { toSentenceCase } from "@evg-ui/lib/utils";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString, array } from "utils";
 import { FilterChipType } from "./FilterChip";

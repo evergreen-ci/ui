@@ -1,4 +1,4 @@
-import { StringMap } from "@evg-ui/lib/types/utils";
+import { StringMap } from "@evg-ui/lib/types";
 import { NotificationMethods } from "types/subscription";
 import { Trigger, ExtraField } from "types/triggers";
 import { FormState, FormExtraFields, FormRegexSelector } from "./types";

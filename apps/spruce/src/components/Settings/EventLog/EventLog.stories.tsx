@@ -1,5 +1,5 @@
 import { actions } from "storybook/actions";
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils";
 import { Event } from "./types";
 import EventLog from ".";
 

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { toSentenceCase } from "@evg-ui/lib/utils/string";
+import { size } from "@evg-ui/lib/constants";
+import { toSentenceCase } from "@evg-ui/lib/utils";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { PreferredAuthType } from "gql/generated/types";

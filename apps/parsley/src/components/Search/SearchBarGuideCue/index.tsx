@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
 import Cookie from "js-cookie";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { HAS_SEEN_SEARCHBAR_GUIDE_CUE } from "constants/cookies";
 
 const SearchBarGuideCue: React.FC = () => {

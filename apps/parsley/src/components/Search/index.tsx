@@ -1,9 +1,8 @@
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { useQueryParams } from "@evg-ui/lib/hooks";
-import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
-import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
+import { SentryBreadcrumbTypes, leaveBreadcrumb } from "@evg-ui/lib/utils";
 import { useLogWindowAnalytics } from "analytics";
 import SearchBar from "components/Search/SearchBar";
 import SearchBarGuideCue from "components/Search/SearchBarGuideCue";

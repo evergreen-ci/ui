@@ -6,7 +6,7 @@ import {
   isTomorrow,
   parse,
 } from "date-fns";
-import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
+import { arraySymmetricDifference } from "@evg-ui/lib/utils";
 import { ValidateProps } from "components/SpruceForm";
 import { days } from "constants/time";
 import { SleepSchedule, SleepScheduleInput } from "gql/generated/types";

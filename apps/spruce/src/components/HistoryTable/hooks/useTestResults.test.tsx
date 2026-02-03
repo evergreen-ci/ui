@@ -1,5 +1,4 @@
-import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { act, renderHook, waitFor, ApolloMock } from "@evg-ui/lib/test_utils";
 import {
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,

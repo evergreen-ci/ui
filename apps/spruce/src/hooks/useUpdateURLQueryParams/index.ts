@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { stringifyQuery } from "@evg-ui/lib/utils/query-string";
+import { stringifyQuery } from "@evg-ui/lib/utils";
 import { queryString } from "utils";
 
 const { parseQueryString } = queryString;

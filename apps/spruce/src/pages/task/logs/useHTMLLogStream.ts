@@ -5,7 +5,7 @@ import {
   getSeverityMapping,
   mapLogLevelToColor,
   trimSeverity,
-} from "@evg-ui/lib/utils/string/logs";
+} from "@evg-ui/lib/utils";
 import { useHTMLStream } from "hooks/useHTMLStream";
 
 interface UseHTMLLogStreamOptions {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Callout } from "@leafygreen-ui/callout";
-import Icon from "@evg-ui/lib/components/Icon";
+import { Icon } from "@evg-ui/lib/components";
 import { DisplayModal } from "components/DisplayModal";
 import {
   BannerContainer,

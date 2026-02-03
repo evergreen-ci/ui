@@ -1,7 +1,7 @@
 import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
-import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components";
+import { shortenGithash } from "@evg-ui/lib/utils";
 import { useVersionAnalytics } from "analytics";
 import MetadataCard, {
   MetadataItem,

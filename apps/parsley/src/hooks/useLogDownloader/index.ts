@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { useToastContext } from "@evg-ui/lib/context/toast";
-import { leaveBreadcrumb, reportError } from "@evg-ui/lib/utils/errorReporting";
-import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
+import { useToastContext } from "@evg-ui/lib/context";
+import {
+  SentryBreadcrumbTypes,
+  leaveBreadcrumb,
+  reportError,
+} from "@evg-ui/lib/utils";
 import { useLogDownloadAnalytics } from "analytics";
 import { LogTypes } from "constants/enums";
 import {

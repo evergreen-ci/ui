@@ -5,8 +5,8 @@ import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import { useDistroSettingsAnalytics } from "analytics";
 import {
   DistroOnSaveOperation,

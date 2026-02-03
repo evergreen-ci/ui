@@ -1,4 +1,4 @@
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
+import { reportError } from "@evg-ui/lib/utils";
 import { getTaskRoute } from "constants/routes";
 import { LastMainlineCommitQuery } from "gql/generated/types";
 import { BaseTask, CommitTask, CommitType } from "./types";

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Banner } from "@leafygreen-ui/banner";
-import { StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink } from "@evg-ui/lib/components";
 import { containersOnboardingDocumentationUrl } from "constants/externalResources";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { useSpruceConfig } from "hooks";

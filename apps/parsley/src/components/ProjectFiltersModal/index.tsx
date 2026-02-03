@@ -5,19 +5,18 @@ import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer, Link } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
-import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
+  Icon,
   LGColumnDef,
   RowSelectionState,
   TablePlaceholder,
   onChangeHandler,
   useLeafyGreenTable,
-} from "@evg-ui/lib/components/Table";
-import { Unpacked } from "@evg-ui/lib/types/utils";
-import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
-import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
+  wordBreakCss,
+} from "@evg-ui/lib/components";
+import { Unpacked } from "@evg-ui/lib/types";
+import { SentryBreadcrumbTypes, leaveBreadcrumb } from "@evg-ui/lib/utils";
 import { useLogWindowAnalytics } from "analytics";
 import { getProjectSettingsURL } from "constants/externalURLTemplates";
 import { useLogContext } from "context/LogContext";

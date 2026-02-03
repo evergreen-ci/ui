@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
-import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
+import { TreeDataEntry } from "@evg-ui/lib/components";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { taskStatusesFilterTreeData } from "constants/task";
 import {

@@ -3,9 +3,9 @@ import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
-import Accordion from "@evg-ui/lib/components/Accordion";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { Accordion } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { shortenGithash } from "@evg-ui/lib/utils";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { getVersionRoute } from "constants/routes";
 import {

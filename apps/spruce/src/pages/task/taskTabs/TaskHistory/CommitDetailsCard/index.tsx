@@ -8,15 +8,12 @@ import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
-import Accordion, {
-  AccordionCaretAlign,
-} from "@evg-ui/lib/components/Accordion";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { Accordion, AccordionCaretAlign, Icon } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import { useQueryParam } from "@evg-ui/lib/hooks";
-import { TaskStatus } from "@evg-ui/lib/types/task";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { TaskStatus } from "@evg-ui/lib/types";
+import { shortenGithash } from "@evg-ui/lib/utils";
 import { useTaskHistoryAnalytics } from "analytics";
 import SetPriority, { Align } from "components/SetPriority";
 import { inactiveElementStyle } from "components/styles";

@@ -3,8 +3,8 @@ import { Banner } from "@leafygreen-ui/banner";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
-import Accordion from "@evg-ui/lib/components/Accordion";
-import { fontSize, size } from "@evg-ui/lib/constants/tokens";
+import { Accordion } from "@evg-ui/lib/components";
+import { fontSize, size } from "@evg-ui/lib/constants";
 import { getFields } from "components/SpruceForm/utils";
 import { SpruceFormContainer } from "../../Container";
 

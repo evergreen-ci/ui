@@ -5,15 +5,13 @@ import {
   HttpLink,
   InMemoryCache,
 } from "@apollo/client";
-import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
+import { useAuthProviderContext } from "@evg-ui/lib/context";
 import {
   SentryBreadcrumbTypes,
-  leaveBreadcrumb,
-} from "@evg-ui/lib/utils/errorReporting";
-import {
   fetchWithRetry,
+  leaveBreadcrumb,
   shouldLogoutAndRedirect,
-} from "@evg-ui/lib/utils/request";
+} from "@evg-ui/lib/utils";
 import { logGQLErrorsLink, retryLink } from "gql/client/link";
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
+  WordBreak,
+  StyledRouterLink,
   ColumnFiltersState,
   ColumnFiltering,
   RowSelectionState,
@@ -11,9 +12,9 @@ import {
   BaseTable,
   onChangeHandler,
   LGColumnDef,
-} from "@evg-ui/lib/components/Table";
+} from "@evg-ui/lib/components";
 import { useQueryParams } from "@evg-ui/lib/hooks";
-import { Unpacked } from "@evg-ui/lib/types/utils";
+import { Unpacked } from "@evg-ui/lib/types";
 import { useHostsTableAnalytics } from "analytics";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";

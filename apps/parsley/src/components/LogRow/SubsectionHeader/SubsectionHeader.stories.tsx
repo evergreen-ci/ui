@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils";
 import { RowType } from "types/logs";
 import SubsectionHeader from ".";
 

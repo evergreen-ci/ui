@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useSpawnAnalytics } from "analytics";
 import { PlusButton } from "components/Buttons";

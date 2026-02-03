@@ -5,13 +5,15 @@ import { IconButton } from "@leafygreen-ui/icon-button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
 import debounce from "lodash.debounce";
-import Icon from "@evg-ui/lib/components/Icon";
-import { TextInputWithGlyph } from "@evg-ui/lib/components/TextInputWithGlyph";
-import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
-import { size, textInputHeight } from "@evg-ui/lib/constants/tokens";
-import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
-import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
-import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
+import { Icon, TextInputWithGlyph } from "@evg-ui/lib/components";
+import {
+  CharKey,
+  ModifierKey,
+  size,
+  textInputHeight,
+} from "@evg-ui/lib/constants";
+import { useKeyboardShortcut } from "@evg-ui/lib/hooks";
+import { SentryBreadcrumbTypes, leaveBreadcrumb } from "@evg-ui/lib/utils";
 import { useLogWindowAnalytics } from "analytics";
 import { SearchBarActions } from "constants/enums";
 import { DIRECTION } from "context/LogContext/types";

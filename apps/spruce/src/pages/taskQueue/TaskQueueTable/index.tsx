@@ -7,13 +7,11 @@ import {
   WordBreak,
   StyledRouterLink,
   wordBreakCss,
-} from "@evg-ui/lib/components/styles";
-import {
   LGColumnDef,
   useLeafyGreenVirtualTable,
   BaseTable,
   TablePlaceholder,
-} from "@evg-ui/lib/components/Table";
+} from "@evg-ui/lib/components";
 import { useTaskQueueAnalytics } from "analytics";
 import { isWaterfallRequester, Requester } from "constants/requesters";
 import {

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
 import { sectionHeaderWrapperStyle } from "components/styles";

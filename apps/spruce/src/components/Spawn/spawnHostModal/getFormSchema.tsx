@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { InlineCode } from "@leafygreen-ui/typography";
-import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components";
+import { shortenGithash } from "@evg-ui/lib/utils";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";

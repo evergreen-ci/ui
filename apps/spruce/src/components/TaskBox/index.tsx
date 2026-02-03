@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { size } from "@evg-ui/lib/constants";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { statusColorMap, statusIconMap } from "./icons";
 
 const { black, gray, white } = palette;

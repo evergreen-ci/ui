@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Code } from "@leafygreen-ui/code";
 import { Body, BodyProps, InlineCode } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { SettingsCard } from "components/SettingsCard";
 import {
   ClientConfigQuery,

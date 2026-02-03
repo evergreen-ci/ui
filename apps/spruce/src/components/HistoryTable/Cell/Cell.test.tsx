@@ -3,7 +3,7 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { TaskCell } from ".";
 
 describe("taskCell", () => {

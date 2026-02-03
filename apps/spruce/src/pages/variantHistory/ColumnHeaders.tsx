@@ -1,9 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { useToastContext } from "@evg-ui/lib/context/toast";
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
-import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
+import { useToastContext } from "@evg-ui/lib/context";
+import { reportError, trimStringFromMiddle } from "@evg-ui/lib/utils";
 import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import { context, Cell, hooks } from "components/HistoryTable";
 import {

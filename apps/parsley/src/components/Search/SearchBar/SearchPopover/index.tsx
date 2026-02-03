@@ -10,10 +10,9 @@ import {
   Overline,
   OverlineProps,
 } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
-import { CharKey } from "@evg-ui/lib/constants/keys";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";
+import { Icon } from "@evg-ui/lib/components";
+import { CharKey, size } from "@evg-ui/lib/constants";
+import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { SearchSuggestionGroup } from "./types";
 
 const { blue, gray } = palette;

@@ -1,4 +1,4 @@
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils";
 import { SearchSuggestionGroup } from "./SearchPopover/types";
 
 import SearchBar from ".";

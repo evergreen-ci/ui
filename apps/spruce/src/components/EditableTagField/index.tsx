@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { InstanceTag, ParameterInput } from "gql/generated/types";
 import { array } from "utils";
 import { TagRow } from "./TagRow";

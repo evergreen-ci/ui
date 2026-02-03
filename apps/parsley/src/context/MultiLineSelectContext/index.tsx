@@ -6,8 +6,7 @@ import {
   useState,
 } from "react";
 import { useQueryParam } from "@evg-ui/lib/hooks";
-import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
-import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
+import { SentryBreadcrumbTypes, leaveBreadcrumb } from "@evg-ui/lib/utils";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 import useLineRangeSelection from "hooks/useLineRangeSelection";
 

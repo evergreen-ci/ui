@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { Card } from "@leafygreen-ui/card";
-import { MockedProvider } from "@evg-ui/lib/test_utils";
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import {
+  CustomMeta,
+  CustomStoryObj,
+  MockedProvider,
+} from "@evg-ui/lib/test_utils";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { parsleySettingsMock } from "test_data/parsleySettings";

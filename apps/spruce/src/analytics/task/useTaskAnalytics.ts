@@ -1,6 +1,6 @@
 import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
-import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import { TaskTimingMetric } from "constants/externalResources/honeycomb";

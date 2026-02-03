@@ -1,6 +1,6 @@
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { useMatch } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
+import { Icon } from "@evg-ui/lib/components";
 import { routes } from "constants/routes";
 import { waterfallPageContainerId } from "../constants";
 

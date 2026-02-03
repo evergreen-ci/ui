@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Card } from "@leafygreen-ui/card";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { LoadingButton } from "components/Buttons";
 import EventDiffTable from "./EventDiffTable";
 import { CustomKeyValueRenderConfig } from "./EventDiffTable/utils/keyRenderer";

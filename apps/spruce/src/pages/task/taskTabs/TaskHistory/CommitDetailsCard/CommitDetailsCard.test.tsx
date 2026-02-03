@@ -1,12 +1,12 @@
-import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  ApolloMock,
+  MockedProviderProps,
+  RenderFakeToastContext,
   renderWithRouterMatch,
   screen,
   userEvent,
   waitFor,
-  MockedProviderProps,
-} from "@evg-ui/lib/src/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+} from "@evg-ui/lib/test_utils";
 import {
   RestartTaskMutation,
   RestartTaskMutationVariables,

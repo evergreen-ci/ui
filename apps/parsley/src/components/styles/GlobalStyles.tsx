@@ -1,9 +1,5 @@
 import { Global, css } from "@emotion/react";
-import {
-  bodyStyles,
-  fontStyles,
-  resetStyles,
-} from "@evg-ui/lib/components/styles";
+import { bodyStyles, fontStyles, resetStyles } from "@evg-ui/lib/components";
 
 export const globalStyles = css`
   ${fontStyles}

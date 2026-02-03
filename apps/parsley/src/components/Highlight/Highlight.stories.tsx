@@ -1,4 +1,4 @@
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils";
 import Highlight, { highlightColorList } from ".";
 
 export default {

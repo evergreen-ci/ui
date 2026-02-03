@@ -12,7 +12,7 @@ import {
   TooltipJustify,
 } from "@leafygreen-ui/guide-cue";
 import { Align as BeaconAlign } from "@leafygreen-ui/popover";
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
+import { reportError } from "@evg-ui/lib/utils";
 
 export type WalkthroughStep = {
   title: string;

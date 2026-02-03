@@ -7,8 +7,8 @@ import {
   ChatProvider as FungiProvider,
   useChatContext,
 } from "@evg-ui/fungi/Context";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { post } from "@evg-ui/lib/utils/request/post";
+import { size } from "@evg-ui/lib/constants";
+import { post } from "@evg-ui/lib/utils";
 import { useAIAgentAnalytics } from "analytics";
 import { aiPrompts } from "constants/aiPrompts";
 import { useLogContext } from "context/LogContext";

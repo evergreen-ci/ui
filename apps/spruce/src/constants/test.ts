@@ -1,5 +1,5 @@
-import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
-import { TestStatus } from "@evg-ui/lib/types/test";
+import { ALL_VALUE } from "@evg-ui/lib/components";
+import { TestStatus } from "@evg-ui/lib/types";
 
 export const testStatusesFilterTreeData = [
   {

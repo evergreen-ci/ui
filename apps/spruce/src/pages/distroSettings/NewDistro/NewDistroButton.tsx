@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Button, Size, Variant } from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { useParams } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
+import { Icon } from "@evg-ui/lib/components";
 import { slugs } from "constants/routes";
 import {
   UserDistroSettingsPermissionsQuery,

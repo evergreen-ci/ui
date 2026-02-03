@@ -5,7 +5,7 @@ import {
   TableSkeleton,
   Size,
 } from "@leafygreen-ui/skeleton-loader";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import {
   PageContent,
   PageLayout,

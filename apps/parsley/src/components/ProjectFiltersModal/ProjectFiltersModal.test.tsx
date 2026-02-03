@@ -1,5 +1,6 @@
-import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  ApolloMock,
+  RenderFakeToastContext as InitializeFakeToastContext,
   MockedProvider,
   MockedResponse,
   act,
@@ -10,7 +11,6 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
 import {

@@ -1,4 +1,4 @@
-import { StreamedFetchOptions } from "@evg-ui/lib/utils/request/streamedFetch";
+import { StreamedFetchOptions } from "@evg-ui/lib/utils";
 import { fetchLogFile } from ".";
 
 describe("fetchLogFile", () => {

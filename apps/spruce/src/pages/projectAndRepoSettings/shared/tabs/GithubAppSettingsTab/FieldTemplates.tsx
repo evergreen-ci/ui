@@ -4,8 +4,8 @@ import {
   useLeafyGreenTable,
   LGColumnDef,
   BaseTable,
-} from "@evg-ui/lib/components/Table";
-import { Unpacked } from "@evg-ui/lib/types/utils";
+} from "@evg-ui/lib/components";
+import { Unpacked } from "@evg-ui/lib/types";
 import { tableColumnOffset } from "constants/tokens";
 
 type ArrayItem = Unpacked<ArrayFieldTemplateProps["items"]>;

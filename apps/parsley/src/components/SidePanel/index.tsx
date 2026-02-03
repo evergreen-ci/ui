@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { SideNav } from "@leafygreen-ui/side-nav";
 import Cookie from "js-cookie";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { DRAWER_OPENED } from "constants/cookies";
 import { ExpandedLines } from "types/logs";
 import {

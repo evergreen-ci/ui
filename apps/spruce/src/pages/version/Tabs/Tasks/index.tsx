@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
 import { useLocation } from "react-router-dom";
-import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
+import { PaginationQueryParams } from "@evg-ui/lib/constants";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";

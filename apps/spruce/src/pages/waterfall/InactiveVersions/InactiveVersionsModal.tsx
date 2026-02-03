@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import pluralize from "pluralize";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { DisplayModal } from "components/DisplayModal";
 import { Version } from "../types";
 import { VersionLabel, VersionLabelView } from "../VersionLabel";

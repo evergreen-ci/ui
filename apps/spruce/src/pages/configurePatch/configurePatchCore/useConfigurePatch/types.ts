@@ -1,4 +1,4 @@
-import { Unpacked } from "@evg-ui/lib/types/utils";
+import { Unpacked } from "@evg-ui/lib/types";
 import { ConfigurePatchQuery } from "gql/generated/types";
 
 type PatchQuery = ConfigurePatchQuery["patch"];

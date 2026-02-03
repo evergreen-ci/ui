@@ -1,8 +1,7 @@
 import { useQuery } from "@apollo/client/react";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { useErrorToast } from "@evg-ui/lib/hooks";
-import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { useErrorToast, usePageTitle } from "@evg-ui/lib/hooks";
 import { TitleContainer, Title, BadgeWrapper } from "components/Spawn";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";

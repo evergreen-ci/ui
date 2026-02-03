@@ -1,5 +1,5 @@
-import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TreeDataEntry } from "@evg-ui/lib/components";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { getCurrentStatuses } from "utils/statuses";
 
 describe("getCurrentStatuses", () => {

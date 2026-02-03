@@ -1,4 +1,4 @@
-import { Unpacked } from "@evg-ui/lib/types/utils";
+import { Unpacked } from "@evg-ui/lib/types";
 import { projectTriggers, allowedSelectors } from "constants/triggers";
 import { SubscriptionInput } from "gql/generated/types";
 import { NotificationMethods } from "types/subscription";

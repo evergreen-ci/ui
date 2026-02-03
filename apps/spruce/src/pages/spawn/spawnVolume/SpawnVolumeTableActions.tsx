@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { TableVolume } from "types/spawn";
 import { AttachButton } from "./spawnVolumeTableActions/AttachButton";
 import { DeleteVolumeButton } from "./spawnVolumeTableActions/DeleteVolumeButton";

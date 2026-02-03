@@ -1,9 +1,8 @@
 import { useCallback, useState } from "react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { useLocation, useNavigate } from "react-router-dom";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
-import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
+import { StyledRouterLink } from "@evg-ui/lib/components";
+import { SentryBreadcrumbTypes, leaveBreadcrumb } from "@evg-ui/lib/utils";
 import { useLogDropAnalytics } from "analytics";
 import routes from "constants/routes";
 

@@ -6,10 +6,9 @@ import { MenuItem } from "@leafygreen-ui/menu";
 import { NumberInput } from "@leafygreen-ui/number-input";
 import { palette } from "@leafygreen-ui/palette";
 import pluralize from "pluralize";
-import Icon from "@evg-ui/lib/components/Icon";
-import Popconfirm, { Align, Justify } from "@evg-ui/lib/components/Popconfirm";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { Icon, Align, Justify, Popconfirm } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import { useVersionAnalytics, useTaskAnalytics } from "analytics";
 import {
   SetVersionPriorityMutation,

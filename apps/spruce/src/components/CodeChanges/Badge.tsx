@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Badge as LGBadge } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 
 interface Props {
   additions: number;

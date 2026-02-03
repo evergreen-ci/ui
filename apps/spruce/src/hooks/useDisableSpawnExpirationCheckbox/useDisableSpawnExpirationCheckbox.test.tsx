@@ -1,5 +1,4 @@
-import { MockedProvider, renderHook } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { MockedProvider, renderHook, ApolloMock } from "@evg-ui/lib/test_utils";
 import {
   MyHostsQuery,
   MyHostsQueryVariables,

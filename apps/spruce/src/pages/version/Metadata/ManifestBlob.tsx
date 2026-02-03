@@ -1,4 +1,4 @@
-import { StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink } from "@evg-ui/lib/components";
 import { MetadataItem } from "components/MetadataCard";
 import { Manifest } from "gql/generated/types";
 import { omitTypename } from "utils/object";

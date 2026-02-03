@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
-import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import {
   BaseTable,
   ColumnFiltering,
@@ -13,12 +12,12 @@ import {
   RowSorting,
   SortingState,
   TablePlaceholder,
+  TaskStatusBadge,
+  TreeDataEntry,
   useLeafyGreenTable,
-} from "@evg-ui/lib/components/Table";
-import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
+} from "@evg-ui/lib/components";
 import { useQueryParams } from "@evg-ui/lib/hooks";
-import { TaskStatus } from "@evg-ui/lib/types/task";
-import { Unpacked } from "@evg-ui/lib/types/utils";
+import { TaskStatus, Unpacked } from "@evg-ui/lib/types";
 import { useVersionAnalytics } from "analytics";
 import { TaskLink } from "components/TasksTable/TaskLink";
 import { TableQueryParams } from "constants/queryParams";

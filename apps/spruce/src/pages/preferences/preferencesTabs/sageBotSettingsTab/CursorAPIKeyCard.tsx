@@ -5,8 +5,8 @@ import { Button, Variant } from "@leafygreen-ui/button";
 import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { TextInput } from "@leafygreen-ui/text-input";
 import { Body, InlineKeyCode, Link, Subtitle } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import {

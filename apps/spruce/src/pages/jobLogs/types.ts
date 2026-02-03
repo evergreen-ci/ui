@@ -1,5 +1,4 @@
-import { TaskStatus } from "@evg-ui/lib/types/task";
-import { Unpacked } from "@evg-ui/lib/types/utils";
+import { TaskStatus, Unpacked } from "@evg-ui/lib/types";
 import {
   LogkeeperBuildMetadataQuery,
   TaskTestsForJobLogsQuery,

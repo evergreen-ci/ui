@@ -3,7 +3,7 @@ import { Button, Size } from "@leafygreen-ui/button";
 import { Menu, MenuItem, MenuItemProps } from "@leafygreen-ui/menu";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
+import { Icon } from "@evg-ui/lib/components";
 import { useTaskAnalytics } from "analytics";
 import { TaskQuery } from "gql/generated/types";
 import { useBreakingTask } from "hooks/useBreakingTask";

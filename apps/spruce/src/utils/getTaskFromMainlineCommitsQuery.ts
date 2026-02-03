@@ -1,5 +1,5 @@
-import { Unpacked } from "@evg-ui/lib/types/utils";
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
+import { Unpacked } from "@evg-ui/lib/types";
+import { reportError } from "@evg-ui/lib/utils";
 import { LastMainlineCommitQuery } from "gql/generated/types";
 
 // The return value from GetLastMainlineCommitQuery has a lot of nested fields that may or may

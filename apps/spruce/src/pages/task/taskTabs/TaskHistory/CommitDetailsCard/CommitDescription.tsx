@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { WordBreak } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { WordBreak } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { useTaskHistoryAnalytics } from "analytics";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";

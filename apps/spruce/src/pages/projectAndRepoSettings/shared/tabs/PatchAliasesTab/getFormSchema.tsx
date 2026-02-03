@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
-import { StyledLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { StyledLink } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { GetFormSchema } from "components/SpruceForm";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";

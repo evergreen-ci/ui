@@ -1,5 +1,5 @@
 import { useQuery, skipToken } from "@apollo/client/react";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus } from "@evg-ui/lib/types";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,

@@ -1,7 +1,7 @@
 import { act, waitFor } from "@testing-library/react";
-import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import {
+  RenderFakeToastContext,
   renderWithRouterMatch as render,
   renderComponentWithHook,
   screen,

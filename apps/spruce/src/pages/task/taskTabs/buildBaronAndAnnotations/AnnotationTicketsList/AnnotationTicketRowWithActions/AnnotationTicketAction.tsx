@@ -1,7 +1,6 @@
 import { Button, Size } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import Icon from "@evg-ui/lib/components/Icon";
-import Popconfirm, { Align } from "@evg-ui/lib/components/Popconfirm";
+import { Icon, Align, Popconfirm } from "@evg-ui/lib/components";
 
 interface AnnotationTicketActionProps {
   confirmMessage: string;

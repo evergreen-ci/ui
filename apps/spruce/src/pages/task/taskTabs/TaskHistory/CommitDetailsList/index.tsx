@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import CommitDetailsCard from "../CommitDetailsCard";
 import { stickyHeaderScrollOffset } from "../constants";
 import { useTaskHistoryContext } from "../context";

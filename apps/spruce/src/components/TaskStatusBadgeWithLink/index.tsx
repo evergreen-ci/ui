@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatusBadge } from "@evg-ui/lib/components";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
 

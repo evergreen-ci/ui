@@ -1,7 +1,7 @@
 import { palette } from "@leafygreen-ui/palette";
-import { ALL_VALUE, TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
-import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
+import { ALL_VALUE, TreeDataEntry } from "@evg-ui/lib/components";
+import { taskStatusToCopy } from "@evg-ui/lib/constants";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types";
 
 const { gray, green, purple, red, yellow } = palette;
 

@@ -1,4 +1,4 @@
-import { Unpacked } from "@evg-ui/lib/types/utils";
+import { Unpacked } from "@evg-ui/lib/types";
 import { NotificationMethods } from "types/subscription";
 import { NotificationsFormState, Notification } from "./types";
 

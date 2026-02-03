@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { Icon } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
 import { Pagination, WaterfallFilterOptions } from "../types";

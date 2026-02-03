@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
-import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
+import { CharKey, ModifierKey, size } from "@evg-ui/lib/constants";
+import { useKeyboardShortcut } from "@evg-ui/lib/hooks";
 import { DIRECTION, SearchState } from "context/LogContext/types";
 import SearchCount from "./SearchCount";
 

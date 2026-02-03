@@ -2,9 +2,8 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { Button, Size } from "@leafygreen-ui/button";
 import { Checkbox } from "@leafygreen-ui/checkbox";
-import Icon from "@evg-ui/lib/components/Icon";
-import Popconfirm from "@evg-ui/lib/components/Popconfirm";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { Icon, Popconfirm } from "@evg-ui/lib/components";
+import { useToastContext } from "@evg-ui/lib/context";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import {
   RemoveVolumeMutation,

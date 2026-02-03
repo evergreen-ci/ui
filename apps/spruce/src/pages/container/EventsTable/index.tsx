@@ -3,18 +3,17 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
-import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
-import Pagination from "@evg-ui/lib/components/Pagination";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
-} from "@evg-ui/lib/components/Table";
-import { TableControlInnerRow } from "@evg-ui/lib/components/Table/TableControl/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useErrorToast } from "@evg-ui/lib/hooks";
-import usePagination from "@evg-ui/lib/src/hooks/usePagination";
-import { Unpacked } from "@evg-ui/lib/types/utils";
+  LGColumnDef,
+  PageSizeSelector,
+  Pagination,
+  TableControlInnerRow,
+  useLeafyGreenTable,
+} from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { useErrorToast, usePagination } from "@evg-ui/lib/hooks";
+import { Unpacked } from "@evg-ui/lib/types";
 import { SiderCard } from "components/styles";
 import { slugs } from "constants/routes";
 import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";

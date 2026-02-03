@@ -1,12 +1,12 @@
 import { ApolloClient } from "@apollo/client";
 import { MockedFunction, Mock } from "vitest";
-import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
+import { useAuthProviderContext } from "@evg-ui/lib/context";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import {
   fetchWithRetry,
   getUserStagingHeader,
   shouldLogoutAndRedirect,
-} from "@evg-ui/lib/utils/request";
+} from "@evg-ui/lib/utils";
 import {
   getGQLUrl,
   getEvergreenUrl,

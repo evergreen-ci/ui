@@ -4,8 +4,8 @@ import {
   screen,
   waitFor,
   userEvent,
+  ApolloMock,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   TaskOwnerTeamsForTaskQuery,
   TaskOwnerTeamsForTaskQueryVariables,

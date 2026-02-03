@@ -3,14 +3,14 @@ import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
-import Icon from "@evg-ui/lib/components/Icon";
 import {
+  Icon,
   useLeafyGreenTable,
   LGColumnDef,
   BaseTable,
-} from "@evg-ui/lib/components/Table";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { Unpacked } from "@evg-ui/lib/types/utils";
+} from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { Unpacked } from "@evg-ui/lib/types";
 import { PlusButton } from "components/Buttons";
 import { tableColumnOffset } from "constants/tokens";
 

@@ -1,5 +1,5 @@
 import { palette } from "@leafygreen-ui/palette";
-import Icon from "@evg-ui/lib/components/Icon";
+import { Icon } from "@evg-ui/lib/components";
 import { SectionStatus } from "constants/logs";
 
 const { gray, red } = palette;

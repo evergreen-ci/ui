@@ -5,7 +5,7 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus } from "@evg-ui/lib/types";
 import * as db from "components/TaskReview/db";
 import { REVIEWED_TASK_FRAGMENT } from "components/TaskReview/utils";
 import { TaskQuery } from "gql/generated/types";

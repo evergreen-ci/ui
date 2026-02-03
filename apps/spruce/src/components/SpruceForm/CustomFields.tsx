@@ -7,7 +7,7 @@ import {
   SubtitleProps,
 } from "@leafygreen-ui/typography";
 import { Field, FieldProps } from "@rjsf/core";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 
 type TitleFieldProps = Pick<FieldProps, "id" | "title" | "uiSchema">;
 

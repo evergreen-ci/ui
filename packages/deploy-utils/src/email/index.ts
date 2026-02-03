@@ -1,6 +1,6 @@
 import { execSync } from "child_process";
 import { readFileSync } from "fs";
-import { toSentenceCase } from "@evg-ui/lib/utils/string";
+import { toSentenceCase } from "@evg-ui/lib/utils";
 import { getAppToDeploy, isRunningOnCI, isTest } from "../utils/environment";
 import {
   COMMIT_LENGTH,

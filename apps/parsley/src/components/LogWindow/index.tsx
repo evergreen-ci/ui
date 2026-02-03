@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import Cookie from "js-cookie";
-import { useAdminBetaFeatures } from "@evg-ui/lib/hooks/useBetaFeatures";
+import { useAdminBetaFeatures } from "@evg-ui/lib/hooks";
 import BookmarksBar from "components/BookmarksBar";
 import { Chatbot } from "components/Chatbot";
 import LogPane from "components/LogPane";

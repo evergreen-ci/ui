@@ -1,5 +1,5 @@
 import { ApolloProvider } from "@apollo/client/react";
-import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
+import { FullPageLoad } from "@evg-ui/lib/components";
 import { useCreateGQLClient } from "gql/client/useCreateGQLClient";
 
 const GQLProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Description } from "@leafygreen-ui/typography";
-import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { GetFormSchema } from "components/SpruceForm";
 import { FieldRow } from "components/SpruceForm/FieldTemplates";
 import { githubPermissionsDocumentationUrl } from "constants/externalResources";

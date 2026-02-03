@@ -3,13 +3,9 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useErrorToast } from "@evg-ui/lib/hooks";
-import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
-import {
-  leaveBreadcrumb,
-  SentryBreadcrumbTypes,
-} from "@evg-ui/lib/utils/errorReporting";
+import { size } from "@evg-ui/lib/constants";
+import { useErrorToast, usePageTitle } from "@evg-ui/lib/hooks";
+import { leaveBreadcrumb, SentryBreadcrumbTypes } from "@evg-ui/lib/utils";
 import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
 import { ProjectBanner } from "components/Banners";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";

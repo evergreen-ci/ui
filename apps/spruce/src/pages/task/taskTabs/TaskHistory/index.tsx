@@ -3,13 +3,13 @@ import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
-import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
+import { size, transitionDuration } from "@evg-ui/lib/constants";
 import {
   useQueryParam,
   useQueryParams,
   useErrorToast,
 } from "@evg-ui/lib/hooks";
-import { toEscapedRegex } from "@evg-ui/lib/utils/string";
+import { toEscapedRegex } from "@evg-ui/lib/utils";
 import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { TASK_HISTORY_INACTIVE_COMMITS_VIEW } from "constants/cookies";

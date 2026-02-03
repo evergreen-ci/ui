@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { PlusButton } from "components/Buttons";
 import { IssueLink } from "gql/generated/types";
 import { AddIssueModal } from "../AddIssueModal";

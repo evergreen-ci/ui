@@ -1,5 +1,5 @@
 import { action } from "storybook/actions";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils";
 import { EditableTagField } from "./index";
 
 export default {

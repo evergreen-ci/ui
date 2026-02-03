@@ -1,5 +1,5 @@
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
-import { ToastProvider } from "@evg-ui/lib/context/toast";
+import { ToastProvider } from "@evg-ui/lib/context";
 import { ChatProvider } from "components/Chatbot";
 import GQLProvider from "gql/GQLProvider";
 import { LogContextProvider } from "./LogContext";

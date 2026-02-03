@@ -1,4 +1,4 @@
-import { shortenGithash, trimStringFromMiddle } from "@evg-ui/lib/utils/string";
+import { shortenGithash, trimStringFromMiddle } from "@evg-ui/lib/utils";
 import { TimeFormat } from "constants/time";
 import {
   msToDuration,

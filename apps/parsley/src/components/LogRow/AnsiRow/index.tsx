@@ -4,7 +4,7 @@ import {
   getSeverityMapping,
   mapLogLevelToColor,
   trimSeverity,
-} from "@evg-ui/lib/utils/string/logs";
+} from "@evg-ui/lib/utils";
 import BaseRow from "components/LogRow/BaseRow";
 import { LogLineRow } from "../types";
 

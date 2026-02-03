@@ -1,9 +1,8 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
-import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
+import { size } from "@evg-ui/lib/constants";
+import { SentryBreadcrumbTypes, leaveBreadcrumb } from "@evg-ui/lib/utils";
 import { useLogWindowAnalytics } from "analytics";
 import ProjectFiltersModal from "components/ProjectFiltersModal";
 import { CaseSensitivity, MatchType } from "constants/enums";

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 
 export const radioCSS = css`
   display: flex;

@@ -4,7 +4,7 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types";
 import { getVersionRoute } from "constants/routes";
 import { GroupedTaskStatusBadge } from ".";
 

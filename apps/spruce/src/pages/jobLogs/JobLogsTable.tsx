@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 import { Link } from "@leafygreen-ui/typography";
-import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import {
+  TestStatusBadge,
   TablePlaceholder,
   LGColumnDef,
   useLeafyGreenTable,
   BaseTable,
-} from "@evg-ui/lib/components/Table";
+} from "@evg-ui/lib/components";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { getParsleyLogkeeperTestLogURL } from "constants/externalResources";
 import {

@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
-import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
+  WordBreak,
+  StyledRouterLink,
   useLeafyGreenTable,
   LGColumnDef,
   BaseTable,
-} from "@evg-ui/lib/components/Table";
+} from "@evg-ui/lib/components";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { getTaskRoute } from "constants/routes";
 import {

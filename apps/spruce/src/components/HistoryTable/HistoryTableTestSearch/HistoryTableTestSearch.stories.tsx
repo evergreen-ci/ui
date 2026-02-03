@@ -1,5 +1,5 @@
-import { size } from "@evg-ui/lib/constants/tokens";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { size } from "@evg-ui/lib/constants";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { TestStatus } from "types/history";
 import { HistoryTableTestSearch } from "./HistoryTableTestSearch";

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import SectionHeader from "components/LogRow/SectionHeader";
 import SubsectionHeader from "components/LogRow/SubsectionHeader";
 import { useLogContext } from "context/LogContext";

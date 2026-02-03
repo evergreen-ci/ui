@@ -2,9 +2,6 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@evg-ui/lib/*": [
-        "../../packages/lib/src/*"
-      ],
       "*": ["./src/*"]
     }
   },

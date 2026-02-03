@@ -1,4 +1,4 @@
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils";
 import { TaskCell, EmptyCell, LoadingCell, ColumnHeaderCell } from ".";
 
 export default {

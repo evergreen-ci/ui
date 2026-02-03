@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import widgets from "components/SpruceForm/Widgets";
 
 const defaultTime = new Date(0);

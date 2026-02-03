@@ -1,5 +1,5 @@
 import { ApolloLink } from "@apollo/client";
-import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
+import * as ErrorReporting from "@evg-ui/lib/utils";
 import { leaveBreadcrumbMapFn } from "./logGQLToSentryLink";
 
 describe("leaveBreadcrumbLinkMapFn", () => {

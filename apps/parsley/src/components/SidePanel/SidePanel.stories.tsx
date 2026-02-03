@@ -3,8 +3,11 @@ import styled from "@emotion/styled";
 import Cookie from "js-cookie";
 import { actions } from "storybook/actions";
 import { useQueryParams } from "@evg-ui/lib/hooks";
-import { MockedProvider } from "@evg-ui/lib/test_utils";
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import {
+  CustomMeta,
+  CustomStoryObj,
+  MockedProvider,
+} from "@evg-ui/lib/test_utils";
 import { DRAWER_OPENED } from "constants/cookies";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";

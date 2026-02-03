@@ -1,5 +1,5 @@
-import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
+import { taskStatusToCopy } from "@evg-ui/lib/constants";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types";
 import {
   mapTaskStatusToUmbrellaStatus,
   mapTaskToBarchartColor,

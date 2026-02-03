@@ -1,9 +1,9 @@
-import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  RenderFakeToastContext,
   renderWithRouterMatch,
   screen,
   userEvent,
-} from "@evg-ui/lib/src/test_utils";
+} from "@evg-ui/lib/test_utils";
 import { TaskQuery } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { taskQuery } from "gql/mocks/taskData";

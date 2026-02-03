@@ -1,13 +1,13 @@
 import { useMemo } from "react";
-import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
+  BaseTable,
   filterFns,
   getFilteredRowModel,
-  useLeafyGreenTable,
-  BaseTable,
   LGColumnDef,
-} from "@evg-ui/lib/components/Table";
-import { TablePlaceholder } from "@evg-ui/lib/components/Table/TablePlaceholder";
+  TablePlaceholder,
+  useLeafyGreenTable,
+  WordBreak,
+} from "@evg-ui/lib/components";
 import { PublicKey } from "gql/generated/types";
 import { ActionButtons } from "./ActionButtons";
 

@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import { Size, Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { size } from "@evg-ui/lib/constants";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 
 interface HistoryTableIconProps {

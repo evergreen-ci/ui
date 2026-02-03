@@ -1,4 +1,4 @@
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { ApolloMock } from "@evg-ui/lib/test_utils";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
 import { USER } from "gql/queries";
 

@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { Unpacked } from "@evg-ui/lib/types/utils";
+import { Unpacked } from "@evg-ui/lib/types";
 import { TaskHistoryQuery } from "gql/generated/types";
 
 export type TaskHistoryTask = Unpacked<

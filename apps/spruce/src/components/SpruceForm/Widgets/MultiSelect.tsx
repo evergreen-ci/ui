@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { TreeSelect, ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { TreeSelect, ALL_VALUE } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import Dropdown from "components/Dropdown";
 import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps } from "./types";

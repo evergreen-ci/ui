@@ -1,12 +1,12 @@
 import { useState, forwardRef, useEffect } from "react";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import Icon from "@evg-ui/lib/components/Icon";
-import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import {
+  Icon,
+  IconWithTooltip,
   TextInputWithGlyph,
   TextInputWithGlyphProps,
-} from "@evg-ui/lib/components/TextInputWithGlyph";
+} from "@evg-ui/lib/components";
 
 const { yellow } = palette;
 type TextInputWithValidationProps = {

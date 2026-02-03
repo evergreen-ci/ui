@@ -7,7 +7,7 @@ import {
 } from "@leafygreen-ui/segmented-control";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { useTaskAnalytics } from "analytics";
 import { siderCardWidth } from "components/styles/Layout";
 import { getParsleyTaskLogLink } from "constants/externalResources";

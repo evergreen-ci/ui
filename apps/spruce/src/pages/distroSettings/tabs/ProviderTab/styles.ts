@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { fontFamilies } from "@leafygreen-ui/tokens";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 
 const textAreaCSS = css`
   box-sizing: border-box;

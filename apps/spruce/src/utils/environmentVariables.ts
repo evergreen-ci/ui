@@ -18,4 +18,4 @@ export {
   getAppVersion,
   getHoneycombBaseURL,
   getLoginDomain,
-} from "@evg-ui/lib/utils/environmentVariables";
+} from "@evg-ui/lib/utils";

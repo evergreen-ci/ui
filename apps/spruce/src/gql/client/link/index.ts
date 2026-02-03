@@ -5,8 +5,8 @@ import { RetryLink } from "@apollo/client/link/retry";
 import {
   leaveBreadcrumb,
   SentryBreadcrumbTypes,
-} from "@evg-ui/lib/utils/errorReporting";
-import { shouldLogoutAndRedirect } from "@evg-ui/lib/utils/request";
+  shouldLogoutAndRedirect,
+} from "@evg-ui/lib/utils";
 
 export { logGQLToSentryLink } from "./logGQLToSentryLink";
 export { logGQLErrorsLink } from "./logGQLErrorsLink";

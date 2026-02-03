@@ -1,4 +1,4 @@
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
+import { reportError } from "@evg-ui/lib/utils";
 import { CaseSensitivity, FilterLogic, MatchType } from "constants/enums";
 import { Filters } from "types/logs";
 /**

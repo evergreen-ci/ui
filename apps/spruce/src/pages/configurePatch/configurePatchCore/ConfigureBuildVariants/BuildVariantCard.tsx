@@ -8,7 +8,7 @@ import {
   Size as SearchInputSize,
 } from "@leafygreen-ui/search-input";
 import { Body, Description } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/divider";
 import type { MenuItemProps } from "./types";

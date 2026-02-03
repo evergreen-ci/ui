@@ -2,15 +2,15 @@ import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { GraphicStyle, MarketingModal } from "@leafygreen-ui/marketing-modal";
-import { StyledLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { StyledLink } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import {
+  UPDATE_USER_BETA_FEATURES,
   UpdateUserBetaFeaturesMutation,
   UpdateUserBetaFeaturesMutationVariables,
-} from "@evg-ui/lib/gql/generated/types";
-import { UPDATE_USER_BETA_FEATURES } from "@evg-ui/lib/gql/mutations";
-import { getSpruceURL } from "@evg-ui/lib/utils/environmentVariables";
+} from "@evg-ui/lib/hooks";
+import { getSpruceURL } from "@evg-ui/lib/utils";
 import { useAIAgentAnalytics } from "analytics";
 import screenshot from "./screenshot.png";
 

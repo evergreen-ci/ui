@@ -1,4 +1,4 @@
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { ApolloMock } from "@evg-ui/lib/test_utils";
 import { Requester } from "constants/requesters";
 import {
   WaterfallTaskStatsQuery,

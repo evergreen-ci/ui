@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { Checkbox } from "@leafygreen-ui/checkbox";
-import Accordion from "@evg-ui/lib/components/Accordion";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { Accordion } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { TaskStatusCheckboxContainer } from "./TaskStatusCheckboxContainer";
 
 interface BuildVariantAccordionProps {

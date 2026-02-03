@@ -3,7 +3,7 @@ import { Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, useSearchParams } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { styles } from "hooks/useHTMLStream/utils";
 import { usePatchDiffStream } from "./usePatchDiffStream";
 import { getRawDiffUrl } from "./utils";

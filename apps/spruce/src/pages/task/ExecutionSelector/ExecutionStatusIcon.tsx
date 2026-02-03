@@ -1,6 +1,6 @@
 import { palette } from "@leafygreen-ui/palette";
-import Icon from "@evg-ui/lib/components/Icon";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { Icon } from "@evg-ui/lib/components";
+import { TaskStatus } from "@evg-ui/lib/types";
 
 const { blue, gray, green, purple, red, yellow } = palette;
 

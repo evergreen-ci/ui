@@ -1,5 +1,5 @@
 import { Variant } from "@leafygreen-ui/button";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils";
 import { LoadingButton } from ".";
 
 export default {

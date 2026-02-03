@@ -5,10 +5,9 @@ import { Banner } from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
 import { TextInput } from "@leafygreen-ui/text-input";
 import Cookies from "js-cookie";
-import Popconfirm from "@evg-ui/lib/components/Popconfirm";
-import { CharKey } from "@evg-ui/lib/constants/keys";
-import { fontSize } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { Popconfirm } from "@evg-ui/lib/components";
+import { CharKey, fontSize } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import { SLACK_NOTIFICATION_BANNER } from "constants/cookies";
 import {
   UpdateUserSettingsMutation,

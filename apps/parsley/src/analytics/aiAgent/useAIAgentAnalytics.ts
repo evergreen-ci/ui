@@ -1,5 +1,5 @@
 import { MessageRatingValue } from "@lg-chat/message-rating";
-import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics";
 import { AnalyticsIdentifier } from "analytics/types";
 
 type Action =

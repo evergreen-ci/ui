@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { InlineDefinition } from "@leafygreen-ui/inline-definition";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { PatchTriggerAliasStatus } from "../utils";
 
 export const GithubTriggerAliasField: Field = ({ formData }) => {

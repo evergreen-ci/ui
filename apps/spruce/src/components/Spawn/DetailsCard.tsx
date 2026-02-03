@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Card } from "@leafygreen-ui/card";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { MyHost, TableVolume } from "types/spawn";
 
 const FieldContainer = styled.div`

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { shortenGithash } from "@evg-ui/lib/utils";
 import { TTLInfo } from "components/404/TTLInfo";
 import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";

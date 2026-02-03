@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect, useRef } from "react";
 import { trace } from "@opentelemetry/api";
 import { useLocation } from "react-router-dom";
-import { streamedFetch } from "@evg-ui/lib/utils/request/streamedFetch";
+import { streamedFetch } from "@evg-ui/lib/utils";
 import { CLASSNAME_ACTIVE_LINE, getLineContainer } from "./utils";
 
 const FILE_SIZE_LIMIT = 1024 * 1024 * 1024 * 2.5; // 2.5GB

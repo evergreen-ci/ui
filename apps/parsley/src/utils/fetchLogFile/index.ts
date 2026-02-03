@@ -1,9 +1,9 @@
 import { Exception, SpanStatusCode, trace } from "@opentelemetry/api";
 import {
   StreamedFetchOptions,
+  decodeStream,
   streamedFetch,
-} from "@evg-ui/lib/utils/request/streamedFetch";
-import { decodeStream } from "@evg-ui/lib/utils/streams";
+} from "@evg-ui/lib/utils";
 
 /**
  * `fetchLogFile` is a utility function that fetches a log file from the server

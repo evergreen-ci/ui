@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { conditionalToArray } from "@evg-ui/lib/utils/array";
+import { conditionalToArray } from "@evg-ui/lib/utils";
 import { UseSectionsResult } from "hooks/useSections";
 import { ProcessedLogLines } from "types/logs";
 import { findLineIndex } from "utils/findLineIndex";

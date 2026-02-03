@@ -7,7 +7,7 @@ import {
 } from "@leafygreen-ui/guide-cue";
 import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
-import { StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink } from "@evg-ui/lib/components";
 import { SEEN_TEST_SELECTION_GUIDE_CUE } from "constants/cookies";
 import { projectDistroSettingsDocumentationUrl } from "constants/externalResources";
 

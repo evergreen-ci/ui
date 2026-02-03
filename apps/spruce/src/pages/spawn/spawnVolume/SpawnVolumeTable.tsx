@@ -2,15 +2,16 @@ import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { formatDistanceToNow } from "date-fns";
-import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
+  WordBreak,
+  StyledRouterLink,
   ExpandedState,
   LeafyGreenTableRow,
   useLeafyGreenTable,
   BaseTable,
   LGColumnDef,
-} from "@evg-ui/lib/components/Table";
-import { size } from "@evg-ui/lib/constants/tokens";
+} from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { DoesNotExpire } from "components/Spawn";
 import { getSpawnHostRoute } from "constants/routes";

@@ -3,8 +3,8 @@ import { useMutation } from "@apollo/client/react";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { Body } from "@leafygreen-ui/typography";
-import Popconfirm from "@evg-ui/lib/components/Popconfirm";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { Popconfirm } from "@evg-ui/lib/components";
+import { useToastContext } from "@evg-ui/lib/context";
 import { useVersionAnalytics } from "analytics";
 import {
   UnscheduleVersionTasksMutation,

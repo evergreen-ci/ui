@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { StyledLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
+import { StyledLink } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { trimStringFromMiddle } from "@evg-ui/lib/utils";
 import { useAnnotationAnalytics } from "analytics";
 import { getJiraTicketUrl } from "constants/externalResources";
 import { TicketFields } from "gql/generated/types";

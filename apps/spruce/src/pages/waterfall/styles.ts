@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { wordBreakCss } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { wordBreakCss } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { VERSION_LIMIT } from "./constants";
 
 const BUILD_VARIANT_WIDTH = 200;

@@ -6,10 +6,10 @@ import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { H3, Body, H3Props } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
+import { reportError } from "@evg-ui/lib/utils";
 import { useVersionAnalytics } from "analytics";
 import { failedTaskStatuses } from "constants/task";
 import {

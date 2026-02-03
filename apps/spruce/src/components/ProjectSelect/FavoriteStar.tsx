@@ -1,8 +1,8 @@
 import { useMutation } from "@apollo/client/react";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import Icon from "@evg-ui/lib/components/Icon";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { Icon } from "@evg-ui/lib/components";
+import { useToastContext } from "@evg-ui/lib/context";
 import {
   AddFavoriteProjectMutation,
   AddFavoriteProjectMutationVariables,

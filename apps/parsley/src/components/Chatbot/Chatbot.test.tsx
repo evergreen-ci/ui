@@ -1,18 +1,18 @@
-import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  USER_BETA_FEATURES,
   UserBetaFeaturesQuery,
   UserBetaFeaturesQueryVariables,
-} from "@evg-ui/lib/gql/generated/types";
-import { USER_BETA_FEATURES } from "@evg-ui/lib/gql/queries";
+} from "@evg-ui/lib/hooks";
 import {
+  ApolloMock,
   MockedProvider,
   MockedResponse,
+  RenderFakeToastContext,
   renderWithRouterMatch as render,
   screen,
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { LogContextProvider } from "context/LogContext";
 import { ToggleChatbotButton } from "./ToggleChatbotButton";
 import { ChatProvider, Chatbot } from ".";

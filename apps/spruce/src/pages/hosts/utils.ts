@@ -1,6 +1,5 @@
 import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
-import { useQueryParam } from "@evg-ui/lib/hooks";
-import usePagination from "@evg-ui/lib/src/hooks/usePagination";
+import { useQueryParam, usePagination } from "@evg-ui/lib/hooks";
 import {
   HostSortBy,
   HostsQueryVariables,

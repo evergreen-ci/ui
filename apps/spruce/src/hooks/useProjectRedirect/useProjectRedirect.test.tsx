@@ -1,7 +1,11 @@
 import { GraphQLError } from "graphql";
 import { MemoryRouter, Routes, Route, useLocation } from "react-router-dom";
-import { MockedProvider, renderHook, waitFor } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import {
+  MockedProvider,
+  renderHook,
+  waitFor,
+  ApolloMock,
+} from "@evg-ui/lib/test_utils";
 import { ProjectQuery, ProjectQueryVariables } from "gql/generated/types";
 import { PROJECT } from "gql/queries";
 import { useProjectRedirect } from ".";

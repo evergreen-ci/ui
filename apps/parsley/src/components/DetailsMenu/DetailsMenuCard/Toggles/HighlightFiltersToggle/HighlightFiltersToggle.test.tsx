@@ -1,7 +1,7 @@
 import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
-import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  RenderFakeToastContext as InitializeFakeToastContext,
   renderWithRouterMatch as render,
   screen,
 } from "@evg-ui/lib/test_utils";

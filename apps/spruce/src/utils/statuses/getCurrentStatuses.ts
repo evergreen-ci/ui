@@ -1,4 +1,4 @@
-import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
+import { TreeDataEntry } from "@evg-ui/lib/components";
 
 const allKey = "all";
 

@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
 import { TooltipAlign } from "@leafygreen-ui/guide-cue";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
-import { ExpiringAnnouncementTooltip } from "@evg-ui/lib/components/ExpiringAnnouncementTooltip";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import {
+  ExpiringAnnouncementTooltip,
+  StyledRouterLink,
+} from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 

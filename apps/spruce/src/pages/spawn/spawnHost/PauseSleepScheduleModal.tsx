@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { getNextHostStart } from "components/Spawn/utils";
 import { SleepSchedule } from "gql/generated/types";
 
