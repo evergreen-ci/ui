@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Variant, Size } from "@leafygreen-ui/button";
-import Popconfirm from "@evg-ui/lib/components/Popconfirm";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { Popconfirm } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import { useAnnotationAnalytics } from "analytics";
 import {
   BuildBaronCreateTicketMutation,

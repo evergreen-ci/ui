@@ -4,16 +4,15 @@ import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Button } from "@leafygreen-ui/button";
 import { Disclaimer, H2 } from "@leafygreen-ui/typography";
-import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
-import Pagination from "@evg-ui/lib/components/Pagination";
 import {
+  PageSizeSelector,
+  Pagination,
   TableControlOuterRow,
   TableControlInnerRow,
-} from "@evg-ui/lib/components/Table/TableControl/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
-import usePagination from "@evg-ui/lib/src/hooks/usePagination";
-import { Unpacked } from "@evg-ui/lib/types/utils";
+} from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { usePageTitle, usePagination } from "@evg-ui/lib/hooks";
+import { Unpacked } from "@evg-ui/lib/types";
 import { useHostsTableAnalytics } from "analytics";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";

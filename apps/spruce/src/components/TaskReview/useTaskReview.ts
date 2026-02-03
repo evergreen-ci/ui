@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { gql } from "@apollo/client";
 import { useApolloClient, useFragment } from "@apollo/client/react";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { useTaskAnalytics } from "analytics";
 import { ReviewedTaskFragment } from "gql/generated/types";
 import { setItem, setItems } from "./db";

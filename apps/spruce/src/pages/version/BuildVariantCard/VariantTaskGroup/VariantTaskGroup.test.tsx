@@ -3,7 +3,7 @@ import {
   renderWithRouterMatch as render,
   screen,
 } from "@evg-ui/lib/test_utils";
-import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types";
 import { getVersionRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { applyStrictRegex } from "utils/string";

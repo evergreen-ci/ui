@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import { SortedTaskStatus, TaskStatus } from "@evg-ui/lib/types/task";
+import { size } from "@evg-ui/lib/constants";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils";
+import { SortedTaskStatus, TaskStatus } from "@evg-ui/lib/types";
 import { TaskBox } from ".";
 
 export default {

@@ -3,8 +3,8 @@ import {
   MockedProviderProps,
   renderHook,
   waitFor,
+  ApolloMock,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,

@@ -2,10 +2,10 @@ import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Pagination } from "@leafygreen-ui/pagination";
-import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
-import Icon from "@evg-ui/lib/components/Icon";
-import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
+  TestStatusBadge,
+  Icon,
+  WordBreak,
   ColumnFiltersState,
   filterFns,
   getFilteredRowModel,
@@ -13,10 +13,10 @@ import {
   useLeafyGreenTable,
   BaseTable,
   onChangeHandler,
-} from "@evg-ui/lib/components/Table";
-import { size } from "@evg-ui/lib/constants/tokens";
+} from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { useQueryParam } from "@evg-ui/lib/hooks";
-import { TestStatus } from "@evg-ui/lib/types/test";
+import { TestStatus } from "@evg-ui/lib/types";
 import { useTaskHistoryAnalytics } from "analytics";
 import { TaskTestResult, TestResult } from "gql/generated/types";
 import { TaskHistoryOptions } from "../types";

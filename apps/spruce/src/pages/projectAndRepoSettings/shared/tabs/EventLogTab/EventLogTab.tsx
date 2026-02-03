@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { InlineDefinition } from "@leafygreen-ui/inline-definition";
 import { useParams } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import EventLog from "components/Settings/EventLog";
 import { slugs } from "constants/routes";
 import { ProjectType } from "../utils";

@@ -1,4 +1,4 @@
-import { StringMap } from "@evg-ui/lib/types/utils";
+import { StringMap } from "@evg-ui/lib/types";
 import { Requester } from "constants/requesters";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";

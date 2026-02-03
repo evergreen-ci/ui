@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { formatDistanceToNow } from "date-fns";
-import { WordBreak, StyledLink } from "@evg-ui/lib/components/styles";
+import { WordBreak, StyledLink } from "@evg-ui/lib/components";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,

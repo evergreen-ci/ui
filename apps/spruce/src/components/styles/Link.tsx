@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { StyledRouterLink } from "@evg-ui/lib/components";
 
 interface ShortenedRouterLinkProps {
   baseWidth?: number;

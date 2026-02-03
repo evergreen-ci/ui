@@ -1,10 +1,6 @@
 import styled from "@emotion/styled";
-import {
-  CustomStoryObj,
-  CustomMeta,
-  ApolloMock,
-} from "@evg-ui/lib/test_utils/types";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { CustomStoryObj, CustomMeta, ApolloMock } from "@evg-ui/lib/test_utils";
+import { TaskStatus } from "@evg-ui/lib/types";
 import {
   AbortInfo,
   MetStatus,

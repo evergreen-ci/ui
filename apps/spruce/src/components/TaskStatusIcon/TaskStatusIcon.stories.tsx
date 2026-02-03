@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { Size } from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { Size } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { TaskStatusIcon, TaskStatusIconProps } from ".";
 
 const Sizes = {

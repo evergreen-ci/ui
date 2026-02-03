@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { TreeSelect } from "@evg-ui/lib/components/TreeSelect";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { TreeSelect } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import Dropdown from "components/Dropdown";
 import { noFilterMessage } from "constants/strings";
 import { useTaskStatuses } from "hooks";

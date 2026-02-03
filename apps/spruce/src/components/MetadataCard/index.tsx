@@ -3,7 +3,7 @@ import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
-import { wordBreakCss } from "@evg-ui/lib/components/styles";
+import { wordBreakCss } from "@evg-ui/lib/components";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/divider";

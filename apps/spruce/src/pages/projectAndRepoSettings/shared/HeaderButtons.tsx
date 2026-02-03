@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { useNavigate, useParams } from "react-router-dom";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useToastContext } from "@evg-ui/lib/context";
 import { useProjectSettingsAnalytics } from "analytics";
 import {
   getProjectSettingsRoute,

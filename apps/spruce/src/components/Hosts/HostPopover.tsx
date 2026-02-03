@@ -7,7 +7,7 @@ import {
 } from "@leafygreen-ui/button";
 import { Popover } from "@leafygreen-ui/popover";
 import { Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { PopoverContainer } from "components/styles/Popover";
 

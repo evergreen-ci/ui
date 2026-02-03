@@ -3,8 +3,8 @@ import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import { useProjectSettingsAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";
 import {

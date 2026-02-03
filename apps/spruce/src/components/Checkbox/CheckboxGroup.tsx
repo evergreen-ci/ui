@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
-import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { TreeDataEntry } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 
 interface CheckboxesProps {
   data: TreeDataEntry[];

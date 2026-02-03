@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { action } from "storybook/actions";
-import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types";
 
 import { GroupedTaskStatusBadge } from ".";
 

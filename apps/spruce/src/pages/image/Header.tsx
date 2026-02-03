@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { H2, Overline } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { ImageTabRoutes } from "constants/routes";
 import { getTabTitle } from "./getTabTitle";
 

@@ -4,7 +4,7 @@ import { Card } from "@leafygreen-ui/card";
 import { SearchInput } from "@leafygreen-ui/search-input";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { useImageAnalytics } from "analytics";
 import { LoadingButton } from "components/Buttons";
 import { useEvents } from "components/Settings/EventLog/useEvents";

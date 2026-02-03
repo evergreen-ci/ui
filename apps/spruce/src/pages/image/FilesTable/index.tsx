@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
-import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
+  WordBreak,
   useLeafyGreenTable,
   LGColumnDef,
   ColumnFiltersState,
   PaginationState,
   BaseTable,
   onChangeHandler,
-} from "@evg-ui/lib/components/Table";
-import { DEFAULT_PAGE_SIZE } from "@evg-ui/lib/constants/pagination";
+} from "@evg-ui/lib/components";
+import { DEFAULT_PAGE_SIZE } from "@evg-ui/lib/constants";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useImageAnalytics } from "analytics";
 import {

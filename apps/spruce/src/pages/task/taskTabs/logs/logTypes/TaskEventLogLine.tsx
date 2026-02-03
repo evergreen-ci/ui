@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { ShortenedRouterLink } from "components/styles";
 import { getHostRoute, getPodRoute, getTaskRoute } from "constants/routes";
 import { TaskEventLogEntry } from "gql/generated/types";

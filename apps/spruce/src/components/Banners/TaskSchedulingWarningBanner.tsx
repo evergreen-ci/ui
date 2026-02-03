@@ -1,5 +1,5 @@
 import { Banner } from "@leafygreen-ui/banner";
-import { StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink } from "@evg-ui/lib/components";
 import { taskSchedulingLimitsDocumentationUrl } from "constants/externalResources";
 
 interface TaskSchedulingWarningBannerProps {

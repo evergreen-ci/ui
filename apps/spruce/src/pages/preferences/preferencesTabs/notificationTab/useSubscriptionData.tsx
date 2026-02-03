@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { LeafyGreenTableRow } from "@evg-ui/lib/components/Table";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { LeafyGreenTableRow } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { convertFromFamilyTrigger } from "constants/triggers";
 import {
   UserSubscriptionsQuery,

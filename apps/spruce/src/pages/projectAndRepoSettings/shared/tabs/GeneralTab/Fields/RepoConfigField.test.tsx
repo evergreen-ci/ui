@@ -1,14 +1,14 @@
 import { FieldProps } from "@rjsf/core";
-import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  ApolloMock,
   MockedProvider,
+  RenderFakeToastContext,
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   AttachProjectToNewRepoMutation,
   AttachProjectToNewRepoMutationVariables,

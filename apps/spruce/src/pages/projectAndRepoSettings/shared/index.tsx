@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, Link, Navigate } from "react-router-dom";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { StyledRouterLink } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
 import {

@@ -1,8 +1,8 @@
 import { useQuery, useMutation } from "@apollo/client/react";
 import { Button, Size } from "@leafygreen-ui/button";
 import { Align, Justify, Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
-import Popconfirm from "@evg-ui/lib/components/Popconfirm";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { Popconfirm } from "@evg-ui/lib/components";
+import { useToastContext } from "@evg-ui/lib/context";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import {
   MyHostsQuery,

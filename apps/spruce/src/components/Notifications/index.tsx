@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import Cookies from "js-cookie";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import { SpruceForm } from "components/SpruceForm";
 import {
   getNotificationTriggerCookie,

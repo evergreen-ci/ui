@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
-import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
+  WordBreak,
   ColumnFiltersState,
   useLeafyGreenTable,
   LGColumnDef,
@@ -11,8 +11,8 @@ import {
   getFacetedUniqueValues,
   BaseTable,
   onChangeHandler,
-} from "@evg-ui/lib/components/Table";
-import { size } from "@evg-ui/lib/constants/tokens";
+} from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { useImageAnalytics } from "analytics";
 import { tableColumnOffset } from "constants/tokens";
 import {

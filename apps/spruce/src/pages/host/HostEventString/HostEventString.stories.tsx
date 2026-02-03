@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { size } from "@evg-ui/lib/constants";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils";
 import { HostEventLogData, HostEventType } from "gql/generated/types";
 import HostEventString from ".";
 

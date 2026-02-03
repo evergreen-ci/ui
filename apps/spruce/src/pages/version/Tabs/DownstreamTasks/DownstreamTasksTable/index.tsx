@@ -11,8 +11,8 @@ import {
   TableWrapper,
   onChangeHandler,
   TableControl,
-} from "@evg-ui/lib/components/Table";
-import { TablePlaceholder } from "@evg-ui/lib/components/Table/TablePlaceholder";
+  TablePlaceholder,
+} from "@evg-ui/lib/components";
 import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";

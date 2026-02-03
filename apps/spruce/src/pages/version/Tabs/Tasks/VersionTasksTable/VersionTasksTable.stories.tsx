@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils";
 import { SEEN_TASK_REVIEW_TOOLTIP } from "constants/cookies";
 import { taskStatusesMock, versionTasks } from "./testData";
 import { VersionTasksTable } from ".";

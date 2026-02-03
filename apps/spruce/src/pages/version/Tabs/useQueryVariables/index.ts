@@ -1,4 +1,4 @@
-import usePagination from "@evg-ui/lib/src/hooks/usePagination";
+import { usePagination } from "@evg-ui/lib/hooks";
 import { TableQueryParams } from "constants/queryParams";
 import {
   VersionTasksQueryVariables,

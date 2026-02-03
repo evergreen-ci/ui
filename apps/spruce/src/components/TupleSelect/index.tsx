@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
 import { Label } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import TextInput from "components/TextInputWithValidation";
 
 type option = {

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { useTaskAnalytics } from "analytics";
 import MetadataCard, {
   MetadataItem,

@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import { Card } from "@leafygreen-ui/card";
-import Accordion, {
+import {
+  Accordion,
   AccordionCaretAlign,
-} from "@evg-ui/lib/components/Accordion";
-import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+  TaskStatusBadge,
+} from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { TaskBuildVariantField } from "../../types";
 import FailedTestGroupTable from "./FailedTestGroupTable";
 

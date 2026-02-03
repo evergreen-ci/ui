@@ -3,7 +3,7 @@ import { Badge } from "@leafygreen-ui/badge";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { MetadataItem, MetadataLabel } from "components/MetadataCard";
 import { TaskQuery } from "gql/generated/types";
 import { useBreakingTask } from "hooks/useBreakingTask";

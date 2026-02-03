@@ -1,4 +1,4 @@
-import { Unpacked } from "@evg-ui/lib/types/utils";
+import { Unpacked } from "@evg-ui/lib/types";
 import { ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";

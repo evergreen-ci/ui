@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 
 const SpawnPageSkeleton = () => (
   <div>

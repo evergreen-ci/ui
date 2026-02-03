@@ -7,7 +7,7 @@ import {
 } from "@leafygreen-ui/date-utils";
 import { Description, Label } from "@leafygreen-ui/typography";
 import { toZonedTime, fromZonedTime } from "date-fns-tz";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import LGTimePicker from "components/TimePicker";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import ElementWrapper from "../ElementWrapper";

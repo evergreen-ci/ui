@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { palette } from "@leafygreen-ui/palette";
-import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
+import { size, transitionDuration } from "@evg-ui/lib/constants";
 
 const { gray } = palette;
 

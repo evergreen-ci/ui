@@ -1,12 +1,12 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { Disclaimer, InlineCode } from "@leafygreen-ui/typography";
-import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
+  StyledLink,
   useLeafyGreenTable,
   LGColumnDef,
   BaseTable,
-} from "@evg-ui/lib/components/Table";
+} from "@evg-ui/lib/components";
 import { DisplayModal } from "components/DisplayModal";
 import { MetadataItem } from "components/MetadataCard";
 import { IncludedLocalModule } from "gql/generated/types";

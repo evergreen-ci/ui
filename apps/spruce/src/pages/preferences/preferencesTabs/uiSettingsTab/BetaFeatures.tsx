@@ -4,14 +4,14 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button, Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { diff } from "deep-object-diff";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import {
   BetaFeatures,
+  UPDATE_USER_BETA_FEATURES,
   UpdateUserBetaFeaturesMutation,
   UpdateUserBetaFeaturesMutationVariables,
-} from "@evg-ui/lib/gql/generated/types";
-import { UPDATE_USER_BETA_FEATURES } from "@evg-ui/lib/gql/mutations";
+} from "@evg-ui/lib/hooks";
 import { SpruceForm } from "components/SpruceForm";
 
 type FormState = {

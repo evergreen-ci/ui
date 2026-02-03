@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { InlineCode } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import {
   CardFieldTemplate,
   AccordionFieldTemplate,

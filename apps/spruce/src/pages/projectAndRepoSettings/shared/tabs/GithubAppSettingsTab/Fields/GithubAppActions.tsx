@@ -7,8 +7,8 @@ import {
   Variant as ModalVariant,
 } from "@leafygreen-ui/confirmation-modal";
 import { Field } from "@rjsf/core";
-import { StyledLink } from "@evg-ui/lib/components/styles";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { StyledLink } from "@evg-ui/lib/components";
+import { useToastContext } from "@evg-ui/lib/context";
 import { githubAppCredentialsDocumentationUrl } from "constants/externalResources";
 import {
   DeleteGithubAppCredentialsMutation,

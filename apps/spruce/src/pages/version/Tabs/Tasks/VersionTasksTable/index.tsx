@@ -10,7 +10,7 @@ import {
   onChangeHandler,
   TableControl,
   TablePlaceholder,
-} from "@evg-ui/lib/components/Table";
+} from "@evg-ui/lib/components";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";

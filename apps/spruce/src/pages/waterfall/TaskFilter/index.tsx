@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { toEscapedRegex } from "@evg-ui/lib/utils/string";
+import { size } from "@evg-ui/lib/constants";
+import { toEscapedRegex } from "@evg-ui/lib/utils";
 import { useWaterfallAnalytics } from "analytics";
 import TupleSelect from "components/TupleSelect";
 import { FilterType } from "components/TupleSelectWithRegexConditional";

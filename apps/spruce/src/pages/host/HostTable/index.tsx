@@ -1,21 +1,20 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
-import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
-import Pagination from "@evg-ui/lib/components/Pagination";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
-  ColumnFiltersState,
-  LeafyGreenTable,
+  ALL_VALUE,
   BaseTable,
+  ColumnFiltersState,
+  LGColumnDef,
+  LeafyGreenTable,
   onChangeHandler,
-} from "@evg-ui/lib/components/Table";
-import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useQueryParams } from "@evg-ui/lib/hooks";
-import usePagination from "@evg-ui/lib/src/hooks/usePagination";
-import { Unpacked } from "@evg-ui/lib/types/utils";
+  PageSizeSelector,
+  Pagination,
+  useLeafyGreenTable,
+} from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { usePagination, useQueryParams } from "@evg-ui/lib/hooks";
+import { Unpacked } from "@evg-ui/lib/types";
 import { useHostsTableAnalytics } from "analytics";
 import { HostEventsQuery, HostEventType } from "gql/generated/types";
 import { useDateFormat } from "hooks";

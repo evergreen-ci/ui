@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import PageSizeSelector from "@evg-ui/lib/components/PageSizeSelector";
-import Pagination from "@evg-ui/lib/components/Pagination";
-import { size } from "@evg-ui/lib/constants/tokens";
-import usePagination from "@evg-ui/lib/src/hooks/usePagination";
+import { PageSizeSelector, Pagination } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { usePagination } from "@evg-ui/lib/hooks";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
 import { usePatchesQueryParams } from "./usePatchesQueryParams";
 

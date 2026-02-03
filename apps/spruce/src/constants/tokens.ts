@@ -1,4 +1,4 @@
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 
 /**
  * The LeafyGreen table header columns have a default left padding of 32px.

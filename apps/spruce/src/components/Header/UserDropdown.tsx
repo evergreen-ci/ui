@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client/react";
-import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
+import { useAuthProviderContext } from "@evg-ui/lib/context";
 import { useNavbarAnalytics } from "analytics";
 import {
   PreferencesTabRoutes,

@@ -1,9 +1,10 @@
-import { WordBreak, StyledLink } from "@evg-ui/lib/components/styles";
 import {
+  WordBreak,
+  StyledLink,
   useLeafyGreenTable,
   BaseTable,
   LGColumnDef,
-} from "@evg-ui/lib/components/Table";
+} from "@evg-ui/lib/components";
 import { getFileDiffRoute } from "constants/routes";
 import { FileDiffsFragment } from "gql/generated/types";
 import { FileDiffText } from "./Badge";

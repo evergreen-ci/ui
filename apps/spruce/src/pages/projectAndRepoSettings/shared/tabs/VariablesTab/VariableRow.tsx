@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
-import Icon, { Size } from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { Icon, Size } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { getFields } from "components/SpruceForm/utils";
 
 const { yellow } = palette;

@@ -5,8 +5,8 @@ import {
   screen,
   userEvent,
   waitFor,
+  ApolloMock,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { context, types } from "components/HistoryTable";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import { mainlineCommitData } from "components/HistoryTable/testData";

@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
-import { StyledLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { StyledLink } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import {
   buildHostConfigurationRepoURL,
   buildHostPostConfigRepoURL,

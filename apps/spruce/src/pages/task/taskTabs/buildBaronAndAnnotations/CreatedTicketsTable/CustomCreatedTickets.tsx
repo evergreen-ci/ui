@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { IssueLink } from "gql/generated/types";
 import AnnotationTicketRow from "../AnnotationTicketsList/AnnotationTicketRow";
 import { TicketsTitle } from "../BBComponents";

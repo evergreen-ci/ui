@@ -1,5 +1,5 @@
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
-import { ToastProvider } from "@evg-ui/lib/context/toast";
+import { ToastProvider } from "@evg-ui/lib/context";
 import GQLWrapper from "gql/GQLWrapper";
 
 const ContextProviders: React.FC<{ children: React.ReactNode }> = ({

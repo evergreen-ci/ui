@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 
 const { blue } = palette;
 

@@ -4,7 +4,7 @@ import {
   resetStyles as sharedResetStyles,
   fontStyles,
   bodyStyles,
-} from "@evg-ui/lib/components/styles";
+} from "@evg-ui/lib/components";
 
 const resetStyles = css`
   ${sharedResetStyles}

@@ -1,6 +1,5 @@
 import { LGColumnDef } from "@leafygreen-ui/table";
-import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
-import { WordBreak } from "@evg-ui/lib/components/styles";
+import { TestStatusBadge, WordBreak } from "@evg-ui/lib/components";
 import { testStatusesFilterTreeData } from "constants/test";
 import { TestSortCategory, TaskQuery, TestResult } from "gql/generated/types";
 import { string } from "utils";

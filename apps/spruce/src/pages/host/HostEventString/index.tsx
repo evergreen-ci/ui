@@ -1,8 +1,6 @@
 import { Code } from "@leafygreen-ui/code";
-import Accordion, {
-  AccordionCaretIcon,
-} from "@evg-ui/lib/components/Accordion";
-import { toSentenceCase } from "@evg-ui/lib/utils/string";
+import { Accordion, AccordionCaretIcon } from "@evg-ui/lib/components";
+import { toSentenceCase } from "@evg-ui/lib/utils";
 import { ShortenedRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostEventLogData, HostEventType } from "gql/generated/types";

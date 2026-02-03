@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics";
 import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 

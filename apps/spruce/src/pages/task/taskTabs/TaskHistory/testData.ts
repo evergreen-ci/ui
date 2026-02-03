@@ -1,5 +1,4 @@
-import { TaskStatus } from "@evg-ui/lib/types/task";
-import { TestStatus } from "@evg-ui/lib/types/test";
+import { TaskStatus, TestStatus } from "@evg-ui/lib/types";
 import { GroupedTask, TaskHistoryTask } from "./types";
 
 const emptyTests = {

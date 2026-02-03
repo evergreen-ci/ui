@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import MetadataCard from "components/MetadataCard";
 import { navBarHeight } from "components/styles/Layout";

@@ -1,5 +1,5 @@
 import { OperationDefinitionNode } from "graphql";
-import { getUserStagingHeader } from "@evg-ui/lib/utils/request";
+import { getUserStagingHeader } from "@evg-ui/lib/utils";
 import { SECRET_FIELDS } from "gql/queries";
 
 export const secretFieldsReq: RequestInit = {

@@ -4,8 +4,8 @@ import {
   SegmentedControl,
   SegmentedControlOption,
 } from "@leafygreen-ui/segmented-control";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { toEscapedRegex } from "@evg-ui/lib/utils/string";
+import { size } from "@evg-ui/lib/constants";
+import { toEscapedRegex } from "@evg-ui/lib/utils";
 import TupleSelect from "components/TupleSelect";
 
 export enum FilterType {

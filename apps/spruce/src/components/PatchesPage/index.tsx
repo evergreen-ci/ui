@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useQueryParam } from "@evg-ui/lib/hooks";
-import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { size } from "@evg-ui/lib/constants";
+import { useQueryParam, usePageTitle } from "@evg-ui/lib/hooks";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import TextInputWithValidation from "components/TextInputWithValidation";

@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import Accordion from "@evg-ui/lib/components/Accordion";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { Accordion } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import CommitChartLabel from "components/CommitChartLabel";
 import { EmptyCell, LabelCellContainer } from "components/HistoryTable/Cell";
 import { FoldedCommitsRow } from "components/HistoryTable/types";

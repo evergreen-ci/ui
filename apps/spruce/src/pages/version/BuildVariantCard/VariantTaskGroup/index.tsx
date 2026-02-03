@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { useQueryParam } from "@evg-ui/lib/hooks";
-import { TaskStatusUmbrella } from "@evg-ui/lib/types/task";
-import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
+import { TaskStatusUmbrella } from "@evg-ui/lib/types";
+import { arraySymmetricDifference } from "@evg-ui/lib/utils";
 import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { getVersionRoute } from "constants/routes";

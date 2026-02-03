@@ -4,7 +4,7 @@ import { Button, Variant } from "@leafygreen-ui/button";
 import { Code } from "@leafygreen-ui/code";
 import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { UserConfigQuery, UserConfigQueryVariables } from "gql/generated/types";

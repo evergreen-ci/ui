@@ -1,4 +1,4 @@
-import { PartialRecord } from "@evg-ui/lib/types/utils";
+import { PartialRecord } from "@evg-ui/lib/types";
 
 enum Requester {
   AdHoc = "ad_hoc",

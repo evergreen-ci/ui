@@ -2,8 +2,8 @@ import { ApolloLink, Observable } from "@apollo/client";
 import {
   leaveBreadcrumb,
   SentryBreadcrumbTypes,
-} from "@evg-ui/lib/utils/errorReporting";
-import { deleteNestedKey } from "@evg-ui/lib/utils/object";
+  deleteNestedKey,
+} from "@evg-ui/lib/utils";
 
 export const leaveBreadcrumbMapFn =
   (operation: ApolloLink.Operation, secretFields: string[]) =>

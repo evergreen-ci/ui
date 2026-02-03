@@ -1,4 +1,4 @@
-import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { shortenGithash } from "@evg-ui/lib/utils";
 import { useBreadcrumbAnalytics } from "analytics";
 import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { useBreadcrumbRoot } from "hooks";

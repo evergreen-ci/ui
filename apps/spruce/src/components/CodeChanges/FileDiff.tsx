@@ -5,7 +5,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
 import { useParams, useSearchParams } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { styles } from "hooks/useHTMLStream/utils";
 import { useFileDiffStream } from "./useFileDiffStream";
 import { getRawDiffUrl } from "./utils";

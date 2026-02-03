@@ -23,6 +23,10 @@ export { BaseTable } from "./BaseTable";
 export { default as TableWrapper } from "./TableWrapper";
 export { onChangeHandler } from "./utils";
 export { default as TableControl } from "./TableControl";
+export {
+  TableControlInnerRow,
+  TableControlOuterRow,
+} from "./TableControl/styles";
 export { TablePlaceholder } from "./TablePlaceholder";
 export {
   RowSorting,

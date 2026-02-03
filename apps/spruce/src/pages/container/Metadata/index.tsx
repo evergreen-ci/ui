@@ -1,5 +1,5 @@
 import { InlineCode } from "@leafygreen-ui/typography";
-import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,

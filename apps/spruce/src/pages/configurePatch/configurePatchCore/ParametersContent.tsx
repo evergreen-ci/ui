@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { Body } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { EditableTagField } from "components/EditableTagField";
 import { ParameterInput, SchedulePatchMutation } from "gql/generated/types";
 

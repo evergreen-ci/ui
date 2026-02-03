@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
-import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components";
 import { getTaskRoute } from "constants/routes";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 

@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client/react";
 import { Button } from "@leafygreen-ui/button";
-import Icon from "@evg-ui/lib/components/Icon";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { Icon } from "@evg-ui/lib/components";
+import { useToastContext } from "@evg-ui/lib/context";
 import { usePreferencesAnalytics } from "analytics";
 import {
   ResetUserApiKeyMutation,

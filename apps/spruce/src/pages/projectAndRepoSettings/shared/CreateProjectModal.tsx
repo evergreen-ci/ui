@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useToastContext } from "@evg-ui/lib/context";
 import { useProjectSettingsAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";
 import { getProjectSettingsRoute } from "constants/routes";

@@ -1,4 +1,4 @@
-import { PartialRecord } from "@evg-ui/lib/types/utils";
+import { PartialRecord } from "@evg-ui/lib/types";
 import { HostsQueryVariables, HostSortBy } from "gql/generated/types";
 
 export enum HostStatus {

@@ -6,7 +6,7 @@ import {
   useLeafyGreenTable,
   LGColumnDef,
   BaseTable,
-} from "@evg-ui/lib/components/Table";
+} from "@evg-ui/lib/components";
 import { JSONObject, JSONValue } from "utils/object/types";
 import { EventDiffLine } from "../types";
 import { getEventDiffLines } from "./utils";

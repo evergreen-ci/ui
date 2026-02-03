@@ -1,4 +1,4 @@
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
+import { reportError } from "@evg-ui/lib/utils";
 
 type LocalStorageObject = Record<string, any>;
 

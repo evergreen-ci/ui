@@ -3,14 +3,14 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
+  StyledLink,
   useLeafyGreenTable,
   LGColumnDef,
   BaseTable,
-} from "@evg-ui/lib/components/Table";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { Unpacked } from "@evg-ui/lib/types/utils";
+} from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { Unpacked } from "@evg-ui/lib/types";
 import { useTaskAnalytics } from "analytics";
 import { GroupedFiles } from "../types";
 

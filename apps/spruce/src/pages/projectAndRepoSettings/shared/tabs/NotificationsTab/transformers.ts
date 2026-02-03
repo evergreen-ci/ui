@@ -1,4 +1,4 @@
-import { toSentenceCase } from "@evg-ui/lib/utils/string";
+import { toSentenceCase } from "@evg-ui/lib/utils";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { getSubscriberText } from "constants/subscription";
 import { convertFromFamilyTrigger, projectTriggers } from "constants/triggers";

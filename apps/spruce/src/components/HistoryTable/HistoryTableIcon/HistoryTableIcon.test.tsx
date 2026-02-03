@@ -1,5 +1,5 @@
 import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { HistoryTableIcon } from ".";
 
 describe("historyTableIcon", () => {

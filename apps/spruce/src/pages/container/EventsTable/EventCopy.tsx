@@ -1,5 +1,5 @@
-import { Unpacked } from "@evg-ui/lib/types/utils";
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
+import { Unpacked } from "@evg-ui/lib/types";
+import { reportError } from "@evg-ui/lib/utils";
 import { ShortenedRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { PodEventsQuery } from "gql/generated/types";

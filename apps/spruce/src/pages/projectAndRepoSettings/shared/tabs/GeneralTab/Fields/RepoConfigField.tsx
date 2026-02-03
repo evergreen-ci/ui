@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Field } from "@rjsf/core";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { SpruceForm } from "components/SpruceForm";
 import { GithubOrgsQuery } from "gql/generated/types";
 import { GITHUB_ORGS } from "gql/queries";

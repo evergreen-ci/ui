@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
-import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { TaskStatusBadge } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import PageTitle from "components/PageTitle";
 import {
   PageContent,

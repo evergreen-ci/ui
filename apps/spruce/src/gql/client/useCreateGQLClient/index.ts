@@ -1,16 +1,14 @@
 import { useEffect, useState, useMemo } from "react";
 import { HttpLink, ApolloClient } from "@apollo/client";
 import { LocalState } from "@apollo/client/local-state";
-import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
+import { useAuthProviderContext } from "@evg-ui/lib/context";
 import {
   leaveBreadcrumb,
   SentryBreadcrumbTypes,
-} from "@evg-ui/lib/utils/errorReporting";
-import {
   fetchWithRetry,
   getUserStagingHeader,
   shouldLogoutAndRedirect,
-} from "@evg-ui/lib/utils/request";
+} from "@evg-ui/lib/utils";
 import { cache } from "gql/client/cache";
 import {
   authenticateIfSuccessfulLink,

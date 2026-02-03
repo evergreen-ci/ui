@@ -3,9 +3,9 @@ import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Icon } from "@leafygreen-ui/icon";
-import Popconfirm from "@evg-ui/lib/components/Popconfirm";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { Popconfirm } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import { usePreferencesAnalytics } from "analytics";
 import {
   PublicKey,

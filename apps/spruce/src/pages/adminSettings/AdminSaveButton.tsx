@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client/react";
 import { Button, Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { useParams } from "react-router-dom";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useToastContext } from "@evg-ui/lib/context";
 import { AdminSettingsTabRoutes, slugs } from "constants/routes";
 import {
   AdminSettings,

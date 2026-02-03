@@ -1,5 +1,5 @@
 import reactStringReplace from "react-string-replace";
-import { StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink } from "@evg-ui/lib/components";
 import { getJiraTicketUrl } from "constants/externalResources";
 
 const githubPRLinkify = (unlinkified: string | React.ReactNode[]) =>

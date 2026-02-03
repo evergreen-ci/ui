@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { size, fontSize } from "@evg-ui/lib/constants/tokens";
+import { size, fontSize } from "@evg-ui/lib/constants";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {

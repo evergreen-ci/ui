@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
-import Icon from "@evg-ui/lib/components/Icon";
-import { copyToClipboard } from "@evg-ui/lib/utils/string";
+import { Icon } from "@evg-ui/lib/components";
+import { copyToClipboard } from "@evg-ui/lib/utils";
 
 interface Props {
   textToCopy: string;

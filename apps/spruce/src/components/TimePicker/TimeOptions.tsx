@@ -2,7 +2,7 @@ import { createRef, forwardRef, useLayoutEffect } from "react";
 import styled from "@emotion/styled";
 import { DateType } from "@leafygreen-ui/date-utils";
 import { palette } from "@leafygreen-ui/palette";
-import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
+import { size, transitionDuration } from "@evg-ui/lib/constants";
 import { RefMap, TimepickerType } from "./types";
 
 const { blue, gray } = palette;

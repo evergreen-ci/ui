@@ -10,9 +10,9 @@ import {
   TableWrapper,
   onChangeHandler,
   TableControl,
-} from "@evg-ui/lib/components/Table";
-import { ALL_VALUE } from "@evg-ui/lib/components/TreeSelect";
-import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
+  ALL_VALUE,
+} from "@evg-ui/lib/components";
+import { PaginationQueryParams } from "@evg-ui/lib/constants";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";

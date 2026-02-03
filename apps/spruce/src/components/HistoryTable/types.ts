@@ -1,4 +1,4 @@
-import { Unpacked } from "@evg-ui/lib/types/utils";
+import { Unpacked } from "@evg-ui/lib/types";
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
 
 export interface FoldedCommitsRow {

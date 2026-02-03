@@ -1,5 +1,5 @@
 import { generatePath } from "react-router-dom";
-import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
+import { stringifyQuery } from "@evg-ui/lib/utils";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { WaterfallFilterOptions } from "pages/waterfall/types";
 import { TestStatus, HistoryQueryParams } from "types/history";

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import styled from "@emotion/styled";
 import { Overline } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import SearchableDropdown from "components/SearchableDropdown";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { EnumSpruceWidgetProps } from "components/SpruceForm/Widgets/types";

@@ -2,7 +2,7 @@ import { DatePicker } from "@leafygreen-ui/date-picker";
 import { DateType } from "@leafygreen-ui/date-utils";
 import { Size } from "@leafygreen-ui/tokens";
 import { subDays, subYears } from "date-fns";
-import { StringMap } from "@evg-ui/lib/types/utils";
+import { StringMap } from "@evg-ui/lib/types";
 import { isProduction } from "utils/environmentVariables";
 
 interface DateFilterProps {

@@ -4,17 +4,17 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Pagination } from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
-import Icon from "@evg-ui/lib/components/Icon";
 import {
+  Icon,
   getFacetedUniqueValues,
   getFilteredRowModel,
   filterFns,
   useLeafyGreenTable,
   BaseTable,
   LGColumnDef,
-} from "@evg-ui/lib/components/Table";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+} from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { useToastContext } from "@evg-ui/lib/context";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { ShortenedRouterLink } from "components/styles";
 import { getSubscriberText } from "constants/subscription";

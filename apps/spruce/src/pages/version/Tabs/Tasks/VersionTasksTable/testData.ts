@@ -1,5 +1,5 @@
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { ApolloMock } from "@evg-ui/lib/test_utils";
+import { TaskStatus } from "@evg-ui/lib/types";
 import {
   TaskStatusesQuery,
   TaskStatusesQueryVariables,

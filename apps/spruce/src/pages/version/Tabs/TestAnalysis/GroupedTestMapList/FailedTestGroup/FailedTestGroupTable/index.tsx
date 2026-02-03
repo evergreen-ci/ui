@@ -1,13 +1,14 @@
 import { useMemo } from "react";
 import { Button } from "@leafygreen-ui/button";
-import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {
-  useLeafyGreenTable,
-  LGColumnDef,
   BaseTable,
-} from "@evg-ui/lib/components/Table";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+  LGColumnDef,
+  StyledRouterLink,
+  TaskStatusBadge,
+  useLeafyGreenTable,
+  WordBreak,
+} from "@evg-ui/lib/components";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { getTaskRoute } from "constants/routes";
 import { TaskBuildVariantField } from "pages/version/Tabs/TestAnalysis/types";
 import { TaskTab } from "types/task";

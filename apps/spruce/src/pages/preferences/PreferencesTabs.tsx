@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Body, BodyProps, H2 } from "@leafygreen-ui/typography";
 import { Route, Routes, useParams, Navigate } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import {
   PreferencesTabRoutes,
   getPreferencesRoute,

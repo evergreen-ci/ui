@@ -1,4 +1,4 @@
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { TaskQuery } from "gql/generated/types";
 
 export type TaskQueryType = {

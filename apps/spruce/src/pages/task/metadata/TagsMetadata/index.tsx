@@ -4,7 +4,7 @@ import {
   Variant as ChipVariant,
   TruncationLocation,
 } from "@leafygreen-ui/chip";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import MetadataCard, { MetadataCardTitle } from "components/MetadataCard";
 import { Divider } from "components/styles/divider";
 

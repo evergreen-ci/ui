@@ -1,10 +1,12 @@
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import pluralize from "pluralize";
-import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { LGColumnDef } from "@evg-ui/lib/components/Table";
-import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import {
+  TaskStatusBadge,
+  StyledRouterLink,
+  LGColumnDef,
+  TreeDataEntry,
+} from "@evg-ui/lib/components";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
 import { getVariantHistoryRoute } from "constants/routes";

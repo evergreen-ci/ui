@@ -1,7 +1,9 @@
-import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { SortedTaskStatus, TaskStatus } from "@evg-ui/lib/types/task";
-import { TestStatus } from "@evg-ui/lib/types/test";
+import {
+  WithToastContext,
+  CustomMeta,
+  CustomStoryObj,
+} from "@evg-ui/lib/test_utils";
+import { SortedTaskStatus, TaskStatus, TestStatus } from "@evg-ui/lib/types";
 import { TaskQuery, TestResult } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
 import { TaskHistoryContextProvider } from "../context";

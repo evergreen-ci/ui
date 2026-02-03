@@ -1,9 +1,11 @@
 import * as React from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import ErrorBoundary from "@evg-ui/lib/components/ErrorBoundary";
-import ProtectedRoute from "@evg-ui/lib/components/ProtectedRoute";
-import { AuthProvider } from "@evg-ui/lib/context/AuthProvider";
-import LoginPage from "@evg-ui/lib/pages/LoginPage";
+import {
+  ErrorBoundary,
+  LoginPage,
+  ProtectedRoute,
+} from "@evg-ui/lib/components";
+import { AuthProvider } from "@evg-ui/lib/context";
 import { FileDiff } from "components/CodeChanges/FileDiff";
 import { PatchDiff } from "components/CodeChanges/PatchDiff";
 import { Content } from "components/Content";

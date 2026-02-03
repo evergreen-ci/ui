@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { ExtractAnalyticsSendEvent } from "@evg-ui/lib/analytics/types";
-import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { ExtractAnalyticsSendEvent } from "@evg-ui/lib/analytics";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { DoesNotExpire, DetailsCard } from "components/Spawn";
 import { getIdeUrl } from "constants/externalResources";

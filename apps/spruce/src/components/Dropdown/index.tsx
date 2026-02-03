@@ -5,8 +5,8 @@ import { Button } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { Popover } from "@leafygreen-ui/popover";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { Icon } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { useDimensions } from "hooks/useDimensions";
 

@@ -3,7 +3,7 @@ import { Card } from "@leafygreen-ui/card";
 import { palette } from "@leafygreen-ui/palette";
 import { transitionDuration } from "@leafygreen-ui/tokens";
 import { H3, H3Props } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 
 const { gray } = palette;
 

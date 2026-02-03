@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client/react";
 import { useParams, Navigate } from "react-router-dom";
-import { useErrorToast } from "@evg-ui/lib/hooks";
-import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { useErrorToast, usePageTitle } from "@evg-ui/lib/hooks";
 import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageWrapper } from "components/styles";

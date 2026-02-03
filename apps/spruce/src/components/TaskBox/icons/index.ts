@@ -1,5 +1,5 @@
 import { palette } from "@leafygreen-ui/palette";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus } from "@evg-ui/lib/types";
 import redOutlineX from "./RedOutlineX";
 import whiteClockWithArrow from "./WhiteClockWithArrow";
 import whiteGear from "./WhiteGear";

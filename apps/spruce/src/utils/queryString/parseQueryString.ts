@@ -1,6 +1,6 @@
 import queryString from "query-string";
-import { PAGE_SIZES } from "@evg-ui/lib/constants/pagination";
-import { getDefaultPageSize } from "@evg-ui/lib/utils/pagination";
+import { PAGE_SIZES } from "@evg-ui/lib/constants";
+import { getDefaultPageSize } from "@evg-ui/lib/utils";
 
 interface ParseQueryString {
   [key: string]: string | string[];

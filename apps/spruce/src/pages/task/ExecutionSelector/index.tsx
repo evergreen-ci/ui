@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Select, Size as SelectSize, Option } from "@leafygreen-ui/select";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
-import { fontSize, size } from "@evg-ui/lib/constants/tokens";
+import { fontSize, size } from "@evg-ui/lib/constants";
 import {
   TaskAllExecutionsQuery,
   TaskAllExecutionsQueryVariables,

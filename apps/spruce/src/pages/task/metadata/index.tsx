@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
-import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { TaskStatus } from "@evg-ui/lib/types/task";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components";
+import { TaskStatus } from "@evg-ui/lib/types";
+import { shortenGithash } from "@evg-ui/lib/utils";
 import { useTaskAnalytics } from "analytics";
 import MetadataCard, {
   MetadataItem,

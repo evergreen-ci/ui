@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { Link, useParams, Navigate } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { useImageAnalytics } from "analytics";
 import {
   SideNav,

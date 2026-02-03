@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useToastContext } from "@evg-ui/lib/context";
 import { toastData } from "constants/announcementToast";
 import { ANNOUNCEMENT_TOAST } from "constants/cookies";
 

@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import TextInputWithValidation from "components/TextInputWithValidation";
 import { TaskFilesQuery, TaskFilesQueryVariables } from "gql/generated/types";

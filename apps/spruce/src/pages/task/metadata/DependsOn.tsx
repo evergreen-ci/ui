@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { StyledRouterLink } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { TaskStatus } from "@evg-ui/lib/types";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
 import { MetStatus, RequiredStatus } from "gql/generated/types";

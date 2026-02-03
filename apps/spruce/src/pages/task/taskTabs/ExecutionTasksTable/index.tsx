@@ -8,7 +8,7 @@ import {
   useLeafyGreenTable,
   BaseTable,
   onChangeHandler,
-} from "@evg-ui/lib/components/Table";
+} from "@evg-ui/lib/components";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";

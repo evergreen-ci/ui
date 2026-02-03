@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
-import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { fontSize, size } from "@evg-ui/lib/constants/tokens";
-import { Unpacked } from "@evg-ui/lib/types/utils";
+import { StyledRouterLink } from "@evg-ui/lib/components";
+import { fontSize, size } from "@evg-ui/lib/constants";
+import { Unpacked } from "@evg-ui/lib/types";
 import { useUserPatchesAnalytics, useProjectPatchesAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";

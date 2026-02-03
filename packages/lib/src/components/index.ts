@@ -19,7 +19,7 @@ export {
 export { default as IconWithTooltip } from "./IconWithTooltip";
 export { default as PageSizeSelector } from "./PageSizeSelector";
 export { default as Pagination } from "./Pagination";
-export { default as Popconfirm } from "./Popconfirm";
+export { Align, Justify, default as Popconfirm } from "./Popconfirm";
 export { default as ProtectedRoute } from "./ProtectedRoute";
 export { default as ErrorBoundary } from "./ErrorBoundary";
 export { ExpiringAnnouncementTooltip } from "./ExpiringAnnouncementTooltip";

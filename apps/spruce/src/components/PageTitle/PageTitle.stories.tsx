@@ -1,5 +1,5 @@
 import { Badge } from "@leafygreen-ui/badge";
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils";
 import PageTitle from ".";
 
 export default {

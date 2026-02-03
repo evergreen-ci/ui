@@ -5,7 +5,7 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { shortenGithash } from "@evg-ui/lib/utils";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import CommitChartLabel from ".";
 

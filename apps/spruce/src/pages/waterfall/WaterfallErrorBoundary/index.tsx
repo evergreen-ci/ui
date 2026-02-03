@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { H1, InlineCode } from "@leafygreen-ui/typography";
 import { Navigate } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
+import { Icon } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { reportError } from "@evg-ui/lib/utils";
 import { getWaterfallRoute } from "constants/routes";
 import WaterfallSkeleton from "../WaterfallSkeleton";
 

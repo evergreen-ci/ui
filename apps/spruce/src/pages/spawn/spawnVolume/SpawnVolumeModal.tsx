@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useToastContext } from "@evg-ui/lib/context";
 import { useSpawnAnalytics } from "analytics";
 import {
   FormState,

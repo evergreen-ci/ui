@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { getVersionDiffRoute } from "constants/routes";
 import {
   CodeChangesQuery,
