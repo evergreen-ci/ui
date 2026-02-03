@@ -84,7 +84,9 @@ describe("deleteDistro", () => {
     expect(confirmButton).toHaveAttribute("aria-disabled", "false");
 
     await user.click(confirmButton);
-    expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    });
   });
 });
 

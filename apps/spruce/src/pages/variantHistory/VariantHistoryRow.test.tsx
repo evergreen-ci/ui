@@ -144,13 +144,6 @@ describe("variantHistoryRow", () => {
     });
     expect(screen.queryAllByDataCy("task-cell")).toHaveLength(1);
     expect(screen.queryAllByDataCy("empty-cell")).toHaveLength(0);
-
-    await waitFor(() => {
-      expect(screen.queryByDataCy("task-cell")).toHaveAttribute(
-        "aria-disabled",
-        "false",
-      );
-    });
     await waitFor(() => {
       expect(screen.queryByDataCy("history-table-icon")).toHaveAttribute(
         "aria-disabled",

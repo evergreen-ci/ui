@@ -104,9 +104,11 @@ describe("relevant commits", () => {
     renderWithRouterMatch(<Component />);
 
     await screen.findByRole("button", { name: "Relevant commits" });
-    expect(
-      screen.getByRole("button", { name: "Relevant commits" }),
-    ).toHaveAttribute("aria-disabled", "false");
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: "Relevant commits" }),
+      ).toHaveAttribute("aria-disabled", "false");
+    });
     await user.click(screen.getByRole("button", { name: "Relevant commits" }));
     await waitFor(() => {
       expect(screen.getByRole("menu")).toBeVisible();
@@ -142,9 +144,11 @@ describe("relevant commits", () => {
     renderWithRouterMatch(<Component />);
 
     await screen.findByRole("button", { name: "Relevant commits" });
-    expect(
-      screen.getByRole("button", { name: "Relevant commits" }),
-    ).toHaveAttribute("aria-disabled", "false");
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: "Relevant commits" }),
+      ).toHaveAttribute("aria-disabled", "false");
+    });
     await user.click(screen.getByRole("button", { name: "Relevant commits" }));
     await waitFor(() => {
       expect(screen.getByRole("menu")).toBeVisible();
@@ -181,9 +185,11 @@ describe("relevant commits", () => {
     renderWithRouterMatch(<Component />);
 
     await screen.findByRole("button", { name: "Relevant commits" });
-    expect(
-      screen.getByRole("button", { name: "Relevant commits" }),
-    ).toHaveAttribute("aria-disabled", "false");
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: "Relevant commits" }),
+      ).toHaveAttribute("aria-disabled", "false");
+    });
     await user.click(screen.getByRole("button", { name: "Relevant commits" }));
     await waitFor(() => {
       expect(screen.getByRole("menu")).toBeVisible();

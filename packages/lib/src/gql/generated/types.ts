@@ -4826,6 +4826,7 @@ export type UserConfig = {
 
 export type UserServiceFlags = {
   __typename?: "UserServiceFlags";
+  debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
