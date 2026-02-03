@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Body, BodyProps, H2 } from "@leafygreen-ui/typography";
+import { Body, H2 } from "@leafygreen-ui/typography";
 import { useLocation, useNavigate } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
@@ -157,7 +157,7 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
     </>
   );
 };
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   font-size: ${fontSize.m};
   margin-bottom: ${size.s};
 `;

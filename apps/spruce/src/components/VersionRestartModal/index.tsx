@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import Accordion from "@evg-ui/lib/components/Accordion";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -173,7 +173,7 @@ const getTaskIds = (selectedTasks: SelectedTasksMap) =>
     }))
     .filter(({ taskIds }) => taskIds.length > 0);
 
-const ConfirmationMessage = styled(Body)<BodyProps>`
+const ConfirmationMessage = styled(Body)`
   padding: ${size.s} 0;
 `;
 
