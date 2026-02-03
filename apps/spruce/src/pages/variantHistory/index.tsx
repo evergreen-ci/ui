@@ -1,10 +1,9 @@
-import { useEffect, useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useErrorToast } from "@evg-ui/lib/hooks";
+import { useErrorToast, useQueryCompleted } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
   leaveBreadcrumb,
@@ -76,10 +75,9 @@ const VariantHistoryContents: React.FC = () => {
       : skipToken,
   );
 
-  const prevLoadingRef = useRef(loading);
-  useEffect(() => {
-    // Trigger only when loading transitions from true to false (query completed).
-    if (prevLoadingRef.current && !loading && data?.mainlineCommits) {
+  // Ingest new commits when query completes.
+  useQueryCompleted(loading, () => {
+    if (data?.mainlineCommits) {
       leaveBreadcrumb(
         "Loaded more commits for variant history",
         {
@@ -91,8 +89,7 @@ const VariantHistoryContents: React.FC = () => {
       );
       ingestNewCommits(data.mainlineCommits);
     }
-    prevLoadingRef.current = loading;
-  }, [loading, data, projectIdentifier, variantName, ingestNewCommits]);
+  });
 
   useErrorToast(error, "There was an error loading the variant history");
 

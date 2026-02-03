@@ -1,13 +1,12 @@
-import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client/react";
-import { useParams, useNavigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useErrorToast } from "@evg-ui/lib/hooks";
+import { useErrorToast, useQueryCompleted } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectSettingsAnalytics } from "analytics";
 import {
+  getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
-  getRepoSettingsRoute,
   slugs,
 } from "constants/routes";
 import {
@@ -18,12 +17,8 @@ import {
 } from "gql/generated/types";
 import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
-import { validators } from "utils";
 import SharedSettings from "./shared";
-import { projectOnlyTabs } from "./shared/tabs/types";
 import { ProjectType } from "./shared/tabs/utils";
-
-const { validateObjectId } = validators;
 
 const ProjectSettings: React.FC = () => {
   const { sendEvent } = useProjectSettingsAnalytics();
@@ -35,26 +30,11 @@ const ProjectSettings: React.FC = () => {
     [slugs.projectIdentifier]: string;
     [slugs.tab]: ProjectSettingsTabRoutes;
   }>();
+
   usePageTitle(`Project Settings | ${projectIdentifier}`);
-  const navigate = useNavigate();
 
-  // If the path includes an Object ID, we should redirect the user so that they use the identifier.
-  const identifierIsObjectId = validateObjectId(projectIdentifier);
-
-  useProjectRedirect({
-    shouldRedirect: identifierIsObjectId,
-    onError: (repoId) => {
-      // DEVPROD-18977: Redirect can be removed once the repo settings URL change has been baked in long enough.
-      navigate(
-        getRepoSettingsRoute(
-          repoId,
-          tab && projectOnlyTabs.has(tab)
-            ? ProjectSettingsTabRoutes.General
-            : tab,
-        ),
-      );
-    },
-    sendAnalyticsEvent: (projectId: string, identifier: string) => {
+  const { needsRedirect, redirectIdentifier } = useProjectRedirect({
+    onRedirect: (projectId, identifier) => {
       sendEvent({
         name: "Redirected to project identifier",
         "project.id": projectId,
@@ -70,7 +50,7 @@ const ProjectSettings: React.FC = () => {
   } = useQuery<ProjectSettingsQuery, ProjectSettingsQueryVariables>(
     PROJECT_SETTINGS,
     {
-      skip: identifierIsObjectId || !projectIdentifier,
+      skip: needsRedirect || !projectIdentifier,
       variables: { projectIdentifier },
     },
   );
@@ -79,22 +59,12 @@ const ProjectSettings: React.FC = () => {
     `There was an error loading the project ${projectIdentifier}`,
   );
 
-  // Show error toast if project is hidden
-  const hasShownHiddenToast = useRef(false);
-  useEffect(() => {
-    // Reset ref when project changes
-    hasShownHiddenToast.current = false;
-  }, [projectIdentifier]);
-
-  useEffect(() => {
-    if (
-      projectData?.projectSettings?.projectRef?.hidden &&
-      !hasShownHiddenToast.current
-    ) {
-      hasShownHiddenToast.current = true;
+  // Show error toast if project is hidden.
+  useQueryCompleted(projectLoading, () => {
+    if (projectData?.projectSettings?.projectRef?.hidden) {
       dispatchToast.error(`Project is hidden.`);
     }
-  }, [projectData?.projectSettings?.projectRef?.hidden, dispatchToast]);
+  });
 
   const projectIsHidden = projectData?.projectSettings?.projectRef?.hidden;
   const repoId = projectData?.projectSettings?.projectRef?.repoRefId ?? "";
@@ -111,6 +81,10 @@ const ProjectSettings: React.FC = () => {
 
   if (projectIsHidden) {
     return null;
+  }
+
+  if (needsRedirect && redirectIdentifier) {
+    return <Navigate to={getProjectSettingsRoute(redirectIdentifier, tab)} />;
   }
 
   const projectType = repoId
