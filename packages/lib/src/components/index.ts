@@ -27,4 +27,6 @@ export { FullPageLoad } from "./FullPageLoad";
 export { default as LoginPage } from "../pages/LoginPage";
 export * from "./styles";
 export * from "./Table";
+export { TextInputWithGlyph } from "./TextInputWithGlyph";
+export type { TextInputWithGlyphProps } from "./TextInputWithGlyph";
 export * from "./TreeSelect";

@@ -1,4 +1,4 @@
-import { stringifyQuery } from "@evg-ui/lib/utils/query-string";
+import { stringifyQuery } from "@evg-ui/lib/utils";
 import { evergreenURL, spruceURL } from "utils/environmentVariables";
 
 const getEvergreenTaskURL = (taskID: string, execution: string | number) => {

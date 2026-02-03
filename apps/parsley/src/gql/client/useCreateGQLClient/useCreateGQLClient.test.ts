@@ -1,24 +1,24 @@
 import { ApolloClient } from "@apollo/client";
 import { Mock, MockedFunction } from "vitest";
-import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
+import { useAuthProviderContext } from "@evg-ui/lib/context";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import {
   fetchWithRetry,
   getUserStagingHeader,
   shouldLogoutAndRedirect,
-} from "@evg-ui/lib/utils/request";
+} from "@evg-ui/lib/utils";
 import { isProductionBuild } from "utils/environmentVariables";
 import { useCreateGQLClient } from ".";
 
 // Mocks
-vi.mock("@evg-ui/lib/utils/request", () => ({
+vi.mock("@evg-ui/lib/utils", () => ({
   fetchWithRetry: vi.fn() as MockedFunction<typeof fetchWithRetry>,
   getUserStagingHeader: vi.fn() as MockedFunction<typeof getUserStagingHeader>,
   shouldLogoutAndRedirect: vi.fn() as MockedFunction<
     typeof shouldLogoutAndRedirect
   >,
 }));
-vi.mock("@evg-ui/lib/context/AuthProvider", () => ({
+vi.mock("@evg-ui/lib/context", () => ({
   useAuthProviderContext: vi.fn(() => ({
     logoutAndRedirect: vi.fn(),
   })),

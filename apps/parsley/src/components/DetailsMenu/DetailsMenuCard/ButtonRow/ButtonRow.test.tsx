@@ -1,6 +1,6 @@
 import { getLgIds } from "@leafygreen-ui/split-button";
-import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  RenderFakeToastContext as InitializeFakeToastContext,
   renderWithRouterMatch,
   screen,
   userEvent,

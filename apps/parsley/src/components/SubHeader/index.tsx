@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { Icon } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
 import Breadcrumbs from "components/Breadcrumbs";
 import { ToggleChatbotButton } from "components/Chatbot/ToggleChatbotButton";
 import { subheaderHeight } from "constants/tokens";

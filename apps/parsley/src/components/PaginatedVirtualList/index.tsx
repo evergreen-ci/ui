@@ -5,8 +5,8 @@ import {
   Virtuoso,
   VirtuosoHandle,
 } from "react-virtuoso";
-import { CharKey } from "@evg-ui/lib/constants/keys";
-import { useKeyboardShortcut } from "@evg-ui/lib/hooks/useKeyboardShortcut";
+import { CharKey } from "@evg-ui/lib/constants";
+import { useKeyboardShortcut } from "@evg-ui/lib/hooks";
 import { PaginatedVirtualListRef } from "./types";
 import usePaginatedVirtualList from "./usePaginatedVirtualList";
 

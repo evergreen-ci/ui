@@ -1,4 +1,4 @@
-import { trimSeverity } from "@evg-ui/lib/utils/string/logs";
+import { trimSeverity } from "@evg-ui/lib/utils";
 
 /**
  * `getRawLines` constructs a string with the lines provided.
@@ -62,7 +62,7 @@ export const getJiraFormat = (
 export const stringIntersection = (string1: string, string2: string) =>
   string1.includes(string2) || string2.includes(string1);
 
-// shortenGithash and trimStringFromMiddle are now imported from @evg-ui/lib/utils/string
+// shortenGithash and trimStringFromMiddle are now imported from @evg-ui/lib/utils
 
 /**
  * `getBytesAsString` returns a string representation of the bytes

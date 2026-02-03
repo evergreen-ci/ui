@@ -5,12 +5,14 @@ import { palette } from "@leafygreen-ui/palette";
 import { SplitButton } from "@leafygreen-ui/split-button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import Cookies from "js-cookie";
-import Icon from "@evg-ui/lib/components/Icon";
-import { transitionDuration } from "@evg-ui/lib/constants/tokens";
+import { Icon } from "@evg-ui/lib/components";
+import { transitionDuration } from "@evg-ui/lib/constants";
 import { useQueryParam } from "@evg-ui/lib/hooks";
-import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
-import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
-import { copyToClipboard } from "@evg-ui/lib/utils/string";
+import {
+  SentryBreadcrumbTypes,
+  copyToClipboard,
+  leaveBreadcrumb,
+} from "@evg-ui/lib/utils";
 import { usePreferencesAnalytics } from "analytics";
 import { COPY_FORMAT } from "constants/cookies";
 import { QueryParams } from "constants/queryParams";

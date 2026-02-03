@@ -1,11 +1,11 @@
-import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  RenderFakeToastContext as InitializeFakeToastContext,
   MockedProvider,
   act,
   renderHook,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
+import * as ErrorReporting from "@evg-ui/lib/utils";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {
   parsleySettingsMock,

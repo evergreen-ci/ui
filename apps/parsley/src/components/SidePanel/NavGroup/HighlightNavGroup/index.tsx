@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
-import Icon from "@evg-ui/lib/components/Icon";
-import { fontSize, size } from "@evg-ui/lib/constants/tokens";
+import { Icon } from "@evg-ui/lib/components";
+import { fontSize, size } from "@evg-ui/lib/constants";
 import { useLogWindowAnalytics } from "analytics";
 import Highlight, { highlightColorList } from "components/Highlight";
 import { useHighlightParam } from "hooks/useHighlightParam";

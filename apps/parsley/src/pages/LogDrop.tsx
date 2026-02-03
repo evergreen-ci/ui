@@ -1,4 +1,4 @@
-import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { usePageTitle } from "@evg-ui/lib/hooks";
 import LogWindow from "components/LogWindow";
 import { useLogContext } from "context/LogContext";
 import FileDropper from "./LogDrop/FileDropper";

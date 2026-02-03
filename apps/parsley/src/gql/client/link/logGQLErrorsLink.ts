@@ -2,8 +2,7 @@ import { ApolloLink } from "@apollo/client";
 import { CombinedGraphQLErrors } from "@apollo/client/errors";
 import { ErrorLink } from "@apollo/client/link/error";
 import { GraphQLError, GraphQLFormattedError } from "graphql";
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
-import { deleteNestedKey } from "@evg-ui/lib/utils/object";
+import { deleteNestedKey, reportError } from "@evg-ui/lib/utils";
 
 export const reportingFn =
   (secretFields: string[], operation: ApolloLink.Operation) =>

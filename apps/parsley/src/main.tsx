@@ -1,11 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { initializeErrorHandling } from "@evg-ui/lib/utils/errorReporting";
 import {
+  initializeErrorHandling,
   initializeHoneycomb,
   injectOpenTelemetryAttributeStoreIntoWindow,
-} from "@evg-ui/lib/utils/observability";
-import { toEscapedRegex } from "@evg-ui/lib/utils/string";
+  toEscapedRegex,
+} from "@evg-ui/lib/utils";
 import {
   evergreenURL,
   getReleaseStage,

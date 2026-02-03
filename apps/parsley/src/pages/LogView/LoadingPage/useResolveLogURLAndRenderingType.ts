@@ -3,8 +3,8 @@ import { useQuery } from "@apollo/client/react";
 import {
   constructEvergreenTaskLogURL,
   getEvergreenTestLogURL,
-} from "@evg-ui/lib/constants/logURLTemplates";
-import { reportError } from "@evg-ui/lib/utils/errorReporting";
+} from "@evg-ui/lib/constants";
+import { reportError } from "@evg-ui/lib/utils";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {
   getEvergreenJobLogsURL,

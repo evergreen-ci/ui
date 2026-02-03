@@ -1,6 +1,6 @@
 import { ApolloLink } from "@apollo/client";
 import { GraphQLError } from "graphql";
-import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
+import * as ErrorReporting from "@evg-ui/lib/utils";
 import { reportingFn } from "./logGQLErrorsLink";
 
 describe("reportingFn", () => {

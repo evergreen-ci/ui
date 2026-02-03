@@ -1,4 +1,4 @@
-import { trimSeverity } from "@evg-ui/lib/utils/string/logs";
+import { trimSeverity } from "@evg-ui/lib/utils";
 import { Range } from "types/logs";
 import { includesLineNumber } from "utils/logRow";
 import { SectionState } from ".";

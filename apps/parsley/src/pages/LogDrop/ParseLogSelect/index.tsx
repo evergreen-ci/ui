@@ -4,7 +4,7 @@ import { Button } from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { InlineCode, Label } from "@leafygreen-ui/typography";
 import Cookie from "js-cookie";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size } from "@evg-ui/lib/constants";
 import { LAST_SELECTED_LOG_TYPE } from "constants/cookies";
 import { LogRenderingTypes } from "constants/enums";
 

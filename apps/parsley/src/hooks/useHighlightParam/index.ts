@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useQueryParams } from "@evg-ui/lib/hooks";
-import { conditionalToArray } from "@evg-ui/lib/utils/array";
+import { conditionalToArray } from "@evg-ui/lib/utils";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 
 /**

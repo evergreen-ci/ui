@@ -1,9 +1,14 @@
 import { composeStories, setProjectAnnotations } from "@storybook/react-vite";
 import { expect } from "vitest";
 import path from "path";
-import { act, render, stubGetClientRects } from "@evg-ui/lib/test_utils";
-import snapshotSerializer from "@evg-ui/lib/test_utils/snapshotSerializer";
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import {
+  CustomMeta,
+  CustomStoryObj,
+  act,
+  render,
+  snapshotSerializer,
+  stubGetClientRects,
+} from "@evg-ui/lib/test_utils";
 import * as addonAnnotations from "@evg-ui/storybook-addon/src/preview";
 import * as parsleyPreview from "../.storybook/preview";
 

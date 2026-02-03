@@ -1,6 +1,6 @@
 import { Global } from "@emotion/react";
 import { Decorator, Preview } from "@storybook/react-vite";
-import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
+import { WithToastContext } from "@evg-ui/lib/test_utils";
 import { globalStyles } from "components/styles";
 import { getParsleySettingsMock } from "gql/mocks/getParsleySettings";
 import { LogContextProvider } from "../src/context/LogContext";

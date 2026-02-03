@@ -5,9 +5,6 @@
       "@evg-ui/fungi/*": [
         "../../packages/fungi/src/*"
       ],
-      "@evg-ui/lib/*": [
-        "../../packages/lib/src/*"
-      ],
       "*": ["./src/*"]
     }
   },

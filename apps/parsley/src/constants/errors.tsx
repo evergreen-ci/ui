@@ -1,4 +1,4 @@
-import { StyledLink } from "@evg-ui/lib/components/styles";
+import { StyledLink } from "@evg-ui/lib/components";
 import { getBytesAsString } from "utils/string";
 import { docsURL } from "./externalLinks";
 import { LOG_LINE_SIZE_LIMIT } from "./logs";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils";
 import ShortcutModal from ".";
 
 export default {

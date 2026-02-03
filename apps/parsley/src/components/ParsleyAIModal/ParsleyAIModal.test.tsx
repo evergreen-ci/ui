@@ -1,19 +1,19 @@
 import { GraphQLError } from "graphql";
-import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
+  UPDATE_USER_BETA_FEATURES,
   UpdateUserBetaFeaturesMutation,
   UpdateUserBetaFeaturesMutationVariables,
-} from "@evg-ui/lib/gql/generated/types";
-import { UPDATE_USER_BETA_FEATURES } from "@evg-ui/lib/gql/mutations";
+} from "@evg-ui/lib/hooks";
 import {
+  ApolloMock,
   MockedProvider,
   MockedResponse,
+  RenderFakeToastContext,
   render,
   screen,
   stubGetClientRects,
   userEvent,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import * as analytics from "analytics";
 import { ParsleyAIModal } from ".";
 

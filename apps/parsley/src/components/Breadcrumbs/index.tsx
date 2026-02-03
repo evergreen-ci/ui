@@ -2,10 +2,9 @@ import { Fragment, ReactNode } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import Icon from "@evg-ui/lib/components/Icon";
-import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
+import { Icon, StyledLink, StyledRouterLink } from "@evg-ui/lib/components";
+import { size } from "@evg-ui/lib/constants";
+import { trimStringFromMiddle } from "@evg-ui/lib/utils";
 
 const { gray } = palette;
 
