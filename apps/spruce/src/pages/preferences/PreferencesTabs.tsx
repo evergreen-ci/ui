@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Body, BodyProps, H2 } from "@leafygreen-ui/typography";
+import { Body, H2 } from "@leafygreen-ui/typography";
 import { Route, Routes, useParams, Navigate } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
@@ -134,6 +134,6 @@ const TitleContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-const Subtitle = styled(Body)<BodyProps>`
+const Subtitle = styled(Body)`
   padding-top: ${size.s};
 `;
