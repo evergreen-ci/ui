@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/triple-slash-reference -- pull in .graphql/.svg/Window declarations for consumers */
+/// <reference path="../vite-env.d.ts" />
 export * from "./errorReporting";
 export * from "./string";
 export * from "./array";
