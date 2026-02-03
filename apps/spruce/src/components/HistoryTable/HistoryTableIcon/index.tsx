@@ -25,7 +25,7 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
 }) => (
   <Tooltip
     align="right"
-    enabled={!inactive && failingTests.length > 0}
+    enabled={!inactive && (loadingTestResults || failingTests.length > 0)}
     justify="middle"
     trigger={
       <Container
