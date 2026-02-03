@@ -5,19 +5,27 @@ import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import {
   fetchWithRetry,
   getUserStagingHeader,
+  leaveBreadcrumb,
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils";
 import { isProductionBuild } from "utils/environmentVariables";
 import { useCreateGQLClient } from ".";
 
 // Mocks
-vi.mock("@evg-ui/lib/utils", () => ({
-  fetchWithRetry: vi.fn() as MockedFunction<typeof fetchWithRetry>,
-  getUserStagingHeader: vi.fn() as MockedFunction<typeof getUserStagingHeader>,
-  shouldLogoutAndRedirect: vi.fn() as MockedFunction<
-    typeof shouldLogoutAndRedirect
-  >,
-}));
+vi.mock("@evg-ui/lib/utils", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@evg-ui/lib/utils")>();
+  return {
+    ...actual,
+    fetchWithRetry: vi.fn() as MockedFunction<typeof fetchWithRetry>,
+    getUserStagingHeader: vi.fn() as MockedFunction<
+      typeof getUserStagingHeader
+    >,
+    leaveBreadcrumb: vi.fn() as MockedFunction<typeof leaveBreadcrumb>,
+    shouldLogoutAndRedirect: vi.fn() as MockedFunction<
+      typeof shouldLogoutAndRedirect
+    >,
+  };
+});
 vi.mock("@evg-ui/lib/context", () => ({
   useAuthProviderContext: vi.fn(() => ({
     logoutAndRedirect: vi.fn(),
@@ -60,8 +68,8 @@ describe("useCreateGQLClient", () => {
     renderHook(() => useCreateGQLClient());
 
     expect(fetchWithRetry).toHaveBeenCalled();
-    await new Promise(setImmediate);
-
-    expect(mockLogoutAndRedirect).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(mockLogoutAndRedirect).toHaveBeenCalled();
+    });
   });
 });

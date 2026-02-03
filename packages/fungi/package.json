@@ -39,6 +39,8 @@
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "5.1.2",
+    "babel-plugin-import-graphql": "^2.8.1",
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lib": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",

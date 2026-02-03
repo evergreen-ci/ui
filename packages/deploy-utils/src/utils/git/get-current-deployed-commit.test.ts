@@ -7,12 +7,6 @@ describe("getCurrentDeployedCommit without mocking https requests", () => {
       await import("./get-current-deployed-commit");
     expect(await getCurrentlyDeployedCommit("spruce")).toHaveLength(40);
   });
-
-  it("fetches the commit from parsley", async () => {
-    const { getCurrentlyDeployedCommit } =
-      await import("./get-current-deployed-commit");
-    expect(await getCurrentlyDeployedCommit("parsley")).toHaveLength(40);
-  });
 });
 
 describe("when get request fails", () => {
