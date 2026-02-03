@@ -1,25 +1,24 @@
-import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { act, renderHook } from "test_utils";
 import { useQueryParam, useQueryParams } from ".";
 
+const createWrapper = (initialEntries: string[]) => {
+  const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+    <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+  );
+  return Wrapper;
+};
+
 describe("useQueryParams", () => {
   it("should return the correct query string", () => {
-    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?search=test"]}>{children}</MemoryRouter>
-    );
-
     const { result } = renderHook(() => useQueryParams(), {
-      wrapper,
+      wrapper: createWrapper(["/?search=test"]),
     });
     expect(result.current[0].search).toBe("test");
   });
   it("setting a query string should update the query string", () => {
-    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?search=test"]}>{children}</MemoryRouter>
-    );
     const { result } = renderHook(() => useQueryParams(), {
-      wrapper,
+      wrapper: createWrapper(["/?search=test"]),
     });
     act(() => {
       result.current[1]({ search: "test2" });
@@ -28,11 +27,8 @@ describe("useQueryParams", () => {
   });
 
   it("setter should maintain referential equality when params change", () => {
-    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?search=test"]}>{children}</MemoryRouter>
-    );
     const { result } = renderHook(() => useQueryParams(), {
-      wrapper,
+      wrapper: createWrapper(["/?search=test"]),
     });
     const setterBefore = result.current[1];
     act(() => {
@@ -43,13 +39,8 @@ describe("useQueryParams", () => {
   });
 
   it("should support functional updates", () => {
-    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?existing=value"]}>
-        {children}
-      </MemoryRouter>
-    );
     const { result } = renderHook(() => useQueryParams(), {
-      wrapper,
+      wrapper: createWrapper(["/?existing=value"]),
     });
     act(() => {
       result.current[1]((current: { [key: string]: unknown }) => ({
@@ -72,11 +63,8 @@ const useQueryJointHook = (param: string, def: unknown) => {
 
 describe("useQueryParam", () => {
   it("setting a query param value should not update other values", () => {
-    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?search=test"]}>{children}</MemoryRouter>
-    );
     const { result } = renderHook(() => useQueryJointHook("other", ""), {
-      wrapper,
+      wrapper: createWrapper(["/?search=test"]),
     });
     expect(result.current.allQueryParams).toMatchObject({ search: "test" });
     act(() => {
@@ -90,12 +78,6 @@ describe("useQueryParam", () => {
   });
 
   it("setter should maintain referential equality when a different param changes", () => {
-    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?paramA=initial"]}>
-        {children}
-      </MemoryRouter>
-    );
-
     // Use two separate hooks for different params
     const { result } = renderHook(
       () => {
@@ -103,7 +85,7 @@ describe("useQueryParam", () => {
         const [valueB, setValueB] = useQueryParam("paramB", "");
         return { valueA, setValueA, valueB, setValueB };
       },
-      { wrapper },
+      { wrapper: createWrapper(["/?paramA=initial"]) },
     );
 
     const setterBBefore = result.current.setValueB;
@@ -122,37 +104,22 @@ describe("useQueryParam", () => {
   });
 
   it("query param should be the default value if not set", () => {
-    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/"]}>{children}</MemoryRouter>
-    );
     const { result } = renderHook(() => useQueryJointHook("other", "default"), {
-      wrapper,
+      wrapper: createWrapper(["/"]),
     });
     expect(result.current.queryParam).toBe("default");
   });
   it("query param should not be default if it exists", () => {
-    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?other=something"]}>
-        {children}
-      </MemoryRouter>
-    );
     const { result } = renderHook(() => useQueryJointHook("other", "default"), {
-      wrapper,
+      wrapper: createWrapper(["/?other=something"]),
     });
     expect(result.current.queryParam).toBe("something");
   });
 
   describe("should handle strings", () => {
     it("when a default is provided", () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MemoryRouter initialEntries={["/?search=test"]}>
-          {children}
-        </MemoryRouter>
-      );
       const { result } = renderHook(() => useQueryJointHook("search", "test"), {
-        wrapper,
+        wrapper: createWrapper(["/?search=test"]),
       });
       expect(result.current.queryParam).toBe("test");
       act(() => {
@@ -161,11 +128,8 @@ describe("useQueryParam", () => {
       expect(result.current.queryParam).toBe("test2");
     });
     it("when a default is not provided", () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => <MemoryRouter initialEntries={["/"]}>{children}</MemoryRouter>;
       const { result } = renderHook(() => useQueryJointHook("search", "test"), {
-        wrapper,
+        wrapper: createWrapper(["/"]),
       });
       expect(result.current.queryParam).toBe("test");
       act(() => {
@@ -174,13 +138,8 @@ describe("useQueryParam", () => {
       expect(result.current.queryParam).toBe("test2");
     });
     it("should preserve empty strings", () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MemoryRouter initialEntries={["/?search="]}>{children}</MemoryRouter>
-      );
       const { result } = renderHook(() => useQueryJointHook("search", "test"), {
-        wrapper,
+        wrapper: createWrapper(["/?search="]),
       });
       expect(result.current.queryParam).toBe("");
       act(() => {
@@ -195,13 +154,8 @@ describe("useQueryParam", () => {
   });
   describe("should handle numbers", () => {
     it("when a default is provided", () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MemoryRouter initialEntries={["/?search=1"]}>{children}</MemoryRouter>
-      );
       const { result } = renderHook(() => useQueryJointHook("search", 1), {
-        wrapper,
+        wrapper: createWrapper(["/?search=1"]),
       });
       expect(result.current.queryParam).toBe(1);
       act(() => {
@@ -210,11 +164,8 @@ describe("useQueryParam", () => {
       expect(result.current.queryParam).toBe(2);
     });
     it("when a default is not provided", () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => <MemoryRouter initialEntries={["/"]}>{children}</MemoryRouter>;
       const { result } = renderHook(() => useQueryJointHook("search", 1), {
-        wrapper,
+        wrapper: createWrapper(["/"]),
       });
       expect(result.current.queryParam).toBe(1);
       act(() => {
@@ -225,15 +176,8 @@ describe("useQueryParam", () => {
   });
   describe("should handle booleans", () => {
     it("when a default is provided", () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MemoryRouter initialEntries={["/?search=true"]}>
-          {children}
-        </MemoryRouter>
-      );
       const { result } = renderHook(() => useQueryJointHook("search", true), {
-        wrapper,
+        wrapper: createWrapper(["/?search=true"]),
       });
       expect(result.current.queryParam).toBe(true);
       act(() => {
@@ -242,11 +186,8 @@ describe("useQueryParam", () => {
       expect(result.current.queryParam).toBe(false);
     });
     it("when a default is not provided", () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => <MemoryRouter initialEntries={["/"]}>{children}</MemoryRouter>;
       const { result } = renderHook(() => useQueryJointHook("search", true), {
-        wrapper,
+        wrapper: createWrapper(["/"]),
       });
       expect(result.current.queryParam).toBe(true);
       act(() => {
@@ -257,13 +198,8 @@ describe("useQueryParam", () => {
   });
   describe("should handle arrays", () => {
     it("when a default is provided", () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => (
-        <MemoryRouter initialEntries={["/?search=1"]}>{children}</MemoryRouter>
-      );
       const { result } = renderHook(() => useQueryJointHook("search", [1]), {
-        wrapper,
+        wrapper: createWrapper(["/?search=1"]),
       });
       expect(result.current.queryParam).toStrictEqual([1]);
       act(() => {
@@ -276,11 +212,8 @@ describe("useQueryParam", () => {
       expect(result.current.queryParam).toStrictEqual([3, 4]);
     });
     it("when a default is not provided", () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => <MemoryRouter initialEntries={["/"]}>{children}</MemoryRouter>;
       const { result } = renderHook(() => useQueryJointHook("search", [1]), {
-        wrapper,
+        wrapper: createWrapper(["/"]),
       });
       expect(result.current.queryParam).toStrictEqual([1]);
       act(() => {
@@ -296,14 +229,10 @@ describe("useQueryParam", () => {
 
   describe("defaultParam stability", () => {
     it("inline array defaultParam should maintain referential equality across re-renders", () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => <MemoryRouter initialEntries={["/"]}>{children}</MemoryRouter>;
-
       // Pass inline array [] which is a new reference each render
       const { rerender, result } = renderHook(
         () => useQueryParam("filters", []),
-        { wrapper },
+        { wrapper: createWrapper(["/"]) },
       );
 
       const valueBefore = result.current[0];
@@ -318,15 +247,14 @@ describe("useQueryParam", () => {
     });
 
     it("should use initial defaultParam value even when prop changes", () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => <MemoryRouter initialEntries={["/"]}>{children}</MemoryRouter>;
-
       // Start with default "initial"
       const { rerender, result } = renderHook(
         ({ defaultVal }: { defaultVal: string }) =>
           useQueryParam("myParam", defaultVal),
-        { initialProps: { defaultVal: "initial" }, wrapper },
+        {
+          initialProps: { defaultVal: "initial" },
+          wrapper: createWrapper(["/"]),
+        },
       );
 
       expect(result.current[0]).toBe("initial");
@@ -338,13 +266,9 @@ describe("useQueryParam", () => {
     });
 
     it("setter should remain stable when using inline array defaultParam", () => {
-      const wrapper: React.FC<{ children: React.ReactNode }> = ({
-        children,
-      }) => <MemoryRouter initialEntries={["/"]}>{children}</MemoryRouter>;
-
       const { rerender, result } = renderHook(
         () => useQueryParam("filters", []),
-        { wrapper },
+        { wrapper: createWrapper(["/"]) },
       );
 
       const setterBefore = result.current[1];
