@@ -67,7 +67,9 @@ describe("action menu for tests table", () => {
       "false",
     );
     await user.click(screen.getByDataCy("quarantine-test"));
-    expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    });
     await waitFor(() => {
       expect(screen.queryByDataCy("card-dropdown")).not.toBeInTheDocument();
     });

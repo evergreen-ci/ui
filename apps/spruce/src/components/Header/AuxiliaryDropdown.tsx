@@ -1,12 +1,11 @@
 import { useNavbarAnalytics } from "analytics";
 import {
   routes,
-  getDistroSettingsRoute,
+  redirectRoutes,
   getProjectPatchesRoute,
   getProjectSettingsRoute,
   getTaskQueueRoute,
 } from "constants/routes";
-import { useFirstDistro } from "hooks";
 import { NavDropdown } from "./NavDropdown";
 
 interface AuxiliaryDropdownProps {
@@ -17,7 +16,6 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
   projectIdentifier,
 }) => {
   const { sendEvent } = useNavbarAnalytics();
-  const { distro } = useFirstDistro();
 
   const menuItems = [
     {
@@ -32,7 +30,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
     },
     {
       "data-cy": "auxiliary-dropdown-distro-settings",
-      to: getDistroSettingsRoute(distro),
+      to: redirectRoutes.distroSettings,
       text: "Distro Settings",
       onClick: () => sendEvent({ name: "Clicked distro settings link" }),
     },
