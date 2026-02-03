@@ -3,6 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./test_utils": {
+      "types": "./src/test_utils/index.tsx",
+      "default": "./src/test_utils/index.tsx"
+    }
+  },
   "scripts": {
     "check-types": "tsc -p tsconfig.json --noEmit",
     "eslint:fix": "pnpm eslint:strict --fix",

@@ -73,3 +73,5 @@ export const trimLogLineToMaxSize = (line: string, maxSize: number) => {
   }
   return line;
 };
+
+export { trimSeverity, getSeverityMapping, mapLogLevelToColor } from "./logs";

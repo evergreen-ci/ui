@@ -57,3 +57,7 @@ export const fetchWithRetry = <T = unknown>(
     };
     attemptFetch(1);
   });
+
+export { streamedFetch } from "./streamedFetch";
+export type { StreamedFetchOptions } from "./streamedFetch";
+export { post } from "./post";
