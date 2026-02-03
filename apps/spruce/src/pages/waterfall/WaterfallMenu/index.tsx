@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MenuSeparator, SubMenu } from "@leafygreen-ui/menu";
+import { MenuGroup, MenuSeparator } from "@leafygreen-ui/menu";
 import Icon from "@evg-ui/lib/components/Icon";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import { walkthroughSteps, waterfallGuideId } from "../constants";
@@ -57,13 +57,13 @@ export const WaterfallMenu: React.FC<Props> = ({
 
       <MenuSeparator />
 
-      <SubMenu glyph={<Icon glyph="Settings" />} title="Settings">
+      <MenuGroup glyph={<Icon glyph="Settings" />} title="Settings">
         <OmitInactiveBuilds
           key="omit-inactive-builds"
           omitInactiveBuilds={omitInactiveBuilds}
           setOmitInactiveBuilds={setOmitInactiveBuilds}
         />
-      </SubMenu>
+      </MenuGroup>
     </ButtonDropdown>
   );
 };

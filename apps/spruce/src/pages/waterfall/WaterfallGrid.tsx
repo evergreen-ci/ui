@@ -245,7 +245,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const isHighlighted = (v: Version, i: number) =>
     (revision !== null && v.revision.includes(revision)) || (!!date && i === 0);
 
-  if (dataIsComplete && activeVersionIds.length === 0) {
+  if (dataIsComplete && !isPending && activeVersionIds.length === 0) {
     return <EmptyState />;
   }
 
