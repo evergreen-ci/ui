@@ -150,16 +150,14 @@ export const BuildRow: React.FC<Props> = ({
   );
 };
 
-const BuildGrid: React.FC<{
-  build: Build;
-  firstActiveTaskId: string;
-  handleTaskClick: (s: string) => () => void;
-  isRightmostBuild: boolean;
-}> = ({ build, firstActiveTaskId, handleTaskClick, isRightmostBuild }) => {
-  const rowRef = useRef<HTMLDivElement>(null);
-  const { width } = useDimensions<HTMLDivElement>(rowRef);
-
+const WidthWatcher: React.FC<{
+  children: React.ReactNode;
+  onClick: (event: React.MouseEvent) => void;
+}> = ({ children, onClick }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { width } = useDimensions<HTMLDivElement>(containerRef);
   const { columnWidth, setColumnWidth } = useBuildVariantContext();
+
   useEffect(() => {
     if (width !== 0 && columnWidth !== width) {
       setColumnWidth(width);
@@ -167,14 +165,26 @@ const BuildGrid: React.FC<{
   }, [setColumnWidth, columnWidth, width]);
 
   return (
-    <BuildContainer
-      ref={rowRef}
-      onClick={(event: React.MouseEvent) => {
-        handleTaskClick(
-          (event.target as HTMLDivElement)?.getAttribute("status") ?? "",
-        );
-      }}
-    >
+    <BuildContainer ref={containerRef} onClick={onClick}>
+      {children}
+    </BuildContainer>
+  );
+};
+
+const BuildGrid: React.FC<{
+  build: Build;
+  firstActiveTaskId: string;
+  handleTaskClick: (s: string) => () => void;
+  isRightmostBuild: boolean;
+}> = ({ build, firstActiveTaskId, handleTaskClick, isRightmostBuild }) => {
+  const handleClick = (event: React.MouseEvent) => {
+    handleTaskClick(
+      (event.target as HTMLDivElement)?.getAttribute("status") ?? "",
+    )();
+  };
+
+  return (
+    <WidthWatcher onClick={handleClick}>
       {build.tasks.map(({ displayName, displayStatusCache, execution, id }) => {
         const squareProps =
           id === firstActiveTaskId
@@ -194,7 +204,7 @@ const BuildGrid: React.FC<{
           />
         );
       })}
-    </BuildContainer>
+    </WidthWatcher>
   );
 };
 
