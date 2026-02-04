@@ -45,7 +45,7 @@ const featureItems: Record<string, string> = {
   backgroundReauthDisabled: "Background Reauthentication",
   debugSpawnHostDisabled: "Debug spawn hosts",
   useGitForGitHubFilesDisabled: "Use git to fetch files from GitHub",
-  psLoggingDisabled: "Enable PS logging by default for tasks",
+  psLoggingDisabled: "PS logging by default for tasks",
 };
 
 const batchJobItems: Record<string, string> = {
