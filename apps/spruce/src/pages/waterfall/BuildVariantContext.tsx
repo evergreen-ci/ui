@@ -1,4 +1,10 @@
-import { useContext, createContext, useMemo, useState } from "react";
+import {
+  useCallback,
+  useContext,
+  createContext,
+  useMemo,
+  useState,
+} from "react";
 
 interface BuildVariantState {
   columnWidth: number;
@@ -19,12 +25,19 @@ const BuildVariantProvider: React.FC<BuildVariantProviderProps> = ({
   // of the height.
   const [columnWidth, setColumnWidth] = useState(0);
 
+  const setColumnWidthStable = useCallback((width: number) => {
+    setColumnWidth((prev) => {
+      if (prev === width) return prev;
+      return width;
+    });
+  }, []);
+
   const buildVariantState = useMemo(
     () => ({
       columnWidth,
-      setColumnWidth,
+      setColumnWidth: setColumnWidthStable,
     }),
-    [columnWidth],
+    [columnWidth, setColumnWidthStable],
   );
 
   return (

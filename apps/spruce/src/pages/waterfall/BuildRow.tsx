@@ -138,6 +138,7 @@ export const BuildRow: React.FC<Props> = ({
             const b = builds[buildIndex];
             const useCachedStatus =
               new Date(version.createTime) > displayStatusCacheAddedDate;
+            const isFirstGrid = isFirstBuild && buildIndex === 0;
             buildIndex += 1;
             return (
               <BuildGrid
@@ -145,6 +146,7 @@ export const BuildRow: React.FC<Props> = ({
                 build={b}
                 firstActiveTaskId={firstActiveTaskId}
                 handleTaskClick={handleTaskClick}
+                isFirstGrid={isFirstGrid}
                 isRightmostBuild={b.version === lastActiveVersionId}
                 useCachedStatus={useCachedStatus}
               />
@@ -161,24 +163,32 @@ const BuildGrid: React.FC<{
   build: Build;
   firstActiveTaskId: string;
   handleTaskClick: (s: string) => () => void;
+  isFirstGrid: boolean;
   isRightmostBuild: boolean;
   useCachedStatus: boolean;
 }> = ({
   build,
   firstActiveTaskId,
   handleTaskClick,
+  isFirstGrid,
   isRightmostBuild,
   useCachedStatus,
 }) => {
   const rowRef = useRef<HTMLDivElement>(null);
-  const { width } = useDimensions<HTMLDivElement>(rowRef);
+
+  // Only observe dimensions on the first grid as a performance optimization.
+  const { width } = useDimensions<HTMLDivElement>(
+    isFirstGrid ? rowRef : { current: null },
+  );
 
   const { columnWidth, setColumnWidth } = useBuildVariantContext();
+
   useEffect(() => {
-    if (width !== 0 && columnWidth !== width) {
+    // Only the first grid updates the shared columnWidth.
+    if (isFirstGrid && width !== 0 && columnWidth !== width) {
       setColumnWidth(width);
     }
-  }, [setColumnWidth, columnWidth, width]);
+  }, [isFirstGrid, setColumnWidth, columnWidth, width]);
 
   return (
     <BuildContainer
