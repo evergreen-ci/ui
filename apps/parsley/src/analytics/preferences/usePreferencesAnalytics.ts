@@ -19,7 +19,8 @@ type Action =
   | { name: "Toggled jump to failing line"; on: boolean }
   | { name: "Toggled highlight filters"; on: boolean }
   | { name: "Toggled sections"; on: boolean }
-  | { name: "Toggled sticky headers"; on: boolean };
+  | { name: "Toggled sticky headers"; on: boolean }
+  | { name: "Toggled include timestamps"; on: boolean };
 
 export const usePreferencesAnalytics = () =>
   useAnalyticsRoot<Action, AnalyticsIdentifier>("Preferences");

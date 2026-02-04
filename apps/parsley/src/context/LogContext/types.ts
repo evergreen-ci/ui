@@ -31,6 +31,7 @@ interface Preferences {
   caseSensitive: boolean;
   expandableRows: boolean;
   filterLogic: FilterLogic;
+  includeTimestamps: boolean;
   prettyPrint: boolean;
   wordWrapFormat: WordWrapFormat;
   wrap: boolean;
@@ -40,6 +41,7 @@ interface Preferences {
   setCaseSensitive: (caseSensitive: boolean) => void;
   setExpandableRows: (expandableRows: boolean) => void;
   setFilterLogic: (filterLogic: FilterLogic) => void;
+  setIncludeTimestamps: (includeTimestamps: boolean) => void;
   setWrap: (wrap: boolean) => void;
   setWordWrapFormat: (wrapFormat: WordWrapFormat) => void;
   setPrettyPrint: (prettyPrint: boolean) => void;

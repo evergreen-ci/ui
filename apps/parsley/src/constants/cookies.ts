@@ -16,3 +16,5 @@ export const HAS_SEEN_SEARCHBAR_GUIDE_CUE =
 export const LAST_SELECTED_LOG_TYPE = "last-selected-log-type";
 
 export const COPY_FORMAT = "default-copy-format";
+
+export const INCLUDE_TIMESTAMPS = "include-timestamps";

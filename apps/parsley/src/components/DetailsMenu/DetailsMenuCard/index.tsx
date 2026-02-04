@@ -11,6 +11,7 @@ import {
   ExpandableRowsToggle,
   FilterLogicToggle,
   HighlightFiltersToggle,
+  IncludeTimestampsToggle,
   JumpToFailingLineToggle,
   PrettyPrintToggle,
   SectionsToggle,
@@ -68,6 +69,7 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
                   updateSettings={updateSettings}
                 />
                 <StickyHeadersToggle />
+                <IncludeTimestampsToggle />
               </Column>
             </Row>
           </Tab>

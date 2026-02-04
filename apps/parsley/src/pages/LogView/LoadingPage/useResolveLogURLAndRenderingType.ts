@@ -31,6 +31,7 @@ interface UseResolveLogURLAndRenderingTypeProps {
   fileName?: string;
   // This groupID comes from the application URL.
   groupID?: string;
+  includeTimestamps?: boolean;
   logType: string;
   origin?: string;
   taskID?: string;
@@ -67,11 +68,43 @@ type HookResult = {
  * @param UseResolveLogURLAndRenderingTypeProps.testID - The test ID of the log
  * @returns LogURLs
  */
+/**
+ * Modifies the print_time query parameter in a URL based on the includeTimestamps setting.
+ * @param url - The URL to modify
+ * @param includeTimestamps - Whether to include timestamps (maps to print_time)
+ * @returns The modified URL
+ */
+const modifyPrintTimeInURL = (
+  url: string,
+  includeTimestamps: boolean,
+): string => {
+  if (!url) return url;
+
+  try {
+    const urlObj = new URL(url);
+    if (urlObj.searchParams.has("print_time")) {
+      urlObj.searchParams.set("print_time", String(includeTimestamps));
+      return urlObj.toString();
+    }
+  } catch {
+    // If URL parsing fails, try treating it as a relative URL
+    if (url.includes("print_time=")) {
+      return url.replace(
+        /print_time=(true|false)/,
+        `print_time=${includeTimestamps}`,
+      );
+    }
+  }
+
+  return url;
+};
+
 export const useResolveLogURLAndRenderingType = ({
   buildID,
   execution,
   fileName,
   groupID,
+  includeTimestamps = true,
   logType,
   origin,
   taskID,
@@ -266,12 +299,12 @@ export const useResolveLogURLAndRenderingType = ({
   }, [testData, logType, rawLogURL]);
 
   return {
-    downloadURL,
+    downloadURL: modifyPrintTimeInURL(downloadURL, includeTimestamps),
     failingCommand,
-    htmlLogURL,
+    htmlLogURL: modifyPrintTimeInURL(htmlLogURL, includeTimestamps),
     jobLogsURL,
     loading: isLoadingTest || isLoadingTask || isLoadingTaskFileData,
-    rawLogURL,
+    rawLogURL: modifyPrintTimeInURL(rawLogURL, includeTimestamps),
     renderingType,
   };
 };
