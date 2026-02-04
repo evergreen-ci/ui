@@ -208,6 +208,8 @@ describe("project selection", () => {
     cy.dataCy("status-filter").click();
     cy.dataCy("test-timed-out-option").click();
     cy.get("body").click();
+    cy.contains("No Results Found").should("be.visible");
+
     cy.dataCy("project-select").click();
     cy.dataCy("project-select-options")
       .contains("evergreen smoke test")
