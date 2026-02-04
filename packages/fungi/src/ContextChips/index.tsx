@@ -3,7 +3,7 @@ import { IconButton } from "@leafygreen-ui/icon-button";
 import { RichLink } from "@lg-chat/rich-links";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { ContextChip } from "../Context/context";
+import { ContextChip } from "#Context";
 
 export type ContextChipsProps = {
   chips: ContextChip[];
