@@ -25,7 +25,6 @@ query Waterfall($options: WaterfallOptions!) {
           displayName
           displayStatusCache
           execution
-          status
         }
       }
     }
