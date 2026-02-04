@@ -332,51 +332,6 @@ describe("useFilters", () => {
       });
     });
 
-    it("matches on status when no display status is present", () => {
-      const { result } = renderHook(
-        () =>
-          useFilters({
-            activeVersionIds: ["b", "c", "f"],
-            flattenedVersions: versions,
-            pins: [],
-          }),
-        {
-          wrapper: createWrapper({
-            initialEntry: "/project/spruce/waterfall?statuses=success",
-          }),
-        },
-      );
-
-      expect(result.current).toStrictEqual({
-        activeVersionIds: ["c"],
-        versions: [
-          {
-            inactiveVersions: [versions[0], versions[1]],
-            version: null,
-          },
-          {
-            inactiveVersions: null,
-            version: versions[2],
-          },
-          {
-            inactiveVersions: [versions[3], versions[4], versions[5]],
-            version: null,
-          },
-        ],
-        buildVariants: [
-          {
-            ...buildVariants[2],
-            builds: [
-              {
-                ...buildVariants[2].builds[0],
-                tasks: [buildVariants[2].builds[0].tasks[0]],
-              },
-            ],
-          },
-        ],
-      });
-    });
-
     it("applies task name and status filter", () => {
       const { result } = renderHook(
         () =>

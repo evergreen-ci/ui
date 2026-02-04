@@ -12255,7 +12255,6 @@ export type WaterfallQuery = {
           displayName: string;
           displayStatusCache: string;
           execution: number;
-          status: string;
         }>;
       }> | null;
     }>;
