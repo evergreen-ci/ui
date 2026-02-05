@@ -27,7 +27,6 @@ const urlParseOptions: ParseOptions = {
     [QueryParams.LowerRange]: "number",
     [QueryParams.UpperRange]: "number",
     [QueryParams.SelectedLineRange]: "string",
-    [QueryParams.IncludeTimestamps]: "string",
   },
 };
 
