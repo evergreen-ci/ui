@@ -3831,6 +3831,7 @@ export type ServiceFlags = {
   taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   useGitForGitHubFilesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  useMergeQueuePathFilteringDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
@@ -3872,6 +3873,7 @@ export type ServiceFlagsInput = {
   taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   useGitForGitHubFilesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  useMergeQueuePathFilteringDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
@@ -8068,6 +8070,7 @@ export type AdminSettingsQuery = {
       taskReliabilityDisabled?: boolean | null;
       unrecognizedPodCleanupDisabled?: boolean | null;
       useGitForGitHubFilesDisabled?: boolean | null;
+      useMergeQueuePathFilteringDisabled?: boolean | null;
       webhookNotificationsDisabled?: boolean | null;
     } | null;
     singleTaskDistro?: {
