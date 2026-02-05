@@ -543,7 +543,7 @@ export const debugSpawnHostsConfig = {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "debug-spawn-hosts-config",
     setupScript: {
-      "ui:widget": widgets.TextareaWidget,
+      "ui:widget": "textarea",
       "ui:fieldCss": fullWidthCss,
       "ui:description":
         "Optional script used to help debug spawn host setup/provisioning.",

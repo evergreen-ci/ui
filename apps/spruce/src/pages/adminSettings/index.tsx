@@ -1,7 +1,5 @@
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Spinner } from "@leafygreen-ui/loading-indicator/spinner";
-import { Description } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
@@ -27,30 +25,9 @@ import { AdminSettingsTabs } from "./Tabs";
 
 const AdminSettingsPage: React.FC = () => {
   usePageTitle("Admin Settings");
-  const { data, error, loading } = useQuery<
-    AdminSettingsQuery,
-    AdminSettingsQueryVariables
-  >(ADMIN_SETTINGS);
-
-  let content: React.ReactNode = null;
-  if (loading) {
-    content = (
-      <LoadingContainer>
-        <Spinner size="large" />
-        <Description>Loading admin settings…</Description>
-      </LoadingContainer>
-    );
-  } else if (error) {
-    content = (
-      <ErrorContainer>
-        <Description>
-          Failed to load admin settings: {error.message}
-        </Description>
-      </ErrorContainer>
-    );
-  } else if (data?.adminSettings) {
-    content = <AdminSettingsTabs data={data.adminSettings} />;
-  }
+  const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
+    ADMIN_SETTINGS,
+  );
 
   return (
     <AdminSettingsProvider>
@@ -618,7 +595,9 @@ const AdminSettingsPage: React.FC = () => {
           </SideNavGroup>
         </SideNav>
         <SettingsPageContent data-cy="admin-settings-page">
-          {content}
+          {data?.adminSettings && (
+            <AdminSettingsTabs data={data.adminSettings} />
+          )}
         </SettingsPageContent>
       </SideNavPageWrapper>
     </AdminSettingsProvider>
@@ -629,18 +608,6 @@ const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0;
-`;
-
-const LoadingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 24px;
-  align-items: center;
-`;
-
-const ErrorContainer = styled.div`
-  padding: 24px;
 `;
 
 export default AdminSettingsPage;
