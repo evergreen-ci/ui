@@ -50,7 +50,7 @@ export const versionWithUpstreamProject: Version = {
   ],
   id: "evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a",
   message: "spruce/v4.1.87",
-  requester: Requester.GitTag,
+  requester: Requester.Trigger,
   revision: "130948895a46d4fd04292e7783069918e4e7cd5a",
   order: 8,
 };
