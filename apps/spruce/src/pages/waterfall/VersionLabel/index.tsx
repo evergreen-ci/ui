@@ -7,6 +7,7 @@ import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size as sizeToken } from "@evg-ui/lib/constants/tokens";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useWaterfallAnalytics } from "analytics";
+import { Requester } from "constants/requesters";
 import { getVersionRoute } from "constants/routes";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { jiraLinkify } from "utils/string";
@@ -38,6 +39,7 @@ export const VersionLabel: React.FC<Props> = ({
   id,
   isFirstVersion,
   message,
+  requester,
   revision,
   shouldDisableText = false,
   user,
@@ -90,7 +92,11 @@ export const VersionLabel: React.FC<Props> = ({
           <TaskStatsTooltip id={id} isFirstVersion={isFirstVersion} />
         )}
       </HeaderLine>
-      <UpstreamProjectLink commitType={commitType} versionId={id} />
+      <UpstreamProjectLink
+        commitType={commitType}
+        isTrigger={requester === Requester.Trigger}
+        versionId={id}
+      />
       <CommitMessage
         /* @ts-expect-error - the native title attribute works here */
         title={view === VersionLabelView.Waterfall ? message : undefined}

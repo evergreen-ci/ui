@@ -5053,7 +5053,6 @@ export type WaterfallTask = {
   displayStatusCache: Scalars["String"]["output"];
   execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
-  status: Scalars["String"]["output"];
 };
 
 export type WaterfallVersion = {
@@ -11037,6 +11036,7 @@ export type SpawnTaskQuery = {
     project?: {
       __typename?: "Project";
       id: string;
+      debugSpawnHostsDisabled?: boolean | null;
       spawnHostScriptPath: string;
     } | null;
   } | null;
@@ -11082,6 +11082,7 @@ export type SpruceConfigQuery = {
     } | null;
     serviceFlags: {
       __typename?: "UserServiceFlags";
+      debugSpawnHostDisabled?: boolean | null;
       jwtTokenForCLIDisabled?: boolean | null;
     };
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
@@ -12264,7 +12265,6 @@ export type WaterfallQuery = {
           displayName: string;
           displayStatusCache: string;
           execution: number;
-          status: string;
         }>;
       }> | null;
     }>;

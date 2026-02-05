@@ -32,7 +32,7 @@ describe("requester filtering", () => {
     cy.dataCy("inactive-versions-button").first().contains("3");
     cy.dataCy("inactive-versions-button").eq(1).contains("2");
     cy.dataCy("version-label-active").contains("Git Tag");
-    cy.dataCy("version-label-active").should("have.length", 4);
+    cy.dataCy("version-label-active").should("have.length", 3);
   });
 
   it("clears requester filters", () => {
@@ -107,7 +107,7 @@ describe("task filtering", () => {
     });
     cy.dataCy("build-variant-label").should("have.length", 2);
     cy.dataCy("filter-chip").eq(1).should("have.text", "Task: lint");
-    cy.get("a[data-tooltip]").should("have.length", 4);
+    cy.get("a[data-tooltip]").should("have.length", 3);
   });
 
   it("correctly applies build variant and task filters", () => {

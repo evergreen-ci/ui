@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DashedLine } from "../BaseRow/styles";
 
@@ -25,7 +25,7 @@ const Row = styled.div`
   gap: ${size.l};
 `;
 
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   white-space: nowrap;
   color: ${gray.dark2};
   text-transform: uppercase;
