@@ -169,6 +169,7 @@ export type AdminSettings = {
   configDir?: Maybe<Scalars["String"]["output"]>;
   containerPools?: Maybe<ContainerPoolsConfig>;
   cost?: Maybe<CostConfig>;
+  debugSpawnHosts?: Maybe<DebugSpawnHostsConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
   domainName?: Maybe<Scalars["String"]["output"]>;
   expansions?: Maybe<Scalars["StringMap"]["output"]>;
@@ -226,6 +227,7 @@ export type AdminSettingsInput = {
   configDir?: InputMaybe<Scalars["String"]["input"]>;
   containerPools?: InputMaybe<ContainerPoolsConfigInput>;
   cost?: InputMaybe<CostConfigInput>;
+  debugSpawnHosts?: InputMaybe<DebugSpawnHostsConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   domainName?: InputMaybe<Scalars["String"]["input"]>;
   expansions?: InputMaybe<Scalars["StringMap"]["input"]>;
@@ -764,6 +766,15 @@ export type DeactivateStepbackTaskInput = {
   buildVariantName: Scalars["String"]["input"];
   projectId: Scalars["String"]["input"];
   taskName: Scalars["String"]["input"];
+};
+
+export type DebugSpawnHostsConfig = {
+  __typename?: "DebugSpawnHostsConfig";
+  setupScript?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type DebugSpawnHostsConfigInput = {
+  setupScript?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** DefaultSectionToRepoInput is the input to the defaultSectionToRepo mutation. */
@@ -3831,6 +3842,7 @@ export type ServiceFlags = {
   taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   useGitForGitHubFilesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  useMergeQueuePathFilteringDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
@@ -3872,6 +3884,7 @@ export type ServiceFlagsInput = {
   taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   useGitForGitHubFilesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  useMergeQueuePathFilteringDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
@@ -11291,6 +11304,30 @@ export type TaskNamesForBuildVariantQueryVariables = Exact<{
 export type TaskNamesForBuildVariantQuery = {
   __typename?: "Query";
   taskNamesForBuildVariant?: Array<string> | null;
+};
+
+export type TaskOverviewPopupQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskOverviewPopupQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    displayName: string;
+    displayStatus: string;
+    distroId: string;
+    execution: number;
+    finishTime?: Date | null;
+    timeTaken?: number | null;
+    details?: {
+      __typename?: "TaskEndDetail";
+      description?: string | null;
+      failingCommand?: string | null;
+    } | null;
+  } | null;
 };
 
 export type TaskOwnerTeamsForTaskQueryVariables = Exact<{
