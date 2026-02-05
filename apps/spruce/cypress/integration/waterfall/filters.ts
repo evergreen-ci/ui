@@ -107,7 +107,7 @@ describe("task filtering", () => {
     });
     cy.dataCy("build-variant-label").should("have.length", 2);
     cy.dataCy("filter-chip").eq(1).should("have.text", "Task: lint");
-    cy.get("a[data-tooltip]").should("have.length", 3);
+    cy.get("a[data-tooltip]").should("have.length", 4);
   });
 
   it("correctly applies build variant and task filters", () => {
