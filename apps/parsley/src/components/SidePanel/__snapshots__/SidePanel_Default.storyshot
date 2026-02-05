@@ -85,7 +85,7 @@
                             aria-checked="true"
                             aria-disabled="false"
                             aria-labelledby="Show or hide all filters toggle"
-                            class="emotion-StyledToggle eltruqc0 lg-ui-toggle-button-0000 leafygreen-ui-16u1u0t"
+                            class="emotion-StyledToggle eltruqc0 lg-ui-toggle-button-0000 leafygreen-ui-1cvury1"
                             data-cy="all-filters-toggle"
                             data-lgid="lg-toggle"
                             data-testid="lg-toggle"
@@ -124,7 +124,7 @@
                           <button
                             aria-disabled="false"
                             aria-label="Accordion icon"
-                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-1r51ix4"
+                            class="emotion-AccordionIcon e1omze813 leafygreen-ui-1o2ji0h"
                             open=""
                             style="align-self: start;"
                             tabindex="0"
@@ -167,7 +167,7 @@
                                 aria-disabled="false"
                                 aria-label="Hide filter"
                                 aria-labelledby=":re:"
-                                class="lg-ui-toggle-button-0000 leafygreen-ui-16u1u0t"
+                                class="lg-ui-toggle-button-0000 leafygreen-ui-1cvury1"
                                 data-lgid="lg-toggle"
                                 data-testid="lg-toggle"
                                 role="switch"
@@ -181,7 +181,7 @@
                               <button
                                 aria-disabled="false"
                                 aria-label="Edit filter"
-                                class="leafygreen-ui-1r51ix4"
+                                class="leafygreen-ui-1o2ji0h"
                                 tabindex="0"
                                 title="Edit filter"
                               >
@@ -208,7 +208,7 @@
                               <button
                                 aria-disabled="false"
                                 aria-label="Delete filter"
-                                class="leafygreen-ui-1r51ix4"
+                                class="leafygreen-ui-1o2ji0h"
                                 tabindex="0"
                                 title="Delete filter"
                               >
@@ -273,7 +273,7 @@
                                       <button
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="true"
-                                        class="leafygreen-ui-qlnhrg"
+                                        class="leafygreen-ui-zcita1"
                                         id="segmented-control-86-0"
                                         role="tab"
                                         tabindex="0"
@@ -302,7 +302,7 @@
                                       <button
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="false"
-                                        class="leafygreen-ui-qlnhrg"
+                                        class="leafygreen-ui-zcita1"
                                         id="segmented-control-86-1"
                                         role="tab"
                                         tabindex="-1"
@@ -353,7 +353,7 @@
                                       <button
                                         aria-controls="Toggle match type"
                                         aria-selected="true"
-                                        class="leafygreen-ui-qlnhrg"
+                                        class="leafygreen-ui-zcita1"
                                         id="segmented-control-87-0"
                                         role="tab"
                                         tabindex="0"
@@ -382,7 +382,7 @@
                                       <button
                                         aria-controls="Toggle match type"
                                         aria-selected="false"
-                                        class="leafygreen-ui-qlnhrg"
+                                        class="leafygreen-ui-zcita1"
                                         id="segmented-control-87-1"
                                         role="tab"
                                         tabindex="-1"
@@ -487,7 +487,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Delete range"
-                        class="leafygreen-ui-1r51ix4"
+                        class="leafygreen-ui-1o2ji0h"
                         tabindex="0"
                       >
                         <div
@@ -586,7 +586,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Delete highlight"
-                        class="leafygreen-ui-1r51ix4"
+                        class="leafygreen-ui-1o2ji0h"
                         data-cy="delete-highlight-button"
                         tabindex="0"
                       >
@@ -626,7 +626,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Delete highlight"
-                        class="leafygreen-ui-1r51ix4"
+                        class="leafygreen-ui-1o2ji0h"
                         data-cy="delete-highlight-button"
                         tabindex="0"
                       >
@@ -752,7 +752,7 @@
           aria-controls="side-nav-76"
           aria-expanded="true"
           aria-label="Collapse navigation"
-          class="leafygreen-ui-v87gj9"
+          class="leafygreen-ui-6rkqwh"
           data-testid="side-nav-collapse-toggle"
         >
           <div

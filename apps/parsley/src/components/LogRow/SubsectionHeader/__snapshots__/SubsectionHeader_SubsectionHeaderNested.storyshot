@@ -10,7 +10,7 @@
       <button
         aria-disabled="false"
         aria-label="Close section"
-        class="leafygreen-ui-1r51ix4"
+        class="leafygreen-ui-1o2ji0h"
         data-cy="caret-toggle"
         tabindex="0"
       >
@@ -53,7 +53,7 @@
       <button
         aria-disabled="false"
         aria-label="Open section"
-        class="leafygreen-ui-1r51ix4"
+        class="leafygreen-ui-1o2ji0h"
         data-cy="caret-toggle"
         tabindex="0"
       >
@@ -96,7 +96,7 @@
       <button
         aria-disabled="false"
         aria-label="Close section"
-        class="leafygreen-ui-1r51ix4"
+        class="leafygreen-ui-1o2ji0h"
         data-cy="caret-toggle"
         tabindex="0"
       >

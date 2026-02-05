@@ -60,7 +60,7 @@
                       aria-expanded="false"
                       aria-invalid="false"
                       aria-label="date-picker"
-                      class="leafygreen-ui-qbsvzh"
+                      class="leafygreen-ui-1vff8xr"
                       role="combobox"
                       tabindex="-1"
                     >
@@ -158,7 +158,7 @@
                         <button
                           aria-disabled="false"
                           aria-label="Open calendar menu"
-                          class="lg-ui-form-field-icon-0000 leafygreen-ui-18kabg0"
+                          class="lg-ui-form-field-icon-0000 leafygreen-ui-16pirkj"
                           data-lgid="lg-form_field-content_end"
                           data-testid="lg-form_field-content_end"
                           tabindex="0"
@@ -217,7 +217,7 @@
                       class="leafygreen-ui-1iyoj2o"
                     />
                     <div
-                      class="leafygreen-ui-oxwo2l"
+                      class="leafygreen-ui-ogxdmc"
                       role="combobox"
                       tabindex="-1"
                     >
@@ -261,7 +261,7 @@
                         <button
                           aria-disabled="false"
                           aria-label="Clock Icon"
-                          class="lg-ui-form-field-icon-0000 leafygreen-ui-nym0u2"
+                          class="lg-ui-form-field-icon-0000 leafygreen-ui-wvwos7"
                           data-lgid="lg-form_field-content_end"
                           data-testid="lg-form_field-content_end"
                           tabindex="0"

@@ -169,6 +169,7 @@ export type AdminSettings = {
   configDir?: Maybe<Scalars["String"]["output"]>;
   containerPools?: Maybe<ContainerPoolsConfig>;
   cost?: Maybe<CostConfig>;
+  debugSpawnHosts?: Maybe<DebugSpawnHostsConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
   domainName?: Maybe<Scalars["String"]["output"]>;
   expansions?: Maybe<Scalars["StringMap"]["output"]>;
@@ -226,6 +227,7 @@ export type AdminSettingsInput = {
   configDir?: InputMaybe<Scalars["String"]["input"]>;
   containerPools?: InputMaybe<ContainerPoolsConfigInput>;
   cost?: InputMaybe<CostConfigInput>;
+  debugSpawnHosts?: InputMaybe<DebugSpawnHostsConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   domainName?: InputMaybe<Scalars["String"]["input"]>;
   expansions?: InputMaybe<Scalars["StringMap"]["input"]>;
@@ -764,6 +766,15 @@ export type DeactivateStepbackTaskInput = {
   buildVariantName: Scalars["String"]["input"];
   projectId: Scalars["String"]["input"];
   taskName: Scalars["String"]["input"];
+};
+
+export type DebugSpawnHostsConfig = {
+  __typename?: "DebugSpawnHostsConfig";
+  setupScript?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type DebugSpawnHostsConfigInput = {
+  setupScript?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** DefaultSectionToRepoInput is the input to the defaultSectionToRepo mutation. */

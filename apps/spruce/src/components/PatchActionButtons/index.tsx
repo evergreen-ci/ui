@@ -1,5 +1,6 @@
 export { UnscheduleTasks } from "./UnscheduleTasks";
 export { RestartPatch } from "./RestartPatch";
+export { RestartFailedTasks } from "./RestartFailedTasks";
 export { AddNotification } from "./AddNotification";
 export { DisableTasks } from "./DisableTasks";
 export { ScheduleTasks } from "./ScheduleTasks";

@@ -14,7 +14,7 @@
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
-        class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
+        class="lg-ui-button-0000 leafygreen-ui-q3iwhh"
         data-cy="searchbar-select"
         data-lgid="lg-select-trigger"
         data-testid="leafygreen-ui-select-menubutton"
@@ -75,7 +75,7 @@
         <button
           aria-disabled="false"
           aria-labelledby="View search suggestions"
-          class="leafygreen-ui-1r51ix4"
+          class="leafygreen-ui-1o2ji0h"
           data-cy="search-suggestion-button"
           tabindex="0"
           title="View search suggestions"
@@ -136,7 +136,7 @@
             class="leafygreen-ui-1iyoj2o"
           />
           <div
-            class="leafygreen-ui-oxwo2l"
+            class="leafygreen-ui-ogxdmc"
           >
             <div
               class="leafygreen-ui-1ago99h"
@@ -174,7 +174,7 @@
         <button
           aria-disabled="true"
           aria-label="Select plus"
-          class="leafygreen-ui-1dt4k34"
+          class="leafygreen-ui-mfinn"
           data-cy="searchbar-submit"
           tabindex="0"
         >
