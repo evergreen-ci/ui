@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { useMutation, useQuery } from "@apollo/client/react";
+import { useLazyQuery, useMutation } from "@apollo/client/react";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -41,23 +41,31 @@ export const RestartFailedTasks = forwardRef<
     refetchQueries,
   });
 
-  const {
-    data,
-    error: queryError,
-    loading: queryLoading,
-  } = useQuery<
+  const [fetchBuildVariants, { loading: queryLoading }] = useLazyQuery<
     BuildVariantsWithChildrenQuery,
     BuildVariantsWithChildrenQueryVariables
   >(BUILD_VARIANTS_WITH_CHILDREN, {
-    variables: {
-      id: patchId,
-      statuses: [...finishedTaskStatuses, TaskStatus.Aborted],
-    },
+    fetchPolicy: "network-only",
   });
 
-  const handleRestartFailedTasks = () => {
-    if (queryError) {
-      dispatchToast.error(`Error loading task data: ${queryError.message}`);
+  const handleRestartFailedTasks = async () => {
+    let data: BuildVariantsWithChildrenQuery | undefined;
+    try {
+      const result = await fetchBuildVariants({
+        variables: {
+          id: patchId,
+          statuses: [...finishedTaskStatuses, TaskStatus.Aborted],
+        },
+      });
+      data = result.data;
+      if (result.error) {
+        dispatchToast.error(`Error loading task data: ${result.error.message}`);
+        return;
+      }
+    } catch (err) {
+      dispatchToast.error(
+        `Error loading task data: ${err instanceof Error ? err.message : "Unknown error"}`,
+      );
       return;
     }
 

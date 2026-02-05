@@ -33,7 +33,7 @@ describe("restartFailedTasks", () => {
     expect(screen.getByDataCy("restart-failed-tasks")).toBeInTheDocument();
   });
 
-  it("is disabled while loading", () => {
+  it("is enabled initially since query runs on click", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[buildVariantsQueryMock]}>
         <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
@@ -42,7 +42,7 @@ describe("restartFailedTasks", () => {
     renderWithRouterMatch(<Component />);
     expect(screen.getByDataCy("restart-failed-tasks")).toHaveAttribute(
       "aria-disabled",
-      "true",
+      "false",
     );
   });
 
@@ -56,13 +56,6 @@ describe("restartFailedTasks", () => {
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
-
-    await waitFor(() => {
-      expect(screen.getByDataCy("restart-failed-tasks")).not.toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
-    });
 
     await user.click(screen.getByDataCy("restart-failed-tasks"));
 
@@ -83,13 +76,6 @@ describe("restartFailedTasks", () => {
     );
     renderWithRouterMatch(<Component />);
 
-    await waitFor(() => {
-      expect(screen.getByDataCy("restart-failed-tasks")).not.toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
-    });
-
     await user.click(screen.getByDataCy("restart-failed-tasks"));
 
     await waitFor(() => {
@@ -108,13 +94,6 @@ describe("restartFailedTasks", () => {
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
-
-    await waitFor(() => {
-      expect(screen.getByDataCy("restart-failed-tasks")).not.toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
-    });
 
     await user.click(screen.getByDataCy("restart-failed-tasks"));
 
@@ -136,13 +115,6 @@ describe("restartFailedTasks", () => {
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
-
-    await waitFor(() => {
-      expect(screen.getByDataCy("restart-failed-tasks")).not.toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
-    });
 
     await user.click(screen.getByDataCy("restart-failed-tasks"));
 
@@ -167,13 +139,6 @@ describe("restartFailedTasks", () => {
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
-
-    await waitFor(() => {
-      expect(screen.getByDataCy("restart-failed-tasks")).not.toHaveAttribute(
-        "aria-disabled",
-        "true",
-      );
-    });
 
     await user.click(screen.getByDataCy("restart-failed-tasks"));
 
@@ -408,7 +373,9 @@ const buildVariantsQueryErrorMock: ApolloMock<
       ],
     },
   },
-  error: new GraphQLError("Failed to load tasks"),
+  result: {
+    errors: [new GraphQLError("Failed to load tasks")],
+  },
 };
 
 const restartVersionsMutationMock: ApolloMock<
