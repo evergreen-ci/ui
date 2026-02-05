@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
+import { Button, Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { diff } from "deep-object-diff";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";

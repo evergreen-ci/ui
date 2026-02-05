@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
-import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
@@ -82,7 +82,8 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       tests,
       versionMetadata,
     } = task;
-    const { author, id: versionId, message } = versionMetadata;
+    const { id: versionId, message, user } = versionMetadata;
+    const author = user.displayName!;
 
     const owner = currentTask.project?.owner ?? "";
     const repo = currentTask.project?.repo ?? "";

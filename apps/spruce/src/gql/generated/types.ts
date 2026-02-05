@@ -197,6 +197,7 @@ export type AdminSettings = {
   releaseMode?: Maybe<ReleaseModeConfig>;
   repotracker?: Maybe<RepotrackerConfig>;
   runtimeEnvironments?: Maybe<RuntimeEnvironmentConfig>;
+  sage?: Maybe<SageConfig>;
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
   shutdownWaitSeconds?: Maybe<Scalars["Int"]["output"]>;
@@ -253,6 +254,7 @@ export type AdminSettingsInput = {
   releaseMode?: InputMaybe<ReleaseModeConfigInput>;
   repotracker?: InputMaybe<RepotrackerConfigInput>;
   runtimeEnvironments?: InputMaybe<RuntimeEnvironmentConfigInput>;
+  sage?: InputMaybe<SageConfigInput>;
   scheduler?: InputMaybe<SchedulerConfigInput>;
   serviceFlags?: InputMaybe<ServiceFlagsInput>;
   shutdownWaitSeconds?: InputMaybe<Scalars["Int"]["input"]>;
@@ -750,6 +752,13 @@ export type CursorParams = {
   includeCursor: Scalars["Boolean"]["input"];
 };
 
+/** CursorSettings represents the status of a user's Cursor API key stored in Sage. */
+export type CursorSettings = {
+  __typename?: "CursorSettings";
+  keyConfigured: Scalars["Boolean"]["output"];
+  keyLastFour?: Maybe<Scalars["String"]["output"]>;
+};
+
 /** DeactivateStepbackTaskInput is the input to the deactivateStepbackTask mutation. */
 export type DeactivateStepbackTaskInput = {
   buildVariantName: Scalars["String"]["input"];
@@ -761,6 +770,12 @@ export type DeactivateStepbackTaskInput = {
 export type DefaultSectionToRepoInput = {
   projectId: Scalars["String"]["input"];
   section: ProjectSettingsSection;
+};
+
+/** DeleteCursorAPIKeyPayload is the response from deleting a Cursor API key. */
+export type DeleteCursorApiKeyPayload = {
+  __typename?: "DeleteCursorAPIKeyPayload";
+  success: Scalars["Boolean"]["output"];
 };
 
 /** DeleteDistroInput is the input to the deleteDistro mutation. */
@@ -1985,6 +2000,7 @@ export type Mutation = {
   createPublicKey: Array<PublicKey>;
   deactivateStepbackTask: Scalars["Boolean"]["output"];
   defaultSectionToRepo?: Maybe<Scalars["String"]["output"]>;
+  deleteCursorAPIKey: DeleteCursorApiKeyPayload;
   deleteDistro: DeleteDistroPayload;
   deleteGithubAppCredentials?: Maybe<DeleteGithubAppCredentialsPayload>;
   deleteProject: Scalars["Boolean"]["output"];
@@ -2018,6 +2034,7 @@ export type Mutation = {
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
+  setCursorAPIKey: SetCursorApiKeyPayload;
   setLastRevision: SetLastRevisionPayload;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
@@ -2244,6 +2261,10 @@ export type MutationSetAnnotationMetadataLinksArgs = {
   execution: Scalars["Int"]["input"];
   metadataLinks: Array<MetadataLinkInput>;
   taskId: Scalars["String"]["input"];
+};
+
+export type MutationSetCursorApiKeyArgs = {
+  apiKey: Scalars["String"]["input"];
 };
 
 export type MutationSetLastRevisionArgs = {
@@ -2623,6 +2644,7 @@ export type Patches = {
  * Based on the information in PatchesInput, we return a list of Patches for either an individual user or a project.
  */
 export type PatchesInput = {
+  countLimit?: InputMaybe<Scalars["Int"]["input"]>;
   includeHidden?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: Scalars["Int"]["input"];
   onlyMergeQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3154,6 +3176,7 @@ export type Query = {
   buildBaron: BuildBaron;
   buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
+  cursorSettings?: Maybe<CursorSettings>;
   distro?: Maybe<Distro>;
   distroEvents: DistroEventsPayload;
   distroTaskQueue: Array<TaskQueueItem>;
@@ -3672,6 +3695,15 @@ export type SshKeyPairInput = {
   secretARN?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type SageConfig = {
+  __typename?: "SageConfig";
+  baseUrl?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type SageConfigInput = {
+  baseUrl?: InputMaybe<Scalars["String"]["input"]>;
+};
+
 export type SaveAdminSettingsInput = {
   adminSettings: AdminSettingsInput;
 };
@@ -3841,6 +3873,13 @@ export type ServiceFlagsInput = {
   unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   useGitForGitHubFilesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
+/** SetCursorAPIKeyPayload is the response from setting a Cursor API key. */
+export type SetCursorApiKeyPayload = {
+  __typename?: "SetCursorAPIKeyPayload";
+  keyLastFour?: Maybe<Scalars["String"]["output"]>;
+  success: Scalars["Boolean"]["output"];
 };
 
 /**
@@ -4747,14 +4786,14 @@ export type UseSpruceOptionsInput = {
  */
 export type User = {
   __typename?: "User";
-  betaFeatures: BetaFeatures;
-  displayName: Scalars["String"]["output"];
-  emailAddress: Scalars["String"]["output"];
-  parsleyFilters: Array<ParsleyFilter>;
-  parsleySettings: ParsleySettings;
-  patches: Patches;
-  permissions: Permissions;
-  settings: UserSettings;
+  betaFeatures?: Maybe<BetaFeatures>;
+  displayName?: Maybe<Scalars["String"]["output"]>;
+  emailAddress?: Maybe<Scalars["String"]["output"]>;
+  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
+  parsleySettings?: Maybe<ParsleySettings>;
+  patches?: Maybe<Patches>;
+  permissions?: Maybe<Permissions>;
+  settings?: Maybe<UserSettings>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
   userId: Scalars["String"]["output"];
 };
@@ -4785,6 +4824,7 @@ export type UserConfig = {
 
 export type UserServiceFlags = {
   __typename?: "UserServiceFlags";
+  debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
@@ -5013,7 +5053,6 @@ export type WaterfallTask = {
   displayStatusCache: Scalars["String"]["output"];
   execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
-  status: Scalars["String"]["output"];
 };
 
 export type WaterfallVersion = {
@@ -5223,11 +5262,11 @@ export type BasePatchFragment = {
   id: string;
   activated: boolean;
   alias?: string | null;
-  author: string;
   description: string;
   projectID: string;
   status: string;
   parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+  user: { __typename?: "User"; displayName?: string | null; userId: string };
   variantsTasks: Array<{
     __typename?: "VariantTask";
     name: string;
@@ -5326,8 +5365,6 @@ export type PatchesPagePatchesFragment = {
     id: string;
     activated: boolean;
     alias?: string | null;
-    author: string;
-    authorDisplayName: string;
     createTime?: Date | null;
     description: string;
     hidden: boolean;
@@ -5339,6 +5376,7 @@ export type PatchesPagePatchesFragment = {
       owner: string;
       repo: string;
     } | null;
+    user: { __typename?: "User"; displayName?: string | null; userId: string };
     versionFull?: {
       __typename?: "Version";
       id: string;
@@ -6751,6 +6789,18 @@ export type DefaultSectionToRepoMutation = {
   defaultSectionToRepo?: string | null;
 };
 
+export type DeleteCursorApiKeyMutationVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type DeleteCursorApiKeyMutation = {
+  __typename?: "Mutation";
+  deleteCursorAPIKey: {
+    __typename?: "DeleteCursorAPIKeyPayload";
+    success: boolean;
+  };
+};
+
 export type DeleteDistroMutationVariables = Exact<{
   distroId: Scalars["String"]["input"];
 }>;
@@ -7154,6 +7204,7 @@ export type SaveAdminSettingsMutation = {
       maxRepoRevisionsToSearch?: number | null;
       numNewRepoRevisionsToFetch?: number | null;
     } | null;
+    sage?: { __typename?: "SageConfig"; baseUrl?: string | null } | null;
     scheduler?: {
       __typename?: "SchedulerConfig";
       acceptableHostIdleTimeSeconds?: number | null;
@@ -7322,7 +7373,6 @@ export type SchedulePatchMutation = {
     id: string;
     activated: boolean;
     alias?: string | null;
-    author: string;
     description: string;
     projectID: string;
     status: string;
@@ -7332,6 +7382,7 @@ export type SchedulePatchMutation = {
       childVersions?: Array<{ __typename?: "Version"; id: string }> | null;
     } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
       __typename?: "VariantTask";
       name: string;
@@ -7374,6 +7425,19 @@ export type ScheduleUndispatchedBaseTasksMutation = {
     displayStatus: string;
     execution: number;
   }> | null;
+};
+
+export type SetCursorApiKeyMutationVariables = Exact<{
+  apiKey: Scalars["String"]["input"];
+}>;
+
+export type SetCursorApiKeyMutation = {
+  __typename?: "Mutation";
+  setCursorAPIKey: {
+    __typename?: "SetCursorAPIKeyPayload";
+    keyLastFour?: string | null;
+    success: boolean;
+  };
 };
 
 export type SetLastRevisionMutationVariables = Exact<{
@@ -7510,11 +7574,11 @@ export type UpdatePatchDescriptionMutation = {
     id: string;
     activated: boolean;
     alias?: string | null;
-    author: string;
     description: string;
     projectID: string;
     status: string;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
       __typename?: "VariantTask";
       name: string;
@@ -7942,6 +8006,7 @@ export type AdminSettingsQuery = {
       apiKey?: string | null;
       baseUrl: string;
     } | null;
+    sage?: { __typename?: "SageConfig"; baseUrl?: string | null } | null;
     scheduler?: {
       __typename?: "SchedulerConfig";
       acceptableHostIdleTimeSeconds?: number | null;
@@ -8397,6 +8462,17 @@ export type CreatedTicketsQuery = {
       status: { __typename?: "JiraStatus"; id: string; name: string };
     };
   }>;
+};
+
+export type CursorSettingsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CursorSettingsQuery = {
+  __typename?: "Query";
+  cursorSettings?: {
+    __typename?: "CursorSettings";
+    keyConfigured: boolean;
+    keyLastFour?: string | null;
+  } | null;
 };
 
 export type DistroEventsQueryVariables = Exact<{
@@ -9090,7 +9166,6 @@ export type MainlineCommitsForHistoryQuery = {
       rolledUpVersions?: Array<{
         __typename?: "Version";
         id: string;
-        author: string;
         createTime: Date;
         message: string;
         order: number;
@@ -9100,11 +9175,15 @@ export type MainlineCommitsForHistoryQuery = {
           pusher: string;
           tag: string;
         }> | null;
+        user: {
+          __typename?: "User";
+          displayName?: string | null;
+          userId: string;
+        };
       }> | null;
       version?: {
         __typename?: "Version";
         id: string;
-        author: string;
         createTime: Date;
         message: string;
         order: number;
@@ -9126,6 +9205,11 @@ export type MainlineCommitsForHistoryQuery = {
           pusher: string;
           tag: string;
         }> | null;
+        user: {
+          __typename?: "User";
+          displayName?: string | null;
+          userId: string;
+        };
         upstreamProject?: {
           __typename?: "UpstreamProject";
           owner: string;
@@ -9230,16 +9314,6 @@ export type MyVolumesQuery = {
   }>;
 };
 
-export type OtherUserQueryVariables = Exact<{
-  userId?: InputMaybe<Scalars["String"]["input"]>;
-}>;
-
-export type OtherUserQuery = {
-  __typename?: "Query";
-  currentUser: { __typename?: "User"; userId: string };
-  otherUser: { __typename?: "User"; displayName: string; userId: string };
-};
-
 export type PatchConfigureGeneratedTaskCountsQueryVariables = Exact<{
   patchId: Scalars["String"]["input"];
 }>;
@@ -9270,7 +9344,6 @@ export type ConfigurePatchQuery = {
     id: string;
     activated: boolean;
     alias?: string | null;
-    author: string;
     description: string;
     projectID: string;
     status: string;
@@ -9316,6 +9389,7 @@ export type ConfigurePatchQuery = {
     time?: { __typename?: "PatchTime"; submittedAt: string } | null;
     versionFull?: { __typename?: "Version"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
       __typename?: "VariantTask";
       name: string;
@@ -9339,11 +9413,11 @@ export type PatchQuery = {
     id: string;
     activated: boolean;
     alias?: string | null;
-    author: string;
     description: string;
     status: string;
     versionFull?: { __typename?: "Version"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
       __typename?: "VariantTask";
       name: string;
@@ -9920,8 +9994,6 @@ export type ProjectPatchesQuery = {
         id: string;
         activated: boolean;
         alias?: string | null;
-        author: string;
-        authorDisplayName: string;
         createTime?: Date | null;
         description: string;
         hidden: boolean;
@@ -9933,6 +10005,11 @@ export type ProjectPatchesQuery = {
           owner: string;
           repo: string;
         } | null;
+        user: {
+          __typename?: "User";
+          displayName?: string | null;
+          userId: string;
+        };
         versionFull?: {
           __typename?: "Version";
           id: string;
@@ -10959,6 +11036,7 @@ export type SpawnTaskQuery = {
     project?: {
       __typename?: "Project";
       id: string;
+      debugSpawnHostsDisabled?: boolean | null;
       spawnHostScriptPath: string;
     } | null;
   } | null;
@@ -11004,6 +11082,7 @@ export type SpruceConfigQuery = {
     } | null;
     serviceFlags: {
       __typename?: "UserServiceFlags";
+      debugSpawnHostDisabled?: boolean | null;
       jwtTokenForCLIDisabled?: boolean | null;
     };
     slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
@@ -11170,8 +11249,12 @@ export type TaskHistoryQuery = {
       versionMetadata: {
         __typename?: "Version";
         id: string;
-        author: string;
         message: string;
+        user: {
+          __typename?: "User";
+          displayName?: string | null;
+          userId: string;
+        };
       };
     }>;
   };
@@ -11576,13 +11659,17 @@ export type TaskQuery = {
     versionMetadata: {
       __typename?: "Version";
       id: string;
-      author: string;
       isPatch: boolean;
       message: string;
       order: number;
       project: string;
       projectIdentifier: string;
       revision: string;
+      user: {
+        __typename?: "User";
+        displayName?: string | null;
+        userId: string;
+      };
     };
   } | null;
 };
@@ -11678,7 +11765,7 @@ export type UserDistroSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: {
+    permissions?: {
       __typename?: "Permissions";
       canCreateDistro: boolean;
       distroPermissions: {
@@ -11686,7 +11773,7 @@ export type UserDistroSettingsPermissionsQuery = {
         admin: boolean;
         edit: boolean;
       };
-    };
+    } | null;
   };
 };
 
@@ -11699,8 +11786,9 @@ export type UserPatchesQuery = {
   __typename?: "Query";
   user: {
     __typename?: "User";
+    displayName?: string | null;
     userId: string;
-    patches: {
+    patches?: {
       __typename?: "Patches";
       filteredPatchCount: number;
       patches: Array<{
@@ -11708,8 +11796,6 @@ export type UserPatchesQuery = {
         id: string;
         activated: boolean;
         alias?: string | null;
-        author: string;
-        authorDisplayName: string;
         createTime?: Date | null;
         description: string;
         hidden: boolean;
@@ -11721,6 +11807,11 @@ export type UserPatchesQuery = {
           owner: string;
           repo: string;
         } | null;
+        user: {
+          __typename?: "User";
+          displayName?: string | null;
+          userId: string;
+        };
         versionFull?: {
           __typename?: "Version";
           id: string;
@@ -11736,7 +11827,7 @@ export type UserPatchesQuery = {
           } | null;
         } | null;
       }>;
-    };
+    } | null;
   };
 };
 
@@ -11749,11 +11840,11 @@ export type UserProjectSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: {
+    permissions?: {
       __typename?: "Permissions";
       canCreateProject: boolean;
       projectPermissions: { __typename?: "ProjectPermissions"; edit: boolean };
-    };
+    } | null;
   };
 };
 
@@ -11766,10 +11857,10 @@ export type UserRepoSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: {
+    permissions?: {
       __typename?: "Permissions";
       repoPermissions: { __typename?: "RepoPermissions"; edit: boolean };
-    };
+    } | null;
   };
 };
 
@@ -11780,7 +11871,7 @@ export type UserSettingsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    settings: {
+    settings?: {
       __typename?: "UserSettings";
       dateFormat?: string | null;
       region?: string | null;
@@ -11800,7 +11891,7 @@ export type UserSettingsQuery = {
         spawnHostExpiration?: string | null;
         spawnHostOutcome?: string | null;
       } | null;
-    };
+    } | null;
   };
 };
 
@@ -11811,7 +11902,7 @@ export type UserSubscriptionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    settings: {
+    settings?: {
       __typename?: "UserSettings";
       notifications?: {
         __typename?: "Notifications";
@@ -11821,7 +11912,7 @@ export type UserSubscriptionsQuery = {
         spawnHostExpirationId?: string | null;
         spawnHostOutcomeId?: string | null;
       } | null;
-    };
+    } | null;
     subscriptions?: Array<{
       __typename?: "GeneralSubscription";
       id: string;
@@ -11855,10 +11946,13 @@ export type UserQuery = {
   __typename?: "Query";
   user: {
     __typename?: "User";
-    displayName: string;
-    emailAddress: string;
+    displayName?: string | null;
+    emailAddress?: string | null;
     userId: string;
-    permissions: { __typename?: "Permissions"; canEditAdminSettings: boolean };
+    permissions?: {
+      __typename?: "Permissions";
+      canEditAdminSettings: boolean;
+    } | null;
   };
 };
 
@@ -11990,8 +12084,6 @@ export type VersionQuery = {
     __typename?: "Version";
     id: string;
     activated?: boolean | null;
-    author: string;
-    authorEmail: string;
     createTime: Date;
     errors: Array<string>;
     finishTime?: Date | null;
@@ -12076,6 +12168,7 @@ export type VersionQuery = {
       owner: string;
       repo: string;
     } | null;
+    user: { __typename?: "User"; displayName?: string | null; userId: string };
     versionTiming?: {
       __typename?: "VersionTiming";
       makespan?: number | null;
@@ -12148,7 +12241,6 @@ export type WaterfallQuery = {
       __typename?: "Version";
       id: string;
       activated?: boolean | null;
-      author: string;
       createTime: Date;
       errors: Array<string>;
       message: string;
@@ -12156,6 +12248,11 @@ export type WaterfallQuery = {
       requester: string;
       revision: string;
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+      user: {
+        __typename?: "User";
+        displayName?: string | null;
+        userId: string;
+      };
       waterfallBuilds?: Array<{
         __typename?: "WaterfallBuild";
         id: string;
@@ -12168,7 +12265,6 @@ export type WaterfallQuery = {
           displayName: string;
           displayStatusCache: string;
           execution: number;
-          status: string;
         }>;
       }> | null;
     }>;

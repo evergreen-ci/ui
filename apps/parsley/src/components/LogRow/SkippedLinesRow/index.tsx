@@ -1,7 +1,7 @@
 import { useTransition } from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Button } from "@leafygreen-ui/button";
+import { Body } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
@@ -93,7 +93,7 @@ const LineWrapper = styled.div`
   padding-left: ${size.l};
 `;
 
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   width: 150px;
 `;
 

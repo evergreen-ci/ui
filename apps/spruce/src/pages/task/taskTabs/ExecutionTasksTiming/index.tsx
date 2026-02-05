@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
-import { Body, BodyProps, H2 } from "@leafygreen-ui/typography";
+import { Body, H2 } from "@leafygreen-ui/typography";
 import { useNavigate } from "react-router-dom";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import GanttChart from "components/GanttChart";
@@ -68,7 +68,7 @@ const ExecutionTasksTiming: React.FC<Props> = ({
   );
 };
 
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   font-size: ${fontSize.m};
   margin-bottom: ${size.s};
 `;

@@ -16,7 +16,6 @@ import { usePolling, useGetUserPatchesPageTitleAndLink } from "hooks";
 
 export const UserPatches = () => {
   const { [slugs.userId]: userId } = useParams();
-  const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
 
   const patchesInput = usePatchesQueryParams();
   const isMergeQueueUser = userId === githubMergeQueueUser;
@@ -44,13 +43,23 @@ export const UserPatches = () => {
     refetch,
   });
 
+  const { title: pageTitle = "User Patches" } =
+    useGetUserPatchesPageTitleAndLink(
+      userId
+        ? {
+            userId,
+            displayName: data?.user?.displayName,
+          }
+        : undefined,
+    ) || {};
+
   return (
     <PatchesPage
       filterComp={<RequesterSelector />}
       loading={loading && !data?.user.patches}
-      pageTitle={pageTitle || "User Patches"}
+      pageTitle={pageTitle}
       pageType="user"
-      patches={data?.user.patches}
+      patches={data?.user?.patches ?? undefined}
     />
   );
 };
