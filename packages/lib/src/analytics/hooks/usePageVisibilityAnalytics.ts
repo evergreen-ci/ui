@@ -1,76 +1,50 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useAnalyticsRoot } from "./useAnalyticsRoot";
 
+// Event names must start with "System Event" prefix per ActionType constraint
 type PageVisibilityAction =
   | {
-      name: "System Event page became visible";
-      "visibility.duration_hidden_ms": number;
-      "visibility.timestamp": string;
+      name: "System Event page visible";
+      "visibility.duration_ms": number;
     }
   | {
-      name: "System Event page became hidden";
-      "visibility.duration_visible_ms": number;
-      "visibility.timestamp": string;
+      name: "System Event page hidden";
+      "visibility.duration_ms": number;
     }
   | {
-      name: "System Event page visibility session started";
+      name: "System Event session started";
+      // "hidden" = browser tab/window is in background
       "visibility.initial_state": "visible" | "hidden";
-      "visibility.timestamp": string;
     }
   | {
-      name: "System Event page visibility session ended";
+      name: "System Event session ended";
       "visibility.total_visible_ms": number;
       "visibility.total_hidden_ms": number;
-      "visibility.state_changes": number;
-      "visibility.timestamp": string;
+      "visibility.visibility_changes": number;
     };
 
-interface UsePageVisibilityAnalyticsOptions {
-  /**
-   * Additional attributes to include with every event
-   */
+interface PageVisibilityAnalyticsOptions {
   attributes?: Record<string, string | number | boolean>;
-  /**
-   * Whether to track the visibility changes
-   * @default true
-   */
   enabled?: boolean;
-  /**
-   * Whether to track session start/end events
-   * @default true
-   */
-  trackSession?: boolean;
-  /**
-   * Minimum duration in milliseconds before tracking a visibility change
-   * Helps avoid tracking rapid tab switches
-   * @default 1000
-   */
-  minDuration?: number;
+  minDurationMs?: number;
 }
 
-/**
- * Hook that tracks page visibility changes and sends analytics events
- * @param options Configuration options for the visibility tracking
- * @param options.attributes Additional attributes to include with every event
- * @param options.enabled Whether to track the visibility changes
- * @param options.trackSession Whether to track session start/end events
- * @param options.minDuration Minimum duration in milliseconds before tracking a visibility change
- * @returns Object with current visibility state
- * @example
- * ```typescript
- * const { isVisible } = usePageVisibilityAnalytics();
- * ```
- */
 export const usePageVisibilityAnalytics = ({
-  attributes = {},
+  attributes,
   enabled = true,
-  minDuration = 1000,
-  trackSession = true,
-}: UsePageVisibilityAnalyticsOptions = {}) => {
+  minDurationMs = 1000,
+}: PageVisibilityAnalyticsOptions = {}) => {
+  // Memoize attributes to prevent sendEvent recreation on every render
+  const stableAttributes = useMemo(
+    () => attributes,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [JSON.stringify(attributes)],
+  );
+
   const { sendEvent } = useAnalyticsRoot<PageVisibilityAction, string>(
     "PageVisibility",
-    attributes,
+    stableAttributes,
   );
   const { pathname } = useLocation();
 
@@ -80,6 +54,7 @@ export const usePageVisibilityAnalytics = ({
   const totalHiddenTime = useRef<number>(0);
   const stateChangeCount = useRef<number>(0);
   const lastVisibilityState = useRef<DocumentVisibilityState | null>(null);
+  const sessionStarted = useRef(false);
 
   useEffect(() => {
     if (!enabled) return;
@@ -92,46 +67,43 @@ export const usePageVisibilityAnalytics = ({
       lastVisibilityState.current = document.visibilityState;
     }
 
-    // Track session start
-    if (trackSession) {
+    // Track session start (only once per pathname)
+    if (!sessionStarted.current) {
+      sessionStarted.current = true;
       sendEvent({
-        name: "System Event page visibility session started",
+        name: "System Event session started",
         "visibility.initial_state": document.visibilityState as
           | "visible"
           | "hidden",
-        "visibility.timestamp": new Date().toISOString(),
       });
     }
 
     const handleVisibilityChange = () => {
       const currentTime = Date.now();
       const duration = currentTime - visibilityStartTime.current;
-      const timestamp = new Date().toISOString();
 
-      // Only track if duration exceeds minimum threshold
-      if (duration < minDuration) {
-        visibilityStartTime.current = currentTime;
-        return;
+      // Always accumulate time, even for short durations
+      if (document.visibilityState === "visible") {
+        totalHiddenTime.current += duration;
+      } else {
+        totalVisibleTime.current += duration;
       }
 
-      stateChangeCount.current += 1;
+      // Only send individual event if duration exceeds minimum threshold
+      if (duration >= minDurationMs) {
+        stateChangeCount.current += 1;
 
-      if (document.visibilityState === "visible") {
-        // Page became visible
-        totalHiddenTime.current += duration;
-        sendEvent({
-          name: "System Event page became visible",
-          "visibility.duration_hidden_ms": duration,
-          "visibility.timestamp": timestamp,
-        });
-      } else {
-        // Page became hidden
-        totalVisibleTime.current += duration;
-        sendEvent({
-          name: "System Event page became hidden",
-          "visibility.duration_visible_ms": duration,
-          "visibility.timestamp": timestamp,
-        });
+        if (document.visibilityState === "visible") {
+          sendEvent({
+            name: "System Event page visible",
+            "visibility.duration_ms": duration,
+          });
+        } else {
+          sendEvent({
+            name: "System Event page hidden",
+            "visibility.duration_ms": duration,
+          });
+        }
       }
 
       lastVisibilityState.current = document.visibilityState;
@@ -144,28 +116,25 @@ export const usePageVisibilityAnalytics = ({
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
 
-      // Track session end
-      if (trackSession && stateChangeCount.current > 0) {
-        const finalDuration = Date.now() - visibilityStartTime.current;
+      // Track session end (always send, not just when stateChangeCount > 0)
+      const finalDuration = Date.now() - visibilityStartTime.current;
 
-        // Add final duration to appropriate counter
-        if (lastVisibilityState.current === "visible") {
-          totalVisibleTime.current += finalDuration;
-        } else {
-          totalHiddenTime.current += finalDuration;
-        }
+      // Add final duration to appropriate counter
+      if (lastVisibilityState.current === "visible") {
+        totalVisibleTime.current += finalDuration;
+      } else {
+        totalHiddenTime.current += finalDuration;
+      }
 
-        try {
-          sendEvent({
-            name: "System Event page visibility session ended",
-            "visibility.total_visible_ms": totalVisibleTime.current,
-            "visibility.total_hidden_ms": totalHiddenTime.current,
-            "visibility.state_changes": stateChangeCount.current,
-            "visibility.timestamp": new Date().toISOString(),
-          });
-        } catch (e) {
-          // Silently ignore analytics errors
-        }
+      try {
+        sendEvent({
+          name: "System Event session ended",
+          "visibility.total_visible_ms": totalVisibleTime.current,
+          "visibility.total_hidden_ms": totalHiddenTime.current,
+          "visibility.visibility_changes": stateChangeCount.current,
+        });
+      } catch {
+        // Silently ignore analytics errors
       }
 
       // Reset state for next page/render
@@ -174,8 +143,9 @@ export const usePageVisibilityAnalytics = ({
       totalHiddenTime.current = 0;
       stateChangeCount.current = 0;
       lastVisibilityState.current = null;
+      sessionStarted.current = false;
     };
-  }, [enabled, sendEvent, trackSession, minDuration, pathname]);
+  }, [enabled, sendEvent, minDurationMs, pathname]);
 
   return {
     isVisible: document.visibilityState === "visible",

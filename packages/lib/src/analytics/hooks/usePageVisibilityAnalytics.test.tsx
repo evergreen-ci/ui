@@ -42,7 +42,7 @@ describe("usePageVisibilityAnalytics", () => {
 
     expect(mockSendEvent).toHaveBeenCalledWith(
       expect.objectContaining({
-        name: "System Event page visibility session started",
+        name: "System Event session started",
         "visibility.initial_state": "visible",
       }),
     );
@@ -66,7 +66,7 @@ describe("usePageVisibilityAnalytics", () => {
     renderHook(
       () =>
         usePageVisibilityAnalytics({
-          minDuration: 100,
+          minDurationMs: 100,
         }),
       { wrapper },
     );
@@ -90,8 +90,8 @@ describe("usePageVisibilityAnalytics", () => {
 
     expect(mockSendEvent).toHaveBeenCalledWith(
       expect.objectContaining({
-        name: "System Event page became hidden",
-        "visibility.duration_visible_ms": expect.any(Number),
+        name: "System Event page hidden",
+        "visibility.duration_ms": expect.any(Number),
       }),
     );
   });
@@ -108,7 +108,7 @@ describe("usePageVisibilityAnalytics", () => {
     renderHook(
       () =>
         usePageVisibilityAnalytics({
-          minDuration: 100,
+          minDurationMs: 100,
         }),
       { wrapper },
     );
@@ -132,8 +132,8 @@ describe("usePageVisibilityAnalytics", () => {
 
     expect(mockSendEvent).toHaveBeenCalledWith(
       expect.objectContaining({
-        name: "System Event page became visible",
-        "visibility.duration_hidden_ms": expect.any(Number),
+        name: "System Event page visible",
+        "visibility.duration_ms": expect.any(Number),
       }),
     );
   });
@@ -144,7 +144,7 @@ describe("usePageVisibilityAnalytics", () => {
     renderHook(
       () =>
         usePageVisibilityAnalytics({
-          minDuration: 1000,
+          minDurationMs: 1000,
         }),
       { wrapper },
     );
@@ -174,8 +174,7 @@ describe("usePageVisibilityAnalytics", () => {
     const { unmount } = renderHook(
       () =>
         usePageVisibilityAnalytics({
-          trackSession: true,
-          minDuration: 100,
+          minDurationMs: 100,
         }),
       { wrapper },
     );
@@ -212,27 +211,37 @@ describe("usePageVisibilityAnalytics", () => {
 
     expect(mockSendEvent).toHaveBeenCalledWith(
       expect.objectContaining({
-        name: "System Event page visibility session ended",
+        name: "System Event session ended",
         "visibility.total_visible_ms": expect.any(Number),
         "visibility.total_hidden_ms": expect.any(Number),
-        "visibility.state_changes": 2,
+        "visibility.visibility_changes": 2,
       }),
     );
   });
 
-  it("should not track session end when trackSession is false", () => {
-    const { unmount } = renderHook(
-      () =>
-        usePageVisibilityAnalytics({
-          trackSession: false,
-        }),
-      { wrapper },
-    );
+  it("should track session end even without visibility changes", () => {
+    vi.useFakeTimers();
+
+    const { unmount } = renderHook(() => usePageVisibilityAnalytics({}), {
+      wrapper,
+    });
 
     mockSendEvent.mockClear();
+
+    // Advance time without any visibility changes
+    act(() => {
+      vi.advanceTimersByTime(5000);
+    });
+
     unmount();
 
-    expect(mockSendEvent).not.toHaveBeenCalled();
+    // Session end should still be sent even with 0 state changes
+    expect(mockSendEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: "System Event session ended",
+        "visibility.visibility_changes": 0,
+      }),
+    );
   });
 
   it("should pass custom attributes to analytics events", () => {
