@@ -15,7 +15,7 @@ const IncludeTimestampsToggle: React.FC = () => {
         sendEvent({ name: "Toggled include timestamps", on: value });
         setIncludeTimestamps(value);
       }}
-      tooltip="Toggle whether timestamps are included in log lines. Changing this setting will reload the page to re-download the log."
+      tooltip="Whether timestamps are included at the beginning of log lines. Changing this setting will reload the page to re-download the log."
       value={includeTimestamps}
     />
   );
