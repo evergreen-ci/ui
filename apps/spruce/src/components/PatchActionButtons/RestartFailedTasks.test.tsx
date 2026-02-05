@@ -1,6 +1,5 @@
 import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
-import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   MockedProvider,
   renderWithRouterMatch,
@@ -9,6 +8,7 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   BuildVariantsWithChildrenQuery,
   BuildVariantsWithChildrenQueryVariables,
@@ -26,10 +26,7 @@ describe("restartFailedTasks", () => {
   it("renders the menu item", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[buildVariantsQueryMock]}>
-        <RestartFailedTasks
-          patchId={patchId}
-          refetchQueries={refetchQueries}
-        />
+        <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -39,10 +36,7 @@ describe("restartFailedTasks", () => {
   it("is disabled while loading", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[buildVariantsQueryMock]}>
-        <RestartFailedTasks
-          patchId={patchId}
-          refetchQueries={refetchQueries}
-        />
+        <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -58,10 +52,7 @@ describe("restartFailedTasks", () => {
       <MockedProvider
         mocks={[buildVariantsQueryMock, restartVersionsMutationMock]}
       >
-        <RestartFailedTasks
-          patchId={patchId}
-          refetchQueries={refetchQueries}
-        />
+        <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -77,20 +68,17 @@ describe("restartFailedTasks", () => {
 
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
-      expect(dispatchToast.success).toHaveBeenCalledWith(
-        "Successfully restarted tasks!",
-      );
     });
+    expect(dispatchToast.success).toHaveBeenCalledWith(
+      "Successfully restarted tasks!",
+    );
   });
 
   it("shows a warning when no failed tasks exist", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[buildVariantsQueryMockNoFailedTasks]}>
-        <RestartFailedTasks
-          patchId={patchId}
-          refetchQueries={refetchQueries}
-        />
+        <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -106,20 +94,17 @@ describe("restartFailedTasks", () => {
 
     await waitFor(() => {
       expect(dispatchToast.warning).toHaveBeenCalledTimes(1);
-      expect(dispatchToast.warning).toHaveBeenCalledWith(
-        "No failed tasks to restart.",
-      );
     });
+    expect(dispatchToast.warning).toHaveBeenCalledWith(
+      "No failed tasks to restart.",
+    );
   });
 
   it("shows an error when the query fails", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={[buildVariantsQueryErrorMock]}>
-        <RestartFailedTasks
-          patchId={patchId}
-          refetchQueries={refetchQueries}
-        />
+        <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -135,10 +120,10 @@ describe("restartFailedTasks", () => {
 
     await waitFor(() => {
       expect(dispatchToast.error).toHaveBeenCalledTimes(1);
-      expect(dispatchToast.error).toHaveBeenCalledWith(
-        "Error loading task data: Failed to load tasks",
-      );
     });
+    expect(dispatchToast.error).toHaveBeenCalledWith(
+      "Error loading task data: Failed to load tasks",
+    );
   });
 
   it("shows an error when the mutation fails", async () => {
@@ -147,10 +132,7 @@ describe("restartFailedTasks", () => {
       <MockedProvider
         mocks={[buildVariantsQueryMock, restartVersionsMutationErrorMock]}
       >
-        <RestartFailedTasks
-          patchId={patchId}
-          refetchQueries={refetchQueries}
-        />
+        <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -166,10 +148,10 @@ describe("restartFailedTasks", () => {
 
     await waitFor(() => {
       expect(dispatchToast.error).toHaveBeenCalledTimes(1);
-      expect(dispatchToast.error).toHaveBeenCalledWith(
-        "Error while restarting tasks: 'Failed to restart tasks'",
-      );
     });
+    expect(dispatchToast.error).toHaveBeenCalledWith(
+      "Error while restarting tasks: 'Failed to restart tasks'",
+    );
   });
 
   it("restarts failed tasks from child versions", async () => {
@@ -181,10 +163,7 @@ describe("restartFailedTasks", () => {
           restartVersionsWithChildrenMutationMock,
         ]}
       >
-        <RestartFailedTasks
-          patchId={patchId}
-          refetchQueries={refetchQueries}
-        />
+        <RestartFailedTasks patchId={patchId} refetchQueries={refetchQueries} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);

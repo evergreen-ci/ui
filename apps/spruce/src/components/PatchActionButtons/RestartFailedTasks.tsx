@@ -41,7 +41,11 @@ export const RestartFailedTasks = forwardRef<
     refetchQueries,
   });
 
-  const { data, error: queryError, loading: queryLoading } = useQuery<
+  const {
+    data,
+    error: queryError,
+    loading: queryLoading,
+  } = useQuery<
     BuildVariantsWithChildrenQuery,
     BuildVariantsWithChildrenQueryVariables
   >(BUILD_VARIANTS_WITH_CHILDREN, {
@@ -53,9 +57,7 @@ export const RestartFailedTasks = forwardRef<
 
   const handleRestartFailedTasks = () => {
     if (queryError) {
-      dispatchToast.error(
-        `Error loading task data: ${queryError.message}`,
-      );
+      dispatchToast.error(`Error loading task data: ${queryError.message}`);
       return;
     }
 
