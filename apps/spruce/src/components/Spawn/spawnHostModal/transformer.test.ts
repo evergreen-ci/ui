@@ -40,6 +40,7 @@ const myPublicKeys = [{ name: "a_key", key: "key value" }];
 const data: Array<{ formData: FormState; mutationInput: SpawnHostInput }> = [
   {
     formData: {
+      isDebug: true,
       requiredSection: {
         distro: "ubuntu1804-workstation",
         region: "us-east-1",
@@ -71,6 +72,7 @@ const data: Array<{ formData: FormState; mutationInput: SpawnHostInput }> = [
       },
     },
     mutationInput: {
+      isDebug: true,
       isVirtualWorkStation: true,
       userDataScript: "a user data script",
       expiration: new Date("2022-12-08T19:52:51.000Z"),
