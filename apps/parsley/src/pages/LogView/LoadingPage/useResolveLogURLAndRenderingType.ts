@@ -56,25 +56,12 @@ type HookResult = {
 };
 
 /**
- * `useResolveLogURL` is a custom hook that resolves the log URL based on the log type and other parameters.
- * @param UseResolveLogURLAndRenderingTypeProps - The props for the hook
- * @param UseResolveLogURLAndRenderingTypeProps.buildID - The build ID of the log
- * @param UseResolveLogURLAndRenderingTypeProps.execution - The execution number of the log
- * @param UseResolveLogURLAndRenderingTypeProps.fileName - The name of the file being viewed
- * @param UseResolveLogURLAndRenderingTypeProps.groupID - The group ID of the test given from the URL
- * @param UseResolveLogURLAndRenderingTypeProps.logType - The type of log being viewed
- * @param UseResolveLogURLAndRenderingTypeProps.origin - The origin of the log
- * @param UseResolveLogURLAndRenderingTypeProps.taskID - The task ID of the log
- * @param UseResolveLogURLAndRenderingTypeProps.testID - The test ID of the log
- * @returns LogURLs
- */
-/**
  * Modifies the print_time query parameter in a URL based on the includeTimestamps setting.
  * @param url - The URL to modify
  * @param includeTimestamps - Whether to include timestamps (maps to print_time)
  * @returns The modified URL
  */
-const modifyPrintTimeInURL = (
+export const modifyPrintTimeInURL = (
   url: string,
   includeTimestamps: boolean,
 ): string => {
@@ -99,6 +86,20 @@ const modifyPrintTimeInURL = (
   return url;
 };
 
+/**
+ * `useResolveLogURL` is a custom hook that resolves the log URL based on the log type and other parameters.
+ * @param UseResolveLogURLAndRenderingTypeProps - The props for the hook
+ * @param UseResolveLogURLAndRenderingTypeProps.buildID - The build ID of the log
+ * @param UseResolveLogURLAndRenderingTypeProps.execution - The execution number of the log
+ * @param UseResolveLogURLAndRenderingTypeProps.fileName - The name of the file being viewed
+ * @param UseResolveLogURLAndRenderingTypeProps.groupID - The group ID of the test given from the URL
+ * @param UseResolveLogURLAndRenderingTypeProps.includeTimestamps - Whether to include timestamps in the log URLs
+ * @param UseResolveLogURLAndRenderingTypeProps.logType - The type of log being viewed
+ * @param UseResolveLogURLAndRenderingTypeProps.origin - The origin of the log
+ * @param UseResolveLogURLAndRenderingTypeProps.taskID - The task ID of the log
+ * @param UseResolveLogURLAndRenderingTypeProps.testID - The test ID of the log
+ * @returns LogURLs
+ */
 export const useResolveLogURLAndRenderingType = ({
   buildID,
   execution,
