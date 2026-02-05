@@ -141,6 +141,12 @@ export const cache = new InMemoryCache({
             return existing || readField("userId");
           },
         },
+        userId: {
+          read(existing, { readField }) {
+            // Service users don't have userIds, just displayNames. Make sure both fields are set.
+            return existing || readField("displayName");
+          },
+        },
       },
     },
     UserConfig: {
