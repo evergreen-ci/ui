@@ -4,7 +4,7 @@
     data-cy="parsley-ai-modal"
     data-lgid="lg-modal"
     data-testid="lg-modal"
-    id="modal-27"
+    id="modal-4"
     open=""
   >
     <svg
@@ -105,10 +105,10 @@
     <button
       aria-disabled="false"
       aria-label="Close modal"
-      class="leafygreen-ui-qya81r"
+      class="leafygreen-ui-1i75kq4"
       data-lgid="lg-modal-close"
       data-testid="lg-modal-close"
-      id="modal-close_button-26"
+      id="modal-close_button-3"
       tabindex="0"
     >
       <div
