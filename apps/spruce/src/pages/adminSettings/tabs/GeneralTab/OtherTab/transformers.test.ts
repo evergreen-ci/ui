@@ -101,6 +101,9 @@ const mockAdminSettings: AdminSettings = {
     unexpirableVolumesPerUser: 3,
     spawnHostsPerUser: 5,
   },
+  debugSpawnHosts: {
+    setupScript: "echo debug spawn hosts",
+  },
   sleepSchedule: {
     permanentlyExemptHosts: ["build-host-1", "build-host-2"],
   },
@@ -224,6 +227,9 @@ const expectedForm: OtherFormState = {
       unexpirableVolumesPerUser: 3,
       spawnHostsPerUser: 5,
     },
+    debugSpawnHostsConfig: {
+      setupScript: "echo debug spawn hosts",
+    },
     sleepSchedule: {
       permanentlyExemptHosts: ["build-host-1", "build-host-2"],
     },
@@ -346,6 +352,9 @@ const expectedGql: AdminSettingsInput = {
     unexpirableHostsPerUser: 2,
     unexpirableVolumesPerUser: 3,
     spawnHostsPerUser: 5,
+  },
+  debugSpawnHosts: {
+    setupScript: "echo debug spawn hosts",
   },
   sleepSchedule: {
     permanentlyExemptHosts: ["build-host-1", "build-host-2"],
