@@ -1,19 +1,16 @@
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { spacing } from "@leafygreen-ui/tokens";
-import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledLink } from "@evg-ui/lib/components/styles";
-import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
-import { SQUARE_WITH_BORDER, TaskBox } from "components/TaskBox";
+import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import VisibilityContainer from "components/VisibilityContainer";
-import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
+import { getVariantHistoryRoute } from "constants/routes";
 import { useDimensions } from "hooks/useDimensions";
 import { useBuildVariantContext } from "./BuildVariantContext";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
@@ -25,6 +22,7 @@ import {
   Row,
 } from "./styles";
 import { Build, BuildVariant, GroupedVersion } from "./types";
+import { WaterfallTask } from "./WaterfallTask";
 
 const { gray } = palette;
 
@@ -185,25 +183,14 @@ const BuildGrid: React.FC<{
 
   return (
     <WidthWatcher onClick={handleClick}>
-      {build.tasks.map(({ displayName, displayStatusCache, execution, id }) => {
-        const squareProps =
-          id === firstActiveTaskId
-            ? { [waterfallGuideId]: walkthroughSteps[0].targetId }
-            : {};
-        const taskStatus = displayStatusCache as TaskStatus;
-        return (
-          <SquareMemo
-            key={id}
-            as={Link}
-            data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
-            rightmost={isRightmostBuild}
-            status={taskStatus}
-            to={getTaskRoute(id, { execution })}
-            tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
-            {...squareProps}
-          />
-        );
-      })}
+      {build.tasks.map((task) => (
+        <WaterfallTask
+          key={task.id}
+          isFirstActiveTask={task.id === firstActiveTaskId}
+          isRightmostBuild={isRightmostBuild}
+          task={task}
+        />
+      ))}
     </WidthWatcher>
   );
 };
@@ -240,5 +227,3 @@ const StyledIconButton = styled(IconButton)<{ active: boolean }>`
   top: -${size.xxs};
   ${({ active }) => active && "transform: rotate(-30deg);"}
 `;
-
-const SquareMemo = memo(TaskBox);

@@ -1,0 +1,15 @@
+query TaskOverviewPopup($taskId: String!, $execution: Int) {
+  task(taskId: $taskId, execution: $execution) {
+    id
+    details {
+      description
+      failingCommand
+    }
+    displayName
+    displayStatus
+    distroId
+    execution
+    finishTime
+    timeTaken
+  }
+}
