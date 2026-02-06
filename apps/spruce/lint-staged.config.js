@@ -2,5 +2,5 @@ import baseConfig from "@evg-ui/lint-staged";
 
 export default {
   ...baseConfig,
-  "*.{ts,tsx}": () => ["pnpm check-schema-and-codegen"], // For TypeScript files, run gql schema check
+  "*.graphql": () => ["pnpm check-schema-and-codegen"], // Validate schema and regenerate types when GraphQL files change
 };
