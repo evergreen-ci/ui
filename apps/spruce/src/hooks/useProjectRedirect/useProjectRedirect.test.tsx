@@ -62,39 +62,6 @@ describe("useProjectRedirect", () => {
     expect(result.current.error).toBeUndefined();
   });
 
-  it("should call onRedirect callback when redirect identifier is available", async () => {
-    const onRedirect = vi.fn();
-    renderHook(() => useProjectRedirect({ onRedirect }), {
-      wrapper: ({ children }) =>
-        ProviderWrapper({
-          children,
-          location: `/project/${projectId}/settings`,
-          mocks: [projectMock],
-        }),
-    });
-    expect(onRedirect).not.toHaveBeenCalled();
-    await waitFor(() => {
-      expect(onRedirect).toHaveBeenCalledTimes(1);
-    });
-    expect(onRedirect).toHaveBeenCalledWith(projectId, "my-project");
-  });
-
-  it("should not call onRedirect if no redirect is needed", async () => {
-    const onRedirect = vi.fn();
-    renderHook(() => useProjectRedirect({ onRedirect }), {
-      wrapper: ({ children }) =>
-        ProviderWrapper({
-          children,
-          location: "/project/my-project/settings",
-        }),
-    });
-    // Wait a bit to ensure the callback doesn't get called.
-    await new Promise((resolve) => {
-      setTimeout(resolve, 100);
-    });
-    expect(onRedirect).not.toHaveBeenCalled();
-  });
-
   it("should handle query errors gracefully", async () => {
     const { result } = renderHook(() => useProjectRedirect(), {
       wrapper: ({ children }) =>
@@ -111,29 +78,6 @@ describe("useProjectRedirect", () => {
     });
     expect(result.current.error).toBeDefined();
     expect(result.current.redirectIdentifier).toBeUndefined();
-  });
-
-  it("should only call onRedirect once per redirect", async () => {
-    const onRedirect = vi.fn();
-    const { rerender } = renderHook(() => useProjectRedirect({ onRedirect }), {
-      wrapper: ({ children }) =>
-        ProviderWrapper({
-          children,
-          location: `/project/${projectId}/settings`,
-          mocks: [projectMock],
-        }),
-    });
-
-    await waitFor(() => {
-      expect(onRedirect).toHaveBeenCalledTimes(1);
-    });
-
-    // Force re-renders shouldn't trigger the callback again.
-    rerender();
-    rerender();
-    rerender();
-
-    expect(onRedirect).toHaveBeenCalledTimes(1);
   });
 });
 

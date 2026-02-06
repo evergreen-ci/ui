@@ -5,8 +5,17 @@ import {
   ProjectSettingsRedirect,
   UserPatchesRedirect,
   WaterfallCommitsRedirect,
+  ProjectRedirect,
 } from "components/Redirects";
-import { redirectRoutes, routes, slugs } from "constants/routes";
+import {
+  getProjectPatchesRoute,
+  getProjectSettingsRoute,
+  getVariantHistoryRoute,
+  getWaterfallRoute,
+  redirectRoutes,
+  routes,
+  slugs,
+} from "constants/routes";
 import { AdminSettings } from "pages/AdminSettings";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Container } from "pages/Container";
@@ -68,8 +77,26 @@ export const Content: React.FC = () => (
       <Route element={<Preferences />} path={routes.preferences}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route element={<ProjectPatches />} path={routes.projectPatches} />
-      <Route element={<ProjectSettings />} path={routes.projectSettings}>
+      <Route
+        element={
+          <ProjectRedirect getRedirectRoute={getProjectPatchesRoute}>
+            <ProjectPatches />
+          </ProjectRedirect>
+        }
+        path={routes.projectPatches}
+      />
+      <Route
+        element={
+          <ProjectRedirect
+            getRedirectRoute={(identifier) =>
+              getProjectSettingsRoute(identifier)
+            }
+          >
+            <ProjectSettings />
+          </ProjectRedirect>
+        }
+        path={routes.projectSettings}
+      >
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route element={<RepoSettings />} path={routes.repoSettings}>
@@ -89,13 +116,31 @@ export const Content: React.FC = () => (
         element={<UserPatchesRedirect />}
         path={redirectRoutes.userPatches}
       />
-      <Route element={<VariantHistory />} path={routes.variantHistory} />
+      <Route
+        element={
+          <ProjectRedirect
+            getRedirectRoute={(identifier, params) =>
+              getVariantHistoryRoute(identifier, params.variantName || "")
+            }
+          >
+            <VariantHistory />
+          </ProjectRedirect>
+        }
+        path={routes.variantHistory}
+      />
       <Route element={<VersionPage />} path={routes.version} />
       <Route
         element={<WaterfallCommitsRedirect />}
         path={redirectRoutes.legacyCommits}
       />
-      <Route element={<Waterfall />} path={routes.waterfall} />
+      <Route
+        element={
+          <ProjectRedirect getRedirectRoute={getWaterfallRoute}>
+            <Waterfall />
+          </ProjectRedirect>
+        }
+        path={routes.waterfall}
+      />
       <Route element={<PageDoesNotExist />} path="*" />
       <Route element={<AdminSettings />} path={routes.adminSettings}>
         <Route element={null} path={`:${slugs.tab}`} />

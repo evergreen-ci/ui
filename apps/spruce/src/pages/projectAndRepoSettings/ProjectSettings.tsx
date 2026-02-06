@@ -1,14 +1,9 @@
 import { useQuery } from "@apollo/client/react";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useErrorToast, useQueryCompleted } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
-import { useProjectSettingsAnalytics } from "analytics";
-import {
-  getProjectSettingsRoute,
-  ProjectSettingsTabRoutes,
-  slugs,
-} from "constants/routes";
+import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import {
   ProjectSettingsQuery,
   ProjectSettingsQueryVariables,
@@ -16,32 +11,17 @@ import {
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
-import { useProjectRedirect } from "hooks/useProjectRedirect";
 import SharedSettings from "./shared";
 import { ProjectType } from "./shared/tabs/utils";
 
 const ProjectSettings: React.FC = () => {
-  const { sendEvent } = useProjectSettingsAnalytics();
   const dispatchToast = useToastContext();
-  const {
-    [slugs.projectIdentifier]: projectIdentifier = "",
-    [slugs.tab]: tab,
-  } = useParams<{
+  const { [slugs.projectIdentifier]: projectIdentifier = "" } = useParams<{
     [slugs.projectIdentifier]: string;
     [slugs.tab]: ProjectSettingsTabRoutes;
   }>();
 
   usePageTitle(`Project Settings | ${projectIdentifier}`);
-
-  const { needsRedirect, redirectIdentifier } = useProjectRedirect({
-    onRedirect: (projectId, identifier) => {
-      sendEvent({
-        name: "Redirected to project identifier",
-        "project.id": projectId,
-        "project.identifier": identifier,
-      });
-    },
-  });
 
   const {
     data: projectData,
@@ -50,7 +30,7 @@ const ProjectSettings: React.FC = () => {
   } = useQuery<ProjectSettingsQuery, ProjectSettingsQueryVariables>(
     PROJECT_SETTINGS,
     {
-      skip: needsRedirect || !projectIdentifier,
+      skip: !projectIdentifier,
       variables: { projectIdentifier },
     },
   );
@@ -81,10 +61,6 @@ const ProjectSettings: React.FC = () => {
 
   if (projectIsHidden) {
     return null;
-  }
-
-  if (needsRedirect && redirectIdentifier) {
-    return <Navigate to={getProjectSettingsRoute(redirectIdentifier, tab)} />;
   }
 
   const projectType = repoId
