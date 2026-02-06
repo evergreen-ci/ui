@@ -2,6 +2,53 @@ import { get } from "https";
 import { DeployableApp } from "../types";
 import { COMMIT_LENGTH, getLatestTag, tagIsValid } from ".";
 
+const MAX_REDIRECTS = 5;
+
+/**
+ * fetchUrl fetches a URL over HTTPS and follows redirects up to MAX_REDIRECTS.
+ * @param url - URL to fetch
+ * @param remainingRedirects - number of remaining redirects to follow
+ * @returns - promise resolving to the response body
+ */
+const fetchUrl = (
+  url: string,
+  remainingRedirects = MAX_REDIRECTS,
+): Promise<string> =>
+  new Promise((resolve, reject) => {
+    get(url, (resp) => {
+      const { statusCode } = resp;
+      if (
+        statusCode &&
+        statusCode >= 300 &&
+        statusCode < 400 &&
+        resp.headers.location
+      ) {
+        if (remainingRedirects <= 0) {
+          reject(new Error("Too many redirects"));
+          return;
+        }
+        resolve(fetchUrl(resp.headers.location, remainingRedirects - 1));
+        return;
+      }
+      if (statusCode && statusCode >= 400) {
+        reject(new Error(`HTTP error: ${statusCode}`));
+        return;
+      }
+      let data = "";
+      resp.on("data", (chunk) => {
+        data += chunk;
+      });
+      resp.on("end", () => {
+        resolve(data);
+      });
+      resp.on("error", (err) => {
+        reject(err);
+      });
+    }).on("error", (err) => {
+      reject(err);
+    });
+  });
+
 /**
  * getRemotePreviousCommit fetches the commit hash currently deployed to the given app
  * @param app - name of app to query
@@ -11,19 +58,7 @@ export const getRemotePreviousCommit = (
   app: DeployableApp,
 ): Promise<string> => {
   const commitUrl = `https://${app}.mongodb.com/commit.txt`;
-  return new Promise((resolve, reject) => {
-    get(commitUrl, (resp) => {
-      let data = "";
-      resp.on("data", (chunk) => {
-        data += chunk;
-      });
-      resp.on("end", () => {
-        resolve(data);
-      });
-    }).on("error", (err) => {
-      reject(err);
-    });
-  });
+  return fetchUrl(commitUrl);
 };
 
 /**
