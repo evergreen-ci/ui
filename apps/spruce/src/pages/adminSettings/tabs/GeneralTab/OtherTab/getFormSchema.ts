@@ -8,6 +8,7 @@ import {
   hostJasper,
   jiraNotificationsFields,
   spawnHost,
+  debugSpawnHostsConfig,
   sleepSchedule,
   tracerConfiguration,
   projectCreationSettings,
@@ -66,6 +67,11 @@ export const getFormSchema = ({
               title: "Spawn Host",
               properties: spawnHost.schema,
             },
+            debugSpawnHostsConfig: {
+              type: "object" as const,
+              title: "Debug Spawn Hosts Config",
+              properties: debugSpawnHostsConfig.schema,
+            },
             sleepSchedule: {
               type: "object" as const,
               title: "Sleep Schedule",
@@ -105,6 +111,7 @@ export const getFormSchema = ({
         hostJasper: hostJasper.uiSchema,
         jiraNotificationsFields: jiraNotificationsFields.uiSchema,
         spawnHost: spawnHost.uiSchema,
+        debugSpawnHostsConfig: debugSpawnHostsConfig.uiSchema,
         sleepSchedule: sleepSchedule.uiSchema,
         tracerConfiguration: tracerConfiguration.uiSchema,
         projectCreationSettings: projectCreationSettings.uiSchema,

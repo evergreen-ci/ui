@@ -93,6 +93,10 @@ export interface OtherFormState {
       spawnHostsPerUser: number;
     };
 
+    debugSpawnHostsConfig: {
+      setupScript: string;
+    };
+
     sleepSchedule: {
       permanentlyExemptHosts: string[];
     };

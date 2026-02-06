@@ -134,6 +134,9 @@ query AdminSettings {
       }
       savingsPlanDiscount
     }
+    debugSpawnHosts {
+      setupScript
+    }
     disabledGQLQueries
     domainName
     expansions

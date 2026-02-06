@@ -28,6 +28,7 @@ const AdminSettingsPage: React.FC = () => {
   const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
     ADMIN_SETTINGS,
   );
+
   return (
     <AdminSettingsProvider>
       <SideNavPageWrapper>
@@ -505,6 +506,16 @@ const AdminSettingsPage: React.FC = () => {
                 )}
               >
                 Spawn Host
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
+                data-cy="navitem-admin-debug-spawn-hosts-config"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "debug-spawn-hosts-config",
+                )}
+              >
+                Debug Spawn Hosts Config
               </SideNavItem>
               <SideNavItem
                 as={Link}

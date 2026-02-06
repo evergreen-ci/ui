@@ -27,6 +27,7 @@ export const gqlToForm = ((data) => {
     buckets,
     configDir,
     cost,
+    debugSpawnHosts,
     domainName,
     expansions,
     githubCheckRun,
@@ -163,6 +164,10 @@ export const gqlToForm = ((data) => {
         spawnHostsPerUser: spawnhost?.spawnHostsPerUser ?? 0,
       },
 
+      debugSpawnHostsConfig: {
+        setupScript: debugSpawnHosts?.setupScript ?? "",
+      },
+
       sleepSchedule: {
         permanentlyExemptHosts: sleepSchedule?.permanentlyExemptHosts ?? [],
       },
@@ -197,6 +202,7 @@ export const formToGql = ((form: OtherFormState) => {
 
   const {
     bucketConfig,
+    debugSpawnHostsConfig,
     expansions,
     githubCheckRunConfigurations,
     hostJasper,
@@ -339,6 +345,10 @@ export const formToGql = ((form: OtherFormState) => {
       unexpirableVolumesPerUser:
         spawnHost.unexpirableVolumesPerUser || undefined,
       spawnHostsPerUser: spawnHost.spawnHostsPerUser || undefined,
+    },
+
+    debugSpawnHosts: {
+      setupScript: debugSpawnHostsConfig.setupScript || undefined,
     },
 
     sleepSchedule: {
