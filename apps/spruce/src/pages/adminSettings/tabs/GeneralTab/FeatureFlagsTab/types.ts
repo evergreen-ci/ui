@@ -41,6 +41,7 @@ export interface FeatureFlagsFormState {
       backgroundReauthDisabled: boolean;
       debugSpawnHostDisabled: boolean;
       useGitForGitHubFilesDisabled: boolean;
+      psLoggingDisabled: boolean;
       useMergeQueuePathFilteringDisabled: boolean;
     };
 

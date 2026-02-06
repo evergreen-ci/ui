@@ -92,6 +92,7 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       monitorDisabled
       podAllocatorDisabled
       podInitDisabled
+      psLoggingDisabled
       releaseModeDisabled
       repotrackerDisabled
       s3LifecycleSyncDisabled
