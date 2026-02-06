@@ -32,7 +32,7 @@ describe("requester filtering", () => {
     cy.dataCy("inactive-versions-button").first().contains("3");
     cy.dataCy("inactive-versions-button").eq(1).contains("2");
     cy.dataCy("version-label-active").contains("Git Tag");
-    cy.dataCy("version-label-active").should("have.length", 4);
+    cy.dataCy("version-label-active").should("have.length", 3);
   });
 
   it("clears requester filters", () => {

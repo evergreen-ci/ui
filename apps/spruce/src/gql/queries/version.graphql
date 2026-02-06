@@ -5,8 +5,6 @@ query Version($id: String!, $includeNeverActivatedTasks: Boolean) {
     ...UpstreamProject
     id
     activated
-    author
-    authorEmail
     baseVersion {
       id
     }
@@ -88,6 +86,10 @@ query Version($id: String!, $includeNeverActivatedTasks: Boolean) {
     taskCount(
       options: { includeNeverActivatedTasks: $includeNeverActivatedTasks }
     )
+    user {
+      displayName
+      userId
+    }
     versionTiming {
       makespan
       timeTaken
