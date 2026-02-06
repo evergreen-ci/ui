@@ -1,7 +1,6 @@
 import { Suspense, useCallback, useRef, useState } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
@@ -32,7 +31,7 @@ const Waterfall: React.FC = () => {
   const [pagination, setPagination] = useState<Pagination>();
 
   const [omitInactiveBuilds, setOmitInactiveBuilds] = useState(
-    Cookies.get(OMIT_INACTIVE_WATERFALL_BUILDS) === "true",
+    localStorage.getItem(OMIT_INACTIVE_WATERFALL_BUILDS) === "true",
   );
 
   const guideCueRef = useRef<WalkthroughGuideCueRef>(null);

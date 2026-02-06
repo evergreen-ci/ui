@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { FocusableMenuItem } from "@leafygreen-ui/menu";
-import Cookies from "js-cookie";
 import { useWaterfallAnalytics } from "analytics";
 import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
 
@@ -19,9 +18,7 @@ export const OmitInactiveBuilds: React.FC<OmitInactiveBuildsProps> = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.checked;
     setOmitInactiveBuilds(newValue);
-    Cookies.set(OMIT_INACTIVE_WATERFALL_BUILDS, newValue.toString(), {
-      expires: 365,
-    });
+    localStorage.setItem(OMIT_INACTIVE_WATERFALL_BUILDS, newValue.toString());
     sendEvent({ name: "Toggled omit inactive builds", enabled: newValue });
   };
 

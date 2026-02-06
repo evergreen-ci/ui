@@ -7,6 +7,7 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
+import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
 import { WaterfallMenu } from ".";
 
 const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -68,9 +69,10 @@ describe("WaterfallMenu", () => {
     });
   });
 
-  it("calls setOmitInactiveBuilds when checkbox is toggled", async () => {
+  it("calls setOmitInactiveBuilds and updates localStorage when checkbox is toggled on", async () => {
     const setOmitInactiveBuilds = vi.fn();
     const user = userEvent.setup();
+    const localStorageSpy = vi.spyOn(Storage.prototype, "setItem");
 
     renderWaterfallMenu({ setOmitInactiveBuilds });
 
@@ -83,6 +85,36 @@ describe("WaterfallMenu", () => {
     await user.click(screen.getByText("Omit inactive builds"));
 
     expect(setOmitInactiveBuilds).toHaveBeenCalledWith(true);
+    expect(localStorageSpy).toHaveBeenCalledWith(
+      OMIT_INACTIVE_WATERFALL_BUILDS,
+      "true",
+    );
+
+    localStorageSpy.mockRestore();
+  });
+
+  it("calls setOmitInactiveBuilds and updates localStorage when checkbox is toggled off", async () => {
+    const setOmitInactiveBuilds = vi.fn();
+    const user = userEvent.setup();
+    const localStorageSpy = vi.spyOn(Storage.prototype, "setItem");
+
+    renderWaterfallMenu({ omitInactiveBuilds: true, setOmitInactiveBuilds });
+
+    await user.click(screen.getByRole("button"));
+
+    await waitFor(() => {
+      expect(screen.getByText("Omit inactive builds")).toBeVisible();
+    });
+
+    await user.click(screen.getByText("Omit inactive builds"));
+
+    expect(setOmitInactiveBuilds).toHaveBeenCalledWith(false);
+    expect(localStorageSpy).toHaveBeenCalledWith(
+      OMIT_INACTIVE_WATERFALL_BUILDS,
+      "false",
+    );
+
+    localStorageSpy.mockRestore();
   });
 
   it("renders all menu items", async () => {
