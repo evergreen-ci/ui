@@ -169,6 +169,7 @@ export type AdminSettings = {
   configDir?: Maybe<Scalars["String"]["output"]>;
   containerPools?: Maybe<ContainerPoolsConfig>;
   cost?: Maybe<CostConfig>;
+  debugSpawnHosts?: Maybe<DebugSpawnHostsConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
   domainName?: Maybe<Scalars["String"]["output"]>;
   expansions?: Maybe<Scalars["StringMap"]["output"]>;
@@ -226,6 +227,7 @@ export type AdminSettingsInput = {
   configDir?: InputMaybe<Scalars["String"]["input"]>;
   containerPools?: InputMaybe<ContainerPoolsConfigInput>;
   cost?: InputMaybe<CostConfigInput>;
+  debugSpawnHosts?: InputMaybe<DebugSpawnHostsConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   domainName?: InputMaybe<Scalars["String"]["input"]>;
   expansions?: InputMaybe<Scalars["StringMap"]["input"]>;
@@ -764,6 +766,15 @@ export type DeactivateStepbackTaskInput = {
   buildVariantName: Scalars["String"]["input"];
   projectId: Scalars["String"]["input"];
   taskName: Scalars["String"]["input"];
+};
+
+export type DebugSpawnHostsConfig = {
+  __typename?: "DebugSpawnHostsConfig";
+  setupScript?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type DebugSpawnHostsConfigInput = {
+  setupScript?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** DefaultSectionToRepoInput is the input to the defaultSectionToRepo mutation. */
@@ -3831,6 +3842,7 @@ export type ServiceFlags = {
   taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   useGitForGitHubFilesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  useMergeQueuePathFilteringDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
@@ -3872,6 +3884,7 @@ export type ServiceFlagsInput = {
   taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   useGitForGitHubFilesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  useMergeQueuePathFilteringDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
@@ -5262,11 +5275,11 @@ export type BasePatchFragment = {
   id: string;
   activated: boolean;
   alias?: string | null;
-  author: string;
   description: string;
   projectID: string;
   status: string;
   parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+  user: { __typename?: "User"; displayName?: string | null; userId: string };
   variantsTasks: Array<{
     __typename?: "VariantTask";
     name: string;
@@ -5365,8 +5378,6 @@ export type PatchesPagePatchesFragment = {
     id: string;
     activated: boolean;
     alias?: string | null;
-    author: string;
-    authorDisplayName: string;
     createTime?: Date | null;
     description: string;
     hidden: boolean;
@@ -5378,6 +5389,7 @@ export type PatchesPagePatchesFragment = {
       owner: string;
       repo: string;
     } | null;
+    user: { __typename?: "User"; displayName?: string | null; userId: string };
     versionFull?: {
       __typename?: "Version";
       id: string;
@@ -7374,7 +7386,6 @@ export type SchedulePatchMutation = {
     id: string;
     activated: boolean;
     alias?: string | null;
-    author: string;
     description: string;
     projectID: string;
     status: string;
@@ -7384,6 +7395,7 @@ export type SchedulePatchMutation = {
       childVersions?: Array<{ __typename?: "Version"; id: string }> | null;
     } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
       __typename?: "VariantTask";
       name: string;
@@ -7575,11 +7587,11 @@ export type UpdatePatchDescriptionMutation = {
     id: string;
     activated: boolean;
     alias?: string | null;
-    author: string;
     description: string;
     projectID: string;
     status: string;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
       __typename?: "VariantTask";
       name: string;
@@ -9167,7 +9179,6 @@ export type MainlineCommitsForHistoryQuery = {
       rolledUpVersions?: Array<{
         __typename?: "Version";
         id: string;
-        author: string;
         createTime: Date;
         message: string;
         order: number;
@@ -9177,11 +9188,15 @@ export type MainlineCommitsForHistoryQuery = {
           pusher: string;
           tag: string;
         }> | null;
+        user: {
+          __typename?: "User";
+          displayName?: string | null;
+          userId: string;
+        };
       }> | null;
       version?: {
         __typename?: "Version";
         id: string;
-        author: string;
         createTime: Date;
         message: string;
         order: number;
@@ -9203,6 +9218,11 @@ export type MainlineCommitsForHistoryQuery = {
           pusher: string;
           tag: string;
         }> | null;
+        user: {
+          __typename?: "User";
+          displayName?: string | null;
+          userId: string;
+        };
         upstreamProject?: {
           __typename?: "UpstreamProject";
           owner: string;
@@ -9307,20 +9327,6 @@ export type MyVolumesQuery = {
   }>;
 };
 
-export type OtherUserQueryVariables = Exact<{
-  userId?: InputMaybe<Scalars["String"]["input"]>;
-}>;
-
-export type OtherUserQuery = {
-  __typename?: "Query";
-  currentUser: { __typename?: "User"; userId: string };
-  otherUser: {
-    __typename?: "User";
-    displayName?: string | null;
-    userId: string;
-  };
-};
-
 export type PatchConfigureGeneratedTaskCountsQueryVariables = Exact<{
   patchId: Scalars["String"]["input"];
 }>;
@@ -9351,7 +9357,6 @@ export type ConfigurePatchQuery = {
     id: string;
     activated: boolean;
     alias?: string | null;
-    author: string;
     description: string;
     projectID: string;
     status: string;
@@ -9397,6 +9402,7 @@ export type ConfigurePatchQuery = {
     time?: { __typename?: "PatchTime"; submittedAt: string } | null;
     versionFull?: { __typename?: "Version"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
       __typename?: "VariantTask";
       name: string;
@@ -9420,11 +9426,11 @@ export type PatchQuery = {
     id: string;
     activated: boolean;
     alias?: string | null;
-    author: string;
     description: string;
     status: string;
     versionFull?: { __typename?: "Version"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    user: { __typename?: "User"; displayName?: string | null; userId: string };
     variantsTasks: Array<{
       __typename?: "VariantTask";
       name: string;
@@ -10001,8 +10007,6 @@ export type ProjectPatchesQuery = {
         id: string;
         activated: boolean;
         alias?: string | null;
-        author: string;
-        authorDisplayName: string;
         createTime?: Date | null;
         description: string;
         hidden: boolean;
@@ -10014,6 +10018,11 @@ export type ProjectPatchesQuery = {
           owner: string;
           repo: string;
         } | null;
+        user: {
+          __typename?: "User";
+          displayName?: string | null;
+          userId: string;
+        };
         versionFull?: {
           __typename?: "Version";
           id: string;
@@ -11253,8 +11262,12 @@ export type TaskHistoryQuery = {
       versionMetadata: {
         __typename?: "Version";
         id: string;
-        author: string;
         message: string;
+        user: {
+          __typename?: "User";
+          displayName?: string | null;
+          userId: string;
+        };
       };
     }>;
   };
@@ -11659,13 +11672,17 @@ export type TaskQuery = {
     versionMetadata: {
       __typename?: "Version";
       id: string;
-      author: string;
       isPatch: boolean;
       message: string;
       order: number;
       project: string;
       projectIdentifier: string;
       revision: string;
+      user: {
+        __typename?: "User";
+        displayName?: string | null;
+        userId: string;
+      };
     };
   } | null;
 };
@@ -11782,6 +11799,7 @@ export type UserPatchesQuery = {
   __typename?: "Query";
   user: {
     __typename?: "User";
+    displayName?: string | null;
     userId: string;
     patches?: {
       __typename?: "Patches";
@@ -11791,8 +11809,6 @@ export type UserPatchesQuery = {
         id: string;
         activated: boolean;
         alias?: string | null;
-        author: string;
-        authorDisplayName: string;
         createTime?: Date | null;
         description: string;
         hidden: boolean;
@@ -11804,6 +11820,11 @@ export type UserPatchesQuery = {
           owner: string;
           repo: string;
         } | null;
+        user: {
+          __typename?: "User";
+          displayName?: string | null;
+          userId: string;
+        };
         versionFull?: {
           __typename?: "Version";
           id: string;
@@ -12076,8 +12097,6 @@ export type VersionQuery = {
     __typename?: "Version";
     id: string;
     activated?: boolean | null;
-    author: string;
-    authorEmail: string;
     createTime: Date;
     errors: Array<string>;
     finishTime?: Date | null;
@@ -12162,6 +12181,7 @@ export type VersionQuery = {
       owner: string;
       repo: string;
     } | null;
+    user: { __typename?: "User"; displayName?: string | null; userId: string };
     versionTiming?: {
       __typename?: "VersionTiming";
       makespan?: number | null;
@@ -12234,7 +12254,6 @@ export type WaterfallQuery = {
       __typename?: "Version";
       id: string;
       activated?: boolean | null;
-      author: string;
       createTime: Date;
       errors: Array<string>;
       message: string;
@@ -12242,6 +12261,11 @@ export type WaterfallQuery = {
       requester: string;
       revision: string;
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+      user: {
+        __typename?: "User";
+        displayName?: string | null;
+        userId: string;
+      };
       waterfallBuilds?: Array<{
         __typename?: "WaterfallBuild";
         id: string;

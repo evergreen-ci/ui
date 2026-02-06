@@ -36,7 +36,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-1r51ix4"
+                  class="leafygreen-ui-1o2ji0h"
                   data-cy="task-name-filter-popover"
                   tabindex="0"
                 >
@@ -68,7 +68,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Task Name"
-                class="leafygreen-ui-1r51ix4"
+                class="leafygreen-ui-1o2ji0h"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -122,7 +122,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Table Filter Popover Icon"
-                  class="leafygreen-ui-1r51ix4"
+                  class="leafygreen-ui-1o2ji0h"
                   data-cy="status-filter-popover"
                   data-highlighted="false"
                   tabindex="0"
@@ -155,7 +155,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Status"
-                class="leafygreen-ui-1r51ix4"
+                class="leafygreen-ui-1o2ji0h"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -209,7 +209,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-1r51ix4"
+                  class="leafygreen-ui-1o2ji0h"
                   data-cy="build-variant-filter-popover"
                   tabindex="0"
                 >
@@ -241,7 +241,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Build Variant"
-                class="leafygreen-ui-1r51ix4"
+                class="leafygreen-ui-1o2ji0h"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -292,7 +292,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Task Duration"
-                class="leafygreen-ui-1r51ix4"
+                class="leafygreen-ui-1o2ji0h"
                 data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort_button"
                 tabindex="0"
@@ -359,7 +359,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Expand row"
-                  class="leafygreen-ui-16o6nd"
+                  class="leafygreen-ui-12nxi1l"
                   data-lgid="lg-table-expand_button"
                   data-testid="lg-table-expand_button"
                   tabindex="0"
