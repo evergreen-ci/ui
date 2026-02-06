@@ -40,7 +40,7 @@ export const TaskOverviewPopup = forwardRef<HTMLDivElement, Props>(
       open
         ? {
             variables: { taskId, execution },
-            fetchPolicy: "cache-and-network",
+            fetchPolicy: "no-cache",
           }
         : skipToken,
     );
@@ -59,7 +59,7 @@ export const TaskOverviewPopup = forwardRef<HTMLDivElement, Props>(
 
     const command = description || failingCommand || "";
 
-    const isLoading = loading || !task;
+    const isLoading = loading && !task;
 
     return (
       <Popover ref={ref} active={open} align={Align.Right} refEl={taskBoxRef}>
@@ -133,12 +133,6 @@ const PopoverCard = styled(MetadataCard)`
   gap: ${size.xs};
 `;
 
-const ButtonRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xs};
-`;
-
 const RouterLink = styled(StyledRouterLink)`
   ${wordBreakCss};
 `;
@@ -146,4 +140,10 @@ const RouterLink = styled(StyledRouterLink)`
 const TaskPageLink = styled(RouterLink)`
   font-weight: bold;
   font-size: 18px;
+`;
+
+const ButtonRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xs};
 `;

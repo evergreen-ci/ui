@@ -35,6 +35,7 @@ export const TaskStatsTooltip: React.FC<
     open
       ? {
           variables: { versionId: id },
+          fetchPolicy: "no-cache",
         }
       : skipToken,
   );
