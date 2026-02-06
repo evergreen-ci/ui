@@ -9,8 +9,6 @@ import { GitCommitSearch } from "./GitCommitSearch";
 import { JumpToMostRecent } from "./JumpToMostRecent";
 import { OmitInactiveBuilds } from "./OmitInactiveBuilds";
 
-const menuProps = { [waterfallGuideId]: walkthroughSteps[4].targetId };
-
 type Props = {
   omitInactiveBuilds: boolean;
   projectIdentifier: string;
@@ -33,7 +31,7 @@ export const WaterfallMenu: React.FC<Props> = ({
       renderDarkMenu={false}
       setOpen={setMenuOpen}
       size="default"
-      {...menuProps}
+      triggerProps={{ [waterfallGuideId]: walkthroughSteps[4].targetId }}
     >
       <GitCommitSearch key="git-commit-search" setMenuOpen={setMenuOpen} />
       <JumpToMostRecent key="jump-to-most-recent" setMenuOpen={setMenuOpen} />

@@ -10,6 +10,7 @@ type Props = {
   dropdownItems?: React.ReactNode[];
   loading?: boolean;
   size?: ButtonSize;
+  triggerProps?: Partial<React.ComponentProps<typeof LoadingButton>>;
 } & Omit<MenuProps, "children" | "refEl" | "trigger">;
 
 export const ButtonDropdown: React.FC<Props> = ({
@@ -21,6 +22,7 @@ export const ButtonDropdown: React.FC<Props> = ({
   open = undefined,
   setOpen = undefined,
   size = "small",
+  triggerProps,
   ...menuProps
 }) => (
   <Menu
@@ -35,6 +37,7 @@ export const ButtonDropdown: React.FC<Props> = ({
         disabled={disabled}
         loading={loading}
         size={size}
+        {...triggerProps}
       >
         <Icon glyph="Ellipsis" />
       </LoadingButton>
