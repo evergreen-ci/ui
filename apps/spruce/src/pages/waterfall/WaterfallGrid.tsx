@@ -52,13 +52,15 @@ const resetFilterState: ServerFilters = {
 };
 
 type WaterfallGridProps = {
+  guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
+  omitInactiveBuilds: boolean;
   projectIdentifier: string;
   setPagination: (pagination: Pagination) => void;
-  guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   guideCueRef,
+  omitInactiveBuilds,
   projectIdentifier,
   setPagination,
 }) => {
@@ -129,6 +131,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         limit: VERSION_LIMIT,
         maxOrder,
         minOrder,
+        omitInactiveBuilds,
         revision,
         date: utcDate,
         ...serverFilters,
@@ -173,6 +176,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       ? data.waterfall.pagination.activeVersionIds
       : [],
     flattenedVersions: dataIsComplete ? data.waterfall.flattenedVersions : [],
+    omitInactiveBuilds,
     pins,
   });
 

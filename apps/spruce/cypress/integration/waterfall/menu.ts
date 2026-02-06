@@ -1,5 +1,41 @@
 import { mockErrorResponse } from "../../utils/mockErrorResponse";
 
+describe("Waterfall menu settings", () => {
+  beforeEach(() => {
+    cy.visit("/project/evergreen/waterfall");
+  });
+
+  it("toggles the omit inactive builds checkbox and persists the setting", () => {
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("omit-inactive-builds-checkbox").should("not.be.checked");
+    cy.dataCy("omit-inactive-builds-checkbox").check({ force: true });
+    cy.dataCy("omit-inactive-builds-checkbox").should("be.checked");
+
+    cy.reload();
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("omit-inactive-builds-checkbox").should("be.checked");
+
+    cy.dataCy("omit-inactive-builds-checkbox").uncheck({ force: true });
+  });
+
+  it("omits inactive build variants when filter is applied and setting is enabled", () => {
+    cy.dataCy("build-variant-filter-input").type("Lint{enter}");
+    cy.dataCy("build-variant-label").should("have.length", 1);
+
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("omit-inactive-builds-checkbox").check({ force: true });
+    cy.get("body").click();
+
+    cy.dataCy("build-variant-filter-input").clear();
+    cy.dataCy("build-variant-filter-input").type("Ubuntu{enter}");
+
+    cy.dataCy("build-variant-label").should("have.length.at.least", 1);
+
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("omit-inactive-builds-checkbox").uncheck({ force: true });
+  });
+});
+
 describe("Waterfall subscription modal", () => {
   const route = "/project/spruce/waterfall";
   const type = "project";
