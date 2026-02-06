@@ -1,7 +1,7 @@
+import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryCompleted } from "@evg-ui/lib/hooks";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import { useProjectHistoryAnalytics } from "analytics/projectHistory/useProjectHistoryAnalytics";
@@ -30,6 +30,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
 }) => {
   const { sendEvent } = useProjectHistoryAnalytics({ page: "Variant history" });
   const dispatchToast = useToastContext();
+  const hasReportedError = useRef(false);
 
   // Fetch the column headers from the same query used on the dropdown.
   const { data: columnData, loading } = useQuery<
@@ -42,15 +43,20 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
     },
   });
 
-  // Handle empty results when query completes.
-  useQueryCompleted(loading, () => {
-    if (columnData && !columnData.taskNamesForBuildVariant) {
+  // Reset error flag when project or variant changes
+  useEffect(() => {
+    hasReportedError.current = false;
+  }, [projectIdentifier, variantName]);
+
+  // Handle empty results
+  const taskNamesForBuildVariant = columnData?.taskNamesForBuildVariant;
+  useEffect(() => {
+    if (columnData && !taskNamesForBuildVariant && !hasReportedError.current) {
+      hasReportedError.current = true;
       reportError(new Error("No task names found for build variant")).warning();
       dispatchToast.error(`No tasks found for build variant: ${variantName}}`);
     }
-  });
-
-  const taskNamesForBuildVariant = columnData?.taskNamesForBuildVariant;
+  }, [columnData, taskNamesForBuildVariant, dispatchToast, variantName]);
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { columnLimit, visibleColumns } = useHistoryTable();
