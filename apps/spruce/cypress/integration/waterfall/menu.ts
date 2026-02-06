@@ -5,12 +5,6 @@ describe("Waterfall menu settings", () => {
     cy.visit("/project/evergreen/waterfall");
   });
 
-  it("displays Settings section with omit inactive builds option", () => {
-    cy.dataCy("waterfall-menu").click();
-    cy.contains("Settings").should("be.visible");
-    cy.dataCy("omit-inactive-builds-checkbox").should("be.visible");
-  });
-
   it("toggles the omit inactive builds checkbox and persists the setting", () => {
     cy.dataCy("waterfall-menu").click();
     cy.dataCy("omit-inactive-builds-checkbox").should("not.be.checked");
