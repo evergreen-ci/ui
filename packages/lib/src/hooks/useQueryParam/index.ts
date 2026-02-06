@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { ParseOptions } from "query-string";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { conditionalToArray } from "../../utils/array";
 import { parseQueryString, stringifyQuery } from "../../utils/query-string";
 
@@ -17,12 +17,12 @@ type SetQueryParams = (params: QueryParamsUpdater) => void;
 const useQueryParams = (
   parseOptions?: ParseOptions,
 ): readonly [QueryParams, SetQueryParams] => {
-  const [searchParams] = useSearchParams();
+  const { search } = useLocation();
   const navigate = useNavigate();
 
   const searchParamsObject = useMemo(
-    () => parseQueryString(searchParams.toString(), parseOptions ?? {}),
-    [searchParams, parseOptions],
+    () => parseQueryString(search, parseOptions ?? {}),
+    [search, parseOptions],
   );
 
   // Use a ref to track current params so the setter can read fresh values
