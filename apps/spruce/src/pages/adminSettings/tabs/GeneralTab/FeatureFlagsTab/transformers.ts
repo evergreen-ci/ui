@@ -62,6 +62,8 @@ export const gqlToForm = ((data) => ({
       useGitForGitHubFilesDisabled:
         data.serviceFlags?.useGitForGitHubFilesDisabled ?? false,
       psLoggingDisabled: data.serviceFlags?.psLoggingDisabled ?? false,
+      useMergeQueuePathFilteringDisabled:
+        data.serviceFlags?.useMergeQueuePathFilteringDisabled ?? false,
     },
 
     batchJobs: {
