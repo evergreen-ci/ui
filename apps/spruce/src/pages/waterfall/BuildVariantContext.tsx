@@ -24,7 +24,7 @@ const BuildVariantProvider: React.FC<BuildVariantProviderProps> = ({
       columnWidth,
       setColumnWidth,
     }),
-    [columnWidth],
+    [columnWidth, setColumnWidth],
   );
 
   return (
