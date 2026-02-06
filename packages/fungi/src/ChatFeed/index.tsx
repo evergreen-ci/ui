@@ -5,11 +5,10 @@ import { LeafyGreenChatProvider } from "@lg-chat/leafygreen-chat-provider";
 import { MessageActionsProps } from "@lg-chat/message";
 import { MessageFeed } from "@lg-chat/message-feed";
 import { DefaultChatTransport } from "ai";
-import { useChatContext } from "../Context";
-import { ContextChip } from "../Context/context";
-import { ContextChips } from "../ContextChips";
-import { FungiUIMessage, MessageRenderer } from "../MessageRenderer";
-import { Suggestions } from "../Suggestions";
+import { ContextChip, useChatContext } from "#Context";
+import { ContextChips } from "#ContextChips";
+import { FungiUIMessage, MessageRenderer } from "#MessageRenderer";
+import { Suggestions } from "#Suggestions";
 
 export type ChatFeedProps = {
   apiUrl: string;
