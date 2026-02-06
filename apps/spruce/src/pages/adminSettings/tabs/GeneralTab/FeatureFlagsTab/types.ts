@@ -42,6 +42,7 @@ export interface FeatureFlagsFormState {
       debugSpawnHostDisabled: boolean;
       useGitForGitHubFilesDisabled: boolean;
       psLoggingDisabled: boolean;
+      useMergeQueuePathFilteringDisabled: boolean;
     };
 
     batchJobs: {

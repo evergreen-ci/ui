@@ -8084,6 +8084,7 @@ export type AdminSettingsQuery = {
       taskReliabilityDisabled?: boolean | null;
       unrecognizedPodCleanupDisabled?: boolean | null;
       useGitForGitHubFilesDisabled?: boolean | null;
+      useMergeQueuePathFilteringDisabled?: boolean | null;
       webhookNotificationsDisabled?: boolean | null;
     } | null;
     singleTaskDistro?: {

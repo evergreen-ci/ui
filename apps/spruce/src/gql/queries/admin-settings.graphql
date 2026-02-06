@@ -367,6 +367,7 @@ query AdminSettings {
       taskReliabilityDisabled
       unrecognizedPodCleanupDisabled
       useGitForGitHubFilesDisabled
+      useMergeQueuePathFilteringDisabled
       webhookNotificationsDisabled
     }
     shutdownWaitSeconds

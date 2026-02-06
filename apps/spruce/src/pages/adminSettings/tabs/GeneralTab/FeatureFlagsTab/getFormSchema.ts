@@ -46,6 +46,7 @@ const featureItems: Record<string, string> = {
   debugSpawnHostDisabled: "Debug spawn hosts",
   useGitForGitHubFilesDisabled: "Use git to fetch files from GitHub",
   psLoggingDisabled: "PS logging by default for tasks",
+  useMergeQueuePathFilteringDisabled: "Merge queue path filtering",
 };
 
 const batchJobItems: Record<string, string> = {

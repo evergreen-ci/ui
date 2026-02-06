@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Button, Variant } from "@leafygreen-ui/button";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
-import { useChatContext } from "../Context";
+import { useChatContext } from "#Context";
 import { useAuthContext } from "./AuthProvider";
 
 export const Login: React.FC = () => {
