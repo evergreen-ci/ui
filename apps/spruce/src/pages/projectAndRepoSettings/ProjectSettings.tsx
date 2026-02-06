@@ -1,15 +1,10 @@
 import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client/react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
-import { useProjectSettingsAnalytics } from "analytics";
-import {
-  ProjectSettingsTabRoutes,
-  getRepoSettingsRoute,
-  slugs,
-} from "constants/routes";
+import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import {
   ProjectSettingsQuery,
   ProjectSettingsQueryVariables,
@@ -17,51 +12,17 @@ import {
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
-import { useProjectRedirect } from "hooks/useProjectRedirect";
-import { validators } from "utils";
 import SharedSettings from "./shared";
-import { projectOnlyTabs } from "./shared/tabs/types";
 import { ProjectType } from "./shared/tabs/utils";
 
-const { validateObjectId } = validators;
-
 const ProjectSettings: React.FC = () => {
-  const { sendEvent } = useProjectSettingsAnalytics();
   const dispatchToast = useToastContext();
-  const {
-    [slugs.projectIdentifier]: projectIdentifier = "",
-    [slugs.tab]: tab,
-  } = useParams<{
+  const { [slugs.projectIdentifier]: projectIdentifier = "" } = useParams<{
     [slugs.projectIdentifier]: string;
     [slugs.tab]: ProjectSettingsTabRoutes;
   }>();
+
   usePageTitle(`Project Settings | ${projectIdentifier}`);
-  const navigate = useNavigate();
-
-  // If the path includes an Object ID, we should redirect the user so that they use the identifier.
-  const identifierIsObjectId = validateObjectId(projectIdentifier);
-
-  useProjectRedirect({
-    shouldRedirect: identifierIsObjectId,
-    onError: (repoId) => {
-      // DEVPROD-18977: Redirect can be removed once the repo settings URL change has been baked in long enough.
-      navigate(
-        getRepoSettingsRoute(
-          repoId,
-          tab && projectOnlyTabs.has(tab)
-            ? ProjectSettingsTabRoutes.General
-            : tab,
-        ),
-      );
-    },
-    sendAnalyticsEvent: (projectId: string, identifier: string) => {
-      sendEvent({
-        name: "Redirected to project identifier",
-        "project.id": projectId,
-        "project.identifier": identifier,
-      });
-    },
-  });
 
   const {
     data: projectData,
@@ -70,7 +31,7 @@ const ProjectSettings: React.FC = () => {
   } = useQuery<ProjectSettingsQuery, ProjectSettingsQueryVariables>(
     PROJECT_SETTINGS,
     {
-      skip: identifierIsObjectId || !projectIdentifier,
+      skip: !projectIdentifier,
       variables: { projectIdentifier },
     },
   );
