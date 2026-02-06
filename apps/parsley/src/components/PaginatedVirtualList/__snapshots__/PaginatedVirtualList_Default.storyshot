@@ -6,7 +6,7 @@
       data-cy="paginated-virtual-list"
       data-testid="virtuoso-scroller"
       data-virtuoso-scroller="true"
-      style="height: 100%; outline: none; overflow-y: auto; position: relative;"
+      style="height: 100%; outline: none; overflow-y: auto; position: relative; -webkit-overflow-scrolling: touch;"
       tabindex="0"
     >
       <div

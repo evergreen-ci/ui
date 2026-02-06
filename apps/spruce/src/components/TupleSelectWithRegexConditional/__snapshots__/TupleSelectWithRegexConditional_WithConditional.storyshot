@@ -16,8 +16,8 @@
           class="leafygreen-ui-pipgrf emotion-PaddedSegmentedControl egmqwjk0"
         >
           <div
-            aria-label="segmented-control-134"
-            aria-owns="segmented-control-134-0 segmented-control-134-1"
+            aria-label="segmented-control-215"
+            aria-owns="segmented-control-215-0 segmented-control-215-1"
             class="leafygreen-ui-1698cdy"
             role="tablist"
           >
@@ -34,7 +34,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="true"
                   class="leafygreen-ui-zcita1"
-                  id="segmented-control-134-0"
+                  id="segmented-control-215-0"
                   role="tab"
                   tabindex="0"
                   type="button"
@@ -64,7 +64,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="false"
                   class="leafygreen-ui-zcita1"
-                  id="segmented-control-134-1"
+                  id="segmented-control-215-1"
                   role="tab"
                   tabindex="-1"
                   type="button"
@@ -100,8 +100,8 @@
         data-testid="lg-select"
       >
         <button
-          aria-controls="select-135-menu"
-          aria-describedby="select-135-description"
+          aria-controls="select-217-menu"
+          aria-describedby="select-217-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -110,7 +110,7 @@
           data-cy="tuple-select-select"
           data-lgid="lg-select-trigger"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-136"
+          id="select-218"
           type="button"
           value="build_variant"
         >
@@ -198,7 +198,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_input-feedback"
             data-testid="lg-text_input-feedback"
-            id="lg-form_field-feedback-139"
+            id="lg-form_field-feedback-221"
           />
         </div>
         <div
