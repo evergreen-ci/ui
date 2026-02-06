@@ -211,12 +211,16 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const isHighlighted = (v: Version, i: number) =>
     (revision !== null && v.revision.includes(revision)) || (!!date && i === 0);
 
-  if (activeVersionIds.length === 0) {
+  if (
+    dataIsComplete &&
+    data?.waterfall?.pagination?.activeVersionIds?.length === 0
+  ) {
     return <EmptyState />;
   }
 
   return (
     <Container ref={refEl}>
+      <div ref={headerScrollRef} />
       <StickyHeader showShadow={showShadow}>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">

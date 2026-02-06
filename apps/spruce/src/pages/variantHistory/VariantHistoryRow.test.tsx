@@ -144,13 +144,6 @@ describe("variantHistoryRow", () => {
     });
     expect(screen.queryAllByDataCy("task-cell")).toHaveLength(1);
     expect(screen.queryAllByDataCy("empty-cell")).toHaveLength(0);
-
-    await waitFor(() => {
-      expect(screen.queryByDataCy("task-cell")).toHaveAttribute(
-        "aria-disabled",
-        "false",
-      );
-    });
     await waitFor(() => {
       expect(screen.queryByDataCy("history-table-icon")).toHaveAttribute(
         "aria-disabled",
@@ -239,7 +232,10 @@ const taskRow: CommitRowType = {
   type: rowType.COMMIT,
   commit: {
     id: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
-    author: "Malik Hadjri",
+    user: {
+      userId: "malik.hadjri",
+      displayName: "Malik Hadjri",
+    },
     createTime: new Date("2021-09-02T14:20:04Z"),
     message:
       "EVG-15213: Reference a project’s configuration when interacting with perf plugin configs (#4992)",

@@ -87,7 +87,9 @@ describe("repotracker banner", () => {
       await waitFor(() => {
         expect(screen.queryByDataCy("repotracker-error-banner")).toBeVisible();
       });
-      expect(screen.queryByDataCy("repotracker-error-trigger")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("repotracker-error-trigger")).toBeVisible();
+      });
     });
 
     it("can submit new base revision via modal", async () => {
@@ -103,7 +105,9 @@ describe("repotracker banner", () => {
       await waitFor(() => {
         expect(screen.queryByDataCy("repotracker-error-banner")).toBeVisible();
       });
-      expect(screen.queryByDataCy("repotracker-error-trigger")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("repotracker-error-trigger")).toBeVisible();
+      });
 
       // Open modal.
       await user.click(screen.getByDataCy("repotracker-error-trigger"));
@@ -117,7 +121,9 @@ describe("repotracker banner", () => {
       await user.type(screen.getByLabelText("Base Revision"), baseRevision);
       expect(confirmButton).toHaveAttribute("aria-disabled", "false");
       await user.click(confirmButton);
-      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+      await waitFor(() => {
+        expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });

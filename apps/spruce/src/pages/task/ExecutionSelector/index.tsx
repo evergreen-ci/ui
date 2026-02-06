@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Select, Size as SelectSize, Option } from "@leafygreen-ui/select";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import {
   TaskAllExecutionsQuery,
@@ -80,7 +80,7 @@ const StyledSelect = styled(Select)`
   margin-bottom: ${size.xs};
 `;
 
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   font-size: ${fontSize.m};
 `;
 

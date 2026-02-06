@@ -6,7 +6,7 @@
       class="emotion-InactiveVersion e1i0zkr30"
     >
       <dialog
-        class="leafygreen-ui-1i73k7k"
+        class="emotion-StyledDisplayModal e1dav03y1 leafygreen-ui-1i73k7k"
         data-cy="inactive-versions-modal"
         data-lgid="lg-modal"
         data-testid="lg-modal"
