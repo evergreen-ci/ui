@@ -14,7 +14,7 @@
         href="/task/a/history"
       >
         <code
-          class="leafygreen-ui-i6ovbf"
+          class="leafygreen-ui-7hb0hw"
         >
           aef3637
         </code>
@@ -22,7 +22,7 @@
       <a
         aria-disabled="false"
         aria-label="GitHub Commit Link"
-        class="leafygreen-ui-1r51ix4"
+        class="leafygreen-ui-1o2ji0h"
         data-cy="github-link"
         href="https://github.com/evergreen-ci/spruce/commit/aef363719d0287e92cd83749a827bae"
         tabindex="0"
@@ -86,7 +86,7 @@
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-369"
+        id="modal-178"
       />
       <div
         class="leafygreen-ui-17azklk"

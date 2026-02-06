@@ -5,6 +5,7 @@ query SpawnTask($taskId: String!) {
     ...BaseTask
     project {
       id
+      debugSpawnHostsDisabled
       spawnHostScriptPath
     }
   }

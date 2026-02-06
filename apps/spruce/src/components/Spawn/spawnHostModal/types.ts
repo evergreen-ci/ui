@@ -1,6 +1,7 @@
 import { HostUptime } from "../utils";
 
 export type FormState = {
+  isDebug?: boolean;
   requiredSection?: {
     distro?: string;
     region?: string;

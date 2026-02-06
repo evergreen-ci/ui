@@ -5,7 +5,6 @@ query Waterfall($options: WaterfallOptions!) {
     flattenedVersions {
       id
       activated
-      author
       createTime
       errors
       gitTags {
@@ -15,6 +14,10 @@ query Waterfall($options: WaterfallOptions!) {
       order
       requester
       revision
+      user {
+        displayName
+        userId
+      }
       waterfallBuilds {
         id
         activated
@@ -25,7 +28,6 @@ query Waterfall($options: WaterfallOptions!) {
           displayName
           displayStatusCache
           execution
-          status
         }
       }
     }

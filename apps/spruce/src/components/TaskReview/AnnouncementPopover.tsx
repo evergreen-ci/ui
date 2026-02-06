@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { TooltipAlign } from "@leafygreen-ui/guide-cue";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { ExpiringAnnouncementTooltip } from "@evg-ui/lib/components/ExpiringAnnouncementTooltip";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -34,7 +34,7 @@ export const AnnouncementPopover: React.FC<{ loading?: boolean }> = ({
   </ExpiringAnnouncementTooltip>
 );
 
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   color: inherit;
 
   :not(:last-of-type) {
