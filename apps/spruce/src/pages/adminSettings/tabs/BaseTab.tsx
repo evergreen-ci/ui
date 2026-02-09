@@ -22,6 +22,7 @@ export const BaseTab = <T extends WritableAdminSettingsType>({
   return (
     <Form<WritableAdminSettingsType, FormStateMap>
       {...rest}
+      liveValidate={false}
       state={state}
       tab={tab}
     />

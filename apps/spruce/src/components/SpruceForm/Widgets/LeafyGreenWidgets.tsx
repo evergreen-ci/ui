@@ -66,6 +66,7 @@ export const LeafyGreenTextInput: React.FC<
       <StyledTextInput
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
+        autoComplete="off"
         data-cy={dataCy}
         description={description}
         disabled={disabled || readonly}

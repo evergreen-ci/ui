@@ -1,5 +1,6 @@
 import {
   SpruceForm,
+  SpruceFormProps,
   ValidateProps,
   GetFormSchema,
 } from "components/SpruceForm";
@@ -10,22 +11,24 @@ export type FormProps<
   T extends SettingsRoutes,
   FormStateMap extends Record<T, any>,
 > = {
-  disabled?: boolean;
   formSchema: ReturnType<GetFormSchema>;
   state: SettingsState<T, FormStateMap>;
   tab: T;
   validate?: ValidateProps<FormStateMap[T]>;
-};
+} & Omit<
+  SpruceFormProps,
+  "fields" | "formData" | "onChange" | "schema" | "uiSchema" | "validate"
+>;
 
 export const Form = <
   T extends SettingsRoutes,
   FormStateMap extends Record<T, any>,
 >({
-  disabled,
   formSchema,
   state,
   tab,
   validate,
+  ...rest
 }: FormProps<T, FormStateMap>) => {
   const { getTab, updateForm } = state;
   const { formData } = getTab(tab);
@@ -35,7 +38,7 @@ export const Form = <
 
   return (
     <SpruceForm
-      disabled={disabled}
+      {...rest}
       fields={fields}
       formData={formData}
       onChange={updateForm(tab)}

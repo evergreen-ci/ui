@@ -16,6 +16,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
   disabled,
   fields,
   formData,
+  liveValidate = true,
   onChange,
   schema,
   tagName,
@@ -31,7 +32,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     fields={{ ...baseFields, ...fields }}
     FieldTemplate={DefaultFieldTemplate}
     formData={formData}
-    liveValidate
+    liveValidate={liveValidate}
     noHtml5Validate
     ObjectFieldTemplate={ObjectFieldTemplate}
     onChange={onChange}
@@ -52,4 +53,4 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
 );
 
 export { SpruceFormContainer };
-export type { GetFormSchema, ValidateProps };
+export type { GetFormSchema, SpruceFormProps, ValidateProps };
