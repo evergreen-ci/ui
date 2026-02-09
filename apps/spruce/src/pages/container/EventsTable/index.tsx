@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
+import { Subtitle } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import {
   BaseTable,
@@ -116,7 +116,7 @@ const getColumns = (
   },
 ];
 
-const StyledSubtitle = styled(Subtitle)<SubtitleProps>`
+const StyledSubtitle = styled(Subtitle)`
   margin: ${size.s} 0;
 `;
 

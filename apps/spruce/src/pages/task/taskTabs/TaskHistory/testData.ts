@@ -20,7 +20,10 @@ export const tasks: TaskHistoryTask[] = [
     canSetPriority: false,
     versionMetadata: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: A",
     },
     tests: emptyTests,
@@ -39,7 +42,10 @@ export const tasks: TaskHistoryTask[] = [
     canSetPriority: false,
     versionMetadata: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: B",
     },
     tests: emptyTests,
@@ -58,7 +64,10 @@ export const tasks: TaskHistoryTask[] = [
     canSetPriority: false,
     versionMetadata: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: C",
     },
     tests: emptyTests,
@@ -77,7 +86,10 @@ export const tasks: TaskHistoryTask[] = [
     canSetPriority: false,
     versionMetadata: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: D",
     },
     tests: emptyTests,
@@ -96,7 +108,10 @@ export const tasks: TaskHistoryTask[] = [
     canSetPriority: false,
     versionMetadata: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: E",
     },
     tests: emptyTests,
@@ -115,7 +130,10 @@ export const tasks: TaskHistoryTask[] = [
     canSetPriority: false,
     versionMetadata: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: F",
     },
     tests: {
@@ -143,7 +161,10 @@ export const tasks: TaskHistoryTask[] = [
     canSetPriority: false,
     versionMetadata: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: G",
     },
     tests: emptyTests,
@@ -162,7 +183,10 @@ export const tasks: TaskHistoryTask[] = [
     canSetPriority: false,
     versionMetadata: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: H",
     },
     tests: emptyTests,
@@ -181,7 +205,10 @@ export const tasks: TaskHistoryTask[] = [
     canSetPriority: false,
     versionMetadata: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: I",
     },
     tests: emptyTests,
@@ -200,7 +227,10 @@ export const tasks: TaskHistoryTask[] = [
     canSetPriority: false,
     versionMetadata: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: J",
     },
     tests: emptyTests,
@@ -219,7 +249,10 @@ export const tasks: TaskHistoryTask[] = [
     canSetPriority: false,
     versionMetadata: {
       id: "version_id",
-      author: "Evergreen Admin",
+      user: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+      },
       message: "DEVPROD-1234: K",
     },
     tests: emptyTests,

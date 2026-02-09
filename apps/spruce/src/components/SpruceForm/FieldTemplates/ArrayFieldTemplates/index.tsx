@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { ExpandableCard } from "@leafygreen-ui/expandable-card";
 import { palette } from "@leafygreen-ui/palette";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import { Icon } from "@evg-ui/lib/components";
 import { size } from "@evg-ui/lib/constants";
@@ -279,6 +279,6 @@ const TitleWrapper = styled.span`
   margin-right: ${size.s};
 `;
 
-const Placeholder = styled(Body)<BodyProps>`
+const Placeholder = styled(Body)`
   margin-bottom: ${size.m};
 `;

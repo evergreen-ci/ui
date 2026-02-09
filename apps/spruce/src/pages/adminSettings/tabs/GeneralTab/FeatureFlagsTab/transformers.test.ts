@@ -54,6 +54,7 @@ const form: FeatureFlagsFormState = {
       releaseModeDisabled: true,
       debugSpawnHostDisabled: true,
       useGitForGitHubFilesDisabled: true,
+      useMergeQueuePathFilteringDisabled: true,
     },
     batchJobs: {
       backgroundStatsDisabled: true,
@@ -103,6 +104,7 @@ const gql: AdminSettingsInput = {
     taskReliabilityDisabled: true,
     unrecognizedPodCleanupDisabled: true,
     useGitForGitHubFilesDisabled: true,
+    useMergeQueuePathFilteringDisabled: true,
     webhookNotificationsDisabled: true,
   },
 };

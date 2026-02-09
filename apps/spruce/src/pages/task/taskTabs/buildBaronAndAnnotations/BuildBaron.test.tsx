@@ -90,9 +90,11 @@ describe("buildBaronContent", () => {
       expect(screen.getByDataCy("file-ticket-popconfirm")).toBeVisible();
     });
     await user.click(screen.getByRole("button", { name: "Yes" }));
-    expect(dispatchToast.success).toHaveBeenCalledWith(
-      "Successfully requested ticket",
-    );
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledWith(
+        "Successfully requested ticket",
+      );
+    });
   });
 
   it("the correct JiraTicket rows are rendered in the component", () => {

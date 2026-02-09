@@ -104,9 +104,11 @@ describe("relevant commits", () => {
     renderWithRouterMatch(<Component />);
 
     await screen.findByRole("button", { name: "Relevant commits" });
-    expect(
-      screen.getByRole("button", { name: "Relevant commits" }),
-    ).toHaveAttribute("aria-disabled", "false");
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: "Relevant commits" }),
+      ).toHaveAttribute("aria-disabled", "false");
+    });
     await user.click(screen.getByRole("button", { name: "Relevant commits" }));
     await waitFor(() => {
       expect(screen.getByRole("menu")).toBeVisible();
@@ -142,9 +144,11 @@ describe("relevant commits", () => {
     renderWithRouterMatch(<Component />);
 
     await screen.findByRole("button", { name: "Relevant commits" });
-    expect(
-      screen.getByRole("button", { name: "Relevant commits" }),
-    ).toHaveAttribute("aria-disabled", "false");
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: "Relevant commits" }),
+      ).toHaveAttribute("aria-disabled", "false");
+    });
     await user.click(screen.getByRole("button", { name: "Relevant commits" }));
     await waitFor(() => {
       expect(screen.getByRole("menu")).toBeVisible();
@@ -181,9 +185,11 @@ describe("relevant commits", () => {
     renderWithRouterMatch(<Component />);
 
     await screen.findByRole("button", { name: "Relevant commits" });
-    expect(
-      screen.getByRole("button", { name: "Relevant commits" }),
-    ).toHaveAttribute("aria-disabled", "false");
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: "Relevant commits" }),
+      ).toHaveAttribute("aria-disabled", "false");
+    });
     await user.click(screen.getByRole("button", { name: "Relevant commits" }));
     await waitFor(() => {
       expect(screen.getByRole("menu")).toBeVisible();
@@ -223,7 +229,11 @@ const patchTaskWithSuccessfulBaseTask = {
       __typename: "Version" as const,
     },
     isPatch: true,
-    author: "author",
+    user: {
+      __typename: "User" as const,
+      userId: "author",
+      displayName: "Author Name",
+    },
     message: "message",
     project: "project",
     projectIdentifier: "projectIdentifier",
@@ -274,7 +284,11 @@ const patchTaskWithRunningBaseTask = {
       __typename: "Version" as const,
     },
     isPatch: true,
-    author: "author",
+    user: {
+      __typename: "User" as const,
+      userId: "author",
+      displayName: "Author Name",
+    },
     message: "message",
     project: "project",
     projectIdentifier: "projectIdentifier",
@@ -325,7 +339,11 @@ const patchTaskWithFailingBaseTask = {
       __typename: "Version" as const,
     },
     isPatch: true,
-    author: "author",
+    user: {
+      __typename: "User" as const,
+      userId: "author",
+      displayName: "Author Name",
+    },
     message: "message",
     order: 3676,
     project: "project",
@@ -373,7 +391,11 @@ const patchTaskWithNoBaseVersion = {
     baseVersion: null,
     id: "versionMetadataId",
     isPatch: true,
-    author: "author",
+    user: {
+      __typename: "User" as const,
+      userId: "author",
+      displayName: "Author Name",
+    },
     message: "message",
     order: 3676,
     project: "project",
@@ -603,7 +625,11 @@ const mainlineTaskWithBaseVersion = {
       order: 3676,
       __typename: "Version" as const,
     },
-    author: "author",
+    user: {
+      __typename: "User" as const,
+      userId: "author",
+      displayName: "Author Name",
+    },
     message: "message",
     order: 3676,
     project: "project",

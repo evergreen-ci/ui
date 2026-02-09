@@ -13,6 +13,7 @@ import {
   screen,
   stubGetClientRects,
   userEvent,
+  waitFor,
 } from "@evg-ui/lib/test_utils";
 import * as analytics from "analytics";
 import { ParsleyAIModal } from ".";
@@ -54,7 +55,9 @@ describe("parsley AI modal", () => {
     render(<Component />, { wrapper: wrapper([updateBetaFeaturesMock]) });
 
     await user.click(screen.getByRole("button", { name: "Enable it!" }));
-    expect(mockSetOpen).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockSetOpen).toHaveBeenCalledTimes(1);
+    });
     expect(mockSetOpen).toHaveBeenCalledWith(false);
     expect(mockSendEvent).toHaveBeenCalledTimes(1);
     expect(mockSendEvent).toHaveBeenCalledWith({
@@ -76,7 +79,9 @@ describe("parsley AI modal", () => {
     render(<Component />, { wrapper: wrapper([updateBetaFeaturesErrorMock]) });
 
     await user.click(screen.getByRole("button", { name: "Enable it!" }));
-    expect(dispatchToast.error).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(dispatchToast.error).toHaveBeenCalledTimes(1);
+    });
     expect(mockSetOpen).toHaveBeenCalledTimes(1);
     expect(mockSetOpen).toHaveBeenCalledWith(false);
     expect(mockSendEvent).toHaveBeenCalledTimes(1);

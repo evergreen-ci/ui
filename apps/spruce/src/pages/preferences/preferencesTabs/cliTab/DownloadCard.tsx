@@ -6,7 +6,6 @@ import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import {
   InlineCode,
   Subtitle,
-  SubtitleProps,
   Body,
   Disclaimer,
 } from "@leafygreen-ui/typography";
@@ -166,7 +165,7 @@ const CliDownloadButton = styled(Button)`
   margin-top: ${size.xs};
 `;
 
-const CliDownloadTitle = styled(Subtitle)<SubtitleProps>`
+const CliDownloadTitle = styled(Subtitle)`
   font-weight: bold;
 `;
 

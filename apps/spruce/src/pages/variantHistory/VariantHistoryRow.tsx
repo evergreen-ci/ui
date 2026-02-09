@@ -111,13 +111,16 @@ const generateColumns = (
       const taskMap = convertArrayToObject(tasks, "displayName");
       const t = taskMap[c];
       if (t) {
-        const { failingTests, inactive, label } = getTaskMetadata(t.id);
+        const { failingTests, inactive, label, loading } = getTaskMetadata(
+          t.id,
+        );
         return (
           <TaskCell
             key={c}
             failingTests={failingTests}
             inactive={inactive}
             label={label}
+            loading={loading}
             onClick={({ taskStatus }) => {
               sendEvent({
                 name: "Clicked task cell",

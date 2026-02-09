@@ -4,12 +4,7 @@ import { Card } from "@leafygreen-ui/card";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { Popover } from "@leafygreen-ui/popover";
-import {
-  Body,
-  BodyProps,
-  Overline,
-  OverlineProps,
-} from "@leafygreen-ui/typography";
+import { Body, Overline } from "@leafygreen-ui/typography";
 import { Icon } from "@evg-ui/lib/components";
 import { CharKey, size } from "@evg-ui/lib/constants";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
@@ -163,12 +158,12 @@ const Scrollable = styled.div`
   overflow-y: scroll;
 `;
 
-const Title = styled(Overline)<OverlineProps>`
+const Title = styled(Overline)`
   padding-top: ${size.xs};
   padding-left: ${size.s};
 `;
 
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   padding: ${size.s};
   display: flex;
   justify-content: center;

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Body, BodyProps, H2 } from "@leafygreen-ui/typography";
+import { Body, H2 } from "@leafygreen-ui/typography";
 import { useLocation, useNavigate } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components";
 import { fontSize, PaginationQueryParams, size } from "@evg-ui/lib/constants";
@@ -109,9 +109,10 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
   const description = isVariantTimingView ? (
     <>
       This page is showing a timeline view of task run times in the{" "}
-      <b>{queryParams.variant}</b> variant{taskFilterDescription}. This is a
-      Gantt chart showing when each task started and finished running. You can
-      click on a task to visit the task page.
+      <b>{queryVariables.taskFilterOptions.variant}</b> variant
+      {taskFilterDescription}. This is a Gantt chart showing when each task
+      started and finished running. You can click on a task to visit the task
+      page.
     </>
   ) : (
     "This page is showing a timeline view of variant run times in this version. This is a Gantt chart showing when each variant started and finished running. You can click on a variant to see a view of the tasks that ran."
@@ -155,7 +156,7 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
     </>
   );
 };
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   font-size: ${fontSize.m};
   margin-bottom: ${size.s};
 `;

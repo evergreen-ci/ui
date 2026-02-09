@@ -297,7 +297,7 @@ describe("Navigating to Spawn Host page", () => {
             cy.wrap($nextCell).click();
           } else {
             cy.log("Current date is the last day of the month");
-            cy.get('button[aria-label="Next month"]').click();
+            cy.get('button[aria-label^="Next month"]').click();
             cy.get('td[data-testid="lg-date_picker-calendar_cell"]')
               .first()
               .click();

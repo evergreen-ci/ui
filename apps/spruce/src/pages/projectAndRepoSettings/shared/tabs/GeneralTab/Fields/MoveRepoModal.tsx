@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants";
 import { useToastContext } from "@evg-ui/lib/context";
 import { useProjectSettingsAnalytics } from "analytics";
@@ -116,7 +116,7 @@ export const MoveRepoModal: React.FC<ModalProps> = ({
   );
 };
 
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   margin-bottom: ${size.xs};
 `;
 

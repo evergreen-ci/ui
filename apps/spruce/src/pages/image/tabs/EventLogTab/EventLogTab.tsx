@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components";
 import { size } from "@evg-ui/lib/constants";
 import {
@@ -63,6 +63,6 @@ const Container = styled.div`
   color: ${gray};
 `;
 
-const StyledBody = styled(Body)<BodyProps>`
+const StyledBody = styled(Body)`
   color: ${gray.base};
 `;

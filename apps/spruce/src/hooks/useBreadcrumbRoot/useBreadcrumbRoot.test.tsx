@@ -1,33 +1,32 @@
 import { InMemoryCache } from "@apollo/client";
-import {
-  MockedProvider,
-  renderHook,
-  waitFor,
-  ApolloMock,
-} from "@evg-ui/lib/test_utils";
-import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
-import { getUserMock } from "gql/mocks/getUser";
-import { OTHER_USER } from "gql/queries";
+import { MockedProvider, renderHook, waitFor } from "@evg-ui/lib/test_utils";
+import { UserQuery } from "gql/generated/types";
+import { USER } from "gql/queries";
 import { useBreadcrumbRoot } from ".";
 
-const cache = new InMemoryCache({
-  typePolicies: {
-    User: {
-      keyFields: ["userId"],
+const createCacheWithUser = (currentUserId: string = "admin") => {
+  const cache = new InMemoryCache();
+  cache.writeQuery<UserQuery>({
+    query: USER,
+    data: {
+      user: {
+        __typename: "User",
+        userId: currentUserId,
+        displayName: "Evergreen Admin",
+        emailAddress: "admin@example.com",
+        permissions: {
+          canEditAdminSettings: true,
+          __typename: "Permissions",
+        },
+      },
     },
-  },
-});
+  });
+  return cache;
+};
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
-const SameUserProvider = ({ children }) => (
-  <MockedProvider cache={cache} mocks={[getUserMock, sameUserMock]}>
-    {children}
-  </MockedProvider>
-);
-
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-const OtherUserProvider = ({ children }) => (
-  <MockedProvider cache={cache} mocks={[getUserMock, otherUserMock]}>
+const Provider = ({ children }) => (
+  <MockedProvider cache={createCacheWithUser()} mocks={[]}>
     {children}
   </MockedProvider>
 );
@@ -35,8 +34,13 @@ const OtherUserProvider = ({ children }) => (
 describe("useBreadcrumbRoot", () => {
   it("returns the correct breadcrumb root when the version is a patch belonging to current user", async () => {
     const { result } = renderHook(
-      () => useBreadcrumbRoot(true, "admin", "spruce"),
-      { wrapper: SameUserProvider },
+      () =>
+        useBreadcrumbRoot(
+          true,
+          { userId: "admin", displayName: "Evergreen Admin" },
+          "spruce",
+        ),
+      { wrapper: Provider },
     );
     await waitFor(() => {
       expect(result.current.to).toBe("/user/admin/patches");
@@ -46,8 +50,13 @@ describe("useBreadcrumbRoot", () => {
 
   it("returns the correct breadcrumb root when the version is a patch belonging to other user", async () => {
     const { result } = renderHook(
-      () => useBreadcrumbRoot(true, "john.doe", "spruce"),
-      { wrapper: OtherUserProvider },
+      () =>
+        useBreadcrumbRoot(
+          true,
+          { userId: "john.doe", displayName: "John Doe" },
+          "spruce",
+        ),
+      { wrapper: Provider },
     );
     await waitFor(() => {
       expect(result.current.to).toBe("/user/john.doe/patches");
@@ -57,51 +66,27 @@ describe("useBreadcrumbRoot", () => {
 
   it("returns the correct breadcrumb root when the version is a commit", () => {
     const { result } = renderHook(
-      () => useBreadcrumbRoot(false, "admin", "spruce"),
-      { wrapper: SameUserProvider },
+      () =>
+        useBreadcrumbRoot(
+          false,
+          { userId: "admin", displayName: "Evergreen Admin" },
+          "spruce",
+        ),
+      { wrapper: Provider },
     );
 
     expect(result.current.to).toBe("/project/spruce/waterfall");
     expect(result.current.text).toBe("spruce");
   });
+
+  it("falls back to userId when displayName is not provided", async () => {
+    const { result } = renderHook(
+      () => useBreadcrumbRoot(true, { userId: "other.user" }, "spruce"),
+      { wrapper: Provider },
+    );
+    await waitFor(() => {
+      expect(result.current.to).toBe("/user/other.user/patches");
+    });
+    expect(result.current.text).toBe("other.user's Patches");
+  });
 });
-
-const sameUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
-  request: {
-    query: OTHER_USER,
-    variables: {
-      userId: "admin",
-    },
-  },
-  result: {
-    data: {
-      otherUser: {
-        __typename: "User",
-        userId: "admin",
-        displayName: "Evergreen Admin",
-      },
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      currentUser: getUserMock.result.data.user,
-    },
-  },
-};
-
-const otherUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
-  request: {
-    query: OTHER_USER,
-    variables: {
-      userId: "john.doe",
-    },
-  },
-  result: {
-    data: {
-      otherUser: {
-        __typename: "User",
-        userId: "john.doe",
-        displayName: "John Doe",
-      },
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      currentUser: getUserMock.result.data.user,
-    },
-  },
-};

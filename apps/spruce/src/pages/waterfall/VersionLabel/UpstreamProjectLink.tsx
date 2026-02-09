@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { Body } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components";
 import { useWaterfallAnalytics } from "analytics";
@@ -11,20 +11,31 @@ import { VERSION_UPSTREAM_PROJECT } from "gql/queries";
 
 const UpstreamProjectLink: React.FC<{
   versionId: string;
+  isTrigger: boolean;
   commitType: "active" | "inactive";
-}> = ({ commitType, versionId }) => {
+}> = ({ commitType, isTrigger, versionId }) => {
   const { data } = useQuery<
     VersionUpstreamProjectQuery,
     VersionUpstreamProjectQueryVariables
-  >(VERSION_UPSTREAM_PROJECT, {
-    variables: { versionId },
-  });
+  >(
+    VERSION_UPSTREAM_PROJECT,
+    isTrigger
+      ? {
+          variables: { versionId },
+        }
+      : skipToken,
+  );
   const { sendEvent } = useWaterfallAnalytics();
+
+  if (!isTrigger) {
+    return null;
+  }
 
   const upstreamProject = data?.version?.upstreamProject;
   if (!upstreamProject) {
     return null;
   }
+
   return (
     <Body>
       Triggered by:{" "}

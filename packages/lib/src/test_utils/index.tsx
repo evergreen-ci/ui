@@ -162,10 +162,6 @@ const createWrapper = <T extends Record<string, unknown>>(
     return createElement(Wrapper, props, children);
   };
 
-// TODO DEVPROD-26811: In Apollo v4, they introduced a realistic delay of 20~50ms but this causes several test failures. Set it to 0 for now.
-MockLink.defaultOptions = {
-  delay: 0,
-};
 type MockedResponse = MockLink.MockedResponse;
 
 export {

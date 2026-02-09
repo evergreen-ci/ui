@@ -5,6 +5,7 @@ import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
+  waitFor,
 } from "@evg-ui/lib/test_utils";
 import {
   AdminTasksToRestartQuery,
@@ -65,10 +66,14 @@ describe("restartTasksButton", () => {
     await user.click(restartTasksButton);
     expect(screen.getByDataCy("restart-tasks-modal")).toBeInTheDocument();
 
-    expect(screen.getByText("task-1")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("task-1")).toBeInTheDocument();
+    });
     expect(screen.getByText("task-2")).toBeInTheDocument();
     const confirmButton = screen.getByRole("button", { name: "Confirm" });
-    expect(confirmButton).toHaveAttribute("aria-disabled", "false");
+    await waitFor(() => {
+      expect(confirmButton).toHaveAttribute("aria-disabled", "false");
+    });
   });
 
   it("when there are no tasks to restart", async () => {
@@ -83,7 +88,9 @@ describe("restartTasksButton", () => {
     await user.click(restartTasksButton);
     expect(screen.getByDataCy("restart-tasks-modal")).toBeInTheDocument();
 
-    expect(screen.getByText("No tasks found.")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("No tasks found.")).toBeInTheDocument();
+    });
     const confirmButton = screen.getByRole("button", { name: "Confirm" });
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
   });
@@ -101,9 +108,13 @@ describe("restartTasksButton", () => {
     expect(screen.getByDataCy("restart-tasks-modal")).toBeInTheDocument();
 
     const confirmButton = screen.getByRole("button", { name: "Confirm" });
-    expect(confirmButton).toHaveAttribute("aria-disabled", "false");
+    await waitFor(() => {
+      expect(confirmButton).toHaveAttribute("aria-disabled", "false");
+    });
     await user.click(confirmButton);
-    expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    });
   });
 });
 

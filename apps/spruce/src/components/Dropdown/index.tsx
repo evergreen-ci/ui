@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { Popover } from "@leafygreen-ui/popover";
-import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { Icon } from "@evg-ui/lib/components";
 import { size } from "@evg-ui/lib/constants";
 import { useOnClickOutside } from "@evg-ui/lib/hooks";
@@ -174,7 +174,7 @@ const ButtonContent = styled.div`
   overflow: hidden;
 `;
 
-const OverflowBody = styled(Body)<BodyProps>`
+const OverflowBody = styled(Body)`
   overflow: hidden;
   text-overflow: ellipsis;
 `;

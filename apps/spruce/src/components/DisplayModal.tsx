@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Modal, ModalProps } from "@leafygreen-ui/modal";
-import { Body, BodyProps, H3 } from "@leafygreen-ui/typography";
+import { Body, H3 } from "@leafygreen-ui/typography";
 import { size as tokenSize } from "@evg-ui/lib/constants";
 
 type DisplayModalProps = Omit<ModalProps, "title"> & {
@@ -23,6 +23,6 @@ export const DisplayModal: React.FC<DisplayModalProps> = ({
   </Modal>
 );
 
-const StyledSubtitle = styled(Body)<BodyProps>`
+const StyledSubtitle = styled(Body)`
   margin-bottom: ${tokenSize.xs};
 `;

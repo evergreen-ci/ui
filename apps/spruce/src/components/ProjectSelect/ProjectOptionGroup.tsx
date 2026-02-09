@@ -1,11 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import {
-  Body,
-  BodyProps,
-  Overline,
-  OverlineProps,
-} from "@leafygreen-ui/typography";
+import { Body, Overline } from "@leafygreen-ui/typography";
 import { Icon } from "@evg-ui/lib/components";
 import { size } from "@evg-ui/lib/constants";
 import {
@@ -47,7 +42,7 @@ const ProjectOption: React.FC<OptionProps> = ({
 );
 
 // bolded is a number because booleans aren't valid props to styled components.
-const Label = styled(Body)<BodyProps & { bolded: number }>`
+const Label = styled(Body)<{ bolded: number }>`
   font-weight: ${({ bolded }) => (bolded ? "bold" : "normal")};
 `;
 
@@ -112,7 +107,7 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
   );
 };
 
-const GroupHeader = styled(Overline)<OverlineProps>`
+const GroupHeader = styled(Overline)`
   ${overlineStyles}
 `;
 

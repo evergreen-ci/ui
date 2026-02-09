@@ -168,13 +168,7 @@ const matchesStatuses = (
   task: Unpacked<Unpacked<BuildVariant["builds"]>["tasks"]>,
   statuses: string[],
 ) =>
-  statuses.length
-    ? statuses.some((s) =>
-        task.displayStatusCache
-          ? task.displayStatusCache === s
-          : task.status === s,
-      )
-    : true;
+  statuses.length ? statuses.some((s) => task.displayStatusCache === s) : true;
 
 /**
  * matchesTasksFilter evaluates whether a task should be shown to the user given a set of task name filter regexes

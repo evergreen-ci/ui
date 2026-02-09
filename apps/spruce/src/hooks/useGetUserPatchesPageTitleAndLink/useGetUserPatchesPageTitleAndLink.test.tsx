@@ -1,112 +1,78 @@
-import {
-  MockedProvider,
-  renderHook,
-  waitFor,
-  ApolloMock,
-} from "@evg-ui/lib/test_utils";
-import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
-import { OTHER_USER } from "gql/queries";
+import { InMemoryCache } from "@apollo/client";
+import { MockedProvider, renderHook, waitFor } from "@evg-ui/lib/test_utils";
+import { UserQuery } from "gql/generated/types";
+import { USER } from "gql/queries";
 import { useGetUserPatchesPageTitleAndLink } from ".";
 
-const mocks: ApolloMock<OtherUserQuery, OtherUserQueryVariables>[] = [
-  {
-    request: {
-      query: OTHER_USER,
-      variables: {
-        userId: "admin",
-      },
-    },
-    result: {
-      data: {
-        otherUser: {
-          userId: "admin",
-          displayName: "Evergreen Admin",
-          __typename: "User",
+const createCacheWithUser = (currentUserId: string = "admin") => {
+  const cache = new InMemoryCache();
+  cache.writeQuery<UserQuery>({
+    query: USER,
+    data: {
+      user: {
+        __typename: "User",
+        userId: currentUserId,
+        displayName: "Evergreen Admin",
+        emailAddress: "admin@example.com",
+        permissions: {
+          canEditAdminSettings: true,
+          __typename: "Permissions",
         },
-        currentUser: { userId: "admin", __typename: "User" },
       },
     },
-  },
-  {
-    request: {
-      query: OTHER_USER,
-      variables: {
-        userId: "justin.mathew",
-      },
-    },
-    result: {
-      data: {
-        otherUser: {
-          userId: "justin.mathew",
-          displayName: "Justin Mathew",
-          __typename: "User",
-        },
-        currentUser: { userId: "admin", __typename: "User" },
-      },
-    },
-  },
-  {
-    request: {
-      query: OTHER_USER,
-      variables: {
-        userId: "justin.mathews",
-      },
-    },
-    result: {
-      data: {
-        otherUser: {
-          userId: "justin.mathews",
-          displayName: "Justin Mathews",
-          __typename: "User",
-        },
-        currentUser: { userId: "admin", __typename: "User" },
-      },
-    },
-  },
-];
+  });
+  return cache;
+};
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
-const Provider = ({ children }) => (
-  <MockedProvider mocks={mocks}>{children}</MockedProvider>
+const Provider = ({ children, currentUserId = "admin" }) => (
+  <MockedProvider cache={createCacheWithUser(currentUserId)} mocks={[]}>
+    {children}
+  </MockedProvider>
 );
 
 describe("useGetUserPatchesPageTitleAndLink", () => {
-  it("return correct title and link when the userId passed into the hook parameter is that of the logged in user", async () => {
+  it("returns correct title and link when the userId matches the logged in user", async () => {
     const { result } = renderHook(
-      () => useGetUserPatchesPageTitleAndLink("admin"),
+      () =>
+        useGetUserPatchesPageTitleAndLink({
+          userId: "admin",
+          displayName: "Evergreen Admin",
+        }),
       { wrapper: Provider },
     );
     await waitFor(() => {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      expect(result.current.title).toBe("My Patches");
+      expect(result.current?.title).toBe("My Patches");
     });
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    expect(result.current.link).toBe("/user/admin/patches");
+    expect(result.current?.link).toBe("/user/admin/patches");
   });
 
-  it("return correct title and link when the userId passed into the hook parameter is not that of the logged in user", async () => {
+  it("returns correct title and link when the userId does not match the logged in user", async () => {
     const { result } = renderHook(
-      () => useGetUserPatchesPageTitleAndLink("justin.mathew"),
+      () =>
+        useGetUserPatchesPageTitleAndLink({
+          userId: "justin.mathew",
+          displayName: "Justin Mathew",
+        }),
       { wrapper: Provider },
     );
     await waitFor(() => {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      expect(result.current.title).toBe("Justin Mathew's Patches");
+      expect(result.current?.title).toBe("Justin Mathew's Patches");
     });
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    expect(result.current.link).toBe("/user/justin.mathew/patches");
+    expect(result.current?.link).toBe("/user/justin.mathew/patches");
   });
 
-  it("return correct title and link when the userId passed into the hook parameter is not that of the logged in user and the display name of the other user ends with the letter 's'", async () => {
+  it("falls back to userId when displayName is not provided", async () => {
     const { result } = renderHook(
-      () => useGetUserPatchesPageTitleAndLink("justin.mathews"),
+      () =>
+        useGetUserPatchesPageTitleAndLink({
+          userId: "other.user",
+        }),
       { wrapper: Provider },
     );
     await waitFor(() => {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      expect(result.current.title).toBe("Justin Mathews' Patches");
+      expect(result.current?.title).toBe("other.user's Patches");
     });
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    expect(result.current.link).toBe("/user/justin.mathews/patches");
+    expect(result.current?.link).toBe("/user/other.user/patches");
   });
 });
