@@ -1,7 +1,10 @@
 import { Size as ButtonSize } from "@leafygreen-ui/button";
 import { Icon } from "@leafygreen-ui/icon";
 import { Menu, MenuItem, MenuProps } from "@leafygreen-ui/menu";
-import { LoadingButton } from "components/Buttons";
+import {
+  LoadingButton,
+  LoadingButtonProps,
+} from "components/Buttons/LoadingButton";
 
 type Props = {
   children?: React.ReactNode;
@@ -10,7 +13,7 @@ type Props = {
   dropdownItems?: React.ReactNode[];
   loading?: boolean;
   size?: ButtonSize;
-  triggerProps?: Partial<React.ComponentProps<typeof LoadingButton>>;
+  triggerProps?: LoadingButtonProps & Record<`data-${string}`, string>;
 } & Omit<MenuProps, "children" | "refEl" | "trigger">;
 
 export const ButtonDropdown: React.FC<Props> = ({
