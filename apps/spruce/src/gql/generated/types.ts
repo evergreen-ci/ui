@@ -7267,6 +7267,7 @@ export type SaveAdminSettingsMutation = {
       monitorDisabled?: boolean | null;
       podAllocatorDisabled?: boolean | null;
       podInitDisabled?: boolean | null;
+      psLoggingDisabled?: boolean | null;
       releaseModeDisabled?: boolean | null;
       repotrackerDisabled?: boolean | null;
       s3LifecycleSyncDisabled?: boolean | null;
@@ -8069,6 +8070,7 @@ export type AdminSettingsQuery = {
       monitorDisabled?: boolean | null;
       podAllocatorDisabled?: boolean | null;
       podInitDisabled?: boolean | null;
+      psLoggingDisabled?: boolean | null;
       releaseModeDisabled?: boolean | null;
       repotrackerDisabled?: boolean | null;
       s3LifecycleSyncDisabled?: boolean | null;
