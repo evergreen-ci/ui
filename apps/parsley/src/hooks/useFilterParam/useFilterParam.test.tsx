@@ -32,7 +32,7 @@ describe("useFilterParam", () => {
     });
     expect(result.current.filters).toStrictEqual(newFilter);
     expect(result.current.allQueryParams).toMatchObject({
-      filters: "100newfilter",
+      filters: ["100newfilter"],
       search: "test",
     });
   });
@@ -96,7 +96,7 @@ describe("useFilterParam", () => {
       ]);
     });
     expect(result.current.allQueryParams).toMatchObject({
-      filters: ["100something,else", "100failed"],
+      filters: ["100something%2Celse", "100failed"],
     });
     expect(result.current.location.search).toBe(
       "?filters=100something%252Celse,100failed",
