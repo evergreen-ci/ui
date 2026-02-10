@@ -3,6 +3,7 @@ import {
   routes,
   redirectRoutes,
   getProjectPatchesRoute,
+  getProjectCommitQueueRoute,
   getProjectSettingsRoute,
   getTaskQueueRoute,
 } from "constants/routes";
@@ -39,6 +40,12 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       to: getProjectPatchesRoute(projectIdentifier),
       text: "Project Patches",
       onClick: () => sendEvent({ name: "Clicked project patches link" }),
+    },
+    {
+      "data-cy": "auxiliary-dropdown-commit-queue",
+      to: getProjectCommitQueueRoute(projectIdentifier),
+      text: "Commit Queue",
+      onClick: () => sendEvent({ name: "Clicked commit queue link" }),
     },
     {
       "data-cy": "auxiliary-dropdown-project-settings",

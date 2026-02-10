@@ -348,6 +348,13 @@ export const getProjectPatchesRoute = (projectIdentifier: string) =>
     PageNames.Patches
   }`;
 
+export const getProjectCommitQueueRoute = (projectIdentifier: string) => {
+  const queryParams = stringifyQuery({ mergeQueue: true });
+  return `${paths.project}/${encodeURIComponent(projectIdentifier)}/${
+    PageNames.Patches
+  }?${queryParams}`;
+};
+
 export const getImageRoute = (
   imageId: string,
   tab?: ImageTabRoutes,
