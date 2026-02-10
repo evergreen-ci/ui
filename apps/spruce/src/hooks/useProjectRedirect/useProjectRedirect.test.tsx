@@ -62,13 +62,13 @@ describe("useProjectRedirect", () => {
     expect(result.current.error).toBeUndefined();
   });
 
-  it("should handle query errors gracefully", async () => {
+  it("should return error if project does not exist", async () => {
     const { result } = renderHook(() => useProjectRedirect(), {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
-          location: `/project/${repoId}/settings`,
-          mocks: [repoMock],
+          location: `/project/${nonexistentId}/settings`,
+          mocks: [nonexistentMock],
         }),
     });
     expect(result.current.needsRedirect).toBe(true);
@@ -100,18 +100,18 @@ const projectMock: ApolloMock<ProjectQuery, ProjectQueryVariables> = {
   },
 };
 
-const repoId = "5e6bb9e23066155a993e0f1a";
-const repoMock: ApolloMock<ProjectQuery, ProjectQueryVariables> = {
+const nonexistentId = "5e6bb9e23066155a993e0f1a";
+const nonexistentMock: ApolloMock<ProjectQuery, ProjectQueryVariables> = {
   request: {
     query: PROJECT,
     variables: {
-      idOrIdentifier: repoId,
+      idOrIdentifier: nonexistentId,
     },
   },
   result: {
     errors: [
       new GraphQLError(
-        `Error finding project by id ${repoId}: 404 (Not Found): project '${repoId}' not found`,
+        `Error finding project by id ${nonexistentId}: 404 (Not Found): project '${nonexistentId}' not found`,
       ),
     ],
   },

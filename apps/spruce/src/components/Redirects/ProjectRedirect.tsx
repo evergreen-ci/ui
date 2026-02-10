@@ -1,4 +1,4 @@
-import { Navigate, useParams, Params } from "react-router-dom";
+import { Navigate, useParams, useLocation, Params } from "react-router-dom";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 
 interface ProjectRedirectProps {
@@ -14,6 +14,7 @@ export const ProjectRedirect: React.FC<ProjectRedirectProps> = ({
   getRedirectRoute,
 }) => {
   const params = useParams();
+  const location = useLocation();
   const { loading, needsRedirect, redirectIdentifier } = useProjectRedirect();
 
   if (loading) {
@@ -21,9 +22,8 @@ export const ProjectRedirect: React.FC<ProjectRedirectProps> = ({
   }
 
   if (needsRedirect && redirectIdentifier) {
-    return (
-      <Navigate replace to={getRedirectRoute(redirectIdentifier, params)} />
-    );
+    const redirectPath = getRedirectRoute(redirectIdentifier, params);
+    return <Navigate replace to={`${redirectPath}${location.search}`} />;
   }
 
   return children;
