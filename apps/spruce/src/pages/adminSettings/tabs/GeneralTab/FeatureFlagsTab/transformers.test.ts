@@ -54,6 +54,7 @@ const form: FeatureFlagsFormState = {
       releaseModeDisabled: true,
       debugSpawnHostDisabled: true,
       useGitForGitHubFilesDisabled: true,
+      psLoggingDisabled: true,
       useMergeQueuePathFilteringDisabled: true,
     },
     batchJobs: {
@@ -91,6 +92,7 @@ const gql: AdminSettingsInput = {
     monitorDisabled: true,
     podAllocatorDisabled: true,
     podInitDisabled: true,
+    psLoggingDisabled: true,
     releaseModeDisabled: true,
     repotrackerDisabled: true,
     s3LifecycleSyncDisabled: true,
