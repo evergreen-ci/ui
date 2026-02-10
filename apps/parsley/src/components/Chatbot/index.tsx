@@ -1,12 +1,13 @@
 import { ChangeEvent, FormEvent, useCallback, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
-import { Chat, MessageRatingValue } from "@evg-ui/fungi/Chat";
-import { ChatDrawer } from "@evg-ui/fungi/ChatDrawer";
 import {
+  Chat,
+  ChatDrawer,
   ChatProvider as FungiProvider,
+  MessageRatingValue,
   useChatContext,
-} from "@evg-ui/fungi/Context";
+} from "@evg-ui/fungi";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { post } from "@evg-ui/lib/utils/request/post";
 import { useAIAgentAnalytics } from "analytics";

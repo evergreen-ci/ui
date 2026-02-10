@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ChatProvider } from "@evg-ui/fungi/Context";
+import { ChatProvider } from "@evg-ui/fungi";
 import { MockedProvider } from "@evg-ui/lib/test_utils";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";

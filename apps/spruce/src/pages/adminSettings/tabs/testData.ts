@@ -80,6 +80,7 @@ export const adminSettings: AdminSettings = {
     monitorDisabled: true,
     podAllocatorDisabled: true,
     podInitDisabled: true,
+    psLoggingDisabled: true,
     releaseModeDisabled: true,
     repotrackerDisabled: true,
     s3LifecycleSyncDisabled: true,
@@ -93,6 +94,7 @@ export const adminSettings: AdminSettings = {
     taskReliabilityDisabled: true,
     unrecognizedPodCleanupDisabled: true,
     useGitForGitHubFilesDisabled: true,
+    useMergeQueuePathFilteringDisabled: true,
     webhookNotificationsDisabled: true,
   },
   taskLimits: {
