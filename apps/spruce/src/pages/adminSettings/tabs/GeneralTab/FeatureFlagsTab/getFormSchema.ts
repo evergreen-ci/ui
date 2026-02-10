@@ -52,8 +52,6 @@ function generateUiSchema(
   return Object.keys(items).reduce(
     (acc, key) => {
       acc[key] = {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": zebraCSS,
         "ui:widget": widgets.RadioWidget,
         "ui:options": {
           inline: true,
@@ -68,7 +66,11 @@ function generateUiSchema(
 
 const generateSchema = (fields: Record<string, string>) => ({
   properties: generateProperties(fields),
-  uiSchema: generateUiSchema(fields),
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:objectFieldCss": zebraCSS,
+    ...generateUiSchema(fields),
+  },
 });
 
 const serviceItems = generateSchema({
