@@ -263,7 +263,7 @@ export const LeafyGreenSelect: React.FC<
         errorMessage={hasError ? rawErrors?.join(", ") : ""}
         id={dataCy}
         name={dataCy}
-        onChange={onChange}
+        onChange={(v: string) => onChange(v)}
         placeholder={placeholder}
         size={sizeVariant as SelectSize}
         state={hasError && !disabled ? "error" : "none"}
