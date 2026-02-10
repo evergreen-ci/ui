@@ -22,7 +22,10 @@ export const useFilters = ({
   flattenedVersions,
   pins,
 }: UseFiltersProps) => {
-  const buildVariants = groupBuildVariants(flattenedVersions);
+  const buildVariants = useMemo(
+    () => groupBuildVariants(flattenedVersions),
+    [flattenedVersions],
+  );
 
   const [requesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
