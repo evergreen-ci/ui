@@ -1,6 +1,7 @@
 import {
   SpruceForm,
   SpruceFormProps,
+  SpruceFormRef,
   ValidateProps,
   GetFormSchema,
 } from "components/SpruceForm";
@@ -11,6 +12,7 @@ export type FormProps<
   T extends SettingsRoutes,
   FormStateMap extends Record<T, any>,
 > = {
+  formRef?: React.Ref<SpruceFormRef>;
   formSchema: ReturnType<GetFormSchema>;
   state: SettingsState<T, FormStateMap>;
   tab: T;
@@ -24,6 +26,7 @@ export const Form = <
   T extends SettingsRoutes,
   FormStateMap extends Record<T, any>,
 >({
+  formRef,
   formSchema,
   state,
   tab,
@@ -38,6 +41,7 @@ export const Form = <
 
   return (
     <SpruceForm
+      ref={formRef}
       {...rest}
       fields={fields}
       formData={formData}
