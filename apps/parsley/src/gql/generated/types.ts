@@ -3832,6 +3832,7 @@ export type ServiceFlags = {
   monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   podAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  psLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   s3LifecycleSyncDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3874,6 +3875,7 @@ export type ServiceFlagsInput = {
   monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   podAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   podInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  psLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   s3LifecycleSyncDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;

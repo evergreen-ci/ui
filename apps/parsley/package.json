@@ -1,6 +1,6 @@
 {
   "name": "parsley",
-  "version": "3.1.41",
+  "version": "3.1.43",
   "private": true,
   "type": "module",
   "scripts": {
