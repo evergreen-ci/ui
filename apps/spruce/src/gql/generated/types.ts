@@ -4632,6 +4632,7 @@ export type TicketFields = {
   assignedTeam?: Maybe<Scalars["String"]["output"]>;
   assigneeDisplayName?: Maybe<Scalars["String"]["output"]>;
   created: Scalars["String"]["output"];
+  failingTasks?: Maybe<Array<Scalars["String"]["output"]>>;
   resolutionName?: Maybe<Scalars["String"]["output"]>;
   status: JiraStatus;
   summary: Scalars["String"]["output"];
