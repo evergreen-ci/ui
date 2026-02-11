@@ -161,6 +161,43 @@ describe("useFilters", () => {
 
       expect(result.current).toStrictEqual(filteredWaterfall);
     });
+
+    it("build variant filters omit inactive builds when setting is enabled", () => {
+      const { result } = renderHook(
+        () =>
+          useFilters({
+            activeVersionIds: ["b", "c", "f"],
+            flattenedVersions: versions,
+            omitInactiveBuilds: true,
+            pins: [],
+          }),
+        {
+          wrapper: createWrapper({
+            initialEntry: "/project/spruce/waterfall?buildVariants=yooo,bv",
+          }),
+        },
+      );
+
+      const filteredWaterfall = {
+        buildVariants: [
+          { ...buildVariants[0], builds: [buildVariants[0].builds[0]] },
+          buildVariants[1],
+          buildVariants[2],
+        ],
+        versions: [
+          groupedVersions[0],
+          groupedVersions[1],
+          groupedVersions[2],
+          {
+            inactiveVersions: [versions[3], versions[4], versions[5]],
+            version: null,
+          },
+        ],
+        activeVersionIds: ["b", "c"],
+      };
+
+      expect(result.current).toStrictEqual(filteredWaterfall);
+    });
   });
 
   describe("task filters", () => {
