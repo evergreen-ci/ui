@@ -173,7 +173,7 @@ buildvariants:
 
   - name: deploy
     display_name: Deploys
-    disable: true
+    activate: false
     expansions:
       node_version: 22.18.0
     run_on:
