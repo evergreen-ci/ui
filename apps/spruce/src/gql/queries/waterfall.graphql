@@ -1,5 +1,3 @@
-#import "../fragments/upstreamProject.graphql"
-
 query Waterfall($options: WaterfallOptions!) {
   waterfall(options: $options) {
     flattenedVersions {
