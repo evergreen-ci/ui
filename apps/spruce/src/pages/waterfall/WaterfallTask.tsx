@@ -49,13 +49,15 @@ export const WaterfallTask: React.FC<{
         tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
         {...squareProps}
       />
-      <TaskOverviewPopup
-        execution={execution}
-        open={open}
-        setOpen={setOpen}
-        taskBoxRef={taskBoxRef}
-        taskId={taskId}
-      />
+      {open && (
+        <TaskOverviewPopup
+          execution={execution}
+          open={open}
+          setOpen={setOpen}
+          taskBoxRef={taskBoxRef}
+          taskId={taskId}
+        />
+      )}
     </>
   );
 };
