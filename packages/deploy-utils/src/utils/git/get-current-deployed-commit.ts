@@ -2,6 +2,11 @@ import { get } from "https";
 import { DeployableApp } from "../types";
 import { COMMIT_LENGTH, getLatestTag, tagIsValid } from ".";
 
+const appToDomain: Record<DeployableApp, string> = {
+  parsley: "parsley.corp.mongodb.com",
+  spruce: "spruce.mongodb.com",
+};
+
 /**
  * getRemotePreviousCommit fetches the commit hash currently deployed to the given app
  * @param app - name of app to query
@@ -10,7 +15,7 @@ import { COMMIT_LENGTH, getLatestTag, tagIsValid } from ".";
 export const getRemotePreviousCommit = (
   app: DeployableApp,
 ): Promise<string> => {
-  const commitUrl = `https://${app}.mongodb.com/commit.txt`;
+  const commitUrl = `https://${appToDomain[app]}/commit.txt`;
   return new Promise((resolve, reject) => {
     get(commitUrl, (resp) => {
       let data = "";

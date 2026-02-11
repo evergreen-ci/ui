@@ -353,6 +353,7 @@ query AdminSettings {
       monitorDisabled
       podAllocatorDisabled
       podInitDisabled
+      psLoggingDisabled
       releaseModeDisabled
       repotrackerDisabled
       s3LifecycleSyncDisabled
@@ -366,6 +367,7 @@ query AdminSettings {
       taskReliabilityDisabled
       unrecognizedPodCleanupDisabled
       useGitForGitHubFilesDisabled
+      useMergeQueuePathFilteringDisabled
       webhookNotificationsDisabled
     }
     shutdownWaitSeconds

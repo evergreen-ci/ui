@@ -22,7 +22,7 @@
               data-lgid="lg-text_area-label"
               data-testid="lg-text_area"
               for="tag_key_1"
-              id="lg-form_field-label-6"
+              id="lg-form_field-label-3"
             >
               Key
             </label>
@@ -37,7 +37,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-6"
+                aria-labelledby="lg-form_field-label-3"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
                 data-cy="user-tag-key-field"
                 id="tag_key_1"
@@ -53,7 +53,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_area-feedback"
             data-testid="lg-text_area-feedback"
-            id="lg-form_field-feedback-8"
+            id="lg-form_field-feedback-5"
           />
         </div>
       </div>
@@ -73,7 +73,7 @@
               data-lgid="lg-text_area-label"
               data-testid="lg-text_area"
               for="tag_value_1"
-              id="lg-form_field-label-10"
+              id="lg-form_field-label-7"
             >
               Value
             </label>
@@ -88,7 +88,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-10"
+                aria-labelledby="lg-form_field-label-7"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
                 data-cy="user-tag-value-field"
                 id="tag_value_1"
@@ -104,7 +104,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_area-feedback"
             data-testid="lg-text_area-feedback"
-            id="lg-form_field-feedback-12"
+            id="lg-form_field-feedback-9"
           />
         </div>
       </div>
@@ -158,7 +158,7 @@
               data-lgid="lg-text_area-label"
               data-testid="lg-text_area"
               for="tag_key_2"
-              id="lg-form_field-label-15"
+              id="lg-form_field-label-11"
             >
               Key
             </label>
@@ -173,7 +173,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-15"
+                aria-labelledby="lg-form_field-label-11"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
                 data-cy="user-tag-key-field"
                 id="tag_key_2"
@@ -189,7 +189,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_area-feedback"
             data-testid="lg-text_area-feedback"
-            id="lg-form_field-feedback-17"
+            id="lg-form_field-feedback-13"
           />
         </div>
       </div>
@@ -209,7 +209,7 @@
               data-lgid="lg-text_area-label"
               data-testid="lg-text_area"
               for="tag_value_2"
-              id="lg-form_field-label-19"
+              id="lg-form_field-label-15"
             >
               Value
             </label>
@@ -224,7 +224,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-19"
+                aria-labelledby="lg-form_field-label-15"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
                 data-cy="user-tag-value-field"
                 id="tag_value_2"
@@ -240,7 +240,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_area-feedback"
             data-testid="lg-text_area-feedback"
-            id="lg-form_field-feedback-21"
+            id="lg-form_field-feedback-17"
           />
         </div>
       </div>
@@ -294,7 +294,7 @@
               data-lgid="lg-text_area-label"
               data-testid="lg-text_area"
               for="tag_key_3"
-              id="lg-form_field-label-24"
+              id="lg-form_field-label-19"
             >
               Key
             </label>
@@ -309,7 +309,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-24"
+                aria-labelledby="lg-form_field-label-19"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
                 data-cy="user-tag-key-field"
                 id="tag_key_3"
@@ -325,7 +325,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_area-feedback"
             data-testid="lg-text_area-feedback"
-            id="lg-form_field-feedback-26"
+            id="lg-form_field-feedback-21"
           />
         </div>
       </div>
@@ -345,7 +345,7 @@
               data-lgid="lg-text_area-label"
               data-testid="lg-text_area"
               for="tag_value_3"
-              id="lg-form_field-label-28"
+              id="lg-form_field-label-23"
             >
               Value
             </label>
@@ -360,7 +360,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="lg-form_field-label-28"
+                aria-labelledby="lg-form_field-label-23"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
                 data-cy="user-tag-value-field"
                 id="tag_value_3"
@@ -376,7 +376,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-text_area-feedback"
             data-testid="lg-text_area-feedback"
-            id="lg-form_field-feedback-30"
+            id="lg-form_field-feedback-25"
           />
         </div>
       </div>

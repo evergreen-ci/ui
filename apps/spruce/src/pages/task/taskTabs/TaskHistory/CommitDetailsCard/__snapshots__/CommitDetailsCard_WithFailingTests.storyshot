@@ -86,7 +86,7 @@
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-347"
+        id="modal-161"
       />
       <div
         class="leafygreen-ui-17azklk"
@@ -999,12 +999,16 @@
               </div>
               <div
                 class="leafygreen-ui-og633j"
+                data-lgid="lg-pagination"
+                data-testid="lg-pagination"
               >
                 <div
                   class="leafygreen-ui-myynbc"
                 />
                 <div
                   class="leafygreen-ui-myynbc"
+                  data-lgid="lg-pagination-summary"
+                  data-testid="lg-pagination-summary"
                 >
                   <p
                     class="leafygreen-ui-26vqpd"
@@ -1018,6 +1022,8 @@
                 </div>
                 <div
                   class="leafygreen-ui-myynbc"
+                  data-lgid="lg-pagination-navigation"
+                  data-testid="lg-pagination-navigation"
                 >
                   <div
                     class="leafygreen-ui-1iyoj2o"
@@ -1025,8 +1031,8 @@
                     data-testid="lg-select"
                   >
                     <button
-                      aria-controls="select-359-menu"
-                      aria-describedby="select-359-description"
+                      aria-controls="select-190-menu"
+                      aria-describedby="select-190-description"
                       aria-disabled="false"
                       aria-expanded="false"
                       aria-invalid="false"
@@ -1034,7 +1040,7 @@
                       class="lg-ui-button-0000 leafygreen-ui-1x8yqlx"
                       data-lgid="lg-select-trigger"
                       data-testid="lg-pagination-page-select"
-                      id="select-360"
+                      id="select-191"
                       type="button"
                       value="1"
                     >
