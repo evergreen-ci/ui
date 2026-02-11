@@ -1,7 +1,6 @@
-import { memo, useRef, useState } from "react";
+import { memo, useRef } from "react";
 import { Link } from "react-router-dom";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { TaskBox } from "components/TaskBox";
@@ -14,27 +13,28 @@ export const WaterfallTask: React.FC<{
   task: Unpacked<Build["tasks"]>;
   isRightmostBuild: boolean;
   isFirstActiveTask: boolean;
-}> = ({ isFirstActiveTask, isRightmostBuild, task }) => {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  handleTaskAltClick: (
+    taskId: string,
+    e: React.MouseEvent<HTMLElement>,
+  ) => void;
+}> = ({
+  handleTaskAltClick,
+  isFirstActiveTask,
+  isRightmostBuild,
+  open,
+  setOpen,
+  task,
+}) => {
   const taskBoxRef = useRef<HTMLDivElement>(null);
-  const popoverRef = useRef<HTMLDivElement>(null);
-  const [open, setOpen] = useState(false);
 
   const squareProps = isFirstActiveTask
     ? { [waterfallGuideId]: walkthroughSteps[0].targetId }
     : {};
 
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    // Open the popup on Alt + Click.
-    if (e.altKey) {
-      e.preventDefault();
-      setOpen((prevOpen) => !prevOpen);
-    }
-  };
-
   const { displayName, displayStatusCache, execution, id: taskId } = task;
   const taskStatus = displayStatusCache as TaskStatus;
-
-  useOnClickOutside([taskBoxRef, popoverRef], () => setOpen(false));
 
   return (
     <>
@@ -43,7 +43,9 @@ export const WaterfallTask: React.FC<{
         ref={taskBoxRef}
         as={Link}
         data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
-        onClick={handleClick}
+        onClick={(e: React.MouseEvent<HTMLElement>) =>
+          handleTaskAltClick(taskId, e)
+        }
         rightmost={isRightmostBuild}
         status={taskStatus}
         to={getTaskRoute(taskId, { execution })}
@@ -51,7 +53,6 @@ export const WaterfallTask: React.FC<{
         {...squareProps}
       />
       <TaskOverviewPopup
-        ref={popoverRef}
         execution={execution}
         open={open}
         setOpen={setOpen}

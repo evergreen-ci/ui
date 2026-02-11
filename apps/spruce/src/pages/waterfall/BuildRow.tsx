@@ -46,6 +46,8 @@ export const BuildRow: React.FC<Props> = ({
   versions,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
+  const [openTaskId, setOpenTaskId] = useState<string | null>(null);
+
   const handleVariantClick = useCallback(
     () => sendEvent({ name: "Clicked variant label" }),
     [sendEvent],
@@ -57,6 +59,24 @@ export const BuildRow: React.FC<Props> = ({
         "task.status": status,
       }),
     [sendEvent],
+  );
+
+  const handleTaskAltClick = useCallback(
+    (taskId: string, e: React.MouseEvent<HTMLElement>) => {
+      // Open the popup on Alt + Click.
+      if (e.altKey) {
+        e.preventDefault();
+        setOpenTaskId((prevOpenTaskId) =>
+          prevOpenTaskId === taskId ? null : taskId,
+        );
+        sendEvent({
+          name: "Clicked task overview popup",
+          "task.id": taskId,
+          open: openTaskId !== taskId,
+        });
+      }
+    },
+    [openTaskId, sendEvent],
   );
 
   const { builds, displayName } = build;
@@ -136,8 +156,11 @@ export const BuildRow: React.FC<Props> = ({
                 key={b.id}
                 build={b}
                 firstActiveTaskId={firstActiveTaskId}
+                handleTaskAltClick={handleTaskAltClick}
                 handleTaskClick={handleTaskClick}
                 isRightmostBuild={b.version === lastActiveVersionId}
+                openTaskId={openTaskId}
+                setOpenTaskId={setOpenTaskId}
               />
             );
           }
@@ -172,9 +195,23 @@ const WidthWatcher: React.FC<{
 const BuildGrid: React.FC<{
   build: Build;
   firstActiveTaskId: string;
+  handleTaskAltClick: (
+    taskId: string,
+    e: React.MouseEvent<HTMLElement>,
+  ) => void;
   handleTaskClick: (s: string) => () => void;
   isRightmostBuild: boolean;
-}> = ({ build, firstActiveTaskId, handleTaskClick, isRightmostBuild }) => {
+  openTaskId: string | null;
+  setOpenTaskId: (taskId: string | null) => void;
+}> = ({
+  build,
+  firstActiveTaskId,
+  handleTaskAltClick,
+  handleTaskClick,
+  isRightmostBuild,
+  openTaskId,
+  setOpenTaskId,
+}) => {
   const handleClick = (event: React.MouseEvent) => {
     handleTaskClick(
       (event.target as HTMLDivElement)?.getAttribute("status") ?? "",
@@ -186,8 +223,11 @@ const BuildGrid: React.FC<{
       {build.tasks.map((task) => (
         <WaterfallTask
           key={task.id}
+          handleTaskAltClick={handleTaskAltClick}
           isFirstActiveTask={task.id === firstActiveTaskId}
           isRightmostBuild={isRightmostBuild}
+          open={openTaskId === task.id}
+          setOpen={(open) => setOpenTaskId(open ? task.id : null)}
           task={task}
         />
       ))}
