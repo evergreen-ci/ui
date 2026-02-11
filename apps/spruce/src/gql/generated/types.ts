@@ -7844,6 +7844,10 @@ export type AdminSettingsQuery = {
         } | null;
       } | null;
     } | null;
+    debugSpawnHosts?: {
+      __typename?: "DebugSpawnHostsConfig";
+      setupScript?: string | null;
+    } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
       __typename?: "GitHubCheckRunConfig";
