@@ -15,12 +15,9 @@ export const WaterfallTask: React.FC<{
   isFirstActiveTask: boolean;
   open: boolean;
   setOpen: (open: boolean) => void;
-  handleTaskAltClick: (
-    taskId: string,
-    e: React.MouseEvent<HTMLElement>,
-  ) => void;
+  handleTaskClick: (taskId: string, e: React.MouseEvent<HTMLElement>) => void;
 }> = ({
-  handleTaskAltClick,
+  handleTaskClick,
   isFirstActiveTask,
   isRightmostBuild,
   open,
@@ -44,7 +41,7 @@ export const WaterfallTask: React.FC<{
         as={Link}
         data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
         onClick={(e: React.MouseEvent<HTMLElement>) =>
-          handleTaskAltClick(taskId, e)
+          handleTaskClick(taskId, e)
         }
         rightmost={isRightmostBuild}
         status={taskStatus}

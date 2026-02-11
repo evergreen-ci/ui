@@ -52,16 +52,8 @@ export const BuildRow: React.FC<Props> = ({
     () => sendEvent({ name: "Clicked variant label" }),
     [sendEvent],
   );
-  const handleTaskClick = useCallback(
-    (status: string) => () =>
-      sendEvent({
-        name: "Clicked task box",
-        "task.status": status,
-      }),
-    [sendEvent],
-  );
 
-  const handleTaskAltClick = useCallback(
+  const handleTaskClick = useCallback(
     (taskId: string, e: React.MouseEvent<HTMLElement>) => {
       // Open the popup on Alt + Click.
       if (e.altKey) {
@@ -73,6 +65,13 @@ export const BuildRow: React.FC<Props> = ({
           name: "Clicked task overview popup",
           "task.id": taskId,
           open: openTaskId !== taskId,
+        });
+      } else {
+        const status =
+          (e.target as HTMLDivElement)?.getAttribute("status") ?? "";
+        sendEvent({
+          name: "Clicked task box",
+          "task.status": status,
         });
       }
     },
@@ -156,7 +155,6 @@ export const BuildRow: React.FC<Props> = ({
                 key={b.id}
                 build={b}
                 firstActiveTaskId={firstActiveTaskId}
-                handleTaskAltClick={handleTaskAltClick}
                 handleTaskClick={handleTaskClick}
                 isRightmostBuild={b.version === lastActiveVersionId}
                 openTaskId={openTaskId}
@@ -173,8 +171,7 @@ export const BuildRow: React.FC<Props> = ({
 
 const WidthWatcher: React.FC<{
   children: React.ReactNode;
-  onClick: (event: React.MouseEvent) => void;
-}> = ({ children, onClick }) => {
+}> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions<HTMLDivElement>(containerRef);
   const { columnWidth, setColumnWidth } = useBuildVariantContext();
@@ -185,55 +182,38 @@ const WidthWatcher: React.FC<{
     }
   }, [setColumnWidth, columnWidth, width]);
 
-  return (
-    <BuildContainer ref={containerRef} onClick={onClick}>
-      {children}
-    </BuildContainer>
-  );
+  return <BuildContainer ref={containerRef}>{children}</BuildContainer>;
 };
 
 const BuildGrid: React.FC<{
   build: Build;
   firstActiveTaskId: string;
-  handleTaskAltClick: (
-    taskId: string,
-    e: React.MouseEvent<HTMLElement>,
-  ) => void;
-  handleTaskClick: (s: string) => () => void;
+  handleTaskClick: (taskId: string, e: React.MouseEvent<HTMLElement>) => void;
   isRightmostBuild: boolean;
   openTaskId: string | null;
   setOpenTaskId: (taskId: string | null) => void;
 }> = ({
   build,
   firstActiveTaskId,
-  handleTaskAltClick,
   handleTaskClick,
   isRightmostBuild,
   openTaskId,
   setOpenTaskId,
-}) => {
-  const handleClick = (event: React.MouseEvent) => {
-    handleTaskClick(
-      (event.target as HTMLDivElement)?.getAttribute("status") ?? "",
-    )();
-  };
-
-  return (
-    <WidthWatcher onClick={handleClick}>
-      {build.tasks.map((task) => (
-        <WaterfallTask
-          key={task.id}
-          handleTaskAltClick={handleTaskAltClick}
-          isFirstActiveTask={task.id === firstActiveTaskId}
-          isRightmostBuild={isRightmostBuild}
-          open={openTaskId === task.id}
-          setOpen={(open) => setOpenTaskId(open ? task.id : null)}
-          task={task}
-        />
-      ))}
-    </WidthWatcher>
-  );
-};
+}) => (
+  <WidthWatcher>
+    {build.tasks.map((task) => (
+      <WaterfallTask
+        key={task.id}
+        handleTaskClick={handleTaskClick}
+        isFirstActiveTask={task.id === firstActiveTaskId}
+        isRightmostBuild={isRightmostBuild}
+        open={openTaskId === task.id}
+        setOpen={(open) => setOpenTaskId(open ? task.id : null)}
+        task={task}
+      />
+    ))}
+  </WidthWatcher>
+);
 
 const padding = spacing[200];
 const border = 1;
