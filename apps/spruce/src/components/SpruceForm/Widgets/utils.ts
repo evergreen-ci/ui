@@ -17,6 +17,10 @@ export const isNullish = (val: any) => val === null || val === undefined;
 export const processErrors = (
   rawErrors: string[],
 ): { errors: string[]; hasError: boolean } => {
+  if (!rawErrors?.length) {
+    return { errors: [], hasError: false };
+  }
+
   const errors = deduplicateErrors(filterInvisibleErrors(rawErrors));
   const hasError = !!errors.length;
   return { errors, hasError };
