@@ -1,5 +1,6 @@
 import * as React from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { usePageVisibilityAnalytics } from "@evg-ui/lib/analytics/hooks";
 import ErrorBoundary from "@evg-ui/lib/components/ErrorBoundary";
 import ProtectedRoute from "@evg-ui/lib/components/ProtectedRoute";
 import { AuthProvider } from "@evg-ui/lib/context/AuthProvider";
@@ -18,6 +19,11 @@ import {
   isLocal,
 } from "utils/environmentVariables";
 
+const AppContents: React.FC = () => {
+  usePageVisibilityAnalytics();
+  return <Outlet />;
+};
+
 const router = createBrowserRouter([
   {
     element: (
@@ -28,7 +34,7 @@ const router = createBrowserRouter([
           remoteAuthURL={`${getEvergreenUrl()}/login`}
           shouldUseLocalAuth={isLocal()}
         >
-          <Outlet />
+          <AppContents />
         </AuthProvider>
       </ErrorBoundary>
     ),
