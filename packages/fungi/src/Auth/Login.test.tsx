@@ -1,5 +1,5 @@
 import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
-import { ChatProvider } from "../Context";
+import { ChatProvider } from "#Context";
 import { AuthProvider } from "./AuthProvider";
 import { Login } from "./Login";
 

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import pluralize from "pluralize";
-import { useChatContext } from "@evg-ui/fungi/Context";
+import { useChatContext } from "@evg-ui/fungi";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";

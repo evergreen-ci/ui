@@ -31,7 +31,6 @@ type Props = Version & {
 
 export const VersionLabel: React.FC<Props> = ({
   activated,
-  author,
   className,
   createTime,
   errors,
@@ -43,6 +42,7 @@ export const VersionLabel: React.FC<Props> = ({
   requester,
   revision,
   shouldDisableText = false,
+  user,
   view,
 }) => {
   const getDateCopy = useDateFormat();
@@ -102,7 +102,7 @@ export const VersionLabel: React.FC<Props> = ({
         title={view === VersionLabelView.Waterfall ? message : undefined}
         view={view}
       >
-        <strong>{author}</strong> &bull;{" "}
+        <strong>{user.displayName}</strong> &bull;{" "}
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
             name: "Clicked commit label",
