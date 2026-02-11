@@ -3829,6 +3829,7 @@ export type ServiceFlags = {
   monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   podAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  psLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   s3LifecycleSyncDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3871,6 +3872,7 @@ export type ServiceFlagsInput = {
   monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   podAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   podInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  psLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   s3LifecycleSyncDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -4630,6 +4632,7 @@ export type TicketFields = {
   assignedTeam?: Maybe<Scalars["String"]["output"]>;
   assigneeDisplayName?: Maybe<Scalars["String"]["output"]>;
   created: Scalars["String"]["output"];
+  failingTasks?: Maybe<Array<Scalars["String"]["output"]>>;
   resolutionName?: Maybe<Scalars["String"]["output"]>;
   status: JiraStatus;
   summary: Scalars["String"]["output"];
@@ -7265,6 +7268,7 @@ export type SaveAdminSettingsMutation = {
       monitorDisabled?: boolean | null;
       podAllocatorDisabled?: boolean | null;
       podInitDisabled?: boolean | null;
+      psLoggingDisabled?: boolean | null;
       releaseModeDisabled?: boolean | null;
       repotrackerDisabled?: boolean | null;
       s3LifecycleSyncDisabled?: boolean | null;
@@ -7840,6 +7844,10 @@ export type AdminSettingsQuery = {
         } | null;
       } | null;
     } | null;
+    debugSpawnHosts?: {
+      __typename?: "DebugSpawnHostsConfig";
+      setupScript?: string | null;
+    } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
       __typename?: "GitHubCheckRunConfig";
@@ -8067,6 +8075,7 @@ export type AdminSettingsQuery = {
       monitorDisabled?: boolean | null;
       podAllocatorDisabled?: boolean | null;
       podInitDisabled?: boolean | null;
+      psLoggingDisabled?: boolean | null;
       releaseModeDisabled?: boolean | null;
       repotrackerDisabled?: boolean | null;
       s3LifecycleSyncDisabled?: boolean | null;
@@ -8080,6 +8089,7 @@ export type AdminSettingsQuery = {
       taskReliabilityDisabled?: boolean | null;
       unrecognizedPodCleanupDisabled?: boolean | null;
       useGitForGitHubFilesDisabled?: boolean | null;
+      useMergeQueuePathFilteringDisabled?: boolean | null;
       webhookNotificationsDisabled?: boolean | null;
     } | null;
     singleTaskDistro?: {
