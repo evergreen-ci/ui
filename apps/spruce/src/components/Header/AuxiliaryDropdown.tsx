@@ -41,6 +41,12 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       onClick: () => sendEvent({ name: "Clicked project patches link" }),
     },
     {
+      "data-cy": "auxiliary-dropdown-merge-queue",
+      to: getProjectPatchesRoute(projectIdentifier, { mergeQueue: true }),
+      text: "Merge Queue",
+      onClick: () => sendEvent({ name: "Clicked merge queue link" }),
+    },
+    {
       "data-cy": "auxiliary-dropdown-project-settings",
       text: "Project Settings",
       to: getProjectSettingsRoute(projectIdentifier),
