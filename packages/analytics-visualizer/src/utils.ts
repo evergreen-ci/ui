@@ -26,6 +26,17 @@ export const extractActionPrefixes = (data: IdentifierData[]): string[] => {
 };
 
 /**
+ * Converts a string to a URL-friendly ID
+ * @param str - The string to convert
+ * @returns A lowercase, hyphenated string safe for use as an HTML ID
+ */
+export const toSlug = (str: string): string =>
+  str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+/**
  * Escapes HTML special characters to prevent XSS attacks
  * @param text - The text to escape
  * @returns The escaped text with HTML special characters replaced

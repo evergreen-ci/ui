@@ -1,6 +1,6 @@
 // Smooth scroll to identifier section
 const scrollToIdentifier = (identifier) => {
-  const element = document.getElementById(`identifier-${identifier}`);
+  const element = document.getElementById(`identifier-${toSlug(identifier)}`);
   if (element) {
     element.scrollIntoView({ behavior: "smooth", block: "start" });
   }
