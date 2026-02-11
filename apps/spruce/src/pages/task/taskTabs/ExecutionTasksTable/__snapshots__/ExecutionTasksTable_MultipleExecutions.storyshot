@@ -282,11 +282,7 @@
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-<<<<<<< HEAD
-                        aria-labelledby="checkbox-338-label"
-=======
                         aria-labelledby="checkbox-182-label"
->>>>>>> main
                         class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                         data-cy="reviewed-some_id_5"
                         id="checkbox-182"
@@ -488,11 +484,7 @@
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-<<<<<<< HEAD
-                        aria-labelledby="checkbox-339-label"
-=======
                         aria-labelledby="checkbox-183-label"
->>>>>>> main
                         class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                         data-cy="reviewed-some_id_6"
                         id="checkbox-183"

@@ -274,11 +274,7 @@
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="true"
                                         class="leafygreen-ui-zcita1"
-<<<<<<< HEAD
-                                        id="segmented-control-86-0"
-=======
                                         id="segmented-control-24-0"
->>>>>>> main
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -307,11 +303,7 @@
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="false"
                                         class="leafygreen-ui-zcita1"
-<<<<<<< HEAD
-                                        id="segmented-control-86-1"
-=======
                                         id="segmented-control-24-1"
->>>>>>> main
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -362,11 +354,7 @@
                                         aria-controls="Toggle match type"
                                         aria-selected="true"
                                         class="leafygreen-ui-zcita1"
-<<<<<<< HEAD
-                                        id="segmented-control-87-0"
-=======
                                         id="segmented-control-25-0"
->>>>>>> main
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -395,11 +383,7 @@
                                         aria-controls="Toggle match type"
                                         aria-selected="false"
                                         class="leafygreen-ui-zcita1"
-<<<<<<< HEAD
-                                        id="segmented-control-87-1"
-=======
                                         id="segmented-control-25-1"
->>>>>>> main
                                         role="tab"
                                         tabindex="-1"
                                         type="button"

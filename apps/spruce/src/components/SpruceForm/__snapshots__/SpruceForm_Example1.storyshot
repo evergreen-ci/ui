@@ -59,11 +59,7 @@
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-<<<<<<< HEAD
-                    aria-labelledby="select-133-label"
-=======
                     aria-labelledby="select-85-label"
->>>>>>> main
                     class="lg-ui-button-0000 leafygreen-ui-q3iwhh"
                     data-lgid="lg-select-trigger"
                     data-testid="leafygreen-ui-select-menubutton"

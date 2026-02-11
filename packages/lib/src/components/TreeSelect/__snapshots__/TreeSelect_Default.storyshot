@@ -22,11 +22,7 @@
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-<<<<<<< HEAD
-            aria-labelledby="checkbox-681-label"
-=======
             aria-labelledby="checkbox-218-label"
->>>>>>> main
             class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
             data-cy="checkbox"
             id="checkbox-218"
@@ -83,11 +79,7 @@
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-<<<<<<< HEAD
-            aria-labelledby="checkbox-682-label"
-=======
             aria-labelledby="checkbox-219-label"
->>>>>>> main
             class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
             data-cy="checkbox"
             id="checkbox-219"
@@ -144,11 +136,7 @@
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-<<<<<<< HEAD
-            aria-labelledby="checkbox-683-label"
-=======
             aria-labelledby="checkbox-220-label"
->>>>>>> main
             class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
             data-cy="checkbox"
             id="checkbox-220"
@@ -205,11 +193,7 @@
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-<<<<<<< HEAD
-            aria-labelledby="checkbox-684-label"
-=======
             aria-labelledby="checkbox-221-label"
->>>>>>> main
             class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
             data-cy="checkbox"
             id="checkbox-221"
@@ -266,11 +250,7 @@
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-<<<<<<< HEAD
-            aria-labelledby="checkbox-685-label"
-=======
             aria-labelledby="checkbox-222-label"
->>>>>>> main
             class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
             data-cy="checkbox"
             id="checkbox-222"
@@ -327,11 +307,7 @@
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-<<<<<<< HEAD
-            aria-labelledby="checkbox-686-label"
-=======
             aria-labelledby="checkbox-223-label"
->>>>>>> main
             class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
             data-cy="checkbox"
             id="checkbox-223"
@@ -388,11 +364,7 @@
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-<<<<<<< HEAD
-            aria-labelledby="checkbox-687-label"
-=======
             aria-labelledby="checkbox-224-label"
->>>>>>> main
             class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
             data-cy="checkbox"
             id="checkbox-224"
@@ -449,11 +421,7 @@
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-<<<<<<< HEAD
-            aria-labelledby="checkbox-688-label"
-=======
             aria-labelledby="checkbox-225-label"
->>>>>>> main
             class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
             data-cy="checkbox"
             id="checkbox-225"
@@ -510,11 +478,7 @@
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-<<<<<<< HEAD
-            aria-labelledby="checkbox-689-label"
-=======
             aria-labelledby="checkbox-226-label"
->>>>>>> main
             class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
             data-cy="checkbox"
             id="checkbox-226"

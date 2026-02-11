@@ -158,11 +158,7 @@
                     aria-controls="Toggle case sensitivity"
                     aria-selected="false"
                     class="leafygreen-ui-zcita1"
-<<<<<<< HEAD
-                    id="segmented-control-64-0"
-=======
                     id="segmented-control-17-0"
->>>>>>> main
                     role="tab"
                     tabindex="-1"
                     type="button"
@@ -191,11 +187,7 @@
                     aria-controls="Toggle case sensitivity"
                     aria-selected="true"
                     class="leafygreen-ui-zcita1"
-<<<<<<< HEAD
-                    id="segmented-control-64-1"
-=======
                     id="segmented-control-17-1"
->>>>>>> main
                     role="tab"
                     tabindex="0"
                     type="button"
@@ -246,11 +238,7 @@
                     aria-controls="Toggle match type"
                     aria-selected="true"
                     class="leafygreen-ui-zcita1"
-<<<<<<< HEAD
-                    id="segmented-control-65-0"
-=======
                     id="segmented-control-18-0"
->>>>>>> main
                     role="tab"
                     tabindex="0"
                     type="button"
@@ -279,11 +267,7 @@
                     aria-controls="Toggle match type"
                     aria-selected="false"
                     class="leafygreen-ui-zcita1"
-<<<<<<< HEAD
-                    id="segmented-control-65-1"
-=======
                     id="segmented-control-18-1"
->>>>>>> main
                     role="tab"
                     tabindex="-1"
                     type="button"

@@ -616,11 +616,7 @@
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-<<<<<<< HEAD
-                        aria-labelledby="checkbox-478-label"
-=======
                         aria-labelledby="checkbox-224-label"
->>>>>>> main
                         class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                         data-cy="reviewed-evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
                         id="checkbox-224"
@@ -816,11 +812,7 @@
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-<<<<<<< HEAD
-                        aria-labelledby="checkbox-479-label"
-=======
                         aria-labelledby="checkbox-225-label"
->>>>>>> main
                         class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                         data-cy="reviewed-evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
                         id="checkbox-225"
@@ -1016,11 +1008,7 @@
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-<<<<<<< HEAD
-                        aria-labelledby="checkbox-480-label"
-=======
                         aria-labelledby="checkbox-226-label"
->>>>>>> main
                         class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                         data-cy="reviewed-evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
                         id="checkbox-226"
@@ -1245,11 +1233,7 @@
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="Mark as reviewed"
-<<<<<<< HEAD
-                        aria-labelledby="checkbox-481-label"
-=======
                         aria-labelledby="checkbox-227-label"
->>>>>>> main
                         class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                         data-cy="reviewed-evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25"
                         id="checkbox-227"

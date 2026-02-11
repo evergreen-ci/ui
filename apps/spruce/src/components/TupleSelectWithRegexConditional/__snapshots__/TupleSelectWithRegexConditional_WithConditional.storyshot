@@ -34,11 +34,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="true"
                   class="leafygreen-ui-zcita1"
-<<<<<<< HEAD
-                  id="segmented-control-215-0"
-=======
                   id="segmented-control-134-0"
->>>>>>> main
                   role="tab"
                   tabindex="0"
                   type="button"
@@ -68,11 +64,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="false"
                   class="leafygreen-ui-zcita1"
-<<<<<<< HEAD
-                  id="segmented-control-215-1"
-=======
                   id="segmented-control-134-1"
->>>>>>> main
                   role="tab"
                   tabindex="-1"
                   type="button"

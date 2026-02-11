@@ -51,15 +51,9 @@
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-<<<<<<< HEAD
-                      aria-labelledby="checkbox-150-label"
-                      class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
-                      id="checkbox-150"
-=======
                       aria-labelledby="checkbox-100-label"
                       class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                       id="checkbox-100"
->>>>>>> main
                       type="checkbox"
                     />
                     <div
@@ -118,15 +112,9 @@
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-<<<<<<< HEAD
-                      aria-labelledby="checkbox-151-label"
-                      class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
-                      id="checkbox-151"
-=======
                       aria-labelledby="checkbox-101-label"
                       class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                       id="checkbox-101"
->>>>>>> main
                       type="checkbox"
                     />
                     <div
@@ -185,15 +173,9 @@
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-<<<<<<< HEAD
-                      aria-labelledby="checkbox-152-label"
-                      class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
-                      id="checkbox-152"
-=======
                       aria-labelledby="checkbox-102-label"
                       class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
                       id="checkbox-102"
->>>>>>> main
                       type="checkbox"
                     />
                     <div
@@ -255,11 +237,7 @@
                       aria-labelledby="checkbox-103-label"
                       checked=""
                       class="lg-ui-input-0000 leafygreen-ui-1t7pir4"
-<<<<<<< HEAD
-                      id="checkbox-153"
-=======
                       id="checkbox-103"
->>>>>>> main
                       type="checkbox"
                     />
                     <div
