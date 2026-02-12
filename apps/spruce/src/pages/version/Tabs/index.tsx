@@ -6,6 +6,7 @@ import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import { Requester } from "constants/requesters";
 import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
@@ -72,6 +73,7 @@ const getDownstreamTabName = (
 
 const tabMap = ({
   childPatches,
+  isMergeQueuePatch,
   isVariantTimingView,
   numFailedChildPatches,
   numStartedChildPatches,
@@ -82,6 +84,7 @@ const tabMap = ({
 }: {
   taskCount: number;
   childPatches: ChildPatches;
+  isMergeQueuePatch: boolean;
   numFailedChildPatches: number;
   numStartedChildPatches: number;
   numSuccessChildPatches: number;
@@ -117,7 +120,7 @@ const tabMap = ({
       id="changes-tab"
       name="Changes"
     >
-      <CodeChanges patchId={versionId} />
+      <CodeChanges isMergeQueuePatch={isMergeQueuePatch} patchId={versionId} />
     </Tab>
   ),
   [VersionPageTabs.Downstream]: (
@@ -167,8 +170,9 @@ const VersionTabs: React.FC<VersionTabProps> = ({
   const navigate = useNavigate();
   const [queryParams] = useQueryParams();
 
-  const { isPatch, patch, status, taskCount } = version || {};
+  const { isPatch, patch, requester, status, taskCount } = version || {};
   const { childPatches } = patch || {};
+  const isMergeQueuePatch = requester === Requester.GitHubMergeQueue;
 
   const tabIsActive = useMemo(
     () => ({
@@ -196,6 +200,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({
     return tabMap({
       taskCount: taskCount ?? 0,
       childPatches,
+      isMergeQueuePatch,
       numFailedChildPatches,
       numStartedChildPatches,
       numSuccessChildPatches,
@@ -204,7 +209,13 @@ const VersionTabs: React.FC<VersionTabProps> = ({
       isVariantTimingView: !!queryParams.variant,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [taskCount, childPatches, version.id, queryParams.variant]);
+  }, [
+    taskCount,
+    childPatches,
+    isMergeQueuePatch,
+    version.id,
+    queryParams.variant,
+  ]);
 
   const activeTabs = useMemo(
     () =>

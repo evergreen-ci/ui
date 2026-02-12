@@ -10,16 +10,18 @@ import { FileDiffText } from "./Badge";
 
 interface TableProps {
   fileDiffs: FileDiffsFragment[];
+  isMergeQueuePatch?: boolean;
   patchId: string;
   moduleIndex: number;
 }
 export const Table: React.FC<TableProps> = ({
   fileDiffs,
+  isMergeQueuePatch = false,
   moduleIndex,
   patchId,
 }) => {
   const table = useLeafyGreenTable<FileDiffsFragment>({
-    columns: getColumns(patchId, moduleIndex),
+    columns: getColumns(patchId, moduleIndex, isMergeQueuePatch),
     data: fileDiffs ?? [],
     enableColumnFilters: false,
     enableSorting: false,
@@ -38,6 +40,7 @@ export const Table: React.FC<TableProps> = ({
 const getColumns = (
   patchId: string,
   moduleIndex: number,
+  isMergeQueuePatch: boolean,
 ): LGColumnDef<FileDiffsFragment>[] => [
   {
     accessorKey: "fileName",
@@ -49,6 +52,13 @@ const getColumns = (
         original: { fileName },
       },
     }) => {
+      if (isMergeQueuePatch) {
+        return (
+          <span data-cy="fileLink">
+            <WordBreak>{getValue() as string}</WordBreak>
+          </span>
+        );
+      }
       const fileDiffRoute = getFileDiffRoute(patchId, fileName, moduleIndex);
       return (
         <StyledLink data-cy="fileLink" href={fileDiffRoute}>
