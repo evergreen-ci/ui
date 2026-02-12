@@ -31,6 +31,7 @@ interface UseResolveLogURLAndRenderingTypeProps {
   fileName?: string;
   // This groupID comes from the application URL.
   groupID?: string;
+  includeTimestamps?: boolean;
   logType: string;
   origin?: string;
   taskID?: string;
@@ -55,12 +56,44 @@ type HookResult = {
 };
 
 /**
+ * Modifies the print_time query parameter in a URL based on the includeTimestamps setting.
+ * @param url - The URL to modify
+ * @param includeTimestamps - Whether to include timestamps (maps to print_time)
+ * @returns The modified URL
+ */
+export const modifyPrintTimeInURL = (
+  url: string,
+  includeTimestamps: boolean,
+): string => {
+  if (!url) return url;
+
+  try {
+    const urlObj = new URL(url);
+    if (urlObj.searchParams.has("print_time")) {
+      urlObj.searchParams.set("print_time", String(includeTimestamps));
+      return urlObj.toString();
+    }
+  } catch {
+    // If URL parsing fails, try treating it as a relative URL
+    if (url.includes("print_time=")) {
+      return url.replace(
+        /print_time=(true|false)/,
+        `print_time=${includeTimestamps}`,
+      );
+    }
+  }
+
+  return url;
+};
+
+/**
  * `useResolveLogURL` is a custom hook that resolves the log URL based on the log type and other parameters.
  * @param UseResolveLogURLAndRenderingTypeProps - The props for the hook
  * @param UseResolveLogURLAndRenderingTypeProps.buildID - The build ID of the log
  * @param UseResolveLogURLAndRenderingTypeProps.execution - The execution number of the log
  * @param UseResolveLogURLAndRenderingTypeProps.fileName - The name of the file being viewed
  * @param UseResolveLogURLAndRenderingTypeProps.groupID - The group ID of the test given from the URL
+ * @param UseResolveLogURLAndRenderingTypeProps.includeTimestamps - Whether to include timestamps in the log URLs
  * @param UseResolveLogURLAndRenderingTypeProps.logType - The type of log being viewed
  * @param UseResolveLogURLAndRenderingTypeProps.origin - The origin of the log
  * @param UseResolveLogURLAndRenderingTypeProps.taskID - The task ID of the log
@@ -72,6 +105,7 @@ export const useResolveLogURLAndRenderingType = ({
   execution,
   fileName,
   groupID,
+  includeTimestamps = true,
   logType,
   origin,
   taskID,
@@ -266,12 +300,12 @@ export const useResolveLogURLAndRenderingType = ({
   }, [testData, logType, rawLogURL]);
 
   return {
-    downloadURL,
+    downloadURL: modifyPrintTimeInURL(downloadURL, includeTimestamps),
     failingCommand,
-    htmlLogURL,
+    htmlLogURL: modifyPrintTimeInURL(htmlLogURL, includeTimestamps),
     jobLogsURL,
     loading: isLoadingTest || isLoadingTask || isLoadingTaskFileData,
-    rawLogURL,
+    rawLogURL: modifyPrintTimeInURL(rawLogURL, includeTimestamps),
     renderingType,
   };
 };

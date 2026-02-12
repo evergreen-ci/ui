@@ -15,7 +15,10 @@ import {
   GET_TEST_LOG_URL_AND_RENDERING_TYPE,
   TASK_FILES,
 } from "gql/queries";
-import { useResolveLogURLAndRenderingType } from "./useResolveLogURLAndRenderingType";
+import {
+  modifyPrintTimeInURL,
+  useResolveLogURLAndRenderingType,
+} from "./useResolveLogURLAndRenderingType";
 
 describe("useResolveLogURLAndRenderingType", () => {
   describe("test log renderingType", () => {
@@ -410,6 +413,75 @@ describe("useResolveLogURLAndRenderingType", () => {
           "http://test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0%2F?execution=0",
       });
     });
+  });
+});
+
+describe("modifyPrintTimeInURL", () => {
+  it("returns empty string for empty URL", () => {
+    expect(modifyPrintTimeInURL("", true)).toBe("");
+    expect(modifyPrintTimeInURL("", false)).toBe("");
+  });
+
+  it("returns URL unchanged when print_time parameter is not present", () => {
+    const url = "https://example.com/logs?text=true";
+    expect(modifyPrintTimeInURL(url, true)).toBe(url);
+    expect(modifyPrintTimeInURL(url, false)).toBe(url);
+  });
+
+  it("modifies print_time=true to print_time=false when includeTimestamps is false", () => {
+    const url = "https://example.com/logs?print_time=true&text=true";
+    expect(modifyPrintTimeInURL(url, false)).toBe(
+      "https://example.com/logs?print_time=false&text=true",
+    );
+  });
+
+  it("modifies print_time=false to print_time=true when includeTimestamps is true", () => {
+    const url = "https://example.com/logs?print_time=false&text=true";
+    expect(modifyPrintTimeInURL(url, true)).toBe(
+      "https://example.com/logs?print_time=true&text=true",
+    );
+  });
+
+  it("keeps print_time=true when includeTimestamps is true", () => {
+    const url = "https://example.com/logs?print_time=true";
+    expect(modifyPrintTimeInURL(url, true)).toBe(
+      "https://example.com/logs?print_time=true",
+    );
+  });
+
+  it("keeps print_time=false when includeTimestamps is false", () => {
+    const url = "https://example.com/logs?print_time=false";
+    expect(modifyPrintTimeInURL(url, false)).toBe(
+      "https://example.com/logs?print_time=false",
+    );
+  });
+
+  it("handles URLs with multiple query parameters", () => {
+    const url =
+      "https://example.com/logs?priority=true&print_time=true&text=true";
+    expect(modifyPrintTimeInURL(url, false)).toBe(
+      "https://example.com/logs?priority=true&print_time=false&text=true",
+    );
+  });
+
+  it("handles relative URLs with print_time parameter using regex fallback", () => {
+    const url = "/logs?print_time=true&text=true";
+    expect(modifyPrintTimeInURL(url, false)).toBe(
+      "/logs?print_time=false&text=true",
+    );
+  });
+
+  it("handles relative URLs without print_time parameter", () => {
+    const url = "/logs?text=true";
+    expect(modifyPrintTimeInURL(url, true)).toBe(url);
+    expect(modifyPrintTimeInURL(url, false)).toBe(url);
+  });
+
+  it("handles URLs with print_time in the middle of query string", () => {
+    const url = "https://example.com/logs?a=1&print_time=true&b=2";
+    expect(modifyPrintTimeInURL(url, false)).toBe(
+      "https://example.com/logs?a=1&print_time=false&b=2",
+    );
   });
 });
 

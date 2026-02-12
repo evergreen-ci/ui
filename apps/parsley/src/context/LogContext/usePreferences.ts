@@ -6,6 +6,7 @@ import {
   EXPANDABLE_ROWS,
   FILTER_LOGIC,
   HIGHLIGHT_FILTERS,
+  INCLUDE_TIMESTAMPS,
   PRETTY_PRINT_BOOKMARKS,
   STICKY_HEADERS,
   WRAP,
@@ -103,6 +104,12 @@ const usePreferences = (): Preferences => {
     urlParseOptions,
   );
 
+  const [includeTimestamps, setIncludeTimestampsParam] = useQueryParam(
+    QueryParams.IncludeTimestamps,
+    Cookie.get(INCLUDE_TIMESTAMPS) !== "false",
+    urlParseOptions,
+  );
+
   const setCaseSensitive = useCallback((value: boolean) => {
     dispatch({ type: "SET_CASE_SENSITIVE", value });
   }, []);
@@ -126,6 +133,15 @@ const usePreferences = (): Preferences => {
   const setHighlightFilters = useCallback((value: boolean) => {
     dispatch({ type: "SET_HIGHLIGHT_FILTERS", value });
   }, []);
+
+  const setIncludeTimestamps = useCallback(
+    (value: boolean) => {
+      setIncludeTimestampsParam(value);
+      persistToCookie(INCLUDE_TIMESTAMPS, value);
+      window.location.reload();
+    },
+    [setIncludeTimestampsParam],
+  );
 
   const setPrettyPrint = useCallback((value: boolean) => {
     dispatch({ type: "SET_PRETTY_PRINT", value });
@@ -153,11 +169,13 @@ const usePreferences = (): Preferences => {
       expandableRows,
       filterLogic,
       highlightFilters: state.highlightFilters,
+      includeTimestamps,
       prettyPrint: state.prettyPrint,
       setCaseSensitive,
       setExpandableRows,
       setFilterLogic,
       setHighlightFilters,
+      setIncludeTimestamps,
       setPrettyPrint,
       setStickyHeaders,
       setWordWrapFormat,
@@ -172,10 +190,12 @@ const usePreferences = (): Preferences => {
       state,
       expandableRows,
       filterLogic,
+      includeTimestamps,
       setCaseSensitive,
       setExpandableRows,
       setFilterLogic,
       setHighlightFilters,
+      setIncludeTimestamps,
       setPrettyPrint,
       setStickyHeaders,
       setWordWrapFormat,
