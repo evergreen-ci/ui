@@ -6,7 +6,6 @@ import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { Requester } from "constants/requesters";
 import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
@@ -168,7 +167,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({
   const navigate = useNavigate();
   const [queryParams] = useQueryParams();
 
-  const { isPatch, patch, requester, status, taskCount } = version || {};
+  const { isPatch, patch, status, taskCount } = version || {};
   const { childPatches } = patch || {};
 
   const tabIsActive = useMemo(
@@ -176,13 +175,12 @@ const VersionTabs: React.FC<VersionTabProps> = ({
       [VersionPageTabs.Tasks]: true,
       [VersionPageTabs.TaskDuration]: true,
       [VersionPageTabs.VersionTiming]: true,
-      [VersionPageTabs.Changes]:
-        isPatch && requester !== Requester.GitHubMergeQueue,
+      [VersionPageTabs.Changes]: isPatch,
       [VersionPageTabs.Downstream]:
         childPatches !== undefined && childPatches !== null,
       [VersionPageTabs.TestAnalysis]: status !== PatchStatus.Success,
     }),
-    [isPatch, requester, childPatches, status],
+    [isPatch, childPatches, status],
   );
 
   const allTabs = useMemo(() => {
