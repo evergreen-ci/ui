@@ -4219,6 +4219,7 @@ export type Task = {
   generateTask?: Maybe<Scalars["Boolean"]["output"]>;
   generatedBy?: Maybe<Scalars["String"]["output"]>;
   generatedByName?: Maybe<Scalars["String"]["output"]>;
+  generator?: Maybe<Task>;
   hasTestResults: Scalars["Boolean"]["output"];
   hostId?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
