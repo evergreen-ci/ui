@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
@@ -93,12 +94,21 @@ const PolymorphicTaskBox = styled.div<TaskBoxProps>`
   `}
 `;
 
-export const TaskBox = <E extends React.ElementType = "div">(
-  props: PolymorphicProps<E>,
-) => {
-  const { as, ...rest } = props;
-  return <PolymorphicTaskBox as={as} {...rest} />;
-};
+export const TaskBox = forwardRef<
+  HTMLDivElement,
+  PolymorphicProps<React.ElementType>
+>(({ as, rightmost, status, tooltip, ...rest }, ref) => (
+  <PolymorphicTaskBox
+    ref={ref}
+    as={as}
+    rightmost={rightmost}
+    status={status}
+    tooltip={tooltip}
+    {...rest}
+  />
+));
+
+TaskBox.displayName = "TaskBox";
 
 export const CollapsedBox = styled.div`
   ${getTaskBoxStyles()}
