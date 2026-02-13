@@ -4219,6 +4219,7 @@ export type Task = {
   generateTask?: Maybe<Scalars["Boolean"]["output"]>;
   generatedBy?: Maybe<Scalars["String"]["output"]>;
   generatedByName?: Maybe<Scalars["String"]["output"]>;
+  generator?: Maybe<Task>;
   hasTestResults: Scalars["Boolean"]["output"];
   hostId?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
@@ -7303,7 +7304,6 @@ export type SaveAdminSettingsMutation = {
       csrfKey?: string | null;
       defaultProject: string;
       fileStreamingContentTypes: Array<string>;
-      helpUrl?: string | null;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
       parsleyUrl?: string | null;
@@ -8180,7 +8180,6 @@ export type AdminSettingsQuery = {
       csrfKey?: string | null;
       defaultProject: string;
       fileStreamingContentTypes: Array<string>;
-      helpUrl?: string | null;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
       parsleyUrl?: string | null;

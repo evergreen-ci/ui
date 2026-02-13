@@ -455,7 +455,6 @@ query AdminSettings {
       csrfKey
       defaultProject
       fileStreamingContentTypes
-      helpUrl
       httpListenAddr
       loginDomain
       parsleyUrl
