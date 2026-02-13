@@ -130,7 +130,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       csrfKey
       defaultProject
       fileStreamingContentTypes
-      helpUrl
       httpListenAddr
       loginDomain
       parsleyUrl

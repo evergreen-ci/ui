@@ -7304,7 +7304,6 @@ export type SaveAdminSettingsMutation = {
       csrfKey?: string | null;
       defaultProject: string;
       fileStreamingContentTypes: Array<string>;
-      helpUrl?: string | null;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
       parsleyUrl?: string | null;
@@ -8181,7 +8180,6 @@ export type AdminSettingsQuery = {
       csrfKey?: string | null;
       defaultProject: string;
       fileStreamingContentTypes: Array<string>;
-      helpUrl?: string | null;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
       parsleyUrl?: string | null;
