@@ -59,8 +59,6 @@ export const gqlToForm = ((data) => ({
       releaseModeDisabled: data.serviceFlags?.releaseModeDisabled ?? false,
       debugSpawnHostDisabled:
         data.serviceFlags?.debugSpawnHostDisabled ?? false,
-      useGitForGitHubFilesDisabled:
-        data.serviceFlags?.useGitForGitHubFilesDisabled ?? false,
       psLoggingDisabled: data.serviceFlags?.psLoggingDisabled ?? false,
       useMergeQueuePathFilteringDisabled:
         data.serviceFlags?.useMergeQueuePathFilteringDisabled ?? false,
