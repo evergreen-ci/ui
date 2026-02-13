@@ -120,7 +120,7 @@ const tabMap = ({
       id="changes-tab"
       name="Changes"
     >
-      <CodeChanges isMergeQueuePatch={isMergeQueuePatch} patchId={versionId} />
+      <CodeChanges disableDiffLinks={isMergeQueuePatch} patchId={versionId} />
     </Tab>
   ),
   [VersionPageTabs.Downstream]: (

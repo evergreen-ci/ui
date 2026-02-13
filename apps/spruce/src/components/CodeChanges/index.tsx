@@ -14,11 +14,11 @@ import { Badge } from "./Badge";
 import { Table } from "./Table";
 
 interface CodeChangesProps {
+  disableDiffLinks?: boolean;
   patchId: string;
-  isMergeQueuePatch?: boolean;
 }
 export const CodeChanges: React.FC<CodeChangesProps> = ({
-  isMergeQueuePatch = false,
+  disableDiffLinks = false,
   patchId,
 }) => {
   const { data, error, loading } = useQuery<
@@ -65,8 +65,8 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
 
         const codeChanges = (
           <Table
+            disableDiffLinks={disableDiffLinks}
             fileDiffs={fileDiffs}
-            isMergeQueuePatch={isMergeQueuePatch}
             moduleIndex={index}
             patchId={patchId}
           />
@@ -76,7 +76,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({
           <div key={branchName}>
             <TitleContainer>
               <Body weight="medium">Changes on {branchName}:</Body>
-              {!isMergeQueuePatch && (
+              {!disableDiffLinks && (
                 <>
                   <Button
                     data-cy="html-diff-btn"
