@@ -1,15 +1,13 @@
-import { useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { Popover, Align } from "@leafygreen-ui/popover";
+import { Popover, Align, DismissMode } from "@leafygreen-ui/popover";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useOnClickOutside } from "@evg-ui/lib/hooks/useOnClickOutside";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import MetadataCard from "components/MetadataCard";
 import { getParsleyTaskLogLink } from "constants/externalResources";
@@ -24,24 +22,18 @@ import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
 
 interface Props {
-  taskId: string;
   execution: number;
   open: boolean;
   taskBoxRef: React.RefObject<HTMLElement>;
-  setOpen: (o: boolean) => void;
+  taskId: string;
 }
 
 export const TaskOverviewPopup: React.FC<Props> = ({
   execution,
   open,
-  setOpen,
   taskBoxRef,
   taskId,
 }) => {
-  const popoverRef = useRef<HTMLDivElement>(null);
-
-  useOnClickOutside([taskBoxRef, popoverRef], () => setOpen(false));
-
   const { data, loading } = useQuery<
     TaskOverviewPopupQuery,
     TaskOverviewPopupQueryVariables
@@ -73,9 +65,9 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
   return (
     <Popover
-      ref={popoverRef}
       active={open}
       align={Align.Right}
+      dismissMode={DismissMode.Auto}
       refEl={taskBoxRef}
     >
       <PopoverCard data-cy="task-overview-popup">
@@ -91,7 +83,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
             </TaskPageLink>
             <TaskStatusBadge status={displayStatus as TaskStatus} />
             {finishTime && timeTaken && timeTaken > 0 ? (
-              <div>Completed in: {msToDuration(timeTaken)}</div>
+              <div>Duration: {msToDuration(timeTaken)}</div>
             ) : null}
 
             <ButtonRow>
