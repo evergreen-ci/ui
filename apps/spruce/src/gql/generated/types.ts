@@ -3842,7 +3842,6 @@ export type ServiceFlags = {
   taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  useGitForGitHubFilesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   useMergeQueuePathFilteringDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
@@ -3885,7 +3884,6 @@ export type ServiceFlagsInput = {
   taskLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  useGitForGitHubFilesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   useMergeQueuePathFilteringDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
@@ -4221,6 +4219,7 @@ export type Task = {
   generateTask?: Maybe<Scalars["Boolean"]["output"]>;
   generatedBy?: Maybe<Scalars["String"]["output"]>;
   generatedByName?: Maybe<Scalars["String"]["output"]>;
+  generator?: Maybe<Task>;
   hasTestResults: Scalars["Boolean"]["output"];
   hostId?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
@@ -4632,6 +4631,7 @@ export type TicketFields = {
   assignedTeam?: Maybe<Scalars["String"]["output"]>;
   assigneeDisplayName?: Maybe<Scalars["String"]["output"]>;
   created: Scalars["String"]["output"];
+  failingTasks?: Maybe<Array<Scalars["String"]["output"]>>;
   resolutionName?: Maybe<Scalars["String"]["output"]>;
   status: JiraStatus;
   summary: Scalars["String"]["output"];
@@ -7280,7 +7280,6 @@ export type SaveAdminSettingsMutation = {
       taskLoggingDisabled?: boolean | null;
       taskReliabilityDisabled?: boolean | null;
       unrecognizedPodCleanupDisabled?: boolean | null;
-      useGitForGitHubFilesDisabled?: boolean | null;
       webhookNotificationsDisabled?: boolean | null;
     } | null;
     taskLimits?: {
@@ -7305,7 +7304,6 @@ export type SaveAdminSettingsMutation = {
       csrfKey?: string | null;
       defaultProject: string;
       fileStreamingContentTypes: Array<string>;
-      helpUrl?: string | null;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
       parsleyUrl?: string | null;
@@ -7843,6 +7841,10 @@ export type AdminSettingsQuery = {
         } | null;
       } | null;
     } | null;
+    debugSpawnHosts?: {
+      __typename?: "DebugSpawnHostsConfig";
+      setupScript?: string | null;
+    } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
       __typename?: "GitHubCheckRunConfig";
@@ -8083,7 +8085,6 @@ export type AdminSettingsQuery = {
       taskLoggingDisabled?: boolean | null;
       taskReliabilityDisabled?: boolean | null;
       unrecognizedPodCleanupDisabled?: boolean | null;
-      useGitForGitHubFilesDisabled?: boolean | null;
       useMergeQueuePathFilteringDisabled?: boolean | null;
       webhookNotificationsDisabled?: boolean | null;
     } | null;
@@ -8179,7 +8180,6 @@ export type AdminSettingsQuery = {
       csrfKey?: string | null;
       defaultProject: string;
       fileStreamingContentTypes: Array<string>;
-      helpUrl?: string | null;
       httpListenAddr?: string | null;
       loginDomain?: string | null;
       parsleyUrl?: string | null;

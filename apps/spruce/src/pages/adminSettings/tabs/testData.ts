@@ -93,7 +93,6 @@ export const adminSettings: AdminSettings = {
     taskLoggingDisabled: true,
     taskReliabilityDisabled: true,
     unrecognizedPodCleanupDisabled: true,
-    useGitForGitHubFilesDisabled: true,
     useMergeQueuePathFilteringDisabled: true,
     webhookNotificationsDisabled: true,
   },
