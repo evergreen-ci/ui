@@ -211,11 +211,11 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         setServerFilters(newFilters);
       });
     } else if (!hasServerParams) {
-      // This data may or may not be cached, but either way it seems more natural not to show fetchMore upon clearing filters
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setServerFilters((prev) =>
-        Object.values(prev).every((f) => f?.length === 0) ? prev : newFilters,
-      );
+      startTransition(() => {
+        setServerFilters((prev) =>
+          Object.values(prev).every((f) => f?.length === 0) ? prev : newFilters,
+        );
+      });
     }
   }, [activeVersionIds.length, requesters, statuses, tasks, variants]); // eslint-disable-line react-hooks/exhaustive-deps
 
