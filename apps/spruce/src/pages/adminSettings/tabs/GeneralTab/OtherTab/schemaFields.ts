@@ -532,6 +532,25 @@ export const spawnHost = {
   },
 };
 
+export const debugSpawnHostsConfig = {
+  schema: {
+    setupScript: {
+      type: "string" as const,
+      title: "Setup Script",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "debug-spawn-hosts-config",
+    setupScript: {
+      "ui:widget": "textarea",
+      "ui:fieldCss": fullWidthCss,
+      "ui:description":
+        "Optional script used to help debug spawn host setup/provisioning.",
+    },
+  },
+};
+
 export const sleepSchedule = {
   schema: {
     permanentlyExemptHosts: {

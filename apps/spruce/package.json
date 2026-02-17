@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.1.55",
+  "version": "6.1.58",
   "private": true,
   "type": "module",
   "scripts": {
@@ -99,6 +99,7 @@
     "@leafygreen-ui/select": "^17.0.2",
     "@leafygreen-ui/side-nav": "^17.0.11",
     "@leafygreen-ui/skeleton-loader": "^3.0.6",
+    "@leafygreen-ui/split-button": "^6.3.0",
     "@leafygreen-ui/table": "^15.2.2",
     "@leafygreen-ui/tabs": "^17.0.9",
     "@leafygreen-ui/text-area": "^12.1.4",

@@ -42,6 +42,10 @@ type Action =
       abort: boolean;
       "task.modified_count": number;
     }
+  | {
+      name: "Clicked restart failed tasks button";
+      "task.modified_count": number;
+    }
   | { name: "Clicked schedule tasks button"; "task.scheduled_count": number }
   | { name: "Clicked patch reconfigure link" }
   | { name: "Changed version priority"; "version.priority": number }
