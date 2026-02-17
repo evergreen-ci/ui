@@ -343,16 +343,10 @@ export const getSpawnVolumeRoute = (volume: string) => {
   return `${routes.spawnVolume}?${queryParams}`;
 };
 
-export const getProjectPatchesRoute = (
-  projectIdentifier: string,
-  options?: { mergeQueue?: boolean },
-) => {
-  const { mergeQueue } = options || {};
-  const queryParams = mergeQueue ? `?${stringifyQuery({ mergeQueue })}` : "";
-  return `${paths.project}/${encodeURIComponent(projectIdentifier)}/${
+export const getProjectPatchesRoute = (projectIdentifier: string) =>
+  `${paths.project}/${encodeURIComponent(projectIdentifier)}/${
     PageNames.Patches
-  }${queryParams}`;
-};
+  }`;
 
 export const getImageRoute = (
   imageId: string,
