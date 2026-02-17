@@ -24,6 +24,7 @@ import { msToDuration } from "utils/string";
 interface Props {
   execution: number;
   open: boolean;
+  setOpen: (o: boolean) => void;
   taskBoxRef: React.RefObject<HTMLElement>;
   taskId: string;
 }
@@ -31,6 +32,7 @@ interface Props {
 export const TaskOverviewPopup: React.FC<Props> = ({
   execution,
   open,
+  setOpen,
   taskBoxRef,
   taskId,
 }) => {
@@ -68,6 +70,13 @@ export const TaskOverviewPopup: React.FC<Props> = ({
       active={open}
       align={Align.Right}
       dismissMode={DismissMode.Auto}
+      onToggle={(e) => {
+        if (e.newState === "open") {
+          setOpen(true);
+        } else {
+          setOpen(false);
+        }
+      }}
       refEl={taskBoxRef}
     >
       <PopoverCard data-cy="task-overview-popup">

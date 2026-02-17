@@ -10,14 +10,20 @@ import { TaskOverviewPopup } from "./TaskOverviewPopup";
 import { Build } from "./types";
 
 export const WaterfallTask: React.FC<{
-  task: Unpacked<Build["tasks"]>;
-  isRightmostBuild: boolean;
-  isFirstActiveTask: boolean;
-  open: boolean;
-  // TODO DEVPROD-27755: The setOpen prop will be used to close the popup on filter/restart.
-  setOpen: (open: boolean) => void;
   handleTaskClick: (taskId: string, e: React.MouseEvent<HTMLElement>) => void;
-}> = ({ handleTaskClick, isFirstActiveTask, isRightmostBuild, open, task }) => {
+  isFirstActiveTask: boolean;
+  isRightmostBuild: boolean;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  task: Unpacked<Build["tasks"]>;
+}> = ({
+  handleTaskClick,
+  isFirstActiveTask,
+  isRightmostBuild,
+  open,
+  setOpen,
+  task,
+}) => {
   const taskBoxRef = useRef<HTMLDivElement>(null);
   const squareProps = isFirstActiveTask
     ? { [waterfallGuideId]: walkthroughSteps[0].targetId }
@@ -46,6 +52,7 @@ export const WaterfallTask: React.FC<{
         <TaskOverviewPopup
           execution={execution}
           open={open}
+          setOpen={setOpen}
           taskBoxRef={taskBoxRef}
           taskId={taskId}
         />
