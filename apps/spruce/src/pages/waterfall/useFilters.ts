@@ -14,12 +14,14 @@ import { groupBuildVariants, groupInactiveVersions } from "./utils";
 type UseFiltersProps = {
   activeVersionIds: Pagination["activeVersionIds"];
   flattenedVersions: Version[];
+  omitInactiveBuilds: boolean;
   pins: string[];
 };
 
 export const useFilters = ({
   activeVersionIds,
   flattenedVersions,
+  omitInactiveBuilds,
   pins,
 }: UseFiltersProps) => {
   const buildVariants = groupBuildVariants(flattenedVersions);
@@ -84,6 +86,14 @@ export const useFilters = ({
       const activeBuilds: Build[] = [];
       bv.builds.forEach((b) => {
         if (activeVersions.find(({ id }) => id === b.version)) {
+          // Omit inactive builds if setting is enabled and filtering is active
+          if (
+            omitInactiveBuilds &&
+            buildVariantFilterRegex.length &&
+            !b.activated
+          ) {
+            return;
+          }
           if (taskFilterRegex.length || statuses.length) {
             const activeTasks = b.tasks.filter(
               (t) =>
@@ -108,6 +118,7 @@ export const useFilters = ({
     buildVariantFilterRegex,
     buildVariants,
     flattenedVersions,
+    omitInactiveBuilds,
     pins,
     requesters,
     statuses,

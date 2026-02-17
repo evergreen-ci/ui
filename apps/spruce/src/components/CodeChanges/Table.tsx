@@ -9,17 +9,19 @@ import { FileDiffsFragment } from "gql/generated/types";
 import { FileDiffText } from "./Badge";
 
 interface TableProps {
+  disableDiffLinks?: boolean;
   fileDiffs: FileDiffsFragment[];
   patchId: string;
   moduleIndex: number;
 }
 export const Table: React.FC<TableProps> = ({
+  disableDiffLinks = false,
   fileDiffs,
   moduleIndex,
   patchId,
 }) => {
   const table = useLeafyGreenTable<FileDiffsFragment>({
-    columns: getColumns(patchId, moduleIndex),
+    columns: getColumns(patchId, moduleIndex, disableDiffLinks),
     data: fileDiffs ?? [],
     enableColumnFilters: false,
     enableSorting: false,
@@ -38,6 +40,7 @@ export const Table: React.FC<TableProps> = ({
 const getColumns = (
   patchId: string,
   moduleIndex: number,
+  disableDiffLinks: boolean,
 ): LGColumnDef<FileDiffsFragment>[] => [
   {
     accessorKey: "fileName",
@@ -49,6 +52,13 @@ const getColumns = (
         original: { fileName },
       },
     }) => {
+      if (disableDiffLinks) {
+        return (
+          <span data-cy="fileLink">
+            <WordBreak>{getValue() as string}</WordBreak>
+          </span>
+        );
+      }
       const fileDiffRoute = getFileDiffRoute(patchId, fileName, moduleIndex);
       return (
         <StyledLink data-cy="fileLink" href={fileDiffRoute}>
