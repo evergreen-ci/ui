@@ -28,6 +28,7 @@ const AdminSettingsPage: React.FC = () => {
   const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
     ADMIN_SETTINGS,
   );
+
   return (
     <AdminSettingsProvider>
       <SideNavPageWrapper>

@@ -14,9 +14,13 @@ import { Badge } from "./Badge";
 import { Table } from "./Table";
 
 interface CodeChangesProps {
+  disableDiffLinks?: boolean;
   patchId: string;
 }
-export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
+export const CodeChanges: React.FC<CodeChangesProps> = ({
+  disableDiffLinks = false,
+  patchId,
+}) => {
   const { data, error, loading } = useQuery<
     CodeChangesQuery,
     CodeChangesQueryVariables
@@ -60,29 +64,38 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
         );
 
         const codeChanges = (
-          <Table fileDiffs={fileDiffs} moduleIndex={index} patchId={patchId} />
+          <Table
+            disableDiffLinks={disableDiffLinks}
+            fileDiffs={fileDiffs}
+            moduleIndex={index}
+            patchId={patchId}
+          />
         );
 
         return (
           <div key={branchName}>
             <TitleContainer>
               <Body weight="medium">Changes on {branchName}:</Body>
-              <Button
-                data-cy="html-diff-btn"
-                href={getVersionDiffRoute(patchId, index)}
-                size="small"
-                title="Open diff as html file"
-              >
-                HTML
-              </Button>
-              <Button
-                data-cy="raw-diff-btn"
-                href={rawLink}
-                size="small"
-                title="Open diff as raw file"
-              >
-                Raw
-              </Button>
+              {!disableDiffLinks && (
+                <>
+                  <Button
+                    data-cy="html-diff-btn"
+                    href={getVersionDiffRoute(patchId, index)}
+                    size="small"
+                    title="Open diff as html file"
+                  >
+                    HTML
+                  </Button>
+                  <Button
+                    data-cy="raw-diff-btn"
+                    href={rawLink}
+                    size="small"
+                    title="Open diff as raw file"
+                  >
+                    Raw
+                  </Button>
+                </>
+              )}
               <Badge additions={additions} deletions={deletions} />
             </TitleContainer>
             {codeChanges}
