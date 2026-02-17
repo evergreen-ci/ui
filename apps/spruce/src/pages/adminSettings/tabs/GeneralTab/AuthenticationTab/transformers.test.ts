@@ -70,6 +70,7 @@ const mockAdminSettings: AdminSettings = {
     },
   },
   disabledGQLQueries: [],
+  serviceFlagsList: [],
 };
 
 const form: AuthenticationFormState = {

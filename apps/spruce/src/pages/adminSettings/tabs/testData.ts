@@ -183,4 +183,5 @@ export const adminSettings: AdminSettings = {
     },
   },
   disabledGQLQueries: ["query1", "query2"],
+  serviceFlagsList: [],
 };

@@ -372,6 +372,11 @@ query AdminSettings {
       useMergeQueuePathFilteringDisabled
       webhookNotificationsDisabled
     }
+
+    serviceFlagsList {
+      enabled
+      name
+    }
     shutdownWaitSeconds
     singleTaskDistro {
       projectTasksPairs {

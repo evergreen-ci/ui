@@ -14,6 +14,7 @@ describe("other tab transformers", () => {
 
 const mockAdminSettings: AdminSettings = {
   disabledGQLQueries: [],
+  serviceFlagsList: [],
   configDir: "/etc/evergreen",
   domainName: "evergreen.example.com",
   githubOrgs: ["evergreen-ci", "mongodb"],

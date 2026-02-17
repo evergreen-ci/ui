@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import {
@@ -13,6 +12,7 @@ import {
 import {
   getAdminSettingsRoute,
   AdminSettingsTabRoutes,
+  slugs,
 } from "constants/routes";
 import {
   AdminSettingsQuery,
@@ -25,6 +25,10 @@ import { AdminSettingsTabs } from "./Tabs";
 
 const AdminSettingsPage: React.FC = () => {
   usePageTitle("Admin Settings");
+  const { [slugs.tab]: tab } = useParams<{
+    [slugs.tab]: AdminSettingsTabRoutes;
+  }>();
+
   const { data } = useQuery<AdminSettingsQuery, AdminSettingsQueryVariables>(
     ADMIN_SETTINGS,
   );
@@ -33,12 +37,11 @@ const AdminSettingsPage: React.FC = () => {
     <AdminSettingsProvider>
       <SideNavPageWrapper>
         <SideNav aria-label="Admin Settings" widthOverride={250}>
-          <ButtonsContainer>{}</ButtonsContainer>
           <SideNavGroup
             collapsible
             glyph={<Icon glyph="Settings" />}
             header={getTabTitle(AdminSettingsTabRoutes.General).title}
-            initialCollapsed={false}
+            initialCollapsed
           >
             <SideNavGroup header="Announcements">
               <SideNavItem
@@ -50,48 +53,6 @@ const AdminSettingsPage: React.FC = () => {
                 )}
               >
                 Announcements
-              </SideNavItem>
-            </SideNavGroup>
-            <SideNavGroup header="Feature Flags">
-              <SideNavItem
-                as={Link}
-                data-cy="navitem-admin-feature-flags"
-                to={getAdminSettingsRoute(
-                  AdminSettingsTabRoutes.General,
-                  "services",
-                )}
-              >
-                Services
-              </SideNavItem>
-              <SideNavItem
-                as={Link}
-                data-cy="navitem-admin-notifications"
-                to={getAdminSettingsRoute(
-                  AdminSettingsTabRoutes.General,
-                  "notifications",
-                )}
-              >
-                Notifications
-              </SideNavItem>
-              <SideNavItem
-                as={Link}
-                data-cy="navitem-admin-features"
-                to={getAdminSettingsRoute(
-                  AdminSettingsTabRoutes.General,
-                  "features",
-                )}
-              >
-                Features
-              </SideNavItem>
-              <SideNavItem
-                as={Link}
-                data-cy="navitem-admin-batch-jobs"
-                to={getAdminSettingsRoute(
-                  AdminSettingsTabRoutes.General,
-                  "batch-jobs",
-                )}
-              >
-                Batch Jobs
               </SideNavItem>
             </SideNavGroup>
             <SideNavGroup header="Runners">
@@ -559,30 +520,30 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
             </SideNavGroup>
           </SideNavGroup>
-          <SideNavGroup
-            glyph={<Icon glyph="Refresh" />}
-            header={getTabTitle(AdminSettingsTabRoutes.RestartTasks).title}
+          <SideNavItem
+            active={tab === AdminSettingsTabRoutes.FeatureFlags}
+            as={Link}
+            data-cy="navitem-admin-feature-flags"
+            to={getAdminSettingsRoute(AdminSettingsTabRoutes.FeatureFlags)}
           >
-            <SideNavItem
-              as={Link}
-              data-cy="navitem-admin-restart-tasks"
-              to={getAdminSettingsRoute(AdminSettingsTabRoutes.RestartTasks)}
-            >
-              Restart Tasks
-            </SideNavItem>
-          </SideNavGroup>
-          <SideNavGroup
-            glyph={<Icon glyph="List" />}
-            header={getTabTitle(AdminSettingsTabRoutes.EventLog).title}
+            {getTabTitle(AdminSettingsTabRoutes.FeatureFlags).title}
+          </SideNavItem>
+          <SideNavItem
+            active={tab === AdminSettingsTabRoutes.RestartTasks}
+            as={Link}
+            data-cy="navitem-admin-restart-tasks"
+            to={getAdminSettingsRoute(AdminSettingsTabRoutes.RestartTasks)}
           >
-            <SideNavItem
-              as={Link}
-              data-cy="navitem-admin-event-logs"
-              to={getAdminSettingsRoute(AdminSettingsTabRoutes.EventLog)}
-            >
-              Event Logs
-            </SideNavItem>
-          </SideNavGroup>
+            {getTabTitle(AdminSettingsTabRoutes.RestartTasks).title}
+          </SideNavItem>
+          <SideNavItem
+            active={tab === AdminSettingsTabRoutes.EventLog}
+            as={Link}
+            data-cy="navitem-admin-event-logs"
+            to={getAdminSettingsRoute(AdminSettingsTabRoutes.EventLog)}
+          >
+            {getTabTitle(AdminSettingsTabRoutes.EventLog).title}
+          </SideNavItem>
         </SideNav>
         <SettingsPageContent data-cy="admin-settings-page">
           {data?.adminSettings && (
@@ -593,11 +554,5 @@ const AdminSettingsPage: React.FC = () => {
     </AdminSettingsProvider>
   );
 };
-
-const ButtonsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-`;
 
 export default AdminSettingsPage;

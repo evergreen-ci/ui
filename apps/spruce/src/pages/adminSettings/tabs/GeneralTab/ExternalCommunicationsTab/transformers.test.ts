@@ -125,6 +125,7 @@ const gql: AdminSettingsInput = {
 
 const mockAdminSettings: AdminSettings = {
   disabledGQLQueries: [],
+  serviceFlagsList: [],
   jira: {
     email: "jira@example.com",
     host: "jira.example.com",

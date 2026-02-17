@@ -7,6 +7,7 @@ import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { useAdminSettingsContext } from "./Context";
 import { Header } from "./Header";
 import { EventLogsTab } from "./tabs/EventLogsTab/EventLogsTab";
+import { FeatureFlagsTab } from "./tabs/FeatureFlagsTab/FeatureFlagsTab";
 import { GeneralTab } from "./tabs/GeneralTab/GeneralTab";
 import { RestartTasksTab } from "./tabs/RestartTasksTab/RestartTasksTab";
 import { gqlToFormMap } from "./tabs/transformers";
@@ -34,6 +35,10 @@ export const AdminSettingsTabs: React.FC<Props> = ({ data }) => {
         <Route
           element={<GeneralTab tabData={tabData} />}
           path={AdminSettingsTabRoutes.General}
+        />
+        <Route
+          element={<FeatureFlagsTab serviceFlagsList={data.serviceFlagsList} />}
+          path={AdminSettingsTabRoutes.FeatureFlags}
         />
         <Route
           element={<EventLogsTab />}
