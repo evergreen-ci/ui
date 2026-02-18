@@ -4710,7 +4710,6 @@ export type UiConfig = {
   csrfKey?: Maybe<Scalars["String"]["output"]>;
   defaultProject: Scalars["String"]["output"];
   fileStreamingContentTypes: Array<Scalars["String"]["output"]>;
-  helpUrl?: Maybe<Scalars["String"]["output"]>;
   httpListenAddr?: Maybe<Scalars["String"]["output"]>;
   loginDomain?: Maybe<Scalars["String"]["output"]>;
   parsleyUrl?: Maybe<Scalars["String"]["output"]>;
@@ -4728,7 +4727,6 @@ export type UiConfigInput = {
   csrfKey: Scalars["String"]["input"];
   defaultProject: Scalars["String"]["input"];
   fileStreamingContentTypes: Array<Scalars["String"]["input"]>;
-  helpUrl: Scalars["String"]["input"];
   httpListenAddr: Scalars["String"]["input"];
   loginDomain: Scalars["String"]["input"];
   parsleyUrl: Scalars["String"]["input"];
