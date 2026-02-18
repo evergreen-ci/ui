@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client/react";
+import { useMutation, useSuspenseQuery } from "@apollo/client/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button, Variant as ButtonVariant } from "@leafygreen-ui/button";
@@ -10,23 +10,20 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import {
   ServiceFlagInput,
+  ServiceFlagsListQuery,
   SetServiceFlagsMutation,
   SetServiceFlagsMutationVariables,
 } from "gql/generated/types";
 import { SET_SERVICE_FLAGS } from "gql/mutations";
-import { ADMIN_SETTINGS } from "gql/queries";
+import { SERVICE_FLAGS_LIST } from "gql/queries";
 
-interface ServiceFlag {
-  name: string;
-  enabled: boolean;
-}
+const { gray } = palette;
 
-interface Props {
-  serviceFlagsList: ServiceFlag[];
-}
-
-export const FeatureFlagsTab: React.FC<Props> = ({ serviceFlagsList }) => {
+export const FeatureFlagsTab: React.FC = () => {
   const dispatchToast = useToastContext();
+
+  const { data } = useSuspenseQuery<ServiceFlagsListQuery>(SERVICE_FLAGS_LIST);
+  const serviceFlagsList = data.adminSettings?.serviceFlagsList ?? [];
 
   const [flagValues, setFlagValues] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(
@@ -42,7 +39,6 @@ export const FeatureFlagsTab: React.FC<Props> = ({ serviceFlagsList }) => {
     SetServiceFlagsMutation,
     SetServiceFlagsMutationVariables
   >(SET_SERVICE_FLAGS, {
-    refetchQueries: [ADMIN_SETTINGS],
     onCompleted: () => {
       dispatchToast.success("Service flags saved successfully");
     },
@@ -56,7 +52,7 @@ export const FeatureFlagsTab: React.FC<Props> = ({ serviceFlagsList }) => {
   };
 
   return (
-    <FlagsSection>
+    <section>
       <SaveRow>
         <SettingsCardTitle>Service Flags</SettingsCardTitle>
         <Button
@@ -71,27 +67,25 @@ export const FeatureFlagsTab: React.FC<Props> = ({ serviceFlagsList }) => {
           Save changes on page
         </Button>
       </SaveRow>
-      <ZebraCard>
+      <SettingsCard>
         {serviceFlagsList.map(({ name }) => (
           <FlagRow key={name}>
-            <FlagName>{name}</FlagName>
+            <span>{name}</span>
             <RadioGroup
               css={inlineRadioCSS}
               name={name}
               onChange={(e) => handleChange(name, e.target.value === "true")}
-              value={String(flagValues[name] ?? false)}
+              value={`${flagValues[name] ?? false}`}
             >
               <Radio value="true">Enabled</Radio>
               <Radio value="false">Disabled</Radio>
             </RadioGroup>
           </FlagRow>
         ))}
-      </ZebraCard>
-    </FlagsSection>
+      </SettingsCard>
+    </section>
   );
 };
-
-const { gray } = palette;
 
 const inlineRadioCSS = css`
   display: flex;
@@ -99,27 +93,10 @@ const inlineRadioCSS = css`
   gap: ${size.l};
 `;
 
-const FlagsSection = styled.div`
-  margin-top: ${size.m};
-`;
-
 const SaveRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: ${size.s};
-`;
-
-const ZebraCard = styled(SettingsCard)`
-  padding: 0;
-
-  > div:nth-of-type(even) {
-    background-color: ${gray.light3};
-  }
-
-  > div:not(:last-child) {
-    border-bottom: 1px solid ${gray.light2};
-  }
 `;
 
 const FlagRow = styled.div`
@@ -127,8 +104,12 @@ const FlagRow = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: ${size.xs};
-`;
 
-const FlagName = styled.span`
-  font-weight: normal;
+  :nth-of-type(even) {
+    background-color: ${gray.light3};
+  }
+
+  :not(:last-child) {
+    border-bottom: 1px solid ${gray.light2};
+  }
 `;
