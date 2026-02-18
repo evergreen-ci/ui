@@ -40,7 +40,8 @@ type Action =
       navigated_to_waterfall: boolean;
     }
   | { name: "Redirected to waterfall page"; referrer: string }
-  | { name: "Toggled omit inactive builds"; enabled: boolean };
+  | { name: "Toggled omit inactive builds"; enabled: boolean }
+  | { name: "Clicked task overview popup"; "task.id": string; open: boolean };
 
 export const useWaterfallAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
