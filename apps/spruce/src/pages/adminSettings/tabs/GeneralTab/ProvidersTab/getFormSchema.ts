@@ -1,7 +1,7 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { containerPools, aws, docker } from "./schemaFields";
 
-export const getFormSchema: ReturnType<GetFormSchema> = {
+export const formSchema: ReturnType<GetFormSchema> = {
   fields: {},
   schema: {
     type: "object" as const,

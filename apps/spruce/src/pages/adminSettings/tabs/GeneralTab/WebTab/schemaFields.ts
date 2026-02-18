@@ -114,12 +114,12 @@ export const betaFeatures = {
       title: "Parsley AI Agent",
       oneOf: [
         {
-          type: "string" as const,
+          type: "boolean" as const,
           title: "Enabled",
           enum: [true],
         },
         {
-          type: "string" as const,
+          type: "boolean" as const,
           title: "Disabled",
           enum: [false],
         },
