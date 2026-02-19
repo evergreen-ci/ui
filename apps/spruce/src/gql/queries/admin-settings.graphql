@@ -369,7 +369,6 @@ query AdminSettings {
       taskLoggingDisabled
       taskReliabilityDisabled
       unrecognizedPodCleanupDisabled
-      useGitForGitHubFilesDisabled
       useMergeQueuePathFilteringDisabled
       webhookNotificationsDisabled
     }
@@ -456,7 +455,6 @@ query AdminSettings {
       csrfKey
       defaultProject
       fileStreamingContentTypes
-      helpUrl
       httpListenAddr
       loginDomain
       parsleyUrl

@@ -28,11 +28,6 @@ export const ui = {
       title: "URL",
       format: "validURL",
     },
-    helpUrl: {
-      type: "string" as const,
-      title: "Help URL",
-      format: "validURL",
-    },
     uiv2Url: {
       type: "string" as const,
       title: "UIv2 URL",
@@ -119,12 +114,12 @@ export const betaFeatures = {
       title: "Parsley AI Agent",
       oneOf: [
         {
-          type: "string" as const,
+          type: "boolean" as const,
           title: "Enabled",
           enum: [true],
         },
         {
-          type: "string" as const,
+          type: "boolean" as const,
           title: "Disabled",
           enum: [false],
         },

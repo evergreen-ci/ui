@@ -3845,7 +3845,6 @@ export type ServiceFlags = {
   taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  useGitForGitHubFilesDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   useMergeQueuePathFilteringDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
@@ -3888,7 +3887,6 @@ export type ServiceFlagsInput = {
   taskLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  useGitForGitHubFilesDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   useMergeQueuePathFilteringDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
@@ -4224,6 +4222,7 @@ export type Task = {
   generateTask?: Maybe<Scalars["Boolean"]["output"]>;
   generatedBy?: Maybe<Scalars["String"]["output"]>;
   generatedByName?: Maybe<Scalars["String"]["output"]>;
+  generator?: Maybe<Task>;
   hasTestResults: Scalars["Boolean"]["output"];
   hostId?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
@@ -4711,7 +4710,6 @@ export type UiConfig = {
   csrfKey?: Maybe<Scalars["String"]["output"]>;
   defaultProject: Scalars["String"]["output"];
   fileStreamingContentTypes: Array<Scalars["String"]["output"]>;
-  helpUrl?: Maybe<Scalars["String"]["output"]>;
   httpListenAddr?: Maybe<Scalars["String"]["output"]>;
   loginDomain?: Maybe<Scalars["String"]["output"]>;
   parsleyUrl?: Maybe<Scalars["String"]["output"]>;
@@ -4729,7 +4727,6 @@ export type UiConfigInput = {
   csrfKey: Scalars["String"]["input"];
   defaultProject: Scalars["String"]["input"];
   fileStreamingContentTypes: Array<Scalars["String"]["input"]>;
-  helpUrl: Scalars["String"]["input"];
   httpListenAddr: Scalars["String"]["input"];
   loginDomain: Scalars["String"]["input"];
   parsleyUrl: Scalars["String"]["input"];
