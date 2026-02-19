@@ -69,7 +69,7 @@ export enum AdminSettingsGeneralSection {
 
 export enum AdminSettingsTabRoutes {
   General = "general",
-  FeatureFlags = "feature-flags",
+  ServiceFlags = "service-flags",
   RestartTasks = "restart-tasks",
   EventLog = "event-log",
 }

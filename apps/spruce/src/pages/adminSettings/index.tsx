@@ -521,12 +521,12 @@ const AdminSettingsPage: React.FC = () => {
             </SideNavGroup>
           </SideNavGroup>
           <SideNavItem
-            active={tab === AdminSettingsTabRoutes.FeatureFlags}
+            active={tab === AdminSettingsTabRoutes.ServiceFlags}
             as={Link}
             data-cy="navitem-admin-feature-flags"
-            to={getAdminSettingsRoute(AdminSettingsTabRoutes.FeatureFlags)}
+            to={getAdminSettingsRoute(AdminSettingsTabRoutes.ServiceFlags)}
           >
-            {getTabTitle(AdminSettingsTabRoutes.FeatureFlags).title}
+            {getTabTitle(AdminSettingsTabRoutes.ServiceFlags).title}
           </SideNavItem>
           <SideNavItem
             active={tab === AdminSettingsTabRoutes.RestartTasks}

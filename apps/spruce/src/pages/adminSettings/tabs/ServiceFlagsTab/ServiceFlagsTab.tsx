@@ -1,13 +1,10 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useMutation, useSuspenseQuery } from "@apollo/client/react";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button, Variant as ButtonVariant } from "@leafygreen-ui/button";
-import { palette } from "@leafygreen-ui/palette";
-import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
+import { SpruceForm } from "components/SpruceForm";
 import {
   ServiceFlagInput,
   ServiceFlagsListQuery,
@@ -16,24 +13,31 @@ import {
 } from "gql/generated/types";
 import { SET_SERVICE_FLAGS } from "gql/mutations";
 import { SERVICE_FLAGS_LIST } from "gql/queries";
+import { getFormSchema } from "./getFormSchema";
 
-const { gray } = palette;
-
-export const FeatureFlagsTab: React.FC = () => {
+export const ServiceFlagsTab: React.FC = () => {
   const dispatchToast = useToastContext();
 
   const { data } = useSuspenseQuery<ServiceFlagsListQuery>(SERVICE_FLAGS_LIST);
   const serviceFlagsList = data.adminSettings?.serviceFlagsList ?? [];
 
-  const [flagValues, setFlagValues] = useState<Record<string, boolean>>(() =>
+  const { fields, schema, uiSchema } = useMemo(
+    () => getFormSchema(serviceFlagsList.map(({ name }) => name)),
+    // Schema only needs to change if the set of flag names changes, which
+    // happens when new flags are added to the backend.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [serviceFlagsList.map(({ name }) => name).join(",")],
+  );
+
+  const [formData, setFormData] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(
       serviceFlagsList.map(({ enabled, name }) => [name, enabled]),
     ),
   );
 
   const changedFlags: ServiceFlagInput[] = serviceFlagsList
-    .filter(({ enabled, name }) => flagValues[name] !== enabled)
-    .map(({ name }) => ({ enabled: flagValues[name], name }));
+    .filter(({ enabled, name }) => formData[name] !== enabled)
+    .map(({ name }) => ({ enabled: formData[name], name }));
 
   const [setServiceFlags, { loading }] = useMutation<
     SetServiceFlagsMutation,
@@ -47,14 +51,10 @@ export const FeatureFlagsTab: React.FC = () => {
     },
   });
 
-  const handleChange = (name: string, value: boolean) => {
-    setFlagValues((prev) => ({ ...prev, [name]: value }));
-  };
-
   return (
-    <section>
+    <div>
       <SaveRow>
-        <SettingsCardTitle>Service Flags</SettingsCardTitle>
+        <span />
         <Button
           data-cy="save-settings-button"
           disabled={changedFlags.length === 0 || loading}
@@ -67,49 +67,22 @@ export const FeatureFlagsTab: React.FC = () => {
           Save changes on page
         </Button>
       </SaveRow>
-      <SettingsCard>
-        {serviceFlagsList.map(({ name }) => (
-          <FlagRow key={name}>
-            <span>{name}</span>
-            <RadioGroup
-              css={inlineRadioCSS}
-              name={name}
-              onChange={(e) => handleChange(name, e.target.value === "true")}
-              value={`${flagValues[name] ?? false}`}
-            >
-              <Radio value="true">Enabled</Radio>
-              <Radio value="false">Disabled</Radio>
-            </RadioGroup>
-          </FlagRow>
-        ))}
-      </SettingsCard>
-    </section>
+      <SpruceForm
+        fields={fields}
+        formData={formData}
+        onChange={({ formData: newData }) => {
+          setFormData(newData);
+        }}
+        schema={schema}
+        uiSchema={uiSchema}
+      />
+    </div>
   );
 };
-
-const inlineRadioCSS = css`
-  display: flex;
-  flex-direction: row;
-  gap: ${size.l};
-`;
 
 const SaveRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-`;
-
-const FlagRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: ${size.xs};
-
-  :nth-of-type(even) {
-    background-color: ${gray.light3};
-  }
-
-  :not(:last-child) {
-    border-bottom: 1px solid ${gray.light2};
-  }
+  margin-bottom: ${size.s};
 `;
