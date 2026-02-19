@@ -20,7 +20,7 @@ import { TASK_OVERVIEW_POPUP } from "gql/queries";
 import { LogTypes, TaskTab } from "types/task";
 import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
-import { Annotations, hasAnnotations } from "./Annotations";
+import { Annotations } from "./Annotations";
 
 interface Props {
   execution: number;
@@ -66,8 +66,6 @@ export const TaskOverviewPopup: React.FC<Props> = ({
   const command = description || failingCommand || "";
 
   const isLoading = loading && !task;
-
-  const annotations = hasAnnotations(annotation);
 
   return (
     <Popover
@@ -136,7 +134,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
                 <Body>{command}</Body>
               </div>
             )}
-            {annotations && <Annotations annotation={annotation} />}
+            <Annotations annotation={annotation} />
           </>
         )}
       </PopoverCard>

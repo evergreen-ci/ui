@@ -21,7 +21,7 @@ export const hasAnnotations = (annotation: Annotation) =>
   (annotation?.suspectedIssues && annotation.suspectedIssues.length > 0);
 
 const IssueLinks: React.FC<{
-  issues: Array<Issue>;
+  issues: Issue[];
 }> = ({ issues }) =>
   issues.map((i) =>
     i?.issueKey && i?.url ? (
@@ -50,24 +50,15 @@ const FailingTasks: React.FC<{
   </FailingTasksContainer>
 );
 
-const FailingTasksContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xxs};
-`;
-
-const TasksList = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: ${size.xxs};
-`;
-
 interface AnnotationProps {
   annotation: Annotation;
 }
 
 export const Annotations: React.FC<AnnotationProps> = ({ annotation }) => {
+  if (!hasAnnotations(annotation)) {
+    return null;
+  }
+
   const { createdIssues, issues, suspectedIssues } = annotation || {};
   const { failingTasks } = annotation?.issues?.[0]?.jiraTicket?.fields || {};
   return (
@@ -82,6 +73,19 @@ export const Annotations: React.FC<AnnotationProps> = ({ annotation }) => {
     </AnnotationsContainer>
   );
 };
+
+const FailingTasksContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xxs};
+`;
+
+const TasksList = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: ${size.xxs};
+`;
 
 const AnnotationsContainer = styled.div`
   display: flex;
