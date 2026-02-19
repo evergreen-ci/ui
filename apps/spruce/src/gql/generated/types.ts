@@ -201,7 +201,7 @@ export type AdminSettings = {
   sage?: Maybe<SageConfig>;
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
-  serviceFlagsList: Array<ServiceFlag>;
+  serviceFlagsList?: Maybe<Array<ServiceFlag>>;
   shutdownWaitSeconds?: Maybe<Scalars["Int"]["output"]>;
   singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
   slack?: Maybe<SlackConfig>;
@@ -703,6 +703,7 @@ export type Cost = {
   __typename?: "Cost";
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -10969,11 +10970,11 @@ export type ServiceFlagsListQuery = {
   __typename?: "Query";
   adminSettings?: {
     __typename?: "AdminSettings";
-    serviceFlagsList: Array<{
+    serviceFlagsList?: Array<{
       __typename?: "ServiceFlag";
       enabled: boolean;
       name: string;
-    }>;
+    }> | null;
   } | null;
 };
 
