@@ -4,11 +4,7 @@ describe("task overview popup", () => {
   });
 
   it("displays task overview popup with associated issues on alt+click of a known issue task", () => {
-    // Find the task with "known issue" status (there should be only one on the page).
-    cy.dataCy("build-group")
-      .find('[data-tooltip*="known issue"]')
-      .first()
-      .as("knownIssueTask");
+    cy.get('a[data-tooltip="test-cloud - Known Issue"]').as("knownIssueTask");
 
     cy.get("@knownIssueTask").click({ altKey: true });
     cy.dataCy("task-overview-popup").should("be.visible");
@@ -34,10 +30,7 @@ describe("task overview popup", () => {
   });
 
   it("closes the popup when clicking outside", () => {
-    cy.dataCy("build-group")
-      .find('[data-tooltip*="known issue"]')
-      .first()
-      .as("knownIssueTask");
+    cy.get('a[data-tooltip="test-cloud - Known Issue"]').as("knownIssueTask");
     cy.get("@knownIssueTask").click({ altKey: true });
     cy.dataCy("task-overview-popup").should("be.visible");
     cy.dataCy("waterfall-page").click({ force: true });
@@ -45,10 +38,7 @@ describe("task overview popup", () => {
   });
 
   it("navigates to task page when clicking the task link", () => {
-    cy.dataCy("build-group")
-      .find('[data-tooltip*="known issue"]')
-      .first()
-      .as("knownIssueTask");
+    cy.get('a[data-tooltip="test-cloud - Known Issue"]').as("knownIssueTask");
     cy.get("@knownIssueTask").click({ altKey: true });
     cy.dataCy("task-link").click();
     cy.location("pathname").should("include", `/task/${taskId}`);
