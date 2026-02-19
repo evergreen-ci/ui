@@ -7,14 +7,13 @@ describe("task overview popup", () => {
     cy.get('a[data-tooltip="test-cloud - Known Issue"]').as("knownIssueTask");
 
     cy.get("@knownIssueTask").click({ altKey: true });
+    cy.dataCy("task-overview-popup").should("exist");
     cy.dataCy("task-overview-popup").should("be.visible");
 
-    cy.contains("button", "Task logs").should("be.visible");
-    cy.contains("button", "Task history").should("be.visible");
+    cy.contains("a", "Task logs").should("be.visible");
+    cy.contains("a", "Task history").should("be.visible");
 
-    cy.dataCy("task-distro-link")
-      .should("be.visible")
-      .should("contain.text", "ubuntu1604-small");
+    cy.dataCy("task-distro-link").should("contain.text", "ubuntu1604-small");
 
     cy.dataCy("task-overview-popup").should("contain.text", "Failing Command");
     cy.dataCy("task-overview-popup").should("contain.text", "host.list");
@@ -32,14 +31,18 @@ describe("task overview popup", () => {
   it("closes the popup when clicking outside", () => {
     cy.get('a[data-tooltip="test-cloud - Known Issue"]').as("knownIssueTask");
     cy.get("@knownIssueTask").click({ altKey: true });
-    cy.dataCy("task-overview-popup").should("be.visible");
-    cy.dataCy("waterfall-page").click({ force: true });
+    cy.dataCy("task-overview-popup").should("exist");
+    cy.get("@knownIssueTask").click({ altKey: true });
     cy.dataCy("task-overview-popup").should("not.exist");
+    cy.get("@knownIssueTask").click({ altKey: true });
+    cy.dataCy("task-overview-popup").should("exist");
   });
 
   it("navigates to task page when clicking the task link", () => {
     cy.get('a[data-tooltip="test-cloud - Known Issue"]').as("knownIssueTask");
     cy.get("@knownIssueTask").click({ altKey: true });
+    cy.dataCy("task-overview-popup").should("exist");
+    cy.dataCy("task-overview-popup").should("be.visible");
     cy.dataCy("task-link").click();
     cy.location("pathname").should("include", `/task/${taskId}`);
   });

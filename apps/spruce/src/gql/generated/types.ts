@@ -201,6 +201,7 @@ export type AdminSettings = {
   sage?: Maybe<SageConfig>;
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
+  serviceFlagsList?: Maybe<Array<ServiceFlag>>;
   shutdownWaitSeconds?: Maybe<Scalars["Int"]["output"]>;
   singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
   slack?: Maybe<SlackConfig>;
@@ -2050,6 +2051,7 @@ export type Mutation = {
   setLastRevision: SetLastRevisionPayload;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
+  setServiceFlags: Array<ServiceFlag>;
   setTaskPriorities: Array<Task>;
   setTaskPriority: Task;
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
@@ -2286,6 +2288,10 @@ export type MutationSetLastRevisionArgs = {
 export type MutationSetPatchVisibilityArgs = {
   hidden: Scalars["Boolean"]["input"];
   patchIds: Array<Scalars["String"]["input"]>;
+};
+
+export type MutationSetServiceFlagsArgs = {
+  updatedFlags: Array<ServiceFlagInput>;
 };
 
 export type MutationSetTaskPrioritiesArgs = {
@@ -3802,6 +3808,17 @@ export type Selector = {
 export type SelectorInput = {
   data: Scalars["String"]["input"];
   type: Scalars["String"]["input"];
+};
+
+export type ServiceFlag = {
+  __typename?: "ServiceFlag";
+  enabled: Scalars["Boolean"]["output"];
+  name: Scalars["String"]["output"];
+};
+
+export type ServiceFlagInput = {
+  enabled: Scalars["Boolean"]["input"];
+  name: Scalars["String"]["input"];
 };
 
 export type ServiceFlags = {
