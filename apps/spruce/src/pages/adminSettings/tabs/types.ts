@@ -9,7 +9,9 @@ import { ProvidersFormState } from "./GeneralTab/ProvidersTab/types";
 import { RunnersFormState } from "./GeneralTab/RunnersTab/types";
 import { WebFormState } from "./GeneralTab/WebTab/types";
 
-type AdminSettingsData = NonNullable<AdminSettingsQuery["adminSettings"]>;
+export type AdminSettingsData = NonNullable<
+  AdminSettingsQuery["adminSettings"]
+>;
 
 const { ...WritableAdminSettingsTabs } = AdminSettingsGeneralSection;
 export { WritableAdminSettingsTabs };
