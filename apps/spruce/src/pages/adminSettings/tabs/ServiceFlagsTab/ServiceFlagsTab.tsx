@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useMutation, useSuspenseQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Variant as ButtonVariant } from "@leafygreen-ui/button";
+import { InlineCode } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { SpruceForm } from "components/SpruceForm";
@@ -54,7 +55,9 @@ export const ServiceFlagsTab: React.FC = () => {
   return (
     <div>
       <SaveRow>
-        <span />
+        <em>
+          Checked means <InlineCode>true</InlineCode> in database.
+        </em>
         <Button
           data-cy="save-settings-button"
           disabled={changedFlags.length === 0 || loading}

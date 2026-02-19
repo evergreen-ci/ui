@@ -1,18 +1,21 @@
 import { css } from "@emotion/react";
 import { palette } from "@leafygreen-ui/palette";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm";
-import widgets from "components/SpruceForm/Widgets";
-import { radioCSS } from "../sharedStyles";
 
 const { gray } = palette;
 
 const zebraCSS = css`
-  :nth-child(even) {
-    background-color: ${gray.light3};
+  padding-left: ${size.s};
+  padding-top: ${size.xs};
+
+  > div {
+    margin-bottom: 0;
+    padding-bottom: ${size.xs};
   }
 
-  :not(:last-child) {
-    border-bottom: 1px solid ${gray.light2};
+  :nth-child(even) {
+    background-color: ${gray.light3};
   }
 `;
 
@@ -28,22 +31,17 @@ export const getFormSchema = (
         {
           type: "boolean" as const,
           title: name,
-          oneOf: [
-            { type: "boolean" as const, title: "Enabled", enum: [true] },
-            { type: "boolean" as const, title: "Disabled", enum: [false] },
-          ],
         },
       ]),
     ),
   },
   uiSchema: {
+    "ui:objectFieldCss": zebraCSS,
     ...Object.fromEntries(
       flagNames.map((name) => [
         name,
         {
           "ui:fieldCss": zebraCSS,
-          "ui:widget": widgets.RadioWidget,
-          "ui:options": { inline: true, elementWrapperCSS: radioCSS },
         },
       ]),
     ),
