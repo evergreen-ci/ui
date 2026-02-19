@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import {
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { useSuspenseQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
@@ -43,13 +50,6 @@ type ServerFilters = Pick<
   WaterfallOptions,
   "requesters" | "statuses" | "tasks" | "variants"
 >;
-
-const resetFilterState: ServerFilters = {
-  requesters: undefined,
-  statuses: undefined,
-  tasks: undefined,
-  variants: undefined,
-};
 
 type WaterfallGridProps = {
   guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
@@ -106,6 +106,19 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     });
   }, [pins, projectIdentifier]);
 
+  const [requesters] = useQueryParam<string[]>(
+    WaterfallFilterOptions.Requesters,
+    [],
+  );
+  const [statuses] = useQueryParam<string[]>(
+    WaterfallFilterOptions.Statuses,
+    [],
+  );
+  const [tasks] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
+  const [variants] = useQueryParam<string[]>(
+    WaterfallFilterOptions.BuildVariant,
+    [],
+  );
   const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
   const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
   const [revision] = useQueryParam<string | null>(
@@ -117,9 +130,18 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const timezone = useUserTimeZone() ?? utcTimeZone;
   const utcDate = getUTCEndOfDay(date, timezone);
 
-  // TODO DEVPROD-23578: serverFilters can be calculated from queryParams directly, useState should not be necessary
-  const [serverFilters, setServerFilters] =
-    useState<ServerFilters>(resetFilterState);
+  // Initialize serverFilters from query params to avoid double query
+  const getServerFiltersFromParams = () => ({
+    requesters,
+    statuses,
+    tasks,
+    variants,
+  });
+
+  const [serverFilters, setServerFilters] = useState<ServerFilters>(
+    getServerFiltersFromParams,
+  );
+  const serverParams = useDeferredValue(serverFilters);
 
   const { data, dataState } = useSuspenseQuery<
     WaterfallQuery,
@@ -134,7 +156,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         omitInactiveBuilds,
         revision,
         date: utcDate,
-        ...serverFilters,
+        ...serverParams,
       },
     },
     // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
@@ -181,33 +203,25 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   });
 
   const [isPending, startTransition] = useTransition();
-  const [allQueryParams] = useQueryParams();
 
   useEffect(() => {
-    const hasServerParams =
-      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Requesters) ||
-      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Statuses) ||
-      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Task) ||
-      Object.keys(allQueryParams).includes(WaterfallFilterOptions.BuildVariant);
+    const newFilters = getServerFiltersFromParams();
+    const hasServerParams = Object.values(newFilters).some((f) => f.length > 0);
+
+    // Only apply server filters if we have server params and need more results
+    // Otherwise, use client-side filtering
     if (activeVersionIds.length < VERSION_LIMIT && hasServerParams) {
-      const filters = {
-        requesters: allQueryParams[
-          WaterfallFilterOptions.Requesters
-        ] as string[],
-        statuses: allQueryParams[WaterfallFilterOptions.Statuses] as string[],
-        tasks: allQueryParams[WaterfallFilterOptions.Task] as string[],
-        variants: allQueryParams[
-          WaterfallFilterOptions.BuildVariant
-        ] as string[],
-      };
       startTransition(() => {
-        setServerFilters(filters);
+        setServerFilters(newFilters);
       });
     } else if (!hasServerParams) {
-      // Because this data is already loaded and no animation is necessary, omitting startTransition for snappiness
-      setServerFilters(resetFilterState); // eslint-disable-line react-hooks/set-state-in-effect
+      startTransition(() => {
+        setServerFilters((prev) =>
+          Object.values(prev).every((f) => f?.length === 0) ? prev : newFilters,
+        );
+      });
     }
-  }, [allQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [activeVersionIds.length, requesters, statuses, tasks, variants]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const firstActiveVersionId = activeVersionIds[0];
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
