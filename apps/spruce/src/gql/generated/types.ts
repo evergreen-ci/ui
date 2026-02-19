@@ -702,6 +702,7 @@ export type Cost = {
   __typename?: "Cost";
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -11325,6 +11326,32 @@ export type TaskOverviewPopupQuery = {
     execution: number;
     finishTime?: Date | null;
     timeTaken?: number | null;
+    annotation?: {
+      __typename?: "Annotation";
+      id: string;
+      createdIssues?: Array<{
+        __typename?: "IssueLink";
+        issueKey?: string | null;
+        url?: string | null;
+      }> | null;
+      issues?: Array<{
+        __typename?: "IssueLink";
+        issueKey?: string | null;
+        url?: string | null;
+        jiraTicket?: {
+          __typename?: "JiraTicket";
+          fields: {
+            __typename?: "TicketFields";
+            failingTasks?: Array<string> | null;
+          };
+        } | null;
+      }> | null;
+      suspectedIssues?: Array<{
+        __typename?: "IssueLink";
+        issueKey?: string | null;
+        url?: string | null;
+      }> | null;
+    } | null;
     details?: {
       __typename?: "TaskEndDetail";
       description?: string | null;
