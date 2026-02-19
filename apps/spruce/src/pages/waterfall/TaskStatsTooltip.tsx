@@ -35,9 +35,12 @@ export const TaskStatsTooltip: React.FC<
     open
       ? {
           variables: { versionId: id },
+          fetchPolicy: "no-cache",
         }
       : skipToken,
   );
+
+  const isLoading = loading && !data;
 
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -75,7 +78,7 @@ export const TaskStatsTooltip: React.FC<
         refEl={buttonRef}
       >
         <FixedWidthContainer data-cy="task-stats-tooltip">
-          {loading ? (
+          {isLoading ? (
             <Skeleton size={SkeletonSize.Small} />
           ) : (
             <Table>

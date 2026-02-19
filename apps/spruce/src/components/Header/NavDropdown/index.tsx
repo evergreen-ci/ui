@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Icon } from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { palette } from "@leafygreen-ui/palette";
-import { Link } from "react-router-dom";
+import { Link, To } from "react-router-dom";
 
 const { white } = palette;
 
@@ -15,7 +15,7 @@ export interface MenuItemType {
   "data-cy"?: string;
   text: string | React.ReactNode;
   href?: string;
-  to?: string;
+  to?: To;
   onClick?: () => void;
 }
 

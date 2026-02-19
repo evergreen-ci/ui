@@ -68,6 +68,20 @@ describe("Nav Bar", () => {
     cy.getCookie(projectCookie).should("have.property", "value", "spruce");
   });
 
+  it("Merge Queue link should navigate to project patches page with mergeQueue query param", () => {
+    cy.setCookie(projectCookie, "spruce");
+    cy.visit(SPRUCE_URLS.userPatches);
+    cy.dataCy("auxiliary-dropdown-link").click();
+    cy.dataCy("auxiliary-dropdown-merge-queue").should(
+      "have.attr",
+      "href",
+      "/project/spruce/patches?mergeQueue=true",
+    );
+    cy.dataCy("auxiliary-dropdown-merge-queue").click();
+    cy.location("pathname").should("eq", "/project/spruce/patches");
+    cy.location("search").should("eq", "?mergeQueue=true");
+  });
+
   describe("Admin settings", () => {
     it("Should show Admin button to admins", () => {
       cy.visit(SPRUCE_URLS.version);

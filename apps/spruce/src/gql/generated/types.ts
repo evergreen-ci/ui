@@ -11270,6 +11270,30 @@ export type TaskNamesForBuildVariantQuery = {
   taskNamesForBuildVariant?: Array<string> | null;
 };
 
+export type TaskOverviewPopupQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskOverviewPopupQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    displayName: string;
+    displayStatus: string;
+    distroId: string;
+    execution: number;
+    finishTime?: Date | null;
+    timeTaken?: number | null;
+    details?: {
+      __typename?: "TaskEndDetail";
+      description?: string | null;
+      failingCommand?: string | null;
+    } | null;
+  } | null;
+};
+
 export type TaskOwnerTeamsForTaskQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;

@@ -1,5 +1,10 @@
+import { useCallback } from "react";
 import { Form } from "components/Settings/Form";
-import { GetFormSchema, ValidateProps } from "components/SpruceForm";
+import {
+  GetFormSchema,
+  SpruceFormRef,
+  ValidateProps,
+} from "components/SpruceForm";
 import { usePopulateForm, useAdminSettingsContext } from "../Context";
 import { FormStateMap, FormStates, WritableAdminSettingsType } from "./types";
 
@@ -17,11 +22,21 @@ export const BaseTab = <T extends WritableAdminSettingsType>({
   ...rest
 }: BaseTabProps<T>) => {
   const state = useAdminSettingsContext();
+  const { setFormRef } = state;
   usePopulateForm(initialFormState, tab);
+
+  const formRef = useCallback(
+    (ref: SpruceFormRef | null) => {
+      setFormRef(tab, ref);
+    },
+    [tab, setFormRef],
+  );
 
   return (
     <Form<WritableAdminSettingsType, FormStateMap>
       {...rest}
+      formRef={formRef}
+      liveValidate={false}
       state={state}
       tab={tab}
     />

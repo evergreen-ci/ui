@@ -66,6 +66,7 @@ export const LeafyGreenTextInput: React.FC<
       <StyledTextInput
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
+        autoComplete="off"
         data-cy={dataCy}
         description={description}
         disabled={disabled || readonly}
@@ -262,7 +263,7 @@ export const LeafyGreenSelect: React.FC<
         errorMessage={hasError ? rawErrors?.join(", ") : ""}
         id={dataCy}
         name={dataCy}
-        onChange={onChange}
+        onChange={(v: string) => onChange(v)}
         placeholder={placeholder}
         size={sizeVariant as SelectSize}
         state={hasError && !disabled ? "error" : "none"}
