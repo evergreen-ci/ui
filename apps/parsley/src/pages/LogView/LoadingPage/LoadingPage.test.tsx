@@ -77,6 +77,9 @@ describe("LoadingPage", () => {
       hasLogs: null,
       ingestLines: mockIngestLines,
       lineCount: 0,
+      preferences: {
+        includeTimestamps: true,
+      },
       setLogMetadata: mockSetLogMetadata,
     } as unknown as ReturnType<typeof useLogContext>);
 
