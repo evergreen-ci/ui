@@ -80,7 +80,7 @@ const reducer =
           [action.tab]: {
             ...state[action.tab],
             formData: action.formData,
-            hasError: !!action.errors.length,
+            hasError: !!action.errors?.length,
           },
         };
       case "setHasChanges": {

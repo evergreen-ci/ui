@@ -7,6 +7,7 @@ import {
   within,
 } from "@evg-ui/lib/test_utils";
 import { getUserSettingsMock } from "gql/mocks/getSpruceConfig";
+import widgets from "./Widgets";
 import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("spruce form", () => {
@@ -276,25 +277,29 @@ describe("spruce form", () => {
         expect(screen.getByText("Strawberry")).toBeInTheDocument();
       });
 
-      it("closes the menu and displays the new selected option on click", async () => {
-        const user = userEvent.setup();
-        const { formData, schema, uiSchema } = select;
-        render(
-          <SpruceForm
-            formData={formData}
-            onChange={vi.fn()}
-            schema={schema}
-            uiSchema={uiSchema}
-          />,
-        );
-        await user.click(screen.getByRole("button"));
-        await user.click(screen.getByRole("option", { name: "Chocolate" }));
-        await waitFor(() => {
-          expect(screen.queryByText("Vanilla")).not.toBeInTheDocument();
-        });
-        expect(screen.getByText("Chocolate")).toBeInTheDocument();
-        expect(screen.queryByText("Strawberry")).not.toBeInTheDocument();
-      });
+      it.each([true, false])(
+        "closes the menu and displays the new selected option on click (liveValidate=%s)",
+        async (liveValidate) => {
+          const user = userEvent.setup();
+          const { formData, schema, uiSchema } = select;
+          render(
+            <SpruceForm
+              formData={formData}
+              liveValidate={liveValidate}
+              onChange={vi.fn()}
+              schema={schema}
+              uiSchema={uiSchema}
+            />,
+          );
+          await user.click(screen.getByRole("button"));
+          await user.click(screen.getByRole("option", { name: "Chocolate" }));
+          await waitFor(() => {
+            expect(screen.queryByText("Vanilla")).not.toBeInTheDocument();
+          });
+          expect(screen.getByText("Chocolate")).toBeInTheDocument();
+          expect(screen.queryByText("Strawberry")).not.toBeInTheDocument();
+        },
+      );
 
       it("disables options included in enumDisabled", async () => {
         const user = userEvent.setup();
@@ -362,6 +367,48 @@ describe("spruce form", () => {
         );
         expect(screen.getByText("The Garden State")).toBeVisible();
       });
+    });
+
+    describe("segmented control", () => {
+      it("renders with the specified default selected", () => {
+        const { formData, schema, uiSchema } = segmentedControl;
+        render(
+          <SpruceForm
+            formData={formData}
+            onChange={vi.fn()}
+            schema={schema}
+            uiSchema={uiSchema}
+          />,
+        );
+        expect(screen.getByRole("tab", { name: "Small" })).toHaveAttribute(
+          "aria-selected",
+          "true",
+        );
+      });
+
+      it.each([true, false])(
+        "calls onChange when clicking a different option (liveValidate=%s)",
+        async (liveValidate) => {
+          const user = userEvent.setup();
+          let data = {};
+          const onChange = vi.fn((x) => {
+            data = x.formData;
+          });
+          const { formData, schema, uiSchema } = segmentedControl;
+          render(
+            <SpruceForm
+              formData={formData}
+              liveValidate={liveValidate}
+              onChange={onChange}
+              schema={schema}
+              uiSchema={uiSchema}
+            />,
+          );
+          await user.click(screen.getByRole("tab", { name: "Medium" }));
+          expect(onChange).toHaveBeenCalled();
+          expect(data).toStrictEqual({ size: "medium" });
+        },
+      );
     });
 
     describe("datetime picker", () => {
@@ -639,6 +686,42 @@ const radioGroup = {
     states: {
       "ui:enumDisabled": ["ct"],
       "ui:widget": "radio",
+    },
+  },
+};
+
+const segmentedControl = {
+  formData: { size: "small" },
+  schema: {
+    type: "object" as const,
+    properties: {
+      size: {
+        type: "string" as const,
+        title: "Size",
+        default: "small",
+        oneOf: [
+          {
+            type: "string" as const,
+            title: "Small",
+            enum: ["small"],
+          },
+          {
+            type: "string" as const,
+            title: "Medium",
+            enum: ["medium"],
+          },
+          {
+            type: "string" as const,
+            title: "Large",
+            enum: ["large"],
+          },
+        ],
+      },
+    },
+  },
+  uiSchema: {
+    size: {
+      "ui:widget": widgets.SegmentedControlWidget,
     },
   },
 };
