@@ -49,6 +49,7 @@ import SCHEDULE_UNDISPATCHED_BASE_TASKS from "./schedule-undispatched-base-tasks
 import SET_CURSOR_API_KEY from "./set-cursor-api-key.graphql";
 import SET_LAST_REVISION from "./set-last-revision.graphql";
 import SET_PATCH_VISIBILITY from "./set-patch-visibility.graphql";
+import SET_SERVICE_FLAGS from "./set-service-flags.graphql";
 import SET_TASK_PRIORITIES from "./set-task-priorities.graphql";
 import SET_TASK_PRIORITY from "./set-task-priority.graphql";
 import SET_VERSION_PRIORITY from "./set-version-priority.graphql";
@@ -106,6 +107,7 @@ export {
   RESTART_VERSIONS,
   SAVE_ADMIN_SETTINGS,
   SAVE_DISTRO,
+  SET_SERVICE_FLAGS,
   SAVE_PROJECT_SETTINGS_FOR_SECTION,
   SAVE_REPO_SETTINGS_FOR_SECTION,
   SAVE_SUBSCRIPTION,

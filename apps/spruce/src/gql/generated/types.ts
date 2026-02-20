@@ -703,6 +703,7 @@ export type Cost = {
   __typename?: "Cost";
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -7256,47 +7257,6 @@ export type SaveAdminSettingsMutation = {
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
     } | null;
-    serviceFlags?: {
-      __typename?: "ServiceFlags";
-      agentStartDisabled?: boolean | null;
-      alertsDisabled?: boolean | null;
-      backgroundReauthDisabled?: boolean | null;
-      backgroundStatsDisabled?: boolean | null;
-      cacheStatsEndpointDisabled?: boolean | null;
-      cacheStatsJobDisabled?: boolean | null;
-      checkBlockedTasksDisabled?: boolean | null;
-      cliUpdatesDisabled?: boolean | null;
-      cloudCleanupDisabled?: boolean | null;
-      debugSpawnHostDisabled?: boolean | null;
-      degradedModeDisabled?: boolean | null;
-      elasticIPsDisabled?: boolean | null;
-      emailNotificationsDisabled?: boolean | null;
-      eventProcessingDisabled?: boolean | null;
-      githubPRTestingDisabled?: boolean | null;
-      githubStatusAPIDisabled?: boolean | null;
-      hostAllocatorDisabled?: boolean | null;
-      hostInitDisabled?: boolean | null;
-      jiraNotificationsDisabled?: boolean | null;
-      jwtTokenForCLIDisabled?: boolean | null;
-      largeParserProjectsDisabled?: boolean | null;
-      monitorDisabled?: boolean | null;
-      podAllocatorDisabled?: boolean | null;
-      podInitDisabled?: boolean | null;
-      psLoggingDisabled?: boolean | null;
-      releaseModeDisabled?: boolean | null;
-      repotrackerDisabled?: boolean | null;
-      s3LifecycleSyncDisabled?: boolean | null;
-      schedulerDisabled?: boolean | null;
-      slackNotificationsDisabled?: boolean | null;
-      sleepScheduleDisabled?: boolean | null;
-      staticAPIKeysDisabled?: boolean | null;
-      systemFailedTaskRestartDisabled?: boolean | null;
-      taskDispatchDisabled?: boolean | null;
-      taskLoggingDisabled?: boolean | null;
-      taskReliabilityDisabled?: boolean | null;
-      unrecognizedPodCleanupDisabled?: boolean | null;
-      webhookNotificationsDisabled?: boolean | null;
-    } | null;
     taskLimits?: {
       __typename?: "TaskLimitsConfig";
       maxConcurrentLargeParserProjectTasks?: number | null;
@@ -7493,6 +7453,19 @@ export type SetPatchVisibilityMutation = {
     __typename?: "Patch";
     id: string;
     hidden: boolean;
+  }>;
+};
+
+export type SetServiceFlagsMutationVariables = Exact<{
+  updatedFlags: Array<ServiceFlagInput>;
+}>;
+
+export type SetServiceFlagsMutation = {
+  __typename?: "Mutation";
+  setServiceFlags: Array<{
+    __typename?: "ServiceFlag";
+    enabled: boolean;
+    name: string;
   }>;
 };
 
@@ -8060,48 +8033,6 @@ export type AdminSettingsQuery = {
       stepbackTaskFactor?: number | null;
       targetTimeSeconds?: number | null;
       taskFinder?: FinderVersion | null;
-    } | null;
-    serviceFlags?: {
-      __typename?: "ServiceFlags";
-      agentStartDisabled?: boolean | null;
-      alertsDisabled?: boolean | null;
-      backgroundReauthDisabled?: boolean | null;
-      backgroundStatsDisabled?: boolean | null;
-      cacheStatsEndpointDisabled?: boolean | null;
-      cacheStatsJobDisabled?: boolean | null;
-      checkBlockedTasksDisabled?: boolean | null;
-      cliUpdatesDisabled?: boolean | null;
-      cloudCleanupDisabled?: boolean | null;
-      debugSpawnHostDisabled?: boolean | null;
-      degradedModeDisabled?: boolean | null;
-      elasticIPsDisabled?: boolean | null;
-      emailNotificationsDisabled?: boolean | null;
-      eventProcessingDisabled?: boolean | null;
-      githubPRTestingDisabled?: boolean | null;
-      githubStatusAPIDisabled?: boolean | null;
-      hostAllocatorDisabled?: boolean | null;
-      hostInitDisabled?: boolean | null;
-      jiraNotificationsDisabled?: boolean | null;
-      jwtTokenForCLIDisabled?: boolean | null;
-      largeParserProjectsDisabled?: boolean | null;
-      monitorDisabled?: boolean | null;
-      podAllocatorDisabled?: boolean | null;
-      podInitDisabled?: boolean | null;
-      psLoggingDisabled?: boolean | null;
-      releaseModeDisabled?: boolean | null;
-      repotrackerDisabled?: boolean | null;
-      s3LifecycleSyncDisabled?: boolean | null;
-      schedulerDisabled?: boolean | null;
-      slackNotificationsDisabled?: boolean | null;
-      sleepScheduleDisabled?: boolean | null;
-      staticAPIKeysDisabled?: boolean | null;
-      systemFailedTaskRestartDisabled?: boolean | null;
-      taskDispatchDisabled?: boolean | null;
-      taskLoggingDisabled?: boolean | null;
-      taskReliabilityDisabled?: boolean | null;
-      unrecognizedPodCleanupDisabled?: boolean | null;
-      useMergeQueuePathFilteringDisabled?: boolean | null;
-      webhookNotificationsDisabled?: boolean | null;
     } | null;
     singleTaskDistro?: {
       __typename?: "SingleTaskDistroConfig";
@@ -11030,6 +10961,20 @@ export type SecretFieldsQuery = {
   spruceConfig?: {
     __typename?: "SpruceConfig";
     secretFields: Array<string>;
+  } | null;
+};
+
+export type ServiceFlagsListQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ServiceFlagsListQuery = {
+  __typename?: "Query";
+  adminSettings?: {
+    __typename?: "AdminSettings";
+    serviceFlagsList?: Array<{
+      __typename?: "ServiceFlag";
+      enabled: boolean;
+      name: string;
+    }> | null;
   } | null;
 };
 

@@ -87,6 +87,9 @@ export const cache = new InMemoryCache({
         },
       },
     },
+    AdminSettings: {
+      merge: true,
+    },
     Image: {
       fields: {
         events: {
@@ -180,6 +183,9 @@ export const cache = new InMemoryCache({
           },
         },
       },
+    },
+    ServiceFlag: {
+      keyFields: ["name"],
     },
     WaterfallTask: {
       keyFields: false,

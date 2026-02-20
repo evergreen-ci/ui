@@ -1,0 +1,6 @@
+mutation SetServiceFlags($updatedFlags: [ServiceFlagInput!]!) {
+  setServiceFlags(updatedFlags: $updatedFlags) {
+    enabled
+    name
+  }
+}
