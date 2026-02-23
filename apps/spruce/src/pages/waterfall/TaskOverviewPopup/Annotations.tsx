@@ -1,9 +1,5 @@
 import styled from "@emotion/styled";
-import {
-  Chip,
-  TruncationLocation,
-  Variant as ChipVariant,
-} from "@leafygreen-ui/chip";
+import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -38,13 +34,7 @@ const FailingTasks: React.FC<{
     <MetadataCardTitle weight="bold">Failing Tasks</MetadataCardTitle>
     <TasksList>
       {tasks.map((t) => (
-        <Chip
-          key={t}
-          chipCharacterLimit={42}
-          chipTruncationLocation={TruncationLocation.End}
-          label={t}
-          variant={ChipVariant.Gray}
-        />
+        <Chip key={t} label={t} variant={ChipVariant.Gray} />
       ))}
     </TasksList>
   </FailingTasksContainer>
@@ -55,20 +45,29 @@ interface AnnotationProps {
 }
 
 export const Annotations: React.FC<AnnotationProps> = ({ annotation }) => {
-  if (!hasAnnotations(annotation)) {
+  if (!annotation) {
     return null;
   }
 
-  const { createdIssues, issues, suspectedIssues } = annotation || {};
-  const { failingTasks } = annotation?.issues?.[0]?.jiraTicket?.fields || {};
+  const hasIssues = hasAnnotations(annotation);
+  const { createdIssues, issues, suspectedIssues } = annotation;
+
+  const allIssues = [
+    ...(createdIssues || []),
+    ...(issues || []),
+    ...(suspectedIssues || []),
+  ];
+
+  const { failingTasks } = issues?.[0]?.jiraTicket?.fields || {};
+
   return (
     <AnnotationsContainer>
-      <IssuesContainer>
-        <MetadataCardTitle weight="bold">Associated Issues</MetadataCardTitle>
-        {createdIssues && <IssueLinks issues={createdIssues} />}
-        {issues && <IssueLinks issues={issues} />}
-        {suspectedIssues && <IssueLinks issues={suspectedIssues} />}
-      </IssuesContainer>
+      {hasIssues && (
+        <IssuesContainer>
+          <MetadataCardTitle weight="bold">Associated Issues</MetadataCardTitle>
+          <IssueLinks issues={allIssues} />
+        </IssuesContainer>
+      )}
       {failingTasks && <FailingTasks tasks={failingTasks} />}
     </AnnotationsContainer>
   );

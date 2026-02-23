@@ -144,6 +144,9 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
 const PopoverCard = styled(MetadataCard)`
   width: 330px;
+  max-height: 500px;
+  overflow-y: auto;
+
   display: flex;
   flex-direction: column;
   gap: ${size.xs};
