@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
@@ -36,138 +36,142 @@ type Props = {
   versions: GroupedVersion[];
 };
 
-export const BuildRow: React.FC<Props> = ({
-  build,
-  handlePinClick,
-  isFirstBuild,
-  lastActiveVersionId,
-  pinned,
-  projectIdentifier,
-  versions,
-}) => {
-  const { sendEvent } = useWaterfallAnalytics();
-  const [openTaskId, setOpenTaskId] = useState<string | null>(null);
+export const BuildRow: React.FC<Props> = memo(
+  ({
+    build,
+    handlePinClick,
+    isFirstBuild,
+    lastActiveVersionId,
+    pinned,
+    projectIdentifier,
+    versions,
+  }) => {
+    const { sendEvent } = useWaterfallAnalytics();
+    const [openTaskId, setOpenTaskId] = useState<string | null>(null);
 
-  const handleVariantClick = useCallback(
-    () => sendEvent({ name: "Clicked variant label" }),
-    [sendEvent],
-  );
+    const handleVariantClick = useCallback(
+      () => sendEvent({ name: "Clicked variant label" }),
+      [sendEvent],
+    );
 
-  const handleTaskClick = useCallback(
-    (taskId: string, e: React.MouseEvent<HTMLElement>) => {
-      // Open the popup on Alt + Click.
-      if (e.altKey) {
-        e.preventDefault();
-        setOpenTaskId((prevOpenTaskId) =>
-          prevOpenTaskId === taskId ? null : taskId,
-        );
-        sendEvent({
-          name: "Clicked task overview popup",
-          "task.id": taskId,
-          open: openTaskId !== taskId,
+    const handleTaskClick = useCallback(
+      (taskId: string, e: React.MouseEvent<HTMLElement>) => {
+        // Open the popup on Alt + Click.
+        if (e.altKey) {
+          e.preventDefault();
+          setOpenTaskId((prevOpenTaskId) =>
+            prevOpenTaskId === taskId ? null : taskId,
+          );
+          sendEvent({
+            name: "Clicked task overview popup",
+            "task.id": taskId,
+            open: openTaskId !== taskId,
+          });
+        } else {
+          const status =
+            (e.target as HTMLDivElement)?.getAttribute("status") ?? "";
+          sendEvent({
+            name: "Clicked task box",
+            "task.status": status,
+          });
+        }
+      },
+      [openTaskId, sendEvent],
+    );
+
+    const { builds, displayName } = build;
+    let buildIndex = 0;
+
+    const [containerHeight, setContainerHeight] = useState(0);
+    const { columnWidth } = useBuildVariantContext();
+
+    useEffect(() => {
+      if (columnWidth !== 0) {
+        const bvContainerHeight = calculateBVContainerHeight({
+          builds,
+          columnWidth,
         });
-      } else {
-        const status =
-          (e.target as HTMLDivElement)?.getAttribute("status") ?? "";
-        sendEvent({
-          name: "Clicked task box",
-          "task.status": status,
-        });
+        setContainerHeight(bvContainerHeight);
       }
-    },
-    [openTaskId, sendEvent],
-  );
+    }, [builds, columnWidth]);
 
-  const { builds, displayName } = build;
-  let buildIndex = 0;
+    const iconButtonProps = isFirstBuild
+      ? { [waterfallGuideId]: walkthroughSteps[2].targetId }
+      : {};
 
-  const [containerHeight, setContainerHeight] = useState(0);
-  const { columnWidth } = useBuildVariantContext();
-
-  useEffect(() => {
-    if (columnWidth !== 0) {
-      const bvContainerHeight = calculateBVContainerHeight({
-        builds,
-        columnWidth,
-      });
-      setContainerHeight(bvContainerHeight);
-    }
-  }, [builds, columnWidth]);
-
-  const iconButtonProps = isFirstBuild
-    ? { [waterfallGuideId]: walkthroughSteps[2].targetId }
-    : {};
-
-  let firstActiveTaskId = "";
-  if (isFirstBuild) {
-    for (let i = 0; i < builds.length; i++) {
-      if (builds[i].tasks.length > 0) {
-        firstActiveTaskId = builds[i].tasks[0].id;
-        break;
+    let firstActiveTaskId = "";
+    if (isFirstBuild) {
+      for (let i = 0; i < builds.length; i++) {
+        if (builds[i].tasks.length > 0) {
+          firstActiveTaskId = builds[i].tasks[0].id;
+          break;
+        }
       }
     }
-  }
 
-  return (
-    <Row>
-      <BuildVariantTitle data-cy="build-variant-label">
-        <StyledIconButton
-          active={pinned}
-          aria-label="Pin build variant"
-          data-cy="pin-button"
-          onClick={handlePinClick}
-          {...iconButtonProps}
+    return (
+      <Row>
+        <BuildVariantTitle data-cy="build-variant-label">
+          <StyledIconButton
+            active={pinned}
+            aria-label="Pin build variant"
+            data-cy="pin-button"
+            onClick={handlePinClick}
+            {...iconButtonProps}
+          >
+            <Icon glyph="Pin" />
+          </StyledIconButton>
+          <StyledLink
+            data-cy="build-variant-link"
+            href={getVariantHistoryRoute(projectIdentifier, build.id)}
+            onClick={handleVariantClick}
+          >
+            {displayName}
+          </StyledLink>
+        </BuildVariantTitle>
+        <VisibilityContainer
+          containerCss={css`
+            ${buildGroupCss};
+            height: ${containerHeight}px;
+          `}
+          data-cy="build-group"
+          offset={1000}
         >
-          <Icon glyph="Pin" />
-        </StyledIconButton>
-        <StyledLink
-          data-cy="build-variant-link"
-          href={getVariantHistoryRoute(projectIdentifier, build.id)}
-          onClick={handleVariantClick}
-        >
-          {displayName}
-        </StyledLink>
-      </BuildVariantTitle>
-      <VisibilityContainer
-        containerCss={css`
-          ${buildGroupCss};
-          height: ${containerHeight}px;
-        `}
-        data-cy="build-group"
-        offset={1000}
-      >
-        {versions.map(({ inactiveVersions, version }) => {
-          if (inactiveVersions?.length) {
-            return (
-              <InactiveVersion
-                key={inactiveVersions[0].id}
-                data-cy="inactive-column"
-              />
-            );
-          }
-          /* The list of builds returned does not include a placeholder for inactive builds, so we need to check whether the build matches the version in the current column.
+          {versions.map(({ inactiveVersions, version }) => {
+            if (inactiveVersions?.length) {
+              return (
+                <InactiveVersion
+                  key={inactiveVersions[0].id}
+                  data-cy="inactive-column"
+                />
+              );
+            }
+            /* The list of builds returned does not include a placeholder for inactive builds, so we need to check whether the build matches the version in the current column.
         Builds are sorted in descending revision order and so match the versions' sort order. */
-          if (version && version.id === builds?.[buildIndex]?.version) {
-            const b = builds[buildIndex];
-            buildIndex += 1;
-            return (
-              <BuildGrid
-                key={b.id}
-                build={b}
-                firstActiveTaskId={firstActiveTaskId}
-                handleTaskClick={handleTaskClick}
-                isRightmostBuild={b.version === lastActiveVersionId}
-                openTaskId={openTaskId}
-                setOpenTaskId={setOpenTaskId}
-              />
-            );
-          }
-          return <BuildContainer key={version?.id} />;
-        })}
-      </VisibilityContainer>
-    </Row>
-  );
-};
+            if (version && version.id === builds?.[buildIndex]?.version) {
+              const b = builds[buildIndex];
+              buildIndex += 1;
+              return (
+                <BuildGrid
+                  key={b.id}
+                  build={b}
+                  firstActiveTaskId={firstActiveTaskId}
+                  handleTaskClick={handleTaskClick}
+                  isRightmostBuild={b.version === lastActiveVersionId}
+                  openTaskId={openTaskId}
+                  setOpenTaskId={setOpenTaskId}
+                />
+              );
+            }
+            return <BuildContainer key={version?.id} />;
+          })}
+        </VisibilityContainer>
+      </Row>
+    );
+  },
+);
+
+BuildRow.displayName = "BuildRow";
 
 const WidthWatcher: React.FC<{
   children: React.ReactNode;
@@ -192,28 +196,32 @@ const BuildGrid: React.FC<{
   isRightmostBuild: boolean;
   openTaskId: string | null;
   setOpenTaskId: (taskId: string | null) => void;
-}> = ({
-  build,
-  firstActiveTaskId,
-  handleTaskClick,
-  isRightmostBuild,
-  openTaskId,
-  setOpenTaskId,
-}) => (
-  <WidthWatcher>
-    {build.tasks.map((task) => (
-      <WaterfallTask
-        key={task.id}
-        handleTaskClick={handleTaskClick}
-        isFirstActiveTask={task.id === firstActiveTaskId}
-        isRightmostBuild={isRightmostBuild}
-        open={openTaskId === task.id}
-        setOpen={(open) => setOpenTaskId(open ? task.id : null)}
-        task={task}
-      />
-    ))}
-  </WidthWatcher>
+}> = memo(
+  ({
+    build,
+    firstActiveTaskId,
+    handleTaskClick,
+    isRightmostBuild,
+    openTaskId,
+    setOpenTaskId,
+  }) => (
+    <WidthWatcher>
+      {build.tasks.map((task) => (
+        <WaterfallTask
+          key={task.id}
+          handleTaskClick={handleTaskClick}
+          isFirstActiveTask={task.id === firstActiveTaskId}
+          isRightmostBuild={isRightmostBuild}
+          open={openTaskId === task.id}
+          setOpen={(open) => setOpenTaskId(open ? task.id : null)}
+          task={task}
+        />
+      ))}
+    </WidthWatcher>
+  ),
 );
+
+BuildGrid.displayName = "BuildGrid";
 
 const padding = spacing[200];
 const border = 1;
