@@ -703,7 +703,6 @@ export type Cost = {
   __typename?: "Cost";
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
-  s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -4226,6 +4225,7 @@ export type Task = {
   displayStatus: Scalars["String"]["output"];
   displayTask?: Maybe<Task>;
   distroId: Scalars["String"]["output"];
+  errors?: Maybe<Array<Scalars["String"]["output"]>>;
   estimatedStart?: Maybe<Scalars["Duration"]["output"]>;
   execution: Scalars["Int"]["output"];
   executionTasks?: Maybe<Array<Scalars["String"]["output"]>>;
