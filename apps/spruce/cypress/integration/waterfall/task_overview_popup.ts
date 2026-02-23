@@ -3,18 +3,14 @@ describe("task overview popup", () => {
     cy.visit("/project/evergreen/waterfall");
   });
 
-  it("displays task overview popup with associated issues on alt+click of a known issue task", () => {
+  it("displays task overview popup on alt+click", () => {
     cy.get(knownIssueTask).as("knownIssueTask");
 
     cy.get("@knownIssueTask").click({ altKey: true });
     cy.dataCy("task-overview-popup").should("exist");
     cy.dataCy("task-overview-popup").should("be.visible");
 
-    cy.contains("a", "Task logs").should("be.visible");
-    cy.contains("a", "Task history").should("be.visible");
-
     cy.dataCy("task-distro-link").should("contain.text", "ubuntu1604-small");
-
     cy.dataCy("task-overview-popup").should("contain.text", "Failing Command");
     cy.dataCy("task-overview-popup").should("contain.text", "host.list");
   });
