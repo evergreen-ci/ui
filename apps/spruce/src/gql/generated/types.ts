@@ -4225,6 +4225,7 @@ export type Task = {
   displayStatus: Scalars["String"]["output"];
   displayTask?: Maybe<Task>;
   distroId: Scalars["String"]["output"];
+  errors?: Maybe<Array<Scalars["String"]["output"]>>;
   estimatedStart?: Maybe<Scalars["Duration"]["output"]>;
   execution: Scalars["Int"]["output"];
   executionTasks?: Maybe<Array<Scalars["String"]["output"]>>;
@@ -11336,6 +11337,7 @@ export type TaskOverviewPopupQuery = {
   task?: {
     __typename?: "Task";
     id: string;
+    buildVariant: string;
     displayName: string;
     displayStatus: string;
     distroId: string;
