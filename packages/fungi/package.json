@@ -63,6 +63,6 @@
     "typescript": "~5.9.3",
     "vite-tsconfig-paths": "^6.0.2",
     "vitest": "^3.2.4",
-    "vitest-canvas-mock": "0.3.3"
+    "vitest-canvas-mock": "1.1.3"
   }
 }
