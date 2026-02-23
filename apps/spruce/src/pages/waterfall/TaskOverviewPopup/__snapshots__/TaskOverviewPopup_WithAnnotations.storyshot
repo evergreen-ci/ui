@@ -94,10 +94,10 @@
           </p>
         </div>
         <div
-          class="emotion-AnnotationsContainer e1ljcb742"
+          class="emotion-AnnotationsContainer e1ljcb741"
         >
           <div
-            class="emotion-IssuesContainer e1ljcb741"
+            class="emotion-IssuesContainer e1ljcb740"
           >
             <p
               class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1xbudv3"
@@ -105,7 +105,7 @@
               Associated Issues
             </p>
             <a
-              class="lg-ui-0001 e1ljcb740 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
+              class="lg-ui-0001 e1ljcb746 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
               href="https://jira.mongodb.org/browse/EVG-1234"
               rel="noopener noreferrer"
               target="_blank"
@@ -133,7 +133,7 @@
               </svg>
             </a>
             <a
-              class="lg-ui-0001 e1ljcb740 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
+              class="lg-ui-0001 e1ljcb746 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
               href="https://jira.mongodb.org/browse/EVG-5678"
               rel="noopener noreferrer"
               target="_blank"
@@ -161,7 +161,7 @@
               </svg>
             </a>
             <a
-              class="lg-ui-0001 e1ljcb740 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
+              class="lg-ui-0001 e1ljcb746 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
               href="https://jira.mongodb.org/browse/EVG-9012"
               rel="noopener noreferrer"
               target="_blank"
@@ -190,39 +190,35 @@
             </a>
           </div>
           <div
-            class="emotion-FailingTasksContainer e1ljcb744"
+            class="emotion-FailingTasksContainer e1ljcb745"
           >
             <p
               class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1xbudv3"
             >
               Failing Tasks
             </p>
-            <div
-              class="emotion-TasksList e1ljcb743"
+            <ul
+              class="emotion-TasksList e1ljcb744"
             >
-              <span
-                aria-disabled="false"
-                class="leafygreen-ui-1hdho16"
+              <li
+                class="emotion-TaskListItem e1ljcb743"
               >
                 <span
-                  class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
-                  data-testid="chip-text"
+                  class="emotion-TaskName e1ljcb742"
                 >
                   test-task-1
                 </span>
-              </span>
-              <span
-                aria-disabled="false"
-                class="leafygreen-ui-1hdho16"
+              </li>
+              <li
+                class="emotion-TaskListItem e1ljcb743"
               >
                 <span
-                  class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
-                  data-testid="chip-text"
+                  class="emotion-TaskName e1ljcb742"
                 >
                   test-task-2
                 </span>
-              </span>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
