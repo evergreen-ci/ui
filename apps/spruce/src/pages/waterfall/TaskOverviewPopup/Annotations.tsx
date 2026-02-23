@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
+import { palette } from "@leafygreen-ui/palette";
 import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -27,6 +27,11 @@ const IssueLinks: React.FC<{
     ) : null,
   );
 
+const AnnotationLink = styled(StyledLink)`
+  font-weight: bold;
+  ${wordBreakCss};
+`;
+
 const FailingTasks: React.FC<{
   tasks: string[];
 }> = ({ tasks }) => (
@@ -34,11 +39,34 @@ const FailingTasks: React.FC<{
     <MetadataCardTitle weight="bold">Failing Tasks</MetadataCardTitle>
     <TasksList>
       {tasks.map((t) => (
-        <Chip key={t} label={t} variant={ChipVariant.Gray} />
+        <TaskListItem key={t}>
+          <TaskName>{t}</TaskName>
+        </TaskListItem>
       ))}
     </TasksList>
   </FailingTasksContainer>
 );
+
+const FailingTasksContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xxs};
+`;
+
+const TasksList = styled.ul`
+  margin: 0;
+  padding: 0 ${size.s};
+`;
+
+const TaskListItem = styled.li`
+  margin-bottom: 2px;
+`;
+
+const TaskName = styled.span`
+  background-color: ${palette.gray.light2};
+  border-radius: ${size.xxs};
+  word-break: break-all;
+`;
 
 interface AnnotationProps {
   annotation: Annotation;
@@ -73,19 +101,6 @@ export const Annotations: React.FC<AnnotationProps> = ({ annotation }) => {
   );
 };
 
-const FailingTasksContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xxs};
-`;
-
-const TasksList = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: ${size.xxs};
-`;
-
 const AnnotationsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -96,9 +111,4 @@ const IssuesContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${size.xxs};
-`;
-
-const AnnotationLink = styled(StyledLink)`
-  font-weight: bold;
-  ${wordBreakCss};
 `;
