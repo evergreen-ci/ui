@@ -105,5 +105,5 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
 const ButtonRow = styled.div`
   display: flex;
   align-items: center;
-  gap: ${size.xs};
+  gap: ${size.xxs};
 `;
