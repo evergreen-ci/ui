@@ -1,9 +1,7 @@
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { IconButton } from "@leafygreen-ui/icon-button";
 import { Link } from "react-router-dom";
-import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParams } from "@evg-ui/lib/hooks";
@@ -12,42 +10,32 @@ import { getTaskRoute } from "constants/routes";
 import {
   RestartTaskMutation,
   RestartTaskMutationVariables,
+  TaskOverviewPopupQuery,
 } from "gql/generated/types";
 import { RESTART_TASK } from "gql/mutations";
 import { LogTypes, TaskTab } from "types/task";
 import { WaterfallFilterOptions } from "../types";
 
 interface ActionButtonsProps {
-  buildVariant?: string;
-  displayName?: string;
-  execution: number;
+  task: NonNullable<TaskOverviewPopupQuery["task"]>;
   setOpen: (open: boolean) => void;
-  taskId: string;
 }
 
 export const ActionButtons: React.FC<ActionButtonsProps> = ({
-  buildVariant,
-  displayName,
-  execution,
   setOpen,
-  taskId,
+  task,
 }) => {
   const [, setQueryParams] = useQueryParams();
   const dispatchToast = useToastContext();
 
-  const [restartTask, { loading: loadingRestartTask }] = useMutation<
+  const { buildVariant, canRestart, displayName, execution, id: taskId } = task;
+
+  const [restartTask] = useMutation<
     RestartTaskMutation,
     RestartTaskMutationVariables
   >(RESTART_TASK, {
-    onCompleted: (result) => {
-      const priority = result.restartTask?.priority ?? 0;
-      if (priority < 0) {
-        dispatchToast.warning(
-          `Task '${displayName}' was scheduled to restart, but is disabled. Enable the task to run.`,
-        );
-      } else {
-        dispatchToast.success(`Task '${displayName}' scheduled to restart`);
-      }
+    onCompleted: () => {
+      dispatchToast.success(`Task '${displayName}' scheduled to restart`);
     },
     onError: (err) => {
       dispatchToast.error(
@@ -71,22 +59,22 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
 
   return (
     <ButtonRow>
-      <IconButton
-        aria-label="Restart task"
-        disabled={loadingRestartTask}
+      <Button
+        disabled={!canRestart}
         onClick={handleRestartClick}
+        size={ButtonSize.Small}
       >
-        <Icon aria-label="Restart task" glyph="Refresh" />
-      </IconButton>
-      <IconButton aria-label="Filter for this task" onClick={handleFilterClick}>
-        <Icon aria-label="Filter for this task" glyph="Filter" />
-      </IconButton>
+        Restart
+      </Button>
+      <Button onClick={handleFilterClick} size={ButtonSize.Small}>
+        Filter
+      </Button>
       <Button
         as={Link}
         size={ButtonSize.Small}
         to={getParsleyTaskLogLink(LogTypes.Task, taskId, execution)}
       >
-        Task logs
+        Logs
       </Button>
       <Button
         as={Link}
@@ -96,7 +84,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
           tab: TaskTab.History,
         })}
       >
-        Task history
+        History
       </Button>
     </ButtonRow>
   );

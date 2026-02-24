@@ -2,6 +2,7 @@ query TaskOverviewPopup($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
     id
     buildVariant
+    canRestart
     details {
       description
       failingCommand
@@ -11,6 +12,7 @@ query TaskOverviewPopup($taskId: String!, $execution: Int) {
     distroId
     execution
     finishTime
+    priority
     timeTaken
   }
 }

@@ -48,12 +48,12 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
   const { task } = data || {};
   const {
-    buildVariant,
     details,
     displayName,
     displayStatus,
     distroId,
     finishTime,
+    priority,
     timeTaken,
   } = task || {};
   const { description, failingCommand } = details || {};
@@ -61,7 +61,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
   const command = description || failingCommand || "";
 
-  const isLoading = loading && !task;
+  const isLoading = loading || !task;
 
   return (
     <Popover
@@ -92,13 +92,13 @@ export const TaskOverviewPopup: React.FC<Props> = ({
             {finishTime && timeTaken && timeTaken > 0 ? (
               <div>Duration: {msToDuration(timeTaken)}</div>
             ) : null}
-            <ActionButtons
-              buildVariant={buildVariant}
-              displayName={displayName}
-              execution={execution}
-              setOpen={setOpen}
-              taskId={taskId}
-            />
+            <ActionButtons setOpen={setOpen} task={task} />
+            {priority && priority > 0 ? (
+              <div>
+                <b>Priority: </b>
+                {priority}
+              </div>
+            ) : null}
             {distroId && (
               <div>
                 <b>Distro: </b>

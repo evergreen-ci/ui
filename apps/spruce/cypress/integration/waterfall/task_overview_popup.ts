@@ -41,8 +41,8 @@ describe("task overview popup", () => {
       cy.dataCy("task-overview-popup").should("exist");
       cy.dataCy("task-overview-popup").should("be.visible");
 
-      cy.get('button[aria-label="Restart task"]').should("be.visible");
-      cy.get('button[aria-label="Restart task"]').click();
+      cy.contains("button", "Restart").should("be.visible");
+      cy.contains("button", "Restart").click();
 
       cy.dataCy("task-overview-popup").should("not.exist");
       cy.contains("Task 'test-cloud' scheduled to restart").should(
@@ -56,8 +56,8 @@ describe("task overview popup", () => {
       cy.dataCy("task-overview-popup").should("exist");
       cy.dataCy("task-overview-popup").should("be.visible");
 
-      cy.get('button[aria-label="Filter for this task"]').should("be.visible");
-      cy.get('button[aria-label="Filter for this task"]').click();
+      cy.contains("button", "Filter").should("be.visible");
+      cy.contains("button", "Filter").click();
 
       cy.dataCy("task-overview-popup").should("not.exist");
       cy.location("search").should("include", "tasks=test-cloud");
@@ -70,8 +70,8 @@ describe("task overview popup", () => {
       cy.dataCy("task-overview-popup").should("exist");
       cy.dataCy("task-overview-popup").should("be.visible");
 
-      cy.contains("a", "Task logs").should("be.visible");
-      cy.contains("a", "Task logs")
+      cy.contains("a", "Logs").should("be.visible");
+      cy.contains("a", "Logs")
         .should("have.attr", "href")
         .and(
           "equal",
@@ -84,8 +84,8 @@ describe("task overview popup", () => {
       cy.get("@knownIssueTask").click({ altKey: true });
       cy.dataCy("task-overview-popup").should("exist");
 
-      cy.contains("a", "Task history").should("be.visible");
-      cy.contains("a", "Task history")
+      cy.contains("a", "History").should("be.visible");
+      cy.contains("a", "History")
         .should("have.attr", "href")
         .and("equal", `/task/${knownIssueTaskId}/history?execution=0`);
     });
