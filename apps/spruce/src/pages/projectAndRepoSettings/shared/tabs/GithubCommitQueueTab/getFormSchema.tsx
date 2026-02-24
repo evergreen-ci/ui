@@ -8,6 +8,7 @@ import {
   pullRequestAliasesDocumentationUrl,
   gitTagAliasesDocumentationUrl,
   githubChecksAliasesDocumentationUrl,
+  runEveryMainlineCommitDocumentationUrl,
 } from "constants/externalResources";
 import {
   getProjectSettingsRoute,
@@ -144,6 +145,18 @@ export const getFormSchema = (
                 ["Enabled", "Disabled"],
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 repoData?.github?.gitTagVersionsEnabled,
+              ),
+            },
+            runEveryMainlineCommitTitle: {
+              type: "null",
+              title: "Run Every Mainline Commit",
+            },
+            runEveryMainlineCommit: {
+              type: ["boolean", "null"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                repoData?.github?.runEveryMainlineCommit,
               ),
             },
             users: {
@@ -401,6 +414,15 @@ export const getFormSchema = (
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
         },
+        runEveryMainlineCommitTitle: {
+          "ui:sectionTitle": true,
+          "ui:description": RunEveryMainlineCommitDescription,
+        },
+        runEveryMainlineCommit: {
+          "ui:data-cy": "run-every-mainline-commit-radio-box",
+          "ui:showLabel": false,
+          "ui:widget": widgets.RadioBoxWidget,
+        },
         users: userTeamStyling(
           "gitTagAuthorizedUsers",
           "Add User",
@@ -624,6 +646,22 @@ const GitTagAliasesDescription = (
     <StyledLink href={gitTagAliasesDocumentationUrl}>may be defined</StyledLink>{" "}
     in this project&rsquo;s config YAML instead if Version Control is enabled
     and no aliases are defined on the project or repo page.
+  </>
+);
+
+const RunEveryMainlineCommitDescription = (
+  <>
+    Although a version gets created for every commit on a project with the
+    repotracker, it does not necessarily activate each version. Evergreen runs a
+    job periodically that activates the latest repotracker version. This is to
+    avoid running unnecessary versions if there are a lot of commits in a short
+    period of time. If you would like to activate every version created by the
+    repotracker, you can enable &quot;Run Every Mainline Commit&quot;. This will
+    ensure that every version created by the repotracker gets activated and runs
+    their tasks.{" "}
+    <StyledLink href={runEveryMainlineCommitDocumentationUrl}>
+      Learn more
+    </StyledLink>
   </>
 );
 

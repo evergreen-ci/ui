@@ -5347,6 +5347,7 @@ export type ProjectGithubSettingsFragment = {
   manualPrTestingEnabled?: boolean | null;
   oldestAllowedMergeBase: string;
   prTestingEnabled?: boolean | null;
+  runEveryMainlineCommit?: boolean | null;
   commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
 };
 
@@ -5362,6 +5363,7 @@ export type RepoGithubSettingsFragment = {
   manualPrTestingEnabled: boolean;
   oldestAllowedMergeBase: string;
   prTestingEnabled: boolean;
+  runEveryMainlineCommit: boolean;
   commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
 };
 
@@ -5380,6 +5382,7 @@ export type ProjectGithubCommitQueueFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
   } | null;
 };
@@ -5399,6 +5402,7 @@ export type RepoGithubCommitQueueFragment = {
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
+    runEveryMainlineCommit: boolean;
     commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
   } | null;
 };
@@ -5418,6 +5422,7 @@ export type ProjectEventGithubCommitQueueFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
   } | null;
 };
@@ -5475,6 +5480,7 @@ export type ProjectSettingsFieldsFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -5680,6 +5686,7 @@ export type RepoSettingsFieldsFragment = {
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
+    runEveryMainlineCommit: boolean;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -6137,6 +6144,7 @@ export type ProjectEventSettingsFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -9190,6 +9198,7 @@ export type ProjectEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -9411,6 +9420,7 @@ export type ProjectEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -9695,6 +9705,7 @@ export type ProjectSettingsQuery = {
       manualPrTestingEnabled?: boolean | null;
       oldestAllowedMergeBase: string;
       prTestingEnabled?: boolean | null;
+      runEveryMainlineCommit?: boolean | null;
       githubDynamicTokenPermissionGroups: Array<{
         __typename?: "GitHubDynamicTokenPermissionGroup";
         name: string;
@@ -9964,6 +9975,7 @@ export type RepoEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -10185,6 +10197,7 @@ export type RepoEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -10410,6 +10423,7 @@ export type RepoSettingsQuery = {
       manualPrTestingEnabled: boolean;
       oldestAllowedMergeBase: string;
       prTestingEnabled: boolean;
+      runEveryMainlineCommit: boolean;
       githubDynamicTokenPermissionGroups: Array<{
         __typename?: "GitHubDynamicTokenPermissionGroup";
         name: string;

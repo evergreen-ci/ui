@@ -151,6 +151,19 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("remote-path-input").should("have.value", "./evergreen.yml");
     });
+
+    it("Allows enabling Run Every Mainline Commit", () => {
+      cy.dataCy("run-every-mainline-commit-radio-box")
+        .children()
+        .first()
+        .click();
+      clickSave();
+      cy.validateToast("success", "Successfully updated project");
+      cy.dataCy("run-every-mainline-commit-radio-box")
+        .children()
+        .first()
+        .should("have.attr", "aria-checked", "true");
+    });
   });
 
   describe("Periodic Builds page", () => {

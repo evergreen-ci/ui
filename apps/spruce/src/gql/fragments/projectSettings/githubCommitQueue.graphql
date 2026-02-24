@@ -12,6 +12,7 @@ fragment ProjectGithubSettings on Project {
   manualPrTestingEnabled
   oldestAllowedMergeBase
   prTestingEnabled
+  runEveryMainlineCommit
 }
 
 fragment RepoGithubSettings on RepoRef {
@@ -28,6 +29,7 @@ fragment RepoGithubSettings on RepoRef {
   manualPrTestingEnabled
   oldestAllowedMergeBase
   prTestingEnabled
+  runEveryMainlineCommit
 }
 
 fragment ProjectGithubCommitQueue on ProjectSettings {
