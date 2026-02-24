@@ -128,23 +128,6 @@ export const OOMTracker: CustomStoryObj<typeof Metadata> = {
   ),
 };
 
-export const ContainerizedTask: CustomStoryObj<typeof Metadata> = {
-  render: (args) => (
-    <Container>
-      <Metadata
-        {...args}
-        task={{
-          ...taskQuery.task,
-          hostId: null,
-          ami: null,
-          distroId: "",
-          spawnHostLink: null,
-        }}
-      />
-    </Container>
-  ),
-};
-
 const taskOwnerTeamMock: ApolloMock<
   TaskOwnerTeamsForTaskQuery,
   TaskOwnerTeamsForTaskQueryVariables
