@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -36,12 +35,10 @@ const FailingTasks: React.FC<{
   tasks: string[];
 }> = ({ tasks }) => (
   <FailingTasksContainer>
-    <MetadataCardTitle weight="bold">Failing Tasks</MetadataCardTitle>
+    <MetadataCardTitle weight="bold">Other Failing Tasks</MetadataCardTitle>
     <TasksList>
       {tasks.map((t) => (
-        <TaskListItem key={t}>
-          <TaskName>{t}</TaskName>
-        </TaskListItem>
+        <TaskListItem key={t}>{t}</TaskListItem>
       ))}
     </TasksList>
   </FailingTasksContainer>
@@ -59,20 +56,20 @@ const TasksList = styled.ul`
 `;
 
 const TaskListItem = styled.li`
-  margin-bottom: 2px;
-`;
-
-const TaskName = styled.span`
-  background-color: ${palette.gray.light2};
-  border-radius: ${size.xxs};
+  margin-bottom: ${size.xxs};
   word-break: break-all;
+  line-height: 1.2;
 `;
 
 interface AnnotationProps {
   annotation: Annotation;
+  displayName?: string;
 }
 
-export const Annotations: React.FC<AnnotationProps> = ({ annotation }) => {
+export const Annotations: React.FC<AnnotationProps> = ({
+  annotation,
+  displayName,
+}) => {
   if (!annotation) {
     return null;
   }
@@ -87,6 +84,8 @@ export const Annotations: React.FC<AnnotationProps> = ({ annotation }) => {
   ];
 
   const { failingTasks } = issues?.[0]?.jiraTicket?.fields || {};
+  const otherFailingTasks =
+    failingTasks?.filter((t) => t !== displayName) ?? [];
 
   return (
     <AnnotationsContainer>
@@ -96,7 +95,9 @@ export const Annotations: React.FC<AnnotationProps> = ({ annotation }) => {
           <IssueLinks issues={allIssues} />
         </IssuesContainer>
       )}
-      {failingTasks && <FailingTasks tasks={failingTasks} />}
+      {otherFailingTasks.length > 0 && (
+        <FailingTasks tasks={otherFailingTasks} />
+      )}
     </AnnotationsContainer>
   );
 };

@@ -134,7 +134,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
                 <Body>{command}</Body>
               </div>
             )}
-            <Annotations annotation={annotation} />
+            <Annotations annotation={annotation} displayName={displayName} />
           </>
         )}
       </PopoverCard>
