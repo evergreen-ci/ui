@@ -6,7 +6,6 @@ import {
   RepoSettingsQuery,
 } from "gql/generated/types";
 import { AccessFormState } from "./AccessTab/types";
-import { ContainersFormState } from "./ContainersTab/types";
 import { GeneralFormState } from "./GeneralTab/types";
 import { AppSettingsFormState } from "./GithubAppSettingsTab/types";
 import { GCQFormState } from "./GithubCommitQueueTab/types";
@@ -25,7 +24,6 @@ import { VWFormState } from "./VirtualWorkstationTab/types";
 export type FormStateMap = {
   [T in WritableProjectSettingsType]: {
     [ProjectSettingsTabRoutes.Access]: AccessFormState;
-    [ProjectSettingsTabRoutes.Containers]: ContainersFormState;
     [ProjectSettingsTabRoutes.General]: GeneralFormState;
     [ProjectSettingsTabRoutes.Notifications]: NotificationsFormState;
     [ProjectSettingsTabRoutes.PatchAliases]: PatchAliasesFormState;

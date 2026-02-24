@@ -43,8 +43,6 @@ import MY_VOLUMES from "./my-volumes.graphql";
 import PATCH_CONFIGURE_GENERATED_TASK_COUNTS from "./patch-configure-generated-task-counts.graphql";
 import PATCH_CONFIGURE from "./patch-configure.graphql";
 import PATCH from "./patch.graphql";
-import POD_EVENTS from "./pod-events.graphql";
-import POD from "./pod.graphql";
 import PROJECT_BANNER from "./project-banner.graphql";
 import PROJECT_EVENT_LOGS from "./project-event-logs.graphql";
 import PROJECT_PATCHES from "./project-patches.graphql";
@@ -143,8 +141,6 @@ export {
   PATCH_CONFIGURE,
   PATCH_CONFIGURE_GENERATED_TASK_COUNTS,
   PATCH,
-  POD_EVENTS,
-  POD,
   PROJECT,
   PROJECT_BANNER,
   PROJECT_EVENT_LOGS,

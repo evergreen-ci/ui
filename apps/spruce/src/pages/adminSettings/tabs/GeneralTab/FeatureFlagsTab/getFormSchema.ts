@@ -77,14 +77,11 @@ const serviceItems = generateSchema({
   taskDispatchDisabled: "Dispatch tasks",
   largeParserProjectsDisabled: "Large parser projects",
   hostInitDisabled: "Create and provision hosts",
-  podInitDisabled: "Create and provision pods",
   monitorDisabled: "Monitor hosts and tasks",
   agentStartDisabled: "Start agents on hosts",
   schedulerDisabled: "Schedule tasks",
   hostAllocatorDisabled: "Host Allocator",
   systemFailedTaskRestartDisabled: "Auto-restart system failures",
-  podAllocatorDisabled: "Allocate pods for container tasks",
-  unrecognizedPodCleanupDisabled: "Clean up unrecognized pods",
   cloudCleanupDisabled: "Cloud Provider Cleanup",
 });
 

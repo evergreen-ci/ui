@@ -1,9 +1,3 @@
-import {
-  EcsArchitecture,
-  EcsOperatingSystem,
-  EcsWindowsVersion,
-} from "gql/generated/types";
-
 export interface ProvidersFormState {
   providers: {
     containerPools: {
@@ -46,39 +40,6 @@ export interface ProvidersFormState {
         key: string;
         prefix: string;
         secret: string;
-      };
-
-      pod: {
-        maxCPU: number;
-        maxMemoryMb: number;
-        role: string;
-        region: string;
-        podSecretManager: string;
-        taskDefinitionPrefix: string;
-        taskRole: string;
-        executionRole: string;
-        logRegion: string;
-        logGroup: string;
-        logStreamPrefix: string;
-        allowedImages: string[];
-        awsVPCSubnets: {
-          subnets: string[];
-        };
-        awsVPCSecurityGroups: {
-          securityGroups: string[];
-        };
-
-        clusters: Array<{
-          name: string;
-          os?: EcsOperatingSystem;
-        }>;
-
-        capacityProviders: Array<{
-          name: string;
-          arch?: EcsArchitecture;
-          os?: EcsOperatingSystem;
-          windowsVersion?: EcsWindowsVersion;
-        }>;
       };
     };
 

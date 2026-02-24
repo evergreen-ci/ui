@@ -25,11 +25,6 @@ export const adminSettings: AdminSettings = {
     bufferIntervalSeconds: 1,
     bufferTargetPerInterval: 1,
   },
-  podLifecycle: {
-    maxParallelPodRequests: 1,
-    maxPodDefinitionCleanupRate: 1,
-    maxSecretCleanupRate: 1,
-  },
   repotracker: {
     maxConcurrentRequests: 1,
     maxRepoRevisionsToSearch: 1,
@@ -78,8 +73,6 @@ export const adminSettings: AdminSettings = {
     jwtTokenForCLIDisabled: true,
     largeParserProjectsDisabled: true,
     monitorDisabled: true,
-    podAllocatorDisabled: true,
-    podInitDisabled: true,
     psLoggingDisabled: true,
     releaseModeDisabled: true,
     repotrackerDisabled: true,
@@ -92,7 +85,6 @@ export const adminSettings: AdminSettings = {
     taskDispatchDisabled: true,
     taskLoggingDisabled: true,
     taskReliabilityDisabled: true,
-    unrecognizedPodCleanupDisabled: true,
     useMergeQueuePathFilteringDisabled: true,
     webhookNotificationsDisabled: true,
   },

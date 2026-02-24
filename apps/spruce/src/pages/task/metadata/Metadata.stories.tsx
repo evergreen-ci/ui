@@ -138,9 +138,6 @@ export const ContainerizedTask: CustomStoryObj<typeof Metadata> = {
           hostId: null,
           ami: null,
           distroId: "",
-          pod: {
-            id: "pod_id",
-          },
           spawnHostLink: null,
         }}
       />

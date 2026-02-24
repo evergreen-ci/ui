@@ -94,24 +94,6 @@ export const hostInit = {
   uiSchema: {},
 };
 
-export const podLifecycle = {
-  schema: {
-    maxParallelPodRequests: {
-      type: "number" as const,
-      title: "Max Parallel Pod Requests",
-    },
-    maxPodDefinitionCleanupRate: {
-      type: "number" as const,
-      title: "Max Pod Definition Cleanup (Per Job)",
-    },
-    maxSecretCleanupRate: {
-      type: "number" as const,
-      title: "Max Secret Cleanup (Per Job)",
-    },
-  },
-  uiSchema: {},
-};
-
 const boundsDescription = "Value should range from 0 to 100 inclusive.";
 const finderOptions = [
   {

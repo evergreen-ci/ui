@@ -10,16 +10,12 @@ export const gqlToForm = ((data) => ({
       largeParserProjectsDisabled:
         data.serviceFlags?.largeParserProjectsDisabled ?? false,
       hostInitDisabled: data.serviceFlags?.hostInitDisabled ?? false,
-      podInitDisabled: data.serviceFlags?.podInitDisabled ?? false,
       monitorDisabled: data.serviceFlags?.monitorDisabled ?? false,
       agentStartDisabled: data.serviceFlags?.agentStartDisabled ?? false,
       schedulerDisabled: data.serviceFlags?.schedulerDisabled ?? false,
       hostAllocatorDisabled: data.serviceFlags?.hostAllocatorDisabled ?? false,
       systemFailedTaskRestartDisabled:
         data.serviceFlags?.systemFailedTaskRestartDisabled ?? false,
-      podAllocatorDisabled: data.serviceFlags?.podAllocatorDisabled ?? false,
-      unrecognizedPodCleanupDisabled:
-        data.serviceFlags?.unrecognizedPodCleanupDisabled ?? false,
       cloudCleanupDisabled: data.serviceFlags?.cloudCleanupDisabled ?? false,
       taskReliabilityDisabled:
         data.serviceFlags?.taskReliabilityDisabled ?? false,

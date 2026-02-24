@@ -4,14 +4,11 @@ export interface FeatureFlagsFormState {
       taskDispatchDisabled: boolean;
       largeParserProjectsDisabled: boolean;
       hostInitDisabled: boolean;
-      podInitDisabled: boolean;
       monitorDisabled: boolean;
       agentStartDisabled: boolean;
       schedulerDisabled: boolean;
       hostAllocatorDisabled: boolean;
       systemFailedTaskRestartDisabled: boolean;
-      podAllocatorDisabled: boolean;
-      unrecognizedPodCleanupDisabled: boolean;
       cloudCleanupDisabled: boolean;
       taskReliabilityDisabled: boolean;
     };

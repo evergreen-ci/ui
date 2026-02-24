@@ -206,11 +206,6 @@ query AdminSettings {
     }
     perfMonitoringKanopyURL
     perfMonitoringURL
-    podLifecycle {
-      maxParallelPodRequests
-      maxPodDefinitionCleanupRate
-      maxSecretCleanupRate
-    }
     pprofPort
     projectCreation {
       jiraProject
@@ -250,38 +245,6 @@ query AdminSettings {
         persistentDNS {
           domain
           hostedZoneID
-        }
-        pod {
-          ecs {
-            allowedImages
-            awsVPC {
-              securityGroups
-              subnets
-            }
-            capacityProviders {
-              arch
-              name
-              os
-              windowsVersion
-            }
-            clusters {
-              name
-              os
-            }
-            executionRole
-            logGroup
-            logRegion
-            logStreamPrefix
-            maxCPU
-            maxMemoryMb
-            taskDefinitionPrefix
-            taskRole
-          }
-          region
-          role
-          secretsManager {
-            secretPrefix
-          }
         }
         subnets {
           az
@@ -354,8 +317,6 @@ query AdminSettings {
       jwtTokenForCLIDisabled
       largeParserProjectsDisabled
       monitorDisabled
-      podAllocatorDisabled
-      podInitDisabled
       psLoggingDisabled
       releaseModeDisabled
       repotrackerDisabled
@@ -368,7 +329,6 @@ query AdminSettings {
       taskDispatchDisabled
       taskLoggingDisabled
       taskReliabilityDisabled
-      unrecognizedPodCleanupDisabled
       useMergeQueuePathFilteringDisabled
       webhookNotificationsDisabled
     }

@@ -33,11 +33,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
         senderAddress
       }
     }
-    podLifecycle {
-      maxParallelPodRequests
-      maxPodDefinitionCleanupRate
-      maxSecretCleanupRate
-    }
     repotracker {
       maxConcurrentRequests
       maxRepoRevisionsToSearch
@@ -90,8 +85,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       jwtTokenForCLIDisabled
       largeParserProjectsDisabled
       monitorDisabled
-      podAllocatorDisabled
-      podInitDisabled
       psLoggingDisabled
       releaseModeDisabled
       repotrackerDisabled
@@ -104,7 +97,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       taskDispatchDisabled
       taskLoggingDisabled
       taskReliabilityDisabled
-      unrecognizedPodCleanupDisabled
       webhookNotificationsDisabled
     }
     taskLimits {
