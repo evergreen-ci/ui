@@ -105,7 +105,7 @@
               Associated Issues
             </p>
             <a
-              class="lg-ui-0001 e1ljcb746 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
+              class="lg-ui-0001 e1ljcb745 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
               href="https://jira.mongodb.org/browse/EVG-1234"
               rel="noopener noreferrer"
               target="_blank"
@@ -133,7 +133,7 @@
               </svg>
             </a>
             <a
-              class="lg-ui-0001 e1ljcb746 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
+              class="lg-ui-0001 e1ljcb745 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
               href="https://jira.mongodb.org/browse/EVG-5678"
               rel="noopener noreferrer"
               target="_blank"
@@ -161,7 +161,7 @@
               </svg>
             </a>
             <a
-              class="lg-ui-0001 e1ljcb746 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
+              class="lg-ui-0001 e1ljcb745 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
               href="https://jira.mongodb.org/browse/EVG-9012"
               rel="noopener noreferrer"
               target="_blank"
@@ -190,33 +190,25 @@
             </a>
           </div>
           <div
-            class="emotion-FailingTasksContainer e1ljcb745"
+            class="emotion-FailingTasksContainer e1ljcb744"
           >
             <p
               class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1xbudv3"
             >
-              Failing Tasks
+              Other Failing Tasks
             </p>
             <ul
-              class="emotion-TasksList e1ljcb744"
+              class="emotion-TasksList e1ljcb743"
             >
               <li
-                class="emotion-TaskListItem e1ljcb743"
+                class="emotion-TaskListItem e1ljcb742"
               >
-                <span
-                  class="emotion-TaskName e1ljcb742"
-                >
-                  test-task-1
-                </span>
+                test-task-1
               </li>
               <li
-                class="emotion-TaskListItem e1ljcb743"
+                class="emotion-TaskListItem e1ljcb742"
               >
-                <span
-                  class="emotion-TaskName e1ljcb742"
-                >
-                  test-task-2
-                </span>
+                test-task-2
               </li>
             </ul>
           </div>
