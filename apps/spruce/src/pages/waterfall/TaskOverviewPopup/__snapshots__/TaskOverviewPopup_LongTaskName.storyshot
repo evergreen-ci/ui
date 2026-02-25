@@ -11,11 +11,11 @@
       class="lg-ui-popover-content-0000"
     >
       <div
-        class="e1g54j7l3 emotion-SiderCard-PopoverCard e1am38ss0 leafygreen-ui-17q42jt"
+        class="e1g54j7l2 emotion-SiderCard-PopoverCard e1am38ss0 leafygreen-ui-17q42jt"
         data-cy="task-overview-popup"
       >
         <a
-          class="lg-ui-0001 e1g54j7l1 emotion-overrideStyles-RouterLink-wordBreakCss-TaskPageLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 e1g54j7l0 emotion-overrideStyles-RouterLink-wordBreakCss-TaskPageLink leafygreen-ui-16e7rxl"
           data-cy="task-link"
           href="/task/spruce_ubuntu1604_test_task?execution=0"
         >
@@ -30,8 +30,38 @@
           Will Run
         </div>
         <div
-          class="emotion-ButtonRow e1g54j7l0"
+          class="emotion-ButtonRow e1ib5ioy0"
         >
+          <button
+            aria-disabled="true"
+            class="lg-ui-button-0000 leafygreen-ui-zzkmfy"
+            data-lgid="lg-button"
+            type="button"
+          >
+            <div
+              class="leafygreen-ui-v038xi"
+            />
+            <div
+              class="leafygreen-ui-16tr4y"
+            >
+              Restart
+            </div>
+          </button>
+          <button
+            aria-disabled="false"
+            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
+            data-lgid="lg-button"
+            type="button"
+          >
+            <div
+              class="leafygreen-ui-v038xi"
+            />
+            <div
+              class="leafygreen-ui-16tr4y"
+            >
+              Filter
+            </div>
+          </button>
           <a
             aria-disabled="false"
             class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
@@ -45,7 +75,7 @@
             <div
               class="leafygreen-ui-16tr4y"
             >
-              Task logs
+              Logs
             </div>
           </a>
           <a
@@ -61,7 +91,7 @@
             <div
               class="leafygreen-ui-16tr4y"
             >
-              Task history
+              History
             </div>
           </a>
         </div>
@@ -70,7 +100,7 @@
             Distro: 
           </b>
           <a
-            class="lg-ui-0001 e1g54j7l2 emotion-overrideStyles-RouterLink-wordBreakCss leafygreen-ui-16e7rxl"
+            class="lg-ui-0001 e1g54j7l1 emotion-overrideStyles-RouterLink-wordBreakCss leafygreen-ui-16e7rxl"
             data-cy="task-distro-link"
             href="/distro/ubuntu2004-xlarge-with-very-long-distro-name/settings/general"
           >

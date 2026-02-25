@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { StoryObj } from "@storybook/react-vite";
+import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
@@ -11,6 +12,7 @@ import { TaskOverviewPopup } from ".";
 
 export default {
   title: "Pages/Waterfall/TaskOverviewPopup",
+  decorators: [(Story: () => React.JSX.Element) => WithToastContext(Story)],
   component: TaskOverviewPopup,
 };
 
