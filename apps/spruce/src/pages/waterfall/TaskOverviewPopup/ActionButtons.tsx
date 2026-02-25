@@ -25,7 +25,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
   setOpen,
   task,
 }) => {
-  const [queryParams, setQueryParams] = useQueryParams();
+  const [, setQueryParams] = useQueryParams();
   const dispatchToast = useToastContext();
 
   const { buildVariant, canRestart, displayName, execution, id: taskId } = task;
@@ -51,11 +51,11 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
 
   const handleFilterClick = () => {
     setOpen(false);
-    setQueryParams({
-      ...queryParams,
+    setQueryParams((current) => ({
+      ...current,
       [WaterfallFilterOptions.Task]: displayName ? [displayName] : [],
       [WaterfallFilterOptions.BuildVariant]: buildVariant ? [buildVariant] : [],
-    });
+    }));
   };
 
   return (
