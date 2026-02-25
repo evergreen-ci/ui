@@ -8,6 +8,7 @@ import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import MetadataCard from "components/MetadataCard";
+import { Stepback } from "components/Stepback";
 import { getDistroSettingsRoute, getTaskRoute } from "constants/routes";
 import {
   TaskOverviewPopupQuery,
@@ -15,6 +16,7 @@ import {
 } from "gql/generated/types";
 import { TASK_OVERVIEW_POPUP } from "gql/queries";
 import { isFailedTaskStatus } from "utils/statuses";
+import { isInStepback } from "utils/stepback";
 import { msToDuration } from "utils/string";
 import { ActionButtons } from "./ActionButtons";
 import { Annotations } from "./Annotations";
@@ -56,6 +58,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
     distroId,
     finishTime,
     priority,
+    stepbackInfo,
     timeTaken,
   } = task || {};
   const { description, failingCommand } = details || {};
@@ -64,6 +67,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
   const command = description || failingCommand || "";
 
   const isLoading = loading || !task;
+  const showStepback = isInStepback(stepbackInfo);
 
   return (
     <Popover
@@ -118,6 +122,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
                 <Body>{command}</Body>
               </div>
             )}
+            {showStepback && <Stepback isPopup taskId={taskId} />}
             <Annotations annotation={annotation} displayName={displayName} />
           </>
         )}

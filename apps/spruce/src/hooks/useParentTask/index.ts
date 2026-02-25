@@ -1,3 +1,4 @@
+import { FetchPolicy } from "@apollo/client";
 import { skipToken, useQuery } from "@apollo/client/react";
 import {
   BaseVersionAndTaskQuery,
@@ -9,12 +10,13 @@ import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { string } from "utils";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 
-export const useParentTask = (taskId: string) => {
+export const useParentTask = (taskId: string, fetchPolicy?: FetchPolicy) => {
   const { data: taskData } = useQuery<
     BaseVersionAndTaskQuery,
     BaseVersionAndTaskQueryVariables
   >(BASE_VERSION_AND_TASK, {
     variables: { taskId },
+    fetchPolicy,
   });
 
   const {
@@ -49,6 +51,7 @@ export const useParentTask = (taskId: string) => {
               ...bvOptionsBase,
             },
           },
+          fetchPolicy,
         }
       : skipToken,
   );

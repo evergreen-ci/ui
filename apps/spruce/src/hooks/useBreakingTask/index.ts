@@ -1,3 +1,4 @@
+import { FetchPolicy } from "@apollo/client";
 import { useQuery, skipToken } from "@apollo/client/react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
@@ -13,12 +14,13 @@ import { string } from "utils";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 import { isFailedTaskStatus } from "utils/statuses";
 
-export const useBreakingTask = (taskId: string) => {
+export const useBreakingTask = (taskId: string, fetchPolicy?: FetchPolicy) => {
   const { data: taskData } = useQuery<
     BaseVersionAndTaskQuery,
     BaseVersionAndTaskQueryVariables
   >(BASE_VERSION_AND_TASK, {
     variables: { taskId },
+    fetchPolicy,
   });
 
   const { buildVariant, displayName, displayStatus, projectIdentifier } =
@@ -31,9 +33,9 @@ export const useBreakingTask = (taskId: string) => {
     variants: [string.applyStrictRegex(buildVariant)],
   };
 
-  const { task: parentTask } = useParentTask(taskId);
+  const { task: parentTask } = useParentTask(taskId, fetchPolicy);
 
-  const { task: lastPassingTask } = useLastPassingTask(taskId);
+  const { task: lastPassingTask } = useLastPassingTask(taskId, fetchPolicy);
   const passingOrderNumber = lastPassingTask?.order || 0;
 
   // The breaking commit is the first failing commit after the last passing commit.
@@ -58,6 +60,7 @@ export const useBreakingTask = (taskId: string) => {
               statuses: [TaskStatus.Failed],
             },
           },
+          fetchPolicy,
         }
       : skipToken,
   );

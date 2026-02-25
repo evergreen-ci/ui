@@ -1,3 +1,4 @@
+import { FetchPolicy } from "@apollo/client";
 import { skipToken, useQuery } from "@apollo/client/react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
@@ -11,12 +12,16 @@ import { useParentTask } from "hooks/useParentTask";
 import { string } from "utils";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 
-export const useLastPassingTask = (taskId: string) => {
+export const useLastPassingTask = (
+  taskId: string,
+  fetchPolicy?: FetchPolicy,
+) => {
   const { data: taskData } = useQuery<
     BaseVersionAndTaskQuery,
     BaseVersionAndTaskQueryVariables
   >(BASE_VERSION_AND_TASK, {
     variables: { taskId },
+    fetchPolicy,
   });
 
   const { buildVariant, displayName, projectIdentifier, versionMetadata } =
@@ -30,7 +35,7 @@ export const useLastPassingTask = (taskId: string) => {
     variants: [string.applyStrictRegex(buildVariant)],
   };
 
-  const { task: parentTask } = useParentTask(taskId);
+  const { task: parentTask } = useParentTask(taskId, fetchPolicy);
 
   const shouldSkip =
     !parentTask || parentTask.displayStatus === TaskStatus.Succeeded;
@@ -53,6 +58,7 @@ export const useLastPassingTask = (taskId: string) => {
               statuses: [TaskStatus.Succeeded],
             },
           },
+          fetchPolicy,
         }
       : skipToken,
   );
