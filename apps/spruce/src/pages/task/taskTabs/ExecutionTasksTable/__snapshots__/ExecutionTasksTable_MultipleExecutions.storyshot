@@ -370,16 +370,20 @@
                 <div
                   class=""
                 >
-                  <a
-                    href="/task/some_id_5?execution=14"
+                  <div
+                    class="emotion-TaskBadgeWrapper e1lpbp6o0"
                   >
-                    <div
-                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
-                      data-cy="task-status-badge"
+                    <a
+                      href="/task/some_id_5?execution=14"
                     >
-                      Succeeded
-                    </div>
-                  </a>
+                      <div
+                        class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
+                        data-cy="task-status-badge"
+                      >
+                        Succeeded
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -572,16 +576,20 @@
                 <div
                   class=""
                 >
-                  <a
-                    href="/task/some_id_6?execution=12"
+                  <div
+                    class="emotion-TaskBadgeWrapper e1lpbp6o0"
                   >
-                    <div
-                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
-                      data-cy="task-status-badge"
+                    <a
+                      href="/task/some_id_6?execution=12"
                     >
-                      Succeeded
-                    </div>
-                  </a>
+                      <div
+                        class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
+                        data-cy="task-status-badge"
+                      >
+                        Succeeded
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

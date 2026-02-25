@@ -1,9 +1,13 @@
+import styled from "@emotion/styled";
+import { palette } from "@leafygreen-ui/palette";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import pluralize from "pluralize";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
+import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
@@ -73,36 +77,46 @@ export const getColumnsTemplate = ({
     cell: ({
       getValue,
       row: {
-        original: { dependsOn, execution, id },
+        original: { dependsOn, errors, execution, id },
       },
     }) => {
       const status = getValue() as string;
+      const hasErrors = errors && errors.length > 0;
 
-      return dependsOn?.length && getValue() === TaskStatus.Blocked ? (
-        <Tooltip
-          data-cy="depends-on-tooltip"
-          justify="middle"
-          trigger={
-            <span>
-              <TaskStatusBadgeWithLink
-                execution={execution}
-                id={id}
-                status={status as TaskStatus}
-              />
-            </span>
-          }
-        >
-          Depends on {pluralize("task", dependsOn.length)}:{" "}
-          {dependsOn.map(({ name }) => `“${name}”`).join(", ")}
-        </Tooltip>
-      ) : (
-        getValue() && (
+      if (dependsOn?.length && getValue() === TaskStatus.Blocked) {
+        return (
+          <Tooltip
+            data-cy="depends-on-tooltip"
+            justify="middle"
+            trigger={
+              <span>
+                <TaskStatusBadgeWithLink
+                  execution={execution}
+                  id={id}
+                  status={status as TaskStatus}
+                />
+              </span>
+            }
+          >
+            Depends on {pluralize("task", dependsOn.length)}:{" "}
+            {dependsOn.map(({ name }) => `“${name}”`).join(", ")}
+          </Tooltip>
+        );
+      }
+
+      return (
+        <TaskBadgeWrapper>
           <TaskStatusBadgeWithLink
             execution={execution}
             id={id}
             status={status as TaskStatus}
           />
-        )
+          {hasErrors && (
+            <IconWithTooltip color={palette.red.base} glyph="Warning">
+              This task has errors that prevent it from running.
+            </IconWithTooltip>
+          )}
+        </TaskBadgeWrapper>
       );
     },
     meta: {
@@ -169,3 +183,9 @@ export const getColumnsTemplate = ({
     size: 250,
   },
 ];
+
+const TaskBadgeWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xxs};
+`;
