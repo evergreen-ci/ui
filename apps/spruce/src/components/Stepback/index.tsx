@@ -16,6 +16,27 @@ interface Props {
   isPopup?: boolean;
 }
 
+interface StepbackStatusProps {
+  finished: boolean;
+  isLoading: boolean;
+}
+
+const StepbackStatus: React.FC<StepbackStatusProps> = ({
+  finished,
+  isLoading,
+}) => {
+  if (isLoading) {
+    return <Skeleton size={SkeletonSize.Small} />;
+  }
+  if (!finished) {
+    return <Badge variant={BadgeVariant.LightGray}>In progress</Badge>;
+  }
+  if (finished) {
+    return <Badge variant={BadgeVariant.Green}>Complete</Badge>;
+  }
+  return null;
+};
+
 export const Stepback: React.FC<Props> = ({ isPopup = false, taskId }) => {
   // TODO DEVPROD-27824: Remove fetch policy when cache performance is fixed.
   const fetchPolicy = isPopup ? "no-cache" : undefined;
@@ -45,16 +66,7 @@ export const Stepback: React.FC<Props> = ({ isPopup = false, taskId }) => {
             the relevant commits dropdown.
           </InfoSprinkle>
         )}
-        {(() => {
-          if (isLoading) {
-            return <Skeleton size={SkeletonSize.Small} />;
-          } else if (!finished) {
-            return <Badge variant={BadgeVariant.LightGray}>In progress</Badge>;
-          } else if (finished) {
-            return <Badge variant={BadgeVariant.Green}>Complete</Badge>;
-          }
-          return null;
-        })()}
+        <StepbackStatus finished={finished} isLoading={isLoading} />
       </StepbackLabel>
       {isPopup && (
         <Button
