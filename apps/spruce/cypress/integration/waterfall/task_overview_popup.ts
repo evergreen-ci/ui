@@ -5,7 +5,6 @@ describe("task overview popup", () => {
 
   it("displays task overview popup on alt+click", () => {
     cy.get(knownIssueTask).as("knownIssueTask");
-
     cy.get("@knownIssueTask").click({ altKey: true });
     cy.dataCy("task-overview-popup").should("exist");
     cy.dataCy("task-overview-popup").should("be.visible");
@@ -23,6 +22,21 @@ describe("task overview popup", () => {
     cy.dataCy("task-overview-popup").should("not.exist");
     cy.get("@knownIssueTask").click({ altKey: true });
     cy.dataCy("task-overview-popup").should("exist");
+  });
+
+  it("displays associated issues", () => {
+    cy.get(knownIssueTask).as("knownIssueTask");
+    cy.get("@knownIssueTask").click({ altKey: true });
+    cy.dataCy("task-overview-popup").should("exist");
+    cy.dataCy("task-overview-popup").should("be.visible");
+    cy.dataCy("task-overview-popup").should(
+      "contain.text",
+      "Associated Issues",
+    );
+    cy.dataCy("task-overview-popup").should("contain.text", "Some-Text");
+    cy.dataCy("task-overview-popup").should("contain.text", "AnotherOne");
+    cy.dataCy("task-overview-popup").should("contain.text", "More-Text");
+    cy.dataCy("task-overview-popup").should("contain.text", "A-Random-Ticket");
   });
 
   it("navigates to task page when clicking the task link", () => {

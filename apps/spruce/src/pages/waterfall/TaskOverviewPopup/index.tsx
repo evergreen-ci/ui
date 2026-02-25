@@ -17,6 +17,7 @@ import { TASK_OVERVIEW_POPUP } from "gql/queries";
 import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
 import { ActionButtons } from "./ActionButtons";
+import { Annotations } from "./Annotations";
 
 interface Props {
   execution: number;
@@ -48,6 +49,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
   const { task } = data || {};
   const {
+    annotation,
     details,
     displayName,
     displayStatus,
@@ -116,6 +118,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
                 <Body>{command}</Body>
               </div>
             )}
+            <Annotations annotation={annotation} displayName={displayName} />
           </>
         )}
       </PopoverCard>
@@ -125,6 +128,9 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
 const PopoverCard = styled(MetadataCard)`
   width: 330px;
+  max-height: 500px;
+  overflow-y: auto;
+
   display: flex;
   flex-direction: column;
   gap: ${size.xs};

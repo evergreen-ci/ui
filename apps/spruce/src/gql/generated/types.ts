@@ -11350,6 +11350,32 @@ export type TaskOverviewPopupQuery = {
     finishTime?: Date | null;
     priority?: number | null;
     timeTaken?: number | null;
+    annotation?: {
+      __typename?: "Annotation";
+      id: string;
+      createdIssues?: Array<{
+        __typename?: "IssueLink";
+        issueKey?: string | null;
+        url?: string | null;
+      }> | null;
+      issues?: Array<{
+        __typename?: "IssueLink";
+        issueKey?: string | null;
+        url?: string | null;
+        jiraTicket?: {
+          __typename?: "JiraTicket";
+          fields: {
+            __typename?: "TicketFields";
+            failingTasks?: Array<string> | null;
+          };
+        } | null;
+      }> | null;
+      suspectedIssues?: Array<{
+        __typename?: "IssueLink";
+        issueKey?: string | null;
+        url?: string | null;
+      }> | null;
+    } | null;
     details?: {
       __typename?: "TaskEndDetail";
       description?: string | null;

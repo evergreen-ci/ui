@@ -1,0 +1,99 @@
+<div>
+  <span
+    class="leafygreen-ui-38lglc"
+  />
+  <div
+    class="leafygreen-ui-1bby10r"
+    popover="auto"
+    style="--lg-popover-max_height: 0px; --lg-popover-max_width: 0px;"
+  >
+    <div
+      class="lg-ui-popover-content-0000"
+    >
+      <div
+        class="e1g54j7l3 emotion-SiderCard-PopoverCard e1am38ss0 leafygreen-ui-17q42jt"
+        data-cy="task-overview-popup"
+      >
+        <a
+          class="lg-ui-0001 e1g54j7l1 emotion-overrideStyles-RouterLink-wordBreakCss-TaskPageLink leafygreen-ui-16e7rxl"
+          data-cy="task-link"
+          href="/task/spruce_ubuntu1604_test_task?execution=0"
+        >
+          <span>
+            cypress-test
+          </span>
+        </a>
+        <div
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
+          data-cy="task-status-badge"
+        >
+          Failed
+        </div>
+        <div>
+          Duration: 
+          1m 38s
+        </div>
+        <div
+          class="emotion-ButtonRow e1g54j7l0"
+        >
+          <a
+            aria-disabled="false"
+            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
+            data-lgid="lg-button"
+            href="/evergreen/spruce_ubuntu1604_test_task/0/task"
+            type="button"
+          >
+            <div
+              class="leafygreen-ui-v038xi"
+            />
+            <div
+              class="leafygreen-ui-16tr4y"
+            >
+              Task logs
+            </div>
+          </a>
+          <a
+            aria-disabled="false"
+            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
+            data-lgid="lg-button"
+            href="/task/spruce_ubuntu1604_test_task/history?execution=0"
+            type="button"
+          >
+            <div
+              class="leafygreen-ui-v038xi"
+            />
+            <div
+              class="leafygreen-ui-16tr4y"
+            >
+              Task history
+            </div>
+          </a>
+        </div>
+        <div>
+          <b>
+            Distro: 
+          </b>
+          <a
+            class="lg-ui-0001 e1g54j7l2 emotion-overrideStyles-RouterLink-wordBreakCss leafygreen-ui-16e7rxl"
+            data-cy="task-distro-link"
+            href="/distro/ubuntu1604-large/settings/general"
+          >
+            <span>
+              ubuntu1604-large
+            </span>
+          </a>
+        </div>
+        <div>
+          <b>
+            Failing Command: 
+          </b>
+          <p
+            class="leafygreen-ui-26vqpd"
+          >
+            'shell.exec' in function 'pnpm-cypress' (step 11 of 11)
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
