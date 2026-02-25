@@ -113,7 +113,7 @@ export const getColumnsTemplate = ({
           />
           {hasErrors && (
             <IconWithTooltip color={palette.red.base} glyph="Warning">
-              This task has errors that prevent it from running.
+              {errors.join(", ")}
             </IconWithTooltip>
           )}
         </TaskBadgeWrapper>
