@@ -1,8 +1,10 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import Cookie from "js-cookie";
-import { useAdminBetaFeatures } from "@evg-ui/lib/hooks/useBetaFeatures";
+import { useChatContext } from "@evg-ui/fungi";
+import { CharKey } from "@evg-ui/lib/constants/keys";
+import { useKeyboardShortcut } from "@evg-ui/lib/hooks";
 import BookmarksBar from "components/BookmarksBar";
 import { Chatbot } from "components/Chatbot";
 import LogPane from "components/LogPane";
@@ -11,6 +13,7 @@ import SidePanel from "components/SidePanel";
 import SubHeader from "components/SubHeader";
 import { DRAWER_OPENED } from "constants/cookies";
 import { useLogContext } from "context/LogContext";
+import { useIsParsleyAIAvailable } from "hooks";
 
 const LogWindow: React.FC = () => {
   const {
@@ -30,8 +33,19 @@ const LogWindow: React.FC = () => {
     Cookie.get(DRAWER_OPENED) === "true",
   );
 
-  const { adminBetaSettings } = useAdminBetaFeatures();
-  const ChatWrapper = adminBetaSettings?.parsleyAIEnabled ? Chatbot : Fragment;
+  const { drawerOpen, setDrawerOpen } = useChatContext();
+  const isParsleyAIAvailable = useIsParsleyAIAvailable();
+
+  useKeyboardShortcut(
+    { charKey: CharKey.BracketRight },
+    () => {
+      if (!drawerOpen) {
+        setSidePanelCollapsed(true);
+      }
+      setDrawerOpen((o) => !o);
+    },
+    { disabled: !isParsleyAIAvailable, ignoreFocus: true },
+  );
 
   return (
     <Container data-cy="log-window">
@@ -49,7 +63,7 @@ const LogWindow: React.FC = () => {
       />
       <ColumnContainer>
         <SubHeader setSidePanelCollapsed={setSidePanelCollapsed} />
-        <ChatWrapper>
+        <Chatbot>
           <LogPaneContainer>
             {hasLogs && processedLogLines.length && (
               <LogPane
@@ -64,7 +78,7 @@ const LogWindow: React.FC = () => {
               />
             )}
           </LogPaneContainer>
-        </ChatWrapper>
+        </Chatbot>
       </ColumnContainer>
     </Container>
   );
