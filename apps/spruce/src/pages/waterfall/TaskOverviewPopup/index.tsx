@@ -1,25 +1,23 @@
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Popover, Align, DismissMode } from "@leafygreen-ui/popover";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import MetadataCard from "components/MetadataCard";
-import { getParsleyTaskLogLink } from "constants/externalResources";
 import { getDistroSettingsRoute, getTaskRoute } from "constants/routes";
 import {
   TaskOverviewPopupQuery,
   TaskOverviewPopupQueryVariables,
 } from "gql/generated/types";
 import { TASK_OVERVIEW_POPUP } from "gql/queries";
-import { LogTypes, TaskTab } from "types/task";
 import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
+import { ActionButtons } from "./ActionButtons";
+import { Annotations } from "./Annotations";
 
 interface Props {
   execution: number;
@@ -51,11 +49,13 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
   const { task } = data || {};
   const {
+    annotation,
     details,
     displayName,
     displayStatus,
     distroId,
     finishTime,
+    priority,
     timeTaken,
   } = task || {};
   const { description, failingCommand } = details || {};
@@ -63,7 +63,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
   const command = description || failingCommand || "";
 
-  const isLoading = loading && !task;
+  const isLoading = loading || !task;
 
   return (
     <Popover
@@ -94,27 +94,13 @@ export const TaskOverviewPopup: React.FC<Props> = ({
             {finishTime && timeTaken && timeTaken > 0 ? (
               <div>Duration: {msToDuration(timeTaken)}</div>
             ) : null}
-
-            <ButtonRow>
-              <Button
-                as={Link}
-                size={ButtonSize.Small}
-                to={getParsleyTaskLogLink(LogTypes.Task, taskId, execution)}
-              >
-                Task logs
-              </Button>
-              <Button
-                as={Link}
-                size={ButtonSize.Small}
-                to={getTaskRoute(taskId, {
-                  execution,
-                  tab: TaskTab.History,
-                })}
-              >
-                Task history
-              </Button>
-            </ButtonRow>
-
+            <ActionButtons setOpen={setOpen} task={task} />
+            {priority && priority > 0 ? (
+              <div>
+                <b>Priority: </b>
+                {priority}
+              </div>
+            ) : null}
             {distroId && (
               <div>
                 <b>Distro: </b>
@@ -132,6 +118,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
                 <Body>{command}</Body>
               </div>
             )}
+            <Annotations annotation={annotation} displayName={displayName} />
           </>
         )}
       </PopoverCard>
@@ -141,6 +128,9 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
 const PopoverCard = styled(MetadataCard)`
   width: 330px;
+  max-height: 500px;
+  overflow-y: auto;
+
   display: flex;
   flex-direction: column;
   gap: ${size.xs};
@@ -153,10 +143,4 @@ const RouterLink = styled(StyledRouterLink)`
 const TaskPageLink = styled(RouterLink)`
   font-weight: bold;
   font-size: 18px;
-`;
-
-const ButtonRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xs};
 `;
