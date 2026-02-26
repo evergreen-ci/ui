@@ -117,10 +117,9 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                       "log.viewer": "parsley",
                     })
                   }
-                  title="View complete logs in Parsley"
                   variant={Variant.Primary}
                 >
-                  Complete Logs on Parsley
+                  Complete logs on Parsley
                 </Button>
               )}
               {htmlLink && (
@@ -135,7 +134,6 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                       "log.viewer": "html",
                     })
                   }
-                  title="Plain, colorized log viewer"
                 >
                   HTML
                 </Button>
@@ -152,7 +150,6 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                       "log.viewer": "raw",
                     })
                   }
-                  title="Plain text log viewer"
                 >
                   Raw
                 </Button>
@@ -182,18 +179,17 @@ const LogContentWrapper = styled.div`
 
 const LogFadeOverlay = styled.div`
   position: absolute;
+  margin: 2px;
   top: 0;
   left: 0;
   right: 0;
-  height: 80px;
+  height: 100px;
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.95) 0%,
     rgba(255, 255, 255, 0.7) 50%,
     rgba(255, 255, 255, 0) 100%
   );
-  pointer-events: none;
-  z-index: 1;
 `;
 
 const FloatingButtonContainer = styled.div`
