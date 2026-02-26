@@ -89,7 +89,7 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
             Event Logs
           </SegmentedControlOption>
           <SegmentedControlOption id="cy-all-option" value={LogTypes.All}>
-            Combined Logs
+            Combined
           </SegmentedControlOption>
         </SegmentedControl>
       </LogHeader>
@@ -118,7 +118,7 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                     })
                   }
                   title="View complete logs in Parsley"
-                  variant={Variant.BaseGreen}
+                  variant={Variant.Primary}
                 >
                   Complete Logs on Parsley
                 </Button>
