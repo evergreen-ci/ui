@@ -67,24 +67,13 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
 
   // Check if there are any active beta features that we actually show in the UI
   // Exclude parsleyAIEnabled since it's no longer in beta
+  // TODO: Once the backend stops returning this, we can remove.
   const hasActiveBetaFeatures = adminBetaSettings
     ? Object.entries(adminBetaSettings).some(
         ([key, value]) =>
           key !== "__typename" && key !== "parsleyAIEnabled" && value === true,
       )
     : false;
-
-  if (!hasActiveBetaFeatures) {
-    return (
-      <EmptyStateWrapper>
-        <EmptyStateTitle>Beta Features</EmptyStateTitle>
-        <EmptyStateDescription>
-          No beta experiments are active right now. Check back later for early
-          access to upcoming features.
-        </EmptyStateDescription>
-      </EmptyStateWrapper>
-    );
-  }
 
   return (
     <ContentWrapper>
@@ -99,6 +88,10 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
               title: "Beta Features",
               type: "object" as const,
               properties: {
+                // Example for future beta features:
+                // newFeature: radioSchema({
+                //   title: "New Feature Name",
+                // }),
                 parsleyAIEnabled: radioSchema({
                   title: "Allow AI Agent in Parsley",
                 }),
@@ -108,22 +101,41 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
         }}
         uiSchema={{
           betaFeatures: {
+            // Example for future beta features:
+            // newFeature: radioUiSchema({
+            //   dataCy: "new-feature",
+            //   isAdminEnabled: adminBetaSettings?.newFeature ?? false,
+            // }),
             parsleyAIEnabled: radioUiSchema({
               dataCy: "parsley-ai-enabled",
+              isAdminEnabled: adminBetaSettings?.parsleyAIEnabled ?? false,
             }),
-            "ui:description":
-              "Enable beta features to get an early look at upcoming UI changes.",
+            "ui:description": (
+              <DescriptionWrapper>
+                <span>
+                  Enable beta features to get an early look at upcoming UI
+                  changes.
+                </span>
+                {hasActiveBetaFeatures ? (
+                  ""
+                ) : (
+                  <span>No beta experiments are active right now.</span>
+                )}
+              </DescriptionWrapper>
+            ),
           },
         }}
       />
-      <Button
-        data-cy="save-beta-features-button"
-        disabled={!hasChanges}
-        onClick={handleSubmit}
-        variant={ButtonVariant.Primary}
-      >
-        Save changes
-      </Button>
+      {hasActiveBetaFeatures && (
+        <Button
+          data-cy="save-beta-features-button"
+          disabled={!hasChanges}
+          onClick={handleSubmit}
+          variant={ButtonVariant.Primary}
+        >
+          Save changes
+        </Button>
+      )}
     </ContentWrapper>
   );
 };
@@ -146,9 +158,15 @@ const radioSchema = ({ title }: { title: string }) => ({
   ],
 });
 
-const radioUiSchema = ({ dataCy }: { dataCy: string }) => ({
+const radioUiSchema = ({
+  dataCy,
+  isAdminEnabled,
+}: {
+  dataCy: string;
+  isAdminEnabled: boolean;
+}) => ({
   "ui:data-cy": dataCy,
-  "ui:widget": "hidden",
+  "ui:widget": isAdminEnabled ? "radio" : "hidden",
   "ui:options": {
     inline: true,
   },
@@ -160,23 +178,13 @@ const radioUiSchema = ({ dataCy }: { dataCy: string }) => ({
   `,
 });
 
-const EmptyStateWrapper = styled.div`
-  width: 70%;
-`;
-
-const EmptyStateTitle = styled.h3`
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 ${size.xs} 0;
-`;
-
-const EmptyStateDescription = styled.p`
-  font-size: 14px;
-  color: #5a5a5a;
-  margin: 0;
-  line-height: 1.5;
-`;
-
 const ContentWrapper = styled.div`
   width: 70%;
+`;
+
+const DescriptionWrapper = styled.span`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.s};
+  margin-bottom: ${size.s};
 `;
