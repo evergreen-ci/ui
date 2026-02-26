@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import widgets from "components/SpruceForm/Widgets";
-import { fullWidthCss, radioCSS } from "../../sharedStyles";
+import { fullWidthCss } from "../../sharedStyles";
 
 export const api = {
   schema: {
@@ -125,18 +125,40 @@ export const betaFeatures = {
         },
       ],
     },
+    // Example for future beta features:
+    // newFeature: {
+    //   type: "boolean" as const,
+    //   title: "New Feature Name",
+    //   oneOf: [
+    //     {
+    //       type: "boolean" as const,
+    //       title: "Enabled",
+    //       enum: [true],
+    //     },
+    //     {
+    //       type: "boolean" as const,
+    //       title: "Disabled",
+    //       enum: [false],
+    //     },
+    //   ],
+    // },
   },
   uiSchema: {
     "ui:description":
       "No beta features are currently active. Enable beta features to give users early access to experimental functionality.",
     parsleyAIEnabled: {
+      // Hidden because Parsley AI is now GA (generally available)
       "ui:widget": "hidden",
-      "ui:data-cy": "parsley-ai-enabled",
-      "ui:options": {
-        inline: true,
-        elementWrapperCSS: radioCSS,
-      },
     },
+    // Example for future beta features:
+    // newFeature: {
+    //   "ui:widget": widgets.RadioWidget,
+    //   "ui:data-cy": "new-feature",
+    //   "ui:options": {
+    //     inline: true,
+    //     elementWrapperCSS: radioCSS, // import from "../../sharedStyles"
+    //   },
+    // },
   },
 };
 
