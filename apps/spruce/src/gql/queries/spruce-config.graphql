@@ -17,12 +17,6 @@ query SpruceConfig {
     providers {
       aws {
         maxVolumeSizePerUser
-        pod {
-          ecs {
-            maxCPU
-            maxMemoryMb
-          }
-        }
       }
     }
     serviceFlags {

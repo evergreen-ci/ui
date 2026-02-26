@@ -27,9 +27,6 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.VirtualWorkstation]: {
         title: "Virtual Workstation",
       },
-      [ProjectSettingsTabRoutes.Containers]: {
-        title: "Containers",
-      },
       [ProjectSettingsTabRoutes.ViewsAndFilters]: {
         title: "Views & Filters",
       },

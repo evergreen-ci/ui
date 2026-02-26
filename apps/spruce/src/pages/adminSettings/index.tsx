@@ -88,16 +88,6 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
-                data-cy="navitem-admin-pod-lifecycle"
-                to={getAdminSettingsRoute(
-                  AdminSettingsTabRoutes.General,
-                  "pod-lifecycle",
-                )}
-              >
-                Pod Lifecycle
-              </SideNavItem>
-              <SideNavItem
-                as={Link}
                 data-cy="navitem-admin-scheduler"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,

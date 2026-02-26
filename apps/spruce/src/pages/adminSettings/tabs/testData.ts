@@ -25,11 +25,6 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     bufferIntervalSeconds: 1,
     bufferTargetPerInterval: 1,
   },
-  podLifecycle: {
-    maxParallelPodRequests: 1,
-    maxPodDefinitionCleanupRate: 1,
-    maxSecretCleanupRate: 1,
-  },
   repotracker: {
     maxConcurrentRequests: 1,
     maxRepoRevisionsToSearch: 1,

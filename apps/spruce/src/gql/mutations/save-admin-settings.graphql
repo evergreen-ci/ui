@@ -33,11 +33,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
         senderAddress
       }
     }
-    podLifecycle {
-      maxParallelPodRequests
-      maxPodDefinitionCleanupRate
-      maxSecretCleanupRate
-    }
     repotracker {
       maxConcurrentRequests
       maxRepoRevisionsToSearch
@@ -66,7 +61,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       targetTimeSeconds
       taskFinder
     }
-
     taskLimits {
       maxConcurrentLargeParserProjectTasks
       maxDailyAutomaticRestarts

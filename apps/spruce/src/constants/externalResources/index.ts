@@ -49,8 +49,6 @@ export const redactedVarsDocumentationUrl = `${wikiBaseUrl}/Project-Configuratio
 
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;
 
-export const containersOnboardingDocumentationUrl = `${wikiBaseUrl}/Containers/Container-Tasks`;
-
 export const taskSchedulingLimitsDocumentationUrl = `${wikiBaseUrl}/Reference/Limits#task-scheduling-limits`;
 
 export const dataRetentionDocumentationUrl = `${wikiBaseUrl}/Reference/Data-Retention`;
