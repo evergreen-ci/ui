@@ -125,23 +125,6 @@ export const betaFeatures = {
         },
       ],
     },
-    // Example for future beta features:
-    // newFeature: {
-    //   type: "boolean" as const,
-    //   title: "New Feature Name",
-    //   oneOf: [
-    //     {
-    //       type: "boolean" as const,
-    //       title: "Enabled",
-    //       enum: [true],
-    //     },
-    //     {
-    //       type: "boolean" as const,
-    //       title: "Disabled",
-    //       enum: [false],
-    //     },
-    //   ],
-    // },
   },
   uiSchema: {
     "ui:description":
