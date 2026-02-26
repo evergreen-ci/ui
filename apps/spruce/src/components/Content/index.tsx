@@ -18,7 +18,6 @@ import {
 } from "constants/routes";
 import { AdminSettings } from "pages/AdminSettings";
 import { ConfigurePatch } from "pages/ConfigurePatch";
-import { Container } from "pages/Container";
 import { Distro } from "pages/Distro";
 import { Host } from "pages/Host";
 import { Hosts } from "pages/Hosts";
@@ -43,7 +42,6 @@ export const Content: React.FC = () => (
   <Routes>
     <Route element={<Layout />}>
       <Route element={<Navigate to={routes.myPatches} />} path="/" />
-      <Route element={<Container />} path={routes.container} />
       <Route
         element={<WaterfallCommitsRedirect />}
         path={redirectRoutes.waterfall}

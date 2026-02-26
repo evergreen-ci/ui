@@ -1,9 +1,4 @@
-import {
-  AdminSettingsInput,
-  EcsArchitecture,
-  EcsOperatingSystem,
-  EcsWindowsVersion,
-} from "gql/generated/types";
+import { AdminSettingsInput } from "gql/generated/types";
 import { adminSettings } from "../../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { ProvidersFormState } from "./types";
@@ -60,50 +55,6 @@ const form: ProvidersFormState = {
         bucket: "test-parser-bucket",
         prefix: "test-parser-prefix",
         generatedJSONPrefix: "test-json-prefix",
-      },
-      pod: {
-        allowedImages: ["ubuntu:20.04", "amazon/amazonlinux:latest"],
-        maxCPU: 2048,
-        maxMemoryMb: 4096,
-        role: "arn:aws:iam::123456789:role/EcsTaskRole",
-        region: "us-east-1",
-        podSecretManager: "evergreen-secrets",
-        taskDefinitionPrefix: "evg-task",
-        taskRole: "arn:aws:iam::123456789:role/TaskRole",
-        executionRole: "arn:aws:iam::123456789:role/ExecutionRole",
-        logRegion: "us-east-1",
-        logGroup: "/ecs/evergreen",
-        logStreamPrefix: "evg-pod",
-        awsVPCSubnets: {
-          subnets: ["subnet-vpc1", "subnet-vpc2"],
-        },
-        awsVPCSecurityGroups: {
-          securityGroups: ["sg-vpc1", "sg-vpc2"],
-        },
-        clusters: [
-          {
-            name: "test-cluster-1",
-            os: EcsOperatingSystem.EcsosLinux,
-          },
-          {
-            name: "test-cluster-2",
-            os: EcsOperatingSystem.EcsosWindows,
-          },
-        ],
-        capacityProviders: [
-          {
-            name: "test-provider-1",
-            arch: EcsArchitecture.EcsArchAmd64,
-            os: EcsOperatingSystem.EcsosLinux,
-            windowsVersion: undefined,
-          },
-          {
-            name: "test-provider-2",
-            arch: EcsArchitecture.EcsArchArm64,
-            os: EcsOperatingSystem.EcsosWindows,
-            windowsVersion: EcsWindowsVersion.EcsWindowsServer_2019,
-          },
-        ],
       },
       defaultSecurityGroup: "sg-default123",
       maxVolumeSizePerUser: 100,
@@ -186,52 +137,6 @@ const gql: AdminSettingsInput = {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
       },
-      pod: {
-        region: "us-east-1",
-        role: "arn:aws:iam::123456789:role/EcsTaskRole",
-        ecs: {
-          allowedImages: ["ubuntu:20.04", "amazon/amazonlinux:latest"],
-          clusters: [
-            {
-              name: "test-cluster-1",
-              os: EcsOperatingSystem.EcsosLinux,
-            },
-            {
-              name: "test-cluster-2",
-              os: EcsOperatingSystem.EcsosWindows,
-            },
-          ],
-          capacityProviders: [
-            {
-              name: "test-provider-1",
-              arch: EcsArchitecture.EcsArchAmd64,
-              os: EcsOperatingSystem.EcsosLinux,
-              windowsVersion: undefined,
-            },
-            {
-              name: "test-provider-2",
-              arch: EcsArchitecture.EcsArchArm64,
-              os: EcsOperatingSystem.EcsosWindows,
-              windowsVersion: EcsWindowsVersion.EcsWindowsServer_2019,
-            },
-          ],
-          taskDefinitionPrefix: "evg-task",
-          taskRole: "arn:aws:iam::123456789:role/TaskRole",
-          executionRole: "arn:aws:iam::123456789:role/ExecutionRole",
-          logRegion: "us-east-1",
-          logGroup: "/ecs/evergreen",
-          logStreamPrefix: "evg-pod",
-          maxCPU: 2048,
-          maxMemoryMb: 4096,
-          awsVPC: {
-            subnets: ["subnet-vpc1", "subnet-vpc2"],
-            securityGroups: ["sg-vpc1", "sg-vpc2"],
-          },
-        },
-        secretsManager: {
-          secretPrefix: "evergreen-secrets",
-        },
-      },
       subnets: [
         {
           az: "us-east-1a",
@@ -307,52 +212,6 @@ const testAdminSettings = {
       persistentDNS: {
         hostedZoneID: "Z123456789",
         domain: "test.example.com",
-      },
-      pod: {
-        region: "us-east-1",
-        role: "arn:aws:iam::123456789:role/EcsTaskRole",
-        ecs: {
-          allowedImages: ["ubuntu:20.04", "amazon/amazonlinux:latest"],
-          clusters: [
-            {
-              name: "test-cluster-1",
-              os: EcsOperatingSystem.EcsosLinux,
-            },
-            {
-              name: "test-cluster-2",
-              os: EcsOperatingSystem.EcsosWindows,
-            },
-          ],
-          capacityProviders: [
-            {
-              name: "test-provider-1",
-              arch: EcsArchitecture.EcsArchAmd64,
-              os: EcsOperatingSystem.EcsosLinux,
-              windowsVersion: undefined,
-            },
-            {
-              name: "test-provider-2",
-              arch: EcsArchitecture.EcsArchArm64,
-              os: EcsOperatingSystem.EcsosWindows,
-              windowsVersion: EcsWindowsVersion.EcsWindowsServer_2019,
-            },
-          ],
-          taskDefinitionPrefix: "evg-task",
-          taskRole: "arn:aws:iam::123456789:role/TaskRole",
-          executionRole: "arn:aws:iam::123456789:role/ExecutionRole",
-          logRegion: "us-east-1",
-          logGroup: "/ecs/evergreen",
-          logStreamPrefix: "evg-pod",
-          maxCPU: 2048,
-          maxMemoryMb: 4096,
-          awsVPC: {
-            subnets: ["subnet-vpc1", "subnet-vpc2"],
-            securityGroups: ["sg-vpc1", "sg-vpc2"],
-          },
-        },
-        secretsManager: {
-          secretPrefix: "evergreen-secrets",
-        },
       },
       subnets: [
         {

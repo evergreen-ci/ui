@@ -1,4 +1,5 @@
-import { AdminSettings, AdminSettingsInput } from "gql/generated/types";
+import { AdminSettingsInput } from "gql/generated/types";
+import { AdminSettingsData } from "pages/adminSettings/tabs/types";
 import { formToGql, gqlToForm } from "./transformers";
 import { OtherFormState } from "./types";
 
@@ -12,7 +13,7 @@ describe("other tab transformers", () => {
   });
 });
 
-const mockAdminSettings: AdminSettings = {
+const mockAdminSettings: AdminSettingsData = {
   disabledGQLQueries: [],
   configDir: "/etc/evergreen",
   domainName: "evergreen.example.com",

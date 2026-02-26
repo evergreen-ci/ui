@@ -1,8 +1,5 @@
-import {
-  AdminSettings,
-  AdminSettingsInput,
-  PreferredAuthType,
-} from "gql/generated/types";
+import { AdminSettingsInput, PreferredAuthType } from "gql/generated/types";
+import { AdminSettingsData } from "pages/adminSettings/tabs/types";
 import { formToGql, gqlToForm } from "./transformers";
 import { AuthenticationFormState } from "./types";
 
@@ -16,7 +13,7 @@ describe("authentication section", () => {
   });
 });
 
-const mockAdminSettings: AdminSettings = {
+const mockAdminSettings: AdminSettingsData = {
   authConfig: {
     allowServiceUsers: true,
     backgroundReauthMinutes: 60,

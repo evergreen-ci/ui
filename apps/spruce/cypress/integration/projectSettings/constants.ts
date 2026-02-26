@@ -10,7 +10,6 @@ export enum ProjectSettingsTabRoutes {
   PeriodicBuilds = "periodic-builds",
   Plugins = "plugins",
   EventLog = "event-log",
-  Containers = "containers",
   ViewsAndFilters = "views-and-filters",
   GithubAppSettings = "github-app-settings",
   GithubPermissionGroups = "github-permission-groups",
