@@ -93,7 +93,6 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
           betaFeatures: {
             parsleyAIEnabled: radioUiSchema({
               dataCy: "parsley-ai-enabled",
-              isAdminEnabled: adminBetaSettings?.parsleyAIEnabled ?? false,
             }),
             "ui:description": (
               <DescriptionWrapper>
@@ -141,15 +140,9 @@ const radioSchema = ({ title }: { title: string }) => ({
   ],
 });
 
-const radioUiSchema = ({
-  dataCy,
-  isAdminEnabled,
-}: {
-  dataCy: string;
-  isAdminEnabled: boolean;
-}) => ({
+const radioUiSchema = ({ dataCy }: { dataCy: string }) => ({
   "ui:data-cy": dataCy,
-  "ui:widget": isAdminEnabled ? "radio" : "hidden",
+  "ui:widget": "hidden",
   "ui:options": {
     inline: true,
   },

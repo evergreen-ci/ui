@@ -128,7 +128,7 @@ export const betaFeatures = {
   },
   uiSchema: {
     parsleyAIEnabled: {
-      "ui:widget": widgets.RadioWidget,
+      "ui:widget": "hidden",
       "ui:data-cy": "parsley-ai-enabled",
       "ui:options": {
         inline: true,

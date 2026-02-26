@@ -1,6 +1,4 @@
 import { ChangeEvent, FormEvent, useCallback, useEffect } from "react";
-import styled from "@emotion/styled";
-import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import {
   Chat,
   ChatDrawer,
@@ -8,7 +6,6 @@ import {
   MessageRatingValue,
   useChatContext,
 } from "@evg-ui/fungi";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { post } from "@evg-ui/lib/utils/request/post";
 import { useAIAgentAnalytics } from "analytics";
 import { aiPrompts } from "constants/aiPrompts";
@@ -132,20 +129,8 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
         />
       }
       data-cy="chat-drawer"
-      // TODO: `drawerTitle` can be removed after beta period for Parsley AI ends.
-      drawerTitle={
-        <DrawerTitle>
-          Parsley AI <Badge variant={BadgeVariant.Blue}>Beta</Badge>
-        </DrawerTitle>
-      }
     >
       {children}
     </ChatDrawer>
   );
 };
-
-const DrawerTitle = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xs};
-`;
