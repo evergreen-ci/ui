@@ -14,7 +14,7 @@ import { COPY_PROJECT } from "gql/mutations";
 import {
   performanceTooling,
   projectName,
-  requestS3Creds,
+  s3BucketInfo,
 } from "./createDuplicateModalSchema";
 
 interface Props {
@@ -37,7 +37,6 @@ export const CopyProjectModal: React.FC<Props> = ({
   const [formState, setFormState] = useState({
     projectName: "",
     enablePerformanceTooling: false,
-    requestS3Creds: false,
   });
   const [hasError, setHasError] = useState(true);
 
@@ -91,7 +90,7 @@ export const CopyProjectModal: React.FC<Props> = ({
           newProjectIdentifier: formState.projectName,
           projectIdToCopy: id,
         },
-        requestS3Creds: formState.requestS3Creds,
+        requestS3Creds: false,
       },
     });
     sendEvent({
@@ -134,12 +133,12 @@ const modalFormDefinition = {
     properties: {
       projectName: projectName.schema,
       ...performanceTooling.schema,
-      requestS3Creds: requestS3Creds.schema,
+      s3BucketInfo: s3BucketInfo.schema,
     },
   },
   uiSchema: {
     projectName: projectName.uiSchema,
     ...performanceTooling.uiSchema,
-    requestS3Creds: requestS3Creds.uiSchema,
+    s3BucketInfo: s3BucketInfo.uiSchema,
   },
 };

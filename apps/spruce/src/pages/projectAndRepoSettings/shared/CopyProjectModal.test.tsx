@@ -73,6 +73,12 @@ describe("copyProjectField", () => {
     expect(screen.queryByDataCy("performance-tooling-banner")).toBeVisible();
   });
 
+  it("shows info banner for S3 bucket setup", async () => {
+    const { Component } = RenderFakeToastContext(<Modal />);
+    render(<Component />);
+    expect(screen.queryByDataCy("s3-bucket-info-banner")).toBeVisible();
+  });
+
   it("submits the modal when a project name is provided", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(<Modal />);
@@ -82,15 +88,6 @@ describe("copyProjectField", () => {
       screen.getByDataCy("project-name-input"),
       newProjectIdentifier,
     );
-
-    // Check S3 creds checkbox.
-    const requestS3Creds = screen.getByDataCy("request-s3-creds");
-    const requestS3CredLabel = screen.getByText(
-      "Open a JIRA ticket to request an S3 Bucket",
-    );
-    expect(requestS3Creds).not.toBeChecked();
-    await user.click(requestS3CredLabel); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
-    expect(requestS3Creds).toBeChecked();
 
     const confirmButton = screen.getByRole("button", {
       name: "Duplicate",
@@ -263,7 +260,7 @@ const copyProjectMock: ApolloMock<
         newProjectIdentifier,
         projectIdToCopy,
       },
-      requestS3Creds: true,
+      requestS3Creds: false,
     },
   },
   result: {

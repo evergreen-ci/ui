@@ -52,13 +52,30 @@ export const performanceTooling = {
   },
 };
 
-export const requestS3Creds = {
+const S3BucketInfoBanner: Field = () => (
+  <Banner
+    data-cy="s3-bucket-info-banner"
+    style={{ marginBottom: "20px" }}
+    variant="info"
+  >
+    If you need an S3 bucket, you can set it up in Backstage at{" "}
+    <a
+      href="https://app.backstage.prod.corp.mongodb.com/create/templates/default/evergreen-s3"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      https://app.backstage.prod.corp.mongodb.com/create/templates/default/evergreen-s3
+    </a>
+    .
+  </Banner>
+);
+
+export const s3BucketInfo = {
   schema: {
-    type: "boolean" as const,
-    title: "Open a JIRA ticket to request an S3 Bucket",
-    default: false,
+    type: "null" as const,
   },
   uiSchema: {
-    "ui:data-cy": "request-s3-creds",
+    "ui:field": S3BucketInfoBanner,
+    "ui:showLabel": false,
   },
 };
