@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button, Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { diff } from "deep-object-diff";
@@ -92,9 +91,6 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
                 // newFeature: radioSchema({
                 //   title: "New Feature Name",
                 // }),
-                parsleyAIEnabled: radioSchema({
-                  title: "Allow AI Agent in Parsley",
-                }),
               },
             },
           },
@@ -106,10 +102,6 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
             //   dataCy: "new-feature",
             //   isAdminEnabled: adminBetaSettings?.newFeature ?? false,
             // }),
-            parsleyAIEnabled: radioUiSchema({
-              dataCy: "parsley-ai-enabled",
-              isAdminEnabled: adminBetaSettings?.parsleyAIEnabled ?? false,
-            }),
             "ui:description": (
               <DescriptionWrapper>
                 <span>
@@ -140,43 +132,43 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
   );
 };
 
-const radioSchema = ({ title }: { title: string }) => ({
-  type: "boolean" as const,
-  title,
-  default: false,
-  oneOf: [
-    {
-      type: "boolean" as const,
-      title: "Enabled",
-      enum: [true],
-    },
-    {
-      type: "boolean" as const,
-      title: "Disabled",
-      enum: [false],
-    },
-  ],
-});
+// const radioSchema = ({ title }: { title: string }) => ({
+//   type: "boolean" as const,
+//   title,
+//   default: false,
+//   oneOf: [
+//     {
+//       type: "boolean" as const,
+//       title: "Enabled",
+//       enum: [true],
+//     },
+//     {
+//       type: "boolean" as const,
+//       title: "Disabled",
+//       enum: [false],
+//     },
+//   ],
+// });
 
-const radioUiSchema = ({
-  dataCy,
-  isAdminEnabled,
-}: {
-  dataCy: string;
-  isAdminEnabled: boolean;
-}) => ({
-  "ui:data-cy": dataCy,
-  "ui:widget": isAdminEnabled ? "radio" : "hidden",
-  "ui:options": {
-    inline: true,
-  },
-  "ui:elementWrapperCSS": css`
-    display: flex;
-    justify-content: space-between;
-    gap: ${size.m};
-    margin-bottom: ${size.s};
-  `,
-});
+// const radioUiSchema = ({
+//   dataCy,
+//   isAdminEnabled,
+// }: {
+//   dataCy: string;
+//   isAdminEnabled: boolean;
+// }) => ({
+//   "ui:data-cy": dataCy,
+//   "ui:widget": isAdminEnabled ? "radio" : "hidden",
+//   "ui:options": {
+//     inline: true,
+//   },
+//   "ui:elementWrapperCSS": css`
+//     display: flex;
+//     justify-content: space-between;
+//     gap: ${size.m};
+//     margin-bottom: ${size.s};
+//   `,
+// });
 
 const ContentWrapper = styled.div`
   width: 70%;
