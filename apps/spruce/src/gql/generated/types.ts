@@ -201,6 +201,7 @@ export type AdminSettings = {
   sage?: Maybe<SageConfig>;
   scheduler?: Maybe<SchedulerConfig>;
   serviceFlags?: Maybe<ServiceFlags>;
+  serviceFlagsList?: Maybe<Array<ServiceFlag>>;
   shutdownWaitSeconds?: Maybe<Scalars["Int"]["output"]>;
   singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
   slack?: Maybe<SlackConfig>;
@@ -2049,6 +2050,7 @@ export type Mutation = {
   setLastRevision: SetLastRevisionPayload;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
+  setServiceFlags: Array<ServiceFlag>;
   setTaskPriorities: Array<Task>;
   setTaskPriority: Task;
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
@@ -2285,6 +2287,10 @@ export type MutationSetLastRevisionArgs = {
 export type MutationSetPatchVisibilityArgs = {
   hidden: Scalars["Boolean"]["input"];
   patchIds: Array<Scalars["String"]["input"]>;
+};
+
+export type MutationSetServiceFlagsArgs = {
+  updatedFlags: Array<ServiceFlagInput>;
 };
 
 export type MutationSetTaskPrioritiesArgs = {
@@ -2889,6 +2895,7 @@ export type Project = {
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   repotrackerError?: Maybe<RepotrackerError>;
   restricted?: Maybe<Scalars["Boolean"]["output"]>;
+  runEveryMainlineCommit?: Maybe<Scalars["Boolean"]["output"]>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3042,6 +3049,7 @@ export type ProjectInput = {
   repo?: InputMaybe<Scalars["String"]["input"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   restricted?: InputMaybe<Scalars["Boolean"]["input"]>;
+  runEveryMainlineCommit?: InputMaybe<Scalars["Boolean"]["input"]>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3460,6 +3468,7 @@ export type RepoRef = {
   repo: Scalars["String"]["output"];
   repotrackerDisabled: Scalars["Boolean"]["output"];
   restricted: Scalars["Boolean"]["output"];
+  runEveryMainlineCommit: Scalars["Boolean"]["output"];
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
@@ -3509,6 +3518,7 @@ export type RepoRefInput = {
   repo?: InputMaybe<Scalars["String"]["input"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   restricted?: InputMaybe<Scalars["Boolean"]["input"]>;
+  runEveryMainlineCommit?: InputMaybe<Scalars["Boolean"]["input"]>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3801,6 +3811,17 @@ export type Selector = {
 export type SelectorInput = {
   data: Scalars["String"]["input"];
   type: Scalars["String"]["input"];
+};
+
+export type ServiceFlag = {
+  __typename?: "ServiceFlag";
+  enabled: Scalars["Boolean"]["output"];
+  name: Scalars["String"]["output"];
+};
+
+export type ServiceFlagInput = {
+  enabled: Scalars["Boolean"]["input"];
+  name: Scalars["String"]["input"];
 };
 
 export type ServiceFlags = {
@@ -4208,6 +4229,7 @@ export type Task = {
   displayStatus: Scalars["String"]["output"];
   displayTask?: Maybe<Task>;
   distroId: Scalars["String"]["output"];
+  errors?: Maybe<Array<Scalars["String"]["output"]>>;
   estimatedStart?: Maybe<Scalars["Duration"]["output"]>;
   execution: Scalars["Int"]["output"];
   executionTasks?: Maybe<Array<Scalars["String"]["output"]>>;
@@ -4708,7 +4730,6 @@ export type UiConfig = {
   csrfKey?: Maybe<Scalars["String"]["output"]>;
   defaultProject: Scalars["String"]["output"];
   fileStreamingContentTypes: Array<Scalars["String"]["output"]>;
-  helpUrl?: Maybe<Scalars["String"]["output"]>;
   httpListenAddr?: Maybe<Scalars["String"]["output"]>;
   loginDomain?: Maybe<Scalars["String"]["output"]>;
   parsleyUrl?: Maybe<Scalars["String"]["output"]>;
@@ -4726,7 +4747,6 @@ export type UiConfigInput = {
   csrfKey: Scalars["String"]["input"];
   defaultProject: Scalars["String"]["input"];
   fileStreamingContentTypes: Array<Scalars["String"]["input"]>;
-  helpUrl: Scalars["String"]["input"];
   httpListenAddr: Scalars["String"]["input"];
   loginDomain: Scalars["String"]["input"];
   parsleyUrl: Scalars["String"]["input"];
@@ -11309,6 +11329,59 @@ export type TaskNamesForBuildVariantQueryVariables = Exact<{
 export type TaskNamesForBuildVariantQuery = {
   __typename?: "Query";
   taskNamesForBuildVariant?: Array<string> | null;
+};
+
+export type TaskOverviewPopupQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskOverviewPopupQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    buildVariant: string;
+    canRestart: boolean;
+    displayName: string;
+    displayStatus: string;
+    distroId: string;
+    execution: number;
+    finishTime?: Date | null;
+    priority?: number | null;
+    timeTaken?: number | null;
+    annotation?: {
+      __typename?: "Annotation";
+      id: string;
+      createdIssues?: Array<{
+        __typename?: "IssueLink";
+        issueKey?: string | null;
+        url?: string | null;
+      }> | null;
+      issues?: Array<{
+        __typename?: "IssueLink";
+        issueKey?: string | null;
+        url?: string | null;
+        jiraTicket?: {
+          __typename?: "JiraTicket";
+          fields: {
+            __typename?: "TicketFields";
+            failingTasks?: Array<string> | null;
+          };
+        } | null;
+      }> | null;
+      suspectedIssues?: Array<{
+        __typename?: "IssueLink";
+        issueKey?: string | null;
+        url?: string | null;
+      }> | null;
+    } | null;
+    details?: {
+      __typename?: "TaskEndDetail";
+      description?: string | null;
+      failingCommand?: string | null;
+    } | null;
+  } | null;
 };
 
 export type TaskOwnerTeamsForTaskQueryVariables = Exact<{

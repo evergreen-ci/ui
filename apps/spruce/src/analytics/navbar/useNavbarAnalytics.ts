@@ -12,6 +12,7 @@ type Action =
   | { name: "Clicked distro settings link" }
   | { name: "Clicked project settings link" }
   | { name: "Clicked project patches link" }
+  | { name: "Clicked merge queue link" }
   | { name: "Clicked EVG wiki link" }
   | { name: "Clicked profile link" }
   | { name: "Clicked notifications link" }

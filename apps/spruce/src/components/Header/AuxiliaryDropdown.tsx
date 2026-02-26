@@ -1,3 +1,4 @@
+import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { useNavbarAnalytics } from "analytics";
 import {
   routes,
@@ -39,6 +40,15 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       to: getProjectPatchesRoute(projectIdentifier),
       text: "Project Patches",
       onClick: () => sendEvent({ name: "Clicked project patches link" }),
+    },
+    {
+      "data-cy": "auxiliary-dropdown-merge-queue",
+      to: {
+        pathname: getProjectPatchesRoute(projectIdentifier),
+        search: stringifyQuery({ mergeQueue: true }),
+      },
+      text: "Merge Queue",
+      onClick: () => sendEvent({ name: "Clicked merge queue link" }),
     },
     {
       "data-cy": "auxiliary-dropdown-project-settings",

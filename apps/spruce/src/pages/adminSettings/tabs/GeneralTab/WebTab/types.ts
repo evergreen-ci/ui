@@ -7,7 +7,6 @@ export interface WebFormState {
     };
     ui: {
       url: string;
-      helpUrl: string;
       uiv2Url: string;
       parsleyUrl: string;
       httpListenAddr: string;

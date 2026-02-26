@@ -1,4 +1,5 @@
 import {
+  validateEmail,
   validateJira,
   validateJiraURL,
   validateNoSpecialCharacters,
@@ -65,6 +66,9 @@ describe("validateRegexp", () => {
     expect(validateRegexp("[")).toBeFalsy();
     expect(validateRegexp("test(")).toBeFalsy();
   });
+  it("returns true for empty strings", () => {
+    expect(validateRegexp("")).toBe(true);
+  });
 });
 describe("validateSSHPublicKey", () => {
   it("validates ssh public keys", () => {
@@ -126,6 +130,19 @@ describe("validateJira", () => {
   });
 });
 
+describe("validateEmail", () => {
+  it("validates email addresses", () => {
+    expect(validateEmail("user@example.com")).toBeTruthy();
+    expect(validateEmail("test@domain.org")).toBeTruthy();
+
+    expect(validateEmail("notanemail")).toBeFalsy();
+    expect(validateEmail("@missing.com")).toBeFalsy();
+  });
+  it("returns true for empty strings", () => {
+    expect(validateEmail("")).toBe(true);
+  });
+});
+
 describe("validateURL", () => {
   it("validates urls", () => {
     expect(validateURL("www.mongodb.com")).toBeTruthy();
@@ -141,6 +158,9 @@ describe("validateURL", () => {
 
     expect(validateURL("ww.fake.org")).toBeFalsy();
     expect(validateURL("bad.org")).toBeFalsy();
+  });
+  it("returns true for empty strings", () => {
+    expect(validateURL("")).toBe(true);
   });
 });
 

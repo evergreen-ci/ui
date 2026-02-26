@@ -21,7 +21,6 @@ const form: WebFormState = {
     },
     ui: {
       url: "http://ui.example.com",
-      helpUrl: "http://help.example.com",
       uiv2Url: "http://uiv2.example.com",
       parsleyUrl: "http://parsley.example.com",
       httpListenAddr: "http://localhost:8081",
@@ -52,7 +51,6 @@ const gql: AdminSettingsInput = {
   },
   ui: {
     url: "http://ui.example.com",
-    helpUrl: "http://help.example.com",
     uiv2Url: "http://uiv2.example.com",
     parsleyUrl: "http://parsley.example.com",
     httpListenAddr: "http://localhost:8081",
