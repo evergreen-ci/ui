@@ -30,6 +30,7 @@ const compose = (
       `There was an issue composing stories for the module: ${JSON.stringify(
         entry,
       )}, ${e}`,
+      { cause: e },
     );
   }
 };
