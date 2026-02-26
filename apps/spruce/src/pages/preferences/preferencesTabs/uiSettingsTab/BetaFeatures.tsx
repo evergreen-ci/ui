@@ -65,9 +65,26 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
     });
   };
 
+  // Check if there are any active beta features that we actually show in the UI
+  // Exclude parsleyAIEnabled since it's no longer in beta
   const hasActiveBetaFeatures = adminBetaSettings
-    ? Object.values(adminBetaSettings).filter((v) => v === true).length > 0
+    ? Object.entries(adminBetaSettings).some(
+        ([key, value]) =>
+          key !== "__typename" && key !== "parsleyAIEnabled" && value === true,
+      )
     : false;
+
+  if (!hasActiveBetaFeatures) {
+    return (
+      <EmptyStateWrapper>
+        <EmptyStateTitle>Beta Features</EmptyStateTitle>
+        <EmptyStateDescription>
+          No beta experiments are active right now. Check back later for early
+          access to upcoming features.
+        </EmptyStateDescription>
+      </EmptyStateWrapper>
+    );
+  }
 
   return (
     <ContentWrapper>
@@ -94,19 +111,8 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
             parsleyAIEnabled: radioUiSchema({
               dataCy: "parsley-ai-enabled",
             }),
-            "ui:description": (
-              <DescriptionWrapper>
-                <span>
-                  Enable beta features to get an early look at upcoming UI
-                  changes.
-                </span>
-                {hasActiveBetaFeatures ? (
-                  ""
-                ) : (
-                  <span>No beta experiments are active right now.</span>
-                )}
-              </DescriptionWrapper>
-            ),
+            "ui:description":
+              "Enable beta features to get an early look at upcoming UI changes.",
           },
         }}
       />
@@ -154,11 +160,21 @@ const radioUiSchema = ({ dataCy }: { dataCy: string }) => ({
   `,
 });
 
-const DescriptionWrapper = styled.span`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.s};
-  margin-bottom: ${size.s};
+const EmptyStateWrapper = styled.div`
+  width: 70%;
+`;
+
+const EmptyStateTitle = styled.h3`
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 ${size.xs} 0;
+`;
+
+const EmptyStateDescription = styled.p`
+  font-size: 14px;
+  color: #5a5a5a;
+  margin: 0;
+  line-height: 1.5;
 `;
 
 const ContentWrapper = styled.div`

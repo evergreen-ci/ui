@@ -127,6 +127,8 @@ export const betaFeatures = {
     },
   },
   uiSchema: {
+    "ui:description":
+      "No beta features are currently active. Enable beta features to give users early access to experimental functionality.",
     parsleyAIEnabled: {
       "ui:widget": "hidden",
       "ui:data-cy": "parsley-ai-enabled",
