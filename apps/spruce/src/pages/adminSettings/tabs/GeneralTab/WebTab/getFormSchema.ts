@@ -63,7 +63,6 @@ export const formSchema: ReturnType<GetFormSchema> = {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:data-cy": "beta-features",
         "ui:objectFieldCss": css`
-          /* Hide the nested SettingsCard when it's empty (all fields hidden) */
           [data-cy="beta-features"]:empty {
             display: none;
           }
