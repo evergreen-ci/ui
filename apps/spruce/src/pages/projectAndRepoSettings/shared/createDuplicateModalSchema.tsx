@@ -58,13 +58,13 @@ const S3BucketInfoBanner: Field = () => (
     style={{ marginBottom: "20px" }}
     variant="info"
   >
-    If you need an S3 bucket, you can set it up in Backstage at{" "}
+    If you need an S3 bucket, you can set it up in{" "}
     <a
       href="https://app.backstage.prod.corp.mongodb.com/create/templates/default/evergreen-s3"
       rel="noopener noreferrer"
       target="_blank"
     >
-      https://app.backstage.prod.corp.mongodb.com/create/templates/default/evergreen-s3
+      Backstage
     </a>
     .
   </Banner>
