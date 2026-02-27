@@ -3,6 +3,15 @@ import { toZonedTime } from "date-fns-tz";
 import { TaskHistoryTask, GroupedTask } from "../types";
 
 /**
+ * `getTaskIngestTime` returns the ingest time to use for date sorting and grouping.
+ * For generated tasks, uses the generator's ingest time.
+ * @param task - the task history task
+ * @returns the ingest time to use for sorting
+ */
+export const getTaskIngestTime = (task: TaskHistoryTask): Date | null =>
+  task.generator?.ingestTime ?? task.ingestTime ?? null;
+
+/**
  * `groupTasks` groups tasks into active and inactive tasks based on the `shouldCollapse` parameter.
  * @param tasks - an array of tasks returned from the TaskHistory query
  * @param options - an object containing options for grouping tasks
@@ -52,7 +61,7 @@ export const groupTasks = (
 
   const pushDate = (t: TaskHistoryTask) => {
     groupedTasks.push({
-      date: t.ingestTime ?? new Date(),
+      date: getTaskIngestTime(t) ?? new Date(),
       inactiveTasks: null,
       task: null,
       isMatching: false,
@@ -67,8 +76,8 @@ export const groupTasks = (
     } else {
       const prevTask = tasks[i - 1];
       shouldShowDateSeparator = !areDatesOnSameDay(
-        prevTask.ingestTime,
-        task.ingestTime,
+        getTaskIngestTime(prevTask),
+        getTaskIngestTime(task),
         timezone,
       );
     }

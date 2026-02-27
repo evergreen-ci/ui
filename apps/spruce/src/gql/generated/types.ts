@@ -10839,6 +10839,12 @@ export type TaskHistoryQuery = {
       order: number;
       priority?: number | null;
       revision?: string | null;
+      generator?: {
+        __typename?: "Task";
+        id: string;
+        execution: number;
+        ingestTime?: Date | null;
+      } | null;
       tests: {
         __typename?: "TaskTestResult";
         testResults: Array<{

@@ -12,6 +12,11 @@ query TaskHistory($options: TaskHistoryOpts!) {
       canSetPriority
       displayStatus
       execution
+      generator {
+        id
+        execution
+        ingestTime
+      }
       ingestTime
       latestExecution
       order
