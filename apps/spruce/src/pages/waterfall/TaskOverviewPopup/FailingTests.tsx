@@ -53,7 +53,7 @@ export const FailingTests: React.FC<FailingTestsProps> = ({
       <FailingTestsList>
         {testResults.map((test) => (
           <li key={test.testFile}>
-            <WordBreak>{test.testFile}</WordBreak>
+            <WordBreak all>{test.testFile}</WordBreak>
           </li>
         ))}
       </FailingTestsList>
