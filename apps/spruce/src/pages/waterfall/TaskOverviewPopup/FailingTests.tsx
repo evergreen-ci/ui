@@ -70,8 +70,8 @@ export const FailingTests: React.FC<FailingTestsProps> = ({
 
 const FailingTestsList = styled.ul`
   margin: 0;
-  padding: 0 ${size.s};
-  font-family: monospace;
+  padding: 0;
+  list-style-type: none;
 `;
 
 const FailingTestsContainer = styled.div`
