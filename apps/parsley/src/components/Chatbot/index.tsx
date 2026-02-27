@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useCallback, useEffect } from "react";
+import { ChangeEvent, FormEvent, useCallback, useEffect, useRef } from "react";
 import {
   Chat,
   ChatDrawer,
@@ -86,12 +86,19 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
     sendEvent({ name: "Clicked copy response button" });
   }, [sendEvent]);
 
+  // Not open by default
+  const isInitialRender = useRef(true);
   useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
     sendEvent({
       name: "Toggled AI agent panel",
       open: drawerOpen,
     });
-  }, [drawerOpen, sendEvent]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [drawerOpen]);
 
   return (
     <ChatDrawer
