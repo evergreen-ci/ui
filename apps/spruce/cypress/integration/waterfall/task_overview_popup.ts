@@ -24,6 +24,15 @@ describe("task overview popup", () => {
     cy.dataCy("task-overview-popup").should("exist");
   });
 
+  it("navigates to task page when clicking the task link", () => {
+    cy.get(knownIssueTask).as("knownIssueTask");
+    cy.get("@knownIssueTask").click({ altKey: true });
+    cy.dataCy("task-overview-popup").should("exist");
+    cy.dataCy("task-overview-popup").should("be.visible");
+    cy.dataCy("task-link").click();
+    cy.location("pathname").should("include", `/task/${knownIssueTaskId}`);
+  });
+
   it("displays associated issues", () => {
     cy.get(knownIssueTask).as("knownIssueTask");
     cy.get("@knownIssueTask").click({ altKey: true });
@@ -39,13 +48,20 @@ describe("task overview popup", () => {
     cy.dataCy("task-overview-popup").should("contain.text", "A-Random-Ticket");
   });
 
-  it("navigates to task page when clicking the task link", () => {
-    cy.get(knownIssueTask).as("knownIssueTask");
-    cy.get("@knownIssueTask").click({ altKey: true });
+  it("displays failing tests for a failed task", () => {
+    const testServiceTask = 'a[data-tooltip="test-service - Failed"]';
+    cy.get(testServiceTask).click({ altKey: true });
     cy.dataCy("task-overview-popup").should("exist");
     cy.dataCy("task-overview-popup").should("be.visible");
-    cy.dataCy("task-link").click();
-    cy.location("pathname").should("include", `/task/${knownIssueTaskId}`);
+    cy.dataCy("task-overview-popup").should("contain.text", "Failing Test(s)");
+    cy.dataCy("task-overview-popup").should(
+      "contain.text",
+      "JustAFakeTestInALonelyWorld",
+    );
+    cy.dataCy("task-overview-popup").should(
+      "contain.text",
+      "JustAnotherFakeFailingTestInALonelyWorld",
+    );
   });
 
   describe("buttons", () => {

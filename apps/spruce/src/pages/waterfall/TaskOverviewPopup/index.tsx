@@ -18,6 +18,7 @@ import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
 import { ActionButtons } from "./ActionButtons";
 import { Annotations } from "./Annotations";
+import { FailingTests } from "./FailingTests";
 
 interface Props {
   execution: number;
@@ -117,6 +118,9 @@ export const TaskOverviewPopup: React.FC<Props> = ({
                 <b>{isFailingTask ? "Failing Command: " : "Command: "}</b>
                 <Body>{command}</Body>
               </div>
+            )}
+            {isFailingTask && (
+              <FailingTests execution={execution} taskId={taskId} />
             )}
             <Annotations annotation={annotation} displayName={displayName} />
           </>
