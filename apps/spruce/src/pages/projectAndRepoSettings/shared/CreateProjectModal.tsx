@@ -104,7 +104,6 @@ export const CreateProjectModal: React.FC<Props> = ({
             id: formState.projectName,
           }),
         },
-        requestS3Creds: false,
       },
     });
     sendEvent({ name: "Created new project" });

@@ -90,7 +90,6 @@ export const CopyProjectModal: React.FC<Props> = ({
           newProjectIdentifier: formState.projectName,
           projectIdToCopy: id,
         },
-        requestS3Creds: false,
       },
     });
     sendEvent({

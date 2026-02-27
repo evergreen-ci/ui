@@ -116,7 +116,6 @@ const mockAdminSettings: AdminSettings = {
   projectCreation: {
     totalProjectLimit: 100,
     repoProjectLimit: 50,
-    jiraProject: "EVG",
     repoExceptions: [
       {
         owner: "evergreen-ci",
@@ -242,8 +241,7 @@ const expectedForm: OtherFormState = {
     projectCreationSettings: {
       totalProjectLimit: 100,
       repoProjectLimit: 50,
-      jiraProject: "EVG",
-      repoExceptions: [
+        repoExceptions: [
         {
           owner: "evergreen-ci",
           repo: "evergreen",
@@ -368,7 +366,6 @@ const expectedGql: AdminSettingsInput = {
   projectCreation: {
     totalProjectLimit: 100,
     repoProjectLimit: 50,
-    jiraProject: "EVG",
     repoExceptions: [
       {
         owner: "evergreen-ci",

@@ -171,7 +171,6 @@ describe("createProjectField", () => {
             owner: "10gen",
             repo: "new-repo-name",
           },
-          requestS3Creds: false,
         },
       },
       result: {
@@ -229,7 +228,6 @@ describe("createProjectField", () => {
             owner: "10gen",
             repo: "new-repo-name",
           },
-          requestS3Creds: false,
         },
       },
       result: {
@@ -282,7 +280,6 @@ const createProjectMock: ApolloMock<
         owner: "10gen",
         repo: "new-repo-name",
       },
-      requestS3Creds: false,
     },
   },
   result: {

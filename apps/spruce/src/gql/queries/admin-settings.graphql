@@ -213,7 +213,6 @@ query AdminSettings {
     }
     pprofPort
     projectCreation {
-      jiraProject
       repoExceptions {
         owner
         repo

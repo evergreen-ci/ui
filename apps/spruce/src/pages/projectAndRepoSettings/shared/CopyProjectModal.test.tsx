@@ -113,7 +113,6 @@ describe("copyProjectField", () => {
             newProjectIdentifier,
             projectIdToCopy,
           },
-          requestS3Creds: false,
         },
       },
       result: {
@@ -171,7 +170,6 @@ describe("copyProjectField", () => {
             newProjectIdentifier,
             projectIdToCopy,
           },
-          requestS3Creds: false,
         },
       },
       result: {
@@ -219,7 +217,6 @@ describe("copyProjectField", () => {
             newProjectIdentifier,
             projectIdToCopy,
           },
-          requestS3Creds: false,
         },
       },
       result: {
@@ -260,7 +257,6 @@ const copyProjectMock: ApolloMock<
         newProjectIdentifier,
         projectIdToCopy,
       },
-      requestS3Creds: false,
     },
   },
   result: {
