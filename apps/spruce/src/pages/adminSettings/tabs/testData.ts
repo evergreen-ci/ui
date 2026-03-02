@@ -132,9 +132,7 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     csrfKey: "csrf-secret-key",
     cacheTemplates: true,
     stagingEnvironment: "staging",
-    betaFeatures: {
-      parsleyAIEnabled: true,
-    },
+    betaFeatures: {},
   },
   disabledGQLQueries: ["query1", "query2"],
 };

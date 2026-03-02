@@ -65,13 +65,9 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
     });
   };
 
-  // Check if there are any active beta features that we actually show in the UI
-  // Exclude parsleyAIEnabled since it's no longer in beta
-  // TODO: Once the backend stops returning this, we can remove.
   const hasActiveBetaFeatures = adminBetaSettings
     ? Object.entries(adminBetaSettings).some(
-        ([key, value]) =>
-          key !== "__typename" && key !== "parsleyAIEnabled" && value === true,
+        ([key, value]) => key !== "__typename" && value === true,
       )
     : false;
 

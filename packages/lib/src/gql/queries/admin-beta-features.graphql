@@ -2,7 +2,7 @@ query AdminBetaFeatures {
   spruceConfig {
     ui {
       betaFeatures {
-        parsleyAIEnabled
+        __typename
       }
     }
   }

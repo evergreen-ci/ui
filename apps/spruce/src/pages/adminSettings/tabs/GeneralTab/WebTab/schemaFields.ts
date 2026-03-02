@@ -108,31 +108,10 @@ export const ui = {
 };
 
 export const betaFeatures = {
-  schema: {
-    parsleyAIEnabled: {
-      type: "boolean" as const,
-      title: "Parsley AI Agent",
-      oneOf: [
-        {
-          type: "boolean" as const,
-          title: "Enabled",
-          enum: [true],
-        },
-        {
-          type: "boolean" as const,
-          title: "Disabled",
-          enum: [false],
-        },
-      ],
-    },
-  },
+  schema: {},
   uiSchema: {
     "ui:description":
       "No beta features are currently active. Enable beta features to give users early access to experimental functionality.",
-    parsleyAIEnabled: {
-      // Hidden because Parsley AI is now GA (generally available)
-      "ui:widget": "hidden",
-    },
     // Example for future beta features:
     // newFeature: {
     //   "ui:widget": widgets.RadioWidget,
