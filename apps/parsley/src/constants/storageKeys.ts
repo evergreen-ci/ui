@@ -1,4 +1,4 @@
-// Cookies for toggles
+// localStorage keys for client-side settings
 export const CASE_SENSITIVE = "case-sensitive";
 export const EXPANDABLE_ROWS = "expandable-rows";
 export const FILTER_LOGIC = "filter-logic";
@@ -16,3 +16,5 @@ export const HAS_SEEN_SEARCHBAR_GUIDE_CUE =
 export const LAST_SELECTED_LOG_TYPE = "last-selected-log-type";
 
 export const COPY_FORMAT = "default-copy-format";
+
+export const STORAGE_MIGRATION_COMPLETE = "parsley-cookie-migration-complete";

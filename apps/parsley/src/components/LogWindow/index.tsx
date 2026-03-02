@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
-import Cookie from "js-cookie";
 import { useChatContext } from "@evg-ui/fungi";
 import { CharKey } from "@evg-ui/lib/constants/keys";
 import { useKeyboardShortcut } from "@evg-ui/lib/hooks";
@@ -11,9 +10,10 @@ import LogPane from "components/LogPane";
 import { ParsleyRow } from "components/LogRow/RowRenderer";
 import SidePanel from "components/SidePanel";
 import SubHeader from "components/SubHeader";
-import { DRAWER_OPENED } from "constants/cookies";
+import { DRAWER_OPENED } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { useIsParsleyAIAvailable } from "hooks";
+import { getBoolean } from "utils/localStorage";
 
 const LogWindow: React.FC = () => {
   const {
@@ -30,7 +30,7 @@ const LogWindow: React.FC = () => {
   const rowRenderer = ParsleyRow({ processedLogLines });
 
   const [sidePanelCollapsed, setSidePanelCollapsed] = useState<boolean>(
-    Cookie.get(DRAWER_OPENED) === "true",
+    getBoolean(DRAWER_OPENED, false),
   );
 
   const { drawerOpen, setDrawerOpen } = useChatContext();

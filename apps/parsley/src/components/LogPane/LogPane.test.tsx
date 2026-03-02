@@ -1,7 +1,5 @@
 import { createRef } from "react";
-import Cookie from "js-cookie";
 import { VirtuosoMockContext } from "react-virtuoso";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
@@ -30,12 +28,11 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
   </MockedProvider>
 );
 
-vi.mock("js-cookie");
-
 describe("logPane", () => {
   afterEach(() => {
     vi.restoreAllMocks();
     vi.useRealTimers();
+    localStorage.clear();
   });
 
   it("should render the virtualized list with the passed in row type", () => {
@@ -47,8 +44,9 @@ describe("logPane", () => {
     expect(screen.queryByText("Some Line: 99")).not.toBeInTheDocument();
   });
 
-  it("should not execute wrap and pretty print functionality if cookie is false", async () => {
-    (vi.spyOn(Cookie, "get") as MockInstance).mockReturnValue("false");
+  it("should not execute wrap and pretty print functionality if stored value is false", async () => {
+    localStorage.setItem("wrap", "false");
+    localStorage.setItem("pretty-print-bookmarks", "false");
 
     vi.useFakeTimers();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");
@@ -84,8 +82,9 @@ describe("logPane", () => {
     });
   });
 
-  it("should execute wrap and pretty print functionality if cookie is true", async () => {
-    (vi.spyOn(Cookie, "get") as MockInstance).mockReturnValue("true");
+  it("should execute wrap and pretty print functionality if stored value is true", async () => {
+    localStorage.setItem("wrap", "true");
+    localStorage.setItem("pretty-print-bookmarks", "true");
 
     vi.useFakeTimers();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");

@@ -1,6 +1,4 @@
-import Cookie from "js-cookie";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes } from "constants/enums";
@@ -9,9 +7,6 @@ import { isSectionHeaderRow, isSkippedLinesRow } from "utils/logRowTypes";
 import { logContextWrapper } from "./test_utils";
 import { DIRECTION } from "./types";
 import { useLogContext } from ".";
-
-vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 const Router = ({
   children,
@@ -39,6 +34,7 @@ const wrapper = (loglines: string[] = [], route: string = "/") => {
 
 describe("useLogContext", () => {
   beforeEach(() => {
+    localStorage.clear();
     InitializeFakeToastContext();
   });
   it("should initialized with an empty list of logs", () => {
@@ -404,8 +400,8 @@ describe("useLogContext", () => {
       });
       expect(result.current.preferences.wordWrapFormat).toBe("standard");
     });
-    it("word wrap format should default to the cookie value if its been previously been set", async () => {
-      mockedGet.mockImplementation(() => "aggressive");
+    it("word wrap format should default to the stored value if its been previously been set", async () => {
+      localStorage.setItem("wrap-format", "aggressive");
       const { result } = renderHook(() => useLogContext(), {
         wrapper: wrapper(["A line 1", "B line 2", "C line 3"]),
       });

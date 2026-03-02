@@ -2,19 +2,19 @@ import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
-import Cookie from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { HAS_SEEN_SEARCHBAR_GUIDE_CUE } from "constants/cookies";
+import { HAS_SEEN_SEARCHBAR_GUIDE_CUE } from "constants/storageKeys";
+import { getBoolean, setBoolean } from "utils/localStorage";
 
 const SearchBarGuideCue: React.FC = () => {
   const triggerRef = useRef<HTMLDivElement | null>(null);
 
   const [openGuideCue, setOpenGuideCue] = useState(
-    Cookie.get(HAS_SEEN_SEARCHBAR_GUIDE_CUE) !== "true",
+    !getBoolean(HAS_SEEN_SEARCHBAR_GUIDE_CUE, false),
   );
 
   const onHideCue = () => {
-    Cookie.set(HAS_SEEN_SEARCHBAR_GUIDE_CUE, "true", { expires: 365 });
+    setBoolean(HAS_SEEN_SEARCHBAR_GUIDE_CUE, true);
     setOpenGuideCue(false);
   };
 
