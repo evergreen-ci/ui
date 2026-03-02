@@ -37,8 +37,14 @@ enum WordWrapFormat {
   Standard = "standard",
 }
 
+enum CopyFormat {
+  Jira = "jira",
+  Raw = "raw",
+}
+
 export {
   CaseSensitivity,
+  CopyFormat,
   FilterLogic,
   LogRenderingTypes,
   LogTypes,

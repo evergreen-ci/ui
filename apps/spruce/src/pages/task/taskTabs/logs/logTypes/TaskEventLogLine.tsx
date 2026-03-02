@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { ShortenedRouterLink } from "components/styles";
-import { getHostRoute, getPodRoute, getTaskRoute } from "constants/routes";
+import { getHostRoute, getTaskRoute } from "constants/routes";
 import { TaskEventLogEntry } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskEventType } from "types/task";
@@ -13,19 +13,10 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
   timestamp,
 }) => {
   const getDateCopy = useDateFormat();
-  const {
-    blockedOn,
-    hostId,
-    jiraIssue,
-    jiraLink,
-    podId,
-    priority,
-    status,
-    userId,
-  } = data;
+  const { blockedOn, hostId, jiraIssue, jiraLink, priority, status, userId } =
+    data;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const route = podId ? getPodRoute(podId) : getHostRoute(hostId);
-  const containerOrHostCopy = podId ? "container" : "host";
+  const route = getHostRoute(hostId);
   let message: React.JSX.Element;
   switch (eventType) {
     case TaskEventType.TaskBlocked:
@@ -57,7 +48,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
     case TaskEventType.TaskDispatched:
       message = (
         <>
-          Dispatched to {containerOrHostCopy}{" "}
+          Dispatched to host{" "}
           <StyledRouterLink to={route}>{hostId}</StyledRouterLink>
         </>
       );
@@ -65,7 +56,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
     case TaskEventType.TaskUndispatched:
       message = (
         <>
-          Undispatched from {containerOrHostCopy}{" "}
+          Undispatched from host{" "}
           <StyledRouterLink to={route}>{hostId}</StyledRouterLink>
         </>
       );

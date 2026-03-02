@@ -44,7 +44,7 @@ const LogWindow: React.FC = () => {
       }
       setDrawerOpen((o) => !o);
     },
-    { disabled: !isParsleyAIAvailable, ignoreFocus: true },
+    { disabled: !isParsleyAIAvailable },
   );
 
   return (

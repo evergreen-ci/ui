@@ -18,7 +18,6 @@ export const formSchema: ReturnType<GetFormSchema> = {
           aws: {
             type: "object" as const,
             title: "AWS Configuration",
-            // @ts-expect-error: Dependencies throws error but works as expected.
             properties: aws.schema,
           },
           docker: {
