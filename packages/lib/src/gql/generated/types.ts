@@ -4962,10 +4962,7 @@ export type UpdateUserBetaFeaturesMutation = {
   __typename?: "Mutation";
   updateBetaFeatures?: {
     __typename?: "UpdateBetaFeaturesPayload";
-    betaFeatures?: {
-      __typename?: "BetaFeatures";
-      parsleyAIEnabled?: boolean | null;
-    } | null;
+    betaFeatures?: { __typename: "BetaFeatures" } | null;
   } | null;
 };
 
@@ -4977,10 +4974,7 @@ export type AdminBetaFeaturesQuery = {
     __typename?: "SpruceConfig";
     ui: {
       __typename?: "UIConfig";
-      betaFeatures: {
-        __typename?: "BetaFeatures";
-        parsleyAIEnabled?: boolean | null;
-      };
+      betaFeatures: { __typename: "BetaFeatures" };
     };
   } | null;
 };
@@ -4992,9 +4986,6 @@ export type UserBetaFeaturesQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    betaFeatures?: {
-      __typename?: "BetaFeatures";
-      parsleyAIEnabled?: boolean | null;
-    } | null;
+    betaFeatures?: { __typename: "BetaFeatures" } | null;
   };
 };

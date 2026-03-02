@@ -7042,10 +7042,7 @@ export type SaveAdminSettingsMutation = {
       uiv2Url?: string | null;
       url?: string | null;
       userVoice?: string | null;
-      betaFeatures: {
-        __typename?: "BetaFeatures";
-        parsleyAIEnabled?: boolean | null;
-      };
+      betaFeatures: { __typename: "BetaFeatures" };
     } | null;
   };
 };
@@ -7844,10 +7841,7 @@ export type AdminSettingsQuery = {
       uiv2Url?: string | null;
       url?: string | null;
       userVoice?: string | null;
-      betaFeatures: {
-        __typename?: "BetaFeatures";
-        parsleyAIEnabled?: boolean | null;
-      };
+      betaFeatures: { __typename: "BetaFeatures" };
     } | null;
   } | null;
 };
