@@ -56,7 +56,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
     },
   });
 
-  let currentTest: { testFile: string; status: string } | null = null;
+  let currentTest: { testFile: string; status: string } | null;
   switch (logType) {
     case LogTypes.LOGKEEPER_LOGS:
       currentTest =

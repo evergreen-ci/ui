@@ -185,6 +185,9 @@ const reactConfig = {
   ...reactPlugin.configs.flat["jsx-runtime"], // Need to use this config if using React 17+.
   name: "react/rules",
   files: ["src/**/*.ts?(x)"],
+  plugins: {
+    react: fixupPluginRules(reactPlugin),
+  },
   rules: {
     ...reactPlugin.configs.flat.recommended.rules,
     ...reactPlugin.configs.flat["jsx-runtime"].rules,
@@ -343,7 +346,7 @@ const graphQLConfig = {
     parser: graphqlPlugin.parser,
   },
   plugins: {
-    "@graphql-eslint": graphqlPlugin,
+    "@graphql-eslint": fixupPluginRules(graphqlPlugin),
   },
   rules: {
     ...graphqlPlugin.configs["flat/operations-recommended"].rules,

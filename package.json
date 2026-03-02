@@ -15,6 +15,11 @@
     "storybook": "pnpm --filter spruce --filter parsley --filter @evg-ui/* --parallel run storybook --no-open & sleep 5 && storybook dev",
     "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts"
   },
+  "pnpm": {
+    "overrides": {
+      "@typescript-eslint/utils": "^8.56.0"
+    }
+  },
   "devDependencies": {
     "@evg-ui/storybook-addon": "workspace:*",
     "@storybook/react-vite": "^10.1.10",
