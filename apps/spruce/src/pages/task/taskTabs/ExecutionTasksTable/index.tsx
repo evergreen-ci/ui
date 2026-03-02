@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from "react";
-import Cookies from "js-cookie";
 import {
   TablePlaceholder,
   LeafyGreenTable,
@@ -38,7 +37,8 @@ const ExecutionTasksTable: React.FC<Props> = ({
   isPatch,
 }) => {
   const { sendEvent } = useTaskAnalytics();
-  const taskReviewEnabled = Cookies.get(DISABLE_TASK_REVIEW) !== "true";
+  const taskReviewEnabled =
+    localStorage.getItem(DISABLE_TASK_REVIEW) !== "true";
   const [sorts, setSorts] = useQueryParam(TableQueryParams.Sorts, "");
   // Apply default sort if no sorting method is defined.
   useEffect(() => {

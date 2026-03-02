@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Cookies from "js-cookie";
 import { usePreferencesAnalytics } from "analytics";
 import { ToggleWithLabel } from "components/ToggleWithLabel";
 import { DISABLE_QUERY_POLLING, DISABLE_TASK_REVIEW } from "constants/cookies";
@@ -7,10 +6,10 @@ import { DISABLE_QUERY_POLLING, DISABLE_TASK_REVIEW } from "constants/cookies";
 export const PreferenceToggles: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const [queryPollingEnabled, setQueryPollingEnabled] = useState(
-    Cookies.get(DISABLE_QUERY_POLLING) !== "true",
+    localStorage.getItem(DISABLE_QUERY_POLLING) !== "true",
   );
   const [taskReviewEnabled, setTaskReviewEnabled] = useState(
-    Cookies.get(DISABLE_TASK_REVIEW) !== "true",
+    localStorage.getItem(DISABLE_TASK_REVIEW) !== "true",
   );
 
   const handleOnChangePolling = (c: boolean) => {
@@ -19,7 +18,7 @@ export const PreferenceToggles: React.FC = () => {
       enabled: c,
     });
     setQueryPollingEnabled(c);
-    Cookies.set(DISABLE_QUERY_POLLING, (!c).toString());
+    localStorage.setItem(DISABLE_QUERY_POLLING, (!c).toString());
   };
 
   const handleToggleTaskReview = (c: boolean) => {
@@ -28,7 +27,7 @@ export const PreferenceToggles: React.FC = () => {
       enabled: c,
     });
     setTaskReviewEnabled(c);
-    Cookies.set(DISABLE_TASK_REVIEW, (!c).toString());
+    localStorage.setItem(DISABLE_TASK_REVIEW, (!c).toString());
   };
 
   return (
