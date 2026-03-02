@@ -65,7 +65,7 @@ const { gray, green, red, yellow } = palette;
 const metStatusToIcon = {
   [MetStatus.Started]: <Icon fill={yellow.dark2} glyph="Refresh" />,
   [MetStatus.Met]: <Icon fill={green.dark1} glyph="Checkmark" />,
-  [MetStatus.Unmet]: <Icon fill={red.base} glyph="Failure" />,
+  [MetStatus.Unmet]: <Icon fill={red.base} glyph="X" />,
   [MetStatus.Pending]: <Icon fill={gray.dark3} glyph="Calendar" />,
 };
 

@@ -16,7 +16,9 @@ export { statusColorMap };
 
 const getTaskStatusStyle = (status: TaskStatus) => {
   const icon = statusIconMap?.[status];
-  const iconStyle = icon ? `background-image: ${icon};` : "";
+  const iconStyle = icon
+    ? `background-image: ${icon}; background-size: cover;`
+    : "";
   return css`
     ${iconStyle}
     background-color: ${statusColorMap[status]};

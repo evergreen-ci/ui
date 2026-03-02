@@ -5,6 +5,9 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskBox as BaseTaskBox } from "components/TaskBox";
 
+const CHECKBOX_SQUARE_SIZE = 14;
+const CHECKBOX_SQUARE_BORDER = 1;
+
 interface TaskStatusCheckboxProps {
   baseStatus?: string;
   checked: boolean;
@@ -28,9 +31,15 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
     data-cy="task-status-checkbox"
     label={
       <StateItemWrapper>
-        <TaskBox squareSize={14} status={status as TaskStatus} />
+        <TaskBox
+          squareSize={CHECKBOX_SQUARE_SIZE}
+          status={status as TaskStatus}
+        />
         {baseStatus ? (
-          <TaskBox squareSize={14} status={baseStatus as TaskStatus} />
+          <TaskBox
+            squareSize={CHECKBOX_SQUARE_SIZE}
+            status={baseStatus as TaskStatus}
+          />
         ) : (
           <EmptyCell />
         )}
@@ -56,9 +65,6 @@ const TaskBox = styled(BaseTaskBox)`
   float: none;
   flex-shrink: 0;
 `;
-
-const CHECKBOX_SQUARE_SIZE = 14;
-const CHECKBOX_SQUARE_BORDER = 1;
 
 const EmptyCell = styled.span`
   width: ${CHECKBOX_SQUARE_SIZE + CHECKBOX_SQUARE_BORDER * 2}px;

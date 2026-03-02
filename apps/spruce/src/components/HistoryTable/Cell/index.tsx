@@ -10,7 +10,11 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import { inactiveElementStyle } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
-import { COLUMN_LABEL_WIDTH, ROW_LABEL_WIDTH } from "../constants";
+import {
+  COLUMN_LABEL_WIDTH,
+  ROW_LABEL_WIDTH,
+  VARIANT_HISTORY_SQUARE_SIZE,
+} from "../constants";
 import { HistoryTableIcon } from "../HistoryTableIcon";
 
 const { gray } = palette;
@@ -114,8 +118,8 @@ const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
 );
 
 const EmptySquare = styled.div`
-  width: 16px;
-  height: 16px;
+  width: ${VARIANT_HISTORY_SQUARE_SIZE}px;
+  height: ${VARIANT_HISTORY_SQUARE_SIZE}px;
   border: 1px solid ${gray.light1};
   margin: 0 auto;
 `;

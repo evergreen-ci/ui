@@ -4,6 +4,7 @@ import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskBox } from "components/TaskBox";
+import { VARIANT_HISTORY_SQUARE_SIZE } from "../constants";
 
 interface HistoryTableIconProps {
   status: TaskStatus;
@@ -34,7 +35,7 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
         onClick={() => onClick()}
       >
         <IconContainer>
-          <TaskBox squareSize={24} status={status} />
+          <TaskBox squareSize={VARIANT_HISTORY_SQUARE_SIZE} status={status} />
         </IconContainer>
         {!inactive && <Body>{label}</Body>}
       </Container>

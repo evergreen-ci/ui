@@ -57,10 +57,8 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
         {statusCounts &&
           Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
             <Row key={taskStatus}>
-              <span>
-                <Count>{taskCount}</Count>{" "}
-                {taskStatusToCopy[taskStatus as TaskStatus] ?? taskStatus}
-              </span>
+              <Count>{taskCount}</Count>{" "}
+              {taskStatusToCopy[taskStatus as TaskStatus] ?? taskStatus}
             </Row>
           ))}
       </div>
@@ -93,9 +91,6 @@ const BadgeContainer = styled.div<BadgeColorProps>`
 
 const Row = styled.div`
   white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
 `;
 
 const Number = styled.span`
