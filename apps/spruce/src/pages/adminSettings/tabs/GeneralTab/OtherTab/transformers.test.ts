@@ -242,7 +242,7 @@ const expectedForm: OtherFormState = {
     projectCreationSettings: {
       totalProjectLimit: 100,
       repoProjectLimit: 50,
-        repoExceptions: [
+      repoExceptions: [
         {
           owner: "evergreen-ci",
           repo: "evergreen",
