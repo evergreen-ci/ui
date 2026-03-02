@@ -1,5 +1,3 @@
-import Cookie from "js-cookie";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   act,
@@ -12,14 +10,12 @@ import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import WordWrapFormatToggle from ".";
 
-vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
-
 const wrapper = logContextWrapper();
 
 describe("word wrap format toggle", () => {
   beforeEach(() => {
-    mockedGet.mockImplementation(() => "standard");
+    localStorage.clear();
+    localStorage.setItem("wrap-format", "standard");
     InitializeFakeToastContext();
   });
 
@@ -36,8 +32,8 @@ describe("word wrap format toggle", () => {
     });
     expect(wordWrapFormatToggle).not.toBeDisabled();
   });
-  it("defaults to 'standard' if cookie is unset", () => {
-    mockedGet.mockImplementation(() => "");
+  it("defaults to 'standard' if stored value is unset", () => {
+    localStorage.clear();
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
       <WordWrapFormatToggle />,
@@ -48,7 +44,7 @@ describe("word wrap format toggle", () => {
     expect(wordWrapFormatToggle).toHaveAttribute("aria-checked", "false");
   });
 
-  it("should read from the cookie properly", () => {
+  it("should read from localStorage properly", () => {
     const { Component } = renderComponentWithHook(
       useLogContext,
       <WordWrapFormatToggle />,

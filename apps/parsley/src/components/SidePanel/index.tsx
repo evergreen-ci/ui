@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { SideNav } from "@leafygreen-ui/side-nav";
-import Cookie from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { DRAWER_OPENED } from "constants/cookies";
+import { DRAWER_OPENED } from "constants/storageKeys";
 import { ExpandedLines } from "types/logs";
+import { setBoolean } from "utils/localStorage";
 import {
   ExpandedNavGroup,
   FilterNavGroup,
@@ -33,9 +33,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
     data-cy={dataCy}
     setCollapsed={(collapse) => {
       // panelCollapsed represents the initial state of the sidenav
-      Cookie.set(DRAWER_OPENED, panelCollapsed ? "false" : "true", {
-        expires: 365,
-      });
+      setBoolean(DRAWER_OPENED, !panelCollapsed);
       setPanelCollapsed(collapse);
     }}
     widthOverride={290}

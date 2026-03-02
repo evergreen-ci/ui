@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import Cookie from "js-cookie";
 import { actions } from "storybook/actions";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { MockedProvider } from "@evg-ui/lib/test_utils";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { DRAWER_OPENED } from "constants/cookies";
 import { LogTypes } from "constants/enums";
+import { DRAWER_OPENED } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { projectFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";
+import { getBoolean } from "utils/localStorage";
 import SidePanel from ".";
 
 export default {
@@ -43,7 +43,7 @@ const Story = ({ ...args }) => {
   const clearExpandedLines = () => actions("clearExpandedLines");
   const collapseLines = () => actions("collapseLines");
   const [collapsed, setCollapsed] = useState<boolean>(
-    Cookie.get(DRAWER_OPENED) === "true",
+    getBoolean(DRAWER_OPENED, false),
   );
   return (
     <Container>

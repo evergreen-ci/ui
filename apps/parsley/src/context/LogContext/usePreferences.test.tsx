@@ -1,6 +1,4 @@
-import Cookie from "js-cookie";
 import { MemoryRouter } from "react-router-dom";
-import { MockInstance } from "vitest";
 import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { FilterLogic, WordWrapFormat } from "constants/enums";
 import {
@@ -9,22 +7,17 @@ import {
   usePreferences,
 } from "./usePreferences";
 
-vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
-const mockedSet = vi.spyOn(Cookie, "set") as MockInstance;
-
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MemoryRouter initialEntries={["/"]}>{children}</MemoryRouter>
 );
 
 describe("usePreferences", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
-    mockedGet.mockReturnValue(undefined);
+    localStorage.clear();
   });
 
   describe("initial state", () => {
-    it("should initialize with default values when no cookies are set", () => {
+    it("should initialize with default values when no stored values are set", () => {
       const { result } = renderHook(() => usePreferences(), { wrapper });
 
       expect(result.current.caseSensitive).toBe(false);
@@ -38,41 +31,33 @@ describe("usePreferences", () => {
       expect(result.current.zebraStriping).toBe(false);
     });
 
-    it("should initialize caseSensitive from cookie", () => {
-      mockedGet.mockImplementation((key: string) =>
-        key === "case-sensitive" ? "true" : undefined,
-      );
+    it("should initialize caseSensitive from localStorage", () => {
+      localStorage.setItem("case-sensitive", "true");
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.caseSensitive).toBe(true);
     });
 
-    it("should initialize expandableRows from cookie", () => {
-      mockedGet.mockImplementation((key: string) =>
-        key === "expandable-rows" ? "false" : undefined,
-      );
+    it("should initialize expandableRows from localStorage", () => {
+      localStorage.setItem("expandable-rows", "false");
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.expandableRows).toBe(false);
     });
 
-    it("should initialize filterLogic from cookie", () => {
-      mockedGet.mockImplementation((key: string) =>
-        key === "filter-logic" ? FilterLogic.Or : undefined,
-      );
+    it("should initialize filterLogic from localStorage", () => {
+      localStorage.setItem("filter-logic", FilterLogic.Or);
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.filterLogic).toBe(FilterLogic.Or);
     });
 
-    it("should initialize wordWrapFormat from cookie", () => {
-      mockedGet.mockImplementation((key: string) =>
-        key === "wrap-format" ? WordWrapFormat.Aggressive : undefined,
-      );
+    it("should initialize wordWrapFormat from localStorage", () => {
+      localStorage.setItem("wrap-format", WordWrapFormat.Aggressive);
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.wordWrapFormat).toBe(WordWrapFormat.Aggressive);
     });
   });
 
   describe("setting preferences", () => {
-    it("should update caseSensitive and persist to cookie", () => {
+    it("should update caseSensitive and persist to localStorage", () => {
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.caseSensitive).toBe(false);
 
@@ -81,12 +66,10 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.caseSensitive).toBe(true);
-      expect(mockedSet).toHaveBeenCalledWith("case-sensitive", "true", {
-        expires: 365,
-      });
+      expect(localStorage.getItem("case-sensitive")).toBe("true");
     });
 
-    it("should update highlightFilters and persist to cookie", () => {
+    it("should update highlightFilters and persist to localStorage", () => {
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.highlightFilters).toBe(false);
 
@@ -95,12 +78,10 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.highlightFilters).toBe(true);
-      expect(mockedSet).toHaveBeenCalledWith("highlight-filters", "true", {
-        expires: 365,
-      });
+      expect(localStorage.getItem("highlight-filters")).toBe("true");
     });
 
-    it("should update prettyPrint and persist to cookie", () => {
+    it("should update prettyPrint and persist to localStorage", () => {
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.prettyPrint).toBe(false);
 
@@ -109,12 +90,10 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.prettyPrint).toBe(true);
-      expect(mockedSet).toHaveBeenCalledWith("pretty-print-bookmarks", "true", {
-        expires: 365,
-      });
+      expect(localStorage.getItem("pretty-print-bookmarks")).toBe("true");
     });
 
-    it("should update stickyHeaders and persist to cookie", () => {
+    it("should update stickyHeaders and persist to localStorage", () => {
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.stickyHeaders).toBe(false);
 
@@ -123,12 +102,10 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.stickyHeaders).toBe(true);
-      expect(mockedSet).toHaveBeenCalledWith("sticky-headers", "true", {
-        expires: 365,
-      });
+      expect(localStorage.getItem("sticky-headers")).toBe("true");
     });
 
-    it("should update wordWrapFormat and persist to cookie", () => {
+    it("should update wordWrapFormat and persist to localStorage", () => {
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.wordWrapFormat).toBe(WordWrapFormat.Standard);
 
@@ -137,12 +114,10 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.wordWrapFormat).toBe(WordWrapFormat.Aggressive);
-      expect(mockedSet).toHaveBeenCalledWith("wrap-format", "aggressive", {
-        expires: 365,
-      });
+      expect(localStorage.getItem("wrap-format")).toBe("aggressive");
     });
 
-    it("should update wrap and persist to cookie", () => {
+    it("should update wrap and persist to localStorage", () => {
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.wrap).toBe(false);
 
@@ -151,12 +126,10 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.wrap).toBe(true);
-      expect(mockedSet).toHaveBeenCalledWith("wrap", "true", {
-        expires: 365,
-      });
+      expect(localStorage.getItem("wrap")).toBe("true");
     });
 
-    it("should update zebraStriping and persist to cookie", () => {
+    it("should update zebraStriping and persist to localStorage", () => {
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.zebraStriping).toBe(false);
 
@@ -165,12 +138,10 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.zebraStriping).toBe(true);
-      expect(mockedSet).toHaveBeenCalledWith("zebra-striping", "true", {
-        expires: 365,
-      });
+      expect(localStorage.getItem("zebra-striping")).toBe("true");
     });
 
-    it("should update expandableRows and persist to cookie", () => {
+    it("should update expandableRows and persist to localStorage", () => {
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.expandableRows).toBe(true);
 
@@ -179,12 +150,10 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.expandableRows).toBe(false);
-      expect(mockedSet).toHaveBeenCalledWith("expandable-rows", "false", {
-        expires: 365,
-      });
+      expect(localStorage.getItem("expandable-rows")).toBe("false");
     });
 
-    it("should update filterLogic and persist to cookie", () => {
+    it("should update filterLogic and persist to localStorage", () => {
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.filterLogic).toBe(FilterLogic.And);
 
@@ -193,14 +162,16 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.filterLogic).toBe(FilterLogic.Or);
-      expect(mockedSet).toHaveBeenCalledWith("filter-logic", "or", {
-        expires: 365,
-      });
+      expect(localStorage.getItem("filter-logic")).toBe("or");
     });
   });
 });
 
 describe("preferencesReducer", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it("should handle SET_CASE_SENSITIVE action", () => {
     const initialState = getInitialState();
     const newState = preferencesReducer(initialState, {
@@ -274,11 +245,10 @@ describe("preferencesReducer", () => {
 
 describe("getInitialState", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
-    mockedGet.mockReturnValue(undefined);
+    localStorage.clear();
   });
 
-  it("should return default values when no cookies exist", () => {
+  it("should return default values when no stored values exist", () => {
     const state = getInitialState();
     expect(state).toEqual({
       caseSensitive: false,
@@ -291,16 +261,11 @@ describe("getInitialState", () => {
     });
   });
 
-  it("should read boolean preferences from cookies", () => {
-    mockedGet.mockImplementation((key: string) => {
-      const cookies: Record<string, string> = {
-        "case-sensitive": "true",
-        "highlight-filters": "true",
-        "sticky-headers": "true",
-        "zebra-striping": "true",
-      };
-      return cookies[key];
-    });
+  it("should read boolean preferences from localStorage", () => {
+    localStorage.setItem("case-sensitive", "true");
+    localStorage.setItem("highlight-filters", "true");
+    localStorage.setItem("sticky-headers", "true");
+    localStorage.setItem("zebra-striping", "true");
 
     const state = getInitialState();
     expect(state.caseSensitive).toBe(true);
@@ -309,10 +274,8 @@ describe("getInitialState", () => {
     expect(state.zebraStriping).toBe(true);
   });
 
-  it("should read wordWrapFormat from cookie", () => {
-    mockedGet.mockImplementation((key: string) =>
-      key === "wrap-format" ? WordWrapFormat.Aggressive : undefined,
-    );
+  it("should read wordWrapFormat from localStorage", () => {
+    localStorage.setItem("wrap-format", WordWrapFormat.Aggressive);
 
     const state = getInitialState();
     expect(state.wordWrapFormat).toBe(WordWrapFormat.Aggressive);

@@ -1,5 +1,3 @@
-import Cookie from "js-cookie";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -9,9 +7,6 @@ import {
 import { logContextWrapper } from "context/LogContext/test_utils";
 import FilterLogicToggle from ".";
 
-vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
-
 const wrapper = logContextWrapper();
 
 describe("filter logic toggle", () => {
@@ -19,17 +14,17 @@ describe("filter logic toggle", () => {
     InitializeFakeToastContext();
   });
   beforeEach(() => {
-    mockedGet.mockImplementation(() => "or");
+    localStorage.clear();
   });
 
-  it("defaults to 'and' if cookie is unset", () => {
-    mockedGet.mockImplementation(() => "");
+  it("defaults to 'and' if stored value is unset", () => {
     render(<FilterLogicToggle />, { wrapper });
     const filterLogicToggle = screen.getByDataCy("filter-logic-toggle");
     expect(filterLogicToggle).toHaveAttribute("aria-checked", "false");
   });
 
-  it("should read from the cookie properly", () => {
+  it("should read from localStorage properly", () => {
+    localStorage.setItem("filter-logic", "or");
     render(<FilterLogicToggle />, { wrapper });
     const filterLogicToggle = screen.getByDataCy("filter-logic-toggle");
     expect(filterLogicToggle).toHaveAttribute("aria-checked", "true");
@@ -37,7 +32,10 @@ describe("filter logic toggle", () => {
 
   it("should update the URL correctly", async () => {
     const user = userEvent.setup();
-    const { router } = render(<FilterLogicToggle />, { wrapper });
+    const { router } = render(<FilterLogicToggle />, {
+      route: "?filterLogic=or",
+      wrapper,
+    });
 
     const filterLogicToggle = screen.getByDataCy("filter-logic-toggle");
     expect(filterLogicToggle).toHaveAttribute("aria-checked", "true");
@@ -51,7 +49,8 @@ describe("filter logic toggle", () => {
     expect(router.state.location.search).toBe("?filterLogic=or");
   });
 
-  it("url params should take precedence over cookie value", () => {
+  it("url params should take precedence over stored value", () => {
+    localStorage.setItem("filter-logic", "or");
     render(<FilterLogicToggle />, {
       route: "?filterLogic=and",
       wrapper,

@@ -1,5 +1,3 @@
-import Cookie from "js-cookie";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
@@ -17,9 +15,6 @@ import {
   parsleySettingsMockSectionsDisabled,
 } from "test_data/parsleySettings";
 import StickyHeadersToggle from ".";
-
-vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 const sectionsEnabledWrapper = ({
   children,
@@ -43,18 +38,19 @@ const sectionsDisabledWrapper = ({
 
 describe("sticky headers toggle", () => {
   beforeEach(() => {
-    mockedGet.mockImplementation(() => "true");
+    localStorage.clear();
+    localStorage.setItem("sticky-headers", "true");
     InitializeFakeToastContext();
   });
 
-  it("defaults to 'false' if cookie is unset", () => {
-    mockedGet.mockImplementation(() => "");
+  it("defaults to 'false' if stored value is unset", () => {
+    localStorage.clear();
     render(<StickyHeadersToggle />, { wrapper: sectionsEnabledWrapper });
     const stickyHeadersToggle = screen.getByDataCy("sticky-headers-toggle");
     expect(stickyHeadersToggle).toHaveAttribute("aria-checked", "false");
   });
 
-  it("should read from the cookie properly", () => {
+  it("should read from localStorage properly", () => {
     render(<StickyHeadersToggle />, { wrapper: sectionsEnabledWrapper });
     const stickyHeadersToggle = screen.getByDataCy("sticky-headers-toggle");
     expect(stickyHeadersToggle).toHaveAttribute("aria-checked", "true");

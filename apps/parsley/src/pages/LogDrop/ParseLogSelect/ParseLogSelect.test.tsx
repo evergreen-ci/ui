@@ -1,19 +1,18 @@
-import Cookie from "js-cookie";
-import { MockInstance } from "vitest";
 import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
+import { LAST_SELECTED_LOG_TYPE } from "constants/storageKeys";
 import ParseLogSelect from ".";
 
-vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
-
 describe("parse log select", () => {
-  it("defaults to 'Select...' option if cookie is unset", () => {
-    mockedGet.mockImplementation(() => "");
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  it("defaults to 'Select...' option if stored value is unset", () => {
     render(
       <ParseLogSelect
         fileName="filename.txt"
@@ -28,8 +27,8 @@ describe("parse log select", () => {
     );
   });
 
-  it("defaults to 'Raw' option if cookie is set to evergreen logs", () => {
-    mockedGet.mockImplementation(() => LogRenderingTypes.Default);
+  it("defaults to 'Raw' option if stored value is set to evergreen logs", () => {
+    localStorage.setItem(LAST_SELECTED_LOG_TYPE, LogRenderingTypes.Default);
     render(
       <ParseLogSelect
         fileName="filename.txt"
@@ -41,8 +40,8 @@ describe("parse log select", () => {
     expect(screen.getByDataCy("process-log-button")).toBeEnabled();
   });
 
-  it("defaults to 'Resmoke' option if cookie is set to resmoke logs", () => {
-    mockedGet.mockImplementation(() => LogRenderingTypes.Resmoke);
+  it("defaults to 'Resmoke' option if stored value is set to resmoke logs", () => {
+    localStorage.setItem(LAST_SELECTED_LOG_TYPE, LogRenderingTypes.Resmoke);
     render(
       <ParseLogSelect
         fileName="filename.txt"
@@ -56,7 +55,7 @@ describe("parse log select", () => {
 
   it("clicking the 'Process Log' button calls the onParse function", async () => {
     const user = userEvent.setup();
-    mockedGet.mockImplementation(() => LogTypes.LOGKEEPER_LOGS);
+    localStorage.setItem(LAST_SELECTED_LOG_TYPE, LogTypes.LOGKEEPER_LOGS);
     const onParse = vi.fn();
     render(
       <ParseLogSelect

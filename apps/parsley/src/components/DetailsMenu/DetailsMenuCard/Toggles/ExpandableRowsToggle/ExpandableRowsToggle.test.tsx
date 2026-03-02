@@ -1,5 +1,3 @@
-import Cookie from "js-cookie";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -9,25 +7,22 @@ import {
 import { logContextWrapper } from "context/LogContext/test_utils";
 import ExpandableRowsToggle from ".";
 
-vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
-
 const wrapper = logContextWrapper();
 
 describe("expandable rows toggle", () => {
   beforeEach(() => {
-    mockedGet.mockImplementation(() => "true");
+    localStorage.clear();
     InitializeFakeToastContext();
   });
 
-  it("defaults to 'true' if cookie is unset", () => {
-    mockedGet.mockImplementation(() => "");
+  it("defaults to 'true' if stored value is unset", () => {
     render(<ExpandableRowsToggle />, { wrapper });
     const expandableRowsToggle = screen.getByDataCy("expandable-rows-toggle");
     expect(expandableRowsToggle).toHaveAttribute("aria-checked", "true");
   });
 
-  it("should read from the cookie properly", () => {
+  it("should read from localStorage properly", () => {
+    localStorage.setItem("expandable-rows", "true");
     render(<ExpandableRowsToggle />, { wrapper });
     const expandableRowsToggle = screen.getByDataCy("expandable-rows-toggle");
     expect(expandableRowsToggle).toHaveAttribute("aria-checked", "true");
@@ -35,6 +30,7 @@ describe("expandable rows toggle", () => {
 
   it("should update the URL correctly", async () => {
     const user = userEvent.setup();
+    localStorage.setItem("expandable-rows", "true");
     const { router } = render(<ExpandableRowsToggle />, { wrapper });
 
     const expandableRowsToggle = screen.getByDataCy("expandable-rows-toggle");
@@ -45,7 +41,8 @@ describe("expandable rows toggle", () => {
     expect(router.state.location.search).toBe("?expandable=false");
   });
 
-  it("url params should take precedence over cookie value", () => {
+  it("url params should take precedence over stored value", () => {
+    localStorage.setItem("expandable-rows", "true");
     render(<ExpandableRowsToggle />, {
       route: "?expandable=false",
       wrapper,
