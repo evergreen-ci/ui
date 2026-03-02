@@ -208,7 +208,6 @@ query AdminSettings {
     perfMonitoringURL
     pprofPort
     projectCreation {
-      jiraProject
       repoExceptions {
         owner
         repo

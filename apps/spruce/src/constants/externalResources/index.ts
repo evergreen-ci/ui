@@ -126,3 +126,6 @@ export const cursorAPIKeySettingsUrl =
 
 export const sageBotDocumentationUrl =
   "https://docs.devprod.prod.corp.mongodb.com/sage/sage-bot/";
+
+export const backstageS3BucketUrl =
+  "https://app.backstage.prod.corp.mongodb.com/create/templates/default/evergreen-s3";
