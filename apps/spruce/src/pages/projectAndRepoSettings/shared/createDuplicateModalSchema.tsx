@@ -1,6 +1,8 @@
 /* eslint-disable check-file/filename-naming-convention */
-import { Banner } from "@leafygreen-ui/banner";
+import { Banner, Variant } from "@leafygreen-ui/banner";
 import { Field } from "@rjsf/core";
+import { StyledLink } from "@evg-ui/lib/components/styles";
+import { backstageS3BucketUrl } from "constants/externalResources";
 
 export const projectName = {
   schema: {
@@ -56,16 +58,12 @@ const S3BucketInfoBanner: Field = () => (
   <Banner
     data-cy="s3-bucket-info-banner"
     style={{ marginBottom: "20px" }}
-    variant="info"
+    variant={Variant.Info}
   >
     If you need an S3 bucket, you can set it up in{" "}
-    <a
-      href="https://app.backstage.prod.corp.mongodb.com/create/templates/default/evergreen-s3"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
+    <StyledLink href={backstageS3BucketUrl} target="_blank">
       Backstage
-    </a>
+    </StyledLink>
     .
   </Banner>
 );

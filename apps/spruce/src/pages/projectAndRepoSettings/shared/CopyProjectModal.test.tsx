@@ -73,7 +73,7 @@ describe("copyProjectField", () => {
     expect(screen.queryByDataCy("performance-tooling-banner")).toBeVisible();
   });
 
-  it("shows info banner for S3 bucket setup", async () => {
+  it("shows info banner for S3 bucket setup", () => {
     const { Component } = RenderFakeToastContext(<Modal />);
     render(<Component />);
     expect(screen.queryByDataCy("s3-bucket-info-banner")).toBeVisible();
