@@ -193,8 +193,8 @@ importers:
         specifier: 6.18.0
         version: 6.18.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-virtuoso:
-        specifier: 4.14.0
-        version: 4.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 4.18.1
+        version: 4.18.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       strip-ansi:
         specifier: ^7.1.0
         version: 7.2.0
@@ -584,8 +584,8 @@ importers:
         specifier: 1.1.1
         version: 1.1.1
       react-virtuoso:
-        specifier: ^4.14.0
-        version: 4.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^4.18.1
+        version: 4.18.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       vite-node:
         specifier: ^5.3.0
         version: 5.3.0(@types/node@22.19.13)(jiti@2.6.1)(yaml@2.8.2)
@@ -7105,8 +7105,8 @@ packages:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
 
-  react-virtuoso@4.14.0:
-    resolution: {integrity: sha512-fR+eiCvirSNIRvvCD7ueJPRsacGQvUbjkwgWzBZXVq+yWypoH7mRUvWJzGHIdoRaCZCT+6mMMMwIG2S1BW3uwA==}
+  react-virtuoso@4.18.1:
+    resolution: {integrity: sha512-KF474cDwaSb9+SJ380xruBB4P+yGWcVkcu26HtMqYNMTYlYbrNy8vqMkE+GpAApPPufJqgOLMoWMFG/3pJMXUA==}
     peerDependencies:
       react: '>=16 || >=17 || >= 18 || >= 19'
       react-dom: '>=16 || >=17 || >= 18 || >=19'
@@ -16080,7 +16080,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  react-virtuoso@4.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-virtuoso@4.18.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
