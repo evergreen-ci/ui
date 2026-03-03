@@ -4,12 +4,12 @@ import { Button } from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { InlineCode, Label } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { LogRenderingTypes } from "constants/enums";
-import { LAST_SELECTED_LOG_TYPE } from "constants/storageKeys";
 import {
   getLocalStorageString,
   setLocalStorageString,
-} from "utils/localStorage";
+} from "@evg-ui/lib/utils/localStorage";
+import { LogRenderingTypes } from "constants/enums";
+import { LAST_SELECTED_LOG_TYPE } from "constants/storageKeys";
 
 interface ParseLogSelectProps {
   fileName: string | undefined;

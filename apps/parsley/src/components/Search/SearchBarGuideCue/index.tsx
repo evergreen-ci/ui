@@ -3,11 +3,11 @@ import styled from "@emotion/styled";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { HAS_SEEN_SEARCHBAR_GUIDE_CUE } from "constants/storageKeys";
 import {
   getLocalStorageBoolean,
   setLocalStorageBoolean,
-} from "utils/localStorage";
+} from "@evg-ui/lib/utils/localStorage";
+import { HAS_SEEN_SEARCHBAR_GUIDE_CUE } from "constants/storageKeys";
 
 const SearchBarGuideCue: React.FC = () => {
   const triggerRef = useRef<HTMLDivElement | null>(null);

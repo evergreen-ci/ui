@@ -7,6 +7,10 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParams } from "@evg-ui/lib/hooks";
+import {
+  getLocalStorageString,
+  setLocalStorageString,
+} from "@evg-ui/lib/utils/localStorage";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";
 import { useLogWindowAnalytics } from "analytics";
 import { CopyFormat } from "constants/enums";
@@ -15,10 +19,6 @@ import { COPY_FORMAT } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
 import { useIsParsleyAIAvailable } from "hooks/useIsParsleyAIAvailable";
-import {
-  getLocalStorageString,
-  setLocalStorageString,
-} from "utils/localStorage";
 import { getJiraFormat, getRawLines } from "utils/string";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
