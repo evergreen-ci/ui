@@ -8,6 +8,10 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import {
+  getLocalStorageString,
+  setLocalStorageString,
+} from "@evg-ui/lib/utils/localStorage";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";
 import { usePreferencesAnalytics } from "analytics";
@@ -15,10 +19,6 @@ import { CopyFormat } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
 import { COPY_FORMAT } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
-import {
-  getLocalStorageString,
-  setLocalStorageString,
-} from "utils/localStorage";
 import { getJiraFormat, getRawLines } from "utils/string";
 
 const COPIED_SUCCESS_DURATION = 1500;

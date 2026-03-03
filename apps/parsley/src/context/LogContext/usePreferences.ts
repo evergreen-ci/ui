@@ -1,5 +1,10 @@
 import { useCallback, useMemo, useReducer } from "react";
 import { useQueryParam } from "@evg-ui/lib/hooks";
+import {
+  getLocalStorageBoolean,
+  getLocalStorageString,
+  setLocalStorageString,
+} from "@evg-ui/lib/utils/localStorage";
 import { FilterLogic, WordWrapFormat } from "constants/enums";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 import {
@@ -13,11 +18,6 @@ import {
   WRAP_FORMAT,
   ZEBRA_STRIPING,
 } from "constants/storageKeys";
-import {
-  getLocalStorageBoolean,
-  getLocalStorageString,
-  setLocalStorageString,
-} from "utils/localStorage";
 import { Preferences } from "./types";
 
 interface PreferencesState {

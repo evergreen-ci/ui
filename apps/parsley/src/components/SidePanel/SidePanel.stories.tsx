@@ -4,12 +4,12 @@ import { actions } from "storybook/actions";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { MockedProvider } from "@evg-ui/lib/test_utils";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
+import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { LogTypes } from "constants/enums";
 import { DRAWER_OPENED } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { projectFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";
-import { getLocalStorageBoolean } from "utils/localStorage";
 import SidePanel from ".";
 
 export default {

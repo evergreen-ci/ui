@@ -4,6 +4,7 @@ import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import { useChatContext } from "@evg-ui/fungi";
 import { CharKey } from "@evg-ui/lib/constants/keys";
 import { useKeyboardShortcut } from "@evg-ui/lib/hooks";
+import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import BookmarksBar from "components/BookmarksBar";
 import { Chatbot } from "components/Chatbot";
 import LogPane from "components/LogPane";
@@ -13,7 +14,6 @@ import SubHeader from "components/SubHeader";
 import { DRAWER_OPENED } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { useIsParsleyAIAvailable } from "hooks";
-import { getLocalStorageBoolean } from "utils/localStorage";
 
 const LogWindow: React.FC = () => {
   const {

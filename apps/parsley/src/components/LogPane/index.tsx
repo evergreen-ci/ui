@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { css } from "@leafygreen-ui/emotion";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import PaginatedVirtualList from "components/PaginatedVirtualList";
@@ -12,7 +13,6 @@ import { useLogContext } from "context/LogContext";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { useStickyHeaders } from "hooks/useStickyHeaders";
 import { findLineIndex } from "utils/findLineIndex";
-import { getLocalStorageBoolean } from "utils/localStorage";
 
 interface LogPaneProps {
   rowRenderer: (index: number) => React.ReactNode;

@@ -3,7 +3,7 @@ import {
   getLocalStorageString,
   setLocalStorageBoolean,
   setLocalStorageString,
-} from "utils/localStorage";
+} from ".";
 
 describe("localStorage utilities", () => {
   beforeEach(() => {

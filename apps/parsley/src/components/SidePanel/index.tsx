@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { SideNav } from "@leafygreen-ui/side-nav";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { setLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { DRAWER_OPENED } from "constants/storageKeys";
 import { ExpandedLines } from "types/logs";
-import { setLocalStorageBoolean } from "utils/localStorage";
 import {
   ExpandedNavGroup,
   FilterNavGroup,
