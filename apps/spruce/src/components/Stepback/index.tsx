@@ -9,12 +9,6 @@ import { Link } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { getTaskRoute } from "constants/routes";
 import { useBreakingTask } from "hooks/useBreakingTask";
-import { useLastPassingTask } from "hooks/useLastPassingTask";
-
-interface Props {
-  taskId: string;
-  isPopup?: boolean;
-}
 
 interface StepbackStatusProps {
   finished: boolean;
@@ -37,23 +31,25 @@ const StepbackStatus: React.FC<StepbackStatusProps> = ({
   return null;
 };
 
-export const Stepback: React.FC<Props> = ({ isPopup = false, taskId }) => {
+interface StepbackProps {
+  taskId: string;
+  isPopup?: boolean;
+}
+
+export const Stepback: React.FC<StepbackProps> = ({
+  isPopup = false,
+  taskId,
+}) => {
   // TODO DEVPROD-27824: Remove fetch policy when cache performance is fixed.
   const fetchPolicy = isPopup ? "no-cache" : undefined;
 
-  const { loading: breakingTaskLoading, task: breakingTask } = useBreakingTask(
-    taskId,
-    fetchPolicy,
-  );
-  const { loading: lastPassingTaskLoading, task: lastPassingTask } =
-    useLastPassingTask(taskId, fetchPolicy);
+  const {
+    isBreakingTask,
+    loading,
+    task: breakingTask,
+  } = useBreakingTask(taskId, fetchPolicy);
 
-  const isLoading = breakingTaskLoading || lastPassingTaskLoading;
-
-  // If the last passing task is undefined, it means the task is the breaking task.
-  const isBreakingTask = lastPassingTask === undefined;
-
-  // The stepback is finished if there is a breaking task or we are on the last stepback task.
+  // Stepback is finished if there is a breaking task or we are on the last stepback task.
   const finished = breakingTask !== undefined || isBreakingTask;
 
   return (
@@ -66,7 +62,7 @@ export const Stepback: React.FC<Props> = ({ isPopup = false, taskId }) => {
             the relevant commits dropdown.
           </InfoSprinkle>
         )}
-        <StepbackStatus finished={finished} isLoading={isLoading} />
+        <StepbackStatus finished={finished} isLoading={loading} />
       </StepbackLabel>
       {isPopup && (
         <Button
@@ -75,7 +71,7 @@ export const Stepback: React.FC<Props> = ({ isPopup = false, taskId }) => {
             align-self: flex-start;
           `}
           data-cy="go-to-breaking-task-button"
-          disabled={isLoading || !finished || !breakingTask}
+          disabled={loading || !finished || !breakingTask}
           size={ButtonSize.Small}
           to={
             breakingTask
