@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import {
   CASE_SENSITIVE,
   COPY_FORMAT,
@@ -31,15 +32,6 @@ const COOKIE_KEYS = [
   ZEBRA_STRIPING,
 ];
 
-const getCookie = (name: string): string | undefined => {
-  const match = document.cookie.match(
-    new RegExp(
-      `(?:^|; )${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}=([^;]*)`,
-    ),
-  );
-  return match ? decodeURIComponent(match[1]) : undefined;
-};
-
 const migrateCookiesToLocalStorage = (): void => {
   try {
     if (localStorage.getItem(STORAGE_MIGRATION_COMPLETE)) {
@@ -47,7 +39,7 @@ const migrateCookiesToLocalStorage = (): void => {
     }
 
     for (const key of COOKIE_KEYS) {
-      const value = getCookie(key);
+      const value = Cookies.get(key);
       if (value !== undefined) {
         localStorage.setItem(key, value);
       }

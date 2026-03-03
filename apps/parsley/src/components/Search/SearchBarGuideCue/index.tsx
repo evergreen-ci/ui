@@ -13,7 +13,7 @@ const SearchBarGuideCue: React.FC = () => {
   const triggerRef = useRef<HTMLDivElement | null>(null);
 
   const [openGuideCue, setOpenGuideCue] = useState(
-    !getLocalStorageBoolean(HAS_SEEN_SEARCHBAR_GUIDE_CUE, false),
+    !getLocalStorageBoolean(HAS_SEEN_SEARCHBAR_GUIDE_CUE),
   );
 
   const onHideCue = () => {

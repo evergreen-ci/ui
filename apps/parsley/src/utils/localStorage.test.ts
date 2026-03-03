@@ -37,12 +37,16 @@ describe("localStorage utilities", () => {
   describe("getLocalStorageBoolean", () => {
     it("returns true when stored value is 'true'", () => {
       localStorage.setItem("flag", "true");
-      expect(getLocalStorageBoolean("flag", false)).toBe(true);
+      expect(getLocalStorageBoolean("flag")).toBe(true);
     });
 
     it("returns false when stored value is 'false'", () => {
       localStorage.setItem("flag", "false");
-      expect(getLocalStorageBoolean("flag", true)).toBe(false);
+      expect(getLocalStorageBoolean("flag")).toBe(false);
+    });
+
+    it("returns undefined when key is missing and no default is provided", () => {
+      expect(getLocalStorageBoolean("missing")).toBeUndefined();
     });
 
     it("returns the default value when key is missing", () => {
@@ -52,7 +56,7 @@ describe("localStorage utilities", () => {
 
     it("returns false for non-boolean strings", () => {
       localStorage.setItem("flag", "yes");
-      expect(getLocalStorageBoolean("flag", true)).toBe(false);
+      expect(getLocalStorageBoolean("flag")).toBe(false);
     });
   });
 
