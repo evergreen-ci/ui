@@ -86,7 +86,7 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
     sendEvent({ name: "Clicked copy response button" });
   }, [sendEvent]);
 
-  // Don't send action event on mount, but rather when it changes after the default it set
+  // Don't send action event on mount, but rather when it changes after the default is set
   const isInitialRender = useRef(true);
   useEffect(() => {
     if (isInitialRender.current) {
