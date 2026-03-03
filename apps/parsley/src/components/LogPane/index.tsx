@@ -75,10 +75,10 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
           );
         }
         // Wrap and pretty print can be enabled after the log pane has initially loaded.
-        if (getLocalStorageBoolean(WRAP, false)) {
+        if (getLocalStorageBoolean(WRAP)) {
           setWrap(true);
         }
-        if (getLocalStorageBoolean(PRETTY_PRINT_BOOKMARKS, false)) {
+        if (getLocalStorageBoolean(PRETTY_PRINT_BOOKMARKS)) {
           setPrettyPrint(true);
         }
         performedScroll.current = true;
