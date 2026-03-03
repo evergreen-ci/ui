@@ -273,7 +273,7 @@ export const WithFailingTests: StoryObj<typeof TaskOverviewPopup> = {
   render: (args) => <TaskOverviewPopupWrapper {...args} />,
   parameters: {
     apolloClient: {
-      mocks: [failedTaskMock, failingTestsMock],
+      mocks: [failingTestsMock],
     },
   },
   args: {
