@@ -20,6 +20,7 @@ import { isInStepback } from "utils/stepback";
 import { msToDuration } from "utils/string";
 import { ActionButtons } from "./ActionButtons";
 import { Annotations } from "./Annotations";
+import { FailingTests } from "./FailingTests";
 
 interface Props {
   execution: number;
@@ -123,6 +124,9 @@ export const TaskOverviewPopup: React.FC<Props> = ({
               </div>
             )}
             {showStepback && <Stepback isPopup taskId={taskId} />}
+            {isFailingTask && (
+              <FailingTests execution={execution} taskId={taskId} />
+            )}
             <Annotations annotation={annotation} displayName={displayName} />
           </>
         )}
