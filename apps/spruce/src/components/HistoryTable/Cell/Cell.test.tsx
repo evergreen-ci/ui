@@ -33,7 +33,10 @@ describe("taskCell", () => {
         }}
       />,
     );
-    expect(screen.getByLabelText("Failure Icon")).toBeInTheDocument();
+    expect(screen.getByDataCy("history-table-icon")).toHaveAttribute(
+      "data-status",
+      "failed",
+    );
     expect(screen.getByDataCy("task-cell")).toBeInTheDocument();
   });
 

@@ -42,6 +42,7 @@ export const gqlToForm = ((data, options) => {
     manualPrTestingEnabled,
     oldestAllowedMergeBase,
     prTestingEnabled,
+    runEveryMainlineCommit,
   } = projectRef ?? {};
 
   const {
@@ -87,6 +88,7 @@ export const gqlToForm = ((data, options) => {
         githubCheckAliases,
       },
       gitTagVersionsEnabled,
+      runEveryMainlineCommit,
       oldestAllowedMergeBase,
       users: {
         gitTagAuthorizedUsersOverride:
@@ -128,6 +130,7 @@ export const formToGql = ((
       oldestAllowedMergeBase,
       prTesting,
       prTestingEnabled,
+      runEveryMainlineCommit,
       teams: { gitTagAuthorizedTeams, gitTagAuthorizedTeamsOverride },
       users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
     },
@@ -142,6 +145,7 @@ export const formToGql = ((
     manualPrTestingEnabled,
     githubChecksEnabled,
     gitTagVersionsEnabled,
+    runEveryMainlineCommit,
     oldestAllowedMergeBase,
     gitTagAuthorizedUsers: gitTagAuthorizedUsersOverride
       ? gitTagAuthorizedUsers

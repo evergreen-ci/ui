@@ -24,8 +24,6 @@ export const gqlToForm = ((data) => {
     userVoice,
   } = ui ?? {};
 
-  const { betaFeatures } = ui ?? {};
-
   return {
     web: {
       api: {
@@ -48,9 +46,7 @@ export const gqlToForm = ((data) => {
         url: uiUrl ?? "",
         userVoice: userVoice ?? "",
       },
-      betaFeatures: {
-        parsleyAIEnabled: betaFeatures?.parsleyAIEnabled ?? false,
-      },
+      betaFeatures: {},
       disabledGQLQueries: {
         queryNames: disabledGQLQueries ?? [],
       },
