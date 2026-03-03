@@ -60,7 +60,7 @@ describe("migrateCookiesToLocalStorage", () => {
     expect(localStorage.getItem(STORAGE_MIGRATION_COMPLETE)).toBe("true");
   });
 
-  it("does not overwrite existing localStorage values", () => {
+  it("overwrites existing localStorage values with cookie values", () => {
     localStorage.setItem(CASE_SENSITIVE, "false");
     setCookie(CASE_SENSITIVE, "true");
 
