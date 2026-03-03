@@ -222,4 +222,37 @@ describe("sharingMenu", () => {
     });
     expect(screen.queryByText("Share link to selected lines")).toBeNull();
   });
+  it("should not show 'Add to Parsley AI' if this is a locally uploaded log", () => {
+    const useSpecialHook = () => {
+      const useLogContextHook = useLogContext();
+      const useMultiLineSelectContextHook = useMultiLineSelectContext();
+      return {
+        useLogContextHook,
+        useMultiLineSelectContextHook,
+      };
+    };
+    const { Component: MenuComponent, hook } = renderComponentWithHook(
+      useSpecialHook,
+      <SharingMenu />,
+    );
+    const { Component } = RenderFakeToastContext(<MenuComponent />);
+    renderWithRouterMatch(<Component />, {
+      route: "?selectedLineRange=L1-L3",
+      wrapper,
+    });
+    act(() => {
+      hook.current.useMultiLineSelectContextHook.setOpenMenu(true);
+      hook.current.useLogContextHook.setLogMetadata({
+        logType: LogTypes.LOCAL_UPLOAD,
+      });
+    });
+    expect(screen.queryByText("Add to Parsley AI")).toBeNull();
+  });
+  it("should show 'Add to Parsley AI' for non-uploaded logs", () => {
+    const { hook } = renderSharingMenu();
+    act(() => {
+      hook.current.setOpenMenu(true);
+    });
+    expect(screen.getByText("Add to Parsley AI")).toBeInTheDocument();
+  });
 });

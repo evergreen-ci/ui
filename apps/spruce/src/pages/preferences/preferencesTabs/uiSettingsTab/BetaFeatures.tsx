@@ -66,7 +66,9 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
   };
 
   const hasActiveBetaFeatures = adminBetaSettings
-    ? Object.values(adminBetaSettings).filter((v) => v === true).length > 0
+    ? Object.entries(adminBetaSettings).some(
+        ([key, value]) => key !== "__typename" && value === true,
+      )
     : false;
 
   return (
@@ -82,19 +84,21 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
               title: "Beta Features",
               type: "object" as const,
               properties: {
-                parsleyAIEnabled: radioSchema({
-                  title: "Allow AI Agent in Parsley",
-                }),
+                // Example for future beta features:
+                // newFeature: radioSchema({
+                //   title: "New Feature Name",
+                // }),
               },
             },
           },
         }}
         uiSchema={{
           betaFeatures: {
-            parsleyAIEnabled: radioUiSchema({
-              dataCy: "parsley-ai-enabled",
-              isAdminEnabled: adminBetaSettings?.parsleyAIEnabled ?? false,
-            }),
+            // Example for future beta features:
+            // newFeature: radioUiSchema({
+            //   dataCy: "new-feature",
+            //   isAdminEnabled: adminBetaSettings?.newFeature ?? false,
+            // }),
             "ui:description": (
               <DescriptionWrapper>
                 <span>
@@ -111,18 +115,21 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
           },
         }}
       />
-      <Button
-        data-cy="save-beta-features-button"
-        disabled={!hasChanges}
-        onClick={handleSubmit}
-        variant={ButtonVariant.Primary}
-      >
-        Save changes
-      </Button>
+      {hasActiveBetaFeatures && (
+        <Button
+          data-cy="save-beta-features-button"
+          disabled={!hasChanges}
+          onClick={handleSubmit}
+          variant={ButtonVariant.Primary}
+        >
+          Save changes
+        </Button>
+      )}
     </ContentWrapper>
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const radioSchema = ({ title }: { title: string }) => ({
   type: "boolean" as const,
   title,
@@ -141,6 +148,7 @@ const radioSchema = ({ title }: { title: string }) => ({
   ],
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const radioUiSchema = ({
   dataCy,
   isAdminEnabled,
@@ -161,13 +169,13 @@ const radioUiSchema = ({
   `,
 });
 
+const ContentWrapper = styled.div`
+  width: 70%;
+`;
+
 const DescriptionWrapper = styled.span`
   display: flex;
   flex-direction: column;
   gap: ${size.s};
   margin-bottom: ${size.s};
-`;
-
-const ContentWrapper = styled.div`
-  width: 70%;
 `;

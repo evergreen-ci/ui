@@ -18,6 +18,7 @@ import {
   getLocalStorageString,
   setLocalStorageString,
 } from "utils/localStorage";
+import { useIsParsleyAIAvailable } from "hooks/useIsParsleyAIAvailable";
 import { getJiraFormat, getRawLines } from "utils/string";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
@@ -30,6 +31,7 @@ const SharingMenu: React.FC = () => {
   } = useMultiLineSelectContext();
   const { getLine, isUploadedLog, processedLogLines } = useLogContext();
   const { toggleChip } = useChatContext();
+  const isParsleyAIAvailable = useIsParsleyAIAvailable();
 
   const [params, setParams] = useQueryParams(urlParseOptions);
   const dispatchToast = useToastContext();
@@ -141,9 +143,14 @@ const SharingMenu: React.FC = () => {
         </MenuIcon>
       }
     >
-      <MenuItem glyph={<Icon glyph="Sparkle" />} onClick={handleAddToParsleyAI}>
-        Add to Parsley AI
-      </MenuItem>
+      {isParsleyAIAvailable && (
+        <MenuItem
+          glyph={<Icon glyph="Sparkle" />}
+          onClick={handleAddToParsleyAI}
+        >
+          Add to Parsley AI
+        </MenuItem>
+      )}
       <MenuItem glyph={<Icon glyph="Copy" />} onClick={handleCopySelectedLines}>
         Copy selected contents
       </MenuItem>
