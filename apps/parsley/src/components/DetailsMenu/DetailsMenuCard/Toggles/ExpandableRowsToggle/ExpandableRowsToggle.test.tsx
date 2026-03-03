@@ -4,6 +4,7 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { EXPANDABLE_ROWS } from "constants/storageKeys";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import ExpandableRowsToggle from ".";
 
@@ -22,7 +23,7 @@ describe("expandable rows toggle", () => {
   });
 
   it("should read from localStorage properly", () => {
-    localStorage.setItem("expandable-rows", "true");
+    localStorage.setItem(EXPANDABLE_ROWS, "true");
     render(<ExpandableRowsToggle />, { wrapper });
     const expandableRowsToggle = screen.getByDataCy("expandable-rows-toggle");
     expect(expandableRowsToggle).toHaveAttribute("aria-checked", "true");
@@ -30,7 +31,7 @@ describe("expandable rows toggle", () => {
 
   it("should update the URL correctly", async () => {
     const user = userEvent.setup();
-    localStorage.setItem("expandable-rows", "true");
+    localStorage.setItem(EXPANDABLE_ROWS, "true");
     const { router } = render(<ExpandableRowsToggle />, { wrapper });
 
     const expandableRowsToggle = screen.getByDataCy("expandable-rows-toggle");
@@ -42,7 +43,7 @@ describe("expandable rows toggle", () => {
   });
 
   it("url params should take precedence over stored value", () => {
-    localStorage.setItem("expandable-rows", "true");
+    localStorage.setItem(EXPANDABLE_ROWS, "true");
     render(<ExpandableRowsToggle />, {
       route: "?expandable=false",
       wrapper,

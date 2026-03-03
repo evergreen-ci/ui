@@ -4,6 +4,7 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { FILTER_LOGIC } from "constants/storageKeys";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import FilterLogicToggle from ".";
 
@@ -24,7 +25,7 @@ describe("filter logic toggle", () => {
   });
 
   it("should read from localStorage properly", () => {
-    localStorage.setItem("filter-logic", "or");
+    localStorage.setItem(FILTER_LOGIC, "or");
     render(<FilterLogicToggle />, { wrapper });
     const filterLogicToggle = screen.getByDataCy("filter-logic-toggle");
     expect(filterLogicToggle).toHaveAttribute("aria-checked", "true");
@@ -50,7 +51,7 @@ describe("filter logic toggle", () => {
   });
 
   it("url params should take precedence over stored value", () => {
-    localStorage.setItem("filter-logic", "or");
+    localStorage.setItem(FILTER_LOGIC, "or");
     render(<FilterLogicToggle />, {
       route: "?filterLogic=and",
       wrapper,

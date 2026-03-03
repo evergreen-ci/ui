@@ -2,6 +2,17 @@ import { MemoryRouter } from "react-router-dom";
 import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { FilterLogic, WordWrapFormat } from "constants/enums";
 import {
+  CASE_SENSITIVE,
+  EXPANDABLE_ROWS,
+  FILTER_LOGIC,
+  HIGHLIGHT_FILTERS,
+  PRETTY_PRINT_BOOKMARKS,
+  STICKY_HEADERS,
+  WRAP,
+  WRAP_FORMAT,
+  ZEBRA_STRIPING,
+} from "constants/storageKeys";
+import {
   getInitialState,
   preferencesReducer,
   usePreferences,
@@ -32,25 +43,25 @@ describe("usePreferences", () => {
     });
 
     it("should initialize caseSensitive from localStorage", () => {
-      localStorage.setItem("case-sensitive", "true");
+      localStorage.setItem(CASE_SENSITIVE, "true");
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.caseSensitive).toBe(true);
     });
 
     it("should initialize expandableRows from localStorage", () => {
-      localStorage.setItem("expandable-rows", "false");
+      localStorage.setItem(EXPANDABLE_ROWS, "false");
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.expandableRows).toBe(false);
     });
 
     it("should initialize filterLogic from localStorage", () => {
-      localStorage.setItem("filter-logic", FilterLogic.Or);
+      localStorage.setItem(FILTER_LOGIC, FilterLogic.Or);
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.filterLogic).toBe(FilterLogic.Or);
     });
 
     it("should initialize wordWrapFormat from localStorage", () => {
-      localStorage.setItem("wrap-format", WordWrapFormat.Aggressive);
+      localStorage.setItem(WRAP_FORMAT, WordWrapFormat.Aggressive);
       const { result } = renderHook(() => usePreferences(), { wrapper });
       expect(result.current.wordWrapFormat).toBe(WordWrapFormat.Aggressive);
     });
@@ -66,7 +77,7 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.caseSensitive).toBe(true);
-      expect(localStorage.getItem("case-sensitive")).toBe("true");
+      expect(localStorage.getItem(CASE_SENSITIVE)).toBe("true");
     });
 
     it("should update highlightFilters and persist to localStorage", () => {
@@ -78,7 +89,7 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.highlightFilters).toBe(true);
-      expect(localStorage.getItem("highlight-filters")).toBe("true");
+      expect(localStorage.getItem(HIGHLIGHT_FILTERS)).toBe("true");
     });
 
     it("should update prettyPrint and persist to localStorage", () => {
@@ -90,7 +101,7 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.prettyPrint).toBe(true);
-      expect(localStorage.getItem("pretty-print-bookmarks")).toBe("true");
+      expect(localStorage.getItem(PRETTY_PRINT_BOOKMARKS)).toBe("true");
     });
 
     it("should update stickyHeaders and persist to localStorage", () => {
@@ -102,7 +113,7 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.stickyHeaders).toBe(true);
-      expect(localStorage.getItem("sticky-headers")).toBe("true");
+      expect(localStorage.getItem(STICKY_HEADERS)).toBe("true");
     });
 
     it("should update wordWrapFormat and persist to localStorage", () => {
@@ -114,7 +125,7 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.wordWrapFormat).toBe(WordWrapFormat.Aggressive);
-      expect(localStorage.getItem("wrap-format")).toBe("aggressive");
+      expect(localStorage.getItem(WRAP_FORMAT)).toBe("aggressive");
     });
 
     it("should update wrap and persist to localStorage", () => {
@@ -126,7 +137,7 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.wrap).toBe(true);
-      expect(localStorage.getItem("wrap")).toBe("true");
+      expect(localStorage.getItem(WRAP)).toBe("true");
     });
 
     it("should update zebraStriping and persist to localStorage", () => {
@@ -138,7 +149,7 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.zebraStriping).toBe(true);
-      expect(localStorage.getItem("zebra-striping")).toBe("true");
+      expect(localStorage.getItem(ZEBRA_STRIPING)).toBe("true");
     });
 
     it("should update expandableRows and persist to localStorage", () => {
@@ -150,7 +161,7 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.expandableRows).toBe(false);
-      expect(localStorage.getItem("expandable-rows")).toBe("false");
+      expect(localStorage.getItem(EXPANDABLE_ROWS)).toBe("false");
     });
 
     it("should update filterLogic and persist to localStorage", () => {
@@ -162,7 +173,7 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.filterLogic).toBe(FilterLogic.Or);
-      expect(localStorage.getItem("filter-logic")).toBe("or");
+      expect(localStorage.getItem(FILTER_LOGIC)).toBe("or");
     });
   });
 });
@@ -262,10 +273,10 @@ describe("getInitialState", () => {
   });
 
   it("should read boolean preferences from localStorage", () => {
-    localStorage.setItem("case-sensitive", "true");
-    localStorage.setItem("highlight-filters", "true");
-    localStorage.setItem("sticky-headers", "true");
-    localStorage.setItem("zebra-striping", "true");
+    localStorage.setItem(CASE_SENSITIVE, "true");
+    localStorage.setItem(HIGHLIGHT_FILTERS, "true");
+    localStorage.setItem(STICKY_HEADERS, "true");
+    localStorage.setItem(ZEBRA_STRIPING, "true");
 
     const state = getInitialState();
     expect(state.caseSensitive).toBe(true);
@@ -275,7 +286,7 @@ describe("getInitialState", () => {
   });
 
   it("should read wordWrapFormat from localStorage", () => {
-    localStorage.setItem("wrap-format", WordWrapFormat.Aggressive);
+    localStorage.setItem(WRAP_FORMAT, WordWrapFormat.Aggressive);
 
     const state = getInitialState();
     expect(state.wordWrapFormat).toBe(WordWrapFormat.Aggressive);

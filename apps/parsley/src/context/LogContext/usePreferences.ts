@@ -13,7 +13,11 @@ import {
   WRAP_FORMAT,
   ZEBRA_STRIPING,
 } from "constants/storageKeys";
-import { getBoolean, getString, setString } from "utils/localStorage";
+import {
+  getLocalStorageBoolean,
+  getLocalStorageString,
+  setLocalStorageString,
+} from "utils/localStorage";
 import { Preferences } from "./types";
 
 interface PreferencesState {
@@ -36,19 +40,20 @@ type PreferencesAction =
   | { type: "SET_ZEBRA_STRIPING"; value: boolean };
 
 const persistToLocalStorage = (key: string, value: string | boolean): void => {
-  setString(key, value.toString());
+  setLocalStorageString(key, value.toString());
 };
 
 // Wrap and pretty print settings are evaluated after the logs have initially rendered - see LogPane component.
 const getInitialState = (): PreferencesState => ({
-  caseSensitive: getBoolean(CASE_SENSITIVE, false),
-  highlightFilters: getBoolean(HIGHLIGHT_FILTERS, false),
+  caseSensitive: getLocalStorageBoolean(CASE_SENSITIVE, false),
+  highlightFilters: getLocalStorageBoolean(HIGHLIGHT_FILTERS, false),
   prettyPrint: false,
-  stickyHeaders: getBoolean(STICKY_HEADERS, false),
+  stickyHeaders: getLocalStorageBoolean(STICKY_HEADERS, false),
   wordWrapFormat:
-    (getString(WRAP_FORMAT) as WordWrapFormat) || WordWrapFormat.Standard,
+    (getLocalStorageString(WRAP_FORMAT) as WordWrapFormat) ||
+    WordWrapFormat.Standard,
   wrap: false,
-  zebraStriping: getBoolean(ZEBRA_STRIPING, false),
+  zebraStriping: getLocalStorageBoolean(ZEBRA_STRIPING, false),
 });
 
 const preferencesReducer = (
@@ -91,13 +96,15 @@ const usePreferences = (): Preferences => {
 
   const [filterLogic, setFilterLogicParam] = useQueryParam(
     QueryParams.FilterLogic,
-    (getString(FILTER_LOGIC) as FilterLogic) ?? FilterLogic.And,
+    (getLocalStorageString(FILTER_LOGIC) as FilterLogic) ?? FilterLogic.And,
     urlParseOptions,
   );
 
   const [expandableRows, setExpandableRowsParam] = useQueryParam(
     QueryParams.Expandable,
-    getString(EXPANDABLE_ROWS) ? getString(EXPANDABLE_ROWS) === "true" : true,
+    getLocalStorageString(EXPANDABLE_ROWS)
+      ? getLocalStorageString(EXPANDABLE_ROWS) === "true"
+      : true,
     urlParseOptions,
   );
 

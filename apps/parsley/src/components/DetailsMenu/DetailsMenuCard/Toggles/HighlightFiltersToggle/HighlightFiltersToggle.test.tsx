@@ -3,6 +3,7 @@ import {
   renderWithRouterMatch as render,
   screen,
 } from "@evg-ui/lib/test_utils";
+import { HIGHLIGHT_FILTERS } from "constants/storageKeys";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import HighlightFiltersToggle from ".";
 
@@ -23,7 +24,7 @@ describe("highlight filter toggle", () => {
   });
 
   it("should read from localStorage properly", () => {
-    localStorage.setItem("highlight-filters", "true");
+    localStorage.setItem(HIGHLIGHT_FILTERS, "true");
     render(<HighlightFiltersToggle />, { wrapper });
     const highlightFiltersToggle = screen.getByDataCy(
       "highlight-filters-toggle",

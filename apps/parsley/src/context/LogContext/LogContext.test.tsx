@@ -2,6 +2,7 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes } from "constants/enums";
+import { WRAP_FORMAT } from "constants/storageKeys";
 import { RowType } from "types/logs";
 import { isSectionHeaderRow, isSkippedLinesRow } from "utils/logRowTypes";
 import { logContextWrapper } from "./test_utils";
@@ -401,7 +402,7 @@ describe("useLogContext", () => {
       expect(result.current.preferences.wordWrapFormat).toBe("standard");
     });
     it("word wrap format should default to the stored value if its been previously been set", async () => {
-      localStorage.setItem("wrap-format", "aggressive");
+      localStorage.setItem(WRAP_FORMAT, "aggressive");
       const { result } = renderHook(() => useLogContext(), {
         wrapper: wrapper(["A line 1", "B line 2", "C line 3"]),
       });

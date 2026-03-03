@@ -9,6 +9,7 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
+import { STICKY_HEADERS } from "constants/storageKeys";
 import { LogContextProvider, useLogContext } from "context/LogContext";
 import {
   parsleySettingsMock,
@@ -39,7 +40,7 @@ const sectionsDisabledWrapper = ({
 describe("sticky headers toggle", () => {
   beforeEach(() => {
     localStorage.clear();
-    localStorage.setItem("sticky-headers", "true");
+    localStorage.setItem(STICKY_HEADERS, "true");
     InitializeFakeToastContext();
   });
 

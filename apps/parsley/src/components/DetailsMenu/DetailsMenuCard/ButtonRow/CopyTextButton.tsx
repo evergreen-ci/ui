@@ -15,7 +15,10 @@ import { CopyFormat } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
 import { COPY_FORMAT } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
-import { getString, setString } from "utils/localStorage";
+import {
+  getLocalStorageString,
+  setLocalStorageString,
+} from "utils/localStorage";
 import { getJiraFormat, getRawLines } from "utils/string";
 
 const COPIED_SUCCESS_DURATION = 1500;
@@ -64,7 +67,7 @@ const Button: React.FC<{ bookmarks: number[] }> = ({ bookmarks }) => {
   ) => {
     await copyToClipboard(getText(bookmarks, getLine));
     setCopyDefault(format);
-    setString(COPY_FORMAT, format);
+    setLocalStorageString(COPY_FORMAT, format);
     setCopied(true);
   };
 
@@ -93,7 +96,7 @@ const Button: React.FC<{ bookmarks: number[] }> = ({ bookmarks }) => {
   };
 
   const [copyDefault, setCopyDefault] = useState(
-    getString(COPY_FORMAT) ?? CopyFormat.Jira,
+    getLocalStorageString(COPY_FORMAT) ?? CopyFormat.Jira,
   );
   const { [copyDefault]: primaryOption, ...selectableOptions } = copyOptions;
   return (

@@ -12,7 +12,7 @@ import { useLogContext } from "context/LogContext";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { useStickyHeaders } from "hooks/useStickyHeaders";
 import { findLineIndex } from "utils/findLineIndex";
-import { getBoolean } from "utils/localStorage";
+import { getLocalStorageBoolean } from "utils/localStorage";
 
 interface LogPaneProps {
   rowRenderer: (index: number) => React.ReactNode;
@@ -75,10 +75,10 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
           );
         }
         // Wrap and pretty print can be enabled after the log pane has initially loaded.
-        if (getBoolean(WRAP, false)) {
+        if (getLocalStorageBoolean(WRAP, false)) {
           setWrap(true);
         }
-        if (getBoolean(PRETTY_PRINT_BOOKMARKS, false)) {
+        if (getLocalStorageBoolean(PRETTY_PRINT_BOOKMARKS, false)) {
           setPrettyPrint(true);
         }
         performedScroll.current = true;

@@ -9,7 +9,7 @@ import { DRAWER_OPENED } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { projectFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";
-import { getBoolean } from "utils/localStorage";
+import { getLocalStorageBoolean } from "utils/localStorage";
 import SidePanel from ".";
 
 export default {
@@ -43,7 +43,7 @@ const Story = ({ ...args }) => {
   const clearExpandedLines = () => actions("clearExpandedLines");
   const collapseLines = () => actions("collapseLines");
   const [collapsed, setCollapsed] = useState<boolean>(
-    getBoolean(DRAWER_OPENED, false),
+    getLocalStorageBoolean(DRAWER_OPENED, false),
   );
   return (
     <Container>

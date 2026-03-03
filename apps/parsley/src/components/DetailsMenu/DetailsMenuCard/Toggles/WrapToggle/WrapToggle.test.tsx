@@ -4,6 +4,7 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { WRAP } from "constants/storageKeys";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import WrapToggle from ".";
 
@@ -27,7 +28,7 @@ describe("wrap toggle", () => {
 
     await user.click(wrapToggle);
     expect(wrapToggle).toHaveAttribute("aria-checked", "true");
-    expect(localStorage.getItem("wrap")).toBe("true");
+    expect(localStorage.getItem(WRAP)).toBe("true");
     expect(router.state.location.search).toBe("");
   });
 });
