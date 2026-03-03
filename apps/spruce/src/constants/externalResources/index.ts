@@ -32,6 +32,8 @@ export const mergeQueueAliasesDocumentationUrl = `${projectDistroSettingsDocumen
 
 export const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#git-tag-aliases`;
 
+export const runEveryMainlineCommitDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#run-every-mainline-commit`;
+
 export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
 
 export const githubPermissionsDocumentationUrl =
