@@ -24,10 +24,12 @@ export const useBreakingTask = (taskId: string, fetchPolicy?: FetchPolicy) => {
 
   // Skip the breaking task query if:
   // 1. Current task isn't failing (no breaking task to find)
-  // 2. Parent task is failing (breaking task is parent or earlier, not current task)
+  // 2. Parent task is failing AND there's no last passing task (can't determine breaking commit)
   const shouldSkipQuery =
     !isFailedTaskStatus(displayStatus) ||
-    (parentTask && isFailedTaskStatus(parentTask.displayStatus));
+    (parentTask &&
+      isFailedTaskStatus(parentTask.displayStatus) &&
+      !lastPassingTask);
 
   // The breaking commit is the first failing commit after the last passing commit.
   // The skip order number should be the last passing commit's order number + 1.
