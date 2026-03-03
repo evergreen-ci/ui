@@ -85,7 +85,9 @@ export const Annotations: React.FC<AnnotationProps> = ({
 
   const { failingTasks } = issues?.[0]?.jiraTicket?.fields || {};
   const otherFailingTasks =
-    failingTasks?.filter((t) => t !== displayName) ?? [];
+    failingTasks
+      ?.filter((t) => t !== displayName)
+      .sort((a, b) => a.localeCompare(b)) ?? [];
 
   return (
     <AnnotationsContainer>
