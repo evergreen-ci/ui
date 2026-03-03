@@ -40,10 +40,6 @@ const getCookie = (name: string): string | undefined => {
   return match ? decodeURIComponent(match[1]) : undefined;
 };
 
-const deleteCookie = (name: string): void => {
-  document.cookie = `${name}=; max-age=0; path=/`;
-};
-
 const migrateCookiesToLocalStorage = (): void => {
   try {
     if (localStorage.getItem(STORAGE_MIGRATION_COMPLETE)) {
@@ -54,7 +50,6 @@ const migrateCookiesToLocalStorage = (): void => {
       const value = getCookie(key);
       if (value !== undefined) {
         localStorage.setItem(key, value);
-        deleteCookie(key);
       }
     }
 
