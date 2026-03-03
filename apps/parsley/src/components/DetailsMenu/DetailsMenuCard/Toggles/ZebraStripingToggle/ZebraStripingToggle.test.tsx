@@ -4,6 +4,7 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { ZEBRA_STRIPING } from "constants/storageKeys";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import ZebraStripingToggle from ".";
 
@@ -12,7 +13,7 @@ const wrapper = logContextWrapper();
 describe("zebra striping toggle", () => {
   beforeEach(() => {
     localStorage.clear();
-    localStorage.setItem("zebra-striping", "true");
+    localStorage.setItem(ZEBRA_STRIPING, "true");
     InitializeFakeToastContext();
   });
 

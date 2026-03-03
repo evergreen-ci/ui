@@ -6,6 +6,7 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { WRAP_FORMAT } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import WordWrapFormatToggle from ".";
@@ -15,7 +16,7 @@ const wrapper = logContextWrapper();
 describe("word wrap format toggle", () => {
   beforeEach(() => {
     localStorage.clear();
-    localStorage.setItem("wrap-format", "standard");
+    localStorage.setItem(WRAP_FORMAT, "standard");
     InitializeFakeToastContext();
   });
 

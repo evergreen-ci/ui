@@ -7,14 +7,13 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { DRAWER_OPENED } from "constants/storageKeys";
 import { logContextWrapper } from "context/LogContext/test_utils";
-import { getBoolean } from "utils/localStorage";
 import SidePanel from ".";
 
 const wrapper = logContextWrapper();
 
 const SidePanelWrapper = () => {
   const [collapsed, setCollapsed] = useState<boolean>(
-    getBoolean(DRAWER_OPENED, false),
+    localStorage.getItem(DRAWER_OPENED) === "true",
   );
   return (
     <SidePanel

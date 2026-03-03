@@ -6,7 +6,10 @@ import { InlineCode, Label } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { LogRenderingTypes } from "constants/enums";
 import { LAST_SELECTED_LOG_TYPE } from "constants/storageKeys";
-import { getString, setString } from "utils/localStorage";
+import {
+  getLocalStorageString,
+  setLocalStorageString,
+} from "utils/localStorage";
 
 interface ParseLogSelectProps {
   fileName: string | undefined;
@@ -25,7 +28,7 @@ const ParseLogSelect: React.FC<ParseLogSelectProps> = ({
   onParse,
 }) => {
   const [logType, setLogType] = useState<SelectState>(
-    (getString(LAST_SELECTED_LOG_TYPE) as SelectState) ?? undefined,
+    (getLocalStorageString(LAST_SELECTED_LOG_TYPE) as SelectState) ?? undefined,
   );
 
   return (
@@ -38,7 +41,7 @@ const ParseLogSelect: React.FC<ParseLogSelectProps> = ({
         aria-labelledby="parse-log-select"
         data-cy="parse-log-select"
         onChange={(value) => {
-          setString(LAST_SELECTED_LOG_TYPE, value);
+          setLocalStorageString(LAST_SELECTED_LOG_TYPE, value);
           setLogType(value as SelectState);
         }}
         placeholder="Select..."

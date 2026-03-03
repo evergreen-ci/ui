@@ -7,6 +7,7 @@ import {
   screen,
   waitFor,
 } from "@evg-ui/lib/test_utils";
+import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/storageKeys";
 import { LogContextProvider } from "context/LogContext";
 import * as logContext from "context/LogContext";
 import { parsleySettingsMock } from "test_data/parsleySettings";
@@ -29,10 +30,13 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe("logPane", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   afterEach(() => {
     vi.restoreAllMocks();
     vi.useRealTimers();
-    localStorage.clear();
   });
 
   it("should render the virtualized list with the passed in row type", () => {
@@ -45,8 +49,8 @@ describe("logPane", () => {
   });
 
   it("should not execute wrap and pretty print functionality if stored value is false", async () => {
-    localStorage.setItem("wrap", "false");
-    localStorage.setItem("pretty-print-bookmarks", "false");
+    localStorage.setItem(WRAP, "false");
+    localStorage.setItem(PRETTY_PRINT_BOOKMARKS, "false");
 
     vi.useFakeTimers();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");
@@ -83,8 +87,8 @@ describe("logPane", () => {
   });
 
   it("should execute wrap and pretty print functionality if stored value is true", async () => {
-    localStorage.setItem("wrap", "true");
-    localStorage.setItem("pretty-print-bookmarks", "true");
+    localStorage.setItem(WRAP, "true");
+    localStorage.setItem(PRETTY_PRINT_BOOKMARKS, "true");
 
     vi.useFakeTimers();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");

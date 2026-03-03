@@ -3,7 +3,7 @@ import { SideNav } from "@leafygreen-ui/side-nav";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DRAWER_OPENED } from "constants/storageKeys";
 import { ExpandedLines } from "types/logs";
-import { setBoolean } from "utils/localStorage";
+import { setLocalStorageBoolean } from "utils/localStorage";
 import {
   ExpandedNavGroup,
   FilterNavGroup,
@@ -33,7 +33,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
     data-cy={dataCy}
     setCollapsed={(collapse) => {
       // panelCollapsed represents the initial state of the sidenav
-      setBoolean(DRAWER_OPENED, !panelCollapsed);
+      setLocalStorageBoolean(DRAWER_OPENED, !panelCollapsed);
       setPanelCollapsed(collapse);
     }}
     widthOverride={290}

@@ -13,7 +13,7 @@ import SubHeader from "components/SubHeader";
 import { DRAWER_OPENED } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { useIsParsleyAIAvailable } from "hooks";
-import { getBoolean } from "utils/localStorage";
+import { getLocalStorageBoolean } from "utils/localStorage";
 
 const LogWindow: React.FC = () => {
   const {
@@ -30,7 +30,7 @@ const LogWindow: React.FC = () => {
   const rowRenderer = ParsleyRow({ processedLogLines });
 
   const [sidePanelCollapsed, setSidePanelCollapsed] = useState<boolean>(
-    getBoolean(DRAWER_OPENED, false),
+    getLocalStorageBoolean(DRAWER_OPENED, false),
   );
 
   const { drawerOpen, setDrawerOpen } = useChatContext();

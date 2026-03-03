@@ -7,6 +7,7 @@ import {
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes } from "constants/enums";
+import { PRETTY_PRINT_BOOKMARKS } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import PrettyPrintToggle from ".";
@@ -39,7 +40,7 @@ describe("pretty print toggle", () => {
 
     await user.click(prettyPrintToggle);
     expect(prettyPrintToggle).toHaveAttribute("aria-checked", "true");
-    expect(localStorage.getItem("pretty-print-bookmarks")).toBe("true");
+    expect(localStorage.getItem(PRETTY_PRINT_BOOKMARKS)).toBe("true");
     expect(router.state.location.search).toBe("");
   });
 });

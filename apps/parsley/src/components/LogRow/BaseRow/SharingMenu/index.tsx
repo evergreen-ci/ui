@@ -14,7 +14,10 @@ import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { COPY_FORMAT } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
-import { getString, setString } from "utils/localStorage";
+import {
+  getLocalStorageString,
+  setLocalStorageString,
+} from "utils/localStorage";
 import { getJiraFormat, getRawLines } from "utils/string";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
@@ -70,14 +73,14 @@ const SharingMenu: React.FC = () => {
       selectedLines,
     );
 
-    const savedFormat = getString(COPY_FORMAT);
+    const savedFormat = getLocalStorageString(COPY_FORMAT);
     const copyFormat =
       savedFormat === CopyFormat.Raw ? CopyFormat.Raw : CopyFormat.Jira;
     const getText = copyFormat === CopyFormat.Raw ? getRawLines : getJiraFormat;
     const formatLabel = copyFormat === CopyFormat.Raw ? "raw" : "Jira";
 
     await copyToClipboard(getText(lineNumbers, getLine));
-    setString(COPY_FORMAT, copyFormat);
+    setLocalStorageString(COPY_FORMAT, copyFormat);
     setOpen(false);
     sendEvent({
       name: "Clicked copy share lines to clipboard button",

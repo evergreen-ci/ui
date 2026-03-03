@@ -4,6 +4,7 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { CASE_SENSITIVE } from "constants/storageKeys";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import CaseSensitiveToggle from ".";
 
@@ -22,7 +23,7 @@ describe("case sensitivity toggle", () => {
   });
 
   it("should read from localStorage properly", () => {
-    localStorage.setItem("case-sensitive", "true");
+    localStorage.setItem(CASE_SENSITIVE, "true");
     render(<CaseSensitiveToggle />, { wrapper });
     const caseSensitiveToggle = screen.getByDataCy("case-sensitive-toggle");
     expect(caseSensitiveToggle).toHaveAttribute("aria-checked", "true");
@@ -30,7 +31,7 @@ describe("case sensitivity toggle", () => {
 
   it("should not update the URL", async () => {
     const user = userEvent.setup();
-    localStorage.setItem("case-sensitive", "true");
+    localStorage.setItem(CASE_SENSITIVE, "true");
     const { router } = render(<CaseSensitiveToggle />, { wrapper });
     const caseSensitiveToggle = screen.getByDataCy("case-sensitive-toggle");
 

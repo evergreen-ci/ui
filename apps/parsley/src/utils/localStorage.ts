@@ -1,4 +1,4 @@
-const getString = (key: string): string | null => {
+const getLocalStorageString = (key: string): string | null => {
   try {
     return localStorage.getItem(key);
   } catch {
@@ -6,7 +6,7 @@ const getString = (key: string): string | null => {
   }
 };
 
-const setString = (key: string, value: string): void => {
+const setLocalStorageString = (key: string, value: string): void => {
   try {
     localStorage.setItem(key, value);
   } catch {
@@ -14,14 +14,22 @@ const setString = (key: string, value: string): void => {
   }
 };
 
-const getBoolean = (key: string, defaultValue: boolean): boolean => {
-  const value = getString(key);
+const getLocalStorageBoolean = (
+  key: string,
+  defaultValue: boolean,
+): boolean => {
+  const value = getLocalStorageString(key);
   if (value === null) return defaultValue;
   return value === "true";
 };
 
-const setBoolean = (key: string, value: boolean): void => {
-  setString(key, value.toString());
+const setLocalStorageBoolean = (key: string, value: boolean): void => {
+  setLocalStorageString(key, value.toString());
 };
 
-export { getBoolean, getString, setBoolean, setString };
+export {
+  getLocalStorageBoolean,
+  getLocalStorageString,
+  setLocalStorageBoolean,
+  setLocalStorageString,
+};
