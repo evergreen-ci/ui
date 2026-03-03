@@ -9,7 +9,7 @@
     data-cy="shortcut-modal"
     data-lgid="lg-modal"
     data-testid="lg-modal"
-    id="modal-44"
+    id="modal-43"
     open=""
   >
     <div>
@@ -421,7 +421,7 @@
       class="leafygreen-ui-1i75kq4"
       data-lgid="lg-modal-close"
       data-testid="lg-modal-close"
-      id="modal-close_button-43"
+      id="modal-close_button-42"
       tabindex="0"
     >
       <div

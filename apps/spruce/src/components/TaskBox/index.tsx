@@ -8,15 +8,17 @@ import { statusColorMap, statusIconMap } from "./icons";
 
 const { black, gray, white } = palette;
 
-const SQUARE_SIZE = 16;
+const DEFAULT_SQUARE_SIZE = 16;
 const SQUARE_BORDER = 1;
-export const SQUARE_WITH_BORDER = SQUARE_SIZE + SQUARE_BORDER * 2;
+export const SQUARE_WITH_BORDER = DEFAULT_SQUARE_SIZE + SQUARE_BORDER * 2;
 
 export { statusColorMap };
 
 const getTaskStatusStyle = (status: TaskStatus) => {
   const icon = statusIconMap?.[status];
-  const iconStyle = icon ? `background-image: ${icon};` : "";
+  const iconStyle = icon
+    ? `background-image: ${icon}; background-size: cover;`
+    : "";
   return css`
     ${iconStyle}
     background-color: ${statusColorMap[status]};
@@ -24,16 +26,16 @@ const getTaskStatusStyle = (status: TaskStatus) => {
 };
 
 const getCollapsedTaskBoxStyles = () => css`
-  min-width: ${SQUARE_SIZE}px;
+  min-width: ${DEFAULT_SQUARE_SIZE}px;
   width: fit-content;
   background-color: ${gray.light2};
   border-radius: ${size.xxs};
   text-align: center;
 `;
 
-const getTaskBoxStyles = () => css`
-  width: ${SQUARE_SIZE}px;
-  height: ${SQUARE_SIZE}px;
+const getTaskBoxStyles = (squareSize: number = DEFAULT_SQUARE_SIZE) => css`
+  width: ${squareSize}px;
+  height: ${squareSize}px;
   border: ${SQUARE_BORDER}px solid ${white};
   box-sizing: content-box;
   float: left;
@@ -42,6 +44,7 @@ const getTaskBoxStyles = () => css`
 
 interface TaskBoxProps {
   status: TaskStatus;
+  squareSize?: number;
   tooltip?: string;
   rightmost?: boolean;
 }
@@ -51,7 +54,7 @@ type PolymorphicProps<E extends React.ElementType> = TaskBoxProps & {
 } & Omit<React.ComponentPropsWithoutRef<E>, keyof TaskBoxProps>;
 
 const PolymorphicTaskBox = styled.div<TaskBoxProps>`
-  ${getTaskBoxStyles()}
+  ${({ squareSize }) => getTaskBoxStyles(squareSize)}
   ${({ status }) => getTaskStatusStyle(status)};
 
   ${({ rightmost, tooltip }) =>
@@ -97,11 +100,12 @@ const PolymorphicTaskBox = styled.div<TaskBoxProps>`
 export const TaskBox = forwardRef<
   HTMLDivElement,
   PolymorphicProps<React.ElementType>
->(({ as, rightmost, status, tooltip, ...rest }, ref) => (
+>(({ as, rightmost, squareSize, status, tooltip, ...rest }, ref) => (
   <PolymorphicTaskBox
     ref={ref}
     as={as}
     rightmost={rightmost}
+    squareSize={squareSize}
     status={status}
     tooltip={tooltip}
     {...rest}

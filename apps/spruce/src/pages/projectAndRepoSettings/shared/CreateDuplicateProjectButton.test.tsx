@@ -140,7 +140,6 @@ describe("createDuplicateProjectField", () => {
               newProjectIdentifier: newIdentifier,
               projectIdToCopy: "my_id",
             },
-            requestS3Creds: false,
           },
         },
         result: {

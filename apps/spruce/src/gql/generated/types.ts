@@ -69,7 +69,6 @@ export type AwsConfig = {
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]["output"]>;
   parserProject?: Maybe<ParserProjectS3Config>;
   persistentDNS?: Maybe<PersistentDnsConfig>;
-  pod?: Maybe<AwsPodConfig>;
   subnets: Array<Subnet>;
 };
 
@@ -85,23 +84,7 @@ export type AwsConfigInput = {
   maxVolumeSizePerUser?: InputMaybe<Scalars["Int"]["input"]>;
   parserProject?: InputMaybe<ParserProjectS3ConfigInput>;
   persistentDNS?: InputMaybe<PersistentDnsConfigInput>;
-  pod?: InputMaybe<AwsPodConfigInput>;
   subnets: Array<SubnetInput>;
-};
-
-export type AwsPodConfig = {
-  __typename?: "AWSPodConfig";
-  ecs?: Maybe<EcsConfig>;
-  region?: Maybe<Scalars["String"]["output"]>;
-  role?: Maybe<Scalars["String"]["output"]>;
-  secretsManager?: Maybe<SecretsManagerConfig>;
-};
-
-export type AwsPodConfigInput = {
-  ecs?: InputMaybe<EcsConfigInput>;
-  region?: InputMaybe<Scalars["String"]["input"]>;
-  role?: InputMaybe<Scalars["String"]["input"]>;
-  secretsManager?: InputMaybe<SecretsManagerConfigInput>;
 };
 
 export type AwsvpcConfig = {
@@ -191,7 +174,6 @@ export type AdminSettings = {
   parameterStore?: Maybe<ParameterStoreConfig>;
   perfMonitoringKanopyURL?: Maybe<Scalars["String"]["output"]>;
   perfMonitoringURL?: Maybe<Scalars["String"]["output"]>;
-  podLifecycle?: Maybe<PodLifecycleConfig>;
   pprofPort?: Maybe<Scalars["String"]["output"]>;
   projectCreation?: Maybe<ProjectCreationConfig>;
   providers?: Maybe<CloudProviderConfig>;
@@ -250,7 +232,6 @@ export type AdminSettingsInput = {
   parameterStore?: InputMaybe<ParameterStoreConfigInput>;
   perfMonitoringKanopyURL?: InputMaybe<Scalars["String"]["input"]>;
   perfMonitoringURL?: InputMaybe<Scalars["String"]["input"]>;
-  podLifecycle?: InputMaybe<PodLifecycleConfigInput>;
   pprofPort?: InputMaybe<Scalars["String"]["input"]>;
   projectCreation?: InputMaybe<ProjectCreationConfigInput>;
   providers?: InputMaybe<CloudProviderConfigInput>;
@@ -666,19 +647,6 @@ export type ContainerPoolsConfigInput = {
   pools: Array<ContainerPoolInput>;
 };
 
-export type ContainerResources = {
-  __typename?: "ContainerResources";
-  cpu: Scalars["Int"]["output"];
-  memoryMb: Scalars["Int"]["output"];
-  name: Scalars["String"]["output"];
-};
-
-export type ContainerResourcesInput = {
-  cpu: Scalars["Int"]["input"];
-  memoryMb: Scalars["Int"]["input"];
-  name: Scalars["String"]["input"];
-};
-
 /**
  * CopyDistroInput is the input to the copyDistro mutation.
  * It contains information about a distro to be duplicated.
@@ -996,79 +964,6 @@ export type Ec2KeyInput = {
   name: Scalars["String"]["input"];
   secret: Scalars["String"]["input"];
 };
-
-export enum EcsArchitecture {
-  EcsArchAmd64 = "ECS_ARCH_AMD64",
-  EcsArchArm64 = "ECS_ARCH_ARM64",
-}
-
-export type EcsCapacityProvider = {
-  __typename?: "ECSCapacityProvider";
-  arch?: Maybe<EcsArchitecture>;
-  name?: Maybe<Scalars["String"]["output"]>;
-  os?: Maybe<EcsOperatingSystem>;
-  windowsVersion?: Maybe<EcsWindowsVersion>;
-};
-
-export type EcsCapacityProviderInput = {
-  arch?: InputMaybe<EcsArchitecture>;
-  name?: InputMaybe<Scalars["String"]["input"]>;
-  os?: InputMaybe<EcsOperatingSystem>;
-  windowsVersion?: InputMaybe<EcsWindowsVersion>;
-};
-
-export type EcsClusterConfig = {
-  __typename?: "ECSClusterConfig";
-  name?: Maybe<Scalars["String"]["output"]>;
-  os?: Maybe<EcsOperatingSystem>;
-};
-
-export type EcsClusterConfigInput = {
-  name?: InputMaybe<Scalars["String"]["input"]>;
-  os?: InputMaybe<EcsOperatingSystem>;
-};
-
-export type EcsConfig = {
-  __typename?: "ECSConfig";
-  allowedImages: Array<Scalars["String"]["output"]>;
-  awsVPC?: Maybe<AwsvpcConfig>;
-  capacityProviders: Array<EcsCapacityProvider>;
-  clusters: Array<EcsClusterConfig>;
-  executionRole?: Maybe<Scalars["String"]["output"]>;
-  logGroup?: Maybe<Scalars["String"]["output"]>;
-  logRegion?: Maybe<Scalars["String"]["output"]>;
-  logStreamPrefix?: Maybe<Scalars["String"]["output"]>;
-  maxCPU?: Maybe<Scalars["Int"]["output"]>;
-  maxMemoryMb?: Maybe<Scalars["Int"]["output"]>;
-  taskDefinitionPrefix?: Maybe<Scalars["String"]["output"]>;
-  taskRole?: Maybe<Scalars["String"]["output"]>;
-};
-
-export type EcsConfigInput = {
-  allowedImages: Array<Scalars["String"]["input"]>;
-  awsVPC?: InputMaybe<AwsvpcConfigInput>;
-  capacityProviders: Array<EcsCapacityProviderInput>;
-  clusters: Array<EcsClusterConfigInput>;
-  executionRole?: InputMaybe<Scalars["String"]["input"]>;
-  logGroup?: InputMaybe<Scalars["String"]["input"]>;
-  logRegion?: InputMaybe<Scalars["String"]["input"]>;
-  logStreamPrefix?: InputMaybe<Scalars["String"]["input"]>;
-  maxCPU?: InputMaybe<Scalars["Int"]["input"]>;
-  maxMemoryMb?: InputMaybe<Scalars["Int"]["input"]>;
-  taskDefinitionPrefix?: InputMaybe<Scalars["String"]["input"]>;
-  taskRole?: InputMaybe<Scalars["String"]["input"]>;
-};
-
-export enum EcsOperatingSystem {
-  EcsosLinux = "ECSOSLinux",
-  EcsosWindows = "ECSOSWindows",
-}
-
-export enum EcsWindowsVersion {
-  EcsWindowsServer_2016 = "ECS_WINDOWS_SERVER_2016",
-  EcsWindowsServer_2019 = "ECS_WINDOWS_SERVER_2019",
-  EcsWindowsServer_2022 = "ECS_WINDOWS_SERVER_2022",
-}
 
 /**
  * EditSpawnHostInput is the input to the editSpawnHost mutation.
@@ -2105,7 +2000,6 @@ export type MutationCopyDistroArgs = {
 
 export type MutationCopyProjectArgs = {
   project: CopyProjectInput;
-  requestS3Creds?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export type MutationCreateDistroArgs = {
@@ -2114,7 +2008,6 @@ export type MutationCreateDistroArgs = {
 
 export type MutationCreateProjectArgs = {
   project: CreateProjectInput;
-  requestS3Creds?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export type MutationCreatePublicKeyArgs = {
@@ -2757,66 +2650,6 @@ export enum PlannerVersion {
   Tunable = "TUNABLE",
 }
 
-export type Pod = {
-  __typename?: "Pod";
-  events: PodEvents;
-  id: Scalars["String"]["output"];
-  status: Scalars["String"]["output"];
-  task?: Maybe<Task>;
-  taskContainerCreationOpts: TaskContainerCreationOpts;
-  type: Scalars["String"]["output"];
-};
-
-export type PodEventsArgs = {
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-};
-
-export type PodEventLogData = {
-  __typename?: "PodEventLogData";
-  newStatus?: Maybe<Scalars["String"]["output"]>;
-  oldStatus?: Maybe<Scalars["String"]["output"]>;
-  reason?: Maybe<Scalars["String"]["output"]>;
-  task?: Maybe<Task>;
-  taskExecution?: Maybe<Scalars["Int"]["output"]>;
-  taskID?: Maybe<Scalars["String"]["output"]>;
-  taskStatus?: Maybe<Scalars["String"]["output"]>;
-};
-
-export type PodEventLogEntry = {
-  __typename?: "PodEventLogEntry";
-  data: PodEventLogData;
-  eventType?: Maybe<Scalars["String"]["output"]>;
-  id: Scalars["String"]["output"];
-  processedAt?: Maybe<Scalars["Time"]["output"]>;
-  resourceId: Scalars["String"]["output"];
-  resourceType: Scalars["String"]["output"];
-  timestamp?: Maybe<Scalars["Time"]["output"]>;
-};
-
-/**
- * PodEvents is the return value for the events query.
- * It contains the event log entries for a pod.
- */
-export type PodEvents = {
-  __typename?: "PodEvents";
-  count: Scalars["Int"]["output"];
-  eventLogEntries: Array<PodEventLogEntry>;
-};
-
-export type PodLifecycleConfig = {
-  __typename?: "PodLifecycleConfig";
-  maxParallelPodRequests?: Maybe<Scalars["Int"]["output"]>;
-  maxPodDefinitionCleanupRate?: Maybe<Scalars["Int"]["output"]>;
-  maxSecretCleanupRate?: Maybe<Scalars["Int"]["output"]>;
-};
-
-export type PodLifecycleConfigInput = {
-  maxParallelPodRequests: Scalars["Int"]["input"];
-  maxPodDefinitionCleanupRate: Scalars["Int"]["input"];
-  maxSecretCleanupRate: Scalars["Int"]["input"];
-};
-
 export type PreconditionScript = {
   __typename?: "PreconditionScript";
   path: Scalars["String"]["output"];
@@ -2857,7 +2690,6 @@ export type Project = {
   branch: Scalars["String"]["output"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: CommitQueueParams;
-  containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
   debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2959,14 +2791,12 @@ export type ProjectBuildVariant = {
 
 export type ProjectCreationConfig = {
   __typename?: "ProjectCreationConfig";
-  jiraProject?: Maybe<Scalars["String"]["output"]>;
   repoExceptions: Array<OwnerRepo>;
   repoProjectLimit?: Maybe<Scalars["Int"]["output"]>;
   totalProjectLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ProjectCreationConfigInput = {
-  jiraProject?: InputMaybe<Scalars["String"]["input"]>;
   repoExceptions: Array<OwnerRepoInput>;
   repoProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
   totalProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
@@ -3014,7 +2844,6 @@ export type ProjectInput = {
   branch?: InputMaybe<Scalars["String"]["input"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
-  containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]["input"]>;
   debugSpawnHostsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3107,7 +2936,6 @@ export type ProjectSettingsInput = {
 
 export enum ProjectSettingsSection {
   Access = "ACCESS",
-  Containers = "CONTAINERS",
   General = "GENERAL",
   GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
   GithubAppSettings = "GITHUB_APP_SETTINGS",
@@ -3216,7 +3044,6 @@ export type Query = {
   myPublicKeys: Array<PublicKey>;
   myVolumes: Array<Volume>;
   patch: Patch;
-  pod: Pod;
   project: Project;
   projectEvents: ProjectEvents;
   projectSettings: ProjectSettings;
@@ -3328,10 +3155,6 @@ export type QueryPatchArgs = {
   patchId: Scalars["String"]["input"];
 };
 
-export type QueryPodArgs = {
-  podId: Scalars["String"]["input"];
-};
-
 export type QueryProjectArgs = {
   projectIdentifier: Scalars["String"]["input"];
 };
@@ -3437,7 +3260,6 @@ export type RepoRef = {
   batchTime: Scalars["Int"]["output"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: RepoCommitQueueParams;
-  containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious: Scalars["Boolean"]["output"];
   debugSpawnHostsDisabled: Scalars["Boolean"]["output"];
   disabledStatsCache: Scalars["Boolean"]["output"];
@@ -3485,7 +3307,6 @@ export type RepoRefInput = {
   batchTime?: InputMaybe<Scalars["Int"]["input"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
-  containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]["input"]>;
   debugSpawnHostsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3793,15 +3614,6 @@ export type SearchReturnInfo = {
   source: Scalars["String"]["output"];
 };
 
-export type SecretsManagerConfig = {
-  __typename?: "SecretsManagerConfig";
-  secretPrefix?: Maybe<Scalars["String"]["output"]>;
-};
-
-export type SecretsManagerConfigInput = {
-  secretPrefix?: InputMaybe<Scalars["String"]["input"]>;
-};
-
 export type Selector = {
   __typename?: "Selector";
   data: Scalars["String"]["output"];
@@ -3848,8 +3660,6 @@ export type ServiceFlags = {
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  podAllocatorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  podInitDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   psLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3862,7 +3672,6 @@ export type ServiceFlags = {
   taskDispatchDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskReliabilityDisabled?: Maybe<Scalars["Boolean"]["output"]>;
-  unrecognizedPodCleanupDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   useMergeQueuePathFilteringDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   webhookNotificationsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
@@ -3890,8 +3699,6 @@ export type ServiceFlagsInput = {
   jwtTokenForCLIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   largeParserProjectsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  podAllocatorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  podInitDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   psLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3904,7 +3711,6 @@ export type ServiceFlagsInput = {
   taskDispatchDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskReliabilityDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  unrecognizedPodCleanupDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   useMergeQueuePathFilteringDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   webhookNotificationsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
@@ -4218,7 +4024,6 @@ export type Task = {
   canSchedule: Scalars["Boolean"]["output"];
   canSetPriority: Scalars["Boolean"]["output"];
   canUnschedule: Scalars["Boolean"]["output"];
-  containerAllocatedTime?: Maybe<Scalars["Time"]["output"]>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   dependsOn?: Maybe<Array<Dependency>>;
   details?: Maybe<TaskEndDetail>;
@@ -4254,7 +4059,6 @@ export type Task = {
   order: Scalars["Int"]["output"];
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
-  pod?: Maybe<Pod>;
   predictedTaskCost?: Maybe<Cost>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
@@ -4298,16 +4102,6 @@ export type TaskAnnotationSettingsInput = {
   fileTicketWebhook?: InputMaybe<WebhookInput>;
 };
 
-export type TaskContainerCreationOpts = {
-  __typename?: "TaskContainerCreationOpts";
-  arch: Scalars["String"]["output"];
-  cpu: Scalars["Int"]["output"];
-  image: Scalars["String"]["output"];
-  memoryMB: Scalars["Int"]["output"];
-  os: Scalars["String"]["output"];
-  workingDir: Scalars["String"]["output"];
-};
-
 /** TaskCountOptions defines the parameters that are used when counting tasks from a Version. */
 export type TaskCountOptions = {
   includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -4334,7 +4128,6 @@ export type TaskEventLogData = {
   hostId?: Maybe<Scalars["String"]["output"]>;
   jiraIssue?: Maybe<Scalars["String"]["output"]>;
   jiraLink?: Maybe<Scalars["String"]["output"]>;
-  podId?: Maybe<Scalars["String"]["output"]>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   status?: Maybe<Scalars["String"]["output"]>;
   timestamp?: Maybe<Scalars["Time"]["output"]>;
@@ -5554,6 +5347,7 @@ export type ProjectGithubSettingsFragment = {
   manualPrTestingEnabled?: boolean | null;
   oldestAllowedMergeBase: string;
   prTestingEnabled?: boolean | null;
+  runEveryMainlineCommit?: boolean | null;
   commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
 };
 
@@ -5569,6 +5363,7 @@ export type RepoGithubSettingsFragment = {
   manualPrTestingEnabled: boolean;
   oldestAllowedMergeBase: string;
   prTestingEnabled: boolean;
+  runEveryMainlineCommit: boolean;
   commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
 };
 
@@ -5587,6 +5382,7 @@ export type ProjectGithubCommitQueueFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
   } | null;
 };
@@ -5606,6 +5402,7 @@ export type RepoGithubCommitQueueFragment = {
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
+    runEveryMainlineCommit: boolean;
     commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
   } | null;
 };
@@ -5625,6 +5422,7 @@ export type ProjectEventGithubCommitQueueFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
   } | null;
 };
@@ -5682,6 +5480,7 @@ export type ProjectSettingsFieldsFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -5887,6 +5686,7 @@ export type RepoSettingsFieldsFragment = {
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
+    runEveryMainlineCommit: boolean;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -6344,6 +6144,7 @@ export type ProjectEventSettingsFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -6729,7 +6530,6 @@ export type CopyDistroMutation = {
 
 export type CopyProjectMutationVariables = Exact<{
   project: CopyProjectInput;
-  requestS3Creds: Scalars["Boolean"]["input"];
 }>;
 
 export type CopyProjectMutation = {
@@ -6748,7 +6548,6 @@ export type CreateDistroMutation = {
 
 export type CreateProjectMutationVariables = Exact<{
   project: CreateProjectInput;
-  requestS3Creds: Scalars["Boolean"]["input"];
 }>;
 
 export type CreateProjectMutation = {
@@ -7251,10 +7050,7 @@ export type SaveAdminSettingsMutation = {
       uiv2Url?: string | null;
       url?: string | null;
       userVoice?: string | null;
-      betaFeatures: {
-        __typename?: "BetaFeatures";
-        parsleyAIEnabled?: boolean | null;
-      };
+      betaFeatures: { __typename: "BetaFeatures" };
     } | null;
   };
 };
@@ -7864,7 +7660,6 @@ export type AdminSettingsQuery = {
     } | null;
     projectCreation?: {
       __typename?: "ProjectCreationConfig";
-      jiraProject?: string | null;
       repoProjectLimit?: number | null;
       totalProjectLimit?: number | null;
       repoExceptions: Array<{
@@ -8054,10 +7849,7 @@ export type AdminSettingsQuery = {
       uiv2Url?: string | null;
       url?: string | null;
       userVoice?: string | null;
-      betaFeatures: {
-        __typename?: "BetaFeatures";
-        parsleyAIEnabled?: boolean | null;
-      };
+      betaFeatures: { __typename: "BetaFeatures" };
     } | null;
   } | null;
 };
@@ -9400,6 +9192,7 @@ export type ProjectEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -9621,6 +9414,7 @@ export type ProjectEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -9905,6 +9699,7 @@ export type ProjectSettingsQuery = {
       manualPrTestingEnabled?: boolean | null;
       oldestAllowedMergeBase: string;
       prTestingEnabled?: boolean | null;
+      runEveryMainlineCommit?: boolean | null;
       githubDynamicTokenPermissionGroups: Array<{
         __typename?: "GitHubDynamicTokenPermissionGroup";
         name: string;
@@ -10174,6 +9969,7 @@ export type RepoEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -10395,6 +10191,7 @@ export type RepoEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -10620,6 +10417,7 @@ export type RepoSettingsQuery = {
       manualPrTestingEnabled: boolean;
       oldestAllowedMergeBase: string;
       prTestingEnabled: boolean;
+      runEveryMainlineCommit: boolean;
       githubDynamicTokenPermissionGroups: Array<{
         __typename?: "GitHubDynamicTokenPermissionGroup";
         name: string;

@@ -611,10 +611,6 @@ export const projectCreationSettings = {
       type: "number" as const,
       title: "Repository Project Limit",
     },
-    jiraProject: {
-      type: "string" as const,
-      title: "Jira Project",
-    },
     repoExceptions: {
       type: "array" as const,
       title: "Repository Exceptions",
