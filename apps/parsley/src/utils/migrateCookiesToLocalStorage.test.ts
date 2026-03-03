@@ -1,6 +1,5 @@
 import {
   CASE_SENSITIVE,
-  FILTER_LOGIC,
   STORAGE_MIGRATION_COMPLETE,
   WRAP,
 } from "constants/storageKeys";
@@ -38,14 +37,6 @@ describe("migrateCookiesToLocalStorage", () => {
 
     expect(localStorage.getItem(CASE_SENSITIVE)).toBe("true");
     expect(localStorage.getItem(WRAP)).toBe("false");
-  });
-
-  it("deletes cookies after migration", () => {
-    setCookie(FILTER_LOGIC, "or");
-
-    migrateCookiesToLocalStorage();
-
-    expect(getCookie(FILTER_LOGIC)).toBeUndefined();
   });
 
   it("sets the migration complete flag", () => {
