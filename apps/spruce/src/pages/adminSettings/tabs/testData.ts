@@ -133,7 +133,7 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     cacheTemplates: true,
     stagingEnvironment: "staging",
     betaFeatures: {
-      parsleyAIEnabled: true,
+      __typename: "BetaFeatures",
     },
   },
   disabledGQLQueries: ["query1", "query2"],
