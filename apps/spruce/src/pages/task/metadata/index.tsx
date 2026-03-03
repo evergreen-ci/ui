@@ -21,7 +21,6 @@ import {
   getHostRoute,
   getSpawnHostRoute,
   getProjectPatchesRoute,
-  getPodRoute,
   getImageRoute,
 } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
@@ -83,7 +82,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     imageId,
     ingestTime,
     minQueuePosition: taskQueuePosition,
-    pod,
     priority,
     project,
     resetWhenFinished,
@@ -114,8 +112,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const oomTracker = details?.oomTracker;
   const taskTrace = details?.traceID;
   const diskDevices = details?.diskDevices;
-  const { id: podId } = pod ?? {};
-  const isContainerTask = !!podId;
   const { metadataLinks } = annotation ?? {};
 
   const stepback = isInStepback(task);
@@ -233,10 +229,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           </MetadataItem>
         )}
         {(details?.description || details?.failingCommand) && (
-          <DetailsDescription
-            details={details}
-            isContainerTask={isContainerTask}
-          />
+          <DetailsDescription details={details} />
         )}
 
         <TaskOwnership execution={execution} taskId={taskId} />
@@ -374,7 +367,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
 
       {!isDisplayTask && (
         <MetadataCard loading={loading} title="Host Information">
-          {!isContainerTask && hostId && (
+          {hostId && (
             <MetadataItem>
               <MetadataLabel>ID:</MetadataLabel>{" "}
               <StyledLink
@@ -391,7 +384,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
               </StyledLink>
             </MetadataItem>
           )}
-          {!isContainerTask && distroId && (
+          {distroId && (
             <MetadataItem>
               <MetadataLabel>Distro:</MetadataLabel>{" "}
               <StyledRouterLink
@@ -408,7 +401,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
               </StyledRouterLink>
             </MetadataItem>
           )}
-          {!isContainerTask && imageId && (
+          {imageId && (
             <MetadataItem>
               <MetadataLabel>Image:</MetadataLabel>{" "}
               <StyledRouterLink
@@ -428,23 +421,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           {ami && (
             <MetadataItem data-cy="task-metadata-ami">
               <MetadataLabel>AMI:</MetadataLabel> {ami}
-            </MetadataItem>
-          )}
-          {isContainerTask && (
-            <MetadataItem>
-              <MetadataLabel>Container:</MetadataLabel>{" "}
-              <StyledLink
-                data-cy="task-pod-link"
-                href={getPodRoute(podId)}
-                onClick={() =>
-                  taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
-                    "link.type": "pod link",
-                  })
-                }
-              >
-                {podId}
-              </StyledLink>
             </MetadataItem>
           )}
           {spawnHostLink && (

@@ -35,9 +35,9 @@ const Template = (args: TemplateProps) => (
     {SortedTaskStatus.map((s) => (
       <TaskBox
         key={s}
-        rightmost={args.rightmost}
         status={s as TaskStatus}
         tooltip={args.hasTooltip ? `Task with status ${s}` : ""}
+        {...args}
       />
     ))}
   </Container>

@@ -42,12 +42,6 @@ export const getSpruceConfigMock: ApolloMock<
         providers: {
           aws: {
             maxVolumeSizePerUser: 1500,
-            pod: {
-              ecs: {
-                maxCPU: 10,
-                maxMemoryMb: 1024,
-              },
-            },
             __typename: "AWSConfig",
           },
           __typename: "CloudProviderConfig",

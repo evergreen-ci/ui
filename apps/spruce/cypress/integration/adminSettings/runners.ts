@@ -27,11 +27,6 @@ describe("runners", () => {
     cy.get("@hostInitInput").clear();
     cy.get("@hostInitInput").type("8888");
 
-    // Pod Lifecycle section.
-    cy.getInputByLabel("Max Parallel Pod Requests").as("podLifecycleInput");
-    cy.get("@podLifecycleInput").clear();
-    cy.get("@podLifecycleInput").type("7777");
-
     // Scheduler section.
     cy.getInputByLabel("Rounding Rule").as("schedulerSelect");
     cy.selectLGOption("Rounding Rule", "Round up");
@@ -55,7 +50,6 @@ describe("runners", () => {
     cy.get("@sesInput").should("have.value", "new_email@email.com");
     cy.get("@taskLimitInput").should("have.value", "9999");
     cy.get("@hostInitInput").should("have.value", "8888");
-    cy.get("@podLifecycleInput").should("have.value", "7777");
     cy.get("@schedulerSelect").should("have.value", "UP");
     cy.get("@schedulerInput").should("have.value", "0.6");
     cy.get("@schedulerCheckbox").should("not.be.checked");

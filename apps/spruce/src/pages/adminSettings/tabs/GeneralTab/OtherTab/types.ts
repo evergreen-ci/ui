@@ -111,7 +111,6 @@ export interface OtherFormState {
     projectCreationSettings: {
       totalProjectLimit: number;
       repoProjectLimit: number;
-      jiraProject: string;
       repoExceptions: Array<{
         owner: string;
         repo: string;

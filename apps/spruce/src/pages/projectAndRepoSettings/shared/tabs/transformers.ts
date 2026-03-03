@@ -1,6 +1,5 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import * as access from "./AccessTab/transformers";
-import * as containers from "./ContainersTab/transformers";
 import * as general from "./GeneralTab/transformers";
 import * as appSettings from "./GithubAppSettingsTab/transformers";
 import * as githubCommitQueue from "./GithubCommitQueueTab/transformers";
@@ -39,7 +38,6 @@ export const gqlToFormMap: {
   [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.gqlToForm,
   [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.gqlToForm,
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.gqlToForm,
-  [ProjectSettingsTabRoutes.Containers]: containers.gqlToForm,
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.gqlToForm,
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.gqlToForm,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.gqlToForm,
@@ -59,7 +57,6 @@ export const formToGqlMap: {
   [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.formToGql,
   [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.formToGql,
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.formToGql,
-  [ProjectSettingsTabRoutes.Containers]: containers.formToGql,
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.formToGql,
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.formToGql,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.formToGql,

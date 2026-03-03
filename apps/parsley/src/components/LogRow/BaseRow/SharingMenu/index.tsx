@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import Cookies from "js-cookie";
 import pluralize from "pluralize";
 import { useChatContext } from "@evg-ui/fungi";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -9,6 +10,8 @@ import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";
 import { useLogWindowAnalytics } from "analytics";
+import { COPY_FORMAT } from "constants/cookies";
+import { CopyFormat } from "constants/enums";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
@@ -67,13 +70,22 @@ const SharingMenu: React.FC = () => {
       selectedLines,
     );
 
-    await copyToClipboard(getJiraFormat(lineNumbers, getLine));
+    const savedFormat = Cookies.get(COPY_FORMAT);
+    const copyFormat =
+      savedFormat === CopyFormat.Raw ? CopyFormat.Raw : CopyFormat.Jira;
+    const getText = copyFormat === CopyFormat.Raw ? getRawLines : getJiraFormat;
+    const formatLabel = copyFormat === CopyFormat.Raw ? "raw" : "Jira";
+
+    await copyToClipboard(getText(lineNumbers, getLine));
+    Cookies.set(COPY_FORMAT, copyFormat);
     setOpen(false);
     sendEvent({
       name: "Clicked copy share lines to clipboard button",
     });
     dispatchToast.success(
-      `Copied ${pluralize("line", lineNumbers.length, true)} to clipboard`,
+      `Copied ${pluralize("line", lineNumbers.length, true)} to clipboard (${formatLabel})`,
+      true,
+      { timeout: 5000 },
     );
   };
 
@@ -101,7 +113,7 @@ const SharingMenu: React.FC = () => {
     await copyToClipboard(url.toString());
     setOpen(false);
     sendEvent({ name: "Clicked copy share link button" });
-    dispatchToast.success("Copied link to clipboard");
+    dispatchToast.success("Copied link to clipboard", true, { timeout: 5000 });
   };
 
   const lineCount =

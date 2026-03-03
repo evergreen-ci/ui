@@ -31,7 +31,6 @@ import { ProjectType } from "./tabs/utils";
 const defaultToRepoDisabled: Set<WritableProjectSettingsType> = new Set([
   ProjectSettingsTabRoutes.Notifications,
   ProjectSettingsTabRoutes.Plugins,
-  ProjectSettingsTabRoutes.Containers,
   ProjectSettingsTabRoutes.ViewsAndFilters,
   ProjectSettingsTabRoutes.GithubPermissionGroups,
 ]);
@@ -182,7 +181,6 @@ const mapRouteToSection: Record<
   [ProjectSettingsTabRoutes.PeriodicBuilds]:
     ProjectSettingsSection.PeriodicBuilds,
   [ProjectSettingsTabRoutes.Plugins]: ProjectSettingsSection.Plugins,
-  [ProjectSettingsTabRoutes.Containers]: ProjectSettingsSection.Containers,
   [ProjectSettingsTabRoutes.ViewsAndFilters]:
     ProjectSettingsSection.ViewsAndFilters,
   [ProjectSettingsTabRoutes.GithubAppSettings]:

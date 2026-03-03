@@ -49,8 +49,6 @@ export const redactedVarsDocumentationUrl = `${wikiBaseUrl}/Project-Configuratio
 
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;
 
-export const containersOnboardingDocumentationUrl = `${wikiBaseUrl}/Containers/Container-Tasks`;
-
 export const taskSchedulingLimitsDocumentationUrl = `${wikiBaseUrl}/Reference/Limits#task-scheduling-limits`;
 
 export const dataRetentionDocumentationUrl = `${wikiBaseUrl}/Reference/Data-Retention`;
@@ -128,3 +126,6 @@ export const cursorAPIKeySettingsUrl =
 
 export const sageBotDocumentationUrl =
   "https://docs.devprod.prod.corp.mongodb.com/sage/sage-bot/";
+
+export const backstageS3BucketUrl =
+  "https://app.backstage.prod.corp.mongodb.com/create/templates/default/evergreen-s3";
