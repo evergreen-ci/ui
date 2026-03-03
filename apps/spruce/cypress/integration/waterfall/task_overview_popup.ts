@@ -4,8 +4,7 @@ describe("task overview popup", () => {
   });
 
   it("displays task overview popup on alt+click", () => {
-    cy.get(knownIssueTask).as("knownIssueTask");
-    cy.get("@knownIssueTask").click({ altKey: true });
+    cy.get(knownIssueTask).click({ altKey: true });
     cy.dataCy("task-overview-popup").should("exist");
     cy.dataCy("task-overview-popup").should("be.visible");
 
@@ -24,9 +23,16 @@ describe("task overview popup", () => {
     cy.dataCy("task-overview-popup").should("exist");
   });
 
+  it("navigates to task page when clicking the task link", () => {
+    cy.get(knownIssueTask).click({ altKey: true });
+    cy.dataCy("task-overview-popup").should("exist");
+    cy.dataCy("task-overview-popup").should("be.visible");
+    cy.dataCy("task-link").click();
+    cy.location("pathname").should("include", `/task/${knownIssueTaskId}`);
+  });
+
   it("displays associated issues", () => {
-    cy.get(knownIssueTask).as("knownIssueTask");
-    cy.get("@knownIssueTask").click({ altKey: true });
+    cy.get(knownIssueTask).click({ altKey: true });
     cy.dataCy("task-overview-popup").should("exist");
     cy.dataCy("task-overview-popup").should("be.visible");
     cy.dataCy("task-overview-popup").should(
@@ -39,19 +45,25 @@ describe("task overview popup", () => {
     cy.dataCy("task-overview-popup").should("contain.text", "A-Random-Ticket");
   });
 
-  it("navigates to task page when clicking the task link", () => {
-    cy.get(knownIssueTask).as("knownIssueTask");
-    cy.get("@knownIssueTask").click({ altKey: true });
+  it("displays failing tests for a failed task", () => {
+    const testServiceTask = 'a[data-tooltip="test-service - Failed"]';
+    cy.get(testServiceTask).click({ altKey: true });
     cy.dataCy("task-overview-popup").should("exist");
     cy.dataCy("task-overview-popup").should("be.visible");
-    cy.dataCy("task-link").click();
-    cy.location("pathname").should("include", `/task/${knownIssueTaskId}`);
+    cy.dataCy("task-overview-popup").should("contain.text", "Failing Test(s)");
+    cy.dataCy("task-overview-popup").should(
+      "contain.text",
+      "JustAFakeTestInALonelyWorld",
+    );
+    cy.dataCy("task-overview-popup").should(
+      "contain.text",
+      "JustAnotherFakeFailingTestInALonelyWorld",
+    );
   });
 
   describe("buttons", () => {
     it("restart button restarts the task", () => {
-      cy.get(knownIssueTask).as("knownIssueTask");
-      cy.get("@knownIssueTask").click({ altKey: true });
+      cy.get(knownIssueTask).click({ altKey: true });
       cy.dataCy("task-overview-popup").should("exist");
       cy.dataCy("task-overview-popup").should("be.visible");
 
@@ -65,8 +77,7 @@ describe("task overview popup", () => {
     });
 
     it("filter button applies task and build variant filters", () => {
-      cy.get(knownIssueTask).as("knownIssueTask");
-      cy.get("@knownIssueTask").click({ altKey: true });
+      cy.get(knownIssueTask).click({ altKey: true });
       cy.dataCy("task-overview-popup").should("exist");
       cy.dataCy("task-overview-popup").should("be.visible");
 
@@ -79,8 +90,7 @@ describe("task overview popup", () => {
     });
 
     it("task logs button navigates to Parsley", () => {
-      cy.get(knownIssueTask).as("knownIssueTask");
-      cy.get("@knownIssueTask").click({ altKey: true });
+      cy.get(knownIssueTask).click({ altKey: true });
       cy.dataCy("task-overview-popup").should("exist");
       cy.dataCy("task-overview-popup").should("be.visible");
 
@@ -94,8 +104,7 @@ describe("task overview popup", () => {
     });
 
     it("task history button navigates to task history tab", () => {
-      cy.get(knownIssueTask).as("knownIssueTask");
-      cy.get("@knownIssueTask").click({ altKey: true });
+      cy.get(knownIssueTask).click({ altKey: true });
       cy.dataCy("task-overview-popup").should("exist");
 
       cy.contains("a", "History").should("be.visible");
