@@ -1,4 +1,4 @@
-query TaskHistory($options: TaskHistoryOpts!) {
+query TaskHistory($options: TaskHistoryOpts!, $includeGenerator: Boolean!) {
   taskHistory(options: $options) {
     pagination {
       mostRecentTaskOrder
@@ -12,7 +12,7 @@ query TaskHistory($options: TaskHistoryOpts!) {
       canSetPriority
       displayStatus
       execution
-      generator {
+      generator @include(if: $includeGenerator) {
         id
         execution
         ingestTime

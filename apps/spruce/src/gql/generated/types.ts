@@ -10815,6 +10815,7 @@ export type TaskFilesQuery = {
 
 export type TaskHistoryQueryVariables = Exact<{
   options: TaskHistoryOpts;
+  includeGenerator: Scalars["Boolean"]["input"];
 }>;
 
 export type TaskHistoryQuery = {

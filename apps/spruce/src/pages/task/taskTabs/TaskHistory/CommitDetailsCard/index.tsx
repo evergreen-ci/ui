@@ -242,7 +242,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
             <span>{dateCopy}</span>
             {generator?.ingestTime && (
               <InfoSprinkle>
-                Generated task (sorted by generator time)
+                Generated tasks are sorted by generator ingest time.
               </InfoSprinkle>
             )}
           </DateContainer>
