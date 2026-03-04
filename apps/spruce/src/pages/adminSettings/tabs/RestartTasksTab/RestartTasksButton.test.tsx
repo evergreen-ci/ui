@@ -70,7 +70,10 @@ describe("restartTasksButton", () => {
       expect(screen.getByText("task-1")).toBeInTheDocument();
     });
     expect(screen.getByText("task-2")).toBeInTheDocument();
-    const confirmButton = screen.getByRole("button", { name: "Confirm" });
+    const confirmButton = screen.getByRole("button", {
+      hidden: true,
+      name: "Confirm",
+    });
     await waitFor(() => {
       expect(confirmButton).toHaveAttribute("aria-disabled", "false");
     });

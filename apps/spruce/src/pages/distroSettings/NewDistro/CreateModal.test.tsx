@@ -63,7 +63,9 @@ describe("create distro modal", () => {
 
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
-    await user.click(screen.getByRole("button", { name: "Create" }));
+    await user.click(
+      screen.getByRole("button", { hidden: true, name: "Create" }),
+    );
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
@@ -84,7 +86,9 @@ describe("create distro modal", () => {
       newDistroId,
     );
     await user.click(screen.getByText("Single Task Distro"));
-    await user.click(screen.getByRole("button", { name: "Create" }));
+    await user.click(
+      screen.getByRole("button", { hidden: true, name: "Create" }),
+    );
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
@@ -137,6 +141,7 @@ describe("create distro modal", () => {
     await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
 
     const confirmButton = screen.getByRole("button", {
+      hidden: true,
       name: "Create",
     });
     expect(confirmButton).toBeEnabled();

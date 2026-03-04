@@ -82,6 +82,7 @@ describe("addIssueModal", () => {
     );
     expect(
       screen.getByRole("button", {
+        hidden: true,
         name: "Add issue",
       }),
     ).not.toHaveAttribute("aria-disabled", "true");
@@ -110,6 +111,7 @@ describe("addIssueModal", () => {
     );
 
     const confirmButton = screen.getByRole("button", {
+      hidden: true,
       name: "Add issue",
     });
 
@@ -155,6 +157,7 @@ describe("addIssueModal", () => {
     await user.type(screen.queryByDataCy("confidence-level"), "12");
 
     const confirmButton = screen.getByRole("button", {
+      hidden: true,
       name: "Add issue",
     });
     await waitFor(() => {

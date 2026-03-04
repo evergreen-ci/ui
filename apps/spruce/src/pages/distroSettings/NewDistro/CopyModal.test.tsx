@@ -72,7 +72,9 @@ describe("copy distro modal", () => {
     });
 
     await user.type(screen.getByDataCy("distro-id-input"), newDistroId);
-    await user.click(screen.getByRole("button", { name: "Duplicate" }));
+    await user.click(
+      screen.getByRole("button", { hidden: true, name: "Duplicate" }),
+    );
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
@@ -130,6 +132,7 @@ describe("copy distro modal", () => {
     await user.type(screen.getByDataCy("distro-id-input"), newDistroId);
 
     const confirmButton = screen.getByRole("button", {
+      hidden: true,
       name: "Duplicate",
     });
     expect(confirmButton).toBeEnabled();

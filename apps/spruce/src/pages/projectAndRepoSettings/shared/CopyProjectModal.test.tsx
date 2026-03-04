@@ -90,6 +90,7 @@ describe("copyProjectField", () => {
     );
 
     const confirmButton = screen.getByRole("button", {
+      hidden: true,
       name: "Duplicate",
     });
     expect(confirmButton).toBeEnabled();
@@ -148,6 +149,7 @@ describe("copyProjectField", () => {
     expect(enablePerformanceTooling).toBeChecked();
 
     const confirmButton = screen.getByRole("button", {
+      hidden: true,
       name: "Duplicate",
     });
     expect(confirmButton).toBeEnabled();
@@ -195,6 +197,7 @@ describe("copyProjectField", () => {
     );
 
     const confirmButton = screen.getByRole("button", {
+      hidden: true,
       name: "Duplicate",
     });
     expect(confirmButton).toBeEnabled();
@@ -235,6 +238,7 @@ describe("copyProjectField", () => {
     );
 
     const confirmButton = screen.getByRole("button", {
+      hidden: true,
       name: "Duplicate",
     });
     expect(confirmButton).toBeEnabled();

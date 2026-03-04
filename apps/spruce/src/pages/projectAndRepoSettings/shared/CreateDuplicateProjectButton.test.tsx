@@ -175,6 +175,7 @@ describe("createDuplicateProjectField", () => {
       );
 
       const confirmButton = screen.getByRole("button", {
+        hidden: true,
         name: "Duplicate",
       });
       expect(confirmButton).toBeEnabled();

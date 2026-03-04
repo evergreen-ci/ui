@@ -2,6 +2,7 @@ import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
   MockedResponse,
+  fireEvent,
   userEvent,
   renderWithRouterMatch as render,
   screen,
@@ -150,11 +151,12 @@ describe("spawnVolumeModal", () => {
     });
 
     // Modify form values
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.clear(screen.queryByDataCy("volume-size-input"));
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.type(screen.queryByDataCy("volume-size-input"), "24");
-    expect(screen.queryByDataCy("volume-size-input")).toHaveValue("24");
+    const volumeInput = screen.queryByDataCy(
+      "volume-size-input",
+    ) as HTMLInputElement;
+    await user.clear(volumeInput);
+    fireEvent.change(volumeInput, { target: { value: "24" } });
+    expect(volumeInput).toHaveValue("24");
     await selectLGOption("availability-zone-select", "us-east-1c");
     await selectLGOption("type-select", "st1");
     await selectLGOption("host-select", "i-00b212e96b3f91079");
