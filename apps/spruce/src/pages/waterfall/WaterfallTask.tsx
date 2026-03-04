@@ -16,49 +16,53 @@ export const WaterfallTask: React.FC<{
   open: boolean;
   setOpen: (open: boolean) => void;
   task: Unpacked<Build["tasks"]>;
-}> = ({
-  handleTaskClick,
-  isFirstActiveTask,
-  isRightmostBuild,
-  open,
-  setOpen,
-  task,
-}) => {
-  const taskBoxRef = useRef<HTMLDivElement>(null);
-  const squareProps = isFirstActiveTask
-    ? { [waterfallGuideId]: walkthroughSteps[0].targetId }
-    : {};
+}> = memo(
+  ({
+    handleTaskClick,
+    isFirstActiveTask,
+    isRightmostBuild,
+    open,
+    setOpen,
+    task,
+  }) => {
+    const taskBoxRef = useRef<HTMLDivElement>(null);
+    const squareProps = isFirstActiveTask
+      ? { [waterfallGuideId]: walkthroughSteps[0].targetId }
+      : {};
 
-  const { displayName, displayStatusCache, execution, id: taskId } = task;
-  const taskStatus = displayStatusCache as TaskStatus;
+    const { displayName, displayStatusCache, execution, id: taskId } = task;
+    const taskStatus = displayStatusCache as TaskStatus;
 
-  return (
-    <>
-      <TaskBoxMemo
-        key={taskId}
-        ref={taskBoxRef}
-        as={Link}
-        data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
-        onClick={(e: React.MouseEvent<HTMLElement>) =>
-          handleTaskClick(taskId, e)
-        }
-        rightmost={isRightmostBuild}
-        status={taskStatus}
-        to={getTaskRoute(taskId, { execution })}
-        tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
-        {...squareProps}
-      />
-      {open && (
-        <TaskOverviewPopup
-          execution={execution}
-          open={open}
-          setOpen={setOpen}
-          taskBoxRef={taskBoxRef}
-          taskId={taskId}
+    return (
+      <>
+        <TaskBoxMemo
+          key={taskId}
+          ref={taskBoxRef}
+          as={Link}
+          data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
+          onClick={(e: React.MouseEvent<HTMLElement>) =>
+            handleTaskClick(taskId, e)
+          }
+          rightmost={isRightmostBuild}
+          status={taskStatus}
+          to={getTaskRoute(taskId, { execution })}
+          tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
+          {...squareProps}
         />
-      )}
-    </>
-  );
-};
+        {open && (
+          <TaskOverviewPopup
+            execution={execution}
+            open={open}
+            setOpen={setOpen}
+            taskBoxRef={taskBoxRef}
+            taskId={taskId}
+          />
+        )}
+      </>
+    );
+  },
+);
+
+WaterfallTask.displayName = "WaterfallTask";
 
 const TaskBoxMemo = memo(TaskBox);
