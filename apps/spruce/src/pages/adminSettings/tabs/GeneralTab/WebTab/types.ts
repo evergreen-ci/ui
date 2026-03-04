@@ -20,9 +20,7 @@ export interface WebFormState {
       cacheTemplates: boolean;
       stagingEnvironment: string;
     };
-    betaFeatures: {
-      parsleyAIEnabled: boolean;
-    };
+    betaFeatures: Record<string, never>;
     disabledGQLQueries: {
       queryNames: string[];
     };
