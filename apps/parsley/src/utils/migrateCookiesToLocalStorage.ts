@@ -10,7 +10,6 @@ import {
   LAST_SELECTED_LOG_TYPE,
   PRETTY_PRINT_BOOKMARKS,
   STICKY_HEADERS,
-  STORAGE_MIGRATION_COMPLETE,
   WRAP,
   WRAP_FORMAT,
   ZEBRA_STRIPING,
@@ -34,18 +33,12 @@ const COOKIE_KEYS = [
 
 const migrateCookiesToLocalStorage = (): void => {
   try {
-    if (localStorage.getItem(STORAGE_MIGRATION_COMPLETE)) {
-      return;
-    }
-
     for (const key of COOKIE_KEYS) {
       const value = Cookies.get(key);
       if (value !== undefined) {
         localStorage.setItem(key, value);
       }
     }
-
-    localStorage.setItem(STORAGE_MIGRATION_COMPLETE, "true");
   } catch {
     // Silently fail if localStorage or cookies are unavailable.
   }
