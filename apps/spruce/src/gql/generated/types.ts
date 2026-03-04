@@ -11136,6 +11136,7 @@ export type TaskQuery = {
     canSetPriority: boolean;
     canUnschedule: boolean;
     distroId: string;
+    errors?: Array<string> | null;
     estimatedStart?: number | null;
     expectedDuration?: number | null;
     finishTime?: Date | null;
@@ -11674,6 +11675,7 @@ export type VersionTasksQuery = {
         buildVariantDisplayName?: string | null;
         displayName: string;
         displayStatus: string;
+        errors?: Array<string> | null;
         execution: number;
         projectIdentifier?: string | null;
         reviewed?: boolean | null;
