@@ -13,16 +13,12 @@ import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";
 import { usePreferencesAnalytics } from "analytics";
 import { COPY_FORMAT } from "constants/cookies";
+import { CopyFormat } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { getJiraFormat, getRawLines } from "utils/string";
 
 const COPIED_SUCCESS_DURATION = 1500;
-
-enum CopyFormat {
-  Jira = "jira",
-  Raw = "raw",
-}
 
 export const CopyTextButton: React.FC = () => {
   const [bookmarks] = useQueryParam<number[]>(QueryParams.Bookmarks, []);
