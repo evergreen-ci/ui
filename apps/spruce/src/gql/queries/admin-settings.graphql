@@ -208,7 +208,6 @@ query AdminSettings {
     perfMonitoringURL
     pprofPort
     projectCreation {
-      jiraProject
       repoExceptions {
         owner
         repo
@@ -370,7 +369,7 @@ query AdminSettings {
     }
     ui {
       betaFeatures {
-        parsleyAIEnabled
+        __typename
       }
       cacheTemplates
       corsOrigins

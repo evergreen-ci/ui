@@ -2003,7 +2003,6 @@ export type MutationCopyDistroArgs = {
 
 export type MutationCopyProjectArgs = {
   project: CopyProjectInput;
-  requestS3Creds?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export type MutationCreateDistroArgs = {
@@ -2012,7 +2011,6 @@ export type MutationCreateDistroArgs = {
 
 export type MutationCreateProjectArgs = {
   project: CreateProjectInput;
-  requestS3Creds?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export type MutationCreatePublicKeyArgs = {
@@ -2796,14 +2794,12 @@ export type ProjectBuildVariant = {
 
 export type ProjectCreationConfig = {
   __typename?: "ProjectCreationConfig";
-  jiraProject?: Maybe<Scalars["String"]["output"]>;
   repoExceptions: Array<OwnerRepo>;
   repoProjectLimit?: Maybe<Scalars["Int"]["output"]>;
   totalProjectLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ProjectCreationConfigInput = {
-  jiraProject?: InputMaybe<Scalars["String"]["input"]>;
   repoExceptions: Array<OwnerRepoInput>;
   repoProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
   totalProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
@@ -4966,10 +4962,7 @@ export type UpdateUserBetaFeaturesMutation = {
   __typename?: "Mutation";
   updateBetaFeatures?: {
     __typename?: "UpdateBetaFeaturesPayload";
-    betaFeatures?: {
-      __typename?: "BetaFeatures";
-      parsleyAIEnabled?: boolean | null;
-    } | null;
+    betaFeatures?: { __typename: "BetaFeatures" } | null;
   } | null;
 };
 
@@ -4981,10 +4974,7 @@ export type AdminBetaFeaturesQuery = {
     __typename?: "SpruceConfig";
     ui: {
       __typename?: "UIConfig";
-      betaFeatures: {
-        __typename?: "BetaFeatures";
-        parsleyAIEnabled?: boolean | null;
-      };
+      betaFeatures: { __typename: "BetaFeatures" };
     };
   } | null;
 };
@@ -4996,9 +4986,6 @@ export type UserBetaFeaturesQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    betaFeatures?: {
-      __typename?: "BetaFeatures";
-      parsleyAIEnabled?: boolean | null;
-    } | null;
+    betaFeatures?: { __typename: "BetaFeatures" } | null;
   };
 };

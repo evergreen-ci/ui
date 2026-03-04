@@ -2000,7 +2000,6 @@ export type MutationCopyDistroArgs = {
 
 export type MutationCopyProjectArgs = {
   project: CopyProjectInput;
-  requestS3Creds?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export type MutationCreateDistroArgs = {
@@ -2009,7 +2008,6 @@ export type MutationCreateDistroArgs = {
 
 export type MutationCreateProjectArgs = {
   project: CreateProjectInput;
-  requestS3Creds?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 export type MutationCreatePublicKeyArgs = {
@@ -2793,14 +2791,12 @@ export type ProjectBuildVariant = {
 
 export type ProjectCreationConfig = {
   __typename?: "ProjectCreationConfig";
-  jiraProject?: Maybe<Scalars["String"]["output"]>;
   repoExceptions: Array<OwnerRepo>;
   repoProjectLimit?: Maybe<Scalars["Int"]["output"]>;
   totalProjectLimit?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ProjectCreationConfigInput = {
-  jiraProject?: InputMaybe<Scalars["String"]["input"]>;
   repoExceptions: Array<OwnerRepoInput>;
   repoProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
   totalProjectLimit?: InputMaybe<Scalars["Int"]["input"]>;
@@ -5351,6 +5347,7 @@ export type ProjectGithubSettingsFragment = {
   manualPrTestingEnabled?: boolean | null;
   oldestAllowedMergeBase: string;
   prTestingEnabled?: boolean | null;
+  runEveryMainlineCommit?: boolean | null;
   commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
 };
 
@@ -5366,6 +5363,7 @@ export type RepoGithubSettingsFragment = {
   manualPrTestingEnabled: boolean;
   oldestAllowedMergeBase: string;
   prTestingEnabled: boolean;
+  runEveryMainlineCommit: boolean;
   commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
 };
 
@@ -5384,6 +5382,7 @@ export type ProjectGithubCommitQueueFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
   } | null;
 };
@@ -5403,6 +5402,7 @@ export type RepoGithubCommitQueueFragment = {
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
+    runEveryMainlineCommit: boolean;
     commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
   } | null;
 };
@@ -5422,6 +5422,7 @@ export type ProjectEventGithubCommitQueueFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
   } | null;
 };
@@ -5479,6 +5480,7 @@ export type ProjectSettingsFieldsFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -5684,6 +5686,7 @@ export type RepoSettingsFieldsFragment = {
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
+    runEveryMainlineCommit: boolean;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -6141,6 +6144,7 @@ export type ProjectEventSettingsFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    runEveryMainlineCommit?: boolean | null;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -6526,7 +6530,6 @@ export type CopyDistroMutation = {
 
 export type CopyProjectMutationVariables = Exact<{
   project: CopyProjectInput;
-  requestS3Creds: Scalars["Boolean"]["input"];
 }>;
 
 export type CopyProjectMutation = {
@@ -6545,7 +6548,6 @@ export type CreateDistroMutation = {
 
 export type CreateProjectMutationVariables = Exact<{
   project: CreateProjectInput;
-  requestS3Creds: Scalars["Boolean"]["input"];
 }>;
 
 export type CreateProjectMutation = {
@@ -7048,10 +7050,7 @@ export type SaveAdminSettingsMutation = {
       uiv2Url?: string | null;
       url?: string | null;
       userVoice?: string | null;
-      betaFeatures: {
-        __typename?: "BetaFeatures";
-        parsleyAIEnabled?: boolean | null;
-      };
+      betaFeatures: { __typename: "BetaFeatures" };
     } | null;
   };
 };
@@ -7661,7 +7660,6 @@ export type AdminSettingsQuery = {
     } | null;
     projectCreation?: {
       __typename?: "ProjectCreationConfig";
-      jiraProject?: string | null;
       repoProjectLimit?: number | null;
       totalProjectLimit?: number | null;
       repoExceptions: Array<{
@@ -7851,10 +7849,7 @@ export type AdminSettingsQuery = {
       uiv2Url?: string | null;
       url?: string | null;
       userVoice?: string | null;
-      betaFeatures: {
-        __typename?: "BetaFeatures";
-        parsleyAIEnabled?: boolean | null;
-      };
+      betaFeatures: { __typename: "BetaFeatures" };
     } | null;
   } | null;
 };
@@ -9197,6 +9192,7 @@ export type ProjectEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -9418,6 +9414,7 @@ export type ProjectEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -9702,6 +9699,7 @@ export type ProjectSettingsQuery = {
       manualPrTestingEnabled?: boolean | null;
       oldestAllowedMergeBase: string;
       prTestingEnabled?: boolean | null;
+      runEveryMainlineCommit?: boolean | null;
       githubDynamicTokenPermissionGroups: Array<{
         __typename?: "GitHubDynamicTokenPermissionGroup";
         name: string;
@@ -9971,6 +9969,7 @@ export type RepoEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -10192,6 +10191,7 @@ export type RepoEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          runEveryMainlineCommit?: boolean | null;
           githubDynamicTokenPermissionGroups: Array<{
             __typename?: "GitHubDynamicTokenPermissionGroup";
             name: string;
@@ -10417,6 +10417,7 @@ export type RepoSettingsQuery = {
       manualPrTestingEnabled: boolean;
       oldestAllowedMergeBase: string;
       prTestingEnabled: boolean;
+      runEveryMainlineCommit: boolean;
       githubDynamicTokenPermissionGroups: Array<{
         __typename?: "GitHubDynamicTokenPermissionGroup";
         name: string;

@@ -34,9 +34,7 @@ const form: WebFormState = {
       cacheTemplates: true,
       stagingEnvironment: "staging",
     },
-    betaFeatures: {
-      parsleyAIEnabled: true,
-    },
+    betaFeatures: {},
     disabledGQLQueries: {
       queryNames: ["query1", "query2"],
     },
@@ -63,9 +61,7 @@ const gql: AdminSettingsInput = {
     csrfKey: "csrf-secret-key",
     cacheTemplates: true,
     stagingEnvironment: "staging",
-    betaFeatures: {
-      parsleyAIEnabled: true,
-    },
+    betaFeatures: {},
   },
   disabledGQLQueries: ["query1", "query2"],
 };
