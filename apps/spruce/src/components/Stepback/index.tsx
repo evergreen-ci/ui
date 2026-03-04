@@ -25,10 +25,7 @@ const StepbackStatus: React.FC<StepbackStatusProps> = ({
   if (!finished) {
     return <Badge variant={BadgeVariant.LightGray}>In progress</Badge>;
   }
-  if (finished) {
-    return <Badge variant={BadgeVariant.Green}>Complete</Badge>;
-  }
-  return null;
+  return <Badge variant={BadgeVariant.Green}>Complete</Badge>;
 };
 
 interface StepbackProps {
@@ -53,9 +50,9 @@ export const Stepback: React.FC<StepbackProps> = ({
   const finished = breakingTask !== undefined || isBreakingTask;
 
   return (
-    <StepbackWrapper data-cy="stepback-info">
+    <>
       <StepbackLabel>
-        <b>Stepback: </b>
+        <BoldLabel>Stepback: </BoldLabel>
         {!isPopup && (
           <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
             When Stepback is completed you can access the breaking commit via
@@ -84,14 +81,12 @@ export const Stepback: React.FC<StepbackProps> = ({
           Go to breaking task
         </Button>
       )}
-    </StepbackWrapper>
+    </>
   );
 };
 
-const StepbackWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.xxs};
+const BoldLabel = styled.b`
+  flex-shrink: 0;
 `;
 
 const StepbackLabel = styled.div`
