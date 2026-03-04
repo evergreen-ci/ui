@@ -124,39 +124,36 @@
           </p>
         </div>
         <div
-          class="emotion-StepbackWrapper engzzr1"
-          data-cy="stepback-info"
+          class="emotion-StepbackLabel engzzr0"
+        >
+          <b
+            class="emotion-BoldLabel engzzr1"
+          >
+            Stepback: 
+          </b>
+          <div
+            class="leafygreen-ui-sti25g"
+          >
+            In progress
+          </div>
+        </div>
+        <a
+          aria-disabled="true"
+          class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-Stepback"
+          data-cy="go-to-breaking-task-button"
+          data-lgid="lg-button"
+          href="/"
+          type="button"
         >
           <div
-            class="emotion-StepbackLabel engzzr0"
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-16tr4y"
           >
-            <b>
-              Stepback: 
-            </b>
-            <div
-              class="leafygreen-ui-13vzj3x"
-            >
-              Complete
-            </div>
+            Go to breaking task
           </div>
-          <a
-            aria-disabled="true"
-            class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-Stepback"
-            data-cy="go-to-breaking-task-button"
-            data-lgid="lg-button"
-            href="/"
-            type="button"
-          >
-            <div
-              class="leafygreen-ui-v038xi"
-            />
-            <div
-              class="leafygreen-ui-16tr4y"
-            >
-              Go to breaking task
-            </div>
-          </a>
-        </div>
+        </a>
       </div>
     </div>
   </div>
