@@ -40,7 +40,7 @@ export const useBreakingTask = (taskId: string, fetchPolicy?: FetchPolicy) => {
     LastMainlineCommitQueryVariables
   >(
     LAST_MAINLINE_COMMIT,
-    projectIdentifier && parentTask && lastPassingTask && !shouldSkipQuery
+    projectIdentifier && !shouldSkipQuery
       ? {
           variables: {
             projectIdentifier,
@@ -60,7 +60,6 @@ export const useBreakingTask = (taskId: string, fetchPolicy?: FetchPolicy) => {
     : undefined;
 
   return {
-    isBreakingTask: !lastPassingTaskLoading && lastPassingTask === undefined,
     loading: lastPassingTaskLoading || loading,
     task,
   };

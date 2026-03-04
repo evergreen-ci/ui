@@ -1,3 +1,4 @@
+import { FetchPolicy } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
 import {
   BaseVersionAndTaskQuery,
@@ -9,15 +10,16 @@ import { string } from "utils";
 /**
  * Shared hook that fetches BASE_VERSION_AND_TASK query for useBreakingTask, useLastPassingTask, useLastExecutedTask, and useParentTask hooks
  * @param taskId - task ID
+ * @param fetchPolicy - fetch policy for the query
  * @returns task data and loading state
  */
-export const useTaskData = (taskId: string) => {
+export const useTaskData = (taskId: string, fetchPolicy?: FetchPolicy) => {
   const { data: taskData, loading } = useQuery<
     BaseVersionAndTaskQuery,
     BaseVersionAndTaskQueryVariables
   >(BASE_VERSION_AND_TASK, {
     variables: { taskId },
-    fetchPolicy: "cache-first",
+    fetchPolicy,
   });
 
   const task = taskData?.task;

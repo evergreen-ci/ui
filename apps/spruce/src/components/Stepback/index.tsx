@@ -40,14 +40,10 @@ export const Stepback: React.FC<StepbackProps> = ({
   // TODO DEVPROD-27824: Remove fetch policy when cache performance is fixed.
   const fetchPolicy = isPopup ? "no-cache" : undefined;
 
-  const {
-    isBreakingTask,
-    loading,
-    task: breakingTask,
-  } = useBreakingTask(taskId, fetchPolicy);
+  const { loading, task: breakingTask } = useBreakingTask(taskId, fetchPolicy);
 
-  // Stepback is finished if there is a breaking task or we are on the last stepback task.
-  const finished = breakingTask !== undefined || isBreakingTask;
+  // Stepback is finished if there is a breaking task.
+  const finished = breakingTask !== undefined;
 
   return (
     <>
