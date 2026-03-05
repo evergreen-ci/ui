@@ -22,6 +22,8 @@ export const oktaServiceConfig = {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-cy": "okta-service-config",
     "ui:objectFieldCss": objectGridCss,
+    "ui:description":
+      "Settings for the Okta Services app. Used exclusively for machine-to-machine authentication, e.g. the token exchange grant used in the spawn host workflow.",
   },
 };
 
