@@ -1,0 +1,249 @@
+<div>
+  <span
+    class="leafygreen-ui-38lglc"
+  />
+  <div
+    class="leafygreen-ui-1bby10r"
+    popover="auto"
+    style="--lg-popover-max_height: 0px; --lg-popover-max_width: 0px;"
+  >
+    <div
+      class="lg-ui-popover-content-0000"
+    >
+      <div
+        class="e1g54j7l2 emotion-SiderCard-PopoverCard e1am38ss0 leafygreen-ui-17q42jt"
+        data-cy="task-overview-popup"
+      >
+        <a
+          class="lg-ui-0001 e1g54j7l0 emotion-overrideStyles-RouterLink-wordBreakCss-TaskPageLink leafygreen-ui-16e7rxl"
+          data-cy="task-link"
+          href="/task/spruce_ubuntu1604_test_task?execution=0"
+        >
+          <span>
+            e2e-test
+          </span>
+        </a>
+        <div
+          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
+          data-cy="task-status-badge"
+        >
+          Failed
+        </div>
+        <div>
+          Duration: 
+          4m 16s
+        </div>
+        <div
+          class="emotion-ButtonRow e1ib5ioy0"
+        >
+          <button
+            aria-disabled="false"
+            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
+            data-lgid="lg-button"
+            type="button"
+          >
+            <div
+              class="leafygreen-ui-v038xi"
+            />
+            <div
+              class="leafygreen-ui-16tr4y"
+            >
+              Restart
+            </div>
+          </button>
+          <button
+            aria-disabled="false"
+            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
+            data-lgid="lg-button"
+            type="button"
+          >
+            <div
+              class="leafygreen-ui-v038xi"
+            />
+            <div
+              class="leafygreen-ui-16tr4y"
+            >
+              Filter
+            </div>
+          </button>
+          <a
+            aria-disabled="false"
+            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
+            data-lgid="lg-button"
+            href="/evergreen/spruce_ubuntu1604_test_task/0/task"
+            type="button"
+          >
+            <div
+              class="leafygreen-ui-v038xi"
+            />
+            <div
+              class="leafygreen-ui-16tr4y"
+            >
+              Logs
+            </div>
+          </a>
+          <a
+            aria-disabled="false"
+            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
+            data-lgid="lg-button"
+            href="/task/spruce_ubuntu1604_test_task/history?execution=0"
+            type="button"
+          >
+            <div
+              class="leafygreen-ui-v038xi"
+            />
+            <div
+              class="leafygreen-ui-16tr4y"
+            >
+              History
+            </div>
+          </a>
+        </div>
+        <div>
+          <b>
+            Distro: 
+          </b>
+          <a
+            class="lg-ui-0001 e1g54j7l1 emotion-overrideStyles-RouterLink-wordBreakCss leafygreen-ui-16e7rxl"
+            data-cy="task-distro-link"
+            href="/distro/ubuntu2004-small/settings/general"
+          >
+            <span>
+              ubuntu2004-small
+            </span>
+          </a>
+        </div>
+        <div>
+          <b>
+            Failing Command: 
+          </b>
+          <p
+            class="leafygreen-ui-26vqpd"
+          >
+            'shell.exec' in function 'pnpm-cypress' (step 11 of 11)
+          </p>
+        </div>
+        <div
+          class="emotion-AnnotationsContainer e1ljcb741"
+        >
+          <div
+            class="emotion-IssuesContainer e1ljcb740"
+          >
+            <p
+              class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1xbudv3"
+            >
+              Associated Issues
+            </p>
+            <a
+              class="lg-ui-0001 e1ljcb745 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
+              href="https://jira.mongodb.org/browse/EVG-1234"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span>
+                EVG-1234
+              </span>
+              <svg
+                alt=""
+                aria-hidden="true"
+                class="leafygreen-ui-1ycifm0"
+                height="12"
+                role="presentation"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <path
+                  d="M13.823 2.4491C13.8201 2.30008 13.6999 2.17994 13.5509 2.17704L9.5062 2.09836C9.25654 2.09351 9.12821 2.39519 9.30482 2.5718L10.3856 3.65257L7.93433 6.10383C7.87964 6.15852 7.83047 6.21665 7.78683 6.27752L5.99909 8.06525C5.46457 8.59977 5.46457 9.4664 5.99909 10.0009C6.53361 10.5354 7.40023 10.5354 7.93475 10.0009L9.72249 8.21317C9.78336 8.16953 9.84148 8.12037 9.89618 8.06567L12.3474 5.61441L13.4282 6.69518C13.6048 6.87179 13.9065 6.74347 13.9016 6.4938L13.823 2.4491Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M7.25 3.12893C7.66421 3.12893 8 3.46472 8 3.87893C8 4.29315 7.66421 4.62893 7.25 4.62893H4C3.72386 4.62893 3.5 4.85279 3.5 5.12893V11.9929C3.5 12.2691 3.72386 12.4929 4 12.4929H10.864C11.1401 12.4929 11.364 12.2691 11.364 11.9929V8.75C11.364 8.33579 11.6998 8 12.114 8C12.5282 8 12.864 8.33579 12.864 8.75V11.9929C12.864 13.0975 11.9686 13.9929 10.864 13.9929H4C2.89543 13.9929 2 13.0975 2 11.9929V5.12893C2 4.02436 2.89543 3.12893 4 3.12893H7.25Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
+            <a
+              class="lg-ui-0001 e1ljcb745 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
+              href="https://jira.mongodb.org/browse/EVG-5678"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span>
+                EVG-5678
+              </span>
+              <svg
+                alt=""
+                aria-hidden="true"
+                class="leafygreen-ui-1ycifm0"
+                height="12"
+                role="presentation"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <path
+                  d="M13.823 2.4491C13.8201 2.30008 13.6999 2.17994 13.5509 2.17704L9.5062 2.09836C9.25654 2.09351 9.12821 2.39519 9.30482 2.5718L10.3856 3.65257L7.93433 6.10383C7.87964 6.15852 7.83047 6.21665 7.78683 6.27752L5.99909 8.06525C5.46457 8.59977 5.46457 9.4664 5.99909 10.0009C6.53361 10.5354 7.40023 10.5354 7.93475 10.0009L9.72249 8.21317C9.78336 8.16953 9.84148 8.12037 9.89618 8.06567L12.3474 5.61441L13.4282 6.69518C13.6048 6.87179 13.9065 6.74347 13.9016 6.4938L13.823 2.4491Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M7.25 3.12893C7.66421 3.12893 8 3.46472 8 3.87893C8 4.29315 7.66421 4.62893 7.25 4.62893H4C3.72386 4.62893 3.5 4.85279 3.5 5.12893V11.9929C3.5 12.2691 3.72386 12.4929 4 12.4929H10.864C11.1401 12.4929 11.364 12.2691 11.364 11.9929V8.75C11.364 8.33579 11.6998 8 12.114 8C12.5282 8 12.864 8.33579 12.864 8.75V11.9929C12.864 13.0975 11.9686 13.9929 10.864 13.9929H4C2.89543 13.9929 2 13.0975 2 11.9929V5.12893C2 4.02436 2.89543 3.12893 4 3.12893H7.25Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
+            <a
+              class="lg-ui-0001 e1ljcb745 emotion-overrideStyles-AnnotationLink-wordBreakCss leafygreen-ui-16e7rxl"
+              href="https://jira.mongodb.org/browse/EVG-9012"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span>
+                EVG-9012
+              </span>
+              <svg
+                alt=""
+                aria-hidden="true"
+                class="leafygreen-ui-1ycifm0"
+                height="12"
+                role="presentation"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <path
+                  d="M13.823 2.4491C13.8201 2.30008 13.6999 2.17994 13.5509 2.17704L9.5062 2.09836C9.25654 2.09351 9.12821 2.39519 9.30482 2.5718L10.3856 3.65257L7.93433 6.10383C7.87964 6.15852 7.83047 6.21665 7.78683 6.27752L5.99909 8.06525C5.46457 8.59977 5.46457 9.4664 5.99909 10.0009C6.53361 10.5354 7.40023 10.5354 7.93475 10.0009L9.72249 8.21317C9.78336 8.16953 9.84148 8.12037 9.89618 8.06567L12.3474 5.61441L13.4282 6.69518C13.6048 6.87179 13.9065 6.74347 13.9016 6.4938L13.823 2.4491Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M7.25 3.12893C7.66421 3.12893 8 3.46472 8 3.87893C8 4.29315 7.66421 4.62893 7.25 4.62893H4C3.72386 4.62893 3.5 4.85279 3.5 5.12893V11.9929C3.5 12.2691 3.72386 12.4929 4 12.4929H10.864C11.1401 12.4929 11.364 12.2691 11.364 11.9929V8.75C11.364 8.33579 11.6998 8 12.114 8C12.5282 8 12.864 8.33579 12.864 8.75V11.9929C12.864 13.0975 11.9686 13.9929 10.864 13.9929H4C2.89543 13.9929 2 13.0975 2 11.9929V5.12893C2 4.02436 2.89543 3.12893 4 3.12893H7.25Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
+          </div>
+          <div
+            class="emotion-FailingTasksContainer e1ljcb744"
+          >
+            <p
+              class="emotion-MetadataCardTitle e1130wzj2 leafygreen-ui-1xbudv3"
+            >
+              Other Failing Tasks
+            </p>
+            <ul
+              class="emotion-TasksList e1ljcb743"
+            >
+              <li
+                class="emotion-TaskListItem e1ljcb742"
+              >
+                test-task-1
+              </li>
+              <li
+                class="emotion-TaskListItem e1ljcb742"
+              >
+                test-task-2
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

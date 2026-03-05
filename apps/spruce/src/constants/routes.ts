@@ -45,7 +45,6 @@ export enum ProjectSettingsTabRoutes {
   Notifications = "notifications",
   PatchAliases = "patch-aliases",
   VirtualWorkstation = "virtual-workstation",
-  Containers = "containers",
   ViewsAndFilters = "views-and-filters",
   ProjectTriggers = "project-triggers",
   PeriodicBuilds = "periodic-builds",
@@ -58,7 +57,6 @@ export enum ProjectSettingsTabRoutes {
 
 export enum AdminSettingsGeneralSection {
   Announcements = "announcements",
-  FeatureFlags = "feature-flags",
   Runners = "runners",
   Web = "web",
   Authentication = "authentication",
@@ -70,6 +68,7 @@ export enum AdminSettingsGeneralSection {
 
 export enum AdminSettingsTabRoutes {
   General = "general",
+  ServiceFlags = "service-flags",
   RestartTasks = "restart-tasks",
   EventLog = "event-log",
 }
@@ -116,7 +115,6 @@ export enum slugs {
   hostId = "hostId",
   imageId = "imageId",
   patchId = "patchId",
-  podId = "podId",
   projectIdentifier = "projectIdentifier",
   repoId = "repoId",
   tab = "tab",
@@ -128,7 +126,6 @@ export enum slugs {
 }
 export const idSlugs = [
   slugs.buildId,
-  slugs.podId,
   slugs.distroId,
   slugs.hostId,
   slugs.imageId,
@@ -151,7 +148,6 @@ export const redirectRoutes = {
 export const routes = {
   adminSettings: paths.adminSettings,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure/:${slugs.tab}?`,
-  container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
   host: `${paths.host}/:${slugs.hostId}`,
   hosts: paths.hosts,
@@ -219,8 +215,6 @@ export const getPatchRoute = (
 };
 
 export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
-
-export const getPodRoute = (podId: string) => `${paths.container}/${podId}`;
 
 export const getAllHostsRoute = (options?: {
   hostId?: string;

@@ -103,9 +103,6 @@ query Task($taskId: String!, $execution: Int) {
     minQueuePosition
     order
     patchNumber
-    pod {
-      id
-    }
     priority
     project {
       id

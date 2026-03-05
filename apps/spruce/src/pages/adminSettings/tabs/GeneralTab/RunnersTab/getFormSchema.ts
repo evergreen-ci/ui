@@ -5,7 +5,6 @@ import {
   notify,
   taskLimits,
   hostInit,
-  podLifecycle,
   scheduler,
   repotracker,
 } from "./schemaFields";
@@ -38,13 +37,6 @@ export const formSchema: ReturnType<GetFormSchema> = {
             title: "Host Init",
             properties: {
               ...hostInit.schema,
-            },
-          },
-          podLifecycle: {
-            type: "object" as const,
-            title: "Pod Lifecycle",
-            properties: {
-              ...podLifecycle.schema,
             },
           },
           scheduler: {
@@ -83,12 +75,6 @@ export const formSchema: ReturnType<GetFormSchema> = {
         "ui:objectFieldCss": objectGridCss,
         "ui:data-cy": "host-init",
         ...hostInit.uiSchema,
-      },
-      podLifecycle: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:objectFieldCss": objectGridCss,
-        "ui:data-cy": "pod-lifecycle",
-        ...podLifecycle.uiSchema,
       },
       scheduler: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,

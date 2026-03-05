@@ -13,8 +13,7 @@ type Tab = AdminSettingsGeneralSection.Runners;
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const { hostInit, notify, podLifecycle, repotracker, scheduler, taskLimits } =
-    data;
+  const { hostInit, notify, repotracker, scheduler, taskLimits } = data;
 
   const {
     maxConcurrentLargeParserProjectTasks,
@@ -37,12 +36,6 @@ export const gqlToForm = ((data) => {
     maxTotalDynamicHosts,
     provisioningThrottle,
   } = hostInit ?? {};
-
-  const {
-    maxParallelPodRequests,
-    maxPodDefinitionCleanupRate,
-    maxSecretCleanupRate,
-  } = podLifecycle ?? {};
 
   const {
     acceptableHostIdleTimeSeconds,
@@ -98,11 +91,6 @@ export const gqlToForm = ((data) => {
         cloudStatusBatchSize: cloudStatusBatchSize ?? 0,
         maxTotalDynamicHosts: maxTotalDynamicHosts ?? 0,
       },
-      podLifecycle: {
-        maxParallelPodRequests: maxParallelPodRequests ?? 0,
-        maxPodDefinitionCleanupRate: maxPodDefinitionCleanupRate ?? 0,
-        maxSecretCleanupRate: maxSecretCleanupRate ?? 0,
-      },
       scheduler: {
         taskFinder: taskFinder ?? FinderVersion.Legacy,
         hostAllocator: hostAllocator ?? HostAllocatorVersion.Utilization,
@@ -136,8 +124,7 @@ export const gqlToForm = ((data) => {
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = (({ runners }, data) => {
-  const { hostInit, notify, podLifecycle, repotracker, scheduler, taskLimits } =
-    runners;
+  const { hostInit, notify, repotracker, scheduler, taskLimits } = runners;
 
   return {
     notify: {
@@ -149,7 +136,6 @@ export const formToGql = (({ runners }, data) => {
     },
     taskLimits,
     hostInit,
-    podLifecycle,
     scheduler,
     repotracker,
   };
