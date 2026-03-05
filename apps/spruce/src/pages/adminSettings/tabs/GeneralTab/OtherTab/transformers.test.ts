@@ -15,16 +15,16 @@ describe("other tab transformers", () => {
 
 const mockAdminSettings: AdminSettingsData = {
   disabledGQLQueries: [],
-  oktaServiceConfig: {
-    clientId: "okta-service-client-id",
-    clientSecret: "okta-service-client-secret",
-  },
   configDir: "/etc/evergreen",
   domainName: "evergreen.example.com",
   githubOrgs: ["evergreen-ci", "mongodb"],
   githubPRCreatorOrg: "evergreen-ci",
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
+  oktaServiceConfig: {
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+  },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
   shutdownWaitSeconds: 30,
@@ -135,10 +135,6 @@ const mockAdminSettings: AdminSettingsData = {
 
 const expectedForm: OtherFormState = {
   other: {
-    oktaServiceConfig: {
-      clientId: "okta-service-client-id",
-      clientSecret: "okta-service-client-secret",
-    },
     miscSettings: {
       configDir: "/etc/evergreen",
       domainName: "evergreen.example.com",
@@ -164,6 +160,10 @@ const expectedForm: OtherFormState = {
           iAStorageCostDiscount: 0,
         },
       },
+    },
+    oktaServiceConfig: {
+      clientId: "okta-service-client-id",
+      clientSecret: "okta-service-client-secret",
     },
     singleTaskDistro: {
       projectTasksPairs: [
@@ -264,16 +264,16 @@ const expectedForm: OtherFormState = {
 };
 
 const expectedGql: AdminSettingsInput = {
-  oktaServiceConfig: {
-    clientId: "okta-service-client-id",
-    clientSecret: "okta-service-client-secret",
-  },
   configDir: "/etc/evergreen",
   domainName: "evergreen.example.com",
   githubOrgs: ["evergreen-ci", "mongodb"],
   githubPRCreatorOrg: "evergreen-ci",
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
+  oktaServiceConfig: {
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+  },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
   shutdownWaitSeconds: 30,

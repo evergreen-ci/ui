@@ -52,10 +52,6 @@ export const gqlToForm = ((data) => {
 
   return {
     other: {
-      oktaServiceConfig: {
-        clientId: oktaServiceConfig?.clientId ?? "",
-        clientSecret: oktaServiceConfig?.clientSecret ?? "",
-      },
       miscSettings: {
         configDir: configDir ?? "",
         domainName: domainName ?? "",
@@ -84,6 +80,11 @@ export const gqlToForm = ((data) => {
               cost?.s3Cost?.storage?.iAStorageCostDiscount ?? 0,
           },
         },
+      },
+
+      oktaServiceConfig: {
+        clientId: oktaServiceConfig?.clientId ?? "",
+        clientSecret: oktaServiceConfig?.clientSecret ?? "",
       },
 
       singleTaskDistro: {

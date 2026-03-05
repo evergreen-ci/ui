@@ -1,9 +1,5 @@
 export interface OtherFormState {
   other: {
-    oktaServiceConfig: {
-      clientId: string;
-      clientSecret: string;
-    };
     miscSettings: {
       configDir: string;
       domainName: string;
@@ -29,6 +25,11 @@ export interface OtherFormState {
           iAStorageCostDiscount: number;
         };
       };
+    };
+
+    oktaServiceConfig: {
+      clientId: string;
+      clientSecret: string;
     };
 
     singleTaskDistro: {
