@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
@@ -6,6 +7,7 @@ import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import MetadataCard from "components/MetadataCard";
 import { Stepback } from "components/Stepback";
@@ -24,6 +26,7 @@ import { FailingTests } from "./FailingTests";
 
 interface Props {
   execution: number;
+  isRightmostBuild?: boolean;
   open: boolean;
   setOpen: (o: boolean) => void;
   taskBoxRef: React.RefObject<HTMLElement>;
@@ -32,11 +35,16 @@ interface Props {
 
 export const TaskOverviewPopup: React.FC<Props> = ({
   execution,
+  isRightmostBuild = false,
   open,
   setOpen,
   taskBoxRef,
   taskId,
 }) => {
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside([taskBoxRef, popoverRef], () => setOpen(false));
+
   const { data, loading } = useQuery<
     TaskOverviewPopupQuery,
     TaskOverviewPopupQueryVariables
@@ -72,16 +80,10 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
   return (
     <Popover
+      ref={popoverRef}
       active={open}
-      align={Align.Right}
-      dismissMode={DismissMode.Auto}
-      onToggle={(e) => {
-        if (e.newState === "open") {
-          setOpen(true);
-        } else {
-          setOpen(false);
-        }
-      }}
+      align={isRightmostBuild ? Align.Left : Align.Right}
+      dismissMode={DismissMode.Manual}
       refEl={taskBoxRef}
     >
       <PopoverCard data-cy="task-overview-popup">
