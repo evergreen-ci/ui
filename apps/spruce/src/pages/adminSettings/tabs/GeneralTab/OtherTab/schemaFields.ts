@@ -7,6 +7,24 @@ import {
   nestedObjectGridCss,
 } from "../../sharedStyles";
 
+export const oktaServiceConfig = {
+  schema: {
+    clientId: {
+      type: "string" as const,
+      title: "Client ID",
+    },
+    clientSecret: {
+      type: "string" as const,
+      title: "Client Secret",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "okta-service-config",
+    "ui:objectFieldCss": objectGridCss,
+  },
+};
+
 export const miscSettings = {
   schema: {
     configDir: {

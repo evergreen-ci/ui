@@ -15,6 +15,10 @@ describe("other tab transformers", () => {
 
 const mockAdminSettings: AdminSettingsData = {
   disabledGQLQueries: [],
+  oktaServiceConfig: {
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+  },
   configDir: "/etc/evergreen",
   domainName: "evergreen.example.com",
   githubOrgs: ["evergreen-ci", "mongodb"],
@@ -131,6 +135,10 @@ const mockAdminSettings: AdminSettingsData = {
 
 const expectedForm: OtherFormState = {
   other: {
+    oktaServiceConfig: {
+      clientId: "okta-service-client-id",
+      clientSecret: "okta-service-client-secret",
+    },
     miscSettings: {
       configDir: "/etc/evergreen",
       domainName: "evergreen.example.com",
@@ -256,6 +264,10 @@ const expectedForm: OtherFormState = {
 };
 
 const expectedGql: AdminSettingsInput = {
+  oktaServiceConfig: {
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+  },
   configDir: "/etc/evergreen",
   domainName: "evergreen.example.com",
   githubOrgs: ["evergreen-ci", "mongodb"],

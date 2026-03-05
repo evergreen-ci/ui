@@ -1,5 +1,9 @@
 export interface OtherFormState {
   other: {
+    oktaServiceConfig: {
+      clientId: string;
+      clientSecret: string;
+    };
     miscSettings: {
       configDir: string;
       domainName: string;
