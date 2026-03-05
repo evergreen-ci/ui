@@ -44,3 +44,13 @@ export const AllTools = {
     </>
   ),
 } satisfies CustomStoryObj<typeof ToolRenderer>;
+
+export const AnalyzerProgress = {
+  args: {
+    type: "tool-logCoreAnalyzerTool",
+    toolCallId: "call_example",
+    state: "input-available",
+    input: "analyze logs",
+    progress: { percentage: 50, phase: "Refining chunk 3 of 5" },
+  },
+} satisfies CustomStoryObj<typeof ToolRenderer>;
