@@ -1,8 +1,17 @@
-import { Suspense, useCallback, useRef, useState } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
+import { useBackgroundQuery } from "@apollo/client/react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useWaterfallAnalytics } from "analytics";
 import { ProjectBanner, RepotrackerBanner } from "components/Banners";
@@ -10,9 +19,20 @@ import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { slugs } from "constants/routes";
-import { waterfallPageContainerId } from "./constants";
-import { Pagination, WaterfallFilterOptions } from "./types";
+import { utcTimeZone } from "constants/time";
+import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
+import { WATERFALL } from "gql/queries";
+import { useUserTimeZone } from "hooks";
+import { getUTCEndOfDay } from "utils/date";
+import { VERSION_LIMIT, waterfallPageContainerId } from "./constants";
+import {
+  Pagination,
+  resetFilterState,
+  ServerFilters,
+  WaterfallFilterOptions,
+} from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
@@ -39,6 +59,69 @@ const Waterfall: React.FC = () => {
     () => guideCueRef.current?.restart(),
     [],
   );
+
+  const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
+  const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
+  const [revision] = useQueryParam<string | null>(
+    WaterfallFilterOptions.Revision,
+    null,
+  );
+  const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
+  const timezone = useUserTimeZone() ?? utcTimeZone;
+  const utcDate = getUTCEndOfDay(date, timezone);
+
+  const [requesters] = useQueryParam<string[]>(
+    WaterfallFilterOptions.Requesters,
+    [],
+  );
+  const [statuses] = useQueryParam<string[]>(
+    WaterfallFilterOptions.Statuses,
+    [],
+  );
+  const [tasks] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
+  const [variants] = useQueryParam<string[]>(
+    WaterfallFilterOptions.BuildVariant,
+    [],
+  );
+
+  const [serverFilters, setServerFilters] =
+    useState<ServerFilters>(resetFilterState);
+  const serverFiltersRef = useRef<ServerFilters>(resetFilterState);
+  const [isPending, startTransition] = useTransition();
+
+  const [queryRef] = useBackgroundQuery<
+    WaterfallQuery,
+    WaterfallQueryVariables
+  >(WATERFALL, {
+    variables: {
+      options: {
+        projectIdentifier: projectIdentifier ?? "",
+        limit: VERSION_LIMIT,
+        maxOrder,
+        minOrder,
+        omitInactiveBuilds,
+        revision,
+        date: utcDate,
+        ...serverFilters,
+      },
+    },
+    // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
+    pollInterval: DEFAULT_POLL_INTERVAL,
+    nextFetchPolicy: "cache-and-network",
+  });
+
+  useEffect(() => {
+    const newFilters = { requesters, statuses, tasks, variants };
+    const hasChanged =
+      JSON.stringify(serverFiltersRef.current) !== JSON.stringify(newFilters);
+
+    if (hasChanged) {
+      serverFiltersRef.current = newFilters;
+      startTransition(() => {
+        setServerFilters(newFilters);
+      });
+    }
+  }, [requesters, statuses, tasks, variants]);
 
   return (
     <>
@@ -70,9 +153,13 @@ const Waterfall: React.FC = () => {
           <WaterfallErrorBoundary projectIdentifier={projectIdentifier ?? ""}>
             <WaterfallGrid
               key={projectIdentifier}
+              date={date}
               guideCueRef={guideCueRef}
+              isPending={isPending}
               omitInactiveBuilds={omitInactiveBuilds}
               projectIdentifier={projectIdentifier ?? ""}
+              queryRef={queryRef}
+              revision={revision}
               setPagination={setPagination}
             />
           </WaterfallErrorBoundary>

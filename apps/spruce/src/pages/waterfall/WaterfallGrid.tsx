@@ -1,32 +1,14 @@
-import {
-  useCallback,
-  useDeferredValue,
-  useEffect,
-  useRef,
-  useState,
-  useTransition,
-} from "react";
-import { useSuspenseQuery } from "@apollo/client/react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { QueryRef, useReadQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
-import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
-import {
-  DEFAULT_POLL_INTERVAL,
-  WATERFALL_PINNED_VARIANTS_KEY,
-} from "constants/index";
-import { utcTimeZone } from "constants/time";
-import {
-  WaterfallOptions,
-  WaterfallQuery,
-  WaterfallQueryVariables,
-} from "gql/generated/types";
-import { WATERFALL } from "gql/queries";
-import { useUserTimeZone } from "hooks";
+import { WATERFALL_PINNED_VARIANTS_KEY } from "constants/index";
+import { WaterfallQuery } from "gql/generated/types";
 import { useDimensions } from "hooks/useDimensions";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
-import { getUTCEndOfDay } from "utils/date";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { BuildVariantProvider } from "./BuildVariantContext";
@@ -41,32 +23,35 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
-import { Pagination, WaterfallFilterOptions, Version } from "./types";
+import { WaterfallFilterOptions, Pagination, Version } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
-type ServerFilters = Pick<
-  WaterfallOptions,
-  "requesters" | "statuses" | "tasks" | "variants"
->;
-
 type WaterfallGridProps = {
+  date: string;
   guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
+  isPending: boolean;
   omitInactiveBuilds: boolean;
   projectIdentifier: string;
+  queryRef: QueryRef<WaterfallQuery>;
+  revision: string | null;
   setPagination: (pagination: Pagination) => void;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
+  date,
   guideCueRef,
+  isPending,
   omitInactiveBuilds,
   projectIdentifier,
+  queryRef,
+  revision,
   setPagination,
 }) => {
   useWaterfallTrace();
-  const [queryParams, setQueryParams] = useQueryParams();
   const { sendEvent } = useWaterfallAnalytics();
+  const [, setQueryParams] = useQueryParams();
 
   const headerScrollRef = useRef<HTMLDivElement>(null);
   const [showShadow, setShowShadow] = useState(false);
@@ -106,89 +91,25 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     });
   }, [pins, projectIdentifier]);
 
-  const [requesters] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Requesters,
-    [],
-  );
-  const [statuses] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Statuses,
-    [],
-  );
-  const [tasks] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
-  const [variants] = useQueryParam<string[]>(
-    WaterfallFilterOptions.BuildVariant,
-    [],
-  );
-  const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
-  const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
-  const [revision] = useQueryParam<string | null>(
-    WaterfallFilterOptions.Revision,
-    null,
-  );
+  const { data, dataState } = useReadQuery(queryRef);
 
-  const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
-  const timezone = useUserTimeZone() ?? utcTimeZone;
-  const utcDate = getUTCEndOfDay(date, timezone);
-
-  // Initialize serverFilters from query params to avoid double query
-  const getServerFiltersFromParams = () => ({
-    requesters,
-    statuses,
-    tasks,
-    variants,
-  });
-
-  const [serverFilters, setServerFilters] = useState<ServerFilters>(
-    getServerFiltersFromParams,
-  );
-  const serverParams = useDeferredValue(serverFilters);
-
-  const { data, dataState } = useSuspenseQuery<
-    WaterfallQuery,
-    WaterfallQueryVariables
-  >(WATERFALL, {
-    variables: {
-      options: {
-        projectIdentifier,
-        limit: VERSION_LIMIT,
-        maxOrder,
-        minOrder,
-        omitInactiveBuilds,
-        revision,
-        date: utcDate,
-        ...serverParams,
-      },
-    },
-    // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    nextFetchPolicy: "cache-and-network",
-  });
   // TODO DEVPROD-26717: This can be removed if the invalid arguments are fixed in useSuspenseQuery.
   const dataIsComplete = dataState === "complete";
 
   // Erase any order query params if we've reached the first page.
   useEffect(() => {
-    if (dataIsComplete && minOrder > 0) {
-      const { flattenedVersions, pagination } = data.waterfall;
-      const activeVersions = pagination.activeVersionIds;
-      const isMostRecentCommitOnPage =
-        flattenedVersions[0].order === pagination.mostRecentVersionOrder;
-
-      if (activeVersions.length < VERSION_LIMIT || isMostRecentCommitOnPage) {
-        setQueryParams({
-          ...queryParams,
-          [WaterfallFilterOptions.MaxOrder]: undefined,
-          [WaterfallFilterOptions.MinOrder]: undefined,
-        });
-      }
+    if (dataIsComplete && data.waterfall.pagination.hasPrevPage === false) {
+      setQueryParams((prev) => ({
+        ...prev,
+        [WaterfallFilterOptions.MaxOrder]: undefined,
+        [WaterfallFilterOptions.MinOrder]: undefined,
+      }));
     }
-  }, [dataIsComplete, data?.waterfall, minOrder, queryParams, setQueryParams]);
+  }, [dataIsComplete, data.waterfall.pagination, setQueryParams]);
 
   useEffect(() => {
-    if (dataIsComplete) {
-      setPagination(data.waterfall.pagination);
-    }
-  }, [setPagination, dataIsComplete, data?.waterfall?.pagination]);
+    setPagination(data.waterfall.pagination);
+  }, [setPagination, data.waterfall.pagination]);
 
   const refEl = useRef<HTMLDivElement>(null);
   const { height } = useDimensions<HTMLDivElement>(refEl);
@@ -201,27 +122,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     omitInactiveBuilds,
     pins,
   });
-
-  const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    const newFilters = getServerFiltersFromParams();
-    const hasServerParams = Object.values(newFilters).some((f) => f.length > 0);
-
-    // Only apply server filters if we have server params and need more results
-    // Otherwise, use client-side filtering
-    if (activeVersionIds.length < VERSION_LIMIT && hasServerParams) {
-      startTransition(() => {
-        setServerFilters(newFilters);
-      });
-    } else if (!hasServerParams) {
-      startTransition(() => {
-        setServerFilters((prev) =>
-          Object.values(prev).every((f) => f?.length === 0) ? prev : newFilters,
-        );
-      });
-    }
-  }, [activeVersionIds.length, requesters, statuses, tasks, variants]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const firstActiveVersionId = activeVersionIds[0];
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
@@ -271,7 +171,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
               </InactiveVersion>
             );
           })}
-          {isPending && <FetchMoreLoader />}
+          {isPending && activeVersionIds.length < VERSION_LIMIT && (
+            <FetchMoreLoader />
+          )}
         </Versions>
       </StickyHeader>
       <BuildVariantProvider>
