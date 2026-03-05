@@ -123,10 +123,10 @@ export const TaskOverviewPopup: React.FC<Props> = ({
                 <CodeBlock>{command}</CodeBlock>
               </div>
             )}
-            {showStepback && <Stepback isPopup taskId={taskId} />}
             {isFailingTask && (
               <FailingTests execution={execution} taskId={taskId} />
             )}
+            {showStepback && <Stepback isPopup taskId={taskId} />}
             <Annotations annotation={annotation} displayName={displayName} />
           </>
         )}
