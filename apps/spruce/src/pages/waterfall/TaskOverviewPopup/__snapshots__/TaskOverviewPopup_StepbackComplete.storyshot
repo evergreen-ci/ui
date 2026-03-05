@@ -140,7 +140,7 @@
         <a
           aria-disabled="true"
           class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-Stepback"
-          data-cy="go-to-breaking-task-button"
+          data-cy="breaking-task-button"
           data-lgid="lg-button"
           href="/"
           type="button"

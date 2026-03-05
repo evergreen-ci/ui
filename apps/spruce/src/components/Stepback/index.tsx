@@ -29,8 +29,8 @@ const StepbackStatus: React.FC<StepbackStatusProps> = ({
 };
 
 interface StepbackProps {
-  taskId: string;
   isPopup?: boolean;
+  taskId: string;
 }
 
 export const Stepback: React.FC<StepbackProps> = ({
@@ -49,13 +49,13 @@ export const Stepback: React.FC<StepbackProps> = ({
     <>
       <StepbackLabel>
         <BoldLabel>Stepback: </BoldLabel>
+        <StepbackStatus finished={finished} isLoading={loading} />
         {!isPopup && (
           <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
             When Stepback is completed you can access the breaking commit via
             the relevant commits dropdown.
           </InfoSprinkle>
         )}
-        <StepbackStatus finished={finished} isLoading={loading} />
       </StepbackLabel>
       {isPopup && (
         <Button
@@ -63,7 +63,7 @@ export const Stepback: React.FC<StepbackProps> = ({
           css={css`
             align-self: flex-start;
           `}
-          data-cy="go-to-breaking-task-button"
+          data-cy="breaking-task-button"
           disabled={loading || !finished || !breakingTask}
           size={ButtonSize.Small}
           to={

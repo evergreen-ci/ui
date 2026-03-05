@@ -116,7 +116,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const diskDevices = details?.diskDevices;
   const { metadataLinks } = annotation ?? {};
 
-  const stepback = isInStepback(stepbackInfo);
+  const showStepback = isInStepback(stepbackInfo);
 
   return (
     <>
@@ -305,7 +305,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             finished.
           </MetadataItem>
         )}
-        {stepback && (
+        {showStepback && (
           <MetadataItem as="div">
             <Stepback taskId={taskId} />
           </MetadataItem>
