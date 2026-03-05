@@ -33,6 +33,10 @@ query TaskOverviewPopup($taskId: String!, $execution: Int) {
     execution
     finishTime
     priority
+    stepbackInfo {
+      lastFailingStepbackTaskId
+      nextStepbackTaskId
+    }
     timeTaken
   }
 }

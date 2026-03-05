@@ -1,36 +1,23 @@
+import { FetchPolicy } from "@apollo/client";
 import { skipToken, useQuery } from "@apollo/client/react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
-  BaseVersionAndTaskQuery,
-  BaseVersionAndTaskQueryVariables,
   LastMainlineCommitQuery,
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
-import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
+import { LAST_MAINLINE_COMMIT } from "gql/queries";
 import { useParentTask } from "hooks/useParentTask";
-import { string } from "utils";
+import { useTaskData } from "hooks/useTaskData";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 
-export const useLastPassingTask = (taskId: string) => {
-  const { data: taskData } = useQuery<
-    BaseVersionAndTaskQuery,
-    BaseVersionAndTaskQueryVariables
-  >(BASE_VERSION_AND_TASK, {
-    variables: { taskId },
-  });
+export const useLastPassingTask = (
+  taskId: string,
+  fetchPolicy?: FetchPolicy,
+) => {
+  const { bvOptionsBase, projectIdentifier, skipOrderNumber } =
+    useTaskData(taskId);
 
-  const { buildVariant, displayName, projectIdentifier, versionMetadata } =
-    taskData?.task ?? {};
-  const { order: skipOrderNumber } = versionMetadata?.baseVersion ?? {};
-
-  const bvOptionsBase = {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    tasks: [string.applyStrictRegex(displayName)],
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variants: [string.applyStrictRegex(buildVariant)],
-  };
-
-  const { task: parentTask } = useParentTask(taskId);
+  const { task: parentTask } = useParentTask(taskId, fetchPolicy);
 
   const shouldSkip =
     !parentTask || parentTask.displayStatus === TaskStatus.Succeeded;
@@ -53,12 +40,13 @@ export const useLastPassingTask = (taskId: string) => {
               statuses: [TaskStatus.Succeeded],
             },
           },
+          fetchPolicy,
         }
       : skipToken,
   );
 
   if (shouldSkip && parentTask?.displayStatus === TaskStatus.Succeeded) {
-    return { task: parentTask, loading: false };
+    return { loading: false, task: parentTask };
   }
 
   const task = lastPassingTaskData
@@ -66,7 +54,7 @@ export const useLastPassingTask = (taskId: string) => {
     : undefined;
 
   return {
-    task,
     loading,
+    task,
   };
 };

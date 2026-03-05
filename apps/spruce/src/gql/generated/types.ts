@@ -10947,6 +10947,11 @@ export type TaskOverviewPopupQuery = {
       description?: string | null;
       failingCommand?: string | null;
     } | null;
+    stepbackInfo?: {
+      __typename?: "StepbackInfo";
+      lastFailingStepbackTaskId?: string | null;
+      nextStepbackTaskId?: string | null;
+    } | null;
   } | null;
 };
 
