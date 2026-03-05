@@ -1,9 +1,8 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { Chip } from "@leafygreen-ui/chip";
 import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { MetadataCardTitle } from "components/MetadataCard";
 import { TaskOverviewPopupQuery } from "gql/generated/types";
 
 type Annotation = NonNullable<TaskOverviewPopupQuery["task"]>["annotation"];
@@ -38,18 +37,18 @@ const FailingTasks: React.FC<{
   <FailingTasksContainer>
     <details>
       <FailingTasksSummary>
-        <MetadataCardTitle
-          css={css`
-            display: inline-block;
-          `}
-          weight="bold"
-        >
-          Other Failing Tasks ({tasks.length})
-        </MetadataCardTitle>
+        <b>Other Failing Tasks ({tasks.length})</b>
       </FailingTasksSummary>
       <TasksList>
         {tasks.map((t) => (
-          <TaskListItem key={t}>{t}</TaskListItem>
+          <TaskListItem key={t}>
+            <Chip
+              chipCharacterLimit={45}
+              chipTruncationLocation="end"
+              label={t}
+              variant="gray"
+            />
+          </TaskListItem>
         ))}
       </TasksList>
     </details>
@@ -75,7 +74,7 @@ const TasksList = styled.ul`
 `;
 
 const TaskListItem = styled.li`
-  margin-bottom: ${size.xxs};
+  margin-bottom: ${size.xs};
   word-break: break-all;
   line-height: 1.2;
 `;
@@ -112,8 +111,10 @@ export const Annotations: React.FC<AnnotationProps> = ({
     <AnnotationsContainer>
       {hasIssues && (
         <IssuesContainer>
-          <MetadataCardTitle weight="bold">Associated Issues</MetadataCardTitle>
-          <IssueLinks issues={allIssues} />
+          <b>Associated Issues</b>
+          <LinksContainer>
+            <IssueLinks issues={allIssues} />
+          </LinksContainer>
         </IssuesContainer>
       )}
       {otherFailingTasks.length > 0 && (
@@ -133,4 +134,9 @@ const IssuesContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${size.xxs};
+`;
+
+const LinksContainer = styled.div`
+  display: flex;
+  gap: ${size.s};
 `;
