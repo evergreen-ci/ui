@@ -179,7 +179,6 @@ query AdminSettings {
         project
       }
     }
-    kanopySSHKeyPath
     loggerConfig {
       buffer {
         count
