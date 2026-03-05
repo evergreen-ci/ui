@@ -1,8 +1,8 @@
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
+import { palette } from "@leafygreen-ui/palette";
 import { Popover, Align, DismissMode } from "@leafygreen-ui/popover";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { Body } from "@leafygreen-ui/typography";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -116,7 +116,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
             {command && (
               <div>
                 <b>{isFailingTask ? "Failing Command: " : "Command: "}</b>
-                <Body>{command}</Body>
+                <CodeBlock>{command}</CodeBlock>
               </div>
             )}
             {isFailingTask && (
@@ -147,4 +147,17 @@ const RouterLink = styled(StyledRouterLink)`
 const TaskPageLink = styled(RouterLink)`
   font-weight: bold;
   font-size: 18px;
+`;
+
+const CodeBlock = styled.code`
+  display: inline-block;
+
+  width: 100%;
+  background-color: ${palette.gray.light3};
+  padding: ${size.xxs} ${size.xs};
+  border-radius: ${size.xxs};
+
+  font-family: monospace;
+  font-size: 12px;
+  ${wordBreakCss};
 `;

@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -35,12 +36,23 @@ const FailingTasks: React.FC<{
   tasks: string[];
 }> = ({ tasks }) => (
   <FailingTasksContainer>
-    <MetadataCardTitle weight="bold">Other Failing Tasks</MetadataCardTitle>
-    <TasksList>
-      {tasks.map((t) => (
-        <TaskListItem key={t}>{t}</TaskListItem>
-      ))}
-    </TasksList>
+    <details>
+      <FailingTasksSummary>
+        <MetadataCardTitle
+          css={css`
+            display: inline-block;
+          `}
+          weight="bold"
+        >
+          Other Failing Tasks ({tasks.length})
+        </MetadataCardTitle>
+      </FailingTasksSummary>
+      <TasksList>
+        {tasks.map((t) => (
+          <TaskListItem key={t}>{t}</TaskListItem>
+        ))}
+      </TasksList>
+    </details>
   </FailingTasksContainer>
 );
 
@@ -50,8 +62,15 @@ const FailingTasksContainer = styled.div`
   gap: ${size.xxs};
 `;
 
+const FailingTasksSummary = styled.summary`
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 const TasksList = styled.ul`
   margin: 0;
+  margin-top: ${size.xs};
   padding: 0 ${size.s};
 `;
 
