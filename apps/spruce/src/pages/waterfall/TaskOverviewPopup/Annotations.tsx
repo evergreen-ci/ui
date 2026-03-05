@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { Chip } from "@leafygreen-ui/chip";
 import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -41,14 +40,7 @@ const FailingTasks: React.FC<{
       </FailingTasksSummary>
       <TasksList>
         {tasks.map((t) => (
-          <TaskListItem key={t}>
-            <Chip
-              chipCharacterLimit={45}
-              chipTruncationLocation="end"
-              label={t}
-              variant="gray"
-            />
-          </TaskListItem>
+          <TaskListItem key={t}>{t}</TaskListItem>
         ))}
       </TasksList>
     </details>
@@ -74,7 +66,7 @@ const TasksList = styled.ul`
 `;
 
 const TaskListItem = styled.li`
-  margin-bottom: ${size.xs};
+  margin-bottom: ${size.xxs};
   word-break: break-all;
   line-height: 1.2;
 `;
