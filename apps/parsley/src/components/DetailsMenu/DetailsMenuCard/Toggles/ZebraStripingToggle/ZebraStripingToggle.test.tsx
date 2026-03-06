@@ -1,33 +1,30 @@
-import Cookie from "js-cookie";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { ZEBRA_STRIPING } from "constants/storageKeys";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import ZebraStripingToggle from ".";
-
-vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 const wrapper = logContextWrapper();
 
 describe("zebra striping toggle", () => {
   beforeEach(() => {
-    mockedGet.mockImplementation(() => "true");
+    localStorage.clear();
+    localStorage.setItem(ZEBRA_STRIPING, "true");
     InitializeFakeToastContext();
   });
 
-  it("defaults to 'false' if cookie is unset", () => {
-    mockedGet.mockImplementation(() => "");
+  it("defaults to 'false' if stored value is unset", () => {
+    localStorage.clear();
     render(<ZebraStripingToggle />, { wrapper });
     const zebraStripingToggle = screen.getByDataCy("zebra-striping-toggle");
     expect(zebraStripingToggle).toHaveAttribute("aria-checked", "false");
   });
 
-  it("should read from the cookie properly", () => {
+  it("should read from localStorage properly", () => {
     render(<ZebraStripingToggle />, { wrapper });
     const zebraStripingToggle = screen.getByDataCy("zebra-striping-toggle");
     expect(zebraStripingToggle).toHaveAttribute("aria-checked", "true");
