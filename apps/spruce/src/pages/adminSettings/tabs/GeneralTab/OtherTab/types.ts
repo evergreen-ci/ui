@@ -57,7 +57,6 @@ export interface OtherFormState {
         name: string;
         secretARN: string;
       };
-      kanopySSHKeyPath: string;
     };
 
     expansions: {

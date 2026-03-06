@@ -312,10 +312,6 @@ export const bucketConfig = {
 
 export const sshPairs = {
   schema: {
-    kanopySSHKeyPath: {
-      type: "string" as const,
-      title: "Legacy SSH Key",
-    },
     taskHostKey: {
       type: "object" as const,
       title: "Task Host Key",
@@ -354,9 +350,6 @@ export const sshPairs = {
     },
     spawnHostKey: {
       "ui:fieldCss": nestedObjectGridCss,
-    },
-    kanopySSHKeyPath: {
-      "ui:fieldCss": fullWidthCss,
     },
   },
 };
