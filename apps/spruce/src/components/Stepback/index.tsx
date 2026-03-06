@@ -46,22 +46,20 @@ export const Stepback: React.FC<StepbackProps> = ({
   const finished = breakingTask !== undefined;
 
   return (
-    <>
-      <StepbackLabel>
-        <BoldLabel>Stepback: </BoldLabel>
-        <StepbackStatus finished={finished} isLoading={loading} />
-        {!isPopup && (
-          <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
-            When Stepback is completed you can access the breaking commit via
-            the relevant commits dropdown.
-          </InfoSprinkle>
-        )}
-      </StepbackLabel>
+    <StepbackLabel>
+      <BoldLabel>Stepback: </BoldLabel>
+      <StepbackStatus finished={finished} isLoading={loading} />
+      {!isPopup && (
+        <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
+          When Stepback is completed you can access the breaking commit via the
+          relevant commits dropdown.
+        </InfoSprinkle>
+      )}
       {isPopup && (
         <Button
           as={Link}
           css={css`
-            align-self: flex-start;
+            flex-shrink: 0;
           `}
           data-cy="breaking-task-button"
           disabled={loading || !finished || !breakingTask}
@@ -77,7 +75,7 @@ export const Stepback: React.FC<StepbackProps> = ({
           Go to breaking task
         </Button>
       )}
-    </>
+    </StepbackLabel>
   );
 };
 
