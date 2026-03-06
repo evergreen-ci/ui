@@ -7667,6 +7667,11 @@ export type AdminSettingsQuery = {
       bufferTargetPerInterval?: number | null;
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
     } | null;
+    oktaServiceConfig?: {
+      __typename?: "OktaServiceConfig";
+      clientId?: string | null;
+      clientSecret?: string | null;
+    } | null;
     parameterStore?: {
       __typename?: "ParameterStoreConfig";
       prefix?: string | null;
