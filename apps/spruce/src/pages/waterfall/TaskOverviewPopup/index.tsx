@@ -54,6 +54,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
     open
       ? {
           variables: { taskId, execution },
+          // TODO DEVPROD-27824: Remove when cache performance is fixed.
           fetchPolicy: "no-cache",
         }
       : skipToken,
@@ -125,14 +126,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
             {command && (
               <CommandBlock>
                 <b>{isFailingTask ? "Failing Command: " : "Command: "}</b>
-                <Code
-                  className={css`
-                    > div > pre {
-                      white-space: normal;
-                    }
-                  `}
-                  language="none"
-                >
+                <Code className={codeBlockCss} language="none">
                   {command}
                 </Code>
               </CommandBlock>
@@ -173,4 +167,11 @@ const CommandBlock = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${size.xxs};
+`;
+
+// Make words overflow to the next line.
+const codeBlockCss = css`
+  > div > pre {
+    white-space: normal;
+  }
 `;
