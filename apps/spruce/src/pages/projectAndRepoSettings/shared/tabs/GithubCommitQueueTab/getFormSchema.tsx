@@ -132,6 +132,18 @@ export const getFormSchema = (
                 aliasArray.schema,
               ),
             },
+            runEveryMainlineCommitTitle: {
+              type: "null",
+              title: "Run Every Mainline Commit",
+            },
+            runEveryMainlineCommit: {
+              type: ["boolean", "null"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                repoData?.github?.runEveryMainlineCommit,
+              ),
+            },
             gitTagVersionsTitle: {
               type: "null",
               title: "Trigger Versions With Git Tags",
@@ -145,18 +157,6 @@ export const getFormSchema = (
                 ["Enabled", "Disabled"],
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 repoData?.github?.gitTagVersionsEnabled,
-              ),
-            },
-            runEveryMainlineCommitTitle: {
-              type: "null",
-              title: "Run Every Mainline Commit",
-            },
-            runEveryMainlineCommit: {
-              type: ["boolean", "null"],
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                repoData?.github?.runEveryMainlineCommit,
               ),
             },
             users: {

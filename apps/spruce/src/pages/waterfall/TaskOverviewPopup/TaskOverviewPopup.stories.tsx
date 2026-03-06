@@ -313,3 +313,52 @@ export const WithFailingTests: StoryObj<typeof TaskOverviewPopup> = {
     execution: 0,
   },
 };
+
+const stepbackCompleteMock: ApolloMock<
+  TaskOverviewPopupQuery,
+  TaskOverviewPopupQueryVariables
+> = {
+  request: {
+    query: TASK_OVERVIEW_POPUP,
+    variables: { taskId, execution: 0 },
+  },
+  result: {
+    data: {
+      task: {
+        __typename: "Task",
+        id: taskId,
+        execution: 0,
+        buildVariant: "ubuntu1604",
+        canRestart: true,
+        displayName: "test-task-stepback-complete",
+        displayStatus: TaskStatus.Failed,
+        distroId: "ubuntu1604-small",
+        finishTime: new Date("2024-01-15T14:00:00Z"),
+        timeTaken: 155000,
+        annotation: null,
+        stepbackInfo: {
+          lastFailingStepbackTaskId: "breaking_task_id",
+          nextStepbackTaskId: null,
+        },
+        details: {
+          description: null,
+          failingCommand:
+            "'shell.exec' in function 'run-integration-test' (step 3 of 10)",
+        },
+      },
+    },
+  },
+};
+
+export const StepbackComplete: StoryObj<typeof TaskOverviewPopup> = {
+  render: (args) => <TaskOverviewPopupWrapper {...args} />,
+  parameters: {
+    apolloClient: {
+      mocks: [stepbackCompleteMock],
+    },
+  },
+  args: {
+    taskId,
+    execution: 0,
+  },
+};
