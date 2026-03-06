@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import Cookie from "js-cookie";
@@ -22,6 +22,7 @@ const LogWindow: React.FC = () => {
     expandedLines,
     failingLine,
     hasLogs,
+    isUploadedLog,
     lineCount,
     openSectionAndScrollToLine,
     processedLogLines,
@@ -35,6 +36,19 @@ const LogWindow: React.FC = () => {
 
   const { drawerOpen, setDrawerOpen } = useChatContext();
   const isParsleyAIAvailable = useIsParsleyAIAvailable();
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isUploadedLog) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [isUploadedLog]);
 
   useKeyboardShortcut(
     { charKey: CharKey.BracketRight },
