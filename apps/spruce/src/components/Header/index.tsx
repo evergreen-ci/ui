@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import {
   AdminBanner,
   ConnectivityBanner,
+  NewVersionBanner,
   SlackNotificationBanner,
   GithubUsernameBanner,
 } from "components/Banners";
@@ -13,6 +14,7 @@ export const Header: React.FC = () => (
     <BannerContainer id="banner-container">
       <AdminBanner />
       <ConnectivityBanner />
+      <NewVersionBanner />
       <GithubUsernameBanner />
       <SlackNotificationBanner />
     </BannerContainer>

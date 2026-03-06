@@ -1,5 +1,6 @@
 export { ConnectivityBanner } from "./ConnectivityBanner";
 export { GithubUsernameBanner } from "./GithubUsernameBanner";
+export { NewVersionBanner } from "./NewVersionBanner";
 export { SiteBanner } from "./SiteBanner";
 export { SlackNotificationBanner } from "./SlackNotificationBanner";
 export { AdminBanner } from "./AdminBanner";
