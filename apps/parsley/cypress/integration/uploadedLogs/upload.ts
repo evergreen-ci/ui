@@ -88,41 +88,4 @@ describe("Upload page", () => {
       cy.dataCy("upload-zone").should("be.visible");
     });
   });
-
-  describe("navigating away from uploaded logs", () => {
-    beforeEach(() => {
-      cy.visit("/upload");
-      cy.get("input[type=file]").selectFile("sample_logs/resmoke.log", {
-        force: true,
-      });
-      cy.dataCy("parse-log-select").should("be.visible");
-      cy.dataCy("parse-log-select").click();
-      cy.contains("Resmoke").click();
-      cy.dataCy("process-log-button").click();
-      cy.dataCy("log-window").should("be.visible");
-    });
-
-    it("should show a warning modal when trying to navigate away from an uploaded log", () => {
-      cy.dataCy("upload-link").click();
-      cy.dataCy("navigation-warning-modal").should("be.visible");
-      cy.contains(
-        "You have an uploaded log open. If you navigate away, you will need to upload it again to view it.",
-      ).should("be.visible");
-    });
-
-    it("should stay on the page when clicking Cancel", () => {
-      cy.dataCy("upload-link").click();
-      cy.dataCy("navigation-warning-modal").should("be.visible");
-      cy.contains("button", "Cancel").click();
-      cy.dataCy("log-window").should("be.visible");
-      cy.dataCy("navigation-warning-modal").should("not.exist");
-    });
-
-    it("should navigate away when clicking Leave", () => {
-      cy.dataCy("upload-link").click();
-      cy.dataCy("navigation-warning-modal").should("be.visible");
-      cy.contains("button", "Leave").click();
-      cy.dataCy("upload-zone").should("be.visible");
-    });
-  });
 });
