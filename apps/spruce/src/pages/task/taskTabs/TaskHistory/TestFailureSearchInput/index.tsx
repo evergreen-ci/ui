@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import {
   SearchInput,
   Size as SearchInputSize,
 } from "@leafygreen-ui/search-input";
-import debounce from "lodash.debounce";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
+import { useDebouncedCallback } from "@evg-ui/lib/hooks/useDebouncedCallback";
 import { useTaskHistoryAnalytics } from "analytics";
 import { filterInputDebounceTimeout } from "constants/timeouts";
 import { walkthroughFailureSearchProps } from "../constants";
@@ -26,13 +26,9 @@ export const TestFailureSearchInput: React.FC<TestFailureSearchInputProps> = ({
   );
   const [searchTerm, setSearchTerm] = useState(failingTest);
 
-  const updateQueryParamWithDebounce = useMemo(
-    () =>
-      debounce(
-        (str) => setFailingTest(str ? str : undefined),
-        filterInputDebounceTimeout,
-      ),
-    [setFailingTest],
+  const updateQueryParamWithDebounce = useDebouncedCallback(
+    (str: string) => setFailingTest(str),
+    filterInputDebounceTimeout,
   );
 
   const handleOnChange = (value: string) => {
