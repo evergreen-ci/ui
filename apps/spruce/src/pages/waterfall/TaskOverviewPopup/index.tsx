@@ -91,13 +91,15 @@ export const TaskOverviewPopup: React.FC<Props> = ({
           <ListSkeleton />
         ) : (
           <>
-            <TaskPageLink
-              data-cy="task-link"
-              to={getTaskRoute(taskId, { execution })}
-            >
-              {displayName}
-            </TaskPageLink>
-            <TaskStatusBadge status={displayStatus as TaskStatus} />
+            <span>
+              <TaskPageLink
+                data-cy="task-link"
+                to={getTaskRoute(taskId, { execution })}
+              >
+                {displayName}
+              </TaskPageLink>
+              <TaskStatusBadge status={displayStatus as TaskStatus} />
+            </span>
             {finishTime && timeTaken && timeTaken > 0 ? (
               <div>Duration: {msToDuration(timeTaken)}</div>
             ) : null}
@@ -154,6 +156,7 @@ const RouterLink = styled(StyledRouterLink)`
 const TaskPageLink = styled(RouterLink)`
   font-weight: bold;
   font-size: 18px;
+  margin-right: ${size.xs};
 `;
 
 const CodeBlock = styled.code`
