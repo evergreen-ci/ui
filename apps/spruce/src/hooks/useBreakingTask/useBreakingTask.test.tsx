@@ -30,6 +30,7 @@ describe("useBreakingTask", () => {
 
     expect(result.current.task).toBeUndefined();
   });
+
   it("a breaking task is found when there is a previous failing task", async () => {
     const { result } = renderHook(() => useBreakingTask("t1"), {
       wrapper: ({ children }) =>
@@ -103,7 +104,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
         baseTask: {
           id: baseTaskId,
           execution: 0,
-          displayStatus: "failed",
+          displayStatus: "success",
           order: 3676,
           __typename: "Task",
         },
@@ -169,7 +170,7 @@ const getBreakingCommit: ApolloMock<
     query: LAST_MAINLINE_COMMIT,
     variables: {
       projectIdentifier: "evergreen",
-      skipOrderNumber: 3676,
+      skipOrderNumber: 3678,
       buildVariantOptions: {
         tasks: ["^lint-agent$"],
         variants: ["^lint$"],

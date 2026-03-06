@@ -22,7 +22,7 @@ describe("Downstream Projects Tab", () => {
       .should("have.attr", "href")
       .and(
         "includes",
-        "/version/logkeeper_3c5a8112efdb98f3710b89d553af602e355aa5c9",
+        "/version/logkeeper_e3579537e848d14f0c3e5c25ef745fd0f10702d4",
       );
   });
 
