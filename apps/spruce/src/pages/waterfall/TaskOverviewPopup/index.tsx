@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
+import { Code } from "@leafygreen-ui/code";
+import { css } from "@leafygreen-ui/emotion";
 import { Popover, Align, DismissMode } from "@leafygreen-ui/popover";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
@@ -122,10 +123,19 @@ export const TaskOverviewPopup: React.FC<Props> = ({
               </div>
             )}
             {command && (
-              <div>
+              <CommandBlock>
                 <b>{isFailingTask ? "Failing Command: " : "Command: "}</b>
-                <CodeBlock>{command}</CodeBlock>
-              </div>
+                <Code
+                  className={css`
+                    > div > pre {
+                      white-space: normal;
+                    }
+                  `}
+                  language="none"
+                >
+                  {command}
+                </Code>
+              </CommandBlock>
             )}
             {isFailingTask && (
               <FailingTests execution={execution} taskId={taskId} />
@@ -159,15 +169,8 @@ const TaskPageLink = styled(RouterLink)`
   margin-right: ${size.xs};
 `;
 
-const CodeBlock = styled.code`
-  display: inline-block;
-
-  width: 100%;
-  background-color: ${palette.gray.light3};
-  padding: ${size.xxs} ${size.xs};
-  border-radius: ${size.xxs};
-
-  font-family: monospace;
-  font-size: 12px;
-  ${wordBreakCss};
+const CommandBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xxs};
 `;
