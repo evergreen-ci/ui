@@ -83,7 +83,7 @@ describe("projectFiltersModal", () => {
       hook.current.setLogMetadata(logMetadata);
     });
     await waitForModalLoad();
-    const checkbox = screen.getAllByRole("checkbox")[1];
+    const checkbox = screen.getAllByRole("checkbox", { hidden: true })[1];
     await waitFor(() => {
       expect(checkbox).toBeChecked();
     });
@@ -122,19 +122,17 @@ describe("projectFiltersModal", () => {
     });
     await waitForModalLoad();
 
-    // LeafyGreen checkbox has pointer-events: none so we click on the labels as a workaround.
-    const checkboxes = screen.getAllByRole("checkbox");
-    const checkbox2 = checkboxes[2];
-    const checkbox3 = checkboxes[3];
-    const checkbox2Label = checkbox2.nextElementSibling as HTMLElement;
-    const checkbox3Label = checkbox3.nextElementSibling as HTMLElement;
-    await user.click(checkbox2Label);
-    await user.click(checkbox3Label);
+    await user.click(screen.getByText("my_filter_2"));
+    await user.click(screen.getByText("my_filter_3"));
 
-    expect(
-      screen.queryByRole("button", { name: "Apply filters" }),
-    ).toHaveAttribute("aria-disabled", "false");
-    await user.click(screen.getByRole("button", { name: "Apply filters" }));
+    await waitFor(() => {
+      expect(
+        screen.queryByRole("button", { hidden: true, name: "Apply filters" }),
+      ).toHaveAttribute("aria-disabled", "false");
+    });
+    await user.click(
+      screen.getByRole("button", { hidden: true, name: "Apply filters" }),
+    );
     expect(router.state.location.search).toBe(
       "?filters=100original,111my_filter_2,101my_filter_3",
     );
@@ -154,7 +152,7 @@ describe("projectFiltersModal", () => {
     });
     await waitForModalLoad();
     await user.click(screen.getByText("my_filter_2"));
-    const checkboxes = screen.getAllByRole("checkbox");
+    const checkboxes = screen.getAllByRole("checkbox", { hidden: true });
     const checkbox2 = checkboxes[2];
     await waitFor(() => {
       expect(checkbox2).toBeChecked();

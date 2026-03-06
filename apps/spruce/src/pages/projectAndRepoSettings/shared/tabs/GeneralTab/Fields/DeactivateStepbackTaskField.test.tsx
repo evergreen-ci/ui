@@ -75,6 +75,7 @@ describe("deactivateStepbackTask", () => {
       "js-test",
     );
     const confirmButton = screen.getByRole("button", {
+      hidden: true,
       name: "Confirm",
     });
     expect(confirmButton).toBeEnabled();

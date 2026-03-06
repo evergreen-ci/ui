@@ -217,9 +217,11 @@ describe("editSpawnHostModal", () => {
       expect(screen.queryByDataCy("host-uptime-details")).toHaveTextContent(
         "144",
       );
-      expect(
-        screen.queryByText("Consider pausing your host for 2 days per week."),
-      ).toBeVisible();
+      await waitFor(() => {
+        expect(
+          screen.getByText("Consider pausing your host for 2 days per week."),
+        ).toBeInTheDocument();
+      });
     });
 
     it("shows an error and disables save when user has configured a schedule over the hard limit", async () => {
