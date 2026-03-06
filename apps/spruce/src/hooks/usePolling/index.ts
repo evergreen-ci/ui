@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { OperationVariables, ApolloClient } from "@apollo/client";
-import Cookies from "js-cookie";
 import { DISABLE_QUERY_POLLING } from "constants/cookies";
 import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useNetworkStatus } from "hooks/useNetworkStatus";
@@ -51,7 +50,7 @@ export const usePolling: usePollingType = ({
   const isOnline = useNetworkStatus();
   const isVisible = usePageVisibility();
 
-  if (Cookies.get(DISABLE_QUERY_POLLING) === "true") {
+  if (localStorage.getItem(DISABLE_QUERY_POLLING) === "true") {
     return false;
   }
 

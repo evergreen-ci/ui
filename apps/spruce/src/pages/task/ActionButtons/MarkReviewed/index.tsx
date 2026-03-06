@@ -1,5 +1,4 @@
 import { Button, Size } from "@leafygreen-ui/button";
-import Cookies from "js-cookie";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskReview } from "components/TaskReview/useTaskReview";
 import { DISABLE_TASK_REVIEW } from "constants/cookies";
@@ -21,7 +20,8 @@ export const MarkReviewed: React.FC<{
     }
   };
 
-  const taskReviewEnabled = Cookies.get(DISABLE_TASK_REVIEW) !== "true";
+  const taskReviewEnabled =
+    localStorage.getItem(DISABLE_TASK_REVIEW) !== "true";
 
   return taskReviewEnabled ? (
     <Button

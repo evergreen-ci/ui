@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import Cookies from "js-cookie";
 import {
   useLeafyGreenTable,
   LeafyGreenTable,
@@ -61,7 +60,8 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
 }) => {
   const [queryParams, setQueryParams] = useQueryParams();
   const { sendEvent } = useVersionAnalytics(versionId);
-  const taskReviewEnabled = Cookies.get(DISABLE_TASK_REVIEW) !== "true";
+  const taskReviewEnabled =
+    localStorage.getItem(DISABLE_TASK_REVIEW) !== "true";
 
   const { baseStatuses: baseStatusOptions, currentStatuses: statusOptions } =
     useTaskStatuses({ versionId });
