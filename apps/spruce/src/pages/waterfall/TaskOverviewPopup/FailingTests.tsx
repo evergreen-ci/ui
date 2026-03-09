@@ -76,6 +76,11 @@ const FailingTestsList = styled.ul`
 
 const FailingTestListItem = styled.li`
   word-break: break-all;
+  margin-bottom: ${size.xxs};
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const FailingTestsContainer = styled.div`

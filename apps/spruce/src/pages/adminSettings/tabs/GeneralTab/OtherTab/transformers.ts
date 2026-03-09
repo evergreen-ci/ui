@@ -37,6 +37,7 @@ export const gqlToForm = ((data) => {
     hostJasper,
     jiraNotifications,
     logPath,
+    oktaServiceConfig,
     oldestAllowedCLIVersion,
     pprofPort,
     projectCreation,
@@ -79,6 +80,11 @@ export const gqlToForm = ((data) => {
               cost?.s3Cost?.storage?.iAStorageCostDiscount ?? 0,
           },
         },
+      },
+
+      oktaServiceConfig: {
+        clientId: oktaServiceConfig?.clientId ?? "",
+        clientSecret: oktaServiceConfig?.clientSecret ?? "",
       },
 
       singleTaskDistro: {
@@ -207,6 +213,7 @@ export const formToGql = ((form: OtherFormState) => {
     hostJasper,
     jiraNotificationsFields,
     miscSettings,
+    oktaServiceConfig,
     projectCreationSettings,
     singleTaskDistro,
     sleepSchedule,
@@ -254,6 +261,11 @@ export const formToGql = ((form: OtherFormState) => {
             miscSettings.cost.s3Cost.iAStorageCostDiscount || undefined,
         },
       },
+    },
+
+    oktaServiceConfig: {
+      clientId: oktaServiceConfig.clientId || undefined,
+      clientSecret: oktaServiceConfig.clientSecret || undefined,
     },
 
     singleTaskDistro: {

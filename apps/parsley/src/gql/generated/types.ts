@@ -173,6 +173,7 @@ export type AdminSettings = {
   logPath?: Maybe<Scalars["String"]["output"]>;
   loggerConfig?: Maybe<LoggerConfig>;
   notify?: Maybe<NotifyConfig>;
+  oktaServiceConfig?: Maybe<OktaServiceConfig>;
   oldestAllowedCLIVersion?: Maybe<Scalars["String"]["output"]>;
   parameterStore?: Maybe<ParameterStoreConfig>;
   perfMonitoringKanopyURL?: Maybe<Scalars["String"]["output"]>;
@@ -231,6 +232,7 @@ export type AdminSettingsInput = {
   logPath?: InputMaybe<Scalars["String"]["input"]>;
   loggerConfig?: InputMaybe<LoggerConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
+  oktaServiceConfig?: InputMaybe<OktaServiceConfigInput>;
   oldestAllowedCLIVersion?: InputMaybe<Scalars["String"]["input"]>;
   parameterStore?: InputMaybe<ParameterStoreConfigInput>;
   perfMonitoringKanopyURL?: InputMaybe<Scalars["String"]["input"]>;
@@ -2343,6 +2345,17 @@ export type OktaConfigInput = {
   issuer?: InputMaybe<Scalars["String"]["input"]>;
   scopes?: InputMaybe<Array<Scalars["String"]["input"]>>;
   userGroup?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type OktaServiceConfig = {
+  __typename?: "OktaServiceConfig";
+  clientId?: Maybe<Scalars["String"]["output"]>;
+  clientSecret?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type OktaServiceConfigInput = {
+  clientId?: InputMaybe<Scalars["String"]["input"]>;
+  clientSecret?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type OomTrackerInfo = {
