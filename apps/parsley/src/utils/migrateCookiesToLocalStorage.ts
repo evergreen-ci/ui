@@ -37,6 +37,7 @@ const migrateCookiesToLocalStorage = (): void => {
       const value = Cookies.get(key);
       if (value !== undefined) {
         localStorage.setItem(key, value);
+        Cookies.remove(key);
       }
     }
   } catch {

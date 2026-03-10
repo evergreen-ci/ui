@@ -1,0 +1,116 @@
+[    1896ms] [WARNING] You are loading @emotion/react when it is already loaded. Running multiple instances may cause problems. This can happen if multiple versions are used, or if multiple builds of the same version are used. @ http://localhost:5174/node_modules/.vite/deps/chunk-R6X24ZNQ.js?v=ea85b11d:540
+[    1954ms] [WARNING] Honeycomb INGEST API key or a collector endpoint was not provided. Starting SDK in debug mode. No traces will be sent. @ http://localhost:5174/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/utils/observability/honeycomb.ts:15
+[    1961ms] [ERROR] Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem. @ http://localhost:5174/node_modules/.vite/deps/chunk-AGOPWVTN.js?v=fa517411:135
+[    1961ms] [ERROR] Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem. @ http://localhost:5174/node_modules/.vite/deps/chunk-AGOPWVTN.js?v=fa517411:135
+[    1990ms] TypeError: Cannot read properties of null (reading 'useContext')
+    at useContext (http://localhost:5174/node_modules/.vite/deps/chunk-AGOPWVTN.js?v=fa517411:1062:29)
+    at http://localhost:5174/node_modules/.vite/deps/chunk-SFS3S2RN.js?v=fa517411:1442:45
+    at renderWithHooks (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:11596:26)
+    at updateForwardRef (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:14373:28)
+    at beginWork (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:15994:22)
+    at HTMLUnknownElement.callCallback2 (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:3680:22)
+    at Object.invokeGuardedCallbackDev (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:3705:24)
+    at invokeGuardedCallback (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:3739:39)
+    at beginWork$1 (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:19818:15)
+    at performUnitOfWork (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:19251:20)
+[    1962ms] [ERROR] Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem. @ http://localhost:5174/node_modules/.vite/deps/chunk-AGOPWVTN.js?v=fa517411:135
+[    1962ms] [ERROR] Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem. @ http://localhost:5174/node_modules/.vite/deps/chunk-AGOPWVTN.js?v=fa517411:135
+[    1990ms] TypeError: Cannot read properties of null (reading 'useContext')
+    at useContext (http://localhost:5174/node_modules/.vite/deps/chunk-AGOPWVTN.js?v=fa517411:1062:29)
+    at http://localhost:5174/node_modules/.vite/deps/chunk-SFS3S2RN.js?v=fa517411:1442:45
+    at renderWithHooks (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:11596:26)
+    at updateForwardRef (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:14373:28)
+    at beginWork (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:15994:22)
+    at HTMLUnknownElement.callCallback2 (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:3680:22)
+    at Object.invokeGuardedCallbackDev (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:3705:24)
+    at invokeGuardedCallback (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:3739:39)
+    at beginWork$1 (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:19818:15)
+    at performUnitOfWork (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:19251:20)
+[    1963ms] [ERROR] The above error occurred in the <AppWrapper> component:
+
+    at http://localhost:5174/node_modules/.vite/deps/chunk-SFS3S2RN.js?v=fa517411:1442:45
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries. @ http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:14079
+[    1990ms] TypeError: Cannot read properties of null (reading 'useContext')
+    at useContext (http://localhost:5174/node_modules/.vite/deps/chunk-AGOPWVTN.js?v=fa517411:1062:29)
+    at http://localhost:5174/node_modules/.vite/deps/chunk-SFS3S2RN.js?v=fa517411:1442:45
+    at renderWithHooks (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:11596:26)
+    at updateForwardRef (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:14373:28)
+    at beginWork (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:15994:22)
+    at beginWork$1 (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:19806:22)
+    at performUnitOfWork (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:19251:20)
+    at workLoopSync (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:19190:13)
+    at renderRootSync (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:19169:15)
+    at recoverFromConcurrentError (http://localhost:5174/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=ea85b11d:18786:28)
+[    3000ms] [WARNING] Honeycomb INGEST API key or a collector endpoint was not provided. Starting SDK in debug mode. No traces will be sent. @ http://localhost:5174/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/utils/observability/honeycomb.ts:15
+[    3027ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3027ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3027ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3027ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3030ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3030ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3031ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3031ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3182ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3182ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3182ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3182ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3186ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3186ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3187ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3187ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3487ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3487ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3488ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3488ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3492ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3492ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3492ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3492ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3942ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/:0
+[    3942ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3943ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/login:0
+[    3943ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    3949ms] [WARNING] We recommend using the Leafygreen PasswordInput for `type="password"` inputs. @ http://localhost:5174/node_modules/.vite/deps/chunk-Z2TNQVVY.js?v=fa517411:250
+[    4013ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/login:0
+[    4013ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    4014ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/login:0
+[    4014ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[   20120ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5174/@fs/Users/aaron.hammer/Development/ui/packages/fungi/src/MessageRenderer/ToolRenderer/ProgressIndicator.tsx?t=1773073813508:0
+[   20121ms] [ERROR] [vite] Failed to reload /@fs/Users/aaron.hammer/Development/ui/packages/fungi/src/MessageRenderer/ToolRenderer/ProgressIndicator.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:5174/@vite/client:808
+[   21283ms] [WARNING] Honeycomb INGEST API key or a collector endpoint was not provided. Starting SDK in debug mode. No traces will be sent. @ http://localhost:5174/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/utils/observability/honeycomb.ts:15
+[   21318ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/login:0
+[   21318ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[   21320ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/login:0
+[   21320ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[   21474ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/login:0
+[   21474ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[   21478ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/login:0
+[   21478ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[   21779ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/login:0
+[   21779ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[   21783ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/login:0
+[   21783ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[   22248ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/login:0
+[   22248ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[   22255ms] [WARNING] We recommend using the Leafygreen PasswordInput for `type="password"` inputs. @ http://localhost:5174/node_modules/.vite/deps/chunk-Z2TNQVVY.js?v=fa517411:250
+[   22291ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:5174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:5174/login:0
+[   22291ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0

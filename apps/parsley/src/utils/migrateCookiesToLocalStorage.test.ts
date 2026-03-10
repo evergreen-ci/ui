@@ -8,7 +8,7 @@ describe("migrateCookiesToLocalStorage", () => {
     Object.keys(Cookies.get()).forEach((key) => Cookies.remove(key));
   });
 
-  it("migrates cookie values to localStorage", () => {
+  it("migrates cookie values to localStorage and removes cookies", () => {
     Cookies.set(CASE_SENSITIVE, "true");
     Cookies.set(WRAP, "false");
 
@@ -16,6 +16,8 @@ describe("migrateCookiesToLocalStorage", () => {
 
     expect(localStorage.getItem(CASE_SENSITIVE)).toBe("true");
     expect(localStorage.getItem(WRAP)).toBe("false");
+    expect(Cookies.get(CASE_SENSITIVE)).toBeUndefined();
+    expect(Cookies.get(WRAP)).toBeUndefined();
   });
 
   it("handles empty document.cookie gracefully", () => {

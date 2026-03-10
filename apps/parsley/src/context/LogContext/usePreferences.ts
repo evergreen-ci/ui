@@ -102,9 +102,7 @@ const usePreferences = (): Preferences => {
 
   const [expandableRows, setExpandableRowsParam] = useQueryParam(
     QueryParams.Expandable,
-    getLocalStorageString(EXPANDABLE_ROWS)
-      ? getLocalStorageString(EXPANDABLE_ROWS) === "true"
-      : true,
+    getLocalStorageBoolean(EXPANDABLE_ROWS, true),
     urlParseOptions,
   );
 

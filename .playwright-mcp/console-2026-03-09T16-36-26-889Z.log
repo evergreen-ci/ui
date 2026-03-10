@@ -1,0 +1,91 @@
+[     391ms] [WARNING] Honeycomb INGEST API key or a collector endpoint was not provided. Starting SDK in debug mode. No traces will be sent. @ http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/utils/observability/honeycomb.ts:15
+[     595ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[     595ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[     670ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[     670ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[   98695ms] [WARNING] You rendered descendant <Routes> (or called `useRoutes()`) at "/spawn" (under <Route path="/spawn">) but the parent route path has no trailing "*". This means if you navigate deeper, the parent won't match anymore and therefore the child routes will never render.
+
+Please change the parent <Route path="/spawn"> to <Route path="/spawn/*">. @ http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:197
+[  130900ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  130900ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  130945ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  130945ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  522279ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/src/components/Banners/NewVersionBanner.tsx?t=1773074708455:0
+[  522279ms] [ERROR] [vite] Failed to reload /src/components/Banners/NewVersionBanner.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:808
+[  522665ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  522665ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  522725ms] [WARNING] Failed to decode downloaded font: http://localhost:3000/static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff2 @ http://localhost:3000/user/admin/patches:0
+[  522725ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008813135 @ http://localhost:3000/user/admin/patches:0
+[  522725ms] [WARNING] Failed to decode downloaded font: http://localhost:3000/static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff2 @ http://localhost:3000/user/admin/patches:0
+[  522725ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008813135 @ http://localhost:3000/user/admin/patches:0
+[  522725ms] [WARNING] Failed to decode downloaded font: http://localhost:3000/static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff2 @ http://localhost:3000/user/admin/patches:0
+[  522725ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008813135 @ http://localhost:3000/user/admin/patches:0
+[  522725ms] [WARNING] Failed to decode downloaded font: http://localhost:3000/static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff2 @ http://localhost:3000/user/admin/patches:0
+[  522725ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008813135 @ http://localhost:3000/user/admin/patches:0
+[  522726ms] [WARNING] Failed to decode downloaded font: http://localhost:3000/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff2 @ http://localhost:3000/user/admin/patches:0
+[  522726ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008813135 @ http://localhost:3000/user/admin/patches:0
+[  522726ms] [WARNING] Failed to decode downloaded font: http://localhost:3000/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff2 @ http://localhost:3000/user/admin/patches:0
+[  522726ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008813135 @ http://localhost:3000/user/admin/patches:0
+[  522727ms] [WARNING] Failed to decode downloaded font: http://localhost:3000/static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff2 @ http://localhost:3000/user/admin/patches:0
+[  522727ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008813135 @ http://localhost:3000/user/admin/patches:0
+[  522727ms] [WARNING] Failed to decode downloaded font: http://localhost:3000/static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff2 @ http://localhost:3000/user/admin/patches:0
+[  522727ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008813135 @ http://localhost:3000/user/admin/patches:0
+[  522731ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  522731ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  522739ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:9090/graphql/query:0
+[  522757ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:9090/graphql/query:0
+[  522772ms] [ERROR] {err: GraphQLError: GraphQL validation error in 'SpruceConfig': Cannot query field "pod" on type "AWSConf…, severity: severe, context: Object, fingerprint: Array(1), tags: Object} @ http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/utils/errorReporting/index.ts:12
+[  522819ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  522819ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  522822ms] [WARNING] Failed to decode downloaded font: http://localhost:3000/static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff @ http://localhost:3000/user/admin/patches:0
+[  522822ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008813135 @ http://localhost:3000/user/admin/patches:0
+[  522822ms] [WARNING] Failed to decode downloaded font: http://localhost:3000/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff @ http://localhost:3000/user/admin/patches:0
+[  522822ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008813135 @ http://localhost:3000/user/admin/patches:0
+[  522822ms] [WARNING] Failed to decode downloaded font: http://localhost:3000/static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff @ http://localhost:3000/user/admin/patches:0
+[  522822ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008813135 @ http://localhost:3000/user/admin/patches:0
+[  522822ms] [WARNING] Failed to decode downloaded font: http://localhost:3000/static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff @ http://localhost:3000/user/admin/patches:0
+[  522822ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008813135 @ http://localhost:3000/user/admin/patches:0
+[  522838ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:9090/graphql/query:0
+[  522839ms] [ERROR] {err: GraphQLError: GraphQL validation error in 'SpruceConfig': Cannot query field "pod" on type "AWSConf…, severity: severe, context: Object, fingerprint: Array(1), tags: Object} @ http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/utils/errorReporting/index.ts:12
+[  522844ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/src/pages/task/metadata/Stepback.tsx?t=1773074715558:0
+[  522844ms] [ERROR] [vite] Failed to reload /src/pages/Task.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:808
+[  522884ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/src/components/TaskStatusIcon/index.tsx?t=1773074716106:0
+[  522885ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/components/Icon/icons/statuses/OldKnownFailure.tsx?t=1773074715045:0
+[  522885ms] [ERROR] [vite] Failed to reload /src/pages/ProjectPatches.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:3000/@vite/client:808
+[  522886ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/components/Icon/icons/statuses/Failure.tsx?t=1773074715044:0
+[  522893ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  522893ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  522919ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/components/Icon/icons/statuses/TimedOut.tsx?t=1773074715557:0
+[  522919ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/components/Icon/icons/statuses/SetupFailure.tsx?t=1773074715555:0
+[  522919ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/components/Icon/icons/statuses/SystemFailure.tsx?t=1773074715556:0
+[  522919ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/components/Icon/icons/statuses/WillNotRun.tsx?t=1773074715558:0
+[  523692ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  523692ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  523815ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  523815ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  523833ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  523833ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  523919ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  523919ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  523935ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  523935ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  524011ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  524011ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  524077ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  524077ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  524092ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  524092ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  524485ms] [WARNING] Honeycomb INGEST API key or a collector endpoint was not provided. Starting SDK in debug mode. No traces will be sent. @ http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/utils/observability/honeycomb.ts:15
+[  524562ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  524562ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  524654ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  524654ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  524679ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  524679ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  537756ms] [WARNING] Honeycomb INGEST API key or a collector endpoint was not provided. Starting SDK in debug mode. No traces will be sent. @ http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/utils/observability/honeycomb.ts:15
+[  537818ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  537819ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  537918ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  537919ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  537995ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[  537995ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189

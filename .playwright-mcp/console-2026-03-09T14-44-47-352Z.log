@@ -1,0 +1,152 @@
+[     427ms] [WARNING] Honeycomb INGEST API key or a collector endpoint was not provided. Starting SDK in debug mode. No traces will be sent. @ http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/utils/observability/honeycomb.ts:15
+[     507ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[     507ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[     621ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[     621ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[     690ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[     690ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[   10929ms] [WARNING] Undefined 'from' passed to readField with arguments %s ["flattenedVersions",<undefined>] @ http://localhost:3000/node_modules/.vite/deps/chunk-LE7SWVGY.js?v=15b32c06:2942
+[   10929ms] [WARNING] Undefined 'from' passed to readField with arguments %s ["allActiveVersions",<undefined>] @ http://localhost:3000/node_modules/.vite/deps/chunk-LE7SWVGY.js?v=15b32c06:2942
+[   11067ms] [WARNING] Cache data may be lost when replacing the %s field of a %s object.
+
+This could cause additional (usually avoidable) network requests to fetch data that were otherwise cached.
+
+To address this problem (which is not a bug in Apollo Client), %sdefine a custom merge function for the %s field, so InMemoryCache can safely merge these objects:
+
+  existing: %o
+  incoming: %o
+
+For more information about these options, please refer to the documentation:
+
+  * Ensuring entity objects have IDs: https://go.apollo.dev/c/generating-unique-identifiers
+  * Defining custom merge functions: https://go.apollo.dev/c/merging-non-normalized-objects
+ project Query either ensure all objects of type Project have an ID or a custom merge function, or  Query.project {__typename: Project, id: evergreen, banner: Object} {__typename: Project, id: evergreen, branch: main, repotrackerError: null} @ http://localhost:3000/node_modules/.vite/deps/chunk-LE7SWVGY.js?v=15b32c06:2942
+[   11077ms] [ERROR] Warning: Received `%s` for a non-boolean attribute `%s`.
+
+If you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.%s true rightmost rightmost true rightmost 
+    at a
+    at LinkWithRef (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:4483:7)
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at _c2 (http://localhost:3000/src/components/TaskBox/index.tsx?t=1772640406078:91:12)
+    at WaterfallTask (http://localhost:3000/src/pages/waterfall/WaterfallTask.tsx:11:3)
+    at div
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at WidthWatcher (http://localhost:3000/src/pages/waterfall/BuildRow.tsx:214:25)
+    at BuildGrid (http://localhost:3000/src/pages/waterfall/BuildRow.tsx:235:3)
+    at div
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at VisibilityContainer (http://localhost:3000/src/components/VisibilityContainer/index.tsx:6:3)
+    at div
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at BuildRow (http://localhost:3000/src/pages/waterfall/BuildRow.tsx:29:3)
+    at BuildVariantProvider (http://localhost:3000/src/pages/waterfall/BuildVariantContext.tsx:6:3)
+    at div
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at WaterfallGrid (http://localhost:3000/src/pages/waterfall/WaterfallGrid.tsx:45:3)
+    at WaterfallErrorBoundary (http://localhost:3000/src/pages/waterfall/WaterfallErrorBoundary/index.tsx:17:5)
+    at Suspense
+    at div
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at Waterfall (http://localhost:3000/src/pages/waterfall/index.tsx:23:60)
+    at Suspense
+    at Loadable
+    at ProjectRedirect (http://localhost:3000/src/components/Redirects/ProjectRedirect.tsx?t=1773067104500:6:3)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3401:5)
+    at Outlet (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3721:26)
+    at div
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at Layout (http://localhost:3000/src/components/Content/Layout.tsx?t=1773067104500:21:31)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3401:5)
+    at Routes (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3781:5)
+    at Content
+    at ToastProviderCore (http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/context/toast/index.tsx?t=1773067104500:30:30)
+    at yt (http://localhost:3000/node_modules/.vite/deps/@leafygreen-ui_toast.js?v=15b32c06:822:15)
+    at ToastProvider (http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/context/toast/index.tsx?t=1773067104500:125:26)
+    at P2 (http://localhost:3000/node_modules/.vite/deps/chunk-6RIDVPHZ.js?v=15b32c06:157:15)
+    at v (http://localhost:3000/node_modules/.vite/deps/chunk-6RIDVPHZ.js?v=15b32c06:78:15)
+    at w2 (http://localhost:3000/node_modules/.vite/deps/chunk-6RIDVPHZ.js?v=15b32c06:189:15)
+    at M2 (http://localhost:3000/node_modules/.vite/deps/chunk-6RIDVPHZ.js?v=15b32c06:175:15)
+    at S (http://localhost:3000/node_modules/.vite/deps/chunk-6RIDVPHZ.js?v=15b32c06:213:15)
+    at U (http://localhost:3000/node_modules/.vite/deps/chunk-6RIDVPHZ.js?v=15b32c06:238:15)
+    at ApolloProvider (http://localhost:3000/node_modules/.vite/deps/@apollo_client_react.js?v=15b32c06:31:3)
+    at GQLWrapper (http://localhost:3000/src/gql/GQLWrapper.tsx?t=1773067104500:6:23)
+    at ContextProviders (http://localhost:3000/src/context/Providers.tsx?t=1773067104500:6:3)
+    at ProtectedRoute (http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/components/ProtectedRoute/index.tsx:6:3)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3401:5)
+    at Outlet (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3721:26)
+    at AuthProvider (http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/context/AuthProvider/index.tsx:28:3)
+    at DefaultErrorBoundary (http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/components/ErrorBoundary/DefaultErrorBoundary.tsx:6:5)
+    at ErrorBoundary (http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/components/ErrorBoundary/index.tsx:5:26)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3401:5)
+    at RenderErrorBoundary (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3361:5)
+    at DataRoutes (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:4377:5)
+    at Router (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3728:15)
+    at RouterProvider (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:4240:5)
+    at App @ http://localhost:3000/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=15b32c06:3
+[   11077ms] [ERROR] Warning: React does not recognize the `%s` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `%s` instead. If you accidentally passed it from a parent component, remove it from the DOM element.%s squareSize squaresize 
+    at a
+    at LinkWithRef (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:4483:7)
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at _c2 (http://localhost:3000/src/components/TaskBox/index.tsx?t=1772640406078:91:12)
+    at WaterfallTask (http://localhost:3000/src/pages/waterfall/WaterfallTask.tsx:11:3)
+    at div
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at WidthWatcher (http://localhost:3000/src/pages/waterfall/BuildRow.tsx:214:25)
+    at BuildGrid (http://localhost:3000/src/pages/waterfall/BuildRow.tsx:235:3)
+    at div
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at VisibilityContainer (http://localhost:3000/src/components/VisibilityContainer/index.tsx:6:3)
+    at div
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at BuildRow (http://localhost:3000/src/pages/waterfall/BuildRow.tsx:29:3)
+    at BuildVariantProvider (http://localhost:3000/src/pages/waterfall/BuildVariantContext.tsx:6:3)
+    at div
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at WaterfallGrid (http://localhost:3000/src/pages/waterfall/WaterfallGrid.tsx:45:3)
+    at WaterfallErrorBoundary (http://localhost:3000/src/pages/waterfall/WaterfallErrorBoundary/index.tsx:17:5)
+    at Suspense
+    at div
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at Waterfall (http://localhost:3000/src/pages/waterfall/index.tsx:23:60)
+    at Suspense
+    at Loadable
+    at ProjectRedirect (http://localhost:3000/src/components/Redirects/ProjectRedirect.tsx?t=1773067104500:6:3)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3401:5)
+    at Outlet (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3721:26)
+    at div
+    at http://localhost:3000/node_modules/.vite/deps/chunk-NUNQUF5B.js?v=15b32c06:1548:49
+    at Layout (http://localhost:3000/src/components/Content/Layout.tsx?t=1773067104500:21:31)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3401:5)
+    at Routes (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3781:5)
+    at Content
+    at ToastProviderCore (http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/context/toast/index.tsx?t=1773067104500:30:30)
+    at yt (http://localhost:3000/node_modules/.vite/deps/@leafygreen-ui_toast.js?v=15b32c06:822:15)
+    at ToastProvider (http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/context/toast/index.tsx?t=1773067104500:125:26)
+    at P2 (http://localhost:3000/node_modules/.vite/deps/chunk-6RIDVPHZ.js?v=15b32c06:157:15)
+    at v (http://localhost:3000/node_modules/.vite/deps/chunk-6RIDVPHZ.js?v=15b32c06:78:15)
+    at w2 (http://localhost:3000/node_modules/.vite/deps/chunk-6RIDVPHZ.js?v=15b32c06:189:15)
+    at M2 (http://localhost:3000/node_modules/.vite/deps/chunk-6RIDVPHZ.js?v=15b32c06:175:15)
+    at S (http://localhost:3000/node_modules/.vite/deps/chunk-6RIDVPHZ.js?v=15b32c06:213:15)
+    at U (http://localhost:3000/node_modules/.vite/deps/chunk-6RIDVPHZ.js?v=15b32c06:238:15)
+    at ApolloProvider (http://localhost:3000/node_modules/.vite/deps/@apollo_client_react.js?v=15b32c06:31:3)
+    at GQLWrapper (http://localhost:3000/src/gql/GQLWrapper.tsx?t=1773067104500:6:23)
+    at ContextProviders (http://localhost:3000/src/context/Providers.tsx?t=1773067104500:6:3)
+    at ProtectedRoute (http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/components/ProtectedRoute/index.tsx:6:3)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3401:5)
+    at Outlet (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3721:26)
+    at AuthProvider (http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/context/AuthProvider/index.tsx:28:3)
+    at DefaultErrorBoundary (http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/components/ErrorBoundary/DefaultErrorBoundary.tsx:6:5)
+    at ErrorBoundary (http://localhost:3000/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/components/ErrorBoundary/index.tsx:5:26)
+    at RenderedRoute (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3401:5)
+    at RenderErrorBoundary (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3361:5)
+    at DataRoutes (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:4377:5)
+    at Router (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:3728:15)
+    at RouterProvider (http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:4240:5)
+    at App @ http://localhost:3000/node_modules/.vite/deps/chunk-DRJNT4PL.js?v=15b32c06:3
+[   24964ms] [WARNING] You rendered descendant <Routes> (or called `useRoutes()`) at "/spawn" (under <Route path="/spawn">) but the parent route path has no trailing "*". This means if you navigate deeper, the parent won't match anymore and therefore the child routes will never render.
+
+Please change the parent <Route path="/spawn"> to <Route path="/spawn/*">. @ http://localhost:3000/node_modules/.vite/deps/react-router-dom.js?v=15b32c06:197
+[   33339ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[   33339ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[   33366ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189
+[   33366ms] [ERROR] For screen-reader accessibility, label or aria-labelledby must be provided to TextInput. @ http://localhost:3000/node_modules/.vite/deps/chunk-3ODRVZ7D.js?v=15b32c06:189

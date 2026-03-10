@@ -1,0 +1,17 @@
+[     212ms] [ERROR] Honeycomb INGEST API key or a collector endpoint is required to start the SDK in production mode. @ http://localhost:4444/assets/index-B12CpjM4.js:36
+[     233ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:4444' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:4444/:0
+[     234ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[     234ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:4444' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:4444/:0
+[     234ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[     408ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:4444' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:4444/:0
+[     408ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[     408ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:4444' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:4444/:0
+[     408ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[     710ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:4444' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:4444/:0
+[     710ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[     711ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:4444' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:4444/:0
+[     711ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    1168ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:4444' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:4444/:0
+[    1168ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0
+[    1169ms] [ERROR] Access to fetch at 'http://localhost:9090/graphql/query' from origin 'http://localhost:4444' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:4444/:0
+[    1169ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9090/graphql/query:0

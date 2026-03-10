@@ -1,0 +1,1 @@
+[     315ms] [WARNING] Honeycomb INGEST API key or a collector endpoint was not provided. Starting SDK in debug mode. No traces will be sent. @ http://localhost:5173/@fs/Users/aaron.hammer/Development/ui/packages/lib/src/utils/observability/honeycomb.ts:15
