@@ -28,6 +28,7 @@ query TaskOverviewPopup($taskId: String!, $execution: Int) {
       failingCommand
     }
     displayName
+    displayOnly
     displayStatus
     distroId
     execution
