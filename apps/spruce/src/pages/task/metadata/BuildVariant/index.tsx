@@ -1,13 +1,11 @@
-import styled from "@emotion/styled";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
+import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
 } from "components/MetadataCard";
 import { getVariantHistoryRoute } from "constants/routes";
-import { CopyButton } from "./CopyButton";
 
 interface Props {
   projectIdentifier?: string;
@@ -30,18 +28,10 @@ export const BuildVariantCard: React.FC<Props> = ({
         <MetadataLabel>Name:</MetadataLabel>{" "}
         <WordBreak>{buildVariantDisplayName}</WordBreak>
       </MetadataItem>
-      <MetadataItem>
-        <IDWrapper>
-          <LabelWrapper>
-            <StyledMetadataLabel>ID:</StyledMetadataLabel>
-            <WordBreak>{buildVariant}</WordBreak>
-          </LabelWrapper>
-          <CopyButton
-            textToCopy={buildVariant}
-            tooltipLabel="Copy build variant ID"
-          />
-        </IDWrapper>
-      </MetadataItem>
+      <CopyableID
+        textToCopy={buildVariant}
+        tooltipLabel="Copy build variant ID"
+      />
       {projectIdentifier && (
         <MetadataItem>
           <StyledRouterLink
@@ -62,19 +52,3 @@ export const BuildVariantCard: React.FC<Props> = ({
     </MetadataCard>
   );
 };
-
-const StyledMetadataLabel = styled(MetadataLabel)`
-  flex-shrink: 0;
-`;
-
-const IDWrapper = styled.span`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-`;
-
-const LabelWrapper = styled.span`
-  display: flex;
-  align-items: start;
-  gap: ${size.xxs};
-`;
