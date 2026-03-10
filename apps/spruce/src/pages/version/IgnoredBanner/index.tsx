@@ -1,9 +1,10 @@
+import styled from "@emotion/styled";
 import { Banner, Variant } from "@leafygreen-ui/banner";
 import { StyledLink } from "@evg-ui/lib/components/styles";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { ignoredFilesDocumentationUrl } from "constants/externalResources";
-import { BannerContainer } from "../styles";
 
-const IgnoredBanner: React.FC = () => (
+export const IgnoredBanner: React.FC = () => (
   <BannerContainer data-cy="ignored-banner">
     <Banner variant={Variant.Info}>
       This revision will not be automatically scheduled, because only{" "}
@@ -15,4 +16,6 @@ const IgnoredBanner: React.FC = () => (
   </BannerContainer>
 );
 
-export default IgnoredBanner;
+const BannerContainer = styled.div`
+  margin-bottom: ${size.s};
+`;
