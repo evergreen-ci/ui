@@ -4850,14 +4850,6 @@ export type WaterfallBuild = {
   version: Scalars["String"]["output"];
 };
 
-export type WaterfallBuildVariant = {
-  __typename?: "WaterfallBuildVariant";
-  builds: Array<WaterfallBuild>;
-  displayName: Scalars["String"]["output"];
-  id: Scalars["String"]["output"];
-  version: Scalars["String"]["output"];
-};
-
 export type WaterfallOptions = {
   date?: InputMaybe<Scalars["Time"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
@@ -4894,12 +4886,6 @@ export type WaterfallTask = {
   displayStatusCache: Scalars["String"]["output"];
   execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
-};
-
-export type WaterfallVersion = {
-  __typename?: "WaterfallVersion";
-  inactiveVersions?: Maybe<Array<Version>>;
-  version?: Maybe<Version>;
 };
 
 export type Webhook = {
