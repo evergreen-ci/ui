@@ -99,7 +99,6 @@ describe("admin settings save properly", () => {
     cy.get("@projectLimitInput").type("200");
     cy.dataCy("project-creation-settings").within(() => {
       cy.contains("Add repository exception").click();
-      cy.getInputByLabel("Jira Project").type("test-project");
       cy.getInputByLabel("Repository").clear();
       cy.getInputByLabel("Repository").type("5");
     });
@@ -112,7 +111,6 @@ describe("admin settings save properly", () => {
     // Verify changes
     cy.getInputByLabel("Total Project Limit").should("have.value", "200");
     cy.dataCy("project-creation-settings").within(() => {
-      cy.getInputByLabel("Jira Project").should("have.value", "test-project");
       cy.getInputByLabel("Repository").should("have.value", "5");
     });
 

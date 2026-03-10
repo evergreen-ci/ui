@@ -27,6 +27,11 @@ export interface OtherFormState {
       };
     };
 
+    oktaServiceConfig: {
+      clientId: string;
+      clientSecret: string;
+    };
+
     singleTaskDistro: {
       projectTasksPairs: Array<{
         projectId: string;
@@ -111,7 +116,6 @@ export interface OtherFormState {
     projectCreationSettings: {
       totalProjectLimit: number;
       repoProjectLimit: number;
-      jiraProject: string;
       repoExceptions: Array<{
         owner: string;
         repo: string;

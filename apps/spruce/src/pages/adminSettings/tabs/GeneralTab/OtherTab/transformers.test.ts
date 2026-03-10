@@ -1,4 +1,5 @@
-import { AdminSettings, AdminSettingsInput } from "gql/generated/types";
+import { AdminSettingsInput } from "gql/generated/types";
+import { AdminSettingsData } from "pages/adminSettings/tabs/types";
 import { formToGql, gqlToForm } from "./transformers";
 import { OtherFormState } from "./types";
 
@@ -12,7 +13,7 @@ describe("other tab transformers", () => {
   });
 });
 
-const mockAdminSettings: AdminSettings = {
+const mockAdminSettings: AdminSettingsData = {
   disabledGQLQueries: [],
   configDir: "/etc/evergreen",
   domainName: "evergreen.example.com",
@@ -20,6 +21,10 @@ const mockAdminSettings: AdminSettings = {
   githubPRCreatorOrg: "evergreen-ci",
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
+  oktaServiceConfig: {
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+  },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
   shutdownWaitSeconds: 30,
@@ -116,7 +121,6 @@ const mockAdminSettings: AdminSettings = {
   projectCreation: {
     totalProjectLimit: 100,
     repoProjectLimit: 50,
-    jiraProject: "EVG",
     repoExceptions: [
       {
         owner: "evergreen-ci",
@@ -156,6 +160,10 @@ const expectedForm: OtherFormState = {
           iAStorageCostDiscount: 0,
         },
       },
+    },
+    oktaServiceConfig: {
+      clientId: "okta-service-client-id",
+      clientSecret: "okta-service-client-secret",
     },
     singleTaskDistro: {
       projectTasksPairs: [
@@ -242,7 +250,6 @@ const expectedForm: OtherFormState = {
     projectCreationSettings: {
       totalProjectLimit: 100,
       repoProjectLimit: 50,
-      jiraProject: "EVG",
       repoExceptions: [
         {
           owner: "evergreen-ci",
@@ -263,6 +270,10 @@ const expectedGql: AdminSettingsInput = {
   githubPRCreatorOrg: "evergreen-ci",
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
+  oktaServiceConfig: {
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+  },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
   shutdownWaitSeconds: 30,
@@ -368,7 +379,6 @@ const expectedGql: AdminSettingsInput = {
   projectCreation: {
     totalProjectLimit: 100,
     repoProjectLimit: 50,
-    jiraProject: "EVG",
     repoExceptions: [
       {
         owner: "evergreen-ci",

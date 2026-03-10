@@ -1,28 +1,33 @@
+import { useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
+import { Code } from "@leafygreen-ui/code";
+import { css } from "@leafygreen-ui/emotion";
 import { Popover, Align, DismissMode } from "@leafygreen-ui/popover";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { Body } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import MetadataCard from "components/MetadataCard";
-import { getParsleyTaskLogLink } from "constants/externalResources";
+import { Stepback } from "components/Stepback";
 import { getDistroSettingsRoute, getTaskRoute } from "constants/routes";
 import {
   TaskOverviewPopupQuery,
   TaskOverviewPopupQueryVariables,
 } from "gql/generated/types";
 import { TASK_OVERVIEW_POPUP } from "gql/queries";
-import { LogTypes, TaskTab } from "types/task";
 import { isFailedTaskStatus } from "utils/statuses";
+import { isInStepback } from "utils/stepback";
 import { msToDuration } from "utils/string";
+import { ActionButtons } from "./ActionButtons";
+import { Annotations } from "./Annotations";
+import { FailingTests } from "./FailingTests";
 
 interface Props {
   execution: number;
+  isRightmostBuild?: boolean;
   open: boolean;
   setOpen: (o: boolean) => void;
   taskBoxRef: React.RefObject<HTMLElement>;
@@ -31,11 +36,16 @@ interface Props {
 
 export const TaskOverviewPopup: React.FC<Props> = ({
   execution,
+  isRightmostBuild = false,
   open,
   setOpen,
   taskBoxRef,
   taskId,
 }) => {
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside([taskBoxRef, popoverRef], () => setOpen(false));
+
   const { data, loading } = useQuery<
     TaskOverviewPopupQuery,
     TaskOverviewPopupQueryVariables
@@ -44,6 +54,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
     open
       ? {
           variables: { taskId, execution },
+          // TODO DEVPROD-27824: Remove when cache performance is fixed.
           fetchPolicy: "no-cache",
         }
       : skipToken,
@@ -51,11 +62,14 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
   const { task } = data || {};
   const {
+    annotation,
     details,
     displayName,
     displayStatus,
     distroId,
     finishTime,
+    priority,
+    stepbackInfo,
     timeTaken,
   } = task || {};
   const { description, failingCommand } = details || {};
@@ -63,20 +77,15 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
   const command = description || failingCommand || "";
 
-  const isLoading = loading && !task;
+  const isLoading = loading || !task;
+  const showStepback = isInStepback(stepbackInfo);
 
   return (
     <Popover
+      ref={popoverRef}
       active={open}
-      align={Align.Right}
-      dismissMode={DismissMode.Auto}
-      onToggle={(e) => {
-        if (e.newState === "open") {
-          setOpen(true);
-        } else {
-          setOpen(false);
-        }
-      }}
+      align={isRightmostBuild ? Align.Left : Align.Right}
+      dismissMode={DismissMode.Manual}
       refEl={taskBoxRef}
     >
       <PopoverCard data-cy="task-overview-popup">
@@ -84,37 +93,25 @@ export const TaskOverviewPopup: React.FC<Props> = ({
           <ListSkeleton />
         ) : (
           <>
-            <TaskPageLink
-              data-cy="task-link"
-              to={getTaskRoute(taskId, { execution })}
-            >
-              {displayName}
-            </TaskPageLink>
-            <TaskStatusBadge status={displayStatus as TaskStatus} />
+            <span>
+              <TaskPageLink
+                data-cy="task-link"
+                to={getTaskRoute(taskId, { execution })}
+              >
+                {displayName}
+              </TaskPageLink>
+              <TaskStatusBadge status={displayStatus as TaskStatus} />
+            </span>
             {finishTime && timeTaken && timeTaken > 0 ? (
               <div>Duration: {msToDuration(timeTaken)}</div>
             ) : null}
-
-            <ButtonRow>
-              <Button
-                as={Link}
-                size={ButtonSize.Small}
-                to={getParsleyTaskLogLink(LogTypes.Task, taskId, execution)}
-              >
-                Task logs
-              </Button>
-              <Button
-                as={Link}
-                size={ButtonSize.Small}
-                to={getTaskRoute(taskId, {
-                  execution,
-                  tab: TaskTab.History,
-                })}
-              >
-                Task history
-              </Button>
-            </ButtonRow>
-
+            <ActionButtons setOpen={setOpen} task={task} />
+            {priority && priority > 0 ? (
+              <div>
+                <b>Priority: </b>
+                {priority}
+              </div>
+            ) : null}
             {distroId && (
               <div>
                 <b>Distro: </b>
@@ -127,11 +124,18 @@ export const TaskOverviewPopup: React.FC<Props> = ({
               </div>
             )}
             {command && (
-              <div>
+              <CommandBlock>
                 <b>{isFailingTask ? "Failing Command: " : "Command: "}</b>
-                <Body>{command}</Body>
-              </div>
+                <Code className={codeBlockCss} language="none">
+                  {command}
+                </Code>
+              </CommandBlock>
             )}
+            {isFailingTask && (
+              <FailingTests execution={execution} taskId={taskId} />
+            )}
+            {showStepback && <Stepback isPopup taskId={taskId} />}
+            <Annotations annotation={annotation} displayName={displayName} />
           </>
         )}
       </PopoverCard>
@@ -140,7 +144,10 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 };
 
 const PopoverCard = styled(MetadataCard)`
-  width: 330px;
+  width: 350px;
+  max-height: 500px;
+  overflow-y: auto;
+
   display: flex;
   flex-direction: column;
   gap: ${size.xs};
@@ -153,10 +160,18 @@ const RouterLink = styled(StyledRouterLink)`
 const TaskPageLink = styled(RouterLink)`
   font-weight: bold;
   font-size: 18px;
+  margin-right: ${size.xs};
 `;
 
-const ButtonRow = styled.div`
+const CommandBlock = styled.div`
   display: flex;
-  align-items: center;
-  gap: ${size.xs};
+  flex-direction: column;
+  gap: ${size.xxs};
+`;
+
+// Make words overflow to the next line.
+const codeBlockCss = css`
+  > div > pre {
+    white-space: normal;
+  }
 `;

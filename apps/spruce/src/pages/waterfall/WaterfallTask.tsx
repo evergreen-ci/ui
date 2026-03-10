@@ -52,6 +52,7 @@ export const WaterfallTask: React.FC<{
         {open && (
           <TaskOverviewPopup
             execution={execution}
+            isRightmostBuild={isRightmostBuild}
             open={open}
             setOpen={setOpen}
             taskBoxRef={taskBoxRef}
