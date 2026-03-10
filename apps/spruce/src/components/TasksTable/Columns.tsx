@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Tooltip } from "@leafygreen-ui/tooltip";
+import { Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import pluralize from "pluralize";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
@@ -87,7 +87,7 @@ export const getColumnsTemplate = ({
         return (
           <Tooltip
             data-cy="depends-on-tooltip"
-            justify="middle"
+            justify={Justify.Middle}
             trigger={
               <span>
                 <TaskStatusBadgeWithLink
