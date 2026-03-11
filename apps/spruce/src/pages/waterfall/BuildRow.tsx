@@ -47,8 +47,6 @@ const BuildRowInner: React.FC<Props> = ({
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
   const [openTaskId, setOpenTaskId] = useState<string | null>(null);
-  const openTaskIdRef = useRef(openTaskId);
-  openTaskIdRef.current = openTaskId;
 
   const handlePinClick = useCallback(
     () => onPinClick(build.id, pinned),
@@ -69,7 +67,6 @@ const BuildRowInner: React.FC<Props> = ({
         sendEvent({
           name: "Clicked task overview popup",
           "task.id": taskId,
-          open: openTaskIdRef.current !== taskId,
         });
       } else {
         const status = (e.target as HTMLElement)?.dataset.status ?? "";

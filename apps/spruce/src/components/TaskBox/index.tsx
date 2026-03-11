@@ -22,6 +22,7 @@ type PolymorphicProps<E extends React.ElementType> = TaskBoxProps & {
   as?: E;
 } & Omit<React.ComponentPropsWithoutRef<E>, keyof TaskBoxProps>;
 
+// Generate all styles associated with statuses so that we don't need to interpolate a box's status via Emotion to apply the style
 const statusStyles = Object.entries(statusColorMap)
   .map(([status, color]) => {
     const icon = statusIconMap[status as TaskStatus];
@@ -44,6 +45,7 @@ export const taskBoxStyles = css`
 
   ${statusStyles}
 
+  /* A centered tooltip is rendered above the box containing the element's data-tooltip string */
   &[data-tooltip]:before {
     content: attr(data-tooltip);
     position: absolute;
@@ -62,6 +64,7 @@ export const taskBoxStyles = css`
     display: none;
   }
 
+  /* If a parent specifies [data-rightmost-build=true], render the tooltip to the left */
   [data-rightmost-build] &[data-tooltip]:before {
     transform: translate(-90%);
   }
