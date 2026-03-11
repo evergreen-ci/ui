@@ -310,6 +310,8 @@ pnpm install              # Reinstall
 
 ## Playwright / Browser Verification
 
+If you haven't run `claude mcp add playwright npx '@playwright/mcp@latest'` to enable the MCP server.
+
 - **WARNING:** Before switching branches or checking out other refs, check `git status` and `git log origin/HEAD..HEAD` for uncommitted or unpushed work and ask the user before proceeding — never discard or overwrite in-progress work.
 - **Do NOT modify code to finish implementing or fix issues in the PR when reviewing.** Only make small, targeted edits necessary to unblock testing (e.g. stubbing an env check), revert them afterward, and inform the user of any changes made.
 - Contributors work from forks — `origin` is the user's fork and `upstream` points to the main repo. PRs target `upstream/main`.
