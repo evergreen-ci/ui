@@ -119,7 +119,6 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                             commitCardRef.current?.scrollIntoView();
                           }
                         }}
-                        rightmost={false}
                         status={task.displayStatus as TaskStatus}
                         taskId={task.id}
                       />

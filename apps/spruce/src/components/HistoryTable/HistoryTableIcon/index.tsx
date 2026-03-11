@@ -35,7 +35,7 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
         onClick={() => onClick()}
       >
         <IconContainer>
-          <TaskBox squareSize={VARIANT_HISTORY_SQUARE_SIZE} status={status} />
+          <StyledTaskBox status={status} />
         </IconContainer>
         {!inactive && <Body>{label}</Body>}
       </Container>
@@ -67,6 +67,11 @@ const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const StyledTaskBox = styled(TaskBox)`
+  width: ${VARIANT_HISTORY_SQUARE_SIZE}px;
+  height: ${VARIANT_HISTORY_SQUARE_SIZE}px;
 `;
 
 const TestName = styled.div`

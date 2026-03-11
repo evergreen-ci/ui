@@ -31,15 +31,9 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
     data-cy="task-status-checkbox"
     label={
       <StateItemWrapper>
-        <TaskBox
-          squareSize={CHECKBOX_SQUARE_SIZE}
-          status={status as TaskStatus}
-        />
+        <TaskBox status={status as TaskStatus} />
         {baseStatus ? (
-          <TaskBox
-            squareSize={CHECKBOX_SQUARE_SIZE}
-            status={baseStatus as TaskStatus}
-          />
+          <TaskBox status={baseStatus as TaskStatus} />
         ) : (
           <EmptyCell />
         )}
@@ -62,6 +56,8 @@ const StateItemWrapper = styled.div`
 `;
 
 const TaskBox = styled(BaseTaskBox)`
+  width: ${CHECKBOX_SQUARE_SIZE}px;
+  height: ${CHECKBOX_SQUARE_SIZE}px;
   float: none;
   flex-shrink: 0;
 `;

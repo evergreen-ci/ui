@@ -42,10 +42,8 @@ export const WaterfallTask: React.FC<{
         onClick={(e: React.MouseEvent<HTMLElement>) =>
           handleTaskClick(taskId, e)
         }
-        rightmost={isRightmostBuild}
         status={taskStatus}
         to={getTaskRoute(taskId, { execution })}
-        tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
         {...squareProps}
       />
       {open && (

@@ -169,9 +169,11 @@ export const BuildRow: React.FC<Props> = ({
   );
 };
 
-const WidthWatcher: React.FC<{
-  children: React.ReactNode;
-}> = ({ children }) => {
+const WidthWatcher: React.FC<
+  {
+    children: React.ReactNode;
+  } & React.HTMLAttributes<HTMLDivElement>
+> = ({ children, ...rest }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions<HTMLDivElement>(containerRef);
   const { columnWidth, setColumnWidth } = useBuildVariantContext();
@@ -182,7 +184,11 @@ const WidthWatcher: React.FC<{
     }
   }, [setColumnWidth, columnWidth, width]);
 
-  return <BuildContainer ref={containerRef}>{children}</BuildContainer>;
+  return (
+    <BuildContainer ref={containerRef} {...rest}>
+      {children}
+    </BuildContainer>
+  );
 };
 
 const BuildGrid: React.FC<{
@@ -200,7 +206,7 @@ const BuildGrid: React.FC<{
   openTaskId,
   setOpenTaskId,
 }) => (
-  <WidthWatcher>
+  <WidthWatcher data-rightmost-build={isRightmostBuild || undefined}>
     {build.tasks.map((task) => (
       <WaterfallTask
         key={task.id}
