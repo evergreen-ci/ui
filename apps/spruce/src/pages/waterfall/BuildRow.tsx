@@ -72,8 +72,7 @@ const BuildRowInner: React.FC<Props> = ({
           open: openTaskIdRef.current !== taskId,
         });
       } else {
-        const status =
-          (e.target as HTMLDivElement)?.getAttribute("status") ?? "";
+        const status = (e.target as HTMLElement)?.dataset.status ?? "";
         sendEvent({
           name: "Clicked task box",
           "task.status": status,
