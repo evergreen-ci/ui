@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -32,7 +33,7 @@ const statusStyles = Object.entries(statusColorMap)
   })
   .join("\n");
 
-const PolymorphicTaskBox = styled.div`
+export const taskBoxStyles = css`
   width: ${DEFAULT_SQUARE_SIZE}px;
   height: ${DEFAULT_SQUARE_SIZE}px;
   border: ${SQUARE_BORDER}px solid ${white};
@@ -79,6 +80,10 @@ const PolymorphicTaskBox = styled.div`
     border-style: solid;
     border-color: ${black} transparent transparent transparent;
   }
+`;
+
+const PolymorphicTaskBox = styled.div`
+  ${taskBoxStyles}
 `;
 
 export const TaskBox = forwardRef<

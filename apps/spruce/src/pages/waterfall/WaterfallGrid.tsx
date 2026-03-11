@@ -17,7 +17,7 @@ import {
 } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useUserTimeZone } from "hooks";
-import { useDimensions } from "hooks/useDimensions";
+
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { getUTCEndOfDay } from "utils/date";
 import { getObject, setObject } from "utils/localStorage";
@@ -79,7 +79,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   );
 
   const handlePinBV = useCallback(
-    (buildVariant: string, wasPinned: boolean) => () => {
+    (buildVariant: string, wasPinned: boolean) => {
       sendEvent({
         name: "Clicked pin build variant",
         action: wasPinned ? "unpinned" : "pinned",
@@ -95,7 +95,8 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         return [...prev, buildVariant];
       });
     },
-    [sendEvent],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   useEffect(() => {
@@ -168,9 +169,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     }
   }, [setPagination, dataIsComplete, data?.waterfall?.pagination]);
 
-  const refEl = useRef<HTMLDivElement>(null);
-  const { height } = useDimensions<HTMLDivElement>(refEl);
-
   const { activeVersionIds, buildVariants, versions } = useFilters({
     activeVersionIds: dataIsComplete
       ? data.waterfall.pagination.activeVersionIds
@@ -223,7 +221,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   }
 
   return (
-    <Container ref={refEl}>
+    <Container>
       <div ref={headerScrollRef} />
       <StickyHeader showShadow={showShadow}>
         <BuildVariantTitle />
@@ -246,7 +244,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
             return (
               <InactiveVersion key={inactiveVersions?.[0].id}>
                 <InactiveVersionsButton
-                  containerHeight={height}
                   highlightedIndex={
                     highlightedIndex !== undefined && highlightedIndex > -1
                       ? highlightedIndex
@@ -267,9 +264,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
             <BuildRow
               key={b.id}
               build={b}
-              handlePinClick={handlePinBV(b.id, isPinned)}
               isFirstBuild={i === 0}
               lastActiveVersionId={lastActiveVersionId}
+              onPinClick={handlePinBV}
               pinned={isPinned}
               projectIdentifier={projectIdentifier}
               versions={versions}
@@ -282,7 +279,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  overflow-y: clip;
+`;
 
 const StickyHeader = styled(Row)<{ showShadow: boolean }>`
   position: sticky;
