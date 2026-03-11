@@ -31,12 +31,9 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
       <Container
         aria-disabled={inactive}
         data-cy="history-table-icon"
-        data-status={status}
         onClick={() => onClick()}
       >
-        <IconContainer>
-          <StyledTaskBox status={status} />
-        </IconContainer>
+        <StyledTaskBox status={status} />
         {!inactive && <Body>{label}</Body>}
       </Container>
     }
@@ -61,12 +58,6 @@ const Container = styled.div<ContainerProps>`
   flex-direction: column;
   align-items: center;
   ${({ onClick }) => onClick && "cursor: pointer;"}
-`;
-
-const IconContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const StyledTaskBox = styled(TaskBox)`
