@@ -9,6 +9,7 @@ import {
   onChangeHandler,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParam } from "@evg-ui/lib/hooks";
+import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { useTaskAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { taskReviewStyles } from "components/TasksTable/styles";
@@ -37,8 +38,7 @@ const ExecutionTasksTable: React.FC<Props> = ({
   isPatch,
 }) => {
   const { sendEvent } = useTaskAnalytics();
-  const taskReviewEnabled =
-    localStorage.getItem(DISABLE_TASK_REVIEW) !== "true";
+  const taskReviewEnabled = !getLocalStorageBoolean(DISABLE_TASK_REVIEW, false);
   const [sorts, setSorts] = useQueryParam(TableQueryParams.Sorts, "");
   // Apply default sort if no sorting method is defined.
   useEffect(() => {

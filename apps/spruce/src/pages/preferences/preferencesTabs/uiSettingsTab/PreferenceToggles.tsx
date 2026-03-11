@@ -1,4 +1,8 @@
 import { useState } from "react";
+import {
+  getLocalStorageBoolean,
+  setLocalStorageBoolean,
+} from "@evg-ui/lib/utils/localStorage";
 import { usePreferencesAnalytics } from "analytics";
 import { ToggleWithLabel } from "components/ToggleWithLabel";
 import { DISABLE_QUERY_POLLING, DISABLE_TASK_REVIEW } from "constants/cookies";
@@ -6,10 +10,10 @@ import { DISABLE_QUERY_POLLING, DISABLE_TASK_REVIEW } from "constants/cookies";
 export const PreferenceToggles: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const [queryPollingEnabled, setQueryPollingEnabled] = useState(
-    localStorage.getItem(DISABLE_QUERY_POLLING) !== "true",
+    !getLocalStorageBoolean(DISABLE_QUERY_POLLING, false),
   );
   const [taskReviewEnabled, setTaskReviewEnabled] = useState(
-    localStorage.getItem(DISABLE_TASK_REVIEW) !== "true",
+    !getLocalStorageBoolean(DISABLE_TASK_REVIEW, false),
   );
 
   const handleOnChangePolling = (c: boolean) => {
@@ -18,7 +22,7 @@ export const PreferenceToggles: React.FC = () => {
       enabled: c,
     });
     setQueryPollingEnabled(c);
-    localStorage.setItem(DISABLE_QUERY_POLLING, (!c).toString());
+    setLocalStorageBoolean(DISABLE_QUERY_POLLING, !c);
   };
 
   const handleToggleTaskReview = (c: boolean) => {
@@ -27,7 +31,7 @@ export const PreferenceToggles: React.FC = () => {
       enabled: c,
     });
     setTaskReviewEnabled(c);
-    localStorage.setItem(DISABLE_TASK_REVIEW, (!c).toString());
+    setLocalStorageBoolean(DISABLE_TASK_REVIEW, !c);
   };
 
   return (

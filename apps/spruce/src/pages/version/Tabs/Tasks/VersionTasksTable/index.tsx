@@ -11,6 +11,7 @@ import {
   TablePlaceholder,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParams } from "@evg-ui/lib/hooks";
+import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { useVersionAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { taskReviewStyles } from "components/TasksTable/styles";
@@ -60,8 +61,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
 }) => {
   const [queryParams, setQueryParams] = useQueryParams();
   const { sendEvent } = useVersionAnalytics(versionId);
-  const taskReviewEnabled =
-    localStorage.getItem(DISABLE_TASK_REVIEW) !== "true";
+  const taskReviewEnabled = !getLocalStorageBoolean(DISABLE_TASK_REVIEW, false);
 
   const { baseStatuses: baseStatusOptions, currentStatuses: statusOptions } =
     useTaskStatuses({ versionId });
