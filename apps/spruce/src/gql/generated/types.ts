@@ -3874,6 +3874,12 @@ export type SpawnHostInput = {
   region: Scalars["String"]["input"];
   savePublicKey: Scalars["Boolean"]["input"];
   setUpScript?: InputMaybe<Scalars["String"]["input"]>;
+  /**
+   * setupStepNumber is the step number that the debug host should run until
+   * after initializing the daemon. Only valid when isDebug is true. Accepts
+   * display step format (e.g., "5" or "5.1" for function sub-commands).
+   */
+  setupStepNumber?: InputMaybe<Scalars["String"]["input"]>;
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
   spawnHostsStartedByTask?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskId?: InputMaybe<Scalars["String"]["input"]>;
