@@ -3878,6 +3878,7 @@ export type SpawnHostInput = {
   region: Scalars["String"]["input"];
   savePublicKey: Scalars["Boolean"]["input"];
   setUpScript?: InputMaybe<Scalars["String"]["input"]>;
+  setupStepNumber?: InputMaybe<Scalars["String"]["input"]>;
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
   spawnHostsStartedByTask?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskId?: InputMaybe<Scalars["String"]["input"]>;
