@@ -203,7 +203,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       });
     } else if (!hasServerParams) {
       // Because this data is already loaded and no animation is necessary, omitting startTransition for snappiness
-      setServerFilters(resetFilterState); // eslint-disable-line react-hooks/set-state-in-effect
+      setServerFilters(resetFilterState);
     }
   }, [allQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
