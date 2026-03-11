@@ -10915,6 +10915,7 @@ export type TaskOverviewPopupQuery = {
     buildVariant: string;
     canRestart: boolean;
     displayName: string;
+    displayOnly?: boolean | null;
     displayStatus: string;
     distroId: string;
     execution: number;

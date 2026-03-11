@@ -68,11 +68,10 @@
               Filter
             </div>
           </button>
-          <a
-            aria-disabled="false"
-            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
+          <button
+            aria-disabled="true"
+            class="lg-ui-button-0000 leafygreen-ui-ma515g"
             data-lgid="lg-button"
-            href="/evergreen/spruce_ubuntu1604_test_task/0/task"
             type="button"
           >
             <div
@@ -82,8 +81,11 @@
               class="leafygreen-ui-16tr4y"
             >
               Logs
+              <span
+                class="leafygreen-ui-38lglc"
+              />
             </div>
-          </a>
+          </button>
           <a
             aria-disabled="false"
             class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
