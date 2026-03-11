@@ -1,6 +1,7 @@
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
+import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -28,7 +29,14 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
   const [, setQueryParams] = useQueryParams();
   const dispatchToast = useToastContext();
 
-  const { buildVariant, canRestart, displayName, execution, id: taskId } = task;
+  const {
+    buildVariant,
+    canRestart,
+    displayName,
+    displayOnly,
+    execution,
+    id: taskId,
+  } = task;
 
   const [restartTask] = useMutation<
     RestartTaskMutation,
@@ -70,13 +78,25 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
       <Button onClick={handleFilterClick} size={ButtonSize.Small}>
         Filter
       </Button>
-      <Button
-        as={Link}
-        size={ButtonSize.Small}
-        to={getParsleyTaskLogLink(LogTypes.Task, taskId, execution)}
-      >
-        Logs
-      </Button>
+      {displayOnly ? (
+        <Tooltip
+          trigger={
+            <Button disabled size={ButtonSize.Small}>
+              Logs
+            </Button>
+          }
+        >
+          Display tasks do not have logs.
+        </Tooltip>
+      ) : (
+        <Button
+          as={Link}
+          size={ButtonSize.Small}
+          to={getParsleyTaskLogLink(LogTypes.Task, taskId, execution)}
+        >
+          Logs
+        </Button>
+      )}
       <Button
         as={Link}
         size={ButtonSize.Small}

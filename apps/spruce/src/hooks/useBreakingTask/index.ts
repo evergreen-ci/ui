@@ -13,8 +13,10 @@ import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommit
 import { isFailedTaskStatus } from "utils/statuses";
 
 export const useBreakingTask = (taskId: string, fetchPolicy?: FetchPolicy) => {
-  const { bvOptionsBase, displayStatus, projectIdentifier } =
-    useTaskData(taskId);
+  const { bvOptionsBase, displayStatus, projectIdentifier } = useTaskData(
+    taskId,
+    fetchPolicy,
+  );
 
   const { task: parentTask } = useParentTask(taskId, fetchPolicy);
 

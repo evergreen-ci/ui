@@ -21,6 +21,10 @@ const mockAdminSettings: AdminSettingsData = {
   githubPRCreatorOrg: "evergreen-ci",
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
+  oktaServiceConfig: {
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+  },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
   shutdownWaitSeconds: 30,
@@ -157,6 +161,10 @@ const expectedForm: OtherFormState = {
         },
       },
     },
+    oktaServiceConfig: {
+      clientId: "okta-service-client-id",
+      clientSecret: "okta-service-client-secret",
+    },
     singleTaskDistro: {
       projectTasksPairs: [
         {
@@ -262,6 +270,10 @@ const expectedGql: AdminSettingsInput = {
   githubPRCreatorOrg: "evergreen-ci",
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
+  oktaServiceConfig: {
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+  },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
   shutdownWaitSeconds: 30,

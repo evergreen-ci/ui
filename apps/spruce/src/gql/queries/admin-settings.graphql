@@ -200,6 +200,10 @@ query AdminSettings {
         senderAddress
       }
     }
+    oktaServiceConfig {
+      clientId
+      clientSecret
+    }
     oldestAllowedCLIVersion
     parameterStore {
       prefix

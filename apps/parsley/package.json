@@ -1,6 +1,6 @@
 {
   "name": "parsley",
-  "version": "3.1.54",
+  "version": "3.1.57",
   "private": true,
   "type": "module",
   "scripts": {
@@ -104,9 +104,9 @@
     "@evg-ui/lint-staged": "workspace:*",
     "@evg-ui/storybook-addon": "workspace:*",
     "@evg-ui/vite-utils": "workspace:*",
-    "@graphql-codegen/cli": "6.1.1",
-    "@graphql-codegen/typescript": "5.0.7",
-    "@graphql-codegen/typescript-operations": "5.0.7",
+    "@graphql-codegen/cli": "6.1.2",
+    "@graphql-codegen/typescript": "5.0.8",
+    "@graphql-codegen/typescript-operations": "5.0.8",
     "@sentry/vite-plugin": "^4.6.1",
     "@storybook/addon-docs": "^10.1.10",
     "@storybook/addon-links": "^10.1.10",

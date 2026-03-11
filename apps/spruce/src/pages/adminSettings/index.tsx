@@ -390,6 +390,16 @@ const AdminSettingsPage: React.FC = () => {
             <SideNavGroup header="Other">
               <SideNavItem
                 as={Link}
+                data-cy="navitem-admin-okta-service-config"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "okta-service-config",
+                )}
+              >
+                Okta Service Config
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
                 data-cy="navitem-admin-misc-settings"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,

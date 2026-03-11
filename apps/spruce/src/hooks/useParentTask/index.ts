@@ -15,7 +15,7 @@ export const useParentTask = (taskId: string, fetchPolicy?: FetchPolicy) => {
     projectIdentifier,
     skipOrderNumber,
     versionMetadata,
-  } = useTaskData(taskId);
+  } = useTaskData(taskId, fetchPolicy);
 
   const shouldSkip = !versionMetadata || versionMetadata.isPatch;
 
