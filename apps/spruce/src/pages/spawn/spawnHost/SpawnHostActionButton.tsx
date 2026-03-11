@@ -97,8 +97,9 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     checkboxLabel = `${copyPrefix} a virtual workstation.`;
   }
 
-  const [checkboxAcknowledged, setCheckboxAcknowledged] =
-    useState(!checkboxLabel);
+  const mustAcknowledgeCheckbox =
+    (host.noExpiration || host.distro?.isVirtualWorkStation) ?? false;
+  const [checkboxAcknowledged, setCheckboxAcknowledged] = useState(false);
 
   const [sleepModalOpen, setSleepModalOpen] = useState(false);
 
@@ -160,7 +161,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         </Disclaimer>
       </Popconfirm>
       <Popconfirm
-        confirmDisabled={!checkboxAcknowledged}
+        confirmDisabled={mustAcknowledgeCheckbox && !checkboxAcknowledged}
         onConfirm={() => handleClick(SpawnHostStatusActions.Terminate)}
         trigger={
           <Button

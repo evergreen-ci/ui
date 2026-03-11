@@ -23,6 +23,7 @@ query VersionTasks(
         }
         displayName
         displayStatus
+        errors
         execution
         executionTasksFull {
           id

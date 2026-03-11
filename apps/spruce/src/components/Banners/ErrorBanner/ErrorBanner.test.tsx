@@ -1,5 +1,5 @@
 import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
-import ErrorBanner from ".";
+import { ErrorBanner } from ".";
 
 const errors = ["error1", "error2", "error3"];
 

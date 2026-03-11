@@ -14,8 +14,10 @@ export const useLastPassingTask = (
   taskId: string,
   fetchPolicy?: FetchPolicy,
 ) => {
-  const { bvOptionsBase, projectIdentifier, skipOrderNumber } =
-    useTaskData(taskId);
+  const { bvOptionsBase, projectIdentifier, skipOrderNumber } = useTaskData(
+    taskId,
+    fetchPolicy,
+  );
 
   const { task: parentTask } = useParentTask(taskId, fetchPolicy);
 

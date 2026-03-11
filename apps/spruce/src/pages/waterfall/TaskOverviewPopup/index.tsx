@@ -1,11 +1,14 @@
+import { useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
+import { Code } from "@leafygreen-ui/code";
+import { css } from "@leafygreen-ui/emotion";
 import { Popover, Align, DismissMode } from "@leafygreen-ui/popover";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { Body } from "@leafygreen-ui/typography";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import MetadataCard from "components/MetadataCard";
 import { Stepback } from "components/Stepback";
@@ -24,6 +27,7 @@ import { FailingTests } from "./FailingTests";
 
 interface Props {
   execution: number;
+  isRightmostBuild?: boolean;
   open: boolean;
   setOpen: (o: boolean) => void;
   taskBoxRef: React.RefObject<HTMLElement>;
@@ -32,11 +36,16 @@ interface Props {
 
 export const TaskOverviewPopup: React.FC<Props> = ({
   execution,
+  isRightmostBuild = false,
   open,
   setOpen,
   taskBoxRef,
   taskId,
 }) => {
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside([taskBoxRef, popoverRef], () => setOpen(false));
+
   const { data, loading } = useQuery<
     TaskOverviewPopupQuery,
     TaskOverviewPopupQueryVariables
@@ -45,6 +54,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
     open
       ? {
           variables: { taskId, execution },
+          // TODO DEVPROD-27824: Remove when cache performance is fixed.
           fetchPolicy: "no-cache",
         }
       : skipToken,
@@ -72,16 +82,10 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 
   return (
     <Popover
+      ref={popoverRef}
       active={open}
-      align={Align.Right}
-      dismissMode={DismissMode.Auto}
-      onToggle={(e) => {
-        if (e.newState === "open") {
-          setOpen(true);
-        } else {
-          setOpen(false);
-        }
-      }}
+      align={isRightmostBuild ? Align.Left : Align.Right}
+      dismissMode={DismissMode.Manual}
       refEl={taskBoxRef}
     >
       <PopoverCard data-cy="task-overview-popup">
@@ -89,13 +93,15 @@ export const TaskOverviewPopup: React.FC<Props> = ({
           <ListSkeleton />
         ) : (
           <>
-            <TaskPageLink
-              data-cy="task-link"
-              to={getTaskRoute(taskId, { execution })}
-            >
-              {displayName}
-            </TaskPageLink>
-            <TaskStatusBadge status={displayStatus as TaskStatus} />
+            <span>
+              <TaskPageLink
+                data-cy="task-link"
+                to={getTaskRoute(taskId, { execution })}
+              >
+                {displayName}
+              </TaskPageLink>
+              <TaskStatusBadge status={displayStatus as TaskStatus} />
+            </span>
             {finishTime && timeTaken && timeTaken > 0 ? (
               <div>Duration: {msToDuration(timeTaken)}</div>
             ) : null}
@@ -118,15 +124,17 @@ export const TaskOverviewPopup: React.FC<Props> = ({
               </div>
             )}
             {command && (
-              <div>
+              <CommandBlock>
                 <b>{isFailingTask ? "Failing Command: " : "Command: "}</b>
-                <Body>{command}</Body>
-              </div>
+                <Code className={codeBlockCss} language="none">
+                  {command}
+                </Code>
+              </CommandBlock>
             )}
-            {showStepback && <Stepback isPopup taskId={taskId} />}
             {isFailingTask && (
               <FailingTests execution={execution} taskId={taskId} />
             )}
+            {showStepback && <Stepback isPopup taskId={taskId} />}
             <Annotations annotation={annotation} displayName={displayName} />
           </>
         )}
@@ -136,7 +144,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
 };
 
 const PopoverCard = styled(MetadataCard)`
-  width: 330px;
+  width: 350px;
   max-height: 500px;
   overflow-y: auto;
 
@@ -152,4 +160,18 @@ const RouterLink = styled(StyledRouterLink)`
 const TaskPageLink = styled(RouterLink)`
   font-weight: bold;
   font-size: 18px;
+  margin-right: ${size.xs};
+`;
+
+const CommandBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xxs};
+`;
+
+// Make words overflow to the next line.
+const codeBlockCss = css`
+  > div > pre {
+    white-space: normal;
+  }
 `;

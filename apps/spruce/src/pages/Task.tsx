@@ -8,7 +8,7 @@ import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { TTLInfo } from "components/404/TTLInfo";
-import { ProjectBanner } from "components/Banners";
+import { ProjectBanner, ErrorBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import PageTitle from "components/PageTitle";
 import {
@@ -74,6 +74,7 @@ export const Task = () => {
     displayName,
     displayStatus,
     displayTask,
+    errors,
     executionTasksFull,
     latestExecution,
     priority,
@@ -111,6 +112,7 @@ export const Task = () => {
     <PageWrapper>
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={versionMetadata?.projectIdentifier} />
+      {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {task && (
         <TaskPageBreadcrumbs
           displayTask={task.displayTask || undefined}

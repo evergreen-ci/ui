@@ -14,7 +14,7 @@ interface WarningBannerProps {
   warnings: string[];
 }
 
-const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
+export const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
   const [showModal, setShowModal] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
 
@@ -62,5 +62,3 @@ const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
     </BannerContainer>
   ) : null;
 };
-
-export default WarningBanner;
