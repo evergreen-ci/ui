@@ -54,6 +54,7 @@ const defaultMock: ApolloMock<
         buildVariant: "ubuntu1604",
         canRestart: true,
         displayName: "test-task",
+        displayOnly: false,
         displayStatus: TaskStatus.Succeeded,
         distroId: "ubuntu1604-small",
         finishTime: new Date("2024-01-15T10:30:00Z"),
@@ -98,6 +99,7 @@ const withAnnotationsMock: ApolloMock<
         buildVariant: "ubuntu2004",
         canRestart: true,
         displayName: "e2e-test",
+        displayOnly: true,
         displayStatus: TaskStatus.Failed,
         distroId: "ubuntu2004-small",
         finishTime: new Date("2024-01-15T12:00:00Z"),
@@ -169,6 +171,7 @@ const longTaskNameMock: ApolloMock<
         canRestart: false,
         displayName:
           "very-long-task-name-that-should-wrap-or-truncate-properly-in-the-popup",
+        displayOnly: false,
         displayStatus: TaskStatus.WillRun,
         distroId: "ubuntu2004-xlarge-with-very-long-distro-name",
         finishTime: null,
@@ -214,6 +217,7 @@ const failedTaskMock: ApolloMock<
         buildVariant: "ubuntu1604",
         canRestart: true,
         displayName: "cypress-test",
+        displayOnly: false,
         displayStatus: TaskStatus.Failed,
         distroId: "ubuntu1604-large",
         finishTime: new Date("2024-01-15T11:45:00Z"),
@@ -306,6 +310,56 @@ export const WithFailingTests: StoryObj<typeof TaskOverviewPopup> = {
   parameters: {
     apolloClient: {
       mocks: [failedTaskMock, failingTestsMock],
+    },
+  },
+  args: {
+    taskId,
+    execution: 0,
+  },
+};
+
+const stepbackCompleteMock: ApolloMock<
+  TaskOverviewPopupQuery,
+  TaskOverviewPopupQueryVariables
+> = {
+  request: {
+    query: TASK_OVERVIEW_POPUP,
+    variables: { taskId, execution: 0 },
+  },
+  result: {
+    data: {
+      task: {
+        __typename: "Task",
+        id: taskId,
+        execution: 0,
+        buildVariant: "ubuntu1604",
+        canRestart: true,
+        displayName: "test-task-stepback-complete",
+        displayOnly: false,
+        displayStatus: TaskStatus.Failed,
+        distroId: "ubuntu1604-small",
+        finishTime: new Date("2024-01-15T14:00:00Z"),
+        timeTaken: 155000,
+        annotation: null,
+        stepbackInfo: {
+          lastFailingStepbackTaskId: "breaking_task_id",
+          nextStepbackTaskId: null,
+        },
+        details: {
+          description: null,
+          failingCommand:
+            "'shell.exec' in function 'run-integration-test' (step 3 of 10)",
+        },
+      },
+    },
+  },
+};
+
+export const StepbackComplete: StoryObj<typeof TaskOverviewPopup> = {
+  render: (args) => <TaskOverviewPopupWrapper {...args} />,
+  parameters: {
+    apolloClient: {
+      mocks: [stepbackCompleteMock],
     },
   },
   args: {

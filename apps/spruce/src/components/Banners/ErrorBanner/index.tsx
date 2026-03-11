@@ -14,7 +14,7 @@ interface ErrorBannerProps {
   errors: string[];
 }
 
-const ErrorBanner: React.FC<ErrorBannerProps> = ({ errors }) => {
+export const ErrorBanner: React.FC<ErrorBannerProps> = ({ errors }) => {
   const [showModal, setShowModal] = useState(false);
 
   const errorTitle =
@@ -58,5 +58,3 @@ const ErrorBanner: React.FC<ErrorBannerProps> = ({ errors }) => {
     </BannerContainer>
   );
 };
-
-export default ErrorBanner;

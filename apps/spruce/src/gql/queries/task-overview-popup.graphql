@@ -28,11 +28,16 @@ query TaskOverviewPopup($taskId: String!, $execution: Int) {
       failingCommand
     }
     displayName
+    displayOnly
     displayStatus
     distroId
     execution
     finishTime
     priority
+    stepbackInfo {
+      lastFailingStepbackTaskId
+      nextStepbackTaskId
+    }
     timeTaken
   }
 }

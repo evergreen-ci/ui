@@ -6,3 +6,5 @@ export { AdminBanner } from "./AdminBanner";
 export { PortalBanner } from "./PortalBanner";
 export { ProjectBanner } from "./ProjectBanner";
 export { RepotrackerBanner } from "./RepotrackerBanner";
+export { WarningBanner } from "./WarningBanner";
+export { ErrorBanner } from "./ErrorBanner";

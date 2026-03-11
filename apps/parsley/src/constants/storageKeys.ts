@@ -1,4 +1,3 @@
-// Cookies for toggles
 export const CASE_SENSITIVE = "case-sensitive";
 export const EXPANDABLE_ROWS = "expandable-rows";
 export const FILTER_LOGIC = "filter-logic";

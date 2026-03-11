@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { MetadataCardTitle } from "components/MetadataCard";
 import { TaskOverviewPopupQuery } from "gql/generated/types";
 
 type Annotation = NonNullable<TaskOverviewPopupQuery["task"]>["annotation"];
@@ -35,12 +34,16 @@ const FailingTasks: React.FC<{
   tasks: string[];
 }> = ({ tasks }) => (
   <FailingTasksContainer>
-    <MetadataCardTitle weight="bold">Other Failing Tasks</MetadataCardTitle>
-    <TasksList>
-      {tasks.map((t) => (
-        <TaskListItem key={t}>{t}</TaskListItem>
-      ))}
-    </TasksList>
+    <details>
+      <FailingTasksSummary>
+        <b>Other Failing Tasks ({tasks.length})</b>
+      </FailingTasksSummary>
+      <TasksList>
+        {tasks.map((t) => (
+          <TaskListItem key={t}>{t}</TaskListItem>
+        ))}
+      </TasksList>
+    </details>
   </FailingTasksContainer>
 );
 
@@ -50,8 +53,15 @@ const FailingTasksContainer = styled.div`
   gap: ${size.xxs};
 `;
 
+const FailingTasksSummary = styled.summary`
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 const TasksList = styled.ul`
   margin: 0;
+  margin-top: ${size.xs};
   padding: 0 ${size.s};
 `;
 
@@ -85,14 +95,18 @@ export const Annotations: React.FC<AnnotationProps> = ({
 
   const { failingTasks } = issues?.[0]?.jiraTicket?.fields || {};
   const otherFailingTasks =
-    failingTasks?.filter((t) => t !== displayName) ?? [];
+    failingTasks
+      ?.filter((t) => t !== displayName)
+      .sort((a, b) => a.localeCompare(b)) ?? [];
 
   return (
     <AnnotationsContainer>
       {hasIssues && (
         <IssuesContainer>
-          <MetadataCardTitle weight="bold">Associated Issues</MetadataCardTitle>
-          <IssueLinks issues={allIssues} />
+          <b>Associated Issues</b>
+          <LinksContainer>
+            <IssueLinks issues={allIssues} />
+          </LinksContainer>
         </IssuesContainer>
       )}
       {otherFailingTasks.length > 0 && (
@@ -112,4 +126,9 @@ const IssuesContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${size.xxs};
+`;
+
+const LinksContainer = styled.div`
+  display: flex;
+  gap: ${size.s};
 `;

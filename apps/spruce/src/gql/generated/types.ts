@@ -170,6 +170,7 @@ export type AdminSettings = {
   logPath?: Maybe<Scalars["String"]["output"]>;
   loggerConfig?: Maybe<LoggerConfig>;
   notify?: Maybe<NotifyConfig>;
+  oktaServiceConfig?: Maybe<OktaServiceConfig>;
   oldestAllowedCLIVersion?: Maybe<Scalars["String"]["output"]>;
   parameterStore?: Maybe<ParameterStoreConfig>;
   perfMonitoringKanopyURL?: Maybe<Scalars["String"]["output"]>;
@@ -228,6 +229,7 @@ export type AdminSettingsInput = {
   logPath?: InputMaybe<Scalars["String"]["input"]>;
   loggerConfig?: InputMaybe<LoggerConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
+  oktaServiceConfig?: InputMaybe<OktaServiceConfigInput>;
   oldestAllowedCLIVersion?: InputMaybe<Scalars["String"]["input"]>;
   parameterStore?: InputMaybe<ParameterStoreConfigInput>;
   perfMonitoringKanopyURL?: InputMaybe<Scalars["String"]["input"]>;
@@ -671,6 +673,7 @@ export type Cost = {
   __typename?: "Cost";
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -2340,6 +2343,17 @@ export type OktaConfigInput = {
   issuer?: InputMaybe<Scalars["String"]["input"]>;
   scopes?: InputMaybe<Array<Scalars["String"]["input"]>>;
   userGroup?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type OktaServiceConfig = {
+  __typename?: "OktaServiceConfig";
+  clientId?: Maybe<Scalars["String"]["output"]>;
+  clientSecret?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type OktaServiceConfigInput = {
+  clientId?: InputMaybe<Scalars["String"]["input"]>;
+  clientSecret?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type OomTrackerInfo = {
@@ -4837,14 +4851,6 @@ export type WaterfallBuild = {
   version: Scalars["String"]["output"];
 };
 
-export type WaterfallBuildVariant = {
-  __typename?: "WaterfallBuildVariant";
-  builds: Array<WaterfallBuild>;
-  displayName: Scalars["String"]["output"];
-  id: Scalars["String"]["output"];
-  version: Scalars["String"]["output"];
-};
-
 export type WaterfallOptions = {
   date?: InputMaybe<Scalars["Time"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
@@ -4881,12 +4887,6 @@ export type WaterfallTask = {
   displayStatusCache: Scalars["String"]["output"];
   execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
-};
-
-export type WaterfallVersion = {
-  __typename?: "WaterfallVersion";
-  inactiveVersions?: Maybe<Array<Version>>;
-  version?: Maybe<Version>;
 };
 
 export type Webhook = {
@@ -7653,6 +7653,11 @@ export type AdminSettingsQuery = {
       bufferIntervalSeconds?: number | null;
       bufferTargetPerInterval?: number | null;
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
+    } | null;
+    oktaServiceConfig?: {
+      __typename?: "OktaServiceConfig";
+      clientId?: string | null;
+      clientSecret?: string | null;
     } | null;
     parameterStore?: {
       __typename?: "ParameterStoreConfig";
@@ -10917,6 +10922,7 @@ export type TaskOverviewPopupQuery = {
     buildVariant: string;
     canRestart: boolean;
     displayName: string;
+    displayOnly?: boolean | null;
     displayStatus: string;
     distroId: string;
     execution: number;
@@ -10953,6 +10959,11 @@ export type TaskOverviewPopupQuery = {
       __typename?: "TaskEndDetail";
       description?: string | null;
       failingCommand?: string | null;
+    } | null;
+    stepbackInfo?: {
+      __typename?: "StepbackInfo";
+      lastFailingStepbackTaskId?: string | null;
+      nextStepbackTaskId?: string | null;
     } | null;
   } | null;
 };
@@ -11143,6 +11154,7 @@ export type TaskQuery = {
     canSetPriority: boolean;
     canUnschedule: boolean;
     distroId: string;
+    errors?: Array<string> | null;
     estimatedStart?: number | null;
     expectedDuration?: number | null;
     finishTime?: Date | null;
@@ -11681,6 +11693,7 @@ export type VersionTasksQuery = {
         buildVariantDisplayName?: string | null;
         displayName: string;
         displayStatus: string;
+        errors?: Array<string> | null;
         execution: number;
         projectIdentifier?: string | null;
         reviewed?: boolean | null;
