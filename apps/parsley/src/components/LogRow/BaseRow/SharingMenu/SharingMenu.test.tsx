@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
@@ -8,8 +7,8 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
-import { COPY_FORMAT } from "constants/cookies";
 import { LogTypes } from "constants/enums";
+import { COPY_FORMAT } from "constants/storageKeys";
 import { LogContextProvider, useLogContext } from "context/LogContext";
 import {
   MultiLineSelectContextProvider,
@@ -57,7 +56,7 @@ const renderSharingMenu = () => {
 
 describe("sharingMenu", () => {
   beforeEach(() => {
-    Cookies.remove(COPY_FORMAT);
+    localStorage.clear();
   });
 
   it("should render an open menu after setting it to open", async () => {
@@ -117,9 +116,9 @@ describe("sharingMenu", () => {
     const clipboardText = await navigator.clipboard.readText();
     expect(clipboardText).toBe("{noformat}\nline 2\n{noformat}");
   });
-  it("clicking `copy selected contents` should copy the line range to the clipboard in raw format when cookie is set to raw", async () => {
+  it("clicking `copy selected contents` should copy the line range to the clipboard in raw format when localStorage is set to raw", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
-    Cookies.set(COPY_FORMAT, "raw");
+    localStorage.setItem(COPY_FORMAT, "raw");
 
     const { hook } = renderSharingMenu();
     act(() => {
@@ -133,9 +132,9 @@ describe("sharingMenu", () => {
     const clipboardText = await navigator.clipboard.readText();
     expect(clipboardText).toBe("line 2\nline 3\nline 4\n");
   });
-  it("clicking `copy selected contents` should copy a single selected line to the clipboard in raw format when cookie is set to raw", async () => {
+  it("clicking `copy selected contents` should copy a single selected line to the clipboard in raw format when localStorage is set to raw", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
-    Cookies.set(COPY_FORMAT, "raw");
+    localStorage.setItem(COPY_FORMAT, "raw");
 
     const { hook } = renderSharingMenu();
     act(() => {
@@ -222,5 +221,38 @@ describe("sharingMenu", () => {
       });
     });
     expect(screen.queryByText("Share link to selected lines")).toBeNull();
+  });
+  it("should not show 'Add to Parsley AI' if this is a locally uploaded log", () => {
+    const useSpecialHook = () => {
+      const useLogContextHook = useLogContext();
+      const useMultiLineSelectContextHook = useMultiLineSelectContext();
+      return {
+        useLogContextHook,
+        useMultiLineSelectContextHook,
+      };
+    };
+    const { Component: MenuComponent, hook } = renderComponentWithHook(
+      useSpecialHook,
+      <SharingMenu />,
+    );
+    const { Component } = RenderFakeToastContext(<MenuComponent />);
+    renderWithRouterMatch(<Component />, {
+      route: "?selectedLineRange=L1-L3",
+      wrapper,
+    });
+    act(() => {
+      hook.current.useMultiLineSelectContextHook.setOpenMenu(true);
+      hook.current.useLogContextHook.setLogMetadata({
+        logType: LogTypes.LOCAL_UPLOAD,
+      });
+    });
+    expect(screen.queryByText("Add to Parsley AI")).toBeNull();
+  });
+  it("should show 'Add to Parsley AI' for non-uploaded logs", () => {
+    const { hook } = renderSharingMenu();
+    act(() => {
+      hook.current.setOpenMenu(true);
+    });
+    expect(screen.getByText("Add to Parsley AI")).toBeInTheDocument();
   });
 });

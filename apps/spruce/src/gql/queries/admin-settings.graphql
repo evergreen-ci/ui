@@ -200,6 +200,10 @@ query AdminSettings {
         senderAddress
       }
     }
+    oktaServiceConfig {
+      clientId
+      clientSecret
+    }
     oldestAllowedCLIVersion
     parameterStore {
       prefix
@@ -369,7 +373,7 @@ query AdminSettings {
     }
     ui {
       betaFeatures {
-        parsleyAIEnabled
+        __typename
       }
       cacheTemplates
       corsOrigins

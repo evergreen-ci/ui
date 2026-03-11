@@ -1,40 +1,37 @@
+import { FetchPolicy } from "@apollo/client";
 import { useQuery, skipToken } from "@apollo/client/react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
-  BaseVersionAndTaskQuery,
-  BaseVersionAndTaskQueryVariables,
   LastMainlineCommitQuery,
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
-import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
+import { LAST_MAINLINE_COMMIT } from "gql/queries";
 import { useLastPassingTask } from "hooks/useLastPassingTask";
 import { useParentTask } from "hooks/useParentTask";
-import { string } from "utils";
+import { useTaskData } from "hooks/useTaskData";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 import { isFailedTaskStatus } from "utils/statuses";
 
-export const useBreakingTask = (taskId: string) => {
-  const { data: taskData } = useQuery<
-    BaseVersionAndTaskQuery,
-    BaseVersionAndTaskQueryVariables
-  >(BASE_VERSION_AND_TASK, {
-    variables: { taskId },
-  });
+export const useBreakingTask = (taskId: string, fetchPolicy?: FetchPolicy) => {
+  const { bvOptionsBase, displayStatus, projectIdentifier } = useTaskData(
+    taskId,
+    fetchPolicy,
+  );
 
-  const { buildVariant, displayName, displayStatus, projectIdentifier } =
-    taskData?.task ?? {};
+  const { task: parentTask } = useParentTask(taskId, fetchPolicy);
 
-  const bvOptionsBase = {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    tasks: [string.applyStrictRegex(displayName)],
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variants: [string.applyStrictRegex(buildVariant)],
-  };
-
-  const { task: parentTask } = useParentTask(taskId);
-
-  const { task: lastPassingTask } = useLastPassingTask(taskId);
+  const { loading: lastPassingTaskLoading, task: lastPassingTask } =
+    useLastPassingTask(taskId, fetchPolicy);
   const passingOrderNumber = lastPassingTask?.order || 0;
+
+  // Skip the breaking task query if:
+  // 1. Current task isn't failing (no breaking task to find)
+  // 2. Parent task is failing AND there's no last passing task (can't determine breaking commit)
+  const shouldSkipQuery =
+    !isFailedTaskStatus(displayStatus) ||
+    (parentTask &&
+      isFailedTaskStatus(parentTask.displayStatus) &&
+      !lastPassingTask);
 
   // The breaking commit is the first failing commit after the last passing commit.
   // The skip order number should be the last passing commit's order number + 1.
@@ -45,10 +42,7 @@ export const useBreakingTask = (taskId: string) => {
     LastMainlineCommitQueryVariables
   >(
     LAST_MAINLINE_COMMIT,
-    projectIdentifier &&
-      parentTask &&
-      lastPassingTask &&
-      isFailedTaskStatus(displayStatus)
+    projectIdentifier && !shouldSkipQuery
       ? {
           variables: {
             projectIdentifier,
@@ -58,6 +52,7 @@ export const useBreakingTask = (taskId: string) => {
               statuses: [TaskStatus.Failed],
             },
           },
+          fetchPolicy,
         }
       : skipToken,
   );
@@ -67,7 +62,7 @@ export const useBreakingTask = (taskId: string) => {
     : undefined;
 
   return {
+    loading: lastPassingTaskLoading || loading,
     task,
-    loading,
   };
 };

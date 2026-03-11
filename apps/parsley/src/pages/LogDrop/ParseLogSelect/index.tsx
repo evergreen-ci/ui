@@ -3,10 +3,13 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { InlineCode, Label } from "@leafygreen-ui/typography";
-import Cookie from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { LAST_SELECTED_LOG_TYPE } from "constants/cookies";
+import {
+  getLocalStorageString,
+  setLocalStorageString,
+} from "@evg-ui/lib/utils/localStorage";
 import { LogRenderingTypes } from "constants/enums";
+import { LAST_SELECTED_LOG_TYPE } from "constants/storageKeys";
 
 interface ParseLogSelectProps {
   fileName: string | undefined;
@@ -25,7 +28,7 @@ const ParseLogSelect: React.FC<ParseLogSelectProps> = ({
   onParse,
 }) => {
   const [logType, setLogType] = useState<SelectState>(
-    (Cookie.get(LAST_SELECTED_LOG_TYPE) as SelectState) ?? undefined,
+    (getLocalStorageString(LAST_SELECTED_LOG_TYPE) as SelectState) ?? undefined,
   );
 
   return (
@@ -38,7 +41,7 @@ const ParseLogSelect: React.FC<ParseLogSelectProps> = ({
         aria-labelledby="parse-log-select"
         data-cy="parse-log-select"
         onChange={(value) => {
-          Cookie.set(LAST_SELECTED_LOG_TYPE, value, { expires: 365 });
+          setLocalStorageString(LAST_SELECTED_LOG_TYPE, value);
           setLogType(value as SelectState);
         }}
         placeholder="Select..."

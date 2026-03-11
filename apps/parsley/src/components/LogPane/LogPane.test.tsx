@@ -1,7 +1,5 @@
 import { createRef } from "react";
-import Cookie from "js-cookie";
 import { VirtuosoMockContext } from "react-virtuoso";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
@@ -9,6 +7,7 @@ import {
   screen,
   waitFor,
 } from "@evg-ui/lib/test_utils";
+import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/storageKeys";
 import { LogContextProvider } from "context/LogContext";
 import * as logContext from "context/LogContext";
 import { parsleySettingsMock } from "test_data/parsleySettings";
@@ -30,9 +29,11 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
   </MockedProvider>
 );
 
-vi.mock("js-cookie");
-
 describe("logPane", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   afterEach(() => {
     vi.restoreAllMocks();
     vi.useRealTimers();
@@ -47,8 +48,9 @@ describe("logPane", () => {
     expect(screen.queryByText("Some Line: 99")).not.toBeInTheDocument();
   });
 
-  it("should not execute wrap and pretty print functionality if cookie is false", async () => {
-    (vi.spyOn(Cookie, "get") as MockInstance).mockReturnValue("false");
+  it("should not execute wrap and pretty print functionality if stored value is false", async () => {
+    localStorage.setItem(WRAP, "false");
+    localStorage.setItem(PRETTY_PRINT_BOOKMARKS, "false");
 
     vi.useFakeTimers();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");
@@ -84,8 +86,9 @@ describe("logPane", () => {
     });
   });
 
-  it("should execute wrap and pretty print functionality if cookie is true", async () => {
-    (vi.spyOn(Cookie, "get") as MockInstance).mockReturnValue("true");
+  it("should execute wrap and pretty print functionality if stored value is true", async () => {
+    localStorage.setItem(WRAP, "true");
+    localStorage.setItem(PRETTY_PRINT_BOOKMARKS, "true");
 
     vi.useFakeTimers();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");

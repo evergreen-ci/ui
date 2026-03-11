@@ -1,6 +1,7 @@
 import { GetFormSchema } from "components/SpruceForm";
 import {
   miscSettings,
+  oktaServiceConfig,
   getSingleTaskDistroSchema,
   bucketConfig,
   sshPairs,
@@ -36,6 +37,11 @@ export const getFormSchema = ({
               type: "object" as const,
               title: "Misc Settings",
               properties: miscSettings.schema,
+            },
+            oktaServiceConfig: {
+              type: "object" as const,
+              title: "Okta Service Config",
+              properties: oktaServiceConfig.schema,
             },
             bucketConfig: {
               type: "object" as const,
@@ -104,6 +110,7 @@ export const getFormSchema = ({
     uiSchema: {
       other: {
         miscSettings: miscSettings.uiSchema,
+        oktaServiceConfig: oktaServiceConfig.uiSchema,
         singleTaskDistro: singleTaskDistro.uiSchema,
         bucketConfig: bucketConfig.uiSchema,
         sshPairs: sshPairs.uiSchema,
