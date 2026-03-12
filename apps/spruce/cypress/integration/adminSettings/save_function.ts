@@ -31,9 +31,13 @@ describe("admin settings save properly", () => {
     });
 
     cy.dataCy("ssh-pairs").within(() => {
-      cy.getInputByLabel("Legacy SSH Key").as("sshKeyInput");
-      cy.get("@sshKeyInput").clear();
-      cy.get("@sshKeyInput").type("/test/ssh/key");
+      cy.contains("Task Host Key")
+        .parent()
+        .within(() => {
+          cy.getInputByLabel("Name").as("taskHostKeyNameInput");
+          cy.get("@taskHostKeyNameInput").clear();
+          cy.get("@taskHostKeyNameInput").type("test-task-host-key");
+        });
     });
 
     cy.dataCy("host-jasper").within(() => {
@@ -73,10 +77,11 @@ describe("admin settings save properly", () => {
       );
     });
     cy.dataCy("ssh-pairs").within(() => {
-      cy.getInputByLabel("Legacy SSH Key").should(
-        "have.value",
-        "/test/ssh/key",
-      );
+      cy.contains("Task Host Key")
+        .parent()
+        .within(() => {
+          cy.getInputByLabel("Name").should("have.value", "test-task-host-key");
+        });
     });
     cy.dataCy("host-jasper").within(() => {
       cy.getInputByLabel("Binary Name").should("have.value", "test-jasper");
@@ -127,10 +132,11 @@ describe("admin settings save properly", () => {
       );
     });
     cy.dataCy("ssh-pairs").within(() => {
-      cy.getInputByLabel("Legacy SSH Key").should(
-        "have.value",
-        "/test/ssh/key",
-      );
+      cy.contains("Task Host Key")
+        .parent()
+        .within(() => {
+          cy.getInputByLabel("Name").should("have.value", "test-task-host-key");
+        });
     });
     cy.dataCy("host-jasper").within(() => {
       cy.getInputByLabel("Binary Name").should("have.value", "test-jasper");
