@@ -29,6 +29,8 @@ export const CopyableID: React.FC<CopyableIDProps> = ({
 
 const Container = styled.div`
   display: flex;
+  align-items: flex-start;
+  gap: ${size.xs};
 `;
 
 const LabelWrapper = styled.span`
@@ -36,9 +38,7 @@ const LabelWrapper = styled.span`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-
   word-break: break-all;
-  margin-right: ${size.xs};
 `;
 
 const CopyButtonWrapper = styled.span`
