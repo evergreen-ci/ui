@@ -130,8 +130,7 @@ const AuthProvider: React.FC<{
        * or redirects to the remoteAuthURL for remoteAuth.
        */
       logoutAndRedirect: async () => {
-        // Set the staging cookie early so the /logout fetch preflight
-        // can be routed by istio, and so the subsequent login redirect works.
+        // Set the staging cookie whether or not the state is currently authenticated so personal stagings can be routed correctly.
         const stagingKey = getUserStagingKey();
         if (isStaging() && stagingKey) {
           Cookies.set("evg-staging-environment", stagingKey);
