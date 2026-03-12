@@ -1,33 +1,29 @@
-import Cookie from "js-cookie";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { CASE_SENSITIVE } from "constants/storageKeys";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import CaseSensitiveToggle from ".";
-
-vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 const wrapper = logContextWrapper();
 
 describe("case sensitivity toggle", () => {
   beforeEach(() => {
-    mockedGet.mockImplementation(() => "true");
+    localStorage.clear();
     InitializeFakeToastContext();
   });
 
-  it("defaults to 'false' if cookie is unset", () => {
-    mockedGet.mockImplementation(() => "");
+  it("defaults to 'false' if stored value is unset", () => {
     render(<CaseSensitiveToggle />, { wrapper });
     const caseSensitiveToggle = screen.getByDataCy("case-sensitive-toggle");
     expect(caseSensitiveToggle).toHaveAttribute("aria-checked", "false");
   });
 
-  it("should read from the cookie properly", () => {
+  it("should read from localStorage properly", () => {
+    localStorage.setItem(CASE_SENSITIVE, "true");
     render(<CaseSensitiveToggle />, { wrapper });
     const caseSensitiveToggle = screen.getByDataCy("case-sensitive-toggle");
     expect(caseSensitiveToggle).toHaveAttribute("aria-checked", "true");
@@ -35,6 +31,7 @@ describe("case sensitivity toggle", () => {
 
   it("should not update the URL", async () => {
     const user = userEvent.setup();
+    localStorage.setItem(CASE_SENSITIVE, "true");
     const { router } = render(<CaseSensitiveToggle />, { wrapper });
     const caseSensitiveToggle = screen.getByDataCy("case-sensitive-toggle");
 

@@ -7,8 +7,8 @@ import {
   useMemo,
   useReducer,
 } from "react";
-import debounce from "lodash.debounce";
 import isEqual from "lodash.isequal";
+import { useDebouncedCallback } from "@evg-ui/lib/hooks/useDebouncedCallback";
 import { SpruceFormProps } from "components/SpruceForm/types";
 import { FormToGqlFunction, SettingsRoutes } from "./types";
 
@@ -152,12 +152,11 @@ const useSettingsState = <
     }),
   );
 
-  const setHasChanges = useMemo(
-    () =>
-      debounce((tab, formData) => {
-        dispatch({ type: "setHasChanges", tab, formData });
-      }, 400),
-    [],
+  const setHasChanges = useDebouncedCallback(
+    (tab: T, formData: FormStateMap[T]) => {
+      dispatch({ type: "setHasChanges", tab, formData });
+    },
+    400,
   );
 
   const updateForm = ((tab) =>

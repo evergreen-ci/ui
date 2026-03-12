@@ -65,7 +65,7 @@ export const WalkthroughGuideCue = forwardRef<
         new Error(
           `Cannot find element for the next step in walkthrough: ${nextStep.targetId}`,
         ),
-      ).severe();
+      ).warning();
       endWalkthrough();
       return;
     }

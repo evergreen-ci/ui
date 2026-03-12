@@ -3873,6 +3873,7 @@ export type SpawnHostInput = {
   region: Scalars["String"]["input"];
   savePublicKey: Scalars["Boolean"]["input"];
   setUpScript?: InputMaybe<Scalars["String"]["input"]>;
+  setupStepNumber?: InputMaybe<Scalars["String"]["input"]>;
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
   spawnHostsStartedByTask?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskId?: InputMaybe<Scalars["String"]["input"]>;
@@ -7651,6 +7652,11 @@ export type AdminSettingsQuery = {
       bufferTargetPerInterval?: number | null;
       ses?: { __typename?: "SESConfig"; senderAddress?: string | null } | null;
     } | null;
+    oktaServiceConfig?: {
+      __typename?: "OktaServiceConfig";
+      clientId?: string | null;
+      clientSecret?: string | null;
+    } | null;
     parameterStore?: {
       __typename?: "ParameterStoreConfig";
       prefix?: string | null;
@@ -10907,6 +10913,7 @@ export type TaskOverviewPopupQuery = {
     buildVariant: string;
     canRestart: boolean;
     displayName: string;
+    displayOnly?: boolean | null;
     displayStatus: string;
     distroId: string;
     execution: number;
@@ -11138,6 +11145,7 @@ export type TaskQuery = {
     canSetPriority: boolean;
     canUnschedule: boolean;
     distroId: string;
+    errors?: Array<string> | null;
     estimatedStart?: number | null;
     expectedDuration?: number | null;
     finishTime?: Date | null;
@@ -11676,6 +11684,7 @@ export type VersionTasksQuery = {
         buildVariantDisplayName?: string | null;
         displayName: string;
         displayStatus: string;
+        errors?: Array<string> | null;
         execution: number;
         projectIdentifier?: string | null;
         reviewed?: boolean | null;

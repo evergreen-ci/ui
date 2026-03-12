@@ -11,24 +11,26 @@
       class="lg-ui-popover-content-0000"
     >
       <div
-        class="e1g54j7l2 emotion-SiderCard-PopoverCard e1am38ss0 leafygreen-ui-17q42jt"
+        class="e1g54j7l3 emotion-SiderCard-PopoverCard e1am38ss0 leafygreen-ui-17q42jt"
         data-cy="task-overview-popup"
       >
-        <a
-          class="lg-ui-0001 e1g54j7l0 emotion-overrideStyles-RouterLink-wordBreakCss-TaskPageLink leafygreen-ui-16e7rxl"
-          data-cy="task-link"
-          href="/task/spruce_ubuntu1604_test_task?execution=0"
-        >
-          <span>
-            test-task-stepback-complete
-          </span>
-        </a>
-        <div
-          class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
-          data-cy="task-status-badge"
-        >
-          Failed
-        </div>
+        <span>
+          <a
+            class="lg-ui-0001 e1g54j7l1 emotion-overrideStyles-RouterLink-wordBreakCss-TaskPageLink leafygreen-ui-16e7rxl"
+            data-cy="task-link"
+            href="/task/spruce_ubuntu1604_test_task?execution=0"
+          >
+            <span>
+              test-task-stepback-complete
+            </span>
+          </a>
+          <div
+            class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
+            data-cy="task-status-badge"
+          >
+            Failed
+          </div>
+        </span>
         <div>
           Duration: 
           2m 35s
@@ -104,7 +106,7 @@
             Distro: 
           </b>
           <a
-            class="lg-ui-0001 e1g54j7l1 emotion-overrideStyles-RouterLink-wordBreakCss leafygreen-ui-16e7rxl"
+            class="lg-ui-0001 e1g54j7l2 emotion-overrideStyles-RouterLink-wordBreakCss leafygreen-ui-16e7rxl"
             data-cy="task-distro-link"
             href="/distro/ubuntu1604-small/settings/general"
           >
@@ -113,15 +115,49 @@
             </span>
           </a>
         </div>
-        <div>
+        <div
+          class="emotion-CommandBlock e1g54j7l0"
+        >
           <b>
             Failing Command: 
           </b>
-          <p
-            class="leafygreen-ui-26vqpd"
+          <div
+            class="leafygreen-ui-1n2fj0p"
+            data-language="none"
+            data-lgid="lg-code"
+            data-testid="lg-code"
           >
-            'shell.exec' in function 'run-integration-test' (step 3 of 10)
-          </p>
+            <div
+              class="leafygreen-ui-r7fdrc"
+            >
+              <pre
+                class="leafygreen-ui-1csi9re"
+                data-lgid="lg-code-pre"
+                data-testid="lg-code-pre"
+                tabindex="-1"
+              >
+                <code
+                  class="lg-highlight-hljs-light none leafygreen-ui-194zjv8"
+                >
+                  <table
+                    class="leafygreen-ui-1tr4g10"
+                  >
+                    <tbody>
+                      <tr
+                        class=""
+                      >
+                        <td
+                          class="leafygreen-ui-c8xnd"
+                        >
+                          'shell.exec' in function 'run-integration-test' (step 3 of 10)
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </code>
+              </pre>
+            </div>
+          </div>
         </div>
         <div
           class="emotion-StepbackLabel engzzr0"
@@ -136,24 +172,24 @@
           >
             In progress
           </div>
-        </div>
-        <a
-          aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-Stepback"
-          data-cy="breaking-task-button"
-          data-lgid="lg-button"
-          href="/"
-          type="button"
-        >
-          <div
-            class="leafygreen-ui-v038xi"
-          />
-          <div
-            class="leafygreen-ui-16tr4y"
+          <a
+            aria-disabled="true"
+            class="lg-ui-button-0000 leafygreen-ui-zzkmfy emotion-Stepback"
+            data-cy="breaking-task-button"
+            data-lgid="lg-button"
+            href="/"
+            type="button"
           >
-            Go to breaking task
-          </div>
-        </a>
+            <div
+              class="leafygreen-ui-v038xi"
+            />
+            <div
+              class="leafygreen-ui-16tr4y"
+            >
+              Go to breaking task
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>

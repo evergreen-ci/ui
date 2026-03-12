@@ -27,6 +27,11 @@ export interface OtherFormState {
       };
     };
 
+    oktaServiceConfig: {
+      clientId: string;
+      clientSecret: string;
+    };
+
     singleTaskDistro: {
       projectTasksPairs: Array<{
         projectId: string;
