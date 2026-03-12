@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useVersionAnalytics } from "analytics";
+import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
@@ -66,6 +67,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
 
   return (
     <MetadataCard title={isPatch ? "Patch Metadata" : "Version Metadata"}>
+      <CopyableID textToCopy={id} tooltipLabel="Copy version ID" />
       <MetadataItem>
         <MetadataLabel>Project:</MetadataLabel>{" "}
         <StyledRouterLink

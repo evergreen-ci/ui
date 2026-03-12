@@ -6,15 +6,11 @@
       aria-disabled="true"
       class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
-      data-status="success"
     >
       <div
-        class="emotion-IconContainer e12dzyme1"
-      >
-        <div
-          class="emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle ehu1qo81"
-        />
-      </div>
+        class="e12dzyme1 emotion-PolymorphicTaskBox-taskBoxStyles-StyledTaskBox ehu1qo81"
+        data-status="success"
+      />
       <span
         class="leafygreen-ui-38lglc"
       />
@@ -23,15 +19,11 @@
       aria-disabled="true"
       class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
-      data-status="failed"
     >
       <div
-        class="emotion-IconContainer e12dzyme1"
-      >
-        <div
-          class="emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle ehu1qo81"
-        />
-      </div>
+        class="e12dzyme1 emotion-PolymorphicTaskBox-taskBoxStyles-StyledTaskBox ehu1qo81"
+        data-status="failed"
+      />
       <span
         class="leafygreen-ui-38lglc"
       />
@@ -40,15 +32,11 @@
       aria-disabled="true"
       class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
-      data-status="known-issue"
     >
       <div
-        class="emotion-IconContainer e12dzyme1"
-      >
-        <div
-          class="emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle ehu1qo81"
-        />
-      </div>
+        class="e12dzyme1 emotion-PolymorphicTaskBox-taskBoxStyles-StyledTaskBox ehu1qo81"
+        data-status="known-issue"
+      />
       <span
         class="leafygreen-ui-38lglc"
       />
@@ -57,15 +45,11 @@
       aria-disabled="true"
       class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
-      data-status="dispatched"
     >
       <div
-        class="emotion-IconContainer e12dzyme1"
-      >
-        <div
-          class="emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle ehu1qo81"
-        />
-      </div>
+        class="e12dzyme1 emotion-PolymorphicTaskBox-taskBoxStyles-StyledTaskBox ehu1qo81"
+        data-status="dispatched"
+      />
       <span
         class="leafygreen-ui-38lglc"
       />
@@ -74,15 +58,11 @@
       aria-disabled="true"
       class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
-      data-status="setup-failed"
     >
       <div
-        class="emotion-IconContainer e12dzyme1"
-      >
-        <div
-          class="emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle ehu1qo81"
-        />
-      </div>
+        class="e12dzyme1 emotion-PolymorphicTaskBox-taskBoxStyles-StyledTaskBox ehu1qo81"
+        data-status="setup-failed"
+      />
       <span
         class="leafygreen-ui-38lglc"
       />
@@ -91,15 +71,11 @@
       aria-disabled="true"
       class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
-      data-status="system-unresponsive"
     >
       <div
-        class="emotion-IconContainer e12dzyme1"
-      >
-        <div
-          class="emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle ehu1qo81"
-        />
-      </div>
+        class="e12dzyme1 emotion-PolymorphicTaskBox-taskBoxStyles-StyledTaskBox ehu1qo81"
+        data-status="system-unresponsive"
+      />
       <span
         class="leafygreen-ui-38lglc"
       />
@@ -108,15 +84,11 @@
       aria-disabled="true"
       class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
-      data-status="test-timed-out"
     >
       <div
-        class="emotion-IconContainer e12dzyme1"
-      >
-        <div
-          class="emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle ehu1qo81"
-        />
-      </div>
+        class="e12dzyme1 emotion-PolymorphicTaskBox-taskBoxStyles-StyledTaskBox ehu1qo81"
+        data-status="test-timed-out"
+      />
       <span
         class="leafygreen-ui-38lglc"
       />
@@ -125,15 +97,11 @@
       aria-disabled="true"
       class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
-      data-status="aborted"
     >
       <div
-        class="emotion-IconContainer e12dzyme1"
-      >
-        <div
-          class="emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle ehu1qo81"
-        />
-      </div>
+        class="e12dzyme1 emotion-PolymorphicTaskBox-taskBoxStyles-StyledTaskBox ehu1qo81"
+        data-status="aborted"
+      />
       <span
         class="leafygreen-ui-38lglc"
       />
@@ -142,15 +110,11 @@
       aria-disabled="true"
       class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
-      data-status="will-run"
     >
       <div
-        class="emotion-IconContainer e12dzyme1"
-      >
-        <div
-          class="emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle ehu1qo81"
-        />
-      </div>
+        class="e12dzyme1 emotion-PolymorphicTaskBox-taskBoxStyles-StyledTaskBox ehu1qo81"
+        data-status="will-run"
+      />
       <span
         class="leafygreen-ui-38lglc"
       />
@@ -159,15 +123,11 @@
       aria-disabled="true"
       class="leafygreen-ui-cssveg emotion-Container e12dzyme2"
       data-cy="history-table-icon"
-      data-status="inactive"
     >
       <div
-        class="emotion-IconContainer e12dzyme1"
-      >
-        <div
-          class="emotion-PolymorphicTaskBox-getTaskBoxStyles-getTaskStatusStyle ehu1qo81"
-        />
-      </div>
+        class="e12dzyme1 emotion-PolymorphicTaskBox-taskBoxStyles-StyledTaskBox ehu1qo81"
+        data-status="inactive"
+      />
       <span
         class="leafygreen-ui-38lglc"
       />

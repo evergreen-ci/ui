@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import styled from "@emotion/styled";
-import { IconButton } from "@leafygreen-ui/icon-button";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";
@@ -33,13 +32,14 @@ export const CopyButton: React.FC<Props> = ({ textToCopy, tooltipLabel }) => {
     <Tooltip
       data-cy="copy-button-tooltip"
       trigger={
-        <StyledIconButton
-          aria-label="Copy text to clipboard"
+        <Button
           data-cy="copy-button"
+          leftGlyph={
+            copied ? <Icon glyph="Checkmark" /> : <Icon glyph="Copy" />
+          }
           onClick={copyText}
-        >
-          <Icon glyph="Copy" />
-        </StyledIconButton>
+          size={ButtonSize.XSmall}
+        />
       }
       triggerEvent={TriggerEvent.Hover}
     >
@@ -47,8 +47,3 @@ export const CopyButton: React.FC<Props> = ({ textToCopy, tooltipLabel }) => {
     </Tooltip>
   );
 };
-
-const StyledIconButton = styled(IconButton)`
-  max-height: 16px;
-  max-width: 16px;
-`;
