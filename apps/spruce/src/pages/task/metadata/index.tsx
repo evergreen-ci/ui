@@ -122,11 +122,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   return (
     <>
       <MetadataCard title="Task Metadata">
-        <CopyableID
-          textToCopy={taskId}
-          tooltipLabel="Copy task ID"
-          truncateAt={50}
-        />
+        <CopyableID textToCopy={taskId} tooltipLabel="Copy task ID" />
         <MetadataItem data-cy="task-metadata-project">
           <MetadataLabel>Project:</MetadataLabel>{" "}
           <StyledRouterLink
