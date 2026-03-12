@@ -34,6 +34,10 @@ describe("admin settings save properly", () => {
       cy.getInputByLabel("Name").first().as("taskHostKeyNameInput");
       cy.get("@taskHostKeyNameInput").clear();
       cy.get("@taskHostKeyNameInput").type("test-task-host-key");
+
+      cy.getInputByLabel("Secret ARN").first().as("taskHostSecretARNInput");
+      cy.get("@taskHostSecretARNInput").clear();
+      cy.get("@taskHostSecretARNInput").type("test-task-host-secret-arn");
     });
 
     cy.dataCy("host-jasper").within(() => {
@@ -76,6 +80,9 @@ describe("admin settings save properly", () => {
       cy.getInputByLabel("Name")
         .first()
         .should("have.value", "test-task-host-key");
+      cy.getInputByLabel("Secret ARN")
+        .first()
+        .should("have.value", "test-task-host-secret-arn");
     });
     cy.dataCy("host-jasper").within(() => {
       cy.getInputByLabel("Binary Name").should("have.value", "test-jasper");
@@ -129,6 +136,9 @@ describe("admin settings save properly", () => {
       cy.getInputByLabel("Name")
         .first()
         .should("have.value", "test-task-host-key");
+      cy.getInputByLabel("Secret ARN")
+        .first()
+        .should("have.value", "test-task-host-secret-arn");
     });
     cy.dataCy("host-jasper").within(() => {
       cy.getInputByLabel("Binary Name").should("have.value", "test-jasper");
