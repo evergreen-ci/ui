@@ -5,7 +5,9 @@ import {
   useMemo,
   useReducer,
 } from "react";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { getUserStagingKey, isStaging } from "../../utils/environmentVariables";
 import {
   SentryBreadcrumbTypes,
   leaveBreadcrumb,
@@ -128,6 +130,12 @@ const AuthProvider: React.FC<{
        * or redirects to the remoteAuthURL for remoteAuth.
        */
       logoutAndRedirect: async () => {
+        // Set the staging cookie early so the /logout fetch preflight
+        // can be routed by istio, and so the subsequent login redirect works.
+        const stagingKey = getUserStagingKey();
+        if (isStaging() && stagingKey) {
+          Cookies.set("evg-staging-environment", stagingKey);
+        }
         if (state.isAuthenticated) {
           try {
             await fetch(`${evergreenAppURL}/logout`, {
