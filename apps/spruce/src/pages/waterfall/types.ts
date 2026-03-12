@@ -8,13 +8,6 @@ export type ServerFilters = Pick<
   "requesters" | "statuses" | "tasks" | "variants"
 >;
 
-export const resetFilterState: ServerFilters = {
-  requesters: [],
-  statuses: [],
-  tasks: [],
-  variants: [],
-};
-
 export type Version = Omit<
   Unpacked<WaterfallQuery["waterfall"]["flattenedVersions"]>,
   "buildVariants"
