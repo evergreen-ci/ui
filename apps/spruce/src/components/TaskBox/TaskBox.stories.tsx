@@ -13,13 +13,9 @@ export const Default: CustomStoryObj<TemplateProps> = {
   render: (args) => <Template {...args} />,
   args: {
     hasTooltip: true,
-    rightmost: false,
   },
   argTypes: {
     hasTooltip: {
-      control: { type: "boolean" },
-    },
-    rightmost: {
       control: { type: "boolean" },
     },
   },
@@ -27,7 +23,6 @@ export const Default: CustomStoryObj<TemplateProps> = {
 
 type TemplateProps = {
   hasTooltip: boolean;
-  rightmost: boolean;
 };
 
 const Template = (args: TemplateProps) => (
@@ -35,15 +30,13 @@ const Template = (args: TemplateProps) => (
     {SortedTaskStatus.map((s) => (
       <TaskBox
         key={s}
+        data-tooltip={args.hasTooltip ? `Task with status ${s}` : undefined}
         status={s as TaskStatus}
-        tooltip={args.hasTooltip ? `Task with status ${s}` : ""}
-        {...args}
       />
     ))}
   </Container>
 );
 
-// Orient task boxes in the center of the frame to make space for tooltip.
 const Container = styled.div`
   display: flex;
   align-items: center;

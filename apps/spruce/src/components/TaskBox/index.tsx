@@ -14,60 +14,44 @@ export const SQUARE_WITH_BORDER = DEFAULT_SQUARE_SIZE + SQUARE_BORDER * 2;
 
 export { statusColorMap };
 
-const getTaskStatusStyle = (status: TaskStatus) => {
-  const icon = statusIconMap?.[status];
-  const iconStyle = icon
-    ? `background-image: ${icon}; background-size: cover;`
-    : "";
-  return css`
-    ${iconStyle}
-    background-color: ${statusColorMap[status]};
-  `;
-};
-
-const getCollapsedTaskBoxStyles = () => css`
-  min-width: ${DEFAULT_SQUARE_SIZE}px;
-  width: fit-content;
-  background-color: ${gray.light2};
-  border-radius: ${size.xxs};
-  text-align: center;
-`;
-
-const getTaskBoxStyles = (squareSize: number = DEFAULT_SQUARE_SIZE) => css`
-  width: ${squareSize}px;
-  height: ${squareSize}px;
-  border: ${SQUARE_BORDER}px solid ${white};
-  box-sizing: content-box;
-  float: left;
-  position: relative;
-`;
-
 interface TaskBoxProps {
   status: TaskStatus;
-  squareSize?: number;
-  tooltip?: string;
-  rightmost?: boolean;
 }
 
 type PolymorphicProps<E extends React.ElementType> = TaskBoxProps & {
   as?: E;
 } & Omit<React.ComponentPropsWithoutRef<E>, keyof TaskBoxProps>;
 
-const PolymorphicTaskBox = styled.div<TaskBoxProps>`
-  ${({ squareSize }) => getTaskBoxStyles(squareSize)}
-  ${({ status }) => getTaskStatusStyle(status)};
+// Generate all styles associated with statuses so that we don't need to interpolate a box's status via Emotion to apply the style
+const statusStyles = Object.entries(statusColorMap)
+  .map(([status, color]) => {
+    const icon = statusIconMap[status as TaskStatus];
+    return `
+    &[data-status="${status}"] {
+      background-color: ${color};
+      ${icon ? `background-image: ${icon}; background-size: cover;` : ""}
+    }`;
+  })
+  .join("\n");
 
-  ${({ rightmost, tooltip }) =>
-    tooltip &&
-    `
+export const taskBoxStyles = css`
+  width: ${DEFAULT_SQUARE_SIZE}px;
+  height: ${DEFAULT_SQUARE_SIZE}px;
+  border: ${SQUARE_BORDER}px solid ${white};
+  box-sizing: content-box;
+  float: left;
+  position: relative;
   cursor: pointer;
 
-  :before {
-    content: "${tooltip}";
+  ${statusStyles}
+
+  /* A centered tooltip is rendered above the box containing the element's data-tooltip string */
+  &[data-tooltip]:before {
+    content: attr(data-tooltip);
     position: absolute;
     bottom: calc(100% + 5px);
     left: 50%;
-    transform: ${rightmost ? "translate(-90%)" : "translate(-50%)"};
+    transform: translate(-50%);
     z-index: 1;
     width: max-content;
     max-width: 450px;
@@ -80,11 +64,16 @@ const PolymorphicTaskBox = styled.div<TaskBoxProps>`
     display: none;
   }
 
-  :hover:before {
+  /* If a parent specifies [data-rightmost-build=true], render the tooltip to the left */
+  [data-rightmost-build] &[data-tooltip]:before {
+    transform: translate(-90%);
+  }
+
+  &[data-tooltip]:hover:before {
     display: block;
   }
 
-  :hover:after {
+  &[data-tooltip]:hover:after {
     content: "";
     position: absolute;
     bottom: calc(100% - 5px);
@@ -94,27 +83,31 @@ const PolymorphicTaskBox = styled.div<TaskBoxProps>`
     border-style: solid;
     border-color: ${black} transparent transparent transparent;
   }
-  `}
+`;
+
+const PolymorphicTaskBox = styled.div`
+  ${taskBoxStyles}
 `;
 
 export const TaskBox = forwardRef<
   HTMLDivElement,
   PolymorphicProps<React.ElementType>
->(({ as, rightmost, squareSize, status, tooltip, ...rest }, ref) => (
-  <PolymorphicTaskBox
-    ref={ref}
-    as={as}
-    rightmost={rightmost}
-    squareSize={squareSize}
-    status={status}
-    tooltip={tooltip}
-    {...rest}
-  />
+>(({ as, status, ...rest }, ref) => (
+  <PolymorphicTaskBox ref={ref} as={as} data-status={status} {...rest} />
 ));
 
 TaskBox.displayName = "TaskBox";
 
 export const CollapsedBox = styled.div`
-  ${getTaskBoxStyles()}
-  ${getCollapsedTaskBoxStyles()}
+  width: ${DEFAULT_SQUARE_SIZE}px;
+  height: ${DEFAULT_SQUARE_SIZE}px;
+  border: ${SQUARE_BORDER}px solid ${white};
+  box-sizing: content-box;
+  float: left;
+  position: relative;
+  min-width: ${DEFAULT_SQUARE_SIZE}px;
+  width: fit-content;
+  background-color: ${gray.light2};
+  border-radius: ${size.xxs};
+  text-align: center;
 `;

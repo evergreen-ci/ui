@@ -119,7 +119,6 @@ export const gqlToForm = ((data) => {
           name: ssh?.spawnHostKey?.name ?? "",
           secretARN: ssh?.spawnHostKey?.secretARN ?? "",
         },
-        kanopySSHKeyPath: data.kanopySSHKeyPath ?? "",
       },
 
       expansions: {
@@ -222,7 +221,7 @@ export const formToGql = ((form: OtherFormState) => {
     tracerConfiguration,
   } = other;
 
-  const { kanopySSHKeyPath, ...ssh } = sshPairs;
+  const { ...ssh } = sshPairs;
 
   return {
     configDir: miscSettings.configDir || undefined,
@@ -315,8 +314,6 @@ export const formToGql = ((form: OtherFormState) => {
         secretARN: ssh.spawnHostKey.secretARN || undefined,
       },
     },
-
-    kanopySSHKeyPath: kanopySSHKeyPath || undefined,
 
     expansions: convertExpansionsToGql(expansions.expansionValues),
 

@@ -166,7 +166,6 @@ export type AdminSettings = {
   hostJasper?: Maybe<HostJasperConfig>;
   jira?: Maybe<JiraConfig>;
   jiraNotifications?: Maybe<JiraNotificationsConfig>;
-  kanopySSHKeyPath?: Maybe<Scalars["String"]["output"]>;
   logPath?: Maybe<Scalars["String"]["output"]>;
   loggerConfig?: Maybe<LoggerConfig>;
   notify?: Maybe<NotifyConfig>;
@@ -225,7 +224,6 @@ export type AdminSettingsInput = {
   hostJasper?: InputMaybe<HostJasperConfigInput>;
   jira?: InputMaybe<JiraConfigInput>;
   jiraNotifications?: InputMaybe<JiraNotificationsConfigInput>;
-  kanopySSHKeyPath?: InputMaybe<Scalars["String"]["input"]>;
   logPath?: InputMaybe<Scalars["String"]["input"]>;
   loggerConfig?: InputMaybe<LoggerConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
@@ -7426,7 +7424,6 @@ export type AdminSettingsQuery = {
     githubOrgs?: Array<string> | null;
     githubPRCreatorOrg?: string | null;
     githubWebhookSecret?: string | null;
-    kanopySSHKeyPath?: string | null;
     logPath?: string | null;
     oldestAllowedCLIVersion?: string | null;
     perfMonitoringKanopyURL?: string | null;
