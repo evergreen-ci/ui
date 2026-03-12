@@ -1,5 +1,3 @@
-import Cookie from "js-cookie";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   act,
@@ -9,17 +7,16 @@ import {
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes } from "constants/enums";
+import { PRETTY_PRINT_BOOKMARKS } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import PrettyPrintToggle from ".";
-
-vi.mock("js-cookie");
-const mockedSet = vi.spyOn(Cookie, "set") as MockInstance;
 
 const wrapper = logContextWrapper();
 
 describe("pretty print toggle", () => {
   beforeEach(() => {
+    localStorage.clear();
     InitializeFakeToastContext();
   });
 
@@ -43,7 +40,7 @@ describe("pretty print toggle", () => {
 
     await user.click(prettyPrintToggle);
     expect(prettyPrintToggle).toHaveAttribute("aria-checked", "true");
-    expect(mockedSet).toHaveBeenCalledTimes(1);
+    expect(localStorage.getItem(PRETTY_PRINT_BOOKMARKS)).toBe("true");
     expect(router.state.location.search).toBe("");
   });
 });

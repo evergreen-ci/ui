@@ -1,5 +1,5 @@
 import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
-import WarningBanner from ".";
+import { WarningBanner } from ".";
 
 const warnings = ["warning1", "warning2", "warning3"];
 

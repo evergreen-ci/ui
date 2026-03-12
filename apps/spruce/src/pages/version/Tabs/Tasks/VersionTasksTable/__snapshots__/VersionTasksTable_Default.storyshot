@@ -698,16 +698,20 @@
                 <div
                   class=""
                 >
-                  <a
-                    href="/task/evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
+                  <div
+                    class="emotion-TaskBadgeWrapper e1lpbp6o0"
                   >
-                    <div
-                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
-                      data-cy="task-status-badge"
+                    <a
+                      href="/task/evergreen_ui_spruce_snapshots_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                     >
-                      Failed
-                    </div>
-                  </a>
+                      <div
+                        class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
+                        data-cy="task-status-badge"
+                      >
+                        Failed
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -894,16 +898,20 @@
                 <div
                   class=""
                 >
-                  <a
-                    href="/task/evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
+                  <div
+                    class="emotion-TaskBadgeWrapper e1lpbp6o0"
                   >
-                    <div
-                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
-                      data-cy="task-status-badge"
+                    <a
+                      href="/task/evergreen_ui_spruce_test_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                     >
-                      Succeeded
-                    </div>
-                  </a>
+                      <div
+                        class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
+                        data-cy="task-status-badge"
+                      >
+                        Succeeded
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1090,16 +1098,20 @@
                 <div
                   class=""
                 >
-                  <a
-                    href="/task/evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
+                  <div
+                    class="emotion-TaskBadgeWrapper e1lpbp6o0"
                   >
-                    <div
-                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
-                      data-cy="task-status-badge"
+                    <a
+                      href="/task/evergreen_ui_spruce_type_check_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                     >
-                      Succeeded
-                    </div>
-                  </a>
+                      <div
+                        class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-13vzj3x"
+                        data-cy="task-status-badge"
+                      >
+                        Succeeded
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1315,16 +1327,20 @@
                 <div
                   class=""
                 >
-                  <a
-                    href="/task/evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
+                  <div
+                    class="emotion-TaskBadgeWrapper e1lpbp6o0"
                   >
-                    <div
-                      class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
-                      data-cy="task-status-badge"
+                    <a
+                      href="/task/evergreen_ui_spruce_display_e2e_parallel_patch_26012f78a3769aad078554f89d1de580a312d629_6864459c5b88310007596035_25_07_01_20_31_25?execution=0"
                     >
-                      Failed
-                    </div>
-                  </a>
+                      <div
+                        class="emotion-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-cfigsp"
+                        data-cy="task-status-badge"
+                      >
+                        Failed
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
