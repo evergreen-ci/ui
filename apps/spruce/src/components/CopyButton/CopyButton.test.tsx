@@ -1,5 +1,5 @@
 import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
-import { CopyButton } from "./CopyButton";
+import { CopyButton } from ".";
 
 describe("copy button", () => {
   it("should indicate when the user has successfully copied to clipboard", async () => {
