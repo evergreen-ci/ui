@@ -9,12 +9,12 @@ const makeProgressPart = (
   phase: string,
 ): Part =>
   ({
-    type: "data-progress",
+    type: "data-tool-progress",
     data: { toolCallId, percentage, phase },
   }) as unknown as Part;
 
 describe("getProgressByToolCallId", () => {
-  it("returns an empty map when there are no data-progress parts", () => {
+  it("returns an empty map when there are no data-tool-progress parts", () => {
     const parts: Part[] = [
       { type: "text", text: "hello", state: "done" } as unknown as Part,
     ];
@@ -66,7 +66,7 @@ describe("getProgressByToolCallId", () => {
     });
   });
 
-  it("ignores parts that are not data-progress", () => {
+  it("ignores parts that are not data-tool-progress", () => {
     const parts: Part[] = [
       { type: "text", text: "hello", state: "done" } as unknown as Part,
       { type: "step-start" } as unknown as Part,
@@ -80,18 +80,18 @@ describe("getProgressByToolCallId", () => {
     });
   });
 
-  it("skips data-progress parts with missing required fields", () => {
+  it("skips data-tool-progress parts with missing required fields", () => {
     const parts: Part[] = [
       {
-        type: "data-progress",
+        type: "data-tool-progress",
         data: { percentage: 50, phase: "Loading" },
       } as unknown as Part,
       {
-        type: "data-progress",
+        type: "data-tool-progress",
         data: { toolCallId: "call_1", phase: "Loading" },
       } as unknown as Part,
       {
-        type: "data-progress",
+        type: "data-tool-progress",
         data: { toolCallId: "call_1", percentage: 50 },
       } as unknown as Part,
     ];
