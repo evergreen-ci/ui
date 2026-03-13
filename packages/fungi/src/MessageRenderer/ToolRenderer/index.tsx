@@ -6,22 +6,34 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { AnimatedEllipsis } from "#AnimatedEllipsis";
 import { ToolState, ToolStateEnum } from "../types";
 import { renderableToolLabels } from "./constants";
+import { ProgressIndicator } from "./ProgressIndicator";
+import { ProgressUpdate } from "./utils";
 
 const loadingStates: ToolState[] = [
   ToolStateEnum.InputStreaming,
   ToolStateEnum.InputAvailable,
 ];
+
 const toolStateToLabelState = (state: ToolState) => {
   if (state === ToolStateEnum.OutputError) return "errorCopy";
   if (state === ToolStateEnum.OutputAvailable) return "completedCopy";
   return "loadingCopy";
 };
-export const ToolRenderer: React.FC<ToolUIPart> = (tool) => {
+
+type ToolRendererProps = ToolUIPart & {
+  progress?: ProgressUpdate;
+};
+
+export const ToolRenderer: React.FC<ToolRendererProps> = ({
+  progress,
+  ...tool
+}) => {
   const toolLabel = renderableToolLabels[tool.type];
   if (!toolLabel) return null;
+
+  const isLoading = loadingStates.includes(tool.state);
   const variant =
     tool.state === ToolStateEnum.OutputError ? Variant.Danger : Variant.Info;
-  const isLoading = loadingStates.includes(tool.state);
 
   return (
     <StyledBanner
@@ -30,7 +42,13 @@ export const ToolRenderer: React.FC<ToolUIPart> = (tool) => {
       variant={variant}
     >
       {toolLabel[toolStateToLabelState(tool.state)]}
-      {isLoading && <AnimatedEllipsis />}
+      {isLoading && !progress && <AnimatedEllipsis />}
+      {isLoading && progress && (
+        <ProgressIndicator
+          percentage={progress.percentage}
+          phase={progress.phase}
+        />
+      )}
     </StyledBanner>
   );
 };

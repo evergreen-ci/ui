@@ -80,4 +80,52 @@ describe("ToolRenderer", () => {
       screen.getByText("Error fetching information from Evergreen Agent"),
     ).toBeInTheDocument();
   });
+
+  it("renders a progress indicator when progress prop is provided during loading", () => {
+    render(
+      <ToolRenderer
+        {...{
+          type: "tool-logCoreAnalyzerTool",
+          state: ToolStateEnum.InputAvailable,
+          toolCallId: "456",
+          input: "test",
+        }}
+        progress={{ percentage: 50, phase: "Refining chunk 3 of 5" }}
+      />,
+    );
+    expect(screen.getByText("Analyzing logs")).toBeInTheDocument();
+    expect(screen.getByText("Refining chunk 3 of 5")).toBeInTheDocument();
+  });
+
+  it("shows loading ellipsis when no progress prop is provided during loading", () => {
+    render(
+      <ToolRenderer
+        {...{
+          type: "tool-logCoreAnalyzerTool",
+          state: ToolStateEnum.InputAvailable,
+          toolCallId: "456",
+          input: "test",
+        }}
+      />,
+    );
+    expect(screen.getByText("Analyzing logs")).toBeInTheDocument();
+    expect(screen.queryByText("%")).not.toBeInTheDocument();
+  });
+
+  it("does not show progress indicator when tool is completed", () => {
+    render(
+      <ToolRenderer
+        {...{
+          type: "tool-logCoreAnalyzerTool",
+          state: ToolStateEnum.OutputAvailable,
+          toolCallId: "456",
+          input: "test",
+          output: { result: "analysis complete" },
+        }}
+        progress={{ percentage: 100, phase: "Analysis complete" }}
+      />,
+    );
+    expect(screen.getByText("Analyzed logs")).toBeInTheDocument();
+    expect(screen.queryByText("Analysis complete")).not.toBeInTheDocument();
+  });
 });
