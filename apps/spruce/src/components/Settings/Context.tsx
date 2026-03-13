@@ -71,6 +71,9 @@ const reducer =
                 ...state[action.tab],
                 hasChanges: false,
                 hasError: false,
+                initialData: getTransformer[action.tab]
+                  ? getTransformer[action.tab](state[action.tab].formData)
+                  : state[action.tab].initialData,
               },
             }
           : state;

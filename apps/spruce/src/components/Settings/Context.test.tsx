@@ -131,9 +131,6 @@ describe("useTestContext", () => {
 
     act(() => {
       result.current.saveTab("foo");
-      result.current.setInitialData({
-        foo: result.current.getTab("foo").formData,
-      } as Parameters<typeof result.current.setInitialData>[0]);
     });
 
     expect(result.current.getTab("foo").hasChanges).toBe(false);
@@ -141,6 +138,74 @@ describe("useTestContext", () => {
     act(() => {
       result.current.updateForm("foo")({
         formData: { capsLockEnabled: true },
+        errors: [],
+      });
+    });
+
+    await waitFor(() => {
+      expect(result.current.getTab("foo").hasChanges).toBe(true);
+    });
+  });
+
+  it("saveTab updates initialData so a second save cycle works", async () => {
+    const { result } = renderHook(() => useTestContext(), {
+      wrapper: TestProvider,
+    });
+
+    act(() => {
+      result.current.setInitialData(initialData);
+    });
+
+    // First change: toggle capsLockEnabled from true to false
+    act(() => {
+      result.current.updateForm("foo")({
+        formData: { capsLockEnabled: false },
+        errors: [],
+      });
+    });
+
+    await waitFor(() => {
+      expect(result.current.getTab("foo").hasChanges).toBe(true);
+    });
+
+    // First save
+    act(() => {
+      result.current.saveTab("foo");
+    });
+
+    expect(result.current.getTab("foo").hasChanges).toBe(false);
+    // initialData should now reflect the saved form data
+    expect(result.current.getTab("foo").initialData).toStrictEqual({
+      capsLockEnabled: false,
+    });
+
+    // Second change: toggle capsLockEnabled back to true
+    act(() => {
+      result.current.updateForm("foo")({
+        formData: { capsLockEnabled: true },
+        errors: [],
+      });
+    });
+
+    await waitFor(() => {
+      expect(result.current.getTab("foo").hasChanges).toBe(true);
+    });
+
+    // Second save
+    act(() => {
+      result.current.saveTab("foo");
+    });
+
+    expect(result.current.getTab("foo").hasChanges).toBe(false);
+    // initialData should update again after the second save
+    expect(result.current.getTab("foo").initialData).toStrictEqual({
+      capsLockEnabled: true,
+    });
+
+    // Third change: verify changes are still detected after two save cycles
+    act(() => {
+      result.current.updateForm("foo")({
+        formData: { capsLockEnabled: false },
         errors: [],
       });
     });
