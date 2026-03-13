@@ -416,12 +416,10 @@ export enum BannerTheme {
 
 export type BetaFeatures = {
   __typename?: "BetaFeatures";
-  parsleyAIEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   spruceWaterfallEnabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type BetaFeaturesInput = {
-  parsleyAIEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   spruceWaterfallEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
