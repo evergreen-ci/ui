@@ -300,3 +300,23 @@ pnpm install              # Reinstall
 ### HTTPS certificate issues
 - Regenerate certificate with `mkcert`
 - Ensure hosts file entry exists
+
+## Local Development URLs & Credentials
+
+- **Spruce:** http://localhost:3000/
+- **Parsley:** http://localhost:5173/
+- Login credentials: username `admin`, password `password`
+- If not logged in, you'll be redirected to `/login`
+
+## Playwright / Browser Verification
+
+If you haven't run `claude mcp add playwright npx '@playwright/mcp@latest'` to enable the MCP server.
+
+- **WARNING:** Before switching branches or checking out other refs, check `git status` and `git log origin/HEAD..HEAD` for uncommitted or unpushed work and ask the user before proceeding — never discard or overwrite in-progress work.
+- **Do NOT modify code to finish implementing or fix issues in the PR when reviewing.** Only make small, targeted edits necessary to unblock testing (e.g. stubbing an env check), revert them afterward, and inform the user of any changes made.
+- Contributors work from forks — `origin` is the user's fork and `upstream` points to the main repo. PRs target `upstream/main`.
+- Save all screenshots and artifacts to `.playwright-mcp/` (e.g. `filename: ".playwright-mcp/my-screenshot.png"`). This directory is gitignored.
+- When verifying PRs with Playwright, use the already-running local dev server. Don't spin up separate builds or servers unless you need build output.
+- If a feature is gated behind environment checks (e.g. `isLocal()`), use `browser_evaluate` to simulate conditions rather than rebuilding the app.
+- After navigating to a page, use `browser_wait_for` with expected text before interacting — the app may still be loading (shows "LOADING...").
+- Check `browser_console_messages` and `browser_network_requests` to verify no regressions — look for new errors not present on `main`.
