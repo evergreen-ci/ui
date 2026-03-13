@@ -216,10 +216,41 @@ export const getFormSchema = ({
             },
           },
         },
-        isDebug: {
-          title: "Spawn host in Debug Mode",
-          type: "boolean" as const,
-          default: false,
+        debugSection: {
+          type: "object" as const,
+          title: "",
+          properties: {
+            isDebug: {
+              title: "Spawn host in Debug Mode",
+              type: "boolean" as const,
+              default: false,
+            },
+          },
+          dependencies: {
+            isDebug: {
+              oneOf: [
+                {
+                  properties: {
+                    isDebug: {
+                      enum: [true],
+                    },
+                    setupStepNumber: {
+                      title: "Run task until step number",
+                      type: "string" as const,
+                      default: "",
+                    },
+                  },
+                },
+                {
+                  properties: {
+                    isDebug: {
+                      enum: [false],
+                    },
+                  },
+                },
+              ],
+            },
+          },
         },
         ...(hasValidTask && {
           loadData: {
@@ -377,11 +408,21 @@ export const getFormSchema = ({
       },
     },
     uiSchema: {
-      isDebug: {
-        "ui:widget":
-          hasValidTask && !isDebugDisabled ? widgets.CheckboxWidget : "hidden",
-        "ui:data-cy": "is-debug-toggle",
-        "ui:description": "Debug Mode that allows users to step through tasks",
+      debugSection: {
+        isDebug: {
+          "ui:widget":
+            hasValidTask && !isDebugDisabled
+              ? widgets.CheckboxWidget
+              : "hidden",
+          "ui:data-cy": "is-debug-toggle",
+          "ui:description":
+            "Debug Mode that allows users to step through tasks",
+        },
+        setupStepNumber: {
+          "ui:data-cy": "setup-step-number-input",
+          "ui:description":
+            'Step number to automatically run until after host setup (e.g., "5" or "5.1"). Leave empty to skip.',
+        },
       },
       requiredSection: {
         "ui:elementWrapperCSS": css`

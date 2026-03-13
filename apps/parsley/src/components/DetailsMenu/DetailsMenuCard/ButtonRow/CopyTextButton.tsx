@@ -4,17 +4,20 @@ import { MenuItem } from "@leafygreen-ui/menu";
 import { palette } from "@leafygreen-ui/palette";
 import { SplitButton } from "@leafygreen-ui/split-button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import Cookies from "js-cookie";
 import Icon from "@evg-ui/lib/components/Icon";
 import { transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import {
+  getLocalStorageString,
+  setLocalStorageString,
+} from "@evg-ui/lib/utils/localStorage";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";
 import { usePreferencesAnalytics } from "analytics";
-import { COPY_FORMAT } from "constants/cookies";
 import { CopyFormat } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
+import { COPY_FORMAT } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { getJiraFormat, getRawLines } from "utils/string";
 
@@ -64,7 +67,7 @@ const Button: React.FC<{ bookmarks: number[] }> = ({ bookmarks }) => {
   ) => {
     await copyToClipboard(getText(bookmarks, getLine));
     setCopyDefault(format);
-    Cookies.set(COPY_FORMAT, format);
+    setLocalStorageString(COPY_FORMAT, format);
     setCopied(true);
   };
 
@@ -93,7 +96,7 @@ const Button: React.FC<{ bookmarks: number[] }> = ({ bookmarks }) => {
   };
 
   const [copyDefault, setCopyDefault] = useState(
-    Cookies.get(COPY_FORMAT) ?? CopyFormat.Jira,
+    getLocalStorageString(COPY_FORMAT) ?? CopyFormat.Jira,
   );
   const { [copyDefault]: primaryOption, ...selectableOptions } = copyOptions;
   return (

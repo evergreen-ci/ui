@@ -12,13 +12,11 @@ import { InactiveVersionsModal } from "./InactiveVersionsModal";
 const { blue, gray } = palette;
 
 interface Props {
-  containerHeight: number | undefined;
   highlightedIndex: number | undefined;
   versions: Version[];
 }
 
 export const InactiveVersionsButton: React.FC<Props> = ({
-  containerHeight,
   highlightedIndex,
   versions,
 }) => {
@@ -52,7 +50,7 @@ export const InactiveVersionsButton: React.FC<Props> = ({
         variant={highlightedIndex !== undefined ? "primary" : "default"}
       >
         {versions?.length}
-        <InactiveVersionLine containerHeight={containerHeight ?? 0} />
+        <InactiveVersionLine />
       </StyledButton>
     </>
   );
@@ -75,9 +73,9 @@ const glowButtonStyle = css`
   }
 `;
 
-const InactiveVersionLine = styled.div<{ containerHeight: number }>`
+const InactiveVersionLine = styled.div`
   border-left: 2px dashed ${gray.base};
-  height: ${({ containerHeight }) => `${containerHeight}px`};
+  height: 200vh;
   position: absolute;
   margin-left: 50%;
   top: 30px;

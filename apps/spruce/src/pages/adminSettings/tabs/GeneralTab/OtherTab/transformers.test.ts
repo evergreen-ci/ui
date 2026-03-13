@@ -79,7 +79,6 @@ const mockAdminSettings: AdminSettingsData = {
       secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
     },
   },
-  kanopySSHKeyPath: "/etc/ssh/kanopy_key",
   expansions: {
     DATABASE_URL: "mongodb://localhost:27017",
     API_KEY: "secret-api-key",
@@ -196,7 +195,6 @@ const expectedForm: OtherFormState = {
         secretARN:
           "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
       },
-      kanopySSHKeyPath: "/etc/ssh/kanopy_key",
     },
     expansions: {
       expansionValues: [
@@ -323,7 +321,6 @@ const expectedGql: AdminSettingsInput = {
       secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
     },
   },
-  kanopySSHKeyPath: "/etc/ssh/kanopy_key",
   expansions: {
     DATABASE_URL: "mongodb://localhost:27017",
     API_KEY: "secret-api-key",

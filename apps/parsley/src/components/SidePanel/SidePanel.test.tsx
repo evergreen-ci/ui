@@ -1,24 +1,19 @@
 import { useState } from "react";
-import Cookie from "js-cookie";
-import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
-import { DRAWER_OPENED } from "constants/cookies";
+import { DRAWER_OPENED } from "constants/storageKeys";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import SidePanel from ".";
-
-vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 const wrapper = logContextWrapper();
 
 const SidePanelWrapper = () => {
   const [collapsed, setCollapsed] = useState<boolean>(
-    Cookie.get(DRAWER_OPENED) === "true",
+    localStorage.getItem(DRAWER_OPENED) === "true",
   );
   return (
     <SidePanel
@@ -31,10 +26,8 @@ const SidePanelWrapper = () => {
 
 describe("sidePanel", () => {
   beforeEach(() => {
+    localStorage.clear();
     InitializeFakeToastContext();
-    // Setting the cookie to false means the drawer will be open by default, which means we
-    // won't have to toggle it to test its contents.
-    mockedGet.mockImplementation(() => "false");
   });
 
   it("should be uncollapsed if the user has never seen the filters drawer before", () => {
@@ -44,7 +37,7 @@ describe("sidePanel", () => {
   });
 
   it("should be collapsed if the user has seen the filters drawer before", () => {
-    mockedGet.mockImplementation(() => "true");
+    localStorage.setItem(DRAWER_OPENED, "true");
     render(<SidePanelWrapper />, { wrapper });
     const collapseButton = screen.getByLabelText("Collapse navigation");
     expect(collapseButton).toHaveAttribute("aria-expanded", "false");
