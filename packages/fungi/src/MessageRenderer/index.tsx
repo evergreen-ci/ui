@@ -13,12 +13,16 @@ import { FungiUIMessage } from "./types";
 
 export const MessageRenderer: React.FC<
   FungiUIMessage &
-    MessageActionsProps & { onChipClick?: (chip: ContextChip) => void }
+    MessageActionsProps & {
+      onChipClick?: (chip: ContextChip) => void;
+      onLinkClick?: (href: string) => void;
+    }
 > = ({
   id,
   metadata,
   onChipClick,
   onClickCopy,
+  onLinkClick,
   onRatingChange,
   onSubmitFeedback,
   parts,
@@ -68,6 +72,7 @@ export const MessageRenderer: React.FC<
           return (
             <ToolRenderer
               key={key}
+              onLinkClick={onLinkClick}
               progress={progressMap.get(part.toolCallId)}
               {...part}
             />

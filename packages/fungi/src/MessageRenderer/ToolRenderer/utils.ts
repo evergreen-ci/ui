@@ -5,6 +5,19 @@ export type ProgressUpdate = {
   phase: string;
 };
 
+export type LogCoreAnalyzerOutput = {
+  lineReferences: { line: number; description: string; evidence: string }[];
+  markdown: string;
+  summary: string;
+};
+
+export const isLogCoreAnalyzerOutput = (
+  output: unknown,
+): output is LogCoreAnalyzerOutput =>
+  typeof output === "object" &&
+  output !== null &&
+  typeof (output as Record<string, unknown>).markdown === "string";
+
 type DataProgressData = ProgressUpdate & { toolCallId: string };
 
 const isDataProgressData = (data: unknown): data is DataProgressData =>

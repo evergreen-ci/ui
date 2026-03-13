@@ -1,5 +1,8 @@
+import { RichLinkProps } from "@lg-chat/rich-links";
 import { glyphs } from "@evg-ui/lib/components/Icon";
 import { ToolState } from "../types";
+import { isLogCoreAnalyzerOutput } from "./utils";
+
 /**
  * Mapping of tool names to their various states.
  * This should be updated as new tools are added to the agent.
@@ -12,6 +15,11 @@ export const renderableToolLabels: Record<
     completedCopy: string;
     errorCopy: string;
     glyph: keyof typeof glyphs;
+    renderLinks?: (
+      output: unknown,
+      onLinkClick?: (href: string) => void,
+    ) => RichLinkProps[] | undefined;
+    renderOutput?: (output: unknown) => string | undefined;
   }
 > = {
   "tool-askEvergreenAgentTool": {
@@ -25,6 +33,18 @@ export const renderableToolLabels: Record<
     completedCopy: "Analyzed logs",
     errorCopy: "Error analyzing logs",
     glyph: "File",
+    renderLinks: (output, onLinkClick) => {
+      if (!isLogCoreAnalyzerOutput(output) || !output.lineReferences.length) {
+        return undefined;
+      }
+      return output.lineReferences.map(({ description, line }) => ({
+        children: `Line ${line}: ${description}`,
+        onLinkClick: () => onLinkClick?.(`#L${line}`),
+        variant: "Code" as const,
+      }));
+    },
+    renderOutput: (output) =>
+      isLogCoreAnalyzerOutput(output) ? output.markdown : undefined,
   },
 };
 

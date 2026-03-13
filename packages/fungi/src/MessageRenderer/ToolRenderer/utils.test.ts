@@ -1,5 +1,5 @@
 import { UIMessagePart, UIDataTypes, UITools } from "ai";
-import { getProgressByToolCallId } from "./utils";
+import { getProgressByToolCallId, isLogCoreAnalyzerOutput } from "./utils";
 
 type Part = UIMessagePart<UIDataTypes, UITools>;
 
@@ -96,5 +96,35 @@ describe("getProgressByToolCallId", () => {
       } as unknown as Part,
     ];
     expect(getProgressByToolCallId(parts).size).toBe(0);
+  });
+});
+
+describe("isLogCoreAnalyzerOutput", () => {
+  it("returns true for a valid output with a markdown string", () => {
+    expect(
+      isLogCoreAnalyzerOutput({
+        markdown: "## Summary",
+        lineReferences: [],
+        summary: "ok",
+      }),
+    ).toBe(true);
+  });
+
+  it("returns false when markdown field is missing", () => {
+    expect(isLogCoreAnalyzerOutput({ lineReferences: [], summary: "ok" })).toBe(
+      false,
+    );
+  });
+
+  it("returns false when markdown is not a string", () => {
+    expect(isLogCoreAnalyzerOutput({ markdown: 42 })).toBe(false);
+  });
+
+  it("returns false for null", () => {
+    expect(isLogCoreAnalyzerOutput(null)).toBe(false);
+  });
+
+  it("returns false for non-objects", () => {
+    expect(isLogCoreAnalyzerOutput("string")).toBe(false);
   });
 });

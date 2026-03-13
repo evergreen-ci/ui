@@ -20,8 +20,10 @@ export type ChatFeedProps = {
   handleRatingChange?: (
     spanId: string,
   ) => MessageActionsProps["onRatingChange"];
+  onChipClick?: (chip: ContextChip) => void;
   onClickCopy?: MessageActionsProps["onClickCopy"];
   onClickSuggestion?: (suggestion: string) => void;
+  onLinkClick?: (href: string) => void;
   onSendMessage?: (message: string) => void;
   transformMessage?: (
     message: string,
@@ -29,7 +31,6 @@ export type ChatFeedProps = {
       pendingChips?: ContextChip[];
     },
   ) => string;
-  onChipClick?: (chip: ContextChip) => void;
 };
 
 export const ChatFeed: React.FC<ChatFeedProps> = ({
@@ -41,6 +42,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
   onChipClick,
   onClickCopy,
   onClickSuggestion,
+  onLinkClick,
   onSendMessage,
   transformMessage,
 }) => {
@@ -100,6 +102,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
                   key={m.id}
                   onChipClick={onChipClick}
                   onClickCopy={onClickCopy}
+                  onLinkClick={onLinkClick}
                   onRatingChange={
                     spanId ? handleRatingChange?.(spanId) : undefined
                   }

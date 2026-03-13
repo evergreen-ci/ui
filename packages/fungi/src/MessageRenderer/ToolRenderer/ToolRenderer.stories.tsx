@@ -54,3 +54,21 @@ export const AnalyzerProgress = {
     progress: { percentage: 50, phase: "Refining chunk 3 of 5" },
   },
 } satisfies CustomStoryObj<typeof ToolRenderer>;
+
+export const AnalyzerCompleted = {
+  args: {
+    type: "tool-logCoreAnalyzerTool",
+    toolCallId: "call_example",
+    state: "output-available",
+    input: "analyze logs",
+    output: {
+      markdown:
+        "## Analysis Result\n\n- **Line 42**: Null pointer exception\n- **Line 87**: Memory leak detected",
+      lineReferences: [
+        { line: 42, description: "Null pointer", evidence: "NPE thrown" },
+        { line: 87, description: "Memory leak", evidence: "Unreleased buffer" },
+      ],
+      summary: "Two issues found",
+    },
+  },
+} satisfies CustomStoryObj<typeof ToolRenderer>;
