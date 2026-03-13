@@ -133,7 +133,9 @@ const AuthProvider: React.FC<{
         // Set the staging cookie whether or not the state is currently authenticated so personal stagings can be routed correctly.
         const stagingKey = getUserStagingKey();
         if (isStaging() && stagingKey) {
-          Cookies.set("evg-staging-environment", stagingKey);
+          Cookies.set("evg-staging-environment", stagingKey, {
+            expires: 365,
+          });
         }
         if (state.isAuthenticated) {
           try {
