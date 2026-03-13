@@ -105,6 +105,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
         limit: ACTIVATED_TASKS_LIMIT,
         date: utcDate,
       },
+      includeGenerator: !!task.generatedBy,
     },
     fetchPolicy: "cache-first",
     pollInterval: DEFAULT_POLL_INTERVAL,

@@ -5,6 +5,7 @@ import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
 import { IconButton } from "@leafygreen-ui/icon-button";
+import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
@@ -40,6 +41,7 @@ import {
 } from "../constants";
 import { useTaskHistoryContext } from "../context";
 import { TaskHistoryTask } from "../types";
+import { getTaskIngestTime } from "../utils";
 import CommitDescription from "./CommitDescription";
 import FailedTestsTable from "./FailedTestsTable";
 
@@ -73,8 +75,8 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       canSchedule,
       canSetPriority,
       displayStatus,
+      generator,
       id: taskId,
-      ingestTime,
       latestExecution,
       order,
       priority,
@@ -92,6 +94,7 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       : taskId === currentTask.id;
     const isSelectedTask = taskId === selectedTask;
 
+    const ingestTime = getTaskIngestTime(task);
     const ingestDate = new Date(ingestTime ?? "");
     const dateCopy = getDateCopy(ingestDate, {
       omitSeconds: true,
@@ -235,7 +238,14 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
               {isPatch ? "Base" : "This"} Task
             </Badge>
           )}
-          <span>{dateCopy}</span>
+          <DateContainer>
+            <span>{dateCopy}</span>
+            {generator?.ingestTime && (
+              <InfoSprinkle>
+                Generated tasks are sorted by generator ingest time.
+              </InfoSprinkle>
+            )}
+          </DateContainer>
           {latestExecution > 0 ? (
             <Chip
               data-cy="execution-chip"
@@ -317,6 +327,12 @@ const CommitCard = styled.div<{
 `;
 
 const TopLabel = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xxs};
+`;
+
+const DateContainer = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.xxs};
