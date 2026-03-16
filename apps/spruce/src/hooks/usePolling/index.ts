@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { OperationVariables, ApolloClient } from "@apollo/client";
-import Cookies from "js-cookie";
+import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { DISABLE_QUERY_POLLING } from "constants/cookies";
 import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useNetworkStatus } from "hooks/useNetworkStatus";
@@ -51,7 +51,7 @@ export const usePolling: usePollingType = ({
   const isOnline = useNetworkStatus();
   const isVisible = usePageVisibility();
 
-  if (Cookies.get(DISABLE_QUERY_POLLING) === "true") {
+  if (getLocalStorageBoolean(DISABLE_QUERY_POLLING, false)) {
     return false;
   }
 
