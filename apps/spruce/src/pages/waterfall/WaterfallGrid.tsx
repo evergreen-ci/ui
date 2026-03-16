@@ -67,6 +67,48 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
   setPagination,
 }) => {
+  useWaterfallTrace();
+  const { sendEvent } = useWaterfallAnalytics();
+
+  const headerScrollRef = useRef<HTMLDivElement>(null);
+  const [showShadow, setShowShadow] = useState(false);
+  useIntersectionObserver(headerScrollRef, ([entry]) => {
+    setShowShadow(!entry.isIntersecting);
+  });
+
+  const [pins, setPins] = useState<string[]>(
+    getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] ?? [],
+  );
+
+  const handlePinBV = useCallback(
+    (buildVariant: string, wasPinned: boolean) => {
+      sendEvent({
+        name: "Clicked pin build variant",
+        action: wasPinned ? "unpinned" : "pinned",
+        variant: buildVariant,
+      });
+      setPins((prev: string[]) => {
+        if (wasPinned) {
+          const bvIndex = prev.indexOf(buildVariant);
+          const removed = [...prev];
+          removed.splice(bvIndex, 1);
+          return removed;
+        }
+        return [...prev, buildVariant];
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+
+  useEffect(() => {
+    const bvs = getObject(WATERFALL_PINNED_VARIANTS_KEY);
+    setObject(WATERFALL_PINNED_VARIANTS_KEY, {
+      ...bvs,
+      [projectIdentifier]: pins,
+    });
+  }, [pins, projectIdentifier]);
+
   const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
   const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
   const [revision] = useQueryParam<string | null>(
@@ -132,47 +174,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   });
   // TODO DEVPROD-26717: This can be removed if the invalid arguments are fixed in useSuspenseQuery.
   const dataIsComplete = dataState === "complete";
-
-  useWaterfallTrace();
-  const { sendEvent } = useWaterfallAnalytics();
-  const headerScrollRef = useRef<HTMLDivElement>(null);
-  const [showShadow, setShowShadow] = useState(false);
-  useIntersectionObserver(headerScrollRef, ([entry]) => {
-    setShowShadow(!entry.isIntersecting);
-  });
-
-  const [pins, setPins] = useState<string[]>(
-    getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] ?? [],
-  );
-
-  const handlePinBV = useCallback(
-    (buildVariant: string, wasPinned: boolean) => {
-      sendEvent({
-        name: "Clicked pin build variant",
-        action: wasPinned ? "unpinned" : "pinned",
-        variant: buildVariant,
-      });
-      setPins((prev: string[]) => {
-        if (wasPinned) {
-          const bvIndex = prev.indexOf(buildVariant);
-          const removed = [...prev];
-          removed.splice(bvIndex, 1);
-          return removed;
-        }
-        return [...prev, buildVariant];
-      });
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
-
-  useEffect(() => {
-    const bvs = getObject(WATERFALL_PINNED_VARIANTS_KEY);
-    setObject(WATERFALL_PINNED_VARIANTS_KEY, {
-      ...bvs,
-      [projectIdentifier]: pins,
-    });
-  }, [pins, projectIdentifier]);
 
   useEffect(() => {
     if (dataIsComplete) {
