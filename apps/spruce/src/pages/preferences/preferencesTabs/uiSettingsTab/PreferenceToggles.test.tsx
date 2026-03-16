@@ -1,4 +1,3 @@
-import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
 import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
 import { DISABLE_QUERY_POLLING, DISABLE_TASK_REVIEW } from "constants/cookies";
@@ -6,28 +5,27 @@ import { PreferenceToggles } from "./PreferenceToggles";
 
 const mockSendEvent = vi.fn();
 
-vi.mock("js-cookie");
 vi.mock("analytics", () => ({
   usePreferencesAnalytics: () => ({
     sendEvent: mockSendEvent,
   }),
 }));
 
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
-const mockedSet = vi.spyOn(Cookie, "set") as MockInstance;
+const mockedGetItem = vi.spyOn(Storage.prototype, "getItem") as MockInstance;
+const mockedSetItem = vi.spyOn(Storage.prototype, "setItem") as MockInstance;
 
 describe("PreferenceToggles", () => {
   beforeEach(() => {
-    mockedGet.mockImplementation((key: string) => {
+    mockedGetItem.mockImplementation((key: string) => {
       if (key === DISABLE_QUERY_POLLING) {
-        return undefined;
+        return null;
       }
       if (key === DISABLE_TASK_REVIEW) {
-        return undefined;
+        return null;
       }
-      return undefined;
+      return null;
     });
-    mockedSet.mockClear();
+    mockedSetItem.mockClear();
     mockSendEvent.mockClear();
   });
 
@@ -36,8 +34,8 @@ describe("PreferenceToggles", () => {
   });
 
   describe("Background polling toggle", () => {
-    it("renders with polling enabled by default when cookie is not set", () => {
-      mockedGet.mockReturnValue(undefined);
+    it("renders with polling enabled by default when localStorage is not set", () => {
+      mockedGetItem.mockReturnValue(null);
       render(<PreferenceToggles />);
 
       const pollingToggle = screen.getByLabelText("Background polling");
@@ -49,12 +47,12 @@ describe("PreferenceToggles", () => {
       ).toBeInTheDocument();
     });
 
-    it("renders with polling disabled when cookie is set to 'true'", () => {
-      mockedGet.mockImplementation((key: string) => {
+    it("renders with polling disabled when localStorage is set to 'true'", () => {
+      mockedGetItem.mockImplementation((key: string) => {
         if (key === DISABLE_QUERY_POLLING) {
           return "true";
         }
-        return undefined;
+        return null;
       });
       render(<PreferenceToggles />);
 
@@ -64,7 +62,7 @@ describe("PreferenceToggles", () => {
 
     it("toggles polling from enabled to disabled", async () => {
       const user = userEvent.setup();
-      mockedGet.mockReturnValue(undefined);
+      mockedGetItem.mockReturnValue(null);
       render(<PreferenceToggles />);
 
       const pollingToggle = screen.getByLabelText("Background polling");
@@ -76,16 +74,16 @@ describe("PreferenceToggles", () => {
         expect(pollingToggle).toHaveAttribute("aria-checked", "false");
       });
 
-      expect(mockedSet).toHaveBeenCalledWith(DISABLE_QUERY_POLLING, "true");
+      expect(mockedSetItem).toHaveBeenCalledWith(DISABLE_QUERY_POLLING, "true");
     });
 
     it("toggles polling from disabled to enabled", async () => {
       const user = userEvent.setup();
-      mockedGet.mockImplementation((key: string) => {
+      mockedGetItem.mockImplementation((key: string) => {
         if (key === DISABLE_QUERY_POLLING) {
           return "true";
         }
-        return undefined;
+        return null;
       });
       render(<PreferenceToggles />);
 
@@ -98,16 +96,19 @@ describe("PreferenceToggles", () => {
         expect(pollingToggle).toHaveAttribute("aria-checked", "true");
       });
 
-      expect(mockedSet).toHaveBeenCalledWith(DISABLE_QUERY_POLLING, "false");
+      expect(mockedSetItem).toHaveBeenCalledWith(
+        DISABLE_QUERY_POLLING,
+        "false",
+      );
     });
 
     it("sends analytics event when toggling polling to enabled", async () => {
       const user = userEvent.setup();
-      mockedGet.mockImplementation((key: string) => {
+      mockedGetItem.mockImplementation((key: string) => {
         if (key === DISABLE_QUERY_POLLING) {
           return "true";
         }
-        return undefined;
+        return null;
       });
       render(<PreferenceToggles />);
 
@@ -124,7 +125,7 @@ describe("PreferenceToggles", () => {
 
     it("sends analytics event when toggling polling to disabled", async () => {
       const user = userEvent.setup();
-      mockedGet.mockReturnValue(undefined);
+      mockedGetItem.mockReturnValue(null);
       render(<PreferenceToggles />);
 
       const pollingToggle = screen.getByLabelText("Background polling");
@@ -140,8 +141,8 @@ describe("PreferenceToggles", () => {
   });
 
   describe("Task review toggle", () => {
-    it("renders with task review enabled by default when cookie is not set", () => {
-      mockedGet.mockReturnValue(undefined);
+    it("renders with task review enabled by default when localStorage is not set", () => {
+      mockedGetItem.mockReturnValue(null);
       render(<PreferenceToggles />);
 
       const taskReviewToggle = screen.getByLabelText("Task review");
@@ -153,12 +154,12 @@ describe("PreferenceToggles", () => {
       ).toBeInTheDocument();
     });
 
-    it("renders with task review disabled when cookie is set to 'true'", () => {
-      mockedGet.mockImplementation((key: string) => {
+    it("renders with task review disabled when localStorage is set to 'true'", () => {
+      mockedGetItem.mockImplementation((key: string) => {
         if (key === DISABLE_TASK_REVIEW) {
           return "true";
         }
-        return undefined;
+        return null;
       });
       render(<PreferenceToggles />);
 
@@ -168,7 +169,7 @@ describe("PreferenceToggles", () => {
 
     it("toggles task review from enabled to disabled", async () => {
       const user = userEvent.setup();
-      mockedGet.mockReturnValue(undefined);
+      mockedGetItem.mockReturnValue(null);
       render(<PreferenceToggles />);
 
       const taskReviewToggle = screen.getByLabelText("Task review");
@@ -180,16 +181,16 @@ describe("PreferenceToggles", () => {
         expect(taskReviewToggle).toHaveAttribute("aria-checked", "false");
       });
 
-      expect(mockedSet).toHaveBeenCalledWith(DISABLE_TASK_REVIEW, "true");
+      expect(mockedSetItem).toHaveBeenCalledWith(DISABLE_TASK_REVIEW, "true");
     });
 
     it("toggles task review from disabled to enabled", async () => {
       const user = userEvent.setup();
-      mockedGet.mockImplementation((key: string) => {
+      mockedGetItem.mockImplementation((key: string) => {
         if (key === DISABLE_TASK_REVIEW) {
           return "true";
         }
-        return undefined;
+        return null;
       });
       render(<PreferenceToggles />);
 
@@ -202,16 +203,16 @@ describe("PreferenceToggles", () => {
         expect(taskReviewToggle).toHaveAttribute("aria-checked", "true");
       });
 
-      expect(mockedSet).toHaveBeenCalledWith(DISABLE_TASK_REVIEW, "false");
+      expect(mockedSetItem).toHaveBeenCalledWith(DISABLE_TASK_REVIEW, "false");
     });
 
     it("sends analytics event when toggling task review to enabled", async () => {
       const user = userEvent.setup();
-      mockedGet.mockImplementation((key: string) => {
+      mockedGetItem.mockImplementation((key: string) => {
         if (key === DISABLE_TASK_REVIEW) {
           return "true";
         }
-        return undefined;
+        return null;
       });
       render(<PreferenceToggles />);
 
@@ -228,7 +229,7 @@ describe("PreferenceToggles", () => {
 
     it("sends analytics event when toggling task review to disabled", async () => {
       const user = userEvent.setup();
-      mockedGet.mockReturnValue(undefined);
+      mockedGetItem.mockReturnValue(null);
       render(<PreferenceToggles />);
 
       const taskReviewToggle = screen.getByLabelText("Task review");
@@ -245,7 +246,7 @@ describe("PreferenceToggles", () => {
 
   describe("Both toggles", () => {
     it("renders both toggles independently", () => {
-      mockedGet.mockReturnValue(undefined);
+      mockedGetItem.mockReturnValue(null);
       render(<PreferenceToggles />);
 
       expect(screen.getByLabelText("Background polling")).toBeInTheDocument();
@@ -254,7 +255,7 @@ describe("PreferenceToggles", () => {
 
     it("can toggle both preferences independently", async () => {
       const user = userEvent.setup();
-      mockedGet.mockReturnValue(undefined);
+      mockedGetItem.mockReturnValue(null);
       render(<PreferenceToggles />);
 
       const pollingToggle = screen.getByLabelText("Background polling");

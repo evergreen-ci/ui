@@ -169,7 +169,6 @@ export type AdminSettings = {
   hostJasper?: Maybe<HostJasperConfig>;
   jira?: Maybe<JiraConfig>;
   jiraNotifications?: Maybe<JiraNotificationsConfig>;
-  kanopySSHKeyPath?: Maybe<Scalars["String"]["output"]>;
   logPath?: Maybe<Scalars["String"]["output"]>;
   loggerConfig?: Maybe<LoggerConfig>;
   notify?: Maybe<NotifyConfig>;
@@ -228,7 +227,6 @@ export type AdminSettingsInput = {
   hostJasper?: InputMaybe<HostJasperConfigInput>;
   jira?: InputMaybe<JiraConfigInput>;
   jiraNotifications?: InputMaybe<JiraNotificationsConfigInput>;
-  kanopySSHKeyPath?: InputMaybe<Scalars["String"]["input"]>;
   logPath?: InputMaybe<Scalars["String"]["input"]>;
   loggerConfig?: InputMaybe<LoggerConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
@@ -421,12 +419,10 @@ export enum BannerTheme {
 
 export type BetaFeatures = {
   __typename?: "BetaFeatures";
-  parsleyAIEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   spruceWaterfallEnabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type BetaFeaturesInput = {
-  parsleyAIEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   spruceWaterfallEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 

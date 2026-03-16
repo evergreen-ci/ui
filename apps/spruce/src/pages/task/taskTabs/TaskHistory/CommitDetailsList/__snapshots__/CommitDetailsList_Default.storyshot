@@ -17,13 +17,13 @@
       />
     </div>
     <div
-      class="emotion-CommitCard e1a625uv4"
+      class="emotion-CommitCard e1a625uv5"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
       id="commit-card-a"
     >
       <div
-        class="emotion-TopLabel e1a625uv3"
+        class="emotion-TopLabel e1a625uv4"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -112,9 +112,13 @@
           This
            Task
         </div>
-        <span>
-          Apr 3, 2025, 10:22 AM
-        </span>
+        <div
+          class="emotion-DateContainer e1a625uv3"
+        >
+          <span>
+            Apr 3, 2025, 10:22 AM
+          </span>
+        </div>
         <div
           class="emotion-PriorityContainer e1a625uv2"
         >
@@ -177,13 +181,13 @@
       </div>
     </div>
     <div
-      class="emotion-CommitCard e1a625uv4"
+      class="emotion-CommitCard e1a625uv5"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
       id="commit-card-b"
     >
       <div
-        class="emotion-TopLabel e1a625uv3"
+        class="emotion-TopLabel e1a625uv4"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -265,9 +269,13 @@
           data-testid="lg-confirmation_modal"
           id="modal-145"
         />
-        <span>
-          Apr 3, 2025, 10:21 AM
-        </span>
+        <div
+          class="emotion-DateContainer e1a625uv3"
+        >
+          <span>
+            Apr 3, 2025, 10:21 AM
+          </span>
+        </div>
         <span
           aria-disabled="false"
           class="leafygreen-ui-1hdho16"
@@ -391,13 +399,13 @@
       />
     </div>
     <div
-      class="emotion-CommitCard e1a625uv4"
+      class="emotion-CommitCard e1a625uv5"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
       id="commit-card-d"
     >
       <div
-        class="emotion-TopLabel e1a625uv3"
+        class="emotion-TopLabel e1a625uv4"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -479,9 +487,13 @@
           data-testid="lg-confirmation_modal"
           id="modal-148"
         />
-        <span>
-          Apr 2, 2025, 10:22 AM
-        </span>
+        <div
+          class="emotion-DateContainer e1a625uv3"
+        >
+          <span>
+            Apr 2, 2025, 10:22 AM
+          </span>
+        </div>
         <div
           class="emotion-PriorityContainer e1a625uv2"
         >
@@ -593,13 +605,13 @@
       />
     </div>
     <div
-      class="emotion-CommitCard e1a625uv4"
+      class="emotion-CommitCard e1a625uv5"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
       id="commit-card-f"
     >
       <div
-        class="emotion-TopLabel e1a625uv3"
+        class="emotion-TopLabel e1a625uv4"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -681,9 +693,13 @@
           data-testid="lg-confirmation_modal"
           id="modal-151"
         />
-        <span>
-          Apr 1, 2025, 10:22 AM
-        </span>
+        <div
+          class="emotion-DateContainer e1a625uv3"
+        >
+          <span>
+            Apr 1, 2025, 10:22 AM
+          </span>
+        </div>
         <div
           class="emotion-PriorityContainer e1a625uv2"
         >
@@ -1085,13 +1101,13 @@
       />
     </div>
     <div
-      class="emotion-CommitCard e1a625uv4"
+      class="emotion-CommitCard e1a625uv5"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
       id="commit-card-j"
     >
       <div
-        class="emotion-TopLabel e1a625uv3"
+        class="emotion-TopLabel e1a625uv4"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -1173,9 +1189,13 @@
           data-testid="lg-confirmation_modal"
           id="modal-157"
         />
-        <span>
-          Mar 30, 2025, 10:22 AM
-        </span>
+        <div
+          class="emotion-DateContainer e1a625uv3"
+        >
+          <span>
+            Mar 30, 2025, 10:22 AM
+          </span>
+        </div>
         <span
           aria-disabled="false"
           class="leafygreen-ui-1hdho16"
@@ -1263,13 +1283,13 @@
       />
     </div>
     <div
-      class="emotion-CommitCard e1a625uv4"
+      class="emotion-CommitCard e1a625uv5"
       data-cy="commit-details-card"
       data-task-history-guide-id="commit-details"
       id="commit-card-k"
     >
       <div
-        class="emotion-TopLabel e1a625uv3"
+        class="emotion-TopLabel e1a625uv4"
       >
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -1351,9 +1371,13 @@
           data-testid="lg-confirmation_modal"
           id="modal-159"
         />
-        <span>
-          Mar 29, 2025, 10:22 AM
-        </span>
+        <div
+          class="emotion-DateContainer e1a625uv3"
+        >
+          <span>
+            Mar 29, 2025, 10:22 AM
+          </span>
+        </div>
         <div
           class="emotion-PriorityContainer e1a625uv2"
         >

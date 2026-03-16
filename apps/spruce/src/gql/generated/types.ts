@@ -10816,6 +10816,7 @@ export type TaskFilesQuery = {
 
 export type TaskHistoryQueryVariables = Exact<{
   options: TaskHistoryOpts;
+  includeGenerator: Scalars["Boolean"]["input"];
 }>;
 
 export type TaskHistoryQuery = {
@@ -10841,6 +10842,12 @@ export type TaskHistoryQuery = {
       order: number;
       priority?: number | null;
       revision?: string | null;
+      generator?: {
+        __typename?: "Task";
+        id: string;
+        execution: number;
+        ingestTime?: Date | null;
+      } | null;
       tests: {
         __typename?: "TaskTestResult";
         testResults: Array<{
