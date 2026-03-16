@@ -166,7 +166,6 @@ export type AdminSettings = {
   hostJasper?: Maybe<HostJasperConfig>;
   jira?: Maybe<JiraConfig>;
   jiraNotifications?: Maybe<JiraNotificationsConfig>;
-  kanopySSHKeyPath?: Maybe<Scalars["String"]["output"]>;
   logPath?: Maybe<Scalars["String"]["output"]>;
   loggerConfig?: Maybe<LoggerConfig>;
   notify?: Maybe<NotifyConfig>;
@@ -225,7 +224,6 @@ export type AdminSettingsInput = {
   hostJasper?: InputMaybe<HostJasperConfigInput>;
   jira?: InputMaybe<JiraConfigInput>;
   jiraNotifications?: InputMaybe<JiraNotificationsConfigInput>;
-  kanopySSHKeyPath?: InputMaybe<Scalars["String"]["input"]>;
   logPath?: InputMaybe<Scalars["String"]["input"]>;
   loggerConfig?: InputMaybe<LoggerConfigInput>;
   notify?: InputMaybe<NotifyConfigInput>;
@@ -3875,6 +3873,7 @@ export type SpawnHostInput = {
   region: Scalars["String"]["input"];
   savePublicKey: Scalars["Boolean"]["input"];
   setUpScript?: InputMaybe<Scalars["String"]["input"]>;
+  setupStepNumber?: InputMaybe<Scalars["String"]["input"]>;
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
   spawnHostsStartedByTask?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskId?: InputMaybe<Scalars["String"]["input"]>;
@@ -7425,7 +7424,6 @@ export type AdminSettingsQuery = {
     githubOrgs?: Array<string> | null;
     githubPRCreatorOrg?: string | null;
     githubWebhookSecret?: string | null;
-    kanopySSHKeyPath?: string | null;
     logPath?: string | null;
     oldestAllowedCLIVersion?: string | null;
     perfMonitoringKanopyURL?: string | null;
@@ -10820,6 +10818,7 @@ export type TaskFilesQuery = {
 
 export type TaskHistoryQueryVariables = Exact<{
   options: TaskHistoryOpts;
+  includeGenerator: Scalars["Boolean"]["input"];
 }>;
 
 export type TaskHistoryQuery = {
@@ -10845,6 +10844,12 @@ export type TaskHistoryQuery = {
       order: number;
       priority?: number | null;
       revision?: string | null;
+      generator?: {
+        __typename?: "Task";
+        id: string;
+        execution: number;
+        ingestTime?: Date | null;
+      } | null;
       tests: {
         __typename?: "TaskTestResult";
         testResults: Array<{

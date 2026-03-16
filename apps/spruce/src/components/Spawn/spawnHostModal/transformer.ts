@@ -25,15 +25,17 @@ export const formToGql = ({
   spawnTaskData,
 }: Props): NonNullable<SpawnHostMutationVariables["spawnHostInput"]> => {
   const {
+    debugSection,
     expirationDetails,
     homeVolumeDetails,
-    isDebug,
     loadData,
     publicKeySection,
     requiredSection,
     setupScriptSection,
     userdataScriptSection,
   } = formData || {};
+
+  const { isDebug, setupStepNumber } = debugSection ?? {};
 
   const { distro = "", region = defaultEC2Region } = requiredSection ?? {};
   const { defineSetupScriptCheckbox, setupScript } = setupScriptSection ?? {};
@@ -72,6 +74,7 @@ export const formToGql = ({
   return {
     isVirtualWorkStation,
     ...(isDebug ? { isDebug: true } : {}),
+    ...(isDebug && setupStepNumber ? { setupStepNumber } : {}),
     userDataScript: runUserdataScript ? userdataScript : null,
     expiration: noExpiration ? null : new Date(expiration),
     noExpiration: noExpiration,

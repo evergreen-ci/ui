@@ -1,12 +1,12 @@
 <div>
   <div
-    class="emotion-CommitCard e1a625uv4"
+    class="emotion-CommitCard e1a625uv5"
     data-cy="commit-details-card"
     data-task-history-guide-id="commit-details"
     id="commit-card-a"
   >
     <div
-      class="emotion-TopLabel e1a625uv3"
+      class="emotion-TopLabel e1a625uv4"
     >
       <a
         class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -86,7 +86,7 @@
         data-cy="task-notification-modal"
         data-lgid="lg-confirmation_modal"
         data-testid="lg-confirmation_modal"
-        id="modal-119"
+        id="modal-124"
       />
       <div
         class="leafygreen-ui-17azklk"
@@ -95,9 +95,13 @@
         This
          Task
       </div>
-      <span>
-        Apr 3, 2025, 10:22 AM
-      </span>
+      <div
+        class="emotion-DateContainer e1a625uv3"
+      >
+        <span>
+          Apr 3, 2025, 10:22 AM
+        </span>
+      </div>
       <span
         aria-disabled="false"
         class="leafygreen-ui-1hdho16"
@@ -1031,8 +1035,8 @@
                     data-testid="lg-select"
                   >
                     <button
-                      aria-controls="select-185-menu"
-                      aria-describedby="select-185-description"
+                      aria-controls="select-190-menu"
+                      aria-describedby="select-190-description"
                       aria-disabled="false"
                       aria-expanded="false"
                       aria-invalid="false"
@@ -1040,7 +1044,7 @@
                       class="lg-ui-button-0000 leafygreen-ui-1x8yqlx"
                       data-lgid="lg-select-trigger"
                       data-testid="lg-pagination-page-select"
-                      id="select-186"
+                      id="select-191"
                       type="button"
                       value="1"
                     >
