@@ -19,6 +19,8 @@ type Action =
   | { name: "Toggled share menu"; open: boolean }
   | { name: "Clicked copy share link button" }
   | { name: "Clicked copy share lines to clipboard button" }
+  | { name: "Clicked copy without prefix button" }
+  | { name: "Clicked search similar lines button" }
   | { name: "Clicked add to Parsley AI button" }
   | { name: "Used range limit for search" }
   | { name: "Changed existing filter"; before: Filter; after: Filter }

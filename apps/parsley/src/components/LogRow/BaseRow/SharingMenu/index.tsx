@@ -20,7 +20,11 @@ import { useLogContext } from "context/LogContext";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
 import { useIsParsleyAIAvailable } from "hooks/useIsParsleyAIAvailable";
 import { getJiraFormat, getRawLines } from "utils/string";
-import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
+import {
+  findCommonPrefix,
+  getLinesInProcessedLogLinesFromSelectedLines,
+  getLinesWithoutPrefix,
+} from "./utils";
 
 const SharingMenu: React.FC = () => {
   const {
@@ -29,7 +33,8 @@ const SharingMenu: React.FC = () => {
     selectedLines,
     setOpenMenu: setOpen,
   } = useMultiLineSelectContext();
-  const { getLine, isUploadedLog, processedLogLines } = useLogContext();
+  const { getLine, isUploadedLog, processedLogLines, setSearch } =
+    useLogContext();
   const { toggleChip } = useChatContext();
   const isParsleyAIAvailable = useIsParsleyAIAvailable();
 
@@ -108,12 +113,66 @@ const SharingMenu: React.FC = () => {
     });
   };
 
-  const handleShareLinkToSelectedLines = async () => {
+  const handleCopyWithoutPrefix = async () => {
     const { startingLine } = selectedLines;
     if (startingLine === undefined) return;
-    // Take the current URL and add the shareLine query param
+
+    const lineNumbers = getLinesInProcessedLogLinesFromSelectedLines(
+      processedLogLines,
+      selectedLines,
+    );
+
+    const lines = lineNumbers
+      .map((lineNumber) => getLine(lineNumber))
+      .filter((line): line is string => line !== undefined);
+
+    const commonPrefix = findCommonPrefix(lines);
+
+    if (commonPrefix === "") {
+      dispatchToast.warning("No common prefix found", true, { timeout: 3000 });
+      return;
+    }
+
+    const textWithoutPrefix = getLinesWithoutPrefix(lineNumbers, getLine);
+    await copyToClipboard(textWithoutPrefix);
+    setOpen(false);
+    sendEvent({
+      name: "Clicked copy without prefix button",
+    });
+    dispatchToast.success(
+      `Copied ${pluralize("line", lineNumbers.length, true)} without prefix to clipboard`,
+      true,
+      { timeout: 5000 },
+    );
+  };
+
+  const handleSearchSimilarLines = () => {
+    const { startingLine } = selectedLines;
+    if (startingLine === undefined) return;
+
+    const lineText = getLine(startingLine);
+    if (!lineText) return;
+
+    setSearch(lineText);
+    setOpen(false);
+    sendEvent({
+      name: "Clicked search similar lines button",
+    });
+  };
+
+  const handleShareLinkToSelectedLines = async () => {
+    const { endingLine, startingLine } = selectedLines;
+    if (startingLine === undefined) return;
     const url = new URL(window.location.href);
-    url.searchParams.set(QueryParams.ShareLine, startingLine.toString());
+
+    if (endingLine !== undefined && endingLine !== startingLine) {
+      url.searchParams.set(
+        QueryParams.SelectedLineRange,
+        `L${startingLine}-L${endingLine}`,
+      );
+    } else {
+      url.searchParams.set(QueryParams.SelectedLineRange, `L${startingLine}`);
+    }
 
     await copyToClipboard(url.toString());
     setOpen(false);
@@ -154,14 +213,23 @@ const SharingMenu: React.FC = () => {
       <MenuItem glyph={<Icon glyph="Copy" />} onClick={handleCopySelectedLines}>
         Copy selected contents
       </MenuItem>
+      <MenuItem glyph={<Icon glyph="Copy" />} onClick={handleCopyWithoutPrefix}>
+        Copy selected contents without prefix
+      </MenuItem>
       {!isUploadedLog && (
         <MenuItem
           glyph={<Icon glyph="Export" />}
           onClick={handleShareLinkToSelectedLines}
         >
-          Copy share link to selected {pluralize("line", lineCount)}
+          Copy link to {pluralize("line", lineCount)}
         </MenuItem>
       )}
+      <MenuItem
+        glyph={<Icon glyph="MagnifyingGlass" />}
+        onClick={handleSearchSimilarLines}
+      >
+        Search for similar lines
+      </MenuItem>
       <MenuItem
         glyph={<Icon glyph="MagnifyingGlass" />}
         onClick={handleOnlySearchOnRange}

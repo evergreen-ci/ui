@@ -61,28 +61,24 @@ describe("sharingMenu", () => {
 
   it("should render an open menu after setting it to open", async () => {
     const { hook } = renderSharingMenu();
-    expect(screen.queryByText("Copy share link to selected lines")).toBeNull();
+    expect(screen.queryByText("Copy link to lines")).toBeNull();
     act(() => {
       hook.current.setOpenMenu(true);
     });
-    expect(
-      screen.getByText("Copy share link to selected line"),
-    ).toBeInTheDocument();
+    expect(screen.getByText("Copy link to line")).toBeInTheDocument();
     expect(screen.getByText("Only search on range")).toBeInTheDocument();
   });
   it("should render an open menu after selecting a start and end line", async () => {
     const { hook } = renderSharingMenu();
-    expect(screen.queryByText("Copy share link to selected lines")).toBeNull();
+    expect(screen.queryByText("Copy link to lines")).toBeNull();
     act(() => {
       hook.current.handleSelectLine(1, false);
     });
-    expect(screen.queryByText("Copy share link to selected lines")).toBeNull();
+    expect(screen.queryByText("Copy link to lines")).toBeNull();
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    expect(
-      screen.getByText("Copy share link to selected lines"),
-    ).toBeInTheDocument();
+    expect(screen.getByText("Copy link to lines")).toBeInTheDocument();
     expect(screen.getByText("Only search on range")).toBeInTheDocument();
   });
   it("clicking `copy selected contents` should copy the line range to the clipboard in Jira format by default", async () => {
@@ -147,7 +143,7 @@ describe("sharingMenu", () => {
     const clipboardText = await navigator.clipboard.readText();
     expect(clipboardText).toBe("line 2\n");
   });
-  it("clicking `share link to selected lines` should copy the link to the clipboard", async () => {
+  it("clicking `copy link to lines` should copy the link to the clipboard", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
 
     const { hook } = renderSharingMenu();
@@ -157,12 +153,12 @@ describe("sharingMenu", () => {
     act(() => {
       hook.current.handleSelectLine(3, true);
     });
-    expect(
-      screen.getByText("Copy share link to selected lines"),
-    ).toBeInTheDocument();
-    await user.click(screen.getByText("Copy share link to selected lines"));
+    expect(screen.getByText("Copy link to lines")).toBeInTheDocument();
+    await user.click(screen.getByText("Copy link to lines"));
     const clipboardText = await navigator.clipboard.readText();
-    expect(clipboardText).toBe("http://localhost:3000/?shareLine=1");
+    expect(clipboardText).toBe(
+      "http://localhost:3000/?selectedLineRange=L1-L3",
+    );
   });
   it("clicking `only search on range` should update the url with the range", async () => {
     const user = userEvent.setup();
@@ -220,7 +216,7 @@ describe("sharingMenu", () => {
         logType: LogTypes.LOCAL_UPLOAD,
       });
     });
-    expect(screen.queryByText("Share link to selected lines")).toBeNull();
+    expect(screen.queryByText("Copy link to lines")).toBeNull();
   });
   it("should not show 'Add to Parsley AI' if this is a locally uploaded log", () => {
     const useSpecialHook = () => {
@@ -254,5 +250,46 @@ describe("sharingMenu", () => {
       hook.current.setOpenMenu(true);
     });
     expect(screen.getByText("Add to Parsley AI")).toBeInTheDocument();
+  });
+
+  it("clicking `copy selected contents without prefix` should copy lines without common prefix", async () => {
+    const user = userEvent.setup({ writeToClipboard: true });
+
+    const { hook } = renderSharingMenu();
+    act(() => {
+      hook.current.handleSelectLine(1, false);
+    });
+    act(() => {
+      hook.current.handleSelectLine(3, true);
+    });
+    expect(
+      screen.getByText("Copy selected contents without prefix"),
+    ).toBeInTheDocument();
+    await user.click(screen.getByText("Copy selected contents without prefix"));
+    const clipboardText = await navigator.clipboard.readText();
+    expect(clipboardText).toBe("2\n3\n4\n");
+  });
+
+  it("should show `search for similar lines` menu option", async () => {
+    const { hook } = renderSharingMenu();
+    act(() => {
+      hook.current.handleSelectLine(1, false);
+      hook.current.setOpenMenu(true);
+    });
+    expect(screen.getByText("Search for similar lines")).toBeInTheDocument();
+  });
+
+  it("clicking `copy link to line` should copy the link with selectedLineRange param", async () => {
+    const user = userEvent.setup({ writeToClipboard: true });
+
+    const { hook } = renderSharingMenu();
+    act(() => {
+      hook.current.handleSelectLine(1, false);
+      hook.current.setOpenMenu(true);
+    });
+    expect(screen.getByText("Copy link to line")).toBeInTheDocument();
+    await user.click(screen.getByText("Copy link to line"));
+    const clipboardText = await navigator.clipboard.readText();
+    expect(clipboardText).toBe("http://localhost:3000/?selectedLineRange=L1");
   });
 });

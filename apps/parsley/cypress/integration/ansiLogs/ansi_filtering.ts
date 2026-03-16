@@ -10,10 +10,13 @@ describe("Filtering", () => {
         cy.dataCy("paginated-virtual-list").should("be.visible");
       });
 
-      it("should not collapse bookmarks and share line", () => {
-        cy.dataCy("log-link-5").click();
+      it("should not collapse bookmarks and selected line", () => {
+        cy.dataCy("line-index-5").click();
         cy.dataCy("log-row-6").dblclick();
-        cy.location("search").should("equal", "?bookmarks=0,6,297&shareLine=5");
+        cy.location("search").should(
+          "equal",
+          "?bookmarks=0,6,297&selectedLineRange=L5",
+        );
         cy.addFilter("doesNotMatchAnything");
         cy.get("[data-cy^='log-row-']").each(($el) => {
           cy.wrap($el)

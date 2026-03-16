@@ -127,15 +127,15 @@ describe("resmokeLogs/resmoke_evg_test_logView", () => {
       cy.dataCy("bookmark-4").should("not.exist");
     });
 
-    it("should be able to set and unset the share line", () => {
-      cy.dataCy("log-link-5").click();
-      cy.location("search").should("equal", "?bookmarks=0,12568&shareLine=5");
-      cy.dataCy("bookmark-0").should("be.visible");
-      cy.dataCy("bookmark-5").should("be.visible");
-      cy.dataCy("bookmark-12568").should("be.visible");
-      cy.dataCy("log-link-5").click();
-      cy.location("search").should("equal", "?bookmarks=0,12568");
-      cy.dataCy("bookmark-5").should("not.exist");
+    it("should be able to select a line and copy share link", () => {
+      cy.dataCy("line-index-5").click();
+      cy.location("search").should(
+        "equal",
+        "?bookmarks=0,12568&selectedLineRange=L5",
+      );
+      cy.dataCy("sharing-menu-button").should("be.visible");
+      cy.dataCy("sharing-menu-button").click();
+      cy.contains("Copy link to line").should("be.visible");
     });
 
     it("should be able to copy bookmarks as JIRA format", () => {

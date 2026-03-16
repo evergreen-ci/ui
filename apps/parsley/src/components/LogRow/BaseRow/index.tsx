@@ -63,8 +63,14 @@ const BaseRow: React.FC<BaseRowProps> = ({
   ...rest
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
-  const { menuPosition, selectedLines } = useMultiLineSelectContext();
-  const [shareLine, setShareLine] = useQueryParam<number | undefined>(
+  const {
+    handleSelectLine,
+    menuPosition,
+    openMenu,
+    selectedLines,
+    setOpenMenu,
+  } = useMultiLineSelectContext();
+  const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
     urlParseOptions,
@@ -82,17 +88,27 @@ const BaseRow: React.FC<BaseRowProps> = ({
   const highlighted = searchLine === lineNumber;
   const shared = shareLine === lineNumber;
 
-  // Clicking link icon should set or unset the share line.
-  const handleClick = useCallback(() => {
-    if (shared) {
-      setShareLine(undefined);
-      sendEvent({ name: "Deleted share line" });
-    } else {
-      setShareLine(lineNumber);
-      scrollToLine(lineIndex);
-      sendEvent({ name: "Created new share line" });
-    }
-  }, [lineIndex, lineNumber, shared, scrollToLine, sendEvent, setShareLine]);
+  const handleMenuClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (selectedLines.startingLine === undefined) {
+        handleSelectLine(lineNumber, false);
+        setOpenMenu(true);
+        sendEvent({ name: "Toggled share menu", open: true });
+      } else {
+        setOpenMenu(!openMenu);
+        sendEvent({ name: "Toggled share menu", open: !openMenu });
+      }
+    },
+    [
+      handleSelectLine,
+      lineNumber,
+      openMenu,
+      selectedLines.startingLine,
+      sendEvent,
+      setOpenMenu,
+    ],
+  );
 
   // Double clicking a line should add or remove the line from bookmarks.
   const handleDoubleClick = useCallback(() => {
@@ -134,13 +150,12 @@ const BaseRow: React.FC<BaseRowProps> = ({
       {menuPosition === lineNumber ? (
         <SharingMenu />
       ) : (
-        <MenuIcon aria-label="Share link" onClick={handleClick}>
-          <ShareIcon
-            data-cy={`log-link-${lineNumber}`}
-            glyph={shared ? "ArrowWithCircle" : "Link"}
-            onClick={handleClick}
-            size="small"
-          />
+        <MenuIcon
+          aria-label="Open menu"
+          data-cy={`log-menu-${lineNumber}`}
+          onClick={handleMenuClick}
+        >
+          <ShareIcon glyph="Ellipsis" size="small" />
         </MenuIcon>
       )}
       <LineNumber lineNumber={lineNumber} />
