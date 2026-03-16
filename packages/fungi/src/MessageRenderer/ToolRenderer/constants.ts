@@ -27,6 +27,12 @@ export const renderableToolLabels: Record<
     completedCopy: "Received information from the Evergreen Agent",
     errorCopy: "Error fetching information from Evergreen Agent",
     glyph: "EvergreenLogo",
+    renderOutput: (output) => {
+      if (typeof output === "string") {
+        return output;
+      }
+      return undefined;
+    },
   },
   "tool-logCoreAnalyzerTool": {
     loadingCopy: "Analyzing logs",
