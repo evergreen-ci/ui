@@ -46,6 +46,8 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
     onError: (err) => {
       dispatchToast.error(`Error saving settings: ${err.message}`);
     },
+    awaitRefetchQueries: true,
+    refetchQueries: ["AdminSettings"],
   });
 
   const handleSave = () => {
