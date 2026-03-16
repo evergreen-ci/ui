@@ -93,6 +93,14 @@ const BuildRowInner: React.FC<Props> = ({
     [builds, columnWidth],
   );
 
+  const containerStyles = useMemo(
+    () => css`
+      ${buildGroupCss};
+      height: ${containerHeight}px;
+    `,
+    [containerHeight],
+  );
+
   const iconButtonProps = isFirstBuild
     ? { [waterfallGuideId]: walkthroughSteps[2].targetId }
     : {};
@@ -128,10 +136,7 @@ const BuildRowInner: React.FC<Props> = ({
         </StyledLink>
       </BuildVariantTitle>
       <VisibilityContainer
-        containerCss={css`
-          ${buildGroupCss};
-          height: ${containerHeight}px;
-        `}
+        containerCss={containerStyles}
         data-cy="build-group"
         offset={1000}
       >
