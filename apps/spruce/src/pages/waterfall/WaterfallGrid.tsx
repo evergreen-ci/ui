@@ -137,19 +137,28 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   // However, useDeferredValue's initialState option is introduced in React 19.
   const [serverFilters, setServerFilters] =
     useState<ServerFilters>(resetFilterState);
+  const serverFiltersRef = useRef(resetFilterState);
   const [isPending, startTransition] = useTransition();
+
   useEffect(() => {
     const newFilters = { requesters, statuses, tasks, variants };
     const hasFilters = Object.values(newFilters).some((f) => f.length);
 
-    if (hasFilters) {
-      startTransition(() => {
+    // Mount in particular can introduce a lot of useEffect calls due to different array references, so compare strictly
+    const hasChanges =
+      JSON.stringify(serverFiltersRef.current) !== JSON.stringify(newFilters);
+
+    if (hasChanges) {
+      serverFiltersRef.current = newFilters;
+      if (hasFilters) {
+        startTransition(() => {
+          setServerFilters(newFilters);
+        });
+      } else {
+        // Don't use a transition: if cached, the data will appear immediately
+        // If not a skeleton will appear, which makes more sense than 'fetching more'
         setServerFilters(newFilters);
-      });
-    } else {
-      // Don't use a transition: if cached, the data will appear immediately
-      // If not a skeleton will appear, which makes more sense than 'fetching more'
-      setServerFilters(newFilters);
+      }
     }
   }, [requesters, statuses, tasks, variants]);
 
