@@ -47,6 +47,7 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
       : DEFAULT_LOG_TYPE,
   );
   const [noLogs, setNoLogs] = useState(false);
+  const [logLineCount, setLogLineCount] = useState(0);
 
   const onChangeLog = (value: string): void => {
     const nextLogType = value as LogTypes;
@@ -97,13 +98,14 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
         {LogComp && (
           <LogComp
             execution={execution}
+            setLogLineCount={setLogLineCount}
             setNoLogs={setNoLogs}
             taskId={taskId}
           />
         )}
         {(htmlLink || rawLink || parsleyLink) && (
           <>
-            <LogFadeOverlay />
+            {logLineCount > 5 && <LogFadeOverlay />}
             <FloatingButtonContainer>
               {parsleyLink && (
                 <Button
