@@ -91,6 +91,8 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     [],
   );
 
+  // TODO: It would be ideal to represent serverFilters with useDeferredValue to ditch the useState/useEffect pattern.
+  // However, useDeferredValue's initialState option is introduced in React 19.
   const [serverFilters, setServerFilters] =
     useState<ServerFilters>(resetFilterState);
   const [isPending, startTransition] = useTransition();
@@ -176,6 +178,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     if (dataIsComplete) {
       setPagination(data.waterfall.pagination);
 
+      // Use replaceState to remove the query params without causing a rerender
       if (data.waterfall.pagination.hasPrevPage === false) {
         const {
           maxOrder: _,
