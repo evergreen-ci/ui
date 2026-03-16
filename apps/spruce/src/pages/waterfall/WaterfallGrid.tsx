@@ -3,6 +3,10 @@ import { useSuspenseQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
+import {
+  parseQueryString,
+  stringifyQuery,
+} from "@evg-ui/lib/utils/query-string";
 import { useWaterfallAnalytics } from "analytics";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import {
@@ -173,11 +177,12 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       setPagination(data.waterfall.pagination);
 
       if (data.waterfall.pagination.hasPrevPage === false) {
-        // Use replaceState to remove the query params without causing a rerender
-        const params = new URLSearchParams(window.location.search);
-        params.delete("maxOrder");
-        params.delete("minOrder");
-        const search = params.toString();
+        const {
+          maxOrder: _,
+          minOrder: __,
+          ...remainingParams
+        } = parseQueryString(window.location.search);
+        const search = stringifyQuery(remainingParams);
         window.history.replaceState(
           window.history.state,
           "",
