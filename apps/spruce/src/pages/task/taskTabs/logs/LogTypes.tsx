@@ -42,7 +42,6 @@ interface LogMessageType extends LogMessageFragment {
 }
 interface Props {
   setNoLogs: (noLogs: boolean) => void;
-  setLogLineCount?: (count: number) => void;
   taskId: string;
   execution: number;
 }
@@ -60,21 +59,13 @@ const LogBody: React.FC<{
   error?: ErrorLike;
   data: (TaskEventLogEntryType | LogMessageType)[];
   setNoLogs: (noLogs: boolean) => void;
-  setLogLineCount?: (count: number) => void;
-}> = ({ data, error, loading, setLogLineCount, setNoLogs }) => {
+}> = ({ data, error, loading, setNoLogs }) => {
   const noLogs = error !== undefined || data.length === 0;
 
   // Update the value of noLogs in the parent component.
   useEffect(() => {
     setNoLogs(noLogs);
   }, [setNoLogs, noLogs]);
-
-  // Update the log line count in the parent component.
-  useEffect(() => {
-    if (setLogLineCount) {
-      setLogLineCount(data.length);
-    }
-  }, [setLogLineCount, data.length]);
 
   if (loading) {
     return <ParagraphSkeleton />;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Variant } from "@leafygreen-ui/button";
 import {
@@ -18,6 +18,8 @@ import { LogTypes, QueryParams } from "types/task";
 import { EventLog, AgentLog, SystemLog, TaskLog, AllLog } from "./LogTypes";
 
 const DEFAULT_LOG_TYPE = LogTypes.Task;
+const FADE_OVERLAY_HEIGHT = 100;
+const MIN_HEIGHT_FOR_FADE = FADE_OVERLAY_HEIGHT + 20;
 
 const options = {
   [LogTypes.Agent]: AgentLog,
@@ -47,7 +49,23 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
       : DEFAULT_LOG_TYPE,
   );
   const [noLogs, setNoLogs] = useState(false);
-  const [logLineCount, setLogLineCount] = useState(0);
+  const [showFade, setShowFade] = useState(false);
+  const logWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Don't show fade overlay on small log tails
+    const el = logWrapperRef.current;
+    if (!el) return;
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setShowFade(entry.contentRect.height > MIN_HEIGHT_FOR_FADE);
+      }
+    });
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const onChangeLog = (value: string): void => {
     const nextLogType = value as LogTypes;
@@ -95,17 +113,18 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
         </SegmentedControl>
       </LogHeader>
       <LogContentWrapper>
-        {LogComp && (
-          <LogComp
-            execution={execution}
-            setLogLineCount={setLogLineCount}
-            setNoLogs={setNoLogs}
-            taskId={taskId}
-          />
-        )}
+        <div ref={logWrapperRef}>
+          {LogComp && (
+            <LogComp
+              execution={execution}
+              setNoLogs={setNoLogs}
+              taskId={taskId}
+            />
+          )}
+        </div>
         {(htmlLink || rawLink || parsleyLink) && (
           <>
-            {logLineCount > 5 && <LogFadeOverlay />}
+            {showFade && <LogFadeOverlay />}
             <FloatingButtonContainer>
               {parsleyLink && (
                 <Button
@@ -185,7 +204,7 @@ const LogFadeOverlay = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  height: 100px;
+  height: ${FADE_OVERLAY_HEIGHT}px;
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.95) 0%,
