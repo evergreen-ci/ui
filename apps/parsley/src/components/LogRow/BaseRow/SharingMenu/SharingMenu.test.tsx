@@ -252,33 +252,6 @@ describe("sharingMenu", () => {
     expect(screen.getByText("Add to Parsley AI")).toBeInTheDocument();
   });
 
-  it("clicking `copy selected contents without prefix` should copy lines without common prefix", async () => {
-    const user = userEvent.setup({ writeToClipboard: true });
-
-    const { hook } = renderSharingMenu();
-    act(() => {
-      hook.current.handleSelectLine(1, false);
-    });
-    act(() => {
-      hook.current.handleSelectLine(3, true);
-    });
-    expect(
-      screen.getByText("Copy selected contents without prefix"),
-    ).toBeInTheDocument();
-    await user.click(screen.getByText("Copy selected contents without prefix"));
-    const clipboardText = await navigator.clipboard.readText();
-    expect(clipboardText).toBe("2\n3\n4\n");
-  });
-
-  it("should show `search for similar lines` menu option", async () => {
-    const { hook } = renderSharingMenu();
-    act(() => {
-      hook.current.handleSelectLine(1, false);
-      hook.current.setOpenMenu(true);
-    });
-    expect(screen.getByText("Search for similar lines")).toBeInTheDocument();
-  });
-
   it("clicking `copy link to line` should copy the link with selectedLineRange param", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
 

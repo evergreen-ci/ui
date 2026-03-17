@@ -34,39 +34,4 @@ const getLinesInProcessedLogLinesFromSelectedLines = (
   return lines;
 };
 
-const findCommonPrefix = (lines: string[]): string => {
-  if (lines.length === 0) return "";
-  if (lines.length === 1) return "";
-
-  let prefix = lines[0];
-  for (let i = 1; i < lines.length; i++) {
-    while (lines[i].indexOf(prefix) !== 0) {
-      prefix = prefix.substring(0, prefix.length - 1);
-      if (prefix === "") return "";
-    }
-  }
-  return prefix;
-};
-
-const getLinesWithoutPrefix = (
-  lineNumbers: number[],
-  getLine: (lineNumber: number) => string | undefined,
-): string => {
-  const lines = lineNumbers
-    .map((lineNumber) => getLine(lineNumber))
-    .filter((line): line is string => line !== undefined);
-
-  const commonPrefix = findCommonPrefix(lines);
-
-  if (commonPrefix === "") {
-    return `${lines.join("\n")}\n`;
-  }
-
-  return `${lines.map((line) => line.substring(commonPrefix.length)).join("\n")}\n`;
-};
-
-export {
-  findCommonPrefix,
-  getLinesInProcessedLogLinesFromSelectedLines,
-  getLinesWithoutPrefix,
-};
+export { getLinesInProcessedLogLinesFromSelectedLines };
