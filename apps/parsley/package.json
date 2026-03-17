@@ -30,12 +30,11 @@
     "prepare": "pnpm --dir ../.. prepare",
     "preview": "serve -s dist -p 4173",
     "prod": "env-cmd -e devProduction vite",
-    "snapshot": "vitest run snapshot.test.ts",
     "staging": "env-cmd -e devStaging vite",
     "start": "vite",
     "storybook": "NO_HTTPS=true storybook dev -p 6007",
     "storybook:build": "env-cmd -e local storybook build",
-    "test": "vitest --typecheck=false --exclude=src/snapshot.test.ts",
+    "test": "vitest --typecheck=false",
     "chromatic": "npx chromatic --dry-run --project-token=chpt_8083ea0d9f4af30 --build-script-name storybook:build",
     "chromatic:publish": "npx chromatic --project-token=chpt_8083ea0d9f4af30 --build-script-name storybook:build"
   },
