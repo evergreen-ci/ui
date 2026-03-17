@@ -76,7 +76,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
     urlParseOptions,
   );
 
-  const [bookmarks, setBookmarks] = useQueryParam<number[]>(
+  const [bookmarks] = useQueryParam<number[]>(
     QueryParams.Bookmarks,
     [],
     urlParseOptions,
@@ -91,37 +91,24 @@ const BaseRow: React.FC<BaseRowProps> = ({
   const handleMenuClick = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      if (selectedLines.startingLine === undefined) {
+      if (menuPosition === lineNumber) {
+        setOpenMenu(!openMenu);
+        sendEvent({ name: "Toggled share menu", open: !openMenu });
+      } else {
         handleSelectLine(lineNumber, false);
         setOpenMenu(true);
         sendEvent({ name: "Toggled share menu", open: true });
-      } else {
-        setOpenMenu(!openMenu);
-        sendEvent({ name: "Toggled share menu", open: !openMenu });
       }
     },
     [
       handleSelectLine,
       lineNumber,
+      menuPosition,
       openMenu,
-      selectedLines.startingLine,
       sendEvent,
       setOpenMenu,
     ],
   );
-
-  // Double clicking a line should add or remove the line from bookmarks.
-  const handleDoubleClick = useCallback(() => {
-    if (bookmarks.includes(lineNumber)) {
-      const newBookmarks = bookmarks.filter((b) => b !== lineNumber);
-      setBookmarks(newBookmarks);
-      sendEvent({ name: "Deleted bookmark" });
-    } else {
-      const newBookmarks = [...bookmarks, lineNumber].sort((a, b) => a - b);
-      setBookmarks(newBookmarks);
-      sendEvent({ name: "Created bookmark" });
-    }
-  }, [bookmarks, lineNumber, sendEvent, setBookmarks]);
 
   const isLineBetweenSelectedLines =
     (selectedLines.startingLine !== undefined &&
@@ -144,7 +131,6 @@ const BaseRow: React.FC<BaseRowProps> = ({
       data-shared={shared}
       failed={failed}
       highlighted={highlighted || isLineBetweenSelectedLines}
-      onDoubleClick={handleDoubleClick}
       shared={shared}
     >
       {menuPosition === lineNumber ? (

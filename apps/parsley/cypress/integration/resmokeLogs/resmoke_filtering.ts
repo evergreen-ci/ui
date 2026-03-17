@@ -12,7 +12,8 @@ describe("Filtering", () => {
 
       it("should not collapse bookmarks and selected line", () => {
         cy.dataCy("line-index-5").click();
-        cy.dataCy("log-row-6").dblclick();
+        cy.dataCy("log-menu-6").click();
+        cy.contains("Bookmark line").click();
         cy.location("search").should(
           "equal",
           "?bookmarks=0,6,130&selectedLineRange=L5",

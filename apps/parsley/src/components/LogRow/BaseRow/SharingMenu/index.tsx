@@ -6,7 +6,7 @@ import { useChatContext } from "@evg-ui/fungi";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useQueryParams } from "@evg-ui/lib/hooks";
+import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import {
   getLocalStorageString,
   setLocalStorageString,
@@ -34,6 +34,11 @@ const SharingMenu: React.FC = () => {
   const isParsleyAIAvailable = useIsParsleyAIAvailable();
 
   const [params, setParams] = useQueryParams(urlParseOptions);
+  const [bookmarks, setBookmarks] = useQueryParam<number[]>(
+    QueryParams.Bookmarks,
+    [],
+    urlParseOptions,
+  );
   const dispatchToast = useToastContext();
   const { sendEvent } = useLogWindowAnalytics();
   const setMenuOpen = () => {
@@ -108,6 +113,28 @@ const SharingMenu: React.FC = () => {
     });
   };
 
+  const handleToggleBookmark = () => {
+    const { startingLine } = selectedLines;
+    if (startingLine === undefined) return;
+
+    if (bookmarks.includes(startingLine)) {
+      const newBookmarks = bookmarks.filter((b) => b !== startingLine);
+      setBookmarks(newBookmarks);
+      sendEvent({ name: "Deleted bookmark" });
+      dispatchToast.success("Bookmark removed", true, { timeout: 3000 });
+    } else {
+      const newBookmarks = [...bookmarks, startingLine].sort((a, b) => a - b);
+      setBookmarks(newBookmarks);
+      sendEvent({ name: "Created bookmark" });
+      dispatchToast.success("Bookmark added", true, { timeout: 3000 });
+    }
+    setOpen(false);
+  };
+
+  const isBookmarked =
+    selectedLines.startingLine !== undefined &&
+    bookmarks.includes(selectedLines.startingLine);
+
   const handleShareLinkToSelectedLines = async () => {
     const { endingLine, startingLine } = selectedLines;
     if (startingLine === undefined) return;
@@ -169,6 +196,12 @@ const SharingMenu: React.FC = () => {
           Copy link to {pluralize("line", lineCount)}
         </MenuItem>
       )}
+      <MenuItem
+        glyph={<Icon glyph={isBookmarked ? "Checkmark" : "Plus"} />}
+        onClick={handleToggleBookmark}
+      >
+        {isBookmarked ? "Remove bookmark" : "Bookmark line"}
+      </MenuItem>
       <MenuItem
         glyph={<Icon glyph="MagnifyingGlass" />}
         onClick={handleOnlySearchOnRange}

@@ -70,12 +70,14 @@ describe("ansiLogs/ansi_logView", () => {
     });
 
     it("should be able to bookmark and unbookmark log lines", () => {
-      cy.dataCy("log-row-4").dblclick();
+      cy.dataCy("log-menu-4").click();
+      cy.contains("Bookmark line").click();
       cy.location("search").should("equal", "?bookmarks=0,4,297");
       cy.dataCy("bookmark-list").should("contain", "0");
       cy.dataCy("bookmark-list").should("contain", "4");
       cy.dataCy("bookmark-list").should("contain", "297");
-      cy.dataCy("log-row-4").dblclick();
+      cy.dataCy("log-menu-4").click();
+      cy.contains("Remove bookmark").click();
       cy.location("search").should("equal", "?bookmarks=0,297");
       cy.dataCy("bookmark-list").should("not.contain", "4");
     });
@@ -92,8 +94,10 @@ describe("ansiLogs/ansi_logView", () => {
     });
 
     it("should be able to copy bookmarks as JIRA format", () => {
-      cy.dataCy("log-row-10").dblclick({ scrollBehavior: false });
-      cy.dataCy("log-row-11").dblclick({ scrollBehavior: false });
+      cy.dataCy("log-menu-10").click();
+      cy.contains("Bookmark line").click();
+      cy.dataCy("log-menu-11").click();
+      cy.contains("Bookmark line").click();
 
       const logLine0 =
         "[2022/03/02 17:01:58.587] Task logger initialized (agent version 2022-02-14 from 00a4c8f3e8e4559cc23e04a019b6d1725c40c3e5).";
@@ -112,8 +116,10 @@ describe("ansiLogs/ansi_logView", () => {
     });
 
     it("should be able to copy bookmarks as raw format", () => {
-      cy.dataCy("log-row-10").dblclick({ scrollBehavior: false });
-      cy.dataCy("log-row-11").dblclick({ scrollBehavior: false });
+      cy.dataCy("log-menu-10").click();
+      cy.contains("Bookmark line").click();
+      cy.dataCy("log-menu-11").click();
+      cy.contains("Bookmark line").click();
 
       const logLine0 =
         "[2022/03/02 17:01:58.587] Task logger initialized (agent version 2022-02-14 from 00a4c8f3e8e4559cc23e04a019b6d1725c40c3e5).";
@@ -147,7 +153,8 @@ describe("ansiLogs/ansi_logView", () => {
 
     it("should be able to use the bookmarks bar to jump to a line when there are no collapsed rows", () => {
       cy.visit(logLink);
-      cy.dataCy("log-row-4").should("be.visible").dblclick({ force: true });
+      cy.dataCy("log-menu-4").should("be.visible").click();
+      cy.contains("Bookmark line").click();
       cy.dataCy("bookmark-4").should("be.visible");
 
       cy.dataCy("bookmark-297").click();
@@ -159,7 +166,8 @@ describe("ansiLogs/ansi_logView", () => {
 
     it("should be able to use the bookmarks bar to jump to a line when there are collapsed rows", () => {
       cy.visit(`${logLink}?filters=100pass`);
-      cy.dataCy("log-row-56").dblclick({ force: true });
+      cy.dataCy("log-menu-56").click();
+      cy.contains("Bookmark line").click();
       cy.dataCy("bookmark-56").should("be.visible");
 
       cy.dataCy("bookmark-297").click();

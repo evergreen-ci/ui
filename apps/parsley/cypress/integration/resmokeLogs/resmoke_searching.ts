@@ -67,7 +67,8 @@ describe("Searching", () => {
     cy.dataCy("search-count").should("contain.text", "1/8");
     cy.dataCy("next-button").click();
     cy.dataCy("search-count").should("contain.text", "2/8");
-    cy.dataCy("log-row-112").dblclick();
+    cy.dataCy("log-menu-112").click();
+    cy.contains("Bookmark line").click();
     cy.location("search").should("equal", "?bookmarks=0,112,11079");
     cy.dataCy("search-count").should("contain.text", "2/8");
   });

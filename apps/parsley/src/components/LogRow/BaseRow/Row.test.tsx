@@ -58,33 +58,19 @@ describe("row", () => {
     expect(screen.getByText("Copy selected contents")).toBeVisible();
   });
 
-  it("double clicking a log line adds it to the bookmarks", async () => {
-    const user = userEvent.setup();
-    const { router } = renderRow({ ...rowProps, children: testLog }, {});
-    await user.dblClick(screen.getByText(testLog));
-    expect(router.state.location.search).toBe("?bookmarks=0");
-  });
-
-  it("double clicking a bookmarked log line removes it from the bookmarks", async () => {
+  it("clicking menu button on different line selects that line", async () => {
     const user = userEvent.setup();
     const { router } = renderRow(
-      { ...rowProps, children: testLog },
-      { route: "?bookmarks=0" },
+      {
+        ...rowProps,
+        children: testLog,
+        lineNumber: 5,
+      },
+      { route: "?selectedLineRange=L0" },
     );
-
-    await user.dblClick(screen.getByText(testLog));
-    expect(router.state.location.search).toBe("");
-  });
-
-  it("a log line can be selected and bookmarked at the same time", async () => {
-    const user = userEvent.setup();
-    const { router } = renderRow({ ...rowProps, children: testLog }, {});
-
-    await user.click(screen.getByDataCy("line-index-0"));
-    await user.dblClick(screen.getByText(testLog));
-    expect(router.state.location.search).toBe(
-      "?bookmarks=0&selectedLineRange=L0",
-    );
+    await user.click(screen.getByDataCy("log-menu-5"));
+    expect(router.state.location.search).toBe("?selectedLineRange=L5");
+    expect(screen.getByText("Copy selected contents")).toBeVisible();
   });
 
   it("should not copy line numbers to clipboard", async () => {

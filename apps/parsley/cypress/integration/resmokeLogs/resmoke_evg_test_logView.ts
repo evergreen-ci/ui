@@ -117,12 +117,14 @@ describe("resmokeLogs/resmoke_evg_test_logView", () => {
     });
 
     it("should be able to bookmark and unbookmark log lines", () => {
-      cy.dataCy("log-row-4").dblclick();
+      cy.dataCy("log-menu-4").click();
+      cy.contains("Bookmark line").click();
       cy.location("search").should("equal", "?bookmarks=0,4,12568");
       cy.dataCy("bookmark-0").should("be.visible");
       cy.dataCy("bookmark-4").should("be.visible");
       cy.dataCy("bookmark-12568").should("be.visible");
-      cy.dataCy("log-row-4").dblclick();
+      cy.dataCy("log-menu-4").click();
+      cy.contains("Bookmark line").click();
       cy.location("search").should("equal", "?bookmarks=0,12568");
       cy.dataCy("bookmark-4").should("not.exist");
     });
@@ -139,8 +141,10 @@ describe("resmokeLogs/resmoke_evg_test_logView", () => {
     });
 
     it("should be able to copy bookmarks as JIRA format", () => {
-      cy.dataCy("log-row-10").dblclick({ scrollBehavior: false });
-      cy.dataCy("log-row-11").dblclick({ scrollBehavior: false });
+      cy.dataCy("log-menu-10").click();
+      cy.contains("Bookmark line").click();
+      cy.dataCy("log-menu-11").click();
+      cy.contains("Bookmark line").click();
 
       const logLine0 =
         "[fsm_workload_test:internal_transactions_kill_sessions] Fixture status:";
@@ -257,7 +261,8 @@ describe("resmokeLogs/resmoke_evg_test_logView", () => {
     it("should pretty print bookmarks if pretty print is enabled", () => {
       const defaultRowHeight = 18;
 
-      cy.dataCy("log-row-19").dblclick({ force: true });
+      cy.dataCy("log-menu-19").click();
+      cy.contains("Bookmark line").click();
       cy.dataCy("log-row-19")
         .invoke("height")
         .should("be.greaterThan", defaultRowHeight);
