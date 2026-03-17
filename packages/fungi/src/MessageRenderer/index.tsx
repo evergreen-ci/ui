@@ -35,7 +35,10 @@ export const MessageRenderer: React.FC<
       {parts.map((part, index) => {
         const key = `${id}-${part.type}-${index}`;
         if (part.type === "text") {
-          const isLastPart = parts.length - 1 === index;
+          const isLastTextPart = !parts
+            .slice(index + 1)
+            .some((p) => p.type === "text");
+
           const isSender = role === "user";
 
           const displayText =
@@ -59,7 +62,7 @@ export const MessageRenderer: React.FC<
                   onClick={onChipClick}
                 />
               )}
-              {!isSender && part.state === "done" && isLastPart && (
+              {!isSender && part.state === "done" && isLastTextPart && (
                 <Message.Actions
                   onClickCopy={onClickCopy}
                   onRatingChange={onRatingChange}
