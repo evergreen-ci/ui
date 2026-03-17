@@ -1,12 +1,10 @@
-import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
 import { MockedProvider, renderHook, act } from "@evg-ui/lib/test_utils";
 import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getUserMock } from "gql/mocks/getUser";
 import { usePolling } from ".";
 
-vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
+const mockedGetItem = vi.spyOn(Storage.prototype, "getItem") as MockInstance;
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const Provider = ({ children }) => (
@@ -35,7 +33,7 @@ describe("usePolling", () => {
       value: "visible",
       configurable: true,
     });
-    mockedGet.mockImplementation(() => "false");
+    mockedGetItem.mockImplementation(() => "false");
   });
 
   it("usePolling should not call the functions when initialized", async () => {
@@ -56,7 +54,7 @@ describe("usePolling", () => {
 
   describe("polling is disabled", () => {
     it("usePolling evaluates to false when polling is disabled", async () => {
-      mockedGet.mockImplementation(() => "true");
+      mockedGetItem.mockImplementation(() => "true");
 
       const { result: disabledResult } = renderHook(
         () =>
@@ -91,7 +89,7 @@ describe("usePolling", () => {
       const startPolling = vi.fn();
       const stopPolling = vi.fn();
       const refetch = vi.fn();
-      mockedGet.mockImplementation(() => "true");
+      mockedGetItem.mockImplementation(() => "true");
       let shouldPollFaster = true;
       const { rerender } = renderHook(
         () =>
