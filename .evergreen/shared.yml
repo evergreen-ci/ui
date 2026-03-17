@@ -225,14 +225,6 @@ functions:
         ${PREPARE_SHELL}
         pnpm serve
 
-  pnpm-snapshot:
-    command: shell.exec
-    params:
-      working_dir: ui/${app_dir}
-      script: |
-        ${PREPARE_SHELL}
-        pnpm snapshot
-
   pnpm-storybook-build:
     command: shell.exec
     params:
@@ -295,10 +287,6 @@ tasks:
     commands:
       - func: symlink
       - func: pnpm-eslint
-
-  - name: snapshots
-    commands:
-      - func: pnpm-snapshot
 
   - name: storybook
     commands:
