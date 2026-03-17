@@ -54,7 +54,6 @@
     "react-router-dom": "6.18.0"
   },
   "devDependencies": {
-
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
     "@evg-ui/storybook-addon": "workspace:*",
