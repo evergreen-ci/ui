@@ -32,12 +32,11 @@
     "prepare": "pnpm --dir ../.. prepare",
     "preview": "serve -s dist -p 3000",
     "prod": "env-cmd -e devProduction pnpm start",
-    "snapshot": "vitest run snapshot.test.ts",
     "staging": "env-cmd -e devStaging pnpm start",
     "start": "vite",
     "storybook": "NO_HTTPS=true storybook dev -p 6006",
     "storybook:build": "storybook build",
-    "test": "vitest --exclude=src/snapshot.test.ts",
+    "test": "vitest",
     "chromatic": "npx chromatic --project-token=chpt_676fe75e2c97368 --build-script-name storybook:build"
   },
   "browserslist": {

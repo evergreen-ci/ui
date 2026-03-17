@@ -61,7 +61,6 @@ buildvariants:
       - name: compile
       - name: e2e
       - name: lint
-      - name: snapshots
       - name: storybook
       - name: test
       - name: type_check
@@ -90,7 +89,6 @@ buildvariants:
       - name: compile
       - name: e2e
       - name: lint
-      - name: snapshots
       - name: storybook
       - name: test
       - name: type_check
@@ -112,7 +110,6 @@ buildvariants:
       - evergreen
     tasks:
       - name: lint
-      - name: snapshots
       - name: storybook
       - name: test
       - name: type_check
