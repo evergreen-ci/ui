@@ -1925,6 +1925,7 @@ export type Mutation = {
   overrideTaskDependencies: Task;
   promoteVarsToRepo: Scalars["Boolean"]["output"];
   quarantineTest: QuarantineTestPayload;
+  refreshGitHubStatuses?: Maybe<RefreshGitHubStatusesPayload>;
   removeAnnotationIssue: Scalars["Boolean"]["output"];
   removeFavoriteProject: Project;
   removePublicKey: Array<PublicKey>;
@@ -2086,6 +2087,10 @@ export type MutationPromoteVarsToRepoArgs = {
 
 export type MutationQuarantineTestArgs = {
   opts: QuarantineTestInput;
+};
+
+export type MutationRefreshGitHubStatusesArgs = {
+  opts: RefreshGitHubStatusesInput;
 };
 
 export type MutationRemoveAnnotationIssueArgs = {
@@ -3227,6 +3232,15 @@ export type QueryVersionArgs = {
 
 export type QueryWaterfallArgs = {
   options: WaterfallOptions;
+};
+
+export type RefreshGitHubStatusesInput = {
+  versionId: Scalars["String"]["input"];
+};
+
+export type RefreshGitHubStatusesPayload = {
+  __typename?: "RefreshGitHubStatusesPayload";
+  success: Scalars["Boolean"]["output"];
 };
 
 export type ReleaseModeConfig = {
