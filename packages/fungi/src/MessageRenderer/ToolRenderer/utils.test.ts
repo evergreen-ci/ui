@@ -127,4 +127,17 @@ describe("isLogCoreAnalyzerOutput", () => {
   it("returns false for non-objects", () => {
     expect(isLogCoreAnalyzerOutput("string")).toBe(false);
   });
+
+  it("returns false when lineReferences is missing", () => {
+    expect(isLogCoreAnalyzerOutput({ markdown: "## Summary" })).toBe(false);
+  });
+
+  it("returns false when lineReferences is not an array", () => {
+    expect(
+      isLogCoreAnalyzerOutput({
+        markdown: "## Summary",
+        lineReferences: "bad",
+      }),
+    ).toBe(false);
+  });
 });

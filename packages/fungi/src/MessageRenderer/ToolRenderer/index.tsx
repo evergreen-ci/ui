@@ -75,6 +75,7 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({
       <StyledActionCard
         data-cy="tool-use-chip"
         description={description}
+        showExpandButton={!!renderedOutput}
         state={toolStateToActionCardState(tool.state)}
         title={toolStateToLabelCopy(tool.state, toolLabel)}
       >
