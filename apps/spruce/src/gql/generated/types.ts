@@ -675,6 +675,7 @@ export type Cost = {
 
 export type CostConfig = {
   __typename?: "CostConfig";
+  ebsCost?: Maybe<EbsCostConfig>;
   financeFormula?: Maybe<Scalars["Float"]["output"]>;
   onDemandDiscount?: Maybe<Scalars["Float"]["output"]>;
   s3Cost?: Maybe<S3CostConfig>;
@@ -682,6 +683,7 @@ export type CostConfig = {
 };
 
 export type CostConfigInput = {
+  ebsCost?: InputMaybe<EbsCostConfigInput>;
   financeFormula?: InputMaybe<Scalars["Float"]["input"]>;
   onDemandDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   s3Cost?: InputMaybe<S3CostConfigInput>;
@@ -950,6 +952,15 @@ export type DockerConfig = {
 
 export type DockerConfigInput = {
   apiVersion?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type EbsCostConfig = {
+  __typename?: "EBSCostConfig";
+  ebsDiscount?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type EbsCostConfigInput = {
+  ebsDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
 export type Ec2Key = {
@@ -4063,6 +4074,7 @@ export type Task = {
   errors?: Maybe<Array<Scalars["String"]["output"]>>;
   estimatedStart?: Maybe<Scalars["Duration"]["output"]>;
   execution: Scalars["Int"]["output"];
+  executionSteps?: Maybe<Array<TaskExecutionStep>>;
   executionTasks?: Maybe<Array<Scalars["String"]["output"]>>;
   executionTasksFull?: Maybe<Array<Task>>;
   expectedDuration?: Maybe<Scalars["Duration"]["output"]>;
@@ -4174,6 +4186,18 @@ export type TaskEventLogEntry = {
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
+};
+
+/** TaskExecutionStep represents a single step in a task's execution plan. */
+export type TaskExecutionStep = {
+  __typename?: "TaskExecutionStep";
+  blockType: Scalars["String"]["output"];
+  commandName: Scalars["String"]["output"];
+  displayName: Scalars["String"]["output"];
+  functionName: Scalars["String"]["output"];
+  isFunction: Scalars["Boolean"]["output"];
+  /** stepNumber is intentionally a string because step numbers are formatted in decimal notation, i.e. '2.1' */
+  stepNumber: Scalars["String"]["output"];
 };
 
 /**
@@ -4744,6 +4768,7 @@ export type Version = {
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
   buildVariants?: Maybe<Array<GroupedBuildVariant>>;
   childVersions?: Maybe<Array<Version>>;
+  cost?: Maybe<Cost>;
   createTime: Scalars["Time"]["output"];
   errors: Array<Scalars["String"]["output"]>;
   externalLinksForMetadata: Array<ExternalLinkForMetadata>;
