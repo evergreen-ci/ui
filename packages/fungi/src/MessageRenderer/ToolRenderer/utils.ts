@@ -16,7 +16,8 @@ export const isLogCoreAnalyzerOutput = (
 ): output is LogCoreAnalyzerOutput =>
   typeof output === "object" &&
   output !== null &&
-  typeof (output as Record<string, unknown>).markdown === "string";
+  typeof (output as Record<string, unknown>).markdown === "string" &&
+  Array.isArray((output as Record<string, unknown>).lineReferences);
 
 type DataProgressData = ProgressUpdate & { toolCallId: string };
 
