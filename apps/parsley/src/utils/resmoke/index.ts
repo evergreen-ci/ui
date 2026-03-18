@@ -21,14 +21,17 @@ const { blue, green, purple, red, yellow } = palette;
  * @returns processed resmoke line or original line
  */
 const processResmokeLine = (line: string) => {
-  let logParts = line.split("|"); // in many cases mongod will insert a pipe between the metadata and json logs
-  if (logParts.length !== 2) {
-    const startOfJson = line.indexOf("{"); // if not, attempt to find the first occurrence of a json document and attempt to parse as a log
-    if (startOfJson > -1) {
-      logParts = [line.substring(0, startOfJson), line.substring(startOfJson)];
-    } else {
-      return line;
-    }
+  const firstPipe = line.indexOf("|");
+  const firstBrace = line.indexOf("{");
+
+  let logParts: string[];
+  if (firstPipe > -1 && (firstBrace === -1 || firstPipe < firstBrace)) {
+    // Split on the first pipe only when it precedes the JSON body
+    logParts = [line.substring(0, firstPipe), line.substring(firstPipe + 1)];
+  } else if (firstBrace > -1) {
+    logParts = [line.substring(0, firstBrace), line.substring(firstBrace)];
+  } else {
+    return line;
   }
 
   // First check if it is a resmoke line at all
