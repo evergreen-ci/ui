@@ -73,6 +73,34 @@ describe("row", () => {
     expect(screen.getByText("Copy selected contents")).toBeVisible();
   });
 
+  it("clicking line number should select that line", async () => {
+    const user = userEvent.setup();
+    const { router } = renderRow(
+      {
+        ...rowProps,
+        children: testLog,
+        lineNumber: 0,
+      },
+      {},
+    );
+    await user.click(screen.getByDataCy("line-index-0"));
+    expect(router.state.location.search).toBe("?selectedLineRange=L0");
+  });
+
+  it("clicking line number on different line should select new line", async () => {
+    const user = userEvent.setup();
+    const { router } = renderRow(
+      {
+        ...rowProps,
+        children: testLog,
+        lineNumber: 5,
+      },
+      { route: "?selectedLineRange=L0" },
+    );
+    await user.click(screen.getByDataCy("line-index-5"));
+    expect(router.state.location.search).toBe("?selectedLineRange=L5");
+  });
+
   it("should not copy line numbers to clipboard", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
     renderRow({ ...rowProps, children: testLog }, {});
