@@ -46,7 +46,6 @@ export const renderableToolLabels: Record<
       return output.lineReferences.map(({ description, line }) => ({
         children: `Line ${line}: ${description}`,
         onLinkClick: () => onLinkClick?.(`#L${line}`),
-        variant: "Code" as const,
       }));
     },
     renderOutput: (output) =>
