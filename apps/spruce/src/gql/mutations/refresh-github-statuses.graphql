@@ -1,0 +1,5 @@
+mutation RefreshGithubStatuses($versionId: String!) {
+  refreshGitHubStatuses(opts: { versionId: $versionId }) {
+    success
+  }
+}
