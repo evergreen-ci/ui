@@ -120,6 +120,12 @@ export const Chatbot: React.FC<{ children: React.ReactNode }> = ({
           onClickSuggestion={(suggestion) => {
             sendEvent({ name: "Clicked suggestion", suggestion });
           }}
+          onLinkClick={(href) => {
+            const line = parseInt(href.replace("#L", ""), 10);
+            if (!Number.isNaN(line)) {
+              openSectionAndScrollToLine(line);
+            }
+          }}
           onSendMessage={(message) => {
             sendEvent({ message, name: "Interacted with Parsley AI" });
           }}
