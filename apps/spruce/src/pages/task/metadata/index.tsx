@@ -98,7 +98,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
 
   const isDisplayTask = executionTasksFull != null;
   const {
-    id: baseTaskId,
     timeTaken: baseTaskDuration,
     versionMetadata: baseTaskVersionMetadata,
   } = baseTask ?? {};
@@ -214,7 +213,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             {msToDuration(baseTaskDuration)}
           </MetadataItem>
         ) : null}
-        {baseTaskId && (
+        {baseTask && (
           <MetadataItem>
             <MetadataLabel>Base commit:</MetadataLabel>{" "}
             <InlineCode
@@ -226,7 +225,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
                   "link.type": "base commit",
                 })
               }
-              to={getTaskRoute(baseTaskId)}
+              to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
             >
               {baseCommit}
             </InlineCode>
