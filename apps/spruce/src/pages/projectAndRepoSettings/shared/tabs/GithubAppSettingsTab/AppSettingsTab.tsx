@@ -25,6 +25,7 @@ export const AppSettingsTab: React.FC<TabProps> = ({
   projectId,
   projectType,
   repoData,
+  repoId,
 }) => {
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
@@ -48,10 +49,10 @@ export const AppSettingsTab: React.FC<TabProps> = ({
         githubPermissionGroups,
         identifier,
         isAppDefined,
-        projectId,
+        isRepo,
+        projectId: projectId || repoId,
         repoData,
         defaultsToRepo,
-        hasRepoApp: !isRepo && repoAppId > 0,
       }),
     [
       githubPermissionGroups,
@@ -60,8 +61,8 @@ export const AppSettingsTab: React.FC<TabProps> = ({
       isRepo,
       projectId,
       repoData,
+      repoId,
       defaultsToRepo,
-      repoAppId,
     ],
   );
 

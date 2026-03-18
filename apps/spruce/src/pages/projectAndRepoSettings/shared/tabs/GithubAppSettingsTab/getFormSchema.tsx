@@ -27,19 +27,19 @@ const noPermissionsGroup = "No Permissions";
 export const getFormSchema = ({
   defaultsToRepo,
   githubPermissionGroups,
-  hasRepoApp,
   identifier,
   isAppDefined,
+  isRepo,
   projectId,
   repoData,
 }: {
   githubPermissionGroups: GitHubDynamicTokenPermissionGroup[];
   identifier: string;
   isAppDefined: boolean;
+  isRepo: boolean;
   projectId: string;
   repoData?: any;
   defaultsToRepo: boolean;
-  hasRepoApp: boolean;
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -150,7 +150,7 @@ export const getFormSchema = ({
       actions: {
         "ui:field": GithubAppActions,
         "ui:showLabel": false,
-        options: { isAppDefined, projectId, defaultsToRepo, hasRepoApp },
+        options: { isAppDefined, isRepo, projectId, defaultsToRepo },
       },
     },
     tokenPermissionRestrictions: {

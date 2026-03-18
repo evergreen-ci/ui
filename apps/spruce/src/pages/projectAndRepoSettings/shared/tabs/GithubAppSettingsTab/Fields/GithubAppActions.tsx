@@ -2,89 +2,159 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { css } from "@emotion/react";
 import { Banner, Variant as BannerVariant } from "@leafygreen-ui/banner";
-import { Button, Variant as ButtonVariant } from "@leafygreen-ui/button";
-import {
-  ConfirmationModal,
-  Variant as ModalVariant,
-} from "@leafygreen-ui/confirmation-modal";
+import { Button } from "@leafygreen-ui/button";
+import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
+import { NumberInput } from "@leafygreen-ui/number-input";
+import TextArea from "@leafygreen-ui/text-area";
 import { Field } from "@rjsf/core";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { githubAppCredentialsDocumentationUrl } from "constants/externalResources";
 import {
-  DeleteGithubAppCredentialsMutation,
-  DeleteGithubAppCredentialsMutationVariables,
+  ProjectSettingsSection,
+  SaveProjectSettingsForSectionMutation,
+  SaveProjectSettingsForSectionMutationVariables,
+  SaveRepoSettingsForSectionMutation,
+  SaveRepoSettingsForSectionMutationVariables,
 } from "gql/generated/types";
-import { DELETE_GITHUB_APP_CREDENTIALS } from "gql/mutations";
+import {
+  SAVE_PROJECT_SETTINGS_FOR_SECTION,
+  SAVE_REPO_SETTINGS_FOR_SECTION,
+} from "gql/mutations";
 
-const DeleteAppCredentialsButton: React.FC<{
-  ["data-cy"]: string;
+const ReplaceAppCredentialsButton: React.FC<{
   projectId: string;
   disabled: boolean;
-  hasRepoApp: boolean;
-}> = ({ "data-cy": dataCy, disabled, hasRepoApp, projectId }) => {
+  isRepo: boolean;
+}> = ({ disabled, isRepo, projectId }) => {
   const [open, setOpen] = useState(false);
+  const [appId, setAppId] = useState("");
+  const [privateKey, setPrivateKey] = useState("");
   const dispatchToast = useToastContext();
 
-  const [deleteGithubAppCredentials, { loading }] = useMutation<
-    DeleteGithubAppCredentialsMutation,
-    DeleteGithubAppCredentialsMutationVariables
-  >(DELETE_GITHUB_APP_CREDENTIALS, {
+  const refetchQueries = isRepo ? ["RepoSettings"] : ["ProjectSettings"];
+
+  const [saveProjectSettings, { loading: projectLoading }] = useMutation<
+    SaveProjectSettingsForSectionMutation,
+    SaveProjectSettingsForSectionMutationVariables
+  >(SAVE_PROJECT_SETTINGS_FOR_SECTION, {
     onCompleted: () => {
       dispatchToast.success(
-        "GitHub app credentials were successfully deleted.",
+        "GitHub app credentials were successfully replaced.",
       );
+      handleClose();
     },
     onError: (err) => {
       dispatchToast.error(
-        `There was an error deleting the GitHub app credentials: ${err.message}`,
+        `There was an error replacing the GitHub app credentials: ${err.message}`,
       );
     },
-    refetchQueries: ["ProjectSettings"],
+    refetchQueries,
   });
+
+  const [saveRepoSettings, { loading: repoLoading }] = useMutation<
+    SaveRepoSettingsForSectionMutation,
+    SaveRepoSettingsForSectionMutationVariables
+  >(SAVE_REPO_SETTINGS_FOR_SECTION, {
+    onCompleted: () => {
+      dispatchToast.success(
+        "GitHub app credentials were successfully replaced.",
+      );
+      handleClose();
+    },
+    onError: (err) => {
+      dispatchToast.error(
+        `There was an error replacing the GitHub app credentials: ${err.message}`,
+      );
+    },
+    refetchQueries,
+  });
+
+  const loading = projectLoading || repoLoading;
+  const isValid = Number(appId) > 0 && privateKey.length > 0;
+
+  const handleClose = () => {
+    setOpen(false);
+    setAppId("");
+    setPrivateKey("");
+  };
+
+  const handleReplace = () => {
+    const githubAppAuth = {
+      appId: Number(appId),
+      privateKey,
+    };
+    if (isRepo) {
+      saveRepoSettings({
+        variables: {
+          repoSettings: {
+            repoId: projectId,
+            githubAppAuth,
+            projectRef: { id: projectId },
+          },
+          section: ProjectSettingsSection.GithubAppSettings,
+        },
+      });
+    } else {
+      saveProjectSettings({
+        variables: {
+          projectSettings: {
+            projectId,
+            githubAppAuth,
+            projectRef: { id: projectId },
+          },
+          section: ProjectSettingsSection.GithubAppSettings,
+        },
+      });
+    }
+  };
 
   return (
     <>
       <ConfirmationModal
         cancelButtonProps={{
-          onClick: () => setOpen(false),
+          onClick: handleClose,
         }}
         confirmButtonProps={{
-          children: "Delete",
-          disabled: loading,
-          onClick: () => {
-            deleteGithubAppCredentials({ variables: { projectId } });
-            setOpen(false);
-          },
+          children: "Replace",
+          disabled: loading || !isValid,
+          onClick: handleReplace,
         }}
-        data-cy="delete-github-credentials-modal"
+        data-cy="replace-github-credentials-modal"
         open={open}
-        title="Delete GitHub app credentials?"
-        variant={ModalVariant.Danger}
+        title="Replace GitHub app credentials"
       >
-        <p>
-          Confirm that you want to remove the GitHub app credentials associated
-          with this project.
-        </p>
-        {!hasRepoApp && (
-          <Banner
-            data-cy="delete-credentials-warning-banner"
-            variant={BannerVariant.Warning}
-          >
-            Deleting your project&apos;s GitHub app credentials will cause this
-            project to use the shared GitHub app, which has lower rate limits.
-            To avoid reduced rate limits, add a new GitHub app after deleting.
-          </Banner>
-        )}
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            gap: ${size.s};
+          `}
+        >
+          <p>Enter new GitHub app credentials to replace the existing ones.</p>
+          <NumberInput
+            data-cy="replace-app-id-input"
+            label="New App ID"
+            onChange={(e) => setAppId(e.target.value)}
+            placeholder="Enter app ID"
+            value={appId}
+          />
+          <TextArea
+            data-cy="replace-private-key-input"
+            label="New Private Key"
+            onChange={(e) => setPrivateKey(e.target.value)}
+            placeholder="Enter private key"
+            value={privateKey}
+          />
+        </div>
       </ConfirmationModal>
       <Button
-        data-cy={dataCy}
+        data-cy="replace-app-credentials-button"
         disabled={disabled}
         onClick={() => setOpen(true)}
-        variant={ButtonVariant.Danger}
       >
-        Delete key
+        Replace key
       </Button>
     </>
   );
@@ -92,39 +162,20 @@ const DeleteAppCredentialsButton: React.FC<{
 
 const GithubAppActions: Field = ({ disabled, uiSchema }) => {
   const {
-    options: { defaultsToRepo, hasRepoApp, isAppDefined, projectId },
+    options: { defaultsToRepo, isAppDefined, isRepo, projectId },
   } = uiSchema;
 
-  // You should not be able to delete the repo GitHub app from a project.
+  // You should not be able to modify the repo GitHub app from a project.
   if (defaultsToRepo) {
     return null;
   }
 
   return isAppDefined ? (
-    <div
-      css={css`
-        display: flex;
-        flex-direction: column;
-        gap: ${size.xs};
-      `}
-    >
-      {!hasRepoApp && (
-        <Banner
-          data-cy="github-app-rate-limit-banner"
-          variant={BannerVariant.Warning}
-        >
-          Removing your project&apos;s GitHub app credentials without adding a
-          replacement will cause this project to fall back to the shared GitHub
-          app, which has lower rate limits.
-        </Banner>
-      )}
-      <DeleteAppCredentialsButton
-        data-cy="delete-app-credentials-button"
-        disabled={disabled}
-        hasRepoApp={hasRepoApp}
-        projectId={projectId}
-      />
-    </div>
+    <ReplaceAppCredentialsButton
+      disabled={disabled}
+      isRepo={isRepo}
+      projectId={projectId}
+    />
   ) : (
     <Banner
       data-cy="github-app-credentials-banner"
