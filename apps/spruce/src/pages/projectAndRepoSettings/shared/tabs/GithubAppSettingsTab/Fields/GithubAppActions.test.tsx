@@ -15,7 +15,13 @@ import {
 import { DELETE_GITHUB_APP_CREDENTIALS } from "gql/mutations";
 import { GithubAppActions } from ".";
 
-const Field = ({ isAppDefined }: { isAppDefined: boolean }) => (
+const Field = ({
+  hasRepoApp = false,
+  isAppDefined,
+}: {
+  hasRepoApp?: boolean;
+  isAppDefined: boolean;
+}) => (
   <MockedProvider mocks={[deleteAppCredentialsMock]}>
     <GithubAppActions
       {...({} as unknown as FieldProps)}
@@ -23,6 +29,7 @@ const Field = ({ isAppDefined }: { isAppDefined: boolean }) => (
         options: {
           projectId: "evergreen",
           isAppDefined,
+          hasRepoApp,
         },
       }}
     />
@@ -45,16 +52,30 @@ describe("githubAppActions", () => {
     });
   });
 
-  describe("app is defined", () => {
-    it("renders the button and not the banner", () => {
+  describe("app is defined and no repo app", () => {
+    it("renders the delete button and rate limit warnings", () => {
       const { Component } = RenderFakeToastContext(<Field isAppDefined />);
       render(<Component />);
       expect(
         screen.getByDataCy("delete-app-credentials-button"),
       ).toBeInTheDocument();
       expect(
+        screen.getByDataCy("github-app-rate-limit-banner"),
+      ).toBeInTheDocument();
+      expect(
         screen.queryByDataCy("github-app-credentials-banner"),
       ).not.toBeInTheDocument();
+    });
+
+    it("shows warning in the delete modal", async () => {
+      const user = userEvent.setup();
+
+      const { Component } = RenderFakeToastContext(<Field isAppDefined />);
+      render(<Component />);
+      await user.click(screen.getByDataCy("delete-app-credentials-button"));
+      expect(
+        screen.getByDataCy("delete-credentials-warning-banner"),
+      ).toBeInTheDocument();
     });
 
     it("can delete the credentials via the modal", async () => {
@@ -65,9 +86,6 @@ describe("githubAppActions", () => {
       );
       render(<Component />);
       await user.click(screen.getByDataCy("delete-app-credentials-button"));
-      expect(
-        screen.getByDataCy("delete-github-credentials-modal"),
-      ).toBeInTheDocument();
       const deleteButton = screen.getByRole("button", {
         name: "Delete",
       });
@@ -78,6 +96,34 @@ describe("githubAppActions", () => {
           "GitHub app credentials were successfully deleted.",
         );
       });
+    });
+  });
+
+  describe("app is defined and repo app exists", () => {
+    it("renders the delete button without rate limit warnings", () => {
+      const { Component } = RenderFakeToastContext(
+        <Field hasRepoApp isAppDefined />,
+      );
+      render(<Component />);
+      expect(
+        screen.getByDataCy("delete-app-credentials-button"),
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByDataCy("github-app-rate-limit-banner"),
+      ).not.toBeInTheDocument();
+    });
+
+    it("does not show warning in the delete modal", async () => {
+      const user = userEvent.setup();
+
+      const { Component } = RenderFakeToastContext(
+        <Field hasRepoApp isAppDefined />,
+      );
+      render(<Component />);
+      await user.click(screen.getByDataCy("delete-app-credentials-button"));
+      expect(
+        screen.queryByDataCy("delete-credentials-warning-banner"),
+      ).not.toBeInTheDocument();
     });
   });
 });

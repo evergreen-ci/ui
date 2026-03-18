@@ -51,14 +51,17 @@ export const AppSettingsTab: React.FC<TabProps> = ({
         projectId,
         repoData,
         defaultsToRepo,
+        hasRepoApp: !isRepo && repoAppId > 0,
       }),
     [
       githubPermissionGroups,
       identifier,
       isAppDefined,
+      isRepo,
       projectId,
       repoData,
       defaultsToRepo,
+      repoAppId,
     ],
   );
 
