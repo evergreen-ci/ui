@@ -673,10 +673,12 @@ export type Cost = {
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
   __typename?: "CostConfig";
+  ebsCost?: Maybe<EbsCostConfig>;
   financeFormula?: Maybe<Scalars["Float"]["output"]>;
   onDemandDiscount?: Maybe<Scalars["Float"]["output"]>;
   s3Cost?: Maybe<S3CostConfig>;
@@ -684,6 +686,7 @@ export type CostConfig = {
 };
 
 export type CostConfigInput = {
+  ebsCost?: InputMaybe<EbsCostConfigInput>;
   financeFormula?: InputMaybe<Scalars["Float"]["input"]>;
   onDemandDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   s3Cost?: InputMaybe<S3CostConfigInput>;
@@ -952,6 +955,15 @@ export type DockerConfig = {
 
 export type DockerConfigInput = {
   apiVersion?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type EbsCostConfig = {
+  __typename?: "EBSCostConfig";
+  ebsDiscount?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type EbsCostConfigInput = {
+  ebsDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
 export type Ec2Key = {
@@ -4074,6 +4086,11 @@ export type Task = {
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   predictedTaskCost?: Maybe<Cost>;
+  /** prevTask may be in-progress */
+  prevTask?: Maybe<Task>;
+  prevTaskBreaking?: Maybe<Task>;
+  prevTaskCompleted?: Maybe<Task>;
+  prevTaskPassing?: Maybe<Task>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"]["output"];
