@@ -673,6 +673,7 @@ export type Cost = {
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type CostConfig = {
@@ -1924,6 +1925,7 @@ export type Mutation = {
   overrideTaskDependencies: Task;
   promoteVarsToRepo: Scalars["Boolean"]["output"];
   quarantineTest: QuarantineTestPayload;
+  refreshGitHubStatuses?: Maybe<RefreshGitHubStatusesPayload>;
   removeAnnotationIssue: Scalars["Boolean"]["output"];
   removeFavoriteProject: Project;
   removePublicKey: Array<PublicKey>;
@@ -2085,6 +2087,10 @@ export type MutationPromoteVarsToRepoArgs = {
 
 export type MutationQuarantineTestArgs = {
   opts: QuarantineTestInput;
+};
+
+export type MutationRefreshGitHubStatusesArgs = {
+  opts: RefreshGitHubStatusesInput;
 };
 
 export type MutationRemoveAnnotationIssueArgs = {
@@ -3228,6 +3234,15 @@ export type QueryWaterfallArgs = {
   options: WaterfallOptions;
 };
 
+export type RefreshGitHubStatusesInput = {
+  versionId: Scalars["String"]["input"];
+};
+
+export type RefreshGitHubStatusesPayload = {
+  __typename?: "RefreshGitHubStatusesPayload";
+  success: Scalars["Boolean"]["output"];
+};
+
 export type ReleaseModeConfig = {
   __typename?: "ReleaseModeConfig";
   distroMaxHostsFactor?: Maybe<Scalars["Float"]["output"]>;
@@ -4074,6 +4089,11 @@ export type Task = {
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   predictedTaskCost?: Maybe<Cost>;
+  /** prevTask may be in-progress */
+  prevTask?: Maybe<Task>;
+  prevTaskBreaking?: Maybe<Task>;
+  prevTaskCompleted?: Maybe<Task>;
+  prevTaskPassing?: Maybe<Task>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"]["output"];
