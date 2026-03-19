@@ -34,6 +34,9 @@ const mockAdminSettings: AdminSettingsData = {
     idleTimeSecondsOverride: 600,
   },
   cost: {
+    ebsCost: {
+      ebsDiscount: 0.1,
+    },
     financeFormula: 0.5,
     savingsPlanDiscount: 0.1,
     onDemandDiscount: 0.05,
@@ -150,6 +153,7 @@ const expectedForm: OtherFormState = {
         idleTimeSecondsOverride: 600,
       },
       cost: {
+        ebsDiscount: 0.1,
         financeFormula: 0.5,
         savingsPlanDiscount: 0.1,
         onDemandDiscount: 0.05,
@@ -343,6 +347,9 @@ const expectedGql: AdminSettingsInput = {
     ],
   },
   cost: {
+    ebsCost: {
+      ebsDiscount: 0.1,
+    },
     financeFormula: 0.5,
     savingsPlanDiscount: 0.1,
     onDemandDiscount: 0.05,

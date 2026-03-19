@@ -91,6 +91,12 @@ export const miscSettings = {
       type: "object" as const,
       title: "Cost",
       properties: {
+        ebsDiscount: {
+          type: "number" as const,
+          title: "EBS Cost Discount",
+          minimum: 0,
+          maximum: 1,
+        },
         financeFormula: {
           type: "number" as const,
           title: "Finance Formula",
@@ -163,6 +169,10 @@ export const miscSettings = {
     },
     cost: {
       "ui:fieldCss": nestedObjectGridCss,
+      ebsDiscount: {
+        "ui:description":
+          "The discount applied to EBS costs (throughput, storage, etc.) (value 0-1).",
+      },
       financeFormula: {
         "ui:description":
           "The formula used to calculate the cost of running a task (value 0-1).",
