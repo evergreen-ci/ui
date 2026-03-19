@@ -678,6 +678,7 @@ export type Cost = {
 
 export type CostConfig = {
   __typename?: "CostConfig";
+  ebsCost?: Maybe<EbsCostConfig>;
   financeFormula?: Maybe<Scalars["Float"]["output"]>;
   onDemandDiscount?: Maybe<Scalars["Float"]["output"]>;
   s3Cost?: Maybe<S3CostConfig>;
@@ -685,6 +686,7 @@ export type CostConfig = {
 };
 
 export type CostConfigInput = {
+  ebsCost?: InputMaybe<EbsCostConfigInput>;
   financeFormula?: InputMaybe<Scalars["Float"]["input"]>;
   onDemandDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   s3Cost?: InputMaybe<S3CostConfigInput>;
@@ -953,6 +955,15 @@ export type DockerConfig = {
 
 export type DockerConfigInput = {
   apiVersion?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type EbsCostConfig = {
+  __typename?: "EBSCostConfig";
+  ebsDiscount?: Maybe<Scalars["Float"]["output"]>;
+};
+
+export type EbsCostConfigInput = {
+  ebsDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
 export type Ec2Key = {

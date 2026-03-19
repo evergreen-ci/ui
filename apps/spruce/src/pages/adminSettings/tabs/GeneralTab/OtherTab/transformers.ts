@@ -69,6 +69,7 @@ export const gqlToForm = ((data) => {
           idleTimeSecondsOverride: releaseMode?.idleTimeSecondsOverride ?? 0,
         },
         cost: {
+          ebsDiscount: cost?.ebsCost?.ebsDiscount ?? 0,
           financeFormula: cost?.financeFormula ?? 0,
           savingsPlanDiscount: cost?.savingsPlanDiscount ?? 0,
           onDemandDiscount: cost?.onDemandDiscount ?? 0,
@@ -245,6 +246,9 @@ export const formToGql = ((form: OtherFormState) => {
     },
 
     cost: {
+      ebsCost: {
+        ebsDiscount: miscSettings.cost.ebsDiscount || undefined,
+      },
       financeFormula: miscSettings.cost.financeFormula || undefined,
       savingsPlanDiscount: miscSettings.cost.savingsPlanDiscount || undefined,
       onDemandDiscount: miscSettings.cost.onDemandDiscount || undefined,
