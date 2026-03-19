@@ -5,7 +5,7 @@ import { Banner, Variant as BannerVariant } from "@leafygreen-ui/banner";
 import { Button } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { NumberInput } from "@leafygreen-ui/number-input";
-import TextArea from "@leafygreen-ui/text-area";
+import { TextArea } from "@leafygreen-ui/text-area";
 import { Field } from "@rjsf/core";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
