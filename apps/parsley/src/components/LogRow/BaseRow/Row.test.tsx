@@ -101,6 +101,23 @@ describe("row", () => {
     expect(router.state.location.search).toBe("?selectedLineRange=L5");
   });
 
+  it("shift+clicking menu icon should select a range", async () => {
+    const user = userEvent.setup();
+    const { router } = renderRow(
+      {
+        ...rowProps,
+        children: testLog,
+        lineNumber: 5,
+      },
+      { route: "?selectedLineRange=L0" },
+    );
+    await user.keyboard("{Shift>}");
+    await user.click(screen.getByDataCy("log-menu-5"));
+    await user.keyboard("{/Shift}");
+    expect(router.state.location.search).toBe("?selectedLineRange=L0-L5");
+    expect(screen.getByText("Copy selected contents")).toBeVisible();
+  });
+
   it("should not copy line numbers to clipboard", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
     renderRow({ ...rowProps, children: testLog }, {});

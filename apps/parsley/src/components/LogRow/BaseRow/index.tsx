@@ -91,11 +91,11 @@ const BaseRow: React.FC<BaseRowProps> = ({
   const handleMenuClick = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      if (menuPosition === lineNumber && openMenu) {
+      if (menuPosition === lineNumber && openMenu && !e.shiftKey) {
         setOpenMenu(false);
         sendEvent({ name: "Toggled share menu", open: false });
       } else {
-        handleSelectLine(lineNumber, false);
+        handleSelectLine(lineNumber, e.shiftKey);
         setOpenMenu(true);
         sendEvent({ name: "Toggled share menu", open: true });
       }
