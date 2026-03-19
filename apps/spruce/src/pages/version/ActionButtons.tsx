@@ -8,7 +8,7 @@ import {
   DisableTasks,
   ScheduleUndispatchedBaseTasks,
   IncludeNeverActivatedTasksToggle,
-  ResendGitHubStatuses,
+  RefreshGitHubStatuses,
 } from "components/PatchActionButtons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
@@ -33,7 +33,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
 
   const isMergeQueuePatch = requester === Requester.GitHubMergeQueue;
   const isGitHubPR = requester === Requester.GitHubPR;
-  const canResendGitHubStatuses = isGitHubPR || isMergeQueuePatch;
+  const canRefreshGitHubStatuses = isGitHubPR || isMergeQueuePatch;
 
   const dropdownItems = [
     <LinkToReconfigurePage
@@ -57,10 +57,9 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
 
   return (
     <PageButtonRow>
-      <ResendGitHubStatuses
-        disabled={!canResendGitHubStatuses}
-        versionId={versionId}
-      />
+      {canRefreshGitHubStatuses && (
+        <RefreshGitHubStatuses versionId={versionId} />
+      )}
       <ScheduleTasks isButton versionId={versionId} />
       <RestartPatch
         disabled={isMergeQueuePatch}
