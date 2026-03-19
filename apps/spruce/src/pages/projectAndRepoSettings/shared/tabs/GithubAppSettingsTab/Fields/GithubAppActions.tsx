@@ -72,7 +72,7 @@ const ReplaceAppCredentialsButton: React.FC<{
   });
 
   const loading = projectLoading || repoLoading;
-  const isValid = Number(appId) > 0 && privateKey.length > 0;
+  const isValid = Number(appId) > 0 && privateKey.trim().length > 0;
 
   const handleClose = () => {
     setOpen(false);
