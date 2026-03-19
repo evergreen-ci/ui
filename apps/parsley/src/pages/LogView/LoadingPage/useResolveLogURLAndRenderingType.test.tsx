@@ -16,7 +16,7 @@ import {
   TASK_FILES,
 } from "gql/queries";
 import {
-  modifyPrintTimeInURL,
+  modifyTimestampInURL,
   useResolveLogURLAndRenderingType,
 } from "./useResolveLogURLAndRenderingType";
 
@@ -416,70 +416,65 @@ describe("useResolveLogURLAndRenderingType", () => {
   });
 });
 
-describe("modifyPrintTimeInURL", () => {
+describe("modifyTimestampInURL", () => {
   it("returns empty string for empty URL", () => {
-    expect(modifyPrintTimeInURL("", true)).toBe("");
-    expect(modifyPrintTimeInURL("", false)).toBe("");
+    expect(modifyTimestampInURL("", "print_time")).toBe("");
   });
 
-  it("returns URL unchanged when excludeTimestamps is false", () => {
+  it("adds param=false when param is not present", () => {
     const url = "https://example.com/logs?text=true";
-    expect(modifyPrintTimeInURL(url, false)).toBe(url);
-  });
-
-  it("adds print_time=false when excludeTimestamps is true and print_time is not present", () => {
-    const url = "https://example.com/logs?text=true";
-    expect(modifyPrintTimeInURL(url, true)).toBe(
+    expect(modifyTimestampInURL(url, "print_time")).toBe(
       "https://example.com/logs?text=true&print_time=false",
     );
   });
 
-  it("sets print_time=false when excludeTimestamps is true and print_time=true exists", () => {
+  it("sets param to false when it already exists as true", () => {
     const url = "https://example.com/logs?print_time=true&text=true";
-    expect(modifyPrintTimeInURL(url, true)).toBe(
+    expect(modifyTimestampInURL(url, "print_time")).toBe(
       "https://example.com/logs?print_time=false&text=true",
     );
   });
 
-  it("keeps print_time=false when excludeTimestamps is true and print_time=false exists", () => {
+  it("keeps param=false when it already exists as false", () => {
     const url = "https://example.com/logs?print_time=false";
-    expect(modifyPrintTimeInURL(url, true)).toBe(
+    expect(modifyTimestampInURL(url, "print_time")).toBe(
       "https://example.com/logs?print_time=false",
     );
-  });
-
-  it("returns URL unchanged when excludeTimestamps is false even with print_time present", () => {
-    const url = "https://example.com/logs?print_time=false&text=true";
-    expect(modifyPrintTimeInURL(url, false)).toBe(url);
   });
 
   it("handles URLs with multiple query parameters", () => {
     const url =
       "https://example.com/logs?priority=true&print_time=true&text=true";
-    expect(modifyPrintTimeInURL(url, true)).toBe(
+    expect(modifyTimestampInURL(url, "print_time")).toBe(
       "https://example.com/logs?priority=true&print_time=false&text=true",
     );
   });
 
-  it("handles relative URLs with print_time parameter using regex fallback", () => {
+  it("handles relative URLs with param using regex fallback", () => {
     const url = "/logs?print_time=true&text=true";
-    expect(modifyPrintTimeInURL(url, true)).toBe(
+    expect(modifyTimestampInURL(url, "print_time")).toBe(
       "/logs?print_time=false&text=true",
     );
   });
 
-  it("handles relative URLs without print_time parameter", () => {
+  it("handles relative URLs without param", () => {
     const url = "/logs?text=true";
-    expect(modifyPrintTimeInURL(url, true)).toBe(
+    expect(modifyTimestampInURL(url, "print_time")).toBe(
       "/logs?text=true&print_time=false",
     );
-    expect(modifyPrintTimeInURL(url, false)).toBe(url);
   });
 
-  it("handles URLs with print_time in the middle of query string", () => {
-    const url = "https://example.com/logs?a=1&print_time=true&b=2";
-    expect(modifyPrintTimeInURL(url, true)).toBe(
-      "https://example.com/logs?a=1&print_time=false&b=2",
+  it("works with the time param for task logs", () => {
+    const url = "https://example.com/task_log_raw/task1/0?text=true";
+    expect(modifyTimestampInURL(url, "time")).toBe(
+      "https://example.com/task_log_raw/task1/0?text=true&time=false",
+    );
+  });
+
+  it("replaces existing time=true with time=false for task logs", () => {
+    const url = "https://example.com/task_log_raw/task1/0?text=true&time=true";
+    expect(modifyTimestampInURL(url, "time")).toBe(
+      "https://example.com/task_log_raw/task1/0?text=true&time=false",
     );
   });
 });

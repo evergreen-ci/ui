@@ -8,7 +8,9 @@ const ExcludeTimestampsToggle: React.FC = () => {
   const { logMetadata, preferences } = useLogContext();
   const { excludeTimestamps, setExcludeTimestamps } = preferences;
 
-  const isSupported = logMetadata?.logType === LogTypes.EVERGREEN_TEST_LOGS;
+  const isSupported =
+    logMetadata?.logType === LogTypes.EVERGREEN_TEST_LOGS ||
+    logMetadata?.logType === LogTypes.EVERGREEN_TASK_LOGS;
 
   return (
     <BaseToggle
@@ -22,7 +24,7 @@ const ExcludeTimestampsToggle: React.FC = () => {
       tooltip={
         isSupported
           ? "Whether to exclude timestamps at the beginning of log lines. Changing this setting will reload the page to re-download the log."
-          : "This option is only available for Evergreen test logs."
+          : "This option is only available for Evergreen task and test logs."
       }
       value={excludeTimestamps}
     />

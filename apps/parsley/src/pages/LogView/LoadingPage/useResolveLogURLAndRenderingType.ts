@@ -268,49 +268,52 @@ export const useResolveLogURLAndRenderingType = ({
     }
   }, [testData, logType, rawLogURL]);
 
-  const shouldModifyTimestamps = logType === LogTypes.EVERGREEN_TEST_LOGS;
+  const applyTimestampParam = (url: string): string => {
+    if (!excludeTimestamps || !url) return url;
+    if (logType === LogTypes.EVERGREEN_TEST_LOGS) {
+      return modifyTimestampInURL(url, "print_time");
+    }
+    if (logType === LogTypes.EVERGREEN_TASK_LOGS) {
+      return modifyTimestampInURL(url, "time");
+    }
+    return url;
+  };
 
   return {
-    downloadURL: shouldModifyTimestamps
-      ? modifyPrintTimeInURL(downloadURL, excludeTimestamps)
-      : downloadURL,
+    downloadURL: applyTimestampParam(downloadURL),
     failingCommand,
-    htmlLogURL: shouldModifyTimestamps
-      ? modifyPrintTimeInURL(htmlLogURL, excludeTimestamps)
-      : htmlLogURL,
+    htmlLogURL: applyTimestampParam(htmlLogURL),
     jobLogsURL,
     loading: isLoadingTest || isLoadingTask || isLoadingTaskFileData,
-    rawLogURL: shouldModifyTimestamps
-      ? modifyPrintTimeInURL(rawLogURL, excludeTimestamps)
-      : rawLogURL,
+    rawLogURL: applyTimestampParam(rawLogURL),
     renderingType,
   };
 };
 
 /**
- * Modifies the print_time query parameter in a URL based on the excludeTimestamps setting.
- * When excludeTimestamps is false (default), the URL is returned unchanged since the server
- * includes timestamps by default. When true, ensures print_time=false is set on the URL.
+ * Sets the given query parameter to "false" on a URL to exclude timestamps.
+ * Test logs use "print_time", task logs use "time".
  * @param url - The URL to modify
- * @param excludeTimestamps - Whether to exclude timestamps (sets print_time=false)
+ * @param paramName - The query parameter name to set to "false"
  * @returns The modified URL
  */
-export const modifyPrintTimeInURL = (
+export const modifyTimestampInURL = (
   url: string,
-  excludeTimestamps: boolean,
+  paramName: string,
 ): string => {
-  if (!url || !excludeTimestamps) return url;
+  if (!url) return url;
 
   try {
     const urlObj = new URL(url);
-    urlObj.searchParams.set("print_time", "false");
+    urlObj.searchParams.set(paramName, "false");
     return urlObj.toString();
   } catch {
     // Fallback for relative URLs
-    if (url.includes("print_time=")) {
-      return url.replace(/print_time=(true|false)/, "print_time=false");
+    const paramRegex = new RegExp(`${paramName}=(true|false)`);
+    if (paramRegex.test(url)) {
+      return url.replace(paramRegex, `${paramName}=false`);
     }
     const separator = url.includes("?") ? "&" : "?";
-    return `${url}${separator}print_time=false`;
+    return `${url}${separator}${paramName}=false`;
   }
 };
