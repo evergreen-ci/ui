@@ -16,8 +16,8 @@ import { Requester } from "constants/requesters";
 
 interface ActionButtonProps {
   activeTaskIds: string[];
-  requester: string;
   isPatch: boolean;
+  requester: string;
   versionId: string;
 }
 
@@ -33,7 +33,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
 
   const isMergeQueuePatch = requester === Requester.GitHubMergeQueue;
   const isGitHubPR = requester === Requester.GitHubPR;
-  const canRefreshGitHubStatuses = isGitHubPR || isMergeQueuePatch;
+  const canRefreshGitHubStatuses = isMergeQueuePatch || isGitHubPR;
 
   const dropdownItems = [
     <LinkToReconfigurePage
