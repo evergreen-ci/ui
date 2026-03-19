@@ -1,5 +1,22 @@
+import { getLocalStorageString } from "@evg-ui/lib/utils/localStorage";
+import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { WaterfallQuery } from "gql/generated/types";
-import { BuildVariant, GroupedVersion, Version } from "./types";
+import { BuildVariant, FilterType, GroupedVersion, Version } from "./types";
+
+export const getFilterType = (key: string): FilterType => {
+  const defaultFilterType = FilterType.Exact;
+  const savedFilter = getLocalStorageString(key);
+
+  if (!savedFilter) {
+    return defaultFilterType;
+  } else if (Object.values<string>(FilterType).includes(savedFilter)) {
+    return savedFilter as FilterType;
+  }
+  return defaultFilterType;
+};
+
+export const makeExactFilter = (filter: string) =>
+  `^${toEscapedRegex(filter)}$`;
 
 export const groupInactiveVersions = (
   versions: Version[],

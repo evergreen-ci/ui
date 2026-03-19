@@ -109,8 +109,7 @@ const StatusFilterItem = styled.div`
 `;
 
 const RequesterFilterItem = styled.div`
-  min-width: 200px;
-  flex-shrink: 0;
+  min-width: 120px;
   flex-basis: 12%;
 `;
 
