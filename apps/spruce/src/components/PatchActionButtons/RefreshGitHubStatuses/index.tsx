@@ -33,7 +33,7 @@ export const RefreshGitHubStatuses: React.FC<Props> = ({ versionId }) => {
     <Button
       leftGlyph={<Icon glyph="GitHub" />}
       onClick={() => {
-        sendEvent({ name: "Clicked resend GitHub statuses button" });
+        sendEvent({ name: "Clicked refresh GitHub statuses button" });
         refreshGitHubStatuses({ variables: { versionId } });
       }}
       size={ButtonSize.Small}

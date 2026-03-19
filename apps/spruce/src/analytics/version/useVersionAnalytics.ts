@@ -43,7 +43,7 @@ type Action =
       "task.modified_count": number;
     }
   | {
-      name: "Clicked resend GitHub statuses button";
+      name: "Clicked refresh GitHub statuses button";
     }
   | {
       name: "Clicked restart failed tasks button";
