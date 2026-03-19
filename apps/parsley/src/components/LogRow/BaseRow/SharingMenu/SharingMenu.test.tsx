@@ -8,6 +8,7 @@ import {
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { LogTypes } from "constants/enums";
+import { COPY_FORMAT } from "constants/storageKeys";
 import { LogContextProvider, useLogContext } from "context/LogContext";
 import {
   MultiLineSelectContextProvider,
@@ -54,6 +55,10 @@ const renderSharingMenu = () => {
 };
 
 describe("sharingMenu", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it("should render an open menu after setting it to open", async () => {
     const { hook } = renderSharingMenu();
     expect(screen.queryByText("Copy share link to selected lines")).toBeNull();
@@ -80,7 +85,7 @@ describe("sharingMenu", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("Only search on range")).toBeInTheDocument();
   });
-  it("clicking `copy selected contents` should copy the line range to the clipboard", async () => {
+  it("clicking `copy selected contents` should copy the line range to the clipboard in Jira format by default", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
 
     const { hook } = renderSharingMenu();
@@ -97,7 +102,7 @@ describe("sharingMenu", () => {
       "{noformat}\nline 2\nline 3\nline 4\n{noformat}",
     );
   });
-  it("clicking `copy selected contents` should copy a single selected line to the clipboard", async () => {
+  it("clicking `copy selected contents` should copy a single selected line to the clipboard in Jira format by default", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
 
     const { hook } = renderSharingMenu();
@@ -110,6 +115,37 @@ describe("sharingMenu", () => {
     await user.click(screen.getByText("Copy selected contents"));
     const clipboardText = await navigator.clipboard.readText();
     expect(clipboardText).toBe("{noformat}\nline 2\n{noformat}");
+  });
+  it("clicking `copy selected contents` should copy the line range to the clipboard in raw format when localStorage is set to raw", async () => {
+    const user = userEvent.setup({ writeToClipboard: true });
+    localStorage.setItem(COPY_FORMAT, "raw");
+
+    const { hook } = renderSharingMenu();
+    act(() => {
+      hook.current.handleSelectLine(1, false);
+    });
+    act(() => {
+      hook.current.handleSelectLine(3, true);
+    });
+    expect(screen.getByText("Copy selected contents")).toBeInTheDocument();
+    await user.click(screen.getByText("Copy selected contents"));
+    const clipboardText = await navigator.clipboard.readText();
+    expect(clipboardText).toBe("line 2\nline 3\nline 4\n");
+  });
+  it("clicking `copy selected contents` should copy a single selected line to the clipboard in raw format when localStorage is set to raw", async () => {
+    const user = userEvent.setup({ writeToClipboard: true });
+    localStorage.setItem(COPY_FORMAT, "raw");
+
+    const { hook } = renderSharingMenu();
+    act(() => {
+      hook.current.setOpenMenu(true);
+      hook.current.handleSelectLine(1, false);
+    });
+
+    expect(screen.getByText("Copy selected contents")).toBeInTheDocument();
+    await user.click(screen.getByText("Copy selected contents"));
+    const clipboardText = await navigator.clipboard.readText();
+    expect(clipboardText).toBe("line 2\n");
   });
   it("clicking `share link to selected lines` should copy the link to the clipboard", async () => {
     const user = userEvent.setup({ writeToClipboard: true });
@@ -185,5 +221,38 @@ describe("sharingMenu", () => {
       });
     });
     expect(screen.queryByText("Share link to selected lines")).toBeNull();
+  });
+  it("should not show 'Add to Parsley AI' if this is a locally uploaded log", () => {
+    const useSpecialHook = () => {
+      const useLogContextHook = useLogContext();
+      const useMultiLineSelectContextHook = useMultiLineSelectContext();
+      return {
+        useLogContextHook,
+        useMultiLineSelectContextHook,
+      };
+    };
+    const { Component: MenuComponent, hook } = renderComponentWithHook(
+      useSpecialHook,
+      <SharingMenu />,
+    );
+    const { Component } = RenderFakeToastContext(<MenuComponent />);
+    renderWithRouterMatch(<Component />, {
+      route: "?selectedLineRange=L1-L3",
+      wrapper,
+    });
+    act(() => {
+      hook.current.useMultiLineSelectContextHook.setOpenMenu(true);
+      hook.current.useLogContextHook.setLogMetadata({
+        logType: LogTypes.LOCAL_UPLOAD,
+      });
+    });
+    expect(screen.queryByText("Add to Parsley AI")).toBeNull();
+  });
+  it("should show 'Add to Parsley AI' for non-uploaded logs", () => {
+    const { hook } = renderSharingMenu();
+    act(() => {
+      hook.current.setOpenMenu(true);
+    });
+    expect(screen.getByText("Add to Parsley AI")).toBeInTheDocument();
   });
 });

@@ -19,12 +19,13 @@ export const RequesterFilter = () => {
   return (
     <Combobox
       data-cy="requester-filter"
+      dropdownWidthBasis="option"
       initialValue={requesters}
       label="Requesters"
       multiselect
       onChange={handleChange}
       overflow="scroll-x"
-      placeholder="Displaying all requesters"
+      placeholder="All"
     >
       {mainlineRequesters.map((requester) => (
         <ComboboxOption

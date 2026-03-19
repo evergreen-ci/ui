@@ -11,7 +11,6 @@ import { AppSettingsTab } from "./tabs/GithubAppSettingsTab/AppSettingsTab";
 import { PermissionGroupsTab } from "./tabs/GithubPermissionGroupsTab/PermissionGroupsTab";
 import {
   AccessTab,
-  ContainersTab,
   EventLogTab,
   GeneralTab,
   GithubCommitQueueTab,
@@ -201,19 +200,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             />
           }
           path={ProjectSettingsTabRoutes.VirtualWorkstation}
-        />
-        <Route
-          element={
-            <ContainersTab
-              identifier={identifier || repoId}
-              projectData={
-                tabData[ProjectSettingsTabRoutes.Containers].projectData
-              }
-              projectType={projectType}
-              repoData={tabData[ProjectSettingsTabRoutes.Containers].repoData}
-            />
-          }
-          path={ProjectSettingsTabRoutes.Containers}
         />
         <Route
           element={

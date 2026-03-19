@@ -8,6 +8,9 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
     banner
     bannerTheme
     cost {
+      ebsCost {
+        ebsDiscount
+      }
       financeFormula
       onDemandDiscount
       s3Cost {
@@ -32,11 +35,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       ses {
         senderAddress
       }
-    }
-    podLifecycle {
-      maxParallelPodRequests
-      maxPodDefinitionCleanupRate
-      maxSecretCleanupRate
     }
     repotracker {
       maxConcurrentRequests
@@ -66,47 +64,6 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       targetTimeSeconds
       taskFinder
     }
-
-    serviceFlags {
-      agentStartDisabled
-      alertsDisabled
-      backgroundReauthDisabled
-      backgroundStatsDisabled
-      cacheStatsEndpointDisabled
-      cacheStatsJobDisabled
-      checkBlockedTasksDisabled
-      cliUpdatesDisabled
-      cloudCleanupDisabled
-      debugSpawnHostDisabled
-      degradedModeDisabled
-      elasticIPsDisabled
-      emailNotificationsDisabled
-      eventProcessingDisabled
-      githubPRTestingDisabled
-      githubStatusAPIDisabled
-      hostAllocatorDisabled
-      hostInitDisabled
-      jiraNotificationsDisabled
-      jwtTokenForCLIDisabled
-      largeParserProjectsDisabled
-      monitorDisabled
-      podAllocatorDisabled
-      podInitDisabled
-      psLoggingDisabled
-      releaseModeDisabled
-      repotrackerDisabled
-      s3LifecycleSyncDisabled
-      schedulerDisabled
-      slackNotificationsDisabled
-      sleepScheduleDisabled
-      staticAPIKeysDisabled
-      systemFailedTaskRestartDisabled
-      taskDispatchDisabled
-      taskLoggingDisabled
-      taskReliabilityDisabled
-      unrecognizedPodCleanupDisabled
-      webhookNotificationsDisabled
-    }
     taskLimits {
       maxConcurrentLargeParserProjectTasks
       maxDailyAutomaticRestarts
@@ -123,7 +80,7 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
     }
     ui {
       betaFeatures {
-        parsleyAIEnabled
+        __typename
       }
       cacheTemplates
       corsOrigins

@@ -1,6 +1,12 @@
 import { useCallback, useMemo, useReducer } from "react";
-import Cookie from "js-cookie";
 import { useQueryParam } from "@evg-ui/lib/hooks";
+import {
+  getLocalStorageBoolean,
+  getLocalStorageString,
+  setLocalStorageString,
+} from "@evg-ui/lib/utils/localStorage";
+import { FilterLogic, WordWrapFormat } from "constants/enums";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 import {
   CASE_SENSITIVE,
   EXPANDABLE_ROWS,
@@ -12,9 +18,7 @@ import {
   WRAP,
   WRAP_FORMAT,
   ZEBRA_STRIPING,
-} from "constants/cookies";
-import { FilterLogic, WordWrapFormat } from "constants/enums";
-import { QueryParams, urlParseOptions } from "constants/queryParams";
+} from "constants/storageKeys";
 import { Preferences } from "./types";
 
 interface PreferencesState {
@@ -36,22 +40,21 @@ type PreferencesAction =
   | { type: "SET_WRAP"; value: boolean }
   | { type: "SET_ZEBRA_STRIPING"; value: boolean };
 
-const COOKIE_EXPIRY_DAYS = 365;
-
-const persistToCookie = (cookieName: string, value: string | boolean): void => {
-  Cookie.set(cookieName, value.toString(), { expires: COOKIE_EXPIRY_DAYS });
+const persistToLocalStorage = (key: string, value: string | boolean): void => {
+  setLocalStorageString(key, value.toString());
 };
 
 // Wrap and pretty print settings are evaluated after the logs have initially rendered - see LogPane component.
 const getInitialState = (): PreferencesState => ({
-  caseSensitive: Cookie.get(CASE_SENSITIVE) === "true",
-  highlightFilters: Cookie.get(HIGHLIGHT_FILTERS) === "true",
+  caseSensitive: getLocalStorageBoolean(CASE_SENSITIVE, false),
+  highlightFilters: getLocalStorageBoolean(HIGHLIGHT_FILTERS, false),
   prettyPrint: false,
-  stickyHeaders: Cookie.get(STICKY_HEADERS) === "true",
+  stickyHeaders: getLocalStorageBoolean(STICKY_HEADERS, false),
   wordWrapFormat:
-    (Cookie.get(WRAP_FORMAT) as WordWrapFormat) || WordWrapFormat.Standard,
+    (getLocalStorageString(WRAP_FORMAT) as WordWrapFormat) ||
+    WordWrapFormat.Standard,
   wrap: false,
-  zebraStriping: Cookie.get(ZEBRA_STRIPING) === "true",
+  zebraStriping: getLocalStorageBoolean(ZEBRA_STRIPING, false),
 });
 
 const preferencesReducer = (
@@ -60,25 +63,25 @@ const preferencesReducer = (
 ): PreferencesState => {
   switch (action.type) {
     case "SET_CASE_SENSITIVE":
-      persistToCookie(CASE_SENSITIVE, action.value);
+      persistToLocalStorage(CASE_SENSITIVE, action.value);
       return { ...state, caseSensitive: action.value };
     case "SET_HIGHLIGHT_FILTERS":
-      persistToCookie(HIGHLIGHT_FILTERS, action.value);
+      persistToLocalStorage(HIGHLIGHT_FILTERS, action.value);
       return { ...state, highlightFilters: action.value };
     case "SET_PRETTY_PRINT":
-      persistToCookie(PRETTY_PRINT_BOOKMARKS, action.value);
+      persistToLocalStorage(PRETTY_PRINT_BOOKMARKS, action.value);
       return { ...state, prettyPrint: action.value };
     case "SET_STICKY_HEADERS":
-      persistToCookie(STICKY_HEADERS, action.value);
+      persistToLocalStorage(STICKY_HEADERS, action.value);
       return { ...state, stickyHeaders: action.value };
     case "SET_WORD_WRAP_FORMAT":
-      persistToCookie(WRAP_FORMAT, action.value);
+      persistToLocalStorage(WRAP_FORMAT, action.value);
       return { ...state, wordWrapFormat: action.value };
     case "SET_WRAP":
-      persistToCookie(WRAP, action.value);
+      persistToLocalStorage(WRAP, action.value);
       return { ...state, wrap: action.value };
     case "SET_ZEBRA_STRIPING":
-      persistToCookie(ZEBRA_STRIPING, action.value);
+      persistToLocalStorage(ZEBRA_STRIPING, action.value);
       return { ...state, zebraStriping: action.value };
     default:
       return state;
@@ -94,13 +97,13 @@ const usePreferences = (): Preferences => {
 
   const [filterLogic, setFilterLogicParam] = useQueryParam(
     QueryParams.FilterLogic,
-    (Cookie.get(FILTER_LOGIC) as FilterLogic) ?? FilterLogic.And,
+    (getLocalStorageString(FILTER_LOGIC) as FilterLogic) ?? FilterLogic.And,
     urlParseOptions,
   );
 
   const [expandableRows, setExpandableRowsParam] = useQueryParam(
     QueryParams.Expandable,
-    Cookie.get(EXPANDABLE_ROWS) ? Cookie.get(EXPANDABLE_ROWS) === "true" : true,
+    getLocalStorageBoolean(EXPANDABLE_ROWS, true),
     urlParseOptions,
   );
 
@@ -117,7 +120,7 @@ const usePreferences = (): Preferences => {
   const setExpandableRows = useCallback(
     (value: boolean) => {
       setExpandableRowsParam(value);
-      persistToCookie(EXPANDABLE_ROWS, value);
+      persistToLocalStorage(EXPANDABLE_ROWS, value);
     },
     [setExpandableRowsParam],
   );
@@ -125,7 +128,7 @@ const usePreferences = (): Preferences => {
   const setFilterLogic = useCallback(
     (value: FilterLogic) => {
       setFilterLogicParam(value);
-      persistToCookie(FILTER_LOGIC, value);
+      persistToLocalStorage(FILTER_LOGIC, value);
     },
     [setFilterLogicParam],
   );

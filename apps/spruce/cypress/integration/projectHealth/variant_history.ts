@@ -95,7 +95,7 @@ describe("variant history", () => {
       cy.dataCy("history-table-icon")
         .get("[data-status=success]")
         .each(($el) => {
-          cy.wrap($el).should("have.attr", "aria-disabled", "true");
+          cy.wrap($el).parent().should("have.attr", "aria-disabled", "true");
         });
     });
     it("should display a message and tooltip on matching tasks with test results", () => {

@@ -69,7 +69,7 @@ export const PageButtonRow = styled.div`
   align-items: flex-start;
   gap: ${size.xs};
 
-  button {
+  > * {
     min-width: fit-content;
   }
 `;

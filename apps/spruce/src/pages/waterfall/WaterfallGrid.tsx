@@ -2,7 +2,11 @@ import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { useSuspenseQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
-import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
+import { useQueryParam } from "@evg-ui/lib/hooks";
+import {
+  parseQueryString,
+  stringifyQuery,
+} from "@evg-ui/lib/utils/query-string";
 import { useWaterfallAnalytics } from "analytics";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import {
@@ -17,7 +21,6 @@ import {
 } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useUserTimeZone } from "hooks";
-import { useDimensions } from "hooks/useDimensions";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { getUTCEndOfDay } from "utils/date";
 import { getObject, setObject } from "utils/localStorage";
@@ -34,7 +37,7 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
-import { Pagination, WaterfallFilterOptions, Version } from "./types";
+import { Pagination, Version, WaterfallFilterOptions } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
@@ -44,18 +47,18 @@ type ServerFilters = Pick<
   "requesters" | "statuses" | "tasks" | "variants"
 >;
 
-const resetFilterState: ServerFilters = {
-  requesters: undefined,
-  statuses: undefined,
-  tasks: undefined,
-  variants: undefined,
-};
-
 type WaterfallGridProps = {
   guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
   omitInactiveBuilds: boolean;
   projectIdentifier: string;
   setPagination: (pagination: Pagination) => void;
+};
+
+const resetFilterState: ServerFilters = {
+  requesters: [],
+  statuses: [],
+  tasks: [],
+  variants: [],
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
@@ -65,7 +68,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   setPagination,
 }) => {
   useWaterfallTrace();
-  const [queryParams, setQueryParams] = useQueryParams();
   const { sendEvent } = useWaterfallAnalytics();
 
   const headerScrollRef = useRef<HTMLDivElement>(null);
@@ -79,7 +81,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   );
 
   const handlePinBV = useCallback(
-    (buildVariant: string, wasPinned: boolean) => () => {
+    (buildVariant: string, wasPinned: boolean) => {
       sendEvent({
         name: "Clicked pin build variant",
         action: wasPinned ? "unpinned" : "pinned",
@@ -95,7 +97,8 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         return [...prev, buildVariant];
       });
     },
-    [sendEvent],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   useEffect(() => {
@@ -112,14 +115,52 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     WaterfallFilterOptions.Revision,
     null,
   );
-
   const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
   const timezone = useUserTimeZone() ?? utcTimeZone;
   const utcDate = getUTCEndOfDay(date, timezone);
 
-  // TODO DEVPROD-23578: serverFilters can be calculated from queryParams directly, useState should not be necessary
+  const [requesters] = useQueryParam<string[]>(
+    WaterfallFilterOptions.Requesters,
+    [],
+  );
+  const [statuses] = useQueryParam<string[]>(
+    WaterfallFilterOptions.Statuses,
+    [],
+  );
+  const [tasks] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
+  const [variants] = useQueryParam<string[]>(
+    WaterfallFilterOptions.BuildVariant,
+    [],
+  );
+
+  // TODO: It would be ideal to represent serverFilters with useDeferredValue to ditch the useState/useEffect pattern.
+  // However, useDeferredValue's initialState option is introduced in React 19.
   const [serverFilters, setServerFilters] =
     useState<ServerFilters>(resetFilterState);
+  const serverFiltersRef = useRef(resetFilterState);
+  const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    const newFilters = { requesters, statuses, tasks, variants };
+    const hasFilters = Object.values(newFilters).some((f) => f.length);
+
+    // Mount in particular can introduce a lot of useEffect calls due to different array references, so compare strictly
+    const hasChanges =
+      JSON.stringify(serverFiltersRef.current) !== JSON.stringify(newFilters);
+
+    if (hasChanges) {
+      serverFiltersRef.current = newFilters;
+      if (hasFilters) {
+        startTransition(() => {
+          setServerFilters(newFilters);
+        });
+      } else {
+        // Don't use a transition: if cached, the data will appear immediately
+        // If not a skeleton will appear, which makes more sense than 'fetching more'
+        setServerFilters(newFilters);
+      }
+    }
+  }, [requesters, statuses, tasks, variants]);
 
   const { data, dataState } = useSuspenseQuery<
     WaterfallQuery,
@@ -144,32 +185,26 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   // TODO DEVPROD-26717: This can be removed if the invalid arguments are fixed in useSuspenseQuery.
   const dataIsComplete = dataState === "complete";
 
-  // Erase any order query params if we've reached the first page.
-  useEffect(() => {
-    if (dataIsComplete && minOrder > 0) {
-      const { flattenedVersions, pagination } = data.waterfall;
-      const activeVersions = pagination.activeVersionIds;
-      const isMostRecentCommitOnPage =
-        flattenedVersions[0].order === pagination.mostRecentVersionOrder;
-
-      if (activeVersions.length < VERSION_LIMIT || isMostRecentCommitOnPage) {
-        setQueryParams({
-          ...queryParams,
-          [WaterfallFilterOptions.MaxOrder]: undefined,
-          [WaterfallFilterOptions.MinOrder]: undefined,
-        });
-      }
-    }
-  }, [dataIsComplete, data?.waterfall, minOrder, queryParams, setQueryParams]);
-
   useEffect(() => {
     if (dataIsComplete) {
       setPagination(data.waterfall.pagination);
+
+      // Use replaceState to remove the query params without causing a rerender
+      if (data.waterfall.pagination.hasPrevPage === false) {
+        const {
+          maxOrder: _,
+          minOrder: __,
+          ...remainingParams
+        } = parseQueryString(window.location.search);
+        const search = stringifyQuery(remainingParams);
+        window.history.replaceState(
+          window.history.state,
+          "",
+          `${window.location.pathname}${search ? `?${search}` : ""}`,
+        );
+      }
     }
   }, [setPagination, dataIsComplete, data?.waterfall?.pagination]);
-
-  const refEl = useRef<HTMLDivElement>(null);
-  const { height } = useDimensions<HTMLDivElement>(refEl);
 
   const { activeVersionIds, buildVariants, versions } = useFilters({
     activeVersionIds: dataIsComplete
@@ -179,35 +214,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     omitInactiveBuilds,
     pins,
   });
-
-  const [isPending, startTransition] = useTransition();
-  const [allQueryParams] = useQueryParams();
-
-  useEffect(() => {
-    const hasServerParams =
-      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Requesters) ||
-      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Statuses) ||
-      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Task) ||
-      Object.keys(allQueryParams).includes(WaterfallFilterOptions.BuildVariant);
-    if (activeVersionIds.length < VERSION_LIMIT && hasServerParams) {
-      const filters = {
-        requesters: allQueryParams[
-          WaterfallFilterOptions.Requesters
-        ] as string[],
-        statuses: allQueryParams[WaterfallFilterOptions.Statuses] as string[],
-        tasks: allQueryParams[WaterfallFilterOptions.Task] as string[],
-        variants: allQueryParams[
-          WaterfallFilterOptions.BuildVariant
-        ] as string[],
-      };
-      startTransition(() => {
-        setServerFilters(filters);
-      });
-    } else if (!hasServerParams) {
-      // Because this data is already loaded and no animation is necessary, omitting startTransition for snappiness
-      setServerFilters(resetFilterState); // eslint-disable-line react-hooks/set-state-in-effect
-    }
-  }, [allQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const firstActiveVersionId = activeVersionIds[0];
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
@@ -223,7 +229,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   }
 
   return (
-    <Container ref={refEl}>
+    <Container>
       <div ref={headerScrollRef} />
       <StickyHeader showShadow={showShadow}>
         <BuildVariantTitle />
@@ -246,7 +252,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
             return (
               <InactiveVersion key={inactiveVersions?.[0].id}>
                 <InactiveVersionsButton
-                  containerHeight={height}
                   highlightedIndex={
                     highlightedIndex !== undefined && highlightedIndex > -1
                       ? highlightedIndex
@@ -257,7 +262,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
               </InactiveVersion>
             );
           })}
-          {isPending && <FetchMoreLoader />}
+          {isPending && activeVersionIds.length < VERSION_LIMIT && (
+            <FetchMoreLoader />
+          )}
         </Versions>
       </StickyHeader>
       <BuildVariantProvider>
@@ -267,9 +274,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
             <BuildRow
               key={b.id}
               build={b}
-              handlePinClick={handlePinBV(b.id, isPinned)}
               isFirstBuild={i === 0}
               lastActiveVersionId={lastActiveVersionId}
+              onPinClick={handlePinBV}
               pinned={isPinned}
               projectIdentifier={projectIdentifier}
               versions={versions}
@@ -282,7 +289,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  overflow-y: clip;
+`;
 
 const StickyHeader = styled(Row)<{ showShadow: boolean }>`
   position: sticky;

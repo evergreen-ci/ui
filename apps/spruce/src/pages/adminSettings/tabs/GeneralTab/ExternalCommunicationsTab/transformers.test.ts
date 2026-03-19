@@ -1,8 +1,5 @@
-import {
-  AdminSettings,
-  AdminSettingsInput,
-  PriorityLevel,
-} from "gql/generated/types";
+import { AdminSettingsInput, PriorityLevel } from "gql/generated/types";
+import { AdminSettingsData } from "pages/adminSettings/tabs/types";
 import { formToGql, gqlToForm } from "./transformers";
 import { ExternalCommunicationsFormState } from "./types";
 
@@ -123,7 +120,7 @@ const gql: AdminSettingsInput = {
   },
 };
 
-const mockAdminSettings: AdminSettings = {
+const mockAdminSettings: AdminSettingsData = {
   disabledGQLQueries: [],
   jira: {
     email: "jira@example.com",

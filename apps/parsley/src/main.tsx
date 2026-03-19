@@ -11,6 +11,7 @@ import {
   getReleaseStage,
   isDevelopmentBuild,
 } from "utils/environmentVariables";
+import { migrateCookiesToLocalStorage } from "utils/migrateCookiesToLocalStorage";
 import App from "./App";
 import routes, { slugs } from "./constants/routes";
 
@@ -35,6 +36,12 @@ initializeHoneycomb({
   serviceName: "parsley",
 });
 injectOpenTelemetryAttributeStoreIntoWindow();
+migrateCookiesToLocalStorage();
+
+// Reload on stale chunk errors after deploys so users get the latest assets.
+window.addEventListener("vite:preloadError", () => {
+  window.location.reload();
+});
 
 createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

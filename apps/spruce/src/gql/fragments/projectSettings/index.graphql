@@ -9,7 +9,6 @@
 #import "./virtualWorkstation.graphql"
 #import "./projectTriggers.graphql"
 #import "./periodicBuilds.graphql"
-#import "./containers.graphql"
 #import "./viewsAndFilters.graphql"
 #import "./permissionGroups.graphql"
 #import "./appSettings.graphql"
@@ -24,7 +23,6 @@ fragment ProjectSettingsFields on ProjectSettings {
   }
   projectRef {
     ...ProjectAccessSettings
-    ...ProjectContainerSettings
     ...ProjectGeneralSettings
     ...ProjectNotificationSettings
     ...ProjectPatchAliasSettings
@@ -55,7 +53,6 @@ fragment RepoSettingsFields on RepoSettings {
   }
   projectRef {
     ...RepoAccessSettings
-    ...RepoContainerSettings
     ...RepoGeneralSettings
     ...RepoNotificationSettings
     ...RepoPatchAliasSettings

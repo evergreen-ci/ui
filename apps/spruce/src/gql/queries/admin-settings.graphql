@@ -121,6 +121,9 @@ query AdminSettings {
       }
     }
     cost {
+      ebsCost {
+        ebsDiscount
+      }
       financeFormula
       onDemandDiscount
       s3Cost {
@@ -179,7 +182,6 @@ query AdminSettings {
         project
       }
     }
-    kanopySSHKeyPath
     loggerConfig {
       buffer {
         count
@@ -200,20 +202,18 @@ query AdminSettings {
         senderAddress
       }
     }
+    oktaServiceConfig {
+      clientId
+      clientSecret
+    }
     oldestAllowedCLIVersion
     parameterStore {
       prefix
     }
     perfMonitoringKanopyURL
     perfMonitoringURL
-    podLifecycle {
-      maxParallelPodRequests
-      maxPodDefinitionCleanupRate
-      maxSecretCleanupRate
-    }
     pprofPort
     projectCreation {
-      jiraProject
       repoExceptions {
         owner
         repo
@@ -250,38 +250,6 @@ query AdminSettings {
         persistentDNS {
           domain
           hostedZoneID
-        }
-        pod {
-          ecs {
-            allowedImages
-            awsVPC {
-              securityGroups
-              subnets
-            }
-            capacityProviders {
-              arch
-              name
-              os
-              windowsVersion
-            }
-            clusters {
-              name
-              os
-            }
-            executionRole
-            logGroup
-            logRegion
-            logStreamPrefix
-            maxCPU
-            maxMemoryMb
-            taskDefinitionPrefix
-            taskRole
-          }
-          region
-          role
-          secretsManager {
-            secretPrefix
-          }
         }
         subnets {
           az
@@ -331,47 +299,6 @@ query AdminSettings {
       taskFinder
     }
 
-    serviceFlags {
-      agentStartDisabled
-      alertsDisabled
-      backgroundReauthDisabled
-      backgroundStatsDisabled
-      cacheStatsEndpointDisabled
-      cacheStatsJobDisabled
-      checkBlockedTasksDisabled
-      cliUpdatesDisabled
-      cloudCleanupDisabled
-      debugSpawnHostDisabled
-      degradedModeDisabled
-      elasticIPsDisabled
-      emailNotificationsDisabled
-      eventProcessingDisabled
-      githubPRTestingDisabled
-      githubStatusAPIDisabled
-      hostAllocatorDisabled
-      hostInitDisabled
-      jiraNotificationsDisabled
-      jwtTokenForCLIDisabled
-      largeParserProjectsDisabled
-      monitorDisabled
-      podAllocatorDisabled
-      podInitDisabled
-      psLoggingDisabled
-      releaseModeDisabled
-      repotrackerDisabled
-      s3LifecycleSyncDisabled
-      schedulerDisabled
-      slackNotificationsDisabled
-      sleepScheduleDisabled
-      staticAPIKeysDisabled
-      systemFailedTaskRestartDisabled
-      taskDispatchDisabled
-      taskLoggingDisabled
-      taskReliabilityDisabled
-      unrecognizedPodCleanupDisabled
-      useMergeQueuePathFilteringDisabled
-      webhookNotificationsDisabled
-    }
     shutdownWaitSeconds
     singleTaskDistro {
       projectTasksPairs {
@@ -448,7 +375,7 @@ query AdminSettings {
     }
     ui {
       betaFeatures {
-        parsleyAIEnabled
+        __typename
       }
       cacheTemplates
       corsOrigins

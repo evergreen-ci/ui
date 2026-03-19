@@ -37,6 +37,7 @@ export const gqlToForm = ((data) => {
     hostJasper,
     jiraNotifications,
     logPath,
+    oktaServiceConfig,
     oldestAllowedCLIVersion,
     pprofPort,
     projectCreation,
@@ -68,6 +69,7 @@ export const gqlToForm = ((data) => {
           idleTimeSecondsOverride: releaseMode?.idleTimeSecondsOverride ?? 0,
         },
         cost: {
+          ebsDiscount: cost?.ebsCost?.ebsDiscount ?? 0,
           financeFormula: cost?.financeFormula ?? 0,
           savingsPlanDiscount: cost?.savingsPlanDiscount ?? 0,
           onDemandDiscount: cost?.onDemandDiscount ?? 0,
@@ -79,6 +81,11 @@ export const gqlToForm = ((data) => {
               cost?.s3Cost?.storage?.iAStorageCostDiscount ?? 0,
           },
         },
+      },
+
+      oktaServiceConfig: {
+        clientId: oktaServiceConfig?.clientId ?? "",
+        clientSecret: oktaServiceConfig?.clientSecret ?? "",
       },
 
       singleTaskDistro: {
@@ -113,7 +120,6 @@ export const gqlToForm = ((data) => {
           name: ssh?.spawnHostKey?.name ?? "",
           secretARN: ssh?.spawnHostKey?.secretARN ?? "",
         },
-        kanopySSHKeyPath: data.kanopySSHKeyPath ?? "",
       },
 
       expansions: {
@@ -182,7 +188,6 @@ export const gqlToForm = ((data) => {
       projectCreationSettings: {
         totalProjectLimit: projectCreation?.totalProjectLimit ?? 0,
         repoProjectLimit: projectCreation?.repoProjectLimit ?? 0,
-        jiraProject: projectCreation?.jiraProject ?? "",
         repoExceptions:
           projectCreation?.repoExceptions?.map((exception) => ({
             owner: exception.owner ?? "",
@@ -208,6 +213,7 @@ export const formToGql = ((form: OtherFormState) => {
     hostJasper,
     jiraNotificationsFields,
     miscSettings,
+    oktaServiceConfig,
     projectCreationSettings,
     singleTaskDistro,
     sleepSchedule,
@@ -216,7 +222,7 @@ export const formToGql = ((form: OtherFormState) => {
     tracerConfiguration,
   } = other;
 
-  const { kanopySSHKeyPath, ...ssh } = sshPairs;
+  const { ...ssh } = sshPairs;
 
   return {
     configDir: miscSettings.configDir || undefined,
@@ -240,6 +246,9 @@ export const formToGql = ((form: OtherFormState) => {
     },
 
     cost: {
+      ebsCost: {
+        ebsDiscount: miscSettings.cost.ebsDiscount || undefined,
+      },
       financeFormula: miscSettings.cost.financeFormula || undefined,
       savingsPlanDiscount: miscSettings.cost.savingsPlanDiscount || undefined,
       onDemandDiscount: miscSettings.cost.onDemandDiscount || undefined,
@@ -255,6 +264,11 @@ export const formToGql = ((form: OtherFormState) => {
             miscSettings.cost.s3Cost.iAStorageCostDiscount || undefined,
         },
       },
+    },
+
+    oktaServiceConfig: {
+      clientId: oktaServiceConfig.clientId || undefined,
+      clientSecret: oktaServiceConfig.clientSecret || undefined,
     },
 
     singleTaskDistro: {
@@ -304,8 +318,6 @@ export const formToGql = ((form: OtherFormState) => {
         secretARN: ssh.spawnHostKey.secretARN || undefined,
       },
     },
-
-    kanopySSHKeyPath: kanopySSHKeyPath || undefined,
 
     expansions: convertExpansionsToGql(expansions.expansionValues),
 
@@ -366,7 +378,6 @@ export const formToGql = ((form: OtherFormState) => {
     projectCreation: {
       totalProjectLimit: projectCreationSettings.totalProjectLimit || undefined,
       repoProjectLimit: projectCreationSettings.repoProjectLimit || undefined,
-      jiraProject: projectCreationSettings.jiraProject || undefined,
       repoExceptions: projectCreationSettings.repoExceptions
         .filter((exception) => exception.owner && exception.repo)
         .map((exception) => ({

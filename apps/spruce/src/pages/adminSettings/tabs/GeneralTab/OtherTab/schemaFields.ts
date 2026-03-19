@@ -7,6 +7,26 @@ import {
   nestedObjectGridCss,
 } from "../../sharedStyles";
 
+export const oktaServiceConfig = {
+  schema: {
+    clientId: {
+      type: "string" as const,
+      title: "Client ID",
+    },
+    clientSecret: {
+      type: "string" as const,
+      title: "Client Secret",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "okta-service-config",
+    "ui:objectFieldCss": objectGridCss,
+    "ui:description":
+      "Settings for the Okta Services app. Used exclusively for machine-to-machine authentication, e.g. the token exchange grant used in the spawn host workflow.",
+  },
+};
+
 export const miscSettings = {
   schema: {
     configDir: {
@@ -71,6 +91,12 @@ export const miscSettings = {
       type: "object" as const,
       title: "Cost",
       properties: {
+        ebsDiscount: {
+          type: "number" as const,
+          title: "EBS Cost Discount",
+          minimum: 0,
+          maximum: 1,
+        },
         financeFormula: {
           type: "number" as const,
           title: "Finance Formula",
@@ -143,6 +169,10 @@ export const miscSettings = {
     },
     cost: {
       "ui:fieldCss": nestedObjectGridCss,
+      ebsDiscount: {
+        "ui:description":
+          "The discount applied to EBS costs (throughput, storage, etc.) (value 0-1).",
+      },
       financeFormula: {
         "ui:description":
           "The formula used to calculate the cost of running a task (value 0-1).",
@@ -312,10 +342,6 @@ export const bucketConfig = {
 
 export const sshPairs = {
   schema: {
-    kanopySSHKeyPath: {
-      type: "string" as const,
-      title: "Legacy SSH Key",
-    },
     taskHostKey: {
       type: "object" as const,
       title: "Task Host Key",
@@ -354,9 +380,6 @@ export const sshPairs = {
     },
     spawnHostKey: {
       "ui:fieldCss": nestedObjectGridCss,
-    },
-    kanopySSHKeyPath: {
-      "ui:fieldCss": fullWidthCss,
     },
   },
 };
@@ -610,10 +633,6 @@ export const projectCreationSettings = {
     repoProjectLimit: {
       type: "number" as const,
       title: "Repository Project Limit",
-    },
-    jiraProject: {
-      type: "string" as const,
-      title: "Jira Project",
     },
     repoExceptions: {
       type: "array" as const,

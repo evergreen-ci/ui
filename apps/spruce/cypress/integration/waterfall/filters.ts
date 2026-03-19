@@ -55,14 +55,20 @@ describe("build variant filtering", () => {
   it("submitting a build variant filter updates the url, creates a badge and filters the grid to only show active builds", () => {
     cy.dataCy("build-variant-label").should("have.length", 2);
     cy.dataCy("build-variant-filter-input").type("P{enter}");
-    cy.dataCy("filter-chip").first().should("have.text", "Variant: P");
+    cy.dataCy("filter-chip").first().should("have.text", "Variant: ^P$");
     cy.location().should((loc) => {
-      expect(loc.search).to.include("buildVariants=P");
+      expect(loc.search).to.include("buildVariants=%5EP%24");
     });
     cy.dataCy("build-variant-label").should("have.length", 0);
 
     cy.dataTestId("chip-dismiss-button").click();
     cy.dataCy("build-variant-label").should("have.length", 2);
+
+    cy.dataCy("build-variant-filter-select").click();
+    cy.get('[role="listbox"]').should("have.length", 1);
+    cy.get('[role="listbox"]').within(() => {
+      cy.contains("Regex").click();
+    });
 
     cy.dataCy("build-variant-filter-input").type("Ubuntu{enter}");
     cy.location().should((loc) => {
@@ -85,8 +91,31 @@ describe("task filtering", () => {
     cy.visit("/project/evergreen/waterfall");
   });
 
-  it("filters grid squares, removes inactive build variants, creates a badge, and updates the url", () => {
+  it("with exact match, filters grid squares, removes inactive build variants, creates a badge, and updates the url", () => {
     cy.dataCy("build-variant-label").should("have.length", 2);
+    cy.dataCy("task-filter-input").type("js-test{enter}");
+
+    cy.dataCy("build-variant-label").should("have.length", 1);
+    cy.location().should((loc) => {
+      expect(loc.search).to.include("tasks=%5Ejs%5C-test%24");
+    });
+    cy.dataCy("filter-chip").first().should("have.text", "Task: ^js\\-test$");
+    cy.get("a[data-tooltip]").should("have.length", 1);
+    cy.get("a[data-tooltip]").should(
+      "have.attr",
+      "data-tooltip",
+      "js-test - Succeeded",
+    );
+  });
+
+  it("with regex match, filters grid squares, removes inactive build variants, creates a badge, and updates the url", () => {
+    cy.dataCy("build-variant-label").should("have.length", 2);
+    cy.dataCy("task-filter-select").click();
+    cy.get('[role="listbox"]').should("have.length", 1);
+    cy.get('[role="listbox"]').within(() => {
+      cy.contains("Regex").click();
+    });
+
     cy.dataCy("task-filter-input").type("agent{enter}");
 
     cy.dataCy("build-variant-label").should("have.length", 1);
@@ -111,6 +140,18 @@ describe("task filtering", () => {
   });
 
   it("correctly applies build variant and task filters", () => {
+    cy.dataCy("build-variant-filter-select").click();
+    cy.get('[role="listbox"]').should("have.length", 1);
+    cy.get('[role="listbox"]').within(() => {
+      cy.contains("Regex").click();
+    });
+
+    cy.dataCy("task-filter-select").click();
+    cy.get('[role="listbox"]').should("have.length", 1);
+    cy.get('[role="listbox"]').within(() => {
+      cy.contains("Regex").click();
+    });
+
     cy.dataCy("build-variant-filter-input").type("Ubuntu{enter}");
     cy.dataCy("build-variant-label").should("have.length", 1);
     cy.get("a[data-tooltip]").should("have.length", 45);

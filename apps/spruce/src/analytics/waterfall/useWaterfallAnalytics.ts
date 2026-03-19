@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
-import { FilterType } from "components/TupleSelectWithRegexConditional";
 import { slugs } from "constants/routes";
+import { FilterType } from "pages/waterfall/types";
 
 type Action =
   | { name: "Changed page"; direction: "next" | "previous" }
@@ -28,10 +28,18 @@ type Action =
     }
   | { name: "Deleted all filter chips" }
   | { name: "Deleted one filter chip" }
-  | { name: "Filtered by build variant"; "filter.type": FilterType }
+  | {
+      name: "Filtered by build variant";
+      "filter.type": FilterType;
+      "filter.value": string;
+    }
   | { name: "Filtered by requester"; requesters: string[] }
   | { name: "Filtered by git commit" }
-  | { name: "Filtered by task"; "filter.type": FilterType }
+  | {
+      name: "Filtered by task";
+      "filter.type": FilterType;
+      "filter.value": string;
+    }
   | { name: "Filtered by task status"; statuses: string[] }
   | { name: "Filtered by date" }
   | { name: "Toggled task icon legend"; open: boolean }
@@ -41,7 +49,7 @@ type Action =
     }
   | { name: "Redirected to waterfall page"; referrer: string }
   | { name: "Toggled omit inactive builds"; enabled: boolean }
-  | { name: "Clicked task overview popup"; "task.id": string; open: boolean };
+  | { name: "Clicked task overview popup"; "task.id": string; open?: boolean };
 
 export const useWaterfallAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();

@@ -116,7 +116,6 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
   minQueuePosition: 0,
   order: 2894,
   patchNumber: 2894,
-  pod: null,
   priority: 0,
   project: {
     id: "65f08ccac9ec449f57b4015d",
@@ -296,7 +295,6 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
   minQueuePosition: 0,
   order: 2894,
   patchNumber: 2894,
-  pod: null,
   priority: 0,
   project: {
     id: "65f08ccac9ec449f57b4015d",

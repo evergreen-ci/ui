@@ -69,6 +69,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     githubPRTriggerAliases: null,
     githubMQTriggerAliases: null,
     gitTagVersionsEnabled: null,
+    runEveryMainlineCommit: null,
     gitTagAuthorizedUsers: ["privileged"],
     gitTagAuthorizedTeams: [],
     commitQueue: {
@@ -226,6 +227,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     githubPRTriggerAliases: ["alias1"],
     githubMQTriggerAliases: ["mq-alias"],
     gitTagVersionsEnabled: false,
+    runEveryMainlineCommit: false,
     gitTagAuthorizedUsers: ["admin"],
     gitTagAuthorizedTeams: [],
     githubDynamicTokenPermissionGroups: [

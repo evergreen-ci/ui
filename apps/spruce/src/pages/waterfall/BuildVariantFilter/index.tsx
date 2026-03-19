@@ -2,13 +2,17 @@ import { useCallback } from "react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { toEscapedRegex } from "@evg-ui/lib/utils/string";
+import { setLocalStorageString } from "@evg-ui/lib/utils/localStorage";
 import { useWaterfallAnalytics } from "analytics";
 import TupleSelect from "components/TupleSelect";
-import { FilterType } from "components/TupleSelectWithRegexConditional";
 import { useUpsertQueryParams } from "hooks";
-import { tupleSelectOptions } from "../constants";
-import { WaterfallFilterOptions } from "../types";
+import {
+  stringFilterTooltipText,
+  tupleSelectOptions,
+  VARIANT_FILTER_SETTING_KEY,
+} from "../constants";
+import { FilterType, WaterfallFilterOptions } from "../types";
+import { getFilterType, makeExactFilter } from "../utils";
 
 export const BuildVariantFilter = () => {
   const onSubmit = useUpsertQueryParams();
@@ -18,30 +22,40 @@ export const BuildVariantFilter = () => {
     ({ category, value }: { category: string; value: string }) => {
       const filterType = category as FilterType;
       const isRegex = filterType === FilterType.Regex;
+      const filterValue = isRegex ? value : makeExactFilter(value);
       onSubmit({
         category: WaterfallFilterOptions.BuildVariant,
-        value: isRegex ? value : toEscapedRegex(value),
+        value: filterValue,
       });
       sendEvent({
         name: "Filtered by build variant",
         "filter.type": filterType,
+        "filter.value": filterValue,
       });
     },
     [onSubmit, sendEvent],
   );
 
+  const defaultFilterType = getFilterType(VARIANT_FILTER_SETTING_KEY);
+
+  const handleToggleOption = useCallback((newOption: string) => {
+    setLocalStorageString(VARIANT_FILTER_SETTING_KEY, newOption);
+  }, []);
+
   return (
     <TupleSelect
       ariaLabel="Build Variant Filter"
       data-cy="build-variant-filter"
+      defaultOption={defaultFilterType}
       id="build-variant-filter"
       label={
         <LabelContainer>
           <span>Build Variant</span>
-          <InfoSprinkle>Search is case sensitive.</InfoSprinkle>
+          <InfoSprinkle>{stringFilterTooltipText}</InfoSprinkle>
         </LabelContainer>
       }
       onSubmit={onSubmitTupleSelect}
+      onToggleOption={handleToggleOption}
       options={tupleSelectOptions}
       placeholder="Search"
       validatorErrorMessage="Invalid regular expression"

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
+import { Button, Variant } from "@leafygreen-ui/button";
 import {
   SegmentedControl,
   SegmentedControlOption,
@@ -18,6 +18,8 @@ import { LogTypes, QueryParams } from "types/task";
 import { EventLog, AgentLog, SystemLog, TaskLog, AllLog } from "./LogTypes";
 
 const DEFAULT_LOG_TYPE = LogTypes.Task;
+const FADE_OVERLAY_HEIGHT = 100;
+const MIN_HEIGHT_FOR_FADE = FADE_OVERLAY_HEIGHT + 20;
 
 const options = {
   [LogTypes.Agent]: AgentLog,
@@ -47,6 +49,23 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
       : DEFAULT_LOG_TYPE,
   );
   const [noLogs, setNoLogs] = useState(false);
+  const [showFade, setShowFade] = useState(false);
+  const logWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Don't show fade overlay on small log tails
+    const el = logWrapperRef.current;
+    if (!el) return;
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setShowFade(entry.contentRect.height > MIN_HEIGHT_FOR_FADE);
+      }
+    });
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const onChangeLog = (value: string): void => {
     const nextLogType = value as LogTypes;
@@ -89,69 +108,77 @@ const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
             Event Logs
           </SegmentedControlOption>
           <SegmentedControlOption id="cy-all-option" value={LogTypes.All}>
-            All Logs
+            Combined
           </SegmentedControlOption>
         </SegmentedControl>
-
-        {(htmlLink || rawLink || parsleyLink) && (
-          <ButtonContainer>
-            {parsleyLink && (
-              <Button
-                data-cy="parsley-log-btn"
-                disabled={noLogs}
-                href={parsleyLink}
-                onClick={() =>
-                  sendEvent({
-                    name: "Clicked log link",
-                    "log.type": currentLog,
-                    "log.viewer": "parsley",
-                  })
-                }
-                title="High-powered log viewer"
-              >
-                Parsley
-              </Button>
-            )}
-            {htmlLink && (
-              <Button
-                data-cy="html-log-btn"
-                disabled={noLogs}
-                href={htmlLink}
-                onClick={() =>
-                  sendEvent({
-                    name: "Clicked log link",
-                    "log.type": currentLog,
-                    "log.viewer": "html",
-                  })
-                }
-                title="Plain, colorized log viewer"
-              >
-                HTML
-              </Button>
-            )}
-            {rawLink && (
-              <Button
-                data-cy="raw-log-btn"
-                disabled={noLogs}
-                href={rawLink}
-                onClick={() =>
-                  sendEvent({
-                    name: "Clicked log link",
-                    "log.type": currentLog,
-                    "log.viewer": "raw",
-                  })
-                }
-                title="Plain text log viewer"
-              >
-                Raw
-              </Button>
-            )}
-          </ButtonContainer>
-        )}
       </LogHeader>
-      {LogComp && (
-        <LogComp execution={execution} setNoLogs={setNoLogs} taskId={taskId} />
-      )}
+      <LogContentWrapper>
+        <div ref={logWrapperRef}>
+          {LogComp && (
+            <LogComp
+              execution={execution}
+              setNoLogs={setNoLogs}
+              taskId={taskId}
+            />
+          )}
+        </div>
+        {(htmlLink || rawLink || parsleyLink) && (
+          <>
+            {showFade && <LogFadeOverlay />}
+            <FloatingButtonContainer>
+              {parsleyLink && (
+                <Button
+                  data-cy="parsley-log-btn"
+                  disabled={noLogs}
+                  href={parsleyLink}
+                  onClick={() =>
+                    sendEvent({
+                      name: "Clicked log link",
+                      "log.type": currentLog,
+                      "log.viewer": "parsley",
+                    })
+                  }
+                  variant={Variant.Primary}
+                >
+                  Complete logs on Parsley
+                </Button>
+              )}
+              {htmlLink && (
+                <Button
+                  data-cy="html-log-btn"
+                  disabled={noLogs}
+                  href={htmlLink}
+                  onClick={() =>
+                    sendEvent({
+                      name: "Clicked log link",
+                      "log.type": currentLog,
+                      "log.viewer": "html",
+                    })
+                  }
+                >
+                  HTML
+                </Button>
+              )}
+              {rawLink && (
+                <Button
+                  data-cy="raw-log-btn"
+                  disabled={noLogs}
+                  href={rawLink}
+                  onClick={() =>
+                    sendEvent({
+                      name: "Clicked log link",
+                      "log.type": currentLog,
+                      "log.viewer": "raw",
+                    })
+                  }
+                >
+                  Raw
+                </Button>
+              )}
+            </FloatingButtonContainer>
+          </>
+        )}
+      </LogContentWrapper>
     </LogContainer>
   );
 };
@@ -167,9 +194,32 @@ const LogHeader = styled.div`
   margin-bottom: ${size.s};
 `;
 
-const ButtonContainer = styled.div`
+const LogContentWrapper = styled.div`
+  position: relative;
+`;
+
+const LogFadeOverlay = styled.div`
+  position: absolute;
+  margin: 2px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: ${FADE_OVERLAY_HEIGHT}px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+`;
+
+const FloatingButtonContainer = styled.div`
+  position: absolute;
+  top: ${size.xs};
+  right: ${size.xs};
   display: flex;
   gap: ${size.xs};
+  z-index: 2;
 `;
 
 interface GetLinksResult {

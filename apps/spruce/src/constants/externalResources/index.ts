@@ -32,6 +32,8 @@ export const mergeQueueAliasesDocumentationUrl = `${projectDistroSettingsDocumen
 
 export const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#git-tag-aliases`;
 
+export const runEveryMainlineCommitDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#run-every-mainline-commit`;
+
 export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
 
 export const githubPermissionsDocumentationUrl =
@@ -48,8 +50,6 @@ export const ignoredFilesDocumentationUrl = `${wikiBaseUrl}/Project-Configuratio
 export const redactedVarsDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files#expansions`;
 
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;
-
-export const containersOnboardingDocumentationUrl = `${wikiBaseUrl}/Containers/Container-Tasks`;
 
 export const taskSchedulingLimitsDocumentationUrl = `${wikiBaseUrl}/Reference/Limits#task-scheduling-limits`;
 
@@ -128,3 +128,6 @@ export const cursorAPIKeySettingsUrl =
 
 export const sageBotDocumentationUrl =
   "https://docs.devprod.prod.corp.mongodb.com/sage/sage-bot/";
+
+export const backstageS3BucketUrl =
+  "https://app.backstage.prod.corp.mongodb.com/create/templates/default/evergreen-s3";

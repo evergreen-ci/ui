@@ -46,3 +46,8 @@ export enum WaterfallFilterOptions {
   Task = "tasks",
   Date = "date",
 }
+
+export enum FilterType {
+  Exact = "exact",
+  Regex = "regex",
+}
