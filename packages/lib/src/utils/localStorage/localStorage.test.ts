@@ -16,8 +16,8 @@ describe("localStorage utilities", () => {
       expect(getLocalStorageString("test-key")).toBe("test-value");
     });
 
-    it("returns null for a missing key", () => {
-      expect(getLocalStorageString("nonexistent")).toBeNull();
+    it("returns undefined for a missing key", () => {
+      expect(getLocalStorageString("nonexistent")).toBeUndefined();
     });
   });
 

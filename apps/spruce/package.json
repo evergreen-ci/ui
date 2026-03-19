@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.1.74",
+  "version": "6.1.77",
   "private": true,
   "type": "module",
   "scripts": {
@@ -26,18 +26,17 @@
     "dev": "env-cmd -e devLocal pnpm start",
     "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint --concurrency=auto",
-    "eslint:strict": "STRICT=1 eslint --max-warnings=61 --concurrency=auto .",
+    "eslint:strict": "STRICT=1 eslint --max-warnings=57 --concurrency=auto .",
     "evg-db-ops": "../../scripts/evg-db-ops.sh",
     "postversion": "pnpm deploy-utils-postversion",
     "prepare": "pnpm --dir ../.. prepare",
     "preview": "serve -s dist -p 3000",
     "prod": "env-cmd -e devProduction pnpm start",
-    "snapshot": "vitest run snapshot.test.ts",
     "staging": "env-cmd -e devStaging pnpm start",
     "start": "vite",
     "storybook": "NO_HTTPS=true storybook dev -p 6006",
     "storybook:build": "storybook build",
-    "test": "vitest --exclude=src/snapshot.test.ts",
+    "test": "vitest",
     "chromatic": "npx chromatic --project-token=chpt_676fe75e2c97368 --build-script-name storybook:build"
   },
   "browserslist": {
