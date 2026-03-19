@@ -81,12 +81,12 @@ const BadgeWrapper = styled.div<TitleTypographyProps>`
 const PageHeader = styled.div<TitleTypographyProps>`
   ${({ size }) => size === "large" && `margin-top: ${tokenSize.s};`}
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  gap: ${tokenSize.m};
 `;
 
 const TitleWrapper = styled.span<TitleTypographyProps>`
-  max-width: ${(props) => (props.size === "medium" ? "70%" : "100%")};
+  flex: 1;
 `;
 
 export default PageTitle;

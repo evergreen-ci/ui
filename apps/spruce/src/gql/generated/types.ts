@@ -6849,6 +6849,18 @@ export type QuarantineTestMutation = {
   quarantineTest: { __typename?: "QuarantineTestPayload"; success: boolean };
 };
 
+export type RefreshGithubStatusesMutationVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+}>;
+
+export type RefreshGithubStatusesMutation = {
+  __typename?: "Mutation";
+  refreshGitHubStatuses?: {
+    __typename?: "RefreshGitHubStatusesPayload";
+    success: boolean;
+  } | null;
+};
+
 export type RemoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution: Scalars["Int"]["input"];
