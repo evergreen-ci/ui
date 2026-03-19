@@ -129,6 +129,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
       "host.distro.id": mutationInput?.distroId || "",
       "host.is_unexpirable": mutationInput?.noExpiration || false,
       "host.is_workstation": mutationInput?.isVirtualWorkStation || false,
+      "host.is_from_task": false,
     });
     migrateVolumeMutation({
       variables: {

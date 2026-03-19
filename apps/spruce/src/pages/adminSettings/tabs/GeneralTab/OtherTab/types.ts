@@ -16,6 +16,7 @@ export interface OtherFormState {
         idleTimeSecondsOverride: number;
       };
       cost: {
+        ebsDiscount: number;
         financeFormula: number;
         savingsPlanDiscount: number;
         onDemandDiscount: number;
