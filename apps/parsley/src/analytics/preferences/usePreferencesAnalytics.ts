@@ -20,7 +20,7 @@ type Action =
   | { name: "Toggled highlight filters"; on: boolean }
   | { name: "Toggled sections"; on: boolean }
   | { name: "Toggled sticky headers"; on: boolean }
-  | { name: "Toggled include timestamps"; on: boolean };
+  | { name: "Toggled exclude timestamps"; on: boolean };
 
 export const usePreferencesAnalytics = () =>
   useAnalyticsRoot<Action, AnalyticsIdentifier>("Preferences");

@@ -35,7 +35,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
   } = useParams();
   const dispatchToast = useToastContext();
   const { ingestLines, preferences, setLogMetadata } = useLogContext();
-  const { includeTimestamps } = preferences;
+  const { excludeTimestamps } = preferences;
   const {
     downloadURL,
     failingCommand,
@@ -46,10 +46,10 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     renderingType,
   } = useResolveLogURLAndRenderingType({
     buildID,
+    excludeTimestamps,
     execution,
     fileName,
     groupID,
-    includeTimestamps,
     logType,
     origin,
     taskID,

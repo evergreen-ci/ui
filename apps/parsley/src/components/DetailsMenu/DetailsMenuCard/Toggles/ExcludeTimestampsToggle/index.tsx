@@ -3,30 +3,30 @@ import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import BaseToggle from "../BaseToggle";
 
-const IncludeTimestampsToggle: React.FC = () => {
+const ExcludeTimestampsToggle: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const { logMetadata, preferences } = useLogContext();
-  const { includeTimestamps, setIncludeTimestamps } = preferences;
+  const { excludeTimestamps, setExcludeTimestamps } = preferences;
 
   const isSupported = logMetadata?.logType === LogTypes.EVERGREEN_TEST_LOGS;
 
   return (
     <BaseToggle
-      data-cy="include-timestamps-toggle"
+      data-cy="exclude-timestamps-toggle"
       disabled={!isSupported}
-      label="Include Timestamps"
+      label="Exclude Timestamps"
       onChange={(value) => {
-        sendEvent({ name: "Toggled include timestamps", on: value });
-        setIncludeTimestamps(value);
+        sendEvent({ name: "Toggled exclude timestamps", on: value });
+        setExcludeTimestamps(value);
       }}
       tooltip={
         isSupported
-          ? "Whether timestamps are included at the beginning of log lines. Changing this setting will reload the page to re-download the log."
+          ? "Whether to exclude timestamps at the beginning of log lines. Changing this setting will reload the page to re-download the log."
           : "This option is only available for Evergreen test logs."
       }
-      value={includeTimestamps}
+      value={excludeTimestamps}
     />
   );
 };
 
-export default IncludeTimestampsToggle;
+export default ExcludeTimestampsToggle;

@@ -11,7 +11,6 @@ enum QueryParams {
   LowerRange = "lower",
   UpperRange = "upper",
   SelectedLineRange = "selectedLineRange",
-  IncludeTimestamps = "includeTimestamps",
 }
 
 const urlParseOptions: ParseOptions = {

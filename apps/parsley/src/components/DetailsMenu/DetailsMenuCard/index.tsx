@@ -8,10 +8,10 @@ import ButtonRow from "./ButtonRow";
 import SearchRangeInput from "./SearchRangeInput";
 import {
   CaseSensitiveToggle,
+  ExcludeTimestampsToggle,
   ExpandableRowsToggle,
   FilterLogicToggle,
   HighlightFiltersToggle,
-  IncludeTimestampsToggle,
   JumpToFailingLineToggle,
   PrettyPrintToggle,
   SectionsToggle,
@@ -69,7 +69,7 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
                   updateSettings={updateSettings}
                 />
                 <StickyHeadersToggle />
-                <IncludeTimestampsToggle />
+                <ExcludeTimestampsToggle />
               </Column>
             </Row>
           </Tab>

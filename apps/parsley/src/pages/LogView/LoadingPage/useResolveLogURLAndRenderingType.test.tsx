@@ -422,64 +422,63 @@ describe("modifyPrintTimeInURL", () => {
     expect(modifyPrintTimeInURL("", false)).toBe("");
   });
 
-  it("returns URL unchanged when print_time parameter is not present", () => {
+  it("returns URL unchanged when excludeTimestamps is false", () => {
     const url = "https://example.com/logs?text=true";
-    expect(modifyPrintTimeInURL(url, true)).toBe(url);
     expect(modifyPrintTimeInURL(url, false)).toBe(url);
   });
 
-  it("modifies print_time=true to print_time=false when includeTimestamps is false", () => {
+  it("adds print_time=false when excludeTimestamps is true and print_time is not present", () => {
+    const url = "https://example.com/logs?text=true";
+    expect(modifyPrintTimeInURL(url, true)).toBe(
+      "https://example.com/logs?text=true&print_time=false",
+    );
+  });
+
+  it("sets print_time=false when excludeTimestamps is true and print_time=true exists", () => {
     const url = "https://example.com/logs?print_time=true&text=true";
-    expect(modifyPrintTimeInURL(url, false)).toBe(
+    expect(modifyPrintTimeInURL(url, true)).toBe(
       "https://example.com/logs?print_time=false&text=true",
     );
   });
 
-  it("modifies print_time=false to print_time=true when includeTimestamps is true", () => {
-    const url = "https://example.com/logs?print_time=false&text=true";
-    expect(modifyPrintTimeInURL(url, true)).toBe(
-      "https://example.com/logs?print_time=true&text=true",
-    );
-  });
-
-  it("keeps print_time=true when includeTimestamps is true", () => {
-    const url = "https://example.com/logs?print_time=true";
-    expect(modifyPrintTimeInURL(url, true)).toBe(
-      "https://example.com/logs?print_time=true",
-    );
-  });
-
-  it("keeps print_time=false when includeTimestamps is false", () => {
+  it("keeps print_time=false when excludeTimestamps is true and print_time=false exists", () => {
     const url = "https://example.com/logs?print_time=false";
-    expect(modifyPrintTimeInURL(url, false)).toBe(
+    expect(modifyPrintTimeInURL(url, true)).toBe(
       "https://example.com/logs?print_time=false",
     );
+  });
+
+  it("returns URL unchanged when excludeTimestamps is false even with print_time present", () => {
+    const url = "https://example.com/logs?print_time=false&text=true";
+    expect(modifyPrintTimeInURL(url, false)).toBe(url);
   });
 
   it("handles URLs with multiple query parameters", () => {
     const url =
       "https://example.com/logs?priority=true&print_time=true&text=true";
-    expect(modifyPrintTimeInURL(url, false)).toBe(
+    expect(modifyPrintTimeInURL(url, true)).toBe(
       "https://example.com/logs?priority=true&print_time=false&text=true",
     );
   });
 
   it("handles relative URLs with print_time parameter using regex fallback", () => {
     const url = "/logs?print_time=true&text=true";
-    expect(modifyPrintTimeInURL(url, false)).toBe(
+    expect(modifyPrintTimeInURL(url, true)).toBe(
       "/logs?print_time=false&text=true",
     );
   });
 
   it("handles relative URLs without print_time parameter", () => {
     const url = "/logs?text=true";
-    expect(modifyPrintTimeInURL(url, true)).toBe(url);
+    expect(modifyPrintTimeInURL(url, true)).toBe(
+      "/logs?text=true&print_time=false",
+    );
     expect(modifyPrintTimeInURL(url, false)).toBe(url);
   });
 
   it("handles URLs with print_time in the middle of query string", () => {
     const url = "https://example.com/logs?a=1&print_time=true&b=2";
-    expect(modifyPrintTimeInURL(url, false)).toBe(
+    expect(modifyPrintTimeInURL(url, true)).toBe(
       "https://example.com/logs?a=1&print_time=false&b=2",
     );
   });
