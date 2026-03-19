@@ -1,25 +1,27 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
 import { Label } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import TextInput from "components/TextInputWithValidation";
 
-type option = {
-  value: string;
+type Option<T extends string = string> = {
+  value: T;
   displayName: string;
   placeholderText?: string;
   validator?: (value: string) => boolean;
 };
 
-interface TupleSelectProps {
+interface TupleSelectProps<T extends string = string> {
   ariaLabel: string;
   "data-cy": string;
+  defaultOption?: T;
   id: string;
   label: React.ReactNode;
-  options: option[];
+  options: Option[];
   placeholder?: string;
   onSubmit?: ({ category, value }: { category: string; value: string }) => void;
+  onToggleOption?: (newOption: string) => void;
   validator?: (value: string) => boolean;
   validatorErrorMessage?: string;
 }
@@ -27,22 +29,32 @@ interface TupleSelectProps {
 const TupleSelect: React.FC<TupleSelectProps> = ({
   ariaLabel,
   "data-cy": dataCy,
+  defaultOption,
   id,
   label,
-  onSubmit = () => {},
+  onSubmit,
+  onToggleOption,
   options,
   placeholder,
   validator,
   validatorErrorMessage = "Invalid input",
 }) => {
-  const [selected, setSelected] = useState(options[0].value);
+  const [selected, setSelected] = useState(defaultOption || options[0].value);
 
   const handleOnSubmit = (input: string) => {
-    onSubmit({ category: selected, value: input });
+    onSubmit?.({ category: selected, value: input });
   };
 
   const selectedOption =
     options.find((o) => o.value === selected) ?? options[0];
+
+  const handleChange = useCallback(
+    (v: string) => {
+      setSelected(v);
+      onToggleOption?.(v);
+    },
+    [onToggleOption],
+  );
 
   return (
     <Container>
@@ -55,7 +67,7 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
           aria-labelledby={`${ariaLabel} Select`}
           data-cy={`${dataCy}-select`}
           dropdownWidthBasis="option"
-          onChange={(v) => setSelected(v)}
+          onChange={handleChange}
           value={selected}
         >
           {options.map((o) => (

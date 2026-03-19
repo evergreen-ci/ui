@@ -36,7 +36,7 @@ describe("useAdminBetaFeatures", () => {
         }),
     });
     await waitFor(() => {
-      expect(result?.current?.adminBetaSettings?.parsleyAIEnabled).toBe(false);
+      expect(result?.current?.adminBetaSettings).toBeDefined();
     });
   });
 });
@@ -51,7 +51,7 @@ describe("useUserBetaFeatures", () => {
         }),
     });
     await waitFor(() => {
-      expect(result?.current?.userBetaSettings?.parsleyAIEnabled).toBe(true);
+      expect(result?.current?.userBetaSettings).toBeDefined();
     });
   });
 });
@@ -68,7 +68,7 @@ describe("useMergedBetaFeatures", () => {
     await waitFor(() => {
       expect(result?.current?.betaFeatures).toBeDefined();
     });
-    expect(result?.current?.betaFeatures?.parsleyAIEnabled).toBe(false);
+    expect(result?.current?.betaFeatures).toEqual({});
   });
 });
 
@@ -88,7 +88,6 @@ const adminBetaFeatures: ApolloMock<
           __typename: "UIConfig",
           betaFeatures: {
             __typename: "BetaFeatures",
-            parsleyAIEnabled: false,
           },
         },
       },
@@ -111,7 +110,6 @@ const userBetaFeatures: ApolloMock<
         userId: "me",
         betaFeatures: {
           __typename: "BetaFeatures",
-          parsleyAIEnabled: true,
         },
       },
     },

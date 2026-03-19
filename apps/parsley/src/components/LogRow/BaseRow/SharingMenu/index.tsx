@@ -7,11 +7,18 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParams } from "@evg-ui/lib/hooks";
+import {
+  getLocalStorageString,
+  setLocalStorageString,
+} from "@evg-ui/lib/utils/localStorage";
 import { copyToClipboard } from "@evg-ui/lib/utils/string";
 import { useLogWindowAnalytics } from "analytics";
+import { CopyFormat } from "constants/enums";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
+import { COPY_FORMAT } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
+import { useIsParsleyAIAvailable } from "hooks/useIsParsleyAIAvailable";
 import { getJiraFormat, getRawLines } from "utils/string";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
@@ -24,6 +31,7 @@ const SharingMenu: React.FC = () => {
   } = useMultiLineSelectContext();
   const { getLine, isUploadedLog, processedLogLines } = useLogContext();
   const { toggleChip } = useChatContext();
+  const isParsleyAIAvailable = useIsParsleyAIAvailable();
 
   const [params, setParams] = useQueryParams(urlParseOptions);
   const dispatchToast = useToastContext();
@@ -67,13 +75,22 @@ const SharingMenu: React.FC = () => {
       selectedLines,
     );
 
-    await copyToClipboard(getJiraFormat(lineNumbers, getLine));
+    const savedFormat = getLocalStorageString(COPY_FORMAT);
+    const copyFormat =
+      savedFormat === CopyFormat.Raw ? CopyFormat.Raw : CopyFormat.Jira;
+    const getText = copyFormat === CopyFormat.Raw ? getRawLines : getJiraFormat;
+    const formatLabel = copyFormat === CopyFormat.Raw ? "raw" : "Jira";
+
+    await copyToClipboard(getText(lineNumbers, getLine));
+    setLocalStorageString(COPY_FORMAT, copyFormat);
     setOpen(false);
     sendEvent({
       name: "Clicked copy share lines to clipboard button",
     });
     dispatchToast.success(
-      `Copied ${pluralize("line", lineNumbers.length, true)} to clipboard`,
+      `Copied ${pluralize("line", lineNumbers.length, true)} to clipboard (${formatLabel})`,
+      true,
+      { timeout: 5000 },
     );
   };
 
@@ -101,7 +118,7 @@ const SharingMenu: React.FC = () => {
     await copyToClipboard(url.toString());
     setOpen(false);
     sendEvent({ name: "Clicked copy share link button" });
-    dispatchToast.success("Copied link to clipboard");
+    dispatchToast.success("Copied link to clipboard", true, { timeout: 5000 });
   };
 
   const lineCount =
@@ -126,9 +143,14 @@ const SharingMenu: React.FC = () => {
         </MenuIcon>
       }
     >
-      <MenuItem glyph={<Icon glyph="Sparkle" />} onClick={handleAddToParsleyAI}>
-        Add to Parsley AI
-      </MenuItem>
+      {isParsleyAIAvailable && (
+        <MenuItem
+          glyph={<Icon glyph="Sparkle" />}
+          onClick={handleAddToParsleyAI}
+        >
+          Add to Parsley AI
+        </MenuItem>
+      )}
       <MenuItem glyph={<Icon glyph="Copy" />} onClick={handleCopySelectedLines}>
         Copy selected contents
       </MenuItem>

@@ -18,10 +18,9 @@ describe("taskCell", () => {
       />,
     );
 
-    expect(screen.getByDataCy("history-table-icon")).toHaveAttribute(
-      "data-status",
-      "success",
-    );
+    expect(
+      screen.getByDataCy("history-table-icon").querySelector("[data-status]"),
+    ).toHaveAttribute("data-status", "success");
     expect(screen.getByDataCy("task-cell")).toBeInTheDocument();
 
     rerender(
@@ -33,7 +32,9 @@ describe("taskCell", () => {
         }}
       />,
     );
-    expect(screen.getByLabelText("Failure Icon")).toBeInTheDocument();
+    expect(
+      screen.getByDataCy("history-table-icon").querySelector("[data-status]"),
+    ).toHaveAttribute("data-status", "failed");
     expect(screen.getByDataCy("task-cell")).toBeInTheDocument();
   });
 

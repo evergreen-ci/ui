@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 import { css } from "@leafygreen-ui/emotion";
-import Cookies from "js-cookie";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import PaginatedVirtualList from "components/PaginatedVirtualList";
 import StickyHeaders from "components/StickyHeaders";
-import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/cookies";
 import { QueryParams } from "constants/queryParams";
+import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/storageKeys";
 import { useLogContext } from "context/LogContext";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { useStickyHeaders } from "hooks/useStickyHeaders";
@@ -75,10 +75,10 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
           );
         }
         // Wrap and pretty print can be enabled after the log pane has initially loaded.
-        if (Cookies.get(WRAP) === "true") {
+        if (getLocalStorageBoolean(WRAP)) {
           setWrap(true);
         }
-        if (Cookies.get(PRETTY_PRINT_BOOKMARKS) === "true") {
+        if (getLocalStorageBoolean(PRETTY_PRINT_BOOKMARKS)) {
           setPrettyPrint(true);
         }
         performedScroll.current = true;

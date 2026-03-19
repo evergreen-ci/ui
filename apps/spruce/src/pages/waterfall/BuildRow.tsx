@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
@@ -28,25 +28,30 @@ const { gray } = palette;
 
 type Props = {
   build: BuildVariant;
-  handlePinClick: () => void;
   isFirstBuild: boolean;
   lastActiveVersionId: string;
+  onPinClick: (buildVariant: string, wasPinned: boolean) => void;
   pinned: boolean;
   projectIdentifier: string;
   versions: GroupedVersion[];
 };
 
-export const BuildRow: React.FC<Props> = ({
+const BuildRowInner: React.FC<Props> = ({
   build,
-  handlePinClick,
   isFirstBuild,
   lastActiveVersionId,
+  onPinClick,
   pinned,
   projectIdentifier,
   versions,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
   const [openTaskId, setOpenTaskId] = useState<string | null>(null);
+
+  const handlePinClick = useCallback(
+    () => onPinClick(build.id, pinned),
+    [onPinClick, build.id, pinned],
+  );
 
   const handleVariantClick = useCallback(
     () => sendEvent({ name: "Clicked variant label" }),
@@ -58,41 +63,43 @@ export const BuildRow: React.FC<Props> = ({
       // Open the popup on Alt + Click.
       if (e.altKey) {
         e.preventDefault();
-        setOpenTaskId((prevOpenTaskId) =>
-          prevOpenTaskId === taskId ? null : taskId,
-        );
+        setOpenTaskId((prev) => (prev === taskId ? null : taskId));
         sendEvent({
           name: "Clicked task overview popup",
           "task.id": taskId,
-          open: openTaskId !== taskId,
         });
       } else {
-        const status =
-          (e.target as HTMLDivElement)?.getAttribute("status") ?? "";
+        const status = (e.target as HTMLElement)?.dataset.status ?? "";
         sendEvent({
           name: "Clicked task box",
           "task.status": status,
         });
       }
     },
-    [openTaskId, sendEvent],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   const { builds, displayName } = build;
   let buildIndex = 0;
 
-  const [containerHeight, setContainerHeight] = useState(0);
   const { columnWidth } = useBuildVariantContext();
 
-  useEffect(() => {
-    if (columnWidth !== 0) {
-      const bvContainerHeight = calculateBVContainerHeight({
-        builds,
-        columnWidth,
-      });
-      setContainerHeight(bvContainerHeight);
-    }
-  }, [builds, columnWidth]);
+  const containerHeight = useMemo(
+    () =>
+      columnWidth !== 0
+        ? calculateBVContainerHeight({ builds, columnWidth })
+        : 0,
+    [builds, columnWidth],
+  );
+
+  const containerStyles = useMemo(
+    () => css`
+      ${buildGroupCss};
+      height: ${containerHeight}px;
+    `,
+    [containerHeight],
+  );
 
   const iconButtonProps = isFirstBuild
     ? { [waterfallGuideId]: walkthroughSteps[2].targetId }
@@ -129,10 +136,7 @@ export const BuildRow: React.FC<Props> = ({
         </StyledLink>
       </BuildVariantTitle>
       <VisibilityContainer
-        containerCss={css`
-          ${buildGroupCss};
-          height: ${containerHeight}px;
-        `}
+        containerCss={containerStyles}
         data-cy="build-group"
         offset={1000}
       >
@@ -169,9 +173,13 @@ export const BuildRow: React.FC<Props> = ({
   );
 };
 
-const WidthWatcher: React.FC<{
-  children: React.ReactNode;
-}> = ({ children }) => {
+export const BuildRow = memo(BuildRowInner);
+
+const WidthWatcher: React.FC<
+  {
+    children: React.ReactNode;
+  } & React.HTMLAttributes<HTMLDivElement>
+> = ({ children, ...rest }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions<HTMLDivElement>(containerRef);
   const { columnWidth, setColumnWidth } = useBuildVariantContext();
@@ -182,7 +190,11 @@ const WidthWatcher: React.FC<{
     }
   }, [setColumnWidth, columnWidth, width]);
 
-  return <BuildContainer ref={containerRef}>{children}</BuildContainer>;
+  return (
+    <BuildContainer ref={containerRef} {...rest}>
+      {children}
+    </BuildContainer>
+  );
 };
 
 const BuildGrid: React.FC<{
@@ -200,7 +212,7 @@ const BuildGrid: React.FC<{
   openTaskId,
   setOpenTaskId,
 }) => (
-  <WidthWatcher>
+  <WidthWatcher data-rightmost-build={isRightmostBuild || undefined}>
     {build.tasks.map((task) => (
       <WaterfallTask
         key={task.id}
@@ -208,7 +220,7 @@ const BuildGrid: React.FC<{
         isFirstActiveTask={task.id === firstActiveTaskId}
         isRightmostBuild={isRightmostBuild}
         open={openTaskId === task.id}
-        setOpen={(open) => setOpenTaskId(open ? task.id : null)}
+        setOpenTaskId={setOpenTaskId}
         task={task}
       />
     ))}

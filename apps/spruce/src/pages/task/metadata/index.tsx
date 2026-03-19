@@ -6,10 +6,12 @@ import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
+import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
 } from "components/MetadataCard";
+import { Stepback } from "components/Stepback";
 import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
@@ -25,6 +27,7 @@ import {
 } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks/useDateFormat";
+import { isInStepback } from "utils/stepback";
 import { msToDuration } from "utils/string";
 import { AbortMessage } from "./AbortMessage";
 import { BuildVariantCard } from "./BuildVariant";
@@ -32,7 +35,6 @@ import { DependsOn } from "./DependsOn";
 import DetailsDescription from "./DetailsDescription";
 import ETATimer from "./ETATimer";
 import RuntimeTimer from "./RuntimeTimer";
-import { Stepback, isInStepback } from "./Stepback";
 import TagsMetadata from "./TagsMetadata";
 import TaskOwnership from "./TaskOwnership";
 import { TaskTimingMetadata } from "./TaskTiming";
@@ -87,6 +89,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     resetWhenFinished,
     spawnHostLink,
     startTime,
+    stepbackInfo,
     tags,
     testSelectionEnabled,
     timeTaken,
@@ -114,11 +117,12 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const diskDevices = details?.diskDevices;
   const { metadataLinks } = annotation ?? {};
 
-  const stepback = isInStepback(task);
+  const showStepback = isInStepback(stepbackInfo);
 
   return (
     <>
       <MetadataCard title="Task Metadata">
+        <CopyableID textToCopy={taskId} tooltipLabel="Copy task ID" />
         <MetadataItem data-cy="task-metadata-project">
           <MetadataLabel>Project:</MetadataLabel>{" "}
           <StyledRouterLink
@@ -303,7 +307,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             finished.
           </MetadataItem>
         )}
-        {stepback && <Stepback taskId={taskId} />}
+        {showStepback && (
+          <MetadataItem as="div">
+            <Stepback taskId={taskId} />
+          </MetadataItem>
+        )}
         {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}

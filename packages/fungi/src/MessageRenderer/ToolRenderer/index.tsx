@@ -1,46 +1,107 @@
 import styled from "@emotion/styled";
-import { Banner, Variant } from "@leafygreen-ui/banner";
+import { Message, ActionCardState } from "@lg-chat/message";
+import { RichLink } from "@lg-chat/rich-links";
 import { ToolUIPart } from "ai";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { AnimatedEllipsis } from "#AnimatedEllipsis";
 import { ToolState, ToolStateEnum } from "../types";
 import { renderableToolLabels } from "./constants";
+import { ProgressIndicator } from "./ProgressIndicator";
+import { ProgressUpdate } from "./utils";
 
 const loadingStates: ToolState[] = [
   ToolStateEnum.InputStreaming,
   ToolStateEnum.InputAvailable,
 ];
-const toolStateToLabelState = (state: ToolState) => {
-  if (state === ToolStateEnum.OutputError) return "errorCopy";
-  if (state === ToolStateEnum.OutputAvailable) return "completedCopy";
-  return "loadingCopy";
+
+const toolStateToActionCardState = (state: ToolState) => {
+  if (state === ToolStateEnum.OutputError) return ActionCardState.Error;
+  if (state === ToolStateEnum.OutputAvailable) return ActionCardState.Success;
+  return ActionCardState.Running;
 };
-export const ToolRenderer: React.FC<ToolUIPart> = (tool) => {
+
+const toolStateToLabelCopy = (
+  state: ToolState,
+  toolLabel: (typeof renderableToolLabels)[keyof typeof renderableToolLabels],
+): string => {
+  if (state === ToolStateEnum.OutputError) return toolLabel.errorCopy;
+  if (state === ToolStateEnum.OutputAvailable) return toolLabel.completedCopy;
+  return toolLabel.loadingCopy;
+};
+
+type ToolRendererProps = ToolUIPart & {
+  onLinkClick?: (href: string) => void;
+  progress?: ProgressUpdate;
+};
+
+export const ToolRenderer: React.FC<ToolRendererProps> = ({
+  onLinkClick,
+  progress,
+  ...tool
+}) => {
   const toolLabel = renderableToolLabels[tool.type];
   if (!toolLabel) return null;
-  const variant =
-    tool.state === ToolStateEnum.OutputError ? Variant.Danger : Variant.Info;
+
   const isLoading = loadingStates.includes(tool.state);
 
+  let description: React.ReactNode;
+  if (isLoading) {
+    description = progress ? (
+      <ProgressIndicator
+        percentage={progress.percentage}
+        phase={progress.phase}
+      />
+    ) : (
+      <AnimatedEllipsis />
+    );
+  }
+
+  const output =
+    tool.state === ToolStateEnum.OutputAvailable
+      ? (tool as { output?: unknown }).output
+      : undefined;
+
+  const renderedOutput =
+    output !== undefined && toolLabel.renderOutput
+      ? toolLabel.renderOutput(output)
+      : undefined;
+
+  const renderedLinks =
+    output !== undefined && toolLabel.renderLinks
+      ? toolLabel.renderLinks(output, onLinkClick)
+      : undefined;
+
   return (
-    <StyledBanner
-      data-cy="tool-use-chip"
-      image={<StyledIcon fill="currentColor" glyph={toolLabel.glyph} />}
-      variant={variant}
-    >
-      {toolLabel[toolStateToLabelState(tool.state)]}
-      {isLoading && <AnimatedEllipsis />}
-    </StyledBanner>
+    <>
+      <StyledActionCard
+        data-cy="tool-use-chip"
+        description={description}
+        showExpandButton={!!renderedOutput}
+        state={toolStateToActionCardState(tool.state)}
+        title={toolStateToLabelCopy(tool.state, toolLabel)}
+      >
+        {renderedOutput && (
+          <Message.ActionCard.ExpandableContent>
+            {renderedOutput}
+          </Message.ActionCard.ExpandableContent>
+        )}
+      </StyledActionCard>
+      {renderedLinks && renderedLinks.length > 0 && (
+        <LinksContainer>
+          {renderedLinks.map((linkProps) => (
+            <RichLink key={linkProps.children} {...linkProps} />
+          ))}
+        </LinksContainer>
+      )}
+    </>
   );
 };
 
-const StyledBanner = styled(Banner)`
-  padding: ${size.xs} ${size.s};
-  width: fit-content;
+const StyledActionCard = styled(Message.ActionCard)`
+  flex-shrink: 0;
 `;
 
-const StyledIcon = styled(Icon)`
-  width: 14px;
-  height: 14px;
+const LinksContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
 `;

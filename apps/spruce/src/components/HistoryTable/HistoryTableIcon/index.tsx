@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import { Size, Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { TaskStatusIcon } from "components/TaskStatusIcon";
+import { TaskBox } from "components/TaskBox";
+import { VARIANT_HISTORY_SQUARE_SIZE } from "../constants";
 
 interface HistoryTableIconProps {
   status: TaskStatus;
@@ -31,12 +31,9 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
       <Container
         aria-disabled={inactive}
         data-cy="history-table-icon"
-        data-status={status}
         onClick={() => onClick()}
       >
-        <IconContainer>
-          <TaskStatusIcon size={30} status={status} />
-        </IconContainer>
+        <StyledTaskBox status={status} />
         {!inactive && <Body>{label}</Body>}
       </Container>
     }
@@ -63,10 +60,9 @@ const Container = styled.div<ContainerProps>`
   ${({ onClick }) => onClick && "cursor: pointer;"}
 `;
 
-const IconContainer = styled.div`
-  height: ${size.l};
-  width: ${size.l};
-  text-align: center;
+const StyledTaskBox = styled(TaskBox)`
+  width: ${VARIANT_HISTORY_SQUARE_SIZE}px;
+  height: ${VARIANT_HISTORY_SQUARE_SIZE}px;
 `;
 
 const TestName = styled.div`

@@ -1,37 +1,21 @@
+import { FetchPolicy } from "@apollo/client";
 import { skipToken, useQuery } from "@apollo/client/react";
 import {
-  BaseVersionAndTaskQuery,
-  BaseVersionAndTaskQueryVariables,
   LastMainlineCommitQuery,
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
-import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
-import { string } from "utils";
+import { LAST_MAINLINE_COMMIT } from "gql/queries";
+import { useTaskData } from "hooks/useTaskData";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 
-export const useParentTask = (taskId: string) => {
-  const { data: taskData } = useQuery<
-    BaseVersionAndTaskQuery,
-    BaseVersionAndTaskQueryVariables
-  >(BASE_VERSION_AND_TASK, {
-    variables: { taskId },
-  });
-
+export const useParentTask = (taskId: string, fetchPolicy?: FetchPolicy) => {
   const {
     baseTask,
-    buildVariant,
-    displayName,
+    bvOptionsBase,
     projectIdentifier,
+    skipOrderNumber,
     versionMetadata,
-  } = taskData?.task ?? {};
-  const { order: skipOrderNumber } = versionMetadata?.baseVersion ?? {};
-
-  const bvOptionsBase = {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    tasks: [string.applyStrictRegex(displayName)],
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variants: [string.applyStrictRegex(buildVariant)],
-  };
+  } = useTaskData(taskId, fetchPolicy);
 
   const shouldSkip = !versionMetadata || versionMetadata.isPatch;
 
@@ -49,12 +33,13 @@ export const useParentTask = (taskId: string) => {
               ...bvOptionsBase,
             },
           },
+          fetchPolicy,
         }
       : skipToken,
   );
 
   if (shouldSkip) {
-    return { task: baseTask, loading: false };
+    return { loading: false, task: baseTask };
   }
 
   const task = parentTaskData
@@ -62,7 +47,7 @@ export const useParentTask = (taskId: string) => {
     : undefined;
 
   return {
-    task: task ?? baseTask,
     loading,
+    task: task ?? baseTask,
   };
 };

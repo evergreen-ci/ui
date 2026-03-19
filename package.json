@@ -11,9 +11,8 @@
     "eslint:strict": "pnpm -r eslint:strict",
     "eslint:fix": "pnpm -r eslint:fix",
     "prepare": "husky",
-    "snapshot": "pnpm -r snapshot",
     "storybook": "pnpm --filter spruce --filter parsley --filter @evg-ui/* --parallel run storybook --no-open & sleep 5 && storybook dev",
-    "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts"
+    "test": "vitest --typecheck=false"
   },
   "devDependencies": {
     "@evg-ui/storybook-addon": "workspace:*",

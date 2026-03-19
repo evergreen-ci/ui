@@ -31,9 +31,13 @@ describe("admin settings save properly", () => {
     });
 
     cy.dataCy("ssh-pairs").within(() => {
-      cy.getInputByLabel("Legacy SSH Key").as("sshKeyInput");
-      cy.get("@sshKeyInput").clear();
-      cy.get("@sshKeyInput").type("/test/ssh/key");
+      cy.getInputByLabel("Name").first().as("taskHostKeyNameInput");
+      cy.get("@taskHostKeyNameInput").clear();
+      cy.get("@taskHostKeyNameInput").type("test-task-host-key");
+
+      cy.getInputByLabel("Secret ARN").first().as("taskHostSecretARNInput");
+      cy.get("@taskHostSecretARNInput").clear();
+      cy.get("@taskHostSecretARNInput").type("test-task-host-secret-arn");
     });
 
     cy.dataCy("host-jasper").within(() => {
@@ -73,10 +77,12 @@ describe("admin settings save properly", () => {
       );
     });
     cy.dataCy("ssh-pairs").within(() => {
-      cy.getInputByLabel("Legacy SSH Key").should(
-        "have.value",
-        "/test/ssh/key",
-      );
+      cy.getInputByLabel("Name")
+        .first()
+        .should("have.value", "test-task-host-key");
+      cy.getInputByLabel("Secret ARN")
+        .first()
+        .should("have.value", "test-task-host-secret-arn");
     });
     cy.dataCy("host-jasper").within(() => {
       cy.getInputByLabel("Binary Name").should("have.value", "test-jasper");
@@ -99,7 +105,6 @@ describe("admin settings save properly", () => {
     cy.get("@projectLimitInput").type("200");
     cy.dataCy("project-creation-settings").within(() => {
       cy.contains("Add repository exception").click();
-      cy.getInputByLabel("Jira Project").type("test-project");
       cy.getInputByLabel("Repository").clear();
       cy.getInputByLabel("Repository").type("5");
     });
@@ -112,7 +117,6 @@ describe("admin settings save properly", () => {
     // Verify changes
     cy.getInputByLabel("Total Project Limit").should("have.value", "200");
     cy.dataCy("project-creation-settings").within(() => {
-      cy.getInputByLabel("Jira Project").should("have.value", "test-project");
       cy.getInputByLabel("Repository").should("have.value", "5");
     });
 
@@ -129,10 +133,12 @@ describe("admin settings save properly", () => {
       );
     });
     cy.dataCy("ssh-pairs").within(() => {
-      cy.getInputByLabel("Legacy SSH Key").should(
-        "have.value",
-        "/test/ssh/key",
-      );
+      cy.getInputByLabel("Name")
+        .first()
+        .should("have.value", "test-task-host-key");
+      cy.getInputByLabel("Secret ARN")
+        .first()
+        .should("have.value", "test-task-host-secret-arn");
     });
     cy.dataCy("host-jasper").within(() => {
       cy.getInputByLabel("Binary Name").should("have.value", "test-jasper");

@@ -121,6 +121,9 @@ query AdminSettings {
       }
     }
     cost {
+      ebsCost {
+        ebsDiscount
+      }
       financeFormula
       onDemandDiscount
       s3Cost {
@@ -179,7 +182,6 @@ query AdminSettings {
         project
       }
     }
-    kanopySSHKeyPath
     loggerConfig {
       buffer {
         count
@@ -200,6 +202,10 @@ query AdminSettings {
         senderAddress
       }
     }
+    oktaServiceConfig {
+      clientId
+      clientSecret
+    }
     oldestAllowedCLIVersion
     parameterStore {
       prefix
@@ -208,7 +214,6 @@ query AdminSettings {
     perfMonitoringURL
     pprofPort
     projectCreation {
-      jiraProject
       repoExceptions {
         owner
         repo
@@ -370,7 +375,7 @@ query AdminSettings {
     }
     ui {
       betaFeatures {
-        parsleyAIEnabled
+        __typename
       }
       cacheTemplates
       corsOrigins
