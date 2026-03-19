@@ -4,17 +4,21 @@ import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
+  MetadataTitleWithLink,
 } from "components/MetadataCard";
+import { getAPIRouteForBuilds } from "constants/externalResources";
 import { getVariantHistoryRoute } from "constants/routes";
 
 interface Props {
-  projectIdentifier?: string;
-  buildVariantDisplayName?: string;
+  buildId: string;
   buildVariant: string;
+  buildVariantDisplayName?: string;
+  projectIdentifier?: string;
   taskName: string;
 }
 
 export const BuildVariantCard: React.FC<Props> = ({
+  buildId,
   buildVariant,
   buildVariantDisplayName,
   projectIdentifier,
@@ -23,11 +27,19 @@ export const BuildVariantCard: React.FC<Props> = ({
   const taskAnalytics = useTaskAnalytics();
 
   return (
-    <MetadataCard title="Build Variant">
-      <CopyableID
-        textToCopy={buildVariant}
-        tooltipLabel="Copy build variant ID"
-      />
+    <MetadataCard
+      title={
+        <MetadataTitleWithLink
+          href={getAPIRouteForBuilds(buildId)}
+          title="Build Variant"
+        />
+      }
+    >
+      <CopyableID textToCopy={buildId} tooltipLabel="Copy build variant ID" />
+      <MetadataItem>
+        <MetadataLabel>Identifier:</MetadataLabel>{" "}
+        <WordBreak>{buildVariant}</WordBreak>
+      </MetadataItem>
       <MetadataItem>
         <MetadataLabel>Name:</MetadataLabel>{" "}
         <WordBreak>{buildVariantDisplayName}</WordBreak>

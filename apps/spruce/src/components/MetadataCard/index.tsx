@@ -3,10 +3,37 @@ import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
-import { wordBreakCss } from "@evg-ui/lib/components/styles";
+import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/divider";
+
+interface MetadataTitleWithLinkProps {
+  href: string;
+  title: string;
+}
+
+export const MetadataTitleWithLink: React.FC<MetadataTitleWithLinkProps> = ({
+  href,
+  title,
+}) => (
+  <TitleWrapper>
+    <MetadataCardTitle weight="medium">{title}</MetadataCardTitle>
+    <StyledLink
+      hideExternalIcon={false}
+      href={href}
+      style={{ fontSize: "12px" }}
+    >
+      Open in API
+    </StyledLink>
+  </TitleWrapper>
+);
+
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 interface Props {
   error?: Error;
