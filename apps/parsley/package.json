@@ -106,7 +106,7 @@
     "@graphql-codegen/cli": "6.1.2",
     "@graphql-codegen/typescript": "5.0.8",
     "@graphql-codegen/typescript-operations": "5.0.8",
-    "@sentry/vite-plugin": "^4.6.1",
+    "@sentry/vite-plugin": "^5.1.1",
     "@storybook/addon-docs": "^10.1.10",
     "@storybook/addon-links": "^10.1.10",
     "@storybook/react-vite": "^10.1.10",
