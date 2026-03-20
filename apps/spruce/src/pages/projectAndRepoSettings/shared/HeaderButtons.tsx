@@ -33,6 +33,7 @@ const defaultToRepoDisabled: Set<WritableProjectSettingsType> = new Set([
   ProjectSettingsTabRoutes.Plugins,
   ProjectSettingsTabRoutes.ViewsAndFilters,
   ProjectSettingsTabRoutes.GithubPermissionGroups,
+  ProjectSettingsTabRoutes.GithubAppSettings,
 ]);
 
 interface Props {
