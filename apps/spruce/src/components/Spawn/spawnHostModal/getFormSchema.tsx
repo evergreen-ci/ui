@@ -19,6 +19,7 @@ import {
 import { DEFAULT_VOLUME_SIZE } from "./constants";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
+import { ExecutionStepsDropdown } from "./Widgets/ExecutionStepsDropdown";
 
 interface Props {
   availableRegions: string[];
@@ -71,6 +72,7 @@ export const getFormSchema = ({
   const {
     buildVariant,
     displayName: taskDisplayName,
+    executionSteps,
     project,
     revision,
   } = spawnTaskData || {};
@@ -419,9 +421,14 @@ export const getFormSchema = ({
             "Debug Mode that allows users to step through tasks",
         },
         setupStepNumber: {
+          ...(executionSteps?.length
+            ? {
+                "ui:widget": ExecutionStepsDropdown,
+                "ui:executionSteps": executionSteps,
+              }
+            : {}),
           "ui:data-cy": "setup-step-number-input",
-          "ui:description":
-            'Step number to automatically run until after host setup (e.g., "5" or "5.1"). Leave empty to skip.',
+          "ui:placeholder": "Select spawn end point",
         },
       },
       requiredSection: {

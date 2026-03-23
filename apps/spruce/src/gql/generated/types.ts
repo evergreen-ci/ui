@@ -10712,6 +10712,15 @@ export type SpawnTaskQuery = {
     displayStatus: string;
     execution: number;
     revision?: string | null;
+    executionSteps?: Array<{
+      __typename?: "TaskExecutionStep";
+      blockType: string;
+      commandName: string;
+      displayName: string;
+      functionName: string;
+      isFunction: boolean;
+      stepNumber: string;
+    }> | null;
     project?: {
       __typename?: "Project";
       id: string;
