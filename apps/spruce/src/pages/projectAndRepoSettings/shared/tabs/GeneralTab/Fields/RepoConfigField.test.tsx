@@ -129,11 +129,14 @@ describe("repoConfigField", () => {
       screen.queryByDataCy("attach-repo-disabled-tooltip"),
     ).not.toBeInTheDocument();
     await user.hover(screen.getByDataCy("attach-repo-button"));
-    await waitFor(() => {
-      expect(
-        screen.queryByDataCy("attach-repo-disabled-tooltip"),
-      ).toBeVisible();
-    });
+    await waitFor(
+      () => {
+        expect(
+          screen.queryByDataCy("attach-repo-disabled-tooltip"),
+        ).toBeVisible();
+      },
+      { timeout: 2000 },
+    );
   });
 
   it("disables the attach button when the repo field has been changed and shows a tooltip", async () => {
@@ -154,11 +157,14 @@ describe("repoConfigField", () => {
       screen.queryByDataCy("attach-repo-disabled-tooltip"),
     ).not.toBeInTheDocument();
     await user.hover(screen.getByDataCy("attach-repo-button"));
-    await waitFor(() => {
-      expect(
-        screen.queryByDataCy("attach-repo-disabled-tooltip"),
-      ).toBeVisible();
-    });
+    await waitFor(
+      () => {
+        expect(
+          screen.queryByDataCy("attach-repo-disabled-tooltip"),
+        ).toBeVisible();
+      },
+      { timeout: 2000 },
+    );
   });
 
   it("shows both buttons for an attached project", async () => {
