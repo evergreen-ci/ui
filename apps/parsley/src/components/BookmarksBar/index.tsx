@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
+import { fontFamilies } from "@leafygreen-ui/tokens";
 import { Tooltip } from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
@@ -125,7 +126,7 @@ const LogLineNumber = styled.div<{ failed: boolean }>`
   align-items: center;
   font-size: 13px;
   line-height: 1.5em;
-  font-family: "Source Code Pro";
+  font-family: ${fontFamilies.code};
   :hover {
     color: ${green.dark1};
   }
