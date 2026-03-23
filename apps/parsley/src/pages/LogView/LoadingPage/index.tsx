@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
+import { fontFamilies } from "@leafygreen-ui/tokens";
 import { Body } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -173,7 +174,7 @@ const FlexRow = styled.div`
 `;
 
 const DownloadSize = styled.div`
-  font-family: "Source Code Pro", monospace;
+  font-family: ${fontFamilies.code};
 `;
 
 const AnimationWrapper = styled.div`
