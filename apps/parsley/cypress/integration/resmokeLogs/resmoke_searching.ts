@@ -1,6 +1,6 @@
 describe("Searching", () => {
   const logLink =
-    "/resmoke/7e208050e166b1a9025c817b67eee48d/test/1716e11b4f8a4541c5e2faf70affbfab";
+    "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab";
 
   beforeEach(() => {
     cy.visit(logLink);
@@ -67,8 +67,12 @@ describe("Searching", () => {
     cy.dataCy("search-count").should("contain.text", "1/8");
     cy.dataCy("next-button").click();
     cy.dataCy("search-count").should("contain.text", "2/8");
-    cy.dataCy("log-row-112").dblclick();
-    cy.location("search").should("equal", "?bookmarks=0,112,11079");
+    cy.dataCy("log-menu-112").click();
+    cy.contains("Bookmark line").click();
+    cy.location("search").should(
+      "equal",
+      "?bookmarks=0,112,12568&selectedLineRange=L112",
+    );
     cy.dataCy("search-count").should("contain.text", "2/8");
   });
 
