@@ -11206,6 +11206,7 @@ export type TaskQuery = {
     activatedTime?: Date | null;
     ami?: string | null;
     blocked: boolean;
+    buildId: string;
     canAbort: boolean;
     canDisable: boolean;
     canModifyAnnotation: boolean;

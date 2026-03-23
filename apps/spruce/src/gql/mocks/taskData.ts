@@ -60,6 +60,7 @@ export const taskQuery: TaskQueryType = {
       __typename: "Task",
     },
     blocked: false,
+    buildId: "build-12345",
     buildVariant: "ubuntu1604",
     buildVariantDisplayName: "Ubuntu 16.04",
     canAbort: false,
