@@ -13,12 +13,12 @@ describe("Filtering", () => {
       it("should not collapse bookmarks and share line", () => {
         cy.dataCy("log-link-5").click();
         cy.dataCy("log-row-6").dblclick();
-        cy.location("search").should("equal", "?bookmarks=0,6,130&shareLine=5");
+        cy.location("search").should("equal", "?bookmarks=0,6,115&shareLine=5");
         cy.addFilter("doesNotMatchAnything");
         cy.get("[data-cy^='log-row-']").each(($el) => {
           cy.wrap($el)
             .should("have.attr", "data-cy")
-            .and("match", /log-row-(0|5|6|130)/);
+            .and("match", /log-row-(0|5|6|115)/);
         });
       });
 

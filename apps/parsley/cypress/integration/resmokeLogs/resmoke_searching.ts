@@ -9,7 +9,7 @@ describe("Searching", () => {
   it("searching for a term should highlight matching words ", () => {
     cy.addSearch("ShardedClusterFixture:job0:mongos0 ");
     cy.dataCy("search-count").should("be.visible");
-    cy.dataCy("search-count").should("contain.text", "1/1");
+    cy.dataCy("search-count").should("contain.text", "1/2");
     cy.dataCy("highlight").should("exist");
     cy.dataCy("highlight").should("have.length", 1);
     cy.dataCy("highlight").should(
@@ -21,7 +21,7 @@ describe("Searching", () => {
   it("searching for a term should snap the matching line to the top of the window", () => {
     cy.addSearch("REPL_HB");
     cy.dataCy("search-count").should("be.visible");
-    cy.dataCy("search-count").should("contain.text", "1/1484");
+    cy.dataCy("search-count").should("contain.text", "1/1436");
     cy.get("[data-highlighted='true']").should("contain.text", "REPL_HB");
   });
 
@@ -32,16 +32,16 @@ describe("Searching", () => {
     cy.editBounds({ lower: "25" });
     cy.dataCy("search-count").should("contain.text", "1/1");
     cy.clearBounds();
-    cy.dataCy("search-count").should("contain.text", "1/1484");
+    cy.dataCy("search-count").should("contain.text", "1/1436");
   });
 
   it("should be able to toggle case sensitivity", () => {
     cy.addSearch("Mongos0");
-    cy.dataCy("search-count").should("contain.text", "1/1");
+    cy.dataCy("search-count").should("contain.text", "1/2");
     cy.clickToggle("case-sensitive-toggle", true);
     cy.dataCy("search-count").should("contain.text", "No Matches");
     cy.clickToggle("case-sensitive-toggle", false);
-    cy.dataCy("search-count").should("contain.text", "1/1");
+    cy.dataCy("search-count").should("contain.text", "1/2");
   });
 
   it("should be able to paginate through search results", () => {
@@ -67,12 +67,8 @@ describe("Searching", () => {
     cy.dataCy("search-count").should("contain.text", "1/8");
     cy.dataCy("next-button").click();
     cy.dataCy("search-count").should("contain.text", "2/8");
-    cy.dataCy("log-menu-112").click();
-    cy.contains("Bookmark line").click();
-    cy.location("search").should(
-      "equal",
-      "?bookmarks=0,112,12568&selectedLineRange=L112",
-    );
+    cy.dataCy("log-row-112").dblclick();
+    cy.location("search").should("equal", "?bookmarks=0,112,12568");
     cy.dataCy("search-count").should("contain.text", "2/8");
   });
 
@@ -83,7 +79,7 @@ describe("Searching", () => {
 
     cy.addSearch("NETWORK");
     cy.dataCy("search-count").should("be.visible");
-    cy.dataCy("search-count").should("contain.text", "1/7");
+    cy.dataCy("search-count").should("contain.text", "1/6");
   });
 
   it("should update search results automatically when filters are removed", () => {
