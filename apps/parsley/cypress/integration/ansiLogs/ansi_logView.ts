@@ -76,7 +76,7 @@ describe("ansiLogs/ansi_logView", () => {
       cy.dataCy("bookmark-list").should("contain", "0");
       cy.dataCy("bookmark-list").should("contain", "4");
       cy.dataCy("bookmark-list").should("contain", "297");
-      cy.dataCy("log-menu-4").click();
+      cy.dataCy("sharing-menu-button").click();
       cy.contains("Remove bookmark").click();
       cy.location("search").should("equal", "?bookmarks=0,297");
       cy.dataCy("bookmark-list").should("not.contain", "4");
@@ -265,11 +265,11 @@ describe("ansiLogs/ansi_logView", () => {
       cy.dataCy("line-index-1").click();
       cy.dataCy("line-index-2").click({ shiftKey: true });
       cy.dataCy("sharing-menu").should("be.visible");
-      cy.contains("Copy share link to selected lines").should("be.visible");
-      cy.contains("Copy share link to selected lines").click();
+      cy.contains("Copy link to lines").should("be.visible");
+      cy.contains("Copy link to lines").click();
       cy.validateToast("success", "Copied link to clipboard", true);
       cy.assertValueCopiedToClipboard(
-        "http://localhost:4173/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task?bookmarks=0%2C297&selectedLineRange=L1-L2&shareLine=1",
+        "http://localhost:4173/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task?bookmarks=0%2C297&selectedLineRange=L1-L2",
       );
     });
     it("should be able to limit the search range to the selected lines", () => {

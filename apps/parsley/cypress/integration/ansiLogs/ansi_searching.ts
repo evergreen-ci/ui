@@ -70,7 +70,10 @@ describe("Searching", () => {
     cy.dataCy("search-count").should("contain.text", "2/4");
     cy.dataCy("log-menu-27").click();
     cy.contains("Bookmark line").click();
-    cy.location("search").should("equal", "?bookmarks=0,27,297");
+    cy.location("search").should(
+      "equal",
+      "?bookmarks=0,27,297&selectedLineRange=L27",
+    );
     cy.dataCy("search-count").should("contain.text", "2/4");
   });
 

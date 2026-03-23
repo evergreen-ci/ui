@@ -11,9 +11,9 @@ describe("Filtering", () => {
       });
 
       it("should not collapse bookmarks and selected line", () => {
-        cy.dataCy("line-index-5").click();
         cy.dataCy("log-menu-6").click();
         cy.contains("Bookmark line").click();
+        cy.dataCy("line-index-5").click();
         cy.location("search").should(
           "equal",
           "?bookmarks=0,6,297&selectedLineRange=L5",
@@ -29,7 +29,7 @@ describe("Filtering", () => {
       it("does not corrupt filters that are large numbers", () => {
         cy.addFilter("5553072873648668703");
         cy.dataCy("log-menu-0").should("be.visible").click();
-        cy.contains("Bookmark line").click();
+        cy.contains("Remove bookmark").click();
         cy.location("search").should("contain", "5553072873648668703");
         cy.dataCy("filter-5553072873648668703").should("be.visible");
       });

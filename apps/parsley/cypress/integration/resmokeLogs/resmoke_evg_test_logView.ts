@@ -123,8 +123,8 @@ describe("resmokeLogs/resmoke_evg_test_logView", () => {
       cy.dataCy("bookmark-0").should("be.visible");
       cy.dataCy("bookmark-4").should("be.visible");
       cy.dataCy("bookmark-12568").should("be.visible");
-      cy.dataCy("log-menu-4").click();
-      cy.contains("Bookmark line").click();
+      cy.dataCy("sharing-menu-button").click();
+      cy.contains("Remove bookmark").click();
       cy.location("search").should("equal", "?bookmarks=0,12568");
       cy.dataCy("bookmark-4").should("not.exist");
     });
@@ -176,7 +176,8 @@ describe("resmokeLogs/resmoke_evg_test_logView", () => {
 
     it("should be able to use the bookmarks bar to jump to a line when there are no collapsed rows", () => {
       cy.visit(logLink);
-      cy.dataCy("log-row-4").should("be.visible").dblclick({ force: true });
+      cy.dataCy("log-menu-4").should("be.visible").click();
+      cy.contains("Bookmark line").click();
       cy.dataCy("bookmark-4").should("be.visible");
 
       cy.dataCy("bookmark-12568").click();
@@ -189,7 +190,8 @@ describe("resmokeLogs/resmoke_evg_test_logView", () => {
 
     it("should be able to use the bookmarks bar to jump to a line when there are collapsed rows", () => {
       cy.visit(`${logLink}?filters=100repl_hb`);
-      cy.dataCy("log-row-30").should("be.visible").dblclick({ force: true });
+      cy.dataCy("log-menu-30").should("be.visible").click();
+      cy.contains("Bookmark line").click();
       cy.url().should("include", "bookmarks=0,30,12568");
       cy.dataCy("bookmark-30").should("be.visible");
       cy.dataCy("bookmark-12568").click();
@@ -303,11 +305,11 @@ describe("resmokeLogs/resmoke_evg_test_logView", () => {
       cy.dataCy("line-index-1").click();
       cy.dataCy("line-index-2").click({ shiftKey: true });
       cy.dataCy("sharing-menu").should("be.visible");
-      cy.contains("Copy share link to selected lines").should("be.visible");
-      cy.contains("Copy share link to selected lines").click();
+      cy.contains("Copy link to lines").should("be.visible");
+      cy.contains("Copy link to lines").click();
       cy.validateToast("success", "Copied link to clipboard", true);
       cy.assertValueCopiedToClipboard(
-        "http://localhost:4173/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab?bookmarks=0%2C12568&selectedLineRange=L1-L2&shareLine=1",
+        "http://localhost:4173/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab?bookmarks=0%2C12568&selectedLineRange=L1-L2",
       );
     });
     it("should be able to limit the search range to the selected lines", () => {
