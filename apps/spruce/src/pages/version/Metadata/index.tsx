@@ -7,7 +7,7 @@ import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
-  MetadataTitleWithLink,
+  MetadataTitleWithAPILink,
 } from "components/MetadataCard";
 import {
   getAPIRouteForVersions,
@@ -70,7 +70,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
   return (
     <MetadataCard
       title={
-        <MetadataTitleWithLink
+        <MetadataTitleWithAPILink
           href={getAPIRouteForVersions(id)}
           title={isPatch ? "Patch Metadata" : "Version Metadata"}
         />

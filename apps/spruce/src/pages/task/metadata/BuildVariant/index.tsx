@@ -4,7 +4,7 @@ import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
-  MetadataTitleWithLink,
+  MetadataTitleWithAPILink,
 } from "components/MetadataCard";
 import { getAPIRouteForBuilds } from "constants/externalResources";
 import { getVariantHistoryRoute } from "constants/routes";
@@ -29,13 +29,13 @@ export const BuildVariantCard: React.FC<Props> = ({
   return (
     <MetadataCard
       title={
-        <MetadataTitleWithLink
+        <MetadataTitleWithAPILink
           href={getAPIRouteForBuilds(buildId)}
           title="Build Variant"
         />
       }
     >
-      <CopyableID textToCopy={buildId} tooltipLabel="Copy build variant ID" />
+      <CopyableID textToCopy={buildId} tooltipLabel="Copy build ID" />
       <MetadataItem>
         <MetadataLabel>Identifier:</MetadataLabel>{" "}
         <WordBreak>{buildVariant}</WordBreak>

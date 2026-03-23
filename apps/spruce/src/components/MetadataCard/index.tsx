@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
@@ -13,16 +14,18 @@ interface MetadataTitleWithLinkProps {
   title: string;
 }
 
-export const MetadataTitleWithLink: React.FC<MetadataTitleWithLinkProps> = ({
+export const MetadataTitleWithAPILink: React.FC<MetadataTitleWithLinkProps> = ({
   href,
   title,
 }) => (
   <TitleWrapper>
     <MetadataCardTitle weight="medium">{title}</MetadataCardTitle>
     <StyledLink
+      css={css`
+        font-size: 12px;
+      `}
       hideExternalIcon={false}
       href={href}
-      style={{ fontSize: "12px" }}
     >
       Open in API
     </StyledLink>

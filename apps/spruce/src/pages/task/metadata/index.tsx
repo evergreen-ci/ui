@@ -10,7 +10,7 @@ import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
-  MetadataTitleWithLink,
+  MetadataTitleWithAPILink,
 } from "components/MetadataCard";
 import { Stepback } from "components/Stepback";
 import { getAPIRouteForTasks } from "constants/externalResources";
@@ -126,7 +126,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     <>
       <MetadataCard
         title={
-          <MetadataTitleWithLink
+          <MetadataTitleWithAPILink
             href={getAPIRouteForTasks(taskId, execution)}
             title="Task Metadata"
           />
