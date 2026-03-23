@@ -138,6 +138,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       "host.is_workstation": selectedDistro?.isVirtualWorkStation || false,
       "host.distro.id": selectedDistro?.name || "",
       "host.is_unexpirable": mutationInput?.noExpiration || false,
+      "host.is_from_task": !!(taskIdQueryParam && distroIdQueryParam),
     });
     spawnHostMutation({
       variables: { spawnHostInput: mutationInput },

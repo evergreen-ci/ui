@@ -24,7 +24,10 @@ export const useFilters = ({
   omitInactiveBuilds,
   pins,
 }: UseFiltersProps) => {
-  const buildVariants = groupBuildVariants(flattenedVersions);
+  const buildVariants = useMemo(
+    () => groupBuildVariants(flattenedVersions),
+    [flattenedVersions],
+  );
 
   const [requesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,

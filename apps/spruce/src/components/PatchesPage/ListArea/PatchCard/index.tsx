@@ -68,17 +68,19 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
         <strong>{user.displayName}</strong>
       </StyledRouterLink>
     );
-  } else {
-    patchProject = projectIdentifier ? (
+  } else if (projectIdentifier) {
+    patchProject = (
       <StyledRouterLink
         data-cy="project-patches-link"
         to={getProjectPatchesRoute(projectIdentifier)}
       >
         <strong>{projectIdentifier}</strong>
       </StyledRouterLink>
-    ) : (
-      `${projectMetadata?.owner}/${projectMetadata?.repo}`
     );
+  } else if (projectMetadata?.owner && projectMetadata?.repo) {
+    patchProject = `${projectMetadata.owner}/${projectMetadata.repo}`;
+  } else {
+    patchProject = "Deleted project";
   }
 
   const badges = stats?.map(({ count, statusCounts, umbrellaStatus }) => (

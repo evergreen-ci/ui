@@ -70,6 +70,11 @@ describe("other", () => {
     cy.get("@onDemandDiscountInput").clear();
     cy.get("@onDemandDiscountInput").type("0.08");
 
+    const ebsCostDiscount = "EBS Cost Discount";
+    cy.getInputByLabel(ebsCostDiscount).as("ebsCostDiscountInput");
+    cy.get("@ebsCostDiscountInput").clear();
+    cy.get("@ebsCostDiscountInput").type("0.1");
+
     // S3 Cost Settings.
     const uploadCostDiscount = "Upload Cost Discount";
     cy.getInputByLabel(uploadCostDiscount).as("uploadCostDiscountInput");
@@ -95,6 +100,7 @@ describe("other", () => {
     cy.getInputByLabel(financeFormula).should("have.value", "0.5");
     cy.getInputByLabel(savingsPlanDiscount).should("have.value", "0.15");
     cy.getInputByLabel(onDemandDiscount).should("have.value", "0.08");
+    cy.getInputByLabel(ebsCostDiscount).should("have.value", "0.1");
     cy.getInputByLabel(uploadCostDiscount).should("have.value", "0.12");
     cy.getInputByLabel(standardStorageCostDiscount).should(
       "have.value",

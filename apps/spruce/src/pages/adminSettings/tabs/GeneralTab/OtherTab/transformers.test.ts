@@ -21,6 +21,10 @@ const mockAdminSettings: AdminSettingsData = {
   githubPRCreatorOrg: "evergreen-ci",
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
+  oktaServiceConfig: {
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+  },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
   shutdownWaitSeconds: 30,
@@ -30,6 +34,9 @@ const mockAdminSettings: AdminSettingsData = {
     idleTimeSecondsOverride: 600,
   },
   cost: {
+    ebsCost: {
+      ebsDiscount: 0.1,
+    },
     financeFormula: 0.5,
     savingsPlanDiscount: 0.1,
     onDemandDiscount: 0.05,
@@ -75,7 +82,6 @@ const mockAdminSettings: AdminSettingsData = {
       secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
     },
   },
-  kanopySSHKeyPath: "/etc/ssh/kanopy_key",
   expansions: {
     DATABASE_URL: "mongodb://localhost:27017",
     API_KEY: "secret-api-key",
@@ -117,7 +123,6 @@ const mockAdminSettings: AdminSettingsData = {
   projectCreation: {
     totalProjectLimit: 100,
     repoProjectLimit: 50,
-    jiraProject: "EVG",
     repoExceptions: [
       {
         owner: "evergreen-ci",
@@ -148,6 +153,7 @@ const expectedForm: OtherFormState = {
         idleTimeSecondsOverride: 600,
       },
       cost: {
+        ebsDiscount: 0.1,
         financeFormula: 0.5,
         savingsPlanDiscount: 0.1,
         onDemandDiscount: 0.05,
@@ -157,6 +163,10 @@ const expectedForm: OtherFormState = {
           iAStorageCostDiscount: 0,
         },
       },
+    },
+    oktaServiceConfig: {
+      clientId: "okta-service-client-id",
+      clientSecret: "okta-service-client-secret",
     },
     singleTaskDistro: {
       projectTasksPairs: [
@@ -189,7 +199,6 @@ const expectedForm: OtherFormState = {
         secretARN:
           "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
       },
-      kanopySSHKeyPath: "/etc/ssh/kanopy_key",
     },
     expansions: {
       expansionValues: [
@@ -243,7 +252,6 @@ const expectedForm: OtherFormState = {
     projectCreationSettings: {
       totalProjectLimit: 100,
       repoProjectLimit: 50,
-      jiraProject: "EVG",
       repoExceptions: [
         {
           owner: "evergreen-ci",
@@ -264,6 +272,10 @@ const expectedGql: AdminSettingsInput = {
   githubPRCreatorOrg: "evergreen-ci",
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
+  oktaServiceConfig: {
+    clientId: "okta-service-client-id",
+    clientSecret: "okta-service-client-secret",
+  },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
   shutdownWaitSeconds: 30,
@@ -313,7 +325,6 @@ const expectedGql: AdminSettingsInput = {
       secretARN: "arn:aws:secretsmanager:us-east-1:123456789:secret:spawn-key",
     },
   },
-  kanopySSHKeyPath: "/etc/ssh/kanopy_key",
   expansions: {
     DATABASE_URL: "mongodb://localhost:27017",
     API_KEY: "secret-api-key",
@@ -336,6 +347,9 @@ const expectedGql: AdminSettingsInput = {
     ],
   },
   cost: {
+    ebsCost: {
+      ebsDiscount: 0.1,
+    },
     financeFormula: 0.5,
     savingsPlanDiscount: 0.1,
     onDemandDiscount: 0.05,
@@ -369,7 +383,6 @@ const expectedGql: AdminSettingsInput = {
   projectCreation: {
     totalProjectLimit: 100,
     repoProjectLimit: 50,
-    jiraProject: "EVG",
     repoExceptions: [
       {
         owner: "evergreen-ci",

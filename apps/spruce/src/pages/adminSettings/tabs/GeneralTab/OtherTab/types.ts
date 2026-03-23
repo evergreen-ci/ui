@@ -16,6 +16,7 @@ export interface OtherFormState {
         idleTimeSecondsOverride: number;
       };
       cost: {
+        ebsDiscount: number;
         financeFormula: number;
         savingsPlanDiscount: number;
         onDemandDiscount: number;
@@ -25,6 +26,11 @@ export interface OtherFormState {
           iAStorageCostDiscount: number;
         };
       };
+    };
+
+    oktaServiceConfig: {
+      clientId: string;
+      clientSecret: string;
     };
 
     singleTaskDistro: {
@@ -57,7 +63,6 @@ export interface OtherFormState {
         name: string;
         secretARN: string;
       };
-      kanopySSHKeyPath: string;
     };
 
     expansions: {
@@ -111,7 +116,6 @@ export interface OtherFormState {
     projectCreationSettings: {
       totalProjectLimit: number;
       repoProjectLimit: number;
-      jiraProject: string;
       repoExceptions: Array<{
         owner: string;
         repo: string;

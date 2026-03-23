@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { TTLInfo } from "components/404/TTLInfo";
-import { ProjectBanner } from "components/Banners";
+import { ProjectBanner, WarningBanner, ErrorBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import PageTitle from "components/PageTitle";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -14,7 +14,6 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
-import { Requester } from "constants/requesters";
 import { slugs } from "constants/routes";
 import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
 import { VERSION } from "gql/queries";
@@ -23,9 +22,9 @@ import { PageDoesNotExist } from "pages/NotFound";
 import { PatchTasksQueryParams } from "types/task";
 import { githubPRLinkify, jiraLinkify } from "utils/string";
 import { ActionButtons } from "./version/ActionButtons";
-import { WarningBanner, ErrorBanner, IgnoredBanner } from "./version/Banners";
 import VersionPageBreadcrumbs from "./version/Breadcrumbs";
 import BuildVariantCard from "./version/BuildVariantCard";
+import { IgnoredBanner } from "./version/IgnoredBanner";
 import { Metadata } from "./version/Metadata";
 import { NameChangeModal } from "./version/NameChangeModal";
 import VersionTabs from "./version/Tabs";
@@ -116,8 +115,8 @@ export const VersionPage: React.FC = () => {
         buttons={
           <ActionButtons
             activeTaskIds={activeTaskIds}
-            isMergeQueuePatch={requester === Requester.GitHubMergeQueue}
             isPatch={!!isPatch}
+            requester={requester}
             versionId={versionId}
           />
         }
