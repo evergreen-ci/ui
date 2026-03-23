@@ -41,38 +41,45 @@ export const ExecutionStepsDropdown: React.FC<ExecutionStepsDropdownProps> = ({
         placeholder="Select spawn end point"
         value={value || ""}
       >
-        {groupedSteps.map((item) =>
-          item.type === "group" ? (
-            <ComboboxGroup key={item.label} label={item.label}>
-              {item.steps.map((step) => (
+        {groupedSteps.map((item) => (
+          <ComboboxGroup key={item.label} label={item.label}>
+            {item.items.map((blockItem) => {
+              if (blockItem.type === "function-label") {
+                return (
+                  <ComboboxOption
+                    key={`label-${blockItem.label}`}
+                    disabled
+                    displayName={`  ${blockItem.label}`}
+                    value=""
+                  />
+                );
+              }
+              const indent = blockItem.inFunction ? "    " : "";
+              return (
                 <ComboboxOption
-                  key={step.stepNumber}
-                  displayName={step.displayText}
-                  value={step.stepNumber}
+                  key={blockItem.stepNumber}
+                  displayName={`${indent}${blockItem.displayText}`}
+                  value={blockItem.stepNumber}
                 />
-              ))}
-            </ComboboxGroup>
-          ) : (
-            <ComboboxOption
-              key={item.step.stepNumber}
-              displayName={item.step.displayText}
-              value={item.step.stepNumber}
-            />
-          ),
-        )}
+              );
+            })}
+          </ComboboxGroup>
+        ))}
       </Combobox>
     </ElementWrapper>
   );
 };
 
-interface StepDisplay {
-  stepNumber: string;
-  displayText: string;
-}
+type BlockItem =
+  | { type: "function-label"; label: string }
+  | {
+      type: "option";
+      stepNumber: string;
+      displayText: string;
+      inFunction: boolean;
+    };
 
-type GroupedItem =
-  | { type: "group"; label: string; steps: StepDisplay[] }
-  | { type: "standalone"; step: StepDisplay };
+type GroupedItem = { type: "block-group"; label: string; items: BlockItem[] };
 
 const stripFunctionContext = (name: string): string =>
   name.replace(/ in function '[^']*'/, "");
@@ -83,94 +90,133 @@ const stripBlockContext = (name: string): string =>
 export const groupExecutionSteps = (
   steps: TaskExecutionStep[],
 ): GroupedItem[] => {
-  const mainSteps: TaskExecutionStep[] = [];
+  // Separate steps by block type
   const blockSteps: Record<string, TaskExecutionStep[]> = {};
 
   for (const step of steps) {
-    if (step.blockType) {
-      if (!blockSteps[step.blockType]) {
-        blockSteps[step.blockType] = [];
-      }
-      blockSteps[step.blockType].push(step);
-    } else {
-      mainSteps.push(step);
+    const blockKey = step.blockType || "main";
+    if (!blockSteps[blockKey]) {
+      blockSteps[blockKey] = [];
     }
+    blockSteps[blockKey].push(step);
   }
 
   const result: GroupedItem[] = [];
 
-  result.push(...groupByFunction(mainSteps, false));
+  // Process blocks in fixed order: pre → main → post/timeout
+  const blockOrder = ["pre", "main", "post", "timeout"];
 
-  const seenBlocks = new Set<string>();
-  for (const step of steps) {
-    if (step.blockType && !seenBlocks.has(step.blockType)) {
-      seenBlocks.add(step.blockType);
-      const blockLabel = `BLOCK '${step.blockType.toUpperCase()}'`;
-      const innerItems = groupByFunction(blockSteps[step.blockType], true);
+  for (const blockKey of blockOrder) {
+    const stepsInBlock = blockSteps[blockKey];
+    if (!stepsInBlock || stepsInBlock.length === 0) continue;
 
-      const allStepsInBlock: StepDisplay[] = [];
-      for (const item of innerItems) {
-        if (item.type === "group") {
-          allStepsInBlock.push(...item.steps);
-        } else {
-          allStepsInBlock.push(item.step);
+    const blockLabel = `BLOCK '${blockKey.toUpperCase()}'`;
+    const blockItems: BlockItem[] = [];
+
+    let idx = 0;
+    while (idx < stepsInBlock.length) {
+      const step = stepsInBlock[idx];
+
+      if (step.isFunction) {
+        const { functionName } = step;
+        const functionSteps: TaskExecutionStep[] = [];
+
+        while (
+          idx < stepsInBlock.length &&
+          stepsInBlock[idx].isFunction &&
+          stepsInBlock[idx].functionName === functionName
+        ) {
+          functionSteps.push(stepsInBlock[idx]);
+          idx += 1;
         }
-      }
-      result.push({
-        type: "group",
-        label: blockLabel,
-        steps: allStepsInBlock,
-      });
-    }
-  }
 
-  return result;
-};
+        blockItems.push({
+          type: "function-label",
+          label: `FUNCTION: ${functionName.toUpperCase()}`,
+        });
 
-const groupByFunction = (
-  steps: TaskExecutionStep[],
-  isInsideBlock: boolean,
-): GroupedItem[] => {
-  const result: GroupedItem[] = [];
-  let idx = 0;
-
-  while (idx < steps.length) {
-    const { isFunction } = steps[idx];
-
-    if (isFunction) {
-      const { functionName } = steps[idx];
-      const functionSteps: TaskExecutionStep[] = [];
-      while (
-        idx < steps.length &&
-        steps[idx].isFunction &&
-        steps[idx].functionName === functionName
-      ) {
-        functionSteps.push(steps[idx]);
+        for (const funcStep of functionSteps) {
+          blockItems.push({
+            type: "option",
+            stepNumber: funcStep.stepNumber,
+            displayText: stripFunctionContext(
+              stripBlockContext(funcStep.displayName),
+            ),
+            inFunction: true,
+          });
+        }
+      } else {
+        // Standalone step in block
+        blockItems.push({
+          type: "option",
+          stepNumber: step.stepNumber,
+          displayText: stripBlockContext(step.displayName),
+          inFunction: false,
+        });
         idx += 1;
       }
+    }
 
-      const label = `FUNCTION: ${functionName.toUpperCase()}`;
+    result.push({
+      type: "block-group",
+      label: blockLabel,
+      items: blockItems,
+    });
+  }
+
+  for (const [blockKey, stepsInBlock] of Object.entries(blockSteps)) {
+    if (!blockOrder.includes(blockKey) && stepsInBlock.length > 0) {
+      const blockLabel = `BLOCK '${blockKey.toUpperCase()}'`;
+      const blockItems: BlockItem[] = [];
+
+      let idx = 0;
+      while (idx < stepsInBlock.length) {
+        const step = stepsInBlock[idx];
+
+        if (step.isFunction) {
+          const { functionName } = step;
+          const functionSteps: TaskExecutionStep[] = [];
+
+          while (
+            idx < stepsInBlock.length &&
+            stepsInBlock[idx].isFunction &&
+            stepsInBlock[idx].functionName === functionName
+          ) {
+            functionSteps.push(stepsInBlock[idx]);
+            idx += 1;
+          }
+
+          blockItems.push({
+            type: "function-label",
+            label: `FUNCTION: ${functionName.toUpperCase()}`,
+          });
+
+          for (const funcStep of functionSteps) {
+            blockItems.push({
+              type: "option",
+              stepNumber: funcStep.stepNumber,
+              displayText: stripFunctionContext(
+                stripBlockContext(funcStep.displayName),
+              ),
+              inFunction: true,
+            });
+          }
+        } else {
+          blockItems.push({
+            type: "option",
+            stepNumber: step.stepNumber,
+            displayText: stripBlockContext(step.displayName),
+            inFunction: false,
+          });
+          idx += 1;
+        }
+      }
+
       result.push({
-        type: "group",
-        label,
-        steps: functionSteps.map((s) => ({
-          stepNumber: s.stepNumber,
-          displayText: stripFunctionContext(
-            isInsideBlock ? stripBlockContext(s.displayName) : s.displayName,
-          ),
-        })),
+        type: "block-group",
+        label: blockLabel,
+        items: blockItems,
       });
-    } else {
-      result.push({
-        type: "standalone",
-        step: {
-          stepNumber: steps[idx].stepNumber,
-          displayText: isInsideBlock
-            ? stripBlockContext(steps[idx].displayName)
-            : steps[idx].displayName,
-        },
-      });
-      idx += 1;
     }
   }
 
