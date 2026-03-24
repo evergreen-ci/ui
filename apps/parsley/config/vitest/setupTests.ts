@@ -65,6 +65,16 @@ beforeEach(() => {
   ) {
     this.open = false;
   });
+
+  // jsdom 28 recognizes the popover attribute (hiding elements by default)
+  // but doesn't fully implement showPopover/hidePopover.
+  HTMLElement.prototype.showPopover = vi.fn(function mock(this: HTMLElement) {
+    this.style.display = "block";
+  });
+
+  HTMLElement.prototype.hidePopover = vi.fn(function mock(this: HTMLElement) {
+    this.style.display = "";
+  });
 });
 
 afterEach(() => {

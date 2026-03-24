@@ -1,8 +1,8 @@
-const getLocalStorageString = (key: string): string | null => {
+const getLocalStorageString = (key: string): string | undefined => {
   try {
-    return localStorage.getItem(key);
+    return localStorage.getItem(key) ?? undefined;
   } catch {
-    return null;
+    return undefined;
   }
 };
 
@@ -16,6 +16,7 @@ const setLocalStorageString = (key: string, value: string): void => {
 
 function getLocalStorageBoolean(key: string): boolean | undefined;
 function getLocalStorageBoolean(key: string, defaultValue: boolean): boolean;
+
 /**
  * Reads a boolean from localStorage, returning defaultValue (or undefined) if the key is absent.
  * @param key - The localStorage key.
@@ -27,7 +28,7 @@ function getLocalStorageBoolean(
   defaultValue?: boolean,
 ): boolean | undefined {
   const value = getLocalStorageString(key);
-  if (value === null) return defaultValue;
+  if (value === undefined) return defaultValue;
   return value === "true";
 }
 

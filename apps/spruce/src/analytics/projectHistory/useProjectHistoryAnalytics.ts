@@ -1,6 +1,5 @@
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
-import { FilterType } from "components/TupleSelectWithRegexConditional";
 
 // The comments below are used to indicate which pageType the action is relevant to (e.g. "Commit chart")
 type pageType = "Variant history";
@@ -16,9 +15,9 @@ type Action =
   | { name: "Clicked grouped task status badge"; statuses: string[] }
   | { name: "Deleted a badge" }
   | { name: "Deleted all badges" }
-  | { name: "Filtered by build variant"; "filter.type"?: FilterType }
+  | { name: "Filtered by build variant"; "filter.type"?: string }
   | { name: "Filtered failed tests" }
-  | { name: "Filtered by task"; "filter.type"?: FilterType }
+  | { name: "Filtered by task"; "filter.type"?: string }
   | { name: "Toggled folded commit"; toggle: "open" | "close" }
   | { name: "Toggled task icon legend"; open: boolean };
 

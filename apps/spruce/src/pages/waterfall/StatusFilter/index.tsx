@@ -25,7 +25,7 @@ export const StatusFilter = () => {
       multiselect
       onChange={handleChange}
       overflow="scroll-x"
-      placeholder="Displaying all statuses"
+      placeholder="All"
     >
       {SortedTaskStatus.map((ts) => (
         <ComboboxOption

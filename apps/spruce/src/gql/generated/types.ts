@@ -4094,14 +4094,19 @@ export type Task = {
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"]["output"];
+  /** nextTask may be in-progress */
+  nextTask?: Maybe<Task>;
+  nextTaskCompleted?: Maybe<Task>;
+  nextTaskFailing?: Maybe<Task>;
+  nextTaskPassing?: Maybe<Task>;
   order: Scalars["Int"]["output"];
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   predictedTaskCost?: Maybe<Cost>;
   /** prevTask may be in-progress */
   prevTask?: Maybe<Task>;
-  prevTaskBreaking?: Maybe<Task>;
   prevTaskCompleted?: Maybe<Task>;
+  prevTaskFailing?: Maybe<Task>;
   prevTaskPassing?: Maybe<Task>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
@@ -6849,6 +6854,18 @@ export type QuarantineTestMutation = {
   quarantineTest: { __typename?: "QuarantineTestPayload"; success: boolean };
 };
 
+export type RefreshGithubStatusesMutationVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+}>;
+
+export type RefreshGithubStatusesMutation = {
+  __typename?: "Mutation";
+  refreshGitHubStatuses?: {
+    __typename?: "RefreshGitHubStatusesPayload";
+    success: boolean;
+  } | null;
+};
+
 export type RemoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution: Scalars["Int"]["input"];
@@ -7010,6 +7027,10 @@ export type SaveAdminSettingsMutation = {
       financeFormula?: number | null;
       onDemandDiscount?: number | null;
       savingsPlanDiscount?: number | null;
+      ebsCost?: {
+        __typename?: "EBSCostConfig";
+        ebsDiscount?: number | null;
+      } | null;
       s3Cost?: {
         __typename?: "S3CostConfig";
         storage?: {
@@ -7617,6 +7638,10 @@ export type AdminSettingsQuery = {
       financeFormula?: number | null;
       onDemandDiscount?: number | null;
       savingsPlanDiscount?: number | null;
+      ebsCost?: {
+        __typename?: "EBSCostConfig";
+        ebsDiscount?: number | null;
+      } | null;
       s3Cost?: {
         __typename?: "S3CostConfig";
         storage?: {
@@ -11229,6 +11254,7 @@ export type TaskQuery = {
     activatedTime?: Date | null;
     ami?: string | null;
     blocked: boolean;
+    buildId: string;
     canAbort: boolean;
     canDisable: boolean;
     canModifyAnnotation: boolean;

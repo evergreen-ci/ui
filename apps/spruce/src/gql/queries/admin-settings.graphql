@@ -121,6 +121,9 @@ query AdminSettings {
       }
     }
     cost {
+      ebsCost {
+        ebsDiscount
+      }
       financeFormula
       onDemandDiscount
       s3Cost {

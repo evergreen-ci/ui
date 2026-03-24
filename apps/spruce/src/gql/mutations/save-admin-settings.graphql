@@ -8,6 +8,9 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
     banner
     bannerTheme
     cost {
+      ebsCost {
+        ebsDiscount
+      }
       financeFormula
       onDemandDiscount
       s3Cost {
