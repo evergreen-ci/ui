@@ -69,19 +69,6 @@ functions:
       content_type: text/plain
       permissions: public-read
 
-  attach-logkeeper-logs:
-     command: s3.put
-     type: system
-     params:
-       aws_key: ${AWS_ACCESS_KEY_ID}
-       aws_secret: ${AWS_SECRET_ACCESS_KEY}
-       aws_session_token: ${AWS_SESSION_TOKEN}
-       local_file: ui/${app_dir}/logkeeper/logkeeperapp.log
-       remote_file: ${build_variant}/${task_id}/${execution}/logkeeperapp.log
-       bucket: evg-bucket-evergreen-ui
-       content_type: text/plain
-       permissions: public-read
- 
   attach-restore-logs:
     command: s3.put
     type: system
