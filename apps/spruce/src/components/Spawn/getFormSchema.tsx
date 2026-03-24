@@ -320,7 +320,6 @@ export const getExpirationDetailsSchema = ({
       },
     },
     uiSchema: {
-      "ui:tooltipTitle": noExpirationCheckboxTooltip ?? "",
       "ui:warnings":
         disableExpirationCheckbox && noExpirationCheckboxTooltip
           ? [noExpirationCheckboxTooltip]
