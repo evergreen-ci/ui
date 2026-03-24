@@ -11,6 +11,7 @@ jobs:
       - name: Check access
         if: ${{ github.event.pull_request.author_association != 'CONTRIBUTOR' && github.event.pull_request.author_association != 'MEMBER' && github.event.pull_request.author_association != 'COLLABORATOR' }}
         run: |
+          echo "Pull request author association: ${{ github.event.pull_request.author_association }}"
           echo "Event not triggered by a collaborator."
           exit 1
 
