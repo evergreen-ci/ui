@@ -128,8 +128,11 @@ declare global {
   let mutationDispatched: boolean;
   beforeEach(() => {
     cy.login();
-    cy.setCookie("drawer-opened", "true");
-    cy.setCookie("has-seen-searchbar-guide-cue-tab-complete", "true");
+    window.localStorage.setItem("drawer-opened", "true");
+    window.localStorage.setItem(
+      "has-seen-searchbar-guide-cue-tab-complete",
+      "true",
+    );
     mutationDispatched = false;
     cy.intercept("POST", "/graphql/query", (req) => {
       const isMutation = req.body.query?.startsWith("mutation");
