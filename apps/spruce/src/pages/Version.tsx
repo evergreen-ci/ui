@@ -14,7 +14,6 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
-import { Requester } from "constants/requesters";
 import { slugs } from "constants/routes";
 import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
 import { VERSION } from "gql/queries";
@@ -116,8 +115,8 @@ export const VersionPage: React.FC = () => {
         buttons={
           <ActionButtons
             activeTaskIds={activeTaskIds}
-            isMergeQueuePatch={requester === Requester.GitHubMergeQueue}
             isPatch={!!isPatch}
+            requester={requester}
             versionId={versionId}
           />
         }

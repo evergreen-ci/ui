@@ -29,6 +29,7 @@ query Task($taskId: String!, $execution: Int) {
       }
     }
     blocked
+    buildId
     canAbort
     canDisable
     canModifyAnnotation

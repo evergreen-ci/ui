@@ -20,6 +20,7 @@ type Action =
       "host.is_workstation": boolean;
       "host.distro.id": string;
       "host.is_unexpirable": boolean;
+      "host.is_from_task": boolean;
     }
   | { name: "Viewed spawn volume modal" }
   | {
