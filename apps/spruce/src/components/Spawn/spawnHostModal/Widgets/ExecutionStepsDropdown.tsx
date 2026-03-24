@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import Checkbox from "@leafygreen-ui/checkbox";
 import {
   Combobox,
   ComboboxGroup,
@@ -15,6 +16,8 @@ type TaskExecutionStep = NonNullable<
 interface ExecutionStepsDropdownProps extends SpruceWidgetProps {
   options: SpruceWidgetProps["options"] & {
     executionSteps: TaskExecutionStep[];
+    failingStepNumber?: string;
+    isFailedTask?: boolean;
   };
 }
 
@@ -24,12 +27,21 @@ export const ExecutionStepsDropdown: React.FC<ExecutionStepsDropdownProps> = ({
   options,
   value,
 }) => {
-  const { "data-cy": dataCy, elementWrapperCSS, executionSteps } = options;
+  const {
+    "data-cy": dataCy,
+    elementWrapperCSS,
+    executionSteps,
+    failingStepNumber,
+    isFailedTask,
+  } = options;
 
   const groupedSteps = useMemo(
     () => groupExecutionSteps(executionSteps ?? []),
     [executionSteps],
   );
+
+  const showFailingCheckbox = isFailedTask && failingStepNumber;
+  const isChecked = value === failingStepNumber;
 
   return (
     <ElementWrapper css={elementWrapperCSS}>
@@ -66,6 +78,14 @@ export const ExecutionStepsDropdown: React.FC<ExecutionStepsDropdownProps> = ({
           </ComboboxGroup>
         ))}
       </Combobox>
+      {showFailingCheckbox && (
+        <Checkbox
+          checked={isChecked}
+          data-cy="default-to-failing-task-checkbox"
+          label="Default to Failing Task"
+          onChange={(e) => onChange(e.target.checked ? failingStepNumber : "")}
+        />
+      )}
     </ElementWrapper>
   );
 };

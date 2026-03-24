@@ -843,6 +843,7 @@ export type Distro = {
   setupAsSudo: Scalars["Boolean"]["output"];
   singleTaskDistro: Scalars["Boolean"]["output"];
   sshOptions: Array<Scalars["String"]["output"]>;
+  taskHostOverrides?: Maybe<TaskHostOverrides>;
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
   validProjects: Array<Scalars["String"]["output"]>;
@@ -913,6 +914,7 @@ export type DistroInput = {
   setupAsSudo: Scalars["Boolean"]["input"];
   singleTaskDistro?: InputMaybe<Scalars["Boolean"]["input"]>;
   sshOptions: Array<Scalars["String"]["input"]>;
+  taskHostOverrides?: InputMaybe<TaskHostOverridesInput>;
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
   validProjects: Array<Scalars["String"]["input"]>;
@@ -4094,14 +4096,19 @@ export type Task = {
   latestExecution: Scalars["Int"]["output"];
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"]["output"];
+  /** nextTask may be in-progress */
+  nextTask?: Maybe<Task>;
+  nextTaskCompleted?: Maybe<Task>;
+  nextTaskFailing?: Maybe<Task>;
+  nextTaskPassing?: Maybe<Task>;
   order: Scalars["Int"]["output"];
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   predictedTaskCost?: Maybe<Cost>;
   /** prevTask may be in-progress */
   prevTask?: Maybe<Task>;
-  prevTaskBreaking?: Maybe<Task>;
   prevTaskCompleted?: Maybe<Task>;
+  prevTaskFailing?: Maybe<Task>;
   prevTaskPassing?: Maybe<Task>;
   priority?: Maybe<Scalars["Int"]["output"]>;
   project?: Maybe<Project>;
@@ -4246,6 +4253,27 @@ export type TaskHistoryPagination = {
   __typename?: "TaskHistoryPagination";
   mostRecentTaskOrder: Scalars["Int"]["output"];
   oldestTaskOrder: Scalars["Int"]["output"];
+};
+
+/**
+ * TaskHostOverrides contains provider settings that override the distro's defaults
+ * for task hosts.
+ */
+export type TaskHostOverrides = {
+  __typename?: "TaskHostOverrides";
+  doNotAssignPublicIpv4Address: Scalars["Boolean"]["output"];
+  iamInstanceProfileArn: Scalars["String"]["output"];
+  providerAccount: Scalars["String"]["output"];
+  securityGroupIds: Array<Scalars["String"]["output"]>;
+  subnetId: Scalars["String"]["output"];
+};
+
+export type TaskHostOverridesInput = {
+  doNotAssignPublicIpv4Address: Scalars["Boolean"]["input"];
+  iamInstanceProfileArn: Scalars["String"]["input"];
+  providerAccount: Scalars["String"]["input"];
+  securityGroupIds: Array<Scalars["String"]["input"]>;
+  subnetId: Scalars["String"]["input"];
 };
 
 export type TaskInfo = {
@@ -10712,6 +10740,10 @@ export type SpawnTaskQuery = {
     displayStatus: string;
     execution: number;
     revision?: string | null;
+    details?: {
+      __typename?: "TaskEndDetail";
+      description?: string | null;
+    } | null;
     executionSteps?: Array<{
       __typename?: "TaskExecutionStep";
       blockType: string;

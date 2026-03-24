@@ -12,6 +12,7 @@ import {
   SpawnTaskQuery,
   MyVolumesQuery,
 } from "gql/generated/types";
+import { isFailedTaskStatus } from "utils/statuses";
 import {
   getExpirationDetailsSchema,
   getPublicKeySchema,
@@ -71,11 +72,19 @@ export const getFormSchema = ({
 }: Props): ReturnType<GetFormSchema> => {
   const {
     buildVariant,
+    details,
     displayName: taskDisplayName,
+    displayStatus,
     executionSteps,
     project,
     revision,
   } = spawnTaskData || {};
+
+  const isFailedTask = isFailedTaskStatus(displayStatus);
+  const failingStepNumber = isFailedTask
+    ? executionSteps?.find((s) => s.displayName === details?.description)
+        ?.stepNumber
+    : undefined;
   const hasValidTask = validateTask(spawnTaskData);
   const hasProjectSetupScript = !!project?.spawnHostScriptPath;
   const shouldRenderVolumeSelection = !isMigration && isVirtualWorkstation;
@@ -425,6 +434,8 @@ export const getFormSchema = ({
             ? {
                 "ui:widget": ExecutionStepsDropdown,
                 "ui:executionSteps": executionSteps,
+                "ui:failingStepNumber": failingStepNumber,
+                "ui:isFailedTask": isFailedTask,
               }
             : {}),
           "ui:data-cy": "setup-step-number-input",
