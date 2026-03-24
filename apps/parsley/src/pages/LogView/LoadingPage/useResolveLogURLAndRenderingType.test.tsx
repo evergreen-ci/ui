@@ -15,10 +15,7 @@ import {
   GET_TEST_LOG_URL_AND_RENDERING_TYPE,
   TASK_FILES,
 } from "gql/queries";
-import {
-  modifyTimestampInURL,
-  useResolveLogURLAndRenderingType,
-} from "./useResolveLogURLAndRenderingType";
+import { useResolveLogURLAndRenderingType } from "./useResolveLogURLAndRenderingType";
 
 describe("useResolveLogURLAndRenderingType", () => {
   describe("test log renderingType", () => {
@@ -413,69 +410,6 @@ describe("useResolveLogURLAndRenderingType", () => {
           "http://test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0%2F?execution=0",
       });
     });
-  });
-});
-
-describe("modifyTimestampInURL", () => {
-  it("returns empty string for empty URL", () => {
-    expect(modifyTimestampInURL("", "print_time")).toBe("");
-  });
-
-  it("adds param=false when param is not present", () => {
-    const url = "https://example.com/logs?text=true";
-    expect(modifyTimestampInURL(url, "print_time")).toBe(
-      "https://example.com/logs?text=true&print_time=false",
-    );
-  });
-
-  it("sets param to false when it already exists as true", () => {
-    const url = "https://example.com/logs?print_time=true&text=true";
-    expect(modifyTimestampInURL(url, "print_time")).toBe(
-      "https://example.com/logs?print_time=false&text=true",
-    );
-  });
-
-  it("keeps param=false when it already exists as false", () => {
-    const url = "https://example.com/logs?print_time=false";
-    expect(modifyTimestampInURL(url, "print_time")).toBe(
-      "https://example.com/logs?print_time=false",
-    );
-  });
-
-  it("handles URLs with multiple query parameters", () => {
-    const url =
-      "https://example.com/logs?priority=true&print_time=true&text=true";
-    expect(modifyTimestampInURL(url, "print_time")).toBe(
-      "https://example.com/logs?priority=true&print_time=false&text=true",
-    );
-  });
-
-  it("handles relative URLs with param using regex fallback", () => {
-    const url = "/logs?print_time=true&text=true";
-    expect(modifyTimestampInURL(url, "print_time")).toBe(
-      "/logs?print_time=false&text=true",
-    );
-  });
-
-  it("handles relative URLs without param", () => {
-    const url = "/logs?text=true";
-    expect(modifyTimestampInURL(url, "print_time")).toBe(
-      "/logs?text=true&print_time=false",
-    );
-  });
-
-  it("works with the time param for task logs", () => {
-    const url = "https://example.com/task_log_raw/task1/0?text=true";
-    expect(modifyTimestampInURL(url, "time")).toBe(
-      "https://example.com/task_log_raw/task1/0?text=true&time=false",
-    );
-  });
-
-  it("replaces existing time=true with time=false for task logs", () => {
-    const url = "https://example.com/task_log_raw/task1/0?text=true&time=true";
-    expect(modifyTimestampInURL(url, "time")).toBe(
-      "https://example.com/task_log_raw/task1/0?text=true&time=false",
-    );
   });
 });
 

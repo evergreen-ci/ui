@@ -171,28 +171,35 @@ export const useResolveLogURLAndRenderingType = ({
       if (!taskID || !origin || !execution || isLoadingTask) {
         break;
       }
+      const timeParam = excludeTimestamps ? false : undefined;
       downloadURL = task?.logs
         ? getEvergreenTaskLogURL(task.logs, origin, {
             priority: true,
             text: true,
+            time: timeParam,
           })
         : constructEvergreenTaskLogURL(taskID, execution, origin, {
             priority: true,
             text: true,
+            time: timeParam,
           });
       rawLogURL = task?.logs
         ? getEvergreenTaskLogURL(task.logs, origin, {
             text: true,
+            time: timeParam,
           })
         : constructEvergreenTaskLogURL(taskID, execution, origin, {
             text: true,
+            time: timeParam,
           });
       htmlLogURL = task?.logs
         ? getEvergreenTaskLogURL(task.logs, origin, {
             text: false,
+            time: timeParam,
           })
         : constructEvergreenTaskLogURL(taskID, execution, origin, {
             text: false,
+            time: timeParam,
           });
       renderingType = LogRenderingTypes.Default;
 
@@ -212,14 +219,17 @@ export const useResolveLogURLAndRenderingType = ({
       const { groupID: groupIDFromQuery, logs } =
         testData?.task?.tests.testResults[0] || {};
       const { renderingType: renderingTypeFromQuery, url, urlRaw } = logs || {};
+      const printTimeParam = excludeTimestamps ? false : undefined;
       rawLogURL =
         urlRaw ??
         getEvergreenTestLogURL(taskID, execution, testID, {
+          printTime: printTimeParam,
           text: true,
         });
       htmlLogURL =
         url ??
         getEvergreenTestLogURL(taskID, execution, testID, {
+          printTime: printTimeParam,
           text: false,
         });
       downloadURL = rawLogURL;
@@ -268,52 +278,13 @@ export const useResolveLogURLAndRenderingType = ({
     }
   }, [testData, logType, rawLogURL]);
 
-  const applyTimestampParam = (url: string): string => {
-    if (!excludeTimestamps || !url) return url;
-    if (logType === LogTypes.EVERGREEN_TEST_LOGS) {
-      return modifyTimestampInURL(url, "print_time");
-    }
-    if (logType === LogTypes.EVERGREEN_TASK_LOGS) {
-      return modifyTimestampInURL(url, "time");
-    }
-    return url;
-  };
-
   return {
-    downloadURL: applyTimestampParam(downloadURL),
+    downloadURL,
     failingCommand,
-    htmlLogURL: applyTimestampParam(htmlLogURL),
+    htmlLogURL,
     jobLogsURL,
     loading: isLoadingTest || isLoadingTask || isLoadingTaskFileData,
-    rawLogURL: applyTimestampParam(rawLogURL),
+    rawLogURL,
     renderingType,
   };
-};
-
-/**
- * Sets the given query parameter to "false" on a URL to exclude timestamps.
- * Test logs use "print_time", task logs use "time".
- * @param url - The URL to modify
- * @param paramName - The query parameter name to set to "false"
- * @returns The modified URL
- */
-export const modifyTimestampInURL = (
-  url: string,
-  paramName: string,
-): string => {
-  if (!url) return url;
-
-  try {
-    const urlObj = new URL(url);
-    urlObj.searchParams.set(paramName, "false");
-    return urlObj.toString();
-  } catch {
-    // Fallback for relative URLs
-    const paramRegex = new RegExp(`${paramName}=(true|false)`);
-    if (paramRegex.test(url)) {
-      return url.replace(paramRegex, `${paramName}=false`);
-    }
-    const separator = url.includes("?") ? "&" : "?";
-    return `${url}${separator}${paramName}=false`;
-  }
 };
