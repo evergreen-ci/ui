@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
@@ -28,6 +29,14 @@ type DistrosTableProps = {
   imageId: string;
 };
 
+/**
+ * Extracts the base distro name by removing size suffixes like -small, -medium, -large, -xlarge, etc.
+ * @param distroName - The full distro name
+ * @returns The base distro name without size suffix
+ */
+const getBaseDistroName = (distroName: string): string =>
+  distroName.replace(/-(\d*x?large|small|medium)$/i, "");
+
 export const DistrosTable: React.FC<DistrosTableProps> = ({ imageId }) => {
   const {
     data: imageData,
@@ -38,7 +47,18 @@ export const DistrosTable: React.FC<DistrosTableProps> = ({ imageId }) => {
   });
   useErrorToast(error, "There was an error loading image distros");
 
-  const distros = imageData?.image?.distros ?? [];
+  const distros = useMemo(
+    () =>
+      [...(imageData?.image?.distros ?? [])].sort((a, b) => {
+        const baseA = getBaseDistroName(a.name);
+        const baseB = getBaseDistroName(b.name);
+        if (baseA !== baseB) {
+          return baseA.localeCompare(baseB);
+        }
+        return b.name.localeCompare(a.name);
+      }),
+    [imageData],
+  );
 
   const table = useLeafyGreenTable<Distro>({
     columns,
