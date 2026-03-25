@@ -130,7 +130,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     });
   };
 
-  // Let users with a Github App on the Github App Settings page
+  // Let users with without a Github App on their project page
   // default to repo to use the repo Github settings for the project settings.
   let hasExistingGithubApp = false;
   if (tab === ProjectSettingsTabRoutes.GithubAppSettings) {
