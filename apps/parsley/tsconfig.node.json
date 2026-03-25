@@ -9,6 +9,7 @@
     "vite.config.ts",
     "cypress.config.ts",
     ".storybook/**/*.ts",
-    "config/injectVariablesInHTML.ts"
+    "config/injectVariablesInHTML.ts",
+    "playwright.config.ts"
   ]
 }
