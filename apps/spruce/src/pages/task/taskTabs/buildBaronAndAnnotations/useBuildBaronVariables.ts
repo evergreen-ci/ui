@@ -24,14 +24,14 @@ const useBuildBaronVariables = ({ task }: UseBuildBaronVariablesType) => {
     BuildBaronConfiguredQueryVariables
   >(
     BUILD_BARON_CONFIGURED,
-    !isFailedTask && (!hasAnnotation || !canModifyAnnotation)
-      ? skipToken
-      : {
+    isFailedTask || (hasAnnotation && canModifyAnnotation)
+      ? {
           variables: {
             taskId: id,
             execution,
           },
-        },
+        }
+      : skipToken,
   );
 
   const buildBaronConfigured =

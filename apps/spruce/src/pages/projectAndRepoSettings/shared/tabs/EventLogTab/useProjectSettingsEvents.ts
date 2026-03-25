@@ -29,13 +29,13 @@ export const useProjectSettingsEvents = ({
     previousData: projectPreviousData,
   } = useQuery<ProjectEventLogsQuery, ProjectEventLogsQueryVariables>(
     PROJECT_EVENT_LOGS,
-    isRepo || !projectIdentifier
-      ? skipToken
-      : {
+    projectIdentifier && !isRepo
+      ? {
           variables: { projectIdentifier, limit },
           errorPolicy: "all",
           notifyOnNetworkStatusChange: true,
-        },
+        }
+      : skipToken,
   );
   useErrorToast(
     projectError,
@@ -50,13 +50,13 @@ export const useProjectSettingsEvents = ({
     previousData: repoPreviousData,
   } = useQuery<RepoEventLogsQuery, RepoEventLogsQueryVariables>(
     REPO_EVENT_LOGS,
-    !isRepo || !repoId
-      ? skipToken
-      : {
+    isRepo && repoId
+      ? {
           variables: { repoId, limit },
           errorPolicy: "all",
           notifyOnNetworkStatusChange: true,
-        },
+        }
+      : skipToken,
   );
   useErrorToast(repoError, `Unable to fetch events for ${repoId}`);
 

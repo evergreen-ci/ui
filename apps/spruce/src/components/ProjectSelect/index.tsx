@@ -42,7 +42,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   const { data: viewableProjectsData, loading: viewableProjectsLoading } =
     useQuery<ViewableProjectRefsQuery, ViewableProjectRefsQueryVariables>(
       VIEWABLE_PROJECTS,
-      !isProjectSettingsPage ? skipToken : {},
+      isProjectSettingsPage ? {} : skipToken,
     );
 
   const loading = isProjectSettingsPage

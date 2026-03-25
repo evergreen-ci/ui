@@ -73,12 +73,12 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     TaskTestsQueryVariables
   >(
     TASK_TESTS,
-    queryVariables.execution === null
-      ? skipToken
-      : {
+    queryVariables.execution !== null
+      ? {
           variables: queryVariables,
           pollInterval: DEFAULT_POLL_INTERVAL,
-        },
+        }
+      : skipToken,
   );
   usePolling<TaskTestsQuery, TaskTestsQueryVariables>({
     startPolling,
