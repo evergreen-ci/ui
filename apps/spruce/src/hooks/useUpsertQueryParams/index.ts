@@ -1,14 +1,11 @@
-import { useLocation } from "react-router-dom";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { queryString, url } from "utils";
+import { useQueryParams } from "@evg-ui/lib/hooks";
+import { url } from "utils";
 
 const { upsertQueryParam } = url;
-const { parseQueryString } = queryString;
 
 const useUpsertQueryParams = () => {
-  const updateQueryParams = useUpdateURLQueryParams();
-  const { search } = useLocation();
-  const queryParams = parseQueryString(search);
+  const [queryParams, setQueryParams] = useQueryParams();
+
   const onSubmit = ({
     category,
     value,
@@ -16,9 +13,9 @@ const useUpsertQueryParams = () => {
     category: string;
     value: string;
   }) => {
-    const selectedParams = queryParams[category] as string[];
-    const updatedParams = upsertQueryParam(selectedParams, value);
-    updateQueryParams({ [category]: updatedParams });
+    const selectedParams = queryParams[category] as string[] | undefined;
+    const updatedParams = upsertQueryParam(selectedParams ?? [], value);
+    setQueryParams((current) => ({ ...current, [category]: updatedParams }));
   };
 
   return onSubmit;

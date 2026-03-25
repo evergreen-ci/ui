@@ -1,20 +1,16 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TestStatus } from "types/history";
-import { queryString, array } from "utils";
 import { useHistoryTable } from "../HistoryTableContext";
 
-const { parseQueryString } = queryString;
-const { toArray } = array;
-
 const useTestFilters = () => {
-  const { search } = useLocation();
+  const [failingTests] = useQueryParam<string[]>(TestStatus.Failed, []);
+  const [passingTests] = useQueryParam<string[]>(TestStatus.Passed, []);
+
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { setHistoryTableFilters } = useHistoryTable();
+
   useEffect(() => {
-    const queryParams = parseQueryString(search);
-    const failingTests = toArray(queryParams[TestStatus.Failed]);
-    const passingTests = toArray(queryParams[TestStatus.Passed]);
     const failingTestFilters = failingTests.map((test) => ({
       testName: test,
       testStatus: TestStatus.Failed,
@@ -25,7 +21,7 @@ const useTestFilters = () => {
     }));
     setHistoryTableFilters([...failingTestFilters, ...passingTestFilters]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+  }, [failingTests, passingTests]);
 };
 
 export default useTestFilters;

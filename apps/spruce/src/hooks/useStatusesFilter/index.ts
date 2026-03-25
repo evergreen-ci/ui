@@ -1,10 +1,6 @@
-import { useEffect, useState, useMemo } from "react";
-import isEqual from "lodash.isequal";
-import { useLocation } from "react-router-dom";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { queryString } from "utils";
+// apps/spruce/src/hooks/useStatusesFilter/index.ts
+import { useQueryParam } from "@evg-ui/lib/hooks";
 
-const { parseQueryString } = queryString;
 /**
  * Status filter state management hook.
  * @param props - filter hook params
@@ -18,38 +14,27 @@ export const useStatusesFilter = ({
   sendAnalyticsEvent = () => undefined,
   urlParam,
 }: FilterHookParams): FilterHookResult<string[]> => {
-  const { search } = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
-  const { [urlParam]: rawStatuses } = parseQueryString(search);
-  const urlValue = useMemo(
-    () =>
-      Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses].filter((v) => v),
-    [rawStatuses],
-  );
+  const [inputValue, setUrlValue] = useQueryParam<string[]>(urlParam, []);
+  const [, setPage] = useQueryParam<string | undefined>("page", undefined);
 
-  const [inputValue, setInputValue] = useState(urlValue);
-
-  useEffect(() => {
-    if (!urlValue.length && inputValue.length) {
-      setInputValue([]);
-    } else if (!isEqual(urlValue, inputValue)) {
-      setInputValue(urlValue);
+  const updateUrl = (newValue: string[]) => {
+    setUrlValue(newValue);
+    if (resetPage) {
+      setPage("0");
     }
-  }, [urlValue]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const updateUrl = (newValue: string[]) =>
-    updateQueryParams({
-      [urlParam]: newValue,
-      ...(resetPage && { page: "0" }),
-    });
+  };
 
   const setAndSubmitInputValue = (newValue: string[]): void => {
-    setInputValue(newValue);
     updateUrl(newValue);
     sendAnalyticsEvent(urlParam, newValue);
   };
 
   const submitInputValue = () => updateUrl(inputValue);
+
+  const setInputValue = (newValue: string[]) => {
+    // Keep the same signature; now this also updates the URL immediately.
+    setUrlValue(newValue);
+  };
 
   const reset = () => setAndSubmitInputValue([]);
 
