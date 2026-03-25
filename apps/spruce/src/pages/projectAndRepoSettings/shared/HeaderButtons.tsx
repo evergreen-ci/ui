@@ -24,6 +24,7 @@ import {
 import { useHasProjectOrRepoEditPermission } from "hooks";
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
+import { AppSettingsFormState } from "./tabs/GithubAppSettingsTab/types";
 import { formToGqlMap } from "./tabs/transformers";
 import { FormToGqlFunction, WritableProjectSettingsType } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
@@ -33,7 +34,6 @@ const defaultToRepoDisabled: Set<WritableProjectSettingsType> = new Set([
   ProjectSettingsTabRoutes.Plugins,
   ProjectSettingsTabRoutes.ViewsAndFilters,
   ProjectSettingsTabRoutes.GithubPermissionGroups,
-  ProjectSettingsTabRoutes.GithubAppSettings,
 ]);
 
 interface Props {
@@ -130,7 +130,17 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     });
   };
 
-  const canDefaultToRepo = !defaultToRepoDisabled.has(tab);
+  // Let users with a Github App on the Github App Settings page
+  // default to repo to use the repo Github settings for the project settings.
+  let hasExistingGithubApp = false;
+  if (tab === ProjectSettingsTabRoutes.GithubAppSettings) {
+    const appFormData = formData as AppSettingsFormState;
+    const githubAppId = appFormData?.appCredentials?.githubAppAuth?.appId ?? 0;
+    hasExistingGithubApp = githubAppId > 0;
+  }
+
+  const canDefaultToRepo =
+    !defaultToRepoDisabled.has(tab) && !hasExistingGithubApp;
 
   return (
     <ButtonRow>
