@@ -61,17 +61,17 @@ const useJobLogsPageData = ({
     loading: loadingEvergreen,
   } = useQuery<TaskTestsForJobLogsQuery, TaskTestsForJobLogsQueryVariables>(
     TASK_TESTS_FOR_JOB_LOGS,
-    {
-      variables: {
-        id: taskId || logkeeperData?.logkeeperBuildMetadata?.taskId || "",
-        execution:
-          executionAsInt ||
-          logkeeperData?.logkeeperBuildMetadata?.taskExecution ||
-          0,
-      },
-      // Skip the query if we're in logkeeper mode and the logkeeper query is still loading
-      skip: isLogkeeper && (loadingLogkeeper || logkeeperData === undefined),
-    },
+    isLogkeeper && (loadingLogkeeper || logkeeperData === undefined)
+      ? skipToken
+      : {
+          variables: {
+            id: taskId || logkeeperData?.logkeeperBuildMetadata?.taskId || "",
+            execution:
+              executionAsInt ||
+              logkeeperData?.logkeeperBuildMetadata?.taskExecution ||
+              0,
+          },
+        },
   );
   useErrorToast(
     evergreenError,

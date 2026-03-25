@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useErrorToast } from "@evg-ui/lib/hooks";
@@ -30,10 +30,7 @@ const ProjectSettings: React.FC = () => {
     loading: projectLoading,
   } = useQuery<ProjectSettingsQuery, ProjectSettingsQueryVariables>(
     PROJECT_SETTINGS,
-    {
-      skip: !projectIdentifier,
-      variables: { projectIdentifier },
-    },
+    projectIdentifier ? { variables: { projectIdentifier } } : skipToken,
   );
   useErrorToast(
     projectError,
@@ -64,10 +61,10 @@ const ProjectSettings: React.FC = () => {
     data: repoData,
     error: repoError,
     loading: repoLoading,
-  } = useQuery<RepoSettingsQuery, RepoSettingsQueryVariables>(REPO_SETTINGS, {
-    skip: !repoId || projectIsHidden === true,
-    variables: { repoId },
-  });
+  } = useQuery<RepoSettingsQuery, RepoSettingsQueryVariables>(
+    REPO_SETTINGS,
+    !repoId || projectIsHidden === true ? skipToken : { variables: { repoId } },
+  );
   useErrorToast(repoError, `There was an error loading the repo ${repoId}`);
 
   if (projectIsHidden) {

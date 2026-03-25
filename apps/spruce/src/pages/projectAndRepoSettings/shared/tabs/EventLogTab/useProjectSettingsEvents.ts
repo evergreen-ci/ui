@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
   ProjectEventLogsQuery,
@@ -29,12 +29,13 @@ export const useProjectSettingsEvents = ({
     previousData: projectPreviousData,
   } = useQuery<ProjectEventLogsQuery, ProjectEventLogsQueryVariables>(
     PROJECT_EVENT_LOGS,
-    {
-      variables: { projectIdentifier, limit },
-      errorPolicy: "all",
-      skip: isRepo || !projectIdentifier,
-      notifyOnNetworkStatusChange: true,
-    },
+    isRepo || !projectIdentifier
+      ? skipToken
+      : {
+          variables: { projectIdentifier, limit },
+          errorPolicy: "all",
+          notifyOnNetworkStatusChange: true,
+        },
   );
   useErrorToast(
     projectError,
@@ -49,12 +50,13 @@ export const useProjectSettingsEvents = ({
     previousData: repoPreviousData,
   } = useQuery<RepoEventLogsQuery, RepoEventLogsQueryVariables>(
     REPO_EVENT_LOGS,
-    {
-      variables: { repoId, limit },
-      errorPolicy: "all",
-      skip: !isRepo || !repoId,
-      notifyOnNetworkStatusChange: true,
-    },
+    !isRepo || !repoId
+      ? skipToken
+      : {
+          variables: { repoId, limit },
+          errorPolicy: "all",
+          notifyOnNetworkStatusChange: true,
+        },
   );
   useErrorToast(repoError, `Unable to fetch events for ${repoId}`);
 

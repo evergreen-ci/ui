@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import {
   BuildBaronConfiguredQuery,
   BuildBaronConfiguredQueryVariables,
@@ -22,13 +22,17 @@ const useBuildBaronVariables = ({ task }: UseBuildBaronVariablesType) => {
   const { data: buildBaronData } = useQuery<
     BuildBaronConfiguredQuery,
     BuildBaronConfiguredQueryVariables
-  >(BUILD_BARON_CONFIGURED, {
-    variables: {
-      taskId: id,
-      execution,
-    },
-    skip: !isFailedTask && (!hasAnnotation || !canModifyAnnotation),
-  });
+  >(
+    BUILD_BARON_CONFIGURED,
+    !isFailedTask && (!hasAnnotation || !canModifyAnnotation)
+      ? skipToken
+      : {
+          variables: {
+            taskId: id,
+            execution,
+          },
+        },
+  );
 
   const buildBaronConfigured =
     buildBaronData?.buildBaron?.buildBaronConfigured || false;

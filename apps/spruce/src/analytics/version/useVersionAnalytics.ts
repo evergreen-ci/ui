@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import {
@@ -74,11 +74,12 @@ type Action =
 export const useVersionAnalytics = (id: string) => {
   const { data: eventData } = useQuery<VersionQuery, VersionQueryVariables>(
     VERSION,
-    {
-      skip: !id,
-      variables: { id, includeNeverActivatedTasks: false },
-      fetchPolicy: "cache-first",
-    },
+    id
+      ? {
+          variables: { id, includeNeverActivatedTasks: false },
+          fetchPolicy: "cache-first",
+        }
+      : skipToken,
   );
   const { isPatch, requester, status } = eventData?.version || {};
 

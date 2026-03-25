@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useLocation } from "react-router-dom";
 import {
   ColumnFiltersState,
@@ -71,11 +71,15 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
-  >(TASK_TESTS, {
-    variables: queryVariables,
-    skip: queryVariables.execution === null,
-    pollInterval: DEFAULT_POLL_INTERVAL,
-  });
+  >(
+    TASK_TESTS,
+    queryVariables.execution === null
+      ? skipToken
+      : {
+          variables: queryVariables,
+          pollInterval: DEFAULT_POLL_INTERVAL,
+        },
+  );
   usePolling<TaskTestsQuery, TaskTestsQueryVariables>({
     startPolling,
     stopPolling,

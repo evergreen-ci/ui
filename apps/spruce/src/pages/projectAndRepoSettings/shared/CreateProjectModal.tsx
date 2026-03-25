@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client/react";
+import { skipToken, useMutation, useQuery } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";
@@ -45,9 +45,10 @@ export const CreateProjectModal: React.FC<Props> = ({
   });
   const [hasError, setHasError] = useState(true);
 
-  const { data: gitOrgs } = useQuery<GithubOrgsQuery>(GITHUB_ORGS, {
-    skip: !open,
-  });
+  const { data: gitOrgs } = useQuery<GithubOrgsQuery>(
+    GITHUB_ORGS,
+    open ? {} : skipToken,
+  );
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { spruceConfig: { githubOrgs = [] } = {} } = gitOrgs ?? {};
 

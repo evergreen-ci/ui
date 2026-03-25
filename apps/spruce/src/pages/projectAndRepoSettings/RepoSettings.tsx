@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
@@ -21,10 +21,10 @@ const RepoSettings: React.FC = () => {
     data: repoData,
     error,
     loading: repoLoading,
-  } = useQuery<RepoSettingsQuery, RepoSettingsQueryVariables>(REPO_SETTINGS, {
-    skip: !repoId,
-    variables: { repoId },
-  });
+  } = useQuery<RepoSettingsQuery, RepoSettingsQueryVariables>(
+    REPO_SETTINGS,
+    repoId ? { variables: { repoId } } : skipToken,
+  );
   useErrorToast(error, `There was an error loading the repo ${repoId}`);
 
   const repo = repoData?.repoSettings;
