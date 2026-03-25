@@ -11112,8 +11112,12 @@ export type TaskStatusesQuery = {
   version: {
     __typename?: "Version";
     id: string;
-    baseTaskStatuses: Array<string>;
     taskStatuses: Array<string>;
+    baseVersion?: {
+      __typename?: "Version";
+      id: string;
+      taskStatuses: Array<string>;
+    } | null;
   };
 };
 
