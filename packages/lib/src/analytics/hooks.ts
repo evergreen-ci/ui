@@ -11,6 +11,8 @@ import { sendEventTrace } from "./utils";
  */
 type AnalyticsIdentifier = string;
 
+const EMPTY_ATTRIBUTES: AnalyticsProperties = {};
+
 /**
  * `useAnalyticsRoot` is a hook that returns a function to send an event to our analytics provider
  * @param analyticsIdentifier - The identifier to send with the event this is typically the page name or component name we are tracking
@@ -22,7 +24,7 @@ export const useAnalyticsRoot = <
   Identifier extends AnalyticsIdentifier,
 >(
   analyticsIdentifier: Identifier,
-  attributes: AnalyticsProperties = {},
+  attributes: AnalyticsProperties = EMPTY_ATTRIBUTES,
 ): Analytics<Action> => {
   const identifierRef = useRef(analyticsIdentifier);
   const attributesRef = useRef(attributes);
