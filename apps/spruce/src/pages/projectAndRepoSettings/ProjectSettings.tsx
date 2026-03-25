@@ -63,7 +63,7 @@ const ProjectSettings: React.FC = () => {
     loading: repoLoading,
   } = useQuery<RepoSettingsQuery, RepoSettingsQueryVariables>(
     REPO_SETTINGS,
-    repoId && !projectIsHidden === true ? { variables: { repoId } } : skipToken,
+    repoId && projectIsHidden != true ? { variables: { repoId } } : skipToken,
   );
   useErrorToast(repoError, `There was an error loading the repo ${repoId}`);
 
