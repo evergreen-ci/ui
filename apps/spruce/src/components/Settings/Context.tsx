@@ -10,7 +10,7 @@ import {
 import isEqual from "lodash.isequal";
 import { useDebouncedCallback } from "@evg-ui/lib/hooks/useDebouncedCallback";
 import { SpruceFormProps } from "components/SpruceForm/types";
-import { SettingsRoutes } from "./types";
+import { FormToGqlFunction, SettingsRoutes } from "./types";
 
 type OnChangeParams<
   T extends SettingsRoutes,
@@ -31,7 +31,7 @@ export type TabState<
   [K in T]: {
     hasChanges: boolean;
     hasError: boolean;
-    initialData: unknown;
+    initialData: ReturnType<FormToGqlFunction<K>>;
     formData: FormStateMap[K];
   };
 };

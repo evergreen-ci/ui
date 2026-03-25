@@ -28,9 +28,7 @@ export const GeneralTab: React.FC<TabProps> = ({
       owner: initialOwner,
       repo: initialRepo,
     },
-  } = (initialData as { projectRef: Record<string, string> } | null) ?? {
-    projectRef: {},
-  };
+  } = initialData ?? { projectRef: {} };
 
   const identifierHasChanges = useMemo(
     () =>

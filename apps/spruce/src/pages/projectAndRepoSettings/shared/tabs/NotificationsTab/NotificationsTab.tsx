@@ -38,10 +38,6 @@ export const NotificationsTab: React.FC<TabProps> = ({
 const validate = ((formData, errors) => {
   const { subscriptions } = formData;
 
-  // RJSF always creates error objects for all fields, including array elements.
-  // The subscriptions field is typed as Array | null in the form state, which makes
-  // RecursivelyAddError produce a union that prevents direct numeric indexing.
-  // We extract the array-like error shape to enable safe indexed access.
   type SubscriptionErrors = Extract<
     (typeof errors)["subscriptions"],
     { forEach: unknown }
