@@ -167,7 +167,9 @@ Cypress.Commands.add("logout", () => {
 });
 
 Cypress.Commands.add("resetDrawerState", () => {
-  window.localStorage.setItem("drawer-opened", "false");
+  cy.window().then((win) => {
+    win.localStorage.setItem("drawer-opened", "false");
+  });
 });
 
 Cypress.Commands.add("toggleDetailsPanel", (open: boolean) => {
@@ -246,6 +248,11 @@ Cypress.Commands.overwrite("visit", (originalVisit, url, options = {}) => {
     onBeforeLoad(win: Window): void {
       // Mock clipboard API.
       cy.spy(win.navigator.clipboard, "writeText").as("writeText");
+      win.localStorage.setItem(
+        "has-seen-searchbar-guide-cue-tab-complete",
+        "true",
+      );
+      win.localStorage.setItem("drawer-opened", "true");
     },
     ...options,
   };
