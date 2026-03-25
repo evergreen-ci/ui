@@ -21,8 +21,12 @@ export const taskStatusesMock: ApolloMock<
       version: {
         __typename: "Version",
         id: versionId,
-        baseTaskStatuses: [TaskStatus.Failed, TaskStatus.Unscheduled],
         taskStatuses: [TaskStatus.Started, TaskStatus.Succeeded],
+        baseVersion: {
+          __typename: "Version",
+          id: "base-version-id",
+          taskStatuses: [TaskStatus.Failed, TaskStatus.Unscheduled],
+        },
       },
     },
   },
