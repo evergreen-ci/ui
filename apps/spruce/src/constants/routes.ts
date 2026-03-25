@@ -463,6 +463,13 @@ export const getTriggerRoute = ({
   if (triggerType === ProjectTriggerLevel.PUSH) {
     return getGithubCommitUrl(upstreamOwner, upstreamRepo, upstreamRevision);
   }
+
+  const upstreamVersionId = upstreamVersion?.id;
+  if (!upstreamVersionId) {
+    // If this happens we route the user to a bad url. Check sentry to see if this error happens
+    console.error("No upstream version");
+  }
+
   return getVersionRoute(upstreamVersion?.id ?? "");
 };
 
