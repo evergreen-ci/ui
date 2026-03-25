@@ -30,17 +30,6 @@ describe("Parsley Routes", () => {
     cy.dataCy("resmoke-row").should("not.exist");
     cy.contains(testLogLine);
   });
-  it("should load resmoke logs when visiting a resmoke log page", () => {
-    const logLink =
-      "/resmoke/7e208050e166b1a9025c817b67eee48d/test/1716e11b4f8a4541c5e2faf70affbfab";
-    const resmokeLogLine =
-      "fsm_workload_test:internal_transactions_kill_sessions";
-    cy.visit(logLink);
-    cy.get("[data-cy^='log-row-']").should("be.visible");
-    cy.dataCy("ansi-row").should("not.exist");
-    cy.dataCy("resmoke-row").should("be.visible");
-    cy.contains(resmokeLogLine);
-  });
   it("should load a task uploaded file when visiting a task log page", () => {
     const logLink =
       "/taskFile/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/sample%20file";

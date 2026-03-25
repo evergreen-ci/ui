@@ -10,8 +10,10 @@ import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
+  MetadataTitleWithAPILink,
 } from "components/MetadataCard";
 import { Stepback } from "components/Stepback";
+import { getAPIRouteForTasks } from "constants/externalResources";
 import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
@@ -65,6 +67,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     ami,
     annotation,
     baseTask,
+    buildId,
     buildVariant,
     buildVariantDisplayName,
     dependsOn,
@@ -121,7 +124,14 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
 
   return (
     <>
-      <MetadataCard title="Task Metadata">
+      <MetadataCard
+        title={
+          <MetadataTitleWithAPILink
+            href={getAPIRouteForTasks(taskId, execution)}
+            title="Task Metadata"
+          />
+        }
+      >
         <CopyableID textToCopy={taskId} tooltipLabel="Copy task ID" />
         <MetadataItem data-cy="task-metadata-project">
           <MetadataLabel>Project:</MetadataLabel>{" "}
@@ -315,7 +325,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
-
         {startTime && finishTime && (
           <MetadataItem>
             <HoneycombLinkContainer>
@@ -359,6 +368,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
       </MetadataCard>
 
       <BuildVariantCard
+        buildId={buildId}
         buildVariant={buildVariant}
         buildVariantDisplayName={buildVariantDisplayName ?? ""}
         projectIdentifier={projectIdentifier}

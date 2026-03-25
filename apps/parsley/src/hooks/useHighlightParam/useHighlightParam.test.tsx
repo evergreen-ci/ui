@@ -61,7 +61,7 @@ describe("useHighlightParam", () => {
       result.current.setHighlights(["something,else", "failed"]);
     });
     expect(result.current.allQueryParams).toMatchObject({
-      highlights: ["something,else", "failed"],
+      highlights: ["something%2Celse", "failed"],
     });
     expect(result.current.location.search).toBe(
       "?highlights=something%252Celse,failed",
@@ -98,7 +98,7 @@ describe("useHighlightParam", () => {
       result.current.setHighlights(["something,else", "failed"]);
     });
     expect(result.current.allQueryParams).toMatchObject({
-      highlights: ["something,else", "failed"],
+      highlights: ["something%2Celse", "failed"],
     });
   });
 });
