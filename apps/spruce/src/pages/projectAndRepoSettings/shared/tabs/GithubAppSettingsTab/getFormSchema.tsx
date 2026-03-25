@@ -138,16 +138,14 @@ export const getFormSchema = ({
           "ui:data-cy": "github-app-id-input",
           "ui:disabled": isAppDefined,
           "ui:elementWrapperCSS": appFieldCss,
-          ...(repoData?.appCredentials?.githubAppAuth?.appId != null &&
-            placeholderIf(repoData.appCredentials.githubAppAuth.appId)),
+          ...placeholderIf(repoData?.appCredentials?.githubAppAuth?.appId),
         },
         privateKey: {
           "ui:data-cy": "github-private-key-input",
           "ui:disabled": isAppDefined,
           "ui:elementWrapperCSS": appFieldCss,
           "ui:widget": "textarea",
-          ...(repoData?.appCredentials?.githubAppAuth?.privateKey != null &&
-            placeholderIf(repoData.appCredentials.githubAppAuth.privateKey)),
+          ...placeholderIf(repoData?.appCredentials?.githubAppAuth?.privateKey),
         },
       },
       actions: {

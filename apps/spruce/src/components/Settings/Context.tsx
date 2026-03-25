@@ -10,7 +10,7 @@ import {
 import isEqual from "lodash.isequal";
 import { useDebouncedCallback } from "@evg-ui/lib/hooks/useDebouncedCallback";
 import { SpruceFormProps } from "components/SpruceForm/types";
-import { FormToGqlFunction, SettingsRoutes } from "./types";
+import { SettingsRoutes } from "./types";
 
 type OnChangeParams<
   T extends SettingsRoutes,
@@ -31,7 +31,7 @@ export type TabState<
   [K in T]: {
     hasChanges: boolean;
     hasError: boolean;
-    initialData: ReturnType<FormToGqlFunction<K>>;
+    initialData: unknown;
     formData: FormStateMap[K];
   };
 };
@@ -55,10 +55,12 @@ type Action<T extends SettingsRoutes, FormStateMap extends Record<T, any>> =
     };
 
 const reducer =
-  <T extends SettingsRoutes, FormStateMap extends Record<T, any>>(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Transformer signatures vary across admin/project/distro settings
-    getTransformer: Record<T, (...args: any[]) => any>,
-  ) =>
+  <
+    T extends SettingsRoutes,
+    FormStateMap extends Record<T, any>,
+  >(getTransformer: {
+    [K in T]: (formData: FormStateMap[K], ...args: never[]) => unknown;
+  }) =>
   (
     state: TabState<T, FormStateMap>,
     action: Action<T, FormStateMap>,
@@ -140,8 +142,9 @@ const useSettingsState = <
   FormStateMap extends Record<T, any>,
 >(
   routes: T[],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Transformer signatures vary across admin/project/distro settings
-  getTransformer: Record<T, (...args: any[]) => any>,
+  getTransformer: {
+    [K in T]: (formData: FormStateMap[K], ...args: never[]) => unknown;
+  },
 ): SettingsState<T, FormStateMap> => {
   const [state, dispatch] = useReducer(
     reducer(getTransformer),
