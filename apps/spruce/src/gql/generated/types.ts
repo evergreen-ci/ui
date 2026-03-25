@@ -8903,23 +8903,6 @@ export type LastMainlineCommitQuery = {
   } | null;
 };
 
-export type LogkeeperBuildMetadataQueryVariables = Exact<{
-  buildId: Scalars["String"]["input"];
-}>;
-
-export type LogkeeperBuildMetadataQuery = {
-  __typename?: "Query";
-  logkeeperBuildMetadata: {
-    __typename?: "LogkeeperBuild";
-    id: string;
-    builder: string;
-    buildNum: number;
-    taskExecution: number;
-    taskId: string;
-    tests: Array<{ __typename?: "LogkeeperTest"; id: string; name: string }>;
-  };
-};
-
 export type MainlineCommitsForHistoryQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
   buildVariantOptions: BuildVariantOptions;
