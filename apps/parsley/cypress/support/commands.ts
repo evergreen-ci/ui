@@ -167,7 +167,7 @@ Cypress.Commands.add("logout", () => {
 });
 
 Cypress.Commands.add("resetDrawerState", () => {
-  cy.setCookie("drawer-opened", "false");
+  Cypress.env("drawerState", "false");
 });
 
 Cypress.Commands.add("toggleDetailsPanel", (open: boolean) => {
@@ -242,12 +242,24 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.overwrite("visit", (originalVisit, url, options = {}) => {
+  const { onBeforeLoad: userOnBeforeLoad, ...restOptions } = options as {
+    onBeforeLoad?: (win: Window) => void;
+    [key: string]: unknown;
+  };
   const opts = {
     onBeforeLoad(win: Window): void {
       // Mock clipboard API.
       cy.spy(win.navigator.clipboard, "writeText").as("writeText");
+      win.localStorage.setItem(
+        "has-seen-searchbar-guide-cue-tab-complete",
+        "true",
+      );
+      const drawerState = Cypress.env("drawerState") ?? "true";
+      win.localStorage.setItem("drawer-opened", String(drawerState));
+      Cypress.env("drawerState", undefined);
+      userOnBeforeLoad?.(win);
     },
-    ...options,
+    ...restOptions,
   };
   // @ts-expect-error - TypeScript detects the wrong definition for the original function.
   return originalVisit(url, opts);

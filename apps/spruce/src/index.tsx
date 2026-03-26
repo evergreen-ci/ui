@@ -22,8 +22,7 @@ const routeConfig = {
   distroSettings: `${routes.distroSettings}/:${slugs.tab}?`,
   preferences: `${routes.preferences}/:${slugs.tab}?`,
   spawn: `${routes.spawn}/:${slugs.tab}?`,
-  jobLogsLogkeeper: `${routes.jobLogs}/:${slugs.buildId}?/:${slugs.groupId}?`,
-  jobLogsEvergreen: `${routes.jobLogs}/:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`,
+  jobLogs: `${routes.jobLogs}/:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`,
   patchRedirect: redirectRoutes.patch,
 };
 initializeErrorHandling({
