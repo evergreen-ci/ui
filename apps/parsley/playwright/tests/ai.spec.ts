@@ -10,6 +10,7 @@ test.describe("Parsley AI", () => {
   });
 
   test("opens the AI drawer and logs in", async ({ authenticatedPage }) => {
+    await authenticatedPage.locator("[data-cy^='log-row-']").first().waitFor();
     expect(
       await helpers.getByDataCy(authenticatedPage, "ansi-row").count(),
     ).toBeGreaterThan(0);

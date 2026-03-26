@@ -3,6 +3,7 @@ const Tasks = {
   Compile: "compile",
   E2E: "e2e",
   E2EParallel: "e2e_parallel",
+  E2EPlaywright: "e2e_playwright",
   Lint: "lint",
   Storybook: "storybook",
   Test: "test",
@@ -28,7 +29,7 @@ const TASK_MAPPING = {
   parsley: [
     Tasks.CheckCodegen,
     Tasks.Compile,
-    Tasks.E2E,
+    Tasks.E2EPlaywright,
     Tasks.Lint,
     Tasks.Storybook,
     Tasks.Test,

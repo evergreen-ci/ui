@@ -14,6 +14,7 @@ export const addFilter = async (page: Page, filter: string) => {
   await getByDataCy(page, "searchbar-select").click();
   await getByDataCy(page, "filter-option").click();
   const searchbarInput = getByDataCy(page, "searchbar-input");
+  await expect(searchbarInput).toBeEnabled();
   await searchbarInput.focus();
   await page.keyboard.type(filter);
   await searchbarInput.press("Control+Enter");
@@ -24,6 +25,7 @@ export const addHighlight = async (page: Page, highlight: string) => {
   await getByDataCy(page, "searchbar-select").click();
   await getByDataCy(page, "highlight-option").click();
   const searchbarInput = getByDataCy(page, "searchbar-input");
+  await expect(searchbarInput).toBeEnabled();
   await searchbarInput.focus();
   await page.keyboard.type(highlight);
   await searchbarInput.press("Control+Enter");
@@ -146,11 +148,9 @@ export const isNotContainedInViewport = async (
 export const getInputByLabel = async (page: Page, label: string) => {
   const labelElement = page.locator("label", { hasText: label });
   const forAttr = await labelElement.getAttribute("for");
-
   if (!forAttr) {
     throw new Error(`Label "${label}" does not have a "for" attribute`);
   }
-
   return page.locator(`#${forAttr}`);
 };
 
@@ -251,22 +251,6 @@ export const paste = async (
       cancelable: true,
     });
     element.dispatchEvent(pasteEvent);
-  });
-};
-
-export const setupClipboardMock = async (page: Page) => {
-  await page.addInitScript(() => {
-    let clipboardText = "";
-    Object.defineProperty(navigator, "clipboard", {
-      value: {
-        writeText: async (text: string) => {
-          clipboardText = text;
-          return Promise.resolve();
-        },
-        readText: async () => Promise.resolve(clipboardText),
-      },
-      writable: true,
-    });
   });
 };
 

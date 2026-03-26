@@ -441,6 +441,9 @@ test.describe("pretty print", () => {
   }) => {
     const defaultRowHeight = 18;
 
+    await expect(
+      helpers.getByDataCy(authenticatedPage, "log-row-19"),
+    ).toBeVisible();
     await helpers
       .getByDataCy(authenticatedPage, "log-row-19")
       .dblclick({ force: true });

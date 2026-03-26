@@ -16,6 +16,10 @@ test.describe("Sectioning", () => {
       true,
       "log-viewing",
     );
+    await helpers
+      .getByDataCy(authenticatedPage, "section-header")
+      .first()
+      .waitFor();
   });
 
   test("Toggling the sections options displays and hides sections", async ({

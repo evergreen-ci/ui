@@ -70,7 +70,7 @@ test.describe("Filtering", () => {
             new RegExp(`filters=100${filter1},100${filter2}`),
           );
 
-          // Wait for filtered rows to load
+          // Wait for filtered rows to load.
           await authenticatedPage
             .locator("[data-cy^='log-row-']:not([data-bookmarked=true])")
             .first()
@@ -171,6 +171,12 @@ test.describe("Filtering", () => {
           await expect(authenticatedPage).toHaveURL(
             new RegExp(`filters=100${filter1},100${filter2}`),
           );
+
+          // Wait for filtered rows to load.
+          await authenticatedPage
+            .locator("[data-cy^='log-row-']:not([data-bookmarked=true])")
+            .first()
+            .waitFor();
 
           const logRows = await authenticatedPage
             .locator("[data-cy^='log-row-']:not([data-bookmarked=true])")

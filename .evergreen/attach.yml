@@ -56,6 +56,61 @@ functions:
         files:
           - "./ui/${app_dir}/bin/cypress/*.xml"
 
+  attach-playwright-results:
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
+        local_file: "ui/${app_dir}/bin/playwright/html/index.html"
+        remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/index.html
+        bucket: evg-bucket-evergreen-ui
+        content_type: text/html
+        permissions: private
+        visibility: signed
+        display_name: "Playwright HTML Report"
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
+        local_files_include_filter: ["ui/${app_dir}/bin/playwright/html/data/**/*.png"]
+        remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
+        bucket: evg-bucket-evergreen-ui
+        content_type: image/png
+        permissions: private
+        visibility: signed
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
+        local_files_include_filter: ["ui/${app_dir}/bin/playwright/html/data/**/*.webm"]
+        remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
+        bucket: evg-bucket-evergreen-ui
+        content_type: video/webm
+        permissions: private
+        visibility: signed
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
+        local_files_include_filter: ["ui/${app_dir}/bin/playwright/html/**/*.md"]
+        remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
+        bucket: evg-bucket-evergreen-ui
+        content_type: text/markdown
+        permissions: private
+        visibility: signed
+    - command: attach.xunit_results
+      params:
+        files:
+          - "./ui/${app_dir}/bin/playwright/*.xml"
+
   attach-email:
     command: s3.put
     type: system

@@ -59,7 +59,6 @@ test.describe("Upload page", () => {
   test.describe("uploading logs via clipboard", () => {
     test.beforeEach(async ({ authenticatedPage }) => {
       // Set up clipboard mock before navigation.
-      await helpers.setupClipboardMock(authenticatedPage);
       await authenticatedPage.goto("/upload");
     });
 

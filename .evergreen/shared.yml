@@ -175,6 +175,27 @@ functions:
           CYPRESS_CI=true pnpm cy:run --reporter junit
         fi
 
+  pnpm-playwright:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      shell: bash
+      env:
+        # Installs browsers to node_modules.
+        PLAYWRIGHT_BROWSERS_PATH: "0" 
+      script: |
+        ${PREPARE_SHELL}
+
+        # Install Chromium browser to use with Playwright tests.
+        pnpm exec playwright install chromium
+
+        # Allow spec filtering for an intentional patch.
+        if [[ "${playwright_spec}" != "" ]]; then
+          pnpm playwright:test "${playwright_spec}"
+        else
+          pnpm playwright:test
+        fi
+
   pnpm-eslint:
     command: shell.exec
     params:
@@ -269,6 +290,21 @@ tasks:
       - func: wait-for-evergreen
       - func: pnpm-verify-backend
       - func: pnpm-cypress
+
+  - name: e2e_playwright
+    commands:
+      - func: setup-mongodb
+      - func: generate-token
+      - func: run-make-background
+        vars:
+          target: local-evergreen
+      - func: symlink
+      - func: seed-bucket-data
+      - func: pnpm-build
+      - func: pnpm-preview
+      - func: wait-for-evergreen
+      - func: pnpm-verify-backend
+      - func: pnpm-playwright
 
   - name: lint
     commands:
