@@ -63,10 +63,7 @@ const TaskDurationTable: React.FC<Props> = ({
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { currentStatuses: statusOptions } = useTaskStatuses({ versionId });
 
-  const [queryParams, setQueryParams] = useQueryParams() as unknown as [
-    TaskDurationQueryParams,
-    ReturnType<typeof useQueryParams>[1],
-  ];
+  const [queryParams, setQueryParams] = useQueryParams();
 
   const { initialFilters, initialSort } = useMemo(
     () => getInitialParams(queryParams),

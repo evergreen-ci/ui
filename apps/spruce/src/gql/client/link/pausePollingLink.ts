@@ -1,5 +1,7 @@
 import { ApolloLink, Observable } from "@apollo/client";
 
+type Subscription = ReturnType<Observable<unknown>["subscribe"]>;
+
 /**
  * This link pauses polling for specific queries when the document is hidden
  * or when the browser is offline. It resumes polling when the document becomes
@@ -13,7 +15,7 @@ export const pausePollingLink = new ApolloLink((operation, forward) => {
     pauseableQueries.includes(operation.operationName)
   ) {
     return new Observable((observer) => {
-      let subscription: { unsubscribe(): void } | null = null;
+      let subscription: Subscription | null = null;
 
       const handleResume = () => {
         if (!document.hidden && navigator.onLine) {

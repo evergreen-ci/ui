@@ -67,10 +67,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   totalCount,
   versionId,
 }) => {
-  const [queryParams, setQueryParams] = useQueryParams() as unknown as [
-    VersionTasksTableQueryParams,
-    ReturnType<typeof useQueryParams>[1],
-  ];
+  const [queryParams, setQueryParams] = useQueryParams();
   const { sendEvent } = useVersionAnalytics(versionId);
   const taskReviewEnabled = !getLocalStorageBoolean(DISABLE_TASK_REVIEW, false);
 
