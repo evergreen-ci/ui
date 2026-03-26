@@ -39,6 +39,13 @@ const { getDefaultOptions: getDefaultSorting } = RowSorting;
 type TaskDurationData = Unpacked<
   VersionTaskDurationsQuery["version"]["tasks"]["data"]
 >;
+interface TaskDurationQueryParams {
+  [PatchTasksQueryParams.TaskName]?: string;
+  [PatchTasksQueryParams.Statuses]?: string | string[];
+  [PatchTasksQueryParams.Variant]?: string;
+  [TableQueryParams.Sorts]?: string | string[];
+}
+
 interface Props {
   tasks: TaskDurationData[];
   loading: boolean;
@@ -56,7 +63,10 @@ const TaskDurationTable: React.FC<Props> = ({
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { currentStatuses: statusOptions } = useTaskStatuses({ versionId });
 
-  const [queryParams, setQueryParams] = useQueryParams();
+  const [queryParams, setQueryParams] = useQueryParams() as unknown as [
+    TaskDurationQueryParams,
+    ReturnType<typeof useQueryParams>[1],
+  ];
 
   const { initialFilters, initialSort } = useMemo(
     () => getInitialParams(queryParams),
@@ -248,26 +258,16 @@ const sortCategoryToColumnId: { [key: string]: PatchTasksQueryParams } = {
   [TaskSortCategory.Variant]: PatchTasksQueryParams.Variant,
 };
 
-export const getInitialParams = (queryParams: {
-  [key: string]: unknown;
-}): {
+export const getInitialParams = (
+  queryParams: TaskDurationQueryParams,
+): {
   initialFilters: ColumnFiltersState;
   initialSort: SortingState;
 } => {
-  const taskName = queryParams[PatchTasksQueryParams.TaskName] as
-    | string
-    | undefined;
-  const statuses = queryParams[PatchTasksQueryParams.Statuses] as
-    | string
-    | string[]
-    | undefined;
-  const variant = queryParams[PatchTasksQueryParams.Variant] as
-    | string
-    | undefined;
-  const sorts = queryParams[TableQueryParams.Sorts] as
-    | string
-    | string[]
-    | undefined;
+  const taskName = queryParams[PatchTasksQueryParams.TaskName];
+  const statuses = queryParams[PatchTasksQueryParams.Statuses];
+  const variant = queryParams[PatchTasksQueryParams.Variant];
+  const sorts = queryParams[TableQueryParams.Sorts];
 
   const initialFilters = [];
   if (taskName) {
