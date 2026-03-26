@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery, useMutation } from "@apollo/client/react";
+import { useQuery, useMutation, skipToken } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
@@ -66,13 +66,17 @@ export const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   const { data, loading } = useQuery<
     BuildVariantsWithChildrenQuery,
     BuildVariantsWithChildrenQueryVariables
-  >(BUILD_VARIANTS_WITH_CHILDREN, {
-    variables: {
-      id: versionId,
-      statuses: [...finishedTaskStatuses, TaskStatus.Aborted],
-    },
-    skip: !visible,
-  });
+  >(
+    BUILD_VARIANTS_WITH_CHILDREN,
+    visible
+      ? {
+          variables: {
+            id: versionId,
+            statuses: [...finishedTaskStatuses, TaskStatus.Aborted],
+          },
+        }
+      : skipToken,
+  );
 
   const { version } = data || {};
   const { childVersions } = version || {};
