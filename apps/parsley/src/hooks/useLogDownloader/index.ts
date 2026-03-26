@@ -52,7 +52,6 @@ const useLogDownloader = ({
     const timeStart = Date.now();
 
     if (url) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsLoading(true);
       fetchLogFile(url, {
         // Conditionally define signal because AbortController throws error in development's strict mode
@@ -154,15 +153,8 @@ const useLogDownloader = ({
       // Cancel the request if the component unmounts
       abortController.abort();
     };
-  }, [
-    url,
-    sendEvent,
-    logType,
-    downloadSizeLimit,
-    dispatchToast,
-    getFileSize,
-    setFileSize,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url]);
   return { data, error, fileSize, isLoading };
 };
 

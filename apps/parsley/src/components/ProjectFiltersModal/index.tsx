@@ -125,7 +125,8 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     });
 
     setOpen(false);
-  }, [filters, setFilters, sendEvent, table, setOpen]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters, setFilters]);
 
   const hasNewFilters = table.getSelectedRowModel().rows.length > 0;
 
