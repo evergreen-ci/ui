@@ -10,8 +10,7 @@ import { SettingsRoutes } from "./types";
 
 export type FormProps<
   T extends SettingsRoutes,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- any is required for bivariant generic constraint
-  FormStateMap extends Record<T, any>,
+  FormStateMap extends Record<T, unknown>,
 > = {
   formRef?: React.Ref<SpruceFormRef>;
   formSchema: ReturnType<GetFormSchema>;
@@ -25,8 +24,7 @@ export type FormProps<
 
 export const Form = <
   T extends SettingsRoutes,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- any is required for bivariant generic constraint
-  FormStateMap extends Record<T, any>,
+  FormStateMap extends Record<T, unknown>,
 >({
   formRef,
   formSchema,

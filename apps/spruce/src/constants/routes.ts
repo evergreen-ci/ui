@@ -1,5 +1,6 @@
 import { generatePath } from "react-router-dom";
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { WaterfallFilterOptions } from "pages/waterfall/types";
 import { TestStatus, HistoryQueryParams } from "types/history";
@@ -466,8 +467,7 @@ export const getTriggerRoute = ({
 
   const upstreamVersionId = upstreamVersion?.id;
   if (!upstreamVersionId) {
-    // If this happens we route the user to a bad url. Check sentry to see if this error happens
-    console.error("No upstream version");
+    reportError(new Error("No upstream version found for route"));
   }
 
   return getVersionRoute(upstreamVersion?.id ?? "");

@@ -39,6 +39,17 @@ import { getColumnsTemplate } from "./getColumnsTemplate";
 const { getLimit, getPage, getString, parseSortString, queryParamAsNumber } =
   queryString;
 
+type StringParam = string | string[] | undefined;
+
+interface TestsTableQueryParams {
+  [RequiredQueryParams.Execution]: string | string[];
+  [RequiredQueryParams.TestName]: StringParam;
+  [RequiredQueryParams.Statuses]: StringParam;
+  [TableQueryParams.Sorts]: StringParam;
+  [PaginationQueryParams.Limit]: string | string[];
+  [PaginationQueryParams.Page]: string | string[];
+}
+
 interface TestsTableProps {
   task: NonNullable<TaskQuery["task"]>;
 }
@@ -47,7 +58,10 @@ const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { pathname } = useLocation();
   const { sendEvent } = useTaskAnalytics();
 
-  const [queryParams, setQueryParams] = useQueryParams();
+  const [queryParams, setQueryParams] = useQueryParams() as unknown as [
+    TestsTableQueryParams,
+    ReturnType<typeof useQueryParams>[1],
+  ];
   const queryVariables = getQueryVariables(queryParams, task.id);
   const { execution, limitNum, pageNum, sort } = queryVariables;
   const sortBy = sort?.[0]?.sortBy;
@@ -213,16 +227,13 @@ const emptyFilterQueryParams = {
   [RequiredQueryParams.Statuses]: undefined,
 };
 
-const getInitialState = (queryParams: {
-  [key: string]: unknown;
-}): {
+const getInitialState = (
+  queryParams: TestsTableQueryParams,
+): {
   initialFilters: ColumnFiltersState;
   initialSorting: SortingState;
 } => {
-  const sorts = queryParams[TableQueryParams.Sorts] as
-    | string
-    | string[]
-    | undefined;
+  const sorts = queryParams[TableQueryParams.Sorts];
 
   const initialSorting: SortingState = sorts
     ? parseSortString(sorts, {
@@ -240,7 +251,7 @@ const getInitialState = (queryParams: {
     initialFilters: Object.entries(
       mapFilterParamToId,
     ).reduce<ColumnFiltersState>((accum, [param, id]) => {
-      const paramValue = queryParams[param] as string | string[] | undefined;
+      const paramValue = queryParams[param as keyof TestsTableQueryParams];
       if (paramValue?.length) {
         return [...accum, { id, value: paramValue }];
       }
@@ -250,13 +261,10 @@ const getInitialState = (queryParams: {
 };
 
 const getQueryVariables = (
-  queryParams: { [key: string]: unknown },
+  queryParams: TestsTableQueryParams,
   taskId: string,
 ): TaskTestsQueryVariables => {
-  const sorts = queryParams[TableQueryParams.Sorts] as
-    | string
-    | string[]
-    | undefined;
+  const sorts = queryParams[TableQueryParams.Sorts];
 
   let sort: TestSortOptions[] = [];
   if (sorts) {
@@ -272,31 +280,20 @@ const getQueryVariables = (
     });
   }
 
-  const testName = getString(
-    queryParams[RequiredQueryParams.TestName] as string | string[] | undefined,
-  );
-  const rawStatuses = queryParams[RequiredQueryParams.Statuses] as
-    | string
-    | string[]
-    | undefined;
+  const testName = getString(queryParams[RequiredQueryParams.TestName]);
+  const rawStatuses = queryParams[RequiredQueryParams.Statuses];
   const statusList = (
     Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses]
   ).filter((v): v is string => !!v && v !== ALL_VALUE);
-  const execution = queryParams[RequiredQueryParams.Execution] as
-    | string
-    | string[];
+  const execution = queryParams[RequiredQueryParams.Execution];
   return {
     id: taskId,
     execution: queryParamAsNumber(execution),
     sort,
-    limitNum: getLimit(
-      queryParams[PaginationQueryParams.Limit] as string | string[],
-    ),
+    limitNum: getLimit(queryParams[PaginationQueryParams.Limit]),
     statusList,
     testName,
-    pageNum: getPage(
-      queryParams[PaginationQueryParams.Page] as string | string[],
-    ),
+    pageNum: getPage(queryParams[PaginationQueryParams.Page]),
   };
 };
 
