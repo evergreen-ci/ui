@@ -36,6 +36,14 @@ enum VersionTaskCategory {
   Variant = TaskSortCategory.Variant,
 }
 
+interface VersionTasksTableQueryParams {
+  [PatchTasksQueryParams.TaskName]?: string;
+  [PatchTasksQueryParams.Statuses]?: string | string[];
+  [PatchTasksQueryParams.BaseStatuses]?: string | string[];
+  [PatchTasksQueryParams.Variant]?: string;
+  [TableQueryParams.Sorts]?: string | string[];
+}
+
 interface VersionTasksTableProps {
   clearQueryParams: () => void;
   filteredCount: number;
@@ -59,7 +67,10 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   totalCount,
   versionId,
 }) => {
-  const [queryParams, setQueryParams] = useQueryParams();
+  const [queryParams, setQueryParams] = useQueryParams() as unknown as [
+    VersionTasksTableQueryParams,
+    ReturnType<typeof useQueryParams>[1],
+  ];
   const { sendEvent } = useVersionAnalytics(versionId);
   const taskReviewEnabled = !getLocalStorageBoolean(DISABLE_TASK_REVIEW, false);
 
@@ -181,29 +192,16 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
 };
 
 export const getInitialState = (
-  queryParams: Record<string, unknown>,
+  queryParams: VersionTasksTableQueryParams,
 ): {
   initialFilters: ColumnFiltersState;
   initialSorting: SortingState;
 } => {
-  const taskName = queryParams[PatchTasksQueryParams.TaskName] as
-    | string
-    | undefined;
-  const statuses = queryParams[PatchTasksQueryParams.Statuses] as
-    | string
-    | string[]
-    | undefined;
-  const baseStatuses = queryParams[PatchTasksQueryParams.BaseStatuses] as
-    | string
-    | string[]
-    | undefined;
-  const variant = queryParams[PatchTasksQueryParams.Variant] as
-    | string
-    | undefined;
-  const sorts = queryParams[TableQueryParams.Sorts] as
-    | string
-    | string[]
-    | undefined;
+  const taskName = queryParams[PatchTasksQueryParams.TaskName];
+  const statuses = queryParams[PatchTasksQueryParams.Statuses];
+  const baseStatuses = queryParams[PatchTasksQueryParams.BaseStatuses];
+  const variant = queryParams[PatchTasksQueryParams.Variant];
+  const sorts = queryParams[TableQueryParams.Sorts];
 
   const initialFilters = [];
 
