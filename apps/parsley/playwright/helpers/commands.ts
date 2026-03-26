@@ -167,14 +167,9 @@ export const logout = async (page: Page) => {
 };
 
 export const resetDrawerState = async (page: Page) => {
-  await page.context().addCookies([
-    {
-      name: "drawer-opened",
-      value: "false",
-      domain: "localhost",
-      path: "/",
-    },
-  ]);
+  await page.evaluate(() => {
+    localStorage.setItem("drawer-opened", "false");
+  });
 };
 
 export const toggleDetailsPanel = async (page: Page, open: boolean) => {

@@ -7,7 +7,7 @@ type CustomFixtures = {
 };
 
 export const test = base.extend<CustomFixtures>({
-  authenticatedPage: async ({ page, context }, use) => {
+  authenticatedPage: async ({ page }, use) => {
     // Set up mutation detection BEFORE login/navigation.
     let mutationDispatched = false;
 
@@ -28,27 +28,12 @@ export const test = base.extend<CustomFixtures>({
     // Login before every test.
     await helpers.login(page);
 
-    // Set cookies before every test.
-    await context.addCookies([
-      {
-        name: "drawer-opened",
-        value: "true",
-        domain: "localhost",
-        path: "/",
-      },
-      {
-        name: "has-seen-searchbar-guide-cue-tab-complete",
-        value: "true",
-        domain: "localhost",
-        path: "/",
-      },
-      {
-        name: "has-seen-sections-prod-feature-modal",
-        value: "true",
-        domain: "localhost",
-        path: "/",
-      },
-    ]);
+    // Navigate to a page so we can access localStorage, then set it.
+    await page.goto("http://localhost:5173");
+    await page.evaluate(() => {
+      localStorage.setItem("drawer-opened", "true");
+      localStorage.setItem("has-seen-searchbar-guide-cue-tab-complete", "true");
+    });
 
     await use(page);
 

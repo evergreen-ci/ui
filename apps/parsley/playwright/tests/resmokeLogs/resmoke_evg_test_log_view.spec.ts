@@ -425,15 +425,11 @@ test.describe("expanding collapsed rows", () => {
 
 test.describe("pretty print", () => {
   test.beforeEach(async ({ authenticatedPage }) => {
-    await authenticatedPage.context().addCookies([
-      {
-        name: "pretty-print-bookmarks",
-        value: "true",
-        domain: "localhost",
-        path: "/",
-      },
-    ]);
     await authenticatedPage.goto(logLink);
+    await authenticatedPage.evaluate(() => {
+      localStorage.setItem("pretty-print-bookmarks", "true");
+    });
+    await authenticatedPage.reload();
   });
 
   test("should pretty print bookmarks if pretty print is enabled", async ({
