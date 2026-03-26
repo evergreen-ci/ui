@@ -84,6 +84,12 @@ test.describe("Sectioning", () => {
     await helpers
       .getByDataCy(authenticatedPage, "close-all-sections-btn")
       .click();
+
+    // Wait for the first caret toggle to update before checking all of them.
+    await expect(
+      helpers.getByDataCy(authenticatedPage, "caret-toggle").first(),
+    ).toHaveAttribute("aria-label", "Open section");
+
     const caretToggles = await helpers
       .getByDataCy(authenticatedPage, "caret-toggle")
       .all();
