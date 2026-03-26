@@ -67,8 +67,7 @@ functions:
         remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/index.html
         bucket: evg-bucket-evergreen-ui
         content_type: text/html
-        permissions: private
-        visibility: signed
+        permissions: public-read
         display_name: "Playwright HTML Report"
     - command: s3.put
       type: system
@@ -80,8 +79,7 @@ functions:
         remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
         bucket: evg-bucket-evergreen-ui
         content_type: image/png
-        permissions: private
-        visibility: signed
+        permissions: public-read
     - command: s3.put
       type: system
       params:
@@ -92,8 +90,7 @@ functions:
         remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
         bucket: evg-bucket-evergreen-ui
         content_type: video/webm
-        permissions: private
-        visibility: signed
+        permissions: public-read
     - command: s3.put
       type: system
       params:
@@ -104,8 +101,7 @@ functions:
         remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
         bucket: evg-bucket-evergreen-ui
         content_type: text/markdown
-        permissions: private
-        visibility: signed
+        permissions: public-read
     - command: attach.xunit_results
       params:
         files:
