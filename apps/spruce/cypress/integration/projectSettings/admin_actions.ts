@@ -52,6 +52,7 @@ describe("projectSettings/admin_actions", () => {
       cy.visit(getProjectSettingsRoute("my-new-project"));
       cy.dataCy("attach-repo-button").click();
       cy.dataCy("attach-repo-modal")
+        .should("be.visible")
         .find("button")
         .contains("Attach")
         .parent()
