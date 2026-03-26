@@ -252,8 +252,8 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("accordion-toggle")
         .contains("Repo Patch Definition 1")
         .as("repoPatchAccordion");
-      cy.dataCy("accordion-toggle").scrollIntoView();
-      cy.dataCy("accordion-toggle")
+      cy.get("@repoPatchAccordion").scrollIntoView();
+      cy.get("@repoPatchAccordion")
         .should("be.visible")
         .contains("Repo Patch Definition 1");
     });

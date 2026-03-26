@@ -53,18 +53,15 @@ describe("projectSettings/admin_actions", () => {
       cy.dataCy("attach-repo-button").click();
       cy.dataCy("attach-repo-modal")
         .should("be.visible")
-        .find("button")
         .contains("Attach")
-        .parent()
         .click();
       cy.validateToast("success", "Successfully attached to repo");
 
       cy.dataCy("delete-project-button").scrollIntoView();
       cy.dataCy("delete-project-button").click();
       cy.dataCy("delete-project-modal")
-        .find("button")
+        .should("be.visible")
         .contains("Delete")
-        .parent()
         .click();
       cy.validateToast("success", "The project “my-new-project” was deleted.");
 
