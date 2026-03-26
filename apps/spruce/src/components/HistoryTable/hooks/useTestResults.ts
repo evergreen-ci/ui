@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import {
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
@@ -38,14 +38,18 @@ const useTestResults = (rowIndex: number) => {
   const { data, loading } = useQuery<
     TaskTestSampleQuery,
     TaskTestSampleQueryVariables
-  >(TASK_TEST_SAMPLE, {
-    variables: {
-      versionId,
-      taskIds,
-      filters: historyTableFilters,
-    },
-    skip: !hasDataToQuery,
-  });
+  >(
+    TASK_TEST_SAMPLE,
+    hasDataToQuery
+      ? {
+          variables: {
+            versionId,
+            taskIds,
+            filters: historyTableFilters,
+          },
+        }
+      : skipToken,
+  );
 
   const taskTestSample = data?.taskTestSample;
   const taskTestMap = useMemo<{

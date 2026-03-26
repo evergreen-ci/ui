@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
@@ -55,10 +55,14 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
   const { data, loading: projectFiltersLoading } = useQuery<
     ProjectFiltersQuery,
     ProjectFiltersQueryVariables
-  >(PROJECT_FILTERS, {
-    skip: !projectId,
-    variables: { projectId },
-  });
+  >(
+    PROJECT_FILTERS,
+    projectId
+      ? {
+          variables: { projectId },
+        }
+      : skipToken,
+  );
 
   const parsleyFilters = useMemo(
     () => data?.project?.parsleyFilters ?? [],
