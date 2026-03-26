@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
@@ -52,9 +52,10 @@ export const Navbar: React.FC = () => {
     }
   }, [currProject, projectFromUrl]);
 
-  const { data: configData } = useQuery<SpruceConfigQuery>(SPRUCE_CONFIG, {
-    skip: currProject !== undefined,
-  });
+  const { data: configData } = useQuery<SpruceConfigQuery>(
+    SPRUCE_CONFIG,
+    currProject === undefined ? {} : skipToken,
+  );
 
   const projectIdentifier =
     currProject || configData?.spruceConfig?.ui?.defaultProject;

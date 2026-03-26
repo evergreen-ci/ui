@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { InlineCode } from "@leafygreen-ui/typography";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
@@ -43,14 +43,18 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
   const { data: testData, loading: isLoadingTest } = useQuery<
     TestLogUrlAndRenderingTypeQuery,
     TestLogUrlAndRenderingTypeQueryVariables
-  >(GET_TEST_LOG_URL_AND_RENDERING_TYPE, {
-    skip: !(logType === LogTypes.EVERGREEN_TEST_LOGS && testID),
-    variables: {
-      execution,
-      taskID,
-      testName: `^${testID}$`,
-    },
-  });
+  >(
+    GET_TEST_LOG_URL_AND_RENDERING_TYPE,
+    logType === LogTypes.EVERGREEN_TEST_LOGS && testID
+      ? {
+          variables: {
+            execution,
+            taskID,
+            testName: `^${testID}$`,
+          },
+        }
+      : skipToken,
+  );
 
   let currentTest: { testFile: string; status: string } | null = null;
   if (logType === LogTypes.EVERGREEN_TEST_LOGS) {

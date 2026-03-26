@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { Banner } from "@leafygreen-ui/banner";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
@@ -44,10 +44,10 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   const { data } = useQuery<
     GithubProjectConflictsQuery,
     GithubProjectConflictsQueryVariables
-  >(GITHUB_PROJECT_CONFLICTS, {
-    skip: projectType === ProjectType.Repo,
-    variables: { projectId },
-  });
+  >(
+    GITHUB_PROJECT_CONFLICTS,
+    projectType === ProjectType.Repo ? skipToken : { variables: { projectId } },
+  );
 
   const initialFormState = useMemo(
     // @ts-expect-error: FIXME. This comment was added by an automated script.

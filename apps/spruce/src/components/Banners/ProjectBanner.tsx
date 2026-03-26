@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import {
   ProjectBannerQuery,
   ProjectBannerQueryVariables,
@@ -16,10 +16,12 @@ export const ProjectBanner: React.FC<ProjectBannerProps> = ({
   const { data: projectBannerData } = useQuery<
     ProjectBannerQuery,
     ProjectBannerQueryVariables
-  >(PROJECT_BANNER, {
-    variables: { identifier: projectIdentifier },
-    skip: !projectIdentifier,
-  });
+  >(
+    PROJECT_BANNER,
+    projectIdentifier
+      ? { variables: { identifier: projectIdentifier } }
+      : skipToken,
+  );
   const { text, theme } = projectBannerData?.project.banner || {};
   if (!text || !theme) {
     return null;
