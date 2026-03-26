@@ -1,4 +1,4 @@
-import fs from "fs";
+import { readFileSync } from "fs";
 import { test, expect } from "../../fixtures";
 import * as helpers from "../../helpers";
 
@@ -69,7 +69,7 @@ test.describe("Upload page", () => {
         helpers.getByDataCy(authenticatedPage, "upload-zone"),
       ).toBeVisible();
 
-      const fileContents = fs.readFileSync("sample_logs/resmoke.log", "utf-8");
+      const fileContents = readFileSync("sample_logs/resmoke.log", "utf-8");
       await helpers.paste(authenticatedPage, 'input[type="file"]', {
         pastePayload: fileContents,
         pasteFormat: "text/plain",
@@ -83,7 +83,7 @@ test.describe("Upload page", () => {
     test("selecting a log type should render the log with the appropriate parser", async ({
       authenticatedPage,
     }) => {
-      const fileContents = fs.readFileSync("sample_logs/resmoke.log", "utf-8");
+      const fileContents = readFileSync("sample_logs/resmoke.log", "utf-8");
       await helpers.paste(authenticatedPage, 'input[type="file"]', {
         pastePayload: fileContents,
         pasteFormat: "text/plain",
