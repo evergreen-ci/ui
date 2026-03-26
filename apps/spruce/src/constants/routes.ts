@@ -107,7 +107,6 @@ const paths = {
 };
 
 export enum slugs {
-  buildId = "buildId",
   distroId = "distroId",
   execution = "execution",
   fileName = "fileName",
@@ -125,7 +124,6 @@ export enum slugs {
   userId = "userId",
 }
 export const idSlugs = [
-  slugs.buildId,
   slugs.distroId,
   slugs.hostId,
   slugs.imageId,
