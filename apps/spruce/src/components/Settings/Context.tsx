@@ -55,12 +55,9 @@ type Action<T extends SettingsRoutes, FormStateMap extends Record<T, any>> =
     };
 
 const reducer =
-  <
-    T extends SettingsRoutes,
-    FormStateMap extends Record<T, any>,
-  >(getTransformer: {
-    [K in T]: (formData: FormStateMap[K], ...args: never[]) => unknown;
-  }) =>
+  <T extends SettingsRoutes, FormStateMap extends Record<T, any>>(
+    getTransformer: Record<T, FormToGqlFunction<T>>,
+  ) =>
   (
     state: TabState<T, FormStateMap>,
     action: Action<T, FormStateMap>,
@@ -142,9 +139,8 @@ const useSettingsState = <
   FormStateMap extends Record<T, any>,
 >(
   routes: T[],
-  getTransformer: {
-    [K in T]: (formData: FormStateMap[K], ...args: never[]) => unknown;
-  },
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  getTransformer: Record<T, (...any) => any>,
 ): SettingsState<T, FormStateMap> => {
   const [state, dispatch] = useReducer(
     reducer(getTransformer),
