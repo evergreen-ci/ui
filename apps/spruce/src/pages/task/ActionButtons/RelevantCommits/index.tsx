@@ -1,4 +1,5 @@
 import { useLazyQuery } from "@apollo/client/react";
+import styled from "@emotion/styled";
 import { Button, Size } from "@leafygreen-ui/button";
 import { Menu, MenuItem, MenuItemProps } from "@leafygreen-ui/menu";
 import { Tooltip } from "@leafygreen-ui/tooltip";
@@ -33,37 +34,26 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
 
   const { baseTask, versionMetadata } = task ?? {};
 
-  const [getPreviousTasks, { called, data, loading }] = useLazyQuery<
+  const [getPreviousTasks, { data, loading }] = useLazyQuery<
     StepbackTasksQuery,
     StepbackTasksQueryVariables
   >(STEPBACK_TASKS);
 
   const handleClick = () => {
-    const taskVars =
-      versionMetadata?.isPatch && baseTask
-        ? {
-            taskId: baseTask.id,
-            execution: baseTask.execution,
-          }
-        : {
-            taskId: task.id,
-            execution: task.execution,
-          };
-    getPreviousTasks({
-      variables: {
-        ...taskVars,
-        isPassing: task.status === TaskStatus.Succeeded,
-      },
-    });
+    if (!versionMetadata?.isPatch) {
+      getPreviousTasks({
+        variables: {
+          taskId: task.id,
+          execution: task.execution,
+          isPassing: task.status === TaskStatus.Succeeded,
+        },
+      });
+    }
   };
 
-  const menuDisabled = !baseTask;
-  const pending = !called || loading;
+  const { prevTask, prevTaskCompleted, prevTaskPassing } = data?.task || {};
 
-  const { prevTask, prevTaskBreaking, prevTaskCompleted, prevTaskPassing } =
-    data?.task || {};
-
-  if (menuDisabled) {
+  if (!baseTask) {
     return (
       <Tooltip
         justify="middle"
@@ -95,55 +85,74 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
         </Button>
       }
     >
-      <RelevantCommitItem
-        disabled={pending}
-        label={`${versionMetadata?.isPatch ? "Base" : "Previous"} commit`}
-        onClick={() =>
-          sendEvent({
-            name: "Clicked relevant commit",
-            type: CommitType.Base,
-          })
-        }
-        task={prevTask}
-      />
-      <RelevantCommitItem
-        disabled={pending}
-        label="Breaking commit"
-        onClick={() =>
-          sendEvent({
-            name: "Clicked relevant commit",
-            type: CommitType.Breaking,
-          })
-        }
-        task={prevTaskBreaking}
-      />
-      <RelevantCommitItem
-        disabled={pending}
-        label="Last passing"
-        onClick={() =>
-          sendEvent({
-            name: "Clicked relevant commit",
-            type: CommitType.LastPassing,
-          })
-        }
-        task={prevTaskPassing}
-      />
-      <RelevantCommitItem
-        disabled={pending}
-        label="Last completed"
-        onClick={() =>
-          sendEvent({
-            name: "Clicked relevant commit",
-            type: CommitType.LastExecuted,
-          })
-        }
-        task={prevTaskCompleted}
-      />
+      {versionMetadata?.isPatch ? (
+        <RelevantCommitItem
+          description="View further stepback details on the base commit page."
+          disabled={loading}
+          label="Base commit"
+          onClick={() =>
+            sendEvent({
+              name: "Clicked relevant commit",
+              type: CommitType.Base,
+            })
+          }
+          task={baseTask}
+        />
+      ) : (
+        <>
+          <RelevantCommitItem
+            disabled={loading}
+            label="Previous commit"
+            onClick={() =>
+              sendEvent({
+                name: "Clicked relevant commit",
+                type: CommitType.Base,
+              })
+            }
+            task={prevTask}
+          />
+          <RelevantCommitItem
+            disabled={loading}
+            label="Last completed"
+            onClick={() =>
+              sendEvent({
+                name: "Clicked relevant commit",
+                type: CommitType.LastExecuted,
+              })
+            }
+            task={prevTaskCompleted}
+          />
+          <RelevantCommitItem
+            disabled={loading}
+            label="Last passing"
+            onClick={() =>
+              sendEvent({
+                name: "Clicked relevant commit",
+                type: CommitType.LastPassing,
+              })
+            }
+            task={prevTaskPassing}
+          />
+          <RelevantCommitItem
+            disabled={loading}
+            isCurrentTask={task.id === prevTaskPassing?.nextTaskFailing?.id}
+            label="Breaking commit"
+            onClick={() =>
+              sendEvent({
+                name: "Clicked relevant commit",
+                type: CommitType.Breaking,
+              })
+            }
+            task={prevTaskPassing?.nextTaskFailing}
+          />
+        </>
+      )}
     </Menu>
   );
 };
 
 type RelevantCommitItemProps = {
+  isCurrentTask?: boolean;
   disabled: boolean;
   label: string;
   onClick?: () => void;
@@ -151,22 +160,54 @@ type RelevantCommitItemProps = {
 } & MenuItemProps;
 
 const RelevantCommitItem: React.FC<RelevantCommitItemProps> = ({
+  description,
   disabled,
+  isCurrentTask,
   label,
   onClick,
   task,
 }) => {
-  if (disabled || !task) {
-    return <MenuItem disabled>{label}</MenuItem>;
+  if (disabled || !task || isCurrentTask) {
+    return (
+      <MenuItem disabled>
+        <MenuContainer>
+          <IconContainer />
+          <Label>{label}</Label>
+          {isCurrentTask && <span>Current</span>}
+        </MenuContainer>
+      </MenuItem>
+    );
   }
 
   const to = getTaskRoute(task.id, { execution: task.execution });
   return (
-    <MenuItem as={Link} onClick={onClick} to={to}>
-      <ExecutionStatusIcon status={task.displayStatus} /> {label}{" "}
-      {task.revision && (
-        <InlineCode>{shortenGithash(task.revision)}</InlineCode>
-      )}
+    <MenuItem as={Link} description={description} onClick={onClick} to={to}>
+      <MenuContainer>
+        <IconContainer>
+          <ExecutionStatusIcon status={task.displayStatus} />
+        </IconContainer>
+        <Label>{label}</Label>
+        {task.revision && (
+          <InlineCode>{shortenGithash(task.revision)}</InlineCode>
+        )}
+      </MenuContainer>
     </MenuItem>
   );
 };
+
+const MenuContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+`;
+
+const IconContainer = styled.span`
+  display: flex;
+  align-items: center;
+  width: 16px;
+`;
+
+const Label = styled.span`
+  flex-grow: 2;
+`;

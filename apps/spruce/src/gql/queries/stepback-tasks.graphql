@@ -8,12 +8,6 @@ query StepbackTasks($taskId: String!, $execution: Int, $isPassing: Boolean!) {
       execution
       revision
     }
-    prevTaskBreaking @skip(if: $isPassing) {
-      id
-      displayStatus
-      execution
-      revision
-    }
     prevTaskCompleted {
       id
       displayStatus
@@ -24,6 +18,12 @@ query StepbackTasks($taskId: String!, $execution: Int, $isPassing: Boolean!) {
       id
       displayStatus
       execution
+      nextTaskFailing @skip(if: $isPassing) {
+        id
+        displayStatus
+        execution
+        revision
+      }
       revision
     }
   }
