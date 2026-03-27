@@ -109,6 +109,7 @@ tasks:
       - func: symlink
         vars:
           app_dir: apps/parsley
+      - func: assume-ec2-role
       - func: deploy
         vars:
           app_dir: apps/parsley
@@ -119,6 +120,7 @@ tasks:
       - func: symlink
         vars:
           app_dir: apps/parsley
+      - func: assume-ec2-role
       - func: deploy
         vars:
           app_dir: apps/parsley
@@ -128,6 +130,7 @@ tasks:
     commands:
       - func: write-previous-deploy
       - func: symlink
+      - func: assume-ec2-role
       - func: deploy
         vars:
           target: production
@@ -138,6 +141,7 @@ tasks:
       - func: symlink
         vars:
           app_dir: apps/spruce
+      - func: assume-ec2-role
       - func: deploy
         vars:
           app_dir: apps/spruce
@@ -148,6 +152,7 @@ tasks:
       - func: symlink
         vars:
           app_dir: apps/spruce
+      - func: assume-ec2-role
       - func: deploy
         vars:
           app_dir: apps/spruce
@@ -157,6 +162,7 @@ tasks:
     commands:
       - func: write-previous-deploy
       - func: symlink
+      - func: assume-ec2-role
       - func: deploy
         vars:
           target: production

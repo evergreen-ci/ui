@@ -12,7 +12,6 @@ modules:
     auto_update: true
 
 pre:
-  - func: assume-ec2-role
   - func: get-project
   - func: setup-node
   - func: pnpm-install
