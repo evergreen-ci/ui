@@ -118,7 +118,6 @@ const generateParallelE2ETasks = (bv) => {
       { func: "run-make-background", vars: { target: "local-evergreen" } },
       { func: "symlink" },
       { func: "seed-bucket-data" },
-      { func: "run-logkeeper" },
       { func: "pnpm-build" },
       { func: "pnpm-preview" },
       { func: "wait-for-evergreen" },

@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { ColumnFiltersState } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
@@ -69,12 +69,16 @@ export const useTaskHistoryAnalytics = () => {
   const { [slugs.taskId]: taskId = "" } = useParams();
   const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
 
-  const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
-    skip: !taskId,
-    variables: { taskId, execution },
-    errorPolicy: "all",
-    fetchPolicy: "cache-first",
-  });
+  const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(
+    TASK,
+    taskId
+      ? {
+          variables: { taskId, execution },
+          errorPolicy: "all",
+          fetchPolicy: "cache-first",
+        }
+      : skipToken,
+  );
 
   const { buildVariant, displayName, project } = eventData?.task || {};
   const { identifier } = project || {};

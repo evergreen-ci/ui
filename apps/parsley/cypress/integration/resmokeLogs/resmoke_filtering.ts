@@ -1,6 +1,6 @@
 describe("Filtering", () => {
   const logLink =
-    "/resmoke/7e208050e166b1a9025c817b67eee48d/test/1716e17b99558fd9c5e2faf70a00d15d";
+    "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e17b99558fd9c5e2faf70a00d15d";
 
   describe("Applying filters", () => {
     describe("Basic filtering", () => {
@@ -13,12 +13,12 @@ describe("Filtering", () => {
       it("should not collapse bookmarks and share line", () => {
         cy.dataCy("log-link-5").click();
         cy.dataCy("log-row-6").dblclick();
-        cy.location("search").should("equal", "?bookmarks=0,6,130&shareLine=5");
+        cy.location("search").should("equal", "?bookmarks=0,6,115&shareLine=5");
         cy.addFilter("doesNotMatchAnything");
         cy.get("[data-cy^='log-row-']").each(($el) => {
           cy.wrap($el)
             .should("have.attr", "data-cy")
-            .and("match", /log-row-(0|5|6|130)/);
+            .and("match", /log-row-(0|5|6|115)/);
         });
       });
 

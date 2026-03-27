@@ -16,23 +16,17 @@ import { JobLogsTable } from "./JobLogsTable";
 import { Metadata } from "./Metadata";
 import useJobLogsPageData from "./useJobLogs";
 
-interface JobLogsProps {
-  isLogkeeper: boolean;
-}
-const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
+const JobLogs: React.FC = () => {
   const {
-    [slugs.buildId]: buildIdFromParams,
     [slugs.taskId]: taskIdFromParams,
     [slugs.execution]: executionFromParams,
     [slugs.groupId]: groupIdFromParams,
   } = useParams();
 
   const { loading, metadata, resultsToRender, title } = useJobLogsPageData({
-    buildId: buildIdFromParams,
     execution: executionFromParams,
     groupId: groupIdFromParams,
     taskId: taskIdFromParams,
-    isLogkeeper,
   });
 
   return (
@@ -66,12 +60,7 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
           <Metadata loading={loading} metadata={metadata} />
         </PageSider>
         <PageContent>
-          <JobLogsTable
-            buildId={buildIdFromParams}
-            isLogkeeper={isLogkeeper}
-            loading={loading}
-            tests={resultsToRender}
-          />
+          <JobLogsTable loading={loading} tests={resultsToRender} />
         </PageContent>
       </StyledPageLayout>
     </PageWrapper>

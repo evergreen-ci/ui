@@ -1,20 +1,16 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import {
   constructEvergreenTaskLogURL,
   getEvergreenTestLogURL,
 } from "@evg-ui/lib/constants/logURLTemplates";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
-import {
-  getEvergreenJobLogsURL,
-  getLogkeeperJobLogsURL,
-} from "constants/externalURLTemplates";
+import { getEvergreenJobLogsURL } from "constants/externalURLTemplates";
 import {
   getEvergreenCompleteLogsURL,
   getEvergreenTaskFileURL,
   getEvergreenTaskLogURL,
-  getResmokeLogURL,
 } from "constants/logURLTemplates";
 import {
   TaskFilesQuery,
@@ -26,7 +22,6 @@ import { GET_TEST_LOG_URL_AND_RENDERING_TYPE, TASK_FILES } from "gql/queries";
 import { useTaskQuery } from "hooks/useTaskQuery";
 
 interface UseResolveLogURLAndRenderingTypeProps {
-  buildID?: string;
   execution?: string;
   fileName?: string;
   // This groupID comes from the application URL.
@@ -58,7 +53,6 @@ type HookResult = {
 /**
  * `useResolveLogURL` is a custom hook that resolves the log URL based on the log type and other parameters.
  * @param UseResolveLogURLAndRenderingTypeProps - The props for the hook
- * @param UseResolveLogURLAndRenderingTypeProps.buildID - The build ID of the log
  * @param UseResolveLogURLAndRenderingTypeProps.execution - The execution number of the log
  * @param UseResolveLogURLAndRenderingTypeProps.fileName - The name of the file being viewed
  * @param UseResolveLogURLAndRenderingTypeProps.groupID - The group ID of the test given from the URL
@@ -70,7 +64,6 @@ type HookResult = {
  * @returns LogURLs
  */
 export const useResolveLogURLAndRenderingType = ({
-  buildID,
   excludeTimestamps = false,
   execution,
   fileName,
@@ -81,9 +74,7 @@ export const useResolveLogURLAndRenderingType = ({
   testID,
 }: UseResolveLogURLAndRenderingTypeProps): HookResult => {
   const { loading: isLoadingTask, task } = useTaskQuery({
-    buildID,
     execution,
-    logType: logType as LogTypes,
     taskID,
   });
 
@@ -91,30 +82,33 @@ export const useResolveLogURLAndRenderingType = ({
   const { data: testData, loading: isLoadingTest } = useQuery<
     TestLogUrlAndRenderingTypeQuery,
     TestLogUrlAndRenderingTypeQueryVariables
-  >(GET_TEST_LOG_URL_AND_RENDERING_TYPE, {
-    skip: !(
-      logType === LogTypes.EVERGREEN_TEST_LOGS &&
-      taskID &&
-      execution &&
-      testID
-    ),
-    variables: {
-      execution: parseInt(execution as string, 10),
-      taskID: taskID as string,
-      testName: `^${testID}$`,
-    },
-  });
+  >(
+    GET_TEST_LOG_URL_AND_RENDERING_TYPE,
+    logType === LogTypes.EVERGREEN_TEST_LOGS && taskID && execution && testID
+      ? {
+          variables: {
+            execution: parseInt(execution as string, 10),
+            taskID: taskID as string,
+            testName: `^${testID}$`,
+          },
+        }
+      : skipToken,
+  );
 
   const { data: taskFileData, loading: isLoadingTaskFileData } = useQuery<
     TaskFilesQuery,
     TaskFilesQueryVariables
-  >(TASK_FILES, {
-    skip: !(logType === LogTypes.EVERGREEN_TASK_FILE && taskID && execution),
-    variables: {
-      execution: parseInt(execution as string, 10),
-      taskId: taskID as string,
-    },
-  });
+  >(
+    TASK_FILES,
+    logType === LogTypes.EVERGREEN_TASK_FILE && taskID && execution
+      ? {
+          variables: {
+            execution: parseInt(execution as string, 10),
+            taskId: taskID as string,
+          },
+        }
+      : skipToken,
+  );
 
   let downloadURL = "";
   let rawLogURL = "";
@@ -123,21 +117,6 @@ export const useResolveLogURLAndRenderingType = ({
   let renderingType: LogRenderingTypes = LogRenderingTypes.Default;
   let failingCommand = "";
   switch (logType) {
-    case LogTypes.LOGKEEPER_LOGS: {
-      if (buildID && testID) {
-        rawLogURL = getResmokeLogURL(buildID, { raw: true, testID });
-        htmlLogURL = getResmokeLogURL(buildID, { html: true, testID });
-      } else if (buildID) {
-        rawLogURL = getResmokeLogURL(buildID, { raw: true });
-        htmlLogURL = getResmokeLogURL(buildID, { html: true });
-      }
-      if (buildID) {
-        jobLogsURL = getLogkeeperJobLogsURL(buildID);
-      }
-      downloadURL = rawLogURL;
-      renderingType = LogRenderingTypes.Resmoke;
-      break;
-    }
     case LogTypes.EVERGREEN_COMPLETE_LOGS: {
       if (!taskID || !execution || !groupID) {
         break;

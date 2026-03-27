@@ -13,7 +13,6 @@ interface SearchState {
 }
 
 interface LogMetadata {
-  buildID?: string;
   execution?: string;
   fileName?: string;
   groupID?: string;

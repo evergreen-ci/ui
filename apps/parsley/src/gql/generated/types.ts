@@ -484,6 +484,8 @@ export type BucketsConfig = {
   logBucketFailedTasks?: Maybe<BucketConfig>;
   logBucketLongRetention?: Maybe<BucketConfig>;
   longRetentionProjects?: Maybe<Array<Scalars["String"]["output"]>>;
+  retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
+  retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -494,6 +496,8 @@ export type BucketsConfigInput = {
   logBucketFailedTasks?: InputMaybe<BucketConfigInput>;
   logBucketLongRetention?: InputMaybe<BucketConfigInput>;
   longRetentionProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
+  retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -5056,45 +5060,6 @@ export type UpdateParsleySettingsMutation = {
       sectionsEnabled: boolean;
     } | null;
   } | null;
-};
-
-export type LogkeeperTaskQueryVariables = Exact<{
-  buildId: Scalars["String"]["input"];
-}>;
-
-export type LogkeeperTaskQuery = {
-  __typename?: "Query";
-  logkeeperBuildMetadata: {
-    __typename?: "LogkeeperBuild";
-    id: string;
-    task: {
-      __typename?: "Task";
-      id: string;
-      displayName: string;
-      displayStatus: string;
-      execution: number;
-      patchNumber?: number | null;
-      tests: {
-        __typename?: "TaskTestResult";
-        testResults: Array<{
-          __typename?: "TestResult";
-          id: string;
-          status: string;
-          testFile: string;
-          logs: { __typename?: "TestLog"; urlRaw?: string | null };
-        }>;
-      };
-      versionMetadata: {
-        __typename?: "Version";
-        id: string;
-        isPatch: boolean;
-        message: string;
-        projectIdentifier: string;
-        revision: string;
-        projectMetadata?: { __typename?: "Project"; id: string } | null;
-      };
-    };
-  };
 };
 
 export type TaskQueryVariables = Exact<{
