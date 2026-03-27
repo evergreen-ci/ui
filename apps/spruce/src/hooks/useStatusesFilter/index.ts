@@ -31,10 +31,7 @@ export const useStatusesFilter = ({
 
   const submitInputValue = () => updateUrl(inputValue);
 
-  const setInputValue = (newValue: string[]) => {
-    // Keep the same signature; now this also updates the URL immediately.
-    setUrlValue(newValue);
-  };
+  const setInputValue = (newValue: string[]) => setUrlValue(newValue);
 
   const reset = () => setAndSubmitInputValue([]);
 
