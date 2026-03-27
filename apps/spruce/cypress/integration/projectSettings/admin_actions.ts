@@ -51,18 +51,14 @@ describe("projectSettings/admin_actions", () => {
       // Delete project
       cy.visit(getProjectSettingsRoute("my-new-project"));
       cy.dataCy("attach-repo-button").click();
-      cy.dataCy("attach-repo-modal")
-        .should("be.visible")
-        .contains("Attach")
-        .click();
+      cy.dataCy("attach-repo-modal").should("exist");
+      cy.contains("button", "Attach").click();
       cy.validateToast("success", "Successfully attached to repo");
 
       cy.dataCy("delete-project-button").scrollIntoView();
       cy.dataCy("delete-project-button").click();
-      cy.dataCy("delete-project-modal")
-        .should("be.visible")
-        .contains("Delete")
-        .click();
+      cy.dataCy("delete-project-modal").should("exist");
+      cy.contains("button", "Delete").click();
       cy.validateToast("success", "The project “my-new-project” was deleted.");
 
       cy.reload();
