@@ -14,6 +14,7 @@ import {
   SaveProjectSettingsForSectionMutationVariables,
 } from "gql/generated/types";
 import { SAVE_PROJECT_SETTINGS_FOR_SECTION } from "gql/mutations";
+import { ProjectSettingsProvider } from "pages/projectAndRepoSettings/shared/Context";
 import { GithubAppActions } from ".";
 
 const Field = ({
@@ -24,16 +25,18 @@ const Field = ({
   isRepo?: boolean;
 }) => (
   <MockedProvider mocks={[replaceAppCredentialsMock]}>
-    <GithubAppActions
-      {...({} as unknown as FieldProps)}
-      uiSchema={{
-        options: {
-          projectId: "evergreen",
-          isAppDefined,
-          isRepo,
-        },
-      }}
-    />
+    <ProjectSettingsProvider>
+      <GithubAppActions
+        {...({} as unknown as FieldProps)}
+        uiSchema={{
+          options: {
+            projectId: "evergreen",
+            isAppDefined,
+            isRepo,
+          },
+        }}
+      />
+    </ProjectSettingsProvider>
   </MockedProvider>
 );
 
@@ -114,7 +117,7 @@ const replaceAppCredentialsMock: ApolloMock<
           appId: 99999,
           privateKey: "new-private-key",
         },
-        projectRef: { id: "evergreen" },
+        projectRef: { id: "evergreen", githubPermissionGroupByRequester: {} },
       },
       section: ProjectSettingsSection.GithubAppSettings,
     },

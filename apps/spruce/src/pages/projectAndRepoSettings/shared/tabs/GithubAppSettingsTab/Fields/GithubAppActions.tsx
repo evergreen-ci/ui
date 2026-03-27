@@ -10,7 +10,9 @@ import { Field } from "@rjsf/core";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { StringMap } from "@evg-ui/lib/types/utils";
 import { githubAppCredentialsDocumentationUrl } from "constants/externalResources";
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   ProjectSettingsSection,
   SaveProjectSettingsForSectionMutation,
@@ -22,12 +24,15 @@ import {
   SAVE_PROJECT_SETTINGS_FOR_SECTION,
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
+import { useProjectSettingsContext } from "pages/projectAndRepoSettings/shared/Context";
+import { AppSettingsFormState } from "../types";
 
 const ReplaceAppCredentialsButton: React.FC<{
   projectId: string;
   disabled: boolean;
   isRepo: boolean;
-}> = ({ disabled, isRepo, projectId }) => {
+  githubPermissionGroupByRequester: StringMap;
+}> = ({ disabled, githubPermissionGroupByRequester, isRepo, projectId }) => {
   const [open, setOpen] = useState(false);
   const [appId, setAppId] = useState("");
   const [privateKey, setPrivateKey] = useState("");
@@ -85,13 +90,17 @@ const ReplaceAppCredentialsButton: React.FC<{
       appId: Number(appId),
       privateKey,
     };
+    const projectRef = {
+      id: projectId,
+      githubPermissionGroupByRequester,
+    };
     if (isRepo) {
       saveRepoSettings({
         variables: {
           repoSettings: {
             repoId: projectId,
             githubAppAuth,
-            projectRef: { id: projectId },
+            projectRef,
           },
           section: ProjectSettingsSection.GithubAppSettings,
         },
@@ -102,7 +111,7 @@ const ReplaceAppCredentialsButton: React.FC<{
           projectSettings: {
             projectId,
             githubAppAuth,
-            projectRef: { id: projectId },
+            projectRef,
           },
           section: ProjectSettingsSection.GithubAppSettings,
         },
@@ -165,6 +174,19 @@ const GithubAppActions: Field = ({ disabled, uiSchema }) => {
     options: { defaultsToRepo, isAppDefined, isRepo, projectId },
   } = uiSchema;
 
+  const { getTab } = useProjectSettingsContext();
+  const { formData } = getTab(ProjectSettingsTabRoutes.GithubAppSettings);
+  const appFormData = formData as AppSettingsFormState;
+
+  const githubPermissionGroupByRequester: StringMap = {};
+  appFormData?.tokenPermissionRestrictions?.permissionsByRequester?.forEach(
+    (p) => {
+      if (p.permissionGroup) {
+        githubPermissionGroupByRequester[p.requesterType] = p.permissionGroup;
+      }
+    },
+  );
+
   // You should not be able to modify the repo GitHub app from a project.
   if (defaultsToRepo) {
     return null;
@@ -173,6 +195,7 @@ const GithubAppActions: Field = ({ disabled, uiSchema }) => {
   return isAppDefined ? (
     <ReplaceAppCredentialsButton
       disabled={disabled}
+      githubPermissionGroupByRequester={githubPermissionGroupByRequester}
       isRepo={isRepo}
       projectId={projectId}
     />
