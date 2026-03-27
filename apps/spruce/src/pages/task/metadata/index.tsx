@@ -54,6 +54,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const taskAnalytics = useTaskAnalytics();
   const getDateCopy = useDateFormat();
 
+  const showStepback = isInStepback(task?.stepbackInfo);
+
   if (!task) {
     return (
       <MetadataCard error={error} loading={loading} title="Task Metadata">
@@ -92,7 +94,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     resetWhenFinished,
     spawnHostLink,
     startTime,
-    stepbackInfo,
     tags,
     testSelectionEnabled,
     timeTaken,
@@ -118,8 +119,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const taskTrace = details?.traceID;
   const diskDevices = details?.diskDevices;
   const { metadataLinks } = annotation ?? {};
-
-  const showStepback = isInStepback(stepbackInfo);
 
   return (
     <>
@@ -318,7 +317,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         )}
         {showStepback && (
           <MetadataItem as="div">
-            <Stepback taskId={taskId} />
+            <Stepback
+              execution={execution}
+              status={task.status}
+              taskId={taskId}
+            />
           </MetadataItem>
         )}
         {testSelectionEnabledForProject && (

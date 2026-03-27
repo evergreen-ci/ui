@@ -1,4 +1,4 @@
-import { useLazyQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Size } from "@leafygreen-ui/button";
 import { Menu, MenuItem, MenuItemProps } from "@leafygreen-ui/menu";
@@ -20,7 +20,7 @@ import {
 import { STEPBACK_TASKS } from "gql/queries";
 import { CommitType } from "./types";
 
-interface RelevantCommitsProps {
+interface StepbackMenuProps {
   task: NonNullable<TaskQuery["task"]>;
 }
 
@@ -29,27 +29,26 @@ type PreviousTask = Pick<
   "id" | "execution" | "displayStatus" | "revision"
 > | null;
 
-export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
+export const StepbackMenu: React.FC<StepbackMenuProps> = ({ task }) => {
   const { sendEvent } = useTaskAnalytics();
 
   const { baseTask, versionMetadata } = task ?? {};
 
-  const [getPreviousTasks, { data, loading }] = useLazyQuery<
+  const { data, loading } = useQuery<
     StepbackTasksQuery,
     StepbackTasksQueryVariables
-  >(STEPBACK_TASKS);
-
-  const handleClick = () => {
-    if (!versionMetadata?.isPatch) {
-      getPreviousTasks({
-        variables: {
-          taskId: task.id,
-          execution: task.execution,
-          isPassing: task.status === TaskStatus.Succeeded,
+  >(
+    STEPBACK_TASKS,
+    versionMetadata?.isPatch
+      ? skipToken
+      : {
+          variables: {
+            taskId: task.id,
+            execution: task.execution,
+            isPassing: task.status === TaskStatus.Succeeded,
+          },
         },
-      });
-    }
-  };
+  );
 
   const { prevTask, prevTaskCompleted, prevTaskPassing } = data?.task || {};
 
@@ -76,11 +75,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
     <Menu
       renderDarkMenu={false}
       trigger={
-        <Button
-          onClick={handleClick}
-          rightGlyph={<Icon glyph="CaretDown" />}
-          size={Size.Small}
-        >
+        <Button rightGlyph={<Icon glyph="CaretDown" />} size={Size.Small}>
           Stepback
         </Button>
       }

@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
@@ -7,8 +8,13 @@ import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { Link } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getTaskRoute } from "constants/routes";
-import { useBreakingTask } from "hooks/useBreakingTask";
+import {
+  StepbackTasksQuery,
+  StepbackTasksQueryVariables,
+} from "gql/generated/types";
+import { STEPBACK_TASKS } from "gql/queries";
 
 interface StepbackStatusProps {
   finished: boolean;
@@ -29,21 +35,33 @@ const StepbackStatus: React.FC<StepbackStatusProps> = ({
 };
 
 interface StepbackProps {
+  execution: number;
   isPopup?: boolean;
+  status: string;
   taskId: string;
 }
 
 export const Stepback: React.FC<StepbackProps> = ({
+  execution,
   isPopup = false,
+  status,
   taskId,
 }) => {
-  // TODO DEVPROD-27824: Remove fetch policy when cache performance is fixed.
-  const fetchPolicy = isPopup ? "no-cache" : undefined;
+  const { data, loading } = useQuery<
+    StepbackTasksQuery,
+    StepbackTasksQueryVariables
+  >(STEPBACK_TASKS, {
+    variables: {
+      taskId,
+      execution,
+      isPassing: status === TaskStatus.Succeeded,
+    },
+  });
 
-  const { loading, task: breakingTask } = useBreakingTask(taskId, fetchPolicy);
+  const breakingTask = data?.task?.prevTaskPassing?.nextTaskFailing;
 
   // Stepback is finished if there is a breaking task.
-  const finished = breakingTask !== undefined;
+  const finished = breakingTask !== undefined && breakingTask !== null;
 
   return (
     <StepbackLabel>

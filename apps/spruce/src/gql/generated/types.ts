@@ -10797,6 +10797,13 @@ export type StepbackTasksQuery = {
       execution: number;
       revision?: string | null;
     } | null;
+    prevTaskCompleted?: {
+      __typename?: "Task";
+      id: string;
+      displayStatus: string;
+      execution: number;
+      revision?: string | null;
+    } | null;
     prevTaskPassing?: {
       __typename?: "Task";
       id: string;
@@ -10810,13 +10817,6 @@ export type StepbackTasksQuery = {
         execution: number;
         revision?: string | null;
       } | null;
-    } | null;
-    prevTaskCompleted?: {
-      __typename?: "Task";
-      id: string;
-      displayStatus: string;
-      execution: number;
-      revision?: string | null;
     } | null;
   } | null;
 };
@@ -11043,6 +11043,7 @@ export type TaskOverviewPopupQuery = {
     execution: number;
     finishTime?: Date | null;
     priority?: number | null;
+    status: string;
     timeTaken?: number | null;
     annotation?: {
       __typename?: "Annotation";
