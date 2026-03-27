@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
+import queryString from "query-string";
 import {
   constructEvergreenTaskLogURL,
   getEvergreenTestLogURL,
@@ -198,19 +199,22 @@ export const useResolveLogURLAndRenderingType = ({
       const { groupID: groupIDFromQuery, logs } =
         testData?.task?.tests.testResults[0] || {};
       const { renderingType: renderingTypeFromQuery, url, urlRaw } = logs || {};
-      const printTimeParam = excludeTimestamps ? false : undefined;
-      rawLogURL =
+
+      const printTime = !excludeTimestamps;
+      const baseRawLogURL =
         urlRaw ??
-        getEvergreenTestLogURL(taskID, execution, testID, {
-          printTime: printTimeParam,
-          text: true,
-        });
-      htmlLogURL =
+        getEvergreenTestLogURL(taskID, execution, testID, { text: true });
+      const baseHtmlLogURL =
         url ??
-        getEvergreenTestLogURL(taskID, execution, testID, {
-          printTime: printTimeParam,
-          text: false,
-        });
+        getEvergreenTestLogURL(taskID, execution, testID, { text: false });
+      rawLogURL = queryString.stringifyUrl({
+        query: { print_time: printTime },
+        url: baseRawLogURL,
+      });
+      htmlLogURL = queryString.stringifyUrl({
+        query: { print_time: printTime },
+        url: baseHtmlLogURL,
+      });
       downloadURL = rawLogURL;
       if (!renderingTypeFromQuery) {
         renderingType = LogRenderingTypes.Default;

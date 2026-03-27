@@ -223,11 +223,11 @@ describe("useResolveLogURLAndRenderingType", () => {
       });
       await waitFor(() => {
         expect(result.current).toMatchObject({
-          downloadURL: "rawURL",
-          htmlLogURL: "htmlURL",
+          downloadURL: "rawURL?print_time=true",
+          htmlLogURL: "htmlURL?print_time=true",
           jobLogsURL: "",
           loading: false,
-          rawLogURL: "rawURL",
+          rawLogURL: "rawURL?print_time=true",
         });
       });
     });
@@ -301,13 +301,13 @@ describe("useResolveLogURLAndRenderingType", () => {
       await waitFor(() => {
         expect(result.current).toMatchObject({
           downloadURL:
-            "http://test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=true",
+            "http://test-evergreen.com/test_log/a-task-id/0?print_time=true&test_name=a-test-name-that-doesnt-exist&text=true",
           htmlLogURL:
-            "http://test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=false",
+            "http://test-evergreen.com/test_log/a-task-id/0?print_time=true&test_name=a-test-name-that-doesnt-exist&text=false",
           jobLogsURL: "",
           loading: false,
           rawLogURL:
-            "http://test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=true",
+            "http://test-evergreen.com/test_log/a-task-id/0?print_time=true&test_name=a-test-name-that-doesnt-exist&text=true",
         });
       });
     });
@@ -378,6 +378,107 @@ describe("useResolveLogURLAndRenderingType", () => {
           rawLogURL: "a-file-url-with-crazy-path",
         });
       });
+    });
+  });
+
+  describe("excludeTimestamps", () => {
+    it("appends print_time=false to pre-built test log URLs when excludeTimestamps is true", async () => {
+      const wrapper: React.FC<{ children: React.ReactNode }> = ({
+        children,
+      }) => (
+        <MockedProvider
+          mocks={[
+            evergreenTaskMock,
+            evergreenTaskMock,
+            getExistingResmokeTestLogURLMock,
+          ]}
+        >
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            excludeTimestamps: true,
+            execution: "0",
+            logType: "EVERGREEN_TEST_LOGS",
+            taskID: "a-task-id",
+            testID: "a-test-name",
+          }),
+        {
+          wrapper,
+        },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      expect(result.current.rawLogURL).toBe("rawURL?print_time=false");
+      expect(result.current.htmlLogURL).toBe("htmlURL?print_time=false");
+      expect(result.current.downloadURL).toBe("rawURL?print_time=false");
+    });
+
+    it("appends print_time=true to test log URLs when excludeTimestamps is false", async () => {
+      const wrapper: React.FC<{ children: React.ReactNode }> = ({
+        children,
+      }) => (
+        <MockedProvider
+          mocks={[
+            evergreenTaskMock,
+            evergreenTaskMock,
+            getExistingResmokeTestLogURLMock,
+          ]}
+        >
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            excludeTimestamps: false,
+            execution: "0",
+            logType: "EVERGREEN_TEST_LOGS",
+            taskID: "a-task-id",
+            testID: "a-test-name",
+          }),
+        {
+          wrapper,
+        },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      expect(result.current.rawLogURL).toBe("rawURL?print_time=true");
+      expect(result.current.htmlLogURL).toBe("htmlURL?print_time=true");
+    });
+
+    it("appends print_time=false to fallback test log URLs when excludeTimestamps is true and no GraphQL URLs", async () => {
+      const wrapper: React.FC<{ children: React.ReactNode }> = ({
+        children,
+      }) => (
+        <MockedProvider
+          mocks={[evergreenTaskMock, evergreenTaskMock, getEmptyTestLogURLMock]}
+        >
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            excludeTimestamps: true,
+            execution: "0",
+            logType: "EVERGREEN_TEST_LOGS",
+            taskID: "a-task-id",
+            testID: "a-test-name-that-doesnt-exist",
+          }),
+        {
+          wrapper,
+        },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      expect(result.current.rawLogURL).toContain("print_time=false");
+      expect(result.current.htmlLogURL).toContain("print_time=false");
     });
   });
 
