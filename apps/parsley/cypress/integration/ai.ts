@@ -23,6 +23,13 @@ describe("Parsley AI", () => {
       },
     }).as("login");
 
+    // Stub window.open so the login popup doesn't navigate to a server
+    // that isn't running in CI. The polling fetch from beginPollingAuth()
+    // is still intercepted above.
+    cy.window().then((win) => {
+      cy.stub(win, "open");
+    });
+
     cy.contains("button", "Log in").click();
     cy.wait("@login");
     cy.contains("Suggested Prompts").should("be.visible");

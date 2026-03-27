@@ -846,6 +846,7 @@ export type Distro = {
   setupAsSudo: Scalars["Boolean"]["output"];
   singleTaskDistro: Scalars["Boolean"]["output"];
   sshOptions: Array<Scalars["String"]["output"]>;
+  taskHostOverrides?: Maybe<TaskHostOverrides>;
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
   validProjects: Array<Scalars["String"]["output"]>;
@@ -916,6 +917,7 @@ export type DistroInput = {
   setupAsSudo: Scalars["Boolean"]["input"];
   singleTaskDistro?: InputMaybe<Scalars["Boolean"]["input"]>;
   sshOptions: Array<Scalars["String"]["input"]>;
+  taskHostOverrides?: InputMaybe<TaskHostOverridesInput>;
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
   validProjects: Array<Scalars["String"]["input"]>;
@@ -4255,6 +4257,27 @@ export type TaskHistoryPagination = {
   oldestTaskOrder: Scalars["Int"]["output"];
 };
 
+/**
+ * TaskHostOverrides contains provider settings that override the distro's defaults
+ * for task hosts.
+ */
+export type TaskHostOverrides = {
+  __typename?: "TaskHostOverrides";
+  doNotAssignPublicIpv4Address: Scalars["Boolean"]["output"];
+  iamInstanceProfileArn: Scalars["String"]["output"];
+  providerAccount: Scalars["String"]["output"];
+  securityGroupIds: Array<Scalars["String"]["output"]>;
+  subnetId: Scalars["String"]["output"];
+};
+
+export type TaskHostOverridesInput = {
+  doNotAssignPublicIpv4Address: Scalars["Boolean"]["input"];
+  iamInstanceProfileArn: Scalars["String"]["input"];
+  providerAccount: Scalars["String"]["input"];
+  securityGroupIds: Array<Scalars["String"]["input"]>;
+  subnetId: Scalars["String"]["input"];
+};
+
 export type TaskInfo = {
   __typename?: "TaskInfo";
   id?: Maybe<Scalars["ID"]["output"]>;
@@ -5033,45 +5056,6 @@ export type UpdateParsleySettingsMutation = {
       sectionsEnabled: boolean;
     } | null;
   } | null;
-};
-
-export type LogkeeperTaskQueryVariables = Exact<{
-  buildId: Scalars["String"]["input"];
-}>;
-
-export type LogkeeperTaskQuery = {
-  __typename?: "Query";
-  logkeeperBuildMetadata: {
-    __typename?: "LogkeeperBuild";
-    id: string;
-    task: {
-      __typename?: "Task";
-      id: string;
-      displayName: string;
-      displayStatus: string;
-      execution: number;
-      patchNumber?: number | null;
-      tests: {
-        __typename?: "TaskTestResult";
-        testResults: Array<{
-          __typename?: "TestResult";
-          id: string;
-          status: string;
-          testFile: string;
-          logs: { __typename?: "TestLog"; urlRaw?: string | null };
-        }>;
-      };
-      versionMetadata: {
-        __typename?: "Version";
-        id: string;
-        isPatch: boolean;
-        message: string;
-        projectIdentifier: string;
-        revision: string;
-        projectMetadata?: { __typename?: "Project"; id: string } | null;
-      };
-    };
-  };
 };
 
 export type TaskQueryVariables = Exact<{

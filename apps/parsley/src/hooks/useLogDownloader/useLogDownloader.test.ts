@@ -34,7 +34,7 @@ describe("useLogDownloader", () => {
     // RenderFakeToastContext is a mock of the ToastContext
     RenderFakeToastContext();
     const { result } = renderHook(() =>
-      useLogDownloader({ logType: LogTypes.LOGKEEPER_LOGS, url: API_URL }),
+      useLogDownloader({ logType: LogTypes.EVERGREEN_TEST_LOGS, url: API_URL }),
     );
     expect(result.current.isLoading).toBe(true);
     await waitFor(() => {
@@ -73,7 +73,7 @@ describe("useLogDownloader", () => {
     // RenderFakeToastContext is a mock of the ToastContext
     RenderFakeToastContext();
     const { result } = renderHook(() =>
-      useLogDownloader({ logType: LogTypes.LOGKEEPER_LOGS, url: API_URL }),
+      useLogDownloader({ logType: LogTypes.EVERGREEN_TEST_LOGS, url: API_URL }),
     );
     expect(result.current.isLoading).toBe(true);
     expect(result.current.fileSize).toBe(0);
@@ -92,7 +92,7 @@ describe("useLogDownloader", () => {
     // RenderFakeToastContext is a mock of the ToastContext
     RenderFakeToastContext();
     const { result } = renderHook(() =>
-      useLogDownloader({ logType: LogTypes.LOGKEEPER_LOGS, url: API_URL }),
+      useLogDownloader({ logType: LogTypes.EVERGREEN_TEST_LOGS, url: API_URL }),
     );
     expect(result.current.isLoading).toBe(true);
     await waitFor(() => {
@@ -113,7 +113,7 @@ describe("useLogDownloader", () => {
     const { result } = renderHook(() =>
       useLogDownloader({
         downloadSizeLimit: 5,
-        logType: LogTypes.LOGKEEPER_LOGS,
+        logType: LogTypes.EVERGREEN_TEST_LOGS,
         url: API_URL,
       }),
     );
@@ -140,7 +140,7 @@ describe("useLogDownloader", () => {
     // RenderFakeToastContext is a mock of the ToastContext
     const { dispatchToast } = RenderFakeToastContext();
     const { result } = renderHook(() =>
-      useLogDownloader({ logType: LogTypes.LOGKEEPER_LOGS, url: API_URL }),
+      useLogDownloader({ logType: LogTypes.EVERGREEN_TEST_LOGS, url: API_URL }),
     );
     expect(result.current.isLoading).toBe(true);
     await waitFor(() => {

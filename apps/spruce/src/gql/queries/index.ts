@@ -36,7 +36,6 @@ import JIRA_CUSTOM_CREATED_ISSUES from "./jira-custom-created-issues.graphql";
 import JIRA_ISSUES from "./jira-issues.graphql";
 import JIRA_SUSPECTED_ISSUES from "./jira-suspected-issues.graphql";
 import LAST_MAINLINE_COMMIT from "./last-mainline-commit.graphql";
-import LOGKEEPER_BUILD_METADATA from "./logkeeper-build-metadata.graphql";
 import MAINLINE_COMMITS_FOR_HISTORY from "./mainline-commits-for-history.graphql";
 import MY_HOSTS from "./my-hosts.graphql";
 import MY_VOLUMES from "./my-volumes.graphql";
@@ -135,7 +134,6 @@ export {
   JIRA_ISSUES,
   JIRA_SUSPECTED_ISSUES,
   LAST_MAINLINE_COMMIT,
-  LOGKEEPER_BUILD_METADATA,
   MAINLINE_COMMITS_FOR_HISTORY,
   MY_HOSTS,
   MY_PUBLIC_KEYS,
