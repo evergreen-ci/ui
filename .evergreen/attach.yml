@@ -57,6 +57,27 @@ functions:
           - "./ui/${app_dir}/bin/cypress/*.xml"
 
   attach-playwright-results:
+    - command: shell.exec
+      type: system
+      params:
+        working_dir: ui/${app_dir}/bin/playwright
+        shell: bash
+        script: |
+          if [ -d "html" ]; then
+            cd html
+            zip -r ../playwright-html-report.zip .
+          fi
+    - command: s3.put
+      type: system
+      params:
+        role_arn: ${ASSUME_ROLE_ARN}
+        local_file: "ui/${app_dir}/bin/playwright/playwright-html-report.zip"
+        remote_file: ${build_variant}/${task_id}/${execution}/playwright-html-report.zip
+        bucket: evg-bucket-evergreen-ui
+        content_type: application/zip
+        permissions: private
+        visibility: signed
+        display_name: "Playwright HTML Report (zip)"
     - command: s3.put
       type: system
       params:
@@ -65,8 +86,7 @@ functions:
         remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/index.html
         bucket: evg-bucket-evergreen-ui
         content_type: text/html
-        permissions: private
-        visibility: signed
+        permissions: public-read
         display_name: "Playwright HTML Report"
     - command: s3.put
       type: system
@@ -76,8 +96,7 @@ functions:
         remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
         bucket: evg-bucket-evergreen-ui
         content_type: image/png
-        permissions: private
-        visibility: signed
+        permissions: public-read
     - command: s3.put
       type: system
       params:
@@ -86,28 +105,16 @@ functions:
         remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
         bucket: evg-bucket-evergreen-ui
         content_type: video/webm
-        permissions: private
-        visibility: signed
+        permissions: public-read
     - command: s3.put
       type: system
       params:
         role_arn: ${ASSUME_ROLE_ARN}
-        local_files_include_filter: ["ui/${app_dir}/bin/playwright/html/**/*.md"]
+        local_files_include_filter: ["ui/${app_dir}/bin/playwright/html/data/**/*.md"]
         remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
         bucket: evg-bucket-evergreen-ui
         content_type: text/markdown
-        permissions: private
-        visibility: signed
-    - command: s3.put
-      type: system
-      params:
-        role_arn: ${ASSUME_ROLE_ARN}
-        local_files_include_filter: ["ui/${app_dir}/bin/playwright/html/**/*.zip"]
-        remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
-        bucket: evg-bucket-evergreen-ui
-        content_type: application/zip
-        permissions: private
-        visibility: signed
+        permissions: public-read
     - command: attach.xunit_results
       params:
         files:
