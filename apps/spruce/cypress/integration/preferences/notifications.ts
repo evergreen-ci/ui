@@ -9,7 +9,7 @@ describe("preferences/notifications", () => {
         "true",
       );
       cy.dataCy("slack-member-id-field")
-        .filter(":enabled")
+        .filter(":visible:enabled")
         .first()
         .as("slackMemberId");
       cy.get("@slackMemberId").clear();
