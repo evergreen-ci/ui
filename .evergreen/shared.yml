@@ -275,8 +275,8 @@ tasks:
       - func: symlink
       - func: pnpm-build
 
-  # Updates to e2e should also be applied to e2e_parallel in `generate-parallel-e2e-tasks.js`.
-  - name: e2e
+  # Updates to e2e_cypress should also be applied to e2e_parallel in `generate-parallel-e2e-tasks.js`.
+  - name: e2e_cypress
     commands:
       - func: setup-mongodb
       - func: generate-token
@@ -291,7 +291,7 @@ tasks:
       - func: pnpm-verify-backend
       - func: pnpm-cypress
 
-  - name: e2e_playwright
+  - name: e2e
     commands:
       - func: setup-mongodb
       - func: generate-token

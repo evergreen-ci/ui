@@ -53,7 +53,7 @@ buildvariants:
     tasks:
       - name: check_codegen
       - name: compile
-      - name: e2e
+      - name: e2e_cypress
       - name: lint
       - name: storybook
       - name: test
@@ -80,7 +80,7 @@ buildvariants:
     tasks:
       - name: check_codegen
       - name: compile
-      - name: e2e_playwright
+      - name: e2e
       - name: lint
       - name: storybook
       - name: test
@@ -177,7 +177,7 @@ buildvariants:
 parameters:
   - key: cypress_spec
     value: cypress/integration/**/*
-    description: Specify the Cypress spec files to run for user submitted patches running the e2e_test task.
+    description: Specify the Cypress spec files to run for user submitted patches running the e2e_cypress task.
   - key: playwright_spec
     value: ""
-    description: Specify the Playwright spec files to run for user submitted patches running the e2e_playwright task.
+    description: Specify the Playwright spec files to run for user submitted patches running the e2e task.

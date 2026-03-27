@@ -11,8 +11,9 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:5173",
     viewport: { width: 1280, height: 800 },
-    video: process.env.CI ? "retain-on-failure" : "off",
+    video: process.env.CI ? "on-first-retry" : "off",
     screenshot: process.env.CI ? "only-on-failure" : "off",
+    trace: process.env.CI ? "on-first-retry" : "off",
     permissions: ["clipboard-read", "clipboard-write"],
   },
   outputDir: "bin/playwright/test-results",
