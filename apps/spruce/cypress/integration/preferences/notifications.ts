@@ -8,12 +8,9 @@ describe("preferences/notifications", () => {
         "aria-disabled",
         "true",
       );
-      cy.dataCy("slack-member-id-field")
-        .filter(":visible:enabled")
-        .first()
-        .as("slackMemberId");
-      cy.get("@slackMemberId").clear();
-      cy.get("@slackMemberId").type("U12345678");
+      cy.getInputByLabel("Slack Member ID").should("exist");
+      cy.getInputByLabel("Slack Member ID").click();
+      cy.getInputByLabel("Slack Member ID").type("U12345678", { force: true });
       cy.dataCy("save-profile-changes-button").should(
         "not.have.attr",
         "aria-disabled",
@@ -21,9 +18,9 @@ describe("preferences/notifications", () => {
       );
     });
     it("saving changes to a field should work", () => {
-      cy.visit(pageRoute);
-      cy.dataCy("slack-username-field").clear();
-      cy.dataCy("slack-username-field").type("slack.user");
+      cy.getInputByLabel("Slack Username").should("exist");
+      cy.getInputByLabel("Slack Username").click();
+      cy.getInputByLabel("Slack Username").type("slack.user", { force: true });
       cy.dataCy("save-profile-changes-button").click();
       cy.validateToast("success", "Your changes have been saved.");
     });
