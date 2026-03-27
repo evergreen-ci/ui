@@ -151,7 +151,7 @@ export const useResolveLogURLAndRenderingType = ({
       if (!taskID || !origin || !execution || isLoadingTask) {
         break;
       }
-      const timeParam = excludeTimestamps ? false : undefined;
+      const timeParam = !excludeTimestamps;
       downloadURL = task?.logs
         ? getEvergreenTaskLogURL(task.logs, origin, {
             priority: true,
