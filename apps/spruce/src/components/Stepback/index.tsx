@@ -61,7 +61,7 @@ export const Stepback: React.FC<StepbackProps> = ({
   const breakingTask = data?.task?.prevTaskPassing?.nextTaskFailing;
 
   // Stepback is finished if there is a breaking task.
-  const finished = breakingTask !== undefined && breakingTask !== null;
+  const finished = !!breakingTask;
 
   return (
     <StepbackLabel>
