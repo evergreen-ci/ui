@@ -70,7 +70,7 @@ export const Stepback: React.FC<StepbackProps> = ({
       {!isPopup && (
         <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
           When Stepback is completed you can access the breaking commit via the
-          relevant commits dropdown.
+          Stepback dropdown.
         </InfoSprinkle>
       )}
       {isPopup && (
