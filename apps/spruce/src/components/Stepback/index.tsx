@@ -59,6 +59,7 @@ export const Stepback: React.FC<StepbackProps> = ({
   });
 
   const breakingTask = data?.task?.prevTaskPassing?.nextTaskFailing;
+  const currentTaskIsBreaking = breakingTask?.id === taskId;
 
   // Stepback is finished if there is a breaking task.
   const finished = !!breakingTask;
@@ -80,7 +81,9 @@ export const Stepback: React.FC<StepbackProps> = ({
             flex-shrink: 0;
           `}
           data-cy="breaking-task-button"
-          disabled={loading || !finished || !breakingTask}
+          disabled={
+            loading || !finished || !breakingTask || currentTaskIsBreaking
+          }
           size={ButtonSize.Small}
           to={
             breakingTask
@@ -90,7 +93,9 @@ export const Stepback: React.FC<StepbackProps> = ({
               : ""
           }
         >
-          Go to breaking task
+          {currentTaskIsBreaking
+            ? "Current task is breaking"
+            : "Go to breaking task"}
         </Button>
       )}
     </StepbackLabel>
