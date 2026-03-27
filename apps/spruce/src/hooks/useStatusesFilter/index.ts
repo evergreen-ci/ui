@@ -1,4 +1,3 @@
-// apps/spruce/src/hooks/useStatusesFilter/index.ts
 import { useQueryParam } from "@evg-ui/lib/hooks";
 
 /**
@@ -14,33 +13,24 @@ export const useStatusesFilter = ({
   sendAnalyticsEvent = () => undefined,
   urlParam,
 }: FilterHookParams): FilterHookResult<string[]> => {
-  const [inputValue, setUrlValue] = useQueryParam<string[]>(urlParam, []);
+  const [inputValue, setInputValue] = useQueryParam<string[]>(urlParam, []);
   const [, setPage] = useQueryParam<string | undefined>("page", undefined);
 
-  const updateUrl = (newValue: string[]) => {
-    setUrlValue(newValue);
+  const updateInput = (newValue: string[]) => {
+    setInputValue(newValue);
     if (resetPage) {
       setPage("0");
     }
   };
 
   const setAndSubmitInputValue = (newValue: string[]): void => {
-    updateUrl(newValue);
+    updateInput(newValue);
     sendAnalyticsEvent(urlParam, newValue);
   };
-
-  const submitInputValue = () => updateUrl(inputValue);
-
-  const setInputValue = (newValue: string[]) => setUrlValue(newValue);
-
-  const reset = () => setAndSubmitInputValue([]);
 
   return {
     inputValue,
     setAndSubmitInputValue,
-    setInputValue,
-    submitInputValue,
-    reset,
   };
 };
 
@@ -55,9 +45,6 @@ export const useStatusesFilter = ({
 export interface FilterHookResult<T> {
   inputValue: T;
   setAndSubmitInputValue: (newValue: T) => void;
-  setInputValue: (newValue: T) => void;
-  submitInputValue: () => void;
-  reset: () => void;
 }
 
 /**

@@ -13,8 +13,8 @@ const useUpsertQueryParams = () => {
     category: string;
     value: string;
   }) => {
-    const selectedParams = queryParams[category] as string[] | undefined;
-    const updatedParams = upsertQueryParam(selectedParams ?? [], value);
+    const selectedParams = queryParams[category] as string[];
+    const updatedParams = upsertQueryParam(selectedParams, value);
     setQueryParams((current) => ({ ...current, [category]: updatedParams }));
   };
 
