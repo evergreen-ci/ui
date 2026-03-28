@@ -481,6 +481,8 @@ export type BucketsConfig = {
   logBucketFailedTasks?: Maybe<BucketConfig>;
   logBucketLongRetention?: Maybe<BucketConfig>;
   longRetentionProjects?: Maybe<Array<Scalars["String"]["output"]>>;
+  retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
+  retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -491,6 +493,8 @@ export type BucketsConfigInput = {
   logBucketFailedTasks?: InputMaybe<BucketConfigInput>;
   logBucketLongRetention?: InputMaybe<BucketConfigInput>;
   longRetentionProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
+  retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -670,6 +674,7 @@ export type Cost = {
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  s3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
   s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
@@ -3526,11 +3531,15 @@ export type S3CredentialsInput = {
 
 export type S3StorageCostConfig = {
   __typename?: "S3StorageCostConfig";
+  archiveStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+  defaultMaxArtifactExpirationDays?: Maybe<Scalars["Int"]["output"]>;
   iAStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
   standardStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type S3StorageCostConfigInput = {
+  archiveStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  defaultMaxArtifactExpirationDays?: InputMaybe<Scalars["Int"]["input"]>;
   iAStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   standardStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
@@ -7058,6 +7067,8 @@ export type SaveAdminSettingsMutation = {
         __typename?: "S3CostConfig";
         storage?: {
           __typename?: "S3StorageCostConfig";
+          archiveStorageCostDiscount?: number | null;
+          defaultMaxArtifactExpirationDays?: number | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
@@ -7669,6 +7680,8 @@ export type AdminSettingsQuery = {
         __typename?: "S3CostConfig";
         storage?: {
           __typename?: "S3StorageCostConfig";
+          archiveStorageCostDiscount?: number | null;
+          defaultMaxArtifactExpirationDays?: number | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
