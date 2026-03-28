@@ -25,7 +25,7 @@
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
     "eslint": "^9.39.1",
-    "typescript": "~5.9.3"
+    "typescript": "~6.0.2"
   },
   "peerDependencies": {
     "@storybook/addon-docs": "^10.1.10",

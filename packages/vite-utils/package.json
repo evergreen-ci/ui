@@ -18,8 +18,9 @@
   "devDependencies": {
     "@evg-ui/eslint-config": "workspace:*",
     "@evg-ui/lint-staged": "workspace:*",
+    "@types/node": "^22.19.15",
     "eslint": "^9.39.1",
-    "typescript": "~5.9.3",
+    "typescript": "~6.0.2",
     "vite-tsconfig-paths": "^6.0.2"
   }
 }
