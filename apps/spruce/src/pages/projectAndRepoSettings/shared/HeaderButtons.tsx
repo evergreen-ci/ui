@@ -130,17 +130,20 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     });
   };
 
-  // Let users with without a Github App on their project page
-  // default to repo to use the repo Github settings for the project settings.
-  let hasExistingGithubApp = false;
+  // Prevent users from defaulting to repo if their project has a Github App
+  // but the repo does not, which would result in losing credentials entirely.
+  // If the repo has credentials, defaulting to repo is safe.
+  let disableDefaultToRepo = false;
   if (tab === ProjectSettingsTabRoutes.GithubAppSettings) {
     const appFormData = formData as AppSettingsFormState;
-    const githubAppId = appFormData?.appCredentials?.githubAppAuth?.appId ?? 0;
-    hasExistingGithubApp = githubAppId > 0;
+    const projectAppId = appFormData?.appCredentials?.githubAppAuth?.appId ?? 0;
+    const repoAppId =
+      appFormData?.repoData?.appCredentials?.githubAppAuth?.appId ?? 0;
+    disableDefaultToRepo = projectAppId > 0 && !(repoAppId > 0);
   }
 
   const canDefaultToRepo =
-    !defaultToRepoDisabled.has(tab) && !hasExistingGithubApp;
+    !defaultToRepoDisabled.has(tab) && !disableDefaultToRepo;
 
   return (
     <ButtonRow>
