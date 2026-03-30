@@ -1,6 +1,6 @@
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 
-type LocalStorageObject = Record<string, any>;
+type LocalStorageObject = Record<string, unknown>;
 
 export const getObject = (key: string): LocalStorageObject => {
   const obj = localStorage.getItem(key);

@@ -231,7 +231,7 @@ export const getAllHostsRoute = (options?: {
 export type GetTaskRouteOptions = {
   tab?: TaskTab;
   execution?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
   const { tab, ...rest } = options || {};
@@ -451,19 +451,19 @@ export const getTriggerRoute = ({
   upstreamVersion,
 }: {
   triggerType: string;
-  upstreamTask: any;
-  upstreamVersion: any;
+  upstreamTask?: { id: string } | null;
+  upstreamVersion?: { id: string } | null;
   upstreamRevision: string;
   upstreamOwner: string;
   upstreamRepo: string;
 }) => {
-  if (triggerType === ProjectTriggerLevel.TASK) {
+  if (triggerType === ProjectTriggerLevel.TASK && upstreamTask) {
     return getTaskRoute(upstreamTask.id);
   }
   if (triggerType === ProjectTriggerLevel.PUSH) {
     return getGithubCommitUrl(upstreamOwner, upstreamRepo, upstreamRevision);
   }
-  return getVersionRoute(upstreamVersion.id);
+  return getVersionRoute(upstreamVersion?.id ?? "");
 };
 
 export const getAdminSettingsRoute = (

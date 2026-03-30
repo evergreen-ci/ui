@@ -10,6 +10,7 @@ import { SettingsRoutes } from "./types";
 
 export type FormProps<
   T extends SettingsRoutes,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- any is required for bivariant generic constraint
   FormStateMap extends Record<T, any>,
 > = {
   formRef?: React.Ref<SpruceFormRef>;
@@ -24,6 +25,7 @@ export type FormProps<
 
 export const Form = <
   T extends SettingsRoutes,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- any is required for bivariant generic constraint
   FormStateMap extends Record<T, any>,
 >({
   formRef,
@@ -48,7 +50,7 @@ export const Form = <
       onChange={updateForm(tab)}
       schema={schema}
       uiSchema={uiSchema}
-      validate={validate as any}
+      validate={validate as SpruceFormProps["validate"]}
     />
   );
 };

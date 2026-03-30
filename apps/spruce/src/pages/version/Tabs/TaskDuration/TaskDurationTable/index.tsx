@@ -249,17 +249,25 @@ const sortCategoryToColumnId: { [key: string]: PatchTasksQueryParams } = {
 };
 
 export const getInitialParams = (queryParams: {
-  [key: string]: any;
+  [key: string]: unknown;
 }): {
   initialFilters: ColumnFiltersState;
   initialSort: SortingState;
 } => {
-  const {
-    [PatchTasksQueryParams.TaskName]: taskName,
-    [PatchTasksQueryParams.Statuses]: statuses,
-    [PatchTasksQueryParams.Variant]: variant,
-    [TableQueryParams.Sorts]: sorts,
-  } = queryParams;
+  const taskName = queryParams[PatchTasksQueryParams.TaskName] as
+    | string
+    | undefined;
+  const statuses = queryParams[PatchTasksQueryParams.Statuses] as
+    | string
+    | string[]
+    | undefined;
+  const variant = queryParams[PatchTasksQueryParams.Variant] as
+    | string
+    | undefined;
+  const sorts = queryParams[TableQueryParams.Sorts] as
+    | string
+    | string[]
+    | undefined;
 
   const initialFilters = [];
   if (taskName) {

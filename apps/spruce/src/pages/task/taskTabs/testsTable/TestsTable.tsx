@@ -214,12 +214,15 @@ const emptyFilterQueryParams = {
 };
 
 const getInitialState = (queryParams: {
-  [key: string]: any;
+  [key: string]: unknown;
 }): {
   initialFilters: ColumnFiltersState;
   initialSorting: SortingState;
 } => {
-  const { [TableQueryParams.Sorts]: sorts } = queryParams;
+  const sorts = queryParams[TableQueryParams.Sorts] as
+    | string
+    | string[]
+    | undefined;
 
   const initialSorting: SortingState = sorts
     ? parseSortString(sorts, {
@@ -234,25 +237,26 @@ const getInitialState = (queryParams: {
 
   return {
     initialSorting,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    initialFilters: Object.entries(mapFilterParamToId).reduce(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      (accum, [param, id]) => {
-        if (queryParams[param]?.length) {
-          return [...accum, { id, value: queryParams[param] }];
-        }
-        return accum;
-      },
-      [],
-    ),
+    initialFilters: Object.entries(
+      mapFilterParamToId,
+    ).reduce<ColumnFiltersState>((accum, [param, id]) => {
+      const paramValue = queryParams[param] as string | string[] | undefined;
+      if (paramValue?.length) {
+        return [...accum, { id, value: paramValue }];
+      }
+      return accum;
+    }, []),
   };
 };
 
 const getQueryVariables = (
-  queryParams: { [key: string]: any },
+  queryParams: { [key: string]: unknown },
   taskId: string,
 ): TaskTestsQueryVariables => {
-  const sorts = queryParams[TableQueryParams.Sorts];
+  const sorts = queryParams[TableQueryParams.Sorts] as
+    | string
+    | string[]
+    | undefined;
 
   let sort: TestSortOptions[] = [];
   if (sorts) {
@@ -268,20 +272,31 @@ const getQueryVariables = (
     });
   }
 
-  const testName = getString(queryParams[RequiredQueryParams.TestName]);
-  const rawStatuses = queryParams[RequiredQueryParams.Statuses];
+  const testName = getString(
+    queryParams[RequiredQueryParams.TestName] as string | string[] | undefined,
+  );
+  const rawStatuses = queryParams[RequiredQueryParams.Statuses] as
+    | string
+    | string[]
+    | undefined;
   const statusList = (
     Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses]
-  ).filter((v) => v && v !== ALL_VALUE);
-  const execution = queryParams[RequiredQueryParams.Execution];
+  ).filter((v): v is string => !!v && v !== ALL_VALUE);
+  const execution = queryParams[RequiredQueryParams.Execution] as
+    | string
+    | string[];
   return {
     id: taskId,
     execution: queryParamAsNumber(execution),
     sort,
-    limitNum: getLimit(queryParams[PaginationQueryParams.Limit]),
+    limitNum: getLimit(
+      queryParams[PaginationQueryParams.Limit] as string | string[],
+    ),
     statusList,
     testName,
-    pageNum: getPage(queryParams[PaginationQueryParams.Page]),
+    pageNum: getPage(
+      queryParams[PaginationQueryParams.Page] as string | string[],
+    ),
   };
 };
 

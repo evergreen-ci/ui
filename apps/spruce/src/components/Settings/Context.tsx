@@ -56,7 +56,8 @@ type Action<T extends SettingsRoutes, FormStateMap extends Record<T, any>> =
 
 const reducer =
   <T extends SettingsRoutes, FormStateMap extends Record<T, any>>(
-    getTransformer: Record<T, FormToGqlFunction<T>>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Transformer signatures vary across admin/project/distro settings
+    getTransformer: Record<T, (...args: any[]) => any>,
   ) =>
   (
     state: TabState<T, FormStateMap>,
@@ -139,8 +140,8 @@ const useSettingsState = <
   FormStateMap extends Record<T, any>,
 >(
   routes: T[],
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  getTransformer: Record<T, (...any) => any>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Transformer signatures vary across admin/project/distro settings
+  getTransformer: Record<T, (...args: any[]) => any>,
 ): SettingsState<T, FormStateMap> => {
   const [state, dispatch] = useReducer(
     reducer(getTransformer),

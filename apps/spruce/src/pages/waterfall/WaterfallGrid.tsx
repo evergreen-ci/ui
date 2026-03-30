@@ -77,7 +77,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   });
 
   const [pins, setPins] = useState<string[]>(
-    getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] ?? [],
+    (getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] as
+      | string[]
+      | undefined) ?? [],
   );
 
   const handlePinBV = useCallback(

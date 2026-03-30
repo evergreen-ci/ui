@@ -226,7 +226,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
           <MetadataItem>
             <MetadataLabel>Base commit:</MetadataLabel>{" "}
             <InlineCode
-              as={Link as any}
+              as={Link as React.ElementType}
               data-cy="base-task-link"
               onClick={() =>
                 taskAnalytics.sendEvent({

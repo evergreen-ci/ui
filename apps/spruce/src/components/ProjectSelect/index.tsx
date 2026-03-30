@@ -106,8 +106,8 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       data-cy="project-select"
       disabled={loading}
       label={showLabel ? "Project" : null}
-      onChange={(projectIdentifier: any) => {
-        onSubmit(projectIdentifier);
+      onChange={(projectIdentifier) => {
+        onSubmit(projectIdentifier as unknown as string);
       }}
       optionRenderer={(projectGroup, onClick) => (
         <ProjectOptionGroup

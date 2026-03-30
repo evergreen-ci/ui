@@ -12,6 +12,7 @@ import {
 import { SAVE_ADMIN_SETTINGS } from "gql/mutations";
 import { useAdminSettingsContext } from "./Context";
 import { formToGqlMap } from "./tabs/transformers";
+import { AdminSettingsData, FormStates } from "./tabs/types";
 
 interface AdminSaveButtonProps {
   adminSettingsData: NonNullable<AdminSettingsQuery["adminSettings"]>;
@@ -68,7 +69,12 @@ export const AdminSaveButton: React.FC<AdminSaveButtonProps> = ({
       const formToGql = formToGqlMap[tab];
       if (formToGql) {
         const { formData } = getTab(tab);
-        const changes = formToGql(formData as any, adminSettingsData);
+        const changes = (
+          formToGql as (
+            form: FormStates,
+            data?: AdminSettingsData,
+          ) => AdminSettingsInput
+        )(formData, adminSettingsData);
         return { ...acc, ...changes };
       }
       return acc;

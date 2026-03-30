@@ -13,7 +13,7 @@ export const pausePollingLink = new ApolloLink((operation, forward) => {
     pauseableQueries.includes(operation.operationName)
   ) {
     return new Observable((observer) => {
-      let subscription: any = null;
+      let subscription: { unsubscribe(): void } | null = null;
 
       const handleResume = () => {
         if (!document.hidden && navigator.onLine) {

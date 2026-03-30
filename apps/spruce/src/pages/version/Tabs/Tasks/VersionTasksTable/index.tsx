@@ -90,7 +90,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   const [sorting, setSorting] = useState<SortingState>(initialSorting);
 
   const updateFilters = (filterState: ColumnFiltersState) => {
-    const updatedParams: Record<string, any> = {
+    const updatedParams: Record<string, unknown> = {
       ...queryParams,
       page: "0",
       ...emptyFilterQueryParams,
@@ -181,18 +181,29 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
 };
 
 export const getInitialState = (
-  queryParams: Record<string, any>,
+  queryParams: Record<string, unknown>,
 ): {
   initialFilters: ColumnFiltersState;
   initialSorting: SortingState;
 } => {
-  const {
-    [PatchTasksQueryParams.TaskName]: taskName,
-    [PatchTasksQueryParams.Statuses]: statuses,
-    [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
-    [PatchTasksQueryParams.Variant]: variant,
-    [TableQueryParams.Sorts]: sorts,
-  } = queryParams;
+  const taskName = queryParams[PatchTasksQueryParams.TaskName] as
+    | string
+    | undefined;
+  const statuses = queryParams[PatchTasksQueryParams.Statuses] as
+    | string
+    | string[]
+    | undefined;
+  const baseStatuses = queryParams[PatchTasksQueryParams.BaseStatuses] as
+    | string
+    | string[]
+    | undefined;
+  const variant = queryParams[PatchTasksQueryParams.Variant] as
+    | string
+    | undefined;
+  const sorts = queryParams[TableQueryParams.Sorts] as
+    | string
+    | string[]
+    | undefined;
 
   const initialFilters = [];
 

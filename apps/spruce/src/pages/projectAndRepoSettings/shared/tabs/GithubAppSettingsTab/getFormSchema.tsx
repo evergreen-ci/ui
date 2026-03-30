@@ -16,6 +16,7 @@ import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
 import { form } from "../utils";
 import { GithubAppActions, RequesterTypeField } from "./Fields";
 import { ArrayFieldTemplate } from "./FieldTemplates";
+import { AppSettingsFormState } from "./types";
 
 const { placeholderIf } = form;
 
@@ -38,7 +39,7 @@ export const getFormSchema = ({
   isAppDefined: boolean;
   isRepo: boolean;
   projectOrRepoId: string;
-  repoData?: any;
+  repoData?: AppSettingsFormState;
   defaultsToRepo: boolean;
 }): ReturnType<GetFormSchema> => ({
   fields: {},
@@ -137,14 +138,16 @@ export const getFormSchema = ({
           "ui:data-cy": "github-app-id-input",
           "ui:disabled": isAppDefined,
           "ui:elementWrapperCSS": appFieldCss,
-          ...placeholderIf(repoData?.appCredentials?.githubAppAuth?.appId),
+          ...(repoData?.appCredentials?.githubAppAuth?.appId != null &&
+            placeholderIf(repoData.appCredentials.githubAppAuth.appId)),
         },
         privateKey: {
           "ui:data-cy": "github-private-key-input",
           "ui:disabled": isAppDefined,
           "ui:elementWrapperCSS": appFieldCss,
           "ui:widget": "textarea",
-          ...placeholderIf(repoData?.appCredentials?.githubAppAuth?.privateKey),
+          ...(repoData?.appCredentials?.githubAppAuth?.privateKey != null &&
+            placeholderIf(repoData.appCredentials.githubAppAuth.privateKey)),
         },
       },
       actions: {
