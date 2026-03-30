@@ -2,7 +2,7 @@ describe("External Links", () => {
   describe("should render links to external pages when viewing an evergreen task log", () => {
     beforeEach(() => {
       cy.visit(
-        "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task",
+        "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task&time=true",
       );
       cy.toggleDetailsPanel(true);
     });
@@ -15,14 +15,14 @@ describe("External Links", () => {
       cy.dataCy("raw-log-button").should(
         "have.attr",
         "href",
-        "http://localhost:9090/task_log_raw/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0?text=true&type=T",
+        "http://localhost:9090/task_log_raw/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0?text=true&time=true&type=T",
       );
       cy.dataCy("html-log-button").should("be.visible");
       cy.dataCy("html-log-button").should("not.be.disabled");
       cy.dataCy("html-log-button").should(
         "have.attr",
         "href",
-        "http://localhost:9090/task_log_raw/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0?text=false&type=T",
+        "http://localhost:9090/task_log_raw/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0?text=false&time=true&type=T",
       );
     });
   });
