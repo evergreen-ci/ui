@@ -8,9 +8,21 @@ describe("preferences/notifications", () => {
         "aria-disabled",
         "true",
       );
-      cy.getInputByLabel("Slack Member ID").should("exist");
-      cy.getInputByLabel("Slack Member ID").click();
-      cy.getInputByLabel("Slack Member ID").type("U12345678", { force: true });
+      cy.dataCy("slack-member-id-field").then(($el) => {
+        const jq = Cypress.$($el); // jQuery wrapped
+        cy.log(`has disabled attr: ${jq.attr("disabled")}`);
+        cy.log(`aria-disabled: ${jq.attr("aria-disabled")}`);
+        cy.log(`is(':disabled'): ${jq.is(":disabled")}`);
+      });
+      cy.dataCy("slack-member-id-field")
+        .parentsUntil("form")
+        .each(($p) => {
+          const jq = Cypress.$($p);
+          cy.log(`PARENT ${jq[0].tagName} disabled=${jq.attr("disabled")}`);
+        });
+      cy.dataCy("slack-member-id-field").clear();
+      cy.dataCy("slack-member-id-field").type("U1234567890");
+      cy.dataCy("slack-member-id-field").should("have.value", "U1234567890");
       cy.dataCy("save-profile-changes-button").should(
         "not.have.attr",
         "aria-disabled",
@@ -18,9 +30,9 @@ describe("preferences/notifications", () => {
       );
     });
     it("saving changes to a field should work", () => {
-      cy.getInputByLabel("Slack Username").should("exist");
-      cy.getInputByLabel("Slack Username").click();
-      cy.getInputByLabel("Slack Username").type("slack.user", { force: true });
+      cy.visit(pageRoute);
+      cy.dataCy("slack-username-field").clear();
+      cy.dataCy("slack-username-field").type("slack.user");
       cy.dataCy("save-profile-changes-button").click();
       cy.validateToast("success", "Your changes have been saved.");
     });
