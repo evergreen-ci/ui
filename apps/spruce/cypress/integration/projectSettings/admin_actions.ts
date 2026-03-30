@@ -6,8 +6,6 @@ describe("projectSettings/admin_actions", () => {
 
     it("Successfully duplicates a project with warnings", () => {
       cy.visit(destination);
-      // cy.wait("@UserProjectSettingsPermissions");
-
       cy.dataCy("new-project-button").click();
       cy.dataCy("new-project-menu").should("be.visible");
       cy.dataCy("copy-project-button").click();

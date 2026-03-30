@@ -11,7 +11,6 @@ export const useUserSettings = () => {
     UserSettingsQueryVariables
   >(USER_SETTINGS);
 
-  // const { user } = data || {};
-  const userSettings = data?.user?.settings ?? null;
-  return { userSettings, loading };
+  const { user } = data || {};
+  return { userSettings: user?.settings ?? {}, loading };
 };

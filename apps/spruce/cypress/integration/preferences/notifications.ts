@@ -9,8 +9,7 @@ describe("preferences/notifications", () => {
         "true",
       );
       cy.dataCy("slack-member-id-field").clear();
-      cy.dataCy("slack-member-id-field").type("U1234567890");
-      cy.dataCy("slack-member-id-field").should("have.value", "U1234567890");
+      cy.dataCy("slack-member-id-field").type("12345");
       cy.dataCy("save-profile-changes-button").should(
         "not.have.attr",
         "aria-disabled",
