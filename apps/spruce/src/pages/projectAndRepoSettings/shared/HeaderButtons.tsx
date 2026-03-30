@@ -24,6 +24,7 @@ import {
 import { useHasProjectOrRepoEditPermission } from "hooks";
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
+import { AppSettingsFormState } from "./tabs/GithubAppSettingsTab/types";
 import { formToGqlMap } from "./tabs/transformers";
 import { FormToGqlFunction, WritableProjectSettingsType } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
@@ -129,7 +130,20 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     });
   };
 
-  const canDefaultToRepo = !defaultToRepoDisabled.has(tab);
+  // Prevent users from defaulting to repo if their project has a Github App
+  // but the repo does not, which would result in losing credentials entirely.
+  // If the repo has credentials, defaulting to repo is safe.
+  let disableDefaultToRepo = false;
+  if (tab === ProjectSettingsTabRoutes.GithubAppSettings) {
+    const appFormData = formData as AppSettingsFormState;
+    const projectAppId = appFormData?.appCredentials?.githubAppAuth?.appId ?? 0;
+    const repoAppId =
+      appFormData?.repoData?.appCredentials?.githubAppAuth?.appId ?? 0;
+    disableDefaultToRepo = projectAppId > 0 && !(repoAppId > 0);
+  }
+
+  const canDefaultToRepo =
+    !defaultToRepoDisabled.has(tab) && !disableDefaultToRepo;
 
   return (
     <ButtonRow>
