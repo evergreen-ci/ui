@@ -118,6 +118,13 @@ export const miscSettings = {
         s3Cost: {
           type: "object" as const,
           title: "S3 Cost",
+          required: [
+            "uploadCostDiscount",
+            "standardStorageCostDiscount",
+            "iAStorageCostDiscount",
+            "archiveStorageCostDiscount",
+            "defaultMaxArtifactExpirationDays",
+          ],
           properties: {
             uploadCostDiscount: {
               type: "number" as const,
