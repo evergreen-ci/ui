@@ -1,19 +1,12 @@
 import { getProjectSettingsRoute, project } from "./constants";
 
 describe("projectSettings/admin_actions", () => {
-  beforeEach(() => {
-    cy.intercept("POST", "**/graphql/query", (req) => {
-      if (req.body?.operationName === "UserProjectSettingsPermissions") {
-        req.alias = "UserProjectSettingsPermissions";
-      }
-    });
-  });
   describe("Duplicating a project", () => {
     const destination = getProjectSettingsRoute(project);
 
     it("Successfully duplicates a project with warnings", () => {
       cy.visit(destination);
-      cy.wait("@UserProjectSettingsPermissions");
+      // cy.wait("@UserProjectSettingsPermissions");
 
       cy.dataCy("new-project-button").click();
       cy.dataCy("new-project-menu").should("be.visible");
@@ -37,9 +30,7 @@ describe("projectSettings/admin_actions", () => {
     it("Successfully creates a new project and then deletes it", () => {
       // Create project
       cy.visit(getProjectSettingsRoute(project));
-      cy.wait("@UserProjectSettingsPermissions");
       cy.dataCy("new-project-button").click();
-      // cy.dataCy("new-project-menu").should("be.visible");
       cy.dataCy("create-project-button").click();
       cy.dataCy("create-project-modal").should("be.visible");
       cy.dataCy("performance-tooling-banner").should("be.visible");
@@ -60,31 +51,13 @@ describe("projectSettings/admin_actions", () => {
 
       // Delete project
       cy.visit(getProjectSettingsRoute("my-new-project"));
-      cy.wait("@UserProjectSettingsPermissions");
-
-      // cy.dataCy("attach-repo-button").click();
-      // cy.dataCy("attach-repo-modal")
-      //   .find("button")
-      //   .contains("Attach")
-      //   .parent()
-      //   .click();
-      // cy.dataCy("attach-repo-modal").should("be.visible");
-      // cy.dataCy("attach-repo-modal").contains("button", "Attach").click();
-      // cy.validateToast("success", "Successfully attached to repo");
-
       cy.dataCy("delete-project-button").scrollIntoView();
       cy.dataCy("delete-project-button").click();
-      // cy.dataCy("delete-project-modal")
-      //   .find("button")
-      //   .contains("Delete")
-      //   .parent()
-      //   .click();
       cy.contains("button", "Delete").click();
       cy.contains("button", "Delete").click();
       cy.validateToast("success", "The project “my-new-project” was deleted.");
 
       cy.reload();
-      cy.wait("@UserProjectSettingsPermissions");
       cy.validateToast(
         "error",
         "There was an error loading the project my-new-project",

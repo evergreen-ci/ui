@@ -11,16 +11,8 @@ export const NotificationsTab: React.FC = () => {
   const isInitialLoading = loading && userSettings === null;
 
   if (isInitialLoading) {
-    // First load only → show skeleton
     return <CardSkeleton />;
   }
-  if (userSettings === null) {
-    // optional: error / empty state
-    return null;
-  }
-  // if (loading || !userSettings) {
-  //   return <CardSkeleton />;
-  // }
 
   return (
     <>

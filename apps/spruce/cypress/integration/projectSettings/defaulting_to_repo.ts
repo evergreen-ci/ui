@@ -249,11 +249,8 @@ describe("Project Settings when defaulting to repo", () => {
       );
       cy.dataCy("default-to-repo-modal").contains("Confirm").click();
       cy.validateToast("success", "Successfully defaulted page to repo");
+      cy.dataCy("accordion-toggle").scrollIntoView();
       cy.dataCy("accordion-toggle")
-        .contains("Repo Patch Definition 1")
-        .as("repoPatchAccordion");
-      cy.get("@repoPatchAccordion").scrollIntoView();
-      cy.get("@repoPatchAccordion")
         .should("be.visible")
         .contains("Repo Patch Definition 1");
     });

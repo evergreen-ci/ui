@@ -8,18 +8,6 @@ describe("preferences/notifications", () => {
         "aria-disabled",
         "true",
       );
-      cy.dataCy("slack-member-id-field").then(($el) => {
-        const jq = Cypress.$($el); // jQuery wrapped
-        cy.log(`has disabled attr: ${jq.attr("disabled")}`);
-        cy.log(`aria-disabled: ${jq.attr("aria-disabled")}`);
-        cy.log(`is(':disabled'): ${jq.is(":disabled")}`);
-      });
-      cy.dataCy("slack-member-id-field")
-        .parentsUntil("form")
-        .each(($p) => {
-          const jq = Cypress.$($p);
-          cy.log(`PARENT ${jq[0].tagName} disabled=${jq.attr("disabled")}`);
-        });
       cy.dataCy("slack-member-id-field").clear();
       cy.dataCy("slack-member-id-field").type("U1234567890");
       cy.dataCy("slack-member-id-field").should("have.value", "U1234567890");
