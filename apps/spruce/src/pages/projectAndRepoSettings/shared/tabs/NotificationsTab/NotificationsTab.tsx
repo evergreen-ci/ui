@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { ValidateProps } from "components/SpruceForm";
+import { RecursivelyAddError, ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { invalidProjectTriggerSubscriptionCombinations } from "constants/triggers";
 import { BaseTab } from "../BaseTab";
@@ -38,11 +38,9 @@ export const NotificationsTab: React.FC<TabProps> = ({
 const validate = ((formData, errors) => {
   const { subscriptions } = formData;
 
-  type SubscriptionErrors = Extract<
-    (typeof errors)["subscriptions"],
-    { forEach: unknown }
+  const subscriptionErrors = errors.subscriptions as RecursivelyAddError<
+    NonNullable<NotificationsFormState["subscriptions"]>
   >;
-  const subscriptionErrors = errors.subscriptions as SubscriptionErrors;
 
   subscriptions?.forEach((subscription, i) => {
     const { subscriptionData } = subscription || {};
