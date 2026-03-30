@@ -10,12 +10,7 @@ import {
   DefaultFieldTemplate,
   ObjectFieldTemplate,
 } from "./FieldTemplates";
-import {
-  GetFormSchema,
-  RecursivelyAddError,
-  SpruceFormProps,
-  ValidateProps,
-} from "./types";
+import { GetFormSchema, SpruceFormProps, ValidateProps } from "./types";
 import widgets from "./Widgets";
 
 export type SpruceFormRef = InstanceType<typeof Form>;
@@ -71,9 +66,4 @@ export const SpruceForm = forwardRef<SpruceFormRef, SpruceFormProps>(
 SpruceForm.displayName = "SpruceForm";
 
 export { SpruceFormContainer };
-export type {
-  GetFormSchema,
-  RecursivelyAddError,
-  SpruceFormProps,
-  ValidateProps,
-};
+export type { GetFormSchema, SpruceFormProps, ValidateProps };

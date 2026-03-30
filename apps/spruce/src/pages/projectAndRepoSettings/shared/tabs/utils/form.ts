@@ -93,8 +93,6 @@ export const overrideRadioBox = (
 };
 
 export const placeholderIf = (element?: string | number | null) =>
-  element !== null &&
-  element !== undefined &&
-  element !== "" && {
+  element && {
     "ui:placeholder": `${element} (Default from repo)`,
   };
