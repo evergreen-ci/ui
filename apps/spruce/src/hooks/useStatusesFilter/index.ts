@@ -38,9 +38,6 @@ export const useStatusesFilter = ({
  * FilterHookResult - Provides filter input state and state management util functions
  * inputValue - Represents input value
  * setAndSubmitInputValue - Sets input value and updates URL query param
- * setInputValue - Sets input value
- * submitInputValue - Updates URL query param with current input value
- * reset - Clears input value and URL query param
  */
 export interface FilterHookResult<T> {
   inputValue: T;
