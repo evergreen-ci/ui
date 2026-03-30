@@ -7,12 +7,12 @@ import { useUserSettings } from "hooks";
 import { Settings } from "./profileTab/Settings";
 
 export const ProfileTab: React.FC = () => {
-  const { loading: userSettingsLoading, userSettings } = useUserSettings();
-  const { data: awsRegionData, loading: awsRegionsLoading } =
+  const { userSettings } = useUserSettings();
+  const { data: awsRegionData, loading } =
     useQuery<AwsRegionsQuery>(AWS_REGIONS);
   const awsRegions = awsRegionData?.awsRegions || [];
 
-  if (awsRegionsLoading || userSettingsLoading || !userSettings) {
+  if (loading) {
     return <CardSkeleton />;
   }
   return (
