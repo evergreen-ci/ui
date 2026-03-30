@@ -50,7 +50,7 @@ export const AppSettingsTab: React.FC<TabProps> = ({
         identifier,
         isAppDefined,
         isRepo,
-        projectId: projectId || repoId,
+        projectOrRepoId: projectId || repoId,
         repoData,
         defaultsToRepo,
       }),

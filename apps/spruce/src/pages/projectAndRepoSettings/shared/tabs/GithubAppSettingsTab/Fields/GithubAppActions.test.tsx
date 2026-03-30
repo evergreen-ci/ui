@@ -30,7 +30,7 @@ const Field = ({
         {...({} as unknown as FieldProps)}
         uiSchema={{
           options: {
-            projectId: "evergreen",
+            projectOrRepoId: "evergreen",
             isAppDefined,
             isRepo,
           },

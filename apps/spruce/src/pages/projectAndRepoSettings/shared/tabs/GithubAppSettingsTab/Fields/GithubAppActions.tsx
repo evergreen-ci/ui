@@ -1,16 +1,13 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { css } from "@emotion/react";
 import { Banner, Variant as BannerVariant } from "@leafygreen-ui/banner";
 import { Button } from "@leafygreen-ui/button";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { NumberInput } from "@leafygreen-ui/number-input";
-import { TextArea } from "@leafygreen-ui/text-area";
 import { Field } from "@rjsf/core";
 import { StyledLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { StringMap } from "@evg-ui/lib/types/utils";
+import { SpruceForm } from "components/SpruceForm";
+import { SpruceFormProps } from "components/SpruceForm/types";
 import { githubAppCredentialsDocumentationUrl } from "constants/externalResources";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
@@ -25,17 +22,53 @@ import {
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
 import { useProjectSettingsContext } from "pages/projectAndRepoSettings/shared/Context";
+import { formToGql } from "../transformers";
 import { AppSettingsFormState } from "../types";
+
+interface ReplaceFormState {
+  appId?: number | null;
+  privateKey?: string;
+}
+
+const replaceFormSchema: SpruceFormProps = {
+  schema: {
+    type: "object" as const,
+    description:
+      "Enter new GitHub app credentials to replace the existing ones.",
+    properties: {
+      appId: {
+        type: "number" as const,
+        title: "New App ID",
+        minimum: 1,
+      },
+      privateKey: {
+        type: "string" as const,
+        title: "New Private Key",
+        minLength: 1,
+      },
+    },
+    required: ["appId", "privateKey"],
+  },
+  uiSchema: {
+    appId: {
+      "ui:data-cy": "replace-app-id-input",
+    },
+    privateKey: {
+      "ui:data-cy": "replace-private-key-input",
+      "ui:widget": "textarea",
+    },
+  },
+};
 
 const ReplaceAppCredentialsButton: React.FC<{
   projectId: string;
   disabled: boolean;
   isRepo: boolean;
-  githubPermissionGroupByRequester: StringMap;
+  githubPermissionGroupByRequester: Record<string, string>;
 }> = ({ disabled, githubPermissionGroupByRequester, isRepo, projectId }) => {
   const [open, setOpen] = useState(false);
-  const [appId, setAppId] = useState("");
-  const [privateKey, setPrivateKey] = useState("");
+  const [formState, setFormState] = useState<ReplaceFormState>({});
+  const [hasFormError, setHasFormError] = useState(true);
   const dispatchToast = useToastContext();
 
   const refetchQueries = isRepo ? ["RepoSettings"] : ["ProjectSettings"];
@@ -77,18 +110,17 @@ const ReplaceAppCredentialsButton: React.FC<{
   });
 
   const loading = projectLoading || repoLoading;
-  const isValid = Number(appId) > 0 && privateKey.trim().length > 0;
 
   const handleClose = () => {
     setOpen(false);
-    setAppId("");
-    setPrivateKey("");
+    setFormState({});
+    setHasFormError(true);
   };
 
   const handleReplace = () => {
     const githubAppAuth = {
-      appId: Number(appId),
-      privateKey,
+      appId: formState.appId ?? 0,
+      privateKey: formState.privateKey ?? "",
     };
     const projectRef = {
       id: projectId,
@@ -127,36 +159,22 @@ const ReplaceAppCredentialsButton: React.FC<{
         }}
         confirmButtonProps={{
           children: "Replace",
-          disabled: loading || !isValid,
+          disabled: loading || hasFormError,
           onClick: handleReplace,
         }}
         data-cy="replace-github-credentials-modal"
         open={open}
         title="Replace GitHub app credentials"
       >
-        <div
-          css={css`
-            display: flex;
-            flex-direction: column;
-            gap: ${size.s};
-          `}
-        >
-          <p>Enter new GitHub app credentials to replace the existing ones.</p>
-          <NumberInput
-            data-cy="replace-app-id-input"
-            label="New App ID"
-            onChange={(e) => setAppId(e.target.value)}
-            placeholder="Enter app ID"
-            value={appId}
-          />
-          <TextArea
-            data-cy="replace-private-key-input"
-            label="New Private Key"
-            onChange={(e) => setPrivateKey(e.target.value)}
-            placeholder="Enter private key"
-            value={privateKey}
-          />
-        </div>
+        <SpruceForm
+          formData={formState}
+          onChange={({ errors, formData }) => {
+            setHasFormError(!!errors.length);
+            setFormState(formData);
+          }}
+          schema={replaceFormSchema.schema}
+          uiSchema={replaceFormSchema.uiSchema}
+        />
       </ConfirmationModal>
       <Button
         data-cy="replace-app-credentials-button"
@@ -171,21 +189,17 @@ const ReplaceAppCredentialsButton: React.FC<{
 
 const GithubAppActions: Field = ({ disabled, uiSchema }) => {
   const {
-    options: { defaultsToRepo, isAppDefined, isRepo, projectId },
+    options: { defaultsToRepo, isAppDefined, isRepo, projectOrRepoId },
   } = uiSchema;
 
   const { getTab } = useProjectSettingsContext();
   const { formData } = getTab(ProjectSettingsTabRoutes.GithubAppSettings);
   const appFormData = formData as AppSettingsFormState;
 
-  const githubPermissionGroupByRequester: StringMap = {};
-  appFormData?.tokenPermissionRestrictions?.permissionsByRequester?.forEach(
-    (p) => {
-      if (p.permissionGroup) {
-        githubPermissionGroupByRequester[p.requesterType] = p.permissionGroup;
-      }
-    },
-  );
+  const githubPermissionGroupByRequester = appFormData
+    ? formToGql(appFormData, isRepo, projectOrRepoId).projectRef
+        .githubPermissionGroupByRequester
+    : {};
 
   // You should not be able to modify the repo GitHub app from a project.
   if (defaultsToRepo) {
@@ -197,7 +211,7 @@ const GithubAppActions: Field = ({ disabled, uiSchema }) => {
       disabled={disabled}
       githubPermissionGroupByRequester={githubPermissionGroupByRequester}
       isRepo={isRepo}
-      projectId={projectId}
+      projectId={projectOrRepoId}
     />
   ) : (
     <Banner

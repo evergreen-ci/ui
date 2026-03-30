@@ -30,14 +30,14 @@ export const getFormSchema = ({
   identifier,
   isAppDefined,
   isRepo,
-  projectId,
+  projectOrRepoId,
   repoData,
 }: {
   githubPermissionGroups: GitHubDynamicTokenPermissionGroup[];
   identifier: string;
   isAppDefined: boolean;
   isRepo: boolean;
-  projectId: string;
+  projectOrRepoId: string;
   repoData?: any;
   defaultsToRepo: boolean;
 }): ReturnType<GetFormSchema> => ({
@@ -150,7 +150,7 @@ export const getFormSchema = ({
       actions: {
         "ui:field": GithubAppActions,
         "ui:showLabel": false,
-        options: { isAppDefined, isRepo, projectId, defaultsToRepo },
+        options: { isAppDefined, isRepo, projectOrRepoId, defaultsToRepo },
       },
     },
     tokenPermissionRestrictions: {
