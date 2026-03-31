@@ -31,8 +31,9 @@ export const PreferencesAdLayout: React.FC<Props> = ({ children }) => {
         </Main>
         {showAds && (
           <RightRail>
-            {ads.map((src) => (
-              <Link key={src} to={routes.aprilFools}>
+            {ads.map((src, idx) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <Link key={idx} to={routes.aprilFools}>
                 <AdBanner alt="Evergreen Premium Ad" src={src} />
               </Link>
             ))}
