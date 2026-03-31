@@ -1,13 +1,16 @@
+import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
+import { getRandomAprilFoolsBanner } from "components/AprilFools";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import TextInputWithValidation from "components/TextInputWithValidation";
-import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
+import { INCLUDE_HIDDEN_PATCHES, APRIL_FOOLS } from "constants/cookies";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { PatchPageQueryParams } from "types/patch";
 import { validateRegexp } from "utils/validators";
@@ -68,7 +71,19 @@ export const PatchesPage: React.FC<Props> = ({
   };
 
   const filteredCount = patches?.filteredPatchCount ?? 0;
+  const aprilFoolsEnabled = getLocalStorageBoolean(APRIL_FOOLS, true);
+  const randomBanner = useMemo(() => getRandomAprilFoolsBanner(), []);
+  const randomBanner2 = useMemo(() => getRandomAprilFoolsBanner(), []);
+  const BannerWrapper = styled.div`
+    margin: ${size.m} 0;
+    display: flex;
+    justify-content: center;
 
+    img {
+      max-width: 100%;
+      max-height: 100px;
+    }
+  `;
   return (
     <PageWrapper>
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
@@ -91,6 +106,11 @@ export const PatchesPage: React.FC<Props> = ({
           onChange={includeHiddenCheckboxOnChange}
         />
       </FiltersWrapperSpaceBetween>
+      {aprilFoolsEnabled && (
+        <BannerWrapper>
+          <img alt="Random Evergreen April Fools Ad" src={randomBanner} />
+        </BannerWrapper>
+      )}
       {patches?.patches?.length && (
         <PaginationButtons
           filteredPatchCount={filteredCount}
@@ -108,6 +128,11 @@ export const PatchesPage: React.FC<Props> = ({
           pageType={pageType}
         />
       ) : null}
+      {aprilFoolsEnabled && (
+        <BannerWrapper>
+          <img alt="Random Evergreen April Fools Ad" src={randomBanner2} />
+        </BannerWrapper>
+      )}
     </PageWrapper>
   );
 };

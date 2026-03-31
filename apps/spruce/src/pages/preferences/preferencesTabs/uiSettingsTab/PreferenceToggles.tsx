@@ -43,7 +43,7 @@ export const PreferenceToggles: React.FC = () => {
 
   const handleToggleAprilFools = (c: boolean) => {
     setAprilFoolsEnabled(c);
-    setLocalStorageBoolean(APRIL_FOOLS, !c);
+    setLocalStorageBoolean(APRIL_FOOLS, c);
   };
 
   return (
