@@ -5,7 +5,11 @@ import {
 } from "@evg-ui/lib/utils/localStorage";
 import { usePreferencesAnalytics } from "analytics";
 import { ToggleWithLabel } from "components/ToggleWithLabel";
-import { DISABLE_QUERY_POLLING, DISABLE_TASK_REVIEW } from "constants/cookies";
+import {
+  APRIL_FOOLS,
+  DISABLE_QUERY_POLLING,
+  DISABLE_TASK_REVIEW,
+} from "constants/cookies";
 
 export const PreferenceToggles: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
@@ -14,6 +18,9 @@ export const PreferenceToggles: React.FC = () => {
   );
   const [taskReviewEnabled, setTaskReviewEnabled] = useState(
     !getLocalStorageBoolean(DISABLE_TASK_REVIEW, false),
+  );
+  const [aprilFoolsEnabled, setAprilFoolsEnabled] = useState(
+    !getLocalStorageBoolean(APRIL_FOOLS, false),
   );
 
   const handleOnChangePolling = (c: boolean) => {
@@ -34,6 +41,11 @@ export const PreferenceToggles: React.FC = () => {
     setLocalStorageBoolean(DISABLE_TASK_REVIEW, !c);
   };
 
+  const handleToggleAprilFools = (c: boolean) => {
+    setAprilFoolsEnabled(c);
+    setLocalStorageBoolean(APRIL_FOOLS, !c);
+  };
+
   return (
     <>
       <ToggleWithLabel
@@ -49,6 +61,13 @@ export const PreferenceToggles: React.FC = () => {
         id="toggle-task-review"
         label="Task review"
         onChange={handleToggleTaskReview}
+      />
+      <ToggleWithLabel
+        checked={aprilFoolsEnabled}
+        description="Turn off the April Fools' joke for this year if you don't want to see it. (Don't worry, you won't hurt our feelings!)"
+        id="toggle-april-fools"
+        label="April Fools"
+        onChange={handleToggleAprilFools}
       />
     </>
   );
