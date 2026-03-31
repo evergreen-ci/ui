@@ -77,7 +77,7 @@ export const gqlToForm = ((data) => {
             archiveStorageCostDiscount:
               cost?.s3Cost?.storage?.archiveStorageCostDiscount ?? 0,
             defaultMaxArtifactExpirationDays:
-              cost?.s3Cost?.storage?.defaultMaxArtifactExpirationDays ?? 1,
+              cost?.s3Cost?.storage?.defaultMaxArtifactExpirationDays || 1,
             iAStorageCostDiscount:
               cost?.s3Cost?.storage?.iAStorageCostDiscount ?? 0,
             standardStorageCostDiscount:
