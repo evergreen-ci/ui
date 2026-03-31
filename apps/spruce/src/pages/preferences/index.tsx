@@ -14,7 +14,7 @@ import {
   getPreferencesRoute,
   slugs,
 } from "constants/routes";
-import { PreferencesAdLayout } from "pages/preferences/AdColumn";
+import { PreferencesAdLayout } from "pages/AdColumn";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 
 const Preferences: React.FC = () => {

@@ -12,6 +12,7 @@ import {
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
+import { PreferencesAdLayout } from "pages/AdColumn";
 import SharedSettings from "./shared";
 import { ProjectType } from "./shared/tabs/utils";
 
@@ -87,16 +88,18 @@ const ProjectSettings: React.FC = () => {
       : !projectLoading && !!project && !repoLoading && !!repo;
 
   return (
-    <SharedSettings
-      hasLoaded={hasLoaded}
-      owner={ownerName}
-      projectData={project}
-      projectIdentifier={projectIdentifier}
-      projectType={projectType}
-      repo={repoName}
-      repoData={repo}
-      repoId={repoId}
-    />
+    <PreferencesAdLayout>
+      <SharedSettings
+        hasLoaded={hasLoaded}
+        owner={ownerName}
+        projectData={project}
+        projectIdentifier={projectIdentifier}
+        projectType={projectType}
+        repo={repoName}
+        repoData={repo}
+        repoId={repoId}
+      />
+    </PreferencesAdLayout>
   );
 };
 
