@@ -357,13 +357,13 @@ const expectedGql: AdminSettingsInput = {
     onDemandDiscount: 0.05,
     s3Cost: {
       upload: {
-        uploadCostDiscount: undefined,
+        uploadCostDiscount: 0,
       },
       storage: {
-        archiveStorageCostDiscount: undefined,
+        archiveStorageCostDiscount: 0,
         defaultMaxArtifactExpirationDays: 1,
-        iAStorageCostDiscount: undefined,
-        standardStorageCostDiscount: undefined,
+        iAStorageCostDiscount: 0,
+        standardStorageCostDiscount: 0,
       },
     },
   },

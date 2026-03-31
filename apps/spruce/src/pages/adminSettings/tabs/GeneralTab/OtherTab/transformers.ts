@@ -259,18 +259,18 @@ export const formToGql = ((form: OtherFormState) => {
       s3Cost: {
         upload: {
           uploadCostDiscount:
-            miscSettings.cost.s3Cost.uploadCostDiscount || undefined,
+            miscSettings.cost.s3Cost.uploadCostDiscount ?? undefined,
         },
         storage: {
           archiveStorageCostDiscount:
-            miscSettings.cost.s3Cost.archiveStorageCostDiscount || undefined,
+            miscSettings.cost.s3Cost.archiveStorageCostDiscount ?? undefined,
           defaultMaxArtifactExpirationDays:
             miscSettings.cost.s3Cost.defaultMaxArtifactExpirationDays ||
             undefined,
           iAStorageCostDiscount:
-            miscSettings.cost.s3Cost.iAStorageCostDiscount || undefined,
+            miscSettings.cost.s3Cost.iAStorageCostDiscount ?? undefined,
           standardStorageCostDiscount:
-            miscSettings.cost.s3Cost.standardStorageCostDiscount || undefined,
+            miscSettings.cost.s3Cost.standardStorageCostDiscount ?? undefined,
         },
       },
     },
