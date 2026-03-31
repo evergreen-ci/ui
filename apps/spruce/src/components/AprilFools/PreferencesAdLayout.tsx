@@ -1,7 +1,9 @@
 import { ReactNode, useMemo } from "react";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { getRandomAprilFoolsImage } from "components/AprilFools";
+import { routes } from "constants/routes";
 import { useAprilFoolsEnabled } from "hooks/useAprilFoolsEnabled";
 
 interface Props {
@@ -30,7 +32,9 @@ export const PreferencesAdLayout: React.FC<Props> = ({ children }) => {
         {showAds && (
           <RightRail>
             {ads.map((src) => (
-              <AdBanner key={src} alt="Evergreen Premium Ad" src={src} />
+              <Link key={src} to={routes.aprilFools}>
+                <AdBanner alt="Evergreen Premium Ad" src={src} />
+              </Link>
             ))}
           </RightRail>
         )}

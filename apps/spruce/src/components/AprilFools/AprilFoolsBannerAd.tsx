@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { routes } from "constants/routes";
 import { useAprilFoolsEnabled } from "hooks/useAprilFoolsEnabled";
 import { getRandomAprilFoolsBanner } from ".";
 
@@ -12,7 +14,9 @@ export const AprilFoolsBannerAd: React.FC = () => {
 
   return (
     <BannerWrapper>
-      <img alt="Random Evergreen April Fools Ad" src={banner} />
+      <Link to={routes.aprilFools}>
+        <img alt="Random Evergreen April Fools Ad" src={banner} />
+      </Link>
     </BannerWrapper>
   );
 };
