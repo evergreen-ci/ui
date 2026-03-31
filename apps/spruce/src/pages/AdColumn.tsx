@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import { ReactNode, useMemo } from "react";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
@@ -6,23 +6,12 @@ import { getRandomAprilFoolsImage } from "components/AprilFools";
 import { APRIL_FOOLS } from "constants/cookies";
 
 interface Props {
-  children: ReactNode;
+  children: ReactNode; // PreferencesTabs or Project Settings content
 }
 
 export const PreferencesAdLayout: React.FC<Props> = ({ children }) => {
-  const [hasRightRailSpace, setHasRightRailSpace] = useState(false);
   const aprilFoolsEnabled = getLocalStorageBoolean(APRIL_FOOLS, false);
-
-  useEffect(() => {
-    const update = () => {
-      setHasRightRailSpace(window.innerWidth >= 1280);
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  const showAds = aprilFoolsEnabled && hasRightRailSpace;
+  const showAds = aprilFoolsEnabled;
 
   const ads = useMemo(
     () => [
@@ -34,71 +23,57 @@ export const PreferencesAdLayout: React.FC<Props> = ({ children }) => {
   );
 
   return (
-    <Layout>
-      <Main>{children}</Main>
-      <Outer>
-        <Inner>
+    <Root>
+      <ContentAndAds>
+        <Main>
+          <MainInner>{children}</MainInner>
+        </Main>
+        {showAds && (
           <RightRail>
-            {showAds &&
-              ads.map((src) => (
-                <AdImg key={src} alt="Evergreen Premium Ad" src={src} />
-              ))}
+            {ads.map((src) => (
+              <AdBanner key={src} alt="Evergreen Premium Ad" src={src} />
+            ))}
           </RightRail>
-        </Inner>
-      </Outer>
-    </Layout>
+        )}
+      </ContentAndAds>
+    </Root>
   );
 };
 
-const Layout = styled.div`
-  display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(260px, 320px);
-  gap: ${size.l};
-  align-items: flex-start;
-
-  @media (max-width: 1279px) {
-    grid-template-columns: minmax(0, 1fr);
-  }
+const Root = styled.div`
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; /* prevent horizontal spill */
 `;
 
-const Outer = styled.div`
-  width: 100%;
+const ContentAndAds = styled.div`
   display: flex;
-  justify-content: center;
-`;
-
-const Inner = styled.div`
-  width: 100%;
-  max-width: 1440px;
-  display: grid;
-  grid-template-columns: minmax(0, 960px) auto;
-  gap: ${size.l};
   align-items: flex-start;
-
-  @media (max-width: 1279px) {
-    grid-template-columns: minmax(0, 1fr);
-  }
+  gap: ${size.l};
 `;
 
 const Main = styled.div`
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
-  flex-direction: column;
-  gap: ${size.m};
+  justify-content: flex-start;
+`;
+
+const MainInner = styled.div`
+  width: 100%;
+  max-width: 960px; /* tweak to match existing card width */
 `;
 
 const RightRail = styled.aside`
+  flex: 0 0 260px;
   display: flex;
   flex-direction: column;
   gap: ${size.m};
-
-  @media (max-width: 1279px) {
-    display: none;
-  }
 `;
 
-const AdImg = styled.img`
+const AdBanner = styled.img`
   width: 100%;
-  max-height: 240px;
+  max-height: 160px;
   height: auto;
   object-fit: contain;
   border-radius: 8px;
