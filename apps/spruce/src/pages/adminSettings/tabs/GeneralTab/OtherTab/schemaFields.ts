@@ -9,6 +9,10 @@ import {
 
 export const oktaServiceConfig = {
   schema: {
+    audience: {
+      type: "string" as const,
+      title: "Audience",
+    },
     clientId: {
       type: "string" as const,
       title: "Client ID",
@@ -16,6 +20,13 @@ export const oktaServiceConfig = {
     clientSecret: {
       type: "string" as const,
       title: "Client Secret",
+    },
+    scopes: {
+      type: "array" as const,
+      title: "Scopes",
+      items: {
+        type: "string" as const,
+      },
     },
   },
   uiSchema: {

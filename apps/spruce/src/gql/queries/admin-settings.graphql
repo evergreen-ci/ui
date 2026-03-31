@@ -203,8 +203,10 @@ query AdminSettings {
       }
     }
     oktaServiceConfig {
+      audience
       clientId
       clientSecret
+      scopes
     }
     oldestAllowedCLIVersion
     parameterStore {
