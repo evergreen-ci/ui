@@ -82,39 +82,55 @@ functions:
       type: system
       params:
         role_arn: ${ASSUME_ROLE_ARN}
-        local_file: "ui/${app_dir}/bin/playwright/html/index.html"
-        remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/index.html
+        local_files_include_filter: ["ui/${app_dir}/bin/playwright/html/**/*"]
+        remote_file: ${build_variant}/${task_id}/${execution}/report/
         bucket: evg-bucket-evergreen-ui
         content_type: text/html
         permissions: public-read
-        display_name: "Playwright HTML Report"
+        preserve_path: true
     - command: s3.put
       type: system
       params:
         role_arn: ${ASSUME_ROLE_ARN}
-        local_files_include_filter: ["ui/${app_dir}/bin/playwright/html/data/**/*.png"]
-        remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
+        local_file: "ui/${app_dir}/bin/playwright/html/index.html"
+        remote_file: ${build_variant}/${task_id}/${execution}/report/ui/${app_dir}/bin/playwright/html/index.html
+        bucket: evg-bucket-evergreen-ui
+        content_type: text/html
+        permissions: public-read
+        display_name: "*** Playwright HTML Report"
+    - command: s3.put
+      type: system
+      params:
+        role_arn: ${ASSUME_ROLE_ARN}
+        local_files_include_filter: ["ui/${app_dir}/bin/playwright/test-results/**/*.png"]
+        remote_file: ${build_variant}/${task_id}/${execution}/
         bucket: evg-bucket-evergreen-ui
         content_type: image/png
         permissions: public-read
+        display_name: "screenshot:"
+        preserve_path: true
     - command: s3.put
       type: system
       params:
         role_arn: ${ASSUME_ROLE_ARN}
-        local_files_include_filter: ["ui/${app_dir}/bin/playwright/html/data/**/*.webm"]
-        remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
+        local_files_include_filter: ["ui/${app_dir}/bin/playwright/test-results/**/*.webm"]
+        remote_file: ${build_variant}/${task_id}/${execution}/
         bucket: evg-bucket-evergreen-ui
         content_type: video/webm
         permissions: public-read
+        display_name: "video:"
+        preserve_path: true
     - command: s3.put
       type: system
       params:
         role_arn: ${ASSUME_ROLE_ARN}
-        local_files_include_filter: ["ui/${app_dir}/bin/playwright/html/data/**/*.md"]
-        remote_file: ${build_variant}/${task_id}/${execution}/playwright/html/data/
+        local_files_include_filter: ["ui/${app_dir}/bin/playwright/test-results/**/trace.zip"]
+        remote_file: ${build_variant}/${task_id}/${execution}/
         bucket: evg-bucket-evergreen-ui
-        content_type: text/markdown
+        content_type: application/zip
         permissions: public-read
+        display_name: "trace:"
+        preserve_path: true
     - command: attach.xunit_results
       params:
         files:
