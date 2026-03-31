@@ -136,7 +136,6 @@ export const isNotContainedInViewport = async (
   for (let i = 0; i < conditions.length; i++) {
     if (!conditions[i]) {
       hasOutOfBoundsValue = true;
-      console.log(`Out of bounds value: ${i} ${conditions[i]}`);
     }
   }
 
