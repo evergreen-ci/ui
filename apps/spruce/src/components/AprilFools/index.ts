@@ -6,8 +6,15 @@ import banner5 from "./images/banner5.png";
 import banner6 from "./images/banner6.png";
 import banner7 from "./images/banner7.png";
 import banner8 from "./images/banner8.png";
+import image1 from "./images/image1.png";
+import image2 from "./images/image2.png";
+import image3 from "./images/image3.png";
+import image4 from "./images/image4.png";
+import image5 from "./images/image5.png";
+import image6 from "./images/image6.png";
+import image7 from "./images/image7.png";
 
-const APRIL_FOOLS_BANNERS = [
+export const APRIL_FOOLS_BANNERS = [
   banner1,
   banner2,
   banner3,
@@ -23,4 +30,21 @@ export type AprilFoolsBanner = (typeof APRIL_FOOLS_BANNERS)[number];
 export const getRandomAprilFoolsBanner = (): AprilFoolsBanner => {
   const index = Math.floor(Math.random() * APRIL_FOOLS_BANNERS.length);
   return APRIL_FOOLS_BANNERS[index];
+};
+
+export const APRIL_FOOLS_IMAGES = [
+  image1,
+  image2,
+  image3,
+  image4,
+  image5,
+  image6,
+  image7,
+] as const;
+
+export type AprilFoolsImage = (typeof APRIL_FOOLS_IMAGES)[number];
+
+export const getRandomAprilFoolsImage = (): AprilFoolsImage => {
+  const index = Math.floor(Math.random() * APRIL_FOOLS_IMAGES.length);
+  return APRIL_FOOLS_IMAGES[index];
 };
