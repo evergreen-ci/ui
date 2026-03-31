@@ -1,16 +1,15 @@
 import { ReactNode, useMemo } from "react";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { getRandomAprilFoolsImage } from "components/AprilFools";
-import { APRIL_FOOLS } from "constants/cookies";
+import { useAprilFoolsEnabled } from "hooks/useAprilFoolsEnabled";
 
 interface Props {
   children: ReactNode; // PreferencesTabs or Project Settings content
 }
 
 export const PreferencesAdLayout: React.FC<Props> = ({ children }) => {
-  const aprilFoolsEnabled = getLocalStorageBoolean(APRIL_FOOLS, false);
+  const { enabled: aprilFoolsEnabled } = useAprilFoolsEnabled();
   const showAds = aprilFoolsEnabled;
 
   const ads = useMemo(
