@@ -14,6 +14,7 @@ import {
   getPreferencesRoute,
   slugs,
 } from "constants/routes";
+import { PreferencesAdLayout } from "pages/preferences/AdColumn";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 
 const Preferences: React.FC = () => {
@@ -114,7 +115,9 @@ const Preferences: React.FC = () => {
         </SideNavGroup>
       </SideNav>
       <SideNavPageContent>
-        <PreferencesTabs />
+        <PreferencesAdLayout>
+          <PreferencesTabs />
+        </PreferencesAdLayout>
       </SideNavPageContent>
     </SideNavPageWrapper>
   );
