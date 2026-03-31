@@ -39,8 +39,8 @@ test.describe("Filtering", () => {
       }) => {
         await helpers.addFilter(authenticatedPage, "5553072873648668703");
         await expect(authenticatedPage.getByTestId("log-row-0")).toBeVisible();
-        await helpers
-          .getByDataCy(authenticatedPage, "log-row-0")
+        await authenticatedPage
+          .getByTestId("log-row-0")
           .dblclick({ force: true });
         await expect(authenticatedPage).toHaveURL(/5553072873648668703/);
         await expect(
@@ -280,14 +280,12 @@ test.describe("Filtering", () => {
     });
 
     test("should be able to edit a filter", async ({ authenticatedPage }) => {
-      await helpers
-        .getByDataCy(authenticatedPage, `filter-${filter}`)
+      await authenticatedPage
+        .getByTestId(`filter-${filter}`)
         .locator('[aria-label="Edit filter"]')
         .click();
       await authenticatedPage.getByTestId("edit-filter-name").clear();
-      await helpers
-        .getByDataCy(authenticatedPage, "edit-filter-name")
-        .fill("running");
+      await authenticatedPage.getByTestId("edit-filter-name").fill("running");
       await authenticatedPage.getByRole("button", { name: "Apply" }).click();
       await expect(authenticatedPage).toHaveURL(/filters=100running/);
 
@@ -333,9 +331,7 @@ test.describe("Filtering", () => {
       ).toBeGreaterThan(0);
       await helpers.toggleDrawer(authenticatedPage);
 
-      await helpers
-        .getByDataCy(authenticatedPage, "all-filters-toggle")
-        .click();
+      await authenticatedPage.getByTestId("all-filters-toggle").click();
       await expect(
         authenticatedPage.getByTestId("all-filters-toggle"),
       ).toHaveAttribute("aria-checked", "false");
@@ -346,9 +342,7 @@ test.describe("Filtering", () => {
         new RegExp(`filters=010${filter1},000${filter2}`),
       );
 
-      await helpers
-        .getByDataCy(authenticatedPage, "all-filters-toggle")
-        .click();
+      await authenticatedPage.getByTestId("all-filters-toggle").click();
       await expect(
         authenticatedPage.getByTestId("all-filters-toggle"),
       ).toHaveAttribute("aria-checked", "true");

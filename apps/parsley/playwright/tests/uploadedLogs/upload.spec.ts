@@ -41,9 +41,7 @@ test.describe("Upload page", () => {
       ).toBeVisible();
       await authenticatedPage.getByTestId("parse-log-select").click();
       await authenticatedPage.getByRole("option", { name: "Resmoke" }).click();
-      await helpers
-        .getByDataCy(authenticatedPage, "process-log-button")
-        .click();
+      await authenticatedPage.getByTestId("process-log-button").click();
 
       await expect(authenticatedPage.getByTestId("log-window")).toBeVisible();
       expect(

@@ -53,9 +53,7 @@ test.describe("Highlighting", () => {
     await expect(
       authenticatedPage.getByTestId("delete-highlight-button"),
     ).toBeVisible();
-    await helpers
-      .getByDataCy(authenticatedPage, "delete-highlight-button")
-      .click();
+    await authenticatedPage.getByTestId("delete-highlight-button").click();
     await expect(highlights).toHaveCount(0);
   });
 
@@ -88,9 +86,7 @@ test.describe("Highlighting", () => {
     await helpers.addHighlight(authenticatedPage, "github");
     await helpers.addHighlight(authenticatedPage, "storybook");
 
-    const link = helpers
-      .getByDataCy(authenticatedPage, "log-row-219")
-      .locator("a");
+    const link = authenticatedPage.getByTestId("log-row-219").locator("a");
     await expect(link).toHaveAttribute(
       "href",
       "https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#deprecated-storyfn",

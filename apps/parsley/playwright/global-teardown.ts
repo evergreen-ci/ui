@@ -1,14 +1,10 @@
+import { test as teardown } from "@playwright/test";
 import { execSync } from "child_process";
 
-/**
- * In the global teardown function, we restore the database after all tests have run.
- */
-async function globalTeardown() {
+teardown("clean up database", async ({}) => {
   try {
     execSync("pnpm evg-db-ops --clean-up");
   } catch (e) {
     console.error(e);
   }
-}
-
-export default globalTeardown;
+});

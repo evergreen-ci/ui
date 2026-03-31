@@ -1,4 +1,4 @@
-import { defineConfig } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/test";
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -37,6 +37,21 @@ export default defineConfig({
       },
     ],
   ],
-  globalSetup: "./playwright/global-setup.ts",
-  globalTeardown: "./playwright/global-teardown.ts",
+  // https://playwright.dev/docs/test-global-setup-teardown
+  projects: [
+    {
+      name: "setup db",
+      testMatch: "./playwright/global-setup.ts",
+      teardown: "cleanup db",
+    },
+    {
+      name: "cleanup db",
+      testMatch: "./playwright/global-teardown.ts",
+    },
+    {
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
+      dependencies: ["setup db"],
+    },
+  ],
 });
