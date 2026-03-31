@@ -4,14 +4,11 @@ import { AnalyticsIdentifier } from "analytics/types";
 type Action =
   | {
       name: "Clicked complete logs link";
-      "build.id"?: string;
       "task.id"?: string;
       execution?: number;
       "group.id"?: string;
     }
-  | { name: "Clicked Parsley test log link"; "build.id"?: string };
+  | { name: "Clicked Parsley test log link" };
 
-export const useJobLogsAnalytics = (isLogkeeper: boolean) =>
-  useAnalyticsRoot<Action, AnalyticsIdentifier>("JobLogs", {
-    isLogkeeperHostedLog: isLogkeeper,
-  });
+export const useJobLogsAnalytics = () =>
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("JobLogs");

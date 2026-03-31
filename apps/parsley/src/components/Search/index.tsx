@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
@@ -48,10 +48,11 @@ const Search: React.FC = () => {
 
   const { data } = useQuery<ProjectFiltersQuery, ProjectFiltersQueryVariables>(
     PROJECT_FILTERS,
-    {
-      skip: !projectMetadata?.id,
-      variables: { projectId: projectMetadata?.id ?? "" },
-    },
+    projectMetadata?.id
+      ? {
+          variables: { projectId: projectMetadata.id },
+        }
+      : skipToken,
   );
   const { project } = data || {};
   const { parsleyFilters } = project || {};

@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useLocation } from "react-router-dom";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { useErrorToast } from "@evg-ui/lib/hooks";
@@ -71,12 +71,16 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     VersionTasksQuery,
     VersionTasksQueryVariables
-  >(VERSION_TASKS, {
-    variables: queryVariables,
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    skip: !hasQueryVariables,
-    fetchPolicy: "cache-and-network",
-  });
+  >(
+    VERSION_TASKS,
+    hasQueryVariables
+      ? {
+          variables: queryVariables,
+          pollInterval: DEFAULT_POLL_INTERVAL,
+          fetchPolicy: "cache-and-network",
+        }
+      : skipToken,
+  );
   useErrorToast(error, "Error fetching patch tasks");
   usePolling<VersionTasksQuery, VersionTasksQueryVariables>({
     startPolling,

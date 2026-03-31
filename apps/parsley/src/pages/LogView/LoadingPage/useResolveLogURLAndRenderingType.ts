@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import {
   constructEvergreenTaskLogURL,
   getEvergreenTestLogURL,
@@ -79,30 +79,33 @@ export const useResolveLogURLAndRenderingType = ({
   const { data: testData, loading: isLoadingTest } = useQuery<
     TestLogUrlAndRenderingTypeQuery,
     TestLogUrlAndRenderingTypeQueryVariables
-  >(GET_TEST_LOG_URL_AND_RENDERING_TYPE, {
-    skip: !(
-      logType === LogTypes.EVERGREEN_TEST_LOGS &&
-      taskID &&
-      execution &&
-      testID
-    ),
-    variables: {
-      execution: parseInt(execution as string, 10),
-      taskID: taskID as string,
-      testName: `^${testID}$`,
-    },
-  });
+  >(
+    GET_TEST_LOG_URL_AND_RENDERING_TYPE,
+    logType === LogTypes.EVERGREEN_TEST_LOGS && taskID && execution && testID
+      ? {
+          variables: {
+            execution: parseInt(execution as string, 10),
+            taskID: taskID as string,
+            testName: `^${testID}$`,
+          },
+        }
+      : skipToken,
+  );
 
   const { data: taskFileData, loading: isLoadingTaskFileData } = useQuery<
     TaskFilesQuery,
     TaskFilesQueryVariables
-  >(TASK_FILES, {
-    skip: !(logType === LogTypes.EVERGREEN_TASK_FILE && taskID && execution),
-    variables: {
-      execution: parseInt(execution as string, 10),
-      taskId: taskID as string,
-    },
-  });
+  >(
+    TASK_FILES,
+    logType === LogTypes.EVERGREEN_TASK_FILE && taskID && execution
+      ? {
+          variables: {
+            execution: parseInt(execution as string, 10),
+            taskId: taskID as string,
+          },
+        }
+      : skipToken,
+  );
 
   let downloadURL = "";
   let rawLogURL = "";

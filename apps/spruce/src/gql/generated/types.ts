@@ -481,6 +481,8 @@ export type BucketsConfig = {
   logBucketFailedTasks?: Maybe<BucketConfig>;
   logBucketLongRetention?: Maybe<BucketConfig>;
   longRetentionProjects?: Maybe<Array<Scalars["String"]["output"]>>;
+  retryFailedLogMoveLookbackMonths?: Maybe<Scalars["Int"]["output"]>;
+  retryFailedLogMoveMaxJobsPerRun?: Maybe<Scalars["Int"]["output"]>;
   testResultsBucket?: Maybe<BucketConfig>;
 };
 
@@ -491,6 +493,8 @@ export type BucketsConfigInput = {
   logBucketFailedTasks?: InputMaybe<BucketConfigInput>;
   logBucketLongRetention?: InputMaybe<BucketConfigInput>;
   longRetentionProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  retryFailedLogMoveLookbackMonths?: InputMaybe<Scalars["Int"]["input"]>;
+  retryFailedLogMoveMaxJobsPerRun?: InputMaybe<Scalars["Int"]["input"]>;
   testResultsBucket?: InputMaybe<BucketConfigInput>;
 };
 
@@ -8903,23 +8907,6 @@ export type LastMainlineCommitQuery = {
   } | null;
 };
 
-export type LogkeeperBuildMetadataQueryVariables = Exact<{
-  buildId: Scalars["String"]["input"];
-}>;
-
-export type LogkeeperBuildMetadataQuery = {
-  __typename?: "Query";
-  logkeeperBuildMetadata: {
-    __typename?: "LogkeeperBuild";
-    id: string;
-    builder: string;
-    buildNum: number;
-    taskExecution: number;
-    taskId: string;
-    tests: Array<{ __typename?: "LogkeeperTest"; id: string; name: string }>;
-  };
-};
-
 export type MainlineCommitsForHistoryQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
   buildVariantOptions: BuildVariantOptions;
@@ -11112,8 +11099,12 @@ export type TaskStatusesQuery = {
   version: {
     __typename?: "Version";
     id: string;
-    baseTaskStatuses: Array<string>;
     taskStatuses: Array<string>;
+    baseVersion?: {
+      __typename?: "Version";
+      id: string;
+      taskStatuses: Array<string>;
+    } | null;
   };
 };
 

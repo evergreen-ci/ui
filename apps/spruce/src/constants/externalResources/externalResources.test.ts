@@ -2,21 +2,6 @@ import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
 } from "./honeycomb";
-import { getParsleyBuildLogURL, getParsleyLogkeeperTestLogURL } from ".";
-
-describe("getParsleyLogkeeperTestLogURL", () => {
-  it("generates the correct url", () => {
-    expect(getParsleyLogkeeperTestLogURL("myBuildId", "myTestId")).toBe(
-      "/resmoke/myBuildId/test/myTestId",
-    );
-  });
-});
-
-describe("getParsleyBuildLogURL", () => {
-  it("generates the correct url", () => {
-    expect(getParsleyBuildLogURL("myBuildId")).toBe("/resmoke/myBuildId/all");
-  });
-});
 
 describe("getHoneycombTraceUrl", () => {
   it("generates the correct url", () => {
