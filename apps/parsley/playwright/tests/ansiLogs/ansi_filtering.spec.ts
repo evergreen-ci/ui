@@ -90,8 +90,8 @@ test.describe("Filtering", () => {
           await authenticatedPage.goto(
             `${logLink}?filterLogic=and&filters=100${filter1},100${filter2}`,
           );
-          await helpers
-            .getByDataCy(authenticatedPage, `filter-${filter1}`)
+          await authenticatedPage
+            .getByTestId(`filter-${filter1}`)
             .getByText("Sensitive", { exact: true })
             .click();
           await expect(authenticatedPage).toHaveURL(
@@ -114,8 +114,8 @@ test.describe("Filtering", () => {
           await authenticatedPage.goto(
             `${logLink}?filterLogic=and&filters=110${filter1},100${filter2}`,
           );
-          await helpers
-            .getByDataCy(authenticatedPage, `filter-${filter2}`)
+          await authenticatedPage
+            .getByTestId(`filter-${filter2}`)
             .getByText("Inverse", { exact: true })
             .click();
           await expect(authenticatedPage).toHaveURL(
@@ -138,12 +138,12 @@ test.describe("Filtering", () => {
           await authenticatedPage.goto(
             `${logLink}?filterLogic=and&filters=110${filter1},101${filter2}`,
           );
-          await helpers
-            .getByDataCy(authenticatedPage, `filter-${filter1}`)
+          await authenticatedPage
+            .getByTestId(`filter-${filter1}`)
             .locator('[aria-label="Hide filter"]')
             .click();
-          await helpers
-            .getByDataCy(authenticatedPage, `filter-${filter2}`)
+          await authenticatedPage
+            .getByTestId(`filter-${filter2}`)
             .locator('[aria-label="Hide filter"]')
             .click();
           await expect(authenticatedPage).toHaveURL(
@@ -191,8 +191,8 @@ test.describe("Filtering", () => {
           await authenticatedPage.goto(
             `${logLink}?filterLogic=or&filters=100${filter1},100${filter2}`,
           );
-          await helpers
-            .getByDataCy(authenticatedPage, `filter-${filter1}`)
+          await authenticatedPage
+            .getByTestId(`filter-${filter1}`)
             .getByText("Sensitive", { exact: true })
             .click();
           await expect(authenticatedPage).toHaveURL(
@@ -216,8 +216,8 @@ test.describe("Filtering", () => {
           await authenticatedPage.goto(
             `${logLink}?filterLogic=or&filters=110${filter1},100${filter2}`,
           );
-          await helpers
-            .getByDataCy(authenticatedPage, `filter-${filter2}`)
+          await authenticatedPage
+            .getByTestId(`filter-${filter2}`)
             .getByText("Inverse", { exact: true })
             .click();
           await expect(authenticatedPage).toHaveURL(
@@ -243,12 +243,12 @@ test.describe("Filtering", () => {
           await authenticatedPage.goto(
             `${logLink}?filterLogic=or&filters=110${filter1},101${filter2}`,
           );
-          await helpers
-            .getByDataCy(authenticatedPage, `filter-${filter1}`)
+          await authenticatedPage
+            .getByTestId(`filter-${filter1}`)
             .locator('[aria-label="Hide filter"]')
             .click();
-          await helpers
-            .getByDataCy(authenticatedPage, `filter-${filter2}`)
+          await authenticatedPage
+            .getByTestId(`filter-${filter2}`)
             .locator('[aria-label="Hide filter"]')
             .click();
           await expect(authenticatedPage).toHaveURL(
@@ -299,8 +299,8 @@ test.describe("Filtering", () => {
     });
 
     test("should be able to delete a filter", async ({ authenticatedPage }) => {
-      await helpers
-        .getByDataCy(authenticatedPage, `filter-${filter}`)
+      await authenticatedPage
+        .getByTestId(`filter-${filter}`)
         .locator('[aria-label="Delete filter"]')
         .click();
       await expect(authenticatedPage).toHaveURL(/^(?!.*filters)/);
