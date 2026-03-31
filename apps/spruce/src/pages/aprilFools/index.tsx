@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Button } from "@leafygreen-ui/button";
 import { H1 } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
