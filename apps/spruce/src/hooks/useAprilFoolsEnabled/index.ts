@@ -7,7 +7,7 @@ import { APRIL_FOOLS } from "constants/cookies";
 
 export const useAprilFoolsEnabled = () => {
   const [enabled, setEnabled] = useState<boolean>(() =>
-    getLocalStorageBoolean(APRIL_FOOLS, false),
+    getLocalStorageBoolean(APRIL_FOOLS, true),
   );
 
   useEffect(() => {

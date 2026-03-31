@@ -16,13 +16,12 @@ import {
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { useHostsTableAnalytics } from "analytics";
 import { getRandomAprilFoolsBanner } from "components/AprilFools";
-import { APRIL_FOOLS } from "constants/cookies";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import { HostSortBy, HostsQuery } from "gql/generated/types";
+import { useAprilFoolsEnabled } from "hooks/useAprilFoolsEnabled";
 import { useTableSort } from "hooks/useTableSort";
 import { HostsTableFilterParams, mapIdToFilterParam } from "types/host";
 
@@ -138,7 +137,7 @@ export const HostsTable: React.FC<Props> = ({
     ),
   });
 
-  const aprilFoolsEnabled = getLocalStorageBoolean(APRIL_FOOLS, true);
+  const { enabled: aprilFoolsEnabled } = useAprilFoolsEnabled();
   const randomBanner = useMemo(() => getRandomAprilFoolsBanner(), []);
   const randomBanner2 = useMemo(() => getRandomAprilFoolsBanner(), []);
   const BannerWrapper = styled.div`

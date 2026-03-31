@@ -6,14 +6,13 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
-import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { getRandomAprilFoolsBanner } from "components/AprilFools";
 import { Title, BadgeWrapper, TitleContainer } from "components/Spawn";
-import { APRIL_FOOLS } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
 import { MY_VOLUMES } from "gql/queries";
 import { usePolling, useSpruceConfig } from "hooks";
+import { useAprilFoolsEnabled } from "hooks/useAprilFoolsEnabled";
 import { SpawnVolumeTable } from "pages/spawn/spawnVolume/SpawnVolumeTable";
 import SpawnPageSkeleton from "./SpawnPageSkeleton";
 import { SpawnVolumeButton } from "./spawnVolume/SpawnVolumeButton";
@@ -43,7 +42,7 @@ export const SpawnVolume = () => {
     shouldPollFaster: migrationInProcess,
   });
 
-  const aprilFoolsEnabled = getLocalStorageBoolean(APRIL_FOOLS, true);
+  const { enabled: aprilFoolsEnabled } = useAprilFoolsEnabled();
   const randomBanner = useMemo(() => getRandomAprilFoolsBanner(), []);
   const BannerWrapper = styled.div`
     margin: ${size.m} 0;

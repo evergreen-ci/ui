@@ -6,9 +6,7 @@ import { H3 } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
-import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { getRandomAprilFoolsBanner } from "components/AprilFools";
-import { APRIL_FOOLS } from "constants/cookies";
 import { MCI_USER } from "constants/hosts";
 import { getAllHostsRoute } from "constants/routes";
 import {
@@ -16,6 +14,7 @@ import {
   DistroTaskQueueQueryVariables,
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
+import { useAprilFoolsEnabled } from "hooks/useAprilFoolsEnabled";
 import { QueryParams } from "types/task";
 import TaskQueueTable from "./TaskQueueTable";
 
@@ -42,7 +41,7 @@ const TaskQueueContent: React.FC<TaskQueueContentProps> = ({ distroId }) => {
   );
   useErrorToast(taskQueueError, "There was an error loading task queue");
 
-  const aprilFoolsEnabled = getLocalStorageBoolean(APRIL_FOOLS, true);
+  const { enabled: aprilFoolsEnabled } = useAprilFoolsEnabled();
   const randomBanner = useMemo(() => getRandomAprilFoolsBanner(), []);
   const randomBanner2 = useMemo(() => getRandomAprilFoolsBanner(), []);
   const BannerWrapper = styled.div`
