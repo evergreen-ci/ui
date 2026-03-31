@@ -16,10 +16,7 @@ test.describe("Sectioning", () => {
       true,
       "log-viewing",
     );
-    await helpers
-      .getByDataCy(authenticatedPage, "section-header")
-      .first()
-      .waitFor();
+    await authenticatedPage.getByTestId("section-header").first().waitFor();
   });
 
   test("Toggling the sections options displays and hides sections", async ({
@@ -31,12 +28,12 @@ test.describe("Sectioning", () => {
       .locator("button[data-cy='log-viewing-tab']")
       .click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "sections-toggle"),
+      authenticatedPage.getByTestId("sections-toggle"),
     ).toHaveAttribute("aria-checked", "true");
     await helpers.toggleDetailsPanel(authenticatedPage, false);
     // Assert sections are visible.
     expect(
-      await helpers.getByDataCy(authenticatedPage, "section-header").count(),
+      await authenticatedPage.getByTestId("section-header").count(),
     ).toBeGreaterThan(0);
     // Untoggle sections and assert they are hidden.
     await helpers.clickToggle(
@@ -45,27 +42,23 @@ test.describe("Sectioning", () => {
       false,
       "log-viewing",
     );
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "section-header"),
-    ).toHaveCount(0);
+    await expect(authenticatedPage.getByTestId("section-header")).toHaveCount(
+      0,
+    );
   });
 
   test("Clicking 'Open all subsections' opens all subsections", async ({
     authenticatedPage,
   }) => {
-    await helpers
-      .getByDataCy(authenticatedPage, "open-all-sections-btn")
-      .click();
-    const caretToggles = await helpers
-      .getByDataCy(authenticatedPage, "caret-toggle")
+    await authenticatedPage.getByTestId("open-all-sections-btn").click();
+    const caretToggles = await authenticatedPage
+      .getByTestId("caret-toggle")
       .all();
     for (const toggle of caretToggles) {
       await expect(toggle).toHaveAttribute("aria-label", "Close section");
     }
 
-    const headers = await helpers
-      .getByDataCy(authenticatedPage, "section-header")
-      .all();
+    const headers = await authenticatedPage.getByTestId("section-header").all();
     for (const header of headers) {
       await expect(header).toHaveAttribute("aria-expanded", "true");
     }
@@ -81,17 +74,15 @@ test.describe("Sectioning", () => {
   test("Clicking 'Close all subsections' opens all subsections", async ({
     authenticatedPage,
   }) => {
-    await helpers
-      .getByDataCy(authenticatedPage, "close-all-sections-btn")
-      .click();
+    await authenticatedPage.getByTestId("close-all-sections-btn").click();
 
     // Wait for the first caret toggle to update before checking all of them.
     await expect(
-      helpers.getByDataCy(authenticatedPage, "caret-toggle").first(),
+      authenticatedPage.getByTestId("caret-toggle").first(),
     ).toHaveAttribute("aria-label", "Open section");
 
-    const caretToggles = await helpers
-      .getByDataCy(authenticatedPage, "caret-toggle")
+    const caretToggles = await authenticatedPage
+      .getByTestId("caret-toggle")
       .all();
     for (const toggle of caretToggles) {
       await expect(toggle).toHaveAttribute("aria-label", "Open section");
@@ -173,22 +164,16 @@ test.describe("Sectioning", () => {
       true,
       "log-viewing",
     );
-    await helpers
-      .getByDataCy(authenticatedPage, "open-all-sections-btn")
-      .click();
-    await helpers.getByDataCy(authenticatedPage, "bookmark-9614").click();
+    await authenticatedPage.getByTestId("open-all-sections-btn").click();
+    await authenticatedPage.getByTestId("bookmark-9614").click();
     await expect(
       authenticatedPage.locator("[data-cy='line-index-9614']"),
     ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "sticky-headers"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "sticky-headers"),
-    ).toContainText("Function: run tests");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "sticky-headers"),
-    ).toContainText(
+    await expect(authenticatedPage.getByTestId("sticky-headers")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("sticky-headers")).toContainText(
+      "Function: run tests",
+    );
+    await expect(authenticatedPage.getByTestId("sticky-headers")).toContainText(
       "Command: subprocess.exec (step 2.20 of 2) — check resmoke failure",
     );
   });

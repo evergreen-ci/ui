@@ -12,9 +12,9 @@ test.describe("auth", () => {
   base("redirects user to upload page after logging in", async ({ page }) => {
     await helpers.logout(page);
     await page.goto("/upload");
-    await helpers.getByDataCy(page, "login-username").fill("admin");
-    await helpers.getByDataCy(page, "login-password").fill("password");
-    await helpers.getByDataCy(page, "login-submit").click();
+    await page.getByTestId("login-username").fill("admin");
+    await page.getByTestId("login-password").fill("password");
+    await page.getByTestId("login-submit").click();
     await expect(page).toHaveURL(/\/upload$/);
   });
 

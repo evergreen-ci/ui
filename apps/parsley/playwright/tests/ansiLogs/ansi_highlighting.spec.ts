@@ -13,7 +13,7 @@ test.describe("Highlighting", () => {
     authenticatedPage,
   }) => {
     await helpers.addHighlight(authenticatedPage, "@bugsnag/plugin-react@");
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     await expect(highlights).toHaveCount(1);
     await expect(highlights.first()).toContainText("@bugsnag/plugin-react@");
   });
@@ -23,7 +23,7 @@ test.describe("Highlighting", () => {
   }) => {
     await helpers.addHighlight(authenticatedPage, "@bugsnag/plugin-react@");
     await helpers.addSearch(authenticatedPage, "@bugsnag/plugin-react@");
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     await expect(highlights).toHaveCount(1);
     await expect(highlights.first()).toContainText("@bugsnag/plugin-react");
   });
@@ -33,7 +33,7 @@ test.describe("Highlighting", () => {
   }) => {
     await helpers.addHighlight(authenticatedPage, "@bugsnag/plugin-react@");
     await helpers.addSearch(authenticatedPage, "info");
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     await expect(highlights).toHaveCount(5);
     const highlightElements = await highlights.all();
     for (const element of highlightElements) {
@@ -46,12 +46,12 @@ test.describe("Highlighting", () => {
     authenticatedPage,
   }) => {
     await helpers.addHighlight(authenticatedPage, "@bugsnag/plugin-react@");
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     expect(await highlights.count()).toBeGreaterThan(0);
 
     await helpers.toggleDrawer(authenticatedPage);
     await expect(
-      helpers.getByDataCy(authenticatedPage, "delete-highlight-button"),
+      authenticatedPage.getByTestId("delete-highlight-button"),
     ).toBeVisible();
     await helpers
       .getByDataCy(authenticatedPage, "delete-highlight-button")
@@ -64,7 +64,7 @@ test.describe("Highlighting", () => {
   }) => {
     await helpers.addHighlight(authenticatedPage, "@bugsnag/plugin-react@");
     await helpers.addHighlight(authenticatedPage, "info");
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     await expect(highlights).toHaveCount(5);
 
     const highlightElements = await highlights.all();
@@ -107,14 +107,12 @@ test.describe("Highlighting", () => {
       "search-and-filter",
     );
     await helpers.addFilter(authenticatedPage, "task");
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     expect(await highlights.count()).toBeGreaterThan(0);
 
     await helpers.toggleDrawer(authenticatedPage);
-    const sideNavHighlights = helpers.getByDataCy(
-      authenticatedPage,
-      "side-nav-highlight",
-    );
+    const sideNavHighlights =
+      authenticatedPage.getByTestId("side-nav-highlight");
     await expect(sideNavHighlights).toHaveCount(1);
     await expect(sideNavHighlights.first()).toContainText("task");
   });
@@ -123,14 +121,12 @@ test.describe("Highlighting", () => {
     authenticatedPage,
   }) => {
     await helpers.addFilter(authenticatedPage, "task");
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     await expect(highlights).toHaveCount(0);
 
     await helpers.toggleDrawer(authenticatedPage);
-    const sideNavHighlights = helpers.getByDataCy(
-      authenticatedPage,
-      "side-nav-highlight",
-    );
+    const sideNavHighlights =
+      authenticatedPage.getByTestId("side-nav-highlight");
     await expect(sideNavHighlights).toHaveCount(0);
   });
 });

@@ -16,7 +16,7 @@ test.describe("Highlighting", () => {
       authenticatedPage,
       "ShardedClusterFixture:job0:mongos0 ",
     );
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     await expect(highlights).toHaveCount(1);
     await expect(highlights.first()).toContainText(
       "ShardedClusterFixture:job0:mongos0 ",
@@ -34,7 +34,7 @@ test.describe("Highlighting", () => {
       authenticatedPage,
       "ShardedClusterFixture:job0:mongos0 ",
     );
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     await expect(highlights).toHaveCount(1);
     await expect(highlights.first()).toContainText(
       "ShardedClusterFixture:job0:mongos0 ",
@@ -52,7 +52,7 @@ test.describe("Highlighting", () => {
       authenticatedPage,
       "ShardedClusterFixture:job0:shard0:node1",
     );
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     await expect(highlights).toHaveCount(2);
 
     const highlightElements = await highlights.all();
@@ -71,16 +71,14 @@ test.describe("Highlighting", () => {
       authenticatedPage,
       "ShardedClusterFixture:job0:shard0:node1",
     );
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     expect(await highlights.count()).toBeGreaterThan(0);
 
     await helpers.toggleDrawer(authenticatedPage);
     await expect(
-      helpers.getByDataCy(authenticatedPage, "delete-highlight-button"),
+      authenticatedPage.getByTestId("delete-highlight-button"),
     ).toBeVisible();
-    await helpers
-      .getByDataCy(authenticatedPage, "delete-highlight-button")
-      .click();
+    await authenticatedPage.getByTestId("delete-highlight-button").click();
     await expect(highlights).toHaveCount(0);
   });
 
@@ -95,7 +93,7 @@ test.describe("Highlighting", () => {
       authenticatedPage,
       "ShardedClusterFixture:job0:shard0:node1",
     );
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     await expect(highlights).toHaveCount(2);
 
     const highlightElements = await highlights.all();
@@ -126,14 +124,12 @@ test.describe("Highlighting", () => {
       "search-and-filter",
     );
     await helpers.addFilter(authenticatedPage, "job0");
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     expect(await highlights.count()).toBeGreaterThan(0);
 
     await helpers.toggleDrawer(authenticatedPage);
-    const sideNavHighlights = helpers.getByDataCy(
-      authenticatedPage,
-      "side-nav-highlight",
-    );
+    const sideNavHighlights =
+      authenticatedPage.getByTestId("side-nav-highlight");
     await expect(sideNavHighlights).toHaveCount(1);
     await expect(sideNavHighlights.first()).toContainText("job0");
   });
@@ -142,14 +138,12 @@ test.describe("Highlighting", () => {
     authenticatedPage,
   }) => {
     await helpers.addFilter(authenticatedPage, "job0");
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     await expect(highlights).toHaveCount(0);
 
     await helpers.toggleDrawer(authenticatedPage);
-    const sideNavHighlights = helpers.getByDataCy(
-      authenticatedPage,
-      "side-nav-highlight",
-    );
+    const sideNavHighlights =
+      authenticatedPage.getByTestId("side-nav-highlight");
     await expect(sideNavHighlights).toHaveCount(0);
   });
 });

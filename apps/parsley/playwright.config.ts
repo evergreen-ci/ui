@@ -15,6 +15,8 @@ export default defineConfig({
     screenshot: process.env.CI ? "only-on-failure" : "off",
     trace: process.env.CI ? "on-first-retry" : "off",
     permissions: ["clipboard-read", "clipboard-write"],
+    // TODO: Change to a different attribute.
+    testIdAttribute: "data-cy",
   },
   outputDir: "bin/playwright/test-results",
   reporter: [

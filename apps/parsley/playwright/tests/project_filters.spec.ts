@@ -17,13 +17,11 @@ test.describe("project filters", () => {
     await authenticatedPage.goto(spruceLogLink);
     await authenticatedPage.getByText("View project filters").click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "project-filters-modal"),
+      authenticatedPage.getByTestId("project-filters-modal"),
     ).toBeVisible();
+    await expect(authenticatedPage.getByTestId("project-filter")).toBeHidden();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "project-filter"),
-    ).toBeHidden();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "no-filters-message"),
+      authenticatedPage.getByTestId("no-filters-message"),
     ).toBeVisible();
   });
 
@@ -31,7 +29,7 @@ test.describe("project filters", () => {
     await authenticatedPage.goto(resmokeLogLink);
     await authenticatedPage.getByText("View project filters").click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "project-filters-modal"),
+      authenticatedPage.getByTestId("project-filters-modal"),
     ).toBeVisible();
     await helpers.clickCheckboxByLabel(authenticatedPage, "Select row 0");
     await authenticatedPage
@@ -53,7 +51,7 @@ test.describe("project filters", () => {
     await authenticatedPage.goto(resmokeLogLink);
     await authenticatedPage.getByText("View project filters").click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "project-filters-modal"),
+      authenticatedPage.getByTestId("project-filters-modal"),
     ).toBeVisible();
     await helpers.clickCheckboxByLabel(authenticatedPage, "Select row 0");
     await expect(
@@ -67,7 +65,7 @@ test.describe("project filters", () => {
     await authenticatedPage.goto(resmokeLogLink);
     await authenticatedPage.getByText("View project filters").click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "project-filters-modal"),
+      authenticatedPage.getByTestId("project-filters-modal"),
     ).toBeVisible();
     await helpers.clickCheckboxByLabel(authenticatedPage, "Select row 3");
     await authenticatedPage
@@ -89,7 +87,7 @@ test.describe("project filters", () => {
     await authenticatedPage.goto(`${resmokeLogLink}?filters=111D%255Cd`);
     await authenticatedPage.getByText("View project filters").click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "project-filters-modal"),
+      authenticatedPage.getByTestId("project-filters-modal"),
     ).toBeVisible();
     const checkbox = authenticatedPage.getByRole("checkbox", {
       name: "Select row 1",

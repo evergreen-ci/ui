@@ -21,13 +21,11 @@ test.describe("Parsley Routes", () => {
     expect(
       await authenticatedPage.locator("[data-cy^='log-row-']").count(),
     ).toBeGreaterThan(0);
-    await helpers.getByDataCy(authenticatedPage, "ansi-row").first().waitFor();
+    await authenticatedPage.getByTestId("ansi-row").first().waitFor();
     expect(
-      await helpers.getByDataCy(authenticatedPage, "ansi-row").count(),
+      await authenticatedPage.getByTestId("ansi-row").count(),
     ).toBeGreaterThan(0);
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "resmoke-row"),
-    ).toBeHidden();
+    await expect(authenticatedPage.getByTestId("resmoke-row")).toBeHidden();
     await expect(
       authenticatedPage.getByText("Task logger initialized"),
     ).toBeVisible();
@@ -58,13 +56,11 @@ test.describe("Parsley Routes", () => {
     expect(
       await authenticatedPage.locator("[data-cy^='log-row-']").count(),
     ).toBeGreaterThan(0);
-    await helpers.getByDataCy(authenticatedPage, "ansi-row").first().waitFor();
+    await authenticatedPage.getByTestId("ansi-row").first().waitFor();
     expect(
-      await helpers.getByDataCy(authenticatedPage, "ansi-row").count(),
+      await authenticatedPage.getByTestId("ansi-row").count(),
     ).toBeGreaterThan(0);
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "resmoke-row"),
-    ).toBeHidden();
+    await expect(authenticatedPage.getByTestId("resmoke-row")).toBeHidden();
     await expect(authenticatedPage.getByText(testLogLine)).toBeVisible();
   });
 
@@ -78,9 +74,9 @@ test.describe("Parsley Routes", () => {
     expect(
       await authenticatedPage.locator("[data-cy^='log-row-']").count(),
     ).toBeGreaterThan(0);
-    await helpers.getByDataCy(authenticatedPage, "ansi-row").first().waitFor();
+    await authenticatedPage.getByTestId("ansi-row").first().waitFor();
     expect(
-      await helpers.getByDataCy(authenticatedPage, "ansi-row").count(),
+      await authenticatedPage.getByTestId("ansi-row").count(),
     ).toBeGreaterThan(0);
   });
 

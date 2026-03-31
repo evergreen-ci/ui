@@ -16,14 +16,12 @@ test.describe("Searching", () => {
       authenticatedPage,
       "ShardedClusterFixture:job0:mongos0 ",
     );
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("1/2");
+    await expect(authenticatedPage.getByTestId("search-count")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "1/2",
+    );
 
-    const highlights = helpers.getByDataCy(authenticatedPage, "highlight");
+    const highlights = authenticatedPage.getByTestId("highlight");
     await expect(highlights).toHaveCount(1);
     await expect(highlights.first()).toContainText(
       "ShardedClusterFixture:job0:mongos0 ",
@@ -34,12 +32,10 @@ test.describe("Searching", () => {
     authenticatedPage,
   }) => {
     await helpers.addSearch(authenticatedPage, "REPL_HB");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("1/1436");
+    await expect(authenticatedPage.getByTestId("search-count")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "1/1436",
+    );
     await expect(
       authenticatedPage.locator("[data-highlighted='true']"),
     ).toContainText("REPL_HB");
@@ -50,69 +46,67 @@ test.describe("Searching", () => {
   }) => {
     await helpers.addSearch(authenticatedPage, "REPL_HB");
     await helpers.editBounds(authenticatedPage, { upper: "25" });
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("1/7");
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "1/7",
+    );
     await helpers.editBounds(authenticatedPage, { lower: "25" });
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("1/1");
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "1/1",
+    );
     await helpers.clearBounds(authenticatedPage);
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("1/1436");
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "1/1436",
+    );
   });
 
   test("should be able to toggle case sensitivity", async ({
     authenticatedPage,
   }) => {
     await helpers.addSearch(authenticatedPage, "Mongos0");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("1/2");
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "1/2",
+    );
     await helpers.clickToggle(authenticatedPage, "case-sensitive-toggle", true);
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("No Matches");
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "No Matches",
+    );
     await helpers.clickToggle(
       authenticatedPage,
       "case-sensitive-toggle",
       false,
     );
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("1/2");
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "1/2",
+    );
   });
 
   test("should be able to paginate through search results", async ({
     authenticatedPage,
   }) => {
     await helpers.addSearch(authenticatedPage, "conn49");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("1/8");
+    await expect(authenticatedPage.getByTestId("search-count")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "1/8",
+    );
 
     // Click the button 8 times
     for (let i = 1; i <= 7; i++) {
-      await helpers.getByDataCy(authenticatedPage, "next-button").click();
-      await expect(
-        helpers.getByDataCy(authenticatedPage, "search-count"),
-      ).toContainText(`${i + 1}/8`);
+      await authenticatedPage.getByTestId("next-button").click();
+      await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+        `${i + 1}/8`,
+      );
     }
 
-    await helpers.getByDataCy(authenticatedPage, "next-button").click();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("1/8");
+    await authenticatedPage.getByTestId("next-button").click();
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "1/8",
+    );
 
     for (let i = 7; i >= 0; i--) {
-      await helpers.getByDataCy(authenticatedPage, "previous-button").click();
-      await expect(
-        helpers.getByDataCy(authenticatedPage, "search-count"),
-      ).toContainText(`${i + 1}/8`);
+      await authenticatedPage.getByTestId("previous-button").click();
+      await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+        `${i + 1}/8`,
+      );
     }
   });
 
@@ -120,23 +114,21 @@ test.describe("Searching", () => {
     authenticatedPage,
   }) => {
     await helpers.addSearch(authenticatedPage, "conn49");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("1/8");
+    await expect(authenticatedPage.getByTestId("search-count")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "1/8",
+    );
 
-    await helpers.getByDataCy(authenticatedPage, "next-button").click();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("2/8");
+    await authenticatedPage.getByTestId("next-button").click();
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "2/8",
+    );
 
-    await helpers.getByDataCy(authenticatedPage, "log-row-112").dblclick();
+    await authenticatedPage.getByTestId("log-row-112").dblclick();
     await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,112,12568/);
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("2/8");
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "2/8",
+    );
   });
 
   test("should be able to search on filtered content", async ({
@@ -154,12 +146,10 @@ test.describe("Searching", () => {
     await expect(skippedLines).toHaveCount(7);
 
     await helpers.addSearch(authenticatedPage, "NETWORK");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("1/6");
+    await expect(authenticatedPage.getByTestId("search-count")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "1/6",
+    );
   });
 
   test("should update search results automatically when filters are removed", async ({
@@ -173,16 +163,14 @@ test.describe("Searching", () => {
       .waitFor();
 
     await helpers.addSearch(authenticatedPage, "conn49");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("No Matches");
+    await expect(authenticatedPage.getByTestId("search-count")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "No Matches",
+    );
 
     await helpers.toggleDrawer(authenticatedPage);
-    await helpers
-      .getByDataCy(authenticatedPage, `filter-${filter}`)
+    await authenticatedPage
+      .getByTestId(`filter-${filter}`)
       .locator('[aria-label="Delete filter"]')
       .click();
 
@@ -191,9 +179,9 @@ test.describe("Searching", () => {
       authenticatedPage.locator("[data-cy^='skipped-lines-row-']"),
     ).toHaveCount(0);
 
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "search-count"),
-    ).toContainText("1/8");
+    await expect(authenticatedPage.getByTestId("search-count")).toContainText(
+      "1/8",
+    );
     await expect(
       authenticatedPage.locator("[data-highlighted='true']"),
     ).toContainText("conn49");

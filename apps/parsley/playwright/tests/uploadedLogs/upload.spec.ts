@@ -11,15 +11,13 @@ test.describe("Upload page", () => {
     test("should be able to drag and drop a file", async ({
       authenticatedPage,
     }) => {
-      await expect(
-        helpers.getByDataCy(authenticatedPage, "upload-zone"),
-      ).toBeVisible();
+      await expect(authenticatedPage.getByTestId("upload-zone")).toBeVisible();
 
       const fileInput = authenticatedPage.locator('input[type="file"]');
       await fileInput.setInputFiles("sample_logs/resmoke.log");
 
       await expect(
-        helpers.getByDataCy(authenticatedPage, "parse-log-select"),
+        authenticatedPage.getByTestId("parse-log-select"),
       ).toBeVisible();
     });
 
@@ -28,7 +26,7 @@ test.describe("Upload page", () => {
       await fileInput.setInputFiles("sample_logs/resmoke.log");
 
       await expect(
-        helpers.getByDataCy(authenticatedPage, "parse-log-select"),
+        authenticatedPage.getByTestId("parse-log-select"),
       ).toBeVisible();
     });
 
@@ -39,19 +37,17 @@ test.describe("Upload page", () => {
       await fileInput.setInputFiles("sample_logs/resmoke.log");
 
       await expect(
-        helpers.getByDataCy(authenticatedPage, "parse-log-select"),
+        authenticatedPage.getByTestId("parse-log-select"),
       ).toBeVisible();
-      await helpers.getByDataCy(authenticatedPage, "parse-log-select").click();
+      await authenticatedPage.getByTestId("parse-log-select").click();
       await authenticatedPage.getByRole("option", { name: "Resmoke" }).click();
       await helpers
         .getByDataCy(authenticatedPage, "process-log-button")
         .click();
 
-      await expect(
-        helpers.getByDataCy(authenticatedPage, "log-window"),
-      ).toBeVisible();
+      await expect(authenticatedPage.getByTestId("log-window")).toBeVisible();
       expect(
-        await helpers.getByDataCy(authenticatedPage, "resmoke-row").count(),
+        await authenticatedPage.getByTestId("resmoke-row").count(),
       ).toBeGreaterThan(0);
     });
   });
@@ -65,9 +61,7 @@ test.describe("Upload page", () => {
     test("should be able to paste text into Parsley", async ({
       authenticatedPage,
     }) => {
-      await expect(
-        helpers.getByDataCy(authenticatedPage, "upload-zone"),
-      ).toBeVisible();
+      await expect(authenticatedPage.getByTestId("upload-zone")).toBeVisible();
 
       const fileContents = readFileSync("sample_logs/resmoke.log", "utf-8");
       await helpers.paste(authenticatedPage, 'input[type="file"]', {
@@ -76,7 +70,7 @@ test.describe("Upload page", () => {
       });
 
       await expect(
-        helpers.getByDataCy(authenticatedPage, "parse-log-select"),
+        authenticatedPage.getByTestId("parse-log-select"),
       ).toBeVisible();
     });
 
@@ -89,10 +83,7 @@ test.describe("Upload page", () => {
         pasteFormat: "text/plain",
       });
 
-      const parseLogSelect = helpers.getByDataCy(
-        authenticatedPage,
-        "parse-log-select",
-      );
+      const parseLogSelect = authenticatedPage.getByTestId("parse-log-select");
       await expect(parseLogSelect).toBeVisible();
       await parseLogSelect.click();
 
@@ -102,17 +93,12 @@ test.describe("Upload page", () => {
       await expect(resmokeOption).toBeVisible();
       await resmokeOption.click();
 
-      const processButton = helpers.getByDataCy(
-        authenticatedPage,
-        "process-log-button",
-      );
+      const processButton = authenticatedPage.getByTestId("process-log-button");
       await expect(processButton).toBeVisible();
       await processButton.click();
 
-      await expect(
-        helpers.getByDataCy(authenticatedPage, "log-window"),
-      ).toBeVisible();
-      const resmokeRows = helpers.getByDataCy(authenticatedPage, "resmoke-row");
+      await expect(authenticatedPage.getByTestId("log-window")).toBeVisible();
+      const resmokeRows = authenticatedPage.getByTestId("resmoke-row");
       expect(await resmokeRows.count()).toBeGreaterThan(0);
       await expect(resmokeRows.first()).toContainText(
         "[js_test:group_pushdown] Fixture status:",
@@ -131,17 +117,13 @@ test.describe("Upload page", () => {
     test("trying to navigate away to the upload page should prompt the user", async ({
       authenticatedPage,
     }) => {
+      await expect(authenticatedPage.getByTestId("log-window")).toBeVisible();
+      await authenticatedPage.getByTestId("upload-link").click();
       await expect(
-        helpers.getByDataCy(authenticatedPage, "log-window"),
-      ).toBeVisible();
-      await helpers.getByDataCy(authenticatedPage, "upload-link").click();
-      await expect(
-        helpers.getByDataCy(authenticatedPage, "confirmation-modal"),
+        authenticatedPage.getByTestId("confirmation-modal"),
       ).toBeVisible();
       await authenticatedPage.getByRole("button", { name: "Confirm" }).click();
-      await expect(
-        helpers.getByDataCy(authenticatedPage, "upload-zone"),
-      ).toBeVisible();
+      await expect(authenticatedPage.getByTestId("upload-zone")).toBeVisible();
     });
   });
 });

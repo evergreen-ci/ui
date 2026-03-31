@@ -14,17 +14,14 @@ test.describe("External Links", () => {
       authenticatedPage,
     }) => {
       await expect(
-        helpers.getByDataCy(authenticatedPage, "job-logs-button"),
+        authenticatedPage.getByTestId("job-logs-button"),
       ).toBeDisabled();
     });
 
     test("should render links to the log files", async ({
       authenticatedPage,
     }) => {
-      const rawLogButton = helpers.getByDataCy(
-        authenticatedPage,
-        "raw-log-button",
-      );
+      const rawLogButton = authenticatedPage.getByTestId("raw-log-button");
       await expect(rawLogButton).toBeVisible();
       await expect(rawLogButton).toBeEnabled();
       await expect(rawLogButton).toHaveAttribute(
@@ -32,10 +29,7 @@ test.describe("External Links", () => {
         "http://localhost:9090/task_log_raw/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0?text=true&type=T",
       );
 
-      const htmlLogButton = helpers.getByDataCy(
-        authenticatedPage,
-        "html-log-button",
-      );
+      const htmlLogButton = authenticatedPage.getByTestId("html-log-button");
       await expect(htmlLogButton).toBeVisible();
       await expect(htmlLogButton).toBeEnabled();
       await expect(htmlLogButton).toHaveAttribute(
@@ -57,7 +51,7 @@ test.describe("External Links", () => {
       await authenticatedPage.goto(evgTestLogWithoutGroupID);
       await helpers.toggleDetailsPanel(authenticatedPage, true);
       await expect(
-        helpers.getByDataCy(authenticatedPage, "job-logs-button"),
+        authenticatedPage.getByTestId("job-logs-button"),
       ).toBeDisabled();
     });
 
@@ -66,10 +60,7 @@ test.describe("External Links", () => {
     }) => {
       await authenticatedPage.goto(evgTestLogWithGroupID);
       await helpers.toggleDetailsPanel(authenticatedPage, true);
-      const jobLogsButton = helpers.getByDataCy(
-        authenticatedPage,
-        "job-logs-button",
-      );
+      const jobLogsButton = authenticatedPage.getByTestId("job-logs-button");
       await expect(jobLogsButton).toBeEnabled();
       await expect(jobLogsButton).toHaveAttribute(
         "href",
@@ -83,10 +74,7 @@ test.describe("External Links", () => {
       await authenticatedPage.goto(evgTestLogWithoutGroupID);
       await helpers.toggleDetailsPanel(authenticatedPage, true);
 
-      const rawLogButton = helpers.getByDataCy(
-        authenticatedPage,
-        "raw-log-button",
-      );
+      const rawLogButton = authenticatedPage.getByTestId("raw-log-button");
       await expect(rawLogButton).toBeVisible();
       await expect(rawLogButton).toBeEnabled();
       await expect(rawLogButton).toHaveAttribute(
@@ -94,10 +82,7 @@ test.describe("External Links", () => {
         "http://localhost:9090/rest/v2/tasks/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/build/TestLogs/JustAFakeTestInALonelyWorld?execution=0&print_time=true",
       );
 
-      const htmlLogButton = helpers.getByDataCy(
-        authenticatedPage,
-        "html-log-button",
-      );
+      const htmlLogButton = authenticatedPage.getByTestId("html-log-button");
       await expect(htmlLogButton).toBeVisible();
       await expect(htmlLogButton).toBeEnabled();
       await expect(htmlLogButton).toHaveAttribute(
@@ -116,10 +101,7 @@ test.describe("External Links", () => {
     });
 
     test("should link to the raw file", async ({ authenticatedPage }) => {
-      const rawLogButton = helpers.getByDataCy(
-        authenticatedPage,
-        "raw-log-button",
-      );
+      const rawLogButton = authenticatedPage.getByTestId("raw-log-button");
       await expect(rawLogButton).toBeVisible();
       await expect(rawLogButton).toBeEnabled();
       await expect(rawLogButton).toHaveAttribute("href", /s3\.amazonaws\.com/);

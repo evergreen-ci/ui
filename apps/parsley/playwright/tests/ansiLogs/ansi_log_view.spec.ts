@@ -12,7 +12,7 @@ test.describe("Basic evergreen log view", () => {
   });
 
   test("should render ansi lines", async ({ authenticatedPage }) => {
-    const ansiRows = helpers.getByDataCy(authenticatedPage, "ansi-row");
+    const ansiRows = authenticatedPage.getByTestId("ansi-row");
     await ansiRows.first().waitFor();
     expect(await ansiRows.count()).toBeGreaterThan(0);
   });
@@ -20,12 +20,10 @@ test.describe("Basic evergreen log view", () => {
   test("by default should have wrapping turned off and should be able to scroll horizontally", async ({
     authenticatedPage,
   }) => {
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-22"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-22"),
-    ).toContainText(longLogLine);
+    await expect(authenticatedPage.getByTestId("log-row-22")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("log-row-22")).toContainText(
+      longLogLine,
+    );
     await helpers.isNotContainedInViewport(
       authenticatedPage,
       "[data-cy=log-row-22]",
@@ -47,12 +45,10 @@ test.describe("Basic evergreen log view", () => {
       true,
       "log-viewing",
     );
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-22"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-22"),
-    ).toContainText(longLogLine);
+    await expect(authenticatedPage.getByTestId("log-row-22")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("log-row-22")).toContainText(
+      longLogLine,
+    );
     await helpers.isContainedInViewport(
       authenticatedPage,
       "[data-cy=log-row-22]",
@@ -75,38 +71,36 @@ test.describe("Basic evergreen log view", () => {
     authenticatedPage,
   }) => {
     await expect(
-      helpers.getByDataCy(authenticatedPage, "project-breadcrumb"),
+      authenticatedPage.getByTestId("project-breadcrumb"),
     ).toContainText("spruce");
 
     await expect(
-      helpers.getByDataCy(authenticatedPage, "version-breadcrumb"),
+      authenticatedPage.getByTestId("version-breadcrumb"),
     ).toContainText("2c9056d");
-    await helpers.getByDataCy(authenticatedPage, "version-breadcrumb").hover();
+    await authenticatedPage.getByTestId("version-breadcrumb").hover();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "breadcrumb-tooltip"),
+      authenticatedPage.getByTestId("breadcrumb-tooltip"),
     ).toBeVisible();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "breadcrumb-tooltip"),
+      authenticatedPage.getByTestId("breadcrumb-tooltip"),
     ).toContainText(
       "EVG-14749: Add loading state for JIRA Issues and Suspected Issues (#1120)",
     );
     await authenticatedPage.mouse.move(0, 0);
 
     await expect(
-      helpers.getByDataCy(authenticatedPage, "task-breadcrumb"),
+      authenticatedPage.getByTestId("task-breadcrumb"),
     ).toContainText("test");
     await expect(
-      helpers.getByDataCy(authenticatedPage, "task-breadcrumb"),
+      authenticatedPage.getByTestId("task-breadcrumb"),
     ).toHaveAttribute(
       "href",
       "http://localhost:9090/task/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0?redirect_spruce_users=true",
     );
     await expect(
-      helpers.getByDataCy(authenticatedPage, "task-status-badge"),
+      authenticatedPage.getByTestId("task-status-badge"),
     ).toContainText("Succeeded");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "test-breadcrumb"),
-    ).toBeHidden();
+    await expect(authenticatedPage.getByTestId("test-breadcrumb")).toBeHidden();
   });
 });
 
@@ -119,29 +113,29 @@ test.describe("Bookmarking and selecting lines", () => {
     authenticatedPage,
   }) => {
     await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,297/);
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "bookmark-list"),
-    ).toContainText("0");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "bookmark-list"),
-    ).toContainText("297");
+    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
+      "0",
+    );
+    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
+      "297",
+    );
   });
 
   test("should be able to bookmark and unbookmark log lines", async ({
     authenticatedPage,
   }) => {
-    await helpers.getByDataCy(authenticatedPage, "log-row-4").dblclick();
+    await authenticatedPage.getByTestId("log-row-4").dblclick();
     await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,4,297/);
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "bookmark-list"),
-    ).toContainText("0");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "bookmark-list"),
-    ).toContainText("4");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "bookmark-list"),
-    ).toContainText("297");
-    await helpers.getByDataCy(authenticatedPage, "log-row-4").dblclick();
+    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
+      "0",
+    );
+    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
+      "4",
+    );
+    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
+      "297",
+    );
+    await authenticatedPage.getByTestId("log-row-4").dblclick();
     await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,297/);
     const bookmarkList = await helpers
       .getByDataCy(authenticatedPage, "bookmark-list")
@@ -152,18 +146,18 @@ test.describe("Bookmarking and selecting lines", () => {
   test("should be able to set and unset the share line", async ({
     authenticatedPage,
   }) => {
-    await helpers.getByDataCy(authenticatedPage, "log-link-5").click();
+    await authenticatedPage.getByTestId("log-link-5").click();
     await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,297&shareLine=5/);
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "bookmark-list"),
-    ).toContainText("0");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "bookmark-list"),
-    ).toContainText("5");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "bookmark-list"),
-    ).toContainText("297");
-    await helpers.getByDataCy(authenticatedPage, "log-link-5").click();
+    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
+      "0",
+    );
+    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
+      "5",
+    );
+    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
+      "297",
+    );
+    await authenticatedPage.getByTestId("log-link-5").click();
     await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,297/);
     const bookmarkList = await helpers
       .getByDataCy(authenticatedPage, "bookmark-list")
@@ -232,9 +226,9 @@ test.describe("Bookmarking and selecting lines", () => {
   });
 
   test("should be able to clear bookmarks", async ({ authenticatedPage }) => {
-    await helpers.getByDataCy(authenticatedPage, "clear-bookmarks").click();
+    await authenticatedPage.getByTestId("clear-bookmarks").click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "clear-bookmarks-popconfirm"),
+      authenticatedPage.getByTestId("clear-bookmarks-popconfirm"),
     ).toBeVisible();
     await authenticatedPage.getByRole("button", { name: "Yes" }).click();
     await expect(authenticatedPage).toHaveURL(/^(?!.*bookmarks)/);
@@ -246,27 +240,17 @@ test.describe("Jump to line", () => {
     authenticatedPage,
   }) => {
     await authenticatedPage.goto(logLink);
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-4"),
-    ).toBeVisible();
+    await expect(authenticatedPage.getByTestId("log-row-4")).toBeVisible();
     await helpers
       .getByDataCy(authenticatedPage, "log-row-4")
       .dblclick({ force: true });
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "bookmark-4"),
-    ).toBeVisible();
+    await expect(authenticatedPage.getByTestId("bookmark-4")).toBeVisible();
 
-    await helpers.getByDataCy(authenticatedPage, "bookmark-297").click();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-297"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-4"),
-    ).toBeHidden();
-    await helpers.getByDataCy(authenticatedPage, "bookmark-4").click();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-4"),
-    ).toBeVisible();
+    await authenticatedPage.getByTestId("bookmark-297").click();
+    await expect(authenticatedPage.getByTestId("log-row-297")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("log-row-4")).toBeHidden();
+    await authenticatedPage.getByTestId("bookmark-4").click();
+    await expect(authenticatedPage.getByTestId("log-row-4")).toBeVisible();
   });
 
   test("should be able to use the bookmarks bar to jump to a line when there are collapsed rows", async ({
@@ -276,30 +260,20 @@ test.describe("Jump to line", () => {
     await helpers
       .getByDataCy(authenticatedPage, "log-row-56")
       .dblclick({ force: true });
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "bookmark-56"),
-    ).toBeVisible();
+    await expect(authenticatedPage.getByTestId("bookmark-56")).toBeVisible();
 
-    await helpers.getByDataCy(authenticatedPage, "bookmark-297").click();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-297"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-56"),
-    ).toBeHidden();
-    await helpers.getByDataCy(authenticatedPage, "bookmark-56").click();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-56"),
-    ).toBeVisible();
+    await authenticatedPage.getByTestId("bookmark-297").click();
+    await expect(authenticatedPage.getByTestId("log-row-297")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("log-row-56")).toBeHidden();
+    await authenticatedPage.getByTestId("bookmark-56").click();
+    await expect(authenticatedPage.getByTestId("log-row-56")).toBeVisible();
   });
 
   test("visiting a log with a share line should jump to that line on page load", async ({
     authenticatedPage,
   }) => {
     await authenticatedPage.goto(`${logLink}?shareLine=200`);
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-200"),
-    ).toBeVisible();
+    await expect(authenticatedPage.getByTestId("log-row-200")).toBeVisible();
   });
 });
 
@@ -314,18 +288,10 @@ test.describe("expanding collapsed rows", () => {
   test("should be able to expand collapsed rows", async ({
     authenticatedPage,
   }) => {
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-1"),
-    ).toBeHidden();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-2"),
-    ).toBeHidden();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-3"),
-    ).toBeHidden();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-4"),
-    ).toBeHidden();
+    await expect(authenticatedPage.getByTestId("log-row-1")).toBeHidden();
+    await expect(authenticatedPage.getByTestId("log-row-2")).toBeHidden();
+    await expect(authenticatedPage.getByTestId("log-row-3")).toBeHidden();
+    await expect(authenticatedPage.getByTestId("log-row-4")).toBeHidden();
 
     await helpers
       .getByDataCy(authenticatedPage, "skipped-lines-row-1-4")
@@ -333,20 +299,12 @@ test.describe("expanding collapsed rows", () => {
       .click();
 
     await expect(
-      helpers.getByDataCy(authenticatedPage, "skipped-lines-row-1-4"),
+      authenticatedPage.getByTestId("skipped-lines-row-1-4"),
     ).toBeHidden();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-1"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-2"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-3"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-4"),
-    ).toBeVisible();
+    await expect(authenticatedPage.getByTestId("log-row-1")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("log-row-2")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("log-row-3")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("log-row-4")).toBeVisible();
   });
 
   test("should be able to see what rows have been expanded in the drawer", async ({
@@ -358,7 +316,7 @@ test.describe("expanding collapsed rows", () => {
       .click();
     await helpers.toggleDrawer(authenticatedPage);
     await expect(
-      helpers.getByDataCy(authenticatedPage, "expanded-row-1-to-4"),
+      authenticatedPage.getByTestId("expanded-row-1-to-4"),
     ).toBeVisible();
   });
 
@@ -370,7 +328,7 @@ test.describe("expanding collapsed rows", () => {
       .getByRole("button", { name: "All" })
       .click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "skipped-lines-row-1-4"),
+      authenticatedPage.getByTestId("skipped-lines-row-1-4"),
     ).toBeHidden();
 
     await helpers.toggleDrawer(authenticatedPage);
@@ -379,7 +337,7 @@ test.describe("expanding collapsed rows", () => {
       .locator(`[aria-label="Delete range"]`)
       .click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "skipped-lines-row-1-4"),
+      authenticatedPage.getByTestId("skipped-lines-row-1-4"),
     ).toBeVisible();
   });
 });
@@ -387,46 +345,38 @@ test.describe("expanding collapsed rows", () => {
 test.describe("Sharing lines", () => {
   test.beforeEach(async ({ authenticatedPage }) => {
     await authenticatedPage.goto(logLink);
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "line-index-1"),
-    ).toBeVisible();
+    await expect(authenticatedPage.getByTestId("line-index-1")).toBeVisible();
   });
 
   test("should present a share button with a menu when a line is selected", async ({
     authenticatedPage,
   }) => {
-    await helpers.getByDataCy(authenticatedPage, "line-index-1").click();
+    await authenticatedPage.getByTestId("line-index-1").click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "sharing-menu-button"),
+      authenticatedPage.getByTestId("sharing-menu-button"),
     ).toBeVisible();
-    await helpers.getByDataCy(authenticatedPage, "sharing-menu-button").click();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "sharing-menu"),
-    ).toBeVisible();
+    await authenticatedPage.getByTestId("sharing-menu-button").click();
+    await expect(authenticatedPage.getByTestId("sharing-menu")).toBeVisible();
   });
 
   test("shift+click selecting a range of lines should automatically open the sharing menu", async ({
     authenticatedPage,
   }) => {
-    await helpers.getByDataCy(authenticatedPage, "line-index-1").click();
+    await authenticatedPage.getByTestId("line-index-1").click();
     await helpers
       .getByDataCy(authenticatedPage, "line-index-10")
       .click({ modifiers: ["Shift"] });
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "sharing-menu"),
-    ).toBeVisible();
+    await expect(authenticatedPage.getByTestId("sharing-menu")).toBeVisible();
   });
 
   test("should be able to copy the selected lines as JIRA format", async ({
     authenticatedPage,
   }) => {
-    await helpers.getByDataCy(authenticatedPage, "line-index-1").click();
+    await authenticatedPage.getByTestId("line-index-1").click();
     await helpers
       .getByDataCy(authenticatedPage, "line-index-2")
       .click({ modifiers: ["Shift"] });
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "sharing-menu"),
-    ).toBeVisible();
+    await expect(authenticatedPage.getByTestId("sharing-menu")).toBeVisible();
     await expect(
       authenticatedPage.getByText("Copy selected contents"),
     ).toBeVisible();
@@ -446,13 +396,11 @@ test.describe("Sharing lines", () => {
   test("should be able to copy a link to the selected lines", async ({
     authenticatedPage,
   }) => {
-    await helpers.getByDataCy(authenticatedPage, "line-index-1").click();
+    await authenticatedPage.getByTestId("line-index-1").click();
     await helpers
       .getByDataCy(authenticatedPage, "line-index-2")
       .click({ modifiers: ["Shift"] });
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "sharing-menu"),
-    ).toBeVisible();
+    await expect(authenticatedPage.getByTestId("sharing-menu")).toBeVisible();
     await expect(
       authenticatedPage.getByText("Copy share link to selected lines"),
     ).toBeVisible();
@@ -474,23 +422,21 @@ test.describe("Sharing lines", () => {
   test("should be able to limit the search range to the selected lines", async ({
     authenticatedPage,
   }) => {
-    await helpers.getByDataCy(authenticatedPage, "line-index-1").click();
+    await authenticatedPage.getByTestId("line-index-1").click();
     await helpers
       .getByDataCy(authenticatedPage, "line-index-2")
       .click({ modifiers: ["Shift"] });
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "sharing-menu"),
-    ).toBeVisible();
+    await expect(authenticatedPage.getByTestId("sharing-menu")).toBeVisible();
     await expect(
       authenticatedPage.getByText("Only search on range"),
     ).toBeVisible();
     await authenticatedPage.getByText("Only search on range").click();
     await helpers.toggleDetailsPanel(authenticatedPage, true);
     await expect(
-      helpers.getByDataCy(authenticatedPage, "range-lower-bound"),
+      authenticatedPage.getByTestId("range-lower-bound"),
     ).toHaveValue("1");
     await expect(
-      helpers.getByDataCy(authenticatedPage, "range-upper-bound"),
+      authenticatedPage.getByTestId("range-upper-bound"),
     ).toHaveValue("2");
   });
 });
@@ -513,15 +459,11 @@ test.describe("jump to failing log line", () => {
       "log-viewing",
     );
     await authenticatedPage.reload();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "bookmark-list"),
-    ).toContainText("9614");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-0"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-9614"),
-    ).toBeHidden();
+    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
+      "9614",
+    );
+    await expect(authenticatedPage.getByTestId("log-row-0")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("log-row-9614")).toBeHidden();
 
     await helpers.clickToggle(
       authenticatedPage,
@@ -530,15 +472,11 @@ test.describe("jump to failing log line", () => {
       "log-viewing",
     );
     await authenticatedPage.reload();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "bookmark-list"),
-    ).toContainText("9614");
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-9614"),
-    ).toBeVisible();
-    await expect(
-      helpers.getByDataCy(authenticatedPage, "log-row-0"),
-    ).toBeHidden();
+    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
+      "9614",
+    );
+    await expect(authenticatedPage.getByTestId("log-row-9614")).toBeVisible();
+    await expect(authenticatedPage.getByTestId("log-row-0")).toBeHidden();
   });
 });
 
@@ -549,20 +487,20 @@ test.describe("sections", () => {
 
   test("Can enable/disable sections", async ({ authenticatedPage }) => {
     await helpers.toggleDetailsPanel(authenticatedPage, true);
-    await helpers.getByDataCy(authenticatedPage, "log-viewing-tab").click();
+    await authenticatedPage.getByTestId("log-viewing-tab").click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "sections-toggle"),
+      authenticatedPage.getByTestId("sections-toggle"),
     ).toBeEnabled();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "sections-toggle"),
+      authenticatedPage.getByTestId("sections-toggle"),
     ).toHaveAttribute("aria-checked", "false");
-    await helpers.getByDataCy(authenticatedPage, "sections-toggle").click();
+    await authenticatedPage.getByTestId("sections-toggle").click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "sections-toggle"),
+      authenticatedPage.getByTestId("sections-toggle"),
     ).toHaveAttribute("aria-checked", "true");
-    await helpers.getByDataCy(authenticatedPage, "sections-toggle").click();
+    await authenticatedPage.getByTestId("sections-toggle").click();
     await expect(
-      helpers.getByDataCy(authenticatedPage, "sections-toggle"),
+      authenticatedPage.getByTestId("sections-toggle"),
     ).toHaveAttribute("aria-checked", "false");
   });
 });

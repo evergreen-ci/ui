@@ -11,15 +11,15 @@ test.describe("Filtering", () => {
         await helpers.resetDrawerState(authenticatedPage);
         await authenticatedPage.goto(logLink);
         await expect(
-          helpers.getByDataCy(authenticatedPage, "paginated-virtual-list"),
+          authenticatedPage.getByTestId("paginated-virtual-list"),
         ).toBeVisible();
       });
 
       test("should not collapse bookmarks and share line", async ({
         authenticatedPage,
       }) => {
-        await helpers.getByDataCy(authenticatedPage, "log-link-5").click();
-        await helpers.getByDataCy(authenticatedPage, "log-row-6").dblclick();
+        await authenticatedPage.getByTestId("log-link-5").click();
+        await authenticatedPage.getByTestId("log-row-6").dblclick();
         await expect(authenticatedPage).toHaveURL(
           /\?bookmarks=0,6,297&shareLine=5/,
         );
@@ -38,15 +38,13 @@ test.describe("Filtering", () => {
         authenticatedPage,
       }) => {
         await helpers.addFilter(authenticatedPage, "5553072873648668703");
-        await expect(
-          helpers.getByDataCy(authenticatedPage, "log-row-0"),
-        ).toBeVisible();
+        await expect(authenticatedPage.getByTestId("log-row-0")).toBeVisible();
         await helpers
           .getByDataCy(authenticatedPage, "log-row-0")
           .dblclick({ force: true });
         await expect(authenticatedPage).toHaveURL(/5553072873648668703/);
         await expect(
-          helpers.getByDataCy(authenticatedPage, "filter-5553072873648668703"),
+          authenticatedPage.getByTestId("filter-5553072873648668703"),
         ).toBeVisible();
       });
     });
@@ -286,7 +284,7 @@ test.describe("Filtering", () => {
         .getByDataCy(authenticatedPage, `filter-${filter}`)
         .locator('[aria-label="Edit filter"]')
         .click();
-      await helpers.getByDataCy(authenticatedPage, "edit-filter-name").clear();
+      await authenticatedPage.getByTestId("edit-filter-name").clear();
       await helpers
         .getByDataCy(authenticatedPage, "edit-filter-name")
         .fill("running");
@@ -339,7 +337,7 @@ test.describe("Filtering", () => {
         .getByDataCy(authenticatedPage, "all-filters-toggle")
         .click();
       await expect(
-        helpers.getByDataCy(authenticatedPage, "all-filters-toggle"),
+        authenticatedPage.getByTestId("all-filters-toggle"),
       ).toHaveAttribute("aria-checked", "false");
       await expect(
         authenticatedPage.locator("[data-cy^='skipped-lines-row-']"),
@@ -352,7 +350,7 @@ test.describe("Filtering", () => {
         .getByDataCy(authenticatedPage, "all-filters-toggle")
         .click();
       await expect(
-        helpers.getByDataCy(authenticatedPage, "all-filters-toggle"),
+        authenticatedPage.getByTestId("all-filters-toggle"),
       ).toHaveAttribute("aria-checked", "true");
       expect(
         await authenticatedPage
