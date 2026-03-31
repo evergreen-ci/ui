@@ -2369,13 +2369,17 @@ export type OktaConfigInput = {
 
 export type OktaServiceConfig = {
   __typename?: "OktaServiceConfig";
+  audience?: Maybe<Scalars["String"]["output"]>;
   clientId?: Maybe<Scalars["String"]["output"]>;
   clientSecret?: Maybe<Scalars["String"]["output"]>;
+  scopes?: Maybe<Array<Scalars["String"]["output"]>>;
 };
 
 export type OktaServiceConfigInput = {
+  audience?: InputMaybe<Scalars["String"]["input"]>;
   clientId?: InputMaybe<Scalars["String"]["input"]>;
   clientSecret?: InputMaybe<Scalars["String"]["input"]>;
+  scopes?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type OomTrackerInfo = {
@@ -3533,11 +3537,15 @@ export type S3CredentialsInput = {
 
 export type S3StorageCostConfig = {
   __typename?: "S3StorageCostConfig";
+  archiveStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+  defaultMaxArtifactExpirationDays?: Maybe<Scalars["Int"]["output"]>;
   iAStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
   standardStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type S3StorageCostConfigInput = {
+  archiveStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  defaultMaxArtifactExpirationDays?: InputMaybe<Scalars["Int"]["input"]>;
   iAStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   standardStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
