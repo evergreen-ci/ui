@@ -17,6 +17,7 @@ import { getBytesAsString } from "utils/string";
 type UseLogDownloader = {
   downloadSizeLimit?: number;
   logType: LogTypes;
+  onComplete: (logs: string[]) => void;
   url: string;
 };
 
@@ -28,18 +29,18 @@ type UseLogDownloader = {
  * @param props.url - the url to fetch
  * @param props.logType - the type of log file to download
  * @param props.downloadSizeLimit - the maximum size of the log file to download
+ * @param props.onComplete - callback invoked with the parsed log lines once download finishes
  * @returns an object with the following properties:
  * - isLoading: a boolean that is true while the log is being downloaded
- * - data: the log file as an array of strings
  * - error: an error message if the download fails
  * - fileSize: the size of the log file in bytes
  */
 const useLogDownloader = ({
   downloadSizeLimit = LOG_FILE_SIZE_LIMIT,
   logType,
+  onComplete,
   url,
 }: UseLogDownloader) => {
-  const [data, setData] = useState<string[] | undefined>();
   const [error, setError] = useState<string | undefined>();
   const [fileSize, setFileSize, getFileSize] = useStateRef<number>(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -87,7 +88,7 @@ const useLogDownloader = ({
           if (logs[logs.length - 1] === "") {
             logs.pop();
           }
-          setData(logs);
+          onComplete(logs);
           if (trimmedLines) {
             sendEvent({
               downloaded: getFileSize(),
@@ -155,7 +156,7 @@ const useLogDownloader = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
-  return { data, error, fileSize, isLoading };
+  return { error, fileSize, isLoading };
 };
 
 export { useLogDownloader };

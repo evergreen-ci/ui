@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import styled from "@emotion/styled";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { Body } from "@leafygreen-ui/typography";
@@ -50,18 +50,8 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     testID,
   });
 
-  const {
-    data,
-    error,
-    fileSize,
-    isLoading: isLoadingLog,
-  } = useLogDownloader({
-    logType,
-    url: downloadURL,
-  });
-
-  useEffect(() => {
-    if (data) {
+  const onComplete = useCallback(
+    (logs: string[]) => {
       leaveBreadcrumb(
         "ingest-log-lines",
         { logType },
@@ -80,30 +70,41 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
         taskID,
         testID,
       });
-      ingestLines(data, renderingType, failingCommand);
-    }
+      ingestLines(logs, renderingType, failingCommand);
+    },
+    [
+      execution,
+      failingCommand,
+      fileName,
+      groupID,
+      htmlLogURL,
+      ingestLines,
+      jobLogsURL,
+      logType,
+      origin,
+      rawLogURL,
+      renderingType,
+      setLogMetadata,
+      taskID,
+      testID,
+    ],
+  );
+
+  const {
+    error,
+    fileSize,
+    isLoading: isLoadingLog,
+  } = useLogDownloader({
+    logType,
+    onComplete,
+    url: downloadURL,
+  });
+
+  useEffect(() => {
     if (error) {
       dispatchToast.error(error);
     }
-  }, [
-    data,
-    dispatchToast,
-    error,
-    execution,
-    fileName,
-    groupID,
-    htmlLogURL,
-    ingestLines,
-    jobLogsURL,
-    logType,
-    origin,
-    rawLogURL,
-    renderingType,
-    setLogMetadata,
-    taskID,
-    testID,
-    failingCommand,
-  ]);
+  }, [dispatchToast, error]);
 
   if (isLoadingLog || isLoadingEvergreen) {
     return (
