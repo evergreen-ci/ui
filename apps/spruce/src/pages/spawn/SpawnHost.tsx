@@ -1,9 +1,15 @@
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
+import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
+import { getRandomAprilFoolsBanner } from "components/AprilFools";
 import { TitleContainer, Title, BadgeWrapper } from "components/Spawn";
+import { APRIL_FOOLS } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { MY_HOSTS } from "gql/queries";
@@ -31,6 +37,18 @@ export const SpawnHost = () => {
   });
 
   usePageTitle("My Hosts");
+  const aprilFoolsEnabled = getLocalStorageBoolean(APRIL_FOOLS, true);
+  const randomBanner = useMemo(() => getRandomAprilFoolsBanner(), []);
+  const BannerWrapper = styled.div`
+    margin: ${size.m} 0;
+    display: flex;
+    justify-content: center;
+
+    img {
+      max-width: 100%;
+      max-height: 100px;
+    }
+  `;
 
   if (loading) {
     return <SpawnPageSkeleton />;
@@ -52,6 +70,11 @@ export const SpawnHost = () => {
           <Badge variant={Variant.Green}>{runningHosts.length} Running</Badge>
           <Badge variant={Variant.Yellow}>{pausedHosts.length} Paused</Badge>
         </BadgeWrapper>
+        {aprilFoolsEnabled && (
+          <BannerWrapper>
+            <img alt="Random Evergreen April Fools Ad" src={randomBanner} />
+          </BannerWrapper>
+        )}
       </TitleContainer>
       <SpawnHostButton />
       {hasHosts ? (
