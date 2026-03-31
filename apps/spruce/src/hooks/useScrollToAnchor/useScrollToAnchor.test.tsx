@@ -8,6 +8,7 @@ describe("useScrollToAnchor", () => {
   beforeEach(() => {
     vi.useFakeTimers();
     vi.spyOn(document, "getElementById").mockReturnValue(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       mockElement as any as HTMLElement,
     );
     mockElement.scrollIntoView.mockClear();

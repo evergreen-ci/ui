@@ -214,6 +214,7 @@ const emptyFilterQueryParams = {
 };
 
 const getInitialState = (queryParams: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }): {
   initialFilters: ColumnFiltersState;
@@ -247,6 +248,7 @@ const getInitialState = (queryParams: {
 };
 
 const getQueryVariables = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   queryParams: { [key: string]: any },
   taskId: string,
 ): TaskTestsQueryVariables => {

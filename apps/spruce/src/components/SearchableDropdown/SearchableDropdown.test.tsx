@@ -330,6 +330,7 @@ describe("searchableDropdown", () => {
               value: "spruce",
             },
           ],
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           optionRenderer: (option: any, onClick) => (
             <button
               key={option.value}
@@ -365,6 +366,7 @@ describe("searchableDropdown", () => {
               value: "spruce",
             },
           ],
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           optionRenderer: (option: any, onClick) => (
             <button
               key={option.value}

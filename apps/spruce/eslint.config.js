@@ -1,6 +1,6 @@
 import { defineConfig } from "eslint/config";
 import checkFilePlugin from "eslint-plugin-check-file";
-import baseConfig, { WARN, errorIfStrict } from "@evg-ui/eslint-config";
+import baseConfig, { errorIfStrict } from "@evg-ui/eslint-config";
 
 export default defineConfig(
   ...baseConfig,
@@ -36,14 +36,6 @@ export default defineConfig(
           ignoreMiddleExtensions: true,
         },
       ],
-    },
-  },
-  // React ESLint (eslint-plugin-react) overrides for Spruce.
-  {
-    name: "react/spruce-overrides",
-    files: ["src/**/*.ts?(x)"],
-    rules: {
-      "@typescript-eslint/no-explicit-any": WARN,
     },
   },
 );
