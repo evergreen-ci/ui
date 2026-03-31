@@ -2366,13 +2366,17 @@ export type OktaConfigInput = {
 
 export type OktaServiceConfig = {
   __typename?: "OktaServiceConfig";
+  audience?: Maybe<Scalars["String"]["output"]>;
   clientId?: Maybe<Scalars["String"]["output"]>;
   clientSecret?: Maybe<Scalars["String"]["output"]>;
+  scopes?: Maybe<Array<Scalars["String"]["output"]>>;
 };
 
 export type OktaServiceConfigInput = {
+  audience?: InputMaybe<Scalars["String"]["input"]>;
   clientId?: InputMaybe<Scalars["String"]["input"]>;
   clientSecret?: InputMaybe<Scalars["String"]["input"]>;
+  scopes?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type OomTrackerInfo = {
