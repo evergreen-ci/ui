@@ -11,17 +11,22 @@ import { TestStatus } from "@evg-ui/lib/types/test";
 import {
   QuarantineTestMutation,
   QuarantineTestMutationVariables,
+  UnquarantineTestMutation,
+  UnquarantineTestMutationVariables,
+  QuarantineStatusQuery,
+  QuarantineStatusQueryVariables,
   TestResult,
 } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
-import { QUARANTINE_TEST } from "gql/mutations";
+import { QUARANTINE_TEST, UNQUARANTINE_TEST } from "gql/mutations";
+import { QUARANTINE_STATUS } from "gql/queries";
 import { ActionMenu } from ".";
 
 describe("action menu for tests table", () => {
-  it("can open menu", async () => {
+  it("can open menu and shows loading state", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[quarantineTestMock]}>
+      <MockedProvider mocks={[notQuarantinedStatusMock]}>
         <ActionMenu task={taskQuery.task} test={failingTest} />
       </MockedProvider>,
     );
@@ -32,46 +37,39 @@ describe("action menu for tests table", () => {
     });
   });
 
-  it("cannot quarantine if test is passing'", async () => {
+  it("shows quarantine option when test is not quarantined", async () => {
     const user = userEvent.setup();
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[quarantineTestMock]}>
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <MockedProvider mocks={[notQuarantinedStatusMock, quarantineTestMock]}>
+        <ActionMenu task={taskQuery.task} test={failingTest} />
+      </MockedProvider>,
+    );
+    render(<Component />);
+    await user.click(screen.getByDataCy("ellipsis-btn"));
+    await waitFor(() => {
+      expect(screen.getByDataCy("quarantine-test")).toBeVisible();
+    });
+    await user.click(screen.getByDataCy("quarantine-test"));
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it("shows unquarantine option when test is quarantined", async () => {
+    const user = userEvent.setup();
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <MockedProvider mocks={[quarantinedStatusMock, unquarantineTestMock]}>
         <ActionMenu task={taskQuery.task} test={passingTest} />
       </MockedProvider>,
     );
     render(<Component />);
     await user.click(screen.getByDataCy("ellipsis-btn"));
     await waitFor(() => {
-      expect(screen.getByDataCy("card-dropdown")).toBeVisible();
+      expect(screen.getByDataCy("unquarantine-test")).toBeVisible();
     });
-    expect(screen.getByDataCy("quarantine-test")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
-  });
-
-  it("can quarantine if test is failing", async () => {
-    const user = userEvent.setup();
-    const { Component, dispatchToast } = RenderFakeToastContext(
-      <MockedProvider mocks={[quarantineTestMock]}>
-        <ActionMenu task={taskQuery.task} test={failingTest} />
-      </MockedProvider>,
-    );
-    render(<Component />);
-    await user.click(screen.getByDataCy("ellipsis-btn"));
-    await waitFor(() => {
-      expect(screen.getByDataCy("card-dropdown")).toBeVisible();
-    });
-    expect(screen.getByDataCy("quarantine-test")).toHaveAttribute(
-      "aria-disabled",
-      "false",
-    );
-    await user.click(screen.getByDataCy("quarantine-test"));
+    await user.click(screen.getByDataCy("unquarantine-test"));
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
-    });
-    await waitFor(() => {
-      expect(screen.queryByDataCy("card-dropdown")).not.toBeInTheDocument();
     });
   });
 });
@@ -90,6 +88,48 @@ const passingTest: TestResult = {
   logs: {},
 };
 
+const notQuarantinedStatusMock: ApolloMock<
+  QuarantineStatusQuery,
+  QuarantineStatusQueryVariables
+> = {
+  request: {
+    query: QUARANTINE_STATUS,
+    variables: {
+      taskId: taskQuery.task.id,
+      testName: "test_1",
+    },
+  },
+  result: {
+    data: {
+      quarantineStatus: {
+        __typename: "QuarantineStatus",
+        isQuarantined: false,
+      },
+    },
+  },
+};
+
+const quarantinedStatusMock: ApolloMock<
+  QuarantineStatusQuery,
+  QuarantineStatusQueryVariables
+> = {
+  request: {
+    query: QUARANTINE_STATUS,
+    variables: {
+      taskId: taskQuery.task.id,
+      testName: "test_2",
+    },
+  },
+  result: {
+    data: {
+      quarantineStatus: {
+        __typename: "QuarantineStatus",
+        isQuarantined: true,
+      },
+    },
+  },
+};
+
 const quarantineTestMock: ApolloMock<
   QuarantineTestMutation,
   QuarantineTestMutationVariables
@@ -105,6 +145,27 @@ const quarantineTestMock: ApolloMock<
     data: {
       quarantineTest: {
         __typename: "QuarantineTestPayload",
+        success: true,
+      },
+    },
+  },
+};
+
+const unquarantineTestMock: ApolloMock<
+  UnquarantineTestMutation,
+  UnquarantineTestMutationVariables
+> = {
+  request: {
+    query: UNQUARANTINE_TEST,
+    variables: {
+      taskId: taskQuery.task.id,
+      testName: "test_2",
+    },
+  },
+  result: {
+    data: {
+      unquarantineTest: {
+        __typename: "UnquarantineTestPayload",
         success: true,
       },
     },

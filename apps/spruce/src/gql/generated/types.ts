@@ -1994,6 +1994,7 @@ export type Mutation = {
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"]["output"];
+  unquarantineTest: UnquarantineTestPayload;
   unscheduleTask: Task;
   unscheduleVersionTasks?: Maybe<Scalars["String"]["output"]>;
   updateBetaFeatures?: Maybe<UpdateBetaFeaturesPayload>;
@@ -2253,6 +2254,10 @@ export type MutationSpawnHostArgs = {
 
 export type MutationSpawnVolumeArgs = {
   spawnVolumeInput: SpawnVolumeInput;
+};
+
+export type MutationUnquarantineTestArgs = {
+  opts: UnquarantineTestInput;
 };
 
 export type MutationUnscheduleTaskArgs = {
@@ -3123,6 +3128,11 @@ export type PublicKeyInput = {
   name: Scalars["String"]["input"];
 };
 
+export type QuarantineStatus = {
+  __typename?: "QuarantineStatus";
+  isQuarantined: Scalars["Boolean"]["output"];
+};
+
 export type QuarantineTestInput = {
   taskId: Scalars["String"]["input"];
   testName: Scalars["String"]["input"];
@@ -3168,6 +3178,7 @@ export type Query = {
   projectEvents: ProjectEvents;
   projectSettings: ProjectSettings;
   projects: Array<GroupedProjects>;
+  quarantineStatus: QuarantineStatus;
   repoEvents: ProjectEvents;
   repoSettings: RepoSettings;
   spruceConfig?: Maybe<SpruceConfig>;
@@ -3287,6 +3298,11 @@ export type QueryProjectEventsArgs = {
 
 export type QueryProjectSettingsArgs = {
   projectIdentifier: Scalars["String"]["input"];
+};
+
+export type QueryQuarantineStatusArgs = {
+  taskId: Scalars["String"]["input"];
+  testName: Scalars["String"]["input"];
 };
 
 export type QueryRepoEventsArgs = {
@@ -4661,6 +4677,16 @@ export type UiConfigInput = {
   uiv2Url: Scalars["String"]["input"];
   url: Scalars["String"]["input"];
   userVoice: Scalars["String"]["input"];
+};
+
+export type UnquarantineTestInput = {
+  taskId: Scalars["String"]["input"];
+  testName: Scalars["String"]["input"];
+};
+
+export type UnquarantineTestPayload = {
+  __typename?: "UnquarantineTestPayload";
+  success: Scalars["Boolean"]["output"];
 };
 
 export type UpdateBetaFeaturesInput = {
@@ -7430,6 +7456,19 @@ export type SpawnVolumeMutation = {
   spawnVolume: boolean;
 };
 
+export type UnquarantineTestMutationVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  testName: Scalars["String"]["input"];
+}>;
+
+export type UnquarantineTestMutation = {
+  __typename?: "Mutation";
+  unquarantineTest: {
+    __typename?: "UnquarantineTestPayload";
+    success: boolean;
+  };
+};
+
 export type UnscheduleTaskMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
 }>;
@@ -10016,6 +10055,16 @@ export type MyPublicKeysQueryVariables = Exact<{ [key: string]: never }>;
 export type MyPublicKeysQuery = {
   __typename?: "Query";
   myPublicKeys: Array<{ __typename?: "PublicKey"; key: string; name: string }>;
+};
+
+export type QuarantineStatusQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  testName: Scalars["String"]["input"];
+}>;
+
+export type QuarantineStatusQuery = {
+  __typename?: "Query";
+  quarantineStatus: { __typename?: "QuarantineStatus"; isQuarantined: boolean };
 };
 
 export type RepoEventLogsQueryVariables = Exact<{

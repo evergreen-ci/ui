@@ -1,0 +1,5 @@
+mutation UnquarantineTest($taskId: String!, $testName: String!) {
+  unquarantineTest(opts: { taskId: $taskId, testName: $testName }) {
+    success
+  }
+}
