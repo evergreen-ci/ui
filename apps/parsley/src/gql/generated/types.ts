@@ -3533,11 +3533,15 @@ export type S3CredentialsInput = {
 
 export type S3StorageCostConfig = {
   __typename?: "S3StorageCostConfig";
+  archiveStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
+  defaultMaxArtifactExpirationDays?: Maybe<Scalars["Int"]["output"]>;
   iAStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
   standardStorageCostDiscount?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type S3StorageCostConfigInput = {
+  archiveStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
+  defaultMaxArtifactExpirationDays?: InputMaybe<Scalars["Int"]["input"]>;
   iAStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
   standardStorageCostDiscount?: InputMaybe<Scalars["Float"]["input"]>;
 };
