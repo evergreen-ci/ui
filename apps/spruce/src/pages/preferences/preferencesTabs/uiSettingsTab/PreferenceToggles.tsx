@@ -62,7 +62,7 @@ export const PreferenceToggles: React.FC = () => {
         checked={aprilFoolsEnabled}
         description="Turn off the April Fools' joke for this year if you don't want to see it. You'll need to refresh the page whoopsie (Don't worry, you won't hurt our feelings!)"
         id="toggle-april-fools"
-        label="SUBSCRIBE to APRIL FOOLS' JOKE"
+        label="UNSUBSCRIBE from APRIL FOOLS' JOKE (you owe us!)"
         onChange={handleToggleAprilFools}
       />
     </>
