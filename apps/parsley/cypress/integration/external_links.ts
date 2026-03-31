@@ -2,7 +2,7 @@ describe("External Links", () => {
   describe("should render links to external pages when viewing an evergreen task log", () => {
     beforeEach(() => {
       cy.visit(
-        "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task&time=true",
+        "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task",
       );
       cy.toggleDetailsPanel(true);
     });
@@ -61,7 +61,7 @@ describe("External Links", () => {
       cy.dataCy("html-log-button").should(
         "have.attr",
         "href",
-        "http://localhost:9090/test_log/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/0?test_name=JustAFakeTestInALonelyWorld#L0",
+        "http://localhost:9090/test_log/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/0?print_time=true&test_name=JustAFakeTestInALonelyWorld#L0",
       );
     });
     const evgTestLogWithoutGroupID =
