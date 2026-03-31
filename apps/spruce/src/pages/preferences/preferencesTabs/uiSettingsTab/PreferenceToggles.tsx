@@ -60,9 +60,9 @@ export const PreferenceToggles: React.FC = () => {
       />
       <ToggleWithLabel
         checked={aprilFoolsEnabled}
-        description="Turn off the April Fools' joke for this year if you don't want to see it. You'll need to refresh the page whoopsie (Don't worry, you won't hurt our feelings!)"
+        description="Show April Fools' Day ads around the UI. Toggle off and refresh to hide them."
         id="toggle-april-fools"
-        label="UNSUBSCRIBE from APRIL FOOLS' JOKE (you owe us!)"
+        label="April Fools' ads"
         onChange={handleToggleAprilFools}
       />
     </>

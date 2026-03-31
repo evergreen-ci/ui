@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
@@ -6,7 +5,7 @@ import { H3 } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
-import { getRandomAprilFoolsBanner } from "components/AprilFools";
+import { AprilFoolsBannerAd } from "components/AprilFools/AprilFoolsBannerAd";
 import { MCI_USER } from "constants/hosts";
 import { getAllHostsRoute } from "constants/routes";
 import {
@@ -14,7 +13,6 @@ import {
   DistroTaskQueueQueryVariables,
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
-import { useAprilFoolsEnabled } from "hooks/useAprilFoolsEnabled";
 import { QueryParams } from "types/task";
 import TaskQueueTable from "./TaskQueueTable";
 
@@ -41,27 +39,9 @@ const TaskQueueContent: React.FC<TaskQueueContentProps> = ({ distroId }) => {
   );
   useErrorToast(taskQueueError, "There was an error loading task queue");
 
-  const { enabled: aprilFoolsEnabled } = useAprilFoolsEnabled();
-  const randomBanner = useMemo(() => getRandomAprilFoolsBanner(), []);
-  const randomBanner2 = useMemo(() => getRandomAprilFoolsBanner(), []);
-  const BannerWrapper = styled.div`
-    margin: ${size.m} 0;
-    display: flex;
-    justify-content: center;
-
-    img {
-      max-width: 100%;
-      max-height: 100px;
-    }
-  `;
-
   return (
     <>
-      {aprilFoolsEnabled && (
-        <BannerWrapper>
-          <img alt="Random Evergreen April Fools Ad" src={randomBanner} />
-        </BannerWrapper>
-      )}
+      <AprilFoolsBannerAd />
       <TableHeader>
         <H3>{distroId}</H3>
         <StyledRouterLink
@@ -78,11 +58,7 @@ const TaskQueueContent: React.FC<TaskQueueContentProps> = ({ distroId }) => {
           taskQueue={taskQueueItemsData?.distroTaskQueue ?? []}
         />
       )}
-      {aprilFoolsEnabled && (
-        <BannerWrapper>
-          <img alt="Random Evergreen April Fools Ad" src={randomBanner2} />
-        </BannerWrapper>
-      )}
+      <AprilFoolsBannerAd />
     </>
   );
 };

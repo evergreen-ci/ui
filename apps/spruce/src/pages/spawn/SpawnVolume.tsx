@@ -1,18 +1,14 @@
-import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
-import { getRandomAprilFoolsBanner } from "components/AprilFools";
+import { AprilFoolsBannerAd } from "components/AprilFools/AprilFoolsBannerAd";
 import { Title, BadgeWrapper, TitleContainer } from "components/Spawn";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
 import { MY_VOLUMES } from "gql/queries";
 import { usePolling, useSpruceConfig } from "hooks";
-import { useAprilFoolsEnabled } from "hooks/useAprilFoolsEnabled";
 import { SpawnVolumeTable } from "pages/spawn/spawnVolume/SpawnVolumeTable";
 import SpawnPageSkeleton from "./SpawnPageSkeleton";
 import { SpawnVolumeButton } from "./spawnVolume/SpawnVolumeButton";
@@ -42,19 +38,6 @@ export const SpawnVolume = () => {
     shouldPollFaster: migrationInProcess,
   });
 
-  const { enabled: aprilFoolsEnabled } = useAprilFoolsEnabled();
-  const randomBanner = useMemo(() => getRandomAprilFoolsBanner(), []);
-  const BannerWrapper = styled.div`
-    margin: ${size.m} 0;
-    display: flex;
-    justify-content: center;
-
-    img {
-      max-width: 100%;
-      max-height: 100px;
-    }
-  `;
-
   if (loading) {
     return <SpawnPageSkeleton />;
   }
@@ -82,11 +65,7 @@ export const SpawnVolume = () => {
             variant={Variant.Blue}
           >{`${unmountedCount} Free`}</Badge>
         </BadgeWrapper>
-        {aprilFoolsEnabled && (
-          <BannerWrapper>
-            <img alt="Random Evergreen April Fools Ad" src={randomBanner} />
-          </BannerWrapper>
-        )}
+        <AprilFoolsBannerAd />
       </TitleContainer>
       <SpawnVolumeButton
         maxSpawnableLimit={maxSpawnableLimit}

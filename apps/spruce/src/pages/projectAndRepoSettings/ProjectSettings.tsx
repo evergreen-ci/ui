@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { PreferencesAdLayout } from "components/AprilFools/PreferencesAdLayout";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import {
   ProjectSettingsQuery,
@@ -12,7 +13,6 @@ import {
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
-import { PreferencesAdLayout } from "pages/AdColumn";
 import SharedSettings from "./shared";
 import { ProjectType } from "./shared/tabs/utils";
 

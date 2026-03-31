@@ -2,13 +2,13 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { PreferencesAdLayout } from "components/AprilFools/PreferencesAdLayout";
 import { slugs } from "constants/routes";
 import {
   RepoSettingsQuery,
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
 import { REPO_SETTINGS } from "gql/queries";
-import { PreferencesAdLayout } from "pages/AdColumn";
 import SharedSettings from "./shared";
 import { ProjectType } from "./shared/tabs/utils";
 

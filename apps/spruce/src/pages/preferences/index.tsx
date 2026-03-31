@@ -2,6 +2,7 @@ import { Icon } from "@leafygreen-ui/icon";
 import { useParams, Link } from "react-router-dom";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { usePreferencesAnalytics } from "analytics";
+import { PreferencesAdLayout } from "components/AprilFools/PreferencesAdLayout";
 import {
   SideNav,
   SideNavGroup,
@@ -14,7 +15,6 @@ import {
   getPreferencesRoute,
   slugs,
 } from "constants/routes";
-import { PreferencesAdLayout } from "pages/AdColumn";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 
 const Preferences: React.FC = () => {

@@ -1,5 +1,4 @@
-import { useMemo, useState } from "react";
-import styled from "@emotion/styled";
+import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
@@ -13,15 +12,13 @@ import {
   onChangeHandler,
   LGColumnDef,
 } from "@evg-ui/lib/components/Table";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
-import { getRandomAprilFoolsBanner } from "components/AprilFools";
+import { AprilFoolsBannerAd } from "components/AprilFools/AprilFoolsBannerAd";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import { HostSortBy, HostsQuery } from "gql/generated/types";
-import { useAprilFoolsEnabled } from "hooks/useAprilFoolsEnabled";
 import { useTableSort } from "hooks/useTableSort";
 import { HostsTableFilterParams, mapIdToFilterParam } from "types/host";
 
@@ -137,27 +134,9 @@ export const HostsTable: React.FC<Props> = ({
     ),
   });
 
-  const { enabled: aprilFoolsEnabled } = useAprilFoolsEnabled();
-  const randomBanner = useMemo(() => getRandomAprilFoolsBanner(), []);
-  const randomBanner2 = useMemo(() => getRandomAprilFoolsBanner(), []);
-  const BannerWrapper = styled.div`
-    margin: ${size.m} 0;
-    display: flex;
-    justify-content: center;
-
-    img {
-      max-width: 100%;
-      max-height: 100px;
-    }
-  `;
-
   return (
     <>
-      {aprilFoolsEnabled && (
-        <BannerWrapper>
-          <img alt="Random Evergreen April Fools Ad" src={randomBanner} />
-        </BannerWrapper>
-      )}
+      <AprilFoolsBannerAd />
       <BaseTable
         data-cy="hosts-table"
         data-loading={loading}
@@ -166,11 +145,7 @@ export const HostsTable: React.FC<Props> = ({
         shouldAlternateRowColor
         table={table}
       />
-      {aprilFoolsEnabled && (
-        <BannerWrapper>
-          <img alt="Random Evergreen April Fools Ad" src={randomBanner2} />
-        </BannerWrapper>
-      )}
+      <AprilFoolsBannerAd />
     </>
   );
 };
