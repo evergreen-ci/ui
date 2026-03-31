@@ -27,10 +27,3 @@ _bucketdata
 
 body.txt
 body.txt-e
-
-# Playwright
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/playwright/.auth/
