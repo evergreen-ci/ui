@@ -21,6 +21,10 @@ export const oktaServiceConfig = {
       type: "string" as const,
       title: "Client Secret",
     },
+    issuer: {
+      type: "string" as const,
+      title: "Issuer",
+    },
     scopes: {
       type: "array" as const,
       title: "Scopes",
@@ -148,6 +152,17 @@ export const miscSettings = {
               minimum: 0,
               maximum: 1,
             },
+            archiveStorageCostDiscount: {
+              type: "number" as const,
+              title: "Archive Storage Cost Discount",
+              minimum: 0,
+              maximum: 1,
+            },
+            defaultMaxArtifactExpirationDays: {
+              type: "number" as const,
+              title: "Default Max Artifact Expiration Days",
+              minimum: 1,
+            },
           },
         },
       },
@@ -209,6 +224,14 @@ export const miscSettings = {
         iAStorageCostDiscount: {
           "ui:description":
             "The discount applied to S3 infrequent access storage costs (value 0-1).",
+        },
+        archiveStorageCostDiscount: {
+          "ui:description":
+            "The discount applied to S3 archive storage costs (value 0-1).",
+        },
+        defaultMaxArtifactExpirationDays: {
+          "ui:description":
+            "The default maximum number of days before artifacts expire (minimum 1).",
         },
       },
     },

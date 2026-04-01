@@ -939,6 +939,7 @@ export enum DistroOnSaveOperation {
 export type DistroPermissions = {
   __typename?: "DistroPermissions";
   admin: Scalars["Boolean"]["output"];
+  distroId: Scalars["String"]["output"];
   edit: Scalars["Boolean"]["output"];
   view: Scalars["Boolean"]["output"];
 };
@@ -2372,6 +2373,7 @@ export type OktaServiceConfig = {
   audience?: Maybe<Scalars["String"]["output"]>;
   clientId?: Maybe<Scalars["String"]["output"]>;
   clientSecret?: Maybe<Scalars["String"]["output"]>;
+  issuer?: Maybe<Scalars["String"]["output"]>;
   scopes?: Maybe<Array<Scalars["String"]["output"]>>;
 };
 
@@ -2379,6 +2381,7 @@ export type OktaServiceConfigInput = {
   audience?: InputMaybe<Scalars["String"]["input"]>;
   clientId?: InputMaybe<Scalars["String"]["input"]>;
   clientSecret?: InputMaybe<Scalars["String"]["input"]>;
+  issuer?: InputMaybe<Scalars["String"]["input"]>;
   scopes?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
@@ -2941,6 +2944,7 @@ export enum ProjectPermission {
 export type ProjectPermissions = {
   __typename?: "ProjectPermissions";
   edit: Scalars["Boolean"]["output"];
+  projectIdentifier: Scalars["String"]["output"];
   view: Scalars["Boolean"]["output"];
 };
 
@@ -3291,6 +3295,7 @@ export type RepoCommitQueueParams = {
 export type RepoPermissions = {
   __typename?: "RepoPermissions";
   edit: Scalars["Boolean"]["output"];
+  repoId: Scalars["String"]["output"];
   view: Scalars["Boolean"]["output"];
 };
 

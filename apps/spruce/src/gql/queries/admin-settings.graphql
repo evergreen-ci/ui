@@ -128,6 +128,8 @@ query AdminSettings {
       onDemandDiscount
       s3Cost {
         storage {
+          archiveStorageCostDiscount
+          defaultMaxArtifactExpirationDays
           iAStorageCostDiscount
           standardStorageCostDiscount
         }
@@ -206,6 +208,7 @@ query AdminSettings {
       audience
       clientId
       clientSecret
+      issuer
       scopes
     }
     oldestAllowedCLIVersion
