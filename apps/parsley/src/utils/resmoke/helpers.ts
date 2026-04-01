@@ -55,23 +55,19 @@ const getJSONString = (line: string) => {
   if (openBracketIndex > closeBracketIndex) {
     return undefined;
   }
-  const json = line.slice(openBracketIndex);
 
-  // If we have a mismatching number of brackets, return undefined
-  if (json.match(/{/g)?.length !== json.match(/}/g)?.length) {
-    return undefined;
+  // Count braces without allocating intermediate strings or match arrays
+  let count = 0;
+  for (let i = openBracketIndex; i <= closeBracketIndex; i++) {
+    if (line[i] === "{") count += 1;
+    else if (line[i] === "}") count -= 1;
   }
-  // If the first character is not a {, return undefined
-  if (json[0] !== "{") {
-    return undefined;
-  }
-  // If the last character is not a }, return undefined
-  if (json[json.length - 1] !== "}") {
+  if (count !== 0) {
     return undefined;
   }
 
-  // This resulting string should hopefully be a json expression as a string.
-  return json;
+  // Only slice once we know it's valid
+  return line.slice(openBracketIndex);
 };
 
 /**

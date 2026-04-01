@@ -10,9 +10,9 @@ import { LogLineRow } from "../types";
 
 type AnsiRowProps = LogLineRow;
 
-const AnsiRow: React.FC<AnsiRowProps> = ({ getLine, lineNumber, ...rest }) => {
-  const ansiUp = new AnsiUp();
+const ansiUp = new AnsiUp();
 
+const AnsiRow: React.FC<AnsiRowProps> = ({ getLine, lineNumber, ...rest }) => {
   let lineContent = getLine(lineNumber);
 
   if (lineContent === undefined) {
