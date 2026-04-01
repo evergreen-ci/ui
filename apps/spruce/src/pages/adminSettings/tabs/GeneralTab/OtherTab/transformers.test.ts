@@ -25,6 +25,7 @@ const mockAdminSettings: AdminSettingsData = {
     audience: "https://example.okta.com",
     clientId: "okta-service-client-id",
     clientSecret: "okta-service-client-secret",
+    issuer: "https://example.okta.com",
     scopes: ["scope1", "scope2"],
   },
   oldestAllowedCLIVersion: "",
@@ -172,6 +173,7 @@ const expectedForm: OtherFormState = {
       audience: "https://example.okta.com",
       clientId: "okta-service-client-id",
       clientSecret: "okta-service-client-secret",
+      issuer: "https://example.okta.com",
       scopes: ["scope1", "scope2"],
     },
     singleTaskDistro: {
@@ -282,6 +284,7 @@ const expectedGql: AdminSettingsInput = {
     audience: "https://example.okta.com",
     clientId: "okta-service-client-id",
     clientSecret: "okta-service-client-secret",
+    issuer: "https://example.okta.com",
     scopes: ["scope1", "scope2"],
   },
   oldestAllowedCLIVersion: "",

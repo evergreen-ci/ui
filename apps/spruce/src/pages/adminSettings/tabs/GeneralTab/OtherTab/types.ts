@@ -34,6 +34,7 @@ export interface OtherFormState {
       audience: string;
       clientId: string;
       clientSecret: string;
+      issuer: string;
       scopes: string[];
     };
 
