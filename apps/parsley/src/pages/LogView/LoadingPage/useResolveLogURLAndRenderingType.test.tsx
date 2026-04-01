@@ -223,11 +223,11 @@ describe("useResolveLogURLAndRenderingType", () => {
       });
       await waitFor(() => {
         expect(result.current).toMatchObject({
-          downloadURL: "rawURL?print_time=true",
-          htmlLogURL: "htmlURL?print_time=true",
+          downloadURL: "rawURL?print_time=false",
+          htmlLogURL: "htmlURL?print_time=false",
           jobLogsURL: "",
           loading: false,
-          rawLogURL: "rawURL?print_time=true",
+          rawLogURL: "rawURL?print_time=false",
         });
       });
     });
@@ -418,7 +418,7 @@ describe("useResolveLogURLAndRenderingType", () => {
       expect(result.current.downloadURL).toBe("rawURL?print_time=false");
     });
 
-    it("appends print_time=true to test log URLs when excludeTimestamps is false", async () => {
+    it("appends print_time=false to resmoke test log URLs even when excludeTimestamps is false", async () => {
       const wrapper: React.FC<{ children: React.ReactNode }> = ({
         children,
       }) => (
@@ -448,8 +448,76 @@ describe("useResolveLogURLAndRenderingType", () => {
       await waitFor(() => {
         expect(result.current.loading).toBe(false);
       });
+      expect(result.current.rawLogURL).toBe("rawURL?print_time=false");
+      expect(result.current.htmlLogURL).toBe("htmlURL?print_time=false");
+    });
+
+    it("appends print_time=true to default test log URLs when excludeTimestamps is false", async () => {
+      const wrapper: React.FC<{ children: React.ReactNode }> = ({
+        children,
+      }) => (
+        <MockedProvider
+          mocks={[
+            evergreenTaskMock,
+            evergreenTaskMock,
+            getExistingDefaultTestLogURLMock,
+          ]}
+        >
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            excludeTimestamps: false,
+            execution: "0",
+            logType: "EVERGREEN_TEST_LOGS",
+            taskID: "a-task-id",
+            testID: "a-test-name",
+          }),
+        {
+          wrapper,
+        },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
       expect(result.current.rawLogURL).toBe("rawURL?print_time=true");
       expect(result.current.htmlLogURL).toBe("htmlURL?print_time=true");
+    });
+
+    it("appends print_time=false to default test log URLs when excludeTimestamps is true", async () => {
+      const wrapper: React.FC<{ children: React.ReactNode }> = ({
+        children,
+      }) => (
+        <MockedProvider
+          mocks={[
+            evergreenTaskMock,
+            evergreenTaskMock,
+            getExistingDefaultTestLogURLMock,
+          ]}
+        >
+          {children}
+        </MockedProvider>
+      );
+      const { result } = renderHook(
+        () =>
+          useResolveLogURLAndRenderingType({
+            excludeTimestamps: true,
+            execution: "0",
+            logType: "EVERGREEN_TEST_LOGS",
+            taskID: "a-task-id",
+            testID: "a-test-name",
+          }),
+        {
+          wrapper,
+        },
+      );
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+      expect(result.current.rawLogURL).toBe("rawURL?print_time=false");
+      expect(result.current.htmlLogURL).toBe("htmlURL?print_time=false");
     });
 
     it("appends time=false to task log URLs when excludeTimestamps is true", async () => {

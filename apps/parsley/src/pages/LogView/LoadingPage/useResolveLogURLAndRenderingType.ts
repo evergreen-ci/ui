@@ -200,7 +200,8 @@ export const useResolveLogURLAndRenderingType = ({
         testData?.task?.tests.testResults[0] || {};
       const { renderingType: renderingTypeFromQuery, url, urlRaw } = logs || {};
 
-      const printTime = !excludeTimestamps;
+      const isResmoke = renderingTypeFromQuery === LogRenderingTypes.Resmoke;
+      const printTime = isResmoke ? false : !excludeTimestamps;
       const baseRawLogURL =
         urlRaw ??
         getEvergreenTestLogURL(taskID, execution, testID, { text: true });
