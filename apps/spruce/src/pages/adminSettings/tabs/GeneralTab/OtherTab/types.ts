@@ -29,8 +29,10 @@ export interface OtherFormState {
     };
 
     oktaServiceConfig: {
+      audience: string;
       clientId: string;
       clientSecret: string;
+      scopes: string[];
     };
 
     singleTaskDistro: {

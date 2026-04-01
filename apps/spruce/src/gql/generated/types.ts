@@ -7757,8 +7757,10 @@ export type AdminSettingsQuery = {
     } | null;
     oktaServiceConfig?: {
       __typename?: "OktaServiceConfig";
+      audience?: string | null;
       clientId?: string | null;
       clientSecret?: string | null;
+      scopes?: Array<string> | null;
     } | null;
     parameterStore?: {
       __typename?: "ParameterStoreConfig";

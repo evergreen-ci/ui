@@ -84,8 +84,10 @@ export const gqlToForm = ((data) => {
       },
 
       oktaServiceConfig: {
+        audience: oktaServiceConfig?.audience ?? "",
         clientId: oktaServiceConfig?.clientId ?? "",
         clientSecret: oktaServiceConfig?.clientSecret ?? "",
+        scopes: oktaServiceConfig?.scopes ?? [],
       },
 
       singleTaskDistro: {
@@ -267,8 +269,10 @@ export const formToGql = ((form: OtherFormState) => {
     },
 
     oktaServiceConfig: {
+      audience: oktaServiceConfig.audience || undefined,
       clientId: oktaServiceConfig.clientId || undefined,
       clientSecret: oktaServiceConfig.clientSecret || undefined,
+      scopes: oktaServiceConfig.scopes || undefined,
     },
 
     singleTaskDistro: {
