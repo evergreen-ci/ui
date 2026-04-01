@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { PreferencesAdLayout } from "components/AprilFools/PreferencesAdLayout";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import {
   ProjectSettingsQuery,
@@ -87,16 +88,18 @@ const ProjectSettings: React.FC = () => {
       : !projectLoading && !!project && !repoLoading && !!repo;
 
   return (
-    <SharedSettings
-      hasLoaded={hasLoaded}
-      owner={ownerName}
-      projectData={project}
-      projectIdentifier={projectIdentifier}
-      projectType={projectType}
-      repo={repoName}
-      repoData={repo}
-      repoId={repoId}
-    />
+    <PreferencesAdLayout>
+      <SharedSettings
+        hasLoaded={hasLoaded}
+        owner={ownerName}
+        projectData={project}
+        projectIdentifier={projectIdentifier}
+        projectType={projectType}
+        repo={repoName}
+        repoData={repo}
+        repoId={repoId}
+      />
+    </PreferencesAdLayout>
   );
 };
 
