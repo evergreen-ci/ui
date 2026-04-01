@@ -22,8 +22,10 @@ const mockAdminSettings: AdminSettingsData = {
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
   oktaServiceConfig: {
+    audience: "https://example.okta.com",
     clientId: "okta-service-client-id",
     clientSecret: "okta-service-client-secret",
+    scopes: ["scope1", "scope2"],
   },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
@@ -165,8 +167,10 @@ const expectedForm: OtherFormState = {
       },
     },
     oktaServiceConfig: {
+      audience: "https://example.okta.com",
       clientId: "okta-service-client-id",
       clientSecret: "okta-service-client-secret",
+      scopes: ["scope1", "scope2"],
     },
     singleTaskDistro: {
       projectTasksPairs: [
@@ -273,8 +277,10 @@ const expectedGql: AdminSettingsInput = {
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
   oktaServiceConfig: {
+    audience: "https://example.okta.com",
     clientId: "okta-service-client-id",
     clientSecret: "okta-service-client-secret",
+    scopes: ["scope1", "scope2"],
   },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
