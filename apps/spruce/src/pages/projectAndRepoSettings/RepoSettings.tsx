@@ -2,7 +2,6 @@ import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
-import { PreferencesAdLayout } from "components/AprilFools/PreferencesAdLayout";
 import { slugs } from "constants/routes";
 import {
   RepoSettingsQuery,
@@ -36,18 +35,16 @@ const RepoSettings: React.FC = () => {
   const hasLoaded = !repoLoading && !!repo;
 
   return (
-    <PreferencesAdLayout>
-      <SharedSettings
-        hasLoaded={hasLoaded}
-        owner={ownerName}
-        projectData={undefined}
-        projectIdentifier=""
-        projectType={ProjectType.Repo}
-        repo={repoName}
-        repoData={repo}
-        repoId={repoId}
-      />
-    </PreferencesAdLayout>
+    <SharedSettings
+      hasLoaded={hasLoaded}
+      owner={ownerName}
+      projectData={undefined}
+      projectIdentifier=""
+      projectType={ProjectType.Repo}
+      repo={repoName}
+      repoData={repo}
+      repoId={repoId}
+    />
   );
 };
 

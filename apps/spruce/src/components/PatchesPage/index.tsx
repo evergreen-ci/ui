@@ -5,7 +5,6 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
-import { AprilFoolsBannerAd } from "components/AprilFools/AprilFoolsBannerAd";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import TextInputWithValidation from "components/TextInputWithValidation";
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
@@ -92,7 +91,6 @@ export const PatchesPage: React.FC<Props> = ({
           onChange={includeHiddenCheckboxOnChange}
         />
       </FiltersWrapperSpaceBetween>
-      <AprilFoolsBannerAd />
       {patches?.patches?.length && (
         <PaginationButtons
           filteredPatchCount={filteredCount}
@@ -110,7 +108,6 @@ export const PatchesPage: React.FC<Props> = ({
           pageType={pageType}
         />
       ) : null}
-      <AprilFoolsBannerAd />
     </PageWrapper>
   );
 };
