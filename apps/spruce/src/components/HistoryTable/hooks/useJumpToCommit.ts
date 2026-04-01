@@ -1,19 +1,13 @@
-import { useEffect, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { HistoryQueryParams } from "types/history";
-import { queryString } from "utils";
 import { useHistoryTable } from "../HistoryTableContext";
 
-const { getString, parseQueryString } = queryString;
-
 const useJumpToCommit = () => {
-  const { search } = useLocation();
-  const { [HistoryQueryParams.SelectedCommit]: skipOrderNumberParam } = useMemo(
-    () => parseQueryString(search),
-    [search],
+  const [skipOrderNumber] = useQueryParam<number | undefined>(
+    HistoryQueryParams.SelectedCommit,
+    undefined,
   );
-  const skipOrderNumber =
-    parseInt(getString(skipOrderNumberParam), 10) || undefined;
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { setSelectedCommit } = useHistoryTable();

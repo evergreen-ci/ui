@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams, Navigate } from "react-router-dom";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { getPatchRoute, getVersionRoute, slugs } from "constants/routes";
@@ -10,10 +10,7 @@ export const PatchRedirect: React.FC = () => {
 
   const { data, loading } = useQuery<HasVersionQuery, HasVersionQueryVariables>(
     HAS_VERSION,
-    {
-      skip: !versionId,
-      variables: { id: versionId ?? "" },
-    },
+    versionId ? { variables: { id: versionId } } : skipToken,
   );
 
   if (loading) {

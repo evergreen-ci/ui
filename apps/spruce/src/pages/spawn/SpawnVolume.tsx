@@ -3,6 +3,7 @@ import { Badge, Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { AprilFoolsBannerAd } from "components/AprilFools/AprilFoolsBannerAd";
 import { Title, BadgeWrapper, TitleContainer } from "components/Spawn";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
@@ -64,6 +65,7 @@ export const SpawnVolume = () => {
             variant={Variant.Blue}
           >{`${unmountedCount} Free`}</Badge>
         </BadgeWrapper>
+        <AprilFoolsBannerAd />
       </TitleContainer>
       <SpawnVolumeButton
         maxSpawnableLimit={maxSpawnableLimit}

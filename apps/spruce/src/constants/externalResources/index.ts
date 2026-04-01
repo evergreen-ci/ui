@@ -104,19 +104,20 @@ export const getParsleyTaskLogLink = (
   execution: number,
 ) => `${getParsleyUrl()}/evergreen/${taskId}/${execution}/${logType}`;
 
-export const getParsleyLogkeeperTestLogURL = (
-  buildId: string,
-  testId: string,
-) => `${getParsleyUrl()}/resmoke/${buildId}/test/${testId}`;
-
-export const getParsleyBuildLogURL = (buildId: string) =>
-  `${getParsleyUrl()}/resmoke/${buildId}/all`;
-
 export const getParsleyCompleteLogsURL = (
   taskID: string,
   execution: number | string,
   groupID: string,
 ) => `${getParsleyUrl()}/resmoke/${taskID}/${execution}/${groupID}/all`;
+
+export const getAPIRouteForBuilds = (buildId: string) =>
+  `${getEvergreenUrl()}/rest/v2/builds/${buildId}`;
+
+export const getAPIRouteForVersions = (versionId: string) =>
+  `${getEvergreenUrl()}/rest/v2/versions/${versionId}`;
+
+export const getAPIRouteForTasks = (taskId: string, execution: number) =>
+  `${getEvergreenUrl()}/rest/v2/tasks/${taskId}?execution=${execution}`;
 
 export const buildHostConfigurationRepoURL =
   "https://github.com/10gen/buildhost-configuration";

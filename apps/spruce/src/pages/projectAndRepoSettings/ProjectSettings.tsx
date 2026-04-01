@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { PreferencesAdLayout } from "components/AprilFools/PreferencesAdLayout";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import {
   ProjectSettingsQuery,
@@ -30,10 +31,7 @@ const ProjectSettings: React.FC = () => {
     loading: projectLoading,
   } = useQuery<ProjectSettingsQuery, ProjectSettingsQueryVariables>(
     PROJECT_SETTINGS,
-    {
-      skip: !projectIdentifier,
-      variables: { projectIdentifier },
-    },
+    projectIdentifier ? { variables: { projectIdentifier } } : skipToken,
   );
   useErrorToast(
     projectError,
@@ -64,10 +62,10 @@ const ProjectSettings: React.FC = () => {
     data: repoData,
     error: repoError,
     loading: repoLoading,
-  } = useQuery<RepoSettingsQuery, RepoSettingsQueryVariables>(REPO_SETTINGS, {
-    skip: !repoId || projectIsHidden === true,
-    variables: { repoId },
-  });
+  } = useQuery<RepoSettingsQuery, RepoSettingsQueryVariables>(
+    REPO_SETTINGS,
+    repoId && projectIsHidden !== true ? { variables: { repoId } } : skipToken,
+  );
   useErrorToast(repoError, `There was an error loading the repo ${repoId}`);
 
   if (projectIsHidden) {
@@ -90,16 +88,18 @@ const ProjectSettings: React.FC = () => {
       : !projectLoading && !!project && !repoLoading && !!repo;
 
   return (
-    <SharedSettings
-      hasLoaded={hasLoaded}
-      owner={ownerName}
-      projectData={project}
-      projectIdentifier={projectIdentifier}
-      projectType={projectType}
-      repo={repoName}
-      repoData={repo}
-      repoId={repoId}
-    />
+    <PreferencesAdLayout>
+      <SharedSettings
+        hasLoaded={hasLoaded}
+        owner={ownerName}
+        projectData={project}
+        projectIdentifier={projectIdentifier}
+        projectType={projectType}
+        repo={repoName}
+        repoData={repo}
+        repoId={repoId}
+      />
+    </PreferencesAdLayout>
   );
 };
 

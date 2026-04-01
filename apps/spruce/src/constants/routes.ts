@@ -84,6 +84,7 @@ export enum DistroSettingsTabRoutes {
 }
 const paths = {
   adminSettings: "/admin-settings",
+  aprilFools: "/april-fools",
   container: "/container",
   distro: "/distro",
   distros: "/distros",
@@ -107,7 +108,6 @@ const paths = {
 };
 
 export enum slugs {
-  buildId = "buildId",
   distroId = "distroId",
   execution = "execution",
   fileName = "fileName",
@@ -125,7 +125,6 @@ export enum slugs {
   userId = "userId",
 }
 export const idSlugs = [
-  slugs.buildId,
   slugs.distroId,
   slugs.hostId,
   slugs.imageId,
@@ -147,6 +146,7 @@ export const redirectRoutes = {
 
 export const routes = {
   adminSettings: paths.adminSettings,
+  aprilFools: paths.aprilFools,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure/:${slugs.tab}?`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
   host: `${paths.host}/:${slugs.hostId}`,

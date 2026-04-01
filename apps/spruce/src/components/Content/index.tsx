@@ -17,6 +17,7 @@ import {
   slugs,
 } from "constants/routes";
 import { AdminSettings } from "pages/AdminSettings";
+import { AprilFools } from "pages/aprilFools";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Distro } from "pages/Distro";
 import { Host } from "pages/Host";
@@ -60,11 +61,8 @@ export const Content: React.FC = () => (
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route element={null} path={routes.jobLogs}>
-        <Route element={<JobLogs isLogkeeper />} path={`:${slugs.buildId}`}>
-          <Route element={null} path={`:${slugs.groupId}`} />
-        </Route>
         <Route
-          element={<JobLogs isLogkeeper={false} />}
+          element={<JobLogs />}
           path={`:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`}
         />
       </Route>
@@ -143,6 +141,7 @@ export const Content: React.FC = () => (
       <Route element={<AdminSettings />} path={routes.adminSettings}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
+      <Route element={<AprilFools />} path={routes.aprilFools} />
     </Route>
   </Routes>
 );

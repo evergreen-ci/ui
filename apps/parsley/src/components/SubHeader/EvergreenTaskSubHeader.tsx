@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { InlineCode } from "@leafygreen-ui/typography";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
@@ -19,7 +19,6 @@ import { GET_TEST_LOG_URL_AND_RENDERING_TYPE } from "gql/queries";
 import { useTaskQuery } from "hooks/useTaskQuery";
 
 interface Props {
-  buildID: string;
   execution: number;
   fileName?: string;
   groupID?: string;
@@ -29,7 +28,6 @@ interface Props {
 }
 
 export const EvergreenTaskSubHeader: React.FC<Props> = ({
-  buildID,
   execution,
   fileName,
   groupID,
@@ -39,36 +37,28 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
 }) => {
   const { sendEvent } = usePreferencesAnalytics();
   const { loading: isLoadingTask, task: taskData } = useTaskQuery({
-    buildID,
     execution,
-    logType,
     taskID,
   });
   const { data: testData, loading: isLoadingTest } = useQuery<
     TestLogUrlAndRenderingTypeQuery,
     TestLogUrlAndRenderingTypeQueryVariables
-  >(GET_TEST_LOG_URL_AND_RENDERING_TYPE, {
-    skip: !(logType === LogTypes.EVERGREEN_TEST_LOGS && testID),
-    variables: {
-      execution,
-      taskID,
-      testName: `^${testID}$`,
-    },
-  });
+  >(
+    GET_TEST_LOG_URL_AND_RENDERING_TYPE,
+    logType === LogTypes.EVERGREEN_TEST_LOGS && testID
+      ? {
+          variables: {
+            execution,
+            taskID,
+            testName: `^${testID}$`,
+          },
+        }
+      : skipToken,
+  );
 
   let currentTest: { testFile: string; status: string } | null = null;
-  switch (logType) {
-    case LogTypes.LOGKEEPER_LOGS:
-      currentTest =
-        taskData?.tests?.testResults?.find((test) =>
-          test?.logs?.urlRaw?.match(new RegExp(`${testID}`)),
-        ) ?? null;
-      break;
-    case LogTypes.EVERGREEN_TEST_LOGS:
-      currentTest = testData?.task?.tests?.testResults?.[0] ?? null;
-      break;
-    default:
-      currentTest = null;
+  if (logType === LogTypes.EVERGREEN_TEST_LOGS) {
+    currentTest = testData?.task?.tests?.testResults?.[0] ?? null;
   }
   let pageTitle = `Task logs for ${taskData?.displayName}`;
   if (currentTest) {
