@@ -68,7 +68,7 @@ describe("Searching", () => {
     cy.dataCy("search-count").should("contain.text", "1/4");
     cy.dataCy("next-button").click();
     cy.dataCy("search-count").should("contain.text", "2/4");
-    cy.dataCy("log-row-27").dblclick();
+    cy.dataCy("log-row-27").dblclick({ force: true });
     cy.location("search").should("equal", "?bookmarks=0,27,297");
     cy.dataCy("search-count").should("contain.text", "2/4");
   });

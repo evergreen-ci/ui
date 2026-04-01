@@ -1,8 +1,11 @@
+import { useMemo } from "react";
+import styled from "@emotion/styled";
 import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useVersionAnalytics } from "analytics";
+import { getRandomAprilFoolsImage } from "components/AprilFools";
 import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
@@ -17,6 +20,7 @@ import {
 } from "constants/externalResources";
 import { Requester } from "constants/requesters";
 import {
+  routes,
   getProjectPatchesRoute,
   getTriggerRoute,
   getUserPatchesRoute,
@@ -24,6 +28,7 @@ import {
 } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
+import { useAprilFoolsEnabled } from "hooks/useAprilFoolsEnabled";
 import { msToDuration } from "utils/string";
 import { ParametersModal } from "../ParametersModal";
 import IncludedLocalModules from "./IncludedLocalModules";
@@ -34,6 +39,8 @@ interface MetadataProps {
 }
 
 export const Metadata: React.FC<MetadataProps> = ({ version }) => {
+  const { enabled: aprilFoolsEnabled } = useAprilFoolsEnabled();
+  const adImage = useMemo(() => getRandomAprilFoolsImage(), []);
   const getDateCopy = useDateFormat();
   const {
     baseVersion,
@@ -232,9 +239,21 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
           ))}
         </MetadataItem>
       )}
+      {aprilFoolsEnabled && (
+        <Link to={routes.aprilFools}>
+          <AdImage alt="Evergreen Premium Ad" src={adImage} />
+        </Link>
+      )}
     </MetadataCard>
   );
 };
+
+const AdImage = styled.img`
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+`;
 
 interface BaseCommitMetadataProps {
   baseVersionId: string;

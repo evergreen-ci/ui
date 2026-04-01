@@ -15,6 +15,7 @@ import {
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
+import { AprilFoolsBannerAd } from "components/AprilFools/AprilFoolsBannerAd";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import { HostSortBy, HostsQuery } from "gql/generated/types";
@@ -134,14 +135,18 @@ export const HostsTable: React.FC<Props> = ({
   });
 
   return (
-    <BaseTable
-      data-cy="hosts-table"
-      data-loading={loading}
-      loading={loading}
-      loadingRows={limit}
-      shouldAlternateRowColor
-      table={table}
-    />
+    <>
+      <AprilFoolsBannerAd />
+      <BaseTable
+        data-cy="hosts-table"
+        data-loading={loading}
+        loading={loading}
+        loadingRows={limit}
+        shouldAlternateRowColor
+        table={table}
+      />
+      <AprilFoolsBannerAd />
+    </>
   );
 };
 

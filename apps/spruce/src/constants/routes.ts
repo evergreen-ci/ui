@@ -84,6 +84,7 @@ export enum DistroSettingsTabRoutes {
 }
 const paths = {
   adminSettings: "/admin-settings",
+  aprilFools: "/april-fools",
   container: "/container",
   distro: "/distro",
   distros: "/distros",
@@ -145,6 +146,7 @@ export const redirectRoutes = {
 
 export const routes = {
   adminSettings: paths.adminSettings,
+  aprilFools: paths.aprilFools,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure/:${slugs.tab}?`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
   host: `${paths.host}/:${slugs.hostId}`,
