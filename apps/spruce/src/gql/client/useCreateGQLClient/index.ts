@@ -69,9 +69,6 @@ export const useCreateGQLClient = (): ApolloClient | undefined => {
       new ApolloClient({
         cache,
         localState: new LocalState(), // Must define if using @client fields.
-        defaultOptions: {
-          watchQuery: {},
-        },
         link: authenticateIfSuccessfulLink(() =>
           dispatchAuthenticatedRef.current(),
         )
