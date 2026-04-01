@@ -222,6 +222,8 @@ const longTestName =
 
 const firstPageDisplayNames = [
   "TestFinalizePatch",
+  "TestCreateIntermediateProjectRequirements",
+  "TestMergeAxisValue",
   "TestStuckHostAuditing",
   "TestHostTaskAuditing",
   "TestProjectEventSuite/TestModifyProjectNonEvent",
@@ -229,10 +231,10 @@ const firstPageDisplayNames = [
   "TestGenerateSuite/TestSaveNewTasksWithDependencies",
   "TestGenerateSuite/TestValidateNoRedefine",
   "TestSortTasks",
-  "TestDepsMatrixIntegration",
-  "TestTaskGroupWithDisplayTask",
 ];
 const secondPageDisplayNames = [
+  "TestDepsMatrixIntegration",
+  "TestTaskGroupWithDisplayTask",
   "TestTryUpsert/configNumberMatches",
   "TestGetActivationTimeWithCron/Interval",
   longTestName,
@@ -241,8 +243,6 @@ const secondPageDisplayNames = [
   "TestCreateTaskGroup",
   "TestRetryCommitQueueItems",
   "TestProjectAliasSuite/TestInsertTagsAndNoVariant",
-  "TestMergeAxisValue",
-  "TestCreateIntermediateProjectRequirements",
 ];
 
 const dataCyNextPage = "next-page-button";
