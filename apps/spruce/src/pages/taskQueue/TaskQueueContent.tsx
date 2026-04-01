@@ -5,7 +5,6 @@ import { H3 } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
-import { AprilFoolsBannerAd } from "components/AprilFools/AprilFoolsBannerAd";
 import { MCI_USER } from "constants/hosts";
 import { getAllHostsRoute } from "constants/routes";
 import {
@@ -41,7 +40,6 @@ const TaskQueueContent: React.FC<TaskQueueContentProps> = ({ distroId }) => {
 
   return (
     <>
-      <AprilFoolsBannerAd />
       <TableHeader>
         <H3>{distroId}</H3>
         <StyledRouterLink
@@ -58,7 +56,6 @@ const TaskQueueContent: React.FC<TaskQueueContentProps> = ({ distroId }) => {
           taskQueue={taskQueueItemsData?.distroTaskQueue ?? []}
         />
       )}
-      <AprilFoolsBannerAd />
     </>
   );
 };

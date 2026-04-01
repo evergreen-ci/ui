@@ -6,7 +6,6 @@ import {
 import { usePreferencesAnalytics } from "analytics";
 import { ToggleWithLabel } from "components/ToggleWithLabel";
 import { DISABLE_QUERY_POLLING, DISABLE_TASK_REVIEW } from "constants/cookies";
-import { useAprilFoolsEnabled } from "hooks/useAprilFoolsEnabled";
 
 export const PreferenceToggles: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
@@ -35,13 +34,6 @@ export const PreferenceToggles: React.FC = () => {
     setLocalStorageBoolean(DISABLE_TASK_REVIEW, !c);
   };
 
-  const { enabled: aprilFoolsEnabled, setEnabled: setAprilFoolsEnabled } =
-    useAprilFoolsEnabled();
-
-  const handleToggleAprilFools = (c: boolean) => {
-    setAprilFoolsEnabled(c); // updates state + localStorage
-  };
-
   return (
     <>
       <ToggleWithLabel
@@ -57,13 +49,6 @@ export const PreferenceToggles: React.FC = () => {
         id="toggle-task-review"
         label="Task review"
         onChange={handleToggleTaskReview}
-      />
-      <ToggleWithLabel
-        checked={aprilFoolsEnabled}
-        description="Show April Fools' Day ads around the UI. Toggle off and refresh to hide them."
-        id="toggle-april-fools"
-        label="April Fools' ads"
-        onChange={handleToggleAprilFools}
       />
     </>
   );

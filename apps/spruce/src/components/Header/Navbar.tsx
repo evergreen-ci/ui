@@ -9,7 +9,6 @@ import Icon, { AnimatedIcon, WinterLogo } from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
-import JesterIcon from "components/AprilFools/images/JesterIcon.png";
 import { navBarHeight } from "components/styles/Layout";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
@@ -95,14 +94,6 @@ export const Navbar: React.FC = () => {
         </PrimaryLink>
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <AuxiliaryDropdown projectIdentifier={projectIdentifier} />
-      </NavActionContainer>
-      <NavActionContainer>
-        <LogoLink
-          onClick={() => sendEvent({ name: "Clicked logo link" })}
-          to={routes.aprilFools}
-        >
-          <img alt="Evergreen Jester" height={24} src={JesterIcon} />
-        </LogoLink>
       </NavActionContainer>
       <NavActionContainer>
         <PrimaryAWithIcon
