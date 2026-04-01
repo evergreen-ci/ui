@@ -208,6 +208,7 @@ query AdminSettings {
       audience
       clientId
       clientSecret
+      issuer
       scopes
     }
     oldestAllowedCLIVersion

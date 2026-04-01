@@ -21,6 +21,10 @@ export const oktaServiceConfig = {
       type: "string" as const,
       title: "Client Secret",
     },
+    issuer: {
+      type: "string" as const,
+      title: "Issuer",
+    },
     scopes: {
       type: "array" as const,
       title: "Scopes",
