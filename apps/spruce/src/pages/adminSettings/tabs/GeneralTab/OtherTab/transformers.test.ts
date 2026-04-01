@@ -163,6 +163,8 @@ const expectedForm: OtherFormState = {
           uploadCostDiscount: 0,
           standardStorageCostDiscount: 0,
           iAStorageCostDiscount: 0,
+          archiveStorageCostDiscount: 0,
+          defaultMaxArtifactExpirationDays: 1,
         },
       },
     },
@@ -361,11 +363,13 @@ const expectedGql: AdminSettingsInput = {
     onDemandDiscount: 0.05,
     s3Cost: {
       upload: {
-        uploadCostDiscount: undefined,
+        uploadCostDiscount: 0,
       },
       storage: {
-        standardStorageCostDiscount: undefined,
-        iAStorageCostDiscount: undefined,
+        archiveStorageCostDiscount: 0,
+        defaultMaxArtifactExpirationDays: 1,
+        iAStorageCostDiscount: 0,
+        standardStorageCostDiscount: 0,
       },
     },
   },

@@ -21,9 +21,11 @@ export interface OtherFormState {
         savingsPlanDiscount: number;
         onDemandDiscount: number;
         s3Cost: {
-          uploadCostDiscount: number;
-          standardStorageCostDiscount: number;
+          archiveStorageCostDiscount: number;
+          defaultMaxArtifactExpirationDays: number;
           iAStorageCostDiscount: number;
+          standardStorageCostDiscount: number;
+          uploadCostDiscount: number;
         };
       };
     };

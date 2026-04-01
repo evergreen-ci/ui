@@ -128,6 +128,8 @@ query AdminSettings {
       onDemandDiscount
       s3Cost {
         storage {
+          archiveStorageCostDiscount
+          defaultMaxArtifactExpirationDays
           iAStorageCostDiscount
           standardStorageCostDiscount
         }

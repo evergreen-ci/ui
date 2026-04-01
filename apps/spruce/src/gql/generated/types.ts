@@ -7070,6 +7070,8 @@ export type SaveAdminSettingsMutation = {
         __typename?: "S3CostConfig";
         storage?: {
           __typename?: "S3StorageCostConfig";
+          archiveStorageCostDiscount?: number | null;
+          defaultMaxArtifactExpirationDays?: number | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
@@ -7681,6 +7683,8 @@ export type AdminSettingsQuery = {
         __typename?: "S3CostConfig";
         storage?: {
           __typename?: "S3StorageCostConfig";
+          archiveStorageCostDiscount?: number | null;
+          defaultMaxArtifactExpirationDays?: number | null;
           iAStorageCostDiscount?: number | null;
           standardStorageCostDiscount?: number | null;
         } | null;
