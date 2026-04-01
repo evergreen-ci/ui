@@ -7769,6 +7769,7 @@ export type AdminSettingsQuery = {
       audience?: string | null;
       clientId?: string | null;
       clientSecret?: string | null;
+      issuer?: string | null;
       scopes?: Array<string> | null;
     } | null;
     parameterStore?: {
