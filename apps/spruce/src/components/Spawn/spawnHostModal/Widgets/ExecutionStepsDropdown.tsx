@@ -1,10 +1,12 @@
 import { useMemo } from "react";
+import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import {
   Combobox,
   ComboboxGroup,
   ComboboxOption,
 } from "@leafygreen-ui/combobox";
+import { size } from "@evg-ui/lib/constants/tokens";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 import { SpawnTaskQuery } from "gql/generated/types";
@@ -35,7 +37,7 @@ export const ExecutionStepsDropdown: React.FC<ExecutionStepsDropdownProps> = ({
     isFailedTask,
   } = options;
 
-  const groupedSteps = useMemo(
+  const groups = useMemo(
     () => groupExecutionSteps(executionSteps ?? []),
     [executionSteps],
   );
@@ -53,33 +55,20 @@ export const ExecutionStepsDropdown: React.FC<ExecutionStepsDropdownProps> = ({
         placeholder="Select spawn end point"
         value={value || ""}
       >
-        {groupedSteps.map((item) => (
-          <ComboboxGroup key={item.label} label={item.label}>
-            {item.items.map((blockItem) => {
-              if (blockItem.type === "function-label") {
-                return (
-                  <ComboboxOption
-                    key={`label-${blockItem.label}`}
-                    disabled
-                    displayName={`  ${blockItem.label}`}
-                    value=""
-                  />
-                );
-              }
-              const indent = blockItem.inFunction ? "    " : "";
-              return (
-                <ComboboxOption
-                  key={blockItem.stepNumber}
-                  displayName={`${indent}${blockItem.displayText}`}
-                  value={blockItem.stepNumber}
-                />
-              );
-            })}
+        {groups.map((group) => (
+          <ComboboxGroup key={group.label} label={group.label}>
+            {group.steps.map((step) => (
+              <ComboboxOption
+                key={step.stepNumber}
+                displayName={step.displayText}
+                value={step.stepNumber}
+              />
+            ))}
           </ComboboxGroup>
         ))}
       </Combobox>
       {showFailingCheckbox && (
-        <Checkbox
+        <StyledCheckbox
           checked={isChecked}
           data-cy="default-to-failing-task-checkbox"
           label="Default to Failing Task"
@@ -90,16 +79,19 @@ export const ExecutionStepsDropdown: React.FC<ExecutionStepsDropdownProps> = ({
   );
 };
 
-type BlockItem =
-  | { type: "function-label"; label: string }
-  | {
-      type: "option";
-      stepNumber: string;
-      displayText: string;
-      inFunction: boolean;
-    };
+const StyledCheckbox = styled(Checkbox)`
+  margin-top: ${size.s};
+`;
 
-type GroupedItem = { type: "block-group"; label: string; items: BlockItem[] };
+interface StepOption {
+  stepNumber: string;
+  displayText: string;
+}
+
+interface GroupedSection {
+  label: string;
+  steps: StepOption[];
+}
 
 const stripFunctionContext = (name: string): string =>
   name.replace(/ in function '[^']*'/, "");
@@ -109,8 +101,7 @@ const stripBlockContext = (name: string): string =>
 
 export const groupExecutionSteps = (
   steps: TaskExecutionStep[],
-): GroupedItem[] => {
-  // Separate steps by block type
+): GroupedSection[] => {
   const blockSteps: Record<string, TaskExecutionStep[]> = {};
 
   for (const step of steps) {
@@ -121,17 +112,16 @@ export const groupExecutionSteps = (
     blockSteps[blockKey].push(step);
   }
 
-  const result: GroupedItem[] = [];
+  const result: GroupedSection[] = [];
 
-  // Process blocks in fixed order: pre → main → post/timeout
   const blockOrder = ["pre", "main", "post", "timeout"];
 
-  for (const blockKey of blockOrder) {
+  const processBlock = (blockKey: string) => {
     const stepsInBlock = blockSteps[blockKey];
-    if (!stepsInBlock || stepsInBlock.length === 0) continue;
+    if (!stepsInBlock || stepsInBlock.length === 0) return;
 
     const blockLabel = `BLOCK '${blockKey.toUpperCase()}'`;
-    const blockItems: BlockItem[] = [];
+    const standaloneSteps: StepOption[] = [];
 
     let idx = 0;
     while (idx < stepsInBlock.length) {
@@ -150,93 +140,35 @@ export const groupExecutionSteps = (
           idx += 1;
         }
 
-        blockItems.push({
-          type: "function-label",
-          label: `FUNCTION: ${functionName.toUpperCase()}`,
+        const functionLabel = `FUNCTION: ${functionName.toUpperCase()}`;
+        result.push({
+          label: `${blockLabel} — ${functionLabel}`,
+          steps: functionSteps.map((s) => ({
+            stepNumber: s.stepNumber,
+            displayText: stripFunctionContext(stripBlockContext(s.displayName)),
+          })),
         });
-
-        for (const funcStep of functionSteps) {
-          blockItems.push({
-            type: "option",
-            stepNumber: funcStep.stepNumber,
-            displayText: stripFunctionContext(
-              stripBlockContext(funcStep.displayName),
-            ),
-            inFunction: true,
-          });
-        }
       } else {
-        // Standalone step in block
-        blockItems.push({
-          type: "option",
+        standaloneSteps.push({
           stepNumber: step.stepNumber,
           displayText: stripBlockContext(step.displayName),
-          inFunction: false,
         });
         idx += 1;
       }
     }
 
-    result.push({
-      type: "block-group",
-      label: blockLabel,
-      items: blockItems,
-    });
+    if (standaloneSteps.length > 0) {
+      result.push({ label: blockLabel, steps: standaloneSteps });
+    }
+  };
+
+  for (const blockKey of blockOrder) {
+    processBlock(blockKey);
   }
 
-  for (const [blockKey, stepsInBlock] of Object.entries(blockSteps)) {
-    if (!blockOrder.includes(blockKey) && stepsInBlock.length > 0) {
-      const blockLabel = `BLOCK '${blockKey.toUpperCase()}'`;
-      const blockItems: BlockItem[] = [];
-
-      let idx = 0;
-      while (idx < stepsInBlock.length) {
-        const step = stepsInBlock[idx];
-
-        if (step.isFunction) {
-          const { functionName } = step;
-          const functionSteps: TaskExecutionStep[] = [];
-
-          while (
-            idx < stepsInBlock.length &&
-            stepsInBlock[idx].isFunction &&
-            stepsInBlock[idx].functionName === functionName
-          ) {
-            functionSteps.push(stepsInBlock[idx]);
-            idx += 1;
-          }
-
-          blockItems.push({
-            type: "function-label",
-            label: `FUNCTION: ${functionName.toUpperCase()}`,
-          });
-
-          for (const funcStep of functionSteps) {
-            blockItems.push({
-              type: "option",
-              stepNumber: funcStep.stepNumber,
-              displayText: stripFunctionContext(
-                stripBlockContext(funcStep.displayName),
-              ),
-              inFunction: true,
-            });
-          }
-        } else {
-          blockItems.push({
-            type: "option",
-            stepNumber: step.stepNumber,
-            displayText: stripBlockContext(step.displayName),
-            inFunction: false,
-          });
-          idx += 1;
-        }
-      }
-
-      result.push({
-        type: "block-group",
-        label: blockLabel,
-        items: blockItems,
-      });
+  for (const blockKey of Object.keys(blockSteps)) {
+    if (!blockOrder.includes(blockKey)) {
+      processBlock(blockKey);
     }
   }
 
