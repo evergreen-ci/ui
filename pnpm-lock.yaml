@@ -42,6 +42,9 @@ importers:
       '@emotion/styled':
         specifier: 11.14.1
         version: 11.14.1(@emotion/react@11.14.0(@types/react@18.3.12)(react@18.3.1))(@types/react@18.3.12)(react@18.3.1)
+      '@evg-ui/analytics-visualizer':
+        specifier: workspace:*
+        version: link:../../packages/analytics-visualizer
       '@evg-ui/deploy-utils':
         specifier: workspace:*
         version: link:../../packages/deploy-utils
@@ -193,9 +196,6 @@ importers:
       '@eslint/compat':
         specifier: ^2.0.1
         version: 2.0.3(eslint@9.39.4(jiti@2.6.1))
-      '@evg-ui/analytics-visualizer':
-        specifier: workspace:*
-        version: link:../../packages/analytics-visualizer
       '@evg-ui/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -337,6 +337,9 @@ importers:
       '@emotion/styled':
         specifier: 11.14.1
         version: 11.14.1(@emotion/react@11.14.0(@types/react@18.3.12)(react@18.3.1))(@types/react@18.3.12)(react@18.3.1)
+      '@evg-ui/analytics-visualizer':
+        specifier: workspace:*
+        version: link:../../packages/analytics-visualizer
       '@evg-ui/deploy-utils':
         specifier: workspace:*
         version: link:../../packages/deploy-utils
@@ -560,9 +563,6 @@ importers:
       '@eslint/compat':
         specifier: ^2.0.1
         version: 2.0.3(eslint@9.39.4(jiti@2.6.1))
-      '@evg-ui/analytics-visualizer':
-        specifier: workspace:*
-        version: link:../../packages/analytics-visualizer
       '@evg-ui/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
