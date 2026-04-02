@@ -1,13 +1,17 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
+import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { StyledLink, wordBreakCss } from "@evg-ui/lib/components/styles";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/divider";
+
+const { gray } = palette;
 
 interface MetadataTitleWithLinkProps {
   href: string;
@@ -96,6 +100,21 @@ export const MetadataItem: React.FC<ItemProps> = ({
   </MetadataItemWrapper>
 );
 
+interface SectionProps {
+  children: React.ReactNode;
+  label: string;
+}
+
+export const MetadataSection: React.FC<SectionProps> = ({
+  children,
+  label,
+}) => (
+  <SectionContainer>
+    <SectionLabel>{label}</SectionLabel>
+    {children}
+  </SectionContainer>
+);
+
 export const MetadataLabel = styled.b<{ color?: string }>`
   ${({ color }) => color && `color: ${color};`}
 `;
@@ -105,13 +124,13 @@ export const MetadataCardTitle = styled(Body)`
 
 const Item = styled(Body)`
   ${wordBreakCss}
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 13px;
+  line-height: 18px;
 
   // TODO: Remove when fixed: https://jira.mongodb.org/browse/EVG-18183
   // Override LG's fixed line height
   a {
-    line-height: 14px;
+    line-height: 18px;
   }
 
   width: fit-content;
@@ -121,11 +140,31 @@ const MetadataItemWrapper = styled.span`
   display: flex;
   flex-direction: row;
   gap: 4px;
-  line-height: 14px;
+  line-height: 18px;
 
   :not(:last-child) {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
+`;
+
+const SectionContainer = styled.div`
+  margin-top: ${size.s};
+
+  &:first-of-type {
+    margin-top: ${size.xs};
+  }
+`;
+
+const SectionLabel = styled.span`
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: ${gray.dark1};
+  display: block;
+  margin-bottom: ${size.xs};
+  padding-bottom: 4px;
+  border-bottom: 1px solid ${gray.light2};
 `;
 
 export default MetadataCard;
