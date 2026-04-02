@@ -22,8 +22,11 @@ const mockAdminSettings: AdminSettingsData = {
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
   oktaServiceConfig: {
+    audience: "https://example.okta.com",
     clientId: "okta-service-client-id",
     clientSecret: "okta-service-client-secret",
+    issuer: "https://example.okta.com",
+    scopes: ["scope1", "scope2"],
   },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
@@ -161,12 +164,17 @@ const expectedForm: OtherFormState = {
           uploadCostDiscount: 0,
           standardStorageCostDiscount: 0,
           iAStorageCostDiscount: 0,
+          archiveStorageCostDiscount: 0,
+          defaultMaxArtifactExpirationDays: 1,
         },
       },
     },
     oktaServiceConfig: {
+      audience: "https://example.okta.com",
       clientId: "okta-service-client-id",
       clientSecret: "okta-service-client-secret",
+      issuer: "https://example.okta.com",
+      scopes: ["scope1", "scope2"],
     },
     singleTaskDistro: {
       projectTasksPairs: [
@@ -273,8 +281,11 @@ const expectedGql: AdminSettingsInput = {
   githubWebhookSecret: "webhook-secret",
   logPath: "/var/log/evergreen",
   oktaServiceConfig: {
+    audience: "https://example.okta.com",
     clientId: "okta-service-client-id",
     clientSecret: "okta-service-client-secret",
+    issuer: "https://example.okta.com",
+    scopes: ["scope1", "scope2"],
   },
   oldestAllowedCLIVersion: "",
   pprofPort: "8080",
@@ -355,11 +366,13 @@ const expectedGql: AdminSettingsInput = {
     onDemandDiscount: 0.05,
     s3Cost: {
       upload: {
-        uploadCostDiscount: undefined,
+        uploadCostDiscount: 0,
       },
       storage: {
-        standardStorageCostDiscount: undefined,
-        iAStorageCostDiscount: undefined,
+        archiveStorageCostDiscount: 0,
+        defaultMaxArtifactExpirationDays: 1,
+        iAStorageCostDiscount: 0,
+        standardStorageCostDiscount: 0,
       },
     },
   },

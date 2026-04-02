@@ -27,53 +27,39 @@ describe("GitHub app settings", () => {
     saveButtonEnabled(false);
   });
 
-  it("should be able to delete & save app credentials", () => {
-    cy.dataCy("github-app-id-input").as("appId");
-    cy.dataCy("github-private-key-input").as("privateKey");
+  it("should be able to replace app credentials", () => {
+    // Replace button should be visible when app is defined.
+    cy.dataCy("replace-app-credentials-button").should("be.visible");
+    cy.dataCy("replace-app-credentials-button").click();
+    cy.dataCy("replace-github-credentials-modal").should("be.visible");
 
-    // Delete GitHub app credentials.
-    cy.dataCy("delete-app-credentials-button").should("be.visible");
-    cy.dataCy("delete-app-credentials-button").click();
-    cy.dataCy("delete-github-credentials-modal").should("be.visible");
-    cy.dataCy("delete-github-credentials-modal")
+    // Replace button in modal should be disabled without input.
+    cy.dataCy("replace-github-credentials-modal")
       .find("button")
-      .contains("Delete")
+      .contains("Replace")
+      .parent()
+      .should("have.attr", "aria-disabled", "true");
+
+    // Fill in new credentials.
+    cy.dataCy("replace-app-id-input").type("99999");
+    cy.dataCy("replace-private-key-input").type("new-private-key");
+
+    // Replace button should now be enabled.
+    cy.dataCy("replace-github-credentials-modal")
+      .find("button")
+      .contains("Replace")
+      .parent()
+      .should("not.have.attr", "aria-disabled", "true");
+
+    cy.dataCy("replace-github-credentials-modal")
+      .find("button")
+      .contains("Replace")
       .parent()
       .click();
     cy.validateToast(
       "success",
-      "GitHub app credentials were successfully deleted.",
+      "GitHub app credentials were successfully replaced.",
     );
-
-    cy.dataCy("github-app-credentials-banner").should("be.visible");
-    cy.get("@appId").should("have.value", "");
-    cy.get("@privateKey").should("have.value", "");
-    cy.get("@appId").should("have.attr", "aria-disabled", "false");
-    cy.get("@privateKey").should("have.attr", "aria-disabled", "false");
-
-    cy.reload();
-    cy.dataCy("github-app-credentials-banner").should("be.visible");
-    cy.get("@appId").should("have.value", "");
-    cy.get("@privateKey").should("have.value", "");
-
-    // Add GitHub app credentials.
-    cy.get("@appId").type("12345");
-    cy.get("@privateKey").type("secret");
-    cy.dataCy("save-settings-button").scrollIntoView();
-    saveButtonEnabled(true);
-    clickSave();
-    cy.validateToast("success", "Successfully updated project");
-
-    cy.dataCy("github-app-credentials-banner").should("not.exist");
-    cy.get("@appId").should("have.value", "12345");
-    cy.get("@privateKey").should("have.value", "{REDACTED}");
-    cy.get("@appId").should("have.attr", "aria-disabled", "true");
-    cy.get("@privateKey").should("have.attr", "aria-disabled", "true");
-
-    cy.reload();
-    cy.dataCy("github-app-credentials-banner").should("not.exist");
-    cy.get("@appId").should("have.value", "12345");
-    cy.get("@privateKey").should("have.value", "{REDACTED}");
   });
 
   it("should be able to save different permission groups for requesters, then return to defaults", () => {
