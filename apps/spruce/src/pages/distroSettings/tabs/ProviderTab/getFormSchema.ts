@@ -7,6 +7,7 @@ import {
   ec2FleetProviderSettings,
   ec2OnDemandProviderSettings,
   ec2ProviderAccountField,
+  taskHostOverridesFields,
 } from "./schemaFields";
 import { textAreaCSS } from "./styles";
 
@@ -147,6 +148,11 @@ export const getFormSchema = ({
                   },
                 },
               },
+              taskHostOverrides: {
+                type: "object" as const,
+                title: "Task Host Overrides",
+                properties: taskHostOverridesFields.schema,
+              },
             },
           },
           {
@@ -178,6 +184,11 @@ export const getFormSchema = ({
                     ...ec2OnDemandProviderSettings.schema,
                   },
                 },
+              },
+              taskHostOverrides: {
+                type: "object" as const,
+                title: "Task Host Overrides",
+                properties: taskHostOverridesFields.schema,
               },
             },
           },
@@ -245,6 +256,13 @@ export const getFormSchema = ({
         },
         ...ec2OnDemandProviderSettings.uiSchema,
       },
+    },
+    taskHostOverrides: {
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      "ui:data-cy": "task-host-overrides",
+      "ui:description":
+        "Override provider settings specifically for task hosts. Leave fields empty to use the default provider settings above.",
+      ...taskHostOverridesFields.uiSchema,
     },
   },
 });
