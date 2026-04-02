@@ -93,6 +93,13 @@ export const DISTRO = gql`
       setupAsSudo
       singleTaskDistro
       sshOptions
+      taskHostOverrides {
+        doNotAssignPublicIpv4Address
+        iamInstanceProfileArn
+        providerAccount
+        securityGroupIds
+        subnetId
+      }
       user
       userSpawnAllowed
       validProjects

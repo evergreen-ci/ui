@@ -3,6 +3,14 @@ import { distroData } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { BuildType, ProviderFormState } from "./types";
 
+const defaultTaskHostOverrides = {
+  doNotAssignPublicIpv4Address: false,
+  iamInstanceProfileArn: "",
+  providerAccount: "",
+  securityGroupIds: [],
+  subnetId: "",
+};
+
 const defaultFormState = {
   staticProviderSettings: {
     userData: "",
@@ -63,6 +71,7 @@ const defaultFormState = {
       doNotAssignPublicIPv4Address: true,
     },
   ],
+  taskHostOverrides: defaultTaskHostOverrides,
 };
 
 describe("provider tab", () => {
@@ -334,6 +343,7 @@ describe("provider tab", () => {
           security_group_ids: ["1"],
         },
       ],
+      taskHostOverrides: defaultTaskHostOverrides,
     };
 
     it("correctly converts from GQL to a form", () => {
@@ -486,6 +496,7 @@ describe("provider tab", () => {
           security_group_ids: ["1"],
         },
       ],
+      taskHostOverrides: defaultTaskHostOverrides,
     };
 
     it("correctly converts from GQL to a form", () => {

@@ -8,8 +8,13 @@ type Tab = DistroSettingsTabRoutes.Provider;
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const { containerPool, provider, providerAccount, providerSettingsList } =
-    data;
+  const {
+    containerPool,
+    provider,
+    providerAccount,
+    providerSettingsList,
+    taskHostOverrides,
+  } = data;
 
   return {
     provider: {
@@ -32,6 +37,14 @@ export const gqlToForm = ((data) => {
       ...formProviderSettings(p).ec2OnDemandProviderSettings,
       displayTitle: p.region,
     })),
+    taskHostOverrides: {
+      doNotAssignPublicIpv4Address:
+        taskHostOverrides?.doNotAssignPublicIpv4Address ?? false,
+      iamInstanceProfileArn: taskHostOverrides?.iamInstanceProfileArn ?? "",
+      providerAccount: taskHostOverrides?.providerAccount ?? "",
+      securityGroupIds: taskHostOverrides?.securityGroupIds ?? [],
+      subnetId: taskHostOverrides?.subnetId ?? "",
+    },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
@@ -75,6 +88,7 @@ export const formToGql = ((data, distro) => {
           ...gqlProviderSettings(p).ec2FleetProviderSettings,
         })),
         containerPool: "",
+        taskHostOverrides: data.taskHostOverrides,
       };
     case Provider.Ec2OnDemand:
       return {
@@ -85,6 +99,7 @@ export const formToGql = ((data, distro) => {
           ...gqlProviderSettings(p).ec2OnDemandProviderSettings,
         })),
         containerPool: "",
+        taskHostOverrides: data.taskHostOverrides,
       };
     default:
       return distro;

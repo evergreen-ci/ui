@@ -393,3 +393,59 @@ export const ec2ProviderAccountField = {
   title: "Provider Account",
   default: "",
 };
+
+export const taskHostOverridesFields = {
+  schema: {
+    providerAccount: {
+      type: "string" as const,
+      title: "Provider Account",
+    },
+    iamInstanceProfileArn: {
+      type: "string" as const,
+      title: "IAM Instance Profile ARN",
+    },
+    subnetId: {
+      type: "string" as const,
+      title: "Subnet ID",
+      pattern: "^(subnet-.*)?$",
+    },
+    securityGroupIds: {
+      type: "array" as const,
+      title: "Security Groups",
+      items: {
+        type: "string" as const,
+        title: "Security Group ID",
+        default: "",
+        minLength: 1,
+        pattern: "^sg-.*",
+      },
+    },
+    doNotAssignPublicIpv4Address: {
+      type: "boolean" as const,
+      title: "Do not assign public IPv4 address",
+      default: false,
+    },
+  },
+  uiSchema: {
+    providerAccount: {
+      "ui:optional": true,
+    },
+    iamInstanceProfileArn: {
+      "ui:optional": true,
+      "ui:description":
+        "The Amazon Resource Name (ARN) of the instance profile.",
+    },
+    subnetId: {
+      "ui:optional": true,
+      "ui:placeholder": "e.g. subnet-xxxx",
+    },
+    securityGroupIds: {
+      "ui:addButtonText": "Add security group",
+      "ui:orderable": false,
+    },
+    doNotAssignPublicIpv4Address: {
+      "ui:bold": true,
+      "ui:description": "Skip assigning a public IPv4 address to task hosts.",
+    },
+  },
+};
