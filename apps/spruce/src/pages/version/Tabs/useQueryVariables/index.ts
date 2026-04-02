@@ -1,4 +1,6 @@
+import Cookies from "js-cookie";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
+import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
 import {
   VersionTasksQueryVariables,
@@ -24,8 +26,17 @@ export const useQueryVariables = (
     [PatchTasksQueryParams.Statuses]: statuses,
     [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
     [PatchTasksQueryParams.IncludeNeverActivatedTasks]:
-      includeNeverActivatedTasks,
+      includeNeverActivatedTasksParam,
   } = queryParams;
+
+  let includeNeverActivatedTasks: boolean | undefined;
+  if (includeNeverActivatedTasksParam !== undefined) {
+    includeNeverActivatedTasks = includeNeverActivatedTasksParam === "true";
+  } else if (Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true") {
+    includeNeverActivatedTasks = true;
+  } else {
+    includeNeverActivatedTasks = undefined;
+  }
 
   const sortsToApply: SortOrder[] = sorts
     ? parseSortString<"Key", "Direction", TaskSortCategory, SortOrder>(sorts, {
@@ -35,8 +46,6 @@ export const useQueryVariables = (
       })
     : [];
 
-  const isIncludeNeverActivatedTasksDefined =
-    includeNeverActivatedTasks !== undefined;
   return {
     versionId,
     taskFilterOptions: {
@@ -47,9 +56,7 @@ export const useQueryVariables = (
       sorts: sortsToApply,
       limit,
       page,
-      includeNeverActivatedTasks: isIncludeNeverActivatedTasksDefined
-        ? includeNeverActivatedTasks === "true"
-        : undefined,
+      includeNeverActivatedTasks,
     },
   };
 };

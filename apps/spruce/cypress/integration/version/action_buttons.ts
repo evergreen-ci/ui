@@ -1,3 +1,4 @@
+import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { mockErrorResponse } from "../../utils/mockErrorResponse";
 
 describe("Action Buttons", () => {
@@ -110,6 +111,41 @@ describe("Action Buttons", () => {
           "aria-disabled",
           "true",
         );
+      });
+    });
+  });
+
+  describe("Include Never-activated Tasks toggle", () => {
+    it("sets URL and cookie when toggled on", () => {
+      cy.visit(versionPath(patch));
+      cy.dataCy("ellipsis-btn").click();
+      cy.dataCy("card-dropdown").should("be.visible");
+      cy.dataCy("card-dropdown")
+        .contains("Include never-activated tasks")
+        .click();
+      cy.location("search").should(
+        "contain",
+        "includeNeverActivatedTasks=true",
+      );
+      cy.getCookie(INCLUDE_NEVER_ACTIVATED_TASKS).should(
+        "have.property",
+        "value",
+        "true",
+      );
+    });
+
+    it("uses cookie as default when URL param missing", () => {
+      cy.setCookie(INCLUDE_NEVER_ACTIVATED_TASKS, "true");
+      cy.intercept("POST", "**/graphql/query", (req) => {
+        if (req.body?.operationName === "VersionTasks") {
+          req.alias = "versionTasks";
+        }
+      });
+      cy.visit(versionPath(patch));
+      cy.wait("@versionTasks").then(({ request }) => {
+        expect(
+          request.body.variables.taskFilterOptions.includeNeverActivatedTasks,
+        ).to.eq(true);
       });
     });
   });

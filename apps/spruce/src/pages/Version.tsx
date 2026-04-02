@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
+import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
@@ -14,6 +15,7 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
+import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { slugs } from "constants/routes";
 import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
 import { VERSION } from "gql/queries";
@@ -34,7 +36,7 @@ export const VersionPage: React.FC = () => {
   const { [slugs.versionId]: versionId = "" } = useParams();
   const [includeNeverActivatedTasks] = useQueryParam<boolean | undefined>(
     PatchTasksQueryParams.IncludeNeverActivatedTasks,
-    undefined,
+    Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true",
   );
   const {
     data: versionData,

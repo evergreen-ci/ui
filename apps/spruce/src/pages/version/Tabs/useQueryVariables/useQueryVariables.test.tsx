@@ -1,5 +1,6 @@
 import { MemoryRouter } from "react-router-dom";
 import { renderHook } from "@evg-ui/lib/test_utils";
+import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { TaskSortCategory, SortDirection } from "gql/generated/types";
 import { useQueryVariables } from ".";
 
@@ -78,6 +79,27 @@ describe("useQueryVariables", () => {
         includeNeverActivatedTasks: true,
         taskName: "",
         variant: "",
+      },
+    });
+  });
+  it("uses cookie when includeNeverActivatedTasks is not in the search string", () => {
+    const versionId = "version";
+    const search = "page=0&limit=20";
+    document.cookie = `${INCLUDE_NEVER_ACTIVATED_TASKS}=true`;
+    const { result } = renderHook(() => useQueryVariables(search, versionId), {
+      wrapper: getWrapper(search),
+    });
+    expect(result.current).toStrictEqual({
+      versionId,
+      taskFilterOptions: {
+        taskName: "",
+        includeNeverActivatedTasks: true,
+        variant: "",
+        statuses: [],
+        baseStatuses: [],
+        sorts: [],
+        page: 0,
+        limit: 20,
       },
     });
   });
