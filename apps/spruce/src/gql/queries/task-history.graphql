@@ -32,12 +32,12 @@ query TaskHistory($options: TaskHistoryOpts!, $includeGenerator: Boolean!) {
           testFile
         }
       }
-      versionMetadata {
+      version {
         id
         message
         user {
+          id
           displayName
-          userId
         }
       }
     }
