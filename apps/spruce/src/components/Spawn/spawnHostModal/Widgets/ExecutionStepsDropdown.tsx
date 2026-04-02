@@ -121,7 +121,6 @@ export const groupExecutionSteps = (
     if (!stepsInBlock || stepsInBlock.length === 0) return;
 
     const blockLabel = `BLOCK '${blockKey.toUpperCase()}'`;
-    const standaloneSteps: StepOption[] = [];
 
     let idx = 0;
     while (idx < stepsInBlock.length) {
@@ -149,16 +148,17 @@ export const groupExecutionSteps = (
           })),
         });
       } else {
-        standaloneSteps.push({
-          stepNumber: step.stepNumber,
-          displayText: stripBlockContext(step.displayName),
-        });
-        idx += 1;
+        // Collect consecutive standalone steps into one group
+        const standaloneSteps: StepOption[] = [];
+        while (idx < stepsInBlock.length && !stepsInBlock[idx].isFunction) {
+          standaloneSteps.push({
+            stepNumber: stepsInBlock[idx].stepNumber,
+            displayText: stripBlockContext(stepsInBlock[idx].displayName),
+          });
+          idx += 1;
+        }
+        result.push({ label: blockLabel, steps: standaloneSteps });
       }
-    }
-
-    if (standaloneSteps.length > 0) {
-      result.push({ label: blockLabel, steps: standaloneSteps });
     }
   };
 
