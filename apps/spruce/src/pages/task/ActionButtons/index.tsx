@@ -28,8 +28,8 @@ import {
 } from "gql/mutations";
 import { MarkReviewed } from "./MarkReviewed";
 import { NotifyMeButton } from "./NotifyMeButton";
-import { RelevantCommits } from "./RelevantCommits";
 import { RestartButton } from "./RestartButton";
+import { StepbackMenu } from "./StepbackMenu";
 
 interface Props {
   initialPriority?: number;
@@ -197,7 +197,7 @@ export const ActionButtons: React.FC<Props> = ({
   return (
     <PageButtonRow>
       <MarkReviewed execution={task.execution} taskId={task.id} />
-      {!isExecutionTask && <RelevantCommits task={task} />}
+      {!isExecutionTask && <StepbackMenu task={task} />}
       <LoadingButton
         key="schedule"
         data-cy="schedule-task"

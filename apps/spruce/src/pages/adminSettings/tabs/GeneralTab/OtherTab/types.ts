@@ -21,16 +21,21 @@ export interface OtherFormState {
         savingsPlanDiscount: number;
         onDemandDiscount: number;
         s3Cost: {
-          uploadCostDiscount: number;
-          standardStorageCostDiscount: number;
+          archiveStorageCostDiscount: number;
+          defaultMaxArtifactExpirationDays: number;
           iAStorageCostDiscount: number;
+          standardStorageCostDiscount: number;
+          uploadCostDiscount: number;
         };
       };
     };
 
     oktaServiceConfig: {
+      audience: string;
       clientId: string;
       clientSecret: string;
+      issuer: string;
+      scopes: string[];
     };
 
     singleTaskDistro: {

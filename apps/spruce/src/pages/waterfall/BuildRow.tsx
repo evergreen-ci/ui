@@ -76,8 +76,7 @@ const BuildRowInner: React.FC<Props> = ({
         });
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    [sendEvent, setOpenTaskId],
   );
 
   const { builds, displayName } = build;

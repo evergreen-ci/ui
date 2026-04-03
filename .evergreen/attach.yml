@@ -3,9 +3,7 @@ functions:
     command: s3.put
     type: system
     params:
-      aws_key: ${AWS_ACCESS_KEY_ID}
-      aws_secret: ${AWS_SECRET_ACCESS_KEY}
-      aws_session_token: ${AWS_SESSION_TOKEN}
+      role_arn: ${ASSUME_ROLE_ARN}
       local_file: "ui/${app_dir}/dist/analytics.html"
       remote_file: ${build_variant}/${task_id}/${execution}/analytics.html
       bucket: evg-bucket-evergreen-ui
@@ -17,9 +15,7 @@ functions:
     command: s3.put
     type: system
     params:
-      aws_key: ${AWS_ACCESS_KEY_ID}
-      aws_secret: ${AWS_SECRET_ACCESS_KEY}
-      aws_session_token: ${AWS_SESSION_TOKEN}
+      role_arn: ${ASSUME_ROLE_ARN}
       local_files_include_filter: ["ui/${app_dir}/bin/codegen.diff"]
       remote_file: ${build_variant}/${task_id}/${execution}/codegen/
       bucket: evg-bucket-evergreen-ui
@@ -30,9 +26,7 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${AWS_ACCESS_KEY_ID}
-        aws_secret: ${AWS_SECRET_ACCESS_KEY}
-        aws_session_token: ${AWS_SESSION_TOKEN}
+        role_arn: ${ASSUME_ROLE_ARN}
         local_files_include_filter: ["ui/${app_dir}/cypress/screenshots/*"]
         remote_file: ${build_variant}/${task_id}/${execution}/
         bucket: evg-bucket-evergreen-ui
@@ -42,9 +36,7 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${AWS_ACCESS_KEY_ID}
-        aws_secret: ${AWS_SECRET_ACCESS_KEY}
-        aws_session_token: ${AWS_SESSION_TOKEN}
+        role_arn: ${ASSUME_ROLE_ARN}
         local_files_include_filter: ["ui/${app_dir}/cypress/videos/*"]
         remote_file: ${build_variant}/${task_id}/${execution}/
         bucket: evg-bucket-evergreen-ui
@@ -140,9 +132,7 @@ functions:
     command: s3.put
     type: system
     params:
-      aws_key: ${AWS_ACCESS_KEY_ID}
-      aws_secret: ${AWS_SECRET_ACCESS_KEY}
-      aws_session_token: ${AWS_SESSION_TOKEN}
+      role_arn: ${ASSUME_ROLE_ARN}
       local_files_include_filter: ["ui/${app_dir}/body.txt"]
       remote_file: ${build_variant}/${task_id}/${execution}/
       bucket: evg-bucket-evergreen-ui
@@ -153,9 +143,7 @@ functions:
     command: s3.put
     type: system
     params:
-      aws_key: ${AWS_ACCESS_KEY_ID}
-      aws_secret: ${AWS_SECRET_ACCESS_KEY}
-      aws_session_token: ${AWS_SESSION_TOKEN}
+      role_arn: ${ASSUME_ROLE_ARN}
       local_file: "ui/${app_dir}/restore-logs.txt"
       remote_file: ${build_variant}/${task_id}/${execution}/restore-logs.txt
       bucket: evg-bucket-evergreen-ui
@@ -167,9 +155,7 @@ functions:
     command: s3.put
     type: system
     params:
-      aws_key: ${AWS_ACCESS_KEY_ID}
-      aws_secret: ${AWS_SECRET_ACCESS_KEY}
-      aws_session_token: ${AWS_SESSION_TOKEN}
+      role_arn: ${ASSUME_ROLE_ARN}
       local_file: "ui/evergreen/bin/mongod-logs.txt"
       remote_file: ${build_variant}/${task_id}/${execution}/mongod-logs.txt
       bucket: evg-bucket-evergreen-ui
@@ -181,9 +167,7 @@ functions:
     command: s3.put
     type: system
     params:
-      aws_key: ${AWS_ACCESS_KEY_ID}
-      aws_secret: ${AWS_SECRET_ACCESS_KEY}
-      aws_session_token: ${AWS_SESSION_TOKEN}
+      role_arn: ${ASSUME_ROLE_ARN}
       local_file: "ui/${app_dir}/dist/source_map.html"
       remote_file: ${build_variant}/${task_id}/${execution}/source_map.html
       bucket: evg-bucket-evergreen-ui
@@ -195,9 +179,7 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${AWS_ACCESS_KEY_ID}
-        aws_secret: ${AWS_SECRET_ACCESS_KEY}
-        aws_session_token: ${AWS_SESSION_TOKEN}
+        role_arn: ${ASSUME_ROLE_ARN}
         local_files_include_filter: ["ui/${app_dir}/storybook-static/*.html"]
         remote_file: ${build_variant}/${task_id}/${execution}/storybook/
         bucket: evg-bucket-evergreen-ui
@@ -207,9 +189,7 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${AWS_ACCESS_KEY_ID}
-        aws_secret: ${AWS_SECRET_ACCESS_KEY}
-        aws_session_token: ${AWS_SESSION_TOKEN}
+        role_arn: ${ASSUME_ROLE_ARN}
         local_files_include_filter:
           [
             "ui/${app_dir}/storybook-static/**/*.js$",
@@ -223,9 +203,7 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${AWS_ACCESS_KEY_ID}
-        aws_secret: ${AWS_SECRET_ACCESS_KEY}
-        aws_session_token: ${AWS_SESSION_TOKEN}
+        role_arn: ${ASSUME_ROLE_ARN}
         local_files_include_filter: ["ui/${app_dir}/storybook-static/**/*.js.map"]
         remote_file: ${build_variant}/${task_id}/${execution}/storybook/
         bucket: evg-bucket-evergreen-ui
@@ -235,9 +213,7 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${AWS_ACCESS_KEY_ID}
-        aws_secret: ${AWS_SECRET_ACCESS_KEY}
-        aws_session_token: ${AWS_SESSION_TOKEN}
+        role_arn: ${ASSUME_ROLE_ARN}
         local_files_include_filter: ["ui/${app_dir}/storybook-static/**/*.css"]
         remote_file: ${build_variant}/${task_id}/${execution}/storybook/
         bucket: evg-bucket-evergreen-ui
@@ -247,9 +223,7 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${AWS_ACCESS_KEY_ID}
-        aws_secret: ${AWS_SECRET_ACCESS_KEY}
-        aws_session_token: ${AWS_SESSION_TOKEN}
+        role_arn: ${ASSUME_ROLE_ARN}
         local_files_include_filter: ["ui/${app_dir}/storybook-static/**/*.json"]
         remote_file: ${build_variant}/${task_id}/${execution}/storybook/
         bucket: evg-bucket-evergreen-ui
@@ -259,9 +233,7 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${AWS_ACCESS_KEY_ID}
-        aws_secret: ${AWS_SECRET_ACCESS_KEY}
-        aws_session_token: ${AWS_SESSION_TOKEN}
+        role_arn: ${ASSUME_ROLE_ARN}
         local_files_include_filter: [
           "ui/${app_dir}/storybook-static/**/*.woff",
           "ui/${app_dir}/storybook-static/**/*.woff2"
@@ -282,9 +254,7 @@ functions:
     command: s3.put
     type: system
     params:
-      aws_key: ${AWS_ACCESS_KEY_ID}
-      aws_secret: ${AWS_SECRET_ACCESS_KEY}
-      aws_session_token: ${AWS_SESSION_TOKEN}
+      role_arn: ${ASSUME_ROLE_ARN}
       local_files_include_filter: ["ui/.evergreen/generate-tasks.json"]
       remote_file: ${build_variant}/${task_id}/${execution}/generate-tasks.json
       bucket: evg-bucket-evergreen-ui
@@ -295,9 +265,7 @@ functions:
     command: s3.put
     type: system
     params:
-      aws_key: ${AWS_ACCESS_KEY_ID}
-      aws_secret: ${AWS_SECRET_ACCESS_KEY}
-      aws_session_token: ${AWS_SESSION_TOKEN}
+      role_arn: ${ASSUME_ROLE_ARN}
       local_files_include_filter: ["ui/.evergreen/generate-parallel-e2e-tasks.json"]
       remote_file: ${build_variant}/${task_id}/${execution}/generate-parallel-e2e-tasks.json
       bucket: evg-bucket-evergreen-ui
