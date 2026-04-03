@@ -28,6 +28,7 @@ export default defineConfig({
         suiteName: "Parsley E2E Tests",
       },
     ],
+    ["./playwright/reporter.ts"],
     [
       "html",
       {
