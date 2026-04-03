@@ -30,14 +30,15 @@ export const useQueryVariables = (
     PatchTasksQueryParams.BaseStatuses,
     [],
   );
-  const [includeNeverActivatedTasksParam] = useQueryParam<string | undefined>(
-    PatchTasksQueryParams.IncludeNeverActivatedTasks,
-    undefined,
-  );
+  const [includeNeverActivatedTasksParam] = useQueryParam<
+    string | boolean | undefined
+  >(PatchTasksQueryParams.IncludeNeverActivatedTasks, undefined);
 
   let includeNeverActivatedTasks: boolean | undefined;
   if (includeNeverActivatedTasksParam !== undefined) {
-    includeNeverActivatedTasks = includeNeverActivatedTasksParam === "true";
+    includeNeverActivatedTasks =
+      includeNeverActivatedTasksParam === true ||
+      includeNeverActivatedTasksParam === "true";
   } else if (Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true") {
     includeNeverActivatedTasks = true;
   }
