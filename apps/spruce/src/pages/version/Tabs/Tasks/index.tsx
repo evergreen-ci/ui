@@ -1,8 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import { useLocation } from "react-router-dom";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
-import { useErrorToast } from "@evg-ui/lib/hooks";
+import { useErrorToast, useQueryParams } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
@@ -15,7 +14,6 @@ import { VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
-import { parseQueryString } from "utils/queryString";
 import { useQueryVariables } from "../useQueryVariables";
 import { VersionTasksTable } from "./VersionTasksTable";
 
@@ -26,11 +24,11 @@ interface Props {
 }
 
 const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
-  const { search } = useLocation();
+  const [queryParams] = useQueryParams();
   const updateQueryParams = useUpdateURLQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId || "");
-  const queryVariables = useQueryVariables(search, versionId || "");
-  const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
+  const queryVariables = useQueryVariables(versionId || "");
+  const hasQueryVariables = Object.keys(queryParams).length > 0;
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
