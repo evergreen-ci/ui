@@ -56,7 +56,7 @@ export const CopyProjectModal: React.FC<Props> = ({
     if (identifier) {
       if (error) {
         dispatchToast.warning(
-          `The project was duplicated but some settings may not have been copied: ${error.message}`,
+          `The project was duplicated but may not be fully enabled: ${error.message}`,
           true,
           { shouldTimeout: false },
         );
