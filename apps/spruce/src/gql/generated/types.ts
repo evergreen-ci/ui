@@ -2937,6 +2937,49 @@ export type ProjectInput = {
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
 
+/** ProjectLite replaces Project by sidestepping the APIProjectRef layer. It does not contain all Project fields at this time. */
+export type ProjectLite = {
+  __typename?: "ProjectLite";
+  admins?: Maybe<Array<Scalars["String"]["output"]>>;
+  batchTime: Scalars["Int"]["output"];
+  branch: Scalars["String"]["output"];
+  deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
+  debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
+  dispatchingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  displayName: Scalars["String"]["output"];
+  enabled?: Maybe<Scalars["Boolean"]["output"]>;
+  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]["output"]>>;
+  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]["output"]>>;
+  gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubChecksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubMQTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
+  githubPRTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
+  hidden?: Maybe<Scalars["Boolean"]["output"]>;
+  id: Scalars["String"]["output"];
+  identifier: Scalars["String"]["output"];
+  isFavorite: Scalars["Boolean"]["output"];
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  notifyOnBuildFailure?: Maybe<Scalars["Boolean"]["output"]>;
+  oldestAllowedMergeBase: Scalars["String"]["output"];
+  owner: Scalars["String"]["output"];
+  patchingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  perfEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  prTestingEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  projectHealthView: ProjectHealthView;
+  remotePath: Scalars["String"]["output"];
+  repo: Scalars["String"]["output"];
+  repoRefId: Scalars["String"]["output"];
+  repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  restricted?: Maybe<Scalars["Boolean"]["output"]>;
+  runEveryMainlineCommit?: Maybe<Scalars["Boolean"]["output"]>;
+  spawnHostScriptPath: Scalars["String"]["output"];
+  stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  tracksPushEvents?: Maybe<Scalars["Boolean"]["output"]>;
+  versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+};
+
 export enum ProjectPermission {
   Annotations = "ANNOTATIONS",
   Logs = "LOGS",
@@ -4159,6 +4202,7 @@ export type Task = {
   tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]["output"]>;
   totalTestCount: Scalars["Int"]["output"];
+  version: VersionLite;
   versionMetadata: Version;
 };
 
@@ -4724,12 +4768,14 @@ export type User = {
   betaFeatures?: Maybe<BetaFeatures>;
   displayName?: Maybe<Scalars["String"]["output"]>;
   emailAddress?: Maybe<Scalars["String"]["output"]>;
+  hasTokenExchangePending: Scalars["Boolean"]["output"];
   parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   parsleySettings?: Maybe<ParsleySettings>;
   patches?: Maybe<Patches>;
   permissions?: Maybe<Permissions>;
   settings?: Maybe<UserSettings>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
+  tokenAccessTokenExpiresAt?: Maybe<Scalars["Time"]["output"]>;
   userId: Scalars["String"]["output"];
 };
 
@@ -4757,10 +4803,19 @@ export type UserConfig = {
   user: Scalars["String"]["output"];
 };
 
+/** UserLite replaces User by sidestepping the APIUser field. It does not contain all fields at this time. */
+export type UserLite = {
+  __typename?: "UserLite";
+  displayName?: Maybe<Scalars["String"]["output"]>;
+  emailAddress?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["String"]["output"];
+};
+
 export type UserServiceFlags = {
   __typename?: "UserServiceFlags";
   debugSpawnHostDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  staticAPIKeysDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 /**
@@ -4879,6 +4934,28 @@ export type VersionTaskStatusStatsArgs = {
 /** Version models a commit within a project. */
 export type VersionTasksArgs = {
   options: TaskFilterOptions;
+};
+
+/** VersionLite replaces Version by sidestepping the APIVersion layer. It does not contain all Version fields at this time. */
+export type VersionLite = {
+  __typename?: "VersionLite";
+  activated?: Maybe<Scalars["Boolean"]["output"]>;
+  branch: Scalars["String"]["output"];
+  cost?: Maybe<Cost>;
+  createTime: Scalars["Time"]["output"];
+  errors: Array<Scalars["String"]["output"]>;
+  finishTime?: Maybe<Scalars["Time"]["output"]>;
+  id: Scalars["String"]["output"];
+  ignored: Scalars["Boolean"]["output"];
+  message: Scalars["String"]["output"];
+  order: Scalars["Int"]["output"];
+  project?: Maybe<ProjectLite>;
+  repo: Scalars["String"]["output"];
+  requester: Scalars["String"]["output"];
+  revision: Scalars["String"]["output"];
+  startTime?: Maybe<Scalars["Time"]["output"]>;
+  user: UserLite;
+  warnings: Array<Scalars["String"]["output"]>;
 };
 
 export type VersionTasks = {
