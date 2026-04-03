@@ -92,7 +92,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
       return () => clearTimeout(timeoutId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [listRef, performedScroll, settings, processedLogLines]);
+  }, [listRef, performedScroll, settings, processedLogLines, sendEvent]);
 
   const stickyHeadersProps = stickyHeadersEnabled
     ? {

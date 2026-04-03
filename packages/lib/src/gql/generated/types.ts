@@ -370,6 +370,12 @@ export enum Arch {
   Windows_64Bit = "WINDOWS_64_BIT",
 }
 
+export type AssociatedLink = {
+  __typename?: "AssociatedLink";
+  link: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+};
+
 export type AuthConfig = {
   __typename?: "AuthConfig";
   allowServiceUsers?: Maybe<Scalars["Boolean"]["output"]>;
@@ -1069,6 +1075,7 @@ export enum FeedbackRule {
 
 export type File = {
   __typename?: "File";
+  associatedLinks: Array<AssociatedLink>;
   link: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
   urlParsley?: Maybe<Scalars["String"]["output"]>;
