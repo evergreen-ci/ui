@@ -2,6 +2,10 @@ import { css } from "@emotion/react";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
+import {
+  stripBlockContext,
+  stripFunctionContext,
+} from "@evg-ui/lib/utils/string/logs";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
@@ -82,8 +86,11 @@ export const getFormSchema = ({
 
   const isFailedTask = isFailedTaskStatus(displayStatus);
   const failingStepNumber = isFailedTask
-    ? executionSteps?.find((s) => s.displayName === details?.description)
-        ?.stepNumber
+    ? executionSteps?.find(
+        (s) =>
+          stripFunctionContext(stripBlockContext(s.displayName)) ===
+          details?.description,
+      )?.stepNumber
     : undefined;
   const hasValidTask = validateTask(spawnTaskData);
   const hasProjectSetupScript = !!project?.spawnHostScriptPath;

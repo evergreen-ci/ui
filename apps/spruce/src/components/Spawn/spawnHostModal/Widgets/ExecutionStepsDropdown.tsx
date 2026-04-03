@@ -7,6 +7,10 @@ import {
   ComboboxOption,
 } from "@leafygreen-ui/combobox";
 import { size } from "@evg-ui/lib/constants/tokens";
+import {
+  stripBlockContext,
+  stripFunctionContext,
+} from "@evg-ui/lib/utils/string/logs";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 import { SpawnTaskQuery } from "gql/generated/types";
@@ -50,6 +54,7 @@ export const ExecutionStepsDropdown: React.FC<ExecutionStepsDropdownProps> = ({
       <Combobox
         clearable
         data-cy={dataCy}
+        description="The task will run up to but not including the selected step."
         label={label}
         onChange={(v: string | null) => onChange(v ?? "")}
         placeholder="Select spawn end point"
@@ -92,12 +97,6 @@ interface GroupedSection {
   label: string;
   steps: StepOption[];
 }
-
-const stripFunctionContext = (name: string): string =>
-  name.replace(/ in function '[^']*'/, "");
-
-const stripBlockContext = (name: string): string =>
-  name.replace(/ in block '[^']*'/, "");
 
 export const groupExecutionSteps = (
   steps: TaskExecutionStep[],
