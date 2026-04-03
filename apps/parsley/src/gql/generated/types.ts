@@ -2506,7 +2506,6 @@ export type Patch = {
   alias?: Maybe<Scalars["String"]["output"]>;
   author: Scalars["String"]["output"];
   authorDisplayName: Scalars["String"]["output"];
-  baseTaskStatuses: Array<Scalars["String"]["output"]>;
   builds: Array<Build>;
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
@@ -4871,7 +4870,6 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
   authorEmail: Scalars["String"]["output"];
-  baseTaskStatuses: Array<Scalars["String"]["output"]>;
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;

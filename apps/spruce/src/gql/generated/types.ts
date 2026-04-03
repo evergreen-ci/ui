@@ -2503,7 +2503,6 @@ export type Patch = {
   alias?: Maybe<Scalars["String"]["output"]>;
   author: Scalars["String"]["output"];
   authorDisplayName: Scalars["String"]["output"];
-  baseTaskStatuses: Array<Scalars["String"]["output"]>;
   builds: Array<Build>;
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
@@ -4869,7 +4868,6 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
   authorEmail: Scalars["String"]["output"];
-  baseTaskStatuses: Array<Scalars["String"]["output"]>;
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
@@ -8978,36 +8976,6 @@ export type SuspectedIssuesQuery = {
         } | null;
       }> | null;
     } | null;
-  } | null;
-};
-
-export type LastMainlineCommitQueryVariables = Exact<{
-  projectIdentifier: Scalars["String"]["input"];
-  skipOrderNumber: Scalars["Int"]["input"];
-  buildVariantOptions: BuildVariantOptions;
-}>;
-
-export type LastMainlineCommitQuery = {
-  __typename?: "Query";
-  mainlineCommits?: {
-    __typename?: "MainlineCommits";
-    versions: Array<{
-      __typename?: "MainlineCommitVersion";
-      version?: {
-        __typename?: "Version";
-        id: string;
-        buildVariants?: Array<{
-          __typename?: "GroupedBuildVariant";
-          tasks?: Array<{
-            __typename?: "Task";
-            id: string;
-            displayStatus: string;
-            execution: number;
-            order: number;
-          }> | null;
-        }> | null;
-      } | null;
-    }>;
   } | null;
 };
 
