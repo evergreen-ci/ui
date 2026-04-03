@@ -945,7 +945,6 @@ export enum DistroOnSaveOperation {
 export type DistroPermissions = {
   __typename?: "DistroPermissions";
   admin: Scalars["Boolean"]["output"];
-  distroId: Scalars["String"]["output"];
   edit: Scalars["Boolean"]["output"];
   view: Scalars["Boolean"]["output"];
 };
@@ -2994,7 +2993,6 @@ export enum ProjectPermission {
 export type ProjectPermissions = {
   __typename?: "ProjectPermissions";
   edit: Scalars["Boolean"]["output"];
-  projectIdentifier: Scalars["String"]["output"];
   view: Scalars["Boolean"]["output"];
 };
 
@@ -3345,7 +3343,6 @@ export type RepoCommitQueueParams = {
 export type RepoPermissions = {
   __typename?: "RepoPermissions";
   edit: Scalars["Boolean"]["output"];
-  repoId: Scalars["String"]["output"];
   view: Scalars["Boolean"]["output"];
 };
 
