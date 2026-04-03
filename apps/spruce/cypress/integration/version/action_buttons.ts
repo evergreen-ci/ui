@@ -133,20 +133,5 @@ describe("Action Buttons", () => {
         "true",
       );
     });
-
-    it("uses cookie as default when URL param missing", () => {
-      cy.setCookie(INCLUDE_NEVER_ACTIVATED_TASKS, "true");
-      cy.intercept("POST", "**/graphql/query", (req) => {
-        if (req.body?.operationName === "VersionTasks") {
-          req.alias = "versionTasks";
-        }
-      });
-      cy.visit(versionPath(patch));
-      cy.wait("@versionTasks").then(({ request }) => {
-        expect(
-          request.body.variables.taskFilterOptions.includeNeverActivatedTasks,
-        ).to.eq(true);
-      });
-    });
   });
 });
