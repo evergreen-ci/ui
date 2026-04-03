@@ -115,9 +115,9 @@ export const UpdateStatusModal: React.FC<Props> = ({
           <br />
           <strong>Quarantined</strong>: Stop a host from running tasks without
           terminating it or shutting it down. This is to do ops work on it like
-          temporary maintenance, debugging, etc. Once the maintenance is done,
-          it is usually set back to running to pick up tasks like normal.
-          Quarantined is used almost exclusively for static hosts.
+          temporary maintenance, debugging, etc. Quarantined is used almost
+          exclusively for static hosts.
+          <br />
           <br />
           <strong>Decommissioned</strong>: Terminate a host after it is done
           running its current task.

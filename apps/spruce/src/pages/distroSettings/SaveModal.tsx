@@ -2,10 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import Icon from "@leafygreen-ui/icon";
-import IconButton from "@leafygreen-ui/icon-button";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
-import { Tooltip } from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -116,89 +113,47 @@ export const SaveModal: React.FC<SaveModalProps> = ({
         value={onSaveOperation}
       >
         <Radio value={DistroOnSaveOperation.None}>
-          <OptionLabel>
-            <span>Nothing</span>
-            <Tooltip
-              align="top"
-              justify="start"
-              trigger={
-                <InfoIconButton
-                  aria-label="More info about doing nothing on save"
-                  data-cy="save-action-none-tooltip"
-                >
-                  <Icon glyph="InfoWithCircle" />
-                </InfoIconButton>
-              }
-            >
+          <OptionContent>
+            <OptionTitle>Nothing</OptionTitle>
+            <OptionDescription>
               Apply updated distro settings only to hosts created in the future;
               existing hosts keep their current configuration.
-            </Tooltip>
-          </OptionLabel>
+            </OptionDescription>
+          </OptionContent>
         </Radio>
 
         <Radio value={DistroOnSaveOperation.Decommission}>
-          <OptionLabel>
-            <span>Decommission hosts of this distro</span>
-            <Tooltip
-              align="top"
-              justify="start"
-              trigger={
-                <InfoIconButton
-                  aria-label="More info about decommissioning hosts of this distro"
-                  data-cy="save-action-decommission-tooltip"
-                >
-                  <Icon glyph="InfoWithCircle" />
-                </InfoIconButton>
-              }
-            >
+          <OptionContent>
+            <OptionTitle>Decommission hosts of this distro</OptionTitle>
+            <OptionDescription>
               Mark all hosts of this distro for termination after they finish
               their current work. Evergreen stops scheduling new tasks on them
               and cleans them up.
-            </Tooltip>
-          </OptionLabel>
+            </OptionDescription>
+          </OptionContent>
         </Radio>
 
         <Radio value={DistroOnSaveOperation.RestartJasper}>
-          <OptionLabel>
-            <span>Restart Jasper service on running hosts of this distro</span>
-            <Tooltip
-              align="top"
-              justify="start"
-              trigger={
-                <InfoIconButton
-                  aria-label="More info about restarting Jasper on this distro"
-                  data-cy="save-action-restart-jasper-tooltip"
-                >
-                  <Icon glyph="InfoWithCircle" />
-                </InfoIconButton>
-              }
-            >
+          <OptionContent>
+            <OptionTitle>
+              Restart Jasper service on running hosts of this distro
+            </OptionTitle>
+            <OptionDescription>
               Restart the Jasper process management service on running hosts so
               Evergreen can restart agents and pick up the new configuration.
-            </Tooltip>
-          </OptionLabel>
+            </OptionDescription>
+          </OptionContent>
         </Radio>
 
         <Radio value={DistroOnSaveOperation.Reprovision}>
-          <OptionLabel>
-            <span>Reprovision running hosts of this distro</span>
-            <Tooltip
-              align="top"
-              justify="start"
-              trigger={
-                <InfoIconButton
-                  aria-label="More info about reprovisioning hosts of this distro"
-                  data-cy="save-action-reprovision-tooltip"
-                >
-                  <Icon glyph="InfoWithCircle" />
-                </InfoIconButton>
-              }
-            >
+          <OptionContent>
+            <OptionTitle>Reprovision running hosts of this distro</OptionTitle>
+            <OptionDescription>
               Re-run Evergreen provisioning on running hosts (start Jasper,
               download Evergreen binaries, start the agent) using the updated
               distro settings.
-            </Tooltip>
-          </OptionLabel>
+            </OptionDescription>
+          </OptionContent>
         </Radio>
       </RadioGroup>
     </ConfirmationModal>
@@ -209,14 +164,17 @@ const StyledBody = styled(Body)`
   margin-bottom: ${size.xs};
 `;
 
-const OptionLabel = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: ${size.xs};
+const OptionContent = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-const InfoIconButton = styled(IconButton)`
-  && {
-    padding: 0;
-  }
+const OptionTitle = styled.span`
+  font-weight: 600;
+`;
+
+const OptionDescription = styled.span`
+  font-size: 12px;
+  color: inherit;
+  margin-top: 2px;
 `;
