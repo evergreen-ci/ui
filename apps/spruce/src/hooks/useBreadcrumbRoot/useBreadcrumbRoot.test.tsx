@@ -14,6 +14,8 @@ const createCacheWithUser = (currentUserId: string = "admin") => {
         userId: currentUserId,
         displayName: "Evergreen Admin",
         emailAddress: "admin@example.com",
+        hasTokenExchangePending: false,
+        tokenAccessTokenExpiresAt: null,
         permissions: {
           canEditAdminSettings: true,
           __typename: "Permissions",

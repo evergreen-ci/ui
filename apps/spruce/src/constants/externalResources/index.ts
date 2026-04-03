@@ -119,6 +119,9 @@ export const getAPIRouteForVersions = (versionId: string) =>
 export const getAPIRouteForTasks = (taskId: string, execution: number) =>
   `${getEvergreenUrl()}/rest/v2/tasks/${taskId}?execution=${execution}`;
 
+export const getSpawnHostTokenExchangeAuthorizeUrl = () =>
+  `${getEvergreenUrl()}/rest/v2/auth/token_exchange/authorize`;
+
 export const buildHostConfigurationRepoURL =
   "https://github.com/10gen/buildhost-configuration";
 export const buildHostPostConfigRepoURL =

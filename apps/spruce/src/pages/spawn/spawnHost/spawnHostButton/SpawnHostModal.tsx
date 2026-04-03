@@ -13,9 +13,13 @@ import {
   formToGql,
   getFormSchema,
   useLoadFormSchemaData,
+  useSpawnHostTokenExchangeUser,
   useVirtualWorkstationDefaultExpiration,
   FormState,
 } from "components/Spawn/spawnHostModal";
+import { SpawnHostTokenExchangeCallout } from "components/Spawn/spawnHostModal/SpawnHostTokenExchangeCallout";
+import { isIncompleteForRequiredSpawn } from "components/Spawn/spawnHostModal/tokenExchange";
+import { validateTask } from "components/Spawn/spawnHostModal/utils";
 import { SpruceForm } from "components/SpruceForm";
 import {
   SpawnHostMutation,
@@ -58,6 +62,8 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   );
 
   const { formSchemaInput, loading: loadingFormData } = useLoadFormSchemaData();
+  const { jwtTokenForCLIDisabled, ...spawnHostFormSchemaInput } =
+    formSchemaInput;
 
   const [spawnHostMutation, { loading: loadingSpawnHost }] = useMutation<
     SpawnHostMutation,
@@ -78,6 +84,26 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const [formState, setFormState] = useState<FormState>({});
   const [hasError, setHasError] = useState(true);
+
+  const hasValidTask = !!validateTask(spawnTaskData?.task);
+  const loadTaskDataSelected =
+    formState?.loadData?.loadDataOntoHostAtStartup !== false;
+  const showSpawnHostTokenCallout = hasValidTask && loadTaskDataSelected;
+  const spawnHostTokenAuthRequiredForTaskSpawn = !!(
+    open &&
+    showSpawnHostTokenCallout &&
+    !jwtTokenForCLIDisabled
+  );
+
+  const {
+    loading: spawnTokenUserLoading,
+    startPolling,
+    user: spawnTokenUser,
+  } = useSpawnHostTokenExchangeUser(showSpawnHostTokenCallout);
+
+  const spawnHostTokenBlocked =
+    spawnHostTokenAuthRequiredForTaskSpawn &&
+    (spawnTokenUserLoading || isIncompleteForRequiredSpawn(spawnTokenUser));
 
   const selectedDistro = useMemo(
     () =>
@@ -109,7 +135,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   }, [formState?.expirationDetails?.hostUptime]);
 
   const { schema, uiSchema } = getFormSchema({
-    ...formSchemaInput,
+    ...spawnHostFormSchemaInput,
     availableRegions: selectedDistro?.availableRegions ?? [],
     distroIdQueryParam,
     hostUptimeWarnings,
@@ -119,7 +145,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     timeZone:
       formState?.expirationDetails?.hostUptime?.details?.timeZone || timeZone,
     useSetupScript: !!formState?.setupScriptSection?.defineSetupScriptCheckbox,
-    useOAuth: !!formState?.loadData?.useOAuth,
     useProjectSetupScript: !!formState?.loadData?.runProjectSpecificSetupScript,
   });
 
@@ -155,7 +180,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       confirmButtonProps={{
         children: loadingSpawnHost ? "Spawning" : "Spawn a host",
         onClick: spawnHost,
-        disabled: hasError || loadingSpawnHost,
+        disabled: hasError || loadingSpawnHost || spawnHostTokenBlocked,
       }}
       data-cy="spawn-host-modal"
       open={open}
@@ -172,6 +197,15 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         // @ts-expect-error rjsf v4 has insufficient typing for its validator
         validate={validator(!!spawnHost?.sleepSchedule?.permanentlyExempt)}
       />
+      {showSpawnHostTokenCallout && (
+        <SpawnHostTokenExchangeCallout
+          jwtTokenForCLIDisabled={jwtTokenForCLIDisabled}
+          startPolling={startPolling}
+          timeZone={timeZone}
+          user={spawnTokenUser}
+          userQueryLoading={spawnTokenUserLoading}
+        />
+      )}
     </ConfirmationModal>
   );
 };

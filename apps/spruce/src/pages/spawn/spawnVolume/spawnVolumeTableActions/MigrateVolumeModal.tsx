@@ -45,6 +45,8 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   const { formSchemaInput, loading: loadingFormData } = useLoadFormSchemaData({
     host: volume.host ?? { noExpiration: false },
   });
+  const { jwtTokenForCLIDisabled: _, ...migrateVolumeFormSchemaInput } =
+    formSchemaInput;
   const timeZone =
     useUserTimeZone() || Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -92,7 +94,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   }, [form?.expirationDetails?.hostUptime]);
 
   const { schema, uiSchema } = getFormSchema({
-    ...formSchemaInput,
+    ...migrateVolumeFormSchemaInput,
     availableRegions: selectedDistro?.availableRegions ?? [],
     hostUptimeWarnings,
     distros,
