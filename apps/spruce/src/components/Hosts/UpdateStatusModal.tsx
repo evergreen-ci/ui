@@ -147,7 +147,7 @@ const StyledBody = styled(Body)`
 `;
 
 const StatusBanner = styled(Banner)`
-  margin-bottom: ${size.m};
+  margin-bottom: ${size.xs};
 `;
 
 // HOSTS STATUSES DATA FOR SELECT COMPONENT
