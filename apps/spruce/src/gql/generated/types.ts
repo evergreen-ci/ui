@@ -942,6 +942,7 @@ export enum DistroOnSaveOperation {
 export type DistroPermissions = {
   __typename?: "DistroPermissions";
   admin: Scalars["Boolean"]["output"];
+  distroId: Scalars["String"]["output"];
   edit: Scalars["Boolean"]["output"];
   view: Scalars["Boolean"]["output"];
 };
@@ -2502,7 +2503,6 @@ export type Patch = {
   alias?: Maybe<Scalars["String"]["output"]>;
   author: Scalars["String"]["output"];
   authorDisplayName: Scalars["String"]["output"];
-  baseTaskStatuses: Array<Scalars["String"]["output"]>;
   builds: Array<Build>;
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
@@ -2990,6 +2990,7 @@ export enum ProjectPermission {
 export type ProjectPermissions = {
   __typename?: "ProjectPermissions";
   edit: Scalars["Boolean"]["output"];
+  projectIdentifier: Scalars["String"]["output"];
   view: Scalars["Boolean"]["output"];
 };
 
@@ -3340,6 +3341,7 @@ export type RepoCommitQueueParams = {
 export type RepoPermissions = {
   __typename?: "RepoPermissions";
   edit: Scalars["Boolean"]["output"];
+  repoId: Scalars["String"]["output"];
   view: Scalars["Boolean"]["output"];
 };
 
@@ -4866,7 +4868,6 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
   authorEmail: Scalars["String"]["output"];
-  baseTaskStatuses: Array<Scalars["String"]["output"]>;
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
