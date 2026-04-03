@@ -468,3 +468,20 @@ test.describe("Sharing lines", () => {
     ).toHaveValue("2");
   });
 });
+
+test.describe("Exclude timestamps toggle", () => {
+  test.beforeEach(async ({ authenticatedPage }) => {
+    await authenticatedPage.goto(logLink);
+  });
+
+  test("should disable the exclude timestamps toggle for resmoke logs", async ({
+    authenticatedPage,
+  }) => {
+    await helpers.toggleDetailsPanel(authenticatedPage, true);
+    await authenticatedPage.getByTestId("log-viewing-tab").click();
+    await expect(
+      authenticatedPage.getByTestId("exclude-timestamps-toggle"),
+    ).toBeDisabled();
+    await helpers.toggleDetailsPanel(authenticatedPage, false);
+  });
+});
