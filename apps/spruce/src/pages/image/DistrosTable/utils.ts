@@ -45,12 +45,12 @@ export const getSizeRank = (distroName: string): number => {
   }
 
   // Handles (d)xlarge (2xlarge, 4xlarge, 16xlarge, etc.).
-  if (xPrefix.length === 1 && baseSuffix.toLowerCase() === "large" && num) {
+  if (xPrefix && baseSuffix.toLowerCase() === "large" && num) {
     return 100 + num;
   }
 
   // Handles (d)xsmall.
-  if (xPrefix.length === 1 && baseSuffix.toLowerCase() === "small" && num) {
+  if (xPrefix && baseSuffix.toLowerCase() === "small" && num) {
     return -num;
   }
 
