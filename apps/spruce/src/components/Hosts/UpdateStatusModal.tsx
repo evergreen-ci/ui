@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { Banner } from "@leafygreen-ui/banner";
+import { Banner, Variant } from "@leafygreen-ui/banner";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Select, Option } from "@leafygreen-ui/select";
 import { TextArea } from "@leafygreen-ui/text-area";
@@ -56,7 +56,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
       const message = isHostPage
         ? `Status was changed to ${status}`
         : `Status was changed to ${status} for ${numberOfHostsUpdated} host${pluralize(
-            "",
+            "host",
             numberOfHostsUpdated,
           )}`;
 
@@ -86,7 +86,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
   };
 
   const statusDescription =
-    status != null ? statusDescriptions[status as UpdateHostStatus] : undefined;
+    status != null ? statusDescriptions[status] : undefined;
 
   return (
     <ConfirmationModal
@@ -103,8 +103,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
       title="Update Host Status"
     >
       <StyledBody>
-        Choose how Evergreen should treat the selected host
-        {hostIds.length > 1 ? "s" : ""}.
+        {`Choose how Evergreen should treat the selected ${pluralize("host", hostIds.length)}.`}
       </StyledBody>
 
       <StyledSelect
@@ -123,7 +122,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
       </StyledSelect>
 
       {statusDescription && (
-        <StatusBanner data-cy="host-status-description" variant="info">
+        <StatusBanner data-cy="host-status-description" variant={Variant.Info}>
           {statusDescription}
         </StatusBanner>
       )}

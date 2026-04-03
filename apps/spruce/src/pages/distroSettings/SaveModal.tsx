@@ -28,6 +28,37 @@ type SaveModalProps = {
   tab: WritableDistroSettingsType;
 };
 
+const onSaveOptions: {
+  value: DistroOnSaveOperation;
+  label: string;
+  description: string;
+}[] = [
+  {
+    value: DistroOnSaveOperation.None,
+    label: "Nothing",
+    description:
+      "Apply updated distro settings only to hosts created in the future; existing hosts keep their current configuration.",
+  },
+  {
+    value: DistroOnSaveOperation.Decommission,
+    label: "Decommission hosts of this distro",
+    description:
+      "Mark all hosts of this distro for termination after they finish their current work. Evergreen stops scheduling new tasks on them and cleans them up.",
+  },
+  {
+    value: DistroOnSaveOperation.RestartJasper,
+    label: "Restart Jasper service on running hosts of this distro",
+    description:
+      "Restart the Jasper process management service on running hosts so Evergreen can restart agents and pick up the new configuration.",
+  },
+  {
+    value: DistroOnSaveOperation.Reprovision,
+    label: "Reprovision running hosts of this distro",
+    description:
+      "Rebuild running hosts of this distro with the updated configuration. This restarts agents and may briefly interrupt running work.",
+  },
+];
+
 export const SaveModal: React.FC<SaveModalProps> = ({
   banner,
   distro,
@@ -38,7 +69,6 @@ export const SaveModal: React.FC<SaveModalProps> = ({
 }) => {
   const { sendEvent } = useDistroSettingsAnalytics();
   const dispatchToast = useToastContext();
-
   const { getTab, saveTab } = useDistroSettingsContext();
   const { formData } = getTab(tab);
   const [onSaveOperation, setOnSaveOperation] = useState(
@@ -112,49 +142,11 @@ export const SaveModal: React.FC<SaveModalProps> = ({
         }
         value={onSaveOperation}
       >
-        <Radio value={DistroOnSaveOperation.None}>
-          <OptionContent>
-            <OptionTitle>Nothing</OptionTitle>
-            <OptionDescription>
-              Apply updated distro settings only to hosts created in the future;
-              existing hosts keep their current configuration.
-            </OptionDescription>
-          </OptionContent>
-        </Radio>
-
-        <Radio value={DistroOnSaveOperation.Decommission}>
-          <OptionContent>
-            <OptionTitle>Decommission hosts of this distro</OptionTitle>
-            <OptionDescription>
-              Mark all hosts of this distro for termination after they finish
-              their current work. Evergreen stops scheduling new tasks on them
-              and cleans them up.
-            </OptionDescription>
-          </OptionContent>
-        </Radio>
-
-        <Radio value={DistroOnSaveOperation.RestartJasper}>
-          <OptionContent>
-            <OptionTitle>
-              Restart Jasper service on running hosts of this distro
-            </OptionTitle>
-            <OptionDescription>
-              Restart the Jasper process management service on running hosts so
-              Evergreen can restart agents and pick up the new configuration.
-            </OptionDescription>
-          </OptionContent>
-        </Radio>
-
-        <Radio value={DistroOnSaveOperation.Reprovision}>
-          <OptionContent>
-            <OptionTitle>Reprovision running hosts of this distro</OptionTitle>
-            <OptionDescription>
-              Re-run Evergreen provisioning on running hosts (start Jasper,
-              download Evergreen binaries, start the agent) using the updated
-              distro settings.
-            </OptionDescription>
-          </OptionContent>
-        </Radio>
+        {onSaveOptions.map(({ description, label, value }) => (
+          <Radio key={value} description={description} value={value}>
+            {label}
+          </Radio>
+        ))}
       </RadioGroup>
     </ConfirmationModal>
   );
@@ -162,19 +154,4 @@ export const SaveModal: React.FC<SaveModalProps> = ({
 
 const StyledBody = styled(Body)`
   margin-bottom: ${size.xs};
-`;
-
-const OptionContent = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const OptionTitle = styled.span`
-  font-weight: 600;
-`;
-
-const OptionDescription = styled.span`
-  font-size: 12px;
-  color: inherit;
-  margin-top: 2px;
 `;
