@@ -1,10 +1,12 @@
+const distroSuffixRegex = /-(\d*)(xx|x)?(small|large|medium)$/i;
+
 /**
  * Extracts the base distro name by removing size suffixes like -small, -medium, -large, -xlarge, etc.
  * @param distroName - The full distro name
  * @returns The base distro name without size suffix
  */
 export const getBaseDistroName = (distroName: string): string =>
-  distroName.replace(/-(\d*)(xx|x)?(small|large|medium)$/i, "");
+  distroName.replace(distroSuffixRegex, "");
 
 const baseRanks: Record<string, number> = {
   xxsmall: 0,
@@ -23,7 +25,7 @@ const baseRanks: Record<string, number> = {
  * @returns A numeric rank for sorting
  */
 export const getSizeRank = (distroName: string): number => {
-  const match = distroName.match(/-(\d*)(xx|x)?(small|large|medium)$/i);
+  const match = distroName.match(distroSuffixRegex);
 
   // If there is no suffix, sort to the end.
   if (!match) {
