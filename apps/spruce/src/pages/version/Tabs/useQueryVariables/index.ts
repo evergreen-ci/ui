@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
@@ -8,34 +9,37 @@ import {
   TaskSortCategory,
 } from "gql/generated/types";
 import { PatchTasksQueryParams } from "types/task";
-import { queryString, array } from "utils";
-
-const { getString, parseQueryString, parseSortString } = queryString;
-const { toArray } = array;
+import { parseSortString } from "utils/queryString";
 
 export const useQueryVariables = (
-  search: string,
   versionId: string,
 ): VersionTasksQueryVariables => {
   const { limit, page } = usePagination();
-  const queryParams = parseQueryString(search);
-  const {
-    [TableQueryParams.Sorts]: sorts,
-    [PatchTasksQueryParams.Variant]: variant,
-    [PatchTasksQueryParams.TaskName]: taskName,
-    [PatchTasksQueryParams.Statuses]: statuses,
-    [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
-    [PatchTasksQueryParams.IncludeNeverActivatedTasks]:
-      includeNeverActivatedTasksParam,
-  } = queryParams;
+
+  const [sorts] = useQueryParam<string | string[] | undefined>(
+    TableQueryParams.Sorts,
+    undefined,
+  );
+  const [variant] = useQueryParam<string>(PatchTasksQueryParams.Variant, "");
+  const [taskName] = useQueryParam<string>(PatchTasksQueryParams.TaskName, "");
+  const [statuses] = useQueryParam<string[]>(
+    PatchTasksQueryParams.Statuses,
+    [],
+  );
+  const [baseStatuses] = useQueryParam<string[]>(
+    PatchTasksQueryParams.BaseStatuses,
+    [],
+  );
+  const [includeNeverActivatedTasksParam] = useQueryParam<string | undefined>(
+    PatchTasksQueryParams.IncludeNeverActivatedTasks,
+    undefined,
+  );
 
   let includeNeverActivatedTasks: boolean | undefined;
   if (includeNeverActivatedTasksParam !== undefined) {
     includeNeverActivatedTasks = includeNeverActivatedTasksParam === "true";
   } else if (Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true") {
     includeNeverActivatedTasks = true;
-  } else {
-    includeNeverActivatedTasks = undefined;
   }
 
   const sortsToApply: SortOrder[] = sorts
@@ -49,10 +53,10 @@ export const useQueryVariables = (
   return {
     versionId,
     taskFilterOptions: {
-      variant: getString(variant),
-      taskName: getString(taskName),
-      statuses: toArray(statuses),
-      baseStatuses: toArray(baseStatuses),
+      variant,
+      taskName,
+      statuses,
+      baseStatuses,
       sorts: sortsToApply,
       limit,
       page,

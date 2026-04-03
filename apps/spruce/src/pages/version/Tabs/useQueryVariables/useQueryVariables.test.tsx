@@ -1,8 +1,13 @@
+import Cookies from "js-cookie";
 import { MemoryRouter } from "react-router-dom";
+import type { MockInstance } from "vitest";
 import { renderHook } from "@evg-ui/lib/test_utils";
 import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { TaskSortCategory, SortDirection } from "gql/generated/types";
 import { useQueryVariables } from ".";
+
+vi.mock("js-cookie");
+const mockedGet = vi.spyOn(Cookies, "get") as MockInstance;
 
 describe("useQueryVariables", () => {
   const getWrapper = (search: string) => {
@@ -17,7 +22,7 @@ describe("useQueryVariables", () => {
     const versionId = "version";
     const search =
       "page=0&limit=20&sorts=NAME%3AASC%3BSTATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3AASC&statuses=success&taskName=generate";
-    const { result } = renderHook(() => useQueryVariables(search, versionId), {
+    const { result } = renderHook(() => useQueryVariables(versionId), {
       wrapper: getWrapper(search),
     });
     expect(result.current).toStrictEqual({
@@ -39,11 +44,12 @@ describe("useQueryVariables", () => {
       },
     });
   });
+
   it("filters invalid sorts from the search string", () => {
     const versionId = "version";
     const search =
       "page=0&limit=20&sorts=FAKE_NAME%3AASC%3BFAKE_STATUS%3AASC%3BFAKE_BASE_STATUS%3ADESC%3BVARIANT%3AASC&statuses=success&taskName=generate";
-    const { result } = renderHook(() => useQueryVariables(search, versionId), {
+    const { result } = renderHook(() => useQueryVariables(versionId), {
       wrapper: getWrapper(search),
     });
     expect(result.current).toStrictEqual({
@@ -65,7 +71,7 @@ describe("useQueryVariables", () => {
   it("includes includeNeverActivatedTasks if it is defined in the search string", () => {
     const versionId = "version";
     const search = "page=0&limit=20&includeNeverActivatedTasks=true";
-    const { result } = renderHook(() => useQueryVariables(search, versionId), {
+    const { result } = renderHook(() => useQueryVariables(versionId), {
       wrapper: getWrapper(search),
     });
     expect(result.current).toStrictEqual({
@@ -82,11 +88,14 @@ describe("useQueryVariables", () => {
       },
     });
   });
+
   it("uses cookie when includeNeverActivatedTasks is not in the search string", () => {
     const versionId = "version";
     const search = "page=0&limit=20";
-    document.cookie = `${INCLUDE_NEVER_ACTIVATED_TASKS}=true`;
-    const { result } = renderHook(() => useQueryVariables(search, versionId), {
+    mockedGet.mockImplementation((key: string) =>
+      key === INCLUDE_NEVER_ACTIVATED_TASKS ? "true" : undefined,
+    );
+    const { result } = renderHook(() => useQueryVariables(versionId), {
       wrapper: getWrapper(search),
     });
     expect(result.current).toStrictEqual({
