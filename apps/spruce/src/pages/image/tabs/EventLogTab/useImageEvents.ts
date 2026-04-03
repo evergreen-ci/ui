@@ -33,10 +33,11 @@ export const useImageEvents = (
   );
 
   return {
-    count: data?.image?.events?.count,
     events,
     fetchMore,
+    lastFetchedCount:
+      (data?.image?.events?.count ?? 0) -
+      (previousData?.image?.events?.count ?? 0),
     loading,
-    previousCount: previousData?.image?.events?.count ?? 0,
   };
 };

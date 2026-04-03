@@ -14,7 +14,7 @@ export const EventLogTab: React.FC<TabProps> = ({
 }) => {
   const { [slugs.distroId]: distroId } = useParams();
 
-  const { count, events, fetchMore, loading, previousCount } = useDistroEvents(
+  const { events, fetchMore, lastFetchedCount, loading } = useDistroEvents(
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     distroId,
     limit,
@@ -24,7 +24,6 @@ export const EventLogTab: React.FC<TabProps> = ({
 
   return (
     <EventLog
-      count={count}
       eventRenderer={({ after, before, data }) =>
         after && before ? (
           <EventDiffTable after={after} before={before} />
@@ -41,9 +40,9 @@ export const EventLogTab: React.FC<TabProps> = ({
           },
         });
       }}
+      lastFetchedCount={lastFetchedCount}
       limit={limit}
       loading={loading}
-      previousCount={previousCount}
     />
   );
 };

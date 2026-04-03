@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import {
@@ -24,14 +25,14 @@ export const useProjectSettingsEvents = ({
   const {
     data: projectEventData,
     error: projectError,
-    fetchMore: projectFetchMore,
+    fetchMore: projectFetchMoreBase,
     loading: projectLoading,
-    previousData: projectPreviousData,
   } = useQuery<ProjectEventLogsQuery, ProjectEventLogsQueryVariables>(
     PROJECT_EVENT_LOGS,
     projectIdentifier && !isRepo
       ? {
           variables: { projectIdentifier, limit },
+          fetchPolicy: "no-cache",
           errorPolicy: "all",
           notifyOnNetworkStatusChange: true,
         }
@@ -42,17 +43,43 @@ export const useProjectSettingsEvents = ({
     `Unable to fetch events for ${projectIdentifier}`,
   );
 
+  // Wrap fetchMore with updateQuery to merge paginated results, since
+  // no-cache queries don't write to the cache and can't merge automatically.
+  const projectFetchMore = useCallback(
+    (options: Parameters<typeof projectFetchMoreBase>[0]) =>
+      projectFetchMoreBase({
+        ...options,
+        updateQuery(
+          previousData: ProjectEventLogsQuery,
+          { fetchMoreResult }: { fetchMoreResult: ProjectEventLogsQuery },
+        ) {
+          if (!fetchMoreResult) return previousData;
+          return {
+            ...previousData,
+            projectEvents: {
+              ...fetchMoreResult.projectEvents,
+              eventLogEntries: [
+                ...previousData.projectEvents.eventLogEntries,
+                ...fetchMoreResult.projectEvents.eventLogEntries,
+              ],
+            },
+          };
+        },
+      }),
+    [projectFetchMoreBase],
+  );
+
   const {
     data: repoEventData,
     error: repoError,
-    fetchMore: repoFetchMore,
+    fetchMore: repoFetchMoreBase,
     loading: repoLoading,
-    previousData: repoPreviousData,
   } = useQuery<RepoEventLogsQuery, RepoEventLogsQueryVariables>(
     REPO_EVENT_LOGS,
     isRepo && repoId
       ? {
           variables: { repoId, limit },
+          fetchPolicy: "no-cache",
           errorPolicy: "all",
           notifyOnNetworkStatusChange: true,
         }
@@ -60,13 +87,29 @@ export const useProjectSettingsEvents = ({
   );
   useErrorToast(repoError, `Unable to fetch events for ${repoId}`);
 
-  // Determine count and previousCount based on whether we're viewing project or repo
-  const count = isRepo
-    ? repoEventData?.repoEvents?.count
-    : projectEventData?.projectEvents?.count;
-  const previousCount = isRepo
-    ? (repoPreviousData?.repoEvents?.count ?? 0)
-    : (projectPreviousData?.projectEvents?.count ?? 0);
+  const repoFetchMore = useCallback(
+    (options: Parameters<typeof repoFetchMoreBase>[0]) =>
+      repoFetchMoreBase({
+        ...options,
+        updateQuery(
+          previousData: RepoEventLogsQuery,
+          { fetchMoreResult }: { fetchMoreResult: RepoEventLogsQuery },
+        ) {
+          if (!fetchMoreResult) return previousData;
+          return {
+            ...previousData,
+            repoEvents: {
+              ...fetchMoreResult.repoEvents,
+              eventLogEntries: [
+                ...previousData.repoEvents.eventLogEntries,
+                ...fetchMoreResult.repoEvents.eventLogEntries,
+              ],
+            },
+          };
+        },
+      }),
+    [repoFetchMoreBase],
+  );
 
   const events = isRepo
     ? repoEventData?.repoEvents?.eventLogEntries || []
@@ -74,11 +117,14 @@ export const useProjectSettingsEvents = ({
 
   const loading = isRepo ? repoLoading : projectLoading;
 
+  const lastFetchedCount = isRepo
+    ? repoEventData?.repoEvents?.count
+    : projectEventData?.projectEvents?.count;
+
   return {
-    count,
     events,
+    lastFetchedCount,
     loading,
-    previousCount,
     projectFetchMore,
     repoFetchMore,
   };

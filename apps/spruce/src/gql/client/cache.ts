@@ -14,12 +14,6 @@ export const cache = new InMemoryCache({
         distroEvents: {
           keyArgs: ["$distroId"],
         },
-        projectEvents: {
-          keyArgs: ["$projectIdentifier"],
-        },
-        repoEvents: {
-          keyArgs: ["$repoId"],
-        },
         hasVersion: {
           keyArgs: ["$patchId"],
         },
@@ -116,21 +110,7 @@ export const cache = new InMemoryCache({
       },
     },
     Project: {
-      keyFields: false,
-    },
-    ProjectEvents: {
-      fields: {
-        count: {
-          merge(existing = 0, incoming = 0) {
-            return existing + incoming;
-          },
-        },
-        eventLogEntries: {
-          merge(existing = [], incoming = []) {
-            return [...existing, ...incoming];
-          },
-        },
-      },
+      merge: true,
     },
     ProjectAlias: {
       keyFields: false,

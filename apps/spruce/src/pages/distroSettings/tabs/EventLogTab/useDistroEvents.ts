@@ -27,10 +27,11 @@ export const useDistroEvents = (
   const events = data?.distroEvents?.eventLogEntries ?? [];
 
   return {
-    count: data?.distroEvents?.count,
     events,
     fetchMore,
+    lastFetchedCount:
+      (data?.distroEvents?.count ?? 0) -
+      (previousData?.distroEvents?.count ?? 0),
     loading,
-    previousCount: previousData?.distroEvents?.count ?? 0,
   };
 };

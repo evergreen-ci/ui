@@ -31,11 +31,11 @@ export const useAdminEvents = (limit: number = ADMIN_EVENT_LIMIT) => {
   const lastEventTimestamp = events[events.length - 1]?.timestamp;
 
   return {
-    count: data?.adminEvents?.count,
     events,
     fetchMore,
     lastEventTimestamp,
+    lastFetchedCount:
+      (data?.adminEvents?.count ?? 0) - (previousData?.adminEvents?.count ?? 0),
     loading,
-    previousCount: previousData?.adminEvents?.count ?? 0,
   };
 };
