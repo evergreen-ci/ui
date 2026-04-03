@@ -6,6 +6,7 @@ import { Tooltip } from "@leafygreen-ui/tooltip";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
@@ -200,7 +201,7 @@ const MenuContainer = styled.div`
 const IconContainer = styled.span`
   display: flex;
   align-items: center;
-  width: 16px;
+  width: ${size.s};
 `;
 
 const Label = styled.span`

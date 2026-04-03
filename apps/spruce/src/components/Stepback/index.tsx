@@ -74,30 +74,31 @@ export const Stepback: React.FC<StepbackProps> = ({
           Stepback dropdown.
         </InfoSprinkle>
       )}
-      {isPopup && (
-        <Button
-          as={Link}
-          css={css`
-            flex-shrink: 0;
-          `}
-          data-cy="breaking-task-button"
-          disabled={
-            loading || !finished || !breakingTask || currentTaskIsBreaking
-          }
-          size={ButtonSize.Small}
-          to={
-            breakingTask
-              ? getTaskRoute(breakingTask.id, {
-                  execution: breakingTask.execution,
-                })
-              : ""
-          }
-        >
-          {currentTaskIsBreaking
-            ? "Current task is breaking"
-            : "Go to breaking task"}
-        </Button>
-      )}
+      {isPopup &&
+        (currentTaskIsBreaking ? (
+          <em>Current task is breaking</em>
+        ) : (
+          <Button
+            as={Link}
+            css={css`
+              flex-shrink: 0;
+            `}
+            data-cy="breaking-task-button"
+            disabled={
+              loading || !finished || !breakingTask || currentTaskIsBreaking
+            }
+            size={ButtonSize.Small}
+            to={
+              breakingTask
+                ? getTaskRoute(breakingTask.id, {
+                    execution: breakingTask.execution,
+                  })
+                : ""
+            }
+          >
+            Go to breaking task
+          </Button>
+        ))}
     </StepbackLabel>
   );
 };
