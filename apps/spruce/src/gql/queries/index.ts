@@ -57,6 +57,7 @@ import SERVICE_FLAGS_LIST from "./service-flags-list.graphql";
 import SINGLE_TASK_DISTRO from "./single-task-distro.graphql";
 import SPAWN_TASK from "./spawn-task.graphql";
 import SPRUCE_CONFIG from "./spruce-config.graphql";
+import STEPBACK_TASKS from "./stepback-tasks.graphql";
 import SUBNET_AVAILABILITY_ZONES from "./subnet-availability-zones.graphql";
 import SYSTEM_LOGS from "./system-logs.graphql";
 import TASK_ALL_EXECUTIONS from "./task-all-executions.graphql";
@@ -154,6 +155,7 @@ export {
   SINGLE_TASK_DISTRO,
   SPAWN_TASK,
   SPRUCE_CONFIG,
+  STEPBACK_TASKS,
   SUBNET_AVAILABILITY_ZONES,
   SYSTEM_LOGS,
   TASK,

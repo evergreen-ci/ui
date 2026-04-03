@@ -69,6 +69,7 @@ export const TaskOverviewPopup: React.FC<Props> = ({
     distroId,
     finishTime,
     priority,
+    status,
     stepbackInfo,
     timeTaken,
   } = task || {};
@@ -134,7 +135,14 @@ export const TaskOverviewPopup: React.FC<Props> = ({
             {isFailingTask && (
               <FailingTests execution={execution} taskId={taskId} />
             )}
-            {showStepback && <Stepback isPopup taskId={taskId} />}
+            {showStepback && (
+              <Stepback
+                execution={execution}
+                isPopup
+                status={status ?? ""}
+                taskId={taskId}
+              />
+            )}
             <Annotations annotation={annotation} displayName={displayName} />
           </>
         )}

@@ -10886,6 +10886,49 @@ export type SpruceConfigQuery = {
   } | null;
 };
 
+export type StepbackTasksQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+  isPassing: Scalars["Boolean"]["input"];
+}>;
+
+export type StepbackTasksQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    prevTask?: {
+      __typename?: "Task";
+      id: string;
+      displayStatus: string;
+      execution: number;
+      revision?: string | null;
+    } | null;
+    prevTaskCompleted?: {
+      __typename?: "Task";
+      id: string;
+      displayStatus: string;
+      execution: number;
+      revision?: string | null;
+    } | null;
+    prevTaskPassing?: {
+      __typename?: "Task";
+      id: string;
+      displayStatus: string;
+      execution: number;
+      revision?: string | null;
+      nextTaskFailing?: {
+        __typename?: "Task";
+        id: string;
+        displayStatus: string;
+        execution: number;
+        revision?: string | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
 export type SubnetAvailabilityZonesQueryVariables = Exact<{
   [key: string]: never;
 }>;
@@ -11108,6 +11151,7 @@ export type TaskOverviewPopupQuery = {
     execution: number;
     finishTime?: Date | null;
     priority?: number | null;
+    status: string;
     timeTaken?: number | null;
     annotation?: {
       __typename?: "Annotation";
@@ -11436,7 +11480,10 @@ export type TaskQuery = {
     baseTask?: {
       __typename?: "Task";
       id: string;
+      displayStatus: string;
       execution: number;
+      revision?: string | null;
+      status: string;
       timeTaken?: number | null;
       versionMetadata: { __typename?: "Version"; id: string; revision: string };
     } | null;
