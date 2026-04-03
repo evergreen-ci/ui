@@ -184,8 +184,17 @@ export const cache = new InMemoryCache({
         },
       },
     },
+    Permissions: {
+      keyFields: false,
+      merge: true,
+    },
     ServiceFlag: {
       keyFields: ["name"],
+    },
+    SpruceConfig: {
+      // SpruceConfig is a singleton type with no identifying field
+      keyFields: [],
+      merge: true,
     },
     WaterfallTask: {
       keyFields: false,
