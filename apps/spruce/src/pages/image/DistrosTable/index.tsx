@@ -22,20 +22,13 @@ import {
   Provider,
 } from "gql/generated/types";
 import { IMAGE_DISTROS } from "gql/queries";
+import { getBaseDistroName, getSizeRank } from "./utils";
 
 type Distro = Unpacked<NonNullable<ImageDistrosQuery["image"]>["distros"]>;
 
 type DistrosTableProps = {
   imageId: string;
 };
-
-/**
- * Extracts the base distro name by removing size suffixes like -small, -medium, -large, -xlarge, etc.
- * @param distroName - The full distro name
- * @returns The base distro name without size suffix
- */
-const getBaseDistroName = (distroName: string): string =>
-  distroName.replace(/-(\d*x?large|small|medium)$/i, "");
 
 export const DistrosTable: React.FC<DistrosTableProps> = ({ imageId }) => {
   const {
@@ -55,7 +48,7 @@ export const DistrosTable: React.FC<DistrosTableProps> = ({ imageId }) => {
         if (baseA !== baseB) {
           return baseA.localeCompare(baseB);
         }
-        return b.name.localeCompare(a.name);
+        return getSizeRank(a.name) - getSizeRank(b.name);
       }),
     [imageData],
   );
