@@ -44,6 +44,3 @@ export const ExecutionStatusIcon: React.FC<ExecutionStatusIconProps> = ({
       return null;
   }
 };
-
-// @ts-expect-error: The only icon LeafyGreen cannot support is the KnownFailure icon.
-ExecutionStatusIcon.isGlyph = true;

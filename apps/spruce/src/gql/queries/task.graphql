@@ -21,7 +21,10 @@ query Task($taskId: String!, $execution: Int) {
     }
     baseTask {
       id
+      displayStatus
       execution
+      revision
+      status
       timeTaken
       versionMetadata {
         id
