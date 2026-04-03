@@ -9,6 +9,7 @@ import { FilterLogic, WordWrapFormat } from "constants/enums";
 import { QueryParams, urlParseOptions } from "constants/queryParams";
 import {
   CASE_SENSITIVE,
+  EXCLUDE_TIMESTAMPS,
   EXPANDABLE_ROWS,
   FILTER_LOGIC,
   HIGHLIGHT_FILTERS,
@@ -22,6 +23,7 @@ import { Preferences } from "./types";
 
 interface PreferencesState {
   caseSensitive: boolean;
+  excludeTimestamps: boolean;
   highlightFilters: boolean;
   prettyPrint: boolean;
   stickyHeaders: boolean;
@@ -32,6 +34,7 @@ interface PreferencesState {
 
 type PreferencesAction =
   | { type: "SET_CASE_SENSITIVE"; value: boolean }
+  | { type: "SET_EXCLUDE_TIMESTAMPS"; value: boolean }
   | { type: "SET_HIGHLIGHT_FILTERS"; value: boolean }
   | { type: "SET_PRETTY_PRINT"; value: boolean }
   | { type: "SET_STICKY_HEADERS"; value: boolean }
@@ -46,6 +49,7 @@ const persistToLocalStorage = (key: string, value: string | boolean): void => {
 // Wrap and pretty print settings are evaluated after the logs have initially rendered - see LogPane component.
 const getInitialState = (): PreferencesState => ({
   caseSensitive: getLocalStorageBoolean(CASE_SENSITIVE, false),
+  excludeTimestamps: getLocalStorageBoolean(EXCLUDE_TIMESTAMPS, false),
   highlightFilters: getLocalStorageBoolean(HIGHLIGHT_FILTERS, false),
   prettyPrint: false,
   stickyHeaders: getLocalStorageBoolean(STICKY_HEADERS, false),
@@ -64,6 +68,9 @@ const preferencesReducer = (
     case "SET_CASE_SENSITIVE":
       persistToLocalStorage(CASE_SENSITIVE, action.value);
       return { ...state, caseSensitive: action.value };
+    case "SET_EXCLUDE_TIMESTAMPS":
+      persistToLocalStorage(EXCLUDE_TIMESTAMPS, action.value);
+      return { ...state, excludeTimestamps: action.value };
     case "SET_HIGHLIGHT_FILTERS":
       persistToLocalStorage(HIGHLIGHT_FILTERS, action.value);
       return { ...state, highlightFilters: action.value };
@@ -130,6 +137,11 @@ const usePreferences = (): Preferences => {
     dispatch({ type: "SET_HIGHLIGHT_FILTERS", value });
   }, []);
 
+  const setExcludeTimestamps = useCallback((value: boolean) => {
+    dispatch({ type: "SET_EXCLUDE_TIMESTAMPS", value });
+    window.location.reload();
+  }, []);
+
   const setPrettyPrint = useCallback((value: boolean) => {
     dispatch({ type: "SET_PRETTY_PRINT", value });
   }, []);
@@ -153,11 +165,13 @@ const usePreferences = (): Preferences => {
   const preferences: Preferences = useMemo(
     () => ({
       caseSensitive: state.caseSensitive,
+      excludeTimestamps: state.excludeTimestamps,
       expandableRows,
       filterLogic,
       highlightFilters: state.highlightFilters,
       prettyPrint: state.prettyPrint,
       setCaseSensitive,
+      setExcludeTimestamps,
       setExpandableRows,
       setFilterLogic,
       setHighlightFilters,
@@ -176,6 +190,7 @@ const usePreferences = (): Preferences => {
       expandableRows,
       filterLogic,
       setCaseSensitive,
+      setExcludeTimestamps,
       setExpandableRows,
       setFilterLogic,
       setHighlightFilters,

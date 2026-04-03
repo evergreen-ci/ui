@@ -250,8 +250,11 @@ describe("resmokeLogs/resmoke_evg_test_logView", () => {
     const logLink =
       "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab";
     beforeEach(() => {
-      cy.setCookie("pretty-print-bookmarks", "true");
-      cy.visit(logLink);
+      cy.visit(logLink, {
+        onBeforeLoad(win) {
+          win.localStorage.setItem("pretty-print-bookmarks", "true");
+        },
+      });
     });
 
     it("should pretty print bookmarks if pretty print is enabled", () => {
@@ -261,6 +264,26 @@ describe("resmokeLogs/resmoke_evg_test_logView", () => {
       cy.dataCy("log-row-19")
         .invoke("height")
         .should("be.greaterThan", defaultRowHeight);
+    });
+  });
+
+  describe("Exclude timestamps toggle", () => {
+    const logLink =
+      "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab";
+
+    beforeEach(() => {
+      cy.visit(logLink);
+    });
+
+    it("should disable the exclude timestamps toggle for resmoke logs", () => {
+      cy.toggleDetailsPanel(true);
+      cy.get("button[data-cy='log-viewing-tab']").click();
+      cy.dataCy("exclude-timestamps-toggle").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
+      cy.toggleDetailsPanel(false);
     });
   });
 

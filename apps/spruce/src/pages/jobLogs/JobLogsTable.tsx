@@ -8,40 +8,24 @@ import {
   BaseTable,
 } from "@evg-ui/lib/components/Table";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
-import { getParsleyLogkeeperTestLogURL } from "constants/externalResources";
-import {
-  EvergreenTestResult,
-  JobLogsTableTestResult,
-  LogkeeperTestResult,
-} from "./types";
+import { EvergreenTestResult } from "./types";
 
 interface JobLogsTableProps {
-  buildId?: string;
-  isLogkeeper: boolean;
   loading: boolean;
-  tests: JobLogsTableTestResult[];
+  tests: EvergreenTestResult[];
 }
 
 export const JobLogsTable: React.FC<JobLogsTableProps> = ({
-  buildId,
-  isLogkeeper,
   loading,
   tests,
 }) => {
-  const logkeeperColumns: LGColumnDef<LogkeeperTestResult>[] = useMemo(
-    () => getLogkeeperColumns(buildId),
-    [buildId],
-  );
-
-  const evergreenColumns: LGColumnDef<EvergreenTestResult>[] = useMemo(
-    () => getEvergreenColumns(),
+  const columns: LGColumnDef<EvergreenTestResult>[] = useMemo(
+    () => getColumns(),
     [],
   );
 
-  const table = useLeafyGreenTable<JobLogsTableTestResult>({
-    columns: (isLogkeeper
-      ? logkeeperColumns
-      : evergreenColumns) as LGColumnDef<JobLogsTableTestResult>[],
+  const table = useLeafyGreenTable<EvergreenTestResult>({
+    columns,
     data: tests,
   });
   return (
@@ -56,35 +40,12 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   );
 };
 
-const getLogkeeperColumns = (
-  buildId: string | undefined,
-): LGColumnDef<LogkeeperTestResult>[] => [
-  {
-    header: "Test Name",
-    accessorKey: "name",
-    cell: ({ getValue, row }) => (
-      <ParsleyLink
-        buildId={buildId}
-        isLogkeeper
-        parsleyUrl={getParsleyLogkeeperTestLogURL(
-          buildId ?? "",
-          row.original.id,
-        )}
-        testName={getValue() as string}
-      />
-    ),
-    enableColumnFilter: false,
-    enableSorting: false,
-  },
-];
-
-const getEvergreenColumns = (): LGColumnDef<EvergreenTestResult>[] => [
+const getColumns = (): LGColumnDef<EvergreenTestResult>[] => [
   {
     header: "Test Name",
     accessorKey: "testFile",
     cell: ({ getValue, row }) => (
       <ParsleyLink
-        isLogkeeper={false}
         parsleyUrl={row.original?.logs?.urlParsley ?? ""}
         testName={getValue() as string}
       />
@@ -101,33 +62,22 @@ const getEvergreenColumns = (): LGColumnDef<EvergreenTestResult>[] => [
   },
 ];
 
-export const ParsleyLink = ({
-  buildId,
-  isLogkeeper,
+const ParsleyLink = ({
   parsleyUrl,
   testName,
 }: {
-  isLogkeeper: boolean;
   parsleyUrl: string;
   testName: string;
-  buildId?: string;
 }) => {
-  const { sendEvent } = useJobLogsAnalytics(isLogkeeper);
+  const { sendEvent } = useJobLogsAnalytics();
   return (
     <Link
       hideExternalIcon
       href={parsleyUrl}
       onClick={() => {
-        if (buildId) {
-          sendEvent({
-            name: "Clicked Parsley test log link",
-            "build.id": buildId,
-          });
-        } else {
-          sendEvent({
-            name: "Clicked Parsley test log link",
-          });
-        }
+        sendEvent({
+          name: "Clicked Parsley test log link",
+        });
       }}
     >
       {testName}

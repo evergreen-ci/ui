@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { useLocation } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components/Table";
@@ -64,11 +64,15 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     VersionTaskDurationsQuery,
     VersionTaskDurationsQueryVariables
-  >(VERSION_TASK_DURATIONS, {
-    variables: queryVariables,
-    skip: !hasQueryVariables,
-    pollInterval: DEFAULT_POLL_INTERVAL,
-  });
+  >(
+    VERSION_TASK_DURATIONS,
+    hasQueryVariables
+      ? {
+          variables: queryVariables,
+          pollInterval: DEFAULT_POLL_INTERVAL,
+        }
+      : skipToken,
+  );
   useErrorToast(error, "Error fetching patch tasks");
   usePolling<VersionTaskDurationsQuery, VersionTaskDurationsQueryVariables>({
     startPolling,

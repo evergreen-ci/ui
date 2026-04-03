@@ -51,9 +51,7 @@ functions:
     command: s3.get
     type: setup
     params:
-      aws_key: ${AWS_ACCESS_KEY_ID}
-      aws_secret: ${AWS_SECRET_ACCESS_KEY}
-      aws_session_token: ${AWS_SESSION_TOKEN}
+      role_arn: ${ASSUME_ROLE_ARN}
       extract_to: ui/evergreen
       remote_file: _bucketdata.tar.gz
       bucket: parsley-test

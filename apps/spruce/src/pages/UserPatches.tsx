@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { PatchesPage } from "components/PatchesPage";
@@ -23,19 +23,23 @@ export const UserPatches = () => {
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
-  >(USER_PATCHES, {
-    variables: {
-      userId,
-      patchesInput: {
-        ...patchesInput,
-        // Always show merge queue patches for the merge queue user.
-        onlyMergeQueue: isMergeQueueUser,
-      },
-    },
-    fetchPolicy: "cache-and-network",
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    skip: !userId,
-  });
+  >(
+    USER_PATCHES,
+    userId
+      ? {
+          variables: {
+            userId,
+            patchesInput: {
+              ...patchesInput,
+              // Always show merge queue patches for the merge queue user.
+              onlyMergeQueue: isMergeQueueUser,
+            },
+          },
+          fetchPolicy: "cache-and-network",
+          pollInterval: DEFAULT_POLL_INTERVAL,
+        }
+      : skipToken,
+  );
   useErrorToast(error, "Error while fetching user patches");
   usePolling<UserPatchesQuery, UserPatchesQueryVariables>({
     startPolling,

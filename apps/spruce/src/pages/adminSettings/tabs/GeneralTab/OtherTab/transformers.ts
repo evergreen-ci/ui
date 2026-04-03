@@ -74,18 +74,25 @@ export const gqlToForm = ((data) => {
           savingsPlanDiscount: cost?.savingsPlanDiscount ?? 0,
           onDemandDiscount: cost?.onDemandDiscount ?? 0,
           s3Cost: {
-            uploadCostDiscount: cost?.s3Cost?.upload?.uploadCostDiscount ?? 0,
-            standardStorageCostDiscount:
-              cost?.s3Cost?.storage?.standardStorageCostDiscount ?? 0,
+            archiveStorageCostDiscount:
+              cost?.s3Cost?.storage?.archiveStorageCostDiscount ?? 0,
+            defaultMaxArtifactExpirationDays:
+              cost?.s3Cost?.storage?.defaultMaxArtifactExpirationDays || 1,
             iAStorageCostDiscount:
               cost?.s3Cost?.storage?.iAStorageCostDiscount ?? 0,
+            standardStorageCostDiscount:
+              cost?.s3Cost?.storage?.standardStorageCostDiscount ?? 0,
+            uploadCostDiscount: cost?.s3Cost?.upload?.uploadCostDiscount ?? 0,
           },
         },
       },
 
       oktaServiceConfig: {
+        audience: oktaServiceConfig?.audience ?? "",
         clientId: oktaServiceConfig?.clientId ?? "",
         clientSecret: oktaServiceConfig?.clientSecret ?? "",
+        issuer: oktaServiceConfig?.issuer ?? "",
+        scopes: oktaServiceConfig?.scopes ?? [],
       },
 
       singleTaskDistro: {
@@ -255,20 +262,28 @@ export const formToGql = ((form: OtherFormState) => {
       s3Cost: {
         upload: {
           uploadCostDiscount:
-            miscSettings.cost.s3Cost.uploadCostDiscount || undefined,
+            miscSettings.cost.s3Cost.uploadCostDiscount ?? undefined,
         },
         storage: {
-          standardStorageCostDiscount:
-            miscSettings.cost.s3Cost.standardStorageCostDiscount || undefined,
+          archiveStorageCostDiscount:
+            miscSettings.cost.s3Cost.archiveStorageCostDiscount ?? undefined,
+          defaultMaxArtifactExpirationDays:
+            miscSettings.cost.s3Cost.defaultMaxArtifactExpirationDays ||
+            undefined,
           iAStorageCostDiscount:
-            miscSettings.cost.s3Cost.iAStorageCostDiscount || undefined,
+            miscSettings.cost.s3Cost.iAStorageCostDiscount ?? undefined,
+          standardStorageCostDiscount:
+            miscSettings.cost.s3Cost.standardStorageCostDiscount ?? undefined,
         },
       },
     },
 
     oktaServiceConfig: {
+      audience: oktaServiceConfig.audience || undefined,
       clientId: oktaServiceConfig.clientId || undefined,
       clientSecret: oktaServiceConfig.clientSecret || undefined,
+      issuer: oktaServiceConfig.issuer || undefined,
+      scopes: oktaServiceConfig.scopes || undefined,
     },
 
     singleTaskDistro: {
