@@ -4,6 +4,8 @@ import styled from "@emotion/styled";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { Select, Option } from "@leafygreen-ui/select";
 import { TextArea } from "@leafygreen-ui/text-area";
+import { Tooltip } from "@leafygreen-ui/tooltip";
+import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useHostsTableAnalytics } from "analytics";
@@ -97,6 +99,34 @@ export const UpdateStatusModal: React.FC<Props> = ({
       open={visible}
       title="Update Host Status"
     >
+      <StatusHelpTooltip
+        align="top"
+        justify="start"
+        trigger={
+          <HelpRow>
+            <Icon glyph="InfoWithCircle" />
+            <HelpText>What do these host statuses do?</HelpText>
+          </HelpRow>
+        }
+        triggerEvent="hover"
+      >
+        <div>
+          <strong>Running</strong>: Start the host.
+          <br />
+          <strong>Quarantined</strong>: Stop a host from running tasks without
+          terminating it or shutting it down. This is to do ops work on it like
+          temporary maintenance, debugging, etc. Once the maintenance is done,
+          it is usually set back to running to pick up tasks like normal.
+          Quarantined is used almost exclusively for static hosts.
+          <br />
+          <strong>Decommissioned</strong>: Terminate a host after it is done
+          running its current task.
+          <br />
+          <strong>Stopped</strong>: Stop the host.
+          <br />
+          <strong>Terminated</strong>: Shut down the host.
+        </div>
+      </StatusHelpTooltip>
       <StyledSelect
         data-cy="host-status-select"
         label="Host Status"
@@ -125,6 +155,22 @@ export const UpdateStatusModal: React.FC<Props> = ({
 const StyledSelect = styled(Select)`
   margin-bottom: ${size.xs};
 `;
+
+const HelpRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xs};
+  margin-bottom: ${size.xs};
+`;
+
+const HelpText = styled.span`
+  font-size: 12px;
+`;
+
+const StatusHelpTooltip = styled(Tooltip)`
+  max-width: 320px;
+`;
+
 // HOSTS STATUSES DATA FOR SELECT COMPONENT
 interface Status {
   title: keyof typeof UpdateHostStatus;
