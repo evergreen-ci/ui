@@ -8981,36 +8981,6 @@ export type SuspectedIssuesQuery = {
   } | null;
 };
 
-export type LastMainlineCommitQueryVariables = Exact<{
-  projectIdentifier: Scalars["String"]["input"];
-  skipOrderNumber: Scalars["Int"]["input"];
-  buildVariantOptions: BuildVariantOptions;
-}>;
-
-export type LastMainlineCommitQuery = {
-  __typename?: "Query";
-  mainlineCommits?: {
-    __typename?: "MainlineCommits";
-    versions: Array<{
-      __typename?: "MainlineCommitVersion";
-      version?: {
-        __typename?: "Version";
-        id: string;
-        buildVariants?: Array<{
-          __typename?: "GroupedBuildVariant";
-          tasks?: Array<{
-            __typename?: "Task";
-            id: string;
-            displayStatus: string;
-            execution: number;
-            order: number;
-          }> | null;
-        }> | null;
-      } | null;
-    }>;
-  } | null;
-};
-
 export type MainlineCommitsForHistoryQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
   buildVariantOptions: BuildVariantOptions;
