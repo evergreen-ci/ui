@@ -82,9 +82,9 @@ const CommitDetailsCard = forwardRef<HTMLDivElement, CommitDetailsCardProps>(
       priority,
       revision,
       tests,
-      versionMetadata,
+      version,
     } = task;
-    const { id: versionId, message, user } = versionMetadata;
+    const { id: versionId, message, user } = version;
     const author = user.displayName!;
 
     const owner = currentTask.project?.owner ?? "";

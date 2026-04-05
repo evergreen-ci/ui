@@ -11053,14 +11053,14 @@ export type TaskHistoryQuery = {
           logs: { __typename?: "TestLog"; urlParsley?: string | null };
         }>;
       };
-      versionMetadata: {
-        __typename?: "Version";
+      version: {
+        __typename?: "VersionLite";
         id: string;
         message: string;
         user: {
-          __typename?: "User";
+          __typename?: "UserLite";
+          id: string;
           displayName?: string | null;
-          userId: string;
         };
       };
     }>;
