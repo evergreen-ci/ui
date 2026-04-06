@@ -41,7 +41,8 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
     return null;
   }
 
-  // Based on https://docs.devprod.prod.corp.mongodb.com/parsley/Downloading-Logs
+  // Based on documentation at
+  // https://docs.devprod.prod.corp.mongodb.com/parsley/Downloading-Logs.
   return [
     "evergreen",
     "task",
