@@ -13,7 +13,7 @@ export const useSpawnHostTokenExchangeUser = (enabled: boolean) => {
         ? {
             // Fetching the latest user data allows for a fresh check of the token expiration.
             // This allows the user to spawn a host right after they complete the OAuth flow.
-            fetchPolicy: "network-only",
+            fetchPolicy: "no-cache",
             notifyOnNetworkStatusChange: false,
           }
         : skipToken,
