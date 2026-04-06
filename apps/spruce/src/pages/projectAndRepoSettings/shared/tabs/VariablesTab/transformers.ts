@@ -10,6 +10,13 @@ type VarsAccumulator = {
   varsDescriptions: { [key: string]: string };
 };
 
+const initialValue: VarsAccumulator = {
+  vars: {},
+  privateVarsList: [],
+  adminOnlyVarsList: [],
+  varsDescriptions: {},
+};
+
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
@@ -32,13 +39,6 @@ export const gqlToForm = ((data) => {
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = (({ vars: varsData }, isRepo, id) => {
-  const initialValue: VarsAccumulator = {
-    vars: {},
-    privateVarsList: [],
-    adminOnlyVarsList: [],
-    varsDescriptions: {},
-  };
-
   const vars = varsData.reduce(
     (
       acc,
