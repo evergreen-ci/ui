@@ -1,17 +1,21 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { UserQuery } from "gql/generated/types";
 import { USER } from "gql/queries";
 
 export const useSpawnHostTokenExchangeUser = (enabled: boolean) => {
   const { data, loading, refetch, startPolling, stopPolling } =
-    useQuery<UserQuery>(USER, {
-      skip: !enabled,
-      // Avoid trusting cached User from the rest of the app for spawn gating: stale
-      // tokenAccessTokenExpiresAt can keep "Spawn a host" enabled incorrectly.
-      fetchPolicy: enabled ? "network-only" : undefined,
-      notifyOnNetworkStatusChange: false,
-    });
+    useQuery<UserQuery>(
+      USER,
+      enabled
+        ? {
+            // Fetching the latest user data allows for a fresh check of the token expiration.
+            // This allows the user to spawn a host right after they complete the OAuth flow.
+            fetchPolicy: "network-only",
+            notifyOnNetworkStatusChange: false,
+          }
+        : skipToken,
+    );
 
   useEffect(() => {
     if (!enabled) {
