@@ -30,18 +30,10 @@ export const useQueryVariables = (
     PatchTasksQueryParams.BaseStatuses,
     [],
   );
-  const [includeNeverActivatedTasksParam] = useQueryParam<
-    string | boolean | undefined
-  >(PatchTasksQueryParams.IncludeNeverActivatedTasks, undefined);
-
-  let includeNeverActivatedTasks: boolean | undefined;
-  if (includeNeverActivatedTasksParam !== undefined) {
-    includeNeverActivatedTasks =
-      includeNeverActivatedTasksParam === true ||
-      includeNeverActivatedTasksParam === "true";
-  } else if (Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true") {
-    includeNeverActivatedTasks = true;
-  }
+  const [includeNeverActivatedTasks] = useQueryParam<boolean>(
+    PatchTasksQueryParams.IncludeNeverActivatedTasks,
+    Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true",
+  );
 
   const sortsToApply: SortOrder[] = sorts
     ? parseSortString<"Key", "Direction", TaskSortCategory, SortOrder>(sorts, {

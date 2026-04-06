@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
-import { useErrorToast, useQueryParams } from "@evg-ui/lib/hooks";
+import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
@@ -24,11 +24,9 @@ interface Props {
 }
 
 const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
-  const [queryParams] = useQueryParams();
   const updateQueryParams = useUpdateURLQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId || "");
   const queryVariables = useQueryVariables(versionId || "");
-  const hasQueryVariables = Object.keys(queryParams).length > 0;
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
@@ -71,7 +69,7 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
     VersionTasksQueryVariables
   >(
     VERSION_TASKS,
-    hasQueryVariables
+    queryVariables
       ? {
           variables: queryVariables,
           pollInterval: DEFAULT_POLL_INTERVAL,
