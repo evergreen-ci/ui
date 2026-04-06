@@ -19,10 +19,10 @@ export const tasks: TaskHistoryTask[] = [
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: A",
@@ -41,10 +41,10 @@ export const tasks: TaskHistoryTask[] = [
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: B",
@@ -63,10 +63,10 @@ export const tasks: TaskHistoryTask[] = [
     canRestart: false,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: C",
@@ -85,10 +85,10 @@ export const tasks: TaskHistoryTask[] = [
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: D",
@@ -107,10 +107,10 @@ export const tasks: TaskHistoryTask[] = [
     canRestart: true,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: E",
@@ -129,10 +129,10 @@ export const tasks: TaskHistoryTask[] = [
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: F",
@@ -160,10 +160,10 @@ export const tasks: TaskHistoryTask[] = [
     canRestart: false,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: G",
@@ -182,10 +182,10 @@ export const tasks: TaskHistoryTask[] = [
     canRestart: false,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: H",
@@ -204,10 +204,10 @@ export const tasks: TaskHistoryTask[] = [
     canRestart: false,
     canSchedule: true,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: I",
@@ -226,10 +226,10 @@ export const tasks: TaskHistoryTask[] = [
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: J",
@@ -248,10 +248,10 @@ export const tasks: TaskHistoryTask[] = [
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
-    versionMetadata: {
+    version: {
       id: "version_id",
       user: {
-        userId: "admin",
+        id: "admin",
         displayName: "Evergreen Admin",
       },
       message: "DEVPROD-1234: K",

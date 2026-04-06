@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "6.1.87",
+  "version": "6.1.88",
   "private": true,
   "type": "module",
   "scripts": {
@@ -26,7 +26,7 @@
     "dev": "env-cmd -e devLocal pnpm start",
     "eslint:fix": "pnpm eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint --concurrency=auto",
-    "eslint:strict": "STRICT=1 eslint --max-warnings=57 --concurrency=auto .",
+    "eslint:strict": "STRICT=1 eslint --concurrency=auto .",
     "evg-db-ops": "../../scripts/evg-db-ops.sh",
     "postversion": "pnpm deploy-utils-postversion",
     "prepare": "pnpm --dir ../.. prepare",

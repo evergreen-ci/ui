@@ -16,6 +16,7 @@ import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
 import { form } from "../utils";
 import { GithubAppActions, RequesterTypeField } from "./Fields";
 import { ArrayFieldTemplate } from "./FieldTemplates";
+import { AppSettingsFormState } from "./types";
 
 const { placeholderIf } = form;
 
@@ -38,7 +39,7 @@ export const getFormSchema = ({
   isAppDefined: boolean;
   isRepo: boolean;
   projectOrRepoId: string;
-  repoData?: any;
+  repoData?: AppSettingsFormState;
   defaultsToRepo: boolean;
 }): ReturnType<GetFormSchema> => ({
   fields: {},

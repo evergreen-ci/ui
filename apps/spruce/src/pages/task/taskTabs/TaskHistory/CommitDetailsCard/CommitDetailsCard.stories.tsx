@@ -120,8 +120,8 @@ const getStoryTask = (args: TemplateProps) => {
     canRestart: args.canRestart,
     canSchedule: args.canSchedule,
     latestExecution: args.latestExecution,
-    versionMetadata: {
-      ...task.versionMetadata,
+    version: {
+      ...task.version,
       message: args.message,
     },
   };

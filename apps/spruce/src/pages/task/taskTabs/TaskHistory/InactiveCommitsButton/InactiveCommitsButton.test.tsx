@@ -39,7 +39,7 @@ describe("InactiveCommitsButton component", () => {
     expect(screen.getByText("11 Expanded")).toBeInTheDocument();
     const cards = screen.queryAllByDataCy("commit-details-card");
     for (let i = 0; i < cards.length; i++) {
-      expect(cards[i]).toHaveTextContent(tasks[i].versionMetadata.message);
+      expect(cards[i]).toHaveTextContent(tasks[i].version.message);
     }
   });
 });

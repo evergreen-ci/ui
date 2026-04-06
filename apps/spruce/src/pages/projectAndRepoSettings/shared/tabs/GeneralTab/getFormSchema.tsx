@@ -283,20 +283,17 @@ export const getFormSchema = (
         },
         owner: {
           ...placeholderIf(
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             repoData?.generalConfiguration?.repositoryInfo?.owner,
           ),
         },
         repo: {
           "ui:data-cy": "repo-input",
           ...placeholderIf(
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             repoData?.generalConfiguration?.repositoryInfo?.repo,
           ),
         },
       },
       branch: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         ...placeholderIf(repoData?.generalConfiguration?.branch),
       },
       other: {
@@ -329,7 +326,6 @@ export const getFormSchema = (
         remotePath: {
           "ui:description":
             "Path to yaml file where project tasks, variants, and other settings are defined.",
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           ...placeholderIf(repoData?.generalConfiguration?.other?.remotePath),
         },
         spawnHostScriptPath: {
@@ -338,7 +334,6 @@ export const getFormSchema = (
           "ui:data-cy": "spawn-host-input",
           "ui:optional": true,
           ...placeholderIf(
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             repoData?.generalConfiguration?.other?.spawnHostScriptPath,
           ),
         },
