@@ -2,10 +2,6 @@ import { css } from "@emotion/react";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
-import {
-  stripBlockContext,
-  stripFunctionContext,
-} from "@evg-ui/lib/utils/string/logs";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
@@ -24,7 +20,11 @@ import {
 import { DEFAULT_VOLUME_SIZE } from "./constants";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
-import { ExecutionStepsDropdown } from "./Widgets/ExecutionStepsDropdown";
+import {
+  ExecutionStepsDropdown,
+  stripBlockContext,
+  stripFunctionContext,
+} from "./Widgets/ExecutionStepsDropdown";
 
 interface Props {
   availableRegions: string[];

@@ -7,10 +7,6 @@ import {
   ComboboxOption,
 } from "@leafygreen-ui/combobox";
 import { size } from "@evg-ui/lib/constants/tokens";
-import {
-  stripBlockContext,
-  stripFunctionContext,
-} from "@evg-ui/lib/utils/string/logs";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 import { SpawnTaskQuery } from "gql/generated/types";
@@ -97,6 +93,12 @@ interface GroupedSection {
   label: string;
   steps: StepOption[];
 }
+
+export const stripFunctionContext = (name: string): string =>
+  name.replace(/ in function '[^']*'/, "");
+
+export const stripBlockContext = (name: string): string =>
+  name.replace(/ in block '[^']*'/, "");
 
 export const groupExecutionSteps = (
   steps: TaskExecutionStep[],

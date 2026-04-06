@@ -52,9 +52,3 @@ export const getSeverityMapping = (s: number): LogLevel => {
   }
   return LogLevel.Info;
 };
-
-export const stripFunctionContext = (name: string): string =>
-  name.replace(/ in function '[^']*'/, "");
-
-export const stripBlockContext = (name: string): string =>
-  name.replace(/ in block '[^']*'/, "");
