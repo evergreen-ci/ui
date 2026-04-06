@@ -3059,12 +3059,14 @@ export type ProjectVars = {
   adminOnlyVars: Array<Scalars["String"]["output"]>;
   privateVars: Array<Scalars["String"]["output"]>;
   vars?: Maybe<Scalars["StringMap"]["output"]>;
+  varsDescriptions?: Maybe<Scalars["StringMap"]["output"]>;
 };
 
 export type ProjectVarsInput = {
   adminOnlyVarsList?: InputMaybe<Array<Scalars["String"]["input"]>>;
   privateVarsList?: InputMaybe<Array<Scalars["String"]["input"]>>;
   vars?: InputMaybe<Scalars["StringMap"]["input"]>;
+  varsDescriptions?: InputMaybe<Scalars["StringMap"]["input"]>;
 };
 
 /** PromoteVarsToRepoInput is the input to the promoteVarsToRepo mutation. */
@@ -11053,14 +11055,14 @@ export type TaskHistoryQuery = {
           logs: { __typename?: "TestLog"; urlParsley?: string | null };
         }>;
       };
-      versionMetadata: {
-        __typename?: "Version";
+      version: {
+        __typename?: "VersionLite";
         id: string;
         message: string;
         user: {
-          __typename?: "User";
+          __typename?: "UserLite";
+          id: string;
           displayName?: string | null;
-          userId: string;
         };
       };
     }>;
