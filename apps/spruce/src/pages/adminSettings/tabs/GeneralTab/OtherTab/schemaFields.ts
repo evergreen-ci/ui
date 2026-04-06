@@ -701,6 +701,31 @@ export const projectCreationSettings = {
   },
 };
 
+export const diagnosticsConfig = {
+  schema: {
+    s3BucketName: {
+      type: "string" as const,
+      title: "S3 Bucket Name",
+    },
+    s3Prefix: {
+      type: "string" as const,
+      title: "S3 Prefix",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "diagnostics-config",
+    "ui:objectFieldCss": objectGridCss,
+    s3BucketName: {
+      "ui:description": "The S3 bucket where diagnostics data is stored.",
+    },
+    s3Prefix: {
+      "ui:description":
+        "The prefix used for diagnostics data in the S3 bucket.",
+    },
+  },
+};
+
 export const githubCheckRunConfigurations = {
   schema: {
     checkRunLimit: {
