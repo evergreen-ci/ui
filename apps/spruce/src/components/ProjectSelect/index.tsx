@@ -106,6 +106,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       data-cy="project-select"
       disabled={loading}
       label={showLabel ? "Project" : null}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChange={(projectIdentifier: any) => {
         onSubmit(projectIdentifier);
       }}

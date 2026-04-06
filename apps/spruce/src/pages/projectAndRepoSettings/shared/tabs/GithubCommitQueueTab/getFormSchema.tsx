@@ -285,7 +285,6 @@ export const getFormSchema = (
           "ui:description":
             "Specify the oldest commit SHA on your project branch that is allowed to be a merge base for a PR",
           "ui:optional": true,
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           ...placeholderIf(repoData?.github?.oldestAllowedMergeBase),
           ...hideIf(
             fieldDisabled(
