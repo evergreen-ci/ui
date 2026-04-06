@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import { UserQuery } from "gql/generated/types";
 import { USER } from "gql/queries";
+import { isIncompleteForRequiredSpawn } from "./tokenExchange";
 
 export const useSpawnHostTokenExchangeUser = (enabled: boolean) => {
+  const prevIncompleteForSpawnRef = useRef<boolean | undefined>(undefined);
   const { data, loading, refetch, startPolling, stopPolling } =
     useQuery<UserQuery>(
       USER,
@@ -30,12 +32,33 @@ export const useSpawnHostTokenExchangeUser = (enabled: boolean) => {
 
   useEffect(() => {
     if (!enabled) {
+      prevIncompleteForSpawnRef.current = undefined;
       stopPolling();
     }
-    return () => {
-      stopPolling();
-    };
   }, [enabled, stopPolling]);
+
+  const incompleteForRequiredSpawn =
+    data !== undefined
+      ? isIncompleteForRequiredSpawn(data.user ?? undefined)
+      : undefined;
+
+  useEffect(() => {
+    if (!enabled) {
+      return;
+    }
+    if (incompleteForRequiredSpawn === undefined) {
+      return;
+    }
+    if (
+      prevIncompleteForSpawnRef.current === true &&
+      incompleteForRequiredSpawn === false
+    ) {
+      stopPolling();
+    }
+    prevIncompleteForSpawnRef.current = incompleteForRequiredSpawn;
+  }, [enabled, incompleteForRequiredSpawn, stopPolling]);
+
+  useEffect(() => () => stopPolling(), [stopPolling]);
 
   return {
     /** True while the `User` query for this modal is in flight. */
