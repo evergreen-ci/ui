@@ -6,29 +6,17 @@ import { isIncompleteForRequiredSpawn } from "./tokenExchange";
 
 export const useSpawnHostTokenExchangeUser = (enabled: boolean) => {
   const prevIncompleteForSpawnRef = useRef<boolean | undefined>(undefined);
-  const { data, loading, refetch, startPolling, stopPolling } =
-    useQuery<UserQuery>(
-      USER,
-      enabled
-        ? {
-            // Fetching the latest user data allows for a fresh check of the token expiration.
-            // This allows the user to spawn a host right after they complete the OAuth flow.
-            fetchPolicy: "no-cache",
-            notifyOnNetworkStatusChange: false,
-          }
-        : skipToken,
-    );
-
-  useEffect(() => {
-    if (!enabled) {
-      return;
-    }
-    const onFocus = () => {
-      void refetch();
-    };
-    window.addEventListener("focus", onFocus);
-    return () => window.removeEventListener("focus", onFocus);
-  }, [enabled, refetch]);
+  const { data, loading, startPolling, stopPolling } = useQuery<UserQuery>(
+    USER,
+    enabled
+      ? {
+          // Fetching the latest user data allows for a fresh check of the token expiration.
+          // This allows the user to spawn a host right after they complete the OAuth flow.
+          fetchPolicy: "no-cache",
+          notifyOnNetworkStatusChange: true,
+        }
+      : skipToken,
+  );
 
   useEffect(() => {
     if (!enabled) {
