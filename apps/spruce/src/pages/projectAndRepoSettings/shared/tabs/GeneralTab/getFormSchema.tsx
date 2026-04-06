@@ -2,7 +2,10 @@ import { StyledLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { versionControlDocumentationUrl } from "constants/externalResources";
+import {
+  debugSpawnHostsDocumentationUrl,
+  versionControlDocumentationUrl,
+} from "constants/externalResources";
 import { showRecreatableTaskEnvironments } from "constants/featureFlags";
 import { form, ProjectType } from "../utils";
 import {
@@ -361,8 +364,15 @@ export const getFormSchema = (
           "ui:widget": showRecreatableTaskEnvironments
             ? widgets.RadioBoxWidget
             : "hidden",
-          "ui:description":
-            "Sets if project tasks can create debug spawn hosts.", // TODO DEVPROD-25820: Add link to debug spawn hosts documentation
+          "ui:description": (
+            <>
+              Sets if project tasks can create{" "}
+              <StyledLink href={debugSpawnHostsDocumentationUrl}>
+                debug spawn hosts
+              </StyledLink>
+              .
+            </>
+          ),
         },
       },
       repotracker: {
