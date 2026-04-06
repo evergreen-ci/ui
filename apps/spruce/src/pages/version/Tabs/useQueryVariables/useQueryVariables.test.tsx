@@ -29,7 +29,7 @@ describe("useQueryVariables", () => {
       versionId,
       taskFilterOptions: {
         taskName: "generate",
-        includeNeverActivatedTasks: undefined,
+        includeNeverActivatedTasks: false,
         variant: "",
         statuses: ["success"],
         baseStatuses: [],
@@ -56,7 +56,7 @@ describe("useQueryVariables", () => {
       versionId,
       taskFilterOptions: {
         taskName: "generate",
-        includeNeverActivatedTasks: undefined,
+        includeNeverActivatedTasks: false,
         variant: "",
         statuses: ["success"],
         baseStatuses: [],
@@ -68,6 +68,7 @@ describe("useQueryVariables", () => {
       },
     });
   });
+
   it("includes includeNeverActivatedTasks if it is defined in the search string", () => {
     const versionId = "version";
     const search = "page=0&limit=20&includeNeverActivatedTasks=true";
