@@ -5801,6 +5801,7 @@ export type ProjectSettingsFieldsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+    varsDescriptions?: { [key: string]: any } | null;
   } | null;
   githubAppAuth?: {
     __typename?: "GithubAppAuth";
@@ -6002,6 +6003,7 @@ export type RepoSettingsFieldsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+    varsDescriptions?: { [key: string]: any } | null;
   } | null;
   githubAppAuth?: {
     __typename?: "GithubAppAuth";
@@ -6465,6 +6467,7 @@ export type ProjectEventSettingsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+    varsDescriptions?: { [key: string]: any } | null;
   } | null;
   githubAppAuth?: {
     __typename?: "GithubAppAuth";
@@ -6532,6 +6535,7 @@ export type VariablesFragment = {
   adminOnlyVars: Array<string>;
   privateVars: Array<string>;
   vars?: { [key: string]: any } | null;
+  varsDescriptions?: { [key: string]: any } | null;
 };
 
 export type ProjectViewsAndFiltersSettingsFragment = {
@@ -9504,6 +9508,7 @@ export type ProjectEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -9726,6 +9731,7 @@ export type ProjectEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -10007,6 +10013,7 @@ export type ProjectSettingsQuery = {
       adminOnlyVars: Array<string>;
       privateVars: Array<string>;
       vars?: { [key: string]: any } | null;
+      varsDescriptions?: { [key: string]: any } | null;
     } | null;
     githubAppAuth?: {
       __typename?: "GithubAppAuth";
@@ -10281,6 +10288,7 @@ export type RepoEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -10503,6 +10511,7 @@ export type RepoEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -10717,6 +10726,7 @@ export type RepoSettingsQuery = {
       adminOnlyVars: Array<string>;
       privateVars: Array<string>;
       vars?: { [key: string]: any } | null;
+      varsDescriptions?: { [key: string]: any } | null;
     } | null;
     githubAppAuth?: {
       __typename?: "GithubAppAuth";
