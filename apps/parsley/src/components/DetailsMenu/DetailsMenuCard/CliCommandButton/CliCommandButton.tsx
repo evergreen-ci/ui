@@ -41,8 +41,7 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
     return null;
   }
 
-  // Based on apps/parsley/docs/06-Downloading-Logs.md:
-  // evergreen task build TaskLogs --task_id <task_id> --execution <execution> --type <task_log_type> --o output.txt
+  // Based on https://docs.devprod.prod.corp.mongodb.com/parsley/Downloading-Logs
   return [
     "evergreen",
     "task",
