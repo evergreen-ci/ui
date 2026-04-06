@@ -62,6 +62,7 @@ if (!isDevelopmentBuild()) {
 
     try {
       const res = await fetch("/commit.txt", { cache: "no-cache" });
+      if (!res.ok) return;
       const deployedHash = (await res.text()).trim();
       if (deployedHash && deployedHash !== currentHash) {
         window.location.reload();
