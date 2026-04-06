@@ -29,6 +29,7 @@ describe("projectSettings/admin_actions", () => {
       // Create project
       cy.visit(getProjectSettingsRoute(project));
       cy.dataCy("new-project-button").click();
+      cy.dataCy("new-project-menu").should("be.visible");
       cy.dataCy("create-project-button").click();
       cy.dataCy("create-project-modal").should("be.visible");
       cy.dataCy("performance-tooling-banner").should("be.visible");
@@ -49,10 +50,21 @@ describe("projectSettings/admin_actions", () => {
 
       // Delete project
       cy.visit(getProjectSettingsRoute("my-new-project"));
+      cy.dataCy("attach-repo-button").click();
+      cy.dataCy("attach-repo-modal")
+        .find("button")
+        .contains("Attach")
+        .parent()
+        .click();
+      cy.validateToast("success", "Successfully attached to repo");
+
       cy.dataCy("delete-project-button").scrollIntoView();
       cy.dataCy("delete-project-button").click();
-      cy.contains("button", "Delete").click();
-      cy.contains("button", "Delete").click();
+      cy.dataCy("delete-project-modal")
+        .find("button")
+        .contains("Delete")
+        .parent()
+        .click();
       cy.validateToast("success", "The project “my-new-project” was deleted.");
 
       cy.reload();

@@ -43,7 +43,12 @@ export const CreateDuplicateProjectButton: React.FC<Props> = ({
     UserProjectSettingsPermissionsQueryVariables
   >(
     USER_PROJECT_SETTINGS_PERMISSIONS,
-    identifier ? { variables: { projectIdentifier: identifier } } : skipToken,
+    identifier
+      ? {
+          variables: { projectIdentifier: identifier },
+          notifyOnNetworkStatusChange: false,
+        }
+      : skipToken,
   );
 
   const canCreateProject = data?.user?.permissions?.canCreateProject ?? false;

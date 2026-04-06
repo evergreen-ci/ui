@@ -37,12 +37,17 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   const { data: projectsData, loading: projectsLoading } = useQuery<
     ProjectsQuery,
     ProjectsQueryVariables
-  >(PROJECTS, isProjectSettingsPage ? skipToken : {});
+  >(
+    PROJECTS,
+    isProjectSettingsPage ? skipToken : { notifyOnNetworkStatusChange: false },
+  );
 
   const { data: viewableProjectsData, loading: viewableProjectsLoading } =
     useQuery<ViewableProjectRefsQuery, ViewableProjectRefsQueryVariables>(
       VIEWABLE_PROJECTS,
-      isProjectSettingsPage ? {} : skipToken,
+      isProjectSettingsPage
+        ? { notifyOnNetworkStatusChange: false }
+        : skipToken,
     );
 
   const loading = isProjectSettingsPage
