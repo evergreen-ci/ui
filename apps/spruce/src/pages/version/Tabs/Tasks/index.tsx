@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { skipToken, useQuery } from "@apollo/client/react";
-import { useLocation } from "react-router-dom";
+import { useQuery } from "@apollo/client/react";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics";
@@ -15,7 +14,6 @@ import { VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
-import { parseQueryString } from "utils/queryString";
 import { useQueryVariables } from "../useQueryVariables";
 import { VersionTasksTable } from "./VersionTasksTable";
 
@@ -26,11 +24,9 @@ interface Props {
 }
 
 const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
-  const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId || "");
-  const queryVariables = useQueryVariables(search, versionId || "");
-  const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
+  const queryVariables = useQueryVariables(versionId || "");
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
@@ -71,16 +67,11 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, taskCount, versionId }) => {
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     VersionTasksQuery,
     VersionTasksQueryVariables
-  >(
-    VERSION_TASKS,
-    hasQueryVariables
-      ? {
-          variables: queryVariables,
-          pollInterval: DEFAULT_POLL_INTERVAL,
-          fetchPolicy: "cache-and-network",
-        }
-      : skipToken,
-  );
+  >(VERSION_TASKS, {
+    variables: queryVariables,
+    pollInterval: DEFAULT_POLL_INTERVAL,
+    fetchPolicy: "cache-and-network",
+  });
   useErrorToast(error, "Error fetching patch tasks");
   usePolling<VersionTasksQuery, VersionTasksQueryVariables>({
     startPolling,

@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { useLocation } from "react-router-dom";
 import { TableControl } from "@evg-ui/lib/components/Table";
 import { PaginationQueryParams } from "@evg-ui/lib/constants/pagination";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -18,7 +17,6 @@ import {
 import { VERSION_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
-import { parseQueryString } from "utils/queryString";
 import { useQueryVariables } from "../useQueryVariables";
 import TaskDurationTable from "./TaskDurationTable";
 
@@ -27,12 +25,10 @@ interface Props {
   versionId: string;
 }
 const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
-  const { search } = useLocation();
-
   const [queryParams, setQueryParams] = useQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId);
-  const queryVariables = useQueryVariables(search, versionId);
-  const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
+  const queryVariables = useQueryVariables(versionId);
+  const hasQueryVariables = Object.keys(queryParams).length > 0;
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
   const hasValidSortsForTab = useMemo(
