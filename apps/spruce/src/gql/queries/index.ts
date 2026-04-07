@@ -35,7 +35,6 @@ import INSTANCE_TYPES from "./instance-types.graphql";
 import JIRA_CUSTOM_CREATED_ISSUES from "./jira-custom-created-issues.graphql";
 import JIRA_ISSUES from "./jira-issues.graphql";
 import JIRA_SUSPECTED_ISSUES from "./jira-suspected-issues.graphql";
-import LAST_MAINLINE_COMMIT from "./last-mainline-commit.graphql";
 import MAINLINE_COMMITS_FOR_HISTORY from "./mainline-commits-for-history.graphql";
 import MY_HOSTS from "./my-hosts.graphql";
 import MY_VOLUMES from "./my-volumes.graphql";
@@ -57,6 +56,7 @@ import SERVICE_FLAGS_LIST from "./service-flags-list.graphql";
 import SINGLE_TASK_DISTRO from "./single-task-distro.graphql";
 import SPAWN_TASK from "./spawn-task.graphql";
 import SPRUCE_CONFIG from "./spruce-config.graphql";
+import STEPBACK_TASKS from "./stepback-tasks.graphql";
 import SUBNET_AVAILABILITY_ZONES from "./subnet-availability-zones.graphql";
 import SYSTEM_LOGS from "./system-logs.graphql";
 import TASK_ALL_EXECUTIONS from "./task-all-executions.graphql";
@@ -132,7 +132,6 @@ export {
   JIRA_CUSTOM_CREATED_ISSUES,
   JIRA_ISSUES,
   JIRA_SUSPECTED_ISSUES,
-  LAST_MAINLINE_COMMIT,
   MAINLINE_COMMITS_FOR_HISTORY,
   MY_HOSTS,
   MY_PUBLIC_KEYS,
@@ -154,6 +153,7 @@ export {
   SINGLE_TASK_DISTRO,
   SPAWN_TASK,
   SPRUCE_CONFIG,
+  STEPBACK_TASKS,
   SUBNET_AVAILABILITY_ZONES,
   SYSTEM_LOGS,
   TASK,

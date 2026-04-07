@@ -54,6 +54,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const taskAnalytics = useTaskAnalytics();
   const getDateCopy = useDateFormat();
 
+  const showStepback = isInStepback(task?.stepbackInfo);
+
   if (!task) {
     return (
       <MetadataCard error={error} loading={loading} title="Task Metadata">
@@ -92,7 +94,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     resetWhenFinished,
     spawnHostLink,
     startTime,
-    stepbackInfo,
     tags,
     testSelectionEnabled,
     timeTaken,
@@ -101,7 +102,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
 
   const isDisplayTask = executionTasksFull != null;
   const {
-    id: baseTaskId,
     timeTaken: baseTaskDuration,
     versionMetadata: baseTaskVersionMetadata,
   } = baseTask ?? {};
@@ -119,8 +119,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const taskTrace = details?.traceID;
   const diskDevices = details?.diskDevices;
   const { metadataLinks } = annotation ?? {};
-
-  const showStepback = isInStepback(stepbackInfo);
 
   return (
     <>
@@ -224,11 +222,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             {msToDuration(baseTaskDuration)}
           </MetadataItem>
         ) : null}
-        {baseTaskId && (
+        {baseTask && (
           <MetadataItem>
             <MetadataLabel>Base commit:</MetadataLabel>{" "}
             <InlineCode
-              as={Link as any}
+              as={Link}
               data-cy="base-task-link"
               onClick={() =>
                 taskAnalytics.sendEvent({
@@ -236,7 +234,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
                   "link.type": "base commit",
                 })
               }
-              to={getTaskRoute(baseTaskId)}
+              to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
             >
               {baseCommit}
             </InlineCode>
@@ -319,7 +317,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         )}
         {showStepback && (
           <MetadataItem as="div">
-            <Stepback taskId={taskId} />
+            <Stepback
+              execution={execution}
+              status={task.status}
+              taskId={taskId}
+            />
           </MetadataItem>
         )}
         {testSelectionEnabledForProject && (

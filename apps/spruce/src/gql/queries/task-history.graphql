@@ -21,6 +21,7 @@ query TaskHistory($options: TaskHistoryOpts!, $includeGenerator: Boolean!) {
       latestExecution
       order
       priority
+      requester
       revision
       tests(opts: { statuses: ["fail", "silentfail"] }) {
         testResults {
@@ -32,12 +33,12 @@ query TaskHistory($options: TaskHistoryOpts!, $includeGenerator: Boolean!) {
           testFile
         }
       }
-      versionMetadata {
+      version {
         id
         message
         user {
+          id
           displayName
-          userId
         }
       }
     }

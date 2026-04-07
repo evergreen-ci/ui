@@ -10,7 +10,7 @@ import { SettingsRoutes } from "./types";
 
 export type FormProps<
   T extends SettingsRoutes,
-  FormStateMap extends Record<T, any>,
+  FormStateMap extends Record<T, unknown>,
 > = {
   formRef?: React.Ref<SpruceFormRef>;
   formSchema: ReturnType<GetFormSchema>;
@@ -24,7 +24,7 @@ export type FormProps<
 
 export const Form = <
   T extends SettingsRoutes,
-  FormStateMap extends Record<T, any>,
+  FormStateMap extends Record<T, unknown>,
 >({
   formRef,
   formSchema,
@@ -48,7 +48,7 @@ export const Form = <
       onChange={updateForm(tab)}
       schema={schema}
       uiSchema={uiSchema}
-      validate={validate as any}
+      validate={validate as SpruceFormProps["validate"]}
     />
   );
 };
