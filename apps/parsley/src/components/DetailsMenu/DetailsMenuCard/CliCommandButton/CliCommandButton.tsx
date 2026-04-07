@@ -28,7 +28,7 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
   if (!logMetadata) {
     return null;
   }
-  const { execution, logType, taskID, testID } = logMetadata;
+  const { execution, logType, rawLogURL, taskID } = logMetadata;
   if (!logType || !taskID || execution == null) {
     return null;
   }
@@ -39,10 +39,16 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
     return `evergreen task build TaskLogs --task_id ${taskID} --execution ${execution} --type task_log --o output.txt`;
   }
   if (logType === LogTypes.EVERGREEN_TEST_LOGS) {
-    if (!testID) {
+    if (!rawLogURL) {
       return null;
     }
-    return `evergreen task build TestLogs --task_id ${taskID} --execution ${execution} --log_path ${testID} --o output.txt`;
+    const url = new URL(rawLogURL);
+    const match = url.pathname.match(/\/build\/TestLogs\/(.+)$/);
+    if (!match) {
+      return null;
+    }
+    const logPath = decodeURIComponent(match[1]);
+    return `evergreen task build TestLogs --task_id ${taskID} --execution ${execution} --log_path ${logPath} --o output.txt`;
   }
 
   // Unsupported log type.

@@ -107,15 +107,16 @@ describe("CliCommandButton", () => {
       hook.current.setLogMetadata({
         execution: "1",
         logType: LogTypes.EVERGREEN_TEST_LOGS,
-        taskID: "evergreen_task_id",
-        testID: "AFakeTest",
+        rawLogURL:
+          "http://parsley.corp.mongodb.com//rest/v2/tasks/spruce_ubuntu_check_codegen_1234/build/TestLogs/AFakeTest?execution=0&print_time=true",
+        taskID: "AFakeTest",
       });
     });
 
     const copyable = screen.getByDataCy("cli-command-copyable");
     expect(copyable).toBeInTheDocument();
     expect(copyable).toHaveTextContent(
-      "evergreen task build TestLogs --task_id evergreen_task_id --execution 1 --log_path AFakeTest --o output.txt",
+      "evergreen task build TestLogs --task_id AFakeTest --execution 1 --log_path spruce_ubuntu_check_codegen_1234 --o output.txt",
     );
   });
 });
