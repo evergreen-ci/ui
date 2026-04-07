@@ -3,17 +3,16 @@ import { css } from "@emotion/react";
 import { Banner, Variant } from "@leafygreen-ui/banner";
 import { Button } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
-import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { getSpawnHostTokenExchangeAuthorizeUrl } from "constants/externalResources";
 import { UserQuery } from "gql/generated/types";
+import { useSpruceConfig } from "hooks";
+import { jiraLinkify } from "utils/string";
 import {
   formatExpiresAtLocal,
   getReauthenticationOpensAt,
   isNeedlesslyFresh,
 } from "./tokenExchange";
-
-const DEVPROD_4160_URL = "https://jira.mongodb.org/browse/DEVPROD-4160";
 
 const containerCss = css`
   margin-top: ${size.s};
@@ -34,6 +33,8 @@ export const SpawnHostTokenExchangeCallout: React.FC<Props> = ({
   user,
   userQueryLoading,
 }) => {
+  const spruceConfig = useSpruceConfig();
+  const jiraHost = spruceConfig?.jira?.host ?? "";
   const inFlight = user?.hasTokenExchangePending ?? false;
   const expiresAtRaw = user?.tokenAccessTokenExpiresAt;
   const expired =
@@ -60,13 +61,7 @@ export const SpawnHostTokenExchangeCallout: React.FC<Props> = ({
             Evergreen uses temporary credentials for human users. Spawning a
             host that loads task data requires the browser authentication step
             while JWT tokens for the CLI are enabled (
-            <StyledLink
-              hideExternalIcon={false}
-              href={DEVPROD_4160_URL}
-              target="_blank"
-            >
-              DEVPROD-4160
-            </StyledLink>
+            {jiraLinkify("DEVPROD-4160", jiraHost)}
             ). Use <strong>Authenticate spawn hosts</strong> below and finish in
             the other tab before you spawn.
           </Body>
@@ -74,14 +69,7 @@ export const SpawnHostTokenExchangeCallout: React.FC<Props> = ({
           <Body>
             Evergreen is migrating to temporary credentials for human users. JWT
             tokens for the CLI are disabled on this deployment, so this step is
-            optional for now (
-            <StyledLink
-              hideExternalIcon={false}
-              href={DEVPROD_4160_URL}
-              target="_blank"
-            >
-              DEVPROD-4160
-            </StyledLink>
+            optional for now ({jiraLinkify("DEVPROD-4160", jiraHost)}
             ). You can try the flow anytime with{" "}
             <strong>Authenticate spawn hosts</strong> below.
           </Body>
