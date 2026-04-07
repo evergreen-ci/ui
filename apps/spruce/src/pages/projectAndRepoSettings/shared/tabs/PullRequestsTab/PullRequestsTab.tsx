@@ -44,9 +44,16 @@ export const PullRequestsTab: React.FC<TabProps> = ({
         projectType,
         githubWebhooksEnabled,
         formData,
+        versionControlEnabled,
         projectType === ProjectType.AttachedProject ? repoData : undefined,
       ),
-    [formData, githubWebhooksEnabled, projectType, repoData],
+    [
+      formData,
+      githubWebhooksEnabled,
+      projectType,
+      repoData,
+      versionControlEnabled,
+    ],
   );
 
   const validateConflicts = validate(

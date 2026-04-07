@@ -201,7 +201,8 @@ const mapRouteToSection: Record<
     ProjectSettingsSection.GithubAppSettings,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]:
     ProjectSettingsSection.GithubPermissions,
-  [ProjectSettingsTabRoutes.PullRequests]: ProjectSettingsSection.PullRequests,
+  [ProjectSettingsTabRoutes.PullRequests]:
+    ProjectSettingsSection.GithubAndCommitQueue, // TODO DEVPROD-8355: add section for PullRequests in app repo
   [ProjectSettingsTabRoutes.TestSelection]:
     ProjectSettingsSection.TestSelection,
 };
