@@ -1,7 +1,6 @@
 import { skipToken, useQuery } from "@apollo/client/react";
 import { Body } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { useWaterfallAnalytics } from "analytics";
 import { getTriggerRoute } from "constants/routes";
 import {
   VersionUpstreamProjectQuery,
@@ -9,11 +8,11 @@ import {
 } from "gql/generated/types";
 import { VERSION_UPSTREAM_PROJECT } from "gql/queries";
 
-const UpstreamProjectLink: React.FC<{
+export const UpstreamProjectLink: React.FC<{
   versionId: string;
   isTrigger: boolean;
-  commitType: "active" | "inactive";
-}> = ({ commitType, isTrigger, versionId }) => {
+  onClick?: () => void;
+}> = ({ isTrigger, onClick, versionId }) => {
   const { data } = useQuery<
     VersionUpstreamProjectQuery,
     VersionUpstreamProjectQueryVariables
@@ -25,7 +24,6 @@ const UpstreamProjectLink: React.FC<{
         }
       : skipToken,
   );
-  const { sendEvent } = useWaterfallAnalytics();
 
   if (!isTrigger) {
     return null;
@@ -41,11 +39,7 @@ const UpstreamProjectLink: React.FC<{
       Triggered by:{" "}
       <StyledRouterLink
         onClick={() => {
-          sendEvent({
-            name: "Clicked commit label",
-            "commit.type": commitType,
-            link: "upstream project",
-          });
+          onClick?.();
         }}
         to={getTriggerRoute({
           triggerType: upstreamProject.triggerType,
@@ -61,5 +55,3 @@ const UpstreamProjectLink: React.FC<{
     </Body>
   );
 };
-
-export default UpstreamProjectLink;

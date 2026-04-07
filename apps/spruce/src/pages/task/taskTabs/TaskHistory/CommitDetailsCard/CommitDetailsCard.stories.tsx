@@ -2,8 +2,10 @@ import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { SortedTaskStatus, TaskStatus } from "@evg-ui/lib/types/task";
 import { TestStatus } from "@evg-ui/lib/types/test";
+import { Requester } from "constants/requesters";
 import { TaskQuery, TestResult } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
+import { getVersionUpstreamProjectMock } from "pages/waterfall/VersionLabel/testData";
 import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import CommitDetailsCard from ".";
@@ -13,6 +15,7 @@ type CommitDetailsCardType = React.ComponentProps<typeof CommitDetailsCard> & {
   canRestart: boolean;
   canSchedule: boolean;
   isPatch: boolean;
+  isTrigger: boolean;
   latestExecution: number;
   message: string;
   status: TaskStatus;
@@ -29,6 +32,7 @@ export default {
     isCurrentTask: true,
     isMatching: true,
     isPatch: false,
+    isTrigger: false,
     latestExecution: 2,
     message:
       "DEVPROD-1234: Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.",
@@ -53,6 +57,9 @@ export default {
     isPatch: {
       control: { type: "boolean" },
     },
+    isTrigger: {
+      control: { type: "boolean" },
+    },
     latestExecution: {
       control: { type: "number" },
     },
@@ -62,6 +69,11 @@ export default {
     status: {
       options: SortedTaskStatus,
       control: { type: "select" },
+    },
+  },
+  parameters: {
+    apolloClient: {
+      mocks: [getVersionUpstreamProjectMock],
     },
   },
 } satisfies CustomMeta<CommitDetailsCardType>;
@@ -85,14 +97,22 @@ export const WithLongMessage: CustomStoryObj<TemplateProps> = {
   ),
 };
 
+export const WithUpstreamProject: CustomStoryObj<TemplateProps> = {
+  args: {
+    isTrigger: true,
+  },
+  render: (args) => <Template {...args} />,
+};
+
 type TemplateProps = {
   activated: boolean;
   canRestart: boolean;
   canSchedule: boolean;
-  hasFailingTests: boolean;
+  hasFailingTests?: boolean;
   isCurrentTask: boolean;
   isMatching: boolean;
   isPatch: boolean;
+  isTrigger?: boolean;
   latestExecution: number;
   message: string;
   status: TaskStatus;
@@ -120,8 +140,12 @@ const getStoryTask = (args: TemplateProps) => {
     canRestart: args.canRestart,
     canSchedule: args.canSchedule,
     latestExecution: args.latestExecution,
+    requester: args.isTrigger ? Requester.Trigger : task.requester,
     version: {
       ...task.version,
+      id: args.isTrigger
+        ? "evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a"
+        : task.version.id,
       message: args.message,
     },
   };

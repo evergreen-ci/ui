@@ -677,6 +677,8 @@ export type CopyProjectInput = {
 /** Cost represents the cost breakdown for a task or version. */
 export type Cost = {
   __typename?: "Cost";
+  adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
@@ -11038,6 +11040,7 @@ export type TaskHistoryQuery = {
       latestExecution: number;
       order: number;
       priority?: number | null;
+      requester: string;
       revision?: string | null;
       generator?: {
         __typename?: "Task";
