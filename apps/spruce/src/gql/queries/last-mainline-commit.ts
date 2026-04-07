@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const LAST_MAINLINE_COMMIT = gql`
+export const LAST_MAINLINE_COMMIT = gql`
   query LastMainlineCommit(
     $projectIdentifier: String!
     $skipOrderNumber: Int!
@@ -31,5 +31,3 @@ const LAST_MAINLINE_COMMIT = gql`
     }
   }
 `;
-
-export default LAST_MAINLINE_COMMIT;

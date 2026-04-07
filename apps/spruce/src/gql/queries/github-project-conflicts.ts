@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const GITHUB_PROJECT_CONFLICTS = gql`
+export const GITHUB_PROJECT_CONFLICTS = gql`
   query GithubProjectConflicts($projectId: String!) {
     githubProjectConflicts(projectId: $projectId) {
       commitCheckIdentifiers
@@ -9,5 +9,3 @@ const GITHUB_PROJECT_CONFLICTS = gql`
     }
   }
 `;
-
-export default GITHUB_PROJECT_CONFLICTS;

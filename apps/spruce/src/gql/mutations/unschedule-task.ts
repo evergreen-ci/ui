@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const UNSCHEDULE_TASK = gql`
+export const UNSCHEDULE_TASK = gql`
   mutation UnscheduleTask($taskId: String!) {
     unscheduleTask(taskId: $taskId) {
       id
@@ -12,5 +12,3 @@ const UNSCHEDULE_TASK = gql`
     }
   }
 `;
-
-export default UNSCHEDULE_TASK;

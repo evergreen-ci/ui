@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const ADMIN_BETA_FEATURES = gql`
+export const ADMIN_BETA_FEATURES = gql`
   query AdminBetaFeatures {
     spruceConfig {
       ui {
@@ -11,5 +11,3 @@ const ADMIN_BETA_FEATURES = gql`
     }
   }
 `;
-
-export default ADMIN_BETA_FEATURES;

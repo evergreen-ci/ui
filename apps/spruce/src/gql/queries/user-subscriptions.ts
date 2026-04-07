@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const USER_SUBSCRIPTIONS = gql`
+export const USER_SUBSCRIPTIONS = gql`
   query UserSubscriptions {
     user {
       settings {
@@ -39,5 +39,3 @@ const USER_SUBSCRIPTIONS = gql`
     }
   }
 `;
-
-export default USER_SUBSCRIPTIONS;

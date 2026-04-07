@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SINGLE_TASK_DISTRO = gql`
+export const SINGLE_TASK_DISTRO = gql`
   query SingleTaskDistro {
     spruceConfig {
       singleTaskDistro {
@@ -13,5 +13,3 @@ const SINGLE_TASK_DISTRO = gql`
     }
   }
 `;
-
-export default SINGLE_TASK_DISTRO;

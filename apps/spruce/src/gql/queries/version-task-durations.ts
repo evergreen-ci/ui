@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const VERSION_TASK_DURATIONS = gql`
+export const VERSION_TASK_DURATIONS = gql`
   query VersionTaskDurations(
     $versionId: String!
     $taskFilterOptions: TaskFilterOptions!
@@ -33,5 +33,3 @@ const VERSION_TASK_DURATIONS = gql`
     }
   }
 `;
-
-export default VERSION_TASK_DURATIONS;

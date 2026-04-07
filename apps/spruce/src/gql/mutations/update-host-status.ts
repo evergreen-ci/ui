@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const UPDATE_HOST_STATUS = gql`
+export const UPDATE_HOST_STATUS = gql`
   mutation UpdateHostStatus(
     $hostIds: [String!]!
     $status: String!
@@ -9,5 +9,3 @@ const UPDATE_HOST_STATUS = gql`
     updateHostStatus(hostIds: $hostIds, status: $status, notes: $notes)
   }
 `;
-
-export default UPDATE_HOST_STATUS;

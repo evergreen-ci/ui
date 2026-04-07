@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { BASE_TASK } from "../fragments/baseTask";
 
-const SCHEDULE_TASKS = gql`
+export const SCHEDULE_TASKS = gql`
   mutation ScheduleTasks($taskIds: [String!]!, $versionId: String!) {
     scheduleTasks(taskIds: $taskIds, versionId: $versionId) {
       ...BaseTask
@@ -12,5 +12,3 @@ const SCHEDULE_TASKS = gql`
   }
   ${BASE_TASK}
 `;
-
-export default SCHEDULE_TASKS;

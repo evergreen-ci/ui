@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const REMOVE_FAVORITE_PROJECT = gql`
+export const REMOVE_FAVORITE_PROJECT = gql`
   mutation RemoveFavoriteProject($projectIdentifier: String!) {
     removeFavoriteProject(opts: { projectIdentifier: $projectIdentifier }) {
       id
@@ -12,5 +12,3 @@ const REMOVE_FAVORITE_PROJECT = gql`
     }
   }
 `;
-
-export default REMOVE_FAVORITE_PROJECT;

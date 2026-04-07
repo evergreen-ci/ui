@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const CREATE_PUBLIC_KEY = gql`
+export const CREATE_PUBLIC_KEY = gql`
   mutation CreatePublicKey($publicKeyInput: PublicKeyInput!) {
     createPublicKey(publicKeyInput: $publicKeyInput) {
       key
@@ -8,5 +8,3 @@ const CREATE_PUBLIC_KEY = gql`
     }
   }
 `;
-
-export default CREATE_PUBLIC_KEY;

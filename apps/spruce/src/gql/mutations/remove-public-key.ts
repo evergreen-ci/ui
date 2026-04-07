@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const REMOVE_PUBLIC_KEY = gql`
+export const REMOVE_PUBLIC_KEY = gql`
   mutation RemovePublicKey($keyName: String!) {
     removePublicKey(keyName: $keyName) {
       key
@@ -8,5 +8,3 @@ const REMOVE_PUBLIC_KEY = gql`
     }
   }
 `;
-
-export default REMOVE_PUBLIC_KEY;

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const IMAGE_FILES = gql`
+export const IMAGE_FILES = gql`
   query ImageFiles($imageId: String!, $opts: ImageFileOpts!) {
     image(imageId: $imageId) {
       id
@@ -16,5 +16,3 @@ const IMAGE_FILES = gql`
     }
   }
 `;
-
-export default IMAGE_FILES;

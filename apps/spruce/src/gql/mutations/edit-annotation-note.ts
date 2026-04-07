@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const EDIT_ANNOTATION_NOTE = gql`
+export const EDIT_ANNOTATION_NOTE = gql`
   mutation EditAnnotationNote(
     $taskId: String!
     $execution: Int!
@@ -15,5 +15,3 @@ const EDIT_ANNOTATION_NOTE = gql`
     )
   }
 `;
-
-export default EDIT_ANNOTATION_NOTE;

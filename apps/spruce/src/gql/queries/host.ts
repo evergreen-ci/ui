@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { BASE_HOST } from "../fragments/baseHost";
 
-const HOST = gql`
+export const HOST = gql`
   query Host($id: String!) {
     host(hostId: $id) {
       ...BaseHost
@@ -20,5 +20,3 @@ const HOST = gql`
   }
   ${BASE_HOST}
 `;
-
-export default HOST;

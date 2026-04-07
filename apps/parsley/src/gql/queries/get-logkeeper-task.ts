@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const GET_LOGKEEPER_TASK = gql`
+export const GET_LOGKEEPER_TASK = gql`
   #import "../fragments/base-task.graphql"
 
   query LogkeeperTask($buildId: String!) {
@@ -22,5 +22,3 @@ const GET_LOGKEEPER_TASK = gql`
     }
   }
 `;
-
-export default GET_LOGKEEPER_TASK;

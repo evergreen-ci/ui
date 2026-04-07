@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SAVE_DISTRO = gql`
+export const SAVE_DISTRO = gql`
   mutation SaveDistro($distro: DistroInput!, $onSave: DistroOnSaveOperation!) {
     saveDistro(opts: { distro: $distro, onSave: $onSave }) {
       distro {
@@ -10,5 +10,3 @@ const SAVE_DISTRO = gql`
     }
   }
 `;
-
-export default SAVE_DISTRO;

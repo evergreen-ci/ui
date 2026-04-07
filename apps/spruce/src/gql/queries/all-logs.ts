@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { LOG_MESSAGE } from "../fragments/logMessage";
 
-const ALL_LOGS = gql`
+export const ALL_LOGS = gql`
   query AllLogs($id: String!, $execution: Int) {
     task(taskId: $id, execution: $execution) {
       id
@@ -15,5 +15,3 @@ const ALL_LOGS = gql`
   }
   ${LOG_MESSAGE}
 `;
-
-export default ALL_LOGS;

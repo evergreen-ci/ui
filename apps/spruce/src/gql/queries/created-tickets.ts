@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const CREATED_TICKETS = gql`
+export const CREATED_TICKETS = gql`
   query CreatedTickets($taskId: String!) {
     bbGetCreatedTickets(taskId: $taskId) {
       fields {
@@ -18,5 +18,3 @@ const CREATED_TICKETS = gql`
     }
   }
 `;
-
-export default CREATED_TICKETS;

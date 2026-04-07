@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const POD_EVENTS = gql`
+export const POD_EVENTS = gql`
   query PodEvents($id: String!, $limit: Int, $page: Int) {
     pod(podId: $id) {
       id
@@ -31,5 +31,3 @@ const POD_EVENTS = gql`
     }
   }
 `;
-
-export default POD_EVENTS;

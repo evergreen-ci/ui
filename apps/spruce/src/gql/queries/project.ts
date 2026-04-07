@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const PROJECT = gql`
+export const PROJECT = gql`
   query Project($idOrIdentifier: String!) {
     project(projectIdentifier: $idOrIdentifier) {
       id
@@ -8,5 +8,3 @@ const PROJECT = gql`
     }
   }
 `;
-
-export default PROJECT;

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const TASK_OWNER_TEAM = gql`
+export const TASK_OWNER_TEAM = gql`
   query TaskOwnerTeamsForTask($taskId: String!, $execution: Int) {
     task(taskId: $taskId, execution: $execution) {
       id
@@ -12,5 +12,3 @@ const TASK_OWNER_TEAM = gql`
     }
   }
 `;
-
-export default TASK_OWNER_TEAM;

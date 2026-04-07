@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const TASK_HISTORY = gql`
+export const TASK_HISTORY = gql`
   query TaskHistory($options: TaskHistoryOpts!, $includeGenerator: Boolean!) {
     taskHistory(options: $options) {
       pagination {
@@ -48,5 +48,3 @@ const TASK_HISTORY = gql`
     }
   }
 `;
-
-export default TASK_HISTORY;

@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { ANNOTATION } from "../fragments/annotation";
 import { BASE_TASK } from "../fragments/baseTask";
 
-const TASK = gql`
+export const TASK = gql`
   query Task($taskId: String!, $execution: Int) {
     task(taskId: $taskId, execution: $execution) {
       ...BaseTask
@@ -153,5 +153,3 @@ const TASK = gql`
   ${BASE_TASK}
   ${ANNOTATION}
 `;
-
-export default TASK;

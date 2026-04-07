@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const IMAGE_EVENTS = gql`
+export const IMAGE_EVENTS = gql`
   query ImageEvents($imageId: String!, $limit: Int!, $page: Int!) {
     image(imageId: $imageId) {
       id
@@ -22,5 +22,3 @@ const IMAGE_EVENTS = gql`
     }
   }
 `;
-
-export default IMAGE_EVENTS;

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SET_SERVICE_FLAGS = gql`
+export const SET_SERVICE_FLAGS = gql`
   mutation SetServiceFlags($updatedFlags: [ServiceFlagInput!]!) {
     setServiceFlags(updatedFlags: $updatedFlags) {
       enabled
@@ -8,5 +8,3 @@ const SET_SERVICE_FLAGS = gql`
     }
   }
 `;
-
-export default SET_SERVICE_FLAGS;

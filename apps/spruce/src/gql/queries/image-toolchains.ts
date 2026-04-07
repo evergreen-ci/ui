@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const IMAGE_TOOLCHAINS = gql`
+export const IMAGE_TOOLCHAINS = gql`
   query ImageToolchains($imageId: String!, $opts: ToolchainOpts!) {
     image(imageId: $imageId) {
       id
@@ -16,5 +16,3 @@ const IMAGE_TOOLCHAINS = gql`
     }
   }
 `;
-
-export default IMAGE_TOOLCHAINS;

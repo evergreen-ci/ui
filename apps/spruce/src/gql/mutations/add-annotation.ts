@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const ADD_ANNOTATION = gql`
+export const ADD_ANNOTATION = gql`
   mutation AddAnnotationIssue(
     $taskId: String!
     $execution: Int!
@@ -15,5 +15,3 @@ const ADD_ANNOTATION = gql`
     )
   }
 `;
-
-export default ADD_ANNOTATION;

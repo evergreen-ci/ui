@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const TASK_TEST_SAMPLE = gql`
+export const TASK_TEST_SAMPLE = gql`
   query TaskTestSample(
     $taskIds: [String!]!
     $filters: [TestFilter!]!
@@ -18,5 +18,3 @@ const TASK_TEST_SAMPLE = gql`
     }
   }
 `;
-
-export default TASK_TEST_SAMPLE;

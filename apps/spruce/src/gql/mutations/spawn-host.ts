@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SPAWN_HOST = gql`
+export const SPAWN_HOST = gql`
   mutation SpawnHost($spawnHostInput: SpawnHostInput) {
     spawnHost(spawnHostInput: $spawnHostInput) {
       id
@@ -8,5 +8,3 @@ const SPAWN_HOST = gql`
     }
   }
 `;
-
-export default SPAWN_HOST;

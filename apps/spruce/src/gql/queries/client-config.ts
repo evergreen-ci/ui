@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const CLIENT_CONFIG = gql`
+export const CLIENT_CONFIG = gql`
   query ClientConfig {
     clientConfig {
       clientBinaries {
@@ -13,5 +13,3 @@ const CLIENT_CONFIG = gql`
     }
   }
 `;
-
-export default CLIENT_CONFIG;

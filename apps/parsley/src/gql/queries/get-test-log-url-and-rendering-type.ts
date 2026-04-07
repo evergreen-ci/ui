@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const GET_TEST_LOG_URL_AND_RENDERING_TYPE = gql`
+export const GET_TEST_LOG_URL_AND_RENDERING_TYPE = gql`
   query TestLogURLAndRenderingType(
     $taskID: String!
     $testName: String!
@@ -24,5 +24,3 @@ const GET_TEST_LOG_URL_AND_RENDERING_TYPE = gql`
     }
   }
 `;
-
-export default GET_TEST_LOG_URL_AND_RENDERING_TYPE;

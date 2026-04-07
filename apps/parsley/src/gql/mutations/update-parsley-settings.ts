@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const UPDATE_PARSLEY_SETTINGS = gql`
+export const UPDATE_PARSLEY_SETTINGS = gql`
   mutation UpdateParsleySettings($opts: UpdateParsleySettingsInput!) {
     updateParsleySettings(opts: $opts) {
       parsleySettings {
@@ -10,5 +10,3 @@ const UPDATE_PARSLEY_SETTINGS = gql`
     }
   }
 `;
-
-export default UPDATE_PARSLEY_SETTINGS;

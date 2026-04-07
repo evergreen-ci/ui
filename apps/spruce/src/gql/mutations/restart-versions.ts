@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const RESTART_VERSIONS = gql`
+export const RESTART_VERSIONS = gql`
   mutation RestartVersions(
     $versionId: String!
     $abort: Boolean!
@@ -25,5 +25,3 @@ const RESTART_VERSIONS = gql`
     }
   }
 `;
-
-export default RESTART_VERSIONS;

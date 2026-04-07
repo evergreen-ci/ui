@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const BUILD_VARIANT_STATS = gql`
+export const BUILD_VARIANT_STATS = gql`
   query BuildVariantStats($id: String!, $includeNeverActivatedTasks: Boolean) {
     version(versionId: $id) {
       id
@@ -17,5 +17,3 @@ const BUILD_VARIANT_STATS = gql`
     }
   }
 `;
-
-export default BUILD_VARIANT_STATS;

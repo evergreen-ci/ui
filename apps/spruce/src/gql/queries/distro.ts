@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const DISTRO = gql`
+export const DISTRO = gql`
   query Distro($distroId: String!) {
     distro(distroId: $distroId) {
       adminOnly
@@ -101,5 +101,3 @@ const DISTRO = gql`
     }
   }
 `;
-
-export default DISTRO;

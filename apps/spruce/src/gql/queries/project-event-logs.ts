@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { PROJECT_EVENT_SETTINGS } from "../fragments/projectSettings/projectEventSettings";
 
-const PROJECT_EVENT_LOGS = gql`
+export const PROJECT_EVENT_LOGS = gql`
   query ProjectEventLogs(
     $projectIdentifier: String!
     $limit: Int
@@ -27,5 +27,3 @@ const PROJECT_EVENT_LOGS = gql`
   }
   ${PROJECT_EVENT_SETTINGS}
 `;
-
-export default PROJECT_EVENT_LOGS;

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const TASK_ALL_EXECUTIONS = gql`
+export const TASK_ALL_EXECUTIONS = gql`
   query TaskAllExecutions($taskId: String!) {
     taskAllExecutions(taskId: $taskId) {
       id
@@ -11,5 +11,3 @@ const TASK_ALL_EXECUTIONS = gql`
     }
   }
 `;
-
-export default TASK_ALL_EXECUTIONS;

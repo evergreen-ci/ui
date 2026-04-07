@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const OTHER_USER = gql`
+export const OTHER_USER = gql`
   query OtherUser($userId: String) {
     currentUser: user {
       userId
@@ -11,5 +11,3 @@ const OTHER_USER = gql`
     }
   }
 `;
-
-export default OTHER_USER;

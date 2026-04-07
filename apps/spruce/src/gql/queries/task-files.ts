@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const TASK_FILES = gql`
+export const TASK_FILES = gql`
   query TaskFiles($taskId: String!, $execution: Int) {
     task(taskId: $taskId, execution: $execution) {
       id
@@ -19,5 +19,3 @@ const TASK_FILES = gql`
     }
   }
 `;
-
-export default TASK_FILES;

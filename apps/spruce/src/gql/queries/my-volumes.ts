@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const MY_VOLUMES = gql`
+export const MY_VOLUMES = gql`
   query MyVolumes {
     myVolumes {
       id
@@ -24,5 +24,3 @@ const MY_VOLUMES = gql`
     }
   }
 `;
-
-export default MY_VOLUMES;

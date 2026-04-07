@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { PROJECT_EVENT_SETTINGS } from "../fragments/projectSettings/projectEventSettings";
 
-const REPO_EVENT_LOGS = gql`
+export const REPO_EVENT_LOGS = gql`
   query RepoEventLogs($repoId: String!, $limit: Int, $before: Time) {
     repoEvents(repoId: $repoId, limit: $limit, before: $before) {
       count
@@ -19,5 +19,3 @@ const REPO_EVENT_LOGS = gql`
   }
   ${PROJECT_EVENT_SETTINGS}
 `;
-
-export default REPO_EVENT_LOGS;

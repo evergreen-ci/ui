@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const PUBLIC_KEYS = gql`
+export const MY_PUBLIC_KEYS = gql`
   query MyPublicKeys {
     myPublicKeys {
       key
@@ -8,5 +8,3 @@ const PUBLIC_KEYS = gql`
     }
   }
 `;
-
-export default PUBLIC_KEYS;

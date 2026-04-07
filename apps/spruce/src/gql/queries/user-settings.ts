@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const USER_SETTINGS = gql`
+export const USER_SETTINGS = gql`
   query UserSettings {
     user {
       settings {
@@ -25,5 +25,3 @@ const USER_SETTINGS = gql`
     }
   }
 `;
-
-export default USER_SETTINGS;

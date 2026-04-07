@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SET_TASK_PRIORITIES = gql`
+export const SET_TASK_PRIORITIES = gql`
   mutation SetTaskPriorities($taskPriorities: [TaskPriority!]!) {
     setTaskPriorities(taskPriorities: $taskPriorities) {
       id
@@ -9,5 +9,3 @@ const SET_TASK_PRIORITIES = gql`
     }
   }
 `;
-
-export default SET_TASK_PRIORITIES;

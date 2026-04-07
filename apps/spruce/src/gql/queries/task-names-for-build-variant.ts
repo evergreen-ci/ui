@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const TASK_NAMES_FOR_BUILD_VARIANT = gql`
+export const TASK_NAMES_FOR_BUILD_VARIANT = gql`
   query TaskNamesForBuildVariant(
     $projectIdentifier: String!
     $buildVariant: String!
@@ -11,5 +11,3 @@ const TASK_NAMES_FOR_BUILD_VARIANT = gql`
     )
   }
 `;
-
-export default TASK_NAMES_FOR_BUILD_VARIANT;

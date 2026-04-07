@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const IMAGE_PACKAGES = gql`
+export const IMAGE_PACKAGES = gql`
   query ImagePackages($imageId: String!, $opts: PackageOpts!) {
     image(imageId: $imageId) {
       id
@@ -16,5 +16,3 @@ const IMAGE_PACKAGES = gql`
     }
   }
 `;
-
-export default IMAGE_PACKAGES;

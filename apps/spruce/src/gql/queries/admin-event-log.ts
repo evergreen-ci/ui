@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const ADMIN_EVENT_LOG = gql`
+export const ADMIN_EVENT_LOG = gql`
   query AdminEvents($opts: AdminEventsInput!) {
     adminEvents(opts: $opts) {
       count
@@ -14,5 +14,3 @@ const ADMIN_EVENT_LOG = gql`
     }
   }
 `;
-
-export default ADMIN_EVENT_LOG;

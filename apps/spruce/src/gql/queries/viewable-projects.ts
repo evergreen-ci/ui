@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const VIEWABLE_PROJECTS = gql`
+export const VIEWABLE_PROJECTS = gql`
   query ViewableProjectRefs {
     viewableProjectRefs {
       groupDisplayName
@@ -19,5 +19,3 @@ const VIEWABLE_PROJECTS = gql`
     }
   }
 `;
-
-export default VIEWABLE_PROJECTS;

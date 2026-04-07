@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const IMAGE_GENERAL = gql`
+export const IMAGE_GENERAL = gql`
   query ImageGeneral($imageId: String!) {
     image(imageId: $imageId) {
       id
@@ -14,5 +14,3 @@ const IMAGE_GENERAL = gql`
     }
   }
 `;
-
-export default IMAGE_GENERAL;

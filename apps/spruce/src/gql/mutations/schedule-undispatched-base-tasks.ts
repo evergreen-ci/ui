@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SCHEDULE_UNDISPATCHED_BASE_TASKS = gql`
+export const SCHEDULE_UNDISPATCHED_BASE_TASKS = gql`
   mutation ScheduleUndispatchedBaseTasks($versionId: String!) {
     scheduleUndispatchedBaseTasks(versionId: $versionId) {
       id
@@ -9,5 +9,3 @@ const SCHEDULE_UNDISPATCHED_BASE_TASKS = gql`
     }
   }
 `;
-
-export default SCHEDULE_UNDISPATCHED_BASE_TASKS;

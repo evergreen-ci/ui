@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { BASE_SPAWN_HOST } from "../fragments/baseSpawnHost";
 
-const MY_HOSTS = gql`
+export const MY_HOSTS = gql`
   query MyHosts {
     myHosts {
       ...BaseSpawnHost
@@ -19,5 +19,3 @@ const MY_HOSTS = gql`
   }
   ${BASE_SPAWN_HOST}
 `;
-
-export default MY_HOSTS;

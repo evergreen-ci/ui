@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SERVICE_FLAGS_LIST = gql`
+export const SERVICE_FLAGS_LIST = gql`
   query ServiceFlagsList {
     adminSettings {
       serviceFlagsList {
@@ -10,5 +10,3 @@ const SERVICE_FLAGS_LIST = gql`
     }
   }
 `;
-
-export default SERVICE_FLAGS_LIST;

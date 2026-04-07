@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const REMOVE_ANNOTATION = gql`
+export const REMOVE_ANNOTATION = gql`
   mutation RemoveAnnotationIssue(
     $taskId: String!
     $execution: Int!
@@ -15,5 +15,3 @@ const REMOVE_ANNOTATION = gql`
     )
   }
 `;
-
-export default REMOVE_ANNOTATION;

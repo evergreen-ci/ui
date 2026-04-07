@@ -1,9 +1,7 @@
 import { gql } from "@apollo/client";
 
-const IMAGES = gql`
+export const IMAGES = gql`
   query Images {
     images
   }
 `;
-
-export default IMAGES;

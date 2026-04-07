@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SAVE_PROJECT_SETTINGS_FOR_SECTION = gql`
+export const SAVE_PROJECT_SETTINGS_FOR_SECTION = gql`
   mutation SaveProjectSettingsForSection(
     $projectSettings: ProjectSettingsInput!
     $section: ProjectSettingsSection!
@@ -16,5 +16,3 @@ const SAVE_PROJECT_SETTINGS_FOR_SECTION = gql`
     }
   }
 `;
-
-export default SAVE_PROJECT_SETTINGS_FOR_SECTION;

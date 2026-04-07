@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const HOSTS = gql`
+export const HOSTS = gql`
   query Hosts(
     $hostId: String
     $distroId: String
@@ -49,5 +49,3 @@ const HOSTS = gql`
     }
   }
 `;
-
-export default HOSTS;

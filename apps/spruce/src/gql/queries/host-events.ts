@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const HOST_EVENTS = gql`
+export const HOST_EVENTS = gql`
   query HostEvents($id: String!, $opts: HostEventsInput!) {
     host(hostId: $id) {
       id
@@ -37,5 +37,3 @@ const HOST_EVENTS = gql`
     }
   }
 `;
-
-export default HOST_EVENTS;

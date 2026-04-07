@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const TASK_TEST_COUNT = gql`
+export const TASK_TEST_COUNT = gql`
   query TaskTestCount($taskId: String!, $execution: Int) {
     task(taskId: $taskId, execution: $execution) {
       id
@@ -10,5 +10,3 @@ const TASK_TEST_COUNT = gql`
     }
   }
 `;
-
-export default TASK_TEST_COUNT;

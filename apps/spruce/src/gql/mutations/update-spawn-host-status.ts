@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const UPDATE_SPAWN_HOST_STATUS = gql`
+export const UPDATE_SPAWN_HOST_STATUS = gql`
   mutation UpdateSpawnHostStatus(
     $updateSpawnHostStatusInput: UpdateSpawnHostStatusInput!
   ) {
@@ -12,5 +12,3 @@ const UPDATE_SPAWN_HOST_STATUS = gql`
     }
   }
 `;
-
-export default UPDATE_SPAWN_HOST_STATUS;

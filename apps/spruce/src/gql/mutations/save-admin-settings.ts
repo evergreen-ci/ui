@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SAVE_ADMIN_SETTINGS = gql`
+export const SAVE_ADMIN_SETTINGS = gql`
   mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
     saveAdminSettings(adminSettings: $adminSettings) {
       api {
@@ -104,5 +104,3 @@ const SAVE_ADMIN_SETTINGS = gql`
     }
   }
 `;
-
-export default SAVE_ADMIN_SETTINGS;

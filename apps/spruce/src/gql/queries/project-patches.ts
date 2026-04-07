@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { PATCHES_PAGE_PATCHES } from "../fragments/patchesPage";
 
-const PROJECT_PATCHES = gql`
+export const PROJECT_PATCHES = gql`
   query ProjectPatches(
     $projectIdentifier: String!
     $patchesInput: PatchesInput!
@@ -16,5 +16,3 @@ const PROJECT_PATCHES = gql`
   }
   ${PATCHES_PAGE_PATCHES}
 `;
-
-export default PROJECT_PATCHES;

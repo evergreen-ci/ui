@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SAVE_REPO_SETTINGS_FOR_SECTION = gql`
+export const SAVE_REPO_SETTINGS_FOR_SECTION = gql`
   mutation SaveRepoSettingsForSection(
     $repoSettings: RepoSettingsInput!
     $section: ProjectSettingsSection!
@@ -12,5 +12,3 @@ const SAVE_REPO_SETTINGS_FOR_SECTION = gql`
     }
   }
 `;
-
-export default SAVE_REPO_SETTINGS_FOR_SECTION;

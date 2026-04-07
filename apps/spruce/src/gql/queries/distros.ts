@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const DISTROS = gql`
+export const DISTROS = gql`
   query Distros($onlySpawnable: Boolean!) {
     distros(onlySpawnable: $onlySpawnable) {
       adminOnly
@@ -11,5 +11,3 @@ const DISTROS = gql`
     }
   }
 `;
-
-export default DISTROS;

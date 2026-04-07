@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const USER_BETA_FEATURES = gql`
+export const USER_BETA_FEATURES = gql`
   query UserBetaFeatures {
     user {
       betaFeatures {
@@ -10,5 +10,3 @@ const USER_BETA_FEATURES = gql`
     }
   }
 `;
-
-export default USER_BETA_FEATURES;

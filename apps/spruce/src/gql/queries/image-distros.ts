@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const IMAGE_DISTROS = gql`
+export const IMAGE_DISTROS = gql`
   query ImageDistros($imageId: String!) {
     image(imageId: $imageId) {
       id
@@ -15,5 +15,3 @@ const IMAGE_DISTROS = gql`
     }
   }
 `;
-
-export default IMAGE_DISTROS;

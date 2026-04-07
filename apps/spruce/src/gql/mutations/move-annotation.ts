@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const MOVE_ANNOTATION = gql`
+export const MOVE_ANNOTATION = gql`
   mutation MoveAnnotationIssue(
     $taskId: String!
     $execution: Int!
@@ -15,5 +15,3 @@ const MOVE_ANNOTATION = gql`
     )
   }
 `;
-
-export default MOVE_ANNOTATION;

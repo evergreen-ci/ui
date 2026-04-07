@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const BUILD_VARIANTS_WITH_CHILDREN = gql`
+export const BUILD_VARIANTS_WITH_CHILDREN = gql`
   query BuildVariantsWithChildren($id: String!, $statuses: [String!]!) {
     version(versionId: $id) {
       id
@@ -42,5 +42,3 @@ const BUILD_VARIANTS_WITH_CHILDREN = gql`
     }
   }
 `;
-
-export default BUILD_VARIANTS_WITH_CHILDREN;

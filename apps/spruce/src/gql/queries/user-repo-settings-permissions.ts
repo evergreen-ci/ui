@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const USER_REPO_SETTINGS_PERMISSIONS = gql`
+export const USER_REPO_SETTINGS_PERMISSIONS = gql`
   query UserRepoSettingsPermissions($repoId: String!) {
     user {
       permissions {
@@ -12,5 +12,3 @@ const USER_REPO_SETTINGS_PERMISSIONS = gql`
     }
   }
 `;
-
-export default USER_REPO_SETTINGS_PERMISSIONS;

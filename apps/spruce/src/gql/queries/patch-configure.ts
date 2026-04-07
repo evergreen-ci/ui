@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { BASE_PATCH } from "../fragments/basePatch";
 
-const PATCH_CONFIGURE = gql`
+export const PATCH_CONFIGURE = gql`
   query ConfigurePatch($id: String!) {
     patch(patchId: $id) {
       ...BasePatch
@@ -47,5 +47,3 @@ const PATCH_CONFIGURE = gql`
   }
   ${BASE_PATCH}
 `;
-
-export default PATCH_CONFIGURE;

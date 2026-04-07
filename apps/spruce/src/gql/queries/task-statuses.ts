@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const TASK_STATUSES = gql`
+export const TASK_STATUSES = gql`
   query TaskStatuses($id: String!) {
     version(versionId: $id) {
       id
@@ -12,5 +12,3 @@ const TASK_STATUSES = gql`
     }
   }
 `;
-
-export default TASK_STATUSES;

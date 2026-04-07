@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const TASK_OVERVIEW_POPUP = gql`
+export const TASK_OVERVIEW_POPUP = gql`
   query TaskOverviewPopup($taskId: String!, $execution: Int) {
     task(taskId: $taskId, execution: $execution) {
       id
@@ -46,5 +46,3 @@ const TASK_OVERVIEW_POPUP = gql`
     }
   }
 `;
-
-export default TASK_OVERVIEW_POPUP;

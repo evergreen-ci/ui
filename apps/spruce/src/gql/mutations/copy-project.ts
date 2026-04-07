@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const COPY_PROJECT = gql`
+export const COPY_PROJECT = gql`
   mutation CopyProject($project: CopyProjectInput!) {
     copyProject(project: $project) {
       id
@@ -8,5 +8,3 @@ const COPY_PROJECT = gql`
     }
   }
 `;
-
-export default COPY_PROJECT;

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const TASK_TESTS = gql`
+export const TASK_TESTS = gql`
   query TaskTests(
     $id: String!
     $execution: Int
@@ -42,5 +42,3 @@ const TASK_TESTS = gql`
     }
   }
 `;
-
-export default TASK_TESTS;

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const USER_PROJECT_SETTINGS_PERMISSIONS = gql`
+export const USER_PROJECT_SETTINGS_PERMISSIONS = gql`
   query UserProjectSettingsPermissions($projectIdentifier: String!) {
     user {
       permissions {
@@ -13,5 +13,3 @@ const USER_PROJECT_SETTINGS_PERMISSIONS = gql`
     }
   }
 `;
-
-export default USER_PROJECT_SETTINGS_PERMISSIONS;

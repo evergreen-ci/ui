@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const DISTRO_EVENTS = gql`
+export const DISTRO_EVENTS = gql`
   query DistroEvents($distroId: String!, $limit: Int, $before: Time) {
     distroEvents(
       opts: { distroId: $distroId, limit: $limit, before: $before }
@@ -16,5 +16,3 @@ const DISTRO_EVENTS = gql`
     }
   }
 `;
-
-export default DISTRO_EVENTS;

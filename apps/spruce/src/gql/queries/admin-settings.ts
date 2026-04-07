@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const ADMIN_SETTINGS = gql`
+export const ADMIN_SETTINGS = gql`
   query AdminSettings {
     adminSettings {
       amboy {
@@ -402,5 +402,3 @@ const ADMIN_SETTINGS = gql`
     }
   }
 `;
-
-export default ADMIN_SETTINGS;

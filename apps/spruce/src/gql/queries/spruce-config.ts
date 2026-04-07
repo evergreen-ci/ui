@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SPRUCE_CONFIG = gql`
+export const SPRUCE_CONFIG = gql`
   query SpruceConfig {
     spruceConfig {
       banner
@@ -40,5 +40,3 @@ const SPRUCE_CONFIG = gql`
     }
   }
 `;
-
-export default SPRUCE_CONFIG;

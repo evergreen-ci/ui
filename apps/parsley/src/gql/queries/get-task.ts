@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { BASE_TASK } from "../fragments/base-task";
 
-const GET_TASK = gql`
+export const GET_TASK = gql`
   query Task($taskId: String!, $execution: Int) {
     task(taskId: $taskId, execution: $execution) {
       ...BaseTask
@@ -20,5 +20,3 @@ const GET_TASK = gql`
   }
   ${BASE_TASK}
 `;
-
-export default GET_TASK;

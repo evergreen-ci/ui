@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { UPSTREAM_PROJECT } from "../fragments/upstreamProject";
 
-const VERSION = gql`
+export const VERSION = gql`
   query Version($id: String!, $includeNeverActivatedTasks: Boolean) {
     version(versionId: $id) {
       ...UpstreamProject
@@ -101,5 +101,3 @@ const VERSION = gql`
   }
   ${UPSTREAM_PROJECT}
 `;
-
-export default VERSION;

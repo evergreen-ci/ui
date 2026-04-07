@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const STEPBACK_TASKS = gql`
+export const STEPBACK_TASKS = gql`
   query StepbackTasks($taskId: String!, $execution: Int, $isPassing: Boolean!) {
     task(taskId: $taskId, execution: $execution) {
       id
@@ -32,5 +32,3 @@ const STEPBACK_TASKS = gql`
     }
   }
 `;
-
-export default STEPBACK_TASKS;

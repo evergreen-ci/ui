@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const PARSLEY_SETTINGS = gql`
+export const PARSLEY_SETTINGS = gql`
   query ParsleySettings {
     user {
       parsleySettings {
@@ -11,5 +11,3 @@ const PARSLEY_SETTINGS = gql`
     }
   }
 `;
-
-export default PARSLEY_SETTINGS;

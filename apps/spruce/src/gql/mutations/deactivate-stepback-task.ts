@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const DEACTIVATE_STEPBACK_TASK = gql`
+export const DEACTIVATE_STEPBACK_TASK = gql`
   mutation DeactivateStepbackTask(
     $projectId: String!
     $buildVariantName: String!
@@ -15,5 +15,3 @@ const DEACTIVATE_STEPBACK_TASK = gql`
     )
   }
 `;
-
-export default DEACTIVATE_STEPBACK_TASK;

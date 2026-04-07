@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const PROJECT_BANNER = gql`
+export const PROJECT_BANNER = gql`
   query ProjectBanner($identifier: String!) {
     project(projectIdentifier: $identifier) {
       id
@@ -11,5 +11,3 @@ const PROJECT_BANNER = gql`
     }
   }
 `;
-
-export default PROJECT_BANNER;

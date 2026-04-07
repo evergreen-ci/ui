@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const WATERFALL = gql`
+export const WATERFALL = gql`
   query Waterfall($options: WaterfallOptions!) {
     waterfall(options: $options) {
       flattenedVersions {
@@ -43,5 +43,3 @@ const WATERFALL = gql`
     }
   }
 `;
-
-export default WATERFALL;

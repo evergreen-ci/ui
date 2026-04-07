@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { BASE_TASK } from "../fragments/baseTask";
 
-const ABORT_TASK = gql`
+export const ABORT_TASK = gql`
   mutation AbortTask($taskId: String!) {
     abortTask(taskId: $taskId) {
       ...BaseTask
@@ -10,5 +10,3 @@ const ABORT_TASK = gql`
   }
   ${BASE_TASK}
 `;
-
-export default ABORT_TASK;

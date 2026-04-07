@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const BUILD_BARON = gql`
+export const BUILD_BARON = gql`
   query BuildBaron($taskId: String!, $execution: Int!) {
     buildBaron(taskId: $taskId, execution: $execution) {
       bbTicketCreationDefined
@@ -27,5 +27,3 @@ const BUILD_BARON = gql`
     }
   }
 `;
-
-export default BUILD_BARON;

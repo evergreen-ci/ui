@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const RESET_USER_API_KEY = gql`
+export const RESET_USER_API_KEY = gql`
   mutation ResetUserAPIKey {
     resetAPIKey {
       api_key
@@ -8,5 +8,3 @@ const RESET_USER_API_KEY = gql`
     }
   }
 `;
-
-export default RESET_USER_API_KEY;

@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { UPSTREAM_PROJECT } from "../fragments/upstreamProject";
 
-const MAINLINE_COMMITS_FOR_HISTORY = gql`
+export const MAINLINE_COMMITS_FOR_HISTORY = gql`
   query MainlineCommitsForHistory(
     $mainlineCommitsOptions: MainlineCommitsOptions!
     $buildVariantOptions: BuildVariantOptions!
@@ -59,5 +59,3 @@ const MAINLINE_COMMITS_FOR_HISTORY = gql`
   }
   ${UPSTREAM_PROJECT}
 `;
-
-export default MAINLINE_COMMITS_FOR_HISTORY;

@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { BASE_SPAWN_HOST } from "../fragments/baseSpawnHost";
 
-const EDIT_SPAWN_HOST = gql`
+export const EDIT_SPAWN_HOST = gql`
   mutation EditSpawnHost(
     $hostId: String!
     $displayName: String
@@ -37,5 +37,3 @@ const EDIT_SPAWN_HOST = gql`
   }
   ${BASE_SPAWN_HOST}
 `;
-
-export default EDIT_SPAWN_HOST;

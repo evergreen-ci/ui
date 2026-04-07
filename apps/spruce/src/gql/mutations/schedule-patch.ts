@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { BASE_PATCH } from "../fragments/basePatch";
 
-const SCHEDULE_PATCH = gql`
+export const SCHEDULE_PATCH = gql`
   mutation SchedulePatch($patchId: String!, $configure: PatchConfigure!) {
     schedulePatch(patchId: $patchId, configure: $configure) {
       ...BasePatch
@@ -17,5 +17,3 @@ const SCHEDULE_PATCH = gql`
   }
   ${BASE_PATCH}
 `;
-
-export default SCHEDULE_PATCH;

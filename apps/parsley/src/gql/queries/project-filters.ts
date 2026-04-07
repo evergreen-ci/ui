@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const PROJECT_FILTERS = gql`
+export const PROJECT_FILTERS = gql`
   query ProjectFilters($projectId: String!) {
     project(projectIdentifier: $projectId) {
       id
@@ -13,5 +13,3 @@ const PROJECT_FILTERS = gql`
     }
   }
 `;
-
-export default PROJECT_FILTERS;

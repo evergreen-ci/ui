@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const TASK_QUEUE_DISTROS = gql`
+export const TASK_QUEUE_DISTROS = gql`
   query TaskQueueDistros {
     taskQueueDistros {
       id
@@ -9,5 +9,3 @@ const TASK_QUEUE_DISTROS = gql`
     }
   }
 `;
-
-export default TASK_QUEUE_DISTROS;

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const ADD_FAVORITE_PROJECT = gql`
+export const ADD_FAVORITE_PROJECT = gql`
   mutation AddFavoriteProject($projectIdentifier: String!) {
     addFavoriteProject(opts: { projectIdentifier: $projectIdentifier }) {
       id
@@ -12,5 +12,3 @@ const ADD_FAVORITE_PROJECT = gql`
     }
   }
 `;
-
-export default ADD_FAVORITE_PROJECT;

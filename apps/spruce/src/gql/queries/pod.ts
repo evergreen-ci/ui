@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const POD = gql`
+export const POD = gql`
   query Pod($podId: String!) {
     pod(podId: $podId) {
       id
@@ -22,5 +22,3 @@ const POD = gql`
     }
   }
 `;
-
-export default POD;

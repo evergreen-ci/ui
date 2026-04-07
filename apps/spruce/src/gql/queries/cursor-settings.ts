@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const CURSOR_SETTINGS = gql`
+export const CURSOR_SETTINGS = gql`
   query CursorSettings {
     cursorSettings {
       keyConfigured
@@ -8,5 +8,3 @@ const CURSOR_SETTINGS = gql`
     }
   }
 `;
-
-export default CURSOR_SETTINGS;

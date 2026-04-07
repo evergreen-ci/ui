@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const DISTRO_TASK_QUEUE = gql`
+export const DISTRO_TASK_QUEUE = gql`
   query DistroTaskQueue($distroId: String!) {
     distroTaskQueue(distroId: $distroId) {
       id
@@ -16,5 +16,3 @@ const DISTRO_TASK_QUEUE = gql`
     }
   }
 `;
-
-export default DISTRO_TASK_QUEUE;

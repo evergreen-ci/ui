@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const ADMIN_TASKS_TO_RESTART = gql`
+export const ADMIN_TASKS_TO_RESTART = gql`
   query AdminTasksToRestart($opts: RestartAdminTasksOptions!) {
     adminTasksToRestart(opts: $opts) {
       tasksToRestart {
@@ -10,5 +10,3 @@ const ADMIN_TASKS_TO_RESTART = gql`
     }
   }
 `;
-
-export default ADMIN_TASKS_TO_RESTART;

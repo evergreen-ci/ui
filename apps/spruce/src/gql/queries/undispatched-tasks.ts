@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const UNDISPATCHED_TASKS = gql`
+export const UNSCHEDULED_TASKS = gql`
   query UndispatchedTasks($versionId: String!) {
     version(versionId: $versionId) {
       id
@@ -22,5 +22,3 @@ const UNDISPATCHED_TASKS = gql`
     }
   }
 `;
-
-export default UNDISPATCHED_TASKS;

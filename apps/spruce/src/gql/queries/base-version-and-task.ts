@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const BASE_VERSION_AND_TASK = gql`
+export const BASE_VERSION_AND_TASK = gql`
   query BaseVersionAndTask($taskId: String!) {
     task(taskId: $taskId) {
       id
@@ -26,5 +26,3 @@ const BASE_VERSION_AND_TASK = gql`
     }
   }
 `;
-
-export default BASE_VERSION_AND_TASK;

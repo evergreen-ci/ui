@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const PROJECTS = gql`
+export const PROJECTS = gql`
   query Projects {
     projects {
       groupDisplayName
@@ -15,5 +15,3 @@ const PROJECTS = gql`
     }
   }
 `;
-
-export default PROJECTS;

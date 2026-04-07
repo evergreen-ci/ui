@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const SET_LAST_REVISION = gql`
+export const SET_LAST_REVISION = gql`
   mutation SetLastRevision($projectIdentifier: String!, $revision: String!) {
     setLastRevision(
       opts: { projectIdentifier: $projectIdentifier, revision: $revision }
@@ -9,5 +9,3 @@ const SET_LAST_REVISION = gql`
     }
   }
 `;
-
-export default SET_LAST_REVISION;

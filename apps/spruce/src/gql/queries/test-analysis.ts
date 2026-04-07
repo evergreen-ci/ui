@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const TEST_ANALYSIS = gql`
+export const TEST_ANALYSIS = gql`
   query TestAnalysis(
     $versionId: String!
     $options: TaskFilterOptions!
@@ -33,5 +33,3 @@ const TEST_ANALYSIS = gql`
     }
   }
 `;
-
-export default TEST_ANALYSIS;

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const WATERFALL_TASK_STATS = gql`
+export const WATERFALL_TASK_STATS = gql`
   query WaterfallTaskStats($versionId: String!) {
     version(versionId: $versionId) {
       id
@@ -13,5 +13,3 @@ const WATERFALL_TASK_STATS = gql`
     }
   }
 `;
-
-export default WATERFALL_TASK_STATS;

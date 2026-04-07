@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const UPDATE_PUBLIC_KEY = gql`
+export const UPDATE_PUBLIC_KEY = gql`
   mutation UpdatePublicKey(
     $targetKeyName: String!
     $updateInfo: PublicKeyInput!
@@ -11,5 +11,3 @@ const UPDATE_PUBLIC_KEY = gql`
     }
   }
 `;
-
-export default UPDATE_PUBLIC_KEY;
