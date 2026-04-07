@@ -12,7 +12,7 @@ export const UpstreamProjectLink: React.FC<{
   versionId: string;
   isTrigger: boolean;
   onClick?: () => void;
-}> = ({ isTrigger, onClick, versionId }) => {
+}> = ({ isTrigger, onClick = () => {}, versionId }) => {
   const { data } = useQuery<
     VersionUpstreamProjectQuery,
     VersionUpstreamProjectQueryVariables
@@ -38,9 +38,7 @@ export const UpstreamProjectLink: React.FC<{
     <Body>
       Triggered by:{" "}
       <StyledRouterLink
-        onClick={() => {
-          onClick?.();
-        }}
+        onClick={onClick}
         to={getTriggerRoute({
           triggerType: upstreamProject.triggerType,
           upstreamTask: upstreamProject.task,
