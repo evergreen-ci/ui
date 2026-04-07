@@ -1,0 +1,37 @@
+import { gql } from "@apollo/client";
+
+const VERSION_TASK_DURATIONS = gql`
+  query VersionTaskDurations(
+    $versionId: String!
+    $taskFilterOptions: TaskFilterOptions!
+  ) {
+    version(versionId: $versionId) {
+      id
+      tasks(options: $taskFilterOptions) {
+        count
+        data {
+          id
+          buildVariant
+          buildVariantDisplayName
+          displayName
+          displayStatus
+          execution
+          finishTime
+          startTime
+          subRows: executionTasksFull {
+            id
+            buildVariantDisplayName
+            displayName
+            displayStatus
+            execution
+            startTime
+            timeTaken
+          }
+          timeTaken
+        }
+      }
+    }
+  }
+`;
+
+export default VERSION_TASK_DURATIONS;

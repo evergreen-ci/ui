@@ -1,0 +1,46 @@
+import { gql } from "@apollo/client";
+
+const TASK_TESTS = gql`
+  query TaskTests(
+    $id: String!
+    $execution: Int
+    $pageNum: Int
+    $limitNum: Int
+    $statusList: [String!]!
+    $sort: [TestSortOptions!]
+    $testName: String!
+  ) {
+    task(taskId: $id, execution: $execution) {
+      id
+      execution
+      tests(
+        opts: {
+          sort: $sort
+          page: $pageNum
+          limit: $limitNum
+          statuses: $statusList
+          testName: $testName
+        }
+      ) {
+        filteredTestCount
+        testResults {
+          id
+          baseStatus
+          duration
+          logs {
+            lineNum
+            testName
+            url
+            urlParsley
+            urlRaw
+          }
+          status
+          testFile
+        }
+        totalTestCount
+      }
+    }
+  }
+`;
+
+export default TASK_TESTS;

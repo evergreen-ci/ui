@@ -1,0 +1,53 @@
+import { gql } from "@apollo/client";
+
+const HOSTS = gql`
+  query Hosts(
+    $hostId: String
+    $distroId: String
+    $currentTaskId: String
+    $statuses: [String!]
+    $startedBy: String
+    $sortBy: HostSortBy
+    $sortDir: SortDirection
+    $page: Int
+    $limit: Int
+  ) {
+    hosts(
+      hostId: $hostId
+      distroId: $distroId
+      currentTaskId: $currentTaskId
+      statuses: $statuses
+      startedBy: $startedBy
+      sortBy: $sortBy
+      sortDir: $sortDir
+      page: $page
+      limit: $limit
+    ) {
+      filteredHostsCount
+      hosts {
+        id
+        distro {
+          id
+          bootstrapMethod
+        }
+        distroId
+        elapsed
+        hostUrl
+        noExpiration
+        provider
+        runningTask {
+          id
+          name
+        }
+        startedBy
+        status
+        tag
+        totalIdleTime
+        uptime
+      }
+      totalHostsCount
+    }
+  }
+`;
+
+export default HOSTS;

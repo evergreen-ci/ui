@@ -1,0 +1,105 @@
+import { gql } from "@apollo/client";
+
+const DISTRO = gql`
+  query Distro($distroId: String!) {
+    distro(distroId: $distroId) {
+      adminOnly
+      aliases
+      arch
+      authorizedKeysFile
+      bootstrapSettings {
+        clientDir
+        communication
+        env {
+          key
+          value
+        }
+        jasperBinaryDir
+        jasperCredentialsPath
+        method
+        preconditionScripts {
+          path
+          script
+        }
+        resourceLimits {
+          lockedMemoryKb
+          numFiles
+          numProcesses
+          numTasks
+          virtualMemoryKb
+        }
+        rootDir
+        serviceUser
+        shellPath
+      }
+      containerPool
+      costData {
+        onDemandRate
+        savingsPlanRate
+      }
+      disabled
+      disableShallowClone
+      dispatcherSettings {
+        version
+      }
+      execUser
+      expansions {
+        key
+        value
+      }
+      finderSettings {
+        version
+      }
+      homeVolumeSettings {
+        formatCommand
+      }
+      hostAllocatorSettings {
+        acceptableHostIdleTime
+        autoTuneMaximumHosts
+        feedbackRule
+        futureHostFraction
+        hostsOverallocatedRule
+        maximumHosts
+        minimumHosts
+        roundingRule
+        version
+      }
+      iceCreamSettings {
+        configPath
+        schedulerHost
+      }
+      imageId
+      isCluster
+      isVirtualWorkStation
+      mountpoints
+      name
+      note
+      plannerSettings {
+        commitQueueFactor
+        expectedRuntimeFactor
+        generateTaskFactor
+        groupVersions
+        mainlineTimeInQueueFactor
+        numDependentsFactor
+        patchFactor
+        patchTimeInQueueFactor
+        targetTime
+        version
+      }
+      provider
+      providerAccount
+      providerSettingsList
+      setup
+      setupAsSudo
+      singleTaskDistro
+      sshOptions
+      user
+      userSpawnAllowed
+      validProjects
+      warningNote
+      workDir
+    }
+  }
+`;
+
+export default DISTRO;
