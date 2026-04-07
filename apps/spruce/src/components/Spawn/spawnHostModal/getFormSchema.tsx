@@ -436,7 +436,7 @@ export const getFormSchema = ({
             </>
           ),
           "ui:description":
-            "Debug Mode that allows users to step through tasks",
+            "Debug Mode that allows users to interactively step through task commands on spawn hosts",
         },
         setupStepNumber: {
           "ui:data-cy": "setup-step-number-input",
