@@ -60,6 +60,30 @@ describe("metadata", () => {
     expect(screen.getByDataCy("task-metrics-link")).toBeInTheDocument();
   });
 
+  it("RendersCostRowAndDetailsButtonWhenTaskCostIsPresent", async () => {
+    const user = userEvent.setup();
+    render(<Metadata loading={false} task={taskWithCost.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    expect(screen.getByDataCy("task-metadata-cost")).toBeInTheDocument();
+    const detailsButton = screen.getByDataCy("cost-details-button");
+    expect(detailsButton).toBeInTheDocument();
+    await user.click(detailsButton);
+    expect(screen.getByDataCy("cost-modal")).toBeInTheDocument();
+  });
+
+  it("DoesNotRenderCostRowWhenTaskCostAndPredictedCostAreNull", () => {
+    render(<Metadata loading={false} task={taskWithNullCost.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    expect(screen.queryByDataCy("task-metadata-cost")).toBeNull();
+    expect(screen.queryByDataCy("cost-details-button")).toBeNull();
+  });
+
   it("renders failing command and other failing commands", async () => {
     const user = userEvent.setup();
     render(<Metadata loading={false} task={taskSucceeded.task} />, {
@@ -106,6 +130,33 @@ const taskStarted: TaskQueryType = {
 
 const failingCommand =
   "exiting due to custom reason: long long long long long long long long long long long long long message";
+
+const taskWithCost: TaskQueryType = {
+  task: {
+    ...taskStarted.task,
+    finishTime: addMilliseconds(new Date(), 1228078),
+    status: "succeeded",
+    taskCost: {
+      __typename: "Cost",
+      adjustedEC2Cost: 1.5,
+      adjustedEBSThroughputCost: 0.25,
+      adjustedEBSStorageCost: 0.1,
+      s3ArtifactPutCost: 0.05,
+      s3LogPutCost: 0.02,
+      onDemandEC2Cost: 2.0,
+      s3ArtifactStorageCost: null,
+    },
+    predictedTaskCost: null,
+  },
+};
+
+const taskWithNullCost: TaskQueryType = {
+  task: {
+    ...taskQuery.task,
+    taskCost: null,
+    predictedTaskCost: null,
+  },
+};
 
 const taskSucceeded: TaskQueryType = {
   task: {
