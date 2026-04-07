@@ -91,12 +91,7 @@ export const SpawnHostTokenExchangeCallout: React.FC<Props> = ({
                 margin-top: ${size.xxs};
               `}
             >
-              Your spawn hosts are authenticated until{" "}
-              {formatExpiresAtLocal(
-                getReauthenticationOpensAt(expiresAtRaw),
-                timeZone,
-              )}
-              .
+              Host has been temporarily authenticated.
             </Body>
           )}
       </Banner>
