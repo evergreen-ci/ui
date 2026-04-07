@@ -42,6 +42,42 @@ describe("version metadata cost", () => {
     expect(screen.queryByDataCy("cost-details-button")).toBeNull();
   });
 
+  it("RendersCostRowWhenOnlyPredictedCostIsPresent", () => {
+    render(<Metadata version={versionWithPredictedCost} />, {
+      route: `/version/${versionId}`,
+      path: "/version/:id",
+      wrapper,
+    });
+    expect(screen.getByDataCy("version-metadata-cost")).toBeInTheDocument();
+    expect(screen.getByDataCy("cost-details-button")).toBeInTheDocument();
+  });
+
+  it("ShowsEstimatedTooltipWhenVersionIsRunning", async () => {
+    const user = userEvent.setup();
+    render(<Metadata version={versionWithPredictedCost} />, {
+      route: `/version/${versionId}`,
+      path: "/version/:id",
+      wrapper,
+    });
+    await user.hover(screen.getByDataCy("version-metadata-cost"));
+    await screen.findByText(
+      "Estimated cost based on tasks completed so far. Updates as tasks complete.",
+    );
+  });
+
+  it("ShowsFinalTooltipWhenVersionIsFinished", async () => {
+    const user = userEvent.setup();
+    render(<Metadata version={versionWithCost} />, {
+      route: `/version/${versionId}`,
+      path: "/version/:id",
+      wrapper,
+    });
+    await user.hover(screen.getByDataCy("version-metadata-cost"));
+    await screen.findByText(
+      "Final cumulative cost of all tasks in this version.",
+    );
+  });
+
   it("AlwaysRendersHoneycombPatchCostLink", () => {
     render(<Metadata version={versionWithNullCost} />, {
       route: `/version/${versionId}`,
@@ -105,6 +141,21 @@ const versionWithCost: NonNullable<VersionQuery["version"]> = {
     s3ArtifactPutCost: 0.05,
     s3LogPutCost: 0.02,
     onDemandEC2Cost: 3.0,
+    s3ArtifactStorageCost: null,
+  },
+};
+
+const versionWithPredictedCost: NonNullable<VersionQuery["version"]> = {
+  ...baseVersion,
+  cost: null,
+  predictedCost: {
+    __typename: "Cost",
+    adjustedEC2Cost: 1.0,
+    adjustedEBSThroughputCost: 0.2,
+    adjustedEBSStorageCost: 0.05,
+    s3ArtifactPutCost: 0.01,
+    s3LogPutCost: 0.01,
+    onDemandEC2Cost: 1.5,
     s3ArtifactStorageCost: null,
   },
 };

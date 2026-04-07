@@ -84,6 +84,49 @@ describe("metadata", () => {
     expect(screen.queryByDataCy("cost-details-button")).toBeNull();
   });
 
+  it("AlwaysRendersHoneycombTaskCostLink", () => {
+    render(<Metadata loading={false} task={taskWithNullCost.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    expect(screen.getByDataCy("task-cost-link")).toBeInTheDocument();
+  });
+
+  it("RendersCostRowWhenOnlyPredictedTaskCostIsPresent", () => {
+    render(<Metadata loading={false} task={taskWithPredictedCost.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    expect(screen.getByDataCy("task-metadata-cost")).toBeInTheDocument();
+    expect(screen.getByDataCy("cost-details-button")).toBeInTheDocument();
+  });
+
+  it("ShowsEstimatedTooltipWhenTaskIsRunning", async () => {
+    const user = userEvent.setup();
+    render(<Metadata loading={false} task={taskWithPredictedCost.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    await user.hover(screen.getByDataCy("task-metadata-cost"));
+    await screen.findByText(
+      "Estimated cost based on execution so far. Updates as the task runs.",
+    );
+  });
+
+  it("ShowsFinalTooltipWhenTaskIsFinished", async () => {
+    const user = userEvent.setup();
+    render(<Metadata loading={false} task={taskWithCost.task} />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    });
+    await user.hover(screen.getByDataCy("task-metadata-cost"));
+    await screen.findByText("Final cost of running this task.");
+  });
+
   it("renders failing command and other failing commands", async () => {
     const user = userEvent.setup();
     render(<Metadata loading={false} task={taskSucceeded.task} />, {
@@ -147,6 +190,23 @@ const taskWithCost: TaskQueryType = {
       s3ArtifactStorageCost: null,
     },
     predictedTaskCost: null,
+  },
+};
+
+const taskWithPredictedCost: TaskQueryType = {
+  task: {
+    ...taskStarted.task,
+    taskCost: null,
+    predictedTaskCost: {
+      __typename: "Cost",
+      adjustedEC2Cost: 0.5,
+      adjustedEBSThroughputCost: 0.1,
+      adjustedEBSStorageCost: 0.05,
+      s3ArtifactPutCost: 0.01,
+      s3LogPutCost: 0.01,
+      onDemandEC2Cost: 0.8,
+      s3ArtifactStorageCost: null,
+    },
   },
 };
 

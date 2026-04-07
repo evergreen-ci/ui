@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
@@ -108,6 +108,9 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   } = task;
 
   const displayCost = taskCost ?? predictedTaskCost;
+  const costTooltip = taskCost
+    ? "Final cost of running this task."
+    : "Estimated cost based on execution so far. Updates as the task runs.";
   const totalCost =
     displayCost &&
     [
@@ -384,24 +387,14 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
               >
                 Honeycomb System Metrics
               </StyledLink>
-              <StyledLink
-                data-cy="task-cost-link"
-                hideExternalIcon={false}
-                href={getHoneycombTaskCostUrl(taskId)}
-                onClick={() => {
-                  taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
-                    "link.type": "honeycomb task cost link",
-                  });
-                }}
-              >
-                Honeycomb Task Cost
-              </StyledLink>
             </HoneycombLinkContainer>
           </MetadataItem>
         )}
         {totalCost != null && totalCost > 0 && (
-          <MetadataItem data-cy="task-metadata-cost">
+          <MetadataItem
+            data-cy="task-metadata-cost"
+            tooltipDescription={costTooltip}
+          >
             <MetadataLabel>Cost:</MetadataLabel> ${formatCost(totalCost)}{" "}
             <Button
               data-cy="cost-details-button"
@@ -412,6 +405,21 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             </Button>
           </MetadataItem>
         )}
+        <MetadataItem>
+          <StyledLink
+            data-cy="task-cost-link"
+            hideExternalIcon={false}
+            href={getHoneycombTaskCostUrl(taskId)}
+            onClick={() => {
+              taskAnalytics.sendEvent({
+                name: "Clicked metadata link",
+                "link.type": "honeycomb task cost link",
+              });
+            }}
+          >
+            Honeycomb Task Cost
+          </StyledLink>
+        </MetadataItem>
       </MetadataCard>
       {costModalOpen && (
         <CostModal

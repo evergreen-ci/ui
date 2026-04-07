@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
+import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
@@ -65,6 +65,9 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
   } = version;
 
   const displayCost = cost ?? predictedCost;
+  const costTooltip = cost
+    ? "Final cumulative cost of all tasks in this version."
+    : "Estimated cost based on tasks completed so far. Updates as tasks complete.";
   const totalCost =
     displayCost &&
     [
@@ -256,7 +259,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
         {totalCost != null && totalCost > 0 && (
           <MetadataItem
             data-cy="version-metadata-cost"
-            tooltipDescription="Cost is the cumulative cost of all tasks in this version."
+            tooltipDescription={costTooltip}
           >
             <MetadataLabel>Cost:</MetadataLabel> ${formatCost(totalCost)}{" "}
             <Button
