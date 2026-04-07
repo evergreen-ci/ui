@@ -677,9 +677,12 @@ export type CopyProjectInput = {
 /** Cost represents the cost breakdown for a task or version. */
 export type Cost = {
   __typename?: "Cost";
+  adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  s3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
   s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
@@ -11515,6 +11518,16 @@ export type TaskQuery = {
       systemLogLink?: string | null;
       taskLogLink?: string | null;
     };
+    predictedTaskCost?: {
+      __typename?: "Cost";
+      adjustedEBSStorageCost?: number | null;
+      adjustedEBSThroughputCost?: number | null;
+      adjustedEC2Cost?: number | null;
+      onDemandEC2Cost?: number | null;
+      s3ArtifactPutCost?: number | null;
+      s3ArtifactStorageCost?: number | null;
+      s3LogPutCost?: number | null;
+    } | null;
     project?: {
       __typename?: "Project";
       id: string;
@@ -11532,6 +11545,16 @@ export type TaskQuery = {
       lastPassingStepbackTaskId?: string | null;
       nextStepbackTaskId?: string | null;
       previousStepbackTaskId?: string | null;
+    } | null;
+    taskCost?: {
+      __typename?: "Cost";
+      adjustedEBSStorageCost?: number | null;
+      adjustedEBSThroughputCost?: number | null;
+      adjustedEC2Cost?: number | null;
+      onDemandEC2Cost?: number | null;
+      s3ArtifactPutCost?: number | null;
+      s3ArtifactStorageCost?: number | null;
+      s3LogPutCost?: number | null;
     } | null;
     versionMetadata: {
       __typename?: "Version";
@@ -11979,6 +12002,16 @@ export type VersionQuery = {
     taskCount?: number | null;
     warnings: Array<string>;
     baseVersion?: { __typename?: "Version"; id: string } | null;
+    cost?: {
+      __typename?: "Cost";
+      adjustedEBSStorageCost?: number | null;
+      adjustedEBSThroughputCost?: number | null;
+      adjustedEC2Cost?: number | null;
+      onDemandEC2Cost?: number | null;
+      s3ArtifactPutCost?: number | null;
+      s3ArtifactStorageCost?: number | null;
+      s3LogPutCost?: number | null;
+    } | null;
     externalLinksForMetadata: Array<{
       __typename?: "ExternalLinkForMetadata";
       displayName: string;
@@ -12033,6 +12066,16 @@ export type VersionQuery = {
         fileName: string;
         module: string;
       }>;
+    } | null;
+    predictedCost?: {
+      __typename?: "Cost";
+      adjustedEBSStorageCost?: number | null;
+      adjustedEBSThroughputCost?: number | null;
+      adjustedEC2Cost?: number | null;
+      onDemandEC2Cost?: number | null;
+      s3ArtifactPutCost?: number | null;
+      s3ArtifactStorageCost?: number | null;
+      s3LogPutCost?: number | null;
     } | null;
     previousVersion?: {
       __typename?: "Version";

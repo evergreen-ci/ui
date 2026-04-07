@@ -69,6 +69,52 @@ interface TaskTimingParams {
   taskName: string;
 }
 
+/**
+ * Generates a Honeycomb URL showing cost breakdown for a single task.
+ * @param taskId - The ID of the task.
+ * @returns The Honeycomb URL for the task's cost breakdown.
+ */
+export const getHoneycombTaskCostUrl = (taskId: string): string => {
+  const query = {
+    calculations: [
+      { op: "MAX", column: "evergreen.task.on_demand_cost" },
+      { op: "MAX", column: "evergreen.task.adjusted_cost" },
+      {
+        op: "MAX",
+        column: "evergreen.task.cost.ebs.on_demand_throughput_cost",
+      },
+      { op: "MAX", column: "evergreen.task.cost.ebs.adjusted_throughput_cost" },
+      { op: "MAX", column: "evergreen.task.s3_cost.artifact_put_cost" },
+      { op: "MAX", column: "evergreen.task.s3_cost.log_put_cost" },
+    ],
+    filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
+  };
+  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&omitMissingValues`;
+};
+
+/**
+ * Generates a Honeycomb URL showing aggregated cost breakdown for all tasks in a version/patch.
+ * @param versionId - The ID of the version or patch.
+ * @returns The Honeycomb URL for the version's aggregated cost breakdown.
+ */
+export const getHoneycombPatchCostUrl = (versionId: string): string => {
+  const query = {
+    calculations: [
+      { op: "SUM", column: "evergreen.task.on_demand_cost" },
+      { op: "SUM", column: "evergreen.task.adjusted_cost" },
+      {
+        op: "SUM",
+        column: "evergreen.task.cost.ebs.on_demand_throughput_cost",
+      },
+      { op: "SUM", column: "evergreen.task.cost.ebs.adjusted_throughput_cost" },
+      { op: "SUM", column: "evergreen.task.s3_cost.artifact_put_cost" },
+      { op: "SUM", column: "evergreen.task.s3_cost.log_put_cost" },
+    ],
+    filters: [{ op: "=", column: "evergreen.version.id", value: versionId }],
+  };
+  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&omitMissingValues`;
+};
+
 export const getHoneycombTaskTimingURL = ({
   buildVariant,
   metric,

@@ -50,6 +50,8 @@ type Action =
       "task.modified_count": number;
     }
   | { name: "Clicked schedule tasks button"; "task.scheduled_count": number }
+  | { name: "Clicked metadata honeycomb patch cost link" }
+  | { name: "Clicked cost details button" }
   | { name: "Clicked patch reconfigure link" }
   | { name: "Changed version priority"; "version.priority": number }
   | {
