@@ -1,8 +1,5 @@
 import { gql } from "@apollo/client";
-import {
-  PROJECT_SETTINGS_FIELDS,
-  REPO_SETTINGS_FIELDS,
-} from "../fragments/projectSettings/index";
+import { REPO_SETTINGS_FIELDS } from "../fragments/projectSettings/index";
 
 export const REPO_SETTINGS = gql`
   query RepoSettings($repoId: String!) {
@@ -10,6 +7,5 @@ export const REPO_SETTINGS = gql`
       ...RepoSettingsFields
     }
   }
-  ${PROJECT_SETTINGS_FIELDS}
   ${REPO_SETTINGS_FIELDS}
 `;

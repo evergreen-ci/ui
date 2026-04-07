@@ -341,6 +341,7 @@ const cypressConfig = {
 const graphQLProcessorConfig = {
   name: "@graphql-eslint/processor",
   files: ["src/gql/**/*.ts"],
+  ignores: ["**/*.test.ts", "**/*.test.tsx"],
   processor: graphqlPlugin.processor,
 };
 
