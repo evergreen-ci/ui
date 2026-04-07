@@ -94,4 +94,28 @@ describe("CliCommandButton", () => {
       "evergreen task build TaskLogs --task_id task-abc --execution 2 --type task_log --o output.txt",
     );
   });
+
+  it("renders a copyable Evergreen CLI command for Evergreen test logs", () => {
+    const { Component, hook } = renderComponentWithHook(
+      useLogContext,
+      <CliCommandButton />,
+    );
+
+    render(<Component />, { wrapper });
+
+    act(() => {
+      hook.current.setLogMetadata({
+        execution: "1",
+        logType: LogTypes.EVERGREEN_TEST_LOGS,
+        taskID: "evergreen_task_id",
+        testID: "AFakeTest",
+      });
+    });
+
+    const copyable = screen.getByDataCy("cli-command-copyable");
+    expect(copyable).toBeInTheDocument();
+    expect(copyable).toHaveTextContent(
+      "evergreen task build TestLogs --task_id evergreen_task_id --execution 1 --test_name AFakeTest --o output.txt",
+    );
+  });
 });
