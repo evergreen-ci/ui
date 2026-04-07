@@ -5,14 +5,32 @@ import { Field } from "@rjsf/core";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { PatchTriggerAliasStatus } from "../utils";
 
+type TaskSpecifier = {
+  patchAlias?: string;
+  taskRegex?: string;
+  variantRegex?: string;
+};
+
+type TriggerAliasFormData = {
+  alias: string;
+  childProjectIdentifier?: string;
+  parentAsModule?: string;
+  status?: keyof typeof PatchTriggerAliasStatus;
+  taskSpecifiers?: TaskSpecifier[];
+};
+
 export const GithubTriggerAliasField: Field = ({ formData }) => {
+  if (!formData) {
+    return null;
+  }
+
   const {
     alias,
     childProjectIdentifier,
     parentAsModule,
     status,
-    taskSpecifiers,
-  } = formData;
+    taskSpecifiers = [],
+  } = formData as TriggerAliasFormData;
 
   const hoverContent = (
     <>
@@ -26,7 +44,6 @@ export const GithubTriggerAliasField: Field = ({ formData }) => {
       )}
       {status && (
         <Body>
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <strong>Wait On:</strong> {PatchTriggerAliasStatus[status]}
         </Body>
       )}
@@ -37,7 +54,6 @@ export const GithubTriggerAliasField: Field = ({ formData }) => {
           </Body>
           <Ul>
             {taskSpecifiers.map(
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               ({ patchAlias, taskRegex, variantRegex }, i) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={i}>
