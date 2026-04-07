@@ -58,19 +58,16 @@ export const SpawnHostTokenExchangeCallout: React.FC<Props> = ({
       <Banner variant={bannerVariant}>
         {!jwtTokenForCLIDisabled ? (
           <Body>
-            Evergreen uses temporary credentials for human users. Spawning a
-            host that loads task data requires the browser authentication step
-            while JWT tokens for the CLI are enabled (
-            {jiraLinkify("DEVPROD-4160", jiraHost)}
-            ). Use <strong>Authenticate spawn hosts</strong> below and finish in
-            the other tab before you spawn.
+            Spawn hosts require an additional authentication step to load task
+            data. This is part of Evergreens migration to temporary credentials
+            for human users. {jiraLinkify("DEVPROD-4160", jiraHost)}
           </Body>
         ) : (
           <Body>
-            Evergreen is migrating to temporary credentials for human users. JWT
-            tokens for the CLI are disabled on this deployment, so this step is
-            optional for now ({jiraLinkify("DEVPROD-4160", jiraHost)}
-            ). You can try the flow anytime with{" "}
+            As part of {jiraLinkify("DEVPROD-4160", jiraHost)}, Evergreen is
+            migrating to temporary credentials for human users. An additional
+            authentication step will soon be required to load task data. You can
+            try the flow before it is required with{" "}
             <strong>Authenticate spawn hosts</strong> below.
           </Body>
         )}
