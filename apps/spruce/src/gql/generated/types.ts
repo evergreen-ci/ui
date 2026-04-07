@@ -11040,6 +11040,7 @@ export type TaskHistoryQuery = {
       latestExecution: number;
       order: number;
       priority?: number | null;
+      requester: string;
       revision?: string | null;
       generator?: {
         __typename?: "Task";
