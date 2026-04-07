@@ -5,7 +5,10 @@ import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
-import { taskSpawnHostDocumentationUrl } from "constants/externalResources";
+import {
+  debugSpawnHostsDocumentationUrl,
+  taskSpawnHostDocumentationUrl,
+} from "constants/externalResources";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import {
   MyPublicKeysQuery,
@@ -433,8 +436,25 @@ export const getFormSchema = ({
               ? widgets.CheckboxWidget
               : "hidden",
           "ui:data-cy": "is-debug-toggle",
+          "ui:customLabel": (
+            <>
+              Spawn host in{" "}
+              <StyledLink
+                css={css`
+                  font-weight: bold;
+                  text-decoration: underline;
+                  color: inherit;
+                `}
+                hideExternalIcon={false}
+                href={debugSpawnHostsDocumentationUrl}
+                target="_blank"
+              >
+                Debug Mode
+              </StyledLink>
+            </>
+          ),
           "ui:description":
-            "Debug Mode that allows users to step through tasks",
+            "Debug Mode that allows users to interactively step through task commands on spawn hosts",
         },
         setupStepNumber: {
           ...(executionSteps?.length
