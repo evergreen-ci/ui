@@ -14,6 +14,8 @@ export const getUserMock: ApolloMock<UserQuery, UserQueryVariables> = {
         userId: "admin",
         displayName: "Evergreen Admin",
         emailAddress: "admin@evergreen.com",
+        hasTokenExchangePending: false,
+        tokenAccessTokenExpiresAt: undefined,
         permissions: {
           canEditAdminSettings: true,
         },

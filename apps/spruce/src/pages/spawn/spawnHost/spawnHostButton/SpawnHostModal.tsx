@@ -27,6 +27,10 @@ import { SPAWN_HOST } from "gql/mutations";
 import { SPAWN_TASK } from "gql/queries";
 import { useUserTimeZone } from "hooks";
 import { getString, parseQueryString } from "utils/queryString";
+import {
+  useUserHasValidToken,
+  useUserIsUndergoingAuthentication,
+} from "./tokenAuthentication";
 
 interface SpawnHostModalProps {
   open: boolean;
@@ -76,6 +80,9 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     refetchQueries: ["MyHosts", "MyVolumes", "MyPublicKeys"],
   });
 
+  const hasValidToken = useUserHasValidToken(!open);
+  const isUndergoingAuthentication = useUserIsUndergoingAuthentication(!open);
+
   const [formState, setFormState] = useState<FormState>({});
   const [hasError, setHasError] = useState(true);
 
@@ -112,14 +119,15 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     ...formSchemaInput,
     availableRegions: selectedDistro?.availableRegions ?? [],
     distroIdQueryParam,
+    hasValidToken,
     hostUptimeWarnings,
     isMigration: false,
+    isUndergoingAuthentication: isUndergoingAuthentication,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     spawnTaskData: spawnTaskData?.task,
     timeZone:
       formState?.expirationDetails?.hostUptime?.details?.timeZone || timeZone,
     useSetupScript: !!formState?.setupScriptSection?.defineSetupScriptCheckbox,
-    useOAuth: !!formState?.loadData?.useOAuth,
     useProjectSetupScript: !!formState?.loadData?.runProjectSpecificSetupScript,
   });
 
@@ -147,6 +155,14 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     });
   };
 
+  // If the user is trying to load data onto the host at startup,
+  // jwtTokenForCLIDisabled is false, and the user does not have a valid token,
+  // then we require the user to complete the authenticate spawn hosts flow.
+  const requiresSpawnHostAuthentication =
+    !!formState?.loadData?.loadDataOntoHostAtStartup &&
+    !formSchemaInput.jwtTokenForCLIDisabled &&
+    !hasValidToken;
+
   return (
     <ConfirmationModal
       cancelButtonProps={{
@@ -155,7 +171,8 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       confirmButtonProps={{
         children: loadingSpawnHost ? "Spawning" : "Spawn a host",
         onClick: spawnHost,
-        disabled: hasError || loadingSpawnHost,
+        disabled:
+          hasError || loadingSpawnHost || requiresSpawnHostAuthentication,
       }}
       data-cy="spawn-host-modal"
       open={open}

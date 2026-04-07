@@ -94,9 +94,12 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     availableRegions: selectedDistro?.availableRegions ?? [],
+    // No task loading on volume migration, so we don't need to check for a valid token.
+    hasValidToken: false,
     hostUptimeWarnings,
     distros,
     isMigration: true,
+    isUndergoingAuthentication: false,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     userAwsRegion: AZToRegion(volume.availabilityZone),
     timeZone,
