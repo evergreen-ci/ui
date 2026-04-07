@@ -9,6 +9,7 @@ import * as patchAliases from "./PatchAliasesTab/transformers";
 import * as periodicBuilds from "./PeriodicBuildsTab/transformers";
 import * as plugins from "./PluginsTab/transformers";
 import * as projectTriggers from "./ProjectTriggersTab/transformers";
+import * as pullRequests from "./PullRequestsTab/transformers";
 import * as testSelection from "./TestSelectionTab/transformers";
 import {
   FormToGqlFunction,
@@ -41,6 +42,7 @@ export const gqlToFormMap: {
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.gqlToForm,
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.gqlToForm,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.gqlToForm,
+  [ProjectSettingsTabRoutes.PullRequests]: pullRequests.gqlToForm,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.gqlToForm,
 };
 
@@ -60,5 +62,6 @@ export const formToGqlMap: {
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.formToGql,
   [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.formToGql,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.formToGql,
+  [ProjectSettingsTabRoutes.PullRequests]: pullRequests.formToGql,
   [ProjectSettingsTabRoutes.TestSelection]: testSelection.formToGql,
 };

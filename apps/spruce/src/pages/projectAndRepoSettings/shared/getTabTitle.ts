@@ -48,6 +48,9 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.GithubPermissionGroups]: {
         title: "GitHub Permission Groups",
       },
+      [ProjectSettingsTabRoutes.PullRequests]: {
+        title: "Pull Requests",
+      },
       [ProjectSettingsTabRoutes.EventLog]: {
         title: "Event Log",
       },
