@@ -42,7 +42,7 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
     if (!testID) {
       return null;
     }
-    return `evergreen task build TestLogs --task_id ${taskID} --execution ${execution} --test_name ${testID} --o output.txt`;
+    return `evergreen task build TestLogs --task_id ${taskID} --execution ${execution} --log_path ${testID} --o output.txt`;
   }
 
   // Unsupported log type.

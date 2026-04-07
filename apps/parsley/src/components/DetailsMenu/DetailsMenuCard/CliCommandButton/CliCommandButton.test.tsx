@@ -115,7 +115,7 @@ describe("CliCommandButton", () => {
     const copyable = screen.getByDataCy("cli-command-copyable");
     expect(copyable).toBeInTheDocument();
     expect(copyable).toHaveTextContent(
-      "evergreen task build TestLogs --task_id evergreen_task_id --execution 1 --test_name AFakeTest --o output.txt",
+      "evergreen task build TestLogs --task_id evergreen_task_id --execution 1 --log_path AFakeTest --o output.txt",
     );
   });
 });
