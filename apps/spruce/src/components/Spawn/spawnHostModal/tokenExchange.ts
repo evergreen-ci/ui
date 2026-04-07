@@ -5,6 +5,7 @@ type User = UserQuery["user"];
 /**
  * How much of a buffer we allow before the token expires. Once the token only has
  * this much time left, we request that the user re-authenticate.
+ * This is currently set to 20 minutes.
  */
 export const REAUTH_BUFFER_MS = 20 * 60 * 1000;
 
