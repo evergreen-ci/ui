@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import Copyable from "@leafygreen-ui/copyable";
 import { LogTypes } from "constants/enums";
@@ -29,30 +28,25 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
   if (!logMetadata) {
     return null;
   }
-
-  const { execution, logType, taskID } = logMetadata;
-
-  // Only handle Evergreen task logs for now.
-  if (logType !== LogTypes.EVERGREEN_TASK_LOGS) {
-    return null;
-  }
-
-  if (!taskID || execution == null) {
+  const { execution, logType, taskID, testID } = logMetadata;
+  if (!logType || !taskID || execution == null) {
     return null;
   }
 
   // Based on documentation at
   // https://docs.devprod.prod.corp.mongodb.com/parsley/Downloading-Logs.
-  return [
-    "evergreen",
-    "task",
-    "build",
-    "TaskLogs",
-    `--task_id ${taskID}`,
-    `--execution ${execution}`,
-    "--type task_log",
-    "--o output.txt",
-  ].join(" ");
+  if (logType === LogTypes.EVERGREEN_TASK_LOGS) {
+    return `evergreen task build TaskLogs --task_id ${taskID} --execution ${execution} --type task_log --o output.txt`;
+  }
+  if (logType === LogTypes.EVERGREEN_TEST_LOGS) {
+    if (!testID) {
+      return null;
+    }
+    return `evergreen task build TestLogs --task_id ${taskID} --execution ${execution} --test_name ${testID} --o output.txt`;
+  }
+
+  // Unsupported log type.
+  return null;
 };
 
 const Container = styled.div`
