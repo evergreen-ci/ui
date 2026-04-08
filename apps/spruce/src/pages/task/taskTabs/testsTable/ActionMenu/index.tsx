@@ -102,9 +102,12 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
       </DropdownItem>,
     ];
   } else if (statusError) {
+    const isNotFound = statusError.message.toLowerCase().includes("not found");
     dropdownItems = [
       <DropdownItem key="error" disabled>
-        Failed to fetch quarantine status.
+        {isNotFound
+          ? "Quarantine status not found."
+          : "Failed to fetch quarantine status."}
       </DropdownItem>,
     ];
   } else if (statusData) {
