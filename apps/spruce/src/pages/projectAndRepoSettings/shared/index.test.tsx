@@ -5,6 +5,18 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { ProjectType } from "./tabs/utils";
 
+vi.mock("components/ProjectSelect", () => ({
+  ProjectSelect: () => <div data-cy="mock-project-select" />,
+}));
+vi.mock("components/Banners", () => ({
+  ProjectBanner: () => <div data-cy="mock-project-banner" />,
+}));
+vi.mock("./CreateDuplicateProjectButton", () => ({
+  CreateDuplicateProjectButton: () => (
+    <div data-cy="mock-create-duplicate-project-button" />
+  ),
+}));
+
 describe("SharedSettings / Pull Requests tab feature flag", () => {
   beforeEach(() => {
     vi.resetModules();
@@ -17,7 +29,7 @@ describe("SharedSettings / Pull Requests tab feature flag", () => {
     const { default: SharedSettings } = await import("./index");
     render(
       <SharedSettings
-        hasLoaded
+        hasLoaded={false}
         owner="evergreen-ci"
         projectData={undefined}
         projectIdentifier="evergreen"
@@ -43,7 +55,7 @@ describe("SharedSettings / Pull Requests tab feature flag", () => {
     const { default: SharedSettings } = await import("./index");
     render(
       <SharedSettings
-        hasLoaded
+        hasLoaded={false}
         owner="evergreen-ci"
         projectData={undefined}
         projectIdentifier="evergreen"

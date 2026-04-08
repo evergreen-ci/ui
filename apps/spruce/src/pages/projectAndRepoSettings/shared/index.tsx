@@ -106,7 +106,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             />
           </ButtonsContainer>
           <SideNavGroup>
-            {Object.values(ProjectSettingsTabRoutes).map((v) => (
+            {tabRouteValues.map((v) => (
               <SharedSettingsNavItem
                 key={v}
                 currentTab={tab ?? ProjectSettingsTabRoutes.General}
