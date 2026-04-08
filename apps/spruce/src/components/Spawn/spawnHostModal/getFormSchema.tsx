@@ -10,7 +10,6 @@ import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidg
 import {
   debugSpawnHostsDocumentationUrl,
   getSpawnHostTokenExchangeAuthorizeUrl,
-  taskSpawnHostDocumentationUrl,
 } from "constants/externalResources";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import {
@@ -24,7 +23,7 @@ import {
   getExpirationDetailsSchema,
   getPublicKeySchema,
 } from "../getFormSchema";
-import { DEFAULT_VOLUME_SIZE } from "./constants";
+import { DEFAULT_VOLUME_SIZE, TokenExchangeState } from "./constants";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
 import {
@@ -44,13 +43,11 @@ interface Props {
     isVirtualWorkStation: boolean;
     name?: string;
   }[];
-  hasValidToken: boolean;
   hostUptimeWarnings?: {
     enabledHoursCount: number;
     warnings: string[];
   };
   isMigration: boolean;
-  isUndergoingAuthentication: boolean;
   isVirtualWorkstation: boolean;
   jiraHost: string;
   jwtTokenForCLIDisabled: boolean;
@@ -58,8 +55,9 @@ interface Props {
   noExpirationCheckboxTooltip: string;
   spawnTaskData?: SpawnTaskQuery["task"];
   timeZone: string;
-  useSetupScript?: boolean;
+  tokenExchangeState: TokenExchangeState;
   useProjectSetupScript?: boolean;
+  useSetupScript?: boolean;
   userAwsRegion?: string;
   volumes: MyVolumesQuery["myVolumes"];
 }
@@ -70,10 +68,8 @@ export const getFormSchema = ({
   disableExpirationCheckbox,
   distroIdQueryParam,
   distros,
-  hasValidToken,
   hostUptimeWarnings,
   isMigration,
-  isUndergoingAuthentication,
   isVirtualWorkstation,
   jiraHost,
   jwtTokenForCLIDisabled,
@@ -81,6 +77,7 @@ export const getFormSchema = ({
   noExpirationCheckboxTooltip,
   spawnTaskData,
   timeZone,
+  tokenExchangeState,
   useProjectSetupScript = false,
   useSetupScript = false,
   userAwsRegion,
@@ -574,8 +571,12 @@ export const getFormSchema = ({
                 </div>
                 <LoadingButton
                   data-cy="spawn-host-authenticate-button"
-                  disabled={hasValidToken}
-                  loading={isUndergoingAuthentication}
+                  disabled={
+                    tokenExchangeState === TokenExchangeState.TokenValid
+                  }
+                  loading={
+                    tokenExchangeState === TokenExchangeState.ExchangePending
+                  }
                   onClick={() => {
                     window.open(
                       getSpawnHostTokenExchangeAuthorizeUrl(),
@@ -587,7 +588,7 @@ export const getFormSchema = ({
                 >
                   Authenticate spawn hosts
                 </LoadingButton>
-                {hasValidToken && (
+                {tokenExchangeState === TokenExchangeState.TokenValid && (
                   <div>Host has been temporarily authenticated.</div>
                 )}
               </Banner>

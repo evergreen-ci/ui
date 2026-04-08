@@ -2,11 +2,9 @@ query User {
   user {
     displayName
     emailAddress
-    hasTokenExchangePending
     permissions {
       canEditAdminSettings
     }
-    tokenAccessTokenExpiresAt
     userId
   }
 }

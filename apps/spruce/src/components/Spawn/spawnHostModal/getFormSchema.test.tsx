@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import { render, screen } from "@evg-ui/lib/test_utils";
 import { SpawnTaskQuery } from "gql/generated/types";
+import { TokenExchangeState } from "./constants";
 import { getFormSchema } from "./getFormSchema";
 
 const myPublicKeys = [{ name: "key1", key: "ssh-rsa aaa" }];
@@ -63,8 +64,7 @@ describe("getFormSchema spawn host token exchange callout", () => {
   it("renders required-stricter copy when jwtTokenForCLIDisabled is false", () => {
     const { uiSchema } = getFormSchema({
       ...baseSchemaInput,
-      hasValidToken: false,
-      isUndergoingAuthentication: false,
+      tokenExchangeState: TokenExchangeState.NeedsAuthentication,
       jwtTokenForCLIDisabled: false,
     });
     const node = tokenAuthDescription(uiSchema!);
@@ -78,8 +78,7 @@ describe("getFormSchema spawn host token exchange callout", () => {
   it("renders optional-phase copy when jwtTokenForCLIDisabled is true", () => {
     const { uiSchema } = getFormSchema({
       ...baseSchemaInput,
-      hasValidToken: false,
-      isUndergoingAuthentication: false,
+      tokenExchangeState: TokenExchangeState.NeedsAuthentication,
       jwtTokenForCLIDisabled: true,
     });
     const node = tokenAuthDescription(uiSchema!);
@@ -92,11 +91,10 @@ describe("getFormSchema spawn host token exchange callout", () => {
     expect(screen.getByText("DEVPROD-4160")).toBeInTheDocument();
   });
 
-  it("disables the authenticate button when hasValidToken is true", () => {
+  it("disables the authenticate button when token is valid", () => {
     const { uiSchema } = getFormSchema({
       ...baseSchemaInput,
-      hasValidToken: true,
-      isUndergoingAuthentication: false,
+      tokenExchangeState: TokenExchangeState.TokenValid,
       jwtTokenForCLIDisabled: false,
     });
     const node = tokenAuthDescription(uiSchema!);
@@ -105,11 +103,10 @@ describe("getFormSchema spawn host token exchange callout", () => {
     expect(button).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("shows loading on the authenticate button when isUndergoingAuthentication is true", () => {
+  it("shows loading on the authenticate button when exchange is pending", () => {
     const { uiSchema } = getFormSchema({
       ...baseSchemaInput,
-      hasValidToken: false,
-      isUndergoingAuthentication: true,
+      tokenExchangeState: TokenExchangeState.ExchangePending,
       jwtTokenForCLIDisabled: false,
     });
     const node = tokenAuthDescription(uiSchema!);

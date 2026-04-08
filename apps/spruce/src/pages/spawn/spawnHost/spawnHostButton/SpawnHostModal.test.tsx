@@ -17,6 +17,7 @@ import {
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { TokenExchangeState } from "components/Spawn/spawnHostModal/constants";
 import {
   DistrosQuery,
   DistrosQueryVariables,
@@ -35,25 +36,18 @@ import { myVolumesQueryMock } from "gql/mocks/myVolumesQuery";
 import { DISTROS, MY_PUBLIC_KEYS, SPAWN_TASK } from "gql/queries";
 import { SpawnHostModal } from "./SpawnHostModal";
 
-const { mockHasValidToken, mockIsUndergoingAuthentication } = vi.hoisted(
-  () => ({
-    mockHasValidToken: vi.fn(),
-    mockIsUndergoingAuthentication: vi.fn(),
-  }),
-);
+const { mockUseUserTokenExchange } = vi.hoisted(() => ({
+  mockUseUserTokenExchange: vi.fn(
+    (): TokenExchangeState => TokenExchangeState.NeedsAuthentication,
+  ),
+}));
 
 vi.mock("./tokenAuthentication", () => ({
-  useUserHasValidToken: (skip: boolean) => {
+  useUserTokenExchange: (skip: boolean) => {
     if (skip) {
-      return false;
+      return TokenExchangeState.NeedsAuthentication;
     }
-    return mockHasValidToken();
-  },
-  useUserIsUndergoingAuthentication: (skip: boolean) => {
-    if (skip) {
-      return false;
-    }
-    return mockIsUndergoingAuthentication();
+    return mockUseUserTokenExchange();
   },
 }));
 
@@ -150,8 +144,9 @@ describe("SpawnHostModal token gate", () => {
       unobserve: vi.fn(),
       disconnect: vi.fn(),
     }));
-    mockHasValidToken.mockReturnValue(false);
-    mockIsUndergoingAuthentication.mockReturnValue(false);
+    mockUseUserTokenExchange.mockReturnValue(
+      TokenExchangeState.NeedsAuthentication,
+    );
   });
 
   afterAll(() => {
@@ -193,7 +188,7 @@ describe("SpawnHostModal token gate", () => {
   });
 
   it("keeps Spawn enabled when load-task-data is checked if the user has a valid token", async () => {
-    mockHasValidToken.mockReturnValue(true);
+    mockUseUserTokenExchange.mockReturnValue(TokenExchangeState.TokenValid);
     const { Component } = RenderFakeToastContext(
       <SpawnHostModal open setOpen={() => {}} />,
     );

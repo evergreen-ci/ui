@@ -11848,6 +11848,17 @@ export type UserSubscriptionsQuery = {
   };
 };
 
+export type UserTokenExchangeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserTokenExchangeQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    hasTokenExchangePending: boolean;
+    tokenAccessTokenExpiresAt?: Date | null;
+  };
+};
+
 export type UserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserQuery = {
@@ -11856,8 +11867,6 @@ export type UserQuery = {
     __typename?: "User";
     displayName?: string | null;
     emailAddress?: string | null;
-    hasTokenExchangePending: boolean;
-    tokenAccessTokenExpiresAt?: Date | null;
     userId: string;
     permissions?: {
       __typename?: "Permissions";

@@ -8,6 +8,7 @@ import { getEnabledHoursCount, getHostUptimeWarnings } from "components/Spawn";
 import {
   formToGql,
   getFormSchema,
+  TokenExchangeState,
   useLoadFormSchemaData,
   useVirtualWorkstationDefaultExpiration,
 } from "components/Spawn/spawnHostModal";
@@ -95,11 +96,10 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     ...formSchemaInput,
     availableRegions: selectedDistro?.availableRegions ?? [],
     // No task loading on volume migration, so we don't need to check for a valid token.
-    hasValidToken: false,
     hostUptimeWarnings,
     distros,
     isMigration: true,
-    isUndergoingAuthentication: false,
+    tokenExchangeState: TokenExchangeState.NeedsAuthentication,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     userAwsRegion: AZToRegion(volume.availabilityZone),
     timeZone,

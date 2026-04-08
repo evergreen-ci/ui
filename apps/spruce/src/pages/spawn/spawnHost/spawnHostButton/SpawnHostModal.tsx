@@ -12,6 +12,7 @@ import {
 import {
   formToGql,
   getFormSchema,
+  TokenExchangeState,
   useLoadFormSchemaData,
   useVirtualWorkstationDefaultExpiration,
   FormState,
@@ -27,10 +28,7 @@ import { SPAWN_HOST } from "gql/mutations";
 import { SPAWN_TASK } from "gql/queries";
 import { useUserTimeZone } from "hooks";
 import { getString, parseQueryString } from "utils/queryString";
-import {
-  useUserHasValidToken,
-  useUserIsUndergoingAuthentication,
-} from "./tokenAuthentication";
+import { useUserTokenExchange } from "./tokenAuthentication";
 
 interface SpawnHostModalProps {
   open: boolean;
@@ -80,8 +78,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     refetchQueries: ["MyHosts", "MyVolumes", "MyPublicKeys"],
   });
 
-  const hasValidToken = useUserHasValidToken(!open);
-  const isUndergoingAuthentication = useUserIsUndergoingAuthentication(!open);
+  const tokenExchangeState = useUserTokenExchange(!open);
 
   const [formState, setFormState] = useState<FormState>({});
   const [hasError, setHasError] = useState(true);
@@ -119,10 +116,9 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     ...formSchemaInput,
     availableRegions: selectedDistro?.availableRegions ?? [],
     distroIdQueryParam,
-    hasValidToken,
     hostUptimeWarnings,
     isMigration: false,
-    isUndergoingAuthentication: isUndergoingAuthentication,
+    tokenExchangeState,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     spawnTaskData: spawnTaskData?.task,
     timeZone:
@@ -161,7 +157,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const requiresSpawnHostAuthentication =
     !!formState?.loadData?.loadDataOntoHostAtStartup &&
     !formSchemaInput.jwtTokenForCLIDisabled &&
-    !hasValidToken;
+    tokenExchangeState !== TokenExchangeState.TokenValid;
 
   return (
     <ConfirmationModal

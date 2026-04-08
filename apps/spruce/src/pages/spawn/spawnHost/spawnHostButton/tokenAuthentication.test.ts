@@ -6,13 +6,14 @@ import {
   waitFor,
   type MockedResponse,
 } from "@evg-ui/lib/test_utils";
-import { UserQuery } from "gql/generated/types";
-import { USER } from "gql/queries";
+import { TokenExchangeState } from "components/Spawn/spawnHostModal/constants";
+import { UserTokenExchangeQuery } from "gql/generated/types";
+import { USER_TOKEN_EXCHANGE } from "gql/queries";
 import {
   SPAWN_HOST_ACCESS_TOKEN_BUFFER_MS,
+  getSpawnHostTokenExchangeState,
   isTokenValid,
-  useUserHasValidToken,
-  useUserIsUndergoingAuthentication,
+  useUserTokenExchange,
 } from "./tokenAuthentication";
 
 const apolloMocksWrapper = (mocks: MockedResponse[]) =>
@@ -20,30 +21,19 @@ const apolloMocksWrapper = (mocks: MockedResponse[]) =>
     return createElement(MockedProvider, { mocks }, children);
   };
 
-const userMock = (
-  overrides: Partial<
-    NonNullable<UserQuery["user"]> & {
-      tokenAccessTokenExpiresAt?: Date | null;
-    }
-  > = {},
+const userTokenExchangeMock = (
+  overrides: Partial<UserTokenExchangeQuery["user"]> = {},
 ) => ({
   request: {
-    query: USER,
+    query: USER_TOKEN_EXCHANGE,
     variables: {},
   },
   result: {
     data: {
       user: {
         __typename: "User" as const,
-        userId: "u1",
-        displayName: "Test User",
-        emailAddress: "t@example.com",
         hasTokenExchangePending: false,
         tokenAccessTokenExpiresAt: null,
-        permissions: {
-          __typename: "Permissions" as const,
-          canEditAdminSettings: false,
-        },
         ...overrides,
       },
     },
@@ -78,93 +68,103 @@ describe("isTokenValid", () => {
   });
 });
 
-describe("useUserHasValidToken", () => {
-  it("returns false when the query is skipped", async () => {
-    const wrapper = apolloMocksWrapper([userMock()]);
-    const { result } = renderHook(() => useUserHasValidToken(true), {
-      wrapper,
-    });
-    await waitFor(() => {
-      expect(result.current).toBe(false);
-    });
+describe("getSpawnHostTokenExchangeState", () => {
+  const now = new Date("2026-03-01T12:00:00.000Z").getTime();
+
+  it("returns ExchangePending when pending is true, even if token would be valid", () => {
+    const farFuture = new Date(
+      now + SPAWN_HOST_ACCESS_TOKEN_BUFFER_MS + 60_000,
+    );
+    expect(getSpawnHostTokenExchangeState(farFuture, true, now)).toBe(
+      TokenExchangeState.ExchangePending,
+    );
   });
 
-  it("returns true when token expiry is beyond the buffer", async () => {
-    const farFuture = new Date(Date.now() + 60 * 60 * 1000);
-    const wrapper = apolloMocksWrapper([
-      userMock({ tokenAccessTokenExpiresAt: farFuture }),
-    ]);
-    const { result } = renderHook(() => useUserHasValidToken(false), {
-      wrapper,
-    });
-    await waitFor(() => {
-      expect(result.current).toBe(true);
-    });
+  it("returns TokenValid when not pending and token is valid", () => {
+    const farFuture = new Date(
+      now + SPAWN_HOST_ACCESS_TOKEN_BUFFER_MS + 60_000,
+    );
+    expect(getSpawnHostTokenExchangeState(farFuture, false, now)).toBe(
+      TokenExchangeState.TokenValid,
+    );
   });
 
-  it("returns false when token is missing", async () => {
-    const wrapper = apolloMocksWrapper([
-      userMock({ tokenAccessTokenExpiresAt: null }),
-    ]);
-    const { result } = renderHook(() => useUserHasValidToken(false), {
-      wrapper,
-    });
-    await waitFor(() => {
-      expect(result.current).toBe(false);
-    });
-  });
-
-  it("refetches on window focus when not skipped, updating token validity", async () => {
-    const farFuture = new Date(Date.now() + 60 * 60 * 1000);
-    const wrapper = apolloMocksWrapper([
-      userMock({ tokenAccessTokenExpiresAt: farFuture }),
-      userMock({ tokenAccessTokenExpiresAt: null }),
-    ]);
-    const { result } = renderHook(() => useUserHasValidToken(false), {
-      wrapper,
-    });
-    await waitFor(() => {
-      expect(result.current).toBe(true);
-    });
-    fireEvent.focus(window);
-    await waitFor(() => {
-      expect(result.current).toBe(false);
-    });
+  it("returns NeedsAuthentication when not pending and token is invalid", () => {
+    expect(getSpawnHostTokenExchangeState(null, false, now)).toBe(
+      TokenExchangeState.NeedsAuthentication,
+    );
   });
 });
 
-describe("useUserIsUndergoingAuthentication", () => {
-  it("returns false when hasTokenExchangePending is false", async () => {
-    const wrapper = apolloMocksWrapper([
-      userMock({
-        hasTokenExchangePending: false,
-      }),
-    ]);
-    const { result } = renderHook(
-      () => useUserIsUndergoingAuthentication(false),
-      {
-        wrapper,
-      },
-    );
+describe("useUserTokenExchange", () => {
+  it("returns NeedsAuthentication when the query is skipped", async () => {
+    const wrapper = apolloMocksWrapper([userTokenExchangeMock()]);
+    const { result } = renderHook(() => useUserTokenExchange(true), {
+      wrapper,
+    });
     await waitFor(() => {
-      expect(result.current).toBe(false);
+      expect(result.current).toBe(TokenExchangeState.NeedsAuthentication);
     });
   });
 
-  it("returns true when hasTokenExchangePending is true", async () => {
+  it("returns TokenValid when token expiry is beyond the buffer and not pending", async () => {
+    const farFuture = new Date(Date.now() + 60 * 60 * 1000);
     const wrapper = apolloMocksWrapper([
-      userMock({
-        hasTokenExchangePending: true,
+      userTokenExchangeMock({
+        tokenAccessTokenExpiresAt: farFuture,
+        hasTokenExchangePending: false,
       }),
     ]);
-    const { result } = renderHook(
-      () => useUserIsUndergoingAuthentication(false),
-      {
-        wrapper,
-      },
-    );
+    const { result } = renderHook(() => useUserTokenExchange(false), {
+      wrapper,
+    });
     await waitFor(() => {
-      expect(result.current).toBe(true);
+      expect(result.current).toBe(TokenExchangeState.TokenValid);
+    });
+  });
+
+  it("returns NeedsAuthentication when token is missing", async () => {
+    const wrapper = apolloMocksWrapper([
+      userTokenExchangeMock({ tokenAccessTokenExpiresAt: null }),
+    ]);
+    const { result } = renderHook(() => useUserTokenExchange(false), {
+      wrapper,
+    });
+    await waitFor(() => {
+      expect(result.current).toBe(TokenExchangeState.NeedsAuthentication);
+    });
+  });
+
+  it("returns ExchangePending when hasTokenExchangePending is true", async () => {
+    const wrapper = apolloMocksWrapper([
+      userTokenExchangeMock({
+        hasTokenExchangePending: true,
+        tokenAccessTokenExpiresAt: null,
+      }),
+    ]);
+    const { result } = renderHook(() => useUserTokenExchange(false), {
+      wrapper,
+    });
+    await waitFor(() => {
+      expect(result.current).toBe(TokenExchangeState.ExchangePending);
+    });
+  });
+
+  it("refetches on window focus when not skipped, updating token state", async () => {
+    const farFuture = new Date(Date.now() + 60 * 60 * 1000);
+    const wrapper = apolloMocksWrapper([
+      userTokenExchangeMock({ tokenAccessTokenExpiresAt: farFuture }),
+      userTokenExchangeMock({ tokenAccessTokenExpiresAt: null }),
+    ]);
+    const { result } = renderHook(() => useUserTokenExchange(false), {
+      wrapper,
+    });
+    await waitFor(() => {
+      expect(result.current).toBe(TokenExchangeState.TokenValid);
+    });
+    fireEvent.focus(window);
+    await waitFor(() => {
+      expect(result.current).toBe(TokenExchangeState.NeedsAuthentication);
     });
   });
 });

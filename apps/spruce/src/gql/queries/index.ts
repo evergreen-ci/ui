@@ -84,6 +84,7 @@ import USER_PROJECT_SETTINGS_PERMISSIONS from "./user-project-settings-permissio
 import USER_REPO_SETTINGS_PERMISSIONS from "./user-repo-settings-permissions.graphql";
 import USER_SETTINGS from "./user-settings.graphql";
 import USER_SUBSCRIPTIONS from "./user-subscriptions.graphql";
+import USER_TOKEN_EXCHANGE from "./user-token-exchange.graphql";
 import USER from "./user.graphql";
 import VERSION_TASK_DURATIONS from "./version-task-durations.graphql";
 import VERSION_TASKS from "./version-tasks.graphql";
@@ -181,6 +182,7 @@ export {
   USER_REPO_SETTINGS_PERMISSIONS,
   USER_SETTINGS,
   USER_SUBSCRIPTIONS,
+  USER_TOKEN_EXCHANGE,
   USER,
   VERSION_TASK_DURATIONS,
   VERSION_TASKS,
