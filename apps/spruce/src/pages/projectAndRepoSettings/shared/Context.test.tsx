@@ -25,6 +25,7 @@ describe("projectSettingsContext", () => {
         [ProjectSettingsTabRoutes.Variables]: {
           vars: [],
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as Record<WritableProjectSettingsType, any>);
     });
 
@@ -72,6 +73,7 @@ describe("projectSettingsContext", () => {
             },
           ],
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as Record<WritableProjectSettingsType, any>);
     });
 
@@ -108,6 +110,7 @@ describe("projectSettingsContext", () => {
         [ProjectSettingsTabRoutes.Variables]: {
           vars: [],
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as Record<WritableProjectSettingsType, any>);
     });
 

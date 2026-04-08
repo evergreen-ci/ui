@@ -202,6 +202,15 @@ describe("copyProjectField", () => {
     await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(1));
+    await waitFor(() =>
+      expect(dispatchToast.warning).toHaveBeenCalledWith(
+        expect.stringContaining(
+          "The project was duplicated but may not be fully enabled",
+        ),
+        expect.anything(),
+        expect.anything(),
+      ),
+    );
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
   });
 
