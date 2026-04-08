@@ -6,6 +6,10 @@ query TaskFiles($taskId: String!, $execution: Int) {
       fileCount
       groupedFiles {
         files {
+          associatedLinks {
+            link
+            name
+          }
           link
           name
           urlParsley
