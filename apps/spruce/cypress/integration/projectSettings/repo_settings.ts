@@ -297,4 +297,48 @@ describe("Repo Settings", () => {
       cy.dataCy("command-input").eq(1).should("have.value", "command 1");
     });
   });
+
+  describe("Pull Requests page", () => {
+    beforeEach(() => {
+      cy.dataCy("navitem-pull-requests").click();
+      saveButtonEnabled(false);
+    });
+    it("Allows enabling manual PR testing", () => {
+      cy.dataCy("manual-pr-testing-enabled-radio-box")
+        .children()
+        .first()
+        .click();
+    });
+    it("Saving a patch defintion should hide the error banner, success toast and displays disable patch definitions for the repo", () => {
+      cy.contains(
+        "A GitHub Patch Definition must be specified for this feature to run.",
+      ).as("errorBanner");
+      cy.get("@errorBanner").should("be.visible");
+      cy.contains("button", "Add Patch Definition").click();
+      cy.get("@errorBanner").should("not.exist");
+      saveButtonEnabled(false);
+      cy.dataCy("variant-tags-input").first().type("vtag");
+      cy.dataCy("task-tags-input").first().type("ttag");
+      saveButtonEnabled(true);
+      clickSave();
+      cy.validateToast("success", "Successfully updated repo");
+      cy.visit(getProjectSettingsRoute(projectUseRepoEnabled));
+      cy.dataCy("navitem-pull-requests").click();
+      cy.contains("Repo Patch Definition 1")
+        .as("patchDefAccordion")
+        .scrollIntoView();
+      cy.get("@patchDefAccordion").click();
+      cy.dataCy("variant-tags-input").should("have.value", "vtag");
+      cy.dataCy("variant-tags-input").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
+      cy.dataCy("task-tags-input").should("have.value", "ttag");
+      cy.dataCy("task-tags-input").should("have.attr", "aria-disabled", "true");
+      cy.contains(
+        "A GitHub Patch Definition must be specified for this feature to run.",
+      ).should("not.exist");
+    });
+  });
 });
