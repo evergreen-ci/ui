@@ -153,6 +153,7 @@ export type AdminSettings = {
   containerPools?: Maybe<ContainerPoolsConfig>;
   cost?: Maybe<CostConfig>;
   debugSpawnHosts?: Maybe<DebugSpawnHostsConfig>;
+  diagnostics?: Maybe<DiagnosticsConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
   domainName?: Maybe<Scalars["String"]["output"]>;
   expansions?: Maybe<Scalars["StringMap"]["output"]>;
@@ -211,6 +212,7 @@ export type AdminSettingsInput = {
   containerPools?: InputMaybe<ContainerPoolsConfigInput>;
   cost?: InputMaybe<CostConfigInput>;
   debugSpawnHosts?: InputMaybe<DebugSpawnHostsConfigInput>;
+  diagnostics?: InputMaybe<DiagnosticsConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   domainName?: InputMaybe<Scalars["String"]["input"]>;
   expansions?: InputMaybe<Scalars["StringMap"]["input"]>;
@@ -677,6 +679,8 @@ export type CopyProjectInput = {
 /** Cost represents the cost breakdown for a task or version. */
 export type Cost = {
   __typename?: "Cost";
+  adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
@@ -799,6 +803,17 @@ export type Dependency = {
   name: Scalars["String"]["output"];
   requiredStatus: RequiredStatus;
   taskId: Scalars["String"]["output"];
+};
+
+export type DiagnosticsConfig = {
+  __typename?: "DiagnosticsConfig";
+  s3BucketName?: Maybe<Scalars["String"]["output"]>;
+  s3Prefix?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type DiagnosticsConfigInput = {
+  s3BucketName?: InputMaybe<Scalars["String"]["input"]>;
+  s3Prefix?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type DispatcherSettings = {
@@ -3034,7 +3049,6 @@ export enum ProjectSettingsSection {
   PatchAliases = "PATCH_ALIASES",
   PeriodicBuilds = "PERIODIC_BUILDS",
   Plugins = "PLUGINS",
-  PullRequests = "PULL_REQUESTS",
   TestSelection = "TEST_SELECTION",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
@@ -3767,6 +3781,7 @@ export type ServiceFlags = {
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  podDiagnosticsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   psLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3806,6 +3821,7 @@ export type ServiceFlagsInput = {
   jwtTokenForCLIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   largeParserProjectsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  podDiagnosticsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   psLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
