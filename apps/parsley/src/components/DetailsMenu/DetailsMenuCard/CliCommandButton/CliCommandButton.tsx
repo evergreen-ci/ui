@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Copyable from "@leafygreen-ui/copyable";
+import { Copyable } from "@leafygreen-ui/copyable";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { LogMetadata } from "context/LogContext/types";

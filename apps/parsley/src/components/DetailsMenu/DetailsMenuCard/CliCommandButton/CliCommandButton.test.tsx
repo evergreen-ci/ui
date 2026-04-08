@@ -1,122 +1,112 @@
+import React from "react";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
-  act,
   renderWithRouterMatch as render,
-  renderComponentWithHook,
   screen,
 } from "@evg-ui/lib/test_utils";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
+import type { LogMetadata } from "context/LogContext/types";
 import CliCommandButton from "./CliCommandButton";
 
 const wrapper = logContextWrapper();
 
+const WithLogMetadata: React.FC<{ metadata: LogMetadata }> = ({ metadata }) => {
+  const { setLogMetadata } = useLogContext();
+  React.useEffect(() => {
+    setLogMetadata(metadata);
+  }, [metadata, setLogMetadata]);
+  return <CliCommandButton />;
+};
+
 describe("CliCommandButton", () => {
+  beforeEach(() => {
+    InitializeFakeToastContext();
+  });
+
   it("does not render when there is no log metadata", () => {
     render(<CliCommandButton />, { wrapper });
-
     expect(
       screen.queryByLabelText("Fetch the log via Evergreen CLI"),
     ).not.toBeInTheDocument();
   });
 
   it("does not render for non-Evergreen logs", () => {
-    const { Component, hook } = renderComponentWithHook(
-      useLogContext,
-      <CliCommandButton />,
+    render(
+      <WithLogMetadata
+        metadata={{
+          logType: LogTypes.LOCAL_UPLOAD,
+        }}
+      />,
+      { wrapper },
     );
-
-    render(<Component />, { wrapper });
-
-    act(() => {
-      hook.current.setLogMetadata({
-        logType: LogTypes.LOCAL_UPLOAD,
-      });
-    });
-
     expect(
       screen.queryByLabelText("Fetch the log via Evergreen CLI"),
     ).not.toBeInTheDocument();
   });
 
   it("does not render if taskID or execution is missing", () => {
-    const { Component, hook } = renderComponentWithHook(
-      useLogContext,
-      <CliCommandButton />,
-    );
-
-    render(<Component />, { wrapper });
-
     // Missing taskID
-    act(() => {
-      hook.current.setLogMetadata({
-        execution: "0",
-        logType: LogTypes.EVERGREEN_TASK_LOGS,
-      });
-    });
-
+    render(
+      <WithLogMetadata
+        metadata={{
+          execution: "0",
+          logType: LogTypes.EVERGREEN_TASK_LOGS,
+        }}
+      />,
+      { wrapper },
+    );
     expect(
       screen.queryByLabelText("Fetch the log via Evergreen CLI"),
     ).not.toBeInTheDocument();
 
     // Missing execution
-    act(() => {
-      hook.current.setLogMetadata({
-        logType: LogTypes.EVERGREEN_TASK_LOGS,
-        taskID: "task-abc",
-      });
-    });
-
+    render(
+      <WithLogMetadata
+        metadata={{
+          logType: LogTypes.EVERGREEN_TASK_LOGS,
+          taskID: "task-abc",
+        }}
+      />,
+      { wrapper },
+    );
     expect(
       screen.queryByLabelText("Fetch the log via Evergreen CLI"),
     ).not.toBeInTheDocument();
   });
 
   it("renders a copyable Evergreen CLI command for Evergreen task logs", () => {
-    const { Component, hook } = renderComponentWithHook(
-      useLogContext,
-      <CliCommandButton />,
+    render(
+      <WithLogMetadata
+        metadata={{
+          execution: "2",
+          logType: LogTypes.EVERGREEN_TASK_LOGS,
+          taskID: "task-abc",
+        }}
+      />,
+      { wrapper },
     );
-
-    render(<Component />, { wrapper });
-
-    act(() => {
-      hook.current.setLogMetadata({
-        execution: "2",
-        logType: LogTypes.EVERGREEN_TASK_LOGS,
-        taskID: "task-abc",
-      });
-    });
-
-    const copyable = screen.getByLabelText("Fetch the log via Evergreen CLI");
-    expect(copyable).toBeInTheDocument();
-    expect(copyable).toHaveTextContent(
-      "evergreen task build TaskLogs --task_id task-abc --execution 2 --type task_log --o output.txt",
-    );
+    const command =
+      "evergreen task build TaskLogs --task_id task-abc --execution 2 --type task_log --o output.txt";
+    expect(screen.getByText(command)).toBeInTheDocument();
   });
 
   it("renders a copyable Evergreen CLI command for Evergreen test logs", () => {
-    const { Component, hook } = renderComponentWithHook(
-      useLogContext,
-      <CliCommandButton />,
+    render(
+      <WithLogMetadata
+        metadata={{
+          execution: "1",
+          logType: LogTypes.EVERGREEN_TEST_LOGS,
+          rawLogURL:
+            "http://parsley.corp.mongodb.com/rest/v2/tasks/spruce_ubuntu_check_codegen_1234/build/TestLogs/AFakeTest?execution=1&print_time=true",
+          taskID: "spruce_ubuntu_check_codegen_1234",
+        }}
+      />,
+      { wrapper },
     );
-
-    render(<Component />, { wrapper });
-
-    act(() => {
-      hook.current.setLogMetadata({
-        execution: "1",
-        logType: LogTypes.EVERGREEN_TEST_LOGS,
-        rawLogURL:
-          "http://parsley.corp.mongodb.com//rest/v2/tasks/spruce_ubuntu_check_codegen_1234/build/TestLogs/AFakeTest?execution=0&print_time=true",
-        taskID: "AFakeTest",
-      });
-    });
-
-    const copyable = screen.getByDataCy("cli-command-copyable");
-    expect(copyable).toBeInTheDocument();
-    expect(copyable).toHaveTextContent(
-      "evergreen task build TestLogs --task_id AFakeTest --execution 1 --log_path spruce_ubuntu_check_codegen_1234 --o output.txt",
-    );
+    const command =
+      "evergreen task build TestLogs --task_id spruce_ubuntu_check_codegen_1234 --execution 1 --log_path AFakeTest --o output.txt";
+    expect(screen.getByText(command)).toBeInTheDocument();
   });
 });
