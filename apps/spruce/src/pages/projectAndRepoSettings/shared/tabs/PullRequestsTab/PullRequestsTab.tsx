@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Banner } from "@leafygreen-ui/banner";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { useProjectSettingsContext } from "../../Context";
@@ -23,6 +24,7 @@ const getInitialFormState = (
 };
 
 export const PullRequestsTab: React.FC<TabProps> = ({
+  githubWebhooksEnabled,
   projectData,
   projectType,
   repoData,
@@ -40,11 +42,18 @@ export const PullRequestsTab: React.FC<TabProps> = ({
     () =>
       getFormSchema(
         projectType,
+        githubWebhooksEnabled,
         formData,
         versionControlEnabled,
         projectType === ProjectType.AttachedProject ? repoData : undefined,
       ),
-    [formData, projectType, repoData, versionControlEnabled],
+    [
+      formData,
+      githubWebhooksEnabled,
+      projectType,
+      repoData,
+      versionControlEnabled,
+    ],
   );
 
   const validateConflicts = validate(
@@ -54,12 +63,22 @@ export const PullRequestsTab: React.FC<TabProps> = ({
   );
 
   return (
-    <BaseTab
-      formSchema={formSchema}
-      initialFormState={initialFormState}
-      tab={tab}
-      validate={validateConflicts}
-    />
+    <>
+      {!githubWebhooksEnabled && (
+        <Banner variant="warning">
+          GitHub features are disabled because the Evergreen GitHub App is not
+          installed on the saved owner/repo. Contact IT to install the App and
+          enable GitHub features.
+        </Banner>
+      )}
+      <BaseTab
+        disabled={!githubWebhooksEnabled}
+        formSchema={formSchema}
+        initialFormState={initialFormState}
+        tab={tab}
+        validate={validateConflicts}
+      />
+    </>
   );
 };
 

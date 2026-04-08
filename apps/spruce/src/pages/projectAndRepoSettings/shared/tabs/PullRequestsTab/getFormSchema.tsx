@@ -23,6 +23,7 @@ const hideIf = (shouldHide: boolean) =>
 
 export const getFormSchema = (
   projectType: ProjectType,
+  githubWebhooksEnabled: boolean,
   formData: PullRequestsFormState,
   versionControlEnabled: boolean,
   repoData?: PullRequestsFormState,
@@ -46,8 +47,19 @@ export const getFormSchema = (
       properties: {
         github: {
           type: "object" as const,
-          title: "Pull Request Testing",
+          title: "",
           properties: {
+            githubWebhooksEnabled: {
+              type: "null",
+              title: "GitHub Webhooks",
+              description: `GitHub webhooks ${
+                githubWebhooksEnabled ? "are" : "are not"
+              } enabled.`,
+            },
+            pullRequestSettingsTitle: {
+              type: "null",
+              title: "Pull Request Settings",
+            },
             prTestingEnabled: {
               type: ["boolean", "null"],
               title: "Automated Testing",
@@ -96,6 +108,9 @@ export const getFormSchema = (
     },
     uiSchema: {
       github: {
+        pullRequestSettingsTitle: {
+          "ui:numberedTitle": true,
+        },
         prTestingEnabled: {
           "ui:data-cy": "pr-testing-enabled-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
