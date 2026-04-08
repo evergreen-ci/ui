@@ -63,7 +63,16 @@ const OverrideIcon = styled(Icon)`
   vertical-align: text-top;
 `;
 
-const Description = styled.div``;
+const RowContainer = styled.div`
+  display: flex;
+  margin-bottom: ${size.s};
+  gap: ${size.s};
+
+  > div {
+    flex-grow: 1;
+    max-width: 50%;
+  }
+`;
 
 const Name = styled.div`
   color: ${yellow.dark2};
@@ -76,16 +85,7 @@ const Name = styled.div`
       : ""}
 `;
 
-const RowContainer = styled.div`
-  display: flex;
-  margin-bottom: ${size.s};
-  gap: ${size.s};
-
-  > div {
-    flex-grow: 1;
-    max-width: 50%;
-  }
-`;
+const Description = styled.div``;
 
 const Value = styled.div``;
 
