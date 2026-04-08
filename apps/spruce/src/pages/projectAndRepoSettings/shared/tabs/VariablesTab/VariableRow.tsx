@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
@@ -63,20 +64,20 @@ const OverrideIcon = styled(Icon)`
   vertical-align: text-top;
 `;
 
+const flexSpacingCss = css`
+  flex: 0 0 30%;
+`;
+
 const RowContainer = styled.div`
   display: flex;
   margin-bottom: ${size.s};
   gap: ${size.s};
-
-  > div {
-    flex-grow: 1;
-    max-width: 50%;
-  }
 `;
 
 const Name = styled.div`
-  color: ${yellow.dark2};
+  ${flexSpacingCss};
 
+  color: ${yellow.dark2};
   ${(props: { showWarning?: boolean }): string =>
     props.showWarning
       ? `input {
@@ -85,9 +86,13 @@ const Name = styled.div`
       : ""}
 `;
 
-const Description = styled.div``;
+const Description = styled.div`
+  ${flexSpacingCss};
+`;
 
-const Value = styled.div``;
+const Value = styled.div`
+  ${flexSpacingCss};
+`;
 
 const OptionRow = styled.div`
   display: flex;
