@@ -1,9 +1,11 @@
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
+import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import MetadataCard from "components/MetadataCard";
 import { navBarHeight } from "components/styles/Layout";
+import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
   BuildVariantStatsQuery,
@@ -20,7 +22,7 @@ interface BuildVariantCardProps {
 const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
   const [includeNeverActivatedTasks] = useQueryParam<boolean | undefined>(
     PatchTasksQueryParams.IncludeNeverActivatedTasks,
-    undefined,
+    Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true",
   );
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     BuildVariantStatsQuery,

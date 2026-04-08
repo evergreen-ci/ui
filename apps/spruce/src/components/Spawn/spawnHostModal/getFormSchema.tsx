@@ -5,13 +5,17 @@ import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
-import { taskSpawnHostDocumentationUrl } from "constants/externalResources";
+import {
+  debugSpawnHostsDocumentationUrl,
+  taskSpawnHostDocumentationUrl,
+} from "constants/externalResources";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import {
   MyPublicKeysQuery,
   SpawnTaskQuery,
   MyVolumesQuery,
 } from "gql/generated/types";
+import { isFailedTaskStatus } from "utils/statuses";
 import {
   getExpirationDetailsSchema,
   getPublicKeySchema,
@@ -19,6 +23,11 @@ import {
 import { DEFAULT_VOLUME_SIZE } from "./constants";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
+import {
+  ExecutionStepsDropdown,
+  stripBlockContext,
+  stripFunctionContext,
+} from "./Widgets/ExecutionStepsDropdown";
 
 interface Props {
   availableRegions: string[];
@@ -70,10 +79,22 @@ export const getFormSchema = ({
 }: Props): ReturnType<GetFormSchema> => {
   const {
     buildVariant,
+    details,
     displayName: taskDisplayName,
+    displayStatus,
+    executionSteps,
     project,
     revision,
   } = spawnTaskData || {};
+
+  const isFailedTask = isFailedTaskStatus(displayStatus);
+  const failingStepNumber = isFailedTask
+    ? executionSteps?.find(
+        (s) =>
+          stripFunctionContext(stripBlockContext(s.displayName)) ===
+          details?.description,
+      )?.stepNumber
+    : undefined;
   const hasValidTask = validateTask(spawnTaskData);
   const hasProjectSetupScript = !!project?.spawnHostScriptPath;
   const shouldRenderVolumeSelection = !isMigration && isVirtualWorkstation;
@@ -415,13 +436,37 @@ export const getFormSchema = ({
               ? widgets.CheckboxWidget
               : "hidden",
           "ui:data-cy": "is-debug-toggle",
+          "ui:customLabel": (
+            <>
+              Spawn host in{" "}
+              <StyledLink
+                css={css`
+                  font-weight: bold;
+                  text-decoration: underline;
+                  color: inherit;
+                `}
+                hideExternalIcon={false}
+                href={debugSpawnHostsDocumentationUrl}
+                target="_blank"
+              >
+                Debug Mode
+              </StyledLink>
+            </>
+          ),
           "ui:description":
-            "Debug Mode that allows users to step through tasks",
+            "Debug Mode that allows users to interactively step through task commands on spawn hosts",
         },
         setupStepNumber: {
+          ...(executionSteps?.length
+            ? {
+                "ui:widget": ExecutionStepsDropdown,
+                "ui:executionSteps": executionSteps,
+                "ui:failingStepNumber": failingStepNumber,
+                "ui:isFailedTask": isFailedTask,
+              }
+            : {}),
           "ui:data-cy": "setup-step-number-input",
-          "ui:description":
-            'Step number to automatically run until after host setup (e.g., "5" or "5.1"). Leave empty to skip.',
+          "ui:placeholder": "Select spawn end point",
         },
       },
       requiredSection: {

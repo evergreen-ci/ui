@@ -8,7 +8,7 @@ describe("useScrollToAnchor", () => {
   beforeEach(() => {
     vi.useFakeTimers();
     vi.spyOn(document, "getElementById").mockReturnValue(
-      mockElement as any as HTMLElement,
+      mockElement as unknown as HTMLElement,
     );
     mockElement.scrollIntoView.mockClear();
   });
