@@ -157,4 +157,7 @@ describe("isFailingLine", () => {
       ),
     ).toBe(false);
   });
+  it("DEVPROD-30847: intentionally failing test", () => {
+    expect(1 + 1).toBe(3);
+  });
 });
