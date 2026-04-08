@@ -1,7 +1,6 @@
 import { Description } from "@leafygreen-ui/typography";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
-import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { pullRequestAliasesDocumentationUrl } from "constants/externalResources";
 import { sectionHasError } from "../GithubCommitQueueTab/getErrors";
@@ -24,7 +23,6 @@ const hideIf = (shouldHide: boolean) =>
 
 export const getFormSchema = (
   projectType: ProjectType,
-  githubWebhooksEnabled: boolean,
   formData: PullRequestsFormState,
   versionControlEnabled: boolean,
   repoData?: PullRequestsFormState,
@@ -48,23 +46,8 @@ export const getFormSchema = (
       properties: {
         github: {
           type: "object" as const,
-          title: "GitHub",
+          title: "Pull Request Testing",
           properties: {
-            githubWebhooksEnabled: {
-              type: "null",
-              title: "GitHub Webhooks",
-              description: `GitHub webhooks ${
-                githubWebhooksEnabled ? "are" : "are not"
-              } enabled.`,
-            },
-            prTestingEnabledTitle: {
-              type: "null",
-              title: "GitHub Pull Request Testing",
-              ...(projectType === ProjectType.Repo && {
-                description:
-                  "If enabled, then untracked branches will also use the file patterns defined here for PR testing.",
-              }),
-            },
             prTestingEnabled: {
               type: ["boolean", "null"],
               title: "Automated Testing",
@@ -113,10 +96,6 @@ export const getFormSchema = (
     },
     uiSchema: {
       github: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        prTestingEnabledTitle: {
-          "ui:sectionTitle": true,
-        },
         prTestingEnabled: {
           "ui:data-cy": "pr-testing-enabled-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
@@ -178,14 +157,12 @@ export const getFormSchema = (
           ),
           githubPrAliasesOverride: overrideStyling,
           githubPrAliases: {
-            // this gives you the collapsible "Patch Definition 1/2/…" rows
             ...aliasRowUiSchema({
               addButtonText: "Add Patch Definition",
               numberedTitle: "Patch Definition",
             }),
           },
           repoData: {
-            // this gives you the "Repo Patch Definition 1/2/…" rows
             githubPrAliases: {
               ...aliasRowUiSchema({
                 isRepo: true,
