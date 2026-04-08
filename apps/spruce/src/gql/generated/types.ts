@@ -7187,6 +7187,11 @@ export type SaveAdminSettingsMutation = {
         } | null;
       } | null;
     } | null;
+    diagnostics?: {
+      __typename?: "DiagnosticsConfig";
+      s3BucketName?: string | null;
+      s3Prefix?: string | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -7803,6 +7808,11 @@ export type AdminSettingsQuery = {
     debugSpawnHosts?: {
       __typename?: "DebugSpawnHostsConfig";
       setupScript?: string | null;
+    } | null;
+    diagnostics?: {
+      __typename?: "DiagnosticsConfig";
+      s3BucketName?: string | null;
+      s3Prefix?: string | null;
     } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
