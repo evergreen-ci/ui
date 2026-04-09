@@ -11866,6 +11866,18 @@ export type UserSubscriptionsQuery = {
   };
 };
 
+export type UserTokenExchangeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserTokenExchangeQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    hasTokenExchangePending: boolean;
+    tokenAccessTokenExpiresAt?: Date | null;
+    userId: string;
+  };
+};
+
 export type UserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserQuery = {
