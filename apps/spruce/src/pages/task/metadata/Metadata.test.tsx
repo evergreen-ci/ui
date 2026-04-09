@@ -5,6 +5,7 @@ import {
   screen,
   stubGetClientRects,
   userEvent,
+  within,
 } from "@evg-ui/lib/test_utils";
 import { getUserMock } from "gql/mocks/getUser";
 import { taskQuery, TaskQueryType } from "gql/mocks/taskData";
@@ -110,7 +111,10 @@ describe("metadata", () => {
       path: "/task/:id",
       wrapper,
     });
-    await user.hover(screen.getByDataCy("task-metadata-cost"));
+    const costItem = screen.getByDataCy("task-metadata-cost");
+    await user.hover(
+      within(costItem.parentElement!).getByTestId("info-sprinkle-icon"),
+    );
     await screen.findByText(
       "Estimated cost based on execution so far. Updates as the task runs.",
     );
@@ -123,7 +127,10 @@ describe("metadata", () => {
       path: "/task/:id",
       wrapper,
     });
-    await user.hover(screen.getByDataCy("task-metadata-cost"));
+    const costItem = screen.getByDataCy("task-metadata-cost");
+    await user.hover(
+      within(costItem.parentElement!).getByTestId("info-sprinkle-icon"),
+    );
     await screen.findByText("Final cost of running this task.");
   });
 

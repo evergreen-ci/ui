@@ -4,6 +4,7 @@ import {
   screen,
   stubGetClientRects,
   userEvent,
+  within,
 } from "@evg-ui/lib/test_utils";
 import { VersionQuery } from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";
@@ -59,7 +60,10 @@ describe("version metadata cost", () => {
       path: "/version/:id",
       wrapper,
     });
-    await user.hover(screen.getByDataCy("version-metadata-cost"));
+    const costItem = screen.getByDataCy("version-metadata-cost");
+    await user.hover(
+      within(costItem.parentElement!).getByTestId("info-sprinkle-icon"),
+    );
     await screen.findByText(
       "Estimated cost based on tasks completed so far. Updates as tasks complete.",
     );
@@ -72,7 +76,10 @@ describe("version metadata cost", () => {
       path: "/version/:id",
       wrapper,
     });
-    await user.hover(screen.getByDataCy("version-metadata-cost"));
+    const costItem = screen.getByDataCy("version-metadata-cost");
+    await user.hover(
+      within(costItem.parentElement!).getByTestId("info-sprinkle-icon"),
+    );
     await screen.findByText(
       "Final cumulative cost of all tasks in this version.",
     );

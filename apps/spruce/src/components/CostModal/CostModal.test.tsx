@@ -1,9 +1,4 @@
-import {
-  render,
-  screen,
-  stubGetClientRects,
-  userEvent,
-} from "@evg-ui/lib/test_utils";
+import { render, screen, stubGetClientRects } from "@evg-ui/lib/test_utils";
 import { CostModal, formatCost } from ".";
 
 describe("formatCost", () => {
@@ -33,8 +28,7 @@ describe("CostModal", () => {
     stubGetClientRects();
   });
 
-  it("RendersRowsWithCostValuesWhenProvided", async () => {
-    const user = userEvent.setup();
+  it("RendersRowsWithCostValuesWhenProvided", () => {
     render(
       <CostModal
         adjustedEBSStorageCost={0.1}
@@ -42,14 +36,11 @@ describe("CostModal", () => {
         adjustedEC2Cost={1.5}
         name="my-task"
         onClose={() => {}}
-        open={false}
+        open
         s3ArtifactPutCost={0.05}
         s3LogPutCost={0.02}
       />,
     );
-    const trigger =
-      screen.getByText("Cost Details") ?? screen.queryByRole("button");
-    if (trigger) await user.click(trigger);
     expect(screen.getByDataCy("cost-modal")).toBeInTheDocument();
     expect(screen.getByText("$1.50")).toBeInTheDocument();
     expect(screen.getByText("$0.25")).toBeInTheDocument();
