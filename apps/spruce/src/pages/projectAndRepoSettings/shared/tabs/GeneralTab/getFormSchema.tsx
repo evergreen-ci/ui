@@ -161,16 +161,13 @@ export const getFormSchema = (
                   type: "null" as const,
                 },
               }),
-              runEveryMainlineCommitTitle: {
-                type: "null" as const,
-                title: "Run Every Mainline Commit",
-              },
               runEveryMainlineCommit: {
-                type: ["boolean", "null"],
+                type: ["boolean", "null"] as const,
+                title: "Run Every Mainline Commit",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  repoData?.github?.runEveryMainlineCommit,
+                  repoData?.projectFlags?.repotracker?.runEveryMainlineCommit,
                 ),
               },
             },
@@ -390,14 +387,10 @@ export const getFormSchema = (
           "ui:showLabel": false,
           options: { projectId },
         },
-        runEveryMainlineCommitTitle: {
-          "ui:sectionTitle": true,
-          "ui:description": RunEveryMainlineCommitDescription,
-        },
         runEveryMainlineCommit: {
           "ui:data-cy": "run-every-mainline-commit-radio-box",
-          "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
+          "ui:description": RunEveryMainlineCommitDescription,
         },
       },
       scheduling: {
