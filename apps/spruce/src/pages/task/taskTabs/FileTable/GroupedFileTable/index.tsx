@@ -11,7 +11,7 @@ import {
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
-import { processFiles } from "./AssociatedLinks";
+import { processFilesWithAssociatedLinks } from "./AssociatedLinks";
 import { GroupedFilesFile, FileTableRow } from "./types";
 
 const getColumns = (
@@ -95,7 +95,7 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   );
 
   const tableData = useMemo(
-    () => processFiles(files, taskAnalytics),
+    () => processFilesWithAssociatedLinks(files, taskAnalytics),
     [files, taskAnalytics],
   );
 

@@ -6,7 +6,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
 import { GroupedFilesFile, FileTableRow } from "./types";
 
-export const processFiles = (
+export const processFilesWithAssociatedLinks = (
   files: GroupedFilesFile[],
   taskAnalytics: ReturnType<typeof useTaskAnalytics>,
 ): FileTableRow[] =>
@@ -58,7 +58,7 @@ const AssociatedLinksContainer = styled.div`
   padding-left: 52px;
 `;
 
-const AssociatedLinksList = styled.ol`
+const AssociatedLinksList = styled.ul`
   margin: 0;
   padding: 0;
 `;
