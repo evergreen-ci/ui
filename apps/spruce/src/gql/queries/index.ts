@@ -85,6 +85,7 @@ export { USER_PROJECT_SETTINGS_PERMISSIONS } from "./user-project-settings-permi
 export { USER_REPO_SETTINGS_PERMISSIONS } from "./user-repo-settings-permissions";
 export { USER_SETTINGS } from "./user-settings";
 export { USER_SUBSCRIPTIONS } from "./user-subscriptions";
+export { USER_TOKEN_EXCHANGE } from "./user-token-exchange";
 export { VERSION } from "./version";
 export { VERSION_TASK_DURATIONS } from "./version-task-durations";
 export { VERSION_TASKS } from "./version-tasks";

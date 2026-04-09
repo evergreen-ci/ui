@@ -145,6 +145,10 @@ export const ADMIN_SETTINGS = gql`
       debugSpawnHosts {
         setupScript
       }
+      diagnostics {
+        s3BucketName
+        s3Prefix
+      }
       disabledGQLQueries
       domainName
       expansions

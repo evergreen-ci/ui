@@ -6,6 +6,7 @@ export const USER_DISTRO_SETTINGS_PERMISSIONS = gql`
       permissions {
         canCreateDistro
         distroPermissions(options: { distroId: $distroId }) {
+          id: distroId
           admin
           edit
         }

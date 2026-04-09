@@ -29,6 +29,10 @@ export const SAVE_ADMIN_SETTINGS = gql`
         }
         savingsPlanDiscount
       }
+      diagnostics {
+        s3BucketName
+        s3Prefix
+      }
       disabledGQLQueries
       hostInit {
         cloudStatusBatchSize

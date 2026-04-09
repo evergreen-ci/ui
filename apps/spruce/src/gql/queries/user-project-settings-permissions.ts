@@ -6,6 +6,7 @@ export const USER_PROJECT_SETTINGS_PERMISSIONS = gql`
       permissions {
         canCreateProject
         projectPermissions(options: { projectIdentifier: $projectIdentifier }) {
+          id: projectIdentifier
           edit
         }
       }

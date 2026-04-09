@@ -5,6 +5,7 @@ export const USER_REPO_SETTINGS_PERMISSIONS = gql`
     user {
       permissions {
         repoPermissions(options: { repoId: $repoId }) {
+          id: repoId
           edit
         }
       }

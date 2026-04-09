@@ -106,6 +106,18 @@ functions:
         content_type: text/html
         permissions: public-read
         preserve_path: true
+        visibility: none
+    - command: s3.put
+      type: system
+      params:
+        role_arn: ${ASSUME_ROLE_ARN}
+        local_files_include_filter: ["ui/${app_dir}/storybook-static/index.html"]
+        remote_file: ${build_variant}/${task_id}/${execution}/storybook/
+        bucket: evg-bucket-evergreen-ui
+        content_type: text/html
+        permissions: public-read
+        preserve_path: true
+        display_name: "Storybook:"
     - command: s3.put
       type: system
       params:
@@ -120,6 +132,7 @@ functions:
         content_type: application/javascript
         permissions: public-read
         preserve_path: true
+        visibility: none
     - command: s3.put
       type: system
       params:
@@ -130,6 +143,7 @@ functions:
         content_type: application/json
         permissions: public-read
         preserve_path: true
+        visibility: none
     - command: s3.put
       type: system
       params:
@@ -140,6 +154,7 @@ functions:
         content_type: text/css
         permissions: public-read
         preserve_path: true
+        visibility: none
     - command: s3.put
       type: system
       params:
@@ -150,6 +165,7 @@ functions:
         content_type: application/json
         permissions: public-read
         preserve_path: true
+        visibility: none
     - command: s3.put
       type: system
       params:
@@ -163,6 +179,7 @@ functions:
         content_type: font/woff2
         permissions: public-read
         preserve_path: true
+        visibility: none
 
   attach-test-results:
     command: attach.xunit_results

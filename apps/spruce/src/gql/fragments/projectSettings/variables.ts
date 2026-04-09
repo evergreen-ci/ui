@@ -5,5 +5,6 @@ export const VARIABLES = gql`
     adminOnlyVars
     privateVars
     vars
+    varsDescriptions
   }
 `;
