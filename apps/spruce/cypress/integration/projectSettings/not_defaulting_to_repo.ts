@@ -56,6 +56,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-name-input").type("sample_name");
       saveButtonEnabled(false);
       cy.dataCy("var-value-input").type("sample_value");
+      cy.dataCy("var-description-input").type("Sample description");
       cy.dataCy("var-private-input").should("be.checked");
       clickSave();
       cy.validateToast("success", "Successfully updated project");
@@ -69,6 +70,12 @@ describe("Project Settings when not defaulting to repo", () => {
       );
       // Admin checkbox should not be disabled.
       cy.dataCy("var-admin-input").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
+      // Description input should not be disabled.
+      cy.dataCy("var-description-input").should(
         "have.attr",
         "aria-disabled",
         "false",
@@ -109,19 +116,35 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("add-button").click();
       cy.dataCy("var-name-input").type("sample_name");
       cy.dataCy("var-value-input").type("sample_value");
+      cy.dataCy("var-description-input").type("Description for sample_name");
       cy.dataCy("add-button").click();
       cy.dataCy("var-name-input").first().type("sample_name_2");
       cy.dataCy("var-value-input").first().type("sample_value");
+      cy.dataCy("var-description-input")
+        .first()
+        .type("Description for sample_name_2");
       cy.dataCy("add-button").click();
       cy.dataCy("var-name-input").first().type("admin_var");
       cy.dataCy("var-value-input").first().type("admin_value");
+      cy.dataCy("var-description-input")
+        .first()
+        .type("Description for admin_var");
       clickSave();
       cy.validateToast("success", "Successfully updated project");
       // Verify persistence
       cy.reload();
       cy.dataCy("var-name-input").eq(0).should("have.value", "admin_var");
+      cy.dataCy("var-description-input")
+        .eq(0)
+        .should("have.value", "Description for admin_var");
       cy.dataCy("var-name-input").eq(1).should("have.value", "sample_name");
+      cy.dataCy("var-description-input")
+        .eq(1)
+        .should("have.value", "Description for sample_name");
       cy.dataCy("var-name-input").eq(2).should("have.value", "sample_name_2");
+      cy.dataCy("var-description-input")
+        .eq(2)
+        .should("have.value", "Description for sample_name_2");
       // Verify deletion
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();

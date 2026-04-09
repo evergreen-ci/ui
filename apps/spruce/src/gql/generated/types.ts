@@ -5819,6 +5819,7 @@ export type ProjectSettingsFieldsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+    varsDescriptions?: { [key: string]: any } | null;
   } | null;
   githubAppAuth?: {
     __typename?: "GithubAppAuth";
@@ -6020,6 +6021,7 @@ export type RepoSettingsFieldsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+    varsDescriptions?: { [key: string]: any } | null;
   } | null;
   githubAppAuth?: {
     __typename?: "GithubAppAuth";
@@ -6483,6 +6485,7 @@ export type ProjectEventSettingsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+    varsDescriptions?: { [key: string]: any } | null;
   } | null;
   githubAppAuth?: {
     __typename?: "GithubAppAuth";
@@ -6550,6 +6553,7 @@ export type VariablesFragment = {
   adminOnlyVars: Array<string>;
   privateVars: Array<string>;
   vars?: { [key: string]: any } | null;
+  varsDescriptions?: { [key: string]: any } | null;
 };
 
 export type ProjectViewsAndFiltersSettingsFragment = {
@@ -7188,6 +7192,11 @@ export type SaveAdminSettingsMutation = {
         } | null;
       } | null;
     } | null;
+    diagnostics?: {
+      __typename?: "DiagnosticsConfig";
+      s3BucketName?: string | null;
+      s3Prefix?: string | null;
+    } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
       cloudStatusBatchSize?: number | null;
@@ -7804,6 +7813,11 @@ export type AdminSettingsQuery = {
     debugSpawnHosts?: {
       __typename?: "DebugSpawnHostsConfig";
       setupScript?: string | null;
+    } | null;
+    diagnostics?: {
+      __typename?: "DiagnosticsConfig";
+      s3BucketName?: string | null;
+      s3Prefix?: string | null;
     } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
@@ -9522,6 +9536,7 @@ export type ProjectEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -9744,6 +9759,7 @@ export type ProjectEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -10025,6 +10041,7 @@ export type ProjectSettingsQuery = {
       adminOnlyVars: Array<string>;
       privateVars: Array<string>;
       vars?: { [key: string]: any } | null;
+      varsDescriptions?: { [key: string]: any } | null;
     } | null;
     githubAppAuth?: {
       __typename?: "GithubAppAuth";
@@ -10299,6 +10316,7 @@ export type RepoEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -10521,6 +10539,7 @@ export type RepoEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -10735,6 +10754,7 @@ export type RepoSettingsQuery = {
       adminOnlyVars: Array<string>;
       privateVars: Array<string>;
       vars?: { [key: string]: any } | null;
+      varsDescriptions?: { [key: string]: any } | null;
     } | null;
     githubAppAuth?: {
       __typename?: "GithubAppAuth";
@@ -11681,6 +11701,7 @@ export type UserDistroSettingsPermissionsQuery = {
         __typename?: "DistroPermissions";
         admin: boolean;
         edit: boolean;
+        id: string;
       };
     } | null;
   };
@@ -11752,7 +11773,11 @@ export type UserProjectSettingsPermissionsQuery = {
     permissions?: {
       __typename?: "Permissions";
       canCreateProject: boolean;
-      projectPermissions: { __typename?: "ProjectPermissions"; edit: boolean };
+      projectPermissions: {
+        __typename?: "ProjectPermissions";
+        edit: boolean;
+        id: string;
+      };
     } | null;
   };
 };
@@ -11768,7 +11793,11 @@ export type UserRepoSettingsPermissionsQuery = {
     userId: string;
     permissions?: {
       __typename?: "Permissions";
-      repoPermissions: { __typename?: "RepoPermissions"; edit: boolean };
+      repoPermissions: {
+        __typename?: "RepoPermissions";
+        edit: boolean;
+        id: string;
+      };
     } | null;
   };
 };
