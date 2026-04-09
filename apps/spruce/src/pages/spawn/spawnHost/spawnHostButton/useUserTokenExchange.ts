@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLazyQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { TokenExchangeState } from "components/Spawn/spawnHostModal/constants";
 import { FASTER_POLL_INTERVAL } from "constants/index";
 import {
@@ -44,25 +44,21 @@ export const getSpawnHostTokenExchangeState = (
 };
 
 export const useUserTokenExchange = (skip: boolean): TokenExchangeState => {
-  const [loadTokenExchange, { data: userData, refetch, stopPolling }] =
-    useLazyQuery<UserTokenExchangeQuery, UserTokenExchangeQueryVariables>(
-      USER_TOKEN_EXCHANGE,
-      {
-        fetchPolicy: "no-cache",
-        // Polling begins after the first time `loadTokenExchange` runs.
-        pollInterval: FASTER_POLL_INTERVAL,
-      },
-    );
-
-  useEffect(() => {
-    if (skip) {
-      return;
-    }
-    void loadTokenExchange();
-    return () => {
-      stopPolling?.();
-    };
-  }, [skip, loadTokenExchange, stopPolling]);
+  const { data: userData, refetch } = useQuery<
+    UserTokenExchangeQuery,
+    UserTokenExchangeQueryVariables
+  >(
+    USER_TOKEN_EXCHANGE,
+    skip
+      ? skipToken
+      : {
+          fetchPolicy: "no-cache",
+          // We poll faster than normal because users expect to see
+          // faster feedback after performing the authentication flow.
+          pollInterval: FASTER_POLL_INTERVAL,
+        },
+  );
+  const tokenExpiresAt = userData?.user?.tokenAccessTokenExpiresAt;
 
   // While the spawn modal is open, refetch when the user returns to this tab after
   // completing token exchange in another window.
@@ -76,12 +72,8 @@ export const useUserTokenExchange = (skip: boolean): TokenExchangeState => {
     return () => window.removeEventListener("focus", onFocus);
   }, [skip, refetch]);
 
-  if (skip) {
-    return TokenExchangeState.NeedsAuthentication;
-  }
-
   return getSpawnHostTokenExchangeState(
-    userData?.user?.tokenAccessTokenExpiresAt,
+    tokenExpiresAt,
     userData?.user?.hasTokenExchangePending,
   );
 };
