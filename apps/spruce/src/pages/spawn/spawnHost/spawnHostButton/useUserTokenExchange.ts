@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { TokenExchangeState } from "components/Spawn/spawnHostModal/constants";
 import { FASTER_POLL_INTERVAL } from "constants/index";
 import {
@@ -47,13 +47,17 @@ export const useUserTokenExchange = (skip: boolean): TokenExchangeState => {
   const { data: userData, refetch } = useQuery<
     UserTokenExchangeQuery,
     UserTokenExchangeQueryVariables
-  >(USER_TOKEN_EXCHANGE, {
-    skip,
-    fetchPolicy: "no-cache",
-    // We poll faster than normal because users expect to see
-    // faster feedback after performing the authentication flow.
-    pollInterval: skip ? 0 : FASTER_POLL_INTERVAL,
-  });
+  >(
+    USER_TOKEN_EXCHANGE,
+    skip
+      ? skipToken
+      : {
+          fetchPolicy: "no-cache",
+          // We poll faster than normal because users expect to see
+          // faster feedback after performing the authentication flow.
+          pollInterval: FASTER_POLL_INTERVAL,
+        },
+  );
   const tokenExpiresAt = userData?.user?.tokenAccessTokenExpiresAt;
 
   // While the spawn modal is open, refetch when the user returns to this tab after

@@ -14,7 +14,7 @@ import {
   getSpawnHostTokenExchangeState,
   isTokenValid,
   useUserTokenExchange,
-} from "./tokenAuthentication";
+} from "./useUserTokenExchange";
 
 const apolloMocksWrapper = (mocks: MockedResponse[]) =>
   function ApolloMocksProvider({ children }: PropsWithChildren) {

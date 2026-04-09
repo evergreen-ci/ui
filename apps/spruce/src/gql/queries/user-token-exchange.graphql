@@ -2,5 +2,6 @@ query UserTokenExchange {
   user {
     hasTokenExchangePending
     tokenAccessTokenExpiresAt
+    userId
   }
 }

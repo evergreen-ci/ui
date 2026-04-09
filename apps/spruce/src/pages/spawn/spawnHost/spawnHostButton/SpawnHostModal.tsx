@@ -28,7 +28,7 @@ import { SPAWN_HOST } from "gql/mutations";
 import { SPAWN_TASK } from "gql/queries";
 import { useUserTimeZone } from "hooks";
 import { getString, parseQueryString } from "utils/queryString";
-import { useUserTokenExchange } from "./tokenAuthentication";
+import { useUserTokenExchange } from "./useUserTokenExchange";
 
 interface SpawnHostModalProps {
   open: boolean;

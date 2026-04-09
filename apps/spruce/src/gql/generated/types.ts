@@ -684,6 +684,7 @@ export type Cost = {
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  s3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
   s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
@@ -11856,6 +11857,7 @@ export type UserTokenExchangeQuery = {
     __typename?: "User";
     hasTokenExchangePending: boolean;
     tokenAccessTokenExpiresAt?: Date | null;
+    userId: string;
   };
 };
 
