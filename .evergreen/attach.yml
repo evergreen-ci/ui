@@ -116,6 +116,7 @@ functions:
         bucket: evg-bucket-evergreen-ui
         content_type: text/html
         permissions: public-read
+        display_name: "Storybook:"
     - command: s3.put
       type: system
       params:
