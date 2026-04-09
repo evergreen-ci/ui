@@ -5238,9 +5238,9 @@ export type TestLogUrlAndRenderingTypeQuery = {
         logs: {
           __typename?: "TestLog";
           renderingType?: string | null;
+          testName?: string | null;
           url?: string | null;
           urlRaw?: string | null;
-          testName?: string | null;
         };
       }>;
     };
