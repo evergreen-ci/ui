@@ -684,6 +684,7 @@ export type Cost = {
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  s3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
   s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
@@ -6800,18 +6801,6 @@ export type DeleteDistroMutationVariables = Exact<{
 export type DeleteDistroMutation = {
   __typename?: "Mutation";
   deleteDistro: { __typename?: "DeleteDistroPayload"; deletedDistroId: string };
-};
-
-export type DeleteGithubAppCredentialsMutationVariables = Exact<{
-  projectId: Scalars["String"]["input"];
-}>;
-
-export type DeleteGithubAppCredentialsMutation = {
-  __typename?: "Mutation";
-  deleteGithubAppCredentials?: {
-    __typename?: "DeleteGithubAppCredentialsPayload";
-    oldAppId: number;
-  } | null;
 };
 
 export type DeleteProjectMutationVariables = Exact<{
