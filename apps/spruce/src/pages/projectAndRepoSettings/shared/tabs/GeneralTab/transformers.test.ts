@@ -57,6 +57,7 @@ const repoForm: GeneralFormState = {
     },
     repotracker: {
       repotrackerDisabled: false,
+      runEveryMainlineCommit: false,
       forceRun: null,
     },
     patch: {
@@ -125,6 +126,7 @@ const projectForm: GeneralFormState = {
     },
     repotracker: {
       repotrackerDisabled: null,
+      runEveryMainlineCommit: null,
       forceRun: null,
     },
     patch: {

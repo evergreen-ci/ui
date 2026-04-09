@@ -5,6 +5,7 @@ import widgets from "components/SpruceForm/Widgets";
 import {
   debugSpawnHostsDocumentationUrl,
   versionControlDocumentationUrl,
+  runEveryMainlineCommitDocumentationUrl,
 } from "constants/externalResources";
 import { form, ProjectType } from "../utils";
 import {
@@ -160,6 +161,18 @@ export const getFormSchema = (
                   type: "null" as const,
                 },
               }),
+              runEveryMainlineCommitTitle: {
+                type: "null" as const,
+                title: "Run Every Mainline Commit",
+              },
+              runEveryMainlineCommit: {
+                type: ["boolean", "null"],
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  repoData?.github?.runEveryMainlineCommit,
+                ),
+              },
             },
           },
           debug: {
@@ -377,6 +390,15 @@ export const getFormSchema = (
           "ui:showLabel": false,
           options: { projectId },
         },
+        runEveryMainlineCommitTitle: {
+          "ui:sectionTitle": true,
+          "ui:description": RunEveryMainlineCommitDescription,
+        },
+        runEveryMainlineCommit: {
+          "ui:data-cy": "run-every-mainline-commit-radio-box",
+          "ui:showLabel": false,
+          "ui:widget": widgets.RadioBoxWidget,
+        },
       },
       scheduling: {
         deactivatePrevious: {
@@ -463,3 +485,14 @@ const getMinLength = (
   }
   return 1;
 };
+
+const RunEveryMainlineCommitDescription = (
+  <>
+    By default, only the latest repotracker version is activated periodically to
+    avoid redundant builds. Enable this to activate every mainline commit
+    version.{" "}
+    <StyledLink href={runEveryMainlineCommitDocumentationUrl}>
+      Learn more
+    </StyledLink>
+  </>
+);
