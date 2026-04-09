@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Copyable } from "@leafygreen-ui/copyable";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { LogMetadata } from "context/LogContext/types";
@@ -50,7 +51,7 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
 };
 
 const Container = styled.div`
-  margin-top: 8px;
+  margin-top: ${size.xs};
   width: 100%;
 `;
 

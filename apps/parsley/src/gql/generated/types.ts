@@ -3045,14 +3045,18 @@ export type ProjectSettingsInput = {
 
 export enum ProjectSettingsSection {
   Access = "ACCESS",
+  CommitChecks = "COMMIT_CHECKS",
   General = "GENERAL",
   GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
   GithubAppSettings = "GITHUB_APP_SETTINGS",
   GithubPermissions = "GITHUB_PERMISSIONS",
+  GitTags = "GIT_TAGS",
+  MergeQueue = "MERGE_QUEUE",
   Notifications = "NOTIFICATIONS",
   PatchAliases = "PATCH_ALIASES",
   PeriodicBuilds = "PERIODIC_BUILDS",
   Plugins = "PLUGINS",
+  PullRequests = "PULL_REQUESTS",
   TestSelection = "TEST_SELECTION",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
@@ -5238,9 +5242,9 @@ export type TestLogUrlAndRenderingTypeQuery = {
         logs: {
           __typename?: "TestLog";
           renderingType?: string | null;
-          testName?: string | null;
           url?: string | null;
           urlRaw?: string | null;
+          logPath?: string | null;
         };
       }>;
     };

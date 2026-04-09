@@ -202,8 +202,8 @@ export const useResolveLogURLAndRenderingType = ({
       const { groupID: groupIDFromQuery, logs } =
         testData?.task?.tests.testResults[0] || {};
       const {
+        logPath: logPathFromQuery,
         renderingType: renderingTypeFromQuery,
-        testName,
         url,
         urlRaw,
       } = logs || {};
@@ -225,7 +225,7 @@ export const useResolveLogURLAndRenderingType = ({
         url: baseHtmlLogURL,
       });
       downloadURL = rawLogURL;
-      logPath = testName ?? "";
+      logPath = logPathFromQuery ?? "";
       if (!renderingTypeFromQuery) {
         renderingType = LogRenderingTypes.Default;
       } else if (

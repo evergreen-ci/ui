@@ -10,8 +10,8 @@ query TestLogURLAndRenderingType(
         id
         groupID
         logs {
+          logPath: testName
           renderingType
-          testName
           url
           urlRaw
         }
