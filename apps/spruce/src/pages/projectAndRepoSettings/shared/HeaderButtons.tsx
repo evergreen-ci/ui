@@ -201,6 +201,9 @@ const mapRouteToSection: Record<
     ProjectSettingsSection.GithubAppSettings,
   [ProjectSettingsTabRoutes.GithubPermissionGroups]:
     ProjectSettingsSection.GithubPermissions,
+  // TODO DEVPROD-8355: add section for CommitChecks in app repo
+  [ProjectSettingsTabRoutes.CommitChecks]:
+    ProjectSettingsSection.GithubAndCommitQueue,
   [ProjectSettingsTabRoutes.TestSelection]:
     ProjectSettingsSection.TestSelection,
 };
