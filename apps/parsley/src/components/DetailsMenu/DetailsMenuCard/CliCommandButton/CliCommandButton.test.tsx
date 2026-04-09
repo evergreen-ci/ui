@@ -97,9 +97,8 @@ describe("CliCommandButton", () => {
       <WithLogMetadata
         metadata={{
           execution: "1",
+          logPath: "AFakeTest",
           logType: LogTypes.EVERGREEN_TEST_LOGS,
-          rawLogURL:
-            "http://parsley.corp.mongodb.com/rest/v2/tasks/spruce_ubuntu_check_codegen_1234/build/TestLogs/AFakeTest?execution=1&print_time=true",
           taskID: "spruce_ubuntu_check_codegen_1234",
         }}
       />,
