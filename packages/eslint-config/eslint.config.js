@@ -1,5 +1,3 @@
-import { fileURLToPath } from "url";
-import { dirname, resolve } from "path";
 import * as emotionPlugin from "@emotion/eslint-plugin";
 import { fixupPluginRules } from "@eslint/compat";
 import eslint from "@eslint/js";
@@ -10,6 +8,7 @@ import cypressPlugin from "eslint-plugin-cypress/flat";
 import importPlugin from "eslint-plugin-import";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
+import playwrightPlugin from "eslint-plugin-playwright";
 import prettierConfig from "eslint-plugin-prettier/recommended";
 import reactPlugin from "eslint-plugin-react";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
@@ -17,6 +16,8 @@ import sortDestructureKeysPlugin from "eslint-plugin-sort-destructure-keys";
 import storybookPlugin from "eslint-plugin-storybook";
 import testingLibraryPlugin from "eslint-plugin-testing-library";
 import tseslint from "typescript-eslint";
+import { dirname, resolve } from "path";
+import { fileURLToPath } from "url";
 
 const configDir = dirname(fileURLToPath(import.meta.url));
 const monorepoRoot = dirname(dirname(configDir));
@@ -134,6 +135,7 @@ const tsEslintConfig = {
     "**/*.config.ts",
     "**/config/**",
     "**/cypress/**",
+    "**/playwright/**",
   ],
   languageOptions: {
     parser: tseslint.parser,
@@ -305,9 +307,9 @@ const jsDocConfig = {
   files: ["**/*.js?(x)", "**/*.ts?(x)"],
   settings: {
     jsdoc: {
-      ignoreInternal: true
-    }
-  }
+      ignoreInternal: true,
+    },
+  },
 };
 
 // Storybook ESLint (eslint-plugin-storybook) settings.
@@ -332,6 +334,19 @@ const cypressConfig = {
   rules: {
     ...cypressPlugin.configs.recommended.rules,
     "@typescript-eslint/no-namespace": OFF,
+  },
+};
+
+// Playwright ESLint (eslint-plugin-playwright) settings.
+const playwrightConfig = {
+  name: "playwright/rules",
+  files: ["playwright/**/*.ts"],
+  plugins: {
+    playwright: playwrightPlugin,
+  },
+  rules: {
+    ...playwrightPlugin.configs.recommended.rules,
+    "no-await-in-loop": "off",
   },
 };
 
@@ -466,6 +481,7 @@ export default defineConfig(
   storybookPlugin.configs["flat/recommended"],
   storyBookConfig,
   cypressConfig,
+  playwrightConfig,
   graphQLConfig,
   importConfig,
   disableConflictingPrettierRules,
