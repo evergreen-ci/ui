@@ -22,6 +22,7 @@ post:
   - func: assume-ec2-role
   - func: attach-codegen-diff
   - func: attach-cypress-results
+  - func: attach-playwright-results
   - func: attach-email
   - func: attach-mongod-logs
   - func: attach-restore-logs
@@ -52,7 +53,7 @@ buildvariants:
     tasks:
       - name: check_codegen
       - name: compile
-      - name: e2e
+      - name: e2e_cypress
       - name: lint
       - name: storybook
       - name: test
@@ -176,4 +177,7 @@ buildvariants:
 parameters:
   - key: cypress_spec
     value: cypress/integration/**/*
-    description: Specify the Cypress spec files to run for user submitted patches running the e2e_test task.
+    description: Specify the Cypress spec files to run for user submitted patches running the e2e_cypress task.
+  - key: playwright_spec
+    value: ""
+    description: Specify the Playwright spec files to run for user submitted patches running the e2e task.
