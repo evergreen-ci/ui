@@ -130,6 +130,11 @@ export interface OtherFormState {
     githubCheckRunConfigurations: {
       checkRunLimit: number;
     };
+
+    diagnosticsConfig: {
+      s3BucketName: string;
+      s3Prefix: string;
+    };
   };
 }
 

@@ -65,6 +65,7 @@ describe("createDuplicateProjectField", () => {
               canCreateProject: false,
               projectPermissions: {
                 __typename: "ProjectPermissions",
+                id: "my_identifier",
                 edit: false,
               },
             },
@@ -209,6 +210,7 @@ const permissionsMock: ApolloMock<
           canCreateProject: true,
           projectPermissions: {
             __typename: "ProjectPermissions",
+            id: "my_identifier",
             edit: true,
           },
         },

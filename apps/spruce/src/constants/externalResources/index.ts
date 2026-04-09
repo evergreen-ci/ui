@@ -18,6 +18,8 @@ export const hostMountVolumeDocumentationUrl = `${hostsDocumentationUrl}/Spawn-H
 
 export const taskSpawnHostDocumentationUrl = `${hostsDocumentationUrl}/Spawn-Hosts#spawning-a-host-from-a-task`;
 
+export const debugSpawnHostsDocumentationUrl = `${hostsDocumentationUrl}/Debug-Spawn-Hosts`;
+
 export const projectDistroSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Project-and-Distro-Settings`;
 
 export const projectSettingsRepoSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Repo-Level-Settings`;

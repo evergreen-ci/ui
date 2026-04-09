@@ -136,6 +136,10 @@ const mockAdminSettings: AdminSettingsData = {
   githubCheckRun: {
     checkRunLimit: 10,
   },
+  diagnostics: {
+    s3BucketName: "diagnostics-bucket",
+    s3Prefix: "diagnostics/",
+  },
 };
 
 const expectedForm: OtherFormState = {
@@ -269,6 +273,10 @@ const expectedForm: OtherFormState = {
     },
     githubCheckRunConfigurations: {
       checkRunLimit: 10,
+    },
+    diagnosticsConfig: {
+      s3BucketName: "diagnostics-bucket",
+      s3Prefix: "diagnostics/",
     },
   },
 };
@@ -405,5 +413,9 @@ const expectedGql: AdminSettingsInput = {
   },
   githubCheckRun: {
     checkRunLimit: 10,
+  },
+  diagnostics: {
+    s3BucketName: "diagnostics-bucket",
+    s3Prefix: "diagnostics/",
   },
 };

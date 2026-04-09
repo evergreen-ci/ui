@@ -52,7 +52,7 @@ export const gqlToForm = ((data, options) => {
     mergeQueueAliases,
   } = sortAliases(aliases ?? []);
 
-  const override = (field: Array<any>) =>
+  const override = (field: Array<unknown>) =>
     projectType !== ProjectType.AttachedProject || !!field?.length;
 
   const githubPRTriggerAliases =

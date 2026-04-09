@@ -1,4 +1,7 @@
+import Cookies from "js-cookie";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
+import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
 import {
   VersionTasksQueryVariables,
@@ -6,26 +9,31 @@ import {
   TaskSortCategory,
 } from "gql/generated/types";
 import { PatchTasksQueryParams } from "types/task";
-import { queryString, array } from "utils";
-
-const { getString, parseQueryString, parseSortString } = queryString;
-const { toArray } = array;
+import { parseSortString } from "utils/queryString";
 
 export const useQueryVariables = (
-  search: string,
   versionId: string,
 ): VersionTasksQueryVariables => {
   const { limit, page } = usePagination();
-  const queryParams = parseQueryString(search);
-  const {
-    [TableQueryParams.Sorts]: sorts,
-    [PatchTasksQueryParams.Variant]: variant,
-    [PatchTasksQueryParams.TaskName]: taskName,
-    [PatchTasksQueryParams.Statuses]: statuses,
-    [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
-    [PatchTasksQueryParams.IncludeNeverActivatedTasks]:
-      includeNeverActivatedTasks,
-  } = queryParams;
+
+  const [sorts] = useQueryParam<string | string[] | undefined>(
+    TableQueryParams.Sorts,
+    undefined,
+  );
+  const [variant] = useQueryParam<string>(PatchTasksQueryParams.Variant, "");
+  const [taskName] = useQueryParam<string>(PatchTasksQueryParams.TaskName, "");
+  const [statuses] = useQueryParam<string[]>(
+    PatchTasksQueryParams.Statuses,
+    [],
+  );
+  const [baseStatuses] = useQueryParam<string[]>(
+    PatchTasksQueryParams.BaseStatuses,
+    [],
+  );
+  const [includeNeverActivatedTasks] = useQueryParam<boolean>(
+    PatchTasksQueryParams.IncludeNeverActivatedTasks,
+    Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true",
+  );
 
   const sortsToApply: SortOrder[] = sorts
     ? parseSortString<"Key", "Direction", TaskSortCategory, SortOrder>(sorts, {
@@ -35,21 +43,17 @@ export const useQueryVariables = (
       })
     : [];
 
-  const isIncludeNeverActivatedTasksDefined =
-    includeNeverActivatedTasks !== undefined;
   return {
     versionId,
     taskFilterOptions: {
-      variant: getString(variant),
-      taskName: getString(taskName),
-      statuses: toArray(statuses),
-      baseStatuses: toArray(baseStatuses),
+      variant,
+      taskName,
+      statuses,
+      baseStatuses,
       sorts: sortsToApply,
       limit,
       page,
-      includeNeverActivatedTasks: isIncludeNeverActivatedTasksDefined
-        ? includeNeverActivatedTasks === "true"
-        : undefined,
+      includeNeverActivatedTasks,
     },
   };
 };
