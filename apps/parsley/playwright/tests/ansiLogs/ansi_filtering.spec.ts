@@ -15,15 +15,20 @@ test.describe("Filtering", () => {
         ).toBeVisible();
       });
 
-      test("should not collapse bookmarks and share line", async ({
+      test("should not collapse bookmarks and selected line", async ({
         authenticatedPage,
       }) => {
-        await authenticatedPage.getByTestId("log-link-5").click();
-        await authenticatedPage.getByTestId("log-row-6").dblclick();
+        await authenticatedPage.getByTestId("log-menu-6").click();
+        await authenticatedPage.getByText("Bookmark line").click();
+        await authenticatedPage.getByTestId("line-index-5").click();
         await expect(authenticatedPage).toHaveURL(
-          /\?bookmarks=0,6,297&shareLine=5/,
+          /\?bookmarks=0,6,297&selectedLineRange=L5/,
         );
         await helpers.addFilter(authenticatedPage, "doesNotMatchAnything");
+        await authenticatedPage
+          .locator("[data-cy^='skipped-lines-row-']")
+          .first()
+          .waitFor();
 
         const logRows = await authenticatedPage
           .locator("[data-cy^='log-row-']")
@@ -39,9 +44,8 @@ test.describe("Filtering", () => {
       }) => {
         await helpers.addFilter(authenticatedPage, "5553072873648668703");
         await expect(authenticatedPage.getByTestId("log-row-0")).toBeVisible();
-        await authenticatedPage
-          .getByTestId("log-row-0")
-          .dblclick({ force: true });
+        await authenticatedPage.getByTestId("log-menu-0").click();
+        await authenticatedPage.getByText("Remove bookmark").click();
         await expect(authenticatedPage).toHaveURL(/5553072873648668703/);
         await expect(
           authenticatedPage.getByTestId("filter-5553072873648668703"),

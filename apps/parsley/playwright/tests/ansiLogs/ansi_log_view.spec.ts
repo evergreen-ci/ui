@@ -124,7 +124,8 @@ test.describe("Bookmarking and selecting lines", () => {
   test("should be able to bookmark and unbookmark log lines", async ({
     authenticatedPage,
   }) => {
-    await authenticatedPage.getByTestId("log-row-4").dblclick();
+    await authenticatedPage.getByTestId("log-menu-4").click();
+    await authenticatedPage.getByText("Bookmark line").click();
     await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,4,297/);
     await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
       "0",
@@ -135,7 +136,8 @@ test.describe("Bookmarking and selecting lines", () => {
     await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
       "297",
     );
-    await authenticatedPage.getByTestId("log-row-4").dblclick();
+    await authenticatedPage.getByTestId("sharing-menu-button").click();
+    await authenticatedPage.getByText("Remove bookmark").click();
     await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,297/);
     const bookmarkList = await authenticatedPage
       .getByTestId("bookmark-list")
@@ -143,33 +145,29 @@ test.describe("Bookmarking and selecting lines", () => {
     expect(bookmarkList).not.toContain("4");
   });
 
-  test("should be able to set and unset the share line", async ({
+  test("should be able to select a line and copy share link", async ({
     authenticatedPage,
   }) => {
-    await authenticatedPage.getByTestId("log-link-5").click();
-    await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,297&shareLine=5/);
-    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
-      "0",
+    await authenticatedPage.getByTestId("line-index-5").click();
+    await expect(authenticatedPage).toHaveURL(
+      /\?bookmarks=0,297&selectedLineRange=L5/,
     );
-    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
-      "5",
-    );
-    await expect(authenticatedPage.getByTestId("bookmark-list")).toContainText(
-      "297",
-    );
-    await authenticatedPage.getByTestId("log-link-5").click();
-    await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,297/);
-    const bookmarkList = await authenticatedPage
-      .getByTestId("bookmark-list")
-      .innerText();
-    expect(bookmarkList).not.toContain("5");
+    await expect(
+      authenticatedPage.getByTestId("sharing-menu-button"),
+    ).toBeVisible();
+    await authenticatedPage.getByTestId("sharing-menu-button").click();
+    await expect(
+      authenticatedPage.getByText("Copy link to line"),
+    ).toBeVisible();
   });
 
   test("should be able to copy bookmarks as JIRA format", async ({
     authenticatedPage,
   }) => {
-    await authenticatedPage.getByTestId("log-row-10").dblclick({ force: true });
-    await authenticatedPage.getByTestId("log-row-11").dblclick({ force: true });
+    await authenticatedPage.getByTestId("log-menu-10").click();
+    await authenticatedPage.getByText("Bookmark line").click();
+    await authenticatedPage.getByTestId("log-menu-11").click();
+    await authenticatedPage.getByText("Bookmark line").click();
 
     const logLine0 =
       "[2022/03/02 17:01:58.587] Task logger initialized (agent version 2022-02-14 from 00a4c8f3e8e4559cc23e04a019b6d1725c40c3e5).";
@@ -191,8 +189,10 @@ test.describe("Bookmarking and selecting lines", () => {
   test("should be able to copy bookmarks as raw format", async ({
     authenticatedPage,
   }) => {
-    await authenticatedPage.getByTestId("log-row-10").dblclick({ force: true });
-    await authenticatedPage.getByTestId("log-row-11").dblclick({ force: true });
+    await authenticatedPage.getByTestId("log-menu-10").click();
+    await authenticatedPage.getByText("Bookmark line").click();
+    await authenticatedPage.getByTestId("log-menu-11").click();
+    await authenticatedPage.getByText("Bookmark line").click();
 
     const logLine0 =
       "[2022/03/02 17:01:58.587] Task logger initialized (agent version 2022-02-14 from 00a4c8f3e8e4559cc23e04a019b6d1725c40c3e5).";
@@ -233,7 +233,8 @@ test.describe("Jump to line", () => {
   }) => {
     await authenticatedPage.goto(logLink);
     await expect(authenticatedPage.getByTestId("log-row-4")).toBeVisible();
-    await authenticatedPage.getByTestId("log-row-4").dblclick({ force: true });
+    await authenticatedPage.getByTestId("log-menu-4").click();
+    await authenticatedPage.getByText("Bookmark line").click();
     await expect(authenticatedPage.getByTestId("bookmark-4")).toBeVisible();
 
     await authenticatedPage.getByTestId("bookmark-297").click();
@@ -247,7 +248,8 @@ test.describe("Jump to line", () => {
     authenticatedPage,
   }) => {
     await authenticatedPage.goto(`${logLink}?filters=100pass`);
-    await authenticatedPage.getByTestId("log-row-56").dblclick({ force: true });
+    await authenticatedPage.getByTestId("log-menu-56").click();
+    await authenticatedPage.getByText("Bookmark line").click();
     await expect(authenticatedPage.getByTestId("bookmark-56")).toBeVisible();
 
     await authenticatedPage.getByTestId("bookmark-297").click();
@@ -390,11 +392,9 @@ test.describe("Sharing lines", () => {
       .click({ modifiers: ["Shift"] });
     await expect(authenticatedPage.getByTestId("sharing-menu")).toBeVisible();
     await expect(
-      authenticatedPage.getByText("Copy share link to selected lines"),
+      authenticatedPage.getByText("Copy link to lines"),
     ).toBeVisible();
-    await authenticatedPage
-      .getByText("Copy share link to selected lines")
-      .click();
+    await authenticatedPage.getByText("Copy link to lines").click();
     await helpers.validateToast(
       authenticatedPage,
       "success",
@@ -403,7 +403,7 @@ test.describe("Sharing lines", () => {
     );
     await helpers.assertValueCopiedToClipboard(
       authenticatedPage,
-      "http://localhost:5173/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task?bookmarks=0%2C297&selectedLineRange=L1-L2&shareLine=1",
+      "http://localhost:5173/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task?bookmarks=0%2C297&selectedLineRange=L1-L2",
     );
   });
 

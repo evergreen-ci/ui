@@ -187,36 +187,41 @@ test.describe("Bookmarking and selecting lines", () => {
   test("should be able to bookmark and unbookmark log lines", async ({
     authenticatedPage,
   }) => {
-    await authenticatedPage.getByTestId("log-row-4").dblclick();
+    await authenticatedPage.getByTestId("log-menu-4").click();
+    await authenticatedPage.getByText("Bookmark line").click();
     await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,4,12568/);
     await expect(authenticatedPage.getByTestId("bookmark-0")).toBeVisible();
     await expect(authenticatedPage.getByTestId("bookmark-4")).toBeVisible();
     await expect(authenticatedPage.getByTestId("bookmark-12568")).toBeVisible();
-    await authenticatedPage.getByTestId("log-row-4").dblclick();
+    await authenticatedPage.getByTestId("sharing-menu-button").click();
+    await authenticatedPage.getByText("Remove bookmark").click();
     await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,12568/);
     await expect(authenticatedPage.getByTestId("bookmark-4")).toBeHidden();
   });
 
-  test("should be able to set and unset the share line", async ({
+  test("should be able to select a line and copy share link", async ({
     authenticatedPage,
   }) => {
-    await authenticatedPage.getByTestId("log-link-5").click();
+    await authenticatedPage.getByTestId("line-index-5").click();
     await expect(authenticatedPage).toHaveURL(
-      /\?bookmarks=0,12568&shareLine=5/,
+      /\?bookmarks=0,12568&selectedLineRange=L5/,
     );
-    await expect(authenticatedPage.getByTestId("bookmark-0")).toBeVisible();
-    await expect(authenticatedPage.getByTestId("bookmark-5")).toBeVisible();
-    await expect(authenticatedPage.getByTestId("bookmark-12568")).toBeVisible();
-    await authenticatedPage.getByTestId("log-link-5").click();
-    await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,12568/);
-    await expect(authenticatedPage.getByTestId("bookmark-5")).toBeHidden();
+    await expect(
+      authenticatedPage.getByTestId("sharing-menu-button"),
+    ).toBeVisible();
+    await authenticatedPage.getByTestId("sharing-menu-button").click();
+    await expect(
+      authenticatedPage.getByText("Copy link to line"),
+    ).toBeVisible();
   });
 
   test("should be able to copy bookmarks as JIRA format", async ({
     authenticatedPage,
   }) => {
-    await authenticatedPage.getByTestId("log-row-10").dblclick({ force: true });
-    await authenticatedPage.getByTestId("log-row-11").dblclick({ force: true });
+    await authenticatedPage.getByTestId("log-menu-10").click();
+    await authenticatedPage.getByText("Bookmark line").click();
+    await authenticatedPage.getByTestId("log-menu-11").click();
+    await authenticatedPage.getByText("Bookmark line").click();
 
     const logLine0 =
       "[fsm_workload_test:internal_transactions_kill_sessions] Fixture status:";
@@ -251,7 +256,8 @@ test.describe("Jump to line", () => {
   }) => {
     await authenticatedPage.goto(logLink);
     await expect(authenticatedPage.getByTestId("log-row-4")).toBeVisible();
-    await authenticatedPage.getByTestId("log-row-4").dblclick({ force: true });
+    await authenticatedPage.getByTestId("log-menu-4").click();
+    await authenticatedPage.getByText("Bookmark line").click();
     await expect(authenticatedPage.getByTestId("bookmark-4")).toBeVisible();
 
     await authenticatedPage.getByTestId("bookmark-12568").click();
@@ -267,7 +273,8 @@ test.describe("Jump to line", () => {
   }) => {
     await authenticatedPage.goto(`${logLink}?filters=100repl_hb`);
     await expect(authenticatedPage.getByTestId("log-row-30")).toBeVisible();
-    await authenticatedPage.getByTestId("log-row-30").dblclick({ force: true });
+    await authenticatedPage.getByTestId("log-menu-30").click();
+    await authenticatedPage.getByText("Bookmark line").click();
     await expect(authenticatedPage).toHaveURL(/bookmarks=0,30,12568/);
     await expect(authenticatedPage.getByTestId("bookmark-30")).toBeVisible();
     await authenticatedPage.getByTestId("bookmark-12568").click();
@@ -364,7 +371,8 @@ test.describe("pretty print", () => {
     const defaultRowHeight = 18;
 
     await expect(authenticatedPage.getByTestId("log-row-19")).toBeVisible();
-    await authenticatedPage.getByTestId("log-row-19").dblclick({ force: true });
+    await authenticatedPage.getByTestId("log-menu-19").click();
+    await authenticatedPage.getByText("Bookmark line").click();
     const box = await authenticatedPage.getByTestId("log-row-19").boundingBox();
     expect(box).not.toBeNull();
     expect(box!.height).toBeGreaterThan(defaultRowHeight);
@@ -430,11 +438,9 @@ test.describe("Sharing lines", () => {
       .click({ modifiers: ["Shift"] });
     await expect(authenticatedPage.getByTestId("sharing-menu")).toBeVisible();
     await expect(
-      authenticatedPage.getByText("Copy share link to selected lines"),
+      authenticatedPage.getByText("Copy link to lines"),
     ).toBeVisible();
-    await authenticatedPage
-      .getByText("Copy share link to selected lines")
-      .click();
+    await authenticatedPage.getByText("Copy link to lines").click();
     await helpers.validateToast(
       authenticatedPage,
       "success",
@@ -443,7 +449,7 @@ test.describe("Sharing lines", () => {
     );
     await helpers.assertValueCopiedToClipboard(
       authenticatedPage,
-      "http://localhost:5173/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab?bookmarks=0%2C12568&selectedLineRange=L1-L2&shareLine=1",
+      "http://localhost:5173/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab?bookmarks=0%2C12568&selectedLineRange=L1-L2",
     );
   });
 

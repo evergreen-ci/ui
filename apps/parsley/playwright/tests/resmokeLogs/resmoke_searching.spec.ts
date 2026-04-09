@@ -124,8 +124,11 @@ test.describe("Searching", () => {
       "2/8",
     );
 
-    await authenticatedPage.getByTestId("log-row-112").dblclick();
-    await expect(authenticatedPage).toHaveURL(/\?bookmarks=0,112,12568/);
+    await authenticatedPage.getByTestId("log-menu-112").click();
+    await authenticatedPage.getByText("Bookmark line").click();
+    await expect(authenticatedPage).toHaveURL(
+      /\?bookmarks=0,112,12568&selectedLineRange=L112/,
+    );
     await expect(authenticatedPage.getByTestId("search-count")).toContainText(
       "2/8",
     );
