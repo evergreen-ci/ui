@@ -1,4 +1,3 @@
-import { LeafyGreenTableRow } from "@leafygreen-ui/table";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { GroupedFiles } from "../types";
 
@@ -8,7 +7,4 @@ export type FileTableRow = {
   name: string;
   link: string;
   urlParsley: string | null;
-  renderExpandedContent?: (
-    row: LeafyGreenTableRow<FileTableRow>,
-  ) => JSX.Element;
 };
