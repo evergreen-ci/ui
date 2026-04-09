@@ -36,6 +36,14 @@ enum VersionTaskCategory {
   Variant = TaskSortCategory.Variant,
 }
 
+interface VersionTasksTableQueryParams {
+  [PatchTasksQueryParams.TaskName]?: string;
+  [PatchTasksQueryParams.Statuses]?: string | string[];
+  [PatchTasksQueryParams.BaseStatuses]?: string | string[];
+  [PatchTasksQueryParams.Variant]?: string;
+  [TableQueryParams.Sorts]?: string | string[];
+}
+
 interface VersionTasksTableProps {
   clearQueryParams: () => void;
   filteredCount: number;
@@ -90,7 +98,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   const [sorting, setSorting] = useState<SortingState>(initialSorting);
 
   const updateFilters = (filterState: ColumnFiltersState) => {
-    const updatedParams: Record<string, any> = {
+    const updatedParams: Record<string, unknown> = {
       ...queryParams,
       page: "0",
       ...emptyFilterQueryParams,
@@ -181,18 +189,16 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
 };
 
 export const getInitialState = (
-  queryParams: Record<string, any>,
+  queryParams: VersionTasksTableQueryParams,
 ): {
   initialFilters: ColumnFiltersState;
   initialSorting: SortingState;
 } => {
-  const {
-    [PatchTasksQueryParams.TaskName]: taskName,
-    [PatchTasksQueryParams.Statuses]: statuses,
-    [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
-    [PatchTasksQueryParams.Variant]: variant,
-    [TableQueryParams.Sorts]: sorts,
-  } = queryParams;
+  const taskName = queryParams[PatchTasksQueryParams.TaskName];
+  const statuses = queryParams[PatchTasksQueryParams.Statuses];
+  const baseStatuses = queryParams[PatchTasksQueryParams.BaseStatuses];
+  const variant = queryParams[PatchTasksQueryParams.Variant];
+  const sorts = queryParams[TableQueryParams.Sorts];
 
   const initialFilters = [];
 

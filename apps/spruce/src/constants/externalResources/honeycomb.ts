@@ -111,11 +111,6 @@ export const getHoneycombTaskTimingURL = ({
       { column: "evergreen.build.name", op: "=", value: buildVariant },
       { column: "evergreen.task.name", op: "=", value: taskName },
       ...configurableFilters,
-
-      // TODO DEVPROD-22967: This exists case can be deleted once we've been collecting activated_time metrics for 60 days.
-      ...(metric !== TaskTimingMetric.RunTime
-        ? [{ column: "evergreen.task.activated_time", op: "exists" }]
-        : []),
     ],
     filter_combination: "AND",
     limit: 1000,

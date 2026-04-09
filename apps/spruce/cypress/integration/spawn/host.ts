@@ -111,6 +111,9 @@ describe("Navigating to Spawn Host page", () => {
         "aria-disabled",
         "true",
       );
+      cy.contains(
+        "You have reached the max number of unexpirable hosts",
+      ).should("be.visible");
     });
 
     it("Clicking on the spawn host button should open a spawn host modal.", () => {

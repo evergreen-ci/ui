@@ -10,8 +10,10 @@ import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
+  MetadataTitleWithAPILink,
 } from "components/MetadataCard";
 import { Stepback } from "components/Stepback";
+import { getAPIRouteForTasks } from "constants/externalResources";
 import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
@@ -52,6 +54,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const taskAnalytics = useTaskAnalytics();
   const getDateCopy = useDateFormat();
 
+  const showStepback = isInStepback(task?.stepbackInfo);
+
   if (!task) {
     return (
       <MetadataCard error={error} loading={loading} title="Task Metadata">
@@ -65,6 +69,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     ami,
     annotation,
     baseTask,
+    buildId,
     buildVariant,
     buildVariantDisplayName,
     dependsOn,
@@ -89,7 +94,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     resetWhenFinished,
     spawnHostLink,
     startTime,
-    stepbackInfo,
     tags,
     testSelectionEnabled,
     timeTaken,
@@ -98,7 +102,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
 
   const isDisplayTask = executionTasksFull != null;
   const {
-    id: baseTaskId,
     timeTaken: baseTaskDuration,
     versionMetadata: baseTaskVersionMetadata,
   } = baseTask ?? {};
@@ -117,11 +120,16 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   const diskDevices = details?.diskDevices;
   const { metadataLinks } = annotation ?? {};
 
-  const showStepback = isInStepback(stepbackInfo);
-
   return (
     <>
-      <MetadataCard title="Task Metadata">
+      <MetadataCard
+        title={
+          <MetadataTitleWithAPILink
+            href={getAPIRouteForTasks(taskId, execution)}
+            title="Task Metadata"
+          />
+        }
+      >
         <CopyableID textToCopy={taskId} tooltipLabel="Copy task ID" />
         <MetadataItem data-cy="task-metadata-project">
           <MetadataLabel>Project:</MetadataLabel>{" "}
@@ -214,11 +222,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
             {msToDuration(baseTaskDuration)}
           </MetadataItem>
         ) : null}
-        {baseTaskId && (
+        {baseTask && (
           <MetadataItem>
             <MetadataLabel>Base commit:</MetadataLabel>{" "}
             <InlineCode
-              as={Link as any}
+              as={Link}
               data-cy="base-task-link"
               onClick={() =>
                 taskAnalytics.sendEvent({
@@ -226,7 +234,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
                   "link.type": "base commit",
                 })
               }
-              to={getTaskRoute(baseTaskId)}
+              to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
             >
               {baseCommit}
             </InlineCode>
@@ -309,13 +317,16 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         )}
         {showStepback && (
           <MetadataItem as="div">
-            <Stepback taskId={taskId} />
+            <Stepback
+              execution={execution}
+              status={task.status}
+              taskId={taskId}
+            />
           </MetadataItem>
         )}
         {testSelectionEnabledForProject && (
           <TestSelection testSelectionEnabled={testSelectionEnabled} />
         )}
-
         {startTime && finishTime && (
           <MetadataItem>
             <HoneycombLinkContainer>
@@ -359,6 +370,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
       </MetadataCard>
 
       <BuildVariantCard
+        buildId={buildId}
         buildVariant={buildVariant}
         buildVariantDisplayName={buildVariantDisplayName ?? ""}
         projectIdentifier={projectIdentifier}

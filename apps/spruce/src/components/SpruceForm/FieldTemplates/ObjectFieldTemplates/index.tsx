@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { Banner } from "@leafygreen-ui/banner";
-import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
 import Accordion from "@evg-ui/lib/components/Accordion";
@@ -20,7 +19,6 @@ export const ObjectFieldTemplate = ({
 }: ObjectFieldTemplateProps) => {
   const errors = uiSchema["ui:errors"] ?? [];
   const warnings = uiSchema["ui:warnings"] ?? [];
-  const tooltipTitle = uiSchema["ui:tooltipTitle"] ?? null;
   return (
     <fieldset css={uiSchema["ui:elementWrapperCSS"]} id={idSchema.$id}>
       {(uiSchema["ui:title"] || title) && (
@@ -30,7 +28,6 @@ export const ObjectFieldTemplate = ({
             required={required}
             title={title || uiSchema["ui:title"]}
           />
-          {tooltipTitle && <InfoSprinkle>{tooltipTitle}</InfoSprinkle>}
         </TitleContainer>
       )}
       {description && (

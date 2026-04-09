@@ -77,7 +77,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   });
 
   const [pins, setPins] = useState<string[]>(
-    getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] ?? [],
+    getObject<Record<string, string[]>>(WATERFALL_PINNED_VARIANTS_KEY)?.[
+      projectIdentifier
+    ] ?? [],
   );
 
   const handlePinBV = useCallback(
@@ -97,8 +99,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         return [...prev, buildVariant];
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    [sendEvent, setPins],
   );
 
   useEffect(() => {
@@ -157,6 +158,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       } else {
         // Don't use a transition: if cached, the data will appear immediately
         // If not a skeleton will appear, which makes more sense than 'fetching more'
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setServerFilters(newFilters);
       }
     }

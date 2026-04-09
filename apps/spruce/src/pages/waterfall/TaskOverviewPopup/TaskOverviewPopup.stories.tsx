@@ -58,6 +58,7 @@ const defaultMock: ApolloMock<
         displayStatus: TaskStatus.Succeeded,
         distroId: "ubuntu1604-small",
         finishTime: new Date("2024-01-15T10:30:00Z"),
+        status: TaskStatus.Succeeded,
         timeTaken: 125000,
         annotation: null,
         details: {
@@ -103,6 +104,7 @@ const withAnnotationsMock: ApolloMock<
         displayStatus: TaskStatus.Failed,
         distroId: "ubuntu2004-small",
         finishTime: new Date("2024-01-15T12:00:00Z"),
+        status: TaskStatus.Failed,
         timeTaken: 256000,
         annotation: {
           id: "annotation_123",
@@ -175,6 +177,7 @@ const longTaskNameMock: ApolloMock<
         displayStatus: TaskStatus.WillRun,
         distroId: "ubuntu2004-xlarge-with-very-long-distro-name",
         finishTime: null,
+        status: TaskStatus.WillRun,
         timeTaken: null,
         annotation: null,
         details: {
@@ -221,6 +224,7 @@ const failedTaskMock: ApolloMock<
         displayStatus: TaskStatus.Failed,
         distroId: "ubuntu1604-large",
         finishTime: new Date("2024-01-15T11:45:00Z"),
+        status: TaskStatus.Failed,
         timeTaken: 98000,
         annotation: null,
         details: {
@@ -339,6 +343,7 @@ const stepbackCompleteMock: ApolloMock<
         displayStatus: TaskStatus.Failed,
         distroId: "ubuntu1604-small",
         finishTime: new Date("2024-01-15T14:00:00Z"),
+        status: TaskStatus.Failed,
         timeTaken: 155000,
         annotation: null,
         stepbackInfo: {

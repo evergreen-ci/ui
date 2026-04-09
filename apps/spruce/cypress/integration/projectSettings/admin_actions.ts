@@ -17,7 +17,7 @@ describe("projectSettings/admin_actions", () => {
       cy.contains("button", "Duplicate").click();
       cy.validateToast(
         "warning",
-        "Project cannot be enabled due to the global or repo-specific limits.",
+        "The project was duplicated but may not be fully enabled",
       );
 
       cy.url().should("include", "copied-project");

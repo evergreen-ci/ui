@@ -38,9 +38,12 @@ describe("deleteDistro", () => {
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toHaveAttribute("aria-disabled", "true");
     await user.hover(deleteButton);
-    await waitFor(() => {
-      expect(screen.getByDataCy("delete-button-tooltip")).toBeVisible();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByDataCy("delete-button-tooltip")).toBeVisible();
+      },
+      { timeout: 2000 },
+    );
   });
 
   it("button is enabled if admin", async () => {
@@ -132,6 +135,7 @@ const isAdminMock: ApolloMock<
           canCreateDistro: true,
           distroPermissions: {
             __typename: "DistroPermissions",
+            id: distroToDelete,
             admin: true,
             edit: true,
           },
@@ -161,6 +165,7 @@ const notAdminMock: ApolloMock<
           canCreateDistro: false,
           distroPermissions: {
             __typename: "DistroPermissions",
+            id: distroToDelete,
             admin: false,
             edit: false,
           },

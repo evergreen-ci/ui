@@ -7,8 +7,10 @@ import { CopyableID } from "components/CopyableID";
 import MetadataCard, {
   MetadataItem,
   MetadataLabel,
+  MetadataTitleWithAPILink,
 } from "components/MetadataCard";
 import {
+  getAPIRouteForVersions,
   getGithubCommitUrl,
   getGithubMergeQueueUrl,
   getGithubPRUrl,
@@ -66,7 +68,14 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
   const isGitHubPullRequest = requester === Requester.GitHubPR;
 
   return (
-    <MetadataCard title={isPatch ? "Patch Metadata" : "Version Metadata"}>
+    <MetadataCard
+      title={
+        <MetadataTitleWithAPILink
+          href={getAPIRouteForVersions(id)}
+          title={isPatch ? "Patch Metadata" : "Version Metadata"}
+        />
+      }
+    >
       <CopyableID textToCopy={id} tooltipLabel="Copy version ID" />
       <MetadataItem>
         <MetadataLabel>Project:</MetadataLabel>{" "}

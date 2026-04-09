@@ -17,7 +17,10 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
   annotation: null,
   baseTask: {
     id: "evergreen_ui_parsley_test_da7ae2020c5af16fdc5daf95a6420b36ec742a06_25_07_17_16_46_56",
+    displayStatus: "success",
     execution: 0,
+    revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
+    status: "success",
     timeTaken: 125703,
     versionMetadata: {
       id: "evergreen_ui_da7ae2020c5af16fdc5daf95a6420b36ec742a06",
@@ -27,6 +30,7 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
     __typename: "Task",
   },
   blocked: false,
+  buildId: "build-12345",
   canAbort: false,
   canDisable: true,
   canModifyAnnotation: true,
@@ -179,6 +183,7 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
   annotation: null,
   baseTask: null,
   blocked: false,
+  buildId: "build-12345",
   canAbort: false,
   canDisable: true,
   canModifyAnnotation: true,

@@ -10,11 +10,6 @@ modules:
     repo: evergreen
     branch: main
     auto_update: true
-  - name: logkeeper
-    owner: evergreen-ci
-    repo: logkeeper
-    branch: main
-    auto_update: true
 
 pre:
   - func: assume-ec2-role
@@ -28,7 +23,6 @@ post:
   - func: attach-codegen-diff
   - func: attach-cypress-results
   - func: attach-email
-  - func: attach-logkeeper-logs
   - func: attach-mongod-logs
   - func: attach-restore-logs
   - func: attach-source-map
@@ -55,7 +49,6 @@ buildvariants:
       node_version: 22.18.0
     modules:
       - evergreen
-      - logkeeper
     tasks:
       - name: check_codegen
       - name: compile
@@ -83,7 +76,6 @@ buildvariants:
       - ubuntu2204-small
     modules:
       - evergreen
-      - logkeeper
     tasks:
       - name: check_codegen
       - name: compile

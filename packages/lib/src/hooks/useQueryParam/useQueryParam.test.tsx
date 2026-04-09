@@ -38,6 +38,33 @@ describe("useQueryParams", () => {
     expect(setterBefore).toBe(setterAfter);
   });
 
+  it("updating one param should not corrupt encoding of other params", () => {
+    // Filters use arrayFormat: "comma" and encode commas as %2C, which
+    // query-string double-encodes to %252C. Updating an unrelated param
+    // (e.g. bookmarks) should not re-serialize the filters and lose encoding.
+    const { result } = renderHook(() => useQueryParams(), {
+      wrapper: createWrapper([
+        "/?filters=100something%252Celse,100failed&bookmarks=0,100",
+      ]),
+    });
+
+    // Initial parse decodes %252C → %2C → "," so parsed value has literal comma.
+    // The important thing is that we get 2 filter items, not 3.
+    expect(result.current[0].filters).toHaveLength(2);
+
+    // Update only bookmarks via functional updater (like useQueryParam does)
+    act(() => {
+      result.current[1]((current: { [key: string]: unknown }) => ({
+        ...current,
+        bookmarks: [0, 100, 500],
+      }));
+    });
+
+    // Filters should still be 2 items after updating bookmarks, not 3.
+    // Without the fix, the comma in the first filter causes it to split.
+    expect(result.current[0].filters).toHaveLength(2);
+  });
+
   it("should support functional updates", () => {
     const { result } = renderHook(() => useQueryParams(), {
       wrapper: createWrapper(["/?existing=value"]),

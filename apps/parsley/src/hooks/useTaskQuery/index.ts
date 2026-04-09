@@ -1,21 +1,16 @@
-import { useQuery } from "@apollo/client/react";
-import { LogTypes } from "constants/enums";
+import { skipToken, useQuery } from "@apollo/client/react";
 import {
   BaseTaskFragment,
-  LogkeeperTaskQuery,
-  LogkeeperTaskQueryVariables,
   TaskLogLinks,
   TaskQuery,
   TaskQueryVariables,
   TaskTestResult,
 } from "gql/generated/types";
-import { GET_LOGKEEPER_TASK, GET_TASK } from "gql/queries";
+import { GET_TASK } from "gql/queries";
 
 interface UseTaskQueryProps {
-  logType?: LogTypes;
   taskID?: string;
   execution?: string | number;
-  buildID?: string;
 }
 
 type TaskType = BaseTaskFragment & {
@@ -39,32 +34,26 @@ type UseTaskQueryReturnType = {
 };
 
 export const useTaskQuery = ({
-  buildID,
   execution,
-  logType,
   taskID,
 }: UseTaskQueryProps): UseTaskQueryReturnType => {
-  const isLogkeeper = logType === LogTypes.LOGKEEPER_LOGS;
   const { data: taskData, loading: taskLoading } = useQuery<
     TaskQuery,
     TaskQueryVariables
-  >(GET_TASK, {
-    errorPolicy: "all",
-    skip: isLogkeeper || !taskID,
-    variables: { execution: Number(execution), taskId: String(taskID) },
-  });
-
-  const { data: logkeeperData, loading: logkeeperLoading } = useQuery<
-    LogkeeperTaskQuery,
-    LogkeeperTaskQueryVariables
-  >(GET_LOGKEEPER_TASK, {
-    skip: !isLogkeeper || !buildID,
-    variables: { buildId: String(buildID) },
-  });
+  >(
+    GET_TASK,
+    taskID
+      ? {
+          errorPolicy: "all",
+          variables: {
+            execution: Number(execution),
+            taskId: String(taskID),
+          },
+        }
+      : skipToken,
+  );
 
   const { task } = taskData ?? {};
-  const { logkeeperBuildMetadata } = logkeeperData ?? {};
-  const loadedTask = logkeeperBuildMetadata?.task ?? task;
 
-  return { loading: taskLoading || logkeeperLoading, task: loadedTask };
+  return { loading: taskLoading, task };
 };

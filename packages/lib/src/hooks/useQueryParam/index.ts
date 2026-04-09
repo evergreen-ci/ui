@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { ParseOptions } from "query-string";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { conditionalToArray } from "../../utils/array";
 import { parseQueryString, stringifyQuery } from "../../utils/query-string";
 
@@ -17,12 +17,17 @@ type SetQueryParams = (params: QueryParamsUpdater) => void;
 const useQueryParams = (
   parseOptions?: ParseOptions,
 ): readonly [QueryParams, SetQueryParams] => {
-  const [searchParams] = useSearchParams();
+  const location = useLocation();
   const navigate = useNavigate();
 
+  // The url colors=red%2Cblue,green becomes colors=red%2Cblue%2Cgreen
+  // after using URLSearchParams.toString(), so we lose the contex of `,`.
+  // So `parseQueryString` can't tell the difference and we end up breaking the filters
+  const rawSearch = location.search.replace(/^\?/, "");
+
   const searchParamsObject = useMemo(
-    () => parseQueryString(searchParams.toString(), parseOptions ?? {}),
-    [searchParams, parseOptions],
+    () => parseQueryString(rawSearch, parseOptions ?? {}),
+    [rawSearch, parseOptions],
   );
 
   // Use a ref to track current params so the setter can read fresh values

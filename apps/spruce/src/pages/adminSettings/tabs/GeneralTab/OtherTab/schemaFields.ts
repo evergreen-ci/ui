@@ -9,6 +9,10 @@ import {
 
 export const oktaServiceConfig = {
   schema: {
+    audience: {
+      type: "string" as const,
+      title: "Audience",
+    },
     clientId: {
       type: "string" as const,
       title: "Client ID",
@@ -16,6 +20,17 @@ export const oktaServiceConfig = {
     clientSecret: {
       type: "string" as const,
       title: "Client Secret",
+    },
+    issuer: {
+      type: "string" as const,
+      title: "Issuer",
+    },
+    scopes: {
+      type: "array" as const,
+      title: "Scopes",
+      items: {
+        type: "string" as const,
+      },
     },
   },
   uiSchema: {
@@ -137,6 +152,17 @@ export const miscSettings = {
               minimum: 0,
               maximum: 1,
             },
+            archiveStorageCostDiscount: {
+              type: "number" as const,
+              title: "Archive Storage Cost Discount",
+              minimum: 0,
+              maximum: 1,
+            },
+            defaultMaxArtifactExpirationDays: {
+              type: "number" as const,
+              title: "Default Max Artifact Expiration Days",
+              minimum: 1,
+            },
           },
         },
       },
@@ -198,6 +224,14 @@ export const miscSettings = {
         iAStorageCostDiscount: {
           "ui:description":
             "The discount applied to S3 infrequent access storage costs (value 0-1).",
+        },
+        archiveStorageCostDiscount: {
+          "ui:description":
+            "The discount applied to S3 archive storage costs (value 0-1).",
+        },
+        defaultMaxArtifactExpirationDays: {
+          "ui:description":
+            "The default maximum number of days before artifacts expire (minimum 1).",
         },
       },
     },
@@ -663,6 +697,31 @@ export const projectCreationSettings = {
       "ui:fullWidth": true,
       "ui:fieldCss": fullWidthCss,
       "ui:arrayItemCSS": arrayItemCSS,
+    },
+  },
+};
+
+export const diagnosticsConfig = {
+  schema: {
+    s3BucketName: {
+      type: "string" as const,
+      title: "S3 Bucket Name",
+    },
+    s3Prefix: {
+      type: "string" as const,
+      title: "S3 Prefix",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-cy": "diagnostics-config",
+    "ui:objectFieldCss": objectGridCss,
+    s3BucketName: {
+      "ui:description": "The S3 bucket where diagnostics data is stored.",
+    },
+    s3Prefix: {
+      "ui:description":
+        "The prefix used for diagnostics data in the S3 bucket.",
     },
   },
 };

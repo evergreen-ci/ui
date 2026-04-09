@@ -263,6 +263,7 @@ describe("getInitialState", () => {
     const state = getInitialState();
     expect(state).toEqual({
       caseSensitive: false,
+      excludeTimestamps: false,
       highlightFilters: false,
       prettyPrint: false,
       stickyHeaders: false,

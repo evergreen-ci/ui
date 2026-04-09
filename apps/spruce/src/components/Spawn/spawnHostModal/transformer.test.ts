@@ -90,7 +90,6 @@ const data: Array<{ formData: FormState; mutationInput: SpawnHostInput }> = [
       region: "us-east-1",
       taskId: null,
       useProjectSetupScript: false,
-      useOAuth: false,
       setUpScript: "setup!!!",
       spawnHostsStartedByTask: false,
       sleepSchedule: null,
@@ -142,7 +141,6 @@ const data: Array<{ formData: FormState; mutationInput: SpawnHostInput }> = [
       region: "rofl-east",
       taskId: null,
       useProjectSetupScript: false,
-      useOAuth: false,
       setUpScript: null,
       spawnHostsStartedByTask: false,
       sleepSchedule: {

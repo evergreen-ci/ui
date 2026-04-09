@@ -320,7 +320,10 @@ export const getExpirationDetailsSchema = ({
       },
     },
     uiSchema: {
-      "ui:tooltipTitle": noExpirationCheckboxTooltip ?? "",
+      "ui:warnings":
+        disableExpirationCheckbox && noExpirationCheckboxTooltip
+          ? [noExpirationCheckboxTooltip]
+          : [],
       noExpiration: {
         "ui:enumDisabled": disableExpirationCheckbox ? [true] : null,
         "ui:data-cy": "expirable-radio-box",

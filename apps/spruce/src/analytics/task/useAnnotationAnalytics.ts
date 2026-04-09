@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -48,12 +48,16 @@ export const useAnnotationAnalytics = () => {
     },
   );
 
-  const { data: taskData } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
-    skip: !taskId,
-    variables: { taskId: taskId || "", execution },
-    errorPolicy: "all",
-    fetchPolicy: "cache-first",
-  });
+  const { data: taskData } = useQuery<TaskQuery, TaskQueryVariables>(
+    TASK,
+    taskId
+      ? {
+          variables: { taskId, execution },
+          errorPolicy: "all",
+          fetchPolicy: "cache-first",
+        }
+      : skipToken,
+  );
 
   const { data: taskTestCountData } = useQuery<
     TaskTestCountQuery,
