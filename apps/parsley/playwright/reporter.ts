@@ -11,9 +11,7 @@ class CustomReporter implements Reporter {
 
     // Remove leading elements that are not relevant to the test name (e.g. "chromium" from the project name).
     const relevantPath = testPath.slice(2);
-
-    // Create a slug from the test path.
-    const slug = relevantPath
+    const testSlug = relevantPath
       .join(">")
       .replace(/\//g, ">")
       .replace(/\s+/g, "_")
@@ -22,17 +20,6 @@ class CustomReporter implements Reporter {
     result.attachments.forEach((attachment, index) => {
       if (!attachment.path) return;
 
-      const ext = path.extname(attachment.path);
-
-      let typePrefix = "";
-      if (attachment.name.includes("screenshot") || ext === ".png") {
-        typePrefix = "screenshot_";
-      } else if (attachment.name.includes("video") || ext === ".webm") {
-        typePrefix = "video_";
-      } else if (attachment.name.includes("trace") || ext === ".zip") {
-        typePrefix = "trace_";
-      }
-
       // Add retry attempt number if this is a retry.
       const retryStr = result.retry > 0 ? `-retry${result.retry}` : "";
 
@@ -40,12 +27,12 @@ class CustomReporter implements Reporter {
       const indexStr = index > 0 ? `-${index}` : "";
 
       const dir = path.dirname(attachment.path);
-      const newFileName = `${typePrefix}${slug}${retryStr}${indexStr}${ext}`;
+      const ext = path.extname(attachment.path);
+      const newFileName = `${testSlug}${retryStr}${indexStr}${ext}`;
       const newPath = path.join(dir, newFileName);
 
       try {
         if (fs.existsSync(attachment.path)) {
-          // Rename the file and update the attachment path so the HTML reporter can find it.
           fs.renameSync(attachment.path, newPath);
           attachment.path = newPath;
         }
