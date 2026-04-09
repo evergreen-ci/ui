@@ -116,6 +116,7 @@ const userHasProjectPermissions: ApolloMock<
           canCreateProject: true,
           projectPermissions: {
             __typename: "ProjectPermissions",
+            id: projectIdentifier,
             edit: true,
           },
         },
@@ -142,6 +143,7 @@ const userNoProjectPermissions: ApolloMock<
           canCreateProject: true,
           projectPermissions: {
             __typename: "ProjectPermissions",
+            id: projectIdentifier,
             edit: false,
           },
         },
@@ -167,6 +169,7 @@ const userHasRepoPermissions: ApolloMock<
           __typename: "Permissions",
           repoPermissions: {
             __typename: "RepoPermissions",
+            id: repoId,
             edit: true,
           },
         },
@@ -192,6 +195,7 @@ const userNoRepoPermissions: ApolloMock<
           __typename: "Permissions",
           repoPermissions: {
             __typename: "RepoPermissions",
+            id: repoId,
             edit: false,
           },
         },

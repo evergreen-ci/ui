@@ -21,6 +21,7 @@ query TaskHistory($options: TaskHistoryOpts!, $includeGenerator: Boolean!) {
       latestExecution
       order
       priority
+      requester
       revision
       tests(opts: { statuses: ["fail", "silentfail"] }) {
         testResults {

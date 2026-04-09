@@ -14,7 +14,6 @@ import DEACTIVATE_STEPBACK_TASK from "./deactivate-stepback-task.graphql";
 import DEFAULT_SECTION_TO_REPO from "./default-section-to-repo.graphql";
 import DELETE_CURSOR_API_KEY from "./delete-cursor-api-key.graphql";
 import DELETE_DISTRO from "./delete-distro.graphql";
-import DELETE_GITHUB_APP_CREDENTIALS from "./delete-github-app-credentials.graphql";
 import DELETE_PROJECT from "./delete-project.graphql";
 import DELETE_SUBSCRIPTIONS from "./delete-subscriptions.graphql";
 import DETACH_PROJECT_FROM_REPO from "./detach-project-from-repo.graphql";
@@ -82,7 +81,6 @@ export {
   DEFAULT_SECTION_TO_REPO,
   DELETE_CURSOR_API_KEY,
   DELETE_DISTRO,
-  DELETE_GITHUB_APP_CREDENTIALS,
   DELETE_PROJECT,
   DELETE_SUBSCRIPTIONS,
   DETACH_PROJECT_FROM_REPO,

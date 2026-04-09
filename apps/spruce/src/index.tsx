@@ -1,4 +1,4 @@
-import React from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { initializeErrorHandling } from "@evg-ui/lib/utils/errorReporting";
 import {
@@ -47,8 +47,34 @@ window.addEventListener("vite:preloadError", () => {
   window.location.reload();
 });
 
+// After 24 hours, check on tab focus whether a new version has been deployed
+// and reload if so. This ensures long-lived tabs eventually pick up new code.
+if (!isDevelopmentBuild()) {
+  const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
+  const loadTime = Date.now();
+  const currentHash = document
+    .querySelector('meta[name="git-hash"]')
+    ?.getAttribute("content");
+
+  document.addEventListener("visibilitychange", async () => {
+    if (document.visibilityState !== "visible") return;
+    if (Date.now() - loadTime < TWENTY_FOUR_HOURS) return;
+
+    try {
+      const res = await fetch("/commit.txt", { cache: "no-cache" });
+      if (!res.ok) return;
+      const deployedHash = (await res.text()).trim();
+      if (deployedHash && deployedHash !== currentHash) {
+        window.location.reload();
+      }
+    } catch {
+      // Don't reload on network errors
+    }
+  });
+}
+
 createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+  <StrictMode>
     <App />
-  </React.StrictMode>,
+  </StrictMode>,
 );
