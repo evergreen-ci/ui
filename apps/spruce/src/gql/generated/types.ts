@@ -10961,6 +10961,11 @@ export type TaskFilesQuery = {
           link: string;
           name: string;
           urlParsley?: string | null;
+          associatedLinks: Array<{
+            __typename?: "AssociatedLink";
+            link: string;
+            name: string;
+          }>;
         }> | null;
       }>;
     };
