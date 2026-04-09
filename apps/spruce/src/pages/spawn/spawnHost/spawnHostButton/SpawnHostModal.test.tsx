@@ -42,7 +42,7 @@ const { mockUseUserTokenExchange } = vi.hoisted(() => ({
   ),
 }));
 
-vi.mock("./tokenAuthentication", () => ({
+vi.mock("./useUserTokenExchange", () => ({
   useUserTokenExchange: (skip: boolean) => {
     if (skip) {
       return TokenExchangeState.NeedsAuthentication;
