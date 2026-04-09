@@ -44,3 +44,6 @@ export const ExecutionStatusIcon: React.FC<ExecutionStatusIconProps> = ({
       return null;
   }
 };
+
+// @ts-expect-error: Must set this property in order to render icons in ExecutionSelector.
+ExecutionStatusIcon.isGlyph = true;

@@ -153,6 +153,7 @@ export type AdminSettings = {
   containerPools?: Maybe<ContainerPoolsConfig>;
   cost?: Maybe<CostConfig>;
   debugSpawnHosts?: Maybe<DebugSpawnHostsConfig>;
+  diagnostics?: Maybe<DiagnosticsConfig>;
   disabledGQLQueries: Array<Scalars["String"]["output"]>;
   domainName?: Maybe<Scalars["String"]["output"]>;
   expansions?: Maybe<Scalars["StringMap"]["output"]>;
@@ -211,6 +212,7 @@ export type AdminSettingsInput = {
   containerPools?: InputMaybe<ContainerPoolsConfigInput>;
   cost?: InputMaybe<CostConfigInput>;
   debugSpawnHosts?: InputMaybe<DebugSpawnHostsConfigInput>;
+  diagnostics?: InputMaybe<DiagnosticsConfigInput>;
   disabledGQLQueries?: InputMaybe<Array<Scalars["String"]["input"]>>;
   domainName?: InputMaybe<Scalars["String"]["input"]>;
   expansions?: InputMaybe<Scalars["StringMap"]["input"]>;
@@ -682,6 +684,7 @@ export type Cost = {
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   onDemandEC2Cost?: Maybe<Scalars["Float"]["output"]>;
   s3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
+  s3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
   s3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
 };
 
@@ -801,6 +804,17 @@ export type Dependency = {
   name: Scalars["String"]["output"];
   requiredStatus: RequiredStatus;
   taskId: Scalars["String"]["output"];
+};
+
+export type DiagnosticsConfig = {
+  __typename?: "DiagnosticsConfig";
+  s3BucketName?: Maybe<Scalars["String"]["output"]>;
+  s3Prefix?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type DiagnosticsConfigInput = {
+  s3BucketName?: InputMaybe<Scalars["String"]["input"]>;
+  s3Prefix?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type DispatcherSettings = {
@@ -3768,6 +3782,7 @@ export type ServiceFlags = {
   jwtTokenForCLIDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   largeParserProjectsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   monitorDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  podDiagnosticsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   psLoggingDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   releaseModeDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3807,6 +3822,7 @@ export type ServiceFlagsInput = {
   jwtTokenForCLIDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   largeParserProjectsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   monitorDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  podDiagnosticsDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   psLoggingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   releaseModeDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -5803,6 +5819,7 @@ export type ProjectSettingsFieldsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+    varsDescriptions?: { [key: string]: any } | null;
   } | null;
   githubAppAuth?: {
     __typename?: "GithubAppAuth";
@@ -6004,6 +6021,7 @@ export type RepoSettingsFieldsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+    varsDescriptions?: { [key: string]: any } | null;
   } | null;
   githubAppAuth?: {
     __typename?: "GithubAppAuth";
@@ -6467,6 +6485,7 @@ export type ProjectEventSettingsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+    varsDescriptions?: { [key: string]: any } | null;
   } | null;
   githubAppAuth?: {
     __typename?: "GithubAppAuth";
@@ -6534,6 +6553,7 @@ export type VariablesFragment = {
   adminOnlyVars: Array<string>;
   privateVars: Array<string>;
   vars?: { [key: string]: any } | null;
+  varsDescriptions?: { [key: string]: any } | null;
 };
 
 export type ProjectViewsAndFiltersSettingsFragment = {
@@ -6781,18 +6801,6 @@ export type DeleteDistroMutationVariables = Exact<{
 export type DeleteDistroMutation = {
   __typename?: "Mutation";
   deleteDistro: { __typename?: "DeleteDistroPayload"; deletedDistroId: string };
-};
-
-export type DeleteGithubAppCredentialsMutationVariables = Exact<{
-  projectId: Scalars["String"]["input"];
-}>;
-
-export type DeleteGithubAppCredentialsMutation = {
-  __typename?: "Mutation";
-  deleteGithubAppCredentials?: {
-    __typename?: "DeleteGithubAppCredentialsPayload";
-    oldAppId: number;
-  } | null;
 };
 
 export type DeleteProjectMutationVariables = Exact<{
@@ -7171,6 +7179,11 @@ export type SaveAdminSettingsMutation = {
           uploadCostDiscount?: number | null;
         } | null;
       } | null;
+    } | null;
+    diagnostics?: {
+      __typename?: "DiagnosticsConfig";
+      s3BucketName?: string | null;
+      s3Prefix?: string | null;
     } | null;
     hostInit?: {
       __typename?: "HostInitConfig";
@@ -7788,6 +7801,11 @@ export type AdminSettingsQuery = {
     debugSpawnHosts?: {
       __typename?: "DebugSpawnHostsConfig";
       setupScript?: string | null;
+    } | null;
+    diagnostics?: {
+      __typename?: "DiagnosticsConfig";
+      s3BucketName?: string | null;
+      s3Prefix?: string | null;
     } | null;
     fws?: { __typename?: "FWSConfig"; url: string } | null;
     githubCheckRun?: {
@@ -9506,6 +9524,7 @@ export type ProjectEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -9728,6 +9747,7 @@ export type ProjectEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -10009,6 +10029,7 @@ export type ProjectSettingsQuery = {
       adminOnlyVars: Array<string>;
       privateVars: Array<string>;
       vars?: { [key: string]: any } | null;
+      varsDescriptions?: { [key: string]: any } | null;
     } | null;
     githubAppAuth?: {
       __typename?: "GithubAppAuth";
@@ -10283,6 +10304,7 @@ export type RepoEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -10505,6 +10527,7 @@ export type RepoEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+          varsDescriptions?: { [key: string]: any } | null;
         } | null;
         githubAppAuth?: {
           __typename?: "GithubAppAuth";
@@ -10719,6 +10742,7 @@ export type RepoSettingsQuery = {
       adminOnlyVars: Array<string>;
       privateVars: Array<string>;
       vars?: { [key: string]: any } | null;
+      varsDescriptions?: { [key: string]: any } | null;
     } | null;
     githubAppAuth?: {
       __typename?: "GithubAppAuth";
@@ -10803,6 +10827,19 @@ export type SpawnTaskQuery = {
     displayStatus: string;
     execution: number;
     revision?: string | null;
+    details?: {
+      __typename?: "TaskEndDetail";
+      description?: string | null;
+    } | null;
+    executionSteps?: Array<{
+      __typename?: "TaskExecutionStep";
+      blockType: string;
+      commandName: string;
+      displayName: string;
+      functionName: string;
+      isFunction: boolean;
+      stepNumber: string;
+    }> | null;
     project?: {
       __typename?: "Project";
       id: string;
@@ -11040,6 +11077,7 @@ export type TaskHistoryQuery = {
       latestExecution: number;
       order: number;
       priority?: number | null;
+      requester: string;
       revision?: string | null;
       generator?: {
         __typename?: "Task";
@@ -11651,6 +11689,7 @@ export type UserDistroSettingsPermissionsQuery = {
         __typename?: "DistroPermissions";
         admin: boolean;
         edit: boolean;
+        id: string;
       };
     } | null;
   };
@@ -11722,7 +11761,11 @@ export type UserProjectSettingsPermissionsQuery = {
     permissions?: {
       __typename?: "Permissions";
       canCreateProject: boolean;
-      projectPermissions: { __typename?: "ProjectPermissions"; edit: boolean };
+      projectPermissions: {
+        __typename?: "ProjectPermissions";
+        edit: boolean;
+        id: string;
+      };
     } | null;
   };
 };
@@ -11738,7 +11781,11 @@ export type UserRepoSettingsPermissionsQuery = {
     userId: string;
     permissions?: {
       __typename?: "Permissions";
-      repoPermissions: { __typename?: "RepoPermissions"; edit: boolean };
+      repoPermissions: {
+        __typename?: "RepoPermissions";
+        edit: boolean;
+        id: string;
+      };
     } | null;
   };
 };
@@ -11816,6 +11863,18 @@ export type UserSubscriptionsQuery = {
         };
       } | null;
     }> | null;
+  };
+};
+
+export type UserTokenExchangeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserTokenExchangeQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    hasTokenExchangePending: boolean;
+    tokenAccessTokenExpiresAt?: Date | null;
+    userId: string;
   };
 };
 

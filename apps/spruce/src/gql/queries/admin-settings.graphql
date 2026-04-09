@@ -142,6 +142,10 @@ query AdminSettings {
     debugSpawnHosts {
       setupScript
     }
+    diagnostics {
+      s3BucketName
+      s3Prefix
+    }
     disabledGQLQueries
     domainName
     expansions

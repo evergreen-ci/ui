@@ -13,6 +13,31 @@ describe("mergeVersions", () => {
     existingData: undefined,
   } as FieldMergeFunctionOptions;
 
+  it("handles undefined existing on first cache write", () => {
+    const pagination = {
+      activeVersionIds: ["b", "c"],
+      nextPageOrder: 0,
+      prevPageOrder: 0,
+      hasNextPage: false,
+      hasPrevPage: false,
+      mostRecentVersionOrder: 5,
+    };
+    expect(
+      mergeVersions(
+        undefined,
+        {
+          flattenedVersions: versions.slice(0, 2),
+          pagination,
+        },
+        readFn,
+      ),
+    ).toStrictEqual({
+      allActiveVersions: new Set(["b", "c"]),
+      flattenedVersions: versions.slice(0, 2),
+      pagination,
+    });
+  });
+
   it("merges version arrays", () => {
     const pagination = {
       activeVersionIds: ["b", "c", "f"],
