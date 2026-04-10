@@ -25,20 +25,6 @@ const CliCommandButton: React.FC = () => {
   );
 };
 
-export const originToCliType = (origin?: string): string => {
-  switch (origin) {
-    case "system":
-      return "system_log";
-    case "agent":
-      return "agent_log";
-    case "all":
-      return "all_logs";
-    case "task":
-    default:
-      return "task_log";
-  }
-};
-
 const getCliCommand = (logMetadata?: LogMetadata): string | null => {
   if (!logMetadata) {
     return null;
@@ -52,7 +38,13 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
   // https://docs.devprod.prod.corp.mongodb.com/parsley/Downloading-Logs.
   if (logType === LogTypes.EVERGREEN_TASK_LOGS) {
     const origin = logMetadata?.origin?.toLowerCase() || "task";
-    const taskType = origin === "all" ? "all_logs" : `${origin}_log`;
+    const originToCLIType: Record<string, string> = {
+      agent: "agent_log",
+      all: "all_logs",
+      system: "system_log",
+      task: "task_log",
+    };
+    const taskType = originToCLIType[origin] ?? "task_log";
     return `evergreen task build TaskLogs --task_id ${taskID} --execution ${execution} --type ${taskType} --o output.txt`;
   }
   if (logType === LogTypes.EVERGREEN_TEST_LOGS) {

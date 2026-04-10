@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
@@ -14,7 +14,7 @@ const wrapper = logContextWrapper();
 
 const WithLogMetadata: React.FC<{ metadata: LogMetadata }> = ({ metadata }) => {
   const { setLogMetadata } = useLogContext();
-  React.useEffect(() => {
+  useEffect(() => {
     setLogMetadata(metadata);
   }, [metadata, setLogMetadata]);
   return <CliCommandButton />;
@@ -76,21 +76,30 @@ describe("CliCommandButton", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("renders a copyable Evergreen CLI command for Evergreen task logs", () => {
-    render(
-      <WithLogMetadata
-        metadata={{
-          execution: "2",
-          logType: LogTypes.EVERGREEN_TASK_LOGS,
-          taskID: "task-abc",
-        }}
-      />,
-      { wrapper },
-    );
-    const command =
-      "evergreen task build TaskLogs --task_id task-abc --execution 2 --type task_log --o output.txt";
-    expect(screen.getByText(command)).toBeInTheDocument();
-  });
+  it.each([
+    { expectedType: "task_log", origin: "task" },
+    { expectedType: "agent_log", origin: "agent" },
+    { expectedType: "system_log", origin: "system" },
+    { expectedType: "all_logs", origin: "all" },
+  ])(
+    "renders a copyable Evergreen CLI command for Evergreen %s logs",
+    ({ expectedType, origin }) => {
+      render(
+        <WithLogMetadata
+          metadata={{
+            execution: "2",
+            logType: LogTypes.EVERGREEN_TASK_LOGS,
+            origin,
+            taskID: "task-abc",
+          }}
+        />,
+        { wrapper },
+      );
+
+      const command = `evergreen task build TaskLogs --task_id task-abc --execution 2 --type ${expectedType} --o output.txt`;
+      expect(screen.getByText(command)).toBeInTheDocument();
+    },
+  );
 
   it("renders a copyable Evergreen CLI command for Evergreen test logs", () => {
     render(
