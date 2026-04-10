@@ -24,6 +24,7 @@ interface LogMetadata {
   renderingType?: LogRenderingTypes;
   taskID?: string;
   testID?: string;
+  logPath?: string;
 }
 
 interface Preferences {

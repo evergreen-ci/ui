@@ -5157,6 +5157,7 @@ export type TestLogUrlAndRenderingTypeQuery = {
           renderingType?: string | null;
           url?: string | null;
           urlRaw?: string | null;
+          logPath?: string | null;
         };
       }>;
     };

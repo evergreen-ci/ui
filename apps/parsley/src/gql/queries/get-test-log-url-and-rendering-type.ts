@@ -13,6 +13,7 @@ export const GET_TEST_LOG_URL_AND_RENDERING_TYPE = gql`
           id
           groupID
           logs {
+            logPath: testName
             renderingType
             url
             urlRaw
