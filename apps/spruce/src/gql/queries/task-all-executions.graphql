@@ -1,9 +1,0 @@
-query TaskAllExecutions($taskId: String!) {
-  taskAllExecutions(taskId: $taskId) {
-    id
-    activatedTime
-    displayStatus
-    execution
-    ingestTime
-  }
-}

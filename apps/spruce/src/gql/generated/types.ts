@@ -5058,28 +5058,6 @@ export type WorkstationSetupCommandInput = {
   directory?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-export type NonDisplayTaskReviewedFragment = {
-  __typename?: "Task";
-  id: string;
-  execution: number;
-  reviewed?: boolean | null;
-};
-
-export type ReviewedTaskFragment = {
-  __typename?: "Task";
-  id: string;
-  displayStatus: string;
-  execution: number;
-  reviewed?: boolean | null;
-  executionTasksFull?: Array<{
-    __typename?: "Task";
-    id: string;
-    displayStatus: string;
-    execution: number;
-    reviewed?: boolean | null;
-  }> | null;
-};
-
 export type AnnotationFragment = {
   __typename?: "Annotation";
   id: string;
@@ -6520,6 +6498,21 @@ export type RepoVirtualWorkstationSettingsFragment = {
       directory: string;
     }> | null;
   };
+};
+
+export type ReviewedTaskFragment = {
+  __typename?: "Task";
+  id: string;
+  displayStatus: string;
+  execution: number;
+  reviewed?: boolean | null;
+  executionTasksFull?: Array<{
+    __typename?: "Task";
+    id: string;
+    displayStatus: string;
+    execution: number;
+    reviewed?: boolean | null;
+  }> | null;
 };
 
 export type UpstreamProjectFragment = {
@@ -10958,6 +10951,11 @@ export type TaskFilesQuery = {
           link: string;
           name: string;
           urlParsley?: string | null;
+          associatedLinks: Array<{
+            __typename?: "AssociatedLink";
+            link: string;
+            name: string;
+          }>;
         }> | null;
       }>;
     };

@@ -1,0 +1,20 @@
+import { gql } from "@apollo/client";
+
+export const CREATED_TICKETS = gql`
+  query CreatedTickets($taskId: String!) {
+    bbGetCreatedTickets(taskId: $taskId) {
+      fields {
+        assigneeDisplayName
+        created
+        resolutionName
+        status {
+          id
+          name
+        }
+        summary
+        updated
+      }
+      key
+    }
+  }
+`;
