@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 import { Banner, Variant } from "@leafygreen-ui/banner";
+import { Button } from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
-import { LoadingButton } from "components/Buttons";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
@@ -569,13 +569,10 @@ export const getFormSchema = ({
                     </>
                   )}
                 </div>
-                <LoadingButton
+                <Button
                   data-cy="spawn-host-authenticate-button"
                   disabled={
                     tokenExchangeState === TokenExchangeState.TokenValid
-                  }
-                  loading={
-                    tokenExchangeState === TokenExchangeState.ExchangePending
                   }
                   onClick={() => {
                     window.open(
@@ -587,7 +584,10 @@ export const getFormSchema = ({
                   type="button"
                 >
                   Authenticate spawn hosts
-                </LoadingButton>
+                </Button>
+                {tokenExchangeState === TokenExchangeState.ExchangePending && (
+                  <div>Waiting for authentication to complete...</div>
+                )}
                 {tokenExchangeState === TokenExchangeState.TokenValid && (
                   <div>Host has been temporarily authenticated.</div>
                 )}
