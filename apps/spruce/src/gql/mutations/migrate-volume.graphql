@@ -1,3 +1,0 @@
-mutation MigrateVolume($volumeId: String!, $spawnHostInput: SpawnHostInput!) {
-  migrateVolume(volumeId: $volumeId, spawnHostInput: $spawnHostInput)
-}

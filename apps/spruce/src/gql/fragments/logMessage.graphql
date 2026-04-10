@@ -1,5 +1,0 @@
-fragment LogMessage on LogMessage {
-  message
-  severity
-  timestamp
-}

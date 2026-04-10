@@ -1,7 +1,0 @@
-#import "../fragments/projectSettings/index.graphql"
-
-query ProjectSettings($projectIdentifier: String!) {
-  projectSettings(projectIdentifier: $projectIdentifier) {
-    ...ProjectSettingsFields
-  }
-}

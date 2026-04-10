@@ -1,0 +1,18 @@
+import { gql } from "@apollo/client";
+
+export const DISTRO_EVENTS = gql`
+  query DistroEvents($distroId: String!, $limit: Int, $before: Time) {
+    distroEvents(
+      opts: { distroId: $distroId, limit: $limit, before: $before }
+    ) {
+      count
+      eventLogEntries {
+        after
+        before
+        data
+        timestamp
+        user
+      }
+    }
+  }
+`;
