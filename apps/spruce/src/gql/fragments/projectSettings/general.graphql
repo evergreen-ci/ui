@@ -14,6 +14,7 @@ fragment ProjectGeneralSettings on Project {
   remotePath
   repo
   repotrackerDisabled
+  runEveryMainlineCommit
   spawnHostScriptPath
   stepbackBisect
   stepbackDisabled
@@ -33,6 +34,7 @@ fragment RepoGeneralSettings on RepoRef {
   remotePath
   repo
   repotrackerDisabled
+  runEveryMainlineCommit
   spawnHostScriptPath
   stepbackBisect
   stepbackDisabled
