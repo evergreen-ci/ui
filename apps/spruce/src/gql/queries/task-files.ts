@@ -9,6 +9,10 @@ export const TASK_FILES = gql`
         fileCount
         groupedFiles {
           files {
+            associatedLinks {
+              link
+              name
+            }
             link
             name
             urlParsley
