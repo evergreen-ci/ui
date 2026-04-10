@@ -15,7 +15,6 @@ export const PROJECT_GITHUB_SETTINGS = gql`
     manualPrTestingEnabled
     oldestAllowedMergeBase
     prTestingEnabled
-    runEveryMainlineCommit
   }
 `;
 
@@ -34,7 +33,6 @@ export const REPO_GITHUB_SETTINGS = gql`
     manualPrTestingEnabled
     oldestAllowedMergeBase
     prTestingEnabled
-    runEveryMainlineCommit
   }
 `;
 
