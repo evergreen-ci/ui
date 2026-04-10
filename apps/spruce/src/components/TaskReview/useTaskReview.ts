@@ -3,9 +3,9 @@ import { gql } from "@apollo/client";
 import { useApolloClient, useFragment } from "@apollo/client/react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
+import { REVIEWED_TASK_FRAGMENT } from "gql/fragments/reviewedTask";
 import { ReviewedTaskFragment } from "gql/generated/types";
 import { setItem, setItems } from "./db";
-import { REVIEWED_TASK_FRAGMENT } from "./utils";
 
 export const useTaskReview = ({
   execution,

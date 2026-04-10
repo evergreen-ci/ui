@@ -262,9 +262,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: 5.1.2
         version: 5.1.2(vite@7.3.2(@types/node@22.19.17)(jiti@2.6.1)(yaml@2.8.3))
-      babel-plugin-import-graphql:
-        specifier: 2.8.1
-        version: 2.8.1(graphql-tag@2.12.6(graphql@16.12.0))(graphql@16.12.0)
       chromatic:
         specifier: ^13.3.4
         version: 13.3.5
@@ -632,9 +629,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: 5.1.2
         version: 5.1.2(vite@7.3.2(@types/node@22.19.17)(jiti@2.6.1)(yaml@2.8.3))
-      babel-plugin-import-graphql:
-        specifier: ^2.8.1
-        version: 2.8.1(graphql-tag@2.12.6(graphql@16.12.0))(graphql@16.12.0)
       chromatic:
         specifier: ^13.3.4
         version: 13.3.5
@@ -1140,9 +1134,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: 5.1.2
         version: 5.1.2(vite@7.3.2(@types/node@22.19.17)(jiti@2.6.1)(yaml@2.8.3))
-      babel-plugin-import-graphql:
-        specifier: ^2.8.1
-        version: 2.8.1(graphql-tag@2.12.6(graphql@16.12.0))(graphql@16.12.0)
       chromatic:
         specifier: ^13.3.4
         version: 13.3.5
@@ -4183,13 +4174,6 @@ packages:
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
     engines: {node: '>= 0.4'}
-
-  babel-plugin-import-graphql@2.8.1:
-    resolution: {integrity: sha512-j8Y0rWfMCd7Q63+hzCENrzbwYvQ9GfRbD3S50oHJ0SmEeRRVgLMxj+jXCBVLTFlmFLzY8UYVQQGx3FgrK3wajA==}
-    engines: {node: '>= 4.x'}
-    peerDependencies:
-      graphql: '>=0.9.6'
-      graphql-tag: ^2.1.0
 
   babel-plugin-macros@3.1.0:
     resolution: {integrity: sha512-Cg7TFGpIr01vOQNODXOOaGz2NpCU5gl8x1qJFbb6hbZxR7XrcE2vtbAsTAbJ7/xwJtUuJEw8K8Zr/AE0LHlesg==}
@@ -12112,11 +12096,6 @@ snapshots:
   axe-core@4.10.0: {}
 
   axobject-query@4.1.0: {}
-
-  babel-plugin-import-graphql@2.8.1(graphql-tag@2.12.6(graphql@16.12.0))(graphql@16.12.0):
-    dependencies:
-      graphql: 16.12.0
-      graphql-tag: 2.12.6(graphql@16.12.0)
 
   babel-plugin-macros@3.1.0:
     dependencies:

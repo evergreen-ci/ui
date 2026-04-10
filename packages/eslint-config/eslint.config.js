@@ -351,8 +351,18 @@ const playwrightConfig = {
 };
 
 // GraphQL ESLint (@graphql-eslint/eslint-plugin) settings.
+// The processor extracts GraphQL from gql tagged template literals in .ts
+// files and creates virtual .graphql documents that the rules config applies to.
+const graphQLProcessorConfig = {
+  name: "@graphql-eslint/processor",
+  files: ["src/gql/**/*.ts"],
+  ignores: ["**/*.test.ts", "**/*.test.tsx"],
+  processor: graphqlPlugin.processor,
+};
+
 const graphQLConfig = {
   name: "@graphql-eslint/rules",
+  // Matches virtual .graphql documents extracted by the processor from gql tagged templates.
   files: ["src/gql/**/*.graphql"],
   languageOptions: {
     parser: graphqlPlugin.parser,
@@ -482,6 +492,7 @@ export default defineConfig(
   storyBookConfig,
   cypressConfig,
   playwrightConfig,
+  graphQLProcessorConfig,
   graphQLConfig,
   importConfig,
   disableConflictingPrettierRules,
