@@ -26,6 +26,10 @@ mutation SaveAdminSettings($adminSettings: AdminSettingsInput!) {
       }
       savingsPlanDiscount
     }
+    diagnostics {
+      s3BucketName
+      s3Prefix
+    }
     disabledGQLQueries
     hostInit {
       cloudStatusBatchSize

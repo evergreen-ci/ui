@@ -113,15 +113,22 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("add-button").should("be.visible").click();
       cy.dataCy("var-name-input").type("a");
       cy.dataCy("var-value-input").type("1");
+      cy.dataCy("var-description-input").type("Description for variable a");
       cy.contains("label", "Private").click();
 
       cy.dataCy("add-button").click();
       cy.dataCy("var-name-input").first().type("b");
       cy.dataCy("var-value-input").first().type("2");
+      cy.dataCy("var-description-input")
+        .first()
+        .type("Description for variable b");
 
       cy.dataCy("add-button").click();
       cy.dataCy("var-name-input").first().type("c");
       cy.dataCy("var-value-input").first().type("3");
+      cy.dataCy("var-description-input")
+        .first()
+        .type("Description for variable c");
 
       clickSave();
       cy.validateToast("success", "Successfully updated project");

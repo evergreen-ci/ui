@@ -6,7 +6,6 @@ import {
   debugSpawnHostsDocumentationUrl,
   versionControlDocumentationUrl,
 } from "constants/externalResources";
-import { showRecreatableTaskEnvironments } from "constants/featureFlags";
 import { form, ProjectType } from "../utils";
 import {
   DeactivateStepbackTaskField,
@@ -355,10 +354,7 @@ export const getFormSchema = (
       },
       debug: {
         debugSpawnHostsDisabled: {
-          // TODO DEVPROD-25833: Unhide this field when the feature is ready
-          "ui:widget": showRecreatableTaskEnvironments
-            ? widgets.RadioBoxWidget
-            : "hidden",
+          "ui:widget": widgets.RadioBoxWidget,
           "ui:description": (
             <>
               Sets if project tasks can create{" "}

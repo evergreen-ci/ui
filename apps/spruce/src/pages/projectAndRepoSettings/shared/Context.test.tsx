@@ -36,6 +36,7 @@ describe("projectSettingsContext", () => {
             {
               varName: "test_name",
               varValue: "test_value",
+              varDescription: "",
               isPrivate: false,
               isDisabled: false,
               isAdminOnly: false,
@@ -65,6 +66,7 @@ describe("projectSettingsContext", () => {
             {
               varName: "test_name",
               varValue: "test_value",
+              varDescription: "",
               isPrivate: false,
               isDisabled: false,
               isAdminOnly: false,
@@ -82,6 +84,7 @@ describe("projectSettingsContext", () => {
             {
               varName: "test_name",
               varValue: "test_value",
+              varDescription: "",
               isPrivate: false,
               isDisabled: false,
               isAdminOnly: false,

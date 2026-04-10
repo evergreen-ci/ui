@@ -1,13 +1,15 @@
 import { css } from "@emotion/react";
+import { Banner, Variant } from "@leafygreen-ui/banner";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
+import { LoadingButton } from "components/Buttons";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import {
   debugSpawnHostsDocumentationUrl,
-  taskSpawnHostDocumentationUrl,
+  getSpawnHostTokenExchangeAuthorizeUrl,
 } from "constants/externalResources";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import {
@@ -16,11 +18,12 @@ import {
   MyVolumesQuery,
 } from "gql/generated/types";
 import { isFailedTaskStatus } from "utils/statuses";
+import { jiraLinkify } from "utils/string";
 import {
   getExpirationDetailsSchema,
   getPublicKeySchema,
 } from "../getFormSchema";
-import { DEFAULT_VOLUME_SIZE } from "./constants";
+import { DEFAULT_VOLUME_SIZE, TokenExchangeState } from "./constants";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
 import {
@@ -46,14 +49,15 @@ interface Props {
   };
   isMigration: boolean;
   isVirtualWorkstation: boolean;
-  oAuthDisabled?: boolean;
+  jiraHost: string;
+  jwtTokenForCLIDisabled: boolean;
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   noExpirationCheckboxTooltip: string;
   spawnTaskData?: SpawnTaskQuery["task"];
   timeZone: string;
-  useSetupScript?: boolean;
+  tokenExchangeState: TokenExchangeState;
   useProjectSetupScript?: boolean;
-  useOAuth?: boolean;
+  useSetupScript?: boolean;
   userAwsRegion?: string;
   volumes: MyVolumesQuery["myVolumes"];
 }
@@ -67,11 +71,13 @@ export const getFormSchema = ({
   hostUptimeWarnings,
   isMigration,
   isVirtualWorkstation,
+  jiraHost,
+  jwtTokenForCLIDisabled,
   myPublicKeys,
   noExpirationCheckboxTooltip,
-  oAuthDisabled = false,
   spawnTaskData,
   timeZone,
+  tokenExchangeState,
   useProjectSetupScript = false,
   useSetupScript = false,
   userAwsRegion,
@@ -113,10 +119,6 @@ export const getFormSchema = ({
     timeZone,
   });
   const publicKeys = getPublicKeySchema({ myPublicKeys });
-
-  // If OAuth is enabled, the spawn host modal should force the option for OAuth.
-  const oAuthCheckboxIsDisabled = !oAuthDisabled;
-  const defaultOAuthValue = !oAuthDisabled;
 
   return {
     fields: {},
@@ -301,27 +303,15 @@ export const getFormSchema = ({
                         title:
                           "Also start any hosts this task started (if applicable)",
                       },
-                      useOAuth: {
-                        type: "boolean" as const,
-                        title:
-                          "Use OAuth authentication to download the task data from Evergreen. This will soon be required, see DEVPROD-4160",
-                        default: defaultOAuthValue,
+                      spawnHostTokenAuthBanner: {
+                        type: "null" as const,
                       },
                     },
-                    dependencies: {
-                      useOAuth: {
-                        oneOf: [
-                          {
-                            properties: {
-                              useOAuth: {
-                                enum: [true],
-                              },
-                              warningBanner: {
-                                type: "null" as const,
-                              },
-                            },
-                          },
-                        ],
+                  },
+                  {
+                    properties: {
+                      loadDataOntoHostAtStartup: {
+                        enum: [false],
                       },
                     },
                   },
@@ -552,30 +542,57 @@ export const getFormSchema = ({
             "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
             "ui:elementWrapperCSS": childCheckboxCSS,
           },
-          useOAuth: {
-            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
-            "ui:data-cy": "use-oauth-checkbox",
-            "ui:disabled": oAuthCheckboxIsDisabled,
-            "ui:elementWrapperCSS": childCheckboxCSS,
-          },
-          warningBanner: {
+          spawnHostTokenAuthBanner: {
             "ui:showLabel": false,
-            "ui:warnings": [
-              <>
-                Spawn hosts with OAuth require additional setup. After SSHing in
-                to your spawn host, please run the command{" "}
-                <InlineCode>evergreen host fetch</InlineCode>. For more details,
-                refer to the{" "}
-                <StyledLink
-                  hideExternalIcon={false}
-                  href={taskSpawnHostDocumentationUrl}
-                  target="_blank"
+            "ui:field-data-cy": "spawn-host-token-auth-banner",
+            "ui:descriptionNode": (
+              <Banner
+                data-cy="spawn-host-token-auth-banner"
+                variant={Variant.Warning}
+              >
+                <div data-cy="spawn-host-token-auth-banner-copy">
+                  {jwtTokenForCLIDisabled ? (
+                    <>
+                      As part of {jiraLinkify("DEVPROD-4160", jiraHost)},
+                      Evergreen is migrating to temporary credentials for human
+                      users. An additional authentication step will soon be
+                      required to load task data. You can try the flow before it
+                      is required with <strong>Authenticate spawn hosts</strong>{" "}
+                      below.
+                    </>
+                  ) : (
+                    <>
+                      Spawn hosts require an additional authentication step to
+                      load task data. This is part of Evergreens migration to
+                      temporary credentials for human users:{" "}
+                      {jiraLinkify("DEVPROD-4160", jiraHost)}.
+                    </>
+                  )}
+                </div>
+                <LoadingButton
+                  data-cy="spawn-host-authenticate-button"
+                  disabled={
+                    tokenExchangeState === TokenExchangeState.TokenValid
+                  }
+                  loading={
+                    tokenExchangeState === TokenExchangeState.ExchangePending
+                  }
+                  onClick={() => {
+                    window.open(
+                      getSpawnHostTokenExchangeAuthorizeUrl(),
+                      "_blank",
+                      "noopener,noreferrer",
+                    );
+                  }}
+                  type="button"
                 >
-                  documentation
-                </StyledLink>
-                .
-              </>,
-            ],
+                  Authenticate spawn hosts
+                </LoadingButton>
+                {tokenExchangeState === TokenExchangeState.TokenValid && (
+                  <div>Host has been temporarily authenticated.</div>
+                )}
+              </Banner>
+            ),
           },
         },
       }),
