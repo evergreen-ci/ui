@@ -40,8 +40,8 @@ const getCliCommand = (logMetadata?: LogMetadata): string | null => {
     return null;
   }
   if (logType === LogTypes.EVERGREEN_TASK_LOGS) {
-    const origin =
-      (logMetadata?.origin?.toLowerCase() as Origin) || Origin.Task;
+    const origin = (logMetadata?.origin?.toLowerCase() ||
+      Origin.Task) as Origin;
     const taskType = originToCLIType[origin];
     return `evergreen task build TaskLogs --task_id ${taskID} --execution ${execution} --type ${taskType} --o output.txt`;
   }
