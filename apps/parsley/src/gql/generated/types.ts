@@ -2548,6 +2548,7 @@ export type Patch = {
   user: User;
   variants: Array<Scalars["String"]["output"]>;
   variantsTasks: Array<VariantTask>;
+  version?: Maybe<VersionLite>;
   versionFull?: Maybe<Version>;
 };
 
@@ -4891,6 +4892,8 @@ export type VersionLite = {
   requester: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
   startTime?: Maybe<Scalars["Time"]["output"]>;
+  status: Scalars["String"]["output"];
+  taskStatusStats?: Maybe<TaskStats>;
   user: UserLite;
   warnings: Array<Scalars["String"]["output"]>;
 };
