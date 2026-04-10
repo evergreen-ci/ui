@@ -30,8 +30,7 @@ const originToCLIType: Record<Origin, string> = {
   [Origin.Task]: "task_log",
 };
 
-// Based on documentation at
-// https://docs.devprod.prod.corp.mongodb.com/parsley/Downloading-Logs.
+// Based on documentation at https://docs.devprod.prod.corp.mongodb.com/parsley/Downloading-Logs.
 const getCliCommand = (logMetadata?: LogMetadata): string | null => {
   if (!logMetadata) {
     return null;
