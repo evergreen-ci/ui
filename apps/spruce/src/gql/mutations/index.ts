@@ -14,7 +14,6 @@ export { DEACTIVATE_STEPBACK_TASK } from "./deactivate-stepback-task";
 export { DEFAULT_SECTION_TO_REPO } from "./default-section-to-repo";
 export { DELETE_CURSOR_API_KEY } from "./delete-cursor-api-key";
 export { DELETE_DISTRO } from "./delete-distro";
-export { DELETE_GITHUB_APP_CREDENTIALS } from "./delete-github-app-credentials";
 export { DELETE_PROJECT } from "./delete-project";
 export { DELETE_SUBSCRIPTIONS } from "./delete-subscriptions";
 export { DETACH_PROJECT_FROM_REPO } from "./detach-project-from-repo";
