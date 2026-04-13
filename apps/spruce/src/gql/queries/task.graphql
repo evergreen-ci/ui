@@ -108,15 +108,6 @@ query Task($taskId: String!, $execution: Int) {
     minQueuePosition
     order
     patchNumber
-    predictedTaskCost {
-      adjustedEBSStorageCost
-      adjustedEBSThroughputCost
-      adjustedEC2Cost
-      onDemandEC2Cost
-      s3ArtifactPutCost
-      s3ArtifactStorageCost
-      s3LogPutCost
-    }
     priority
     project {
       id
@@ -140,15 +131,6 @@ query Task($taskId: String!, $execution: Int) {
       previousStepbackTaskId
     }
     tags
-    taskCost {
-      adjustedEBSStorageCost
-      adjustedEBSThroughputCost
-      adjustedEC2Cost
-      onDemandEC2Cost
-      s3ArtifactPutCost
-      s3ArtifactStorageCost
-      s3LogPutCost
-    }
     testSelectionEnabled
     timeTaken
     versionMetadata {

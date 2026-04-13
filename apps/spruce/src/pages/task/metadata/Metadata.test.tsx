@@ -5,7 +5,6 @@ import {
   screen,
   stubGetClientRects,
   userEvent,
-  within,
 } from "@evg-ui/lib/test_utils";
 import { getUserMock } from "gql/mocks/getUser";
 import { taskQuery, TaskQueryType } from "gql/mocks/taskData";
@@ -61,79 +60,6 @@ describe("metadata", () => {
     expect(screen.getByDataCy("task-metrics-link")).toBeInTheDocument();
   });
 
-  it("RendersCostRowAndDetailsButtonWhenTaskCostIsPresent", async () => {
-    const user = userEvent.setup();
-    render(<Metadata loading={false} task={taskWithCost.task} />, {
-      route: `/task/${taskId}`,
-      path: "/task/:id",
-      wrapper,
-    });
-    expect(screen.getByDataCy("task-metadata-cost")).toBeInTheDocument();
-    const detailsButton = screen.getByDataCy("cost-details-button");
-    expect(detailsButton).toBeInTheDocument();
-    await user.click(detailsButton);
-    expect(screen.getByDataCy("cost-modal")).toBeInTheDocument();
-  });
-
-  it("DoesNotRenderCostRowWhenTaskCostAndPredictedCostAreNull", () => {
-    render(<Metadata loading={false} task={taskWithNullCost.task} />, {
-      route: `/task/${taskId}`,
-      path: "/task/:id",
-      wrapper,
-    });
-    expect(screen.queryByDataCy("task-metadata-cost")).toBeNull();
-    expect(screen.queryByDataCy("cost-details-button")).toBeNull();
-  });
-
-  it("AlwaysRendersHoneycombTaskCostLink", () => {
-    render(<Metadata loading={false} task={taskWithNullCost.task} />, {
-      route: `/task/${taskId}`,
-      path: "/task/:id",
-      wrapper,
-    });
-    expect(screen.getByDataCy("task-cost-link")).toBeInTheDocument();
-  });
-
-  it("RendersCostRowWhenOnlyPredictedTaskCostIsPresent", () => {
-    render(<Metadata loading={false} task={taskWithPredictedCost.task} />, {
-      route: `/task/${taskId}`,
-      path: "/task/:id",
-      wrapper,
-    });
-    expect(screen.getByDataCy("task-metadata-cost")).toBeInTheDocument();
-    expect(screen.getByDataCy("cost-details-button")).toBeInTheDocument();
-  });
-
-  it("ShowsEstimatedTooltipWhenTaskIsRunning", async () => {
-    const user = userEvent.setup();
-    render(<Metadata loading={false} task={taskWithPredictedCost.task} />, {
-      route: `/task/${taskId}`,
-      path: "/task/:id",
-      wrapper,
-    });
-    const costItem = screen.getByDataCy("task-metadata-cost");
-    await user.hover(
-      within(costItem.parentElement!).getByTestId("info-sprinkle-icon"),
-    );
-    await screen.findByText(
-      "Estimated cost based on execution so far. Updates as the task runs.",
-    );
-  });
-
-  it("ShowsFinalTooltipWhenTaskIsFinished", async () => {
-    const user = userEvent.setup();
-    render(<Metadata loading={false} task={taskWithCost.task} />, {
-      route: `/task/${taskId}`,
-      path: "/task/:id",
-      wrapper,
-    });
-    const costItem = screen.getByDataCy("task-metadata-cost");
-    await user.hover(
-      within(costItem.parentElement!).getByTestId("info-sprinkle-icon"),
-    );
-    await screen.findByText("Final cost of running this task.");
-  });
-
   it("renders failing command and other failing commands", async () => {
     const user = userEvent.setup();
     render(<Metadata loading={false} task={taskSucceeded.task} />, {
@@ -180,50 +106,6 @@ const taskStarted: TaskQueryType = {
 
 const failingCommand =
   "exiting due to custom reason: long long long long long long long long long long long long long message";
-
-const taskWithCost: TaskQueryType = {
-  task: {
-    ...taskStarted.task,
-    finishTime: addMilliseconds(new Date(), 1228078),
-    status: "succeeded",
-    taskCost: {
-      __typename: "Cost",
-      adjustedEC2Cost: 1.5,
-      adjustedEBSThroughputCost: 0.25,
-      adjustedEBSStorageCost: 0.1,
-      s3ArtifactPutCost: 0.05,
-      s3LogPutCost: 0.02,
-      onDemandEC2Cost: 2.0,
-      s3ArtifactStorageCost: null,
-    },
-    predictedTaskCost: null,
-  },
-};
-
-const taskWithPredictedCost: TaskQueryType = {
-  task: {
-    ...taskStarted.task,
-    taskCost: null,
-    predictedTaskCost: {
-      __typename: "Cost",
-      adjustedEC2Cost: 0.5,
-      adjustedEBSThroughputCost: 0.1,
-      adjustedEBSStorageCost: 0.05,
-      s3ArtifactPutCost: 0.01,
-      s3LogPutCost: 0.01,
-      onDemandEC2Cost: 0.8,
-      s3ArtifactStorageCost: null,
-    },
-  },
-};
-
-const taskWithNullCost: TaskQueryType = {
-  task: {
-    ...taskQuery.task,
-    taskCost: null,
-    predictedTaskCost: null,
-  },
-};
 
 const taskSucceeded: TaskQueryType = {
   task: {
