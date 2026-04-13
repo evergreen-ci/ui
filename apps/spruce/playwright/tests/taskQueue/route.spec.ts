@@ -5,7 +5,7 @@ test.describe("Task Queue", () => {
     authenticatedPage: page,
   }) => {
     await page.goto("/task-queue");
-    await expect(page).toHaveURL(/\/task-queue\/osx-108$/);
+    await expect(page).toHaveURL("/task-queue/osx-108");
     await expect(page.getByText("osx-108").first()).toBeVisible();
   });
 

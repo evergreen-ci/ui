@@ -229,3 +229,14 @@ export async function validateDatePickerDate(
   await expect(datePicker.locator("input[id='month']")).toHaveValue(month);
   await expect(datePicker.locator("input[id='day']")).toHaveValue(day);
 }
+
+export const clickCheckboxByLabel = async (page: Page, name: string) => {
+  const checkbox = page.getByRole("checkbox", { name });
+  const checkboxId = await checkbox.getAttribute("id");
+  if (checkboxId) {
+    await page.locator(`label[for="${checkboxId}"]`).click();
+  } else {
+    // Fallback: click the checkbox's parent label if it exists.
+    await checkbox.locator("..").locator("label").click();
+  }
+};
