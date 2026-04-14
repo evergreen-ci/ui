@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { Body } from "@leafygreen-ui/typography";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import Icon from "@evg-ui/lib/components/Icon";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";

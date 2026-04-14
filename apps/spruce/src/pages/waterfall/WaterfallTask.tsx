@@ -1,5 +1,5 @@
 import { memo, useCallback, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Unpacked } from "@evg-ui/lib/types/utils";

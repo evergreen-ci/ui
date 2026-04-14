@@ -1,5 +1,5 @@
 import { skipToken, useQuery } from "@apollo/client/react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { PatchesPage } from "components/PatchesPage";
 import { RequesterSelector } from "components/PatchesPage/RequesterSelector";

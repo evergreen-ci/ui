@@ -8,7 +8,7 @@ import { IconButton } from "@leafygreen-ui/icon-button";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Accordion, {
   AccordionCaretAlign,
 } from "@evg-ui/lib/components/Accordion";

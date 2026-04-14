@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import type { MockInstance } from "vitest";
 import { renderHook } from "@evg-ui/lib/test_utils";
 import { INCLUDE_NEVER_ACTIVATED_TASKS } from "constants/cookies";

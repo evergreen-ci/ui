@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import Icon, { AnimatedIcon, WinterLogo } from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";

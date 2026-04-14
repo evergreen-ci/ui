@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParams } from "@evg-ui/lib/hooks";

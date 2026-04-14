@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";

@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react";
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
 import { useAnalyticAttributes } from "analytics";
 import NavBar from "components/NavBar";

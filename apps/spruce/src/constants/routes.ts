@@ -1,4 +1,4 @@
-import { generatePath } from "react-router-dom";
+import { generatePath } from "react-router";
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getGithubCommitUrl } from "constants/externalResources";

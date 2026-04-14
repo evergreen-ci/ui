@@ -1,4 +1,4 @@
-import { MemoryRouter, Routes, Route } from "react-router-dom";
+import { MemoryRouter, Routes, Route } from "react-router";
 import * as AuthProviderContext from "context/AuthProvider";
 import { render, screen } from "test_utils";
 import ProtectedRoute from ".";

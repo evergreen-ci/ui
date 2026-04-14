@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { H2 } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
-import { useParams, Navigate, useNavigate } from "react-router-dom";
+import { useParams, Navigate, useNavigate } from "react-router";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";

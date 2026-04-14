@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { CombinedGraphQLErrors } from "@apollo/client";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";

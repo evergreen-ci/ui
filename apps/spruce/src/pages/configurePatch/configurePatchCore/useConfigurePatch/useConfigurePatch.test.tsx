@@ -1,4 +1,4 @@
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { renderHook, act } from "@evg-ui/lib/test_utils";
 import { ConfigurePatchPageTabs } from "types/patch";
 import { patchQuery } from "../testData";

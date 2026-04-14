@@ -1,5 +1,5 @@
 import { GraphQLError } from "graphql";
-import { MemoryRouter, Routes, Route } from "react-router-dom";
+import { MemoryRouter, Routes, Route } from "react-router";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { MockedProvider, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";

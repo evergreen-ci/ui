@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import {
   ColumnFiltersState,
   LeafyGreenTable,

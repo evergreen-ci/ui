@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
 import ErrorBoundary from "@evg-ui/lib/components/ErrorBoundary";
 import ProtectedRoute from "@evg-ui/lib/components/ProtectedRoute";
 import { AuthProvider } from "@evg-ui/lib/context/AuthProvider";

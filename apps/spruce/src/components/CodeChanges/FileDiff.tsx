@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { styles } from "hooks/useHTMLStream/utils";
 import { useFileDiffStream } from "./useFileDiffStream";

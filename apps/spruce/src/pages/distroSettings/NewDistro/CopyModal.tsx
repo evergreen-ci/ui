@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useDistroSettingsAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";

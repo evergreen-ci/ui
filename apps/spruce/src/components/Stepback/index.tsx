@@ -6,7 +6,7 @@ import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import { BaseFontSize } from "@leafygreen-ui/tokens";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getTaskRoute } from "constants/routes";

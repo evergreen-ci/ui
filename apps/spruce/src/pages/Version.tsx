@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import Cookies from "js-cookie";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useQueryParam, useErrorToast } from "@evg-ui/lib/hooks";
 import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { TTLInfo } from "components/404/TTLInfo";

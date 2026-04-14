@@ -1,4 +1,4 @@
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { render, waitFor } from "@evg-ui/lib/test_utils";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
@@ -16,8 +16,8 @@ const TEST_HTML_LOG_URL = "test-html-log-url";
 const TEST_JOB_LOGS_URL = "test-job-logs-url";
 const TEST_LOG_LINES = ["line 1", "line 2", "line 3"];
 
-vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual("react-router-dom");
+vi.mock("react-router", async () => {
+  const actual = await vi.importActual("react-router");
   return {
     ...actual,
     useParams: () => ({

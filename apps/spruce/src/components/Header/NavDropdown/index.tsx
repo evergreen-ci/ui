@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Icon } from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { palette } from "@leafygreen-ui/palette";
-import { Link, To } from "react-router-dom";
+import { Link, To } from "react-router";
 
 const { white } = palette;
 

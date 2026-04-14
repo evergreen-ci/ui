@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client/react";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,

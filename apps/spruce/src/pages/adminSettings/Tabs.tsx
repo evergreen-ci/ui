@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
-import { Routes, Route, Navigate, useParams } from "react-router-dom";
+import { Routes, Route, Navigate, useParams } from "react-router";
 import { AdminSettingsTabRoutes, slugs } from "constants/routes";
 import { AdminSettingsQuery } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";

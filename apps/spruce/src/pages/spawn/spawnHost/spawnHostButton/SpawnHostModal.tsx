@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { skipToken, useQuery, useMutation } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics";
 import {

@@ -1,4 +1,4 @@
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router";
 import { Mock } from "vitest";
 import { useAuthProviderContext } from "../../context/AuthProvider";
 import { render, screen, fireEvent } from "../../test_utils";

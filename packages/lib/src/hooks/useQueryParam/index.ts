@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { ParseOptions } from "query-string";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { conditionalToArray } from "../../utils/array";
 import { parseQueryString, stringifyQuery } from "../../utils/query-string";
 
@@ -32,7 +32,7 @@ const useQueryParams = (
 
   // Use a ref to track current params so the setter can read fresh values
   // without needing searchParams in its dependency array.
-  // This is necessary because react-router-dom's setSearchParams is not stable.
+  // This is necessary because react-router's setSearchParams is not stable.
   const paramsRef = useRef(searchParamsObject);
   useEffect(() => {
     paramsRef.current = searchParamsObject;

@@ -3,7 +3,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { IconSkeleton, Skeleton, Size } from "@leafygreen-ui/skeleton-loader";
 import { Align, Justify, Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";

@@ -174,7 +174,7 @@ importers:
       react-dropzone:
         specifier: 14.3.8
         version: 14.3.8(react@18.3.1)
-      react-router-dom:
+      react-router:
         specifier: 7.13.2
         version: 7.13.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-virtuoso:
@@ -541,7 +541,7 @@ importers:
       react-google-charts:
         specifier: ^5.2.1
         version: 5.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
+      react-router:
         specifier: 7.13.2
         version: 7.13.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-string-replace:
@@ -1079,7 +1079,7 @@ importers:
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
-      react-router-dom:
+      react-router:
         specifier: 7.13.2
         version: 7.13.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
@@ -1196,7 +1196,7 @@ importers:
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
-      react-router-dom:
+      react-router:
         specifier: 7.13.2
         version: 7.13.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       storybook:
@@ -6695,13 +6695,6 @@ packages:
   react-refresh@0.18.0:
     resolution: {integrity: sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw==}
     engines: {node: '>=0.10.0'}
-
-  react-router-dom@7.13.2:
-    resolution: {integrity: sha512-aR7SUORwTqAW0JDeiWF07e9SBE9qGpByR9I8kJT5h/FrBKxPMS6TiC7rmVO+gC0q52Bx7JnjWe8Z1sR9faN4YA==}
-    engines: {node: '>=20.0.0'}
-    peerDependencies:
-      react: '>=18'
-      react-dom: '>=18'
 
   react-router@7.13.2:
     resolution: {integrity: sha512-tX1Aee+ArlKQP+NIUd7SE6Li+CiGKwQtbS+FfRxPX6Pe4vHOo6nr9d++u5cwg+Z8K/x8tP+7qLmujDtfrAoUJA==}
@@ -14969,12 +14962,6 @@ snapshots:
   react-property@2.0.2: {}
 
   react-refresh@0.18.0: {}
-
-  react-router-dom@7.13.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-router: 7.13.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   react-router@7.13.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
