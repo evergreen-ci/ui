@@ -104,7 +104,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   const canQuarantine = test.status === TestStatus.Fail;
 
   let dropdownItems: React.ReactNode[] = [];
-  if (statusLoading) {
+  if (statusLoading || (!statusData && !statusError)) {
     dropdownItems = [
       <DropdownItem key="loading" disabled>
         Loading quarantine status...
