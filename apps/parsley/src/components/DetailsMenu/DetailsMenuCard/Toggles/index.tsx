@@ -1,5 +1,6 @@
 import BaseToggle from "./BaseToggle";
 import CaseSensitiveToggle from "./CaseSensitiveToggle";
+import ExcludeTimestampsToggle from "./ExcludeTimestampsToggle";
 import ExpandableRowsToggle from "./ExpandableRowsToggle";
 import FilterLogicToggle from "./FilterLogicToggle";
 import HighlightFiltersToggle from "./HighlightFiltersToggle";
@@ -17,6 +18,7 @@ export {
   ExpandableRowsToggle,
   FilterLogicToggle,
   HighlightFiltersToggle,
+  ExcludeTimestampsToggle,
   JumpToFailingLineToggle,
   PrettyPrintToggle,
   SectionsToggle,

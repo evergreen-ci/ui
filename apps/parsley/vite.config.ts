@@ -46,7 +46,7 @@ const getProjectConfig = () => {
           // @emotion/babel-plugin injects styled component names (e.g. "StyledSelect") into HTML for dev
           // environments only. It can be toggled for production environments by modifying the parameter
           // autoLabel. (https://emotion.sh/docs/@emotion/babel-plugin)
-          plugins: ["@emotion/babel-plugin", "import-graphql"],
+          plugins: ["@emotion/babel-plugin"],
         },
         // Exclude storybook stories from fast refresh.
         exclude: /\.stories\.tsx?$/,
@@ -127,6 +127,7 @@ const getProjectConfig = () => {
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
       setupFiles: "./config/vitest/setupTests.ts",
+      include: ["src/**/*.test.{ts,tsx}"],
     },
   });
   return mergeConfig(viteConfig, vitestConfig);

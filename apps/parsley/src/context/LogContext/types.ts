@@ -24,12 +24,14 @@ interface LogMetadata {
   renderingType?: LogRenderingTypes;
   taskID?: string;
   testID?: string;
+  logPath?: string;
 }
 
 interface Preferences {
   caseSensitive: boolean;
   expandableRows: boolean;
   filterLogic: FilterLogic;
+  excludeTimestamps: boolean;
   prettyPrint: boolean;
   wordWrapFormat: WordWrapFormat;
   wrap: boolean;
@@ -39,6 +41,7 @@ interface Preferences {
   setCaseSensitive: (caseSensitive: boolean) => void;
   setExpandableRows: (expandableRows: boolean) => void;
   setFilterLogic: (filterLogic: FilterLogic) => void;
+  setExcludeTimestamps: (excludeTimestamps: boolean) => void;
   setWrap: (wrap: boolean) => void;
   setWordWrapFormat: (wrapFormat: WordWrapFormat) => void;
   setPrettyPrint: (prettyPrint: boolean) => void;

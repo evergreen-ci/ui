@@ -31,16 +31,19 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     [slugs.taskID]: taskID,
   } = useParams();
   const dispatchToast = useToastContext();
-  const { ingestLines, setLogMetadata } = useLogContext();
+  const { ingestLines, preferences, setLogMetadata } = useLogContext();
+  const { excludeTimestamps } = preferences;
   const {
     downloadURL,
     failingCommand,
     htmlLogURL,
     jobLogsURL,
     loading: isLoadingEvergreen,
+    logPath,
     rawLogURL,
     renderingType,
   } = useResolveLogURLAndRenderingType({
+    excludeTimestamps,
     execution,
     fileName,
     groupID,
@@ -73,6 +76,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
         groupID,
         htmlLogURL,
         jobLogsURL,
+        logPath,
         logType,
         origin,
         rawLogURL,
@@ -103,6 +107,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     taskID,
     testID,
     failingCommand,
+    logPath,
   ]);
 
   if (isLoadingLog || isLoadingEvergreen) {

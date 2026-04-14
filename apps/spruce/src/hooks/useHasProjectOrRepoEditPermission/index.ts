@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import {
   UserProjectSettingsPermissionsQuery,
   UserProjectSettingsPermissionsQueryVariables,
@@ -17,11 +17,15 @@ export const useHasProjectOrRepoEditPermission = (
   const { data: projectPermissionsData, loading: projectLoading } = useQuery<
     UserProjectSettingsPermissionsQuery,
     UserProjectSettingsPermissionsQueryVariables
-  >(USER_PROJECT_SETTINGS_PERMISSIONS, {
-    variables: { projectIdentifier },
-    skip: !projectIdentifier,
-    fetchPolicy: "cache-first",
-  });
+  >(
+    USER_PROJECT_SETTINGS_PERMISSIONS,
+    projectIdentifier
+      ? {
+          variables: { projectIdentifier },
+          fetchPolicy: "cache-first",
+        }
+      : skipToken,
+  );
   const canEditProject =
     projectPermissionsData?.user?.permissions?.projectPermissions?.edit ??
     false;
@@ -29,11 +33,15 @@ export const useHasProjectOrRepoEditPermission = (
   const { data: repoPermissionsData, loading: repoLoading } = useQuery<
     UserRepoSettingsPermissionsQuery,
     UserRepoSettingsPermissionsQueryVariables
-  >(USER_REPO_SETTINGS_PERMISSIONS, {
-    variables: { repoId },
-    skip: !repoId,
-    fetchPolicy: "cache-first",
-  });
+  >(
+    USER_REPO_SETTINGS_PERMISSIONS,
+    repoId
+      ? {
+          variables: { repoId },
+          fetchPolicy: "cache-first",
+        }
+      : skipToken,
+  );
   const canEditRepo =
     repoPermissionsData?.user?.permissions?.repoPermissions?.edit ?? false;
 

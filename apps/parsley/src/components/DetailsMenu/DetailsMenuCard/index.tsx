@@ -5,9 +5,11 @@ import { H3 } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import ButtonRow from "./ButtonRow";
+import CliCommandButton from "./CliCommandButton/CliCommandButton";
 import SearchRangeInput from "./SearchRangeInput";
 import {
   CaseSensitiveToggle,
+  ExcludeTimestampsToggle,
   ExpandableRowsToggle,
   FilterLogicToggle,
   HighlightFiltersToggle,
@@ -50,6 +52,7 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
               </Column>
             </Row>
             <ButtonRow />
+            <CliCommandButton />
           </Tab>
           <Tab data-cy="log-viewing-tab" name="Log Viewing">
             <Row>
@@ -68,6 +71,7 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
                   updateSettings={updateSettings}
                 />
                 <StickyHeadersToggle />
+                <ExcludeTimestampsToggle />
               </Column>
             </Row>
           </Tab>

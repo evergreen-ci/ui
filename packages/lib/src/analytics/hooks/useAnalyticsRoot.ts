@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { Analytics, ActionType, AnalyticsProperties } from "./types";
 import { sendEventTrace } from "./utils";
 
@@ -26,15 +26,20 @@ export const useAnalyticsRoot = <
   analyticsIdentifier: Identifier,
   attributes: AnalyticsProperties = EMPTY_ATTRIBUTES,
 ): Analytics<Action> => {
-  const sendEvent: Analytics<Action>["sendEvent"] = useCallback(
-    (action) => {
-      sendEventTrace(action, {
-        "analytics.identifier": analyticsIdentifier,
-        ...attributes,
-      });
-    },
-    [analyticsIdentifier, attributes],
-  );
+  const identifierRef = useRef(analyticsIdentifier);
+  const attributesRef = useRef(attributes);
+
+  useEffect(() => {
+    identifierRef.current = analyticsIdentifier;
+    attributesRef.current = attributes;
+  });
+
+  const sendEvent: Analytics<Action>["sendEvent"] = useCallback((action) => {
+    sendEventTrace(action, {
+      "analytics.identifier": identifierRef.current,
+      ...attributesRef.current,
+    });
+  }, []);
 
   return useMemo(() => ({ sendEvent }), [sendEvent]);
 };

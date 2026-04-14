@@ -4,7 +4,7 @@
  * @param key - the key by which to compare objects
  * @returns an array of numbers indicating the indices of duplicates
  */
-export const findDuplicateIndices = <T = { [key: string]: any }>(
+export const findDuplicateIndices = <T = { [key: string]: unknown }>(
   array: T[],
   key: keyof T,
 ): number[] => {

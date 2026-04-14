@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
+import queryString from "query-string";
 import {
   constructEvergreenTaskLogURL,
   getEvergreenTestLogURL,
@@ -26,6 +27,7 @@ interface UseResolveLogURLAndRenderingTypeProps {
   fileName?: string;
   // This groupID comes from the application URL.
   groupID?: string;
+  excludeTimestamps?: boolean;
   logType: string;
   origin?: string;
   taskID?: string;
@@ -47,6 +49,8 @@ type HookResult = {
   renderingType: LogRenderingTypes;
   /** The failing command in the log, if available */
   failingCommand: string;
+  /** Evergreen test log path (for Evergreen CLI --log_path) */
+  logPath: string;
 };
 
 /**
@@ -55,6 +59,7 @@ type HookResult = {
  * @param UseResolveLogURLAndRenderingTypeProps.execution - The execution number of the log
  * @param UseResolveLogURLAndRenderingTypeProps.fileName - The name of the file being viewed
  * @param UseResolveLogURLAndRenderingTypeProps.groupID - The group ID of the test given from the URL
+ * @param UseResolveLogURLAndRenderingTypeProps.excludeTimestamps - Whether to exclude timestamps from the log URLs
  * @param UseResolveLogURLAndRenderingTypeProps.logType - The type of log being viewed
  * @param UseResolveLogURLAndRenderingTypeProps.origin - The origin of the log
  * @param UseResolveLogURLAndRenderingTypeProps.taskID - The task ID of the log
@@ -62,6 +67,7 @@ type HookResult = {
  * @returns LogURLs
  */
 export const useResolveLogURLAndRenderingType = ({
+  excludeTimestamps = false,
   execution,
   fileName,
   groupID,
@@ -79,30 +85,33 @@ export const useResolveLogURLAndRenderingType = ({
   const { data: testData, loading: isLoadingTest } = useQuery<
     TestLogUrlAndRenderingTypeQuery,
     TestLogUrlAndRenderingTypeQueryVariables
-  >(GET_TEST_LOG_URL_AND_RENDERING_TYPE, {
-    skip: !(
-      logType === LogTypes.EVERGREEN_TEST_LOGS &&
-      taskID &&
-      execution &&
-      testID
-    ),
-    variables: {
-      execution: parseInt(execution as string, 10),
-      taskID: taskID as string,
-      testName: `^${testID}$`,
-    },
-  });
+  >(
+    GET_TEST_LOG_URL_AND_RENDERING_TYPE,
+    logType === LogTypes.EVERGREEN_TEST_LOGS && taskID && execution && testID
+      ? {
+          variables: {
+            execution: parseInt(execution as string, 10),
+            taskID: taskID as string,
+            testName: `^${testID}$`,
+          },
+        }
+      : skipToken,
+  );
 
   const { data: taskFileData, loading: isLoadingTaskFileData } = useQuery<
     TaskFilesQuery,
     TaskFilesQueryVariables
-  >(TASK_FILES, {
-    skip: !(logType === LogTypes.EVERGREEN_TASK_FILE && taskID && execution),
-    variables: {
-      execution: parseInt(execution as string, 10),
-      taskId: taskID as string,
-    },
-  });
+  >(
+    TASK_FILES,
+    logType === LogTypes.EVERGREEN_TASK_FILE && taskID && execution
+      ? {
+          variables: {
+            execution: parseInt(execution as string, 10),
+            taskId: taskID as string,
+          },
+        }
+      : skipToken,
+  );
 
   let downloadURL = "";
   let rawLogURL = "";
@@ -110,6 +119,7 @@ export const useResolveLogURLAndRenderingType = ({
   let jobLogsURL = "";
   let renderingType: LogRenderingTypes = LogRenderingTypes.Default;
   let failingCommand = "";
+  let logPath = "";
   switch (logType) {
     case LogTypes.EVERGREEN_COMPLETE_LOGS: {
       if (!taskID || !execution || !groupID) {
@@ -144,28 +154,35 @@ export const useResolveLogURLAndRenderingType = ({
       if (!taskID || !origin || !execution || isLoadingTask) {
         break;
       }
+      const timeParam = !excludeTimestamps;
       downloadURL = task?.logs
         ? getEvergreenTaskLogURL(task.logs, origin, {
             priority: true,
             text: true,
+            time: timeParam,
           })
         : constructEvergreenTaskLogURL(taskID, execution, origin, {
             priority: true,
             text: true,
+            time: timeParam,
           });
       rawLogURL = task?.logs
         ? getEvergreenTaskLogURL(task.logs, origin, {
             text: true,
+            time: timeParam,
           })
         : constructEvergreenTaskLogURL(taskID, execution, origin, {
             text: true,
+            time: timeParam,
           });
       htmlLogURL = task?.logs
         ? getEvergreenTaskLogURL(task.logs, origin, {
             text: false,
+            time: timeParam,
           })
         : constructEvergreenTaskLogURL(taskID, execution, origin, {
             text: false,
+            time: timeParam,
           });
       renderingType = LogRenderingTypes.Default;
 
@@ -184,18 +201,31 @@ export const useResolveLogURLAndRenderingType = ({
       }
       const { groupID: groupIDFromQuery, logs } =
         testData?.task?.tests.testResults[0] || {};
-      const { renderingType: renderingTypeFromQuery, url, urlRaw } = logs || {};
-      rawLogURL =
+      const {
+        logPath: logPathFromQuery,
+        renderingType: renderingTypeFromQuery,
+        url,
+        urlRaw,
+      } = logs || {};
+
+      const isResmoke = renderingTypeFromQuery === LogRenderingTypes.Resmoke;
+      const printTime = isResmoke ? false : !excludeTimestamps;
+      const baseRawLogURL =
         urlRaw ??
-        getEvergreenTestLogURL(taskID, execution, testID, {
-          text: true,
-        });
-      htmlLogURL =
+        getEvergreenTestLogURL(taskID, execution, testID, { text: true });
+      const baseHtmlLogURL =
         url ??
-        getEvergreenTestLogURL(taskID, execution, testID, {
-          text: false,
-        });
+        getEvergreenTestLogURL(taskID, execution, testID, { text: false });
+      rawLogURL = queryString.stringifyUrl({
+        query: { print_time: printTime },
+        url: baseRawLogURL,
+      });
+      htmlLogURL = queryString.stringifyUrl({
+        query: { print_time: printTime },
+        url: baseHtmlLogURL,
+      });
       downloadURL = rawLogURL;
+      logPath = logPathFromQuery ?? "";
       if (!renderingTypeFromQuery) {
         renderingType = LogRenderingTypes.Default;
       } else if (
@@ -247,6 +277,7 @@ export const useResolveLogURLAndRenderingType = ({
     htmlLogURL,
     jobLogsURL,
     loading: isLoadingTest || isLoadingTask || isLoadingTaskFileData,
+    logPath,
     rawLogURL,
     renderingType,
   };

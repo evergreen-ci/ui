@@ -16,6 +16,7 @@ import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
 import { form } from "../utils";
 import { GithubAppActions, RequesterTypeField } from "./Fields";
 import { ArrayFieldTemplate } from "./FieldTemplates";
+import { AppSettingsFormState } from "./types";
 
 const { placeholderIf } = form;
 
@@ -29,14 +30,16 @@ export const getFormSchema = ({
   githubPermissionGroups,
   identifier,
   isAppDefined,
-  projectId,
+  isRepo,
+  projectOrRepoId,
   repoData,
 }: {
   githubPermissionGroups: GitHubDynamicTokenPermissionGroup[];
   identifier: string;
   isAppDefined: boolean;
-  projectId: string;
-  repoData?: any;
+  isRepo: boolean;
+  projectOrRepoId: string;
+  repoData?: AppSettingsFormState;
   defaultsToRepo: boolean;
 }): ReturnType<GetFormSchema> => ({
   fields: {},
@@ -148,7 +151,7 @@ export const getFormSchema = ({
       actions: {
         "ui:field": GithubAppActions,
         "ui:showLabel": false,
-        options: { isAppDefined, projectId, defaultsToRepo },
+        options: { isAppDefined, isRepo, projectOrRepoId, defaultsToRepo },
       },
     },
     tokenPermissionRestrictions: {

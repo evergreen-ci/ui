@@ -3,6 +3,7 @@ const Tasks = {
   Compile: "compile",
   E2E: "e2e",
   E2EParallel: "e2e_parallel",
+  E2ECypress: "e2e_cypress",
   Lint: "lint",
   Storybook: "storybook",
   Test: "test",

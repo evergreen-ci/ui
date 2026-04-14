@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { skipToken, useQuery } from "@apollo/client/react";
 import {
   BaseTaskFragment,
   TaskLogLinks,
@@ -40,11 +40,18 @@ export const useTaskQuery = ({
   const { data: taskData, loading: taskLoading } = useQuery<
     TaskQuery,
     TaskQueryVariables
-  >(GET_TASK, {
-    errorPolicy: "all",
-    skip: !taskID,
-    variables: { execution: Number(execution), taskId: String(taskID) },
-  });
+  >(
+    GET_TASK,
+    taskID
+      ? {
+          errorPolicy: "all",
+          variables: {
+            execution: Number(execution),
+            taskId: String(taskID),
+          },
+        }
+      : skipToken,
+  );
 
   const { task } = taskData ?? {};
 

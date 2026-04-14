@@ -9,7 +9,7 @@ import { evergreenURL } from "utils/environmentVariables";
 const getEvergreenTaskLogURL = (
   logLinks: TaskType["logs"],
   origin: string,
-  params: { priority?: boolean; text?: boolean } = {},
+  params: { priority?: boolean; text?: boolean; time?: boolean } = {},
 ) => {
   const url =
     {

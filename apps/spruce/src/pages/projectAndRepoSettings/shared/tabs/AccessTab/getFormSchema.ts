@@ -2,12 +2,13 @@ import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { form, ProjectType } from "../utils";
+import { AccessFormState } from "./types";
 
 const { radioBoxOptions } = form;
 
 export const getFormSchema = (
   projectType: ProjectType,
-  repoData?: any,
+  repoData?: AccessFormState,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -22,7 +23,7 @@ export const getFormSchema = (
             title: "Internal Access",
             oneOf: radioBoxOptions(
               ["Restricted", "Unrestricted"],
-              repoData?.accessSettings?.restricted,
+              repoData?.accessSettings?.restricted ?? undefined,
             ),
           },
         },
