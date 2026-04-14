@@ -62,20 +62,14 @@ export const usePageVisibilityAnalytics = ({
   const stateChangeCount = useRef<number>(0);
   const lastVisibilityState = useRef<DocumentVisibilityState | null>(null);
   const sessionStarted = useRef(false);
+  const sessionEnded = useRef(false);
 
   useEffect(() => {
     if (!enabled) return;
 
-    // Initialize timing on first mount
-    if (visibilityStartTime.current === 0) {
+    const initSession = () => {
       visibilityStartTime.current = Date.now();
-    }
-    if (lastVisibilityState.current === null) {
       lastVisibilityState.current = document.visibilityState;
-    }
-
-    // Track session start (only once per mount)
-    if (!sessionStarted.current) {
       sessionStarted.current = true;
       sendEvent({
         name: "System Event session started",
@@ -83,9 +77,52 @@ export const usePageVisibilityAnalytics = ({
           | "visible"
           | "hidden",
       });
-    }
+    };
+
+    initSession();
+
+    const sendSessionEnded = () => {
+      // Guard against double-firing (visibilitychange + React cleanup can both run)
+      if (sessionEnded.current) return;
+      sessionEnded.current = true;
+
+      const finalDuration = Date.now() - visibilityStartTime.current;
+
+      if (lastVisibilityState.current === "visible") {
+        totalVisibleTime.current += finalDuration;
+      } else {
+        totalHiddenTime.current += finalDuration;
+      }
+
+      try {
+        sendEvent({
+          name: "System Event session ended",
+          "visibility.total_visible_ms": totalVisibleTime.current,
+          "visibility.total_hidden_ms": totalHiddenTime.current,
+          "visibility.visibility_changes": stateChangeCount.current,
+        });
+      } catch {
+        // Silently ignore analytics errors
+      }
+
+      // Reset state so a new session can start if the tab becomes visible again
+      visibilityStartTime.current = 0;
+      totalVisibleTime.current = 0;
+      totalHiddenTime.current = 0;
+      stateChangeCount.current = 0;
+      lastVisibilityState.current = null;
+      sessionStarted.current = false;
+      sessionEnded.current = false;
+    };
 
     const handleVisibilityChange = () => {
+      // If the tab became visible again after a session ended (e.g. user
+      // switched away and back), start a fresh session.
+      if (document.visibilityState === "visible" && !sessionStarted.current) {
+        initSession();
+        return;
+      }
+
       const currentTime = Date.now();
       const duration = currentTime - visibilityStartTime.current;
 
@@ -115,42 +152,22 @@ export const usePageVisibilityAnalytics = ({
 
       lastVisibilityState.current = document.visibilityState;
       visibilityStartTime.current = currentTime;
+
+      // visibilitychange to "hidden" is the primary session-end signal.
+      // It fires earlier than pagehide and is the most reliable moment in
+      // Chrome to export a span before the page is frozen (bfcache) or discarded.
+      if (document.visibilityState === "hidden") {
+        sendSessionEnded();
+      }
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    // Cleanup function
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-
-      // Track session end (always send, not just when stateChangeCount > 0)
-      const finalDuration = Date.now() - visibilityStartTime.current;
-
-      // Add final duration to appropriate counter
-      if (lastVisibilityState.current === "visible") {
-        totalVisibleTime.current += finalDuration;
-      } else {
-        totalHiddenTime.current += finalDuration;
-      }
-
-      try {
-        sendEvent({
-          name: "System Event session ended",
-          "visibility.total_visible_ms": totalVisibleTime.current,
-          "visibility.total_hidden_ms": totalHiddenTime.current,
-          "visibility.visibility_changes": stateChangeCount.current,
-        });
-      } catch {
-        // Silently ignore analytics errors
-      }
-
-      // Reset state for next page/render
-      visibilityStartTime.current = 0;
-      totalVisibleTime.current = 0;
-      totalHiddenTime.current = 0;
-      stateChangeCount.current = 0;
-      lastVisibilityState.current = null;
-      sessionStarted.current = false;
+      // For SPA navigation: the component unmounts while the page is still
+      // visible, so visibilitychange never fires. Cleanup handles it instead.
+      sendSessionEnded();
     };
   }, [enabled, sendEvent, minDurationMs]);
 
