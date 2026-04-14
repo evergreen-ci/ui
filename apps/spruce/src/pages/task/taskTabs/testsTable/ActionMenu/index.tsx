@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client/react";
 import { Size as ButtonSize } from "@leafygreen-ui/button";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { TestStatus } from "@evg-ui/lib/types/test";
 import { useTaskAnalytics } from "analytics";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import {
@@ -100,7 +101,9 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     setMenuOpen(false);
   };
 
-  let dropdownItems;
+  const canQuarantine = test.status === TestStatus.Fail;
+
+  let dropdownItems: React.ReactNode[] = [];
   if (statusLoading) {
     dropdownItems = [
       <DropdownItem key="loading" disabled>
@@ -131,7 +134,12 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         <DropdownItem
           key="quarantine"
           data-cy="quarantine-test"
-          description="This test is not currently quarantined."
+          description={
+            canQuarantine
+              ? "This test is not currently quarantined."
+              : "Passing tests cannot be quarantined."
+          }
+          disabled={!canQuarantine}
           onClick={onQuarantineTest}
         >
           Quarantine
