@@ -1,6 +1,6 @@
-import { test, expect } from "../fixtures";
+import { test, expect } from "../../fixtures";
 
-test.describe("Viewing a patch", () => {
+test.describe("Viewing a patch requester", () => {
   test.describe("Viewing a user's own patch", () => {
     test.beforeEach(async ({ authenticatedPage: page }) => {
       await page.goto(
@@ -52,7 +52,7 @@ test.describe("Viewing a patch", () => {
   });
 });
 
-test.describe("Viewing a mainline commit", () => {
+test.describe("Viewing a mainline commit requester", () => {
   test.beforeEach(async ({ authenticatedPage: page }) => {
     await page.goto(
       "/task/evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",

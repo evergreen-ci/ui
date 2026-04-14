@@ -68,28 +68,6 @@ export async function enterLoginCredentials(page: Page): Promise<void> {
 }
 
 /**
- * Gets an input element by its associated label text
- * Waits for LeafyGreen components to have proper ids (not "undefined")
- * @param page - The Playwright page object
- * @param label - The label text or regex pattern
- * @returns A Playwright locator for the input element
- */
-export async function getInputByLabel(
-  page: Page,
-  label: string | RegExp,
-): Promise<Locator> {
-  const labelElement = page.getByText(label, { exact: false }).locator("label");
-
-  // Wait until LeafyGreen components have proper IDs.
-  await expect(labelElement).toHaveAttribute("for");
-  const forAttr = await labelElement.getAttribute("for");
-  expect(forAttr).not.toContain("undefined");
-
-  const id = await labelElement.getAttribute("for");
-  return page.locator(`#${id}`);
-}
-
-/**
  * Logs in a user via API request
  * @param page - The Playwright page object
  * @param user - The user credentials to log in with
@@ -171,20 +149,23 @@ export async function validateToast(
  * @param page - The Playwright page object
  * @param label - The label of the select input
  * @param option - The option text or regex pattern to select
+ * @param options - Additional options for selecting the option
+ * @param options.exact - Whether to match the option text exactly (default: false)
  */
 export async function selectLGOption(
   page: Page,
   label: string,
   option: string | RegExp,
+  options?: { exact: boolean },
 ): Promise<void> {
-  const input = await getInputByLabel(page, label);
+  const input = page.getByLabel(label);
   await input.scrollIntoViewIfNeeded();
   await expect(input).not.toHaveAttribute("aria-disabled", "true");
   await input.click();
 
   const listbox = page.locator('[role="listbox"]');
   await expect(listbox).toHaveCount(1);
-  await listbox.getByText(option).click();
+  await listbox.getByText(option, options).click();
 }
 
 /**
