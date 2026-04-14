@@ -65,9 +65,12 @@ const getJSONString = (line: string) => {
   if (count !== 0) {
     return undefined;
   }
+  if (closeBracketIndex !== line.length - 1) {
+    return undefined;
+  }
 
   // Only slice once we know it's valid
-  return line.slice(openBracketIndex);
+  return line.slice(openBracketIndex, closeBracketIndex + 1);
 };
 
 /**
